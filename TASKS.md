@@ -26,7 +26,7 @@ GitHub Actions 在 windows-latest 上 `dotnet build engine/source/OfflineClient.
 
 ## M1 真機基線（使用者操作，Claude 準備）
 
-### T010 | todo | Claude | `docs/native-baseline/CHECKLIST.md`（新建）
+### T010 | done | Claude | `docs/native-baseline/CHECKLIST.md`（新建）
 N01 流程逐步核對表：每步要截圖什麼、看哪個 server 回包、預期值；附失敗時要收集的 log 路徑。
 驗收：使用者能照表獨立操作。
 
