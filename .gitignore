@@ -74,3 +74,12 @@ desktop.ini
 .vscode/
 .cursor/*
 !.cursor/rules/
+
+# ===== 像素／場景採樣 JSON（>5MB 證據，不進 git）=====
+主管/**/*pixels*.json
+主管/**/eight-directions-*.json
+主管/**/south-return-*.json
+docs/project-consolidation/size-breakdown.json
+docs/project-consolidation/file-metadata.jsonl.gz
+docs/project-consolidation/physical-migration/dedupe-journal.jsonl
+docs/project-consolidation/physical-migration/dedupe-plan.json
