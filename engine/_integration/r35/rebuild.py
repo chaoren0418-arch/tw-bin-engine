@@ -104,6 +104,7 @@ def main():
     ap.add_argument('--configfile', default=str(ROOT / 'NuGet.Config'), help='NuGet config for restore (CI passes .github/nuget.ci.config)')
     ap.add_argument('--output', type=Path)
     args = ap.parse_args()
+    args.configfile = str(Path(args.configfile).resolve())  # subprocesses run with cwd=engine; resolve relative to caller cwd
 
     lock = validate()
     if not args.build and not args.verify:
