@@ -1,0 +1,34 @@
+{
+  "schema": "p26-authority-rebind-progress-v1",
+  "dispatchId": "P26-INTEGRATION-AUTHORITY-REBIND-R1",
+  "status": "complete-sealed-awaiting-independent-review-and-new-exact-dispatch",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "retiredSupervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "goal": {
+    "toolAvailable": true,
+    "read": true,
+    "value": null,
+    "created": false,
+    "modified": false
+  },
+  "onlyWritableRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1",
+  "actual": {
+    "install": 0,
+    "builds": 0,
+    "productTests": 0,
+    "workflowCreated": false,
+    "receiptCreated": false
+  },
+  "utc": "2026-10-29T03:45:36.187978+00:00",
+  "readEvidence": [
+    "AGENTS.md",
+    "主管/P25-P27-新主管接管-20261029/takeover.json",
+    "主管/P25-P27-新主管接管-20261029/dispatch-contracts.json",
+    "original sealed plan/controller/acceptance gate"
+  ],
+  "design": "new shared authority plus unchanged historical stage identity; explicit immutable PREPARATION_ROOT and new SCRIPT_ROOT",
+  "timeoutSyntheticCasesPassed": 3,
+  "actualChildProcesses": 0,
+  "authorityCasesPassed": 11,
+  "planSha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761"
+}

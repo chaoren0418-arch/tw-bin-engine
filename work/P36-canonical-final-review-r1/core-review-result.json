@@ -1,0 +1,31 @@
+{
+  "status": "pass-provisional-core-awaiting-supervisor-final-execution-seals",
+  "sourceFiles": 181,
+  "changedTargets": 5,
+  "independentBackups": 4,
+  "buildInvocations": 1,
+  "actualCscTasks": 2,
+  "binlogEvents": 7269,
+  "warnings": 0,
+  "errors": 0,
+  "product": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1\\P11.ClientEngine.dll",
+    "size": 4925440,
+    "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+  },
+  "audio": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1\\P24.Audio.dll",
+    "size": 53760,
+    "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+  },
+  "outputs": 15,
+  "compilerSource": "canonical engine source/audio; three private generated C# sources per project",
+  "privateIntermediates": true,
+  "inheritedRuntimeEvidenceNotNew": true,
+  "newRuntimeAssertions": 0,
+  "reviewBuilds": 0,
+  "sharedWrites": false,
+  "actualP37InventoryAccepted": false,
+  "formalAcceptance": false,
+  "minorExplorationFailure": "A shell quoting error in an exploratory python -c command exited 1 before running; corrected read-only summary succeeded. Not a build/product failure."
+}

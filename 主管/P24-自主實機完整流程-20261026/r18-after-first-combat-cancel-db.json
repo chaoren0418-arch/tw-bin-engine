@@ -1,0 +1,220 @@
+{
+  "identity": {
+    "utc": "2026-10-26T23:36:14.711379+00:00",
+    "db": [
+      43324,
+      "D:\\P24Lab-ClientEngine\\db-data\\",
+      "e3443e40-d090-11f1-8040-4cedfb679789",
+      "127.0.0.1",
+      "8.0.40"
+    ],
+    "dbOs": {
+      "processes": [
+        {
+          "ProcessId": 69176,
+          "ParentProcessId": 64892,
+          "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+          "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+          "CreationDate": "/Date(1792945658396)/"
+        },
+        {
+          "ProcessId": 59052,
+          "ParentProcessId": 69176,
+          "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+          "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+          "CreationDate": "/Date(1792945658443)/"
+        }
+      ],
+      "listeners": [
+        {
+          "LocalAddress": "127.0.0.1",
+          "LocalPort": 43324,
+          "OwningProcess": 59052
+        }
+      ]
+    },
+    "game": {
+      "process": {
+        "ProcessId": 88012,
+        "ParentProcessId": 58144,
+        "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+        "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P24Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P24Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P24Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P24Lab-ClientEngine\\server\\Server_Game.jar",
+        "CreationDate": "/Date(1793022465229)/"
+      },
+      "listeners": [
+        {
+          "LocalAddress": "0.0.0.0",
+          "LocalPort": 42061,
+          "OwningProcess": 88012
+        }
+      ]
+    },
+    "roles": [
+      {
+        "x": 32640,
+        "y": 33109,
+        "hp": 26,
+        "id": 1900240001,
+        "mp": 82,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p241db6e"
+      },
+      {
+        "x": 32477,
+        "y": 32853,
+        "hp": 103,
+        "id": 1900240002,
+        "mp": 84,
+        "map": 0,
+        "level": 59,
+        "online": 0,
+        "account": "p242db6e"
+      },
+      {
+        "x": 32588,
+        "y": 32981,
+        "hp": 500,
+        "id": 1900240003,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p243db6e"
+      },
+      {
+        "x": 32588,
+        "y": 32981,
+        "hp": 500,
+        "id": 1900240004,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p244db6e"
+      },
+      {
+        "x": 32648,
+        "y": 33068,
+        "hp": 163,
+        "id": 1900240005,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p245db6e"
+      },
+      {
+        "x": 32595,
+        "y": 32931,
+        "hp": 204,
+        "id": 1900240006,
+        "mp": 116,
+        "map": 0,
+        "level": 59,
+        "online": 0,
+        "account": "p246db6e"
+      },
+      {
+        "x": 32587,
+        "y": 32998,
+        "hp": 700,
+        "id": 1900240007,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p247db6e"
+      },
+      {
+        "x": 32587,
+        "y": 32998,
+        "hp": 700,
+        "id": 1900240008,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p248db6e"
+      }
+    ]
+  },
+  "serviceRoleRows": [
+    {
+      "x": 32609,
+      "y": 32949,
+      "hp": 478,
+      "id": 1900249001,
+      "mp": 117,
+      "exp": 414658628,
+      "map": 0,
+      "name": "服務驗證",
+      "level": 59,
+      "online": 0,
+      "account": "p24svc01"
+    },
+    {
+      "id": 10322,
+      "item": 40010,
+      "name": "治癒藥水",
+      "count": 70,
+      "equipped": 0
+    },
+    {
+      "id": 1900249101,
+      "item": 40308,
+      "name": "金幣",
+      "count": 89020,
+      "equipped": 0
+    },
+    {
+      "id": 1900249103,
+      "item": 31,
+      "name": "長劍",
+      "count": 1,
+      "equipped": 1
+    },
+    {
+      "id": 1900249104,
+      "item": 20096,
+      "name": "環甲",
+      "count": 1,
+      "equipped": 1
+    },
+    {
+      "name": "初級治癒術",
+      "skill": 1
+    },
+    {
+      "name": "保護罩",
+      "skill": 3
+    },
+    {
+      "name": "光箭",
+      "skill": 4
+    }
+  ],
+  "warehouse": {
+    "character_elf_warehouse": [],
+    "character_warehouse": []
+  },
+  "existingEight": {
+    "accounts": {
+      "rows": 8,
+      "sha256": "9eab28bbac40c3b86e976908d23d53d6076eb73b6a94fd79435127776592b0e3"
+    },
+    "characters": {
+      "rows": 8,
+      "sha256": "52f7b6e38c380ff7638f2dd0a9eca409a1a998215293e610606f6ea32f8b8303"
+    },
+    "character_items": {
+      "rows": 41,
+      "sha256": "fe1f78013998de311f91bc52f74780a3682094271057e17bd7420a375e9700f8"
+    },
+    "character_skills": {
+      "rows": 8,
+      "sha256": "1b08dc5e7d1c9f313b8bb4671a79189c11575bfae6c8e0fb2b98762b4e23b161"
+    }
+  }
+}

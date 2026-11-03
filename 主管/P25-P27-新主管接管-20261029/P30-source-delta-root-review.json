@@ -1,0 +1,23 @@
+{
+  "utc": "2026-10-29T06:01:39.616018+00:00",
+  "status": "pass-independent-source-delta",
+  "baseSourceFiles": 180,
+  "finalSourceFiles": 181,
+  "unchangedFiles": 176,
+  "unchangedWebFiles": 30,
+  "changed": [
+    "source/ObjectAssets.cs",
+    "source/OfflineClient.csproj",
+    "source/PickupAssets.cs",
+    "source/PickupPresentation.cs"
+  ],
+  "added": [
+    "source/Resources/pickup-own-base15-profile-extension.json"
+  ],
+  "deleted": [],
+  "materializationFilesAuthorized": 184,
+  "laterRegressionFilesExcluded": 108,
+  "futureStageExists": false,
+  "scope": "Source and copy plan review only; no build/run",
+  "priorAuditError": "Initial root check incorrectly compared all292 inventory rows to product-only184; phase field inspected, product-only184 confirmed; no product or sealed plan changes."
+}

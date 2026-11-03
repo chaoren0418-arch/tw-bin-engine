@@ -1,0 +1,22 @@
+{
+  "status": "pass",
+  "stageSourcePinsVerified": 177,
+  "finalSourcePinsVerified": 177,
+  "fourIdentitiesEqual": true,
+  "unchangedCandidateFiles": 175,
+  "changedFiles": [
+    "source/Ground.cs",
+    "source/WorldEntry.cs"
+  ],
+  "independentCandidateCopies": true,
+  "externalPinsVerified": 245,
+  "privateCaches": true,
+  "assets": "45 existing metadata files copied for test dependencies; no pixels/scanning/asset change",
+  "sharedWrites": false,
+  "goalActual": "blocked",
+  "goalModified": false,
+  "gui": false,
+  "socket": false,
+  "dbSqlServices": false,
+  "nativeOrJarHandlerExecuted": false
+}

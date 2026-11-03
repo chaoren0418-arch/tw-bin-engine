@@ -1,0 +1,62 @@
+{
+  "protectedPins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+      "size": 158,
+      "sha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+      "size": 31361,
+      "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+      "size": 11741,
+      "sha256": "0c8f214831a286bec4a6844ab1293b4f4798ff829ef0a3d6507dbf455eddc040"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\release-seal.json",
+      "size": 2867987,
+      "sha256": "955ea88173cb36cecaefb6d5e9bbce7d76dfd7bf39ccd7830e56a269ab3155c3"
+    }
+  ],
+  "seals": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\artifact-seal.json",
+      "size": 108201,
+      "sha256": "3b5e84c46f48c01b80a129caad493b4218a8151bec8f0d9051b687501764637c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\artifact-seal.json",
+      "size": 10861,
+      "sha256": "32413f1b4693325cddf8f5c2ac189902d09b5bc969829f43f062aba46638a50f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\artifact-seal.json",
+      "size": 6309,
+      "sha256": "030f92adce8b04fe01a864055cd28f90a3f95e12e3da83add167daec79c57ee3"
+    }
+  ],
+  "failedStageSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-files-seal.json",
+    "size": 33244,
+    "sha256": "174480157bdfcbdb26c76f5f1313c5dc3f296543bbf65f678411cdf58789807c"
+  },
+  "receipt": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-product-only-execution-acceptance-r2.json",
+    "size": 3002,
+    "sha256": "c6d74ab2020063d2ea432ca35efb3b5ebf42ce79c0296cc7bc050b363ecd2707"
+  },
+  "contract": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\execution-contract.json",
+    "size": 9492,
+    "sha256": "3f4bf1a3e6ec5f9db90ed8583f14d0f53869ad0c2e98ad3fc20ba6427d86b75d"
+  },
+  "future02Absent": true,
+  "goal": {
+    "actualRead": null,
+    "created": false,
+    "modified": false
+  }
+}

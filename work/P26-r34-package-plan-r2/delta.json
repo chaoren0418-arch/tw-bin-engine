@@ -1,0 +1,53 @@
+{
+  "schema": "p26-RG2-package-plan-delta-v1",
+  "originalPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r1\\package-plan.json",
+    "size": 1098050,
+    "sha256": "a831ca6dbbe13dee16bf544b6ff9f1ea3284ff7091915af23685ab8827d0d890"
+  },
+  "correctedPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r2\\package-plan.json",
+    "size": 1099423,
+    "sha256": "939fcbd2176d1360b510153993f43deacf91b34a3b1737fb4d91ad8b30bb0c01"
+  },
+  "correctionScript": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r2\\correct_rg2.py",
+    "size": 3715,
+    "sha256": "ff7c7406725148240bb5a0a7e4d0ddfc0481cbdaed7f2daaf028823ec60330d4"
+  },
+  "addedRows": [
+    {
+      "path": "build/product-r34-manifest.json",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-r34-manifest.json",
+      "size": 7955,
+      "sha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d"
+    }
+  ],
+  "removedRows": [],
+  "changedOriginalRows": [],
+  "originalRowsRetained": 2289,
+  "correctedRows": 2290,
+  "unchangedFields": [
+    "schema",
+    "candidateId",
+    "revision",
+    "canonicalWorkflowRoot",
+    "stageRoot",
+    "stageSealSha256",
+    "completedSteps",
+    "sourceManifest",
+    "releaseAuthority",
+    "releaseTooling",
+    "canonicalPlan",
+    "canonicalSharedReceipt",
+    "canonicalEvidenceClosure",
+    "productDllSha256",
+    "audioDllSha256",
+    "productManifestSha256",
+    "launcherDllSha256"
+  ],
+  "newMetadataField": "planCorrection",
+  "releaseToolingUnchanged": true,
+  "workflowModified": false,
+  "generatorR2UnmodifiedAndNotGenerallyFixed": true
+}

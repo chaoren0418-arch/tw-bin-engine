@@ -1,0 +1,18 @@
+{
+  "task": "reproducible-build-r1",
+  "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "writeRoot": "reference/development/reproducible-build-r1",
+  "baseline": "r16",
+  "status": "dispatched",
+  "priorTaskAccepted": "acceptance-preparation-independent-review/result.json",
+  "scope": "Two independent isolated compiler/output roots; minimal csproj/build fix; no product execution or shared writes",
+  "receipt": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"threadId\":\"01a17a22-17e4-70c0-9792-166ddb86ea42\"}"
+      }
+    ],
+    "isError": false
+  }
+}

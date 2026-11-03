@@ -1,0 +1,86 @@
+{
+  "seals": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\artifact-seal.json",
+      "sha256": "faf5f661f5d569c950ff854dfa8bff6f1cf9d338d98e3bbf9006fd6555b3a2fe",
+      "listed": 24,
+      "verified": 24,
+      "assetsExcluded": false
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\preparation-seal.json",
+      "sha256": "795705e162ffcc422e66343fa4a6f68c6430ff4ac6ee6e54220155a60ccb9d88",
+      "listed": 250,
+      "verified": 250,
+      "assetsExcluded": false
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\artifact-seal.json",
+      "sha256": "58751d0f0d0d72a1ec3fb13469645c472f734e55983cbac470b76116d9d697cd",
+      "listed": 253,
+      "verified": 253,
+      "assetsExcluded": false
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\stage-seal.json",
+      "sha256": "9544f137a10914825b53080d4d390d17902cd40866467cebbf69578290240018",
+      "listed": 14855,
+      "verified": 897,
+      "assetsExcluded": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\artifact-manifest.json",
+      "sha256": "7e5605b111825be0e3d719bfea230743b11f7ed65e41b259eea23929e9616904",
+      "listed": 12,
+      "verified": 12,
+      "assetsExcluded": false
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\artifact-manifest.json",
+      "sha256": "2f56ff408f7a2b96197d64313ec898f962ac1c53b49df8acc5b8a7b6cb316a66",
+      "listed": 451,
+      "verified": 451,
+      "assetsExcluded": false
+    }
+  ],
+  "sourceManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\rebuild-overlay\\_integration\\r34\\acceptance\\source-manifest.json",
+    "size": 45249,
+    "sha256": "337afaa3607e49e0c50f2f388ab8cec8c42f7816e33ed2ee98df6bfb0a48b533"
+  },
+  "sources": 180,
+  "sourceCategories": {
+    "audio": 6,
+    "source": 144,
+    "web": 30
+  },
+  "overlayFiles": 20,
+  "copyMappings": 138,
+  "copyModes": {
+    "copy-independent": 136,
+    "verify-existing": 2
+  },
+  "copyRoles": {
+    "suite-input": 33,
+    "accepted-occurrence-reference": 32,
+    "helper-build-configuration": 1,
+    "accepted-ground-checker": 1,
+    "read-only-json-oracle": 2,
+    "accepted-metadata-vector": 2,
+    "pickup-fixture-no-assets": 51,
+    "baseline-check-template": 11,
+    "canonical-runtime-copy": 5
+  },
+  "operations": 44,
+  "operationKinds": {
+    "archive": 1,
+    "run": 28,
+    "collect": 8,
+    "setup": 7
+  },
+  "helpers": 10,
+  "supportPins": 181,
+  "baseSourcePins": 205,
+  "assetsTarget": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+  "workflowExists": false
+}

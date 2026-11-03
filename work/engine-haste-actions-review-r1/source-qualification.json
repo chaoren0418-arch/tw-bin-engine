@@ -1,0 +1,64 @@
+{
+  "baseline": "r30",
+  "goalObserved": null,
+  "goalModified": false,
+  "sourcePinsVerified": 177,
+  "nativeImageBase": "0x400000",
+  "nativeFunctionVA": "0xa407d0",
+  "nativeFunctionRVA": "0x6407d0",
+  "nativeChunksRevalidated": 15,
+  "reusedNativeVectors": 270,
+  "reusedNativeSpeed1Vectors": 90,
+  "newNativeExecutions": 0,
+  "reusedJarCalculations": 108,
+  "newJarExecutions": 0,
+  "classPins": [
+    {
+      "entry": "com/lineage/server/model/ActionIntervalCalculator.class",
+      "sha256": "fb68797f9442be1c3edcdb7c186b4127f4d4819026079103ba91f319a5a2a788"
+    },
+    {
+      "entry": "com/lineage/server/model/ActionIntervalCalculator$ActionType.class",
+      "sha256": "1a14c9579e00cfc73cbcde8bd0d773ad0d0e4f20f5d3139562b8d2f7c13ffc0b"
+    },
+    {
+      "entry": "com/lineage/server/model/ActionIntervalCalculator$SpeedState.class",
+      "sha256": "9d2a606532d0220b62add13b6df7bea8b7d8c45506711e349dad9053f5b35885"
+    }
+  ],
+  "zeroBasisOracle": {
+    "action": 1,
+    "frameIndex": 0,
+    "basisMs": 0,
+    "speed": 1,
+    "brave": 0,
+    "actualMs": 0
+  },
+  "oneBasisOracle": {
+    "action": 1,
+    "frameIndex": 0,
+    "basisMs": 1,
+    "speed": 1,
+    "brave": 0,
+    "actualMs": 0
+  },
+  "roundingDifferentRows": 126,
+  "zeroFrameRows": 44,
+  "markerRoundingDifferentRows": 126,
+  "limitations": [
+    "Brave0 alone does not neutralize all buffs; original oracle uses neutral actor flags/callees and synthetic metadata.",
+    "Shared action1/18/19 frame branch qualified; original self-state decryption and complete native scheduler/absolute marker origin not executed.",
+    "No native, game, service or DB process launched. Fixed JAR is read only for identity and archived pure-class evidence."
+  ],
+  "nativeTimingFunctionChunks": [
+    {
+      "functionVA": "0xa407d0",
+      "VA": "0xa407d0",
+      "RVA": "0x6407d0",
+      "fileOffset": "0x63fbd0",
+      "bytes": 1644,
+      "sha256": "df99bc065dd5014d263cc0ea9b59a50e659504454294d558ad2c956718b223af",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\reference\\ranged\\bin-raw\\attack-events\\functions.json"
+    }
+  ]
+}

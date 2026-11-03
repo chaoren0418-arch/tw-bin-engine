@@ -1,0 +1,56 @@
+{
+  "schema": "engine-r34-input-contract-v1",
+  "revision": "r34",
+  "candidateId": "ENGINE-PICKUP-PRESENTATION-IMPL-R1",
+  "candidateRoot": "work/engine-pickup-presentation-r1",
+  "preparationSha256": "795705e162ffcc422e66343fa4a6f68c6430ff4ac6ee6e54220155a60ccb9d88",
+  "implementationContractSha256": "8c60b1061c637bcb7f992d7f92c74fc80c0ad945c7f05d1c3a2d74507cffc6f2",
+  "baseRevision": "r33",
+  "basePinsSha256": "2a946e965f1aed1f9a0358ceb560f52575ea5a3bf217fc9ccf36e9ce5823c40f",
+  "baseReleaseSealSha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417",
+  "sourceManifest": {
+    "path": "work/engine-pickup-presentation-r1/source-manifest.json",
+    "sha256": "337afaa3607e49e0c50f2f388ab8cec8c42f7816e33ed2ee98df6bfb0a48b533"
+  },
+  "resourceManifest": {
+    "path": "work/engine-pickup-presentation-r1/resource-projection.json",
+    "sha256": "d71b951e7117bfd05847694266f28a5b209ff54d722cd1ed8dff462efceb6064",
+    "format": "native-projection"
+  },
+  "candidateSeal": {
+    "path": "work/engine-pickup-presentation-r1/delivery-manifest.json",
+    "sha256": "cc7761665593c79b9f82255f5d361bedd6c8ac4563434e7cf7a6e07c5c16cbdc"
+  },
+  "candidateResult": {
+    "path": "work/engine-pickup-presentation-r1/result.json",
+    "sha256": "05983d2858d22a9b8420fdcbe17a03415445ff9315d131be740297e1c1cc5c88"
+  },
+  "independentReviewRoot": "work/engine-pickup-presentation-candidate-review-r1",
+  "independentReview": {
+    "path": "work/engine-pickup-presentation-candidate-review-r1/review-acceptance.json",
+    "sha256": "5ba17f25a978b146a282f14fce8f477a60307303451ded1b9bca916b56411d4d"
+  },
+  "independentReviewSeal": {
+    "path": "work/engine-pickup-presentation-candidate-review-r1/artifact-manifest.json",
+    "sha256": "715c95654af8a1c59853f15e41c3511d5b15c1b0749bf35c47e39fe918b99196"
+  },
+  "sourceDelta": {
+    "added": [
+      "source/PickupAssets.cs",
+      "source/PickupPresentation.cs",
+      "source/Resources/pickup-own-base15-gfx0-weapon0.json"
+    ],
+    "changed": [
+      "source/ActionCadence.cs",
+      "source/Combat.cs",
+      "source/Ground.cs",
+      "source/ObjectAssets.cs",
+      "source/ObjectRendering.cs",
+      "source/OfflineClient.csproj",
+      "source/OnlineMovement.cs",
+      "source/WorldEntry.cs",
+      "source/WorldObjects.cs",
+      "source/WorldSession.cs"
+    ]
+  }
+}

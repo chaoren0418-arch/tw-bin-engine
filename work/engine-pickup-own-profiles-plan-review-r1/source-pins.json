@@ -1,0 +1,1972 @@
+{
+  "files": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\artifact-manifest.json",
+      "size": 2113,
+      "sha256": "7e5605b111825be0e3d719bfea230743b11f7ed65e41b259eea23929e9616904",
+      "role": "published seal"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\artifact-manifest.json",
+      "size": 214103,
+      "sha256": "b9033cb8c0767eccd9eb8c739b0eb6a42d48834f81960404e84e418b7dad8efc",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\artifact-manifest.json",
+      "size": 24565,
+      "sha256": "ad19e01822d2ee6a096dcc7829c4ad5c097a1b48eec4298757e72092fa54b904",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-review-r1\\artifact-manifest.json",
+      "size": 76618,
+      "sha256": "b0f5dd9e1e0469c9c6ef3e0067d8b41e1fa9f2961ea86be25b46c2247d66805e",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\delivery-manifest.json",
+      "size": 61912,
+      "sha256": "cc7761665593c79b9f82255f5d361bedd6c8ac4563434e7cf7a6e07c5c16cbdc",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\body-groups.json",
+      "size": 98677,
+      "sha256": "138eba9701712e0e0883cad42f03844eb3e3e3fa849a666684289eb6598d0082",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\candidate-tests.json",
+      "size": 4454,
+      "sha256": "9731f0079dd9647e790a0583e834f4ef19d306346f60001e802f527d40a44315",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\finalize.py",
+      "size": 3297,
+      "sha256": "260ab9cdae68e7556cc62c1e6762b06aea8e0f6bf5ac204c8da356bf610ec4ef",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\goal-read.json",
+      "size": 270,
+      "sha256": "766e1e210f3b6c1ad14ed2a3dbf24df0b49df26c1faa9d8e7d04447b9452da3d",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\HANDOFF.md",
+      "size": 5667,
+      "sha256": "67b08ff2b361f6967de092f8b4ee40ca552aa0ee021bd25285197cc25ef0e077",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\mapping-checks.json",
+      "size": 170478,
+      "sha256": "727914504e428e15afdb952be68a1555f441c7bccfbe978645a20e3b53fd839f",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\plan.json",
+      "size": 1791,
+      "sha256": "572264093eccb1343cd8f44165f34d9d9a1c52fe0867400baad60c41e6337f36",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\plan.py",
+      "size": 15036,
+      "sha256": "e6efcffc054df10544908af51ffdbf3cbd1043625c9fa08c9a6c9a82c0c92e88",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\profiles.json",
+      "size": 557981,
+      "sha256": "6b447c0ee2dd4677fb04b41c3384630a4b67d604a0201684b1f2cc193a39349f",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\result.json",
+      "size": 1704,
+      "sha256": "6b0cd8221231b2cd4d01fef21322fa7248551f21896651a005ed64e8384e0a15",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\source-pins.json",
+      "size": 51974,
+      "sha256": "df14f3b7cd452e9c9b9d28696edca04d79a5fa95e598e9d6b40e9f3fe59d9297",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\verify.py",
+      "size": 1108,
+      "sha256": "7a8e731e22fcbf99fb3512dc92621253e8407583f3425bfdcc522c91d59c501a",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\result.json",
+      "size": 1436,
+      "sha256": "163f1e6d2df4e8f11e9d7800ee2da4de1643e4e8caa1b3087858902f568b8c63",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-review-r1\\result.json",
+      "size": 5811,
+      "sha256": "80613924513ab0815b70ec40dcc09634fd11e1d35d54e3c5a01c8bc717e44a08",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\result.json",
+      "size": 3658,
+      "sha256": "b5588ec3c3f1b47f49bc9c8a020c7fe2f73eaead72905949c243328fcab1885e",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\result.json",
+      "size": 1960,
+      "sha256": "05983d2858d22a9b8420fdcbe17a03415445ff9315d131be740297e1c1cc5c88",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\metadata-evidence.json",
+      "size": 74866,
+      "sha256": "21b5da78f563db1e2ea36824be0482966e28c1563559f579c9654118d0b10bee",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\sequence-map.json",
+      "size": 488686,
+      "sha256": "10d58f87ba19a234942b619041a1f7989b7d41ced236954a192892b785c3fb49",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\frame-map.json",
+      "size": 1444778,
+      "sha256": "87c860778fc03287684bb1c57bef909844fd9162ffa52961f8d43a77e152c264",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\entry-identity-layers.json",
+      "size": 193191,
+      "sha256": "f05cbd6ba720ecbc3cbf62152e4b051b1200df4c501d9375858b9932ce069c61",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\existing-frame-comparison.json",
+      "size": 99298,
+      "sha256": "b27ae22ea7cb524f34ce2ab1823511b9bbc47c0edb6972a416f0997452bffeb2",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\profile-qualification.json",
+      "size": 26552,
+      "sha256": "dffcfc88bf57ee61ffebec7bee18b7b2b405f8f343feacb185ac46fd050aef04",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\presentation-policy.json",
+      "size": 5802,
+      "sha256": "6cdf2e017a6de677c23e316ac8cb022f16948be03bf4ccc34d64f85a008f90c3",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\source-manifest.json",
+      "size": 45249,
+      "sha256": "337afaa3607e49e0c50f2f388ab8cec8c42f7816e33ed2ee98df6bfb0a48b533",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\resource-projection.json",
+      "size": 88033,
+      "sha256": "d71b951e7117bfd05847694266f28a5b209ff54d722cd1ed8dff462efceb6064",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\final-base-binding-pins.json",
+      "size": 102308,
+      "sha256": "ddbc4624f0e1ff27cf1f0a19fb4bb21940af42b66b906dc87e87bdb9d2d562ca",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\coverage.json",
+      "size": 19368,
+      "sha256": "2385d4bd0423a476e382164e1acc2565765de8bcf7af7991b7f3359d89692b76",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\candidate\\source\\PickupAssets.cs",
+      "size": 3546,
+      "sha256": "c9ed777b82948c6785d28e6807cda8b485e5321bfeb9d3587c643814caf491f2",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\candidate\\source\\PickupPresentation.cs",
+      "size": 6606,
+      "sha256": "b28e1bc5dcdaea4b42e12783697af1a1976d580cbc48724b7bc3b25e9cd9e326",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\candidate\\source\\ObjectRendering.cs",
+      "size": 9819,
+      "sha256": "6de015ce11c61e71aaa6de096d192abbb7d0c427f3f0bcedf762871d3a536613",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\candidate\\source\\ActionCadence.cs",
+      "size": 7854,
+      "sha256": "f533f652619d26639ca2725cb5c3b5c07f9a13bbfe9fcdc8d8164d7d0e9486a5",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\candidate\\source\\PlayerShadows.cs",
+      "size": 3677,
+      "sha256": "c44d4c21bdf4764a891e8e366b3211f80898336b8fab651e18874ceaee86bca2",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\candidate\\source\\ObjectAssets.cs",
+      "size": 7023,
+      "sha256": "707ee6d9867e8eebb1a8fce89f28aeddff1ce8fb9cfd3d8f3daef31789d8f94a",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\candidate\\source\\Resources\\pickup-own-base15-gfx0-weapon0.json",
+      "size": 239766,
+      "sha256": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\baseline-final.json",
+      "size": 29657,
+      "sha256": "2a946e965f1aed1f9a0358ceb560f52575ea5a3bf217fc9ccf36e9ce5823c40f",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\_integration\\r33\\release-seal.json",
+      "size": 2511647,
+      "sha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\final-base-binding.json",
+      "size": 665,
+      "sha256": "28d0d6f3386575c175aa06b7b9076da961cfd1db62e2563cf7cd65c7c276ea95",
+      "role": "author input identity independently rehashed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\integrity.json",
+      "size": 1729333,
+      "sha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98",
+      "role": "independent input"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\manifest.json",
+      "size": 16378,
+      "sha256": "e0493630f26b3d51625461809194e84eea1391d6987376d5a135485afc798d39",
+      "role": "independent input"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\shadows\\manifest.json",
+      "size": 5786,
+      "sha256": "32ec39728f0d2eaa2d4268660c5fa5afb21c9d3a635c9a185930af690b91611c",
+      "role": "independent input"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\objects\\0.json",
+      "size": 29014453,
+      "sha256": "27ab41e8a398eb180ce957d9215b2c9b5cf6bf5343b32f6c101757b8882efdf8",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\shadows\\0.json",
+      "size": 3211471,
+      "sha256": "5e4c902992ffa00a1f7df529e767f5c89dfe1646b468945e4cbf279ca4013dd1",
+      "role": "exact immutable shadow profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-88.json",
+      "size": 261720,
+      "sha256": "16b8a5dd94ee07644f656eabfe641b3fcfc059026bb35be8cd3466046beb84c1",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-89.json",
+      "size": 211865,
+      "sha256": "b720a08966cea3661c0e3e9c63dd2d4e838552a5cde0e7096cfa8534ddb3c812",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-90.json",
+      "size": 262884,
+      "sha256": "6a5fab688ed0fc022fd0f48fb64ebe3e8a96026cde4b5bbd544da61482554ed7",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-91.json",
+      "size": 278383,
+      "sha256": "142000a2237e6120ab9bee0410c70368f41d782f30ac4ce3206d5934b8b373ff",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-92.json",
+      "size": 236734,
+      "sha256": "d8d8a68adc364098d574ae1059bd85db02c88f2f21ba95103c51a1890de45697",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-93.json",
+      "size": 167164,
+      "sha256": "acabcc4b44c4cb74099d5536fa1f1b97c03ac2c96d1f4d3fc392e90c49eef10f",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-94.json",
+      "size": 220354,
+      "sha256": "0fe000f6ef832d19c074a6c13c2cbe3338e052fda51fa9375427683e05248d5f",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-95.json",
+      "size": 265472,
+      "sha256": "093a65edbb0a8972738d30f171e10cf6e2cf88b83d629dd6405af421cc267fcf",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\objects\\0-weapon-4.json",
+      "size": 33577483,
+      "sha256": "858444d08c367a9cab98bcbf6b4feda44c3cc72c68d1b676e0d296d5f692c771",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\objects\\0-weapon-20.json",
+      "size": 34748742,
+      "sha256": "6b9aaddeaf4b913ff0aa44237349e314ca57a69d99620f9408553d006f35183a",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\0-46.json",
+      "size": 5024539,
+      "sha256": "dca45494e33d824fe821a21faeff9cbb6439b5896ef11f48c0a8b3e505fc33e7",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\objects\\0-weapon-50.json",
+      "size": 35564219,
+      "sha256": "40ab20359c20303eccf39216619d5667b0bb932c927d85849b661a78c9b84f2f",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\1-0.json",
+      "size": 3309427,
+      "sha256": "2f4f0b0f80b38634a0063b4232c89458f6f7cf77aff1b48274c94748af438f15",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\shadows\\1.json",
+      "size": 2267770,
+      "sha256": "1d80937f0c8edb8e21e1d7e8e12751d396adb2e138c826177e42a5ad1a0d69eb",
+      "role": "exact immutable shadow profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-88.json",
+      "size": 171070,
+      "sha256": "08da92c33b268851ad598055b42eda84df45864ca30385e0490d0d4efafebf74",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-89.json",
+      "size": 150851,
+      "sha256": "8fa3070e6db087e9e8d8c7370c30cb48f8c52e709381c991e440dfae3993b5b5",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-90.json",
+      "size": 167644,
+      "sha256": "7064ba456c13807415d724807e30b20b7d7af73c0c9bc13132ced8da9cc4ae64",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-91.json",
+      "size": 176939,
+      "sha256": "56c04cd05374e25cc727de1b54781c37d55b74b0d1a5b118fa4babf11581664d",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-92.json",
+      "size": 154299,
+      "sha256": "5455cf073424e76043492616be5b5568490229a35493dcab0f5f590462bdd923",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-93.json",
+      "size": 119078,
+      "sha256": "1951c4d07f1bfc705469cc2d9399b8b91d065a15075a8736704d9c2c6c65f265",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-94.json",
+      "size": 140647,
+      "sha256": "6fbc512d21e41bd2b2bb779369ce6a45242528579f514aab37b6f72d167ad96f",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-95.json",
+      "size": 166875,
+      "sha256": "8b537299d4181e7027ac5eedcfb45ffa5f9662d2816d2e35529e2cd3bbd31612",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\1-4.json",
+      "size": 3577623,
+      "sha256": "c94980a1ccd20c5f083285aee734813d59f97ef5d61249819ba3128632f42d5f",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\1-20.json",
+      "size": 3926668,
+      "sha256": "651f5029da928825b2915b6a5ce1d826018ee3499c6a4948136bfd6c25f636dc",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\1-50.json",
+      "size": 3924709,
+      "sha256": "2ebf9dcdc13add5dc679e07e6d2326c4f93bb1177020cfd108799292ab64127d",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\37-0.json",
+      "size": 3223579,
+      "sha256": "5f6555fff67d0343d998f2b2af8eff6731a0b51a6c974dfe239a3f3b646e058e",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\shadows\\37.json",
+      "size": 2038874,
+      "sha256": "20ab4cd2988cff309543fcbd2fb4087ab6cff755f9efb095f8188f6beb0f8d46",
+      "role": "exact immutable shadow profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-24.json",
+      "size": 163351,
+      "sha256": "6def002c4d5091a44460c065f350581f061977abd3f757c9ef0797e25d95350b",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-25.json",
+      "size": 128378,
+      "sha256": "711b3f6b7739e2406f35b01da10473081318664c108b90e2847c2e37f4c4216a",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-26.json",
+      "size": 152734,
+      "sha256": "bc065bba86b0178ab356b977a7b1551e6988552a6fd8e0607e5f41b6b353fc8a",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-27.json",
+      "size": 173054,
+      "sha256": "11c020e7aa119a4f039c8e850d9ff82075db46f45b8f005d08a667e8aeaff611",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-28.json",
+      "size": 153481,
+      "sha256": "7361a1ea52976198e6e517428efa7fe5561d0a503000ee9bb0484854103bf4c0",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-29.json",
+      "size": 108850,
+      "sha256": "6b52fca54c13dd6d67a46e7e071ac09ae68f542712a6b29e3bc658e8abb35427",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-30.json",
+      "size": 143548,
+      "sha256": "c1edd4f25034e10785cf70ff0f6d726e396b4a379c83e4cd65cc814a3296aad9",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-31.json",
+      "size": 167816,
+      "sha256": "607c38a2d1eac1c8a66583d56729d2e2c0d73af1bbebed2a572760f9cbf8d6df",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\37-4.json",
+      "size": 3796901,
+      "sha256": "095d3b762d150ddc647a070ed24def9a669b76b2d7ff3749ee51d03d65304c52",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\37-20.json",
+      "size": 3782951,
+      "sha256": "a0a6d99a9e748563013ef41304aae009976c7d3f65b1c1795d7bc63423538d78",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\48-0.json",
+      "size": 4859717,
+      "sha256": "b5e509c8c3eb45cb58fa7cd67af0afe82995dd25a5379f608cd8cb774239fb3e",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\shadows\\48.json",
+      "size": 3504101,
+      "sha256": "3f5cb28734fd70514bfd9871773574bf04aec7a23f7775f3c7deb6ba7731f9bd",
+      "role": "exact immutable shadow profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-24.json",
+      "size": 199063,
+      "sha256": "19d183196337d066e2d70c14423cf1c141b180ed6fa2c643353baacee27786b0",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-25.json",
+      "size": 172806,
+      "sha256": "ec23ee0d93dc6c1159d022402a4cd11cb0fb73cf7f88f42fcb047b3eb080c61a",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-26.json",
+      "size": 185596,
+      "sha256": "b65c42cce805fcae3575f006d87a0fc3dba54a11e6f93a73a7180795a3f8a854",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-27.json",
+      "size": 192499,
+      "sha256": "d32b18ae1a759643ecaa4f8a0d8520990904380f573cb604c62ba3fb25747f6e",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-28.json",
+      "size": 173991,
+      "sha256": "e6914a05a252395d88d520839ae73be49921afb4154fa5efe8573ddb4cb6a3b1",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-29.json",
+      "size": 152853,
+      "sha256": "3f9d768c0a5481ca6d22855e64b5cf33e84ae16b39f7a5616e8a9be1ea46b6a2",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-30.json",
+      "size": 160271,
+      "sha256": "d817c4568ee557f8fb6d21c7bf1ed54662b80b040b134bd8ebbc6beb0747e5c8",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-31.json",
+      "size": 186515,
+      "sha256": "0a019f207521b1e51fc37d82268609d124f449931a6bcc11eae8c67a83054c5a",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\48-4.json",
+      "size": 5406208,
+      "sha256": "289cd07c274cffd439c3f87a4a016bc0d70f20161ad027247c227970baea863a",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\48-20.json",
+      "size": 5723012,
+      "sha256": "db514bbbcc80bafcf3aa58bce60e41bc101c3a26032fe5adad2ac93613952350",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\48-50.json",
+      "size": 5710122,
+      "sha256": "fdcd0b3246fe4e0678a034d69cc9590ad9204a55cefc98849c81039638efa74e",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\61-0.json",
+      "size": 4546593,
+      "sha256": "e73d987869d8f9cb5e7e081cd3781bc8214de9a3720b42073886ac9d8375cbbb",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\shadows\\61.json",
+      "size": 3379365,
+      "sha256": "7fb54d09774f85b2070a6f0855359d8297174a082b102298bc4c0859c674316f",
+      "role": "exact immutable shadow profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-24.json",
+      "size": 216132,
+      "sha256": "0cc321e587c7486eabe2c0ac9b84671d9cf93cfb3154c01e5fa238eb19c28ee5",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-25.json",
+      "size": 219027,
+      "sha256": "6282286b891190b6a9e266c23dcb3f059433fd4fee38e7daae52aecdd6dddde0",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-26.json",
+      "size": 246414,
+      "sha256": "07ba5d1116a26e913a01c163418a3d08f94921736fcfdb4215548b59a53ab170",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-27.json",
+      "size": 241442,
+      "sha256": "7c14626e6d3783b2e390bac76bf2aa9a67cb3abcf1a782cfc810167386d1a8fd",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-28.json",
+      "size": 195149,
+      "sha256": "310a0823f638cae0eb0a13cb73611dda79a28d7eeea9815c5ac6b8cf69c3d60b",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-29.json",
+      "size": 175208,
+      "sha256": "bda36209de602eadc4efd171e5508530ec0a71e040d82847d75084f2ce7ecc95",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-30.json",
+      "size": 203372,
+      "sha256": "fc2a766a53dadb06d397f30baabdfe0c6fd71c1d8b1273bb196923f82a85819b",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-31.json",
+      "size": 229395,
+      "sha256": "43de9c710125a163e34873c89e45e6fa2cabedf93bb8229e5332ec391ce86a31",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\61-4.json",
+      "size": 5239532,
+      "sha256": "1410dae2f42d30dc11aba5a1c494479ef5039c8161ad13f145504f18a8ce61dc",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\61-20.json",
+      "size": 5566410,
+      "sha256": "466b5832edea83ae25c4021569eeaf6fdcd00c8f5e57e990ce1ae81c523ff51a",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\61-50.json",
+      "size": 5497941,
+      "sha256": "aaa9912a489b22a80b346e10adb07cc4ea51402a11136e80118cd527c694ab25",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\734-0.json",
+      "size": 6855726,
+      "sha256": "1a48881ab41af22a58e52102a3ef940e0b6f2a71473b0b2012a6ad0b1d3f0e3b",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\shadows\\734.json",
+      "size": 2027724,
+      "sha256": "9110755ec9ae8c379a6096419aa4b91db2e561c0da2665ebacb5dbd661fd2a4c",
+      "role": "exact immutable shadow profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-40.json",
+      "size": 323070,
+      "sha256": "eca3d0426e8dbfd2f6b93bc82449f03ae6c81767c45a6f4600c388af6d6348c2",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-41.json",
+      "size": 245864,
+      "sha256": "7b218d2e521fd9f3b5fd3d02728930bb24defc8da4f56fd83b7e5ea6eb8e0f6e",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-42.json",
+      "size": 291437,
+      "sha256": "1226ace1d9980b617fc7d1d057aae632d582f34580c31230e1dec022ef1edca9",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-43.json",
+      "size": 338521,
+      "sha256": "a6a8173d24f0e3383999c5e4d5ec427d558c47f8ee503fc051676b1154bf78e2",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-44.json",
+      "size": 286256,
+      "sha256": "6aa33154d452cff24b444ae607dc6d505ab314d37fd6b73708ea2c8e7b1865b4",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-45.json",
+      "size": 206095,
+      "sha256": "f76245b6488068bd056a88fad7d271403188f26b9b216aa830ffb27b51352de5",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-46.json",
+      "size": 277859,
+      "sha256": "950954d8c71e738340025be2dd2075d54399b6886a3b9b8a51359f75fea52cf3",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-47.json",
+      "size": 352653,
+      "sha256": "8c0a23453e6c35c8d68292ea690f4c666ca31fd1964f914995a591f6613b945b",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\734-4.json",
+      "size": 7167350,
+      "sha256": "b9991d6bb1c0f3080dab7d3f1a4c2b368c0b3261295eff8bf7022d2b38d12a78",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\734-20.json",
+      "size": 7332367,
+      "sha256": "8da7161651f60edb3b371ac26994bc6c69f4af700bb1834e5ed15a31a6995026",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\1186-0.json",
+      "size": 4528403,
+      "sha256": "abf6504bb5cbb2048dd5de0041c989e9b202ede63aad564d81415c771e2d6ab3",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\shadows\\1186.json",
+      "size": 1799874,
+      "sha256": "9f0a6fd8e55ffd726dab47b73775a9346ea3b5388390bb77c3a6e5718a6b41d3",
+      "role": "exact immutable shadow profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-48.json",
+      "size": 224124,
+      "sha256": "581b44efa74814a2134cd625b4675c17f6781f1e6aac3c6579556e6a5bd9bb67",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-49.json",
+      "size": 188210,
+      "sha256": "96a7b1b477a0104c80b25cf390daf63b81c018bdd43583159403bfacf4f7a0db",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-50.json",
+      "size": 245414,
+      "sha256": "cc166be7cf258524846a525c05790b76a7ca1742dc176f338b336098766cd61e",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-51.json",
+      "size": 271365,
+      "sha256": "974c52a0e21037bf591ed7471179d2831ad207025ccf5df6fc87749ef04c8cb0",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-52.json",
+      "size": 204744,
+      "sha256": "b7712b1bed56b30ff13c8cce23eccc57c892cca6aa8e3031b45b252abed03ca4",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-53.json",
+      "size": 128211,
+      "sha256": "1679db36075a04433e596fd0764d1763a753d2f5ce54205881c9da70dd494e62",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-54.json",
+      "size": 209261,
+      "sha256": "7af11b756a91ab1547311d61b5c84ce1e4b9de0e579bdbb11d07452f5ca57431",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-55.json",
+      "size": 249792,
+      "sha256": "2a5dd4493ba87ac37d310d747bda4e7530e2a23f7b3b8187a3239aaa950a85cc",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\1186-4.json",
+      "size": 5390200,
+      "sha256": "4e70056a708d433bccc70005be82be16379ce34d11669526064c7483e921d267",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\1186-20.json",
+      "size": 5781966,
+      "sha256": "ab6f2882e3f2972b4355f7c347958a9a456652b6fa348e79d88a4be2075ffa0b",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\2786-0.json",
+      "size": 4397341,
+      "sha256": "eac0b1e42e7154c39101e03ca2b628eba865e4f21ab59cc3f10992d536858949",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\shadows\\2786.json",
+      "size": 2107243,
+      "sha256": "6dc96d805c83bc815f0cb74f31e50fc36366ec22bfdbfa5f8807350f99e2f4b1",
+      "role": "exact immutable shadow profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-64.json",
+      "size": 222981,
+      "sha256": "c2c598fbcb5923b82d4bc93c8232fd53cc3d2196bc5cd55fe90205230f5bc40d",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-65.json",
+      "size": 222020,
+      "sha256": "5c7a0506854d5f79b8f5d8aa934bdcebfb633365624861bbc3af0de7f4461398",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-66.json",
+      "size": 238139,
+      "sha256": "a52f52b5efa778732c09ebfa01c93da41b9dd283578db67c0453e09bb7f5c93c",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-67.json",
+      "size": 258175,
+      "sha256": "2082225e673942c3c0c55497d8932a88c87d43dc5bac30f9136b3fead4c4e7f0",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-68.json",
+      "size": 217718,
+      "sha256": "f95a80a55787fb18efce40c15a46c562c17ae1cfb22f137475e5fdb5a53dba3c",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-69.json",
+      "size": 177576,
+      "sha256": "4d52389267e6c989871d23c7ae011a6b7086556db7021b417fd0fc01093ff0c3",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-70.json",
+      "size": 208002,
+      "sha256": "90a63da38832a49ecbf9674561228f6dc55c39f158cc4f5c5fb2c0736a390fda",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-71.json",
+      "size": 235714,
+      "sha256": "cae4c925781f79a6beef8cd09ba4569d258613801a2add079258ecf446a19c6f",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\2786-4.json",
+      "size": 5494490,
+      "sha256": "bb2c3627403703d487dd223d9c343b98f71860686aa676cd916e9f028d9b8804",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\2786-20.json",
+      "size": 5516796,
+      "sha256": "918594eb127cd161e1daf75390408142840eb22fd6f9608bc0f65371ca1ac631",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\2796-0.json",
+      "size": 4446223,
+      "sha256": "2c800eede680307d5bfa5441b47f8aa3af6091069a75ef65d57d8e0f5b01b3fa",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\shadows\\2796.json",
+      "size": 2206617,
+      "sha256": "8f60c7654053bdb68fab533fb6073382cf1613cc19ea33cf144ab56be16d0333",
+      "role": "exact immutable shadow profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-48.json",
+      "size": 197575,
+      "sha256": "6ac04d926f3117d27909bdd734fc68cc079c72f5d285d07556d9f5e2cdda39d0",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-49.json",
+      "size": 177737,
+      "sha256": "1ba4eca48604bd654cf9b7db809bcda6ccfc2bee3d6c12fa9a43fcbe729ba096",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-50.json",
+      "size": 177408,
+      "sha256": "6a2385f61f1327ed401942fa03898a28143e274975df979999a1de8158803efd",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-51.json",
+      "size": 201512,
+      "sha256": "2f8a2deb433e6eeb3e4a9f4db7ac3e4e0df1ff897552f5fe29552e4372234816",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-52.json",
+      "size": 180907,
+      "sha256": "8bb0e8c0db029965e8e6513102070b5f67764c12615247bf5ad7f0128e6b2a85",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-53.json",
+      "size": 131274,
+      "sha256": "061b5da91bf90d835243d14ea2385c969128f696c7874d2e24f446f6fa830bd3",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-54.json",
+      "size": 162421,
+      "sha256": "5e2d17a72a20a440042578a3ec78fc4720dde935adc33dabed17902891570de5",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-55.json",
+      "size": 202449,
+      "sha256": "44532393ba4ce64fc52ee08f3be4c9771c5734fd166bd534187586ba421da954",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\2796-4.json",
+      "size": 5420155,
+      "sha256": "76c83633011598bebb4b6685e75eee384201a39751ec1232ca3f111fd0af0c4f",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\2796-20.json",
+      "size": 5446303,
+      "sha256": "5fd0e9d1850bc6bdcb8eb042892089ad0a58a6cc0a506931228992a8064b019c",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\6650-0.json",
+      "size": 4506214,
+      "sha256": "bbc201656a181fe210d2777ba39770e8a52f2936dd206552f87a8d3d4f097371",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\shadows\\6650.json",
+      "size": 1855110,
+      "sha256": "ece71f301257237e89137ba54525a93f76090506c7f46bf27a5390f923b8a5d4",
+      "role": "exact immutable shadow profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-24.json",
+      "size": 192383,
+      "sha256": "be4bc0ec59a11a1570de1e6f672ec1d59c5b7555b1a126fecf79e7702119128c",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-25.json",
+      "size": 201348,
+      "sha256": "c1dbedbbbad2f1774605318f5df698c6783759815b38248ddc1c28e332753093",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-26.json",
+      "size": 232584,
+      "sha256": "ea12826a248a4e8bdd67980eba07edd18f9d9cbed08f1fa834abda4600489a34",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-27.json",
+      "size": 216722,
+      "sha256": "d3f67e274530b66e67f9d8ea5829cf2aeb93f403f28170783aca76f972e8b4d7",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-28.json",
+      "size": 167553,
+      "sha256": "acc66e42ca9b88f787d634547840224f3660eac08e2f006834ae0f34b351f4e0",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-29.json",
+      "size": 144213,
+      "sha256": "620b1aa0b3ec41a55a3840cfc0f0ab5775f7c45e1f0e0d7f84d9e6f2bc5a4d45",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-30.json",
+      "size": 184502,
+      "sha256": "2ddf6037da7be8b0d1e4d50ea8d1b63fef175a3e0377d9c9c6bf538c3872918d",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-31.json",
+      "size": 196907,
+      "sha256": "0f8d26773af383a47cadb76723028db961a194344b886e0c4c4f44ae35fe5bd5",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\6650-20.json",
+      "size": 5089168,
+      "sha256": "18e1a3047949711ffaeddcc07d7a7242fc0cceb6b4e9d64d5bc256cf796cf440",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\6658-0.json",
+      "size": 5446662,
+      "sha256": "ebc49e51e554da826aff93d95ec0710ea21b2ccf0e13e8e2e85c6f00920f04c5",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\shadows\\6658.json",
+      "size": 3145250,
+      "sha256": "82a85c23e29c9731a7d285752f92199bc341b09c6074d1d52782780347591b81",
+      "role": "exact immutable shadow profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-56.json",
+      "size": 272300,
+      "sha256": "a54e5cdd8888c1a0d407d42719a0c89bca704246d4cc4dd64ca72f864bc896de",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-57.json",
+      "size": 238661,
+      "sha256": "dcf46da0c47f67542d6e4ae554b91265a77d14aa763a2bdaf157cfbf45f3b4a5",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-58.json",
+      "size": 255984,
+      "sha256": "8ccdeef553aeb0180e58f81ee6bcc5377bc4b64b79c45b3a94c972f50f1eadfd",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-59.json",
+      "size": 272295,
+      "sha256": "0f4cba86147ab2ac35ed14f655132c2ce4c84f874f88f296b5d78c9f6c5d9573",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-60.json",
+      "size": 263353,
+      "sha256": "9b5512f66b34cc7900b52cbc6ddd0bf1b71b1b680d90c4c7b1e3ba3e633b4f71",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-61.json",
+      "size": 211541,
+      "sha256": "cebde3da6e646a5fc51fa3e57cc939f15d2d14b614a5f4900e23b85fabc42b79",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-62.json",
+      "size": 231530,
+      "sha256": "d68f038b44c7538120ca3cc5a8538202f3369e6a78b8fe7357e775facd20854e",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-63.json",
+      "size": 274967,
+      "sha256": "7490a4cce0b5b85b86d3f88bd0133e6e7c2b0837295366fa2f20446256b1415f",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\6658-4.json",
+      "size": 6242688,
+      "sha256": "d011c9ddf23f8f2488832d364cc64125fb7338778b51fbaf13589a1ed8977231",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\6658-50.json",
+      "size": 6302996,
+      "sha256": "157ab2c468081ec846d6f56b6814c0fe881a77f570a907672b899e174e1034be",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\6661-0.json",
+      "size": 4362406,
+      "sha256": "d75bb3324e06003f657c2b021f9da7c5a6b6972a8428b735c30149c21d31e051",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\shadows\\6661.json",
+      "size": 2877955,
+      "sha256": "181f5b1f6786283a141abdfd0723a292f97c77069926b83ac217730cb808141b",
+      "role": "exact immutable shadow profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-24.json",
+      "size": 186439,
+      "sha256": "818454b1ade92237f7c6148e7eed90759c207819dcefcc17636c9175d1839cab",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-25.json",
+      "size": 168045,
+      "sha256": "391e7949b5b86ad98c9d8d4047c137231752e2b6086ee6ee0fc56dbacd5816b0",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-26.json",
+      "size": 186124,
+      "sha256": "6333c5951096a1c3dea4340f06764dc9b616eca0dc2e5559a87d4e0ee689195d",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-27.json",
+      "size": 211802,
+      "sha256": "bc062f276af89a9c6d6b075db1edd73223e87c68e04b57be5b53e07abfd8a11c",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-28.json",
+      "size": 185853,
+      "sha256": "664dfb213e953c3eea3916beba9c5d9775cc75296410f1474c066d038487c81e",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-29.json",
+      "size": 150097,
+      "sha256": "9c42d24a8846e81a80fe2037048c1ff09646ec4e958598aeec95956b69bbe0fc",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-30.json",
+      "size": 166622,
+      "sha256": "ba01dedd75713263e0a00dddd7bae5d4383df5a907b7a49a9213ca899ba9f26d",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-31.json",
+      "size": 196347,
+      "sha256": "fd75b0c1e5b5136c6c90c276a3395a4a1e1b8c9b42a3e58f063f76882de90a14",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\6661-4.json",
+      "size": 4549616,
+      "sha256": "28ed1495de3fa77ef8e123c57874aaece9516b8600e2f6f39ee5344e937e7581",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\6661-50.json",
+      "size": 4902928,
+      "sha256": "b826579739920719bed6b636a055bd0edb1ae435c5a1936c02bb038ec5843076",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\6671-0.json",
+      "size": 4428685,
+      "sha256": "9ced25fb5c036d8b711edaddd345d700e1a52049dff77c68d3f4ecaba55b1d1b",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\shadows\\6671.json",
+      "size": 2878024,
+      "sha256": "5fecd65a657bc38f142619e7ca03f84818187ee69372c3609f3cac2aac5109aa",
+      "role": "exact immutable shadow profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-24.json",
+      "size": 230387,
+      "sha256": "aec3e74f41171c68c1e01fe3e6db752ceef0cd3d5b7cd807603ffb556085642f",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-25.json",
+      "size": 230752,
+      "sha256": "0e7e5328486ee1ffbe5faa6dbd5df9aeee7678e4127321f32b9761cdff66ab50",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-26.json",
+      "size": 252877,
+      "sha256": "999a7103e25f8cfc9bcad88d3e0a2a1099909f9c3ace85426592a9c623f61653",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-27.json",
+      "size": 265000,
+      "sha256": "85a27ac320ff84cea04b5cf5c1e7701758dd8a4146d3d1cdd0aba42facff82aa",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-28.json",
+      "size": 207273,
+      "sha256": "0d61761a84188b93c598edeea225253062c4734cb5058ce57115a2f1e913822c",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-29.json",
+      "size": 168573,
+      "sha256": "5bab50b06348a8ac3509e2ddda4d8044e36183cd66b466f4c1439cace794a051",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-30.json",
+      "size": 201909,
+      "sha256": "74ccb2c57137b9984914d0b870aedb881040e9a00a034c9eb41e7bcf41365f42",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-31.json",
+      "size": 237535,
+      "sha256": "584fed95282b692536741063368a803b7d1fd9c1e8da448128aebccb95a23c95",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\players\\6671-20.json",
+      "size": 5400895,
+      "sha256": "11b0a21a9644d60c7eb9bca0e120c600c32b8515ebcef9c902a6b42f9436fb27",
+      "role": "exact immutable profile"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\candidate-review-r1-root-acceptance.json",
+      "size": 1694,
+      "sha256": "34cd28e4567321ccd8be099fa02639941d981b0b4bd862d7a203d7dc3806e639",
+      "role": "later root r34 candidate acceptance; not final base"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+      "size": 10058,
+      "sha256": "314e9a9e3aefb4be0ce5ef699fca86eca072298b8b07d365e6d74016c8303615",
+      "role": "worker scope"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\metadata\\0.txt",
+      "size": 3675,
+      "sha256": "c0e63870fee5e86ea3ac68ef66b05198672d7a70e0ed1f19bc4a3ad3f4b0c14c",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\metadata\\1.txt",
+      "size": 3861,
+      "sha256": "1ee693881e95e7be7b0efc9e59d9d80806abe5ffc4d57bdbebb8ab9182e235d0",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\metadata\\37.txt",
+      "size": 3402,
+      "sha256": "b4c6e327d1f977c4a00dcaadb7ecfab4578660e5588105cc9ae52a4a8b466575",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\metadata\\48.txt",
+      "size": 4523,
+      "sha256": "5de7c8fbd730817061736ea11c44d35d6b527de7dbe07b3930f407f84a693760",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\metadata\\61.txt",
+      "size": 4298,
+      "sha256": "e275f0cc42bc4828f005a954218a78afe51908b20745ab1b4af110ca7dbbd2ce",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\metadata\\734.txt",
+      "size": 3614,
+      "sha256": "75df19393fc800700c532c85d4896b5f40d02c097fce55fcd05d8092bc6bbda8",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\metadata\\1186.txt",
+      "size": 3487,
+      "sha256": "f903152e27db7596e3956da0d42a478d9dd33f754c85afe94cac7a4a063516ac",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\metadata\\2786.txt",
+      "size": 3639,
+      "sha256": "20b04af4d91362e3aa33c7bc401f57e61083b047621c51ebe4aba19e5751069d",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\metadata\\2796.txt",
+      "size": 3936,
+      "sha256": "3a9919715c8c9e17edc3f3d7185ea5f277013a3db652b35ac828e3d171967039",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\metadata\\6650.txt",
+      "size": 3132,
+      "sha256": "033ce51c44769f9b1d1f1566ea7f3d0d3a32eadf3d92f99a8d939a83af6b905b",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\metadata\\6658.txt",
+      "size": 3946,
+      "sha256": "d4fc07b33fd49d382e4d55b38a57884628e2c04f8d3c30fc930b70264d7864a8",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\metadata\\6661.txt",
+      "size": 3774,
+      "sha256": "b457ed8f1fd845be1c2da6c4edb6fe719dd73a3edb17c55e8f68c6bb73c9761f",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\metadata\\6671.txt",
+      "size": 2993,
+      "sha256": "99acfc8fefc8478072c7975996983e61b15c3a69e5caa4ae895b604d3d2d97ea",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-8.json",
+      "size": 64795,
+      "sha256": "cff58793170f36420aa7232092b66ac3e109ef8f0ab801b9df6188812b0528a5",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-9.json",
+      "size": 72127,
+      "sha256": "3d93a5d1d344e691122a8081f06c55da8f621e04789eb069a4f3495c32c99ee7",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-10.json",
+      "size": 87205,
+      "sha256": "6ffbc7606a30895c01b1f0acc894273332ffb634abd0b12f8e172d3da286e12a",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-11.json",
+      "size": 86027,
+      "sha256": "a4f24cc8f9fe3480e80f69395f196e39f24bc0c1225cfd45476e3d2bcc7d171c",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-12.json",
+      "size": 70793,
+      "sha256": "15b93c2fc5cb051dffb348cdcf6b6e41fc1359f15e4dd8a85e9a565598d04502",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-13.json",
+      "size": 75244,
+      "sha256": "846892794f5765888ddc7520e083941ad0a12bd0d7ed9d200de4f0fc50f44077",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-14.json",
+      "size": 87922,
+      "sha256": "ab76363e182902f90bbe9593e4fd3ed82040cd7a09a41fc12cbf2b9d4aa4a6fa",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2786-15.json",
+      "size": 83614,
+      "sha256": "b4b4b6c51cb4bd0aa9ce0e449fb140c024906b328eee3fc6427b93f7a6955a69",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-8.json",
+      "size": 63322,
+      "sha256": "ad5e7ca42d3a98b48979cd502f73641827fd621588fac2b3f6fe839ee981bf89",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-9.json",
+      "size": 69695,
+      "sha256": "b251ca4b8f012c9529a3d040686ae72260f9247eb419b6e8bfb0134690ba970c",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-10.json",
+      "size": 71202,
+      "sha256": "fe46f66d4a55fe90e8fbb630961f60f986aed8e0671c31065935a8a950cd537c",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-11.json",
+      "size": 57704,
+      "sha256": "9de9dfda587830f903cbc29a0a7989fdc1a5e09a251a93835f9e16e618fbedf1",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-12.json",
+      "size": 63131,
+      "sha256": "2995645a3e9b92d19ab8560b61548e629a02a9e14abf68d471137246819dc33b",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-13.json",
+      "size": 66827,
+      "sha256": "a543a8b13e9a8d4a933ec20c0adeb824013452fc0a9abb32b621226281f1a306",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-14.json",
+      "size": 68177,
+      "sha256": "b92f943474ce7a975824b292635552d1ce0586291c50a1e686d9e5038694f481",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\2796-15.json",
+      "size": 54243,
+      "sha256": "1b853663c31fd8f12abff349c0f91a90e3c173e8ba902652c97ef1e2c36e7155",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-0.json",
+      "size": 72975,
+      "sha256": "629e17bb2b6749660a01240643b0f325b3af8a119cc3f505aca056719510a5d6",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-1.json",
+      "size": 82961,
+      "sha256": "baa0a8ba1055e424da9d9f973ef646f0157d7e93804cad764d30e901ddcd47fc",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-2.json",
+      "size": 84674,
+      "sha256": "c9b99e44ff93d7a7ab26625da3941751dc7b40ef8bbc75deb38841621965e1df",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-3.json",
+      "size": 81173,
+      "sha256": "21e8b9c3d47cb1eb9e6d2cd5d7e094fce4485fbe46f3720dafc1677c9b976d97",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-4.json",
+      "size": 73774,
+      "sha256": "de8368eef08934dba4dadb1adf2a2b943c3a87d7b9403f55b6a3bc8f075d112b",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-5.json",
+      "size": 85169,
+      "sha256": "2a1ed6a51fbf6b20f325a773a375cac93dfcdf1aa5e61cdfe5e52d0dc0d52a76",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-6.json",
+      "size": 85807,
+      "sha256": "eefc816d75e4d3a696b350e1ce490338662e28c6eb81f44ba42dcbd559a9a751",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3213-7.json",
+      "size": 79589,
+      "sha256": "8981f8ea47aa15cd1f4834c714599d6b18c30dc9dac42a9ee88e6f5445c1ae0c",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-0.json",
+      "size": 62054,
+      "sha256": "bd31e62a66a120f3ac394de58a86fa050c675dac1405c494e54a603085ca1fcb",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-1.json",
+      "size": 64347,
+      "sha256": "05675a3ae816b7af7dc581c4be75d90f6fdb5924002b452d715c6d9a53167cc7",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-2.json",
+      "size": 72281,
+      "sha256": "9fc4571c809652731529a672db122a4fda80b45eb08d5eff35267317e079c3e9",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-3.json",
+      "size": 65337,
+      "sha256": "a30a7a8f9ae60cffc689ce5e8348cc8da8cf517535a57fb2aa03aceb95ab5614",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-4.json",
+      "size": 61718,
+      "sha256": "ecc3df9de1ca419c2afd4ad23fd7512777a90227ed91731df4709d7e26189410",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-5.json",
+      "size": 66391,
+      "sha256": "4086ebff4a492e064eb58eed2b2a0d44b1a56b76fabda7757979d8bdeb8dbc29",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-6.json",
+      "size": 73841,
+      "sha256": "78683a314558dfb69f340dc4e70e91af2322b92195ece1c40ead699f35fa57d4",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3215-7.json",
+      "size": 66962,
+      "sha256": "e1cf908bf3ca44ba34924e0d88d60ebd578371fff50901d2296b6caf483f9188",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-0.json",
+      "size": 73264,
+      "sha256": "e1af64ec4155d04e0c678881444967650f682782f2d35fbb7b702c657037ac46",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-1.json",
+      "size": 68406,
+      "sha256": "0654454aad5836945c067c66f776d4a7d630f0c7db35c8fa426e16e936c16c6d",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-2.json",
+      "size": 76949,
+      "sha256": "141b1fa3233c3a8b86db4cfac839aa7aad3923f2f159171da8fb91870eda4d17",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-3.json",
+      "size": 80153,
+      "sha256": "93088ad2066d6d2b190d6088071410a2e1ea4b7552a7580f236b233ad41e0e0c",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-4.json",
+      "size": 74060,
+      "sha256": "ae2d86f745d26e45b0e2fd0489123eb70250f1a7d9a0e510c8d29f622f6bf8c9",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-5.json",
+      "size": 66691,
+      "sha256": "2293460f0ec4dcad83d992560fa01c5ab3db875b1b6c6fd470d2aa5058db04d8",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-6.json",
+      "size": 72992,
+      "sha256": "cffa82b1ec4ff1db3f9eed68163cc0588f1999d7e367ddd997d43471e34a085e",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3221-7.json",
+      "size": 76547,
+      "sha256": "119141b5a87a79a05879976b9952b054288316ba8b7df403216581889c403d4b",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-0.json",
+      "size": 83476,
+      "sha256": "4f5c426596ce7a7ff5e2137a88381671e4aca5b578c20b8935e9aef7f109edeb",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-1.json",
+      "size": 84280,
+      "sha256": "3868b0b4cae79977e6cd08c9e5fada6947580518dd849931c2b8e7b26a8941c2",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-2.json",
+      "size": 82792,
+      "sha256": "1086132bbd5790effa6c3589d7dac3fae13786f6609cd08c48aee0c0276c3f49",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-3.json",
+      "size": 76648,
+      "sha256": "b6bc0be7ff2cc6b6d8dfdd292fc0fa248f18d19ed3165a8a514099e8e76d1209",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-4.json",
+      "size": 75269,
+      "sha256": "5cb2d0167097313a9043085ca5e5087dda07034e9ad157480c4035b4c0e5470b",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-5.json",
+      "size": 75521,
+      "sha256": "086cac4dfd85f9c62ff6af55cfd13785b13bb9d9f96ca78507eb18ebdad98fc3",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-6.json",
+      "size": 75830,
+      "sha256": "9f46f7f1576c703cee9595e1c86e010c80278bf78c7f70392931831937a7155b",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-7.json",
+      "size": 76730,
+      "sha256": "c0edebb2f8578b0600298f3058b0b531ffed81178aa9e4bc4f957b425e0e3e3a",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-0.json",
+      "size": 54016,
+      "sha256": "5ed0d27e0998fa6a2f3b646e204c2c1b1c7c0ff53e3de5ebeeccbaad445df17c",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-1.json",
+      "size": 56396,
+      "sha256": "812547d98af8378d59af2d1fdac2f2cd62d8c6780c64ff442a882cd241a107eb",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-2.json",
+      "size": 57165,
+      "sha256": "2548aacf97d02d2cd3e67e21e3190b78a2f7470be3932c11efbaff4ed9c93e4e",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-3.json",
+      "size": 54884,
+      "sha256": "c72899ec86b214dc8ea60e7a724de1d11be4005fa5d0f7f8a19f96888fdc5851",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-4.json",
+      "size": 53070,
+      "sha256": "0f0758d701581ed18e4598a2cae2b65e5e8d5ebbbddde332769ee6d8b8f9e217",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-5.json",
+      "size": 55097,
+      "sha256": "8dd4691dcdb7e45a05e66bf35eaa995e4b5edfa67e3bf3a8e2c9c5f5ac95ca20",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-6.json",
+      "size": 57577,
+      "sha256": "36bc52a2bf6a97cd89de66318972d07f7cbb95a08526f9aceb749a65f81bbef4",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3227-7.json",
+      "size": 54382,
+      "sha256": "720622927484a0f8a90554228a0749a7fb38396e2448c0cd588f913461c5d367",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-0.json",
+      "size": 50813,
+      "sha256": "e06a342d7cd72c2c7fe76dcfe9287c1541698c0d2318394554164f0367e75fe0",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-1.json",
+      "size": 53437,
+      "sha256": "e2a805ee29f1e644faf09c92d4539784e34d3ffb6ca33b9040dd1799faaf0601",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-2.json",
+      "size": 57671,
+      "sha256": "bc410bef7c994fb7f4d7fbcba38a3de0a117e4e1736ffa532df37bbcce82599c",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-3.json",
+      "size": 55748,
+      "sha256": "c91eecb6467fbd9d48f0ae2914dbae7020a0b9164cc37adc6cd9e82a53e27701",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-4.json",
+      "size": 50657,
+      "sha256": "804e88ee943952c51cd7db5f9dce8b84970be70ebf79ac6bf1371e8c5054ed08",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-5.json",
+      "size": 54738,
+      "sha256": "cf53448ed84a84ea34fc4a56c68704dffea752dd55cc15a6a6d90a2751dc0ade",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-6.json",
+      "size": 58519,
+      "sha256": "cc3c55e06b1af8ad16ec877e524f94fa6e13683bb0071bcefc090a467df1784e",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3474-7.json",
+      "size": 58568,
+      "sha256": "7162e80917569ec57a4d99855b20cc466de99b9dc7d8c54fc1b95b814653da8b",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-0.json",
+      "size": 97602,
+      "sha256": "a426f7980c70bdd00ae694a07c39dc3ae76a094f488de0e615621e07f00cf1c3",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-1.json",
+      "size": 89077,
+      "sha256": "dd689c7a8a2f891c2e3f4f4814ffbe7720a3696b5936a1090b27a1c915dbcb30",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-2.json",
+      "size": 93683,
+      "sha256": "c41fff57d511bcda590402b49900e311823b70efbeb3a31219e0f279ee1e8127",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-3.json",
+      "size": 104080,
+      "sha256": "912b3d1c3cd15ef261793f9839edb3fb0c0aa60d3c50780c238866800da02101",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-4.json",
+      "size": 96631,
+      "sha256": "a8f1ad97b853bdc3ed2479e508e76c571102b6ea7151817ced726fff589d025a",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-5.json",
+      "size": 87898,
+      "sha256": "cbfd2371741a2b107c03441962e8e750391dbe334963d6a8d90cced9acadc763",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-6.json",
+      "size": 94098,
+      "sha256": "5da8454c753ee088f06e4eb3fac20c5582bf20d05837c0eaf3aad8d7658ce3ed",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3476-7.json",
+      "size": 108649,
+      "sha256": "b531f91cf8396a1f80063c568adf72584f9ddcc7e661b695de8a1dc91576c6b4",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-8.json",
+      "size": 66469,
+      "sha256": "7ccf6bb42e012581316935f6c3b180493997f604d4a2cb7518eb803ab608ba11",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-9.json",
+      "size": 68857,
+      "sha256": "9129ae5bbd4ca7e96c62ba3087b7848684a6257af2e24a9b95b1916d9cc21f28",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-10.json",
+      "size": 70692,
+      "sha256": "1c1a82835b1d2f1febe6478675d858f9975a89127704676a7aeca95252c1e9ac",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-11.json",
+      "size": 73354,
+      "sha256": "966d425ddc49f033964263ac4144928aa793f5cb9015c4bce6e045924c2d3313",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-12.json",
+      "size": 64555,
+      "sha256": "492db5d9966cd6ec8d5606f07cac956f3e99a02f23e70058f2de6ad6f3617192",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-13.json",
+      "size": 64509,
+      "sha256": "21b885a81ab4795f42e3a8bbc798dde7831976e06b1bea58864d7b3b90609601",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-14.json",
+      "size": 70810,
+      "sha256": "385c9a56a3aa3ea3c60af3f1c29945a8142fa554555fdf67870b468a0762b976",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6650-15.json",
+      "size": 72696,
+      "sha256": "0da5c69966e29c36632ac893b91d02cc517e608df7dfaf5d2b6dd6033cd5614e",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-8.json",
+      "size": 85463,
+      "sha256": "f281c334f138488614ff82bb7efcfecf61d1abfec4d97d420866692adf09d924",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-9.json",
+      "size": 88467,
+      "sha256": "ca3c8c278553ac6642933efffc2adc0cd339f8c786ba7ca18ccff2315b330bff",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-10.json",
+      "size": 89315,
+      "sha256": "fd741fb0b5908cc0c464208a634d3c1dc001d86d104e43442bed13b5b55e02ad",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-11.json",
+      "size": 93920,
+      "sha256": "20cf252e4409eb8a7863f0daea7e30f0097fed25f4632110358acc8f85fbb239",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-12.json",
+      "size": 88397,
+      "sha256": "0957adc8c67596d59e7f9a0b6348b901e7bb807036017e5b35bcb574c2f5d258",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-13.json",
+      "size": 88977,
+      "sha256": "291447e7ad856eaa1c8d5f7b4840d1047cf3f4dc21e979a8de261c4c830c4e58",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-14.json",
+      "size": 90154,
+      "sha256": "60d4e980c2cc38e4b1e2f7d6c27612d9281f54980784483d49495e557e68e712",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6658-15.json",
+      "size": 93155,
+      "sha256": "f93983c0e7cc61ffbc5bd0493a7638bf137695f7cbb5a8c199ec3c7c2d6adca2",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-8.json",
+      "size": 71843,
+      "sha256": "0cf04bcc0c1c0d13368a57b89d876193a5249dbbb302c1092eadbabc82f6dc01",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-9.json",
+      "size": 70130,
+      "sha256": "751643ead58802cd0fa9e037c03c9566a661749e065163e2d26223789f25e96c",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-10.json",
+      "size": 68524,
+      "sha256": "4fd3300ef2bd5484e5737ec1ed3f3de1c5c86d88b6783970ed8fce8d32431a98",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-11.json",
+      "size": 68772,
+      "sha256": "37fa3fbdf6414594665f6f11f76c9c12edb9208f4fc5c4d860d413847dad1cf4",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-12.json",
+      "size": 70496,
+      "sha256": "cf7f79e5cc4e7d106dcc729b75823c84c1f9c8214c75c41720c55ec897369f87",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-13.json",
+      "size": 74153,
+      "sha256": "da66e18ced1743303006ba03e335a6c90e927d80d932e64d42acec1f2a100d08",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-14.json",
+      "size": 70184,
+      "sha256": "29a69dd629804d5d06d15da8a85ee8bab9e88e0902e5c1c4f647014b1a307142",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6661-15.json",
+      "size": 70443,
+      "sha256": "8cc989088fac276b36231b5890cbdcdc66fc03cbf3904f5dda89210135ae663a",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-8.json",
+      "size": 74859,
+      "sha256": "1c290cb66f598c9ce7c4f1a8e03e7373a3e9c921a3d31664d668c86084c80c07",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-9.json",
+      "size": 82842,
+      "sha256": "941aab5a7b00373cbb73247da529cf3a77a68a7ab6ad43f81debf229f3185230",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-10.json",
+      "size": 85485,
+      "sha256": "1858c1addb904a013dd35348b3534ca0e145ba2a698344f1622e34ffb5ced631",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-11.json",
+      "size": 83133,
+      "sha256": "39d01a83ca5bd0e0c3d4b59fb026cf17bbc639e53ee77dbc0b20c020cfcbd39e",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-12.json",
+      "size": 72194,
+      "sha256": "0bcf0f28fad442eae74fc2d67f58ccc71222d4116aa1ef8950855a3d898a0ce0",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-13.json",
+      "size": 81911,
+      "sha256": "e104a77362fd3a0b70861f9951de8a38ad9be047ef91a16f2a4161d968001068",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-14.json",
+      "size": 86309,
+      "sha256": "3556bb72f4cba5f8303c5e733a7119e53c725f2b1097dcdf21063716cd947146",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\6671-15.json",
+      "size": 78495,
+      "sha256": "6651241efc80691cb73f0f11dd8118b93f9f355663b1b84d75b1ac9f9880691d",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\candidate\\source\\ProjectileRendering.cs",
+      "size": 5561,
+      "sha256": "917625f6c00b430195311f34e5c7fdabf56b0d5d28f7a53b8abc1053368ff466",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\candidate\\source\\PlayerProfiles.cs",
+      "size": 3355,
+      "sha256": "8257012faba79f2977e979712f596c80f2610097c9e45ae13cee91561240c5f2",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\candidate\\source\\Assets.cs",
+      "size": 7448,
+      "sha256": "7338b577e307dbf11a7d4699a11eeb0ce472186b77c82fdf0807bef4ef729b6a",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\candidate\\source\\WorldSession.cs",
+      "size": 9172,
+      "sha256": "e83cc40f5aa17190f841d69956870d104bc41638e9645bf7c308131a35533696",
+      "role": "sealed evidence"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\candidate\\source\\Combat.cs",
+      "size": 12231,
+      "sha256": "e5ff8fc5da264568e0250050a226563e67a6fe21a7e525a0c695913b409167e0",
+      "role": "sealed evidence"
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "schema": "p26-RG1-final-independent-tool-verification-v1",
+  "utc": "2026-10-29T04:31:33.464074+00:00",
+  "supervisorThread": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "exactSupervisorPins": {
+    "artifact-seal.json": "30655ae3c7ce2b8efb82a2f7bfb35adc0f962a0f0162a0d323c29e231577fe13",
+    "tool-source-seal.json": "5bbde28bc03eef1e99453bedd92893ec7e5a4c4545023a9e0bbaef92dd391ec6",
+    "generate_package_plan.py": "32e5cefcc739c7e432dfa9cf00488072c330445695a4b3761d0e43c8ae962578",
+    "result_evidence.py": "baaac4a8f0fad1e9faaa7d1512658d268a506dba9f57d9c54477d6f5b96e6809",
+    "package_release.py": "6f71f11590b72df554563f39dc510f3a9e115bd4a87dc585864cc0787f444605",
+    "result.json": "f1bb135316170b08dd2fa2a1fb6b7b83168aebdcf8ccde306ef5d73d266e16e2"
+  },
+  "exactSupervisorPinsMatched": true,
+  "artifactFilesVerified": 617,
+  "toolSourceFilesVerified": 40,
+  "externalDependenciesVerified": 8,
+  "finalSourcesMatchTestedSnapshot": true,
+  "matchedSnapshotFiles": [
+    "result_evidence.py",
+    "generate_package_plan.py",
+    "acceptance_gate.py",
+    "release_authority.py",
+    "release_checks.py",
+    "package_release.py",
+    "pe_resource.py",
+    "release-authority-policy.json",
+    "context.json"
+  ],
+  "dependencyArchiveClosureVerified": true,
+  "localImportEdges": [
+    {
+      "caller": "package_release.py",
+      "dependency": "acceptance_gate.py"
+    },
+    {
+      "caller": "package_release.py",
+      "dependency": "pe_resource.py"
+    },
+    {
+      "caller": "package_release.py",
+      "dependency": "release_authority.py"
+    },
+    {
+      "caller": "package_release.py",
+      "dependency": "release_checks.py"
+    },
+    {
+      "caller": "release_authority.py",
+      "dependency": "acceptance_gate.py"
+    },
+    {
+      "caller": "release_checks.py",
+      "dependency": "acceptance_gate.py"
+    },
+    {
+      "caller": "generate_package_plan.py",
+      "dependency": "acceptance_gate.py"
+    },
+    {
+      "caller": "generate_package_plan.py",
+      "dependency": "release_checks.py"
+    },
+    {
+      "caller": "generate_package_plan.py",
+      "dependency": "release_authority.py"
+    },
+    {
+      "caller": "generate_package_plan.py",
+      "dependency": "pe_resource.py"
+    },
+    {
+      "caller": "generate_package_plan.py",
+      "dependency": "result_evidence.py"
+    },
+    {
+      "caller": "result_evidence.py",
+      "dependency": "acceptance_gate.py"
+    }
+  ],
+  "plannedArchiveFiles": 41,
+  "archiveManifestAdditional": true,
+  "resultEvidenceRequiredByRuntimeSeal": true,
+  "releaseSharedIdentitySeparationUnchanged": true,
+  "independentCasesReused": 56,
+  "casesRerunAfterExactPins": 0,
+  "canonicalRerun": false,
+  "productCommandsExecuted": 0,
+  "actualArchiveCalls": 0,
+  "actualPackageCalls": 0,
+  "authorSealedActualClosure": {
+    "pin": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\actual-evidence-closure.json",
+      "size": 200027,
+      "sha256": "27c7cfd17d070b328e334dc4ea5689076ab5eb028e952579c846868f720b0071"
+    },
+    "inner": 28,
+    "outer": 44,
+    "nested": 4,
+    "pixelRows": 64,
+    "pins": 690,
+    "provenance": "author read-only report authenticated by exact seal, not rerun or counted as our product tests"
+  },
+  "unresolvedFindings": [],
+  "releaseToolAccepted": true,
+  "exactPackagePlanAccepted": false,
+  "actualReleaseAccepted": false,
+  "boundaries": [
+    "Only exact sealed r2 tool accepted; future package plan must be independently bound and reviewed.",
+    "No canonical test, build, archive, package or activation executed by reviewer.",
+    "Historical before-state archive snapshots remain historical; no unrelated revalidation added."
+  ]
+}

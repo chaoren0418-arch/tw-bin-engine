@@ -1,0 +1,29 @@
+{
+  "schema": "p38-delivery-execution-artifact-seal-v1",
+  "artifactManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\artifact-manifest.json",
+    "size": 12839,
+    "sha256": "d9cb305246f5e23bcc55eda60829eae9d4556bac8a7206561074c321a4ef498f"
+  },
+  "sealedFiles": 72,
+  "executionResult": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\result.json",
+    "size": 2882,
+    "sha256": "37655945b75dc0f86b6fe4153ba17779a186df571726f4ce162dcd8ee1807a2f"
+  },
+  "candidateSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\candidate-file-seal.json",
+    "size": 36350,
+    "sha256": "3470b0ff44b49ae08c4751efe14ea2b8bd983437a8111c0512dc6c799d71e683"
+  },
+  "assetIdentities": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\materialized-asset-identities.json",
+    "size": 5928701,
+    "sha256": "930394cfa44ba3ef9ee747f444efb0b49a237f500a8e1cdc88a9ab37cec2d131"
+  },
+  "candidateRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-candidate-r1",
+  "assetBodyContentSHAByAuthor": false,
+  "independentFinalReviewPending": true,
+  "normalLaunchAccepted": false,
+  "entryActivated": false
+}

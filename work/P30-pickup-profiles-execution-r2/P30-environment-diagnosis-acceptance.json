@@ -1,0 +1,15 @@
+{
+  "utc": "2026-10-29T06:33:13.066268+00:00",
+  "decision": "accepted-minimal-environment-root-cause",
+  "reviewSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\P30-rebuild-review-r1\\environment-failure-review-r1\\artifact-manifest.json",
+    "sha256": "878099fcff59c4884e1b3d1a684100a51f6bdccab07d284268c79cc859429c55"
+  },
+  "artifactRows": 31,
+  "minimumFixedEnv": {
+    "PROGRAMFILES(X86)": "C:\\Program Files (x86)"
+  },
+  "newBuildAuthorizedByThisRecord": false,
+  "nextDispatch": "P30-executor-repair-r2-dispatch.json",
+  "scope": "NuGet ConfigurationDefaults initialization only; actual later restore/compiler not yet passed"
+}

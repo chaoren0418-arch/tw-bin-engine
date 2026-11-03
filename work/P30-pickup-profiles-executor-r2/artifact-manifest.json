@@ -1,0 +1,190 @@
+{
+  "schema": "p30-executor-r2-artifact-manifest-v1",
+  "root": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2",
+  "files": [
+    {
+      "path": "build-dependency-pins.json",
+      "size": 1126895,
+      "sha256": "58fd3d9a4de20417a2336c00f99494a7e4874352c470676cdbdfefa3763b116b"
+    },
+    {
+      "path": "copy-before-edit.json",
+      "size": 10337,
+      "sha256": "b480e927e6483f1c9ed385370b1b8838bb79f784f7ceaa338bbbf247507c6706"
+    },
+    {
+      "path": "delta-validation.json",
+      "size": 4359,
+      "sha256": "81d0f41073d72edceb3703ec6c33269b0a48ae7544fab4bbd8b41d86f34af1ca"
+    },
+    {
+      "path": "execution-contract.json",
+      "size": 9492,
+      "sha256": "3f4bf1a3e6ec5f9db90ed8583f14d0f53869ad0c2e98ad3fc20ba6427d86b75d"
+    },
+    {
+      "path": "executor.py",
+      "size": 9818,
+      "sha256": "4bd924cfa769d6ec4146ff0086e444d79f00e4dd3ed37b2b5a827ff457b8e6d0"
+    },
+    {
+      "path": "final-preservation.json",
+      "size": 1587,
+      "sha256": "be1e8045fd98c104ea2575c97d76578060afe40f59edea7f43f154d6003a0570"
+    },
+    {
+      "path": "gate-r1-to-r2.patch",
+      "size": 4298,
+      "sha256": "7a02bfd6d599199bb03dc8302ffa5e600629856c64709e0f141140d20ed9d00e"
+    },
+    {
+      "path": "gate.py",
+      "size": 9530,
+      "sha256": "df9ca456744f8f33d50da3f4b48518342644e8e2cabdfa18864a9c3d223db8ab"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 5596,
+      "sha256": "dd29a40f394cb28522a9c38e984ed27e193bcc951277bfd648608896904d76d5"
+    },
+    {
+      "path": "invocation-schema.json",
+      "size": 3266,
+      "sha256": "48f5b368f5e195dfc379a084a42bdfb10886fbee3499f17f64b05730aabb7880"
+    },
+    {
+      "path": "nuget-system-path-state.json",
+      "size": 423,
+      "sha256": "5e989d17c25dd4c249c11122d3b1309976457d37fc2021b8029fd09dbfc7be77"
+    },
+    {
+      "path": "prepare_r2.py",
+      "size": 7773,
+      "sha256": "085a5d1312b9ab8d08b2cef1d1afce14603e7009ca43f578d74759e3465787ce"
+    },
+    {
+      "path": "preserved-inputs.json",
+      "size": 5148,
+      "sha256": "f5db920ace3b62d5263bd5b32cb5b0e76f8e36055c4addf34a5e36bd7e3a7f5e"
+    },
+    {
+      "path": "product-materialization.json",
+      "size": 92977,
+      "sha256": "b5895020b5416b704b46348a05818154deb4c67759c922e78af2a466149858da"
+    },
+    {
+      "path": "reference/diagnosis/baseline.stdout",
+      "size": 4588,
+      "sha256": "34bc25a3fec5cb63507130ac5836c5a4c1ea410eda7e80eb3dc340c2d07479e2"
+    },
+    {
+      "path": "reference/diagnosis/local-il-r2.stdout",
+      "size": 10893,
+      "sha256": "a6bfa3985e754acace6a2a0be15ccd6a77d8e61b535f179037440210ae93255f"
+    },
+    {
+      "path": "reference/diagnosis/programdata-only.stdout",
+      "size": 4601,
+      "sha256": "01d85a66b7ac517c81dc012f4e914bfa390354cc6afadef8a1829253506efc7e"
+    },
+    {
+      "path": "reference/diagnosis/programfiles-only.stdout",
+      "size": 561,
+      "sha256": "909fc899c50d399d417acbde2e4bdc0c4584926a2dc8ffeb1b52bcafec5feb6c"
+    },
+    {
+      "path": "reference/diagnosis/programfiles-x86-only.command.json",
+      "size": 4358,
+      "sha256": "01ea1646abe669c773f48b3b4ec50061b8609abe2d2e4dc969af2513ccd5921d"
+    },
+    {
+      "path": "reference/diagnosis/programfiles-x86-only.stdout",
+      "size": 579,
+      "sha256": "14ae671f9485666c275a95c1e49fa5d429703815f54d3cdcb1302c2d9a6b5e19"
+    },
+    {
+      "path": "reference/P30-executor-repair-r2-dispatch.json",
+      "size": 6705,
+      "sha256": "44751d44a1abff0aef270dce056082e8c37483fd2f08763f9358eb35d55dc30a"
+    },
+    {
+      "path": "reference/r1/build-dependency-pins.json",
+      "size": 1126895,
+      "sha256": "58fd3d9a4de20417a2336c00f99494a7e4874352c470676cdbdfefa3763b116b"
+    },
+    {
+      "path": "reference/r1/execution-contract.json",
+      "size": 9434,
+      "sha256": "37af732d7d30629d71cd3fb8e66bc18d77352bbef2ff3191de920743ced4a2d9"
+    },
+    {
+      "path": "reference/r1/executor.py",
+      "size": 9818,
+      "sha256": "4bd924cfa769d6ec4146ff0086e444d79f00e4dd3ed37b2b5a827ff457b8e6d0"
+    },
+    {
+      "path": "reference/r1/gate.py",
+      "size": 9164,
+      "sha256": "f4b14f7cb136c629b93f90d7807bf61bc9c95fbcfe66bf206b7d92079e8326b9"
+    },
+    {
+      "path": "reference/r1/invocation-schema.json",
+      "size": 3260,
+      "sha256": "45914acba14320056e31661cc557bf5912788afefc04b15915c8403902028391"
+    },
+    {
+      "path": "reference/r1/product-materialization.json",
+      "size": 92977,
+      "sha256": "63290a5c650dd992172d605210ca882b8212e1622f98ec000310f68e590c4f33"
+    },
+    {
+      "path": "reference/r1/win_process.py",
+      "size": 5934,
+      "sha256": "37f21ac740a11f780a937f085598bbb3dbbe928a65fa8d19d6c6d0f39e0ef0dc"
+    },
+    {
+      "path": "result.json",
+      "size": 4274,
+      "sha256": "b68f561c3ed2ff9cc5d7a896685cabd8777897c4c4dcc73292915356b2d35a16"
+    },
+    {
+      "path": "seal_r2.py",
+      "size": 8599,
+      "sha256": "76ca9dd9622c84fcf50473e038e3af556b4f08719e538a5ac851f5b9db946c8f"
+    },
+    {
+      "path": "source-diff-ledger.json",
+      "size": 2696,
+      "sha256": "7144cb8879e13a544afc77e202ea41c1495bd50fbf6a7aef89f2e6af497c19de"
+    },
+    {
+      "path": "validate.command.json",
+      "size": 1106,
+      "sha256": "3aaed0dd353c8ed91c387101fba0f180d4b668cd6b59084c76758eae523d2ce5"
+    },
+    {
+      "path": "validate.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "validate.stdout",
+      "size": 211,
+      "sha256": "455bf708440e0b1b71048e2972837210baf6604b42939c8391a3e062dc5612ec"
+    },
+    {
+      "path": "validate_r2_delta.py",
+      "size": 5481,
+      "sha256": "f3e7543cabedc3698ebe01b7efe9e79defa4f2d2cffbbce24b06152531dbf78b"
+    },
+    {
+      "path": "win_process.py",
+      "size": 5934,
+      "sha256": "37f21ac740a11f780a937f085598bbb3dbbe928a65fa8d19d6c6d0f39e0ef0dc"
+    }
+  ],
+  "excluded": [
+    "artifact-manifest.json",
+    "artifact-seal.json"
+  ]
+}

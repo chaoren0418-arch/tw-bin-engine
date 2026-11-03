@@ -1,0 +1,105 @@
+{
+  "schema": "p35-independent-rg2-baseline-v1",
+  "utc": "2026-10-29T07:56:31.058211+00:00",
+  "status": "confirmed-original-rg2-and-exact-one-row-accepted-correction",
+  "pins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\generate_package_plan.py",
+      "size": 16094,
+      "sha256": "32e5cefcc739c7e432dfa9cf00488072c330445695a4b3761d0e43c8ae962578"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\tool-source-seal.json",
+      "size": 8680,
+      "sha256": "5bbde28bc03eef1e99453bedd92893ec7e5a4c4545023a9e0bbaef92dd391ec6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\artifact-manifest.json",
+      "size": 125326,
+      "sha256": "29d5d65c3f5df4f7c968fc94a0b546acad31c25d1697a9c0250bcd81aaf33e2a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r2\\package-plan.json",
+      "size": 1099423,
+      "sha256": "939fcbd2176d1360b510153993f43deacf91b34a3b1737fb4d91ad8b30bb0c01"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r1\\package-plan.json",
+      "size": 1098050,
+      "sha256": "a831ca6dbbe13dee16bf544b6ff9f1ea3284ff7091915af23685ab8827d0d890"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\artifact-manifest.json",
+      "size": 3729,
+      "sha256": "2b10325adcc5b108b6ff94e9224246251592e15c84bcd110ca8a5d6199e75189"
+    }
+  ],
+  "originalRows": 2289,
+  "acceptedRows": 2290,
+  "unchangedOriginalRows": true,
+  "unchangedNonFileFields": true,
+  "addedRow": {
+    "path": "build/product-r34-manifest.json",
+    "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-r34-manifest.json",
+    "size": 7955,
+    "sha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d"
+  },
+  "fourIdentities": {
+    "productDllSha256": {
+      "path": "build/client-product-r34/P11.ClientEngine.dll",
+      "size": 2445312,
+      "sha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll"
+    },
+    "audioDllSha256": {
+      "path": "build/client-product-r34/P24.Audio.dll",
+      "size": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll"
+    },
+    "productManifestSha256": {
+      "path": "build/product-r34-manifest.json",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-r34-manifest.json",
+      "size": 7955,
+      "sha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d"
+    },
+    "launcherDllSha256": {
+      "path": "launcher/P24.Launcher.dll",
+      "size": 24064,
+      "sha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\launcher\\P24.Launcher.dll"
+    }
+  },
+  "rootCause": "package_inventory enumerates product manifest files but omits the runtime manifest itself; accepted-stage evidence target is distinct",
+  "candidateExecuted": false,
+  "priorRG1CasesRerun": 0,
+  "productCommands": 0,
+  "archiveCalls": 0,
+  "packageCalls": 0,
+  "formalInstallation": false,
+  "addedCorrectionMetadata": {
+    "schema": "p26-RG2-one-row-plan-correction-v1",
+    "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+    "finding": "RG2",
+    "reason": "Accepted r2 generator omitted the product manifest itself while including manifest.files; original plan failed four-identity target membership.",
+    "originalPlan": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r1\\package-plan.json",
+      "size": 1098050,
+      "sha256": "a831ca6dbbe13dee16bf544b6ff9f1ea3284ff7091915af23685ab8827d0d890"
+    },
+    "correctionScript": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r2\\correct_rg2.py",
+      "size": 3715,
+      "sha256": "ff7c7406725148240bb5a0a7e4d0ddfc0481cbdaed7f2daaf028823ec60330d4"
+    },
+    "addedTarget": "build/product-r34-manifest.json",
+    "originalRows": 2289,
+    "correctedRows": 2290,
+    "allOtherFieldsUnchanged": true,
+    "workflowModified": false,
+    "releaseToolingModified": false,
+    "generatorGenerallyFixed": false,
+    "releaseAuthorized": false
+  },
+  "reviewerHarnessCorrection": "baseline-01 incorrectly prohibited added provenance metadata; baseline-02 checks all original fields unchanged and the exact additional planCorrection record. The failed command is retained."
+}

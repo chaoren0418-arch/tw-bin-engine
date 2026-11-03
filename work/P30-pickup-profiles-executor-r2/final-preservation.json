@@ -1,0 +1,41 @@
+{
+  "roots": [
+    {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1",
+      "seal": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\artifact-seal.json",
+        "size": 10861,
+        "sha256": "32413f1b4693325cddf8f5c2ac189902d09b5bc969829f43f062aba46638a50f"
+      },
+      "files": 62,
+      "unchanged": true
+    },
+    {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1",
+      "seal": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\artifact-seal.json",
+        "size": 108201,
+        "sha256": "3b5e84c46f48c01b80a129caad493b4218a8151bec8f0d9051b687501764637c"
+      },
+      "files": 581,
+      "unchanged": true
+    },
+    {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "seal": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-files-seal.json",
+        "size": 33244,
+        "sha256": "174480157bdfcbdb26c76f5f1313c5dc3f296543bbf65f678411cdf58789807c"
+      },
+      "files": 202,
+      "unchanged": true
+    }
+  ],
+  "protectedPinsUnchanged": true,
+  "futureStage02Exists": false,
+  "systemPathState": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\nuget-system-path-state.json",
+    "size": 423,
+    "sha256": "5e989d17c25dd4c249c11122d3b1309976457d37fc2021b8029fd09dbfc7be77"
+  }
+}

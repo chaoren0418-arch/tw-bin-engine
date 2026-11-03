@@ -1,0 +1,2742 @@
+{
+  "status": "reviewed",
+  "riskFamilies": 24,
+  "counting": "Risk families overlap assertion rows; never sum coverage occurrence counts. P24 is static/hash evidence, not an extra runtime assertion. The original test-matrix.json remains immutable copied prep proposal.",
+  "rows": [
+    {
+      "id": "P01",
+      "risk": "Wrong trigger or direction/frame mapping",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 1,
+          "run": "candidate-02",
+          "localOccurrence": 1,
+          "id": "pose-s0-d0-i1"
+        },
+        {
+          "occurrence": 2,
+          "run": "candidate-02",
+          "localOccurrence": 2,
+          "id": "pose-s0-d0-i2"
+        },
+        {
+          "occurrence": 3,
+          "run": "candidate-02",
+          "localOccurrence": 3,
+          "id": "pose-s0-d0-i3"
+        },
+        {
+          "occurrence": 4,
+          "run": "candidate-02",
+          "localOccurrence": 4,
+          "id": "pose-s0-d0-i0"
+        },
+        {
+          "occurrence": 6,
+          "run": "candidate-02",
+          "localOccurrence": 6,
+          "id": "pose-s0-d1-i1"
+        },
+        {
+          "occurrence": 7,
+          "run": "candidate-02",
+          "localOccurrence": 7,
+          "id": "pose-s0-d1-i2"
+        },
+        {
+          "occurrence": 8,
+          "run": "candidate-02",
+          "localOccurrence": 8,
+          "id": "pose-s0-d1-i3"
+        },
+        {
+          "occurrence": 9,
+          "run": "candidate-02",
+          "localOccurrence": 9,
+          "id": "pose-s0-d1-i0"
+        },
+        {
+          "occurrence": 11,
+          "run": "candidate-02",
+          "localOccurrence": 11,
+          "id": "pose-s0-d2-i1"
+        },
+        {
+          "occurrence": 12,
+          "run": "candidate-02",
+          "localOccurrence": 12,
+          "id": "pose-s0-d2-i2"
+        },
+        {
+          "occurrence": 13,
+          "run": "candidate-02",
+          "localOccurrence": 13,
+          "id": "pose-s0-d2-i3"
+        },
+        {
+          "occurrence": 14,
+          "run": "candidate-02",
+          "localOccurrence": 14,
+          "id": "pose-s0-d2-i0"
+        },
+        {
+          "occurrence": 16,
+          "run": "candidate-02",
+          "localOccurrence": 16,
+          "id": "pose-s0-d3-i1"
+        },
+        {
+          "occurrence": 17,
+          "run": "candidate-02",
+          "localOccurrence": 17,
+          "id": "pose-s0-d3-i2"
+        },
+        {
+          "occurrence": 18,
+          "run": "candidate-02",
+          "localOccurrence": 18,
+          "id": "pose-s0-d3-i3"
+        },
+        {
+          "occurrence": 19,
+          "run": "candidate-02",
+          "localOccurrence": 19,
+          "id": "pose-s0-d3-i0"
+        },
+        {
+          "occurrence": 21,
+          "run": "candidate-02",
+          "localOccurrence": 21,
+          "id": "pose-s0-d4-i1"
+        },
+        {
+          "occurrence": 22,
+          "run": "candidate-02",
+          "localOccurrence": 22,
+          "id": "pose-s0-d4-i2"
+        },
+        {
+          "occurrence": 23,
+          "run": "candidate-02",
+          "localOccurrence": 23,
+          "id": "pose-s0-d4-i3"
+        },
+        {
+          "occurrence": 24,
+          "run": "candidate-02",
+          "localOccurrence": 24,
+          "id": "pose-s0-d4-i0"
+        },
+        {
+          "occurrence": 26,
+          "run": "candidate-02",
+          "localOccurrence": 26,
+          "id": "pose-s0-d5-i1"
+        },
+        {
+          "occurrence": 27,
+          "run": "candidate-02",
+          "localOccurrence": 27,
+          "id": "pose-s0-d5-i2"
+        },
+        {
+          "occurrence": 28,
+          "run": "candidate-02",
+          "localOccurrence": 28,
+          "id": "pose-s0-d5-i3"
+        },
+        {
+          "occurrence": 29,
+          "run": "candidate-02",
+          "localOccurrence": 29,
+          "id": "pose-s0-d5-i0"
+        },
+        {
+          "occurrence": 31,
+          "run": "candidate-02",
+          "localOccurrence": 31,
+          "id": "pose-s0-d6-i1"
+        },
+        {
+          "occurrence": 32,
+          "run": "candidate-02",
+          "localOccurrence": 32,
+          "id": "pose-s0-d6-i2"
+        },
+        {
+          "occurrence": 33,
+          "run": "candidate-02",
+          "localOccurrence": 33,
+          "id": "pose-s0-d6-i3"
+        },
+        {
+          "occurrence": 34,
+          "run": "candidate-02",
+          "localOccurrence": 34,
+          "id": "pose-s0-d6-i0"
+        },
+        {
+          "occurrence": 36,
+          "run": "candidate-02",
+          "localOccurrence": 36,
+          "id": "pose-s0-d7-i1"
+        },
+        {
+          "occurrence": 37,
+          "run": "candidate-02",
+          "localOccurrence": 37,
+          "id": "pose-s0-d7-i2"
+        },
+        {
+          "occurrence": 38,
+          "run": "candidate-02",
+          "localOccurrence": 38,
+          "id": "pose-s0-d7-i3"
+        },
+        {
+          "occurrence": 39,
+          "run": "candidate-02",
+          "localOccurrence": 39,
+          "id": "pose-s0-d7-i0"
+        },
+        {
+          "occurrence": 41,
+          "run": "candidate-02",
+          "localOccurrence": 41,
+          "id": "pose-s1-d0-i1"
+        },
+        {
+          "occurrence": 42,
+          "run": "candidate-02",
+          "localOccurrence": 42,
+          "id": "pose-s1-d0-i2"
+        },
+        {
+          "occurrence": 43,
+          "run": "candidate-02",
+          "localOccurrence": 43,
+          "id": "pose-s1-d0-i3"
+        },
+        {
+          "occurrence": 44,
+          "run": "candidate-02",
+          "localOccurrence": 44,
+          "id": "pose-s1-d0-i0"
+        },
+        {
+          "occurrence": 46,
+          "run": "candidate-02",
+          "localOccurrence": 46,
+          "id": "pose-s1-d1-i1"
+        },
+        {
+          "occurrence": 47,
+          "run": "candidate-02",
+          "localOccurrence": 47,
+          "id": "pose-s1-d1-i2"
+        },
+        {
+          "occurrence": 48,
+          "run": "candidate-02",
+          "localOccurrence": 48,
+          "id": "pose-s1-d1-i3"
+        },
+        {
+          "occurrence": 49,
+          "run": "candidate-02",
+          "localOccurrence": 49,
+          "id": "pose-s1-d1-i0"
+        },
+        {
+          "occurrence": 51,
+          "run": "candidate-02",
+          "localOccurrence": 51,
+          "id": "pose-s1-d2-i1"
+        },
+        {
+          "occurrence": 52,
+          "run": "candidate-02",
+          "localOccurrence": 52,
+          "id": "pose-s1-d2-i2"
+        },
+        {
+          "occurrence": 53,
+          "run": "candidate-02",
+          "localOccurrence": 53,
+          "id": "pose-s1-d2-i3"
+        },
+        {
+          "occurrence": 54,
+          "run": "candidate-02",
+          "localOccurrence": 54,
+          "id": "pose-s1-d2-i0"
+        },
+        {
+          "occurrence": 56,
+          "run": "candidate-02",
+          "localOccurrence": 56,
+          "id": "pose-s1-d3-i1"
+        },
+        {
+          "occurrence": 57,
+          "run": "candidate-02",
+          "localOccurrence": 57,
+          "id": "pose-s1-d3-i2"
+        },
+        {
+          "occurrence": 58,
+          "run": "candidate-02",
+          "localOccurrence": 58,
+          "id": "pose-s1-d3-i3"
+        },
+        {
+          "occurrence": 59,
+          "run": "candidate-02",
+          "localOccurrence": 59,
+          "id": "pose-s1-d3-i0"
+        },
+        {
+          "occurrence": 61,
+          "run": "candidate-02",
+          "localOccurrence": 61,
+          "id": "pose-s1-d4-i1"
+        },
+        {
+          "occurrence": 62,
+          "run": "candidate-02",
+          "localOccurrence": 62,
+          "id": "pose-s1-d4-i2"
+        },
+        {
+          "occurrence": 63,
+          "run": "candidate-02",
+          "localOccurrence": 63,
+          "id": "pose-s1-d4-i3"
+        },
+        {
+          "occurrence": 64,
+          "run": "candidate-02",
+          "localOccurrence": 64,
+          "id": "pose-s1-d4-i0"
+        },
+        {
+          "occurrence": 66,
+          "run": "candidate-02",
+          "localOccurrence": 66,
+          "id": "pose-s1-d5-i1"
+        },
+        {
+          "occurrence": 67,
+          "run": "candidate-02",
+          "localOccurrence": 67,
+          "id": "pose-s1-d5-i2"
+        },
+        {
+          "occurrence": 68,
+          "run": "candidate-02",
+          "localOccurrence": 68,
+          "id": "pose-s1-d5-i3"
+        },
+        {
+          "occurrence": 69,
+          "run": "candidate-02",
+          "localOccurrence": 69,
+          "id": "pose-s1-d5-i0"
+        },
+        {
+          "occurrence": 71,
+          "run": "candidate-02",
+          "localOccurrence": 71,
+          "id": "pose-s1-d6-i1"
+        },
+        {
+          "occurrence": 72,
+          "run": "candidate-02",
+          "localOccurrence": 72,
+          "id": "pose-s1-d6-i2"
+        },
+        {
+          "occurrence": 73,
+          "run": "candidate-02",
+          "localOccurrence": 73,
+          "id": "pose-s1-d6-i3"
+        },
+        {
+          "occurrence": 74,
+          "run": "candidate-02",
+          "localOccurrence": 74,
+          "id": "pose-s1-d6-i0"
+        },
+        {
+          "occurrence": 76,
+          "run": "candidate-02",
+          "localOccurrence": 76,
+          "id": "pose-s1-d7-i1"
+        },
+        {
+          "occurrence": 77,
+          "run": "candidate-02",
+          "localOccurrence": 77,
+          "id": "pose-s1-d7-i2"
+        },
+        {
+          "occurrence": 78,
+          "run": "candidate-02",
+          "localOccurrence": 78,
+          "id": "pose-s1-d7-i3"
+        },
+        {
+          "occurrence": 79,
+          "run": "candidate-02",
+          "localOccurrence": 79,
+          "id": "pose-s1-d7-i0"
+        },
+        {
+          "occurrence": 167,
+          "run": "candidate-02",
+          "localOccurrence": 167,
+          "id": "heading-before-presentation"
+        },
+        {
+          "occurrence": 175,
+          "run": "supplement-01",
+          "localOccurrence": 1,
+          "id": "synthetic-occlusion"
+        }
+      ],
+      "candidateOccurrences": 66,
+      "assessment": "64 body/composite checks (8 directions x 2 speeds x 4 metadata indices) plus heading-before-presentation and synthetic occlusion. Expected body is accepted PNG; expected composite uses independent integer rasterizer."
+    },
+    {
+      "id": "P02",
+      "risk": "Local speculation",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 163,
+          "run": "candidate-02",
+          "localOccurrence": 163,
+          "id": "local-no-prediction"
+        },
+        {
+          "occurrence": 164,
+          "run": "candidate-02",
+          "localOccurrence": 164,
+          "id": "quantity-no-prediction"
+        }
+      ],
+      "candidateOccurrences": 2,
+      "assessment": "Actual PickupSelected admission through memory gate and authoritative quantity packets leave presentation absent; literal C112 and counts asserted."
+    },
+    {
+      "id": "P03",
+      "risk": "Wrong actor ownership",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 82,
+          "run": "candidate-02",
+          "localOccurrence": 82,
+          "id": "receipt-101"
+        },
+        {
+          "occurrence": 83,
+          "run": "candidate-02",
+          "localOccurrence": 83,
+          "id": "receipt-999"
+        }
+      ],
+      "candidateOccurrences": 2,
+      "assessment": "Remote101 and unknown999 authoritative action15 preserve current own serial and image."
+    },
+    {
+      "id": "P04",
+      "risk": "Broad eligibility",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 90,
+          "run": "candidate-02",
+          "localOccurrence": 90,
+          "id": "guard-not-ready"
+        },
+        {
+          "occurrence": 91,
+          "run": "candidate-02",
+          "localOccurrence": 91,
+          "id": "guard-not-renderable"
+        },
+        {
+          "occurrence": 92,
+          "run": "candidate-02",
+          "localOccurrence": 92,
+          "id": "guard-status-owner"
+        },
+        {
+          "occurrence": 93,
+          "run": "candidate-02",
+          "localOccurrence": 93,
+          "id": "guard-gfx61"
+        },
+        {
+          "occurrence": 94,
+          "run": "candidate-02",
+          "localOccurrence": 94,
+          "id": "guard-weapon4"
+        },
+        {
+          "occurrence": 95,
+          "run": "candidate-02",
+          "localOccurrence": 95,
+          "id": "guard-weapon46"
+        },
+        {
+          "occurrence": 96,
+          "run": "candidate-02",
+          "localOccurrence": 96,
+          "id": "guard-speed2"
+        },
+        {
+          "occurrence": 97,
+          "run": "candidate-02",
+          "localOccurrence": 97,
+          "id": "guard-speed3"
+        },
+        {
+          "occurrence": 98,
+          "run": "candidate-02",
+          "localOccurrence": 98,
+          "id": "guard-brave1"
+        },
+        {
+          "occurrence": 99,
+          "run": "candidate-02",
+          "localOccurrence": 99,
+          "id": "guard-hp0"
+        },
+        {
+          "occurrence": 100,
+          "run": "candidate-02",
+          "localOccurrence": 100,
+          "id": "guard-death"
+        },
+        {
+          "occurrence": 101,
+          "run": "candidate-02",
+          "localOccurrence": 101,
+          "id": "guard-shop"
+        },
+        {
+          "occurrence": 102,
+          "run": "candidate-02",
+          "localOccurrence": 102,
+          "id": "guard-lock"
+        },
+        {
+          "occurrence": 103,
+          "run": "candidate-02",
+          "localOccurrence": 103,
+          "id": "guard-walking"
+        },
+        {
+          "occurrence": 104,
+          "run": "candidate-02",
+          "localOccurrence": 104,
+          "id": "guard-appearance"
+        }
+      ],
+      "candidateOccurrences": 15,
+      "assessment": "gfx61, weapon4/46, Speed2/3 and Brave1 suppressed independently; existing render compared in renderable fixtures. No eligibility expansion."
+    },
+    {
+      "id": "P05",
+      "risk": "Admission state loss",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 90,
+          "run": "candidate-02",
+          "localOccurrence": 90,
+          "id": "guard-not-ready"
+        },
+        {
+          "occurrence": 91,
+          "run": "candidate-02",
+          "localOccurrence": 91,
+          "id": "guard-not-renderable"
+        },
+        {
+          "occurrence": 92,
+          "run": "candidate-02",
+          "localOccurrence": 92,
+          "id": "guard-status-owner"
+        },
+        {
+          "occurrence": 93,
+          "run": "candidate-02",
+          "localOccurrence": 93,
+          "id": "guard-gfx61"
+        },
+        {
+          "occurrence": 94,
+          "run": "candidate-02",
+          "localOccurrence": 94,
+          "id": "guard-weapon4"
+        },
+        {
+          "occurrence": 95,
+          "run": "candidate-02",
+          "localOccurrence": 95,
+          "id": "guard-weapon46"
+        },
+        {
+          "occurrence": 96,
+          "run": "candidate-02",
+          "localOccurrence": 96,
+          "id": "guard-speed2"
+        },
+        {
+          "occurrence": 97,
+          "run": "candidate-02",
+          "localOccurrence": 97,
+          "id": "guard-speed3"
+        },
+        {
+          "occurrence": 98,
+          "run": "candidate-02",
+          "localOccurrence": 98,
+          "id": "guard-brave1"
+        },
+        {
+          "occurrence": 99,
+          "run": "candidate-02",
+          "localOccurrence": 99,
+          "id": "guard-hp0"
+        },
+        {
+          "occurrence": 100,
+          "run": "candidate-02",
+          "localOccurrence": 100,
+          "id": "guard-death"
+        },
+        {
+          "occurrence": 101,
+          "run": "candidate-02",
+          "localOccurrence": 101,
+          "id": "guard-shop"
+        },
+        {
+          "occurrence": 102,
+          "run": "candidate-02",
+          "localOccurrence": 102,
+          "id": "guard-lock"
+        },
+        {
+          "occurrence": 103,
+          "run": "candidate-02",
+          "localOccurrence": 103,
+          "id": "guard-walking"
+        },
+        {
+          "occurrence": 104,
+          "run": "candidate-02",
+          "localOccurrence": 104,
+          "id": "guard-appearance"
+        }
+      ],
+      "candidateOccurrences": 15,
+      "assessment": "Ready/Renderable/status owner/appearance/HP/death/shop/lock/walk guard fixtures. Some unavailable-state fields use disclosed reflection; no native private-state claim."
+    },
+    {
+      "id": "P06",
+      "risk": "Permanent suppression by old report",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 129,
+          "run": "candidate-02",
+          "localOccurrence": 129,
+          "id": "combat-1--1"
+        },
+        {
+          "occurrence": 130,
+          "run": "candidate-02",
+          "localOccurrence": 130,
+          "id": "combat-1-0"
+        },
+        {
+          "occurrence": 131,
+          "run": "candidate-02",
+          "localOccurrence": 131,
+          "id": "combat-1-1"
+        },
+        {
+          "occurrence": 132,
+          "run": "candidate-02",
+          "localOccurrence": 132,
+          "id": "combat-2--1"
+        },
+        {
+          "occurrence": 133,
+          "run": "candidate-02",
+          "localOccurrence": 133,
+          "id": "combat-2-0"
+        },
+        {
+          "occurrence": 134,
+          "run": "candidate-02",
+          "localOccurrence": 134,
+          "id": "combat-2-1"
+        },
+        {
+          "occurrence": 135,
+          "run": "candidate-02",
+          "localOccurrence": 135,
+          "id": "combat-18--1"
+        },
+        {
+          "occurrence": 136,
+          "run": "candidate-02",
+          "localOccurrence": 136,
+          "id": "combat-18-0"
+        },
+        {
+          "occurrence": 137,
+          "run": "candidate-02",
+          "localOccurrence": 137,
+          "id": "combat-18-1"
+        },
+        {
+          "occurrence": 138,
+          "run": "candidate-02",
+          "localOccurrence": 138,
+          "id": "combat-19--1"
+        },
+        {
+          "occurrence": 139,
+          "run": "candidate-02",
+          "localOccurrence": 139,
+          "id": "combat-19-0"
+        },
+        {
+          "occurrence": 140,
+          "run": "candidate-02",
+          "localOccurrence": 140,
+          "id": "combat-19-1"
+        }
+      ],
+      "candidateOccurrences": 12,
+      "assessment": "Attack1/damage2/spell18/19 at last visible, first expired and next clock; original report object retained. Damage duration583.333... tests integer ages583/584."
+    },
+    {
+      "id": "P07",
+      "risk": "Hit priority omitted from OwnCombat-only guard",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 146,
+          "run": "candidate-02",
+          "localOccurrence": 146,
+          "id": "hit-admission--1"
+        },
+        {
+          "occurrence": 147,
+          "run": "candidate-02",
+          "localOccurrence": 147,
+          "id": "hit-admission-0"
+        },
+        {
+          "occurrence": 148,
+          "run": "candidate-02",
+          "localOccurrence": 148,
+          "id": "hit-admission-1"
+        },
+        {
+          "occurrence": 149,
+          "run": "candidate-02",
+          "localOccurrence": 149,
+          "id": "new-hit-cancels"
+        },
+        {
+          "occurrence": 150,
+          "run": "candidate-02",
+          "localOccurrence": 150,
+          "id": "death-over-hit"
+        },
+        {
+          "occurrence": 151,
+          "run": "candidate-02",
+          "localOccurrence": 151,
+          "id": "projectile-due-before-receipt"
+        },
+        {
+          "occurrence": 152,
+          "run": "candidate-02",
+          "localOccurrence": 152,
+          "id": "projectile-same-now-idempotent"
+        },
+        {
+          "occurrence": 153,
+          "run": "candidate-02",
+          "localOccurrence": 153,
+          "id": "projectile-later-hit-cancels"
+        }
+      ],
+      "candidateOccurrences": 8,
+      "assessment": "Synthetic hit-cache boundary tests PLUS real candidate S30 -> ProjectileReport -> flight -> hit, no cache injection in three projectile assertions. Due impact before first compose, later impact cancellation and same-now idempotence all pass."
+    },
+    {
+      "id": "P08",
+      "risk": "Conflict after admission",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 105,
+          "run": "candidate-02",
+          "localOccurrence": 105,
+          "id": "cancel-session"
+        },
+        {
+          "occurrence": 106,
+          "run": "candidate-02",
+          "localOccurrence": 106,
+          "id": "cancel-world"
+        },
+        {
+          "occurrence": 107,
+          "run": "candidate-02",
+          "localOccurrence": 107,
+          "id": "cancel-map"
+        },
+        {
+          "occurrence": 108,
+          "run": "candidate-02",
+          "localOccurrence": 108,
+          "id": "cancel-remove"
+        },
+        {
+          "occurrence": 109,
+          "run": "candidate-02",
+          "localOccurrence": 109,
+          "id": "cancel-actor"
+        },
+        {
+          "occurrence": 110,
+          "run": "candidate-02",
+          "localOccurrence": 110,
+          "id": "cancel-appearance"
+        },
+        {
+          "occurrence": 111,
+          "run": "candidate-02",
+          "localOccurrence": 111,
+          "id": "cancel-correction"
+        },
+        {
+          "occurrence": 112,
+          "run": "candidate-02",
+          "localOccurrence": 112,
+          "id": "cancel-direction"
+        },
+        {
+          "occurrence": 113,
+          "run": "candidate-02",
+          "localOccurrence": 113,
+          "id": "cancel-position"
+        },
+        {
+          "occurrence": 114,
+          "run": "candidate-02",
+          "localOccurrence": 114,
+          "id": "cancel-speed"
+        },
+        {
+          "occurrence": 115,
+          "run": "candidate-02",
+          "localOccurrence": 115,
+          "id": "cancel-brave"
+        },
+        {
+          "occurrence": 116,
+          "run": "candidate-02",
+          "localOccurrence": 116,
+          "id": "cancel-gfx"
+        },
+        {
+          "occurrence": 117,
+          "run": "candidate-02",
+          "localOccurrence": 117,
+          "id": "cancel-weapon"
+        },
+        {
+          "occurrence": 118,
+          "run": "candidate-02",
+          "localOccurrence": 118,
+          "id": "cancel-hp"
+        },
+        {
+          "occurrence": 119,
+          "run": "candidate-02",
+          "localOccurrence": 119,
+          "id": "cancel-death"
+        },
+        {
+          "occurrence": 120,
+          "run": "candidate-02",
+          "localOccurrence": 120,
+          "id": "cancel-shop"
+        },
+        {
+          "occurrence": 121,
+          "run": "candidate-02",
+          "localOccurrence": 121,
+          "id": "cancel-lock"
+        },
+        {
+          "occurrence": 122,
+          "run": "candidate-02",
+          "localOccurrence": 122,
+          "id": "cancel-walk"
+        },
+        {
+          "occurrence": 123,
+          "run": "candidate-02",
+          "localOccurrence": 123,
+          "id": "cancel-move-packet"
+        },
+        {
+          "occurrence": 124,
+          "run": "candidate-02",
+          "localOccurrence": 124,
+          "id": "cancel-action"
+        },
+        {
+          "occurrence": 125,
+          "run": "candidate-02",
+          "localOccurrence": 125,
+          "id": "cancel-same-speed-revision"
+        },
+        {
+          "occurrence": 126,
+          "run": "candidate-02",
+          "localOccurrence": 126,
+          "id": "cancel-appearance-revision"
+        },
+        {
+          "occurrence": 127,
+          "run": "candidate-02",
+          "localOccurrence": 127,
+          "id": "cancel-correction-revision"
+        },
+        {
+          "occurrence": 128,
+          "run": "candidate-02",
+          "localOccurrence": 128,
+          "id": "cancel-guard-ready"
+        },
+        {
+          "occurrence": 141,
+          "run": "candidate-02",
+          "localOccurrence": 141,
+          "id": "new-conflict-1"
+        },
+        {
+          "occurrence": 142,
+          "run": "candidate-02",
+          "localOccurrence": 142,
+          "id": "new-conflict-2"
+        },
+        {
+          "occurrence": 143,
+          "run": "candidate-02",
+          "localOccurrence": 143,
+          "id": "new-conflict-8"
+        },
+        {
+          "occurrence": 144,
+          "run": "candidate-02",
+          "localOccurrence": 144,
+          "id": "new-conflict-18"
+        },
+        {
+          "occurrence": 145,
+          "run": "candidate-02",
+          "localOccurrence": 145,
+          "id": "new-conflict-19"
+        },
+        {
+          "occurrence": 149,
+          "run": "candidate-02",
+          "localOccurrence": 149,
+          "id": "new-hit-cancels"
+        },
+        {
+          "occurrence": 151,
+          "run": "candidate-02",
+          "localOccurrence": 151,
+          "id": "projectile-due-before-receipt"
+        },
+        {
+          "occurrence": 153,
+          "run": "candidate-02",
+          "localOccurrence": 153,
+          "id": "projectile-later-hit-cancels"
+        },
+        {
+          "occurrence": 180,
+          "run": "supplement-01",
+          "localOccurrence": 6,
+          "id": "predicted-cancel-move"
+        },
+        {
+          "occurrence": 181,
+          "run": "supplement-01",
+          "localOccurrence": 7,
+          "id": "predicted-cancel-turn"
+        },
+        {
+          "occurrence": 182,
+          "run": "supplement-01",
+          "localOccurrence": 8,
+          "id": "predicted-cancel-attack"
+        }
+      ],
+      "candidateOccurrences": 35,
+      "assessment": "Authoritative incompatible actions, projectile impact, movement and guard/revision changes cancel. Three predicted motion/turn/attack paths separately cancel."
+    },
+    {
+      "id": "P09",
+      "risk": "Session/world ownership leak",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 105,
+          "run": "candidate-02",
+          "localOccurrence": 105,
+          "id": "cancel-session"
+        },
+        {
+          "occurrence": 106,
+          "run": "candidate-02",
+          "localOccurrence": 106,
+          "id": "cancel-world"
+        },
+        {
+          "occurrence": 107,
+          "run": "candidate-02",
+          "localOccurrence": 107,
+          "id": "cancel-map"
+        },
+        {
+          "occurrence": 108,
+          "run": "candidate-02",
+          "localOccurrence": 108,
+          "id": "cancel-remove"
+        },
+        {
+          "occurrence": 109,
+          "run": "candidate-02",
+          "localOccurrence": 109,
+          "id": "cancel-actor"
+        },
+        {
+          "occurrence": 110,
+          "run": "candidate-02",
+          "localOccurrence": 110,
+          "id": "cancel-appearance"
+        },
+        {
+          "occurrence": 111,
+          "run": "candidate-02",
+          "localOccurrence": 111,
+          "id": "cancel-correction"
+        },
+        {
+          "occurrence": 112,
+          "run": "candidate-02",
+          "localOccurrence": 112,
+          "id": "cancel-direction"
+        },
+        {
+          "occurrence": 113,
+          "run": "candidate-02",
+          "localOccurrence": 113,
+          "id": "cancel-position"
+        },
+        {
+          "occurrence": 114,
+          "run": "candidate-02",
+          "localOccurrence": 114,
+          "id": "cancel-speed"
+        },
+        {
+          "occurrence": 115,
+          "run": "candidate-02",
+          "localOccurrence": 115,
+          "id": "cancel-brave"
+        },
+        {
+          "occurrence": 116,
+          "run": "candidate-02",
+          "localOccurrence": 116,
+          "id": "cancel-gfx"
+        },
+        {
+          "occurrence": 117,
+          "run": "candidate-02",
+          "localOccurrence": 117,
+          "id": "cancel-weapon"
+        },
+        {
+          "occurrence": 118,
+          "run": "candidate-02",
+          "localOccurrence": 118,
+          "id": "cancel-hp"
+        },
+        {
+          "occurrence": 119,
+          "run": "candidate-02",
+          "localOccurrence": 119,
+          "id": "cancel-death"
+        },
+        {
+          "occurrence": 120,
+          "run": "candidate-02",
+          "localOccurrence": 120,
+          "id": "cancel-shop"
+        },
+        {
+          "occurrence": 121,
+          "run": "candidate-02",
+          "localOccurrence": 121,
+          "id": "cancel-lock"
+        },
+        {
+          "occurrence": 122,
+          "run": "candidate-02",
+          "localOccurrence": 122,
+          "id": "cancel-walk"
+        },
+        {
+          "occurrence": 123,
+          "run": "candidate-02",
+          "localOccurrence": 123,
+          "id": "cancel-move-packet"
+        },
+        {
+          "occurrence": 124,
+          "run": "candidate-02",
+          "localOccurrence": 124,
+          "id": "cancel-action"
+        },
+        {
+          "occurrence": 125,
+          "run": "candidate-02",
+          "localOccurrence": 125,
+          "id": "cancel-same-speed-revision"
+        },
+        {
+          "occurrence": 126,
+          "run": "candidate-02",
+          "localOccurrence": 126,
+          "id": "cancel-appearance-revision"
+        },
+        {
+          "occurrence": 127,
+          "run": "candidate-02",
+          "localOccurrence": 127,
+          "id": "cancel-correction-revision"
+        },
+        {
+          "occurrence": 128,
+          "run": "candidate-02",
+          "localOccurrence": 128,
+          "id": "cancel-guard-ready"
+        },
+        {
+          "occurrence": 178,
+          "run": "supplement-01",
+          "localOccurrence": 4,
+          "id": "old-owner-callback-session"
+        },
+        {
+          "occurrence": 179,
+          "run": "supplement-01",
+          "localOccurrence": 5,
+          "id": "old-owner-callback-world"
+        }
+      ],
+      "candidateOccurrences": 26,
+      "assessment": "Session/world/map/removal/actor invalidation and explicit old-owner callback after session/world reseed cannot clear new serial."
+    },
+    {
+      "id": "P10",
+      "risk": "Revision changes not rechecked",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 105,
+          "run": "candidate-02",
+          "localOccurrence": 105,
+          "id": "cancel-session"
+        },
+        {
+          "occurrence": 106,
+          "run": "candidate-02",
+          "localOccurrence": 106,
+          "id": "cancel-world"
+        },
+        {
+          "occurrence": 107,
+          "run": "candidate-02",
+          "localOccurrence": 107,
+          "id": "cancel-map"
+        },
+        {
+          "occurrence": 108,
+          "run": "candidate-02",
+          "localOccurrence": 108,
+          "id": "cancel-remove"
+        },
+        {
+          "occurrence": 109,
+          "run": "candidate-02",
+          "localOccurrence": 109,
+          "id": "cancel-actor"
+        },
+        {
+          "occurrence": 110,
+          "run": "candidate-02",
+          "localOccurrence": 110,
+          "id": "cancel-appearance"
+        },
+        {
+          "occurrence": 111,
+          "run": "candidate-02",
+          "localOccurrence": 111,
+          "id": "cancel-correction"
+        },
+        {
+          "occurrence": 112,
+          "run": "candidate-02",
+          "localOccurrence": 112,
+          "id": "cancel-direction"
+        },
+        {
+          "occurrence": 113,
+          "run": "candidate-02",
+          "localOccurrence": 113,
+          "id": "cancel-position"
+        },
+        {
+          "occurrence": 114,
+          "run": "candidate-02",
+          "localOccurrence": 114,
+          "id": "cancel-speed"
+        },
+        {
+          "occurrence": 115,
+          "run": "candidate-02",
+          "localOccurrence": 115,
+          "id": "cancel-brave"
+        },
+        {
+          "occurrence": 116,
+          "run": "candidate-02",
+          "localOccurrence": 116,
+          "id": "cancel-gfx"
+        },
+        {
+          "occurrence": 117,
+          "run": "candidate-02",
+          "localOccurrence": 117,
+          "id": "cancel-weapon"
+        },
+        {
+          "occurrence": 118,
+          "run": "candidate-02",
+          "localOccurrence": 118,
+          "id": "cancel-hp"
+        },
+        {
+          "occurrence": 119,
+          "run": "candidate-02",
+          "localOccurrence": 119,
+          "id": "cancel-death"
+        },
+        {
+          "occurrence": 120,
+          "run": "candidate-02",
+          "localOccurrence": 120,
+          "id": "cancel-shop"
+        },
+        {
+          "occurrence": 121,
+          "run": "candidate-02",
+          "localOccurrence": 121,
+          "id": "cancel-lock"
+        },
+        {
+          "occurrence": 122,
+          "run": "candidate-02",
+          "localOccurrence": 122,
+          "id": "cancel-walk"
+        },
+        {
+          "occurrence": 123,
+          "run": "candidate-02",
+          "localOccurrence": 123,
+          "id": "cancel-move-packet"
+        },
+        {
+          "occurrence": 124,
+          "run": "candidate-02",
+          "localOccurrence": 124,
+          "id": "cancel-action"
+        },
+        {
+          "occurrence": 125,
+          "run": "candidate-02",
+          "localOccurrence": 125,
+          "id": "cancel-same-speed-revision"
+        },
+        {
+          "occurrence": 126,
+          "run": "candidate-02",
+          "localOccurrence": 126,
+          "id": "cancel-appearance-revision"
+        },
+        {
+          "occurrence": 127,
+          "run": "candidate-02",
+          "localOccurrence": 127,
+          "id": "cancel-correction-revision"
+        },
+        {
+          "occurrence": 128,
+          "run": "candidate-02",
+          "localOccurrence": 128,
+          "id": "cancel-guard-ready"
+        },
+        {
+          "occurrence": 180,
+          "run": "supplement-01",
+          "localOccurrence": 6,
+          "id": "predicted-cancel-move"
+        },
+        {
+          "occurrence": 181,
+          "run": "supplement-01",
+          "localOccurrence": 7,
+          "id": "predicted-cancel-turn"
+        },
+        {
+          "occurrence": 182,
+          "run": "supplement-01",
+          "localOccurrence": 8,
+          "id": "predicted-cancel-attack"
+        }
+      ],
+      "candidateOccurrences": 27,
+      "assessment": "Appearance/correction/speed revisions, same-mode revision, direction/position/gfx/weapon invalidation exercised. Public packet changes where available; isolated property changes via reflection otherwise."
+    },
+    {
+      "id": "P11",
+      "risk": "Current guard lost without explicit event",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 105,
+          "run": "candidate-02",
+          "localOccurrence": 105,
+          "id": "cancel-session"
+        },
+        {
+          "occurrence": 106,
+          "run": "candidate-02",
+          "localOccurrence": 106,
+          "id": "cancel-world"
+        },
+        {
+          "occurrence": 107,
+          "run": "candidate-02",
+          "localOccurrence": 107,
+          "id": "cancel-map"
+        },
+        {
+          "occurrence": 108,
+          "run": "candidate-02",
+          "localOccurrence": 108,
+          "id": "cancel-remove"
+        },
+        {
+          "occurrence": 109,
+          "run": "candidate-02",
+          "localOccurrence": 109,
+          "id": "cancel-actor"
+        },
+        {
+          "occurrence": 110,
+          "run": "candidate-02",
+          "localOccurrence": 110,
+          "id": "cancel-appearance"
+        },
+        {
+          "occurrence": 111,
+          "run": "candidate-02",
+          "localOccurrence": 111,
+          "id": "cancel-correction"
+        },
+        {
+          "occurrence": 112,
+          "run": "candidate-02",
+          "localOccurrence": 112,
+          "id": "cancel-direction"
+        },
+        {
+          "occurrence": 113,
+          "run": "candidate-02",
+          "localOccurrence": 113,
+          "id": "cancel-position"
+        },
+        {
+          "occurrence": 114,
+          "run": "candidate-02",
+          "localOccurrence": 114,
+          "id": "cancel-speed"
+        },
+        {
+          "occurrence": 115,
+          "run": "candidate-02",
+          "localOccurrence": 115,
+          "id": "cancel-brave"
+        },
+        {
+          "occurrence": 116,
+          "run": "candidate-02",
+          "localOccurrence": 116,
+          "id": "cancel-gfx"
+        },
+        {
+          "occurrence": 117,
+          "run": "candidate-02",
+          "localOccurrence": 117,
+          "id": "cancel-weapon"
+        },
+        {
+          "occurrence": 118,
+          "run": "candidate-02",
+          "localOccurrence": 118,
+          "id": "cancel-hp"
+        },
+        {
+          "occurrence": 119,
+          "run": "candidate-02",
+          "localOccurrence": 119,
+          "id": "cancel-death"
+        },
+        {
+          "occurrence": 120,
+          "run": "candidate-02",
+          "localOccurrence": 120,
+          "id": "cancel-shop"
+        },
+        {
+          "occurrence": 121,
+          "run": "candidate-02",
+          "localOccurrence": 121,
+          "id": "cancel-lock"
+        },
+        {
+          "occurrence": 122,
+          "run": "candidate-02",
+          "localOccurrence": 122,
+          "id": "cancel-walk"
+        },
+        {
+          "occurrence": 123,
+          "run": "candidate-02",
+          "localOccurrence": 123,
+          "id": "cancel-move-packet"
+        },
+        {
+          "occurrence": 124,
+          "run": "candidate-02",
+          "localOccurrence": 124,
+          "id": "cancel-action"
+        },
+        {
+          "occurrence": 125,
+          "run": "candidate-02",
+          "localOccurrence": 125,
+          "id": "cancel-same-speed-revision"
+        },
+        {
+          "occurrence": 126,
+          "run": "candidate-02",
+          "localOccurrence": 126,
+          "id": "cancel-appearance-revision"
+        },
+        {
+          "occurrence": 127,
+          "run": "candidate-02",
+          "localOccurrence": 127,
+          "id": "cancel-correction-revision"
+        },
+        {
+          "occurrence": 128,
+          "run": "candidate-02",
+          "localOccurrence": 128,
+          "id": "cancel-guard-ready"
+        }
+      ],
+      "candidateOccurrences": 24,
+      "assessment": "HP/lock/walk/readiness loss and missing base-key cancel existing presentation. Renderable false tested at admission; ongoing Renderable loss additionally covered by common PickupGuard static review, not a separate active-loss row."
+    },
+    {
+      "id": "P12",
+      "risk": "Wrong terminal policy",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 5,
+          "run": "candidate-02",
+          "localOccurrence": 5,
+          "id": "pose-s0-d0-terminal"
+        },
+        {
+          "occurrence": 10,
+          "run": "candidate-02",
+          "localOccurrence": 10,
+          "id": "pose-s0-d1-terminal"
+        },
+        {
+          "occurrence": 15,
+          "run": "candidate-02",
+          "localOccurrence": 15,
+          "id": "pose-s0-d2-terminal"
+        },
+        {
+          "occurrence": 20,
+          "run": "candidate-02",
+          "localOccurrence": 20,
+          "id": "pose-s0-d3-terminal"
+        },
+        {
+          "occurrence": 25,
+          "run": "candidate-02",
+          "localOccurrence": 25,
+          "id": "pose-s0-d4-terminal"
+        },
+        {
+          "occurrence": 30,
+          "run": "candidate-02",
+          "localOccurrence": 30,
+          "id": "pose-s0-d5-terminal"
+        },
+        {
+          "occurrence": 35,
+          "run": "candidate-02",
+          "localOccurrence": 35,
+          "id": "pose-s0-d6-terminal"
+        },
+        {
+          "occurrence": 40,
+          "run": "candidate-02",
+          "localOccurrence": 40,
+          "id": "pose-s0-d7-terminal"
+        },
+        {
+          "occurrence": 45,
+          "run": "candidate-02",
+          "localOccurrence": 45,
+          "id": "pose-s1-d0-terminal"
+        },
+        {
+          "occurrence": 50,
+          "run": "candidate-02",
+          "localOccurrence": 50,
+          "id": "pose-s1-d1-terminal"
+        },
+        {
+          "occurrence": 55,
+          "run": "candidate-02",
+          "localOccurrence": 55,
+          "id": "pose-s1-d2-terminal"
+        },
+        {
+          "occurrence": 60,
+          "run": "candidate-02",
+          "localOccurrence": 60,
+          "id": "pose-s1-d3-terminal"
+        },
+        {
+          "occurrence": 65,
+          "run": "candidate-02",
+          "localOccurrence": 65,
+          "id": "pose-s1-d4-terminal"
+        },
+        {
+          "occurrence": 70,
+          "run": "candidate-02",
+          "localOccurrence": 70,
+          "id": "pose-s1-d5-terminal"
+        },
+        {
+          "occurrence": 75,
+          "run": "candidate-02",
+          "localOccurrence": 75,
+          "id": "pose-s1-d6-terminal"
+        },
+        {
+          "occurrence": 80,
+          "run": "candidate-02",
+          "localOccurrence": 80,
+          "id": "pose-s1-d7-terminal"
+        },
+        {
+          "occurrence": 168,
+          "run": "candidate-02",
+          "localOccurrence": 168,
+          "id": "terminal-is-not-new-input-lock"
+        },
+        {
+          "occurrence": 177,
+          "run": "supplement-01",
+          "localOccurrence": 3,
+          "id": "presentation-nonblocking-send"
+        }
+      ],
+      "candidateOccurrences": 18,
+      "assessment": "16 terminal tests hold through entry+583 and clear at+584. Actual C112 admission during presentation succeeds absent earlier utility gate. No extra input lock; after-expiry+1 is not a distinct assertion."
+    },
+    {
+      "id": "P13",
+      "risk": "Late callback burst/catch-up",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 86,
+          "run": "candidate-02",
+          "localOccurrence": 86,
+          "id": "late-one-step-min2"
+        }
+      ],
+      "candidateOccurrences": 1,
+      "assessment": "One late callback advances one frame; repeated same-now call does not catch up. Due1000->1002->1004 and terminal until1588 relative to start."
+    },
+    {
+      "id": "P14",
+      "risk": "Boundary +1/minimum clamp",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 87,
+          "run": "candidate-02",
+          "localOccurrence": 87,
+          "id": "clamp-100207"
+        },
+        {
+          "occurrence": 88,
+          "run": "candidate-02",
+          "localOccurrence": 88,
+          "id": "clamp-100208"
+        },
+        {
+          "occurrence": 89,
+          "run": "candidate-02",
+          "localOccurrence": 89,
+          "id": "clamp-100300"
+        }
+      ],
+      "candidateOccurrences": 3,
+      "assessment": "N207/208/300 clamp cases produce nextdue209/210/302 while ideal baseline remains209 (relative time)."
+    },
+    {
+      "id": "P15",
+      "risk": "Overlapping receipt/old timer",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 84,
+          "run": "candidate-02",
+          "localOccurrence": 84,
+          "id": "replace-old-callback"
+        },
+        {
+          "occurrence": 178,
+          "run": "supplement-01",
+          "localOccurrence": 4,
+          "id": "old-owner-callback-session"
+        },
+        {
+          "occurrence": 179,
+          "run": "supplement-01",
+          "localOccurrence": 5,
+          "id": "old-owner-callback-world"
+        }
+      ],
+      "candidateOccurrences": 3,
+      "assessment": "Latest active receipt replaces current; old callback cannot advance or clear new serial; session/world old-owner cases supplement this."
+    },
+    {
+      "id": "P16",
+      "risk": "Terminal overlap",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 85,
+          "run": "candidate-02",
+          "localOccurrence": 85,
+          "id": "replace-terminal-old-cleanup"
+        }
+      ],
+      "candidateOccurrences": 1,
+      "assessment": "Replacement while terminal frame0 holds starts new frame1 and ignores old terminal callback."
+    },
+    {
+      "id": "P17",
+      "risk": "Immutable pending semantics",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 161,
+          "run": "candidate-02",
+          "localOccurrence": 161,
+          "id": "direct-world-receive"
+        },
+        {
+          "occurrence": 162,
+          "run": "candidate-02",
+          "localOccurrence": 162,
+          "id": "bound-after-direct"
+        },
+        {
+          "occurrence": 163,
+          "run": "candidate-02",
+          "localOccurrence": 163,
+          "id": "local-no-prediction"
+        },
+        {
+          "occurrence": 165,
+          "run": "candidate-02",
+          "localOccurrence": 165,
+          "id": "pending-rapid-refusal"
+        },
+        {
+          "occurrence": 166,
+          "run": "candidate-02",
+          "localOccurrence": 166,
+          "id": "pending-timeout-retains-association"
+        },
+        {
+          "occurrence": 167,
+          "run": "candidate-02",
+          "localOccurrence": 167,
+          "id": "heading-before-presentation"
+        },
+        {
+          "occurrence": 168,
+          "run": "candidate-02",
+          "localOccurrence": 168,
+          "id": "terminal-is-not-new-input-lock"
+        },
+        {
+          "occurrence": 169,
+          "run": "candidate-02",
+          "localOccurrence": 169,
+          "id": "ground-completion-early-replies"
+        },
+        {
+          "occurrence": 170,
+          "run": "candidate-02",
+          "localOccurrence": 170,
+          "id": "ground-completion-owner-world"
+        },
+        {
+          "occurrence": 171,
+          "run": "candidate-02",
+          "localOccurrence": 171,
+          "id": "ground-completion-owner-session"
+        },
+        {
+          "occurrence": 172,
+          "run": "candidate-02",
+          "localOccurrence": 172,
+          "id": "ground-completion-owner-lease"
+        },
+        {
+          "occurrence": 173,
+          "run": "candidate-02",
+          "localOccurrence": 173,
+          "id": "item-completion-early-replies"
+        },
+        {
+          "occurrence": 174,
+          "run": "candidate-02",
+          "localOccurrence": 174,
+          "id": "item-completion-owner-world"
+        },
+        {
+          "occurrence": 177,
+          "run": "supplement-01",
+          "localOccurrence": 3,
+          "id": "presentation-nonblocking-send"
+        }
+      ],
+      "candidateOccurrences": 14,
+      "assessment": "Ground sender/completion bytes exactly equal finalr33; Inventory.cs/InventoryTests.cs unchanged. Focused C112900/pending3000, rapid refusal, timeout association, heading, direct Receive, ground owner world/session/lease and item world ownership checked. Full original suites inherited, not rerun."
+    },
+    {
+      "id": "P18",
+      "risk": "Resource authentication/schema",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 154,
+          "run": "candidate-02",
+          "localOccurrence": 154,
+          "id": "embedded-resource"
+        },
+        {
+          "occurrence": 155,
+          "run": "candidate-02",
+          "localOccurrence": 155,
+          "id": "resource-reject-length"
+        },
+        {
+          "occurrence": 156,
+          "run": "candidate-02",
+          "localOccurrence": 156,
+          "id": "resource-reject-hash"
+        },
+        {
+          "occurrence": 157,
+          "run": "candidate-02",
+          "localOccurrence": 157,
+          "id": "resource-reject-schema"
+        },
+        {
+          "occurrence": 158,
+          "run": "candidate-02",
+          "localOccurrence": 158,
+          "id": "resource-reject-key"
+        },
+        {
+          "occurrence": 159,
+          "run": "candidate-02",
+          "localOccurrence": 159,
+          "id": "missing-base-key-fallback"
+        },
+        {
+          "occurrence": 160,
+          "run": "candidate-02",
+          "localOccurrence": 160,
+          "id": "resource-error-fallback"
+        }
+      ],
+      "candidateOccurrences": 7,
+      "assessment": "Actual embedded logical name/hash/size verified. Corrupt length/hash/schema/key payloads all rejected at hash gate; semantic fault branches are not claimed executed. In-memory missing base-key and injected InvalidDataException show fallback. Missing/wrong logical stream is static throw-path review only; exact candidate assembly was not mutated."
+    },
+    {
+      "id": "P19",
+      "risk": "Projection corruption",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 1,
+          "run": "candidate-02",
+          "localOccurrence": 1,
+          "id": "pose-s0-d0-i1"
+        },
+        {
+          "occurrence": 2,
+          "run": "candidate-02",
+          "localOccurrence": 2,
+          "id": "pose-s0-d0-i2"
+        },
+        {
+          "occurrence": 3,
+          "run": "candidate-02",
+          "localOccurrence": 3,
+          "id": "pose-s0-d0-i3"
+        },
+        {
+          "occurrence": 4,
+          "run": "candidate-02",
+          "localOccurrence": 4,
+          "id": "pose-s0-d0-i0"
+        },
+        {
+          "occurrence": 6,
+          "run": "candidate-02",
+          "localOccurrence": 6,
+          "id": "pose-s0-d1-i1"
+        },
+        {
+          "occurrence": 7,
+          "run": "candidate-02",
+          "localOccurrence": 7,
+          "id": "pose-s0-d1-i2"
+        },
+        {
+          "occurrence": 8,
+          "run": "candidate-02",
+          "localOccurrence": 8,
+          "id": "pose-s0-d1-i3"
+        },
+        {
+          "occurrence": 9,
+          "run": "candidate-02",
+          "localOccurrence": 9,
+          "id": "pose-s0-d1-i0"
+        },
+        {
+          "occurrence": 11,
+          "run": "candidate-02",
+          "localOccurrence": 11,
+          "id": "pose-s0-d2-i1"
+        },
+        {
+          "occurrence": 12,
+          "run": "candidate-02",
+          "localOccurrence": 12,
+          "id": "pose-s0-d2-i2"
+        },
+        {
+          "occurrence": 13,
+          "run": "candidate-02",
+          "localOccurrence": 13,
+          "id": "pose-s0-d2-i3"
+        },
+        {
+          "occurrence": 14,
+          "run": "candidate-02",
+          "localOccurrence": 14,
+          "id": "pose-s0-d2-i0"
+        },
+        {
+          "occurrence": 16,
+          "run": "candidate-02",
+          "localOccurrence": 16,
+          "id": "pose-s0-d3-i1"
+        },
+        {
+          "occurrence": 17,
+          "run": "candidate-02",
+          "localOccurrence": 17,
+          "id": "pose-s0-d3-i2"
+        },
+        {
+          "occurrence": 18,
+          "run": "candidate-02",
+          "localOccurrence": 18,
+          "id": "pose-s0-d3-i3"
+        },
+        {
+          "occurrence": 19,
+          "run": "candidate-02",
+          "localOccurrence": 19,
+          "id": "pose-s0-d3-i0"
+        },
+        {
+          "occurrence": 21,
+          "run": "candidate-02",
+          "localOccurrence": 21,
+          "id": "pose-s0-d4-i1"
+        },
+        {
+          "occurrence": 22,
+          "run": "candidate-02",
+          "localOccurrence": 22,
+          "id": "pose-s0-d4-i2"
+        },
+        {
+          "occurrence": 23,
+          "run": "candidate-02",
+          "localOccurrence": 23,
+          "id": "pose-s0-d4-i3"
+        },
+        {
+          "occurrence": 24,
+          "run": "candidate-02",
+          "localOccurrence": 24,
+          "id": "pose-s0-d4-i0"
+        },
+        {
+          "occurrence": 26,
+          "run": "candidate-02",
+          "localOccurrence": 26,
+          "id": "pose-s0-d5-i1"
+        },
+        {
+          "occurrence": 27,
+          "run": "candidate-02",
+          "localOccurrence": 27,
+          "id": "pose-s0-d5-i2"
+        },
+        {
+          "occurrence": 28,
+          "run": "candidate-02",
+          "localOccurrence": 28,
+          "id": "pose-s0-d5-i3"
+        },
+        {
+          "occurrence": 29,
+          "run": "candidate-02",
+          "localOccurrence": 29,
+          "id": "pose-s0-d5-i0"
+        },
+        {
+          "occurrence": 31,
+          "run": "candidate-02",
+          "localOccurrence": 31,
+          "id": "pose-s0-d6-i1"
+        },
+        {
+          "occurrence": 32,
+          "run": "candidate-02",
+          "localOccurrence": 32,
+          "id": "pose-s0-d6-i2"
+        },
+        {
+          "occurrence": 33,
+          "run": "candidate-02",
+          "localOccurrence": 33,
+          "id": "pose-s0-d6-i3"
+        },
+        {
+          "occurrence": 34,
+          "run": "candidate-02",
+          "localOccurrence": 34,
+          "id": "pose-s0-d6-i0"
+        },
+        {
+          "occurrence": 36,
+          "run": "candidate-02",
+          "localOccurrence": 36,
+          "id": "pose-s0-d7-i1"
+        },
+        {
+          "occurrence": 37,
+          "run": "candidate-02",
+          "localOccurrence": 37,
+          "id": "pose-s0-d7-i2"
+        },
+        {
+          "occurrence": 38,
+          "run": "candidate-02",
+          "localOccurrence": 38,
+          "id": "pose-s0-d7-i3"
+        },
+        {
+          "occurrence": 39,
+          "run": "candidate-02",
+          "localOccurrence": 39,
+          "id": "pose-s0-d7-i0"
+        },
+        {
+          "occurrence": 41,
+          "run": "candidate-02",
+          "localOccurrence": 41,
+          "id": "pose-s1-d0-i1"
+        },
+        {
+          "occurrence": 42,
+          "run": "candidate-02",
+          "localOccurrence": 42,
+          "id": "pose-s1-d0-i2"
+        },
+        {
+          "occurrence": 43,
+          "run": "candidate-02",
+          "localOccurrence": 43,
+          "id": "pose-s1-d0-i3"
+        },
+        {
+          "occurrence": 44,
+          "run": "candidate-02",
+          "localOccurrence": 44,
+          "id": "pose-s1-d0-i0"
+        },
+        {
+          "occurrence": 46,
+          "run": "candidate-02",
+          "localOccurrence": 46,
+          "id": "pose-s1-d1-i1"
+        },
+        {
+          "occurrence": 47,
+          "run": "candidate-02",
+          "localOccurrence": 47,
+          "id": "pose-s1-d1-i2"
+        },
+        {
+          "occurrence": 48,
+          "run": "candidate-02",
+          "localOccurrence": 48,
+          "id": "pose-s1-d1-i3"
+        },
+        {
+          "occurrence": 49,
+          "run": "candidate-02",
+          "localOccurrence": 49,
+          "id": "pose-s1-d1-i0"
+        },
+        {
+          "occurrence": 51,
+          "run": "candidate-02",
+          "localOccurrence": 51,
+          "id": "pose-s1-d2-i1"
+        },
+        {
+          "occurrence": 52,
+          "run": "candidate-02",
+          "localOccurrence": 52,
+          "id": "pose-s1-d2-i2"
+        },
+        {
+          "occurrence": 53,
+          "run": "candidate-02",
+          "localOccurrence": 53,
+          "id": "pose-s1-d2-i3"
+        },
+        {
+          "occurrence": 54,
+          "run": "candidate-02",
+          "localOccurrence": 54,
+          "id": "pose-s1-d2-i0"
+        },
+        {
+          "occurrence": 56,
+          "run": "candidate-02",
+          "localOccurrence": 56,
+          "id": "pose-s1-d3-i1"
+        },
+        {
+          "occurrence": 57,
+          "run": "candidate-02",
+          "localOccurrence": 57,
+          "id": "pose-s1-d3-i2"
+        },
+        {
+          "occurrence": 58,
+          "run": "candidate-02",
+          "localOccurrence": 58,
+          "id": "pose-s1-d3-i3"
+        },
+        {
+          "occurrence": 59,
+          "run": "candidate-02",
+          "localOccurrence": 59,
+          "id": "pose-s1-d3-i0"
+        },
+        {
+          "occurrence": 61,
+          "run": "candidate-02",
+          "localOccurrence": 61,
+          "id": "pose-s1-d4-i1"
+        },
+        {
+          "occurrence": 62,
+          "run": "candidate-02",
+          "localOccurrence": 62,
+          "id": "pose-s1-d4-i2"
+        },
+        {
+          "occurrence": 63,
+          "run": "candidate-02",
+          "localOccurrence": 63,
+          "id": "pose-s1-d4-i3"
+        },
+        {
+          "occurrence": 64,
+          "run": "candidate-02",
+          "localOccurrence": 64,
+          "id": "pose-s1-d4-i0"
+        },
+        {
+          "occurrence": 66,
+          "run": "candidate-02",
+          "localOccurrence": 66,
+          "id": "pose-s1-d5-i1"
+        },
+        {
+          "occurrence": 67,
+          "run": "candidate-02",
+          "localOccurrence": 67,
+          "id": "pose-s1-d5-i2"
+        },
+        {
+          "occurrence": 68,
+          "run": "candidate-02",
+          "localOccurrence": 68,
+          "id": "pose-s1-d5-i3"
+        },
+        {
+          "occurrence": 69,
+          "run": "candidate-02",
+          "localOccurrence": 69,
+          "id": "pose-s1-d5-i0"
+        },
+        {
+          "occurrence": 71,
+          "run": "candidate-02",
+          "localOccurrence": 71,
+          "id": "pose-s1-d6-i1"
+        },
+        {
+          "occurrence": 72,
+          "run": "candidate-02",
+          "localOccurrence": 72,
+          "id": "pose-s1-d6-i2"
+        },
+        {
+          "occurrence": 73,
+          "run": "candidate-02",
+          "localOccurrence": 73,
+          "id": "pose-s1-d6-i3"
+        },
+        {
+          "occurrence": 74,
+          "run": "candidate-02",
+          "localOccurrence": 74,
+          "id": "pose-s1-d6-i0"
+        },
+        {
+          "occurrence": 76,
+          "run": "candidate-02",
+          "localOccurrence": 76,
+          "id": "pose-s1-d7-i1"
+        },
+        {
+          "occurrence": 77,
+          "run": "candidate-02",
+          "localOccurrence": 77,
+          "id": "pose-s1-d7-i2"
+        },
+        {
+          "occurrence": 78,
+          "run": "candidate-02",
+          "localOccurrence": 78,
+          "id": "pose-s1-d7-i3"
+        },
+        {
+          "occurrence": 79,
+          "run": "candidate-02",
+          "localOccurrence": 79,
+          "id": "pose-s1-d7-i0"
+        },
+        {
+          "occurrence": 154,
+          "run": "candidate-02",
+          "localOccurrence": 154,
+          "id": "embedded-resource"
+        },
+        {
+          "occurrence": 155,
+          "run": "candidate-02",
+          "localOccurrence": 155,
+          "id": "resource-reject-length"
+        },
+        {
+          "occurrence": 156,
+          "run": "candidate-02",
+          "localOccurrence": 156,
+          "id": "resource-reject-hash"
+        },
+        {
+          "occurrence": 157,
+          "run": "candidate-02",
+          "localOccurrence": 157,
+          "id": "resource-reject-schema"
+        },
+        {
+          "occurrence": 158,
+          "run": "candidate-02",
+          "localOccurrence": 158,
+          "id": "resource-reject-key"
+        },
+        {
+          "occurrence": 175,
+          "run": "supplement-01",
+          "localOccurrence": 1,
+          "id": "synthetic-occlusion"
+        }
+      ],
+      "candidateOccurrences": 70,
+      "assessment": "Authenticated239766-byte resource, exact24 additive frames and8 reused frames, successful candidate parse, all32 accepted PNG bodies. Invalid semantic payload cases stop at integrity gate; no unsupported claim of direct semantic branch coverage."
+    },
+    {
+      "id": "P20",
+      "risk": "Black/coverage/layering error",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 1,
+          "run": "candidate-02",
+          "localOccurrence": 1,
+          "id": "pose-s0-d0-i1"
+        },
+        {
+          "occurrence": 2,
+          "run": "candidate-02",
+          "localOccurrence": 2,
+          "id": "pose-s0-d0-i2"
+        },
+        {
+          "occurrence": 3,
+          "run": "candidate-02",
+          "localOccurrence": 3,
+          "id": "pose-s0-d0-i3"
+        },
+        {
+          "occurrence": 4,
+          "run": "candidate-02",
+          "localOccurrence": 4,
+          "id": "pose-s0-d0-i0"
+        },
+        {
+          "occurrence": 6,
+          "run": "candidate-02",
+          "localOccurrence": 6,
+          "id": "pose-s0-d1-i1"
+        },
+        {
+          "occurrence": 7,
+          "run": "candidate-02",
+          "localOccurrence": 7,
+          "id": "pose-s0-d1-i2"
+        },
+        {
+          "occurrence": 8,
+          "run": "candidate-02",
+          "localOccurrence": 8,
+          "id": "pose-s0-d1-i3"
+        },
+        {
+          "occurrence": 9,
+          "run": "candidate-02",
+          "localOccurrence": 9,
+          "id": "pose-s0-d1-i0"
+        },
+        {
+          "occurrence": 11,
+          "run": "candidate-02",
+          "localOccurrence": 11,
+          "id": "pose-s0-d2-i1"
+        },
+        {
+          "occurrence": 12,
+          "run": "candidate-02",
+          "localOccurrence": 12,
+          "id": "pose-s0-d2-i2"
+        },
+        {
+          "occurrence": 13,
+          "run": "candidate-02",
+          "localOccurrence": 13,
+          "id": "pose-s0-d2-i3"
+        },
+        {
+          "occurrence": 14,
+          "run": "candidate-02",
+          "localOccurrence": 14,
+          "id": "pose-s0-d2-i0"
+        },
+        {
+          "occurrence": 16,
+          "run": "candidate-02",
+          "localOccurrence": 16,
+          "id": "pose-s0-d3-i1"
+        },
+        {
+          "occurrence": 17,
+          "run": "candidate-02",
+          "localOccurrence": 17,
+          "id": "pose-s0-d3-i2"
+        },
+        {
+          "occurrence": 18,
+          "run": "candidate-02",
+          "localOccurrence": 18,
+          "id": "pose-s0-d3-i3"
+        },
+        {
+          "occurrence": 19,
+          "run": "candidate-02",
+          "localOccurrence": 19,
+          "id": "pose-s0-d3-i0"
+        },
+        {
+          "occurrence": 21,
+          "run": "candidate-02",
+          "localOccurrence": 21,
+          "id": "pose-s0-d4-i1"
+        },
+        {
+          "occurrence": 22,
+          "run": "candidate-02",
+          "localOccurrence": 22,
+          "id": "pose-s0-d4-i2"
+        },
+        {
+          "occurrence": 23,
+          "run": "candidate-02",
+          "localOccurrence": 23,
+          "id": "pose-s0-d4-i3"
+        },
+        {
+          "occurrence": 24,
+          "run": "candidate-02",
+          "localOccurrence": 24,
+          "id": "pose-s0-d4-i0"
+        },
+        {
+          "occurrence": 26,
+          "run": "candidate-02",
+          "localOccurrence": 26,
+          "id": "pose-s0-d5-i1"
+        },
+        {
+          "occurrence": 27,
+          "run": "candidate-02",
+          "localOccurrence": 27,
+          "id": "pose-s0-d5-i2"
+        },
+        {
+          "occurrence": 28,
+          "run": "candidate-02",
+          "localOccurrence": 28,
+          "id": "pose-s0-d5-i3"
+        },
+        {
+          "occurrence": 29,
+          "run": "candidate-02",
+          "localOccurrence": 29,
+          "id": "pose-s0-d5-i0"
+        },
+        {
+          "occurrence": 31,
+          "run": "candidate-02",
+          "localOccurrence": 31,
+          "id": "pose-s0-d6-i1"
+        },
+        {
+          "occurrence": 32,
+          "run": "candidate-02",
+          "localOccurrence": 32,
+          "id": "pose-s0-d6-i2"
+        },
+        {
+          "occurrence": 33,
+          "run": "candidate-02",
+          "localOccurrence": 33,
+          "id": "pose-s0-d6-i3"
+        },
+        {
+          "occurrence": 34,
+          "run": "candidate-02",
+          "localOccurrence": 34,
+          "id": "pose-s0-d6-i0"
+        },
+        {
+          "occurrence": 36,
+          "run": "candidate-02",
+          "localOccurrence": 36,
+          "id": "pose-s0-d7-i1"
+        },
+        {
+          "occurrence": 37,
+          "run": "candidate-02",
+          "localOccurrence": 37,
+          "id": "pose-s0-d7-i2"
+        },
+        {
+          "occurrence": 38,
+          "run": "candidate-02",
+          "localOccurrence": 38,
+          "id": "pose-s0-d7-i3"
+        },
+        {
+          "occurrence": 39,
+          "run": "candidate-02",
+          "localOccurrence": 39,
+          "id": "pose-s0-d7-i0"
+        },
+        {
+          "occurrence": 41,
+          "run": "candidate-02",
+          "localOccurrence": 41,
+          "id": "pose-s1-d0-i1"
+        },
+        {
+          "occurrence": 42,
+          "run": "candidate-02",
+          "localOccurrence": 42,
+          "id": "pose-s1-d0-i2"
+        },
+        {
+          "occurrence": 43,
+          "run": "candidate-02",
+          "localOccurrence": 43,
+          "id": "pose-s1-d0-i3"
+        },
+        {
+          "occurrence": 44,
+          "run": "candidate-02",
+          "localOccurrence": 44,
+          "id": "pose-s1-d0-i0"
+        },
+        {
+          "occurrence": 46,
+          "run": "candidate-02",
+          "localOccurrence": 46,
+          "id": "pose-s1-d1-i1"
+        },
+        {
+          "occurrence": 47,
+          "run": "candidate-02",
+          "localOccurrence": 47,
+          "id": "pose-s1-d1-i2"
+        },
+        {
+          "occurrence": 48,
+          "run": "candidate-02",
+          "localOccurrence": 48,
+          "id": "pose-s1-d1-i3"
+        },
+        {
+          "occurrence": 49,
+          "run": "candidate-02",
+          "localOccurrence": 49,
+          "id": "pose-s1-d1-i0"
+        },
+        {
+          "occurrence": 51,
+          "run": "candidate-02",
+          "localOccurrence": 51,
+          "id": "pose-s1-d2-i1"
+        },
+        {
+          "occurrence": 52,
+          "run": "candidate-02",
+          "localOccurrence": 52,
+          "id": "pose-s1-d2-i2"
+        },
+        {
+          "occurrence": 53,
+          "run": "candidate-02",
+          "localOccurrence": 53,
+          "id": "pose-s1-d2-i3"
+        },
+        {
+          "occurrence": 54,
+          "run": "candidate-02",
+          "localOccurrence": 54,
+          "id": "pose-s1-d2-i0"
+        },
+        {
+          "occurrence": 56,
+          "run": "candidate-02",
+          "localOccurrence": 56,
+          "id": "pose-s1-d3-i1"
+        },
+        {
+          "occurrence": 57,
+          "run": "candidate-02",
+          "localOccurrence": 57,
+          "id": "pose-s1-d3-i2"
+        },
+        {
+          "occurrence": 58,
+          "run": "candidate-02",
+          "localOccurrence": 58,
+          "id": "pose-s1-d3-i3"
+        },
+        {
+          "occurrence": 59,
+          "run": "candidate-02",
+          "localOccurrence": 59,
+          "id": "pose-s1-d3-i0"
+        },
+        {
+          "occurrence": 61,
+          "run": "candidate-02",
+          "localOccurrence": 61,
+          "id": "pose-s1-d4-i1"
+        },
+        {
+          "occurrence": 62,
+          "run": "candidate-02",
+          "localOccurrence": 62,
+          "id": "pose-s1-d4-i2"
+        },
+        {
+          "occurrence": 63,
+          "run": "candidate-02",
+          "localOccurrence": 63,
+          "id": "pose-s1-d4-i3"
+        },
+        {
+          "occurrence": 64,
+          "run": "candidate-02",
+          "localOccurrence": 64,
+          "id": "pose-s1-d4-i0"
+        },
+        {
+          "occurrence": 66,
+          "run": "candidate-02",
+          "localOccurrence": 66,
+          "id": "pose-s1-d5-i1"
+        },
+        {
+          "occurrence": 67,
+          "run": "candidate-02",
+          "localOccurrence": 67,
+          "id": "pose-s1-d5-i2"
+        },
+        {
+          "occurrence": 68,
+          "run": "candidate-02",
+          "localOccurrence": 68,
+          "id": "pose-s1-d5-i3"
+        },
+        {
+          "occurrence": 69,
+          "run": "candidate-02",
+          "localOccurrence": 69,
+          "id": "pose-s1-d5-i0"
+        },
+        {
+          "occurrence": 71,
+          "run": "candidate-02",
+          "localOccurrence": 71,
+          "id": "pose-s1-d6-i1"
+        },
+        {
+          "occurrence": 72,
+          "run": "candidate-02",
+          "localOccurrence": 72,
+          "id": "pose-s1-d6-i2"
+        },
+        {
+          "occurrence": 73,
+          "run": "candidate-02",
+          "localOccurrence": 73,
+          "id": "pose-s1-d6-i3"
+        },
+        {
+          "occurrence": 74,
+          "run": "candidate-02",
+          "localOccurrence": 74,
+          "id": "pose-s1-d6-i0"
+        },
+        {
+          "occurrence": 76,
+          "run": "candidate-02",
+          "localOccurrence": 76,
+          "id": "pose-s1-d7-i1"
+        },
+        {
+          "occurrence": 77,
+          "run": "candidate-02",
+          "localOccurrence": 77,
+          "id": "pose-s1-d7-i2"
+        },
+        {
+          "occurrence": 78,
+          "run": "candidate-02",
+          "localOccurrence": 78,
+          "id": "pose-s1-d7-i3"
+        },
+        {
+          "occurrence": 79,
+          "run": "candidate-02",
+          "localOccurrence": 79,
+          "id": "pose-s1-d7-i0"
+        },
+        {
+          "occurrence": 175,
+          "run": "supplement-01",
+          "localOccurrence": 1,
+          "id": "synthetic-occlusion"
+        },
+        {
+          "occurrence": 176,
+          "run": "supplement-01",
+          "localOccurrence": 2,
+          "id": "synthetic-cover-depth"
+        }
+      ],
+      "candidateOccurrences": 66,
+      "assessment": "Independent composite raster verifies black alpha, only matching shadows, ordering; an opaque synthetic scene-object overlaps pickup and wins expected depth. Full real map occlusion/opacity suite not rerun."
+    },
+    {
+      "id": "P21",
+      "risk": "Shared asset mutation",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 81,
+          "run": "candidate-02",
+          "localOccurrence": 81,
+          "id": "base-profile-unmodified"
+        },
+        {
+          "occurrence": 184,
+          "run": "supplement-01",
+          "localOccurrence": 10,
+          "id": "catalog-content-restored"
+        }
+      ],
+      "candidateOccurrences": 2,
+      "assessment": "Before/after catalog semantic fingerprints, restored catalog versus fresh catalog,847 source pins and all355 candidate deliveries checked. No original assets or player manifest changes."
+    },
+    {
+      "id": "P22",
+      "risk": "Accidental side effects",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 152,
+          "run": "candidate-02",
+          "localOccurrence": 152,
+          "id": "projectile-same-now-idempotent"
+        }
+      ],
+      "candidateOccurrences": 1,
+      "assessment": "Static review: new presentation/asset code has no audio/effect/send dispatch; metadata events are data only. Actual repeated same-now projectile report counts and geometry stable, memory sender count/no-prediction tested. No audio device or live transport invoked."
+    },
+    {
+      "id": "P23",
+      "risk": "Missing diagnostics/manifests",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [
+        {
+          "occurrence": 154,
+          "run": "candidate-02",
+          "localOccurrence": 154,
+          "id": "embedded-resource"
+        },
+        {
+          "occurrence": 183,
+          "run": "supplement-01",
+          "localOccurrence": 9,
+          "id": "diagnostic-states"
+        }
+      ],
+      "candidateOccurrences": 2,
+      "assessment": "Started/suppressed/cancelled/finished diagnostics, policyId, native-unproven, runtimeTimingCertified=false, actor/gfx/weapon and serials checked; all180 source inventory including3 additions hashed."
+    },
+    {
+      "id": "P24",
+      "risk": "Wrong baseline/final release binding",
+      "disposition": "accepted-with-stated-evidence-boundary",
+      "evidence": [],
+      "candidateOccurrences": 0,
+      "assessment": "All177 finalr33 baseline source hashes reconciled:167 unchanged,10 modified,3 added. Final-baseline, final binding, release seal, contract and exact candidate/DLL identities pinned. No in-progress canonical source used."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "type": "same evidence comparator with deliberately incorrect source-derived expectation; no product mutation",
+  "controls": [
+    {
+      "id": "wrong-cancellation-reason",
+      "baselinePass": true,
+      "mutation": "expect authoritative-pack instead of owner/revision/position",
+      "mutatedPass": false
+    },
+    {
+      "id": "truncate-fractional-double-duration",
+      "baselinePass": true,
+      "duration": 583.3333333333334,
+      "mutation": "floor expected duration to integer; age583 must then mismatch actual visible+suppressed",
+      "mutatedPass": false
+    },
+    {
+      "id": "wrong-terminal-frame-key",
+      "baselinePass": true,
+      "mutation": "expect pickup-frame1 key while actual is terminal index0",
+      "mutatedPass": false
+    }
+  ],
+  "controlsAreNotProductCases": true,
+  "originalHelperDiagnosticsRetained": true
+}

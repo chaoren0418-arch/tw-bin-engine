@@ -1,0 +1,143 @@
+{
+  "imageBase": "0x400000",
+  "binarySha256": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2",
+  "functions": 10,
+  "chunks": [
+    {
+      "functionVA": "0xa46240",
+      "VA": "0xa46240",
+      "RVA": "0x646240",
+      "fileOffset": "0x645640",
+      "bytes": 73,
+      "sha256": "1510e7221957759c2fa95fb35aab0975f47316a50f00b474fd629fa78276b258",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\reference\\ranged\\bin-raw\\arrow-impact\\functions.json"
+    },
+    {
+      "functionVA": "0x7c3950",
+      "VA": "0x7c3950",
+      "RVA": "0x3c3950",
+      "fileOffset": "0x3c2d50",
+      "bytes": 338,
+      "sha256": "e198c0bf1d7ee69fee966d6125bde85d2ce07e791654127bb5f75eacb4ba3ec6",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\reference\\ranged\\bin-raw\\arrow-motion\\functions.json"
+    },
+    {
+      "functionVA": "0x7c3ab0",
+      "VA": "0x7c3ab0",
+      "RVA": "0x3c3ab0",
+      "fileOffset": "0x3c2eb0",
+      "bytes": 1127,
+      "sha256": "c463378bce6379fa3d8692c88c7aa434386a1e92e31e5703e6d77abc4c7173aa",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\reference\\ranged\\bin-raw\\arrow-step\\functions.json"
+    },
+    {
+      "functionVA": "0x7c3ab0",
+      "VA": "0x1083760",
+      "RVA": "0xc83760",
+      "fileOffset": "0xc82b60",
+      "bytes": 49,
+      "sha256": "f6b1d02c805c47dcfafb2a39e1712479ee1cef728e688142ce1dbb1582a2f591",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\reference\\ranged\\bin-raw\\arrow-step\\functions.json"
+    },
+    {
+      "functionVA": "0xa43560",
+      "VA": "0xa43560",
+      "RVA": "0x643560",
+      "fileOffset": "0x642960",
+      "bytes": 839,
+      "sha256": "5841695b55f6faa4abda547de6342f2433311d70573ab79724062cb5cef45181",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\reference\\ranged\\bin-raw\\arrow-terminal\\functions.json"
+    },
+    {
+      "functionVA": "0xa467a0",
+      "VA": "0xa467a0",
+      "RVA": "0x6467a0",
+      "fileOffset": "0x645ba0",
+      "bytes": 5477,
+      "sha256": "0de7dc79cd1fe2c74e88bf26f0309c5195f4ea109d2d0fde7720e257aad79a3a",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\reference\\ranged\\bin-raw\\attack-events\\functions.json"
+    },
+    {
+      "functionVA": "0xa467a0",
+      "VA": "0x10ac640",
+      "RVA": "0xcac640",
+      "fileOffset": "0xcaba40",
+      "bytes": 222,
+      "sha256": "2e0a08415ee85c7744a94f9cf4f30d344702e131e26ca24cd8200333abc6279a",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\reference\\ranged\\bin-raw\\attack-events\\functions.json"
+    },
+    {
+      "functionVA": "0xa407d0",
+      "VA": "0xa407d0",
+      "RVA": "0x6407d0",
+      "fileOffset": "0x63fbd0",
+      "bytes": 1644,
+      "sha256": "df99bc065dd5014d263cc0ea9b59a50e659504454294d558ad2c956718b223af",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\reference\\ranged\\bin-raw\\attack-events\\functions.json"
+    },
+    {
+      "functionVA": "0xa3ef40",
+      "VA": "0xa3ef40",
+      "RVA": "0x63ef40",
+      "fileOffset": "0x63e340",
+      "bytes": 3686,
+      "sha256": "64701a56874b973f27af05bc1629d1502901c992a373c820611264a79b0be771",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\reference\\ranged\\bin-raw\\shot-release\\functions.json"
+    },
+    {
+      "functionVA": "0xa3ef40",
+      "VA": "0x10ac480",
+      "RVA": "0xcac480",
+      "fileOffset": "0xcab880",
+      "bytes": 151,
+      "sha256": "3da1bc83cd19d182613744cbd31ee3377e052ef4143d799adb6e79cf2dc7f7e0",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\reference\\ranged\\bin-raw\\shot-release\\functions.json"
+    },
+    {
+      "functionVA": "0x8abc10",
+      "VA": "0x8abc10",
+      "RVA": "0x4abc10",
+      "fileOffset": "0x4ab010",
+      "bytes": 3358,
+      "sha256": "e948a50f2da5ebca5cf99e59197189055982e691b1fd0e1a1cc63695d22dea11",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P22-魔法清單與單次施法\\reference\\magic\\bin-raw\\magic-effect-animation\\functions.json"
+    },
+    {
+      "functionVA": "0x8abc10",
+      "VA": "0x1093d00",
+      "RVA": "0xc93d00",
+      "fileOffset": "0xc93100",
+      "bytes": 91,
+      "sha256": "9071a076955b96aa28196aab61d0101712c6923a26b61dd1e23782c00b5a56c8",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P22-魔法清單與單次施法\\reference\\magic\\bin-raw\\magic-effect-animation\\functions.json"
+    },
+    {
+      "functionVA": "0x8211e0",
+      "VA": "0x8211e0",
+      "RVA": "0x4211e0",
+      "fileOffset": "0x4205e0",
+      "bytes": 371,
+      "sha256": "ea595fe9fd7f3c7c3b9b17642321dc42fa8bdfffeb74d41d94650bd7b578064c",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P22-魔法清單與單次施法\\reference\\magic\\bin-raw\\magic-flight\\functions.json"
+    },
+    {
+      "functionVA": "0x821360",
+      "VA": "0x821360",
+      "RVA": "0x421360",
+      "fileOffset": "0x420760",
+      "bytes": 559,
+      "sha256": "4894431ce3e486dde1e4195f777b75469a96411ea4d71e4edcadfad860228ddd",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P22-魔法清單與單次施法\\reference\\magic\\bin-raw\\magic-step-list\\functions.json"
+    },
+    {
+      "functionVA": "0x821360",
+      "VA": "0x108b7f0",
+      "RVA": "0xc8b7f0",
+      "fileOffset": "0xc8abf0",
+      "bytes": 38,
+      "sha256": "215bc50a33a24e9e011ef5b26c26653d640b5931413e7beeb7bc39a97c127f4b",
+      "source": "D:\\lineage開發\\TW1608262200研究\\P22-魔法清單與單次施法\\reference\\magic\\bin-raw\\magic-step-list\\functions.json"
+    }
+  ],
+  "scope": "Exact fixed BIN bytes, historical pseudocode/instructions as navigation; no IDA/process/game launched."
+}

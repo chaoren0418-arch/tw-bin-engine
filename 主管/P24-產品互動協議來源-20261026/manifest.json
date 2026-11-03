@@ -1,0 +1,219 @@
+{
+  "purpose": "normal NPC, commerce, skill learning, trade client integration",
+  "jar": "D:\\P24Lab-ClientEngine\\server\\Server_Game.jar",
+  "jarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "serverStarted": false,
+  "socketUsed": false,
+  "databaseUsed": false,
+  "rows": [
+    {
+      "class": "com.lineage.echo.OpcodesClient",
+      "classSha256": "6d1b160c0b381a56d7897c678a1f8bb5029ebb13417b052401092058aba5be5c",
+      "javapSha256": "953bd9bcbe67a66f5d24095abb2de62d0624a3e50862a8ccdef5b0ce4f4b0cfe",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\echo\\OpcodesClient.java",
+        "sha256": "3b9df4518cad4ab3021d7a6454f88fe4513bd715eb3eb461ffaa873a64fe8931",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.clientpackets.C_NPCTalk",
+      "classSha256": "1786ac226467151513e5a51ea8629bcfbb3f6c4c80c8c108384766231c94d4a4",
+      "javapSha256": "91d47c52ac6fe22b9d358085abe68ff87fe42b8e604e227ce42a87521549d449",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_NPCTalk.java",
+        "sha256": "7a324af75ce43054f87a500d6a16600ddf01209ee5c5d5d4d2f4cf1377457027",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.clientpackets.C_NPCAction",
+      "classSha256": "a852ccac8ea10a55b590c311c4cc646891b1bd7d7d108f7ddb199d6c55a0142c",
+      "javapSha256": "061826ab08a25488bbc20a34b2afaaf959e8b76fbbe144eb80077b8cf987dbc3",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_NPCAction.java",
+        "sha256": "370123f1324e73c5dbee7d71fc7b527b67e1f927d501e757e6399e0af5c66fa4",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.clientpackets.C_Result",
+      "classSha256": "bb8fc20322346195e80fc159c413ee36b509a0114e4ebc6cd57d9285853a1f61",
+      "javapSha256": "413eb8080622b231cf8e763020ecf8fd67f48b7ab2000ae1ef44f96e7787575c",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_Result.java",
+        "sha256": "5f8df31fd82395a7fb6afc3d9ab486afb0794787065c036a6706136d77d3bdd6",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.clientpackets.C_SkillBuy",
+      "classSha256": "422df146710dc60d0ecc1558051fe55eff83d37d73c4790faf3824627815f1aa",
+      "javapSha256": "6a0bf3ca11f52d041096305b1d44a55c114e12a7c773e006dd570227312815aa",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_SkillBuy.java",
+        "sha256": "ce89743248e65b2941c02bcc20f50610e442fa2364fbf7ecd75565cee8bc5111",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.clientpackets.C_SkillBuyOK",
+      "classSha256": "87959493389c67575c382586ff82d5e39adecab39dc5ff29a1e8ac5c5c447a39",
+      "javapSha256": "e1da2c96f9c1fe496af1ce88eda7c40c97d8ff308a9e76426df7f0d8cdbf491f",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_SkillBuyOK.java",
+        "sha256": "4402b2f191ab9d482aee75a113bcb3ee5b1bd8724f29cd57266f8109f749922f",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.clientpackets.C_Trade",
+      "classSha256": "7ff525dbfedc40b0ff043abf89f7df386d18c079a435e61058d76b56cf56e5fe",
+      "javapSha256": "e8dd4167c016bd73144c54acd35c2e2871212727bfdf9a2715928f874ecbe518",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_Trade.java",
+        "sha256": "6466b1c760cbd96da6e1e417fd411557e2b3c781bfd7ff8408447822b4b529ab",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.clientpackets.C_TradeAddItem",
+      "classSha256": "2b73d073bfd4888f99e3286e7d88e0ad444fc359fb34f1dc924003523a7f4877",
+      "javapSha256": "2f8d9413b9969e0e2654de6aca0f61e24890b77dc1433f781202fe96553e0dfa",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_TradeAddItem.java",
+        "sha256": "668c3c26f33fa0b99d2bafe6dec17cf7a2a1a5ca39cf07c2dc2a4a3039825e71",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.clientpackets.C_TradeOK",
+      "classSha256": "21a326a49fad64abfc26a97bad60011c90c8d8092493126c3def06963fe0cb43",
+      "javapSha256": "9778fc8f64f926e050872ccfa7b15953e9c55f083463510feb29435f2acd0ed8",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_TradeOK.java",
+        "sha256": "af68f2ecc61d45b77b1579ad7325440f3d637cafd42a465bf6d22fdf74c5e749",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.clientpackets.C_TradeCancel",
+      "classSha256": "9813577c096b8ab8a2e4219e5fa85bdb31f2a1b6a994d6b4768fb70dedb4c449",
+      "javapSha256": "9cacdc192e903f47a7a8f7bc7fa176b472b91d0f3d0a73a0a29d71d4e370107a",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_TradeCancel.java",
+        "sha256": "40c908a4a606c82917ee448e837abd8c0d55f06198e6b48bf42a2e77cee730a4",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.serverpackets.OpcodesServer",
+      "classSha256": "e38b4f92b2728287dd5ae1741dc7d0bbd4a2ca78bc6739f9b634609427a40b1d",
+      "javapSha256": "884d0de9166544e1e7e676062c73a1ac95c470d3d00ef8a93712049ecc92e8b9",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\OpcodesServer.java",
+        "sha256": "9044cb98cf8a0548a421fbb05e6cdcef26147b2a2b85a1ef896fde8a8016f152",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.serverpackets.S_NPCTalkReturn",
+      "classSha256": "66d461eadec4140829b61d52320c9135140167919622830fd15e1252a43c927e",
+      "javapSha256": "b07dc72f3579450e99a6a4e7a0c5fa32f9639642bbba5234e3c9a6574e7d9662",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_NPCTalkReturn.java",
+        "sha256": "bfc54936df47f821b54a6acedbe273225e4d53a2b247f21ecf2ce35c653a5847",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.serverpackets.S_ShopSellList",
+      "classSha256": "fc14c962c14531e8a4fe65d76d55fd29adaeae34f24faba2b0232d100e661985",
+      "javapSha256": "9eccfdc1d1c919feb6d6ea85d485a48ce346495cb429224d4c06073dd1817e49",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_ShopSellList.java",
+        "sha256": "5dfec708356a1c95755295393d4b9cd3a984bf26fa16660d6bf1de87f873a551",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.serverpackets.S_ShopBuyList",
+      "classSha256": "d734b0650dc4cc7ed023db8036cf018e3594b24ff8835d34add3aaf163e16bad",
+      "javapSha256": "d3be531899eca88c452c4497221130703b9d0409ce89df499e84849404bacef8",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_ShopBuyList.java",
+        "sha256": "3c2d3d1a37644c9eabeeb221282009dd8d9199ed1f166563235c5e703e922ff8",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.serverpackets.S_RetrieveList",
+      "classSha256": "d644779d98ddcbaee77b5817b4ebb23905a14a91cb3edd2e2f7dab8884f3d6ff",
+      "javapSha256": "e6eccb8ba5a6d00ab7e5026b008a5c28705accdf017532c272c19ae338a2477c",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_RetrieveList.java",
+        "sha256": "1bdf02501d592d5658ed3e5a3d677ae592ff488807470d3e1e7c6bb1c6779f57",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.serverpackets.S_SkillBuy",
+      "classSha256": "2bcdd77473b55f1aa6bf0cda75f5fd36bcc22cabc8dd7c6ff82d93037cb08d5b",
+      "javapSha256": "92e04261419fe84691594d0fb84acc912e9766a7490aa8656329d1765329e8a2",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_SkillBuy.java",
+        "sha256": "09628d128beb0187b8bf2e26bc17c27fddf995bc9c6bdca0f5e8d1dc03e414de",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.serverpackets.S_Trade",
+      "classSha256": "61aedcf07c70527a0ce8d7c3c9fe8abe55f5bdb24d92963fcfcede667dfe8b8f",
+      "javapSha256": "8707d80a1cc69cc0d1cee8737d4cb84cc47ce4de14cf81e3c6bbc14c8e70f0ab",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_Trade.java",
+        "sha256": "c055c7f2c4cc31ad852c7aa0e9344c415d2aa454b1fd5dccdd1e11a77562f43e",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.serverpackets.S_TradeAddItem",
+      "classSha256": "8be6a28ad1ba67abfc4cef46aec77f113ebf2272eb17f1808575e60db6f1d470",
+      "javapSha256": "cb669f59f25fafab6c61d131fb2a33cb3b197afe76f3d90afa08e844998c068f",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_TradeAddItem.java",
+        "sha256": "0a04d8f3c942a160e0ebfbb95f82f6e68837bd4d105828ecc08d09c7a5a5a00d",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    },
+    {
+      "class": "com.lineage.server.serverpackets.S_TradeStatus",
+      "classSha256": "12e8981f5d93d764bcd204ccdba67eb3ec247a89fbe37d6ba8d3c6fd3c386987",
+      "javapSha256": "7d06177083a445cfe1915bcf3bc7cbe1f60c558da163b02577879aff84a48686",
+      "status": "pinned-jar-bytecode-read-only",
+      "sourceHint": {
+        "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_TradeStatus.java",
+        "sha256": "f793630e477aa9635d6467766babf3468addcc6e011554e98d674b23c0d5316e",
+        "equivalence": "not-established; bytecode is authoritative"
+      }
+    }
+  ]
+}

@@ -1,0 +1,385 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:engine:r29:acceptance-materials:v1",
+  "description": "Schemas only, not acceptance instances. SHA/provenance/path/full-source constraints are additionally enforced by acceptance_gate.py.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/contract"
+    },
+    {
+      "$ref": "#/$defs/receipt"
+    },
+    {
+      "$ref": "#/$defs/sourceManifest"
+    },
+    {
+      "$ref": "#/$defs/candidateSeal"
+    },
+    {
+      "$ref": "#/$defs/independentReview"
+    },
+    {
+      "$ref": "#/$defs/candidateResult"
+    }
+  ],
+  "$defs": {
+    "contract": {
+      "type": "object",
+      "required": [
+        "schema",
+        "revision",
+        "candidateId",
+        "candidateRoot",
+        "preparationSha256",
+        "sourceManifest",
+        "candidateSeal",
+        "candidateResult",
+        "independentReview"
+      ],
+      "properties": {
+        "schema": {
+          "const": "engine-r29-input-contract-v1"
+        },
+        "revision": {
+          "const": "r29"
+        },
+        "candidateId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidateRoot": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+        },
+        "preparationSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sourceManifest": {
+          "type": "object",
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "candidateSeal": {
+          "type": "object",
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "candidateResult": {
+          "type": "object",
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "independentReview": {
+          "type": "object",
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        }
+      }
+    },
+    "receipt": {
+      "type": "object",
+      "required": [
+        "schema",
+        "revision",
+        "decision",
+        "supervisor",
+        "dispatchId",
+        "authorization",
+        "candidateId",
+        "contractSha256",
+        "sourceManifestSha256",
+        "candidateSealSha256",
+        "candidateResultSha256",
+        "independentReviewSha256",
+        "productDllSha256",
+        "audioDllSha256",
+        "authorizedOutput",
+        "candidateTestsPassed",
+        "independentReviewPassed",
+        "unresolvedFindings"
+      ],
+      "properties": {
+        "schema": {
+          "const": "engine-integration-acceptance-v1"
+        },
+        "revision": {
+          "const": "r29"
+        },
+        "decision": {
+          "const": "accepted-for-formal-r29-integration"
+        },
+        "supervisor": {
+          "const": "01a17e6a-9270-7cc2-a338-0120ed68d0ec"
+        },
+        "dispatchId": {
+          "type": "string",
+          "minLength": 1,
+          "not": {
+            "const": "ENGINE-NEXT-INTEGRATION-PREP-R1"
+          }
+        },
+        "authorization": {
+          "const": "isolated-r29-build-and-offline-acceptance"
+        },
+        "candidateId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contractSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sourceManifestSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "candidateSealSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "candidateResultSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "independentReviewSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "productDllSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "audioDllSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "authorizedOutput": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+        },
+        "candidateTestsPassed": {
+          "const": true
+        },
+        "independentReviewPassed": {
+          "const": true
+        },
+        "unresolvedFindings": {
+          "const": []
+        }
+      }
+    },
+    "sourceManifest": {
+      "type": "object",
+      "required": [
+        "schema",
+        "candidateId",
+        "files"
+      ],
+      "properties": {
+        "schema": {
+          "const": "engine-r29-source-pins-v1"
+        },
+        "candidateId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "path",
+              "size",
+              "sha256",
+              "source"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+              },
+              "size": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+              }
+            }
+          }
+        }
+      }
+    },
+    "candidateSeal": {
+      "type": "object",
+      "required": [
+        "schema",
+        "candidateId",
+        "files"
+      ],
+      "properties": {
+        "schema": {
+          "const": "engine-candidate-seal-v1"
+        },
+        "candidateId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "path",
+              "size",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+              },
+              "size": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "independentReview": {
+      "type": "object",
+      "required": [
+        "schema",
+        "candidateId",
+        "decision",
+        "candidateSealSha256",
+        "unresolvedFindings"
+      ],
+      "properties": {
+        "schema": {
+          "const": "engine-independent-review-v1"
+        },
+        "candidateId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "const": "accepted"
+        },
+        "candidateSealSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "unresolvedFindings": {
+          "const": []
+        }
+      }
+    },
+    "candidateResult": {
+      "type": "object",
+      "required": [
+        "schema",
+        "candidateId",
+        "checksPassed",
+        "checks",
+        "productDllSha256",
+        "audioDllSha256"
+      ],
+      "properties": {
+        "schema": {
+          "const": "engine-candidate-result-v1"
+        },
+        "candidateId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "checksPassed": {
+          "const": true
+        },
+        "checks": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "productDllSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "audioDllSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

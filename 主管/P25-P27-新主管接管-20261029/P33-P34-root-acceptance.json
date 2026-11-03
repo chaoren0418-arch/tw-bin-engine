@@ -1,0 +1,114 @@
+{
+  "schema": "p33-p34-supervisor-bounded-acceptance-v1",
+  "utc": "2026-10-29T07:45:54.159404+00:00",
+  "status": "accepted-bounded-offline-behavior",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "workers": [
+    {
+      "phase": "P33",
+      "threadId": "01a1868e-d476-7ad1-8b4c-f6ac0dce7b5b",
+      "turnId": "01a1868e-d69e-7913-818f-9596c44dce81",
+      "state": "accepted-bounded-offline-behavior",
+      "actualStarted": true,
+      "root": "work/P33-pickup-resource-fault-review-r1",
+      "threadStatus": "idle",
+      "turnStatus": "completed",
+      "goal": "complete in saved actual tool readback",
+      "seal": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P33-pickup-resource-fault-review-r1\\artifact-manifest.json",
+        "size": 16041,
+        "sha256": "99564bcea8ca04c90c2ec027a27e8cc0bcb7c68f14d89f9ff3bfc638be8ef661"
+      },
+      "observedBy": "read_thread/wait_threads: latest dispatched turn completed, no error"
+    },
+    {
+      "phase": "P34",
+      "threadId": "01a1868f-050d-7802-8b13-d1d8984858b5",
+      "turnId": "01a1868f-0786-7c30-9ccc-bda25b870bcc",
+      "state": "accepted-bounded-offline-behavior",
+      "actualStarted": true,
+      "root": "work/P34-pickup-authoritative-flow-review-r1",
+      "threadStatus": "idle",
+      "turnStatus": "completed",
+      "goal": "worker final reports complete; sealed file preserves earlier active readback only; root Goal API unavailable",
+      "seal": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1\\artifact-manifest.json",
+        "size": 34498,
+        "sha256": "54d544f34db25c7b14564846a9bea83d2ae91cf36a38d1bae7e91a6b9b01bcd5"
+      },
+      "observedBy": "read_thread/wait_threads: latest dispatched turn completed, no error"
+    }
+  ],
+  "reviews": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P33-root-review.json",
+      "size": 3860,
+      "sha256": "a36fe164775d568e34a455693f8e882d1c49a79ad3c7f90bcea2824224d9d36c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P34-root-review.json",
+      "size": 4497,
+      "sha256": "69b11332f031d65b483dbb4b2791677bcabb6e8f502ffbc7d7c6b4fadc3e3e6f"
+    }
+  ],
+  "certificateInvestigation": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P32-certificate-root-acceptance.json",
+    "size": 2448,
+    "sha256": "4d8cc7dc7ab2d36bb97e95bb6384f4d8025bf490fa06d20e6a9c6b51b9ecbe15"
+  },
+  "baseline": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-r2-final-acceptance.json",
+    "size": 6919,
+    "sha256": "b37e5993a5a2fd5c0aed6f10e5c1c313da6dbcaf5899fcb729fffd6d08c03cf1"
+  },
+  "productDllSha": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "productBuilds": 0,
+  "productChanges": 0,
+  "confirmedProductDefects": 0,
+  "distinctCases": {
+    "P33": 28,
+    "P34": 11
+  },
+  "oracleRowsIndependentlyCompared": {
+    "P34": 24,
+    "P33Pairs": 2
+  },
+  "formalEntry": "r33",
+  "entryPins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+      "size": 158,
+      "sha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+      "size": 31361,
+      "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+    }
+  ],
+  "formalR34Activated": false,
+  "sharedWrites": 0,
+  "DBActions": 0,
+  "nativeCases": 0,
+  "certificateMutations": 0,
+  "wholeProjectComplete": false,
+  "remaining": [
+    "Original-map full composite/occlusion and native mouse/input remain unexecuted.",
+    "Real S30 / actual transport acknowledgement remains outside controlled gate evidence.",
+    "Audio/effect event counters are not instrumented.",
+    "Resource matrix excludes missing embedded resource and broad schema/pair/fault combinations; expand only for a concrete requirement.",
+    "MAP-F4 effect/group and additional event-token semantics need exact source contracts.",
+    "Generic release generator RG2 product-manifest omission remains; concrete accepted r34 package is separate.",
+    "Formal root activation is denied pending explicit user approval; no retry/reroute.",
+    "No whole-engine completion percentage or full native equivalence claim."
+  ],
+  "mutableStatusSnapshot": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P33-P34-status-before-acceptance",
+  "verificationNotes": [
+    "Root initial combined verifier completed P33, then correctly stopped because P34 was not yet sealed. It passed after worker completion; no runtime rerun.",
+    "P34 goal-readback.json lookup was absent; actual retained filename is goal-before-final-verification.json. Completion is worker-reported, not root API-verified.",
+    "P33 report Python parse error preserved by worker; no product failure. P34 build01/02/03 all succeeded.",
+    "Used asset ground/36.json was original-release-pin verified after P34 runtime01; runtime02 gate included it.",
+    "All seven build/runtime receipts explicitly disable certificate generation and global-tools PATH change.",
+    "Source backlog pin describes pre-acceptance snapshot; later supervisor queue updates are not source/product mutations."
+  ]
+}

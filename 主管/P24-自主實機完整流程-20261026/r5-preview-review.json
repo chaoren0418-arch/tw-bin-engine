@@ -1,0 +1,10 @@
+{
+  "utc": "2026-10-26T10:49:30.953Z",
+  "scope": "Offline synthetic render scenes, not live acceptance",
+  "reviewed": [
+    "offline-r4/scenes/shop-0.png",
+    "offline-r4/scenes/monster-3101-attack.png"
+  ],
+  "observation": "Original sprite poses visible and coherent in scene; character shop label displayed, knight attack visible. Real runtime retry still required.",
+  "rawSourceEvidence": "r5-original-sprite-check.json"
+}

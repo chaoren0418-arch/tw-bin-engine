@@ -1,0 +1,99 @@
+{
+  "schema": "engine-r34-adaptation-inventory-v1",
+  "candidateIndependent": true,
+  "suiteExecuted": false,
+  "functionalEdits": 0,
+  "expectedEdits": 0,
+  "items": [
+    {
+      "id": "ground-checker-dll-hash",
+      "file": "reference/r33-regression/ground/check-probes.py",
+      "line": 6,
+      "old": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2",
+      "new": "exact future supervisor-accepted productDllSha256",
+      "kind": "data-wiring-only",
+      "rule": "one exact literal occurrence replaced; preserve original + unified diff + old/new SHA; no owner/clock/count changes"
+    },
+    {
+      "id": "send-no-local-consumption-animation",
+      "file": "reference/r33-regression/ground/harness/Program.cs",
+      "line": 57,
+      "fixtureLine": 24,
+      "trigger": "local C112 via PickupSelected; synthetic own gfx0 Weapon46, default speed0 Brave0, ground gfx36",
+      "coverage": "ground/inventory unchanged, OwnCombat null, heading unchanged, AwaitingPickupAction true",
+      "limitation": "OwnCombat-only; does not inspect new presentation state; Weapon46 outside r34 supported scope",
+      "decision": "retain body/expected; supervisor directed no replacement; new gfx0/weapon0 local C112 prohibition belongs to review P02"
+    },
+    {
+      "id": "own-action15-heading-without-animation",
+      "file": "reference/r33-regression/ground/harness/Program.cs",
+      "line": 60,
+      "fixtureLine": 24,
+      "trigger": "actual own S158/action15 after send, ground count update and other actor action15; gfx0 Weapon46",
+      "coverage": "pending cleared, direction2, OwnCombat null, no inventory prediction, groundcount2",
+      "limitation": "no general renderer or presentation-state absence assertion; Weapon46 unsupported",
+      "decision": "retain body/expected; name is not blocker; new gfx0/weapon0 authoritative receipt positive belongs to review P01"
+    },
+    {
+      "id": "ground-count-packet-not-action-ack",
+      "file": "reference/r33-regression/ground/harness/Program.cs",
+      "line": 58,
+      "trigger": "S87 quantity update",
+      "coverage": "authoritative count2 and still pending; no presentation-state coverage",
+      "decision": "unchanged; P02 must cover new-state non-trigger"
+    },
+    {
+      "id": "other-action15-not-own-ack",
+      "file": "reference/r33-regression/ground/harness/Program.cs",
+      "line": 59,
+      "trigger": "S158 actor999",
+      "coverage": "own pending and heading preserved; PickupActions increments",
+      "decision": "unchanged; new review tests must preserve existing own instance across remote receipts"
+    },
+    {
+      "id": "duplicate-action15-no-consumption",
+      "file": "reference/r33-regression/ground/harness/Program.cs",
+      "line": 61,
+      "trigger": "repeated own S158 Weapon46",
+      "coverage": "no local quantity consumption, heading and counter",
+      "decision": "unchanged; gfx0/weapon0 latest receipt replacement is additional independent coverage"
+    },
+    {
+      "id": "helper-location",
+      "kind": "data-wiring-only",
+      "old": "r33 canonical failed ground helper outside engine/build; indirect DLL ../../assets lookup",
+      "new": "stage/build/r34-stage-* or engine/build/r34-canonical-*; ../../assets must equal owning product assets",
+      "rule": "no junction, no whole-asset copy; metadata vectors at product root"
+    },
+    {
+      "id": "assembly-revision-path-count",
+      "kind": "data-wiring-only",
+      "rule": "rewrite only exact accepted assembly/path/revision/hash/source-count literals; baseline177 + declared additions, resource counted; save per-file diff and occurrence mapping; never change functional expressions/expected values"
+    },
+    {
+      "id": "baseline-log-binding",
+      "kind": "collector-wiring-only",
+      "rule": "actual product+launcher command exit0 and raw-log pins bound before baseline collection; utf-8-sig errors=replace with replacement-count metadata; preserve bytes"
+    },
+    {
+      "id": "ground-new-owner24",
+      "kind": "classification-preservation",
+      "rule": "24 rows stay observations pass:null; checker validates data from complete extended rows; 735 assertions+81 observations remain separate; 4 socket guards are already in735"
+    },
+    {
+      "id": "pickup-main174-supplement10-exact-bodies",
+      "kind": "source-snapshot-and-data-wiring",
+      "rule": "Use each exact execution-builds snapshot; never replace main source with last harness. Only csproj HintPath/output and product SHA metadata wiring with per-file diff; no functional assertion edits. Current built DLL/root fixtures and AppContext ../../assets binding required.",
+      "source": "pickup-suite-snapshots.json"
+    }
+  ],
+  "supervisorClarification": "Received during this preparation: Weapon46 is out of scope; retain both bodies/expected; P01/P02 cover new supported state; names are not blockers.",
+  "preparationRevision": "R2",
+  "pickupAcceptedReview": {
+    "assertions": 184,
+    "observations": 0,
+    "sealSha256": "715c95654af8a1c59853f15e41c3511d5b15c1b0749bf35c47e39fe918b99196",
+    "sourceSnapshots": "pickup-suite-snapshots.json",
+    "suiteExecutedThisRound": false
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\executor.py",
+    "execute",
+    "--contract-sha256",
+    "37af732d7d30629d71cd3fb8e66bc18d77352bbef2ff3191de920743ced4a2d9",
+    "--receipt",
+    "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-product-only-execution-acceptance.json",
+    "--receipt-sha256",
+    "240ce19f1cd8f10bddff4a34366eacef31598d36b7bce0130a0cb83a431fe541"
+  ],
+  "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1",
+  "startedUtc": "2026-10-29T06:23:57.927515+00:00",
+  "invocations": 1,
+  "timeoutSeconds": 1000,
+  "completed": false,
+  "exitCode": null
+}

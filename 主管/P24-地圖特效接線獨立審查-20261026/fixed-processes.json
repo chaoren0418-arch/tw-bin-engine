@@ -1,0 +1,68 @@
+[
+  {
+    "name": "harness",
+    "pid": 82960,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\harness\\P24.MapEffectChecks.exe"
+    ],
+    "exitCode": 0,
+    "seconds": 19.973811626434326
+  },
+  {
+    "name": "maps-regression",
+    "pid": 73720,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\maps-regression\\P24.EffectMapRegression.exe"
+    ],
+    "exitCode": 0,
+    "seconds": 13.059298992156982
+  },
+  {
+    "name": "trade-regression",
+    "pid": 51388,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\trade-regression\\P24.EffectTradeRegression.exe"
+    ],
+    "exitCode": 0,
+    "seconds": 0.3099949359893799
+  },
+  {
+    "name": "service-regression",
+    "pid": 14800,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\service-regression\\P24.EffectServiceRegression.exe"
+    ],
+    "exitCode": 0,
+    "seconds": 8.032102584838867
+  },
+  {
+    "name": "map-panel",
+    "pid": 81876,
+    "args": [
+      "node",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\maps-r1\\test_panel.cjs"
+    ],
+    "exitCode": 0,
+    "seconds": 0.5786447525024414
+  },
+  {
+    "name": "trade-dom",
+    "pid": 87136,
+    "args": [
+      "node",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\trade-r1\\test_dom.cjs"
+    ],
+    "exitCode": 0,
+    "seconds": 0.08356380462646484
+  },
+  {
+    "name": "service-dom",
+    "pid": 66536,
+    "args": [
+      "node",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\skill-warehouse-r1\\test_dom.cjs"
+    ],
+    "exitCode": 0,
+    "seconds": 0.1748964786529541
+  }
+]

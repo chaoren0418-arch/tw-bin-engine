@@ -1,0 +1,28 @@
+{
+  "decision": "accepted-for-independent-preparation",
+  "contractId": "OWN-BASE-15-001-SUPERVISOR-R1",
+  "contractSha256": "8c60b1061c637bcb7f992d7f92c74fc80c0ad945c7f05d1c3a2d74507cffc6f2",
+  "sourceArtifactsVerified": 154,
+  "sourceExternal44Pins": "Supervisor accepted; not rehashed wholesale in this preparation. No BIN/private-flags exploration.",
+  "resourceProjection": {
+    "bytes": 239766,
+    "sha256": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90",
+    "newFrames": 24,
+    "reusedFrames": 8,
+    "purpose": "test reference only; not product resource integration"
+  },
+  "identityTiers": {
+    "current-idx-and-bounded-slice-only": 24,
+    "historical-selected-payload-matched": 8
+  },
+  "nativeNeutralQualified": false,
+  "candidateReviewed": false,
+  "clarifications": [
+    "Supervisor r33 contract supersedes source-policy OwnCombat==null with existing renderer active window; expired report is retained.",
+    "Header r32IntegrationPoints is a historical label; actual code binding is the pinned r33 stage.",
+    "Source result scheduler-review-pending wording is stale; accepted correction-r1 seal remains authoritative.",
+    "Existing shadow lookup is exact-key only; no idle shadow borrowed for absent pickup shadow.",
+    "Latest eligible own receipt replacement and584 terminal hold are explicit nominal engine policy, not FIFO/native-parity facts."
+  ],
+  "materialContractBlockers": []
+}

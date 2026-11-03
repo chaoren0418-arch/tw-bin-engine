@@ -1,0 +1,4592 @@
+[
+  {
+    "dll": "WS2_32.dll",
+    "name": "listen",
+    "iatVA": "0x114bc3c"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "inet_ntoa",
+    "iatVA": "0x114bc40"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "accept",
+    "iatVA": "0x114bc44"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "__WSAFDIsSet",
+    "iatVA": "0x114bc48"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "sendto",
+    "iatVA": "0x114bc4c"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "select",
+    "iatVA": "0x114bc50"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "recvfrom",
+    "iatVA": "0x114bc54"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "getsockname",
+    "iatVA": "0x114bc58"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "closesocket",
+    "iatVA": "0x114bc5c"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "setsockopt",
+    "iatVA": "0x114bc60"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "WSAAsyncGetHostByName",
+    "iatVA": "0x114bc64"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "WSAAsyncSelect",
+    "iatVA": "0x114bc68"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "WSAGetLastError",
+    "iatVA": "0x114bc6c"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "socket",
+    "iatVA": "0x114bc70"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "send",
+    "iatVA": "0x114bc74"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "recv",
+    "iatVA": "0x114bc78"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "inet_addr",
+    "iatVA": "0x114bc7c"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "htons",
+    "iatVA": "0x114bc80"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "connect",
+    "iatVA": "0x114bc84"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "bind",
+    "iatVA": "0x114bc88"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "WSACleanup",
+    "iatVA": "0x114bc8c"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "WSAStartup",
+    "iatVA": "0x114bc90"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "gethostname",
+    "iatVA": "0x114bc94"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "gethostbyname",
+    "iatVA": "0x114bc98"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "ioctlsocket",
+    "iatVA": "0x114bc9c"
+  },
+  {
+    "dll": "WINMM.dll",
+    "name": "timeGetTime",
+    "iatVA": "0x114bc30"
+  },
+  {
+    "dll": "WINMM.dll",
+    "name": "mciSendCommandA",
+    "iatVA": "0x114bc34"
+  },
+  {
+    "dll": "IMM32.dll",
+    "name": "ImmGetContext",
+    "iatVA": "0x114b0fc"
+  },
+  {
+    "dll": "IMM32.dll",
+    "name": "ImmReleaseContext",
+    "iatVA": "0x114b100"
+  },
+  {
+    "dll": "IMM32.dll",
+    "name": "ImmGetConversionStatus",
+    "iatVA": "0x114b104"
+  },
+  {
+    "dll": "IMM32.dll",
+    "name": "ImmSetConversionStatus",
+    "iatVA": "0x114b108"
+  },
+  {
+    "dll": "IMM32.dll",
+    "name": "ImmGetProperty",
+    "iatVA": "0x114b10c"
+  },
+  {
+    "dll": "IMM32.dll",
+    "name": "ImmGetCompositionStringA",
+    "iatVA": "0x114b110"
+  },
+  {
+    "dll": "IMM32.dll",
+    "name": "ImmGetOpenStatus",
+    "iatVA": "0x114b114"
+  },
+  {
+    "dll": "IMM32.dll",
+    "name": "ImmGetCandidateListW",
+    "iatVA": "0x114b118"
+  },
+  {
+    "dll": "IMM32.dll",
+    "name": "ImmGetCompositionStringW",
+    "iatVA": "0x114b11c"
+  },
+  {
+    "dll": "IMM32.dll",
+    "name": "ImmSetCompositionWindow",
+    "iatVA": "0x114b120"
+  },
+  {
+    "dll": "IMM32.dll",
+    "name": "ImmSetCandidateWindow",
+    "iatVA": "0x114b124"
+  },
+  {
+    "dll": "IMM32.dll",
+    "name": "ImmSetCompositionStringA",
+    "iatVA": "0x114b128"
+  },
+  {
+    "dll": "IMM32.dll",
+    "name": "ImmGetIMEFileNameW",
+    "iatVA": "0x114b12c"
+  },
+  {
+    "dll": "IMM32.dll",
+    "name": "ImmIsIME",
+    "iatVA": "0x114b130"
+  },
+  {
+    "dll": "DINPUT.dll",
+    "name": "DirectInputCreateA",
+    "iatVA": "0x114b058"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "298",
+    "iatVA": "0x114bd8c"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "82",
+    "iatVA": "0x114bd90"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "97",
+    "iatVA": "0x114bd94"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "86",
+    "iatVA": "0x114bd98"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "90",
+    "iatVA": "0x114bd9c"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "120",
+    "iatVA": "0x114bda0"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "138",
+    "iatVA": "0x114bda4"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "21",
+    "iatVA": "0x114bda8"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "76",
+    "iatVA": "0x114bdac"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "107",
+    "iatVA": "0x114bdb0"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "285",
+    "iatVA": "0x114bdb4"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "44",
+    "iatVA": "0x114bdb8"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "217",
+    "iatVA": "0x114bdbc"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "220",
+    "iatVA": "0x114bdc0"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "231",
+    "iatVA": "0x114bdc4"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "266",
+    "iatVA": "0x114bdc8"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "299",
+    "iatVA": "0x114bdcc"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "246",
+    "iatVA": "0x114bdd0"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "32",
+    "iatVA": "0x114bdd4"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "31",
+    "iatVA": "0x114bdd8"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "221",
+    "iatVA": "0x114bddc"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "259",
+    "iatVA": "0x114bde0"
+  },
+  {
+    "dll": "libpng13.dll",
+    "name": "268",
+    "iatVA": "0x114bde4"
+  },
+  {
+    "dll": "IPHLPAPI.DLL",
+    "name": "GetIfTable",
+    "iatVA": "0x114b138"
+  },
+  {
+    "dll": "IPHLPAPI.DLL",
+    "name": "GetAdaptersInfo",
+    "iatVA": "0x114b13c"
+  },
+  {
+    "dll": "VERSION.dll",
+    "name": "GetFileVersionInfoW",
+    "iatVA": "0x114bbec"
+  },
+  {
+    "dll": "VERSION.dll",
+    "name": "VerQueryValueW",
+    "iatVA": "0x114bbf0"
+  },
+  {
+    "dll": "VERSION.dll",
+    "name": "GetFileVersionInfoSizeW",
+    "iatVA": "0x114bbf4"
+  },
+  {
+    "dll": "WININET.dll",
+    "name": "InternetWriteFile",
+    "iatVA": "0x114bbfc"
+  },
+  {
+    "dll": "WININET.dll",
+    "name": "InternetConnectA",
+    "iatVA": "0x114bc00"
+  },
+  {
+    "dll": "WININET.dll",
+    "name": "HttpOpenRequestA",
+    "iatVA": "0x114bc04"
+  },
+  {
+    "dll": "WININET.dll",
+    "name": "InternetGetCookieA",
+    "iatVA": "0x114bc08"
+  },
+  {
+    "dll": "WININET.dll",
+    "name": "InternetSetCookieA",
+    "iatVA": "0x114bc0c"
+  },
+  {
+    "dll": "WININET.dll",
+    "name": "InternetCheckConnectionA",
+    "iatVA": "0x114bc10"
+  },
+  {
+    "dll": "WININET.dll",
+    "name": "HttpAddRequestHeadersA",
+    "iatVA": "0x114bc14"
+  },
+  {
+    "dll": "WININET.dll",
+    "name": "HttpSendRequestExA",
+    "iatVA": "0x114bc18"
+  },
+  {
+    "dll": "WININET.dll",
+    "name": "HttpEndRequestA",
+    "iatVA": "0x114bc1c"
+  },
+  {
+    "dll": "WININET.dll",
+    "name": "InternetOpenA",
+    "iatVA": "0x114bc20"
+  },
+  {
+    "dll": "WININET.dll",
+    "name": "InternetCloseHandle",
+    "iatVA": "0x114bc24"
+  },
+  {
+    "dll": "WININET.dll",
+    "name": "HttpSendRequestA",
+    "iatVA": "0x114bc28"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0WebURL@Awesomium@@QAE@ABV01@@Z",
+    "iatVA": "0x114bca4"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??1WebString@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bca8"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?data@WebString@Awesomium@@QBEPBGXZ",
+    "iatVA": "0x114bcac"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??4WebString@Awesomium@@QAEAAV01@ABV01@@Z",
+    "iatVA": "0x114bcb0"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?CreateFromUTF8@WebString@Awesomium@@SA?AV12@PBDI@Z",
+    "iatVA": "0x114bcb4"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0WebStringArray@Awesomium@@QAE@ABV01@@Z",
+    "iatVA": "0x114bcb8"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??1WebStringArray@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bcbc"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?Push@WebStringArray@Awesomium@@QAEXABVWebString@2@@Z",
+    "iatVA": "0x114bcc0"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0WebConfig@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bcc4"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??1WebConfig@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bcc8"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?Initialize@WebCore@Awesomium@@SAPAV12@ABUWebConfig@2@@Z",
+    "iatVA": "0x114bccc"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?Shutdown@WebCore@Awesomium@@SAXXZ",
+    "iatVA": "0x114bcd0"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0WebString@Awesomium@@QAE@ABV01@@Z",
+    "iatVA": "0x114bcd4"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0WebURL@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bcd8"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0WebURL@Awesomium@@QAE@ABVWebString@1@@Z",
+    "iatVA": "0x114bcdc"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??1WebURL@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bce0"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??4WebURL@Awesomium@@QAEAAV01@ABV01@@Z",
+    "iatVA": "0x114bce4"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?spec@WebURL@Awesomium@@QBE?AVWebString@2@XZ",
+    "iatVA": "0x114bce8"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??8WebURL@Awesomium@@QBE_NABV01@@Z",
+    "iatVA": "0x114bcec"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?size@WebMenuItemArray@Awesomium@@QBEIXZ",
+    "iatVA": "0x114bcf0"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?At@WebMenuItemArray@Awesomium@@QBEABUWebMenuItem@2@I@Z",
+    "iatVA": "0x114bcf4"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??1Dialog@WebViewListener@Awesomium@@MAE@XZ",
+    "iatVA": "0x114bcf8"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0Dialog@WebViewListener@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bcfc"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?SetCustomMethod@JSObject@Awesomium@@QAEXABVWebString@2@_N@Z",
+    "iatVA": "0x114bd00"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?size@JSArray@Awesomium@@QBEIXZ",
+    "iatVA": "0x114bd04"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??AJSArray@Awesomium@@QBEABVJSValue@1@I@Z",
+    "iatVA": "0x114bd08"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0JSValue@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bd0c"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0JSValue@Awesomium@@QAE@ABV01@@Z",
+    "iatVA": "0x114bd10"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??1JSValue@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bd14"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??4JSValue@Awesomium@@QAEAAV01@ABV01@@Z",
+    "iatVA": "0x114bd18"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?IsInteger@JSValue@Awesomium@@QBE_NXZ",
+    "iatVA": "0x114bd1c"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?IsString@JSValue@Awesomium@@QBE_NXZ",
+    "iatVA": "0x114bd20"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?IsObject@JSValue@Awesomium@@QBE_NXZ",
+    "iatVA": "0x114bd24"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?ToString@JSValue@Awesomium@@QBE?AVWebString@2@XZ",
+    "iatVA": "0x114bd28"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?ToInteger@JSValue@Awesomium@@QBEHXZ",
+    "iatVA": "0x114bd2c"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?ToObject@JSValue@Awesomium@@QAEAAVJSObject@2@XZ",
+    "iatVA": "0x114bd30"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??1ResourceInterceptor@Awesomium@@UAE@XZ",
+    "iatVA": "0x114bd34"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0ResourceInterceptor@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bd38"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0WebString@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bd3c"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0WebString@Awesomium@@QAE@PBG@Z",
+    "iatVA": "0x114bd40"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?IsValid@WebURL@Awesomium@@QBE_NXZ",
+    "iatVA": "0x114bd44"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?IsEmpty@WebURL@Awesomium@@QBE_NXZ",
+    "iatVA": "0x114bd48"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0WebPreferences@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bd4c"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??1WebPreferences@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bd50"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0WebPreferences@Awesomium@@QAE@ABU01@@Z",
+    "iatVA": "0x114bd54"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0WebKeyboardEvent@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bd58"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0WebKeyboardEvent@Awesomium@@QAE@IIJ@Z",
+    "iatVA": "0x114bd5c"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?is_dirty@BitmapSurface@Awesomium@@QBE_NXZ",
+    "iatVA": "0x114bd60"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?buffer@BitmapSurface@Awesomium@@QBEPBEXZ",
+    "iatVA": "0x114bd64"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?instance@WebCore@Awesomium@@SAPAV12@XZ",
+    "iatVA": "0x114bd68"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0Menu@WebViewListener@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bd6c"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??1Menu@WebViewListener@Awesomium@@MAE@XZ",
+    "iatVA": "0x114bd70"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0Load@WebViewListener@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bd74"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??1Load@WebViewListener@Awesomium@@MAE@XZ",
+    "iatVA": "0x114bd78"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??0View@WebViewListener@Awesomium@@QAE@XZ",
+    "iatVA": "0x114bd7c"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "??1View@WebViewListener@Awesomium@@MAE@XZ",
+    "iatVA": "0x114bd80"
+  },
+  {
+    "dll": "awesomium.dll",
+    "name": "?GetKeyIdentifierFromVirtualKeyCode@Awesomium@@YAXHPAPAD@Z",
+    "iatVA": "0x114bd84"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_stream_ms_position@12",
+    "iatVA": "0x114bdec"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_stream_status@4",
+    "iatVA": "0x114bdf0"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_set_stream_loop_count@8",
+    "iatVA": "0x114bdf4"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_pause_stream@8",
+    "iatVA": "0x114bdf8"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_start_stream@4",
+    "iatVA": "0x114bdfc"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_stream_sample_handle@4",
+    "iatVA": "0x114be00"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_close_stream@4",
+    "iatVA": "0x114be04"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_open_stream@12",
+    "iatVA": "0x114be08"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_set_sample_volume_pan@12",
+    "iatVA": "0x114be0c"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_set_redist_directory@4",
+    "iatVA": "0x114be10"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_close_digital_driver@4",
+    "iatVA": "0x114be14"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_startup@0",
+    "iatVA": "0x114be18"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_open_digital_driver@16",
+    "iatVA": "0x114be1c"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_last_error@0",
+    "iatVA": "0x114be20"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_set_preference@8",
+    "iatVA": "0x114be24"
+  },
+  {
+    "dll": "mss32.dll",
+    "name": "_AIL_shutdown@0",
+    "iatVA": "0x114be28"
+  },
+  {
+    "dll": "mss32midi.dll",
+    "name": "_AIL_quick_startup@20",
+    "iatVA": "0x114be30"
+  },
+  {
+    "dll": "mss32midi.dll",
+    "name": "_AIL_quick_load@4",
+    "iatVA": "0x114be34"
+  },
+  {
+    "dll": "mss32midi.dll",
+    "name": "_AIL_quick_copy@4",
+    "iatVA": "0x114be38"
+  },
+  {
+    "dll": "mss32midi.dll",
+    "name": "_AIL_quick_unload@4",
+    "iatVA": "0x114be3c"
+  },
+  {
+    "dll": "mss32midi.dll",
+    "name": "_AIL_quick_play@8",
+    "iatVA": "0x114be40"
+  },
+  {
+    "dll": "mss32midi.dll",
+    "name": "_AIL_quick_halt@4",
+    "iatVA": "0x114be44"
+  },
+  {
+    "dll": "mss32midi.dll",
+    "name": "_AIL_quick_status@4",
+    "iatVA": "0x114be48"
+  },
+  {
+    "dll": "mss32midi.dll",
+    "name": "_AIL_quick_set_volume@12",
+    "iatVA": "0x114be4c"
+  },
+  {
+    "dll": "mss32midi.dll",
+    "name": "_AIL_quick_shutdown@0",
+    "iatVA": "0x114be50"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CreateEventA",
+    "iatVA": "0x114b144"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "WaitForSingleObject",
+    "iatVA": "0x114b148"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetEvent",
+    "iatVA": "0x114b14c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetFileType",
+    "iatVA": "0x114b150"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetCurrentThread",
+    "iatVA": "0x114b154"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetThreadTimes",
+    "iatVA": "0x114b158"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "InterlockedExchangeAdd",
+    "iatVA": "0x114b15c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "InterlockedExchange",
+    "iatVA": "0x114b160"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "HeapSize",
+    "iatVA": "0x114b164"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "HeapReAlloc",
+    "iatVA": "0x114b168"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "HeapDestroy",
+    "iatVA": "0x114b16c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "VirtualFree",
+    "iatVA": "0x114b170"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "VirtualAlloc",
+    "iatVA": "0x114b174"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "IsProcessorFeaturePresent",
+    "iatVA": "0x114b178"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "InterlockedPushEntrySList",
+    "iatVA": "0x114b17c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "InterlockedPopEntrySList",
+    "iatVA": "0x114b180"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "InitializeSListHead",
+    "iatVA": "0x114b184"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "InterlockedCompareExchange",
+    "iatVA": "0x114b188"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "LocalFree",
+    "iatVA": "0x114b18c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetProcessHeap",
+    "iatVA": "0x114b190"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "HeapFree",
+    "iatVA": "0x114b194"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "HeapAlloc",
+    "iatVA": "0x114b198"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "DeviceIoControl",
+    "iatVA": "0x114b19c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FindResourceW",
+    "iatVA": "0x114b1a0"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GlobalSize",
+    "iatVA": "0x114b1a4"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "LockResource",
+    "iatVA": "0x114b1a8"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FindResourceExW",
+    "iatVA": "0x114b1ac"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CompareStringW",
+    "iatVA": "0x114b1b0"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "LoadLibraryW",
+    "iatVA": "0x114b1b4"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "lstrcatW",
+    "iatVA": "0x114b1b8"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetSystemDirectoryA",
+    "iatVA": "0x114b1bc"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "lstrcpyW",
+    "iatVA": "0x114b1c0"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "lstrlenW",
+    "iatVA": "0x114b1c4"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "IsDBCSLeadByte",
+    "iatVA": "0x114b1c8"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FindResourceA",
+    "iatVA": "0x114b1cc"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "lstrcmpiA",
+    "iatVA": "0x114b1d0"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "MulDiv",
+    "iatVA": "0x114b1d4"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GlobalUnlock",
+    "iatVA": "0x114b1d8"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GlobalLock",
+    "iatVA": "0x114b1dc"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GlobalAlloc",
+    "iatVA": "0x114b1e0"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SizeofResource",
+    "iatVA": "0x114b1e4"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "LoadResource",
+    "iatVA": "0x114b1e8"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "LoadLibraryExA",
+    "iatVA": "0x114b1ec"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FlushInstructionCache",
+    "iatVA": "0x114b1f0"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetLastError",
+    "iatVA": "0x114b1f4"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "RaiseException",
+    "iatVA": "0x114b1f8"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "OutputDebugStringA",
+    "iatVA": "0x114b1fc"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "InterlockedIncrement",
+    "iatVA": "0x114b200"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetCPInfo",
+    "iatVA": "0x114b204"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetSystemDefaultLangID",
+    "iatVA": "0x114b208"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetSystemDefaultUILanguage",
+    "iatVA": "0x114b20c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "WritePrivateProfileStringA",
+    "iatVA": "0x114b210"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetPrivateProfileStringA",
+    "iatVA": "0x114b214"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "lstrcatA",
+    "iatVA": "0x114b218"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "lstrcmpA",
+    "iatVA": "0x114b21c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetModuleHandleA",
+    "iatVA": "0x114b220"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "TerminateThread",
+    "iatVA": "0x114b224"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "InterlockedDecrement",
+    "iatVA": "0x114b228"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "Sleep",
+    "iatVA": "0x114b22c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "ReleaseMutex",
+    "iatVA": "0x114b230"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetUnhandledExceptionFilter",
+    "iatVA": "0x114b234"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "RemoveDirectoryA",
+    "iatVA": "0x114b238"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FindNextFileA",
+    "iatVA": "0x114b23c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FindFirstFileA",
+    "iatVA": "0x114b240"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FindClose",
+    "iatVA": "0x114b244"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "ReadFile",
+    "iatVA": "0x114b248"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "QueryPerformanceFrequency",
+    "iatVA": "0x114b24c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "QueryPerformanceCounter",
+    "iatVA": "0x114b250"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetNumberFormatA",
+    "iatVA": "0x114b254"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "OpenProcess",
+    "iatVA": "0x114b258"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "DeleteCriticalSection",
+    "iatVA": "0x114b25c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "InitializeCriticalSection",
+    "iatVA": "0x114b260"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetFileAttributesA",
+    "iatVA": "0x114b264"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetFileAttributesA",
+    "iatVA": "0x114b268"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "DeleteFileA",
+    "iatVA": "0x114b26c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "lstrlenA",
+    "iatVA": "0x114b270"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "lstrcpyA",
+    "iatVA": "0x114b274"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FileTimeToDosDateTime",
+    "iatVA": "0x114b278"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "VirtualQuery",
+    "iatVA": "0x114b27c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetVersionExA",
+    "iatVA": "0x114b280"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetSystemInfo",
+    "iatVA": "0x114b284"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetSystemTimeAsFileTime",
+    "iatVA": "0x114b288"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GlobalMemoryStatusEx",
+    "iatVA": "0x114b28c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetVersion",
+    "iatVA": "0x114b290"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetCurrentThreadId",
+    "iatVA": "0x114b294"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetCurrentProcess",
+    "iatVA": "0x114b298"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "InitializeCriticalSectionAndSpinCount",
+    "iatVA": "0x114b29c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "EncodePointer",
+    "iatVA": "0x114b2a0"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "DecodePointer",
+    "iatVA": "0x114b2a4"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "IsDebuggerPresent",
+    "iatVA": "0x114b2a8"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CloseHandle",
+    "iatVA": "0x114b2ac"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "MultiByteToWideChar",
+    "iatVA": "0x114b2b0"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetLocalTime",
+    "iatVA": "0x114b2b4"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "IsDBCSLeadByteEx",
+    "iatVA": "0x114b2b8"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetACP",
+    "iatVA": "0x114b2bc"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "WideCharToMultiByte",
+    "iatVA": "0x114b2c0"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetTickCount",
+    "iatVA": "0x114b2c4"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FreeLibrary",
+    "iatVA": "0x114b2c8"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetProcAddress",
+    "iatVA": "0x114b2cc"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "LoadLibraryA",
+    "iatVA": "0x114b2d0"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetLastError",
+    "iatVA": "0x114b2d4"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetCurrentProcessId",
+    "iatVA": "0x114b2d8"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "_lcreat",
+    "iatVA": "0x114b2dc"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "_lwrite",
+    "iatVA": "0x114b2e0"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "_lclose",
+    "iatVA": "0x114b2e4"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "EnterCriticalSection",
+    "iatVA": "0x114b2e8"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "LeaveCriticalSection",
+    "iatVA": "0x114b2ec"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetModuleFileNameA",
+    "iatVA": "0x114b2f0"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetStdHandle",
+    "iatVA": "0x114b2f4"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetConsoleTextAttribute",
+    "iatVA": "0x114b2f8"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FreeConsole",
+    "iatVA": "0x114b2fc"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "AllocConsole",
+    "iatVA": "0x114b300"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetConsoleWindow",
+    "iatVA": "0x114b304"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetCurrentDirectoryA",
+    "iatVA": "0x114b308"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CreateFileA",
+    "iatVA": "0x114b30c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FileTimeToLocalFileTime",
+    "iatVA": "0x114b310"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetFileSize",
+    "iatVA": "0x114b314"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetFileTime",
+    "iatVA": "0x114b318"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "WriteFile",
+    "iatVA": "0x114b31c"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetFilePointer",
+    "iatVA": "0x114b320"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ChangeDisplaySettingsA",
+    "iatVA": "0x114ba14"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetProcessWindowStation",
+    "iatVA": "0x114ba18"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetUserObjectInformationW",
+    "iatVA": "0x114ba1c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "IsWindowVisible",
+    "iatVA": "0x114ba20"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "EnumThreadWindows",
+    "iatVA": "0x114ba24"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetWindow",
+    "iatVA": "0x114ba28"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetClassNameA",
+    "iatVA": "0x114ba2c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetDesktopWindow",
+    "iatVA": "0x114ba30"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetSysColor",
+    "iatVA": "0x114ba34"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetWindowTextLengthA",
+    "iatVA": "0x114ba38"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetWindowTextA",
+    "iatVA": "0x114ba3c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ShowScrollBar",
+    "iatVA": "0x114ba40"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "RedrawWindow",
+    "iatVA": "0x114ba44"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "InvalidateRgn",
+    "iatVA": "0x114ba48"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DestroyAcceleratorTable",
+    "iatVA": "0x114ba4c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "CreateAcceleratorTableA",
+    "iatVA": "0x114ba50"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ReleaseCapture",
+    "iatVA": "0x114ba54"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetCapture",
+    "iatVA": "0x114ba58"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetDlgItem",
+    "iatVA": "0x114ba5c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "IsChild",
+    "iatVA": "0x114ba60"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "IsWindow",
+    "iatVA": "0x114ba64"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetClassInfoExA",
+    "iatVA": "0x114ba68"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetClassInfoA",
+    "iatVA": "0x114ba6c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "UnregisterClassA",
+    "iatVA": "0x114ba70"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "CallWindowProcA",
+    "iatVA": "0x114ba74"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "RegisterWindowMessageA",
+    "iatVA": "0x114ba78"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "CopyRect",
+    "iatVA": "0x114ba7c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetRectEmpty",
+    "iatVA": "0x114ba80"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetParent",
+    "iatVA": "0x114ba84"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "MapWindowPoints",
+    "iatVA": "0x114ba88"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "TrackPopupMenu",
+    "iatVA": "0x114ba8c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "InsertMenuA",
+    "iatVA": "0x114ba90"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "CreatePopupMenu",
+    "iatVA": "0x114ba94"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetCaretPos",
+    "iatVA": "0x114ba98"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ShowCaret",
+    "iatVA": "0x114ba9c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "HideCaret",
+    "iatVA": "0x114baa0"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DestroyCaret",
+    "iatVA": "0x114baa4"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "CreateCaret",
+    "iatVA": "0x114baa8"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "MessageBeep",
+    "iatVA": "0x114baac"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetFocus",
+    "iatVA": "0x114bab0"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ShowWindow",
+    "iatVA": "0x114bab4"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DestroyWindow",
+    "iatVA": "0x114bab8"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "RegisterClassA",
+    "iatVA": "0x114babc"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SendMessageA",
+    "iatVA": "0x114bac0"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetKeyState",
+    "iatVA": "0x114bac4"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "LoadCursorA",
+    "iatVA": "0x114bac8"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetCursor",
+    "iatVA": "0x114bacc"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "EnumDisplayDevicesA",
+    "iatVA": "0x114bad0"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "LoadIconA",
+    "iatVA": "0x114bad4"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "CallNextHookEx",
+    "iatVA": "0x114bad8"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "UnhookWindowsHookEx",
+    "iatVA": "0x114badc"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetWindowsHookExA",
+    "iatVA": "0x114bae0"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "FindWindowExA",
+    "iatVA": "0x114bae4"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ScreenToClient",
+    "iatVA": "0x114bae8"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetCursorPos",
+    "iatVA": "0x114baec"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetWindowTextA",
+    "iatVA": "0x114baf0"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetUpdateRect",
+    "iatVA": "0x114baf4"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "UpdateWindow",
+    "iatVA": "0x114baf8"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "AppendMenuA",
+    "iatVA": "0x114bafc"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetMenuItemCount",
+    "iatVA": "0x114bb00"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DrawMenuBar",
+    "iatVA": "0x114bb04"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetSystemMetrics",
+    "iatVA": "0x114bb08"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetAsyncKeyState",
+    "iatVA": "0x114bb0c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetActiveWindow",
+    "iatVA": "0x114bb10"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetFocus",
+    "iatVA": "0x114bb14"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "FlashWindowEx",
+    "iatVA": "0x114bb18"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "CreateWindowExA",
+    "iatVA": "0x114bb1c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "RegisterClassExA",
+    "iatVA": "0x114bb20"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DefWindowProcA",
+    "iatVA": "0x114bb24"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "WaitMessage",
+    "iatVA": "0x114bb28"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "PeekMessageA",
+    "iatVA": "0x114bb2c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DispatchMessageA",
+    "iatVA": "0x114bb30"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "TranslateMessage",
+    "iatVA": "0x114bb34"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "TrackMouseEvent",
+    "iatVA": "0x114bb38"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetClientRect",
+    "iatVA": "0x114bb3c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "OemKeyScan",
+    "iatVA": "0x114bb40"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "PostMessageA",
+    "iatVA": "0x114bb44"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ClientToScreen",
+    "iatVA": "0x114bb48"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ValidateRgn",
+    "iatVA": "0x114bb4c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "EndPaint",
+    "iatVA": "0x114bb50"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "BeginPaint",
+    "iatVA": "0x114bb54"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "EndDialog",
+    "iatVA": "0x114bb58"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DialogBoxParamA",
+    "iatVA": "0x114bb5c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "IsIconic",
+    "iatVA": "0x114bb60"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "MoveWindow",
+    "iatVA": "0x114bb64"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "OffsetRect",
+    "iatVA": "0x114bb68"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "IntersectRect",
+    "iatVA": "0x114bb6c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "FillRect",
+    "iatVA": "0x114bb70"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetWindowThreadProcessId",
+    "iatVA": "0x114bb74"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetForegroundWindow",
+    "iatVA": "0x114bb78"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "CharNextA",
+    "iatVA": "0x114bb7c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "wsprintfA",
+    "iatVA": "0x114bb80"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "wvsprintfA",
+    "iatVA": "0x114bb84"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "KillTimer",
+    "iatVA": "0x114bb88"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetTimer",
+    "iatVA": "0x114bb8c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "MapVirtualKeyA",
+    "iatVA": "0x114bb90"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "keybd_event",
+    "iatVA": "0x114bb94"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ToAscii",
+    "iatVA": "0x114bb98"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetKeyboardState",
+    "iatVA": "0x114bb9c"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SystemParametersInfoA",
+    "iatVA": "0x114bba0"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetWindowLongA",
+    "iatVA": "0x114bba4"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetWindowLongA",
+    "iatVA": "0x114bba8"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetRect",
+    "iatVA": "0x114bbac"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ClipCursor",
+    "iatVA": "0x114bbb0"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "AdjustWindowRectEx",
+    "iatVA": "0x114bbb4"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "InvalidateRect",
+    "iatVA": "0x114bbb8"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetMenu",
+    "iatVA": "0x114bbbc"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DeleteMenu",
+    "iatVA": "0x114bbc0"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetSystemMenu",
+    "iatVA": "0x114bbc4"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetWindowRect",
+    "iatVA": "0x114bbc8"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetKeyboardLayout",
+    "iatVA": "0x114bbcc"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ReleaseDC",
+    "iatVA": "0x114bbd0"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetDC",
+    "iatVA": "0x114bbd4"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "MessageBoxA",
+    "iatVA": "0x114bbd8"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetWindowPos",
+    "iatVA": "0x114bbdc"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "PostQuitMessage",
+    "iatVA": "0x114bbe0"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "UnregisterClassW",
+    "iatVA": "0x114bbe4"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "Rectangle",
+    "iatVA": "0x114b060"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "SelectClipRgn",
+    "iatVA": "0x114b064"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "SetDCPenColor",
+    "iatVA": "0x114b068"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "SetROP2",
+    "iatVA": "0x114b06c"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetTextMetricsA",
+    "iatVA": "0x114b070"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "MoveToEx",
+    "iatVA": "0x114b074"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "CreateCompatibleDC",
+    "iatVA": "0x114b078"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetCharWidth32A",
+    "iatVA": "0x114b07c"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "SetPixel",
+    "iatVA": "0x114b080"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "LineTo",
+    "iatVA": "0x114b084"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetCharacterPlacementA",
+    "iatVA": "0x114b088"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "StretchBlt",
+    "iatVA": "0x114b08c"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetDeviceCaps",
+    "iatVA": "0x114b090"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetStockObject",
+    "iatVA": "0x114b094"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetCharWidthA",
+    "iatVA": "0x114b098"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "EnumFontFamiliesExA",
+    "iatVA": "0x114b09c"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "CreateSolidBrush",
+    "iatVA": "0x114b0a0"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "CreateRectRgn",
+    "iatVA": "0x114b0a4"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "CreateFontIndirectA",
+    "iatVA": "0x114b0a8"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetFontLanguageInfo",
+    "iatVA": "0x114b0ac"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetTextColor",
+    "iatVA": "0x114b0b0"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "ExtTextOutW",
+    "iatVA": "0x114b0b4"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "ExtTextOutA",
+    "iatVA": "0x114b0b8"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "SetTextAlign",
+    "iatVA": "0x114b0bc"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "SetBkMode",
+    "iatVA": "0x114b0c0"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetTextExtentPoint32W",
+    "iatVA": "0x114b0c4"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "SelectObject",
+    "iatVA": "0x114b0c8"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetTextExtentPoint32A",
+    "iatVA": "0x114b0cc"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "CreateFontA",
+    "iatVA": "0x114b0d0"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetObjectA",
+    "iatVA": "0x114b0d4"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetCharABCWidthsA",
+    "iatVA": "0x114b0d8"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "DeleteObject",
+    "iatVA": "0x114b0dc"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "CreateCompatibleBitmap",
+    "iatVA": "0x114b0e0"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "BitBlt",
+    "iatVA": "0x114b0e4"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "TextOutA",
+    "iatVA": "0x114b0e8"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "SetTextColor",
+    "iatVA": "0x114b0ec"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "SetBkColor",
+    "iatVA": "0x114b0f0"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "DeleteDC",
+    "iatVA": "0x114b0f4"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegQueryInfoKeyW",
+    "iatVA": "0x114b000"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegisterEventSourceA",
+    "iatVA": "0x114b004"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "ReportEventA",
+    "iatVA": "0x114b008"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "DeregisterEventSource",
+    "iatVA": "0x114b00c"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "CryptGenRandom",
+    "iatVA": "0x114b010"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "CryptReleaseContext",
+    "iatVA": "0x114b014"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "CryptAcquireContextA",
+    "iatVA": "0x114b018"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegQueryValueExW",
+    "iatVA": "0x114b01c"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegOpenKeyExW",
+    "iatVA": "0x114b020"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegEnumKeyExA",
+    "iatVA": "0x114b024"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegDeleteValueA",
+    "iatVA": "0x114b028"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegDeleteKeyA",
+    "iatVA": "0x114b02c"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegSetValueExA",
+    "iatVA": "0x114b030"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegOpenKeyA",
+    "iatVA": "0x114b034"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegCreateKeyExA",
+    "iatVA": "0x114b038"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegQueryValueExA",
+    "iatVA": "0x114b03c"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegOpenKeyExA",
+    "iatVA": "0x114b040"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegCloseKey",
+    "iatVA": "0x114b044"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "GetUserNameA",
+    "iatVA": "0x114b048"
+  },
+  {
+    "dll": "SHELL32.dll",
+    "name": "ShellExecuteA",
+    "iatVA": "0x114ba0c"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "StringFromGUID2",
+    "iatVA": "0x114be58"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoGetClassObject",
+    "iatVA": "0x114be5c"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoInitializeEx",
+    "iatVA": "0x114be60"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoTaskMemAlloc",
+    "iatVA": "0x114be64"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CLSIDFromString",
+    "iatVA": "0x114be68"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "OleRun",
+    "iatVA": "0x114be6c"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoInitialize",
+    "iatVA": "0x114be70"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoCreateInstance",
+    "iatVA": "0x114be74"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoTaskMemRealloc",
+    "iatVA": "0x114be78"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoTaskMemFree",
+    "iatVA": "0x114be7c"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "OleInitialize",
+    "iatVA": "0x114be80"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoSetProxyBlanket",
+    "iatVA": "0x114be84"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoCreateGuid",
+    "iatVA": "0x114be88"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoInitializeSecurity",
+    "iatVA": "0x114be8c"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "GetHGlobalFromStream",
+    "iatVA": "0x114be90"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "OleLockRunning",
+    "iatVA": "0x114be94"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CreateStreamOnHGlobal",
+    "iatVA": "0x114be98"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "OleUninitialize",
+    "iatVA": "0x114be9c"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CLSIDFromProgID",
+    "iatVA": "0x114bea0"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoUninitialize",
+    "iatVA": "0x114bea4"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "CreateErrorInfo",
+    "iatVA": "0x114b9bc"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "SetErrorInfo",
+    "iatVA": "0x114b9c0"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "VariantChangeType",
+    "iatVA": "0x114b9c4"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "GetErrorInfo",
+    "iatVA": "0x114b9c8"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "OleCreateFontIndirect",
+    "iatVA": "0x114b9cc"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "LoadRegTypeLib",
+    "iatVA": "0x114b9d0"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "LoadTypeLib",
+    "iatVA": "0x114b9d4"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "VarUI4FromStr",
+    "iatVA": "0x114b9d8"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "VariantClear",
+    "iatVA": "0x114b9dc"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "SafeArrayUnaccessData",
+    "iatVA": "0x114b9e0"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "SafeArrayAccessData",
+    "iatVA": "0x114b9e4"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "SafeArrayCreate",
+    "iatVA": "0x114b9e8"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "SysStringLen",
+    "iatVA": "0x114b9ec"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "SysAllocStringLen",
+    "iatVA": "0x114b9f0"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "SysAllocStringByteLen",
+    "iatVA": "0x114b9f4"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "SysStringByteLen",
+    "iatVA": "0x114b9f8"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "SysFreeString",
+    "iatVA": "0x114b9fc"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "VariantInit",
+    "iatVA": "0x114ba00"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "SysAllocString",
+    "iatVA": "0x114ba04"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??1_Container_base12@std@@QAE@XZ",
+    "iatVA": "0x114b328"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??0_Container_base12@std@@QAE@XZ",
+    "iatVA": "0x114b32c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?gcount@?$basic_istream@DU?$char_traits@D@std@@@std@@QBE_JXZ",
+    "iatVA": "0x114b330"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?read@?$basic_istream@DU?$char_traits@D@std@@@std@@QAEAAV12@PAD_J@Z",
+    "iatVA": "0x114b334"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?eof@ios_base@std@@QBE_NXZ",
+    "iatVA": "0x114b338"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??Bios_base@std@@QBEPAXXZ",
+    "iatVA": "0x114b33c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?clear@?$basic_ios@DU?$char_traits@D@std@@@std@@QAEXH_N@Z",
+    "iatVA": "0x114b340"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "_Xtime_get_ticks",
+    "iatVA": "0x114b344"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?id@?$codecvt@DDH@std@@2V0locale@2@A",
+    "iatVA": "0x114b348"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Add_vtordisp2@?$basic_ios@DU?$char_traits@D@std@@@std@@UAEXXZ",
+    "iatVA": "0x114b34c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??_7_Facet_base@std@@6B@",
+    "iatVA": "0x114b350"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??_7?$basic_istream@DU?$char_traits@D@std@@@std@@6B@",
+    "iatVA": "0x114b354"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Swap_all@_Container_base12@std@@QAEXAAU12@@Z",
+    "iatVA": "0x114b358"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?putback@?$basic_istream@DU?$char_traits@D@std@@@std@@QAEAAV12@D@Z",
+    "iatVA": "0x114b35c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?fail@ios_base@std@@QBE_NXZ",
+    "iatVA": "0x114b360"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?rdstate@ios_base@std@@QBEHXZ",
+    "iatVA": "0x114b364"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?ws@std@@YAAAV?$basic_istream@DU?$char_traits@D@std@@@1@AAV21@@Z",
+    "iatVA": "0x114b368"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?set_new_handler@std@@YAP6AXXZP6AXXZ@Z",
+    "iatVA": "0x114b36c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?write@?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV12@PBD_J@Z",
+    "iatVA": "0x114b370"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "_FNan",
+    "iatVA": "0x114b374"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "_FInf",
+    "iatVA": "0x114b378"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "_Nan",
+    "iatVA": "0x114b37c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "_Inf",
+    "iatVA": "0x114b380"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV01@G@Z",
+    "iatVA": "0x114b384"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?cerr@std@@3V?$basic_ostream@DU?$char_traits@D@std@@@1@A",
+    "iatVA": "0x114b388"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?id@?$ctype@D@std@@2V0locale@2@A",
+    "iatVA": "0x114b38c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??5?$basic_istream@DU?$char_traits@D@std@@@std@@QAEAAV01@AAH@Z",
+    "iatVA": "0x114b390"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV01@P6AAAVios_base@1@AAV21@@Z@Z",
+    "iatVA": "0x114b394"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?setf@ios_base@std@@QAEHHH@Z",
+    "iatVA": "0x114b398"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Getcat@?$ctype@D@std@@SAIPAPBVfacet@locale@2@PBV42@@Z",
+    "iatVA": "0x114b39c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?is@?$ctype@D@std@@QBE_NFD@Z",
+    "iatVA": "0x114b3a0"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?setw@std@@YA?AU?$_Smanip@_J@1@_J@Z",
+    "iatVA": "0x114b3a4"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Release@_Pad@std@@QAEXXZ",
+    "iatVA": "0x114b3a8"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Orphan_all@_Container_base0@std@@QAEXXZ",
+    "iatVA": "0x114b3ac"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Xbad_alloc@std@@YAXXZ",
+    "iatVA": "0x114b3b0"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Xlength_error@std@@YAXPBD@Z",
+    "iatVA": "0x114b3b4"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Xout_of_range@std@@YAXPBD@Z",
+    "iatVA": "0x114b3b8"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Xbad_function_call@std@@YAXXZ",
+    "iatVA": "0x114b3bc"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Syserror_map@std@@YAPBDH@Z",
+    "iatVA": "0x114b3c0"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?uncaught_exception@std@@YA_NXZ",
+    "iatVA": "0x114b3c4"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?good@ios_base@std@@QBE_NXZ",
+    "iatVA": "0x114b3c8"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?flags@ios_base@std@@QBEHXZ",
+    "iatVA": "0x114b3cc"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?width@ios_base@std@@QBE_JXZ",
+    "iatVA": "0x114b3d0"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?width@ios_base@std@@QAE_J_J@Z",
+    "iatVA": "0x114b3d4"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??0?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAE@XZ",
+    "iatVA": "0x114b3d8"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??1?$basic_streambuf@DU?$char_traits@D@std@@@std@@UAE@XZ",
+    "iatVA": "0x114b3dc"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?sputc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QAEHD@Z",
+    "iatVA": "0x114b3e0"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?sputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QAE_JPBD_J@Z",
+    "iatVA": "0x114b3e4"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?eback@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IBEPADXZ",
+    "iatVA": "0x114b3e8"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?gptr@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IBEPADXZ",
+    "iatVA": "0x114b3ec"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?pbase@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IBEPADXZ",
+    "iatVA": "0x114b3f0"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?pptr@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IBEPADXZ",
+    "iatVA": "0x114b3f4"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?egptr@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IBEPADXZ",
+    "iatVA": "0x114b3f8"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?gbump@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEXH@Z",
+    "iatVA": "0x114b3fc"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?setg@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEXPAD00@Z",
+    "iatVA": "0x114b400"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?epptr@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IBEPADXZ",
+    "iatVA": "0x114b404"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?pbump@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEXH@Z",
+    "iatVA": "0x114b408"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?setp@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEXPAD0@Z",
+    "iatVA": "0x114b40c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?setp@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEXPAD00@Z",
+    "iatVA": "0x114b410"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Pninc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEPADXZ",
+    "iatVA": "0x114b414"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??1?$basic_ios@DU?$char_traits@D@std@@@std@@UAE@XZ",
+    "iatVA": "0x114b418"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?setstate@?$basic_ios@DU?$char_traits@D@std@@@std@@QAEXH_N@Z",
+    "iatVA": "0x114b41c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?tie@?$basic_ios@DU?$char_traits@D@std@@@std@@QBEPAV?$basic_ostream@DU?$char_traits@D@std@@@2@XZ",
+    "iatVA": "0x114b420"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?rdbuf@?$basic_ios@DU?$char_traits@D@std@@@std@@QBEPAV?$basic_streambuf@DU?$char_traits@D@std@@@2@XZ",
+    "iatVA": "0x114b424"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?fill@?$basic_ios@DU?$char_traits@D@std@@@std@@QBEDXZ",
+    "iatVA": "0x114b428"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??0?$basic_ios@DU?$char_traits@D@std@@@std@@IAE@XZ",
+    "iatVA": "0x114b42c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Add_vtordisp2@?$basic_ostream@DU?$char_traits@D@std@@@std@@UAEXXZ",
+    "iatVA": "0x114b430"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Osfx@?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEXXZ",
+    "iatVA": "0x114b434"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV01@H@Z",
+    "iatVA": "0x114b438"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?flush@?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV12@XZ",
+    "iatVA": "0x114b43c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Add_vtordisp1@?$basic_istream@DU?$char_traits@D@std@@@std@@UAEXXZ",
+    "iatVA": "0x114b440"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??0?$basic_iostream@DU?$char_traits@D@std@@@std@@QAE@PAV?$basic_streambuf@DU?$char_traits@D@std@@@1@@Z",
+    "iatVA": "0x114b444"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??1?$basic_iostream@DU?$char_traits@D@std@@@std@@UAE@XZ",
+    "iatVA": "0x114b448"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Lock@?$basic_streambuf@DU?$char_traits@D@std@@@std@@UAEXXZ",
+    "iatVA": "0x114b44c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Unlock@?$basic_streambuf@DU?$char_traits@D@std@@@std@@UAEXXZ",
+    "iatVA": "0x114b450"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?imbue@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEXABVlocale@2@@Z",
+    "iatVA": "0x114b454"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?setbuf@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEPAV12@PAD_J@Z",
+    "iatVA": "0x114b458"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?showmanyc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAE_JXZ",
+    "iatVA": "0x114b45c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?sync@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ",
+    "iatVA": "0x114b460"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?uflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ",
+    "iatVA": "0x114b464"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?xsgetn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAE_JPAD_J@Z",
+    "iatVA": "0x114b468"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?xsputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAE_JPBD_J@Z",
+    "iatVA": "0x114b46c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_BADOFF@std@@3_JB",
+    "iatVA": "0x114b470"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Swap_all@_Container_base0@std@@QAEXAAU12@@Z",
+    "iatVA": "0x114b474"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??0_Lockit@std@@QAE@H@Z",
+    "iatVA": "0x114b478"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??1_Lockit@std@@QAE@XZ",
+    "iatVA": "0x114b47c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??Bid@locale@std@@QAEIXZ",
+    "iatVA": "0x114b480"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Getgloballocale@locale@std@@CAPAV_Locimp@12@XZ",
+    "iatVA": "0x114b484"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?always_noconv@codecvt_base@std@@QBE_NXZ",
+    "iatVA": "0x114b488"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Orphan_all@_Container_base12@std@@QAEXXZ",
+    "iatVA": "0x114b48c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_1@placeholders@std@@3V?$_Ph@$00@2@A",
+    "iatVA": "0x114b490"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?in@?$codecvt@DDH@std@@QBEHAAHPBD1AAPBDPAD3AAPAD@Z",
+    "iatVA": "0x114b494"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?out@?$codecvt@DDH@std@@QBEHAAHPBD1AAPBDPAD3AAPAD@Z",
+    "iatVA": "0x114b498"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?unshift@?$codecvt@DDH@std@@QBEHAAHPAD1AAPAD@Z",
+    "iatVA": "0x114b49c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Getcat@?$codecvt@DDH@std@@SAIPAPBVfacet@locale@2@PBV42@@Z",
+    "iatVA": "0x114b4a0"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?getloc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QBE?AVlocale@2@XZ",
+    "iatVA": "0x114b4a4"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Gndec@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEPADXZ",
+    "iatVA": "0x114b4a8"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Gninc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEPADXZ",
+    "iatVA": "0x114b4ac"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Init@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEXXZ",
+    "iatVA": "0x114b4b0"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Init@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEXPAPAD0PAH001@Z",
+    "iatVA": "0x114b4b4"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??0?$basic_ostream@DU?$char_traits@D@std@@@std@@QAE@PAV?$basic_streambuf@DU?$char_traits@D@std@@@1@_N@Z",
+    "iatVA": "0x114b4b8"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??1?$basic_ostream@DU?$char_traits@D@std@@@std@@UAE@XZ",
+    "iatVA": "0x114b4bc"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??0?$basic_istream@DU?$char_traits@D@std@@@std@@QAE@PAV?$basic_streambuf@DU?$char_traits@D@std@@@1@_N@Z",
+    "iatVA": "0x114b4c0"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??1?$basic_istream@DU?$char_traits@D@std@@@std@@UAE@XZ",
+    "iatVA": "0x114b4c4"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Fiopen@std@@YAPAU_iobuf@@PBDHH@Z",
+    "iatVA": "0x114b4c8"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Add_vtordisp1@?$basic_ios@DU?$char_traits@D@std@@@std@@UAEXXZ",
+    "iatVA": "0x114b4cc"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?sbumpc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QAEHXZ",
+    "iatVA": "0x114b4d0"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?sgetc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QAEHXZ",
+    "iatVA": "0x114b4d4"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?snextc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QAEHXZ",
+    "iatVA": "0x114b4d8"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??1_Pad@std@@QAE@XZ",
+    "iatVA": "0x114b4dc"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Ipfx@?$basic_istream@DU?$char_traits@D@std@@@std@@QAE_N_N@Z",
+    "iatVA": "0x114b4e0"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV01@I@Z",
+    "iatVA": "0x114b4e4"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?widen@?$basic_ios@DU?$char_traits@D@std@@@std@@QBEDD@Z",
+    "iatVA": "0x114b4e8"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?getline@?$basic_istream@DU?$char_traits@D@std@@@std@@QAEAAV12@PAD_J@Z",
+    "iatVA": "0x114b4ec"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV01@P6AAAV01@AAV01@@Z@Z",
+    "iatVA": "0x114b4f0"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?endl@std@@YAAAV?$basic_ostream@DU?$char_traits@D@std@@@1@AAV21@@Z",
+    "iatVA": "0x114b4f4"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?cout@std@@3V?$basic_ostream@DU?$char_traits@D@std@@@1@A",
+    "iatVA": "0x114b4f8"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??0id@locale@std@@QAE@I@Z",
+    "iatVA": "0x114b4fc"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Winerror_map@std@@YAPBDH@Z",
+    "iatVA": "0x114b500"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Random_device@std@@YAIXZ",
+    "iatVA": "0x114b504"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "_Mtx_init",
+    "iatVA": "0x114b508"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "_Mtx_destroy",
+    "iatVA": "0x114b50c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Throw_C_error@std@@YAXH@Z",
+    "iatVA": "0x114b510"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?getloc@ios_base@std@@QBE?AVlocale@2@XZ",
+    "iatVA": "0x114b514"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?get@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@QBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHPAUtm@@PBD4@Z",
+    "iatVA": "0x114b518"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Getcat@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@SAIPAPBVfacet@locale@2@PBV42@@Z",
+    "iatVA": "0x114b51c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?id@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@2V0locale@2@A",
+    "iatVA": "0x114b520"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Xinvalid_argument@std@@YAXPBD@Z",
+    "iatVA": "0x114b524"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?fill@?$basic_ios@DU?$char_traits@D@std@@@std@@QAEDD@Z",
+    "iatVA": "0x114b528"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV01@_J@Z",
+    "iatVA": "0x114b52c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "_Thrd_join",
+    "iatVA": "0x114b530"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "_Thrd_equal",
+    "iatVA": "0x114b534"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "_Thrd_current",
+    "iatVA": "0x114b538"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Throw_Cpp_error@std@@YAXH@Z",
+    "iatVA": "0x114b53c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??0_Pad@std@@QAE@XZ",
+    "iatVA": "0x114b540"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Launch@_Pad@std@@QAEXPAU_Thrd_imp_t@@@Z",
+    "iatVA": "0x114b544"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??_7facet@locale@std@@6B@",
+    "iatVA": "0x114b548"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Init@locale@std@@CAPAV_Locimp@12@_N@Z",
+    "iatVA": "0x114b54c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?id@?$numpunct@D@std@@2V0locale@2@A",
+    "iatVA": "0x114b550"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?c_str@?$_Yarn@D@std@@QBEPBDXZ",
+    "iatVA": "0x114b554"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??_D?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEXXZ",
+    "iatVA": "0x114b558"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?precision@ios_base@std@@QBE_JXZ",
+    "iatVA": "0x114b55c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?setf@ios_base@std@@QAEHH@Z",
+    "iatVA": "0x114b560"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?widen@?$ctype@D@std@@QBEPBDPBD0PAD@Z",
+    "iatVA": "0x114b564"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?widen@?$ctype@D@std@@QBEDD@Z",
+    "iatVA": "0x114b568"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??1facet@locale@std@@MAE@XZ",
+    "iatVA": "0x114b56c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??0facet@locale@std@@IAE@I@Z",
+    "iatVA": "0x114b570"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Decref@facet@locale@std@@UAEPAV_Facet_base@3@XZ",
+    "iatVA": "0x114b574"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Incref@facet@locale@std@@UAEXXZ",
+    "iatVA": "0x114b578"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??1_Facet_base@std@@UAE@XZ",
+    "iatVA": "0x114b57c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Gettrue@_Locinfo@std@@QBEPBDXZ",
+    "iatVA": "0x114b580"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Getfalse@_Locinfo@std@@QBEPBDXZ",
+    "iatVA": "0x114b584"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Getlconv@_Locinfo@std@@QBEPBUlconv@@XZ",
+    "iatVA": "0x114b588"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "?_Getcvt@_Locinfo@std@@QBE?AU_Cvtvec@@XZ",
+    "iatVA": "0x114b58c"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??1_Locinfo@std@@QAE@XZ",
+    "iatVA": "0x114b590"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??0_Locinfo@std@@QAE@PBD@Z",
+    "iatVA": "0x114b594"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??_7?$basic_ostream@DU?$char_traits@D@std@@@std@@6B@",
+    "iatVA": "0x114b598"
+  },
+  {
+    "dll": "MSVCP110.dll",
+    "name": "??_7?$basic_iostream@DU?$char_traits@D@std@@@std@@6B@",
+    "iatVA": "0x114b59c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strtok",
+    "iatVA": "0x114b5a4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strstr",
+    "iatVA": "0x114b5a8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strncpy_s",
+    "iatVA": "0x114b5ac"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strncmp",
+    "iatVA": "0x114b5b0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_stricmp",
+    "iatVA": "0x114b5b4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strchr",
+    "iatVA": "0x114b5b8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strcmp",
+    "iatVA": "0x114b5bc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strcpy",
+    "iatVA": "0x114b5c0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "sprintf",
+    "iatVA": "0x114b5c4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "sscanf",
+    "iatVA": "0x114b5c8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "atoi",
+    "iatVA": "0x114b5cc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "abs",
+    "iatVA": "0x114b5d0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "memset",
+    "iatVA": "0x114b5d4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??_V@YAXPAX@Z",
+    "iatVA": "0x114b5d8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strlen",
+    "iatVA": "0x114b5dc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "free",
+    "iatVA": "0x114b5e0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "memcpy",
+    "iatVA": "0x114b5e4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_purecall",
+    "iatVA": "0x114b5e8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "__CxxFrameHandler3",
+    "iatVA": "0x114b5ec"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_CxxThrowException",
+    "iatVA": "0x114b5f0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "memmove",
+    "iatVA": "0x114b5f4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??2@YAPAXI@Z",
+    "iatVA": "0x114b5f8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??3@YAXPAX@Z",
+    "iatVA": "0x114b5fc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "setlocale",
+    "iatVA": "0x114b600"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "__RTDynamicCast",
+    "iatVA": "0x114b604"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "memcmp",
+    "iatVA": "0x114b608"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_mbslen",
+    "iatVA": "0x114b60c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strcat",
+    "iatVA": "0x114b610"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_strnicmp",
+    "iatVA": "0x114b614"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "wcslen",
+    "iatVA": "0x114b618"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "memchr",
+    "iatVA": "0x114b61c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "memcpy_s",
+    "iatVA": "0x114b620"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fclose",
+    "iatVA": "0x114b624"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fflush",
+    "iatVA": "0x114b628"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fgetc",
+    "iatVA": "0x114b62c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fgetpos",
+    "iatVA": "0x114b630"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fputc",
+    "iatVA": "0x114b634"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fsetpos",
+    "iatVA": "0x114b638"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_fseeki64",
+    "iatVA": "0x114b63c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fwrite",
+    "iatVA": "0x114b640"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "setvbuf",
+    "iatVA": "0x114b644"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "ungetc",
+    "iatVA": "0x114b648"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_lock_file",
+    "iatVA": "0x114b64c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??0_Cancellation_beacon@details@Concurrency@@QAE@XZ",
+    "iatVA": "0x114b650"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_unlock_file",
+    "iatVA": "0x114b654"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??0bad_cast@std@@QAE@PBD@Z",
+    "iatVA": "0x114b658"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??0bad_cast@std@@QAE@ABV01@@Z",
+    "iatVA": "0x114b65c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??0exception@std@@QAE@ABV01@@Z",
+    "iatVA": "0x114b660"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??1bad_cast@std@@UAE@XZ",
+    "iatVA": "0x114b664"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "rand",
+    "iatVA": "0x114b668"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strcat_s",
+    "iatVA": "0x114b66c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fopen",
+    "iatVA": "0x114b670"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fprintf",
+    "iatVA": "0x114b674"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "vfprintf",
+    "iatVA": "0x114b678"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "sqrt",
+    "iatVA": "0x114b67c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "pow",
+    "iatVA": "0x114b680"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "sin",
+    "iatVA": "0x114b684"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "cos",
+    "iatVA": "0x114b688"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_localtime32",
+    "iatVA": "0x114b68c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_time32",
+    "iatVA": "0x114b690"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_mktime32",
+    "iatVA": "0x114b694"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "printf",
+    "iatVA": "0x114b698"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "vsprintf_s",
+    "iatVA": "0x114b69c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "ceil",
+    "iatVA": "0x114b6a0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "malloc",
+    "iatVA": "0x114b6a4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "realloc",
+    "iatVA": "0x114b6a8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??0exception@std@@QAE@ABQBD@Z",
+    "iatVA": "0x114b6ac"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??1exception@std@@UAE@XZ",
+    "iatVA": "0x114b6b0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?what@exception@std@@UBEPBDXZ",
+    "iatVA": "0x114b6b4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??0exception@std@@QAE@XZ",
+    "iatVA": "0x114b6b8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "sprintf_s",
+    "iatVA": "0x114b6bc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_mkdir",
+    "iatVA": "0x114b6c0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "atan",
+    "iatVA": "0x114b6c4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "tolower",
+    "iatVA": "0x114b6c8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "srand",
+    "iatVA": "0x114b6cc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strncpy",
+    "iatVA": "0x114b6d0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fabs",
+    "iatVA": "0x114b6d4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_findfirst32",
+    "iatVA": "0x114b6d8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_findnext32",
+    "iatVA": "0x114b6dc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_findclose",
+    "iatVA": "0x114b6e0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "isdigit",
+    "iatVA": "0x114b6e4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strtoul",
+    "iatVA": "0x114b6e8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fgets",
+    "iatVA": "0x114b6ec"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strcpy_s",
+    "iatVA": "0x114b6f0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_ctime32",
+    "iatVA": "0x114b6f4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_strdate",
+    "iatVA": "0x114b6f8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_strtime",
+    "iatVA": "0x114b6fc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "isspace",
+    "iatVA": "0x114b700"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_atoi64",
+    "iatVA": "0x114b704"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "vsprintf",
+    "iatVA": "0x114b708"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_close",
+    "iatVA": "0x114b70c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_write",
+    "iatVA": "0x114b710"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "__iob_func",
+    "iatVA": "0x114b714"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_wcstoi64",
+    "iatVA": "0x114b718"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_errno",
+    "iatVA": "0x114b71c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "iswcntrl",
+    "iatVA": "0x114b720"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "labs",
+    "iatVA": "0x114b724"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?terminate@@YAXXZ",
+    "iatVA": "0x114b728"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_localtime32_s",
+    "iatVA": "0x114b72c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fopen_s",
+    "iatVA": "0x114b730"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "sscanf_s",
+    "iatVA": "0x114b734"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "isalpha",
+    "iatVA": "0x114b738"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "isalnum",
+    "iatVA": "0x114b73c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "asctime",
+    "iatVA": "0x114b740"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "toupper",
+    "iatVA": "0x114b744"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strerror",
+    "iatVA": "0x114b748"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "memmove_s",
+    "iatVA": "0x114b74c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_vscprintf",
+    "iatVA": "0x114b750"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "isxdigit",
+    "iatVA": "0x114b754"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "vswprintf_s",
+    "iatVA": "0x114b758"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_resetstkoflw",
+    "iatVA": "0x114b75c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_recalloc",
+    "iatVA": "0x114b760"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "calloc",
+    "iatVA": "0x114b764"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "wcstombs",
+    "iatVA": "0x114b768"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "atof",
+    "iatVA": "0x114b76c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_gmtime32",
+    "iatVA": "0x114b770"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??8type_info@@QBE_NABV0@@Z",
+    "iatVA": "0x114b774"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_rotl",
+    "iatVA": "0x114b778"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_snprintf",
+    "iatVA": "0x114b77c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "ftell",
+    "iatVA": "0x114b780"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "wcsncpy",
+    "iatVA": "0x114b784"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "wcscpy_s",
+    "iatVA": "0x114b788"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "wcscmp",
+    "iatVA": "0x114b78c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "swscanf",
+    "iatVA": "0x114b790"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_SpinOnce@?$_SpinWait@$00@details@Concurrency@@QAE_NXZ",
+    "iatVA": "0x114b794"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??0?$_SpinWait@$00@details@Concurrency@@QAE@P6AXXZ@Z",
+    "iatVA": "0x114b798"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_Trace_ppl_function@Concurrency@@YAXABU_GUID@@EW4ConcRT_EventType@1@@Z",
+    "iatVA": "0x114b79c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_Confirm_cancel@_Cancellation_beacon@details@Concurrency@@QAE_NXZ",
+    "iatVA": "0x114b7a0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??1_Cancellation_beacon@details@Concurrency@@QAE@XZ",
+    "iatVA": "0x114b7a4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "isprint",
+    "iatVA": "0x114b7a8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strtok_s",
+    "iatVA": "0x114b7ac"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "rewind",
+    "iatVA": "0x114b7b0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_i64toa_s",
+    "iatVA": "0x114b7b4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_mbccpy_s",
+    "iatVA": "0x114b7b8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "towlower",
+    "iatVA": "0x114b7bc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "putwchar",
+    "iatVA": "0x114b7c0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "vwprintf_s",
+    "iatVA": "0x114b7c4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "wcsncmp",
+    "iatVA": "0x114b7c8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "putchar",
+    "iatVA": "0x114b7cc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "vprintf_s",
+    "iatVA": "0x114b7d0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_mbsncmp",
+    "iatVA": "0x114b7d4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_mbsninc",
+    "iatVA": "0x114b7d8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_mbctolower",
+    "iatVA": "0x114b7dc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fprintf_s",
+    "iatVA": "0x114b7e0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_difftime32",
+    "iatVA": "0x114b7e4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_lseeki64",
+    "iatVA": "0x114b7e8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_open",
+    "iatVA": "0x114b7ec"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_wopen",
+    "iatVA": "0x114b7f0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_abs64",
+    "iatVA": "0x114b7f4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "ldiv",
+    "iatVA": "0x114b7f8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_strtoi64",
+    "iatVA": "0x114b7fc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_strtoui64",
+    "iatVA": "0x114b800"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strtol",
+    "iatVA": "0x114b804"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strtod",
+    "iatVA": "0x114b808"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strpbrk",
+    "iatVA": "0x114b80c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_time64",
+    "iatVA": "0x114b810"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_aligned_malloc",
+    "iatVA": "0x114b814"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_aligned_free",
+    "iatVA": "0x114b818"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??9type_info@@QBE_NABV0@@Z",
+    "iatVA": "0x114b81c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?name@type_info@@QBEPBDPAU__type_info_node@@@Z",
+    "iatVA": "0x114b820"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "clock",
+    "iatVA": "0x114b824"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "feof",
+    "iatVA": "0x114b828"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "ferror",
+    "iatVA": "0x114b82c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "getc",
+    "iatVA": "0x114b830"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strncat",
+    "iatVA": "0x114b834"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strcspn",
+    "iatVA": "0x114b838"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strcoll",
+    "iatVA": "0x114b83c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "longjmp",
+    "iatVA": "0x114b840"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "localeconv",
+    "iatVA": "0x114b844"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "iscntrl",
+    "iatVA": "0x114b848"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "getenv",
+    "iatVA": "0x114b84c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "wcsstr",
+    "iatVA": "0x114b850"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_vsnprintf",
+    "iatVA": "0x114b854"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_exit",
+    "iatVA": "0x114b858"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "raise",
+    "iatVA": "0x114b85c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_setmode",
+    "iatVA": "0x114b860"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_fileno",
+    "iatVA": "0x114b864"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_wfopen",
+    "iatVA": "0x114b868"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "wcscat_s",
+    "iatVA": "0x114b86c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_vsnprintf_s",
+    "iatVA": "0x114b870"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_endthreadex",
+    "iatVA": "0x114b874"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "swprintf_s",
+    "iatVA": "0x114b878"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_itow_s",
+    "iatVA": "0x114b87c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??1type_info@@UAE@XZ",
+    "iatVA": "0x114b880"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_lock",
+    "iatVA": "0x114b884"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_unlock",
+    "iatVA": "0x114b888"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_calloc_crt",
+    "iatVA": "0x114b88c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "__dllonexit",
+    "iatVA": "0x114b890"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_onexit",
+    "iatVA": "0x114b894"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_crt_debugger_hook",
+    "iatVA": "0x114b898"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "__crtUnhandledException",
+    "iatVA": "0x114b89c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "__crtTerminateProcess",
+    "iatVA": "0x114b8a0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_except_handler4_common",
+    "iatVA": "0x114b8a4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_XcptFilter",
+    "iatVA": "0x114b8a8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "__crtGetShowWindowMode",
+    "iatVA": "0x114b8ac"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_amsg_exit",
+    "iatVA": "0x114b8b0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "__getmainargs",
+    "iatVA": "0x114b8b4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "__set_app_type",
+    "iatVA": "0x114b8b8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "freopen",
+    "iatVA": "0x114b8bc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strnlen",
+    "iatVA": "0x114b8c0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fscanf",
+    "iatVA": "0x114b8c4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fseek",
+    "iatVA": "0x114b8c8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "bsearch",
+    "iatVA": "0x114b8cc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "qsort",
+    "iatVA": "0x114b8d0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_lseek",
+    "iatVA": "0x114b8d4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_read",
+    "iatVA": "0x114b8d8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strrchr",
+    "iatVA": "0x114b8dc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_Cancel@_CancellationTokenState@details@Concurrency@@QAEXXZ",
+    "iatVA": "0x114b8e0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fread",
+    "iatVA": "0x114b8e4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "remove",
+    "iatVA": "0x114b8e8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "rename",
+    "iatVA": "0x114b8ec"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_stat32",
+    "iatVA": "0x114b8f0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_open@@YAHPBDHH@Z",
+    "iatVA": "0x114b8f4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_cexit",
+    "iatVA": "0x114b8f8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_ismbblead",
+    "iatVA": "0x114b8fc"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_configthreadlocale",
+    "iatVA": "0x114b900"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "__setusermatherr",
+    "iatVA": "0x114b904"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_initterm_e",
+    "iatVA": "0x114b908"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_initterm",
+    "iatVA": "0x114b90c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_acmdln",
+    "iatVA": "0x114b910"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_fmode",
+    "iatVA": "0x114b914"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_commode",
+    "iatVA": "0x114b918"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "__clean_type_info_names_internal",
+    "iatVA": "0x114b91c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "__crtSetUnhandledExceptionFilter",
+    "iatVA": "0x114b920"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_invoke_watson",
+    "iatVA": "0x114b924"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_controlfp_s",
+    "iatVA": "0x114b928"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_execv",
+    "iatVA": "0x114b92c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_i64toa",
+    "iatVA": "0x114b930"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "floor",
+    "iatVA": "0x114b934"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_CIatan2",
+    "iatVA": "0x114b938"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_libm_sse2_log_precise",
+    "iatVA": "0x114b93c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_itoa_s",
+    "iatVA": "0x114b940"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_itoa",
+    "iatVA": "0x114b944"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "strftime",
+    "iatVA": "0x114b948"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "exit",
+    "iatVA": "0x114b94c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "wcscpy",
+    "iatVA": "0x114b950"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_mbstok",
+    "iatVA": "0x114b954"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_set_invalid_parameter_handler",
+    "iatVA": "0x114b958"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_set_abort_behavior",
+    "iatVA": "0x114b95c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_beginthreadex",
+    "iatVA": "0x114b960"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "signal",
+    "iatVA": "0x114b964"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_setjmp3",
+    "iatVA": "0x114b968"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "acos",
+    "iatVA": "0x114b96c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "asin",
+    "iatVA": "0x114b970"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "__uncaught_exception",
+    "iatVA": "0x114b974"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??0exception@std@@QAE@ABQBDH@Z",
+    "iatVA": "0x114b978"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?Free@Concurrency@@YAXPAX@Z",
+    "iatVA": "0x114b97c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??0_Context@details@Concurrency@@QAE@PAVContext@2@@Z",
+    "iatVA": "0x114b980"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_CurrentContext@_Context@details@Concurrency@@SA?AV123@XZ",
+    "iatVA": "0x114b984"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_Yield@_Context@details@Concurrency@@SAXXZ",
+    "iatVA": "0x114b988"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_IsSynchronouslyBlocked@_Context@details@Concurrency@@QBE_NXZ",
+    "iatVA": "0x114b98c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_GetNumberOfVirtualProcessors@_CurrentScheduler@details@Concurrency@@SAIXZ",
+    "iatVA": "0x114b990"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_UnderlyingYield@details@Concurrency@@YAXXZ",
+    "iatVA": "0x114b994"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "??0missing_wait@Concurrency@@QAE@XZ",
+    "iatVA": "0x114b998"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_CheckTaskCollection@_UnrealizedChore@details@Concurrency@@IAEXXZ",
+    "iatVA": "0x114b99c"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_Schedule@_StructuredTaskCollection@details@Concurrency@@QAEXPAV_UnrealizedChore@23@@Z",
+    "iatVA": "0x114b9a0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_RunAndWait@_StructuredTaskCollection@details@Concurrency@@QAG?AW4_TaskCollectionStatus@23@PAV_UnrealizedChore@23@@Z",
+    "iatVA": "0x114b9a4"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_Abort@_StructuredTaskCollection@details@Concurrency@@AAEXXZ",
+    "iatVA": "0x114b9a8"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "?_CleanupToken@_StructuredTaskCollection@details@Concurrency@@AAEXXZ",
+    "iatVA": "0x114b9ac"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "fmod",
+    "iatVA": "0x114b9b0"
+  },
+  {
+    "dll": "MSVCR110.dll",
+    "name": "_libm_sse2_pow_precise",
+    "iatVA": "0x114b9b4"
+  },
+  {
+    "dll": "DDRAW.dll",
+    "name": "DirectDrawCreateEx",
+    "iatVA": "0x114b050"
+  }
+]

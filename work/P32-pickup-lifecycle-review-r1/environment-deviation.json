@@ -1,0 +1,14 @@
+{
+  "id": "SDK-FIRST-RUN-CERTIFICATE-BANNER",
+  "phase": "build-01",
+  "observed": "raw stderr says Installed an ASP.NET Core HTTPS development certificate.",
+  "limits": "Certificate store was not inspected, trusted, modified, or cleaned up by P32; the banner alone does not identify a new certificate or establish persistent store change.",
+  "cause": "DOTNET_SKIP_FIRST_TIME_EXPERIENCE did not suppress modern SDK first-run certificate step; DOTNET_GENERATE_ASPNET_CERTIFICATE was absent in build-01",
+  "containment": "Before build-02 set DOTNET_GENERATE_ASPNET_CERTIFICATE=false and DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false; subsequent build raw stderr empty.",
+  "scope": "Unexpected SDK behavior outside intended helper-only file writes; do not claim zero possible certificate-store effects.",
+  "evidence": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\build-01\\stderr.raw",
+    "size": 687,
+    "sha256": "130b08dda99660da8240c82dc8c1124c24f0161732833437223d112b51edcd8c"
+  }
+}

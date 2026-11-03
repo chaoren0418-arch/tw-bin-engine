@@ -1,0 +1,39 @@
+{
+  "schema": "engine-independent-review-v1",
+  "candidateId": "ENGINE-SLOW-IMPL-R2",
+  "decision": "accepted",
+  "candidateSealSha256": "7bed792d86ec1838ce97e0efa935d061420fa56cf6c0435dbaba0f0c919859b9",
+  "candidateDllSha256": "8ccfa4e3b5d253206779a5d4b1e59682263ffbddf5dab43fe15b0aa1f86a7397",
+  "candidateReviewed": true,
+  "candidateAccepted": true,
+  "unresolvedFindings": [],
+  "reviewerThreadId": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+  "reviewResult": {
+    "path": "work/engine-slow-review-r1/candidate-review-r2/result.json",
+    "sha256": "97080e4a6e885b0f3f3b99b9650f59aa2f4701073b8ab1e957403cf267eeb3f6"
+  },
+  "evidence": [
+    {
+      "path": "work/engine-slow-review-r1/candidate-review-r2/r2-probe.json",
+      "sha256": "6536abce58b25a1ca7e25c47d31e1d2db0d62930f3a72b08162dd9ae519244ee",
+      "kind": "independent-suite",
+      "passed": 1199,
+      "failed": 0
+    },
+    {
+      "path": "work/engine-slow-review-r1/candidate-review-r2/repro-r2.json",
+      "sha256": "5f3150a0db11f63b6f5930d7c9875a9b7ff834f7cc011854be3d8c6a8dd02568",
+      "kind": "same-independent-minimal-repro-cases",
+      "passed": 6,
+      "failed": 0
+    },
+    {
+      "path": "work/engine-slow-review-r1/candidate-review-r2/f1-r2.json",
+      "sha256": "2553f059501ab8a1237a6ff785b089643eca2c53c88820511cd81146a4dfe727",
+      "kind": "reviewed-and-rerun-implementation-focused-suite",
+      "passed": 112,
+      "failed": 0
+    }
+  ],
+  "scope": "Offline independent review of the exact sealed R2; not native live acceptance or acceptance of a future integration seal."
+}

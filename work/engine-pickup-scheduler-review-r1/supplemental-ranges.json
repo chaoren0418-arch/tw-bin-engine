@@ -1,0 +1,22 @@
+[
+  {
+    "VA": "0x92d042",
+    "endExclusiveVA": "0x92d188",
+    "containingAuditedChunk": "native/0092cb70.bin",
+    "disassembly": "disassembly/supplement-0092d042.txt",
+    "fileOffset": 5424194,
+    "size": 326,
+    "sha256": "741688a321e1ecb731490625f9c0d5268568be076a6829e9fe2721e587b956ce",
+    "purpose": "supplemental control-flow connector"
+  },
+  {
+    "VA": "0xa4b4f3",
+    "endExclusiveVA": "0xa4b594",
+    "containingAuditedChunk": "native/00a4b060.bin",
+    "disassembly": "disassembly/supplement-00a4b4f3.txt",
+    "fileOffset": 6596851,
+    "size": 161,
+    "sha256": "942387edae6b1927761deddb3a339dd210e51778a801f1eb127104684eede10f",
+    "purpose": "supplemental control-flow connector"
+  }
+]

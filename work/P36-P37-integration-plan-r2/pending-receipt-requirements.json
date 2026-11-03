@@ -1,0 +1,77 @@
+{
+  "schema": "p36-p37-pending-receipt-fields-v1",
+  "isReceipt": false,
+  "executionAuthorized": false,
+  "knownBindings": {
+    "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+    "planSha256": "f67fa56815fbc133c1710c450efe1305d58da7c75566e02a9d909a24ca6059bd",
+    "contractSha256": "f439915614397edb8a478196375706aec1af68b670bd06c310d1ba3e251e8c30"
+  },
+  "receipts": [
+    {
+      "role": "independent-plan-review",
+      "path": "pending reviewer-owned work output",
+      "requiredSchema": "p36-p37-plan-review-v1",
+      "requiredDecision": "accepted-for-p36-serial-source-build",
+      "requiredFields": [
+        "planSha256",
+        "contractSha256",
+        "authorArtifactSealSha256"
+      ],
+      "actualReceipt": null
+    },
+    {
+      "role": "P36-execution-acceptance",
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-execution-acceptance-r1.json",
+      "requiredSchema": "p36-serial-execution-acceptance-v1",
+      "requiredDecision": "accepted-for-p36-serial-source-build",
+      "exactFieldsImplementedIn": "gate.authorize",
+      "independentReviewPin": null,
+      "authorArtifactSealSha256": null,
+      "actualReceipt": null
+    },
+    {
+      "role": "P36-final-acceptance",
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-final-acceptance.json",
+      "requiredSchema": "p36-final-canonical-acceptance-v1",
+      "requiredDecision": "accepted-p36-canonical-source-product",
+      "requiredFields": [
+        "supervisor",
+        "planSha256",
+        "contractSha256",
+        "sourceFiles=181",
+        "productDllSha256",
+        "audioDllSha256",
+        "productManifestSha256",
+        "launcherDllSha256",
+        "executionResult pin",
+        "sourceManifest pin",
+        "productManifest pin",
+        "formalEntry=r33",
+        "newRuntimeRuns=0",
+        "canonical4521Replayed=false"
+      ],
+      "actualExecutionResult": null,
+      "actualManifestSha256": null,
+      "actualReceipt": null
+    },
+    {
+      "role": "P37-inventory-only-acceptance",
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P37-inventory-only-acceptance-r1.json",
+      "requiredSchema": "p37-inventory-only-acceptance-v1",
+      "requiredDecision": "accepted-for-p37-inventory-only",
+      "requiredFields": [
+        "supervisor",
+        "planSha256",
+        "contractSha256",
+        "p36FinalAcceptanceSha256",
+        "toolSourceSealSha256",
+        "authorArtifactSealSha256",
+        "fullReleaseAuthorized=false",
+        "entryActivationAuthorized=false"
+      ],
+      "actualP36FinalAcceptanceSha256": null,
+      "actualReceipt": null
+    }
+  ]
+}

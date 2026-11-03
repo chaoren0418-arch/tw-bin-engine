@@ -1,0 +1,142 @@
+{
+  "schema": "p35-supervisor-isolated-fix-acceptance-v1",
+  "utc": "2026-10-29T08:07:41.206405+00:00",
+  "status": "accepted-isolated-rg2-fix",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "candidate": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-fix-r1\\candidate\\generate_package_plan.py",
+    "size": 16695,
+    "sha256": "4fbf32a4d1a5faa12e34631ad2c0e9ee02647ff51947128c69e1894690f13fa2"
+  },
+  "seals": [
+    {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-fix-r1",
+      "seal": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-fix-r1\\artifact-seal.json",
+        "size": 398,
+        "sha256": "664a0d7df517d7c9bb191c99cf94995843be882eae26302c8cf344998596156a"
+      },
+      "manifest": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-fix-r1\\artifact-manifest.json",
+        "size": 37227,
+        "sha256": "1dc485e7ed75c870d18cf9f5f28668040fe3a6b9878bf693b2cde252d51ddce6"
+      },
+      "verifiedArtifactMembers": 173
+    },
+    {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1",
+      "seal": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\artifact-seal.json",
+        "size": 407,
+        "sha256": "a210842eabf2b486add553fc41026f5a5468136d8f831134b92d3e1007a3ffb5"
+      },
+      "manifest": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\artifact-manifest.json",
+        "size": 29810,
+        "sha256": "58e1722a178f3a9aab426488736d22ba2d91233c74672c604ac8f295106844d3"
+      },
+      "verifiedArtifactMembers": 140
+    }
+  ],
+  "changedFunction": "package_inventory",
+  "unchangedOtherCode": true,
+  "authorSyntheticCases": 14,
+  "independentSyntheticCases": 10,
+  "caseCountsNotProductTests": true,
+  "realInventory": {
+    "originalRows": 2289,
+    "candidateRows": 2290,
+    "allOriginalRowsUnchanged": true,
+    "exactAcceptedPlanFilesMatch": true,
+    "addedRows": [
+      {
+        "path": "build/product-r34-manifest.json",
+        "size": 7955,
+        "sha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d",
+        "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-r34-manifest.json"
+      }
+    ],
+    "closurePins": 690,
+    "completedContext": "original sealed generator; all authority/closure checks active",
+    "canonicalReplayed": false,
+    "officialPlanGenerated": false
+  },
+  "review": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\result.json",
+    "size": 3680,
+    "sha256": "69ec58d51cc5cb3a3d4fb41e34f2dd63570f99689a517f12b0efae02fa6a6672"
+  },
+  "reviewCommandReceipts": [
+    {
+      "label": "baseline-01",
+      "exitCode": 1,
+      "receipt": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\commands\\baseline-01\\receipt.json",
+        "size": 1007,
+        "sha256": "7c23507a3f0247e994851ae0a72775e839abe880fd0dd4dd689ee53e360e0b46"
+      }
+    },
+    {
+      "label": "baseline-02",
+      "exitCode": 0,
+      "receipt": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\commands\\baseline-02\\receipt.json",
+        "size": 1007,
+        "sha256": "270cb1cb5084fb827f405936d66a40670f25d3e597a76f69820d581808ced625"
+      }
+    },
+    {
+      "label": "final-01",
+      "exitCode": 0,
+      "receipt": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\commands\\final-01\\receipt.json",
+        "size": 995,
+        "sha256": "1a8b61444c5cd310e8982dcb6259f92a13d0ea04ef4bd36a47fa7549f539cf4b"
+      }
+    },
+    {
+      "label": "finalize-01",
+      "exitCode": 0,
+      "receipt": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\commands\\finalize-01\\receipt.json",
+        "size": 1006,
+        "sha256": "f479fa6a8aeb3f1d424df82b26b1386a238436b5f5cb12913a49a139c939d8de"
+      }
+    }
+  ],
+  "reviewerInitialFailure": "baseline-01 wrongly rejected new planCorrection metadata; preserved. baseline-02 verifies unchanged original fields and exactly that new provenance field; passed. No product failure.",
+  "formalToolInstalled": false,
+  "legacyR2GeneratorUnmodified": true,
+  "productBuilds": 0,
+  "gameRuntimeTests": 0,
+  "canonicalReplays": 0,
+  "sharedWrites": 0,
+  "formalEntry": "r33",
+  "entryActivated": false,
+  "certificateChanges": 0,
+  "DBServiceActions": 0,
+  "convergence": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\remaining-convergence.json",
+    "size": 16633,
+    "sha256": "09bbad3fba33d13aed9666356f5f5be6512dc03d482da4e6388ee04724c702d2"
+  },
+  "wholeProjectComplete": false,
+  "workers": [
+    {
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a186a4-8db4-79e2-9929-fc6b320d069e",
+      "status": "idle",
+      "turnStatus": "completed",
+      "goal": "actual null; unchanged"
+    },
+    {
+      "threadId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "turnId": "01a186a4-9e46-7131-ab4e-27f2f3f63c82",
+      "status": "idle",
+      "turnStatus": "completed",
+      "goal": "historical blocked; no resume API; bounded authorized review delivered"
+    }
+  ],
+  "qualification": "Actual generator code fixed and independently exercised in isolation. This acceptance does not install/rebind tooling, generate packages or activate r34. No need to rerun accepted game suites.",
+  "remaining": "Source-limited effects/formats; fixed-version native acceptance and legitimate service/transaction conditions; formal entry authorization; separately scoped candidate integration/tool binding. See remaining-convergence.md."
+}

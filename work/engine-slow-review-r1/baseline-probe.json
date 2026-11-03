@@ -1,0 +1,447 @@
+{
+  "scope": "Actual client DLL methods with synthetic state and in-memory sender; no Form, socket, server or DB",
+  "assembly": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\work\\engine-slow-review-r1\\helper\\baseline\\P11.ClientEngine.dll",
+  "checks": [
+    {
+      "name": "math-4-0",
+      "pass": true,
+      "evidence": {
+        "expected": 4,
+        "animation": 4,
+        "send": 4
+      }
+    },
+    {
+      "name": "math-4-1",
+      "pass": true,
+      "evidence": {
+        "expected": 3,
+        "animation": 3,
+        "send": 3
+      }
+    },
+    {
+      "name": "math-4-2",
+      "pass": false,
+      "evidence": "ArgumentOutOfRangeException"
+    },
+    {
+      "name": "math-7-0",
+      "pass": true,
+      "evidence": {
+        "expected": 7,
+        "animation": 7,
+        "send": 7
+      }
+    },
+    {
+      "name": "math-7-1",
+      "pass": true,
+      "evidence": {
+        "expected": 5,
+        "animation": 5,
+        "send": 5
+      }
+    },
+    {
+      "name": "math-7-2",
+      "pass": false,
+      "evidence": "ArgumentOutOfRangeException"
+    },
+    {
+      "name": "math-80-0",
+      "pass": true,
+      "evidence": {
+        "expected": 80,
+        "animation": 80,
+        "send": 80
+      }
+    },
+    {
+      "name": "math-80-1",
+      "pass": true,
+      "evidence": {
+        "expected": 60,
+        "animation": 60,
+        "send": 60
+      }
+    },
+    {
+      "name": "math-80-2",
+      "pass": false,
+      "evidence": "ArgumentOutOfRangeException"
+    },
+    {
+      "name": "math-333-0",
+      "pass": true,
+      "evidence": {
+        "expected": 333,
+        "animation": 333,
+        "send": 333
+      }
+    },
+    {
+      "name": "math-333-1",
+      "pass": true,
+      "evidence": {
+        "expected": 249,
+        "animation": 249,
+        "send": 251
+      }
+    },
+    {
+      "name": "math-333-2",
+      "pass": false,
+      "evidence": "ArgumentOutOfRangeException"
+    },
+    {
+      "name": "math-640-0",
+      "pass": true,
+      "evidence": {
+        "expected": 640,
+        "animation": 640,
+        "send": 640
+      }
+    },
+    {
+      "name": "math-640-1",
+      "pass": true,
+      "evidence": {
+        "expected": 480,
+        "animation": 480,
+        "send": 483
+      }
+    },
+    {
+      "name": "math-640-2",
+      "pass": false,
+      "evidence": "ArgumentOutOfRangeException"
+    },
+    {
+      "name": "math-641-0",
+      "pass": true,
+      "evidence": {
+        "expected": 641,
+        "animation": 641,
+        "send": 641
+      }
+    },
+    {
+      "name": "math-641-1",
+      "pass": true,
+      "evidence": {
+        "expected": 480,
+        "animation": 480,
+        "send": 483
+      }
+    },
+    {
+      "name": "math-641-2",
+      "pass": false,
+      "evidence": "ArgumentOutOfRangeException"
+    },
+    {
+      "name": "math-840-0",
+      "pass": true,
+      "evidence": {
+        "expected": 840,
+        "animation": 840,
+        "send": 840
+      }
+    },
+    {
+      "name": "math-840-1",
+      "pass": true,
+      "evidence": {
+        "expected": 630,
+        "animation": 630,
+        "send": 634
+      }
+    },
+    {
+      "name": "math-840-2",
+      "pass": false,
+      "evidence": "ArgumentOutOfRangeException"
+    },
+    {
+      "name": "math-960-0",
+      "pass": true,
+      "evidence": {
+        "expected": 960,
+        "animation": 960,
+        "send": 960
+      }
+    },
+    {
+      "name": "math-960-1",
+      "pass": true,
+      "evidence": {
+        "expected": 720,
+        "animation": 720,
+        "send": 724
+      }
+    },
+    {
+      "name": "math-960-2",
+      "pass": false,
+      "evidence": "ArgumentOutOfRangeException"
+    },
+    {
+      "name": "math-1320-0",
+      "pass": true,
+      "evidence": {
+        "expected": 1320,
+        "animation": 1320,
+        "send": 1320
+      }
+    },
+    {
+      "name": "math-1320-1",
+      "pass": true,
+      "evidence": {
+        "expected": 990,
+        "animation": 990,
+        "send": 996
+      }
+    },
+    {
+      "name": "math-1320-2",
+      "pass": false,
+      "evidence": "ArgumentOutOfRangeException"
+    },
+    {
+      "name": "math-1480-0",
+      "pass": true,
+      "evidence": {
+        "expected": 1480,
+        "animation": 1480,
+        "send": 1480
+      }
+    },
+    {
+      "name": "math-1480-1",
+      "pass": true,
+      "evidence": {
+        "expected": 1110,
+        "animation": 1110,
+        "send": 1117
+      }
+    },
+    {
+      "name": "math-1480-2",
+      "pass": false,
+      "evidence": "ArgumentOutOfRangeException"
+    },
+    {
+      "name": "math-32767-0",
+      "pass": true,
+      "evidence": {
+        "expected": 32767,
+        "animation": 32767,
+        "send": 32767
+      }
+    },
+    {
+      "name": "math-32767-1",
+      "pass": true,
+      "evidence": {
+        "expected": 24575,
+        "animation": 24575,
+        "send": 24739
+      }
+    },
+    {
+      "name": "math-32767-2",
+      "pass": false,
+      "evidence": "ArgumentOutOfRangeException"
+    },
+    {
+      "name": "math-65535-0",
+      "pass": true,
+      "evidence": {
+        "expected": 65535,
+        "animation": 65535,
+        "send": 65535
+      }
+    },
+    {
+      "name": "math-65535-1",
+      "pass": true,
+      "evidence": {
+        "expected": 49151,
+        "animation": 49151,
+        "send": 49478
+      }
+    },
+    {
+      "name": "math-65535-2",
+      "pass": false,
+      "evidence": "ArgumentOutOfRangeException"
+    },
+    {
+      "name": "unknown-speed-and-brave-remain-unsupported",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "packet-transition-0",
+      "pass": true,
+      "evidence": {
+        "SpeedRevision": 2,
+        "SpeedNotice": ""
+      }
+    },
+    {
+      "name": "packet-transition-2",
+      "pass": true,
+      "evidence": {
+        "SpeedRevision": 3,
+        "SpeedNotice": "\u76EE\u524D\u901F\u5EA6\u72C0\u614B\u5C1A\u672A\u652F\u63F4\u6B65\u884C\u3002"
+      }
+    },
+    {
+      "name": "packet-transition-1",
+      "pass": true,
+      "evidence": {
+        "SpeedRevision": 4,
+        "SpeedNotice": "\u52A0\u901F\u4E2D\uFF0C\u7D04 30 \u79D2\uFF1B\u4EE5\u4F3A\u670D\u5668\u72C0\u614B\u70BA\u6E96\u3002"
+      }
+    },
+    {
+      "name": "packet-transition-2",
+      "pass": true,
+      "evidence": {
+        "SpeedRevision": 5,
+        "SpeedNotice": "\u76EE\u524D\u901F\u5EA6\u72C0\u614B\u5C1A\u672A\u652F\u63F4\u6B65\u884C\u3002"
+      }
+    },
+    {
+      "name": "packet-transition-0",
+      "pass": true,
+      "evidence": {
+        "SpeedRevision": 6,
+        "SpeedNotice": ""
+      }
+    },
+    {
+      "name": "slow-notice",
+      "pass": false,
+      "evidence": "\u76EE\u524D\u901F\u5EA6\u72C0\u614B\u5C1A\u672A\u652F\u63F4\u6B65\u884C\u3002"
+    },
+    {
+      "name": "slow-movement-available",
+      "pass": false,
+      "evidence": {
+        "Ready": true,
+        "Renderable": true,
+        "MovementAvailable": false
+      }
+    },
+    {
+      "name": "normal-to-slow-last-send-fence",
+      "pass": false,
+      "evidence": 740
+    },
+    {
+      "name": "slow-to-normal-preserves-admitted-step",
+      "pass": true,
+      "evidence": 1380
+    },
+    {
+      "name": "cancel-input-does-not-reset-sent-step",
+      "pass": true,
+      "evidence": 1380
+    },
+    {
+      "name": "cancel-clears-world-and-send-fence",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "remote-speed-does-not-mutate-own",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "unknown-speed-object-not-created",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "display-expiry-does-not-release-slow",
+      "pass": true,
+      "evidence": "\u76EE\u524D\u901F\u5EA6\u72C0\u614B\u5C1A\u672A\u652F\u63F4\u6B65\u884C\u3002"
+    },
+    {
+      "name": "queued-normal-to-slow-cancelled",
+      "pass": true,
+      "evidence": {
+        "sent": false,
+        "admissions": 0
+      }
+    },
+    {
+      "name": "queued-slow-to-normal-cancelled",
+      "pass": false,
+      "evidence": "initial speed refused; queued path unreachable"
+    },
+    {
+      "name": "queued-same-speed-report-conservative-cancel",
+      "pass": false,
+      "evidence": "initial speed refused; queued path unreachable"
+    },
+    {
+      "name": "slow-attack-safe-or-blocked",
+      "pass": true,
+      "evidence": {
+        "sent": false,
+        "admissions": 0,
+        "elapsedGuard": -8848312,
+        "required": 1680
+      }
+    },
+    {
+      "name": "slow-spell-safe-or-blocked",
+      "pass": true,
+      "evidence": {
+        "sent": false,
+        "admissions": 0,
+        "elapsedGuard": -8848312,
+        "required": 2640
+      }
+    },
+    {
+      "name": "queued-attack-normal-to-slow-safe",
+      "pass": true,
+      "evidence": {
+        "sent": false,
+        "admissions": 0,
+        "guard": -8848312
+      }
+    },
+    {
+      "name": "queued-spell-normal-to-slow-safe",
+      "pass": true,
+      "evidence": {
+        "sent": false,
+        "admissions": 0,
+        "guard": -8848328
+      }
+    },
+    {
+      "name": "actual-slow-turn-admission",
+      "pass": false,
+      "evidence": null
+    },
+    {
+      "name": "actual-slow-turn-before-deadline",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "actual-slow-turn-deadline",
+      "pass": false,
+      "evidence": null
+    }
+  ]
+}

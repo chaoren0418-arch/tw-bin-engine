@@ -1,0 +1,312 @@
+{
+  "task": "ENGINE-SLOW-UTILITY-REVIEW-PREP-R1",
+  "status": "preparation-complete",
+  "candidateReviewed": false,
+  "baseline": "immutable releases/r30",
+  "dllSha256": "1abc1eed02917d14fd775be60920fe74efb9b102bc53eea5874fc0128e5247ef",
+  "observations": 90,
+  "assertions": 78,
+  "assertionsMeetingProposedContract": 60,
+  "baselineDifferences": 18,
+  "npcRouteObservations": 12,
+  "differences": [
+    {
+      "id": "initial-speed-0-brave-1",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-1-brave-1",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-2-brave-0",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": false,
+        "expected": true,
+        "wire": [],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-3-brave-0",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-3-brave-1",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-17-brave-0",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-17-brave-1",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-255-brave-0",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-255-brave-1",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "queued-lease",
+      "meetsContract": false,
+      "scope": "synthetic defensive mutation; not proof of public API reachability",
+      "data": {
+        "entered": true,
+        "sent": true,
+        "count": 1
+      }
+    },
+    {
+      "id": "queued-magicSending",
+      "meetsContract": false,
+      "scope": "synthetic defensive mutation; not proof of public API reachability",
+      "data": {
+        "entered": true,
+        "sent": true,
+        "count": 1
+      }
+    },
+    {
+      "id": "queued-groundSending",
+      "meetsContract": false,
+      "scope": "synthetic defensive mutation; not proof of public API reachability",
+      "data": {
+        "entered": true,
+        "sent": true,
+        "count": 1
+      }
+    },
+    {
+      "id": "queued-nextMagicAt",
+      "meetsContract": false,
+      "scope": "synthetic defensive mutation; not proof of public API reachability",
+      "data": {
+        "entered": true,
+        "sent": true,
+        "count": 1
+      }
+    },
+    {
+      "id": "queued-nextGroundAt",
+      "meetsContract": false,
+      "scope": "synthetic defensive mutation; not proof of public API reachability",
+      "data": {
+        "entered": true,
+        "sent": true,
+        "count": 1
+      }
+    },
+    {
+      "id": "stale-world-success",
+      "meetsContract": false,
+      "scope": "actual S206 decoder or Cancel; delayed in-memory sender completion",
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "beforeDeadline": 1209740,
+        "afterDeadline": 1209771,
+        "beforeState": "InWorld",
+        "afterState": "InWorld",
+        "beforeWorld": 1,
+        "afterWorld": 1,
+        "ownerSending": false
+      }
+    },
+    {
+      "id": "stale-world-error",
+      "meetsContract": false,
+      "scope": "actual S206 decoder or Cancel; delayed in-memory sender completion",
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "beforeDeadline": 1209771,
+        "afterDeadline": 0,
+        "beforeState": "InWorld",
+        "afterState": "Faulted",
+        "beforeWorld": 1,
+        "afterWorld": 2,
+        "ownerSending": false
+      }
+    },
+    {
+      "id": "stale-lease-success",
+      "meetsContract": false,
+      "scope": "synthetic reset/new owner; public reachability unproven",
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "beforeDeadline": 0,
+        "afterDeadline": 1209896,
+        "beforeState": "InWorld",
+        "afterState": "InWorld",
+        "beforeWorld": 0,
+        "afterWorld": 0,
+        "ownerSending": true
+      }
+    },
+    {
+      "id": "stale-lease-error",
+      "meetsContract": false,
+      "scope": "synthetic reset/new owner; public reachability unproven",
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "beforeDeadline": 0,
+        "afterDeadline": 0,
+        "beforeState": "InWorld",
+        "afterState": "Faulted",
+        "beforeWorld": 0,
+        "afterWorld": 1,
+        "ownerSending": false
+      }
+    }
+  ],
+  "legalAdmittedReplyControls": [
+    {
+      "id": "admitted-authoritative-direct-haste-count",
+      "meetsContract": true,
+      "scope": "r30 admits at Speed0; subsequent real decoder updates are legal completion, not stale ownership. Initial Speed2 admission requires future candidate.",
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "world": 0,
+        "lease": 1,
+        "speed": 1,
+        "brave": 0,
+        "count": 2,
+        "beforeRevision": 2,
+        "afterRevision": 4
+      }
+    },
+    {
+      "id": "admitted-authoritative-slow-normal-haste-brave-count",
+      "meetsContract": true,
+      "scope": "r30 admits at Speed0; subsequent real decoder updates are legal completion, not stale ownership. Initial Speed2 admission requires future candidate.",
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "world": 0,
+        "lease": 1,
+        "speed": 1,
+        "brave": 1,
+        "count": 2,
+        "beforeRevision": 2,
+        "afterRevision": 6
+      }
+    },
+    {
+      "id": "admitted-authoritative-last-item-removed",
+      "meetsContract": true,
+      "scope": "r30 admits at Speed0; subsequent real decoder updates are legal completion, not stale ownership. Initial Speed2 admission requires future candidate.",
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "world": 0,
+        "lease": 1,
+        "speed": 1,
+        "brave": 0,
+        "count": null,
+        "beforeRevision": 2,
+        "afterRevision": 4
+      }
+    }
+  ],
+  "newServerHandlerExecutions": 0,
+  "nativeExecutions": 0,
+  "liveTests": 0,
+  "fullRegressionExecuted": false,
+  "unknown": [
+    "native utility input/action scheduler",
+    "other utility slow eligibility",
+    "global S67 interleaving through indirect timer callbacks",
+    "independent actor-replacement completion probe",
+    "future Speed2 initial admission matrix"
+  ],
+  "nextGate": "new supervisor dispatch and exact immutable baseline; no product change in this task"
+}

@@ -1,0 +1,155 @@
+{
+  "schema": "p30-isolated-stage-plan-v1",
+  "dispatch": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-isolated-stage-plan-dispatch.json",
+    "size": 3865,
+    "sha256": "b7ef761dd585c5594c38d870fb111294d4ffa519c31b4aeff3e83876dc5bbed0"
+  },
+  "acceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P28-P29-candidate-root-acceptance.json",
+    "size": 2560,
+    "sha256": "2537af60910b67dd6803b1ec8f5252823288e65936cd06c57d6197c5f1e05dd3"
+  },
+  "baseline": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-final-offline-baseline.json",
+    "size": 1969,
+    "sha256": "ac4254ea339ed35c4257e27e955f0411c617f21698a1da5bb59330a162933024"
+  },
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "writeRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1",
+  "futureStageRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+  "preparationOnly": true,
+  "executionAuthorized": false,
+  "formalEntry": "r33",
+  "sourceInventory": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\source-inventory.json",
+    "size": 159530,
+    "sha256": "8522287dbcc2c0aca411facf30ed43490a8443b9efe85ff45768251f194bf94c"
+  },
+  "buildDependencies": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\build-dependencies.json",
+    "size": 113115,
+    "sha256": "2949a2454a61aa01c0567a990eecc1d2402e1cf32ecaebc59131b557b3c0dba0"
+  },
+  "commandPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\command-plan.json",
+    "size": 67688,
+    "sha256": "9d10a24f4b0345c7f03b9056602f1b2f160d6ff78283b022ded12891fc5151bc"
+  },
+  "regressionInventory": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\regression-inventory.json",
+    "size": 9394,
+    "sha256": "6b12790b3ca4f3630824979ab38135b70b132559b8568ce152a82cefe8fda7d3"
+  },
+  "coverageMatrix": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\coverage-matrix.json",
+    "size": 62717,
+    "sha256": "03d6b4b2bce2c4766131d3b4a1ee5eb9e24794ffa2a41a99b09d7b28be74d876"
+  },
+  "harnessRebinding": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\harness-rebinding.json",
+    "size": 7614,
+    "sha256": "eeedb79a9718d010319097f27c922a6697223166ddae768b86fbdddd3af70aff"
+  },
+  "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "expectedAudioSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "protectedPins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+      "size": 158,
+      "sha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+      "size": 31361,
+      "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+      "size": 11741,
+      "sha256": "0c8f214831a286bec4a6844ab1293b4f4798ff829ef0a3d6507dbf455eddc040"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\release-seal.json",
+      "size": 2867987,
+      "sha256": "955ea88173cb36cecaefb6d5e9bbce7d76dfd7bf39ccd7830e56a269ab3155c3"
+    }
+  ],
+  "assetStrategy": {
+    "source": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets",
+    "countIncludingIntegrity": 13958,
+    "mode": "future-immutable-hardlinks-only",
+    "createdNow": 0,
+    "writesAllowed": false
+  },
+  "futureExecutionGates": [
+    "new exact product-only receipt and separately reviewed implemented executor (currently absent)",
+    "fresh root/source+vendor+config independent materialization and pinned SDK/environment",
+    "single product/audio build; exact candidate identity or stop with raw failure receipt",
+    "no inherited/runtime/helper regression rerun required for first milestone",
+    "later regression graph/helper diffs need separate authorization; no shared/release/entry/native actions"
+  ],
+  "packageLogicPrepared": false,
+  "RG2": "UNRESOLVED general package generator omits product-manifest; P26 one-row approved plan correction did not fix generator",
+  "goal": {
+    "actualRead": null,
+    "created": false,
+    "modified": false
+  },
+  "productBuilds": 0,
+  "runtimeProbes": 0,
+  "inputPins": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\input-pins.json",
+    "size": 679757,
+    "sha256": "7adce041906122c9e8c6be30231dc2a15c7c7169816cc58f9950d0a333025200"
+  },
+  "copyPins": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\copy-pins.json",
+    "size": 242626,
+    "sha256": "0afafc19348e57c440dba15fd9f32b95706cd6e706c2f672189cb1ba57c76109"
+  },
+  "preparedHelpers": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\prepared-helper-manifest.json",
+    "size": 37283,
+    "sha256": "ea2a82143f179b797cfd9b9db797ea929f672ee1db44a0ccabc64b3abf81e95f"
+  },
+  "fixtureInventory": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\fixture-inventory.json",
+    "size": 33779,
+    "sha256": "9d4c30508b8fde9f6886363ee2e5d619ad7d7431a4e0464a7f8ccd48d1fe01f5"
+  },
+  "profileCommandPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\profile-command-plan.json",
+    "size": 9493,
+    "sha256": "74447b1bb05b9fc0724da3babaff306eb94934e3c0080cfa91c0666ab95164cc"
+  },
+  "occurrenceMigration": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\occurrence-migration.json",
+    "size": 3029,
+    "sha256": "1c8bb58d3d541754411ce26d2c006287e0488d03cc4967e9cbbabf9f393c2f6e"
+  },
+  "executionContract": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\EXECUTION-CONTRACT.md",
+    "size": 6558,
+    "sha256": "917dd1fba6103654104d8bb2ab03b9517c4f134202759c479e3e4ab500ee5341"
+  },
+  "controller": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\stage_controller.py",
+    "size": 11205,
+    "sha256": "165a7fc19d2a07bf44089986dc06b5f3523619172fb2ff3d0968418765b81cde"
+  },
+  "firstMilestone": "product-only-fresh181-source-rebuild-and-exact-product-audio-identity",
+  "productOnlyExecutorImplemented": false,
+  "regressionExecutionRequiredForFirstMilestone": false,
+  "productOnlySpec": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\product-only-spec.json",
+    "size": 7316,
+    "sha256": "96732bd48ea76890ce5bf82bf5613a7f13b16c882997ae2fdcded5f674de3086"
+  },
+  "materialization": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\materialization-plan.json",
+    "size": 152598,
+    "sha256": "de67b00de533abb45e196f3c0e97d245c36ed1e9c7312e9b8badf72fdcc64050"
+  }
+}

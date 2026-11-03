@@ -1,0 +1,17 @@
+{
+  "readBeforeSeal": {
+    "goal": {
+      "threadId": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "objective": "完成既有 P24 原 2x2 地圖快取與跨區載入新版正常自有產品交付、同版 live、freeze、主管驗收修正與正常收尾；先核對唯一寫入權，完成新版續測 driver、精確純準備檢查及身份/真 Goal freeze gate。本輪僅離線準備，不開窗、不登入、不正式 freeze、不操作服務或 DB，人工 UI 延後；準備完成不等於 P24 完成。",
+      "status": "blocked",
+      "tokensUsed": 130519,
+      "timeUsedSeconds": 1068,
+      "createdAt": 1792957660,
+      "updatedAt": 1792958728
+    },
+    "remainingTokens": null,
+    "completionBudgetReport": null
+  },
+  "taskStartSummary": "Actual goal read blocked at task start; no create/update/resume performed",
+  "scope": "new explicit isolated implementation authorization"
+}

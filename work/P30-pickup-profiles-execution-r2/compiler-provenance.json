@@ -1,0 +1,55 @@
+{
+  "actualCscTasks": [
+    {
+      "taskId": "167",
+      "startLine": 107483,
+      "endLine": 110788,
+      "rawStdout": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\attempts\\product\\build-01\\stdout",
+        "size": 16291322,
+        "sha256": "3f8a2b32d7e4e793d00b1a6d7143cafcef3f5302f282c3cc578faf5dadbe8d48",
+        "decoder": "utf-8-sig errors=replace",
+        "replacementCount": 0
+      },
+      "extractedBlock": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\compiler-task-167.txt",
+        "size": 300299,
+        "sha256": "9e70eee0ea164c0128c32a5fe6c68d884a9891e4e3d976ea222c384c1359e478"
+      },
+      "completed": true
+    },
+    {
+      "taskId": "231",
+      "startLine": 170793,
+      "endLine": 174836,
+      "rawStdout": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\attempts\\product\\build-01\\stdout",
+        "size": 16291322,
+        "sha256": "3f8a2b32d7e4e793d00b1a6d7143cafcef3f5302f282c3cc578faf5dadbe8d48",
+        "decoder": "utf-8-sig errors=replace",
+        "replacementCount": 0
+      },
+      "extractedBlock": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\compiler-task-231.txt",
+        "size": 366453,
+        "sha256": "65abd6ef8da1c1576e1ea28a1ad1d1e68e5d7a0e6a4597b79cbc8dfd0eb76443"
+      },
+      "completed": true
+    }
+  ],
+  "count": 2,
+  "summaryStartLine": 194847,
+  "finalSummary": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\final-compiler-summary.txt",
+    "size": 20172,
+    "sha256": "c370010e38230142869f3192526529cb64ec024279dff9268ff86e2d627b7f99"
+  },
+  "binlog": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\attempts\\product\\build-01\\msbuild.binlog",
+    "size": 212558,
+    "sha256": "3d547e62e5f8aeb3dcebbc3dafb056eb301e1bb5dca5b5d1a9693161e53b166c"
+  },
+  "productBuildInvocations": 1,
+  "toolchainDependencyPinsRecheckedByExecutor": 4350,
+  "newRuntimeAssertions": 0
+}

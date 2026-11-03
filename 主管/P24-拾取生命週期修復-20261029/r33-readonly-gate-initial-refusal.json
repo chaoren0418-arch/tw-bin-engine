@@ -1,0 +1,11 @@
+{
+  "status": "refused-before-writes",
+  "reason": "review does not cover exact candidate seal",
+  "cause": "Nested candidate fingerprint fields in accepted independent review; sealed preparation expects flat candidateId and candidateSealSha256.",
+  "contractSha256": "f02b2ecdbda100c8b3cd94182d7aa6e0ef950f042176e9be0df1104f944faa47",
+  "receiptSha256": "7a8255bd8a4dfc3e9e9e3e10d7916918f36d1961e8548285b9612b909a5c96cb",
+  "buildFlag": false,
+  "stageCreated": false,
+  "productOrTestFailure": false,
+  "repair": "Reviewer-owned sealed equivalence appendix; no original seal or gate modification."
+}

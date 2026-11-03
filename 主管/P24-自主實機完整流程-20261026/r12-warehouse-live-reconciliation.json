@@ -1,0 +1,34 @@
+{
+  "utc": "2026-10-26T17:46:14.132635+00:00",
+  "status": "pass",
+  "revision": "r12",
+  "method": "Actual normal UI with original server, normal logout/login, inventory and read-only SQL reconciliation",
+  "deposit10": true,
+  "reloginPreserved10": true,
+  "partialWithdrawal4": true,
+  "remainingWithdrawal6": true,
+  "feePerSelectedRow": 30,
+  "totalFees": 60,
+  "finalRedPotions": 70,
+  "finalWarehouseEmpty": true,
+  "returnTicketPurchase": 306,
+  "finalAdena": 89220,
+  "newGrants": 0,
+  "resets": 0,
+  "limitations": [
+    "First 250ms partial-withdraw snapshot preceded potion quantity update; subsequent settled UI and DB confirmed64.",
+    "Recorded character position while online may be previous autosave; final offline DB confirms actual final pier.",
+    "Native full-window WGC timed out; actual WebView visible panel and renderer scene screenshots used."
+  ],
+  "evidence": [
+    "r12-warehouse-deposit.json",
+    "r12-warehouse-after-deposit-db.json",
+    "r12-warehouse-relogin-list.json",
+    "r12-warehouse-partial-withdraw.json",
+    "r12-warehouse-partial-settled.json",
+    "r12-warehouse-partial-db.json",
+    "r12-warehouse-partial-list-visible.png",
+    "r12-warehouse-empty-final.json",
+    "r12-final-offline-service-db.json"
+  ]
+}

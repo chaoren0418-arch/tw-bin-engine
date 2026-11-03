@@ -1,0 +1,51 @@
+{
+  "status": "ready-for-supervisor",
+  "goalStatus": "active",
+  "revision": "r6-original-resident-dual-blocks",
+  "validation": {
+    "status": "pass-offline",
+    "dllSha256": "b207d538c365cfa2ea5fea66ea28b7371658e8cc02f4ce97cd39df01125f9f9b",
+    "complete19Run": "D:\\lineage開發\\TW1608262200研究\\P22-魔法清單與單次施法\\evidence\\complete-regressions-r6-1792935668412756600",
+    "resultSha256": "f6fcccb2de6e468a91d348342cdeab79a161577dd968d508f67babf6b04bcbde",
+    "targetRegressionSha256": "165f5ec476c4b5271d30dc0604bca0fcde3a8948a590a40b68e9b090f3913a6c",
+    "correctionReceiptSha256": "4b330093698fed1a1f2d126e98dc131c7cd6f17450c5dd223daee2c669d4c91d",
+    "noLiveLogins": true,
+    "productRendererAndGatesUnchanged": true,
+    "r5StagingByteUnchanged": true,
+    "oldSourceChangedFiles": [
+      "freeze_p22.py",
+      "HANDOFF.md",
+      "magic_integration.py",
+      "PROTOCOL.md",
+      "run_complete_regressions.py",
+      "source/MagicIntegration.cs",
+      "source/MagicTargetTests.cs",
+      "source/MagicUiTests.cs"
+    ],
+    "allOldChangedSourcesArchived": true,
+    "scope": "test-only mandatory native/Web target selections and native clear through actual no-entity unoccluded game pixel; real Web DOM remains required live acceptance",
+    "nativeSelectionOfflineChecks": 5,
+    "counters": {
+      "magic": "MagicSent C6",
+      "item": "ItemSent C164",
+      "attack": "CombatSent C229/C123"
+    },
+    "r5FullFlowsPassPreserved": true,
+    "r5FailedSupplementPreserved": true
+  },
+  "priorR5Result": "history/r5/result.json",
+  "priorR4Result": "history/r4/result.json",
+  "priorR3Result": "history/r3/result.json",
+  "priorR2Result": "history/r2/result.json",
+  "priorR1Result": "history/r1/result.json",
+  "functionalAcceptancePending": true,
+  "cleanupAuthorized": false,
+  "noRoleLoginDuringRepair": true,
+  "supervisorRolesFresh": false,
+  "scopeLimitations": "reference/dual-block/resident-scope.json",
+  "frozen": true,
+  "readySha256": "d538defe47bf5d49f21c4423b23a5fa52ae809aa914e7dc8dbb5c21cd6c7f47d",
+  "sourceFreezeSha256": "d7af4e1378e42e5f5b3a370aa675f171d478f1292e1aa7ff67b00829a1c9e729",
+  "environmentFreezeSha256": "0f60673a4eea708a372fc89a6eec3ad186cb6a41fa158e752ba03703632872d3",
+  "originalBinEvidenceFilesIncluded": 17
+}

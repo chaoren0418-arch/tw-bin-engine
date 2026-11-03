@@ -1,0 +1,108 @@
+{
+  "schema": "p26-independent-canonical-review-v1",
+  "decision": "requires-minimal-new-authority-version-before-shared-authorization",
+  "reviewScopeComplete": true,
+  "items": [
+    {
+      "id": "exact-plan-and-seals",
+      "status": "verified",
+      "conclusion": "exact plan及stage seal符合委派；24 plan、250 prep、253 R2 artifacts、897 stage non-assets核實；stage全部asset payload未重hash。",
+      "evidence": "inventory-verification.json"
+    },
+    {
+      "id": "stage-history-and-identity",
+      "status": "verified",
+      "conclusion": "歷史接受receipt SHA、stage result SHA與四項identity相符；舊stage接受不是新shared授權。",
+      "evidence": "source-sha256.json"
+    },
+    {
+      "id": "install-source-coverage",
+      "status": "verified",
+      "conclusion": "180來源＝144 source＋6 audio＋30 web；20 overlay無collision，不寫assets。",
+      "evidence": "inventory-verification.json"
+    },
+    {
+      "id": "copy-mappings",
+      "status": "verified",
+      "conclusion": "138映射＝136 independent copies＋2 verify-existing；51 pickup fixtures；來源及sealedSource相符；目的地不在engine/assets。",
+      "evidence": "inventory-verification.json"
+    },
+    {
+      "id": "commands-and-helpers",
+      "status": "verified-static",
+      "conclusion": "8 serial steps、44操作（1 archive/28 run/8 collect/7 setup）、10 helpers，各build一次的規劃；未執行。",
+      "evidence": "canonical-static.stdout.txt"
+    },
+    {
+      "id": "raw-log-adapter",
+      "status": "verified-synthetic",
+      "conclusion": "從raw bytes核SHA並衍生stdout/stderr spec；原attempt bytes不變；tamper及不同existing collection均拒絕；草稿finding已修復。",
+      "evidence": "synthetic-tests.json"
+    },
+    {
+      "id": "nested-commands",
+      "status": "verified-static-with-logging-limit",
+      "conclusion": "4個rebuild children argv/cwd/log paths逐一對AST expression；2個PowerShell children對固定script；child無獨立receipt，streams合存parent。",
+      "evidence": "nested-command-review.json"
+    },
+    {
+      "id": "failure-and-replay",
+      "status": "verified-with-limitations",
+      "conclusion": "nonzero保留raw及failed attempt；同attempt拒絕重啟；timeout partial streams缺失見F3。",
+      "evidence": "synthetic-tests.json"
+    },
+    {
+      "id": "collect-only",
+      "status": "verified-with-limitations",
+      "conclusion": "controller collect沒有process calls；recovery唯一execute_once只可跑最後collector；前置成功和raw/probe pins必要；F2中斷窗口不能自動恢復。",
+      "evidence": "synthetic-tests.json"
+    },
+    {
+      "id": "canonical-and-immutable-boundaries",
+      "status": "verified-static",
+      "conclusion": "205 baseline file pins相符、assets解析到releases/r28/assets且integrity相符；install/source副本獨立，no_links拒reparse/可寫hardlink；沒有shared workflow。",
+      "evidence": "inventory-verification.json"
+    },
+    {
+      "id": "new-authority",
+      "status": "requires-new-version",
+      "conclusion": "F1確認；另派的authority修訂等待exact seal，未重複製作修補。",
+      "evidence": "findings.json"
+    },
+    {
+      "id": "41-profile-source-plan",
+      "status": "verified-source-only",
+      "conclusion": "12 artifacts/191 source pins及memory recomputation通過；1612為來源靜態斷言，不是產品執行。",
+      "evidence": "profiles-source.stdout.txt"
+    },
+    {
+      "id": "41-profile-review-prep",
+      "status": "verified-fixtures-policy-rebind-required",
+      "conclusion": "451 artifacts相符；307/308現行外部pins相符；唯一policy漂移完整byte還原，fixture-only核驗通過；原full verifier仍FAIL。",
+      "evidence": "profile-prep-verification.json"
+    }
+  ],
+  "findings": [
+    "F1",
+    "F2",
+    "F3",
+    "F4"
+  ],
+  "plan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\canonical-plan.json",
+    "size": 378638,
+    "sha256": "d25c306fae5abee9209e46c557453f7b6a0a96645e5c052fbda70555f11f15ff"
+  },
+  "stageSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\stage-seal.json",
+    "size": 2535568,
+    "sha256": "9544f137a10914825b53080d4d390d17902cd40866467cebbf69578290240018"
+  },
+  "productBuilds": 0,
+  "productRuntimeAssertions": 0,
+  "nativeRuntimeChecks": 0,
+  "planned4521ExecutedThisRound": false,
+  "sharedReceiptCreated": false,
+  "controllerMutationExecuted": false,
+  "formalIntegrationOwned": false
+}

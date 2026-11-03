@@ -1,0 +1,1617 @@
+--- /dev/null
++++ b/source/AudioApiTransport.cs
+@@ -0,0 +1,21 @@
++using P06;
++using P24.Audio;
++using P24.MapEffectEvents;
++namespace P24.HostAudio;
++// Accepted r3 transport facade. Calls publish fences synchronously before mapping replies.
++public sealed class AudioApiTransport(AudioPlayer player):IEffectAudio {
++    public const string ManifestPin="87c6cd6867e0d81bdc627c1cac0a922891d650018211b58525de9226926ad9fe";
++    public static IEffectAudio Create(string root){
++        if(!AudioPlayer.TryCreate(root,ManifestPin,32,out var player,out var error))throw new InvalidDataException(error);
++        return new AudioApiTransport(player!);
++    }
++    static AudioOwner Owner(EffectOwner owner)=>new(owner.TransportIdentity,owner.Generation);
++    static async Task<EffectAudioReply> Map(Task<AudioReply> operation){var reply=await operation.ConfigureAwait(false);return new(reply.Success,reply.Status,reply);}
++    public Task<EffectAudioReply> RegisterAsync(EffectOwner owner)=>Map(player.RegisterAsync(Owner(owner)));
++    public Task<EffectAudioReply> RetireAsync(EffectOwner owner)=>Map(player.RetireAsync(Owner(owner)));
++    public Task<EffectAudioReply> PlayAsync(int id,EffectOwner owner)=>Map(player.PlayAsync(id,Owner(owner)));
++    public Task<EffectAudioReply> ConfigureAsync(double gain,bool muted,bool enabled)=>Map(player.ConfigureAsync(gain,muted,enabled));
++    public Task<EffectAudioReply> ShutdownWithinAsync(TimeSpan budget)=>Map(player.ShutdownWithinAsync(budget));
++    public Task WhenReleased=>player.WhenReleased;
++    public EffectAudioReply LastMaintenance {get{var reply=player.LastMaintenance;return new(reply.Success,reply.Status,reply);}}
++}
+--- /dev/null
++++ b/source/ClientAudioSettings.cs
+@@ -0,0 +1,25 @@
++namespace P06;
++public sealed partial class ClientForm {
++    readonly PlayerAudioSettings audioSettings=new();
++    double masterGain=>audioSettings.Gain;bool masterMute=>audioSettings.Muted;
++    TrackBar? audioGainControl;CheckBox? audioMuteControl;Label? audioGainLabel;
++    PlayerAudioState AudioSettingsWeb()=>audioSettings.Snapshot(login.World.Effects6016,webClosing||Disposing||IsDisposed);
++    void SetAudioSettings(double gain,bool muted){
++        if(!audioSettings.Change(gain,muted,AudioSettingsWeb().editable))return;
++        Apply6016Controls();SyncAudioViews();PublishWebState();
++    }
++    void SyncAudioViews(){
++        audioSettings.Render(login.World.Effects6016,webClosing||Disposing||IsDisposed,state=>{
++            if(audioGainControl!=null){audioGainControl.Value=(int)Math.Round(state.gain*100);audioGainControl.Enabled=state.editable;}
++            if(audioMuteControl!=null){audioMuteControl.Checked=state.muted;audioMuteControl.Enabled=state.editable;}
++            if(audioGainLabel!=null)audioGainLabel.Text=$"主音量 {state.gain*100:0.##}%";
++            if(audioNotice!=null)audioNotice.Text=PlayerAudioSettings.Notice(state);
++        });
++    }
++    void DispatchAudioSettings(AudioSettingsCommand command){
++        // Uses the existing authenticated local-page dispatch boundary; never creates/revives a host.
++        if(!AudioSettingsWeb().editable){Reply(command.Id,"聲音設定暫不可用",AudioSettingsWeb());PublishWebState();return;}
++        LeaveGameFocus("sound-settings");SetAudioSettings(command.Gain,command.Muted);
++        var state=AudioSettingsWeb();Reply(command.Id,state.applied?PlayerAudioSettings.Notice(state):"設定已收到，尚未套用",state);PublishWebState();
++    }
++}
+--- /dev/null
++++ b/source/ClientEffect6016.cs
+@@ -0,0 +1,64 @@
++using P24.MapEffectEvents;
++using System.Text.Json;
++namespace P06;
++public sealed partial class ClientForm {
++    // Default factory uses supervisor-accepted r3; injectable for managed host tests.
++    public static Func<string,IEffectAudio?> Accepted6016TransportFactory {get;set;}=P24.HostAudio.AudioApiTransport.Create;
++    const string Effect6016Pin="825673b11feb6b28c6d34663cd53266d0ca2209230b1b1cfa4c0a80125263383";
++    readonly EffectHostLane effectLane=new();readonly object audioLogGate=new();
++    readonly List<Effect6016Host> retiredAudioHosts=[];
++    readonly Dictionary<Effect6016Host,EffectAudioReply> audioMaintenanceSnapshots=[];
++    Label? audioNotice;Effect6016Definition? effectDefinition;
++    bool TerminalAudioState=>login.State is LoginState.Offline or LoginState.Cancelled or LoginState.Disconnected or LoginState.Rejected or LoginState.Faulted;
++    void Record6016(EffectAudioObservation item){
++        lock(audioLogGate){try{string directory=Path.Combine(WebEvidence,"audio");Directory.CreateDirectory(directory);File.AppendAllText(Path.Combine(directory,"host.jsonl"),JsonSerializer.Serialize(new{utc=DateTimeOffset.UtcNow,item})+Environment.NewLine);}catch(Exception ex){System.Diagnostics.Trace.WriteLine("Audio diagnostics: "+ex.Message);}}
++    }
++    void Ensure6016(){
++        if(webClosing||Disposing||IsDisposed)return;
++        if(login.World.Effects6016 is {Closed:false})return;
++        try{
++            effectDefinition??=Effect6016Definition.FromR27Metadata(File.ReadAllBytes(Path.Combine(World.Assets.Root,"maps/effects/6016.json")),Effect6016Pin);
++            IEffectAudio? transport=null;try{transport=Accepted6016TransportFactory?.Invoke(World.Assets.Root);}catch(Exception ex){Record6016(new("create",new(false,"Unavailable",ex.ToString())));}
++            var host=new Effect6016Host(new(effectDefinition),transport,effectLane,()=>login.World.SceneClock(),observer:Record6016);
++            login.World.Attach6016(host);host.SetControls(masterGain,masterMute,false);
++        }catch(Exception ex){Record6016(new("metadata",new(false,"Unavailable",ex.ToString())));}
++    }
++    void Init6016(){
++        Ensure6016();
++        FormClosed+=(_,_)=>{_=Shutdown6016();};
++        login.Changed+=()=>{if(TerminalAudioState)_=Shutdown6016();else Ensure6016();};
++        if(normalPanels==null)return;
++        var page=new TabPage("聲音"){BackColor=Color.FromArgb(23,38,41),ForeColor=Color.White};
++        var panel=new FlowLayoutPanel{Dock=DockStyle.Fill,FlowDirection=FlowDirection.TopDown,Padding=new(16),WrapContents=false};
++        var label=new Label{Text="主音量 50%",AutoSize=true};
++        var slider=new TrackBar{Minimum=0,Maximum=100,Value=50,TickFrequency=10,Width=280,AccessibleName="主音量"};
++        var mute=new CheckBox{Text="靜音",AutoSize=true,AccessibleName="靜音"};
++        audioGainControl=slider;audioMuteControl=mute;audioGainLabel=label;
++        audioNotice=new Label{Text="聲音尚未就緒",AutoSize=true};
++        slider.ValueChanged+=(_,_)=>SetAudioSettings(slider.Value/100d,masterMute);
++        mute.CheckedChanged+=(_,_)=>SetAudioSettings(masterGain,mute.Checked);
++        foreach(Control control in new Control[]{slider,mute})control.Enter+=(_,_)=>LeaveGameFocus("sound-controls");
++        panel.Controls.AddRange([label,slider,mute,audioNotice]);page.Controls.Add(panel);normalPanels.TabPages.Add(page);
++        SyncAudioViews();
++    }
++    void Apply6016Controls()=>login.World.Effects6016?.SetControls(masterGain,masterMute,login.World.Renderable&&!TerminalAudioState&&!webClosing);
++    void Pump6016(){
++        Apply6016Controls(); // Publish current world/control gate before any registration completion can dispatch.
++        effectLane.Drain();
++        if(login.World.Effects6016 is {} host){
++            host.Pump();
++            SyncAudioViews();
++        }
++        foreach(var tracked in retiredAudioHosts.Concat(login.World.Effects6016 is {} current?new[]{current}:Array.Empty<Effect6016Host>()).Distinct()){
++            if(tracked.LastMaintenance is {} maintenance&&(!audioMaintenanceSnapshots.TryGetValue(tracked,out var prior)||!Equals(maintenance,prior))){audioMaintenanceSnapshots[tracked]=maintenance;Record6016(new("maintenance",maintenance));}
++        }
++        foreach(var retired in retiredAudioHosts.Where(host=>host.WhenReleased.IsCompletedSuccessfully).ToArray()){
++            Record6016(new("released",new(true,"Released")));retiredAudioHosts.Remove(retired);audioMaintenanceSnapshots.Remove(retired);
++        }
++    }
++    Task<EffectAudioReply> Shutdown6016(){
++        if(login.World.Effects6016 is not {} host)return Task.FromResult(new EffectAudioReply(true,"NoHost"));
++        if(!host.Closed)retiredAudioHosts.Add(host);
++        return host.ShutdownAsync(TimeSpan.FromMilliseconds(750));
++    }
++}
+--- /dev/null
++++ b/source/Effect6016Controller.cs
+@@ -0,0 +1,238 @@
++namespace P24.MapEffectEvents;
++
++public readonly record struct EffectKey(int MapId, string BlockKey, int RecordOrdinal);
++public readonly record struct EffectOwner(Guid ControllerId, EffectKey Key, long Generation)
++{
++    // AudioOwner.Identity uses this, AudioOwner.Generation uses Generation. No hash collisions.
++    public string TransportIdentity => $"6016/{ControllerId:N}/{Key.MapId}/{Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(Key.BlockKey))}/{Key.RecordOrdinal}";
++}
++public readonly record struct EffectPlacement(int RecordOrdinal, int Gfx, int X, int Y);
++/// <param name="Lifetime">The actual OriginalMapBlock object; retained remaps must reuse its reference.</param>
++public sealed record BlockSnapshot(string BlockKey, object Lifetime, IReadOnlyList<EffectPlacement> Effects);
++public sealed record LifecycleDelta(IReadOnlyList<EffectOwner> Created, IReadOnlyList<EffectOwner> Retired);
++public readonly record struct EventGate(bool Enabled, bool Available, bool Audible)
++{
++    public static EventGate Open => new(true, true, true);
++}
++public sealed record EffectCandidate(EffectOwner Owner, int X, int Y, long AbsoluteStep, long LoopOrdinal,
++    int SequenceIndex, int Frame, int CandidateSlot, int SoundId);
++/// <summary>Opaque single-use capability issued by this controller, never constructible by a caller.</summary>
++public sealed class EventRequest
++{
++    public EffectCandidate Candidate { get; }
++    internal EventRequest(EffectCandidate candidate) => Candidate = candidate;
++}
++public enum EventDisposition { Pending, Muted, Unavailable, Inaudible, PolicyFailure }
++public sealed record EventDecision(EffectCandidate? Candidate, EventDisposition Disposition,
++    EventRequest? Request, string? Error = null);
++public enum DispatchStatus { Submitted, StaleOrConsumed, Muted, Unavailable, Inaudible, Cooldown, CallbackFailure }
++public sealed record DispatchReply(DispatchStatus Status, string? Error = null);
++public sealed record EffectFrameState(EffectOwner Owner, int X, int Y, long StartedAtMs,
++    long AbsoluteStep, long LoopOrdinal, int SequenceIndex, int Frame);
++
++/// <summary>
++/// Owned-engine policy: 24Hz, coalesced catch-up, generation invalidation and shared200ms cooldown.
++/// No audio, P06 types, native imports, tasks, timers, file access or paint side effects.
++/// Public operations serialize internally. Callbacks must be short and must not mutate this controller.
++/// </summary>
++public sealed class Effect6016Controller
++{
++    private sealed class State(EffectOwner owner, object lifetime, EffectPlacement placement, long startedAt)
++    {
++        public EffectOwner Owner = owner;
++        public object Lifetime = lifetime;
++        public EffectPlacement Placement = placement;
++        public long StartedAt = startedAt;
++        public long Step;
++        public EventRequest? Pending;
++    }
++    private readonly object sync = new();
++    private readonly Dictionary<EffectKey, State> states = [];
++    private readonly Dictionary<int, long> lastSubmission = [];
++    private readonly Func<int> chooseSlot;
++    private long nextGeneration, lastNow;
++    private bool inCallback;
++    private long regressions;
++    public Guid InstanceId { get; } = Guid.NewGuid();
++    public string MetadataSha256 { get; }
++    public long ClockRegressions { get { lock (sync) return regressions; } }
++
++    public Effect6016Controller(Effect6016Definition definition, Func<int>? chooseSlot = null)
++    {
++        ArgumentNullException.ThrowIfNull(definition);
++        MetadataSha256 = definition.MetadataSha256;
++        this.chooseSlot = chooseSlot ?? (() => Random.Shared.Next(3));
++    }
++    private void NotInCallback()
++    {
++        if (inCallback) throw new InvalidOperationException("Controller mutation inside a policy/dispatch callback is not allowed.");
++    }
++    private long Observe(long nowMs)
++    {
++        if (nowMs < 0) throw new ArgumentOutOfRangeException(nameof(nowMs));
++        if (nowMs < lastNow) { regressions++; return lastNow; }
++        return lastNow = nowMs;
++    }
++    private T Callback<T>(Func<T> callback)
++    {
++        inCallback = true;
++        try { return callback(); }
++        finally { inCallback = false; }
++    }
++
++    /// <summary>
++    /// Reconcile an atomic, fully published cache snapshot. No events occur here.
++    /// Null map requires an empty snapshot and retires all actors. Cooldown/generation survive map changes.
++    /// </summary>
++    public LifecycleDelta Synchronize(int? mapId, IReadOnlyList<BlockSnapshot> blocks, long nowMs)
++    {
++        ArgumentNullException.ThrowIfNull(blocks);
++        lock (sync)
++        {
++            NotInCallback();
++            if (nowMs < 0 || mapId is < 0 || (mapId is null && blocks.Count != 0))
++                throw new ArgumentException("Invalid map/time snapshot.");
++            var wanted = new Dictionary<EffectKey, (object Lifetime, EffectPlacement Placement)>();
++            var names = new HashSet<string>(StringComparer.Ordinal);
++            foreach (var block in blocks)
++            {
++                ArgumentNullException.ThrowIfNull(block);
++                if (string.IsNullOrWhiteSpace(block.BlockKey) || !names.Add(block.BlockKey))
++                    throw new ArgumentException("Empty/duplicate block key.");
++                ArgumentNullException.ThrowIfNull(block.Lifetime);
++                ArgumentNullException.ThrowIfNull(block.Effects);
++                var ordinals = new HashSet<int>();
++                foreach (var placement in block.Effects)
++                {
++                    if (placement.RecordOrdinal < 0 || !ordinals.Add(placement.RecordOrdinal))
++                        throw new ArgumentException("Invalid/duplicate original record ordinal.");
++                    if (placement.Gfx == Effect6016Definition.EffectId)
++                        wanted.Add(new(mapId!.Value, block.BlockKey, placement.RecordOrdinal), (block.Lifetime, placement));
++                }
++            }
++            int additions = wanted.Count(x => !states.TryGetValue(x.Key, out var old) || !ReferenceEquals(old.Lifetime, x.Value.Lifetime));
++            if (nextGeneration > long.MaxValue - additions) throw new InvalidOperationException("Generation space exhausted.");
++            long now = Observe(nowMs);
++            var retired = new List<EffectOwner>();
++            foreach (var entry in states.ToArray())
++                if (!wanted.TryGetValue(entry.Key, out var next) || !ReferenceEquals(entry.Value.Lifetime, next.Lifetime))
++                {
++                    entry.Value.Pending = null;
++                    retired.Add(entry.Value.Owner);
++                    states.Remove(entry.Key);
++                }
++            var created = new List<EffectOwner>();
++            foreach (var entry in wanted.OrderBy(x => x.Key.BlockKey, StringComparer.Ordinal).ThenBy(x => x.Key.RecordOrdinal))
++            {
++                if (states.TryGetValue(entry.Key, out var retained)) retained.Placement = entry.Value.Placement;
++                else
++                {
++                    var owner = new EffectOwner(InstanceId, entry.Key, ++nextGeneration);
++                    states.Add(entry.Key, new(owner, entry.Value.Lifetime, entry.Value.Placement, now));
++                    created.Add(owner);
++                }
++            }
++            return new(created.AsReadOnly(), retired.AsReadOnly());
++        }
++    }
++
++    public LifecycleDelta Clear(long nowMs) => Synchronize(null, Array.Empty<BlockSnapshot>(), nowMs);
++    public bool IsCurrent(EffectOwner owner)
++    {
++        lock (sync) return states.TryGetValue(owner.Key, out var state) && state.Owner == owner;
++    }
++    /// <summary>Pure snapshot for draw; repeated calls cannot move the clock/cursor or select a sound.</summary>
++    public IReadOnlyList<EffectFrameState> Frames()
++    {
++        lock (sync) return states.Values.OrderBy(s => s.Owner.Key.BlockKey, StringComparer.Ordinal)
++            .ThenBy(s => s.Owner.Key.RecordOrdinal).Select(s => new EffectFrameState(s.Owner,
++                s.Placement.X, s.Placement.Y, s.StartedAt, s.Step, s.Step / 12, (int)(s.Step % 12),
++                Effect6016Definition.FrameAtStep(s.Step))).ToArray();
++    }
++    private static EventDisposition? Suppression(EventGate gate) =>
++        !gate.Enabled ? EventDisposition.Muted : !gate.Available ? EventDisposition.Unavailable :
++        !gate.Audible ? EventDisposition.Inaudible : null;
++
++    /// <summary>
++    /// Advance every active actor once from one host update pump, never from paint.
++    /// Each actor produces at most one latest event transition, in stable block/ordinal order.
++    /// Gate/selector errors are observable, consume that transition and do not stop other actors.
++    /// </summary>
++    public IReadOnlyList<EventDecision> Advance(long nowMs, Func<EffectCandidate, EventGate> gate)
++    {
++        ArgumentNullException.ThrowIfNull(gate);
++        lock (sync)
++        {
++            NotInCallback();
++            long now = Observe(nowMs);
++            var decisions = new List<EventDecision>();
++            foreach (var state in states.Values.OrderBy(s => s.Owner.Key.BlockKey, StringComparer.Ordinal).ThenBy(s => s.Owner.Key.RecordOrdinal))
++            {
++                long step = Effect6016Definition.StepAt(state.StartedAt, now);
++                if (step <= state.Step) continue;
++                long previous = state.Step;
++                state.Step = step;
++                state.Pending = null; // Older asynchronous request expired at the next sequence transition.
++                long eventStep = (step - 1) / 12 * 12 + 1;
++                if (eventStep <= previous) continue;
++                EffectCandidate? candidate = null;
++                try
++                {
++                    int slot = Callback(chooseSlot);
++                    if (slot is < 0 or > 2) throw new InvalidOperationException("Slot selector must return0,1,2.");
++                    candidate = new(state.Owner, state.Placement.X, state.Placement.Y, eventStep,
++                        eventStep / 12, 1, 0, slot, Effect6016Definition.CandidateSlots[slot]);
++                    var denied = Suppression(Callback(() => gate(candidate)));
++                    if (denied is { } disposition) decisions.Add(new(candidate, disposition, null));
++                    else
++                    {
++                        state.Pending = new(candidate);
++                        decisions.Add(new(candidate, EventDisposition.Pending, state.Pending));
++                    }
++                }
++                catch (Exception ex) { decisions.Add(new(candidate, EventDisposition.PolicyFailure, null, ex.Message)); }
++            }
++            return decisions.AsReadOnly();
++        }
++    }
++
++    /// <summary>
++    /// Call only after asynchronous owner registration is ready, immediately before enqueueing Play.
++    /// Rechecks current generation, one-use capability, current gates and per-ID shared cooldown.
++    /// submit must synchronously enqueue (not await) the transport operation and report async failures separately.
++    /// Cooldown reserves submission time, including a throwing submit: failed audio is not retried/backfilled.
++    /// </summary>
++    public DispatchReply TryDispatch(EventRequest request, long nowMs, Func<EffectCandidate, EventGate> gate,
++        Action<EffectCandidate> submit)
++    {
++        ArgumentNullException.ThrowIfNull(request); ArgumentNullException.ThrowIfNull(gate); ArgumentNullException.ThrowIfNull(submit);
++        lock (sync)
++        {
++            NotInCallback();
++            long now = Observe(nowMs);
++            var candidate = request.Candidate;
++            if (!states.TryGetValue(candidate.Owner.Key, out var state) || state.Owner != candidate.Owner ||
++                !ReferenceEquals(state.Pending, request)) return new(DispatchStatus.StaleOrConsumed);
++            state.Pending = null; // Consume before gate/callback: never retry this event after a denial/failure.
++            // Async completion may run before the next update pump; still enforce the real clock boundary.
++            if (Effect6016Definition.StepAt(state.StartedAt, now) > state.Step)
++                return new(DispatchStatus.StaleOrConsumed);
++            try
++            {
++                var denied = Suppression(Callback(() => gate(candidate)));
++                if (denied is { } disposition) return new(disposition switch
++                {
++                    EventDisposition.Muted => DispatchStatus.Muted,
++                    EventDisposition.Unavailable => DispatchStatus.Unavailable,
++                    _ => DispatchStatus.Inaudible
++                });
++                if (lastSubmission.TryGetValue(candidate.SoundId, out long at) && now - at < Effect6016Definition.CooldownMs)
++                    return new(DispatchStatus.Cooldown);
++                lastSubmission[candidate.SoundId] = now;
++                Callback(() => { submit(candidate); return true; });
++                return new(DispatchStatus.Submitted);
++            }
++            catch (Exception ex) { return new(DispatchStatus.CallbackFailure, ex.Message); }
++        }
++    }
++}
+--- /dev/null
++++ b/source/Effect6016Definition.cs
+@@ -0,0 +1,56 @@
++using System.Security.Cryptography;
++using System.Text.Json;
++
++namespace P24.MapEffectEvents;
++
++/// <summary>Only the accepted r27 6016 metadata shape, not a general event parser.</summary>
++public sealed class Effect6016Definition
++{
++    public const int EffectId = 6016;
++    public const int TickRate = 24;
++    public const int TicksPerStep = 5;
++    public const int StepCount = 12;
++    public const int EventIndex = 1;
++    public const int CooldownMs = 200;
++    private static readonly int[] Frames = [11, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
++    private static readonly int[] Candidates = [3332, 1340, 1340];
++    public static IReadOnlyList<int> SequenceFrames { get; } = Array.AsReadOnly(Frames);
++    public static IReadOnlyList<int> CandidateSlots { get; } = Array.AsReadOnly(Candidates);
++    public string MetadataSha256 { get; }
++    private Effect6016Definition(string sha256) => MetadataSha256 = sha256;
++
++    /// <param name="expectedSha256">A trusted pinned hash; never derive it from untrusted input.</param>
++    public static Effect6016Definition FromR27Metadata(byte[] bytes, string expectedSha256)
++    {
++        ArgumentNullException.ThrowIfNull(bytes);
++        if (expectedSha256 is null || expectedSha256.Length != 64 ||
++            !expectedSha256.All(Uri.IsHexDigit)) throw new ArgumentException("Expected SHA-256 required.", nameof(expectedSha256));
++        string actual = Convert.ToHexString(SHA256.HashData(bytes));
++        if (!actual.Equals(expectedSha256, StringComparison.OrdinalIgnoreCase))
++            throw new InvalidDataException("6016 metadata SHA-256 mismatch.");
++        using var doc = JsonDocument.Parse(bytes);
++        var root = doc.RootElement;
++        if (root.GetProperty("id").GetInt32() != EffectId || root.GetProperty("tickRate").GetInt32() != TickRate ||
++            root.GetProperty("flags").GetInt32() != 0) throw new InvalidDataException("6016 identity/timing/flags mismatch.");
++        var sequence = root.GetProperty("sequence").EnumerateArray().ToArray();
++        if (sequence.Length != StepCount) throw new InvalidDataException("6016 step count mismatch.");
++        for (int i = 0; i < StepCount; i++)
++            if (sequence[i].GetProperty("frame").GetInt32() != Frames[i] ||
++                sequence[i].GetProperty("ticks").GetInt32() != TicksPerStep ||
++                sequence[i].GetProperty("events").GetString() != (i == EventIndex ? "<3332<1340<1340" : ""))
++                throw new InvalidDataException($"6016 step {i} differs from accepted contract.");
++        var frameIndexes = root.GetProperty("frames").EnumerateArray()
++            .Select(f => f.GetProperty("index").GetInt32()).ToArray();
++        if (!frameIndexes.SequenceEqual(Enumerable.Range(0, StepCount)))
++            throw new InvalidDataException("6016 frame index order mismatch.");
++        return new(actual.ToLowerInvariant());
++    }
++
++    public static long StepAt(long startedAtMs, long nowMs)
++    {
++        if (startedAtMs < 0 || nowMs < startedAtMs) throw new ArgumentOutOfRangeException(nameof(nowMs));
++        // Avoid floating drift and elapsed*24 overflow, even for a long.MaxValue clock jump.
++        return (long)(((Int128)nowMs - startedAtMs) * TickRate / 1000 / TicksPerStep);
++    }
++    public static int FrameAtStep(long step) => Frames[(int)(step % StepCount)];
++}
+--- /dev/null
++++ b/source/Effect6016Host.cs
+@@ -0,0 +1,112 @@
++using System.Collections.Concurrent;
++using P24.MapEffectEvents;
++namespace P06;
++
++public sealed record EffectAudioReply(bool Success,string Status,object? Detail=null);
++// Calls enqueue synchronously, including the transport's immediate retire/revision fence.
++public interface IEffectAudio {
++    Task<EffectAudioReply> RegisterAsync(EffectOwner owner);
++    Task<EffectAudioReply> RetireAsync(EffectOwner owner);
++    Task<EffectAudioReply> PlayAsync(int id,EffectOwner owner);
++    Task<EffectAudioReply> ConfigureAsync(double gain,bool muted,bool enabled);
++    Task<EffectAudioReply> ShutdownWithinAsync(TimeSpan budget);
++    Task WhenReleased {get;}
++    EffectAudioReply LastMaintenance {get;}
++}
++public sealed class EffectHostLane {
++    readonly int thread=Environment.CurrentManagedThreadId;
++    readonly ConcurrentQueue<Action> queue=new();
++    public void Verify(){if(Environment.CurrentManagedThreadId!=thread)throw new InvalidOperationException("6016 host requires its UI lane");}
++    public void Post(Action action)=>queue.Enqueue(action);
++    public void Drain(){Verify();while(queue.TryDequeue(out var action))action();}
++}
++public sealed record EffectAudioObservation(string Operation,EffectAudioReply Reply);
++public sealed class Effect6016Host {
++    sealed class Registration {public bool? Ready;public EventRequest? Pending;}
++    readonly Effect6016Controller controller;readonly IEffectAudio? audio;readonly Func<long> clock;
++    readonly Func<EffectCandidate,bool> audible;readonly Dictionary<EffectOwner,Registration> owners=[];
++    readonly ConcurrentQueue<EffectAudioObservation> observations=new();
++    readonly Action<EffectAudioObservation>? observer;
++    long observed;int revision;bool configured,allowed,muted,closed;double gain=.5;
++    Task<EffectAudioReply>? shutdown;
++    int? committedMap;IReadOnlyList<BlockSnapshot> committedBlocks=[];
++    public EffectHostLane Lane {get;}
++    public bool Closed=>closed;
++    public bool ControlsApplied=>configured;
++    public string ControlsStatus {get;private set;}="unavailable";
++    public int ControlsStateRevision {get;private set;}
++    public double Gain=>gain;public bool Muted=>muted;
++    public long ObservedReplies=>Interlocked.Read(ref observed);
++    public EffectAudioObservation[] Observations=>observations.ToArray();
++    public EffectAudioReply? LastMaintenance=>audio?.LastMaintenance;
++    public Task WhenReleased=>audio?.WhenReleased??Task.CompletedTask;
++    public Effect6016Host(Effect6016Controller controller,IEffectAudio? audio,EffectHostLane lane,Func<long> clock,Func<EffectCandidate,bool>? audible=null,Action<EffectAudioObservation>? observer=null){
++        this.controller=controller;this.audio=audio;Lane=lane;this.clock=clock;this.audible=audible??(_=>true);this.observer=observer;lane.Verify();
++    }
++    void Record(string operation,EffectAudioReply reply){
++        var item=new EffectAudioObservation(operation,reply);observations.Enqueue(item);Interlocked.Increment(ref observed);
++        while(observations.Count>256)observations.TryDequeue(out _);
++        // Diagnostics sink must be thread-safe; a diagnostic failure cannot break gameplay.
++        try{observer?.Invoke(item);}catch{}
++    }
++    Task<EffectAudioReply> Invoke(string operation,Func<Task<EffectAudioReply>> call,Action<EffectAudioReply>? onLane=null){
++        Task<EffectAudioReply> task;try{task=call();}catch(Exception ex){task=Task.FromResult(new EffectAudioReply(false,"HostCallFailed",ex.ToString()));}
++        return Observe();
++        async Task<EffectAudioReply> Observe(){
++            EffectAudioReply reply;try{reply=await task.ConfigureAwait(false);}catch(Exception ex){reply=new(false,"TaskFailed",ex.ToString());}
++            if(onLane!=null)Lane.Post(()=>onLane(reply));Record(operation,reply);return reply;
++        }
++    }
++    EventGate Gate(EffectCandidate candidate)=>new(!closed&&allowed&&!muted,audio!=null&&configured,audible(candidate));
++    public void SetControls(double nextGain,bool nextMuted,bool worldAllowed){
++        Lane.Verify();if(!double.IsFinite(nextGain)||nextGain<0||nextGain>1)throw new ArgumentOutOfRangeException(nameof(nextGain));
++        if(closed)return;
++        if(revision!=0&&gain==nextGain&&muted==nextMuted&&allowed==worldAllowed)return;
++        gain=nextGain;muted=nextMuted;allowed=worldAllowed;configured=false;int current=++revision;
++        ControlsStatus="pending";ControlsStateRevision++;
++        foreach(var registration in owners.Values)registration.Pending=null; // No mute/unmute backfill.
++        if(audio==null){ControlsStatus="unavailable";Record("configure",new(false,"Unavailable"));return;}
++        _=Invoke("configure",()=>audio.ConfigureAsync(gain,muted,allowed),reply=>{if(!closed&&revision==current){configured=reply.Success;ControlsStatus=reply.Success?"applied":"failed";ControlsStateRevision++;}});
++    }
++    public void Synchronize(int map,IReadOnlyList<BlockSnapshot> blocks,long now){Lane.Verify();if(closed)return;var delta=controller.Synchronize(map,blocks,now);committedMap=map;committedBlocks=blocks.ToArray();Apply(delta);}
++    public void RetireLifetime(object lifetime,long now){Lane.Verify();if(committedMap is not int map)return;Synchronize(map,committedBlocks.Where(b=>!ReferenceEquals(b.Lifetime,lifetime)).ToArray(),now);}
++    public void Clear(long now){Lane.Verify();committedMap=null;committedBlocks=[];Apply(controller.Clear(now));}
++    void Apply(LifecycleDelta delta){
++        foreach(var owner in delta.Retired){owners.Remove(owner);if(audio!=null)_=Invoke("retire",()=>audio.RetireAsync(owner));}
++        foreach(var owner in delta.Created){
++            var state=new Registration();owners.Add(owner,state);
++            if(audio==null){state.Ready=false;continue;}
++            _=Invoke("register",()=>audio.RegisterAsync(owner),reply=>{
++                if(closed||!controller.IsCurrent(owner)||!owners.TryGetValue(owner,out var current)||!ReferenceEquals(current,state))return;
++                state.Ready=reply.Success;var pending=state.Pending;state.Pending=null;
++                if(reply.Success&&pending!=null)Dispatch(pending);
++            });
++        }
++    }
++    public IReadOnlyList<EffectFrameState> Frames(){Lane.Verify();return controller.Frames();}
++    public void Pump(){
++        Lane.Verify();Lane.Drain();if(closed)return;
++        foreach(var decision in controller.Advance(clock(),Gate)){
++            if(decision.Request is not {} request)continue;
++            if(!owners.TryGetValue(request.Candidate.Owner,out var state))continue;
++            if(state.Ready==true)Dispatch(request);else if(state.Ready==null)state.Pending=request;
++        }
++    }
++    void Dispatch(EventRequest request){
++        var reply=controller.TryDispatch(request,clock(),Gate,candidate=>{_=Invoke("play",()=>audio!.PlayAsync(candidate.SoundId,candidate.Owner));});
++        Record("dispatch",new(reply.Status==DispatchStatus.Submitted,reply.Status.ToString(),reply.Error));
++    }
++    public Task<EffectAudioReply> ShutdownAsync(TimeSpan budget){
++        Lane.Verify();if(budget<=TimeSpan.Zero||budget.TotalMilliseconds>int.MaxValue)throw new ArgumentOutOfRangeException(nameof(budget));
++        if(shutdown!=null)return shutdown;
++        closed=true;configured=false;ControlsStatus="closed";ControlsStateRevision++;++revision;Clear(clock());
++        if(audio==null)return shutdown=Task.FromResult(new EffectAudioReply(true,"NoTransport"));
++        // Invoke synchronously so the transport fence is published before yielding.
++        var operation=Invoke("shutdown-transport",()=>audio.ShutdownWithinAsync(budget));
++        return shutdown=Bounded();
++        async Task<EffectAudioReply> Bounded(){
++            try{return await operation.WaitAsync(budget).ConfigureAwait(false);}
++            catch(TimeoutException){var reply=new EffectAudioReply(false,"CleanupPending",audio.LastMaintenance);Record("shutdown-deadline",reply);return reply;}
++        }
++    }
++}
+--- a/source/MapEffects.cs
++++ b/source/MapEffects.cs
+@@ -27,9 +27,9 @@
+ public sealed partial class Renderer {
+     public MapEffectVisual[] MapEffectVisuals {get;private set;}=[];
+     void ComposeMapEffects(WorldSession session,List<Draw> draws,long now){
+-        var visuals=new List<MapEffectVisual>();int serial=2000000;
+-        if(session.MapCache is {} cache)foreach(var block in cache.Slots.OfType<OriginalMapBlock>())foreach(var effect in block.Effects){
+-            var frame=effect.Appearance.At(now-block.EffectsAt);visuals.Add(new(block.Name,block.Generation,effect.Id,effect.X,effect.Y,frame.Key,effect.Appearance.Flags));
++        var visuals=new List<MapEffectVisual>();int serial=2000000;var states=session.Frames6016();
++        if(session.MapCache is {} cache)foreach(var block in cache.Slots.OfType<OriginalMapBlock>())for(int ordinal=0;ordinal<block.Effects.Length;ordinal++){
++            var effect=block.Effects[ordinal];var frame=WorldSession.MapEffectFrame(effect,block.Name,ordinal,cache.MapId,now-block.EffectsAt,states);visuals.Add(new(block.Name,block.Generation,effect.Id,effect.X,effect.Y,frame.Key,effect.Appearance.Flags));
+             foreach(var b in frame.Blocks)draws.Add(new(2*(effect.X-Coordinates.MinX)+b.A,effect.Y-Coordinates.MinY+b.B,b.Z,serial++,"map-effect",b.Order,-1,effect.Offset,b.Tile));
+         }
+         MapEffectVisuals=visuals.ToArray();
+--- a/source/MapResources.cs
++++ b/source/MapResources.cs
+@@ -11,5 +11,5 @@
+     public bool SceneContains(int x,int y)=>MapCache is {} cache?cache.Bounds.Contains(x,y)&&cache.Contains(x,y):MapId==0&&Coordinates.Inside(x,y);
+     internal string MapAssetsRoot=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../assets"));
+     void MapWaiting(){MapResourceState="waiting";MapResourceNotice="等待地圖與角色位置；可取消連線或回離線預覽。";}
+-    void MapFailed(Exception ex){sceneOpacity=null;MapCache=null;MapResourceState="unavailable";MapResourceNotice=$"地圖 {MapId} 資源無法載入：{ex.Message}。可取消連線或回離線預覽。";RefreshArrivalNotice();ObserveOpacity("resource-error");}
++    void MapFailed(Exception ex){Clear6016(SceneClock());sceneOpacity=null;MapCache=null;MapResourceState="unavailable";MapResourceNotice=$"地圖 {MapId} 資源無法載入：{ex.Message}。可取消連線或回離線預覽。";RefreshArrivalNotice();ObserveOpacity("resource-error");}
+ }
+--- a/source/OfflineClient.csproj
++++ b/source/OfflineClient.csproj
+@@ -12,4 +12,5 @@
+   </PropertyGroup>
+   <ItemGroup><PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4258.31" /></ItemGroup>
+   <Target Name="RemoveUnusedWpfReference" BeforeTargets="ResolveAssemblyReferences"><ItemGroup><Reference Remove="@(Reference)" Condition="$([System.String]::Copy('%(Reference.Identity)').Contains('Microsoft.Web.WebView2.Wpf'))" /></ItemGroup></Target>
++  <ItemGroup><ProjectReference Include="../audio/P24.Audio.csproj" /></ItemGroup>
+ </Project>
+--- a/source/OriginalMapCache.cs
++++ b/source/OriginalMapCache.cs
+@@ -67,6 +67,7 @@
+     }
+ }
+ public sealed class OriginalMapCache {
++    public event Action<OriginalMapBlock>? Evicting;
+     public static readonly int[] SourceA=[0,1,1,3,2,2,0,0],SourceB=[1,0,3,1,3,0,2,1],DestA=[2,2,0,0,0,1,1,3],DestB=[3,3,2,2,1,3,3,2],ShiftX=[0,128,128,128,0,-128,-128,-128],ShiftY=[-64,-64,0,64,64,64,0,-64];
+     readonly OriginalMapStore store;readonly Dictionary<(int,int),List<Draw>> cells=[];readonly Dictionary<(int,int),List<OpacityTrigger>> triggers=[];
+     readonly Dictionary<int,(int Tile,int Index,string Source)> identities=[];int serial,generation;public int OriginX{get;private set;}public int OriginY{get;private set;}public int Revision{get;private set;}public int? LastDirection{get;private set;}
+@@ -93,7 +94,7 @@
+     void RebuildBaseTriggers(int s){var b=Slots[s]!;var p=SlotOrigin(s);foreach(var k in triggers.Keys.Where(k=>k.Item1>=p.X&&k.Item1<p.X+128&&k.Item2>=p.Y&&k.Item2<p.Y+64).ToArray())triggers.Remove(k);foreach(var t in b.Triggers)if(t.X<128&&t.Y<64)Trigger(b,t);}
+     void Reinsert(int s){var b=Slots[s]!;int mx=(s&1)==0?256:128,my=s<2?128:64;foreach(var t in b.Groups.SelectMany(g=>g.Objects))if((t.X>=128||t.Y>=64)&&t.X<mx&&t.Y<my)Insert(b,t);foreach(var t in b.Triggers)if((t.X>=128||t.Y>=64)&&t.X<mx&&t.Y<my)Trigger(b,t);}
+     public bool Move(int x,int y){LastDirection=Direction(OriginX,OriginY,x,y);if(LastDirection is not int d)return false;Shift(d);return true;}
+-    public void Shift(int d){if(d is <0 or >7)throw new ArgumentOutOfRangeException();int a=SourceA[d],b=SourceB[d],c=DestA[d],e=DestB[d];var before=new[]{OriginX,OriginY};int[] evicted=(d&1)!=0?[c,b,e]:[c,e];foreach(int s in evicted){Events.Add(new{kind="evict",slot=s,block=Slots[s]!.Name,generation=Slots[s]!.Generation});ClearRectangle(s);Slots[s]=null;}
++    public void Shift(int d){if(d is <0 or >7)throw new ArgumentOutOfRangeException();int a=SourceA[d],b=SourceB[d],c=DestA[d],e=DestB[d];var before=new[]{OriginX,OriginY};int[] evicted=(d&1)!=0?[c,b,e]:[c,e];foreach(int s in evicted){Evicting?.Invoke(Slots[s]!);Events.Add(new{kind="evict",slot=s,block=Slots[s]!.Name,generation=Slots[s]!.Generation});ClearRectangle(s);Slots[s]=null;}
+         Slots[c]=Slots[a];Slots[a]=null;if((d&1)==0){Slots[e]=Slots[b];Slots[b]=null;}OriginX+=ShiftX[d];OriginY+=ShiftY[d];ClearRectangle(a);ClearRectangle(b);if((d&1)!=0)ClearRectangle(e);
+         if((d&1)!=0&&d!=7){RebuildBaseTriggers(c);Reinsert(c);}else if(d is 2 or 4){RebuildBaseTriggers(c);RebuildBaseTriggers(e);Reinsert(c);Reinsert(e);}
+         Load(a);Load(b);if((d&1)!=0)Load(e);Publish();Events.Add(new{kind="shift",direction=d,before,after=new[]{OriginX,OriginY},revision=Revision});
+--- /dev/null
++++ b/source/PlayerAudioSettings.cs
+@@ -0,0 +1,32 @@
++using System.Text.Json;
++namespace P06;
++public sealed record AudioSettingsCommand(int Id,double Gain,bool Muted) {
++    public static AudioSettingsCommand Parse(JsonElement value){
++        if(value.ValueKind!=JsonValueKind.Object)throw new FormatException("audio object");
++        var names=value.EnumerateObject().Select(p=>p.Name).ToArray();
++        if(!names.Order().SequenceEqual(new[]{"cmd","gain","id","muted","v"}))throw new FormatException("audio fields");
++        var v=value.GetProperty("v");var id=value.GetProperty("id");var cmd=value.GetProperty("cmd");var gain=value.GetProperty("gain");var muted=value.GetProperty("muted");
++        if(v.ValueKind!=JsonValueKind.Number||!v.TryGetInt32(out int version)||version!=1||id.ValueKind!=JsonValueKind.Number||!id.TryGetInt32(out int request)||request<1||cmd.ValueKind!=JsonValueKind.String||cmd.GetString()!="audioSettings"||gain.ValueKind!=JsonValueKind.Number||!gain.TryGetDouble(out double level)||!double.IsFinite(level)||level<0||level>1||muted.ValueKind is not (JsonValueKind.True or JsonValueKind.False))throw new FormatException("audio values");
++        return new(request,level,muted.GetBoolean());
++    }
++}
++public sealed record PlayerAudioState(double gain,bool muted,bool applied,string status,bool editable,int revision,int configurationRevision);
++public sealed class PlayerAudioSettings {
++    public double Gain {get;private set;}=.5;public bool Muted {get;private set;}
++    public int Revision {get;private set;}public bool Rendering {get;private set;}
++    public bool Change(double gain,bool muted,bool editable){
++        if(!double.IsFinite(gain)||gain<0||gain>1)throw new ArgumentOutOfRangeException(nameof(gain));
++        if(Rendering||!editable||Gain==gain&&Muted==muted)return false;
++        Gain=gain;Muted=muted;Revision++;return true;
++    }
++    public PlayerAudioState Snapshot(Effect6016Host? host,bool closing){
++        bool editable=!closing&&host is {Closed:false};
++        bool applied=editable&&host!.ControlsApplied&&host.Gain==Gain&&host.Muted==Muted;
++        string status=!editable?"closed":applied?"applied":host!.ControlsStatus;
++        return new(Gain,Muted,applied,status,editable,Revision,host?.ControlsStateRevision??0);
++    }
++    public void Render(Effect6016Host? host,bool closing,Action<PlayerAudioState> render){
++        bool prior=Rendering;Rendering=true;try{render(Snapshot(host,closing));}finally{Rendering=prior;}
++    }
++    public static string Notice(PlayerAudioState state)=>state.applied?(state.muted?"已套用靜音":"音量已套用"):state.status switch{"pending"=>"正在套用聲音設定…","failed"=>"聲音設定未套用","closed"=>"聲音設定暫不可用",_=>"聲音尚未就緒"};
++}
+--- a/source/Program.cs
++++ b/source/Program.cs
+@@ -106,9 +106,9 @@
+         MouseUp+=(_,_)=>{drag=null;Capture=false;};
+         MouseCaptureChanged+=(_,_)=>{if(!Capture)drag=null;};
+         MouseWheel+=(_,e)=>{if(PlayerChatFocused)return;Camera.Scale(e.Delta>0?1.15f:1/1.15f,e.Location);Invalidate();};
+-        timer.Tick+=(_,_)=>{double now=clock.Elapsed.TotalMilliseconds;World.Advance(now-last);last=now;if(OnlineMode){SyncWorld();OnlineTick();PlayerPointerTick();}RefreshScene();};
++        timer.Tick+=(_,_)=>{double now=clock.Elapsed.TotalMilliseconds;World.Advance(now-last);last=now;if(OnlineMode){SyncWorld();OnlineTick();PlayerPointerTick();}Pump6016();RefreshScene();};
+         Shown+=async(_,_)=>{last=clock.Elapsed.TotalMilliseconds;timer.Start();events.Add(new{kind="shown",pid=Environment.ProcessId});if(demo!=null)await Demo();};
+-        InitNetwork(port,networkDemo);InitWeb(webDemo,webFault);InitLogin(loginPort,loginDemo);InitInventory();InitGround();InitRewards();InitMagic();InitInteraction();InitTrade();InitBonusStats();InitPrivateShop();InitNormalPanels();
++        InitNetwork(port,networkDemo);InitWeb(webDemo,webFault);InitLogin(loginPort,loginDemo);InitInventory();InitGround();InitRewards();InitMagic();InitInteraction();InitTrade();InitBonusStats();InitPrivateShop();InitNormalPanels();Init6016();
+         FormClosed+=(_,_)=>{StopPlayerPointer("視窗關閉");modeEpoch++;timer.Stop();network.Dispose();wireLog.Add("form-closed",new{timerEnabled=timer.Enabled});wireLog.Dispose();timer.Dispose();Input.Clear();World.SetIntent(null);patch?.Dispose();renderer.Dispose();events.Add(new{kind="closed",timerEnabled=false,pid=Environment.ProcessId,model=World.Snapshot()});if(evidence!=null)Json.Save(Path.Combine(evidence,"window-events.json"),events);};
+     }
+     static bool GameKey(Keys k)=>k is Keys.Escape or Keys.M or Keys.P or Keys.U or Keys.G or Keys.F9 or Keys.F6 or Keys.F7 or Keys.F8 or Keys.Up or Keys.Down or Keys.Left or Keys.Right or Keys.Home or Keys.End or Keys.PageUp or Keys.PageDown or Keys.W or Keys.A or Keys.S or Keys.D or Keys.F or Keys.R or Keys.Space or Keys.F1 or Keys.F2 or Keys.F3 or Keys.F4 or Keys.F12 || (k>=Keys.D1&&k<=Keys.D8) || (k>=Keys.NumPad1&&k<=Keys.NumPad9);
+--- a/source/SceneOpacity.cs
++++ b/source/SceneOpacity.cs
+@@ -105,7 +105,7 @@
+     public SceneOpacity? Opacity=>sceneOpacity;
+     public event Action<object>? OpacityObserved;
+     void ObserveOpacity(string action)=>OpacityObserved?.Invoke(new{action,epoch=WorldEpoch,opacity=sceneOpacity?.Snapshot(),cache=MapCache?.Snapshot()});
+-    void ResetOpacity(){InvalidateMapLoad();sceneOpacity=null;MapCache=null;MapWaiting();ObserveOpacity("reset");}
++    void ResetOpacity(){Clear6016(SceneClock());InvalidateMapLoad();sceneOpacity=null;MapCache=null;MapWaiting();ObserveOpacity("reset");}
+     void UpdateOpacity(){
+         if(Actor is not {} a||MapId is not ushort map){ResetOpacity();return;}
+         try{
+@@ -113,7 +113,7 @@
+             if(CacheEnabled){
+                 if(MapCache==null||MapCache.MapId!=map){if(AsyncMapLoading){RequestMapLoad(a,map);return;}MapResourceState="loading";MapResourceNotice=$"載入地圖 {map}…";var fresh=new OriginalMapCache(MapAssetsRoot,a.X,a.Y,map);MapCache=fresh;sceneOpacity=new(fresh.Catalog);}
+                 else if(MapCache.Move(a.X,a.Y))sceneOpacity!.Rebind(MapCache.Catalog);
+-                MapCache.ActivateEffects(now);
++                MapCache.ActivateEffects(now);Sync6016(now);
+             }else if(map!=0||!Coordinates.Inside(a.X,a.Y)){ResetOpacity();MapResourceState="unavailable";MapResourceNotice="此預覽設定未啟用地圖供應。";return;}
+             sceneOpacity??=new(OpacityCatalog.Shared.Value);sceneOpacity.Move(a.X,a.Y,now);MapResourceState="ready";MapResourceNotice=$"地圖 {map} 已載入原始區塊。";ObserveOpacity("move");
+         }catch(Exception ex) when(ex is IOException or InvalidDataException or NotSupportedException or ArgumentException or KeyNotFoundException or OverflowException or JsonException or FormatException or InvalidOperationException){MapFailed(ex);}
+--- a/source/WebPanel.cs
++++ b/source/WebPanel.cs
+@@ -24,7 +24,7 @@
+         webToggle.Click+=async(_,_)=>await TogglePanel();gameButton.Click+=(_,_)=>ReturnGameFocus();
+         Deactivate+=(_,_)=>LeaveGameFocus("deactivate");
+         Shown+=async(_,_)=>{if(normalProduct&&scenario==null)return;var open=OpenPanel();if(scenario!="close-init")await open;if(scenario!=null)await WebDemo(scenario);};
+-        FormClosing+=async(_,e)=>{if(finalClose)return;e.Cancel=true;if(webClosing)return;webClosing=true;await ClosePanel();finalClose=true;Close();};
++        FormClosing+=async(_,e)=>{if(finalClose)return;e.Cancel=true;if(webClosing)return;webClosing=true;var audioShutdown=await Shutdown6016();Record6016(new("form-closing",audioShutdown));await ClosePanel();finalClose=true;Close();};
+     }
+     void LeaveGameFocus(string why){gameFocus=false;ClearInput("web-"+why);PublishWebState();WebLog("focus-left-game",new{why,held=Input.Held.Count,model=World.Snapshot()});}
+     void ReturnGameFocus(){ActiveControl=null;Focus();gameFocus=true;ClearInput("return-game");PublishWebState();WebLog("focus-game",new{held=Input.Held.Count,model=World.Snapshot()});}
+@@ -77,6 +77,7 @@
+             var names=o.EnumerateObject().Select(p=>p.Name).ToArray();
+             if(names.Distinct().Count()!=names.Length||!o.GetProperty("v").TryGetInt32(out int v)||v!=1||!o.GetProperty("id").TryGetInt32(out id)||id<1||!o.TryGetProperty("cmd",out var c)||c.ValueKind!=JsonValueKind.String)throw new FormatException("schema");
+             string cmd=c.GetString()!;
++            if(cmd=="audioSettings"){var command=AudioSettingsCommand.Parse(o);DispatchAudioSettings(command);return;}
+             if(cmd.StartsWith("private",StringComparison.Ordinal)){var command=PrivateShopCommand.Parse(o);_=DispatchPrivateShop(id,command);return;}
+             if(cmd.StartsWith("bonus",StringComparison.Ordinal)){var command=BonusStatsCommand.Parse(o);_=DispatchBonusStats(id,command);return;}
+             if(cmd.StartsWith("trade",StringComparison.Ordinal)){var command=TradeWebCommand.Parse(o);_=DispatchTrade(id,command);return;}
+@@ -123,11 +124,11 @@
+         }catch(Exception ex) when(ex is JsonException or FormatException or KeyNotFoundException or InvalidOperationException){WebLog("bridge-rejected",new{sourceAllowed=source==LocalPage,rawLength=raw.Length,errorType=ex.GetType().Name});if(source==LocalPage)Reply(id,"操作資料無效，未送出；請檢查欄位與目前狀態。");}
+     }
+     async Task WebUseItem(int id){bool sent=!World.Walking&&await login.UseSelectedItem();Reply(id,sent?"單次使用已送出；等待原服回報":login.World.ItemNotice);PublishWebState();}
+-    void Reply(int id,string status){if(web?.CoreWebView2==null||web.IsDisposed)return;web.CoreWebView2.PostWebMessageAsJson(JsonSerializer.Serialize(new{v=1,kind="reply",id,status}));WebLog("bridge-reply",new{id,status});}
++    void Reply(int id,string status,PlayerAudioState? audio=null){if(web?.CoreWebView2==null||web.IsDisposed)return;web.CoreWebView2.PostWebMessageAsJson(JsonSerializer.Serialize(new{v=1,kind="reply",id,status,audio}));WebLog("bridge-reply",new{id,status});}
+     void PublishWebState(){if(!webReady||web?.CoreWebView2==null||web.IsDisposed)return;
+-        var nativeFocus=CaptureNativeFocusSnapshot();
+-        string signature=$"{World.X}/{World.Y}/{World.Direction}/{World.Walking}/{World.Steps}/{networkMode}/{network.State}/{network.Busy}/{network.Confirmed}/{gameFocus}/{login.Revision}/{login.World.ObjectRevision}/{login.World.InventoryRevision}/{login.World.GroundRevision}/{login.World.MagicRevision}/{login.World.InteractionRevision}/{login.World.TradeRevision}/{login.MovementBusy}/{login.MovementAvailable}/{login.MovementBlockReason}/{login.World.PickupOutcomeTimedOut}/{login.World.ShipNotice}/{login.World.SpeedNotice}/{login.World.BonusStatsRevision}/{login.BonusStatsSnapshot().CanSubmit}/{login.BonusStatsSnapshot().CanRefresh}";signature+=$"/supplies/{login.World.SustenanceText}/{login.World.BasicSupplyNotice}";signature+="/private/"+JsonSerializer.Serialize(PrivateShopWeb());signature+="/nativeFocus/"+JsonSerializer.Serialize(nativeFocus);if(signature==lastWebState)return;lastWebState=signature;
+-        var state=new{nativeFocus,nativeFocusSampledAtMs=Environment.TickCount64,privateShop=PrivateShopWeb(),v=1,kind="state",normalProduct,revision=++revision,onlineMode=OnlineMode,character=OnlineMode?login.World.Actor?.Name:"gfx0 → sprite3225",x=OnlineMode?(int?)login.World.Actor?.X:World.X,y=OnlineMode?(int?)login.World.Actor?.Y:World.Y,direction=OnlineMode?(int?)login.World.Actor?.Direction:World.Direction,walking=World.Walking,movementControl=login.MovementControlSnapshot(World.Walking),steps=World.Steps,networkMode,connection=network.State,busy=network.Busy,confirmed=network.Confirmed,gameFocus,presence=PresenceSnapshot(),targetName=login.World.Target is {} target?objectAssets?.DisplayName(target):null,bonusStats=login.BonusStatsSnapshot(),trade=TradeWeb(),interaction=InteractionWeb(),magic=MagicWeb(),inventory=InventoryWeb(),ground=GroundWeb(),login=login.Snapshot(),loginControl=loginControl?.Snapshot()};web.CoreWebView2.PostWebMessageAsJson(JsonSerializer.Serialize(state));WebLog("bridge-state",state);
++        var nativeFocus=CaptureNativeFocusSnapshot();var audio=AudioSettingsWeb();
++        string signature=$"{World.X}/{World.Y}/{World.Direction}/{World.Walking}/{World.Steps}/{networkMode}/{network.State}/{network.Busy}/{network.Confirmed}/{gameFocus}/{login.Revision}/{login.World.ObjectRevision}/{login.World.InventoryRevision}/{login.World.GroundRevision}/{login.World.MagicRevision}/{login.World.InteractionRevision}/{login.World.TradeRevision}/{login.MovementBusy}/{login.MovementAvailable}/{login.MovementBlockReason}/{login.World.PickupOutcomeTimedOut}/{login.World.ShipNotice}/{login.World.SpeedNotice}/{login.World.BonusStatsRevision}/{login.BonusStatsSnapshot().CanSubmit}/{login.BonusStatsSnapshot().CanRefresh}";signature+=$"/supplies/{login.World.SustenanceText}/{login.World.BasicSupplyNotice}";signature+="/private/"+JsonSerializer.Serialize(PrivateShopWeb());signature+="/nativeFocus/"+JsonSerializer.Serialize(nativeFocus);signature+="/audio/"+JsonSerializer.Serialize(audio);if(signature==lastWebState)return;lastWebState=signature;
++        var state=new{audio,nativeFocus,nativeFocusSampledAtMs=Environment.TickCount64,privateShop=PrivateShopWeb(),v=1,kind="state",normalProduct,revision=++revision,onlineMode=OnlineMode,character=OnlineMode?login.World.Actor?.Name:"gfx0 → sprite3225",x=OnlineMode?(int?)login.World.Actor?.X:World.X,y=OnlineMode?(int?)login.World.Actor?.Y:World.Y,direction=OnlineMode?(int?)login.World.Actor?.Direction:World.Direction,walking=World.Walking,movementControl=login.MovementControlSnapshot(World.Walking),steps=World.Steps,networkMode,connection=network.State,busy=network.Busy,confirmed=network.Confirmed,gameFocus,presence=PresenceSnapshot(),targetName=login.World.Target is {} target?objectAssets?.DisplayName(target):null,bonusStats=login.BonusStatsSnapshot(),trade=TradeWeb(),interaction=InteractionWeb(),magic=MagicWeb(),inventory=InventoryWeb(),ground=GroundWeb(),login=login.Snapshot(),loginControl=loginControl?.Snapshot()};web.CoreWebView2.PostWebMessageAsJson(JsonSerializer.Serialize(state));WebLog("bridge-state",state);
+     }
+     async Task ClosePanel(){WebLog("close-request",new{initializing=initializing is {IsCompleted:false},epoch=webEpoch,formClosing=webClosing});++webEpoch;webReady=false;ClearInput("panel-close");var old=web;
+         if(initializing!=null)await initializing;initializing=null;
+--- /dev/null
++++ b/source/WorldEffect6016.cs
+@@ -0,0 +1,17 @@
++using P24.MapEffectEvents;
++namespace P06;
++public sealed partial class WorldSession {
++    public Effect6016Host? Effects6016 {get;private set;}
++    public void Attach6016(Effect6016Host host){Effects6016?.Clear(SceneClock());Effects6016=host;if(MapCache!=null)Sync6016(SceneClock());}
++    public static BlockSnapshot Snapshot6016(OriginalMapBlock block)=>new(block.Name,block,
++        block.Effects.Select((effect,ordinal)=>new EffectPlacement(ordinal,effect.Id,effect.X,effect.Y)).ToArray());
++    OriginalMapCache? effectCache;
++    void Evict6016(OriginalMapBlock block)=>Effects6016?.RetireLifetime(block,SceneClock());
++    void Sync6016(long now){if(MapCache is {} cache){if(!ReferenceEquals(effectCache,cache)){if(effectCache!=null)effectCache.Evicting-=Evict6016;effectCache=cache;cache.Evicting+=Evict6016;}Effects6016?.Synchronize(cache.MapId,cache.Slots.OfType<OriginalMapBlock>().Select(Snapshot6016).ToArray(),now);}}
++    void Clear6016(long now){if(effectCache!=null)effectCache.Evicting-=Evict6016;effectCache=null;Effects6016?.Clear(now);}
++    public IReadOnlyDictionary<EffectKey,EffectFrameState> Frames6016()=>Effects6016?.Frames().ToDictionary(s=>s.Owner.Key)??new Dictionary<EffectKey,EffectFrameState>();
++    public static Frame MapEffectFrame(MapLocalEffect effect,string block,int ordinal,int map,long elapsed,IReadOnlyDictionary<EffectKey,EffectFrameState> states){
++        if(effect.Id!=6016)return effect.Appearance.At(elapsed);
++        return effect.Appearance.Frames[states.TryGetValue(new(map,block,ordinal),out var state)?state.Frame:11];
++    }
++}
+--- a/source/WorldEntry.cs
++++ b/source/WorldEntry.cs
+@@ -27,7 +27,7 @@
+     internal bool CompleteMapLoad(MapLoadRequest request,OriginalMapCache cache){
+         if(!CurrentMapLoad(request))return false;
+         if(cache.MapId!=request.Map||!cache.Contains(request.X,request.Y))throw new InvalidDataException("prepared map identity mismatch");
+-        PendingMapLoad=null;MapCache=cache;sceneOpacity=new(cache.Catalog);long now=SceneClock();cache.ActivateEffects(now);sceneOpacity.Move(request.X,request.Y,now);MapResourceState="ready";MapResourceNotice=$"地圖 {request.Map} 已載入原始區塊。";RefreshArrivalNotice();ObserveOpacity("move");return true;
++        PendingMapLoad=null;MapCache=cache;sceneOpacity=new(cache.Catalog);long now=SceneClock();cache.ActivateEffects(now);Sync6016(now);sceneOpacity.Move(request.X,request.Y,now);MapResourceState="ready";MapResourceNotice=$"地圖 {request.Map} 已載入原始區塊。";RefreshArrivalNotice();ObserveOpacity("move");return true;
+     }
+     internal void FailMapLoad(MapLoadRequest request,Exception error){if(CurrentMapLoad(request)){PendingMapLoad=null;MapFailed(error);}}
+ }
+--- a/source/WorldSession.cs
++++ b/source/WorldSession.cs
+@@ -23,7 +23,7 @@
+     public string AppearanceNotice=>Actor==null?"等待角色資料":SelfAppearancePending?"角色外觀正在更新；可取消連線":SupportedAppearance?"角色外觀已載入":$"尚未支援此外觀（角色 {Actor.Gfx}／武器 {Actor.Weapon}）；移動與戰鬥已停止，仍可從背包卸下裝備或取消連線。";
+     public bool Renderable=>Ready&&!TeleportPending&&SupportedMap&&SupportedAppearance;
+     readonly System.Collections.Concurrent.ConcurrentDictionary<byte,int> unhandled=new();
+-    public void Reset(){ResetPlayerChat();ResetPrivateShop();ResetShip();ResetSpeedStatus();ResetBonusStats();AppearanceRevision++;ResetTeleport();Entered=false;MapId=null;Status=null;Actor=null;SelfAppearancePending=false;Underwater=false;KeepalivesSent=TimeReplies=0;ServerTime=null;ProbeSent=false;unhandled.Clear();ResetMovement();ResetCombat();ResetMagic();ResetInventory();ResetEquipment();ResetRewards();ClearObjects();}
++    public void Reset(){Clear6016(SceneClock());ResetPlayerChat();ResetPrivateShop();ResetShip();ResetSpeedStatus();ResetBonusStats();AppearanceRevision++;ResetTeleport();Entered=false;MapId=null;Status=null;Actor=null;SelfAppearancePending=false;Underwater=false;KeepalivesSent=TimeReplies=0;ServerTime=null;ProbeSent=false;unhandled.Clear();ResetMovement();ResetCombat();ResetMagic();ResetInventory();ResetEquipment();ResetRewards();ClearObjects();}
+     public object Snapshot()=>new{playerChat=PlayerChatLines,sustenance=SustenanceText,basicSupplyNotice=BasicSupplyNotice,privateShop=PrivateShopSnapshotModel(),announcement=LastAnnouncement,bonusStatsNotice=BonusStatsNotice,bonusStats=new{phase=BonusStatsPhase,revision=BonusStatsRevision,selected=SelectedBonusAttribute,remaining=(int?)null},ready=Ready,coreComplete=CoreComplete,entered=Entered,mapId=MapId,underwater=Underwater,status=Status,actor=Actor,supportedMap=SupportedMap,mapResourceState=MapResourceState,mapResourceNotice=MapResourceNotice,loadedRegion=MapCache is {} cache?new{minX=(cache.OriginX+32768)/2,minY=cache.OriginY,maxX=(cache.OriginX+32768)/2+127,maxY=cache.OriginY+127,mode="original moving 2x2 cache"}:new{minX=Coordinates.MinX,minY=Coordinates.MinY,maxX=Coordinates.MaxX,maxY=Coordinates.MaxY,mode="resident original dual blocks"},supportedAppearance=SupportedAppearance,appearanceNotice=AppearanceNotice,appearanceRevision=AppearanceRevision,appearanceProfile=AppearanceProfile,renderable=Renderable,keepalivesSent=KeepalivesSent,timeReplies=TimeReplies,serverTime=ServerTime,unhandled=unhandled.ToDictionary(x=>$"0x{x.Key:X2}",x=>x.Value),ship=ShipSnapshot(),teleport=TeleportSnapshot(),movement=MovementSnapshot(),combat=CombatSnapshot(),inventory=InventorySnapshot(),equipment=EquipmentSnapshot(),rewards=RewardsSnapshot(),ground=GroundSnapshot(),magic=MagicSnapshot(),objects=Objects,target=Target,targetId=TargetId,opacity=sceneOpacity?.Snapshot(),cache=MapCache?.Snapshot(),objectRevision=ObjectRevision,worldEpoch=WorldEpoch,unknownObjectUpdates=UnknownObjectUpdates};
+     public void Receive(byte[] plain,string selected){
+         var r=new LoginReader(plain);byte opcode=r.C();
+@@ -34,7 +34,7 @@
+         case 8:
+             var v=new OwnStatus(r.D(),r.C(),r.D(),r.C(),r.C(),r.C(),r.C(),r.C(),r.C(),r.D(),r.D(),r.D(),r.D(),unchecked((int)r.D()),r.D(),r.C(),r.C(),unchecked((short)r.H()),unchecked((short)r.H()),unchecked((short)r.H()),unchecked((short)r.H()),unchecked((short)r.H()),r.D());r.Finish();
+             if(Status!=null&&Status.ObjectId!=v.ObjectId)throw new ProtocolException("self status identity changed");Status=v;PartialAcByte=null;ApplyExperience(v.Level,v.Exp,opcode);break;
+-        case 206:var map=r.H();var water=r.C()!=0;r.Finish();ClearObjects();Actor=null;ResetSpeedStatus();ResetMovement();ResetCombat();ClearMagicEffects();MapId=map;Underwater=water;MapArrived();break;
++        case 206:Clear6016(SceneClock());var map=r.H();var water=r.C()!=0;r.Finish();ClearObjects();Actor=null;ResetSpeedStatus();ResetMovement();ResetCombat();ClearMagicEffects();MapId=map;Underwater=water;MapArrived();break;
+         case 87:
+             ushort x=r.H(),y=r.H();uint id=r.D();
+             if(Status==null||id!=Status.ObjectId){ReceiveObject(r,x,y,id);break;}
+--- a/web/index.html
++++ b/web/index.html
+@@ -1,5 +1,6 @@
+ <!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'none'"><link rel="stylesheet" href="panel.css"><title>P24 登入與角色面板</title></head><body><p id="mapResource" role="status" aria-live="polite"></p>
+ <div class="eyebrow">P24 / AUTONOMOUS CLIENT</div><h1>角色控制面板</h1><p class="muted">原生世界 × 本機網頁</p>
++<section id="audioSettings"><h2>聲音</h2><label for="audioGain">主音量 <output id="audioGainValue">50%</output></label><input id="audioGain" type="range" min="0" max="100" step="1" value="50" disabled><label><input id="audioMuted" type="checkbox" disabled>靜音</label><p id="audioNotice" role="status" aria-live="polite">聲音尚未就緒</p></section>
+ <section id="loginPanel"><h3>登入與角色</h3>
+ <form id="loginForm" autocomplete="off">
+ <p>本機遊戲伺服器 · 請輸入帳號與密碼</p><details id="connectionOptions"><summary>連線設定</summary><label for="webLoginProfile">連線</label><select id="webLoginProfile"><option value="p24-real-jar-d287-client2">本機遊戲伺服器</option><option value="jar-d287-client1">診斷連線（一）</option><option value="jar-d287-client2">診斷連線（二）</option></select>
+--- a/web/panel.css
++++ b/web/panel.css
+@@ -1,6 +1,7 @@
+ :root{color-scheme:dark;font:14px 'Microsoft JhengHei UI',sans-serif;background:#13232a;color:#e6efe9}*{box-sizing:border-box}body{margin:0;padding:25px 22px}.eyebrow{font-size:11px;letter-spacing:2px;color:#84c4b1}h1{font-size:25px;margin:10px 0 4px}h2{font-size:24px;margin:12px 0}h3{margin:22px 0 4px}.muted,footer{color:#a8bdbb;font-size:12px;line-height:1.7}section{border:1px solid #36535a;background:#1b333b;border-radius:12px;padding:18px;margin-top:20px;line-height:1.8}.label{font-size:11px;letter-spacing:2px;color:#b8d7a5}small{color:#9fbbb4}.directions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:13px 0 22px}button{background:#2a4a50;border:1px solid #5c807d;color:#eff9ef;padding:10px 5px;border-radius:6px;cursor:pointer}button:hover{background:#3a6064}button:focus-visible,input:focus{outline:2px solid #e4c887}button:disabled{opacity:.4;cursor:wait}input{display:block;width:100%;background:#0e1c22;color:#fff;border:1px solid #78928b;border-radius:6px;padding:12px;margin-top:8px}.wide{width:100%;background:#6c603d;border-color:#bdab77}#reply{margin:14px 0;font-size:12px;color:#dac68e}footer{border-top:1px solid #355058;padding-top:16px;margin-top:18px;font-size:11px}
+ 
+ #loginResult{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.6 sans-serif;color:#cfe7bc}
++#audioGain{padding:0;accent-color:#84c4b1}#audioMuted{display:inline-block;width:auto;padding:0;margin:12px 8px 0 0;accent-color:#84c4b1}#audioGainValue{float:right}#audioNotice{margin-bottom:0}#audioSettings input:disabled{opacity:.5}
+ 
+ #worldResult{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.65 sans-serif;color:#e9eed1;margin:10px 0 0}#worldPanel h3{margin:0}#worldPanel{border-color:#729888}
+ 
+--- a/web/panel.js
++++ b/web/panel.js
+@@ -7,7 +7,7 @@
+  window.lastState=s;
+  renderBonusStats(s.bonusStats);renderPrivateShop(s.privateShop);renderLogin(s.login,s.loginControl);renderInteraction(s.interaction);renderTrade(s.trade);
+  renderMagic(s.magic);renderInventory(s.inventory);renderGround(s.ground);
+- renderPresence(s.presence);
++ renderPresence(s.presence);renderAudioSettings(s.audio);
+  const w=s.login?.world;
+  const reward=w?.rewards, xp=reward?.experience, change=reward?.lastExperienceChange;
+  document.querySelector('#experienceResult').textContent=xp?`Lv.${xp.Level} · 總 EXP ${xp.Total??'未知（低32位 '+xp.WireLow32+'）'}
+@@ -36,7 +36,7 @@
+ 力 ${c.Strength} 敏 ${c.Dexterity} 體 ${c.Constitution} 智 ${c.Intelligence} 精 ${c.Wisdom} 魅 ${c.Charisma}`).join('\n\n');}document.querySelector('#position').textContent=s.onlineMode?(w?.ready?`${w.actor.X}, ${w.actor.Y}`:'等待真實座標'):`${s.x}, ${s.y}`;document.querySelector('#direction').textContent=s.onlineMode?(w?.ready?`方向 D${w.actor.Direction} · 預測／伺服器校正`:'等待真實角色資料'):`方向 D${s.direction} · ${s.walking?'行走':'站立'} · 步數 ${s.steps}`;
+  document.querySelector('#mode').textContent=s.onlineMode?'真實連線 · '+s.login.state:s.networkMode?'測試通訊 · 回覆後套用':'離線模式';document.querySelector('#mapResource').textContent=s.onlineMode?[w?.basicSupplyNotice,w?.announcement,w?.bonusStatsNotice,w?.ship?.notice,w?.movement?.speedNotice,w?.teleport?.notice,w?.mapResourceNotice].filter(Boolean).join('\n'):'';document.querySelector('#connection').textContent=`${s.onlineMode?s.login.state:s.connection} / ${s.busy?'等待有效回覆':s.gameFocus?'遊戲控制':'面板／其他焦點'}`;
+  document.querySelector('#revision').textContent=`狀態版本 ${s.revision} · 已確認 ${s.confirmed}`;document.querySelectorAll('.directions button').forEach(b=>b.disabled=(s.onlineMode&&(!s.movementControl?.available||s.movementControl.busy||!w?.renderable||w?.teleport?.actionLocked||w?.combat?.ownDead||w?.status?.Hp===0))||s.busy||s.walking||(s.networkMode&&s.connection!=='Ready'));
+- }else if(s.kind==='reply'){window.lastReply=s;handleBonusStatsReply(s);handlePrivateShopReply(s);handleLoginReply(s);handleNpcReply(s);handleTradeReply(s);document.querySelector('#reply').textContent=`#${s.id} ${s.status}`;}});
++ }else if(s.kind==='reply'){if(s.audio&&!handleAudioSettingsReply(s))return;window.lastReply=s;handleBonusStatsReply(s);handlePrivateShopReply(s);handleLoginReply(s);handleNpcReply(s);handleTradeReply(s);document.querySelector('#reply').textContent=`#${s.id} ${s.status}`;}});
+ send('ready');
+ 
+ for(let d=0;d<8;d++){const b=document.createElement('button');b.textContent=`走 D${d}`;b.id=`m${d}`;b.onclick=()=>send('move',{direction:d});document.querySelector('#moves').append(b);}
+@@ -98,3 +98,58 @@
+  document.getElementById('incomingAttack').textContent=info?.IncomingAttack||'';
+  document.getElementById('missingObjects').textContent=(info?.Labels||[]).filter(x=>x.Missing).map(x=>`${x.Name} #${x.Id} · ${x.X}, ${x.Y}\n${x.Detail}`).join('\n')||'';
+ }
++
++// Both controls submit one complete settings value; host state is authoritative.
++let audioRendering=false,audioEditing=false,audioPending=null,audioLatest=null;
++function renderAudioSettings(state){
++ if(!state)return;
++ audioLatest=state;
++ if(!state.editable){audioEditing=false;audioPending=null;}
++ audioRendering=true;
++ try{
++  if(!audioEditing&&!audioPending){
++   document.querySelector('#audioGain').value=String(state.gain*100);
++   document.querySelector('#audioGainValue').textContent=`${Math.round(state.gain*10000)/100}%`;
++  }
++  if(!audioPending)document.querySelector('#audioMuted').checked=state.muted;
++  document.querySelector('#audioGain').disabled=!state.editable;
++  document.querySelector('#audioMuted').disabled=!state.editable;
++  document.querySelector('#audioNotice').textContent=audioEditing||audioPending?'設定尚未套用':state.applied?(state.muted?'已套用靜音':'音量已套用'):state.status==='pending'?'正在套用聲音設定…':state.status==='failed'?'聲音設定未套用':state.status==='closed'?'聲音設定暫不可用':'聲音尚未就緒';
++ }finally{audioRendering=false;}
++}
++function sendAudioSettings(){
++ if(audioRendering||document.querySelector('#audioGain').disabled||document.querySelector('#audioMuted').disabled)return;
++ const gain=Number(document.querySelector('#audioGain').value)/100;
++ if(!Number.isFinite(gain)||gain<0||gain>1)return;
++ const muted=document.querySelector('#audioMuted').checked;
++ audioEditing=false;
++ if(audioPending&&audioPending.gain===gain&&audioPending.muted===muted)return;
++ audioPending={gain,muted,id:null};
++ document.querySelector('#audioGainValue').textContent=`${Math.round(gain*100)}%`;
++ document.querySelector('#audioNotice').textContent='設定尚未套用';
++ audioPending.id=send('audioSettings',{gain,muted});
++}
++function handleAudioSettingsReply(reply){
++ if(!audioPending||reply.id!==audioPending.id||!reply.audio)return false;
++ audioPending=null;
++ // A newer external native state may already have arrived; acknowledgement is not a rollback.
++ const acknowledged=reply.audio;
++ const latest=audioLatest;
++ const newer=latest&&(!latest.editable||latest.revision>acknowledged.revision||
++  (latest.revision===acknowledged.revision&&latest.configurationRevision>acknowledged.configurationRevision));
++ renderAudioSettings(newer?latest:acknowledged);
++ return true;
++}
++document.querySelector('#audioGain').oninput=()=>{
++ if(audioRendering||document.querySelector('#audioGain').disabled)return;
++ audioEditing=true;
++ document.querySelector('#audioGainValue').textContent=`${document.querySelector('#audioGain').value}%`;
++ document.querySelector('#audioNotice').textContent='設定尚未套用';
++};
++document.querySelector('#audioGain').onchange=sendAudioSettings;
++document.querySelector('#audioMuted').onchange=sendAudioSettings;
++document.querySelector('#audioGain').onblur=()=>{if(audioEditing)sendAudioSettings();};
++document.querySelector('#audioGain').onkeydown=e=>{
++ if(e.key==='Enter'&&audioEditing){e.preventDefault();sendAudioSettings();}
++ else if(e.key==='Escape'&&audioEditing){e.preventDefault();audioEditing=false;if(audioLatest)renderAudioSettings(audioLatest);}
++};
+--- /dev/null
++++ b/audio/AudioAssets.cs
+@@ -0,0 +1,62 @@
++using System.Security.Cryptography;
++using System.Text.Json;
++
++namespace P24.Audio;
++
++internal sealed record AssetPin(int Id, string Extension, string RelativePath, long? Size, string? Sha256);
++internal sealed class AudioAssets(string root, IReadOnlyList<AssetPin> pins)
++{
++    internal static AudioAssets Load(string root, string manifestSha256)
++    {
++        root = Path.GetFullPath(root);
++        var bytes = File.ReadAllBytes(Path.Combine(root, "audio-manifest.json"));
++        if (!Convert.ToHexString(SHA256.HashData(bytes)).Equals(manifestSha256, StringComparison.OrdinalIgnoreCase))
++            throw new InvalidDataException("Audio manifest SHA-256 mismatch");
++        using var doc = JsonDocument.Parse(bytes);
++        if (doc.RootElement.GetProperty("schema").GetString() != "p24-audio-assets-v2")
++            throw new InvalidDataException("Audio manifest schema");
++        var pins = new List<AssetPin>();
++        foreach (var row in doc.RootElement.GetProperty("assets").EnumerateArray())
++        {
++            int id = row.GetProperty("id").GetInt32();
++            string ext = row.GetProperty("extension").GetString()!;
++            string path = row.GetProperty("relativePath").GetString()!;
++            bool available = row.GetProperty("available").GetBoolean();
++            if (id is not (3332 or 1340) || ext is not ("mp3" or "wav") || path != $"sound/{id}.{ext}")
++                throw new InvalidDataException("Audio allowlist/path");
++            long? size = available ? row.GetProperty("size").GetInt64() : null;
++            string? sha = available ? row.GetProperty("sha256").GetString() : null;
++            if (available && (size <= 0 || sha == null || sha.Length != 64 || !sha.All(Uri.IsHexDigit)))
++                throw new InvalidDataException("Audio pin");
++            pins.Add(new(id, ext, path, size, sha));
++        }
++        if (pins.Count != 4 || pins.Select(p => (p.Id, p.Extension)).Distinct().Count() != 4)
++            throw new InvalidDataException("Require two exact IDs, each with MP3/WAV declaration");
++        return new(root, pins);
++    }
++
++    internal (FileStream? Lease, AudioEvent? Error, string Path) Acquire(int id, string ext)
++    {
++        var pin = pins.Single(p => p.Id == id && p.Extension == ext);
++        string path = Path.GetFullPath(Path.Combine(root, pin.RelativePath));
++        if (pin.Size == null || pin.Sha256 == null)
++            return (null, new("SourceUnavailable", ext, "No approved source bytes packaged"), path);
++        FileStream? lease = null;
++        try
++        {
++            // Hold a read-only, deny-write/delete lease until native close succeeds.
++            lease = new(path, FileMode.Open, FileAccess.Read, FileShare.Read);
++            if (lease.Length != pin.Size || !Convert.ToHexString(SHA256.HashData(lease)).Equals(pin.Sha256, StringComparison.OrdinalIgnoreCase))
++            {
++                lease.Dispose();
++                return (null, new("IntegrityFailure", ext, "Audio size/SHA-256 mismatch; no fallback"), path);
++            }
++            lease.Position = 0;
++            return (lease, null, path);
++        }
++        catch (FileNotFoundException ex) { lease?.Dispose(); return (null, new("FileMissing", ext, ex.Message), path); }
++        catch (DirectoryNotFoundException ex) { lease?.Dispose(); return (null, new("FileMissing", ext, ex.Message), path); }
++        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException)
++        { lease?.Dispose(); return (null, new("FileAccessFailure", ext, ex.Message), path); }
++    }
++}
+--- /dev/null
++++ b/audio/AudioCore.cs
+@@ -0,0 +1,178 @@
++namespace P24.Audio;
++
++public readonly record struct AudioOwner(string Key, long Generation);
++// Parameter values are numeric snapshots, NOT retained/dereferenceable native pointers.
++public sealed record AudioNativeEvent(int Code, long Parameter1, long Parameter2,
++    uint? OriginalHResult, string Disposition, int? FreeParametersHResult = null);
++public sealed record AudioEvent(string Stage, string Format, string Detail, uint NativeCode = 0)
++{
++    public AudioNativeEvent? NativeEvent { get; init; }
++}
++public sealed record AudioReply(bool Success, string Status, Guid? Playback, int RemainingVoices, AudioEvent[] Events);
++public sealed record AudioControls(double Gain, bool MasterMuted, bool DispatchEnabled)
++{
++    public bool CanDispatch => DispatchEnabled && !MasterMuted;
++}
++
++// Accessed only on AudioPlayer's one command thread. Tests use the same core with an explicit command double.
++internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int capacity)
++{
++    sealed class Voice(Guid id, AudioOwner owner, string alias, string format, FileStream lease)
++    {
++        internal readonly Guid Id = id;
++        internal readonly AudioOwner Owner = owner;
++        internal readonly string Alias = alias, Format = format;
++        internal readonly FileStream Lease = lease;
++        internal bool Closing;
++    }
++    readonly Dictionary<string, (long Generation, bool Active)> owners = new(StringComparer.Ordinal);
++    readonly Dictionary<Guid, Voice> voices = [];
++    AudioControls controls = new(1, false, false);
++    bool controlsFault;
++    internal bool Closing { get; private set; }
++    internal int Count => voices.Count;
++    internal AudioReply Reply(bool ok, string status, List<AudioEvent>? events = null, Guid? id = null)
++        => new(ok, status, id, voices.Count, events?.ToArray() ?? []);
++    bool Current(AudioOwner owner) => owner.Key != null && owners.TryGetValue(owner.Key, out var v) && v.Active && v.Generation == owner.Generation;
++    static AudioEvent Native(string stage, string ext, NativeReply r) => new(r.PlatformFailure ? "PlatformFailure:" + stage : stage, ext, r.Text, r.Code) { NativeEvent = r.NativeEvent };
++
++    internal AudioReply Register(AudioOwner owner)
++    {
++        if (Closing) return Reply(false, "Disposed");
++        if (string.IsNullOrWhiteSpace(owner.Key) || owner.Generation < 0) return Reply(false, "InvalidOwner");
++        if (Current(owner)) return voices.Values.Any(v => v.Owner.Key == owner.Key && v.Closing)
++            ? Reply(false, "OwnerCleanupPending") : Reply(true, "AlreadyRegistered");
++        if (owners.TryGetValue(owner.Key, out var old) && owner.Generation <= old.Generation) return Reply(false, "StaleGeneration");
++        var events = new List<AudioEvent>();
++        foreach (var v in voices.Values.Where(v => v.Owner.Key == owner.Key).ToArray()) Release(v, events);
++        owners[owner.Key] = (owner.Generation, true);
++        return Reply(!voices.Values.Any(v => v.Owner.Key == owner.Key), events.Count == 0 ? "Registered" : "RegisteredWithCleanup", events);
++    }
++
++    internal AudioReply Configure(AudioControls next)
++    {
++        if (Closing) return Reply(false, "Disposed");
++        if (!AudioGain.Valid(next.Gain)) return Reply(false, "InvalidGain");
++        controls = next; // Logical gate closes even if native cleanup fails.
++        var events = new List<AudioEvent>();
++        bool failed = false;
++        foreach (var voice in voices.Values.ToArray())
++        {
++            if (voice.Closing) { Release(voice, events); continue; }
++            var gain = driver.Gain(voice.Alias, next.CanDispatch ? next.Gain : 0);
++            if (!gain.Ok) { failed = true; events.Add(Native("GainFailed", voice.Format, gain)); }
++            if (!next.CanDispatch || !gain.Ok) Release(voice, events);
++        }
++        if (failed) foreach (var voice in voices.Values.ToArray()) Release(voice, events);
++        controlsFault = failed || voices.Values.Any(v => v.Closing);
++        return Reply(!controlsFault && events.Count == 0, controlsFault ? "ControlsFailed" : next.CanDispatch ? "ControlsApplied" : "DispatchSuppressed", events);
++    }
++
++    internal AudioReply Play(int soundId, AudioOwner owner, Func<bool>? stillAllowed = null)
++    {
++        if (Closing) return Reply(false, "Disposed");
++        if (soundId is not (3332 or 1340)) return Reply(false, "IdNotAllowed"); // full int; never narrowed to byte
++        if (!Current(owner)) return Reply(false, "StaleOrUnknownOwner");
++        if (!controls.CanDispatch || stillAllowed?.Invoke() == false) return Reply(false, "DispatchSuppressed");
++        if (controlsFault) return Reply(false, "ControlsFailed");
++        if (voices.Count >= capacity) return Reply(false, "VoiceCapacityReached"); // no stealing/restart/coalescing
++        if (voices.Values.Any(v => v.Closing)) return Reply(false, "CleanupPending");
++        var events = new List<AudioEvent>();
++        foreach (string ext in new[] { "mp3", "wav" })
++        {
++            if (stillAllowed?.Invoke() == false) return Reply(false, "DispatchSuppressed", events);
++            var acquired = assets.Acquire(soundId, ext);
++            if (acquired.Error is { } error)
++            {
++                events.Add(error);
++                if (ext == "mp3" && error.Stage is "SourceUnavailable" or "FileMissing" or "FileAccessFailure") continue;
++                return Reply(false, error.Stage, events);
++            }
++            var id = Guid.NewGuid();
++            if (stillAllowed?.Invoke() == false)
++            { acquired.Lease!.Dispose(); return Reply(false, "DispatchSuppressed", events); }
++            var voice = new Voice(id, owner, "p24a" + id.ToString("N"), ext, acquired.Lease!);
++            NativeReply opened = driver.Open(acquired.Path, ext, voice.Alias);
++            if (opened.Ok || opened.ResourceOwned) voices.Add(id, voice);
++            if (!opened.Ok)
++            {
++                events.Add(Native("OpenFailed", ext, opened));
++                if (opened.ResourceOwned) Release(voice, events); else voice.Lease.Dispose();
++                if (voices.ContainsKey(id)) return Reply(false, "CleanupPending", events, id);
++                // Match the proven load-failure fallback; retain actual open-stage code, never call it 'missing'.
++                if (ext == "mp3" && !opened.PlatformFailure) continue;
++                return Reply(false, "OpenFailed", events);
++            }
++            // Apply volume before Run. Failure never permits an uncontrolled/full-volume start.
++            if (stillAllowed?.Invoke() == false) { Release(voice, events); return Reply(false, "DispatchSuppressed", events); }
++            NativeReply gain = driver.Gain(voice.Alias, controls.Gain);
++            if (!gain.Ok)
++            {
++                events.Add(Native("GainFailed", ext, gain)); Release(voice, events);
++                return Reply(false, "GainFailed", events, voices.ContainsKey(id) ? id : null);
++            }
++            if (stillAllowed?.Invoke() == false) { Release(voice, events); return Reply(false, "DispatchSuppressed", events); }
++            NativeReply played = driver.Play(voice.Alias);
++            if (played.Ok)
++            {
++                events.Add(new("PlaySubmitted", ext, "Native command accepted; not proof of audible output"));
++                return Reply(true, ext == "wav" ? "StartedWavFallback" : "StartedMp3", events, id);
++            }
++            events.Add(Native(played.InvalidFile ? "DecodeFormatFailed" : "PlayFailed", ext, played));
++            Release(voice, events);
++            if (voices.ContainsKey(id)) return Reply(false, "CleanupPending", events, id);
++            // An explicit invalid-file/format error may surface at play. Device/busy/unknown play errors never retry as WAV.
++            if (ext == "mp3" && played.InvalidFile) continue;
++            return Reply(false, "PlayFailed", events);
++        }
++        return Reply(false, "NoPlayableAsset", events);
++    }
++
++    void Release(Voice voice, List<AudioEvent> events)
++    {
++        voice.Closing = true;
++        NativeReply stopped = driver.Stop(voice.Alias);
++        if (!stopped.Ok) events.Add(Native("StopFailed", voice.Format, stopped));
++        // Always attempt close even if stop fails; only forget the native resource after successful close.
++        NativeReply closed = driver.Close(voice.Alias);
++        if (!closed.Ok) { events.Add(Native("CloseFailed", voice.Format, closed)); return; }
++        voices.Remove(voice.Id);
++        voice.Lease.Dispose();
++    }
++
++    internal AudioReply Stop(AudioOwner owner, Guid id)
++    {
++        if (!voices.TryGetValue(id, out var voice)) return Reply(true, "AlreadyStopped");
++        if (voice.Owner != owner) return Reply(false, "WrongOwner");
++        var events = new List<AudioEvent>(); Release(voice, events);
++        return Reply(!voices.ContainsKey(id), voices.ContainsKey(id) ? "CleanupPending" : "Stopped", events);
++    }
++    internal AudioReply Retire(AudioOwner owner)
++    {
++        if (owner.Key == null || !owners.TryGetValue(owner.Key, out var known) || known.Generation != owner.Generation)
++            return Reply(false, "StaleOrUnknownOwner");
++        owners[owner.Key] = (owner.Generation, false);
++        var events = new List<AudioEvent>();
++        foreach (var v in voices.Values.Where(v => v.Owner == owner).ToArray()) Release(v, events);
++        return Reply(!voices.Values.Any(v => v.Owner == owner), "OwnerRetired", events);
++    }
++    internal AudioReply Poll()
++    {
++        var events = new List<AudioEvent>();
++        foreach (var v in voices.Values.ToArray())
++        {
++            if (v.Closing) { Release(v, events); continue; }
++            NativeReply status = driver.Status(v.Alias);
++            if (!status.Ok) { events.Add(Native("StatusFailed", v.Format, status)); Release(v, events); }
++            else if (status.Text.Equals("stopped", StringComparison.OrdinalIgnoreCase)) Release(v, events);
++        }
++        return Reply(events.Count == 0, "Maintenance", events);
++    }
++    internal AudioReply Shutdown()
++    {
++        Closing = true;
++        var events = new List<AudioEvent>();
++        foreach (var v in voices.Values.ToArray()) Release(v, events);
++        return Reply(voices.Count == 0, voices.Count == 0 ? "Released" : "CleanupPending", events);
++    }
++}
+--- /dev/null
++++ b/audio/AudioPlayer.cs
+@@ -0,0 +1,177 @@
++using System.Collections.Concurrent;
++
++namespace P24.Audio;
++
++/// <summary>Two-ID transport with self-owned gain/mute policy; no original Miles distance/pan equivalence.</summary>
++public sealed class AudioPlayer : IAsyncDisposable
++{
++    readonly AudioCore core;
++    readonly BlockingCollection<Action> queue = new();
++    readonly object gate = new();
++    readonly TaskCompletionSource released = new(TaskCreationOptions.RunContinuationsAsynchronously);
++    bool accepting = true;
++    sealed record DispatchState(AudioControls Controls, long Revision);
++    DispatchState dispatch = new(new(1, false, false), 0);
++    sealed record OwnerFence(long Generation, bool Active);
++    // Published under the short host gate; read lock-free by the native worker.
++    // Reference identity prevents a retired/replaced generation from being revived by queued work.
++    readonly ConcurrentDictionary<string, OwnerFence> ownerFences = new(StringComparer.Ordinal);
++    public AudioControls Controls => Volatile.Read(ref dispatch).Controls;
++    Task<AudioReply>? shutdown;
++    AudioReply maintenance = new(true, "NotStarted", null, 0, []);
++    public AudioReply LastMaintenance => Volatile.Read(ref maintenance);
++    public Task WhenReleased => released.Task;
++
++    AudioPlayer(AudioCore core)
++    {
++        this.core = core;
++        var thread = new Thread(Work) { IsBackground = true, Name = "P24 audio transport" };
++        thread.SetApartmentState(ApartmentState.MTA);
++        thread.Start(); // No device/DLL access until an approved Play reaches native open.
++    }
++    public static bool TryCreate(string assetsRoot, string trustedManifestSha256, int maxConcurrentVoices,
++        out AudioPlayer? player, out string error)
++    {
++        player = null; error = "";
++        if (maxConcurrentVoices is < 1 or > 1024) { error = "Explicit resource capacity must be 1..1024"; return false; }
++        try
++        {
++            var assets = AudioAssets.Load(assetsRoot, trustedManifestSha256);
++            player = new(new AudioCore(assets, new DirectShowDriver(() => new WindowsPlaybackGraph()), maxConcurrentVoices));
++            return true;
++        }
++        catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or FormatException or System.Text.Json.JsonException or InvalidOperationException or KeyNotFoundException)
++        { error = ex.Message; return false; }
++    }
++    internal static AudioPlayer ForTests(AudioCore core) => new(core);
++    Task<AudioReply> Enqueue(Func<AudioReply> action)
++    {
++        lock (gate)
++        {
++            if (!accepting) return Task.FromResult(new AudioReply(false, "Disposed", null, LastMaintenance.RemainingVoices, []));
++            return Queue(action);
++        }
++    }
++    Task<AudioReply> Queue(Func<AudioReply> action)
++    {
++        var result = new TaskCompletionSource<AudioReply>(TaskCreationOptions.RunContinuationsAsynchronously);
++        queue.Add(() =>
++        {
++            try { result.SetResult(action()); }
++            catch (Exception ex) { result.SetResult(new(false, "TransportFailure", null, core.Count, [new("Exception", "", ex.Message)])); }
++        });
++        return result.Task;
++    }
++    Task<AudioReply> Rejected(string status) => Task.FromResult(new AudioReply(false, status, null, LastMaintenance.RemainingVoices, []));
++    bool OwnerStillCurrent(string key, OwnerFence expected) => expected.Active
++        && ownerFences.TryGetValue(key, out var current) && ReferenceEquals(current, expected);
++    public Task<AudioReply> RegisterAsync(AudioOwner owner)
++    {
++        lock (gate)
++        {
++            if (!accepting) return Rejected("Disposed");
++            if (string.IsNullOrWhiteSpace(owner.Key) || owner.Generation < 0) return Rejected("InvalidOwner");
++            ownerFences.TryGetValue(owner.Key, out var previous);
++            if (previous != null && (owner.Generation < previous.Generation || owner.Generation == previous.Generation && !previous.Active))
++                return Rejected("StaleGeneration");
++            // Duplicate active registration preserves its fence and does not cancel valid pending plays.
++            var next = previous?.Generation == owner.Generation ? previous : new OwnerFence(owner.Generation, true);
++            ownerFences[owner.Key] = next;
++            return Queue(() =>
++            {
++                // Always execute the ordered cleanup transition: a newer registration immediately
++                // retired/superseded before execution must still release older live generations.
++                var result = core.Register(owner);
++                return OwnerStillCurrent(owner.Key, next) ? result : core.Reply(false, "StaleGeneration", result.Events.ToList());
++            });
++        }
++    }
++    public Task<AudioReply> ConfigureAsync(double normalizedGain, bool masterMuted, bool dispatchEnabled)
++    {
++        lock (gate)
++        {
++            if (!accepting) return Task.FromResult(new AudioReply(false, "Disposed", null, LastMaintenance.RemainingVoices, []));
++            if (!AudioGain.Valid(normalizedGain)) return Task.FromResult(new AudioReply(false, "InvalidGain", null, LastMaintenance.RemainingVoices, []));
++            var next = new DispatchState(new(normalizedGain, masterMuted, dispatchEnabled), dispatch.Revision + 1);
++            Volatile.Write(ref dispatch, next); // Immediately invalidate queued/in-flight not-yet-run plays, even across mute -> unmute.
++            return Queue(() => core.Configure(next.Controls));
++        }
++    }
++    public Task<AudioReply> PlayAsync(int fullSoundId, AudioOwner owner)
++    {
++        lock (gate)
++        {
++            var requested = dispatch;
++            if (!accepting || !requested.Controls.CanDispatch)
++                return Task.FromResult(new AudioReply(false, accepting ? "DispatchSuppressed" : "Disposed", null, LastMaintenance.RemainingVoices, []));
++            if (owner.Key == null || !ownerFences.TryGetValue(owner.Key, out var ownerFence) || !ownerFence.Active || ownerFence.Generation != owner.Generation)
++                return Rejected("StaleOrUnknownOwner");
++            return Queue(() => core.Play(fullSoundId, owner, () =>
++                ReferenceEquals(Volatile.Read(ref dispatch), requested) && OwnerStillCurrent(owner.Key, ownerFence)));
++        }
++    }
++    public Task<AudioReply> StopAsync(AudioOwner owner, Guid playback) => Enqueue(() => core.Stop(owner, playback));
++    public Task<AudioReply> RetireAsync(AudioOwner owner)
++    {
++        lock (gate)
++        {
++            if (!accepting) return Rejected("Disposed");
++            if (owner.Key == null || !ownerFences.TryGetValue(owner.Key, out var current) || current.Generation != owner.Generation)
++                return Rejected("StaleOrUnknownOwner");
++            // Fence immediately, before cleanup enters the worker queue. Never hold this gate during native I/O.
++            if (current.Active) ownerFences[owner.Key] = new(owner.Generation, false);
++            return Queue(() => core.Retire(owner));
++        }
++    }
++    public Task<AudioReply> ShutdownAsync()
++    {
++        lock (gate)
++        {
++            if (shutdown != null) return shutdown;
++            accepting = false;
++            Volatile.Write(ref dispatch, new(dispatch.Controls with { DispatchEnabled = false }, dispatch.Revision + 1));
++            shutdown = Queue(() => { var r = core.Shutdown(); Volatile.Write(ref maintenance, r); return r; });
++            return shutdown;
++        }
++    }
++    void Work()
++    {
++        // One-second maintenance is resource reclamation only, not a sound/6016 trigger policy.
++        // Poll even under continuous command traffic so completed voices cannot accumulate indefinitely.
++        long next = Environment.TickCount64 + 1000;
++        while (true)
++        {
++            if (queue.TryTake(out var action, (int)Math.Clamp(next - Environment.TickCount64, 0, 1000))) action();
++            if (core.Closing && core.Count == 0) break;
++            if (Environment.TickCount64 >= next)
++            {
++                try { Volatile.Write(ref maintenance, core.Poll()); }
++                catch (Exception ex) { Volatile.Write(ref maintenance, new(false, "MaintenanceFailure", null, core.Count, [new("Exception", "", ex.Message)])); }
++                next = Environment.TickCount64 + 1000;
++            }
++        }
++        queue.Dispose();
++        released.TrySetResult();
++    }
++    public async ValueTask DisposeAsync()
++    {
++        await ShutdownAsync().ConfigureAwait(false);
++        // A close failure remains owned and retried, never silently reported as released.
++        // Host can observe ShutdownAsync/LastMaintenance and bound its own shutdown wait.
++        await WhenReleased.ConfigureAwait(false);
++    }
++    public async Task<AudioReply> ShutdownWithinAsync(TimeSpan hostBudget)
++    {
++        if (hostBudget <= TimeSpan.Zero || hostBudget.TotalMilliseconds > int.MaxValue)
++            return new(false, "InvalidShutdownBudget", null, LastMaintenance.RemainingVoices, []);
++        using var deadline = new CancellationTokenSource(hostBudget);
++        try
++        {
++            var first = await ShutdownAsync().WaitAsync(deadline.Token).ConfigureAwait(false);
++            await WhenReleased.WaitAsync(deadline.Token).ConfigureAwait(false);
++            return new(true, "Released", null, 0, first.Events);
++        }
++        catch (OperationCanceledException) when (deadline.IsCancellationRequested)
++        { return new(false, "CleanupPendingOrNativeCallBlocked", null, LastMaintenance.RemainingVoices, LastMaintenance.Events); }
++    }
++}
+--- /dev/null
++++ b/audio/DirectShowDriver.cs
+@@ -0,0 +1,190 @@
++using System.Runtime.InteropServices;
++
++namespace P24.Audio;
++
++internal sealed record NativeReply(uint Code, string Text, bool PlatformFailure = false, bool ResourceOwned = false,
++    AudioNativeEvent? NativeEvent = null, bool EventFailure = false)
++{
++    internal bool Ok => Code == 0 && !PlatformFailure && !EventFailure;
++    internal bool InvalidFile => Code == 0x8004022f; // VFW_E_INVALID_FILE_FORMAT; never classify arbitrary device failure as format.
++}
++internal static class DirectShowEvents
++{
++    internal const int Complete=0x01, UserAbort=0x02, ErrorAbort=0x03, StreamErrorStopped=0x06,
++        ErrorStillPlaying=0x08, DeviceLost=0x1f, ClockUnset=0x51;
++    internal static NativeReply Classify(int code, nint one, nint two)
++    {
++        // Copy scalar values before FreeEventParams. Do not dereference or keep string/interface pointers.
++        var data = new AudioNativeEvent(code, (long)one, (long)two, null, "Information");
++        if (code == Complete) return new(0, "stopped", NativeEvent: data with { Disposition="Complete" });
++        if (code is ErrorAbort or StreamErrorStopped or ErrorStillPlaying)
++        {
++            uint hr = unchecked((uint)(long)one); // LONG_PTR may be sign- or zero-extended; HRESULT is low 32 bits.
++            return new(hr, $"DirectShow error event 0x{code:X}; HRESULT=0x{hr:X8}",
++                NativeEvent: data with { OriginalHResult=hr, Disposition="ErrorHResult" }, EventFailure:true);
++        }
++        string? policy = code switch
++        {
++            UserAbort => "UserAbort",
++            DeviceLost when two == 0 => "DeviceRemoved",
++            DeviceLost when two == 1 => "DeviceAvailableRequiresRebuild",
++            DeviceLost => "UnknownDeviceStateRequiresRebuild",
++            ClockUnset => "ClockUnsetConservativeStop",
++            _ => null
++        };
++        // These events have no HRESULT parameter. E_FAIL is an explicit engine failure marker, not a pointer cast.
++        return policy == null ? new(0, "information", NativeEvent:data)
++            : new(0x80004005, $"DirectShow event 0x{code:X}: {policy}; engine E_FAIL marker (no native HRESULT)",
++                NativeEvent:data with { Disposition=policy }, EventFailure:true);
++    }
++}
++internal interface IAudioDriver
++{
++    NativeReply Open(string path, string format, string voice);
++    NativeReply Gain(string voice, double normalized);
++    NativeReply Play(string voice);
++    NativeReply Status(string voice);
++    NativeReply Stop(string voice);
++    NativeReply Close(string voice);
++}
++internal interface IPlaybackGraph
++{
++    int Open(string path);
++    int Volume(int hundredthDecibels);
++    int Run();
++    NativeReply Status();
++    int Stop();
++    void Release();
++}
++internal static class AudioGain
++{
++    internal static bool Valid(double value) => double.IsFinite(value) && value >= 0 && value <= 1;
++    internal static int Decibels(double value)
++    {
++        if (!Valid(value)) throw new ArgumentOutOfRangeException(nameof(value));
++        return value == 0 ? -10000 : (int)Math.Clamp(Math.Round(2000 * Math.Log10(value)), -10000, 0);
++    }
++}
++internal sealed class DirectShowDriver(Func<IPlaybackGraph> create) : IAudioDriver
++{
++    readonly Dictionary<string, IPlaybackGraph> graphs = [];
++    internal static NativeReply HResult(int hr) => hr >= 0 ? new(0, "accepted") : new(unchecked((uint)hr), $"HRESULT 0x{hr:X8}");
++    static NativeReply Failure(Exception ex) => new(unchecked((uint)ex.HResult), ex.Message,
++        ex is PlatformNotSupportedException or DllNotFoundException || ex.HResult == unchecked((int)0x80040154));
++    static NativeReply Guard(Func<NativeReply> work) { try { return work(); } catch (Exception ex) { return Failure(ex); } }
++    NativeReply With(string voice, Func<IPlaybackGraph, NativeReply> work) => Guard(() =>
++        graphs.TryGetValue(voice, out var graph) ? work(graph) : new(0x80070006, "Unknown voice"));
++    public NativeReply Open(string path, string format, string voice)
++    {
++        return Guard(() =>
++        {
++            if (graphs.ContainsKey(voice)) return new(0x80070057, "Duplicate voice");
++            var graph = create(); graphs.Add(voice, graph); // Track before render: failed loading may own partial native resources.
++            NativeReply result = Guard(() => HResult(graph.Open(path)));
++            return result with { ResourceOwned = true };
++        });
++    }
++    public NativeReply Gain(string voice, double normalized) => With(voice, g => HResult(g.Volume(AudioGain.Decibels(normalized))));
++    public NativeReply Play(string voice) => With(voice, g => HResult(g.Run()));
++    public NativeReply Status(string voice) => With(voice, g => g.Status());
++    public NativeReply Stop(string voice) => With(voice, g => HResult(g.Stop()));
++    public NativeReply Close(string voice) => Guard(() =>
++    {
++        if (!graphs.TryGetValue(voice, out var graph)) return new(0, "Already released");
++        graph.Release(); // If release throws, keep the graph tracked for cleanup retry.
++        graphs.Remove(voice); return new(0, "Released");
++    });
++}
++
++// Instantiated only on the transport MTA thread, after source verification and dispatch gating.
++// Each voice owns its own graph and explicitly inserted DirectSound renderer. No system/session-volume API.
++internal sealed class WindowsPlaybackGraph : IPlaybackGraph
++{
++    object? graph, renderer;
++    static object Activate(string clsid) => Activator.CreateInstance(Type.GetTypeFromCLSID(new Guid(clsid), true)!)!;
++    static void Check(int hr) { if (hr < 0) Marshal.ThrowExceptionForHR(hr); }
++    static void ReleaseObject(ref object? value)
++    {
++        if (value == null) return;
++        Marshal.FinalReleaseComObject(value); value = null;
++    }
++    public int Open(string path)
++    {
++        if (!OperatingSystem.IsWindows()) throw new PlatformNotSupportedException("DirectShow requires Windows");
++        graph = Activate("e436ebb3-524f-11ce-9f53-0020af0ba770"); // CLSID_FilterGraph
++        renderer = Activate("79376820-07d0-11cf-a24d-0020afd79767"); // CLSID_DSoundRender
++        var builder = (IFilterGraph2)graph;
++        Check(builder.AddFilter((IBaseFilter)renderer, "P24 isolated voice renderer"));
++        IBaseFilter? source = null; IEnumPins? pins = null;
++        try
++        {
++            Check(builder.AddSourceFilter(path, "P24 pinned local audio", out source));
++            Check(source.EnumPins(out pins));
++            int rendered = 0;
++            while (true)
++            {
++                var next = new IPin[1]; int hr = pins.Next(1, next, out int fetched);
++                if (hr < 0) Check(hr);
++                if (fetched == 0) break;
++                try
++                {
++                    Check(next[0].QueryDirection(out int direction));
++                    if (direction != 1) continue;
++                    // AM_RENDEREX_RENDERTOEXISTINGRENDERERS=1: never add WaveOut/other renderers as fallback.
++                    Check(builder.RenderEx(next[0], 1, 0)); rendered++;
++                }
++                finally { Marshal.FinalReleaseComObject(next[0]); }
++            }
++            return rendered > 0 ? 0 : unchecked((int)0x8004022f);
++        }
++        finally
++        {
++            if (pins != null) Marshal.FinalReleaseComObject(pins);
++            if (source != null) Marshal.FinalReleaseComObject(source);
++        }
++    }
++    public int Volume(int hundredthDecibels) => ((IBasicAudio)renderer!).put_Volume(hundredthDecibels);
++    public int Run() => ((IMediaControl)graph!).Run();
++    public int Stop() => graph == null ? 0 : ((IMediaControl)graph).Stop();
++    public NativeReply Status()
++    {
++        var events = (IMediaEvent)graph!;
++        AudioNativeEvent? lastInformation = null;
++        for (int i = 0; i < 64; i++) // Bounded drain; no GUI/message callback or infinite wait.
++        {
++            int hr = events.GetEvent(out int code, out nint one, out nint two, 0);
++            if (hr == unchecked((int)0x80004004)) return new(0, "playing", NativeEvent:lastInformation); // E_ABORT means no queued event.
++            if (hr < 0) return DirectShowDriver.HResult(hr);
++            NativeReply classified;
++            int freed = 0; Exception? freeException = null;
++            try { classified = DirectShowEvents.Classify(code, one, two); }
++            finally
++            {
++                // Exactly one attempt for every successfully obtained event, including ignored information.
++                try { freed = events.FreeEventParams(code, one, two); }
++                catch (Exception ex) { freed=ex.HResult; freeException=ex; }
++            }
++            classified = classified with { NativeEvent=classified.NativeEvent! with { FreeParametersHResult=freed } };
++            if (freed < 0 || freeException != null)
++            {
++                // Preserve primary event HRESULT if present; expose cleanup failure separately, never overwrite it.
++                return classified with {
++                    Code=classified.Ok ? unchecked((uint)freed) : classified.Code,
++                    Text=classified.Text+$"; FreeEventParams failed 0x{freed:X8}"+(freeException == null ? "" : "; "+freeException.Message),
++                    EventFailure=true
++                };
++            }
++            if (!classified.Ok || classified.Text == "stopped") return classified;
++            lastInformation = classified.NativeEvent;
++        }
++        return new(0, "playing", NativeEvent:lastInformation);
++    }
++    public void Release()
++    {
++        // Stop is attempted separately even if it fails. Release every owned RCW; retain any failure for retry.
++        Exception? error = null;
++        try { ReleaseObject(ref graph); } catch (Exception ex) { error = ex; }
++        try { ReleaseObject(ref renderer); } catch (Exception ex) { error ??= ex; }
++        if (error != null) throw error;
++    }
++}
+--- /dev/null
++++ b/audio/DirectShowInterop.cs
+@@ -0,0 +1,74 @@
++using System.Runtime.InteropServices;
++namespace P24.Audio;
++
++// Prefixes/order checked against Microsoft Windows SDK control.h/strmif.h.
++// Preserve HRESULT; LONG remains Int32, LONG_PTR is nint on both x86/x64.
++[ComImport, Guid("56a868b1-0ad4-11ce-b03a-0020af0ba770"), InterfaceType(ComInterfaceType.InterfaceIsDual)]
++internal interface IMediaControl
++{
++    [PreserveSig] int Run();
++    [PreserveSig] int Pause();
++    [PreserveSig] int Stop();
++}
++[ComImport, Guid("56a868b3-0ad4-11ce-b03a-0020af0ba770"), InterfaceType(ComInterfaceType.InterfaceIsDual)]
++internal interface IBasicAudio { [PreserveSig] int put_Volume(int value); }
++[ComImport, Guid("56a868b6-0ad4-11ce-b03a-0020af0ba770"), InterfaceType(ComInterfaceType.InterfaceIsDual)]
++internal interface IMediaEvent
++{
++    [PreserveSig] int GetEventHandle(out nint handle);
++    [PreserveSig] int GetEvent(out int code, out nint one, out nint two, int timeoutMs);
++    [PreserveSig] int WaitForCompletion(int timeoutMs, out int code);
++    [PreserveSig] int CancelDefaultHandling(int code);
++    [PreserveSig] int RestoreDefaultHandling(int code);
++    [PreserveSig] int FreeEventParams(int code, nint one, nint two);
++}
++[ComImport, Guid("56a86895-0ad4-11ce-b03a-0020af0ba770"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
++internal interface IBaseFilter
++{
++    [PreserveSig] int GetClassID(out Guid id);
++    [PreserveSig] int Stop();
++    [PreserveSig] int Pause();
++    [PreserveSig] int Run(long start);
++    [PreserveSig] int GetState(int timeout, out int state);
++    [PreserveSig] int SetSyncSource(nint clock);
++    [PreserveSig] int GetSyncSource(out nint clock);
++    [PreserveSig] int EnumPins(out IEnumPins pins);
++}
++[ComImport, Guid("56a86892-0ad4-11ce-b03a-0020af0ba770"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
++internal interface IEnumPins
++{
++    [PreserveSig] int Next(int count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex=0)] IPin[] pins, out int fetched);
++}
++[ComImport, Guid("56a86891-0ad4-11ce-b03a-0020af0ba770"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
++internal interface IPin
++{
++    [PreserveSig] int Connect(IPin receive, nint mediaType);
++    [PreserveSig] int ReceiveConnection(IPin connector, nint mediaType);
++    [PreserveSig] int Disconnect();
++    [PreserveSig] int ConnectedTo(out IPin pin);
++    [PreserveSig] int ConnectionMediaType(nint mediaType);
++    [PreserveSig] int QueryPinInfo(nint info);
++    [PreserveSig] int QueryDirection(out int direction);
++}
++[ComImport, Guid("36b73882-c2c8-11cf-8b46-00805f6cef60"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
++internal interface IFilterGraph2
++{
++    [PreserveSig] int AddFilter(IBaseFilter filter, [MarshalAs(UnmanagedType.LPWStr)] string name);
++    [PreserveSig] int RemoveFilter(IBaseFilter filter);
++    [PreserveSig] int EnumFilters(out nint filters);
++    [PreserveSig] int FindFilterByName([MarshalAs(UnmanagedType.LPWStr)] string name, out IBaseFilter filter);
++    [PreserveSig] int ConnectDirect(IPin output, IPin input, nint mediaType);
++    [PreserveSig] int Reconnect(IPin pin);
++    [PreserveSig] int Disconnect(IPin pin);
++    [PreserveSig] int SetDefaultSyncSource();
++    [PreserveSig] int Connect(IPin output, IPin input);
++    [PreserveSig] int Render(IPin output);
++    [PreserveSig] int RenderFile([MarshalAs(UnmanagedType.LPWStr)] string path, [MarshalAs(UnmanagedType.LPWStr)] string? playlist);
++    [PreserveSig] int AddSourceFilter([MarshalAs(UnmanagedType.LPWStr)] string path, [MarshalAs(UnmanagedType.LPWStr)] string name, out IBaseFilter filter);
++    [PreserveSig] int SetLogFile(nint file);
++    [PreserveSig] int Abort();
++    [PreserveSig] int ShouldOperationContinue();
++    [PreserveSig] int AddSourceFilterForMoniker(nint moniker, nint context, [MarshalAs(UnmanagedType.LPWStr)] string name, out IBaseFilter filter);
++    [PreserveSig] int ReconnectEx(IPin pin, nint mediaType);
++    [PreserveSig] int RenderEx(IPin output, uint flags, nint reserved);
++}
+--- /dev/null
++++ b/audio/P24.Audio.csproj
+@@ -0,0 +1,8 @@
++<Project Sdk="Microsoft.NET.Sdk">
++  <PropertyGroup>
++    <TargetFramework>net10.0-windows</TargetFramework>
++    <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
++    <Deterministic>true</Deterministic>
++    <PathMap Condition="'$(Configuration)' == 'Release'">$(MSBuildProjectDirectory)=/_/p24/audio</PathMap>
++  </PropertyGroup>
++</Project>
+--- a/build-product.ps1
++++ b/build-product.ps1
+@@ -1,7 +1,7 @@
+ param()
+ $ErrorActionPreference='Stop'
+ $productRoot=$PSScriptRoot
+-$productOutput=Join-Path $productRoot 'build\client-product-r27'
++$productOutput=Join-Path $productRoot 'build\client-product-r28'
+ $env:DOTNET_CLI_HOME=Join-Path $productRoot '.dotnet'
+ $env:NUGET_PACKAGES=Join-Path $productRoot '.nuget'
+ $env:TEMP=Join-Path $productRoot 'tmp'
+@@ -15,7 +15,7 @@
+     if($LASTEXITCODE -ne 0){throw '新版客戶端建置失敗。'}
+     $productFiles=@(Get-ChildItem -LiteralPath $productOutput -Recurse -File)+@(Get-ChildItem -LiteralPath (Join-Path $productRoot 'web') -Recurse -File)+@(Get-Item -LiteralPath (Join-Path $productRoot 'assets\integrity.json'))
+     $pins=@($productFiles | Sort-Object FullName | ForEach-Object { [ordered]@{path=[IO.Path]::GetRelativePath($productRoot,$_.FullName).Replace('\','/');size=$_.Length;sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()} })
+-    $manifest=[ordered]@{schema='p24-normal-product-v1';entry='build/client-product-r27/P11.ClientEngine.exe';arguments=@('--normal-product');profile='p24-real-jar-d287-client2';port=42061;autoLogin=$false;files=$pins}
+-    $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $productRoot 'build\product-r27-manifest.json') -Encoding utf8
++    $manifest=[ordered]@{schema='p24-normal-product-v1';entry='build/client-product-r28/P11.ClientEngine.exe';arguments=@('--normal-product');profile='p24-real-jar-d287-client2';port=42061;autoLogin=$false;files=$pins}
++    $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $productRoot 'build\product-r28-manifest.json') -Encoding utf8
+     Write-Output '新版客戶端已建置；未啟動視窗或連線。'
+ } finally {Pop-Location}
+--- a/launch-product.ps1
++++ b/launch-product.ps1
+@@ -1,10 +1,10 @@
+ param([switch]$CheckOnly)
+ $ErrorActionPreference='Stop'
+ $productRoot=[IO.Path]::GetFullPath($PSScriptRoot)
+-$manifestPath=Join-Path $productRoot 'build\product-r27-manifest.json'
++$manifestPath=Join-Path $productRoot 'build\product-r28-manifest.json'
+ if(-not (Test-Path -LiteralPath $manifestPath)){throw '尚未建置新版。請先執行 build-product.ps1。'}
+ $manifest=Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
+-if($manifest.schema -ne 'p24-normal-product-v1' -or $manifest.entry -ne 'build/client-product-r27/P11.ClientEngine.exe' -or $manifest.profile -ne 'p24-real-jar-d287-client2' -or $manifest.port -ne 42061 -or $manifest.autoLogin -ne $false -or @($manifest.arguments).Count -ne 1 -or $manifest.arguments[0] -ne '--normal-product'){throw '新版啟動設定不一致，請重新建置。'}
++if($manifest.schema -ne 'p24-normal-product-v1' -or $manifest.entry -ne 'build/client-product-r28/P11.ClientEngine.exe' -or $manifest.profile -ne 'p24-real-jar-d287-client2' -or $manifest.port -ne 42061 -or $manifest.autoLogin -ne $false -or @($manifest.arguments).Count -ne 1 -or $manifest.arguments[0] -ne '--normal-product'){throw '新版啟動設定不一致，請重新建置。'}
+ foreach($pin in $manifest.files){
+     $target=[IO.Path]::GetFullPath((Join-Path $productRoot $pin.path))
+     if(-not $target.StartsWith($productRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)){throw '新版檔案路徑不正確。'}
+--- a/新版客戶端使用說明.md
++++ b/新版客戶端使用說明.md
+@@ -1,8 +1,8 @@
+-# 新版客戶端 r27 使用說明
++# 新版客戶端 r28 使用說明
+ 
+ 本版調整原生鍵盤導覽：Tab／Shift+Tab 交給原生控件切換焦點；登入帳密欄的 Enter 只經既有可登入狀態與按鈕執行一次。聊天輸入的裸 Enter 保留送出，其他欄位不會因 Enter 觸發登入。世界按鍵僅在遊戲場景實際取得鍵盤焦點時處理，F10 可明確回到遊戲。這些行為仍須以本版原生實測確認；離線規則檢查不代表實機焦點驗收。
+ 
+-雙擊同目錄「啟動新版客戶端.cmd」。入口顯示離線預覽，不自動登入或啟動服務。開啟登入面板後手動輸入帳號、密碼，再選角色進入世界；帳密欄位預設空白，不儲存密碼。帳號為 1–12 位英數、密碼為 1–13 位非空白 ASCII。連線固定使用本機 127.0.0.1:42061、profile `p24-real-jar-d287-client2`。一般啟動需要 Windows x64、.NET 10 Desktop Runtime 與 WebView2 Runtime；不需要 PowerShell。請保留同目錄 launcher 資料夾；同名 .cmd 先檢查 r27 版本、必要檔案及 runtime，再以正確工作目錄啟動。
++雙擊同目錄「啟動新版客戶端.cmd」。入口顯示離線預覽，不自動登入或啟動服務。開啟登入面板後手動輸入帳號、密碼，再選角色進入世界；帳密欄位預設空白，不儲存密碼。帳號為 1–12 位英數、密碼為 1–13 位非空白 ASCII。連線固定使用本機 127.0.0.1:42061、profile `p24-real-jar-d287-client2`。一般啟動需要 Windows x64、.NET 10 Desktop Runtime 與 WebView2 Runtime；不需要 PowerShell。請保留同目錄 launcher 資料夾；同名 .cmd 先檢查 r28 版本、必要檔案及 runtime，再以正確工作目錄啟動。
+ 
+ 登入角色後，正常畫面顯示場景、HP／MP、角色狀態與四格快捷列。下方「背包／裝備／技能／聊天／服務」可開啟相應內容；NPC、商店、倉庫、交易與私商回覆會顯示在正常服務窗，不必開診斷面板。F9 開關診斷面板，F10 回到遊戲控制，F11 仍是記事欄。
+ 
+@@ -24,11 +24,11 @@
+ 
+ 地圖、角色、武器、怪物外觀與四種魔法均限已封裝內容；缺少素材時會提示並限制相應操作。店主 gfx6661／6650／1186 使用已封裝原始 action70 外觀。旅館門 gfx2346 依已知 28／29 狀態顯示開關，未知、死亡或等待狀態不假造姿勢；不新增開門請求、打門或 S209 通行碰撞處理。旅館沒有原服退租 handler 的情形，不提供虛構退租或退款。
+ 
+-請保持 `build/client-product-r27`、`web`、`assets` 與 `build/product-r27-manifest.json` 成套使用；不要混入 r16、r17 或其他候選檔案。正常 Web 日誌位於 `runs/interactive-PID`，WebView2 使用者資料位於 `runtime/session-PID`；這些是可變執行資料，不是封存輸入。
++請保持 `build/client-product-r28`、`web`、`assets` 與 `build/product-r28-manifest.json` 成套使用；不要混入 r16、r17 或其他候選檔案。正常 Web 日誌位於 `runs/interactive-PID`，WebView2 使用者資料位於 `runtime/session-PID`；這些是可變執行資料，不是封存輸入。
+ 
+ 只讀入口核對：在本目錄的命令提示字元執行 `".\啟動新版客戶端.cmd" --check-only`；只檢查，不啟動遊戲，也不需要 PowerShell。
+ 
+-開發者從來源建置（此途徑需既有 PowerShell 7，一般使用者的啟動與只讀核對不使用它）：`pwsh -NoProfile -File ./build-product.ps1`。請在新的工作副本進行，勿覆寫已封存交付或執行中的檔案。SDK 固定 10.0.300，NuGet 使用隨附 vendor；Release PDB 保留，虛擬來源根為 `/_/p24/source`，除錯時對應至本交付 source。Debug 保留本機來源路徑。啟動器固定核對本次 r27 manifest；重建若改變 manifest，需重新審核啟動器版本識別。
++開發者從來源建置（此途徑需既有 PowerShell 7，一般使用者的啟動與只讀核對不使用它）：`pwsh -NoProfile -File ./build-product.ps1`。請在新的工作副本進行，勿覆寫已封存交付或執行中的檔案。SDK 固定 10.0.300，NuGet 使用隨附 vendor；Release PDB 保留，虛擬來源根為 `/_/p24/source`，除錯時對應至本交付 source。Debug 保留本機來源路徑。啟動器固定核對本次 r28 manifest；重建若改變 manifest，需重新審核啟動器版本識別。
+ 
+ 普通已鑑定肉與普通回家卷軸可在背包明確選取後，按使用按鈕或 U 單次使用；高飽食吃肉仍可能消耗。其他食物、未鑑定版本與其他卷軸未開放。回城位置由原服決定，部分地圖禁止使用；不預先扣數量或移動角色。回報未齊時暫停後續操作，15 秒後仍明示不確定，請取消連線後重登入核對，不會自動重送。飽食 /255 與負重 /240 為原服刻度。請成套更新 Web 與客戶端，避免舊頁選取資料被拒絕。背包、魔法與交易提示在顯示時解析原服物品名稱，協議與原始訊息記錄保持原文。
+ 
+@@ -37,3 +37,8 @@
+ 本版聊天：在可正常聊天的世界狀態下，遊戲場景按 Enter 或按聊天按鈕會直接聚焦聊天輸入；開啟所用 Enter 必須放開，再按下一次 Enter 才提交，長按不連發。Escape 收起聊天並回遊戲，保留未送草稿。聊天結果仍只依原服回傳。
+ 
+ 本版原陰影涵蓋目前已封裝的 13 種人物、42 組外觀，含原有匕首及 gfx0 弓／雙手劍所需影格；未封裝職業／武器沒有借用其他影子。既有 NPC 陰影與 SPR 透明修正保留。
++
++
++## 聲音設定
++
++玩家「服務 → 聲音」與本機網頁面板共用主音量與靜音。預設音量 50%；設定顯示已套用前須等待客戶端回覆。靜音、暫不可用及缺件事件不會稍後補播；登出或關閉會停止本模組音訊。此版只封裝 6016 的兩個原 WAV，MP3 仍缺件，未宣稱原 Miles 音量或距離等價。

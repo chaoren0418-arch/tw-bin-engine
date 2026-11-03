@@ -1,0 +1,66 @@
+{
+  "schema": "engine-candidate-result-v1",
+  "candidateId": "ENGINE-GROUND-LIFECYCLE-IMPL-R1",
+  "revision": "r33",
+  "task": "ENGINE-GROUND-LIFECYCLE-IMPL-R1",
+  "status": "candidate-ready-for-independent-review",
+  "checksPassed": true,
+  "checks": 339,
+  "distinctCheckIds": 338,
+  "functionalAssertions": 337,
+  "socketGuards": 2,
+  "productDllSha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2",
+  "candidateDllSha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "sourceManifest": "source-manifest.json",
+  "sourceManifestFiles": 177,
+  "changedSourceFiles": 2,
+  "sourceBase": "accepted immutable r32 stage, independently verified equivalent to accepted final r32",
+  "stagedBaselineSha256": "015da2542257d3c124346dcdeb3f34528902b56e1913b5878f3bc995597093ff",
+  "finalBaselineSha256": "0c645bf5c3a515fd5da88cf28c834a4b2967aed268946d45fb5a6ebe9f03fcb7",
+  "finalBaseBindingSha256": "26cc55267f04896344333a6eda50d058d432aa4df1d2655875b6e9772eedff5e",
+  "finalReleaseSealSha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507",
+  "tests": {
+    "candidate": [
+      {
+        "path": "evidence/candidate-01/result.json",
+        "checks": 252
+      },
+      {
+        "path": "evidence/extra-01/result.json",
+        "checks": 87
+      }
+    ],
+    "baseline": {
+      "path": "evidence/baseline-01/result.json",
+      "rows": 36,
+      "interpretation": "11 expected defect observations,24 early-reply controls,1 socket guard",
+      "includedInCandidateCount": false
+    },
+    "independentReview": {
+      "rows": 140,
+      "includedInCandidateCount": false
+    }
+  },
+  "build": {
+    "configuration": "Release",
+    "warnings": 0,
+    "errors": 0
+  },
+  "sealed": true,
+  "candidateAccepted": false,
+  "sharedEngineMerged": false,
+  "normalProductStarted": false,
+  "nativeLiveAcceptance": false,
+  "slowPickupQualified": false,
+  "wholeProjectComplete": false,
+  "goal": "existing blocked; unchanged",
+  "limitations": [
+    "Synthetic initialization and in-memory delayed sender; real DLL/API/ApplyWorldPacket, no normal GUI/socket live.",
+    "Actor replacement requires synthetic matching Status precondition, not ordinary status packet reachability.",
+    "Injected busy/revision/deadline tests are defensive and separate from public producer interleavings.",
+    "339 candidate check executions include two no-socket guards with the same ID; 338 distinct IDs.",
+    "Original native pickup input/queue/whole utility scheduler remains unknown; Slow gate unchanged.",
+    "No full 3602 suite or full asset scan; independent review and sole-integrator formal r33 remain pending."
+  ]
+}

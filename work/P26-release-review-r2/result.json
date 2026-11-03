@@ -1,0 +1,37 @@
+{
+  "schema": "p26-release-review-r2-result-v1",
+  "taskId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "turnId": null,
+  "utc": "2026-10-29T04:32:02.604659+00:00",
+  "status": "accepted-exact-release-tool-only",
+  "releaseToolAccepted": true,
+  "decision": "accepted-for-supervisor-package-plan-generation",
+  "independentCases": 56,
+  "independentExpectedOutcomesMatched": true,
+  "provisionalSource": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\snapshot-pins.json",
+    "size": 4844,
+    "sha256": "9637f1e5b1dca6ee4aae58e0662ad9d82937def03281fda2f50c6671f43f4ce8"
+  },
+  "independentEvidence": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\provisional-review.json",
+    "size": 27514,
+    "sha256": "0b9022624701d51b4e9860c5fb4dfc94037029affab7e125b31177b1a9b8912b"
+  },
+  "formalEvidence": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\final-verification.json",
+    "size": 3809,
+    "sha256": "9379eb093f2b8c5184e66c7a9f52814b8e54c11807521f77c05f281bd52e9a7e"
+  },
+  "unpassed": [],
+  "exactPackagePlanAccepted": false,
+  "actualReleaseAccepted": false,
+  "productCommandsExecuted": 0,
+  "archiveCalls": 0,
+  "packageCalls": 0,
+  "sharedWrites": false,
+  "canonicalReplay": false,
+  "priorReviewImmutable": true,
+  "goalToolObservation": "get_goal remained blocked at resumed turn start; no resume API available, no replacement goal or internal state edit performed",
+  "nextGate": "exact real package plan and completed bindings supplied separately by supervisor"
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "r34-entry-activation-acceptance-v1",
+  "utc": "2026-10-29T04:46:52.616360+00:00",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "dispatchId": "ENGINE-R34-ENTRY-ACTIVATE-P26-R1",
+  "decision": "authorize-exact-root-entry-activation",
+  "soleWriter": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "releaseAcceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-release-root-acceptance.json",
+    "size": 2434,
+    "sha256": "900ab8b7aadba88e2aa9fbd1161580098a381b5139441e0155c60f4a0cc2c4ba"
+  },
+  "activationPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-entry-activation-plan.json",
+    "size": 2957,
+    "sha256": "0da6e280ef0db1fe5657ae4ea74431cf395212cb8bead5165e0f9f3cd3cb21f1"
+  },
+  "requiredBefore": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+      "size": 158,
+      "sha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+      "size": 31361,
+      "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+    }
+  ],
+  "authorizedWrites": [
+    "啟動引擎.cmd",
+    "project-manifest.json",
+    "work/P26-r34-entry-activation-r1"
+  ],
+  "backupRequired": true,
+  "checkOnlyAllowed": true,
+  "normalLaunchAllowed": false,
+  "DBAllowed": false,
+  "serviceActionsAllowed": false,
+  "releaseWritesAllowed": false,
+  "additionalBuildsAllowed": false
+}

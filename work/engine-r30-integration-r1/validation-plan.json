@@ -1,0 +1,61 @@
+{
+  "schema": "r30-versioned-validation-plan-v1",
+  "status": "positions-only-awaiting-accepted-candidate-and-review",
+  "baseline151": {
+    "runner": "prepared/run_stage_r30.py",
+    "expectedChecks": 151,
+    "assertionsPreserved": true
+  },
+  "newActionsSuite": {
+    "status": "pending-real-seal-and-independent-acceptance",
+    "requiredFinalDllSha": "from future exact supervisor receipt",
+    "runnerPaths": "not inferred from active worker directories",
+    "candidateOriginalSchemaRepackagingRequired": false
+  },
+  "oldSlow1199": {
+    "preserveOriginal": true,
+    "runUnchangedAsR30Acceptance": false,
+    "sources": [
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\harness\\Program.cs",
+        "sha256": "9005b27a43a00973215d4a04bb014b6423cca7435a95b15502c19aab869b8c5e"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\harness\\Extra.cs",
+        "sha256": "b28421f449e02840fc21deed7d5ec8c457aa8eee3b5f7902af96de2b27396a14"
+      }
+    ],
+    "positions": [
+      {
+        "file": "Extra.cs",
+        "line": 51,
+        "assertion": "independent-slow-action-strictly-rejected-{kind}",
+        "scope": "r29 rejects attack/spell/item/pickup/drop; only qualified attack/spell may become superseded in r30; item/pickup/drop remain required rejects"
+      },
+      {
+        "file": "Extra.cs",
+        "line": 57,
+        "assertion": "independent-queued-action-{kind}-{transition}",
+        "scope": "keep stale/transient/same-value queue guards; no blanket deletion for new action support; change only with exact reviewed contract"
+      },
+      {
+        "file": "Program.cs",
+        "line": 36,
+        "assertion": "slow-attack-safe-or-blocked / slow-spell-safe-or-blocked",
+        "scope": "existing safety fallback cannot prove r30 positive support; new suite must require positive qualified admission plus timing"
+      },
+      {
+        "file": "Program.cs",
+        "line": 44,
+        "assertion": "queued-attack-normal-to-slow-safe / queued-spell-normal-to-slow-safe",
+        "scope": "retain safe cancellation/timing; final semantics need candidate-specific independent evidence"
+      }
+    ]
+  },
+  "requiredLaterTraceability": [
+    "original assertion id, source SHA, original revision/range",
+    "classification retained/superseded with exact supported profiles and evidence",
+    "replacement positive/negative assertion id and independent acceptance",
+    "same final DLL hash; report actually executed count rather than claiming unchanged 1199"
+  ]
+}

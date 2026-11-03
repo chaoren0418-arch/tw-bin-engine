@@ -1,0 +1,227 @@
+{
+  "readOnly": true,
+  "pins": {
+    "utc": "2026-10-26T15:39:26.918425+00:00",
+    "db": [
+      43324,
+      "D:\\P24Lab-ClientEngine\\db-data\\",
+      "e3443e40-d090-11f1-8040-4cedfb679789",
+      "127.0.0.1",
+      "8.0.40"
+    ],
+    "dbOs": {
+      "processes": [
+        {
+          "ProcessId": 69176,
+          "ParentProcessId": 64892,
+          "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+          "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+          "CreationDate": "/Date(1792945658396)/"
+        },
+        {
+          "ProcessId": 59052,
+          "ParentProcessId": 69176,
+          "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+          "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+          "CreationDate": "/Date(1792945658443)/"
+        }
+      ],
+      "listeners": [
+        {
+          "LocalAddress": "127.0.0.1",
+          "LocalPort": 43324,
+          "OwningProcess": 59052
+        }
+      ]
+    },
+    "game": {
+      "process": {
+        "ProcessId": 88012,
+        "ParentProcessId": 58144,
+        "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+        "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P24Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P24Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P24Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P24Lab-ClientEngine\\server\\Server_Game.jar",
+        "CreationDate": "/Date(1793022465229)/"
+      },
+      "listeners": [
+        {
+          "LocalAddress": "0.0.0.0",
+          "LocalPort": 42061,
+          "OwningProcess": 88012
+        }
+      ]
+    },
+    "roles": [
+      {
+        "x": 32640,
+        "y": 33109,
+        "hp": 26,
+        "id": 1900240001,
+        "mp": 82,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p241db6e"
+      },
+      {
+        "x": 32477,
+        "y": 32853,
+        "hp": 103,
+        "id": 1900240002,
+        "mp": 84,
+        "map": 0,
+        "level": 59,
+        "online": 0,
+        "account": "p242db6e"
+      },
+      {
+        "x": 32588,
+        "y": 32981,
+        "hp": 500,
+        "id": 1900240003,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p243db6e"
+      },
+      {
+        "x": 32588,
+        "y": 32981,
+        "hp": 500,
+        "id": 1900240004,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p244db6e"
+      },
+      {
+        "x": 32648,
+        "y": 33068,
+        "hp": 163,
+        "id": 1900240005,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p245db6e"
+      },
+      {
+        "x": 32608,
+        "y": 32976,
+        "hp": 384,
+        "id": 1900240006,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p246db6e"
+      },
+      {
+        "x": 32587,
+        "y": 32998,
+        "hp": 700,
+        "id": 1900240007,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p247db6e"
+      },
+      {
+        "x": 32587,
+        "y": 32998,
+        "hp": 700,
+        "id": 1900240008,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p248db6e"
+      }
+    ]
+  },
+  "items": [
+    {
+      "name": "治癒藥水",
+      "note": "補量/補量/特效/扣除開關/貨幣/數量",
+      "bless": 0,
+      "trade": 0,
+      "grdgfx": 45,
+      "invgfx": 80,
+      "weight": 3900,
+      "item_id": 40010,
+      "max_lvl": 0,
+      "min_lvl": 0,
+      "name_id": "$26",
+      "delay_id": 2,
+      "material": "glass",
+      "use_type": "hpr",
+      "classname": "hp.UserAddHp 10 20 189 true 0 0",
+      "item_type": "potion",
+      "stackable": 1,
+      "delay_time": 500,
+      "cant_delete": 0,
+      "food_volume": 0,
+      "itemdesc_id": 1342,
+      "limit_class": 127,
+      "delay_effect": 0,
+      "save_at_once": 0,
+      "max_charge_count": 0
+    },
+    {
+      "name": "終極治癒藥水",
+      "note": null,
+      "bless": 0,
+      "trade": 0,
+      "grdgfx": 46,
+      "invgfx": 81,
+      "weight": 5850,
+      "item_id": 40012,
+      "max_lvl": 0,
+      "min_lvl": 0,
+      "name_id": "$238",
+      "delay_id": 2,
+      "material": "glass",
+      "use_type": "hpr",
+      "classname": "hp.UserAddHp 60 80 197 true",
+      "item_type": "potion",
+      "stackable": 1,
+      "delay_time": 1000,
+      "cant_delete": 0,
+      "food_volume": 0,
+      "itemdesc_id": 130,
+      "limit_class": 127,
+      "delay_effect": 0,
+      "save_at_once": 0,
+      "max_charge_count": 0
+    },
+    {
+      "name": "自我加速藥水",
+      "note": null,
+      "bless": 0,
+      "trade": 0,
+      "grdgfx": 42,
+      "invgfx": 77,
+      "weight": 3900,
+      "item_id": 40013,
+      "max_lvl": 0,
+      "min_lvl": 0,
+      "name_id": "$234",
+      "delay_id": 0,
+      "material": "glass",
+      "use_type": "power",
+      "classname": "brave.StatusHaste 300 191 true 40308 10",
+      "item_type": "potion",
+      "stackable": 1,
+      "delay_time": 0,
+      "cant_delete": 0,
+      "food_volume": 0,
+      "itemdesc_id": 17,
+      "limit_class": 127,
+      "delay_effect": 0,
+      "save_at_once": 0,
+      "max_charge_count": 0
+    }
+  ]
+}

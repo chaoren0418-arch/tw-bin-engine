@@ -1,0 +1,35 @@
+using System.Text.Json;
+namespace P06;
+public sealed record TradeWebCommand(string Command,int Revision,int Epoch,int Generation,uint Item=0,uint Count=0){
+    public static TradeWebCommand Parse(JsonElement o){string cmd=o.GetProperty("cmd").GetString()??"";if(cmd is not ("tradeInvite" or "tradeAccept" or "tradeReject" or "tradeAdd" or "tradeConfirm" or "tradeCancel" or "tradeDismiss"))throw new FormatException("trade command");var expected=new List<string>{"v","id","cmd","revision","epoch","generation"};if(cmd=="tradeAdd")expected.AddRange(["itemId","count"]);if(!o.EnumerateObject().Select(p=>p.Name).Order().SequenceEqual(expected.Order())||o.GetProperty("v").GetInt32()!=1||o.GetProperty("id").GetInt32()<1)throw new FormatException("trade fields");int revision=o.GetProperty("revision").GetInt32(),epoch=o.GetProperty("epoch").GetInt32();int generation=o.GetProperty("generation").GetInt32();if(revision<0||epoch<0||generation<0)throw new FormatException("trade generation");uint item=0,count=0;if(cmd=="tradeAdd"){item=o.GetProperty("itemId").GetUInt32();count=o.GetProperty("count").GetUInt32();if(item==0||count is 0 or >int.MaxValue)throw new FormatException("trade quantity");}return new(cmd[5..].ToLowerInvariant(),revision,epoch,generation,item,count);}
+}
+public sealed record TradeInventoryChoice(uint Id,string Label,uint Count);
+public sealed partial class ClientForm {
+    readonly Button tradeInvite=new(){Text="邀請面前角色交易",Width=190,Height=30,Visible=false};
+    readonly Panel tradePanel=new(){Dock=DockStyle.Bottom,Height=290,Visible=false,BackColor=Color.FromArgb(23,38,41)};
+    readonly Label tradeNotice=new(){Dock=DockStyle.Top,Height=64,ForeColor=Color.White,Padding=new(5)};
+    readonly ListBox tradeMine=new(){Dock=DockStyle.Fill,ForeColor=Color.White,BackColor=Color.FromArgb(27,44,51)};
+    readonly ListBox tradeTheirs=new(){Dock=DockStyle.Fill,ForeColor=Color.White,BackColor=Color.FromArgb(27,44,51)};
+    readonly ComboBox tradeInventory=new(){Width=245,DropDownStyle=ComboBoxStyle.DropDownList,DisplayMember="Label"};
+    readonly NumericUpDown tradeQuantity=new(){Width=90,Minimum=1,Maximum=int.MaxValue,Value=1};
+    readonly Button tradeAdd=new(){Text="加入一次",AutoSize=true},tradeConfirm=new(){Text="確認兩側物品",AutoSize=true},tradeCancel=new(){Text="取消交易",AutoSize=true},tradeAccept=new(){Text="接受邀請",AutoSize=true},tradeReject=new(){Text="拒絕邀請",AutoSize=true},tradeDismiss=new(){Text="關閉結果",AutoSize=true};
+    int tradeUiRevision=-1,tradeInventoryRevision=-1;TradeWebCommand? displayedTrade;
+    void InitTrade(){
+        var table=new TableLayoutPanel{Dock=DockStyle.Fill,ColumnCount=2,RowCount=2};table.ColumnStyles.Add(new(SizeType.Percent,50));table.ColumnStyles.Add(new(SizeType.Percent,50));table.RowStyles.Add(new(SizeType.Absolute,25));table.RowStyles.Add(new(SizeType.Percent,100));table.Controls.Add(new Label{Text="你提供的物品（原服回包）",ForeColor=Color.White,AutoSize=true},0,0);table.Controls.Add(new Label{Text="對方提供的物品（原服回包）",ForeColor=Color.White,AutoSize=true},1,0);table.Controls.Add(tradeMine,0,1);table.Controls.Add(tradeTheirs,1,1);
+        var controls=new FlowLayoutPanel{Dock=DockStyle.Bottom,Height=70,AutoScroll=true};controls.Controls.AddRange([tradeInventory,tradeQuantity,tradeAdd,tradeConfirm,tradeCancel,tradeAccept,tradeReject,tradeDismiss]);tradePanel.Controls.AddRange([table,controls,tradeNotice]);Controls.Add(tradePanel);tradePanel.BringToFront();tradePanel.Enter+=(_,_)=>LeaveGameFocus("trade");tradeInvite.Enter+=(_,_)=>LeaveGameFocus("trade-invite");
+        tradeInvite.Click+=async(_,_)=>await RunTrade(new("invite",login.World.TradeRevision,login.World.WorldEpoch,login.World.TradeGeneration));
+        foreach(var (button,cmd) in new[]{(tradeAccept,"accept"),(tradeReject,"reject"),(tradeConfirm,"confirm"),(tradeCancel,"cancel"),(tradeDismiss,"dismiss")})button.Click+=async(_,_)=>{if(displayedTrade!=null)await RunTrade(displayedTrade with{Command=cmd});};
+        tradeAdd.Click+=async(_,_)=>{if(displayedTrade!=null&&tradeInventory.SelectedItem is TradeInventoryChoice item)await RunTrade(displayedTrade with{Command="add",Item=item.Id,Count=(uint)tradeQuantity.Value});};
+        tradeInventory.SelectedIndexChanged+=(_,_)=>{if(tradeInventory.SelectedItem is TradeInventoryChoice item){tradeQuantity.Maximum=Math.Max(1,Math.Min(item.Count,int.MaxValue));tradeQuantity.Value=1;}};
+    }
+    bool TradeVisibleInvite=>login.CanInviteTrade&&login.World.FacingTradeTarget is {} t&&HasVisibleObjectPixel(t.ObjectId)&&!World.Walking;
+    async Task<bool> RunTrade(TradeWebCommand c){ClearInput("trade-command");if(c.Command=="invite"&&!TradeVisibleInvite||World.Walking&&c.Command is "invite" or "add" or "confirm")return false;bool accepted=await login.Trade(c.Command,c.Revision,c.Epoch,c.Generation,c.Item,c.Count);SyncTrade();lastWebState="";PublishWebState();return accepted;}
+    // Player invitation names are literal; only server/local notice text uses the original name catalog.
+    string TradeDisplayNotice(){var w=login.World;return w.TradeNotice==w.TradePeerName+" 邀請你交易。接受前請核對角色名稱；也可拒絕。"?w.TradeNotice:ResolveNpcText(w.TradeNotice);}
+    async Task DispatchTrade(int id,TradeWebCommand c){bool accepted=await RunTrade(c);Reply(id,accepted?TradeDisplayNotice():"交易操作已過期、數量無效或對象不符合；未送出。");}
+    void SyncTrade(){var w=login.World;w.CheckTrade();tradeInvite.Visible=login.State==LoginState.InWorld;tradeInvite.Enabled=TradeVisibleInvite;tradePanel.Visible=login.State==LoginState.InWorld&&w.TradeState!="idle";tradeNotice.Text=$"交易對象：{w.TradePeerName}\n{TradeDisplayNotice()}";tradeAccept.Visible=tradeReject.Visible=w.TradeState=="invited";tradeAccept.Enabled=w.TradePeerPresent;tradeReject.Enabled=w.TradeState=="invited";tradeCancel.Enabled=w.TradeCanCancel;tradeConfirm.Enabled=w.TradeCanConfirm;tradeAdd.Enabled=w.TradeCanAdd;tradeDismiss.Visible=!w.TradeBlocksActions;tradeInventory.Enabled=tradeQuantity.Enabled=w.TradeCanAdd;
+        if(tradeUiRevision!=w.TradeRevision){tradeUiRevision=w.TradeRevision;displayedTrade=new("",w.TradeRevision,w.WorldEpoch,w.TradeGeneration);tradeMine.Items.Clear();tradeTheirs.Items.Clear();foreach(var offer in w.TradeOffers)(offer.Side==0?tradeMine:tradeTheirs).Items.Add(ResolveNpcText(offer.Name));}
+        if(tradeInventoryRevision!=w.InventoryRevision){tradeInventoryRevision=w.InventoryRevision;uint? previous=(tradeInventory.SelectedItem as TradeInventoryChoice)?.Id;tradeInventory.Items.Clear();foreach(var i in w.Inventory.Where(i=>i.Count>0&&i.Equipped!=true)){tradeInventory.Items.Add(new TradeInventoryChoice(i.ObjectId,ItemName(i)+" × "+i.Count,i.Count));if(previous==i.ObjectId)tradeInventory.SelectedIndex=tradeInventory.Items.Count-1;}}
+    }
+    object TradeWeb()=>new{model=login.World.TradeSnapshot(),canInvite=TradeVisibleInvite,facingName=login.World.FacingTradeTarget?.Name,notice=TradeDisplayNotice(),offers=login.World.TradeOffers.Select(o=>new{side=o.Side,name=ResolveNpcText(o.Name)}),inventory=login.World.Inventory.Where(i=>i.Count>0&&i.Equipped!=true).Select(i=>new{id=i.ObjectId,name=ItemName(i),count=i.Count}),inventoryRevision=login.World.InventoryRevision};
+}

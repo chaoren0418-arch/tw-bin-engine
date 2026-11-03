@@ -1,0 +1,223 @@
+{
+  "status": "prepared-not-executed-against-candidate",
+  "proposedRows": 24,
+  "rows": [
+    {
+      "id": "P01",
+      "risk": "Wrong trigger or direction/frame mapping",
+      "setup": "Own gfx0 weapon0 Brave0 Speed0/1, directions0..7; one authoritative S158/action15 after heading update",
+      "expected": "Exactly one new instance per eligible receipt; exact metadata order1,2,3,0 and32 qualified keys; each actual offscreen body crop equals accepted RGBA",
+      "method": "Receipt route + injectable clock + real ComposeObjects/BitmapOf;16 parameter variants, do not count until executed",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P02",
+      "risk": "Local speculation",
+      "setup": "C112 admission without S158; then ground/inventory quantity deltas without S158",
+      "expected": "No pickup presentation from send, quantities or completion; quantities remain authoritative",
+      "method": "Same memory-only gate, public packets and offscreen pixels",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P03",
+      "risk": "Wrong actor ownership",
+      "setup": "Own instance active, remote or unknown action15 receipts",
+      "expected": "No own replacement/cancellation; existing receipt counters and remote behavior retained",
+      "method": "Feed each receipt independently, compare serial/state/bitmap",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P04",
+      "risk": "Broad eligibility",
+      "setup": "gfx61, weapon4, Speed2, Speed3, Brave1; each otherwise eligible",
+      "expected": "No new pickup; existing rendering/authoritative handling preserved; Slow remains unqualified",
+      "method": "Public S87/S255/S67 input; observations and suppress reasons",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P05",
+      "risk": "Admission state loss",
+      "setup": "Not Ready, not Renderable, pending appearance S76, HP0, death, shop/ActionLocked, displayed walking",
+      "expected": "Suppress pickup without breaking original receipt/heading processing",
+      "method": "Distinct state fixtures, actual renderer where Renderable",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P06",
+      "risk": "Permanent suppression by old report",
+      "setup": "Attack1/damage2/spell18/spell19 report at last visible integer clock, first expired clock, next clock",
+      "expected": "Active visual suppresses; expired report permits eligible receipt without clearing/modifying report. For damage583.333...,583 remains active,584 expired",
+      "method": "Use exact double Duration or existing timing; never truncated ObjectVisual.StepMs",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P07",
+      "risk": "Hit priority omitted from OwnCombat-only guard",
+      "setup": "Synthetic renderer projectile hit cache, OwnCombat null: active583 and expired584 relative to hit.At; also death",
+      "expected": "Displayed hit suppresses while active; expired hit permits pickup; death always wins",
+      "method": "Explicit hit-cache injection; flight/packet integration separately unproved",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P08",
+      "risk": "Conflict after admission",
+      "setup": "Begin pickup then newer authoritative attack/damage/spell/death/lock/motion",
+      "expected": "Cancel owned pickup; existing incompatible presentation retains priority and report identity",
+      "method": "Event+renderer checks, not only state object",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P09",
+      "risk": "Session/world ownership leak",
+      "setup": "Begin pickup then session cancel/reseed, world reset/map change, actor removal/replacement",
+      "expected": "Old callbacks cannot draw or clear new owner/instance",
+      "method": "Capture old callback/token; invoke only through authorized managed test seam",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P10",
+      "risk": "Revision changes not rechecked",
+      "setup": "Begin pickup then AppearanceRevision/Corrections/SpeedRevision, gfx/weapon, direction or X/Y change",
+      "expected": "Cancel at receipt/event or next presentation check before drawing stale frame",
+      "method": "Each revision/identity dimension separately; no candidate count until executed",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P11",
+      "risk": "Current guard lost without explicit event",
+      "setup": "Active pickup then HP0, Renderable loss, ActionLocked or missing profile",
+      "expected": "Recheck at presentation; remove only owned overlay and restore valid current rendering",
+      "method": "Public state transitions where available; disclose synthetic reflection if needed",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P12",
+      "risk": "Wrong terminal policy",
+      "setup": "Neutral Speed0 and1 at terminal entry and just before/at/after584 hold expiry",
+      "expected": "Frame0 shown through selected nominal hold, then only that instance removed; no synthetic repeat, outgoing send or utility lock",
+      "method": "Controlled clock + real Bitmap and per-instance diagnostics",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P13",
+      "risk": "Late callback burst/catch-up",
+      "setup": "Initial B42; first due callback at1000, repeat pump at1000, then1002 and1004",
+      "expected": "Only one frame advance per due callback; at1000 frame2 B209 due1002, same-time call does not advance,1002 frame3 B376 due1004,1004 terminal0 hold until1588",
+      "method": "Source-derived recurrence arithmetic is expected policy, not native execution",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P14",
+      "risk": "Boundary +1/minimum clamp",
+      "setup": "B42,D166,N207/208/300",
+      "expected": "Nextdue209/210/302 respectively; ideal newB209 retained rather than clamped deadline",
+      "method": "Injectable clock test of candidate scheduler plus image sampling",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P15",
+      "risk": "Overlapping receipt/old timer",
+      "setup": "A active then eligible B before A finishes; invoke A stale callback and stale cleanup",
+      "expected": "B replaces A by explicit latest-receipt policy; stale A never advances/clears B",
+      "method": "Serial+owner checks and actual displayed body",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P16",
+      "risk": "Terminal overlap",
+      "setup": "A holding frame0 then newer own receipt B, then stale A finish",
+      "expected": "B starts frame1; stale terminal completion cannot restore idle over B",
+      "method": "Controlled callback order",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P17",
+      "risk": "Immutable pending semantics",
+      "setup": "C112 once, rapid repeat, delayed own confirmation, remote confirmation, pending timeout and session reset",
+      "expected": "900 guard and3000 fallback, heading association, inventory/ground counts and exact C112 bytes unchanged",
+      "method": "Focused same-DLL checks; do not replay all4337 existing suites in prep",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P18",
+      "risk": "Resource authentication/schema",
+      "setup": "Missing resource, wrong logical name/hash/size/schema/profile/base hash/keys",
+      "expected": "Suppress overlay; retain authoritative receipt/heading and normal renderer; diagnose only evidence",
+      "method": "Candidate loader API; separate copied corrupt fixtures, never mutate accepted assets",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P19",
+      "risk": "Projection corruption",
+      "setup": "Wrong direction/key mapping, missing one new frame, duplicate key, invalid coordinate/RGB555",
+      "expected": "Reject unsafe payload; exact24 new239766byte resource and8 reused frames",
+      "method": "Embedded stream hash + candidate parse + independent accepted32 RGBA comparison",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P20",
+      "risk": "Black/coverage/layering error",
+      "setup": "Selected frames with opaque RGB555zero; body/shadow switch at start and terminal",
+      "expected": "Written black remains alpha255; unwritten alpha0; no stale idle shadow or borrowed shadow; normal depth ordering",
+      "method": "Actual patch mask/colors/commands and offscreen Bitmap, exact-key shadow coverage",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P21",
+      "risk": "Shared asset mutation",
+      "setup": "Before/after initialization and repeated receipt",
+      "expected": "Base ObjectAppearance frames/sequences, assets junction, players manifest and existing source suites unchanged",
+      "method": "Pins and object dictionary fingerprints; no new requirement to modify originals",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P22",
+      "risk": "Accidental side effects",
+      "setup": "All starts/transitions/terminal/cancellation",
+      "expected": "No audio/effect event execution, renderer-driven send, remote animation, utility or Slow gate change",
+      "method": "Event/send counters and source diff; metadata events retained only",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P23",
+      "risk": "Missing diagnostics/manifests",
+      "setup": "Started/suppressed/cancelled/finished scenarios and build packaging",
+      "expected": "policyId/sourceEligibility=native-unproven, actor/profile/receipt/instance/reason in evidence; all new source/resource files manifested even count>177",
+      "method": "Snapshot/source inventory/resource stream audit; no UI diagnostics requirement",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    },
+    {
+      "id": "P24",
+      "risk": "Wrong baseline/final release binding",
+      "setup": "Candidate vs assigned immutable stage and later exact final r33 binding",
+      "expected": "Independent review pins candidate and reconcile final binding separately; canonical in-progress source never baseline",
+      "method": "Await separately dispatched candidate and final-release pins",
+      "executedAgainstCandidate": false,
+      "candidateOccurrences": 0
+    }
+  ],
+  "counting": "Each row is a proposed risk family with explicit parameters. No expanded or planned variant is counted as an executed occurrence. Candidate results must assign sequential occurrence IDs and separate assertions/observations/failures."
+}

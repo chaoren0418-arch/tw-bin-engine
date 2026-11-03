@@ -1,0 +1,42 @@
+{
+  "schema": "p26-r34-release-authority-policy-v1",
+  "releaseSupervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "historicalStageSupervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "takeover": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\takeover.json",
+    "size": 4697,
+    "sha256": "d7f7d19b500238a3e9894ac8caae74d99d5d9e31ea0de1acc2cf100866ed3bb1"
+  },
+  "takeoverParent": "01a17821-bfc6-72b7-99cf-ef703f19203b",
+  "releaseReceiptPath": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-release-acceptance.json",
+  "sharedReceiptPath": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-shared-acceptance.json",
+  "preparationRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2",
+  "scriptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r1",
+  "preparationSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\preparation-seal.json",
+    "size": 45733,
+    "sha256": "795705e162ffcc422e66343fa4a6f68c6430ff4ac6ee6e54220155a60ccb9d88"
+  },
+  "originalPackageController": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\package_release.py",
+    "size": 9394,
+    "sha256": "9324a77b90f3e64b85a6cc3678660de91dc5ba58edd7e2760236f0c17784af90"
+  },
+  "originalReleaseVerifier": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\prepared\\verify_release_r34.py",
+    "size": 1746,
+    "sha256": "a20f3dfcaae5d24d098b6c60bf0fd7699c289afdf5e5cb366ffe80599f7b1d9f"
+  },
+  "sealedRebindDependency": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\artifact-seal.json",
+    "size": 8250,
+    "sha256": "867c75d72137b18becc8138576bc0b2e8b6e529fabcd51482b485caa17419ad6"
+  },
+  "historicalStageAcceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\r34-stage-root-acceptance.json",
+    "size": 1628,
+    "sha256": "d8923799b13660f4eab08ac52d45f27c183c3d0e01aed3d491a62b593e110308"
+  },
+  "authorizedOutput": "releases/r34",
+  "activationAuthorized": false
+}

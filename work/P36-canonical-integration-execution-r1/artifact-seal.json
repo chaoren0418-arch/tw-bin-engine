@@ -1,0 +1,23 @@
+{
+  "schema": "p36-canonical-execution-artifact-seal-v1",
+  "artifactManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\artifact-manifest.json",
+    "size": 40700,
+    "sha256": "95ce307d92645d98d4bdaf58e663e10564c75c9d0f23d24a6a17925907068d7e"
+  },
+  "sealedFiles": 202,
+  "executionResult": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\result.json",
+    "size": 6818,
+    "sha256": "a86b0e4ea202d4dc02c71aec25a7c97e2609874a7b20662d839c0971509f0a8e"
+  },
+  "externalMaterialSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\external-material-seal.json",
+    "size": 41121,
+    "sha256": "257d957cfc3c6b7061c1face5baeaf19c111f229a76c3834a3c90d68ab60ffa5"
+  },
+  "buildInvocations": 1,
+  "independentProvenanceReviewPending": true,
+  "P37InventoryExecuted": false,
+  "entryActivated": false
+}

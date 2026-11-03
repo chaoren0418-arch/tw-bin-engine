@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"timedOut\":true,\"wake\":null,\"polls\":[{\"schemaVersion\":1,\"cursor\":\"d0af65fb-9735-4df3-ad9d-148fd38221c5:5\",\"revision\":5,\"changed\":true,\"thread\":{\"id\":\"01a17a22-17e4-70c0-9792-166ddb86ea42\",\"hostId\":\"local\",\"status\":{\"type\":\"active\",\"activeFlags\":[]}},\"latestTurn\":{\"id\":\"01a18415-563c-7190-a98c-b4c4474a88bc\",\"status\":\"inProgress\",\"error\":null,\"startedAt\":1793217353,\"completedAt\":null,\"durationMs\":null},\"latestAssistantMessageId\":\"msg_07ee2ec7275ff6ae016ae2534c1eb8819181b66f317c21986d\",\"latestAssistantMessage\":{\"id\":\"msg_07ee2ec7275ff6ae016ae2534c1eb8819181b66f317c21986d\",\"turnId\":\"01a18415-563c-7190-a98c-b4c4474a88bc\",\"phase\":\"commentary\",\"text\":\"我會依這次派工先核對精確接受材料，再完成隔離建置與同版離線測試；通過後串行合入 engine、建立 r29 封存並更新入口。全程只做離線與 check-only 驗證，不操作 DB、服務或正常遊戲視窗。\"},\"latestToolMarkerId\":\"exec-b1478ab0-6d29-45f2-a580-9019029480f6\",\"latestToolMarker\":{\"id\":\"exec-b1478ab0-6d29-45f2-a580-9019029480f6\",\"turnId\":\"01a18415-563c-7190-a98c-b4c4474a88bc\",\"type\":\"commandExecution\",\"name\":\"commandExecution\",\"status\":\"completed\"}}]}"
+    }
+  ],
+  "isError": false
+}

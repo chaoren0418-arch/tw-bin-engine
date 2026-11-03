@@ -1,0 +1,9 @@
+{
+  "status": "inspected-preparation-output",
+  "images": ["frame-contact.png", "baseline-contact.png"],
+  "frameContact": "All8 directions x4 metadata frames visually inspected. Distinct poses retained; no obvious missing strips or clipping in the selected body crops. Exact32-frame RGBA comparison is the quantitative evidence.",
+  "baselineContact": "Own r33 before/after authoritative-shaped S158/action15 remains the same standing body and exact-key existing shadow across8 directions. This is a feature-gap observation, not candidate acceptance.",
+  "limitations": "Contact sheets are assembled from actual offscreen output PNGs. No native screen, normal GUI, map occlusion or candidate output was inspected.",
+  "nativeRuntimeChecks": 0,
+  "candidateAccepted": false
+}

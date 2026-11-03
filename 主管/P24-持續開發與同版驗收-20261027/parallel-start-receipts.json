@@ -1,0 +1,30 @@
+{
+  "appearanceCreation": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"threadId\":\"01a17a21-8dec-7410-8a1b-80f7fa84d0a1\",\"hostId\":\"local\"}"
+      }
+    ],
+    "isError": false
+  },
+  "acceptancePreparationCreation": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"threadId\":\"01a17a22-17e4-70c0-9792-166ddb86ea42\",\"hostId\":\"local\"}"
+      }
+    ],
+    "isError": false
+  },
+  "observedProgress": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"timedOut\":true,\"wake\":null,\"polls\":[{\"schemaVersion\":1,\"cursor\":\"449bd82b-584e-41f1-959e-1f4fd5e5e7e2:592\",\"revision\":592,\"changed\":true,\"thread\":{\"id\":\"01a1749a-7e8d-7200-9fc8-8618ed2559ac\",\"hostId\":\"local\",\"status\":{\"type\":\"active\",\"activeFlags\":[]}},\"latestTurn\":{\"id\":\"01a17a1d-31a9-76b3-90f8-63091bdf8b9f\",\"status\":\"inProgress\",\"error\":null,\"startedAt\":1793050096,\"completedAt\":null,\"durationMs\":null},\"latestAssistantMessageId\":\"msg_0a4767e243e51a4c016adfc662e9448191bb61aa25e86830ca\",\"latestAssistantMessage\":{\"id\":\"msg_0a4767e243e51a4c016adfc662e9448191bb61aa25e86830ca\",\"turnId\":\"01a17a1d-31a9-76b3-90f8-63091bdf8b9f\",\"phase\":\"commentary\",\"text\":\"已確認登入的 RaiseAttr 只帶角色 ID，沒有剩餘點數；固定 JAR 的分配請求由伺服器檢查可用點與各屬性基礎值上限。現有能力回包是含裝備／效果的目前值，不能拿來推算基礎值或剩餘點數。我會保留這個區別，先查清每次分配後如何取得下一次可操作依據。\"},\"latestToolMarkerId\":\"exec-8cdef57f-64ca-4cad-8c7e-0aae8c37b12a\",\"latestToolMarker\":{\"id\":\"exec-8cdef57f-64ca-4cad-8c7e-0aae8c37b12a\",\"turnId\":\"01a17a1d-31a9-76b3-90f8-63091bdf8b9f\",\"type\":\"commandExecution\",\"name\":\"commandExecution\",\"status\":\"completed\"}},{\"schemaVersion\":1,\"cursor\":\"7067bea7-93db-4aaf-a670-9c1a4be84c4f:8\",\"revision\":8,\"changed\":true,\"thread\":{\"id\":\"01a17a21-8dec-7410-8a1b-80f7fa84d0a1\",\"hostId\":\"local\",\"status\":{\"type\":\"active\",\"activeFlags\":[]}},\"latestTurn\":{\"id\":\"01a17a21-91a5-7741-b072-47740199476e\",\"status\":\"inProgress\",\"error\":null,\"startedAt\":1793050382,\"completedAt\":null,\"durationMs\":null},\"latestAssistantMessageId\":\"msg_03bad4afb6dfb9e5016adfc81629c081919a47c4a4f49b7952\",\"latestAssistantMessage\":{\"id\":\"msg_03bad4afb6dfb9e5016adfc81629c081919a47c4a4f49b7952\",\"turnId\":\"01a17a21-91a5-7741-b072-47740199476e\",\"phase\":\"commentary\",\"text\":\"補充分類結果：三種 gfx 的一般角色外觀其實已封裝，但商店必須使用獨立 action70 素材，不能把一般站姿拿來替代。目前候選只有五個資產檔差異，沒有 source／DLL／web 修改；正以原 r16 DLL 檢查原始像素、八方向與實測座標的離線重播。\"},\"latestToolMarkerId\":\"exec-5dcd8018-55d2-421d-901e-a45496f54d29\",\"latestToolMarker\":{\"id\":\"exec-5dcd8018-55d2-421d-901e-a45496f54d29\",\"turnId\":\"01a17a21-91a5-7741-b072-47740199476e\",\"type\":\"commandExecution\",\"name\":\"commandExecution\",\"status\":\"completed\"}},{\"schemaVersion\":1,\"cursor\":\"6ed7dba7-78cb-4d9d-9613-0d7cb8b486be:3\",\"revision\":3,\"changed\":true,\"thread\":{\"id\":\"01a17a22-17e4-70c0-9792-166ddb86ea42\",\"hostId\":\"local\",\"status\":{\"type\":\"active\",\"activeFlags\":[]}},\"latestTurn\":{\"id\":\"01a17a22-1b68-76f2-b305-985a2da46b48\",\"status\":\"inProgress\",\"error\":null,\"startedAt\":1793050418,\"completedAt\":null,\"durationMs\":null},\"latestAssistantMessageId\":\"msg_07ee2ec7275ff6ae016adfc7e586ec81918a91dde58c5567b0\",\"latestAssistantMessage\":{\"id\":\"msg_07ee2ec7275ff6ae016adfc7e586ec81918a91dde58c5567b0\",\"turnId\":\"01a17a22-1b68-76f2-b305-985a2da46b48\",\"phase\":\"commentary\",\"text\":\"已確認兩個 r16 基準 SHA 相符。準備清單會要求重新觀察角色資源與船班狀態：既有服務角色剩餘紅水 70、加速水 0，這些是歷史快照，不能直接當成未來驗收的起始值。四個保留角色也不會列入操作名單。\"},\"latestToolMarkerId\":\"exec-afea859c-ace6-4e1f-b99d-dc53880cbf36\",\"latestToolMarker\":{\"id\":\"exec-afea859c-ace6-4e1f-b99d-dc53880cbf36\",\"turnId\":\"01a17a22-1b68-76f2-b305-985a2da46b48\",\"type\":\"fileChange\",\"name\":\"fileChange\",\"status\":\"completed\"}}]}"
+      }
+    ],
+    "isError": false
+  },
+  "notes": "All three chats observed active with inProgress turns. This records chat execution, not a fabricated Goal active status. Supervisor retains sole live UI ownership."
+}

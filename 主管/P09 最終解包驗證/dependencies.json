@@ -1,0 +1,32 @@
+{
+  "dotnet_sdk": "10.0.300",
+  "runtime": {
+    "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\155.0.4283.62\\msedgewebview2.exe",
+    "sha256": "93ACBCAD0B6F390AE1CE6A1DBF1E09E165520A7F1196EB22323AFA64A9BBA96B",
+    "signature": "Valid",
+    "version": "155.0.4283.62"
+  },
+  "sdk": {
+    "path": "vendor/microsoft.web.webview2.1.0.4258.31.nupkg",
+    "sha256": "56F7F4B8BF9AEE4B8EFEFBBDD4F67D5F74EBD1B100ED0806DA71BF76AF481AA9",
+    "version": "1.0.4258.31",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.web.webview2/1.0.4258.31/microsoft.web.webview2.1.0.4258.31.nupkg"
+  },
+  "docs": [
+    "https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/security",
+    "https://learn.microsoft.com/en-us/microsoft-edge/webview2/get-started/winforms",
+    "https://learn.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.core.corewebview2.setvirtualhostnametofoldermapping"
+  ],
+  "restore": "NuGet.Config local vendor source only",
+  "runtime_install": "Preinstalled; no global installation or settings changed",
+  "verification": {
+    "python_sha256": "4D6F5F81A4BCA11191C4C7C6B43632694D0A4CE74E068619D8FDC161D469859A",
+    "python": "Python 3.12.10",
+    "required_python_package": "Only unicorn==2.1.4 for original-instruction oracle; test server uses standard library",
+    "python_executable": "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "dotnet_executable": "C:\\Program Files\\dotnet\\dotnet.exe",
+    "unicorn": "2.1.4",
+    "runtime_policy": "installed WindowsDesktop 10.0.8; no original game binary or third-party game DLL loaded",
+    "dotnet_sha256": "CBB1746F9B08DD9825129D451D99869E84E9024E62C804DEDE22C9FB61E0291D"
+  }
+}

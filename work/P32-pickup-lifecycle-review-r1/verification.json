@@ -1,0 +1,19 @@
+{
+  "status": "pass",
+  "distinctCases": 196,
+  "families": {
+    "lifecycle": 39,
+    "direction-window": 105,
+    "terminal-replacement": 42,
+    "latest-eligible": 1,
+    "lease": 2,
+    "guard-isolation": 6,
+    "actor-reentry": 1
+  },
+  "originalOracleSealVerified": true,
+  "allReadInputPinsUnchanged": true,
+  "rawCommandStreamsVerified": 6,
+  "sourceSnapshotSetsVerified": 6,
+  "negativeControlsRejected": 3,
+  "productCasesAddedByVerification": 0
+}

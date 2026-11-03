@@ -1,0 +1,97 @@
+{
+  "schema": "p36-independent-execution-review-v1",
+  "utc": "2026-10-29T09:07:43.905127+00:00",
+  "status": "accepted-p36-canonical-source-product-provenance",
+  "decision": "accepted-p36-canonical-source-product-provenance",
+  "reviewer": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "executionResult": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\result.json",
+    "size": 6818,
+    "sha256": "a86b0e4ea202d4dc02c71aec25a7c97e2609874a7b20662d839c0971509f0a8e"
+  },
+  "executionArtifactSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\artifact-seal.json",
+    "size": 964,
+    "sha256": "c7c194fed021123fcca4586df4b9b05d5381e0f6838d24e759728d8598bf52bf"
+  },
+  "externalMaterialSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\external-material-seal.json",
+    "size": 41121,
+    "sha256": "257d957cfc3c6b7061c1face5baeaf19c111f229a76c3834a3c90d68ab60ffa5"
+  },
+  "planSha256": "f67fa56815fbc133c1710c450efe1305d58da7c75566e02a9d909a24ca6059bd",
+  "contractSha256": "f439915614397edb8a478196375706aec1af68b670bd06c310d1ba3e251e8c30",
+  "executionReceiptSha256": "4d5a0d73650ddc9bd6d9f121feb3f55fb084b742e45eb26a96430cea540e4032",
+  "sourceManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\source-manifest.json",
+    "size": 45035,
+    "sha256": "f3275b4f202ee0d277e5749e85e2e10297396ce8f9bafa70696509a91027f95d"
+  },
+  "productManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-p36-r1-manifest.json",
+    "size": 4715,
+    "sha256": "d55389e048aee9eb2b64088ddfb0128de6166071e21969bd1dd57b9464d9ce75"
+  },
+  "product": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1\\P11.ClientEngine.dll",
+    "size": 4925440,
+    "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+  },
+  "audio": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1\\P24.Audio.dll",
+    "size": 53760,
+    "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+  },
+  "sourceFiles": 181,
+  "sourceReplacements": 4,
+  "sourceAdditions": 1,
+  "independentBackups": 4,
+  "buildInvocations": 1,
+  "cscTasks": 2,
+  "canonicalCSharpSources": {
+    "audio": 5,
+    "product": 142
+  },
+  "generatedCSharpSourcesPerProject": 3,
+  "binlogEvents": 7269,
+  "actuallyUsedToolchainPinsVerified": 208,
+  "all4350DependenciesReverified": false,
+  "warnings": 0,
+  "errors": 0,
+  "outputs": 15,
+  "allOutputsIdenticalToAcceptedStage": true,
+  "unresolvedFindings": [],
+  "productRuntimeRuns": 0,
+  "newRuntimeAssertions": 0,
+  "reviewerBuilds": 0,
+  "reviewerSharedWrites": false,
+  "actualP37InventoryAccepted": false,
+  "requiresSupervisorP36FinalAcceptance": true,
+  "formalEntry": "r33",
+  "entryActivated": false,
+  "fullReleaseAuthorized": false,
+  "evidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-final-review-r1\\compiler-binding.json",
+      "size": 221375,
+      "sha256": "b977ad480a0c1fd5a113d1d5a66d284295fb5bc09c3e0e264c2fd6beca788175"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-final-review-r1\\source-install-review.json",
+      "size": 9464,
+      "sha256": "dd68db330ac40e83a5fca0cad3894f59a3e0b7421e0831296bce1778667096c5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-final-review-r1\\final-verification.json",
+      "size": 594,
+      "sha256": "1760918ddb4e8731534e98548882a0b9d3a18e26fd3a950190a79622d3d2c8b1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-final-review-r1\\auditor-correction.json",
+      "size": 1403,
+      "sha256": "ede353f17820b6ecee7f2006e8d7b26011456bd30c1fdab9a046e1c7783405e5"
+    }
+  ],
+  "qualification": "Accepts this one canonical source-to-build provenance only. Same-DLL runtime evidence remains inherited, not new. P37 awaits true supervisor P36 final and inventory authority receipts."
+}

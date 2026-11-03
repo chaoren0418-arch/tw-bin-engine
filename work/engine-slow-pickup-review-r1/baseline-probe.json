@@ -1,0 +1,2386 @@
+{
+  "candidateReviewed": false,
+  "productCandidate": false,
+  "baseline": "fixed final r31",
+  "assembly": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\work\\engine-slow-pickup-review-r1\\helper\\r31\\P11.ClientEngine.dll",
+  "assemblySha256": "12ad5bbfac696033ee1f8d807346f401216138f4ce51cb58da9438e0b4ba5ec1",
+  "clock": "ActionClock and MovementClock both real Environment.TickCount64; item/ground direct real clock",
+  "rows": [
+    {
+      "id": "bad-envelope-gfx",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-action",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-direction",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-light",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-speed",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-count-range",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-lawful",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-name",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-title",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-flags",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-clan-id",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-clan",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-owner",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-rank",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-hp",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-brave",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-level",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-unknown",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-tail1",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "bad-envelope-tail2",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "ground": 0,
+        "wires": []
+      }
+    },
+    {
+      "id": "count-36-0",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 3286640,
+        "after": 3286640,
+        "deadline": 0,
+        "localPolicy": 900
+      }
+    },
+    {
+      "id": "count-36-1",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "expected": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "before": 3286640,
+        "after": 3286656,
+        "deadline": 3287556,
+        "localPolicy": 900
+      }
+    },
+    {
+      "id": "count-36-3",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "expected": true,
+        "wires": [
+          "70597FAC802B02000003000000000000"
+        ],
+        "before": 3286656,
+        "after": 3286656,
+        "deadline": 3287556,
+        "localPolicy": 900
+      }
+    },
+    {
+      "id": "count-36-4",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 3286656,
+        "after": 3286656,
+        "deadline": 0,
+        "localPolicy": 900
+      }
+    },
+    {
+      "id": "count-36-4294967295",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 3286656,
+        "after": 3286656,
+        "deadline": 0,
+        "localPolicy": 900
+      }
+    },
+    {
+      "id": "count-66-0",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 3286656,
+        "after": 3286656,
+        "deadline": 0,
+        "localPolicy": 900
+      }
+    },
+    {
+      "id": "count-66-1",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "expected": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "before": 3286656,
+        "after": 3286656,
+        "deadline": 3287556,
+        "localPolicy": 900
+      }
+    },
+    {
+      "id": "count-66-3",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "expected": true,
+        "wires": [
+          "70597FAC802B02000003000000000000"
+        ],
+        "before": 3286656,
+        "after": 3286656,
+        "deadline": 3287556,
+        "localPolicy": 900
+      }
+    },
+    {
+      "id": "count-66-4",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 3286656,
+        "after": 3286656,
+        "deadline": 0,
+        "localPolicy": 900
+      }
+    },
+    {
+      "id": "count-66-4294967295",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 3286656,
+        "after": 3286656,
+        "deadline": 0,
+        "localPolicy": 900
+      }
+    },
+    {
+      "id": "route-direct-36-0-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-direct-36-1-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-direct-36-2-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": false,
+        "wires": [],
+        "available": false,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-direct-36-3-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-direct-36-0-1",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-direct-66-0-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-direct-66-1-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-direct-66-2-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": false,
+        "wires": [],
+        "available": false,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-direct-66-3-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-direct-66-0-1",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-low-36-0-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-low-36-1-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-low-36-2-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": false,
+        "wires": [],
+        "available": false,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-low-36-3-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-low-36-0-1",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-low-66-0-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-low-66-1-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-low-66-2-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": false,
+        "wires": [],
+        "available": false,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-low-66-3-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-low-66-0-1",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-pointer-36-0-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-pointer-36-1-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-pointer-36-2-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": false,
+        "wires": [],
+        "available": false,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-pointer-36-3-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": false,
+        "wires": [],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-pointer-36-0-1",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": false,
+        "wires": [],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-pointer-66-0-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-pointer-66-1-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-pointer-66-2-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": false,
+        "wires": [],
+        "available": false,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-pointer-66-3-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": false,
+        "wires": [],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "route-pointer-66-0-1",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": false,
+        "wires": [],
+        "available": true,
+        "scope": "actual public route; in-memory sender; no server execution"
+      }
+    },
+    {
+      "id": "distance-32603",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "705B7FAC802B02000001000000000000"
+        ]
+      }
+    },
+    {
+      "id": "distance-32604",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "initial-busy-movementSending",
+      "kind": "synthetic-state-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "initial-busy-combatSending",
+      "kind": "synthetic-state-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "initial-busy-magicSending",
+      "kind": "synthetic-state-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "initial-busy-itemSending",
+      "kind": "synthetic-state-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "initial-busy-groundSending",
+      "kind": "synthetic-state-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "initial-busy-nextMovementAt",
+      "kind": "synthetic-state-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "initial-busy-nextCombatAt",
+      "kind": "synthetic-state-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "initial-busy-nextMagicAt",
+      "kind": "synthetic-state-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "initial-busy-nextItemAt",
+      "kind": "synthetic-state-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "initial-busy-nextGroundAt",
+      "kind": "synthetic-state-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "queued-same-speed",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": true,
+      "data": {
+        "entered": 1,
+        "sent": false,
+        "admitted": 0
+      }
+    },
+    {
+      "id": "queued-transient",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": true,
+      "data": {
+        "entered": 1,
+        "sent": false,
+        "admitted": 0
+      }
+    },
+    {
+      "id": "queued-selection",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": true,
+      "data": {
+        "entered": 1,
+        "sent": false,
+        "admitted": 0
+      }
+    },
+    {
+      "id": "queued-record",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": true,
+      "data": {
+        "entered": 1,
+        "sent": false,
+        "admitted": 0
+      }
+    },
+    {
+      "id": "queued-remove",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": true,
+      "data": {
+        "entered": 1,
+        "sent": false,
+        "admitted": 0
+      }
+    },
+    {
+      "id": "queued-world",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": true,
+      "data": {
+        "entered": 1,
+        "sent": false,
+        "admitted": 0
+      }
+    },
+    {
+      "id": "queued-session",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": true,
+      "data": {
+        "entered": 1,
+        "sent": false,
+        "admitted": 0
+      }
+    },
+    {
+      "id": "queued-actor",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": false,
+      "data": {
+        "entered": 1,
+        "sent": true,
+        "admitted": 1
+      }
+    },
+    {
+      "id": "queued-lease",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": false,
+      "data": {
+        "entered": 1,
+        "sent": true,
+        "admitted": 1
+      }
+    },
+    {
+      "id": "queued-death",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": true,
+      "data": {
+        "entered": 1,
+        "sent": false,
+        "admitted": 0
+      }
+    },
+    {
+      "id": "queued-input",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": true,
+      "data": {
+        "entered": 1,
+        "sent": false,
+        "admitted": 0
+      }
+    },
+    {
+      "id": "queued-coordinates",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": true,
+      "data": {
+        "entered": 1,
+        "sent": false,
+        "admitted": 0
+      }
+    },
+    {
+      "id": "queued-correction",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": true,
+      "data": {
+        "entered": 1,
+        "sent": false,
+        "admitted": 0
+      }
+    },
+    {
+      "id": "queued-magicSending",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": false,
+      "data": {
+        "entered": 1,
+        "sent": true,
+        "admitted": 1
+      }
+    },
+    {
+      "id": "queued-nextMagicAt",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": false,
+      "data": {
+        "entered": 1,
+        "sent": true,
+        "admitted": 1
+      }
+    },
+    {
+      "id": "queued-itemSending",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": true,
+      "data": {
+        "entered": 1,
+        "sent": false,
+        "admitted": 0
+      }
+    },
+    {
+      "id": "late-world-False",
+      "kind": "future-safety-contract; world through real wrapper, actor/lease synthetic; not product acceptance",
+      "pass": false,
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "beforeState": "InWorld",
+        "afterState": "InWorld",
+        "beforeWorld": 1,
+        "afterWorld": 1,
+        "busy": false
+      }
+    },
+    {
+      "id": "late-world-True",
+      "kind": "future-safety-contract; world through real wrapper, actor/lease synthetic; not product acceptance",
+      "pass": false,
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "beforeState": "InWorld",
+        "afterState": "Faulted",
+        "beforeWorld": 1,
+        "afterWorld": 2,
+        "busy": false
+      }
+    },
+    {
+      "id": "late-session-False",
+      "kind": "future-safety-contract; world through real wrapper, actor/lease synthetic; not product acceptance",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "beforeState": "Cancelled",
+        "afterState": "Cancelled",
+        "beforeWorld": 1,
+        "afterWorld": 1,
+        "busy": false
+      }
+    },
+    {
+      "id": "late-session-True",
+      "kind": "future-safety-contract; world through real wrapper, actor/lease synthetic; not product acceptance",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "beforeState": "Cancelled",
+        "afterState": "Cancelled",
+        "beforeWorld": 1,
+        "afterWorld": 1,
+        "busy": false
+      }
+    },
+    {
+      "id": "late-actor-False",
+      "kind": "future-safety-contract; world through real wrapper, actor/lease synthetic; not product acceptance",
+      "pass": false,
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "beforeState": "InWorld",
+        "afterState": "InWorld",
+        "beforeWorld": 0,
+        "afterWorld": 0,
+        "busy": false
+      }
+    },
+    {
+      "id": "late-actor-True",
+      "kind": "future-safety-contract; world through real wrapper, actor/lease synthetic; not product acceptance",
+      "pass": false,
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "beforeState": "InWorld",
+        "afterState": "Faulted",
+        "beforeWorld": 0,
+        "afterWorld": 1,
+        "busy": false
+      }
+    },
+    {
+      "id": "late-lease-False",
+      "kind": "future-safety-contract; world through real wrapper, actor/lease synthetic; not product acceptance",
+      "pass": false,
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "beforeState": "InWorld",
+        "afterState": "InWorld",
+        "beforeWorld": 0,
+        "afterWorld": 0,
+        "busy": true
+      }
+    },
+    {
+      "id": "late-lease-True",
+      "kind": "future-safety-contract; world through real wrapper, actor/lease synthetic; not product acceptance",
+      "pass": false,
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "beforeState": "InWorld",
+        "afterState": "Faulted",
+        "beforeWorld": 0,
+        "afterWorld": 1,
+        "busy": false
+      }
+    },
+    {
+      "id": "send-no-local-consumption-animation",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "heading": 0,
+        "animation": null,
+        "pending": true
+      }
+    },
+    {
+      "id": "ground-count-packet-not-action-ack",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "count": 2,
+        "pending": true
+      }
+    },
+    {
+      "id": "other-action15-not-own-ack",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "pending": true,
+        "direction": 0,
+        "actions": 1
+      }
+    },
+    {
+      "id": "own-action15-heading-without-animation",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "pending": false,
+        "direction": 2,
+        "animation": null,
+        "count": 2
+      }
+    },
+    {
+      "id": "duplicate-action15-no-consumption",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "actions": 3,
+        "count": 2
+      }
+    },
+    {
+      "id": "world-wrapper-reset-baseline",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "ready": true,
+        "sent": false,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "groundSending": false,
+        "deadline": 3287603,
+        "scope": "r31 wrapper resets neither ground send nor its 900ms deadline; pendingPickup cleared by world reset; timing may still block"
+      }
+    },
+    {
+      "id": "timeout-not-fabricated-success",
+      "kind": "real 3100ms wait; engine explicit unconfirmed outcome fence",
+      "pass": true,
+      "data": {
+        "again": false,
+        "timedOut": true,
+        "pending": true,
+        "count": 3
+      }
+    },
+    {
+      "id": "wrapper-world-lifecycle-0-36-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "public PickupSelected and actual ApplyWorldPacket S206/S87; in-memory sender; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": true,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": true,
+        "oldEvents": 1,
+        "oldEventWorld": 0,
+        "afterState": "InWorld",
+        "deadline": 3291400,
+        "afterDeadline": 3291400,
+        "busyAfter": false,
+        "nextSent": true,
+        "newAdmitted": true,
+        "newBusyBeforeRelease": true,
+        "finalBusy": false,
+        "events": [
+          {
+            "utc": "2026-10-28T23:09:33.5852273\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 0,
+            "localClickGuardMs": 900
+          },
+          {
+            "utc": "2026-10-28T23:09:33.6142022\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 1,
+            "localClickGuardMs": 900
+          }
+        ]
+      }
+    },
+    {
+      "id": "wrapper-world-lifecycle-0-36-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "public PickupSelected and actual ApplyWorldPacket S206/S87; in-memory sender; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": true,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "InWorld",
+        "deadline": 3292337,
+        "afterDeadline": 3292337,
+        "busyAfter": false,
+        "nextSent": true,
+        "newAdmitted": true,
+        "newBusyBeforeRelease": true,
+        "finalBusy": false,
+        "events": [
+          {
+            "utc": "2026-10-28T23:09:34.526117\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 1,
+            "localClickGuardMs": 900
+          }
+        ]
+      }
+    },
+    {
+      "id": "wrapper-world-lifecycle-0-36-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "public PickupSelected and actual ApplyWorldPacket S206/S87; in-memory sender; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "newSession": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": true,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "Faulted",
+        "deadline": 3293243,
+        "afterDeadline": 0,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": []
+      }
+    },
+    {
+      "id": "wrapper-world-lifecycle-0-66-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "public PickupSelected and actual ApplyWorldPacket S206/S87; in-memory sender; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": true,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": true,
+        "oldEvents": 1,
+        "oldEventWorld": 0,
+        "afterState": "InWorld",
+        "deadline": 3294165,
+        "afterDeadline": 3294165,
+        "busyAfter": false,
+        "nextSent": true,
+        "newAdmitted": true,
+        "newBusyBeforeRelease": true,
+        "finalBusy": false,
+        "events": [
+          {
+            "utc": "2026-10-28T23:09:36.3502305\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 0,
+            "localClickGuardMs": 900
+          },
+          {
+            "utc": "2026-10-28T23:09:36.3503323\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 1,
+            "localClickGuardMs": 900
+          }
+        ]
+      }
+    },
+    {
+      "id": "wrapper-world-lifecycle-0-66-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "public PickupSelected and actual ApplyWorldPacket S206/S87; in-memory sender; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": true,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "InWorld",
+        "deadline": 3295071,
+        "afterDeadline": 3295071,
+        "busyAfter": false,
+        "nextSent": true,
+        "newAdmitted": true,
+        "newBusyBeforeRelease": true,
+        "finalBusy": false,
+        "events": [
+          {
+            "utc": "2026-10-28T23:09:37.267153\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 1,
+            "localClickGuardMs": 900
+          }
+        ]
+      }
+    },
+    {
+      "id": "wrapper-world-lifecycle-0-66-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "public PickupSelected and actual ApplyWorldPacket S206/S87; in-memory sender; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "newSession": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": true,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "Faulted",
+        "deadline": 3295993,
+        "afterDeadline": 0,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": []
+      }
+    },
+    {
+      "id": "wrapper-world-lifecycle-1-36-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "public PickupSelected and actual ApplyWorldPacket S206/S87; in-memory sender; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": true,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": true,
+        "oldEvents": 1,
+        "oldEventWorld": 0,
+        "afterState": "InWorld",
+        "deadline": 3296900,
+        "afterDeadline": 3296900,
+        "busyAfter": false,
+        "nextSent": true,
+        "newAdmitted": true,
+        "newBusyBeforeRelease": true,
+        "finalBusy": false,
+        "events": [
+          {
+            "utc": "2026-10-28T23:09:39.084448\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 0,
+            "localClickGuardMs": 900
+          },
+          {
+            "utc": "2026-10-28T23:09:39.0845635\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 1,
+            "localClickGuardMs": 900
+          }
+        ]
+      }
+    },
+    {
+      "id": "wrapper-world-lifecycle-1-36-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "public PickupSelected and actual ApplyWorldPacket S206/S87; in-memory sender; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": true,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "InWorld",
+        "deadline": 3297806,
+        "afterDeadline": 3297806,
+        "busyAfter": false,
+        "nextSent": true,
+        "newAdmitted": true,
+        "newBusyBeforeRelease": true,
+        "finalBusy": false,
+        "events": [
+          {
+            "utc": "2026-10-28T23:09:40.0030905\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 1,
+            "localClickGuardMs": 900
+          }
+        ]
+      }
+    },
+    {
+      "id": "wrapper-world-lifecycle-1-36-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "public PickupSelected and actual ApplyWorldPacket S206/S87; in-memory sender; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "newSession": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": true,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "Faulted",
+        "deadline": 3298728,
+        "afterDeadline": 0,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": []
+      }
+    },
+    {
+      "id": "wrapper-world-lifecycle-1-66-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "public PickupSelected and actual ApplyWorldPacket S206/S87; in-memory sender; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": true,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": true,
+        "oldEvents": 1,
+        "oldEventWorld": 0,
+        "afterState": "InWorld",
+        "deadline": 3299634,
+        "afterDeadline": 3299634,
+        "busyAfter": false,
+        "nextSent": true,
+        "newAdmitted": true,
+        "newBusyBeforeRelease": true,
+        "finalBusy": false,
+        "events": [
+          {
+            "utc": "2026-10-28T23:09:41.8320635\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 0,
+            "localClickGuardMs": 900
+          },
+          {
+            "utc": "2026-10-28T23:09:41.8322494\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 1,
+            "localClickGuardMs": 900
+          }
+        ]
+      }
+    },
+    {
+      "id": "wrapper-world-lifecycle-1-66-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "public PickupSelected and actual ApplyWorldPacket S206/S87; in-memory sender; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": true,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "InWorld",
+        "deadline": 3300556,
+        "afterDeadline": 3300556,
+        "busyAfter": false,
+        "nextSent": true,
+        "newAdmitted": true,
+        "newBusyBeforeRelease": true,
+        "finalBusy": false,
+        "events": [
+          {
+            "utc": "2026-10-28T23:09:42.7516292\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 1,
+            "localClickGuardMs": 900
+          }
+        ]
+      }
+    },
+    {
+      "id": "wrapper-world-lifecycle-1-66-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "public PickupSelected and actual ApplyWorldPacket S206/S87; in-memory sender; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "newSession": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": true,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "Faulted",
+        "deadline": 3301478,
+        "afterDeadline": 0,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": []
+      }
+    },
+    {
+      "id": "wrapper-actor-lifecycle-0-36-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world ApplyWorldPacket S87 actor replacement; matching Status ID is synthetic prerequisite, not claimed publicly reachable identity switch; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "ready": true,
+        "available": true,
+        "pendingCleared": false,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": true,
+        "oldEvents": 1,
+        "oldEventWorld": 0,
+        "afterState": "InWorld",
+        "deadline": 3302384,
+        "afterDeadline": 3302384,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": [
+          {
+            "utc": "2026-10-28T23:09:44.5831399\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 0,
+            "localClickGuardMs": 900
+          }
+        ]
+      }
+    },
+    {
+      "id": "wrapper-actor-lifecycle-0-36-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world ApplyWorldPacket S87 actor replacement; matching Status ID is synthetic prerequisite, not claimed publicly reachable identity switch; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "ready": true,
+        "available": true,
+        "pendingCleared": false,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "InWorld",
+        "deadline": 3303306,
+        "afterDeadline": 3303306,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": []
+      }
+    },
+    {
+      "id": "wrapper-actor-lifecycle-0-36-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world ApplyWorldPacket S87 actor replacement; matching Status ID is synthetic prerequisite, not claimed publicly reachable identity switch; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "newSession": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": false,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "Faulted",
+        "deadline": 3304212,
+        "afterDeadline": 0,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": []
+      }
+    },
+    {
+      "id": "wrapper-actor-lifecycle-0-66-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world ApplyWorldPacket S87 actor replacement; matching Status ID is synthetic prerequisite, not claimed publicly reachable identity switch; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "ready": true,
+        "available": true,
+        "pendingCleared": false,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": true,
+        "oldEvents": 1,
+        "oldEventWorld": 0,
+        "afterState": "InWorld",
+        "deadline": 3305118,
+        "afterDeadline": 3305118,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": [
+          {
+            "utc": "2026-10-28T23:09:47.3140122\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 0,
+            "localClickGuardMs": 900
+          }
+        ]
+      }
+    },
+    {
+      "id": "wrapper-actor-lifecycle-0-66-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world ApplyWorldPacket S87 actor replacement; matching Status ID is synthetic prerequisite, not claimed publicly reachable identity switch; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "ready": true,
+        "available": true,
+        "pendingCleared": false,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "InWorld",
+        "deadline": 3306040,
+        "afterDeadline": 3306040,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": []
+      }
+    },
+    {
+      "id": "wrapper-actor-lifecycle-0-66-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world ApplyWorldPacket S87 actor replacement; matching Status ID is synthetic prerequisite, not claimed publicly reachable identity switch; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "newSession": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": false,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "Faulted",
+        "deadline": 3306931,
+        "afterDeadline": 0,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": []
+      }
+    },
+    {
+      "id": "wrapper-actor-lifecycle-1-36-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world ApplyWorldPacket S87 actor replacement; matching Status ID is synthetic prerequisite, not claimed publicly reachable identity switch; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "ready": true,
+        "available": true,
+        "pendingCleared": false,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": true,
+        "oldEvents": 1,
+        "oldEventWorld": 0,
+        "afterState": "InWorld",
+        "deadline": 3307853,
+        "afterDeadline": 3307853,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": [
+          {
+            "utc": "2026-10-28T23:09:50.0516225\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 0,
+            "localClickGuardMs": 900
+          }
+        ]
+      }
+    },
+    {
+      "id": "wrapper-actor-lifecycle-1-36-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world ApplyWorldPacket S87 actor replacement; matching Status ID is synthetic prerequisite, not claimed publicly reachable identity switch; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "ready": true,
+        "available": true,
+        "pendingCleared": false,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "InWorld",
+        "deadline": 3308775,
+        "afterDeadline": 3308775,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": []
+      }
+    },
+    {
+      "id": "wrapper-actor-lifecycle-1-36-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world ApplyWorldPacket S87 actor replacement; matching Status ID is synthetic prerequisite, not claimed publicly reachable identity switch; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "newSession": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": false,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "Faulted",
+        "deadline": 3309681,
+        "afterDeadline": 0,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": []
+      }
+    },
+    {
+      "id": "wrapper-actor-lifecycle-1-66-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world ApplyWorldPacket S87 actor replacement; matching Status ID is synthetic prerequisite, not claimed publicly reachable identity switch; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "ready": true,
+        "available": true,
+        "pendingCleared": false,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": true,
+        "oldEvents": 1,
+        "oldEventWorld": 0,
+        "afterState": "InWorld",
+        "deadline": 3310587,
+        "afterDeadline": 3310587,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": [
+          {
+            "utc": "2026-10-28T23:09:52.7847234\u002B00:00",
+            "plainHex": "70597FAC802B02000001000000000000",
+            "pickup": true,
+            "count": 1,
+            "worldEpoch": 0,
+            "localClickGuardMs": 900
+          }
+        ]
+      }
+    },
+    {
+      "id": "wrapper-actor-lifecycle-1-66-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world ApplyWorldPacket S87 actor replacement; matching Status ID is synthetic prerequisite, not claimed publicly reachable identity switch; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "newSession": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "ready": true,
+        "available": true,
+        "pendingCleared": false,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "InWorld",
+        "deadline": 3311509,
+        "afterDeadline": 3311509,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": []
+      }
+    },
+    {
+      "id": "wrapper-actor-lifecycle-1-66-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world ApplyWorldPacket S87 actor replacement; matching Status ID is synthetic prerequisite, not claimed publicly reachable identity switch; no reflection lease/reset; actual 900ms elapsed",
+        "firstAdmitted": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "newSession": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "ready": true,
+        "available": true,
+        "pendingCleared": false,
+        "wait": 904,
+        "beforeCallbackAdmitted": false,
+        "beforeCallbackSent": false,
+        "busyBefore": true,
+        "oldSent": false,
+        "oldEvents": 0,
+        "oldEventWorld": null,
+        "afterState": "Faulted",
+        "deadline": 3312415,
+        "afterDeadline": 0,
+        "busyAfter": false,
+        "nextSent": false,
+        "newAdmitted": false,
+        "newBusyBeforeRelease": false,
+        "finalBusy": false,
+        "events": []
+      }
+    },
+    {
+      "id": "legal-replies-before-completion-0-36-success",
+      "kind": "public API \u002B real wrapper S87/S67/S158/S15/S24; legal sampling changes preserve success, current true failure not swallowed",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": true,
+        "events": 1,
+        "outcome": "success",
+        "state": "InWorld",
+        "world": 0,
+        "lease": 1
+      }
+    },
+    {
+      "id": "legal-replies-before-completion-0-36-false",
+      "kind": "public API \u002B real wrapper S87/S67/S158/S15/S24; legal sampling changes preserve success, current true failure not swallowed",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "outcome": "false",
+        "state": "InWorld",
+        "world": 0,
+        "lease": 1
+      }
+    },
+    {
+      "id": "legal-replies-before-completion-0-36-error",
+      "kind": "public API \u002B real wrapper S87/S67/S158/S15/S24; legal sampling changes preserve success, current true failure not swallowed",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "outcome": "error",
+        "state": "Faulted",
+        "world": 0,
+        "lease": 1
+      }
+    },
+    {
+      "id": "legal-replies-before-completion-0-66-success",
+      "kind": "public API \u002B real wrapper S87/S67/S158/S15/S24; legal sampling changes preserve success, current true failure not swallowed",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": true,
+        "events": 1,
+        "outcome": "success",
+        "state": "InWorld",
+        "world": 0,
+        "lease": 1
+      }
+    },
+    {
+      "id": "legal-replies-before-completion-0-66-false",
+      "kind": "public API \u002B real wrapper S87/S67/S158/S15/S24; legal sampling changes preserve success, current true failure not swallowed",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "outcome": "false",
+        "state": "InWorld",
+        "world": 0,
+        "lease": 1
+      }
+    },
+    {
+      "id": "legal-replies-before-completion-0-66-error",
+      "kind": "public API \u002B real wrapper S87/S67/S158/S15/S24; legal sampling changes preserve success, current true failure not swallowed",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "outcome": "error",
+        "state": "Faulted",
+        "world": 0,
+        "lease": 1
+      }
+    },
+    {
+      "id": "legal-replies-before-completion-1-36-success",
+      "kind": "public API \u002B real wrapper S87/S67/S158/S15/S24; legal sampling changes preserve success, current true failure not swallowed",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": true,
+        "events": 1,
+        "outcome": "success",
+        "state": "InWorld",
+        "world": 0,
+        "lease": 1
+      }
+    },
+    {
+      "id": "legal-replies-before-completion-1-36-false",
+      "kind": "public API \u002B real wrapper S87/S67/S158/S15/S24; legal sampling changes preserve success, current true failure not swallowed",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "outcome": "false",
+        "state": "InWorld",
+        "world": 0,
+        "lease": 1
+      }
+    },
+    {
+      "id": "legal-replies-before-completion-1-36-error",
+      "kind": "public API \u002B real wrapper S87/S67/S158/S15/S24; legal sampling changes preserve success, current true failure not swallowed",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "outcome": "error",
+        "state": "Faulted",
+        "world": 0,
+        "lease": 1
+      }
+    },
+    {
+      "id": "legal-replies-before-completion-1-66-success",
+      "kind": "public API \u002B real wrapper S87/S67/S158/S15/S24; legal sampling changes preserve success, current true failure not swallowed",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": true,
+        "events": 1,
+        "outcome": "success",
+        "state": "InWorld",
+        "world": 0,
+        "lease": 1
+      }
+    },
+    {
+      "id": "legal-replies-before-completion-1-66-false",
+      "kind": "public API \u002B real wrapper S87/S67/S158/S15/S24; legal sampling changes preserve success, current true failure not swallowed",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "outcome": "false",
+        "state": "InWorld",
+        "world": 0,
+        "lease": 1
+      }
+    },
+    {
+      "id": "legal-replies-before-completion-1-66-error",
+      "kind": "public API \u002B real wrapper S87/S67/S158/S15/S24; legal sampling changes preserve success, current true failure not swallowed",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "outcome": "error",
+        "state": "Faulted",
+        "world": 0,
+        "lease": 1
+      }
+    },
+    {
+      "id": "no-socket-events",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "Observed": false
+      }
+    }
+  ]
+}

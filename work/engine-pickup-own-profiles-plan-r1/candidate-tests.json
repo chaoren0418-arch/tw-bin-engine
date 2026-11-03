@@ -1,0 +1,24 @@
+{
+  "status": "proposed-only; requires accepted r34 plus explicit root contract and final base",
+  "executed": false,
+  "productBuilds": 0,
+  "productRuntimeChecks": 0,
+  "nativeRuntimeChecks": 0,
+  "cases": [
+    {"id":"PROFILE-MAP","scope":"42 profile pairs × 2 allowed speeds × 8 directions; 672 parameter combinations, including16 existing0/0 controls","expect":"Each real authoritative own receipt uses captured current profile, exact1→2→3→0 keys and unchanged nominal scheduler. Proposed dimensions are not executed assertions."},
+    {"id":"BODY-PIXELS","scope":"416 unique body frames across13 gfx groups, including104 reused terminal frames and312 pickup frames","expect":"Actual product resource plus existing exact profile -> true Renderer.ComposeObjects/BitmapOf; independent accepted sparse-pixel/coverage/depth comparison. Repeated weapon users share pixels but require their own key mapping assertions."},
+    {"id":"EXACT-KEY-EXCEPTIONS","scope":"gfx2796 first pickup key48:1 and terminal8:0; all other sid offsets in profiles.json","expect":"No hardcoded gfx0 formula; no cross-sprite key collisions, mirroring, or substituted frame."},
+    {"id":"RESOURCE-INTEGRITY","scope":"Original r34 resource unchanged, proposed extension exact bytes/hash, profile paths/hashes,24+288 unique embedded frames","expect":"Tampered resource, missing key, wrong profile hash or sprite/group fails conservatively at receipt and presentation; source manifest includes every added resource."},
+    {"id":"BASE-REUSE","scope":"Every profile's8 existing terminal frame objects","expect":"Reuse exact loaded profile frame0, do not embed duplicates or borrow another profile's instance; profile mutation/integrity failure suppresses or cancels."},
+    {"id":"SHADOW","scope":"104 distinct terminal hits and312 pickup misses, expanded through all42 profiles","expect":"No stale idle body/shadow on pickup; preserve original depth/anchor/source order; use exact terminal shadow only; no invented shadow."},
+    {"id":"ACTIVE-WINDOWS","scope":"Each profile: attack/damage/spellDir/spellNoDir, normal/haste, captured timing or fallback as applicable; last visible and first expired integer age","expect":"Use actual double Duration/AnimationMs, preserve nonnull expired history; never gate on truncated visual StepMs. Admission and existing rendering agree."},
+    {"id":"PROJECTILE-DEATH","scope":"Active/expired WithProjectileHit with null/stale/newer OwnCombat; death and S87 weapon8","expect":"Existing projectile-hit/death priority and weapon0 dead appearance selection retained; no changed combat/report durations."},
+    {"id":"SAME-GFX-WEAPON-CHANGE","scope":"Own pickup then weapon change between two profiles sharing a body; also gfx change or actor/map/session reset","expect":"Captured owner/revisions cancel despite shared pixel group; late old callback cannot draw or clear the newest instance."},
+    {"id":"BURST-CANCEL-SCHEDULER","scope":"Expanded profiles: burst receipts, late one-step/min2 recurrence, terminal584/preemption, speed revision roundtrip, movement/direction/lock/shop/health/removal","expect":"Preserve accepted r34 semantics; unsupported receipt still handles authoritative heading/count as before."},
+    {"id":"NEGATIVE-SCOPE","scope":"Unlisted gfx/weapon pair,Speed2/3/17/18,nonzeroBrave,remote and unknown IDs","expect":"No new pickup support or remote changes; remote action15 never clears own instance."},
+    {"id":"GAMEPLAY-PRESERVATION","scope":"C112/send/count-only/finish do not trigger pickup; r33 delayed send owner/early replies; r32 slow-haste item exception","expect":"900/3000 bytes/policies and authoritative inventory/ground behavior unchanged; no presentation-driven sends or speculative completion."},
+    {"id":"EVENTS-AND-CONTROL","scope":"Metadata<206 and all other events; original0/0 images,resource identity,audio DLL","expect":"No new audio/effect event dispatch;0/0 output remains equal to accepted final r34. No audio device execution implied by static checks."},
+    {"id":"LIVE-SEPARATE","scope":"Only after explicit later authorization","expect":"Normal product/session/timing/user-flow acceptance separate from static mapping and offscreen synthetic packet tests."}
+  ],
+  "executionAccounting": "All rows proposed and unexecuted. Do not add historical402/84 or source static assertions to product test totals. Record exact future occurrences and independent observations separately."
+}

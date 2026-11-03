@@ -1,0 +1,62 @@
+{
+  "utc": "2026-10-29T03:33:43.899Z",
+  "observations": [
+    {
+      "phase": "P25",
+      "threadId": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+      "hostId": "local",
+      "status": {
+        "type": "active",
+        "activeFlags": []
+      },
+      "turnId": "01a185b7-df4d-7171-8c4a-6a048e09e2fe",
+      "turnStatus": "inProgress",
+      "readCommands": [
+        {
+          "status": "completed",
+          "exitCode": 0,
+          "command": "\"C:\\\\Users\\\\CHAOREN\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\AGENTS.md' -Raw; Get-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\主管\\\\P25-P27-新主管接管-20261029\\\\takeover.json' -Raw\""
+        }
+      ],
+      "taskState": "running-observed-read"
+    },
+    {
+      "phase": "P26",
+      "threadId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "hostId": "local",
+      "status": {
+        "type": "active",
+        "activeFlags": []
+      },
+      "turnId": "01a185b7-ebfd-7471-985c-8b66417b3700",
+      "turnStatus": "inProgress",
+      "readCommands": [
+        {
+          "status": "completed",
+          "exitCode": 0,
+          "command": "\"C:\\\\Users\\\\CHAOREN\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\AGENTS.md' -Raw; Get-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\主管\\\\P25-P27-新主管接管-20261029\\\\takeover.json' -Raw\""
+        }
+      ],
+      "taskState": "running-observed-read"
+    },
+    {
+      "phase": "P27",
+      "threadId": "01a185b7-f732-7f60-8716-a944d67724c2",
+      "hostId": "local",
+      "status": {
+        "type": "active",
+        "activeFlags": []
+      },
+      "turnId": "01a185b7-f8b1-7c91-87e0-aa0bb5e3027e",
+      "turnStatus": "inProgress",
+      "readCommands": [
+        {
+          "status": "completed",
+          "exitCode": 0,
+          "command": "\"C:\\\\Users\\\\CHAOREN\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\AGENTS.md'; Get-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\主管\\\\P25-P27-新主管接管-20261029\\\\takeover.json'\""
+        }
+      ],
+      "taskState": "running-observed-read"
+    }
+  ]
+}

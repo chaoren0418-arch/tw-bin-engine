@@ -1,0 +1,16 @@
+{
+  "utc": "2026-10-29T01:26:30.982435+00:00",
+  "taskId": "ENGINE-R34-INTEGRATE-PICKUP-PRESENTATION-R1",
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "turnId": "01a18543-caae-7b63-858c-ba79a368a21f",
+  "cursor": "06f62879-b242-49d3-a511-42891ee357b8:251",
+  "status": "active-isolated-build-and-full-offline-acceptance",
+  "writeRoot": "work/engine-r34-integration-r2/r34-runs/accepted-pickup-presentation-r1-01",
+  "formalBuildAuthorized": true,
+  "sharedMergeAuthorized": false,
+  "expectedAssertions": 4521,
+  "expectedObservations": 93,
+  "baseline": "final-r33",
+  "contractSha256": "37ff68bd2ce504a7dc1f8df8b80a9a9b70068c96d159fc5b1e5df75246c2efd1",
+  "receiptSha256": "ed80a7daa26d6b6aa3f00f12fadfb655d947ad33f76f5969821aaaa1a6cfa237"
+}

@@ -1,0 +1,176 @@
+{
+  "files": [
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\artifact-manifest.json",
+      "copy": "reference/sealed-review/artifact-manifest.json",
+      "size": 72114,
+      "sha256": "715c95654af8a1c59853f15e41c3511d5b15c1b0749bf35c47e39fe918b99196"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\review-acceptance.json",
+      "copy": "reference/sealed-review/review-acceptance.json",
+      "size": 1981,
+      "sha256": "5ba17f25a978b146a282f14fce8f477a60307303451ded1b9bca916b56411d4d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\result.json",
+      "copy": "reference/sealed-review/result.json",
+      "size": 3292,
+      "sha256": "81481f6fc05d19baea5af17a1338638c5d038708182961db47ef4864d063cb0e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-rows.json",
+      "copy": "reference/sealed-review/execution-rows.json",
+      "size": 379060,
+      "sha256": "a10c83bd5820680144211e6cb85854033e61d89d81f6e4544ffe1f2052856585"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-accounting.json",
+      "copy": "reference/sealed-review/execution-accounting.json",
+      "size": 1361,
+      "sha256": "5ecf154cd6e8f9874a3c1b5e4a4ada6a55f084ddd19e0c1611c03c8906ca1f0d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\coverage.json",
+      "copy": "reference/sealed-review/coverage.json",
+      "size": 75839,
+      "sha256": "862df5ed2253c08872e402e866c57fab9ff015b389c9fd0fe34f29ce1aa1968b"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\findings.json",
+      "copy": "reference/sealed-review/findings.json",
+      "size": 13843,
+      "sha256": "0362e84f9f44cb916a7cc74e3ac3ce93cfb2749ac1ef058edd16c3f81cf9d49a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\integrity-review.json",
+      "copy": "reference/sealed-review/integrity-review.json",
+      "size": 723,
+      "sha256": "ee5f426f0d100ff65055a13e0102f4cd34615e23fcc0691e0c171c0875dbf8c7"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\source-diff.json",
+      "copy": "reference/sealed-review/source-diff.json",
+      "size": 3245,
+      "sha256": "fcae5bb250faecdf1c30c500ab6157bc203ea41f85388bfb6782c59fec1444c9"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\source-pins.json",
+      "copy": "reference/sealed-review/source-pins.json",
+      "size": 210797,
+      "sha256": "06fb945708e6470b701028fc7b2bf1664a36f7043d2fba43a77840c5fba8df25"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\pixel-review.json",
+      "copy": "reference/sealed-review/pixel-review.json",
+      "size": 470,
+      "sha256": "aa9fb111634ee074a820f87a85557ceeeb40cc4949872766c436b45559f93ef5"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\preservation-review.json",
+      "copy": "reference/sealed-review/preservation-review.json",
+      "size": 337,
+      "sha256": "08bf0df8e76b118fcbe17514670c82560cc1a95bcca77005a9efcce2d2308780"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\verify.py",
+      "copy": "reference/sealed-review/verify.py",
+      "size": 5744,
+      "sha256": "6b29b39c0b849ce462a1b8c3eade35e63edf28a9cf63c00fe1c57c951ef2a9a7"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\run_probe.ps1",
+      "copy": "reference/sealed-review/run_probe.ps1",
+      "size": 1791,
+      "sha256": "c2e8ff3fc7f81a3aeb726a5e877ccf3af3db06e7d062e00380c509c41baa112f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\HANDOFF.md",
+      "copy": "reference/sealed-review/HANDOFF.md",
+      "size": 2553,
+      "sha256": "5c4ed9084e5c5f0b4746ad0197db8fb5f0bb72e8ff9ef24dc37be144e757e4d0"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\runs\\candidate-02\\probe.json",
+      "copy": "reference/sealed-review/runs/candidate-02/probe.json",
+      "size": 466249,
+      "sha256": "c9da8808ad8c339bbd493c8b6656c709f9cb74b0720bda20cdc8720b330040d0"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\runs\\supplement-01\\probe.json",
+      "copy": "reference/sealed-review/runs/supplement-01/probe.json",
+      "size": 28628,
+      "sha256": "b5adc5ccdfa004cb62288c0519061963ea4ff4fd6a2002136e838cff8e412a4a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\main-174\\Candidate.cs",
+      "copy": "reference/sealed-review/execution-builds/main-174/Candidate.cs",
+      "size": 22701,
+      "sha256": "8bd1da9279ca977718ba6c5e2b5a57ba3215bf85ed90ad2ac45d6355c7dd9e19"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\main-174\\Fixture.cs",
+      "copy": "reference/sealed-review/execution-builds/main-174/Fixture.cs",
+      "size": 5725,
+      "sha256": "3647a52273cf75b10399eb357bc64035cd1695f38d0065f7d0624d757876e259"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\main-174\\Focused.cs",
+      "copy": "reference/sealed-review/execution-builds/main-174/Focused.cs",
+      "size": 8297,
+      "sha256": "77fbe15541d638c33892df21758f1f1b51397d2b60b9b5cf1e2eaf7f4bff6d9a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\main-174\\Probe.csproj",
+      "copy": "reference/sealed-review/execution-builds/main-174/Probe.csproj",
+      "size": 517,
+      "sha256": "10a63d43f39c9b13e1673a74dbafc5624c998ee926d3f1cf3898402083c5570e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\main-174\\receipt.json",
+      "copy": "reference/sealed-review/execution-builds/main-174/receipt.json",
+      "size": 259,
+      "sha256": "81bb1f475a5b05163faca13cf2b9a3e4dda66abe32f4af555731a83276d18419"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\supplement-10\\Candidate.cs",
+      "copy": "reference/sealed-review/execution-builds/supplement-10/Candidate.cs",
+      "size": 22940,
+      "sha256": "e4540114c341374bc97e75107dd50af7c65661f9751ab85d8f7b45ba2002b7cf"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\supplement-10\\Fixture.cs",
+      "copy": "reference/sealed-review/execution-builds/supplement-10/Fixture.cs",
+      "size": 5725,
+      "sha256": "3647a52273cf75b10399eb357bc64035cd1695f38d0065f7d0624d757876e259"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\supplement-10\\Focused.cs",
+      "copy": "reference/sealed-review/execution-builds/supplement-10/Focused.cs",
+      "size": 8297,
+      "sha256": "77fbe15541d638c33892df21758f1f1b51397d2b60b9b5cf1e2eaf7f4bff6d9a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\supplement-10\\Probe.csproj",
+      "copy": "reference/sealed-review/execution-builds/supplement-10/Probe.csproj",
+      "size": 517,
+      "sha256": "10a63d43f39c9b13e1673a74dbafc5624c998ee926d3f1cf3898402083c5570e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\supplement-10\\receipt.json",
+      "copy": "reference/sealed-review/execution-builds/supplement-10/receipt.json",
+      "size": 259,
+      "sha256": "ebbbe8aa7354cd0471ab11049b9ba2b29710f186bf6db09730f98948701ce411"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\supplement-10\\Supplement.cs",
+      "copy": "reference/sealed-review/execution-builds/supplement-10/Supplement.cs",
+      "size": 4267,
+      "sha256": "9b057a798544b8dee00ae0a58f78f3f25b2a5df0dbc80fb11816cda66d9d1e59"
+    }
+  ],
+  "reviewSealSha256": "715c95654af8a1c59853f15e41c3511d5b15c1b0749bf35c47e39fe918b99196",
+  "artifactsVerified": 414,
+  "helperDllCopies": 0,
+  "bitmapCopies": 0
+}

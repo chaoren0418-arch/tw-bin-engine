@@ -1,0 +1,53 @@
+{
+  "schema": "pickup-own-profile-expansion-plan-v1",
+  "status": "proposal-only-awaiting-r34-acceptance-and-root-contract",
+  "profiles": 42,
+  "alreadyImplementedControl": 1,
+  "proposedAdditionalProfiles": 41,
+  "gfxGroups": 13,
+  "newResourceGroups": 12,
+  "allProfileFrameReferences": 1344,
+  "additionalProfileFrameReferences": 1312,
+  "uniqueRequiredBodyFrames": 416,
+  "uniqueExistingBaseFrames": 104,
+  "uniquePickupFrames": 312,
+  "existingR34EmbeddedPickupFrames": 24,
+  "additionalEmbeddedPickupFrames": 288,
+  "newResourceBytes": 2473547,
+  "newResourceSha256": "aff2e04d4f9395f7993baf5818eb16218730b7def0a29c7d07e86c314db513ba",
+  "newResourceSchema": "pickup-own-base15-profile-extension-v1",
+  "newResourceLogicalName": "P06.Resources.PickupOwnBase15ProfileExtension.json",
+  "canonicalSerialization": "UTF8 no BOM/newline; sorted keys; compact comma/colon; ensure_ascii=False",
+  "resourcePayloadWritten": false,
+  "resourceRecipe": "plan.py build() extension expression; all pixels in memory only",
+  "assetPackageCopied": false,
+  "sourceDecodedAgain": false,
+  "sourceIdentityCounts": {
+    "current-idx-and-bounded-slice-only": 312,
+    "historical-selected-payload-matched": 104
+  },
+  "extensionIdentityCounts": {
+    "current-idx-and-bounded-slice-only": 288
+  },
+  "shadowCoverage": {
+    "uniqueTerminalBaseHits": 104,
+    "uniquePickupBodyHits": 0,
+    "uniquePickupBodyMissing": 312,
+    "allProfileReferencesHits": 336,
+    "allProfileReferencesMissing": 1008
+  },
+  "scope": {
+    "actor": "own",
+    "speed": [
+      0,
+      1
+    ],
+    "brave": 0,
+    "remote": false,
+    "slow": false,
+    "nativeEligibility": false
+  },
+  "productBuilds": 0,
+  "productRuntimeChecks": 0,
+  "nativeRuntimeChecks": 0
+}

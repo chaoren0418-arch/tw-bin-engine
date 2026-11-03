@@ -1,0 +1,27 @@
+{
+  "status": "corrected-supervisor-copy-filter",
+  "failure": "freeze audit KeyError for compiled oracle-classes excluded by worker manifest",
+  "removed_review_copies_only": [
+    {
+      "path": "reference\\ground\\oracle-classes\\GroundOracle$Item.class",
+      "sha256": "1c5828b84d40957136e506dd2aa92aed086a604fed9c0d79fe45b3a3f641c596",
+      "bytes": 1255
+    },
+    {
+      "path": "reference\\ground\\oracle-classes\\GroundOracle.class",
+      "sha256": "566f13af593ce336c9b264274d971e56b84f207708825bb2d3359598f2ffeac5",
+      "bytes": 2599
+    },
+    {
+      "path": "reference\\inventory\\oracle-classes\\InventoryOracle$Item.class",
+      "sha256": "f5098e8efb445eb20b02ace7f77c502d382fc0ed17fa1d8f1921bca6c80583da",
+      "bytes": 1895
+    },
+    {
+      "path": "reference\\inventory\\oracle-classes\\InventoryOracle.class",
+      "sha256": "6cfdd910497170ccd4ef18a5eeaaa926bd148b0635b293bd30c616499b5e5325",
+      "bytes": 2927
+    }
+  ],
+  "source_files_unchanged": true
+}

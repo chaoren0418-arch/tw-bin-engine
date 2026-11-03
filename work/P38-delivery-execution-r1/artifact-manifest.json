@@ -1,0 +1,369 @@
+{
+  "schema": "p38-delivery-execution-artifact-manifest-v1",
+  "excludedFiles": [
+    "artifact-manifest.json",
+    "artifact-seal.json"
+  ],
+  "files": [
+    {
+      "path": "authority.json",
+      "size": 2247,
+      "sha256": "dff2398ff89934109e4351a7fee4fa48ed006f59a2e59c707620300ab1cebd52"
+    },
+    {
+      "path": "candidate-file-seal.json",
+      "size": 36350,
+      "sha256": "3470b0ff44b49ae08c4751efe14ea2b8bd983437a8111c0512dc6c799d71e683"
+    },
+    {
+      "path": "commands/candidate-check-only-01/assigned.json",
+      "size": 62,
+      "sha256": "704e2160b1ee076699ce13ac11acdc0db07548440cee1c94e5ef4502a19804d3"
+    },
+    {
+      "path": "commands/candidate-check-only-01/command.json",
+      "size": 1091,
+      "sha256": "d7bb166144639f1a6d3b6a2fceccaab29b04a13363f9a5b300fb2c86a0106541"
+    },
+    {
+      "path": "commands/candidate-check-only-01/resumed.json",
+      "size": 61,
+      "sha256": "b5fb8c84e498735127a55c3a2bac2957480454a99d8a65c45a6c67aa17c6d229"
+    },
+    {
+      "path": "commands/candidate-check-only-01/started.json",
+      "size": 457,
+      "sha256": "32e9405a590800272067e02b0980604683de47f50cebacef6db538136d0aadf2"
+    },
+    {
+      "path": "commands/candidate-check-only-01/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/candidate-check-only-01/stdout",
+      "size": 1361,
+      "sha256": "6ee60ccdf151917adfdcee4af1e08960a3aa8ef4315379fbd2cc0a23152c37e0"
+    },
+    {
+      "path": "commands/finalize-delivery/command.json",
+      "size": 833,
+      "sha256": "7e5218fb34bef213df016f9f57163bf4f508b27cabae1d0ac67a85748e9b4ac8"
+    },
+    {
+      "path": "commands/finalize-delivery/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/finalize-delivery/stdout",
+      "size": 254,
+      "sha256": "bd20b20556c2192ee05dad5d66eae1953246d177b3a78f76f2a7bd5d6322fa02"
+    },
+    {
+      "path": "commands/launcher-build-01/assigned.json",
+      "size": 62,
+      "sha256": "3d1c1ebc1e12f938f97d9d3c5bb3346aa99f8300c845c4e580915dfa0f107eee"
+    },
+    {
+      "path": "commands/launcher-build-01/command.json",
+      "size": 1854,
+      "sha256": "6bd17556a8b5b47171c453ccc98cce73096fa47b6ac45d0472b9b4c14bfbd55b"
+    },
+    {
+      "path": "commands/launcher-build-01/msbuild.binlog",
+      "size": 132313,
+      "sha256": "f1879400302f9f34a163e5dd806aef40b21cc6fc940c9572d8e64d069ee3d785"
+    },
+    {
+      "path": "commands/launcher-build-01/resumed.json",
+      "size": 61,
+      "sha256": "f054a1c9db102321664de62edf0aed1ba1ef72d07e8903df486df30ba14907bf"
+    },
+    {
+      "path": "commands/launcher-build-01/started.json",
+      "size": 1221,
+      "sha256": "cc1d2addaad4bd33c223b1ba30c4ddab745961926c5e54c720ff881e91b30873"
+    },
+    {
+      "path": "commands/launcher-build-01/stderr",
+      "size": 497,
+      "sha256": "7f0b85f13e01776dc0918e791ad9f34b4f435c0c709a31fa62b65b22233862a2"
+    },
+    {
+      "path": "commands/launcher-build-01/stdout",
+      "size": 7743588,
+      "sha256": "4ea7a7b09da448c41cc28dc62f31a0b33d71e0228559686ad2bbe208bbaecd94"
+    },
+    {
+      "path": "commands/r34-isolation-check-only-01/assigned.json",
+      "size": 62,
+      "sha256": "d0a380f1cefcf63df83f79cbf32b942545706fa2660d6ec87f61dfee76c2d5e0"
+    },
+    {
+      "path": "commands/r34-isolation-check-only-01/command.json",
+      "size": 1080,
+      "sha256": "52f9e0d11edf4ac06d80d577fd430059d819c9953891c609f9b5a12fe5243baf"
+    },
+    {
+      "path": "commands/r34-isolation-check-only-01/resumed.json",
+      "size": 61,
+      "sha256": "35a14ee0fbfd8cf462041858e014ea0b81379ef86936371ffac72875ed987d81"
+    },
+    {
+      "path": "commands/r34-isolation-check-only-01/started.json",
+      "size": 442,
+      "sha256": "8432c770aff1c3dd9ae78dc0a696a24b60f4f5adce32a881a135a7a00b4c4a0b"
+    },
+    {
+      "path": "commands/r34-isolation-check-only-01/stderr",
+      "size": 92,
+      "sha256": "27ed5a6e00537182c184ffed6a0f4d109f7a5f02fdd611deba49fd59a4fb06c4"
+    },
+    {
+      "path": "commands/r34-isolation-check-only-01/stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "compiler-command-index.json",
+      "size": 25249,
+      "sha256": "1c9c6c27fd4d79a40da850742bb6386ba139fea5da2e0c9518c378aacced1c81"
+    },
+    {
+      "path": "delivery-result.json",
+      "size": 2100,
+      "sha256": "c8874984330980acce2fb81a7815e47cbd164f44d3ab1add7f5f493881c0cf78"
+    },
+    {
+      "path": "delivery_evidence.py",
+      "size": 4274,
+      "sha256": "9c309cc0f0d9f4126a9da7b227464d3977453dc7cd7b69952809c7c02d6ba3ce"
+    },
+    {
+      "path": "environment/appdata/roaming/NuGet/NuGet.Config",
+      "size": 210,
+      "sha256": "3bdb050540ecdd6fe717cbb9028c0ff9e2af5e1544afa71b6bade80140c7a236"
+    },
+    {
+      "path": "environment/cli-home/.dotnet/10.0.300.dotnetFirstUseSentinel",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "environment/tmp/Microsoft.NET.Workload_11892_20261029_180647_964.log",
+      "size": 1674,
+      "sha256": "e0669bada14496366502e72a3b12957ffeceea2a82b68e03259a70e947bf08c2"
+    },
+    {
+      "path": "environment/tmp/Microsoft.NET.Workload_11892_20261029_180648_022.log",
+      "size": 1675,
+      "sha256": "acf843a8145727a03763eb8778e31fff25cf588f46243b63856233735863c32b"
+    },
+    {
+      "path": "environment.json",
+      "size": 2166,
+      "sha256": "6cb884e7806e230c3c44e20a53f924756221b38183bf0b3a68fc82a14981185b"
+    },
+    {
+      "path": "finalize_delivery.py",
+      "size": 3224,
+      "sha256": "7d70fff53e43768708ebb2b8e6b3d9a01fa553e4a792bb2dc64ae9d7d320726b"
+    },
+    {
+      "path": "global.json",
+      "size": 56,
+      "sha256": "1c530f4c116bcf04e451cf0ca155fa18d73415c85145534a415f1eb4c39198b3"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 5664,
+      "sha256": "d59d12ce979fad548138c7000e331e622c9a5ffcf744be4af837e27bc436fa23"
+    },
+    {
+      "path": "launcher-build/P24.Launcher.deps.json",
+      "size": 430,
+      "sha256": "1cc0f476da7833ffe9258f8ac190eb56d167d517c1004acc98c2e054f168e90a"
+    },
+    {
+      "path": "launcher-build/P24.Launcher.dll",
+      "size": 24576,
+      "sha256": "44361072a33d572e155d80af41bf6245cf80fe8770eb1b80bdae0958540053b6"
+    },
+    {
+      "path": "launcher-build/P24.Launcher.exe",
+      "size": 162304,
+      "sha256": "9ec5d1d644a2a4efddf083636c543f733dfc7a7a031ae6c3de48fb396aa98ada"
+    },
+    {
+      "path": "launcher-build/P24.Launcher.pdb",
+      "size": 12644,
+      "sha256": "7c636a71f6fd818d48c01e02860a3cfef7839db51915eb3e7a2b79094f8f8e15"
+    },
+    {
+      "path": "launcher-build/P24.Launcher.runtimeconfig.json",
+      "size": 399,
+      "sha256": "3e965cd7cfd553c2ff4e842d8d8019aaae2da0a21d92ff85a87573dd8d1b95c6"
+    },
+    {
+      "path": "launcher-output-pins.json",
+      "size": 1464,
+      "sha256": "5b45393d03e3c191dd9687e201ca58af431f1a850a4996260994bd6df503fb84"
+    },
+    {
+      "path": "launcher-source/Launcher.csproj",
+      "size": 412,
+      "sha256": "59a5f22c8ced415eb3d9a36d5f356b52766956a3ae66597e29214a53280e62ee"
+    },
+    {
+      "path": "launcher-source/Program.cs",
+      "size": 8556,
+      "sha256": "a1819226911548c627b1980f9de0b773af5ed6f3bae88bd11ea3131fb7f6b7ca"
+    },
+    {
+      "path": "materialized-asset-identities.json",
+      "size": 5928701,
+      "sha256": "930394cfa44ba3ef9ee747f444efb0b49a237f500a8e1cdc88a9ab37cec2d131"
+    },
+    {
+      "path": "materialized-copies.json",
+      "size": 117855,
+      "sha256": "933aaf2f94aa3d60197eff4d6ce9b4592a7af9aae9a8c4900873740e58974df1"
+    },
+    {
+      "path": "NuGet.Config",
+      "size": 155,
+      "sha256": "337ed22a5dd2b3a69d86fac14c3a86a05cf3ffc3d1d65e400850c747010b4f19"
+    },
+    {
+      "path": "obj/Launcher.csproj.nuget.dgspec.json",
+      "size": 21825,
+      "sha256": "66bfe7209eb0f03b2916ba2038992c600b219e32b1307b95b7a206298acf8431"
+    },
+    {
+      "path": "obj/Launcher.csproj.nuget.g.props",
+      "size": 1295,
+      "sha256": "12642d9de30fff16cb0bb317152cf2f30e5c486f13fd6242b63094c59fb34c5b"
+    },
+    {
+      "path": "obj/Launcher.csproj.nuget.g.targets",
+      "size": 150,
+      "sha256": "971cc9b535384849b5c661d776cd7a80833a416265e32e8968e06c367368b8b5"
+    },
+    {
+      "path": "obj/project.assets.json",
+      "size": 21168,
+      "sha256": "068eeaa18ed0f15453de8440eeb50789b6fe6ac704542843d281a9db347d3f21"
+    },
+    {
+      "path": "obj/project.nuget.cache",
+      "size": 249,
+      "sha256": "725ad67d9ed0f639b97923dbb12fc92ba23bae6d76fff7d81d71d3e61d9f84d4"
+    },
+    {
+      "path": "obj/Release/net10.0-windows/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "size": 200,
+      "sha256": "93d67476196ebfc80d1d7d8844b91146cfd678d105f5ce635eb900ca40610c9b"
+    },
+    {
+      "path": "obj/Release/net10.0-windows/apphost.exe",
+      "size": 162304,
+      "sha256": "9ec5d1d644a2a4efddf083636c543f733dfc7a7a031ae6c3de48fb396aa98ada"
+    },
+    {
+      "path": "obj/Release/net10.0-windows/Launcher.AssemblyInfo.cs",
+      "size": 1130,
+      "sha256": "abe228a9dad5ef0f39ea61a008d4a47add1333de1aaf5cc9a1b71533e7d59685"
+    },
+    {
+      "path": "obj/Release/net10.0-windows/Launcher.AssemblyInfoInputs.cache",
+      "size": 66,
+      "sha256": "fd89a5019cfbb2d4ee8218ae23302505beecc19777cf96bf5ff8fde5ddf3e40c"
+    },
+    {
+      "path": "obj/Release/net10.0-windows/Launcher.assets.cache",
+      "size": 205,
+      "sha256": "41c641cc3db0359847f0f3a9e7ea51fd62dfd54284b071931f52ba7b7e20d0e0"
+    },
+    {
+      "path": "obj/Release/net10.0-windows/Launcher.csproj.CoreCompileInputs.cache",
+      "size": 66,
+      "sha256": "c465523e389dffa9b204528cb5910a74802970911a08b3e6421130f91fb42b2a"
+    },
+    {
+      "path": "obj/Release/net10.0-windows/Launcher.csproj.FileListAbsolute.txt",
+      "size": 1646,
+      "sha256": "68575bae422c5f37aec05a1e87231e79273a7007782ce0bf2809fe16f36400c1"
+    },
+    {
+      "path": "obj/Release/net10.0-windows/Launcher.GeneratedMSBuildEditorConfig.editorconfig",
+      "size": 935,
+      "sha256": "bc7ea4e3a8ef9d3a6a907da4f1abf538c9c52ac7912e84feee2deb18f13c78ea"
+    },
+    {
+      "path": "obj/Release/net10.0-windows/Launcher.genruntimeconfig.cache",
+      "size": 66,
+      "sha256": "fa13fdd1866d812ad2bb48e32b28105c98dea4f50c91b034f6f11e3d581a03c0"
+    },
+    {
+      "path": "obj/Release/net10.0-windows/Launcher.GlobalUsings.g.cs",
+      "size": 239,
+      "sha256": "a3c6048bb4d922b1799a9977f84362a3787b68810cac67aa86ac3aa23295f227"
+    },
+    {
+      "path": "obj/Release/net10.0-windows/P24.Launcher.dll",
+      "size": 24576,
+      "sha256": "44361072a33d572e155d80af41bf6245cf80fe8770eb1b80bdae0958540053b6"
+    },
+    {
+      "path": "obj/Release/net10.0-windows/P24.Launcher.pdb",
+      "size": 12644,
+      "sha256": "7c636a71f6fd818d48c01e02860a3cfef7839db51915eb3e7a2b79094f8f8e15"
+    },
+    {
+      "path": "obj/Release/net10.0-windows/ref/P24.Launcher.dll",
+      "size": 6656,
+      "sha256": "113b9fc8268d90d3417e1e6642a7f2de55a8f43f451198595a70c7df0508ce25"
+    },
+    {
+      "path": "obj/Release/net10.0-windows/refint/P24.Launcher.dll",
+      "size": 6656,
+      "sha256": "113b9fc8268d90d3417e1e6642a7f2de55a8f43f451198595a70c7df0508ce25"
+    },
+    {
+      "path": "outer-invocation.json",
+      "size": 1223,
+      "sha256": "d76f5c53c7a221a527c0165ed04d7b6cdfed1b4f87cdf215752011b5dcf74025"
+    },
+    {
+      "path": "preservation.json",
+      "size": 9092,
+      "sha256": "bf6760ffc09a22a1abd7e8ea691c556cf7340792b3e143009b1f721a4506e8f2"
+    },
+    {
+      "path": "record_delivery.py",
+      "size": 824,
+      "sha256": "e599c406a3f03db53918d8e7e47ae5eec79118a2c0b1e5d0f4932e9cd0a1d4df"
+    },
+    {
+      "path": "result.json",
+      "size": 2882,
+      "sha256": "37655945b75dc0f86b6fe4153ba17779a186df571726f4ce162dcd8ee1807a2f"
+    },
+    {
+      "path": "seal_delivery.py",
+      "size": 1303,
+      "sha256": "9d2ff39bd88226d96a20da774e15b91a53d6dd05b13dd2785452c9577a266790"
+    },
+    {
+      "path": "started.json",
+      "size": 474,
+      "sha256": "de380596e321441d7c09988683ee77def09b9809b65426d2eebf7ae11594b6e1"
+    },
+    {
+      "path": "verify_delivery.py",
+      "size": 1024,
+      "sha256": "22797662d3229e697f3eff15ab4e4038267ba0bfb8a1bdb9c15e5f57024be880"
+    }
+  ]
+}

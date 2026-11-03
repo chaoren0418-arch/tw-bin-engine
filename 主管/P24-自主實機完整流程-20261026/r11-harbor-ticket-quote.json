@@ -1,0 +1,59 @@
+{
+  "canTalk": false,
+  "model": {
+    "canSubmit": true,
+    "currency": 7,
+    "epoch": 35,
+    "feePerRow": false,
+    "hasResult": false,
+    "kind": "buy",
+    "notice": "請設定數量並明確提交一次；結果以原服背包與金額為準。",
+    "npcId": 2000039469,
+    "options": null,
+    "priceLabel": "單價",
+    "revision": 58,
+    "rows": [
+      {
+        "available": 2147483647,
+        "icon": 138,
+        "id": 0,
+        "name": "$314",
+        "price": 306
+      }
+    ],
+    "selection": true,
+    "targetId": 2000039469,
+    "targetRevision": 4,
+    "text": null,
+    "title": "購買物品"
+  },
+  "notice": "請設定數量並明確提交一次；結果以原服背包與金額為準。",
+  "options": null,
+  "rows": [
+    {
+      "available": 2147483647,
+      "id": 0,
+      "name": "往古魯丁的船票",
+      "price": 306
+    }
+  ],
+  "targets": [
+    {
+      "id": 2000035931,
+      "name": "史萊姆"
+    },
+    {
+      "id": 2000036179,
+      "name": "老虎"
+    },
+    {
+      "id": 2000039469,
+      "name": "港口主人"
+    },
+    {
+      "id": 2000040109,
+      "name": "克特"
+    }
+  ],
+  "text": ""
+}

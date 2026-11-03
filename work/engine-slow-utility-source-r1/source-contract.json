@@ -1,0 +1,456 @@
+{
+  "schema": "engine-utility-source-contract-v1",
+  "task": "ENGINE-SLOW-UTILITY-SOURCE-R1",
+  "base": "r30",
+  "productCandidate": false,
+  "qualificationDefinition": "qualified means sufficient explicit source for proposing the narrowly specified server-authoritative request increment; it does NOT certify original-native input parity, current DB configuration, implementation, or acceptance.",
+  "items": [
+    {
+      "id": "healing-red",
+      "label": "普通紅水既有40010辨識",
+      "qualified": false,
+      "qualificationScope": "not qualified for opening slow gate in this increment",
+      "wire": "C164 + owned ObjectId D; use249 (-7)",
+      "serverChain": [
+        "item-common",
+        "item-dispatch",
+        "potion-blocker",
+        "heal-execute",
+        "delay"
+      ],
+      "reason": "已核完整共用gate及healing/effect分支，但尚未建立原native在Speed2下使用道具的輸入動作/互斥資格；不能以沒有getMoveSpeed呼叫當作已合格。不是聲稱原服禁止。",
+      "delay": {
+        "retainedR30DelayMs": 500,
+        "localMarginMs": 100,
+        "templateVerification": "Historical accepted contract only; no SQL/DB recheck",
+        "actorMultiplier": "not established; do not multiply item delay by2"
+      },
+      "native": {
+        "proven": [
+          "0x934690 independent effect creation",
+          "0x8abc10 effect loop"
+        ],
+        "unproven": "Outgoing utility input under slow; full native parity"
+      },
+      "currentEngineGuard": "r30 Inventory.ItemAvailable rejects SlowActionsBlocked (Actor.Speed==2); UseSelectedItem also checks BasicSupplyPending/ItemBusy/MovementBusy and final selection, input, speed revision, world epoch, equipment revision. Completion/catch only generation; finally generation+lease.",
+      "requiredBeforeImplementation": [
+        "補原native使用道具命令鏈或另行接受明示server-authoritative用品範圍",
+        "保留衰弱藥水/HP與物品結果由原回包決定"
+      ],
+      "acceptanceContract": [
+        "COMMON-ADMIT",
+        "COMMON-INFLIGHT",
+        "COMMON-BUSY",
+        "COMMON-LATE",
+        "COMMON-RESULT"
+      ]
+    },
+    {
+      "id": "healing-white",
+      "label": "既有白水40012辨識",
+      "qualified": false,
+      "qualificationScope": "not qualified for opening slow gate in this increment",
+      "wire": "C164 + owned ObjectId D; use249 (-7)",
+      "serverChain": [
+        "item-common",
+        "item-dispatch",
+        "potion-blocker",
+        "heal-execute",
+        "delay"
+      ],
+      "reason": "已核完整共用gate及healing/effect分支，但尚未建立原native在Speed2下使用道具的輸入動作/互斥資格；不能以沒有getMoveSpeed呼叫當作已合格。不是聲稱原服禁止。",
+      "delay": {
+        "retainedR30DelayMs": 1000,
+        "localMarginMs": 100,
+        "templateVerification": "Historical accepted contract only; no SQL/DB recheck",
+        "actorMultiplier": "not established; do not multiply item delay by2"
+      },
+      "native": {
+        "proven": [
+          "0x934690 independent effect creation",
+          "0x8abc10 effect loop"
+        ],
+        "unproven": "Outgoing utility input under slow; full native parity"
+      },
+      "currentEngineGuard": "r30 Inventory.ItemAvailable rejects SlowActionsBlocked (Actor.Speed==2); UseSelectedItem also checks BasicSupplyPending/ItemBusy/MovementBusy and final selection, input, speed revision, world epoch, equipment revision. Completion/catch only generation; finally generation+lease.",
+      "requiredBeforeImplementation": [
+        "補原native使用道具命令鏈或另行接受明示server-authoritative用品範圍",
+        "保留衰弱藥水/HP與物品結果由原回包決定"
+      ],
+      "acceptanceContract": [
+        "COMMON-ADMIT",
+        "COMMON-INFLIGHT",
+        "COMMON-BUSY",
+        "COMMON-LATE",
+        "COMMON-RESULT"
+      ]
+    },
+    {
+      "id": "haste-potion",
+      "label": "普通自我加速水既有40013嚴格辨識",
+      "qualified": true,
+      "qualificationScope": "limited server-authoritative single request proposal",
+      "wire": "C164 + owned ObjectId D; use246 (-10)",
+      "serverChain": [
+        "item-common",
+        "item-dispatch",
+        "buff-all",
+        "potion-blocker",
+        "haste-execute",
+        "delay",
+        "delay-zero",
+        "speed-packet"
+      ],
+      "reason": "唯一建議立即進入有限實作的項目：StatusHaste有明確慢速效果清除與其後無條件setMoveSpeed(1)分支，且已核對原native速度與獨立特效接收鏈。資格只涵蓋依原服決定的一次請求；不聲稱原native輸入排程已認證。",
+      "delay": {
+        "retainedR30DelayMs": 0,
+        "localMarginMs": 100,
+        "templateVerification": "r30 existing strict ordinary potion identity and accepted config retained; no SQL/DB recheck",
+        "actorMultiplier": "none; retain100ms local guard; do not reuse slow actor animation duration"
+      },
+      "native": {
+        "proven": [
+          "0x94c530 dch actor-specific speed receiver writes +195",
+          "0x934690 independent gfx191 effect",
+          "0x8abc10 independent effect loop"
+        ],
+        "unproven": "Original client slow utility input restrictions and wall-clock origin; no native live certification"
+      },
+      "currentEngineGuard": "r30 Inventory.ItemAvailable rejects SlowActionsBlocked (Actor.Speed==2); UseSelectedItem also checks BasicSupplyPending/ItemBusy/MovementBusy and final selection, input, speed revision, world epoch, equipment revision. Completion/catch only generation; finally generation+lease.",
+      "requiredBeforeImplementation": [
+        "只能為SupportedHastePotion且Speed2/Brave0加入局部例外；不要移除SlowActionsBlocked或開放SupportedUse全體",
+        "完善item final-admit跨動作busy與late completion/error生命週期",
+        "沒有回報不預消耗/改速/設到期；衰弱或其他原服拒絕照常",
+        "必須維持已准入慢步/慢攻/慢施法快照及deadline，即使S255先0後1或直接1"
+      ],
+      "acceptanceContract": [
+        "COMMON-ADMIT",
+        "COMMON-INFLIGHT",
+        "COMMON-BUSY",
+        "COMMON-LATE",
+        "COMMON-RESULT"
+      ]
+    },
+    {
+      "id": "meat",
+      "label": "普通肉既有40056辨識",
+      "qualified": false,
+      "qualificationScope": "not qualified for opening slow gate in this increment",
+      "wire": "C164 + owned ObjectId D; use38",
+      "serverChain": [
+        "item-common",
+        "item-dispatch",
+        "potion-blocker",
+        "food-execute",
+        "delay"
+      ],
+      "reason": "Food1消耗及飽食流程已證，但原native慢速utility輸入與完成窗尚無資格；高飽食先消耗也不可被當成失敗重送。",
+      "delay": {
+        "retainedR30DelayMs": 0,
+        "localMarginMs": 100,
+        "replyWaitMs": 15000,
+        "replyWaitIsNotServerDelay": true
+      },
+      "native": {
+        "proven": [],
+        "unproven": "Original slow food input/cadence"
+      },
+      "currentEngineGuard": "r30 Inventory.ItemAvailable rejects SlowActionsBlocked (Actor.Speed==2); UseSelectedItem also checks BasicSupplyPending/ItemBusy/MovementBusy and final selection, input, speed revision, world epoch, equipment revision. Completion/catch only generation; finally generation+lease. BasicSupplies waiting lock until qualified reply or explicit unknown timeout.",
+      "requiredBeforeImplementation": [
+        "保留飽食>=225仍可消耗與S24/S57結果判定",
+        "補native操作資格；不可因Food1無speed參數直接開放"
+      ],
+      "acceptanceContract": [
+        "COMMON-ADMIT",
+        "COMMON-INFLIGHT",
+        "COMMON-BUSY",
+        "COMMON-LATE",
+        "COMMON-RESULT"
+      ]
+    },
+    {
+      "id": "home-scroll",
+      "label": "普通回家卷軸既有40079辨識",
+      "qualified": false,
+      "qualificationScope": "not qualified for opening slow gate in this increment",
+      "wire": "C164 + owned ObjectId D; use9",
+      "serverChain": [
+        "item-common",
+        "item-dispatch",
+        "home-execute",
+        "delay"
+      ],
+      "reason": "原服落點/禁止逃生/扣卷分支已證；慢速傳送輸入與跨世界完成資格未證。單一扣數量或unlock不能確認回城成功。",
+      "delay": {
+        "retainedR30DelayMs": 1500,
+        "localMarginMs": 100,
+        "replyWaitMs": 15000,
+        "replyWaitIsNotServerDelay": true
+      },
+      "native": {
+        "proven": [],
+        "unproven": "Native slow scroll input, teleport locks and transition timing"
+      },
+      "currentEngineGuard": "r30 Inventory.ItemAvailable rejects SlowActionsBlocked (Actor.Speed==2); UseSelectedItem also checks BasicSupplyPending/ItemBusy/MovementBusy and final selection, input, speed revision, world epoch, equipment revision. Completion/catch only generation; finally generation+lease. BasicSupplies/Teleport cross-world pending guards.",
+      "requiredBeforeImplementation": [
+        "補slow-scroll native/transition資格",
+        "新世界不得由舊callback或S255覆寫；不新增落點預測"
+      ],
+      "acceptanceContract": [
+        "COMMON-ADMIT",
+        "COMMON-INFLIGHT",
+        "COMMON-BUSY",
+        "COMMON-LATE",
+        "COMMON-RESULT"
+      ]
+    },
+    {
+      "id": "weapon",
+      "label": "既有武器穿脫",
+      "qualified": false,
+      "qualificationScope": "not qualified for opening slow gate in this increment",
+      "wire": "C164 + owned ObjectId D; existing EquipmentRules types",
+      "serverChain": [
+        "item-common",
+        "weapon-armor",
+        "delay"
+      ],
+      "reason": "原服裝備gate與穿脫路由已證，500/501是禁止類別，不能當作毫秒或逐幀等待；還缺慢速native裝備/姿態切換與其他裝備效果資格。",
+      "delay": {
+        "server": "Weapon onItemUse returns; normal armor returns except special invis cases; retain upstream500/501 forbids",
+        "retainedR30LocalMs": 1100,
+        "doNotScaleByActorSpeed": true
+      },
+      "native": {
+        "proven": [],
+        "unproven": "Native Speed2 equip/unequip timing; all effectful armor cases not certified"
+      },
+      "currentEngineGuard": "r30 Inventory.ItemAvailable rejects SlowActionsBlocked (Actor.Speed==2); UseSelectedItem also checks BasicSupplyPending/ItemBusy/MovementBusy and final selection, input, speed revision, world epoch, equipment revision. Completion/catch only generation; finally generation+lease. EquipmentReplyPending/EquipmentRevision/AppearanceRevision and S119/S64 authoritative updates.",
+      "requiredBeforeImplementation": [
+        "補native姿態/裝備效果資格",
+        "晚到裝備回覆不可重播舊combat或移除新appearance guard"
+      ],
+      "acceptanceContract": [
+        "COMMON-ADMIT",
+        "COMMON-INFLIGHT",
+        "COMMON-BUSY",
+        "COMMON-LATE",
+        "COMMON-RESULT"
+      ]
+    },
+    {
+      "id": "armor",
+      "label": "既有防具穿脫",
+      "qualified": false,
+      "qualificationScope": "not qualified for opening slow gate in this increment",
+      "wire": "C164 + owned ObjectId D; existing EquipmentRules types",
+      "serverChain": [
+        "item-common",
+        "weapon-armor",
+        "delay"
+      ],
+      "reason": "原服裝備gate與穿脫路由已證，500/501是禁止類別，不能當作毫秒或逐幀等待；還缺慢速native裝備/姿態切換與其他裝備效果資格。",
+      "delay": {
+        "server": "Weapon onItemUse returns; normal armor returns except special invis cases; retain upstream500/501 forbids",
+        "retainedR30LocalMs": 1100,
+        "doNotScaleByActorSpeed": true
+      },
+      "native": {
+        "proven": [],
+        "unproven": "Native Speed2 equip/unequip timing; all effectful armor cases not certified"
+      },
+      "currentEngineGuard": "r30 Inventory.ItemAvailable rejects SlowActionsBlocked (Actor.Speed==2); UseSelectedItem also checks BasicSupplyPending/ItemBusy/MovementBusy and final selection, input, speed revision, world epoch, equipment revision. Completion/catch only generation; finally generation+lease. EquipmentReplyPending/EquipmentRevision/AppearanceRevision and S119/S64 authoritative updates.",
+      "requiredBeforeImplementation": [
+        "補native姿態/裝備效果資格",
+        "晚到裝備回覆不可重播舊combat或移除新appearance guard"
+      ],
+      "acceptanceContract": [
+        "COMMON-ADMIT",
+        "COMMON-INFLIGHT",
+        "COMMON-BUSY",
+        "COMMON-LATE",
+        "COMMON-RESULT"
+      ]
+    },
+    {
+      "id": "pickup",
+      "label": "既有地面拾取",
+      "qualified": false,
+      "qualificationScope": "not qualified for opening slow gate in this increment",
+      "wire": "C112 + H x + H y + D groundObjectId + D count",
+      "serverChain": [
+        "pickup-handler",
+        "pickup-action"
+      ],
+      "reason": "原服成功路徑會送heading及ACTION_Pickup15。當前engine只處理拾取回報/朝向，沒有已證慢速action15逐幀schedule；不能套用action1/18/19證據。",
+      "delay": {
+        "server": "No certified pickup reuse in this scope",
+        "retainedR30LocalClickGuardMs": 900,
+        "scale900": false
+      },
+      "native": {
+        "proven": [
+          "Original common actor timing exists at0xA407D0"
+        ],
+        "unproven": "action15 selection/metadata/release and slow input schedule"
+      },
+      "currentEngineGuard": "GroundAvailable/SendGround and Pointer.PickupAsync all block Speed2; final speed revision and selection/correction; completion only generation.",
+      "requiredBeforeImplementation": [
+        "補action15原始選擇器/幀/回報契約",
+        "保持物件/數量/距離與pendingPickup原服確認；不能只刪gate"
+      ],
+      "acceptanceContract": [
+        "COMMON-ADMIT",
+        "COMMON-INFLIGHT",
+        "COMMON-BUSY",
+        "COMMON-LATE",
+        "COMMON-RESULT"
+      ]
+    },
+    {
+      "id": "drop",
+      "label": "既有地面丟棄",
+      "qualified": false,
+      "qualificationScope": "not qualified for opening slow gate in this increment",
+      "wire": "C25 + H x + H y + D ownedObjectId + D count",
+      "serverChain": [
+        "drop-handler"
+      ],
+      "reason": "已映射持有物→地面的交易與上游限制，但未證native Speed2丟棄輸入/節奏；不可把缺少明顯speed call推導為可開放。",
+      "delay": {
+        "server": "Configured drop/tradability/map restrictions retained; no certified speed-specific reuse",
+        "retainedR30LocalClickGuardMs": 900,
+        "scale900": false
+      },
+      "native": {
+        "proven": [],
+        "unproven": "Native slow drop input and action schedule"
+      },
+      "currentEngineGuard": "GroundAvailable/SendGround reject SlowActionsBlocked; selection/count/current position/correction/speed revision final validation.",
+      "requiredBeforeImplementation": [
+        "補native丟棄資格",
+        "不改server白名單/時效/可轉移規則；不查SQL/DB補證"
+      ],
+      "acceptanceContract": [
+        "COMMON-ADMIT",
+        "COMMON-INFLIGHT",
+        "COMMON-BUSY",
+        "COMMON-LATE",
+        "COMMON-RESULT"
+      ]
+    },
+    {
+      "id": "npc-talk",
+      "label": "既有NPC單次交談",
+      "qualified": false,
+      "qualificationScope": "not qualified for opening slow gate in this increment",
+      "wire": "C34 + D npcObjectId",
+      "serverChain": [
+        "npc-handler",
+        "npc-range"
+      ],
+      "reason": "已映射generic NPC talk，但NPC executor可分流；native slow talk輸入未證。r30存在入口差異且direct queued請求不核speed revision，不能把目前偶然放行當作資格。",
+      "delay": {
+        "server": "No generic talk reuse certified; ordinary server range5, client conservatively3",
+        "retainedR30": "Interaction waiting timeout only, not actor cadence"
+      },
+      "native": {
+        "proven": [],
+        "unproven": "Native slow talk input; arbitrary executor timing/effects"
+      },
+      "currentEngineGuard": "PlayerPointer.ActAsync(talk) rejects Speed2. CanTalk/InteractCore has no SlowActionsBlocked nor speed revision stamp; pointer Current stamp does. Probe confirms asymmetry.",
+      "requiredBeforeImplementation": [
+        "先補native/generic範圍資格與統一入口契約",
+        "若後續實作，queued speed revision/appearance/correction/lease及late errors須保全；不擴到NPC action/shop"
+      ],
+      "acceptanceContract": [
+        "COMMON-ADMIT",
+        "COMMON-INFLIGHT",
+        "COMMON-BUSY",
+        "COMMON-LATE",
+        "COMMON-RESULT"
+      ]
+    }
+  ],
+  "nextMinimalImplementation": {
+    "scope": [
+      "haste-potion"
+    ],
+    "notAllowed": [
+      "remove all SlowActionsBlocked gates",
+      "open all SupportedUse",
+      "new utility animation or arbitrary doubled item delay",
+      "SQL/DB checks or changes",
+      "depend on unaccepted r31"
+    ],
+    "expectedFiles": [
+      "Inventory.cs (local exception, final and completion guards)",
+      "possibly focused shared guard helper; no unrelated state policy"
+    ],
+    "nativeParityCertified": false,
+    "prerequisite": "Supervisor dispatch plus independent contract review; this source report authorizes no product writes"
+  },
+  "commonAcceptanceMatrix": [
+    {
+      "id": "COMMON-ADMIT",
+      "status": "planned-not-executed-on-new-product",
+      "cases": [
+        "0↔2,1↔2,same value,2→0→2 queued revision cancellation",
+        "unknown Speed/nonzero Brave cannot enter new slow exception",
+        "selection/id/count/name/flags mismatch reject; actor/world/map/appearance/weapon/correction/target/input/lease/death revalidate",
+        "Native/U/Web item commands share same single request policy"
+      ]
+    },
+    {
+      "id": "COMMON-INFLIGHT",
+      "status": "planned-not-executed-on-new-product",
+      "cases": [
+        "already admitted item captures identity/epoch/delay; no local actor animation invented",
+        "S255 2→0→1/direct1 preserves accepted slow move/attack/spell animation and input deadline",
+        "same/foreign/late speed report cannot shorten another actor/action high-water",
+        "item delay0+margin100 remains independent; no2x or0.755 scaling"
+      ]
+    },
+    {
+      "id": "COMMON-BUSY",
+      "status": "planned-not-executed-on-new-product",
+      "cases": [
+        "move/attack/spell/item/ground before utility and reverse direction; -1/exact/+1",
+        "queue utility then admit combat/magic before its final validator: must reject without packet",
+        "validator must test current magic/combat/movement/ground states excluding its own itemSending, not blindly use MovementBusy including itself",
+        "S255 arrives while sender pending or completed: retain valid deadlines"
+      ]
+    },
+    {
+      "id": "COMMON-LATE",
+      "status": "planned-not-executed-on-new-product",
+      "cases": [
+        "admit→same-session world/map/appearance/weapon/correction/input/target/death/reset lease→late success/error: no deadline/events/new-world Cancel contamination",
+        "finally only clears owned lease; previous failure cannot release newer sender",
+        "same-session valid Speed2→0/1 from potion result must not be treated as stale world; distinguish speed from identity guards"
+      ]
+    },
+    {
+      "id": "COMMON-RESULT",
+      "status": "planned-not-executed-on-new-product",
+      "cases": [
+        "C164 exactly once, object ID not template ID, no speculative resource/HP/MP/speed changes",
+        "S24/S57 consumes; S55 effect191 independent timing and actor; S255 authoritative0/1 and expiry packet only",
+        "decay698/death/disconnect/world-change/silence no invented success/retry",
+        "all other slow utility categories remain rejected at their existing conservative entrypoints; NPC asymmetry documented, not silently expanded"
+      ]
+    }
+  ],
+  "observedGateProbe": {
+    "checks": 36,
+    "path": "evidence/gate-probe.json",
+    "newProductTests": 0
+  },
+  "proofIndex": "proof-index.json",
+  "sourceCaveats": [
+    "No SQL/DB read or verification. Item-specific500/1000/0/1500 values are retained r30/historical accepted configuration, not a fresh current-server DB guarantee.",
+    "Brave0 does not establish neutrality of other server/native flags. Full original native utility input chains are not proven.",
+    "A407D0 actor frame arithmetic cannot be assigned to utility reuse or pickup15 without its action chain.",
+    "No new product/candidate created. Only unchanged r30 offline helper executed."
+  ]
+}

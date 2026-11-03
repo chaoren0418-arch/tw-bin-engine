@@ -1,0 +1,117 @@
+{
+  "task": "ENGINE-PICKUP-SCHEDULER-SOURCE-R1",
+  "status": "bounded static source contract; renderer proposal only",
+  "runtimeChecks": 0,
+  "productChanged": false,
+  "candidateBuilt": false,
+  "nativeExecuted": false,
+  "jarExecuted": false,
+  "baseline": {
+    "release": "final r32",
+    "sealSha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507",
+    "baselineFinalSha256": "0c645bf5c3a515fd5da88cf28c834a4b2967aed268946d45fb5a6ebe9f03fcb7"
+  },
+  "scope": {
+    "action": 15,
+    "proposedImplementationSpeeds": [
+      0,
+      1
+    ],
+    "speed2": "arithmetic source example only; not Slow qualification",
+    "sourceWriteRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1",
+    "outgoingInputDiscovery": false
+  },
+  "fields": {
+    "actor+0x0C": "signed frame index",
+    "actor+0xBC": "ideal animation deadline baseline (decimal188; NOT +0x188)",
+    "actor+0xC2": "weapon/base action byte",
+    "actor+0x19C": "command array count; also remote duration backlog factor",
+    "actor+0x1A4": "command array pointer buffer",
+    "actor+0xD8": "terminal duration override flag",
+    "actor+0x5C": "value returned by +34 getters",
+    "currentAction": "66D320 reads actor+0x48 helper object; do not invent a raw currentaction byte"
+  },
+  "sourceEstablished": {
+    "proofIds": [
+      "P01",
+      "P02",
+      "P03",
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08",
+      "P09",
+      "P10",
+      "P11",
+      "P12",
+      "P13",
+      "P14"
+    ],
+    "sequence": "conditional frame1 ->2 ->3 ->frame0, terminalfalse; no automatic action15 self-loop in ordinary terminal branch",
+    "queuedTerminal": "A44500 schedules A4BF00 at freshclock+passedD0; normal D0 may be overridden1 by A4B060 flag+0xD8",
+    "emptyOrdinaryTerminal": "action remains15 until queued weapon+3 consumed at freshclock+584; no unconditional immediate action0 reset",
+    "queue": "append, FIFO consume and explicit cancellation exceptions as P06-P09",
+    "clock": "P10-P13, scheduler-relative only"
+  },
+  "neutralPreconditions": [
+    "Current action before selection !=8; requested15 survives special +70/action70 override and other early routes",
+    "Valid explicit action15 metadata with four frames and stable variant; sprite lookup succeeds",
+    "Speed value resolved from the actual self encrypted-global or remote byte branch; not inferred from labels alone",
+    "Fixed-duration branch selected; no variable-FPS conversion",
+    "Brave and secondary-state modifiers neutral; +0x220 and +0x223 neutral; A41C30 modifiers absent; other applicable halvings absent",
+    "Nonself actor queue count at most1 when A407D0 samples each duration; self branch uses its separate status source",
+    "No remote1000ms deferral A4B060; no owner/state transition; terminal+0xD8=0",
+    "For empty terminal584: weapon ordinary, weapon+3 metadata present, weapon+3 !=15, +34 result0, self guards permit enqueue; derived+64 active and allocation succeeds"
+  ],
+  "rendererProposal": {
+    "authorization": "specification only; no product changes in this task",
+    "trigger": "authoritative action15 accepted for current actor/owner; never start a source-parity claim from outgoing C112 or local click",
+    "states": [
+      "idle",
+      "active frame1",
+      "active frame2",
+      "active frame3",
+      "terminal frame0 pending transition",
+      "cancelled"
+    ],
+    "frameSelection": "Reuse qualified metadata/pixel mapping (42 profiles/13 gfx/8 directions) and index order1,2,3,0; retain separate event metadata, do not invent event playback or input semantics.",
+    "timing": "Speed0/1 only under explicit neutral capability guard; compute D for each entering frame. Initial B=now+D1+1; continuing callback sets nextdue=now+max(1,D-lateness)+1 and B=B+D+1. Treat read/render overhead separately.",
+    "terminal": "Bind frame0, stop advancing pickup. If known pending authoritative command, consumer delay=passedD0; if known ordinary derived empty branch, queue idle weapon+3 after584. A new accepted action preempts this pending idle. Do not impose584 as request lock.",
+    "finitePolicy": "Each accepted pickup instance advances at most three callbacks to terminal0 and one pending transition; no synthetic repeated action15. Authoritative command FIFO is an independent queue, with new instance per accepted command.",
+    "cancellation": "Engine ownership/session/world/actor lease invalidation, actor removal/death, authoritative incompatible state and unsupported appearance/status cancel the presentation instance and its owned timers. Ownership tokens are engine design policy, not native-source parity proof. Native incomingaction8 clear and idle preemption inform this policy.",
+    "unsupported": "If neutral conditions/variant/queue state cannot be represented, preserve existing presentation and mark source timing unqualified; do not manufacture a universal fixed timeout or enable Speed2 from this report.",
+    "unchanged": [
+      "C112 send gate900ms",
+      "pending fallback3000ms",
+      "authoritative inventory/ground completion",
+      "existing ownership admission/completion rules"
+    ],
+    "implementationAcceptanceNeeded": [
+      "Current-owner authoritative start and cancellation tests",
+      "Correct asset/frame mapping for all adopted profile/directions",
+      "Timer recurrence, late callback clamp, terminal branches and FIFO/preemption tests using honest offline harness",
+      "Separate actual renderer/presentation and original native comparisons before runtime parity claim"
+    ]
+  },
+  "qualification": {
+    "metadata": "Inherited bounded metadata evidence; raw inner-list identity rechecked",
+    "pixels": "Inherited sealed asset source only; no new pixel tests",
+    "schedulerSource": "Conditional static call/dataflow established",
+    "timingParity": false,
+    "inputOrigin": false,
+    "fullInputToFinishLatency": false,
+    "liveNative": false,
+    "slowQualified": false,
+    "utilityCooldownZero": false,
+    "rendererImplemented": false
+  },
+  "openGaps": [
+    "Actual clock selection/frequency initialization and pump caller cadence",
+    "Live self status values and all special/variant state eligibility",
+    "Metadata variant virtual targets not resolved for every profile; no blanket variant/no-loop proof",
+    "Full cancellation universe and A44BB0 callers not enumerated",
+    "Native screen presentation, input origin and total pickup utility timing",
+    "Asset archive eight-shard mismatch and104current-only entries remain inherited caveats"
+  ]
+}

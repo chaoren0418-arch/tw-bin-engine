@@ -1,0 +1,33 @@
+{
+  "status": "pass",
+  "kind": "synthetic loopback TCP replay initialization plus ordered high-rate time packets; actual WinForms/WebView2; not original-server combat",
+  "received": 5352,
+  "transmitted": 24000,
+  "expectedSequence": 5364,
+  "order": true,
+  "ticks": 48,
+  "paints": 72,
+  "maxTimerGapMs": 5534,
+  "cancelMs": 7,
+  "elapsedMs": 26670,
+  "checkpoints": [
+    {
+      "phase": "active",
+      "received": 1256,
+      "ticks": 44,
+      "paintCount": 73
+    },
+    {
+      "phase": "input-focus",
+      "received": 2076,
+      "ticks": 44,
+      "paintCount": 75
+    },
+    {
+      "phase": "cancelled",
+      "received": 5352,
+      "ticks": 48,
+      "paintCount": 85
+    }
+  ]
+}

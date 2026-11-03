@@ -1,0 +1,34 @@
+{
+  "db": {
+    "processes": [
+      {
+        "ProcessId": 69176,
+        "ParentProcessId": 64892,
+        "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792945658396)/"
+      },
+      {
+        "ProcessId": 59052,
+        "ParentProcessId": 69176,
+        "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792945658443)/"
+      }
+    ],
+    "listeners": [
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 43324,
+        "OwningProcess": 59052
+      }
+    ]
+  },
+  "previousGamePid": 88012,
+  "previousGameAbsent": true,
+  "port42061Absent": true,
+  "exitCause": "unknown; no exit receipt; prior stdout ends 2026-10-28 00:47:33 local",
+  "jarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "policySha256": "fd26f71f1fad8afb55d024f3c641d0449445b27dbaa87a11b9664cac12afa121",
+  "historicalLifecycleUnmodified": true
+}

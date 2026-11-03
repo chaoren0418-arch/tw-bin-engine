@@ -1,0 +1,424 @@
+{
+  "candidateDllSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "baselineDllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+  "baselineRuntimeAssertions": 225,
+  "byteIdenticalPngs": [
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-0-0.png",
+        "size": 1775,
+        "sha256": "c47fe60c530a16eb71d5df244943fb08753433e45c677ca906d7feb68e65e1c8"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-0-0.png",
+        "size": 1775,
+        "sha256": "c47fe60c530a16eb71d5df244943fb08753433e45c677ca906d7feb68e65e1c8"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-0-1.png",
+        "size": 1872,
+        "sha256": "3d17a7b3e4884a302d15cb777d11c71313027e6f13e62cdd3495b650df84c400"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-0-1.png",
+        "size": 1872,
+        "sha256": "3d17a7b3e4884a302d15cb777d11c71313027e6f13e62cdd3495b650df84c400"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-0-2.png",
+        "size": 1630,
+        "sha256": "253fb7a71383c6370ac1a3032f2ac038d49e03f066e6953916160b51bbeae46e"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-0-2.png",
+        "size": 1630,
+        "sha256": "253fb7a71383c6370ac1a3032f2ac038d49e03f066e6953916160b51bbeae46e"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-0-3.png",
+        "size": 1741,
+        "sha256": "2779f58e7cf6550aeb466a02c01f79104d1b8bb695e85d160e97d0e02f3f3f48"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-0-3.png",
+        "size": 1741,
+        "sha256": "2779f58e7cf6550aeb466a02c01f79104d1b8bb695e85d160e97d0e02f3f3f48"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-1-0.png",
+        "size": 1778,
+        "sha256": "2ca4906ed74ac1bdd95fb3e1e6a25956d138d778ba38717ac1879b8291114192"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-1-0.png",
+        "size": 1778,
+        "sha256": "2ca4906ed74ac1bdd95fb3e1e6a25956d138d778ba38717ac1879b8291114192"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-1-1.png",
+        "size": 1423,
+        "sha256": "e9a5028b19c6faf16811e32d1aeb91ab8edff599decdbd7cd34f6e7d247e5605"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-1-1.png",
+        "size": 1423,
+        "sha256": "e9a5028b19c6faf16811e32d1aeb91ab8edff599decdbd7cd34f6e7d247e5605"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-1-2.png",
+        "size": 1236,
+        "sha256": "2e3523f7573fc1934b93ddb44e5428bab402abfad66bfc1e5eaf273145e3900d"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-1-2.png",
+        "size": 1236,
+        "sha256": "2e3523f7573fc1934b93ddb44e5428bab402abfad66bfc1e5eaf273145e3900d"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-1-3.png",
+        "size": 1683,
+        "sha256": "d262ac9c45a84143dd784406e2f256bb44270d18bdbb7c93409d4d1de50fa816"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-1-3.png",
+        "size": 1683,
+        "sha256": "d262ac9c45a84143dd784406e2f256bb44270d18bdbb7c93409d4d1de50fa816"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-2-0.png",
+        "size": 1733,
+        "sha256": "fa3d4806648347ecb9d625766ae5955d93bab0e01cecb0e4d94f9b86e30b9229"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-2-0.png",
+        "size": 1733,
+        "sha256": "fa3d4806648347ecb9d625766ae5955d93bab0e01cecb0e4d94f9b86e30b9229"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-2-1.png",
+        "size": 1824,
+        "sha256": "b6fdfa994535e1d8f9e008707593bffc455e51101ee2527b5dfbdfbf9c8f8300"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-2-1.png",
+        "size": 1824,
+        "sha256": "b6fdfa994535e1d8f9e008707593bffc455e51101ee2527b5dfbdfbf9c8f8300"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-2-2.png",
+        "size": 1656,
+        "sha256": "d7421eb872fc22da71f9657f31b48b34713ff329867286c4e1b3d51d0506f795"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-2-2.png",
+        "size": 1656,
+        "sha256": "d7421eb872fc22da71f9657f31b48b34713ff329867286c4e1b3d51d0506f795"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-2-3.png",
+        "size": 1799,
+        "sha256": "08686236a3361dd71c55a060a7382d2c943ef5ca770a802ac1722a268fda083b"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-2-3.png",
+        "size": 1799,
+        "sha256": "08686236a3361dd71c55a060a7382d2c943ef5ca770a802ac1722a268fda083b"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-3-0.png",
+        "size": 1672,
+        "sha256": "cb78213be97ea49f36a9bc6860d77670b983ad35acbb4e72702b5646260072c1"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-3-0.png",
+        "size": 1672,
+        "sha256": "cb78213be97ea49f36a9bc6860d77670b983ad35acbb4e72702b5646260072c1"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-3-1.png",
+        "size": 1987,
+        "sha256": "d542b583e39a9cfa26c4dc03d9c5a6899c70638c2e3091b84d1d0aa6d3992a35"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-3-1.png",
+        "size": 1987,
+        "sha256": "d542b583e39a9cfa26c4dc03d9c5a6899c70638c2e3091b84d1d0aa6d3992a35"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-3-2.png",
+        "size": 1828,
+        "sha256": "e33c4a1e137d68f5bae40ea89ebbc81264edeb035ea38935eff2c07e079b842d"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-3-2.png",
+        "size": 1828,
+        "sha256": "e33c4a1e137d68f5bae40ea89ebbc81264edeb035ea38935eff2c07e079b842d"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-3-3.png",
+        "size": 1666,
+        "sha256": "541f8bff6ee0f1031827edf661a35fd31d7594048a0c4b103c75ca359d5e085a"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-3-3.png",
+        "size": 1666,
+        "sha256": "541f8bff6ee0f1031827edf661a35fd31d7594048a0c4b103c75ca359d5e085a"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-4-0.png",
+        "size": 1705,
+        "sha256": "35e9c3e9e4f08396b9ee2a9940f25b1fdbf05b75f2165f7a2fa844bac74111f1"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-4-0.png",
+        "size": 1705,
+        "sha256": "35e9c3e9e4f08396b9ee2a9940f25b1fdbf05b75f2165f7a2fa844bac74111f1"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-4-1.png",
+        "size": 1698,
+        "sha256": "c78a48d3208b187a0bf4a415823aaed933fb8991c208d3182a0ff37d9310867f"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-4-1.png",
+        "size": 1698,
+        "sha256": "c78a48d3208b187a0bf4a415823aaed933fb8991c208d3182a0ff37d9310867f"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-4-2.png",
+        "size": 1622,
+        "sha256": "da06a2381395a3a6974022e0fcc0a72358f6717628869cd2a41f948031c03896"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-4-2.png",
+        "size": 1622,
+        "sha256": "da06a2381395a3a6974022e0fcc0a72358f6717628869cd2a41f948031c03896"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-4-3.png",
+        "size": 1547,
+        "sha256": "2108623d4457d1ff8056a058eb3e8e25f848594b4c4a4b0a27bd9878ea696a11"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-4-3.png",
+        "size": 1547,
+        "sha256": "2108623d4457d1ff8056a058eb3e8e25f848594b4c4a4b0a27bd9878ea696a11"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-5-0.png",
+        "size": 1711,
+        "sha256": "acdb69aafde70986f88bfe60af742c8ad6cd42d6994020ec1a60d3bd1c3b5afb"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-5-0.png",
+        "size": 1711,
+        "sha256": "acdb69aafde70986f88bfe60af742c8ad6cd42d6994020ec1a60d3bd1c3b5afb"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-5-1.png",
+        "size": 1260,
+        "sha256": "a785511b552b04fe25c59e16091a57e722e925fc9c6f5735a96e86c53fadf8d9"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-5-1.png",
+        "size": 1260,
+        "sha256": "a785511b552b04fe25c59e16091a57e722e925fc9c6f5735a96e86c53fadf8d9"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-5-2.png",
+        "size": 1171,
+        "sha256": "7c1d515d922ed286e04e6af6a1c1c112418028fb951d42ea68594fec14694fcd"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-5-2.png",
+        "size": 1171,
+        "sha256": "7c1d515d922ed286e04e6af6a1c1c112418028fb951d42ea68594fec14694fcd"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-5-3.png",
+        "size": 1361,
+        "sha256": "363baaeee4bbf564390f76c231ec9ed8d724bca61d912fb7f07da9ff0b2d3bdb"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-5-3.png",
+        "size": 1361,
+        "sha256": "363baaeee4bbf564390f76c231ec9ed8d724bca61d912fb7f07da9ff0b2d3bdb"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-6-0.png",
+        "size": 1771,
+        "sha256": "6f9db170f7c734f785b9b4f369fee60f5a2570c444d01f044c4650a8f717c072"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-6-0.png",
+        "size": 1771,
+        "sha256": "6f9db170f7c734f785b9b4f369fee60f5a2570c444d01f044c4650a8f717c072"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-6-1.png",
+        "size": 1608,
+        "sha256": "1c5a1cd17d84de40dc7f451515c06b408e7435939b9b7f9d58a9f4a505793285"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-6-1.png",
+        "size": 1608,
+        "sha256": "1c5a1cd17d84de40dc7f451515c06b408e7435939b9b7f9d58a9f4a505793285"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-6-2.png",
+        "size": 1478,
+        "sha256": "a54d969fbff079ef6de199023c7f37324ba278c31b8bfc0591d9931ef8f5e06a"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-6-2.png",
+        "size": 1478,
+        "sha256": "a54d969fbff079ef6de199023c7f37324ba278c31b8bfc0591d9931ef8f5e06a"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-6-3.png",
+        "size": 1514,
+        "sha256": "afb7875cf6fc9fc919673342209ecd2ef1b1c2ea21028178a7f7da9b51306251"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-6-3.png",
+        "size": 1514,
+        "sha256": "afb7875cf6fc9fc919673342209ecd2ef1b1c2ea21028178a7f7da9b51306251"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-7-0.png",
+        "size": 1694,
+        "sha256": "0837080384b82f7e1d274618d91b9a47d58842a9d66061e768586124c882a854"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-7-0.png",
+        "size": 1694,
+        "sha256": "0837080384b82f7e1d274618d91b9a47d58842a9d66061e768586124c882a854"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-7-1.png",
+        "size": 1899,
+        "sha256": "38f9b95b18a51120c95164b4259a7ab8c286c7db197ef699b225f5cb3f7ee4f5"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-7-1.png",
+        "size": 1899,
+        "sha256": "38f9b95b18a51120c95164b4259a7ab8c286c7db197ef699b225f5cb3f7ee4f5"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-7-2.png",
+        "size": 1765,
+        "sha256": "c111282b0084996039fb754f4500f9694754749b22c36e98a52bfca970167065"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-7-2.png",
+        "size": 1765,
+        "sha256": "c111282b0084996039fb754f4500f9694754749b22c36e98a52bfca970167065"
+      },
+      "identical": true
+    },
+    {
+      "candidate": {
+        "path": "evidence/regression-01/pixels-0-7-3.png",
+        "size": 1679,
+        "sha256": "74011b23645500db9da63be7e1f7a798f69a1ba280a4b668db0bc2d2a00ce797"
+      },
+      "sealedR34Execution": {
+        "path": "evidence/baseline-control-01/pixels-0-7-3.png",
+        "size": 1679,
+        "sha256": "74011b23645500db9da63be7e1f7a798f69a1ba280a4b668db0bc2d2a00ce797"
+      },
+      "identical": true
+    }
+  ],
+  "native": false
+}

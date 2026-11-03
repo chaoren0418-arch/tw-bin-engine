@@ -1,0 +1,57 @@
+{
+  "status": "ready_for_supervisor",
+  "thread": "01a170b6-b041-7b11-b453-7d3384fd1825",
+  "sourceFreezeSha256": "1f4d33c35da0125b8620ed05e1dcddb62b3c0157dd7365cbfd8b91496aa20660",
+  "environmentFreezeSha256": "7837e28b88c1d3d4c45ee8a5e5856194d71aac7ec08a0c97e30967f8c276f11d",
+  "server": {
+    "process": {
+      "ProcessId": 87612,
+      "ParentProcessId": 80520,
+      "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+      "CreationDate": "/Date(1792893019850)/"
+    },
+    "listeners": [
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42035,
+        "OwningProcess": 87612
+      }
+    ]
+  },
+  "db": {
+    "values": [
+      "43316",
+      "D:\\P16Lab-ClientEngine\\db-data\\",
+      "4f47b7f8-d015-11f1-8f72-4cedfb679789",
+      "127.0.0.1",
+      "8.0.40"
+    ],
+    "process": {
+      "process": {
+        "ProcessId": 82644,
+        "ParentProcessId": 8876,
+        "ExecutablePath": "D:\\P16Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P16Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P16Lab-ClientEngine\\mysql.ini --init-file=D:\\P16Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792892591461)/"
+      },
+      "listeners": [
+        {
+          "LocalAddress": "127.0.0.1",
+          "LocalPort": 43316,
+          "OwningProcess": 82644
+        }
+      ]
+    }
+  },
+  "credentialPaths": [
+    "D:\\P16Lab-ClientEngine\\private-tests.json",
+    "D:\\P16Lab-ClientEngine\\private-root.cnf"
+  ],
+  "sessionsReleased": true,
+  "uiAndWebViewExited": true,
+  "sourceFrozen": true,
+  "goal": "active until supervisor explicit handback, normal cleanup and final delivery",
+  "instructions": "Worker will not edit/login/restart/stop/cleanup after this freeze without explicit supervisor handback.",
+  "utc": 1792896936.2503896
+}

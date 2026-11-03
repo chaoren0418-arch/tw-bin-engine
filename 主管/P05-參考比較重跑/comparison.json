@@ -1,0 +1,43 @@
+{
+  "status": "pass",
+  "comparisons": [
+    {
+      "profile": "minimap-original",
+      "pixels": 5013504,
+      "different_pixels": 70978,
+      "difference_bbox": [
+        207,
+        516,
+        2717,
+        1621
+      ]
+    },
+    {
+      "profile": "alpha-global",
+      "pixels": 5013504,
+      "different_pixels": 3775,
+      "difference_bbox": [
+        230,
+        576,
+        2659,
+        1266
+      ]
+    },
+    {
+      "profile": "bin-cell",
+      "pixels": 5013504,
+      "different_pixels": 0,
+      "difference_bbox": null
+    }
+  ],
+  "classification": {
+    "original_reference_vs_alpha_global_half_blend": 69054,
+    "alpha_global_vs_bin_cell_sorting": 3775,
+    "positioning": 0,
+    "canvas_clipping": 0
+  },
+  "tile_pixels_checked": 4378752,
+  "tile_pixels_checked_twice_with_sentinel": true,
+  "raw_black_pixels_confirmed": 597,
+  "independence": "Unmodified independent C# S32Reader/L1Til source; original minimap ordering preserved as one baseline. bin-cell harness ordering is explicitly adapted from this BIN, not claimed to be an untouched full independent renderer."
+}

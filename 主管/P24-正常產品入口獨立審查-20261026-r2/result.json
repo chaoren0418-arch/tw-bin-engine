@@ -1,0 +1,431 @@
+{
+  "status": "independent-real-build-launch-plan-and-product-checks-pass",
+  "snapshotFiles": 247,
+  "assetInputs": 13877,
+  "checks": {
+    "harness": 53,
+    "effects-regression": 368,
+    "maps-regression": 35,
+    "trade-regression": 58,
+    "service-regression": 73,
+    "casting-regression": 293,
+    "appearance-regression": 2390,
+    "death-regression": 97,
+    "equipment-regression": 926,
+    "equipment-dom": 23,
+    "login-dom": 23,
+    "map-panel": 10,
+    "trade-dom": 19,
+    "service-dom": 24
+  },
+  "cleanDll": "5ea31919ad9c27a7bb9a665db21f3738ab2ba8d621d6c089a1b0c2a2bd5e603f",
+  "renderedScenes": [
+    "own-0-0.png",
+    "own-0-20.png",
+    "own-0-4.png",
+    "own-0-50.png",
+    "own-1-0.png",
+    "own-1-20.png",
+    "own-1-4.png",
+    "own-1-50.png",
+    "own-1186-0.png",
+    "own-1186-20.png",
+    "own-1186-4.png",
+    "own-2786-0.png",
+    "own-2786-20.png",
+    "own-2786-4.png",
+    "own-2796-0.png",
+    "own-2796-20.png",
+    "own-2796-4.png",
+    "own-37-0.png",
+    "own-37-20.png",
+    "own-37-4.png",
+    "own-48-0.png",
+    "own-48-20.png",
+    "own-48-4.png",
+    "own-48-50.png",
+    "own-61-0.png",
+    "own-61-20.png",
+    "own-61-4.png",
+    "own-61-50.png",
+    "own-6650-0.png",
+    "own-6650-20.png",
+    "own-6658-0.png",
+    "own-6658-4.png",
+    "own-6658-50.png",
+    "own-6661-0.png",
+    "own-6661-4.png",
+    "own-6661-50.png",
+    "own-6671-0.png",
+    "own-6671-20.png",
+    "own-734-0.png",
+    "own-734-20.png",
+    "own-734-4.png",
+    "effect-221-t0.png",
+    "effect-221-t180.png",
+    "effect-2165-t0.png",
+    "effect-2165-t180.png"
+  ],
+  "launchPlan": {
+    "status": "checked-only",
+    "executable": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\client-product-r1\\P11.ClientEngine.exe",
+    "workingDirectory": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2",
+    "arguments": [
+      "--normal-product"
+    ],
+    "assets": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\assets",
+    "web": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\web",
+    "manifest": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\product-r1-manifest.json",
+    "hashedRuntimeAndWebFiles": 31,
+    "assetFilesCheckedForPresenceAndSize": 13877,
+    "assetContentVerification": "Pinned integrity manifest; product verifies content when loaded.",
+    "profile": "p24-real-jar-d287-client2",
+    "port": 42061,
+    "autoLogin": false,
+    "uiStarted": false,
+    "networkStarted": false,
+    "servicesStarted": false
+  },
+  "processes": [
+    {
+      "name": "build-product",
+      "pid": 4444,
+      "args": [
+        "pwsh",
+        "-NoProfile",
+        "-File",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build-product.ps1"
+      ],
+      "exitCode": 0,
+      "elapsed": 7.947899341583252
+    },
+    {
+      "name": "launch-check",
+      "pid": 84864,
+      "args": [
+        "pwsh",
+        "-NoProfile",
+        "-File",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\launch-product.ps1",
+        "-CheckOnly"
+      ],
+      "exitCode": 0,
+      "elapsed": 1.8908066749572754
+    },
+    {
+      "name": "build-harness",
+      "pid": 81744,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\reference\\development\\normal-product-r1\\harness\\WebLoginChecks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\harness",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.5219950675964355
+    },
+    {
+      "name": "build-effects-regression",
+      "pid": 87620,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\reference\\development\\normal-product-r1\\effects-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\effects-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.6031668186187744
+    },
+    {
+      "name": "build-maps-regression",
+      "pid": 39056,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\reference\\development\\normal-product-r1\\maps-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\maps-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.5113000869750977
+    },
+    {
+      "name": "build-trade-regression",
+      "pid": 73420,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\reference\\development\\normal-product-r1\\trade-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\trade-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.546302080154419
+    },
+    {
+      "name": "build-service-regression",
+      "pid": 71064,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\reference\\development\\normal-product-r1\\service-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\service-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.7267069816589355
+    },
+    {
+      "name": "build-casting-regression",
+      "pid": 79256,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\reference\\development\\normal-product-r1\\casting-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\casting-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.737546682357788
+    },
+    {
+      "name": "build-appearance-regression",
+      "pid": 54952,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\reference\\development\\normal-product-r1\\appearance-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\appearance-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.6431350708007812
+    },
+    {
+      "name": "build-death-regression",
+      "pid": 74624,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\reference\\development\\normal-product-r1\\death-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\death-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.4290664196014404
+    },
+    {
+      "name": "build-equipment-regression",
+      "pid": 10888,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\reference\\development\\normal-product-r1\\equipment-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\equipment-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.4493305683135986
+    },
+    {
+      "name": "harness",
+      "pid": 72528,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\harness\\P24.WebLoginChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.25063085556030273
+    },
+    {
+      "name": "effects-regression",
+      "pid": 83920,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\effects-regression\\P24.MapEffectChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 14.817726373672485
+    },
+    {
+      "name": "maps-regression",
+      "pid": 18844,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\maps-regression\\P24.EffectMapRegression.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 14.63437032699585
+    },
+    {
+      "name": "trade-regression",
+      "pid": 84352,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\trade-regression\\P24.EffectTradeRegression.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.39806365966796875
+    },
+    {
+      "name": "service-regression",
+      "pid": 61480,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\service-regression\\P24.EffectServiceRegression.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 8.967179536819458
+    },
+    {
+      "name": "casting-regression",
+      "pid": 73880,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\casting-regression\\P24.SkillCastingChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 5.167161226272583
+    },
+    {
+      "name": "appearance-regression",
+      "pid": 37572,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\appearance-regression\\P24.PlayerAppearanceChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 30.354817390441895
+    },
+    {
+      "name": "death-regression",
+      "pid": 85048,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\death-regression\\P24.PlayerDeathChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 6.430109739303589
+    },
+    {
+      "name": "equipment-regression",
+      "pid": 67724,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\build\\equipment-regression\\P24.EquipmentUseChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 1.0880718231201172
+    },
+    {
+      "name": "equipment-dom",
+      "pid": 20616,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\reference\\development\\normal-product-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.07787227630615234
+    },
+    {
+      "name": "login-dom",
+      "pid": 76188,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\reference\\development\\normal-product-r1\\test_login_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.06655573844909668
+    },
+    {
+      "name": "map-panel",
+      "pid": 85120,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\reference\\development\\maps-r1\\test_panel.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.0829920768737793
+    },
+    {
+      "name": "trade-dom",
+      "pid": 80240,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\reference\\development\\trade-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.06938552856445312
+    },
+    {
+      "name": "service-dom",
+      "pid": 75964,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-正常產品入口獨立審查-20261026-r2\\reference\\development\\skill-warehouse-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.07905435562133789
+    }
+  ],
+  "ui": false,
+  "live": false,
+  "fullProductComplete": false,
+  "scope": "Actual normal build script and launch CheckOnly run in independent immutable copy. Normal manual login and complete offline regression; explicit session/packet/DOM doubles. Native layout and focus remain untested; no UI/live."
+}

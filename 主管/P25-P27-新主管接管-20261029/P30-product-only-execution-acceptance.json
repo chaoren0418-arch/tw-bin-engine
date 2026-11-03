@@ -1,0 +1,59 @@
+{
+  "schema": "p30-product-only-execution-acceptance-v1",
+  "decision": "accepted-for-p30-isolated-product-only-build",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "dispatchSha256": "4be1242a443975632a8f13ab23c528aec6eb2f536b144647e579175dcbb80568",
+  "contractSha256": "37af732d7d30629d71cd3fb8e66bc18d77352bbef2ff3191de920743ced4a2d9",
+  "materializationSha256": "63290a5c650dd992172d605210ca882b8212e1622f98ec000310f68e590c4f33",
+  "planningPlanSha256": "f58e0d6400d1715ad03ef32fc26486ac89a9b915824bbd7470a4ca6dff4f19f3",
+  "authorizedOutput": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+  "maxBuildInvocations": 1,
+  "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "expectedAudioSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "sharedWrites": false,
+  "releaseWrites": false,
+  "entryActivationAuthorized": false,
+  "runtimeProbesAuthorized": 0,
+  "scriptPins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\executor.py",
+      "size": 9818,
+      "sha256": "4bd924cfa769d6ec4146ff0086e444d79f00e4dd3ed37b2b5a827ff457b8e6d0"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\gate.py",
+      "size": 9164,
+      "sha256": "f4b14f7cb136c629b93f90d7807bf61bc9c95fbcfe66bf206b7d92079e8326b9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\win_process.py",
+      "size": 5934,
+      "sha256": "37f21ac740a11f780a937f085598bbb3dbbe928a65fa8d19d6c6d0f39e0ef0dc"
+    }
+  ],
+  "dispatchId": "ENGINE-P30-PRODUCT-ONLY-EXECUTE-R1",
+  "utc": "2026-10-29T06:22:24.805734+00:00",
+  "authorizedEvidenceOutput": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1",
+  "stopConditions": [
+    "nonzero exit/timeout/interruption/identity mismatch: preserve and stop; no auto retry",
+    "existing future stage: inspect uncertain outcome before any action",
+    "postbuild reviewer must verify actual outputs/raw compile provenance before supervisor acceptance"
+  ],
+  "planningReview": "work/P29-pickup-profiles-review-r1/P30-rebuild-review-r1/planning-review-r2/artifact-manifest.json",
+  "executorReview": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\P30-rebuild-review-r1\\executor-review-r1\\artifact-manifest.json",
+    "size": 2393,
+    "sha256": "4e9a0ec1b180788dbc1c08aef1bb5d9806d4b30c39568fa95d5965ad25ac443a"
+  },
+  "rootExecutorVerification": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-executor-root-verification.json",
+    "size": 800,
+    "sha256": "416ff7209b6b2bb2c9255d8d0c080a2deb35800487ca5d3494de992099a28b68"
+  },
+  "sourceDeltaReview": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-source-delta-root-review.json",
+    "size": 832,
+    "sha256": "46c1cdc4af83810c5ebef62c25bc159da9190299c9314d715e106cd1b8be4b4a"
+  }
+}

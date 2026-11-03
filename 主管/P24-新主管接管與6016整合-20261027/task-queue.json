@@ -1,0 +1,39 @@
+{
+  "supervisor": "01a17da0-9245-7795-ad0d-231c0dedc002",
+  "phase": "P24",
+  "product": "r27",
+  "tasks": [
+    {
+      "id": "6016-event-controller-r1",
+      "worker": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "state": "dispatch-accepted-active",
+      "writeRoot": "reference/development/r27-6016-event-controller-r1",
+      "promptFile": "event-controller-dispatch.txt"
+    },
+    {
+      "id": "6016-audio-controls-r1",
+      "worker": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "state": "dispatch-accepted",
+      "writeRoot": "reference/development/r27-6016-audio-controls-r1",
+      "promptFile": "audio-controls-dispatch.txt"
+    }
+  ],
+  "integrator": {
+    "worker": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+    "state": "idle-not-dispatched",
+    "gate": "Both candidates immutable, independent review accepted, explicit next-release integration dispatch"
+  },
+  "review": {
+    "state": "supervisor-integration-dependency-review-in-progress",
+    "independentReviewer": "defer until concrete candidate exists"
+  },
+  "native": {
+    "owner": "01a17da0-9245-7795-ad0d-231c0dedc002",
+    "state": "not-started",
+    "gaps": [
+      "complete native screenshot/mouse coordinate tools unavailable",
+      "native audio untested",
+      "same-version continuous full flow untested"
+    ]
+  }
+}

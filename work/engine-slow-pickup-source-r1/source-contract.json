@@ -1,0 +1,74 @@
+{
+  "schema": "engine-utility-source-contract-v1",
+  "task": "ENGINE-SLOW-PICKUP-SOURCE-R1",
+  "base": "final releases/r31",
+  "productCandidate": false,
+  "scope": "Existing recognized ground meat/arrow, explicit single pickup only",
+  "qualified": false,
+  "qualificationReason": "Conditional native inbound action15/frame arithmetic and server result chain proven statically; no complete delivered pickup frame set, original outgoing input eligibility or full utility timing certification.",
+  "qualifiedLayers": [
+    "server-authoritative request/commit/replies static chain",
+    "BIN opcode226 semantic receive to action15 selector under stated conditions",
+    "common per-frame speed0/1/2 branch with neutral extra-state preconditions",
+    "42 profile metadata entry hashes and exact missing pickup frame keys"
+  ],
+  "unqualifiedLayers": [
+    "remove SlowActionsBlocked now",
+    "native outgoing pickup opcode/input restrictions",
+    "self-state/other buff qualification for all cases",
+    "complete utility scheduler duration/origin",
+    "complete pickup frames and renderer",
+    "native or normal-product live acceptance",
+    "A3EBF0=true queued action consumption/cancellation and timing"
+  ],
+  "server": {
+    "requestOpcode": 112,
+    "requestFields": "H groundX H groundY D groundObjectId D count",
+    "actionOpcode": 158,
+    "action": 15,
+    "actionIdentity": "actor only; no item/count/request ID",
+    "commit": "synchronous lock serialization with captured binding and repeated guards; no fixed pickup timer established",
+    "independentPickupDelayMs": null
+  },
+  "native": {
+    "imageBase": "0x400000",
+    "binarySha256": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2",
+    "semanticOpcode": 226,
+    "receiverVA": "0x92cb70",
+    "selectorVA": "0xa467a0",
+    "frameAdvanceVA": "0xa43560",
+    "frameVA": "0xa3ef40",
+    "durationVA": "0xa407d0",
+    "callbackVA": "0xa4b060",
+    "frame0": "initial index0 then preincrement to1; terminal index0 is not automatically the whole operation window",
+    "totalUtilityDelayMs": null,
+    "outgoingInputEligibility": "unknown",
+    "liveVerified": false,
+    "receiveCondition": "Common frame route requires A3EBF0=false and other stated actor/state conditions; true routes via +0x64: base 51E860 no-op, derived A3C4F0 queues {226,action} at actor+0x19C when current action is not8.",
+    "queuedActionConsumptionAndCancellation": "unknown"
+  },
+  "metadata": {
+    "profiles": 42,
+    "gfx": 13,
+    "entryHashesMatched": 42,
+    "explicitAction15": 42,
+    "existingPickupSequences": 0,
+    "existingCompleteFrameSets": 0,
+    "path": "metadata/pickup-frames.json"
+  },
+  "engine": {
+    "localClickGuardMs": 900,
+    "pendingOutcomeNoticeMs": 3000,
+    "productChanged": false,
+    "pickupAnimationRendered": false,
+    "slowGateRetained": true
+  },
+  "nextAddresses": [
+    "0xa44500 terminal action transition",
+    "0xa228b0 remaining clock path",
+    "outgoing pickup caller not yet identified; do not map JAR112 numerically",
+    "A3C100/A44B60/A4BF00 command queue insertion/removal/cancellation and consumer linkage"
+  ],
+  "proofIndex": "proof-index.json",
+  "details": "CONTRACT.md"
+}

@@ -1,0 +1,14 @@
+{
+  "schema": "p38-delivery-plan-artifact-seal-v1",
+  "artifactManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\artifact-manifest.json",
+    "size": 8094,
+    "sha256": "1f31aa20d1abafcbf3928b85f8300ea1d3bb335a215f8843a3e9c424d46f2faf"
+  },
+  "sealedFiles": 51,
+  "planSha256": "d1649ed3104850b96b719a367583835c781aa0a1fd05fad52c27b6ce402cce92",
+  "contractSha256": "0ceba81b82f80ccd601c12da36b10557a2a5b9bd2d867cc166923a4816b43b3e",
+  "sourceSealSha256": "3d5f27eb648aa970fe970f00fc5121eda18ecd861c8bc0ae6e882b20ca199216",
+  "preparationOnly": true,
+  "executionAuthorized": false
+}

@@ -1,0 +1,3210 @@
+{
+  "scope": "Independent preparation: actual r29 DLL/renderer and synthetic state/packet/clock/sender. False assertions expose current increment gaps; no candidate verdict.",
+  "assembly": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\work\\engine-slow-actions-review-r1\\helper\\r29\\P11.ClientEngine.dll",
+  "assemblySha256": "8ccfa4e3b5d253206779a5d4b1e59682263ffbddf5dab43fe15b0aa1f86a7397",
+  "checks": [
+    {
+      "name": "request-0-0-0",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 863,
+        "expected": 800,
+        "serverBasis": 800,
+        "margin": 0,
+        "notice": "\u55AE\u6B21\u653B\u64CA\u5DF2\u9001\u51FA\uFF1B\u52D5\u756B\u70BA\u9810\u6E2C\uFF0C\u7B49\u5F85\u539F\u670D\u56DE\u5831",
+        "wire": "E5E7030000627FAC8000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-0-0",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-0-1",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1596,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600007B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-0-1",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-0-3",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600027B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-0-3",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-0-4",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1420,
+        "expected": 1420,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "060003E7030000627FAC800000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-0-4",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-0-8",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600077B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-0-8",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-4-0",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 960,
+        "expected": 960,
+        "serverBasis": 960,
+        "margin": 0,
+        "notice": "\u55AE\u6B21\u653B\u64CA\u5DF2\u9001\u51FA\uFF1B\u52D5\u756B\u70BA\u9810\u6E2C\uFF0C\u7B49\u5F85\u539F\u670D\u56DE\u5831",
+        "wire": "E5E7030000627FAC8000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-4-0",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-4-1",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600007B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-4-1",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-4-3",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600027B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-4-3",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-4-4",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1420,
+        "expected": 1420,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "060003E7030000627FAC800000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-4-4",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-4-8",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600077B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-4-8",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-20-0",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1232,
+        "expected": 1232,
+        "serverBasis": 1200,
+        "margin": 32,
+        "notice": "\u55AE\u6B21\u653B\u64CA\u5DF2\u9001\u51FA\uFF1B\u52D5\u756B\u70BA\u9810\u6E2C\uFF0C\u7B49\u5F85\u539F\u670D\u56DE\u5831",
+        "wire": "7BE7030000627FAC8000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-20-0",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-20-1",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600007B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-20-1",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-20-3",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600027B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-20-3",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-20-4",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1420,
+        "expected": 1420,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "060003E7030000627FAC800000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-20-4",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-20-8",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600077B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-20-8",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-46-0",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 840,
+        "expected": 840,
+        "serverBasis": 840,
+        "margin": 0,
+        "notice": "\u55AE\u6B21\u653B\u64CA\u5DF2\u9001\u51FA\uFF1B\u52D5\u756B\u70BA\u9810\u6E2C\uFF0C\u7B49\u5F85\u539F\u670D\u56DE\u5831",
+        "wire": "E5E7030000627FAC8000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-46-0",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-46-1",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600007B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-46-1",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-46-3",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600027B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-46-3",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-46-4",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1420,
+        "expected": 1420,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "060003E7030000627FAC800000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-46-4",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-46-8",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600077B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-46-8",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-50-0",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1120,
+        "expected": 1120,
+        "serverBasis": 1120,
+        "margin": 0,
+        "notice": "\u55AE\u6B21\u653B\u64CA\u5DF2\u9001\u51FA\uFF1B\u52D5\u756B\u70BA\u9810\u6E2C\uFF0C\u7B49\u5F85\u539F\u670D\u56DE\u5831",
+        "wire": "E5E7030000627FAC8000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-50-0",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-50-1",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600007B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-50-1",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-50-3",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600027B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-50-3",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-50-4",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1420,
+        "expected": 1420,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "060003E7030000627FAC800000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-50-4",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-0-50-8",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600077B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-0-50-8",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-0-0",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 800,
+        "expected": 800,
+        "serverBasis": 800,
+        "margin": 0,
+        "notice": "\u55AE\u6B21\u653B\u64CA\u5DF2\u9001\u51FA\uFF1B\u52D5\u756B\u70BA\u9810\u6E2C\uFF0C\u7B49\u5F85\u539F\u670D\u56DE\u5831",
+        "wire": "E5E7030000627FAC8000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-0-0",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-0-1",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600007B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-0-1",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-0-3",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600027B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-0-3",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-0-4",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1420,
+        "expected": 1420,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "060003E7030000627FAC800000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-0-4",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-0-8",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600077B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-0-8",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-4-0",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 960,
+        "expected": 960,
+        "serverBasis": 960,
+        "margin": 0,
+        "notice": "\u55AE\u6B21\u653B\u64CA\u5DF2\u9001\u51FA\uFF1B\u52D5\u756B\u70BA\u9810\u6E2C\uFF0C\u7B49\u5F85\u539F\u670D\u56DE\u5831",
+        "wire": "E5E7030000627FAC8000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-4-0",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-4-1",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600007B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-4-1",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-4-3",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600027B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-4-3",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-4-4",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1420,
+        "expected": 1420,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "060003E7030000627FAC800000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-4-4",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-4-8",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600077B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-4-8",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-20-0",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1232,
+        "expected": 1232,
+        "serverBasis": 1200,
+        "margin": 32,
+        "notice": "\u55AE\u6B21\u653B\u64CA\u5DF2\u9001\u51FA\uFF1B\u52D5\u756B\u70BA\u9810\u6E2C\uFF0C\u7B49\u5F85\u539F\u670D\u56DE\u5831",
+        "wire": "7BE7030000627FAC8000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-20-0",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-20-1",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600007B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-20-1",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-20-3",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600027B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-20-3",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-20-4",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1420,
+        "expected": 1420,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "060003E7030000627FAC800000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-20-4",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-20-8",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600077B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-20-8",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-46-0",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 840,
+        "expected": 840,
+        "serverBasis": 840,
+        "margin": 0,
+        "notice": "\u55AE\u6B21\u653B\u64CA\u5DF2\u9001\u51FA\uFF1B\u52D5\u756B\u70BA\u9810\u6E2C\uFF0C\u7B49\u5F85\u539F\u670D\u56DE\u5831",
+        "wire": "E5E7030000627FAC8000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-46-0",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-46-1",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600007B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-46-1",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-46-3",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600027B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-46-3",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-46-4",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1420,
+        "expected": 1420,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "060003E7030000627FAC800000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-46-4",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-46-8",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600077B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-46-8",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-50-0",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1120,
+        "expected": 1120,
+        "serverBasis": 1120,
+        "margin": 0,
+        "notice": "\u55AE\u6B21\u653B\u64CA\u5DF2\u9001\u51FA\uFF1B\u52D5\u756B\u70BA\u9810\u6E2C\uFF0C\u7B49\u5F85\u539F\u670D\u56DE\u5831",
+        "wire": "E5E7030000627FAC8000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-50-0",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-50-1",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600007B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-50-1",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-50-3",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600027B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-50-3",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-50-4",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1420,
+        "expected": 1420,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "060003E7030000627FAC800000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-50-4",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-1-50-8",
+      "pass": true,
+      "evidence": {
+        "sent": true,
+        "count": 1,
+        "actualGuard": 1580,
+        "expected": 1580,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u55AE\u6B21\u65BD\u6CD5\u5DF2\u9001\u51FA\uFF1B\u7B49\u5F85\u539F\u670D\u7D50\u679C\uFF08\u4E0D\u9810\u6263HP\uFF0FMP\uFF09",
+        "wire": "0600077B000000000000000000000000"
+      }
+    },
+    {
+      "name": "sent-action-blocks-movement-1-50-8",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "request-2-0-0",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 1600,
+        "serverBasis": 800,
+        "margin": 0,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-0-1",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-0-3",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-0-4",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 2740,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-0-8",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-4-0",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 1920,
+        "serverBasis": 960,
+        "margin": 0,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-4-1",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-4-3",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-4-4",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 2740,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-4-8",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-20-0",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 2432,
+        "serverBasis": 1200,
+        "margin": 32,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-20-1",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-20-3",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-20-4",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 2740,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-20-8",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-46-0",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 1680,
+        "serverBasis": 840,
+        "margin": 0,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-46-1",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-46-3",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-46-4",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 2740,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-46-8",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-50-0",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 2240,
+        "serverBasis": 1120,
+        "margin": 0,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-50-1",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-50-3",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-50-4",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 2740,
+        "serverBasis": 1320,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "request-2-50-8",
+      "pass": false,
+      "evidence": {
+        "sent": false,
+        "count": 0,
+        "actualGuard": -13716359,
+        "expected": 3060,
+        "serverBasis": 1480,
+        "margin": 100,
+        "notice": "\u672A\u9001\u51FA\uFF1A\u7DE9\u901F\u72C0\u614B\u76EE\u524D\u50C5\u652F\u63F4\u6B65\u884C\uFF0F\u8F49\u5411\uFF0C\u5C1A\u672A\u652F\u63F4\u6B64\u52D5\u4F5C\u3002",
+        "wire": null
+      }
+    },
+    {
+      "name": "queued-0-slow",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-0-transient",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-0-same",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-0-cancel",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-0-map",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-0-appearance",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-0-weapon",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-0-target",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-0-death",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-1-slow",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-1-transient",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-1-same",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-1-cancel",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-1-map",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-1-appearance",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-1-weapon",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-1-target",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": true,
+        "count": 1,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-1-death",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-3-slow",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-3-transient",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-3-same",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-3-cancel",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-3-map",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-3-appearance",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-3-weapon",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-3-target",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": true,
+        "count": 1,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-3-death",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-4-slow",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-4-transient",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-4-same",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-4-cancel",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-4-map",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-4-appearance",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-4-weapon",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-4-target",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-4-death",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": false
+      }
+    },
+    {
+      "name": "queued-8-slow",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-8-transient",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-8-same",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-8-cancel",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-8-map",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-8-appearance",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-8-weapon",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-8-target",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": true,
+        "count": 1,
+        "self": true
+      }
+    },
+    {
+      "name": "queued-8-death",
+      "pass": true,
+      "evidence": {
+        "entered": true,
+        "sent": false,
+        "count": 0,
+        "self": true
+      }
+    },
+    {
+      "name": "inflight-completion-preserves-transient-slow-0",
+      "pass": false,
+      "evidence": {
+        "admitted": true,
+        "sent": true,
+        "actualGuard": 840,
+        "expected": 1680
+      }
+    },
+    {
+      "name": "inflight-completion-preserves-transient-slow-1",
+      "pass": false,
+      "evidence": {
+        "admitted": true,
+        "sent": true,
+        "actualGuard": 1580,
+        "expected": 3060
+      }
+    },
+    {
+      "name": "inflight-completion-preserves-transient-slow-3",
+      "pass": false,
+      "evidence": {
+        "admitted": true,
+        "sent": true,
+        "actualGuard": 1580,
+        "expected": 3060
+      }
+    },
+    {
+      "name": "inflight-completion-preserves-transient-slow-4",
+      "pass": false,
+      "evidence": {
+        "admitted": true,
+        "sent": true,
+        "actualGuard": 1420,
+        "expected": 2740
+      }
+    },
+    {
+      "name": "inflight-completion-preserves-transient-slow-8",
+      "pass": false,
+      "evidence": {
+        "admitted": true,
+        "sent": true,
+        "actualGuard": 1580,
+        "expected": 3060
+      }
+    },
+    {
+      "name": "renderer-0-1-True",
+      "pass": true,
+      "evidence": {
+        "expectedDuration": 1249,
+        "expectedFrame": "216:6",
+        "view": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "attack",
+          "Frame": "216:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 1249
+        },
+        "scope": "retained profile scaling; remote StepMs is walk diagnostics, not combat duration; legacy profile/native discrepancies separately listed"
+      }
+    },
+    {
+      "name": "renderer-before-admitted-end-0-1-True",
+      "pass": true,
+      "evidence": {
+        "expected": 1249,
+        "ending": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "attack",
+          "Frame": "216:8",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 1249
+        }
+      }
+    },
+    {
+      "name": "renderer-0-1-False",
+      "pass": true,
+      "evidence": {
+        "expectedDuration": 800,
+        "expectedFrame": "16:4",
+        "view": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "attack",
+          "Frame": "16:4",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 828
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 72,
+              "Height": 84
+            },
+            "X": 1872,
+            "Y": 828,
+            "Width": 72,
+            "Height": 84,
+            "Left": 1872,
+            "Top": 828,
+            "Right": 1944,
+            "Bottom": 912,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 640
+        },
+        "scope": "retained profile scaling; remote StepMs is walk diagnostics, not combat duration; legacy profile/native discrepancies separately listed"
+      }
+    },
+    {
+      "name": "renderer-before-admitted-end-0-1-False",
+      "pass": true,
+      "evidence": {
+        "expected": 800,
+        "ending": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "attack",
+          "Frame": "16:5",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 828
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 72,
+              "Height": 84
+            },
+            "X": 1872,
+            "Y": 828,
+            "Width": 72,
+            "Height": 84,
+            "Left": 1872,
+            "Top": 828,
+            "Right": 1944,
+            "Bottom": 912,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 640
+        }
+      }
+    },
+    {
+      "name": "renderer-0-18-True",
+      "pass": true,
+      "evidence": {
+        "expectedDuration": 1374,
+        "expectedFrame": "32:6",
+        "view": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "spellDir",
+          "Frame": "32:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 1374
+        },
+        "scope": "retained profile scaling; remote StepMs is walk diagnostics, not combat duration; legacy profile/native discrepancies separately listed"
+      }
+    },
+    {
+      "name": "renderer-before-admitted-end-0-18-True",
+      "pass": true,
+      "evidence": {
+        "expected": 1374,
+        "ending": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "spellDir",
+          "Frame": "32:8",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 1374
+        }
+      }
+    },
+    {
+      "name": "renderer-0-18-False",
+      "pass": true,
+      "evidence": {
+        "expectedDuration": 1374,
+        "expectedFrame": "32:6",
+        "view": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "spellDir",
+          "Frame": "32:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 828
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 48,
+              "Height": 84
+            },
+            "X": 1872,
+            "Y": 828,
+            "Width": 48,
+            "Height": 84,
+            "Left": 1872,
+            "Top": 828,
+            "Right": 1920,
+            "Bottom": 912,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 640
+        },
+        "scope": "retained profile scaling; remote StepMs is walk diagnostics, not combat duration; legacy profile/native discrepancies separately listed"
+      }
+    },
+    {
+      "name": "renderer-before-admitted-end-0-18-False",
+      "pass": true,
+      "evidence": {
+        "expected": 1374,
+        "ending": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "spellDir",
+          "Frame": "32:8",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 828
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 48,
+              "Height": 84
+            },
+            "X": 1872,
+            "Y": 828,
+            "Width": 48,
+            "Height": 84,
+            "Left": 1872,
+            "Top": 828,
+            "Right": 1920,
+            "Bottom": 912,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 640
+        }
+      }
+    },
+    {
+      "name": "renderer-0-19-True",
+      "pass": true,
+      "evidence": {
+        "expectedDuration": 1539,
+        "expectedFrame": "40:6",
+        "view": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "spellNoDir",
+          "Frame": "40:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 1539
+        },
+        "scope": "retained profile scaling; remote StepMs is walk diagnostics, not combat duration; legacy profile/native discrepancies separately listed"
+      }
+    },
+    {
+      "name": "renderer-before-admitted-end-0-19-True",
+      "pass": true,
+      "evidence": {
+        "expected": 1539,
+        "ending": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "spellNoDir",
+          "Frame": "40:8",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 1539
+        }
+      }
+    },
+    {
+      "name": "renderer-0-19-False",
+      "pass": true,
+      "evidence": {
+        "expectedDuration": 1539,
+        "expectedFrame": "40:6",
+        "view": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "spellNoDir",
+          "Frame": "40:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 840
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 72,
+              "Height": 72
+            },
+            "X": 1872,
+            "Y": 840,
+            "Width": 72,
+            "Height": 72,
+            "Left": 1872,
+            "Top": 840,
+            "Right": 1944,
+            "Bottom": 912,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 640
+        },
+        "scope": "retained profile scaling; remote StepMs is walk diagnostics, not combat duration; legacy profile/native discrepancies separately listed"
+      }
+    },
+    {
+      "name": "renderer-before-admitted-end-0-19-False",
+      "pass": true,
+      "evidence": {
+        "expected": 1539,
+        "ending": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "spellNoDir",
+          "Frame": "40:8",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 828
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 48,
+              "Height": 72
+            },
+            "X": 1872,
+            "Y": 828,
+            "Width": 48,
+            "Height": 72,
+            "Left": 1872,
+            "Top": 828,
+            "Right": 1920,
+            "Bottom": 900,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 640
+        }
+      }
+    },
+    {
+      "name": "renderer-2-1-True",
+      "pass": false,
+      "evidence": {
+        "expectedDuration": 2498,
+        "expectedFrame": "216:3",
+        "view": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "attack",
+          "Frame": "216:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 1249
+        },
+        "scope": "retained profile scaling; remote StepMs is walk diagnostics, not combat duration; legacy profile/native discrepancies separately listed"
+      }
+    },
+    {
+      "name": "renderer-inflight-recovery-1-True",
+      "pass": false,
+      "evidence": {
+        "after": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "attack",
+          "Frame": "216:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 1249
+        }
+      }
+    },
+    {
+      "name": "renderer-before-admitted-end-2-1-True",
+      "pass": false,
+      "evidence": {
+        "expected": 2498,
+        "ending": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "breath",
+          "Frame": "213:9",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 640
+        }
+      }
+    },
+    {
+      "name": "renderer-2-1-False",
+      "pass": false,
+      "evidence": {
+        "expectedDuration": 1600,
+        "expectedFrame": "16:2",
+        "view": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "attack",
+          "Frame": "16:4",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 828
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 72,
+              "Height": 84
+            },
+            "X": 1872,
+            "Y": 828,
+            "Width": 72,
+            "Height": 84,
+            "Left": 1872,
+            "Top": 828,
+            "Right": 1944,
+            "Bottom": 912,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 1280
+        },
+        "scope": "retained profile scaling; remote StepMs is walk diagnostics, not combat duration; legacy profile/native discrepancies separately listed"
+      }
+    },
+    {
+      "name": "renderer-inflight-recovery-1-False",
+      "pass": false,
+      "evidence": {
+        "after": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "attack",
+          "Frame": "16:4",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 828
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 72,
+              "Height": 84
+            },
+            "X": 1872,
+            "Y": 828,
+            "Width": 72,
+            "Height": 84,
+            "Left": 1872,
+            "Top": 828,
+            "Right": 1944,
+            "Bottom": 912,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 640
+        }
+      }
+    },
+    {
+      "name": "renderer-before-admitted-end-2-1-False",
+      "pass": false,
+      "evidence": {
+        "expected": 1600,
+        "ending": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "breath",
+          "Frame": "8:0",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 828
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 48,
+              "Height": 72
+            },
+            "X": 1872,
+            "Y": 828,
+            "Width": 48,
+            "Height": 72,
+            "Left": 1872,
+            "Top": 828,
+            "Right": 1920,
+            "Bottom": 900,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 640
+        }
+      }
+    },
+    {
+      "name": "renderer-2-18-True",
+      "pass": false,
+      "evidence": {
+        "expectedDuration": 2748,
+        "expectedFrame": "32:3",
+        "view": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "spellDir",
+          "Frame": "32:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 1374
+        },
+        "scope": "retained profile scaling; remote StepMs is walk diagnostics, not combat duration; legacy profile/native discrepancies separately listed"
+      }
+    },
+    {
+      "name": "renderer-inflight-recovery-18-True",
+      "pass": false,
+      "evidence": {
+        "after": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "spellDir",
+          "Frame": "32:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 1374
+        }
+      }
+    },
+    {
+      "name": "renderer-before-admitted-end-2-18-True",
+      "pass": false,
+      "evidence": {
+        "expected": 2748,
+        "ending": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "breath",
+          "Frame": "213:9",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 640
+        }
+      }
+    },
+    {
+      "name": "renderer-2-18-False",
+      "pass": false,
+      "evidence": {
+        "expectedDuration": 2748,
+        "expectedFrame": "32:3",
+        "view": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "spellDir",
+          "Frame": "32:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 828
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 48,
+              "Height": 84
+            },
+            "X": 1872,
+            "Y": 828,
+            "Width": 48,
+            "Height": 84,
+            "Left": 1872,
+            "Top": 828,
+            "Right": 1920,
+            "Bottom": 912,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 1280
+        },
+        "scope": "retained profile scaling; remote StepMs is walk diagnostics, not combat duration; legacy profile/native discrepancies separately listed"
+      }
+    },
+    {
+      "name": "renderer-inflight-recovery-18-False",
+      "pass": false,
+      "evidence": {
+        "after": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "spellDir",
+          "Frame": "32:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 828
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 48,
+              "Height": 84
+            },
+            "X": 1872,
+            "Y": 828,
+            "Width": 48,
+            "Height": 84,
+            "Left": 1872,
+            "Top": 828,
+            "Right": 1920,
+            "Bottom": 912,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 640
+        }
+      }
+    },
+    {
+      "name": "renderer-before-admitted-end-2-18-False",
+      "pass": false,
+      "evidence": {
+        "expected": 2748,
+        "ending": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "breath",
+          "Frame": "8:7",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 828
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 48,
+              "Height": 72
+            },
+            "X": 1872,
+            "Y": 828,
+            "Width": 48,
+            "Height": 72,
+            "Left": 1872,
+            "Top": 828,
+            "Right": 1920,
+            "Bottom": 900,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 640
+        }
+      }
+    },
+    {
+      "name": "renderer-2-19-True",
+      "pass": false,
+      "evidence": {
+        "expectedDuration": 3078,
+        "expectedFrame": "40:3",
+        "view": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "spellNoDir",
+          "Frame": "40:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 1539
+        },
+        "scope": "retained profile scaling; remote StepMs is walk diagnostics, not combat duration; legacy profile/native discrepancies separately listed"
+      }
+    },
+    {
+      "name": "renderer-inflight-recovery-19-True",
+      "pass": false,
+      "evidence": {
+        "after": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "spellNoDir",
+          "Frame": "40:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 1539
+        }
+      }
+    },
+    {
+      "name": "renderer-before-admitted-end-2-19-True",
+      "pass": false,
+      "evidence": {
+        "expected": 3078,
+        "ending": {
+          "ObjectId": 123,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "review",
+          "X": 32600,
+          "Y": 32940,
+          "Action": "breath",
+          "Frame": "213:9",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1656,
+            "Y": 1008
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": true,
+              "X": 0,
+              "Y": 0
+            },
+            "Size": {
+              "IsEmpty": true,
+              "Width": 0,
+              "Height": 0
+            },
+            "X": 0,
+            "Y": 0,
+            "Width": 0,
+            "Height": 0,
+            "Left": 0,
+            "Top": 0,
+            "Right": 0,
+            "Bottom": 0,
+            "IsEmpty": true
+          },
+          "Walking": false,
+          "StepMs": 640
+        }
+      }
+    },
+    {
+      "name": "renderer-2-19-False",
+      "pass": false,
+      "evidence": {
+        "expectedDuration": 3078,
+        "expectedFrame": "40:3",
+        "view": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "spellNoDir",
+          "Frame": "40:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 840
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 72,
+              "Height": 72
+            },
+            "X": 1872,
+            "Y": 840,
+            "Width": 72,
+            "Height": 72,
+            "Left": 1872,
+            "Top": 840,
+            "Right": 1944,
+            "Bottom": 912,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 1280
+        },
+        "scope": "retained profile scaling; remote StepMs is walk diagnostics, not combat duration; legacy profile/native discrepancies separately listed"
+      }
+    },
+    {
+      "name": "renderer-inflight-recovery-19-False",
+      "pass": false,
+      "evidence": {
+        "after": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "spellNoDir",
+          "Frame": "40:6",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 840
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 72,
+              "Height": 72
+            },
+            "X": 1872,
+            "Y": 840,
+            "Width": 72,
+            "Height": 72,
+            "Left": 1872,
+            "Top": 840,
+            "Right": 1944,
+            "Bottom": 912,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 640
+        }
+      }
+    },
+    {
+      "name": "renderer-before-admitted-end-2-19-False",
+      "pass": false,
+      "evidence": {
+        "expected": 3078,
+        "ending": {
+          "ObjectId": 999,
+          "Gfx": 0,
+          "Sprite": 3225,
+          "Name": "synthetic remote",
+          "X": 32610,
+          "Y": 32940,
+          "Action": "breath",
+          "Frame": "8:1",
+          "Foot": {
+            "IsEmpty": false,
+            "X": 1896,
+            "Y": 888
+          },
+          "Bounds": {
+            "Location": {
+              "IsEmpty": false,
+              "X": 1872,
+              "Y": 828
+            },
+            "Size": {
+              "IsEmpty": false,
+              "Width": 48,
+              "Height": 72
+            },
+            "X": 1872,
+            "Y": 828,
+            "Width": 48,
+            "Height": 72,
+            "Left": 1872,
+            "Top": 828,
+            "Right": 1920,
+            "Bottom": 900,
+            "IsEmpty": false
+          },
+          "Walking": false,
+          "StepMs": 640
+        }
+      }
+    },
+    {
+      "name": "slow-release-wait-not-base-False",
+      "pass": false,
+      "evidence": {
+        "baseRelease": 791,
+        "slowRetainedRelease": 1582,
+        "visibleAtBasePlusOne": true,
+        "scope": "expected relative slowdown; exact native absolute marker origin still separately qualified"
+      }
+    },
+    {
+      "name": "slow-release-wait-not-base-True",
+      "pass": false,
+      "evidence": {
+        "baseRelease": 916,
+        "slowRetainedRelease": 1832,
+        "visibleAtBasePlusOne": true,
+        "scope": "expected relative slowdown; exact native absolute marker origin still separately qualified"
+      }
+    },
+    {
+      "name": "arrow-flight-30ms",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "bolt-flight-60ms",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "name": "no-socket-events",
+      "pass": true,
+      "evidence": null
+    }
+  ]
+}

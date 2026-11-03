@@ -1,0 +1,20 @@
+{
+  "schema": "p25-static-verification-v1",
+  "status": "pass",
+  "scope": "document/source binding and artifact integrity only; not product runtime testing",
+  "sourcePinsVerified": 523,
+  "acceptedSourcesBound": 177,
+  "modules": 11,
+  "oldRowsReconciled": 32,
+  "supplementalOccurrencesReconciled": 16,
+  "finiteBacklogItems": 12,
+  "historicalReferences": 120,
+  "historicalReferencesUnresolved": 0,
+  "sealedArtifactsVerified": 0,
+  "productBuilds": 0,
+  "productTestRuns": 0,
+  "nativeRuns": 0,
+  "databaseOperations": 0,
+  "errors": [],
+  "wholeProjectComplete": false
+}

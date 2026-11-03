@@ -1,0 +1,55 @@
+{
+  "schema": "p26-release-tool-root-acceptance-v1",
+  "utc": "2026-10-29T04:32:28.229108+00:00",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "dispatchId": "ENGINE-R34-PACKAGE-PLAN-P26-R2",
+  "decision": "accepted-for-package-plan-generation-only",
+  "toolSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\artifact-seal.json",
+    "size": 125494,
+    "sha256": "30655ae3c7ce2b8efb82a2f7bfb35adc0f962a0f0162a0d323c29e231577fe13"
+  },
+  "toolSourceSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\tool-source-seal.json",
+    "size": 8680,
+    "sha256": "5bbde28bc03eef1e99453bedd92893ec7e5a4c4545023a9e0bbaef92dd391ec6"
+  },
+  "reviewSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\artifact-manifest.json",
+    "size": 3729,
+    "sha256": "2b10325adcc5b108b6ff94e9224246251592e15c84bcd110ca8a5d6199e75189"
+  },
+  "review": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\review.json",
+    "size": 853,
+    "sha256": "af3a2f9108b7c8c21eb0a9b6bec31a829a1683fa4dedeb50b8b929600c99d19e"
+  },
+  "reviewResult": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\result.json",
+    "size": 1622,
+    "sha256": "77f57be3e136cb216646040aede76c56e115dfbcff890cafd828e409ac21b50d"
+  },
+  "authorArtifacts": 617,
+  "reviewArtifacts": 22,
+  "independentCases": 56,
+  "canonicalAcceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-canonical-acceptance.json",
+    "size": 3791,
+    "sha256": "b825f6ff7079c0e97a87385a0030634317b61c18aed6af0d209e13ad6ccad927"
+  },
+  "generator": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\generate_package_plan.py",
+    "size": 16094,
+    "sha256": "32e5cefcc739c7e432dfa9cf00488072c330445695a4b3761d0e43c8ae962578"
+  },
+  "canonicalPlanSha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761",
+  "sharedReceiptSha256": "0b96bf307f38e749143138d0930585b2bd7da6ef11d6b8a6d1ec1c66e4fc6e0c",
+  "authorizedOutput": "work/P26-r34-package-plan-r1/package-plan.json",
+  "allowedWorkflowWrites": [
+    "independent provenance copies of exact r2 tool/review/root acceptance before inventory",
+    "sealed release-tooling archive by accepted generator"
+  ],
+  "releaseAuthorized": false,
+  "entryAuthorized": false,
+  "productRerunsAuthorized": false
+}

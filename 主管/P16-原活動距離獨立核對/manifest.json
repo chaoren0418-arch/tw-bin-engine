@@ -1,0 +1,24 @@
+{
+  "status": "pass",
+  "scope": "Independent actual fixed-JAR javap and original-source/class identity; JVM offsets, no PE addresses",
+  "classes": [
+    {
+      "class_name": "com.lineage.server.model.Instance.NpcMove",
+      "class_sha256": "ebef381563131619f398e9d5ef8c1c9d552f52210ddfdc9cd55c33ec56be984b",
+      "source_sha256": "969ae3781be0391434441b472a7db649c27cbf67af3728d653b3e9e3e674590e",
+      "independent_javap_sha256": "f128d15fa64e839b36f9f9d42908612baafea492df7e1b5b921186edd0a01515"
+    },
+    {
+      "class_name": "com.lineage.server.types.Point",
+      "class_sha256": "1c73016e02ea9a82c2ddb4e0172a3b15b6a7ee0beac7a4f26a1b51ba1bee8a39",
+      "source_sha256": "bf98f5cf09580a2d684809b52a37418ff6610684c09091e71ede4cb24105d583",
+      "independent_javap_sha256": "29df52f6d6bb0f41b82f623c6f45211a070722d217bdb0129c3c8b07855f1eba"
+    },
+    {
+      "class_name": "com.lineage.server.model.L1Location",
+      "class_sha256": "a9ce15c4a80e764fbdc5246cff862bdf38251686080c44f2b110be5705e03264",
+      "source_sha256": "9c9c248d857cf008e3b7b35e713851324ac353246ae25c9ceba0cdd086de7060",
+      "independent_javap_sha256": "f4fba53438962c60a97b4653669b9be614ca14414c786f3577d79d35315c4db2"
+    }
+  ]
+}

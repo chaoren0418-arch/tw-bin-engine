@@ -1,0 +1,115 @@
+{
+  "schema": "p26-r34-authority-rebind-result-v1",
+  "dispatchId": "P26-INTEGRATION-AUTHORITY-REBIND-R1",
+  "status": "prepared-verified-awaiting-independent-review-not-integration-authorization",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "historicalStageSupervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "onlyWritableRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1",
+  "goal": {
+    "toolAvailable": true,
+    "read": true,
+    "value": null,
+    "created": false,
+    "modified": false
+  },
+  "oldPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\canonical-plan.json",
+    "size": 378638,
+    "sha256": "d25c306fae5abee9209e46c557453f7b6a0a96645e5c052fbda70555f11f15ff"
+  },
+  "newPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\canonical-plan.json",
+    "size": 714350,
+    "sha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761"
+  },
+  "policy": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\authority-policy.json",
+    "size": 2391,
+    "sha256": "b0375a991b0128beca63fb53b31264d869f23ccb87e539bf4b1a1ab90c4dd6da"
+  },
+  "newController": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\serial_canonical.py",
+    "size": 12913,
+    "sha256": "257533f50b13c4483c337791006483e07ceac7a90be4749cb66058e36dfb7ba3"
+  },
+  "sourceRebindings": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\rebindings.json",
+    "size": 12667,
+    "sha256": "7f526fc97c1493d2fed1505c3c7e9a9a154ff122dd4f46cd7faa151df800d56f"
+  },
+  "verification": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\verification.json",
+    "size": 3803,
+    "sha256": "d4961a0a9403f8fe419a6f1ae79156eb5ba5050cbd06b70979d2c081f5614d83"
+  },
+  "handoff": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\HANDOFF.md",
+    "size": 8369,
+    "sha256": "548ef2050ae72bec1dca3a176d411d975fcb151a1e9d856dfd56def7603e7a0d"
+  },
+  "authorityChange": "explicit current shared receipt identity distinct from immutable historical stage; pinned takeover; separate immutable preparation and script roots; no constant monkey patch",
+  "timeoutChange": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\timeout-fix.json",
+    "size": 1448,
+    "sha256": "62d3e0e59d162041d6c2769ae7d4ab219101a25092d63a100fd5b6782cc37198"
+  },
+  "timeoutSyntheticEvidence": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\synthetic-timeout\\result.json",
+    "size": 1468,
+    "sha256": "0984c7817f67cbf8fac8e2e0a4ccf8be5315ec2287862c8dabfdc4a48ef039be"
+  },
+  "actual": {
+    "authoritySyntheticCases": 11,
+    "timeoutSyntheticCases": 3,
+    "childProcesses": 0,
+    "productBuilds": 0,
+    "productAssertions": 0,
+    "install": 0,
+    "release": 0,
+    "entryActivation": 0,
+    "sharedReceiptCreated": false,
+    "workflowCreated": false,
+    "fullExecutionGateAcceptance": false
+  },
+  "preserved": {
+    "originalPlanSeal": true,
+    "originalPreparationSeal": true,
+    "acceptedStageSeal": true,
+    "canonicalBaseline": true,
+    "innerCommands": true,
+    "operations": 44,
+    "helpers": 10,
+    "copyMappings": 138,
+    "sourceFiles": 180,
+    "plannedAssertionsOnly": 4521,
+    "plannedObservationsOnly": 93,
+    "noReplay": true
+  },
+  "futureReceiptPath": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-shared-acceptance.json",
+  "independentReviewOwner": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "next": "new supervisor binds exact new plan after independent review, then dispatches separately",
+  "limitations": [
+    "Synthetic checks do not constitute full validate_plan acceptance or product results.",
+    "No current shared receipt exists.",
+    "Original release authority is outside this rebind scope; shared receipt cannot authorize release/activation.",
+    "Existing product collect binding/completion partial-save recovery limitation is unchanged."
+  ],
+  "rerunCommands": [
+    [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\verify_rebind.py"
+    ],
+    [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\test_timeout_capture.py"
+    ]
+  ],
+  "chatsCreated": 0,
+  "subagentsCreated": 0
+}

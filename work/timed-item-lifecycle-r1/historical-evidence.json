@@ -1,0 +1,534 @@
+{
+  "timelineReceipt": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-搬移後環境煙霧驗收-20261029\\key10326-timeline.json",
+  "timeline": {
+    "utc": "2026-10-28T18:52:06.236708+00:00",
+    "objectId": 10326,
+    "templateId": 49290,
+    "owner": 1900249001,
+    "evidence": [
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-rented.json",
+        "sha256": "2ebc90b9362eeb61f041d00b9145483d5bb622fa77801218b6f9a907d76b67a4",
+        "utc": "2026-10-27T19:33:35.1941964+00:00",
+        "kind": "native-world-snapshot",
+        "keyPresent": true,
+        "count": 1
+      },
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-cave-home-save.json",
+        "sha256": "f13eeeb580c55775e789b47c9d5198939f484ba0d841abecddb6ab49203341df",
+        "utc": "2026-10-27T21:11:00.998474+00:00",
+        "kind": "guarded-db-snapshot",
+        "key": {
+          "id": 10326,
+          "kind": "item",
+          "count": 1,
+          "owner": 1900249001,
+          "enchant": 0,
+          "equipped": 0,
+          "template": 49290
+        },
+        "keyPresent": true
+      },
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\cave-home-relogin-world.json",
+        "sha256": "97ea389039bab16937c55b6fc406bf35c133e45a1baa205fb283b7eb2dcb9ddc",
+        "utc": "2026-10-27T21:13:19.8410104+00:00",
+        "kind": "native-world-snapshot",
+        "keyPresent": true,
+        "count": 1
+      },
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-caesar-disconnect.json",
+        "sha256": "79d24e54e9d760d6475f278530b4d0e37ca943b6106e086fba74a2ebf9e92a1c",
+        "utc": "2026-10-27T21:31:39.308316+00:00",
+        "kind": "guarded-db-snapshot",
+        "key": {
+          "id": 10326,
+          "kind": "item",
+          "count": 1,
+          "owner": 1900249001,
+          "enchant": 0,
+          "equipped": 0,
+          "template": 49290
+        },
+        "keyPresent": true
+      },
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\caesar-service-relogin-world.json",
+        "sha256": "c05e6aa8b88467aa1ab01b2e35aeab21409be6d304a01bb97795882e871cd107",
+        "utc": "2026-10-27T21:33:51.2652882+00:00",
+        "kind": "native-world-snapshot",
+        "keyPresent": false,
+        "count": null
+      },
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-strength-save.json",
+        "sha256": "4a833f6b1e3c12685f5a73cb8501ed9cefac6a3f87274ef41a143edbb1a29e4f",
+        "utc": "2026-10-27T21:50:55.508902+00:00",
+        "kind": "guarded-db-snapshot",
+        "key": null,
+        "keyPresent": false
+      },
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\bonus-strength-relogin-world.json",
+        "sha256": "9b70c3f103c9d07017a43b6a0961be289f769ec57a430b9bed6af30f57c9939f",
+        "utc": "2026-10-27T21:56:33.7964987+00:00",
+        "kind": "native-world-snapshot",
+        "keyPresent": false,
+        "count": null
+      },
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\james-ruby-step008.json",
+        "sha256": "5c8c561535ab9469f634d7c848e8456a346561cf273f8966086a89930f09621e",
+        "utc": "2026-10-27T22:03:29.8969715+00:00",
+        "kind": "native-world-snapshot",
+        "keyPresent": false,
+        "count": null
+      }
+    ],
+    "boundedArchiveTransitions": [
+      {
+        "utc": "2026-10-27T21:30:00.0804586+00:00",
+        "loginState": "InWorld",
+        "itemRows": 15,
+        "keyPresent": true,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:31:18.0920188+00:00",
+        "loginState": "Offline",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:32:05.0461594+00:00",
+        "loginState": "Cancelled",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:32:05.0569008+00:00",
+        "loginState": "Connecting",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:32:05.0649485+00:00",
+        "loginState": "AwaitSeed",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:32:05.0717567+00:00",
+        "loginState": "Authenticating",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:32:05.0931444+00:00",
+        "loginState": "AwaitList",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:32:05.0965328+00:00",
+        "loginState": "ReadingCharacters",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:32:05.106998+00:00",
+        "loginState": "CharacterList",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:33:40.8613147+00:00",
+        "loginState": "InWorld",
+        "itemRows": 14,
+        "keyPresent": false,
+        "snapshotOnly": true
+      }
+    ],
+    "archive": {
+      "path": "evidence\\r28-runtime-before-consolidation\\runs\\interactive-86656\\web-events.jsonl",
+      "sha256": "08b145679e75285ee1b8db07d0fdb4f6f16c8cb3e4e8000d1aae215ed747ee73",
+      "eventKinds": {
+        "focus-left-game": 54,
+        "focus-game": 22,
+        "initialization-start": 7,
+        "browser-created": 7,
+        "navigation-start": 7,
+        "bridge-command": 16,
+        "bridge-reply": 19,
+        "bridge-state": 6654,
+        "navigation-completed": 7,
+        "close-request": 7,
+        "panel-disposed": 7,
+        "focus-web-input": 2,
+        "login-command": 1
+      },
+      "preservationLimit": "Migration originally recorded size/mtime for this volatile file; this hash pins current preserved bytes, not a retroactive pre-move hash."
+    },
+    "preStartupColdBackupMatches": [
+      {
+        "path": "db-data/p24_accounts/character_items.MYD",
+        "bytes": 3680,
+        "sha256": "e20b6b84f4f9595b4e31153f3f838783d5e32ae88f066320c8128145834dcd6d"
+      },
+      {
+        "path": "db-data/p24_accounts/character_items.MYI",
+        "bytes": 3072,
+        "sha256": "7600602a6af1fbd11a61a819c4cbdbea6f15d87ff664294fd63c07e9fa55b6a4"
+      },
+      {
+        "path": "db-data/p24_accounts/character_items_time.MYD",
+        "bytes": 20,
+        "sha256": "ce7490f726507917bf51d2e1415cec2de19054f303a2851b9a2e6e1c6a47331c"
+      },
+      {
+        "path": "db-data/p24_accounts/character_items_time.MYI",
+        "bytes": 2048,
+        "sha256": "50c1191f6936528b7a27db0ce4c548badc8524927737c9f18f684bb702256575"
+      }
+    ],
+    "conclusion": "Item10326 existed in a guarded DB snapshot at21:31:39Z before migration, was absent from native inventory by21:33:51Z and from DB by21:50:55Z. Its scheduled expiry05:33:31 Asia/Taipei falls between the snapshots. This supports a pre-migration disappearance, not a proven deletion cause. Current orphan time metadata is verified separately.",
+    "unknowns": [
+      "No object-specific delete reason or transaction receipt.",
+      "Native snapshot absence is not by itself SQL-deletion proof.",
+      "Table-file equality proves movement preserved bytes; it does not identify which earlier code path created the orphan."
+    ]
+  },
+  "rentalReview": {
+    "utc": "2026-10-27T19:37:06.442752+00:00",
+    "revision": "r28",
+    "clientPid": 68708,
+    "status": "normal-rental-room-map-change-walk-exit-receipts-pass",
+    "gold": {
+      "before": 33500,
+      "after": 33400,
+      "cost": 100
+    },
+    "roomKey": {
+      "objectId": 10326,
+      "count": 1
+    },
+    "entryMap": 16384,
+    "exitMap": 0,
+    "finalPosition": [
+      32599,
+      32931
+    ],
+    "hp": 686,
+    "noAdditionalGrantsOrDbMutation": true,
+    "nativeScreenshotsAccepted": false,
+    "formal6016AudioAccepted": false,
+    "limitations": [
+      "Movement is predicted with zero corrections, not per-step ACK.",
+      "Native UIA/keyboard and actual product receipts; no visual screenshot acceptance.",
+      "Room service only; no conference-room, map4 or boat claim."
+    ],
+    "sources": {
+      "inn-dialogue-request.json": "d8143f3e53a68d18a472f8cb5df5668d3eaaeb6d724eb7c74698095128e79fa5",
+      "inn-room-rented.json": "2ebc90b9362eeb61f041d00b9145483d5bb622fa77801218b6f9a907d76b67a4",
+      "inn-room-entered.json": "e252df086f5cee7c8cfdc025242b3d6e4424236ddc3ff0e2703388c7ea5510b5",
+      "inn-room-walk-1.json": "06825be725db245c4f6712f02e4d788409cde222e69d0e1dc3b18b73b0a2e0e7",
+      "inn-room-walk-2.json": "e51987f2132b4614e66ebbad88a6490e3c2342f2aa2c9f2092e84d2addb5e6f5",
+      "inn-room-exited.json": "c91873feec82aea695c34a36f61d75a1ec3d6454a3a45576913c4bb2fdd613c4"
+    }
+  },
+  "innConfiguration": {
+    "npcaction": [
+      {
+        "npcid": 70012,
+        "teleport_url": "",
+        "caotic_action": "Inn1",
+        "normal_action": "inn",
+        "teleport_urla": ""
+      }
+    ],
+    "spawnlist_npc": [
+      {
+        "id": 1329,
+        "locx": 32596,
+        "locy": 32929,
+        "count": 1,
+        "mapid": 0,
+        "heading": 4,
+        "randomx": 0,
+        "randomy": 0,
+        "location": "瑟琳娜",
+        "respawn_delay": 0,
+        "npc_templateid": 70012,
+        "movement_distance": 0
+      }
+    ],
+    "npc_action_making": [
+      {
+        "id": 1237,
+        "note": "瑟琳娜>旅館房間鑰匙(說話之島)",
+        "npc_id": "70012",
+        "results": "49290",
+        "materials": "40308",
+        "min_level": 0,
+        "action_name": "room",
+        "fail_item_id": 0,
+        "success_rate": 1000,
+        "results_count": "1",
+        "materials_count": "100",
+        "results_enchant": "0",
+        "amount_inputable": 0,
+        "materials_enchant": "-1"
+      },
+      {
+        "id": 1238,
+        "note": "瑟琳娜>旅館會議廳鑰匙(說話之島)",
+        "npc_id": "70012",
+        "results": "49900",
+        "materials": "40308",
+        "min_level": 0,
+        "action_name": "hall",
+        "fail_item_id": 0,
+        "success_rate": 1000,
+        "results_count": "1",
+        "materials_count": "100",
+        "results_enchant": "0",
+        "amount_inputable": 0,
+        "materials_enchant": "-1"
+      }
+    ],
+    "npc_action_teleport": [
+      {
+        "id": 1241,
+        "note": "瑟琳娜>進入旅館房間(說話之島)",
+        "loc_x": 32745,
+        "loc_y": 32803,
+        "map_id": 16384,
+        "npc_id": "70012",
+        "heading": 6,
+        "max_level": 200,
+        "min_level": 0,
+        "action_name": "enter",
+        "deny_message": "請先購買此旅館的房間或會議廳鑰匙。",
+        "price_amount": 0,
+        "price_item_id": 40308,
+        "require_item_id": 49290,
+        "require_quest_id": 0,
+        "require_step_max": 0,
+        "require_step_min": 0,
+        "require_item_count": 1
+      },
+      {
+        "id": 1242,
+        "note": "瑟琳娜>進入旅館會議廳(說話之島)",
+        "loc_x": 32743,
+        "loc_y": 32808,
+        "map_id": 16896,
+        "npc_id": "70012",
+        "heading": 6,
+        "max_level": 200,
+        "min_level": 0,
+        "action_name": "enter",
+        "deny_message": "請先購買此旅館的房間或會議廳鑰匙。",
+        "price_amount": 0,
+        "price_item_id": 40308,
+        "require_item_id": 49900,
+        "require_quest_id": 0,
+        "require_step_max": 0,
+        "require_step_min": 0,
+        "require_item_count": 1
+      }
+    ],
+    "dungeon": [
+      {
+        "note": "旅館房間>說話之島",
+        "new_x": 32599,
+        "new_y": 32931,
+        "src_x": 32746,
+        "src_y": 32803,
+        "new_mapid": 0,
+        "src_mapid": 16384,
+        "new_heading": 1,
+        "require_item_id": 0
+      },
+      {
+        "note": "旅館房間>說話之島",
+        "new_x": 32599,
+        "new_y": 32931,
+        "src_x": 32744,
+        "src_y": 32808,
+        "new_mapid": 0,
+        "src_mapid": 16896,
+        "new_heading": 1,
+        "require_item_id": 0
+      },
+      {
+        "note": "說話之島>旅館房間",
+        "new_x": 32745,
+        "new_y": 32803,
+        "src_x": 32599,
+        "src_y": 32931,
+        "new_mapid": 16384,
+        "src_mapid": 0,
+        "new_heading": 6,
+        "require_item_id": 49290
+      },
+      {
+        "note": "說話之島>旅館會議廳",
+        "new_x": 32743,
+        "new_y": 32808,
+        "src_x": 32599,
+        "src_y": 32931,
+        "new_mapid": 16896,
+        "src_mapid": 0,
+        "new_heading": 6,
+        "require_item_id": 49900
+      }
+    ],
+    "etcitem": [
+      {
+        "name": "旅館房間鑰匙(說話之島)",
+        "note": null,
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 151,
+        "invgfx": 59,
+        "weight": 1000,
+        "item_id": 49290,
+        "max_lvl": 0,
+        "min_lvl": 0,
+        "name_id": "旅館房間鑰匙(說話之島)",
+        "delay_id": 0,
+        "material": "iron",
+        "use_type": "normal",
+        "classname": "teleport.SOR_UserSet false",
+        "item_type": "other",
+        "stackable": 0,
+        "delay_time": 0,
+        "cant_delete": 0,
+        "food_volume": 0,
+        "itemdesc_id": 0,
+        "limit_class": 127,
+        "delay_effect": 0,
+        "save_at_once": 0,
+        "max_charge_count": 0
+      },
+      {
+        "name": "旅館會議廳鑰匙(說話之島)",
+        "note": null,
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 151,
+        "invgfx": 59,
+        "weight": 1000,
+        "item_id": 49900,
+        "max_lvl": 0,
+        "min_lvl": 0,
+        "name_id": "旅館會議廳鑰匙(說話之島)",
+        "delay_id": 0,
+        "material": "iron",
+        "use_type": "normal",
+        "classname": "teleport.SOR_UserSet false",
+        "item_type": "other",
+        "stackable": 0,
+        "delay_time": 0,
+        "cant_delete": 0,
+        "food_volume": 0,
+        "itemdesc_id": 0,
+        "limit_class": 127,
+        "delay_effect": 0,
+        "save_at_once": 0,
+        "max_charge_count": 0
+      }
+    ]
+  },
+  "configurationFreshness": "2026-10-26 historical configuration plus separately pinned 2026-10-29 supervisor SELECT proving current h=2 and matching room/hall recipes.",
+  "keyFacts": {
+    "object": 10326,
+    "template": 49290,
+    "owner": 1900249001,
+    "normalRentalCost": 100,
+    "deadline": "2026-10-28 05:33:31 interpreted in +08 context; server timezone name undecodable",
+    "mainRowDisappearedBeforeMigration": true,
+    "specificDeleteCauseProven": false
+  },
+  "resolutionReceipts": [
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-rented.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-rented.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-cave-home-save.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-cave-home-save.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\cave-home-relogin-world.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\cave-home-relogin-world.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-caesar-disconnect.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-caesar-disconnect.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\caesar-service-relogin-world.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\caesar-service-relogin-world.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-strength-save.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-strength-save.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\bonus-strength-relogin-world.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\bonus-strength-relogin-world.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\james-ruby-step008.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\james-ruby-step008.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery\\runs\\interactive-86656\\web-events.jsonl",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\evidence\\r28-runtime-before-consolidation\\runs\\interactive-86656\\web-events.jsonl"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-review.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-review.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-dialogue-request.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-dialogue-request.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-rented.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-rented.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-entered.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-entered.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-walk-1.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-walk-1.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-walk-2.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-walk-2.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-exited.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-exited.json"
+    },
+    {
+      "requested": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-自主實機完整流程-20261026\\inn-runtime-config-readonly.json",
+      "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-自主實機完整流程-20261026\\inn-runtime-config-readonly.json"
+    }
+  ]
+}

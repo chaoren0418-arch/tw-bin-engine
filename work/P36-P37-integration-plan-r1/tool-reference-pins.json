@@ -1,0 +1,78 @@
+{
+  "files": [
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\acceptance_gate.py",
+        "size": 21873,
+        "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\tool-bundle\\reference\\acceptance_gate.py",
+        "size": 21873,
+        "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\release_checks.py",
+        "size": 691,
+        "sha256": "da3c4ebb17fc9de7c184cad911ac8b9cdc551b6b20a6598b90e33b6333912684"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\tool-bundle\\reference\\release_checks.py",
+        "size": 691,
+        "sha256": "da3c4ebb17fc9de7c184cad911ac8b9cdc551b6b20a6598b90e33b6333912684"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\release_authority.py",
+        "size": 4531,
+        "sha256": "09115d5dfbfe4d14973f3ec23a6d48ad4135b10e76fcfae5052188208484f67b"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\tool-bundle\\reference\\release_authority.py",
+        "size": 4531,
+        "sha256": "09115d5dfbfe4d14973f3ec23a6d48ad4135b10e76fcfae5052188208484f67b"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\pe_resource.py",
+        "size": 3519,
+        "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\tool-bundle\\reference\\pe_resource.py",
+        "size": 3519,
+        "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\result_evidence.py",
+        "size": 7225,
+        "sha256": "baaac4a8f0fad1e9faaa7d1512658d268a506dba9f57d9c54477d6f5b96e6809"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\tool-bundle\\reference\\result_evidence.py",
+        "size": 7225,
+        "sha256": "baaac4a8f0fad1e9faaa7d1512658d268a506dba9f57d9c54477d6f5b96e6809"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-fix-r1\\candidate\\generate_package_plan.py",
+        "size": 16695,
+        "sha256": "4fbf32a4d1a5faa12e34631ad2c0e9ee02647ff51947128c69e1894690f13fa2"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\tool-bundle\\reference\\generate_package_plan.py",
+        "size": 16695,
+        "sha256": "4fbf32a4d1a5faa12e34631ad2c0e9ee02647ff51947128c69e1894690f13fa2"
+      }
+    }
+  ],
+  "referenceOnly": true,
+  "oldReceiptNotAcceptedForP36": true
+}

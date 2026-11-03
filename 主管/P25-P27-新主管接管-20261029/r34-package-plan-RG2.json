@@ -1,0 +1,14 @@
+{
+  "schema": "r34-package-plan-finding-v1",
+  "utc": "2026-10-29T04:36:31.375273+00:00",
+  "id": "RG2",
+  "planSha256": "a831ca6dbbe13dee16bf544b6ff9f1ea3284ff7091915af23685ab8827d0d890",
+  "finding": "runtime build/product-r34-manifest.json absent; accepted-stage evidence copy does not satisfy runtime target",
+  "detectedBy": "independent supervisor audit; KeyError before acceptance",
+  "releaseCreated": false,
+  "decision": "reject r1 plan; explicit isolated one-row correction in fresh plan r2",
+  "allowedDelta": "add exact canonical runtime product manifest row; preserve all original rows/fields",
+  "generatorUnchanged": true,
+  "workflowFrozen": true,
+  "productReruns": false
+}

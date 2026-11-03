@@ -1,0 +1,27 @@
+{
+  "status": "accepted-readonly-focus-diagnostic-not-native-tab-proof",
+  "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\player-focus-observability-r1",
+  "review": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\player-focus-root-review-r1",
+  "sealSha256": "b14a40ae22b8e64e76ecb0c14d38d3ab6bf3a586c8fa8f887dbe55c14a6c6878",
+  "rebuiltDllSha256": "0d82275e1015182e463c0dcc5f9a194e0b594e27b2bb5c55791a9bf597b3d3c4",
+  "checks": {
+    "status": "pass",
+    "assertions": 8,
+    "checks": [
+      "snapshot has exactly seven bounded diagnostic fields",
+      "form focus and descendant focus remain distinct",
+      "unchanged focus data preserves existing de-duplication",
+      "Tab credential transition changes focus signature without other state changes",
+      "loss of actual app focus changes signature",
+      "logical game gate remains independently observable",
+      "chat editor and other HUD controls are distinguishable",
+      "HUD panel transitions participate in focus signature"
+    ],
+    "uiCreated": false,
+    "reflectionOrInjection": false,
+    "nativeFocusObserved": false,
+    "scope": "Serialization/de-duplication checks of immutable snapshot DTO in compiled candidate; no Control/Form created or focus observation performed.",
+    "candidateDllSha256": "0d82275e1015182e463c0dcc5f9a194e0b594e27b2bb5c55791a9bf597b3d3c4"
+  },
+  "live": false
+}

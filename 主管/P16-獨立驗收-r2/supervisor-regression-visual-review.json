@@ -1,0 +1,22 @@
+{
+  "status": "pass",
+  "scope": "Supervisor visually reviewed independent movement, two selected original NPC types, and explicit map4/gfx1186 unsupported presentation.",
+  "screenshots": [
+    {
+      "path": "world-evidence\\movement-ui\\keyboard-walk-mid-screen.png",
+      "sha256": "f01a4494d1ad3c2d709ed4254b4496584a65e742dac0d01cf22f51fd37c3c478"
+    },
+    {
+      "path": "world-evidence\\objects-ui\\selected-gfx-945-screen.png",
+      "sha256": "7708f1875d77f3527531307086e7dd5da0441d4e623b92f976d0d8148832b717"
+    },
+    {
+      "path": "world-evidence\\objects-ui\\selected-gfx-4038-screen.png",
+      "sha256": "85ffb916bd3435d781455aa7233e7b7d004b7dce14dc9e83ed625b0249dc6137"
+    },
+    {
+      "path": "world-evidence\\unsupported-ui\\real-world-second-screen.png",
+      "sha256": "0fded7138e7c52517bcdab92a3cea80d4ca449e18a84c4cab7f4553d84fb4655"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "utc": "2026-10-26T09:48:27.895Z",
+  "sourceReviewed": true,
+  "snapshotFiles": 156,
+  "workerResult": {
+    "status": "r3-minimal-fix-candidate-for-supervisor-ui",
+    "productDll": "build/client-product-r3/P11.ClientEngine.dll",
+    "productDllSha256": "e3ef54870be1d515a4c729dfb7643bd271d7597e55f3a5f352ebbccc3dca4afa",
+    "productManifest": "build/product-r3-manifest.json",
+    "productManifestSha256": "2b450f3fdac232e2a4b0621ce38a6e5cb9a9365e32421ef82bc90a2d66f56f90",
+    "rootCause": "S_Bonusstats has C39+selfD+S(RaiseAttr), no ordinary dialog Hflag/Hcount",
+    "changes": [
+      "source/ClientLogin.cs",
+      "source/NpcInteraction.cs",
+      "source/WorldSession.cs",
+      "web/panel.js"
+    ],
+    "checks": {
+      "entry": 71,
+      "dom": 18,
+      "panel": 31
+    },
+    "launchPlan": {
+      "status": "checked-only",
+      "executable": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\build\\client-product-r3\\P11.ClientEngine.exe",
+      "workingDirectory": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入",
+      "arguments": [
+        "--normal-product"
+      ],
+      "assets": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\assets",
+      "web": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\web",
+      "manifest": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\build\\product-r3-manifest.json",
+      "hashedRuntimeAndWebFiles": 31,
+      "assetFilesCheckedForPresenceAndSize": 13877,
+      "assetContentVerification": "Pinned integrity manifest; product verifies content when loaded.",
+      "profile": "p24-real-jar-d287-client2",
+      "port": 42061,
+      "autoLogin": false,
+      "uiStarted": false,
+      "networkStarted": false,
+      "servicesStarted": false
+    },
+    "snapshotFiles": 156,
+    "r1AndR2RuntimeUnchanged": true,
+    "abilityAllocationImplemented": false,
+    "automaticAbilityAllocation": false,
+    "ui": false,
+    "live": false,
+    "database": false,
+    "freeze": false,
+    "stageComplete": false,
+    "goalStatus": "blocked",
+    "next": "Stop worker; supervisor alone retries normal r3 UI. Cold load live acceptance remains pending."
+  },
+  "status": "candidate cleared for real UI, not final acceptance"
+}

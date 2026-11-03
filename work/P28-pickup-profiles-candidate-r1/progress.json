@@ -1,0 +1,61 @@
+{
+  "stage": "sealed-candidate-ready-for-independent-review",
+  "read": [
+    "AGENTS.md",
+    "takeover.json",
+    "r34-final-offline-baseline.json",
+    "followup-contract-inputs.json",
+    "plan.py",
+    "source/renderer/scheduler/profiles"
+  ],
+  "baseSourceFiles": 180,
+  "independentCandidateSources": 150,
+  "resourceSha256": "aff2e04d4f9395f7993baf5818eb16218730b7def0a29c7d07e86c314db513ba",
+  "goal": "active at seal; complete only after delivery verification succeeds",
+  "dependencies": [
+    "P29 independent review;shared integration and packaging require separate authorization"
+  ],
+  "nativeTests": 0,
+  "productBuild": {
+    "raw": "evidence/product-01/product-build.stdout.log",
+    "exitCode": 0,
+    "attempt": "product-01"
+  },
+  "helper": {
+    "buildExitCode": 0,
+    "written": true,
+    "attempt": "regression-01"
+  },
+  "blockers": [],
+  "productBuilds": 1,
+  "selectedSuites": {
+    "baseline-control-01": 225,
+    "boundaries-01": 3823,
+    "namespace-01": 147,
+    "negative-01": 6751,
+    "profiles-02": 15875,
+    "regression-01": 357
+  },
+  "failedAttempts": {
+    "profiles-01": "helper collision aggregation included terminal keys; repaired to pickup-only; profiles-02 passed; full set audit namespace-01"
+  },
+  "counts": {
+    "productBuildAttempts": 1,
+    "successfulProductBuilds": 1,
+    "candidateRuntimeAssertions": 26953,
+    "baselineRuntimeAssertions": 225,
+    "successfulCandidateSuites": 5,
+    "failedCandidateAttempt": 1,
+    "executedMappingRows": 2688,
+    "fixtureCombinations": 672,
+    "uniqueBodyFrames": 416,
+    "baseTerminalUnique": 104,
+    "pickupUnique": 312,
+    "additionalEmbeddedFrames": 288,
+    "staticPlanAssertions": 1612,
+    "nativeRuntimeAssertions": 0,
+    "historicalR34CanonicalAssertions": 4521,
+    "historicalR34CanonicalObservations": 93
+  },
+  "candidateDllSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+}

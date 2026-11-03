@@ -1,0 +1,177 @@
+{
+  "scope": "Historical whole archive SHA pins; current file sizes and targeted bytes will be verified; no claim of current whole PAK rehash",
+  "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\player-appearance-r1\\source-records-r3.json",
+  "sourceSha256": "eb5d00f2bf76bc8edcc5d34a71400298c99154612ed0e989163d619d954a01ba",
+  "sources": [
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite.idx",
+      "size": 2585972,
+      "sha256": "327c06372d87f6cf6d5176da51da5ef1f94dbf388d1588b735c5965b96b6a52b"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite.pak",
+      "size": 1904012586,
+      "sha256": "4dd4e5348fbad2e69bae9cc388be23d7becebe8423ad9f79f393c1457a69ee62"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite13.idx",
+      "size": 285408,
+      "sha256": "803960def65a3b1713515c9350c9c60a90cb03888dd18dfa8f61c2272d6f9251"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite13.pak",
+      "size": 402617487,
+      "sha256": "d75f4e194be9a132b34957f15095120d593af7df1d9541ac72c1f0f2a5d0b53d"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite03.idx",
+      "size": 289580,
+      "sha256": "dcb4da9f78507f580f753a420ec7b666131b1f3806f7ca6bc5928c8ba23f151e"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite03.pak",
+      "size": 421961886,
+      "sha256": "9160c0b91dfa874ba8cc769dcc2adc623ee9e250d7e41a32b158becc82fc5189"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite04.idx",
+      "size": 292996,
+      "sha256": "8c8e7d220ddbde1f2feec6800a16afb5900d3b90014c11450ddddec8eca0c667"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite04.pak",
+      "size": 395295338,
+      "sha256": "a6f5cf1f65ba801c5bfca9d8975ba8812f2af476e9f2770abc15daacdb41ab1e"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite02.idx",
+      "size": 285968,
+      "sha256": "bcae6bc833e2a761554d660848496342afe6b512716984710c52ceaf5ce0c7ce"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite02.pak",
+      "size": 411996267,
+      "sha256": "7246a9383951817f47665f9bd1bd7104f6011231a938f0ca454fce07c6339fb3"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite11.idx",
+      "size": 294396,
+      "sha256": "c470f356d5c0b09166962f5b302317c667973b9d206cde73bcc5598de0463aeb"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite11.pak",
+      "size": 406531942,
+      "sha256": "14908465e793157c3a079742c612722374f061c9ccf7df09fa22a7201296d9fd"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite12.idx",
+      "size": 289496,
+      "sha256": "f529da765cf96b6354fe5a8cb927d3a1610fac265865c6b7245e97eeee6d96a0"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite12.pak",
+      "size": 390776327,
+      "sha256": "067cf305691f0a37c2ed6d7c2177deecafb6ee86d1c88a9de11c7adb7d35d06c"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite14.idx",
+      "size": 283056,
+      "sha256": "d5d6a491280ce37a30790aa113768a4e0adafe6dd0533fbb3536031fb048187f"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite14.pak",
+      "size": 441576879,
+      "sha256": "1a82d38efa5b889274e287d73cf09a84472eb66b1fdd197fd0cb37898d516b28"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite15.idx",
+      "size": 281600,
+      "sha256": "e4ce732730c62c820b6cabfcd818193cead90723823527996bc4f77e021725d0"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite15.pak",
+      "size": 483201540,
+      "sha256": "cf6dd522df5b4fa2014347eb6a35b052dd6780d19ec4f2f9fbffb869997d396b"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite00.idx",
+      "size": 282608,
+      "sha256": "ab8dcf18c2a63dde97abbfb23c7e9e4f35efd0f1e2ab5acf9f53cded6f5f9817"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite00.pak",
+      "size": 449422573,
+      "sha256": "b9a2ce16accc08c5254b77d76129ee58aec13c66bc01f7953180acbf0039af56"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite01.idx",
+      "size": 283448,
+      "sha256": "465274c542a7373af97b1b4fc7c906827293fa000d9f0ea09546bb527e693d54"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite01.pak",
+      "size": 421653079,
+      "sha256": "80e274887954a2f27e1eeef203beda862d20091120bb7fc30757893c032710a6"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite05.idx",
+      "size": 295488,
+      "sha256": "ddcbdf73a075eb73dc87a01267f196002d2cc319ae00264961ae6efb02698ceb"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite05.pak",
+      "size": 369622151,
+      "sha256": "00747e5d858ce0ec1e77a5b1e8515788d2f9f21996b1fb77e765f4df3742d2a4"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite06.idx",
+      "size": 299016,
+      "sha256": "f102d2b343d1e471714853d1c1391a4bd610a3fa1b066340cdb80c882c31c1e2"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite06.pak",
+      "size": 398132623,
+      "sha256": "545e393563f825ace51de890209387b201bc6427ecb3572d44e4651520f8848e"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite07.idx",
+      "size": 301508,
+      "sha256": "79f844a872761014cfc74109fbced128f29232941ccf23857d2ac01793a23ab6"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite07.pak",
+      "size": 427519748,
+      "sha256": "c51e126f22997dad05dc95b3e330a21e8afdcc6821ddd1179932b533ff045a50"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite08.idx",
+      "size": 301704,
+      "sha256": "e5867da3438190a77b283ec45a427819bee1526d1071046ffd6bb8e375ebf961"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite08.pak",
+      "size": 403930154,
+      "sha256": "380243fe13193d6ee758c753b98c795704b04e7bb0325c27ed0db231167bbd68"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite09.idx",
+      "size": 301312,
+      "sha256": "0c446e0a839911b02eb4adeccce3bcdb2bceb39a0e39f9a40ec5914803ce73db"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite09.pak",
+      "size": 407759992,
+      "sha256": "863e0b00b6729898ea5d9e27cf8b034bf16c887877d607792d6f5ff6a0f35acd"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite10.idx",
+      "size": 298288,
+      "sha256": "90e10dcd775a475fccb5c989be842a3e38dede810333649ebccbaaadeca55c57"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sprite10.pak",
+      "size": 399580245,
+      "sha256": "fc39a62ad8884fcfeb9f47c88ce56ba75399c4e6256d5c502b9313ba2b77eb91"
+    }
+  ]
+}

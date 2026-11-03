@@ -1,0 +1,60 @@
+[
+  {
+    "id": "RG1",
+    "priority": "P1",
+    "status": "requires-minimal-generator-revision-before-tool-acceptance",
+    "title": "Inner/nested evidence reference pins are not revalidated before package inventory refreshes their hashes",
+    "source": [
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r1\\generate_package_plan.py",
+        "size": 15634,
+        "sha256": "615d16cabc865d896969c256bccaccbc32919758ab6fd72f1c13b88707f1b61d",
+        "line": 38
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r1\\generate_package_plan.py",
+        "size": 15634,
+        "sha256": "615d16cabc865d896969c256bccaccbc32919758ab6fd72f1c13b88707f1b61d",
+        "line": 63
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r1\\generate_package_plan.py",
+        "size": 15634,
+        "sha256": "615d16cabc865d896969c256bccaccbc32919758ab6fd72f1c13b88707f1b61d",
+        "line": 122
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r1\\generate_package_plan.py",
+        "size": 15634,
+        "sha256": "615d16cabc865d896969c256bccaccbc32919758ab6fd72f1c13b88707f1b61d",
+        "line": 125
+      }
+    ],
+    "trigger": "After a completed report has stored rawAttempt/stdout/stderr/probe or canonicalNestedCommands reference pins, an inner raw log/command/probe changes or goes missing while the completed report and outer attempt records remain unchanged.",
+    "observed": "completed_context validates outer selected attempts, raw streams/probes, aggregate suite result and helpers. It never traverses result.innerEvidence or product canonicalNestedCommands. package_inventory freshly hashes the workflow files; its innerEvidence loop only pins probes under engine/_integration/evidence, not general inner rawAttempt/stdout/stderr/workflow probes.",
+    "reproduction": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r1\\generator-inner-evidence-finding.json",
+      "size": 1723,
+      "sha256": "650c5d3e957e5cf8dbeadfcdeb1108804130864bf9ff56fa714142857c6b2f95"
+    },
+    "impact": "Exact package plan can embed stale provenance pins alongside newly hashed changed inner evidence; release full SHA would certify that contradictory inventory, not prove original completed evidence remained intact. No assertion that the actual canonical evidence is damaged; all reproduction files are private synthetic units.",
+    "requiredMinimalChange": [
+      "Create a fresh revision; do not edit the sealed R1 tool root.",
+      "Add a read-only result-evidence validation helper invoked by completed_context before archive_tools or any plan write.",
+      "For every innerEvidence row pin rawAttempt, stdout, stderr and every probe at their recorded path/size/SHA; parse attempt, require exitCode=0/completed=true/product identity, compare raw hashes/decoder metadata and recipe argv/cwd/probe set; reject missing/extra/duplicate operation evidence against canonical command-recipes.",
+      "For product canonicalNestedCommands require exact expected sdk/product-build/launcher-build/same-entry-check-only membership and command/raw pins; validate names/exits/argv/cwd against pinned nested command plan. Keep explicit limitation that PowerShell grandchildren share parent streams.",
+      "Validate any further recorded PNG/JSON evidence references that the report relies on, with explicit allowed roots; do not replace reference hashes with current-file hashes to make drift pass.",
+      "Preserve failed evidence, no rerun of product/build/probe, refresh new tool-source/artifact seals and exact authority/root pins."
+    ],
+    "independentRetest": [
+      "unchanged representative inner/nested records accepted as synthetic unit only",
+      "changed/missing rawAttempt/stdout/stderr/probe/PNG pins rejected",
+      "failed/partial/wrong identity/argv/cwd/extra or omitted inner operation rejected",
+      "nested command missing/duplicate/failed/mismatched raw pin rejected",
+      "all rejection occurs before archive/write; archive/inventory still covers validated inputs"
+    ],
+    "affectsRunningCanonical": false,
+    "productRetestRequiredForThisFix": false,
+    "controllerMainFinding": false
+  }
+]

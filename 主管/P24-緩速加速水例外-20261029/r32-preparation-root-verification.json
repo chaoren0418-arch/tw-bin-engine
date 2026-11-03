@@ -1,0 +1,16 @@
+{
+  "utc": "2026-10-28T22:55:53.410741+00:00",
+  "verified": true,
+  "acceptance": "preparation-only",
+  "files": {
+    "preparation-seal.json": 53,
+    "artifact-seal.json": 57
+  },
+  "preparationSha256": "d4f5f311e323ee66cda2f903b671d0a25bd2b31e814b689b28c603ab6564e863",
+  "artifactSealSha256": "50f4dc0a0e214d7140ab3b2c90c5bffce62255c2fdc97087161ffb132325ae78",
+  "resultSha256": "1cb91f0a7e3a961b9c2701c0d36dfd81c18c96b11d8ea45de5e29ff1895e70c7",
+  "baselinePinsVerified": 203,
+  "sourceFiles": 177,
+  "smallChecksPassed": 11,
+  "buildAuthorized": false
+}

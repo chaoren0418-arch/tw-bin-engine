@@ -1,0 +1,28 @@
+{
+  "taskId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "turnId": null,
+  "utc": "2026-10-29T04:14:35.498950+00:00",
+  "step": "original immutable contract complete; exact R1 release tool reviewed, RG1 requires minimal revision",
+  "goal": "platform active",
+  "read": [
+    "root AGENTS",
+    "sealed original package and selected immutable dependencies",
+    "exact sealed P26-r34-release-gate-r1"
+  ],
+  "dependencies": [
+    {
+      "id": "D-RG1",
+      "needed": "fresh corrected generator/tool-source/artifact exact seal pins from supervisor"
+    },
+    {
+      "id": "D-PLAN",
+      "needed": "real completed canonical and exact package plan pins from supervisor; no synthetic substitution"
+    },
+    {
+      "id": "D-RELEASE",
+      "needed": "later separately authorized real package/full release verification"
+    }
+  ],
+  "liveCanonicalBaselineReplay": false,
+  "releaseAccepted": false
+}

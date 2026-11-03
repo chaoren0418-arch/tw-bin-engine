@@ -1,0 +1,23 @@
+{
+  "utc": "2026-10-29T01:02:29.879406+00:00",
+  "status": "integrity-verified-compatibility-repair-required",
+  "preparationSealSha256": "51b626cd31218a906d06b1b6afd97e2695923ddc809f127f56989ebf95d1a446",
+  "artifactSealSha256": "84717f651d5ee4be53b64b397f8477edb68a78a0a9791510ca86e8eb1940e7e9",
+  "preparationFiles": 186,
+  "artifactFiles": 189,
+  "baseSourcePins": 177,
+  "supportPins": 28,
+  "referenceCopies": 130,
+  "immutablePins": 18,
+  "olderReleasePins": 1837,
+  "r33NonAssetIndexPins": 696,
+  "qualificationPins": 44,
+  "smallTestsReported": 31,
+  "verifierActuallyExecuted": true,
+  "blockers": [
+    "gate requires invented standalone resource-manifest schema absent from sealed native candidate; actual projection/source/resource/csproj evidence exists",
+    "gate independent review prefix excludes actual authorized fresh sibling candidate review root"
+  ],
+  "repairRoot": "work/engine-r34-integration-r2",
+  "formalBuildAuthorized": false
+}

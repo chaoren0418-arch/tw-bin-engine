@@ -1,0 +1,103 @@
+{
+  "schema": "p26-r34-authority-rebind-verification-v1",
+  "status": "pass-static-and-in-memory-only",
+  "planSha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761",
+  "checks": [
+    "original plan/R2/stage non-assets/current engine pins unchanged; future targets absent",
+    "minimal exact source transforms; install/collect/recovery/no-replay and raw-log adapter unchanged",
+    "44 operations/10 helper declarations/138 mappings/4521+93 expected accounting retained; no product assertions run",
+    "real takeover and historical evidence pins accepted by read-only authority binding; receipt file still absent",
+    "11 bounded pure/in-memory gate cases; no receipt fixture saved and no full execution gate acceptance claimed",
+    "separate authorized timeout-only delta: partial bytes preserved, failed collection rejected, same attempt cannot reach subprocess; 3 synthetic cases, zero actual child processes"
+  ],
+  "syntheticGateCases": [
+    {
+      "name": "new-supervisor-legal-shape-only",
+      "synthetic": true,
+      "expected": "shape-accepted-only",
+      "actual": "shape-accepted-only",
+      "reason": null
+    },
+    {
+      "name": "retired-supervisor-new-shared-receipt",
+      "synthetic": true,
+      "expected": "rejected",
+      "actual": "rejected",
+      "reason": "new current-supervisor exact shared authorization required"
+    },
+    {
+      "name": "tampered-plan-sha",
+      "synthetic": true,
+      "expected": "rejected",
+      "actual": "rejected",
+      "reason": "exact new dispatch/plan required"
+    },
+    {
+      "name": "old-stage-schema-as-shared",
+      "synthetic": true,
+      "expected": "rejected",
+      "actual": "rejected",
+      "reason": "new current-supervisor exact shared authorization required"
+    },
+    {
+      "name": "wrong-authorization",
+      "synthetic": true,
+      "expected": "rejected",
+      "actual": "rejected",
+      "reason": "new current-supervisor exact shared authorization required"
+    },
+    {
+      "name": "wrong-dispatch",
+      "synthetic": true,
+      "expected": "rejected",
+      "actual": "rejected",
+      "reason": "exact new dispatch/plan required"
+    },
+    {
+      "name": "historical-stage-remains-old-supervisor",
+      "synthetic": true,
+      "expected": "shape-accepted-only",
+      "actual": "shape-accepted-only",
+      "reason": null
+    },
+    {
+      "name": "rewriting-historical-supervisor-rejected",
+      "synthetic": true,
+      "expected": "rejected",
+      "actual": "rejected",
+      "reason": "historical stage acceptance identity must remain unchanged"
+    },
+    {
+      "name": "tampered-plan-authority-binding",
+      "synthetic": true,
+      "expected": "rejected",
+      "actual": "rejected",
+      "reason": "exact authority policy must be in accepted plan"
+    },
+    {
+      "name": "retired-supervisor-directory-for-new-receipt",
+      "synthetic": true,
+      "expected": "rejected",
+      "actual": "rejected",
+      "reason": "new receipt must use exact takeover supervisor path"
+    },
+    {
+      "name": "tampered-real-takeover-file-pin",
+      "synthetic": true,
+      "expected": "rejected",
+      "actual": "rejected",
+      "reason": "source/material drift: D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\takeover.json"
+    }
+  ],
+  "syntheticAuthorityCasesPassed": 11,
+  "syntheticTimeoutCasesPassed": 3,
+  "syntheticCasesPassed": 14,
+  "productBuilds": 0,
+  "productAssertions": 0,
+  "actualChildProcesses": 0,
+  "workflowCreated": false,
+  "sharedReceiptCreated": false,
+  "fullValidatePlanExecuted": false,
+  "controllerMutationExecuted": false,
+  "requiresIndependentReviewAndNewExactReceipt": true
+}

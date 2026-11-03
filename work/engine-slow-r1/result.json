@@ -1,0 +1,42 @@
+{
+  "task": "ENGINE-SLOW-IMPL-R1",
+  "status": "candidate-ready-for-independent-review",
+  "sealed": true,
+  "sharedEngineMerged": false,
+  "nativeLiveAcceptance": false,
+  "wholeProjectComplete": false,
+  "baseline": "moved r28 source/audio",
+  "baselineSourceFiles": 146,
+  "changedSourceFiles": 9,
+  "candidateDllSha256": "a595559878d3e24b447d8be3a5c1e8ce595ff3a47dceb6877b9256ba00f12472",
+  "baselineChecks": 4,
+  "candidateChecks": 1371,
+  "nativeTimingCases": 57,
+  "fixedJarTimingCases": 171,
+  "fixedJarSerializedPackets": 21,
+  "build": {
+    "configuration": "Release",
+    "warnings": 0,
+    "errors": 0,
+    "productExecuted": false
+  },
+  "scope": "Speed2/Brave0 walking/turning, own and remote walk animation, speed notice, cooldown and pre-send fences",
+  "limitations": [
+    "Slow attack, cast, item/equipment use, pickup/drop, and non-walk mouse actions remain explicitly unsupported.",
+    "Remote combat/cast animation cadence is not certified by this walking increment.",
+    "No Brave modes or Speed3/17/18 added; unknown values remain rejected for movement/rendering.",
+    "Native instructions use explicit neutral callee and synthetic metadata fixtures; fixed JAR uses synthetic SpeedState and packet inputs.",
+    "Managed checks use synthetic in-memory actors, receive packets, deterministic clock and sender seams, plus real r28 assets/renderer. No native GUI/live gameplay acceptance.",
+    "Candidate remains isolated; only assigned integrator may merge after review."
+  ],
+  "files": {
+    "source": "candidate/source",
+    "audio": "candidate/audio",
+    "build": "candidate/build",
+    "delta": "delta",
+    "diff": "changes.diff",
+    "handoff": "HANDOFF.md",
+    "manifest": "delivery-manifest.json"
+  },
+  "goal": "Existing worker Goal remained blocked; not recreated/resumed/completed for this assignment."
+}

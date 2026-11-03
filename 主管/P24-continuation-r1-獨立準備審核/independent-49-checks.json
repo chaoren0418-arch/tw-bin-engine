@@ -1,0 +1,459 @@
+{
+  "status": "pass",
+  "cases": 49,
+  "rows": [
+    {
+      "name": "actual-single-writer",
+      "status": "pass"
+    },
+    {
+      "name": "five-exact-plans-full-saved-bindings",
+      "status": "pass"
+    },
+    {
+      "name": "reject-writer-state",
+      "status": "pass",
+      "expectedRejection": "SINGLE_WRITER_IDENTITY"
+    },
+    {
+      "name": "reject-writer-newWorker",
+      "status": "pass",
+      "expectedRejection": "SINGLE_WRITER_IDENTITY"
+    },
+    {
+      "name": "reject-writer-singleWriter",
+      "status": "pass",
+      "expectedRejection": "SINGLE_WRITER_IDENTITY"
+    },
+    {
+      "name": "exact-cli-prepare22",
+      "status": "pass"
+    },
+    {
+      "name": "exact-cli-round1",
+      "status": "pass"
+    },
+    {
+      "name": "exact-cli-round2",
+      "status": "pass"
+    },
+    {
+      "name": "exact-ui-round1",
+      "status": "pass"
+    },
+    {
+      "name": "exact-ui-round2",
+      "status": "pass"
+    },
+    {
+      "name": "reject-22-as-round1",
+      "status": "pass",
+      "expectedRejection": "ROUTE_PURPOSE"
+    },
+    {
+      "name": "reject-preparation-as-success",
+      "status": "pass",
+      "expectedRejection": "PREPARATION_IS_NOT_ROUND"
+    },
+    {
+      "name": "reject-fresh-start",
+      "status": "pass",
+      "expectedRejection": "ROUTE_BUILD_OR_FRESH"
+    },
+    {
+      "name": "reject-old-dll",
+      "status": "pass",
+      "expectedRejection": "ROUTE_BUILD_OR_FRESH"
+    },
+    {
+      "name": "reject-wrong-cli-start",
+      "status": "pass",
+      "expectedRejection": "ROUTE_START"
+    },
+    {
+      "name": "reject-discontinuous-step",
+      "status": "pass",
+      "expectedRejection": "STEP_DISCONTINUITY"
+    },
+    {
+      "name": "reject-extended-time",
+      "status": "pass",
+      "expectedRejection": "ROUTE_LIMITS"
+    },
+    {
+      "name": "reject-wrong-total",
+      "status": "pass",
+      "expectedRejection": "ROUTE_COUNT_OR_END"
+    },
+    {
+      "name": "saved-cli-prepare22",
+      "status": "pass"
+    },
+    {
+      "name": "reject-saved-start-cli-prepare22",
+      "status": "pass",
+      "expectedRejection": "EXACT_SAVED_START"
+    },
+    {
+      "name": "saved-ui-round1",
+      "status": "pass"
+    },
+    {
+      "name": "reject-saved-start-ui-round1",
+      "status": "pass",
+      "expectedRejection": "EXACT_SAVED_START"
+    },
+    {
+      "name": "reject-wrong-new-predecessor-cli-round1",
+      "status": "pass",
+      "expectedRejection": "PREVIOUS_SAME_BUILD_KIND"
+    },
+    {
+      "name": "reject-wrong-new-predecessor-cli-round2",
+      "status": "pass",
+      "expectedRejection": "PREVIOUS_SAME_BUILD_KIND"
+    },
+    {
+      "name": "reject-wrong-new-predecessor-ui-round2",
+      "status": "pass",
+      "expectedRejection": "PREVIOUS_SAME_BUILD_KIND"
+    },
+    {
+      "name": "reject-historical-as-new-predecessor-cli-round1",
+      "status": "pass",
+      "expectedRejection": "[Errno 2] No such file or directory: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\P24-原2x2地圖快取與跨區載入\\\\evidence\\\\cache-worker-cli-r4\\\\continuation-run.json'"
+    },
+    {
+      "name": "reject-historical-as-new-predecessor-cli-round2",
+      "status": "pass",
+      "expectedRejection": "[Errno 2] No such file or directory: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\P24-原2x2地圖快取與跨區載入\\\\evidence\\\\cache-worker-cli-r4\\\\continuation-run.json'"
+    },
+    {
+      "name": "reject-historical-as-new-predecessor-ui-round2",
+      "status": "pass",
+      "expectedRejection": "[Errno 2] No such file or directory: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\P24-原2x2地圖快取與跨區載入\\\\evidence\\\\cache-worker-ui-r2\\\\continuation-run.json'"
+    },
+    {
+      "name": "reject-runtime-script-inventory-change",
+      "status": "pass",
+      "expectedRejection": "RUNTIME_OR_SCRIPT_CHANGED"
+    },
+    {
+      "name": "reject-ui-r4-with-product-child",
+      "status": "pass",
+      "expectedRejection": "UI_R4_MUST_BE_NO_CHILD"
+    },
+    {
+      "name": "reject-ui-r4-not-equal-r2-after",
+      "status": "pass",
+      "expectedRejection": "UI_R4_NOT_R2_SAVED_STATE"
+    },
+    {
+      "name": "actual-nested-runtime-paths",
+      "status": "pass"
+    },
+    {
+      "name": "reject-runtime-path-../WebView2Loader.dll",
+      "status": "pass",
+      "expectedRejection": "LIVE_LAUNCH_RELATIVE_PATH"
+    },
+    {
+      "name": "reject-runtime-path-/WebView2Loader.dll",
+      "status": "pass",
+      "expectedRejection": "LIVE_LAUNCH_RELATIVE_PATH"
+    },
+    {
+      "name": "reject-runtime-path-C:/WebView2Loader.dll",
+      "status": "pass",
+      "expectedRejection": "LIVE_LAUNCH_RELATIVE_PATH"
+    },
+    {
+      "name": "reject-runtime-path-runtimes//WebView2Loader.dll",
+      "status": "pass",
+      "expectedRejection": "LIVE_LAUNCH_RELATIVE_PATH"
+    },
+    {
+      "name": "reject-runtime-path-runtimes/./WebView2Loader.dll",
+      "status": "pass",
+      "expectedRejection": "LIVE_LAUNCH_RELATIVE_PATH"
+    },
+    {
+      "name": "reject-casefold-runtime-duplicate",
+      "status": "pass",
+      "expectedRejection": "LIVE_LAUNCH_DUPLICATE"
+    },
+    {
+      "name": "reject-goal-old-worker",
+      "status": "pass",
+      "expectedRejection": "ACTUAL_GOAL_NOT_ACTIVE"
+    },
+    {
+      "name": "reject-goal-arbitrary-active",
+      "status": "pass",
+      "expectedRejection": "ACTUAL_GOAL_NOT_ACTIVE"
+    },
+    {
+      "name": "reject-goal-blocked",
+      "status": "pass",
+      "expectedRejection": "ACTUAL_GOAL_NOT_ACTIVE"
+    },
+    {
+      "name": "reject-goal-stale",
+      "status": "pass",
+      "expectedRejection": "FRESH_ACTUAL_GOAL_REQUIRED"
+    },
+    {
+      "name": "reject-goal-future",
+      "status": "pass",
+      "expectedRejection": "FRESH_ACTUAL_GOAL_REQUIRED"
+    },
+    {
+      "name": "reject-goal-unconfirmed",
+      "status": "pass",
+      "expectedRejection": "FRESH_ACTUAL_GOAL_REQUIRED"
+    },
+    {
+      "name": "reject-no-live-approval",
+      "status": "pass",
+      "expectedRejection": "[WinError 2] 系統找不到指定的檔案。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\主管\\\\P24-continuation-r1-live-approval.json'"
+    },
+    {
+      "name": "reject-historical-capture",
+      "status": "pass",
+      "expectedRejection": "LIVE_EXECUTED_DLL_MISMATCH"
+    },
+    {
+      "name": "real-freeze-check-rejects-missing-new-live",
+      "status": "pass",
+      "failures": [
+        "newLive"
+      ]
+    },
+    {
+      "name": "seven-entry-syntax",
+      "status": "pass"
+    },
+    {
+      "name": "legacy-scripts-and-archive-unchanged",
+      "status": "pass"
+    }
+  ],
+  "pureSideEffectGuard": true,
+  "liveStarted": false,
+  "uiOpened": false,
+  "dbAccess": false,
+  "formalFreeze": false,
+  "successfulSyntheticLiveCreated": false,
+  "preparationSha256": "c7a3dd71e341820770fbb887cf502aafb4bec6552e878d17c0b7e9771e390a58",
+  "freezeCheck": {
+    "status": "reject",
+    "revision": "p24-original-moving-cache-scheduler-r2",
+    "productDllSha256": "83bffafa5bfcc4e1a752a5280c4329a3f7359d231b13539715adbbeb9b955fb1",
+    "checks": {
+      "offline27": {
+        "status": "pass",
+        "details": {
+          "regressions": 27,
+          "schedulerCases": 20,
+          "schedulerSteps": 215,
+          "dllSha256": "83bffafa5bfcc4e1a752a5280c4329a3f7359d231b13539715adbbeb9b955fb1"
+        }
+      },
+      "native102": {
+        "status": "pass",
+        "details": {
+          "nativeBins": 102,
+          "originalBinSha256": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2"
+        }
+      },
+      "singleWriter": {
+        "status": "pass",
+        "details": {
+          "worker": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+          "supervisor": "01a1748a-d237-71a0-9323-60ad8462794c",
+          "handoffSha256": "025e9220c9c2c2340e6061defc641b0e276960e80b324fad5ec3a5351938ce95"
+        }
+      },
+      "newLive": {
+        "status": "reject",
+        "reason": "MISSING_NEW_REVISION_SUPERVISOR_LIVE_APPROVAL"
+      }
+    },
+    "failures": [
+      "newLive"
+    ],
+    "ready": false,
+    "formalRuntimeChecked": false,
+    "goalStatusNotInferred": true,
+    "remainingFormalConditions": [
+      "Fresh actual get_goal active for this chat",
+      "Explicit supervisor formal-freeze authorization with current evidence hashes",
+      "Same first JAR/DB PID, parent PID, creation time, UUID and listeners",
+      "All eight roles/accounts offline, four supervisor roles fresh, exact resources",
+      "No product, launcher, focus helper or WebView process",
+      "Freeze-time rehash and immutable source/environment/delivery manifests"
+    ],
+    "checkedFiles": {
+      "build/client/P11.ClientEngine.dll": "83bffafa5bfcc4e1a752a5280c4329a3f7359d231b13539715adbbeb9b955fb1",
+      "reference/cache/scheduler-r2/validation-manifest.json": "2acd1f996c231b09a60a2b2a53698dfa3b2c957a25371f837e56015ef8898c4a",
+      "offline-validation.json": "dfd7b7e658324561d5929b321d16a66c19aa822f4e2b851e83f01f0dfa55789b",
+      "reference/cache/scheduler-r2/native-bin-supplement/before-validation-manifest.json": "8e3643c5e15bddfe67c4414190b9ceaf7e72eb6e34ad44ce3646d3101b4fede4",
+      "reference/cache/scheduler-r2/native-bin-supplement/before-offline-validation.json": "8e3643c5e15bddfe67c4414190b9ceaf7e72eb6e34ad44ce3646d3101b4fede4",
+      "evidence/complete-regressions-r6-1792953572511606300/result.json": "fa621df5fe197b819fd5fd0e8c9598a149b7f375a204e24c934ea47f7e324649",
+      "evidence/complete-regressions-r6-1792953572511606300/launch/P11.ClientEngine.dll": "83bffafa5bfcc4e1a752a5280c4329a3f7359d231b13539715adbbeb9b955fb1",
+      "evidence/complete-regressions-r6-1792953572511606300/run.json": "144a2a904cd0b67a963bc046356d1f58795ebe9b8d52fb2b7d260c6dd93c59de",
+      "evidence/complete-regressions-r6-1792953572511606300/magic.json": "74ddf7d86823edb9927ede0e96c433669c36d8faa019a2849295a3af082e67da",
+      "evidence/complete-regressions-r6-1792953572511606300/magic-render.json": "e736a9b8b1ebb6245a51807e6dfd0059ad92d20f7838825c82d1898ec422660e",
+      "evidence/complete-regressions-r6-1792953572511606300/ranged.json": "71627ee298be3dd2914359e1b90dbc4e6a5762a254cdffcd64c5caca09260996",
+      "evidence/complete-regressions-r6-1792953572511606300/ranged-gates.json": "058ae2e44884ead0683c580612fa302f5893fbe5a89177cebf04db922765d768",
+      "evidence/complete-regressions-r6-1792953572511606300/ranged-render.json": "747df32f7bd0e5a2ef5782b89644e0d0c097f97d1b3f0ffafae234f220a099ba",
+      "evidence/complete-regressions-r6-1792953572511606300/equipment.json": "b91b00ea7dc8a4543a267e841a97316175e890a02d2f3314f4b90ac0175eadb1",
+      "evidence/complete-regressions-r6-1792953572511606300/equipment-gates.json": "09cc79a734c6d2b43eae55994192304d66d57e32da1d086ec0e105568999501c",
+      "evidence/complete-regressions-r6-1792953572511606300/rewards.json": "d070f66ff5ace8227d0cf05b855d4d6e86b72291ed75295397348f9b15948b87",
+      "evidence/complete-regressions-r6-1792953572511606300/ground.json": "239df460d82d135581d6c4c84de9fb04ab0854e5487c9db56c69198065dfd636",
+      "evidence/complete-regressions-r6-1792953572511606300/inventory.json": "3023f5518802e954f526c799f49e5ecd665e320fbcfdca56dbce3b6f257feada",
+      "evidence/complete-regressions-r6-1792953572511606300/icons.json": "1f40017eaaf27fd0532bca87df5c9d12d59ed8c1f73ef86cce14be0118491cec",
+      "evidence/complete-regressions-r6-1792953572511606300/original-ground.json": "5dcbe026b577e824052904750219111ac3c20a9095a73bb4f3410bbeb05c66ec",
+      "evidence/complete-regressions-r6-1792953572511606300/combat.json": "170e47dbd9e04ea553e2a08bd9eb77fe5f33e9b9b164ada51843740a480c551c",
+      "evidence/complete-regressions-r6-1792953572511606300/object.json": "f90fb33756f043a5e325d0aa2c8fc406644ddfdab1cfeecb8299c4071e6a4f47",
+      "evidence/complete-regressions-r6-1792953572511606300/world.json": "4cc308535109559927b143df0a307065f4c57002e8051ceae0d79564db5f66a4",
+      "evidence/complete-regressions-r6-1792953572511606300/movement.json": "e59315ccf4cf29d54865d0cc71984c06ae15f8aa4bceb67f6ec270055820edcc",
+      "evidence/complete-regressions-r6-1792953572511606300/dual-block/result.json": "3fe95e61700cb294375e8f4f1f9a0d5f70e19f450625b0bac14a5f0435309025",
+      "evidence/complete-regressions-r6-1792953572511606300/complete-compositor/result.json": "6799331f48b2e29e76525f80eb1b4eea50022e2bfdcdd00b4178d0a47503a67d",
+      "evidence/complete-regressions-r6-1792953572511606300/magic-target.json": "d7085b568cdec5f651151fd6e24b00dd40711d5f9b1d91d6baa798358a5caef1",
+      "evidence/complete-regressions-r6-1792953572511606300/opacity-states.json": "55617c0bf54a7d97f0c0d0a29b988e4f87e8f8cbf758179242d513058956c93f",
+      "evidence/complete-regressions-r6-1792953572511606300/opacity-pixels/result.json": "bc9eecc22651da8c11fc8e27a6c0325a4575bdbaaa36b92a8f4f9f64a734255d",
+      "evidence/complete-regressions-r6-1792953572511606300/opacity-replay/result.json": "00e153e7d2182c20e641312dc3555bdeeb7dca1b412633694578d9ea4192b01c",
+      "evidence/cache-tests-scheduler-r2-control/result.json": "874554f71d1797f99257b26911dfb41a96e690528fcebbaa148069121eab6d05",
+      "evidence/cache-tests-scheduler-r2-control/process.json": "8aadfe93140fa8a1182e382ca3ff572e7cab13dcb789460c5651eaa1212c5b8c",
+      "evidence/cache-tests-scheduler-r2-control/launch/P11.ClientEngine.dll": "83bffafa5bfcc4e1a752a5280c4329a3f7359d231b13539715adbbeb9b955fb1",
+      "evidence/cache-tests-scheduler-r2-opacity/result.json": "f1e8df7564d72c43b9e16c45b67aa5ca3b057472eddfd5299440fe77679fc32e",
+      "evidence/cache-tests-scheduler-r2-opacity/process.json": "c3be1ff84e3a45a78fe77c8bfc93d68c4f89a26f693ff48a4a576948e26faf61",
+      "evidence/cache-tests-scheduler-r2-opacity/launch/P11.ClientEngine.dll": "83bffafa5bfcc4e1a752a5280c4329a3f7359d231b13539715adbbeb9b955fb1",
+      "evidence/cache-tests-scheduler-r2-pixels/result.json": "e23da7ee245ec889086cea38e5f6d0620e14085f294ab6662e185b1ccc0c0c7d",
+      "evidence/cache-tests-scheduler-r2-pixels/process.json": "619f4c90eeec7a0b566488cb58b50535bb27be118ced2804b2571531d3381151",
+      "evidence/cache-tests-scheduler-r2-pixels/launch/P11.ClientEngine.dll": "83bffafa5bfcc4e1a752a5280c4329a3f7359d231b13539715adbbeb9b955fb1",
+      "evidence/cache-tests-scheduler-r2-session/result.json": "879d3cb7768b47ec586cff9da178571d79b5c0599dddc5ab60a7663c46f772dd",
+      "evidence/cache-tests-scheduler-r2-session/process.json": "23a1efb99caa5419253b1ee022804d13f7b736b32dd9bbaf5aad0ab52bbfa6ac",
+      "evidence/cache-tests-scheduler-r2-session/launch/P11.ClientEngine.dll": "83bffafa5bfcc4e1a752a5280c4329a3f7359d231b13539715adbbeb9b955fb1",
+      "reference/cache/scheduler-r2/native-late-fade-vectors.json": "773e91df72651ba9be080a15a721ff5fdb35e7e952fb677a5dd5311b56f77e45",
+      "evidence/scheduler-r2-current-pump/result.json": "5b34ef5407fa87f717e7fe30661b21315bed6d4eed6158812c925ddeaab6d085",
+      "evidence/scheduler-r2-current-pump/terminal.json": "c77b3b2b6c417a66658d1ab9a6b6d8caa658c5f3b37f7afbabcd691c9285e9bf",
+      "evidence/scheduler-r2-current-pump/launch/P11.ClientEngine.dll": "83bffafa5bfcc4e1a752a5280c4329a3f7359d231b13539715adbbeb9b955fb1",
+      "reference/opacity/native-state-vectors.json": "7903c665e564301fbf3c39a9b225a1c55ca4e749ac1bbd959a61b670457d78a6",
+      "reference/opacity/live-failure-native-vectors.json": "74ee076f9021513ff7f667aeb3ce6aacab45eebcabaae469d17293eaac2dfcd6",
+      "reference/cache/native-cache-opacity-vectors.json": "99f26354d0a355d1fd8b90a52d308ee2ebe78fd98abab98f006746901dcbc2b5",
+      "reference/opacity/real-failure-native-states.json": "b25979f7003afb45825fdd11cbbbd458116a36e8db0d171d04b216a5f07f9a1b",
+      "evidence/scheduler-r2-host-oracle-audit.json": "bce966ad5b488d18d2dc0c767fa75dd012b1ce8ac15b950042f112d91771bf1f",
+      "evidence/scheduler-r2-cache-trace/current-pump-cache-audit.json": "8d0434298344fc864031d29da721dd78bc59cc3250e2507fe4c0ff4b04540dd4",
+      "evidence/cache-tests-scheduler-r2-session/source-frame-audit.json": "97b921273fd175892e687e72eb2b9b09990deb69e4a0bb1bf99b32ce22bcbe6b",
+      "reference/cache/TW1608262200.bin": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2",
+      "reference/opacity/source-manifest.json": "71599721c6f0b27e5ce18dba0d8e20e07b61195862d29ec4041393ec3e032603",
+      "reference/opacity/bin/0xa41cb0.bin": "78e3949a2af4e36229f05866d9d4a9fd307fe7d6f121f4ce8fe5939f0ee31057",
+      "reference/opacity/bin/0xa48890.bin": "c8af5ae61437a0d633b9d46be48ad53437ab10602d64993b30eb4a38bb5424db",
+      "reference/opacity/bin/0xa4a230.bin": "86c1f3cca58d7b5f17d6cf043be6d456340ab7fb47c188832611b4c0366b8ce3",
+      "reference/opacity/bin/0xa4a2d0.bin": "e2d65384eb052b9d159d669cee4a9f14060348512ce5d4b3c3045b5228ff2fc9",
+      "reference/opacity/bin/0xa4e880.bin": "ccd8d75f80d21afe94edd2dce362f3f18ef3fce2594db09deca766c355a03ad9",
+      "reference/opacity/bin/0x10ac9d0.bin": "9c3d38ddba7363c77f1ea20cbc9152a55a4d8bd72377c6099dbe88de4e054f2b",
+      "reference/opacity/bin/0xf0f0c0.bin": "95ab06dedcd27005c7c9d40ef47bb033e75c96d3265ea50b341477a3a0feb549",
+      "reference/opacity/bin/0x11153d0.bin": "6aae0b7b605637110755d12d616fa61d4be29a451445470e2114fb2d42501aad",
+      "reference/opacity/bin/0xf112f0.bin": "7d797adfc7b06e8d03c51ff837d6423c7ab78bf202a79d2afe85a28bae7dfb00",
+      "reference/opacity/bin/0x976c60.bin": "51af654b8ce8b1828f484f391d8164bec1099f32c6ea31fa0da5656601629937",
+      "reference/opacity/bin/0x976c20.bin": "8e33955e117055e64372c634532a1fdd667714160daa14204d34efaad8306340",
+      "reference/opacity/bin/0x9775e0.bin": "0546c738a1e9a614893255469a7d52eb01486cc3c8174606ebf952d7c447749c",
+      "reference/opacity/bin/0x977460.bin": "9834868aff6fb0d13fed1edcc0c2079419682b60c8c0c0008850ecd421b4f4b6",
+      "reference/opacity/bin/0xf0b570.bin": "8c4d158868cdeaf9219a8d3b0979ed47761259f71f7b73d4a139d436fffc3ce1",
+      "reference/opacity/bin/0x1115380.bin": "c39c1d9a1dd3e27130fa44736d484146857a935ff893569d02409f8c2b538187",
+      "reference/opacity/bin/0xa504a0.bin": "3a15deaf596f3a59a616f5bb83f401a161a1bb3630183cc1f6daa2920eb58d72",
+      "reference/opacity/bin/0x10acc40.bin": "c0b2628108589352f8f9c13db931d29afbe32aec60d8fb0e857854a1246e6223",
+      "reference/opacity/bin/0xa0bf90.bin": "55038b631be17be39df7f49537991061f4656df2edfedfeb8c09695584f87e9f",
+      "reference/opacity/bin/0xa44a00.bin": "1f644845764453a8716c20de0884f5048689df17c4591c00a406f8fe2ec0dc4d",
+      "reference/opacity/bin/0xf02ba0.bin": "e59aae3afd7e3f505ea1b3325c32ae6bfb8459e9b4b1968d0f94ea4a78616252",
+      "reference/opacity/bin/0x1115210.bin": "48ab47b24cea18efa605eb0398d31d301ed38721320c3b1e3a633369518fc79b",
+      "reference/opacity/bin/0xf044c0.bin": "506767374a9046af5ab56b2cb372620344db17cefb845973cd686e08c91a51a3",
+      "reference/opacity/bin/0xf0a050.bin": "440ae22799e69b6fc8e37eeea1f966bb3ca9e982fbe064ee47858cdd05059938",
+      "reference/opacity/bin/0xf0eb70.bin": "f8954bdf5e6cae737f0a114e87922e00ee78ab9d6600938942f0798da3daf368",
+      "reference/opacity/bin/0xf0e790.bin": "9dab5427094de6a60a56dc2db72367706c0804fff2d783164d903192d9a35ea9",
+      "reference/opacity/bin/0xf078e0.bin": "a25ba13e87c8556e9b1af1589bcf8a1693d50a7f140494b06b29c5b939dfa078",
+      "reference/opacity/bin/0xa3a530.bin": "114d02bcbaeed6d59076a4a4356a623802b0f1b87e5ea8e9710f39e919953847",
+      "reference/opacity/bin/0x10ac080.bin": "23aa95afcf946fc484ca6e30ecf67aa3b0e1832e709afeae91d34a0b76f5e81b",
+      "reference/opacity/bin/0xf0e9b0.bin": "d044ae3c8c5ade36fab3e4f383ec27da839d2e20222b9e078189bc2aeb9e1c8d",
+      "reference/opacity/bin/0x85e090.bin": "06169eec637c85212671440fb5d788ca16b8521653526b72cdc940f2401b8b28",
+      "reference/opacity/bin/0x85e600.bin": "dba22c24463cda863abd59bf0f12f2b3d0e6a7cfbb66068049df5b776c3c052c",
+      "reference/opacity/bin/0x85ea90.bin": "623e2cb0d62bb2ac363d959b9e3501cc0c5d21564ccb4cf7cfa17aa6b0b53a05",
+      "reference/opacity/bin/0x85ee80.bin": "89f5b68ef0a834d0fa45ceeef57557d5f11060e0f334032e3e747d854b628aa9",
+      "reference/opacity/bin/0xa4c270.bin": "2ba2a9a124191b835f3caa81257ff47ded6ad764eeaff22758b208537fbc8dc2",
+      "reference/opacity/bin/0x10ac890.bin": "5fd610a9bcf778bb2919afe7237a8f8792dbcdca3325c498e8be57ffe9fa5db3",
+      "reference/opacity/bin/0xa51920.bin": "5d973a7987f9d8bbce92b7810ad333bcb71304fde3747b9749a464e0d6e34997",
+      "reference/opacity/bin/0x10acd50.bin": "0a63e5715db62c43bb80e643ebd1a6dec765e46bb68f61c8e8ea3b00b96fed48",
+      "reference/opacity/bin/0x6e9b10.bin": "0a4be7136c1369db3552b91ea7a348a6cfc033b83162876f2d36488963742a8f",
+      "reference/opacity/bin/0xf1a080.bin": "87c35a8b12eca615812e5b6ad21347a3e429ab49422beb7a08b0b664b07ca6ab",
+      "reference/opacity/bin/0x976ff0.bin": "e3e9007479cc3d58fd909fb7c2c0f93b7f7f443f6308ca0618a41226d5bc2b9e",
+      "reference/opacity/bin/0x976fc0.bin": "0a6bccc3ac7a13d08664b36fbccf135afb8e622465193ccf0b08d6a7906e9b4d",
+      "reference/opacity/bin/0x97b700.bin": "daa6ff942f363d1ca9872bc6e16cc133372c3e473ba37f16149e04d12f39710c",
+      "reference/opacity/bin/0x85e050.bin": "7fdc759c9a466ce6bbf225c9bff0c9bd9e64a80f8c710c5ca1e755aa407ac4b6",
+      "reference/opacity/bin/0x85e070.bin": "5de494d8282786f48f82f139d4bf80ebd2d7da529d2ae67a4567577aeb85a75a",
+      "reference/opacity/bin/0xa23ac0.bin": "41914183783137f20668b0b83fb60f9d1dc0c013f7f08152b2ab7fb06d29bbd2",
+      "reference/opacity/bin/0xa231c0.bin": "be21dcebc5df85a254cb52d71cc80db60d2ba77311467a775a9fd34772ee83cd",
+      "reference/opacity/bin/0xf10a70.bin": "42f68f74359368880dc7de7cdf7a9881857276b78244cb2294a3e6a8d14f7674",
+      "reference/opacity/bin/0xf10d90.bin": "775e62f046ec71e931e862aa4765bd15f049994341ff64e081a18a637bd55579",
+      "reference/opacity/bin/0xf110a0.bin": "12cc5fca616e8fa83db2e3d1e8cbe7180b06101a914c8d826b65dc9ce896c933",
+      "reference/opacity/bin/0xf11610.bin": "21fc493d83ffc3540530272d5492cf65e8a406a7725a83e8767b341e2ce0d827",
+      "reference/opacity/bin/0xf117c0.bin": "8ff9763e6bd40cb0c88eefe9f4c17d6159d55251b48c5bf0f043eec4ff2c4088",
+      "reference/opacity/bin/0xf12490.bin": "ca1b927797cb67f6a83345d09bf83c0e071720c3ad0219cd6e435276400f5f34",
+      "reference/opacity/bin/0xf00640.bin": "0d28534e7d70c46d83475173b2d4cd3d6f11aaf1e195ad72e8d512f91099d6f6",
+      "reference/dual-block/bin/manifest.json": "9a3e59808f7808578b2693dd9ebb53cbd01c265bb0c8752444390a8c8995717a",
+      "reference/dual-block/bin/0xf00640.bin": "0d28534e7d70c46d83475173b2d4cd3d6f11aaf1e195ad72e8d512f91099d6f6",
+      "reference/dual-block/bin/0xf0ed00.bin": "c4895bd1fd1cee918f63dcf951cda7f19cae785b0739398b23565af6cc077de4",
+      "reference/dual-block/bin/0xf0b570.bin": "8c4d158868cdeaf9219a8d3b0979ed47761259f71f7b73d4a139d436fffc3ce1",
+      "reference/dual-block/bin/0x1115380.bin": "c39c1d9a1dd3e27130fa44736d484146857a935ff893569d02409f8c2b538187",
+      "reference/dual-block/bin/0xf09c70.bin": "2ef863c5265a5be223f6ede2aedce15e1e7a7a733bbcf195bf89bac5e0603e95",
+      "reference/dual-block/bin/0xf117c0.bin": "8ff9763e6bd40cb0c88eefe9f4c17d6159d55251b48c5bf0f043eec4ff2c4088",
+      "reference/dual-block/bin/0xf10a70.bin": "42f68f74359368880dc7de7cdf7a9881857276b78244cb2294a3e6a8d14f7674",
+      "reference/dual-block/bin/0xf116d0.bin": "9532af438d054440de0bee0893816efd6442d0b553411f441a83c57d913cf817",
+      "reference/dual-block/bin/0xf110a0.bin": "12cc5fca616e8fa83db2e3d1e8cbe7180b06101a914c8d826b65dc9ce896c933",
+      "reference/dual-block/bin/0xf0e9b0.bin": "d044ae3c8c5ade36fab3e4f383ec27da839d2e20222b9e078189bc2aeb9e1c8d",
+      "reference/dual-block/bin/0xa44190.bin": "c2629647e570d350019e1756df25e0e57e7cd084f978ea1cbc4c49ea2792417b",
+      "reference/cache/source-manifest.json": "eec66ff5dbdf7397cc5cbe83117ab9914081fa52dff6006b216c7136a3248b96",
+      "reference/cache/bin/0xf09c70.bin": "2ef863c5265a5be223f6ede2aedce15e1e7a7a733bbcf195bf89bac5e0603e95",
+      "reference/cache/bin/0xf117c0.bin": "8ff9763e6bd40cb0c88eefe9f4c17d6159d55251b48c5bf0f043eec4ff2c4088",
+      "reference/cache/bin/0xf10a70.bin": "42f68f74359368880dc7de7cdf7a9881857276b78244cb2294a3e6a8d14f7674",
+      "reference/cache/bin/0xf00640.bin": "0d28534e7d70c46d83475173b2d4cd3d6f11aaf1e195ad72e8d512f91099d6f6",
+      "reference/cache/bin/0xf0ed00.bin": "c4895bd1fd1cee918f63dcf951cda7f19cae785b0739398b23565af6cc077de4",
+      "reference/cache/bin/0xf0b570.bin": "8c4d158868cdeaf9219a8d3b0979ed47761259f71f7b73d4a139d436fffc3ce1",
+      "reference/cache/bin/0x1115380.bin": "c39c1d9a1dd3e27130fa44736d484146857a935ff893569d02409f8c2b538187",
+      "reference/cache/bin/0xf116d0.bin": "9532af438d054440de0bee0893816efd6442d0b553411f441a83c57d913cf817",
+      "reference/cache/bin/0xf110a0.bin": "12cc5fca616e8fa83db2e3d1e8cbe7180b06101a914c8d826b65dc9ce896c933",
+      "reference/cache/bin/0xf0e9b0.bin": "d044ae3c8c5ade36fab3e4f383ec27da839d2e20222b9e078189bc2aeb9e1c8d",
+      "reference/cache/bin/0xa44190.bin": "c2629647e570d350019e1756df25e0e57e7cd084f978ea1cbc4c49ea2792417b",
+      "reference/cache/bin/0xf06cc0.bin": "e75c915a81bac16eab9497cd9ce1bb15193213dff966e29c038bfd915d5c1016",
+      "reference/cache/bin/0x6e9b10.bin": "0a4be7136c1369db3552b91ea7a348a6cfc033b83162876f2d36488963742a8f",
+      "reference/cache/bin/0xf05890.bin": "c7c8733a12092c33847b29c3ab60aa33d6ccf4e34e53b14fa4accba8dd108225",
+      "reference/cache/bin/0xf027f0.bin": "802e9ba96edd83c549f38d6b3020c84882a0d669fb9c4f00a8be42a51c2075f5",
+      "reference/cache/bin/0xf10ce0.bin": "70305f31594bb435311821fce0c008af9b1f7cb5514c5955a521346a04d429a7",
+      "reference/cache/bin/0xf09af0.bin": "9b0eede0679e797cb26d75dbb1a1d25de20726810ce100d9599e26423dab44e2",
+      "reference/cache/bin/0xf07960.bin": "f1dbbbde8691421262250486d3734b067a9803e23b97629ea1561d61dacee8d2",
+      "reference/cache/bin/0xf07d50.bin": "567189292853a578babead3c7489048c90b4de739400fbb6c85ed472cb7bb86c",
+      "reference/cache/bin/0xf07a80.bin": "b0c3389b6f374198db0b02c50099992e57c1a005f66c1dc318c50e983d91962d",
+      "reference/cache/bin/0x85ea20.bin": "5f8131e1d4da6c17e56b42ee6e2fc3c55497a8b3c0e9e644e0774cf9530282c8",
+      "reference/cache/bin/0xa51920.bin": "5d973a7987f9d8bbce92b7810ad333bcb71304fde3747b9749a464e0d6e34997",
+      "reference/cache/bin/0x10acd50.bin": "0a63e5715db62c43bb80e643ebd1a6dec765e46bb68f61c8e8ea3b00b96fed48",
+      "reference/cache/bin/0xf12610.bin": "8a793e2e7306f8c3292232fbd0ca7aa52c0f22ead3c14c4613fe2b01b7081ce0",
+      "reference/cache/bin/0xf067b0.bin": "daff5388590453ac4cfe7359cc69d203eb82f6067dc601b00bea3c408fccc969",
+      "reference/cache/bin/0xf07000.bin": "9aa91d56285b029e03dfd6ce9df9c28843db22ca8d7d5d1c324444227c1f0c00",
+      "reference/cache/bin/0xf1a570.bin": "c49da854af7e99f0e8860b0a91660d6f30af53e990fb3241d60db6bebac8d8b2",
+      "reference/cache/bin/0xf1a080.bin": "87c35a8b12eca615812e5b6ad21347a3e429ab49422beb7a08b0b664b07ca6ab",
+      "reference/cache/bin/0x977f30.bin": "070b3ff0e58beb1995a4873f6ea46771c83e63bdfa5ec079caf53159a205fdfa",
+      "reference/cache/bin/0x977ff0.bin": "b4efdfc7b94f75c814329fd9f5f26984f3ed7d2b4fe6fbe99eb61805375ecb75",
+      "reference/cache/bin/0x977190.bin": "b903e5e7ee9046dc396be835f6f256bb1937ad74d772e3f1d4915233b9a0da5c",
+      "reference/cache/bin/0x4e7f50.bin": "82eda5cf0f16220c87a2d36b8309e649fe3be2d465eaa40d14fe0c3839a948ce",
+      "reference/cache/bin/0x64d7f0.bin": "c827f4e822ecd5196ee99aadabaea1ed8e4257839dcdaaca2118831e9194b8e0",
+      "reference/cache/bin/0x977f60.bin": "359a903ef10912a6402ed5b95897ba0d007b0d7bfd8ddaae985a4f02b73ca4ba",
+      "reference/cache/bin/0x978020.bin": "8b8d9d90a16e9d961ef095e0e0e423063df74428dfe13095477cc30e82049280",
+      "reference/cache/bin/0x976ff0.bin": "e3e9007479cc3d58fd909fb7c2c0f93b7f7f443f6308ca0618a41226d5bc2b9e",
+      "reference/cache/bin/0x97b700.bin": "daa6ff942f363d1ca9872bc6e16cc133372c3e473ba37f16149e04d12f39710c",
+      "reference/cache/bin/0x9775e0.bin": "0546c738a1e9a614893255469a7d52eb01486cc3c8174606ebf952d7c447749c",
+      "reference/cache/scheduler-r2/native-bin-supplement/receipt.json": "93fd50d86db1fcec4a3b0c0cdb4fe783ecd627342e93a44afda59b2b0305d340"
+    }
+  }
+}

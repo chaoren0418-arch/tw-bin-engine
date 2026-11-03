@@ -1,0 +1,14 @@
+{
+  "status": "actual-historical-web-frame-counter-classification",
+  "rows": [
+    {
+      "frame": "00-initial-source-frame.json",
+      "commands": 2116,
+      "sourceCommands": 2096,
+      "actorCommands": 20,
+      "oldSceneDocumentFieldCount": 9,
+      "capturedFrameBindingMatches": true
+    }
+  ],
+  "scope": "Fix local variable shadowing in future audit summaries; pixel code and historical output files unchanged."
+}

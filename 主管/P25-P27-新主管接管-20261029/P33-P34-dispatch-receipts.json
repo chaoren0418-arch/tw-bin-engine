@@ -1,0 +1,23 @@
+{
+  "schema": "p33-p34-dispatch-receipts-v1",
+  "workers": [
+    {
+      "phase": "P33",
+      "threadId": "01a1868e-d476-7ad1-8b4c-f6ac0dce7b5b",
+      "turnId": "01a1868e-d69e-7913-818f-9596c44dce81",
+      "state": "active",
+      "actualStarted": true,
+      "root": "work/P33-pickup-resource-fault-review-r1"
+    },
+    {
+      "phase": "P34",
+      "threadId": "01a1868f-050d-7802-8b13-d1d8984858b5",
+      "turnId": "01a1868f-0786-7c30-9ccc-bda25b870bcc",
+      "state": "active",
+      "actualStarted": true,
+      "root": "work/P34-pickup-authoritative-flow-review-r1"
+    }
+  ],
+  "certificateAuditThread": "01a18676-7607-7120-8804-d19ca3805f36",
+  "certificateAuditTurn": "01a1868c-2cc3-7bc0-9625-ce5758ce9afb"
+}

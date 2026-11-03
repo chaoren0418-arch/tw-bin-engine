@@ -1,0 +1,28 @@
+{
+  "jarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "classes": [
+    {
+      "class": "com.lineage.server.clientpackets.C_Attr",
+      "classSha256": "155774c9d94d29ffdd253ab12ce4bfea7b541f064cf85c7f519688f7e39ea2ac",
+      "javapSha256": "3f0d563a1f391d9a2e03883817da6efad5093c03ee61fbb050ace7cd9d70dbf3"
+    },
+    {
+      "class": "com.lineage.server.serverpackets.S_Message_YN",
+      "classSha256": "c0ae97d980ae7a0d690616a49b3b670ae21f0cf765a737b6c2ca6fb915ffbdf4",
+      "javapSha256": "1dedc922baedc5c04da7f4ca51784b7bef0dec5a381e505d81b6505c5a34d512"
+    },
+    {
+      "class": "com.lineage.server.serverpackets.S_MapID",
+      "classSha256": "98046990fd964bbd63f475674134916b00be9728ae35f5bd14d2acd7c4987be6",
+      "javapSha256": "063e0abb348bce78dcf384617383b8539d2264d5dba88035117c6d7c4236c3a5"
+    },
+    {
+      "class": "com.lineage.server.clientpackets.C_Teleport",
+      "classSha256": "145eca3132b00f1403a075e592dff478da7f1060cd35a92509beda05b731b52b",
+      "javapSha256": "7cfae41278a1404f1aba9a77c4549996d7e216df125cda2acb97c63dc7c22790"
+    }
+  ],
+  "purpose": "ordinary trade invitation reply and map/teleport protocol integration",
+  "serverExecuted": false,
+  "network": false
+}

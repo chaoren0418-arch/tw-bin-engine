@@ -1,0 +1,1098 @@
+{
+  "schema": "p25-historical-reference-index-v1",
+  "rows": [
+    {
+      "row": "R01",
+      "field": "historicalEvidence",
+      "originalReference": "r22-final-live/g00-main-blank-entry-state.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-final-live/g00-main-blank-entry-state.json",
+      "sha256": "f6797375c9497538b8247a56058dd3e854701848434491ce98649ecd57c2b24e",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R01",
+      "field": "historicalEvidence",
+      "originalReference": "r22-final-live/g01-main-normal-walk.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-final-live/g01-main-normal-walk.json",
+      "sha256": "94677bb17f974f9fab4ab8a09384f2b873af3fc4cb0009e6a4d1630eff342c44",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R01",
+      "field": "historicalEvidence",
+      "originalReference": "r22-final-live/fix-gift-normal-relogin.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-final-live/fix-gift-normal-relogin.json",
+      "sha256": "570689ba4d81e8f588d21b007f3effacab45525a8fad071a554ffb213e8571ea",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R01",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g01-main-normal-login.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g01-main-normal-login.json",
+      "sha256": "c05eff2723e5f7a310a81b4dc04920e9d59be0ca6c4bbae822f4a66bbce5b3dd",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R01",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g01-peer-normal-login.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g01-peer-normal-login.json",
+      "sha256": "58542a6a7cfa37538573c359ffa915dec8d58391edc762d2e5eda5a446c9e480",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R01",
+      "field": "currentEvidence",
+      "originalReference": "r27-targeted-live/current-status.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-targeted-live/current-status.json",
+      "sha256": "564ea8967dac62a7b4e6e030d87ae3635518b7a65b204f46f6f7d2df516bd235",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R01",
+      "field": "r28Evidence",
+      "originalReference": "native-r28/normal-save-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/normal-save-review.json",
+      "sha256": "ae8d4120859d815b77b96fc46f59fd6124f0b3bb1b9404910892181011abc213",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R02",
+      "field": "historicalEvidence",
+      "originalReference": "r22-final-live/g02-dagger-native-keyboard-walk.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-final-live/g02-dagger-native-keyboard-walk.json",
+      "sha256": "6568544d82b828235462a7d51e5b5358630d43f45b2e90e976575e92c766cfbc",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R02",
+      "field": "historicalEvidence",
+      "originalReference": "r22-final-live/g02-dagger-normal-relogin.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-final-live/g02-dagger-normal-relogin.json",
+      "sha256": "b6f2a599d5c786a5b6c4ddea62a59d86db1364d7a2ef475f9d0b7b0be8eff048",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R02",
+      "field": "historicalEvidence",
+      "originalReference": "r22-final-live/fix-gift-icon-visible-state.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-final-live/fix-gift-icon-visible-state.json",
+      "sha256": "5407d37b8ad178bfaf1ecf3930a5d4f779ab70f45b5718b7e0cba1be8e14dc45",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R02",
+      "field": "currentEvidence",
+      "originalReference": "r27-targeted-live/current-status.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-targeted-live/current-status.json",
+      "sha256": "564ea8967dac62a7b4e6e030d87ae3635518b7a65b204f46f6f7d2df516bd235",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R02",
+      "field": "r28Evidence",
+      "originalReference": "native-r28/normal-save-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/normal-save-review.json",
+      "sha256": "ae8d4120859d815b77b96fc46f59fd6124f0b3bb1b9404910892181011abc213",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R03",
+      "field": "historicalEvidence",
+      "originalReference": "r21-final-live/g02-combat-reward-reconciliation.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r21-final-live/g02-combat-reward-reconciliation.json",
+      "sha256": "521549457403d7ac2a9975fbe67baa94f4d28a07eba3729114cbe54298965b17",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R03",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g02-dwarf-light-arrow-kill.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g02-dwarf-light-arrow-kill.json",
+      "sha256": "2c2c9bb40d260c455f195e17d2cda5b2a825c04a752320eeb188139de58fb6e4",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R03",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g02-zombie-live-melee.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g02-zombie-live-melee.json",
+      "sha256": "8d070bbcf6d574994825860bb9159bc4220389664878055b116a9765527c58e4",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R03",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g02-postcombat-normal-home.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g02-postcombat-normal-home.json",
+      "sha256": "7fb690d95776777bc78590e7228d90a601f29b5bc81f21e3491ad30644677e86",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R03",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g02-kill-loot-offline-db.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g02-kill-loot-offline-db.json",
+      "sha256": "acfb865d1eaaabc58be6c927a6a60501b4071615afb2dd0c4ad45180ac65b1b1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R03",
+      "field": "currentEvidence",
+      "originalReference": "r27-scope-audit/root-service-source-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-scope-audit/root-service-source-review.json",
+      "sha256": "7021d721aa2431507756c11d0497ca3a8e12a3cd4fd6a2ac4028e300f30317e1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R03",
+      "field": "r28Evidence",
+      "originalReference": "native-r28/cave-eye-combat-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/cave-eye-combat-review.json",
+      "sha256": "69c0d2d2b99930908a3e135ff7117369cfd0169bb47064fdb2f02fa7def27988",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R03",
+      "field": "r28Evidence",
+      "originalReference": "native-r28/cave-home-save-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/cave-home-save-review.json",
+      "sha256": "9cfc219e29310333be50969bded7f52b542ee3caa576459d9baa4dc474224fbd",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R04",
+      "field": "historicalEvidence",
+      "originalReference": "r20-final-live/g03-learn-heal-and-normal-home.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r20-final-live/g03-learn-heal-and-normal-home.json",
+      "sha256": "189996a0c36be8b42c4d6491cd5be728db7ea0a59c5b9ae55a201505ca10fb70",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R04",
+      "field": "historicalEvidence",
+      "originalReference": "r21-final-live/g03-postcombat-normal-recovery.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r21-final-live/g03-postcombat-normal-recovery.json",
+      "sha256": "7c0f8da71686468f7c009785c5f5baccb9a5363c29544012075b1b2c0c62399e",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R04",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g03-shield-quote.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g03-shield-quote.json",
+      "sha256": "1a12bb7f4fc6c508dd2ef3439ea566ad00b2de342b45ef1813a0403cde190282",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R04",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g03-shield-learned.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g03-shield-learned.json",
+      "sha256": "a7d0e8123e78659997c3503e6596389cfea56b8c38f229fbd60e7f6c0065455f",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R04",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g03-shield-cast-after-relogin.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g03-shield-cast-after-relogin.json",
+      "sha256": "5803e61295fc17daf7b6cbcfc19a34c64572648bc7e09fad98c3790686b6d316",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R04",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g03-learn-cast-offline-db.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g03-learn-cast-offline-db.json",
+      "sha256": "108304b4f4aa49b4e4ca561f4f5919b2790673a1ea168b3da086cc9f076b4511",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R04",
+      "field": "currentEvidence",
+      "originalReference": "r27-scope-audit/root-service-source-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-scope-audit/root-service-source-review.json",
+      "sha256": "7021d721aa2431507756c11d0497ca3a8e12a3cd4fd6a2ac4028e300f30317e1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R04",
+      "field": "r28Evidence",
+      "originalReference": "native-r28/cave-eye-combat-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/cave-eye-combat-review.json",
+      "sha256": "69c0d2d2b99930908a3e135ff7117369cfd0169bb47064fdb2f02fa7def27988",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R04",
+      "field": "r28Evidence",
+      "originalReference": "native-r28/holy-weapon-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/holy-weapon-review.json",
+      "sha256": "f8a7ca5b800c051d751fa52e8054da37a310b6de2fc82877f40b9739c8eed291",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R05",
+      "field": "historicalEvidence",
+      "originalReference": "r19-final-live/g04-food-use.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r19-final-live/g04-food-use.json",
+      "sha256": "cad438a54708d34470a2e4e0bce2cbcef8d0748c113ebe5feb884caa17b95524",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R05",
+      "field": "historicalEvidence",
+      "originalReference": "r19-final-live/g04-native-p-pickup.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r19-final-live/g04-native-p-pickup.json",
+      "sha256": "55ee87f2952423535ae641649804ffd0e11a403bf9cde67a6039afa3c89356ff",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R05",
+      "field": "historicalEvidence",
+      "originalReference": "r20-final-live/g04-haste-normal-use.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r20-final-live/g04-haste-normal-use.json",
+      "sha256": "ed40c2d7c3241e998a25cd331691274e9781899f1e9f99785824343b29536653",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R05",
+      "field": "historicalEvidence",
+      "originalReference": "r21-final-live/fix-dagger-normal-equipped.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r21-final-live/fix-dagger-normal-equipped.json",
+      "sha256": "8f2faa70ab8dc6684b480ffbfac3c0d691fca35935252eab7969c2d9a53b5003",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R05",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g04-main-food.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g04-main-food.json",
+      "sha256": "85bfbc96bfa8af89a6c49cbe26af5e6b28ab22944abe564da3deb4c68abb9606",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R05",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g04-peer-green-used.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g04-peer-green-used.json",
+      "sha256": "cb2802255a9b40397c81912a180c195f489f867edb77ccdb6741823b23447786",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R05",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g04-main-postcombat-recovery.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g04-main-postcombat-recovery.json",
+      "sha256": "21280e379f3de2e1814f7e5962dd56925417369452c52d9c8e746931c4ee919d",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R05",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g04-shield-off.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g04-shield-off.json",
+      "sha256": "e6e177dd513be14edc0f61f8a5b62858ca0fb7b2e81f8c2e1228094a08cb1edc",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R05",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g04-shield-on.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g04-shield-on.json",
+      "sha256": "ebc2f37b75b8397641e788e82a6752999b2580a92073aba3140d0eea105d6558",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R05",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g04-normal-meat-drop.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g04-normal-meat-drop.json",
+      "sha256": "894dffe13d4ac86a395c8b0667cb35af5024438c0ff674f1bea0e1f89cd739a8",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R05",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g04-normal-meat-picked-up.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g04-normal-meat-picked-up.json",
+      "sha256": "be6f60d70f9524c49ee9e510d3bfe8c2426d3c5aa3adf77f88b224a3bba6b189",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R05",
+      "field": "currentEvidence",
+      "originalReference": "r27-scope-audit/root-service-source-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-scope-audit/root-service-source-review.json",
+      "sha256": "7021d721aa2431507756c11d0497ca3a8e12a3cd4fd6a2ac4028e300f30317e1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R05",
+      "field": "r28Evidence",
+      "originalReference": "native-r28/ground-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/ground-review.json",
+      "sha256": "748318f796449fb7d6f5eab04f1093ca4c9f1cce6a2fdb437239cc9141ff5864",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R05",
+      "field": "r28Evidence",
+      "originalReference": "native-r28/cave-home-save-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/cave-home-save-review.json",
+      "sha256": "9cfc219e29310333be50969bded7f52b542ee3caa576459d9baa4dc474224fbd",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R06",
+      "field": "historicalEvidence",
+      "originalReference": "r21-final-live/fix-merchant-normal-supply-purchase.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r21-final-live/fix-merchant-normal-supply-purchase.json",
+      "sha256": "57d3f85d8c832bde6bf4a749f7595cbd9598a3a9b5d95d8ee77ea9b838e15992",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R06",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g05-pandora-normal-supplies-purchase.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g05-pandora-normal-supplies-purchase.json",
+      "sha256": "257ff68c6cdc2cec3b57eccf70d7a49142383463196111fbd64eab59e3b9c3a6",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R06",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g05-pandora-purchase-normal-relogin.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g05-pandora-purchase-normal-relogin.json",
+      "sha256": "9ad04a5abbc7947695509d2a8dcf87f8008aaf61afa20b932632b8013f03c9d2",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R06",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g07-ticket-offline-db.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g07-ticket-offline-db.json",
+      "sha256": "668d9d7a7a2623e138aeaa1821fc89b1d4155034331d751b201d6cd220cf78c1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R06",
+      "field": "currentEvidence",
+      "originalReference": "r27-scope-audit/root-service-source-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-scope-audit/root-service-source-review.json",
+      "sha256": "7021d721aa2431507756c11d0497ca3a8e12a3cd4fd6a2ac4028e300f30317e1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R07",
+      "field": "historicalEvidence",
+      "originalReference": "r21-final-live/g05-merchant-sell-quote.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r21-final-live/g05-merchant-sell-quote.json",
+      "sha256": "ed7d637a30684a4b61008e98f3981c2105ca4955cf99b53a986bd4399ea8d705",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R07",
+      "field": "currentEvidence",
+      "originalReference": "r27-scope-audit/npc-sale-current-db-prices.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-scope-audit/npc-sale-current-db-prices.json",
+      "sha256": "5ceb550282d6072fdc9a6f6caf26110cdb2ce60a2307813524bca9a472581c0e",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R08",
+      "field": "historicalEvidence",
+      "originalReference": "r19-final-live/g06-direct-trade-resource-reconciliation.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r19-final-live/g06-direct-trade-resource-reconciliation.json",
+      "sha256": "2695ce3dfb695c91945e3457c6426332f94e231344b1f989df39be617f52c0ed",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R08",
+      "field": "historicalEvidence",
+      "originalReference": "r20-final-live/g06-one-red-trade-completed.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r20-final-live/g06-one-red-trade-completed.json",
+      "sha256": "fa8b9c7dfe240f40ace2adf21eef1a0dbe3a61eda7b2b215c065d052d23c581c",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R08",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g06-trade-preconfirm.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g06-trade-preconfirm.json",
+      "sha256": "df9a97e8b697c162653f80cd744738bd41288c7e32826ffaa12cd34c1d2c04ce",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R08",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g06-trade-normal-relogin.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g06-trade-normal-relogin.json",
+      "sha256": "91e8e0debb1c6808925fa2ce4f730e9585cd061bbae1cf65405100241f631055",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R08",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g06-trade-offline-db.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g06-trade-offline-db.json",
+      "sha256": "a602f34ac5848fb1ddab1ef5176fe5a794434f33b4824c50cab1dd9a4f7892ac",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R08",
+      "field": "currentEvidence",
+      "originalReference": "r27-scope-audit/root-service-source-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-scope-audit/root-service-source-review.json",
+      "sha256": "7021d721aa2431507756c11d0497ca3a8e12a3cd4fd6a2ac4028e300f30317e1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R09",
+      "field": "historicalEvidence",
+      "originalReference": "r19-final-live/g06p-buy-one-sapphire.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r19-final-live/g06p-buy-one-sapphire.json",
+      "sha256": "5ea6631ea78e2bb6106db78c61320f0b6a7530d11c7394b5c796620bd6020f35",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R09",
+      "field": "historicalEvidence",
+      "originalReference": "r20-final-live/fix-private-normal-recovery-list.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r20-final-live/fix-private-normal-recovery-list.json",
+      "sha256": "c8a0d1fb4283b86d14de3677bb81c6f27211a987c5a3771883c3d64cd14bcc2e",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R09",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g06p-ruby-purchase.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g06p-ruby-purchase.json",
+      "sha256": "f8f914defba279c567f82d772033e505f2fdb3b8a0772033a04ca545a361ceec",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R09",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g06p-ruby-stock-after.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g06p-ruby-stock-after.json",
+      "sha256": "c7fc6f035cff1544577f44dc9aee4d1d5d0d61abfd25fc133522f0c52c68ed8e",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R09",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g06p-ruby-normal-relogin.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g06p-ruby-normal-relogin.json",
+      "sha256": "acd47344b7e132fb316d9cc4435ab843248420679bfffa2fc526a3d2adafe4bb",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R09",
+      "field": "currentEvidence",
+      "originalReference": "r27-scope-audit/root-service-source-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-scope-audit/root-service-source-review.json",
+      "sha256": "7021d721aa2431507756c11d0497ca3a8e12a3cd4fd6a2ac4028e300f30317e1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R10",
+      "field": "historicalEvidence",
+      "originalReference": "r19-final-live/g06p-sell-current-owned-quote.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r19-final-live/g06p-sell-current-owned-quote.json",
+      "sha256": "616b8f8e0b9982042935f96ddb7588cd2a9aac23b1b3847c7ff0435fb28261d8",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R10",
+      "field": "currentEvidence",
+      "originalReference": "r27-scope-audit/root-service-source-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-scope-audit/root-service-source-review.json",
+      "sha256": "7021d721aa2431507756c11d0497ca3a8e12a3cd4fd6a2ac4028e300f30317e1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R11",
+      "field": "historicalEvidence",
+      "originalReference": "r20-final-live/g06-warehouse-relogin-ten-preserved.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r20-final-live/g06-warehouse-relogin-ten-preserved.json",
+      "sha256": "d670e36ebddc663ab92e1ec7b204a069fe8764a2f96b4fc7f6f02b5f6354c133",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R11",
+      "field": "historicalEvidence",
+      "originalReference": "r20-final-live/g06-warehouse-withdraw-six.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r20-final-live/g06-warehouse-withdraw-six.json",
+      "sha256": "b23f41b72e32935514f5c9c5bbb399e294255afdac45ce8b65913cfa0b8f29e4",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R11",
+      "field": "currentEvidence",
+      "originalReference": "r27-scope-audit/root-service-source-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-scope-audit/root-service-source-review.json",
+      "sha256": "7021d721aa2431507756c11d0497ca3a8e12a3cd4fd6a2ac4028e300f30317e1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R12",
+      "field": "historicalEvidence",
+      "originalReference": "r21-final-live/g02-dagger-cave-entry.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r21-final-live/g02-dagger-cave-entry.json",
+      "sha256": "80a16d3ebb7af466065458004e75f1a77ab556d158d69e4fd4986a4fcfa64d3b",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R12",
+      "field": "historicalEvidence",
+      "originalReference": "r21-final-live/g09-dagger-normal-cave-exit.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r21-final-live/g09-dagger-normal-cave-exit.json",
+      "sha256": "fe5ac4b124bbc2ed05539b25357e1c527f1f49f665db34c03fa9fd5c3de9e8ae",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R12",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g09-main-normal-cave-entry.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g09-main-normal-cave-entry.json",
+      "sha256": "105e3fb4adc2364c8a7c8d354d26b2119a4c8c492897e2fc1fcd94c140946839",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R12",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g09-main-cave-normal-relogin.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g09-main-cave-normal-relogin.json",
+      "sha256": "035e70bfebda10c482e0c0018a9b6215a01227058ddfe04555e6ace606af937e",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R12",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g09-normal-cave-exit-before-town.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g09-normal-cave-exit-before-town.json",
+      "sha256": "4eb8e48799d82e88711307fa449458c2c4cf6b196487f4678ef94e307f083029",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R12",
+      "field": "currentEvidence",
+      "originalReference": "r27-scope-audit/root-service-source-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-scope-audit/root-service-source-review.json",
+      "sha256": "7021d721aa2431507756c11d0497ca3a8e12a3cd4fd6a2ac4028e300f30317e1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R12",
+      "field": "r28Evidence",
+      "originalReference": "native-r28/cave-entry-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/cave-entry-review.json",
+      "sha256": "24130dfb68e4766b18347de8ccd88d644c5bc6cfeac9f3d21b01c3dd3d65da53",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R12",
+      "field": "r28Evidence",
+      "originalReference": "native-r28/cave-home-save-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/cave-home-save-review.json",
+      "sha256": "9cfc219e29310333be50969bded7f52b542ee3caa576459d9baa4dc474224fbd",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R12",
+      "field": "r28Evidence",
+      "originalReference": "native-r28/caesar-and-private-shop-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/caesar-and-private-shop-review.json",
+      "sha256": "1b202613599ecac38b4000f4d74822061d296a790a28ff3b89ed3e6fff580b11",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R13",
+      "field": "historicalEvidence",
+      "originalReference": "r20-final-live/g07-outbound-arrival-ready.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r20-final-live/g07-outbound-arrival-ready.json",
+      "sha256": "0f868b5cac3d81c3469a6763fa4add1e62009eed1e9a7b85cc1a85f8158f8fc3",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R13",
+      "field": "historicalEvidence",
+      "originalReference": "r21-final-live/g07-return-natural-arrival-ready.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r21-final-live/g07-return-natural-arrival-ready.json",
+      "sha256": "79b6afce645f1739235c5beb9f2a0b6bda913609ea1107aee725fb64889abd7d",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R13",
+      "field": "currentEvidence",
+      "originalReference": "r27-scope-audit/root-service-source-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-scope-audit/root-service-source-review.json",
+      "sha256": "7021d721aa2431507756c11d0497ca3a8e12a3cd4fd6a2ac4028e300f30317e1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R13",
+      "field": "r28Evidence",
+      "originalReference": "native-r28/port-attempt-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/port-attempt-review.json",
+      "sha256": "e6f52be92f591af3099ad9fb4ec7f52d119e118bff0c3f961e176448600f204c",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R14",
+      "field": "historicalEvidence",
+      "originalReference": "r19-final-live/g10-hall-enter.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r19-final-live/g10-hall-enter.json",
+      "sha256": "30f911dca93ee01ed09fa2fd5613eb762a962e904f4148a234c17be5cb8ea9c9",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R14",
+      "field": "historicalEvidence",
+      "originalReference": "r19-final-live/g10-room-enter-and-walk.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r19-final-live/g10-room-enter-and-walk.json",
+      "sha256": "d67bdcb7382acc8692bc17f3a5550ef15dbe8709734b38682a3ca58fc41a6eb8",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R14",
+      "field": "historicalEvidence",
+      "originalReference": "r19-final-live/g10-room-relogin-outside.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r19-final-live/g10-room-relogin-outside.json",
+      "sha256": "ab9fd8becc748fe268c216488d00b1acc282b5a1dfc16f501ba3a2543d61f0e6",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R14",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g08-room-key-purchase.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g08-room-key-purchase.json",
+      "sha256": "cf65ebe040bf7b49efd26f526499fba168e6c8ed7f82fb2e70019228083faeff",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R14",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g08-room-walk-state.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g08-room-walk-state.json",
+      "sha256": "09b51759ae348284e0cdf355e92f072e3691c238075fdef1ff715348197014cf",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R14",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g08-room-normal-relogin.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g08-room-normal-relogin.json",
+      "sha256": "56ab1dfda422e7b65915859eb1160499e61691f2797a7413e0cca2350c1d174b",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R14",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/g08-hall-key-purchase.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/g08-hall-key-purchase.json",
+      "sha256": "18577844bb6f601ac567c17b5f50e26a70a2ad7ad35b7db5df1cd9fc8a516d91",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R14",
+      "field": "historicalEvidence",
+      "originalReference": "r22-full-flow/player-ui-priority-offline-db.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-full-flow/player-ui-priority-offline-db.json",
+      "sha256": "917b53ab9eac7a63107923109fccfc2221a57385b63ce3e14741688586a3d4d9",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R14",
+      "field": "currentEvidence",
+      "originalReference": "r27-scope-audit/root-service-source-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-scope-audit/root-service-source-review.json",
+      "sha256": "7021d721aa2431507756c11d0497ca3a8e12a3cd4fd6a2ac4028e300f30317e1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R14",
+      "field": "r28Evidence",
+      "originalReference": "native-r28/inn-room-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/inn-room-review.json",
+      "sha256": "23b34d729baee4a84db50e4e41777f74bbe43b5c64d11a0269c55e87cfdcfba9",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R15",
+      "field": "historicalEvidence",
+      "originalReference": "inn-key-independent-review/result.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/inn-key-independent-review/result.json",
+      "sha256": "632be2a22508e3cf02310cb5c7b37e8a4b5bba0c8e81b2daf5ba400d5a24da0e",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R15",
+      "field": "historicalEvidence",
+      "originalReference": "r21-final-live/g10-inn-key-readonly-db.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r21-final-live/g10-inn-key-readonly-db.json",
+      "sha256": "10ad5f4a2528e7c33a988978afacb820b2e6e2cf4dd27fcce68443c7ac85dffa",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R15",
+      "field": "currentEvidence",
+      "originalReference": "r27-scope-audit/root-service-source-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-scope-audit/root-service-source-review.json",
+      "sha256": "7021d721aa2431507756c11d0497ca3a8e12a3cd4fd6a2ac4028e300f30317e1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R16",
+      "field": "historicalEvidence",
+      "originalReference": "r20-final-live/native-capture-retry-still-timeout.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r20-final-live/native-capture-retry-still-timeout.json",
+      "sha256": "cbaa513f31777b460250ec21557439207be84fa9b6b8ac4aed31f06495d768ef",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R16",
+      "field": "currentEvidence",
+      "originalReference": "r27-scope-audit/root-service-source-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-scope-audit/root-service-source-review.json",
+      "sha256": "7021d721aa2431507756c11d0497ca3a8e12a3cd4fd6a2ac4028e300f30317e1",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R17",
+      "field": "historicalEvidence",
+      "originalReference": "r20-final-live/g08-bonus-normal-relogin.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r20-final-live/g08-bonus-normal-relogin.json",
+      "sha256": "78bed496be5cfa9491aa40f0f2d3e733d155591c6f82d44c28baf7dc84ec7069",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R17",
+      "field": "currentEvidence",
+      "originalReference": "native-r28/bonus-strength-save-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/bonus-strength-save-review.json",
+      "sha256": "42966cb418b56f62424faf11cfcda36d909b78f7c92955112215ecf5db0a4292",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R18",
+      "field": "historicalEvidence",
+      "originalReference": "r22-final-live/result.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-final-live/result.json",
+      "sha256": "61604b9ea1b4026adda2680b6fe4bf01d41d1f978341e589bc19e4e367c21977",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R18",
+      "field": "currentEvidence",
+      "originalReference": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-content-scope-audit-r1\\result.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "P24-原2x2地圖快取與跨區載入/reference/development/r27-content-scope-audit-r1/result.json",
+      "sha256": "ff4e5c5e6f2b94fcd679a7501432295a287b0447641d25d5994abfe797b58f4f",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R19",
+      "field": "historicalEvidence",
+      "originalReference": "r22-independent-review/result.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-independent-review/result.json",
+      "sha256": "4f3bedb3e06d9cf0ed91926ee1c27ba2157053faaaf70f9183bad87d90c98e26",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R19",
+      "field": "historicalEvidence",
+      "originalReference": "r22-clean-delivery/rebuild-receipt.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r22-clean-delivery/rebuild-receipt.json",
+      "sha256": "7f914c01ce3ce04ca7950d32cc1e08627777c021bc3f3ee580381c84d3eb3401",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R19",
+      "field": "currentEvidence",
+      "originalReference": "r27-package-root-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-package-root-review.json",
+      "sha256": "650803bf23faf8ac9ba33d1da53a1606fa1563ab70b761790f4b80c02e23e269",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R19",
+      "field": "currentEvidence",
+      "originalReference": "r27-launcher-root-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-launcher-root-review.json",
+      "sha256": "5357b3dbe79004b68b14c04f562813bcbe27f0ece1ca14b62d08dfb10c8e8086",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R19",
+      "field": "r28Evidence",
+      "originalReference": "formal-r28-review/root-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/formal-r28-review/root-review.json",
+      "sha256": "f93eea01a03c568323d1f7a9a9b89116b46626c3feab3a60588791c759fba8b2",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R20",
+      "field": "historicalEvidence",
+      "originalReference": "player-ui-priority-20261027.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/player-ui-priority-20261027.json",
+      "sha256": "39a1f3e7f80b0040f636947c725f7fdaf0a7d5ce3d1c051d1a6f13f1e262ba84",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R20",
+      "field": "historicalEvidence",
+      "originalReference": "player-facing-integration-contract.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/player-facing-integration-contract.json",
+      "sha256": "e1a36d5cebf6708b1c557876f6b84f7cb427d45fb41bbd89d37edbe5d560d989",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R20",
+      "field": "currentEvidence",
+      "originalReference": "player-hud-root-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/player-hud-root-review.json",
+      "sha256": "40ebfb174ea6bafdd5d4513cac984c0d742f93af7efebbf575fde73135bda70e",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R20",
+      "field": "currentEvidence",
+      "originalReference": "r27-targeted-live/current-status.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-targeted-live/current-status.json",
+      "sha256": "564ea8967dac62a7b4e6e030d87ae3635518b7a65b204f46f6f7d2df516bd235",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R20",
+      "field": "r28Evidence",
+      "originalReference": "native-r28/current-status.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/current-status.json",
+      "sha256": "e16a66c61510d83c3f050a328b561fcfe1a1691ef95bc325307fa0e1150dea9d",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R21",
+      "field": "historicalEvidence",
+      "originalReference": "player-ui-priority-20261027.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/player-ui-priority-20261027.json",
+      "sha256": "39a1f3e7f80b0040f636947c725f7fdaf0a7d5ce3d1c051d1a6f13f1e262ba84",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R21",
+      "field": "historicalEvidence",
+      "originalReference": "player-facing-integration-contract.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/player-facing-integration-contract.json",
+      "sha256": "e1a36d5cebf6708b1c557876f6b84f7cb427d45fb41bbd89d37edbe5d560d989",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R21",
+      "field": "currentEvidence",
+      "originalReference": "shadow-original-slices-root-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/shadow-original-slices-root-review.json",
+      "sha256": "b86a5eadfc6f4a0a497e9cb8e58e6487f3a3a6d40ac722f350576cad69d8c55a",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R21",
+      "field": "currentEvidence",
+      "originalReference": "player-shadow-coverage-root-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/player-shadow-coverage-root-review.json",
+      "sha256": "4e9cd19e8fedc1e14b46bbecdcafb4737ddd6653600698ea051b4df502be34b8",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R21",
+      "field": "currentEvidence",
+      "originalReference": "r27-targeted-live/g01-native-chat-movement-state.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-targeted-live/g01-native-chat-movement-state.json",
+      "sha256": "3d2e93557632798f48b61f663ddafe78a6f487fccd6215ceb96e4736002b3f6e",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R22",
+      "field": "historicalEvidence",
+      "originalReference": "player-ui-priority-20261027.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/player-ui-priority-20261027.json",
+      "sha256": "39a1f3e7f80b0040f636947c725f7fdaf0a7d5ce3d1c051d1a6f13f1e262ba84",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R22",
+      "field": "historicalEvidence",
+      "originalReference": "player-facing-integration-contract.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/player-facing-integration-contract.json",
+      "sha256": "e1a36d5cebf6708b1c557876f6b84f7cb427d45fb41bbd89d37edbe5d560d989",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R22",
+      "field": "currentEvidence",
+      "originalReference": "player-pointer-root-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/player-pointer-root-review.json",
+      "sha256": "ed222f288304052e0fb938d9d1469d164262590fc149de035e495d3a52c7a734",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R22",
+      "field": "currentEvidence",
+      "originalReference": "r27-targeted-live/current-status.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-targeted-live/current-status.json",
+      "sha256": "564ea8967dac62a7b4e6e030d87ae3635518b7a65b204f46f6f7d2df516bd235",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "R23",
+      "field": "currentEvidence",
+      "originalReference": "r27-targeted-live/current-status.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-持續開發與同版驗收-20261027/r27-targeted-live/current-status.json",
+      "sha256": "564ea8967dac62a7b4e6e030d87ae3635518b7a65b204f46f6f7d2df516bd235",
+      "evidenceTier": "historical claim; not executed in P25"
+    },
+    {
+      "row": "MAP-F5",
+      "field": "r28Evidence",
+      "originalReference": "formal-r28-review/root-review.json",
+      "resolution": "file-exists-and-sha256-recorded",
+      "path": "主管/P24-本機主管接管與完整整合-20261028/formal-r28-review/root-review.json",
+      "sha256": "f93eea01a03c568323d1f7a9a9b89116b46626c3feab3a60588791c759fba8b2",
+      "evidenceTier": "historical claim; not executed in P25"
+    }
+  ],
+  "resolutionLimit": "bounded exact relative roots only; unresolved reference does not erase original claim or imply file globally absent",
+  "originalMatrixCurrent6016": {
+    "controller": "r1 independently accepted and integrated into sealed formal r28",
+    "audioR2": "owner fence independently rebuilt; asynchronous event defects still require r3",
+    "audioR3": "independently accepted 54 pins, deterministic DLL, 116 event assertions / 22 regressions / owner fence tests",
+    "hostAdapter": "r3 independently accepted and integrated into sealed formal r28; 307pins/root151/reviewer68+23",
+    "nativeR1": "Historical COM proof only; superseded own-PID r3 signal proof below; formal host6016 native playback still pending",
+    "nativeWindow": "FrameArrived timeout; pointer geometry unavailable; keyboard/accessibility available",
+    "signalMeter": "independently rebuilt 16 cases / 108 assertions and used on own diagnostic process",
+    "nativeR3": "own PID 1033 valid meter samples; half/quarter peak ratio 2.001718; mute and retired zero peak. No formal host or physical speaker acceptance",
+    "formalR28": "Sealed r12 delivery; root verified407nonbody/13957inventory/179exact source-web-audio matches; full-body receipt independently reviewed; normal CMD native runs recorded, current client online and latest state in native-r28/current-status.json"
+  },
+  "nativeR33Accepted": false
+}

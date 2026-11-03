@@ -1,0 +1,245 @@
+{
+  "status": "pass",
+  "baselineSealSha256": "a333cc86191f23bc72590f5b2d6f2722339f8a90e769b64c1a2315d3b8e66f07",
+  "accepted": {
+    "utc": "2026-10-27T18:18:00.900455+00:00",
+    "decision": "accepted-for-formal-r28-integration",
+    "candidate": "r28-6016-host-adapter-r3",
+    "sealSha256": "f322c11e45d9b0fd64048c7fb0d464aa7fc76c1fc0c3b334efac6122b0928915",
+    "productDllSha256": "7762951fba9a2d37d08e2d40a34dfa7f2a6f2219b93689a031a566a8fd8f8cb8",
+    "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "rootVerifiedPins": 307,
+    "rootRebuiltChecks": 151,
+    "rootBuildWarnings": 0,
+    "rootBuildErrors": 0,
+    "independentManagedChecks": 68,
+    "independentDomChecks": 23,
+    "independentEvidence": {
+      "seal-verification-final.json": "8f3e7ad5de36d97f36d059a51bf739021430743618768d1d9aba70a1b24fc246",
+      "managed-result.json": "50ade85b97f43e2c22a24c608e39f43bdb37b3e474bb9e0509cfeb1bcdf27a22",
+      "dom-result-after.json": "982d4ffca8d7dcb9b2db1b4cb83305ba89d3ab432566c21b5f77d64aac0c82b5",
+      "static-audit.json": "f488002f64fa5a5fe2907a8358945d4df2ea0a71463495447a04f873d10a79a1"
+    },
+    "sourceReviewed": [
+      "Effect6016Host",
+      "ClientEffect6016",
+      "PlayerAudioSettings",
+      "ClientAudioSettings",
+      "WebPanel",
+      "panel.js",
+      "AudioApiTransport"
+    ],
+    "findings": "F1/F2/F3/F3b/F4 repaired and bounded evidence accepted",
+    "nativeHostAccepted": false,
+    "wholeP24Complete": false
+  },
+  "candidates": [
+    {
+      "candidate": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r28-6016-host-adapter-r1",
+      "sealSha256": "bd61e78f1f4bca51e92597c1ee24020aedf3564193e4262bab466cea90234548",
+      "verifiedFiles": 374,
+      "deltaFiles": 24
+    },
+    {
+      "candidate": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r28-6016-host-adapter-r2",
+      "sealSha256": "51d3e41f226b1b4507605f7b273d687888b496dd03428747275c5d9898ad46ef",
+      "verifiedFiles": 321,
+      "deltaFiles": 8
+    },
+    {
+      "candidate": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r28-6016-host-adapter-r3",
+      "sealSha256": "f322c11e45d9b0fd64048c7fb0d464aa7fc76c1fc0c3b334efac6122b0928915",
+      "verifiedFiles": 307,
+      "deltaFiles": 3
+    }
+  ],
+  "cumulativeInputDelta": [
+    {
+      "path": "source/MapEffects.cs",
+      "beforeSha256": "2855671563be6fde42a611e6324f8176760e2b4f7e777b9d5ccca754c7f36247",
+      "afterSha256": "151017e2a085c66427959f9d6164f3cec08a455ea3866fd7e1f411f38261debd"
+    },
+    {
+      "path": "source/MapResources.cs",
+      "beforeSha256": "dbbb532f8b2772cbf8515eb2065ba5cbb39ac27bec510bcafb9671bcaf9871fb",
+      "afterSha256": "8e3e1663a58345ab42bee1fe2c07777a74ece63da7fd6500323efd5b8daa016b"
+    },
+    {
+      "path": "source/OfflineClient.csproj",
+      "beforeSha256": "8d9473d6689e5e8dc80961d3ad379027fe5e6c062502267b19461380aa33a377",
+      "afterSha256": "4486a4dea1367d8f7aac3f4860a4179bcd3e34f5a5c3f9edc93495a52c80bbed"
+    },
+    {
+      "path": "source/OriginalMapCache.cs",
+      "beforeSha256": "5b01039303432577017caa566ed2aba09fe6cadbcb637d7100d2acc634ad37a4",
+      "afterSha256": "8c7009fd8483196beda9108a07a01f54b1e02d4447ba6cb3c6b88fb78b15d084"
+    },
+    {
+      "path": "source/Program.cs",
+      "beforeSha256": "d4b86801687e5d795383232ed343f33e29fcf4b8f03f48cc2478bd897f978221",
+      "afterSha256": "f055f64ddc4d05b8ca75571690769839ea12fc3f15261057dda858b8eeffbee8"
+    },
+    {
+      "path": "source/SceneOpacity.cs",
+      "beforeSha256": "a8c44a3c6ea37cd833503713d35d43417bcfb9c9b812ee1d09fc07bd798e1dc3",
+      "afterSha256": "c6dc450181b1f19d3778738512b5a3dee5b95f7bdb27442241081f9acb0200b1"
+    },
+    {
+      "path": "source/WebPanel.cs",
+      "beforeSha256": "27e2f6a23078f8d58450e5e5461568ca56d918684f9d91fe977c716bd55916c2",
+      "afterSha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e"
+    },
+    {
+      "path": "source/WorldEntry.cs",
+      "beforeSha256": "feb71a13aa3cb21809ed8b4e20f51e89c48eae7dc0f99b987ab2767efb2890de",
+      "afterSha256": "a49718e5ce6e820eab594cb1c3610347a666e151f254d48c2c4ca8b086671c1e"
+    },
+    {
+      "path": "source/WorldSession.cs",
+      "beforeSha256": "a14c3f17b3ccf8d3607d77ae799364b2cacc2cb801fff67e7f59bd0f6848d17d",
+      "afterSha256": "96d9795b437544b453ecea77ee70a395468794dc9a9a9b1ceeaca99a8ecaa326"
+    },
+    {
+      "path": "web/index.html",
+      "beforeSha256": "af67c64406144e8e4fe9fa66d3ab93f0a144483525ba0da1b00ab99b5a7dad84",
+      "afterSha256": "27795cafd5b135781629df09c083ad290e8ce4527f4a51d498e367d5d3204b38"
+    },
+    {
+      "path": "web/panel.css",
+      "beforeSha256": "bc27f0e84c5d673ef8471de94858151ea5663007e9edd0e98dc55b52cea04ec2",
+      "afterSha256": "66310ea6a1cdeda68bf1a817c24127830a0baacff0cbef88a7ed6dfd4f0b4a91"
+    },
+    {
+      "path": "web/panel.js",
+      "beforeSha256": "87591ab22ad8f146b6e21f6270e7d16456ddc38c6a2b21594af2743f0623d9f7",
+      "afterSha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab"
+    },
+    {
+      "path": "source/AudioApiTransport.cs",
+      "beforeSha256": null,
+      "afterSha256": "b1a18d9fc09bfba275e9c17230c57cc398dba06ccd30631f44333a17b9e42c7b"
+    },
+    {
+      "path": "source/ClientEffect6016.cs",
+      "beforeSha256": null,
+      "afterSha256": "19be31bff33a4584e638d3314225648b1ccc72bb382dd4adf64e320e1aa08eeb"
+    },
+    {
+      "path": "source/Effect6016Controller.cs",
+      "beforeSha256": null,
+      "afterSha256": "5c24d747277a6428a9faf83b96682c33fb40f039989137c438c6555f5a1cae66"
+    },
+    {
+      "path": "source/Effect6016Definition.cs",
+      "beforeSha256": null,
+      "afterSha256": "c978e0ba6b83d6d9dd34729a29b2f5f04658ad2373cc3a1a40930abe63594ab0"
+    },
+    {
+      "path": "source/Effect6016Host.cs",
+      "beforeSha256": null,
+      "afterSha256": "7a8ac5da322014f1cee956903b5e21d65a50435107eff51b0ccfe82340ebf6ab"
+    },
+    {
+      "path": "source/WorldEffect6016.cs",
+      "beforeSha256": null,
+      "afterSha256": "e631a0aea5c79e4f7d70eebe9bdaf4696a9d95c746199e0f0c72b04ce65dd8cb"
+    },
+    {
+      "path": "audio/AudioAssets.cs",
+      "beforeSha256": null,
+      "afterSha256": "a35890d65e2f3cfc7922aafea59f500d333a445d6ce8aaeb50960b031e272bb9"
+    },
+    {
+      "path": "audio/AudioCore.cs",
+      "beforeSha256": null,
+      "afterSha256": "53d4aa73be42ee674daceb08751c7c494ebf3c257dd1178257a4caaf94e316c4"
+    },
+    {
+      "path": "audio/AudioPlayer.cs",
+      "beforeSha256": null,
+      "afterSha256": "bad9ab78a2d9a2eeb334d2e8313e6bdcf97406efca730c36676a06ebc33c3745"
+    },
+    {
+      "path": "audio/DirectShowDriver.cs",
+      "beforeSha256": null,
+      "afterSha256": "914c9e9b62a55d1e752539eb05990389e3e8b654e276b51c1edf9831683d2772"
+    },
+    {
+      "path": "audio/DirectShowInterop.cs",
+      "beforeSha256": null,
+      "afterSha256": "174492eaaeeee9dbaf8d29d1ee9e2caa8d3c9a947a4d2f16109dd882f62976ba"
+    },
+    {
+      "path": "audio/P24.Audio.csproj",
+      "beforeSha256": null,
+      "afterSha256": "30cb249a292c0b9e4df6d592e834896d9cf621cbae9a9d3a31dd3fbbff3d65db"
+    },
+    {
+      "path": "assets/audio-manifest.json",
+      "beforeSha256": null,
+      "afterSha256": "87c6cd6867e0d81bdc627c1cac0a922891d650018211b58525de9226926ad9fe"
+    },
+    {
+      "path": "assets/sound/1340.wav",
+      "beforeSha256": null,
+      "afterSha256": "30b4ce04d5ca914cdbfd80c7ee9b9cdbe3bf79487e609b2a9d32f6546a90f9c3"
+    },
+    {
+      "path": "assets/sound/3332.wav",
+      "beforeSha256": null,
+      "afterSha256": "973e0a3598edd23c2a24f6900643e43a9155fe36906b939d2d8e24374abeff2a"
+    },
+    {
+      "path": "source/ClientAudioSettings.cs",
+      "beforeSha256": null,
+      "afterSha256": "7000c30e62f17cc58a1be9318cf53d8b793d8899d64016713114b5c709995bf7"
+    },
+    {
+      "path": "source/PlayerAudioSettings.cs",
+      "beforeSha256": null,
+      "afterSha256": "d72460ffa9c1fe7a3959ea614f00355ba1dbf1facf21a9f584413c3c0d074c3f"
+    }
+  ],
+  "acceptanceReferences": [
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\host-r3-review\\root-review.json",
+      "copy": "references/host-r3-review/root-review.json",
+      "sha256": "160887d13637cea4844324a1b66934d60523dd94d32ee8cc11768414ac12eb00"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\host-r3-review\\rebuild-receipt.json",
+      "copy": "references/host-r3-review/rebuild-receipt.json",
+      "sha256": "07bfe2ec7b5684e009d3473e09fa58f2427927ebed21036b26e756f9bd9e973c"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\host-r3-review\\independent-seal-verification-final.json",
+      "copy": "references/host-r3-review/independent-seal-verification-final.json",
+      "sha256": "8f3e7ad5de36d97f36d059a51bf739021430743618768d1d9aba70a1b24fc246"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\host-r3-review\\independent-managed-result.json",
+      "copy": "references/host-r3-review/independent-managed-result.json",
+      "sha256": "50ade85b97f43e2c22a24c608e39f43bdb37b3e474bb9e0509cfeb1bcdf27a22"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\host-r3-review\\independent-dom-result-after.json",
+      "copy": "references/host-r3-review/independent-dom-result-after.json",
+      "sha256": "982d4ffca8d7dcb9b2db1b4cb83305ba89d3ab432566c21b5f77d64aac0c82b5"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\host-r3-review\\independent-static-audit.json",
+      "copy": "references/host-r3-review/independent-static-audit.json",
+      "sha256": "f488002f64fa5a5fe2907a8358945d4df2ea0a71463495447a04f873d10a79a1"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\audio-r3-review\\root-review.json",
+      "copy": "references/audio-r3-review/root-review.json",
+      "sha256": "f8da9871fa6a2a744b3afbb40ae7f6e74e40a0ae4d53602ee9273fb184758c0f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\controller-review\\root-review.json",
+      "copy": "references/controller-review/root-review.json",
+      "sha256": "8eef6a2fead6bd0356cc83c69694430dd4c59f4266c706f9818b9df6d13dcfd1"
+    }
+  ]
+}

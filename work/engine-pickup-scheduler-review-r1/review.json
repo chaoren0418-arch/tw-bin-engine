@@ -1,0 +1,9 @@
+{
+  "decision": "accepted-bounded-static",
+  "claims": "claim-review.json",
+  "findings": "findings.json",
+  "integrity": "integrity-audit.json",
+  "algebra": "arithmetic-review.json",
+  "scope": "boundaries.json",
+  "runtimeChecks": 0
+}

@@ -1,0 +1,353 @@
+{
+  "kind": "Pending approved exact r2 remaining return, first round split across failed capture and savedstate continuation",
+  "round": 1,
+  "initial": [
+    32588,
+    33003
+  ],
+  "observerStationary": [
+    32588,
+    32997
+  ],
+  "initialMutualVisibility": true,
+  "legs": [
+    {
+      "start": [
+        32588,
+        33003
+      ],
+      "end": [
+        32588,
+        32981
+      ],
+      "steps": [
+        {
+          "source": [
+            32588,
+            33003
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33002
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33002
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33001
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33001
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33000
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33000
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32999
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32999
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32998
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32998
+          ],
+          "heading": 1,
+          "destination": [
+            32589,
+            32997
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32997
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32996
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32996
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32995
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32995
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32994
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32994
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32993
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32993
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32992
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32992
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32991
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32991
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32990
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32990
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32989
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32989
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32988
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32988
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32987
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32987
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32986
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32986
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32985
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32985
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32984
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32984
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32983
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32983
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32982
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32982
+          ],
+          "heading": 7,
+          "destination": [
+            32588,
+            32981
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        }
+      ],
+      "triggers": []
+    }
+  ],
+  "totalMoves": 22,
+  "maxMoves": 50,
+  "maxSeconds": 90,
+  "maxSingleWaitMs": 2000,
+  "forbiddenPackets": [
+    6,
+    164,
+    229,
+    123
+  ],
+  "approval": "reference/cache/observer-recovery/supervisor-approval.md",
+  "proposalSha256": "3790ea5a1d72e200d15a6c01e4dd02604cc6feb883382a4449751457cd0e1b45",
+  "fresh": false,
+  "resume": "WorkerCLI attempt3 only: exact preserved failed r2 savedstate main32588,33003 observer32588,32997, Fresh=false; remaining22 return steps. Only successful saved/relogin32981 permits subsequent46step round2.",
+  "selectLeg": 0,
+  "requiresExactFailure": "evidence/cache-worker-cli-r2",
+  "originalCompletedPrefixMoves": 22
+}

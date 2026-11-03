@@ -1,0 +1,153 @@
+{
+  "operations": [
+    {
+      "id": "p28-helper-build",
+      "argv": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\workflow\\profile-helpers\\p28\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\p30-profiles",
+        "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\client-product-r34\\P11.ClientEngine.dll",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\NuGet.Config",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "--nologo"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\p28\\build-01",
+      "timeoutSeconds": 600,
+      "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+      "status": "not-executed"
+    },
+    {
+      "id": "p29-helper-build",
+      "argv": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\workflow\\profile-helpers\\p29\\Review.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\p30-independent-review",
+        "-p:ReviewedDll=D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\client-product-r34\\P11.ClientEngine.dll",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\NuGet.Config",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "--nologo",
+        "-p:ReviewedAudioDll=D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\client-product-r34\\P24.Audio.dll"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\p29\\build-01",
+      "timeoutSeconds": 600,
+      "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+      "status": "not-executed"
+    },
+    {
+      "id": "p28-regression-01",
+      "argv": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\p30-profiles\\Checks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\regression-01",
+        "regression",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\p28\\regression-01",
+      "timeoutSeconds": 600,
+      "probe": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\regression-01\\checks.json",
+      "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+      "status": "not-executed"
+    },
+    {
+      "id": "p28-profiles-02",
+      "argv": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\p30-profiles\\Checks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\profiles-02",
+        "profiles",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\p28\\profiles-02",
+      "timeoutSeconds": 600,
+      "probe": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\profiles-02\\checks.json",
+      "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+      "status": "not-executed"
+    },
+    {
+      "id": "p28-boundaries-01",
+      "argv": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\p30-profiles\\Checks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\boundaries-01",
+        "boundaries",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\p28\\boundaries-01",
+      "timeoutSeconds": 600,
+      "probe": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\boundaries-01\\checks.json",
+      "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+      "status": "not-executed"
+    },
+    {
+      "id": "p28-negative-01",
+      "argv": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\p30-profiles\\Checks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\negative-01",
+        "negative",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\p28\\negative-01",
+      "timeoutSeconds": 600,
+      "probe": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\negative-01\\checks.json",
+      "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+      "status": "not-executed"
+    },
+    {
+      "id": "p28-namespace-01",
+      "argv": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\p30-profiles\\Checks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\namespace-01",
+        "namespace",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\p28\\namespace-01",
+      "timeoutSeconds": 600,
+      "probe": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\namespace-01\\checks.json",
+      "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+      "status": "not-executed"
+    },
+    {
+      "id": "p29-independent-subset",
+      "argv": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\p30-independent-review\\P29.Review.dll",
+        "--gated-offline",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1",
+        "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\p29-runtime.json",
+        "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\p29\\runtime-01",
+      "timeoutSeconds": 600,
+      "probe": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\p29-runtime.json",
+      "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+      "status": "not-executed"
+    }
+  ],
+  "executionAuthorized": false,
+  "baselineControl": "225 historical r34 assertions remain separate; no new baseline control replay planned in this dispatch"
+}

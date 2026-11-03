@@ -1,0 +1,484 @@
+{
+  "canTalk": false,
+  "model": {
+    "canSubmit": true,
+    "currency": 7,
+    "epoch": 11,
+    "feePerRow": false,
+    "hasResult": false,
+    "kind": "buy",
+    "notice": "請設定數量並明確提交一次；結果以原服背包與金額為準。",
+    "npcId": 2000039445,
+    "options": null,
+    "priceLabel": "單價",
+    "revision": 19,
+    "rows": [
+      {
+        "available": 2147483647,
+        "icon": 7,
+        "id": 0,
+        "name": "$61 (10)",
+        "price": 1
+      },
+      {
+        "available": 2147483647,
+        "icon": 35,
+        "id": 1,
+        "name": "$70",
+        "price": 8
+      },
+      {
+        "available": 2147483647,
+        "icon": 1,
+        "id": 2,
+        "name": "$1",
+        "price": 22
+      },
+      {
+        "available": 2147483647,
+        "icon": 278,
+        "id": 3,
+        "name": "$24",
+        "price": 56
+      },
+      {
+        "available": 2147483647,
+        "icon": 8,
+        "id": 4,
+        "name": "$14",
+        "price": 17
+      },
+      {
+        "available": 2147483647,
+        "icon": 11,
+        "id": 5,
+        "name": "$62",
+        "price": 39
+      },
+      {
+        "available": 2147483647,
+        "icon": 21,
+        "id": 6,
+        "name": "$66",
+        "price": 33
+      },
+      {
+        "available": 2147483647,
+        "icon": 98,
+        "id": 7,
+        "name": "$25",
+        "price": 89
+      },
+      {
+        "available": 2147483647,
+        "icon": 67,
+        "id": 8,
+        "name": "$20",
+        "price": 100
+      },
+      {
+        "available": 2147483647,
+        "icon": 106,
+        "id": 9,
+        "name": "$100",
+        "price": 112
+      },
+      {
+        "available": 2147483647,
+        "icon": 90,
+        "id": 10,
+        "name": "$92",
+        "price": 1346
+      },
+      {
+        "available": 2147483647,
+        "icon": 2,
+        "id": 11,
+        "name": "$0",
+        "price": 3366
+      },
+      {
+        "available": 2147483647,
+        "icon": 97,
+        "id": 12,
+        "name": "$186",
+        "price": 61
+      },
+      {
+        "available": 2147483647,
+        "icon": 51,
+        "id": 13,
+        "name": "$116",
+        "price": 102
+      },
+      {
+        "available": 2147483647,
+        "icon": 109,
+        "id": 14,
+        "name": "$163",
+        "price": 306
+      },
+      {
+        "available": 2147483647,
+        "icon": 86,
+        "id": 15,
+        "name": "$164",
+        "price": 510
+      },
+      {
+        "available": 2147483647,
+        "icon": 287,
+        "id": 16,
+        "name": "$580",
+        "price": 1020
+      },
+      {
+        "available": 2147483647,
+        "icon": 89,
+        "id": 17,
+        "name": "$162",
+        "price": 2040
+      },
+      {
+        "available": 2147483647,
+        "icon": 61,
+        "id": 18,
+        "name": "$193",
+        "price": 1224
+      },
+      {
+        "available": 2147483647,
+        "icon": 26,
+        "id": 19,
+        "name": "$159",
+        "price": 6120
+      },
+      {
+        "available": 2147483647,
+        "icon": 124,
+        "id": 20,
+        "name": "$23",
+        "price": 1
+      },
+      {
+        "available": 2147483647,
+        "icon": 936,
+        "id": 21,
+        "name": "$1179",
+        "price": 5
+      },
+      {
+        "available": 2147483647,
+        "icon": 478,
+        "id": 22,
+        "name": "$1100",
+        "price": 153
+      },
+      {
+        "available": 2147483647,
+        "icon": 80,
+        "id": 23,
+        "name": "$26",
+        "price": 37
+      },
+      {
+        "available": 2147483647,
+        "icon": 76,
+        "id": 24,
+        "name": "$233",
+        "price": 71
+      },
+      {
+        "available": 2147483647,
+        "icon": 77,
+        "id": 25,
+        "name": "$234",
+        "price": 204
+      },
+      {
+        "available": 2147483647,
+        "icon": 621,
+        "id": 26,
+        "name": "$1652$234",
+        "price": 3870
+      },
+      {
+        "available": 2147483647,
+        "icon": 477,
+        "id": 27,
+        "name": "$1086",
+        "price": 510
+      },
+      {
+        "available": 2147483647,
+        "icon": 475,
+        "id": 28,
+        "name": "$55",
+        "price": 51
+      },
+      {
+        "available": 2147483647,
+        "icon": 474,
+        "id": 29,
+        "name": "$505",
+        "price": 122
+      },
+      {
+        "available": 2147483647,
+        "icon": 470,
+        "id": 30,
+        "name": "$243",
+        "price": 102
+      },
+      {
+        "available": 2147483647,
+        "icon": 1147,
+        "id": 31,
+        "name": "$2463",
+        "price": 1
+      },
+      {
+        "available": 2147483647,
+        "icon": 1146,
+        "id": 32,
+        "name": "$2516",
+        "price": 2
+      },
+      {
+        "available": 2147483647,
+        "icon": 1145,
+        "id": 33,
+        "name": "$2517",
+        "price": 3
+      }
+    ],
+    "selection": true,
+    "targetId": 2000039445,
+    "targetRevision": 2,
+    "text": null,
+    "title": "購買物品"
+  },
+  "notice": "請設定數量並明確提交一次；結果以原服背包與金額為準。",
+  "options": null,
+  "rows": [
+    {
+      "available": 2147483647,
+      "id": 0,
+      "name": "箭 (10)",
+      "price": 1
+    },
+    {
+      "available": 2147483647,
+      "id": 1,
+      "name": "匕首",
+      "price": 8
+    },
+    {
+      "available": 2147483647,
+      "id": 2,
+      "name": "斧",
+      "price": 22
+    },
+    {
+      "available": 2147483647,
+      "id": 3,
+      "name": "弓",
+      "price": 56
+    },
+    {
+      "available": 2147483647,
+      "id": 4,
+      "name": "亞連",
+      "price": 17
+    },
+    {
+      "available": 2147483647,
+      "id": 5,
+      "name": "巴迪須",
+      "price": 39
+    },
+    {
+      "available": 2147483647,
+      "id": 6,
+      "name": "闊劍",
+      "price": 33
+    },
+    {
+      "available": 2147483647,
+      "id": 7,
+      "name": "矛",
+      "price": 89
+    },
+    {
+      "available": 2147483647,
+      "id": 8,
+      "name": "釘錘",
+      "price": 100
+    },
+    {
+      "available": 2147483647,
+      "id": 9,
+      "name": "短劍",
+      "price": 112
+    },
+    {
+      "available": 2147483647,
+      "id": 10,
+      "name": "彎刀",
+      "price": 1346
+    },
+    {
+      "available": 2147483647,
+      "id": 11,
+      "name": "長劍",
+      "price": 3366
+    },
+    {
+      "available": 2147483647,
+      "id": 12,
+      "name": "小盾牌",
+      "price": 61
+    },
+    {
+      "available": 2147483647,
+      "id": 13,
+      "name": "小藤甲",
+      "price": 102
+    },
+    {
+      "available": 2147483647,
+      "id": 14,
+      "name": "銀釘皮甲",
+      "price": 306
+    },
+    {
+      "available": 2147483647,
+      "id": 15,
+      "name": "環甲",
+      "price": 510
+    },
+    {
+      "available": 2147483647,
+      "id": 16,
+      "name": "綿質長袍",
+      "price": 1020
+    },
+    {
+      "available": 2147483647,
+      "id": 17,
+      "name": "鱗甲",
+      "price": 2040
+    },
+    {
+      "available": 2147483647,
+      "id": 18,
+      "name": "大盾牌",
+      "price": 1224
+    },
+    {
+      "available": 2147483647,
+      "id": 19,
+      "name": "鏈甲",
+      "price": 6120
+    },
+    {
+      "available": 2147483647,
+      "id": 20,
+      "name": "肉",
+      "price": 1
+    },
+    {
+      "available": 2147483647,
+      "id": 21,
+      "name": "情人禮物(糖果)",
+      "price": 5
+    },
+    {
+      "available": 2147483647,
+      "id": 22,
+      "name": "磨刀石",
+      "price": 153
+    },
+    {
+      "available": 2147483647,
+      "id": 23,
+      "name": "治癒藥水",
+      "price": 37
+    },
+    {
+      "available": 2147483647,
+      "id": 24,
+      "name": "翡翠藥水",
+      "price": 71
+    },
+    {
+      "available": 2147483647,
+      "id": 25,
+      "name": "綠色藥水",
+      "price": 204
+    },
+    {
+      "available": 2147483647,
+      "id": 26,
+      "name": "強化綠色藥水",
+      "price": 3870
+    },
+    {
+      "available": 2147483647,
+      "id": 27,
+      "name": "哨子",
+      "price": 510
+    },
+    {
+      "available": 2147483647,
+      "id": 28,
+      "name": "鑑定卷軸",
+      "price": 51
+    },
+    {
+      "available": 2147483647,
+      "id": 29,
+      "name": "傳送回家的卷軸",
+      "price": 122
+    },
+    {
+      "available": 2147483647,
+      "id": 30,
+      "name": "解除咀咒的卷軸",
+      "price": 102
+    },
+    {
+      "available": 2147483647,
+      "id": 31,
+      "name": "飛刀",
+      "price": 1
+    },
+    {
+      "available": 2147483647,
+      "id": 32,
+      "name": "銀飛刀",
+      "price": 2
+    },
+    {
+      "available": 2147483647,
+      "id": 33,
+      "name": "重飛刀",
+      "price": 3
+    }
+  ],
+  "targets": [
+    {
+      "id": 2000035930,
+      "name": "史萊姆"
+    },
+    {
+      "id": 2000035931,
+      "name": "史萊姆"
+    },
+    {
+      "id": 2000039445,
+      "name": "雜貨商^潘朵拉"
+    }
+  ],
+  "text": ""
+}

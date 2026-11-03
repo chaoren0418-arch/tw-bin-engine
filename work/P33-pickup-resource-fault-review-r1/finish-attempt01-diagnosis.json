@@ -1,0 +1,8 @@
+{
+  "exitCode": 1,
+  "stage": "report-postprocessing",
+  "diagnosis": "Python reserved word pass used as dict keyword in finish.py; SyntaxError before script executed, no report files written; replace dictionary construction syntax only; runtime/oracle unchanged",
+  "rawStreamCapturedSeparately": false,
+  "toolOutput": "SyntaxError at line 29: checks.append(dict(id=c['id'],family=f,pass=bool(ok)))",
+  "productExecutionAffected": false
+}

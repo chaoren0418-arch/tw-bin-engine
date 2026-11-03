@@ -1,0 +1,52 @@
+{
+  "pid": 80144,
+  "args": [
+    "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+    "-Xms256m",
+    "-Xmx1024m",
+    "-XX:ActiveProcessorCount=2",
+    "-XX:-UsePerfData",
+    "-Djava.security.manager=default",
+    "-Djava.security.policy==file:///D:/P24Lab-ClientEngine/server/server.policy",
+    "-Djava.io.tmpdir=D:\\P24Lab-ClientEngine\\server\\tmp",
+    "-Duser.home=D:\\P24Lab-ClientEngine\\server\\home",
+    "-Dio.netty.noUnsafe=true",
+    "-Dio.netty.noPreferDirect=true",
+    "-Dio.netty.transport.noNative=true",
+    "-Djava.net.preferIPv4Stack=true",
+    "-Dfile.encoding=UTF-8",
+    "-Dlog4j.configurationFile=./config/log4j2.xml",
+    "-Dlog4j2.disableJmx=true",
+    "-jar",
+    "D:\\P24Lab-ClientEngine\\server\\Server_Game.jar"
+  ],
+  "utc": "2026-10-26T08:51:00.587860+00:00",
+  "retainedDb": {
+    "processes": [
+      {
+        "ProcessId": 69176,
+        "ParentProcessId": 64892,
+        "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792945658396)/"
+      },
+      {
+        "ProcessId": 59052,
+        "ParentProcessId": 69176,
+        "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792945658443)/"
+      }
+    ],
+    "listeners": [
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 43324,
+        "OwningProcess": 59052
+      }
+    ]
+  },
+  "jarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "policySha256": "fd26f71f1fad8afb55d024f3c641d0449445b27dbaa87a11b9664cac12afa121",
+  "scope": "New authorized normal-flow testing lifecycle. Old lifecycle receipts unchanged. No DB restart/reset/reseed."
+}

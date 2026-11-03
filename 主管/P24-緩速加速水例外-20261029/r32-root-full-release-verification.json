@@ -1,0 +1,27 @@
+{
+  "utc": "2026-10-28T23:19:07.552786+00:00",
+  "verified": true,
+  "command": [
+    "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\lineage開發\\TW1608262200研究\\releases\\r32\\_integration\\r32\\verify_release.py",
+    "--seal-sha256",
+    "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507"
+  ],
+  "exitCode": 0,
+  "result": {
+    "status": "pass-full-release-sha256",
+    "revision": "r32",
+    "files": 14342,
+    "sealSha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507",
+    "productDllSha256": "c64bf0069722e28fc174d70d261b7540da6e3f74ee422d4874cbffb77149364f",
+    "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "allAssetBodiesHashed": true,
+    "writes": false,
+    "GUI": false,
+    "network": false
+  },
+  "stderr": ""
+}

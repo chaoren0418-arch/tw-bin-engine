@@ -1,0 +1,425 @@
+{
+  "status": "independent-clean-build-and-player-appearance-checks-pass",
+  "snapshotFiles": 246,
+  "assetInputs": 13877,
+  "checks": {
+    "harness": 2390,
+    "effects-regression": 368,
+    "maps-regression": 35,
+    "trade-regression": 58,
+    "service-regression": 73,
+    "casting-regression": 293,
+    "casting-dom": 17,
+    "map-panel": 10,
+    "trade-dom": 19,
+    "service-dom": 24
+  },
+  "pixelFrames": 10760,
+  "cleanDll": "4a062a6130c46e45d4dbdef07ee229e70510224d165601a42b00852e932e04e4",
+  "renderedScenes": [
+    {
+      "name": "own-0-0.png",
+      "sha256": "5a95c5e0511bff29bd3e44dec0a05050432fd1956365c35460ee0d9c658c2f04"
+    },
+    {
+      "name": "own-0-20.png",
+      "sha256": "aeaebec2a24185ff3ab46b0fc832c4aef8d916b5f0f09689e45fad1146ee0d46"
+    },
+    {
+      "name": "own-0-4.png",
+      "sha256": "aa1027279830a08f88103080bc50dc4e4bac031349823fa11b0b7532f4988e72"
+    },
+    {
+      "name": "own-0-50.png",
+      "sha256": "6c4a9849d4c7c09a14db56dea3655fa321f98f6aac58a037d18026581b473fa2"
+    },
+    {
+      "name": "own-1-0.png",
+      "sha256": "aecc8a2d6e05ed092a079604a0c7746cd95225366a4827dba6e6afa959b6ff28"
+    },
+    {
+      "name": "own-1-20.png",
+      "sha256": "c5c3bccaab7770015913c8e2283e4dfa8053e7c0bb2791398d52d6f822d0ffd5"
+    },
+    {
+      "name": "own-1-4.png",
+      "sha256": "85f19ef826b097661bcaff014aef516a989e78579a7db99fc26c68be49f83dc7"
+    },
+    {
+      "name": "own-1-50.png",
+      "sha256": "4dcbe2a4ca3d831327e786d14f6d500051a6c7a71ccd4ddd89625a0f0f73c4d0"
+    },
+    {
+      "name": "own-1186-0.png",
+      "sha256": "7eee06b886485aca74c995b9d1d15e7e95489528e764d2578aacd9ca9fbbdeab"
+    },
+    {
+      "name": "own-1186-20.png",
+      "sha256": "ef5515e51b283788eb28c671ea079d76fd85ddd41b6dd6f4ed7dfe3bf9065c50"
+    },
+    {
+      "name": "own-1186-4.png",
+      "sha256": "3c60ee3e1724c6746b1e678b9942e7135b6b6c3ba7d6dcce77040f86ed87ba14"
+    },
+    {
+      "name": "own-2786-0.png",
+      "sha256": "cb69878644141fb9e89ba3c002c2e2a23e2d42e264f9cdfd1ceed260a75d04bd"
+    },
+    {
+      "name": "own-2786-20.png",
+      "sha256": "6d7731422867b19ba1da90139cb69e20f6318381f7344b83b72414777b88f240"
+    },
+    {
+      "name": "own-2786-4.png",
+      "sha256": "bc392a47b2f53511a055f668f90d26cfe11ba643c0ac0845a4a574c2ff6b1dd5"
+    },
+    {
+      "name": "own-2796-0.png",
+      "sha256": "929efe8fd29592258df68cd4b9060ccefc80df837bca89aff0c6b4fbfee1d866"
+    },
+    {
+      "name": "own-2796-20.png",
+      "sha256": "7787c742c482be71ce871a1781c45e686221db0b97b3ea8014df71205724aca4"
+    },
+    {
+      "name": "own-2796-4.png",
+      "sha256": "38a040efe3b340c042240e31e611644e724b0e6bac7b10fac5d528933d5820ef"
+    },
+    {
+      "name": "own-37-0.png",
+      "sha256": "dd4b767ce8b4a176b7912d3017eb592facf5f5680f0c856eb7c5f13b966bd8e9"
+    },
+    {
+      "name": "own-37-20.png",
+      "sha256": "c5cf678a8bc49678883956d8c3597004deefb98ddc3a237f488e5e9f5238557d"
+    },
+    {
+      "name": "own-37-4.png",
+      "sha256": "8ade99757bf8f460ee21450b09bf90805a1adb59f108f91efa9f62934579811a"
+    },
+    {
+      "name": "own-48-0.png",
+      "sha256": "632152c55748f483bc9075e1283bba48b87028460f9b07728e7e182612f664c0"
+    },
+    {
+      "name": "own-48-20.png",
+      "sha256": "ae29d9640531b40bade584fa6b0744b2e36b190f9f3d5b13a5b532098fbe150c"
+    },
+    {
+      "name": "own-48-4.png",
+      "sha256": "137c0e85898efb56f5ebef6122475b6029924372e3d55b0904ae0892e31a9f43"
+    },
+    {
+      "name": "own-48-50.png",
+      "sha256": "f8a0ac6621821ef1309bfaacb283b9e8ffb998d35840c0459fdba6bfe313c536"
+    },
+    {
+      "name": "own-61-0.png",
+      "sha256": "da98c3f62b5f41fcff166b294772223bb0e89850535ca5babc9019c4fae0d18d"
+    },
+    {
+      "name": "own-61-20.png",
+      "sha256": "672bb4f9785bd97ad59c9013a9acbbc1b47cb9992fb8caf5967f61b0963425b5"
+    },
+    {
+      "name": "own-61-4.png",
+      "sha256": "9b1d2861b9dc50f54780e71b1f91672b034669580f26a3d7acc1f03b387d89d4"
+    },
+    {
+      "name": "own-61-50.png",
+      "sha256": "732dcfdda98f45aa6b228a2e8e69b09f5993d6eed370668867c915e7043165e0"
+    },
+    {
+      "name": "own-6650-0.png",
+      "sha256": "899c55764a60e2a53d16cdb629122b060e0638614489be6267945ab038d7c92b"
+    },
+    {
+      "name": "own-6650-20.png",
+      "sha256": "15d20ac1d8d7edf8105f7e9b77e3634be7d6753bd560ca50c46112ab9a4aaf2a"
+    },
+    {
+      "name": "own-6658-0.png",
+      "sha256": "e1b49b5421e1113403e1b840fd41631f69f2654d78553894253c947258188c31"
+    },
+    {
+      "name": "own-6658-4.png",
+      "sha256": "93ba3b2fe204a2c638b580eae82f898b2d7f34bc0c2f324fee5a4b773ffc8872"
+    },
+    {
+      "name": "own-6658-50.png",
+      "sha256": "02326210f3eff14983706da41844283ed02988c2f820843a79e05ab6e7d14746"
+    },
+    {
+      "name": "own-6661-0.png",
+      "sha256": "a1a8423e242ef1b84e91d3d5d6730fa1721bb10236dd91dbe255b45d323b5099"
+    },
+    {
+      "name": "own-6661-4.png",
+      "sha256": "f6a031deedda1428226243472b80fe8417a7485f78787a50d6e53c4fc84976db"
+    },
+    {
+      "name": "own-6661-50.png",
+      "sha256": "462e68d406b57b7b67d23d32d2954b032b9735e0f18738ef256a68fc7639301b"
+    },
+    {
+      "name": "own-6671-0.png",
+      "sha256": "39b83568de68ee081587f3c1b7b5be644738aba0b6c701657142f97b744f7fbc"
+    },
+    {
+      "name": "own-6671-20.png",
+      "sha256": "44559b7121c78412aab91d361d2fcf3162ff2f917c3927e7974634af2f5bfbe8"
+    },
+    {
+      "name": "own-734-0.png",
+      "sha256": "b1139478bb8b802d1523c7dcc4c7b705ddc7dc188b47899be6bce05c7b1d3f9e"
+    },
+    {
+      "name": "own-734-20.png",
+      "sha256": "9d7e7e47fe935a6d8d5d130e35dedf88f36c30560aaa1d1149da099c402754e2"
+    },
+    {
+      "name": "own-734-4.png",
+      "sha256": "891bf3ee238cd8d5d8bbd93dea65e084a6f818d8db7b606fc299c8e908db3f6d"
+    }
+  ],
+  "processes": [
+    {
+      "name": "build-product",
+      "pid": 84876,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\source\\OfflineClient.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\build\\client",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 7.751075029373169
+    },
+    {
+      "name": "build-harness",
+      "pid": 81896,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\player-appearance-r1\\harness\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\build\\harness",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.9538495540618896
+    },
+    {
+      "name": "build-effects-regression",
+      "pid": 87536,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\player-appearance-r1\\effects-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\build\\effects-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.580204486846924
+    },
+    {
+      "name": "build-maps-regression",
+      "pid": 86620,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\player-appearance-r1\\maps-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\build\\maps-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.5000391006469727
+    },
+    {
+      "name": "build-trade-regression",
+      "pid": 75524,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\player-appearance-r1\\trade-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\build\\trade-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.500129461288452
+    },
+    {
+      "name": "build-service-regression",
+      "pid": 84076,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\player-appearance-r1\\service-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\build\\service-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.852477788925171
+    },
+    {
+      "name": "build-casting-regression",
+      "pid": 81432,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\player-appearance-r1\\casting-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\build\\casting-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.772490978240967
+    },
+    {
+      "name": "harness",
+      "pid": 73448,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\build\\harness\\P24.PlayerAppearanceChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 31.13016939163208
+    },
+    {
+      "name": "effects-regression",
+      "pid": 80956,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\build\\effects-regression\\P24.MapEffectChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 15.147657632827759
+    },
+    {
+      "name": "maps-regression",
+      "pid": 85612,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\build\\maps-regression\\P24.EffectMapRegression.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 14.667746305465698
+    },
+    {
+      "name": "trade-regression",
+      "pid": 81876,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\build\\trade-regression\\P24.EffectTradeRegression.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.33555173873901367
+    },
+    {
+      "name": "service-regression",
+      "pid": 72864,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\build\\service-regression\\P24.EffectServiceRegression.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 9.121887445449829
+    },
+    {
+      "name": "casting-regression",
+      "pid": 12168,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\build\\casting-regression\\P24.SkillCastingChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 5.151718854904175
+    },
+    {
+      "name": "casting-dom",
+      "pid": 68328,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\skill-casting-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.25905656814575195
+    },
+    {
+      "name": "map-panel",
+      "pid": 20512,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\maps-r1\\test_panel.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.09055161476135254
+    },
+    {
+      "name": "trade-dom",
+      "pid": 87008,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\trade-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.07257342338562012
+    },
+    {
+      "name": "service-dom",
+      "pid": 10880,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\skill-warehouse-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.1306312084197998
+    }
+  ],
+  "ui": false,
+  "live": false,
+  "fullProductComplete": false,
+  "scope": "Player profiles independently compared with original SPR C# oracle; 41 scene images and prior skill/map images match fixed evidence. Synthetic controller replay and DOM doubles; no native UI, socket or live gameplay. Dead full S87 boundary remains separately under investigation."
+}

@@ -1,0 +1,62 @@
+{
+  "schema": "engine-r32-stage-acceptance-v1",
+  "utc": "2026-10-28T23:09:20.116200+00:00",
+  "status": "pass",
+  "stageRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r32-integration-r1\\r32-runs\\accepted-slow-haste-item-r1-01",
+  "stageSealSha256": "121fd44082ab5f55c9d7c91ca78256276e1303e2734459210bc6c7e672d73734",
+  "stageResultSha256": "aa093d09a3428d0adb53cdd8ffaf61e7cf6652205756c7bc67a33180f1934ca6",
+  "sealedFiles": 14458,
+  "rootNonAssetAndIndexShaFiles": 501,
+  "assetInventoryRowsMatchedToR28": 13958,
+  "assetSamefileVerified": true,
+  "rootRepeatedFullStageAssetBodyHash": false,
+  "sourceFiles": 177,
+  "changedSources": [
+    "source/Inventory.cs",
+    "source/WorldEntry.cs"
+  ],
+  "baselineChecks": 151,
+  "suites": {
+    "utility": {
+      "assertions": 431,
+      "observations": 12,
+      "actualRows": 443,
+      "dllVerified": true
+    },
+    "haste": {
+      "assertions": 1707,
+      "observations": 0,
+      "actualRows": 1707,
+      "dllVerified": true
+    },
+    "versioned-slow": {
+      "assertions": 1201,
+      "observations": 0,
+      "actualRows": 1201,
+      "dllVerified": true
+    },
+    "f1": {
+      "assertions": 112,
+      "observations": 0,
+      "actualRows": 112,
+      "dllVerified": true
+    }
+  },
+  "totalAssertions": 3602,
+  "observationsSeparate": 12,
+  "productDllSha256": "c64bf0069722e28fc174d70d261b7540da6e3f74ee422d4874cbffb77149364f",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productManifestSha256": "3bb6ee998c36084d420275e6b93d40346fe1fe0db5f285d3d22ad0789833b866",
+  "launcherDllSha256": "042cf23807582c0b599103ffec8e8261b92e9e689e8328878124631aab17d3bb",
+  "sharedMergeAuthorized": true,
+  "nativeLiveAccepted": false,
+  "decision": "accepted-for-serial-shared-r32-integration",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "dispatchId": "ENGINE-R32-SHARED-INTEGRATE-R1",
+  "integrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "exactOriginalToStageCopiesVerified": 46,
+  "testBodiesChanged": 0,
+  "unresolvedFindings": [],
+  "wholeP24Complete": false,
+  "rootVerifierBookkeepingCorrection": "Initial verifier counted meetsContract=true across observations; corrected by exact 12-row npc-observations IDs. Actual 431 assertions all pass; product and test sources unchanged; no suite rerun."
+}

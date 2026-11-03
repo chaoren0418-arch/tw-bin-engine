@@ -1,0 +1,59 @@
+[
+  {
+    "name": "build-product",
+    "pid": 82744,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6280\u80fd\u5009\u5eab\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\source\\OfflineClient.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6280\u80fd\u5009\u5eab\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\client",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6280\u80fd\u5009\u5eab\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 14.906232118606567
+  },
+  {
+    "name": "build-harness",
+    "pid": 81452,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6280\u80fd\u5009\u5eab\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\skill-warehouse-r1\\harness\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6280\u80fd\u5009\u5eab\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\checks",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6280\u80fd\u5009\u5eab\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 4.43433952331543
+  },
+  {
+    "name": "controller",
+    "pid": 84152,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6280\u80fd\u5009\u5eab\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\checks\\P24.ServiceChecks.exe"
+    ],
+    "exitCode": 0,
+    "elapsed": 7.429297208786011
+  },
+  {
+    "name": "dom",
+    "pid": 75824,
+    "args": [
+      "node",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6280\u80fd\u5009\u5eab\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\skill-warehouse-r1\\test_dom.cjs"
+    ],
+    "exitCode": 0,
+    "elapsed": 0.2262401580810547
+  }
+]

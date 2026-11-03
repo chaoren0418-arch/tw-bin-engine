@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"timedOut\":true,\"wake\":null,\"polls\":[{\"schemaVersion\":1,\"cursor\":\"fd544505-99d4-4743-96cd-cd467d1820dc:29\",\"revision\":29,\"changed\":true,\"thread\":{\"id\":\"01a1749a-7e8d-7200-9fc8-8618ed2559ac\",\"hostId\":\"local\",\"status\":{\"type\":\"active\",\"activeFlags\":[]}},\"latestTurn\":{\"id\":\"01a1840c-5709-7c33-9b7e-48180fc8d637\",\"status\":\"inProgress\",\"error\":null,\"startedAt\":1793216763,\"completedAt\":null,\"durationMs\":null},\"latestAssistantMessageId\":\"msg_0a4767e243e51a4c016ae250ff0970819197b649f194bbb733\",\"latestAssistantMessage\":{\"id\":\"msg_0a4767e243e51a4c016ae250ff0970819197b649f194bbb733\",\"turnId\":\"01a1840c-5709-7c33-9b7e-48180fc8d637\",\"phase\":\"commentary\",\"text\":\"已接收 R2。我會先讀取獨立覆核證據，在新工作區重現六個恢復案例，再修正舊的不支援步行快照造成角色持續消失的問題；保留 r1 封存與其餘動作閘門。\"},\"latestToolMarkerId\":\"exec-9ef5d427-ea0c-42ae-beeb-f31bdb6afcdc\",\"latestToolMarker\":{\"id\":\"exec-9ef5d427-ea0c-42ae-beeb-f31bdb6afcdc\",\"turnId\":\"01a1840c-5709-7c33-9b7e-48180fc8d637\",\"type\":\"commandExecution\",\"name\":\"commandExecution\",\"status\":\"completed\"}}]}"
+    }
+  ],
+  "isError": false
+}

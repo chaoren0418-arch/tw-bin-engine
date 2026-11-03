@@ -1,0 +1,206 @@
+[
+  {
+    "path": "assets/audio-manifest.json",
+    "beforeSha256": null,
+    "afterSha256": "87c6cd6867e0d81bdc627c1cac0a922891d650018211b58525de9226926ad9fe",
+    "size": 3346
+  },
+  {
+    "path": "assets/integrity.json",
+    "beforeSha256": "5e9afd70a579b0ae39e8fcf88103b5d35f89c423a834406300ea67555450e9df",
+    "afterSha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98",
+    "size": 1729333
+  },
+  {
+    "path": "assets/sound/1340.wav",
+    "beforeSha256": null,
+    "afterSha256": "30b4ce04d5ca914cdbfd80c7ee9b9cdbe3bf79487e609b2a9d32f6546a90f9c3",
+    "size": 14322
+  },
+  {
+    "path": "assets/sound/3332.wav",
+    "beforeSha256": null,
+    "afterSha256": "973e0a3598edd23c2a24f6900643e43a9155fe36906b939d2d8e24374abeff2a",
+    "size": 24748
+  },
+  {
+    "path": "audio/AudioAssets.cs",
+    "beforeSha256": null,
+    "afterSha256": "a35890d65e2f3cfc7922aafea59f500d333a445d6ce8aaeb50960b031e272bb9",
+    "size": 3553
+  },
+  {
+    "path": "audio/AudioCore.cs",
+    "beforeSha256": null,
+    "afterSha256": "53d4aa73be42ee674daceb08751c7c494ebf3c257dd1178257a4caaf94e316c4",
+    "size": 10244
+  },
+  {
+    "path": "audio/AudioPlayer.cs",
+    "beforeSha256": null,
+    "afterSha256": "bad9ab78a2d9a2eeb334d2e8313e6bdcf97406efca730c36676a06ebc33c3745",
+    "size": 9556
+  },
+  {
+    "path": "audio/DirectShowDriver.cs",
+    "beforeSha256": null,
+    "afterSha256": "914c9e9b62a55d1e752539eb05990389e3e8b654e276b51c1edf9831683d2772",
+    "size": 9770
+  },
+  {
+    "path": "audio/DirectShowInterop.cs",
+    "beforeSha256": null,
+    "afterSha256": "174492eaaeeee9dbaf8d29d1ee9e2caa8d3c9a947a4d2f16109dd882f62976ba",
+    "size": 3937
+  },
+  {
+    "path": "audio/P24.Audio.csproj",
+    "beforeSha256": null,
+    "afterSha256": "30cb249a292c0b9e4df6d592e834896d9cf621cbae9a9d3a31dd3fbbff3d65db",
+    "size": 355
+  },
+  {
+    "path": "build-product.ps1",
+    "beforeSha256": "c91081ccea83663f38ba3ac6ba91766b02d25afe66b0aca6d880c99075c5c681",
+    "afterSha256": "275cde69cdb4ac9b5176f6215ea35d121af622812a618191c14983711036c55f",
+    "size": 1702
+  },
+  {
+    "path": "launch-product.ps1",
+    "beforeSha256": "6db246bce31379d932bba76a2d662373adcee37c96440c49962b348663046a1d",
+    "afterSha256": "430060f2ae4d258fc6cf8a230180a34ae8c28471296659b2bee4173e1c2b03b3",
+    "size": 2756
+  },
+  {
+    "path": "launcher/P24.Launcher.dll",
+    "beforeSha256": "22fe35890da01da46c56f52e41643bd4876881698e9c363e7dff2d7a479b4a49",
+    "afterSha256": "3ac812b20eb651925126d6fac8c255659927065251e84b8c739e21e818469e26",
+    "size": 24064
+  },
+  {
+    "path": "source/AudioApiTransport.cs",
+    "beforeSha256": null,
+    "afterSha256": "b1a18d9fc09bfba275e9c17230c57cc398dba06ccd30631f44333a17b9e42c7b",
+    "size": 1616
+  },
+  {
+    "path": "source/ClientAudioSettings.cs",
+    "beforeSha256": null,
+    "afterSha256": "7000c30e62f17cc58a1be9318cf53d8b793d8899d64016713114b5c709995bf7",
+    "size": 1723
+  },
+  {
+    "path": "source/ClientEffect6016.cs",
+    "beforeSha256": null,
+    "afterSha256": "19be31bff33a4584e638d3314225648b1ccc72bb382dd4adf64e320e1aa08eeb",
+    "size": 4853
+  },
+  {
+    "path": "source/Effect6016Controller.cs",
+    "beforeSha256": null,
+    "afterSha256": "5c24d747277a6428a9faf83b96682c33fb40f039989137c438c6555f5a1cae66",
+    "size": 12999
+  },
+  {
+    "path": "source/Effect6016Definition.cs",
+    "beforeSha256": null,
+    "afterSha256": "c978e0ba6b83d6d9dd34729a29b2f5f04658ad2373cc3a1a40930abe63594ab0",
+    "size": 3300
+  },
+  {
+    "path": "source/Effect6016Host.cs",
+    "beforeSha256": null,
+    "afterSha256": "7a8ac5da322014f1cee956903b5e21d65a50435107eff51b0ccfe82340ebf6ab",
+    "size": 7903
+  },
+  {
+    "path": "source/MapEffects.cs",
+    "beforeSha256": "2855671563be6fde42a611e6324f8176760e2b4f7e777b9d5ccca754c7f36247",
+    "afterSha256": "151017e2a085c66427959f9d6164f3cec08a455ea3866fd7e1f411f38261debd",
+    "size": 4465
+  },
+  {
+    "path": "source/MapResources.cs",
+    "beforeSha256": "dbbb532f8b2772cbf8515eb2065ba5cbb39ac27bec510bcafb9671bcaf9871fb",
+    "afterSha256": "8e3e1663a58345ab42bee1fe2c07777a74ece63da7fd6500323efd5b8daa016b",
+    "size": 1187
+  },
+  {
+    "path": "source/OfflineClient.csproj",
+    "beforeSha256": "8d9473d6689e5e8dc80961d3ad379027fe5e6c062502267b19461380aa33a377",
+    "afterSha256": "4486a4dea1367d8f7aac3f4860a4179bcd3e34f5a5c3f9edc93495a52c80bbed",
+    "size": 991
+  },
+  {
+    "path": "source/OriginalMapCache.cs",
+    "beforeSha256": "5b01039303432577017caa566ed2aba09fe6cadbcb637d7100d2acc634ad37a4",
+    "afterSha256": "8c7009fd8483196beda9108a07a01f54b1e02d4447ba6cb3c6b88fb78b15d084",
+    "size": 20268
+  },
+  {
+    "path": "source/PlayerAudioSettings.cs",
+    "beforeSha256": null,
+    "afterSha256": "d72460ffa9c1fe7a3959ea614f00355ba1dbf1facf21a9f584413c3c0d074c3f",
+    "size": 2704
+  },
+  {
+    "path": "source/Program.cs",
+    "beforeSha256": "d4b86801687e5d795383232ed343f33e29fcf4b8f03f48cc2478bd897f978221",
+    "afterSha256": "f055f64ddc4d05b8ca75571690769839ea12fc3f15261057dda858b8eeffbee8",
+    "size": 25045
+  },
+  {
+    "path": "source/SceneOpacity.cs",
+    "beforeSha256": "a8c44a3c6ea37cd833503713d35d43417bcfb9c9b812ee1d09fc07bd798e1dc3",
+    "afterSha256": "c6dc450181b1f19d3778738512b5a3dee5b95f7bdb27442241081f9acb0200b1",
+    "size": 10283
+  },
+  {
+    "path": "source/WebPanel.cs",
+    "beforeSha256": "27e2f6a23078f8d58450e5e5461568ca56d918684f9d91fe977c716bd55916c2",
+    "afterSha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e",
+    "size": 19383
+  },
+  {
+    "path": "source/WorldEffect6016.cs",
+    "beforeSha256": null,
+    "afterSha256": "e631a0aea5c79e4f7d70eebe9bdaf4696a9d95c746199e0f0c72b04ce65dd8cb",
+    "size": 1574
+  },
+  {
+    "path": "source/WorldEntry.cs",
+    "beforeSha256": "feb71a13aa3cb21809ed8b4e20f51e89c48eae7dc0f99b987ab2767efb2890de",
+    "afterSha256": "a49718e5ce6e820eab594cb1c3610347a666e151f254d48c2c4ca8b086671c1e",
+    "size": 7636
+  },
+  {
+    "path": "source/WorldSession.cs",
+    "beforeSha256": "a14c3f17b3ccf8d3607d77ae799364b2cacc2cb801fff67e7f59bd0f6848d17d",
+    "afterSha256": "96d9795b437544b453ecea77ee70a395468794dc9a9a9b1ceeaca99a8ecaa326",
+    "size": 8958
+  },
+  {
+    "path": "web/index.html",
+    "beforeSha256": "af67c64406144e8e4fe9fa66d3ab93f0a144483525ba0da1b00ab99b5a7dad84",
+    "afterSha256": "27795cafd5b135781629df09c083ad290e8ce4527f4a51d498e367d5d3204b38",
+    "size": 8086
+  },
+  {
+    "path": "web/panel.css",
+    "beforeSha256": "bc27f0e84c5d673ef8471de94858151ea5663007e9edd0e98dc55b52cea04ec2",
+    "afterSha256": "66310ea6a1cdeda68bf1a817c24127830a0baacff0cbef88a7ed6dfd4f0b4a91",
+    "size": 2933
+  },
+  {
+    "path": "web/panel.js",
+    "beforeSha256": "87591ab22ad8f146b6e21f6270e7d16456ddc38c6a2b21594af2743f0623d9f7",
+    "afterSha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab",
+    "size": 15490
+  },
+  {
+    "path": "新版客戶端使用說明.md",
+    "beforeSha256": "35ba51e3959c7363cf70a1ded1902f9cb7f43584d3ebc40cc35aa2eb7bfe54f8",
+    "afterSha256": "6b920b89d9c3db6c36198d906f9f9ba17269db45accb188a733a57c3f0f82dfb",
+    "size": 7966
+  }
+]

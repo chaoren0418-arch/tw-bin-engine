@@ -1,0 +1,14 @@
+{
+  "utc": "2026-10-29T04:13:09.045Z",
+  "id": "RG1",
+  "scope": "release generator only",
+  "state": "repair-dispatched-no-package-plan-authorized",
+  "author": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "reviewer": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "evidence": "work/P26-release-review-r1/generator-inner-evidence-finding.json",
+  "oldGeneratorSha256": "615d16cabc865d896969c256bccaccbc32919758ab6fd72f1c13b88707f1b61d",
+  "freshRepairRoot": "work/P26-r34-release-gate-r2",
+  "required": "verify completed reports innerEvidence and canonicalNestedCommands referenced historical pins and semantics before archive/inventory generation; reject drift/missing fields; no product replay",
+  "canonicalExecutionContinues": true,
+  "productDefect": false
+}

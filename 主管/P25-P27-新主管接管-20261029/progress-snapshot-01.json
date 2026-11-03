@@ -1,0 +1,147 @@
+{
+  "utc": "2026-10-29T03:42:21.677Z",
+  "observations": [
+    {
+      "threadId": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+      "hostId": "local",
+      "threadStatus": {
+        "type": "active",
+        "activeFlags": []
+      },
+      "turn": {
+        "id": "01a185b7-df4d-7171-8c4a-6a048e09e2fe",
+        "status": "inProgress",
+        "error": null,
+        "startedAt": 1793244782,
+        "completedAt": null,
+        "durationMs": null
+      },
+      "cursor": "9368f20d-2bc9-46f7-8d48-dba49e3301b0:2",
+      "lastMessage": {
+        "id": "msg_02a7888a8e556402016ae2bef032bc81919ac3a93866531057",
+        "turnId": "01a185b7-df4d-7171-8c4a-6a048e09e2fe",
+        "phase": "commentary",
+        "text": "目前已讀到實際資料流：正式登入由 LoginConnection／WorldSession 管理，舊 P07 測試通訊仍是獨立路徑；指標輸入使用有限尋路及送出前狀態閘門，並非原 BIN 全部輸入行為的復刻。接下來會把這些連接、實作 owner 與待原生驗收責任寫成可派工的模組矩陣。"
+      },
+      "lastTool": {
+        "id": "exec-456a224d-fa5f-42d7-9e1c-62978b4cd5e8",
+        "turnId": "01a185b7-df4d-7171-8c4a-6a048e09e2fe",
+        "type": "commandExecution",
+        "name": "commandExecution",
+        "status": "completed"
+      }
+    },
+    {
+      "threadId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "hostId": "local",
+      "threadStatus": {
+        "type": "active",
+        "activeFlags": []
+      },
+      "turn": {
+        "id": "01a185b7-ebfd-7471-985c-8b66417b3700",
+        "status": "inProgress",
+        "error": null,
+        "startedAt": 1793244785,
+        "completedAt": null,
+        "durationMs": null
+      },
+      "cursor": "5cb81b31-b4e5-4572-9a8e-c8e8fb8aa639:6",
+      "lastMessage": {
+        "id": "msg_08e17b8aaa0aab82016ae2bfcf492c81919969d017b5e4a852",
+        "turnId": "01a185b7-ebfd-7471-985c-8b66417b3700",
+        "phase": "commentary",
+        "text": "已核實 180 筆安裝來源、138 筆 copy mappings、44 個操作與 10 個 helper 規劃。合成測試也重現了另一項診斷限制：子程序逾時會保留失敗 attempt，但未保存逾時例外攜帶的部分 stdout／stderr。review prep 目前僅發現 AGENTS.md 一筆來源漂移，其餘 307 pins 相符；獨立 fixture 檢查通過。"
+      },
+      "lastTool": {
+        "id": "exec-ce392b06-a15d-4030-ab73-8fbf94caaa75",
+        "turnId": "01a185b7-ebfd-7471-985c-8b66417b3700",
+        "type": "commandExecution",
+        "name": "commandExecution",
+        "status": "completed"
+      }
+    },
+    {
+      "threadId": "01a185b7-f732-7f60-8716-a944d67724c2",
+      "hostId": "local",
+      "threadStatus": {
+        "type": "active",
+        "activeFlags": []
+      },
+      "turn": {
+        "id": "01a185b7-f8b1-7c91-87e0-aa0bb5e3027e",
+        "status": "inProgress",
+        "error": null,
+        "startedAt": 1793244789,
+        "completedAt": null,
+        "durationMs": null
+      },
+      "cursor": "aa6dc05e-e2f2-48cc-9482-2cc210b21fba:5",
+      "lastMessage": {
+        "id": "msg_0b37793e4c807bed016ae2bfda78308191b724f95826365208",
+        "turnId": "01a185b7-f8b1-7c91-87e0-aa0bb5e3027e",
+        "phase": "commentary",
+        "text": "離線驗證已通過：C# 使用已封存 r33 DLL 執行 8 組規則案例，Web 使用明示的記憶體 DOM／橋接替身執行 6 組案例。171 個 source/web 基準檔及測試 DLL 均與 r33 seal 相符。這些結果支持已測的規則與命令建構；原生焦點、實際點擊及畫面驗收仍待補證。"
+      },
+      "lastTool": {
+        "id": "exec-673e1cdc-dd4b-4a90-b477-99b12ce11b8f",
+        "turnId": "01a185b7-f8b1-7c91-87e0-aa0bb5e3027e",
+        "type": "commandExecution",
+        "name": "commandExecution",
+        "status": "completed"
+      }
+    },
+    {
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "hostId": "local",
+      "threadStatus": {
+        "type": "active",
+        "activeFlags": []
+      },
+      "turn": {
+        "id": "01a185b9-432d-7633-99c3-9958e6814faf",
+        "status": "inProgress",
+        "error": null,
+        "startedAt": 1793244873,
+        "completedAt": null,
+        "durationMs": null
+      },
+      "cursor": "06f62879-b242-49d3-a511-42891ee357b8:275",
+      "lastMessage": {
+        "id": "msg_0f6a4b4cf1af6591016ae2bff29e388191a7364b93e4bade14",
+        "turnId": "01a185b9-432d-7633-99c3-9958e6814faf",
+        "phase": "commentary",
+        "text": "新版已保留原 install、collect、回復與不可重跑邏輯；44 個操作和內層命令也維持不變。接下來會驗證新主管的合法 receipt 形狀，並確認舊主管新收據、竄改 plan SHA、錯誤路徑及竄改來源 pin 都會被拒絕。合成資料只存在記憶體中，不會產生 shared receipt。"
+      },
+      "lastTool": {
+        "id": "exec-d17e327c-eb89-49df-8892-eb83987993f6",
+        "turnId": "01a185b9-432d-7633-99c3-9958e6814faf",
+        "type": "commandExecution",
+        "name": "commandExecution",
+        "status": "completed"
+      }
+    }
+  ],
+  "goalEvidence": {
+    "supervisor": "Goal tools unavailable; not read or created",
+    "workers": "Self-reported platform created/read-back in progress files; supervisor thread API does not expose goal calls",
+    "integrator": "Self-reported get_goal null, unchanged"
+  },
+  "decisions": [
+    {
+      "id": "P26-TIMEOUT-RAW",
+      "state": "repair-dispatched",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "evidence": "work/P26-pickup-integration-review-r1/synthetic-tests.json",
+      "scope": "new independent execution_support only; retain failed status and partial raw streams; no product change"
+    },
+    {
+      "id": "AGENTS-POLICY-DRIFT",
+      "state": "explained-policy-only",
+      "evidence": "work/P26-pickup-integration-review-r1/policy-drift-proof.json",
+      "oldSha256": "314e9a9e3aefb4be0ce5ef699fca86eca072298b8b07d365e6d74016c8303615",
+      "currentSha256": "0c8f214831a286bec4a6844ab1293b4f4798ff829ef0a3d6507dbf455eddc040",
+      "effect": "old exact prep verifier fails; 307 other pins remain exact; unchanged fixture contents checked independently"
+    }
+  ]
+}

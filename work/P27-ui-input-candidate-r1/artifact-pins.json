@@ -1,0 +1,107 @@
+{
+  "schema": "p27-artifact-pins-v1",
+  "excludedMutable": [
+    "progress.json",
+    "verification.json",
+    ".dotnet",
+    "harness/bin",
+    "harness/obj"
+  ],
+  "files": [
+    {
+      "path": "HANDOFF.md",
+      "size": 3570,
+      "sha256": "d596dce4fe97a0ef150909a7f1035fb08f3ad29677d9d69b47d72e188e6ff4a4"
+    },
+    {
+      "path": "base-pins.json",
+      "size": 28906,
+      "sha256": "d716dcbe30b9aebfdc558f59addf4910fe94e026aec31ae7823572a40a1ffced"
+    },
+    {
+      "path": "baseline-verification.json",
+      "size": 770,
+      "sha256": "47ce40f0ed28625eea527d9fc5c48612a5253ebeb80f0d154fbc2fb7908d2837"
+    },
+    {
+      "path": "source-pins.json",
+      "size": 6222,
+      "sha256": "e171feb9e4ae3bf37c5be08a0c1913947b5911279ccf5dd4ac4051d799f0bf97"
+    },
+    {
+      "path": "input-routing-map.json",
+      "size": 20552,
+      "sha256": "4cf2988939018bacda5a78a308617119cdd23c994df3629071c9ccaaff160693"
+    },
+    {
+      "path": "gap-evidence.json",
+      "size": 13640,
+      "sha256": "486014e8b9563cf45d95097b2b0d1ee0f5ffae065ba0b0e39178da9590163d7c"
+    },
+    {
+      "path": "native-acceptance-plan.json",
+      "size": 9413,
+      "sha256": "951c898913fb468c21a67284960c960301ac521e6a56361b9c74ac46266116b4"
+    },
+    {
+      "path": "changed-file-pins.json",
+      "size": 851,
+      "sha256": "77e42810162bc7c2f3b6cacd372eb118ced8f55bd580e2db2327cc1925561b4f"
+    },
+    {
+      "path": "result.json",
+      "size": 2521,
+      "sha256": "4f0b0cd56cbf2e40c33fea6d108ce10f75cb6ce0931015007583bbfa033b6574"
+    },
+    {
+      "path": "evidence-csharp.json",
+      "size": 1371,
+      "sha256": "5cb7f93a446f52951a60edeb67f530be4f68e334e6081a9e634e4a9835007671"
+    },
+    {
+      "path": "evidence-web.json",
+      "size": 1438,
+      "sha256": "6dece7c1a8fce069cd480d502680830775897548f81e612181db73680ae47b4d"
+    },
+    {
+      "path": "prepare_report.py",
+      "size": 24067,
+      "sha256": "f509a4c5f4a98afc97d7ae9bc7a3e3c69ba7de39f5928d868d79e9c7450974fa"
+    },
+    {
+      "path": "verify.py",
+      "size": 2317,
+      "sha256": "8afaecaee64deb680f39509e365352624731e0a385550848400ec5774efccf93"
+    },
+    {
+      "path": "rerun.ps1",
+      "size": 786,
+      "sha256": "a5d1cae248cd875ae0534be97ba2037ce5a27775829c7b54636f1a2b7a7d4ad2"
+    },
+    {
+      "path": "web-checks.cjs",
+      "size": 7179,
+      "sha256": "6bbabdf41acd28f10765aa6d58f6e7ffc017c3a000a1ad9b0f7b1a60033fdf8f"
+    },
+    {
+      "path": "harness/Checks.csproj",
+      "size": 420,
+      "sha256": "44681fd712531b8c6538cf4558964566824f0a8826386882b56ce3d7b0148f00"
+    },
+    {
+      "path": "harness/NuGet.Config",
+      "size": 74,
+      "sha256": "9508cae5f76364f56e80eb97cb16493977243cf38e5cca6284e3d74f83b20a2c"
+    },
+    {
+      "path": "harness/Program.cs",
+      "size": 7114,
+      "sha256": "84c09112e37bc79b18d3de78402d56adfc2f145e529d5fe4ed786c6e8772be01"
+    },
+    {
+      "path": "historical-focus-evidence.json",
+      "size": 3598,
+      "sha256": "c7aee6e46b8ade5615d95691a089579dfb8c5ae8b56ec4eac5f16e6fa2aa5c2e"
+    }
+  ]
+}

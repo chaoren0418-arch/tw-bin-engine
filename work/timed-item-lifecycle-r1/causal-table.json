@@ -1,0 +1,2243 @@
+[
+  {
+    "id": "L01",
+    "stage": "正常租房→道具建立",
+    "verified": "歷史r28租房收據及DB快照將10326連到角色1900249001、template49290、費用100；歷史與主管當前SELECT的npc_action_making id1237均將瑟琳娜room映射至該鑰匙。實際JAR製作結果使用ItemTable.createItem→inventory.storeItem。",
+    "inferenceOrPossibleOrphanMechanism": "此物件來源已由歷史收據建立，不是由過期時間反推。",
+    "missingEvidenceOrLimit": "現存NpcMakingExecutor通知使用CraftNotice，JAR使用String，不能宣稱整份來源一致。",
+    "methodEvidence": [
+      {
+        "id": "making-create",
+        "class": "com.lineage.server.model.npc.action.NpcMakingExecutor",
+        "method": "private static void storeCraftResult(com.lineage.server.model.L1PcInventory, int, long, com.lineage.server.model.item.ItemGenerationContext, java.util.List<java.lang.String>);",
+        "javapFile": "model.npc.action.NpcMakingExecutor.javap.txt",
+        "javapStartLine": 632,
+        "offsets": [
+          {
+            "offset": 55,
+            "instruction": "invokevirtual #236                // Method com/lineage/server/datatables/ItemTable.createItem:(IJLcom/lineage/server/model/item/ItemGenerationContext;)Lcom/lineage/server/model/Instance/L1ItemInstance;"
+          },
+          {
+            "offset": 66,
+            "instruction": "invokevirtual #240                // Method com/lineage/server/datatables/ItemTable.createItem:(IJ)Lcom/lineage/server/model/Instance/L1ItemInstance;"
+          },
+          {
+            "offset": 79,
+            "instruction": "invokevirtual #243                // Method com/lineage/server/model/L1PcInventory.storeItem:(Lcom/lineage/server/model/Instance/L1ItemInstance;)Lcom/lineage/server/model/Instance/L1ItemInstance;"
+          },
+          {
+            "offset": 135,
+            "instruction": "invokevirtual #236                // Method com/lineage/server/datatables/ItemTable.createItem:(IJLcom/lineage/server/model/item/ItemGenerationContext;)Lcom/lineage/server/model/Instance/L1ItemInstance;"
+          },
+          {
+            "offset": 146,
+            "instruction": "invokevirtual #240                // Method com/lineage/server/datatables/ItemTable.createItem:(IJ)Lcom/lineage/server/model/Instance/L1ItemInstance;"
+          },
+          {
+            "offset": 159,
+            "instruction": "invokevirtual #243                // Method com/lineage/server/model/L1PcInventory.storeItem:(Lcom/lineage/server/model/Instance/L1ItemInstance;)Lcom/lineage/server/model/Instance/L1ItemInstance;"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\npc\\action\\NpcMakingExecutor.java",
+        "jarDebugSourceLines": [
+          311,
+          312,
+          313,
+          315,
+          316,
+          317,
+          318,
+          319,
+          320,
+          322,
+          323,
+          325,
+          326,
+          327,
+          328,
+          329,
+          330,
+          332,
+          334
+        ]
+      },
+      {
+        "id": "factory",
+        "class": "com.lineage.server.datatables.ItemTable",
+        "method": "public com.lineage.server.model.Instance.L1ItemInstance createItem(int, long, com.lineage.server.model.item.ItemGenerationContext);",
+        "javapFile": "datatables.ItemTable.javap.txt",
+        "javapStartLine": 2440,
+        "offsets": [
+          {
+            "offset": 28,
+            "instruction": "invokevirtual #954                // Method com/lineage/server/IdFactory.nextId:()I"
+          },
+          {
+            "offset": 31,
+            "instruction": "invokevirtual #957                // Method com/lineage/server/model/Instance/L1ItemInstance.setId:(I)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\ItemTable.java",
+        "jarDebugSourceLines": [
+          762,
+          763,
+          764,
+          766,
+          767,
+          768,
+          769,
+          770,
+          772,
+          773,
+          775,
+          778,
+          779,
+          780,
+          781,
+          782,
+          784
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L02",
+    "stage": "剩餘秒數與絕對期限建立",
+    "verified": "JAR storeItem在etc物件_time為null時，採既有remainingTime，否則查ItemTimeTable.TIME的h×3600，再退回MaxUseTime；設remaining與Timestamp後走storeTimedItem。主管最新SELECT確認49290及49900目前h=2。",
+    "inferenceOrPossibleOrphanMechanism": "正常h>0新建鑰匙通常同時具有positive remainingTime與絕對deadline；不能只看到deadline就推斷remainingTime為0。",
+    "missingEvidenceOrLimit": "10326歷史主表快照未收錄remaining_time；目前h=2不恢復當時物件實值。",
+    "methodEvidence": [
+      {
+        "id": "time-config",
+        "class": "com.lineage.server.datatables.ItemTimeTable",
+        "method": "public void load();",
+        "javapFile": "datatables.ItemTimeTable.javap.txt",
+        "javapStartLine": 35,
+        "offsets": [
+          {
+            "offset": 4,
+            "instruction": "invokespecial #16                 // Method com/lineage/server/utils/PerformanceTimer.\"<init>\":()V"
+          },
+          {
+            "offset": 11,
+            "instruction": "invokeinterface #21,  1           // InterfaceMethod java/util/Map.clear:()V"
+          },
+          {
+            "offset": 20,
+            "instruction": "invokestatic  #26                 // Method com/lineage/DatabaseFactory.get:()Lcom/lineage/DatabaseFactory;"
+          },
+          {
+            "offset": 23,
+            "instruction": "invokevirtual #32                 // Method com/lineage/DatabaseFactory.getConnection:()Ljava/sql/Connection;"
+          },
+          {
+            "offset": 30,
+            "instruction": "ldc           #36                 // String SELECT t.`itemid`, t.`h`, CASE WHEN e.`item_id` IS NOT NULL THEN \\'etcitem\\' WHEN w.`item_id` IS NOT NULL THEN \\'weapon\\' WHEN a.`item_id` IS NOT NULL THEN \\'armor\\' END AS `item_kind`, COALESCE(e.`name`, w.`名稱`, a.`名稱`) AS `item_name`, e.`stackable` AS `etc_stackable` FROM `道具_物品時間限制` t LEFT JOIN `etcitem` e ON e.`item_id` = t.`itemid` LEFT JOIN `weapon` w ON w.`item_id` = t.`itemid` LEFT JOIN `armor` a ON a.`item_id` = t.`itemid`"
+          },
+          {
+            "offset": 32,
+            "instruction": "invokeinterface #38,  2           // InterfaceMethod java/sql/Connection.prepareStatement:(Ljava/lang/String;)Ljava/sql/PreparedStatement;"
+          },
+          {
+            "offset": 41,
+            "instruction": "invokeinterface #44,  1           // InterfaceMethod java/sql/PreparedStatement.executeQuery:()Ljava/sql/ResultSet;"
+          },
+          {
+            "offset": 50,
+            "instruction": "invokeinterface #50,  1           // InterfaceMethod java/sql/ResultSet.next:()Z"
+          },
+          {
+            "offset": 63,
+            "instruction": "ldc           #56                 // String itemid"
+          },
+          {
+            "offset": 65,
+            "instruction": "invokeinterface #58,  2           // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I"
+          },
+          {
+            "offset": 74,
+            "instruction": "ldc           #62                 // String h"
+          },
+          {
+            "offset": 76,
+            "instruction": "invokeinterface #58,  2           // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I"
+          },
+          {
+            "offset": 88,
+            "instruction": "invokestatic  #64                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;"
+          },
+          {
+            "offset": 93,
+            "instruction": "invokestatic  #64                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;"
+          },
+          {
+            "offset": 96,
+            "instruction": "invokeinterface #70,  3           // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;"
+          },
+          {
+            "offset": 106,
+            "instruction": "invokeinterface #76,  2           // InterfaceMethod java/sql/ResultSet.getString:(Ljava/lang/String;)Ljava/lang/String;"
+          },
+          {
+            "offset": 117,
+            "instruction": "invokeinterface #76,  2           // InterfaceMethod java/sql/ResultSet.getString:(Ljava/lang/String;)Ljava/lang/String;"
+          },
+          {
+            "offset": 132,
+            "instruction": "getstatic     #82                 // Field _log:Lorg/apache/logging/log4j/Logger;"
+          },
+          {
+            "offset": 135,
+            "instruction": "ldc           #86                 // String 道具_物品時間限制 找不到對應物品，請確認 itemid 是否存在於 etcitem/weapon/armor: itemid={}, h={}"
+          },
+          {
+            "offset": 139,
+            "instruction": "invokestatic  #64                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;"
+          },
+          {
+            "offset": 144,
+            "instruction": "invokestatic  #64                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;"
+          },
+          {
+            "offset": 147,
+            "instruction": "invokeinterface #88,  4           // InterfaceMethod org/apache/logging/log4j/Logger.warn:(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V"
+          },
+          {
+            "offset": 159,
+            "instruction": "invokeinterface #58,  2           // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I"
+          },
+          {
+            "offset": 170,
+            "instruction": "invokevirtual #98                 // Method java/lang/String.equals:(Ljava/lang/Object;)Z"
+          },
+          {
+            "offset": 178,
+            "instruction": "invokeinterface #104,  1          // InterfaceMethod java/sql/ResultSet.wasNull:()Z"
+          },
+          {
+            "offset": 195,
+            "instruction": "getstatic     #82                 // Field _log:Lorg/apache/logging/log4j/Logger;"
+          },
+          {
+            "offset": 198,
+            "instruction": "ldc           #107                // String 道具_物品時間限制 設定到可堆疊 etcitem，請改為不可堆疊避免多個物件共用/覆蓋時效: itemid={}, name={}, h={}"
+          },
+          {
+            "offset": 202,
+            "instruction": "invokestatic  #64                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;"
+          },
+          {
+            "offset": 209,
+            "instruction": "invokestatic  #64                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;"
+          },
+          {
+            "offset": 212,
+            "instruction": "invokeinterface #109,  5          // InterfaceMethod org/apache/logging/log4j/Logger.warn:(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V"
+          },
+          {
+            "offset": 222,
+            "instruction": "getstatic     #82                 // Field _log:Lorg/apache/logging/log4j/Logger;"
+          },
+          {
+            "offset": 227,
+            "instruction": "invokedynamic #114,  0            // InvokeDynamic #0:makeConcatWithConstants:(I)Ljava/lang/String;"
+          },
+          {
+            "offset": 234,
+            "instruction": "invokeinterface #118,  3          // InterfaceMethod org/apache/logging/log4j/Logger.error:(Ljava/lang/String;Ljava/lang/Throwable;)V"
+          },
+          {
+            "offset": 252,
+            "instruction": "invokeinterface #122,  1          // InterfaceMethod java/sql/ResultSet.close:()V"
+          },
+          {
+            "offset": 269,
+            "instruction": "invokeinterface #122,  1          // InterfaceMethod java/sql/ResultSet.close:()V"
+          },
+          {
+            "offset": 283,
+            "instruction": "invokevirtual #127                // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V"
+          },
+          {
+            "offset": 288,
+            "instruction": "athrow"
+          },
+          {
+            "offset": 296,
+            "instruction": "invokeinterface #131,  1          // InterfaceMethod java/sql/PreparedStatement.close:()V"
+          },
+          {
+            "offset": 313,
+            "instruction": "invokeinterface #131,  1          // InterfaceMethod java/sql/PreparedStatement.close:()V"
+          },
+          {
+            "offset": 327,
+            "instruction": "invokevirtual #127                // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V"
+          },
+          {
+            "offset": 332,
+            "instruction": "athrow"
+          },
+          {
+            "offset": 340,
+            "instruction": "invokeinterface #132,  1          // InterfaceMethod java/sql/Connection.close:()V"
+          },
+          {
+            "offset": 357,
+            "instruction": "invokeinterface #132,  1          // InterfaceMethod java/sql/Connection.close:()V"
+          },
+          {
+            "offset": 371,
+            "instruction": "invokevirtual #127                // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V"
+          },
+          {
+            "offset": 376,
+            "instruction": "athrow"
+          },
+          {
+            "offset": 382,
+            "instruction": "getstatic     #82                 // Field _log:Lorg/apache/logging/log4j/Logger;"
+          },
+          {
+            "offset": 385,
+            "instruction": "ldc           #135                // String 載入 道具_物品時間限制 失敗! 請檢查資料表!"
+          },
+          {
+            "offset": 389,
+            "instruction": "invokeinterface #118,  3          // InterfaceMethod org/apache/logging/log4j/Logger.error:(Ljava/lang/String;Ljava/lang/Throwable;)V"
+          },
+          {
+            "offset": 395,
+            "instruction": "getstatic     #82                 // Field _log:Lorg/apache/logging/log4j/Logger;"
+          },
+          {
+            "offset": 401,
+            "instruction": "invokeinterface #137,  1          // InterfaceMethod java/util/Map.size:()I"
+          },
+          {
+            "offset": 407,
+            "instruction": "invokevirtual #141                // Method com/lineage/server/utils/PerformanceTimer.get:()J"
+          },
+          {
+            "offset": 415,
+            "instruction": "invokedynamic #144,  0            // InvokeDynamic #1:makeConcatWithConstants:(I)Ljava/lang/String;"
+          },
+          {
+            "offset": 430,
+            "instruction": "invokedynamic #147,  0            // InvokeDynamic #2:makeConcatWithConstants:(I)Ljava/lang/String;"
+          },
+          {
+            "offset": 440,
+            "instruction": "invokedynamic #148,  0            // InvokeDynamic #3:makeConcatWithConstants:(IJLjava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
+          },
+          {
+            "offset": 445,
+            "instruction": "invokeinterface #151,  2          // InterfaceMethod org/apache/logging/log4j/Logger.info:(Ljava/lang/String;)V"
+          },
+          {
+            "offset": 2,
+            "instruction": "invokestatic  #155                // Method org/apache/logging/log4j/LogManager.getLogger:(Ljava/lang/Class;)Lorg/apache/logging/log4j/Logger;"
+          },
+          {
+            "offset": 5,
+            "instruction": "putstatic     #82                 // Field _log:Lorg/apache/logging/log4j/Logger;"
+          },
+          {
+            "offset": 8,
+            "instruction": "new           #161                // class java/util/HashMap"
+          },
+          {
+            "offset": 12,
+            "instruction": "invokespecial #163                // Method java/util/HashMap.\"<init>\":()V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\ItemTimeTable.java",
+        "jarDebugSourceLines": [
+          24,
+          29,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          57,
+          58,
+          59,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          72,
+          73,
+          74,
+          75,
+          76,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          91
+        ]
+      },
+      {
+        "id": "store-prepare",
+        "class": "com.lineage.server.model.L1PcInventory",
+        "method": "private com.lineage.server.model.Instance.L1ItemInstance lambda$storeItem$16(com.lineage.server.model.Instance.L1ItemInstance);",
+        "javapFile": "model.L1PcInventory.javap.txt",
+        "javapStartLine": 12749,
+        "offsets": [
+          {
+            "offset": 88,
+            "instruction": "getstatic     #430                // Field com/lineage/server/datatables/ItemTimeTable.TIME:Ljava/util/Map;"
+          },
+          {
+            "offset": 168,
+            "instruction": "invokevirtual #909                // Method com/lineage/server/model/Instance/L1ItemInstance.setRemainingTime:(I)V"
+          },
+          {
+            "offset": 196,
+            "instruction": "invokevirtual #909                // Method com/lineage/server/model/Instance/L1ItemInstance.setRemainingTime:(I)V"
+          },
+          {
+            "offset": 231,
+            "instruction": "invokevirtual #1986               // Method com/lineage/server/model/Instance/L1ItemInstance.set_time:(Ljava/sql/Timestamp;)V"
+          },
+          {
+            "offset": 250,
+            "instruction": "invokespecial #2004               // Method com/lineage/server/model/L1Inventory.storeItem:(Lcom/lineage/server/model/Instance/L1ItemInstance;)Lcom/lineage/server/model/Instance/L1ItemInstance;"
+          },
+          {
+            "offset": 282,
+            "instruction": "invokevirtual #1986               // Method com/lineage/server/model/Instance/L1ItemInstance.set_time:(Ljava/sql/Timestamp;)V"
+          },
+          {
+            "offset": 287,
+            "instruction": "invokevirtual #909                // Method com/lineage/server/model/Instance/L1ItemInstance.setRemainingTime:(I)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1PcInventory.java",
+        "jarDebugSourceLines": [
+          1623,
+          1624,
+          1626,
+          1627,
+          1630,
+          1631,
+          1632,
+          1633,
+          1634,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1643,
+          1644,
+          1645,
+          1646,
+          1649,
+          1650,
+          1651,
+          1652,
+          1653,
+          1655,
+          1656,
+          1658,
+          1659,
+          1660,
+          1662,
+          1663,
+          1666,
+          1667,
+          1669,
+          1670,
+          1673
+        ]
+      },
+      {
+        "id": "store-insert",
+        "class": "com.lineage.server.model.L1PcInventory",
+        "method": "public void insertItem(com.lineage.server.model.Instance.L1ItemInstance);",
+        "javapFile": "model.L1PcInventory.javap.txt",
+        "javapStartLine": 3583,
+        "offsets": [
+          {
+            "offset": 39,
+            "instruction": "invokevirtual #935                // Method com/lineage/server/datatables/user/CharItemsTable.storeTimedItem:(ILcom/lineage/server/model/Instance/L1ItemInstance;)V"
+          },
+          {
+            "offset": 56,
+            "instruction": "invokevirtual #938                // Method com/lineage/server/datatables/user/CharItemsTable.storeItem:(ILcom/lineage/server/model/Instance/L1ItemInstance;)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1PcInventory.java",
+        "jarDebugSourceLines": [
+          1544,
+          1545,
+          1548,
+          1552,
+          1553,
+          1554,
+          1556,
+          1557,
+          1558,
+          1559,
+          1561,
+          1562,
+          1563,
+          1564,
+          1565,
+          1566,
+          1567,
+          1568,
+          1569,
+          1573,
+          1575,
+          1576,
+          1577,
+          1582,
+          1583,
+          1584,
+          1585,
+          1588,
+          1590,
+          1591,
+          1592,
+          1593,
+          1595,
+          1598,
+          1599,
+          1600,
+          1602,
+          1603,
+          1604,
+          1605,
+          1607,
+          1608,
+          1609,
+          1610,
+          1612,
+          1614,
+          1615,
+          1616,
+          1617,
+          1618
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L03",
+    "stage": "主表／限時表持久化",
+    "verified": "JAR storeTimedItem先storeItem主列，後confirmStoredTime→initializeArmorTime；後者從owner/template吻合主列INSERT SELECT，保留已有deadline並讀回。",
+    "inferenceOrPossibleOrphanMechanism": "兩次寫入非一個跨表原子操作；本次已存在的正常鑰匙不等於這條建立流程造成目前孤兒。",
+    "missingEvidenceOrLimit": "已找到MyISAM表檔證據；不能因程式有transaction/rollback字樣就當可回滾。",
+    "methodEvidence": [
+      {
+        "id": "store-timed",
+        "class": "com.lineage.server.datatables.user.CharItemsTable",
+        "method": "public void storeTimedItem(int, com.lineage.server.model.Instance.L1ItemInstance) throws java.lang.Exception;",
+        "javapFile": "datatables.user.CharItemsTable.javap.txt",
+        "javapStartLine": 2418,
+        "offsets": [
+          {
+            "offset": 81,
+            "instruction": "invokevirtual #696                // Method storeItem:(ILcom/lineage/server/model/Instance/L1ItemInstance;)V"
+          },
+          {
+            "offset": 96,
+            "instruction": "invokevirtual #704                // Method com/lineage/server/datatables/user/CharItemsTimeTable.confirmStoredTime:(Lcom/lineage/server/model/Instance/L1ItemInstance;IIILjava/sql/Timestamp;Ljava/sql/Timestamp;)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTable.java",
+        "jarDebugSourceLines": [
+          665,
+          666,
+          667,
+          668,
+          669,
+          670,
+          671,
+          672,
+          674,
+          675,
+          676,
+          677,
+          678,
+          681,
+          682,
+          683,
+          684,
+          685,
+          686,
+          687,
+          688,
+          690,
+          692,
+          693,
+          694,
+          695,
+          696,
+          697,
+          698,
+          700,
+          701,
+          702,
+          703,
+          704,
+          705
+        ]
+      },
+      {
+        "id": "store-confirm",
+        "class": "com.lineage.server.datatables.user.CharItemsTimeTable",
+        "method": "public void confirmStoredTime(com.lineage.server.model.Instance.L1ItemInstance, int, int, int, java.sql.Timestamp, java.sql.Timestamp) throws com.lineage.server.model.CharItemsTimePersistenceService$RenewalException;",
+        "javapFile": "datatables.user.CharItemsTimeTable.javap.txt",
+        "javapStartLine": 816,
+        "offsets": [
+          {
+            "offset": 50,
+            "instruction": "invokestatic  #329                // Method com/lineage/server/model/CharItemsTimePersistenceService.initializeArmorTime:(IIILjava/sql/Timestamp;)Ljava/sql/Timestamp;"
+          },
+          {
+            "offset": 92,
+            "instruction": "invokevirtual #193                // Method com/lineage/server/model/Instance/L1ItemInstance.set_time:(Ljava/sql/Timestamp;)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTimeTable.java",
+        "jarDebugSourceLines": [
+          174,
+          175,
+          176,
+          178,
+          179,
+          180,
+          181,
+          182,
+          183
+        ]
+      },
+      {
+        "id": "time-initialize",
+        "class": "com.lineage.server.model.CharItemsTimePersistenceService",
+        "method": "public static java.sql.Timestamp initializeArmorTime(int, int, int, java.sql.Timestamp) throws com.lineage.server.model.CharItemsTimePersistenceService$RenewalException;",
+        "javapFile": "model.CharItemsTimePersistenceService.javap.txt",
+        "javapStartLine": 856,
+        "offsets": [
+          {
+            "offset": 16,
+            "instruction": "ldc           #149                // String INSERT INTO `character_items_time` (`itemr_obj_id`,`usertime`) SELECT `id`,? FROM `character_items` WHERE `id`=? AND `char_id`=? AND `item_id`=? ON DUPLICATE KEY UPDATE `itemr_obj_id`=VALUES(`itemr_obj_id`)"
+          },
+          {
+            "offset": 144,
+            "instruction": "ldc           #152                // String SELECT t.`usertime` FROM `character_items_time` t INNER JOIN `character_items` i ON i.`id`=t.`itemr_obj_id` WHERE i.`id`=? AND i.`char_id`=? AND i.`item_id`=?"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\CharItemsTimePersistenceService.java",
+        "jarDebugSourceLines": [
+          141,
+          142,
+          143,
+          144,
+          147,
+          148,
+          149,
+          150,
+          151,
+          152,
+          155,
+          156,
+          157,
+          158,
+          159,
+          161,
+          162,
+          163,
+          164,
+          165,
+          166,
+          167
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L04",
+    "stage": "正常進旅館",
+    "verified": "實際JAR selectByRequiredItem讀持有量；歷史enter配置require49290、price0，持有條件不是消耗鑰匙。",
+    "inferenceOrPossibleOrphanMechanism": "不能用正常進出旅館作為此次鑰匙消失原因。",
+    "missingEvidenceOrLimit": "此為已查正常入口條件，不排除其他未留存操作；沒有此次物件級刪除收據。",
+    "methodEvidence": [
+      {
+        "id": "entry-key-check",
+        "class": "com.lineage.server.model.npc.action.NpcTeleportExecutor",
+        "method": "private static com.lineage.server.templates.L1NpcTeleport selectByRequiredItem(com.lineage.server.model.Instance.L1PcInstance, java.util.List<com.lineage.server.templates.L1NpcTeleport>);",
+        "javapFile": "model.npc.action.NpcTeleportExecutor.javap.txt",
+        "javapStartLine": 105,
+        "offsets": [
+          {
+            "offset": 27,
+            "instruction": "invokevirtual #99                 // Method com/lineage/server/templates/L1NpcTeleport.getRequireItemId:()I"
+          },
+          {
+            "offset": 55,
+            "instruction": "invokevirtual #115                // Method com/lineage/server/model/L1PcInventory.countItems:(I)J"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\npc\\action\\NpcTeleportExecutor.java",
+        "jarDebugSourceLines": [
+          79,
+          80,
+          81,
+          82,
+          84,
+          85,
+          86,
+          88,
+          89
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L05",
+    "stage": "登入載入與背包回包",
+    "verified": "已核對C_LoginToServer.items→CharacterTable.restoreInventory→L1PcInventory.loadItems與S_InvList：這些方法未含到期Timestamp.before→remove/delete分支。loadItems會啟動remaining timer。",
+    "inferenceOrPossibleOrphanMechanism": "重登後第一個InWorld已不見，與登入前／期間其他到期執行緒移除相容；不是登入方法刪除的證明。",
+    "missingEvidenceOrLimit": "未追蹤當次執行緒／SQL呼叫；所述負證據限於列出的正常登入鏈。Offline空背包不是刪除證據。",
+    "methodEvidence": [
+      {
+        "id": "login-items",
+        "class": "com.lineage.server.clientpackets.C_LoginToServer",
+        "method": "private void items(com.lineage.server.model.Instance.L1PcInstance);",
+        "javapFile": "clientpackets.C_LoginToServer.javap.txt",
+        "javapStartLine": 2816,
+        "offsets": [
+          {
+            "offset": 6,
+            "instruction": "invokestatic  #1124               // Method com/lineage/server/datatables/user/CharacterTable.restoreInventory:(Lcom/lineage/server/model/Instance/L1PcInstance;)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_LoginToServer.java",
+        "jarDebugSourceLines": [
+          1071,
+          1072,
+          1075,
+          1077,
+          1078,
+          1080,
+          1081,
+          1082,
+          1086,
+          1087,
+          1088,
+          1090,
+          1091,
+          1092,
+          1094,
+          1096,
+          1097,
+          1098,
+          1099,
+          1100,
+          1102,
+          1103,
+          1105,
+          1106,
+          1108,
+          1110,
+          1112,
+          1113,
+          1114,
+          1116,
+          1117,
+          1119,
+          1120,
+          1121,
+          1124,
+          1126,
+          1128,
+          1130,
+          1132,
+          1133,
+          1134,
+          1138,
+          1139,
+          1140,
+          1141
+        ]
+      },
+      {
+        "id": "login-restore",
+        "class": "com.lineage.server.datatables.user.CharacterTable",
+        "method": "public static void restoreInventory(com.lineage.server.model.Instance.L1PcInstance);",
+        "javapFile": "datatables.user.CharacterTable.javap.txt",
+        "javapStartLine": 2106,
+        "offsets": [
+          {
+            "offset": 9,
+            "instruction": "invokevirtual #1156               // Method com/lineage/server/model/L1PcInventory.loadItems:()V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharacterTable.java",
+        "jarDebugSourceLines": [
+          794,
+          795,
+          798,
+          800,
+          802,
+          804,
+          805
+        ]
+      },
+      {
+        "id": "login-inventory",
+        "class": "com.lineage.server.model.L1PcInventory",
+        "method": "public void loadItems();",
+        "javapFile": "model.L1PcInventory.javap.txt",
+        "javapStartLine": 3380,
+        "offsets": [
+          {
+            "offset": 13,
+            "instruction": "invokevirtual #872                // Method com/lineage/server/datatables/user/CharItemsTable.loadItems:(Ljava/lang/Integer;)Ljava/util/concurrent/CopyOnWriteArrayList;"
+          },
+          {
+            "offset": 196,
+            "instruction": "invokevirtual #424                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I"
+          },
+          {
+            "offset": 249,
+            "instruction": "invokevirtual #424                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I"
+          },
+          {
+            "offset": 261,
+            "instruction": "invokevirtual #916                // Method com/lineage/server/model/Instance/L1ItemInstance.startEquipmentTimer:(Lcom/lineage/server/model/Instance/L1PcInstance;)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1PcInventory.java",
+        "jarDebugSourceLines": [
+          1481,
+          1483,
+          1484,
+          1485,
+          1487,
+          1489,
+          1490,
+          1492,
+          1493,
+          1494,
+          1495,
+          1497,
+          1498,
+          1502,
+          1504,
+          1505,
+          1509,
+          1510,
+          1511,
+          1515,
+          1516,
+          1518,
+          1521,
+          1523,
+          1524,
+          1527,
+          1529,
+          1531,
+          1534,
+          1535,
+          1536,
+          1537
+        ]
+      },
+      {
+        "id": "login-packet",
+        "class": "com.lineage.server.serverpackets.S_InvList",
+        "method": "public com.lineage.server.serverpackets.S_InvList(java.util.List<com.lineage.server.model.Instance.L1ItemInstance>);",
+        "javapFile": "serverpackets.S_InvList.javap.txt",
+        "javapStartLine": 5,
+        "offsets": [
+          {
+            "offset": 340,
+            "instruction": "invokevirtual #104                // Method com/lineage/server/model/Instance/L1ItemInstance.getViewName:()Ljava/lang/String;"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_InvList.java",
+        "jarDebugSourceLines": [
+          16,
+          21,
+          22,
+          23,
+          24,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          34,
+          35,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          56,
+          57,
+          58,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          68,
+          69,
+          71,
+          72,
+          73,
+          74,
+          77,
+          78,
+          79,
+          80,
+          82,
+          83
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L06",
+    "stage": "絕對期限到期掃描",
+    "verified": "ServerItemUserTimer每60000ms掃描，以get_time.before(now)判斷；線上重新驗證owner/World/inventory/期限後removeItem，離線走deleteExpiredOfflineItem。線上分支本身不把remainingTime歸零。",
+    "inferenceOrPossibleOrphanMechanism": "到期時間與主表消失區間相容；線上或離線掃描均是候選。",
+    "missingEvidenceOrLimit": "缺少當次scan及owner狀態、物件級刪除日誌，不能指定哪條實際執行。",
+    "methodEvidence": [
+      {
+        "id": "absolute-timer-cadence",
+        "class": "com.lineage.server.timecontroller.server.ServerItemUserTimer",
+        "method": "public void start();",
+        "javapFile": "timecontroller.server.ServerItemUserTimer.javap.txt",
+        "javapStartLine": 52,
+        "offsets": [
+          {
+            "offset": 0,
+            "instruction": "ldc           #35                 // int 60000"
+          },
+          {
+            "offset": 5,
+            "instruction": "ldc           #35                 // int 60000"
+          },
+          {
+            "offset": 7,
+            "instruction": "invokevirtual #36                 // Method scheduleTimer:(I)Ljava/util/concurrent/ScheduledFuture;"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\timecontroller\\server\\ServerItemUserTimer.java",
+        "jarDebugSourceLines": [
+          57,
+          58,
+          59
+        ]
+      },
+      {
+        "id": "absolute-timer",
+        "class": "com.lineage.server.timecontroller.server.ServerItemUserTimer",
+        "method": "private static void checkItem(com.lineage.server.model.Instance.L1ItemInstance, java.sql.Timestamp) throws java.lang.Exception;",
+        "javapFile": "timecontroller.server.ServerItemUserTimer.javap.txt",
+        "javapStartLine": 408,
+        "offsets": [
+          {
+            "offset": 21,
+            "instruction": "invokevirtual #199                // Method java/sql/Timestamp.before:(Ljava/sql/Timestamp;)Z"
+          },
+          {
+            "offset": 114,
+            "instruction": "invokevirtual #229                // Method com/lineage/server/model/L1PcInventory.runItemTimerSerialized:(Ljava/lang/Runnable;)V"
+          },
+          {
+            "offset": 219,
+            "instruction": "invokevirtual #282                // Method com/lineage/server/datatables/user/CharItemsTable.deleteExpiredOfflineItem:(ILcom/lineage/server/model/Instance/L1ItemInstance;Ljava/sql/Timestamp;)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\timecontroller\\server\\ServerItemUserTimer.java",
+        "jarDebugSourceLines": [
+          161,
+          162,
+          164,
+          165,
+          166,
+          167,
+          168,
+          169,
+          170,
+          171,
+          173,
+          174,
+          175,
+          176,
+          177,
+          187,
+          189,
+          190,
+          191,
+          192,
+          193,
+          194,
+          195,
+          196,
+          200,
+          204,
+          208,
+          209,
+          210,
+          211
+        ]
+      },
+      {
+        "id": "absolute-timer-online",
+        "class": "com.lineage.server.timecontroller.server.ServerItemUserTimer",
+        "method": "private static void lambda$checkItem$0(int, int, com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.L1PcInventory, com.lineage.server.model.Instance.L1ItemInstance, java.sql.Timestamp, boolean[]);",
+        "javapFile": "timecontroller.server.ServerItemUserTimer.javap.txt",
+        "javapStartLine": 573,
+        "offsets": [
+          {
+            "offset": 87,
+            "instruction": "invokevirtual #199                // Method java/sql/Timestamp.before:(Ljava/sql/Timestamp;)Z"
+          },
+          {
+            "offset": 100,
+            "instruction": "invokevirtual #304                // Method com/lineage/server/model/L1PcInventory.removeItem:(Lcom/lineage/server/model/Instance/L1ItemInstance;)J"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\timecontroller\\server\\ServerItemUserTimer.java",
+        "jarDebugSourceLines": [
+          35,
+          39,
+          41,
+          43,
+          44,
+          45,
+          46,
+          179,
+          180,
+          181,
+          182,
+          183,
+          184,
+          185
+        ]
+      },
+      {
+        "id": "offline-expiry",
+        "class": "com.lineage.server.datatables.user.CharItemsTable",
+        "method": "public void deleteExpiredOfflineItem(int, com.lineage.server.model.Instance.L1ItemInstance, java.sql.Timestamp) throws java.lang.Exception;",
+        "javapFile": "datatables.user.CharItemsTable.javap.txt",
+        "javapStartLine": 2910,
+        "offsets": [
+          {
+            "offset": 150,
+            "instruction": "invokevirtual #759                // Method java/sql/Timestamp.before:(Ljava/sql/Timestamp;)Z"
+          },
+          {
+            "offset": 170,
+            "instruction": "invokevirtual #638                // Method deleteItem:(ILcom/lineage/server/model/Instance/L1ItemInstance;)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTable.java",
+        "jarDebugSourceLines": [
+          767,
+          768,
+          769,
+          770,
+          771,
+          772,
+          773,
+          774,
+          775,
+          776,
+          777,
+          780,
+          781,
+          782
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L07",
+    "stage": "相對倒數與絕對期限的區隔",
+    "verified": "L1ItemInstance.startEquipmentTimerInternal offset1–12：_time非null直接回傳，不啟動相對倒數；相對倒數到期則CAS remaining為0再removeItem。",
+    "inferenceOrPossibleOrphanMechanism": "已具有deadline的鑰匙不應直接歸因於相對倒數先歸零；只有不同/異常狀態才能套用此假說。",
+    "missingEvidenceOrLimit": "沒有10326當時_time、remainingTime實值或異常重載證據。L1EquipmentTimer為遺留類，不能只看它就認定現行調度。",
+    "methodEvidence": [
+      {
+        "id": "relative-timer-exclusion",
+        "class": "com.lineage.server.model.Instance.L1ItemInstance",
+        "method": "private boolean startEquipmentTimerInternal(com.lineage.server.model.Instance.L1PcInstance);",
+        "javapFile": "model.Instance.L1ItemInstance.javap.txt",
+        "javapStartLine": 6587,
+        "offsets": [
+          {
+            "offset": 1,
+            "instruction": "getfield      #249                // Field _time:Ljava/sql/Timestamp;"
+          },
+          {
+            "offset": 4,
+            "instruction": "ifnonnull     11"
+          },
+          {
+            "offset": 8,
+            "instruction": "ifnonnull     13"
+          },
+          {
+            "offset": 211,
+            "instruction": "ifnonnull     229"
+          },
+          {
+            "offset": 260,
+            "instruction": "ifnonnull     267"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1ItemInstance.java",
+        "jarDebugSourceLines": [
+          2484,
+          2485,
+          2487,
+          2488,
+          2490,
+          2491,
+          2493,
+          2494,
+          2495,
+          2499,
+          2500,
+          2502,
+          2503,
+          2505,
+          2508,
+          2509,
+          2511,
+          2514,
+          2515,
+          2517,
+          2518,
+          2520,
+          2521,
+          2522,
+          2523,
+          2525,
+          2528,
+          2529,
+          2530
+        ]
+      },
+      {
+        "id": "relative-timer-zero",
+        "class": "com.lineage.server.model.Instance.L1ItemInstance",
+        "method": "private void executeEquipmentTimerTickSerialized(com.lineage.server.model.Instance.L1ItemInstance$EquipmentTimerLease, boolean[]);",
+        "javapFile": "model.Instance.L1ItemInstance.javap.txt",
+        "javapStartLine": 6873,
+        "offsets": [
+          {
+            "offset": 55,
+            "instruction": "invokevirtual #1462               // Method compareAndSetRemainingTime:(II)Z"
+          },
+          {
+            "offset": 66,
+            "instruction": "invokevirtual #1446               // Method terminalizeEquipmentLocked:(Lcom/lineage/server/model/Instance/L1ItemInstance$EquipmentTimerLease;)V"
+          },
+          {
+            "offset": 81,
+            "instruction": "invokevirtual #1462               // Method compareAndSetRemainingTime:(II)Z"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1ItemInstance.java",
+        "jarDebugSourceLines": [
+          2563,
+          2565,
+          2567,
+          2568,
+          2571,
+          2572,
+          2573,
+          2574,
+          2576,
+          2577,
+          2579,
+          2580,
+          2582,
+          2583,
+          2584,
+          2590,
+          2591,
+          2593,
+          2597,
+          2598,
+          2599,
+          2600,
+          2601,
+          2603,
+          2607,
+          2609
+        ]
+      },
+      {
+        "id": "relative-timer-delete",
+        "class": "com.lineage.server.model.Instance.L1ItemInstance",
+        "method": "private void executeEquipmentExpirySerialized(com.lineage.server.model.Instance.L1ItemInstance$EquipmentTimerLease);",
+        "javapFile": "model.Instance.L1ItemInstance.javap.txt",
+        "javapStartLine": 7370,
+        "offsets": [
+          {
+            "offset": 25,
+            "instruction": "invokevirtual #1061               // Method getRemainingTime:()I"
+          },
+          {
+            "offset": 97,
+            "instruction": "invokevirtual #1504               // Method com/lineage/server/model/L1PcInventory.removeItem:(Lcom/lineage/server/model/Instance/L1ItemInstance;J)J"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1ItemInstance.java",
+        "jarDebugSourceLines": [
+          2701,
+          2702,
+          2704,
+          2705,
+          2706,
+          2707,
+          2709,
+          2710,
+          2711,
+          2712,
+          2714,
+          2715,
+          2718,
+          2719,
+          2721,
+          2722,
+          2723,
+          2724,
+          2725,
+          2726
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L08",
+    "stage": "一般背包整件移除：條件漏清風險",
+    "verified": "L1PcInventory.lambda$deleteItem$31三條分支均只在getRemainingTime()>0時呼叫time.deleteByItemObjId；判斷不看get_time。base remove整件呼叫virtual deleteItem。",
+    "inferenceOrPossibleOrphanMechanism": "若某物件已有time row但remaining<=0，正常整件移除可能跳過附表清理；這是JAR可達的條件性風險，不是10326已證實狀態。",
+    "missingEvidenceOrLimit": "缺少10326 historical remaining_time；正常h>0建立通常為positive，絕對到期掃描不會自行歸零。",
+    "methodEvidence": [
+      {
+        "id": "online-delete",
+        "class": "com.lineage.server.model.L1PcInventory",
+        "method": "private void lambda$deleteItem$31(com.lineage.server.model.Instance.L1ItemInstance);",
+        "javapFile": "model.L1PcInventory.javap.txt",
+        "javapStartLine": 10882,
+        "offsets": [
+          {
+            "offset": 129,
+            "instruction": "invokevirtual #424                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I"
+          },
+          {
+            "offset": 142,
+            "instruction": "invokevirtual #1828               // Method com/lineage/server/datatables/user/CharItemsTimeTable.deleteByItemObjId:(I)V"
+          },
+          {
+            "offset": 176,
+            "instruction": "invokevirtual #424                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I"
+          },
+          {
+            "offset": 189,
+            "instruction": "invokevirtual #1828               // Method com/lineage/server/datatables/user/CharItemsTimeTable.deleteByItemObjId:(I)V"
+          },
+          {
+            "offset": 232,
+            "instruction": "invokestatic  #1834               // Method com/lineage/server/model/item/CharacterItemPersistenceService.deleteItemIfExpectedDurably:(IIJ)Lcom/lineage/server/model/item/CharacterItemPersistenceService$ItemRowMutationResult;"
+          },
+          {
+            "offset": 399,
+            "instruction": "invokevirtual #424                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I"
+          },
+          {
+            "offset": 412,
+            "instruction": "invokevirtual #1828               // Method com/lineage/server/datatables/user/CharItemsTimeTable.deleteByItemObjId:(I)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1PcInventory.java",
+        "jarDebugSourceLines": [
+          3211,
+          3212,
+          3214,
+          3215,
+          3216,
+          3219,
+          3221,
+          3222,
+          3223,
+          3225,
+          3226,
+          3228,
+          3231,
+          3232,
+          3233,
+          3234,
+          3235,
+          3238,
+          3239,
+          3240,
+          3241,
+          3242,
+          3243,
+          3244,
+          3245,
+          3246,
+          3248,
+          3250,
+          3251,
+          3252,
+          3253,
+          3256,
+          3257,
+          3258,
+          3263,
+          3264,
+          3265,
+          3268,
+          3270,
+          3271,
+          3272,
+          3273,
+          3275,
+          3279,
+          3280,
+          3281,
+          3283,
+          3284,
+          3286,
+          3287,
+          3288,
+          3289,
+          3292
+        ]
+      },
+      {
+        "id": "base-remove",
+        "class": "com.lineage.server.model.L1Inventory",
+        "method": "public long removeItem(com.lineage.server.model.Instance.L1ItemInstance, long);",
+        "javapFile": "model.L1Inventory.javap.txt",
+        "javapStartLine": 2064,
+        "offsets": [
+          {
+            "offset": 220,
+            "instruction": "invokevirtual #416                // Method deleteItem:(Lcom/lineage/server/model/Instance/L1ItemInstance;)V"
+          },
+          {
+            "offset": 227,
+            "instruction": "invokevirtual #305                // Method com/lineage/server/world/World.removeObject:(Lcom/lineage/server/model/L1Object;)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1Inventory.java",
+        "jarDebugSourceLines": [
+          688,
+          690,
+          691,
+          693,
+          694,
+          695,
+          697,
+          698,
+          700,
+          701,
+          703,
+          704,
+          705,
+          706,
+          707,
+          710,
+          711,
+          712,
+          713,
+          714,
+          717,
+          718,
+          720,
+          721,
+          722,
+          723,
+          724,
+          726,
+          727,
+          729
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L09",
+    "stage": "主表刪除與附表失敗：非原子風險",
+    "verified": "離線deleteItem先deleteStoredItemForOwner，再刪cache，再無條件time.deleteByItemObjId；time facade delete捕捉Exception只記錄error後返回。",
+    "inferenceOrPossibleOrphanMechanism": "主表已刪除後程序中斷，或附表DELETE/連線/close失敗，都可能留下孤兒；線上DB-first也有同類窗口。",
+    "missingEvidenceOrLimit": "沒有本次附表SQL失敗／中斷證據。SQL已執行後close失敗也可能其實成功，不可將任何例外一概視作未刪。",
+    "methodEvidence": [
+      {
+        "id": "offline-delete",
+        "class": "com.lineage.server.datatables.user.CharItemsTable",
+        "method": "public void deleteItem(int, com.lineage.server.model.Instance.L1ItemInstance) throws java.lang.Exception;",
+        "javapFile": "datatables.user.CharItemsTable.javap.txt",
+        "javapStartLine": 2813,
+        "offsets": [
+          {
+            "offset": 44,
+            "instruction": "invokestatic  #743                // Method com/lineage/server/model/item/CharacterItemPersistenceService.deleteStoredItemForOwner:(II)V"
+          },
+          {
+            "offset": 103,
+            "instruction": "invokevirtual #750                // Method com/lineage/server/datatables/user/CharItemsTimeTable.deleteByItemObjId:(I)V"
+          },
+          {
+            "offset": 110,
+            "instruction": "invokevirtual #346                // Method com/lineage/server/world/World.removeObject:(Lcom/lineage/server/model/L1Object;)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTable.java",
+        "jarDebugSourceLines": [
+          745,
+          746,
+          747,
+          749,
+          750,
+          751,
+          752,
+          753,
+          755,
+          757,
+          759,
+          761,
+          762
+        ]
+      },
+      {
+        "id": "main-delete-sql",
+        "class": "com.lineage.server.model.item.CharacterItemPersistenceService",
+        "method": "public static void deleteStoredItemForOwner(int, int) throws java.sql.SQLException;",
+        "javapFile": "model.item.CharacterItemPersistenceService.javap.txt",
+        "javapStartLine": 4668,
+        "offsets": [
+          {
+            "offset": 10,
+            "instruction": "invokestatic  #633                // Method deleteItemForOwner:(Ljava/sql/Connection;II)Z"
+          },
+          {
+            "offset": 19,
+            "instruction": "invokestatic  #250                // Method findItemCountForOwner:(Ljava/sql/Connection;II)Ljava/lang/Long;"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\item\\CharacterItemPersistenceService.java",
+        "jarDebugSourceLines": [
+          953,
+          954,
+          955,
+          956,
+          959,
+          960
+        ]
+      },
+      {
+        "id": "time-delete-swallow",
+        "class": "com.lineage.server.datatables.user.CharItemsTimeTable",
+        "method": "private void delete(int);",
+        "javapFile": "datatables.user.CharItemsTimeTable.javap.txt",
+        "javapStartLine": 466,
+        "offsets": [
+          {
+            "offset": 1,
+            "instruction": "invokestatic  #239                // Method com/lineage/server/model/CharItemsTimePersistenceService.deleteByItemObjId:(I)V"
+          },
+          {
+            "offset": 16,
+            "instruction": "invokeinterface #247,  3          // InterfaceMethod org/apache/logging/log4j/Logger.error:(Ljava/lang/String;Ljava/lang/Throwable;)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTimeTable.java",
+        "jarDebugSourceLines": [
+          104,
+          105,
+          106,
+          107,
+          108
+        ]
+      },
+      {
+        "id": "time-sql-delete",
+        "class": "com.lineage.server.model.CharItemsTimePersistenceService",
+        "method": "public static void deleteByItemObjId(int) throws java.sql.SQLException;",
+        "javapFile": "model.CharItemsTimePersistenceService.javap.txt",
+        "javapStartLine": 170,
+        "offsets": [
+          {
+            "offset": 8,
+            "instruction": "ldc           #88                 // String DELETE FROM `character_items_time` WHERE `itemr_obj_id`=?"
+          },
+          {
+            "offset": 25,
+            "instruction": "invokeinterface #94,  1           // InterfaceMethod java/sql/PreparedStatement.execute:()Z"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\CharItemsTimePersistenceService.java",
+        "jarDebugSourceLines": [
+          48,
+          49,
+          50,
+          51,
+          52,
+          53
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L10",
+    "stage": "memory-first與後續保存",
+    "verified": "JAR一般移除memory-first可先排入pending delete並嘗試附表清理；saveAllItemsWithResult後續只deleteStoredItemForOwner，不重新清限時表。",
+    "inferenceOrPossibleOrphanMechanism": "若先前附表清理失敗或被remaining條件跳過，之後主列正常保存刪除仍可留下孤兒。",
+    "missingEvidenceOrLimit": "需當次分支、待刪佇列、附表結果；目前沒有10326分支收據。",
+    "methodEvidence": [
+      {
+        "id": "online-delete",
+        "class": "com.lineage.server.model.L1PcInventory",
+        "method": "private void lambda$deleteItem$31(com.lineage.server.model.Instance.L1ItemInstance);",
+        "javapFile": "model.L1PcInventory.javap.txt",
+        "javapStartLine": 10882,
+        "offsets": [
+          {
+            "offset": 129,
+            "instruction": "invokevirtual #424                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I"
+          },
+          {
+            "offset": 142,
+            "instruction": "invokevirtual #1828               // Method com/lineage/server/datatables/user/CharItemsTimeTable.deleteByItemObjId:(I)V"
+          },
+          {
+            "offset": 176,
+            "instruction": "invokevirtual #424                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I"
+          },
+          {
+            "offset": 189,
+            "instruction": "invokevirtual #1828               // Method com/lineage/server/datatables/user/CharItemsTimeTable.deleteByItemObjId:(I)V"
+          },
+          {
+            "offset": 232,
+            "instruction": "invokestatic  #1834               // Method com/lineage/server/model/item/CharacterItemPersistenceService.deleteItemIfExpectedDurably:(IIJ)Lcom/lineage/server/model/item/CharacterItemPersistenceService$ItemRowMutationResult;"
+          },
+          {
+            "offset": 399,
+            "instruction": "invokevirtual #424                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I"
+          },
+          {
+            "offset": 412,
+            "instruction": "invokevirtual #1828               // Method com/lineage/server/datatables/user/CharItemsTimeTable.deleteByItemObjId:(I)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1PcInventory.java",
+        "jarDebugSourceLines": [
+          3211,
+          3212,
+          3214,
+          3215,
+          3216,
+          3219,
+          3221,
+          3222,
+          3223,
+          3225,
+          3226,
+          3228,
+          3231,
+          3232,
+          3233,
+          3234,
+          3235,
+          3238,
+          3239,
+          3240,
+          3241,
+          3242,
+          3243,
+          3244,
+          3245,
+          3246,
+          3248,
+          3250,
+          3251,
+          3252,
+          3253,
+          3256,
+          3257,
+          3258,
+          3263,
+          3264,
+          3265,
+          3268,
+          3270,
+          3271,
+          3272,
+          3273,
+          3275,
+          3279,
+          3280,
+          3281,
+          3283,
+          3284,
+          3286,
+          3287,
+          3288,
+          3289,
+          3292
+        ]
+      },
+      {
+        "id": "pending-delete-save",
+        "class": "com.lineage.server.model.L1PcInventory",
+        "method": "public com.lineage.server.model.L1PcInventory$InventorySaveResult saveAllItemsWithResult();",
+        "javapFile": "model.L1PcInventory.javap.txt",
+        "javapStartLine": 8233,
+        "offsets": [
+          {
+            "offset": 272,
+            "instruction": "invokestatic  #1583               // Method com/lineage/server/model/item/CharacterItemPersistenceService.deleteStoredItemForOwner:(II)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1PcInventory.java",
+        "jarDebugSourceLines": [
+          3153,
+          3155,
+          3156,
+          3157,
+          3158,
+          3160,
+          3161,
+          3162,
+          3163,
+          3164,
+          3165,
+          3167,
+          3168,
+          3169,
+          3170,
+          3171,
+          3172,
+          3174,
+          3175,
+          3176,
+          3177,
+          3178,
+          3180,
+          3181,
+          3182,
+          3185,
+          3186,
+          3187,
+          3188,
+          3189,
+          3190,
+          3191,
+          3192,
+          3193,
+          3194,
+          3195,
+          3196,
+          3198,
+          3199,
+          3201,
+          3202
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L11",
+    "stage": "下次開服載入",
+    "verified": "GameServer.initialize先CharItemsTable.load(offset1114)，再CharItemsTimeTable.load(1166)，Server timer在1446才start。time.load讀全部列，不以到期作刪除條件；驗World映射失敗即丟SQLException，再包IllegalStateException拒絕啟動。",
+    "inferenceOrPossibleOrphanMechanism": "本次啟動揭露既有不一致，不能當成此啟動刪除了10326。到期孤兒不會被正常載入自動清除。",
+    "missingEvidenceOrLimit": "before-server已無主列；load只證明映射要求與拒啟動，不識別早先刪除原因。",
+    "methodEvidence": [
+      {
+        "id": "startup-order",
+        "class": "com.lineage.server.GameServer",
+        "method": "public void initialize() throws java.lang.Exception;",
+        "javapFile": "GameServer.javap.txt",
+        "javapStartLine": 37,
+        "offsets": [
+          {
+            "offset": 1114,
+            "instruction": "invokevirtual #1109               // Method com/lineage/server/datatables/user/CharItemsTable.load:()V"
+          },
+          {
+            "offset": 1166,
+            "instruction": "invokevirtual #1165               // Method com/lineage/server/datatables/user/CharItemsTimeTable.load:()V"
+          },
+          {
+            "offset": 1446,
+            "instruction": "invokevirtual #1421               // Method com/lineage/server/timecontroller/StartTimer_Server.start:()V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\GameServer.java",
+        "jarDebugSourceLines": [
+          210,
+          211,
+          213,
+          214,
+          216,
+          217,
+          219,
+          227,
+          232,
+          235,
+          238,
+          243,
+          244,
+          245,
+          246,
+          247,
+          248,
+          252,
+          253,
+          254,
+          255,
+          256,
+          259,
+          260,
+          261,
+          264,
+          266,
+          268,
+          270,
+          272,
+          274,
+          276,
+          277,
+          278,
+          281,
+          282,
+          284,
+          286,
+          288,
+          290,
+          294,
+          295,
+          296,
+          297,
+          298,
+          299,
+          303,
+          304,
+          305,
+          306,
+          308,
+          310,
+          312,
+          314,
+          316,
+          318,
+          320,
+          322,
+          325,
+          327,
+          329,
+          331,
+          333,
+          335,
+          337,
+          339,
+          341,
+          343,
+          345,
+          347,
+          349,
+          350,
+          351,
+          352,
+          353,
+          354,
+          355,
+          356,
+          358,
+          359,
+          361,
+          363,
+          365,
+          367,
+          369,
+          371,
+          373,
+          374,
+          375,
+          376,
+          377,
+          379,
+          381,
+          383,
+          385,
+          387,
+          388,
+          390,
+          392,
+          394,
+          396,
+          398,
+          400,
+          401,
+          403,
+          405,
+          407,
+          409,
+          411,
+          413,
+          415,
+          417,
+          419,
+          421,
+          423,
+          425,
+          427,
+          429,
+          431,
+          432,
+          433,
+          434,
+          436,
+          438,
+          440,
+          442,
+          448,
+          450,
+          452,
+          454,
+          456,
+          457,
+          458,
+          460,
+          462,
+          464,
+          467,
+          468,
+          469,
+          472,
+          475,
+          477,
+          482,
+          485,
+          486,
+          488,
+          489,
+          491,
+          492,
+          494,
+          496,
+          498,
+          503,
+          506,
+          509,
+          510,
+          513,
+          514,
+          517,
+          520,
+          523,
+          526,
+          530,
+          533,
+          536,
+          539,
+          542,
+          545,
+          548,
+          551,
+          554,
+          557,
+          560,
+          563,
+          566,
+          569,
+          571,
+          574,
+          577,
+          579,
+          582,
+          585,
+          588,
+          591,
+          594,
+          597,
+          600,
+          601,
+          602,
+          605,
+          608,
+          611,
+          613,
+          615,
+          618,
+          621,
+          624,
+          627,
+          629,
+          630,
+          633,
+          636,
+          639,
+          640,
+          643,
+          644,
+          647,
+          648,
+          651,
+          654,
+          656,
+          659,
+          662,
+          665,
+          668,
+          669,
+          672,
+          675,
+          678,
+          681,
+          684,
+          687,
+          690,
+          693,
+          696,
+          699,
+          701,
+          703,
+          706,
+          709,
+          712,
+          713,
+          716,
+          717,
+          718,
+          719,
+          720,
+          721,
+          725,
+          726,
+          732,
+          733,
+          736,
+          737,
+          740,
+          741,
+          744,
+          745,
+          748,
+          749,
+          752,
+          755,
+          760,
+          761,
+          762,
+          763,
+          764,
+          765,
+          766,
+          767,
+          768,
+          769,
+          770,
+          771,
+          772,
+          773,
+          774,
+          775,
+          776,
+          777,
+          778,
+          779,
+          780,
+          781,
+          782,
+          786,
+          788,
+          790,
+          791,
+          792,
+          793,
+          795,
+          797,
+          798,
+          799,
+          800,
+          801,
+          802,
+          803,
+          804,
+          805,
+          809,
+          810,
+          812,
+          825,
+          828,
+          829,
+          831
+        ]
+      },
+      {
+        "id": "time-select",
+        "class": "com.lineage.server.model.CharItemsTimePersistenceService",
+        "method": "public static com.lineage.server.model.CharItemsTimePersistenceService$TimedItemLoadResult loadTimedItems() throws java.sql.SQLException;",
+        "javapFile": "model.CharItemsTimePersistenceService.javap.txt",
+        "javapStartLine": 23,
+        "offsets": [
+          {
+            "offset": 24,
+            "instruction": "ldc           #22                 // String SELECT * FROM `character_items_time`"
+          },
+          {
+            "offset": 75,
+            "instruction": "invokeinterface #52,  2           // InterfaceMethod java/sql/ResultSet.getTimestamp:(Ljava/lang/String;)Ljava/sql/Timestamp;"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\CharItemsTimePersistenceService.java",
+        "jarDebugSourceLines": [
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44
+        ]
+      },
+      {
+        "id": "timed-load",
+        "class": "com.lineage.server.datatables.user.CharItemsTimeTable",
+        "method": "public void load();",
+        "javapFile": "datatables.user.CharItemsTimeTable.javap.txt",
+        "javapStartLine": 44,
+        "offsets": [
+          {
+            "offset": 146,
+            "instruction": "invokevirtual #120                // Method com/lineage/server/world/World.findObject:(I)Lcom/lineage/server/model/L1Object;"
+          },
+          {
+            "offset": 184,
+            "instruction": "invokevirtual #130                // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;"
+          },
+          {
+            "offset": 339,
+            "instruction": "invokevirtual #120                // Method com/lineage/server/world/World.findObject:(I)Lcom/lineage/server/model/L1Object;"
+          },
+          {
+            "offset": 468,
+            "instruction": "invokevirtual #120                // Method com/lineage/server/world/World.findObject:(I)Lcom/lineage/server/model/L1Object;"
+          },
+          {
+            "offset": 524,
+            "instruction": "invokevirtual #193                // Method com/lineage/server/model/Instance/L1ItemInstance.set_time:(Ljava/sql/Timestamp;)V"
+          },
+          {
+            "offset": 590,
+            "instruction": "invokevirtual #120                // Method com/lineage/server/world/World.findObject:(I)Lcom/lineage/server/model/L1Object;"
+          },
+          {
+            "offset": 703,
+            "instruction": "invokevirtual #120                // Method com/lineage/server/world/World.findObject:(I)Lcom/lineage/server/model/L1Object;"
+          },
+          {
+            "offset": 767,
+            "instruction": "invokevirtual #193                // Method com/lineage/server/model/Instance/L1ItemInstance.set_time:(Ljava/sql/Timestamp;)V"
+          },
+          {
+            "offset": 829,
+            "instruction": "new           #231                // class java/lang/IllegalStateException"
+          },
+          {
+            "offset": 836,
+            "instruction": "invokespecial #235                // Method java/lang/IllegalStateException.\"<init>\":(Ljava/lang/String;Ljava/lang/Throwable;)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTimeTable.java",
+        "jarDebugSourceLines": [
+          40,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          63,
+          64,
+          65,
+          66,
+          67,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L12",
+    "stage": "清理API的差別",
+    "verified": "deleteConsumedItemConfirmed直接將持久化例外向外傳；普通deleteByItemObjId轉入吞例外的private delete。",
+    "inferenceOrPossibleOrphanMechanism": "不能用嚴格API存在，推論所有普通刪除都取得附表確認。",
+    "missingEvidenceOrLimit": "本次沒有證據顯示10326走嚴格consumed API；不是替代呼叫或修復建議。",
+    "methodEvidence": [
+      {
+        "id": "time-delete-lock",
+        "class": "com.lineage.server.datatables.user.CharItemsTimeTable",
+        "method": "public void deleteByItemObjId(int);",
+        "javapFile": "datatables.user.CharItemsTimeTable.javap.txt",
+        "javapStartLine": 493,
+        "offsets": [
+          {
+            "offset": 10,
+            "instruction": "invokevirtual #249                // Method com/lineage/server/datatables/user/WarehouseItemUpdateLock.acquire:(I)Lcom/lineage/server/datatables/user/WarehouseItemUpdateLock$Lease;"
+          },
+          {
+            "offset": 16,
+            "instruction": "invokevirtual #253                // Method delete:(I)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTimeTable.java",
+        "jarDebugSourceLines": [
+          111,
+          112,
+          114,
+          115,
+          116,
+          117
+        ]
+      },
+      {
+        "id": "time-delete-swallow",
+        "class": "com.lineage.server.datatables.user.CharItemsTimeTable",
+        "method": "private void delete(int);",
+        "javapFile": "datatables.user.CharItemsTimeTable.javap.txt",
+        "javapStartLine": 466,
+        "offsets": [
+          {
+            "offset": 1,
+            "instruction": "invokestatic  #239                // Method com/lineage/server/model/CharItemsTimePersistenceService.deleteByItemObjId:(I)V"
+          },
+          {
+            "offset": 16,
+            "instruction": "invokeinterface #247,  3          // InterfaceMethod org/apache/logging/log4j/Logger.error:(Ljava/lang/String;Ljava/lang/Throwable;)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTimeTable.java",
+        "jarDebugSourceLines": [
+          104,
+          105,
+          106,
+          107,
+          108
+        ]
+      },
+      {
+        "id": "time-delete-confirmed",
+        "class": "com.lineage.server.datatables.user.CharItemsTimeTable",
+        "method": "public void deleteConsumedItemConfirmed(int) throws java.sql.SQLException;",
+        "javapFile": "datatables.user.CharItemsTimeTable.javap.txt",
+        "javapStartLine": 542,
+        "offsets": [
+          {
+            "offset": 25,
+            "instruction": "invokestatic  #239                // Method com/lineage/server/model/CharItemsTimePersistenceService.deleteByItemObjId:(I)V"
+          }
+        ],
+        "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTimeTable.java",
+        "jarDebugSourceLines": [
+          121,
+          122,
+          123,
+          124,
+          125
+        ]
+      }
+    ]
+  }
+]

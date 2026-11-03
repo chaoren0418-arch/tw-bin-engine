@@ -1,0 +1,56 @@
+{
+  "schema": "p36-p37-preparation-result-v1",
+  "status": "sealed-preparation-candidate-awaiting-independent-review",
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "plan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\plan.json",
+    "size": 4166,
+    "sha256": "58d072aee47cc8f6c5a08071025dcd2c46ebebf2c3ef0e663605b5f2705302b5"
+  },
+  "executionContract": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\execution-contract.json",
+    "size": 10124,
+    "sha256": "7d7ff368af9a439c8bb65918766333479c493ca03a324f0ce96ac1278104b19a"
+  },
+  "toolSourceSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\tool-bundle\\source-seal.json",
+    "size": 2321,
+    "sha256": "856fd8d0e76df91dd90c2fc5e655be306f3e6cc6b8fb44ec8c467921fd5088e1"
+  },
+  "sourceCountBefore": 180,
+  "sourceCountAfterPlanned": 181,
+  "replacements": 4,
+  "additions": 1,
+  "independentSourceCopies": 361,
+  "stagePins": 347,
+  "dependencyPins": 4350,
+  "boundedChecks": 16,
+  "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "expectedAudioSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "sharedWrites": 0,
+  "builds": 0,
+  "runtimeRuns": 0,
+  "goalActualRead": null,
+  "goalCreatedOrModified": false,
+  "formalEntry": "r33",
+  "entryActivated": false,
+  "fullReleaseAuthorized": false,
+  "toolVersion": "P37-inventory-only-r1",
+  "toolFormallyAccepted": false,
+  "pendingReceipts": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\pending-receipt-requirements.json",
+    "size": 2741,
+    "sha256": "cced714433f69352161a7fa791c4b01c28f57e1ca6d1eb2eca86a0a798258879"
+  },
+  "actualAfterOutputHashes": null,
+  "limitations": [
+    "Canonical installation and rollback have not been executed.",
+    "Exact deterministic canonical DLL reproduction is pending the single separately authorized build.",
+    "No successful new P36/P37 receipt path was fabricated or exercised.",
+    "Launcher is inherited immutable identity, not a new P36 launcher acceptance.",
+    "Legacy r34 completed_context is expected to refuse after current source transition; do not rebind old pins.",
+    "Original entry-activation automatic review rejection remains in effect."
+  ],
+  "writeStop": "After final raw logs and artifact seal are written, no further author writes."
+}

@@ -1,0 +1,51 @@
+{
+  "status": "pass",
+  "contextProvider": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\generate_package_plan.py",
+  "contextProviderSha256": "32e5cefcc739c7e432dfa9cf00488072c330445695a4b3761d0e43c8ae962578",
+  "authorityRebound": false,
+  "originalRows": 2289,
+  "candidateRows": 2290,
+  "preservedRows": 2289,
+  "changedRows": 0,
+  "removedRows": 0,
+  "addedRows": [
+    {
+      "path": "build/product-r34-manifest.json",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-r34-manifest.json",
+      "size": 7955,
+      "sha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d"
+    }
+  ],
+  "exactExistingPP2FilesMatch": true,
+  "identityRows": {
+    "productDllSha256": {
+      "path": "build/client-product-r34/P11.ClientEngine.dll",
+      "size": 2445312,
+      "sha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll"
+    },
+    "audioDllSha256": {
+      "path": "build/client-product-r34/P24.Audio.dll",
+      "size": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll"
+    },
+    "productManifestSha256": {
+      "path": "build/product-r34-manifest.json",
+      "size": 7955,
+      "sha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-r34-manifest.json"
+    },
+    "launcherDllSha256": {
+      "path": "launcher/P24.Launcher.dll",
+      "size": 24064,
+      "sha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\launcher\\P24.Launcher.dll"
+    }
+  },
+  "evidenceClosurePins": 690,
+  "sourceFiles": 180,
+  "packagePlanGenerated": false,
+  "archiveToolsCalled": false,
+  "productReruns": false
+}

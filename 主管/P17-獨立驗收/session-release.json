@@ -1,0 +1,97 @@
+{
+  "status": "all_sessions_released_same_services",
+  "utc": "2026-10-25T04:56:09.611148+00:00",
+  "services": {
+    "processes": [
+      {
+        "ProcessId": 70436,
+        "ParentProcessId": 83180,
+        "ExecutablePath": "D:\\P17Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P17Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P17Lab-ClientEngine\\mysql.ini --init-file=D:\\P17Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792901086270)/"
+      },
+      {
+        "ProcessId": 13880,
+        "ParentProcessId": 80984,
+        "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+        "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P17Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P17Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P17Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P17Lab-ClientEngine\\server\\Server_Game.jar",
+        "CreationDate": "/Date(1792902887227)/"
+      }
+    ],
+    "listeners": [
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 43317,
+        "OwningProcess": 70436
+      },
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42037,
+        "OwningProcess": 13880
+      }
+    ]
+  },
+  "roles": [
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900170001,
+      "maxHp": 700,
+      "online": 0,
+      "potions": 0,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900170002,
+      "maxHp": 700,
+      "online": 0,
+      "potions": 0,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900170003,
+      "maxHp": 700,
+      "online": 0,
+      "potions": 0,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900170004,
+      "maxHp": 700,
+      "online": 0,
+      "potions": 0,
+      "accountOnline": 0
+    },
+    {
+      "x": 32590,
+      "y": 32946,
+      "hp": 700,
+      "id": 1900170005,
+      "maxHp": 700,
+      "online": 0,
+      "potions": 0,
+      "accountOnline": 0
+    }
+  ],
+  "clients": {
+    "items": []
+  },
+  "dbIdentity": [
+    "43317",
+    "D:\\P17Lab-ClientEngine\\db-data\\",
+    "04891658-d029-11f1-9406-4cedfb679789",
+    "127.0.0.1",
+    "8.0.40"
+  ],
+  "identityCheck": "Each live SELECT prefixed by actual port/datadir/UUID/bind/version query and exact match assertion."
+}

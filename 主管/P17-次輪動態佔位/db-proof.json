@@ -1,0 +1,396 @@
+{
+  "before": {
+    "main": [
+      {
+        "X": 32588,
+        "Y": 32930,
+        "Ac": -1,
+        "Hp": 700,
+        "Mp": 120,
+        "Exp": 416461882,
+        "Gfx": 0,
+        "Name": "背包王子",
+        "Level": 60,
+        "MapId": 0,
+        "MaxHp": 700,
+        "MaxMp": 120,
+        "Lawful": 0,
+        "Wisdom": 12,
+        "Charisma": 10,
+        "ObjectId": 1900170001,
+        "Strength": 18,
+        "Dexterity": 13,
+        "Direction": 5,
+        "Constitution": 16,
+        "Intelligence": 11,
+        "OnlineStatus": 0
+      }
+    ],
+    "observer": [
+      {
+        "X": 32588,
+        "Y": 32930,
+        "Ac": -1,
+        "Hp": 700,
+        "Mp": 120,
+        "Exp": 416461882,
+        "Gfx": 0,
+        "Name": "觀察王子",
+        "Level": 60,
+        "MapId": 0,
+        "MaxHp": 700,
+        "MaxMp": 120,
+        "Lawful": 0,
+        "Wisdom": 12,
+        "Charisma": 10,
+        "ObjectId": 1900170005,
+        "Strength": 18,
+        "Dexterity": 13,
+        "Direction": 5,
+        "Constitution": 16,
+        "Intelligence": 11,
+        "OnlineStatus": 0
+      }
+    ],
+    "items": [
+      {
+        "Name": "終極治癒藥水",
+        "Bless": 0,
+        "Count": 5,
+        "ObjectId": 1900171011,
+        "Identified": 1,
+        "TemplateId": 40012,
+        "CharacterId": 1900170001
+      },
+      {
+        "Name": "金幣",
+        "Bless": 0,
+        "Count": 3,
+        "ObjectId": 1900171012,
+        "Identified": 1,
+        "TemplateId": 40308,
+        "CharacterId": 1900170001
+      },
+      {
+        "Name": "鑒定卷軸",
+        "Bless": 0,
+        "Count": 1,
+        "ObjectId": 1900171013,
+        "Identified": 1,
+        "TemplateId": 40126,
+        "CharacterId": 1900170001
+      }
+    ]
+  },
+  "after": {
+    "main": [
+      {
+        "X": 32591,
+        "Y": 32945,
+        "Ac": -1,
+        "Hp": 700,
+        "Mp": 120,
+        "Exp": 416461882,
+        "Gfx": 0,
+        "Name": "背包王子",
+        "Level": 60,
+        "MapId": 0,
+        "MaxHp": 700,
+        "MaxMp": 120,
+        "Lawful": 0,
+        "Wisdom": 12,
+        "Charisma": 10,
+        "ObjectId": 1900170001,
+        "Strength": 18,
+        "Dexterity": 13,
+        "Direction": 5,
+        "Constitution": 16,
+        "Intelligence": 11,
+        "OnlineStatus": 0
+      }
+    ],
+    "observer": [
+      {
+        "X": 32590,
+        "Y": 32946,
+        "Ac": -1,
+        "Hp": 700,
+        "Mp": 120,
+        "Exp": 416461882,
+        "Gfx": 0,
+        "Name": "觀察王子",
+        "Level": 60,
+        "MapId": 0,
+        "MaxHp": 700,
+        "MaxMp": 120,
+        "Lawful": 0,
+        "Wisdom": 12,
+        "Charisma": 10,
+        "ObjectId": 1900170005,
+        "Strength": 18,
+        "Dexterity": 13,
+        "Direction": 4,
+        "Constitution": 16,
+        "Intelligence": 11,
+        "OnlineStatus": 0
+      }
+    ],
+    "items": [
+      {
+        "Name": "終極治癒藥水",
+        "Bless": 0,
+        "Count": 4,
+        "ObjectId": 1900171011,
+        "Identified": 1,
+        "TemplateId": 40012,
+        "CharacterId": 1900170001
+      },
+      {
+        "Name": "金幣",
+        "Bless": 0,
+        "Count": 3,
+        "ObjectId": 1900171012,
+        "Identified": 1,
+        "TemplateId": 40308,
+        "CharacterId": 1900170001
+      },
+      {
+        "Name": "鑒定卷軸",
+        "Bless": 0,
+        "Count": 1,
+        "ObjectId": 1900171013,
+        "Identified": 1,
+        "TemplateId": 40126,
+        "CharacterId": 1900170001
+      }
+    ]
+  },
+  "accounts": {
+    "main": [
+      {
+        "ip": "127.0.0.1",
+        "login": "p17153d0",
+        "server_no": 0,
+        "lastactive": "2026-10-25 12:37:15.000000",
+        "character_slot": 0
+      }
+    ],
+    "observer": [
+      {
+        "ip": "127.0.0.1",
+        "login": "p17553d0",
+        "server_no": 0,
+        "lastactive": "2026-10-25 12:37:16.000000",
+        "character_slot": 0
+      }
+    ]
+  },
+  "server_before": {
+    "process": {
+      "ProcessId": 13880,
+      "ParentProcessId": 80984,
+      "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P17Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P17Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P17Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P17Lab-ClientEngine\\server\\Server_Game.jar",
+      "CreationDate": "/Date(1792902887227)/"
+    },
+    "listeners": [
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42037,
+        "OwningProcess": 13880
+      }
+    ]
+  },
+  "server_after": {
+    "process": {
+      "ProcessId": 13880,
+      "ParentProcessId": 80984,
+      "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P17Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P17Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P17Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P17Lab-ClientEngine\\server\\Server_Game.jar",
+      "CreationDate": "/Date(1792902887227)/"
+    },
+    "listeners": [
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42037,
+        "OwningProcess": 13880
+      }
+    ]
+  },
+  "samples": [
+    {
+      "utc": 1792903035.6792252,
+      "server": {
+        "process": {
+          "ProcessId": 13880,
+          "ParentProcessId": 80984,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P17Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P17Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P17Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P17Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792902887227)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42037,
+            "OwningProcess": 13880
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792903038.6692872,
+      "server": {
+        "process": {
+          "ProcessId": 13880,
+          "ParentProcessId": 80984,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P17Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P17Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P17Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P17Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792902887227)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42037,
+            "OwningProcess": 13880
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792903041.646351,
+      "server": {
+        "process": {
+          "ProcessId": 13880,
+          "ParentProcessId": 80984,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P17Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P17Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P17Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P17Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792902887227)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42037,
+            "OwningProcess": 13880
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792903044.6385617,
+      "server": {
+        "process": {
+          "ProcessId": 13880,
+          "ParentProcessId": 80984,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P17Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P17Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P17Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P17Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792902887227)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42037,
+            "OwningProcess": 13880
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792903047.6482408,
+      "server": {
+        "process": {
+          "ProcessId": 13880,
+          "ParentProcessId": 80984,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P17Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P17Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P17Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P17Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792902887227)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42037,
+            "OwningProcess": 13880
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792903050.8135898,
+      "server": {
+        "process": {
+          "ProcessId": 13880,
+          "ParentProcessId": 80984,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P17Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P17Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P17Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P17Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792902887227)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42037,
+            "OwningProcess": 13880
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792903053.8138442,
+      "server": {
+        "process": {
+          "ProcessId": 13880,
+          "ParentProcessId": 80984,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P17Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P17Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P17Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P17Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792902887227)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42037,
+            "OwningProcess": 13880
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792903056.81431,
+      "server": {
+        "process": {
+          "ProcessId": 13880,
+          "ParentProcessId": 80984,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P17Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P17Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P17Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P17Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792902887227)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42037,
+            "OwningProcess": 13880
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792903059.810043,
+      "server": {
+        "process": {
+          "ProcessId": 13880,
+          "ParentProcessId": 80984,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P17Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P17Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P17Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P17Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792902887227)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42037,
+            "OwningProcess": 13880
+          }
+        ]
+      }
+    }
+  ],
+  "client_pid": 38000,
+  "exit_code": 2,
+  "role": "workerCli"
+}

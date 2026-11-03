@@ -1,0 +1,36 @@
+{
+  "fullVerifier": "FAIL: source pin mismatch",
+  "fullVerifierNotOverridden": true,
+  "sourcePins": 308,
+  "matchingSourcePins": 307,
+  "drifts": [
+    {
+      "expected": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+        "size": 10058,
+        "sha256": "314e9a9e3aefb4be0ce5ef699fca86eca072298b8b07d365e6d74016c8303615",
+        "role": "worker write scope"
+      },
+      "actual": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+        "size": 11741,
+        "sha256": "0c8f214831a286bec4a6844ab1293b4f4798ff829ef0a3d6507dbf455eddc040"
+      }
+    }
+  ],
+  "artifactSealVerified": true,
+  "fixtureOnlyVerification": "pass",
+  "fixtureOnlyMethod": "AST unchanged definitions and statements from fixture assignment through before final print; no original full-pass output emitted",
+  "fixtureAssertionStartLine": 35,
+  "verifier": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\verify.py",
+    "size": 10778,
+    "sha256": "b0e0c42b4776f828d1fca89c4890fe5be13abb67387dbb706293e5495499b850"
+  },
+  "bodyPng": 416,
+  "plannedMappings": 2688,
+  "durations": 294,
+  "activeWindowScenarios": 672,
+  "plannedTestFamilies": 14,
+  "productAssertions": 0
+}

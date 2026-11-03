@@ -1,0 +1,274 @@
+{
+  "schema": "p38-delivery-execution-contract-v1",
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "executionAuthorizedByPreparation": false,
+  "candidateRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-candidate-r1",
+  "executionRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1",
+  "commands": [
+    {
+      "id": "launcher-build-01",
+      "argv": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\launcher-source\\Launcher.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\launcher-build",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\NuGet.Config",
+        "-p:BaseIntermediateOutputPath=D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\obj\\",
+        "-p:MSBuildProjectExtensionsPath=D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\obj\\",
+        "-p:ImportDirectoryBuildProps=false",
+        "-p:ImportDirectoryBuildTargets=false",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "--nologo",
+        "-v:diag",
+        "-bl:D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\commands\\launcher-build-01\\msbuild.binlog;ProjectImports=None"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1",
+      "timeoutSeconds": 600,
+      "expectedExitCode": 0
+    },
+    {
+      "id": "candidate-check-only-01",
+      "argv": [
+        "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-candidate-r1\\launcher\\P24.Launcher.exe",
+        "--check-only",
+        "--root",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-candidate-r1"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-candidate-r1",
+      "timeoutSeconds": 180,
+      "expectedExitCode": 0
+    },
+    {
+      "id": "r34-isolation-check-only-01",
+      "argv": [
+        "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-candidate-r1\\launcher\\P24.Launcher.exe",
+        "--check-only",
+        "--root",
+        "D:\\lineage開發\\TW1608262200研究\\releases\\r34"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-candidate-r1",
+      "timeoutSeconds": 60,
+      "expectedExitCode": 1
+    }
+  ],
+  "environment": {
+    "inheritNames": [
+      "SYSTEMROOT",
+      "WINDIR",
+      "OS",
+      "PROCESSOR_ARCHITECTURE",
+      "NUMBER_OF_PROCESSORS",
+      "HOME",
+      "USERPROFILE",
+      "CODEX_HOME"
+    ],
+    "overrides": {
+      "TEMP": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\tmp",
+      "TMP": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\tmp",
+      "DOTNET_CLI_HOME": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\cli-home",
+      "NUGET_PACKAGES": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\nuget",
+      "NUGET_HTTP_CACHE_PATH": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\http-cache",
+      "NUGET_PLUGINS_CACHE_PATH": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\plugin-cache",
+      "NUGET_SCRATCH": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\scratch",
+      "APPDATA": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\appdata\\roaming",
+      "LOCALAPPDATA": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\appdata\\local",
+      "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false",
+      "DOTNET_ADD_GLOBAL_TOOLS_TO_PATH": "false",
+      "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+      "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "1",
+      "DOTNET_CLI_WORKLOAD_UPDATE_NOTIFY_DISABLE": "true",
+      "NUGET_CERT_REVOCATION_MODE": "offline",
+      "MSBUILDDISABLENODEREUSE": "1",
+      "DOTNET_CLI_USE_MSBUILD_SERVER": "0",
+      "DOTNET_CLI_UI_LANGUAGE": "en-US",
+      "DOTNET_ROOT": "C:\\Program Files\\dotnet",
+      "PROGRAMFILES(X86)": "C:\\Program Files (x86)"
+    },
+    "path": "C:\\Program Files\\dotnet;C:\\Windows\\System32;C:\\Windows",
+    "comspec": "C:\\Windows\\System32\\cmd.exe",
+    "pathext": ".COM;.EXE;.BAT;.CMD",
+    "sensitiveIdentityValuesNotLogged": true
+  },
+  "inputDocuments": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\materialization.json",
+      "size": 110054,
+      "sha256": "1698c7313a6969e5eb7eb63bc2f31b26b846021062b49a15ee535f1301322cd8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\asset-materialization.json",
+      "size": 7947156,
+      "sha256": "dda5ba5819ed0095b81b74facd2f1fad3e411aa7b30e57d6543de424cd825a62"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\runtime-closure.json",
+      "size": 8499,
+      "sha256": "cd09a4b8cd6cade408777347a970cf9a805c121cf5a6ebe5a48b93fa5662d5f5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\input-pins.json",
+      "size": 3181,
+      "sha256": "b2500eae6d8c0e38cda8fbf82394cb64181fa359e0545c1a47e4532f2ed9a6cb"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\protected-pins.json",
+      "size": 7925,
+      "sha256": "2d69faddd4e2cd887f0b824e64d4e3d1a8d738dec36ab45fe6f6659f5f5ff448"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\ancestor-policies.json",
+      "size": 18,
+      "sha256": "6ac91cab38eae269a4e6457275b3b956f615a7df03de4b1ce88f44b8110efc30"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\version-boundaries.json",
+      "size": 3243,
+      "sha256": "ab6b97ff485d8a7f15e9aef949f26cfc30580f1693046c17fadf8f043c4bdcfc"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\launcher-delta.json",
+      "size": 1803,
+      "sha256": "21d1c65b106f8cbb3096d463786a4f8c87462fb76b63844d3875a61328e1c851"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\build-dependency-pins.json",
+      "size": 1126895,
+      "sha256": "58fd3d9a4de20417a2336c00f99494a7e4874352c470676cdbdfefa3763b116b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\source-seal.json",
+      "size": 1358,
+      "sha256": "3d5f27eb648aa970fe970f00fc5121eda18ecd861c8bc0ae6e882b20ca199216"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\prepared\\build\\product-p36-delivery-manifest.json",
+      "size": 7761,
+      "sha256": "eb7bd750b534ed3190cb1b332bd3f0356721b85fbbec08f179ec0d407bdc56d2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\prepared\\global.json",
+      "size": 56,
+      "sha256": "1c530f4c116bcf04e451cf0ca155fa18d73415c85145534a415f1eb4c39198b3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\prepared\\NuGet.Config",
+      "size": 155,
+      "sha256": "337ed22a5dd2b3a69d86fac14c3a86a05cf3ffc3d1d65e400850c747010b4f19"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\prepared\\DELIVERY.md",
+      "size": 3280,
+      "sha256": "28a3258171fbc6ad0c286a54d4bf99f133ab9118bc089219757a82866a91e2b4"
+    }
+  ],
+  "scriptPins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\common.py",
+      "size": 3832,
+      "sha256": "665b980d7746c40c7cc4b6e1cebcade7811673bac8ba3cf88128a4ba569de85b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\gate.py",
+      "size": 7635,
+      "sha256": "79d11d1a1c052b62441e0196be747be82b223fa223735e789a430cbfb476cbce"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\executor.py",
+      "size": 9270,
+      "sha256": "fc84ee9a669ce95b69d34f226d657aad093e4831b9b0ed7b47c1b897b80610fd"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\win_process.py",
+      "size": 5934,
+      "sha256": "37f21ac740a11f780a937f085598bbb3dbbe928a65fa8d19d6c6d0f39e0ef0dc"
+    }
+  ],
+  "maxLauncherBuilds": 1,
+  "maxCheckOnlyRuns": 2,
+  "productBuilds": 0,
+  "normalLaunchAuthorized": false,
+  "sharedWrites": false,
+  "entryActivationAuthorized": false,
+  "sourceFiles": 181,
+  "acceptedProductOutputs": 15,
+  "normalManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\prepared\\build\\product-p36-delivery-manifest.json",
+    "size": 7761,
+    "sha256": "eb7bd750b534ed3190cb1b332bd3f0356721b85fbbec08f179ec0d407bdc56d2"
+  },
+  "normalManifestCandidatePath": "build/product-p36-delivery-manifest.json",
+  "manifestSchema": "p24-normal-product-v1",
+  "fourIdentities": {
+    "productDllSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+    "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "productManifestSha256": "eb7bd750b534ed3190cb1b332bd3f0356721b85fbbec08f179ec0d407bdc56d2",
+    "launcherDllSha256": null
+  },
+  "launcherOutputFiles": [
+    {
+      "path": "launcher/P24.Launcher.deps.json",
+      "sha256": null,
+      "size": null,
+      "status": "pending-single-build"
+    },
+    {
+      "path": "launcher/P24.Launcher.dll",
+      "sha256": null,
+      "size": null,
+      "status": "pending-single-build"
+    },
+    {
+      "path": "launcher/P24.Launcher.exe",
+      "sha256": null,
+      "size": null,
+      "status": "pending-single-build"
+    },
+    {
+      "path": "launcher/P24.Launcher.pdb",
+      "sha256": null,
+      "size": null,
+      "status": "pending-single-build"
+    },
+    {
+      "path": "launcher/P24.Launcher.runtimeconfig.json",
+      "sha256": null,
+      "size": null,
+      "status": "pending-single-build"
+    }
+  ],
+  "generatedCandidateFiles": [
+    "_delivery/identities.json"
+  ],
+  "expectedCandidateFiles": 14181,
+  "assetStrategy": {
+    "mode": "immutable-hardlink",
+    "physicalRoot": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+    "bodyCount": 13957,
+    "integrity": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\integrity.json",
+      "size": 1729333,
+      "sha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98"
+    },
+    "authorVerification": "exact membership, size, volume/fileId/mtime and samefile; no full body rehash",
+    "independentFinalReview": "hash every candidate asset body once against pinned integrity; no second author hash pass",
+    "forbid": [
+      "content writes",
+      "ReadOnly changes",
+      "ACL changes",
+      "timestamps/attributes changes",
+      "junction/symlink",
+      "deletion/replacement of original material"
+    ]
+  },
+  "receiptPath": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P38-delivery-execution-acceptance-r1.json",
+  "failurePolicy": "Exclusive candidate and execution roots. Preserve partial copies/hardlinks/output/logs on any failure, no retry, deletion, cleanup, in-place asset edit or fallback launcher. No runtime install. Stop and report.",
+  "protectedEntry": "r33",
+  "legacyR34Context": "Expected refusal text retained; not executed or repaired."
+}

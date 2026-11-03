@@ -1,0 +1,91 @@
+{
+  "status": "pass",
+  "qualification": "Synthetic inventory checks only; no completed_context and no receipts fabricated.",
+  "cases": 14,
+  "results": [
+    {
+      "name": "manifest-included-original-rows-preserved",
+      "status": "pass",
+      "oldCount": 7,
+      "newCount": 8
+    },
+    {
+      "name": "wrong-identity-productDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "runtime identity mismatch: productDllSha256"
+    },
+    {
+      "name": "missing-identity-productDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "exact lowercase SHA256 required"
+    },
+    {
+      "name": "wrong-identity-audioDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "runtime identity mismatch: audioDllSha256"
+    },
+    {
+      "name": "missing-identity-audioDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "exact lowercase SHA256 required"
+    },
+    {
+      "name": "wrong-identity-productManifestSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "runtime identity mismatch: productManifestSha256"
+    },
+    {
+      "name": "missing-identity-productManifestSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "exact lowercase SHA256 required"
+    },
+    {
+      "name": "wrong-identity-launcherDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "runtime identity mismatch: launcherDllSha256"
+    },
+    {
+      "name": "missing-identity-launcherDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "exact lowercase SHA256 required"
+    },
+    {
+      "name": "missing-inventory-target-productDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "required runtime identity target missing or misbound: build/client-product-r34/P11.ClientEngine.dll"
+    },
+    {
+      "name": "missing-inventory-target-audioDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "required runtime identity target missing or misbound: build/client-product-r34/P24.Audio.dll"
+    },
+    {
+      "name": "missing-file-productManifestSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "missing or unreadable JSON: D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-fix-r1\\synthetic-fixtures\\missing-file-productManifestSha256\\engine\\build\\product-r34-manifest.json"
+    },
+    {
+      "name": "missing-file-launcherDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "[WinError 2] 系統找不到指定的檔案。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P35-release-generator-rg2-fix-r1\\\\synthetic-fixtures\\\\missing-file-launcherDllSha256\\\\engine\\\\launcher\\\\P24.Launcher.dll'"
+    },
+    {
+      "name": "existing-case-collision",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "package collision: build/client-product-r34/p11.clientengine.dll"
+    }
+  ]
+}

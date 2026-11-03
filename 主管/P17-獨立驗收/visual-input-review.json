@@ -1,0 +1,26 @@
+{
+  "status": "pass",
+  "scope": "Actual WinForms controllers and WebView2 DOM, not external native keyboard injection",
+  "gameAndWebNamesCountsMatch": true,
+  "webUseCommands": 1,
+  "images": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P17-獨立驗收\\world-evidence\\inventory-supervisor-ui\\inventory-damaged-screen.png",
+      "sha256": "bd7fc3e7c69edcfbdad63cfe33232843fbcd8c3bdc6f81934cdc8f00016f55b7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P17-獨立驗收\\world-evidence\\inventory-supervisor-ui\\inventory-web-healing-screen.png",
+      "sha256": "ed682af3d8f7e9c00a2b61b4e3a3d4a2108e9d039291ba7987e45a4d10dac47c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P17-獨立驗收\\world-evidence\\inventory-supervisor-ui\\inventory-relogin-screen.png",
+      "sha256": "64e0e17f0a72a4a1e91a7cf913a14343d7affdf052bde75615e56bf30f998567"
+    }
+  ],
+  "observations": [
+    "Original own character, original map and werewolf visible during real damage; HP503/700 at damaged screenshot",
+    "After Web use both panels show potion2, gold3, scroll1, HP639/700",
+    "After relogin both panels show only gold3 and scroll1; ownHP700/700; potion absent",
+    "Web inventory stays visible after corrected scrollIntoView; names resolved from original table"
+  ]
+}

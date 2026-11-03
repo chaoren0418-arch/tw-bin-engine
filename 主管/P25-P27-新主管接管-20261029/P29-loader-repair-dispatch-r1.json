@@ -1,0 +1,40 @@
+{
+  "schema": "p29-harness-loader-repair-dispatch-v1",
+  "utc": "2026-10-29T05:29:40.856945+00:00",
+  "target": "01a185fe-5350-74c3-bfe6-96842287e610",
+  "activeTurn": "01a1861f-0049-7f20-93e6-15c24c6872d7",
+  "finding": "candidate-01 could not resolve P11.ClientEngine despite exact adjacent DLL; harness reference Private=false and deps contains only P29.Review",
+  "evidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\runs\\candidate-01\\runtime.command.json",
+      "size": 1305,
+      "sha256": "73b327e82e898894b96a62939f0619d2a5ec935f477bd15ef8b393babea3dcfe"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\runs\\candidate-01\\runtime.stderr",
+      "size": 315,
+      "sha256": "f43bd736de634c471c1b878487daca2a3583a85932fd0f46bf8e1425d6fe0b6e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\runs\\candidate-01\\harness\\bin\\P29.Review.deps.json",
+      "size": 424,
+      "sha256": "ffcc4c00acde74d5ec797d3a6f8ff4e63402b10caa78df08853ff952ee2210f3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\Review.csproj",
+      "size": 788,
+      "sha256": "d1748f0f3f02b5e5622ea02647a3fe22e727b724a54357f0118a76a1cd583867"
+    }
+  ],
+  "productDefectEstablished": false,
+  "scope": "independent repaired harness project/runner in runtime-review-r1/harness-fix-r1; correct actual dependency binding; preserve Probe logic/gates/expected fixtures; new candidate-02 once after preflight",
+  "candidateDispatch": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P29-candidate-review-dispatch-r1.json",
+    "size": 2059,
+    "sha256": "8cbdc3a55f6c003f241e12bb3a956dadf973c74c78a8cdc8128f15067da7466b"
+  },
+  "originalFailedAttemptPreserved": true,
+  "productBuildAllowed": false,
+  "sharedWritesAllowed": false,
+  "entryActivationAllowed": false
+}

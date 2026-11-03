@@ -1,0 +1,169 @@
+{
+  "status": "ready-for-safe-supervisor-switch",
+  "recordedUtc": "2026-10-27T13:45:12.017948+00:00",
+  "recordedLocal": "2026-10-27T21:45:12.017948+08:00",
+  "oldSupervisor": "01a1748a-d237-71a0-9323-60ad8462794c",
+  "parentSupervisor": "01a17953-d39f-7771-a4e7-7d84b1c0b038",
+  "successor": null,
+  "noNewDispatchSinceUtc": "2026-10-27 13:34:25 UTC",
+  "goalCurrent": null,
+  "goalRecreated": false,
+  "allWorkersIdleAndStopped": true,
+  "taskOwnedIdatProcesses": 0,
+  "workers": [
+    {
+      "id": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "turn": "01a17d7c-0967-7073-bbb2-4811abd43e2d",
+      "cursor": "449bd82b-584e-41f1-959e-1f4fd5e5e7e2:779",
+      "status": "idle",
+      "workStopped": true,
+      "writeRoot": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-effect6016-minimal-contract-r1",
+      "writeOwnership": "released-ready-for-successor-assignment",
+      "review": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-effect6016-minimal-contract-review\\root-review.json",
+        "size": 2578,
+        "sha256": "7b79d2094906dc9a7b2ac444c32974dd86c718d958cf04f306fff86ebbe5c304"
+      }
+    },
+    {
+      "id": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "turn": "01a17d87-2e14-7381-b1d1-aca4865a36db",
+      "cursor": "7067bea7-93db-4aaf-a670-9c1a4be84c4f:105",
+      "status": "idle",
+      "workStopped": true,
+      "writeRoot": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-6016-audio-module-r1",
+      "writeOwnership": "released-ready-for-successor-assignment",
+      "review": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-6016-audio-module-review\\root-review.json",
+        "size": 2354,
+        "sha256": "7aac0cf4c31b5e29797a992f5356537c8163b5749c4031b62ca61a4d1d4ea156"
+      }
+    },
+    {
+      "id": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turn": "01a17cff-3845-7dd2-b8e1-16c38c2bb539",
+      "cursor": "6ed7dba7-78cb-4d9d-9613-0d7cb8b486be:187",
+      "status": "idle",
+      "workStopped": true,
+      "role": "sole-integrator-no-new-dispatch"
+    }
+  ],
+  "formalProduct": "r27 release-integration-r11/delivery",
+  "productChanged": false,
+  "candidatesIntegrated": false,
+  "wholeP24Complete": false,
+  "handoffDocument": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-主管安全交接-20261027\\HANDOFF.md",
+  "next": "由父監督指定新主管與新Goal後接續：6016來源/明示自有時鐘契約及音訊隔離候選已覆核，可派事件控制器實作並由唯一整合者串行整合；再做native音訊與固定同版完整流程驗證。舊主管已停止新派工；r27未整合音訊候選，整體未完成。",
+  "writeOwnership": "Old supervisor ends writes after publishing this handoff. Parent must explicitly assign one successor before further supervisor writes/dispatch; no second live operator.",
+  "nextDeliverable": {
+    "id": "P24-6016-event-integration",
+    "status": "ready-for-successor-dispatch-not-started",
+    "baseline": "r27",
+    "scope": "Only effect6016; step-entry single candidate, preserved duplicate slot, generation cursor and per-ID cooldown; integrate reviewed native audio transport/WAVs in isolated next candidate.",
+    "sourceContract": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-effect6016-minimal-contract-r1\\contract.json",
+      "size": 13591,
+      "sha256": "f4fdfa8f342f58afed926142a5763d75b286644e2be7d3d628ddb1f98efd70aa"
+    },
+    "audioCandidateResult": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-6016-audio-module-r1\\result.json",
+      "size": 13063,
+      "sha256": "50e19c866542392eb5fb3b005e6af9532aa9ec854108a9f6c55820d0f0981da3"
+    },
+    "sourceReview": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-effect6016-minimal-contract-review\\root-review.json",
+      "size": 2578,
+      "sha256": "7b79d2094906dc9a7b2ac444c32974dd86c718d958cf04f306fff86ebbe5c304"
+    },
+    "audioReview": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-6016-audio-module-review\\root-review.json",
+      "size": 2354,
+      "sha256": "7aac0cf4c31b5e29797a992f5356537c8163b5749c4031b62ca61a4d1d4ea156"
+    },
+    "limitations": [
+      "Original scheduler/highlight/loader internals not equivalent",
+      "Transport gain/master mute not implemented; host gating must be explicit",
+      "Native playback/device/overlap/close not tested"
+    ],
+    "authority": "No new round by retiring root; successor assigned by parent after handoff."
+  },
+  "artifactPins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-effect6016-minimal-contract-r1\\contract.json",
+      "size": 13591,
+      "sha256": "f4fdfa8f342f58afed926142a5763d75b286644e2be7d3d628ddb1f98efd70aa"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-effect6016-minimal-contract-r1\\result.json",
+      "size": 10219,
+      "sha256": "756bcf4337354fefe7c21bfa9ad3a6231ef0bd5314b0bd31c195b88b5535d5eb"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-effect6016-minimal-contract-r1\\HANDOFF.md",
+      "size": 3600,
+      "sha256": "bd759a178f34c1efcdc90d2c4e6aa093228901524c3571a171d71c2d60f04324"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-effect6016-minimal-contract-r1\\artifact-manifest.json",
+      "size": 21226,
+      "sha256": "c808879a229dd237a2effecd366bd74cfd0fae1362a74b7757388674bd7f31d4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-6016-audio-module-r1\\result.json",
+      "size": 13063,
+      "sha256": "50e19c866542392eb5fb3b005e6af9532aa9ec854108a9f6c55820d0f0981da3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-6016-audio-module-r1\\HANDOFF.md",
+      "size": 4385,
+      "sha256": "1812a8e356ac8f49d70e58b814deee252fff77d656c4d143b42cbb5328245b68"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-6016-audio-module-r1\\API.md",
+      "size": 6702,
+      "sha256": "b3ed2b335128571c4e4ec64a14f52b855e7025b6c4fac87f72d487ba8ad5bf0b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-6016-audio-module-r1\\candidate-manifest.json",
+      "size": 5010,
+      "sha256": "21661fa5d7940069f19fda18a300274bf0c06b3f0e97936689556b4ce38cb94a"
+    }
+  ],
+  "handoffDocumentPin": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-主管安全交接-20261027\\HANDOFF.md",
+    "size": 11556,
+    "sha256": "7e57ab4a91f363546395e9c74f57398d24004c1df477298d669ac2de62428a59"
+  },
+  "agentsPin": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+    "size": 3123,
+    "sha256": "f6a09ebe7ea97626b5df8f86d3c654c6b175e8dc6e14c7a604dbaf26bf0a837b"
+  },
+  "currentSummaryPins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\state.json",
+      "size": 106342,
+      "sha256": "948b4d8fb02b774d2914e0d2026d186128e3727dbd5a2904a8eced7fdacd1dfb"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\主管接續最新檢查點.json",
+      "size": 97350,
+      "sha256": "c536cf3c3c22f64c20375b14f49ea95bf63e7049ed4d8bfb687845d3411fec34"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\完整引擎未完成項目.json",
+      "size": 13521,
+      "sha256": "2f354471fc60d9b42f63c2a2d3c126812dc0ff3807d9cee8a85c65647047e37e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-completion-matrix.json",
+      "size": 38968,
+      "sha256": "a2300db2fa040bb34e630eee417fd3ee240d61314b7d432e4802da865146b6e8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\完整引擎完成矩陣-20261026.md",
+      "size": 5510,
+      "sha256": "c955696f49e3a5213dacf9d1419d75c695f5d69d41be70c5e9ebf49eb1376fc0"
+    }
+  ]
+}

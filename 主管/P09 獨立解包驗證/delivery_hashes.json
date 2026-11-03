@@ -1,0 +1,13 @@
+{
+  "schema": "p09-package-envelope-v1",
+  "envelopes": [
+    {
+      "path": "manifest.json",
+      "sha256": "dd159bc9e6ea1b196b228b76530e92a8304c22853e7cbc1e69fa172d4d66a9af"
+    },
+    {
+      "path": "result.json",
+      "sha256": "60d910db399ea40779d61cdd188ad209fd117da0c3e62c3a2f1fa47611136731"
+    }
+  ]
+}

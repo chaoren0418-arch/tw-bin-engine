@@ -1,0 +1,1046 @@
+{
+  "schema": "p25-module-map-v1",
+  "phase": "P25",
+  "baseline": "r33",
+  "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+  "productIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "modules": [
+    {
+      "id": "M01",
+      "name": "入口、登入與通訊",
+      "status": "r33 bounded implementation; native acceptance not established for r33",
+      "sourcePaths": [
+        "engine/source/ProductEntry.cs",
+        "engine/source/Program.cs",
+        "engine/source/LoginControl.cs",
+        "engine/source/LoginConnection.cs",
+        "engine/source/LoginProtocol.cs",
+        "engine/source/ClientLogin.cs",
+        "engine/source/ClientNetwork.cs",
+        "engine/source/Network.cs",
+        "engine/source/Protocol.cs"
+      ],
+      "codeEvidence": [
+        {
+          "path": "engine/source/ProductEntry.cs",
+          "line": 7,
+          "symbolOrText": "public static bool Normal",
+          "excerpt": "public static bool Normal(string[] args){if(args.Contains(\"--normal-product\")){if(args.Length!=1)throw new ArgumentException(\"正常入口不接受診斷或自動登入參數。\");return true;}return args.Length==0;}"
+        },
+        {
+          "path": "engine/source/LoginConnection.cs",
+          "line": 43,
+          "symbolOrText": "sendMovementGate=async",
+          "excerpt": "sendMovementGate=async (bytes,valid,admit)=>{await sendLock.WaitAsync(cts.Token);try{if(epoch!=generation||!valid())return false;admit();await stream.WriteAsync(LoginFrames.Wrap(outgoing!.Transform(bytes,true)),cts.Token);Sent(bytes);return true;}finally{sendLock.Release();}};"
+        },
+        {
+          "path": "engine/source/LoginConnection.cs",
+          "line": 62,
+          "symbolOrText": "ApplyWorldPacket",
+          "excerpt": "if(epoch!=generation)return;long reportsBefore=World.AttackReports;ApplyWorldPacket(plain,worldSelection!,sequence);ApplyCombatAcknowledgement(reportsBefore);AppliedPacketSequence=sequence;if(World.TradeCancelRequired)_=CancelChangedTrade();if(World.TeleportAckPending)_=AcknowledgeTeleport();"
+        },
+        {
+          "path": "engine/source/ClientLogin.cs",
+          "line": 37,
+          "symbolOrText": "BeforeLoginStart",
+          "excerpt": "loginControl=new(login,BeforeLoginStart,()=>{ClearInput(\"offline-preview\");World.ResetOfflinePreview();ReturnGameFocus();});"
+        }
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "dataFlow": [
+        "root CMD → sealed r33 launcher → manifest verification → --normal-product → ClientForm",
+        "native LoginControl / web login command → generation/revision gate → LoginConnection loopback handshake → character list → WorldEntry",
+        "send lock serializes encrypted frame writes; received packet sequence → WorldSession → UI snapshot",
+        "P07 HeadingConnection remains a separate fixture/offline demonstration path; it is not the production login transport"
+      ],
+      "dependencies": [
+        "M02",
+        "M10",
+        ".NET 10 Windows Desktop x64",
+        "WebView2 SDK/runtime",
+        "existing loopback service profile; no service access in P25"
+      ],
+      "existingVerification": [
+        "R01/R02 historical r22/r27/r28 native login and save/relogin claims retained",
+        "r33 formal receipt and launcher/source pins"
+      ],
+      "unknown": [
+        "r33 same-version normal login/save/relogin native evidence",
+        "original BIN full protocol and other service-version compatibility"
+      ],
+      "nextStep": "retain current login wiring; supervisor schedules same-version bounded native sequence when authorized",
+      "completionCriteria": [
+        "fixed entry, DLL and source pins agree",
+        "normal manual login/character/world/cancel/disconnect/relogin receipts on selected final release",
+        "no stale session may apply packets after cancellation"
+      ],
+      "handoffPhases": [
+        "P11–P14 historical",
+        "P25 baseline",
+        "supervisor native acceptance"
+      ]
+    },
+    {
+      "id": "M02",
+      "name": "世界、物件與跨圖生命週期",
+      "status": "r33 bounded implementation; native acceptance not established for r33",
+      "sourcePaths": [
+        "engine/source/WorldSession.cs",
+        "engine/source/WorldEntry.cs",
+        "engine/source/WorldObjects.cs",
+        "engine/source/ObjectPresence.cs",
+        "engine/source/OriginalMapCache.cs",
+        "engine/source/MapResources.cs",
+        "engine/source/Teleport.cs",
+        "engine/source/ShipTravel.cs",
+        "engine/source/OpacityIntegration.cs",
+        "engine/source/World.cs"
+      ],
+      "codeEvidence": [
+        {
+          "path": "engine/source/WorldSession.cs",
+          "line": 24,
+          "symbolOrText": "public bool Renderable",
+          "excerpt": "public bool Renderable=>Ready&&!TeleportPending&&SupportedMap&&SupportedAppearance;"
+        },
+        {
+          "path": "engine/source/WorldSession.cs",
+          "line": 37,
+          "symbolOrText": "case 206:",
+          "excerpt": "case 206:Clear6016(SceneClock());var map=r.H();var water=r.C()!=0;r.Finish();ClearObjects();Actor=null;ResetSpeedStatus();ResetMovement();ResetCombat();ClearMagicEffects();MapId=map;Underwater=water;MapArrived();break;"
+        },
+        {
+          "path": "engine/source/WorldEntry.cs",
+          "line": 46,
+          "symbolOrText": "ResetItemSend();ResetGroundSend();",
+          "excerpt": "try{World.Receive(plain,selected);if(itemWorld!=World.WorldEpoch||itemActor!=World.Actor?.ObjectId){ResetItemSend();ResetGroundSend();}}"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 97,
+          "symbolOrText": "public void Shift",
+          "excerpt": "public void Shift(int d){if(d is <0 or >7)throw new ArgumentOutOfRangeException();int a=SourceA[d],b=SourceB[d],c=DestA[d],e=DestB[d];var before=new[]{OriginX,OriginY};int[] evicted=(d&1)!=0?[c,b,e]:[c,e];foreach(int s in evicted){Evicting?.Invoke(Slots[s]!);Events.Add(new{kind=\"evict\",slot=s,block=Slots[s]!.Name,generation=Slots[s]!.Generation});ClearRectangle(s);Slots[s]=null;}"
+        },
+        {
+          "path": "engine/source/Teleport.cs",
+          "line": 11,
+          "symbolOrText": "public bool ActionLocked",
+          "excerpt": "public bool ActionLocked=>BasicSupplyPending||ShipPending||TeleportPending||paralysis.Count>0||CacheEnabled&&MapResourceState!=\"ready\";"
+        }
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "dataFlow": [
+        "server status/map/self packets → WorldSession CoreComplete/time reply → Ready/Renderable",
+        "map-load request → async local resource load → generation/current-request check → commit",
+        "authoritative actor → 2×2 cache shift/retained block identity → eviction callbacks → opacity/effect reset",
+        "map/world/actor replacement resets item/ground sender ownership; teleport/ship pending gates actions"
+      ],
+      "dependencies": [
+        "M01",
+        "M08",
+        "M09",
+        "pinned map bounds/terrain/resources"
+      ],
+      "existingVerification": [
+        "R12/R13/R14 historical native routes with explicit failures and partial results",
+        "MAP-F1/F2/F3 existing offline review",
+        "r33 Ground/WorldEntry lifecycle accepted offline"
+      ],
+      "unknown": [
+        "r33 continuous cross-map/cache-return native acceptance",
+        "all maps/formats not supported",
+        "original BIN complete actor scheduler/lifecycle equivalence"
+      ],
+      "nextStep": "use existing lifecycle fences; separate unsupported-source work from native route acceptance; do not repeat known unsafe routes",
+      "completionCriteria": [
+        "same-release supported map entry/move/return clears stale visuals/actions",
+        "retained blocks keep timing; evicted generations cannot dispatch late work",
+        "unsupported formats refuse with source identity"
+      ],
+      "handoffPhases": [
+        "P13/P15/P23/P24 historical",
+        "P25 baseline",
+        "P26 ground boundary"
+      ]
+    },
+    {
+      "id": "M03",
+      "name": "移動、指標與鍵盤焦點",
+      "status": "r33 bounded implementation; native acceptance not established for r33",
+      "sourcePaths": [
+        "engine/source/OnlineMovement.cs",
+        "engine/source/OnlineInput.cs",
+        "engine/source/KeyboardNavigation.cs",
+        "engine/source/PlayerPointer.cs",
+        "engine/source/PlayerPointerUi.cs",
+        "engine/source/PlayerPointerHud.cs",
+        "engine/source/PlayerChatKeyboardFlow.cs",
+        "engine/source/NormalHaste.cs",
+        "engine/source/NativeFocusDiagnostics.cs"
+      ],
+      "codeEvidence": [
+        {
+          "path": "engine/source/OnlineMovement.cs",
+          "line": 45,
+          "symbolOrText": "public bool MovementAvailable",
+          "excerpt": "public bool MovementAvailable=>State==LoginState.InWorld&&!World.ActionLocked&&!World.TradeBlocksActions&&World.Renderable&&!World.OwnDead&&World.Status?.Hp>0&&World.Actor is {} speedActor&&NormalSpeed.Supported(speedActor.Speed,speedActor.Brave);"
+        },
+        {
+          "path": "engine/source/OnlineMovement.cs",
+          "line": 26,
+          "symbolOrText": "無逐步 ACK",
+          "excerpt": "internal void Predict(int x,int y,int h,bool step){pendingAction=null;OwnCombat=null;Actor=Actor! with{X=(ushort)x,Y=(ushort)y,Direction=(byte)h};if(step){PredictedSteps++;UpdateOpacity();}else PredictedTurns++;MotionNotice=step?\"已送出步行；本地預測（無逐步 ACK）\":\"已送出轉向；本地預測\";}"
+        },
+        {
+          "path": "engine/source/PlayerPointer.cs",
+          "line": 5,
+          "symbolOrText": "public const int MaxDistance",
+          "excerpt": "public const int MaxDistance=64,MaxSteps=128,MaxExpanded=8192;"
+        },
+        {
+          "path": "engine/source/PlayerPointer.cs",
+          "line": 41,
+          "symbolOrText": "bool Current(Stamp s)",
+          "excerpt": "bool Current(Stamp s)=>focused()&&login.MovementAvailable&&s==Capture();"
+        },
+        {
+          "path": "engine/source/PlayerChatKeyboardFlow.cs",
+          "line": 25,
+          "symbolOrText": "ProcessPlayerChatKeyboard",
+          "excerpt": "bool ProcessPlayerChatKeyboard(ref Message msg,Keys keyData){"
+        }
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P27",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "dataFlow": [
+        "WinForms key/mouse → GameInputAllowed and HUD/chat ownership → online key or pointer controller",
+        "bounded A* plans only loaded terrain; occupancy rechecked before each PointerMove send",
+        "input/session/world/appearance/speed/correction stamps fence admission; server correction remains authoritative",
+        "normal/haste/slow movement uses separate native-animation and server-interval rounding"
+      ],
+      "dependencies": [
+        "M01",
+        "M02",
+        "M10",
+        "M04 action gates"
+      ],
+      "existingVerification": [
+        "r29 slow-walk/object-render offline acceptance",
+        "R22 pointer integration review; native pointer unaccepted",
+        "R23 r27 native chat evidence, not r33",
+        "MovementUiTests source exists; not rerun"
+      ],
+      "unknown": [
+        "native pixel/mouse geometry/focus at r33",
+        "complete IME and original DirectInput equivalence",
+        "bounded static inspection is not proof of every event ordering"
+      ],
+      "nextStep": "P27 reviews reproducible independent UI/input defects and produces same-version native plan; do not label missing native evidence a bug",
+      "completionCriteria": [
+        "P27 findings carry exact base pins and reproducible trigger",
+        "native focus/chat/Web/HUD/keyboard/pointer routing verified on final version",
+        "no hidden input movement or stale route after cancellation"
+      ],
+      "handoffPhases": [
+        "P06/P14 historical",
+        "P27 review/candidate",
+        "supervisor native acceptance"
+      ]
+    },
+    {
+      "id": "M04",
+      "name": "戰鬥、遠程、技能與獎勵",
+      "status": "r33 bounded implementation; native acceptance not established for r33",
+      "sourcePaths": [
+        "engine/source/Combat.cs",
+        "engine/source/ActionCadence.cs",
+        "engine/source/Ranged.cs",
+        "engine/source/RangedIntegration.cs",
+        "engine/source/Magic.cs",
+        "engine/source/MagicSpells.cs",
+        "engine/source/MagicStatus.cs",
+        "engine/source/MagicTargetPreparation.cs",
+        "engine/source/Rewards.cs",
+        "engine/source/RewardIntegration.cs",
+        "engine/source/OriginalExpTable.cs",
+        "engine/source/ProjectileRendering.cs"
+      ],
+      "codeEvidence": [
+        {
+          "path": "engine/source/ActionCadence.cs",
+          "line": 22,
+          "symbolOrText": "public static ActionCadence Capture",
+          "excerpt": "public static ActionCadence Capture(int gfx,int weapon,int action,byte speed,byte brave,int reuse=0,int margin=0){"
+        },
+        {
+          "path": "engine/source/ActionCadence.cs",
+          "line": 94,
+          "symbolOrText": "bool ActionAdmissionReady",
+          "excerpt": "bool ActionAdmissionReady=>!movementSending&&!itemSending&&!groundSending&&!GroundBusy&&!ItemBusy&&MovementClock()>=MovementReadyAt&&ActionClock()>=nextCombatAt&&ActionClock()>=nextMagicAt;"
+        },
+        {
+          "path": "engine/source/MagicSpells.cs",
+          "line": 8,
+          "symbolOrText": "new[]{1,3,4,8}",
+          "excerpt": "if(!rows.Keys.Order().SequenceEqual(new[]{1,3,4,8})||rows.Values.Any(s=>s.Action is not (18 or 19)||s.Wire is not (\"D\" or \"DHH\")||s.Mp<0||s.ReuseMs<0))throw new InvalidDataException(\"Unsupported casting profile\");"
+        },
+        {
+          "path": "engine/source/ActionCadence.cs",
+          "line": 72,
+          "symbolOrText": "pending.Epoch==WorldEpoch",
+          "excerpt": "if(!OwnDead&&pending.Epoch==WorldEpoch&&pending.Appearance==AppearanceRevision&&pending.Correction==Corrections&&pending.Animation.Action==action&&(target==null||target==pending.Target)&&pending.Animation.Timing?.Matches(own.Gfx,own.Weapon)==true)"
+        }
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "dataFlow": [
+        "target/skill selection → admission gates → C packets → server attack/magic/status/reward replies",
+        "captured action timing → predicted animation → matching authoritative reply preserves valid timing; changed epoch/appearance/correction rejects reuse",
+        "reward packets update EXP; damage/loot outcomes are not inferred from local animation"
+      ],
+      "dependencies": [
+        "M01",
+        "M02",
+        "M05",
+        "M08",
+        "supported appearance/action metadata"
+      ],
+      "existingVerification": [
+        "r30 slow attacks and skills1/3/4/8 offline acceptance",
+        "r31 haste per-frame rounding/deadline highwater offline acceptance",
+        "R03/R04 historical r20–r28 native claims retained"
+      ],
+      "unknown": [
+        "other skills, action types, Brave modes and full item/monster content",
+        "r33 native continuity and natural loot",
+        "original complete combat behavior"
+      ],
+      "nextStep": "accept only supported action set; supervisor fixes final version for combat/skill/reward native sequence",
+      "completionCriteria": [
+        "server reply and saved result agree for bounded normal/haste/slow supported actions",
+        "admission/animation/reuse timing gates survive lifecycle changes",
+        "unsupported content is explicitly refused"
+      ],
+      "handoffPhases": [
+        "P16/P19/P21/P22 historical",
+        "P25 baseline",
+        "future bounded content contract"
+      ]
+    },
+    {
+      "id": "M05",
+      "name": "物品、裝備與基本補給",
+      "status": "r33 bounded implementation; native acceptance not established for r33",
+      "sourcePaths": [
+        "engine/source/Inventory.cs",
+        "engine/source/InventoryIntegration.cs",
+        "engine/source/InventoryUi.cs",
+        "engine/source/Equipment.cs",
+        "engine/source/EquipmentIntegration.cs",
+        "engine/source/BasicSupplies.cs",
+        "engine/source/BonusStats.cs",
+        "engine/source/BonusStatsUi.cs"
+      ],
+      "codeEvidence": [
+        {
+          "path": "engine/source/Inventory.cs",
+          "line": 111,
+          "symbolOrText": "UseSelectedItem",
+          "excerpt": "public async Task<bool> UseSelectedItem(){"
+        },
+        {
+          "path": "engine/source/Inventory.cs",
+          "line": 113,
+          "symbolOrText": "Slow",
+          "excerpt": "if(!ItemAvailable||ItemBusy||MovementBusy||sendMovementGate==null){World.ItemNotice=SlowActionsBlocked&&World.SelectedItem?.SupportedHastePotion!=true?SlowActionNotice:\"未送出：道具／速度未支援、忙碌或已耗盡\";return false;}"
+        },
+        {
+          "path": "engine/source/Equipment.cs",
+          "line": 36,
+          "symbolOrText": "ReceiveEquipment",
+          "excerpt": "bool ReceiveEquipment(byte opcode,LoginReader r,byte[] plain){"
+        },
+        {
+          "path": "engine/source/BasicSupplies.cs",
+          "line": 5,
+          "symbolOrText": "BasicSupply",
+          "excerpt": "InventoryItem? pendingBasicSupply;int basicSupplyEpoch;long basicSupplyAt;"
+        }
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "dataFlow": [
+        "native HUD/web selection → item identity/epoch/revision → item sender → inventory/equipment/supply replies",
+        "ordinary haste potion has exact slow-state qualification; this does not open every slow utility action",
+        "bonus stat submission is server-authoritative; historical Strength acceptance does not prove all choices"
+      ],
+      "dependencies": [
+        "M01",
+        "M02",
+        "M04",
+        "M10",
+        "pinned icons/item profiles"
+      ],
+      "existingVerification": [
+        "r32 exact ordinary haste-potion slow exception accepted offline",
+        "R02/R05/R17 r28 item/equip/Strength/save claims preserved",
+        "inventory layout/test source only; not rerun"
+      ],
+      "unknown": [
+        "all item categories and attribute choices",
+        "r33 native item/equipment/save loop",
+        "remaining slow utility source/semantic qualifications"
+      ],
+      "nextStep": "retain exact r32 allowlist; select additional utility only with source contract; keep native validation separately queued",
+      "completionCriteria": [
+        "selected item count and identity remain current at send",
+        "reply/save/relogin agree on same final version",
+        "no expansion of slow qualification from unrelated tests"
+      ],
+      "handoffPhases": [
+        "P17/P20 historical",
+        "P25 baseline",
+        "supervisor bounded follow-up"
+      ]
+    },
+    {
+      "id": "M06",
+      "name": "地面拾取與丟棄",
+      "status": "r33 bounded implementation; native acceptance not established for r33",
+      "sourcePaths": [
+        "engine/source/Ground.cs",
+        "engine/source/GroundIntegration.cs",
+        "engine/source/GroundUi.cs",
+        "engine/source/GroundRendering.cs",
+        "engine/source/GroundTransfer.cs",
+        "engine/source/WorldEntry.cs"
+      ],
+      "codeEvidence": [
+        {
+          "path": "engine/source/Ground.cs",
+          "line": 53,
+          "symbolOrText": "GroundClickGuardMs=900",
+          "excerpt": "public const int GroundClickGuardMs=900;"
+        },
+        {
+          "path": "engine/source/Ground.cs",
+          "line": 71,
+          "symbolOrText": "bool CurrentOwner()",
+          "excerpt": "bool CurrentOwner()=>epoch==generation&&we==World.WorldEpoch&&World.Actor?.ObjectId==actor!.ObjectId&&lease==groundLease;"
+        },
+        {
+          "path": "engine/source/Ground.cs",
+          "line": 32,
+          "symbolOrText": "TrackPickupRequest",
+          "excerpt": "internal void TrackPickupRequest(GroundItem item){if(Actor is {} a)pendingPickup=(a.X,a.Y,item.X,item.Y,a.Direction,WorldEpoch,Environment.TickCount64+3000);}"
+        },
+        {
+          "path": "engine/source/WorldEntry.cs",
+          "line": 46,
+          "symbolOrText": "ResetItemSend();ResetGroundSend();",
+          "excerpt": "try{World.Receive(plain,selected);if(itemWorld!=World.WorldEpoch||itemActor!=World.Actor?.ObjectId){ResetItemSend();ResetGroundSend();}}"
+        }
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P26",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "dataFlow": [
+        "ground packet → strict GroundRules identity → selection → gated C112 pickup/C25 drop",
+        "session/world/actor/lease ownership guards admission, completion, catch/finally; valid early reply survives",
+        "own original action15 + pending pickup updates heading; inventory/ground replies determine outcome",
+        "r33 does not contain r34 own authoritative pickup presentation extension"
+      ],
+      "dependencies": [
+        "M01",
+        "M02",
+        "M03",
+        "M05",
+        "M08"
+      ],
+      "existingVerification": [
+        "r33 lifecycle offline accepted; 900ms click and 3000ms outcome guards retained",
+        "R05 r28 one-meat native drop/P-pickup is historical",
+        "r34 stage accepted separately, not canonical"
+      ],
+      "unknown": [
+        "r33 native pickup after lifecycle transitions",
+        "r34 final canonical integration",
+        "41 additional profiles only planned; slow pickup still not qualified"
+      ],
+      "nextStep": "P26 reviews exact r34 plan/gates and profile expansion inputs; only original integrator may execute new supervisor receipt",
+      "completionCriteria": [
+        "P26 review resolves exact plan/stage/base identity and supervisor handover gate",
+        "canonical build/acceptance and release/entry separately proved before naming r34 formal",
+        "native and profile qualifications remain independent"
+      ],
+      "handoffPhases": [
+        "P18 historical",
+        "P26 review",
+        "original integrator canonical work"
+      ]
+    },
+    {
+      "id": "M07",
+      "name": "NPC、交易、倉庫、私商與場景服務",
+      "status": "r33 bounded implementation; native acceptance not established for r33",
+      "sourcePaths": [
+        "engine/source/NpcInteraction.cs",
+        "engine/source/NpcServices.cs",
+        "engine/source/NpcTemplates.cs",
+        "engine/source/NpcUi.cs",
+        "engine/source/Trade.cs",
+        "engine/source/TradeUi.cs",
+        "engine/source/PrivateShop.cs",
+        "engine/source/PrivateShopUi.cs",
+        "engine/source/ShipTravel.cs",
+        "engine/source/Teleport.cs"
+      ],
+      "codeEvidence": [
+        {
+          "path": "engine/source/NpcInteraction.cs",
+          "line": 68,
+          "symbolOrText": "async Task<bool> InteractCore",
+          "excerpt": "async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){"
+        },
+        {
+          "path": "engine/source/Trade.cs",
+          "line": 63,
+          "symbolOrText": "public async Task<bool> Trade",
+          "excerpt": "public async Task<bool> Trade(string command,int revision,int epoch,int tradeGeneration,uint item=0,uint count=0){"
+        },
+        {
+          "path": "engine/source/PrivateShop.cs",
+          "line": 93,
+          "symbolOrText": "public async Task<PrivateShopResult> SendPrivateShop",
+          "excerpt": "public async Task<PrivateShopResult> SendPrivateShop(bool query,bool sell,int row,uint count,PrivateShopView stamp){"
+        }
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "dataFlow": [
+        "target + revision + epoch → finite NPC template/options/shop rows → serialized send → original service replies",
+        "trade generation and lease protect offer/confirm/cancel; private-shop stamp protects query/row/count",
+        "inn/ship/teleport service responses feed M02 lifecycle; client does not create server resources"
+      ],
+      "dependencies": [
+        "M01",
+        "M02",
+        "M05",
+        "M10",
+        "existing eligible service/resource conditions"
+      ],
+      "existingVerification": [
+        "R06–R15 historical per-version service claims and failures retained",
+        "r28 inn room is partial; conference hall not retested",
+        "static sender methods inspected, no DB/service calls"
+      ],
+      "unknown": [
+        "r33 same-version purchases/trade/warehouse/private-shop native results",
+        "positive NPC sale/private repurchase prerequisites",
+        "historical exact key expiry moment unrecoverable"
+      ],
+      "nextStep": "retain implemented service wiring; supervisor queues only legitimate available conditions without data manufacturing",
+      "completionCriteria": [
+        "request, original response and item/currency preservation reconciled on final version",
+        "missing conditions explicitly recorded",
+        "historical evidence never rewritten as a new version result"
+      ],
+      "handoffPhases": [
+        "P17–P24 historical",
+        "P25 baseline",
+        "supervisor native/resource coordination"
+      ]
+    },
+    {
+      "id": "M08",
+      "name": "渲染、資源、外觀與遮擋",
+      "status": "r33 bounded implementation; native acceptance not established for r33",
+      "sourcePaths": [
+        "engine/source/Assets.cs",
+        "engine/source/Renderer.cs",
+        "engine/source/ObjectAssets.cs",
+        "engine/source/ObjectRendering.cs",
+        "engine/source/PlayerProfiles.cs",
+        "engine/source/PlayerShadows.cs",
+        "engine/source/MapEffects.cs",
+        "engine/source/OpacityRendering.cs",
+        "engine/source/SceneOpacity.cs",
+        "engine/source/ShipBackdrop.cs",
+        "engine/source/MagicRendering.cs"
+      ],
+      "codeEvidence": [
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 32,
+          "symbolOrText": "Zero RGB555 is a valid black pixel",
+          "excerpt": "// Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel."
+        },
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 48,
+          "symbolOrText": "public static void Blit",
+          "excerpt": "public static void Blit(Draw c,Rectangle r,ushort[] colors,bool[] mask,int[]? owners,uint?[]? entityOwners=null,OpacityValue? opacity=null) {"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 49,
+          "symbolOrText": "Unresolved extended map effect field",
+          "excerpt": "if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException(\"Nonzero map-local effects require map provider: \"+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException(\"Unresolved extended map effect field: \"+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException(\"map effect outside owning block\");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}"
+        },
+        {
+          "path": "engine/source/PlayerProfiles.cs",
+          "line": 21,
+          "symbolOrText": "public static ObjectAppearance Load",
+          "excerpt": "public static ObjectAppearance Load(string root,PlayerProfile profile){"
+        }
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "dataFlow": [
+        "pinned packaged assets → schema/hash validation → original SPR/tile commands and profiles",
+        "cache scene + dynamic actors/effects/shadows → ordered RGB555 sparse-mask compositor → WinForms surface",
+        "group/trigger opacity applies supported scene paths; local-effect group association is not generalized"
+      ],
+      "dependencies": [
+        "M02",
+        "M04",
+        "M06",
+        "M09",
+        "immutable engine/assets junction to r28 assets"
+      ],
+      "existingVerification": [
+        "MAP-F1/F3/F8 historical offline source/pixel/package review",
+        "R21 shadow compositor coverage review",
+        "r33 source manifest matches sealed release; not full pixel rerun"
+      ],
+      "unknown": [
+        "MAP-F4 real nonzero group/actor association",
+        "MAP-F6/F7 unsupported metadata/format/content sources",
+        "r33 complete native pixels/shadow/map effects"
+      ],
+      "nextStep": "keep strict rejection; dispatch only specified missing resource/semantic IDs; P26 owns proposed pickup-profile boundary review",
+      "completionCriteria": [
+        "supported sources individually pinned and provenance known",
+        "unsupported formats remain explicit; no generic completion claim",
+        "same-version native composition acceptance separate from offline pixel evidence"
+      ],
+      "handoffPhases": [
+        "P02–P06/P20/P23/P24 historical",
+        "P25 baseline",
+        "P26 pickup profiles"
+      ]
+    },
+    {
+      "id": "M09",
+      "name": "6016 控制器與音訊",
+      "status": "r33 bounded implementation; native acceptance not established for r33",
+      "sourcePaths": [
+        "engine/source/ClientEffect6016.cs",
+        "engine/source/WorldEffect6016.cs",
+        "engine/source/Effect6016Definition.cs",
+        "engine/source/Effect6016Controller.cs",
+        "engine/source/Effect6016Host.cs",
+        "engine/source/AudioApiTransport.cs",
+        "engine/source/ClientAudioSettings.cs",
+        "engine/source/PlayerAudioSettings.cs",
+        "engine/audio/AudioAssets.cs",
+        "engine/audio/AudioCore.cs",
+        "engine/audio/AudioPlayer.cs",
+        "engine/audio/DirectShowDriver.cs",
+        "engine/audio/DirectShowInterop.cs"
+      ],
+      "codeEvidence": [
+        {
+          "path": "engine/source/ClientEffect6016.cs",
+          "line": 45,
+          "symbolOrText": "void Pump6016()",
+          "excerpt": "void Pump6016(){"
+        },
+        {
+          "path": "engine/source/WorldEffect6016.cs",
+          "line": 9,
+          "symbolOrText": "void Evict6016",
+          "excerpt": "void Evict6016(OriginalMapBlock block)=>Effects6016?.RetireLifetime(block,SceneClock());"
+        },
+        {
+          "path": "engine/audio/AudioCore.cs",
+          "line": 74,
+          "symbolOrText": "soundId is not (3332 or 1340)",
+          "excerpt": "if (soundId is not (3332 or 1340)) return Reply(false, \"IdNotAllowed\"); // full int; never narrowed to byte"
+        },
+        {
+          "path": "engine/audio/AudioCore.cs",
+          "line": 118,
+          "symbolOrText": "not proof of audible output",
+          "excerpt": "events.Add(new(\"PlaySubmitted\", ext, \"Native command accepted; not proof of audible output\"));"
+        }
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "dataFlow": [
+        "map-block placement/lifetime → 6016 controller frame/candidate event → host lane + world/control gate",
+        "audio transport → one command-thread AudioCore → allowed3332/1340 asset lease → DirectShow driver",
+        "gain/mute/retire/close gates precede dispatch; MP3/WAV fallback distinguishes missing/format vs platform errors",
+        "cache eviction and login/form shutdown retire owner generations; pending cleanup retains ownership"
+      ],
+      "dependencies": [
+        "M02",
+        "M08",
+        "M10",
+        "Windows DirectShow/device",
+        "pinned 6016 metadata and audio manifest"
+      ],
+      "existingVerification": [
+        "old matrix current6016: controller/audio-r3/host-r3 integrated r28",
+        "historical standalone own-PID signal measurement is not formal world audio",
+        "r33 audio DLL equals accepted lineage"
+      ],
+      "unknown": [
+        "formal same-version world6016 native audible/device/overlap/retirement acceptance",
+        "other137 event-token semantics",
+        "original scheduler/highlight/loader equivalence"
+      ],
+      "nextStep": "close stale 6016 not-integrated claim at documentation level; retain actual native/world and other-token work separately",
+      "completionCriteria": [
+        "fixed formal world triggers actual audible output with controls and retirement",
+        "device failure and close behavior recorded",
+        "no other event token promoted from6016 acceptance"
+      ],
+      "handoffPhases": [
+        "P24 6016 lineage",
+        "P25 stale-state reconciliation",
+        "supervisor native audio"
+      ]
+    },
+    {
+      "id": "M10",
+      "name": "WebView2、HUD 與聊天介面",
+      "status": "r33 bounded implementation; native acceptance not established for r33",
+      "sourcePaths": [
+        "engine/source/WebPanel.cs",
+        "engine/source/PlayerHudModel.cs",
+        "engine/source/PlayerHudView.cs",
+        "engine/source/PlayerHudIntegration.cs",
+        "engine/source/PlayerHudServices.cs",
+        "engine/source/PlayerHudChat.cs",
+        "engine/source/PlayerChat.cs",
+        "engine/source/PlayerChatKeyboardFlow.cs",
+        "engine/web/index.html",
+        "engine/web/panel.js",
+        "engine/web/login.js",
+        "engine/web/interaction.js",
+        "engine/web/trade.js",
+        "engine/web/private-shop.js",
+        "engine/web/bonus-stats.js",
+        "engine/web/panel.css"
+      ],
+      "codeEvidence": [
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 15,
+          "symbolOrText": "bool GameInputAllowed",
+          "excerpt": "bool GameInputAllowed=>gameFocus&&!PlayerChatFocused&&!(web?.ContainsFocus??false)&&ActiveForm==this;"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 74,
+          "symbolOrText": "raw.Length>32768",
+          "excerpt": "if(source!=LocalPage||raw.Length>32768)throw new FormatException(\"origin or size\");"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 133,
+          "symbolOrText": "async Task ClosePanel()",
+          "excerpt": "async Task ClosePanel(){WebLog(\"close-request\",new{initializing=initializing is {IsCompleted:false},epoch=webEpoch,formClosing=webClosing});++webEpoch;webReady=false;ClearInput(\"panel-close\");var old=web;"
+        },
+        {
+          "path": "engine/source/PlayerHudIntegration.cs",
+          "line": 44,
+          "symbolOrText": "PlayerHudActions.Activate",
+          "excerpt": "bool sent=await PlayerHudActions.Activate(login,stamp,binding,walking);"
+        },
+        {
+          "path": "engine/web/login.js",
+          "line": 31,
+          "symbolOrText": "function loginCommand",
+          "excerpt": "function loginCommand(command,fields={}){"
+        }
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P27",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "dataFlow": [
+        "local virtual-host page → strict origin/schema/command parser → same LoginConnection service methods",
+        "native and web HUD render authoritative snapshots; epoch/revision protects action dispatch",
+        "game/chat/Web/native panel focus ownership clears held intent; page F10/focusGame returns game control",
+        "Web epoch invalidation → await real initialization → unsubscribe/Stop/Dispose; no original Awesomium ABI claim"
+      ],
+      "dependencies": [
+        "M01",
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M09",
+        "WebView2"
+      ],
+      "existingVerification": [
+        "P09 historical bounded bridge design; current source has expanded commands/32768 limit",
+        "R20/R23 historical HUD/chat evidence",
+        "R16/R22 native pixels/mouse still open"
+      ],
+      "unknown": [
+        "r33 native full-window pixels, mouse and focus",
+        "complete original Web ABI and IME equivalence",
+        "P27 independent review outcome pending"
+      ],
+      "nextStep": "P27 checks existing input/UI contracts and isolates only reproducible defects; prepare final-release native route",
+      "completionCriteria": [
+        "same-version real pointer/focus/chat/HUD/Web interactions have receipts",
+        "invalid/stale commands cannot mutate current world",
+        "bounded supported commands and lifecycle clearly documented"
+      ],
+      "handoffPhases": [
+        "P08/P09 historical",
+        "P27 input review",
+        "P25 architecture"
+      ]
+    },
+    {
+      "id": "M11",
+      "name": "建置、啟動核驗與封存",
+      "status": "r33 bounded implementation; native acceptance not established for r33",
+      "sourcePaths": [
+        "engine/source/OfflineClient.csproj",
+        "engine/audio/P24.Audio.csproj",
+        "engine/_integration/r33/launcher-source/Program.cs",
+        "engine/_integration/r33/launcher-source/Launcher.csproj",
+        "engine/_integration/r33/rebuild.py",
+        "engine/_integration/r33/product-build.ps1",
+        "engine/_integration/r33/rebuild-lock.json",
+        "engine/launcher/P24.Launcher.dll",
+        "engine/launcher/P24.Launcher.exe"
+      ],
+      "codeEvidence": [
+        {
+          "path": "engine/_integration/r33/rebuild.py",
+          "line": 22,
+          "symbolOrText": "def no_shared_write",
+          "excerpt": "def no_shared_write(p):"
+        },
+        {
+          "path": "engine/_integration/r33/launcher-source/Program.cs",
+          "line": 67,
+          "symbolOrText": "assetFilesCheckedForPresenceAndSize",
+          "excerpt": "return new{status=\"checked-only\",revision=\"r33\",executable=Resolve(root,Entry),workingDirectory=root,arguments,manifest,manifestSha256=ManifestHash,hashedRuntimeAndWebFiles=hashed,assetFilesCheckedForPresenceAndSize=assets,assetContentVerification=\"Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.\",runtime,webView2Version=browser,powerShellRequired=false,pathLookupUsed=false,autoLogin=false,uiStarted=false,networkStarted=false,servicesStarted=false};"
+        },
+        {
+          "path": "engine/_integration/r33/product-build.ps1",
+          "line": 4,
+          "symbolOrText": "Build only in canonical mutable engine.",
+          "excerpt": "if((Split-Path $productRoot -Leaf) -ne 'engine' -or -not (Test-Path -LiteralPath (Join-Path $productRoot '../project-manifest.json'))){throw 'Build only in canonical mutable engine.'}"
+        }
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "dataFlow": [
+        "accepted source manifest/rebuild lock → sole integrator canonical build → product manifest and launcher",
+        "formal release seal → root CMD selects immutable release launcher; launcher hashes runtime/web manifest and checks asset presence/size",
+        "loaded product validates asset body hashes; check-only does not establish native gameplay",
+        "r34 accepted stage + static plan remain separate until authorized canonical integration/release/activation receipts"
+      ],
+      "dependencies": [
+        "all modules",
+        "local vendor/NuGet inputs",
+        ".NET Windows Desktop",
+        "immutable releases/junction/hardlinks"
+      ],
+      "existingVerification": [
+        "r29–r33 formal supervisor acceptance receipts",
+        "r33 accepted177-source binding recomputed here",
+        "r33 launcher source, binaries, product manifest and seal pinned; no build/test rerun"
+      ],
+      "unknown": [
+        "future canonical r34 build and release outcome",
+        "whole-project native acceptance",
+        "not every asset body rehashed by P25"
+      ],
+      "nextStep": "P26 delivers plan/gate review; supervisor issues exact current-authority receipt; original integrator preserves failed attempts and collects existing runs",
+      "completionCriteria": [
+        "source/build/release/entry identities reconcile",
+        "rebuild and seal independent acceptance under exact receipt",
+        "write boundaries and immutable original artifacts preserved"
+      ],
+      "handoffPhases": [
+        "P09/P24 historical",
+        "P25 pins",
+        "P26 plan review",
+        "original integrator"
+      ]
+    }
+  ],
+  "historicalComparison": [
+    {
+      "phase": "P02",
+      "topic": "resource/render",
+      "historicalBoundary": "local BIN archive/SPR/DirectDraw call chains",
+      "currentMapping": "M08 packaged assets and RGB555 renderer",
+      "remainingUnknown": "original complete renderer/COM callee/asset-version pairing not proven"
+    },
+    {
+      "phase": "P02",
+      "topic": "input",
+      "historicalBoundary": "DirectInput keyboard/window call edges",
+      "currentMapping": "M03 WinForms input and bounded pointer policy",
+      "remainingUnknown": "full original mouse/IME and indirect callee unknown"
+    },
+    {
+      "phase": "P02",
+      "topic": "network",
+      "historicalBoundary": "recv/send buffer and unknown callback boundary",
+      "currentMapping": "M01 independent finite real-login implementation plus preserved fixture path",
+      "remainingUnknown": "full original protocol/dispatcher not inferred"
+    },
+    {
+      "phase": "P02",
+      "topic": "web",
+      "historicalBoundary": "Awesomium binding and surface conversion boundary",
+      "currentMapping": "M10 WebView2 bridge/child-window composition",
+      "remainingUnknown": "original ABI/lifecycle equivalence not asserted"
+    },
+    {
+      "phase": "P06",
+      "topic": "world/movement",
+      "historicalBoundary": "single block offline; collision/pathfinding unknown; mouse selects only",
+      "currentMapping": "M02 multi-map cache; M03 online predicted movement and bounded terrain path",
+      "remainingUnknown": "P06 limitations describe P06, not proof r33 lacks these implementations"
+    },
+    {
+      "phase": "P06",
+      "topic": "render",
+      "historicalBoundary": "original SPR commands, masks, RGB555; fixed four-frame policy",
+      "currentMapping": "M08 dynamic actors/shadows/opacity/effects; M04/M03 finite speed timing",
+      "remainingUnknown": "original universal speed/render equivalence unproven"
+    },
+    {
+      "phase": "P06",
+      "topic": "no network/web/audio",
+      "historicalBoundary": "explicit absence at P06",
+      "currentMapping": "M01/M09/M10 actual later implementations inspected",
+      "remainingUnknown": "do not carry old absent label into r33"
+    },
+    {
+      "phase": "P09",
+      "topic": "bridge",
+      "historicalBoundary": "P08 boundary document retained in P09 delivery; ready/focusGame/face,1024 characters",
+      "currentMapping": "M10 current parser32768 plus login/items/magic/NPC/trade/bonus/private/audio",
+      "remainingUnknown": "current full native focus/pixels still pending"
+    },
+    {
+      "phase": "P09",
+      "topic": "handshake/world",
+      "historicalBoundary": "test post-init key, heading only; no real handshake",
+      "currentMapping": "M01 handshake/character/world; M02 multi-map lifecycle",
+      "remainingUnknown": "fixture mode remains separate; original full protocol unknown"
+    },
+    {
+      "phase": "P09",
+      "topic": "lifecycle/dependencies",
+      "historicalBoundary": "WebView2 epoch cleanup/security boundary, local vendor SDK",
+      "currentMapping": "M10 retains guarded lifecycle; M11 actual project references and pins",
+      "remainingUnknown": "runtime installation/device/COM hangs not solved by architecture claim"
+    }
+  ],
+  "verificationBoundaries": [
+    {
+      "path": "engine/source/MovementUiTests.cs",
+      "evidence": {
+        "path": "engine/source/MovementUiTests.cs",
+        "line": 17,
+        "symbolOrText": "no external key claim",
+        "excerpt": "// Actual form controller used by keyboard handlers; no external key claim."
+      },
+      "meaning": "Uses web DOM clicks and direct controller HandleDown; source explicitly disclaims external keyboard proof. Not run by P25."
+    },
+    {
+      "path": "engine/source/InventoryLayoutTest.cs",
+      "evidence": {
+        "path": "engine/source/InventoryLayoutTest.cs",
+        "line": 7,
+        "symbolOrText": "明示合成背包排版回歸",
+        "excerpt": "World.Receive(LoginPackets.Pad([5,3,..Item(1,81,130,249,6,\"$238 (6)\"),..Item(2,5,0,255,3,\"$4 (3)\"),..Item(3,475,1339,14,1,\"$55\")]),name);Set(LoginState.InWorld,\"明示合成背包排版回歸；無socket\");"
+      },
+      "meaning": "Seeded synthetic inventory in actual WinForms/WebView2; no socket. Cannot prove natural inventory or native user interaction. Not run by P25."
+    },
+    {
+      "path": "engine/source/WebTests.cs",
+      "evidence": {
+        "path": "engine/source/WebTests.cs",
+        "line": 9,
+        "symbolOrText": "async Task Script",
+        "excerpt": "async Task Script(string js){await web!.ExecuteScriptAsync(js);await Task.Delay(90);}"
+      },
+      "meaning": "WebView2 DOM/controller and real initialization lifecycle tests, not equivalent to external native pointer receipt. Not run by P25."
+    }
+  ],
+  "interpretation": "sourcePaths are concrete responsibility references; codeEvidence supports bounded claims, not all-function proof",
+  "sourceBindingFile": "source-binding.json",
+  "wholeProjectComplete": false
+}

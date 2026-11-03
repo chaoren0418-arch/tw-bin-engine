@@ -1,0 +1,125 @@
+{
+  "schema": "p30-next-product-only-milestone-v1",
+  "authority": "Supervisor 01a185b4-ecf6-705c-90e6-83b9eb1ba02f followup: prepare and seal now; separate exact product-only authorization later.",
+  "executionAuthorizedNow": false,
+  "executorImplemented": false,
+  "availableControllerModes": [
+    "validate",
+    "commands",
+    "inspect-attempt"
+  ],
+  "missingExecutor": "A fresh-root materializer and receipt-gated one-shot product build executor have NOT been implemented. Existing historical controllers must not be used as substitutes. Implement/review executor under subsequent explicit task before execution.",
+  "sourceCount": 181,
+  "requiredRegressionRuns": 0,
+  "regressionGraph": "command-plan.json retains44 operations only as later dependency inventory; none is a prerequisite runtime replay for product-only milestone",
+  "futureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+  "command": {
+    "argv": [
+      "C:\\Program Files\\dotnet\\dotnet.exe",
+      "build",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\source\\OfflineClient.csproj",
+      "-o",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\client-product-r34",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\NuGet.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "--nologo"
+    ],
+    "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+    "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01",
+    "kind": "product",
+    "probes": [],
+    "expectedArtifacts": [
+      "build/client-product-r34/P11.ClientEngine.dll",
+      "build/client-product-r34/P24.Audio.dll"
+    ],
+    "nestedLogsRequired": true,
+    "timeoutSeconds": 600
+  },
+  "sourceInventory": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\source-inventory.json",
+    "size": 159530,
+    "sha256": "8522287dbcc2c0aca411facf30ed43490a8443b9efe85ff45768251f194bf94c"
+  },
+  "dependencies": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\build-dependencies.json",
+    "size": 113115,
+    "sha256": "2949a2454a61aa01c0567a990eecc1d2402e1cf32ecaebc59131b557b3c0dba0"
+  },
+  "environment": {
+    "overrides": {
+      "TEMP": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\tmp",
+      "TMP": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\tmp",
+      "DOTNET_CLI_HOME": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\cli-home",
+      "NUGET_PACKAGES": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\nuget",
+      "NUGET_HTTP_CACHE_PATH": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\http-cache",
+      "NUGET_PLUGINS_CACHE_PATH": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\plugin-cache",
+      "NUGET_SCRATCH": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\nuget-scratch",
+      "APPDATA": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\appdata\\roaming",
+      "LOCALAPPDATA": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\appdata\\local",
+      "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+      "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "1",
+      "DOTNET_CLI_WORKLOAD_UPDATE_NOTIFY_DISABLE": "true",
+      "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false",
+      "NUGET_CERT_REVOCATION_MODE": "offline",
+      "MSBUILDDISABLENODEREUSE": "1",
+      "DOTNET_CLI_USE_MSBUILD_SERVER": "0"
+    },
+    "inheritRequired": [
+      "SYSTEMROOT",
+      "WINDIR",
+      "PATH for pinned SDK host and OS libraries"
+    ],
+    "remove": [
+      "DOTNET_ADDITIONAL_DEPS",
+      "DOTNET_SHARED_STORE",
+      "MSBuildSDKsPath",
+      "MSBUILD_EXE_PATH",
+      "DOTNET_STARTUP_HOOKS",
+      "DOTNET_HOST_PATH"
+    ],
+    "writeIsolation": "All generated obj/bin/product/log/cache files inside fresh stage only; SDK/targeting packs and sealed inputs readonly. No arbitrary Directory.Build.props/targets/global.json inherited from parents; preflight captures ancestor policy files and refuses unpinned injected build configuration."
+  },
+  "outputs": {
+    "product": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\client-product-r34\\P11.ClientEngine.dll",
+    "audio": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\client-product-r34\\P24.Audio.dll",
+    "productSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+    "audioSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "expectedResources": [
+      {
+        "logicalName": "P06.Resources.PickupOwnBase15Gfx0Weapon0.json",
+        "size": 239766,
+        "sha256": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90"
+      },
+      {
+        "logicalName": "P06.Resources.PickupOwnBase15ProfileExtension.json",
+        "size": 2473547,
+        "sha256": "aff2e04d4f9395f7993baf5818eb16218730b7def0a29c7d07e86c314db513ba"
+      }
+    ],
+    "logRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01",
+    "expectedBuildWarnings": 0,
+    "expectedBuildErrors": 0
+  },
+  "requiredReceipts": [
+    "new supervisor exact stage-plan SHA/controller SHA/executor SHA/materialization SHA + fresh root + product-only scope",
+    "source/vendor/sdk/config/environment preflight pins",
+    "exclusive started receipt before single dotnet build",
+    "raw stdout/stderr bytes with SHA/size/decoder and replacementCount",
+    "command argv/cwd/start/end/exit/PID/timeout/interrupted status and nested MSBuild diagnostic provenance",
+    "post-build actual181 source pins + independent copied-files proof + product/audio identities + all emitted runtime dependency pins",
+    "product-only result with no runtime assertions; failure retains partial files and no automatic retry"
+  ],
+  "failurePolicy": "Stop on any pin mismatch, nonzero exit, warning/error mismatch, uncertain interruption or actual DLL SHA mismatch. Preserve failed attempt; no expected-value edits, no deletion, no retry without exact followup. Timeout600 leaves process-tree outcome explicitly unknown unless proven ended; inspect owned processes only before retry.",
+  "assetsNeededForProductBuild": false,
+  "launcherBuild": false,
+  "entryCheck": false,
+  "network": false,
+  "services": false,
+  "database": false,
+  "native": false
+}

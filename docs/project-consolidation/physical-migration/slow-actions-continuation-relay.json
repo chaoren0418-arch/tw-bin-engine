@@ -1,0 +1,32 @@
+{
+  "utc": "2026-10-28T20:32:36.894992+00:00",
+  "state": "accepted-two-workers-executing-r29-slow-actions-increment",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "send_count": 1,
+  "scope": "Evidence-backed Speed2/Brave0 existing attack and spell timing/animation/queue/state-change and pre-send contracts; no new skills",
+  "db_or_server_operations_authorized": false,
+  "organizer_dispatched_workers": false,
+  "parent_readonly_audit_time": "20:31 UTC as supplied by parent",
+  "updated_utc": "2026-10-28T20:35:38.278962+00:00",
+  "supervisor_turn": "01a18436-efc7-7c73-bd39-b95f0e176147",
+  "worker_turns": [
+    {
+      "id": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "turnId": "01a18438-ab04-7f62-95bd-0d5f1bf58826",
+      "status": "inProgress"
+    },
+    {
+      "id": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "turnId": "01a18438-aca6-7332-8fba-4189bda8ca5f",
+      "status": "inProgress"
+    }
+  ],
+  "actual_commands_observed": true,
+  "observation": "D:\\lineage開發\\TW1608262200研究\\docs\\project-consolidation\\physical-migration\\slow-actions-continuation-observed.json",
+  "supervisor_dispatch": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-緩速攻擊施法接續-20261029\\dispatch.json",
+  "implementation_root": "work/engine-slow-actions-r1",
+  "review_root": "work/engine-slow-actions-review-r1",
+  "feature_complete": false,
+  "integrated": false,
+  "original_db_operations": false
+}

@@ -1,0 +1,27 @@
+{
+  "status": "proposed-exact-no-child-retry-awaiting-supervisor",
+  "attempt": 4,
+  "round": 2,
+  "moves": 46,
+  "Fresh": false,
+  "failureFolder": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\evidence\\cache-worker-ui-r3",
+  "failureProofSha256": "1fab481619e7cc7d5e210bf4a7d768874b53b02b5ba4b51eb987b32118e9d256",
+  "launcherReceiptSha256": "3c98a25cb80d0aa8a540a1b2863354372851718dcf460b242dd7ffe82c67634b",
+  "launcherTerminalSha256": "819a280b755144774394dd526f20773911a97496b9c1a181a807345fd73ad08f",
+  "failureAuditSha256": "f26bed2084bbb6bc26b288fdd06a6c24a8a556bea4b16388d5194b8b30fe0b11",
+  "successfulResumeProofSha256": "ebdf7ab3fb915fd114a5ce54d2a9bb64c8f91c23257c40eaa4d8493cb8f7700e",
+  "routeSha256": "74a51d77633d5bea1b1ef864b51a8f556130b044e5b420357f5c2617b94c83f6",
+  "roles": [
+    1900240002,
+    1900240006
+  ],
+  "driverBeforeSha256": "fa144222a9febfa693dc00299f0ec36920623582db790dfbd0a6b07fc74797bd",
+  "productDllSha256": "01456b2df3c0b39f0470966345322c634f5d7158fc0216caed8005d1fbba6cdf",
+  "change": "Only allow workerUi attempt4 round2 after exact no-product-child r3 receipt and successful r2 savedstate equality; new immutable output r4; same one trueclick launcher/guard2s product/no focus relaxation; no autorerun",
+  "requirements": [
+    "Current before == r3 before == r3 after == successful r2 after",
+    "r3 client_pid null/noProductChild true, launcher exit2, no child start row, exact foreground-loss error",
+    "Same first four services, full46 route, all roles offline, no reset/refill",
+    "Any failure stops; no additional automatic retries"
+  ]
+}

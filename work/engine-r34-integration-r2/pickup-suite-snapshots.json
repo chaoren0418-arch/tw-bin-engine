@@ -1,0 +1,93 @@
+{
+  "schema": "engine-r34-pickup-execution-source-binding-v1",
+  "reviewRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1",
+  "reviewSealSha256": "715c95654af8a1c59853f15e41c3511d5b15c1b0749bf35c47e39fe918b99196",
+  "acceptedAssertions": 184,
+  "acceptedObservations": 0,
+  "executedThisPreparation": false,
+  "groups": [
+    {
+      "name": "main-174",
+      "assertions": 174,
+      "probe": "runs/candidate-02/probe.json",
+      "helperSha256": "5859a7b0eb8ed4846ca4a4c7854e9ec6fc93f4c633fe01f3ae2ae6b459e8cbba",
+      "sourceFiles": [
+        {
+          "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\main-174\\Candidate.cs",
+          "copy": "reference/sealed-review/execution-builds/main-174/Candidate.cs",
+          "size": 22701,
+          "sha256": "8bd1da9279ca977718ba6c5e2b5a57ba3215bf85ed90ad2ac45d6355c7dd9e19"
+        },
+        {
+          "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\main-174\\Fixture.cs",
+          "copy": "reference/sealed-review/execution-builds/main-174/Fixture.cs",
+          "size": 5725,
+          "sha256": "3647a52273cf75b10399eb357bc64035cd1695f38d0065f7d0624d757876e259"
+        },
+        {
+          "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\main-174\\Focused.cs",
+          "copy": "reference/sealed-review/execution-builds/main-174/Focused.cs",
+          "size": 8297,
+          "sha256": "77fbe15541d638c33892df21758f1f1b51397d2b60b9b5cf1e2eaf7f4bff6d9a"
+        },
+        {
+          "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\main-174\\Probe.csproj",
+          "copy": "reference/sealed-review/execution-builds/main-174/Probe.csproj",
+          "size": 517,
+          "sha256": "10a63d43f39c9b13e1673a74dbafc5624c998ee926d3f1cf3898402083c5570e"
+        },
+        {
+          "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\main-174\\receipt.json",
+          "copy": "reference/sealed-review/execution-builds/main-174/receipt.json",
+          "size": 259,
+          "sha256": "81bb1f475a5b05163faca13cf2b9a3e4dda66abe32f4af555731a83276d18419"
+        }
+      ]
+    },
+    {
+      "name": "supplement-10",
+      "assertions": 10,
+      "probe": "runs/supplement-01/probe.json",
+      "helperSha256": "b232da5d874cecd4c6a8916c30d1efb759607a1a8ba3769c839df4264188df83",
+      "sourceFiles": [
+        {
+          "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\supplement-10\\Candidate.cs",
+          "copy": "reference/sealed-review/execution-builds/supplement-10/Candidate.cs",
+          "size": 22940,
+          "sha256": "e4540114c341374bc97e75107dd50af7c65661f9751ab85d8f7b45ba2002b7cf"
+        },
+        {
+          "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\supplement-10\\Fixture.cs",
+          "copy": "reference/sealed-review/execution-builds/supplement-10/Fixture.cs",
+          "size": 5725,
+          "sha256": "3647a52273cf75b10399eb357bc64035cd1695f38d0065f7d0624d757876e259"
+        },
+        {
+          "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\supplement-10\\Focused.cs",
+          "copy": "reference/sealed-review/execution-builds/supplement-10/Focused.cs",
+          "size": 8297,
+          "sha256": "77fbe15541d638c33892df21758f1f1b51397d2b60b9b5cf1e2eaf7f4bff6d9a"
+        },
+        {
+          "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\supplement-10\\Probe.csproj",
+          "copy": "reference/sealed-review/execution-builds/supplement-10/Probe.csproj",
+          "size": 517,
+          "sha256": "10a63d43f39c9b13e1673a74dbafc5624c998ee926d3f1cf3898402083c5570e"
+        },
+        {
+          "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\supplement-10\\receipt.json",
+          "copy": "reference/sealed-review/execution-builds/supplement-10/receipt.json",
+          "size": 259,
+          "sha256": "ebbbe8aa7354cd0471ab11049b9ba2b29710f186bf6db09730f98948701ce411"
+        },
+        {
+          "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\execution-builds\\supplement-10\\Supplement.cs",
+          "copy": "reference/sealed-review/execution-builds/supplement-10/Supplement.cs",
+          "size": 4267,
+          "sha256": "9b057a798544b8dee00ae0a58f78f3f25b2a5df0dbc80fb11816cda66d9d1e59"
+        }
+      ]
+    }
+  ],
+  "futurePolicy": "Use each execution-builds exact .cs/.csproj snapshot; do not substitute final harness or replay run_probe.ps1 candidate gate. Preserve174+10 ordinals/IDs and assertion bodies. Only csproj HintPath/output/product-hash metadata adaptations with exact diff; helpers under current product/build and current-product DLL/fixture root binding."
+}

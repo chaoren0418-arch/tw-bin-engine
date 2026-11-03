@@ -1,0 +1,125 @@
+{
+  "phase": "P33",
+  "utc": "2026-10-29T07:43:59.060268+00:00",
+  "artifactSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P33-pickup-resource-fault-review-r1\\artifact-manifest.json",
+    "size": 16041,
+    "sha256": "99564bcea8ca04c90c2ec027a27e8cc0bcb7c68f14d89f9ff3bfc638be8ef661"
+  },
+  "artifactFiles": 91,
+  "unsealedFiles": [],
+  "sourcePins": 45,
+  "originalSealMemberships": 25,
+  "commandReceipts": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P33-pickup-resource-fault-review-r1\\runs\\build-01\\command.json",
+      "size": 4591,
+      "sha256": "bf4dd7ed177911c8590bc7704f664867b39f4752cd7a824c33bb883af269f6f4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P33-pickup-resource-fault-review-r1\\runs\\runtime-01\\command.json",
+      "size": 3954,
+      "sha256": "b88c5335f811a97b4ba62a6953ea980eb54fc768fb7108e98575c4ca728ba0e2"
+    }
+  ],
+  "distinctCases": 28,
+  "productDllSha": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "audioSha": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "native": false,
+  "productBuilds": 0,
+  "productChanges": 0,
+  "method": "Root independently hashes sealed files and original memberships; evaluates saved actual observations; no product runtime rerun.",
+  "status": "accepted-bounded",
+  "actualFaultChains": [
+    {
+      "id": "chain-0-0-missing-base",
+      "oldSerial": 1,
+      "freshSerial": 2,
+      "frame": "88:0",
+      "reason": "renderer/assets-unavailable"
+    },
+    {
+      "id": "chain-0-0-missing-profile",
+      "oldSerial": 1,
+      "freshSerial": 2,
+      "frame": "88:0",
+      "reason": "renderer/assets-unavailable"
+    },
+    {
+      "id": "chain-0-0-missing-group",
+      "oldSerial": 1,
+      "freshSerial": 2,
+      "frame": "88:0",
+      "reason": "asset-integrity/key"
+    },
+    {
+      "id": "chain-0-0-missing-key",
+      "oldSerial": 1,
+      "freshSerial": 2,
+      "frame": "88:0",
+      "reason": "asset-integrity/key"
+    },
+    {
+      "id": "chain-0-0-profile-path",
+      "oldSerial": 1,
+      "freshSerial": 2,
+      "frame": "88:0",
+      "reason": "renderer/assets-unavailable"
+    },
+    {
+      "id": "chain-0-0-profile-hash",
+      "oldSerial": 1,
+      "freshSerial": 2,
+      "frame": "88:0",
+      "reason": "renderer/assets-unavailable"
+    },
+    {
+      "id": "chain-2796-20-missing-base",
+      "oldSerial": 1,
+      "freshSerial": 2,
+      "frame": "48:1",
+      "reason": "renderer/assets-unavailable"
+    },
+    {
+      "id": "chain-2796-20-missing-profile",
+      "oldSerial": 1,
+      "freshSerial": 2,
+      "frame": "48:1",
+      "reason": "renderer/assets-unavailable"
+    },
+    {
+      "id": "chain-2796-20-missing-group",
+      "oldSerial": 1,
+      "freshSerial": 2,
+      "frame": "48:1",
+      "reason": "asset-integrity/key"
+    },
+    {
+      "id": "chain-2796-20-missing-key",
+      "oldSerial": 1,
+      "freshSerial": 2,
+      "frame": "48:1",
+      "reason": "asset-integrity/key"
+    },
+    {
+      "id": "chain-2796-20-profile-path",
+      "oldSerial": 1,
+      "freshSerial": 2,
+      "frame": "48:1",
+      "reason": "renderer/assets-unavailable"
+    },
+    {
+      "id": "chain-2796-20-profile-hash",
+      "oldSerial": 1,
+      "freshSerial": 2,
+      "frame": "48:1",
+      "reason": "renderer/assets-unavailable"
+    }
+  ],
+  "qualifications": [
+    "Two direct private parser cases are seam-only, not constructor-bypass proof.",
+    "Two base-only injected catalog cases are not production fallback.",
+    "Faults mutate authenticated in-memory catalog; no corrupt file passed integrity.",
+    "No missing embedded resource run, full pixels, native or audio/effect counters."
+  ]
+}

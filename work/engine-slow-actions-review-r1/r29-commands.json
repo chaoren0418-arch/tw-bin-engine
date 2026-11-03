@@ -1,0 +1,31 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "dotnet",
+        "build",
+        "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\work\\engine-slow-actions-review-r1\\harness\\Review.csproj",
+        "-c",
+        "Release",
+        "-o",
+        "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\work\\engine-slow-actions-review-r1\\helper\\r29",
+        "-p:EngineDll=D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\releases\\r29\\build\\client-product-r29\\P11.ClientEngine.dll",
+        "--configfile",
+        "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\work\\engine-slow-actions-review-r1\\harness\\NuGet.Config",
+        "-p:UseSharedCompilation=false",
+        "-nr:false"
+      ],
+      "exitCode": 0
+    },
+    {
+      "argv": [
+        "dotnet",
+        "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\work\\engine-slow-actions-review-r1\\helper\\r29\\SlowActionsReview.dll",
+        "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\releases\\r29\\assets",
+        "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\work\\engine-slow-actions-review-r1\\r29-probe.json"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "dllSha256": "8ccfa4e3b5d253206779a5d4b1e59682263ffbddf5dab43fe15b0aa1f86a7397"
+}

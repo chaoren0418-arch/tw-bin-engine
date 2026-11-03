@@ -1,0 +1,117 @@
+{
+  "type": "synthetic-review-policy-only",
+  "retainedJavaExecuted": false,
+  "dbExecuted": false,
+  "repairApplied": false,
+  "count": 18,
+  "cases": [
+    {
+      "case": "observed-orphan-owner-unknown",
+      "expected": "HALT_IDENTITY_UNPROVEN",
+      "actual": "HALT_IDENTITY_UNPROVEN",
+      "pass": true
+    },
+    {
+      "case": "expired-alone-is-not-proof",
+      "expected": "HALT_LIFECYCLE_UNPROVEN",
+      "actual": "HALT_LIFECYCLE_UNPROVEN",
+      "pass": true
+    },
+    {
+      "case": "future-orphan",
+      "expected": "HALT_NONEXPIRED_OR_TIME_UNKNOWN",
+      "actual": "HALT_NONEXPIRED_OR_TIME_UNKNOWN",
+      "pass": true
+    },
+    {
+      "case": "timezone-unknown",
+      "expected": "HALT_NONEXPIRED_OR_TIME_UNKNOWN",
+      "actual": "HALT_NONEXPIRED_OR_TIME_UNKNOWN",
+      "pass": true
+    },
+    {
+      "case": "null-or-malformed-time",
+      "expected": "HALT_MALFORMED",
+      "actual": "HALT_MALFORMED",
+      "pass": true
+    },
+    {
+      "case": "duplicate-row",
+      "expected": "HALT_MALFORMED",
+      "actual": "HALT_MALFORMED",
+      "pass": true
+    },
+    {
+      "case": "partial-main-load",
+      "expected": "HALT_INCOMPLETE_LOAD",
+      "actual": "HALT_INCOMPLETE_LOAD",
+      "pass": true
+    },
+    {
+      "case": "wrong-owner-or-reused-id",
+      "expected": "HALT_IDENTITY_UNPROVEN",
+      "actual": "HALT_IDENTITY_UNPROVEN",
+      "pass": true
+    },
+    {
+      "case": "valid-unexpired-item",
+      "expected": "ORDINARY_LOADER_TEST_REQUIRED",
+      "actual": "ORDINARY_LOADER_TEST_REQUIRED",
+      "pass": true
+    },
+    {
+      "case": "valid-expired-item",
+      "expected": "ORDINARY_LOADER_TEST_REQUIRED",
+      "actual": "ORDINARY_LOADER_TEST_REQUIRED",
+      "pass": true
+    },
+    {
+      "case": "proof-still-needs-parent",
+      "expected": "PARENT_DECISION_AND_ISOLATED_PROOF_REQUIRED",
+      "actual": "PARENT_DECISION_AND_ISOLATED_PROOF_REQUIRED",
+      "pass": true
+    },
+    {
+      "case": "crash-after-intent-before-commit",
+      "expected": "HALT_RECONCILE_PENDING",
+      "actual": "HALT_RECONCILE_PENDING",
+      "pass": true
+    },
+    {
+      "case": "exact-repeat-committed",
+      "expected": "REVIEW_IDENTICAL_RESOLUTION_NO_NEW_ACTION",
+      "actual": "REVIEW_IDENTICAL_RESOLUTION_NO_NEW_ACTION",
+      "pass": true
+    },
+    {
+      "case": "repeat-with-row-change",
+      "expected": "HALT_EVIDENCE_CONFLICT",
+      "actual": "HALT_EVIDENCE_CONFLICT",
+      "pass": true
+    },
+    {
+      "case": "conflicting-resolution",
+      "expected": "HALT_EVIDENCE_CONFLICT",
+      "actual": "HALT_EVIDENCE_CONFLICT",
+      "pass": true
+    },
+    {
+      "case": "archive-missing",
+      "expected": "HALT_EVIDENCE_CONFLICT",
+      "actual": "HALT_EVIDENCE_CONFLICT",
+      "pass": true
+    },
+    {
+      "case": "rollback-error",
+      "expected": "HALT_RECOVERY_UNCERTAIN",
+      "actual": "HALT_RECOVERY_UNCERTAIN",
+      "pass": true
+    },
+    {
+      "case": "rollback-unconfirmed-valid-item",
+      "expected": "HALT_RECOVERY_UNCERTAIN",
+      "actual": "HALT_RECOVERY_UNCERTAIN",
+      "pass": true
+    }
+  ]
+}

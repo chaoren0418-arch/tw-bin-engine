@@ -1,0 +1,54 @@
+{
+  "schema": "p35-rg2-fix-result-v1",
+  "status": "candidate-fix-verified-awaiting-independent-review",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "candidate": "candidate/generate_package_plan.py",
+  "candidateSha256": "4fbf32a4d1a5faa12e34631ad2c0e9ee02647ff51947128c69e1894690f13fa2",
+  "changedFunctions": [
+    "package_inventory"
+  ],
+  "originalInventoryRows": 2289,
+  "candidateInventoryRows": 2290,
+  "preservedRows": 2289,
+  "addedRows": [
+    {
+      "path": "build/product-r34-manifest.json",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-r34-manifest.json",
+      "size": 7955,
+      "sha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d"
+    }
+  ],
+  "exactExistingPP2FilesMatch": true,
+  "syntheticCases": 14,
+  "expectedRefusals": 13,
+  "sourceFiles": 180,
+  "evidenceClosurePins": 690,
+  "sourceSealSha256": "0a9499f8e8290883cb71541af24d89792bc304405d65846970a21c8326de3cd3",
+  "commandEvidence": "commands/<check>/{command.json,stdout,stderr}",
+  "qualification": {
+    "candidateOnly": true,
+    "independentReviewPending": true,
+    "acceptedToolRebound": false,
+    "formalEntry": "r33",
+    "packagePlanGenerated": false,
+    "generateCalled": false,
+    "archiveToolsCalled": false,
+    "packageReleaseCalled": false,
+    "releasesWritten": false,
+    "entryActivated": false,
+    "sharedWrites": false,
+    "builds": 0,
+    "runtimeProbes": 0,
+    "dbOrServicesAccessed": false,
+    "networkAccessed": false,
+    "environmentChanged": false,
+    "originalEvidenceRepaired": false,
+    "rg1SuiteRerun": false,
+    "canonical4521Rerun": false,
+    "gameSuitesRerun": false,
+    "goalActualRead": null,
+    "goalCreatedOrModified": false
+  },
+  "activationAutoReviewRejectionPreserved": "此派工會持久修改正式入口與 project-manifest，將 r34 提升為現行產品版本，屬外部／正式承諾；使用者只授權引擎開發，未明確授權這次入口啟用，且政策不以先前助手派工替代該核准。"
+}

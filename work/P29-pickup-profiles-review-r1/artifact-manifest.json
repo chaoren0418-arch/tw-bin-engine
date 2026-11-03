@@ -1,0 +1,383 @@
+{
+  "schema": "p29-harness-preparation-seal-v1",
+  "files": [
+    {
+      "path": "coverage-gaps.json",
+      "size": 3839,
+      "sha256": "7d7b93939cd8bea09e4606b941cbf7ac4fb67cd9c92efe2fcaca1c588e794ebf"
+    },
+    {
+      "path": "dispatch.example.json",
+      "size": 781,
+      "sha256": "e7ebf8517c163e55be2a26370d3ada58451552fc627401c34a8fafe0392f1793"
+    },
+    {
+      "path": "evidence/fixture-parser.json",
+      "size": 73421,
+      "sha256": "527eb2eb7a32e7c8b9a1bedaa42e6bf1a182b3d7e9ca8fe44d5181ab49127cd5"
+    },
+    {
+      "path": "evidence/gate-tests/raw-byte-selftest.command.json",
+      "size": 932,
+      "sha256": "dc5e48123a90489f5b26b7d55b0d2675d5549ea566fc471714f8c6c3fba5b222"
+    },
+    {
+      "path": "evidence/gate-tests/raw-byte-selftest.stderr",
+      "size": 3,
+      "sha256": "e10db605e87d4272d0a9d642e3811bda6e77da78dbe978328f32f617b7a7dd11"
+    },
+    {
+      "path": "evidence/gate-tests/raw-byte-selftest.stdout",
+      "size": 5,
+      "sha256": "8ee41feaa988fdfdf11234a76c62977634185be8276d7467928793e4db46f43c"
+    },
+    {
+      "path": "evidence/gate-tests.json",
+      "size": 1219,
+      "sha256": "d952c3255b50650df482c129bd5a73b6969f626a1e43b75f3995c9b2d1290b2f"
+    },
+    {
+      "path": "evidence/legacy-build-log-classification.json",
+      "size": 1782,
+      "sha256": "bf48879e2c15cb2864fafe3c32b72856437b78fd08e78fe2a39cf8235d23db19"
+    },
+    {
+      "path": "finalize_preparation.py",
+      "size": 6758,
+      "sha256": "95904422ae5ce4b38b1c36d70276f7f29a8f68870d070c67397ce93aa044895a"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 6259,
+      "sha256": "a68101cab2d52e22e5008f614e0a0a3842d2f655d32d205c814508ea07e99072"
+    },
+    {
+      "path": "harness-build/bin/P29.Review.deps.json",
+      "size": 424,
+      "sha256": "ffcc4c00acde74d5ec797d3a6f8ff4e63402b10caa78df08853ff952ee2210f3"
+    },
+    {
+      "path": "harness-build/bin/P29.Review.dll",
+      "size": 45056,
+      "sha256": "055543d90c6c2dc43187c3b13a25887603cd0c290b95eea6863937830c7778c6"
+    },
+    {
+      "path": "harness-build/bin/P29.Review.exe",
+      "size": 162304,
+      "sha256": "92bd93ad293d789f52437e99bc0869194f452f01edfe0de2b9963487aa802769"
+    },
+    {
+      "path": "harness-build/bin/P29.Review.pdb",
+      "size": 17492,
+      "sha256": "201b26266bc0f50cd54e7d62c8c96a4438665dbbe475140ff05046e465426d91"
+    },
+    {
+      "path": "harness-build/bin/P29.Review.runtimeconfig.json",
+      "size": 519,
+      "sha256": "96bc2946dff8790400d652ec7f8de7bb043e954980d59470c112788b68a1fbd3"
+    },
+    {
+      "path": "harness-build/build.command.json",
+      "size": 833,
+      "sha256": "68add917950661d9b4fc722d7eb1172bcb79a799d368df8d4ca9739d874212ef"
+    },
+    {
+      "path": "harness-build/build.stderr",
+      "size": 672,
+      "sha256": "9057b7cb8f9fc8b1f9cd8cf90309ca87df15874b702e067f1fab1b7c688cb25c"
+    },
+    {
+      "path": "harness-build/build.stdout",
+      "size": 316,
+      "sha256": "9a737ab4c5c6afa9c7dbdafb2b2df32989c5ab68af961405fdddf7d7046d4ae0"
+    },
+    {
+      "path": "harness-build/obj/project.assets.json",
+      "size": 22098,
+      "sha256": "b16a4924ba082fd10bc9c7617d0e7c183ced32b3d212e7eb20308cb7c6b52293"
+    },
+    {
+      "path": "harness-build/obj/project.nuget.cache",
+      "size": 234,
+      "sha256": "55ac9396aea6a3afb02821deaa45aea77228607eff0d5482d2df5fe8ebf7724e"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "size": 200,
+      "sha256": "93d67476196ebfc80d1d7d8844b91146cfd678d105f5ce635eb900ca40610c9b"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/apphost.exe",
+      "size": 162304,
+      "sha256": "92bd93ad293d789f52437e99bc0869194f452f01edfe0de2b9963487aa802769"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/P29.Review.dll",
+      "size": 45056,
+      "sha256": "055543d90c6c2dc43187c3b13a25887603cd0c290b95eea6863937830c7778c6"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/P29.Review.pdb",
+      "size": 17492,
+      "sha256": "201b26266bc0f50cd54e7d62c8c96a4438665dbbe475140ff05046e465426d91"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/ref/P29.Review.dll",
+      "size": 7680,
+      "sha256": "d9e54d41aeb36d2b49e779cca1fd029e526a26751c62a4105b147eaca2730243"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/refint/P29.Review.dll",
+      "size": 7680,
+      "sha256": "d9e54d41aeb36d2b49e779cca1fd029e526a26751c62a4105b147eaca2730243"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/Review.AssemblyInfo.cs",
+      "size": 1124,
+      "sha256": "3b7472b2191713aee457de41e38340cec5b81d26797c34e528cd04863cecb344"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/Review.AssemblyInfoInputs.cache",
+      "size": 66,
+      "sha256": "20c159e94d5f4144f8b7bef3513c8c7b4bdb9b65e9b23df26f2306154b284b0b"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/Review.assets.cache",
+      "size": 200,
+      "sha256": "e5c6b50415ef4cfd652ad0276443289309b9ddd6ff8c1bcf7fcd9c86a62e2873"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/Review.csproj.AssemblyReference.cache",
+      "size": 5644,
+      "sha256": "9513c8f144e56fc1b566ab104e31324ebb315c213f0489ab8a77590b9822c111"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/Review.csproj.CoreCompileInputs.cache",
+      "size": 66,
+      "sha256": "993d5a4237919d9184bc0ff3d66fb270c37a7eb8cfff8965dde19434f248210a"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/Review.csproj.FileListAbsolute.txt",
+      "size": 1967,
+      "sha256": "34332060172ad0e15ee4be466dcb26c5ec86eca14da9469ee93f3545039a2b92"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/Review.GeneratedMSBuildEditorConfig.editorconfig",
+      "size": 1177,
+      "sha256": "56c3e837d3c0fad9e17a5e00bf1404fc33709253127110e97ea38eba2806f54d"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/Review.genruntimeconfig.cache",
+      "size": 66,
+      "sha256": "75fda526c01d9e506cda6c7a86496cebf5bfc0b8a21846ea4d619f11d733c130"
+    },
+    {
+      "path": "harness-build/obj/Release/net10.0-windows/Review.GlobalUsings.g.cs",
+      "size": 305,
+      "sha256": "c95ea51a9e8c77e5367f652ede0c8871e7d6413090add59e1b8dd6805ac37e70"
+    },
+    {
+      "path": "harness-build/obj/Review.csproj.nuget.dgspec.json",
+      "size": 22763,
+      "sha256": "19a1797816163bdd251101dc42ec0233dd95b758425bb80adbe037b54ce9a11f"
+    },
+    {
+      "path": "harness-build/obj/Review.csproj.nuget.g.props",
+      "size": 1280,
+      "sha256": "721c2790b09483f1a85de1b18e94319aaba85ec5e88af32039f05283b5122bb1"
+    },
+    {
+      "path": "harness-build/obj/Review.csproj.nuget.g.targets",
+      "size": 150,
+      "sha256": "971cc9b535384849b5c661d776cd7a80833a416265e32e8968e06c367368b8b5"
+    },
+    {
+      "path": "harness-build-final/bin/P29.Review.deps.json",
+      "size": 424,
+      "sha256": "ffcc4c00acde74d5ec797d3a6f8ff4e63402b10caa78df08853ff952ee2210f3"
+    },
+    {
+      "path": "harness-build-final/bin/P29.Review.dll",
+      "size": 53760,
+      "sha256": "e19f8516c893502a62e3987434ceb83c45d5932d384bf314b14cd25b33d1cefe"
+    },
+    {
+      "path": "harness-build-final/bin/P29.Review.exe",
+      "size": 162304,
+      "sha256": "92bd93ad293d789f52437e99bc0869194f452f01edfe0de2b9963487aa802769"
+    },
+    {
+      "path": "harness-build-final/bin/P29.Review.pdb",
+      "size": 18580,
+      "sha256": "bfc7a89d80dd455106f07cb8a47188714e389c9a291b1425cedace0783f32d62"
+    },
+    {
+      "path": "harness-build-final/bin/P29.Review.runtimeconfig.json",
+      "size": 519,
+      "sha256": "96bc2946dff8790400d652ec7f8de7bb043e954980d59470c112788b68a1fbd3"
+    },
+    {
+      "path": "harness-build-final/build.command.json",
+      "size": 1399,
+      "sha256": "db68a3f22dc1a243382151ced928068fd9eb88cff429aee092a97396960adc24"
+    },
+    {
+      "path": "harness-build-final/build.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "harness-build-final/build.stdout",
+      "size": 82,
+      "sha256": "df606a8f9906dbaab92970ee3a2a315aa1ad5ce3913e14edca294fcfa05140de"
+    },
+    {
+      "path": "harness-build-final/obj/project.assets.json",
+      "size": 22104,
+      "sha256": "42205490f8defcb33c8a8c4473ddc63651dd9bada06b0f0e607765930900384d"
+    },
+    {
+      "path": "harness-build-final/obj/project.nuget.cache",
+      "size": 234,
+      "sha256": "2ff69469e9ff359d4b9eea4103457d49f7426604757c552d018cc2156d5cb67b"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "size": 200,
+      "sha256": "93d67476196ebfc80d1d7d8844b91146cfd678d105f5ce635eb900ca40610c9b"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/apphost.exe",
+      "size": 162304,
+      "sha256": "92bd93ad293d789f52437e99bc0869194f452f01edfe0de2b9963487aa802769"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/P29.Review.dll",
+      "size": 53760,
+      "sha256": "e19f8516c893502a62e3987434ceb83c45d5932d384bf314b14cd25b33d1cefe"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/P29.Review.pdb",
+      "size": 18580,
+      "sha256": "bfc7a89d80dd455106f07cb8a47188714e389c9a291b1425cedace0783f32d62"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/ref/P29.Review.dll",
+      "size": 7680,
+      "sha256": "3b6186c71f25b7f899c968cdff6aa9181d14bb4fb5b1b55f1ee5680749bad04a"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/refint/P29.Review.dll",
+      "size": 7680,
+      "sha256": "3b6186c71f25b7f899c968cdff6aa9181d14bb4fb5b1b55f1ee5680749bad04a"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/Review.AssemblyInfo.cs",
+      "size": 1124,
+      "sha256": "3b7472b2191713aee457de41e38340cec5b81d26797c34e528cd04863cecb344"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/Review.AssemblyInfoInputs.cache",
+      "size": 66,
+      "sha256": "20c159e94d5f4144f8b7bef3513c8c7b4bdb9b65e9b23df26f2306154b284b0b"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/Review.assets.cache",
+      "size": 200,
+      "sha256": "a914a0c13e21a91594e940dfe3d36ceccd5b35500a97163d965d6d48043bafd1"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/Review.csproj.AssemblyReference.cache",
+      "size": 5644,
+      "sha256": "9513c8f144e56fc1b566ab104e31324ebb315c213f0489ab8a77590b9822c111"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/Review.csproj.CoreCompileInputs.cache",
+      "size": 66,
+      "sha256": "8cca7fbe2281ebf61274e7e79cab637b7b2c0d9bfd5cb700fb896be77b65e747"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/Review.csproj.FileListAbsolute.txt",
+      "size": 2057,
+      "sha256": "ecdc3f399c8e40a24a340e58c3ab34525218e45968f808b15bbc276aa443fda6"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/Review.GeneratedMSBuildEditorConfig.editorconfig",
+      "size": 1177,
+      "sha256": "56c3e837d3c0fad9e17a5e00bf1404fc33709253127110e97ea38eba2806f54d"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/Review.genruntimeconfig.cache",
+      "size": 66,
+      "sha256": "75fda526c01d9e506cda6c7a86496cebf5bfc0b8a21846ea4d619f11d733c130"
+    },
+    {
+      "path": "harness-build-final/obj/Release/net10.0-windows/Review.GlobalUsings.g.cs",
+      "size": 305,
+      "sha256": "c95ea51a9e8c77e5367f652ede0c8871e7d6413090add59e1b8dd6805ac37e70"
+    },
+    {
+      "path": "harness-build-final/obj/Review.csproj.nuget.dgspec.json",
+      "size": 22769,
+      "sha256": "8cd66b683442b657105222db02096f7ee71c8c088d5cc318a709bc43dd2a953c"
+    },
+    {
+      "path": "harness-build-final/obj/Review.csproj.nuget.g.props",
+      "size": 1280,
+      "sha256": "721c2790b09483f1a85de1b18e94319aaba85ec5e88af32039f05283b5122bb1"
+    },
+    {
+      "path": "harness-build-final/obj/Review.csproj.nuget.g.targets",
+      "size": 150,
+      "sha256": "971cc9b535384849b5c661d776cd7a80833a416265e32e8968e06c367368b8b5"
+    },
+    {
+      "path": "NuGet.Config",
+      "size": 74,
+      "sha256": "9508cae5f76364f56e80eb97cb16493977243cf38e5cca6284e3d74f83b20a2c"
+    },
+    {
+      "path": "Probe.cs",
+      "size": 19476,
+      "sha256": "e5f4a3d39c2ffdc6c263fe55a828f3bad48235222353273f7647602e74a11066"
+    },
+    {
+      "path": "progress.json",
+      "size": 853,
+      "sha256": "4869dbf8e7527f192d5c0b14f033dff5dd5c98672d20e8a2895d23787efba0b5"
+    },
+    {
+      "path": "result.json",
+      "size": 3286,
+      "sha256": "5ab639f74e0a9a548c4630bdb43dfc74fdeb552acb2c6d3e020ab1cced12fdc4"
+    },
+    {
+      "path": "Review.csproj",
+      "size": 788,
+      "sha256": "d1748f0f3f02b5e5622ea02647a3fe22e727b724a54357f0118a76a1cd583867"
+    },
+    {
+      "path": "review.py",
+      "size": 15948,
+      "sha256": "e109a3ac54c84ac5b42de23f77b1de49dfd6a15009bd5a8e5b54443ff771b4e8"
+    },
+    {
+      "path": "source-manifest.json",
+      "size": 160201,
+      "sha256": "1e1e0c6ec490ef39086b5f8270097083801d08b33821174d13cc5346cb50111e"
+    },
+    {
+      "path": "validate_gate.py",
+      "size": 2174,
+      "sha256": "b0587091edd19e7570419018897d70d667f32da7c66d1940ffab7745de782d1f"
+    }
+  ],
+  "selfExcluded": "artifact-manifest.json",
+  "excludedDirectories": [
+    "__pycache__",
+    "dotnet-home",
+    "packages"
+  ],
+  "candidateBound": false,
+  "candidateRuntimeAssertions": 0
+}

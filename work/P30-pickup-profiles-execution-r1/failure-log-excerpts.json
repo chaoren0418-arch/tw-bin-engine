@@ -1,0 +1,72 @@
+{
+  "raw": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\stdout",
+    "size": 1561330,
+    "sha256": "905c9bd7a1c08a0ddf2f35ee966b0304471feef076f5627118b2e78a4645b35f"
+  },
+  "finalSummaryStartLine": 17242,
+  "excerpts": [
+    {
+      "startLine": 14220,
+      "endLine": 14244,
+      "lines": [
+        "                     System.TypeInitializationException: The type initializer for 'NuGet.Configuration.ConfigurationDefaults' threw an exception.",
+        "                      ---> System.ArgumentNullException: Value cannot be null. (Parameter 'path1')",
+        "                        at System.ArgumentNullException.Throw(String paramName)",
+        "                        at System.IO.Path.Combine(String path1, String path2)",
+        "                        at NuGet.Common.NuGetEnvironment.CalculateFolderPath(NuGetFolderPath folder)",
+        "                        at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)",
+        "                        at NuGet.Common.NuGetEnvironment.GetFolderPath(NuGetFolderPath folder)",
+        "                        at NuGet.Configuration.ConfigurationDefaults.InitializeInstance()",
+        "                        at NuGet.Configuration.ConfigurationDefaults..cctor()",
+        "                        --- End of inner exception stack trace ---",
+        "                        at NuGet.Configuration.ConfigurationDefaults.get_Instance()",
+        "                        at NuGet.Configuration.PackageSourceProvider.LoadPackageSources(ISettings settings)",
+        "                        at NuGet.Build.Tasks.BuildTasksUtility.<>c__DisplayClass14_0.<GetSources>b__3()",
+        "                        at NuGet.Build.Tasks.RestoreSettingsUtils.GetValue[T](Func`1[] funcs)",
+        "                        at NuGet.Build.Tasks.BuildTasksUtility.GetSources(String startupDirectory, String projectDirectory, String[] sources, String[] sourcesOverride, IEnumerable`1 additionalProjectSources, ISettings settings)",
+        "                        at NuGet.Build.Tasks.GetRestoreSettingsTask.Execute() (TaskId:29)",
+        "                     Output Property: _OutputPackagesPath=D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\nuget (TaskId:29)",
+        "                     Output Property: _OutputConfigFilePaths=D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\NuGet.Config (TaskId:29)",
+        "                   Done executing task \"GetRestoreSettingsTask\" -- FAILED. (TaskId:29)",
+        "                   Target output items:",
+        "                       D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\nuget",
+        "                       D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\NuGet.Config",
+        "14:24:14.080   2:3>Done building target \"_GetRestoreSettings\" in project \"P24.Audio.csproj\" -- FAILED.: (TargetId:32)",
+        "14:24:14.080   2:3>Done Building Project \"D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\audio\\P24.Audio.csproj\" (_GenerateRestoreGraphProjectEntry target(s)) -- FAILED.",
+        "14:24:13.843     1>Project \"D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\source\\OfflineClient.csproj\" (1) is building \"D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\source\\OfflineClient.csproj\" (1:5) on node 1 (_GenerateRestoreGraphProjectEntry target(s))."
+      ]
+    },
+    {
+      "startLine": 17117,
+      "endLine": 17141,
+      "lines": [
+        "                     System.TypeInitializationException: The type initializer for 'NuGet.Configuration.ConfigurationDefaults' threw an exception.",
+        "                      ---> System.ArgumentNullException: Value cannot be null. (Parameter 'path1')",
+        "                        at System.ArgumentNullException.Throw(String paramName)",
+        "                        at System.IO.Path.Combine(String path1, String path2)",
+        "                        at NuGet.Common.NuGetEnvironment.CalculateFolderPath(NuGetFolderPath folder)",
+        "                        at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)",
+        "                        at NuGet.Common.NuGetEnvironment.GetFolderPath(NuGetFolderPath folder)",
+        "                        at NuGet.Configuration.ConfigurationDefaults.InitializeInstance()",
+        "                        at NuGet.Configuration.ConfigurationDefaults..cctor()",
+        "                        --- End of inner exception stack trace ---",
+        "                        at NuGet.Configuration.ConfigurationDefaults.get_Instance()",
+        "                        at NuGet.Configuration.PackageSourceProvider.LoadPackageSources(ISettings settings)",
+        "                        at NuGet.Build.Tasks.BuildTasksUtility.<>c__DisplayClass14_0.<GetSources>b__3()",
+        "                        at NuGet.Build.Tasks.RestoreSettingsUtils.GetValue[T](Func`1[] funcs)",
+        "                        at NuGet.Build.Tasks.BuildTasksUtility.GetSources(String startupDirectory, String projectDirectory, String[] sources, String[] sourcesOverride, IEnumerable`1 additionalProjectSources, ISettings settings)",
+        "                        at NuGet.Build.Tasks.GetRestoreSettingsTask.Execute() (TaskId:41)",
+        "                     Output Property: _OutputPackagesPath=D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\nuget (TaskId:41)",
+        "                     Output Property: _OutputConfigFilePaths=D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\NuGet.Config (TaskId:41)",
+        "                   Done executing task \"GetRestoreSettingsTask\" -- FAILED. (TaskId:41)",
+        "                   Target output items:",
+        "                       D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\nuget",
+        "                       D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\NuGet.Config",
+        "14:24:14.113   1:5>Done building target \"_GetRestoreSettings\" in project \"OfflineClient.csproj\" -- FAILED.: (TargetId:51)",
+        "14:24:14.113   1:5>Done Building Project \"D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\source\\OfflineClient.csproj\" (_GenerateRestoreGraphProjectEntry target(s)) -- FAILED.",
+        "14:24:14.114     1>Done executing task \"MSBuild\" -- FAILED. (TaskId:20)"
+      ]
+    }
+  ]
+}

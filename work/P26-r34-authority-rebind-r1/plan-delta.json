@@ -1,0 +1,41 @@
+{
+  "schema": "p26-r34-plan-minimal-delta-v1",
+  "oldPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\canonical-plan.json",
+    "size": 378638,
+    "sha256": "d25c306fae5abee9209e46c557453f7b6a0a96645e5c052fbda70555f11f15ff"
+  },
+  "newPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\canonical-plan.json",
+    "size": 714350,
+    "sha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761"
+  },
+  "unchangedTopLevelFields": [
+    "schema",
+    "candidateId",
+    "revision",
+    "canonicalEngine",
+    "stageRoot",
+    "stageSealSha256",
+    "stageAcceptance",
+    "preparationSha256",
+    "workflowRoot",
+    "canonicalBuildEvidence",
+    "productDllSha256",
+    "audioDllSha256",
+    "productManifestSha256",
+    "launcherDllSha256",
+    "expectedCounts",
+    "planningEvidenceArchive",
+    "qualificationFlags"
+  ],
+  "changes": {
+    "authorityBinding": "added exact split authority policy",
+    "executionAuthority": "new supervisor explicit",
+    "supportPins": "all original retained plus new isolated files",
+    "commands": "44 outer wrapper.py paths rebound to new SCRIPT_ROOT; all other argv/probes/results/helperNames unchanged; original script pins retained and new pins added"
+  },
+  "innerCommandRecipes": "byte-level JSON semantics identical; no old planning-root path occurs in inner argv",
+  "sourceCopyMappings": "only one source prefix old planning root -> new planning root, same bytes/size/SHA",
+  "futureReceiptPath": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-shared-acceptance.json"
+}

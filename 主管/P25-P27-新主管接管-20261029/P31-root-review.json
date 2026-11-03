@@ -1,0 +1,51 @@
+{
+  "schema": "p31-supervisor-independent-review-v1",
+  "utc": "2026-10-29T07:14:47.835418+00:00",
+  "status": "accepted-bounded-composite-behavior",
+  "seal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\artifact-manifest.json",
+    "size": 88940,
+    "sha256": "7d5fe8e598dad7979c32d5c84707f94c31381ce60b278b7f3b2c0171c194f7cb"
+  },
+  "artifactsVerified": 508,
+  "sourcePinsVerified": 82,
+  "uniqueCases": 56,
+  "comparedPixels": 191232,
+  "differentPixels": 0,
+  "negativeControls": 144,
+  "commands": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\runs\\build-helper01\\command.json",
+      "size": 1559,
+      "sha256": "9d1953535f54960ad4b1a770008d24330201f6a55eafcff23c7911ea7b476cce"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\runs\\runtime-helper01--runtime01\\command.json",
+      "size": 1116,
+      "sha256": "81e488a69a0eb09ea98369e167d400a9aebb879ad8d1434fcfc1564f5d7bffe2"
+    }
+  ],
+  "inputsPreserved": true,
+  "productBuilds": 0,
+  "rootRuntimeReruns": 0,
+  "productDefectsFound": [],
+  "reviewMethod": "Read helper and independent oracle source; verified exact source manifests; directly compared every saved actual finite pixel buffer, frame/shadow state and entity ownership; verified positive non-vacuous witnesses and negative differences. Viewed actual-contact.png.",
+  "limitations": [
+    "synthetic scene, synthetic selectable entity7001",
+    "4 exact pairs;8 pair-direction trajectories;speed0",
+    "direction1/3/5/6 and remaining38 pairs not tested",
+    "no native,GUI,network,DB,services,shared writes",
+    "no P32 lifecycle,full opacity,transport or event-counter claims",
+    "Legacy Patch.Owners integer array was not emitted by helper; acceptance covers Colors/Mask/EntityOwners/VisibleObjectIds only."
+  ],
+  "goal": {
+    "tool": "update_goal then get_goal",
+    "threadId": "01a18676-3321-7c60-a658-cc70dbe320ba",
+    "status": "complete",
+    "tokensUsed": 20507,
+    "timeUsedSeconds": 456,
+    "createdAt": 1793257514,
+    "updatedAt": 1793257970
+  },
+  "remaining": "Full original-map scene, opacity transitions, all profiles/directions and native GUI remain unaccepted."
+}

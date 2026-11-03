@@ -1,0 +1,437 @@
+{
+  "schema": "bin-engine-current-supervision-status-v2",
+  "utc": "2026-10-29T10:27:22.161462+00:00",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "formalEntry": "r33",
+  "sealedAcceptedRelease": "r34",
+  "releaseSealSha256": "955ea88173cb36cecaefb6d5e9bbce7d76dfd7bf39ccd7830e56a269ab3155c3",
+  "canonical": {
+    "steps": 8,
+    "assertions": 4521,
+    "observations": 93,
+    "productBuilds": 1,
+    "launcherBuilds": 1,
+    "reruns": 0,
+    "qualification": "Historical r34 eight steps only; not a new P36 test run"
+  },
+  "release": {
+    "sealFiles": 16252,
+    "totalFilesIncludingSeal": 16253,
+    "fullShaPassed": true,
+    "independentCopies": 2290,
+    "assetHardlinks": 13958
+  },
+  "entry": {
+    "applied": false,
+    "denied": true,
+    "action": "formal root entry and manifest activation",
+    "approvalQuestionPending": true,
+    "proposal": "entry-proposal/review.json"
+  },
+  "activeWorkers": [
+    {
+      "phase": "P38-plan-integrator",
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a18702-03f2-7de3-9cf4-1a44839d9fc5",
+      "status": "active",
+      "actualStarted": true,
+      "evidence": "Read AGENTS,acceptedP36/P37 and actual r34 launcher source"
+    },
+    {
+      "phase": "P38-plan-reviewer",
+      "threadId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "turnId": "01a18702-117a-71c3-b188-9e94c1d18281",
+      "status": "active",
+      "actualStarted": true,
+      "evidence": "Read launcher check-only branch and version contract"
+    }
+  ],
+  "independentDevelopmentContinues": true,
+  "wholeProjectComplete": false,
+  "nativeAccepted": false,
+  "DBActions": 0,
+  "permanentDeletions": 0,
+  "goal": {
+    "supervisor": "Goal tools searched again at final acceptance: unavailable; actual platform state unknown, no creation or storage changes",
+    "P25": "reported complete",
+    "P26": "reported blocked; no resume API; bounded review delivered",
+    "P27": "reported prior complete then null",
+    "P28": "worker reports complete; thread idle/completed confirmed",
+    "P29": "worker reports complete; thread idle/completed confirmed",
+    "integrator": "get_goal null; unchanged",
+    "P31": "complete; tool readback in work/P31-pickup-composite-review-r1/goal-status.json",
+    "P32": "historical development complete; later certificate follow-up get_goal null, unchanged",
+    "P33": "complete in saved actual tool readback",
+    "P34": "worker final reports complete; sealed file preserves earlier active readback only; root Goal API unavailable",
+    "P35Author": "null; unchanged",
+    "P35Reviewer": "historical blocked; bounded review delivered"
+  },
+  "formalR34Activated": false,
+  "sealedReleaseQualification": "offline sealed development baseline only; not current formal entry",
+  "environment": "restored; filesystem and app-thread tools verified",
+  "P28Delivery": {
+    "state": "sealed-idle-verified",
+    "sourceFiles": 151,
+    "artifacts": 1207,
+    "candidateAssertions": 26953,
+    "independentlyAccepted": "bounded scope only",
+    "namespaceCorrectionVerified": true,
+    "productBuilds": 1
+  },
+  "supervisorGoalToolsAfterReconnect": "searched get_goal/create_goal/update_goal; none available",
+  "nextMilestone": "Exact P38 candidate packaging/launcher plan accepted; no shared writes or entry changes",
+  "P29Delivery": {
+    "state": "accepted-bounded-offline-review",
+    "uniqueRuntimeRows": 5196,
+    "failedRows": 0,
+    "all14FamiliesPassed": false,
+    "acceptance": "P28-P29-candidate-root-acceptance.json"
+  },
+  "currentBacklog": "current-finite-backlog.json",
+  "handoff": "P36-P37-HANDOFF.md",
+  "waitingWorkers": [],
+  "newBlockers": [],
+  "P30CurrentAttempt": {
+    "id": "future-stage-02",
+    "state": "accepted-fresh-isolated-rebuild-identical-to-tested-candidate",
+    "receiptSha256": "c6d74ab2020063d2ea432ca35efb3b5ebf42ce79c0296cc7bc050b363ecd2707",
+    "firstFailurePreserved": true,
+    "actualBuildInvocations": 1,
+    "compilerWarnings": 0,
+    "compilerErrors": 0,
+    "independentCopiesVerified": 184,
+    "fullStageAcceptance": false,
+    "productOnlyBuildAcceptance": true,
+    "independentFinalReview": "accepted",
+    "acceptance": "P30-r2-final-acceptance.json"
+  },
+  "completedWorkers": [
+    {
+      "phase": "P31",
+      "threadId": "01a18676-3321-7c60-a658-cc70dbe320ba",
+      "turnId": "01a18676-34ad-71b3-9d59-6f7774b23f2a",
+      "status": "idle",
+      "turnStatus": "completed",
+      "root": "work/P31-pickup-composite-review-r1",
+      "goalEvidence": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\goal-status.json",
+        "size": 232,
+        "sha256": "b112d1f2f22f7b4c5d962fa0e0f4e04c162be880a053618dfa48c344e463016c"
+      }
+    },
+    {
+      "phase": "P32",
+      "threadId": "01a18676-7607-7120-8804-d19ca3805f36",
+      "turnId": "01a18676-790d-7ec0-a905-3c67385543d2",
+      "status": "idle",
+      "turnStatus": "completed",
+      "root": "work/P32-pickup-lifecycle-review-r1",
+      "goalEvidence": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\goal-readback.json",
+        "size": 403,
+        "sha256": "295263aa54b2ce036ba7acb07d8e220b0211a6f7db9c62f83ba8875e6920c167"
+      }
+    },
+    {
+      "phase": "P33",
+      "threadId": "01a1868e-d476-7ad1-8b4c-f6ac0dce7b5b",
+      "turnId": "01a1868e-d69e-7913-818f-9596c44dce81",
+      "state": "accepted-bounded-offline-behavior",
+      "actualStarted": true,
+      "root": "work/P33-pickup-resource-fault-review-r1",
+      "threadStatus": "idle",
+      "turnStatus": "completed",
+      "goal": "complete in saved actual tool readback",
+      "seal": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P33-pickup-resource-fault-review-r1\\artifact-manifest.json",
+        "size": 16041,
+        "sha256": "99564bcea8ca04c90c2ec027a27e8cc0bcb7c68f14d89f9ff3bfc638be8ef661"
+      },
+      "observedBy": "read_thread/wait_threads: latest dispatched turn completed, no error"
+    },
+    {
+      "phase": "P34",
+      "threadId": "01a1868f-050d-7802-8b13-d1d8984858b5",
+      "turnId": "01a1868f-0786-7c30-9ccc-bda25b870bcc",
+      "state": "accepted-bounded-offline-behavior",
+      "actualStarted": true,
+      "root": "work/P34-pickup-authoritative-flow-review-r1",
+      "threadStatus": "idle",
+      "turnStatus": "completed",
+      "goal": "worker final reports complete; sealed file preserves earlier active readback only; root Goal API unavailable",
+      "seal": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1\\artifact-manifest.json",
+        "size": 34498,
+        "sha256": "54d544f34db25c7b14564846a9bea83d2ae91cf36a38d1bae7e91a6b9b01bcd5"
+      },
+      "observedBy": "read_thread/wait_threads: latest dispatched turn completed, no error"
+    },
+    {
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a186a4-8db4-79e2-9929-fc6b320d069e",
+      "status": "idle",
+      "turnStatus": "completed",
+      "goal": "actual null; unchanged"
+    },
+    {
+      "threadId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "turnId": "01a186a4-9e46-7131-ab4e-27f2f3f63c82",
+      "status": "idle",
+      "turnStatus": "completed",
+      "goal": "historical blocked; no resume API; bounded authorized review delivered"
+    },
+    {
+      "phase": "P36/P37-integrator",
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a186ec-2d74-7c00-b64f-60f1170c9fa8",
+      "status": "idle",
+      "turnStatus": "completed"
+    },
+    {
+      "phase": "P36/P37-reviewer",
+      "threadId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "turnId": "01a186ef-85b4-77e1-b2d9-56de7893885c",
+      "status": "idle",
+      "turnStatus": "completed"
+    }
+  ],
+  "P30Acceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-r2-final-acceptance.json",
+    "size": 6919,
+    "sha256": "b37e5993a5a2fd5c0aed6f10e5c1c313da6dbcaf5899fcb729fffd6d08c03cf1"
+  },
+  "P30FirstAttempt": {
+    "utc": "2026-10-29T06:26:54.255983+00:00",
+    "status": "historical-failed-attempt-preserved; repaired by accepted fresh02",
+    "buildAttempts": 1,
+    "productCompileReached": false,
+    "productDllExists": false,
+    "actualProcessTreeEnded": true,
+    "exitCode": 1,
+    "error": "NuGet.Configuration.ConfigurationDefaults initializer: Value cannot be null (path1), Restore settings stage",
+    "missingCandidateEnvironmentVariables": [
+      "PROGRAMFILES",
+      "PROGRAMFILES(X86)",
+      "PROGRAMDATA"
+    ],
+    "rootCauseQualification": "Confirmed by exact installed NuGet IL and single-variable cases; PROGRAMFILES(X86) alone fixes initializer, compilation still untested",
+    "evidence": [
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\result.json",
+        "size": 52450,
+        "sha256": "c5fab50f21132bfeacfc89677f0748e1a859fd36dbdd835711e496786bf19ebb"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\command.json",
+        "size": 2207,
+        "sha256": "aaf2ab8fdda9cd1865f7b64615f648440629a0b0f72c406d7108eb5b0bf85435"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\stdout",
+        "size": 1561330,
+        "sha256": "905c9bd7a1c08a0ddf2f35ee966b0304471feef076f5627118b2e78a4645b35f"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\stderr",
+        "size": 497,
+        "sha256": "7f0b85f13e01776dc0918e791ad9f34b4f435c0c709a31fa62b65b22233862a2"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\msbuild.binlog",
+        "size": 61492,
+        "sha256": "90f866f0c82523d47e5a083789bfcac6e4bfc610cef5eb223152afff2ebaba5f"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\environment.json",
+        "size": 3938,
+        "sha256": "201aac5452a0cdeb1d2be24ef7b8879c706aaee6a2f7401d3106d225acf163b9"
+      }
+    ],
+    "next": "No retry in failed01; fresh02 has superseded the environment blocker.",
+    "formalEntry": "r33",
+    "entryApprovalPending": true
+  },
+  "P30Totals": {
+    "buildAttempts": 2,
+    "failed": 1,
+    "successful": 1,
+    "newRuntimeAssertions": 0
+  },
+  "P31P32Acceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P31-P32-root-acceptance.json",
+    "size": 8285,
+    "sha256": "217e44587a14ae2b65441aceb4f551cca1717d4b228616e51d5a2ec6a62acccf"
+  },
+  "environmentDeviation": {
+    "evidence": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\environment-deviation.json",
+      "size": 1049,
+      "sha256": "f7f4e762aea8efc9fa40ea276b4aa7b0c8847a9a967453a8be92ad6fb0e64269"
+    },
+    "action": "P32 build-01: dotnet build helper",
+    "observation": "SDK stderr reports ASP.NET Core HTTPS development certificate installed.",
+    "persistentStoreEffect": "Current read-only scan: no matching certificate in 10 opened stores. Historical addition remains uncertain without before snapshot.",
+    "containment": "Subsequent build source snapshots set certificate generation and global-tools PATH changes false; no trust/removal/cleanup attempted.",
+    "futureRequirement": "Set DOTNET_GENERATE_ASPNET_CERTIFICATE=false and DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false before first helper build; record these in run receipt.",
+    "followup": "P32-certificate-root-acceptance.json; read-only inspection accepted, no repair or certificate mutation"
+  },
+  "certificateInvestigation": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P32-certificate-root-acceptance.json",
+    "size": 2448,
+    "sha256": "4d8cc7dc7ab2d36bb97e95bb6384f4d8025bf490fa06d20e6a9c6b51b9ecbe15"
+  },
+  "P33P34Acceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P33-P34-root-acceptance.json",
+    "size": 5551,
+    "sha256": "7aa9f514b3b73b4b07d608ff0cf2f2459d15090d0ca021bba9f505130642c7d4"
+  },
+  "functionalConvergence": "P38-convergence-delta.json",
+  "P35Author": "accepted-sealed-idle",
+  "P35Acceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P35-root-acceptance.json",
+    "size": 6061,
+    "sha256": "04174872b4a7d271776cdb8babd1eb4a8727d0c84ec1cacc8a8ce556adfccb95"
+  },
+  "executionState": "P38 finite offline delivery accepted; both workers idle/completed; no further identified unblocked finite implementation",
+  "allRemainingBlockedOnUser": false,
+  "P36P37Repair": "P36-P37-repair-r2-dispatch.json",
+  "P36ExecutionReceipt": "P36-execution-acceptance-r1.json",
+  "mapResearchTriage": "P36-map-research-triage.json",
+  "P36Observed": "P36-build-observed.json",
+  "P36FinalAcceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-final-acceptance.json",
+    "size": 3382,
+    "sha256": "76145832e5865fad75741450f53500cfad455aa73507bb0a75709c35a86e1e17"
+  },
+  "P37ExecutionAuthority": "P37-inventory-only-acceptance-r1.json",
+  "P37ActualExecution": {
+    "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+    "turnId": "01a186ec-2d74-7c00-b64f-60f1170c9fa8",
+    "status": "idle-completed-sealed",
+    "invocations": 1,
+    "rows": 210,
+    "acceptancePending": false
+  },
+  "P37FinalAcceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P37-final-acceptance.json",
+    "size": 4089,
+    "sha256": "1e6cc6f0296f85484402f5c9ab7cf345275342f345924c2fb54e60fc5d834336"
+  },
+  "remaining": [
+    {
+      "id": "NORMAL/NATIVE",
+      "state": "awaiting-native-authority-and-required-user-environment",
+      "functions": [
+        "normal launcher-to-product GUI transition",
+        "native whole screen/mouse/HUD/focus/shadows",
+        "fixed-version login,movement,combat,items,transactions,save/relogin",
+        "safe supported maps/occlusion and world6016 audio"
+      ],
+      "resume": "Explicit native-operation authority for pinned P38 or other named version; capture/input and safe legitimate scenario. User supplies DB/services where needed. Isolated native testing does not inherently require root entry activation."
+    },
+    {
+      "id": "ENTRY",
+      "state": "prior-action-denied-user-decision-pending",
+      "functions": [
+        "persistent root 啟動引擎.cmd and project-manifest version switch"
+      ],
+      "resume": "Explicit user authorization naming exact target and changes. Old proposed r34 does not include P36/P38 extra41 profiles."
+    },
+    {
+      "id": "SOURCE",
+      "state": "specific-source-contracts-missing",
+      "functions": [
+        "real map-local effect to nonzero group/fade/render association",
+        "non6016 animation-event token semantics/resource/trigger/lifecycle",
+        "unsupported46 map blocks and missing312 pickup-shadow keys"
+      ],
+      "resume": "Exact authoritative IDs/formats and real source/behavior evidence. No repeated research without a new source lead; no guessed implementation."
+    },
+    {
+      "id": "HISTORY",
+      "state": "evidence-limit-retained",
+      "functions": [
+        "historical timing and broader unexecuted regression/native-equivalence claims"
+      ],
+      "resume": "Do not manufacture old receipts or rerun unrelated accepted suites; select further evidence only against a concrete gap or observed defect."
+    }
+  ],
+  "P31P32RemainingHistorical": [
+    {
+      "id": "COMPOSITE-WIDER",
+      "scope": "Original-map finite scene, real occluder/opacity transitions and untested profile/direction combinations; native GUI separate.",
+      "dependency": "select source-backed finite scene oracle"
+    },
+    {
+      "id": "REAL-S30",
+      "scope": "Three real S30 flight vectors and resulting hit priority, not synthetic hit cache.",
+      "dependency": "existing exact packet/flight source contract"
+    },
+    {
+      "id": "RESOURCE-FAULTS",
+      "scope": "Hash/parser/missing group/base-key and extension fallback behavior.",
+      "dependency": "fresh bounded fault harness; immutable product/resources remain untouched"
+    },
+    {
+      "id": "TRANSPORT-EVENTS",
+      "scope": "900/3000 controlled transport timing, authoritative quantities and audio/effect/send metadata counters.",
+      "dependency": "isolated in-memory instrumentation; no real service or DB"
+    },
+    {
+      "id": "RELEASE-RG2",
+      "scope": "General release generator product manifest inclusion defect remains open; accepted concrete r34 package was corrected separately.",
+      "dependency": "exact bounded tool-only repair and independent review"
+    },
+    {
+      "id": "NATIVE",
+      "scope": "Same-version full native workflow, mouse/HUD, map/audio behavior.",
+      "dependency": "explicit native authority and user-owned service readiness; outside current offline authorization"
+    }
+  ],
+  "P33P34RemainingHistorical": [
+    "Original-map full composite/occlusion and native mouse/input remain unexecuted.",
+    "Real S30 / actual transport acknowledgement remains outside controlled gate evidence.",
+    "Audio/effect event counters are not instrumented.",
+    "Resource matrix excludes missing embedded resource and broad schema/pair/fault combinations; expand only for a concrete requirement.",
+    "MAP-F4 effect/group and additional event-token semantics need exact source contracts.",
+    "Generic release generator RG2 product-manifest omission remains; concrete accepted r34 package is separate.",
+    "Formal root activation is denied pending explicit user approval; no retry/reroute.",
+    "No whole-engine completion percentage or full native equivalence claim."
+  ],
+  "canonicalCurrent": {
+    "sourceFiles": 181,
+    "developmentBuild": "engine/build/client-product-p36-r1",
+    "acceptance": "P36-final-acceptance.json",
+    "formalEntry": "r33",
+    "newRuntimeRuns": 0
+  },
+  "P38Dispatch": "P38-dispatch.json",
+  "versionBoundaries": "P38-version-boundaries.json",
+  "P38Actual": {
+    "author": {
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a1871d-2a1e-7c80-804c-6dd91e0c365c",
+      "state": "idle-completed-accepted",
+      "evidence": "work/P38-delivery-plan-r1/runtime-closure.json"
+    },
+    "reviewer": {
+      "threadId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "turnId": "01a18729-3ff9-7993-9b94-9204713fb008",
+      "state": "idle-completed-accepted",
+      "evidence": "read artifact-seal/result/candidate-file-seal and existing binlog reader",
+      "assetResultsObserved": 13957,
+      "assetResultsPath": "work\\P38-delivery-review-r1\\final\\asset-body-results.jsonl",
+      "readerPinIssue": "incorrect expected reference resolved against existing P36 sealed manifest; no product change or rerun"
+    },
+    "next": "Resume only against exact source evidence, native-operation authority/environment, or exact entry approval; no automatic new phase",
+    "executionAuthorized": true,
+    "executionReceipt": "P38-delivery-execution-acceptance-r1.json"
+  },
+  "P38Observed": "P38-execution-observed.json",
+  "P38FinalAcceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P38-final-acceptance.json",
+    "size": 4543,
+    "sha256": "e4ac694414f9d112d181323e46b2f6fb61a5e788ee57554ba1e33971392ce478"
+  },
+  "noIdentifiedUnblockedFiniteImplementation": true
+}

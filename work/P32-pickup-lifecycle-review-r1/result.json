@@ -1,0 +1,122 @@
+{
+  "schema": "p32-pickup-lifecycle-review-v1",
+  "status": "offline-subset-passed-awaiting-supervisor",
+  "distinctCases": 196,
+  "passed": 196,
+  "failed": 0,
+  "families": {
+    "lifecycle": 39,
+    "direction-window": 105,
+    "terminal-replacement": 42,
+    "latest-eligible": 1,
+    "lease": 2,
+    "guard-isolation": 6,
+    "actor-reentry": 1
+  },
+  "runs": [
+    {
+      "run": "runtime-01",
+      "cases": 188,
+      "runtime": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\runtime-01\\runtime.json",
+        "size": 1745206,
+        "sha256": "63f76e02e72cb7a4625b905f9e9c3b5aee10d1b5204e0f8bda2e674c4a098802"
+      }
+    },
+    {
+      "run": "runtime-02",
+      "cases": 7,
+      "runtime": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\runtime-02\\runtime.json",
+        "size": 74822,
+        "sha256": "8c5b1ff7df0d63776dfa4f0fb50d66325e4358771fcf5ac1ff9bc21a19a1a795"
+      }
+    },
+    {
+      "run": "runtime-03",
+      "cases": 1,
+      "runtime": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\runtime-03\\runtime.json",
+        "size": 8564,
+        "sha256": "6a4ca281fb915059b446d9c15cbed78f6e8799e213c501f987c30e347c8b8cea"
+      }
+    }
+  ],
+  "commands": [
+    {
+      "label": "build-01",
+      "command": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\build-01\\command.json",
+        "size": 3680,
+        "sha256": "205369dbb5be41155da1875e9fc2e9f5f4bee4520f1b92a0bee14320b4386c54"
+      },
+      "exitCode": 0
+    },
+    {
+      "label": "runtime-01",
+      "command": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\runtime-01\\command.json",
+        "size": 3048,
+        "sha256": "7e4fc7627ac9659cebdf5d6402a3aed3150ac27f45886e927532eb5f3592e944"
+      },
+      "exitCode": 0
+    },
+    {
+      "label": "build-02",
+      "command": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\build-02\\command.json",
+        "size": 3678,
+        "sha256": "6b0ef0ace50ae5430710403a9bfbc48b89df8a2ed02ed1900d876513683259b8"
+      },
+      "exitCode": 0
+    },
+    {
+      "label": "runtime-02",
+      "command": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\runtime-02\\command.json",
+        "size": 3067,
+        "sha256": "26faf6fe6217fa7bf078c5350eb77051d77b2acb9b44a6ace2e566932005f7ea"
+      },
+      "exitCode": 0
+    },
+    {
+      "label": "build-03",
+      "command": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\build-03\\command.json",
+        "size": 3678,
+        "sha256": "5539bdb908663987c0266ead58a8616b8b744204e2d7ce9845758af539a55e61"
+      },
+      "exitCode": 0
+    },
+    {
+      "label": "runtime-03",
+      "command": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\runtime-03\\command.json",
+        "size": 3070,
+        "sha256": "fe1a2dbe3a3273ae4af46de31470748bca3fd728c188ec632294414a0f374bd2"
+      },
+      "exitCode": 0
+    }
+  ],
+  "helperBuilds": 3,
+  "productBuilds": 0,
+  "productChanges": 0,
+  "productDefectsEstablished": 0,
+  "actualDllSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "audioAdjacentBindingSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "audioPlaybackOrDeviceTest": false,
+  "negativeControls": 3,
+  "sourceQualification": {
+    "base104": "historical-selected-payload-matched",
+    "pickup312": "bounded-only"
+  },
+  "native": 0,
+  "gui": 0,
+  "network": 0,
+  "wholeProjectComplete": false,
+  "formalEntry": "r33 unchanged",
+  "entryActivation": "previous automatic approval review denial retained; not retried",
+  "environmentDeviation": "environment-deviation.json",
+  "goal": "complete; actual readback in goal-readback.json",
+  "writeRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1"
+}

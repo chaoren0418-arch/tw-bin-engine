@@ -1,0 +1,105 @@
+{
+  "claims": [
+    {
+      "id": "P01",
+      "decision": "accepted conditional source",
+      "independentReasoning": "A46DDA writes frame index0, A4358C preincrements it; with count4 the first binding is index1. A46E65..A46E7E passes D1+1 to A231C0 and stores its returned sample+D1+1 at actor+0xBC. +0xBC is decimal188, not +0x188.",
+      "limits": "Requested15 must survive current-action8 and special override/early routes; valid stable four-frame metadata. Frame1 binding happens before the initial clock sample N0.",
+      "disassembly": "disassembly/P01.txt"
+    },
+    {
+      "id": "P02",
+      "decision": "accepted conditional source",
+      "independentReasoning": "A437DB resets index0, A437E4 calls A3EF40, stores its returned duration and A43822 returns false. Continuing branch A43894 binds the incremented frame and returns true. Thus normal count4 sequence is 1,2,3,terminal0. Frame selection uses the current frame record; A3FD8F calls A407D0.",
+      "limits": "The metadata variant branch before reset may change variant. No universal no-loop or profile eligibility claim; native screen presentation is unmeasured.",
+      "disassembly": "disassembly/P02.txt"
+    },
+    {
+      "id": "P03",
+      "decision": "accepted conditional source",
+      "independentReasoning": "A4B4BE calls A43560. False takes the terminal path; +0xD8 nonzero with action!=8 sets passed duration to1. A4B594..A4B5C8 passes that duration to vtable+0x48 and bypasses continuing recurrence. Supplemental A4B4F3..A4B594 contains separate action8/66..69 handling, not an ordinary action15 duration rewrite.",
+      "limits": "D0 means the newly bound frame0 duration only when +0xD8=0 and the stated ordinary branch applies.",
+      "disassembly": "disassembly/P03.txt"
+    },
+    {
+      "id": "P04",
+      "decision": "accepted conditional source",
+      "independentReasoning": "A44500 nonempty queue schedules A4BF00 with the passed duration using fresh A231C0 clock, with no added +1. Empty ordinary branch sets delay0x248 at A446C1 unless an existing idle/action9 case chooses a frame duration; +34!=0 instead selects action71. A446E4 queues weapon+3 via +64 and A446FF onward schedules its consumer.",
+      "limits": "584 requires ordinary weapon, present weapon+3 metadata !=15, +34=0, self guards allowing scheduling, derived queue dispatch and successful allocation. It is not a request lock, unconditional immediate action0 reset, or measured total latency.",
+      "disassembly": "disassembly/P04.txt"
+    },
+    {
+      "id": "P05",
+      "decision": "accepted table identities; conditional binding",
+      "independentReasoning": "Three original vtables were decoded as uint32 data. +64 is base51E860 no-op versus derivedA3C4F0. +48 is base51E8E0 wrapper toA44500 versus directA44500. +4C base51E920 and derived521E20 reachA467A0; the derived extra wrapper path is action8-specific.",
+      "limits": "Six inherited constructor/destructor reference chunks match BIN bytes; table availability does not prove every runtime actor has a derived binding.",
+      "disassembly": "disassembly/P05.txt"
+    },
+    {
+      "id": "P06",
+      "decision": "accepted conditional source",
+      "independentReasoning": "A3C551 allocates8 bytes, A3C56D writes226 and A3C579 writes the action. A3C589 appends viaA3C100: buffer[count]=command, count++. Actor array is at+0x19C, buffer at+0x1A4. Duplicate suppression requires count>3, previous opcode226, matching action and requested action2.",
+      "limits": "Allocation failure appends nothing. Action15 is not suppressed by that action2 rule. This is an internal command record, not proof of a network opcode identity.",
+      "disassembly": "disassembly/P06.txt"
+    },
+    {
+      "id": "P07",
+      "decision": "accepted conditional source",
+      "independentReasoning": "A44B60 reads index0 then removes it by92AD40, which shifts four-byte pointers and decrements count. A4BF00 pops before dispatch; opcode226 selects byte index8 and targetA4BFB9 in the verified switch data. A4C000..A4C012 passes command.action through vtable+0x4C; A4C138 frees the popped command.",
+      "limits": "FIFO holds for pending commands subject to separately proven deletion/preemption paths; switch tables are data, not executable linear disassembly.",
+      "disassembly": "disassembly/P07.txt"
+    },
+    {
+      "id": "P08",
+      "decision": "accepted restricted preemption",
+      "independentReasoning": "A3EBF0 with nonempty queue and frame0 removes/frees an idle head and cancels A4BF00 for that actor before returning false. Predicate is (opcode226 AND head.action=weapon+3) OR (head.action=9 AND A43170), with no opcode guard on the second term. Empty queue has a separate current idle/action9 branch cancelling A4B060. A23AC0 requires both callback and context match and retries the same index after erasure.",
+      "limits": "Nonzero frame remains busy in the queued branch; ordinary queued action15 is not an idle head when weapon+3!=15. This does not establish universal incoming-action cancellation.",
+      "disassembly": "disassembly/P08.txt"
+    },
+    {
+      "id": "P09",
+      "decision": "accepted conditional clear and queue routing",
+      "independentReasoning": "92CFFE checksA3EBF0; busy incoming8 enters the clear loop. Nonnull opcode!=186 reaches free/null/erase at92D250..92D298 and resets scan index=-1. Pending226/action15 can be erased. Afterwards currentaction8 skips append; otherwise +64 receives the incoming action. Nonbusy path calls +4C.",
+      "limits": "Null entries take92D056..92D068 erase then increment, so a shifted successor can be skipped. Thus all-clear requires an appropriate nonnull queue invariant, not established universally. A44BB0 is a separate matching226/action erase loop with increment after erase, no explicit free or scheduler cancellation; adjacent matches may be skipped.",
+      "disassembly": "disassembly/P09.txt"
+    },
+    {
+      "id": "P10",
+      "decision": "accepted clock expression only",
+      "independentReasoning": "A228B0 branches on configured clock state. QPC is multiplied by1000 through103D750 and divided by the configured64-bit value through103D5E0, returning EAX; alternate branch callsGetTickCount. Both target imports are literal named PE imports independently verified.",
+      "limits": "Clock selection/frequency initialization and actual values remain untraced. Low32-bit scheduler arithmetic is not a wrap-safe elapsed-time proof.",
+      "disassembly": "disassembly/P10.txt"
+    },
+    {
+      "id": "P11",
+      "decision": "accepted static insertion semantics",
+      "independentReasoning": "A231C0 samplesA228B0, adds caller delay, inserts and returns that sample. A23260 instead adds caller-supplied base to delay without resampling. Both scan deadlines backward with unsigned ja: later deadlines are skipped, equal deadlines retain insertion after existing equals. A22830 shifts16-byte records.",
+      "limits": "Static insertion order only; no native execution, observed cadence, wrap safety or thread-interleaving guarantee.",
+      "disassembly": "disassembly/P11.txt"
+    },
+    {
+      "id": "P12",
+      "decision": "accepted source plus bounded algebra",
+      "independentReasoning": "A4B5D8 computes lateness=N-B from actor+0xBC; A4B5E4 computesD-lateness. 4E7F50 uses signed jge to select max(1,D-lateness); A4B616 adds1. A23260 receives that delay and sampled N. Independently A4B62E updates B toB+D+1.",
+      "limits": "Without wrap/signed overflow: due=N+max(1,D-(N-B))+1=max(N+2,B+D+1). Baseline is ideal, not replaced by the clamped due. It is not a per-actor catch-up loop.",
+      "disassembly": "disassembly/P12.txt"
+    },
+    {
+      "id": "P13",
+      "decision": "accepted source",
+      "independentReasoning": "A23372 samples clock once. Loop atA2337A compares unsigned sampledNow>=headDeadline atA23394, copies and removes index0 before invoking callback(context), then jumps back without another sample.",
+      "limits": "A callback may itself sample a later time; that does not refresh this pump sample. No pump caller cadence, render cadence or actual due-to-screen latency established.",
+      "disassembly": "disassembly/P13.txt"
+    },
+    {
+      "id": "P14",
+      "decision": "accepted conditional duration formula",
+      "independentReasoning": "A407D0 distinguishes self encrypted-global status/gfx from nonself actor fields. Fixed-duration path reads the decoded frame duration field; variable-FPS paths are separate. Nonself +0x19C thresholds divide by16/8/4/2 at counts>=16/8/4/2 respectively, truncating toward zero, before later status/speed transforms. Speed1 applies(3*D)>>2 and Speed2 doubles under the selected branch.",
+      "limits": "Self and remote are not interchangeable. Neutral means applicable secondary/Brave,+0x220,+0x223,A41C30 and other modifiers absent, no variable FPS, and remote count<=1 at every duration sample. Brave0 alone is insufficient. The special list literal0x15 is decimal21, not pickup15. Base41/166 is an inherited example input, not newly proven upstream tick conversion.",
+      "disassembly": "disassembly/P14.txt"
+    }
+  ],
+  "sourceProofRanges": 39,
+  "supplementalConnectors": 2,
+  "runtimeChecks": 0
+}

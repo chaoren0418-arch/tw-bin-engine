@@ -1,0 +1,57 @@
+{
+  "schema": "p26-RG2-correction-artifact-seal-v1",
+  "files": [
+    {
+      "path": "artifact-manifest.json",
+      "size": 1497,
+      "sha256": "a8f05f27f08dbae023a8b72a897cd380028fc255bfd745fcef2157d667f48db9"
+    },
+    {
+      "path": "commands.json",
+      "size": 736,
+      "sha256": "2aa22691f2ecd2762ffde5cfbbbf64fa385aa09296126f2d54005b5ddfd872f3"
+    },
+    {
+      "path": "correct_rg2.py",
+      "size": 3715,
+      "sha256": "ff7c7406725148240bb5a0a7e4d0ddfc0481cbdaed7f2daaf028823ec60330d4"
+    },
+    {
+      "path": "delta.json",
+      "size": 1757,
+      "sha256": "ece8a1227e1d4be1fead7308b860f766dde9c0cb50bb67787f370190ec48489b"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 1966,
+      "sha256": "d8eced6d3734fa9ce931bde826a9d1ae03cb02f62edc2a5ebf58e4de0a47820b"
+    },
+    {
+      "path": "package-plan.json",
+      "size": 1099423,
+      "sha256": "939fcbd2176d1360b510153993f43deacf91b34a3b1737fb4d91ad8b30bb0c01"
+    },
+    {
+      "path": "progress.json",
+      "size": 363,
+      "sha256": "08217ad4f50beaf6c377742d3bf846d8cc68a60e7474d65bbb4b633eb4b78632"
+    },
+    {
+      "path": "result.json",
+      "size": 5337,
+      "sha256": "780ee5046ddcdae6181e4f5b225523f9295329552c9ea65458681c3d408cedc8"
+    },
+    {
+      "path": "verification.json",
+      "size": 4087,
+      "sha256": "b1366a7e13530aedb340462c1438e5e0bd654658ab811d746e0d9714a54e2bbc"
+    },
+    {
+      "path": "verify_correction.py",
+      "size": 4938,
+      "sha256": "2af4e21c54ab28e13964c7117866c4020fdec0add4ec9073e4f2e55602e7623c"
+    }
+  ],
+  "fullSHA": true,
+  "packageExecutionAuthorized": false
+}

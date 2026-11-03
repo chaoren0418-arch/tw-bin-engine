@@ -1,0 +1,47 @@
+{
+  "timedOut": false,
+  "wake": {
+    "reason": "turnCompleted",
+    "turnId": "01a185c8-8dd0-7373-99e8-18831ecd854d",
+    "threadId": "01a185b7-f732-7f60-8716-a944d67724c2",
+    "hostId": "local"
+  },
+  "polls": [
+    {
+      "schemaVersion": 1,
+      "cursor": "aa6dc05e-e2f2-48cc-9482-2cc210b21fba:10",
+      "revision": 10,
+      "changed": true,
+      "thread": {
+        "id": "01a185b7-f732-7f60-8716-a944d67724c2",
+        "hostId": "local",
+        "status": {
+          "type": "idle"
+        }
+      },
+      "latestTurn": {
+        "id": "01a185c8-8dd0-7373-99e8-18831ecd854d",
+        "status": "completed",
+        "error": null,
+        "startedAt": 1793245875,
+        "completedAt": 1793245902,
+        "durationMs": 27221
+      },
+      "latestAssistantMessageId": "msg_0b37793e4c807bed016ae2c2cbd58c8191be2e985ff0f06f47",
+      "latestAssistantMessage": {
+        "id": "msg_0b37793e4c807bed016ae2c2cbd58c8191be2e985ff0f06f47",
+        "turnId": "01a185c8-8dd0-7373-99e8-18831ecd854d",
+        "phase": "final_answer",
+        "text": "P27 已獲主管接受，停止本範圍新增工作。 前輪 Goal 已完成並讀回 complete；本次讀回為 null，已如實記錄，未重建 Goal。全案及同版 native 驗收仍未完成，後續等待 exact r34 差異派工。"
+      },
+      "latestToolMarkerId": "exec-3acd75e5-6b47-4207-8d55-a56cd5e2d349",
+      "latestToolMarker": {
+        "id": "exec-3acd75e5-6b47-4207-8d55-a56cd5e2d349",
+        "turnId": "01a185c8-8dd0-7373-99e8-18831ecd854d",
+        "type": "commandExecution",
+        "name": "commandExecution",
+        "status": "completed"
+      }
+    }
+  ]
+}

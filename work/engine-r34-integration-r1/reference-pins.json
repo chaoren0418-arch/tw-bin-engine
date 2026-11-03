@@ -1,0 +1,878 @@
+{
+  "references": [
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\acceptance_gate.py",
+      "copy": "reference/r33-prep/acceptance_gate.py",
+      "size": 15011,
+      "sha256": "861fcc664cb619dd2925a62246c9d2044576a2aa124e5af0008d98bdda7ffdf4"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\run_next_stage.py",
+      "copy": "reference/r33-prep/run_next_stage.py",
+      "size": 4817,
+      "sha256": "3a6804201069ee8cf59ac7013697b3520edee610dab6afcb4c7e126f6dd0f99b"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\prepare_rebuild.py",
+      "copy": "reference/r33-prep/prepare_rebuild.py",
+      "size": 4888,
+      "sha256": "61788ef2937855a694a947d7ed5680aa59ca3481171ac0b4fb714d37b8925a06"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\assertion_occurrences.py",
+      "copy": "reference/r33-prep/assertion_occurrences.py",
+      "size": 891,
+      "sha256": "0d6e245d1262cadd3a626789b037f2f3726cdcf2229fd71646551ed87488cb07"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\evidence_pins.py",
+      "copy": "reference/r33-prep/evidence_pins.py",
+      "size": 819,
+      "sha256": "4b135a0426d1a9140ecdcebff736e7d1325cebb7d3d135b3041616dcfc4355b9"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\acceptance-materials.schema.json",
+      "copy": "reference/r33-prep/acceptance-materials.schema.json",
+      "size": 12196,
+      "sha256": "c11c96f4ddb35abe9830ecc67bfc43a1daeb28108d12c3d3228982c431c9e683"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\prepared\\build-product.ps1",
+      "copy": "reference/r33-prep/prepared/build-product.ps1",
+      "size": 1723,
+      "sha256": "f63d3d0fe6eefd1173ccb0a1c6011155a59ec48d6d0dbb33b08b2a7fbec60d87"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\prepared\\launch-product.ps1",
+      "copy": "reference/r33-prep/prepared/launch-product.ps1",
+      "size": 2781,
+      "sha256": "40f86aecf3d4d7469da8093dc50ceb9a56bb4f71ed8c1203f18bbb9594afa5db"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\prepared\\rebuild_template_r33.py",
+      "copy": "reference/r33-prep/prepared/rebuild_template_r33.py",
+      "size": 8502,
+      "sha256": "1ff5956d66c85485f6bedca9de50fc3e3432939dd38df3507bd21c520cfc2a8d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\prepared\\regression-plan-r33.json",
+      "copy": "reference/r33-prep/prepared/regression-plan-r33.json",
+      "size": 1872,
+      "sha256": "8f071fd70fc12c92e4bf09c6aaff54f9a24d513e897408c37f8e0632d2544f0b"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\prepared\\release-layout-r33.json",
+      "copy": "reference/r33-prep/prepared/release-layout-r33.json",
+      "size": 3396,
+      "sha256": "83626438d8fa57d3d93220f1b3c7d691e211dd3f27c1c8f06c0a34279f0363af"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\prepared\\run_stage_r33.py",
+      "copy": "reference/r33-prep/prepared/run_stage_r33.py",
+      "size": 7189,
+      "sha256": "a16f2396f6ffd3639b6ff8c793f7e1fc68bc2821ad14fb4e146f0337a7cb395b"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\prepared\\verify_release_r33.py",
+      "copy": "reference/r33-prep/prepared/verify_release_r33.py",
+      "size": 1746,
+      "sha256": "5738133d713b2cfb9adaa7dffc6b1d73f7053d2675a9e4ce81583c80a7708e59"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\implementation-contract.json",
+      "copy": "reference/base/implementation-contract.json",
+      "size": 8517,
+      "sha256": "8c60b1061c637bcb7f992d7f92c74fc80c0ad945c7f05d1c3a2d74507cffc6f2"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\baseline-final.json",
+      "copy": "reference/base/baseline-final.json",
+      "size": 29657,
+      "sha256": "2a946e965f1aed1f9a0358ceb560f52575ea5a3bf217fc9ccf36e9ce5823c40f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\baseline.json",
+      "copy": "reference/base/baseline.json",
+      "size": 57792,
+      "sha256": "38956c96dfa7e6c7360fade71f8c095323990c2d5d24cb48395073457459b1ad"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\final-base-binding.json",
+      "copy": "reference/base/final-base-binding.json",
+      "size": 665,
+      "sha256": "28d0d6f3386575c175aa06b7b9076da961cfd1db62e2563cf7cd65c7c276ea95"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-拾取生命週期修復-20261029\\r33-supervisor-acceptance.json",
+      "copy": "reference/base/r33-supervisor-acceptance.json",
+      "size": 4200,
+      "sha256": "09b35736898f5a5c269ddcaab7ecd375ce7f6c0f5b04bcc22776d331905d176a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\integration-prep-dispatch.json",
+      "copy": "reference/base/integration-prep-dispatch.json",
+      "size": 4438,
+      "sha256": "75b44796cbc73614aea78f10a5b840d022159f3cae86e8b6e2e41ddef5960bcc"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\assertion-occurrences.json",
+      "copy": "reference/r33-regression/ground/assertion-occurrences.json",
+      "size": 59088,
+      "sha256": "28a53855ab53733799b29d0ba2804d0970fcc1414325bb4a5468a3e203027c6a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\baseline-probe.json",
+      "copy": "reference/r33-regression/ground/baseline-probe.json",
+      "size": 69065,
+      "sha256": "07ad26d9e22a052ebe14093984dbd83240e898be44455ae6f1297cb33c338644"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\check-probes.py",
+      "copy": "reference/r33-regression/ground/check-probes.py",
+      "size": 1539,
+      "sha256": "71c9ac6a3fdf377065900a0e7eeddcd0ff805c4c312c98ff721031b5ba9904ac"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\coverage.json",
+      "copy": "reference/r33-regression/ground/coverage.json",
+      "size": 2723,
+      "sha256": "b4fc3d50e76425d26bf8e3b8faad4cc7d3b7af045b480005578ca5ca77d45659"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\execution-result.json",
+      "copy": "reference/r33-regression/ground/execution-result.json",
+      "size": 5242,
+      "sha256": "285762c78963bb5b3d39b3e073d5316e74ef520b0e7a26da49ca857ce66f2d46"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\extended-probe.json",
+      "copy": "reference/r33-regression/ground/extended-probe.json",
+      "size": 145418,
+      "sha256": "558c6f96cafc04dd1f2fd74239259c02f07afaf9f84b290b26a0e314f58a4d01"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\formal-probe.json",
+      "copy": "reference/r33-regression/ground/formal-probe.json",
+      "size": 2167933,
+      "sha256": "1ebf9177e14ce070de9cf36658c3e90f9dc9e0d766913589e93d0a8f46d2b0af"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\harness\\Extended.cs",
+      "copy": "reference/r33-regression/ground/harness/Extended.cs",
+      "size": 13941,
+      "sha256": "7ece3b0c845948d2a689c1a376822955a0a3914f6fdd6ba1e86c8a40afd75847"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\harness\\Formal.cs",
+      "copy": "reference/r33-regression/ground/harness/Formal.cs",
+      "size": 13212,
+      "sha256": "b53974171516bc5cc250c649fc9240343138ad8aeaf5be17ddcc8990c8c547e2"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\harness\\Lifecycle.cs",
+      "copy": "reference/r33-regression/ground/harness/Lifecycle.cs",
+      "size": 5351,
+      "sha256": "70e1dc0b9ee21db7df7ec2ee0caffb24d052c69bba37fba17cbad7aec94f2274"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\harness\\Program.cs",
+      "copy": "reference/r33-regression/ground/harness/Program.cs",
+      "size": 13332,
+      "sha256": "c956106fa8913358906439b0421ac28c5245a420076c719a6630ad826753763a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\harness\\Review.csproj",
+      "copy": "reference/r33-regression/ground/harness/Review.csproj",
+      "size": 410,
+      "sha256": "6b8a520d3007553244fdd1a7259791ae8604703c5b2a5563d50beb8cad25295a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\harness\\Supplement.cs",
+      "copy": "reference/r33-regression/ground/harness/Supplement.cs",
+      "size": 2443,
+      "sha256": "5d2dae882e6bab57899fc9b08f8a69a50b0d36ad2d048cb68e429ae9b22f2b14"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\observations.json",
+      "copy": "reference/r33-regression/ground/observations.json",
+      "size": 114233,
+      "sha256": "a3f1539c3baf25eb00122fcc698cee95179c30426fe1e5d0a07265f10558cb27"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\ground\\supplement-probe.json",
+      "copy": "reference/r33-regression/ground/supplement-probe.json",
+      "size": 7466,
+      "sha256": "bf808973ee7fba1895d6357b25c8a514312533daf73f1005968140470c3db963"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\utility\\assertion-occurrences.json",
+      "copy": "reference/r33-regression/utility/assertion-occurrences.json",
+      "size": 28224,
+      "sha256": "52af7a2794f5dee971f35c59c02cb4d136ff5930f37945516ef97a46e9b9fefe"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\utility\\execution-result.json",
+      "copy": "reference/r33-regression/utility/execution-result.json",
+      "size": 2294,
+      "sha256": "2ebf1a6d48d6da0b226cff54d8d5a90ca7e2b6e0986f566d9c93888005683a4e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\utility\\harness\\Extra.cs",
+      "copy": "reference/r33-regression/utility/harness/Extra.cs",
+      "size": 12211,
+      "sha256": "aad80de8e94a61d2bee2aacdb9227badc5d0881107f20633908b6e50fd9abe26"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\utility\\harness\\Formal.cs",
+      "copy": "reference/r33-regression/utility/harness/Formal.cs",
+      "size": 11584,
+      "sha256": "3232e708c618658626abc81b618046d0fa77b465e0a832005487f1b810c49bd8"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\utility\\harness\\Program.cs",
+      "copy": "reference/r33-regression/utility/harness/Program.cs",
+      "size": 13356,
+      "sha256": "e926858776057b71d6b70a3320f9a4fab4d207f4d47ab77adec7a4a5d9b23b06"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\utility\\harness\\Review.csproj",
+      "copy": "reference/r33-regression/utility/harness/Review.csproj",
+      "size": 408,
+      "sha256": "cd2ae1356d52e45d49d31df2445d458bced80facf36c02b906aeb3baefa244f7"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\utility\\npc-observations.json",
+      "copy": "reference/r33-regression/utility/npc-observations.json",
+      "size": 3895,
+      "sha256": "5b990dc609e934a58b342ae644b1d5dfc60a191026a886ce7003daa5223db9e5"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\utility\\probe.json",
+      "copy": "reference/r33-regression/utility/probe.json",
+      "size": 190266,
+      "sha256": "1a22c693caab5b3520c9eed560a5376c3a3ea73f70f149048114f4062294fd3d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\haste\\assertion-occurrences.json",
+      "copy": "reference/r33-regression/haste/assertion-occurrences.json",
+      "size": 111442,
+      "sha256": "71ec571bcc980bca0f8a6cb4846f8d1faed4dd02e40923b7221dc9f1672a5e48"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\haste\\execution-result.json",
+      "copy": "reference/r33-regression/haste/execution-result.json",
+      "size": 2436,
+      "sha256": "66dd3e81b09042bf29d7c1dd435a9093ded934a17f0a11f7413b55b9c3d0e297"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\haste\\harness\\Candidate.cs",
+      "copy": "reference/r33-regression/haste/harness/Candidate.cs",
+      "size": 6936,
+      "sha256": "d8ae35a9e24ea3fbddd1ced21d3dd637a2e9ca21e8fdc620044cd18f63684361"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\haste\\harness\\CandidateRelease.cs",
+      "copy": "reference/r33-regression/haste/harness/CandidateRelease.cs",
+      "size": 3118,
+      "sha256": "3a72d80ebb955f2ab6e8ca4d865287964edae1276561600a41bd54fb0be91938"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\haste\\harness\\Extra.cs",
+      "copy": "reference/r33-regression/haste/harness/Extra.cs",
+      "size": 16831,
+      "sha256": "542876ff537a3f2f42ae33137cc80d9cf61603959f11c7baa5a8c81a78a19015"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\haste\\harness\\Haste.cs",
+      "copy": "reference/r33-regression/haste/harness/Haste.cs",
+      "size": 12064,
+      "sha256": "53b1f595469df19d2aee3d649158bd6f0bd594587061ee492663dd4735c47231"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\haste\\harness\\HasteCompletion.cs",
+      "copy": "reference/r33-regression/haste/harness/HasteCompletion.cs",
+      "size": 2239,
+      "sha256": "22b5130c1abb361f23787c2d7247618569706810cf1766cff6b7b5fce608307f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\haste\\harness\\NuGet.Config",
+      "copy": "reference/r33-regression/haste/harness/NuGet.Config",
+      "size": 112,
+      "sha256": "7d59a339f0f6022f0710d690fe52e2a0f868519847651f6c10f6c9ff1bd7213a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\haste\\harness\\Program.cs",
+      "copy": "reference/r33-regression/haste/harness/Program.cs",
+      "size": 10063,
+      "sha256": "e634f37b8e26dd7f0af89376948514908b82a7a7601647a808d7c2f61697e5e7"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\haste\\harness\\Review.csproj",
+      "copy": "reference/r33-regression/haste/harness/Review.csproj",
+      "size": 410,
+      "sha256": "ed2c8d122edb7ca3a1dc76e50296b5d0e9566212ac2c77286ba2556cc2655b0d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\haste\\probe.json",
+      "copy": "reference/r33-regression/haste/probe.json",
+      "size": 777046,
+      "sha256": "e3af00c1d73ea0fbcbeb185e166c56d967be5f17eb9853b191beba1141977d82"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\versioned-slow\\assertion-occurrences.json",
+      "copy": "reference/r33-regression/versioned-slow/assertion-occurrences.json",
+      "size": 65043,
+      "sha256": "651e30a8b0ae05034a1cb87f0db13315386fb1220105a2def4b0acad01d04a99"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\versioned-slow\\execution-result.json",
+      "copy": "reference/r33-regression/versioned-slow/execution-result.json",
+      "size": 2712,
+      "sha256": "743a31b99f94e79b3866ed28157ec490198affa09414f6af794b289fe9b1f28c"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\versioned-slow\\harness\\Extra.cs",
+      "copy": "reference/r33-regression/versioned-slow/harness/Extra.cs",
+      "size": 9423,
+      "sha256": "13bb4068e75db80d908f9aafc2e2d8432505de7002febe6d38a894dbd2b9d621"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\versioned-slow\\harness\\NuGet.Config",
+      "copy": "reference/r33-regression/versioned-slow/harness/NuGet.Config",
+      "size": 74,
+      "sha256": "9508cae5f76364f56e80eb97cb16493977243cf38e5cca6284e3d74f83b20a2c"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\versioned-slow\\harness\\Program.cs",
+      "copy": "reference/r33-regression/versioned-slow/harness/Program.cs",
+      "size": 8080,
+      "sha256": "9005b27a43a00973215d4a04bb014b6423cca7435a95b15502c19aab869b8c5e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\versioned-slow\\harness\\Review.csproj",
+      "copy": "reference/r33-regression/versioned-slow/harness/Review.csproj",
+      "size": 408,
+      "sha256": "5c14f958e422f3a2d38442bc0e0b935ffe7085ba47c7cbe432f55871ffac6722"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\versioned-slow\\jar-oracle.json",
+      "copy": "reference/r33-regression/versioned-slow/jar-oracle.json",
+      "size": 5839,
+      "sha256": "1eb23d82aa36b47bd09a8944e5191f6d434a2128112fb3464798292edac8b78a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\versioned-slow\\native-oracle.json",
+      "copy": "reference/r33-regression/versioned-slow/native-oracle.json",
+      "size": 4890,
+      "sha256": "0b11690c96a93e3c1cc8cd935ad8d9c35b907d48fcb6c1d265d6710f398fbe4a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\versioned-slow\\probe.json",
+      "copy": "reference/r33-regression/versioned-slow/probe.json",
+      "size": 176962,
+      "sha256": "ab0d72aed3c34eb0be716cfa12a41a7d8f7b5ced0c5bf4f010195e788f9e6046"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\f1\\assertion-occurrences.json",
+      "copy": "reference/r33-regression/f1/assertion-occurrences.json",
+      "size": 9883,
+      "sha256": "9438169d6a46a4a9ea63b3d15aa9640ad60ac7bfdadd87b2eda64daaaf5a0263"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\f1\\execution-result.json",
+      "copy": "reference/r33-regression/f1/execution-result.json",
+      "size": 2389,
+      "sha256": "214699acc25e64078525d1d6715c504c5384a2f6834d43697e918673cfdd837e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\f1\\harness\\F1.csproj",
+      "copy": "reference/r33-regression/f1/harness/F1.csproj",
+      "size": 369,
+      "sha256": "16dc16041b77162534b042ab01e149f27cff9380e11a573114b435ebd17cd6a7"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\f1\\harness\\Program.cs",
+      "copy": "reference/r33-regression/f1/harness/Program.cs",
+      "size": 6557,
+      "sha256": "c10539748c29e9cf9ed3869c83244fb9f57d763584b1e64e16f4062a4582888f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\f1\\probe.json",
+      "copy": "reference/r33-regression/f1/probe.json",
+      "size": 8339,
+      "sha256": "dd2472761dbf90a63d646a9db7132125c85a53318ea09cdb2253fc08b6205632"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\run_ground.py",
+      "copy": "reference/r33-stage/stage-work/run_ground.py",
+      "size": 7289,
+      "sha256": "09e99111274e9a71dd4bc38967cc74b4f70011e448267a31fdfa36502ec0a4c4"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\run_final_suites.py",
+      "copy": "reference/r33-stage/stage-work/run_final_suites.py",
+      "size": 7022,
+      "sha256": "a9973673c08df15466839eb4274553c37ce2ace783ae3f3e9f3dc56ae9e4ea1a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\source-copies.json",
+      "copy": "reference/r33-stage/stage-work/source-copies.json",
+      "size": 23422,
+      "sha256": "2c22b92ba4b1e0b4d5ac1bac01d6e9412fa68a8bc45262c02cbec3dd4a721a8a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\suite-adaptation-results.json",
+      "copy": "reference/r33-stage/stage-work/suite-adaptation-results.json",
+      "size": 431542,
+      "sha256": "403c8b0ad5872f47b557d08c84d9f1a9b8af9cee0d0f171f750237fb1e5584dc"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\suite-adaptation-plan.json",
+      "copy": "reference/r33-stage/stage-work/suite-adaptation-plan.json",
+      "size": 498963,
+      "sha256": "7185e804295bfd786e23489ac74dec6d4afb2cf9ea281e3f2157f0ad88d1f730"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\utility-coverage.json",
+      "copy": "reference/r33-stage/stage-work/utility-coverage.json",
+      "size": 1783,
+      "sha256": "f3841c9e88bc20002b0cbd3502d6f1e45b8f33176f32133c777475d215f5548e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-work\\commands.json",
+      "copy": "reference/r33-stage/stage-work/commands.json",
+      "size": 22363,
+      "sha256": "9a2a6fafe52189db486c494ad142b9d7a0af8a5096ac23835422ed827366f13d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-result.json",
+      "copy": "reference/r33-stage/stage-result.json",
+      "size": 2638,
+      "sha256": "fd4155f97e637a2ffb041f1ccbd2236cec1851f6159637d5148f68a98365d608"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\_integration\\evidence\\build01\\result.json",
+      "copy": "reference/r33-stage/_integration/evidence/build01/result.json",
+      "size": 10015,
+      "sha256": "272acfecd8674028e57f2dc980a77eff83891ee27d160996911f362058289e83"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\action-metadata-vectors.json",
+      "copy": "reference/r33-stage/action-metadata-vectors.json",
+      "size": 87305,
+      "sha256": "6afd114d3c53be54dfc2a0116cb71358c45a0df51ac64546e13d2de64f4afc9e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\haste-metadata-vectors.json",
+      "copy": "reference/r33-stage/haste-metadata-vectors.json",
+      "size": 155958,
+      "sha256": "4e6cb81ecfe9197fbf2d8b4d4496ec258355ee723367549a701de79f4320939a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\HANDOFF-r33.md",
+      "copy": "reference/r33-canonical/HANDOFF-r33.md",
+      "size": 5493,
+      "sha256": "45479d9ee5e07665ef770f28e9277f029383497b2065603f4de2e7c079cc0725"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\actual-commands.json",
+      "copy": "reference/r33-canonical/actual-commands.json",
+      "size": 26444,
+      "sha256": "42f61658e931134d04d7764f674e52d9c8d878cc3e0e8aa0791c15f49dc4c522"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\baseline-product-log-bindings.json",
+      "copy": "reference/r33-canonical/baseline-product-log-bindings.json",
+      "size": 1033,
+      "sha256": "ca7ab20334f709de39b98b6728e08e98dab42bbe0f4402468bbae765f0bc5cb3"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\canonical-helper-location-pins.json",
+      "copy": "reference/r33-canonical/canonical-helper-location-pins.json",
+      "size": 7198,
+      "sha256": "4ae37a72bda8a3f00b266d0e9dfc0cfb8d6af30df924b769e977c2105a211f3d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\canonical-once-receipt.json",
+      "copy": "reference/r33-canonical/canonical-once-receipt.json",
+      "size": 1099,
+      "sha256": "57c3b4ab75a2f0a6fc2ec0ae56c32ad0f5d4c3ad7f13ea47ce0e77795b2c5a31"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\canonical-suite-result.json",
+      "copy": "reference/r33-canonical/canonical-suite-result.json",
+      "size": 18355,
+      "sha256": "f18fa3e05bf93130fdfeacfdd73133fd8dc6724adc35603e22749a50b2bc0ff7"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\collect_baseline.py",
+      "copy": "reference/r33-canonical/collect_baseline.py",
+      "size": 3004,
+      "sha256": "2b356044c9576b1ba47a03e31c992a65ea7aa7600410d4c6bf93413aab4f39f0"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\collect_baseline_remaining.py",
+      "copy": "reference/r33-canonical/collect_baseline_remaining.py",
+      "size": 2858,
+      "sha256": "6ddd0e4ff098c9db8945b94b8d891f2632b95e02a4578025e9a31ed93e6cff35"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\finalize.py",
+      "copy": "reference/r33-canonical/finalize.py",
+      "size": 13670,
+      "sha256": "3f6b7ac92fc577d5c91a122c44c5d149cb94e93e0c975f5a489897bc04ff9171"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\integrate.py",
+      "copy": "reference/r33-canonical/integrate.py",
+      "size": 9723,
+      "sha256": "c2defc798dd6b459dae8eb27e313d0d9b9cfe57542cffa2c96e1788e5dc0589a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\old-release-pins.json",
+      "copy": "reference/r33-canonical/old-release-pins.json",
+      "size": 417537,
+      "sha256": "93ca5a17ed86b106188f3d4a82c1bc3bae1aeb4fdf5a7df6639631f37bb63bcc"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\operations.jsonl",
+      "copy": "reference/r33-canonical/operations.jsonl",
+      "size": 22341,
+      "sha256": "0607616801571c1d92c45512cbe57854fb1bce74406ec2b11645985a176e1e71"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-activate.command.json",
+      "copy": "reference/r33-canonical/phase-activate.command.json",
+      "size": 398,
+      "sha256": "0b60570c165c44fd2b12bbc8652215461370879cd8bca17f66138570063a1806"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-baseline-collect-resume.command.json",
+      "copy": "reference/r33-canonical/phase-baseline-collect-resume.command.json",
+      "size": 400,
+      "sha256": "e37f2340e7ade7fd54fbf1daf13d27441fd4f83fd37c236a7ff3bbcd2a4df8db"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-baseline-collect.command.json",
+      "copy": "reference/r33-canonical/phase-baseline-collect.command.json",
+      "size": 390,
+      "sha256": "1033f2bedc0669cd847badc486a5f65375e137a24d9236ef000f408aee62c0d5"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-baseline.command.json",
+      "copy": "reference/r33-canonical/phase-baseline.command.json",
+      "size": 386,
+      "sha256": "87fbc3f183ed471c56e59a7f56cd6f8771eb25cf89a38fa374181788ced41c3d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-build.command.json",
+      "copy": "reference/r33-canonical/phase-build.command.json",
+      "size": 489,
+      "sha256": "449e55e5e2844229b3590fd50d335889c66d57ba62d747526c99843faa9d0520"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-f1.command.json",
+      "copy": "reference/r33-canonical/phase-f1.command.json",
+      "size": 419,
+      "sha256": "be6a653f7e9f889af01a471993308cbb1f48f0875c22b3c6845055421484b0a3"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-ground-ready.command.json",
+      "copy": "reference/r33-canonical/phase-ground-ready.command.json",
+      "size": 402,
+      "sha256": "94b7ba563323dd6f220eac6c2befa0336a12c8437e7ba3c06e939a6a005f05a2"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-ground-recovery.command.json",
+      "copy": "reference/r33-canonical/phase-ground-recovery.command.json",
+      "size": 387,
+      "sha256": "26cd3642de18790be54182f07dc8acb5ddf84284fd1b7ba8aa3a39933223d325"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-ground.command.json",
+      "copy": "reference/r33-canonical/phase-ground.command.json",
+      "size": 402,
+      "sha256": "94b7ba563323dd6f220eac6c2befa0336a12c8437e7ba3c06e939a6a005f05a2"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-haste.command.json",
+      "copy": "reference/r33-canonical/phase-haste.command.json",
+      "size": 422,
+      "sha256": "cb45b9225f23f31afae460a29c08c748146a3a2ec63c8f3f0530bfd7fc4eea79"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-merge.command.json",
+      "copy": "reference/r33-canonical/phase-merge.command.json",
+      "size": 397,
+      "sha256": "80d74a91bdb6bcf86d20136a4eae75ee25202fb7155fbe7562c5a586bda4462d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-package.command.json",
+      "copy": "reference/r33-canonical/phase-package.command.json",
+      "size": 397,
+      "sha256": "ee8b2ff5f90367d7c4ddb9fa2ba5e29e34d29400d2ce808d4b7cfe6bb6223c48"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-preflight.command.json",
+      "copy": "reference/r33-canonical/phase-preflight.command.json",
+      "size": 383,
+      "sha256": "6884dd553d571deec541b46a9291fb776fd9872d3a2d327c5efe488f7db1ad94"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-preserve.command.json",
+      "copy": "reference/r33-canonical/phase-preserve.command.json",
+      "size": 398,
+      "sha256": "8538fd6d7af776b3ee682cd49ba9a020cb02912dc9479f2e0f9768f5061a61de"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-utility.command.json",
+      "copy": "reference/r33-canonical/phase-utility.command.json",
+      "size": 424,
+      "sha256": "a6a054069f4d3eb476c6bf81020d05eed3ee90ba6ccab98ba56e4251a2541a36"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-verify.command.json",
+      "copy": "reference/r33-canonical/phase-verify.command.json",
+      "size": 396,
+      "sha256": "a1ef8f9de9e3de456646caf417d9c3b45bea5a2a31cf359df76c047fea091ac8"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\phase-versioned-slow.command.json",
+      "copy": "reference/r33-canonical/phase-versioned-slow.command.json",
+      "size": 431,
+      "sha256": "91c63ebc545fe2d1bb0b7cf64d4183f6340142f5323373edb24ab99dd3ee4a56"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\preflight.py",
+      "copy": "reference/r33-canonical/preflight.py",
+      "size": 3355,
+      "sha256": "8161cb8b6a2c92c5a1e8de070fb7b0ad61df6300f1a4e1a41fd43b6129ab7743"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\prepare_release.py",
+      "copy": "reference/r33-canonical/prepare_release.py",
+      "size": 4822,
+      "sha256": "1e5828e770cf28ee9e1474528a357dc8d49263ed1fc21e804973fd073743302d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\prepare_suites.py",
+      "copy": "reference/r33-canonical/prepare_suites.py",
+      "size": 4876,
+      "sha256": "293580b1b390eb837ef8ed00d45a35925dfc678179b3e268f7bbe3c1473398bb"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\preservation.json",
+      "copy": "reference/r33-canonical/preservation.json",
+      "size": 1736,
+      "sha256": "fd92a929b30b08df955ffd64eb27925f9c38e818d3e7af12f64ff9232326cbef"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\r33-integration-result.json",
+      "copy": "reference/r33-canonical/r33-integration-result.json",
+      "size": 5368,
+      "sha256": "7d797c955591dd9acc29f6d3d8f0e4dd4bf64274d8e873ef782ac34acb11c51b"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\release-check-only.command.json",
+      "copy": "reference/r33-canonical/release-check-only.command.json",
+      "size": 291,
+      "sha256": "f7a474131dbe44c7d7bed37024cbac8a6346f1cdb8bf8054096294f73fafdd02"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\release-full-verify.command.json",
+      "copy": "reference/r33-canonical/release-full-verify.command.json",
+      "size": 432,
+      "sha256": "76459ab0c49118b8f83c9d35b4eb05db1926e6fe63e4f2e227c991605f09fc4e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\release.py",
+      "copy": "reference/r33-canonical/release.py",
+      "size": 12138,
+      "sha256": "a6413fc698a73250546c3a513fee067efba5a866474065d55dd533b48a3a5b86"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\resume_ground.py",
+      "copy": "reference/r33-canonical/resume_ground.py",
+      "size": 2368,
+      "sha256": "1474292b155a894525e3b5fef6a84bdec3aa5ae5772966cedc32acb997ab3008"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\root-entry-check-only.command.json",
+      "copy": "reference/r33-canonical/root-entry-check-only.command.json",
+      "size": 267,
+      "sha256": "b9a409cab4deab34a07446b3ac17e1634385819cd61fdb46fca68aea273fb7f6"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\run_baseline.py",
+      "copy": "reference/r33-canonical/run_baseline.py",
+      "size": 4530,
+      "sha256": "4c8c72f2f82dc383a2d3382d7198e05f736f2540073c3ebe00c45455bdb006d9"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\run_phase.py",
+      "copy": "reference/r33-canonical/run_phase.py",
+      "size": 1998,
+      "sha256": "83bdd69d8ab3eab5251c0922e3ce0db139a2622d95321719cfea010478fcf238"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\same-dll-row-reconciliation.json",
+      "copy": "reference/r33-canonical/same-dll-row-reconciliation.json",
+      "size": 348486,
+      "sha256": "5f885a924ca033285bc0f3d066b1c9543cdd80f6a97332f8a1e6981ebd7a05c7"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\verify_suites.py",
+      "copy": "reference/r33-canonical/verify_suites.py",
+      "size": 4847,
+      "sha256": "14dbec41a486795cc541c1fe8d9b25f966892e610cde6ca633c2410c3c7644ee"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\asset-delivery-plan.json",
+      "copy": "reference/qualified-source/asset-delivery-plan.json",
+      "size": 4747,
+      "sha256": "ebc81f7364b9114c3e18459ec8a16f5c7423f90647861edc31576eed5cde24ba"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\minimal-frame-inventory.json",
+      "copy": "reference/qualified-source/minimal-frame-inventory.json",
+      "size": 84829,
+      "sha256": "6c9ecbe2985f894d4d5247bd31b84cd85e52681b73e37a5442e795093810ca75"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\presentation-policy.json",
+      "copy": "reference/qualified-source/presentation-policy.json",
+      "size": 5802,
+      "sha256": "6cdf2e017a6de677c23e316ac8cb022f16948be03bf4ccc34d64f85a008f90c3"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\source-contract.json",
+      "copy": "reference/qualified-source/source-contract.json",
+      "size": 1655,
+      "sha256": "9eacf7334f335cb5b077438dc97352a76c1cd290726edb3e23dde672fa67cb59"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\source-pins.json",
+      "copy": "reference/qualified-source/source-pins.json",
+      "size": 12018,
+      "sha256": "1cabd2f93fee2a6d7ab4b2686ac409dd2591d595140fc93d290ca6d505a60600"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\test-matrix.json",
+      "copy": "reference/qualified-source/test-matrix.json",
+      "size": 11257,
+      "sha256": "8003ef775c7eace500e14ef4a9243e072561d364fe0e640442479284d3740221"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\result.json",
+      "copy": "reference/qualified-source/result.json",
+      "size": 3658,
+      "sha256": "b5588ec3c3f1b47f49bc9c8a020c7fe2f73eaead72905949c243328fcab1885e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\asset_plan.py",
+      "copy": "reference/qualified-source/asset_plan.py",
+      "size": 7806,
+      "sha256": "e9565381afb862764a94c6132144813c3a7ee98e141c258e827f52bff54d0c6c"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\artifact-manifest.json",
+      "copy": "reference/qualified-source/artifact-manifest.json",
+      "size": 24565,
+      "sha256": "ad19e01822d2ee6a096dcc7829c4ad5c097a1b48eec4298757e72092fa54b904"
+    }
+  ],
+  "immutablePins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\implementation-contract.json",
+      "size": 8517,
+      "sha256": "8c60b1061c637bcb7f992d7f92c74fc80c0ad945c7f05d1c3a2d74507cffc6f2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\baseline-final.json",
+      "size": 29657,
+      "sha256": "2a946e965f1aed1f9a0358ceb560f52575ea5a3bf217fc9ccf36e9ce5823c40f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\baseline.json",
+      "size": 57792,
+      "sha256": "38956c96dfa7e6c7360fade71f8c095323990c2d5d24cb48395073457459b1ad"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\final-base-binding.json",
+      "size": 665,
+      "sha256": "28d0d6f3386575c175aa06b7b9076da961cfd1db62e2563cf7cd65c7c276ea95"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-拾取生命週期修復-20261029\\r33-supervisor-acceptance.json",
+      "size": 4200,
+      "sha256": "09b35736898f5a5c269ddcaab7ecd375ce7f6c0f5b04bcc22776d331905d176a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\_integration\\r33\\release-seal.json",
+      "size": 2511647,
+      "sha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\preparation-seal.json",
+      "size": 20077,
+      "sha256": "4f06edf3f5137ad8ec5d29a807bb0cc5973e943c0f117acc938a4c983d0fce4e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\artifact-seal.json",
+      "size": 21072,
+      "sha256": "9ffa88dab3a23cf36c9bab6c4a8743be3628fa7a51e745a9124b9cfc629d2ad6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01\\stage-seal.json",
+      "size": 2475348,
+      "sha256": "6682cd2eedb7b1a7a8e6b5824d3f92e0408b57949a9e78dbeae471a056acd9e7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\integration-seal.json",
+      "size": 62801,
+      "sha256": "d3d92c65baf6175852914fd98890c8abcf099f9a695e39566a8e0e5a508f6aee"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\artifact-manifest.json",
+      "size": 24565,
+      "sha256": "ad19e01822d2ee6a096dcc7829c4ad5c097a1b48eec4298757e72092fa54b904"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+      "size": 31361,
+      "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+      "size": 158,
+      "sha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\_integration\\candidate-seal-manifest.json",
+      "size": 2444544,
+      "sha256": "83770091f8051466d5dccb420210cd0567ffef5a1158e8f7ebf5c7667127bfcd"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\_integration\\r29\\release-seal.json",
+      "size": 2429455,
+      "sha256": "d3ac187e7fc44745864640e4bcc72fefbaeeaa0b0e9d63de7c0c3cfa8e46273d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\_integration\\r30\\release-seal.json",
+      "size": 2432967,
+      "sha256": "199ce6fe81130138e9fedf98e688928ce44b0a45c2aebd1b92fdd9519b8225dc"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r31\\_integration\\r31\\release-seal.json",
+      "size": 2440176,
+      "sha256": "1d5b1c149495cb2b44f50daf2c3361eb15e8000ba27bf133d1029735f10cfd90"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r32\\_integration\\r32\\release-seal.json",
+      "size": 2442883,
+      "sha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507"
+    }
+  ],
+  "unsealedCandidateRead": false,
+  "unsealedFormalReviewRead": false
+}

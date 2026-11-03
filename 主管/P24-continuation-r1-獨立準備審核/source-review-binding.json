@@ -1,0 +1,38 @@
+{
+  "utc": "2026-10-25T20:00:23.384548+00:00",
+  "scripts": [
+    {
+      "path": "continuation_gate.py",
+      "sha256": "ebe0de8b2644dd0297149867bd58ce6350a7f2e1d83ed2d03b1671b6eae6662b"
+    },
+    {
+      "path": "cache_continuation.py",
+      "sha256": "7c0105b920a6e40d2f4a1c234118e66e22073a098cb543574ce56d2dbe444bac"
+    },
+    {
+      "path": "continuation_preflight.py",
+      "sha256": "87f0d555577844f5e8d2ea4c51d40407506a7211312efe8df1ee85da05a998c7"
+    },
+    {
+      "path": "prepare_continuation.py",
+      "sha256": "de820a99f2d6840773cacfdd6d7366ae8b5c60db60ff81705ac89b21b7bbe387"
+    },
+    {
+      "path": "freeze_gate_r3.py",
+      "sha256": "6f75bfef44129498c3fab03a6a70bbd31f4607bc856bfc6b604138469c7b7db5"
+    },
+    {
+      "path": "freeze_p24_r3.py",
+      "sha256": "4caa8c59bae8c514ba92dbc682b30ef5b84a62256a3d58cb5a9eefbf6160f96a"
+    },
+    {
+      "path": "test_continuation.py",
+      "sha256": "f338c53e32026a6b6b2d1738136b6219a1095fc6a28c0d338dbc3f771ac98578"
+    }
+  ],
+  "workerReadySha256": "0fcb8e1f3bc1595d3a28adf4341800ff7ab1b2404d71e292b57682af9a4feb64",
+  "preparationSha256": "c7a3dd71e341820770fbb887cf502aafb4bec6552e878d17c0b7e9771e390a58",
+  "adaptation": "Only worker-module import path and output destination changed. Tests/checks/assertions unchanged. Test output restricted to this supervisor directory.",
+  "testSourceSha256": "f338c53e32026a6b6b2d1738136b6219a1095fc6a28c0d338dbc3f771ac98578",
+  "adaptedTestSha256": "75b9108329ff62c275673275d50db8da87ce4ff0cd42223ff71c90574282d730"
+}

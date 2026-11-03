@@ -1,0 +1,275 @@
+{
+  "utc": "2026-10-26T11:02:53.044Z",
+  "main": {
+    "trade": {
+      "canInvite": true,
+      "facingName": "透明觀察乙",
+      "inventory": [
+        {
+          "count": 1,
+          "id": 10323,
+          "name": "在線禮包"
+        },
+        {
+          "count": 2,
+          "id": 1900241021,
+          "name": "白色藥水"
+        },
+        {
+          "count": 3,
+          "id": 1900241022,
+          "name": "金幣"
+        },
+        {
+          "count": 1,
+          "id": 1900241023,
+          "name": "鑑定卷軸"
+        },
+        {
+          "count": 8,
+          "id": 1900241024,
+          "name": "肉"
+        },
+        {
+          "count": 1,
+          "id": 1900241026,
+          "name": "+0 雙手劍"
+        },
+        {
+          "count": 1,
+          "id": 1900241029,
+          "name": "+0 弓"
+        },
+        {
+          "count": 79,
+          "id": 1900241030,
+          "name": "箭"
+        }
+      ],
+      "inventoryRevision": 20,
+      "model": {
+        "canAccept": false,
+        "canAdd": false,
+        "canCancel": false,
+        "canConfirm": false,
+        "canReject": false,
+        "challenge": 5,
+        "epoch": 3,
+        "generation": 10,
+        "notice": "原服回報交易完成；請核對實際背包與金額。",
+        "offers": [
+          {
+            "bless": 1,
+            "icon": 124,
+            "name": "$23",
+            "side": 1
+          }
+        ],
+        "ownConfirmed": false,
+        "peer": "透明觀察乙",
+        "peerId": 1900240006,
+        "revision": 26,
+        "state": "completed"
+      },
+      "notice": "原服回報交易完成；請核對實際背包與金額。",
+      "offers": [
+        {
+          "name": "肉",
+          "side": 1
+        }
+      ]
+    },
+    "inventory": {
+      "available": false,
+      "busy": false,
+      "epoch": 3,
+      "items": [
+        {
+          "action": "單次使用",
+          "count": 1,
+          "droppable": false,
+          "equipped": null,
+          "icon": null,
+          "id": 10323,
+          "name": "在線禮包",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "單次使用",
+          "count": 2,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/81.png",
+          "id": 1900241021,
+          "name": "白色藥水",
+          "selected": false,
+          "state": "可單次使用；滿血仍會消耗",
+          "usable": true
+        },
+        {
+          "action": "單次使用",
+          "count": 3,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/5.png",
+          "id": 1900241022,
+          "name": "金幣",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "單次使用",
+          "count": 1,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/475.png",
+          "id": 1900241023,
+          "name": "鑑定卷軸",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "單次使用",
+          "count": 8,
+          "droppable": true,
+          "equipped": null,
+          "icon": "https://p08.example/icons/124.png",
+          "id": 1900241024,
+          "name": "肉",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "卸下",
+          "count": 1,
+          "droppable": false,
+          "equipped": true,
+          "icon": "https://p08.example/icons/2.png",
+          "id": 1900241025,
+          "name": "+0 長劍 (揮舞)",
+          "selected": false,
+          "state": "已裝備；可單次卸下",
+          "usable": true
+        },
+        {
+          "action": "穿上",
+          "count": 1,
+          "droppable": false,
+          "equipped": false,
+          "icon": "https://p08.example/icons/4.png",
+          "id": 1900241026,
+          "name": "+0 雙手劍",
+          "selected": false,
+          "state": "未裝備；可單次穿上",
+          "usable": true
+        },
+        {
+          "action": "卸下",
+          "count": 1,
+          "droppable": false,
+          "equipped": true,
+          "icon": "https://p08.example/icons/86.png",
+          "id": 1900241027,
+          "name": "+0 環甲 (使用中)",
+          "selected": false,
+          "state": "已裝備；可單次卸下",
+          "usable": true
+        },
+        {
+          "action": "卸下",
+          "count": 1,
+          "droppable": false,
+          "equipped": true,
+          "icon": "https://p08.example/icons/97.png",
+          "id": 1900241028,
+          "name": "+0 木盾 (使用中)",
+          "selected": false,
+          "state": "已裝備；可單次卸下",
+          "usable": true
+        },
+        {
+          "action": "穿上",
+          "count": 1,
+          "droppable": false,
+          "equipped": false,
+          "icon": "https://p08.example/icons/278.png",
+          "id": 1900241029,
+          "name": "+0 弓",
+          "selected": false,
+          "state": "未裝備；可單次穿上",
+          "usable": true
+        },
+        {
+          "action": "單次使用",
+          "count": 79,
+          "droppable": true,
+          "equipped": null,
+          "icon": "https://p08.example/icons/7.png",
+          "id": 1900241030,
+          "name": "箭",
+          "selected": false,
+          "state": "有限箭矢；原服射擊消耗，數量以回包為準",
+          "usable": false
+        }
+      ],
+      "message": "原服訊息 253：透明觀察乙",
+      "notice": "收到原服數量／狀態更新",
+      "revision": 20,
+      "selectedId": null
+    }
+  },
+  "peer": {
+    "trade": {
+      "canInvite": true,
+      "facingName": "透明王子乙",
+      "inventory": [],
+      "inventoryRevision": 6,
+      "model": {
+        "canAccept": false,
+        "canAdd": false,
+        "canCancel": false,
+        "canConfirm": false,
+        "canReject": false,
+        "challenge": 0,
+        "epoch": 3,
+        "generation": 10,
+        "notice": "原服回報交易完成；請核對實際背包與金額。",
+        "offers": [
+          {
+            "bless": 1,
+            "icon": 124,
+            "name": "$23",
+            "side": 0
+          }
+        ],
+        "ownConfirmed": false,
+        "peer": "透明王子乙",
+        "peerId": 1900240002,
+        "revision": 25,
+        "state": "completed"
+      },
+      "notice": "原服回報交易完成；請核對實際背包與金額。",
+      "offers": [
+        {
+          "name": "肉",
+          "side": 0
+        }
+      ]
+    },
+    "inventory": {
+      "available": false,
+      "busy": false,
+      "epoch": 3,
+      "items": [],
+      "message": null,
+      "notice": "原服已移除道具",
+      "revision": 6,
+      "selectedId": null
+    }
+  }
+}

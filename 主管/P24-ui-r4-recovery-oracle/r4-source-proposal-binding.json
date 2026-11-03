@@ -1,0 +1,16 @@
+{
+  "status": "proposed-not-applied",
+  "files": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\cache_integration.py",
+      "beforeSha256": "fa144222a9febfa693dc00299f0ec36920623582db790dfbd0a6b07fc74797bd",
+      "proposedSha256": "6b66ccaf8377022dcee9ca3b45d3f4def643133ea391a1ecbaa88f7a898517ba"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\ui_launch_ticket.py",
+      "beforeSha256": "e41e7aaa1fa25c2ca97706bb3ad0cd0e6d8959d06a04676c029443725a808629",
+      "proposedSha256": "00151b01df96a32b3d57f2610b287e295ab48ba5cd168350d519624793fec382"
+    }
+  ],
+  "scope": "Exact no-child UIr4 branch plus fixed ticket failure/gate inputs; no product/launcher changes"
+}

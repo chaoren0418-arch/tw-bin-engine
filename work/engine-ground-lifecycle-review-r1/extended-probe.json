@@ -1,0 +1,2910 @@
+{
+  "candidateReviewed": false,
+  "productCandidate": false,
+  "baseline": "accepted r32 stage equivalent to final r32",
+  "assembly": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\work\\engine-ground-lifecycle-review-r1\\helper\\r32\\P11.ClientEngine.dll",
+  "assemblySha256": "c64bf0069722e28fc174d70d261b7540da6e3f74ee422d4874cbffb77149364f",
+  "clock": "ActionClock and MovementClock both real Environment.TickCount64; item/ground direct real clock",
+  "rows": [
+    {
+      "id": "pickup-positive-0-36-1-direct",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-0-36-1-low",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-0-36-1-pointer",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-0-36-3-direct",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000003000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-0-36-3-low",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000003000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-0-36-3-pointer",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000003000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-0-66-1-direct",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-0-66-1-low",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-0-66-1-pointer",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-0-66-3-direct",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000003000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-0-66-3-low",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000003000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-0-66-3-pointer",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000003000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-1-36-1-direct",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-1-36-1-low",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-1-36-1-pointer",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-1-36-3-direct",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000003000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-1-36-3-low",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000003000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-1-36-3-pointer",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000003000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-1-66-1-direct",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-1-66-1-low",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-1-66-1-pointer",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-1-66-3-direct",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000003000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-1-66-3-low",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000003000000000000"
+        ]
+      }
+    },
+    {
+      "id": "pickup-positive-1-66-3-pointer",
+      "kind": "normal Speed0/1 Brave0 partial/full three public routes",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "events": 1,
+        "wires": [
+          "70597FAC802B02000003000000000000"
+        ]
+      }
+    },
+    {
+      "id": "drop-count-wire-0-36-0",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 0
+      }
+    },
+    {
+      "id": "drop-count-wire-0-36-1",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "expected": true,
+        "wires": [
+          "19587FAC800903000001000000000000"
+        ],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 4225696
+      }
+    },
+    {
+      "id": "drop-count-wire-0-36-3",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "expected": true,
+        "wires": [
+          "19587FAC800903000003000000000000"
+        ],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 4225696
+      }
+    },
+    {
+      "id": "drop-count-wire-0-36-4",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 0
+      }
+    },
+    {
+      "id": "drop-count-wire-0-36-4294967295",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 0
+      }
+    },
+    {
+      "id": "drop-count-wire-0-66-0",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 0
+      }
+    },
+    {
+      "id": "drop-count-wire-0-66-1",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "expected": true,
+        "wires": [
+          "19587FAC800903000001000000000000"
+        ],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 4225696
+      }
+    },
+    {
+      "id": "drop-count-wire-0-66-3",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "expected": true,
+        "wires": [
+          "19587FAC800903000003000000000000"
+        ],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 4225696
+      }
+    },
+    {
+      "id": "drop-count-wire-0-66-4",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 0
+      }
+    },
+    {
+      "id": "drop-count-wire-0-66-4294967295",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 0
+      }
+    },
+    {
+      "id": "drop-count-wire-1-36-0",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 0
+      }
+    },
+    {
+      "id": "drop-count-wire-1-36-1",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "expected": true,
+        "wires": [
+          "19587FAC800903000001000000000000"
+        ],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 4225696
+      }
+    },
+    {
+      "id": "drop-count-wire-1-36-3",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "expected": true,
+        "wires": [
+          "19587FAC800903000003000000000000"
+        ],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 4225696
+      }
+    },
+    {
+      "id": "drop-count-wire-1-36-4",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 0
+      }
+    },
+    {
+      "id": "drop-count-wire-1-36-4294967295",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 0
+      }
+    },
+    {
+      "id": "drop-count-wire-1-66-0",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 0
+      }
+    },
+    {
+      "id": "drop-count-wire-1-66-1",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "expected": true,
+        "wires": [
+          "19587FAC800903000001000000000000"
+        ],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 4225696
+      }
+    },
+    {
+      "id": "drop-count-wire-1-66-3",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "expected": true,
+        "wires": [
+          "19587FAC800903000003000000000000"
+        ],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 4225696
+      }
+    },
+    {
+      "id": "drop-count-wire-1-66-4",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 0
+      }
+    },
+    {
+      "id": "drop-count-wire-1-66-4294967295",
+      "kind": "existing manual drop regression, not new feature",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wires": [],
+        "before": 4224796,
+        "after": 4224796,
+        "deadline": 0
+      }
+    },
+    {
+      "id": "drop-eligibility-desc",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "drop-eligibility-icon",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "drop-eligibility-use",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "drop-eligibility-charges",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "drop-eligibility-bless",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "drop-eligibility-flags",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "drop-eligibility-name",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "drop-eligibility-unsupported-potion",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "drop-slow-remains-blocked",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": []
+      }
+    },
+    {
+      "id": "drop-existing-unknown-brave-3-0",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "19587FAC800903000001000000000000"
+        ],
+        "scope": "baseline observation only; no new supported contract"
+      }
+    },
+    {
+      "id": "drop-existing-unknown-brave-0-1",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "sent": true,
+        "wires": [
+          "19587FAC800903000001000000000000"
+        ],
+        "scope": "baseline observation only; no new supported contract"
+      }
+    },
+    {
+      "id": "drop-legal-early-replies-0-36-success",
+      "kind": "S24/S57/S67/same actor S87 after admission; current error still faults",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": true,
+        "events": 1,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "drop-legal-early-replies-0-36-false",
+      "kind": "S24/S57/S67/same actor S87 after admission; current error still faults",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "drop-legal-early-replies-0-36-error",
+      "kind": "S24/S57/S67/same actor S87 after admission; current error still faults",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "Faulted"
+      }
+    },
+    {
+      "id": "drop-legal-early-replies-0-66-success",
+      "kind": "S24/S57/S67/same actor S87 after admission; current error still faults",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": true,
+        "events": 1,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "drop-legal-early-replies-0-66-false",
+      "kind": "S24/S57/S67/same actor S87 after admission; current error still faults",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "drop-legal-early-replies-0-66-error",
+      "kind": "S24/S57/S67/same actor S87 after admission; current error still faults",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "Faulted"
+      }
+    },
+    {
+      "id": "drop-legal-early-replies-1-36-success",
+      "kind": "S24/S57/S67/same actor S87 after admission; current error still faults",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": true,
+        "events": 1,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "drop-legal-early-replies-1-36-false",
+      "kind": "S24/S57/S67/same actor S87 after admission; current error still faults",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "drop-legal-early-replies-1-36-error",
+      "kind": "S24/S57/S67/same actor S87 after admission; current error still faults",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "Faulted"
+      }
+    },
+    {
+      "id": "drop-legal-early-replies-1-66-success",
+      "kind": "S24/S57/S67/same actor S87 after admission; current error still faults",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": true,
+        "events": 1,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "drop-legal-early-replies-1-66-false",
+      "kind": "S24/S57/S67/same actor S87 after admission; current error still faults",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "drop-legal-early-replies-1-66-error",
+      "kind": "S24/S57/S67/same actor S87 after admission; current error still faults",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "Faulted"
+      }
+    },
+    {
+      "id": "producer-positive-0-pickup",
+      "kind": "synthetic ready fixture; public API producer positive control; movement uses Turn with same movementSending owner",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "Ready": true,
+        "Renderable": true
+      }
+    },
+    {
+      "id": "producer-positive-0-drop",
+      "kind": "synthetic ready fixture; public API producer positive control; movement uses Turn with same movementSending owner",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "19587FAC800903000001000000000000"
+        ],
+        "Ready": true,
+        "Renderable": true
+      }
+    },
+    {
+      "id": "producer-positive-0-movement-turn",
+      "kind": "synthetic ready fixture; public API producer positive control; movement uses Turn with same movementSending owner",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "E102000000000000"
+        ],
+        "Ready": true,
+        "Renderable": true
+      }
+    },
+    {
+      "id": "producer-positive-0-attack",
+      "kind": "synthetic ready fixture; public API producer positive control; movement uses Turn with same movementSending owner",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "E5E7030000597FAC8000000000000000"
+        ],
+        "Ready": true,
+        "Renderable": true
+      }
+    },
+    {
+      "id": "producer-positive-0-magic",
+      "kind": "synthetic ready fixture; public API producer positive control; movement uses Turn with same movementSending owner",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "0600007B000000000000000000000000"
+        ],
+        "Ready": true,
+        "Renderable": true
+      }
+    },
+    {
+      "id": "producer-positive-0-item",
+      "kind": "synthetic ready fixture; public API producer positive control; movement uses Turn with same movementSending owner",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "A409030000000000"
+        ],
+        "Ready": true,
+        "Renderable": true
+      }
+    },
+    {
+      "id": "producer-positive-1-pickup",
+      "kind": "synthetic ready fixture; public API producer positive control; movement uses Turn with same movementSending owner",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ],
+        "Ready": true,
+        "Renderable": true
+      }
+    },
+    {
+      "id": "producer-positive-1-drop",
+      "kind": "synthetic ready fixture; public API producer positive control; movement uses Turn with same movementSending owner",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "19587FAC800903000001000000000000"
+        ],
+        "Ready": true,
+        "Renderable": true
+      }
+    },
+    {
+      "id": "producer-positive-1-movement-turn",
+      "kind": "synthetic ready fixture; public API producer positive control; movement uses Turn with same movementSending owner",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "E102000000000000"
+        ],
+        "Ready": true,
+        "Renderable": true
+      }
+    },
+    {
+      "id": "producer-positive-1-attack",
+      "kind": "synthetic ready fixture; public API producer positive control; movement uses Turn with same movementSending owner",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "E5E7030000597FAC8000000000000000"
+        ],
+        "Ready": true,
+        "Renderable": true
+      }
+    },
+    {
+      "id": "producer-positive-1-magic",
+      "kind": "synthetic ready fixture; public API producer positive control; movement uses Turn with same movementSending owner",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "0600007B000000000000000000000000"
+        ],
+        "Ready": true,
+        "Renderable": true
+      }
+    },
+    {
+      "id": "producer-positive-1-item",
+      "kind": "synthetic ready fixture; public API producer positive control; movement uses Turn with same movementSending owner",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "A409030000000000"
+        ],
+        "Ready": true,
+        "Renderable": true
+      }
+    },
+    {
+      "id": "public-busy-0-pickup-movement-turn-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "movement-turn",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-pickup-movement-turn-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "movement-turn",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-pickup-attack-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "attack",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-pickup-attack-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "attack",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-pickup-magic-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "magic",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-pickup-magic-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "magic",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-pickup-item-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "item",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-pickup-item-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "item",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-pickup-pickup-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-pickup-pickup-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-pickup-drop-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-pickup-drop-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-drop-movement-turn-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "movement-turn",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-drop-movement-turn-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "movement-turn",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-drop-attack-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "attack",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-drop-attack-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "attack",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-drop-magic-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "magic",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-drop-magic-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "magic",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-drop-item-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "item",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-drop-item-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "item",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-drop-pickup-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-drop-pickup-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-drop-drop-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-0-drop-drop-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-pickup-movement-turn-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "movement-turn",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-pickup-movement-turn-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "movement-turn",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-pickup-attack-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "attack",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-pickup-attack-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "attack",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-pickup-magic-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "magic",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-pickup-magic-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "magic",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-pickup-item-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "item",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-pickup-item-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "item",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-pickup-pickup-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-pickup-pickup-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-pickup-drop-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-pickup-drop-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-drop-movement-turn-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "movement-turn",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-drop-movement-turn-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "movement-turn",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-drop-attack-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "attack",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-drop-attack-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "attack",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-drop-magic-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "magic",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-drop-magic-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "magic",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-drop-item-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "item",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-drop-item-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "item",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-drop-pickup-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "pickup",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-drop-pickup-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "pickup",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-drop-drop-True",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-busy-1-drop-drop-False",
+      "kind": "busy produced by actual public operation admission; no injected busy/deadline",
+      "pass": true,
+      "data": {
+        "first": "drop",
+        "second": "drop",
+        "firstLive": true,
+        "rejected": true,
+        "entries": 1,
+        "admit": 1,
+        "firstSent": true,
+        "secondSent": false
+      }
+    },
+    {
+      "id": "public-queued-owner-0-pickup-movement-turn",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-0-pickup-attack",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-0-pickup-magic",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-0-pickup-item",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-0-drop-movement-turn",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-0-drop-attack",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-0-drop-magic",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-0-drop-item",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-1-pickup-movement-turn",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-1-pickup-attack",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-1-pickup-magic",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-1-pickup-item",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-1-drop-movement-turn",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-1-drop-attack",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-1-drop-magic",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "public-queued-owner-1-drop-item",
+      "kind": "groundSending produced before final gate; second public API is rejected rather than injecting magic busy",
+      "pass": true,
+      "data": {
+        "rejected": true,
+        "before": 1,
+        "sent": true,
+        "otherSent": false,
+        "admit": 1
+      }
+    },
+    {
+      "id": "new-owner-preparation-world-pickup-0-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "actual wrapper S206/S87 ready-world route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": true,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226884,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226884,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:1}",
+        "events": 1,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-world-pickup-0-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "actual wrapper S206/S87 ready-world route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-world-pickup-0-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "actual wrapper S206/S87 ready-world route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "session": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022Faulted\u0022,\u0022Detail\u0022:\u0022\\u5730\\u9762\\u64CD\\u4F5C\\u5931\\u6557\\uFF1Astale owner error\u0022,\u0022Revision\u0022:3,\u0022SessionGeneration\u0022:1,\u0022WorldEpoch\u0022:2,\u0022actor\u0022:null,\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u7269\\u54C1\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:0,\u0022groundLease\u0022:2,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:3,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-world-pickup-1-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "actual wrapper S206/S87 ready-world route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": true,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:1}",
+        "events": 1,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-world-pickup-1-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "actual wrapper S206/S87 ready-world route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-world-pickup-1-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "actual wrapper S206/S87 ready-world route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "session": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022Faulted\u0022,\u0022Detail\u0022:\u0022\\u5730\\u9762\\u64CD\\u4F5C\\u5931\\u6557\\uFF1Astale owner error\u0022,\u0022Revision\u0022:3,\u0022SessionGeneration\u0022:1,\u0022WorldEpoch\u0022:2,\u0022actor\u0022:null,\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u7269\\u54C1\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:0,\u0022groundLease\u0022:2,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:3,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-world-drop-0-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "actual wrapper S206/S87 ready-world route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": true,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:1}",
+        "events": 1,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-world-drop-0-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "actual wrapper S206/S87 ready-world route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-world-drop-0-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "actual wrapper S206/S87 ready-world route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "session": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022Faulted\u0022,\u0022Detail\u0022:\u0022\\u5730\\u9762\\u64CD\\u4F5C\\u5931\\u6557\\uFF1Astale owner error\u0022,\u0022Revision\u0022:3,\u0022SessionGeneration\u0022:1,\u0022WorldEpoch\u0022:2,\u0022actor\u0022:null,\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u7269\\u54C1\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:0,\u0022groundLease\u0022:2,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:3,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-world-drop-1-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "actual wrapper S206/S87 ready-world route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": true,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:1}",
+        "events": 1,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-world-drop-1-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "actual wrapper S206/S87 ready-world route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-world-drop-1-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "actual wrapper S206/S87 ready-world route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 1,
+        "oldActor": 123,
+        "newActor": 123,
+        "oldSession": 0,
+        "session": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:123,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022Faulted\u0022,\u0022Detail\u0022:\u0022\\u5730\\u9762\\u64CD\\u4F5C\\u5931\\u6557\\uFF1Astale owner error\u0022,\u0022Revision\u0022:3,\u0022SessionGeneration\u0022:1,\u0022WorldEpoch\u0022:2,\u0022actor\u0022:null,\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u7269\\u54C1\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:0,\u0022groundLease\u0022:2,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:3,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-actor-pickup-0-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world wrapper S87 plus explicitly synthetic matching Status ID prerequisite; not a normal wire identity route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": false,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": true,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:true,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:true,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:1}",
+        "events": 1,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-actor-pickup-0-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world wrapper S87 plus explicitly synthetic matching Status ID prerequisite; not a normal wire identity route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": false,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:true,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:true,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-actor-pickup-0-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world wrapper S87 plus explicitly synthetic matching Status ID prerequisite; not a normal wire identity route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": false,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "session": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:true,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022Faulted\u0022,\u0022Detail\u0022:\u0022\\u5730\\u9762\\u64CD\\u4F5C\\u5931\\u6557\\uFF1Astale owner error\u0022,\u0022Revision\u0022:3,\u0022SessionGeneration\u0022:1,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:null,\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u7269\\u54C1\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:0,\u0022groundLease\u0022:2,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-actor-pickup-1-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world wrapper S87 plus explicitly synthetic matching Status ID prerequisite; not a normal wire identity route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": false,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": true,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:true,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:true,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:1}",
+        "events": 1,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-actor-pickup-1-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world wrapper S87 plus explicitly synthetic matching Status ID prerequisite; not a normal wire identity route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": false,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:true,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:true,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-actor-pickup-1-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world wrapper S87 plus explicitly synthetic matching Status ID prerequisite; not a normal wire identity route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": false,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "session": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u55AE\\u6B21\\u62FE\\u53D6\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:true,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022Faulted\u0022,\u0022Detail\u0022:\u0022\\u5730\\u9762\\u64CD\\u4F5C\\u5931\\u6557\\uFF1Astale owner error\u0022,\u0022Revision\u0022:3,\u0022SessionGeneration\u0022:1,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:null,\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u7269\\u54C1\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:0,\u0022groundLease\u0022:2,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-actor-drop-0-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world wrapper S87 plus explicitly synthetic matching Status ID prerequisite; not a normal wire identity route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": true,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:1}",
+        "events": 1,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-actor-drop-0-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world wrapper S87 plus explicitly synthetic matching Status ID prerequisite; not a normal wire identity route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-actor-drop-0-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world wrapper S87 plus explicitly synthetic matching Status ID prerequisite; not a normal wire identity route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "session": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:0,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022Faulted\u0022,\u0022Detail\u0022:\u0022\\u5730\\u9762\\u64CD\\u4F5C\\u5931\\u6557\\uFF1Astale owner error\u0022,\u0022Revision\u0022:3,\u0022SessionGeneration\u0022:1,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:null,\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u7269\\u54C1\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:0,\u0022groundLease\u0022:2,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-actor-drop-1-success",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world wrapper S87 plus explicitly synthetic matching Status ID prerequisite; not a normal wire identity route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": true,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:1}",
+        "events": 1,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-actor-drop-1-false",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world wrapper S87 plus explicitly synthetic matching Status ID prerequisite; not a normal wire identity route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "session": 0,
+        "oldLease": 1,
+        "newLease": 1,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "new-owner-preparation-actor-drop-1-error",
+      "kind": "observation",
+      "pass": null,
+      "data": {
+        "scope": "same-world wrapper S87 plus explicitly synthetic matching Status ID prerequisite; not a normal wire identity route",
+        "oldAdmitted": true,
+        "ready": true,
+        "available": true,
+        "reset": false,
+        "pendingCleared": true,
+        "oldWorld": 0,
+        "newWorld": 0,
+        "oldActor": 123,
+        "newActor": 456,
+        "oldSession": 0,
+        "session": 1,
+        "oldLease": 1,
+        "newLease": 2,
+        "newBeforeOld": false,
+        "oldSent": false,
+        "nextSent": false,
+        "unchanged": false,
+        "before": "{\u0022state\u0022:\u0022InWorld\u0022,\u0022Detail\u0022:\u0022\\u624B\\u52D5\\u4E1F\\u68C4\\u5DF2\\u9001\\u51FA\\uFF1B\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u8207\\u80CC\\u5305\\u56DE\\u5831\u0022,\u0022Revision\u0022:1,\u0022SessionGeneration\u0022:0,\u0022WorldEpoch\u0022:0,\u0022actor\u0022:{\u0022X\u0022:32600,\u0022Y\u0022:32940,\u0022ObjectId\u0022:456,\u0022Gfx\u0022:0,\u0022Weapon\u0022:46,\u0022Direction\u0022:0,\u0022Light\u0022:0,\u0022Speed\u0022:1,\u0022Exp\u0022:0,\u0022Lawful\u0022:0,\u0022Name\u0022:\u0022review\u0022,\u0022Title\u0022:\u0022\u0022,\u0022Flags\u0022:0,\u0022ClanId\u0022:0,\u0022Clan\u0022:\u0022\u0022,\u0022Owner\u0022:\u0022\u0022,\u0022Rank\u0022:0,\u0022HpPercent\u0022:0,\u0022Brave\u0022:0,\u0022Level\u0022:0,\u0022Unknown\u0022:0,\u0022Tail1\u0022:0,\u0022Tail2\u0022:0},\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u672A\\u9001\\u51FA\\uFF1A\\u9078\\u53D6\\uFF0F\\u6578\\u91CF\\u4E0D\\u7B26\\u3001\\u6B64\\u7269\\u54C1\\u4E0D\\u53EF\\u4E1F\\u68C4\\u6216\\u5FD9\\u788C\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:true,\u0022groundDeadline\u0022:4226900,\u0022groundLease\u0022:1,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:1,\u0022events\u0022:0}",
+        "after": "{\u0022state\u0022:\u0022Faulted\u0022,\u0022Detail\u0022:\u0022\\u5730\\u9762\\u64CD\\u4F5C\\u5931\\u6557\\uFF1Astale owner error\u0022,\u0022Revision\u0022:3,\u0022SessionGeneration\u0022:1,\u0022WorldEpoch\u0022:1,\u0022actor\u0022:null,\u0022pending\u0022:false,\u0022notice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u5730\\u9762\\u7269\\u54C1\u0022,\u0022itemNotice\u0022:\u0022\\u7B49\\u5F85\\u539F\\u670D\\u80CC\\u5305\u0022,\u0022groundBusy\u0022:false,\u0022groundDeadline\u0022:0,\u0022groundLease\u0022:2,\u0022itemBusy\u0022:false,\u0022itemDeadline\u0022:0,\u0022itemLease\u0022:2,\u0022events\u0022:0}",
+        "events": 0,
+        "candidatePending": true,
+        "requiredContract": "ready reset; pending cleared; new admitted before old callback; old false and zero events; exact state/notice/detail/busy/deadline snapshot unchanged; new succeeds exactly once"
+      }
+    },
+    {
+      "id": "drop-final-actor",
+      "kind": "future-safety-contract; isolated actor/lease/magic fields synthetic; not public producer reachability",
+      "pass": false,
+      "data": {
+        "sent": true,
+        "entered": 1,
+        "admit": 1
+      }
+    },
+    {
+      "id": "drop-final-lease",
+      "kind": "future-safety-contract; isolated actor/lease/magic fields synthetic; not public producer reachability",
+      "pass": false,
+      "data": {
+        "sent": true,
+        "entered": 1,
+        "admit": 1
+      }
+    },
+    {
+      "id": "drop-final-magicSending",
+      "kind": "future-safety-contract; isolated actor/lease/magic fields synthetic; not public producer reachability",
+      "pass": false,
+      "data": {
+        "sent": true,
+        "entered": 1,
+        "admit": 1
+      }
+    },
+    {
+      "id": "drop-final-nextMagicAt",
+      "kind": "future-safety-contract; isolated actor/lease/magic fields synthetic; not public producer reachability",
+      "pass": false,
+      "data": {
+        "sent": true,
+        "entered": 1,
+        "admit": 1
+      }
+    },
+    {
+      "id": "drop-final-itemSending",
+      "kind": "future-safety-contract; isolated actor/lease/magic fields synthetic; not public producer reachability",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "entered": 1,
+        "admit": 0
+      }
+    },
+    {
+      "id": "drop-final-input",
+      "kind": "future-safety-contract; isolated actor/lease/magic fields synthetic; not public producer reachability",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "entered": 1,
+        "admit": 0
+      }
+    },
+    {
+      "id": "drop-final-selection",
+      "kind": "future-safety-contract; isolated actor/lease/magic fields synthetic; not public producer reachability",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "entered": 1,
+        "admit": 0
+      }
+    },
+    {
+      "id": "drop-final-record",
+      "kind": "future-safety-contract; isolated actor/lease/magic fields synthetic; not public producer reachability",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "entered": 1,
+        "admit": 0
+      }
+    },
+    {
+      "id": "drop-final-world",
+      "kind": "future-safety-contract; isolated actor/lease/magic fields synthetic; not public producer reachability",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "entered": 1,
+        "admit": 0
+      }
+    },
+    {
+      "id": "drop-final-session",
+      "kind": "future-safety-contract; isolated actor/lease/magic fields synthetic; not public producer reachability",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "entered": 1,
+        "admit": 0
+      }
+    },
+    {
+      "id": "drop-final-same-speed",
+      "kind": "future-safety-contract; isolated actor/lease/magic fields synthetic; not public producer reachability",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "entered": 1,
+        "admit": 0
+      }
+    },
+    {
+      "id": "drop-final-coordinates",
+      "kind": "future-safety-contract; isolated actor/lease/magic fields synthetic; not public producer reachability",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "entered": 1,
+        "admit": 0
+      }
+    },
+    {
+      "id": "drop-final-death",
+      "kind": "future-safety-contract; isolated actor/lease/magic fields synthetic; not public producer reachability",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "entered": 1,
+        "admit": 0
+      }
+    },
+    {
+      "id": "r32-item-speed-0-0",
+      "kind": "r32 exact haste Slow exception retained, unknown/Brave rejected",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "A4D2040000000000"
+        ],
+        "expected": true
+      }
+    },
+    {
+      "id": "r32-item-speed-1-0",
+      "kind": "r32 exact haste Slow exception retained, unknown/Brave rejected",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "A4D2040000000000"
+        ],
+        "expected": true
+      }
+    },
+    {
+      "id": "r32-item-speed-2-0",
+      "kind": "r32 exact haste Slow exception retained, unknown/Brave rejected",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "wires": [
+          "A4D2040000000000"
+        ],
+        "expected": true
+      }
+    },
+    {
+      "id": "r32-item-speed-3-0",
+      "kind": "r32 exact haste Slow exception retained, unknown/Brave rejected",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": [],
+        "expected": false
+      }
+    },
+    {
+      "id": "r32-item-speed-0-1",
+      "kind": "r32 exact haste Slow exception retained, unknown/Brave rejected",
+      "pass": true,
+      "data": {
+        "sent": false,
+        "wires": [],
+        "expected": false
+      }
+    },
+    {
+      "id": "r32-item-owner-world-success",
+      "kind": "r32 accepted item ownership retained; actor Status prerequisite synthetic",
+      "pass": true,
+      "data": {
+        "newAdmitted": true,
+        "oldSent": false,
+        "nextSent": true,
+        "events": 1,
+        "unchanged": true
+      }
+    },
+    {
+      "id": "r32-item-owner-world-false",
+      "kind": "r32 accepted item ownership retained; actor Status prerequisite synthetic",
+      "pass": true,
+      "data": {
+        "newAdmitted": true,
+        "oldSent": false,
+        "nextSent": true,
+        "events": 1,
+        "unchanged": true
+      }
+    },
+    {
+      "id": "r32-item-owner-world-error",
+      "kind": "r32 accepted item ownership retained; actor Status prerequisite synthetic",
+      "pass": true,
+      "data": {
+        "newAdmitted": true,
+        "oldSent": false,
+        "nextSent": true,
+        "events": 1,
+        "unchanged": true
+      }
+    },
+    {
+      "id": "r32-item-owner-actor-success",
+      "kind": "r32 accepted item ownership retained; actor Status prerequisite synthetic",
+      "pass": true,
+      "data": {
+        "newAdmitted": true,
+        "oldSent": false,
+        "nextSent": true,
+        "events": 1,
+        "unchanged": true
+      }
+    },
+    {
+      "id": "r32-item-owner-actor-false",
+      "kind": "r32 accepted item ownership retained; actor Status prerequisite synthetic",
+      "pass": true,
+      "data": {
+        "newAdmitted": true,
+        "oldSent": false,
+        "nextSent": true,
+        "events": 1,
+        "unchanged": true
+      }
+    },
+    {
+      "id": "r32-item-owner-actor-error",
+      "kind": "r32 accepted item ownership retained; actor Status prerequisite synthetic",
+      "pass": true,
+      "data": {
+        "newAdmitted": true,
+        "oldSent": false,
+        "nextSent": true,
+        "events": 1,
+        "unchanged": true
+      }
+    },
+    {
+      "id": "r32-item-early-reply-success",
+      "kind": "admitted legal S255/S57 cannot invalidate r32 item completion",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "r32-item-early-reply-false",
+      "kind": "admitted legal S255/S57 cannot invalidate r32 item completion",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "r32-item-early-reply-error",
+      "kind": "admitted legal S255/S57 cannot invalidate r32 item completion",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "state": "Faulted"
+      }
+    },
+    {
+      "id": "no-socket-events",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "Observed": false
+      }
+    }
+  ]
+}

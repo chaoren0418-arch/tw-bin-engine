@@ -1,0 +1,33 @@
+[
+  {
+    "args": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javac.exe",
+      "-encoding",
+      "UTF-8",
+      "-cp",
+      "D:\\P24Lab-ClientEngine\\server\\Server_Game.jar;D:\\P24Lab-ClientEngine\\server\\jar\\*",
+      "-d",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P24-route-oracle",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P24RouteCheck.java"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "-XX:-UsePerfData",
+      "-Dlog4j2.disableJmx=true",
+      "-Djava.io.tmpdir=D:\\lineage開發\\TW1608262200研究\\主管\\P24-route-oracle",
+      "-cp",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P24-route-oracle;D:\\P24Lab-ClientEngine\\server\\Server_Game.jar;D:\\P24Lab-ClientEngine\\server\\jar\\*",
+      "P24RouteCheck",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P24-route-oracle",
+      "D:\\lineage開發\\1-伺服器\\maps\\0.txt"
+    ],
+    "exitCode": 0,
+    "stdout": "PASS 44 original-JAR terrain directions; 88 source/destination bidirectional observer pairs; network denied\r\n",
+    "stderr": "WARNING: A terminally deprecated method in java.lang.System has been called\nWARNING: System::setSecurityManager has been called by P24RouteCheck (file:/D:/lineage%e9%96%8b%e7%99%bc/TW1608262200%e7%a0%94%e7%a9%b6/%e4%b8%bb%e7%ae%a1/P24-route-oracle/)\nWARNING: Please consider reporting this to the maintainers of P24RouteCheck\nWARNING: System::setSecurityManager will be removed in a future release\n"
+  }
+]

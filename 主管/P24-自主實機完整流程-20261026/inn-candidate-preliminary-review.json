@@ -1,0 +1,15 @@
+{
+  "utc": "2026-10-26T18:11:41.982Z",
+  "status": "source-diff-reviewed-awaiting-sealed-handoff",
+  "files": [
+    "NpcTemplates.cs",
+    "NpcInteraction.cs"
+  ],
+  "observations": [
+    "Missing var index0 fallback uses NPC name only when argument absent; explicit empty remains empty.",
+    "Local15s timer only applies waiting/submitted, clears pending selection and does not resend.",
+    "Same-NPC late network replies cannot be fully distinguished without protocol request IDs; worker explicitly notified and acknowledged."
+  ],
+  "live": false,
+  "applied": false
+}

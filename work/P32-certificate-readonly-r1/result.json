@@ -1,0 +1,62 @@
+{
+  "status": "bounded-readonly-investigation-complete",
+  "identity": {
+    "name": "DESKTOP-CV2L01A\\CodexSandboxOffline",
+    "sid": "S-1-5-21-1644292704-59536754-1411949733-1003",
+    "authenticationType": "NTLM",
+    "impersonationLevel": "None"
+  },
+  "matchesSupervisorReportedNameAndSidSuffix": true,
+  "fullSupervisorSidNotProvided": true,
+  "originalBuildIdentity": {
+    "directIdentityRecorded": false,
+    "launch": "same tool class exec_command -> python subprocess.run, no runas or alternate credentials in preserved runner",
+    "homeOverridesAreNotWindowsIdentity": true,
+    "conclusion": "Current context matches supervisor-reported account/SID suffix; original build token SID cannot be proven retroactively from available logs."
+  },
+  "build01Utc": {
+    "start": "2026-10-29T07:08:21.892275+00:00",
+    "end": "2026-10-29T07:08:25.970619+00:00"
+  },
+  "build01Taipei": {
+    "start": "2026-10-29 15:08:21.892275 +08:00",
+    "end": "2026-10-29 15:08:25.970619 +08:00"
+  },
+  "storesOpenedReadOnly": 10,
+  "distinctMatchingCertificates": 0,
+  "matchingRootMembers": 0,
+  "conclusion": "No matching certificate currently observed in the specified CurrentUser and LocalMachine stores for this execution identity. No before snapshot exists, so this does not prove no certificate was ever added or that another account has none.",
+  "trustConclusion": "No matching certificate available for exact Root membership; no chain trust assessment performed.",
+  "originalEvidenceCopies": 12,
+  "laterBuildRunnerChecks": [
+    {
+      "build": "build-02",
+      "runnerSha256": "0a7dbe0687c33edb4bfe153c5737f040032deb8ea787a288e601f7c9b364c5f8",
+      "runnerMatchesCommandSnapshot": true,
+      "certificateFalse": true,
+      "toolsPathFalse": true,
+      "envPassedToSubprocess": true,
+      "stderrBytes": 0,
+      "limitation": "These two env values were not separately enumerated in command.environmentOverrides; source snapshot binds their assignment and env=env launch."
+    },
+    {
+      "build": "build-03",
+      "runnerSha256": "0a7dbe0687c33edb4bfe153c5737f040032deb8ea787a288e601f7c9b364c5f8",
+      "runnerMatchesCommandSnapshot": true,
+      "certificateFalse": true,
+      "toolsPathFalse": true,
+      "envPassedToSubprocess": true,
+      "stderrBytes": 0,
+      "limitation": "These two env values were not separately enumerated in command.environmentOverrides; source snapshot binds their assignment and env=env launch."
+    }
+  ],
+  "goal": {
+    "historicalP32": "complete per sealed goal-readback.json",
+    "currentGetGoalRead": null,
+    "createdOrModified": false,
+    "note": "Current tool returned null; historical evidence retained without recreating or editing platform Goal."
+  },
+  "forbiddenActionsPerformed": false,
+  "originalP32SealUnchanged": "2668b3754b39af60659063ea096439b872c5417584e5cb2c5f1860924be588db",
+  "noBuildOrRuntimeRerun": true
+}

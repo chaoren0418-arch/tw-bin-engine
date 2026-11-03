@@ -1,0 +1,229 @@
+{
+  "schema": "p28-candidate-delivery-v1",
+  "candidateId": "ENGINE-PICKUP-OWN-PROFILES-P28-R1",
+  "status": "sealed-candidate-ready-for-P29-independent-review",
+  "utc": "2026-10-29T05:12:49.649312+00:00",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "soleSharedIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "root": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1",
+  "formalRelease": false,
+  "formalR35": false,
+  "officialEntry": "r33 (not changed by P28)",
+  "sharedIntegrationAuthorized": false,
+  "productPackagingAuthorized": false,
+  "independentReviewAccepted": false,
+  "nativeAccepted": false,
+  "wholeProjectComplete": false,
+  "base": {
+    "schema": "r34-final-offline-development-baseline-v1",
+    "utc": "2026-10-29T04:48:28.228920+00:00",
+    "decision": "accepted-final-sealed-offline-development-base",
+    "releaseAcceptance": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-release-root-acceptance.json",
+      "size": 2434,
+      "sha256": "900ab8b7aadba88e2aa9fbd1161580098a381b5139441e0155c60f4a0cc2c4ba"
+    },
+    "releaseSeal": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\release-seal.json",
+      "size": 2867987,
+      "sha256": "955ea88173cb36cecaefb6d5e9bbce7d76dfd7bf39ccd7830e56a269ab3155c3"
+    },
+    "sourceManifest": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\acceptance\\source-manifest.json",
+      "size": 45249,
+      "sha256": "337afaa3607e49e0c50f2f388ab8cec8c42f7816e33ed2ee98df6bfb0a48b533"
+    },
+    "sourceRoot": "D:\\lineage開發\\TW1608262200研究\\engine",
+    "sealedRelease": "D:\\lineage開發\\TW1608262200研究\\releases\\r34",
+    "officialEntry": "r33",
+    "entryActivationDenied": true,
+    "entryActivationRequiredForIsolatedDevelopment": false,
+    "nativeAccepted": false,
+    "sourceFiles": 180,
+    "wholeProjectComplete": false,
+    "authority": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\takeover.json",
+      "size": 4697,
+      "sha256": "d7f7d19b500238a3e9894ac8caae74d99d5d9e31ea0de1acc2cf100866ed3bb1"
+    },
+    "currentPolicy": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+      "size": 11741,
+      "sha256": "0c8f214831a286bec4a6844ab1293b4f4798ff829ef0a3d6507dbf455eddc040"
+    },
+    "followupSourceContract": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\followup-contract-inputs.json",
+      "size": 12244,
+      "sha256": "6397fb11d21222d71e9b418c0653a1389fd73aaf8c706ec7962ee5f4d9604771"
+    }
+  },
+  "candidateDll": {
+    "path": "candidate/build/P11.ClientEngine.dll",
+    "size": 4925440,
+    "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+  },
+  "audioDll": {
+    "path": "candidate/build/P24.Audio.dll",
+    "size": 53760,
+    "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+  },
+  "sourceManifest": {
+    "path": "source-manifest.json",
+    "size": 32302,
+    "sha256": "18aecf0d68455b5561637ca23f62d33228ef4b451be0e66602f07995daee49a9"
+  },
+  "changeManifest": {
+    "path": "change-manifest.json",
+    "size": 2654,
+    "sha256": "8dbc43ec1b26811e87962d08267cfc11329f822f614404ef9df241835b509a8e"
+  },
+  "resources": [
+    {
+      "path": "candidate/source/Resources/pickup-own-base15-gfx0-weapon0.json",
+      "size": 239766,
+      "sha256": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90"
+    },
+    {
+      "path": "candidate/source/Resources/pickup-own-base15-profile-extension.json",
+      "size": 2473547,
+      "sha256": "aff2e04d4f9395f7993baf5818eb16218730b7def0a29c7d07e86c314db513ba"
+    }
+  ],
+  "selectedCandidateSuites": [
+    {
+      "attempt": "regression-01",
+      "assertions": 357,
+      "checks": "evidence/regression-01/checks.json",
+      "helperCommand": "evidence/regression-01/helper.command.json",
+      "rawStdout": "evidence/regression-01/helper.stdout.log",
+      "rawStderr": "evidence/regression-01/helper.stderr.log",
+      "helperDll": {
+        "path": "build/regression-01/Checks.dll",
+        "size": 83968,
+        "sha256": "4153055d94048fd522f76941bea9c047346eadb7a9de35b3c6433a533c8df771"
+      },
+      "helperSourcePins": {
+        "path": "build/regression-01/helper-source-pins.json",
+        "size": 262,
+        "sha256": "d6d5eec42b993cd749e0413ad3e751b50e7901729e688353733905e408678783"
+      },
+      "helperSourceSnapshot": "evidence/regression-01/helper-source"
+    },
+    {
+      "attempt": "profiles-02",
+      "assertions": 15875,
+      "checks": "evidence/profiles-02/checks.json",
+      "helperCommand": "evidence/profiles-02/helper.command.json",
+      "rawStdout": "evidence/profiles-02/helper.stdout.log",
+      "rawStderr": "evidence/profiles-02/helper.stderr.log",
+      "helperDll": {
+        "path": "build/profiles-02/Checks.dll",
+        "size": 84480,
+        "sha256": "43b0874973384f111adb1d1e9bb639dea838672a9b796fbe0f4b37e0ccfef966"
+      },
+      "helperSourcePins": {
+        "path": "build/profiles-02/helper-source-pins.json",
+        "size": 262,
+        "sha256": "e3d291fba902676640c8aee30bb63c6599a1e17e2e436d34dd670b32e0e59f79"
+      },
+      "helperSourceSnapshot": "evidence/profiles-02/helper-source"
+    },
+    {
+      "attempt": "boundaries-01",
+      "assertions": 3823,
+      "checks": "evidence/boundaries-01/checks.json",
+      "helperCommand": "evidence/boundaries-01/helper.command.json",
+      "rawStdout": "evidence/boundaries-01/helper.stdout.log",
+      "rawStderr": "evidence/boundaries-01/helper.stderr.log",
+      "helperDll": {
+        "path": "build/regression-01/Checks.dll",
+        "size": 83968,
+        "sha256": "4153055d94048fd522f76941bea9c047346eadb7a9de35b3c6433a533c8df771"
+      },
+      "helperSourcePins": {
+        "path": "build/regression-01/helper-source-pins.json",
+        "size": 262,
+        "sha256": "d6d5eec42b993cd749e0413ad3e751b50e7901729e688353733905e408678783"
+      },
+      "helperSourceSnapshot": "evidence/regression-01/helper-source"
+    },
+    {
+      "attempt": "negative-01",
+      "assertions": 6751,
+      "checks": "evidence/negative-01/checks.json",
+      "helperCommand": "evidence/negative-01/helper.command.json",
+      "rawStdout": "evidence/negative-01/helper.stdout.log",
+      "rawStderr": "evidence/negative-01/helper.stderr.log",
+      "helperDll": {
+        "path": "build/regression-01/Checks.dll",
+        "size": 83968,
+        "sha256": "4153055d94048fd522f76941bea9c047346eadb7a9de35b3c6433a533c8df771"
+      },
+      "helperSourcePins": {
+        "path": "build/regression-01/helper-source-pins.json",
+        "size": 262,
+        "sha256": "d6d5eec42b993cd749e0413ad3e751b50e7901729e688353733905e408678783"
+      },
+      "helperSourceSnapshot": "evidence/regression-01/helper-source"
+    },
+    {
+      "attempt": "namespace-01",
+      "assertions": 147,
+      "checks": "evidence/namespace-01/checks.json",
+      "helperCommand": "evidence/namespace-01/helper.command.json",
+      "rawStdout": "evidence/namespace-01/helper.stdout.log",
+      "rawStderr": "evidence/namespace-01/helper.stderr.log",
+      "helperDll": {
+        "path": "build/namespace-01/Checks.dll",
+        "size": 91136,
+        "sha256": "d173a30467cc6a2b48abf3a4f2cc909700a3dd729b4fb4c5532bff53f3f0f112"
+      },
+      "helperSourcePins": {
+        "path": "build/namespace-01/helper-source-pins.json",
+        "size": 349,
+        "sha256": "95c0ea8915ac0b61465524b3ad7d04a5e757eb8137376b98d9a883519596c0e6"
+      },
+      "helperSourceSnapshot": "evidence/namespace-01/helper-source"
+    }
+  ],
+  "counts": {
+    "productBuildAttempts": 1,
+    "successfulProductBuilds": 1,
+    "candidateRuntimeAssertions": 26953,
+    "baselineRuntimeAssertions": 225,
+    "successfulCandidateSuites": 5,
+    "failedCandidateAttempt": 1,
+    "executedMappingRows": 2688,
+    "fixtureCombinations": 672,
+    "uniqueBodyFrames": 416,
+    "baseTerminalUnique": 104,
+    "pickupUnique": 312,
+    "additionalEmbeddedFrames": 288,
+    "staticPlanAssertions": 1612,
+    "nativeRuntimeAssertions": 0,
+    "historicalR34CanonicalAssertions": 4521,
+    "historicalR34CanonicalObservations": 93
+  },
+  "identityTiers": {
+    "base104": "historical-selected-payload-matched",
+    "pickup312": "current-idx-and-bounded-slice-only",
+    "nativeEligibilityPromoted": false
+  },
+  "outputs": {
+    "handoff": "HANDOFF.md",
+    "coverage": "coverage.json",
+    "attemptResolution": "attempt-resolution.json",
+    "controlComparison": "control-comparison.json",
+    "finalInputAudit": "final-input-audit.json",
+    "sourceSeal": "source-manifest.json",
+    "artifactSeal": "artifact-manifest.json",
+    "reproduction": "REPRODUCE.md"
+  },
+  "limitations": [
+    "7822 planned overlapping slots are not an executed count",
+    "The prior r34 canonical4521+93 are historical and are not added to current totals",
+    "Synthetic empty scene and injected clocks/packet fixtures,not real native/server capture",
+    "No entire canonical release suite or production packaging run",
+    "No live audio playback or device validation"
+  ]
+}

@@ -1,0 +1,1152 @@
+{
+  "utc": "2026-10-26T14:26:48.544Z",
+  "schema": "p24-status-and-movement-isolated-candidate-v2",
+  "dll": "8693f69c60f87aa7952215615cb7b998acdd3282e6fc354cbc32fd30c306a8cc",
+  "files": [
+    {
+      "path": "baseline-checks/Checks.csproj",
+      "ok": true
+    },
+    {
+      "path": "baseline-checks/Program.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/build/Microsoft.Web.WebView2.Core.dll",
+      "ok": true
+    },
+    {
+      "path": "candidate/build/Microsoft.Web.WebView2.Core.xml",
+      "ok": true
+    },
+    {
+      "path": "candidate/build/Microsoft.Web.WebView2.WinForms.dll",
+      "ok": true
+    },
+    {
+      "path": "candidate/build/Microsoft.Web.WebView2.WinForms.xml",
+      "ok": true
+    },
+    {
+      "path": "candidate/build/P11.ClientEngine.deps.json",
+      "ok": true
+    },
+    {
+      "path": "candidate/build/P11.ClientEngine.dll",
+      "ok": true
+    },
+    {
+      "path": "candidate/build/P11.ClientEngine.exe",
+      "ok": true
+    },
+    {
+      "path": "candidate/build/P11.ClientEngine.pdb",
+      "ok": true
+    },
+    {
+      "path": "candidate/build/P11.ClientEngine.runtimeconfig.json",
+      "ok": true
+    },
+    {
+      "path": "candidate/build/runtimes/win-arm64/native/WebView2Loader.dll",
+      "ok": true
+    },
+    {
+      "path": "candidate/build/runtimes/win-x64/native/WebView2Loader.dll",
+      "ok": true
+    },
+    {
+      "path": "candidate/build/runtimes/win-x86/native/WebView2Loader.dll",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Assets.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/CacheFrameEvidence.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/CacheTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/ClientLogin.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/ClientNetwork.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Combat.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/CombatRegression.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/CombatTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/CombatUiTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/CombatVisibilityPlan.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/DualBlockTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/DuplicateRecoveryProbe.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Equipment.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/EquipmentGateTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/EquipmentIntegration.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/EquipmentTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/EquipmentUiTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/EventJournal.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Ground.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/GroundIntegration.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/GroundLayoutTest.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/GroundRendering.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/GroundTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/GroundTransfer.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/GroundUi.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Inventory.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/InventoryIntegration.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/InventoryLayoutTest.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/InventoryTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/InventoryUi.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/JournalTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/LoginConnection.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/LoginControl.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/LoginProtocol.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/LoginTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Magic.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MagicIntegration.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MagicRendering.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MagicRenderingTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MagicSelectionRegression.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MagicSpells.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MagicStatus.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MagicTargetPreparation.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MagicTargetTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MagicTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MagicUi.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MagicUiTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MapEffects.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MapResources.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MovementRegression.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MovementTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/MovementUiTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Network.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/NpcInteraction.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/NpcServices.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/NpcTemplates.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/NpcUi.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/ObjectAssets.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/ObjectPresence.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/ObjectRegression.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/ObjectRendering.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/ObjectTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/ObjectUiTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/OfflineClient.csproj",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/OnlineInput.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/OnlineMovement.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/OpacityHistoricalPumps.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/OpacityIntegration.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/OpacityPixelTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/OpacityRendering.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/OpacityReplayTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/OpacitySchedulerTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/OpacityTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/OpacityUiTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/OpacityWeb.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/OriginalExpTable.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/OriginalMapCache.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/PlayerProfiles.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/ProductEntry.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Program.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/ProjectileRendering.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Protocol.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/ProtocolTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Ranged.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/RangedGateTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/RangedIntegration.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/RangedRenderingTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/RangedTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/RangedUiTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/RealLoginTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/ReceiveLoadTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Renderer.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/RewardIntegration.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Rewards.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/RewardTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/SceneOpacity.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/ServerMessageText.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/ServerStatusMessages.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/SystemAnnouncements.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Teleport.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Tests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/Trade.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/TradeUi.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/WebPanel.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/WebTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/World.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/WorldEntry.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/WorldObjects.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/WorldRegression.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/WorldSession.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/source/WorldTests.cs",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/ground/36.png",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/ground/66.png",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/icons/124.png",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/icons/2.png",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/icons/278.png",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/icons/4.png",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/icons/475.png",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/icons/5.png",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/icons/7.png",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/icons/81.png",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/icons/86.png",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/icons/97.png",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/index.html",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/interaction.js",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/login.js",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/panel.css",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/panel.js",
+      "ok": true
+    },
+    {
+      "path": "candidate/web/trade.js",
+      "ok": true
+    },
+    {
+      "path": "changes.diff",
+      "ok": true
+    },
+    {
+      "path": "checks/Checks.csproj",
+      "ok": true
+    },
+    {
+      "path": "checks/Program.cs",
+      "ok": true
+    },
+    {
+      "path": "collect_evidence.py",
+      "ok": true
+    },
+    {
+      "path": "evidence/move01/baseline-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move01/baseline-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move01/baseline-panel.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move01/baseline-panel.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move01/baseline.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move01/baseline.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move01/processes.json",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/baseline-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/baseline-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/baseline-panel.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/baseline-panel.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/baseline.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/baseline.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/candidate-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/candidate-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/combined-regression.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/combined-regression.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/movement-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/movement-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/movement-panel.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/movement-panel.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/movement.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/movement.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/processes.json",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02/result.json",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/baseline-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/baseline-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/baseline.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/baseline.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/candidate-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/candidate-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/check-only.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/check-only.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/npc-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/npc-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/npc-dom.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/npc-dom.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/npc.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/npc.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/processes.json",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/result.json",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/state-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/state-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/state.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/state.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/status-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/status-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/status.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/status.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/trade-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/trade-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/trade.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/move02-combined/trade.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/baseline-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/baseline-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/baseline.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/baseline.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/candidate-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/candidate-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/check-only.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/check-only.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/npc-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/npc-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/npc-dom.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/npc-dom.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/npc.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/npc.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/processes.json",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/result.json",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/state-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/state-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/state.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/state.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/status-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/status-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/status.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/status.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/trade-build.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/trade-build.stdout",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/trade.stderr",
+      "ok": true
+    },
+    {
+      "path": "evidence/run01/trade.stdout",
+      "ok": true
+    },
+    {
+      "path": "HANDOFF.md",
+      "ok": true
+    },
+    {
+      "path": "movement-baseline/Checks.csproj",
+      "ok": true
+    },
+    {
+      "path": "movement-baseline/Program.cs",
+      "ok": true
+    },
+    {
+      "path": "movement-baseline/WebDriver.cs",
+      "ok": true
+    },
+    {
+      "path": "movement-checks/Checks.csproj",
+      "ok": true
+    },
+    {
+      "path": "movement-checks/Program.cs",
+      "ok": true
+    },
+    {
+      "path": "movement-checks/WebDriver.cs",
+      "ok": true
+    },
+    {
+      "path": "npc-regression/Checks.csproj",
+      "ok": true
+    },
+    {
+      "path": "npc-regression/parameter-template.json",
+      "ok": true
+    },
+    {
+      "path": "npc-regression/Program.cs",
+      "ok": true
+    },
+    {
+      "path": "observed-message-fields.json",
+      "ok": true
+    },
+    {
+      "path": "prepare.py",
+      "ok": true
+    },
+    {
+      "path": "prepare_movement.py",
+      "ok": true
+    },
+    {
+      "path": "preservation.json",
+      "ok": true
+    },
+    {
+      "path": "r9-potion-invalidates-dialogue.json",
+      "ok": true
+    },
+    {
+      "path": "r9-rejected-move-feedback.json",
+      "ok": true
+    },
+    {
+      "path": "result.json",
+      "ok": true
+    },
+    {
+      "path": "root-before.json",
+      "ok": true
+    },
+    {
+      "path": "run_checks.py",
+      "ok": true
+    },
+    {
+      "path": "run_movement.py",
+      "ok": true
+    },
+    {
+      "path": "seal.py",
+      "ok": true
+    },
+    {
+      "path": "source-audit.json",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/jar-provenance.json",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/L1SkillUse.class",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/L1SkillUse.java",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/L1SkillUse.javap.txt",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/L1SkillUse.stderr",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/original-messages.json",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/S_PacketBoxHpMsg.class",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/S_PacketBoxHpMsg.java",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/S_PacketBoxHpMsg.javap.txt",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/S_PacketBoxHpMsg.stderr",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/S_ServerMessage.class",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/S_ServerMessage.java",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/S_ServerMessage.javap.txt",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/S_ServerMessage.stderr",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/S_SystemMessage.class",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/S_SystemMessage.java",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/S_SystemMessage.javap.txt",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/S_SystemMessage.stderr",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/supported-skills-sql.json",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/UserAddHp.class",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/UserAddHp.java",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/UserAddHp.javap.txt",
+      "ok": true
+    },
+    {
+      "path": "source-evidence/UserAddHp.stderr",
+      "ok": true
+    },
+    {
+      "path": "state-regression/Checks.csproj",
+      "ok": true
+    },
+    {
+      "path": "state-regression/Program.cs",
+      "ok": true
+    },
+    {
+      "path": "status-only-receipt/changes.diff",
+      "ok": true
+    },
+    {
+      "path": "status-only-receipt/delivery-manifest.json",
+      "ok": true
+    },
+    {
+      "path": "status-only-receipt/HANDOFF.md",
+      "ok": true
+    },
+    {
+      "path": "status-only-receipt/preservation.json",
+      "ok": true
+    },
+    {
+      "path": "status-only-receipt/README.txt",
+      "ok": true
+    },
+    {
+      "path": "status-only-receipt/result.json",
+      "ok": true
+    },
+    {
+      "path": "test_movement_panel.cjs",
+      "ok": true
+    },
+    {
+      "path": "test_npc.cjs",
+      "ok": true
+    },
+    {
+      "path": "trade-regression/Checks.csproj",
+      "ok": true
+    },
+    {
+      "path": "trade-regression/Program.cs",
+      "ok": true
+    },
+    {
+      "path": "verify_preservation.py",
+      "ok": true
+    }
+  ],
+  "sourceReview": "Read complete merged changes: narrowly proven personal status formats; per-command movement result; original gates unchanged; UI uses real movement busy state. Actual UI pending."
+}

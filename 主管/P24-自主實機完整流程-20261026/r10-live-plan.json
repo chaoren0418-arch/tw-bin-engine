@@ -1,0 +1,24 @@
+{
+  "created": "2026-10-26T14:26:23.975Z",
+  "status": "planned, not executed",
+  "role": "p24svc01",
+  "start": [
+    32620,
+    32942
+  ],
+  "purpose": [
+    "normal login, persisted learned shield/gear/funds",
+    "normal road movement with busy UI and truthful per-command reply",
+    "near NPC Jem32587,32927: open original dialogue then use one real white potion; dialogue/options must remain valid",
+    "normal basic heal while dialogue open; actual HP/MP and dialog state",
+    "range/world/disconnect invalidation must still work",
+    "near original pigeon32579,32933: observe authentic sprite if actually present"
+  ],
+  "rules": [
+    "ordinary UI actions only",
+    "preserve death and inventory outcomes",
+    "Kurt proximity protection; no extra DB grants",
+    "no ship voyage acceptance until original voyage wiring implemented and tested"
+  ],
+  "pendingShip": "map5→4 and map6→0 not present in ordinary dungeon table; client C231 voyage path requires source-backed implementation"
+}

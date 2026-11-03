@@ -1,0 +1,18 @@
+{
+  "recordedUtc": "2026-10-27 13:43:21 UTC",
+  "workerSnapshot": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"timedOut\":false,\"wake\":null,\"polls\":[{\"schemaVersion\":1,\"cursor\":\"449bd82b-584e-41f1-959e-1f4fd5e5e7e2:779\",\"revision\":779,\"changed\":false,\"thread\":{\"id\":\"01a1749a-7e8d-7200-9fc8-8618ed2559ac\",\"hostId\":\"local\",\"status\":{\"type\":\"idle\"}},\"latestTurn\":{\"id\":\"01a17d7c-0967-7073-bbb2-4811abd43e2d\",\"status\":\"completed\",\"error\":null,\"startedAt\":1793106643,\"completedAt\":1793108307,\"durationMs\":1663859},\"latestAssistantMessageId\":\"msg_0a4767e243e51a4c016ae0a9472b1c819193fdad4f7aba43ff\",\"latestAssistantMessage\":null,\"latestToolMarkerId\":\"exec-dcd572f9-71e6-4b1f-b0e4-309fa38914e9\",\"latestToolMarker\":null},{\"schemaVersion\":1,\"cursor\":\"7067bea7-93db-4aaf-a670-9c1a4be84c4f:105\",\"revision\":105,\"changed\":false,\"thread\":{\"id\":\"01a17a21-8dec-7410-8a1b-80f7fa84d0a1\",\"hostId\":\"local\",\"status\":{\"type\":\"idle\"}},\"latestTurn\":{\"id\":\"01a17d87-2e14-7381-b1d1-aca4865a36db\",\"status\":\"completed\",\"error\":null,\"startedAt\":1793107373,\"completedAt\":1793108467,\"durationMs\":1094155},\"latestAssistantMessageId\":\"msg_03bad4afb6dfb9e5016ae0a9e9609c8191b45856097e60029d\",\"latestAssistantMessage\":null,\"latestToolMarkerId\":\"exec-8331dde9-b9eb-499d-8f27-faf5de452002\",\"latestToolMarker\":null},{\"schemaVersion\":1,\"cursor\":\"6ed7dba7-78cb-4d9d-9613-0d7cb8b486be:187\",\"revision\":187,\"changed\":false,\"thread\":{\"id\":\"01a17a22-17e4-70c0-9792-166ddb86ea42\",\"hostId\":\"local\",\"status\":{\"type\":\"idle\"}},\"latestTurn\":{\"id\":\"01a17cff-3845-7dd2-b8e1-16c38c2bb539\",\"status\":\"completed\",\"error\":null,\"startedAt\":1793098463,\"completedAt\":1793099329,\"durationMs\":866327},\"latestAssistantMessageId\":\"msg_07ee2ec7275ff6ae016ae086373fe4819184faf457e74f1906\",\"latestAssistantMessage\":null,\"latestToolMarkerId\":\"exec-64ca0ab8-ca98-4244-b1ec-270149b00c38\",\"latestToolMarker\":null}]}"
+      }
+    ],
+    "isError": false
+  },
+  "goalRead": {
+    "goal": null,
+    "remainingTokens": null,
+    "completionBudgetReport": null
+  },
+  "goalRecreated": false
+}

@@ -1,0 +1,117 @@
+{
+  "schema": "p26-independent-review-artifact-manifest-v1",
+  "files": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\canonical-static.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\canonical-static.stdout.txt",
+      "size": 1163,
+      "sha256": "f4dee06675ee5ef140c0a30a3cbe891c6a4c5bcfda85ddb7297333ff1929c744"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\finalize_review.py",
+      "size": 20644,
+      "sha256": "5f7219ec8ae28c750cb2bb974e13a3184493bdf48d1859ad19569e2ea2f4ead8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\findings.json",
+      "size": 8234,
+      "sha256": "76760796d3d9405860b3ef614d3d8860617cf60190627b7d8a1d3132308b0fde"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\followup-contract-inputs.json",
+      "size": 12244,
+      "sha256": "6397fb11d21222d71e9b418c0653a1389fd73aaf8c706ec7962ee5f4d9604771"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\HANDOFF.md",
+      "size": 4455,
+      "sha256": "1eb2ba1a499727dbec608ce11c3d6acb43b4bba61805345330aea7a2d88fb1c6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\inventory-verification.json",
+      "size": 3018,
+      "sha256": "0141af792f0156918f3b69b4f0b6c20d287f688511d7289145f38f0222304378"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\nested-command-review.json",
+      "size": 1983,
+      "sha256": "6a9378bdcd2b458adea29dba1a50626eafc5f2b296a16307bb38cdd37c339c44"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\policy-drift-proof.json",
+      "size": 675,
+      "sha256": "dc2fa0d642ad975ac93cf6365852268a581562bc724cc6aa001be248fe7ea1fd"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\profile-prep-verification.json",
+      "size": 1295,
+      "sha256": "f66894df2622167708e1b853ba29dddfbba7b649fadc06a9f7cb020187ca5023"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\profiles-prep.stderr.txt",
+      "size": 681,
+      "sha256": "8af3037877ce70091fda4d1f0d20fb58876291fedc8cb16464cf2ceba91a0048"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\profiles-prep.stdout.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\profiles-source.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\profiles-source.stdout.txt",
+      "size": 319,
+      "sha256": "f71e307a368ecf1cc71f29966946340592cad145c5d2ea6b1a57f5755a5571e5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\progress.json",
+      "size": 1083,
+      "sha256": "6dc9ee0848dd825867ab5d7f815bc1d637fe76b25b762f823d38a0029d40961f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\result.json",
+      "size": 2470,
+      "sha256": "5a5ed6e91236084012381a53c80f593d6e0256a170b36b8dd7d5e4027f281122"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\review.json",
+      "size": 4771,
+      "sha256": "7bd2b528180f8ae42238fced602ef8ce116b95efd6bbbd0fbe03bc38d3e1de68"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\run_review.py",
+      "size": 19982,
+      "sha256": "e9f410c410660c45ef353fcbac3d9065f05d9895741880e855fd12bef681a5f8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\source-sha256.json",
+      "size": 584626,
+      "sha256": "910a1347777157d53aa8f310a1ca886b86c731bc4f96890adc2274110e7f1950"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\synthetic-tests.json",
+      "size": 1602,
+      "sha256": "c6b1b65a980ffd25dfc449aed739844db8b65f8797585c14e9338c44aabc4171"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\verification-commands.json",
+      "size": 3168,
+      "sha256": "1a36cf62e291e183e0916aae5f6efafc02c50db3159036103ff8589744a3e455"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\verify_delivery.py",
+      "size": 1254,
+      "sha256": "f64a9a419e02704359fe06f6ebb85021995894f73ae7aec672ad5c248bfed342"
+    }
+  ],
+  "excluded": "synthetic-* subdirectories; diagnostic fixtures only, summary and script are pinned",
+  "sealedProductChanged": false
+}

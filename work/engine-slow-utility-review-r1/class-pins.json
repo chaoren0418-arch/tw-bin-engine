@@ -1,0 +1,260 @@
+{
+  "jarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "classes": [
+    {
+      "class": "com.lineage.server.clientpackets.C_ItemUSe",
+      "entry": "com/lineage/server/clientpackets/C_ItemUSe.class",
+      "sha256": "32dea956650ff787697f465f52309ae4653b083281b279cfdb3dd5dcebf0fc6a",
+      "bytes": 28075,
+      "javap": "source-evidence/C_ItemUSe.javap.txt",
+      "javapSha256": "e9262db38e932e458ccdee33006720f3660640acf95cc944669fd41793b4ac19"
+    },
+    {
+      "class": "com.lineage.data.item_etcitem.brave.StatusHaste",
+      "entry": "com/lineage/data/item_etcitem/brave/StatusHaste.class",
+      "sha256": "41cba6e0aac35b49d1337eb03f8f55c86744d90c6185ae10c706051a46aab62f",
+      "bytes": 5541,
+      "javap": "source-evidence/StatusHaste.javap.txt",
+      "javapSha256": "9b51c8820c5aac6571af0b7cbe2381f9bbf8ee2dea23d17cc417994bea8858df"
+    },
+    {
+      "class": "com.lineage.server.model.skill.L1BuffUtil",
+      "entry": "com/lineage/server/model/skill/L1BuffUtil.class",
+      "sha256": "a834b7ea528211de92c51672862057403ae4e8cb2c1fa2ad70a4b9854e477304",
+      "bytes": 6934,
+      "javap": "source-evidence/L1BuffUtil.javap.txt",
+      "javapSha256": "c1d1e773a4e8d67316b6e833a9b35a34e73c3fe52ca81bada2193e276760878a"
+    },
+    {
+      "class": "com.lineage.server.model.L1ItemDelay",
+      "entry": "com/lineage/server/model/L1ItemDelay.class",
+      "sha256": "d76ee297cbf4308716886fbf791effdbdf1cd1593bf6e87dd6a85a8f4484de37",
+      "bytes": 9556,
+      "javap": "source-evidence/L1ItemDelay.javap.txt",
+      "javapSha256": "243cd3cb595895e49c20d0968cc51d86a1cc025c2f24ad0e9ce04ce259a7f0c0"
+    },
+    {
+      "class": "com.lineage.server.serverpackets.S_SkillHaste",
+      "entry": "com/lineage/server/serverpackets/S_SkillHaste.class",
+      "sha256": "65d33e67194b603f22f323782566475ca33b2534d4659fc54891de6a84df5003",
+      "bytes": 1014,
+      "javap": "source-evidence/S_SkillHaste.javap.txt",
+      "javapSha256": "90ddea96280d79d50d59a658159f1398048b59e8b3c214631d843f189de758e1"
+    },
+    {
+      "class": "com.lineage.server.serverpackets.S_SkillBrave",
+      "entry": "com/lineage/server/serverpackets/S_SkillBrave.class",
+      "sha256": "f36fd8e62369f6ddb67102871e57e384126dc8fe876d12a4508cdd3854e3fc5e",
+      "bytes": 856,
+      "javap": "source-evidence/S_SkillBrave.javap.txt",
+      "javapSha256": "45abbe3cc2a7c7a431a5260ccdc7f33af0faaa3583df3a6b791d58f04fc6038b"
+    },
+    {
+      "class": "com.lineage.server.clientpackets.C_NPCTalk",
+      "entry": "com/lineage/server/clientpackets/C_NPCTalk.class",
+      "sha256": "1786ac226467151513e5a51ea8629bcfbb3f6c4c80c8c108384766231c94d4a4",
+      "bytes": 5385,
+      "javap": "source-evidence/C_NPCTalk.javap.txt",
+      "javapSha256": "91d47c52ac6fe22b9d358085abe68ff87fe42b8e604e227ce42a87521549d449"
+    },
+    {
+      "class": "com.lineage.server.clientpackets.C_DropItem",
+      "entry": "com/lineage/server/clientpackets/C_DropItem.class",
+      "sha256": "5b097f52ad2f3b7f6836ceb4124208adc8d9f4c8ddf172c658456f5629225319",
+      "bytes": 6217,
+      "javap": "source-evidence/C_DropItem.javap.txt",
+      "javapSha256": "8c78438899529764d80de2bc5ddece305a2b3c5f04486b7b02ec999f18e36b78"
+    },
+    {
+      "class": "com.lineage.server.clientpackets.C_PickUpItem",
+      "entry": "com/lineage/server/clientpackets/C_PickUpItem.class",
+      "sha256": "721b3f27cd3be1bbe1ac9f5c1646946af7a53b6dcbff2d759ceb9081ff8c45a5",
+      "bytes": 9954,
+      "javap": "source-evidence/C_PickUpItem.javap.txt",
+      "javapSha256": "5150be1fe5149636a91707fb823562b968c86a7ee1ec2655090a696b6455c0ba"
+    },
+    {
+      "class": "com.lineage.data.ItemClass",
+      "entry": "com/lineage/data/ItemClass.class",
+      "sha256": "cf8b2defc7698d560a38e7c15d114c130daf67e4bf727c6b5f4b929ccad935b6",
+      "bytes": 6264,
+      "javap": "source-evidence/ItemClass.javap.txt",
+      "javapSha256": "0e3483c438b5fea75039fa1899317fb3f21821eea48b182af2c9e916ef79c8e8"
+    },
+    {
+      "class": "com.lineage.server.model.Instance.L1ItemInstance",
+      "entry": "com/lineage/server/model/Instance/L1ItemInstance.class",
+      "sha256": "1f2b8050c0c60b7846596529faecd6d66a41bbdb5412888ed9e1970d16a657f2",
+      "bytes": 61629,
+      "javap": "source-evidence/L1ItemInstance.javap.txt",
+      "javapSha256": "a5d73be8c794ef5c5656a5aaace31db8ffe8eb0886ed10d35f9d93bec13d16ac"
+    },
+    {
+      "class": "com.lineage.server.utils.WorldInteractionGuard",
+      "entry": "com/lineage/server/utils/WorldInteractionGuard.class",
+      "sha256": "53c73aa47857d46a5c69a97cbb9e81ef350b91f7169ea5daf090b3803cf99f71",
+      "bytes": 5315,
+      "javap": "source-evidence/WorldInteractionGuard.javap.txt",
+      "javapSha256": "15f78717d7d3b5515e4f0d59a29e259a8615ddcfdcc4287ba66399d4018f3419"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.server.clientpackets.C_ItemUSe"
+      ],
+      "exitCode": 0,
+      "scope": "Static class bytecode disassembly only, no class initialization or handler execution"
+    },
+    {
+      "argv": [
+        "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.data.item_etcitem.brave.StatusHaste"
+      ],
+      "exitCode": 0,
+      "scope": "Static class bytecode disassembly only, no class initialization or handler execution"
+    },
+    {
+      "argv": [
+        "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.server.model.skill.L1BuffUtil"
+      ],
+      "exitCode": 0,
+      "scope": "Static class bytecode disassembly only, no class initialization or handler execution"
+    },
+    {
+      "argv": [
+        "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.server.model.L1ItemDelay"
+      ],
+      "exitCode": 0,
+      "scope": "Static class bytecode disassembly only, no class initialization or handler execution"
+    },
+    {
+      "argv": [
+        "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.server.serverpackets.S_SkillHaste"
+      ],
+      "exitCode": 0,
+      "scope": "Static class bytecode disassembly only, no class initialization or handler execution"
+    },
+    {
+      "argv": [
+        "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.server.serverpackets.S_SkillBrave"
+      ],
+      "exitCode": 0,
+      "scope": "Static class bytecode disassembly only, no class initialization or handler execution"
+    },
+    {
+      "argv": [
+        "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.server.clientpackets.C_NPCTalk"
+      ],
+      "exitCode": 0,
+      "scope": "Static class bytecode disassembly only, no class initialization or handler execution"
+    },
+    {
+      "argv": [
+        "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.server.clientpackets.C_DropItem"
+      ],
+      "exitCode": 0,
+      "scope": "Static class bytecode disassembly only, no class initialization or handler execution"
+    },
+    {
+      "argv": [
+        "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.server.clientpackets.C_PickUpItem"
+      ],
+      "exitCode": 0,
+      "scope": "Static class bytecode disassembly only, no class initialization or handler execution"
+    },
+    {
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.data.ItemClass"
+      ],
+      "exitCode": 0,
+      "scope": "static disassembly only"
+    },
+    {
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.server.model.Instance.L1ItemInstance"
+      ],
+      "exitCode": 0,
+      "scope": "static disassembly only"
+    },
+    {
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.server.utils.WorldInteractionGuard"
+      ],
+      "exitCode": 0,
+      "scope": "static disassembly only"
+    }
+  ],
+  "newServerOracleExecutions": 0
+}

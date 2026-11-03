@@ -1,0 +1,24 @@
+{
+  "taskId": "ENGINE-PICKUP-ASSET-SOURCE-R1",
+  "owner": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+  "turnId": "01a184d6-89e3-72b2-a669-84e6a89cf3cd",
+  "cursor": "1e47fa6f-0252-43ab-bc1b-299701dcebdc:121",
+  "status": "bounded-source-and-independent-review-accepted",
+  "utc": "2026-10-28T23:27:05.522Z",
+  "writeRoot": "work/engine-pickup-asset-source-r1",
+  "baseline": "final-r32",
+  "implementationAuthorized": false,
+  "isolatedTargetedAssetDecodeAuthorized": true,
+  "workerIdle": true,
+  "independentReview": {
+    "taskId": "ENGINE-PICKUP-ASSET-REVIEW-R1",
+    "owner": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+    "turnId": "01a184ef-4b95-7331-8f9d-88eaedd046c4",
+    "cursor": "8733f9b2-2e3c-4239-bb56-0b27e2dd2974:159",
+    "status": "sealed-accepted",
+    "utc": "2026-10-28T23:54:12.848574+00:00",
+    "writeRoot": "work/engine-pickup-asset-review-r1",
+    "productImplementationAuthorized": false
+  },
+  "updatedUtc": "2026-10-29T00:03:40.663594+00:00"
+}

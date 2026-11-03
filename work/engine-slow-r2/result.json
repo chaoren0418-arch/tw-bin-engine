@@ -1,0 +1,69 @@
+{
+  "schema": "engine-candidate-result-v1",
+  "candidateId": "ENGINE-SLOW-IMPL-R2",
+  "task": "ENGINE-SLOW-IMPL-R2",
+  "status": "candidate-ready-for-independent-review",
+  "checksPassed": true,
+  "checks": 2682,
+  "productDllSha256": "8ccfa4e3b5d253206779a5d4b1e59682263ffbddf5dab43fe15b0aa1f86a7397",
+  "candidateDllSha256": "8ccfa4e3b5d253206779a5d4b1e59682263ffbddf5dab43fe15b0aa1f86a7397",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "sourceManifest": "source-manifest.json",
+  "sourceManifestFiles": 176,
+  "changedSourceFiles": 9,
+  "r1ToR2ChangedFiles": 1,
+  "sourceBase": "shared moved r28, exact baseline-lock pins",
+  "failedPredecessor": {
+    "candidateId": "ENGINE-SLOW-IMPL-R1",
+    "sealSha256": "bf22ad09f0d2b2940dfb295680d363287b56a253249f128de393520b562dac61",
+    "dllSha256": "a595559878d3e24b447d8be3a5c1e8ce595ff3a47dceb6877b9256ba00f12472",
+    "f1CasesReproduced": 6
+  },
+  "finding": {
+    "id": "F1",
+    "status": "fixed-in-candidate-pending-independent-review",
+    "implementation": "On remote supported state recovery, discard only the untimeable unsupported motion snapshot by clearing MotionAt. Keep authoritative position and do not invent a rate. Known motion snapshots retained."
+  },
+  "tests": {
+    "focusedF1": {
+      "checks": 112,
+      "passed": 112,
+      "path": "evidence/f1-result.json"
+    },
+    "reviewerSuiteRerun": {
+      "checks": 1199,
+      "passed": 1199,
+      "path": "evidence/review-result.json",
+      "independentNewAcceptance": false
+    },
+    "implementationSuiteRerun": {
+      "checks": 1371,
+      "passed": 1371,
+      "path": "evidence/candidate-result.json"
+    },
+    "sameReviewerRepro": {
+      "r1ExpectedFailures": 6,
+      "r2Recovered": 6,
+      "path": "evidence/repro-r2.json",
+      "includedInChecksTotal": false
+    }
+  },
+  "build": {
+    "configuration": "Release",
+    "warnings": 0,
+    "errors": 0
+  },
+  "sealed": true,
+  "candidateAccepted": false,
+  "sharedEngineMerged": false,
+  "nativeLiveAcceptance": false,
+  "wholeProjectComplete": false,
+  "goal": "existing worker Goal observed blocked; not modified",
+  "limitations": [
+    "Offline actual DLL/renderer with synthetic actor/packet/clock/sender fixtures; no native GUI/game acceptance.",
+    "Unknown current Speed and nonzero Brave still reject; invalid old motion is discarded, never interpreted at a guessed speed.",
+    "Slow attack/cast/item/equipment/pickup/drop and non-walk mouse actions remain unsupported as in r1.",
+    "No DB, service, normal product executable or socket operations; original BIN/JAR logic not rerun.",
+    "The reused reviewer suite was rerun by the implementer; this does not constitute independent approval."
+  ]
+}

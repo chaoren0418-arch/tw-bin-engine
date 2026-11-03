@@ -1,0 +1,45 @@
+{
+  "utc": "2026-10-27T04:59:41.740872+00:00",
+  "status": "autonomous-gameplay-round-completed-with-explicit-content-and-capture-limits",
+  "latestDelivery": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r22-clean-delivery\\delivery",
+  "normalLauncher": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r22-clean-delivery\\delivery\\啟動新版客戶端.cmd",
+  "r22Result": "r22-final-live/result.json",
+  "r21GameplayLedger": "r21-final-live/services-ledger-reconciliation.json",
+  "r20Services": "r20-final-live/closed-round-reconciliation.json",
+  "fixedObservedIssues": [
+    "dagger appearance missing after equip/relogin blocked movement",
+    "Gludin merchant gfx234 missing appearance blocked normal interaction",
+    "onlinegift icon957 missing"
+  ],
+  "realGameplay": [
+    "normal login and character selection",
+    "native keyboard and visible normal controls",
+    "equipment and eight directions",
+    "skill learning6000 and normal selfheals",
+    "warehouse deposit10 withdraw4/6 fees60",
+    "normal merchant supply purchase2370",
+    "actual eye/zombie kills EXP+76 and naturalgold23",
+    "normal cave enter/walk/exit/relogin",
+    "outbound r20 and return r21 natural boat arrivals with ticketconsumption",
+    "normal state persistence and readonly resource audit"
+  ],
+  "latestCombinedGold": 55036,
+  "latestCombinedRed": 55,
+  "newGrantsAfterInitialAuthorization": false,
+  "noReset": true,
+  "newDeathsObservedInR19R20R21R22": 0,
+  "servicesRetained": {
+    "gamePid": 88012,
+    "dbPid": 59052,
+    "keepaliveSession": 42878
+  },
+  "rolesOffline": true,
+  "clientsClosed": true,
+  "wholeP24Complete": false,
+  "limitations": [
+    "Windows Graphics Capture still times out; native keyboard/UIA and actual embedded WebView screenshots used. Native full-window pixel/mouse verification not claimed.",
+    "Finite packaged content and four supported spells remain; no claim all original game content implemented.",
+    "Positive NPC resale and private-shop buyback were not established; original refusals/uncertain queries remain labeled.",
+    "Inn keys expiry rule and timing corroborated; exact historical deletion not directly proven."
+  ]
+}

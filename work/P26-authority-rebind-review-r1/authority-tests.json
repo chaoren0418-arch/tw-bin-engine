@@ -1,0 +1,119 @@
+{
+  "cases": [
+    {
+      "id": "new-shared-authority-shape",
+      "expectedAccepted": true,
+      "actualAccepted": true,
+      "reason": null,
+      "synthetic": true
+    },
+    {
+      "id": "shared-reject-supervisor-01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new current-supervisor exact shared authorization required",
+      "synthetic": true
+    },
+    {
+      "id": "shared-reject-supervisor-unknown",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new current-supervisor exact shared authorization required",
+      "synthetic": true
+    },
+    {
+      "id": "shared-reject-schema-engine-r34-stage-acceptance-v1",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new current-supervisor exact shared authorization required",
+      "synthetic": true
+    },
+    {
+      "id": "shared-reject-decision-accepted-r34-stage",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new current-supervisor exact shared authorization required",
+      "synthetic": true
+    },
+    {
+      "id": "shared-reject-authorization-release",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new current-supervisor exact shared authorization required",
+      "synthetic": true
+    },
+    {
+      "id": "shared-reject-planSha256-0000000000000000000000000000000000000000000000000000000000000000",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "exact new dispatch/plan required",
+      "synthetic": true
+    },
+    {
+      "id": "shared-reject-dispatchId-old-dispatch",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "exact new dispatch/plan required",
+      "synthetic": true
+    },
+    {
+      "id": "shared-reject-dispatchId-None",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "exact new dispatch/plan required",
+      "synthetic": true
+    },
+    {
+      "id": "old-stage-historical-identity",
+      "expectedAccepted": true,
+      "actualAccepted": true,
+      "reason": null,
+      "synthetic": true
+    },
+    {
+      "id": "stage-must-not-be-resigned-as-current",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "historical stage acceptance identity must remain unchanged",
+      "synthetic": true
+    },
+    {
+      "id": "real-file-backed-authority-binding",
+      "expectedAccepted": true,
+      "actualAccepted": true,
+      "reason": null,
+      "synthetic": true
+    },
+    {
+      "id": "policy-reject-currentSharedSupervisor",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "exact authority policy must be in accepted plan",
+      "synthetic": true
+    },
+    {
+      "id": "policy-reject-preparationRoot",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "exact authority policy must be in accepted plan",
+      "synthetic": true
+    },
+    {
+      "id": "policy-reject-scriptRoot",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "exact authority policy must be in accepted plan",
+      "synthetic": true
+    },
+    {
+      "id": "wrong-shared-receipt-directory",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new receipt must use exact takeover supervisor path",
+      "synthetic": true
+    }
+  ],
+  "sharedReceiptWritten": false,
+  "fullValidatePlanExecuted": false,
+  "controllerMutationExecuted": false
+}

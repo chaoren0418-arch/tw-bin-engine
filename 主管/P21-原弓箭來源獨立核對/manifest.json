@@ -1,0 +1,135 @@
+{
+  "status": "extracted-for-independent-inspection",
+  "utc": "2026-10-25T08:55:15.678532+00:00",
+  "jar": "D:\\lineage開發\\1-伺服器\\Server_Game.jar",
+  "jar_sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "classes": [
+    {
+      "class_name": "com/lineage/echo/OpcodesClient",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\echo\\OpcodesClient.java",
+      "source_sha256": "3b9df4518cad4ab3021d7a6454f88fe4513bd715eb3eb461ffaa873a64fe8931",
+      "class_sha256": "6d1b160c0b381a56d7897c678a1f8bb5029ebb13417b052401092058aba5be5c",
+      "javap_sha256": "953bd9bcbe67a66f5d24095abb2de62d0624a3e50862a8ccdef5b0ce4f4b0cfe"
+    },
+    {
+      "class_name": "com/lineage/server/serverpackets/OpcodesServer",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\OpcodesServer.java",
+      "source_sha256": "9044cb98cf8a0548a421fbb05e6cdcef26147b2a2b85a1ef896fde8a8016f152",
+      "class_sha256": "e38b4f92b2728287dd5ae1741dc7d0bbd4a2ca78bc6739f9b634609427a40b1d",
+      "javap_sha256": "884d0de9166544e1e7e676062c73a1ac95c470d3d00ef8a93712049ecc92e8b9"
+    },
+    {
+      "class_name": "com/lineage/server/clientpackets/C_AttackBow",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_AttackBow.java",
+      "source_sha256": "cc2087e4c62a3d6c5d48ba9e8851a0cbfa317219e2225fa5e98932c3b47d6613",
+      "class_sha256": "1bafa1e5ce31deac723fd503faf27a19838768bd42a7e42ffbd388917180e755",
+      "javap_sha256": "e931ab3918ac1f7546718cfcf38722a507d2a5de7019274ffd6d88438c897251"
+    },
+    {
+      "class_name": "com/lineage/server/model/L1AttackPc",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1AttackPc.java",
+      "source_sha256": "3fdc94cedc6c3ec803e731be238093bd7fe55c432cf84be6822a079a1627ddfc",
+      "class_sha256": "f9e3ef153daf6e9d745dccb1f19bc6e5049708de5704534f72132c43ff0b4566",
+      "javap_sha256": "8168ccfca16325e7f58f5ae029cfa4d0c70f6d77478f47413c3be20f5f63e6f6"
+    },
+    {
+      "class_name": "com/lineage/server/model/L1AttackMode",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1AttackMode.java",
+      "source_sha256": "f29c4d0bcc85ca3e6399497fa45b97b14047d4161e32a02525940e14290ae2c2",
+      "class_sha256": "69f4295562ad910c5d8d6309e3df3cdaf63933aa95179eb4eea98804cfd5fcb1",
+      "javap_sha256": "5a7a073d5f74dc67898bb16d135e8ad838800a1f996cdebf19f327bc135eaf5e"
+    },
+    {
+      "class_name": "com/lineage/server/model/L1PcInventory",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1PcInventory.java",
+      "source_sha256": "220b001573ec6766dcdd16370c4e1cbd522721367e00c127c90bc2d3779926e4",
+      "class_sha256": "a869c2760971d82898db4904562083ff6b5b61913efd55be2b5f6679e8b2209f",
+      "javap_sha256": "24a5258c86c25af9ebbe2efb2cb401e1aeed5391b4c2c046d5ab2bf4e5c44a96"
+    },
+    {
+      "class_name": "com/lineage/server/model/L1PolyMorph",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1PolyMorph.java",
+      "source_sha256": "8d19b2262ac1cf2ffb8a79b6157cf16ddc05a42dc2171f6739bdc81f198926b4",
+      "class_sha256": "3c13c7c3d702a9eda97bccf44b4f3515fc02229889005f152323ac06f8381337",
+      "javap_sha256": "7ff2e52af591bb661338beceba35ed414356d4f6dc9f04cacd1c4230fce42d65"
+    },
+    {
+      "class_name": "com/lineage/server/model/Instance/L1ItemInstance",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1ItemInstance.java",
+      "source_sha256": "0ba0e50cf7e47649a03c2f69b29a562d097ce5b54be4d8f2b55c848830f811b0",
+      "class_sha256": "1f2b8050c0c60b7846596529faecd6d66a41bbdb5412888ed9e1970d16a657f2",
+      "javap_sha256": "253d5dba4f3cb4213a52aa2c5c07e3bbcc223acef08ff646ec7a1c0cd889a2de"
+    },
+    {
+      "class_name": "com/lineage/server/model/item/L1ItemAbility",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\item\\L1ItemAbility.java",
+      "source_sha256": "a98f3fa72697f3dd56820f908687eb74ca76d1b92d8fafdab32d2416e9c0231b",
+      "class_sha256": "fe26126d963b79f30a28527a0eb4565874c8f1a05c0eea80104a2f529d4013e4",
+      "javap_sha256": "876f33e6ed42a13a8603187943836910f13d3f185dc18b6cce8b46ffab6070e5"
+    },
+    {
+      "class_name": "com/lineage/server/templates/L1EtcItem",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\templates\\L1EtcItem.java",
+      "source_sha256": "ac2ddaa0fce3116a1c28f0e0d2bf0f5d35db3a42f61509c5e2f3a8807af8292e",
+      "class_sha256": "f681f4fe5c746d2392ec572f5871b07b268d4f8506bdf6b942332cc3ac8eb2bc",
+      "javap_sha256": "017f0e8e9cecd5018f68b255e670e4517d2af88e10ad8cbca5af115ffffaf4d3"
+    },
+    {
+      "class_name": "com/lineage/server/templates/L1Weapon",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\templates\\L1Weapon.java",
+      "source_sha256": "784adccc44dedf37dfc0b45ff5288d19e42bb3a0f151f7187d17f027b5bde825",
+      "class_sha256": "90f288ff95cce273358140afa35935f53df1092d8a921d4885cb23108a06ee3d",
+      "javap_sha256": "2bf99f975f29bcf94669b9fffc530104a52666095290361546b8a42ffa4fb4aa"
+    },
+    {
+      "class_name": "com/lineage/server/datatables/ItemTable",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\ItemTable.java",
+      "source_sha256": "b4531d3451817374ec9307cc74bfb347f64572775c7b37c4f07f0196bf4fef81",
+      "class_sha256": "959b49dccda1ec12326284ebcc2e1eddf32eaa7f80aacf600b0f260d4a5c63a5",
+      "javap_sha256": "81931bdb469527bc2abc4d67719d67f80fdf5a5bdeb271892788b75be4b12cce"
+    },
+    {
+      "class_name": "com/lineage/server/serverpackets/S_UseArrowSkill",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_UseArrowSkill.java",
+      "source_sha256": "870d1757e281e346a635c52e6f3b4cf8b5dc22a06959ff5c88a1029bc6a0a769",
+      "class_sha256": "c8133d3a76daba30590bd5dbc54ed288a58591c54269ff35b2c1f4fd5cf794b6",
+      "javap_sha256": "f788bd6151ab24aec938e6f0ce24f875f1d0946ee84b2200e5974a625b2232de"
+    },
+    {
+      "class_name": "com/lineage/server/serverpackets/ServerBasePacket",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\ServerBasePacket.java",
+      "source_sha256": "3348c199e9694bd1eec050b130f28ab99590cae16f0047964c17b32df309a439",
+      "class_sha256": "cbfbc11d757d8a96edf432fdfd852aaf7b19e380535ab2d494d5e1a66a44833b",
+      "javap_sha256": "be8c314edd5624bdac4845162dc801af8930d481b9fde29ae45f20fde674fcf4"
+    },
+    {
+      "class_name": "com/lineage/server/model/L1Location",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1Location.java",
+      "source_sha256": "9c9c248d857cf008e3b7b35e713851324ac353246ae25c9ceba0cdd086de7060",
+      "class_sha256": "a9ce15c4a80e764fbdc5246cff862bdf38251686080c44f2b110be5705e03264",
+      "javap_sha256": "f4fba53438962c60a97b4653669b9be614ca14414c786f3577d79d35315c4db2"
+    },
+    {
+      "class_name": "com/lineage/server/types/Point",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\types\\Point.java",
+      "source_sha256": "bf98f5cf09580a2d684809b52a37418ff6610684c09091e71ede4cb24105d583",
+      "class_sha256": "1c73016e02ea9a82c2ddb4e0172a3b15b6a7ee0beac7a4f26a1b51ba1bee8a39",
+      "javap_sha256": "29df52f6d6bb0f41b82f623c6f45211a070722d217bdb0129c3c8b07855f1eba"
+    },
+    {
+      "class_name": "com/lineage/server/datatables/SprTable",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\SprTable.java",
+      "source_sha256": "74103299beb8f21006df9b163a702542be3a1b8c7d3c8396bba527bd9410d690",
+      "class_sha256": "35f73c1922a6f57a9aa5d8115bd3a7ac7155efd149c45c69193b0923763e970f",
+      "javap_sha256": "eab7c2f5e63efdd4475416ed3617a13722055f42a258fd84eff54e56f408d3b2"
+    },
+    {
+      "class_name": "com/lineage/server/ActionCodes",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\ActionCodes.java",
+      "source_sha256": "4ce21418e157764592cd633ebe88ea93dd6e546264b573e866bfcf65120d236f",
+      "class_sha256": "ce256e727eafc891cee87de9988b1312dde06f15f12f2d7ba91d9683b67cf69d",
+      "javap_sha256": "7c7ee81bad51d5adab526685cf00114c4120666c3cb20ac23eccde1805588aab"
+    }
+  ],
+  "scope": "Original source and fixed class hashes recorded separately; bytecode semantics still require inspection and later serializer/raw validation."
+}

@@ -1,0 +1,80 @@
+[
+  {
+    "path": "source/ActionCadence.cs",
+    "kind": "modified",
+    "baseSha256": "0649a30f4038a6259f20eadf3f8d57cd899ee3de9987c27c91a596b0fe48d8ea",
+    "candidateSha256": "f533f652619d26639ca2725cb5c3b5c07f9a13bbfe9fcdc8d8164d7d0e9486a5"
+  },
+  {
+    "path": "source/Combat.cs",
+    "kind": "modified",
+    "baseSha256": "e72969b87dc4be034631b8fd6068798d6def15af87c2bcd6147650ebea44dd3a",
+    "candidateSha256": "e5ff8fc5da264568e0250050a226563e67a6fe21a7e525a0c695913b409167e0"
+  },
+  {
+    "path": "source/Ground.cs",
+    "kind": "modified",
+    "baseSha256": "d2c066f3b69caba0f15ce71dfec6eec966a643e16a7b94e14707d9865b96a6c8",
+    "candidateSha256": "6df52d49787795c432309ed0b02deaacc2a582f4927f98b9b186f89fda06a599"
+  },
+  {
+    "path": "source/ObjectAssets.cs",
+    "kind": "modified",
+    "baseSha256": "3bff495b6a642f89ba2a2dd5d3efa85e8e1152430ac5dc654f6eb5f4768a4f23",
+    "candidateSha256": "707ee6d9867e8eebb1a8fce89f28aeddff1ce8fb9cfd3d8f3daef31789d8f94a"
+  },
+  {
+    "path": "source/ObjectRendering.cs",
+    "kind": "modified",
+    "baseSha256": "a92ce0156f59cd75fb5da639760924d053a92febe15787657d39f28cf580fc5a",
+    "candidateSha256": "6de015ce11c61e71aaa6de096d192abbb7d0c427f3f0bcedf762871d3a536613"
+  },
+  {
+    "path": "source/OfflineClient.csproj",
+    "kind": "modified",
+    "baseSha256": "4486a4dea1367d8f7aac3f4860a4179bcd3e34f5a5c3f9edc93495a52c80bbed",
+    "candidateSha256": "ccf86adc2ad35473d9cce17ca9b40e3a9698d04bda578e9b20d2966946360450"
+  },
+  {
+    "path": "source/OnlineMovement.cs",
+    "kind": "modified",
+    "baseSha256": "8b066e453caf0a85196797cb7a11b3f29019b126acc050b14816eba81abe33ba",
+    "candidateSha256": "c88269dc968e03da158ab8e4d0757b964fab396828cba6d71c7c5cb20287b8f4"
+  },
+  {
+    "path": "source/PickupAssets.cs",
+    "kind": "added",
+    "baseSha256": null,
+    "candidateSha256": "c9ed777b82948c6785d28e6807cda8b485e5321bfeb9d3587c643814caf491f2"
+  },
+  {
+    "path": "source/PickupPresentation.cs",
+    "kind": "added",
+    "baseSha256": null,
+    "candidateSha256": "b28e1bc5dcdaea4b42e12783697af1a1976d580cbc48724b7bc3b25e9cd9e326"
+  },
+  {
+    "path": "source/Resources/pickup-own-base15-gfx0-weapon0.json",
+    "kind": "added",
+    "baseSha256": null,
+    "candidateSha256": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90"
+  },
+  {
+    "path": "source/WorldEntry.cs",
+    "kind": "modified",
+    "baseSha256": "bb1297828934f750aaf14a41619f35392a118aaa1013c43716eb711f500ec3fd",
+    "candidateSha256": "8593bfc088b6e1f7796f842fe931a7a2d5a887dea0315ccfe3bb04ff7c1bee8f"
+  },
+  {
+    "path": "source/WorldObjects.cs",
+    "kind": "modified",
+    "baseSha256": "33444f970443946b6b5fab902001086e676f2bead429cc3e8ec9eb5c486473a3",
+    "candidateSha256": "d86aa50b81d36a9353b1d0910cccdbf18affca56e555b3080cb8499cfb22e680"
+  },
+  {
+    "path": "source/WorldSession.cs",
+    "kind": "modified",
+    "baseSha256": "96d9795b437544b453ecea77ee70a395468794dc9a9a9b1ceeaca99a8ecaa326",
+    "candidateSha256": "e83cc40f5aa17190f841d69956870d104bc41638e9645bf7c308131a35533696"
+  }
+]

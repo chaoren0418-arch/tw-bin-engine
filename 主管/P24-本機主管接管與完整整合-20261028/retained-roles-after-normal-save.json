@@ -1,0 +1,751 @@
+{
+  "utc": "2026-10-27T19:12:57.492358+00:00",
+  "dbRuntime": {
+    "processes": [
+      {
+        "ProcessId": 69176,
+        "ParentProcessId": 64892,
+        "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792945658396)/"
+      },
+      {
+        "ProcessId": 59052,
+        "ParentProcessId": 69176,
+        "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792945658443)/"
+      }
+    ],
+    "listeners": [
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 43324,
+        "OwningProcess": 59052
+      }
+    ]
+  },
+  "gameRuntime": {
+    "ProcessId": 67780,
+    "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+    "CreationDate": "/Date(1793122661024)/",
+    "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P24Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P24Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P24Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P24Lab-ClientEngine\\server\\Server_Game.jar"
+  },
+  "rows": [
+    {
+      "kind": "db",
+      "port": 43324,
+      "uuid": "e3443e40-d090-11f1-8040-4cedfb679789",
+      "datadir": "D:\\P24Lab-ClientEngine\\db-data\\"
+    },
+    {
+      "x": 32640,
+      "y": 33109,
+      "hp": 26,
+      "id": 1900240001,
+      "mp": 82,
+      "exp": 416462035,
+      "map": 0,
+      "kind": "role",
+      "name": "透明王子",
+      "level": 60,
+      "online": 0
+    },
+    {
+      "x": 32477,
+      "y": 32853,
+      "hp": 103,
+      "id": 1900240002,
+      "mp": 84,
+      "exp": 412855406,
+      "map": 0,
+      "kind": "role",
+      "name": "透明王子乙",
+      "level": 59,
+      "online": 0
+    },
+    {
+      "x": 32588,
+      "y": 32981,
+      "hp": 500,
+      "id": 1900240003,
+      "mp": 120,
+      "exp": 416461882,
+      "map": 0,
+      "kind": "role",
+      "name": "驗收王子",
+      "level": 60,
+      "online": 0
+    },
+    {
+      "x": 32588,
+      "y": 32981,
+      "hp": 500,
+      "id": 1900240004,
+      "mp": 120,
+      "exp": 416461882,
+      "map": 0,
+      "kind": "role",
+      "name": "驗收王子乙",
+      "level": 60,
+      "online": 0
+    },
+    {
+      "x": 32648,
+      "y": 33068,
+      "hp": 163,
+      "id": 1900240005,
+      "mp": 120,
+      "exp": 416461882,
+      "map": 0,
+      "kind": "role",
+      "name": "透明觀察甲",
+      "level": 60,
+      "online": 0
+    },
+    {
+      "x": 32598,
+      "y": 32932,
+      "hp": 689,
+      "id": 1900240006,
+      "mp": 58,
+      "exp": 414658704,
+      "map": 0,
+      "kind": "role",
+      "name": "透明觀察乙",
+      "level": 59,
+      "online": 0
+    },
+    {
+      "x": 32587,
+      "y": 32998,
+      "hp": 700,
+      "id": 1900240007,
+      "mp": 120,
+      "exp": 416461882,
+      "map": 0,
+      "kind": "role",
+      "name": "驗收觀察甲",
+      "level": 60,
+      "online": 0
+    },
+    {
+      "x": 32587,
+      "y": 32998,
+      "hp": 700,
+      "id": 1900240008,
+      "mp": 120,
+      "exp": 416461882,
+      "map": 0,
+      "kind": "role",
+      "name": "驗收觀察乙",
+      "level": 60,
+      "online": 0
+    },
+    {
+      "x": 32578,
+      "y": 32948,
+      "hp": 472,
+      "id": 1900249001,
+      "mp": 117,
+      "exp": 414658791,
+      "map": 0,
+      "kind": "role",
+      "name": "服務驗證",
+      "level": 59,
+      "online": 0
+    },
+    {
+      "id": 10335,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40899
+    },
+    {
+      "id": 1900241012,
+      "kind": "item",
+      "count": 144,
+      "owner": 1900240001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40308
+    },
+    {
+      "id": 1900241013,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40126
+    },
+    {
+      "id": 1900241014,
+      "kind": "item",
+      "count": 8,
+      "owner": 1900240001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40056
+    },
+    {
+      "id": 1900241015,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240001,
+      "enchant": 0,
+      "equipped": 1,
+      "template": 31
+    },
+    {
+      "id": 1900241016,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 52
+    },
+    {
+      "id": 1900241017,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240001,
+      "enchant": 0,
+      "equipped": 1,
+      "template": 20096
+    },
+    {
+      "id": 1900241018,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240001,
+      "enchant": 0,
+      "equipped": 1,
+      "template": 20222
+    },
+    {
+      "id": 1900241019,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 172
+    },
+    {
+      "id": 1900241020,
+      "kind": "item",
+      "count": 80,
+      "owner": 1900240001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40743
+    },
+    {
+      "id": 10323,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240002,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 350355
+    },
+    {
+      "id": 1900241021,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240002,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40012
+    },
+    {
+      "id": 1900241022,
+      "kind": "item",
+      "count": 2,
+      "owner": 1900240002,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40308
+    },
+    {
+      "id": 1900241023,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240002,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40126
+    },
+    {
+      "id": 1900241024,
+      "kind": "item",
+      "count": 8,
+      "owner": 1900240002,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40056
+    },
+    {
+      "id": 1900241025,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240002,
+      "enchant": 0,
+      "equipped": 1,
+      "template": 31
+    },
+    {
+      "id": 1900241026,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240002,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 52
+    },
+    {
+      "id": 1900241027,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240002,
+      "enchant": 0,
+      "equipped": 1,
+      "template": 20096
+    },
+    {
+      "id": 1900241028,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240002,
+      "enchant": 0,
+      "equipped": 1,
+      "template": 20222
+    },
+    {
+      "id": 1900241029,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240002,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 172
+    },
+    {
+      "id": 1900241030,
+      "kind": "item",
+      "count": 86,
+      "owner": 1900240002,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40743
+    },
+    {
+      "id": 1900241031,
+      "kind": "item",
+      "count": 6,
+      "owner": 1900240003,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40012
+    },
+    {
+      "id": 1900241032,
+      "kind": "item",
+      "count": 3,
+      "owner": 1900240003,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40308
+    },
+    {
+      "id": 1900241033,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240003,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40126
+    },
+    {
+      "id": 1900241034,
+      "kind": "item",
+      "count": 8,
+      "owner": 1900240003,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40056
+    },
+    {
+      "id": 1900241035,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240003,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 31
+    },
+    {
+      "id": 1900241036,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240003,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 52
+    },
+    {
+      "id": 1900241037,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240003,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 20096
+    },
+    {
+      "id": 1900241038,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240003,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 20222
+    },
+    {
+      "id": 1900241039,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240003,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 172
+    },
+    {
+      "id": 1900241040,
+      "kind": "item",
+      "count": 80,
+      "owner": 1900240003,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40743
+    },
+    {
+      "id": 1900241041,
+      "kind": "item",
+      "count": 6,
+      "owner": 1900240004,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40012
+    },
+    {
+      "id": 1900241042,
+      "kind": "item",
+      "count": 3,
+      "owner": 1900240004,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40308
+    },
+    {
+      "id": 1900241043,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240004,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40126
+    },
+    {
+      "id": 1900241044,
+      "kind": "item",
+      "count": 8,
+      "owner": 1900240004,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40056
+    },
+    {
+      "id": 1900241045,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240004,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 31
+    },
+    {
+      "id": 1900241046,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240004,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 52
+    },
+    {
+      "id": 1900241047,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240004,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 20096
+    },
+    {
+      "id": 1900241048,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240004,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 20222
+    },
+    {
+      "id": 1900241049,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240004,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 172
+    },
+    {
+      "id": 1900241050,
+      "kind": "item",
+      "count": 80,
+      "owner": 1900240004,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40743
+    },
+    {
+      "id": 10352,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240006,
+      "enchant": 0,
+      "equipped": 1,
+      "template": 4
+    },
+    {
+      "id": 10366,
+      "kind": "item",
+      "count": 1923,
+      "owner": 1900240006,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40308
+    },
+    {
+      "id": 10367,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900240006,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40010
+    },
+    {
+      "id": 10322,
+      "kind": "item",
+      "count": 43,
+      "owner": 1900249001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40010
+    },
+    {
+      "id": 10353,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900249001,
+      "enchant": 0,
+      "equipped": 1,
+      "template": 4
+    },
+    {
+      "id": 10354,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900249001,
+      "enchant": 0,
+      "equipped": 1,
+      "template": 20239
+    },
+    {
+      "id": 10355,
+      "kind": "item",
+      "count": 5,
+      "owner": 1900249001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40056
+    },
+    {
+      "id": 10371,
+      "kind": "item",
+      "count": 4,
+      "owner": 1900249001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 350355
+    },
+    {
+      "id": 10377,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900249001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40046
+    },
+    {
+      "id": 10386,
+      "kind": "item",
+      "count": 3,
+      "owner": 1900249001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40013
+    },
+    {
+      "id": 10396,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900249001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40045
+    },
+    {
+      "id": 10399,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900249001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40494
+    },
+    {
+      "id": 10404,
+      "kind": "item",
+      "count": 3,
+      "owner": 1900249001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40079
+    },
+    {
+      "id": 10405,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900249001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40299
+    },
+    {
+      "id": 1900249101,
+      "kind": "item",
+      "count": 33500,
+      "owner": 1900249001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40308
+    },
+    {
+      "id": 1900249103,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900249001,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 31
+    },
+    {
+      "id": 1900249104,
+      "kind": "item",
+      "count": 1,
+      "owner": 1900249001,
+      "enchant": 0,
+      "equipped": 1,
+      "template": 20096
+    },
+    {
+      "kind": "skill",
+      "owner": 1900240001,
+      "skill": 1
+    },
+    {
+      "kind": "skill",
+      "owner": 1900240001,
+      "skill": 4
+    },
+    {
+      "kind": "skill",
+      "owner": 1900240002,
+      "skill": 1
+    },
+    {
+      "kind": "skill",
+      "owner": 1900240002,
+      "skill": 4
+    },
+    {
+      "kind": "skill",
+      "owner": 1900240003,
+      "skill": 1
+    },
+    {
+      "kind": "skill",
+      "owner": 1900240003,
+      "skill": 4
+    },
+    {
+      "kind": "skill",
+      "owner": 1900240004,
+      "skill": 1
+    },
+    {
+      "kind": "skill",
+      "owner": 1900240004,
+      "skill": 4
+    },
+    {
+      "kind": "skill",
+      "owner": 1900240006,
+      "skill": 1
+    },
+    {
+      "kind": "skill",
+      "owner": 1900240006,
+      "skill": 3
+    },
+    {
+      "kind": "skill",
+      "owner": 1900249001,
+      "skill": 1
+    },
+    {
+      "kind": "skill",
+      "owner": 1900249001,
+      "skill": 3
+    },
+    {
+      "kind": "skill",
+      "owner": 1900249001,
+      "skill": 4
+    },
+    {
+      "kind": "skill",
+      "owner": 1900249001,
+      "skill": 8
+    }
+  ]
+}

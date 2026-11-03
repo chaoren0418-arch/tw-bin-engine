@@ -1,0 +1,54 @@
+{
+  "source": "codex_app.list_threads",
+  "threads": [
+    {
+      "id": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "kind": "codex",
+      "projectId": "68e5a2a7-5ef5-4e49-ae6a-158d9c1a86e4",
+      "hostId": "local",
+      "status": "active",
+      "cwd": "D:\\lineage開發",
+      "updatedAt": 1793253635,
+      "title": "自主 BIN 引擎｜P30 準備拾取外觀隔離整合（唯一整合者）",
+      "summary": "P30 隔離 stage 計畫與控制器準備、180基準+1新增、4替換、exact DLL重綁、舊8步迴歸、profile suites、raw log／失敗回復",
+      "isUnread": true
+    },
+    {
+      "id": "01a185fe-5350-74c3-bfe6-96842287e610",
+      "kind": "codex",
+      "projectId": "68e5a2a7-5ef5-4e49-ae6a-158d9c1a86e4",
+      "hostId": "local",
+      "status": "active",
+      "cwd": "D:\\lineage開發",
+      "updatedAt": 1793253590,
+      "title": "自主 BIN 引擎｜P29 獨立覆核拾取外觀與生命週期",
+      "summary": "自主 BIN 引擎｜P29 獨立覆核拾取外觀與生命週期",
+      "isUnread": true
+    },
+    {
+      "id": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+      "kind": "codex",
+      "projectId": "68e5a2a7-5ef5-4e49-ae6a-158d9c1a86e4",
+      "hostId": "durable",
+      "status": "active",
+      "cwd": "/tmp/codex-cloud-agent-1ca170ea141d-1e093a01716347988c62ad80e4c203c4/app_servers/thread_service/workspace/D:\\lineage開發\\TW1608262200研究",
+      "updatedAt": 1793253015,
+      "title": "自主 BIN 引擎｜P25–P27 新主管",
+      "summary": null,
+      "isUnread": true
+    },
+    {
+      "id": "01a185fd-fce6-77d2-961f-45a6d9accaa8",
+      "kind": "codex",
+      "projectId": "68e5a2a7-5ef5-4e49-ae6a-158d9c1a86e4",
+      "hostId": "local",
+      "status": "idle",
+      "cwd": "D:\\lineage開發",
+      "updatedAt": 1793250795,
+      "title": "自主 BIN 引擎｜P28 實作 41 組拾取外觀擴展",
+      "summary": "自主 BIN 引擎 P28 實作 41 組拾取外觀擴展",
+      "isUnread": true
+    }
+  ],
+  "scope": "Current integrator owns executor preparation; P29 active independent review, P28 idle. No shared writes authorized."
+}

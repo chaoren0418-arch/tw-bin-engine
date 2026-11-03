@@ -1,0 +1,20 @@
+{
+  "status": "pass",
+  "baseFilesVerified": 146,
+  "candidateSourceFilesVerified": 146,
+  "changedFiles": 9,
+  "unexpectedChanges": [],
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "reviewedChanges": [
+    "Speed2/Brave0 expands only walking support",
+    "SpeedChanged preserves cooldown even transient slowdown",
+    "SpeedRevision fences added to attack, cast, item and ground sends",
+    "Current remote step captures motion speed; next step adopts authoritative speed",
+    "Slow non-walking actions remain refused"
+  ],
+  "limits": [
+    "Source inspection and identity checks are not independent runtime acceptance",
+    "Candidate review remains in progress",
+    "No database/service actions"
+  ]
+}

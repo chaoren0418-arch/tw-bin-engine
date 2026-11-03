@@ -1,0 +1,10 @@
+{
+  "taskId": "ENGINE-SLOW-UTILITY-SOURCE-R1",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "owner": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+  "prompt": "新派工 ENGINE-SLOW-UTILITY-SOURCE-R1。你上一個 ENGINE-HASTE-ACTIONS-IMPL-R1 已封存，保持完整不變；正在由另一工作對話獨立覆核。使用者明確要求持續開發、可並行既有工作對話，無回覆驗收也須接續。請先讀實際 get_goal 但不建立/恢復/改平台Goal。\n\n本輪只做下一增量的原始來源資格查證，唯一寫入目錄 D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-utility-source-r1（新建）。不可寫共享engine、任何候選/封存release、主管目錄。所有DB與服務交由使用者：不得查詢、診斷、啟停、修改，亦無GUI、socket、正常遊戲、原生live執行或開新chat/subagent授權。\n\n固定基底只讀 releases/r30（seal 199ce6fe81130138e9fedf98e688928ce44b0a45c2aebd1b92fdd9519b8225dc），主管/P24-加速攻擊施法接續-20261029/baseline.json SHA1329700b9fabf59e7406d62790ea8a32758ee9771963d0dcd49c7cde85708a66。r31尚未接受，不預先依賴它；只知道目前候選僅ActionCadence.cs變更。請針對現存 OnlineMovement.cs 的 SlowActionsBlocked 與 Inventory.cs/Ground.cs/PlayerPointer.cs 使用點，查證 Speed2/Brave0 下「既有支援道具（藥水/加速水/肉/回家卷軸）、既有裝備穿脫、既有地面拾取/丟棄、既有NPC交談」哪些可建立下一個有限增量。不同項目分列，不能僅因沒有看到速度檢查就推導可開放，也不可簡單移除全部保守拒絕。\n\n以固定BIN e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2（imagebase0x400000）與固定JAR d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf 為原始來源，重用已封存研究與原bytecode/bytes，必要時可靜態反組譯原件，但不可重新啟動伺服器、資料庫或執行原生程式。不做SQL/DB檢查。不重開完整PAK或無關研究。對每項提供封包handler鏈、native若有相關動作/速度分支、server delay/reuse、目前engine guard、待送出速度revision取消、已送出快照與慢速動作busy互斥的驗收契約。區分server允許、native實際行為與保守engine策略；來源不足就列未合格，不造推論。不要改產品或製作可被誤認接受的候選。\n\n輸出 HANDOFF.md、result.json、source-contract.json、source-pins.json、artifact-manifest.json，清楚列 qualified/unqualified/reason/source地址或class-method-bytecodeoffset、下一最小實作範圍與測試矩陣。固定177source可讀必要子集，不用重掃全部素材/大release。所有來源以SHA256固定、BIN地址註VA/RVA/offset。需要驗證既有gate可用console/reflection純離線helper，須明示fixture且不得把sourcequalification算成產品完成。完成後封存並停寫此work，回報供主管安排下一實作與獨立覆核。",
+  "authorization": "source-qualification-only",
+  "candidateImplementationAuthorized": false,
+  "sharedMergeAuthorized": false,
+  "utc": "2026-10-28T22:09:47.521Z"
+}

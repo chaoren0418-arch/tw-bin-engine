@@ -1,0 +1,116 @@
+{
+  "schema": "engine-independent-source-plan-review-seal-v1",
+  "task": "ENGINE-PICKUP-OWN-PROFILES-PLAN-REVIEW-R1",
+  "decision": "accepted",
+  "independentStaticAssertions": 2915,
+  "sourcePins": 328,
+  "productBuilds": 0,
+  "productRuntimeChecks": 0,
+  "nativeRuntimeChecks": 0,
+  "excluded": [
+    "__pycache__/**"
+  ],
+  "selfExcluded": "artifact-manifest.json",
+  "files": [
+    {
+      "path": "candidate-test-review.json",
+      "size": 4748,
+      "sha256": "4aabe543bbc1fd5f8667a0eaf735bf7b60eec306927cef33da487d9b1bd38692"
+    },
+    {
+      "path": "checks.json",
+      "size": 1248727,
+      "sha256": "f76de1b2dd87978c5c9b556af30b194beb754571fa97be8053ff86f399f0e0e4"
+    },
+    {
+      "path": "combat-review.json",
+      "size": 197334,
+      "sha256": "1af4486c3cf19b239857762cf2f50de2086a67f11366c9aed92a28f7c43b0285"
+    },
+    {
+      "path": "development-review-before-json-types.py",
+      "size": 23428,
+      "sha256": "e1a71d00c44ff8c8dd5f1132bd85509dc876abf4788c862a0213083ce4edcbcc"
+    },
+    {
+      "path": "diagnose_replay.py",
+      "size": 2496,
+      "sha256": "be977a4fb5bbf5c2d92cd3746c66862604984c033e83a7e7a15533d1cf862f0f"
+    },
+    {
+      "path": "execution-accounting.json",
+      "size": 1596,
+      "sha256": "bce091062812ef656d0ed4d708bd499fe54f72a62f736879bb50408e2bb40993"
+    },
+    {
+      "path": "findings.json",
+      "size": 5836,
+      "sha256": "d077a3e92cdd083e1eaed2dacffc0c64710189e2737814c61f7f1720700a2644"
+    },
+    {
+      "path": "finish.py",
+      "size": 20080,
+      "sha256": "a635a8bf30d895b99eb87f42013fd0658c4a6f108dfbf3989c84cd5547e3e944"
+    },
+    {
+      "path": "frame-review.json",
+      "size": 124962,
+      "sha256": "69c57cce5140ccea49e9c8c639f552bf0ea41ffd1d68b331e00681953463561a"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 2517,
+      "sha256": "e894d4075d9ed5d75f7a2af2ffaedf047559ee283b805befb5a5294af2d6c251"
+    },
+    {
+      "path": "namespace-review.json",
+      "size": 36483,
+      "sha256": "a79e8380d28fe11ebae251be73ab266ab778c8e7656d6929bff2c51e8aa5810e"
+    },
+    {
+      "path": "profile-review.json",
+      "size": 42705,
+      "sha256": "39e9d7578199cc8d68eedfd569c0c852972c7400ff5fe2f87f80b7de96cc3f07"
+    },
+    {
+      "path": "projection-review.json",
+      "size": 1035,
+      "sha256": "2aeec1a52816ef89db63eabc268cac9cd780679c40da4489b4aa2e90c170c303"
+    },
+    {
+      "path": "replay-diagnosis.json",
+      "size": 4177,
+      "sha256": "2b4453b54dcf43ebf78f48e3c3e2aa39915e2a02afe54e8fe213bb2a1feae74b"
+    },
+    {
+      "path": "result.json",
+      "size": 2476,
+      "sha256": "d2d00543129ab6f02ab1c20ed8e0aa763880de082322365018a8d4cc9829d18a"
+    },
+    {
+      "path": "review.py",
+      "size": 23682,
+      "sha256": "18b8646fbd193d42dc5110497cee541031b5a257338504a8d6bf9efcb81428bf"
+    },
+    {
+      "path": "SEMANTIC-REVIEW.md",
+      "size": 5977,
+      "sha256": "48c6694d855ee89c2d21251765fc50e934017e68684eca293b26840b6eef5faf"
+    },
+    {
+      "path": "source-pins.json",
+      "size": 89283,
+      "sha256": "792ceb9b3c00107b744c8f890833bce73e184ea5fad30dbfd8d94bd2e9cad37b"
+    },
+    {
+      "path": "summary.json",
+      "size": 573,
+      "sha256": "eec14309fbae7d041bb27957f572e564330d18a6d79651f2190ec76e95e1d2ec"
+    },
+    {
+      "path": "verify.py",
+      "size": 2581,
+      "sha256": "a17f984130ec5806793f681614cac65b6e364b94203dbb5f267dd9e4f288fecf"
+    }
+  ]
+}

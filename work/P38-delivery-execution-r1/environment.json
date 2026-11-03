@@ -1,0 +1,42 @@
+{
+  "spec": {
+    "inheritNames": [
+      "SYSTEMROOT",
+      "WINDIR",
+      "OS",
+      "PROCESSOR_ARCHITECTURE",
+      "NUMBER_OF_PROCESSORS",
+      "HOME",
+      "USERPROFILE",
+      "CODEX_HOME"
+    ],
+    "overrides": {
+      "TEMP": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\tmp",
+      "TMP": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\tmp",
+      "DOTNET_CLI_HOME": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\cli-home",
+      "NUGET_PACKAGES": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\nuget",
+      "NUGET_HTTP_CACHE_PATH": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\http-cache",
+      "NUGET_PLUGINS_CACHE_PATH": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\plugin-cache",
+      "NUGET_SCRATCH": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\scratch",
+      "APPDATA": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\appdata\\roaming",
+      "LOCALAPPDATA": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\environment\\appdata\\local",
+      "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false",
+      "DOTNET_ADD_GLOBAL_TOOLS_TO_PATH": "false",
+      "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+      "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "1",
+      "DOTNET_CLI_WORKLOAD_UPDATE_NOTIFY_DISABLE": "true",
+      "NUGET_CERT_REVOCATION_MODE": "offline",
+      "MSBUILDDISABLENODEREUSE": "1",
+      "DOTNET_CLI_USE_MSBUILD_SERVER": "0",
+      "DOTNET_CLI_UI_LANGUAGE": "en-US",
+      "DOTNET_ROOT": "C:\\Program Files\\dotnet",
+      "PROGRAMFILES(X86)": "C:\\Program Files (x86)"
+    },
+    "path": "C:\\Program Files\\dotnet;C:\\Windows\\System32;C:\\Windows",
+    "comspec": "C:\\Windows\\System32\\cmd.exe",
+    "pathext": ".COM;.EXE;.BAT;.CMD",
+    "sensitiveIdentityValuesNotLogged": true
+  },
+  "HOME_USERPROFILE_CODEX_HOME": "inherited unchanged; values not logged",
+  "parentEnvironmentModified": false
+}

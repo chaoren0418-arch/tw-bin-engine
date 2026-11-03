@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"timedOut\":true,\"wake\":null,\"polls\":[{\"schemaVersion\":1,\"cursor\":\"d0af65fb-9735-4df3-ad9d-148fd38221c5:3\",\"revision\":3,\"changed\":true,\"thread\":{\"id\":\"01a17a22-17e4-70c0-9792-166ddb86ea42\",\"hostId\":\"local\",\"status\":{\"type\":\"active\",\"activeFlags\":[]}},\"latestTurn\":{\"id\":\"01a183f1-4bb0-7850-92f3-2e7d5e086f92\",\"status\":\"inProgress\",\"error\":null,\"startedAt\":1793214991,\"completedAt\":null,\"durationMs\":null},\"latestAssistantMessageId\":\"msg_07ee2ec7275ff6ae016ae24a25ebfc8191b36def2eb889ab70\",\"latestAssistantMessage\":{\"id\":\"msg_07ee2ec7275ff6ae016ae24a25ebfc8191b36def2eb889ab70\",\"turnId\":\"01a183f1-4bb0-7850-92f3-2e7d5e086f92\",\"phase\":\"commentary\",\"text\":\"我會先讀最新工作邊界與現行整合腳本，只在指定隔離區準備 r29 驗收入口，並測試缺件、來源漂移與越界路徑的拒絕行為；不合入功能或重跑 r28 suite。\"},\"latestToolMarkerId\":\"exec-9ea8ab60-9a82-4948-9d82-c21b07d0bee2\",\"latestToolMarker\":{\"id\":\"exec-9ea8ab60-9a82-4948-9d82-c21b07d0bee2\",\"turnId\":\"01a183f1-4bb0-7850-92f3-2e7d5e086f92\",\"type\":\"commandExecution\",\"name\":\"commandExecution\",\"status\":\"completed\"}}]}"
+    }
+  ],
+  "isError": false
+}

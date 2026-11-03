@@ -1,0 +1,15 @@
+{
+  "audit": "python -B -X utf8 audit.py; final full independent audit completed",
+  "managedReference": "run_reference.ps1; dotnet build0warnings0errors; fresh P04 decoded416",
+  "comparison": "python -B -X utf8 compare_reference.py;416frames/1402968canvaspixels/0differences",
+  "visualImagesActuallyViewed": [
+    "contacts/gfx-61.png",
+    "contacts/gfx-48.png",
+    "contacts/gfx-2796.png",
+    "contacts/gfx-6650.png",
+    "contacts/gfx-1186.png"
+  ],
+  "noFullPakReads": true,
+  "nativeExecution": false,
+  "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false"
+}

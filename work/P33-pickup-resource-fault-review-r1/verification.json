@@ -1,0 +1,331 @@
+{
+  "distinctCases": 28,
+  "caseChecks": [
+    {
+      "id": "constructor-base-valid",
+      "family": "constructor",
+      "pass": true
+    },
+    {
+      "id": "constructor-full-valid",
+      "family": "constructor",
+      "pass": true
+    },
+    {
+      "id": "constructor-base-size-single",
+      "family": "constructor",
+      "pass": true
+    },
+    {
+      "id": "constructor-base-hash-single",
+      "family": "constructor",
+      "pass": true
+    },
+    {
+      "id": "constructor-base-size-full",
+      "family": "constructor",
+      "pass": true
+    },
+    {
+      "id": "constructor-base-hash-full",
+      "family": "constructor",
+      "pass": true
+    },
+    {
+      "id": "constructor-extension-size",
+      "family": "constructor",
+      "pass": true
+    },
+    {
+      "id": "constructor-extension-hash",
+      "family": "constructor",
+      "pass": true
+    },
+    {
+      "id": "chain-0-0-missing-base",
+      "family": "resource-lifecycle",
+      "pass": true
+    },
+    {
+      "id": "chain-0-0-missing-profile",
+      "family": "resource-lifecycle",
+      "pass": true
+    },
+    {
+      "id": "chain-0-0-missing-group",
+      "family": "resource-lifecycle",
+      "pass": true
+    },
+    {
+      "id": "chain-0-0-missing-key",
+      "family": "resource-lifecycle",
+      "pass": true
+    },
+    {
+      "id": "chain-0-0-profile-path",
+      "family": "resource-lifecycle",
+      "pass": true
+    },
+    {
+      "id": "chain-0-0-profile-hash",
+      "family": "resource-lifecycle",
+      "pass": true
+    },
+    {
+      "id": "base-only-catalog-0-0",
+      "family": "constructor-distinction",
+      "pass": true
+    },
+    {
+      "id": "api-exact-instance-0-0",
+      "family": "api",
+      "pass": true
+    },
+    {
+      "id": "api-direction-pair-0-0",
+      "family": "api",
+      "pass": true
+    },
+    {
+      "id": "chain-2796-20-missing-base",
+      "family": "resource-lifecycle",
+      "pass": true
+    },
+    {
+      "id": "chain-2796-20-missing-profile",
+      "family": "resource-lifecycle",
+      "pass": true
+    },
+    {
+      "id": "chain-2796-20-missing-group",
+      "family": "resource-lifecycle",
+      "pass": true
+    },
+    {
+      "id": "chain-2796-20-missing-key",
+      "family": "resource-lifecycle",
+      "pass": true
+    },
+    {
+      "id": "chain-2796-20-profile-path",
+      "family": "resource-lifecycle",
+      "pass": true
+    },
+    {
+      "id": "chain-2796-20-profile-hash",
+      "family": "resource-lifecycle",
+      "pass": true
+    },
+    {
+      "id": "base-only-catalog-2796-20",
+      "family": "constructor-distinction",
+      "pass": true
+    },
+    {
+      "id": "api-exact-instance-2796-20",
+      "family": "api",
+      "pass": true
+    },
+    {
+      "id": "api-direction-pair-2796-20",
+      "family": "api",
+      "pass": true
+    },
+    {
+      "id": "parser-seam-pixel",
+      "family": "parser-seam-only",
+      "pass": true
+    },
+    {
+      "id": "parser-seam-duplicate-direction",
+      "family": "parser-seam-only",
+      "pass": true
+    }
+  ],
+  "sourcePinsChecked": 45,
+  "sourceAudit": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-r2-final-acceptance.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P31-P32-root-acceptance.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\stage-files-seal.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupAssets.cs",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupPresentation.cs",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\ObjectAssets.cs",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\ObjectRendering.cs",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PlayerProfiles.cs",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PlayerShadows.cs",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\WorldSession.cs",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\WorldObjects.cs",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\build\\client-product-r34\\P11.ClientEngine.dll",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\build\\client-product-r34\\P24.Audio.dll",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\artifact-manifest.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\planned-mapping.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\profile-inputs.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\release-seal.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets\\integrity.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets\\objects\\manifest.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets\\objects\\names.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets\\players\\manifest.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets\\shops\\manifest.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets\\encountered-monsters.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets\\world-appearances.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets\\doors\\manifest.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets\\shadows\\manifest.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets\\objects\\0.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets\\players\\2796-20.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets\\shadows\\0.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets\\shadows\\2796.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\takeover.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P33-P34-dispatch.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\current-finite-backlog.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\HANDOFF.md",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\HANDOFF.md",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\Bootstrap.cs",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\coverage.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\checks\\Program.cs",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\evidence\\negative-01\\checks.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\evidence\\regression-01\\checks.json",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\runtime-review-r1\\HANDOFF.md",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\runtime-review-r1\\coverage.json",
+      "unchanged": true
+    }
+  ],
+  "runReceipts": 2,
+  "environmentChecks": "passed; HOME and CODEX_HOME unmodified; no certificate command; firstSDK banner contains no install certificate message",
+  "historicalRowsAdded": 0
+}

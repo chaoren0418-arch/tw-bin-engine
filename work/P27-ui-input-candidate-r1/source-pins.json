@@ -1,0 +1,175 @@
+{
+  "schema": "p27-source-pins-v1",
+  "baseline": {
+    "release": "r33",
+    "basePinsSha256": "d716dcbe30b9aebfdc558f59addf4910fe94e026aec31ae7823572a40a1ffced",
+    "files": 171,
+    "releaseSeal": {
+      "path": "releases/r33/_integration/r33/release-seal.json",
+      "sha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417"
+    },
+    "productDll": {
+      "path": "engine/build/client-product-r33/P11.ClientEngine.dll",
+      "sha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2"
+    },
+    "nativeAcceptance": false
+  },
+  "reviewedFiles": [
+    {
+      "path": "AGENTS.md",
+      "size": 11741,
+      "sha256": "0c8f214831a286bec4a6844ab1293b4f4798ff829ef0a3d6507dbf455eddc040"
+    },
+    {
+      "path": "engine/source/ClientLogin.cs",
+      "size": 11588,
+      "sha256": "a00779bb20bc2bb97aac8fb520788f0f8cd674bfeb7f4ce35279b3713e4003d7"
+    },
+    {
+      "path": "engine/source/InventoryLayoutTest.cs",
+      "size": 3684,
+      "sha256": "ae7eeb059aa737d498a82ff2206d051b185b4d4c50a84c9a335a32b837ad6bb3"
+    },
+    {
+      "path": "engine/source/KeyboardNavigation.cs",
+      "size": 1812,
+      "sha256": "a14571c5746777373cda58022e1374b256ba8f342c00b45d578181e7a4ea8a99"
+    },
+    {
+      "path": "engine/source/LoginControl.cs",
+      "size": 8054,
+      "sha256": "02f97ac834993fb26871759c2dc7c2853494e804eac793b199bcc64c59553e2c"
+    },
+    {
+      "path": "engine/source/MovementUiTests.cs",
+      "size": 6825,
+      "sha256": "7021dbcfbf3427142de2d6890e0942c253374cbce798cd581d1687df19317051"
+    },
+    {
+      "path": "engine/source/NativeFocusDiagnostics.cs",
+      "size": 1837,
+      "sha256": "deaf7308df2c3f4d2f9f09406510f84bc42c2c96267b739a3fcd8bd6b0b5cca8"
+    },
+    {
+      "path": "engine/source/OnlineInput.cs",
+      "size": 1663,
+      "sha256": "be57d6afe82f1aa263d286649a13242a0b9b002e3fd11e2fd4945068bad735f3"
+    },
+    {
+      "path": "engine/source/PlayerChat.cs",
+      "size": 4117,
+      "sha256": "39d47921f20315167b2dc095d5475cd033ae5f5338fcfbc66d10b1b2526343d8"
+    },
+    {
+      "path": "engine/source/PlayerChatKeyboardFlow.cs",
+      "size": 1915,
+      "sha256": "ea2330e6de11e4815f679eca1552ebd7546e01ad72ef6a4a4cf835c6e7d8035e"
+    },
+    {
+      "path": "engine/source/PlayerHudChat.cs",
+      "size": 4390,
+      "sha256": "a737ee8f3ba7a9b502f7871d06c335cef921665507aa30e790ff96cfe29e3847"
+    },
+    {
+      "path": "engine/source/PlayerHudIntegration.cs",
+      "size": 6631,
+      "sha256": "c1b8d5f44489b0e1878f2db412485449dc043b9e255b972c4c3b406bb663648e"
+    },
+    {
+      "path": "engine/source/PlayerHudModel.cs",
+      "size": 4055,
+      "sha256": "40e34662696e391ada88cf634088562dda37d1425288726d3e82466db798d526"
+    },
+    {
+      "path": "engine/source/PlayerHudServices.cs",
+      "size": 2506,
+      "sha256": "70393c3cfb18d470491b2ce6f2410fcdd195ea1b7043a3a2f493ecd97c6e320f"
+    },
+    {
+      "path": "engine/source/PlayerHudView.cs",
+      "size": 14880,
+      "sha256": "aa8396e96b2cbff56313c148289c460ed2e37c8f07c2810ea70ca2f19d1aa271"
+    },
+    {
+      "path": "engine/source/PlayerPointer.cs",
+      "size": 9105,
+      "sha256": "4214c71199b3db6a582e48049513028540b89fd7ad27e01b79c705590f8d07d8"
+    },
+    {
+      "path": "engine/source/PlayerPointerHud.cs",
+      "size": 1527,
+      "sha256": "64dbce54801a133cfb2e76f175f2b30cd8562aea0bb107727aaa029186b3cda9"
+    },
+    {
+      "path": "engine/source/PlayerPointerUi.cs",
+      "size": 3218,
+      "sha256": "05db52e330846e9abc684f0edbc33f001ca2ec355d097d47479ad3922e77b11a"
+    },
+    {
+      "path": "engine/source/Program.cs",
+      "size": 25045,
+      "sha256": "f055f64ddc4d05b8ca75571690769839ea12fc3f15261057dda858b8eeffbee8"
+    },
+    {
+      "path": "engine/source/WebPanel.cs",
+      "size": 19383,
+      "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e"
+    },
+    {
+      "path": "engine/source/World.cs",
+      "size": 7187,
+      "sha256": "94013006de44509dbf2837abd4d3b56c3abe3f6c2bf15e855765522fd6e69fbd"
+    },
+    {
+      "path": "engine/web/interaction.js",
+      "size": 3596,
+      "sha256": "b007e3ce0a2a4f2ef13dcf72db66adc26640379ad4eebedb357dc8e026132aae"
+    },
+    {
+      "path": "engine/web/login.js",
+      "size": 4568,
+      "sha256": "482384344ac719449c81c8e7c2212370dfd422dda52f8d4dbff8c9b3405c5a51"
+    },
+    {
+      "path": "engine/web/panel.js",
+      "size": 15490,
+      "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab"
+    },
+    {
+      "path": "project-manifest.json",
+      "size": 31361,
+      "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "size": 44813,
+      "sha256": "815ea14323936891a66eedc24e8e8b324d2a873934d9418832437097e48ccd55"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/current-status.json",
+      "size": 32174,
+      "sha256": "e16a66c61510d83c3f050a328b561fcfe1a1691ef95bc325307fa0e1150dea9d"
+    },
+    {
+      "path": "主管/P25-P27-新主管接管-20261029/dispatch-contracts.json",
+      "size": 8145,
+      "sha256": "5d0cc5dbd1d20a56bccfcd5cef0a11e74f26a7b8a079ef9fda3d40feb14097cc"
+    },
+    {
+      "path": "主管/P25-P27-新主管接管-20261029/takeover.json",
+      "size": 4697,
+      "sha256": "d7f7d19b500238a3e9894ac8caae74d99d5d9e31ea0de1acc2cf100866ed3bb1"
+    },
+    {
+      "path": "主管/完整引擎未完成項目.json",
+      "size": 13466,
+      "sha256": "4766aa7913f031055604999c5f5fa991372593ddd6d7558dfe545de3d60ef28d"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/movement-focus-review.json",
+      "size": 6177,
+      "sha256": "6d30ae6c91b05f33cb72d246aa7116db09b318923f4798552e69a3de36d0cddd"
+    }
+  ],
+  "scope": "Read relevant UI/input source and cited matrix fields; base-pins includes whole source/web hash inventory, not a claim of full-source semantic review"
+}

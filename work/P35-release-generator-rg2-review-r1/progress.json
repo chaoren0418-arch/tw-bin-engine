@@ -1,0 +1,27 @@
+{
+  "schema": "p35-independent-review-progress-v1",
+  "status": "completed-accepted-isolated-rg2-fix-only",
+  "reviewRoot": "work/P35-release-generator-rg2-review-r1",
+  "baseGeneratorSha256": "32e5cefcc739c7e432dfa9cf00488072c330445695a4b3761d0e43c8ae962578",
+  "acceptedCorrectedPlanSha256": "939fcbd2176d1360b510153993f43deacf91b34a3b1737fb4d91ad8b30bb0c01",
+  "originalGeneratorRead": true,
+  "rootAgentsAndSupervisorFindingAndAcceptanceRead": true,
+  "candidateExecuted": true,
+  "baselineEvidence": "baseline-review.json",
+  "baselineOriginalRows": 2289,
+  "baselineAcceptedRows": 2290,
+  "baselineFourIdentitiesVerified": true,
+  "independentReviewScriptPrepared": "run_review.py",
+  "finiteSyntheticCasesPlanned": 10,
+  "awaitingSupervisorFinalExactSeals": false,
+  "goalToolObservation": "Existing historical I01 goal is blocked; no new goal created or status falsified.",
+  "scope": "Isolated delivery generator RG2 review; no formal installation or activation.",
+  "deniedActivation": {
+    "dispatchId": "ENGINE-R34-ENTRY-ACTIVATE-P26-R1",
+    "status": "send_message_to_thread automatic approval review denied, not executed/retried",
+    "reason": "此派工會持久修改正式入口與 project-manifest，將 r34 提升為現行產品版本，屬外部／正式承諾；使用者只授權引擎開發，未明確授權這次入口啟用，且政策不以先前助手派工替代該核准。"
+  },
+  "finiteSyntheticCasesExecuted": 10,
+  "formalInstallation": false,
+  "entryActivated": false
+}

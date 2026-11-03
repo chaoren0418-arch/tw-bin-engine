@@ -1,0 +1,793 @@
+{
+  "kind": "Finite test controller plan from original terrain and opacity entries, not product autowalk",
+  "initial": [
+    32586,
+    32920
+  ],
+  "observerStationary": [
+    32588,
+    32930
+  ],
+  "legs": [
+    {
+      "start": [
+        32586,
+        32920
+      ],
+      "end": [
+        32590,
+        32927
+      ],
+      "steps": [
+        {
+          "source": [
+            32586,
+            32920
+          ],
+          "heading": 3,
+          "destination": [
+            32587,
+            32921
+          ]
+        },
+        {
+          "source": [
+            32587,
+            32921
+          ],
+          "heading": 3,
+          "destination": [
+            32588,
+            32922
+          ]
+        },
+        {
+          "source": [
+            32588,
+            32922
+          ],
+          "heading": 3,
+          "destination": [
+            32589,
+            32923
+          ]
+        },
+        {
+          "source": [
+            32589,
+            32923
+          ],
+          "heading": 3,
+          "destination": [
+            32590,
+            32924
+          ]
+        },
+        {
+          "source": [
+            32590,
+            32924
+          ],
+          "heading": 3,
+          "destination": [
+            32591,
+            32925
+          ]
+        },
+        {
+          "source": [
+            32591,
+            32925
+          ],
+          "heading": 4,
+          "destination": [
+            32591,
+            32926
+          ]
+        },
+        {
+          "source": [
+            32591,
+            32926
+          ],
+          "heading": 5,
+          "destination": [
+            32590,
+            32927
+          ]
+        }
+      ],
+      "triggers": [
+        {
+          "x": 28,
+          "y": 31,
+          "group_ordinal": 117,
+          "type": 0,
+          "offset": 101362,
+          "block": "7ffd8002",
+          "key": "7ffd8002:117",
+          "globalX": 28,
+          "globalY": 31,
+          "bits": 1,
+          "coldSlot": 0,
+          "admittedByColdSlot": true
+        }
+      ]
+    },
+    {
+      "start": [
+        32590,
+        32927
+      ],
+      "end": [
+        32592,
+        32926
+      ],
+      "steps": [
+        {
+          "source": [
+            32590,
+            32927
+          ],
+          "heading": 1,
+          "destination": [
+            32591,
+            32926
+          ]
+        },
+        {
+          "source": [
+            32591,
+            32926
+          ],
+          "heading": 2,
+          "destination": [
+            32592,
+            32926
+          ]
+        }
+      ],
+      "triggers": [
+        {
+          "x": 32,
+          "y": 30,
+          "group_ordinal": 79,
+          "type": 0,
+          "offset": 97912,
+          "block": "7ffd8002",
+          "key": "7ffd8002:79",
+          "globalX": 32,
+          "globalY": 30,
+          "bits": 1,
+          "coldSlot": 0,
+          "admittedByColdSlot": true
+        },
+        {
+          "x": 32,
+          "y": 30,
+          "group_ordinal": 96,
+          "type": 0,
+          "offset": 100202,
+          "block": "7ffd8002",
+          "key": "7ffd8002:96",
+          "globalX": 32,
+          "globalY": 30,
+          "bits": 1,
+          "coldSlot": 0,
+          "admittedByColdSlot": true
+        }
+      ]
+    },
+    {
+      "start": [
+        32592,
+        32926
+      ],
+      "end": [
+        32583,
+        32916
+      ],
+      "steps": [
+        {
+          "source": [
+            32592,
+            32926
+          ],
+          "heading": 6,
+          "destination": [
+            32591,
+            32926
+          ]
+        },
+        {
+          "source": [
+            32591,
+            32926
+          ],
+          "heading": 5,
+          "destination": [
+            32590,
+            32927
+          ]
+        },
+        {
+          "source": [
+            32590,
+            32927
+          ],
+          "heading": 6,
+          "destination": [
+            32589,
+            32927
+          ]
+        },
+        {
+          "source": [
+            32589,
+            32927
+          ],
+          "heading": 7,
+          "destination": [
+            32588,
+            32926
+          ]
+        },
+        {
+          "source": [
+            32588,
+            32926
+          ],
+          "heading": 7,
+          "destination": [
+            32587,
+            32925
+          ]
+        },
+        {
+          "source": [
+            32587,
+            32925
+          ],
+          "heading": 7,
+          "destination": [
+            32586,
+            32924
+          ]
+        },
+        {
+          "source": [
+            32586,
+            32924
+          ],
+          "heading": 7,
+          "destination": [
+            32585,
+            32923
+          ]
+        },
+        {
+          "source": [
+            32585,
+            32923
+          ],
+          "heading": 7,
+          "destination": [
+            32584,
+            32922
+          ]
+        },
+        {
+          "source": [
+            32584,
+            32922
+          ],
+          "heading": 7,
+          "destination": [
+            32583,
+            32921
+          ]
+        },
+        {
+          "source": [
+            32583,
+            32921
+          ],
+          "heading": 7,
+          "destination": [
+            32582,
+            32920
+          ]
+        },
+        {
+          "source": [
+            32582,
+            32920
+          ],
+          "heading": 7,
+          "destination": [
+            32581,
+            32919
+          ]
+        },
+        {
+          "source": [
+            32581,
+            32919
+          ],
+          "heading": 0,
+          "destination": [
+            32581,
+            32918
+          ]
+        },
+        {
+          "source": [
+            32581,
+            32918
+          ],
+          "heading": 0,
+          "destination": [
+            32581,
+            32917
+          ]
+        },
+        {
+          "source": [
+            32581,
+            32917
+          ],
+          "heading": 0,
+          "destination": [
+            32581,
+            32916
+          ]
+        },
+        {
+          "source": [
+            32581,
+            32916
+          ],
+          "heading": 1,
+          "destination": [
+            32582,
+            32915
+          ]
+        },
+        {
+          "source": [
+            32582,
+            32915
+          ],
+          "heading": 3,
+          "destination": [
+            32583,
+            32916
+          ]
+        }
+      ],
+      "triggers": [
+        {
+          "x": 14,
+          "y": 20,
+          "group_ordinal": 97,
+          "type": 1,
+          "offset": 101017,
+          "block": "7ffd8002",
+          "key": "7ffd8002:97",
+          "globalX": 14,
+          "globalY": 20,
+          "bits": 2,
+          "coldSlot": 0,
+          "admittedByColdSlot": true
+        }
+      ]
+    },
+    {
+      "start": [
+        32583,
+        32916
+      ],
+      "end": [
+        32588,
+        32931
+      ],
+      "steps": [
+        {
+          "source": [
+            32583,
+            32916
+          ],
+          "heading": 7,
+          "destination": [
+            32582,
+            32915
+          ]
+        },
+        {
+          "source": [
+            32582,
+            32915
+          ],
+          "heading": 5,
+          "destination": [
+            32581,
+            32916
+          ]
+        },
+        {
+          "source": [
+            32581,
+            32916
+          ],
+          "heading": 4,
+          "destination": [
+            32581,
+            32917
+          ]
+        },
+        {
+          "source": [
+            32581,
+            32917
+          ],
+          "heading": 4,
+          "destination": [
+            32581,
+            32918
+          ]
+        },
+        {
+          "source": [
+            32581,
+            32918
+          ],
+          "heading": 4,
+          "destination": [
+            32581,
+            32919
+          ]
+        },
+        {
+          "source": [
+            32581,
+            32919
+          ],
+          "heading": 3,
+          "destination": [
+            32582,
+            32920
+          ]
+        },
+        {
+          "source": [
+            32582,
+            32920
+          ],
+          "heading": 3,
+          "destination": [
+            32583,
+            32921
+          ]
+        },
+        {
+          "source": [
+            32583,
+            32921
+          ],
+          "heading": 3,
+          "destination": [
+            32584,
+            32922
+          ]
+        },
+        {
+          "source": [
+            32584,
+            32922
+          ],
+          "heading": 3,
+          "destination": [
+            32585,
+            32923
+          ]
+        },
+        {
+          "source": [
+            32585,
+            32923
+          ],
+          "heading": 3,
+          "destination": [
+            32586,
+            32924
+          ]
+        },
+        {
+          "source": [
+            32586,
+            32924
+          ],
+          "heading": 3,
+          "destination": [
+            32587,
+            32925
+          ]
+        },
+        {
+          "source": [
+            32587,
+            32925
+          ],
+          "heading": 3,
+          "destination": [
+            32588,
+            32926
+          ]
+        },
+        {
+          "source": [
+            32588,
+            32926
+          ],
+          "heading": 3,
+          "destination": [
+            32589,
+            32927
+          ]
+        },
+        {
+          "source": [
+            32589,
+            32927
+          ],
+          "heading": 3,
+          "destination": [
+            32590,
+            32928
+          ]
+        },
+        {
+          "source": [
+            32590,
+            32928
+          ],
+          "heading": 5,
+          "destination": [
+            32589,
+            32929
+          ]
+        },
+        {
+          "source": [
+            32589,
+            32929
+          ],
+          "heading": 4,
+          "destination": [
+            32589,
+            32930
+          ]
+        },
+        {
+          "source": [
+            32589,
+            32930
+          ],
+          "heading": 5,
+          "destination": [
+            32588,
+            32931
+          ]
+        }
+      ],
+      "triggers": []
+    },
+    {
+      "start": [
+        32588,
+        32931
+      ],
+      "end": [
+        32590,
+        32927
+      ],
+      "steps": [
+        {
+          "source": [
+            32588,
+            32931
+          ],
+          "heading": 1,
+          "destination": [
+            32589,
+            32930
+          ]
+        },
+        {
+          "source": [
+            32589,
+            32930
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32929
+          ]
+        },
+        {
+          "source": [
+            32589,
+            32929
+          ],
+          "heading": 0,
+          "destination": [
+            32589,
+            32928
+          ]
+        },
+        {
+          "source": [
+            32589,
+            32928
+          ],
+          "heading": 1,
+          "destination": [
+            32590,
+            32927
+          ]
+        }
+      ],
+      "triggers": [
+        {
+          "x": 28,
+          "y": 31,
+          "group_ordinal": 117,
+          "type": 0,
+          "offset": 101362,
+          "block": "7ffd8002",
+          "key": "7ffd8002:117",
+          "globalX": 28,
+          "globalY": 31,
+          "bits": 1,
+          "coldSlot": 0,
+          "admittedByColdSlot": true
+        }
+      ]
+    },
+    {
+      "start": [
+        32590,
+        32927
+      ],
+      "end": [
+        32588,
+        32931
+      ],
+      "steps": [
+        {
+          "source": [
+            32590,
+            32927
+          ],
+          "heading": 4,
+          "destination": [
+            32590,
+            32928
+          ]
+        },
+        {
+          "source": [
+            32590,
+            32928
+          ],
+          "heading": 5,
+          "destination": [
+            32589,
+            32929
+          ]
+        },
+        {
+          "source": [
+            32589,
+            32929
+          ],
+          "heading": 4,
+          "destination": [
+            32589,
+            32930
+          ]
+        },
+        {
+          "source": [
+            32589,
+            32930
+          ],
+          "heading": 5,
+          "destination": [
+            32588,
+            32931
+          ]
+        }
+      ],
+      "triggers": []
+    }
+  ],
+  "totalMoves": 50,
+  "maxMoves": 50,
+  "maxSeconds": 90,
+  "maxSingleWaitMs": 2000,
+  "stopOn": [
+    "any HP decrease including after recovery",
+    "HP<150",
+    "death",
+    "disconnect",
+    "terrain/occupation change",
+    "unexpected peer position"
+  ],
+  "forbiddenPackets": [
+    6,
+    164,
+    229,
+    123
+  ],
+  "reloginAt": [
+    32588,
+    32931
+  ],
+  "terrainSha256": "b78a673314e254ea23914c6edc585c34bdd102edee7174b7568e13012c182848",
+  "observedOccupationSource": "evidence/opacity-worker-cli-r1/result.json",
+  "blockedCells": [
+    [
+      32573,
+      32926
+    ],
+    [
+      32574,
+      32919
+    ],
+    [
+      32575,
+      32920
+    ],
+    [
+      32578,
+      32918
+    ],
+    [
+      32578,
+      32919
+    ],
+    [
+      32580,
+      32932
+    ],
+    [
+      32581,
+      32920
+    ],
+    [
+      32581,
+      32927
+    ],
+    [
+      32586,
+      32919
+    ],
+    [
+      32587,
+      32927
+    ],
+    [
+      32588,
+      32930
+    ],
+    [
+      32594,
+      32919
+    ],
+    [
+      32599,
+      32917
+    ]
+  ]
+}

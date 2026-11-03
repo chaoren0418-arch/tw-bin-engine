@@ -1,0 +1,34 @@
+{
+  "utc": "2026-10-25T10:24:29.540967+00:00",
+  "jar_sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "classes": [
+    {
+      "name": "com/lineage/list/PcLvSkillList",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\list\\PcLvSkillList.java",
+      "source_sha256": "34a02a1e6d7f0aef0f8ead96bffa521466d336431aeeda808aa157d5346e640d",
+      "class_sha256": "e6dee53075dd5cc2a8d1af8cf70acca97697dedfeb72bc96aec0771110dcc141",
+      "javap_sha256": "6bd0d0f2d36d45b54c1122f16d96f51c21df53619bd34d9a8c7cbf814e9a9aa1"
+    },
+    {
+      "name": "com/lineage/config/ConfigClient",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\config\\ConfigClient.java",
+      "source_sha256": "798b3978b9bafc33d2bca7d1f5664dd932b4b592a7a2e44c2c06828c59038f8f",
+      "class_sha256": "41e64079c0ed8789518bfb00b7d1a1e6c89ee383d1087bc212dcb2b50d98440f",
+      "javap_sha256": "f6b56de21e88ed74067ebdba6493718ba71d6a1edd689d6073d2e47e583c251d"
+    },
+    {
+      "name": "com/lineage/server/model/skill/SkillCastAdmission",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\skill\\SkillCastAdmission.java",
+      "source_sha256": "c0d83075dcd956641ec469c569387f287e5648063207cd545635c7b0ff301c32",
+      "class_sha256": "808eb2f3369e3653bd985ea358de90780722301b9ab1e906198959e184fec120",
+      "javap_sha256": "c02d0729b507eb827c400f63f99e82ada37d35c7f9c73cd832be1cd02f027b61"
+    },
+    {
+      "name": "com/lineage/server/model/classes/L1RoyalClassFeature",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\classes\\L1RoyalClassFeature.java",
+      "source_sha256": "5e41dce8e25427b7761350aa57c5113e18100822d66500712b85ef7537c6eb7b",
+      "class_sha256": "5d68e48e79ed00d2febee4631add8b417da66a28b68bd05bc31b97129d6f2a8a",
+      "javap_sha256": "db9babc219294154695fc0a34abfe1864376a05a453c747115efb57178c15de8"
+    }
+  ]
+}

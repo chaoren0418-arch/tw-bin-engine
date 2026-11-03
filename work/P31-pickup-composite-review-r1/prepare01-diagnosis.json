@@ -1,0 +1,9 @@
+{
+  "preserved": "prepare-attempt01.py and expected-prep01",
+  "expectedChanged": false,
+  "exit": 1,
+  "failure": "independent body vs sealed PNG: 2796/48:1",
+  "productRuntime": 0,
+  "attempt": "prepare01",
+  "reason": "Oracle fixture adapter used list position as source block index. 2796-48 selected block indices begin at10; must map explicit index field, per sealed frame-map."
+}

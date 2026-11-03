@@ -1,0 +1,105 @@
+{
+  "schema": "p30-executor-environment-repair-r2-result-v1",
+  "status": "minimal-r2-prepared-validated-awaiting-independent-review-and-new-receipt",
+  "dispatchId": "ENGINE-P30-ENVIRONMENT-REPAIR-R2",
+  "utc": "2026-10-29T06:37:52.867541+00:00",
+  "contract": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\execution-contract.json",
+    "size": 9492,
+    "sha256": "3f4bf1a3e6ec5f9db90ed8583f14d0f53869ad0c2e98ad3fc20ba6427d86b75d"
+  },
+  "scripts": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\executor.py",
+      "size": 9818,
+      "sha256": "4bd924cfa769d6ec4146ff0086e444d79f00e4dd3ed37b2b5a827ff457b8e6d0"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\gate.py",
+      "size": 9530,
+      "sha256": "df9ca456744f8f33d50da3f4b48518342644e8e2cabdfa18864a9c3d223db8ab"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\win_process.py",
+      "size": 5934,
+      "sha256": "37f21ac740a11f780a937f085598bbb3dbbe928a65fa8d19d6c6d0f39e0ef0dc"
+    }
+  ],
+  "materialization": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\product-materialization.json",
+    "size": 92977,
+    "sha256": "b5895020b5416b704b46348a05818154deb4c67759c922e78af2a466149858da"
+  },
+  "invocationSchema": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\invocation-schema.json",
+    "size": 3266,
+    "sha256": "48f5b368f5e195dfc379a084a42bdfb10886fbee3499f17f64b05730aabb7880"
+  },
+  "minimalDiff": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\gate-r1-to-r2.patch",
+    "size": 4298,
+    "sha256": "7a02bfd6d599199bb03dc8302ffa5e600629856c64709e0f141140d20ed9d00e"
+  },
+  "diffLedger": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\source-diff-ledger.json",
+    "size": 2696,
+    "sha256": "7144cb8879e13a544afc77e202ea41c1495bd50fbf6a7aef89f2e6af497c19de"
+  },
+  "validation": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\delta-validation.json",
+    "size": 4359,
+    "sha256": "81d0f41073d72edceb3703ec6c33269b0a48ae7544fab4bbd8b41d86f34af1ca"
+  },
+  "preservation": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\final-preservation.json",
+    "size": 1587,
+    "sha256": "be1e8045fd98c104ea2575c97d76578060afe40f59edea7f43f154d6003a0570"
+  },
+  "systemPathState": {
+    "fixedProgramFilesX86": "C:\\Program Files (x86)",
+    "exists": true,
+    "nugetBaseExists": false,
+    "defaultsPath": "C:\\Program Files (x86)\\NuGet\\NuGetDefaults.Config",
+    "defaultsExists": false,
+    "machineConfigDirectory": "C:\\Program Files (x86)\\NuGet\\Config",
+    "machineConfigDirectoryExists": false,
+    "configFiles": [],
+    "contentsDumped": false,
+    "systemWrites": false,
+    "feedsAdded": false
+  },
+  "handoff": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\HANDOFF.md",
+    "size": 5596,
+    "sha256": "dd29a40f394cb28522a9c38e984ed27e193bcc951277bfd648608896904d76d5"
+  },
+  "fixedEnvironmentAddition": {
+    "PROGRAMFILES(X86)": "C:\\Program Files (x86)"
+  },
+  "otherSemanticChanges": 0,
+  "sourceCount": 181,
+  "materializationFiles": 184,
+  "dependencyPins": 4350,
+  "sourceVendorSdkPinsUnchanged": true,
+  "executorByteUnchanged": true,
+  "winProcessByteUnchanged": true,
+  "targetedChecksPassed": 23,
+  "original53ChecksRerun": false,
+  "jobSyntheticTestsRerun": 0,
+  "nugetDiagnosticsRerun": false,
+  "productBuilds": 0,
+  "runtimeProbes": 0,
+  "futureStage02Created": false,
+  "oldFailurePreserved": true,
+  "newReceiptCreated": false,
+  "formalEntry": "r33",
+  "sharedWrites": false,
+  "releaseWrites": false,
+  "entryChanged": false,
+  "goal": {
+    "actualRead": null,
+    "created": false,
+    "modified": false
+  },
+  "next": "Supervisor/P29 exact minimal diff review; separately issue fresh02 single-attempt execution receipt."
+}

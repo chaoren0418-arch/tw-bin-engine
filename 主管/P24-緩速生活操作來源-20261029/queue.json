@@ -1,0 +1,27 @@
+{
+  "taskId": "ENGINE-SLOW-UTILITY-SOURCE-R1",
+  "owner": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+  "writeRoot": "work/engine-slow-utility-source-r1",
+  "status": "both-source-contracts-verified-next-isolated-candidate-authorized",
+  "turnId": "01a18496-411f-7f41-8213-e61bbb4f96dc",
+  "cursor": "1e47fa6f-0252-43ab-bc1b-299701dcebdc:11",
+  "baseRevision": "r30",
+  "implementationAuthorized": false,
+  "sharedMergeAuthorized": false,
+  "databaseOperationsAuthorized": false,
+  "utc": "2026-10-28T22:09:48.105269+00:00",
+  "previousTurnId": "01a1848f-a263-7ad1-be7e-e1de4268b1ec",
+  "updatedUtc": "2026-10-28T22:24:40.551256+00:00",
+  "independentPreparation": {
+    "taskId": "ENGINE-SLOW-UTILITY-REVIEW-PREP-R1",
+    "owner": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+    "writeRoot": "work/engine-slow-utility-review-r1",
+    "activeReceipt": "independent-preparation-active-receipt.json",
+    "status": "sealed-preparation-accepted",
+    "candidateReviewed": false,
+    "cursor": "8733f9b2-2e3c-4239-bb56-0b27e2dd2974:45",
+    "accepted": true
+  },
+  "sourceReportAccepted": true,
+  "nextQueue": "主管/P24-緩速加速水例外-20261029/queue.json"
+}

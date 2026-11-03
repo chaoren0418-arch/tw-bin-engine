@@ -1,0 +1,140 @@
+{
+  "utc": "2026-10-27T06:27:24.162Z",
+  "status": "r27-reviewed-targeted-native-chat-live-passed-full-pointer-acceptance-unverified",
+  "authority": "Existing human authorization for P24 development and 2–3 independent existing worker chats, AGENTS.md and division-authorization-evidence.json; latest user priorities quoted via external supervisor, no new project/deploy authority inferred",
+  "relayedUserQuotes": [
+    "我現在都是看到測試視窗在跑，視窗中沒有遊戲UI跟介面也沒有人物陰影，實作程度？",
+    "不用給我清單 我要明確進度 而且主管對話都是在工作? 為何沒有分配其他對話給予任務同步開發?",
+    "spr的背景透明也沒處理 全部做完才測試 缺口一堆"
+  ],
+  "relaySourceThread": "01a17953-d39f-7771-a4e7-7d84b1c0b038",
+  "baseline": {
+    "version": "r23",
+    "seal": "719f2e5de92ce08a9b6576de6d02f046636321bec602466b6eb9060c5413570b",
+    "rootReview": "r23-independent-review/result.json",
+    "liveVersion": "r22",
+    "r23Live": false
+  },
+  "tasks": [
+    {
+      "thread": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "directory": "reference/development/player-hud-implementation-r1",
+      "scope": "Player HUD HP/MP/status, actual inventory/equipment/skills and quick slots; normal state/action gates",
+      "excluded": "shadow, pointer path algorithm, unimplemented chat"
+    },
+    {
+      "thread": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "directory": "reference/development/player-shadow-implementation-r1",
+      "scope": "Original SPR background transparency plus player/NPC shadows through decoder/mask/alpha/output/compositor; single owner of shared material/render files",
+      "excluded": "No black-is-transparent assumption, destructive original overwrite, other-format mass conversion, HUD/input/Program ownership"
+    },
+    {
+      "thread": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "directory": "reference/development/player-pointer-input-r1",
+      "scope": "Native ground click movement and clear pointer target actions with cancellation/epoch gates",
+      "excluded": "HUD, shadows, chat"
+    }
+  ],
+  "singleIntegrator": "Supervisor will designate after isolated deltas are reviewed; no shared concurrent writes",
+  "soleLiveOperator": "01a1748a-d237-71a0-9323-60ad8462794c",
+  "currentProgress": {
+    "services": "Historical r22/r20/r21 service evidence retained; not relabelled r25",
+    "formalPlayerUi": "Integrated r24/r25 normal HUD, inventory/equipment/skills/quickslots/service/chat implemented; full native mouse acceptance blocked by capture geometry",
+    "shadows": "Original per-player shadow metadata: 13 supported gfx / 42 appearances, 11048 added keys; root source-slice and independent compositor checks accepted. No shared shadow177 approximation.",
+    "pointer": "Integrated native ground A* routing and target action gates; native pointer live remains unverified"
+  },
+  "statePreserved": "Both used roles offline; client normally closed; items/coins/skills unchanged; services untouched.",
+  "wholeP24Complete": false,
+  "executionOrder": "Complete known player-facing implementation and merge first; compile/unit/local render during development; only then fixed-version complete live acceptance. No repeated service-only rounds.",
+  "liveAcceptanceGate": {
+    "startOnlyAfter": [
+      "HUD and actual gameplay controls implemented and integrated",
+      "SPR background transparency and original shadow compositing corrected and integrated",
+      "Pointer scene/UI boundary, actual actions and cancellation integrated",
+      "Known remaining player UI gaps explicitly implemented or resolved against agreed original scope",
+      "One fixed merged build independently rebuilds; necessary targeted development checks pass"
+    ],
+    "current": "Known scoped development integrated and independently rebuilt. Limited native keyboard flow passed; full visual/pointer acceptance remains blocked by capture tool.",
+    "notEquivalentToAcceptance": [
+      "compile success",
+      "offline screenshot or pixel assertions",
+      "old r22 services passed"
+    ]
+  },
+  "implementationProgress": {
+    "utc": "2026-10-27T11:16:21.047902+00:00",
+    "implementation": "r26 exact-path launcher repair retained; r27 native chat focus and current supported player shadows integrated",
+    "independentReview": "15941 sealed files full SHA; compiler inputs match independent root rebuild; launcher independently rebuilt",
+    "workers": "All three assigned scoped tasks finished; no duplicate tasks or new scope invented",
+    "live": "r27 native login/role/chat/focus/movement and normal save/relogin passed; full native pointer/layout acceptance unverified"
+  },
+  "currentLiveIssue": {
+    "utc": "2026-10-27T11:16:21.047902+00:00",
+    "revision": "r27",
+    "status": "targeted-native-chat-and-normal-entry-live-passed",
+    "entry": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r11\\delivery\\啟動新版客戶端.cmd",
+    "sealSha256": "a333cc86191f23bc72590f5b2d6f2722339f8a90e769b64c1a2315d3b8e66f07",
+    "dllSha256": "1fdba73b5d52e6fb6b58e4fa1c9f18bfd8175cb31ac671c08ee819ce7062f4b1",
+    "independentReview": "r27-package-root-review.json",
+    "launcherReview": "r27-launcher-root-review.json",
+    "verified": [
+      "registered desktop PATH normal CMD launch",
+      "native account/password Tab and Enter login",
+      "native role selection and enter world",
+      "Enter opens native chat input without sending",
+      "native W remains text and does not move actor",
+      "one explicit Enter produces one original server chat echo",
+      "empty Enter does not resend",
+      "Escape returns game focus",
+      "saved draft survives close/reopen without automatic send",
+      "explicit later Enter sends saved draft once",
+      "F10 from chat returns game focus",
+      "normal movement after chat",
+      "normal Web logout/relogin preserves actor position and resets chat history"
+    ],
+    "notVerified": [
+      "full native window visual layout",
+      "native mouse/pointer actions and click-to-chat",
+      "one complete r27 gameplay/service acceptance; previous versions retained as historical evidence"
+    ],
+    "nativeCaptureBlock": "Prior supported recovery exhausted with FrameArrived/window capture timeout and coordinate input geometry unavailable. No guessed pointer inputs or repeated identical recovery.",
+    "renderEvidence": "Actual game scene PNG viewed; not a native full-window screenshot",
+    "existingSupportedShadowScope": "13 gfx / 42 already-supported appearances; independent raw source slices and compositor checks. Other unavailable appearances remain out of scope.",
+    "rolesOffline": true,
+    "clientNormallyClosed": true,
+    "noServiceRestart": true,
+    "servicePids": {
+      "game": 88012,
+      "database": 59052
+    },
+    "preservation": {
+      "itemsAndCoinsUnchanged": true,
+      "skillsUnchanged": true,
+      "mainRoleUnchanged": true,
+      "peerChanges": {
+        "x": {
+          "before": 32599,
+          "after": 32598
+        },
+        "y": {
+          "before": 32931,
+          "after": 32932
+        },
+        "mp": {
+          "before": 49,
+          "after": 58
+        }
+      },
+      "mpNote": "MP increased during ordinary online session; no skill use/grant/database mutation in this run."
+    },
+    "wholeP24Complete": false,
+    "developmentScopeCompleted": [
+      "same-path r26 launcher repair",
+      "native chat focus repair integrated r27",
+      "existing player shadow gaps integrated r27"
+    ],
+    "remainingDevelopmentDefectsFoundInThisRun": []
+  },
+  "observationCorrection": "r26 actual Control.Focused snapshots prove account/password Tab and ShiftTab pass. Earlier unchanged UIA focused_element was not valid failure evidence.",
+  "updatedUtc": "2026-10-27T11:16:21.047902+00:00"
+}

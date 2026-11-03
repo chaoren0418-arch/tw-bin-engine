@@ -1,0 +1,76 @@
+{
+  "schema": "p24-r29-supervisor-acceptance-v1",
+  "utc": "2026-10-28T20:14:33.115721+00:00",
+  "decision": "accepted-offline-development-complete",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "scope": "Speed2/Brave0 walking, turning and object rendering; F1 repaired",
+  "revision": "r29",
+  "release": "D:\\lineage開發\\TW1608262200研究\\releases\\r29",
+  "entry": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+  "releaseSealSha256": "d3ac187e7fc44745864640e4bcc72fefbaeeaa0b0e9d63de7c0c3cfa8e46273d",
+  "productDllSha256": "8ccfa4e3b5d253206779a5d4b1e59682263ffbddf5dab43fe15b0aa1f86a7397",
+  "baselineChecks": 151,
+  "independentVectorChecks": 1199,
+  "focusedChecks": 112,
+  "minimalReproCases": 6,
+  "rootFullReleaseShaFiles": 14286,
+  "rootSourcePins": 176,
+  "rootRuntimeManifestPins": 46,
+  "r28Preservation": {
+    "integratorFullShaFiles": 14364,
+    "rootNonAssetShaFiles": 406,
+    "rootSealPinned": true
+  },
+  "r1Decision": "rejected-preserved",
+  "r2Decision": "accepted",
+  "unresolvedFindingsInIncrement": [],
+  "nativeLiveAcceptance": false,
+  "wholeP24Complete": false,
+  "goalActualStatus": "paused",
+  "databaseOperations": false,
+  "workersObservedIdle": true,
+  "workerTurns": {
+    "implementation": "01a1840c-5709-7c33-9b7e-48180fc8d637",
+    "review": "01a18411-8955-7061-adc4-d96ee0f170d4",
+    "integration": "01a18415-563c-7190-a98c-b4c4474a88bc"
+  },
+  "evidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-引擎開發恢復-20261029\\r29-root-delivery-verification.json",
+      "sha256": "bae0bda81035a029ed1a65b7e68aa07a166e7dd175dcdafbfbf913f2bdb51bc4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-引擎開發恢復-20261029\\r29-root-entry-check-only.json",
+      "sha256": "ca8fc68e89eaa04db66466782cafc16a05e28f71d41d262d1b5fd964295b4aab"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-引擎開發恢復-20261029\\r29-integration-acceptance.json",
+      "sha256": "ff60d3d1a86af64a8dcea6542f17a79370e002ac3f93477025684a89c245b361"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-integration-result.json",
+      "sha256": "6cd83d6e23a15d4f3723726088d248113faa6947c97973b8a1df617df5436b81"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\result.json",
+      "sha256": "f7aefa2f11e10e98c5cc7b94ecc95bba457597bce717c3953d929fecf3978a78"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\review.json",
+      "sha256": "be6781c4f5342ce10a0a831dc1082ffe39dff5b4cca630f11b3f45541f90a452"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\f1.json",
+      "sha256": "60e386c2c69252ba451fcd036460ae209cdd37f07b4ff4b79ad7499bde036959"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\repro.json",
+      "sha256": "050c59e21ce142ee7b41afc2cfd3e611956da9fad5dc04f8ec6845d762730c4c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r29-accepted-rebuild-01\\result.json",
+      "sha256": "81df7b3be115e2eba3ff6f38c33a49206bee9cb3165b5024702dff445c724f2a"
+    }
+  ],
+  "remaining": "Native/live acceptance unperformed; broader source-limited P24 tasks retained in completion-matrix-r29.json. No DB work or repeat of accepted engine increment."
+}

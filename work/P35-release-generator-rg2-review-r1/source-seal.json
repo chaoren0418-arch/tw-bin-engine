@@ -1,0 +1,50 @@
+{
+  "schema": "p35-independent-review-source-seal-v1",
+  "files": [
+    {
+      "path": "final-pins.json",
+      "size": 1065,
+      "sha256": "1b7dfaf34d2b92f7560fff787af14ca4325aa7c3b62f04cebd04ca7d0591d94a"
+    },
+    {
+      "path": "finalize_review.py",
+      "size": 6854,
+      "sha256": "b1a4c7db42565e9d5afb61b0b932f2e28c35d45abc26497c8d6c0e7d28b191ef"
+    },
+    {
+      "path": "independent-final.diff",
+      "size": 1775,
+      "sha256": "1eec390b9865e019ce1eb637543e0492052fee0ae8e80f0aa82fe6ccda9be0bb"
+    },
+    {
+      "path": "inspect_baseline.py",
+      "size": 4319,
+      "sha256": "d72db9088894c9b01654bd10e21b7608d91694084a42a994f54f56875a3bfac3"
+    },
+    {
+      "path": "review-scope.json",
+      "size": 2124,
+      "sha256": "c8fc42d1be58189b5ffdbb6eab9b793a83ab71d39a993bbfe059aef2f7fa73f0"
+    },
+    {
+      "path": "run_recorded.py",
+      "size": 1382,
+      "sha256": "27e084b1343ca73b28810ee77c9946d04c599d7877a99fe5e0067b3832af57aa"
+    },
+    {
+      "path": "run_review.py",
+      "size": 9912,
+      "sha256": "273e5315e1f1921efcba76c3d351495a2bf6e34c8e7ece22c27bbf80608e69b2"
+    },
+    {
+      "path": "seal_review.py",
+      "size": 1435,
+      "sha256": "9bbe48f78f0400f1d34df4f8cc146183c3e848ef71baf4b10ef70e283e216e80"
+    },
+    {
+      "path": "verify_delivery.py",
+      "size": 4071,
+      "sha256": "1ed351c016cdd838dce1f77f9125596b0ee85243dd34d3c1506f69048e5b4271"
+    }
+  ]
+}

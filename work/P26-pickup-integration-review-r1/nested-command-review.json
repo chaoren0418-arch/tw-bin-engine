@@ -1,0 +1,58 @@
+{
+  "status": "pass-static-command-expression-comparison",
+  "commands": {
+    "product-build": [
+      "pwsh",
+      "-NoProfile",
+      "-File",
+      "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\r34\\product-build.ps1"
+    ],
+    "launcher-build": [
+      "dotnet",
+      "build",
+      "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\r34\\launcher-source\\Launcher.csproj",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage開發\\TW1608262200研究\\engine\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-o",
+      "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\launcher"
+    ],
+    "same-entry-check-only": "\"C:\\WINDOWS\\System32\\cmd.exe\" /d /s /c \"\"D:\\lineage開發\\TW1608262200研究\\engine\\啟動新版客戶端.cmd\" --check-only\"",
+    "sdk": [
+      "dotnet",
+      "--version"
+    ]
+  },
+  "powershellChildren": [
+    [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\r34\\rebuild.py"
+    ],
+    [
+      "dotnet",
+      "build",
+      "D:\\lineage開發\\TW1608262200研究\\engine\\source\\OfflineClient.csproj",
+      "-c",
+      "Release",
+      "-o",
+      "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34",
+      "--configfile",
+      "D:\\lineage開發\\TW1608262200研究\\engine\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ]
+  ],
+  "perChildReceipts": false,
+  "childStreams": "inherited into product-build raw stdout/stderr",
+  "exitGuards": 2,
+  "realExecutions": 0,
+  "limitation": "nested collector checks names/exits and pins raw records; exact argv follows pinned rebuild scripts and this static expression comparison; no independent PowerShell child receipts"
+}

@@ -1,0 +1,46 @@
+{
+  "schema": "p38-delivery-source-seal-v1",
+  "executionAuthorized": false,
+  "files": [
+    {
+      "path": "common.py",
+      "size": 3832,
+      "sha256": "665b980d7746c40c7cc4b6e1cebcade7811673bac8ba3cf88128a4ba569de85b"
+    },
+    {
+      "path": "gate.py",
+      "size": 7635,
+      "sha256": "79d11d1a1c052b62441e0196be747be82b223fa223735e789a430cbfb476cbce"
+    },
+    {
+      "path": "executor.py",
+      "size": 9270,
+      "sha256": "fc84ee9a669ce95b69d34f226d657aad093e4831b9b0ed7b47c1b897b80610fd"
+    },
+    {
+      "path": "win_process.py",
+      "size": 5934,
+      "sha256": "37f21ac740a11f780a937f085598bbb3dbbe928a65fa8d19d6c6d0f39e0ef0dc"
+    },
+    {
+      "path": "prepared/launcher-source/Program.cs",
+      "size": 8556,
+      "sha256": "a1819226911548c627b1980f9de0b773af5ed6f3bae88bd11ea3131fb7f6b7ca"
+    },
+    {
+      "path": "prepared/launcher-source/Launcher.csproj",
+      "size": 412,
+      "sha256": "59a5f22c8ced415eb3d9a36d5f356b52766956a3ae66597e29214a53280e62ee"
+    },
+    {
+      "path": "reference/launcher-source/Program.cs",
+      "size": 8488,
+      "sha256": "e93ade09f9d773dcec99c5637d162a5ab31ce6445363c76724cc4186857eeaef"
+    },
+    {
+      "path": "reference/launcher-source/Launcher.csproj",
+      "size": 412,
+      "sha256": "59a5f22c8ced415eb3d9a36d5f356b52766956a3ae66597e29214a53280e62ee"
+    }
+  ]
+}

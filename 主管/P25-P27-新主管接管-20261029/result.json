@@ -1,0 +1,87 @@
+{
+  "schema": "p25-p27-supervisor-bootstrap-result-v1",
+  "utc": "2026-10-29T03:52:16.879Z",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "status": "takeover-and-parallel-phase-dispatch-complete-current-review-in-progress",
+  "formalRevision": "r33",
+  "r34": "accepted isolated stage; original plan reviewed; authority/timeout revision delivered; independent revision review running; no shared receipt or install yet",
+  "soleIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "integratorState": "idle, completed rebind delivery",
+  "stageThreads": [
+    {
+      "phase": "P25",
+      "threadId": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+      "turnId": "01a185b7-df4d-7171-8c4a-6a048e09e2fe",
+      "state": "idle/completed; documentary baseline accepted",
+      "goal": "worker reported platform complete readback"
+    },
+    {
+      "phase": "P26",
+      "threadId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "firstTurn": "01a185b7-ebfd-7471-985c-8b66417b3700",
+      "currentTurn": "01a185c4-5572-7692-afd3-ddfd8ee8a29c",
+      "state": "second independent review running; actual verifier commands exit0 observed",
+      "goal": "first review complete; second task read/continuation recorded by worker"
+    },
+    {
+      "phase": "P27",
+      "threadId": "01a185b7-f732-7f60-8716-a944d67724c2",
+      "turnId": "01a185b7-f8b1-7c91-87e0-aa0bb5e3027e",
+      "state": "idle/completed; bounded review accepted; no additional independent defect identified",
+      "goal": "worker reports previous goal complete readback; latest followup get_goal null, not recreated",
+      "latestTurn": "01a185c8-8dd0-7373-99e8-18831ecd854d"
+    }
+  ],
+  "architecture": {
+    "produced": true,
+    "accepted": true,
+    "modules": 11,
+    "matrixRows": 32,
+    "supplementalOccurrences": 16,
+    "finiteBacklog": 12,
+    "sourcePins": 523,
+    "acceptedSources": 177,
+    "historicalReferences": 120,
+    "artifact": "work/P25-architecture-baseline-r1/architecture.md"
+  },
+  "P27": {
+    "acceptedBoundedReview": true,
+    "confirmedDefects": 0,
+    "productChanges": 0,
+    "csharpAssertions": 182,
+    "syntheticWebAssertions": 55,
+    "nativePlanCases": 12,
+    "nativeExecuted": 0
+  },
+  "goal": {
+    "supervisorToolsAvailable": false,
+    "supervisorRead": false,
+    "supervisorCreated": false,
+    "supervisorActualStatus": "unknown; no platform-store modification"
+  },
+  "nextAction": {
+    "owner": "supervisor",
+    "trigger": "P26 exact sealed authority review delivered and accepted",
+    "action": "issue exact new shared receipt, then dispatch sole original integrator serial canonical install/build/offline suites",
+    "dependencies": [
+      "new plan 6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761",
+      "independent review outcome; do not infer acceptance from author's verifier"
+    ],
+    "noUserReplyRequired": true
+  },
+  "blockers": {
+    "capacity": false,
+    "toolPermissionDenial": false,
+    "productDependency": "new authority revision independent review not yet completed",
+    "native": "not executed; exact version and supported geometry/scene evidence required"
+  },
+  "operations": {
+    "database": 0,
+    "services": 0,
+    "nativeGame": 0,
+    "sharedProductWrites": 0,
+    "retiredSupervisorMessages": 0
+  },
+  "wholeProjectComplete": false,
+  "completionPercentage": null
+}

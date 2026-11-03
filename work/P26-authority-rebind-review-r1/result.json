@@ -1,0 +1,39 @@
+{
+  "schema": "p26-authority-rebind-review-result-v1",
+  "taskId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "turnId": null,
+  "utc": "2026-10-29T03:59:12.334784+00:00",
+  "status": "complete-bounded-independent-review",
+  "decision": "accepted-for-supervisor-shared-gate",
+  "review": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\review.json",
+    "size": 9396,
+    "sha256": "3fe29529a4809d9f0236d5a46890ddf9aa34bac41c8a2497f3e48dd5fbcc7658"
+  },
+  "findings": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\findings.json",
+    "size": 5495,
+    "sha256": "9b4d0945c90d55dff2ca5ccbadaa074485f514e07f8139156691b1ff76132268"
+  },
+  "contract": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\supervisor-gate-contract-inputs.json",
+    "size": 3868,
+    "sha256": "4f6726375b64d4cbbbc74b424a9289ac7dd80e8a1eeff452d54047e0e6f764d4"
+  },
+  "candidateSealSha256": "867c75d72137b18becc8138576bc0b2e8b6e529fabcd51482b485caa17419ad6",
+  "candidatePlanSha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761",
+  "candidateControllerSha256": "257533f50b13c4483c337791006483e07ceac7a90be4749cb66058e36dfb7ba3",
+  "independentAuthorityCases": 16,
+  "independentTimeoutCases": 5,
+  "nestedDiagnosticLimitVerified": true,
+  "productBuilds": 0,
+  "productAssertions": 0,
+  "nativeChecks": 0,
+  "fullValidatePlanExecuted": false,
+  "sharedReceiptCreated": false,
+  "sharedWorkflowCreated": false,
+  "sharedWrites": false,
+  "projectComplete": false,
+  "artifactChecksAreProductAssertions": false,
+  "goal": "created and read back active through platform tools; completion follows verified delivery"
+}

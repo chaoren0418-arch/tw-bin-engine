@@ -1,0 +1,27 @@
+{
+  "schema": "engine-supervisor-release-acceptance-v1",
+  "utc": "2026-10-28T21:51:58.948434+00:00",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "revision": "r30",
+  "decision": "accepted-offline-release",
+  "releaseSealSha256": "199ce6fe81130138e9fedf98e688928ce44b0a45c2aebd1b92fdd9519b8225dc",
+  "productDllSha256": "1abc1eed02917d14fd775be60920fe74efb9b102bc53eea5874fc0128e5247ef",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productManifestSha256": "4b0029286463050a4ed64de5a7c8485defd673a6e3d1bba185a9f9d4f157de69",
+  "launcherDllSha256": "f0145345af54961b59943b981e392ae3e268c42ef957a8eacdda64967641c050",
+  "sourceFilesVerified": 177,
+  "releaseFilesFullyHashed": 14296,
+  "offlineAssertionCounts": [
+    151,
+    976,
+    1201,
+    112
+  ],
+  "nativeLiveAccepted": false,
+  "wholeP24Complete": false,
+  "goalActualStatus": "paused",
+  "database": "user-owned-no-operations",
+  "integratorCompletedTurn": "01a1846f-4728-7001-ad0a-9940beb9213a",
+  "integratorCursor": "d0af65fb-9735-4df3-ad9d-148fd38221c5:104",
+  "next": "Continue evidenced Speed1 attack/spell increment in isolated roots, then independent review and serial integration."
+}

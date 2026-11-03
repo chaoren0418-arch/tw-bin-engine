@@ -1,0 +1,1017 @@
+{
+  "status": "future-source-arithmetic-observation-not-dispatch-or-acceptance",
+  "scope": "Potential later Speed1 increment; current r30 remains Speed2 only",
+  "method": "Derive per-frame (3*t)>>2 from already sealed native frame metadata; not new native execution",
+  "actionRows": 126,
+  "rowsWhereRoundingDiffers": 126,
+  "differences": [
+    {
+      "gfx": 61,
+      "weapon": 0,
+      "action": "attack",
+      "nativeBaseMs": 832,
+      "sumScaledFramesMs": 621,
+      "scaledSumMs": 624
+    },
+    {
+      "gfx": 61,
+      "weapon": 0,
+      "action": "spellDir",
+      "nativeBaseMs": 1290,
+      "sumScaledFramesMs": 962,
+      "scaledSumMs": 967
+    },
+    {
+      "gfx": 61,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1455,
+      "sumScaledFramesMs": 1084,
+      "scaledSumMs": 1091
+    },
+    {
+      "gfx": 61,
+      "weapon": 4,
+      "action": "attack",
+      "nativeBaseMs": 915,
+      "sumScaledFramesMs": 683,
+      "scaledSumMs": 686
+    },
+    {
+      "gfx": 61,
+      "weapon": 4,
+      "action": "spellDir",
+      "nativeBaseMs": 1290,
+      "sumScaledFramesMs": 962,
+      "scaledSumMs": 967
+    },
+    {
+      "gfx": 61,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1455,
+      "sumScaledFramesMs": 1084,
+      "scaledSumMs": 1091
+    },
+    {
+      "gfx": 61,
+      "weapon": 20,
+      "action": "attack",
+      "nativeBaseMs": 1498,
+      "sumScaledFramesMs": 1118,
+      "scaledSumMs": 1123
+    },
+    {
+      "gfx": 61,
+      "weapon": 20,
+      "action": "spellDir",
+      "nativeBaseMs": 1290,
+      "sumScaledFramesMs": 962,
+      "scaledSumMs": 967
+    },
+    {
+      "gfx": 61,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1455,
+      "sumScaledFramesMs": 1084,
+      "scaledSumMs": 1091
+    },
+    {
+      "gfx": 61,
+      "weapon": 50,
+      "action": "attack",
+      "nativeBaseMs": 1040,
+      "sumScaledFramesMs": 775,
+      "scaledSumMs": 780
+    },
+    {
+      "gfx": 61,
+      "weapon": 50,
+      "action": "spellDir",
+      "nativeBaseMs": 1290,
+      "sumScaledFramesMs": 962,
+      "scaledSumMs": 967
+    },
+    {
+      "gfx": 61,
+      "weapon": 50,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1455,
+      "sumScaledFramesMs": 1084,
+      "scaledSumMs": 1091
+    },
+    {
+      "gfx": 48,
+      "weapon": 0,
+      "action": "attack",
+      "nativeBaseMs": 831,
+      "sumScaledFramesMs": 620,
+      "scaledSumMs": 623
+    },
+    {
+      "gfx": 48,
+      "weapon": 0,
+      "action": "spellDir",
+      "nativeBaseMs": 1285,
+      "sumScaledFramesMs": 958,
+      "scaledSumMs": 963
+    },
+    {
+      "gfx": 48,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1456,
+      "sumScaledFramesMs": 1085,
+      "scaledSumMs": 1092
+    },
+    {
+      "gfx": 48,
+      "weapon": 4,
+      "action": "attack",
+      "nativeBaseMs": 913,
+      "sumScaledFramesMs": 681,
+      "scaledSumMs": 684
+    },
+    {
+      "gfx": 48,
+      "weapon": 4,
+      "action": "spellDir",
+      "nativeBaseMs": 1285,
+      "sumScaledFramesMs": 958,
+      "scaledSumMs": 963
+    },
+    {
+      "gfx": 48,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1456,
+      "sumScaledFramesMs": 1085,
+      "scaledSumMs": 1092
+    },
+    {
+      "gfx": 48,
+      "weapon": 20,
+      "action": "attack",
+      "nativeBaseMs": 1496,
+      "sumScaledFramesMs": 1117,
+      "scaledSumMs": 1122
+    },
+    {
+      "gfx": 48,
+      "weapon": 20,
+      "action": "spellDir",
+      "nativeBaseMs": 1285,
+      "sumScaledFramesMs": 958,
+      "scaledSumMs": 963
+    },
+    {
+      "gfx": 48,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1456,
+      "sumScaledFramesMs": 1085,
+      "scaledSumMs": 1092
+    },
+    {
+      "gfx": 48,
+      "weapon": 50,
+      "action": "attack",
+      "nativeBaseMs": 1038,
+      "sumScaledFramesMs": 775,
+      "scaledSumMs": 778
+    },
+    {
+      "gfx": 48,
+      "weapon": 50,
+      "action": "spellDir",
+      "nativeBaseMs": 1285,
+      "sumScaledFramesMs": 958,
+      "scaledSumMs": 963
+    },
+    {
+      "gfx": 48,
+      "weapon": 50,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1456,
+      "sumScaledFramesMs": 1085,
+      "scaledSumMs": 1092
+    },
+    {
+      "gfx": 37,
+      "weapon": 0,
+      "action": "attack",
+      "nativeBaseMs": 789,
+      "sumScaledFramesMs": 588,
+      "scaledSumMs": 591
+    },
+    {
+      "gfx": 37,
+      "weapon": 0,
+      "action": "spellDir",
+      "nativeBaseMs": 1162,
+      "sumScaledFramesMs": 866,
+      "scaledSumMs": 871
+    },
+    {
+      "gfx": 37,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1330,
+      "sumScaledFramesMs": 993,
+      "scaledSumMs": 997
+    },
+    {
+      "gfx": 37,
+      "weapon": 4,
+      "action": "attack",
+      "nativeBaseMs": 871,
+      "sumScaledFramesMs": 650,
+      "scaledSumMs": 653
+    },
+    {
+      "gfx": 37,
+      "weapon": 4,
+      "action": "spellDir",
+      "nativeBaseMs": 1162,
+      "sumScaledFramesMs": 866,
+      "scaledSumMs": 871
+    },
+    {
+      "gfx": 37,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1330,
+      "sumScaledFramesMs": 993,
+      "scaledSumMs": 997
+    },
+    {
+      "gfx": 37,
+      "weapon": 20,
+      "action": "attack",
+      "nativeBaseMs": 998,
+      "sumScaledFramesMs": 745,
+      "scaledSumMs": 748
+    },
+    {
+      "gfx": 37,
+      "weapon": 20,
+      "action": "spellDir",
+      "nativeBaseMs": 1162,
+      "sumScaledFramesMs": 866,
+      "scaledSumMs": 871
+    },
+    {
+      "gfx": 37,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1330,
+      "sumScaledFramesMs": 993,
+      "scaledSumMs": 997
+    },
+    {
+      "gfx": 734,
+      "weapon": 0,
+      "action": "attack",
+      "nativeBaseMs": 915,
+      "sumScaledFramesMs": 682,
+      "scaledSumMs": 686
+    },
+    {
+      "gfx": 734,
+      "weapon": 0,
+      "action": "spellDir",
+      "nativeBaseMs": 996,
+      "sumScaledFramesMs": 741,
+      "scaledSumMs": 747
+    },
+    {
+      "gfx": 734,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1160,
+      "sumScaledFramesMs": 862,
+      "scaledSumMs": 870
+    },
+    {
+      "gfx": 734,
+      "weapon": 4,
+      "action": "attack",
+      "nativeBaseMs": 1039,
+      "sumScaledFramesMs": 776,
+      "scaledSumMs": 779
+    },
+    {
+      "gfx": 734,
+      "weapon": 4,
+      "action": "spellDir",
+      "nativeBaseMs": 996,
+      "sumScaledFramesMs": 741,
+      "scaledSumMs": 747
+    },
+    {
+      "gfx": 734,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1160,
+      "sumScaledFramesMs": 862,
+      "scaledSumMs": 870
+    },
+    {
+      "gfx": 734,
+      "weapon": 20,
+      "action": "attack",
+      "nativeBaseMs": 1746,
+      "sumScaledFramesMs": 1307,
+      "scaledSumMs": 1309
+    },
+    {
+      "gfx": 734,
+      "weapon": 20,
+      "action": "spellDir",
+      "nativeBaseMs": 996,
+      "sumScaledFramesMs": 741,
+      "scaledSumMs": 747
+    },
+    {
+      "gfx": 734,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1160,
+      "sumScaledFramesMs": 862,
+      "scaledSumMs": 870
+    },
+    {
+      "gfx": 1186,
+      "weapon": 0,
+      "action": "attack",
+      "nativeBaseMs": 915,
+      "sumScaledFramesMs": 683,
+      "scaledSumMs": 686
+    },
+    {
+      "gfx": 1186,
+      "weapon": 0,
+      "action": "spellDir",
+      "nativeBaseMs": 994,
+      "sumScaledFramesMs": 739,
+      "scaledSumMs": 745
+    },
+    {
+      "gfx": 1186,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1162,
+      "sumScaledFramesMs": 865,
+      "scaledSumMs": 871
+    },
+    {
+      "gfx": 1186,
+      "weapon": 4,
+      "action": "attack",
+      "nativeBaseMs": 1039,
+      "sumScaledFramesMs": 777,
+      "scaledSumMs": 779
+    },
+    {
+      "gfx": 1186,
+      "weapon": 4,
+      "action": "spellDir",
+      "nativeBaseMs": 994,
+      "sumScaledFramesMs": 739,
+      "scaledSumMs": 745
+    },
+    {
+      "gfx": 1186,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1162,
+      "sumScaledFramesMs": 865,
+      "scaledSumMs": 871
+    },
+    {
+      "gfx": 1186,
+      "weapon": 20,
+      "action": "attack",
+      "nativeBaseMs": 1745,
+      "sumScaledFramesMs": 1302,
+      "scaledSumMs": 1308
+    },
+    {
+      "gfx": 1186,
+      "weapon": 20,
+      "action": "spellDir",
+      "nativeBaseMs": 994,
+      "sumScaledFramesMs": 739,
+      "scaledSumMs": 745
+    },
+    {
+      "gfx": 1186,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1162,
+      "sumScaledFramesMs": 865,
+      "scaledSumMs": 871
+    },
+    {
+      "gfx": 2786,
+      "weapon": 0,
+      "action": "attack",
+      "nativeBaseMs": 790,
+      "sumScaledFramesMs": 588,
+      "scaledSumMs": 592
+    },
+    {
+      "gfx": 2786,
+      "weapon": 0,
+      "action": "spellDir",
+      "nativeBaseMs": 1413,
+      "sumScaledFramesMs": 1055,
+      "scaledSumMs": 1059
+    },
+    {
+      "gfx": 2786,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1746,
+      "sumScaledFramesMs": 1307,
+      "scaledSumMs": 1309
+    },
+    {
+      "gfx": 2786,
+      "weapon": 4,
+      "action": "attack",
+      "nativeBaseMs": 915,
+      "sumScaledFramesMs": 683,
+      "scaledSumMs": 686
+    },
+    {
+      "gfx": 2786,
+      "weapon": 4,
+      "action": "spellDir",
+      "nativeBaseMs": 1413,
+      "sumScaledFramesMs": 1055,
+      "scaledSumMs": 1059
+    },
+    {
+      "gfx": 2786,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1746,
+      "sumScaledFramesMs": 1307,
+      "scaledSumMs": 1309
+    },
+    {
+      "gfx": 2786,
+      "weapon": 20,
+      "action": "attack",
+      "nativeBaseMs": 1164,
+      "sumScaledFramesMs": 869,
+      "scaledSumMs": 873
+    },
+    {
+      "gfx": 2786,
+      "weapon": 20,
+      "action": "spellDir",
+      "nativeBaseMs": 1413,
+      "sumScaledFramesMs": 1055,
+      "scaledSumMs": 1059
+    },
+    {
+      "gfx": 2786,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1746,
+      "sumScaledFramesMs": 1307,
+      "scaledSumMs": 1309
+    },
+    {
+      "gfx": 2796,
+      "weapon": 0,
+      "action": "attack",
+      "nativeBaseMs": 831,
+      "sumScaledFramesMs": 619,
+      "scaledSumMs": 623
+    },
+    {
+      "gfx": 2796,
+      "weapon": 0,
+      "action": "spellDir",
+      "nativeBaseMs": 1413,
+      "sumScaledFramesMs": 1054,
+      "scaledSumMs": 1059
+    },
+    {
+      "gfx": 2796,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1749,
+      "sumScaledFramesMs": 1302,
+      "scaledSumMs": 1311
+    },
+    {
+      "gfx": 2796,
+      "weapon": 4,
+      "action": "attack",
+      "nativeBaseMs": 915,
+      "sumScaledFramesMs": 684,
+      "scaledSumMs": 686
+    },
+    {
+      "gfx": 2796,
+      "weapon": 4,
+      "action": "spellDir",
+      "nativeBaseMs": 1413,
+      "sumScaledFramesMs": 1054,
+      "scaledSumMs": 1059
+    },
+    {
+      "gfx": 2796,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1749,
+      "sumScaledFramesMs": 1302,
+      "scaledSumMs": 1311
+    },
+    {
+      "gfx": 2796,
+      "weapon": 20,
+      "action": "attack",
+      "nativeBaseMs": 1164,
+      "sumScaledFramesMs": 869,
+      "scaledSumMs": 873
+    },
+    {
+      "gfx": 2796,
+      "weapon": 20,
+      "action": "spellDir",
+      "nativeBaseMs": 1413,
+      "sumScaledFramesMs": 1054,
+      "scaledSumMs": 1059
+    },
+    {
+      "gfx": 2796,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1749,
+      "sumScaledFramesMs": 1302,
+      "scaledSumMs": 1311
+    },
+    {
+      "gfx": 0,
+      "weapon": 0,
+      "action": "attack",
+      "nativeBaseMs": 832,
+      "sumScaledFramesMs": 621,
+      "scaledSumMs": 624
+    },
+    {
+      "gfx": 0,
+      "weapon": 0,
+      "action": "spellDir",
+      "nativeBaseMs": 1374,
+      "sumScaledFramesMs": 1024,
+      "scaledSumMs": 1030
+    },
+    {
+      "gfx": 0,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1539,
+      "sumScaledFramesMs": 1149,
+      "scaledSumMs": 1154
+    },
+    {
+      "gfx": 0,
+      "weapon": 4,
+      "action": "attack",
+      "nativeBaseMs": 997,
+      "sumScaledFramesMs": 745,
+      "scaledSumMs": 747
+    },
+    {
+      "gfx": 0,
+      "weapon": 4,
+      "action": "spellDir",
+      "nativeBaseMs": 1374,
+      "sumScaledFramesMs": 1024,
+      "scaledSumMs": 1030
+    },
+    {
+      "gfx": 0,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1539,
+      "sumScaledFramesMs": 1149,
+      "scaledSumMs": 1154
+    },
+    {
+      "gfx": 0,
+      "weapon": 20,
+      "action": "attack",
+      "nativeBaseMs": 1249,
+      "sumScaledFramesMs": 931,
+      "scaledSumMs": 936
+    },
+    {
+      "gfx": 0,
+      "weapon": 20,
+      "action": "spellDir",
+      "nativeBaseMs": 1374,
+      "sumScaledFramesMs": 1024,
+      "scaledSumMs": 1030
+    },
+    {
+      "gfx": 0,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1539,
+      "sumScaledFramesMs": 1149,
+      "scaledSumMs": 1154
+    },
+    {
+      "gfx": 0,
+      "weapon": 50,
+      "action": "attack",
+      "nativeBaseMs": 1163,
+      "sumScaledFramesMs": 870,
+      "scaledSumMs": 872
+    },
+    {
+      "gfx": 0,
+      "weapon": 50,
+      "action": "spellDir",
+      "nativeBaseMs": 1374,
+      "sumScaledFramesMs": 1024,
+      "scaledSumMs": 1030
+    },
+    {
+      "gfx": 0,
+      "weapon": 50,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1539,
+      "sumScaledFramesMs": 1149,
+      "scaledSumMs": 1154
+    },
+    {
+      "gfx": 1,
+      "weapon": 0,
+      "action": "attack",
+      "nativeBaseMs": 832,
+      "sumScaledFramesMs": 621,
+      "scaledSumMs": 624
+    },
+    {
+      "gfx": 1,
+      "weapon": 0,
+      "action": "spellDir",
+      "nativeBaseMs": 1374,
+      "sumScaledFramesMs": 1025,
+      "scaledSumMs": 1030
+    },
+    {
+      "gfx": 1,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1537,
+      "sumScaledFramesMs": 1148,
+      "scaledSumMs": 1152
+    },
+    {
+      "gfx": 1,
+      "weapon": 4,
+      "action": "attack",
+      "nativeBaseMs": 998,
+      "sumScaledFramesMs": 745,
+      "scaledSumMs": 748
+    },
+    {
+      "gfx": 1,
+      "weapon": 4,
+      "action": "spellDir",
+      "nativeBaseMs": 1374,
+      "sumScaledFramesMs": 1025,
+      "scaledSumMs": 1030
+    },
+    {
+      "gfx": 1,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1537,
+      "sumScaledFramesMs": 1148,
+      "scaledSumMs": 1152
+    },
+    {
+      "gfx": 1,
+      "weapon": 20,
+      "action": "attack",
+      "nativeBaseMs": 1249,
+      "sumScaledFramesMs": 931,
+      "scaledSumMs": 936
+    },
+    {
+      "gfx": 1,
+      "weapon": 20,
+      "action": "spellDir",
+      "nativeBaseMs": 1374,
+      "sumScaledFramesMs": 1025,
+      "scaledSumMs": 1030
+    },
+    {
+      "gfx": 1,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1537,
+      "sumScaledFramesMs": 1148,
+      "scaledSumMs": 1152
+    },
+    {
+      "gfx": 1,
+      "weapon": 50,
+      "action": "attack",
+      "nativeBaseMs": 1164,
+      "sumScaledFramesMs": 871,
+      "scaledSumMs": 873
+    },
+    {
+      "gfx": 1,
+      "weapon": 50,
+      "action": "spellDir",
+      "nativeBaseMs": 1374,
+      "sumScaledFramesMs": 1025,
+      "scaledSumMs": 1030
+    },
+    {
+      "gfx": 1,
+      "weapon": 50,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1537,
+      "sumScaledFramesMs": 1148,
+      "scaledSumMs": 1152
+    },
+    {
+      "gfx": 6658,
+      "weapon": 0,
+      "action": "attack",
+      "nativeBaseMs": 832,
+      "sumScaledFramesMs": 621,
+      "scaledSumMs": 624
+    },
+    {
+      "gfx": 6658,
+      "weapon": 0,
+      "action": "spellDir",
+      "nativeBaseMs": 1164,
+      "sumScaledFramesMs": 868,
+      "scaledSumMs": 873
+    },
+    {
+      "gfx": 6658,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1247,
+      "sumScaledFramesMs": 929,
+      "scaledSumMs": 935
+    },
+    {
+      "gfx": 6658,
+      "weapon": 4,
+      "action": "attack",
+      "nativeBaseMs": 997,
+      "sumScaledFramesMs": 743,
+      "scaledSumMs": 747
+    },
+    {
+      "gfx": 6658,
+      "weapon": 4,
+      "action": "spellDir",
+      "nativeBaseMs": 1164,
+      "sumScaledFramesMs": 868,
+      "scaledSumMs": 873
+    },
+    {
+      "gfx": 6658,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1247,
+      "sumScaledFramesMs": 929,
+      "scaledSumMs": 935
+    },
+    {
+      "gfx": 6658,
+      "weapon": 50,
+      "action": "attack",
+      "nativeBaseMs": 956,
+      "sumScaledFramesMs": 713,
+      "scaledSumMs": 717
+    },
+    {
+      "gfx": 6658,
+      "weapon": 50,
+      "action": "spellDir",
+      "nativeBaseMs": 1164,
+      "sumScaledFramesMs": 868,
+      "scaledSumMs": 873
+    },
+    {
+      "gfx": 6658,
+      "weapon": 50,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1247,
+      "sumScaledFramesMs": 929,
+      "scaledSumMs": 935
+    },
+    {
+      "gfx": 6661,
+      "weapon": 0,
+      "action": "attack",
+      "nativeBaseMs": 956,
+      "sumScaledFramesMs": 713,
+      "scaledSumMs": 717
+    },
+    {
+      "gfx": 6661,
+      "weapon": 0,
+      "action": "spellDir",
+      "nativeBaseMs": 1162,
+      "sumScaledFramesMs": 867,
+      "scaledSumMs": 871
+    },
+    {
+      "gfx": 6661,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1244,
+      "sumScaledFramesMs": 926,
+      "scaledSumMs": 933
+    },
+    {
+      "gfx": 6661,
+      "weapon": 4,
+      "action": "attack",
+      "nativeBaseMs": 998,
+      "sumScaledFramesMs": 747,
+      "scaledSumMs": 748
+    },
+    {
+      "gfx": 6661,
+      "weapon": 4,
+      "action": "spellDir",
+      "nativeBaseMs": 1162,
+      "sumScaledFramesMs": 867,
+      "scaledSumMs": 871
+    },
+    {
+      "gfx": 6661,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1244,
+      "sumScaledFramesMs": 926,
+      "scaledSumMs": 933
+    },
+    {
+      "gfx": 6661,
+      "weapon": 50,
+      "action": "attack",
+      "nativeBaseMs": 956,
+      "sumScaledFramesMs": 713,
+      "scaledSumMs": 717
+    },
+    {
+      "gfx": 6661,
+      "weapon": 50,
+      "action": "spellDir",
+      "nativeBaseMs": 1162,
+      "sumScaledFramesMs": 867,
+      "scaledSumMs": 871
+    },
+    {
+      "gfx": 6661,
+      "weapon": 50,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1244,
+      "sumScaledFramesMs": 926,
+      "scaledSumMs": 933
+    },
+    {
+      "gfx": 6671,
+      "weapon": 0,
+      "action": "attack",
+      "nativeBaseMs": 831,
+      "sumScaledFramesMs": 620,
+      "scaledSumMs": 623
+    },
+    {
+      "gfx": 6671,
+      "weapon": 0,
+      "action": "spellDir",
+      "nativeBaseMs": 1039,
+      "sumScaledFramesMs": 775,
+      "scaledSumMs": 779
+    },
+    {
+      "gfx": 6671,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1205,
+      "sumScaledFramesMs": 899,
+      "scaledSumMs": 903
+    },
+    {
+      "gfx": 6671,
+      "weapon": 20,
+      "action": "attack",
+      "nativeBaseMs": 1165,
+      "sumScaledFramesMs": 870,
+      "scaledSumMs": 873
+    },
+    {
+      "gfx": 6671,
+      "weapon": 20,
+      "action": "spellDir",
+      "nativeBaseMs": 1039,
+      "sumScaledFramesMs": 775,
+      "scaledSumMs": 779
+    },
+    {
+      "gfx": 6671,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1205,
+      "sumScaledFramesMs": 899,
+      "scaledSumMs": 903
+    },
+    {
+      "gfx": 6650,
+      "weapon": 0,
+      "action": "attack",
+      "nativeBaseMs": 832,
+      "sumScaledFramesMs": 620,
+      "scaledSumMs": 624
+    },
+    {
+      "gfx": 6650,
+      "weapon": 0,
+      "action": "spellDir",
+      "nativeBaseMs": 1038,
+      "sumScaledFramesMs": 774,
+      "scaledSumMs": 778
+    },
+    {
+      "gfx": 6650,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1205,
+      "sumScaledFramesMs": 897,
+      "scaledSumMs": 903
+    },
+    {
+      "gfx": 6650,
+      "weapon": 20,
+      "action": "attack",
+      "nativeBaseMs": 1164,
+      "sumScaledFramesMs": 869,
+      "scaledSumMs": 873
+    },
+    {
+      "gfx": 6650,
+      "weapon": 20,
+      "action": "spellDir",
+      "nativeBaseMs": 1038,
+      "sumScaledFramesMs": 774,
+      "scaledSumMs": 778
+    },
+    {
+      "gfx": 6650,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1205,
+      "sumScaledFramesMs": 897,
+      "scaledSumMs": 903
+    },
+    {
+      "gfx": 0,
+      "weapon": 46,
+      "action": "attack",
+      "nativeBaseMs": 873,
+      "sumScaledFramesMs": 652,
+      "scaledSumMs": 654
+    },
+    {
+      "gfx": 0,
+      "weapon": 46,
+      "action": "spellDir",
+      "nativeBaseMs": 1374,
+      "sumScaledFramesMs": 1024,
+      "scaledSumMs": 1030
+    },
+    {
+      "gfx": 0,
+      "weapon": 46,
+      "action": "spellNoDir",
+      "nativeBaseMs": 1539,
+      "sumScaledFramesMs": 1149,
+      "scaledSumMs": 1154
+    }
+  ]
+}

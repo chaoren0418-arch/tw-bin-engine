@@ -1,0 +1,2551 @@
+{
+  "groups": [
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "rawAction15": "15.get(1 4,0.0:1 88.0:1 88.1:4<206 88.2:4)",
+      "profileKeys": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          20
+        ],
+        [
+          0,
+          46
+        ],
+        [
+          0,
+          50
+        ]
+      ],
+      "additionalBodyKeys": [
+        "88:0",
+        "88:1",
+        "88:2",
+        "89:0",
+        "89:1",
+        "89:2",
+        "90:0",
+        "90:1",
+        "90:2",
+        "91:0",
+        "91:1",
+        "91:2",
+        "92:0",
+        "92:1",
+        "92:2",
+        "93:0",
+        "93:1",
+        "93:2",
+        "94:0",
+        "94:1",
+        "94:2",
+        "95:0",
+        "95:1",
+        "95:2"
+      ],
+      "bodyFrameBytes": 236797,
+      "bodyFrameSha256": "ed5300f79c2804b164c8e8e64a59fd6686057c2cc4264138991fd07389f31bd3",
+      "sourceReferences": [
+        {
+          "frameKey": "3225/88:0",
+          "frameMap": "frame-map.json frames[key=3225/88:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=88]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/88:1",
+          "frameMap": "frame-map.json frames[key=3225/88:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=88]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/88:2",
+          "frameMap": "frame-map.json frames[key=3225/88:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=88]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/89:0",
+          "frameMap": "frame-map.json frames[key=3225/89:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=89]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/89:1",
+          "frameMap": "frame-map.json frames[key=3225/89:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=89]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/89:2",
+          "frameMap": "frame-map.json frames[key=3225/89:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=89]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/90:0",
+          "frameMap": "frame-map.json frames[key=3225/90:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=90]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/90:1",
+          "frameMap": "frame-map.json frames[key=3225/90:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=90]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/90:2",
+          "frameMap": "frame-map.json frames[key=3225/90:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=90]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/91:0",
+          "frameMap": "frame-map.json frames[key=3225/91:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=91]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/91:1",
+          "frameMap": "frame-map.json frames[key=3225/91:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=91]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/91:2",
+          "frameMap": "frame-map.json frames[key=3225/91:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=91]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/92:0",
+          "frameMap": "frame-map.json frames[key=3225/92:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=92]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/92:1",
+          "frameMap": "frame-map.json frames[key=3225/92:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=92]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/92:2",
+          "frameMap": "frame-map.json frames[key=3225/92:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=92]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/93:0",
+          "frameMap": "frame-map.json frames[key=3225/93:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=93]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/93:1",
+          "frameMap": "frame-map.json frames[key=3225/93:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=93]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/93:2",
+          "frameMap": "frame-map.json frames[key=3225/93:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=93]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/94:0",
+          "frameMap": "frame-map.json frames[key=3225/94:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=94]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/94:1",
+          "frameMap": "frame-map.json frames[key=3225/94:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=94]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/94:2",
+          "frameMap": "frame-map.json frames[key=3225/94:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=94]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/95:0",
+          "frameMap": "frame-map.json frames[key=3225/95:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=95]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/95:1",
+          "frameMap": "frame-map.json frames[key=3225/95:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=95]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3225/95:2",
+          "frameMap": "frame-map.json frames[key=3225/95:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3225,sid=95]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        }
+      ],
+      "sequenceReference": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1/sequence-map.json profiles[gfx=0]",
+      "baseCanonicalIdenticalAcrossWeapons": true
+    },
+    {
+      "gfx": 1,
+      "sprite": 3227,
+      "rawAction15": "15.get(1 4,0.0:1 88.0:1 88.1:4<206 88.2:4)",
+      "profileKeys": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          20
+        ],
+        [
+          1,
+          50
+        ]
+      ],
+      "additionalBodyKeys": [
+        "88:0",
+        "88:1",
+        "88:2",
+        "89:0",
+        "89:1",
+        "89:2",
+        "90:0",
+        "90:1",
+        "90:2",
+        "91:0",
+        "91:1",
+        "91:2",
+        "92:0",
+        "92:1",
+        "92:2",
+        "93:0",
+        "93:1",
+        "93:2",
+        "94:0",
+        "94:1",
+        "94:2",
+        "95:0",
+        "95:1",
+        "95:2"
+      ],
+      "bodyFrameBytes": 155177,
+      "bodyFrameSha256": "dfd49fa200f43cb5d5f68e8c414b5e5338c2ac52215a2dfe234e1afdfe8f8703",
+      "sourceReferences": [
+        {
+          "frameKey": "3227/88:0",
+          "frameMap": "frame-map.json frames[key=3227/88:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=88]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/88:1",
+          "frameMap": "frame-map.json frames[key=3227/88:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=88]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/88:2",
+          "frameMap": "frame-map.json frames[key=3227/88:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=88]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/89:0",
+          "frameMap": "frame-map.json frames[key=3227/89:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=89]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/89:1",
+          "frameMap": "frame-map.json frames[key=3227/89:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=89]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/89:2",
+          "frameMap": "frame-map.json frames[key=3227/89:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=89]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/90:0",
+          "frameMap": "frame-map.json frames[key=3227/90:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=90]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/90:1",
+          "frameMap": "frame-map.json frames[key=3227/90:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=90]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/90:2",
+          "frameMap": "frame-map.json frames[key=3227/90:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=90]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/91:0",
+          "frameMap": "frame-map.json frames[key=3227/91:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=91]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/91:1",
+          "frameMap": "frame-map.json frames[key=3227/91:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=91]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/91:2",
+          "frameMap": "frame-map.json frames[key=3227/91:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=91]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/92:0",
+          "frameMap": "frame-map.json frames[key=3227/92:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=92]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/92:1",
+          "frameMap": "frame-map.json frames[key=3227/92:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=92]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/92:2",
+          "frameMap": "frame-map.json frames[key=3227/92:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=92]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/93:0",
+          "frameMap": "frame-map.json frames[key=3227/93:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=93]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/93:1",
+          "frameMap": "frame-map.json frames[key=3227/93:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=93]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/93:2",
+          "frameMap": "frame-map.json frames[key=3227/93:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=93]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/94:0",
+          "frameMap": "frame-map.json frames[key=3227/94:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=94]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/94:1",
+          "frameMap": "frame-map.json frames[key=3227/94:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=94]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/94:2",
+          "frameMap": "frame-map.json frames[key=3227/94:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=94]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/95:0",
+          "frameMap": "frame-map.json frames[key=3227/95:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=95]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/95:1",
+          "frameMap": "frame-map.json frames[key=3227/95:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=95]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3227/95:2",
+          "frameMap": "frame-map.json frames[key=3227/95:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3227,sid=95]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        }
+      ],
+      "sequenceReference": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1/sequence-map.json profiles[gfx=1]",
+      "baseCanonicalIdenticalAcrossWeapons": true
+    },
+    {
+      "gfx": 37,
+      "sprite": 3474,
+      "rawAction15": "15.get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)",
+      "profileKeys": [
+        [
+          37,
+          0
+        ],
+        [
+          37,
+          4
+        ],
+        [
+          37,
+          20
+        ]
+      ],
+      "additionalBodyKeys": [
+        "24:0",
+        "24:1",
+        "24:2",
+        "25:0",
+        "25:1",
+        "25:2",
+        "26:0",
+        "26:1",
+        "26:2",
+        "27:0",
+        "27:1",
+        "27:2",
+        "28:0",
+        "28:1",
+        "28:2",
+        "29:0",
+        "29:1",
+        "29:2",
+        "30:0",
+        "30:1",
+        "30:2",
+        "31:0",
+        "31:1",
+        "31:2"
+      ],
+      "bodyFrameBytes": 151168,
+      "bodyFrameSha256": "1f696d9ea6344ac2c24d377387f82589e6923c07895e0ac834e5dc8541970706",
+      "sourceReferences": [
+        {
+          "frameKey": "3474/24:0",
+          "frameMap": "frame-map.json frames[key=3474/24:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/24:1",
+          "frameMap": "frame-map.json frames[key=3474/24:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/24:2",
+          "frameMap": "frame-map.json frames[key=3474/24:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/25:0",
+          "frameMap": "frame-map.json frames[key=3474/25:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/25:1",
+          "frameMap": "frame-map.json frames[key=3474/25:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/25:2",
+          "frameMap": "frame-map.json frames[key=3474/25:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/26:0",
+          "frameMap": "frame-map.json frames[key=3474/26:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/26:1",
+          "frameMap": "frame-map.json frames[key=3474/26:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/26:2",
+          "frameMap": "frame-map.json frames[key=3474/26:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/27:0",
+          "frameMap": "frame-map.json frames[key=3474/27:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/27:1",
+          "frameMap": "frame-map.json frames[key=3474/27:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/27:2",
+          "frameMap": "frame-map.json frames[key=3474/27:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/28:0",
+          "frameMap": "frame-map.json frames[key=3474/28:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/28:1",
+          "frameMap": "frame-map.json frames[key=3474/28:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/28:2",
+          "frameMap": "frame-map.json frames[key=3474/28:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/29:0",
+          "frameMap": "frame-map.json frames[key=3474/29:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/29:1",
+          "frameMap": "frame-map.json frames[key=3474/29:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/29:2",
+          "frameMap": "frame-map.json frames[key=3474/29:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/30:0",
+          "frameMap": "frame-map.json frames[key=3474/30:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/30:1",
+          "frameMap": "frame-map.json frames[key=3474/30:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/30:2",
+          "frameMap": "frame-map.json frames[key=3474/30:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/31:0",
+          "frameMap": "frame-map.json frames[key=3474/31:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/31:1",
+          "frameMap": "frame-map.json frames[key=3474/31:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3474/31:2",
+          "frameMap": "frame-map.json frames[key=3474/31:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3474,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        }
+      ],
+      "sequenceReference": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1/sequence-map.json profiles[gfx=37]",
+      "baseCanonicalIdenticalAcrossWeapons": true
+    },
+    {
+      "gfx": 48,
+      "sprite": 3215,
+      "rawAction15": "15.get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)",
+      "profileKeys": [
+        [
+          48,
+          0
+        ],
+        [
+          48,
+          4
+        ],
+        [
+          48,
+          20
+        ],
+        [
+          48,
+          50
+        ]
+      ],
+      "additionalBodyKeys": [
+        "24:0",
+        "24:1",
+        "24:2",
+        "25:0",
+        "25:1",
+        "25:2",
+        "26:0",
+        "26:1",
+        "26:2",
+        "27:0",
+        "27:1",
+        "27:2",
+        "28:0",
+        "28:1",
+        "28:2",
+        "29:0",
+        "29:1",
+        "29:2",
+        "30:0",
+        "30:1",
+        "30:2",
+        "31:0",
+        "31:1",
+        "31:2"
+      ],
+      "bodyFrameBytes": 176719,
+      "bodyFrameSha256": "484bef70d52fc6ceaec3c95d4ff10a3a00c5c45025ca7c4e917b5dd5fa47169a",
+      "sourceReferences": [
+        {
+          "frameKey": "3215/24:0",
+          "frameMap": "frame-map.json frames[key=3215/24:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/24:1",
+          "frameMap": "frame-map.json frames[key=3215/24:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/24:2",
+          "frameMap": "frame-map.json frames[key=3215/24:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/25:0",
+          "frameMap": "frame-map.json frames[key=3215/25:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/25:1",
+          "frameMap": "frame-map.json frames[key=3215/25:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/25:2",
+          "frameMap": "frame-map.json frames[key=3215/25:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/26:0",
+          "frameMap": "frame-map.json frames[key=3215/26:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/26:1",
+          "frameMap": "frame-map.json frames[key=3215/26:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/26:2",
+          "frameMap": "frame-map.json frames[key=3215/26:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/27:0",
+          "frameMap": "frame-map.json frames[key=3215/27:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/27:1",
+          "frameMap": "frame-map.json frames[key=3215/27:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/27:2",
+          "frameMap": "frame-map.json frames[key=3215/27:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/28:0",
+          "frameMap": "frame-map.json frames[key=3215/28:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/28:1",
+          "frameMap": "frame-map.json frames[key=3215/28:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/28:2",
+          "frameMap": "frame-map.json frames[key=3215/28:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/29:0",
+          "frameMap": "frame-map.json frames[key=3215/29:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/29:1",
+          "frameMap": "frame-map.json frames[key=3215/29:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/29:2",
+          "frameMap": "frame-map.json frames[key=3215/29:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/30:0",
+          "frameMap": "frame-map.json frames[key=3215/30:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/30:1",
+          "frameMap": "frame-map.json frames[key=3215/30:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/30:2",
+          "frameMap": "frame-map.json frames[key=3215/30:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/31:0",
+          "frameMap": "frame-map.json frames[key=3215/31:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/31:1",
+          "frameMap": "frame-map.json frames[key=3215/31:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3215/31:2",
+          "frameMap": "frame-map.json frames[key=3215/31:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3215,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        }
+      ],
+      "sequenceReference": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1/sequence-map.json profiles[gfx=48]",
+      "baseCanonicalIdenticalAcrossWeapons": true
+    },
+    {
+      "gfx": 61,
+      "sprite": 3213,
+      "rawAction15": "15.get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)",
+      "profileKeys": [
+        [
+          61,
+          0
+        ],
+        [
+          61,
+          4
+        ],
+        [
+          61,
+          20
+        ],
+        [
+          61,
+          50
+        ]
+      ],
+      "additionalBodyKeys": [
+        "24:0",
+        "24:1",
+        "24:2",
+        "25:0",
+        "25:1",
+        "25:2",
+        "26:0",
+        "26:1",
+        "26:2",
+        "27:0",
+        "27:1",
+        "27:2",
+        "28:0",
+        "28:1",
+        "28:2",
+        "29:0",
+        "29:1",
+        "29:2",
+        "30:0",
+        "30:1",
+        "30:2",
+        "31:0",
+        "31:1",
+        "31:2"
+      ],
+      "bodyFrameBytes": 213147,
+      "bodyFrameSha256": "37d1251393cfc272241ec547e17fb04a32d1fe57ba061db2837eb0fb93c19a2b",
+      "sourceReferences": [
+        {
+          "frameKey": "3213/24:0",
+          "frameMap": "frame-map.json frames[key=3213/24:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/24:1",
+          "frameMap": "frame-map.json frames[key=3213/24:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/24:2",
+          "frameMap": "frame-map.json frames[key=3213/24:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/25:0",
+          "frameMap": "frame-map.json frames[key=3213/25:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/25:1",
+          "frameMap": "frame-map.json frames[key=3213/25:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/25:2",
+          "frameMap": "frame-map.json frames[key=3213/25:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/26:0",
+          "frameMap": "frame-map.json frames[key=3213/26:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/26:1",
+          "frameMap": "frame-map.json frames[key=3213/26:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/26:2",
+          "frameMap": "frame-map.json frames[key=3213/26:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/27:0",
+          "frameMap": "frame-map.json frames[key=3213/27:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/27:1",
+          "frameMap": "frame-map.json frames[key=3213/27:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/27:2",
+          "frameMap": "frame-map.json frames[key=3213/27:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/28:0",
+          "frameMap": "frame-map.json frames[key=3213/28:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/28:1",
+          "frameMap": "frame-map.json frames[key=3213/28:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/28:2",
+          "frameMap": "frame-map.json frames[key=3213/28:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/29:0",
+          "frameMap": "frame-map.json frames[key=3213/29:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/29:1",
+          "frameMap": "frame-map.json frames[key=3213/29:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/29:2",
+          "frameMap": "frame-map.json frames[key=3213/29:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/30:0",
+          "frameMap": "frame-map.json frames[key=3213/30:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/30:1",
+          "frameMap": "frame-map.json frames[key=3213/30:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/30:2",
+          "frameMap": "frame-map.json frames[key=3213/30:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/31:0",
+          "frameMap": "frame-map.json frames[key=3213/31:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/31:1",
+          "frameMap": "frame-map.json frames[key=3213/31:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3213/31:2",
+          "frameMap": "frame-map.json frames[key=3213/31:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3213,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        }
+      ],
+      "sequenceReference": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1/sequence-map.json profiles[gfx=61]",
+      "baseCanonicalIdenticalAcrossWeapons": true
+    },
+    {
+      "gfx": 734,
+      "sprite": 3476,
+      "rawAction15": "15.get(1 4,0.0:1 40.0:1 40.1:4<206 40.2:4)",
+      "profileKeys": [
+        [
+          734,
+          0
+        ],
+        [
+          734,
+          4
+        ],
+        [
+          734,
+          20
+        ]
+      ],
+      "additionalBodyKeys": [
+        "40:0",
+        "40:1",
+        "40:2",
+        "41:0",
+        "41:1",
+        "41:2",
+        "42:0",
+        "42:1",
+        "42:2",
+        "43:0",
+        "43:1",
+        "43:2",
+        "44:0",
+        "44:1",
+        "44:2",
+        "45:0",
+        "45:1",
+        "45:2",
+        "46:0",
+        "46:1",
+        "46:2",
+        "47:0",
+        "47:1",
+        "47:2"
+      ],
+      "bodyFrameBytes": 293628,
+      "bodyFrameSha256": "9aa3f87c2f72f2cd4d7286cf57d386df551387afb65c6269872bead9a6856f21",
+      "sourceReferences": [
+        {
+          "frameKey": "3476/40:0",
+          "frameMap": "frame-map.json frames[key=3476/40:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=40]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/40:1",
+          "frameMap": "frame-map.json frames[key=3476/40:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=40]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/40:2",
+          "frameMap": "frame-map.json frames[key=3476/40:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=40]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/41:0",
+          "frameMap": "frame-map.json frames[key=3476/41:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=41]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/41:1",
+          "frameMap": "frame-map.json frames[key=3476/41:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=41]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/41:2",
+          "frameMap": "frame-map.json frames[key=3476/41:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=41]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/42:0",
+          "frameMap": "frame-map.json frames[key=3476/42:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=42]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/42:1",
+          "frameMap": "frame-map.json frames[key=3476/42:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=42]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/42:2",
+          "frameMap": "frame-map.json frames[key=3476/42:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=42]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/43:0",
+          "frameMap": "frame-map.json frames[key=3476/43:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=43]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/43:1",
+          "frameMap": "frame-map.json frames[key=3476/43:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=43]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/43:2",
+          "frameMap": "frame-map.json frames[key=3476/43:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=43]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/44:0",
+          "frameMap": "frame-map.json frames[key=3476/44:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=44]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/44:1",
+          "frameMap": "frame-map.json frames[key=3476/44:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=44]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/44:2",
+          "frameMap": "frame-map.json frames[key=3476/44:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=44]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/45:0",
+          "frameMap": "frame-map.json frames[key=3476/45:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=45]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/45:1",
+          "frameMap": "frame-map.json frames[key=3476/45:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=45]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/45:2",
+          "frameMap": "frame-map.json frames[key=3476/45:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=45]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/46:0",
+          "frameMap": "frame-map.json frames[key=3476/46:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=46]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/46:1",
+          "frameMap": "frame-map.json frames[key=3476/46:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=46]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/46:2",
+          "frameMap": "frame-map.json frames[key=3476/46:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=46]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/47:0",
+          "frameMap": "frame-map.json frames[key=3476/47:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=47]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/47:1",
+          "frameMap": "frame-map.json frames[key=3476/47:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=47]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3476/47:2",
+          "frameMap": "frame-map.json frames[key=3476/47:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3476,sid=47]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        }
+      ],
+      "sequenceReference": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1/sequence-map.json profiles[gfx=734]",
+      "baseCanonicalIdenticalAcrossWeapons": true
+    },
+    {
+      "gfx": 1186,
+      "sprite": 3221,
+      "rawAction15": "15.get(1 4,0.0:1 48.0:1 48.1:4<206 48.2:4)",
+      "profileKeys": [
+        [
+          1186,
+          0
+        ],
+        [
+          1186,
+          4
+        ],
+        [
+          1186,
+          20
+        ]
+      ],
+      "additionalBodyKeys": [
+        "48:0",
+        "48:1",
+        "48:2",
+        "49:0",
+        "49:1",
+        "49:2",
+        "50:0",
+        "50:1",
+        "50:2",
+        "51:0",
+        "51:1",
+        "51:2",
+        "52:0",
+        "52:1",
+        "52:2",
+        "53:0",
+        "53:1",
+        "53:2",
+        "54:0",
+        "54:1",
+        "54:2",
+        "55:0",
+        "55:1",
+        "55:2"
+      ],
+      "bodyFrameBytes": 215158,
+      "bodyFrameSha256": "989041dab3bf6e7ffd9b687d2d1986c0b4ac0329515f5f9a93a774df1caaf448",
+      "sourceReferences": [
+        {
+          "frameKey": "3221/48:0",
+          "frameMap": "frame-map.json frames[key=3221/48:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=48]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/48:1",
+          "frameMap": "frame-map.json frames[key=3221/48:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=48]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/48:2",
+          "frameMap": "frame-map.json frames[key=3221/48:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=48]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/49:0",
+          "frameMap": "frame-map.json frames[key=3221/49:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=49]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/49:1",
+          "frameMap": "frame-map.json frames[key=3221/49:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=49]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/49:2",
+          "frameMap": "frame-map.json frames[key=3221/49:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=49]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/50:0",
+          "frameMap": "frame-map.json frames[key=3221/50:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=50]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/50:1",
+          "frameMap": "frame-map.json frames[key=3221/50:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=50]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/50:2",
+          "frameMap": "frame-map.json frames[key=3221/50:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=50]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/51:0",
+          "frameMap": "frame-map.json frames[key=3221/51:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=51]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/51:1",
+          "frameMap": "frame-map.json frames[key=3221/51:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=51]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/51:2",
+          "frameMap": "frame-map.json frames[key=3221/51:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=51]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/52:0",
+          "frameMap": "frame-map.json frames[key=3221/52:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=52]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/52:1",
+          "frameMap": "frame-map.json frames[key=3221/52:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=52]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/52:2",
+          "frameMap": "frame-map.json frames[key=3221/52:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=52]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/53:0",
+          "frameMap": "frame-map.json frames[key=3221/53:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=53]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/53:1",
+          "frameMap": "frame-map.json frames[key=3221/53:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=53]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/53:2",
+          "frameMap": "frame-map.json frames[key=3221/53:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=53]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/54:0",
+          "frameMap": "frame-map.json frames[key=3221/54:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=54]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/54:1",
+          "frameMap": "frame-map.json frames[key=3221/54:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=54]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/54:2",
+          "frameMap": "frame-map.json frames[key=3221/54:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=54]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/55:0",
+          "frameMap": "frame-map.json frames[key=3221/55:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=55]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/55:1",
+          "frameMap": "frame-map.json frames[key=3221/55:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=55]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "3221/55:2",
+          "frameMap": "frame-map.json frames[key=3221/55:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=3221,sid=55]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        }
+      ],
+      "sequenceReference": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1/sequence-map.json profiles[gfx=1186]",
+      "baseCanonicalIdenticalAcrossWeapons": true
+    },
+    {
+      "gfx": 2786,
+      "sprite": 2786,
+      "rawAction15": "15.get(1 4,8.0:1 64.0:1 64.1:4<206 64.2:4)",
+      "profileKeys": [
+        [
+          2786,
+          0
+        ],
+        [
+          2786,
+          4
+        ],
+        [
+          2786,
+          20
+        ]
+      ],
+      "additionalBodyKeys": [
+        "64:0",
+        "64:1",
+        "64:2",
+        "65:0",
+        "65:1",
+        "65:2",
+        "66:0",
+        "66:1",
+        "66:2",
+        "67:0",
+        "67:1",
+        "67:2",
+        "68:0",
+        "68:1",
+        "68:2",
+        "69:0",
+        "69:1",
+        "69:2",
+        "70:0",
+        "70:1",
+        "70:2",
+        "71:0",
+        "71:1",
+        "71:2"
+      ],
+      "bodyFrameBytes": 214804,
+      "bodyFrameSha256": "8e0c3cc905ee24ea0521e1bf05dca374aae8b581291e0c6ba6d8bb877c679112",
+      "sourceReferences": [
+        {
+          "frameKey": "2786/64:0",
+          "frameMap": "frame-map.json frames[key=2786/64:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=64]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/64:1",
+          "frameMap": "frame-map.json frames[key=2786/64:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=64]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/64:2",
+          "frameMap": "frame-map.json frames[key=2786/64:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=64]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/65:0",
+          "frameMap": "frame-map.json frames[key=2786/65:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=65]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/65:1",
+          "frameMap": "frame-map.json frames[key=2786/65:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=65]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/65:2",
+          "frameMap": "frame-map.json frames[key=2786/65:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=65]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/66:0",
+          "frameMap": "frame-map.json frames[key=2786/66:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=66]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/66:1",
+          "frameMap": "frame-map.json frames[key=2786/66:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=66]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/66:2",
+          "frameMap": "frame-map.json frames[key=2786/66:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=66]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/67:0",
+          "frameMap": "frame-map.json frames[key=2786/67:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=67]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/67:1",
+          "frameMap": "frame-map.json frames[key=2786/67:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=67]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/67:2",
+          "frameMap": "frame-map.json frames[key=2786/67:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=67]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/68:0",
+          "frameMap": "frame-map.json frames[key=2786/68:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=68]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/68:1",
+          "frameMap": "frame-map.json frames[key=2786/68:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=68]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/68:2",
+          "frameMap": "frame-map.json frames[key=2786/68:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=68]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/69:0",
+          "frameMap": "frame-map.json frames[key=2786/69:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=69]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/69:1",
+          "frameMap": "frame-map.json frames[key=2786/69:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=69]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/69:2",
+          "frameMap": "frame-map.json frames[key=2786/69:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=69]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/70:0",
+          "frameMap": "frame-map.json frames[key=2786/70:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=70]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/70:1",
+          "frameMap": "frame-map.json frames[key=2786/70:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=70]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/70:2",
+          "frameMap": "frame-map.json frames[key=2786/70:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=70]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/71:0",
+          "frameMap": "frame-map.json frames[key=2786/71:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=71]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/71:1",
+          "frameMap": "frame-map.json frames[key=2786/71:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=71]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2786/71:2",
+          "frameMap": "frame-map.json frames[key=2786/71:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2786,sid=71]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        }
+      ],
+      "sequenceReference": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1/sequence-map.json profiles[gfx=2786]",
+      "baseCanonicalIdenticalAcrossWeapons": true
+    },
+    {
+      "gfx": 2796,
+      "sprite": 2796,
+      "rawAction15": "15.get(1 4,8.0:1 48.1:1 48.2:4<206 48.3:4)",
+      "profileKeys": [
+        [
+          2796,
+          0
+        ],
+        [
+          2796,
+          4
+        ],
+        [
+          2796,
+          20
+        ]
+      ],
+      "additionalBodyKeys": [
+        "48:1",
+        "48:2",
+        "48:3",
+        "49:1",
+        "49:2",
+        "49:3",
+        "50:1",
+        "50:2",
+        "50:3",
+        "51:1",
+        "51:2",
+        "51:3",
+        "52:1",
+        "52:2",
+        "52:3",
+        "53:1",
+        "53:2",
+        "53:3",
+        "54:1",
+        "54:2",
+        "54:3",
+        "55:1",
+        "55:2",
+        "55:3"
+      ],
+      "bodyFrameBytes": 173836,
+      "bodyFrameSha256": "7cd6a7af264ef2200384a35917e92e59a8aa1491dbaccbcc81e7adb9c5393c88",
+      "sourceReferences": [
+        {
+          "frameKey": "2796/48:1",
+          "frameMap": "frame-map.json frames[key=2796/48:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=48]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/48:2",
+          "frameMap": "frame-map.json frames[key=2796/48:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=48]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/48:3",
+          "frameMap": "frame-map.json frames[key=2796/48:3]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=48]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/49:1",
+          "frameMap": "frame-map.json frames[key=2796/49:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=49]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/49:2",
+          "frameMap": "frame-map.json frames[key=2796/49:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=49]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/49:3",
+          "frameMap": "frame-map.json frames[key=2796/49:3]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=49]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/50:1",
+          "frameMap": "frame-map.json frames[key=2796/50:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=50]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/50:2",
+          "frameMap": "frame-map.json frames[key=2796/50:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=50]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/50:3",
+          "frameMap": "frame-map.json frames[key=2796/50:3]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=50]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/51:1",
+          "frameMap": "frame-map.json frames[key=2796/51:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=51]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/51:2",
+          "frameMap": "frame-map.json frames[key=2796/51:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=51]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/51:3",
+          "frameMap": "frame-map.json frames[key=2796/51:3]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=51]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/52:1",
+          "frameMap": "frame-map.json frames[key=2796/52:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=52]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/52:2",
+          "frameMap": "frame-map.json frames[key=2796/52:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=52]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/52:3",
+          "frameMap": "frame-map.json frames[key=2796/52:3]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=52]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/53:1",
+          "frameMap": "frame-map.json frames[key=2796/53:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=53]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/53:2",
+          "frameMap": "frame-map.json frames[key=2796/53:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=53]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/53:3",
+          "frameMap": "frame-map.json frames[key=2796/53:3]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=53]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/54:1",
+          "frameMap": "frame-map.json frames[key=2796/54:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=54]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/54:2",
+          "frameMap": "frame-map.json frames[key=2796/54:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=54]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/54:3",
+          "frameMap": "frame-map.json frames[key=2796/54:3]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=54]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/55:1",
+          "frameMap": "frame-map.json frames[key=2796/55:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=55]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/55:2",
+          "frameMap": "frame-map.json frames[key=2796/55:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=55]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "2796/55:3",
+          "frameMap": "frame-map.json frames[key=2796/55:3]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=2796,sid=55]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        }
+      ],
+      "sequenceReference": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1/sequence-map.json profiles[gfx=2796]",
+      "baseCanonicalIdenticalAcrossWeapons": true
+    },
+    {
+      "gfx": 6650,
+      "sprite": 6650,
+      "rawAction15": "15.get(1 4,8.0:1 24.0:1 24.1:4<206 24.2:4)",
+      "profileKeys": [
+        [
+          6650,
+          0
+        ],
+        [
+          6650,
+          20
+        ]
+      ],
+      "additionalBodyKeys": [
+        "24:0",
+        "24:1",
+        "24:2",
+        "25:0",
+        "25:1",
+        "25:2",
+        "26:0",
+        "26:1",
+        "26:2",
+        "27:0",
+        "27:1",
+        "27:2",
+        "28:0",
+        "28:1",
+        "28:2",
+        "29:0",
+        "29:1",
+        "29:2",
+        "30:0",
+        "30:1",
+        "30:2",
+        "31:0",
+        "31:1",
+        "31:2"
+      ],
+      "bodyFrameBytes": 189136,
+      "bodyFrameSha256": "94ed2e702422bdda7f437ba4fd274d8cf5104c87e6dc1210fd9c4da6ca747f95",
+      "sourceReferences": [
+        {
+          "frameKey": "6650/24:0",
+          "frameMap": "frame-map.json frames[key=6650/24:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/24:1",
+          "frameMap": "frame-map.json frames[key=6650/24:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/24:2",
+          "frameMap": "frame-map.json frames[key=6650/24:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/25:0",
+          "frameMap": "frame-map.json frames[key=6650/25:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/25:1",
+          "frameMap": "frame-map.json frames[key=6650/25:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/25:2",
+          "frameMap": "frame-map.json frames[key=6650/25:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/26:0",
+          "frameMap": "frame-map.json frames[key=6650/26:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/26:1",
+          "frameMap": "frame-map.json frames[key=6650/26:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/26:2",
+          "frameMap": "frame-map.json frames[key=6650/26:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/27:0",
+          "frameMap": "frame-map.json frames[key=6650/27:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/27:1",
+          "frameMap": "frame-map.json frames[key=6650/27:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/27:2",
+          "frameMap": "frame-map.json frames[key=6650/27:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/28:0",
+          "frameMap": "frame-map.json frames[key=6650/28:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/28:1",
+          "frameMap": "frame-map.json frames[key=6650/28:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/28:2",
+          "frameMap": "frame-map.json frames[key=6650/28:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/29:0",
+          "frameMap": "frame-map.json frames[key=6650/29:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/29:1",
+          "frameMap": "frame-map.json frames[key=6650/29:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/29:2",
+          "frameMap": "frame-map.json frames[key=6650/29:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/30:0",
+          "frameMap": "frame-map.json frames[key=6650/30:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/30:1",
+          "frameMap": "frame-map.json frames[key=6650/30:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/30:2",
+          "frameMap": "frame-map.json frames[key=6650/30:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/31:0",
+          "frameMap": "frame-map.json frames[key=6650/31:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/31:1",
+          "frameMap": "frame-map.json frames[key=6650/31:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6650/31:2",
+          "frameMap": "frame-map.json frames[key=6650/31:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6650,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        }
+      ],
+      "sequenceReference": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1/sequence-map.json profiles[gfx=6650]",
+      "baseCanonicalIdenticalAcrossWeapons": true
+    },
+    {
+      "gfx": 6658,
+      "sprite": 6658,
+      "rawAction15": "15.get(1 4,8.0:1 56.0:1 56.1:4<206 56.2:4)",
+      "profileKeys": [
+        [
+          6658,
+          0
+        ],
+        [
+          6658,
+          4
+        ],
+        [
+          6658,
+          50
+        ]
+      ],
+      "additionalBodyKeys": [
+        "56:0",
+        "56:1",
+        "56:2",
+        "57:0",
+        "57:1",
+        "57:2",
+        "58:0",
+        "58:1",
+        "58:2",
+        "59:0",
+        "59:1",
+        "59:2",
+        "60:0",
+        "60:1",
+        "60:2",
+        "61:0",
+        "61:1",
+        "61:2",
+        "62:0",
+        "62:1",
+        "62:2",
+        "63:0",
+        "63:1",
+        "63:2"
+      ],
+      "bodyFrameBytes": 248387,
+      "bodyFrameSha256": "f6686fc0191ca9651d7fccd5ca61bf9fd989fb636421dbea798fdfed0ca0485f",
+      "sourceReferences": [
+        {
+          "frameKey": "6658/56:0",
+          "frameMap": "frame-map.json frames[key=6658/56:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=56]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/56:1",
+          "frameMap": "frame-map.json frames[key=6658/56:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=56]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/56:2",
+          "frameMap": "frame-map.json frames[key=6658/56:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=56]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/57:0",
+          "frameMap": "frame-map.json frames[key=6658/57:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=57]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/57:1",
+          "frameMap": "frame-map.json frames[key=6658/57:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=57]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/57:2",
+          "frameMap": "frame-map.json frames[key=6658/57:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=57]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/58:0",
+          "frameMap": "frame-map.json frames[key=6658/58:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=58]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/58:1",
+          "frameMap": "frame-map.json frames[key=6658/58:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=58]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/58:2",
+          "frameMap": "frame-map.json frames[key=6658/58:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=58]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/59:0",
+          "frameMap": "frame-map.json frames[key=6658/59:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=59]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/59:1",
+          "frameMap": "frame-map.json frames[key=6658/59:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=59]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/59:2",
+          "frameMap": "frame-map.json frames[key=6658/59:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=59]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/60:0",
+          "frameMap": "frame-map.json frames[key=6658/60:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=60]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/60:1",
+          "frameMap": "frame-map.json frames[key=6658/60:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=60]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/60:2",
+          "frameMap": "frame-map.json frames[key=6658/60:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=60]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/61:0",
+          "frameMap": "frame-map.json frames[key=6658/61:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=61]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/61:1",
+          "frameMap": "frame-map.json frames[key=6658/61:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=61]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/61:2",
+          "frameMap": "frame-map.json frames[key=6658/61:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=61]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/62:0",
+          "frameMap": "frame-map.json frames[key=6658/62:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=62]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/62:1",
+          "frameMap": "frame-map.json frames[key=6658/62:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=62]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/62:2",
+          "frameMap": "frame-map.json frames[key=6658/62:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=62]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/63:0",
+          "frameMap": "frame-map.json frames[key=6658/63:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=63]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/63:1",
+          "frameMap": "frame-map.json frames[key=6658/63:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=63]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6658/63:2",
+          "frameMap": "frame-map.json frames[key=6658/63:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6658,sid=63]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        }
+      ],
+      "sequenceReference": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1/sequence-map.json profiles[gfx=6658]",
+      "baseCanonicalIdenticalAcrossWeapons": true
+    },
+    {
+      "gfx": 6661,
+      "sprite": 6661,
+      "rawAction15": "15.get(1 4,8.0:1 24.0:1 24.1:4<206 24.2:4)",
+      "profileKeys": [
+        [
+          6661,
+          0
+        ],
+        [
+          6661,
+          4
+        ],
+        [
+          6661,
+          50
+        ]
+      ],
+      "additionalBodyKeys": [
+        "24:0",
+        "24:1",
+        "24:2",
+        "25:0",
+        "25:1",
+        "25:2",
+        "26:0",
+        "26:1",
+        "26:2",
+        "27:0",
+        "27:1",
+        "27:2",
+        "28:0",
+        "28:1",
+        "28:2",
+        "29:0",
+        "29:1",
+        "29:2",
+        "30:0",
+        "30:1",
+        "30:2",
+        "31:0",
+        "31:1",
+        "31:2"
+      ],
+      "bodyFrameBytes": 180759,
+      "bodyFrameSha256": "ea9c3b16f516f12d0b7fd4012af57734367c9d42eab5bb2ef64f5b30e33ab6f9",
+      "sourceReferences": [
+        {
+          "frameKey": "6661/24:0",
+          "frameMap": "frame-map.json frames[key=6661/24:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/24:1",
+          "frameMap": "frame-map.json frames[key=6661/24:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/24:2",
+          "frameMap": "frame-map.json frames[key=6661/24:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/25:0",
+          "frameMap": "frame-map.json frames[key=6661/25:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/25:1",
+          "frameMap": "frame-map.json frames[key=6661/25:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/25:2",
+          "frameMap": "frame-map.json frames[key=6661/25:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/26:0",
+          "frameMap": "frame-map.json frames[key=6661/26:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/26:1",
+          "frameMap": "frame-map.json frames[key=6661/26:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/26:2",
+          "frameMap": "frame-map.json frames[key=6661/26:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/27:0",
+          "frameMap": "frame-map.json frames[key=6661/27:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/27:1",
+          "frameMap": "frame-map.json frames[key=6661/27:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/27:2",
+          "frameMap": "frame-map.json frames[key=6661/27:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/28:0",
+          "frameMap": "frame-map.json frames[key=6661/28:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/28:1",
+          "frameMap": "frame-map.json frames[key=6661/28:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/28:2",
+          "frameMap": "frame-map.json frames[key=6661/28:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/29:0",
+          "frameMap": "frame-map.json frames[key=6661/29:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/29:1",
+          "frameMap": "frame-map.json frames[key=6661/29:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/29:2",
+          "frameMap": "frame-map.json frames[key=6661/29:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/30:0",
+          "frameMap": "frame-map.json frames[key=6661/30:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/30:1",
+          "frameMap": "frame-map.json frames[key=6661/30:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/30:2",
+          "frameMap": "frame-map.json frames[key=6661/30:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/31:0",
+          "frameMap": "frame-map.json frames[key=6661/31:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/31:1",
+          "frameMap": "frame-map.json frames[key=6661/31:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6661/31:2",
+          "frameMap": "frame-map.json frames[key=6661/31:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6661,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        }
+      ],
+      "sequenceReference": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1/sequence-map.json profiles[gfx=6661]",
+      "baseCanonicalIdenticalAcrossWeapons": true
+    },
+    {
+      "gfx": 6671,
+      "sprite": 6671,
+      "rawAction15": "15.get(1 4,8.0:1 24.0:1 24.1:4<206 24.2:4)",
+      "profileKeys": [
+        [
+          6671,
+          0
+        ],
+        [
+          6671,
+          20
+        ]
+      ],
+      "additionalBodyKeys": [
+        "24:0",
+        "24:1",
+        "24:2",
+        "25:0",
+        "25:1",
+        "25:2",
+        "26:0",
+        "26:1",
+        "26:2",
+        "27:0",
+        "27:1",
+        "27:2",
+        "28:0",
+        "28:1",
+        "28:2",
+        "29:0",
+        "29:1",
+        "29:2",
+        "30:0",
+        "30:1",
+        "30:2",
+        "31:0",
+        "31:1",
+        "31:2"
+      ],
+      "bodyFrameBytes": 219488,
+      "bodyFrameSha256": "9f92547492e888f73ac762c9c329080e23503b7ceac3189b8b982cad40dcf4c7",
+      "sourceReferences": [
+        {
+          "frameKey": "6671/24:0",
+          "frameMap": "frame-map.json frames[key=6671/24:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/24:1",
+          "frameMap": "frame-map.json frames[key=6671/24:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/24:2",
+          "frameMap": "frame-map.json frames[key=6671/24:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=24]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/25:0",
+          "frameMap": "frame-map.json frames[key=6671/25:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/25:1",
+          "frameMap": "frame-map.json frames[key=6671/25:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/25:2",
+          "frameMap": "frame-map.json frames[key=6671/25:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=25]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/26:0",
+          "frameMap": "frame-map.json frames[key=6671/26:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/26:1",
+          "frameMap": "frame-map.json frames[key=6671/26:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/26:2",
+          "frameMap": "frame-map.json frames[key=6671/26:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=26]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/27:0",
+          "frameMap": "frame-map.json frames[key=6671/27:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/27:1",
+          "frameMap": "frame-map.json frames[key=6671/27:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/27:2",
+          "frameMap": "frame-map.json frames[key=6671/27:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=27]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/28:0",
+          "frameMap": "frame-map.json frames[key=6671/28:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/28:1",
+          "frameMap": "frame-map.json frames[key=6671/28:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/28:2",
+          "frameMap": "frame-map.json frames[key=6671/28:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=28]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/29:0",
+          "frameMap": "frame-map.json frames[key=6671/29:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/29:1",
+          "frameMap": "frame-map.json frames[key=6671/29:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/29:2",
+          "frameMap": "frame-map.json frames[key=6671/29:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=29]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/30:0",
+          "frameMap": "frame-map.json frames[key=6671/30:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/30:1",
+          "frameMap": "frame-map.json frames[key=6671/30:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/30:2",
+          "frameMap": "frame-map.json frames[key=6671/30:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=30]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/31:0",
+          "frameMap": "frame-map.json frames[key=6671/31:0]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/31:1",
+          "frameMap": "frame-map.json frames[key=6671/31:1]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        },
+        {
+          "frameKey": "6671/31:2",
+          "frameMap": "frame-map.json frames[key=6671/31:2]",
+          "identityLayer": "entry-identity-layers.json rows[sprite=6671,sid=31]",
+          "identityTier": "current-idx-and-bounded-slice-only"
+        }
+      ],
+      "sequenceReference": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1/sequence-map.json profiles[gfx=6671]",
+      "baseCanonicalIdenticalAcrossWeapons": true
+    }
+  ]
+}

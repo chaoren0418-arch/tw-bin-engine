@@ -1,0 +1,19 @@
+{
+  "utc": "2026-10-27T03:38:11.295Z",
+  "phase": "independent-review-passed-clean-rebuild-running",
+  "revision": "r20",
+  "dllSha256": "4d33d6adfd026eed1162e1135b8003d1419f3f17c17773ef4d2e67f191f333d7",
+  "manifestSha256": "74d8613a407c0141f7057de5a4562c7d39a4623676ce9594c50aa7e5468307bb",
+  "sealSha256": "1861f14371193d2de306d0d53297af084ea0d1ff15daf9de4632fcbb435f533b",
+  "lockSha256": "9c3b3d009f03bd87bef1e19cc31b1290eea751563afa954b322f646b120aaa94",
+  "source": "D:/lineage開發/TW1608262200研究/P24-原2x2地圖快取與跨區載入/reference/development/release-integration-r4/delivery",
+  "cleanRoot": "D:/lineage開發/TW1608262200研究/主管/P24-持續開發與同版驗收-20261027/r20-clean-delivery/delivery",
+  "live": false,
+  "priorClosedRound": "r19-final-live/closed-round-reconciliation.json",
+  "independentReview": "r20-independent-review/result.json",
+  "plan": "r20-final-live/execution-plan.json",
+  "workersIdle": true,
+  "next": "Launch fresh normal product after exact rebuild passes; actual UI fixes regression and remaining game flows",
+  "status": "live-exploration-fix-required",
+  "liveProgress": "r20-live-progress.json"
+}

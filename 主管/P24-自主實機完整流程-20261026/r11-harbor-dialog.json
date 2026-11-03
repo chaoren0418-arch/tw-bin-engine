@@ -1,0 +1,68 @@
+{
+  "canTalk": false,
+  "model": {
+    "canSubmit": false,
+    "currency": 7,
+    "epoch": 31,
+    "feePerRow": false,
+    "hasResult": false,
+    "kind": "dialog",
+    "notice": "",
+    "npcId": 2000039469,
+    "options": [
+      {
+        "enabled": true,
+        "id": 0,
+        "kind": "link",
+        "label": "船會停靠的時間是？"
+      },
+      {
+        "enabled": true,
+        "id": 1,
+        "kind": "action",
+        "label": "購買"
+      }
+    ],
+    "priceLabel": "單價",
+    "revision": 49,
+    "rows": [],
+    "selection": false,
+    "targetId": 2000039469,
+    "targetRevision": 3,
+    "text": "港口管理人\n\n歡迎歡迎，前往 古魯丁領地的船已經準備好了，船就快要出發了。\r\n\n請問你有船票嗎？沒有票是不能乘船的，只要300金幣而已，你該不會連這個也想要省吧？\r\n\n船會停靠的時間是？",
+    "title": "NPC 對話"
+  },
+  "notice": "",
+  "options": [
+    {
+      "enabled": true,
+      "id": 0,
+      "label": "船會停靠的時間是？"
+    },
+    {
+      "enabled": true,
+      "id": 1,
+      "label": "購買"
+    }
+  ],
+  "rows": [],
+  "targets": [
+    {
+      "id": 2000035931,
+      "name": "史萊姆"
+    },
+    {
+      "id": 2000036179,
+      "name": "老虎"
+    },
+    {
+      "id": 2000039469,
+      "name": "港口主人"
+    },
+    {
+      "id": 2000040109,
+      "name": "克特"
+    }
+  ],
+  "text": "港口管理人\n\n歡迎歡迎，前往 古魯丁領地的船已經準備好了，船就快要出發了。\r\n\n請問你有船票嗎？沒有票是不能乘船的，只要300金幣而已，你該不會連這個也想要省吧？\r\n\n船會停靠的時間是？"
+}

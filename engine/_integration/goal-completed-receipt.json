@@ -1,0 +1,13 @@
+{
+  "goal": {
+    "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+    "objective": "唯一整合者僅寫全新release-integration-r12/delivery及_integration，以唯讀正式r27完整基底整合主管接受host-r3 source/web/audio及原WAV/manifest，核對r1→r2→r3累積delta與接受收據；更新r28入口/build/manifest/launcher固定pins/assets integrity，最終DLL7762951f與audio d390必須同接受候選。真正final DLL跑151相關checks及CMD --check-only、完整資產SHA一次、精確差異/基準pins/可重建腳本/HANDOFF/result/seal，停寫交主管原生驗收。所有候選/r27/主管/原資產唯讀，不GUI/COM/播放/遊戲/登入/服務DB、不正常啟動、不重跑未變歷史suite、不增派。",
+    "status": "complete",
+    "tokensUsed": 29012,
+    "timeUsedSeconds": 542,
+    "createdAt": 1793125095,
+    "updatedAt": 1793125638
+  },
+  "remainingTokens": null,
+  "completionBudgetReport": "Goal achieved. Report final usage from this tool result's structured goal fields. If `goal.tokenBudget` is present, include token usage from `goal.tokensUsed` and `goal.tokenBudget`. If `goal.timeUsedSeconds` is greater than 0, summarize elapsed time in a concise, human-friendly form appropriate to the response language."
+}

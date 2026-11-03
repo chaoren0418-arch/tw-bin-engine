@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "checks": 366,
+  "sourcePins": 52,
+  "classEntries": 20,
+  "methods": 32,
+  "causalRows": 12,
+  "proposedSelectStatements": 8,
+  "sqlExecuted": false,
+  "limits": "Offline hash and bytecode/artifact consistency only; no runtime reproduction, no whole-source equivalence, no historical delete-cause proof."
+}

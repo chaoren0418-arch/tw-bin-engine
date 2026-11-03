@@ -1,0 +1,34 @@
+{
+  "utc": "2026-10-27T04:46:39.769132+00:00",
+  "status": "r21-live-round-closed",
+  "version": "r21",
+  "review": "r21-independent-review/result.json",
+  "lock": "r21-final-lock/version-lock.json",
+  "lockSha256": "7ca60543d733102886847d87bbd6e30e1fdd0feb5be740e169a244b1dbed4561",
+  "buildReceipt": "r21-clean-delivery/rebuild-receipt.json",
+  "runtime": "r21-clean-delivery/delivery",
+  "completed": [
+    "clean independent rebuild",
+    "normal blank-entry login of both preserved roles",
+    "merchant visible original quote and purchase20red5green5home cost2370 persisted",
+    "dagger equip/relogin/native keyboard movement/eight directions/self heal",
+    "dagger actual eye kill exp+44 persisted and DB confirmed",
+    "return ticket40298 purchase306 persisted",
+    "dagger zombie kill EXP+32 naturalgold+23, readonlyDBpersist",
+    "postcombat normallearned-heal18casts; caveexit and normalrelogin",
+    "reservedfour originalsampledfields unchanged",
+    "returnboat board/deckwalk/reloginretain/reboard",
+    "return boat naturalmap6->0 at04:45UTC ticketconsumed; offlineDB+normalreloginverified",
+    "naturalonlinegift1->2 originalmessage and quantitydelta retained"
+  ],
+  "pending": [
+    "r22 icon957 final integration and live regression"
+  ],
+  "newGrants": false,
+  "servicesPreserved": true,
+  "nativeCaptureLimitation": "Windows Graphics Capture still times out; actual WebView images and native key/UIA used",
+  "innKeys": "Two expired-key disappearances consistent with original2h rule; incident deletion not directly proven",
+  "ledger": "r21-final-live/services-ledger-reconciliation.json",
+  "rolesOffline": true,
+  "clientsClosed": true
+}

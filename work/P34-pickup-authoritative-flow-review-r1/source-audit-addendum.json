@@ -1,0 +1,46 @@
+{
+  "phase": "post-runtime01 used-asset audit; also pre-runtime02 gate",
+  "files": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\GroundRendering.cs",
+      "size": 1566,
+      "sha256": "a0a13e18ec6702cdb8f0deb6011586b20667c598c5010b46016b8844ce141e54",
+      "originalManifestPin": {
+        "path": "source/GroundRendering.cs",
+        "size": 1566,
+        "sha256": "a0a13e18ec6702cdb8f0deb6011586b20667c598c5010b46016b8844ce141e54"
+      }
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\ObjectRendering.cs",
+      "size": 9819,
+      "sha256": "6de015ce11c61e71aaa6de096d192abbb7d0c427f3f0bcedf762871d3a536613",
+      "originalManifestPin": {
+        "path": "source/ObjectRendering.cs",
+        "size": 9819,
+        "sha256": "6de015ce11c61e71aaa6de096d192abbb7d0c427f3f0bcedf762871d3a536613"
+      }
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupAssets.cs",
+      "size": 6448,
+      "sha256": "c3c27789794fd0579062d7e3328be605735cc148e1cbd829f3413ffe2dde7f03",
+      "originalManifestPin": {
+        "path": "source/PickupAssets.cs",
+        "size": 6448,
+        "sha256": "c3c27789794fd0579062d7e3328be605735cc148e1cbd829f3413ffe2dde7f03"
+      }
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\assets\\ground\\36.json",
+      "size": 4379,
+      "sha256": "b87a2162c90194d469eb9469e66bb6594e9bbec6d9d46dc9006ebc3099005837",
+      "originalManifestPin": {
+        "path": "assets/ground/36.json",
+        "size": 4379,
+        "sha256": "b87a2162c90194d469eb9469e66bb6594e9bbec6d9d46dc9006ebc3099005837"
+      }
+    }
+  ],
+  "note": "ground/36.json was used by ComposeGround in re-prime paths, verified against original accepted release seal after runtime01, not claimed as part of its pre-run gate"
+}

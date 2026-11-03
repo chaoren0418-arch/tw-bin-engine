@@ -1,0 +1,166 @@
+{
+  "task": "ENGINE-SLOW-PICKUP-REVIEW-PREP-R1",
+  "status": "source-review-preparation-complete",
+  "candidateReviewed": false,
+  "productCandidate": false,
+  "slowPickupQualified": false,
+  "baseline": "final releases/r31",
+  "dllSha256": "12ad5bbfac696033ee1f8d807346f401216138f4ce51cb58da9438e0b4ba5ec1",
+  "counts": {
+    "executedRows": 140,
+    "baselineChecks": 61,
+    "baselinePassed": 61,
+    "futureSafetyChecks": 24,
+    "futureSafetyMet": 14,
+    "baselineSafetyDifferences": 10,
+    "observations": 55,
+    "worldWrapperLifecycleObservations": 12,
+    "syntheticActorWrapperObservations": 12,
+    "legalReplyControls": 12
+  },
+  "sourcePins": 509,
+  "profileCount": 42,
+  "completePickupSequenceProfiles": 0,
+  "crosscheckSourceSeal": "8b1110e77614fbe8f9cb9b68718348c71f75d04110451cbca3c90699114125e1",
+  "crosscheckConflicts": [],
+  "baselineSafetyDifferences": [
+    {
+      "id": "queued-actor",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": false,
+      "data": {
+        "entered": 1,
+        "sent": true,
+        "admitted": 1
+      }
+    },
+    {
+      "id": "queued-lease",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": false,
+      "data": {
+        "entered": 1,
+        "sent": true,
+        "admitted": 1
+      }
+    },
+    {
+      "id": "queued-magicSending",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": false,
+      "data": {
+        "entered": 1,
+        "sent": true,
+        "admitted": 1
+      }
+    },
+    {
+      "id": "queued-nextMagicAt",
+      "kind": "future-safety-contract; reflection mutations explicitly synthetic; world packet uses real wrapper",
+      "pass": false,
+      "data": {
+        "entered": 1,
+        "sent": true,
+        "admitted": 1
+      }
+    },
+    {
+      "id": "late-world-False",
+      "kind": "future-safety-contract; world through real wrapper, actor/lease synthetic; not product acceptance",
+      "pass": false,
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "beforeState": "InWorld",
+        "afterState": "InWorld",
+        "beforeWorld": 1,
+        "afterWorld": 1,
+        "busy": false
+      }
+    },
+    {
+      "id": "late-world-True",
+      "kind": "future-safety-contract; world through real wrapper, actor/lease synthetic; not product acceptance",
+      "pass": false,
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "beforeState": "InWorld",
+        "afterState": "Faulted",
+        "beforeWorld": 1,
+        "afterWorld": 2,
+        "busy": false
+      }
+    },
+    {
+      "id": "late-actor-False",
+      "kind": "future-safety-contract; world through real wrapper, actor/lease synthetic; not product acceptance",
+      "pass": false,
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "beforeState": "InWorld",
+        "afterState": "InWorld",
+        "beforeWorld": 0,
+        "afterWorld": 0,
+        "busy": false
+      }
+    },
+    {
+      "id": "late-actor-True",
+      "kind": "future-safety-contract; world through real wrapper, actor/lease synthetic; not product acceptance",
+      "pass": false,
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "beforeState": "InWorld",
+        "afterState": "Faulted",
+        "beforeWorld": 0,
+        "afterWorld": 1,
+        "busy": false
+      }
+    },
+    {
+      "id": "late-lease-False",
+      "kind": "future-safety-contract; world through real wrapper, actor/lease synthetic; not product acceptance",
+      "pass": false,
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "beforeState": "InWorld",
+        "afterState": "InWorld",
+        "beforeWorld": 0,
+        "afterWorld": 0,
+        "busy": true
+      }
+    },
+    {
+      "id": "late-lease-True",
+      "kind": "future-safety-contract; world through real wrapper, actor/lease synthetic; not product acceptance",
+      "pass": false,
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "beforeState": "InWorld",
+        "afterState": "Faulted",
+        "beforeWorld": 0,
+        "afterWorld": 1,
+        "busy": false
+      }
+    }
+  ],
+  "newHandlerExecutions": 0,
+  "newNativeExecutions": 0,
+  "newAssetExtractions": 0,
+  "full3171Executed": false,
+  "proposedNextScope": "normal meat/arrow single pickup lifecycle only, subject to new supervisor dispatch and final r32 delta binding",
+  "productChanged": false,
+  "goalObserved": null,
+  "goalModified": false
+}

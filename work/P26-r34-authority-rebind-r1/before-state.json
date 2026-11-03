@@ -1,0 +1,77 @@
+{
+  "engineFiles": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r33\\P11.ClientEngine.dll",
+      "size": 2179584,
+      "sha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-r33-manifest.json",
+      "size": 7955,
+      "sha256": "7c4d23327c0588d1029e9721c806b2e868ee2839c6e2087fb2c516632a656bf0"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\engine\\launcher\\P24.Launcher.dll",
+      "size": 24064,
+      "sha256": "8b0cfba16676c6d3d8294db217dfacc343813dd69bbc753574f3d32a23b3008b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\engine\\action-metadata-vectors.json",
+      "size": 87305,
+      "sha256": "6afd114d3c53be54dfc2a0116cb71358c45a0df51ac64546e13d2de64f4afc9e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\engine\\haste-metadata-vectors.json",
+      "size": 155958,
+      "sha256": "4e6cb81ecfe9197fbf2d8b4d4496ec258355ee723367549a701de79f4320939a"
+    }
+  ],
+  "mustRemainAbsent": [
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\expected",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\baseline-pins.json",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-host",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-client",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-audio-settings",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-utility",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-haste",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-versioned-slow",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-f1",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-main-174",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-supplement-10"
+  ],
+  "sealedFiles": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\preparation-seal.json",
+      "size": 45733,
+      "sha256": "795705e162ffcc422e66343fa4a6f68c6430ff4ac6ee6e54220155a60ccb9d88"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\artifact-seal.json",
+      "size": 46193,
+      "sha256": "58751d0f0d0d72a1ec3fb13469645c472f734e55983cbac470b76116d9d697cd"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\result.json",
+      "size": 4224,
+      "sha256": "a5874dbc2d6770bb11cae9e6045c996a32c5c09f3ada4275ea22f6b051ba95fd"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\stage-seal.json",
+      "size": 2535568,
+      "sha256": "9544f137a10914825b53080d4d390d17902cd40866467cebbf69578290240018"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\stage-result.json",
+      "size": 4116,
+      "sha256": "54478aaf1ec0701f4daec9a4f5f6d654272aba1ad74f65efa4e36af57895a1a8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\r34-stage-root-acceptance.json",
+      "size": 1628,
+      "sha256": "d8923799b13660f4eab08ac52d45f27c183c3d0e01aed3d491a62b593e110308"
+    }
+  ]
+}

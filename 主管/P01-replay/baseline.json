@@ -1,0 +1,470 @@
+{
+  "source_sha256": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2",
+  "machine": {
+    "value": "0x0000014C",
+    "name": "IMAGE_FILE_MACHINE_I386"
+  },
+  "file_header": {
+    "Structure": "IMAGE_FILE_HEADER",
+    "Machine": {
+      "FileOffset": 332,
+      "Offset": 0,
+      "Value": 332
+    },
+    "NumberOfSections": {
+      "FileOffset": 334,
+      "Offset": 2,
+      "Value": 4
+    },
+    "TimeDateStamp": {
+      "FileOffset": 336,
+      "Offset": 4,
+      "Value": "0x57BFAACD [Fri Aug 26 02:34:53 2016 UTC]"
+    },
+    "PointerToSymbolTable": {
+      "FileOffset": 340,
+      "Offset": 8,
+      "Value": 0
+    },
+    "NumberOfSymbols": {
+      "FileOffset": 344,
+      "Offset": 12,
+      "Value": 0
+    },
+    "SizeOfOptionalHeader": {
+      "FileOffset": 348,
+      "Offset": 16,
+      "Value": 224
+    },
+    "Characteristics": {
+      "FileOffset": 350,
+      "Offset": 18,
+      "Value": 259
+    }
+  },
+  "optional_header": {
+    "Structure": "IMAGE_OPTIONAL_HEADER",
+    "Magic": {
+      "FileOffset": 352,
+      "Offset": 0,
+      "Value": 267
+    },
+    "MajorLinkerVersion": {
+      "FileOffset": 354,
+      "Offset": 2,
+      "Value": 11
+    },
+    "MinorLinkerVersion": {
+      "FileOffset": 355,
+      "Offset": 3,
+      "Value": 0
+    },
+    "SizeOfCode": {
+      "FileOffset": 356,
+      "Offset": 4,
+      "Value": 13932544
+    },
+    "SizeOfInitializedData": {
+      "FileOffset": 360,
+      "Offset": 8,
+      "Value": 5983744
+    },
+    "SizeOfUninitializedData": {
+      "FileOffset": 364,
+      "Offset": 12,
+      "Value": 0
+    },
+    "AddressOfEntryPoint": {
+      "FileOffset": 368,
+      "Offset": 16,
+      "Value": 12836569
+    },
+    "BaseOfCode": {
+      "FileOffset": 372,
+      "Offset": 20,
+      "Value": 4096
+    },
+    "BaseOfData": {
+      "FileOffset": 376,
+      "Offset": 24,
+      "Value": 13938688
+    },
+    "ImageBase": {
+      "FileOffset": 380,
+      "Offset": 28,
+      "Value": 4194304
+    },
+    "SectionAlignment": {
+      "FileOffset": 384,
+      "Offset": 32,
+      "Value": 4096
+    },
+    "FileAlignment": {
+      "FileOffset": 388,
+      "Offset": 36,
+      "Value": 512
+    },
+    "MajorOperatingSystemVersion": {
+      "FileOffset": 392,
+      "Offset": 40,
+      "Value": 5
+    },
+    "MinorOperatingSystemVersion": {
+      "FileOffset": 394,
+      "Offset": 42,
+      "Value": 1
+    },
+    "MajorImageVersion": {
+      "FileOffset": 396,
+      "Offset": 44,
+      "Value": 0
+    },
+    "MinorImageVersion": {
+      "FileOffset": 398,
+      "Offset": 46,
+      "Value": 0
+    },
+    "MajorSubsystemVersion": {
+      "FileOffset": 400,
+      "Offset": 48,
+      "Value": 5
+    },
+    "MinorSubsystemVersion": {
+      "FileOffset": 402,
+      "Offset": 50,
+      "Value": 1
+    },
+    "Reserved1": {
+      "FileOffset": 404,
+      "Offset": 52,
+      "Value": 0
+    },
+    "SizeOfImage": {
+      "FileOffset": 408,
+      "Offset": 56,
+      "Value": 19927040
+    },
+    "SizeOfHeaders": {
+      "FileOffset": 412,
+      "Offset": 60,
+      "Value": 1024
+    },
+    "CheckSum": {
+      "FileOffset": 416,
+      "Offset": 64,
+      "Value": 0
+    },
+    "Subsystem": {
+      "FileOffset": 420,
+      "Offset": 68,
+      "Value": 2
+    },
+    "DllCharacteristics": {
+      "FileOffset": 422,
+      "Offset": 70,
+      "Value": 33024
+    },
+    "SizeOfStackReserve": {
+      "FileOffset": 424,
+      "Offset": 72,
+      "Value": 1048576
+    },
+    "SizeOfStackCommit": {
+      "FileOffset": 428,
+      "Offset": 76,
+      "Value": 4096
+    },
+    "SizeOfHeapReserve": {
+      "FileOffset": 432,
+      "Offset": 80,
+      "Value": 1048576
+    },
+    "SizeOfHeapCommit": {
+      "FileOffset": 436,
+      "Offset": 84,
+      "Value": 4096
+    },
+    "LoaderFlags": {
+      "FileOffset": 440,
+      "Offset": 88,
+      "Value": 0
+    },
+    "NumberOfRvaAndSizes": {
+      "FileOffset": 444,
+      "Offset": 92,
+      "Value": 16
+    }
+  },
+  "pe_format": "PE32",
+  "imagebase": "0x00400000",
+  "entry_rva": "0x00C3DED9",
+  "entry_va": "0x0103DED9",
+  "entry_file_offset": "0x00C3D2D9",
+  "sections": [
+    {
+      "name": ".text",
+      "rva": "0x00001000",
+      "virtual_size": 13932245,
+      "raw_offset": "0x00000400",
+      "raw_size": 13932544,
+      "characteristics": "0x60000020",
+      "entropy": 6.157492076327417,
+      "executable": true,
+      "writable": false,
+      "raw_range_in_file": true
+    },
+    {
+      "name": ".rdata",
+      "rva": "0x00D4B000",
+      "virtual_size": 2165746,
+      "raw_offset": "0x00D49C00",
+      "raw_size": 2165760,
+      "characteristics": "0x40000040",
+      "entropy": 5.037029824868354,
+      "executable": false,
+      "writable": false,
+      "raw_range_in_file": true
+    },
+    {
+      "name": ".data",
+      "rva": "0x00F5C000",
+      "virtual_size": 3383940,
+      "raw_offset": "0x00F5A800",
+      "raw_size": 277504,
+      "characteristics": "0xC0000040",
+      "entropy": 5.628907658918371,
+      "executable": false,
+      "writable": true,
+      "raw_range_in_file": true
+    },
+    {
+      "name": ".rsrc",
+      "rva": "0x01297000",
+      "virtual_size": 433440,
+      "raw_offset": "0x00F9E400",
+      "raw_size": 433664,
+      "characteristics": "0x40000040",
+      "entropy": 4.1218899347365685,
+      "executable": false,
+      "writable": false,
+      "raw_range_in_file": true
+    }
+  ],
+  "directories": [
+    {
+      "index": 0,
+      "name": "IMAGE_DIRECTORY_ENTRY_EXPORT",
+      "address": "0x00000000",
+      "size": 0,
+      "address_kind": "RVA",
+      "file_offset": null
+    },
+    {
+      "index": 1,
+      "name": "IMAGE_DIRECTORY_ENTRY_IMPORT",
+      "address": "0x00F55558",
+      "size": 440,
+      "address_kind": "RVA",
+      "file_offset": "0x00F54158"
+    },
+    {
+      "index": 2,
+      "name": "IMAGE_DIRECTORY_ENTRY_RESOURCE",
+      "address": "0x01297000",
+      "size": 433440,
+      "address_kind": "RVA",
+      "file_offset": "0x00F9E400"
+    },
+    {
+      "index": 3,
+      "name": "IMAGE_DIRECTORY_ENTRY_EXCEPTION",
+      "address": "0x00000000",
+      "size": 0,
+      "address_kind": "RVA",
+      "file_offset": null
+    },
+    {
+      "index": 4,
+      "name": "IMAGE_DIRECTORY_ENTRY_SECURITY",
+      "address": "0x00000000",
+      "size": 0,
+      "address_kind": "file_offset",
+      "file_offset": null
+    },
+    {
+      "index": 5,
+      "name": "IMAGE_DIRECTORY_ENTRY_BASERELOC",
+      "address": "0x00000000",
+      "size": 0,
+      "address_kind": "RVA",
+      "file_offset": null
+    },
+    {
+      "index": 6,
+      "name": "IMAGE_DIRECTORY_ENTRY_DEBUG",
+      "address": "0x00D4C840",
+      "size": 56,
+      "address_kind": "RVA",
+      "file_offset": "0x00D4B440"
+    },
+    {
+      "index": 7,
+      "name": "IMAGE_DIRECTORY_ENTRY_COPYRIGHT",
+      "address": "0x00000000",
+      "size": 0,
+      "address_kind": "RVA",
+      "file_offset": null
+    },
+    {
+      "index": 8,
+      "name": "IMAGE_DIRECTORY_ENTRY_GLOBALPTR",
+      "address": "0x00000000",
+      "size": 0,
+      "address_kind": "RVA",
+      "file_offset": null
+    },
+    {
+      "index": 9,
+      "name": "IMAGE_DIRECTORY_ENTRY_TLS",
+      "address": "0x00000000",
+      "size": 0,
+      "address_kind": "RVA",
+      "file_offset": null
+    },
+    {
+      "index": 10,
+      "name": "IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG",
+      "address": "0x00E197E0",
+      "size": 64,
+      "address_kind": "RVA",
+      "file_offset": "0x00E183E0"
+    },
+    {
+      "index": 11,
+      "name": "IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT",
+      "address": "0x00000000",
+      "size": 0,
+      "address_kind": "RVA",
+      "file_offset": null
+    },
+    {
+      "index": 12,
+      "name": "IMAGE_DIRECTORY_ENTRY_IAT",
+      "address": "0x00D4B000",
+      "size": 3756,
+      "address_kind": "RVA",
+      "file_offset": "0x00D49C00"
+    },
+    {
+      "index": 13,
+      "name": "IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT",
+      "address": "0x00000000",
+      "size": 0,
+      "address_kind": "RVA",
+      "file_offset": null
+    },
+    {
+      "index": 14,
+      "name": "IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR",
+      "address": "0x00000000",
+      "size": 0,
+      "address_kind": "RVA",
+      "file_offset": null
+    },
+    {
+      "index": 15,
+      "name": "IMAGE_DIRECTORY_ENTRY_RESERVED",
+      "address": "0x00000000",
+      "size": 0,
+      "address_kind": "RVA",
+      "file_offset": null
+    }
+  ],
+  "imports_summary": {
+    "total": 918,
+    "by_dll": {
+      "WS2_32.dll": 25,
+      "WINMM.dll": 2,
+      "IMM32.dll": 14,
+      "DINPUT.dll": 1,
+      "libpng13.dll": 23,
+      "IPHLPAPI.DLL": 2,
+      "VERSION.dll": 3,
+      "WININET.dll": 12,
+      "awesomium.dll": 57,
+      "mss32.dll": 16,
+      "mss32midi.dll": 9,
+      "KERNEL32.dll": 120,
+      "USER32.dll": 117,
+      "GDI32.dll": 38,
+      "ADVAPI32.dll": 19,
+      "SHELL32.dll": 1,
+      "ole32.dll": 20,
+      "OLEAUT32.dll": 19,
+      "MSVCP110.dll": 158,
+      "MSVCR110.dll": 261,
+      "DDRAW.dll": 1
+    },
+    "by_kind": {
+      "normal": 918
+    }
+  },
+  "debug": [
+    {
+      "type": 2,
+      "file_offset": "0x00E18428",
+      "size": 104,
+      "rva": "0x00E19828",
+      "raw_hex": "52534453c1bd11ddc9fe2f4196e2dead107e2fda01000000443a5c496e746567726174696f6e5c506572666f72636520576f726b73706163655c54616977616e436c69656e7444657653747265616d5c52656c656173655f54616977616e5c4c696e632e70646200",
+      "signature": "RSDS",
+      "guid": "dd11bdc1-fec9-412f-96e2-dead107e2fda",
+      "age": 1,
+      "pdb": "D:\\Integration\\Perforce Workspace\\TaiwanClientDevStream\\Release_Taiwan\\Linc.pdb"
+    },
+    {
+      "type": 12,
+      "file_offset": "0x00E18490",
+      "size": 16,
+      "rva": "0x00E19890",
+      "raw_hex": "25000000290400002904000000000000"
+    }
+  ],
+  "pdb_ascii_candidates": [
+    {
+      "file_offset": "0x00D7DF04",
+      "text": "server.pdb"
+    },
+    {
+      "file_offset": "0x00E18440",
+      "text": "D:\\Integration\\Perforce Workspace\\TaiwanClientDevStream\\Release_Taiwan\\Linc.pdb"
+    }
+  ],
+  "overlay_start_offset": null,
+  "parser_warnings": [],
+  "strings_summary": {
+    "minimum_characters": 4,
+    "counts": {
+      "ASCII": 40051,
+      "UTF-16LE": 211274
+    },
+    "deduplication": "none; all occurrences retained",
+    "ASCII_policy": "maximal runs U+0020..U+007E; NUL termination optional",
+    "UTF16LE_policy": "both byte alignments; maximal Unicode str.isprintable() suffix before NUL code unit; >= minimum Unicode characters",
+    "limitations": [
+      "Printable bytes/code units in machine code or binary data may be false positives.",
+      "UTF-16LE non-NUL-terminated strings, control-containing strings and short strings may be missed.",
+      "Each row is an occurrence, not a verified application string. No purpose or encoding authenticity inferred."
+    ]
+  },
+  "analysis_assessment": {
+    "verified": [
+      "PE headers, section ranges, directories and imports parsed from matching source.",
+      "Entry file bytes available for static disassembly."
+    ],
+    "not_established": [
+      "Absence of packing, virtualization, runtime decryption, anti-debugging or other protection.",
+      "Static structure/entropy alone cannot prove the image is fully unpacked."
+    ],
+    "scope": "Static analysis only; no target execution or debugger attachment."
+  }
+}

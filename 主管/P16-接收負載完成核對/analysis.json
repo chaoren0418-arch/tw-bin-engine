@@ -1,0 +1,33 @@
+{
+  "status": "worker-load-evidence-verified",
+  "scope": "Independent streaming exact log conversion plus every emitted bridge-state sequence/time value; not supervisor clean build or real JAR combat.",
+  "events": 5048,
+  "ordered_time_states": 5006,
+  "first": [
+    13,
+    1
+  ],
+  "last": [
+    5018,
+    5006
+  ],
+  "kinds": {
+    "focus-left-game": 5,
+    "initialization-start": 1,
+    "browser-created": 1,
+    "navigation-start": 1,
+    "bridge-command": 4,
+    "bridge-reply": 4,
+    "bridge-state": 5027,
+    "navigation-completed": 1,
+    "focus-web-input": 1,
+    "focus-game": 1,
+    "close-request": 1,
+    "panel-disposed": 1
+  },
+  "worker_exit": {
+    "pid": 59052,
+    "exit_code": 0,
+    "seconds": 29.515999999974156
+  }
+}

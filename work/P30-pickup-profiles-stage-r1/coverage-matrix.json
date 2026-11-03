@@ -1,0 +1,1929 @@
+{
+  "families": [
+    {
+      "id": "PROFILE-MAP",
+      "actualRowFamilies": [
+        "mapping-body-shadow"
+      ],
+      "referencedRows": 2688,
+      "passedRows": 2688,
+      "failedRows": 0,
+      "coverage": "2688 exact mapping slots, real bound receipt and ComposeObjects",
+      "remaining": "Candidate seals; invocation/API behavior remains unverified",
+      "overlapWarning": "Rows shared across families; never sum referencedRows as assertions",
+      "status": "subset-executed",
+      "p28HistoricalEvidence": {
+        "id": "PROFILE-MAP",
+        "attempts": "profiles-02",
+        "coverage": "672 fixture combinations / 2688 executed slot IDs saved; eight directions and both allowed speeds for all42 exact pairs"
+      },
+      "stageExecution": "not-executed",
+      "gapClosedByHistory": false,
+      "wordingCorrection": "Supervisor acceptance supersedes stale pre-runtime remaining text only; P29 actual 5196-row subset executed. Wider scope still limited.",
+      "inheritedR34Evidence": [
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\run\\probe.json",
+            "size": 466251,
+            "sha256": "728a716e40997316870a3d55cd05e72fc937cc847c2fc3d84f8bf73a3079f7a8"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "pose-s0-d0-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d0-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d0-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d0-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d0-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-terminal",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        }
+      ],
+      "nextAction": "Retain historical selected rows as regression contract, execute only under later exact stage regression authorization; absent or broader coverage remains pending."
+    },
+    {
+      "id": "BODY-PIXELS",
+      "actualRowFamilies": [
+        "mapping-body-shadow"
+      ],
+      "referencedRows": 2688,
+      "passedRows": 2688,
+      "failedRows": 0,
+      "coverage": "Body command RGBA against sealed PNG hash",
+      "remaining": "Final composite buffer and occluder oracle not implemented",
+      "overlapWarning": "Rows shared across families; never sum referencedRows as assertions",
+      "status": "subset-executed",
+      "p28HistoricalEvidence": {
+        "id": "BODY-PIXELS",
+        "attempts": "profiles-02",
+        "coverage": "416 unique body PNGs; independent sealed fixture RGBA and PNG comparison; actual ComposeObjects commands and BitmapOf, composite ownership/mask oracle"
+      },
+      "stageExecution": "not-executed",
+      "gapClosedByHistory": false,
+      "inheritedR34Evidence": [
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\run\\probe.json",
+            "size": 466251,
+            "sha256": "728a716e40997316870a3d55cd05e72fc937cc847c2fc3d84f8bf73a3079f7a8"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "pose-s0-d0-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d0-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d0-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d0-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d0-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-terminal",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        },
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-supplement-10\\run\\probe.json",
+            "size": 28628,
+            "sha256": "b5adc5ccdfa004cb62288c0519061963ea4ff4fd6a2002136e838cff8e412a4a"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "synthetic-occlusion",
+              "passed": true
+            },
+            {
+              "id": "synthetic-cover-depth",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        }
+      ],
+      "nextAction": "Retain historical selected rows as regression contract, execute only under later exact stage regression authorization; absent or broader coverage remains pending.",
+      "qualification": "Inherited synthetic-occlusion/cover-depth and body PNG checks exist for original0/0; not full actual scene/composite oracle for42 profiles."
+    },
+    {
+      "id": "EXACT-KEY-EXCEPTIONS",
+      "actualRowFamilies": [
+        "mapping-body-shadow"
+      ],
+      "referencedRows": 2688,
+      "passedRows": 2688,
+      "failedRows": 0,
+      "coverage": "Full sprite/key/pair mapping covers 2796 and namespace collisions",
+      "remaining": "Dedicated resource corruption namespace seam not implemented",
+      "overlapWarning": "Rows shared across families; never sum referencedRows as assertions",
+      "status": "subset-executed",
+      "p28HistoricalEvidence": {
+        "id": "EXACT-KEY-EXCEPTIONS",
+        "attempts": "profiles-02 + namespace-01",
+        "coverage": "Exact keys including gfx2796;64 pickup collision key/gfx/sprite sets and80 all-frame collision sets"
+      },
+      "stageExecution": "not-executed",
+      "gapClosedByHistory": false,
+      "inheritedR34Evidence": [],
+      "nextAction": "Retain historical selected rows as regression contract, execute only under later exact stage regression authorization; absent or broader coverage remains pending."
+    },
+    {
+      "id": "RESOURCE-INTEGRITY",
+      "actualRowFamilies": [
+        "resource-integrity"
+      ],
+      "referencedRows": 2,
+      "passedRows": 2,
+      "failedRows": 0,
+      "coverage": "Two manifest resource byte counts and SHA",
+      "remaining": "Hash/parser faults, missing group and resource corruption injection",
+      "overlapWarning": "Rows shared across families; never sum referencedRows as assertions",
+      "status": "subset-executed",
+      "p28HistoricalEvidence": {
+        "id": "RESOURCE-INTEGRITY",
+        "attempts": "negative-01 + regression-01",
+        "coverage": "Both embedded byte identities,extension tamper3 offsets,missing terminal suppress/cancel for42 profiles,wrong profile hash42,bypassed borrowed same-gfx profile rejected"
+      },
+      "stageExecution": "not-executed",
+      "gapClosedByHistory": false,
+      "inheritedR34Evidence": [
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\run\\probe.json",
+            "size": 466251,
+            "sha256": "728a716e40997316870a3d55cd05e72fc937cc847c2fc3d84f8bf73a3079f7a8"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "embedded-resource",
+              "passed": true
+            },
+            {
+              "id": "resource-reject-length",
+              "passed": true
+            },
+            {
+              "id": "resource-reject-hash",
+              "passed": true
+            },
+            {
+              "id": "resource-reject-schema",
+              "passed": true
+            },
+            {
+              "id": "resource-reject-key",
+              "passed": true
+            },
+            {
+              "id": "missing-base-key-fallback",
+              "passed": true
+            },
+            {
+              "id": "resource-error-fallback",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        },
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-supplement-10\\run\\probe.json",
+            "size": 28628,
+            "sha256": "b5adc5ccdfa004cb62288c0519061963ea4ff4fd6a2002136e838cff8e412a4a"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "catalog-content-restored",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        }
+      ],
+      "nextAction": "Retain historical selected rows as regression contract, execute only under later exact stage regression authorization; absent or broader coverage remains pending."
+    },
+    {
+      "id": "BASE-REUSE",
+      "actualRowFamilies": [
+        "mapping-body-shadow"
+      ],
+      "referencedRows": 2688,
+      "passedRows": 2688,
+      "failedRows": 0,
+      "coverage": "Current exact profile Frame reference identity at terminal",
+      "remaining": "Missing base-key/profile mutation cancellation seam",
+      "overlapWarning": "Rows shared across families; never sum referencedRows as assertions",
+      "status": "subset-executed",
+      "p28HistoricalEvidence": {
+        "id": "BASE-REUSE",
+        "attempts": "profiles-02",
+        "coverage": "672 exact loaded-profile terminal object identity assertions"
+      },
+      "stageExecution": "not-executed",
+      "gapClosedByHistory": false,
+      "inheritedR34Evidence": [
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\run\\probe.json",
+            "size": 466251,
+            "sha256": "728a716e40997316870a3d55cd05e72fc937cc847c2fc3d84f8bf73a3079f7a8"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "base-profile-unmodified",
+              "passed": true
+            },
+            {
+              "id": "missing-base-key-fallback",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        }
+      ],
+      "nextAction": "Retain historical selected rows as regression contract, execute only under later exact stage regression authorization; absent or broader coverage remains pending."
+    },
+    {
+      "id": "SHADOW",
+      "actualRowFamilies": [
+        "mapping-body-shadow"
+      ],
+      "referencedRows": 2688,
+      "passedRows": 2688,
+      "failedRows": 0,
+      "coverage": "Actual draw commands equal exact authenticated shadow JSON; pickup has none",
+      "remaining": "Final blended composite and opaque occluder ordering",
+      "overlapWarning": "Rows shared across families; never sum referencedRows as assertions",
+      "status": "subset-executed",
+      "p28HistoricalEvidence": {
+        "id": "SHADOW",
+        "attempts": "profiles-02",
+        "coverage": "Every mapping sample removes idle shadow;312 unique pickup keys no shadow;104 terminal unique exact shadow keys;actual draw ordering/composite"
+      },
+      "stageExecution": "not-executed",
+      "gapClosedByHistory": false,
+      "inheritedR34Evidence": [
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\run\\probe.json",
+            "size": 466251,
+            "sha256": "728a716e40997316870a3d55cd05e72fc937cc847c2fc3d84f8bf73a3079f7a8"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "pose-s0-d0-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d0-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d0-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d0-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d0-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d1-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d2-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d3-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d4-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d5-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d6-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s0-d7-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d0-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d1-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d2-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d3-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d4-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d5-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d6-terminal",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-i1",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-i2",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-i3",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-i0",
+              "passed": true
+            },
+            {
+              "id": "pose-s1-d7-terminal",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        },
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-supplement-10\\run\\probe.json",
+            "size": 28628,
+            "sha256": "b5adc5ccdfa004cb62288c0519061963ea4ff4fd6a2002136e838cff8e412a4a"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "synthetic-occlusion",
+              "passed": true
+            },
+            {
+              "id": "synthetic-cover-depth",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        }
+      ],
+      "nextAction": "Retain historical selected rows as regression contract, execute only under later exact stage regression authorization; absent or broader coverage remains pending.",
+      "qualification": "Inherited synthetic-occlusion/cover-depth and body PNG checks exist for original0/0; not full actual scene/composite oracle for42 profiles."
+    },
+    {
+      "id": "ACTIVE-WINDOWS",
+      "actualRowFamilies": [
+        "active-windows",
+        "duration-double",
+        "timing-matches"
+      ],
+      "referencedRows": 1680,
+      "passedRows": 1680,
+      "failedRows": 0,
+      "coverage": "672 scenario records with listed ages at direction0; double durations; Timing.Matches",
+      "remaining": "Directions1-7 not executed or looped by this adapter; immutable report assertion included",
+      "overlapWarning": "Rows shared across families; never sum referencedRows as assertions",
+      "status": "subset-executed",
+      "p28HistoricalEvidence": {
+        "id": "ACTIVE-WINDOWS",
+        "attempts": "boundaries-01",
+        "coverage": "42 x Speed0/1 x attack/damage/spellDir/spellNoDir x captured/fallback;double duration,last/first expired integer,captured haste and Timing.Matches"
+      },
+      "stageExecution": "not-executed",
+      "gapClosedByHistory": false,
+      "inheritedR34Evidence": [
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\run\\probe.json",
+            "size": 466251,
+            "sha256": "728a716e40997316870a3d55cd05e72fc937cc847c2fc3d84f8bf73a3079f7a8"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "combat-1--1",
+              "passed": true
+            },
+            {
+              "id": "combat-1-0",
+              "passed": true
+            },
+            {
+              "id": "combat-1-1",
+              "passed": true
+            },
+            {
+              "id": "combat-2--1",
+              "passed": true
+            },
+            {
+              "id": "combat-2-0",
+              "passed": true
+            },
+            {
+              "id": "combat-2-1",
+              "passed": true
+            },
+            {
+              "id": "combat-18--1",
+              "passed": true
+            },
+            {
+              "id": "combat-18-0",
+              "passed": true
+            },
+            {
+              "id": "combat-18-1",
+              "passed": true
+            },
+            {
+              "id": "combat-19--1",
+              "passed": true
+            },
+            {
+              "id": "combat-19-0",
+              "passed": true
+            },
+            {
+              "id": "combat-19-1",
+              "passed": true
+            },
+            {
+              "id": "new-conflict-1",
+              "passed": true
+            },
+            {
+              "id": "new-conflict-2",
+              "passed": true
+            },
+            {
+              "id": "new-conflict-8",
+              "passed": true
+            },
+            {
+              "id": "new-conflict-18",
+              "passed": true
+            },
+            {
+              "id": "new-conflict-19",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        }
+      ],
+      "nextAction": "Retain historical selected rows as regression contract, execute only under later exact stage regression authorization; absent or broader coverage remains pending."
+    },
+    {
+      "id": "PROJECTILE-DEATH",
+      "actualRowFamilies": [
+        "projectile-selection",
+        "death-fallback",
+        "active-windows"
+      ],
+      "referencedRows": 1352,
+      "passedRows": 1352,
+      "failedRows": 0,
+      "coverage": "7 synthetic hit-cache selector vectors; death ages; S87 weapon8",
+      "remaining": "3 real S30 flight vectors; event/geometry duplication",
+      "overlapWarning": "Rows shared across families; never sum referencedRows as assertions",
+      "status": "subset-executed",
+      "p28HistoricalEvidence": {
+        "id": "PROJECTILE-DEATH",
+        "attempts": "boundaries-01 + regression-01",
+        "coverage": "42 profiles active/expired hit with null/stale OwnCombat,indefinite death,S87 weapon8;uncomposed pending impact on control"
+      },
+      "stageExecution": "not-executed",
+      "gapClosedByHistory": false,
+      "inheritedR34Evidence": [
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\run\\probe.json",
+            "size": 466251,
+            "sha256": "728a716e40997316870a3d55cd05e72fc937cc847c2fc3d84f8bf73a3079f7a8"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "new-conflict-8",
+              "passed": true
+            },
+            {
+              "id": "death-over-hit",
+              "passed": true
+            },
+            {
+              "id": "projectile-due-before-receipt",
+              "passed": true
+            },
+            {
+              "id": "projectile-same-now-idempotent",
+              "passed": true
+            },
+            {
+              "id": "projectile-later-hit-cancels",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        }
+      ],
+      "nextAction": "Retain historical selected rows as regression contract, execute only under later exact stage regression authorization; absent or broader coverage remains pending.",
+      "qualification": "Inherited three S30 packet/projectile lifecycle vectors exist (projectile-due-before-receipt/same-now-idempotent/later-hit-cancels); these exercised old r34 DLL using synthetic packets, not native capture and not newly rebuilt181-source product."
+    },
+    {
+      "id": "SAME-GFX-WEAPON-CHANGE",
+      "actualRowFamilies": [
+        "same-gfx-weapon-stale"
+      ],
+      "referencedRows": 42,
+      "passedRows": 42,
+      "failedRows": 0,
+      "coverage": "42 directed transitions and stale callback serial; mismatched cadence",
+      "remaining": "All other captured ownership dimensions remain pending",
+      "overlapWarning": "Rows shared across families; never sum referencedRows as assertions",
+      "status": "subset-executed",
+      "p28HistoricalEvidence": {
+        "id": "SAME-GFX-WEAPON-CHANGE",
+        "attempts": "negative-01",
+        "coverage": "Every pair with a same-gfx alternate:owner cancellation,old callback isolation,borrowed profile rejection"
+      },
+      "stageExecution": "not-executed",
+      "gapClosedByHistory": false,
+      "inheritedR34Evidence": [
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\run\\probe.json",
+            "size": 466251,
+            "sha256": "728a716e40997316870a3d55cd05e72fc937cc847c2fc3d84f8bf73a3079f7a8"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "cancel-gfx",
+              "passed": true
+            },
+            {
+              "id": "cancel-weapon",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        }
+      ],
+      "nextAction": "Retain historical selected rows as regression contract, execute only under later exact stage regression authorization; absent or broader coverage remains pending."
+    },
+    {
+      "id": "BURST-CANCEL-SCHEDULER",
+      "actualRowFamilies": [
+        "latest-eligible-replace",
+        "late-callback",
+        "terminal584"
+      ],
+      "referencedRows": 763,
+      "passedRows": 763,
+      "failedRows": 0,
+      "coverage": "84 same-time double receipts/latest replacement; terminal584; 2796 late callbacks",
+      "remaining": "Full 22 cancel dimensions, clamp variants, terminal replacement",
+      "overlapWarning": "Rows shared across families; never sum referencedRows as assertions",
+      "status": "subset-executed",
+      "p28HistoricalEvidence": {
+        "id": "BURST-CANCEL-SCHEDULER",
+        "attempts": "negative-01 + regression-01",
+        "coverage": "42profiles burst21,latest eligible,late one-step/min2,terminal584,old serial isolation,33 cancellation variants;control terminal preemption and lifecycle"
+      },
+      "stageExecution": "not-executed",
+      "gapClosedByHistory": false,
+      "inheritedR34Evidence": [
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\run\\probe.json",
+            "size": 466251,
+            "sha256": "728a716e40997316870a3d55cd05e72fc937cc847c2fc3d84f8bf73a3079f7a8"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "replace-old-callback",
+              "passed": true
+            },
+            {
+              "id": "replace-terminal-old-cleanup",
+              "passed": true
+            },
+            {
+              "id": "late-one-step-min2",
+              "passed": true
+            },
+            {
+              "id": "clamp-100207",
+              "passed": true
+            },
+            {
+              "id": "clamp-100208",
+              "passed": true
+            },
+            {
+              "id": "clamp-100300",
+              "passed": true
+            },
+            {
+              "id": "cancel-session",
+              "passed": true
+            },
+            {
+              "id": "cancel-world",
+              "passed": true
+            },
+            {
+              "id": "cancel-map",
+              "passed": true
+            },
+            {
+              "id": "cancel-remove",
+              "passed": true
+            },
+            {
+              "id": "cancel-actor",
+              "passed": true
+            },
+            {
+              "id": "cancel-appearance",
+              "passed": true
+            },
+            {
+              "id": "cancel-correction",
+              "passed": true
+            },
+            {
+              "id": "cancel-direction",
+              "passed": true
+            },
+            {
+              "id": "cancel-position",
+              "passed": true
+            },
+            {
+              "id": "cancel-speed",
+              "passed": true
+            },
+            {
+              "id": "cancel-brave",
+              "passed": true
+            },
+            {
+              "id": "cancel-gfx",
+              "passed": true
+            },
+            {
+              "id": "cancel-weapon",
+              "passed": true
+            },
+            {
+              "id": "cancel-hp",
+              "passed": true
+            },
+            {
+              "id": "cancel-death",
+              "passed": true
+            },
+            {
+              "id": "cancel-shop",
+              "passed": true
+            },
+            {
+              "id": "cancel-lock",
+              "passed": true
+            },
+            {
+              "id": "cancel-walk",
+              "passed": true
+            },
+            {
+              "id": "cancel-move-packet",
+              "passed": true
+            },
+            {
+              "id": "cancel-action",
+              "passed": true
+            },
+            {
+              "id": "cancel-same-speed-revision",
+              "passed": true
+            },
+            {
+              "id": "cancel-appearance-revision",
+              "passed": true
+            },
+            {
+              "id": "cancel-correction-revision",
+              "passed": true
+            },
+            {
+              "id": "cancel-guard-ready",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        },
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-supplement-10\\run\\probe.json",
+            "size": 28628,
+            "sha256": "b5adc5ccdfa004cb62288c0519061963ea4ff4fd6a2002136e838cff8e412a4a"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "old-owner-callback-session",
+              "passed": true
+            },
+            {
+              "id": "old-owner-callback-world",
+              "passed": true
+            },
+            {
+              "id": "predicted-cancel-move",
+              "passed": true
+            },
+            {
+              "id": "predicted-cancel-turn",
+              "passed": true
+            },
+            {
+              "id": "predicted-cancel-attack",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        }
+      ],
+      "nextAction": "Retain historical selected rows as regression contract, execute only under later exact stage regression authorization; absent or broader coverage remains pending."
+    },
+    {
+      "id": "NEGATIVE-SCOPE",
+      "actualRowFamilies": [
+        "negative-scope"
+      ],
+      "referencedRows": 13,
+      "passedRows": 13,
+      "failedRows": 0,
+      "coverage": "11 negative vectors + remote/unknown own-instance preservation",
+      "remaining": "Candidate runtime required to establish actual rejection reasons",
+      "overlapWarning": "Rows shared across families; never sum referencedRows as assertions",
+      "status": "subset-executed",
+      "p28HistoricalEvidence": {
+        "id": "NEGATIVE-SCOPE",
+        "attempts": "negative-01",
+        "coverage": "Exact allowlist on13 supported gfx+4 invalid gfx x256 weapons;42profiles excluded speeds2/3/17/18/255,Brave1/2/3/255,remote/unknown,unlisted pair"
+      },
+      "stageExecution": "not-executed",
+      "gapClosedByHistory": false,
+      "wordingCorrection": "Supervisor acceptance supersedes stale pre-runtime remaining text only; P29 actual 5196-row subset executed. Wider scope still limited.",
+      "inheritedR34Evidence": [
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\run\\probe.json",
+            "size": 466251,
+            "sha256": "728a716e40997316870a3d55cd05e72fc937cc847c2fc3d84f8bf73a3079f7a8"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "receipt-101",
+              "passed": true
+            },
+            {
+              "id": "receipt-999",
+              "passed": true
+            },
+            {
+              "id": "guard-not-ready",
+              "passed": true
+            },
+            {
+              "id": "guard-not-renderable",
+              "passed": true
+            },
+            {
+              "id": "guard-status-owner",
+              "passed": true
+            },
+            {
+              "id": "guard-gfx61",
+              "passed": true
+            },
+            {
+              "id": "guard-weapon4",
+              "passed": true
+            },
+            {
+              "id": "guard-weapon46",
+              "passed": true
+            },
+            {
+              "id": "guard-speed2",
+              "passed": true
+            },
+            {
+              "id": "guard-speed3",
+              "passed": true
+            },
+            {
+              "id": "guard-brave1",
+              "passed": true
+            },
+            {
+              "id": "guard-hp0",
+              "passed": true
+            },
+            {
+              "id": "guard-death",
+              "passed": true
+            },
+            {
+              "id": "guard-shop",
+              "passed": true
+            },
+            {
+              "id": "guard-lock",
+              "passed": true
+            },
+            {
+              "id": "guard-walking",
+              "passed": true
+            },
+            {
+              "id": "guard-appearance",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        }
+      ],
+      "nextAction": "Retain historical selected rows as regression contract, execute only under later exact stage regression authorization; absent or broader coverage remains pending."
+    },
+    {
+      "id": "GAMEPLAY-PRESERVATION",
+      "actualRowFamilies": [
+        "latest-eligible-replace"
+      ],
+      "referencedRows": 84,
+      "passedRows": 84,
+      "failedRows": 0,
+      "coverage": "Per-receipt PickupActions only in replacement subset",
+      "remaining": "900/3000 controlled transport, quantities, input completions, item regressions",
+      "overlapWarning": "Rows shared across families; never sum referencedRows as assertions",
+      "status": "subset-executed",
+      "p28HistoricalEvidence": {
+        "id": "GAMEPLAY-PRESERVATION",
+        "attempts": "regression-01 + profiles-02",
+        "coverage": "900/3000 authority/send lifecycle,early reply,old transport failure,Slow haste item exception on0/0;all mapping finish counts and no effects/projectiles"
+      },
+      "stageExecution": "not-executed",
+      "gapClosedByHistory": false,
+      "inheritedR34Evidence": [
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\run\\probe.json",
+            "size": 466251,
+            "sha256": "728a716e40997316870a3d55cd05e72fc937cc847c2fc3d84f8bf73a3079f7a8"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "local-no-prediction",
+              "passed": true
+            },
+            {
+              "id": "quantity-no-prediction",
+              "passed": true
+            },
+            {
+              "id": "pending-rapid-refusal",
+              "passed": true
+            },
+            {
+              "id": "pending-timeout-retains-association",
+              "passed": true
+            },
+            {
+              "id": "terminal-is-not-new-input-lock",
+              "passed": true
+            },
+            {
+              "id": "ground-completion-early-replies",
+              "passed": true
+            },
+            {
+              "id": "ground-completion-owner-world",
+              "passed": true
+            },
+            {
+              "id": "ground-completion-owner-session",
+              "passed": true
+            },
+            {
+              "id": "ground-completion-owner-lease",
+              "passed": true
+            },
+            {
+              "id": "item-completion-early-replies",
+              "passed": true
+            },
+            {
+              "id": "item-completion-owner-world",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        },
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-supplement-10\\run\\probe.json",
+            "size": 28628,
+            "sha256": "b5adc5ccdfa004cb62288c0519061963ea4ff4fd6a2002136e838cff8e412a4a"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "presentation-nonblocking-send",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        }
+      ],
+      "nextAction": "Retain historical selected rows as regression contract, execute only under later exact stage regression authorization; absent or broader coverage remains pending."
+    },
+    {
+      "id": "EVENTS-AND-CONTROL",
+      "actualRowFamilies": [
+        "resource-integrity",
+        "mapping-body-shadow"
+      ],
+      "referencedRows": 2690,
+      "passedRows": 2690,
+      "failedRows": 0,
+      "coverage": "0/0 body mappings and original resource identity",
+      "remaining": "audio/effect/send counter instrumentation; metadata inert execution proof",
+      "overlapWarning": "Rows shared across families; never sum referencedRows as assertions",
+      "status": "subset-executed",
+      "p28HistoricalEvidence": {
+        "id": "EVENTS-AND-CONTROL",
+        "attempts": "regression-01 + profiles-02 + baseline-control-01 + source audit",
+        "coverage": "32 r34 control images byte identical;original resource and audio DLL unchanged;no dispatch implementation added;effect/projectile collections unchanged after mapping;no audio device execution"
+      },
+      "stageExecution": "not-executed",
+      "gapClosedByHistory": false,
+      "inheritedR34Evidence": [
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\run\\probe.json",
+            "size": 466251,
+            "sha256": "728a716e40997316870a3d55cd05e72fc937cc847c2fc3d84f8bf73a3079f7a8"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "quantity-no-prediction",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        },
+        {
+          "report": {
+            "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-supplement-10\\run\\probe.json",
+            "size": 28628,
+            "sha256": "b5adc5ccdfa004cb62288c0519061963ea4ff4fd6a2002136e838cff8e412a4a"
+          },
+          "dllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+          "selectedHistoricalRows": [
+            {
+              "id": "presentation-nonblocking-send",
+              "passed": true
+            },
+            {
+              "id": "diagnostic-states",
+              "passed": true
+            }
+          ],
+          "scope": "r34 original0/0 offline synthetic fixture; not P30/new42-pair execution"
+        }
+      ],
+      "nextAction": "Retain historical selected rows as regression contract, execute only under later exact stage regression authorization; absent or broader coverage remains pending."
+    },
+    {
+      "id": "LIVE-SEPARATE",
+      "actualRowFamilies": [],
+      "referencedRows": 0,
+      "passedRows": 0,
+      "failedRows": 0,
+      "coverage": "No GUI/socket/native operations",
+      "remaining": "Explicit separate authorization and native environment required; no native claims",
+      "overlapWarning": "Rows shared across families; never sum referencedRows as assertions",
+      "status": "not-executed",
+      "p28HistoricalEvidence": {
+        "id": "LIVE-SEPARATE",
+        "attempts": "not-executed",
+        "coverage": "No native game,GUI,network,DB,services,full-scene/live timing or full-project acceptance"
+      },
+      "stageExecution": "not-executed",
+      "gapClosedByHistory": false,
+      "inheritedR34Evidence": [],
+      "nextAction": "Retain historical selected rows as regression contract, execute only under later exact stage regression authorization; absent or broader coverage remains pending."
+    }
+  ],
+  "countsOverlap": true,
+  "newRuntimeAssertions": 0,
+  "acceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P28-P29-candidate-root-acceptance.json",
+    "size": 2560,
+    "sha256": "2537af60910b67dd6803b1ec8f5252823288e65936cd06c57d6197c5f1e05dd3"
+  },
+  "additionalRequired": [
+    "independent fresh source-to-DLL rebuild and all inherited regressions",
+    "full final composite buffer with shadow and opaque occluder oracle",
+    "three real S30 flight vectors rather than synthetic hit cache",
+    "all lifecycle dimensions and direction1-7 active-window cases",
+    "900/3000 controlled transport, authoritative quantities and early replies",
+    "audio/effect/send event counters and metadata inertness",
+    "resource fault injection: parser/hash/missing group/base key/extension fallback",
+    "native same-version acceptance: outside this offline dispatch"
+  ]
+}

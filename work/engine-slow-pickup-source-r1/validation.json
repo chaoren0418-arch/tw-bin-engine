@@ -1,0 +1,22 @@
+{
+  "status": "pass-static-evidence",
+  "sourcePinsVerified": 68,
+  "releaseSourcePinsVerified": 177,
+  "classEntriesVerified": 17,
+  "nativeChunksVerified": 101,
+  "profilesVerified": 42,
+  "entryHashesMatched": 42,
+  "explicitPickupMetadata": 42,
+  "completePickupFrameSets": 0,
+  "actualRuntimeChecks": 0,
+  "nativeExecuted": false,
+  "jarHandlerExecuted": false,
+  "normalProductStarted": false,
+  "productChanged": false,
+  "candidateBuilt": false,
+  "gui": false,
+  "socket": false,
+  "dbOrSqlOrServices": false,
+  "initialCollectionIssue": "First metadata pass assumed every manifest row had sprite; corrected to optional field and full 42 profiles collected. No product/asset touched.",
+  "rejectedNavigation": "933D90/+0x80 hypothesis disproven by vtable boundaries; 92CB70/+0x4c supported by pointer tables and six code references."
+}

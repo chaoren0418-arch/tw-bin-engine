@@ -1,0 +1,54 @@
+{
+  "schema": "p28-p29-bounded-supervisor-acceptance-v1",
+  "utc": "2026-10-29T05:43:30.978957+00:00",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "decision": "accepted-bounded-candidate-for-isolated-stage-planning",
+  "candidate": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\artifact-manifest.json",
+    "size": 214902,
+    "sha256": "3abd6ac7246f3ffbccc923e46611a37d91e2e7d6a331697661677b5bb4488eee"
+  },
+  "candidateSource": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\source-manifest.json",
+    "size": 32302,
+    "sha256": "18aecf0d68455b5561637ca23f62d33228ef4b451be0e66602f07995daee49a9"
+  },
+  "candidateDll": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\candidate\\build\\P11.ClientEngine.dll",
+    "size": 4925440,
+    "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+  },
+  "review": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\runtime-review-r1\\artifact-manifest.json",
+    "size": 46147,
+    "sha256": "a641244d40f8ca17cca56538dc927bd8b534409d74a212006046be790a726532"
+  },
+  "rootVerification": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P29-root-verification.json",
+    "size": 793,
+    "sha256": "146ce54c40bc70422c68afb2cbc360328a28285d7d2ce531bb318f9344e3a057"
+  },
+  "authorCandidateAssertions": 26953,
+  "authorBaselineControlAssertionsSeparate": 225,
+  "independentRuntimeUniqueAssertions": 5196,
+  "independentStaticChecks": 17,
+  "repairedFindings": [
+    "P28 helper pickup-only namespace scope; product unchanged",
+    "P29 H1 assembly dependency manifest; original probe unchanged"
+  ],
+  "remaining": [
+    "independent stage source-to-DLL rebuild and inherited regressions",
+    "full composite buffer and occluder oracle",
+    "real S30 flight vectors",
+    "full lifecycle/transport/quantity/event-counter coverage",
+    "resource fault injection and fallback",
+    "native same-version acceptance"
+  ],
+  "coverageNote": "P29 PROFILE-MAP/NEGATIVE-SCOPE remaining text retains pre-runtime wording; actual 5196-row execution supersedes that wording only. Other coverage limitations remain.",
+  "formalEntry": "r33",
+  "sharedIntegrationAuthorized": false,
+  "releaseAuthorized": false,
+  "entryActivationAuthorized": false,
+  "nativeAccepted": false,
+  "wholeProjectComplete": false
+}

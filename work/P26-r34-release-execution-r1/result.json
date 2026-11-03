@@ -1,0 +1,103 @@
+{
+  "schema": "r34-release-execution-summary-v1",
+  "dispatchId": "ENGINE-R34-RELEASE-P26-R2",
+  "status": "sealed-local-r34-awaiting-supervisor-full-sha-verification-no-activation",
+  "command": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-execution-r1\\package.command.json",
+    "size": 1507,
+    "sha256": "6c15400be244adf9ecdfb6ca4b230b615b443a8a217932070b664e33ba163ff1"
+  },
+  "rawStdout": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-execution-r1\\package.stdout",
+    "size": 179,
+    "sha256": "bd15e110a47686dbebab01c44e31b904cfb9e0db04c438d94c7a9ca27573a510",
+    "decoder": "utf-8-sig errors=replace",
+    "replacementCount": 0
+  },
+  "rawStderr": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-execution-r1\\package.stderr",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "decoder": "utf-8-sig errors=replace",
+    "replacementCount": 0
+  },
+  "exitCode": 0,
+  "packageAttempts": 1,
+  "releaseRoot": "D:\\lineage開發\\TW1608262200研究\\releases\\r34",
+  "releaseSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\release-seal.json",
+    "size": 2867987,
+    "sha256": "955ea88173cb36cecaefb6d5e9bbce7d76dfd7bf39ccd7830e56a269ab3155c3"
+  },
+  "sealFiles": 16252,
+  "totalFilesIncludingSeal": 16253,
+  "plannedIndependentCopies": 2290,
+  "assetHardlinks": 13958,
+  "generatedSealedMetadataFiles": 4,
+  "assetCopyFallback": false,
+  "assetBodyWrites": 0,
+  "assetAttributeWrites": 0,
+  "newAssetJunctions": 0,
+  "assetLinkStrategy": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\asset-link-strategy.json",
+    "size": 6043997,
+    "sha256": "222466c376d839769d1149fa597e8a090c029d02505a413c075df79548c9b266"
+  },
+  "packagedPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\package-plan.json",
+    "size": 1099423,
+    "sha256": "939fcbd2176d1360b510153993f43deacf91b34a3b1737fb4d91ad8b30bb0c01"
+  },
+  "packagedReceipt": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\release-acceptance.json",
+    "size": 5501,
+    "sha256": "98053457e8accacbfce4618f3fe6906b04c1f17ce0483167f2ec5907085770df"
+  },
+  "rootEntryAndProjectManifestUnchanged": true,
+  "activeRootStill": "r33",
+  "engineAssetsJunctionUnchanged": true,
+  "toolAndPlanSealsUnchanged": true,
+  "fullShaVerifierReexecutedByIntegrator": false,
+  "checkOnlyReexecuted": false,
+  "productBuildsOrProbesReexecuted": 0,
+  "releaseExtraReportsWritten": false,
+  "workflowWritten": false,
+  "goal": {
+    "value": null,
+    "created": false,
+    "modified": false
+  },
+  "productDllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productManifestSha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d",
+  "launcherDllSha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8",
+  "handoff": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-execution-r1\\HANDOFF.md",
+    "size": 2049,
+    "sha256": "74ad70cea6d2c83c351d3e19e965c8da04b20ae2b703f77bcfdd4d47d83fd3dc"
+  },
+  "executionSummary": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-execution-r1\\execution-summary.json",
+    "size": 3193,
+    "sha256": "a57352defb6e03c1b578e69b9fce2600400d8580a56eddcf74bd358fc28acd6f"
+  },
+  "exactCommand": [
+    "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\package_release.py",
+    "--plan",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r2\\package-plan.json",
+    "--plan-sha256",
+    "939fcbd2176d1360b510153993f43deacf91b34a3b1737fb4d91ad8b30bb0c01",
+    "--receipt",
+    "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-release-acceptance.json",
+    "--receipt-sha256",
+    "98053457e8accacbfce4618f3fe6906b04c1f17ce0483167f2ec5907085770df",
+    "--package"
+  ],
+  "executionLogRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-execution-r1",
+  "supervisorFullShaVerificationPending": true,
+  "entryActivationAuthorized": false
+}

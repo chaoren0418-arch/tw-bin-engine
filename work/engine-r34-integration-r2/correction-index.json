@@ -1,0 +1,137 @@
+{
+  "schema": "engine-r34-r2-compatibility-corrections-v1",
+  "files": [
+    {
+      "path": "acceptance-materials.schema.json",
+      "r1Source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r1\\acceptance-materials.schema.json",
+      "r1Sha256": "9cd3b074ae8a053d1d2b578b491449b1f6635400243dbf2f106a6036badd5bac",
+      "r2Sha256": "b48558ccf215fe324bd7fc760a0dbf0e089740d9eec25d03ba001756b28e4c5b",
+      "patch": "corrections/acceptance-materials.schema.json.patch"
+    },
+    {
+      "path": "acceptance_gate.py",
+      "r1Source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r1\\acceptance_gate.py",
+      "r1Sha256": "6e3dc2af6b3d54599196fdb1f175c91332e57755adf92b2520cbc1d1717ca08d",
+      "r2Sha256": "c446cd8b7f8070dfd0328ca71c4563671e31d7dc37bc2c45e39678664bcc6979",
+      "patch": "corrections/acceptance_gate.py.patch"
+    },
+    {
+      "path": "prepare_rebuild.py",
+      "r1Source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r1\\prepare_rebuild.py",
+      "r1Sha256": "3c917e0b96f373b6e9f4dc3e6819b52c788bd194911f48b5c84a369fcbd519b6",
+      "r2Sha256": "f3714dc08487fd1f53a8bf3126aa8c1818d40611422ccf55d3632cf9757b7219",
+      "patch": "corrections/prepare_rebuild.py.patch"
+    },
+    {
+      "path": "prepared/rebuild_template_r34.py",
+      "r1Source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r1\\prepared\\rebuild_template_r34.py",
+      "r1Sha256": "dd5d512d2fc48b07ac4dc7640fc9d2bba32e342a7445710e0cfc392dbc20ad5d",
+      "r2Sha256": "f1d384816f7526692470e0e33d2a26a550f04a467afac57879449fc0c6a2659e",
+      "patch": "corrections/prepared__rebuild_template_r34.py.patch"
+    },
+    {
+      "path": "prepared/regression-plan-r34.json",
+      "r1Source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r1\\prepared\\regression-plan-r34.json",
+      "r1Sha256": "aaedac3090e7e2e3509fc43904a7e134030a53772b7c6b0d29b9fb08df9461b5",
+      "r2Sha256": "abb96b60d01284fd3dbb8b05165792b28b26154110a1b6f928b890fd760d7ab3",
+      "patch": "corrections/prepared__regression-plan-r34.json.patch"
+    },
+    {
+      "path": "prepared/release-layout-r34.json",
+      "r1Source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r1\\prepared\\release-layout-r34.json",
+      "r1Sha256": "267e911c575ec9b9c869c670dd145457c8ba0a7ed88b1beb568c45bb9335414a",
+      "r2Sha256": "20ade965b487e491b22af2c8b276f81bd931af9deecb766761bb6c85ab1d54fa",
+      "patch": "corrections/prepared__release-layout-r34.json.patch"
+    },
+    {
+      "path": "run_next_stage.py",
+      "r1Source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r1\\run_next_stage.py",
+      "r1Sha256": "d38efd031b688a43355ef48c423eed67838380cc694cbc32a3492e56913afa7b",
+      "r2Sha256": "3a1bb6e4e0ab0e976851cfd434ecb8371b916916cabd32cc2f48678662282a5e",
+      "patch": "corrections/run_next_stage.py.patch"
+    },
+    {
+      "path": "serial_canonical.py",
+      "r1Source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r1\\serial_canonical.py",
+      "r1Sha256": "02c6d63d1b060cdc8b5249aecab894402fc6dbfa9c522d00e11f5fddedd91492",
+      "r2Sha256": "c087073244eaa2a3d0bcb334652a66c1abe0bf3c4a6de1b3d2e2ab18d09a3d48",
+      "patch": "corrections/serial_canonical.py.patch"
+    },
+    {
+      "path": "test-adaptation-inventory.json",
+      "r1Source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r1\\test-adaptation-inventory.json",
+      "r1Sha256": "6397715ff0d5a708c13661b72873f9f298052ff37c655f9b116ebdd34b5cb07f",
+      "r2Sha256": "c38c7611d0a247d48231432e52e55020d95a3f50b095f0ee7573f4cd353a968d",
+      "patch": "corrections/test-adaptation-inventory.json.patch"
+    },
+    {
+      "path": "workflow-contract.json",
+      "r1Source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r1\\workflow-contract.json",
+      "r1Sha256": "2421e07810cd7793565ca4435392e43d59f98827494337b4c15b2ca5a000a1a1",
+      "r2Sha256": "510bd7d93d4cb002c346b821814e16dd03ff3ae389d54d990a55189764edd538",
+      "patch": "corrections/workflow-contract.json.patch"
+    }
+  ],
+  "newToolingAndEvidenceContracts": [
+    {
+      "path": "compatibility.py",
+      "size": 15324,
+      "sha256": "6ab1b4f29c8b97620f60894bdb3b5fcac40815620d7ebaa93ff6d8ab52f6dd25"
+    },
+    {
+      "path": "audit_native.py",
+      "size": 5473,
+      "sha256": "089e1a5fb47c92db7eda0d5c2206f29e40db2c2df09cbc3c5d37f9810977e34d"
+    },
+    {
+      "path": "review-root-policy.json",
+      "size": 544,
+      "sha256": "3d710d519bbc58a030e17a2098baffba20d2423a50f64eb33833d46d92f9cec4"
+    },
+    {
+      "path": "candidate-lock.json",
+      "size": 1006,
+      "sha256": "4caad0e6c5dd066e0a51cc9a5aef38052cfcb2a2c16bdbced82fa11204883c11"
+    },
+    {
+      "path": "pickup-suite-snapshots.json",
+      "size": 5442,
+      "sha256": "c85e27709c39ef30e1b0860a7be6f26ff09ac979b419bec23602404f2f482072"
+    },
+    {
+      "path": "pickup-fixture-plan.json",
+      "size": 10503,
+      "sha256": "5cb0a758eb48854aa2c26e2cf1e2443057ccf93881041830d5848596cead8192"
+    },
+    {
+      "path": "test_compatibility.py",
+      "size": 6081,
+      "sha256": "4f29c0784f1aad34af85babc55e2138c86967440b8dce3e4be6609fc5ca6feff"
+    },
+    {
+      "path": "verify_preparation.py",
+      "size": 3668,
+      "sha256": "2a4f96a77f5aed68b6112d09783f16182d347ae3ad30671c9e21d527f4fca89c"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 6244,
+      "sha256": "bda1f5a6f0f1b74415f433cbd91af3c352f2a3d79eca669e4d4fe69e554c0433"
+    },
+    {
+      "path": "MATERIALS.md",
+      "size": 3533,
+      "sha256": "329beb283c4b35f11b1f63a134d6d82013b1e11fcf5731c599e2e13121d161d6"
+    },
+    {
+      "path": "VALIDATION-PLAN.md",
+      "size": 2660,
+      "sha256": "a6df1cc4644a13d158a727200f5da17242044e738da2f89c24efd1af722dc4b9"
+    }
+  ],
+  "resourceCorrection": "Exact native projection branch, actual32/24+8/resource/csproj normalization; no author reseal",
+  "reviewCorrection": "Exact contract review-root allowlist and sealed native acceptance rows/findings/coverage; no invented mandatory native fields",
+  "sourceSnapshotCorrection": "Executed main174/supplement10 snapshots, not final harness; paths/metadata adaptations only",
+  "fullFormalGateExecuted": false,
+  "acceptedRootReceiptFabricated": false
+}

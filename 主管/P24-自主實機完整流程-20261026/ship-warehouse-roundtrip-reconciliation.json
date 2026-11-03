@@ -1,0 +1,56 @@
+{
+  "utc": "2026-10-26T18:34:53.246164+00:00",
+  "status": "pass",
+  "actualNormalUi": true,
+  "outbound": {
+    "revision": "r12",
+    "route": [
+      0,
+      5,
+      4
+    ],
+    "ticket": 40299,
+    "ticketObject": 10325
+  },
+  "returnTrip": {
+    "revision": "r13",
+    "route": [
+      4,
+      6,
+      0
+    ],
+    "ticket": 40298,
+    "ticketObject": 10331,
+    "landing": [
+      32632,
+      32979
+    ]
+  },
+  "naturalServerClock": true,
+  "deckWalkingBothDirections": true,
+  "shipRelogin": "Both ship maps use original configured return-to-pier rule; ticket retained and normal reboarding succeeded.",
+  "finalAdena": 89220,
+  "redPotions": 70,
+  "hastePotionsAtEndOfVoyage": 1,
+  "hp": 686,
+  "newDeathsDuringVoyageOrWarehouse": 0,
+  "normalArrivalReloginAndDb": true,
+  "limitations": [
+    "Native WGC capture failed; actual renderer scene and visible WebView screenshots used.",
+    "Evidence spans r12 outbound/warehouse and r13 return; r13 changed only rabbit assets, same DLL.",
+    "Ship backdrop compatibility limit at6x server clock remains documented in ship candidate."
+  ],
+  "evidence": [
+    "r12-outbound-arrival-state.json",
+    "r12-warehouse-live-reconciliation.json",
+    "r13-return-closed-window-step.json",
+    "r13-return-boarding-state.json",
+    "r13-return-deck-walk.json",
+    "r13-return-ship-relogin.json",
+    "r13-return-reboard-after-relogin.json",
+    "r13-return-voyage.jsonl",
+    "r13-return-arrival-state.json",
+    "r13-after-return-relogin.json",
+    "r13-roundtrip-final-offline-db.json"
+  ]
+}

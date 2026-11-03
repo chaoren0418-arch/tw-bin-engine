@@ -1,0 +1,18 @@
+{
+  "schema": "r34-package-plan-root-verification-v1",
+  "status": "pass",
+  "planSha256": "939fcbd2176d1360b510153993f43deacf91b34a3b1737fb4d91ad8b30bb0c01",
+  "files": 2290,
+  "sourceFiles": 180,
+  "completedSteps": 8,
+  "historicalEvidencePins": 690,
+  "identities": {
+    "productDllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+    "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "productManifestSha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d",
+    "launcherDllSha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8"
+  },
+  "rootEntryUnchanged": true,
+  "releaseCreated": false,
+  "productCommandsExecuted": 0
+}

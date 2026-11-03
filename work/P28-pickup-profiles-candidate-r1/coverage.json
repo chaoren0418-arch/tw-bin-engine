@@ -1,0 +1,83 @@
+{
+  "candidateDllSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "families": [
+    {
+      "id": "PROFILE-MAP",
+      "attempts": "profiles-02",
+      "coverage": "672 fixture combinations / 2688 executed slot IDs saved; eight directions and both allowed speeds for all42 exact pairs"
+    },
+    {
+      "id": "BODY-PIXELS",
+      "attempts": "profiles-02",
+      "coverage": "416 unique body PNGs; independent sealed fixture RGBA and PNG comparison; actual ComposeObjects commands and BitmapOf, composite ownership/mask oracle"
+    },
+    {
+      "id": "EXACT-KEY-EXCEPTIONS",
+      "attempts": "profiles-02 + namespace-01",
+      "coverage": "Exact keys including gfx2796;64 pickup collision key/gfx/sprite sets and80 all-frame collision sets"
+    },
+    {
+      "id": "RESOURCE-INTEGRITY",
+      "attempts": "negative-01 + regression-01",
+      "coverage": "Both embedded byte identities,extension tamper3 offsets,missing terminal suppress/cancel for42 profiles,wrong profile hash42,bypassed borrowed same-gfx profile rejected"
+    },
+    {
+      "id": "BASE-REUSE",
+      "attempts": "profiles-02",
+      "coverage": "672 exact loaded-profile terminal object identity assertions"
+    },
+    {
+      "id": "SHADOW",
+      "attempts": "profiles-02",
+      "coverage": "Every mapping sample removes idle shadow;312 unique pickup keys no shadow;104 terminal unique exact shadow keys;actual draw ordering/composite"
+    },
+    {
+      "id": "ACTIVE-WINDOWS",
+      "attempts": "boundaries-01",
+      "coverage": "42 x Speed0/1 x attack/damage/spellDir/spellNoDir x captured/fallback;double duration,last/first expired integer,captured haste and Timing.Matches"
+    },
+    {
+      "id": "PROJECTILE-DEATH",
+      "attempts": "boundaries-01 + regression-01",
+      "coverage": "42 profiles active/expired hit with null/stale OwnCombat,indefinite death,S87 weapon8;uncomposed pending impact on control"
+    },
+    {
+      "id": "SAME-GFX-WEAPON-CHANGE",
+      "attempts": "negative-01",
+      "coverage": "Every pair with a same-gfx alternate:owner cancellation,old callback isolation,borrowed profile rejection"
+    },
+    {
+      "id": "BURST-CANCEL-SCHEDULER",
+      "attempts": "negative-01 + regression-01",
+      "coverage": "42profiles burst21,latest eligible,late one-step/min2,terminal584,old serial isolation,33 cancellation variants;control terminal preemption and lifecycle"
+    },
+    {
+      "id": "NEGATIVE-SCOPE",
+      "attempts": "negative-01",
+      "coverage": "Exact allowlist on13 supported gfx+4 invalid gfx x256 weapons;42profiles excluded speeds2/3/17/18/255,Brave1/2/3/255,remote/unknown,unlisted pair"
+    },
+    {
+      "id": "GAMEPLAY-PRESERVATION",
+      "attempts": "regression-01 + profiles-02",
+      "coverage": "900/3000 authority/send lifecycle,early reply,old transport failure,Slow haste item exception on0/0;all mapping finish counts and no effects/projectiles"
+    },
+    {
+      "id": "EVENTS-AND-CONTROL",
+      "attempts": "regression-01 + profiles-02 + baseline-control-01 + source audit",
+      "coverage": "32 r34 control images byte identical;original resource and audio DLL unchanged;no dispatch implementation added;effect/projectile collections unchanged after mapping;no audio device execution"
+    },
+    {
+      "id": "LIVE-SEPARATE",
+      "attempts": "not-executed",
+      "coverage": "No native game,GUI,network,DB,services,full-scene/live timing or full-project acceptance"
+    }
+  ],
+  "notClaimed": [
+    "7822 planned overlapping slots are not an executed count",
+    "The prior r34 canonical4521+93 are historical and are not added to current totals",
+    "Synthetic empty scene and injected clocks/packet fixtures,not real native/server capture",
+    "No entire canonical release suite or production packaging run",
+    "No live audio playback or device validation"
+  ],
+  "fixtureModel": "Uninitialized Assets seeded only in helper with explicit empty scene,real sealed profiles and original Renderer. AppContext asset path overridden only inside helper process;assets read directly,no copies or junctions."
+}

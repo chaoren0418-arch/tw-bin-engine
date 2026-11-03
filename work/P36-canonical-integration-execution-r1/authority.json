@@ -1,0 +1,47 @@
+{
+  "receipt": {
+    "schema": "p36-serial-execution-acceptance-v1",
+    "decision": "accepted-for-p36-serial-source-build",
+    "utc": "2026-10-29T08:56:08.523631+00:00",
+    "dispatchId": "ENGINE-P36-SERIAL-SOURCE-BUILD-R2-01",
+    "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+    "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+    "planSha256": "f67fa56815fbc133c1710c450efe1305d58da7c75566e02a9d909a24ca6059bd",
+    "contractSha256": "f439915614397edb8a478196375706aec1af68b670bd06c310d1ba3e251e8c30",
+    "toolSourceSealSha256": "ea73adff65e8887e1b3369147a8c8c22a980f32fc5a6f8cba5868e9b860ad172",
+    "authorArtifactSealSha256": "d72f2c75fc792df44a5e035651a82e5cb2244d944d42564e2231c7e15a1a30c7",
+    "executionRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1",
+    "buildRoot": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1",
+    "productManifest": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-p36-r1-manifest.json",
+    "maxBuildInvocations": 1,
+    "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+    "expectedAudioSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "sourceRollbackAuthorized": true,
+    "releaseWrites": false,
+    "entryActivationAuthorized": false,
+    "runtimeProbesAuthorized": 0,
+    "independentReview": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-review-r2\\plan-review.json",
+      "size": 2315,
+      "sha256": "e6978bc8ff740731fbe52c25e0f32e67db13b183474ff25af94a842cd9f22422"
+    },
+    "independentReviewSeal": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-review-r2\\artifact-seal.json",
+      "size": 435,
+      "sha256": "8cdfba1534056ca45d6b8fa36bb69c142051035dfea3e9be21cab1d522305bdb"
+    },
+    "allowedSourceTargets": [
+      "D:\\lineage開發\\TW1608262200研究\\engine\\source\\ObjectAssets.cs",
+      "D:\\lineage開發\\TW1608262200研究\\engine\\source\\OfflineClient.csproj",
+      "D:\\lineage開發\\TW1608262200研究\\engine\\source\\PickupAssets.cs",
+      "D:\\lineage開發\\TW1608262200研究\\engine\\source\\PickupPresentation.cs",
+      "D:\\lineage開發\\TW1608262200研究\\engine\\source\\Resources\\pickup-own-base15-profile-extension.json"
+    ],
+    "qualification": "Canonical development source and new build only. P37 execution waits true P36 final acceptance. Full release/native/entry activation not authorized."
+  },
+  "pin": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-execution-acceptance-r1.json",
+    "size": 2493,
+    "sha256": "4d5a0d73650ddc9bd6d9f121feb3f55fb084b742e45eb26a96430cea540e4032"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "schema": "p32-certificate-root-readonly-acceptance-v1",
+  "utc": "2026-10-29T07:29:40.677150+00:00",
+  "status": "bounded-readonly-current-state-investigation-accepted",
+  "seal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-certificate-readonly-r1\\artifact-manifest.json",
+    "size": 3638,
+    "sha256": "ab4509168c1157e1a6699d3c017f27eecc219196138c7f6d955a369da9a0df2e"
+  },
+  "artifactFilesVerified": 21,
+  "evidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-certificate-readonly-r1\\result.json",
+      "size": 2953,
+      "sha256": "d6c96e377e35ae9dbdea530781cf655d60c23c926a417b51217021eed72c13e5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-certificate-readonly-r1\\store-observation.json",
+      "size": 2667,
+      "sha256": "b80b365b9ffea7f654cb5caab143dc9377c9e7455bb6fb018ff513b95df74883"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-certificate-readonly-r1\\copy-receipts.json",
+      "size": 5259,
+      "sha256": "09997b6156399cb6033473aa029083bf0f7c7c6b5700f7b68cdaa335ff98ed95"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-certificate-readonly-r1\\later-runner-checks.json",
+      "size": 909,
+      "sha256": "1c03a89a8699546c2607074ae5251125ad9b953f0c3f1573595a1c17e959fd1a"
+    }
+  ],
+  "currentFullSidMatchesSupervisorObservedContext": true,
+  "matchingCertificates": 0,
+  "matchingRootMembers": 0,
+  "storesReadOnly": 10,
+  "originalEvidenceCopies": 12,
+  "originalBuildWindow": {
+    "start": "2026-10-29T07:08:21.892275+00:00",
+    "end": "2026-10-29T07:08:25.970619+00:00"
+  },
+  "historicalAdditionConclusion": "uncertain: no before snapshot and original token SID not captured; cannot prove no certificate was ever added or generalize to other accounts",
+  "trustConclusion": "No matching certificate currently available for Root membership; no trust-chain operation performed.",
+  "repairsNeededOnObservedEvidence": false,
+  "certificateMutations": 0,
+  "privateKeyAccess": false,
+  "laterP32BuildsCertificateGenerationDisabled": true,
+  "newP33P34MustDisableBeforeFirstBuild": true,
+  "rootInitialObservationQualification": "Original supervisor report parsed timestamps to whole seconds; authoritative microsecond build window retained in copied original command and this acceptance. Both scans found no match."
+}

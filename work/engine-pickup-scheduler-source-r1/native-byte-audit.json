@@ -1,0 +1,564 @@
+{
+  "imageBase": "0x400000",
+  "chunks": [
+    {
+      "VA": "0xa467a0",
+      "RVA": "0x6467a0",
+      "fileOffset": "0x645ba0",
+      "size": 5477,
+      "sha256": "0de7dc79cd1fe2c74e88bf26f0309c5195f4ea109d2d0fde7720e257aad79a3a",
+      "artifact": "prior/0xa467a0.json",
+      "scope": "prior chunk byte verified"
+    },
+    {
+      "VA": "0x10ac640",
+      "RVA": "0xcac640",
+      "fileOffset": "0xcaba40",
+      "size": 222,
+      "sha256": "2e0a08415ee85c7744a94f9cf4f30d344702e131e26ca24cd8200333abc6279a",
+      "artifact": "prior/0xa467a0.json",
+      "scope": "prior chunk byte verified"
+    },
+    {
+      "VA": "0xa43560",
+      "RVA": "0x643560",
+      "fileOffset": "0x642960",
+      "size": 839,
+      "sha256": "5841695b55f6faa4abda547de6342f2433311d70573ab79724062cb5cef45181",
+      "artifact": "prior/0xa43560.json",
+      "scope": "prior chunk byte verified"
+    },
+    {
+      "VA": "0xa3ef40",
+      "RVA": "0x63ef40",
+      "fileOffset": "0x63e340",
+      "size": 3686,
+      "sha256": "64701a56874b973f27af05bc1629d1502901c992a373c820611264a79b0be771",
+      "artifact": "prior/0xa3ef40.json",
+      "scope": "prior chunk byte verified"
+    },
+    {
+      "VA": "0x10ac480",
+      "RVA": "0xcac480",
+      "fileOffset": "0xcab880",
+      "size": 151,
+      "sha256": "3da1bc83cd19d182613744cbd31ee3377e052ef4143d799adb6e79cf2dc7f7e0",
+      "artifact": "prior/0xa3ef40.json",
+      "scope": "prior chunk byte verified"
+    },
+    {
+      "VA": "0xa407d0",
+      "RVA": "0x6407d0",
+      "fileOffset": "0x63fbd0",
+      "size": 1644,
+      "sha256": "df99bc065dd5014d263cc0ea9b59a50e659504454294d558ad2c956718b223af",
+      "artifact": "prior/0xa407d0.json",
+      "scope": "prior chunk byte verified"
+    },
+    {
+      "VA": "0xa44500",
+      "RVA": "0x644500",
+      "fileOffset": "0x643900",
+      "size": 688,
+      "sha256": "ae67b54523df6d0655c6dc63389285cba928e94415068b232d3dad13141e6ae1",
+      "artifact": "native/00a44500.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately"
+    },
+    {
+      "VA": "0xa44b60",
+      "RVA": "0x644b60",
+      "fileOffset": "0x643f60",
+      "size": 80,
+      "sha256": "734b2a1157fc1d32ad189b62761e056aa9125c702c40d5e86ba2bba594ae8421",
+      "artifact": "native/00a44b60.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately"
+    },
+    {
+      "VA": "0xa4bf00",
+      "RVA": "0x64bf00",
+      "fileOffset": "0x64b300",
+      "size": 880,
+      "sha256": "f683e83b3321eb752e99d45c4b061565d9bb811c4dbe6693a1290e23a02cd539",
+      "artifact": "native/00a4bf00.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately"
+    },
+    {
+      "VA": "0xa3c100",
+      "RVA": "0x63c100",
+      "fileOffset": "0x63b500",
+      "size": 64,
+      "sha256": "01a665e9c48fc0cdd0f2a68e9fea5ad4fd4c4a78fcc11efe3ec20c07707b4181",
+      "artifact": "native/00a3c100.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately"
+    },
+    {
+      "VA": "0xa228b0",
+      "RVA": "0x6228b0",
+      "fileOffset": "0x621cb0",
+      "size": 96,
+      "sha256": "ac6e00255fd8357e64accb3456027b8b085afa4f08d4623fe79fc3bfbc44f48c",
+      "artifact": "native/00a228b0.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately"
+    },
+    {
+      "VA": "0xa231c0",
+      "RVA": "0x6231c0",
+      "fileOffset": "0x6225c0",
+      "size": 160,
+      "sha256": "f3f4da7e5e162ccc182fdd71d1cc24dc1c57d61d07183da66c9a58ea5a13a927",
+      "artifact": "native/00a231c0.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately"
+    },
+    {
+      "VA": "0xa23260",
+      "RVA": "0x623260",
+      "fileOffset": "0x622660",
+      "size": 144,
+      "sha256": "cb28bc688f04ce8116aaaccd04439fe2409e74c246b489866e93270b0808c543",
+      "artifact": "native/00a23260.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately"
+    },
+    {
+      "VA": "0xa3ebf0",
+      "RVA": "0x63ebf0",
+      "fileOffset": "0x63dff0",
+      "size": 352,
+      "sha256": "e2e88d1f929c4d09bd91498d649a9e0e6eccd59709b7b120a22c291642f8c3dd",
+      "artifact": "native/00a3ebf0.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately"
+    },
+    {
+      "VA": "0xa3c4f0",
+      "RVA": "0x63c4f0",
+      "fileOffset": "0x63b8f0",
+      "size": 176,
+      "sha256": "a7e0cff74bf9300e7e77fe55a63cfc257c50211f3047df550c8ed041ca9b2385",
+      "artifact": "native/00a3c4f0.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately"
+    },
+    {
+      "VA": "0xa4b060",
+      "RVA": "0x64b060",
+      "fileOffset": "0x64a460",
+      "size": 2496,
+      "sha256": "7e23dc788a581acabdfabc393d657899057e48105e7836ac4d4c401cb5622b59",
+      "artifact": "native/00a4b060.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately"
+    },
+    {
+      "VA": "0xa40540",
+      "RVA": "0x640540",
+      "fileOffset": "0x63f940",
+      "size": 16,
+      "sha256": "0f78dad7639f67e6b5924af7c53d999bad85694c281a6d4a077d0382ff12ad6a",
+      "artifact": "native/00a40540.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0xa40530",
+      "RVA": "0x640530",
+      "fileOffset": "0x63f930",
+      "size": 16,
+      "sha256": "0f78dad7639f67e6b5924af7c53d999bad85694c281a6d4a077d0382ff12ad6a",
+      "artifact": "native/00a40530.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0xa42140",
+      "RVA": "0x642140",
+      "fileOffset": "0x641540",
+      "size": 240,
+      "sha256": "2bd45f6e13d970076f2524c49bb069fc1f288680f101cc55ce3557864189da27",
+      "artifact": "native/00a42140.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0xa41490",
+      "RVA": "0x641490",
+      "fileOffset": "0x640890",
+      "size": 32,
+      "sha256": "4819960437fe944ec7d9649ef9c19f88e77e4020f2b8373b2a6c2d0a8f3a2ef4",
+      "artifact": "native/00a41490.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x51f3e0",
+      "RVA": "0x11f3e0",
+      "fileOffset": "0x11e7e0",
+      "size": 32,
+      "sha256": "4819960437fe944ec7d9649ef9c19f88e77e4020f2b8373b2a6c2d0a8f3a2ef4",
+      "artifact": "native/0051f3e0.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x51e8e0",
+      "RVA": "0x11e8e0",
+      "fileOffset": "0x11dce0",
+      "size": 32,
+      "sha256": "fcca38d99c0b3f433c951c284a858e12168d5b5e6ad1da1b45d2fdb7fb02158c",
+      "artifact": "native/0051e8e0.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x51e920",
+      "RVA": "0x11e920",
+      "fileOffset": "0x11dd20",
+      "size": 32,
+      "sha256": "49d01631654ead62a105a09c40e3022aeb31bc78ab1238984d5fe3b9dbe566ca",
+      "artifact": "native/0051e920.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x521e20",
+      "RVA": "0x121e20",
+      "fileOffset": "0x121220",
+      "size": 176,
+      "sha256": "a46d70a8d96c001c7e7c39c66ea819bdbda654765594d05dd41818123c597ea2",
+      "artifact": "native/00521e20.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x51e860",
+      "RVA": "0x11e860",
+      "fileOffset": "0x11dc60",
+      "size": 16,
+      "sha256": "7e31caca15f92bd7b3289cc2d8d2c2a4d7e636eb4c8b8edc4c12fc657f52e00c",
+      "artifact": "native/0051e860.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0xa40660",
+      "RVA": "0x640660",
+      "fileOffset": "0x63fa60",
+      "size": 48,
+      "sha256": "7cc8bec67f6e7f4d7d362c356984df70adabfcea32d52c9f16196e66d2980b0a",
+      "artifact": "native/00a40660.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x92ad40",
+      "RVA": "0x52ad40",
+      "fileOffset": "0x52a140",
+      "size": 80,
+      "sha256": "1df7787416b89606e982422a6071f1f32f7ce3eb5e004d3112c26d999160865c",
+      "artifact": "native/0092ad40.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0xa23ac0",
+      "RVA": "0x623ac0",
+      "fileOffset": "0x622ec0",
+      "size": 112,
+      "sha256": "554af572006cd85edb2cfecaf9c3d45e176ea4e6bea92bf116884dec9854e4f8",
+      "artifact": "native/00a23ac0.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0xa22830",
+      "RVA": "0x622830",
+      "fileOffset": "0x621c30",
+      "size": 128,
+      "sha256": "99493c9e659d490f928ad76cb8e985659f22e7a141a234f8da2595585bbf365a",
+      "artifact": "native/00a22830.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0xa22910",
+      "RVA": "0x622910",
+      "fileOffset": "0x621d10",
+      "size": 128,
+      "sha256": "f44154607e03e70f47abcae9de9d1d9dec93b21f7e0f526b046dedd349c11f80",
+      "artifact": "native/00a22910.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x4e7f50",
+      "RVA": "0xe7f50",
+      "fileOffset": "0xe7350",
+      "size": 48,
+      "sha256": "420353e7248a3102dd899ea07d97470309b82685fe1beecb0893adc5a2817086",
+      "artifact": "native/004e7f50.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x516290",
+      "RVA": "0x116290",
+      "fileOffset": "0x115690",
+      "size": 48,
+      "sha256": "c609bfd16248e1114a6084b3e2278e505d70a5c17d3deba3fac2f6b4d989e974",
+      "artifact": "native/00516290.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x5161b0",
+      "RVA": "0x1161b0",
+      "fileOffset": "0x1155b0",
+      "size": 48,
+      "sha256": "f73f35ae999b916bf0839bf42866a62957a4c183e6a9f9d12a970f6d3b78c81e",
+      "artifact": "native/005161b0.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x516180",
+      "RVA": "0x116180",
+      "fileOffset": "0x115580",
+      "size": 48,
+      "sha256": "fb6598dacee7038ba1f5464273717ea711994aadb7b4e2266a97061ae999f906",
+      "artifact": "native/00516180.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x66d540",
+      "RVA": "0x26d540",
+      "fileOffset": "0x26c940",
+      "size": 48,
+      "sha256": "819a119983b3d02152a35c055502c760b86498e96812f5f15b96dbf9c69fc373",
+      "artifact": "native/0066d540.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x66d3b0",
+      "RVA": "0x26d3b0",
+      "fileOffset": "0x26c7b0",
+      "size": 48,
+      "sha256": "e8f1ccb5ce7e98de6ab5dc7ed2658ff2f30e24e7699bb7fdb9be17be5b425890",
+      "artifact": "native/0066d3b0.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0xa43170",
+      "RVA": "0x643170",
+      "fileOffset": "0x642570",
+      "size": 480,
+      "sha256": "50a171f25dcebfbeae98703f47bdfa94195065788afb9afabcc6b1c3c3cb04fc",
+      "artifact": "native/00a43170.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x103d750",
+      "RVA": "0xc3d750",
+      "fileOffset": "0xc3cb50",
+      "size": 64,
+      "sha256": "b6a171abe65a378eeac09fdafb0f0727964af2e63bcb2276bae020e98e234d08",
+      "artifact": "native/0103d750.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x103d5e0",
+      "RVA": "0xc3d5e0",
+      "fileOffset": "0xc3c9e0",
+      "size": 192,
+      "sha256": "5584a24377705912d4084e3cac94c21edb48bf131ed46afbe924b40e48f95b0b",
+      "artifact": "native/0103d5e0.bin",
+      "scope": "bounded direct callee/static table; code"
+    },
+    {
+      "VA": "0x1150c24",
+      "RVA": "0xd50c24",
+      "fileOffset": "0xd4f824",
+      "size": 160,
+      "sha256": "17c10b0205e6349386c7c66ffd167ce552fee950a6d72cd86040069d844bebc8",
+      "artifact": "native/vtable-1150c24.bin",
+      "scope": "bounded direct callee/static table; data"
+    },
+    {
+      "VA": "0x1150e8c",
+      "RVA": "0xd50e8c",
+      "fileOffset": "0xd4fa8c",
+      "size": 160,
+      "sha256": "baba0e0dd8cd4e93aa17ba7b281942b0f2f75126457273cea6ff1d92f34151fe",
+      "artifact": "native/vtable-1150e8c.bin",
+      "scope": "bounded direct callee/static table; data"
+    },
+    {
+      "VA": "0x1150f7c",
+      "RVA": "0xd50f7c",
+      "fileOffset": "0xd4fb7c",
+      "size": 160,
+      "sha256": "289034b57db28d830253de7c34a8d7a2446161eb31fbe1e58cde9eb39bb5d864",
+      "artifact": "native/vtable-1150f7c.bin",
+      "scope": "bounded direct callee/static table; data"
+    },
+    {
+      "VA": "0xa4c150",
+      "RVA": "0x64c150",
+      "fileOffset": "0x64b550",
+      "size": 284,
+      "sha256": "d955dfa9fdf5b32c28faf03f07a542a9ed362f6dbedf4debce0937fcedd5cb39",
+      "artifact": "native/consumer-switch.bin",
+      "scope": "bounded direct callee/static table; data"
+    },
+    {
+      "VA": "0xa229b0",
+      "RVA": "0x6229b0",
+      "fileOffset": "0x621db0",
+      "size": 80,
+      "sha256": "0f4f0fd747535f2d4137ec680521bb9bb277087644284ad3b9f42fce0ff0c7d9",
+      "artifact": "native/00a229b0.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately"
+    },
+    {
+      "VA": "0xa44bb0",
+      "RVA": "0x644bb0",
+      "fileOffset": "0x643fb0",
+      "size": 144,
+      "sha256": "3f05e5c3317a75fcf8719d2398db4d6fa4d6673fdc296b81faf0904b7a77a3ab",
+      "artifact": "native/00a44bb0.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately"
+    },
+    {
+      "VA": "0xa447b0",
+      "RVA": "0x6447b0",
+      "fileOffset": "0x643bb0",
+      "size": 48,
+      "sha256": "ad0ce59c1780a1f58b0d3377f25c56e138c847f92fab54dfe90588b91789c8bd",
+      "artifact": "native/00a447b0.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately"
+    },
+    {
+      "VA": "0xa3c070",
+      "RVA": "0x63c070",
+      "fileOffset": "0x63b470",
+      "size": 144,
+      "sha256": "a4819e775204d3424babef0123b62ace2e9f5e4b5e272e381e243b5b88e502c9",
+      "artifact": "native/00a3c070.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately"
+    },
+    {
+      "VA": "0x920e70",
+      "RVA": "0x520e70",
+      "fileOffset": "0x520270",
+      "size": 32,
+      "sha256": "1df11a5b68834cf3322667dfbba698e84c43a7d733435dfcbc212a47857abc29",
+      "artifact": "native/00920e70.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately"
+    },
+    {
+      "VA": "0x66d320",
+      "RVA": "0x26d320",
+      "fileOffset": "0x26c720",
+      "size": 48,
+      "sha256": "325d14546fb35bc27529919875cddb84ceefcf186177184aef77001f8e37fe5e",
+      "artifact": "native/0066d320.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately"
+    },
+    {
+      "VA": "0x66d480",
+      "RVA": "0x26d480",
+      "fileOffset": "0x26c880",
+      "size": 64,
+      "sha256": "98a6c965a88659dd423807bf3293866d3785bedbe56b4fed5b0859dfc658b3f6",
+      "artifact": "native/0066d480.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately"
+    },
+    {
+      "VA": "0xa43560",
+      "RVA": "0x643560",
+      "fileOffset": "0x642960",
+      "size": 848,
+      "sha256": "840decef9d69246ab5953e91d16bfd66ff53357c3024ef3fbf43583b31b6cc01",
+      "artifact": "native/00a43560.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately"
+    },
+    {
+      "VA": "0x92cb70",
+      "RVA": "0x52cb70",
+      "fileOffset": "0x52bf70",
+      "size": 2000,
+      "sha256": "81d34316824d70fa25b782a344b20c920802c95a8cae3a2a00f7bc680778d4e4",
+      "artifact": "native/0092cb70.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately"
+    },
+    {
+      "VA": "0xa22000",
+      "RVA": "0x622000",
+      "fileOffset": "0x621400",
+      "size": 7424,
+      "sha256": "e858a51ccad3a2acb3a54a507d0cc9a27096a8427793865794385e4832272aa6",
+      "artifact": "native/scheduler-local-a22000-a23d00.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately"
+    },
+    {
+      "VA": "0x51e770",
+      "RVA": "0x11e770",
+      "fileOffset": "0x11db70",
+      "size": 78,
+      "sha256": "c3dc099c46a3826fbb072d0e7428bf1ad56e8b212d3cdc590cec963c5944924a",
+      "artifact": "native/vtable-ref-51e7aa.bin",
+      "scope": "direct function or previously pinned vtable reference; static only"
+    },
+    {
+      "VA": "0x51e7d0",
+      "RVA": "0x11e7d0",
+      "fileOffset": "0x11dbd0",
+      "size": 63,
+      "sha256": "f1fdbe758467c5865f9581edc265536bd058f2bafe98bad3c81047ae69ad21c5",
+      "artifact": "native/vtable-ref-51e7fb.bin",
+      "scope": "direct function or previously pinned vtable reference; static only"
+    },
+    {
+      "VA": "0x51f1c0",
+      "RVA": "0x11f1c0",
+      "fileOffset": "0x11e5c0",
+      "size": 96,
+      "sha256": "57b2c1e59151ad91d0ea4de53f796b33edd9bb6233bede82ffde2f79cb000c65",
+      "artifact": "native/vtable-ref-51f20c.bin",
+      "scope": "direct function or previously pinned vtable reference; static only"
+    },
+    {
+      "VA": "0x51f2a0",
+      "RVA": "0x11f2a0",
+      "fileOffset": "0x11e6a0",
+      "size": 63,
+      "sha256": "ad52bdafdfb85025f20819b1e3c38a72b47fcbed88ec8fbb832a28a705c66121",
+      "artifact": "native/vtable-ref-51f2cb.bin",
+      "scope": "direct function or previously pinned vtable reference; static only"
+    },
+    {
+      "VA": "0x520d80",
+      "RVA": "0x120d80",
+      "fileOffset": "0x120180",
+      "size": 78,
+      "sha256": "687f4e92a3d6a050b4e7134af0b99662cc6a024651ed3e5cf0fb5ca7c1eddad7",
+      "artifact": "native/vtable-ref-520dba.bin",
+      "scope": "direct function or previously pinned vtable reference; static only"
+    },
+    {
+      "VA": "0x520f30",
+      "RVA": "0x120f30",
+      "fileOffset": "0x120330",
+      "size": 65,
+      "sha256": "f6db9aabaa3dee36f206ed876ee36c255438bd40ae6649b5c8083d4e5504dae7",
+      "artifact": "native/vtable-ref-520f5d.bin",
+      "scope": "direct function or previously pinned vtable reference; static only"
+    },
+    {
+      "VA": "0xa23360",
+      "RVA": "0x623360",
+      "fileOffset": "0x622760",
+      "size": 128,
+      "sha256": "640d0cea570886dca2c3923ba61e204a7f559f83c49d95b86e9c3c57d54c044a",
+      "artifact": "native/00a23360.bin",
+      "scope": "direct function or previously pinned vtable reference; static only"
+    },
+    {
+      "VA": "0xa46620",
+      "RVA": "0x646620",
+      "fileOffset": "0x645a20",
+      "size": 384,
+      "sha256": "fcc71f9b41db1816754039bd26b5afeec9f8275ffac6df18d18d00f5a6e044a5",
+      "artifact": "native/00a46620.bin",
+      "scope": "direct function or previously pinned vtable reference; static only"
+    },
+    {
+      "VA": "0xa21cf0",
+      "RVA": "0x621cf0",
+      "fileOffset": "0x6210f0",
+      "size": 32,
+      "sha256": "80d6168b6887461c779ad4a5c20ae94b3931065f7c38d441bcc9ba60aeaeeed0",
+      "artifact": "native/00a21cf0.bin",
+      "scope": "direct function or previously pinned vtable reference; static only"
+    }
+  ],
+  "nativeExecuted": false
+}

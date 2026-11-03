@@ -1,0 +1,98 @@
+[
+  {
+    "before": 1,
+    "after": 76,
+    "items": [
+      {
+        "action": "單次使用",
+        "count": 94000,
+        "droppable": false,
+        "equipped": null,
+        "icon": "https://p08.example/icons/5.png",
+        "id": 1900249101,
+        "name": "金幣",
+        "selected": false,
+        "state": "此道具的使用尚未支援",
+        "usable": false
+      },
+      {
+        "action": "單次使用",
+        "count": 1,
+        "droppable": false,
+        "equipped": null,
+        "icon": "https://p08.example/icons/81.png",
+        "id": 1900249102,
+        "name": "白色藥水",
+        "selected": true,
+        "state": "可單次使用；滿血仍會消耗",
+        "usable": true
+      },
+      {
+        "action": "卸下",
+        "count": 1,
+        "droppable": false,
+        "equipped": true,
+        "icon": "https://p08.example/icons/2.png",
+        "id": 1900249103,
+        "name": "+0 長劍 (揮舞)",
+        "selected": false,
+        "state": "已裝備；可單次卸下",
+        "usable": true
+      },
+      {
+        "action": "卸下",
+        "count": 1,
+        "droppable": false,
+        "equipped": true,
+        "icon": "https://p08.example/icons/86.png",
+        "id": 1900249104,
+        "name": "+0 環甲 (使用中)",
+        "selected": false,
+        "state": "已裝備；可單次卸下",
+        "usable": true
+      }
+    ]
+  },
+  {
+    "before": 76,
+    "after": 144,
+    "items": [
+      {
+        "action": "單次使用",
+        "count": 94000,
+        "droppable": false,
+        "equipped": null,
+        "icon": "https://p08.example/icons/5.png",
+        "id": 1900249101,
+        "name": "金幣",
+        "selected": false,
+        "state": "此道具的使用尚未支援",
+        "usable": false
+      },
+      {
+        "action": "卸下",
+        "count": 1,
+        "droppable": false,
+        "equipped": true,
+        "icon": "https://p08.example/icons/2.png",
+        "id": 1900249103,
+        "name": "+0 長劍 (揮舞)",
+        "selected": false,
+        "state": "已裝備；可單次卸下",
+        "usable": true
+      },
+      {
+        "action": "卸下",
+        "count": 1,
+        "droppable": false,
+        "equipped": true,
+        "icon": "https://p08.example/icons/86.png",
+        "id": 1900249104,
+        "name": "+0 環甲 (使用中)",
+        "selected": false,
+        "state": "已裝備；可單次卸下",
+        "usable": true
+      }
+    ]
+  }
+]

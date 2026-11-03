@@ -1,0 +1,59 @@
+{
+  "schema": "engine-candidate-result-v1",
+  "candidateId": "ENGINE-PICKUP-PRESENTATION-IMPL-R1",
+  "revision": "r34",
+  "status": "candidate-ready-for-independent-review",
+  "policyId": "OWN-BASE-15-001-SUPERVISOR-R1",
+  "checksPassed": true,
+  "checks": 402,
+  "distinctCheckIds": 401,
+  "functionalAssertions": 400,
+  "socketGuards": 2,
+  "baselineObservations": 18,
+  "baselineIncludedInCandidateCount": false,
+  "pixelComparisons": 213696,
+  "pixelFrames": 64,
+  "bitmapImages": 32,
+  "productDllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "sourceManifest": "source-manifest.json",
+  "sourceManifestFiles": 180,
+  "originalSourceFiles": 177,
+  "modifiedSourceFiles": 10,
+  "addedSourceFiles": 3,
+  "resourceSha256": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90",
+  "resourceBytes": 239766,
+  "base": "final accepted r33, equal to pinned immutable stage",
+  "finalBaselineSha256": "2a946e965f1aed1f9a0358ceb560f52575ea5a3bf217fc9ccf36e9ce5823c40f",
+  "finalBindingSha256": "28d0d6f3386575c175aa06b7b9076da961cfd1db62e2563cf7cd65c7c276ea95",
+  "sealed": true,
+  "candidateAccepted": false,
+  "formalR34Build": false,
+  "sharedEngineMerged": false,
+  "nativeEligible": false,
+  "nativeTimingCertified": false,
+  "nativeFIFOEquivalent": false,
+  "normalProductStarted": false,
+  "wholeProjectComplete": false,
+  "goal": "blocked; unchanged",
+  "sourcePins": 412,
+  "tests": [
+    {
+      "tag": "candidate-01",
+      "rows": 339,
+      "includedInCandidateCount": true
+    },
+    {
+      "tag": "extra-01",
+      "rows": 63,
+      "includedInCandidateCount": true
+    },
+    {
+      "tag": "baseline-01",
+      "rows": 18,
+      "includedInCandidateCount": false
+    }
+  ],
+  "coverage": "coverage.json",
+  "limitations": "HANDOFF.md and coverage.json"
+}

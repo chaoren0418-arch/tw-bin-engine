@@ -1,0 +1,71 @@
+{
+  "schema": "r34-release-execution-artifact-manifest-v1",
+  "files": [
+    {
+      "path": "before-state.json",
+      "size": 682,
+      "sha256": "57d356a9d7aadebbdeed0c04afee915f7c1dc29ff8794676bac1f076ddd9f2cd"
+    },
+    {
+      "path": "execution-summary.json",
+      "size": 3193,
+      "sha256": "a57352defb6e03c1b578e69b9fce2600400d8580a56eddcf74bd358fc28acd6f"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 2049,
+      "sha256": "74ad70cea6d2c83c351d3e19e965c8da04b20ae2b703f77bcfdd4d47d83fd3dc"
+    },
+    {
+      "path": "input-pins.json",
+      "size": 1770,
+      "sha256": "25270ef477e5134d797f264fab7969789246d11a611d4e818b846c7a17679715"
+    },
+    {
+      "path": "package-plan.json",
+      "size": 1099423,
+      "sha256": "939fcbd2176d1360b510153993f43deacf91b34a3b1737fb4d91ad8b30bb0c01"
+    },
+    {
+      "path": "package-started.json",
+      "size": 861,
+      "sha256": "9a9989b7364ef51d2459ba3435413b57f6fca0104c0d5e0df9abf34d7f91a794"
+    },
+    {
+      "path": "package.command.json",
+      "size": 1507,
+      "sha256": "6c15400be244adf9ecdfb6ca4b230b615b443a8a217932070b664e33ba163ff1"
+    },
+    {
+      "path": "package.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "package.stdout",
+      "size": 179,
+      "sha256": "bd15e110a47686dbebab01c44e31b904cfb9e0db04c438d94c7a9ca27573a510"
+    },
+    {
+      "path": "progress.json",
+      "size": 519,
+      "sha256": "b879534bf53ec14d95664bd839b6a7ea2f2f58a0f80f139a4f997af19264dfda"
+    },
+    {
+      "path": "r34-release-acceptance.json",
+      "size": 5501,
+      "sha256": "98053457e8accacbfce4618f3fe6906b04c1f17ce0483167f2ec5907085770df"
+    },
+    {
+      "path": "result.json",
+      "size": 4551,
+      "sha256": "557cd0872f81fec15bdaaa42466811a2303351d860585cd46b9b442a997335a4"
+    },
+    {
+      "path": "run_package_once.py",
+      "size": 2607,
+      "sha256": "58585b3ab9afb451ed2da47cc12f088ba0ca9ba697b1ebe0e9b2716922fffb5a"
+    }
+  ],
+  "releaseReportsStoredExternally": true
+}

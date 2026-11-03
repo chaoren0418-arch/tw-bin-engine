@@ -1,0 +1,134 @@
+[
+  {
+    "id": "F1",
+    "priority": "P1",
+    "status": "requires-new-version",
+    "title": "合法新主管 receipt 被固定舊主管 gate 拒絕",
+    "evidence": [
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\acceptance_gate.py",
+        "size": 21888,
+        "sha256": "c446cd8b7f8070dfd0328ca71c4563671e31d7dc37bc2c45e39678664bcc6979",
+        "line": 5
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\serial_canonical.py",
+        "size": 12869,
+        "sha256": "c087073244eaa2a3d0bcb334652a66c1abe0bf3c4a6de1b3d2e2ab18d09a3d48",
+        "line": 23
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\common.py",
+        "size": 4177,
+        "sha256": "bb75a5523205e10a75a483bddd74ddbb87319b2e30914b6f9c7ce58480e5cd11",
+        "line": 24
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\context.json",
+        "size": 1500,
+        "sha256": "bfb8d5daba6898111e4dc8003584b1076621aa6e8fb85af8950c4cc9b24bdba1"
+      }
+    ],
+    "trigger": "新主管 01a185b4-ecf6-705c-90e6-83b9eb1ba02f 發出其他欄位相符的 shared receipt。",
+    "observed": "exact validate_plan 身分 predicate 回傳 false；沒有生成 receipt、沒有偽裝舊主管、沒有呼叫實際 controller。wrapper/recovery 經 common.controller 仍載入舊 controller，futureReceiptPath 也固定舊主管目錄。",
+    "required": "新獨立 controller/authority/plan 版本精確綁定現行主管與 takeover SHA；wrapper/recovery/read-only validation 必須使用同一新 gate；重建 supportPins/scriptPins/context/plan/seal。保留舊 stage acceptance、R2 和 plan 原樣，不能僅換 receipt 內 supervisor 或只改外層入口。",
+    "owner": "唯一整合者 01a17a22-17e4-70c0-9792-166ddb86ea42；主管已派 work/P26-r34-authority-rebind-r1",
+    "acceptance": "新版 exact seal/plan/controller pins 由主管另派覆核；新主管通過身分分支，舊/未知主管、錯 takeover/plan/identity/stage pins 必須拒絕。不得因此授權 install。"
+  },
+  {
+    "id": "F2",
+    "priority": "P2",
+    "status": "known-fail-closed-recovery-limitation",
+    "title": "product 收集中斷後 equal bindings 無法 collect-only 恢復",
+    "evidence": [
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\serial_canonical.py",
+        "size": 12869,
+        "sha256": "c087073244eaa2a3d0bcb334652a66c1abe0bf3c4a6de1b3d2e2ab18d09a3d48",
+        "line": 17
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\serial_canonical.py",
+        "size": 12869,
+        "sha256": "c087073244eaa2a3d0bcb334652a66c1abe0bf3c4a6de1b3d2e2ab18d09a3d48",
+        "line": 104
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\serial_canonical.py",
+        "size": 12869,
+        "sha256": "c087073244eaa2a3d0bcb334652a66c1abe0bf3c4a6de1b3d2e2ab18d09a3d48",
+        "line": 111
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\synthetic-tests.json",
+        "size": 1602,
+        "sha256": "c6b1b65a980ffd25dfc449aed739844db8b65f8797585c14e9338c44aabc4171"
+      }
+    ],
+    "trigger": "product collect 成功保存 build-log-bindings.json，但 completed/product.json 尚未寫入時程序中斷。",
+    "observed": "原 save 對已存在且內容相同的檔也會 FileExistsError；原 HANDOFF 已明示此限制。本輪以獨立 fixture 重現 exclusive-save 行為，沒有發生產品失敗。",
+    "required": "不得刪 bindings 或重建產品來恢復。可在授權新版本僅把 build-log-bindings 的保存改成 existing JSON 完全相等則接受、不同或損壞則拒絕；仍須驗證 selected attempts、raw/probe pins、四項 identity；completed step 仍拒絕重播。",
+    "integrationGate": "主管契約須明示保留此 fail-closed 限制並遇到就停，或先封存最小修訂；不是 happy-path 成功的前提缺失。"
+  },
+  {
+    "id": "F3",
+    "priority": "P2",
+    "status": "diagnostic-preservation-limitation",
+    "title": "TimeoutExpired 未保存攜帶的 partial raw streams",
+    "evidence": [
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\execution_support.py",
+        "size": 4678,
+        "sha256": "9d4a708d5c1e00e11525a38af8188375597626b061fa32976c171ce1d9faa5fc",
+        "line": 51
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\execution_support.py",
+        "size": 4678,
+        "sha256": "9d4a708d5c1e00e11525a38af8188375597626b061fa32976c171ce1d9faa5fc",
+        "line": 60
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\rebuild-overlay\\_integration\\r34\\rebuild.py",
+        "size": 9557,
+        "sha256": "c215fa684a04a1f2fb924b5b28cbf5c259837a11f8170e28e4e7392a42691927",
+        "line": 66
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\synthetic-tests.json",
+        "size": 1602,
+        "sha256": "c6b1b65a980ffd25dfc449aed739844db8b65f8797585c14e9338c44aabc4171"
+      }
+    ],
+    "trigger": "600 秒子程序 timeout；Python TimeoutExpired 中已有 output/stderr。",
+    "observed": "合成 subprocess 替身拋出攜帶 partial bytes 的 timeout；原 execute_once 留下 completed=false/error attempt，但 stdout/stderr 不存在。巢狀 rebuild.run 也只在 subprocess 返回後才寫 command/raw，因此同類例外不會有該 child 的完成紀錄。無實際產品/程序逾時。",
+    "required": "本版契約應明示 timeout 證據不完整、拒絕重試且交主管；若要求所有失敗的 partial logs 完整，需另封存最小 execution_support/rebuild evidence 修訂，捕獲 TimeoutExpired.output/stderr 原 bytes、記錄 timeout/completed=false，不可補成成功。",
+    "integrationGate": "非 authority 修訂必須夾帶的產品修改；不能把既有失敗保留概括為所有例外均保留 raw streams。"
+  },
+  {
+    "id": "F4",
+    "priority": "P2",
+    "status": "explained-policy-drift-rebind-required",
+    "title": "review prep 完整 verifier 對現行 AGENTS pin 失敗",
+    "evidence": [
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\input-pins.json",
+        "size": 83333,
+        "sha256": "b74969baf143b002b0034bb8804cbfccf4fc76d7572c804e3cdb2cef0416577e"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\profile-prep-verification.json",
+        "size": 1295,
+        "sha256": "f66894df2622167708e1b853ba29dddfbba7b649fadc06a9f7cb020187ca5023"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\policy-drift-proof.json",
+        "size": 675,
+        "sha256": "dc2fa0d642ad975ac93cf6365852268a581562bc724cc6aa001be248fe7ea1fd"
+      }
+    ],
+    "observed": "451 artifact 封存相符；308 外部 pins 僅 AGENTS.md 不符，其餘307相符。以 bytes 在記憶體移除新接管段落（offset 37, length 1683），完整還原歷史10058 bytes及SHA 314e9a9e3aefb4be0ce5ef699fca86eca072298b8b07d365e6d74016c8303615。現檔和sealed prep均未改。",
+    "consequence": "此漂移是已授權政策更新，不影響fixture/body/profile來源內容；原完整 verifier 的 FAIL 仍保留，不宣稱全驗證通過。獨立 fixture-only unchanged assertion block 核416 PNG/2688 mapping/294 durations/672 scenarios等通過。",
+    "required": "後續contract另綁現行AGENTS/takeover以及歷史prep seal/input-pins/fixture-manifest/policy-drift-proof；不得覆寫舊prep或用跳過pin冒稱原verifier成功。"
+  }
+]

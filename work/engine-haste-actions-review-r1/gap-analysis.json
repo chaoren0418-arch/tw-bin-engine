@@ -1,0 +1,206 @@
+{
+  "status": "r30-known-increment-gaps-not-candidate-findings",
+  "checks": 1553,
+  "passed": 1057,
+  "failed": 496,
+  "originalNamesRetained": 976,
+  "originalUnchangedExpectations": 820,
+  "originalUnchangedExpectationsPassed": 820,
+  "originalChangedExpectations": 156,
+  "newChecks": 577,
+  "failedGroups": {
+    "independent-metadata-": 126,
+    "haste-components-": 126,
+    "haste-frame-boundaries-": 126,
+    "haste-reuse-outside-multiplier-": 8,
+    "haste-actual-send-exact-": 25,
+    "haste-consumer-boundary-": 30,
+    "haste-consumer-realtime-after-": 10,
+    "haste-ack-snapshot-": 30,
+    "haste-release-exact-": 6,
+    "haste-remote-own-isolation-": 3,
+    "haste-remote-inflight-snapshot-": 3,
+    "haste-remote-unknown-restored-": 3
+  },
+  "frameBoundarySamples": 20112,
+  "frameBoundaryAggregateAssertions": 126,
+  "examples": [
+    {
+      "name": "haste-actual-send-exact-20-0",
+      "pass": false,
+      "evidence": {
+        "ok": true,
+        "packets": [
+          "7BE7030000627FAC8000000000000000"
+        ],
+        "actualWait": 1232,
+        "expected": 963,
+        "timing": {
+          "Gfx": 0,
+          "Weapon": 20,
+          "Action": 1,
+          "ServerBaseMs": 1200,
+          "NativeBaseMs": 1249,
+          "LegacyAnimationMs": 1249,
+          "ReleaseBaseMs": 791,
+          "ReuseMs": 0,
+          "MarginMs": 32,
+          "Slow": false,
+          "AnimationMs": 1249,
+          "ReleaseMs": 791,
+          "ServerIntervalMs": 1200,
+          "WaitMs": 1232,
+          "SlowWaitMs": 2530
+        }
+      }
+    },
+    {
+      "name": "haste-actual-send-exact-0-4",
+      "pass": false,
+      "evidence": {
+        "ok": true,
+        "packets": [
+          "060003E7030000627FAC800000000000"
+        ],
+        "actualWait": 1420,
+        "expected": 1124,
+        "timing": {
+          "Gfx": 0,
+          "Weapon": 0,
+          "Action": 18,
+          "ServerBaseMs": 1320,
+          "NativeBaseMs": 1374,
+          "LegacyAnimationMs": 1374,
+          "ReleaseBaseMs": 916,
+          "ReuseMs": 10,
+          "MarginMs": 100,
+          "Slow": false,
+          "AnimationMs": 1374,
+          "ReleaseMs": 916,
+          "ServerIntervalMs": 1320,
+          "WaitMs": 1420,
+          "SlowWaitMs": 2848
+        }
+      }
+    },
+    {
+      "name": "haste-actual-send-exact-0-1",
+      "pass": false,
+      "evidence": {
+        "ok": true,
+        "packets": [
+          "0600007B000000000000000000000000"
+        ],
+        "actualWait": 1580,
+        "expected": 1249,
+        "timing": {
+          "Gfx": 0,
+          "Weapon": 0,
+          "Action": 19,
+          "ServerBaseMs": 1480,
+          "NativeBaseMs": 1539,
+          "LegacyAnimationMs": 1539,
+          "ReleaseBaseMs": 916,
+          "ReuseMs": 10,
+          "MarginMs": 100,
+          "Slow": false,
+          "AnimationMs": 1539,
+          "ReleaseMs": 916,
+          "ServerIntervalMs": 1480,
+          "WaitMs": 1580,
+          "SlowWaitMs": 3178
+        }
+      }
+    },
+    {
+      "name": "haste-components-61-0-1",
+      "pass": false,
+      "evidence": {
+        "timing": {
+          "Gfx": 61,
+          "Weapon": 0,
+          "Action": 1,
+          "ServerBaseMs": 800,
+          "NativeBaseMs": 832,
+          "LegacyAnimationMs": 832,
+          "ReleaseBaseMs": 416,
+          "ReuseMs": 0,
+          "MarginMs": 0,
+          "Slow": false,
+          "AnimationMs": 832,
+          "ReleaseMs": 416,
+          "ServerIntervalMs": 800,
+          "WaitMs": 800,
+          "SlowWaitMs": 1664
+        },
+        "expectedAnimation": 621,
+        "expectedServer": 604,
+        "expectedRelease": 310,
+        "expectedWait": 621
+      }
+    },
+    {
+      "name": "haste-frame-boundaries-61-0-1",
+      "pass": false,
+      "evidence": {
+        "samples": 80,
+        "zeroFrames": 1,
+        "mismatches": [
+          {
+            "direction": 0,
+            "elapsed": 93,
+            "expected": "16:1",
+            "actual": "16:0"
+          },
+          {
+            "direction": 0,
+            "elapsed": 186,
+            "expected": "16:2",
+            "actual": "16:1"
+          },
+          {
+            "direction": 0,
+            "elapsed": 310,
+            "expected": "16:3",
+            "actual": "16:2"
+          },
+          {
+            "direction": 0,
+            "elapsed": 497,
+            "expected": "16:4",
+            "actual": "16:3"
+          },
+          {
+            "direction": 0,
+            "elapsed": 620,
+            "expected": "16:4",
+            "actual": "16:3"
+          },
+          {
+            "direction": 1,
+            "elapsed": 93,
+            "expected": "17:1",
+            "actual": "17:0"
+          },
+          {
+            "direction": 1,
+            "elapsed": 186,
+            "expected": "17:2",
+            "actual": "17:1"
+          },
+          {
+            "direction": 1,
+            "elapsed": 310,
+            "expected": "17:3",
+            "actual": "17:2"
+          }
+        ]
+      }
+    }
+  ],
+  "notes": [
+    "r30 sends Speed1 requests, but at unaccelerated timing; new exact gates expose the gap.",
+    "The adapted lower-bound request checks and transition high-water checks can already pass because r30 uses normal timing for Speed1. Passing those alone is insufficient.",
+    "All820 unchanged assertions pass. New lifecycle checks passing r30 are regression gates for the future candidate, not evidence that haste is implemented."
+  ]
+}

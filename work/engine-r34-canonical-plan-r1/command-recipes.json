@@ -1,0 +1,1121 @@
+{
+  "schema": "engine-r34-canonical-command-recipes-v1",
+  "operations": {
+    "product/archive-plan": {
+      "id": "product/archive-plan",
+      "step": "product",
+      "kind": "archive",
+      "marker": "markers/product/archive-plan.json"
+    },
+    "product/rebuild": {
+      "id": "product/rebuild",
+      "step": "product",
+      "kind": "run",
+      "marker": "markers/product/rebuild.json",
+      "recipe": {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\r34\\rebuild.py",
+          "--build",
+          "--output",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\inner\\product\\rebuild",
+        "kind": "product",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\result.json"
+        ],
+        "freshDirectories": [
+          "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01"
+        ]
+      }
+    },
+    "product/collect": {
+      "id": "product/collect",
+      "step": "product",
+      "kind": "collect",
+      "marker": "markers/product/collect.json"
+    },
+    "baseline/setup": {
+      "id": "baseline/setup",
+      "step": "baseline",
+      "kind": "setup",
+      "marker": "markers/baseline/setup.json"
+    },
+    "baseline/host-build": {
+      "id": "baseline/host-build",
+      "step": "baseline",
+      "kind": "run",
+      "marker": "markers/baseline/host-build.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "build",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline\\tests\\HostChecks.csproj",
+          "-c",
+          "Release",
+          "--configfile",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\NuGet.Config",
+          "--nologo",
+          "-p:NuGetAudit=false",
+          "-p:UseSharedCompilation=false",
+          "-p:ProductDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+          "-o",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-host"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\inner\\baseline\\host-build",
+        "kind": "build",
+        "probes": [],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-host"
+      }
+    },
+    "baseline/host-checks": {
+      "id": "baseline/host-checks",
+      "step": "baseline",
+      "kind": "run",
+      "marker": "markers/baseline/host-checks.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-host\\HostChecks.dll",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\assets"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\inner\\baseline\\host-checks",
+        "kind": "probe",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline\\evidence\\host-result.json"
+        ],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-host"
+      }
+    },
+    "baseline/client-extract": {
+      "id": "baseline/client-extract",
+      "step": "baseline",
+      "kind": "run",
+      "marker": "markers/baseline/client-extract.json",
+      "recipe": {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline\\prepare_client_checks.py"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\inner\\baseline\\client-extract",
+        "kind": "extract",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline\\evidence\\client-excerpt-pins.json"
+        ]
+      }
+    },
+    "baseline/client-build": {
+      "id": "baseline/client-build",
+      "step": "baseline",
+      "kind": "run",
+      "marker": "markers/baseline/client-build.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "build",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline\\client-tests\\ClientChecks.csproj",
+          "-c",
+          "Release",
+          "--configfile",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\NuGet.Config",
+          "--nologo",
+          "-p:NuGetAudit=false",
+          "-p:UseSharedCompilation=false",
+          "-p:ProductDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+          "-o",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-client"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\inner\\baseline\\client-build",
+        "kind": "build",
+        "probes": [],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-client"
+      }
+    },
+    "baseline/client-checks": {
+      "id": "baseline/client-checks",
+      "step": "baseline",
+      "kind": "run",
+      "marker": "markers/baseline/client-checks.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-client\\ClientChecks.dll",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\inner\\baseline\\client-checks",
+        "kind": "probe",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline\\evidence\\client-regression-result.json"
+        ],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-client"
+      }
+    },
+    "baseline/audio-extract": {
+      "id": "baseline/audio-extract",
+      "step": "baseline",
+      "kind": "run",
+      "marker": "markers/baseline/audio-extract.json",
+      "recipe": {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline\\prepare_audio_checks.py"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\inner\\baseline\\audio-extract",
+        "kind": "extract",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline\\evidence\\audio-excerpt-pins.json"
+        ]
+      }
+    },
+    "baseline/audio-settings-build": {
+      "id": "baseline/audio-settings-build",
+      "step": "baseline",
+      "kind": "run",
+      "marker": "markers/baseline/audio-settings-build.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "build",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline\\audio-tests\\AudioSettingsChecks.csproj",
+          "-c",
+          "Release",
+          "--configfile",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\NuGet.Config",
+          "--nologo",
+          "-p:NuGetAudit=false",
+          "-p:UseSharedCompilation=false",
+          "-p:ProductDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+          "-o",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-audio-settings"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\inner\\baseline\\audio-settings-build",
+        "kind": "build",
+        "probes": [],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-audio-settings"
+      }
+    },
+    "baseline/audio-settings-checks": {
+      "id": "baseline/audio-settings-checks",
+      "step": "baseline",
+      "kind": "run",
+      "marker": "markers/baseline/audio-settings-checks.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-audio-settings\\AudioSettingsChecks.dll",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\inner\\baseline\\audio-settings-checks",
+        "kind": "probe",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline\\evidence\\audio-settings-result.json"
+        ],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-baseline-audio-settings"
+      }
+    },
+    "baseline/web-checks": {
+      "id": "baseline/web-checks",
+      "step": "baseline",
+      "kind": "run",
+      "marker": "markers/baseline/web-checks.json",
+      "recipe": {
+        "argv": [
+          "node",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline\\audio-tests\\web-checks.cjs",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\inner\\baseline\\web-checks",
+        "kind": "probe",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\baseline\\evidence\\web-controls-result.json"
+        ]
+      }
+    },
+    "baseline/collect": {
+      "id": "baseline/collect",
+      "step": "baseline",
+      "kind": "collect",
+      "marker": "markers/baseline/collect.json"
+    },
+    "ground/setup": {
+      "id": "ground/setup",
+      "step": "ground",
+      "kind": "setup",
+      "marker": "markers/ground/setup.json"
+    },
+    "ground/ground-build": {
+      "id": "ground/ground-build",
+      "step": "ground",
+      "kind": "run",
+      "marker": "markers/ground/ground-build.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "build",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\harness\\Review.csproj",
+          "-o",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground",
+          "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+          "-p:AudioDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+          "--configfile",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\NuGet.Config",
+          "-p:UseSharedCompilation=false",
+          "-nr:false",
+          "--nologo"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\commands\\build\\attempt-01",
+        "kind": "build",
+        "probes": [],
+        "warnings": 0,
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\commands\\build\\attempt-01\\command.json"
+      }
+    },
+    "ground/ground-baseline": {
+      "id": "ground/ground-baseline",
+      "step": "ground",
+      "kind": "run",
+      "marker": "markers/ground/ground-baseline.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground\\PickupPreparation.dll",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\baseline-probe.json",
+          "baseline"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\commands\\baseline\\attempt-01",
+        "kind": "probe",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\baseline-probe.json"
+        ],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\commands\\baseline\\attempt-01\\command.json"
+      }
+    },
+    "ground/ground-extended": {
+      "id": "ground/ground-extended",
+      "step": "ground",
+      "kind": "run",
+      "marker": "markers/ground/ground-extended.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground\\PickupPreparation.dll",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\extended-probe.json",
+          "extended"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\commands\\extended\\attempt-01",
+        "kind": "probe",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\extended-probe.json"
+        ],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\commands\\extended\\attempt-01\\command.json"
+      }
+    },
+    "ground/ground-supplement": {
+      "id": "ground/ground-supplement",
+      "step": "ground",
+      "kind": "run",
+      "marker": "markers/ground/ground-supplement.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground\\PickupPreparation.dll",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\supplement-probe.json",
+          "supplement"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\commands\\supplement\\attempt-01",
+        "kind": "probe",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\supplement-probe.json"
+        ],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\commands\\supplement\\attempt-01\\command.json"
+      }
+    },
+    "ground/ground-formal": {
+      "id": "ground/ground-formal",
+      "step": "ground",
+      "kind": "run",
+      "marker": "markers/ground/ground-formal.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground\\PickupPreparation.dll",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\formal-probe.json",
+          "formal"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\commands\\formal\\attempt-01",
+        "kind": "probe",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\formal-probe.json"
+        ],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\commands\\formal\\attempt-01\\command.json"
+      }
+    },
+    "ground/ground-checker": {
+      "id": "ground/ground-checker",
+      "step": "ground",
+      "kind": "run",
+      "marker": "markers/ground/ground-checker.json",
+      "recipe": {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\check-probes.py",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\commands\\checker\\attempt-01",
+        "kind": "checker",
+        "probes": [],
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\commands\\checker\\attempt-01\\command.json"
+      }
+    },
+    "ground/collect": {
+      "id": "ground/collect",
+      "step": "ground",
+      "kind": "collect",
+      "marker": "markers/ground/collect.json"
+    },
+    "utility/setup": {
+      "id": "utility/setup",
+      "step": "utility",
+      "kind": "setup",
+      "marker": "markers/utility/setup.json"
+    },
+    "utility/utility-build": {
+      "id": "utility/utility-build",
+      "step": "utility",
+      "kind": "run",
+      "marker": "markers/utility/utility-build.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "build",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\utility\\harness\\Review.csproj",
+          "-o",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-utility",
+          "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+          "-p:AudioDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+          "--configfile",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\NuGet.Config",
+          "-p:UseSharedCompilation=false",
+          "-nr:false",
+          "--nologo"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\utility",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\utility\\commands\\build\\attempt-01",
+        "kind": "build",
+        "probes": [],
+        "warnings": 1,
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-utility",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\utility\\commands\\build\\attempt-01\\command.json"
+      }
+    },
+    "utility/utility-probe": {
+      "id": "utility/utility-probe",
+      "step": "utility",
+      "kind": "run",
+      "marker": "markers/utility/utility-probe.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-utility\\UtilityReview.dll",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\utility\\probe.json"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\utility",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\utility\\commands\\probe\\attempt-01",
+        "kind": "probe",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\utility\\probe.json"
+        ],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-utility",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\utility\\commands\\probe\\attempt-01\\command.json"
+      }
+    },
+    "utility/collect": {
+      "id": "utility/collect",
+      "step": "utility",
+      "kind": "collect",
+      "marker": "markers/utility/collect.json"
+    },
+    "haste/setup": {
+      "id": "haste/setup",
+      "step": "haste",
+      "kind": "setup",
+      "marker": "markers/haste/setup.json"
+    },
+    "haste/haste-build": {
+      "id": "haste/haste-build",
+      "step": "haste",
+      "kind": "run",
+      "marker": "markers/haste/haste-build.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "build",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\haste\\harness\\Review.csproj",
+          "-c",
+          "Release",
+          "-o",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-haste",
+          "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+          "-p:AudioDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+          "--configfile",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\NuGet.Config",
+          "-p:UseSharedCompilation=false",
+          "-nr:false",
+          "--nologo"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\haste",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\haste\\commands\\build\\attempt-01",
+        "kind": "build",
+        "probes": [],
+        "warnings": 0,
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-haste",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\haste\\commands\\build\\attempt-01\\command.json"
+      }
+    },
+    "haste/haste-probe": {
+      "id": "haste/haste-probe",
+      "step": "haste",
+      "kind": "run",
+      "marker": "markers/haste/haste-probe.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-haste\\SlowActionsReview.dll",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\assets",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\haste\\probe.json"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\haste",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\haste\\commands\\probe\\attempt-01",
+        "kind": "probe",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\haste\\probe.json"
+        ],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-haste",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\haste\\commands\\probe\\attempt-01\\command.json"
+      }
+    },
+    "haste/collect": {
+      "id": "haste/collect",
+      "step": "haste",
+      "kind": "collect",
+      "marker": "markers/haste/collect.json"
+    },
+    "versioned-slow/setup": {
+      "id": "versioned-slow/setup",
+      "step": "versioned-slow",
+      "kind": "setup",
+      "marker": "markers/versioned-slow/setup.json"
+    },
+    "versioned-slow/versioned-slow-build": {
+      "id": "versioned-slow/versioned-slow-build",
+      "step": "versioned-slow",
+      "kind": "run",
+      "marker": "markers/versioned-slow/versioned-slow-build.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "build",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow\\harness\\Review.csproj",
+          "-c",
+          "Release",
+          "-o",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-versioned-slow",
+          "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+          "-p:AudioDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+          "--configfile",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\NuGet.Config",
+          "-p:UseSharedCompilation=false",
+          "-nr:false",
+          "--nologo"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow\\commands\\build\\attempt-01",
+        "kind": "build",
+        "probes": [],
+        "warnings": 0,
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-versioned-slow",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow\\commands\\build\\attempt-01\\command.json"
+      }
+    },
+    "versioned-slow/versioned-slow-probe": {
+      "id": "versioned-slow/versioned-slow-probe",
+      "step": "versioned-slow",
+      "kind": "run",
+      "marker": "markers/versioned-slow/versioned-slow-probe.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-versioned-slow\\SlowReview.dll",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow\\native-oracle.json",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow\\jar-oracle.json",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow\\probe.json"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow\\commands\\probe\\attempt-01",
+        "kind": "probe",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow\\probe.json"
+        ],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-versioned-slow",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow\\commands\\probe\\attempt-01\\command.json"
+      }
+    },
+    "versioned-slow/collect": {
+      "id": "versioned-slow/collect",
+      "step": "versioned-slow",
+      "kind": "collect",
+      "marker": "markers/versioned-slow/collect.json"
+    },
+    "f1/setup": {
+      "id": "f1/setup",
+      "step": "f1",
+      "kind": "setup",
+      "marker": "markers/f1/setup.json"
+    },
+    "f1/f1-build": {
+      "id": "f1/f1-build",
+      "step": "f1",
+      "kind": "run",
+      "marker": "markers/f1/f1-build.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "build",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\f1\\harness\\F1.csproj",
+          "-c",
+          "Release",
+          "-o",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-f1",
+          "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+          "-p:AudioDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+          "--configfile",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\NuGet.Config",
+          "-p:UseSharedCompilation=false",
+          "-nr:false",
+          "--nologo"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\f1",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\f1\\commands\\build\\attempt-01",
+        "kind": "build",
+        "probes": [],
+        "warnings": 0,
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-f1",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\f1\\commands\\build\\attempt-01\\command.json"
+      }
+    },
+    "f1/f1-probe": {
+      "id": "f1/f1-probe",
+      "step": "f1",
+      "kind": "run",
+      "marker": "markers/f1/f1-probe.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-f1\\F1.dll",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\assets",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\f1\\probe.json"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\f1",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\f1\\commands\\probe\\attempt-01",
+        "kind": "probe",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\f1\\probe.json"
+        ],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-f1",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\f1\\commands\\probe\\attempt-01\\command.json"
+      }
+    },
+    "f1/collect": {
+      "id": "f1/collect",
+      "step": "f1",
+      "kind": "collect",
+      "marker": "markers/f1/collect.json"
+    },
+    "pickup/setup": {
+      "id": "pickup/setup",
+      "step": "pickup",
+      "kind": "setup",
+      "marker": "markers/pickup/setup.json"
+    },
+    "pickup/pickup-main-174-build": {
+      "id": "pickup/pickup-main-174-build",
+      "step": "pickup",
+      "kind": "run",
+      "marker": "markers/pickup/pickup-main-174-build.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "build",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-main-174\\harness\\Probe.csproj",
+          "-o",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-main-174",
+          "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+          "-p:AudioDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+          "--configfile",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\NuGet.Config",
+          "-p:UseSharedCompilation=false",
+          "-nr:false",
+          "--nologo"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-main-174",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-main-174\\commands\\build\\attempt-01",
+        "kind": "build",
+        "probes": [],
+        "warnings": 0,
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-main-174",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-main-174\\commands\\build\\attempt-01\\command.json"
+      }
+    },
+    "pickup/pickup-main-174-probe": {
+      "id": "pickup/pickup-main-174-probe",
+      "step": "pickup",
+      "kind": "run",
+      "marker": "markers/pickup/pickup-main-174-probe.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-main-174\\Probe.dll",
+          "D:\\lineage開發\\TW1608262200研究\\engine",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-pickup-main-174"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-main-174",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-main-174\\commands\\probe\\attempt-01",
+        "kind": "probe",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-pickup-main-174\\probe.json"
+        ],
+        "freshDirectories": [
+          "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-pickup-main-174"
+        ],
+        "copyOutputs": [
+          {
+            "source": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-pickup-main-174",
+            "destination": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-main-174\\run",
+            "tree": true
+          }
+        ],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-main-174",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-main-174\\commands\\probe\\attempt-01\\command.json"
+      }
+    },
+    "pickup/pickup-supplement-10-build": {
+      "id": "pickup/pickup-supplement-10-build",
+      "step": "pickup",
+      "kind": "run",
+      "marker": "markers/pickup/pickup-supplement-10-build.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "build",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-supplement-10\\harness\\Probe.csproj",
+          "-o",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-supplement-10",
+          "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+          "-p:AudioDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+          "--configfile",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\NuGet.Config",
+          "-p:UseSharedCompilation=false",
+          "-nr:false",
+          "--nologo"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-supplement-10",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-supplement-10\\commands\\build\\attempt-01",
+        "kind": "build",
+        "probes": [],
+        "warnings": 0,
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-supplement-10",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-supplement-10\\commands\\build\\attempt-01\\command.json"
+      }
+    },
+    "pickup/pickup-supplement-10-probe": {
+      "id": "pickup/pickup-supplement-10-probe",
+      "step": "pickup",
+      "kind": "run",
+      "marker": "markers/pickup/pickup-supplement-10-probe.json",
+      "recipe": {
+        "argv": [
+          "dotnet",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-supplement-10\\Probe.dll",
+          "D:\\lineage開發\\TW1608262200研究\\engine",
+          "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-pickup-supplement-10",
+          "supplement"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-supplement-10",
+        "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-supplement-10\\commands\\probe\\attempt-01",
+        "kind": "probe",
+        "probes": [
+          "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-pickup-supplement-10\\probe.json"
+        ],
+        "freshDirectories": [
+          "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-pickup-supplement-10"
+        ],
+        "copyOutputs": [
+          {
+            "source": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-pickup-supplement-10",
+            "destination": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-supplement-10\\run",
+            "tree": true
+          }
+        ],
+        "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-supplement-10",
+        "collectorRecord": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-supplement-10\\commands\\probe\\attempt-01\\command.json"
+      }
+    },
+    "pickup/collect": {
+      "id": "pickup/collect",
+      "step": "pickup",
+      "kind": "collect",
+      "marker": "markers/pickup/collect.json"
+    }
+  },
+  "nativeSuites": {
+    "ground": {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground",
+      "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground",
+      "assembly": "PickupPreparation.dll",
+      "commands": [
+        {
+          "id": "build",
+          "argv": [
+            "dotnet",
+            "build",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\harness\\Review.csproj",
+            "-o",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground",
+            "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+            "-p:AudioDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+            "--configfile",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\NuGet.Config",
+            "-p:UseSharedCompilation=false",
+            "-nr:false",
+            "--nologo"
+          ],
+          "probes": []
+        },
+        {
+          "id": "baseline",
+          "argv": [
+            "dotnet",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground\\PickupPreparation.dll",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\baseline-probe.json",
+            "baseline"
+          ],
+          "probes": [
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\baseline-probe.json"
+          ]
+        },
+        {
+          "id": "extended",
+          "argv": [
+            "dotnet",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground\\PickupPreparation.dll",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\extended-probe.json",
+            "extended"
+          ],
+          "probes": [
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\extended-probe.json"
+          ]
+        },
+        {
+          "id": "supplement",
+          "argv": [
+            "dotnet",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground\\PickupPreparation.dll",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\supplement-probe.json",
+            "supplement"
+          ],
+          "probes": [
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\supplement-probe.json"
+          ]
+        },
+        {
+          "id": "formal",
+          "argv": [
+            "dotnet",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-ground\\PickupPreparation.dll",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\formal-probe.json",
+            "formal"
+          ],
+          "probes": [
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\formal-probe.json"
+          ]
+        },
+        {
+          "id": "checker",
+          "argv": [
+            "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground\\check-probes.py",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\ground"
+          ],
+          "probes": []
+        }
+      ]
+    },
+    "utility": {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\utility",
+      "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-utility",
+      "assembly": "UtilityReview.dll",
+      "commands": [
+        {
+          "id": "build",
+          "argv": [
+            "dotnet",
+            "build",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\utility\\harness\\Review.csproj",
+            "-o",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-utility",
+            "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+            "-p:AudioDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+            "--configfile",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\NuGet.Config",
+            "-p:UseSharedCompilation=false",
+            "-nr:false",
+            "--nologo"
+          ],
+          "probes": []
+        },
+        {
+          "id": "probe",
+          "argv": [
+            "dotnet",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-utility\\UtilityReview.dll",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\utility\\probe.json"
+          ],
+          "probes": [
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\utility\\probe.json"
+          ]
+        }
+      ]
+    },
+    "haste": {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\haste",
+      "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-haste",
+      "assembly": "SlowActionsReview.dll",
+      "commands": [
+        {
+          "id": "build",
+          "argv": [
+            "dotnet",
+            "build",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\haste\\harness\\Review.csproj",
+            "-c",
+            "Release",
+            "-o",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-haste",
+            "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+            "-p:AudioDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+            "--configfile",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\NuGet.Config",
+            "-p:UseSharedCompilation=false",
+            "-nr:false",
+            "--nologo"
+          ],
+          "probes": []
+        },
+        {
+          "id": "probe",
+          "argv": [
+            "dotnet",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-haste\\SlowActionsReview.dll",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\assets",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\haste\\probe.json"
+          ],
+          "probes": [
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\haste\\probe.json"
+          ]
+        }
+      ]
+    },
+    "versioned-slow": {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow",
+      "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-versioned-slow",
+      "assembly": "SlowReview.dll",
+      "commands": [
+        {
+          "id": "build",
+          "argv": [
+            "dotnet",
+            "build",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow\\harness\\Review.csproj",
+            "-c",
+            "Release",
+            "-o",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-versioned-slow",
+            "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+            "-p:AudioDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+            "--configfile",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\NuGet.Config",
+            "-p:UseSharedCompilation=false",
+            "-nr:false",
+            "--nologo"
+          ],
+          "probes": []
+        },
+        {
+          "id": "probe",
+          "argv": [
+            "dotnet",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-versioned-slow\\SlowReview.dll",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow\\native-oracle.json",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow\\jar-oracle.json",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow\\probe.json"
+          ],
+          "probes": [
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\versioned-slow\\probe.json"
+          ]
+        }
+      ]
+    },
+    "f1": {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\f1",
+      "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-f1",
+      "assembly": "F1.dll",
+      "commands": [
+        {
+          "id": "build",
+          "argv": [
+            "dotnet",
+            "build",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\f1\\harness\\F1.csproj",
+            "-c",
+            "Release",
+            "-o",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-f1",
+            "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+            "-p:AudioDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+            "--configfile",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\NuGet.Config",
+            "-p:UseSharedCompilation=false",
+            "-nr:false",
+            "--nologo"
+          ],
+          "probes": []
+        },
+        {
+          "id": "probe",
+          "argv": [
+            "dotnet",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-f1\\F1.dll",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\assets",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\f1\\probe.json"
+          ],
+          "probes": [
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\f1\\probe.json"
+          ]
+        }
+      ]
+    },
+    "pickup-main-174": {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-main-174",
+      "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-main-174",
+      "assembly": "Probe.dll",
+      "commands": [
+        {
+          "id": "build",
+          "argv": [
+            "dotnet",
+            "build",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-main-174\\harness\\Probe.csproj",
+            "-o",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-main-174",
+            "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+            "-p:AudioDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+            "--configfile",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\NuGet.Config",
+            "-p:UseSharedCompilation=false",
+            "-nr:false",
+            "--nologo"
+          ],
+          "probes": []
+        },
+        {
+          "id": "probe",
+          "argv": [
+            "dotnet",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-main-174\\Probe.dll",
+            "D:\\lineage開發\\TW1608262200研究\\engine",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-pickup-main-174"
+          ],
+          "probes": [
+            "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-pickup-main-174\\probe.json"
+          ]
+        }
+      ]
+    },
+    "pickup-supplement-10": {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-supplement-10",
+      "helper": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-supplement-10",
+      "assembly": "Probe.dll",
+      "commands": [
+        {
+          "id": "build",
+          "argv": [
+            "dotnet",
+            "build",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\pickup-supplement-10\\harness\\Probe.csproj",
+            "-o",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-supplement-10",
+            "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+            "-p:AudioDll=D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+            "--configfile",
+            "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\suites\\NuGet.Config",
+            "-p:UseSharedCompilation=false",
+            "-nr:false",
+            "--nologo"
+          ],
+          "probes": []
+        },
+        {
+          "id": "probe",
+          "argv": [
+            "dotnet",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\build\\r34-canonical-pickup-supplement-10\\Probe.dll",
+            "D:\\lineage開發\\TW1608262200研究\\engine",
+            "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-pickup-supplement-10",
+            "supplement"
+          ],
+          "probes": [
+            "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-pickup-supplement-10\\probe.json"
+          ]
+        }
+      ]
+    }
+  }
+}

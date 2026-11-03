@@ -1,0 +1,64 @@
+{
+  "schema": "p36-p37-r2-minimal-repair-result-v1",
+  "status": "candidate-P37-F1-corrected-awaiting-independent-delta-review",
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "plan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\plan.json",
+    "size": 4250,
+    "sha256": "f67fa56815fbc133c1710c450efe1305d58da7c75566e02a9d909a24ca6059bd"
+  },
+  "executionContract": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\execution-contract.json",
+    "size": 10326,
+    "sha256": "f439915614397edb8a478196375706aec1af68b670bd06c310d1ba3e251e8c30"
+  },
+  "toolSourceSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\tool-bundle\\source-seal.json",
+    "size": 2394,
+    "sha256": "ea73adff65e8887e1b3369147a8c8c22a980f32fc5a6f8cba5868e9b860ad172"
+  },
+  "boundInventory": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\bound_inventory.py",
+    "size": 8952,
+    "sha256": "3bb2bc7a22c486dbfe81b0c8d08c04e18b80c5cda5473dc46b17e319af8e61a1"
+  },
+  "semanticChanges": 1,
+  "unchangedRuntimeFiles": 12,
+  "mechanicallyChangedDocuments": 7,
+  "delta": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\delta.json",
+    "size": 250648,
+    "sha256": "753413394bd49031318042343c778c6997b9a1a88ae805053efe02bd666bbd59"
+  },
+  "deltaVerification": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\delta-verification.json",
+    "size": 407,
+    "sha256": "b3f2981d2c0f5330295d261593bbc0cee791f50024a2db858db38a0baded2b93"
+  },
+  "minimalChecks": 2,
+  "readonlyPreflightInvocations": 1,
+  "original16CasesInheritedNotRerun": true,
+  "sourceFilesPlanned": 181,
+  "replacements": 4,
+  "additions": 1,
+  "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "expectedAudioSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "executionRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1",
+  "buildRoot": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1",
+  "executionReceiptPath": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-execution-acceptance-r1.json",
+  "executionAuthorized": false,
+  "successfulSupervisorReceiptFabricated": false,
+  "actualInstallBuildRollbackExecuted": false,
+  "sharedWrites": 0,
+  "builds": 0,
+  "runtimeRuns": 0,
+  "formalEntry": "r33",
+  "entryActivated": false,
+  "fullReleaseAuthorized": false,
+  "goalActualRead": null,
+  "goalCreatedOrModified": false,
+  "qualification": "Two bounded P37-F1 checks plus one read-only r2 preflight. Receipt prefix statically inspected; actual post-install gate reached after-state refusal on unchanged canonical before180. Not successful inventory or shared execution acceptance.",
+  "pending": "Independent r2 delta review, then exact new supervisor execution receipt bound to r2 pins.",
+  "entryRejectionPreserved": true
+}

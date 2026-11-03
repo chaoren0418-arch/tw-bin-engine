@@ -1,0 +1,42 @@
+{
+  "schema": "engine-independent-review-v1",
+  "reviewId": "ENGINE-PICKUP-PRESENTATION-CANDIDATE-REVIEW-R1",
+  "candidateId": "ENGINE-PICKUP-PRESENTATION-IMPL-R1",
+  "status": "accepted",
+  "decision": "accepted",
+  "candidateSealSha256": "cc7761665593c79b9f82255f5d361bedd6c8ac4563434e7cf7a6e07c5c16cbdc",
+  "sourceManifestSha256": "337afaa3607e49e0c50f2f388ab8cec8c42f7816e33ed2ee98df6bfb0a48b533",
+  "candidateResultSha256": "05983d2858d22a9b8420fdcbe17a03415445ff9315d131be740297e1c1cc5c88",
+  "baselineFinalSha256": "2a946e965f1aed1f9a0358ceb560f52575ea5a3bf217fc9ccf36e9ce5823c40f",
+  "finalBaseBindingSha256": "28d0d6f3386575c175aa06b7b9076da961cfd1db62e2563cf7cd65c7c276ea95",
+  "finalR33ReleaseSealSha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417",
+  "contractSha256": "8c60b1061c637bcb7f992d7f92c74fc80c0ad945c7f05d1c3a2d74507cffc6f2",
+  "policyId": "OWN-BASE-15-001-SUPERVISOR-R1",
+  "productDllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "checks": 184,
+  "assertions": 184,
+  "observations": 0,
+  "failedChecks": 0,
+  "nativeRuntimeChecks": 0,
+  "riskFamiliesReviewed": 24,
+  "blockingFindings": 0,
+  "repairRequired": false,
+  "scope": "Independent acceptance of finite own gfx0 weapon0 Brave0 Speed0/1 pickup presentation policy only. Not native parity, full product/regression/GUI acceptance, or integration authorization.",
+  "qualificationFlags": {
+    "nativeNeutral": false,
+    "nativeFIFO": false,
+    "nativeVariant": false,
+    "nativeRuntimeTiming": false,
+    "slowQualified": false,
+    "sameBinVersion": false
+  },
+  "evidence": {
+    "rows": "execution-rows.json",
+    "coverage": "coverage.json",
+    "findings": "findings.json",
+    "integrity": "integrity-review.json",
+    "pixels": "pixel-review.json",
+    "preservation": "preservation-review.json"
+  }
+}

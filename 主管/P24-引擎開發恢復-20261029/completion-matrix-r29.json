@@ -1,0 +1,62 @@
+{
+  "schema": "p24-current-development-matrix-v1",
+  "updatedUtc": "2026-10-28T20:14:33.115721+00:00",
+  "revision": "r29",
+  "wholeP24Complete": false,
+  "goalToolStatus": "paused",
+  "historicalMatrix": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\completion-matrix.json",
+  "historicalPolicy": "Historical native evidence retains its actual version; no automatic promotion to r29.",
+  "currentIncrement": {
+    "scope": "Speed2/Brave0 walking, turning and object display",
+    "candidate": "ENGINE-SLOW-IMPL-R2",
+    "candidateSealSha256": "7bed792d86ec1838ce97e0efa935d061420fa56cf6c0435dbaba0f0c919859b9",
+    "productDllSha256": "8ccfa4e3b5d253206779a5d4b1e59682263ffbddf5dab43fe15b0aa1f86a7397",
+    "implementation": "accepted",
+    "independentReview": "accepted",
+    "findingF1": "resolved",
+    "sharedMerge": "accepted: all 176 source pins independently verified",
+    "integration": "accepted: exact stage/engine/release identity; 151+1199+112 assertions and six repro cases passed",
+    "release": "accepted-offline-development-complete",
+    "nativeLiveAcceptance": false,
+    "releaseSealSha256": "d3ac187e7fc44745864640e4bcc72fefbaeeaa0b0e9d63de7c0c3cfa8e46273d",
+    "supervisorAcceptance": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-引擎開發恢復-20261029\\r29-supervisor-acceptance.json"
+  },
+  "limitations": [
+    "Slow attack/cast/item/equipment/pickup/drop and non-walk mouse actions remain unsupported.",
+    "No Brave or unknown speed support added.",
+    "Offline actor/packet/clock/sender fixtures are not native gameplay."
+  ],
+  "remaining": [
+    {
+      "id": "MAP-ASSOCIATION",
+      "state": "source-limited",
+      "description": "Real nonzero map-local group association remains unproved; no guessed mapping."
+    },
+    {
+      "id": "OTHER-EFFECT-TOKENS",
+      "state": "source-limited",
+      "description": "6016 is already integrated since r28; other event-token behavior remains unproved. Do not redispatch completed 6016 integration."
+    },
+    {
+      "id": "OTHER-CONTENT",
+      "state": "bounded-source-or-scope-needed",
+      "description": "Additional skills/appearances/items/map effects require specific IDs and same-version source contracts; no batch speculative implementation."
+    },
+    {
+      "id": "NATIVE-R29",
+      "state": "not-accepted",
+      "description": "Server-dependent native full workflow, screen/mouse, audio and save/relogin need actual environment and runtime evidence; database is user-owned."
+    },
+    {
+      "id": "HISTORICAL-SERVICE-CONDITIONS",
+      "state": "historical-evidence-only",
+      "description": "NPC sell/private buyback conditions remain historical unaccepted scenarios; no new DB observation or manipulation."
+    },
+    {
+      "id": "DB-HISTORY",
+      "state": "stopped-by-user",
+      "description": "No further orphan/timed-item diagnosis, reproduction or repair; preserve existing reports."
+    }
+  ],
+  "next": "Native/live acceptance unperformed; broader source-limited P24 tasks retained in completion-matrix-r29.json. No DB work or repeat of accepted engine increment."
+}

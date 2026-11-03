@@ -1,0 +1,11 @@
+{
+  "utc": "2026-10-28T18:20:31.138849+00:00",
+  "supersedes": [
+    "verified-moves-r28.json",
+    "verified-moves-external.json"
+  ],
+  "reason": "Initial Windows DirEntry.stat inode fields were zero, so the earlier identity-preservation labels were unsupported. Original receipts retained for audit.",
+  "replacement": "final-verification.json",
+  "proof": "All 26929 external original files and 14494 r28 nonvolatile files SHA checked; 1295 r28 volatile files checked by size and mtime, plus same-volume move receipts. Formal seal 14364 files fully hashed.",
+  "volatile_limit": "No full body hash or original real inode claim for the 1295 volatile r28 files."
+}

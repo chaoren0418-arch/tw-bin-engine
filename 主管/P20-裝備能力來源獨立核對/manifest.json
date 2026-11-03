@@ -1,0 +1,55 @@
+{
+  "utc": "2026-10-25T08:00:38.398889+00:00",
+  "jar_sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "classes": [
+    {
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1ItemInstance.java",
+      "source_sha256": "0ba0e50cf7e47649a03c2f69b29a562d097ce5b54be4d8f2b55c848830f811b0",
+      "class_path": "com/lineage/server/model/Instance/L1ItemInstance.class",
+      "class_sha256": "1f2b8050c0c60b7846596529faecd6d66a41bbdb5412888ed9e1970d16a657f2",
+      "javap_sha256": "a5d73be8c794ef5c5656a5aaace31db8ffe8eb0886ed10d35f9d93bec13d16ac"
+    },
+    {
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\ItemBlessStatsTable.java",
+      "source_sha256": "f711fb75f882a282a3887bfb904789eb07fca04723584808f110d07092fd87e2",
+      "class_path": "com/lineage/server/datatables/ItemBlessStatsTable.class",
+      "class_sha256": "36cd0cf5dd7dbb308a6c06c6dfdeda74530fae81e38202901c59e5552e8312b3",
+      "javap_sha256": "0309b70354f87641b5264c53c7c1be8c6e40c226546856956dc664c1fe8f4db4"
+    },
+    {
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\ItemGreaterTierTable.java",
+      "source_sha256": "d00fac39c0ce7d3a8fc43b51520ca7b513bbd92fc61e8e57ed011a8c79586253",
+      "class_path": "com/lineage/server/datatables/ItemGreaterTierTable.class",
+      "class_sha256": "eb7c4e01b7978d1e03d934e859d0e8c2c9da30321ec935f114302f1e1d77c93b",
+      "javap_sha256": "08280cc04553d55f51855d07b0b5d32e6edf5950922dda5d43acf3dc9d66f0d9"
+    },
+    {
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\ItemIdStatsTable.java",
+      "source_sha256": "9eb822c38a675d7c7c985fd29510b38c12a2626dbaf86ef4300008ea0bde2c4a",
+      "class_path": "com/lineage/server/datatables/ItemIdStatsTable.class",
+      "class_sha256": "e21672b576a8d105deb0ecf15d84e87df4709dce221723760aab24578e54e29b",
+      "javap_sha256": "28104923030a6bfcff49106e50f6241cd614ff5b85ba155823a01652b2d4396d"
+    },
+    {
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\utils\\CalcStat.java",
+      "source_sha256": "dd5fb093358165c79f68e77a837b22f3b04b7fb5ffa96b4395326df6cb345d2c",
+      "class_path": "com/lineage/server/utils/CalcStat.class",
+      "class_sha256": "51f5256cf3f51fe8cb82d0bcd658b42314af02ab53bc9f2cd383e7ffd86b65b5",
+      "javap_sha256": "1ae307c3bd846f0b676fe37b99845888b83970362b7174b40c99a23c89aa5d14"
+    },
+    {
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1PcOriginal.java",
+      "source_sha256": "5741435ecbba28b3c07ac30ad9de7c284ec91a2db6cae0628ce578157421b5de",
+      "class_path": "com/lineage/server/model/Instance/L1PcOriginal.class",
+      "class_sha256": "f613cce582b1f5e65483335d6a75867dc00a47fe631980cdca2d29724177ad41",
+      "javap_sha256": "7e21fd935ea33c7ce04b72ae18a3e1dc25fe2bb1fd727653ea03f0b301ce3710"
+    },
+    {
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1Character.java",
+      "source_sha256": "0ed1bacca8e5189cc171001df409d5fa0684eefd1047f54e60f23da4eed3a76f",
+      "class_path": "com/lineage/server/model/L1Character.class",
+      "class_sha256": "d852775c793731731b4d4bbab646c14eb8347fc5d26f667c81fb8ee07dde36fe",
+      "javap_sha256": "7453193a6cd5948a48f82fb98e0a4ca0e610caaa461eb9748d3bffe1aefc283f"
+    }
+  ]
+}

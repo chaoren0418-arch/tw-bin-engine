@@ -1,0 +1,530 @@
+{
+  "schema": "p27-input-routing-v1",
+  "utc": "2026-10-29T03:45:15.884430+00:00",
+  "identity": {
+    "release": "r33",
+    "basePinsSha256": "d716dcbe30b9aebfdc558f59addf4910fe94e026aec31ae7823572a40a1ffced",
+    "files": 171,
+    "releaseSeal": {
+      "path": "releases/r33/_integration/r33/release-seal.json",
+      "sha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417"
+    },
+    "productDll": {
+      "path": "engine/build/client-product-r33/P11.ClientEngine.dll",
+      "sha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2"
+    },
+    "nativeAcceptance": false
+  },
+  "routes": [
+    {
+      "id": "I01",
+      "entry": "Native login Tab/Enter",
+      "flow": "ProcessCmdKey → ProcessLoginKeyboardEnter → PerformClick → StartLogin/BeginLogin → LoginControl.Start",
+      "guards": [
+        "normal product",
+        "credential control focused",
+        "CanLogin and enabled",
+        "bit30 repeat suppressed",
+        "generation/revision checked by LoginControl"
+      ],
+      "evidence": [
+        {
+          "path": "engine/source/KeyboardNavigation.cs",
+          "line": 14,
+          "marker": "LoginEnterDisposition",
+          "sha256": "a14571c5746777373cda58022e1374b256ba8f342c00b45d578181e7a4ea8a99"
+        },
+        {
+          "path": "engine/source/ClientLogin.cs",
+          "line": 63,
+          "marker": "void StartLogin()",
+          "sha256": "a00779bb20bc2bb97aac8fb520788f0f8cd674bfeb7f4ce35279b3713e4003d7"
+        },
+        {
+          "path": "engine/source/LoginControl.cs",
+          "line": 37,
+          "marker": "public LoginAction Start(",
+          "sha256": "02f97ac834993fb26871759c2dc7c2853494e804eac793b199bcc64c59553e2c"
+        }
+      ],
+      "offlineCoverage": [
+        "C# login Enter truth table; no native controls constructed"
+      ],
+      "nativeMissing": [
+        "same-version Tab order, Enter single admission, credential isolation, disabled/repeat behavior"
+      ],
+      "implementationOwner": "original integrator after supervisor receipt",
+      "reviewOwner": "P27"
+    },
+    {
+      "id": "I02",
+      "entry": "Native world keys and release",
+      "flow": "IsInputKey/ProcessCmdKey/KeyDown → OwnsGameKeyboardKey → HandleDown → OnlineDown/OnlineTick; KeyUp → HandleUp",
+      "guards": [
+        "gameFocus",
+        "active form",
+        "form itself Focused",
+        "chat/WebView excluded",
+        "no modifiers",
+        "movement/action sender gates"
+      ],
+      "evidence": [
+        {
+          "path": "engine/source/KeyboardNavigation.cs",
+          "line": 6,
+          "marker": "internal static bool OwnsGameKeyboardKey",
+          "sha256": "a14571c5746777373cda58022e1374b256ba8f342c00b45d578181e7a4ea8a99"
+        },
+        {
+          "path": "engine/source/Program.cs",
+          "line": 100,
+          "marker": "KeyDown+=",
+          "sha256": "f055f64ddc4d05b8ca75571690769839ea12fc3f15261057dda858b8eeffbee8"
+        },
+        {
+          "path": "engine/source/Program.cs",
+          "line": 142,
+          "marker": "public void HandleUp",
+          "sha256": "f055f64ddc4d05b8ca75571690769839ea12fc3f15261057dda858b8eeffbee8"
+        },
+        {
+          "path": "engine/source/OnlineInput.cs",
+          "line": 3,
+          "marker": "void OnlineDown",
+          "sha256": "be57d6afe82f1aa263d286649a13242a0b9b002e3fd11e2fd4945068bad735f3"
+        },
+        {
+          "path": "engine/source/World.cs",
+          "line": 60,
+          "marker": "public sealed class InputState",
+          "sha256": "94013006de44509dbf2837abd4d3b56c3abe3f6c2bf15e855765522fd6e69fbd"
+        }
+      ],
+      "offlineCoverage": [
+        "C# actual ownership predicate and held-direction primitive"
+      ],
+      "nativeMissing": [
+        "OS delivery/repeat/release through focus switches; no unwanted server commands"
+      ],
+      "implementationOwner": "original integrator after supervisor receipt",
+      "reviewOwner": "P27"
+    },
+    {
+      "id": "I03",
+      "entry": "Focus loss, restore and stop",
+      "flow": "Deactivate/minimize/child Enter/Web focus → ClearInput/LeaveGameFocus; F10/button → ReturnGameFocus; Esc/Space → stop",
+      "guards": [
+        "ClearInput cancels pointer queue and movement intent",
+        "release processes already-held key even if ownership changed",
+        "F9/F10/F11 intentionally command keys"
+      ],
+      "evidence": [
+        {
+          "path": "engine/source/Program.cs",
+          "line": 143,
+          "marker": "void ClearInput(",
+          "sha256": "f055f64ddc4d05b8ca75571690769839ea12fc3f15261057dda858b8eeffbee8"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 15,
+          "marker": "bool GameInputAllowed",
+          "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 29,
+          "marker": "void LeaveGameFocus",
+          "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 30,
+          "marker": "void ReturnGameFocus",
+          "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e"
+        },
+        {
+          "path": "engine/web/panel.js",
+          "line": 45,
+          "marker": "window.addEventListener('blur'",
+          "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab"
+        }
+      ],
+      "offlineCoverage": [
+        "C# clear primitive; JS focus/blur emits stop"
+      ],
+      "nativeMissing": [
+        "native child focus, Alt-Tab/minimize, queued callbacks and WebView command delivery"
+      ],
+      "implementationOwner": "original integrator after supervisor receipt",
+      "reviewOwner": "P27"
+    },
+    {
+      "id": "I04",
+      "entry": "Native scene pointer",
+      "flow": "MouseDown → PlayerPointerSceneHit → HandlePlayerPointer → pixel owner/Coordinates.Pick → controller",
+      "guards": [
+        "chat focus blocks",
+        "client viewport contains point",
+        "visible child/HUD/service/Web bounds exclude scene",
+        "only left/right enter world dispatcher"
+      ],
+      "evidence": [
+        {
+          "path": "engine/source/Program.cs",
+          "line": 104,
+          "marker": "MouseDown+=",
+          "sha256": "f055f64ddc4d05b8ca75571690769839ea12fc3f15261057dda858b8eeffbee8"
+        },
+        {
+          "path": "engine/source/PlayerPointerUi.cs",
+          "line": 8,
+          "marker": "public static bool PlayerPointerInScene",
+          "sha256": "05db52e330846e9abc684f0edbc33f001ca2ec355d097d47479ad3922e77b11a"
+        },
+        {
+          "path": "engine/source/PlayerHudIntegration.cs",
+          "line": 14,
+          "marker": "public bool PlayerSceneAccepts",
+          "sha256": "c1b8d5f44489b0e1878f2db412485449dc043b9e255b972c4c3b406bb663648e"
+        }
+      ],
+      "offlineCoverage": [
+        "C# half-open rectangle and covered/extra gates"
+      ],
+      "nativeMissing": [
+        "actual geometry/DPI, overlays, pixel hit tests and single/double/Ctrl click event sequences"
+      ],
+      "implementationOwner": "original integrator after supervisor receipt",
+      "reviewOwner": "P27"
+    },
+    {
+      "id": "I05",
+      "entry": "Pointer path, selection, attack/talk",
+      "flow": "MoveTo/Select/ActAsync → finite route or single guarded sender; TickAsync rechecks identity and occupancy",
+      "guards": [
+        "focus/render/visibility",
+        "session/world/actor/map/correction/appearance/speed stamp",
+        "selection revision",
+        "version cancellation",
+        "no auto attack/talk retry"
+      ],
+      "evidence": [
+        {
+          "path": "engine/source/PlayerPointer.cs",
+          "line": 4,
+          "marker": "public static class PlayerPointerPath",
+          "sha256": "4214c71199b3db6a582e48049513028540b89fd7ad27e01b79c705590f8d07d8"
+        },
+        {
+          "path": "engine/source/PlayerPointer.cs",
+          "line": 50,
+          "marker": "public bool MoveTo",
+          "sha256": "4214c71199b3db6a582e48049513028540b89fd7ad27e01b79c705590f8d07d8"
+        },
+        {
+          "path": "engine/source/PlayerPointer.cs",
+          "line": 59,
+          "marker": "public async Task TickAsync",
+          "sha256": "4214c71199b3db6a582e48049513028540b89fd7ad27e01b79c705590f8d07d8"
+        },
+        {
+          "path": "engine/source/PlayerPointer.cs",
+          "line": 84,
+          "marker": "public async Task<bool> ActAsync",
+          "sha256": "4214c71199b3db6a582e48049513028540b89fd7ad27e01b79c705590f8d07d8"
+        }
+      ],
+      "offlineCoverage": [
+        "C# finite path and corner guard only; no sender or network calls"
+      ],
+      "nativeMissing": [
+        "same-version world click-to-walk and cancellation; actual target pixels; single attack/talk and authoritative reply"
+      ],
+      "implementationOwner": "original integrator after supervisor receipt",
+      "reviewOwner": "P27"
+    },
+    {
+      "id": "I06",
+      "entry": "HUD F1–F4, tiles and item/skill selection",
+      "flow": "TryPlayerHudKey/SlotClick → ActivateSlot → ActivatePlayerHud → PlayerHudActions.Activate → existing item/magic sender",
+      "guards": [
+        "held F-key deduplication",
+        "displayed session/world/actor stamp",
+        "busy/walking",
+        "supported item/skill resolves in current state",
+        "selection alone does not activate"
+      ],
+      "evidence": [
+        {
+          "path": "engine/source/PlayerHudIntegration.cs",
+          "line": 49,
+          "marker": "bool TryPlayerHudKey",
+          "sha256": "c1b8d5f44489b0e1878f2db412485449dc043b9e255b972c4c3b406bb663648e"
+        },
+        {
+          "path": "engine/source/PlayerHudView.cs",
+          "line": 149,
+          "marker": "void SlotClick",
+          "sha256": "aa8396e96b2cbff56313c148289c460ed2e37c8f07c2810ea70ca2f19d1aa271"
+        },
+        {
+          "path": "engine/source/PlayerHudModel.cs",
+          "line": 29,
+          "marker": "public static async Task<bool> Activate",
+          "sha256": "40e34662696e391ada88cf634088562dda37d1425288726d3e82466db798d526"
+        },
+        {
+          "path": "engine/source/PlayerHudView.cs",
+          "line": 134,
+          "marker": "var shownStamp=snapshot.Stamp",
+          "sha256": "aa8396e96b2cbff56313c148289c460ed2e37c8f07c2810ea70ca2f19d1aa271"
+        }
+      ],
+      "offlineCoverage": [
+        "C# slots/defaults/clear/removed item/actor isolation; static review of action adapter"
+      ],
+      "nativeMissing": [
+        "actual key/click assignment, clear, use, icon layout, tooltip and focus return"
+      ],
+      "implementationOwner": "original integrator after supervisor receipt",
+      "reviewOwner": "P27"
+    },
+    {
+      "id": "I07",
+      "entry": "Native general chat",
+      "flow": "Enter/chat button → OpenPlayerChat → focus editor; fresh released Enter/send → Submit → SendPlayerChat; Escape → ExitPlayerChat",
+      "guards": [
+        "normal InWorld active form and visible HUD",
+        "CanSend",
+        "opening/repeated Enter must release",
+        "pending guard",
+        "generation/world/actor on submission",
+        "server-only history"
+      ],
+      "evidence": [
+        {
+          "path": "engine/source/PlayerChatKeyboardFlow.cs",
+          "line": 5,
+          "marker": "public sealed class PlayerChatEnterPress",
+          "sha256": "ea2330e6de11e4815f679eca1552ebd7546e01ad72ef6a4a4cf835c6e7d8035e"
+        },
+        {
+          "path": "engine/source/PlayerChatKeyboardFlow.cs",
+          "line": 25,
+          "marker": "bool ProcessPlayerChatKeyboard",
+          "sha256": "ea2330e6de11e4815f679eca1552ebd7546e01ad72ef6a4a4cf835c6e7d8035e"
+        },
+        {
+          "path": "engine/source/PlayerHudChat.cs",
+          "line": 34,
+          "marker": "async Task Submit",
+          "sha256": "a737ee8f3ba7a9b502f7871d06c335cef921665507aa30e790ff96cfe29e3847"
+        },
+        {
+          "path": "engine/source/PlayerChat.cs",
+          "line": 42,
+          "marker": "public async Task<bool> SendPlayerChat",
+          "sha256": "39d47921f20315167b2dc095d5475cd033ae5f5338fcfbc66d10b1b2526343d8"
+        }
+      ],
+      "offlineCoverage": [
+        "C# chat Enter state and CanOpen truth table"
+      ],
+      "nativeMissing": [
+        "real IME/control focus, draft preservation, one authoritative echo, Escape/F10, relogin clear"
+      ],
+      "implementationOwner": "original integrator after supervisor receipt",
+      "reviewOwner": "P27"
+    },
+    {
+      "id": "I08",
+      "entry": "Native NPC/trade/private-shop service panels",
+      "flow": "revision observer/pointer submitted → ShowPlayerService → existing native service controls",
+      "guards": [
+        "normal InWorld",
+        "server revisions trigger service page",
+        "ClearInput before opening",
+        "service-specific command gates retain authority"
+      ],
+      "evidence": [
+        {
+          "path": "engine/source/PlayerHudServices.cs",
+          "line": 5,
+          "marker": "public string? Observe",
+          "sha256": "70393c3cfb18d470491b2ce6f2410fcdd195ea1b7043a3a2f493ecd97c6e320f"
+        },
+        {
+          "path": "engine/source/PlayerHudServices.cs",
+          "line": 17,
+          "marker": "public void ShowPlayerService",
+          "sha256": "70393c3cfb18d470491b2ce6f2410fcdd195ea1b7043a3a2f493ecd97c6e320f"
+        },
+        {
+          "path": "engine/source/PlayerPointerHud.cs",
+          "line": 15,
+          "marker": "void InitPlayerPointerHud",
+          "sha256": "64dbce54801a133cfb2e76f175f2b30cd8562aea0bb107727aaa029186b3cda9"
+        }
+      ],
+      "offlineCoverage": [
+        "C# revision deduplication/priority/new world; no service transaction"
+      ],
+      "nativeMissing": [
+        "native controls visible/clickable, no scene leakage, server result; positive transactions depend on existing conditions"
+      ],
+      "implementationOwner": "original integrator after supervisor receipt",
+      "reviewOwner": "P27"
+    },
+    {
+      "id": "I09",
+      "entry": "Web login/notes/focus controls",
+      "flow": "login.js/panel.js send → WebMessage → DispatchWeb → DispatchLoginCommand or ReturnGameFocus/ClearInput",
+      "guards": [
+        "exact local-page origin",
+        "schema/id/version/field checks",
+        "JS pending guards",
+        "login host session stamps",
+        "password field cleared",
+        "WebView focus excludes game"
+      ],
+      "evidence": [
+        {
+          "path": "engine/web/login.js",
+          "line": 31,
+          "marker": "function loginCommand",
+          "sha256": "482384344ac719449c81c8e7c2212370dfd422dda52f8d4dbff8c9b3405c5a51"
+        },
+        {
+          "path": "engine/web/login.js",
+          "line": 42,
+          "marker": "addEventListener('submit'",
+          "sha256": "482384344ac719449c81c8e7c2212370dfd422dda52f8d4dbff8c9b3405c5a51"
+        },
+        {
+          "path": "engine/web/panel.js",
+          "line": 5,
+          "marker": "document.addEventListener('keydown'",
+          "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 72,
+          "marker": "void DispatchWeb",
+          "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e"
+        },
+        {
+          "path": "engine/source/ClientLogin.cs",
+          "line": 64,
+          "marker": "async Task DispatchLoginCommand",
+          "sha256": "a00779bb20bc2bb97aac8fb520788f0f8cd674bfeb7f4ce35279b3713e4003d7"
+        }
+      ],
+      "offlineCoverage": [
+        "JS command identity/pending/cancel/stale reply/field clear; static host dispatch"
+      ],
+      "nativeMissing": [
+        "real WebView focus and key delivery; no credential contents in saved evidence"
+      ],
+      "implementationOwner": "original integrator after supervisor receipt",
+      "reviewOwner": "P27"
+    },
+    {
+      "id": "I10",
+      "entry": "Web movement/item/magic/NPC commands",
+      "flow": "DOM button/change → send v1/id/cmd → host schema and selected-object/epoch guards → existing APIs",
+      "guards": [
+        "directions 0–7",
+        "item selection revision",
+        "magic world epoch/visible target",
+        "NPC revision/target revision/epoch and pending",
+        "quantities integer/in range"
+      ],
+      "evidence": [
+        {
+          "path": "engine/web/panel.js",
+          "line": 3,
+          "marker": "for(let d=0;d<8;d++)",
+          "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab"
+        },
+        {
+          "path": "engine/web/panel.js",
+          "line": 58,
+          "marker": "document.querySelector('#useItem').onclick",
+          "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab"
+        },
+        {
+          "path": "engine/web/interaction.js",
+          "line": 4,
+          "marker": "function npcSend",
+          "sha256": "b007e3ce0a2a4f2ef13dcf72db66adc26640379ad4eebedb357dc8e026132aae"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 90,
+          "marker": "var expected=cmd",
+          "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e"
+        },
+        {
+          "path": "engine/source/OnlineInput.cs",
+          "line": 17,
+          "marker": "async Task OnlineWeb",
+          "sha256": "be57d6afe82f1aa263d286649a13242a0b9b002e3fd11e2fd4945068bad735f3"
+        }
+      ],
+      "offlineCoverage": [
+        "JS direction/item/magic/NPC command construction and pending/invalid quantities; host only source reviewed"
+      ],
+      "nativeMissing": [
+        "same-version WebView host dispatch and authoritative responses; disabled controls real DOM behavior"
+      ],
+      "implementationOwner": "original integrator after supervisor receipt",
+      "reviewOwner": "P27"
+    },
+    {
+      "id": "I11",
+      "entry": "Scene/HUD geometry and presentation",
+      "flow": "PlayerHudGeometry.Scene → PlayerSceneBounds/Camera viewport; PlayerHudView.Arrange → visible controls",
+      "guards": [
+        "drawer height deducted",
+        "diagnostic width deducted",
+        "normal service/chat overlays excluded from pointer scene"
+      ],
+      "evidence": [
+        {
+          "path": "engine/source/PlayerHudModel.cs",
+          "line": 43,
+          "marker": "public static Rectangle Scene",
+          "sha256": "40e34662696e391ada88cf634088562dda37d1425288726d3e82466db798d526"
+        },
+        {
+          "path": "engine/source/PlayerHudView.cs",
+          "line": 99,
+          "marker": "void Arrange",
+          "sha256": "aa8396e96b2cbff56313c148289c460ed2e37c8f07c2810ea70ca2f19d1aa271"
+        },
+        {
+          "path": "engine/source/PlayerHudIntegration.cs",
+          "line": 20,
+          "marker": "void SyncPlayerViewport",
+          "sha256": "c1b8d5f44489b0e1878f2db412485449dc043b9e255b972c4c3b406bb663648e"
+        },
+        {
+          "path": "engine/source/NativeFocusDiagnostics.cs",
+          "line": 13,
+          "marker": "NativeFocusSnapshot CaptureNativeFocusSnapshot",
+          "sha256": "deaf7308df2c3f4d2f9f09406510f84bc42c2c96267b739a3fcd8bd6b0b5cca8"
+        }
+      ],
+      "offlineCoverage": [
+        "C# geometry only; no render/capture"
+      ],
+      "nativeMissing": [
+        "full native viewport at normal/minimum/resized/DPI, focus labels, clipped controls and pixel alignment"
+      ],
+      "implementationOwner": "original integrator after supervisor receipt",
+      "reviewOwner": "P27"
+    }
+  ],
+  "pickupBoundary": "Ground/WorldEntry/pickup behavior is P26/r34 ownership. Only existing scene routing documented; no pickup execution or modification."
+}

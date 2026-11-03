@@ -1,0 +1,84 @@
+{
+  "schema": "p36-p37-preparation-plan-v1",
+  "preparationOnly": true,
+  "executionAuthorized": false,
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "writeRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1",
+  "goalActualRead": null,
+  "goalCreatedOrModified": false,
+  "sourceLedger": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\source-ledger.json",
+    "size": 212187,
+    "sha256": "701f95113b60daa1268d51f9ccf223c0a4994307d5ffe4f3ecea75ccd911f39d"
+  },
+  "executionContract": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\execution-contract.json",
+    "size": 10124,
+    "sha256": "7d7ff368af9a439c8bb65918766333479c493ca03a324f0ce96ac1278104b19a"
+  },
+  "toolSourceSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\tool-bundle\\source-seal.json",
+    "size": 2321,
+    "sha256": "856fd8d0e76df91dd90c2fc5e655be306f3e6cc6b8fb44ec8c467921fd5088e1"
+  },
+  "sourceTransition": {
+    "before": 180,
+    "after": 181,
+    "replacements": 4,
+    "additions": 1,
+    "canonicalTargetsAllRegularNlink1": true
+  },
+  "productScope": {
+    "additionalOwnPickupProfiles": 41,
+    "totalWithControl": 42,
+    "speed": [
+      0,
+      1
+    ],
+    "brave": 0,
+    "inheritedSameDllEvidenceNotNew": true
+  },
+  "build": {
+    "actualInputProject": "D:\\lineage開發\\TW1608262200研究\\engine\\source\\OfflineClient.csproj",
+    "output": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1",
+    "intermediateRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\obj",
+    "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+    "expectedAudioSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "invocations": 1,
+    "status": "pending-independent-review-and-supervisor-receipt",
+    "determinismRisk": "Isolated obj PathMap preserves source/audio legacy logical paths; exact-byte reproduction remains unverified until the one authorized canonical build. A mismatch is a preserved failure, not permission to change expected SHA."
+  },
+  "toolBinding": {
+    "version": "P37-inventory-only-r1",
+    "entrypoint": "bound_inventory.py",
+    "legacyP35ReferenceUnmodified": true,
+    "newSourceCount": 181,
+    "legacyCompletedContextInvoked": false,
+    "fullReleaseAuthorized": false,
+    "launcher": "Inherited immutable current launcher identity only; no new launcher build or package usability claim.",
+    "pendingReceipts": [
+      "P36 independent plan review",
+      "P36 exact execution acceptance",
+      "P36 final canonical acceptance after successful build and provenance review",
+      "P37 exact inventory-only acceptance"
+    ],
+    "unknownActualOutputHashes": null
+  },
+  "legacyR34": {
+    "expectedAfterInstall": "Original completed_context must refuse current source/manifest drift after canonical sources change. Preserve old exception and hashes if separately invoked; never modify old source manifests, receipts, seals or pins to pass.",
+    "originalToolAndReleaseStillImmutable": true
+  },
+  "mutationOrder": [
+    "Read-only verify exact plan/contract, all inputs, nlink, protected entry/launcher/r34, dependencies and explicit review/supervisor receipt",
+    "Exclusive execution root; independent backup/copy; install only 4 replacements +1 resource",
+    "Check exact full181 source set; write execution source-manifest",
+    "Launch exactly one product/audio dotnet build from canonical engine with private obj/cache/temp; raw command/stdout/stderr/binlog",
+    "Require zero warnings/errors, unchanged protected pins, exact product/audio DLL; record every actual output hash and fresh product manifest",
+    "Stop for independent provenance review and P36 final acceptance",
+    "Only after separate P37 receipt, emit read-only inventory JSON on stdout; no package/release generation"
+  ],
+  "formalEntry": "r33",
+  "sharedWritesThisPreparation": 0,
+  "buildsThisPreparation": 0
+}

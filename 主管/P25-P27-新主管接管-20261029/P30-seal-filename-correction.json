@@ -1,0 +1,26 @@
+{
+  "schema": "p30-seal-filename-correction-v1",
+  "utc": "2026-10-29T06:03:32.791311+00:00",
+  "rootCause": "Supervisor message mislabeled artifact-seal.json SHA as artifact-manifest.json. Author sealing command already identified sealSha256; two distinct files were not distinguished in dispatch prose.",
+  "originalIncorrectLabel": {
+    "path": "artifact-manifest.json",
+    "sha256": "3b5e84c46f48c01b80a129caad493b4218a8151bec8f0d9051b687501764637c"
+  },
+  "correctSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\artifact-seal.json",
+    "size": 108201,
+    "sha256": "3b5e84c46f48c01b80a129caad493b4218a8151bec8f0d9051b687501764637c",
+    "rows": 581
+  },
+  "correctManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\artifact-manifest.json",
+    "size": 108060,
+    "sha256": "a9f391d25a21cdd778d3e1a42f1621a51d709c558fad6bc2c8c919e2e2c3da7f",
+    "rows": 580
+  },
+  "evidence": "seal_delivery.py creates inner artifact-manifest then outer artifact-seal; sealed outer row authenticates inner manifest; original seal command output matches outer SHA; all581 outer rows independently checked",
+  "producerArtifactsModified": false,
+  "reviewerMismatchValid": true,
+  "executorPrepReceiptAlreadyBoundActualManifest": true,
+  "decision": "Correct reviewer dispatch file label; retain mismatch finding; no candidate/plan edits or expected-value substitution"
+}

@@ -1,0 +1,99 @@
+{
+  "decision": "accepted",
+  "blockingDifferences": [],
+  "repairRequests": [],
+  "findings": [
+    {
+      "id": "F01",
+      "severity": "verified",
+      "topic": "exact allowlist",
+      "detail": "42 exact(gfx,weapon) pairs match the pinned players manifest;41 are additions. Support cannot be inferred from gfx alone. Examples0/8,6650/4,6671/4 remain unlisted; S87 death weapon8 retains its existing renderer fallback without admitting pickup.",
+      "evidence": [
+        "profile-review.json",
+        "checks.json exact-42-pair-allowlist"
+      ]
+    },
+    {
+      "id": "F02",
+      "severity": "verified",
+      "topic": "metadata exceptions",
+      "detail": "Bounded13 metadata text entries were parsed independently. gfx2796 uses direction0 keys48:1,48:2,48:3,8:0 in order1,2,3,0; gfx2786/2796/6650/6658/6661/6671 have terminal SID8..15. All1344 profile token references agree, including ticks1,1,4,4 and metadata events. No gfx0 formula or mirroring is valid globally.",
+      "evidence": [
+        "checks.json metadata-* and map-*",
+        "profile-review.json"
+      ]
+    },
+    {
+      "id": "F03",
+      "severity": "verified",
+      "topic": "resource projection and source tiers",
+      "detail": "Independent decoded-block projection and original metadata produce exact2473547-byte extension SHAaff2e04d4f9395f7993baf5818eb16218730b7def0a29c7d07e86c314db513ba in memory.12 groups288 new frames; gfx0 other4 weapons reuse existing24.416 selected frame RGBA hashes independently recomputed from already accepted decoded blocks; no SPR decoding or PAK scan.104 terminal frames retain historical-selected-payload-matched tier;312 pickup frames remain current-idx-and-bounded-slice-only. These are frame counts, not distinct archive counts.",
+      "evidence": [
+        "projection-review.json",
+        "frame-review.json",
+        "checks.json resource-projection"
+      ]
+    },
+    {
+      "id": "F04",
+      "severity": "verified",
+      "topic": "base and shadow safety",
+      "detail": "All336 profile-specific terminal uses independently match accepted pixels, bounds and advertised canonical frame hash. Same-gfx base contents are equal across weapons, but runtime must retrieve the current authenticated profile frame object.104 unique terminal keys match exact shadows;312 unique pickup keys do not. Expanded references336 hits/1008 misses. Remove idle shadow during pickup, use only exact terminal shadow; no shadow invention or borrowing.",
+      "evidence": [
+        "checks.json base-* and direction-shadow-*",
+        "projection-review.json"
+      ]
+    },
+    {
+      "id": "F05",
+      "severity": "implementation constraint already in plan",
+      "topic": "key namespace collisions",
+      "detail": "64 bare pickup keys occur in multiple gfx/sprite groups.24:0 alone names6 distinct body payloads. Keep exact pair allowlist plus validated gfx/sprite group and group-local key dictionary; never global bare-key lookup or ForGfx fallback. The proposal already requires this, so no repair requested.",
+      "evidence": [
+        "namespace-review.json"
+      ]
+    },
+    {
+      "id": "F06",
+      "severity": "verified",
+      "topic": "profile-specific combat",
+      "detail": "294 profile/action records independently reproduce8-direction Supports, Duration and normal/haste boundaries. All13 body-sharing groups have differing weapon attack timings. For gfx0 weapons0/4/20/46/50, normal attack800/960/1249/873/1120; haste621/745/931/652/870. Sharing pickup pixels must not share ActionCadence, profile hash, weapon ownership or combat cache identity.",
+      "evidence": [
+        "combat-review.json",
+        "checks.json combat-*"
+      ]
+    },
+    {
+      "id": "F07",
+      "severity": "verified",
+      "topic": "damage double boundary and priority",
+      "detail": "Unique damage Duration values457,458,498,582,583.3333333333334 yield last-visible/first-expired456/457,457/458,497/498,581/582,583/584. ActiveOwnCombat uses captured AnimationMs when present, otherwise double appearance Duration; death remains indefinite. WithProjectileHit selects a due strictly-newer hit before duration testing, protects death, and leaves equal/newer current reports in control. Do not replace this with a generic active-report search or truncate to ObjectVisual.StepMs.",
+      "evidence": [
+        "combat-review.json",
+        "SEMANTIC-REVIEW.md"
+      ]
+    },
+    {
+      "id": "F08",
+      "severity": "verified",
+      "topic": "ownership and scope",
+      "detail": "Current record captures weapon alongside session/world/map/actor/appearance/correction/speed/heading/position. Weapon changes must cancel even within one shared body group; old callbacks must not clear replacement instances. Proposal retains Speed0/1 Brave0 own-only and r34 scheduler/latest-receipt/584/900/3000 behavior. No flags/variant/FIFO/Slow/remote research is reopened.",
+      "evidence": [
+        "checks.json source-owner-*",
+        "SEMANTIC-REVIEW.md"
+      ]
+    },
+    {
+      "id": "F09",
+      "severity": "administrative qualification",
+      "topic": "historical labels and final binding",
+      "detail": "The plan historical labels say r34 unaccepted. Later pinned root candidate-review receipt accepts the exact candidate independently; this is chronology, not a mapping defect. No final r34 baseline is bound by this review, and no next implementation is authorized. Root explicit implementation contract and final accepted base remain required.",
+      "evidence": [
+        "checks.json r34-candidate-acceptance-distinct-from-final-base",
+        "source-pins.json"
+      ]
+    }
+  ],
+  "scope": "bounded source qualification proposal only",
+  "productExecutionEvidenceAdded": false
+}

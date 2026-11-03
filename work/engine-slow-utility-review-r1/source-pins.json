@@ -1,0 +1,984 @@
+{
+  "sources": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-加速攻擊施法接續-20261029\\baseline.json",
+      "bytes": 29672,
+      "sha256": "1329700b9fabf59e7406d62790ea8a32758ee9771963d0dcd49c7cde85708a66"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\audio\\AudioAssets.cs",
+      "bytes": 3553,
+      "sha256": "a35890d65e2f3cfc7922aafea59f500d333a445d6ce8aaeb50960b031e272bb9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\audio\\AudioCore.cs",
+      "bytes": 10244,
+      "sha256": "53d4aa73be42ee674daceb08751c7c494ebf3c257dd1178257a4caaf94e316c4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\audio\\AudioPlayer.cs",
+      "bytes": 9556,
+      "sha256": "bad9ab78a2d9a2eeb334d2e8313e6bdcf97406efca730c36676a06ebc33c3745"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\audio\\DirectShowDriver.cs",
+      "bytes": 9770,
+      "sha256": "914c9e9b62a55d1e752539eb05990389e3e8b654e276b51c1edf9831683d2772"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\audio\\DirectShowInterop.cs",
+      "bytes": 3937,
+      "sha256": "174492eaaeeee9dbaf8d29d1ee9e2caa8d3c9a947a4d2f16109dd882f62976ba"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\audio\\P24.Audio.csproj",
+      "bytes": 355,
+      "sha256": "30cb249a292c0b9e4df6d592e834896d9cf621cbae9a9d3a31dd3fbbff3d65db"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ActionCadence.cs",
+      "bytes": 6520,
+      "sha256": "b9039d457c1e2d65825285f78b19bceadb880c33750576cb39c8219957fab183"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Assets.cs",
+      "bytes": 7448,
+      "sha256": "7338b577e307dbf11a7d4699a11eeb0ce472186b77c82fdf0807bef4ef729b6a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\AudioApiTransport.cs",
+      "bytes": 1616,
+      "sha256": "b1a18d9fc09bfba275e9c17230c57cc398dba06ccd30631f44333a17b9e42c7b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\BasicSupplies.cs",
+      "bytes": 3547,
+      "sha256": "5311b9c03f0624f5425946f4f4615ebf1456141c82b73a5096e1d85794f2a201"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\BonusStats.cs",
+      "bytes": 8791,
+      "sha256": "b1dc4950bc1bd30218ab776b38bd68a6656ed68ae0eeef7f5817f1a3fcc8ad43"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\BonusStatsUi.cs",
+      "bytes": 4738,
+      "sha256": "072a214367754da457a0aee4ebcc457d441955cdf17caf30df31cbb1e91649c9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\CacheFrameEvidence.cs",
+      "bytes": 2669,
+      "sha256": "313ec8d28c59bebd97d05d734e082e7e5b04398e673b8d89e7f64973014dc5ea"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\CacheTests.cs",
+      "bytes": 11154,
+      "sha256": "4584ba1a014e5378870bf1520427c10ff7ace1947ce350dc813ba5d772e5d521"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ClientAudioSettings.cs",
+      "bytes": 1723,
+      "sha256": "7000c30e62f17cc58a1be9318cf53d8b793d8899d64016713114b5c709995bf7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ClientEffect6016.cs",
+      "bytes": 4853,
+      "sha256": "19be31bff33a4584e638d3314225648b1ccc72bb382dd4adf64e320e1aa08eeb"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ClientLogin.cs",
+      "bytes": 11588,
+      "sha256": "a00779bb20bc2bb97aac8fb520788f0f8cd674bfeb7f4ce35279b3713e4003d7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ClientNetwork.cs",
+      "bytes": 8638,
+      "sha256": "a0fb986760c8a2b215cd03d044e4aa3f303cc8c53d10acf75e283b5b7369e88c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Combat.cs",
+      "bytes": 12144,
+      "sha256": "e72969b87dc4be034631b8fd6068798d6def15af87c2bcd6147650ebea44dd3a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\CombatRegression.cs",
+      "bytes": 8083,
+      "sha256": "70e8f14db6bd3adfc6f92701e7a397a26ef38bc5985a9d84a8eb5e55e39cb554"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\CombatTests.cs",
+      "bytes": 9297,
+      "sha256": "22bc5eb8fef2b060f679c1ea98d1c1de4977729c432592744cbb836f432b39b3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\CombatUiTests.cs",
+      "bytes": 11379,
+      "sha256": "60358fa7fc128420d9557f5acac448f54aa873176f8798992e9837466a76a97c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\CombatVisibilityPlan.cs",
+      "bytes": 2604,
+      "sha256": "4cb71ff1ef122dec7974554d443f0fae236bef48674979ffd5c0428610e696c1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\DualBlockTests.cs",
+      "bytes": 8637,
+      "sha256": "4d6990df06e302353b7eba857ba937b1b6f86ae570cad0f9c8e32601ce9c7546"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\DuplicateRecoveryProbe.cs",
+      "bytes": 1765,
+      "sha256": "bd9fac40979690f34622fe5112cc4359f52e185b205c8279d78a86bc1880c2c7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Effect6016Controller.cs",
+      "bytes": 12999,
+      "sha256": "5c24d747277a6428a9faf83b96682c33fb40f039989137c438c6555f5a1cae66"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Effect6016Definition.cs",
+      "bytes": 3300,
+      "sha256": "c978e0ba6b83d6d9dd34729a29b2f5f04658ad2373cc3a1a40930abe63594ab0"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Effect6016Host.cs",
+      "bytes": 7903,
+      "sha256": "7a8ac5da322014f1cee956903b5e21d65a50435107eff51b0ccfe82340ebf6ab"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Equipment.cs",
+      "bytes": 5373,
+      "sha256": "54886622111435489a1bc1c36bcfafefa91278dd7b9ba3e2a352563cd8ab3c65"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\EquipmentGateTests.cs",
+      "bytes": 3436,
+      "sha256": "f0779f792543a6cdf19dd9780bda12144ceb3e180f7e3e07d1cada1a1199ce8a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\EquipmentIntegration.cs",
+      "bytes": 6065,
+      "sha256": "45cc77321d5ce7e044b549105b22f27a61b64a5445758d36b9090fd606a22d88"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\EquipmentTests.cs",
+      "bytes": 4389,
+      "sha256": "9aea8c38ff99e5b3b134d305dc6fac5193cbcb80861b0c234e5a1e0333d1b063"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\EquipmentUiTests.cs",
+      "bytes": 8179,
+      "sha256": "13d3ea5b8a34983b7a0c9ea83980e861705712e890c1209880a40d1c831e2b48"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\EventJournal.cs",
+      "bytes": 1474,
+      "sha256": "4d0b1989f0ac6fb8ec76a0919c58538db0c3e8a7ff99e6916942818b151cd510"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Ground.cs",
+      "bytes": 8718,
+      "sha256": "d0a5e85ea18f2999b9e7d18cbe575019667170a68a48852f7f67766d7140da37"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\GroundIntegration.cs",
+      "bytes": 14794,
+      "sha256": "9adbb3b7ad67da62e76ed59c6fe13a0111459d215d0b6c2551cae9ed85818aca"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\GroundLayoutTest.cs",
+      "bytes": 4065,
+      "sha256": "ee0034b15f7795dbfa89058259996f8b87dfeaf714e7a7fa0f26a416a7c8d996"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\GroundRendering.cs",
+      "bytes": 1566,
+      "sha256": "a0a13e18ec6702cdb8f0deb6011586b20667c598c5010b46016b8844ce141e54"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\GroundTests.cs",
+      "bytes": 8324,
+      "sha256": "87777facedb0f6009b63e1e55768f33c6d89a0cfc74b5927a02d2713862d8cca"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\GroundTransfer.cs",
+      "bytes": 2488,
+      "sha256": "60bd7b015b3dd6c9cd4f0a79008e58666422fea1153bf202ae23a65aba1459ee"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\GroundUi.cs",
+      "bytes": 3799,
+      "sha256": "d1fc05f61dbeef2df739cc01d4b5bddf6e414e07997401f14332c659124f845d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Inventory.cs",
+      "bytes": 13441,
+      "sha256": "0870481a126087edc7f6e2d9b75259d7725cd719bf55c1c7b7d16eb70900abf6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\InventoryIntegration.cs",
+      "bytes": 14089,
+      "sha256": "d412953fe22db17434f23e3ae1d8311689ca6f6492b580de0dd82dae6a5255f1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\InventoryLayoutTest.cs",
+      "bytes": 3684,
+      "sha256": "ae7eeb059aa737d498a82ff2206d051b185b4d4c50a84c9a335a32b837ad6bb3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\InventoryTests.cs",
+      "bytes": 9732,
+      "sha256": "0ab9ce7721b8178b377ef43411d9f6aebdb06bca8b8efacb71f3d02579019997"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\InventoryUi.cs",
+      "bytes": 4450,
+      "sha256": "24327c9e640d09b9813f3778c3c76543ff8880b553c1983cb83e9f806e50a153"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\JournalTests.cs",
+      "bytes": 2010,
+      "sha256": "860c983b8a7002c35c2f6f2f35de68036b8f76d400b17774b8b030bb1a0a24b8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\KeyboardNavigation.cs",
+      "bytes": 1812,
+      "sha256": "a14571c5746777373cda58022e1374b256ba8f342c00b45d578181e7a4ea8a99"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\LoginConnection.cs",
+      "bytes": 10284,
+      "sha256": "1b8bee80a602996cda8d032572f117428cd4cb104c6786eed7329c23cf5cb47a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\LoginControl.cs",
+      "bytes": 8054,
+      "sha256": "02f97ac834993fb26871759c2dc7c2853494e804eac793b199bcc64c59553e2c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\LoginProtocol.cs",
+      "bytes": 5510,
+      "sha256": "c72b0d6a517949301be34458eb8ffa5166b876388a1b06680dc9739b381ce2be"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\LoginTests.cs",
+      "bytes": 4850,
+      "sha256": "6ae6514eaa10cb8b3465230737db89dbc00f3895f50028e9282b17362b194cd3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Magic.cs",
+      "bytes": 11027,
+      "sha256": "a5a3497d12ab516b30b705ba827cff3a9679976db1692f7ab137719c46426e58"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MagicIntegration.cs",
+      "bytes": 18560,
+      "sha256": "7831385e157937e560fc9445da3a28c0228be61fd9c3338ec3d10dff335c3ccc"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MagicRendering.cs",
+      "bytes": 4867,
+      "sha256": "c65cd7e3af2f92d689bb093de1007003efff060798e71a7fe1cad602120f9963"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MagicRenderingTests.cs",
+      "bytes": 4161,
+      "sha256": "58ae873c2c0a31d5a460eb059148697ca95c80b85544f8e98d338440d30fa2e3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MagicSelectionRegression.cs",
+      "bytes": 4749,
+      "sha256": "5fb664de0fa677308bb515148cc085670c8c0c32c0ba263c81fb08012ee5e110"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MagicSpells.cs",
+      "bytes": 1129,
+      "sha256": "20cc278da9390e90757349fb27080a258b412928ff1bd0e9a3bbabc232822de0"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MagicStatus.cs",
+      "bytes": 3337,
+      "sha256": "5b8d0eeec6a7a45457f430ab587d833d8eea387e3ac94d2e3717c2e3f805a8ce"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MagicTargetPreparation.cs",
+      "bytes": 8802,
+      "sha256": "70987fd3993bf663eb9731df11ec135a14ef0d2d03bdda51d9d2262d557b790a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MagicTargetTests.cs",
+      "bytes": 12548,
+      "sha256": "b2f1a30941f61604c982267c70dd2c912f428b880d2ebab654991aa6723b1b18"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MagicTests.cs",
+      "bytes": 7160,
+      "sha256": "55cf1bbcd8643570ff0d8d954089c9d9d8877057e7ea84cb95124878de94dad9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MagicUi.cs",
+      "bytes": 4913,
+      "sha256": "bfc95fe67b281d8c2ab9beeb95a07cd607dbb91b52a04f9837460423c6ac4c92"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MagicUiTests.cs",
+      "bytes": 15775,
+      "sha256": "cdb6bab4d853d13cc22a8c925b944702faaef7fea1dafdb618d3a0327ecbb8c5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MapEffects.cs",
+      "bytes": 4465,
+      "sha256": "151017e2a085c66427959f9d6164f3cec08a455ea3866fd7e1f411f38261debd"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MapResources.cs",
+      "bytes": 1187,
+      "sha256": "8e3e1663a58345ab42bee1fe2c07777a74ece63da7fd6500323efd5b8daa016b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MovementRegression.cs",
+      "bytes": 4481,
+      "sha256": "bb6434e453e3be718606d02d61dd1b9c47c96709751f401a93f234ab13716def"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MovementTests.cs",
+      "bytes": 9031,
+      "sha256": "e71343ddef87fbfb998ca661eba9ff48e863486ba633f8f8006ba81999af70a1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\MovementUiTests.cs",
+      "bytes": 6825,
+      "sha256": "7021dbcfbf3427142de2d6890e0942c253374cbce798cd581d1687df19317051"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\NativeFocusDiagnostics.cs",
+      "bytes": 1837,
+      "sha256": "deaf7308df2c3f4d2f9f09406510f84bc42c2c96267b739a3fcd8bd6b0b5cca8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Network.cs",
+      "bytes": 6231,
+      "sha256": "023722c40298ab25dfd20963714e060704b0f51a0540ef7117c0e8e9d598eee8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\NormalHaste.cs",
+      "bytes": 3032,
+      "sha256": "9eb5d6bb5b63ef5a0bef2631c184420589bf30aa3149e146b08106f63e53a6ee"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\NpcInteraction.cs",
+      "bytes": 12417,
+      "sha256": "482cd99aff9bc74be2a58dc6a14fe7d5de09b66cb08d06e25c6afa0891aa0505"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\NpcServices.cs",
+      "bytes": 7391,
+      "sha256": "3e35cdf0b495a0df7cb154f0f8f4e2da851257284a8844c7aefc73741921a65b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\NpcTemplates.cs",
+      "bytes": 4724,
+      "sha256": "8a55bc6e2494767e00a6ee101627a2e63614d7dee49f1d027fd3fdab6f5f023b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\NpcUi.cs",
+      "bytes": 7501,
+      "sha256": "9bae4c5a5253f11ac3d316cdb5033c64e2e5d4182e1445dbe493ced9c213d020"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ObjectAssets.cs",
+      "bytes": 6846,
+      "sha256": "3bff495b6a642f89ba2a2dd5d3efa85e8e1152430ac5dc654f6eb5f4768a4f23"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ObjectPresence.cs",
+      "bytes": 3409,
+      "sha256": "2284a95a4c8a977799d9e21f9c38d37e0a0c96d15f4f957efbd0ae7eb79434fb"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ObjectRegression.cs",
+      "bytes": 5940,
+      "sha256": "a564442accb3d14d31759f1e2c221b1cde7cdd5f5a07398dbef68f799b77be7e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ObjectRendering.cs",
+      "bytes": 9439,
+      "sha256": "a92ce0156f59cd75fb5da639760924d053a92febe15787657d39f28cf580fc5a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ObjectTests.cs",
+      "bytes": 7033,
+      "sha256": "ee59363cf3a72a711884c91568a429c5b9e34ed52101225e7e5c6ccf6f321db5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ObjectUiTests.cs",
+      "bytes": 6834,
+      "sha256": "1c4b7c0f6ff16224a8894d0fb16c5ba6dc4c1b7199b22eb02f5527aeb9d3656a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OfflineClient.csproj",
+      "bytes": 991,
+      "sha256": "4486a4dea1367d8f7aac3f4860a4179bcd3e34f5a5c3f9edc93495a52c80bbed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OnlineInput.cs",
+      "bytes": 1663,
+      "sha256": "be57d6afe82f1aa263d286649a13242a0b9b002e3fd11e2fd4945068bad735f3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OnlineMovement.cs",
+      "bytes": 10477,
+      "sha256": "8b066e453caf0a85196797cb7a11b3f29019b126acc050b14816eba81abe33ba"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OpacityHistoricalPumps.cs",
+      "bytes": 803,
+      "sha256": "54a54a27f4ba685d7a9f43c163c62e04622e171ee21f11788ee0de9ba78bdc83"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OpacityIntegration.cs",
+      "bytes": 12930,
+      "sha256": "568d1a564d769cfd716c9dc55b035d05fd33b7cb8532181f06d511fbe79bd929"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OpacityPixelTests.cs",
+      "bytes": 3609,
+      "sha256": "14bfbfa68816b60d553c4e6e50a6707b9c259219c3e0d580fa2c0f11f5fdc382"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OpacityRendering.cs",
+      "bytes": 4181,
+      "sha256": "bd7672c9d1378e908fa2ea1db3d78148dc7aec6c6f0bbe595ba2d9236a531608"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OpacityReplayTests.cs",
+      "bytes": 5775,
+      "sha256": "c04a4076ec6bfb19e77d2dc04c2689a05db22ecceef8c55cb4634cd573edb6f1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OpacitySchedulerTests.cs",
+      "bytes": 3565,
+      "sha256": "8b0ac7118c194438f23f4a0adeb0de3027fa271853ae3d6c05af12ff74352046"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OpacityTests.cs",
+      "bytes": 2989,
+      "sha256": "9141e8c187dca510dae15bc72d279729b5193fc9eb1a1c27df361a7d3d7cae0f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OpacityUiTests.cs",
+      "bytes": 8762,
+      "sha256": "637feca43666c12f9df5ab4cfc96d4477a1d2cf5e9465a41561a9ff5cde69e13"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OpacityWeb.cs",
+      "bytes": 1862,
+      "sha256": "17c2b8c8c68ce0e3d5b929899186c6f3679edfd04e5362deb620f3c80e14fb29"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OriginalExpTable.cs",
+      "bytes": 1286,
+      "sha256": "325384a1437d6959b6233cbf2b7c76c681a2c8c6c1a05b41b7b9373e5bc198b1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OriginalMapCache.cs",
+      "bytes": 20268,
+      "sha256": "8c7009fd8483196beda9108a07a01f54b1e02d4447ba6cb3c6b88fb78b15d084"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PlayerAudioSettings.cs",
+      "bytes": 2704,
+      "sha256": "d72460ffa9c1fe7a3959ea614f00355ba1dbf1facf21a9f584413c3c0d074c3f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PlayerChat.cs",
+      "bytes": 4117,
+      "sha256": "39d47921f20315167b2dc095d5475cd033ae5f5338fcfbc66d10b1b2526343d8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PlayerChatKeyboardFlow.cs",
+      "bytes": 1915,
+      "sha256": "ea2330e6de11e4815f679eca1552ebd7546e01ad72ef6a4a4cf835c6e7d8035e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PlayerHudChat.cs",
+      "bytes": 4390,
+      "sha256": "a737ee8f3ba7a9b502f7871d06c335cef921665507aa30e790ff96cfe29e3847"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PlayerHudIntegration.cs",
+      "bytes": 6631,
+      "sha256": "c1b8d5f44489b0e1878f2db412485449dc043b9e255b972c4c3b406bb663648e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PlayerHudModel.cs",
+      "bytes": 4055,
+      "sha256": "40e34662696e391ada88cf634088562dda37d1425288726d3e82466db798d526"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PlayerHudServices.cs",
+      "bytes": 2506,
+      "sha256": "70393c3cfb18d470491b2ce6f2410fcdd195ea1b7043a3a2f493ecd97c6e320f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PlayerHudView.cs",
+      "bytes": 14880,
+      "sha256": "aa8396e96b2cbff56313c148289c460ed2e37c8f07c2810ea70ca2f19d1aa271"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PlayerPointer.cs",
+      "bytes": 9105,
+      "sha256": "4214c71199b3db6a582e48049513028540b89fd7ad27e01b79c705590f8d07d8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PlayerPointerHud.cs",
+      "bytes": 1527,
+      "sha256": "64dbce54801a133cfb2e76f175f2b30cd8562aea0bb107727aaa029186b3cda9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PlayerPointerUi.cs",
+      "bytes": 3218,
+      "sha256": "05db52e330846e9abc684f0edbc33f001ca2ec355d097d47479ad3922e77b11a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PlayerProfiles.cs",
+      "bytes": 3355,
+      "sha256": "8257012faba79f2977e979712f596c80f2610097c9e45ae13cee91561240c5f2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PlayerShadows.cs",
+      "bytes": 3677,
+      "sha256": "c44d4c21bdf4764a891e8e366b3211f80898336b8fab651e18874ceaee86bca2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PrivateShop.cs",
+      "bytes": 15256,
+      "sha256": "01628e7caaf8f52331166f12fdde8866ed1253b11312ffd9f1ecc61def15a3b1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PrivateShopUi.cs",
+      "bytes": 9420,
+      "sha256": "3e091b7d014d1ca58080a37a9a7ae230f3ee2f733d3cb28ead6c84f4a6c4ce4f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ProductEntry.cs",
+      "bytes": 2593,
+      "sha256": "be174e03d4ae6400acf7b6ba36f52e7c77521f1ab12864fdc9f3ad4fdf8e4cb1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Program.cs",
+      "bytes": 25045,
+      "sha256": "f055f64ddc4d05b8ca75571690769839ea12fc3f15261057dda858b8eeffbee8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ProjectileRendering.cs",
+      "bytes": 5561,
+      "sha256": "917625f6c00b430195311f34e5c7fdabf56b0d5d28f7a53b8abc1053368ff466"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Protocol.cs",
+      "bytes": 3680,
+      "sha256": "9c51aad89c9bda86dcedcdaa46cf135b0f787bb8105aa3826c8d7759e176f3f8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ProtocolTests.cs",
+      "bytes": 3386,
+      "sha256": "ea9a6964091f310477c60cdec3c1447fd2d89927397d9bfb409762b513287a7b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Ranged.cs",
+      "bytes": 752,
+      "sha256": "0ca871255023fe2b0405cbaa09e54b9982e3e93eda820a3491376aa9acaf9074"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\RangedGateTests.cs",
+      "bytes": 3697,
+      "sha256": "fffadae8d9d09f189ce574eef56238aaa2b536f6210fc2e12b400ff969d2aeb2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\RangedIntegration.cs",
+      "bytes": 11751,
+      "sha256": "b7401c07772fc7713e3fa52aa66a0dd53c7be2c71dc95f8480bb7c5045ae38ac"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\RangedRenderingTests.cs",
+      "bytes": 3422,
+      "sha256": "f2f914622b7fa2d47e66d22b84ee6b1c4e9683ff84d1afa09fb45198e9cded94"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\RangedTests.cs",
+      "bytes": 3013,
+      "sha256": "860e8978d2912b6431c7023d53558594fd2e844b2c76aa85bee02af06a247a0e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\RangedUiTests.cs",
+      "bytes": 11175,
+      "sha256": "127a458d342d598675ae57b4c6602b96768e9476f7e3cf3fd7c4f20cb797caae"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\RealLoginTests.cs",
+      "bytes": 1938,
+      "sha256": "929d1bff1cf4405287ebec0920bcbb47ddb3325db4697c2871a70266f0ea28ce"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ReceiveLoadTests.cs",
+      "bytes": 4517,
+      "sha256": "7a7d74ac0bb854e3ef55f8e9df38ae3e94d2d261ae5fd86a884bbb43d6ce0eaa"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Renderer.cs",
+      "bytes": 7142,
+      "sha256": "889b6587ebc5b6d85cb914284efc800c2c18c1c2c4713226d7b1d3e60a1f74e5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\RewardIntegration.cs",
+      "bytes": 14142,
+      "sha256": "a1fd17efcc8539fc0df8848634f14361dfe89b3320ffbe4ee56c3a355b86995f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Rewards.cs",
+      "bytes": 4546,
+      "sha256": "eab28b4facf6de1fd9576f87ff99c19d3c929042b6ecb100d747681e419826b5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\RewardTests.cs",
+      "bytes": 5424,
+      "sha256": "6c55245e46c70208f807668dde060725a1d5d76d5364e2bed67d1e93bcb7bdeb"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\SceneOpacity.cs",
+      "bytes": 10283,
+      "sha256": "c6dc450181b1f19d3778738512b5a3dee5b95f7bdb27442241081f9acb0200b1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ServerMessageText.cs",
+      "bytes": 1107,
+      "sha256": "c53e40fc756fb0bf73586d38cdb42f65296439c32c99144cf686be49dd95d9a7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ServerStatusMessages.cs",
+      "bytes": 564,
+      "sha256": "80595b85cb06efa6875fedc75f41796156bc967a3794288ed553c80755a897a4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ShipBackdrop.cs",
+      "bytes": 7711,
+      "sha256": "c3226978d6a99d646ad669c09af31ff4188de83a96470e429149b24a7fe52f1f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ShipTravel.cs",
+      "bytes": 9590,
+      "sha256": "be5f5bd8c3086c0aefd561ddf8579cfe3a24847456112fc59b1e56026e7b040d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\SystemAnnouncements.cs",
+      "bytes": 760,
+      "sha256": "24267217581cf3c6abbca50627b00a20bb2aeacf79197c46c07cc6283812a043"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Teleport.cs",
+      "bytes": 4346,
+      "sha256": "be65b1ed0776e8fcef557115525945ea49c8b3080c74386f20044426f5344e37"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Tests.cs",
+      "bytes": 12205,
+      "sha256": "7c6c04dc6bf70a505d6ac518ebadc79c0832f72748959e0d8c73182a9aa7b612"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Trade.cs",
+      "bytes": 11364,
+      "sha256": "964388f41f6841a5a86503aeee2fefd85a8e081712f552de5ff5aa5aa0b8cd37"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\TradeUi.cs",
+      "bytes": 7341,
+      "sha256": "007b0f58d5e0e41f035abf044673430645aff0e199930b58c91047bd77c3d544"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\WebPanel.cs",
+      "bytes": 19383,
+      "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\WebTests.cs",
+      "bytes": 6046,
+      "sha256": "e442819277dbab19f31c1677469d55a22b3f06408e1d4d0b85f078354c2f3809"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\World.cs",
+      "bytes": 7187,
+      "sha256": "94013006de44509dbf2837abd4d3b56c3abe3f6c2bf15e855765522fd6e69fbd"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\WorldEffect6016.cs",
+      "bytes": 1574,
+      "sha256": "e631a0aea5c79e4f7d70eebe9bdaf4696a9d95c746199e0f0c72b04ce65dd8cb"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\WorldEntry.cs",
+      "bytes": 7636,
+      "sha256": "a49718e5ce6e820eab594cb1c3610347a666e151f254d48c2c4ca8b086671c1e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\WorldObjects.cs",
+      "bytes": 5539,
+      "sha256": "33444f970443946b6b5fab902001086e676f2bead429cc3e8ec9eb5c486473a3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\WorldRegression.cs",
+      "bytes": 3238,
+      "sha256": "35a52654aa262a0689f24148be63e558ac0e81c1b163c098c93d99056e243d3f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\WorldSession.cs",
+      "bytes": 8958,
+      "sha256": "96d9795b437544b453ecea77ee70a395468794dc9a9a9b1ceeaca99a8ecaa326"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\WorldTests.cs",
+      "bytes": 8432,
+      "sha256": "89840da776b378d7e0ea05a8178d02c436547f0fe62ed0ea2330ff7f923b9bc4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\bonus-stats.js",
+      "bytes": 2361,
+      "sha256": "eaaddd0f2c2524f931c11518f24d9bb3da14b3658c2d70aad4fd5da5c801c0f0"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\ground\\36.png",
+      "bytes": 289,
+      "sha256": "8d72431ab657dc156297aa3007b0843c01e75f20dfe5379b27d5cd8d5b9f29f5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\ground\\66.png",
+      "bytes": 465,
+      "sha256": "3ecde86e10281647ddc1f66ddb42a44a83a98c86baa4ae317ddb8859b3e4fe34"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\124.png",
+      "bytes": 844,
+      "sha256": "7a989ea2e4f676a42d82e612ca9ff6a1d25e27005acf0cc312ffd270cef62919"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\138.png",
+      "bytes": 858,
+      "sha256": "335162b3786bced49563cfe86aa14fc4114867c9aa8237821023704a08ee0b98"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\2.png",
+      "bytes": 495,
+      "sha256": "0f609374be13892e61096e39fbd126cc7258a179a108dcfd80ad2e9e34d430a0"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\242.png",
+      "bytes": 996,
+      "sha256": "5ee66ffca19d9d3395318df30ee32aaf94c36753dadf8a9bb9935b564b07dccd"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\245.png",
+      "bytes": 1036,
+      "sha256": "ea4ac1c311981c4380e17779b4b15f1ef2a2a71d2b1962a2591f203522e9b001"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\278.png",
+      "bytes": 401,
+      "sha256": "c7a17e518c4e3978a83446e66c4cf7ae5cd54caeb04184556442a48b9f75f220"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\318.png",
+      "bytes": 1499,
+      "sha256": "ec7b23a61616e87b992ae01fd95ddfa83430300141aa85f4ded444af31c46a26"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\35.png",
+      "bytes": 460,
+      "sha256": "9ded6e008b2f981978dab2874f924b72b8d5f96ea6c4c856c4ebe60884a00073"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\4.png",
+      "bytes": 510,
+      "sha256": "75ab427d9ee5b9051b6cc4103b43eaadfd7cadd75d73d29bae9caf28ce3ac93e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\474.png",
+      "bytes": 1352,
+      "sha256": "569b75068a19f536d78b12a6b75d8bf6e61655b9c1a7f282b0096b9043ecfa1d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\475.png",
+      "bytes": 1365,
+      "sha256": "af4f6debaadb18732f040901c0ecf166156782a25e26da6b6867445d3c325846"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\5.png",
+      "bytes": 907,
+      "sha256": "9e35714d6b77ab794679b0a32f295cea5a78b773fbb745f46ce00366a4b06ff7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\59.png",
+      "bytes": 499,
+      "sha256": "cb4045a12f6d28c81bbb25e12173741b184f8bc2fc90b42d9063d0ee076a669e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\7.png",
+      "bytes": 359,
+      "sha256": "90f23210260582bfcc8c9e8b7a00cb727840e73082e3c7ca33c1e1fbc8b3143a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\77.png",
+      "bytes": 743,
+      "sha256": "19f5dd065bc709dbd1c0fe59bad01e0a8acfad39593ff90621f069a709c9a727"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\80.png",
+      "bytes": 724,
+      "sha256": "0a6b703b2b6b0709ce4c7364f36ed99ef4cc907712d7d0059aea90c0ed9f4f37"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\81.png",
+      "bytes": 696,
+      "sha256": "eda21f8685278d50e150fa50ea4975756ea5cede2161fc86f1726199615ab988"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\86.png",
+      "bytes": 1306,
+      "sha256": "f1a70fcdcee29ea66ff20f204157927e07468cfb50da545adcc2c93831b389a9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\957.png",
+      "bytes": 1192,
+      "sha256": "9b1df82afe88dc2183d9f3e69e8218d4126330e1f8f4179bf861ae305aec3a31"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\icons\\97.png",
+      "bytes": 776,
+      "sha256": "a630764b5725c0fc3629a4b86cc60d309695e9673179cb35d73b406d2769ec1d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\index.html",
+      "bytes": 8086,
+      "sha256": "27795cafd5b135781629df09c083ad290e8ce4527f4a51d498e367d5d3204b38"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\interaction.js",
+      "bytes": 3596,
+      "sha256": "b007e3ce0a2a4f2ef13dcf72db66adc26640379ad4eebedb357dc8e026132aae"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\login.js",
+      "bytes": 4568,
+      "sha256": "482384344ac719449c81c8e7c2212370dfd422dda52f8d4dbff8c9b3405c5a51"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\panel.css",
+      "bytes": 2933,
+      "sha256": "66310ea6a1cdeda68bf1a817c24127830a0baacff0cbef88a7ed6dfd4f0b4a91"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\panel.js",
+      "bytes": 15490,
+      "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\private-shop.js",
+      "bytes": 4228,
+      "sha256": "f9afcb14c0c1f3ef5a69556203d25348035a6fcb888084e59a50da1f53a140a4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\web\\trade.js",
+      "bytes": 4161,
+      "sha256": "5b677e40462c5ec933fc5fa014b94fa70b3b1f2e53bc860cec9f9ba66e4f42f9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\_integration\\r30\\release-seal.json",
+      "bytes": 2432967,
+      "sha256": "199ce6fe81130138e9fedf98e688928ce44b0a45c2aebd1b92fdd9519b8225dc"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\build\\client-product-r30\\P11.ClientEngine.dll",
+      "bytes": 2175488,
+      "sha256": "1abc1eed02917d14fd775be60920fe74efb9b102bc53eea5874fc0128e5247ef"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\build\\client-product-r30\\P24.Audio.dll",
+      "bytes": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+      "bytes": 10058,
+      "sha256": "314e9a9e3aefb4be0ce5ef699fca86eca072298b8b07d365e6d74016c8303615"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\assets\\integrity.json",
+      "bytes": 1729333,
+      "sha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "bytes": 6928681,
+      "sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf"
+    },
+    {
+      "path": "D:\\lineage開發\\登入器bin資源\\TW1608262200.bin拆解\\TW1608262200.bin",
+      "bytes": 16810496,
+      "sha256": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\HANDOFF.md",
+      "bytes": 9977,
+      "sha256": "6593ca5718796ac48c6a8ec83de7c66d20151d5aaef072a63fbedc8b330a3367"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\source-evidence\\pins.json",
+      "bytes": 14167,
+      "sha256": "2afe6602f5c16c5fa81749795c32ee6f3f75d936a0e4591744b91a973c29dd4d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native-byte-audit.json",
+      "bytes": 46388,
+      "sha256": "1dfcf41e5cfcf1491127f81b4c77518169ed792d98c90545b41dffeb3cf6e219"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\server-oracle02\\config.tsv",
+      "bytes": 279,
+      "sha256": "1d2c95a12574d6066892d985cd484e3a16905124f58ff75745ffa6d150f90413"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\server-oracle02\\haste-packets.tsv",
+      "bytes": 272,
+      "sha256": "b32474b79f9fe29ef009d19640faf8613f90e3aad5c33b70e001dab2416b9984"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+      "bytes": 359179,
+      "sha256": "63457730ec81398ef17790c55250c6f641485f5c4811bcfb81a53c57de75ec2e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "bytes": 3452643,
+      "sha256": "ed20e74fee45986bef320ea4beca1b1a8c4ff178adbcd026663c03104ed7d1a3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\speed01\\functions.json",
+      "bytes": 84748,
+      "sha256": "af3e82d6cf6df7f7823829e1ac3f8a95320109ef739082bcdbd97747d8ed3255"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-actions-review-r1\\candidate-review-r1\\harness\\Program.cs",
+      "bytes": 9951,
+      "sha256": "238af387388ee88be843f8f0da781bf9111f32d7566cc1cf19decf6080625967",
+      "usage": "read-only fixture/reflection pattern reference; no candidate reuse or mutation"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-actions-review-r1\\candidate-review-r1\\harness\\Review.csproj",
+      "bytes": 410,
+      "sha256": "ed2c8d122edb7ca3a1dc76e50296b5d0e9566212ac2c77286ba2556cc2655b0d",
+      "usage": "read-only fixture/reflection pattern reference; no candidate reuse or mutation"
+    }
+  ],
+  "baseline": "fixed releases/r30 (not mutable engine)",
+  "goalObserved": null,
+  "goalModified": false
+}

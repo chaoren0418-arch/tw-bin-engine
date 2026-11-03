@@ -1,0 +1,1019 @@
+{
+  "schema": "p36-canonical-execution-artifact-manifest-v1",
+  "excludedFiles": [
+    "artifact-manifest.json",
+    "artifact-seal.json"
+  ],
+  "files": [
+    {
+      "path": "attempt/build-01/actual-output-pins.json",
+      "size": 4098,
+      "sha256": "54cc5757dc6a65f76bf79f517340828c80e51523ef35cbaefdce9411d06d1829"
+    },
+    {
+      "path": "attempt/build-01/assigned.json",
+      "size": 62,
+      "sha256": "657505a25fa6e753da3b437e3421f1a2beb807e1c50dc426e12d4d128992a138"
+    },
+    {
+      "path": "attempt/build-01/command.json",
+      "size": 1703,
+      "sha256": "f483af4da4ce8304f32f334aa1eaecf376349cae459159bb7862e17bda854d75"
+    },
+    {
+      "path": "attempt/build-01/environment.json",
+      "size": 2321,
+      "sha256": "a2a4cfb11f9ab56eafee5a81343ed637ac7c9bed8eb1220ce898114b43ecf5fa"
+    },
+    {
+      "path": "attempt/build-01/msbuild.binlog",
+      "size": 216085,
+      "sha256": "ddcc351fc4b28c936dd767ecb7af76245caf903f7e6d361292d794c948ebb882"
+    },
+    {
+      "path": "attempt/build-01/resumed.json",
+      "size": 61,
+      "sha256": "1faa1ae3f4b8a90c62377dae5d28809da9d8ccea32cbc3c2eaa51985c58bc4b9"
+    },
+    {
+      "path": "attempt/build-01/started.json",
+      "size": 1286,
+      "sha256": "b5f2a2457f3dc99e779adac40374650fa49476c572d45b0fbfb43e61eff90bb8"
+    },
+    {
+      "path": "attempt/build-01/stderr",
+      "size": 497,
+      "sha256": "7f0b85f13e01776dc0918e791ad9f34b4f435c0c709a31fa62b65b22233862a2"
+    },
+    {
+      "path": "attempt/build-01/stdout",
+      "size": 15955996,
+      "sha256": "c5ef20a1ec00c7130394b2c8a11b5cc6de2cbab36d05b460b1bcae0302bc706d"
+    },
+    {
+      "path": "authority.json",
+      "size": 2792,
+      "sha256": "dd35b80947da278a997cb3e307fd40ff0867cd87d048d2e6c0e963b879182871"
+    },
+    {
+      "path": "backup/source/ObjectAssets.cs",
+      "size": 7023,
+      "sha256": "707ee6d9867e8eebb1a8fce89f28aeddff1ce8fb9cfd3d8f3daef31789d8f94a"
+    },
+    {
+      "path": "backup/source/OfflineClient.csproj",
+      "size": 1154,
+      "sha256": "ccf86adc2ad35473d9cce17ca9b40e3a9698d04bda578e9b20d2966946360450"
+    },
+    {
+      "path": "backup/source/PickupAssets.cs",
+      "size": 3546,
+      "sha256": "c9ed777b82948c6785d28e6807cda8b485e5321bfeb9d3587c643814caf491f2"
+    },
+    {
+      "path": "backup/source/PickupPresentation.cs",
+      "size": 6606,
+      "sha256": "b28e1bc5dcdaea4b42e12783697af1a1976d580cbc48724b7bc3b25e9cd9e326"
+    },
+    {
+      "path": "commands/finalize-evidence/command.json",
+      "size": 885,
+      "sha256": "0e32eace85617cef6429b2c5d8447ef56faece276d3ab28bedbc6c839861d0f4"
+    },
+    {
+      "path": "commands/finalize-evidence/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/finalize-evidence/stdout",
+      "size": 380,
+      "sha256": "7d2ba1aaabedca062028eb99103289ea3c0e0eac213700607096ab6ad6cd4884"
+    },
+    {
+      "path": "compiler-command-index.json",
+      "size": 58136,
+      "sha256": "144ac5d55dbe0690b79db4fcef2e378e4bc01be0b160af8cba447d93a1fbb10c"
+    },
+    {
+      "path": "delivery-result.json",
+      "size": 2012,
+      "sha256": "c038bf986adde2adf265df01bb450cd5486adcf396b52e6845603cc2a910a53a"
+    },
+    {
+      "path": "environment/appdata/roaming/NuGet/NuGet.Config",
+      "size": 210,
+      "sha256": "3bdb050540ecdd6fe717cbb9028c0ff9e2af5e1544afa71b6bade80140c7a236"
+    },
+    {
+      "path": "environment/cli-home/.dotnet/10.0.300.dotnetFirstUseSentinel",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/.nupkg.metadata",
+      "size": 241,
+      "sha256": "b39d8380fc8a25faed139175b58b25cb542c92f607aa60cf1ec22a1a0e08b569"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/.signature.p7s",
+      "size": 25731,
+      "sha256": "54026f610dd91c8d25800e854a80c8ca0efbb12b73b788d1c5db90e906682249"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/Common.targets",
+      "size": 20448,
+      "sha256": "075c62422526d77cc5f57972da94a0b9b4c2bd900eb346990d66f860eec387a2"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/Microsoft.Web.WebView2.targets",
+      "size": 764,
+      "sha256": "d1e080b342db8a8c1412edb9f93c9ab6da4fe271eefa480d24e90cecdc736428"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/arm64/WebView2Loader.dll",
+      "size": 180064,
+      "sha256": "4f48cb32d34298c86cca2108057eea0d900b5e422575e926e8086318a0b9cbf0"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/arm64/WebView2Loader.dll.lib",
+      "size": 3590,
+      "sha256": "cecd239e7520667a783e37012637894a3517dcdc2b9131ade85d6c75c2ba356f"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/arm64/WebView2LoaderStatic.lib",
+      "size": 11474832,
+      "sha256": "353d360800c31fdb36aa069c0a703e3bb1a08ec29e36f8ea55d6d2324ebc9971"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/include/WebView2.h",
+      "size": 2939599,
+      "sha256": "dff1e3181ec7ec203a34ef6efa966590e0ef0ba1a5c3fe3b69da6508c2f8a02e"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/include/WebView2EnvironmentOptions.h",
+      "size": 19500,
+      "sha256": "73566559e49911301b9c34db59b547343c81ab06ac6428a39ec0204956b37118"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/include-winrt/WebView2Interop.h",
+      "size": 28278,
+      "sha256": "98d05ad2e13565a2bc3e5dfaedad39bc7ea16968ce9294d7c68c7703e1dc705e"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/include-winrt/WebView2Interop.idl",
+      "size": 8523,
+      "sha256": "60dbc1aaf33767400a3a17aa47abf21d02b319374d45bfea3f07d05cc8d6a2de"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/include-winrt/WebView2Interop.tlb",
+      "size": 66784,
+      "sha256": "43e62909ca89b01c52a72e0ce5290a413684f7526584a55750702ebc61d3c6ac"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/Microsoft.Web.WebView2.targets",
+      "size": 769,
+      "sha256": "99518d3944a848e7c8ca17e41bdd32bfad3f0b2f9df5623def43283e146da762"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/x64/WebView2Loader.dll",
+      "size": 194912,
+      "sha256": "3426dcc55fdfb8b5e7ac623cf33b4ccf283fbf68a0c5a65bddfdb4d749a8abee"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/x64/WebView2Loader.dll.lib",
+      "size": 3590,
+      "sha256": "fe96adaca3ef7c2655c0995931fe0ea1d784266a9fe5761c060c2cfcb9353b17"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/x64/WebView2LoaderStatic.lib",
+      "size": 11463528,
+      "sha256": "e66284970876a616c82e7dcda75a17fd46d04827f9de81d4299b8862d34d25d6"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/x86/WebView2Loader.dll",
+      "size": 155488,
+      "sha256": "87c61e2cae380112c60853e28178b8ea9a0d63739fc03cead680d4ad3fde6b7d"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/x86/WebView2Loader.dll.lib",
+      "size": 3704,
+      "sha256": "556ecf387f974849a60f859fa05229faa17e7463289a76b590f4a0ea050435d1"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/native/x86/WebView2LoaderStatic.lib",
+      "size": 11428262,
+      "sha256": "bd66d0b41302e6d56938e61ded16e32bc66318fd54324b0dae419aeeccfb9b96"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/WebView2Rules.Project.xml",
+      "size": 6670,
+      "sha256": "17fac8199dac77eb23ac22574d9c362529597ff0130b4a15ec74f9bb2a62b18f"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/build/wv2winrt.targets",
+      "size": 18854,
+      "sha256": "76b9e12abfff129cc4ecd285f185c1ed78beef4bace88c72f0bc7475c40666ee"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/buildTransitive/Microsoft.Web.WebView2.targets",
+      "size": 764,
+      "sha256": "d1e080b342db8a8c1412edb9f93c9ab6da4fe271eefa480d24e90cecdc736428"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib/Microsoft.Web.WebView2.Core.winmd",
+      "size": 143200,
+      "sha256": "42c0b7ccdefc65aa0351a9a07c8cf96171b61440021acdef4d6637787420f034"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib/net462/Microsoft.Web.WebView2.Core.dll",
+      "size": 698208,
+      "sha256": "d60e6e94245078cb56e44ebd5f360dc04bf18e460136be93bfc4cfca43b98505"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib/net462/Microsoft.Web.WebView2.Core.xml",
+      "size": 612031,
+      "sha256": "8684cd74000c77533e563785208308ada63808da85825206856cab11a9eeffce"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib/net462/Microsoft.Web.WebView2.WinForms.dll",
+      "size": 38752,
+      "sha256": "6a9e6856f23c463783c3afb0ca5d78f56324c86657162ccb16d5227b3233b32a"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib/net462/Microsoft.Web.WebView2.WinForms.xml",
+      "size": 41869,
+      "sha256": "6a8ec199373824fdebceda7b3d780d0b31c82edceae04d92391027c971dea6c2"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib/net462/Microsoft.Web.WebView2.Wpf.dll",
+      "size": 86368,
+      "sha256": "f05a06bbc03afcb83dc98168b8d343d9015b2a533edbfac90c52d88894b653e4"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib/net462/Microsoft.Web.WebView2.Wpf.xml",
+      "size": 143649,
+      "sha256": "0eff898556c2010ad07f29d9ada70fb1e14255c6ae574df8be4396de0f397c3a"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib_manual/net5.0-windows10.0.17763.0/Microsoft.Web.WebView2.Wpf.dll",
+      "size": 87392,
+      "sha256": "4cbabd120344cc47f313f168fb86022d8f7423e09adff43da643e0e88570fa0c"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib_manual/net5.0-windows10.0.17763.0/Microsoft.Web.WebView2.Wpf.xml",
+      "size": 143649,
+      "sha256": "0eff898556c2010ad07f29d9ada70fb1e14255c6ae574df8be4396de0f397c3a"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib_manual/net6.0-windows10.0.17763.0/Microsoft.Web.WebView2.Core.Projection.dll",
+      "size": 764256,
+      "sha256": "32ff411b961647a47e80822fa556173a6cf413012078d321bbe591c875aedd79"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib_manual/net8.0-windows10.0.17763.0/Microsoft.Web.WebView2.Core.Projection.dll",
+      "size": 762208,
+      "sha256": "ebb3b41211ee9126e16e3482ba1ee535d318a70284edf345a03a5e74b2b1e386"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib_manual/netcoreapp3.0/Microsoft.Web.WebView2.Core.dll",
+      "size": 698208,
+      "sha256": "d60e6e94245078cb56e44ebd5f360dc04bf18e460136be93bfc4cfca43b98505"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib_manual/netcoreapp3.0/Microsoft.Web.WebView2.Core.xml",
+      "size": 612031,
+      "sha256": "8684cd74000c77533e563785208308ada63808da85825206856cab11a9eeffce"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib_manual/netcoreapp3.0/Microsoft.Web.WebView2.WinForms.dll",
+      "size": 39264,
+      "sha256": "84b5772260dbdfe95591197edc9315dcd2cc86ad610e4b14ddd5e4291e31a381"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib_manual/netcoreapp3.0/Microsoft.Web.WebView2.WinForms.xml",
+      "size": 41869,
+      "sha256": "6a8ec199373824fdebceda7b3d780d0b31c82edceae04d92391027c971dea6c2"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib_manual/netcoreapp3.0/Microsoft.Web.WebView2.Wpf.dll",
+      "size": 87392,
+      "sha256": "78a08b271412d2f98a5fa3f4472be22d4fcb62f951c6c347234de05bc93eb99e"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/lib_manual/netcoreapp3.0/Microsoft.Web.WebView2.Wpf.xml",
+      "size": 143649,
+      "sha256": "0eff898556c2010ad07f29d9ada70fb1e14255c6ae574df8be4396de0f397c3a"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/LICENSE.txt",
+      "size": 1487,
+      "sha256": "0af8f1b807512aae39c2ac1aa4d0cae65cabecb6fd554b8439a5162a0d6eca55"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/microsoft.web.webview2.1.0.4258.31.nupkg",
+      "size": 9801922,
+      "sha256": "56f7f4b8bf9aee4b8efefbbdd4f67d5f74ebd1b100ed0806da71bf76af481aa9"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/microsoft.web.webview2.1.0.4258.31.nupkg.sha512",
+      "size": 88,
+      "sha256": "ad7b5662d246dce395237a755e69ffeef92142c073d6ed3cd8a9c3d9aa607af3"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/microsoft.web.webview2.nuspec",
+      "size": 1367,
+      "sha256": "4d4ce4eabf07616747fdf8ab35e7d5eb8523f164b5827aeba52fecad4ae2fa8e"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/NOTICE.txt",
+      "size": 3894,
+      "sha256": "106423785c5b7eba0a8e61d1837f2132e9c828e20ad530f565d981c1df60dd90"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/runtimes/win-arm64/native/WebView2Loader.dll",
+      "size": 180064,
+      "sha256": "4f48cb32d34298c86cca2108057eea0d900b5e422575e926e8086318a0b9cbf0"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/runtimes/win-arm64/native_uap/Microsoft.Web.WebView2.Core.dll",
+      "size": 1208672,
+      "sha256": "51cf9131e4dbba007a6448dbeb6ba008189645f9c968594ebe4a16867c26242f"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/runtimes/win-x64/native/WebView2Loader.dll",
+      "size": 194912,
+      "sha256": "3426dcc55fdfb8b5e7ac623cf33b4ccf283fbf68a0c5a65bddfdb4d749a8abee"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/runtimes/win-x64/native_uap/Microsoft.Web.WebView2.Core.dll",
+      "size": 859488,
+      "sha256": "d02703bbc554a915867bd51c1449719f7a3988683c34fab4426d5975b9171f35"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/runtimes/win-x86/native/WebView2Loader.dll",
+      "size": 155488,
+      "sha256": "87c61e2cae380112c60853e28178b8ea9a0d63739fc03cead680d4ad3fde6b7d"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/runtimes/win-x86/native_uap/Microsoft.Web.WebView2.Core.dll",
+      "size": 1022816,
+      "sha256": "f01305d9f42bcf99af7df598a3218601b64a765df85779a10784e53370429d98"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/VisualStudioToolsManifest.xml",
+      "size": 466,
+      "sha256": "f70d1c40182ede4cb112b666d518580cd65ac1b583d4a00dc6d99c5928aa93e6"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/Antlr3.Runtime.dll",
+      "size": 112504,
+      "sha256": "3cd8aca1f281a1ba78fadd0c9a9b862c23320d43c676483a94849624bca1d175"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/Antlr4.StringTemplate.dll",
+      "size": 211832,
+      "sha256": "c687c3a4f74cc0b7bde9b69c07d804926a30996b41cf41570318ceb0ad98beec"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/codegen_util.dll",
+      "size": 10240,
+      "sha256": "fea557fb4c4090dc98a13c39de2741ac0ae1ce23ac6f283931fb98f71b73150a"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/concrt140_app.dll",
+      "size": 56192,
+      "sha256": "d339d368759284687fcea145c3ab94e09cf37c5793df2860daf1e3c8f1f580cc"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/cs/System.CommandLine.resources.dll",
+      "size": 17800,
+      "sha256": "1b59c63dd8532a0fcd6c95ce090287574fc7efa9759c2f1a219f517683701311"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/de/System.CommandLine.resources.dll",
+      "size": 17800,
+      "sha256": "ea64ff09c5d7ec968fdbe34b6f588e1e690787245f6cabc4f6ed8f4cd8821e22"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/es/System.CommandLine.resources.dll",
+      "size": 17792,
+      "sha256": "155eb865b53604ac20c22fdf7179f56b1b164ec3b3a59e6ffdc3d7d6e17ad554"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/fr/System.CommandLine.resources.dll",
+      "size": 17800,
+      "sha256": "97035ec2904bad3e5fc23fd10909896759885228910869afe5a4bbe48195254e"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/it/System.CommandLine.resources.dll",
+      "size": 17792,
+      "sha256": "8fea3a65aa57d345c2b47986e30ccda48a32382c81da4861bb56f40ff07190f6"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/ja/System.CommandLine.resources.dll",
+      "size": 17800,
+      "sha256": "36b0caefff398bdfc1724d8e80457fc73d2223711072b47841cd839ad2f9f843"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/ko/System.CommandLine.resources.dll",
+      "size": 17800,
+      "sha256": "7cb2aa1d14222d8dc440625f25db0d0214fd0589ff38b46f18605f59378f3dc7"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/msvcp140_1_app.dll",
+      "size": 18312,
+      "sha256": "23b0aea4b1af842809866f7ea225f424105f5e5b90391c3b7bcd7946e07199ef"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/msvcp140_2_app.dll",
+      "size": 20872,
+      "sha256": "361e58b4e7113f298f96b21c6a3f4d2b09ce9b6b0f13a3faf8a6f9763054151f"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/msvcp140_app.dll",
+      "size": 253320,
+      "sha256": "36dec0fdd6920d9a5a62ab85e619e15cab4119dbf89606dba66ea8fb2aed63c6"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/pl/System.CommandLine.resources.dll",
+      "size": 17800,
+      "sha256": "41d97925f99bc3477e4b06e7db8e6f5690d94b6d367029970ddea5c54983a4de"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/pt-BR/System.CommandLine.resources.dll",
+      "size": 17800,
+      "sha256": "a6f1069a80fc6c624e0bef404e4d623148f6e1b3343f72d0aea6a9ec3bef2fd0"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/ru/System.CommandLine.resources.dll",
+      "size": 17800,
+      "sha256": "6f0e98f7ed86af06c2c9b68ad9d2ddc336487ad54f956bbfc003a571b4489542"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/System.Buffers.dll",
+      "size": 20856,
+      "sha256": "accccfbe45d9f08ffeed9916e37b33e98c65be012cfff6e7fa7b67210ce1fefb"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/System.CommandLine.dll",
+      "size": 215424,
+      "sha256": "66740898f7df460ca1b9598949e0b68c894d9961cf4db4d425a1d224cb403e96"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/System.CommandLine.DragonFruit.dll",
+      "size": 30088,
+      "sha256": "085d81f6e1a4c8cb03fd7ad7d1c66fcdec3d75c40eabb20ad08f93eca071fad1"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/System.CommandLine.Rendering.dll",
+      "size": 80776,
+      "sha256": "e539944b04311a0d8f7ff81979c0fb3ba806c43c6f0b411c23dc483d8dacf4d3"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/System.Memory.dll",
+      "size": 141184,
+      "sha256": "8e76318e8b06692abf7dab1169d27d15557f7f0a34d36af6463eff0fe21213c7"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/System.Numerics.Vectors.dll",
+      "size": 115856,
+      "sha256": "1d3ef8698281e7cf7371d1554afef5872b39f96c26da772210a33da041ba1183"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/System.Runtime.CompilerServices.Unsafe.dll",
+      "size": 18304,
+      "sha256": "94ffe7220fe77869d350e19152f3bd9fb3528e17652733a2df31721d6b597362"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/tr/System.CommandLine.resources.dll",
+      "size": 17800,
+      "sha256": "454be65124cda8199c3aead2fe98769d95578c79f2e41c30c479c1ae769a8ea7"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/type_hierarchy.dll",
+      "size": 113664,
+      "sha256": "0cac6ce6728264614e3bad0dd2eb70fa65007875615aa504fe07304a5a41504b"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/vcamp140_app.dll",
+      "size": 45448,
+      "sha256": "1dabf86e47dd38b3ee69125cee2a7e1588dbe6f0f7a9d906bb9cda5f2b44eed3"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/vccorlib140_app.dll",
+      "size": 49032,
+      "sha256": "e3226d79dc944393dcbcbd3a7ee8023f627a9571b09a20214a390f00ff5f88d1"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/vcomp140_app.dll",
+      "size": 24456,
+      "sha256": "0402133ad636a4839fa4042fd13d43f305ff0c0914f2cff223c44e8d4ce285d4"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/vcruntime140_app.dll",
+      "size": 22400,
+      "sha256": "813a447192c4fa7d25d0716b769399546f8bf6b31269dd8ad47f9812008d79e6"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/winrt_winmd.dll",
+      "size": 492384,
+      "sha256": "aff1306c7b00ed7fa9a53ad2a5255fd0defbbd076fb3e362122be694ba16731c"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/winrt_winmd.winmd",
+      "size": 31072,
+      "sha256": "2a73c8566f3543d7ec408e32ea39495ad15e7ee7cc023d3fe75bb7335abbc787"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/wv2winrt.exe",
+      "size": 209760,
+      "sha256": "e6e0e496d6d70a625caac7007e5ca3e79812a37e92ce906964e2ca42c3a2fd79"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/wv2winrt.exe.config",
+      "size": 556,
+      "sha256": "7888cef07f4dda825da70a866951da5ec054ff67df9718236e5a8470731aae86"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/wv2winrt.xml",
+      "size": 4280,
+      "sha256": "2c9ad270c67694aa41bd8334de668d9114f6f25de6583be03facb35e59ebb329"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/zh-Hans/System.CommandLine.resources.dll",
+      "size": 17800,
+      "sha256": "cc6224ef1f48c1e77156fcd4b3e2fbbac5aaf2c16fab089b57ec75b13264f6d6"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/tools/wv2winrt/zh-Hant/System.CommandLine.resources.dll",
+      "size": 17800,
+      "sha256": "e844e97196208bfa7d4626ade8871ea2f51d5d8eb26a9c348a9d5bb55a6fc963"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/WebView2.idl",
+      "size": 608342,
+      "sha256": "57b35d4b63c25f656d04559c5692e1d9a622d77ad25fb556406c348a496d0e24"
+    },
+    {
+      "path": "environment/nuget/microsoft.web.webview2/1.0.4258.31/WebView2.tlb",
+      "size": 189408,
+      "sha256": "32764847a1385abf32c45fc7cf4c2f7ab5ac1fd33d395ff30343dd4a86c86a81"
+    },
+    {
+      "path": "environment/tmp/Microsoft.NET.Workload_23216_20261029_165748_205.log",
+      "size": 1616,
+      "sha256": "2b9f9c33ac8b9ee3d0106629ad9387d8fb56a68a4d11781dc4d3626d53012f00"
+    },
+    {
+      "path": "environment/tmp/Microsoft.NET.Workload_23216_20261029_165748_257.log",
+      "size": 1617,
+      "sha256": "0bac0b3760dc174e41fa5d84d3a0bcb65e53f0d9d1742b654999050844b80519"
+    },
+    {
+      "path": "evidence/authority/execution-acceptance.json",
+      "size": 2493,
+      "sha256": "4d5a0d73650ddc9bd6d9f121feb3f55fb084b742e45eb26a96430cea540e4032"
+    },
+    {
+      "path": "evidence/authority/independent-plan-review.json",
+      "size": 2315,
+      "sha256": "e6978bc8ff740731fbe52c25e0f32e67db13b183474ff25af94a842cd9f22422"
+    },
+    {
+      "path": "evidence/authority/independent-review-seal.json",
+      "size": 435,
+      "sha256": "8cdfba1534056ca45d6b8fa36bb69c142051035dfea3e9be21cab1d522305bdb"
+    },
+    {
+      "path": "evidence/product-manifest.json",
+      "size": 4715,
+      "sha256": "d55389e048aee9eb2b64088ddfb0128de6166071e21969bd1dd57b9464d9ce75"
+    },
+    {
+      "path": "evidence/tooling/artifact-manifest.json",
+      "size": 147613,
+      "sha256": "b106754c71c98a5df611a8b3aeed7f2afefb85159887ae146c2ee577f746667d"
+    },
+    {
+      "path": "evidence/tooling/artifact-seal.json",
+      "size": 642,
+      "sha256": "d72f2c75fc792df44a5e035651a82e5cb2244d944d42564e2231c7e15a1a30c7"
+    },
+    {
+      "path": "evidence/tooling/bound_inventory.py",
+      "size": 8952,
+      "sha256": "3bb2bc7a22c486dbfe81b0c8d08c04e18b80c5cda5473dc46b17e319af8e61a1"
+    },
+    {
+      "path": "evidence/tooling/build-dependency-pins.json",
+      "size": 1126895,
+      "sha256": "58fd3d9a4de20417a2336c00f99494a7e4874352c470676cdbdfefa3763b116b"
+    },
+    {
+      "path": "evidence/tooling/build-inputs/global.json",
+      "size": 56,
+      "sha256": "1c530f4c116bcf04e451cf0ca155fa18d73415c85145534a415f1eb4c39198b3"
+    },
+    {
+      "path": "evidence/tooling/build-inputs/NuGet.Config",
+      "size": 155,
+      "sha256": "337ed22a5dd2b3a69d86fac14c3a86a05cf3ffc3d1d65e400850c747010b4f19"
+    },
+    {
+      "path": "evidence/tooling/build-isolation.props",
+      "size": 484,
+      "sha256": "bf301d9ee9a5559ced8292b800520bf2d7796dbff4e11fd91ca5866060f29469"
+    },
+    {
+      "path": "evidence/tooling/build-isolation.targets",
+      "size": 691,
+      "sha256": "054a8223b27d94bed31861dfacaeae640ebf03ac9389f7c683d855aa410833aa"
+    },
+    {
+      "path": "evidence/tooling/common.py",
+      "size": 3866,
+      "sha256": "4e5fbd6aad09885b5ab4092add93e4709489f4d0dd43d2eda805e8e8559b24ee"
+    },
+    {
+      "path": "evidence/tooling/execution-contract.json",
+      "size": 10326,
+      "sha256": "f439915614397edb8a478196375706aec1af68b670bd06c310d1ba3e251e8c30"
+    },
+    {
+      "path": "evidence/tooling/executor.py",
+      "size": 8781,
+      "sha256": "1d6ef82af066d9fd4779bd6a8f5c9c75e9b5f9c09d6ac7c10009b619a38c0848"
+    },
+    {
+      "path": "evidence/tooling/expected-outputs.json",
+      "size": 6463,
+      "sha256": "c7431dc50fbfaed13965aa35c0599f1486c6506c96fe55df596cb27b61197b55"
+    },
+    {
+      "path": "evidence/tooling/gate.py",
+      "size": 6969,
+      "sha256": "f633016e2407f3665a1f22bb139f9598c2f0701b1e14b0fc3d74e40a17fec830"
+    },
+    {
+      "path": "evidence/tooling/plan.json",
+      "size": 4250,
+      "sha256": "f67fa56815fbc133c1710c450efe1305d58da7c75566e02a9d909a24ca6059bd"
+    },
+    {
+      "path": "evidence/tooling/protected-pins.json",
+      "size": 7925,
+      "sha256": "2d69faddd4e2cd887f0b824e64d4e3d1a8d738dec36ab45fe6f6659f5f5ff448"
+    },
+    {
+      "path": "evidence/tooling/source-ledger.json",
+      "size": 216894,
+      "sha256": "b465f2bcb13c6e283e76157b8a862d6ff3e4d0b0dd05d8b445267d4d989dca40"
+    },
+    {
+      "path": "evidence/tooling/tool-bundle/reference/acceptance_gate.py",
+      "size": 21873,
+      "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+    },
+    {
+      "path": "evidence/tooling/tool-bundle/reference/generate_package_plan.py",
+      "size": 16695,
+      "sha256": "4fbf32a4d1a5faa12e34631ad2c0e9ee02647ff51947128c69e1894690f13fa2"
+    },
+    {
+      "path": "evidence/tooling/tool-bundle/reference/pe_resource.py",
+      "size": 3519,
+      "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+    },
+    {
+      "path": "evidence/tooling/tool-bundle/reference/release_authority.py",
+      "size": 4531,
+      "sha256": "09115d5dfbfe4d14973f3ec23a6d48ad4135b10e76fcfae5052188208484f67b"
+    },
+    {
+      "path": "evidence/tooling/tool-bundle/reference/release_checks.py",
+      "size": 691,
+      "sha256": "da3c4ebb17fc9de7c184cad911ac8b9cdc551b6b20a6598b90e33b6333912684"
+    },
+    {
+      "path": "evidence/tooling/tool-bundle/reference/result_evidence.py",
+      "size": 7225,
+      "sha256": "baaac4a8f0fad1e9faaa7d1512658d268a506dba9f57d9c54477d6f5b96e6809"
+    },
+    {
+      "path": "evidence/tooling/tool-bundle/source-seal.json",
+      "size": 2394,
+      "sha256": "ea73adff65e8887e1b3369147a8c8c22a980f32fc5a6f8cba5868e9b860ad172"
+    },
+    {
+      "path": "evidence/tooling/win_process.py",
+      "size": 5934,
+      "sha256": "37f21ac740a11f780a937f085598bbb3dbbe928a65fa8d19d6c6d0f39e0ef0dc"
+    },
+    {
+      "path": "evidence-copy-pins.json",
+      "size": 15313,
+      "sha256": "0fdc655627b11c34fb7d9fc39f7e55459a1881e8b8bfb785e16193d626814e85"
+    },
+    {
+      "path": "external-material-seal.json",
+      "size": 41121,
+      "sha256": "257d957cfc3c6b7061c1face5baeaf19c111f229a76c3834a3c90d68ab60ffa5"
+    },
+    {
+      "path": "finalize_evidence.py",
+      "size": 9508,
+      "sha256": "903b25a54ebd4d11db0603db02ceac90ab51cac4a472f40c81b877246547d0f1"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 5775,
+      "sha256": "1b4285ef2016613365f84968f747c5f4cc7faaf6b2f77c84ecd8f6f06bdca002"
+    },
+    {
+      "path": "journal/before-128.json",
+      "size": 678,
+      "sha256": "07b164a123462e9ed929cb86d66d2773b3658dc0718dff2e757bead5d5b3d35a"
+    },
+    {
+      "path": "journal/before-76.json",
+      "size": 750,
+      "sha256": "75aefcd60d1aab1813bb6c62ca82c33a76c0f4233ba068f34184fd4bde02ba26"
+    },
+    {
+      "path": "journal/before-82.json",
+      "size": 770,
+      "sha256": "7a09ed0d627810439c4cedc182fc7e95260ecade538d29d718841fc0108059f4"
+    },
+    {
+      "path": "journal/before-96.json",
+      "size": 750,
+      "sha256": "bfd99006c8843dee23141432918f86fdc816bcce4a5af451ea2145f9c8dedecb"
+    },
+    {
+      "path": "journal/before-97.json",
+      "size": 774,
+      "sha256": "37cf09dcac8d913c30d90c8c0bd0f9eadce89f9bcfeb162f6d528aa6b7468403"
+    },
+    {
+      "path": "journal/installed-128.json",
+      "size": 246,
+      "sha256": "535cf824b10a23cc57eab6bb4821edf619083e1479cd6fa72136a45c13b67eb6"
+    },
+    {
+      "path": "journal/installed-76.json",
+      "size": 207,
+      "sha256": "653da25c6e27dc6b87aaad4d907762259e860634466f145c7e1797c4ca4b080b"
+    },
+    {
+      "path": "journal/installed-82.json",
+      "size": 212,
+      "sha256": "1fea7209a8821890cc1a0eca473acf855e65f6ae5b6bd16f6ee0e04ba34030d1"
+    },
+    {
+      "path": "journal/installed-96.json",
+      "size": 207,
+      "sha256": "2d6e5f78de9d57f093e876cee4a3affd700eb6e1e77cb22d8047be524775f9d2"
+    },
+    {
+      "path": "journal/installed-97.json",
+      "size": 213,
+      "sha256": "fded497b523f1b2354d8ddd9957930f4c33ab0b5e11ad601d78ecb3c4313ec0c"
+    },
+    {
+      "path": "obj/OfflineClient/OfflineClient.csproj.nuget.dgspec.json",
+      "size": 44981,
+      "sha256": "d8eeebfb91d5a236753cd1f7e84e97fad3476a0fc31fc00e9c53433bad97fffa"
+    },
+    {
+      "path": "obj/OfflineClient/OfflineClient.csproj.nuget.g.props",
+      "size": 1675,
+      "sha256": "3bada626b70fdab75703537d93530b76f4213cd14ad9f9528f7b37d06e42a422"
+    },
+    {
+      "path": "obj/OfflineClient/OfflineClient.csproj.nuget.g.targets",
+      "size": 505,
+      "sha256": "f3ca7549eb06b49c72546efedcbf306ef4cc0e41806657dfd46268bef7883770"
+    },
+    {
+      "path": "obj/OfflineClient/project.assets.json",
+      "size": 29006,
+      "sha256": "a1f6f952109c0d2c76332ae3647e05d8cafc703e8ae28d4a294f43a9d6da615f"
+    },
+    {
+      "path": "obj/OfflineClient/project.nuget.cache",
+      "size": 421,
+      "sha256": "237aeefac0090d1c0223b44d94d371ab19a596762f21aba26c6bfdfbeed9dc72"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "size": 200,
+      "sha256": "93d67476196ebfc80d1d7d8844b91146cfd678d105f5ce635eb900ca40610c9b"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/apphost.exe",
+      "size": 162304,
+      "sha256": "73e816f7a6e6079443a3e4079d5ec2de46072b1d0869231586e4794301c9563f"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/OfflineC.CE4B76B9.Up2Date",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/OfflineClient.AssemblyInfo.cs",
+      "size": 1142,
+      "sha256": "b6b36858c51e75002872214efada015307abd6a54462bfd7c128fd95eeca533e"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/OfflineClient.AssemblyInfoInputs.cache",
+      "size": 66,
+      "sha256": "a8b9c5f09a714b3cd7423ec610c1edc4f5ff97a36fb9eb86f1aeba314903443d"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/OfflineClient.assets.cache",
+      "size": 1795,
+      "sha256": "8de4cb4b4ce49afc8f9a350f3374840c0ad40a4fab1dc78076393a2c13dfa388"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/OfflineClient.csproj.AssemblyReference.cache",
+      "size": 3645,
+      "sha256": "6027e5a0d6778f115aa81ba153a6a80d5cbcede11900bdf54bf7f1614fa40dae"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/OfflineClient.csproj.CoreCompileInputs.cache",
+      "size": 66,
+      "sha256": "604433194713e706b7aea2d33221608649bf38bbf129da2e3be898442953881e"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/OfflineClient.csproj.FileListAbsolute.txt",
+      "size": 2559,
+      "sha256": "6247714c1b5b5878a8f6e91043db109cbcb24b9b7faa33de726d385f704ef676"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/OfflineClient.GeneratedMSBuildEditorConfig.editorconfig",
+      "size": 1163,
+      "sha256": "63e0f234fc649d4b1461b820c2896fbee5c3bb12a4225823aba52573b0fa7434"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/OfflineClient.genruntimeconfig.cache",
+      "size": 66,
+      "sha256": "a87380b67321954f19c1304c2655034f906af63c78563a4b30df5220fcf7e8a7"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/OfflineClient.GlobalUsings.g.cs",
+      "size": 305,
+      "sha256": "c95ea51a9e8c77e5367f652ede0c8871e7d6413090add59e1b8dd6805ac37e70"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/P11.ClientEngine.dll",
+      "size": 4925440,
+      "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/P11.ClientEngine.pdb",
+      "size": 357460,
+      "sha256": "ae1f90c2b36022d9326c3071c33e7d58b5c0f5fe292db6a6cee1b184914f4d98"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/ref/P11.ClientEngine.dll",
+      "size": 284160,
+      "sha256": "2605a1331d383daea7151ab43956acf467ad5e018cea5f9459a4cbbbe6d669e8"
+    },
+    {
+      "path": "obj/OfflineClient/Release/net10.0-windows/refint/P11.ClientEngine.dll",
+      "size": 284160,
+      "sha256": "2605a1331d383daea7151ab43956acf467ad5e018cea5f9459a4cbbbe6d669e8"
+    },
+    {
+      "path": "obj/P24.Audio/P24.Audio.csproj.nuget.dgspec.json",
+      "size": 21788,
+      "sha256": "1e5f48340ea1a7eda9590e82cef38433789cfae58101495b772d397da12c7d29"
+    },
+    {
+      "path": "obj/P24.Audio/P24.Audio.csproj.nuget.g.props",
+      "size": 1334,
+      "sha256": "5ef26e857ca58376f600511d1aeccec8f3dd4b096c21639498d42d33bc521133"
+    },
+    {
+      "path": "obj/P24.Audio/P24.Audio.csproj.nuget.g.targets",
+      "size": 150,
+      "sha256": "971cc9b535384849b5c661d776cd7a80833a416265e32e8968e06c367368b8b5"
+    },
+    {
+      "path": "obj/P24.Audio/project.assets.json",
+      "size": 21212,
+      "sha256": "e61c5677d85f7e8bba8807f5b5ffa499ea18ed864bb72a8e976420a78c01bda1"
+    },
+    {
+      "path": "obj/P24.Audio/project.nuget.cache",
+      "size": 215,
+      "sha256": "26dc53bfcce3c4ce5fbcaba69fd5fc8f40f5670527610213370c3226672820a9"
+    },
+    {
+      "path": "obj/P24.Audio/Release/net10.0-windows/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "size": 200,
+      "sha256": "93d67476196ebfc80d1d7d8844b91146cfd678d105f5ce635eb900ca40610c9b"
+    },
+    {
+      "path": "obj/P24.Audio/Release/net10.0-windows/P24.Audio.AssemblyInfo.cs",
+      "size": 1121,
+      "sha256": "81d6a8255fd6c296af334c9670cffd0d21c0b308b829725515f98d8a82127dcf"
+    },
+    {
+      "path": "obj/P24.Audio/Release/net10.0-windows/P24.Audio.AssemblyInfoInputs.cache",
+      "size": 66,
+      "sha256": "6db770e40d9232c77416b7d3b3b4094b9775d4617c2533d6701680042c254c7e"
+    },
+    {
+      "path": "obj/P24.Audio/Release/net10.0-windows/P24.Audio.assets.cache",
+      "size": 218,
+      "sha256": "ae4dcd22d154d2e7f2275f1c47d5e66a38bbdf7f0bb4660e9a084276f822b0b1"
+    },
+    {
+      "path": "obj/P24.Audio/Release/net10.0-windows/P24.Audio.csproj.CoreCompileInputs.cache",
+      "size": 66,
+      "sha256": "a6dab545a54b42478a074510e4c43558225cba0475bb37053d668cb39f35e127"
+    },
+    {
+      "path": "obj/P24.Audio/Release/net10.0-windows/P24.Audio.csproj.FileListAbsolute.txt",
+      "size": 1437,
+      "sha256": "28507b3063402771f32fada192cc2d1bd1013acfdf424182a700e33138d6ab20"
+    },
+    {
+      "path": "obj/P24.Audio/Release/net10.0-windows/P24.Audio.dll",
+      "size": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    {
+      "path": "obj/P24.Audio/Release/net10.0-windows/P24.Audio.GeneratedMSBuildEditorConfig.editorconfig",
+      "size": 902,
+      "sha256": "950da4545d9ad80ab93623de36515aa84de0b8c462606e69e1b5d7176585dcdc"
+    },
+    {
+      "path": "obj/P24.Audio/Release/net10.0-windows/P24.Audio.GlobalUsings.g.cs",
+      "size": 239,
+      "sha256": "a3c6048bb4d922b1799a9977f84362a3787b68810cac67aa86ac3aa23295f227"
+    },
+    {
+      "path": "obj/P24.Audio/Release/net10.0-windows/P24.Audio.pdb",
+      "size": 20720,
+      "sha256": "91ac164c2f1ac104fb774501cae1988d24bd3ee2113ba99ff95930e6866811ed"
+    },
+    {
+      "path": "obj/P24.Audio/Release/net10.0-windows/ref/P24.Audio.dll",
+      "size": 19968,
+      "sha256": "83f328398513f1fe0437d018eea42d3c789575a1b4e6473cf9dc2d625ae6b29d"
+    },
+    {
+      "path": "obj/P24.Audio/Release/net10.0-windows/refint/P24.Audio.dll",
+      "size": 19968,
+      "sha256": "83f328398513f1fe0437d018eea42d3c789575a1b4e6473cf9dc2d625ae6b29d"
+    },
+    {
+      "path": "outer-invocation.json",
+      "size": 1236,
+      "sha256": "4763664484b69a429ee59a75e3d08334d1a3074b384a8ed674285d01b7f8a0ca"
+    },
+    {
+      "path": "output-stage-comparison.json",
+      "size": 6906,
+      "sha256": "3b658e995fb55f931233da812bc523bfafdbdecf46d8e39ba510243fb89050a2"
+    },
+    {
+      "path": "preservation.json",
+      "size": 108266,
+      "sha256": "6b35aa9c227351b30101be4d34ca93d42172f28cae34ad59399d89898418a094"
+    },
+    {
+      "path": "record_evidence.py",
+      "size": 1013,
+      "sha256": "b9911c26db833b6ac849f19d1aeafae07bdd48945e53e24553eef085deb0c9fa"
+    },
+    {
+      "path": "result.json",
+      "size": 6818,
+      "sha256": "a86b0e4ea202d4dc02c71aec25a7c97e2609874a7b20662d839c0971509f0a8e"
+    },
+    {
+      "path": "seal_execution.py",
+      "size": 1303,
+      "sha256": "e2e86ed0583220f16032b83ccda5b44572d630511168e521005c211cae93bb11"
+    },
+    {
+      "path": "source-manifest.json",
+      "size": 45035,
+      "sha256": "f3275b4f202ee0d277e5749e85e2e10297396ce8f9bafa70696509a91027f95d"
+    },
+    {
+      "path": "started.json",
+      "size": 493,
+      "sha256": "ecd9de34611facfa1b60779a07d6022b326de596bc7458111b9d29560b7b4a42"
+    },
+    {
+      "path": "verify_delivery.py",
+      "size": 1599,
+      "sha256": "e10352614b3a2e6148070718ad8c6ffa9edfc0c9519e626be978e9b874c90b12"
+    }
+  ]
+}

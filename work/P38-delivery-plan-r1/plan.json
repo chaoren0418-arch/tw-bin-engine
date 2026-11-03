@@ -1,0 +1,78 @@
+{
+  "schema": "p38-isolated-delivery-plan-v1",
+  "preparationOnly": true,
+  "executionAuthorized": false,
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "writeRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1",
+  "candidateRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-candidate-r1",
+  "executionRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1",
+  "contract": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\execution-contract.json",
+    "size": 11771,
+    "sha256": "0ceba81b82f80ccd601c12da36b10557a2a5b9bd2d867cc166923a4816b43b3e"
+  },
+  "sourceSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\source-seal.json",
+    "size": 1358,
+    "sha256": "3d5f27eb648aa970fe970f00fc5121eda18ecd861c8bc0ae6e882b20ca199216"
+  },
+  "materialization": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\materialization.json",
+    "size": 110054,
+    "sha256": "1698c7313a6969e5eb7eb63bc2f31b26b846021062b49a15ee535f1301322cd8"
+  },
+  "assets": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\asset-materialization.json",
+    "size": 7947156,
+    "sha256": "dda5ba5819ed0095b81b74facd2f1fad3e411aa7b30e57d6543de424cd825a62"
+  },
+  "runtimeClosure": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\runtime-closure.json",
+    "size": 8499,
+    "sha256": "cd09a4b8cd6cade408777347a970cf9a805c121cf5a6ebe5a48b93fa5662d5f5"
+  },
+  "versionBoundaries": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\version-boundaries.json",
+    "size": 3243,
+    "sha256": "ab6b97ff485d8a7f15e9aef949f26cfc30580f1693046c17fadf8f043c4bdcfc"
+  },
+  "launcherDelta": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\launcher-delta.json",
+    "size": 1803,
+    "sha256": "21d1c65b106f8cbb3096d463786a4f8c87462fb76b63844d3875a61328e1c851"
+  },
+  "sourceFiles": 181,
+  "sourceWebFiles": 30,
+  "productOutputs": 15,
+  "independentCopyRows": 218,
+  "assetBodies": 13957,
+  "candidateFilesPlanned": 14181,
+  "normalManifestEntries": 46,
+  "normalManifestSha256": "eb7bd750b534ed3190cb1b332bd3f0356721b85fbbec08f179ec0d407bdc56d2",
+  "launcherDllSha256": null,
+  "steps": [
+    "Independent exact plan review and new supervisor execution receipt",
+    "Fresh roots; copy all218 nonasset rows independently and hardlink13957 immutable asset bodies; verify closure/physical identity",
+    "Independent launcher source/config copies to execution root; exactly one isolated launcher build with raw/binlog",
+    "Copy five actual launcher outputs to candidate; record actual new launcher SHA",
+    "One candidate --check-only positive, noUI/noNetwork/noServices and runtime/webview version query only",
+    "One --check-only with immutable old r34 root; require exit1 missing new candidate manifest, no product launch",
+    "Seal actual identity/nonasset bytes/asset physical map; independent final review hashes asset bodies once and reviews provenance"
+  ],
+  "qualification": "Offline delivery/materialization and launcher check-only eligibility only. Not full native/normal-launch/service/login/regression/activation acceptance.",
+  "forbidden": [
+    "all shared engine writes",
+    "all existing release/work mutations",
+    "root entry/project-manifest",
+    "normal/noargs launcher or product invocation",
+    "product rebuild",
+    "DB/SQL/services/socket/network/game/characters",
+    "certificate or environment identity changes",
+    "permanent deletion"
+  ],
+  "goalActualRead": null,
+  "goalCreatedOrModified": false,
+  "buildsThisPreparation": 0,
+  "checkOnlyRunsThisPreparation": 0
+}

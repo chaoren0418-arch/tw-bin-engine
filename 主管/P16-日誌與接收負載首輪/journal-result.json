@@ -1,0 +1,27 @@
+{
+  "status": "pass",
+  "kind": "synthetic large diagnostic records; no original-server claims",
+  "events": 12000,
+  "jsonlBytes": 197154890,
+  "legacyBytes": 197166893,
+  "memoryGrowth": 148864,
+  "times": [
+    {
+      "count": 3000,
+      "elapsedMs": 164.9898,
+      "bytes": 49287390
+    },
+    {
+      "count": 3000,
+      "elapsedMs": 134.334,
+      "bytes": 49288500
+    },
+    {
+      "count": 6000,
+      "elapsedMs": 331.9149,
+      "bytes": 98579000
+    }
+  ],
+  "exactlyOneSerializationPerAppend": true,
+  "streamedLegacyArray": true
+}

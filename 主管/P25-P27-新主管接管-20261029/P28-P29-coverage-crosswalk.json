@@ -1,0 +1,136 @@
+{
+  "utc": "2026-10-29T05:44:28.627358+00:00",
+  "classification": "Evidence crosswalk only; no new runtime assertions",
+  "authorCandidateAssertions": 26953,
+  "independentCandidateAssertions": 5196,
+  "nativeAssertions": 0,
+  "families": [
+    {
+      "family": "PROFILE-MAP",
+      "authorEvidence": "profiles-02",
+      "authorScope": "672 fixture combinations / 2688 executed slot IDs saved; eight directions and both allowed speeds for all42 exact pairs",
+      "independentScope": "2688 exact mapping slots, real bound receipt and ComposeObjects",
+      "independentRemaining": "Candidate seals; invocation/API behavior remains unverified",
+      "countsOverlap": true,
+      "next": "P30 inherited stage regression and exact new-DLL binding; independent gaps stay explicit"
+    },
+    {
+      "family": "BODY-PIXELS",
+      "authorEvidence": "profiles-02",
+      "authorScope": "416 unique body PNGs; independent sealed fixture RGBA and PNG comparison; actual ComposeObjects commands and BitmapOf, composite ownership/mask oracle",
+      "independentScope": "Body command RGBA against sealed PNG hash",
+      "independentRemaining": "Final composite buffer and occluder oracle not implemented",
+      "countsOverlap": true,
+      "next": "P30 inherited stage regression and exact new-DLL binding; independent gaps stay explicit"
+    },
+    {
+      "family": "EXACT-KEY-EXCEPTIONS",
+      "authorEvidence": "profiles-02 + namespace-01",
+      "authorScope": "Exact keys including gfx2796;64 pickup collision key/gfx/sprite sets and80 all-frame collision sets",
+      "independentScope": "Full sprite/key/pair mapping covers 2796 and namespace collisions",
+      "independentRemaining": "Dedicated resource corruption namespace seam not implemented",
+      "countsOverlap": true,
+      "next": "P30 inherited stage regression and exact new-DLL binding; independent gaps stay explicit"
+    },
+    {
+      "family": "RESOURCE-INTEGRITY",
+      "authorEvidence": "negative-01 + regression-01",
+      "authorScope": "Both embedded byte identities,extension tamper3 offsets,missing terminal suppress/cancel for42 profiles,wrong profile hash42,bypassed borrowed same-gfx profile rejected",
+      "independentScope": "Two manifest resource byte counts and SHA",
+      "independentRemaining": "Hash/parser faults, missing group and resource corruption injection",
+      "countsOverlap": true,
+      "next": "P30 inherited stage regression and exact new-DLL binding; independent gaps stay explicit"
+    },
+    {
+      "family": "BASE-REUSE",
+      "authorEvidence": "profiles-02",
+      "authorScope": "672 exact loaded-profile terminal object identity assertions",
+      "independentScope": "Current exact profile Frame reference identity at terminal",
+      "independentRemaining": "Missing base-key/profile mutation cancellation seam",
+      "countsOverlap": true,
+      "next": "P30 inherited stage regression and exact new-DLL binding; independent gaps stay explicit"
+    },
+    {
+      "family": "SHADOW",
+      "authorEvidence": "profiles-02",
+      "authorScope": "Every mapping sample removes idle shadow;312 unique pickup keys no shadow;104 terminal unique exact shadow keys;actual draw ordering/composite",
+      "independentScope": "Actual draw commands equal exact authenticated shadow JSON; pickup has none",
+      "independentRemaining": "Final blended composite and opaque occluder ordering",
+      "countsOverlap": true,
+      "next": "P30 inherited stage regression and exact new-DLL binding; independent gaps stay explicit"
+    },
+    {
+      "family": "ACTIVE-WINDOWS",
+      "authorEvidence": "boundaries-01",
+      "authorScope": "42 x Speed0/1 x attack/damage/spellDir/spellNoDir x captured/fallback;double duration,last/first expired integer,captured haste and Timing.Matches",
+      "independentScope": "672 scenario records with listed ages at direction0; double durations; Timing.Matches",
+      "independentRemaining": "Directions1-7 not executed or looped by this adapter; immutable report assertion included",
+      "countsOverlap": true,
+      "next": "P30 inherited stage regression and exact new-DLL binding; independent gaps stay explicit"
+    },
+    {
+      "family": "PROJECTILE-DEATH",
+      "authorEvidence": "boundaries-01 + regression-01",
+      "authorScope": "42 profiles active/expired hit with null/stale OwnCombat,indefinite death,S87 weapon8;uncomposed pending impact on control",
+      "independentScope": "7 synthetic hit-cache selector vectors; death ages; S87 weapon8",
+      "independentRemaining": "3 real S30 flight vectors; event/geometry duplication",
+      "countsOverlap": true,
+      "next": "P30 inherited stage regression and exact new-DLL binding; independent gaps stay explicit"
+    },
+    {
+      "family": "SAME-GFX-WEAPON-CHANGE",
+      "authorEvidence": "negative-01",
+      "authorScope": "Every pair with a same-gfx alternate:owner cancellation,old callback isolation,borrowed profile rejection",
+      "independentScope": "42 directed transitions and stale callback serial; mismatched cadence",
+      "independentRemaining": "All other captured ownership dimensions remain pending",
+      "countsOverlap": true,
+      "next": "P30 inherited stage regression and exact new-DLL binding; independent gaps stay explicit"
+    },
+    {
+      "family": "BURST-CANCEL-SCHEDULER",
+      "authorEvidence": "negative-01 + regression-01",
+      "authorScope": "42profiles burst21,latest eligible,late one-step/min2,terminal584,old serial isolation,33 cancellation variants;control terminal preemption and lifecycle",
+      "independentScope": "84 same-time double receipts/latest replacement; terminal584; 2796 late callbacks",
+      "independentRemaining": "Full 22 cancel dimensions, clamp variants, terminal replacement",
+      "countsOverlap": true,
+      "next": "P30 inherited stage regression and exact new-DLL binding; independent gaps stay explicit"
+    },
+    {
+      "family": "NEGATIVE-SCOPE",
+      "authorEvidence": "negative-01",
+      "authorScope": "Exact allowlist on13 supported gfx+4 invalid gfx x256 weapons;42profiles excluded speeds2/3/17/18/255,Brave1/2/3/255,remote/unknown,unlisted pair",
+      "independentScope": "11 negative vectors + remote/unknown own-instance preservation",
+      "independentRemaining": "Candidate runtime required to establish actual rejection reasons",
+      "countsOverlap": true,
+      "next": "P30 inherited stage regression and exact new-DLL binding; independent gaps stay explicit"
+    },
+    {
+      "family": "GAMEPLAY-PRESERVATION",
+      "authorEvidence": "regression-01 + profiles-02",
+      "authorScope": "900/3000 authority/send lifecycle,early reply,old transport failure,Slow haste item exception on0/0;all mapping finish counts and no effects/projectiles",
+      "independentScope": "Per-receipt PickupActions only in replacement subset",
+      "independentRemaining": "900/3000 controlled transport, quantities, input completions, item regressions",
+      "countsOverlap": true,
+      "next": "P30 inherited stage regression and exact new-DLL binding; independent gaps stay explicit"
+    },
+    {
+      "family": "EVENTS-AND-CONTROL",
+      "authorEvidence": "regression-01 + profiles-02 + baseline-control-01 + source audit",
+      "authorScope": "32 r34 control images byte identical;original resource and audio DLL unchanged;no dispatch implementation added;effect/projectile collections unchanged after mapping;no audio device execution",
+      "independentScope": "0/0 body mappings and original resource identity",
+      "independentRemaining": "audio/effect/send counter instrumentation; metadata inert execution proof",
+      "countsOverlap": true,
+      "next": "P30 inherited stage regression and exact new-DLL binding; independent gaps stay explicit"
+    },
+    {
+      "family": "LIVE-SEPARATE",
+      "authorEvidence": "not-executed",
+      "authorScope": "No native game,GUI,network,DB,services,full-scene/live timing or full-project acceptance",
+      "independentScope": "No GUI/socket/native operations",
+      "independentRemaining": "Explicit separate authorization and native environment required; no native claims",
+      "countsOverlap": true,
+      "next": "separate native acceptance; not this offline dispatch"
+    }
+  ],
+  "staleWordingNote": "P29 PROFILE-MAP and NEGATIVE-SCOPE pre-runtime wording is superseded by actual runtime rows only; full coverage not implied."
+}

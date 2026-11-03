@@ -1,0 +1,95 @@
+{
+  "schema": "p37-independent-artifact-manifest-v1",
+  "files": [
+    {
+      "path": "commands/finalize-01/receipt.json",
+      "size": 987,
+      "sha256": "ed0076ffe6eb515b55b268b567e46e1f5f95c99057ce14c0101281deb8790cde"
+    },
+    {
+      "path": "commands/finalize-01/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/finalize-01/stdout",
+      "size": 318,
+      "sha256": "47c09ac83cafbbd3536551255fc2f83cef6777ab6a7a909df490a28d90f133d2"
+    },
+    {
+      "path": "commands/inventory-review-01/receipt.json",
+      "size": 999,
+      "sha256": "ba18552f84df94390cac30fb3549b6dbeb2d437a64edf6dd2941794cb9547239"
+    },
+    {
+      "path": "commands/inventory-review-01/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/inventory-review-01/stdout",
+      "size": 206,
+      "sha256": "f76338fc9b950b634515ab04b7e26f8b835c7415af95764ba09b85cfafa089d3"
+    },
+    {
+      "path": "final-pins.json",
+      "size": 533,
+      "sha256": "24597b10077cc2cdab24e309afb866fa818abf0b6432fe714047fa5f17a05700"
+    },
+    {
+      "path": "finalize_plan_review.py",
+      "size": 7372,
+      "sha256": "aaba9271c3fb9291669d74f72fa014ef85ebbe19df11cdbe019cde0183d3f7d2"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 3547,
+      "sha256": "7a2f6f1ddfee2b7ddb036ea48764ca109717ac83a93cc32c218a2c74621535eb"
+    },
+    {
+      "path": "inventory-review.json",
+      "size": 1969,
+      "sha256": "19477448a3e0a586ea4379a92b1ac3396de89a3bd71375b9d7fbcf755323e015"
+    },
+    {
+      "path": "progress.json",
+      "size": 393,
+      "sha256": "c49116c796dcbab6e18763350bdd2d4a57dc8293f3c46098a1ca0827f9919a0d"
+    },
+    {
+      "path": "provisional-pins.json",
+      "size": 1746,
+      "sha256": "9189f647be7cd56988843a2448138be3818089770bbb6237ebf84daceae85994"
+    },
+    {
+      "path": "result.json",
+      "size": 4065,
+      "sha256": "2a8ad4254cc81d7796e22a7621941883cff19f4cb243c470f9642ad7aca33be7"
+    },
+    {
+      "path": "review_inventory.py",
+      "size": 8817,
+      "sha256": "52699d78550ddd91c7deb95c5bcbc0018210b3a30250cd3bc028d39759697273"
+    },
+    {
+      "path": "run_recorded.py",
+      "size": 1304,
+      "sha256": "2bc21a186fffb94200913d3451966990947a12ff5aa1f51580a7252344d2be57"
+    },
+    {
+      "path": "seal_review.py",
+      "size": 1174,
+      "sha256": "1a3dbec833ea3ef6d852b1500319a3045259c4626598a1b0eb7384d0f766d9eb"
+    },
+    {
+      "path": "source-seal.json",
+      "size": 1008,
+      "sha256": "e1ab709846ea1947945d3ccede26f2290030fd1c496a4379e48a59e90c67ee69"
+    },
+    {
+      "path": "verify_delivery.py",
+      "size": 1381,
+      "sha256": "24a9852d2cd293a1cb271f6ad83deda69c99ed711ccd596efa34dce28d3ae8a2"
+    }
+  ]
+}

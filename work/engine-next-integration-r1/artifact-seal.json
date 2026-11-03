@@ -1,0 +1,85 @@
+{
+  "schema": "engine-preparation-deliverables-seal-v1",
+  "excluded": [
+    "artifact-seal.json (self)",
+    "evidence/rejection-fixtures-* (unaccepted test inputs)",
+    "r29-runs/existing-rejection-fixture (rejection-only empty directory)"
+  ],
+  "files": [
+    {
+      "path": "acceptance_gate.py",
+      "size": 10064,
+      "sha256": "99308bd3e9a546795f30f934b153783a66bb3dbb4a83de26468adab0222081e8"
+    },
+    {
+      "path": "run_next_stage.py",
+      "size": 3833,
+      "sha256": "8ddb479e72b3cc448293bc9c2841cafeeede357982c3e775a6f6084bed0d7db7"
+    },
+    {
+      "path": "test_rejections.py",
+      "size": 6361,
+      "sha256": "99f756ed18112466a7f57cecf9133ebc61e27a35732263cd909c97e932bf28b1"
+    },
+    {
+      "path": "prepare.py",
+      "size": 2232,
+      "sha256": "98613e55f5195ee243128666d8f71ef432a8b79080ee07e86824829131203d8c"
+    },
+    {
+      "path": "acceptance-materials.schema.json",
+      "size": 10819,
+      "sha256": "c0807931c0ff015b4ac3bcb2f1a0ec7618da00bafe31ff118490060517bfb2c6"
+    },
+    {
+      "path": "baseline-lock.json",
+      "size": 33239,
+      "sha256": "2f810caf6d3f64a857173637416ebbd6e0ed6a104f67ef985706de213cadb1f4"
+    },
+    {
+      "path": "baseline/common.py",
+      "size": 1932,
+      "sha256": "7c4190a4a5726757c290742fdb77bc0320856248fc70da15a87afb53bbbd09a4"
+    },
+    {
+      "path": "baseline/run_stage.py",
+      "size": 6730,
+      "sha256": "0075560118430506e53ea674839f56398f495bb715d97e9046acc14e44e10720"
+    },
+    {
+      "path": "delta/_integration/run_stage_r29.py",
+      "size": 7043,
+      "sha256": "78c0767aff8cb3b27e028fa8d1e1cbb8594494961b423c492f3016b2bad8ff9f"
+    },
+    {
+      "path": "runner-delta.patch",
+      "size": 7311,
+      "sha256": "721fe9f6c9e7b63d25d1503f512c823f5dd5815c785956d9248b3ce4cf04ce80"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 7642,
+      "sha256": "366b8198230b08a7c3fa0958a7cc8a2fa0bd1b4873e8c5791bdc05f505f70f3f"
+    },
+    {
+      "path": "preparation-seal.json",
+      "size": 1818,
+      "sha256": "f987628e668cfadc77f92b0245f1df19e4fedfb68e71ef2624f4a51ccd2ba21b"
+    },
+    {
+      "path": "result.json",
+      "size": 2248,
+      "sha256": "f4549117c707f04c15a9a99fd7edb6d142eb6cf7913c278e547f2c71425eea4a"
+    },
+    {
+      "path": "evidence/rejection-tests.json",
+      "size": 420,
+      "sha256": "05a7644f814e353e40ea950e2016f9ecc680aa96ee0207372b0fe1ccaba005f2"
+    },
+    {
+      "path": "evidence/goal-read.json",
+      "size": 169,
+      "sha256": "10e6ecb3aa98487e51de692b60fa77ff5b41fe7bab0596a05b38fbfdcc7b1645"
+    }
+  ]
+}

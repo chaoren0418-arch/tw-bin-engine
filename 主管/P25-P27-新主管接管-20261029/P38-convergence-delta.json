@@ -1,0 +1,71 @@
+{
+  "schema": "p38-finite-convergence-delta-v1",
+  "utc": "2026-10-29T10:27:22.161462+00:00",
+  "supersedesCurrentDeliveryStateIn": [
+    "P36-P37-convergence-delta.json",
+    "P38-qualification-scope.json"
+  ],
+  "acceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P38-final-acceptance.json",
+    "size": 4543,
+    "sha256": "e4ac694414f9d112d181323e46b2f6fb61a5e788ee57554ba1e33971392ce478"
+  },
+  "productImprovement": "No new game code in P38. Exact P36 extra41 own-pickup profile implementation now has an isolated runtime/source/assets package and freshly bound launcher, with offline qualification.",
+  "versionBoundaries": {
+    "r33": "current formal entry",
+    "r34": "sealed baseline own-pickup animation; no extra41 profiles",
+    "P36": "accepted canonical extra41 exact own-pickup profiles,42 including control;speed0/1 Brave0",
+    "P38": "isolated delivery of unchanged P36 product with freshly bound launcher, not formal activation"
+  },
+  "formalEntry": "r33",
+  "boundedOfflineScopeComplete": true,
+  "currentlyIdentifiedUnblockedOfflineImplementationItems": [],
+  "reasonNoNewPhase": "The current finite queue has no remaining concrete source-backed product fix or packaging task within the no-native/no-DB/no-entry-change boundaries. This is not proof that the whole engine is complete.",
+  "remaining": [
+    {
+      "id": "NORMAL/NATIVE",
+      "state": "awaiting-native-authority-and-required-user-environment",
+      "functions": [
+        "normal launcher-to-product GUI transition",
+        "native whole screen/mouse/HUD/focus/shadows",
+        "fixed-version login,movement,combat,items,transactions,save/relogin",
+        "safe supported maps/occlusion and world6016 audio"
+      ],
+      "resume": "Explicit native-operation authority for pinned P38 or other named version; capture/input and safe legitimate scenario. User supplies DB/services where needed. Isolated native testing does not inherently require root entry activation."
+    },
+    {
+      "id": "ENTRY",
+      "state": "prior-action-denied-user-decision-pending",
+      "functions": [
+        "persistent root 啟動引擎.cmd and project-manifest version switch"
+      ],
+      "resume": "Explicit user authorization naming exact target and changes. Old proposed r34 does not include P36/P38 extra41 profiles."
+    },
+    {
+      "id": "SOURCE",
+      "state": "specific-source-contracts-missing",
+      "functions": [
+        "real map-local effect to nonzero group/fade/render association",
+        "non6016 animation-event token semantics/resource/trigger/lifecycle",
+        "unsupported46 map blocks and missing312 pickup-shadow keys"
+      ],
+      "resume": "Exact authoritative IDs/formats and real source/behavior evidence. No repeated research without a new source lead; no guessed implementation."
+    },
+    {
+      "id": "HISTORY",
+      "state": "evidence-limit-retained",
+      "functions": [
+        "historical timing and broader unexecuted regression/native-equivalence claims"
+      ],
+      "resume": "Do not manufacture old receipts or rerun unrelated accepted suites; select further evidence only against a concrete gap or observed defect."
+    }
+  ],
+  "normalNativeOrFullReleaseAccepted": false,
+  "nextStageAutomaticallyCreated": false,
+  "oldSourceResearchRepeated": false,
+  "goal": {
+    "supervisor": "Goal tools unavailable; no Goal read/creation or platform storage changes",
+    "integrator": "actual get_goal null; unchanged",
+    "reviewer": "historical I01 blocked; read and unchanged"
+  }
+}

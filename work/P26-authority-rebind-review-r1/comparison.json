@@ -1,0 +1,104 @@
+{
+  "seal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\artifact-seal.json",
+    "size": 8250,
+    "sha256": "867c75d72137b18becc8138576bc0b2e8b6e529fabcd51482b485caa17419ad6",
+    "verifiedFiles": 50
+  },
+  "stageNonAssetPins": 897,
+  "oldPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\canonical-plan.json",
+    "size": 378638,
+    "sha256": "d25c306fae5abee9209e46c557453f7b6a0a96645e5c052fbda70555f11f15ff"
+  },
+  "newPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\canonical-plan.json",
+    "size": 714350,
+    "sha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761"
+  },
+  "controller": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\serial_canonical.py",
+    "size": 12913,
+    "sha256": "257533f50b13c4483c337791006483e07ceac7a90be4749cb66058e36dfb7ba3"
+  },
+  "minimalDiffs": [
+    {
+      "file": "acceptance_gate.py",
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\acceptance_gate.py",
+        "size": 21888,
+        "sha256": "c446cd8b7f8070dfd0328ca71c4563671e31d7dc37bc2c45e39678664bcc6979"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\acceptance_gate.py",
+        "size": 21873,
+        "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+      }
+    },
+    {
+      "file": "serial_canonical.py",
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\serial_canonical.py",
+        "size": 12869,
+        "sha256": "c087073244eaa2a3d0bcb334652a66c1abe0bf3c4a6de1b3d2e2ab18d09a3d48"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\serial_canonical.py",
+        "size": 12913,
+        "sha256": "257533f50b13c4483c337791006483e07ceac7a90be4749cb66058e36dfb7ba3"
+      }
+    },
+    {
+      "file": "execution_support.py",
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\execution_support.py",
+        "size": 4678,
+        "sha256": "9d4a708d5c1e00e11525a38af8188375597626b061fa32976c171ce1d9faa5fc"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\execution_support.py",
+        "size": 5265,
+        "sha256": "439fdf260c87587df8c43059e225d04ad8c266599c0065c28ae019e4374a7380"
+      }
+    },
+    {
+      "file": "common.py",
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\common.py",
+        "size": 4177,
+        "sha256": "bb75a5523205e10a75a483bddd74ddbb87319b2e30914b6f9c7ce58480e5cd11"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\common.py",
+        "size": 4237,
+        "sha256": "7f8430a09c3498b8bcd7486266f0fc2b31a177d10b1cd18fc04da5608cd4c583"
+      }
+    }
+  ],
+  "byteIdentical": [
+    "wrapper.py",
+    "collector.py",
+    "native_collector.py",
+    "recovery.py",
+    "assertion_occurrences.py",
+    "nested-product-command-plan.json",
+    "derived/ground/Program.cs",
+    "pe_resource.py"
+  ],
+  "commands": 44,
+  "mappings": 138,
+  "planningSourcePrefixRebindings": 1,
+  "installSources": 180,
+  "fourIdentities": {
+    "productDllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+    "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "productManifestSha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d",
+    "launcherDllSha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8"
+  },
+  "preparationRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2",
+  "scriptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1",
+  "historicalSupervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "currentSharedSupervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "workflowExists": false,
+  "sharedReceiptExists": false
+}

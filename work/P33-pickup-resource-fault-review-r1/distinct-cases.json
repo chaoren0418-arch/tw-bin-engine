@@ -1,0 +1,172 @@
+{
+  "cases": [
+    {
+      "id": "constructor-base-valid",
+      "family": "constructor",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "constructor-full-valid",
+      "family": "constructor",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "constructor-base-size-single",
+      "family": "constructor",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "constructor-base-hash-single",
+      "family": "constructor",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "constructor-base-size-full",
+      "family": "constructor",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "constructor-base-hash-full",
+      "family": "constructor",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "constructor-extension-size",
+      "family": "constructor",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "constructor-extension-hash",
+      "family": "constructor",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "chain-0-0-missing-base",
+      "family": "resource-lifecycle",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "chain-0-0-missing-profile",
+      "family": "resource-lifecycle",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "chain-0-0-missing-group",
+      "family": "resource-lifecycle",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "chain-0-0-missing-key",
+      "family": "resource-lifecycle",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "chain-0-0-profile-path",
+      "family": "resource-lifecycle",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "chain-0-0-profile-hash",
+      "family": "resource-lifecycle",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "base-only-catalog-0-0",
+      "family": "constructor-distinction",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "api-exact-instance-0-0",
+      "family": "api",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "api-direction-pair-0-0",
+      "family": "api",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "chain-2796-20-missing-base",
+      "family": "resource-lifecycle",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "chain-2796-20-missing-profile",
+      "family": "resource-lifecycle",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "chain-2796-20-missing-group",
+      "family": "resource-lifecycle",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "chain-2796-20-missing-key",
+      "family": "resource-lifecycle",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "chain-2796-20-profile-path",
+      "family": "resource-lifecycle",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "chain-2796-20-profile-hash",
+      "family": "resource-lifecycle",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "base-only-catalog-2796-20",
+      "family": "constructor-distinction",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "api-exact-instance-2796-20",
+      "family": "api",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "api-direction-pair-2796-20",
+      "family": "api",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "parser-seam-pixel",
+      "family": "parser-seam-only",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    },
+    {
+      "id": "parser-seam-duplicate-direction",
+      "family": "parser-seam-only",
+      "pass": true,
+      "raw": "runs/runtime-01/runtime.json"
+    }
+  ]
+}

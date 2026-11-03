@@ -1,0 +1,307 @@
+{
+  "baseline": "sealed r28 / retained d287 JAR",
+  "jarClass": {
+    "entry": "com/lineage/server/datatables/user/CharItemsTimeTable.class",
+    "bytes": 13020,
+    "sha256": "7edb1d61a1a66ab33dfdfb2e23835ece9b7df86e72a3212926ac2a249cfd8408",
+    "extractedToDisk": false,
+    "executed": false,
+    "javapRegenerated": false
+  },
+  "verifiedSupervisorPins": [
+    "preflight.json",
+    "server.stdout.log",
+    "server.stderr.log",
+    "before-server.json",
+    "after-server-start-failure.json",
+    "timed-schema.json",
+    "timed-rows.json",
+    "CharItemsTimeTable.javap.txt"
+  ],
+  "timedObservation": {
+    "kind": "timedItem",
+    "owner": null,
+    "expired": true,
+    "objectId": 10326,
+    "template": null,
+    "expiresAt": "2026-10-28 05:33:31.000000",
+    "serverNow": "2026-10-29 02:31:54.000000",
+    "itemPresent": false
+  },
+  "ledgerCounts": {
+    "db": 1,
+    "role": 9,
+    "item": 58,
+    "skill": 14
+  },
+  "ledgerDelta": [
+    {
+      "key": [
+        "role",
+        1900249001,
+        null
+      ],
+      "changes": {
+        "online": {
+          "before": 1,
+          "after": 0
+        }
+      }
+    }
+  ],
+  "backupEvidence": {
+    "reportedFileCount": 904,
+    "uniqueManifestEntries": 904,
+    "preflightPassed": true,
+    "independentlyRehashedLiveDbOrBackup": false,
+    "logicalConsistencyProved": false
+  },
+  "coverageLimits": [
+    "Original limited query is supplemented by supervisor full aggregate at its own timestamp; it does not prove absence of concurrent changes or all historical states.",
+    "owner/template null arise from missing character_items LEFT JOIN; timed schema contains only object id and usertime.",
+    "Ledger compares retained nine roles only, not all DB tables.",
+    "Current Java source and retained javap are separate pins; no fresh source-to-bytecode equivalence proof."
+  ],
+  "goalEvidence": {
+    "workerInitial": "null; new scoped goal created",
+    "supervisorReceipt": "paused; no resume claimed by worker"
+  },
+  "additionalTimeline": {
+    "utc": "2026-10-28T18:52:06.236708+00:00",
+    "objectId": 10326,
+    "templateId": 49290,
+    "owner": 1900249001,
+    "evidence": [
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-rented.json",
+        "sha256": "2ebc90b9362eeb61f041d00b9145483d5bb622fa77801218b6f9a907d76b67a4",
+        "utc": "2026-10-27T19:33:35.1941964+00:00",
+        "kind": "native-world-snapshot",
+        "keyPresent": true,
+        "count": 1
+      },
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-cave-home-save.json",
+        "sha256": "f13eeeb580c55775e789b47c9d5198939f484ba0d841abecddb6ab49203341df",
+        "utc": "2026-10-27T21:11:00.998474+00:00",
+        "kind": "guarded-db-snapshot",
+        "key": {
+          "id": 10326,
+          "kind": "item",
+          "count": 1,
+          "owner": 1900249001,
+          "enchant": 0,
+          "equipped": 0,
+          "template": 49290
+        },
+        "keyPresent": true
+      },
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\cave-home-relogin-world.json",
+        "sha256": "97ea389039bab16937c55b6fc406bf35c133e45a1baa205fb283b7eb2dcb9ddc",
+        "utc": "2026-10-27T21:13:19.8410104+00:00",
+        "kind": "native-world-snapshot",
+        "keyPresent": true,
+        "count": 1
+      },
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-caesar-disconnect.json",
+        "sha256": "79d24e54e9d760d6475f278530b4d0e37ca943b6106e086fba74a2ebf9e92a1c",
+        "utc": "2026-10-27T21:31:39.308316+00:00",
+        "kind": "guarded-db-snapshot",
+        "key": {
+          "id": 10326,
+          "kind": "item",
+          "count": 1,
+          "owner": 1900249001,
+          "enchant": 0,
+          "equipped": 0,
+          "template": 49290
+        },
+        "keyPresent": true
+      },
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\caesar-service-relogin-world.json",
+        "sha256": "c05e6aa8b88467aa1ab01b2e35aeab21409be6d304a01bb97795882e871cd107",
+        "utc": "2026-10-27T21:33:51.2652882+00:00",
+        "kind": "native-world-snapshot",
+        "keyPresent": false,
+        "count": null
+      },
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-strength-save.json",
+        "sha256": "4a833f6b1e3c12685f5a73cb8501ed9cefac6a3f87274ef41a143edbb1a29e4f",
+        "utc": "2026-10-27T21:50:55.508902+00:00",
+        "kind": "guarded-db-snapshot",
+        "key": null,
+        "keyPresent": false
+      },
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\bonus-strength-relogin-world.json",
+        "sha256": "9b70c3f103c9d07017a43b6a0961be289f769ec57a430b9bed6af30f57c9939f",
+        "utc": "2026-10-27T21:56:33.7964987+00:00",
+        "kind": "native-world-snapshot",
+        "keyPresent": false,
+        "count": null
+      },
+      {
+        "file": "主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\james-ruby-step008.json",
+        "sha256": "5c8c561535ab9469f634d7c848e8456a346561cf273f8966086a89930f09621e",
+        "utc": "2026-10-27T22:03:29.8969715+00:00",
+        "kind": "native-world-snapshot",
+        "keyPresent": false,
+        "count": null
+      }
+    ],
+    "boundedArchiveTransitions": [
+      {
+        "utc": "2026-10-27T21:30:00.0804586+00:00",
+        "loginState": "InWorld",
+        "itemRows": 15,
+        "keyPresent": true,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:31:18.0920188+00:00",
+        "loginState": "Offline",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:32:05.0461594+00:00",
+        "loginState": "Cancelled",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:32:05.0569008+00:00",
+        "loginState": "Connecting",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:32:05.0649485+00:00",
+        "loginState": "AwaitSeed",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:32:05.0717567+00:00",
+        "loginState": "Authenticating",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:32:05.0931444+00:00",
+        "loginState": "AwaitList",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:32:05.0965328+00:00",
+        "loginState": "ReadingCharacters",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:32:05.106998+00:00",
+        "loginState": "CharacterList",
+        "itemRows": 0,
+        "keyPresent": false,
+        "snapshotOnly": true
+      },
+      {
+        "utc": "2026-10-27T21:33:40.8613147+00:00",
+        "loginState": "InWorld",
+        "itemRows": 14,
+        "keyPresent": false,
+        "snapshotOnly": true
+      }
+    ],
+    "archive": {
+      "path": "evidence\\r28-runtime-before-consolidation\\runs\\interactive-86656\\web-events.jsonl",
+      "sha256": "08b145679e75285ee1b8db07d0fdb4f6f16c8cb3e4e8000d1aae215ed747ee73",
+      "eventKinds": {
+        "focus-left-game": 54,
+        "focus-game": 22,
+        "initialization-start": 7,
+        "browser-created": 7,
+        "navigation-start": 7,
+        "bridge-command": 16,
+        "bridge-reply": 19,
+        "bridge-state": 6654,
+        "navigation-completed": 7,
+        "close-request": 7,
+        "panel-disposed": 7,
+        "focus-web-input": 2,
+        "login-command": 1
+      },
+      "preservationLimit": "Migration originally recorded size/mtime for this volatile file; this hash pins current preserved bytes, not a retroactive pre-move hash."
+    },
+    "preStartupColdBackupMatches": [
+      {
+        "path": "db-data/p24_accounts/character_items.MYD",
+        "bytes": 3680,
+        "sha256": "e20b6b84f4f9595b4e31153f3f838783d5e32ae88f066320c8128145834dcd6d"
+      },
+      {
+        "path": "db-data/p24_accounts/character_items.MYI",
+        "bytes": 3072,
+        "sha256": "7600602a6af1fbd11a61a819c4cbdbea6f15d87ff664294fd63c07e9fa55b6a4"
+      },
+      {
+        "path": "db-data/p24_accounts/character_items_time.MYD",
+        "bytes": 20,
+        "sha256": "ce7490f726507917bf51d2e1415cec2de19054f303a2851b9a2e6e1c6a47331c"
+      },
+      {
+        "path": "db-data/p24_accounts/character_items_time.MYI",
+        "bytes": 2048,
+        "sha256": "50c1191f6936528b7a27db0ce4c548badc8524927737c9f18f684bb702256575"
+      }
+    ],
+    "conclusion": "Item10326 existed in a guarded DB snapshot at21:31:39Z before migration, was absent from native inventory by21:33:51Z and from DB by21:50:55Z. Its scheduled expiry05:33:31 Asia/Taipei falls between the snapshots. This supports a pre-migration disappearance, not a proven deletion cause. Current orphan time metadata is verified separately.",
+    "unknowns": [
+      "No object-specific delete reason or transaction receipt.",
+      "Native snapshot absence is not by itself SQL-deletion proof.",
+      "Table-file equality proves movement preserved bytes; it does not identify which earlier code path created the orphan."
+    ]
+  },
+  "independentlyPinnedTimelineReceipts": [
+    "主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-caesar-disconnect.json",
+    "主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-strength-save.json",
+    "主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\caesar-service-relogin-world.json"
+  ],
+  "fourMyisamManifestEntriesAgree": true,
+  "fullTimedAggregate": {
+    "kind": "timedCounts",
+    "total": 1,
+    "orphans": 1,
+    "nullTimes": 0,
+    "nonpositiveIds": 0,
+    "distinctObjectIds": 1
+  },
+  "aggregateUtc": "2026-10-28T18:56:29.867598+00:00",
+  "sqlConfirmedEngines": [
+    {
+      "kind": "tableEngine",
+      "table": "character_items",
+      "engine": "MyISAM",
+      "rowsEstimate": 58
+    },
+    {
+      "kind": "tableEngine",
+      "table": "character_items_time",
+      "engine": "MyISAM",
+      "rowsEstimate": 1
+    }
+  ],
+  "noRepairApplied": true
+}

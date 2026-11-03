@@ -1,0 +1,12 @@
+{
+  "status": "reported-during-unsealed-plan-preparation",
+  "taskId": "ENGINE-R34-CANONICAL-PLAN-R1",
+  "finding": "common.verify_record and wrapper.run_inner expect stdout/stderr path specs absent from sealed R2 execution_support.execute_once attempt schema",
+  "evidence": "R2 execute_once writes attemptRoot/stdout and stderr raw bytes, stdoutDecoder/stderrDecoder, but no stdout/stderr spec objects. Draft common.verify_record loops through r[key][path]; draft wrapper.run_inner similarly reads r[stdout][path].",
+  "requiredResolution": "Preserve sealed R2 and original attempt; derive explicitly pinned actual raw log specs in new planning wrapper/adapter, and provide the actual stage collector schema. Verify package copies preserve these new scripts/maps/plan within canonical workflow evidence.",
+  "productBuildExecuted": false,
+  "productTestExecuted": false,
+  "productFailure": false,
+  "sharedMergeAuthorized": false,
+  "resolutionPending": true
+}

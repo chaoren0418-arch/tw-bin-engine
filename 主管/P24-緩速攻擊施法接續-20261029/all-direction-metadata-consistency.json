@@ -1,0 +1,765 @@
+{
+  "scope": "Static sealed metadata consistency only, no native scheduler or DLL execution",
+  "profiles": 42,
+  "actions": 126,
+  "directions": 1008,
+  "differences": [],
+  "rows": [
+    {
+      "gfx": 61,
+      "weapon": 0,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 0,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 4,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 4,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 20,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 20,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 50,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 50,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 50,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 0,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 0,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 4,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 4,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 20,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 20,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 50,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 50,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 50,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 37,
+      "weapon": 0,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 37,
+      "weapon": 0,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 37,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 37,
+      "weapon": 4,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 37,
+      "weapon": 4,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 37,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 37,
+      "weapon": 20,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 37,
+      "weapon": 20,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 37,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 734,
+      "weapon": 0,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 734,
+      "weapon": 0,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 734,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 734,
+      "weapon": 4,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 734,
+      "weapon": 4,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 734,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 734,
+      "weapon": 20,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 734,
+      "weapon": 20,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 734,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1186,
+      "weapon": 0,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1186,
+      "weapon": 0,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1186,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1186,
+      "weapon": 4,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1186,
+      "weapon": 4,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1186,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1186,
+      "weapon": 20,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1186,
+      "weapon": 20,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1186,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2786,
+      "weapon": 0,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2786,
+      "weapon": 0,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2786,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2786,
+      "weapon": 4,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2786,
+      "weapon": 4,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2786,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2786,
+      "weapon": 20,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2786,
+      "weapon": 20,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2786,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2796,
+      "weapon": 0,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2796,
+      "weapon": 0,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2796,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2796,
+      "weapon": 4,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2796,
+      "weapon": 4,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2796,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2796,
+      "weapon": 20,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2796,
+      "weapon": 20,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 2796,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 0,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 0,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 4,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 4,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 20,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 20,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 50,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 50,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 50,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 0,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 0,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 4,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 4,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 20,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 20,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 50,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 50,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 50,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6658,
+      "weapon": 0,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6658,
+      "weapon": 0,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6658,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6658,
+      "weapon": 4,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6658,
+      "weapon": 4,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6658,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6658,
+      "weapon": 50,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6658,
+      "weapon": 50,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6658,
+      "weapon": 50,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6661,
+      "weapon": 0,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6661,
+      "weapon": 0,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6661,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6661,
+      "weapon": 4,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6661,
+      "weapon": 4,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6661,
+      "weapon": 4,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6661,
+      "weapon": 50,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6661,
+      "weapon": 50,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6661,
+      "weapon": 50,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6671,
+      "weapon": 0,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6671,
+      "weapon": 0,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6671,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6671,
+      "weapon": 20,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6671,
+      "weapon": 20,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6671,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6650,
+      "weapon": 0,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6650,
+      "weapon": 0,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6650,
+      "weapon": 0,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6650,
+      "weapon": 20,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6650,
+      "weapon": 20,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 6650,
+      "weapon": 20,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 46,
+      "action": "attack",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 46,
+      "action": "spellDir",
+      "eightDirectionsTimingEqual": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 46,
+      "action": "spellNoDir",
+      "eightDirectionsTimingEqual": true
+    }
+  ]
+}

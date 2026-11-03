@@ -1,0 +1,154 @@
+{
+  "status": "pass-final-r29-slow",
+  "productDllSha256": "8ccfa4e3b5d253206779a5d4b1e59682263ffbddf5dab43fe15b0aa1f86a7397",
+  "reviewChecks": 1199,
+  "f1Checks": 112,
+  "reproCases": 6,
+  "sourceCopies": [
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\harness\\Extra.cs",
+      "copy": "harness/Extra.cs",
+      "sha256": "b28421f449e02840fc21deed7d5ec8c457aa8eee3b5f7902af96de2b27396a14"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\harness\\NuGet.Config",
+      "copy": "harness/NuGet.Config",
+      "sha256": "9508cae5f76364f56e80eb97cb16493977243cf38e5cca6284e3d74f83b20a2c"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\harness\\Program.cs",
+      "copy": "harness/Program.cs",
+      "sha256": "9005b27a43a00973215d4a04bb014b6423cca7435a95b15502c19aab869b8c5e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\harness\\Review.csproj",
+      "copy": "harness/Review.csproj",
+      "sha256": "5c14f958e422f3a2d38442bc0e0b935ffe7085ba47c7cbe432f55871ffac6722"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro\\Program.cs",
+      "copy": "repro/Program.cs",
+      "sha256": "7b2a9bf0e7069ab474d13b63ef4505524f4450504b6ed050f01de324b4fa2f6e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro\\Repro.csproj",
+      "copy": "repro/Repro.csproj",
+      "sha256": "16dc16041b77162534b042ab01e149f27cff9380e11a573114b435ebd17cd6a7"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1\\F1.csproj",
+      "copy": "f1/F1.csproj",
+      "sha256": "16dc16041b77162534b042ab01e149f27cff9380e11a573114b435ebd17cd6a7"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1\\Program.cs",
+      "copy": "f1/Program.cs",
+      "sha256": "c10539748c29e9cf9ed3869c83244fb9f57d763584b1e64e16f4062a4582888f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\native-oracle.json",
+      "copy": "native-oracle.json",
+      "sha256": "0b11690c96a93e3c1cc8cd935ad8d9c35b907d48fcb6c1d265d6710f398fbe4a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\jar-oracle.json",
+      "copy": "jar-oracle.json",
+      "sha256": "1eb23d82aa36b47bd09a8944e5191f6d434a2128112fb3464798292edac8b78a"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\harness\\Review.csproj",
+        "-c",
+        "Release",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\helpers\\review",
+        "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-runs\\accepted-slow-r2-01\\build\\client-product-r29\\P11.ClientEngine.dll",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\harness\\NuGet.Config",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "--nologo"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01",
+      "exitCode": 0
+    },
+    {
+      "argv": [
+        "dotnet",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\helpers\\review\\SlowReview.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\native-oracle.json",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\jar-oracle.json",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\review.json"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01",
+      "exitCode": 0
+    },
+    {
+      "argv": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\repro\\Repro.csproj",
+        "-c",
+        "Release",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\helpers\\repro",
+        "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-runs\\accepted-slow-r2-01\\build\\client-product-r29\\P11.ClientEngine.dll",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\harness\\NuGet.Config",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "--nologo"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01",
+      "exitCode": 0
+    },
+    {
+      "argv": [
+        "dotnet",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\helpers\\repro\\Repro.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-runs\\accepted-slow-r2-01\\assets",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\repro.json"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01",
+      "exitCode": 0
+    },
+    {
+      "argv": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\f1\\F1.csproj",
+        "-c",
+        "Release",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\helpers\\f1",
+        "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-runs\\accepted-slow-r2-01\\build\\client-product-r29\\P11.ClientEngine.dll",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\harness\\NuGet.Config",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "--nologo"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01",
+      "exitCode": 0
+    },
+    {
+      "argv": [
+        "dotnet",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\helpers\\f1\\F1.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-runs\\accepted-slow-r2-01\\assets",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01\\f1.json"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\r29-final-slow-checks-01",
+      "exitCode": 0
+    }
+  ],
+  "GUI": false,
+  "socket": false,
+  "database": false,
+  "services": false,
+  "nativeLive": false
+}

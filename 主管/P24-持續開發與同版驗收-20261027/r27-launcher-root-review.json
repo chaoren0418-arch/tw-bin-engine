@@ -1,0 +1,54 @@
+{
+  "utc": "2026-10-27T11:08:53.488885+00:00",
+  "status": "accepted-r27-launcher-independent-rebuild",
+  "sealSha256": "a333cc86191f23bc72590f5b2d6f2722339f8a90e769b64c1a2315d3b8e66f07",
+  "independentlyRebuiltFiles": [
+    {
+      "path": "launcher/P24.Launcher.deps.json",
+      "sha256": "1cc0f476da7833ffe9258f8ac190eb56d167d517c1004acc98c2e054f168e90a"
+    },
+    {
+      "path": "launcher/P24.Launcher.dll",
+      "sha256": "22fe35890da01da46c56f52e41643bd4876881698e9c363e7dff2d7a479b4a49"
+    },
+    {
+      "path": "launcher/P24.Launcher.exe",
+      "sha256": "9ec5d1d644a2a4efddf083636c543f733dfc7a7a031ae6c3de48fb396aa98ada"
+    },
+    {
+      "path": "launcher/P24.Launcher.runtimeconfig.json",
+      "sha256": "3e965cd7cfd553c2ff4e842d8d8019aaae2da0a21d92ff85a87573dd8d1b95c6"
+    }
+  ],
+  "restrictedPath": "C:\\WINDOWS\\System32;C:\\WINDOWS",
+  "check": {
+    "status": "checked-only",
+    "revision": "r27",
+    "executable": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r11\\delivery\\build\\client-product-r27\\P11.ClientEngine.exe",
+    "workingDirectory": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r11\\delivery",
+    "arguments": [
+      "--normal-product"
+    ],
+    "manifest": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r11\\delivery\\build\\product-r27-manifest.json",
+    "manifestSha256": "e0addbfd014cd4952356019a50fedad2c8bd8438428eac4f60d2a9ee68b3eda3",
+    "hashedRuntimeAndWebFiles": 43,
+    "assetFilesCheckedForPresenceAndSize": 13954,
+    "assetContentVerification": "Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.",
+    "runtime": {
+      "architecture": "x64",
+      "loadedCoreVersion": "10.0.8",
+      "loadedCoreDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\10.0.8\\",
+      "desktopVersion": "10.0.8",
+      "desktopDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.WindowsDesktop.App\\10.0.8"
+    },
+    "webView2Version": "155.0.4283.62",
+    "powerShellRequired": false,
+    "pathLookupUsed": false,
+    "autoLogin": false,
+    "uiStarted": false,
+    "networkStarted": false,
+    "servicesStarted": false
+  },
+  "actualProductLaunch": false,
+  "settingsChanged": false
+}

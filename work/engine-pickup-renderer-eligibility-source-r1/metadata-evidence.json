@@ -1,0 +1,2989 @@
+{
+  "source": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\object-assets\\inner-list.spz",
+    "size": 4864856,
+    "sha256": "e8cec0388d6e9fdf518493fba1674953141c023765e02c210c05a23dfbbe6242"
+  },
+  "normalization": "CRCRLF -> CRLF, then bounded #gfx entry; not native parser execution",
+  "entries": [
+    {
+      "gfx": 0,
+      "header": "#0\t312=3225\tprince",
+      "artifact": "metadata/0.txt",
+      "sha256": "c0e63870fee5e86ea3ac68ef66b05198672d7a70e0ed1f19bc4a3ad3f4b0c14c",
+      "action15": [
+        "get(1 4,0.0:1 88.0:1 88.1:4<206 88.2:4)"
+      ],
+      "type102": [
+        "type(5)"
+      ],
+      "declaredActionNumbers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        40,
+        41,
+        42,
+        43,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        55,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        101,
+        102,
+        105
+      ],
+      "variantMapForNative": "unknown; one base declaration is not an empty runtime variant map proof"
+    },
+    {
+      "gfx": 1,
+      "header": "#1 312=3227\tprincess",
+      "artifact": "metadata/1.txt",
+      "sha256": "1ee693881e95e7be7b0efc9e59d9d80806abe5ffc4d57bdbebb8ab9182e235d0",
+      "action15": [
+        "get(1 4,0.0:1 88.0:1 88.1:4<206 88.2:4)"
+      ],
+      "type102": [
+        "type(5)"
+      ],
+      "declaredActionNumbers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        40,
+        41,
+        42,
+        43,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        55,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        101,
+        102,
+        105
+      ],
+      "variantMapForNative": "unknown; one base declaration is not an empty runtime variant map proof"
+    },
+    {
+      "gfx": 37,
+      "header": "#37 272=3474    elf female",
+      "artifact": "metadata/37.txt",
+      "sha256": "b4c6e327d1f977c4a00dcaadb7ecfab4578660e5588105cc9ae52a4a8b466575",
+      "action15": [
+        "get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "type102": [
+        "type(5)"
+      ],
+      "declaredActionNumbers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        40,
+        41,
+        42,
+        43,
+        46,
+        47,
+        48,
+        49,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        101,
+        102,
+        105
+      ],
+      "variantMapForNative": "unknown; one base declaration is not an empty runtime variant map proof"
+    },
+    {
+      "gfx": 48,
+      "header": "#48   320=3215     knight female",
+      "artifact": "metadata/48.txt",
+      "sha256": "5de7c8fbd730817061736ea11c44d35d6b527de7dbe07b3930f407f84a693760",
+      "action15": [
+        "get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "type102": [
+        "type(5)"
+      ],
+      "declaredActionNumbers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        40,
+        41,
+        42,
+        43,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        55,
+        56,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        101,
+        102,
+        105
+      ],
+      "variantMapForNative": "unknown; one base declaration is not an empty runtime variant map proof"
+    },
+    {
+      "gfx": 61,
+      "header": "#61\t320=3213\tknight",
+      "artifact": "metadata/61.txt",
+      "sha256": "e275f0cc42bc4828f005a954218a78afe51908b20745ab1b4af110ca7dbbd2ce",
+      "action15": [
+        "get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "type102": [
+        "type(5)"
+      ],
+      "declaredActionNumbers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        40,
+        41,
+        42,
+        43,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        55,
+        56,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        101,
+        102,
+        105
+      ],
+      "variantMapForNative": "unknown; one base declaration is not an empty runtime variant map proof"
+    },
+    {
+      "gfx": 734,
+      "header": "#734 312=3476 wizard pc male",
+      "artifact": "metadata/734.txt",
+      "sha256": "75df19393fc800700c532c85d4896b5f40d02c097fce55fcd05d8092bc6bbda8",
+      "action15": [
+        "get(1 4,0.0:1 40.0:1 40.1:4<206 40.2:4)"
+      ],
+      "type102": [
+        "type(5)"
+      ],
+      "declaredActionNumbers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        31,
+        40,
+        41,
+        42,
+        43,
+        46,
+        47,
+        48,
+        49,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        101,
+        102,
+        105
+      ],
+      "variantMapForNative": "unknown; one base declaration is not an empty runtime variant map proof"
+    },
+    {
+      "gfx": 1186,
+      "header": "#1186  312=3221\tsorceress",
+      "artifact": "metadata/1186.txt",
+      "sha256": "f903152e27db7596e3956da0d42a478d9dd33f754c85afe94cac7a4a063516ac",
+      "action15": [
+        "get(1 4,0.0:1 48.0:1 48.1:4<206 48.2:4)"
+      ],
+      "type102": [
+        "type(5)"
+      ],
+      "declaredActionNumbers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        31,
+        40,
+        41,
+        42,
+        43,
+        46,
+        47,
+        48,
+        49,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        101,
+        102,
+        105
+      ],
+      "variantMapForNative": "unknown; one base declaration is not an empty runtime variant map proof"
+    },
+    {
+      "gfx": 2786,
+      "header": "#2786\t394\tdarkelf pc male",
+      "artifact": "metadata/2786.txt",
+      "sha256": "20b04af4d91362e3aa33c7bc401f57e61083b047621c51ebe4aba19e5751069d",
+      "action15": [
+        "get(1 4,8.0:1 64.0:1 64.1:4<206 64.2:4)"
+      ],
+      "type102": [
+        "type(5)"
+      ],
+      "declaredActionNumbers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        12,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        31,
+        46,
+        47,
+        48,
+        49,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        101,
+        102,
+        105
+      ],
+      "variantMapForNative": "unknown; one base declaration is not an empty runtime variant map proof"
+    },
+    {
+      "gfx": 2796,
+      "header": "#2796\t384\tdarkelf pc female",
+      "artifact": "metadata/2796.txt",
+      "sha256": "3a9919715c8c9e17edc3f3d7185ea5f277013a3db652b35ac828e3d171967039",
+      "action15": [
+        "get(1 4,8.0:1 48.1:1 48.2:4<206 48.3:4)"
+      ],
+      "type102": [
+        "type(5)"
+      ],
+      "declaredActionNumbers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        12,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        31,
+        46,
+        47,
+        48,
+        49,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        101,
+        102,
+        105
+      ],
+      "variantMapForNative": "unknown; one base declaration is not an empty runtime variant map proof"
+    },
+    {
+      "gfx": 6650,
+      "header": "#6650 248 illusionist female",
+      "artifact": "metadata/6650.txt",
+      "sha256": "033ce51c44769f9b1d1f1566ea7f3d0d3a32eadf3d92f99a8d939a83af6b905b",
+      "action15": [
+        "get(1 4,8.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "type102": [
+        "type(5)"
+      ],
+      "declaredActionNumbers": [
+        0,
+        1,
+        2,
+        3,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        40,
+        41,
+        42,
+        43,
+        55,
+        58,
+        59,
+        60,
+        61,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        101,
+        102,
+        105
+      ],
+      "variantMapForNative": "unknown; one base declaration is not an empty runtime variant map proof"
+    },
+    {
+      "gfx": 6658,
+      "header": "#6658 288 Dragon knight male  ",
+      "artifact": "metadata/6658.txt",
+      "sha256": "d4fc07b33fd49d382e4d55b38a57884628e2c04f8d3c30fc930b70264d7864a8",
+      "action15": [
+        "get(1 4,8.0:1 56.0:1 56.1:4<206 56.2:4)"
+      ],
+      "type102": [
+        "type(5)"
+      ],
+      "declaredActionNumbers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        24,
+        25,
+        26,
+        27,
+        41,
+        50,
+        51,
+        52,
+        53,
+        55,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        101,
+        102,
+        105
+      ],
+      "variantMapForNative": "unknown; one base declaration is not an empty runtime variant map proof"
+    },
+    {
+      "gfx": 6661,
+      "header": "#6661 288 Dragon knight female ",
+      "artifact": "metadata/6661.txt",
+      "sha256": "b457ed8f1fd845be1c2da6c4edb6fe719dd73a3edb17c55e8f68c6bb73c9761f",
+      "action15": [
+        "get(1 4,8.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "type102": [
+        "type(5)"
+      ],
+      "declaredActionNumbers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        24,
+        25,
+        26,
+        27,
+        41,
+        50,
+        51,
+        52,
+        53,
+        55,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        101,
+        102,
+        105
+      ],
+      "variantMapForNative": "unknown; one base declaration is not an empty runtime variant map proof"
+    },
+    {
+      "gfx": 6671,
+      "header": "#6671 248 Illusionist male",
+      "artifact": "metadata/6671.txt",
+      "sha256": "99acfc8fefc8478072c7975996983e61b15c3a69e5caa4ae895b604d3d2d97ea",
+      "action15": [
+        "get(1 4,8.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "type102": [
+        "type(5)"
+      ],
+      "declaredActionNumbers": [
+        0,
+        1,
+        2,
+        3,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        40,
+        41,
+        42,
+        43,
+        55,
+        58,
+        59,
+        60,
+        61,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        101,
+        102,
+        105
+      ],
+      "variantMapForNative": "unknown; one base declaration is not an empty runtime variant map proof"
+    }
+  ],
+  "profiles": [
+    {
+      "gfx": 0,
+      "weapon": 0,
+      "profilePath": "objects/0.json",
+      "profileSha256": "27ab41e8a398eb180ce957d9215b2c9b5cf6bf5343b32f6c101757b8882efdf8",
+      "sprite": 3225,
+      "action15": [
+        "get(1 4,0.0:1 88.0:1 88.1:4<206 88.2:4)"
+      ],
+      "idleAction": 3,
+      "idleMetadata": [
+        "breath(1 8,8.7:4 8.0:4 8.1:4 8.2:4 8.3:4 8.4:4 8.5:4 8.6:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 4,
+      "profilePath": "objects/0-weapon-4.json",
+      "profileSha256": "858444d08c367a9cab98bcbf6b4feda44c3cc72c68d1b676e0d296d5f692c771",
+      "sprite": 3225,
+      "action15": [
+        "get(1 4,0.0:1 88.0:1 88.1:4<206 88.2:4)"
+      ],
+      "idleAction": 7,
+      "idleMetadata": [
+        "breath onehandsword(1 11,112.10:4 112.0:4 112.1:4 112.2:4 112.3:4 112.4:4 112.5:4 112.6:4 112.7:4 112.8:4 112.9:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 20,
+      "profilePath": "objects/0-weapon-20.json",
+      "profileSha256": "6b9aaddeaf4b913ff0aa44237349e314ca57a69d99620f9408553d006f35183a",
+      "sprite": 3225,
+      "action15": [
+        "get(1 4,0.0:1 88.0:1 88.1:4<206 88.2:4)"
+      ],
+      "idleAction": 23,
+      "idleMetadata": [
+        "breath bow(1 10,208.9:4 208.0:4 208.1:4 208.2:4 208.3:4 208.4:4 208.5:4 208.6:4 208.7:4 208.8:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 50,
+      "profilePath": "objects/0-weapon-50.json",
+      "profileSha256": "40ab20359c20303eccf39216619d5667b0bb932c927d85849b661a78c9b84f2f",
+      "sprite": 3225,
+      "action15": [
+        "get(1 4,0.0:1 88.0:1 88.1:4<206 88.2:4)"
+      ],
+      "idleAction": 53,
+      "idleMetadata": [
+        "breath largesword(1 11,272.10:4 272.0:4 272.1:4 272.2:4 272.3:4 272.4:4 272.5:4 272.6:4 272.7:4 272.8:4 272.9:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 0,
+      "weapon": 46,
+      "profilePath": "players/0-46.json",
+      "profileSha256": "dca45494e33d824fe821a21faeff9cbb6439b5896ef11f48c0a8b3e505fc33e7",
+      "sprite": 3225,
+      "action15": [
+        "get(1 4,0.0:1 88.0:1 88.1:4<206 88.2:4)"
+      ],
+      "idleAction": 49,
+      "idleMetadata": [
+        "breath dagger(1 11,144.10:4 144.0:4 144.1:4 144.2:4 144.3:4 144.4:4 144.5:4 144.6:4 144.7:4 144.8:4 144.9:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 0,
+      "profilePath": "players/1-0.json",
+      "profileSha256": "2f4f0b0f80b38634a0063b4232c89458f6f7cf77aff1b48274c94748af438f15",
+      "sprite": 3227,
+      "action15": [
+        "get(1 4,0.0:1 88.0:1 88.1:4<206 88.2:4)"
+      ],
+      "idleAction": 3,
+      "idleMetadata": [
+        "breath(1 12,8.11:5 8.0:5 8.1:5 8.2:5 8.3:5 8.4:5 8.5:5 8.6:5 8.7:5 8.8:5 8.9:5 8.10:5)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 4,
+      "profilePath": "players/1-4.json",
+      "profileSha256": "c94980a1ccd20c5f083285aee734813d59f97ef5d61249819ba3128632f42d5f",
+      "sprite": 3227,
+      "action15": [
+        "get(1 4,0.0:1 88.0:1 88.1:4<206 88.2:4)"
+      ],
+      "idleAction": 7,
+      "idleMetadata": [
+        "breath onehandsword(1 12,112.11:5 112.0:5 112.1:5 112.2:5 112.3:5 112.4:5 112.5:5 112.6:5 112.7:5 112.8:5 112.9:5 112.10:5)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 20,
+      "profilePath": "players/1-20.json",
+      "profileSha256": "651f5029da928825b2915b6a5ce1d826018ee3499c6a4948136bfd6c25f636dc",
+      "sprite": 3227,
+      "action15": [
+        "get(1 4,0.0:1 88.0:1 88.1:4<206 88.2:4)"
+      ],
+      "idleAction": 23,
+      "idleMetadata": [
+        "breath bow(1 12,280.11:5 280.0:5 280.1:5 280.2:5 280.3:5 280.4:5 280.5:5 280.6:5 280.7:5 280.8:5 280.9:5 280.10:5)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 1,
+      "weapon": 50,
+      "profilePath": "players/1-50.json",
+      "profileSha256": "2ebf9dcdc13add5dc679e07e6d2326c4f93bb1177020cfd108799292ab64127d",
+      "sprite": 3227,
+      "action15": [
+        "get(1 4,0.0:1 88.0:1 88.1:4<206 88.2:4)"
+      ],
+      "idleAction": 53,
+      "idleMetadata": [
+        "breath largesword(1 12,248.11:5 248.0:5 248.1:5 248.2:5 248.3:5 248.4:5 248.5:5 248.6:5 248.7:5 248.8:5 248.9:5 248.10:5)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 88,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 37,
+      "weapon": 0,
+      "profilePath": "players/37-0.json",
+      "profileSha256": "5f6555fff67d0343d998f2b2af8eff6731a0b51a6c974dfe239a3f3b646e058e",
+      "sprite": 3474,
+      "action15": [
+        "get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 3,
+      "idleMetadata": [
+        "breath(1 8,8.7:5 8.0:5 8.1:5 8.2:5 8.3:5 8.4:5 8.5:5 8.6:5)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 37,
+      "weapon": 4,
+      "profilePath": "players/37-4.json",
+      "profileSha256": "095d3b762d150ddc647a070ed24def9a669b76b2d7ff3749ee51d03d65304c52",
+      "sprite": 3474,
+      "action15": [
+        "get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 7,
+      "idleMetadata": [
+        "breath onehandsword(1 10,176.9:4 176.0:4 176.1:4 176.2:4 176.3:4 176.4:4 176.5:4 176.6:4 176.7:4 176.8:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 37,
+      "weapon": 20,
+      "profilePath": "players/37-20.json",
+      "profileSha256": "a0a6d99a9e748563013ef41304aae009976c7d3f65b1c1795d7bc63423538d78",
+      "sprite": 3474,
+      "action15": [
+        "get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 23,
+      "idleMetadata": [
+        "breath bow(1 10,112.9:4 112.0:4 112.1:4 112.2:4 112.3:4 112.4:4 112.5:4 112.6:4 112.7:4 112.8:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 0,
+      "profilePath": "players/48-0.json",
+      "profileSha256": "b5e509c8c3eb45cb58fa7cd67af0afe82995dd25a5379f608cd8cb774239fb3e",
+      "sprite": 3215,
+      "action15": [
+        "get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 3,
+      "idleMetadata": [
+        "breath(1 13,8.12:4 8.0:4 8.1:4 8.2:4 8.3:4 8.4:4 8.5:4 8.6:4 8.7:4 8.8:4 8.9:4 8.10:4 8.11:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 4,
+      "profilePath": "players/48-4.json",
+      "profileSha256": "289cd07c274cffd439c3f87a4a016bc0d70f20161ad027247c227970baea863a",
+      "sprite": 3215,
+      "action15": [
+        "get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 7,
+      "idleMetadata": [
+        "breath onehandsword(1 13,184.12:4 184.0:4 184.1:4 184.2:4 184.3:4 184.4:4 184.5:4 184.6:4 184.7:4 184.8:4 184.9:4 184.10:4 184.11:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 20,
+      "profilePath": "players/48-20.json",
+      "profileSha256": "db514bbbcc80bafcf3aa58bce60e41bc101c3a26032fe5adad2ac93613952350",
+      "sprite": 3215,
+      "action15": [
+        "get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 23,
+      "idleMetadata": [
+        "breath bow(1 13,256.12:4 256.0:4 256.1:4 256.2:4 256.3:4 256.4:4 256.5:4 256.6:4 256.7:4 256.8:4 256.9:4 256.10:4 256.11:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 48,
+      "weapon": 50,
+      "profilePath": "players/48-50.json",
+      "profileSha256": "fdcd0b3246fe4e0678a034d69cc9590ad9204a55cefc98849c81039638efa74e",
+      "sprite": 3215,
+      "action15": [
+        "get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 53,
+      "idleMetadata": [
+        "breath largesword(1 13,112.12:4 112.0:4 112.1:4 112.2:4 112.3:4 112.4:4 112.5:4 112.6:4 112.7:4 112.8:4 112.9:4 112.10:4 112.11:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 0,
+      "profilePath": "players/61-0.json",
+      "profileSha256": "e73d987869d8f9cb5e7e081cd3781bc8214de9a3720b42073886ac9d8375cbbb",
+      "sprite": 3213,
+      "action15": [
+        "get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 3,
+      "idleMetadata": [
+        "breath(1 13,8.12:4 8.0:4 8.1:4 8.2:4 8.3:4 8.4:4 8.5:4 8.6:4 8.7:4 8.8:4 8.9:4 8.10:4 8.11:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 4,
+      "profilePath": "players/61-4.json",
+      "profileSha256": "1410dae2f42d30dc11aba5a1c494479ef5039c8161ad13f145504f18a8ce61dc",
+      "sprite": 3213,
+      "action15": [
+        "get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 7,
+      "idleMetadata": [
+        "breath onehandsword(1 13,176.12:4 176.0:4 176.1:4 176.2:4 176.3:4 176.4:4 176.5:4 176.6:4 176.7:4 176.8:4 176.9:4 176.10:4 176.11:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 20,
+      "profilePath": "players/61-20.json",
+      "profileSha256": "466b5832edea83ae25c4021569eeaf6fdcd00c8f5e57e990ce1ae81c523ff51a",
+      "sprite": 3213,
+      "action15": [
+        "get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 23,
+      "idleMetadata": [
+        "breath bow(1 13,240.12:4 240.0:4 240.1:4 240.2:4 240.3:4 240.4:4 240.5:4 240.6:4 240.7:4 240.8:4 240.9:4 240.10:4 240.11:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 61,
+      "weapon": 50,
+      "profilePath": "players/61-50.json",
+      "profileSha256": "aaa9912a489b22a80b346e10adb07cc4ea51402a11136e80118cd527c694ab25",
+      "sprite": 3213,
+      "action15": [
+        "get(1 4,0.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 53,
+      "idleMetadata": [
+        "breath largesword(1 13,112.12:4 112.0:4 112.1:4 112.2:4 112.3:4 112.4:4 112.5:4 112.6:4 112.7:4 112.8:4 112.9:4 112.10:4 112.11:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 734,
+      "weapon": 0,
+      "profilePath": "players/734-0.json",
+      "profileSha256": "1a48881ab41af22a58e52102a3ef940e0b6f2a71473b0b2012a6ad0b1d3f0e3b",
+      "sprite": 3476,
+      "action15": [
+        "get(1 4,0.0:1 40.0:1 40.1:4<206 40.2:4)"
+      ],
+      "idleAction": 3,
+      "idleMetadata": [
+        "breath (1 9,8.8:4 8.0:4 8.1:4 8.2:4 8.3:4 8.4:4 8.5:4 8.6:4 8.7:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 40,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 40,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 40,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 734,
+      "weapon": 4,
+      "profilePath": "players/734-4.json",
+      "profileSha256": "b9991d6bb1c0f3080dab7d3f1a4c2b368c0b3261295eff8bf7022d2b38d12a78",
+      "sprite": 3476,
+      "action15": [
+        "get(1 4,0.0:1 40.0:1 40.1:4<206 40.2:4)"
+      ],
+      "idleAction": 7,
+      "idleMetadata": [
+        "breath onehandsword(1 9,112.8:4 112.0:4 112.1:4 112.2:4 112.3:4 112.4:4 112.5:4 112.6:4 112.7:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 40,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 40,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 40,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 734,
+      "weapon": 20,
+      "profilePath": "players/734-20.json",
+      "profileSha256": "8da7161651f60edb3b371ac26994bc6c69f4af700bb1834e5ed15a31a6995026",
+      "sprite": 3476,
+      "action15": [
+        "get(1 4,0.0:1 40.0:1 40.1:4<206 40.2:4)"
+      ],
+      "idleAction": 23,
+      "idleMetadata": [
+        "breath bow(1 9,184.8:4 184.0:4 184.1:4 184.2:4 184.3:4 184.4:4 184.5:4 184.6:4 184.7:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 40,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 40,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 40,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 1186,
+      "weapon": 0,
+      "profilePath": "players/1186-0.json",
+      "profileSha256": "abf6504bb5cbb2048dd5de0041c989e9b202ede63aad564d81415c771e2d6ab3",
+      "sprite": 3221,
+      "action15": [
+        "get(1 4,0.0:1 48.0:1 48.1:4<206 48.2:4)"
+      ],
+      "idleAction": 3,
+      "idleMetadata": [
+        "breath(1 8,8.7:4 8.0:4 8.1:4 8.2:4 8.3:4 8.4:4 8.5:4 8.6:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 1186,
+      "weapon": 4,
+      "profilePath": "players/1186-4.json",
+      "profileSha256": "4e70056a708d433bccc70005be82be16379ce34d11669526064c7483e921d267",
+      "sprite": 3221,
+      "action15": [
+        "get(1 4,0.0:1 48.0:1 48.1:4<206 48.2:4)"
+      ],
+      "idleAction": 7,
+      "idleMetadata": [
+        "breath onehandsword(1 8,176.7:4 176.0:4 176.1:4 176.2:4 176.3:4 176.4:4 176.5:4 176.6:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 1186,
+      "weapon": 20,
+      "profilePath": "players/1186-20.json",
+      "profileSha256": "ab6f2882e3f2972b4355f7c347958a9a456652b6fa348e79d88a4be2075ffa0b",
+      "sprite": 3221,
+      "action15": [
+        "get(1 4,0.0:1 48.0:1 48.1:4<206 48.2:4)"
+      ],
+      "idleAction": 23,
+      "idleMetadata": [
+        "breath bow(1 8,240.7:4 240.0:4 240.1:4 240.2:4 240.3:4 240.4:4 240.5:4 240.6:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 0,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 2786,
+      "weapon": 0,
+      "profilePath": "players/2786-0.json",
+      "profileSha256": "eac0b1e42e7154c39101e03ca2b628eba865e4f21ab59cc3f10992d536858949",
+      "sprite": 2786,
+      "action15": [
+        "get(1 4,8.0:1 64.0:1 64.1:4<206 64.2:4)"
+      ],
+      "idleAction": 3,
+      "idleMetadata": [
+        "breath(1 12,8.11:4 8.0:4 8.1:4 8.2:4 8.3:3 8.4:3 8.5:3 8.6:3 8.7:4 8.8:4 8.9:4 8.10:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 64,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 64,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 64,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 2786,
+      "weapon": 4,
+      "profilePath": "players/2786-4.json",
+      "profileSha256": "bb2c3627403703d487dd223d9c343b98f71860686aa676cd916e9f028d9b8804",
+      "sprite": 2786,
+      "action15": [
+        "get(1 4,8.0:1 64.0:1 64.1:4<206 64.2:4)"
+      ],
+      "idleAction": 7,
+      "idleMetadata": [
+        "breath sword(1 13,128.12:4 128.0:4 128.1:4 128.2:4 128.3:4 128.4:4 128.5:4 128.6:4 128.7:4 128.8:4 128.9:4 128.10:4 128.11:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 64,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 64,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 64,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 2786,
+      "weapon": 20,
+      "profilePath": "players/2786-20.json",
+      "profileSha256": "918594eb127cd161e1daf75390408142840eb22fd6f9608bc0f65371ca1ac631",
+      "sprite": 2786,
+      "action15": [
+        "get(1 4,8.0:1 64.0:1 64.1:4<206 64.2:4)"
+      ],
+      "idleAction": 23,
+      "idleMetadata": [
+        "breath crossbow(1 12,160.11:4 160.0:4 160.1:4 160.2:4 160.3:4 160.4:4 160.5:4 160.6:4 160.7:4 160.8:4 160.9:4 160.10:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 64,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 64,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 64,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 2796,
+      "weapon": 0,
+      "profilePath": "players/2796-0.json",
+      "profileSha256": "2c800eede680307d5bfa5441b47f8aa3af6091069a75ef65d57d8e0f5b01b3fa",
+      "sprite": 2796,
+      "action15": [
+        "get(1 4,8.0:1 48.1:1 48.2:4<206 48.3:4)"
+      ],
+      "idleAction": 3,
+      "idleMetadata": [
+        "breath(1 12,8.11:4 8.0:4 8.1:4 8.2:4 8.3:4 8.4:4 8.5:4 8.6:4 8.7:4 8.8:4 8.9:4 8.10:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 1,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 2,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 3,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 2796,
+      "weapon": 4,
+      "profilePath": "players/2796-4.json",
+      "profileSha256": "76c83633011598bebb4b6685e75eee384201a39751ec1232ca3f111fd0af0c4f",
+      "sprite": 2796,
+      "action15": [
+        "get(1 4,8.0:1 48.1:1 48.2:4<206 48.3:4)"
+      ],
+      "idleAction": 7,
+      "idleMetadata": [
+        "breath sword(1 12,128.11:4 128.0:4 128.1:4 128.2:4 128.3:4 128.4:4 128.5:4 128.6:4 128.7:4 128.8:4 128.9:4 128.10:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 1,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 2,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 3,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 2796,
+      "weapon": 20,
+      "profilePath": "players/2796-20.json",
+      "profileSha256": "5fd0e9d1850bc6bdcb8eb042892089ad0a58a6cc0a506931228992a8064b019c",
+      "sprite": 2796,
+      "action15": [
+        "get(1 4,8.0:1 48.1:1 48.2:4<206 48.3:4)"
+      ],
+      "idleAction": 23,
+      "idleMetadata": [
+        "breath cross bow(1 12,160.11:4 160.0:4 160.1:4 160.2:4 160.3:4 160.4:4 160.5:4 160.6:4 160.7:4 160.8:4 160.9:4 160.10:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 1,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 2,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 48,
+          "frame": 3,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 6650,
+      "weapon": 0,
+      "profilePath": "players/6650-0.json",
+      "profileSha256": "bbc201656a181fe210d2777ba39770e8a52f2936dd206552f87a8d3d4f097371",
+      "sprite": 6650,
+      "action15": [
+        "get(1 4,8.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 3,
+      "idleMetadata": [
+        "breath(1 10,0.9:4 0.0:4 0.1:4 0.2:4 0.3:4 0.4:4 0.5:4 0.6:4 0.7:4 0.8:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 6650,
+      "weapon": 20,
+      "profilePath": "players/6650-20.json",
+      "profileSha256": "18e1a3047949711ffaeddcc07d7a7242fc0cceb6b4e9d64d5bc256cf796cf440",
+      "sprite": 6650,
+      "action15": [
+        "get(1 4,8.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 23,
+      "idleMetadata": [
+        "breath bow(1 10,184.9:4 184.0:4 184.1:4 184.2:4 184.3:4 184.4:4 184.5:4 184.6:4 184.7:4 184.8:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 6658,
+      "weapon": 0,
+      "profilePath": "players/6658-0.json",
+      "profileSha256": "ebc49e51e554da826aff93d95ec0710ea21b2ccf0e13e8e2e85c6f00920f04c5",
+      "sprite": 6658,
+      "action15": [
+        "get(1 4,8.0:1 56.0:1 56.1:4<206 56.2:4)"
+      ],
+      "idleAction": 3,
+      "idleMetadata": [
+        "breath(1 12,0.11:4 0.0:4 0.1:4 0.2:4 0.3:4 0.4:4 0.5:4 0.6:4 0.7:4 0.8:4 0.9:4 0.10:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 56,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 56,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 56,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 6658,
+      "weapon": 4,
+      "profilePath": "players/6658-4.json",
+      "profileSha256": "d011c9ddf23f8f2488832d364cc64125fb7338778b51fbaf13589a1ed8977231",
+      "sprite": 6658,
+      "action15": [
+        "get(1 4,8.0:1 56.0:1 56.1:4<206 56.2:4)"
+      ],
+      "idleAction": 7,
+      "idleMetadata": [
+        "breath onehandsword(1 12,112.11:4 112.0:4 112.1:4 112.2:4 112.3:4 112.4:4 112.5:4 112.6:4 112.7:4 112.8:4 112.9:4 112.10:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 56,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 56,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 56,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 6658,
+      "weapon": 50,
+      "profilePath": "players/6658-50.json",
+      "profileSha256": "157ab2c468081ec846d6f56b6814c0fe881a77f570a907672b899e174e1034be",
+      "sprite": 6658,
+      "action15": [
+        "get(1 4,8.0:1 56.0:1 56.1:4<206 56.2:4)"
+      ],
+      "idleAction": 53,
+      "idleMetadata": [
+        "breath largesword(1 12,144.11:4 144.0:4 144.1:4 144.2:4 144.3:4 144.4:4 144.5:4 144.6:4 144.7:4 144.8:4 144.9:4 144.10:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 56,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 56,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 56,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 6661,
+      "weapon": 0,
+      "profilePath": "players/6661-0.json",
+      "profileSha256": "d75bb3324e06003f657c2b021f9da7c5a6b6972a8428b735c30149c21d31e051",
+      "sprite": 6661,
+      "action15": [
+        "get(1 4,8.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 3,
+      "idleMetadata": [
+        "breath(1 13,0.12:4 0.0:4 0.1:4 0.2:4 0.3:4 0.4:4 0.5:4 0.6:4 0.7:4 0.8:4 0.9:4 0.10:4 0.11:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 6661,
+      "weapon": 4,
+      "profilePath": "players/6661-4.json",
+      "profileSha256": "28ed1495de3fa77ef8e123c57874aaece9516b8600e2f6f39ee5344e937e7581",
+      "sprite": 6661,
+      "action15": [
+        "get(1 4,8.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 7,
+      "idleMetadata": [
+        "breath onehandsword(1 12,152.11:4 152.0:4 152.1:4 152.2:4 152.3:4 152.4:4 152.5:4 152.6:4 152.7:4 152.8:4 152.9:4 152.10:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 6661,
+      "weapon": 50,
+      "profilePath": "players/6661-50.json",
+      "profileSha256": "b826579739920719bed6b636a055bd0edb1ae435c5a1936c02bb038ec5843076",
+      "sprite": 6661,
+      "action15": [
+        "get(1 4,8.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 53,
+      "idleMetadata": [
+        "breath largesword(1 12,112.11:4 112.0:4 112.1:4 112.2:4 112.3:4 112.4:4 112.5:4 112.6:4 112.7:4 112.8:4 112.9:4 112.10:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 6671,
+      "weapon": 0,
+      "profilePath": "players/6671-0.json",
+      "profileSha256": "9ced25fb5c036d8b711edaddd345d700e1a52049dff77c68d3f4ecaba55b1d1b",
+      "sprite": 6671,
+      "action15": [
+        "get(1 4,8.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 3,
+      "idleMetadata": [
+        "breath(1 12,0.11:4 0.0:4 0.1:4 0.2:4 0.3:4 0.4:4 0.5:4 0.6:4 0.7:4 0.8:4 0.9:4 0.10:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    },
+    {
+      "gfx": 6671,
+      "weapon": 20,
+      "profilePath": "players/6671-20.json",
+      "profileSha256": "11b0a21a9644d60c7eb9bca0e120c600c32b8515ebcef9c902a6b42f9436fb27",
+      "sprite": 6671,
+      "action15": [
+        "get(1 4,8.0:1 24.0:1 24.1:4<206 24.2:4)"
+      ],
+      "idleAction": 23,
+      "idleMetadata": [
+        "breath bow(1 12,184.11:4 184.0:4 184.1:4 184.2:4 184.3:4 184.4:4 184.5:4 184.6:4 184.7:4 184.8:4 184.9:4 184.10:4)"
+      ],
+      "basePickupTokens": [
+        {
+          "spriteIndex": 8,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 0,
+          "ticks": 1,
+          "events": ""
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 1,
+          "ticks": 4,
+          "events": "<206"
+        },
+        {
+          "spriteIndex": 24,
+          "frame": 2,
+          "ticks": 4,
+          "events": ""
+        }
+      ],
+      "metadataType102": [
+        "type(5)"
+      ],
+      "classTable13CD838": "runtime table not proved equal to text102.type",
+      "weaponOutside28To39": true,
+      "weaponPlus3Below121": true,
+      "weaponPlus3Not15": true,
+      "weaponPlus2Not15": true,
+      "class11Weapon32TerminalExcluded": true,
+      "special501260Excluded": true,
+      "predicate8CA110": true,
+      "base15Unique": true,
+      "baseIdleUnique": true
+    }
+  ]
+}

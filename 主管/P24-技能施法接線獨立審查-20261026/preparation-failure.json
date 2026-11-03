@@ -1,0 +1,5 @@
+{
+  "status": "review-preparation-failed-before-build",
+  "reason": "Reviewer assumed global.json/NuGet.Config in each overlay; skill delivery omits unchanged root configuration inherited from prior package.",
+  "next": "Verify prior immutable configuration hashes and inherit explicit copies in new review directory. No product runtime failure or tests executed."
+}

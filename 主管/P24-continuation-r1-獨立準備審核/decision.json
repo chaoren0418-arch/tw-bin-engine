@@ -1,0 +1,28 @@
+{
+  "status": "offline-continuation-preparation-independently-accepted",
+  "utc": "2026-10-25T20:03:04.765122+00:00",
+  "workerThread": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+  "preparation": {
+    "path": "reference/cache/continuation-r1/ready-r4/preparation.json",
+    "sha256": "c7a3dd71e341820770fbb887cf502aafb4bec6552e878d17c0b7e9771e390a58",
+    "inputCount": 829
+  },
+  "checks": 49,
+  "checksSha256": "e2aceabd4ad5e735b8303e371610741a14cdaae57083ed7240f8db87d6078716",
+  "manifestsVerified": {
+    "continuation-supplement": 60,
+    "prior-protected-inputs": 663
+  },
+  "supplementManifestSha256": "c14e1d1fa9d0ff4d6627142dd00895c416c21b580562c80a133aef2ab6722561",
+  "plans": 5,
+  "plannedMovesTotal": 202,
+  "routeProof": "P24-continuation-r1-route-pins.json",
+  "rawAdapter": "future-raw-adapter-syntax.json",
+  "frameAdapter": "../P24-新版圖像時序證據接點-20261026/validation.json",
+  "productChanged": false,
+  "liveAuthorized": false,
+  "liveRuntimeBranchesExecuted": false,
+  "formalFreeze": false,
+  "fullP24Accepted": false,
+  "scope": "Accepts offline preparation only. Exact versioned routes/saved chains/runtime preservation/single-writer Goal checks reviewed. User UI remains deferred; actual new-live and formal freeze require explicit subsequent release and real evidence."
+}

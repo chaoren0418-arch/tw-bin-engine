@@ -1,0 +1,30 @@
+[
+  {
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P22-純特效影格產品核對-v1\\Probe.csproj",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P22-純特效影格產品核對-v1\\NuGet.Config",
+      "--nologo",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit": 0,
+    "stdout": "  正在判斷要還原的專案...\r\n  已還原 D:\\lineage開發\\TW1608262200研究\\主管\\P22-純特效影格產品核對-v1\\Probe.csproj (83 毫秒 內)。\r\n  Probe -> D:\\lineage開發\\TW1608262200研究\\主管\\P22-純特效影格產品核對-v1\\bin\\Release\\net10.0-windows\\Probe.dll\r\n\r\n建置成功。\r\n    0 個警告\r\n    0 個錯誤\r\n\r\n經過時間 00:00:03.17\r\n",
+    "stderr": "\r\n歡迎使用 .NET 10.0!\r\n---------------------\r\nSDK 版本: 10.0.300\r\n\r\n----------------\r\n安裝 ASP.NET 核心 HTTPS 開發憑證。\r\n若要信任憑證，請執行 'dotnet dev-certs https --trust'\r\n了解 HTTPS: https://aka.ms/dotnet-https\r\n\r\n----------------\r\n編寫您的第一個應用程式: https://aka.ms/dotnet-hello-world\r\n了解新功能: https://aka.ms/dotnet-whats-new\r\n探索文件: https://aka.ms/dotnet-docs\r\n在 GitHub 上報告問題和尋找來源: https://github.com/dotnet/core\r\n使用 'dotnet --help' 查看可用的命令或瀏覽: https://aka.ms/dotnet-cli\r\n--------------------------------------------------------------------------------------\r\n"
+  },
+  {
+    "args": [
+      "dotnet",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P22-純特效影格產品核對-v1\\bin\\Release\\net10.0-windows\\Probe.dll",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P22-純特效影格產品核對-v1\\cases.json",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P22-純特效影格產品核對-v1\\assets",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P22-純特效影格產品核對-v1\\actual.json"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

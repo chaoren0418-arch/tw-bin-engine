@@ -1,0 +1,203 @@
+{
+  "kind": "pure static integer arithmetic, not native execution or scheduler emulation",
+  "baseInput": [
+    41,
+    41,
+    166,
+    166
+  ],
+  "baseQualification": "Pinned inherited fixed-duration metadata example; upstream tick conversion is not newly established here. Native A407D0 reads an already converted duration field.",
+  "rows": [
+    {
+      "speed": 0,
+      "durationByMetadataFrameIndex": [
+        41,
+        41,
+        166,
+        166
+      ],
+      "frameIndexOrder": [
+        1,
+        2,
+        3,
+        0
+      ],
+      "idealRelativeNodesMs": [
+        0,
+        42,
+        209,
+        376
+      ],
+      "terminalQueuedConsumerIdealMs": 417,
+      "terminalEmptyOrdinaryIdleIdealMs": 960
+    },
+    {
+      "speed": 1,
+      "durationByMetadataFrameIndex": [
+        30,
+        30,
+        124,
+        124
+      ],
+      "frameIndexOrder": [
+        1,
+        2,
+        3,
+        0
+      ],
+      "idealRelativeNodesMs": [
+        0,
+        31,
+        156,
+        281
+      ],
+      "terminalQueuedConsumerIdealMs": 311,
+      "terminalEmptyOrdinaryIdleIdealMs": 865
+    },
+    {
+      "speed": 2,
+      "durationByMetadataFrameIndex": [
+        82,
+        82,
+        332,
+        332
+      ],
+      "frameIndexOrder": [
+        1,
+        2,
+        3,
+        0
+      ],
+      "idealRelativeNodesMs": [
+        0,
+        83,
+        416,
+        749
+      ],
+      "terminalQueuedConsumerIdealMs": 831,
+      "terminalEmptyOrdinaryIdleIdealMs": 1333
+    }
+  ],
+  "latenessCases": [
+    {
+      "oldBaseline": 42,
+      "now": 42,
+      "duration": 166,
+      "newBaseline": 209,
+      "delay": 167,
+      "nextDue": 209
+    },
+    {
+      "oldBaseline": 42,
+      "now": 100,
+      "duration": 166,
+      "newBaseline": 209,
+      "delay": 109,
+      "nextDue": 209
+    },
+    {
+      "oldBaseline": 42,
+      "now": 207,
+      "duration": 166,
+      "newBaseline": 209,
+      "delay": 2,
+      "nextDue": 209
+    },
+    {
+      "oldBaseline": 42,
+      "now": 208,
+      "duration": 166,
+      "newBaseline": 209,
+      "delay": 2,
+      "nextDue": 210
+    },
+    {
+      "oldBaseline": 42,
+      "now": 209,
+      "duration": 166,
+      "newBaseline": 209,
+      "delay": 2,
+      "nextDue": 211
+    },
+    {
+      "oldBaseline": 42,
+      "now": 300,
+      "duration": 166,
+      "newBaseline": 209,
+      "delay": 2,
+      "nextDue": 302
+    }
+  ],
+  "remoteBacklogExamples": [
+    {
+      "nonselfQueueCount": 0,
+      "divisor": 1,
+      "base166BeforeOtherModifiers": 166,
+      "speed1AfterDivision": 124
+    },
+    {
+      "nonselfQueueCount": 1,
+      "divisor": 1,
+      "base166BeforeOtherModifiers": 166,
+      "speed1AfterDivision": 124
+    },
+    {
+      "nonselfQueueCount": 2,
+      "divisor": 2,
+      "base166BeforeOtherModifiers": 83,
+      "speed1AfterDivision": 62
+    },
+    {
+      "nonselfQueueCount": 3,
+      "divisor": 2,
+      "base166BeforeOtherModifiers": 83,
+      "speed1AfterDivision": 62
+    },
+    {
+      "nonselfQueueCount": 4,
+      "divisor": 4,
+      "base166BeforeOtherModifiers": 41,
+      "speed1AfterDivision": 30
+    },
+    {
+      "nonselfQueueCount": 7,
+      "divisor": 4,
+      "base166BeforeOtherModifiers": 41,
+      "speed1AfterDivision": 30
+    },
+    {
+      "nonselfQueueCount": 8,
+      "divisor": 8,
+      "base166BeforeOtherModifiers": 20,
+      "speed1AfterDivision": 15
+    },
+    {
+      "nonselfQueueCount": 15,
+      "divisor": 8,
+      "base166BeforeOtherModifiers": 20,
+      "speed1AfterDivision": 15
+    },
+    {
+      "nonselfQueueCount": 16,
+      "divisor": 16,
+      "base166BeforeOtherModifiers": 10,
+      "speed1AfterDivision": 7
+    },
+    {
+      "nonselfQueueCount": 17,
+      "divisor": 16,
+      "base166BeforeOtherModifiers": 10,
+      "speed1AfterDivision": 7
+    }
+  ],
+  "assumptions": [
+    "No wrap or signed intermediate overflow",
+    "No callback/body/sample overhead in illustrative sums",
+    "Stable four-frame metadata and neutral applicable modifiers",
+    "Terminal fresh clock Nt is distinct from initial N0",
+    "Self status source or nonself queue<=1 at every duration sample"
+  ],
+  "runtimeChecks": 0,
+  "timingParity": false,
+  "slowQualified": false
+}

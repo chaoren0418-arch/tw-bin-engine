@@ -1,0 +1,116 @@
+{
+  "schema": "engine-r30-preparation-seal-v1",
+  "status": "prepared-awaiting-accepted-actions-candidate",
+  "files": [
+    {
+      "path": "acceptance-materials.schema.json",
+      "size": 12087,
+      "sha256": "02dfc5343c69b42c81f2cac2a8738822f38e6b5101422fe555c839c77192e254"
+    },
+    {
+      "path": "acceptance_gate.py",
+      "size": 12432,
+      "sha256": "ea5393a430a3ac2eaea34e673811930079e95b5ead4a2fbaa454aa7113c7f748"
+    },
+    {
+      "path": "baseline-lock.json",
+      "size": 36974,
+      "sha256": "2a360f9828788ad485c10f43bd62931b585abdf2f67c2f333cb8ff406e3ab169"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 8129,
+      "sha256": "7aedd3a8788de08fd5034b2346ebeff1feba3716e8af1db98ab7eca1074b5da4"
+    },
+    {
+      "path": "prepare_rebuild.py",
+      "size": 4742,
+      "sha256": "5937b441c8451107d56e48756ffff3ca38bd49278bf7974ed88a63dd9de72944"
+    },
+    {
+      "path": "prepared/build-product.ps1",
+      "size": 1723,
+      "sha256": "13d768222206b4567f83a857980c46f3da25e20139305fc74ef0e5c95a6737a3"
+    },
+    {
+      "path": "prepared/launch-product.ps1",
+      "size": 2781,
+      "sha256": "fd1b964775200018c9b16b43cba3097235be08625caf1c6c5898f17f97dd39af"
+    },
+    {
+      "path": "prepared/rebuild_template_r30.py",
+      "size": 8289,
+      "sha256": "f0dc4e3ca927d8aa5df41a1ea36ba786a04d9146508700b5cdecf53648c53859"
+    },
+    {
+      "path": "prepared/run_stage_r30.py",
+      "size": 7082,
+      "sha256": "ba7cf28c8b5112fce72e53b37aeef783f26bd5622fbbd397c2491c9724a48dca"
+    },
+    {
+      "path": "r29-to-r30-preparation.patch",
+      "size": 36613,
+      "sha256": "d82307a5036c8e848fd74e4f96c164b160fdd60df61b53ecca5434547fcaa313"
+    },
+    {
+      "path": "reference/acceptance_gate_r29.py",
+      "size": 10064,
+      "sha256": "99308bd3e9a546795f30f934b153783a66bb3dbb4a83de26468adab0222081e8"
+    },
+    {
+      "path": "reference/common.py",
+      "size": 1932,
+      "sha256": "7c4190a4a5726757c290742fdb77bc0320856248fc70da15a87afb53bbbd09a4"
+    },
+    {
+      "path": "reference/launch-product-r29.ps1",
+      "size": 2781,
+      "sha256": "62ef780ac27feb9ff4b908aa045d9c6a717a4711cec0e209db33dc207f738e04"
+    },
+    {
+      "path": "reference/product-build-r29.ps1",
+      "size": 2119,
+      "sha256": "f919519bb6af71af7cf0b79074176be6b2fa85044e55fb34ca2788f571acb12b"
+    },
+    {
+      "path": "reference/rebuild_template_r29.py",
+      "size": 8267,
+      "sha256": "1d6f43c1611f477bc4629675e3727b78ef172ef9bbd994f4543341d5744416e0"
+    },
+    {
+      "path": "reference/run_next_stage_r29.py",
+      "size": 3833,
+      "sha256": "8ddb479e72b3cc448293bc9c2841cafeeede357982c3e775a6f6084bed0d7db7"
+    },
+    {
+      "path": "reference/run_stage_r29.py",
+      "size": 7043,
+      "sha256": "78c0767aff8cb3b27e028fa8d1e1cbb8594494961b423c492f3016b2bad8ff9f"
+    },
+    {
+      "path": "reference/supervisor-baseline.json",
+      "size": 29834,
+      "sha256": "2a6db2201916014b44b1281aaf7b244e4ebe0ac49b0bba4c432e9c964125b104"
+    },
+    {
+      "path": "reference-pins.json",
+      "size": 2105,
+      "sha256": "e6b0cddab727f5a77ae4c42f35be2d75d6eaef26fe80644ae6f9c0735519ebe6"
+    },
+    {
+      "path": "run_next_stage.py",
+      "size": 3370,
+      "sha256": "1d716d6143228805ad3863c76474e306af050d1110abdca543f443f89ab7c6fd"
+    },
+    {
+      "path": "test_rejections.py",
+      "size": 4604,
+      "sha256": "025b9a9cb91382249e9a559619daa3e00dc7893517cbbca6c96755e498f8eeeb"
+    },
+    {
+      "path": "validation-plan.json",
+      "size": 2695,
+      "sha256": "fbabd76bf17122c587be52431592f6cc1e63a8f0a0f87ee6689b59f7756a3501"
+    }
+  ]
+}

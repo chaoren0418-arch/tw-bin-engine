@@ -1,0 +1,22 @@
+{
+  "stage": "timed-item-repair-review-r1",
+  "status": "review-complete-no-repair-authorized-or-applied",
+  "baseline": "sealed r28; retained d287 Server_Game.jar",
+  "goal": {"workerInitial": "null", "scopedGoalCreated": true, "supervisorPausedGoalResumedOrReplaced": false},
+  "writeRoot": "D:/lineage開發/TW1608262200研究/work/timed-item-repair-review-r1",
+  "sourcePinCount": 19,
+  "preReviewCorrection": {"stdoutReference": "exact exception text plus SHA256; Select-String physical lines238/243", "aggregateCoverage": "closed by timed-counts.json; not an outstanding LIMIT100 gap", "repairScopeChanged": false},
+  "findings": {"objectId": 10326, "currentMainRowAbsent": true, "expiredMetadataPresent": true, "historicalOwner": 1900249001, "historicalTemplate": 49290, "deletionCauseProven": false, "disappearancePredatesMigration": true, "allTimedRowsAtAggregate": 1, "orphansAtAggregate": 1, "nullTimeOrNonpositiveIdAtAggregate": 0, "tablesSqlConfirmedMyISAM": true, "transactionRollbackAssumed": false},
+  "recommendedNow": "Preserve and fail closed; prepare bounded isolated reproduction only after separate authorization.",
+  "options": "OPTIONS.md",
+  "testDesign": "ISOLATED-TEST-DESIGN.md",
+  "validation": {"retainedJarHash": "pass", "supervisorPinsVerified": 8, "timelineOriginalPinsVerified": 3, "retainedLedgerDelta": "only role1900249001 online1->0", "syntheticReviewPolicyCases": 18, "syntheticCasesPassed": 18, "retainedJavaTested": false, "mysqlTested": false, "sourceAndArtifacts": "verify.py sealed pass"},
+  "prohibitedShortcutsExcluded": ["simple deletion or disguised filtering", "grant or reconstruct missing item", "skip loader guard", "treat expired time as proven normal cleanup", "overwrite shared hardlinks", "assume MyISAM rollback"],
+  "operations": {"databaseConnections": 0, "socketConnections": 0, "uiActions": 0, "serviceStartsOrStops": 0, "javaExecutions": 0, "candidateCopies": 0, "sharedWrites": 0, "subagents": 0},
+  "limitations": ["historical object-specific terminal reason is unknown", "no L1/L2/L3 execution", "aggregate is a timestamped receipt, not a guarantee against later changes", "retained ledger is bounded to nine roles", "existing source is separately pinned, not proven identical to loaded bytecode", "cold-backup byte equality does not establish healthy logical state"],
+  "parentDecisionRequiredBeforeOriginalMutation": true,
+  "wholeP24Complete": false,
+  "environmentSmokePassed": false,
+  "handoff": "HANDOFF.md",
+  "stopWritingAfterSeal": true
+}

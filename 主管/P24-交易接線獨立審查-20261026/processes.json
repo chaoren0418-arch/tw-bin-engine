@@ -1,0 +1,97 @@
+[
+  {
+    "name": "build-product",
+    "pid": 73900,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u4ea4\u6613\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\source\\OfflineClient.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u4ea4\u6613\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\client",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u4ea4\u6613\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 7.931288242340088
+  },
+  {
+    "name": "build-trade",
+    "pid": 79728,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u4ea4\u6613\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\trade-r1\\harness\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u4ea4\u6613\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\trade",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u4ea4\u6613\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 4.21034836769104
+  },
+  {
+    "name": "build-regression",
+    "pid": 7340,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u4ea4\u6613\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\trade-r1\\regression-harness\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u4ea4\u6613\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\regression",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u4ea4\u6613\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 3.9752111434936523
+  },
+  {
+    "name": "trade",
+    "pid": 42952,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u4ea4\u6613\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\trade\\P24.TradeChecks.exe"
+    ],
+    "exitCode": 0,
+    "elapsed": 0.3087422847747803
+  },
+  {
+    "name": "trade-dom",
+    "pid": 81528,
+    "args": [
+      "node",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u4ea4\u6613\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\trade-r1\\test_dom.cjs"
+    ],
+    "exitCode": 0,
+    "elapsed": 0.20245909690856934
+  },
+  {
+    "name": "regression",
+    "pid": 80288,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u4ea4\u6613\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\regression\\P24.TradeRegression.exe"
+    ],
+    "exitCode": 0,
+    "elapsed": 7.385844469070435
+  },
+  {
+    "name": "service-dom",
+    "pid": 86120,
+    "args": [
+      "node",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u4ea4\u6613\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\skill-warehouse-r1\\test_dom.cjs"
+    ],
+    "exitCode": 0,
+    "elapsed": 0.10495853424072266
+  }
+]

@@ -1,0 +1,190 @@
+{
+  "schema": "p26-authority-rebind-review-manifest-v1",
+  "files": [
+    {
+      "path": "acceptance_gate.py.independent.patch",
+      "size": 1926,
+      "sha256": "40616e3369b00048f35031b8b959af97a6659a84b290f7bf3139d93d8e310c5d"
+    },
+    {
+      "path": "authority-tests.json",
+      "size": 3697,
+      "sha256": "fddc3d2e6323ce533e1bd4f0b2a70a87cd4e00288ae55c028f2328fec47dab71"
+    },
+    {
+      "path": "common.py.independent.patch",
+      "size": 531,
+      "sha256": "197bc0ff0db7c03a5de4eb3ce94d89ff5d54661735c964934c16f48c6875f07e"
+    },
+    {
+      "path": "comparison.json",
+      "size": 4334,
+      "sha256": "5dd4fa9b48206bc7d69e022f94380527a8d472a9229ce2e3a4367705c8afa9e1"
+    },
+    {
+      "path": "dependency-archive-review.json",
+      "size": 13806,
+      "sha256": "a97371a46b491fae06986ce1e257922ba59464270dce44d8a508f8052c0cfe72"
+    },
+    {
+      "path": "execution_support.py.independent.patch",
+      "size": 1169,
+      "sha256": "7a9881ad7c30789492211a6b0f98270f39c00de5953181e174487b1aad3bbb70"
+    },
+    {
+      "path": "finalize.py",
+      "size": 14551,
+      "sha256": "05148e3e6db96391038ce284fd09a0c0033224f35b7a61861ef3b1e56d8d337d"
+    },
+    {
+      "path": "findings.json",
+      "size": 5495,
+      "sha256": "9b4d0945c90d55dff2ca5ccbadaa074485f514e07f8139156691b1ff76132268"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 4369,
+      "sha256": "615e3df83228b37e0bbeaa4c98e5f1a0819c43c480b35c759eb7ff5c155d1ec5"
+    },
+    {
+      "path": "progress.json",
+      "size": 488,
+      "sha256": "210cdf2d5569277815bac75b2df66158b1b19916e14f30286c7408699526e0be"
+    },
+    {
+      "path": "result.json",
+      "size": 1780,
+      "sha256": "7b416c48543abdb8e3149728b48f37372d7bc17e6dde8b34fae51fccf2e6bc7f"
+    },
+    {
+      "path": "review.json",
+      "size": 9396,
+      "sha256": "3fe29529a4809d9f0236d5a46890ddf9aa34bac41c8a2497f3e48dd5fbcc7658"
+    },
+    {
+      "path": "review_rebind.py",
+      "size": 16672,
+      "sha256": "79abc10fc9e24e60d9b0dc2122971c48b72089e5f92c6d55402fbf6d6ebba4c9"
+    },
+    {
+      "path": "serial_canonical.py.independent.patch",
+      "size": 5889,
+      "sha256": "37f61b1c3752edded3dd8526e6a5a70df760919cff2fe9ebe8645c6d2f659ad6"
+    },
+    {
+      "path": "source-sha256.json",
+      "size": 404525,
+      "sha256": "e0c0dd829618b8cb0ee421f48fba07c6f0fce0e3001effca833e1388316a4b58"
+    },
+    {
+      "path": "supervisor-gate-contract-inputs.json",
+      "size": 3868,
+      "sha256": "4f6726375b64d4cbbbc74b424a9289ac7dd80e8a1eeff452d54047e0e6f764d4"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-0/attempt.json",
+      "size": 953,
+      "sha256": "1b4845be65398a9ebb87d525e99acdf484d181bc6254546b9764789da07943c2"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-0/stderr",
+      "size": 7,
+      "sha256": "093c12fc9ad567d0eb6856f911fad104d4375a20809906b47685e544441d8dfd"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-0/stdout",
+      "size": 11,
+      "sha256": "98f797d6b818202d3e752293f69e7d79a139703d80ee0fc72c854f95bb19068a"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-1/attempt.json",
+      "size": 954,
+      "sha256": "8d18873ab9000e5bd29f8b7ddb60d3e21c6294d2a151645b2c4ee77b5fd2cb83"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-1/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-1/stdout",
+      "size": 8,
+      "sha256": "9f761da9fc5c05ed81e4ea04745f7006e8de90a4b1f9ff5d57d68959ee74e2c8"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-2/attempt.json",
+      "size": 954,
+      "sha256": "5d1be58e947f672461a6c064dc3454b7755d362be3db238cbfb550ba32cc6dc7"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-2/stderr",
+      "size": 8,
+      "sha256": "8dad6585c7bed5aa3d01dc274c221e0c114b9455d84aa79f63748b763eb3a7e5"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-2/stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-3/attempt.json",
+      "size": 955,
+      "sha256": "c5213108c3f176c0c15598ac92cf8b32f8dcf5da45340d601d76a27aa60d312b"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-3/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-3/stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-4/attempt.json",
+      "size": 953,
+      "sha256": "221c2ec5adf1ccd61d8a7601a2bde4bbe005eefd940cf7a0c10382b2666b6afe"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-4/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "synthetic-independent-fgjl3e7f/timeout-4/stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "test_timeout_capture.py.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "test_timeout_capture.py.stdout.txt",
+      "size": 1468,
+      "sha256": "0984c7817f67cbf8fac8e2e0a4ccf8be5315ec2287862c8dabfdc4a48ef039be"
+    },
+    {
+      "path": "timeout-tests.json",
+      "size": 6165,
+      "sha256": "2eddfc6f8faf0a27b5a95583f0d3a69d041899e9c9c73679234f15d2f7e15d07"
+    },
+    {
+      "path": "verify_delivery.py",
+      "size": 954,
+      "sha256": "b476779a742740624e0700904933934467816f147915973dd8e6e7e6566c6989"
+    },
+    {
+      "path": "verify_rebind.py.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "verify_rebind.py.stdout.txt",
+      "size": 3803,
+      "sha256": "d4961a0a9403f8fe419a6f1ae79156eb5ba5050cbd06b70979d2c081f5614d83"
+    }
+  ]
+}

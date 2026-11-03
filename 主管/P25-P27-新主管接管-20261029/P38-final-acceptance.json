@@ -1,0 +1,101 @@
+{
+  "schema": "p38-supervisor-final-acceptance-v1",
+  "decision": "accepted-p38-isolated-delivery-and-launcher-check-only",
+  "utc": "2026-10-29T10:27:22.161462+00:00",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "candidateRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-candidate-r1",
+  "executionRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1",
+  "author": {
+    "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+    "turnId": "01a1871d-2a1e-7c80-804c-6dd91e0c365c",
+    "status": "idle-completed-sealed"
+  },
+  "reviewer": {
+    "threadId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+    "turnId": "01a18729-3ff9-7993-9b94-9204713fb008",
+    "status": "idle-completed-sealed"
+  },
+  "executionReceipt": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P38-delivery-execution-acceptance-r1.json",
+    "size": 1944,
+    "sha256": "11788b37e42a85f25d4a9cd9d8839a897d42fd16c1f98ed6e0d7322e454cc334"
+  },
+  "executionSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\artifact-seal.json",
+    "size": 1297,
+    "sha256": "b68ac8eb18888ca5806c81fc2ba38b8ff3dd0eea847d731f56ad02c0496d261b"
+  },
+  "independentReview": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-review-r1\\final\\final-review-receipt.json",
+    "size": 2967,
+    "sha256": "933f6d6d0c96c34b3222543fe7bf7ebf65edbc665403695966540e23621655e6"
+  },
+  "independentReviewSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-review-r1\\final\\artifact-seal.json",
+    "size": 591,
+    "sha256": "082634a6776fef393368020e0841eb357b6459703f6e84eda9e8a29266f4c2c1"
+  },
+  "rootVerification": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P38-root-final-evidence.json",
+    "size": 996,
+    "sha256": "9280ba3c34a447371a4845a2df8312b06d39c2bed9629e02da38de0d490f358d"
+  },
+  "identities": {
+    "productDllSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+    "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "productManifestSha256": "eb7bd750b534ed3190cb1b332bd3f0356721b85fbbec08f179ec0d407bdc56d2",
+    "launcherDllSha256": "44361072a33d572e155d80af41bf6245cf80fe8770eb1b80bdae0958540053b6"
+  },
+  "candidateFiles": 14181,
+  "independentFiles": 224,
+  "assetBodies": 13957,
+  "assetBodyBytes": 2222723085,
+  "independentFullAssetHashPasses": 1,
+  "rootAssetBodyHashes": 0,
+  "sourceFiles": 181,
+  "productOutputs": 15,
+  "webFiles": 30,
+  "normalManifestRows": 46,
+  "launcherBuilds": 1,
+  "actualCscTasks": 1,
+  "checkOnlyRuns": 2,
+  "productBuilds": 0,
+  "runtime": {
+    "architecture": "x64",
+    "loadedCoreVersion": "10.0.8",
+    "loadedCoreDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\10.0.8\\",
+    "desktopVersion": "10.0.8",
+    "desktopDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.WindowsDesktop.App\\10.0.8"
+  },
+  "webView2Version": "156.0.4314.50",
+  "checkOnlyResults": {
+    "candidate": 0,
+    "oldR34MissingCandidateManifestRefusal": 1
+  },
+  "protectedPinsUnchanged": 33,
+  "formalEntry": "r33",
+  "rootEntryPin": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+    "size": 158,
+    "sha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+  },
+  "projectManifestPin": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+    "size": 31361,
+    "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+  },
+  "sharedEngineWrites": false,
+  "existingReleaseContentChanges": false,
+  "normalLaunchAccepted": false,
+  "nativeAccepted": false,
+  "fullReleaseAccepted": false,
+  "entryActivationAuthorized": false,
+  "wholeEngineComplete": false,
+  "openP38Findings": [],
+  "readerReferenceCorrection": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-review-r1\\final\\binlog-reader-provenance.json",
+    "size": 2404,
+    "sha256": "a9e3d5c2e77c1f13b5b76062260e2e85f6adc9648215594bdbe207e04be0dfba"
+  },
+  "qualification": "Accepted immutable isolated delivery of exact P36 product plus new bound launcher and local check-only prerequisites; no normal product/native/full-release acceptance. Candidate historical pending-final text remains immutable, superseded by this external receipt."
+}

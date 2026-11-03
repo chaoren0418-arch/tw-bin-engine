@@ -1,0 +1,83 @@
+{
+  "utc": "2026-10-28T19:16:47.284385+00:00",
+  "status": "r29-offline-development-accepted",
+  "goalActualStatus": "paused",
+  "databaseScope": "Stopped by latest user instruction; user owns DB; no queries/mutations/service control",
+  "smokeGate": "Server-dependent integration acceptance only",
+  "tasks": [
+    {
+      "id": "ENGINE-SLOW-IMPL-R1",
+      "owner": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "writeRoot": "D:/lineage開發/TW1608262200研究/work/engine-slow-r1",
+      "status": "rejected-F1",
+      "turnId": "01a183f0-b512-7df0-b7f7-c762f757526b",
+      "cursor": "fd544505-99d4-4743-96cd-cd467d1820dc:27",
+      "accepted": false,
+      "candidateSealSha256": "bf22ad09f0d2b2940dfb295680d363287b56a253249f128de393520b562dac61"
+    },
+    {
+      "id": "ENGINE-SLOW-REVIEW-R1",
+      "owner": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "writeRoot": "D:/lineage開發/TW1608262200研究/work/engine-slow-review-r1",
+      "status": "delivered-rejected-F1",
+      "turnId": "01a18405-6aee-7e03-8f8e-1d551f11a225",
+      "cursor": "7d1d6419-2d65-4aa3-a69c-534fb7f98d8a:32",
+      "accepted": false,
+      "candidateReviewed": true,
+      "candidateAccepted": false
+    },
+    {
+      "id": "ENGINE-NEXT-INTEGRATION-PREP-R1",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "writeRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1",
+      "status": "consumed-by-accepted-r29-integration",
+      "accepted": true,
+      "sharedMergeAuthorized": false,
+      "turnId": "01a183f1-4bb0-7850-92f3-2e7d5e086f92",
+      "cursor": "d0af65fb-9735-4df3-ad9d-148fd38221c5:4"
+    },
+    {
+      "id": "ENGINE-SLOW-IMPL-R2",
+      "owner": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "status": "accepted-for-r29-integration",
+      "writeRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-r2",
+      "turnId": "01a1840c-5709-7c33-9b7e-48180fc8d637",
+      "cursor": "fd544505-99d4-4743-96cd-cd467d1820dc:40",
+      "accepted": true,
+      "candidateSealSha256": "7bed792d86ec1838ce97e0efa935d061420fa56cf6c0435dbaba0f0c919859b9"
+    },
+    {
+      "id": "ENGINE-SLOW-REVIEW-R2",
+      "owner": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "status": "accepted",
+      "turnId": "01a18411-8955-7061-adc4-d96ee0f170d4",
+      "cursor": "7d1d6419-2d65-4aa3-a69c-534fb7f98d8a:41",
+      "writeRoot": "work/engine-slow-review-r1/candidate-review-r2",
+      "accepted": true,
+      "candidateReviewed": true,
+      "candidateAccepted": true,
+      "unresolvedFindings": []
+    },
+    {
+      "id": "ENGINE-R29-INTEGRATE-R1",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "status": "accepted-offline",
+      "turnId": "01a18415-563c-7190-a98c-b4c4474a88bc",
+      "cursor": "d0af65fb-9735-4df3-ad9d-148fd38221c5:38",
+      "acceptanceReceipt": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-引擎開發恢復-20261029\\r29-integration-acceptance.json",
+      "sharedMergeAuthorizedAfterOfflineChecks": true,
+      "accepted": true,
+      "releaseSealSha256": "d3ac187e7fc44745864640e4bcc72fefbaeeaa0b0e9d63de7c0c3cfa8e46273d",
+      "supervisorAcceptance": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-引擎開發恢復-20261029\\r29-supervisor-acceptance.json"
+    }
+  ],
+  "baseline": "r28 migrated engine; sealed release unchanged",
+  "receipts": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-引擎開發恢復-20261029\\send-and-active-receipts.json",
+  "wholeP24Complete": false,
+  "next": "Current Speed2/Brave0 development and offline integration complete. Native/live acceptance remains unperformed; database is user-owned. Other source-limited P24 scope is retained, not silently marked complete.",
+  "updatedUtc": "2026-10-28T20:14:33.115721+00:00",
+  "currentRevision": "r29",
+  "workersIdle": true,
+  "supervisorAcceptance": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-引擎開發恢復-20261029\\r29-supervisor-acceptance.json",
+  "currentCompletionMatrix": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-引擎開發恢復-20261029\\completion-matrix-r29.json"
+}

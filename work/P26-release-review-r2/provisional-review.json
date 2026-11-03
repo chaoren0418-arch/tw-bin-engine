@@ -1,0 +1,593 @@
+{
+  "schema": "p26-RG1-independent-provisional-review-v1",
+  "status": "provisional-snapshot-only-await-exact-seal",
+  "releaseToolAccepted": false,
+  "snapshotPins": {
+    "status": "provisional-not-accepted",
+    "files": [
+      {
+        "original": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\result_evidence.py",
+          "size": 7225,
+          "sha256": "baaac4a8f0fad1e9faaa7d1512658d268a506dba9f57d9c54477d6f5b96e6809"
+        },
+        "snapshot": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\snapshot-01\\result_evidence.py",
+          "size": 7225,
+          "sha256": "baaac4a8f0fad1e9faaa7d1512658d268a506dba9f57d9c54477d6f5b96e6809"
+        }
+      },
+      {
+        "original": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\generate_package_plan.py",
+          "size": 16094,
+          "sha256": "32e5cefcc739c7e432dfa9cf00488072c330445695a4b3761d0e43c8ae962578"
+        },
+        "snapshot": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\snapshot-01\\generate_package_plan.py",
+          "size": 16094,
+          "sha256": "32e5cefcc739c7e432dfa9cf00488072c330445695a4b3761d0e43c8ae962578"
+        }
+      },
+      {
+        "original": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\acceptance_gate.py",
+          "size": 21873,
+          "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+        },
+        "snapshot": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\snapshot-01\\acceptance_gate.py",
+          "size": 21873,
+          "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+        }
+      },
+      {
+        "original": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\release_authority.py",
+          "size": 4531,
+          "sha256": "09115d5dfbfe4d14973f3ec23a6d48ad4135b10e76fcfae5052188208484f67b"
+        },
+        "snapshot": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\snapshot-01\\release_authority.py",
+          "size": 4531,
+          "sha256": "09115d5dfbfe4d14973f3ec23a6d48ad4135b10e76fcfae5052188208484f67b"
+        }
+      },
+      {
+        "original": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\release_checks.py",
+          "size": 691,
+          "sha256": "da3c4ebb17fc9de7c184cad911ac8b9cdc551b6b20a6598b90e33b6333912684"
+        },
+        "snapshot": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\snapshot-01\\release_checks.py",
+          "size": 691,
+          "sha256": "da3c4ebb17fc9de7c184cad911ac8b9cdc551b6b20a6598b90e33b6333912684"
+        }
+      },
+      {
+        "original": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\package_release.py",
+          "size": 9229,
+          "sha256": "6f71f11590b72df554563f39dc510f3a9e115bd4a87dc585864cc0787f444605"
+        },
+        "snapshot": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\snapshot-01\\package_release.py",
+          "size": 9229,
+          "sha256": "6f71f11590b72df554563f39dc510f3a9e115bd4a87dc585864cc0787f444605"
+        }
+      },
+      {
+        "original": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\pe_resource.py",
+          "size": 3519,
+          "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+        },
+        "snapshot": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\snapshot-01\\pe_resource.py",
+          "size": 3519,
+          "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+        }
+      },
+      {
+        "original": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\release-authority-policy.json",
+          "size": 2523,
+          "sha256": "06dbd04f1ae38a1255e3ce0ec783bc896a5e0ea993fdaf0f298fe4bdbe0d7020"
+        },
+        "snapshot": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\snapshot-01\\release-authority-policy.json",
+          "size": 2523,
+          "sha256": "06dbd04f1ae38a1255e3ce0ec783bc896a5e0ea993fdaf0f298fe4bdbe0d7020"
+        }
+      },
+      {
+        "original": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\context.json",
+          "size": 1539,
+          "sha256": "efc346a2a43b57097894d044a60e469222561c4a647123cc9bdd900955224e02"
+        },
+        "snapshot": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\snapshot-01\\context.json",
+          "size": 1539,
+          "sha256": "efc346a2a43b57097894d044a60e469222561c4a647123cc9bdd900955224e02"
+        }
+      }
+    ],
+    "capturedUtc": "2026-10-29T04:28:13.706283+00:00"
+  },
+  "cases": [
+    {
+      "id": "unchanged-byte-pins-and-semantics",
+      "expectedAccepted": true,
+      "actualAccepted": true,
+      "reason": null,
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\1"
+    },
+    {
+      "id": "attempt-bytes-changed",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: source/material drift: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\2\\workflow-unit\\attempt\\attempt.json",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\2"
+    },
+    {
+      "id": "attempt-missing",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required material missing: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\3\\workflow-unit\\attempt\\attempt.json",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\3"
+    },
+    {
+      "id": "stdout-bytes-changed",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: source/material drift: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\4\\workflow-unit\\attempt\\stdout",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\4"
+    },
+    {
+      "id": "stdout-missing",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required material missing: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\5\\workflow-unit\\attempt\\stdout",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\5"
+    },
+    {
+      "id": "stderr-bytes-changed",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: source/material drift: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\6\\workflow-unit\\attempt\\stderr",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\6"
+    },
+    {
+      "id": "stderr-missing",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required material missing: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\7\\workflow-unit\\attempt\\stderr",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\7"
+    },
+    {
+      "id": "probe-bytes-changed",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: source/material drift: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\8\\workflow-unit\\unit.json",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\8"
+    },
+    {
+      "id": "probe-missing",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required material missing: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\9\\workflow-unit\\unit.json",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\9"
+    },
+    {
+      "id": "PNG-reference-bytes-changed",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: source/material drift: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\10\\workflow-unit\\unit.png",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\10"
+    },
+    {
+      "id": "PNG-reference-missing",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required material missing: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\11\\workflow-unit\\unit.png",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\11"
+    },
+    {
+      "id": "inner-missing-rawAttempt",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required evidence pin is missing",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\12"
+    },
+    {
+      "id": "inner-missing-stdout",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required evidence pin is missing",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\13"
+    },
+    {
+      "id": "inner-missing-stderr",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required evidence pin is missing",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\14"
+    },
+    {
+      "id": "inner-missing-probes",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: report/inner attempt probe pins differ or missing",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\15"
+    },
+    {
+      "id": "pin-missing-path",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required evidence pin is missing",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\16"
+    },
+    {
+      "id": "pin-missing-size",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required evidence pin is missing",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\17"
+    },
+    {
+      "id": "pin-missing-sha256",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required evidence pin is missing",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\18"
+    },
+    {
+      "id": "inner-list-missing",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required innerEvidence missing",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\19"
+    },
+    {
+      "id": "inner-operation-missing",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: missing/extra/duplicate/reordered inner operation",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\20"
+    },
+    {
+      "id": "inner-operation-duplicate",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: missing/extra/duplicate/reordered inner operation",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\21"
+    },
+    {
+      "id": "inner-operation-unknown",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: missing/extra/duplicate/reordered inner operation",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\22"
+    },
+    {
+      "id": "inner-semantic-completed",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: failed/partial/wrong-identity inner attempt",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\23"
+    },
+    {
+      "id": "inner-semantic-exitCode",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: failed/partial/wrong-identity inner attempt",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\24"
+    },
+    {
+      "id": "inner-semantic-productDllSha256",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: failed/partial/wrong-identity inner attempt",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\25"
+    },
+    {
+      "id": "inner-semantic-argv",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: inner actual argv/cwd differs from recipe",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\26"
+    },
+    {
+      "id": "inner-semantic-cwd",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: inner actual argv/cwd differs from recipe",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\27"
+    },
+    {
+      "id": "inner-decoder-strategy",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: historical inner decoder/raw hash mismatch",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\28"
+    },
+    {
+      "id": "inner-decoder-replacements",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: historical inner decoder/raw hash mismatch",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\29"
+    },
+    {
+      "id": "inner-decoder-rawSha256",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: historical inner decoder/raw hash mismatch",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\30"
+    },
+    {
+      "id": "inner-report-probes-disagree",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: report/inner attempt probe pins differ or missing",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\31"
+    },
+    {
+      "id": "inner-recipe-probes-disagree",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: inner probe set differs from recipe",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\32"
+    },
+    {
+      "id": "inner-duplicate-probe",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: inner probe set differs from recipe",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\33"
+    },
+    {
+      "id": "native-probe-wrong-identity",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: native probe identity mismatch",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\34"
+    },
+    {
+      "id": "nested-probe-pin-outside-roots",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: evidence path outside explicit roots",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\35"
+    },
+    {
+      "id": "inner-stream-wrong-recipe-path",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: evidence path differs from pinned command plan",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\36"
+    },
+    {
+      "id": "nested-missing-command",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required evidence pin is missing",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\37"
+    },
+    {
+      "id": "nested-command-bytes-changed",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: source/material drift: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\38\\engine-sentinel\\nested\\sdk.json",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\38"
+    },
+    {
+      "id": "nested-command-file-missing",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required material missing: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\39\\engine-sentinel\\nested\\sdk.json",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\39"
+    },
+    {
+      "id": "nested-missing-stdout",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required evidence pin is missing",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\40"
+    },
+    {
+      "id": "nested-stdout-bytes-changed",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: source/material drift: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\41\\engine-sentinel\\nested\\sdk.stdout",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\41"
+    },
+    {
+      "id": "nested-stdout-file-missing",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required material missing: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\42\\engine-sentinel\\nested\\sdk.stdout",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\42"
+    },
+    {
+      "id": "nested-missing-stderr",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required evidence pin is missing",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\43"
+    },
+    {
+      "id": "nested-stderr-bytes-changed",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: source/material drift: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\44\\engine-sentinel\\nested\\sdk.stderr",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\44"
+    },
+    {
+      "id": "nested-stderr-file-missing",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: required material missing: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\45\\engine-sentinel\\nested\\sdk.stderr",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\45"
+    },
+    {
+      "id": "nested-omitted-row",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: all four nested commands and original result command rows required",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\46"
+    },
+    {
+      "id": "nested-duplicated-row",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: evidence path differs from pinned command plan",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\47"
+    },
+    {
+      "id": "nested-reordered",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: evidence path differs from pinned command plan",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\48"
+    },
+    {
+      "id": "nested-original-commands-missing",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: all four nested commands and original result command rows required",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\49"
+    },
+    {
+      "id": "nested-original-command-disagreement",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: nested command differs from original product result command",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\50"
+    },
+    {
+      "id": "nested-semantic-name",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: nested name/exit/argv/cwd mismatch",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\51"
+    },
+    {
+      "id": "nested-semantic-exitCode",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: nested name/exit/argv/cwd mismatch",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\52"
+    },
+    {
+      "id": "nested-semantic-argv",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: nested name/exit/argv/cwd mismatch",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\53"
+    },
+    {
+      "id": "nested-semantic-cwd",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "Refused: nested name/exit/argv/cwd mismatch",
+      "synthetic": true,
+      "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\54"
+    },
+    {
+      "id": "inventory-retains-historical-pin",
+      "expectedAccepted": true,
+      "actualAccepted": true,
+      "reason": null,
+      "synthetic": true
+    },
+    {
+      "id": "inventory-rejects-post-closure-drift",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "source/material drift: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p\\inventory-drift\\inner-stdout",
+      "synthetic": true
+    }
+  ],
+  "caseCount": 56,
+  "allExpectedOutcomes": true,
+  "productCommandsExecuted": 0,
+  "archiveCalls": 0,
+  "packageCalls": 0,
+  "sharedWrites": false,
+  "canonicalReplayed": false,
+  "generatorOnlyChangedFunctions": [
+    "completed_context",
+    "package_inventory",
+    "generate"
+  ],
+  "closureBeforeArchiveAndInventory": true,
+  "readOnlyHelperSource": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\snapshot-01\\result_evidence.py",
+    "size": 7225,
+    "sha256": "baaac4a8f0fad1e9faaa7d1512658d268a506dba9f57d9c54477d6f5b96e6809"
+  },
+  "remaining": [
+    "supervisor exact artifact/tool-source pins",
+    "compare final source bytes with tested snapshot",
+    "verify final dependency/archive closure",
+    "exact package plan is a separate later gate"
+  ],
+  "boundedNote": "Evidence.walk follows recorded pin dictionaries in current result/probe/marker values; it does not reinterpret historical archived snapshots as live assertions. pixel-evidence.json receives row/accounting checks; PNG reference bytes are anchored by historical copy/probe pins. No new product/pixel success claimed.",
+  "goalToolObservation": "get_goal remained blocked at resumed turn start; no resume API available, no replacement goal or internal state edit performed"
+}

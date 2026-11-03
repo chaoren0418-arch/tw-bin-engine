@@ -1,0 +1,22 @@
+{
+  "schema": "p26-release-tool-r2-independent-review-v1",
+  "decision": "accepted-for-supervisor-package-plan-generation",
+  "releaseToolAccepted": true,
+  "RG1": "resolved-for-exact-sealed-r2",
+  "exactEvidence": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\final-verification.json",
+    "size": 3809,
+    "sha256": "9379eb093f2b8c5184e66c7a9f52814b8e54c11807521f77c05f281bd52e9a7e"
+  },
+  "independentEvidence": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\provisional-review.json",
+    "size": 27514,
+    "sha256": "0b9022624701d51b4e9860c5fb4dfc94037029affab7e125b31177b1a9b8912b"
+  },
+  "unpassed": [],
+  "exactPackagePlanAccepted": false,
+  "actualReleaseAccepted": false,
+  "productCommandsExecuted": 0,
+  "archiveCalls": 0,
+  "packageCalls": 0
+}

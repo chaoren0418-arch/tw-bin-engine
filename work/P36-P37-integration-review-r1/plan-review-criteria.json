@@ -1,0 +1,16 @@
+{
+  "schema":"p36-p37-plan-review-criteria-v1",
+  "qualification":"Review conditions, not an execution acceptance or receipt",
+  "sourceBinding":"Exact P30 acceptance and 347 stage seal members; all 181 source/audio/web rows; exact four replacements and one new embedded resource; current old 180 rows pinned before any installation.",
+  "sharedWriteAllowlist":"Only the five declared engine source targets and fresh explicitly versioned engine build outputs after independent plan acceptance and supervisor exact execution receipt. Review worker never writes engine.",
+  "immutable":"All releases, archived work, root entry/project-manifest, r33/r34 launcher, original r34 product manifest and build/client-product-r34, assets junction and shared hardlink bytes.",
+  "installation":"Exclusive fresh execution root; validate ancestor paths; independently copy and hash baseline plus staged bytes before replacement; do not edit shared hardlink in place; per-file transition evidence and partial-failure recovery.",
+  "rollback":"Preserve original pins and all failed outputs. Restore only declared source paths, only when current bytes match known installed/original states; quarantine additions rather than permanent deletion; do not overwrite unknown concurrent changes or historical outputs.",
+  "build":"Single canonical engine/source/OfflineClient.csproj product+audio build with exact expected P30 DLL hashes, pinned local toolchain/offline dependencies, private project-specific obj/cache/temp and fresh versioned output. No stage DLL copy as build success.",
+  "determinism":"P30 actual Csc uses source PathMap to /_/p24/source and audio to /_/p24/audio; generated files originally under project obj/Release/net10.0-windows. Relocated private obj paths must be considered in equivalent generated-file mapping; expected hash stays fixed if build differs.",
+  "environment":"First child launch sets DOTNET_GENERATE_ASPNET_CERTIFICATE=false, DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false, telemetry off, offline NuGet, NuGetAudit=false, UseSharedCompilation=false, nr:false and fixed PROGRAMFILES(X86). No HOME/USERPROFILE/CODEX_HOME or system environment rewrites.",
+  "buildEvidence":"Record exact argv/cwd/environment selection, raw stdout/stderr and exit/timeout, binlog/compiler source provenance and both output pins. Failed/partial attempt is immutable diagnostic evidence; no blind retry or expected-hash rewrite.",
+  "p37":"Explicit new versioned inventory-only identity/source binding. Original r34 180-source/8-step completed_context and receipt remain historical and cannot accept 181-source new build. No fabricated completed regressions, archive_tools, generation, packaging or entry activation.",
+  "reuse":"Same-DLL historical runtime evidence may be linked with explicit inherited/not-new qualification. No whole P28/P31-P34 suite or old 44-command replay without a concrete new defect.",
+  "finalGate":"Supervisor final exact plan/tool seals before executable inspection; plan acceptance precedes distinct execution receipt; actual post-execution independent review still required."
+}

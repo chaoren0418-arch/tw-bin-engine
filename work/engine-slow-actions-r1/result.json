@@ -1,0 +1,68 @@
+{
+  "schema": "engine-candidate-result-v1",
+  "candidateId": "ENGINE-SLOW-ACTIONS-IMPL-R1",
+  "task": "ENGINE-SLOW-ACTIONS-IMPL-R1",
+  "status": "candidate-ready-for-independent-review",
+  "checksPassed": true,
+  "checks": 916,
+  "productDllSha256": "1abc1eed02917d14fd775be60920fe74efb9b102bc53eea5874fc0128e5247ef",
+  "candidateDllSha256": "1abc1eed02917d14fd775be60920fe74efb9b102bc53eea5874fc0128e5247ef",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "sourceManifest": "source-manifest.json",
+  "sourceManifestFiles": 177,
+  "changedSourceFiles": 8,
+  "sourceBase": "r29 shared source/audio/web exact supervisor baseline pins",
+  "tests": {
+    "candidate": {
+      "checks": 916,
+      "passed": 916,
+      "path": "evidence/candidate-result.json"
+    },
+    "baselineGap": {
+      "checks": 9,
+      "path": "evidence/baseline-result.json",
+      "includedInChecksTotal": false
+    },
+    "newNativeFrameArithmetic": {
+      "checks": 18,
+      "path": "source-evidence/action-frame-oracle.json",
+      "includedInChecksTotal": false,
+      "syntheticMetadataAndNeutralCallees": true
+    },
+    "profileTimingRows": {
+      "rows": 126,
+      "path": "source-evidence/profile-action-timings.json",
+      "includedInChecksTotal": false
+    }
+  },
+  "build": {
+    "configuration": "Release",
+    "warnings": 0,
+    "errors": 0
+  },
+  "supported": {
+    "speed": 2,
+    "brave": 0,
+    "actions": [
+      "existing single attacks",
+      "skills1/3/4/8"
+    ],
+    "profileCount": 42
+  },
+  "sourceContract": "SOURCE-CONTRACT.md",
+  "sealed": true,
+  "candidateAccepted": false,
+  "sharedEngineMerged": false,
+  "nativeLiveAcceptance": false,
+  "wholeProjectComplete": false,
+  "goal": "existing worker Goal observed blocked; not modified",
+  "limitations": [
+    "Offline actual DLL/renderer with synthetic actors/clocks/packets/sender; not native game acceptance.",
+    "Absolute native scheduler/release origin not certified; retained r29 marker prefix and relative Speed2 multiplier.",
+    "Slow input uses additional native animation guard beyond server cadence minimum; explicit conservative engine policy.",
+    "Predicted/ack action identity and monotonic high-water windows are engine policy, not original client tick-by-tick emulation.",
+    "Unknown Speed/nonzero Brave, slow items/equipment/ground/pointer talk remain unsupported; no new skills or server rules.",
+    "Only javap static class disassembly; no JAR server logic initialized.",
+    "Awaiting independent reviewer and designated integrator; no shared source writes."
+  ]
+}

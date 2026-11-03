@@ -1,0 +1,38 @@
+{
+  "utc": "2026-10-29T05:25:11.441912+00:00",
+  "environment": "local reconnected; shell and thread reads confirmed",
+  "formalEntry": "r33",
+  "entryUnchanged": true,
+  "activationApproval": "pending; no retry",
+  "P28": {
+    "thread": "01a185fd-fce6-77d2-961f-45a6d9accaa8",
+    "turn": "01a185fd-fe63-75f2-8551-633db36e9650",
+    "state": "completed-idle-seal-verified",
+    "artifact": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\artifact-manifest.json",
+      "size": 214902,
+      "sha256": "3abd6ac7246f3ffbccc923e46611a37d91e2e7d6a331697661677b5bb4488eee"
+    },
+    "assertionsReportedAndVerifierChecked": 26953,
+    "independentReviewPending": true,
+    "namespaceRepair": "sealed full pickup64 and allframe80 set comparisons; failed profiles01 retained; product built once"
+  },
+  "P29": {
+    "thread": "01a185fe-5350-74c3-bfe6-96842287e610",
+    "lastTurn": "01a18616-243e-7fb2-ad41-243216e40d01",
+    "state": "idle-harness-seal-verified; fresh exact pins now available",
+    "harness": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\artifact-manifest.json",
+      "size": 14145,
+      "sha256": "804f0c2b469db84248dc01e1570b23f5779e0a043d28b757282ebe4025d7b2fb"
+    },
+    "goal": "reported blocked waiting exact pins; not replaced"
+  },
+  "nextDispatch": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P29-candidate-review-dispatch-r1.json",
+    "size": 2059,
+    "sha256": "8cbdc3a55f6c003f241e12bb3a956dadf973c74c78a8cdc8128f15067da7466b"
+  },
+  "priorNamespaceMessageNotRepeated": true,
+  "failedSupervisorFindingWrite": "exec-server transport disconnected before process creation; original helper-repair message was sent successfully"
+}

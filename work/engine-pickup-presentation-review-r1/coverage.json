@@ -1,0 +1,32 @@
+{
+  "acceptedRun": "runs/baseline-05/baselineprobe.json",
+  "executedRows": 84,
+  "assertedRows": 53,
+  "observationRows": 31,
+  "categoryCounts": {
+    "reference-renderer-feasibility": 32,
+    "baseline-feature-gap": 17,
+    "baseline-invariant": 5,
+    "baseline-observation": 14,
+    "baseline-active-window": 16
+  },
+  "packetOccurrences": 243,
+  "candidateExecutedRows": 0,
+  "proposedRiskRows": 24,
+  "nativeRuntimeChecks": 0,
+  "normalGuiChecks": 0,
+  "historyExcludedFromTotals": [
+    "runs/baseline-01",
+    "runs/baseline-02",
+    "runs/baseline-03",
+    "runs/baseline-04"
+  ],
+  "gaps": [
+    "No candidate per-receipt hook/scheduler/cancel paths yet",
+    "No GUI ClientForm/WinForms timer or physical input",
+    "Synthetic empty map scene, no full map/depth game scenario",
+    "Projectile hit cache seeded; projectile network/flight route not exercised",
+    "Pending timeout constant/actual assigned deadline checked; no real3000ms server latency assertion",
+    "No final r33 release binding yet"
+  ]
+}

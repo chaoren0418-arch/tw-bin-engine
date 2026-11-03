@@ -1,0 +1,36 @@
+{
+  "utc": "2026-10-28T18:29:37.377208+00:00",
+  "pid": 6316,
+  "args": [
+    "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+    "-Xms256m",
+    "-Xmx1024m",
+    "-XX:ActiveProcessorCount=2",
+    "-XX:-UsePerfData",
+    "-Djava.security.manager=default",
+    "-Djava.security.policy==file:///D:/BinEngine/environments/p24/server/server.policy",
+    "-Djava.io.tmpdir=D:\\BinEngine\\environments\\p24\\server\\tmp",
+    "-Duser.home=D:\\BinEngine\\environments\\p24\\server\\home",
+    "-Dio.netty.noUnsafe=true",
+    "-Dio.netty.noPreferDirect=true",
+    "-Dio.netty.transport.noNative=true",
+    "-Djava.net.preferIPv4Stack=true",
+    "-Dfile.encoding=UTF-8",
+    "-Dlog4j.configurationFile=./config/log4j2.xml",
+    "-Dlog4j2.disableJmx=true",
+    "-jar",
+    "D:\\BinEngine\\environments\\p24\\server\\Server_Game.jar"
+  ],
+  "jarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "policySha256": "13d92cb5ebf2721d320fcef2ade746580cc163aabed114962620d62b2dc7dfda",
+  "preStartObservation": {
+    "listeners": [
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 43324,
+        "OwningProcess": 19324
+      }
+    ],
+    "java": []
+  }
+}

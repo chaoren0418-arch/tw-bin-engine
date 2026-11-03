@@ -1,0 +1,53 @@
+{
+  "status": "pass",
+  "evidenceClass": "offline JS with synthetic DOM/bridge; no browser/host dispatch/server/native execution",
+  "cases": 6,
+  "assertions": 55,
+  "details": [
+    {
+      "name": "ready, directional buttons and explicit game focus bridge",
+      "assertions": 21,
+      "status": "pass"
+    },
+    {
+      "name": "web focus and blur clear held game input through stop",
+      "assertions": 10,
+      "status": "pass"
+    },
+    {
+      "name": "login snapshots, pending duplicate guard and secret field clearing",
+      "assertions": 9,
+      "status": "pass"
+    },
+    {
+      "name": "item and magic commands carry current epoch and selection identity",
+      "assertions": 4,
+      "status": "pass"
+    },
+    {
+      "name": "NPC pending deduplication and matching reply",
+      "assertions": 5,
+      "status": "pass"
+    },
+    {
+      "name": "NPC quantities reject invalid input before bridge submission",
+      "assertions": 6,
+      "status": "pass"
+    }
+  ],
+  "sources": [
+    {
+      "path": "engine/web/panel.js",
+      "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab"
+    },
+    {
+      "path": "engine/web/login.js",
+      "sha256": "482384344ac719449c81c8e7c2212370dfd422dda52f8d4dbff8c9b3405c5a51"
+    },
+    {
+      "path": "engine/web/interaction.js",
+      "sha256": "b007e3ce0a2a4f2ef13dcf72db66adc26640379ad4eebedb357dc8e026132aae"
+    }
+  ],
+  "nativeRuns": 0
+}

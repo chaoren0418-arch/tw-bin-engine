@@ -1,0 +1,167 @@
+{
+  "status": "native-keyboard-and-panel-lifecycle-pass",
+  "launch": "r17-native-keys-launch.json",
+  "method": "Actual @oai/sky F10/F11/Up/Down/F9/type_text; real WebView state/image and native accessibility observations",
+  "up": [
+    32595,
+    32932,
+    32596,
+    32931
+  ],
+  "down": [
+    32596,
+    32931,
+    32595,
+    32932
+  ],
+  "typing": "F11 then actual text p24 focus rendered in notes; native Up while notes focused did not move",
+  "panel": "F9 disposes embedded WebView and reveals native panels; F10/F9 reopens a new WebView while same game connection remains InWorld",
+  "allResourcesPreserved": true,
+  "allNineOffline": true,
+  "limitations": [
+    "WGC still times out; native canvas pixel mouse input not verified.",
+    "Native indexed click returned coordinate input geometry is unavailable; no successful native ability tab click claimed.",
+    "Initial CDP note click alone did not establish OS keyboard focus; explicit F11 did. Initial W produced no committed text and is not accepted as typing proof.",
+    "First native Up wait assumed world north; actual screen-direction mapping is NE. Expected direction was corrected; actual movement and Down return verified.",
+    "Startup CDP initially ECONNREFUSED before app finished initialization; same PID became ready without relaunch.",
+    "Native UIA list items expose record strings; source uses owner drawing with ItemName/icons. No claim those record strings are the visible drawn UI."
+  ],
+  "evidence": [
+    {
+      "path": "r17-native-key-live/f9-hidden.json",
+      "sha256": "c5862223135588217e246de402b4ef9ed127d3fbdc4569fc73500023daf6b745"
+    },
+    {
+      "path": "r17-native-key-live/f9-restored-scene.png",
+      "sha256": "42720855af2a618e6ce640e68f635bf7db89d39e3233d0779798017440e5b359"
+    },
+    {
+      "path": "r17-native-key-live/f9-restored-state.json",
+      "sha256": "b73e5669d02f67ccb07b24084024142125d7d2d3c81650a9c4e7ac1d071f79e3"
+    },
+    {
+      "path": "r17-native-key-live/f9-restored-webview.png",
+      "sha256": "1fe93412fcbdadfce32b1318899af99b790a57872ecda2962abe71d74ea4bd73"
+    },
+    {
+      "path": "r17-native-key-live/final-cancel-state.json",
+      "sha256": "44de477eb41b449e5afe41bada7eb3602178a3ee684623059f49bda917df35bf"
+    },
+    {
+      "path": "r17-native-key-live/final-cancel-webview.png",
+      "sha256": "9ee9b942dec6aea19e9fca005234f013ada55fa0e3fedcb9f168d62afa4c8360"
+    },
+    {
+      "path": "r17-native-key-live/guard-final.json",
+      "sha256": "97c94cbfbc119eb4eaa2b6bfdf9d07940fe0863b7f17ed177868f63a0acb4ff4"
+    },
+    {
+      "path": "r17-native-key-live/login-state.json",
+      "sha256": "e2f769e3933eab372b26d5cf7699d1a7e28eb159e0b78702b27342be5c10177c"
+    },
+    {
+      "path": "r17-native-key-live/login-webview.png",
+      "sha256": "c16f25996b55acdeb3e5256657dc212382c2ce5c094058ee6044573e4746fc7b"
+    },
+    {
+      "path": "r17-native-key-live/native-down-returned-scene.png",
+      "sha256": "a6752636f5a7839f5e1e70548a745517df14284943ffd23366be200e64b84287"
+    },
+    {
+      "path": "r17-native-key-live/native-down-returned-state.json",
+      "sha256": "411232d999eb9f82fd231079e41d3fd8fb4cbd9f055f686bcd0baba3ac6220f9"
+    },
+    {
+      "path": "r17-native-key-live/native-down-returned-webview.png",
+      "sha256": "472f35883279f2dd7d726fc34cbb615fbd860fbfe684dc2f1c8f0801dc68425b"
+    },
+    {
+      "path": "r17-native-key-live/native-f10-observed-scene.png",
+      "sha256": "33aaaa473a9e63df7631e2325bdafadbf414395c9f95b54fcc596419ffd392d6"
+    },
+    {
+      "path": "r17-native-key-live/native-f10-observed-state.json",
+      "sha256": "a3b94935e0dca41f9cb29f2cfe466f1ee78dcdc920f5b80d20374d630283d79d"
+    },
+    {
+      "path": "r17-native-key-live/native-f10-observed-webview.png",
+      "sha256": "472f35883279f2dd7d726fc34cbb615fbd860fbfe684dc2f1c8f0801dc68425b"
+    },
+    {
+      "path": "r17-native-key-live/native-f11-notes-focus-scene.png",
+      "sha256": "cf03307338366fdb7be0c541018e7c554b3a86d6892d3698e6b8495fba6acc08"
+    },
+    {
+      "path": "r17-native-key-live/native-f11-notes-focus-state.json",
+      "sha256": "84abf92fdf1362910d55b4d3878f9a6529028f3cb7ce9d85ad14498dcf688d62"
+    },
+    {
+      "path": "r17-native-key-live/native-f11-notes-focus-webview.png",
+      "sha256": "0791b76a334644fc33e1266feea03afc17f24598186e4a7f474fd12c8209a443"
+    },
+    {
+      "path": "r17-native-key-live/native-typed-notes-scene.png",
+      "sha256": "6f18ebe00212abfb1e2d1124f40aa37991afdd93e0e1145b90aafa5a093a2b62"
+    },
+    {
+      "path": "r17-native-key-live/native-typed-notes-state.json",
+      "sha256": "27e102d76851510591b5fccd8b8ddde515865944829ea5d61a3f70e734ee2051"
+    },
+    {
+      "path": "r17-native-key-live/native-typed-notes-webview.png",
+      "sha256": "ed77eb078174198b7bf5882fa7bb6727b6c925ca351a161e7deec19c53c5707f"
+    },
+    {
+      "path": "r17-native-key-live/native-up-in-notes-no-move-scene.png",
+      "sha256": "a6418bc63f0777262c69b8be0e1c9d427901427f91b8387eb469e791fa8a9683"
+    },
+    {
+      "path": "r17-native-key-live/native-up-in-notes-no-move-state.json",
+      "sha256": "a10924d10198f9fb7a1434bbf03ca7224be6e96d27a8846a45931b2aa554eb78"
+    },
+    {
+      "path": "r17-native-key-live/native-up-in-notes-no-move-webview.png",
+      "sha256": "a58acb5a0886a24ce6f75bf0355393fa09f904bbf1c952839fff1ef3034b8695"
+    },
+    {
+      "path": "r17-native-key-live/native-up-timeout-observed-scene.png",
+      "sha256": "4a6c16eae2504fce9fbd9f9768da054187e4f25213382103ad3c5d19a8ab6ad3"
+    },
+    {
+      "path": "r17-native-key-live/native-up-timeout-observed-state.json",
+      "sha256": "de35c8617ef17d23a8959e1fbe11f93b34747160a60e1ed593b781a8c047f26e"
+    },
+    {
+      "path": "r17-native-key-live/native-up-timeout-observed-webview.png",
+      "sha256": "0791b76a334644fc33e1266feea03afc17f24598186e4a7f474fd12c8209a443"
+    },
+    {
+      "path": "r17-native-key-live/native-w-in-notes-scene.png",
+      "sha256": "d5ae56205bc8435844c68aaff9cb4ca705799a348ce1e4ecf17619fcc423d335"
+    },
+    {
+      "path": "r17-native-key-live/native-w-in-notes-state.json",
+      "sha256": "b35d187f63346c2fb3eca1dfd86e85017e115dd41a08bdd9634e4124c0152213"
+    },
+    {
+      "path": "r17-native-key-live/native-w-in-notes-webview.png",
+      "sha256": "472f35883279f2dd7d726fc34cbb615fbd860fbfe684dc2f1c8f0801dc68425b"
+    },
+    {
+      "path": "r17-native-key-live/notes-focused-scene.png",
+      "sha256": "ac756b1cede130b46a10a854b8c52a2d9bc79fe5509e60e35741285283d22ef2"
+    },
+    {
+      "path": "r17-native-key-live/notes-focused-state.json",
+      "sha256": "0fe96cce8d2f7a1a159bc8c31896fd7315ffff2a80fdb7edbcc4f643fb88d89e"
+    },
+    {
+      "path": "r17-native-key-live/notes-focused-webview.png",
+      "sha256": "472f35883279f2dd7d726fc34cbb615fbd860fbfe684dc2f1c8f0801dc68425b"
+    },
+    {
+      "path": "r17-native-key-live/ui-closed.json",
+      "sha256": "534ae207b6eaccbeb90ccef31c184778708ae22b3b15eb646cbf65a5137a962f"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "status": "real-completed-canonical-package-plan-awaiting-new-release-acceptance",
+  "plan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r1\\package-plan.json",
+    "size": 1098050,
+    "sha256": "a831ca6dbbe13dee16bf544b6ff9f1ea3284ff7091915af23685ab8827d0d890"
+  },
+  "files": 2289,
+  "releaseCreated": false,
+  "releaseReceiptCreated": false,
+  "entryActivated": false,
+  "toolArchive": {
+    "sourceSeal": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\tool-source-seal.json",
+      "size": 8680,
+      "sha256": "5bbde28bc03eef1e99453bedd92893ec7e5a4c4545023a9e0bbaef92dd391ec6"
+    },
+    "archiveManifest": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\evidence\\release-tooling\\source-archive.json",
+      "size": 16858,
+      "sha256": "b05827cb28be1e0faf779a1b0ddae3229f14fb7bb98892f8d46e2523596cefa6"
+    }
+  }
+}

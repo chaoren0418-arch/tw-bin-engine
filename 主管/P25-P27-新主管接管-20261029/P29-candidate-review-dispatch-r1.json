@@ -1,0 +1,37 @@
+{
+  "schema": "p29-candidate-review-dispatch-v1",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "reviewRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1",
+  "baselineSha256": "ac4254ea339ed35c4257e27e955f0411c617f21698a1da5bb59330a162933024",
+  "authorization": "offline-candidate-review",
+  "candidateRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1",
+  "sourceRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\candidate",
+  "artifactManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\artifact-manifest.json",
+    "size": 214902,
+    "sha256": "3abd6ac7246f3ffbccc923e46611a37d91e2e7d6a331697661677b5bb4488eee"
+  },
+  "sourceManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\source-manifest.json",
+    "size": 32302,
+    "sha256": "18aecf0d68455b5561637ca23f62d33228ef4b451be0e66602f07995daee49a9"
+  },
+  "productDll": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\candidate\\build\\P11.ClientEngine.dll",
+    "size": 4925440,
+    "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+  },
+  "dispatchId": "P29-P28-EXACT-CANDIDATE-REVIEW-R1",
+  "utc": "2026-10-29T05:25:11.441912+00:00",
+  "harnessSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\artifact-manifest.json",
+    "size": 14145,
+    "sha256": "804f0c2b469db84248dc01e1570b23f5779e0a043d28b757282ebe4025d7b2fb"
+  },
+  "candidateAccepted": false,
+  "sharedIntegrationAuthorized": false,
+  "entryActivationAuthorized": false,
+  "runLabel": "candidate-01",
+  "scope": "independent offline candidate review; existing authored dynamic adapters plus source/evidence review; remaining coverage explicit",
+  "outputRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\runtime-review-r1"
+}

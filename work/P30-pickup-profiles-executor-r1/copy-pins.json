@@ -1,0 +1,88 @@
+{
+  "files": [
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-executor-preparation-dispatch.json",
+        "size": 3612,
+        "sha256": "4be1242a443975632a8f13ab23c528aec6eb2f536b144647e579175dcbb80568"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\reference\\P30-executor-preparation-dispatch.json",
+        "size": 3612,
+        "sha256": "4be1242a443975632a8f13ab23c528aec6eb2f536b144647e579175dcbb80568"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-plan-root-verification.json",
+        "size": 959,
+        "sha256": "8a4face458005cd4932eaa012b3b06c5c7dd119fc3772d3e790b0a924aedc24f"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\reference\\P30-plan-root-verification.json",
+        "size": 959,
+        "sha256": "8a4face458005cd4932eaa012b3b06c5c7dd119fc3772d3e790b0a924aedc24f"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\stage-plan.json",
+        "size": 7441,
+        "sha256": "f58e0d6400d1715ad03ef32fc26486ac89a9b915824bbd7470a4ca6dff4f19f3"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\reference\\stage-plan.json",
+        "size": 7441,
+        "sha256": "f58e0d6400d1715ad03ef32fc26486ac89a9b915824bbd7470a4ca6dff4f19f3"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\product-only-spec.json",
+        "size": 7316,
+        "sha256": "96732bd48ea76890ce5bf82bf5613a7f13b16c882997ae2fdcded5f674de3086"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\reference\\product-only-spec.json",
+        "size": 7316,
+        "sha256": "96732bd48ea76890ce5bf82bf5613a7f13b16c882997ae2fdcded5f674de3086"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\materialization-plan.json",
+        "size": 152598,
+        "sha256": "de67b00de533abb45e196f3c0e97d245c36ed1e9c7312e9b8badf72fdcc64050"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\reference\\materialization-plan.json",
+        "size": 152598,
+        "sha256": "de67b00de533abb45e196f3c0e97d245c36ed1e9c7312e9b8badf72fdcc64050"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\artifact-seal.json",
+        "size": 108201,
+        "sha256": "3b5e84c46f48c01b80a129caad493b4218a8151bec8f0d9051b687501764637c"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\reference\\artifact-seal.json",
+        "size": 108201,
+        "sha256": "3b5e84c46f48c01b80a129caad493b4218a8151bec8f0d9051b687501764637c"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\build-dependencies.json",
+        "size": 113115,
+        "sha256": "2949a2454a61aa01c0567a990eecc1d2402e1cf32ecaebc59131b557b3c0dba0"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\reference\\build-dependencies.json",
+        "size": 113115,
+        "sha256": "2949a2454a61aa01c0567a990eecc1d2402e1cf32ecaebc59131b557b3c0dba0"
+      }
+    }
+  ]
+}

@@ -1,0 +1,2573 @@
+{
+  "scope": "javap text line indices plus bytecode offsets; full class bytes separately pinned",
+  "methods": [
+    {
+      "file": "classes/ActionCodes.javap.txt",
+      "signature": "public com.lineage.server.ActionCodes();",
+      "startLine": 173,
+      "endLine": 178,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 4
+    },
+    {
+      "file": "classes/C_PickUpItem.javap.txt",
+      "signature": "public com.lineage.server.clientpackets.C_PickUpItem();",
+      "startLine": 5,
+      "endLine": 10,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 4
+    },
+    {
+      "file": "classes/C_PickUpItem.javap.txt",
+      "signature": "public void start(byte[], com.lineage.echo.ClientExecutor);",
+      "startLine": 11,
+      "endLine": 311,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 554
+    },
+    {
+      "file": "classes/C_PickUpItem.javap.txt",
+      "signature": "public java.lang.String getType();",
+      "startLine": 312,
+      "endLine": 318,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/C_PickUpItem.javap.txt",
+      "signature": "private static void lambda$start$0(com.lineage.server.model.Instance.L1ItemInstance, com.lineage.echo.ClientExecutor$ActiveCharacterBinding, com.lineage.server.model.Instance.L1PcInstance, long, com.lineage.echo.ClientExecutor, long, int, int, com.lineage.server.model.L1Inventory, int, long);",
+      "startLine": 319,
+      "endLine": 604,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 594
+    },
+    {
+      "file": "classes/ClientPacketStructure.javap.txt",
+      "signature": "private com.lineage.server.clientpackets.ClientPacketStructure();",
+      "startLine": 3,
+      "endLine": 8,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 4
+    },
+    {
+      "file": "classes/ClientPacketStructure.javap.txt",
+      "signature": "public static void validate(byte[], com.lineage.echo.ClientExecutor);",
+      "startLine": 9,
+      "endLine": 935,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 1148
+    },
+    {
+      "file": "classes/ClientPacketStructure.javap.txt",
+      "signature": "private static void validateSkill(com.lineage.server.clientpackets.ClientPacketStructure$Cursor, byte[]);",
+      "startLine": 936,
+      "endLine": 1241,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 393
+    },
+    {
+      "file": "classes/ClientPacketStructure.javap.txt",
+      "signature": "private static void validateAttr(com.lineage.server.clientpackets.ClientPacketStructure$Cursor);",
+      "startLine": 1242,
+      "endLine": 1324,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 3589
+    },
+    {
+      "file": "classes/L1GroundInventory.javap.txt",
+      "signature": "private void setTimer(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 7,
+      "endLine": 41,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 57
+    },
+    {
+      "file": "classes/L1GroundInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1GroundInventory(int, int, int, short);",
+      "startLine": 42,
+      "endLine": 72,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 53
+    },
+    {
+      "file": "classes/L1GroundInventory.javap.txt",
+      "signature": "public void onPerceive(com.lineage.server.model.Instance.L1PcInstance);",
+      "startLine": 73,
+      "endLine": 117,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 88
+    },
+    {
+      "file": "classes/L1GroundInventory.javap.txt",
+      "signature": "public void insertItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 118,
+      "endLine": 165,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 91
+    },
+    {
+      "file": "classes/L1GroundInventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance storeItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 166,
+      "endLine": 199,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 36
+    },
+    {
+      "file": "classes/L1GroundInventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance storeTradeItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 200,
+      "endLine": 233,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 36
+    },
+    {
+      "file": "classes/L1GroundInventory.javap.txt",
+      "signature": "public void updateItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 234,
+      "endLine": 289,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 108
+    },
+    {
+      "file": "classes/L1GroundInventory.javap.txt",
+      "signature": "public void deleteItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 290,
+      "endLine": 372,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 152
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private static boolean stackMatchUseTypeMinus5(com.lineage.server.model.Instance.L1ItemInstance, com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 31,
+      "endLine": 49,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 32
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "protected final com.lineage.server.model.Instance.L1ItemInstance findStackTarget(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 50,
+      "endLine": 150,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 87
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1Inventory();",
+      "startLine": 151,
+      "endLine": 177,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 47
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public int getSize();",
+      "startLine": 178,
+      "endLine": 190,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 23
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public java.util.List<com.lineage.server.model.Instance.L1ItemInstance> getItems();",
+      "startLine": 191,
+      "endLine": 196,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 4
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public int getWeight();",
+      "startLine": 197,
+      "endLine": 270,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 134
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public int checkAddItem(int, long);",
+      "startLine": 271,
+      "endLine": 275,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 1
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public int checkAddItem(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 276,
+      "endLine": 357,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 141
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public int checkAddItemToWarehouse(com.lineage.server.model.Instance.L1ItemInstance, long, int);",
+      "startLine": 358,
+      "endLine": 417,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 110
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance storeItem(int, long);",
+      "startLine": 418,
+      "endLine": 426,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance storeItem(int, long, boolean);",
+      "startLine": 427,
+      "endLine": 544,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 207
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private void rollbackBulkInsert(java.util.List<com.lineage.server.model.Instance.L1ItemInstance>, int);",
+      "startLine": 545,
+      "endLine": 626,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 171
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance storeItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 627,
+      "endLine": 1020,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 140008
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance storeTradeItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 1021,
+      "endLine": 1353,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 584
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public boolean consumeItem(int, long);",
+      "startLine": 1354,
+      "endLine": 1362,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public boolean consumeItem(int, long, int);",
+      "startLine": 1363,
+      "endLine": 1459,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 166
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance shiftingItem(int, long);",
+      "startLine": 1460,
+      "endLine": 1503,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 72
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public long removeItem(int, long);",
+      "startLine": 1504,
+      "endLine": 1515,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 14
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public long removeItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 1516,
+      "endLine": 1524,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 9
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public long removeItem(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 1525,
+      "endLine": 1696,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 322
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public void deleteItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 1697,
+      "endLine": 1724,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 43
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private static java.sql.Timestamp copyTimestamp(java.sql.Timestamp);",
+      "startLine": 1725,
+      "endLine": 1743,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 27
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private static com.lineage.server.model.item.L1DarkItem copyDarkItem(com.lineage.server.model.item.L1DarkItem, int);",
+      "startLine": 1744,
+      "endLine": 1905,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 226
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private static com.lineage.server.model.Instance.L1ItemInstance createPartialTransferItem(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 1906,
+      "endLine": 1944,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 66
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance tradeItem(int, long, com.lineage.server.model.L1Inventory);",
+      "startLine": 1945,
+      "endLine": 1957,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 16
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance tradeItem(com.lineage.server.model.Instance.L1ItemInstance, int, int, com.lineage.server.model.L1GroundInventory);",
+      "startLine": 1958,
+      "endLine": 2203,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 426
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance tradeItem(com.lineage.server.model.Instance.L1ItemInstance, long, com.lineage.server.model.L1Inventory);",
+      "startLine": 2204,
+      "endLine": 2520,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 576
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private com.lineage.server.model.Instance.L1ItemInstance finishTransfer(com.lineage.server.model.Instance.L1ItemInstance, com.lineage.server.model.Instance.L1ItemInstance, long, int, int, int, int, long, com.lineage.server.model.L1Inventory);",
+      "startLine": 2521,
+      "endLine": 2737,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 440
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private boolean transferQuarantined(com.lineage.server.model.L1Inventory);",
+      "startLine": 2738,
+      "endLine": 2772,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 66
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private void quarantineTransfer(com.lineage.server.model.L1Inventory, java.lang.String, int, int, int, long, long);",
+      "startLine": 2773,
+      "endLine": 2838,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 145
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private void discardUnstoredCarryItem(com.lineage.server.model.Instance.L1ItemInstance, int, java.lang.Throwable);",
+      "startLine": 2839,
+      "endLine": 2901,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 129
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private boolean restoreFailedTransfer(com.lineage.server.model.Instance.L1ItemInstance, com.lineage.server.model.Instance.L1ItemInstance, long, int);",
+      "startLine": 2902,
+      "endLine": 3018,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 204
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private boolean sourceInverseConfirmed(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 3019,
+      "endLine": 3073,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 110
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance receiveDamage(int);",
+      "startLine": 3074,
+      "endLine": 3084,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 11
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance receiveDamage(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 3085,
+      "endLine": 3092,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 6
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance receiveDamage(com.lineage.server.model.Instance.L1ItemInstance, int);",
+      "startLine": 3093,
+      "endLine": 3168,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 133
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance recoveryDamage(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 3169,
+      "endLine": 3212,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 66
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance findItemIdNoEq(int);",
+      "startLine": 3213,
+      "endLine": 3245,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 67
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance findItemId(int);",
+      "startLine": 3246,
+      "endLine": 3269,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 46
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance findItemId(java.lang.String);",
+      "startLine": 3270,
+      "endLine": 3293,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 46
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance[] findItemsId(int);",
+      "startLine": 3294,
+      "endLine": 3329,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 76
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance[] findItemsIdNotEquipped(int);",
+      "startLine": 3330,
+      "endLine": 3337,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 6
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance[] findItemsIdNotEquipped(int, int);",
+      "startLine": 3338,
+      "endLine": 3384,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 106
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private static boolean meetsEnchantRequirement(com.lineage.server.model.Instance.L1ItemInstance, int);",
+      "startLine": 3385,
+      "endLine": 3405,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 31
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance[] findItemsIdNotEquipped(java.lang.String);",
+      "startLine": 3406,
+      "endLine": 3445,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 87
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance getItem(int);",
+      "startLine": 3446,
+      "endLine": 3470,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 48
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public boolean checkItem(int);",
+      "startLine": 3471,
+      "endLine": 3478,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 6
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public boolean checkItem(int, long);",
+      "startLine": 3479,
+      "endLine": 3526,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 78
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public boolean checkItem(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 3527,
+      "endLine": 3544,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 20
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance checkItemX(int, long);",
+      "startLine": 3545,
+      "endLine": 3572,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 44
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance checkItemXNoEq(int, long);",
+      "startLine": 3573,
+      "endLine": 3600,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 44
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public boolean checkEnchantItem(int, int, long);",
+      "startLine": 3601,
+      "endLine": 3642,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 90
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public boolean consumeEnchantItem(int, int, long);",
+      "startLine": 3643,
+      "endLine": 3680,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 83
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public boolean checkItemNotEquipped(java.lang.String, long);",
+      "startLine": 3681,
+      "endLine": 3699,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 23
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public boolean checkItemNotEquipped(int, long);",
+      "startLine": 3700,
+      "endLine": 3718,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 23
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public boolean checkItem(int[]);",
+      "startLine": 3719,
+      "endLine": 3743,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 33
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public boolean checkItem(int[], int[]);",
+      "startLine": 3744,
+      "endLine": 3768,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 31
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public long countItems(int);",
+      "startLine": 3769,
+      "endLine": 3776,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 6
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public long countItems(int, int);",
+      "startLine": 3777,
+      "endLine": 3844,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 119
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public long countItems(java.lang.String);",
+      "startLine": 3845,
+      "endLine": 3901,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 97
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public void shuffle();",
+      "startLine": 3902,
+      "endLine": 3908,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public void clearItems();",
+      "startLine": 3909,
+      "endLine": 3948,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 73
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public void loadItems();",
+      "startLine": 3949,
+      "endLine": 3952,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 0
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public void insertItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 3953,
+      "endLine": 3956,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 0
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public void updateItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 3957,
+      "endLine": 3979,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 32
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public void updateItem(com.lineage.server.model.Instance.L1ItemInstance, int);",
+      "startLine": 3980,
+      "endLine": 4002,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 32
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1Inventory$WarehouseStackResult storeWarehouseStack(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 4003,
+      "endLine": 4246,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 447
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "protected boolean tracksWarehouseCountChanges();",
+      "startLine": 4247,
+      "endLine": 4251,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 1
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "protected com.lineage.server.model.item.WarehousePersistenceService$CountChangeSnapshot captureCountChange(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 4252,
+      "endLine": 4256,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 1
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private com.lineage.server.model.item.WarehousePersistenceService$CountChangeSnapshot captureCountChange(com.lineage.server.model.Instance.L1ItemInstance, long, long);",
+      "startLine": 4257,
+      "endLine": 4279,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 40
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "protected void updateCountChange(com.lineage.server.model.Instance.L1ItemInstance, com.lineage.server.model.item.WarehousePersistenceService$CountChangeSnapshot);",
+      "startLine": 4280,
+      "endLine": 4286,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 5
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "protected void quarantineStorage(java.lang.String);",
+      "startLine": 4287,
+      "endLine": 4290,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 0
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "private boolean storageUnconfirmed();",
+      "startLine": 4291,
+      "endLine": 4308,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 17
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "public void verifyStorageConfirmed();",
+      "startLine": 4309,
+      "endLine": 4312,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 0
+    },
+    {
+      "file": "classes/L1Inventory.javap.txt",
+      "signature": "protected com.lineage.server.model.MigrationAssetGate$Permit beginWarehouseOperation();",
+      "startLine": 4313,
+      "endLine": 4326,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 8
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public static int getMaxInventorySize();",
+      "startLine": 139,
+      "endLine": 147,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 15
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static void runInventorySerialized(com.lineage.server.model.L1PcInventory, java.lang.Runnable);",
+      "startLine": 148,
+      "endLine": 169,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 33
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static <T> T callInventorySerialized(com.lineage.server.model.L1PcInventory, java.util.function.Supplier<T>);",
+      "startLine": 170,
+      "endLine": 192,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 32
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static <T> T callInventorySerialized(com.lineage.server.model.L1PcInventory, com.lineage.server.model.L1PcInventory, java.util.function.Supplier<T>);",
+      "startLine": 193,
+      "endLine": 308,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 200
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static boolean persistProjectileCount(int, int, long) throws java.sql.SQLException;",
+      "startLine": 309,
+      "endLine": 361,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 93
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static <T> T callPlayerInventorySerialized(com.lineage.server.model.L1PcInventory, java.util.function.Supplier<T>);",
+      "startLine": 362,
+      "endLine": 378,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 27
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static void runPlayerInventorySerialized(com.lineage.server.model.L1PcInventory, java.lang.Runnable);",
+      "startLine": 379,
+      "endLine": 387,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 11
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static <T> T callPlayerInventoriesSerialized(com.lineage.server.model.L1PcInventory, com.lineage.server.model.L1PcInventory, java.util.function.Supplier<T>);",
+      "startLine": 388,
+      "endLine": 427,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 68
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void runItemTimerSerialized(java.lang.Runnable);",
+      "startLine": 428,
+      "endLine": 441,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 19
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void runItemMutationSerialized(java.lang.Runnable);",
+      "startLine": 442,
+      "endLine": 455,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 19
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public static void runPairedItemMutationSerialized(com.lineage.server.model.L1PcInventory, com.lineage.server.model.L1PcInventory, java.lang.Runnable);",
+      "startLine": 456,
+      "endLine": 512,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 118
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static void submitProjectilePersistence(java.lang.Runnable);",
+      "startLine": 513,
+      "endLine": 521,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 9
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1PcInventory(com.lineage.server.model.Instance.L1PcInstance);",
+      "startLine": 522,
+      "endLine": 645,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 228
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1PcInstance getOwner();",
+      "startLine": 646,
+      "endLine": 651,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 4
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean isItemMutationQuarantined();",
+      "startLine": 652,
+      "endLine": 658,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean isInventoryDirty();",
+      "startLine": 659,
+      "endLine": 664,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 4
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void markInventoryDirtyLocked();",
+      "startLine": 665,
+      "endLine": 675,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 13
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private boolean useMemoryFirstMutationLocked();",
+      "startLine": 676,
+      "endLine": 685,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 12
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void beginDurableTransferLocked();",
+      "startLine": 686,
+      "endLine": 695,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 10
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void endDurableTransferLocked();",
+      "startLine": 696,
+      "endLine": 708,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 17
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void queueInventoryDeleteLocked(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 709,
+      "endLine": 726,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 32
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private boolean rejectQuarantinedMutation(java.lang.String);",
+      "startLine": 727,
+      "endLine": 750,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 44
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void quarantineItemMutation(java.lang.String);",
+      "startLine": 751,
+      "endLine": 868,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 252
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void quarantineForCompensationFailure(java.lang.String);",
+      "startLine": 869,
+      "endLine": 876,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 10
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1PcInventory$InventoryMutationSnapshot snapshotForCompensation();",
+      "startLine": 877,
+      "endLine": 885,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 13
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1PcInventory$InventoryMutationSnapshot snapshotForExchangeCompensation(int[]);",
+      "startLine": 886,
+      "endLine": 918,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 54
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1PcInventory$InventoryMutationSnapshot snapshotForExchangeCompensation(com.lineage.server.model.Instance.L1ItemInstance[]);",
+      "startLine": 919,
+      "endLine": 935,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 23
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$InventoryMutationSnapshot snapshotForExchangeCompensation(java.util.Set<java.lang.Integer>, java.util.Set<com.lineage.server.model.Instance.L1ItemInstance>);",
+      "startLine": 936,
+      "endLine": 946,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 15
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static boolean supportsMaterialRefund(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 947,
+      "endLine": 1013,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 145
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1PcInventory$MaterialRefundResult restoreUnawardedMaterials(com.lineage.server.model.L1PcInventory$InventoryMutationSnapshot, java.lang.String);",
+      "startLine": 1014,
+      "endLine": 1037,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 46
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean restoreCompensationSnapshot(com.lineage.server.model.L1PcInventory$InventoryMutationSnapshot, java.lang.String);",
+      "startLine": 1038,
+      "endLine": 1046,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean restoreDurableFeeSnapshot(com.lineage.server.model.L1PcInventory$InventoryMutationSnapshot, java.lang.String);",
+      "startLine": 1047,
+      "endLine": 1068,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 38
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean restoreConfirmedDebitSnapshot(com.lineage.server.model.L1PcInventory$InventoryMutationSnapshot, java.lang.String);",
+      "startLine": 1069,
+      "endLine": 1093,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 49
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private boolean restoreCompensationSnapshot(com.lineage.server.model.L1PcInventory$InventoryMutationSnapshot, java.lang.String, boolean);",
+      "startLine": 1094,
+      "endLine": 1114,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 35
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean applyCommittedItemTemplateReplacement(com.lineage.server.model.Instance.L1ItemInstance, int, com.lineage.server.templates.L1Item, java.lang.String);",
+      "startLine": 1115,
+      "endLine": 1128,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 21
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean consumeProjectile(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 1129,
+      "endLine": 1139,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 17
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private boolean ensureProjectileDrainerScheduledLocked();",
+      "startLine": 1140,
+      "endLine": 1188,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 87
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void debitProjectileMemoryLocked(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 1189,
+      "endLine": 1280,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 186
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$ProjectilePersistenceSnapshot snapshotProjectileStateLocked(com.lineage.server.model.L1PcInventory$ProjectilePersistenceRecord);",
+      "startLine": 1281,
+      "endLine": 1320,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 70
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static boolean projectileStateChanged(com.lineage.server.model.L1PcInventory$ProjectilePersistenceSnapshot, com.lineage.server.model.L1PcInventory$ProjectilePersistenceSnapshot);",
+      "startLine": 1321,
+      "endLine": 1344,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 40
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void drainProjectilePersistence();",
+      "startLine": 1345,
+      "endLine": 1565,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 417
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void quarantineProjectilePersistence(com.lineage.server.model.L1PcInventory$ProjectilePersistenceRecord, java.lang.Exception);",
+      "startLine": 1566,
+      "endLine": 1662,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 117
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public int getWeight240();",
+      "startLine": 1663,
+      "endLine": 1671,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 9
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public int calcWeight240(long);",
+      "startLine": 1672,
+      "endLine": 1706,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 49
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public int checkAddItem(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 1707,
+      "endLine": 1715,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public int checkAddItem(com.lineage.server.templates.L1Item, long);",
+      "startLine": 1716,
+      "endLine": 1724,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public int checkAddItem(com.lineage.server.model.Instance.L1ItemInstance, long, boolean);",
+      "startLine": 1725,
+      "endLine": 1733,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 8
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private int checkAddItemLimit(com.lineage.server.templates.L1Item, long, boolean);",
+      "startLine": 1734,
+      "endLine": 1818,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 154
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private int checkAddItemLimit(com.lineage.server.model.Instance.L1ItemInstance, long, boolean);",
+      "startLine": 1819,
+      "endLine": 1917,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 184
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void sendOverMessage(int);",
+      "startLine": 1918,
+      "endLine": 1928,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 15
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance storeItemIfCanAdd(com.lineage.server.model.Instance.L1ItemInstance, long, boolean);",
+      "startLine": 1929,
+      "endLine": 1948,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 29
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance tradeItemFromInventoryIfCanAdd(com.lineage.server.model.L1Inventory, com.lineage.server.model.Instance.L1ItemInstance, long, boolean);",
+      "startLine": 1949,
+      "endLine": 1990,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 76
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1PcInventory$PrivateShopExchangeResult exchangePrivateShop(com.lineage.server.model.L1PcInventory, com.lineage.server.model.Instance.L1ItemInstance, long, com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 1991,
+      "endLine": 2036,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 81
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$PrivateShopExchangeResult exchangePrivateShopLocked(com.lineage.server.model.L1PcInventory, com.lineage.server.model.Instance.L1ItemInstance, long, com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 2037,
+      "endLine": 2280,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 482
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$PrivateShopExchangeResult quarantineExchange(com.lineage.server.model.L1PcInventory, java.lang.String);",
+      "startLine": 2281,
+      "endLine": 2305,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 53
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static com.lineage.server.model.L1PcInventory$PrivateShopExchangeResult exchangeResult(com.lineage.server.model.L1PcInventory$PrivateShopExchangeStatus, com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 2306,
+      "endLine": 2314,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 9
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static boolean ownsExactTradeItem(com.lineage.server.model.L1PcInventory, com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 2315,
+      "endLine": 2376,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 127
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static boolean canAcceptTradeItem(com.lineage.server.model.L1PcInventory, com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 2377,
+      "endLine": 2420,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 89
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static java.util.IdentityHashMap<com.lineage.server.model.Instance.L1ItemInstance, java.lang.Long> snapshotInventory(com.lineage.server.model.L1PcInventory);",
+      "startLine": 2421,
+      "endLine": 2448,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 54
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static boolean inventoryMatchesSnapshot(com.lineage.server.model.L1PcInventory, java.util.IdentityHashMap<com.lineage.server.model.Instance.L1ItemInstance, java.lang.Long>);",
+      "startLine": 2449,
+      "endLine": 2488,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 81
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void loadItems();",
+      "startLine": 2489,
+      "endLine": 2648,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 362
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void insertItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 2649,
+      "endLine": 2867,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 480
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance storeItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 2868,
+      "endLine": 2877,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 14
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance storeTradeItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 2878,
+      "endLine": 2955,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 130
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void updateItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 2956,
+      "endLine": 2964,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 11
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void updateItem(com.lineage.server.model.Instance.L1ItemInstance, int);",
+      "startLine": 2965,
+      "endLine": 2974,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 12
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void updateItemBody(com.lineage.server.model.Instance.L1ItemInstance, int);",
+      "startLine": 2975,
+      "endLine": 3186,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 460
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean saveItem(com.lineage.server.model.Instance.L1ItemInstance, int);",
+      "startLine": 3187,
+      "endLine": 3215,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 42
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance tradeItem(com.lineage.server.model.Instance.L1ItemInstance, long, com.lineage.server.model.L1Inventory);",
+      "startLine": 3216,
+      "endLine": 3270,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 104
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance tradeItem(com.lineage.server.model.Instance.L1ItemInstance, int, int, com.lineage.server.model.L1GroundInventory);",
+      "startLine": 3271,
+      "endLine": 3287,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 25
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void restoreRejectedPartialTransferPower(com.lineage.server.model.Instance.L1ItemInstance, long, java.lang.String);",
+      "startLine": 3288,
+      "endLine": 3320,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 64
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean consumeItem(int, long);",
+      "startLine": 3321,
+      "endLine": 3338,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 18
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean consumeItem(int, long, int);",
+      "startLine": 3339,
+      "endLine": 3363,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 29
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean consumeEnchantItem(int, int, long);",
+      "startLine": 3364,
+      "endLine": 3376,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 19
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean consumeItemsAtomically(int[], long[]);",
+      "startLine": 3377,
+      "endLine": 3386,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 10
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean consumeItemsAtomically(int[], long[], int[]);",
+      "startLine": 3387,
+      "endLine": 3396,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 10
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1PcInventory$SystemPurchaseResult purchaseConfiguredStackableSupply(int, long, int, long);",
+      "startLine": 3397,
+      "endLine": 3453,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 118
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private boolean isPlainSystemPurchaseSupply(com.lineage.server.templates.L1Item, int);",
+      "startLine": 3454,
+      "endLine": 3498,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 96
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$SystemPurchaseResult purchaseConfiguredSupplyLocked(int, long, int, long);",
+      "startLine": 3499,
+      "endLine": 3826,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 717
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private boolean isPlainSystemPurchaseItem(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 3827,
+      "endLine": 3907,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 175
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private boolean applyCommittedSystemPurchaseGrant(com.lineage.server.model.Instance.L1ItemInstance, long, long, boolean);",
+      "startLine": 3908,
+      "endLine": 4062,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 316
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult consumeItemAtomically(int, long, int);",
+      "startLine": 4063,
+      "endLine": 4086,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 26
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult consumeExactItemAtomically(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 4087,
+      "endLine": 4123,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 75
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult consumeExactItemLocked(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 4124,
+      "endLine": 4241,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 259
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult consumeExactItemDurably(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 4242,
+      "endLine": 4252,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 15
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult consumeExactItemForUpgrade(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 4253,
+      "endLine": 4287,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 67
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult consumeItemsAtomicallyDetailed(int[], long[], int[]);",
+      "startLine": 4288,
+      "endLine": 4321,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 72
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private java.util.Map<java.lang.Integer, com.lineage.server.model.L1PcInventory$ConsumeRequirement> mergeConsumeRequirements(int[], long[], int[]);",
+      "startLine": 4322,
+      "endLine": 4436,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 214
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult consumeItemsLocked(java.util.Map<java.lang.Integer, com.lineage.server.model.L1PcInventory$ConsumeRequirement>);",
+      "startLine": 4437,
+      "endLine": 4444,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 6
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult consumeItemDurably(int, long);",
+      "startLine": 4445,
+      "endLine": 4480,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 59
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult consumeItemsLocked(java.util.Map<java.lang.Integer, com.lineage.server.model.L1PcInventory$ConsumeRequirement>, boolean);",
+      "startLine": 4481,
+      "endLine": 4687,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 499
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult appendGeneralConsumePlan(java.util.List<com.lineage.server.model.L1PcInventory$PlannedConsumption>, com.lineage.server.model.L1PcInventory$ConsumeRequirement);",
+      "startLine": 4688,
+      "endLine": 4893,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 497
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult applyMemoryFirstItemDebit(java.util.List<com.lineage.server.model.L1PcInventory$PlannedConsumption>, java.lang.String);",
+      "startLine": 4894,
+      "endLine": 5057,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 388
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult applyCommittedItemDebit(java.util.List<com.lineage.server.model.L1PcInventory$PlannedConsumption>, java.lang.String);",
+      "startLine": 5058,
+      "endLine": 5195,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 320
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private boolean forceCommittedDebitState(java.util.List<com.lineage.server.model.L1PcInventory$PlannedConsumption>);",
+      "startLine": 5196,
+      "endLine": 5386,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 424
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private int ownerId();",
+      "startLine": 5387,
+      "endLine": 5398,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 18
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public long removeItem(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 5399,
+      "endLine": 5410,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 18
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1PcInventory$SkillPurchaseCommitResult consumeItemsAndPersistSkillAtomically(int[], long[], com.lineage.server.templates.L1UserSkillTmp);",
+      "startLine": 5411,
+      "endLine": 5532,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 245
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private java.util.List<com.lineage.server.model.L1PcInventory$PlannedConsumption> buildSkillPurchasePlan(java.util.Map<java.lang.Integer, java.lang.Long>);",
+      "startLine": 5533,
+      "endLine": 5640,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 273
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$SkillPurchaseCommitResult commitSkillPurchaseWithCompensation(java.sql.Connection, java.util.List<com.lineage.server.model.L1PcInventory$PlannedConsumption>, com.lineage.server.templates.L1UserSkillTmp);",
+      "startLine": 5641,
+      "endLine": 5677,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 61
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void persistSkillPaymentCounts(java.sql.Connection, java.util.List<com.lineage.server.model.L1PcInventory$PlannedConsumption>) throws java.sql.SQLException;",
+      "startLine": 5678,
+      "endLine": 5711,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 78
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void deletePaidOutRows(java.sql.Connection, java.util.List<com.lineage.server.model.L1PcInventory$PlannedConsumption>) throws java.sql.SQLException;",
+      "startLine": 5712,
+      "endLine": 5747,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 84
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$SkillPurchaseCommitResult reconcileAmbiguousSkillPurchase(java.util.List<com.lineage.server.model.L1PcInventory$PlannedConsumption>, com.lineage.server.templates.L1UserSkillTmp, java.sql.SQLException);",
+      "startLine": 5748,
+      "endLine": 5871,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 285
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void ensureCommittedSkillPaymentCounts(java.sql.Connection, java.util.List<com.lineage.server.model.L1PcInventory$PlannedConsumption>) throws java.sql.SQLException;",
+      "startLine": 5872,
+      "endLine": 5920,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 113
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private boolean applyCommittedSkillPayment(java.util.List<com.lineage.server.model.L1PcInventory$PlannedConsumption>);",
+      "startLine": 5921,
+      "endLine": 6078,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 377
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void saveAllItems();",
+      "startLine": 6079,
+      "endLine": 6085,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 5
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void retireForMigration();",
+      "startLine": 6086,
+      "endLine": 6118,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 56
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.L1PcInventory$InventorySaveResult saveAllItemsWithResult();",
+      "startLine": 6119,
+      "endLine": 6296,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 391
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void deleteItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 6297,
+      "endLine": 6305,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 11
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public final void setEquipped(com.lineage.server.model.Instance.L1ItemInstance, boolean);",
+      "startLine": 6306,
+      "endLine": 6315,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 8
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public final void setEquipped(com.lineage.server.model.Instance.L1ItemInstance, boolean, boolean, boolean);",
+      "startLine": 6316,
+      "endLine": 6327,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 15
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void setEquippedSerialized(com.lineage.server.model.Instance.L1ItemInstance, boolean, boolean, boolean);",
+      "startLine": 6328,
+      "endLine": 6511,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 392
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public final int getEquippedCountByItemId(int);",
+      "startLine": 6512,
+      "endLine": 6539,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 59
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public final int getEquippedCountByActivityItem();",
+      "startLine": 6540,
+      "endLine": 6566,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 55
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private final byte intoEquipWindow(int);",
+      "startLine": 6567,
+      "endLine": 6670,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 181
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static boolean isRuneStoneArmorType(int);",
+      "startLine": 6671,
+      "endLine": 6685,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 31
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private final byte getRuneStonesIndex(int);",
+      "startLine": 6686,
+      "endLine": 6754,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 142
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private final byte getUniversalTalismanIndex();",
+      "startLine": 6755,
+      "endLine": 6821,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 127
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private final byte getRingsIndex();",
+      "startLine": 6822,
+      "endLine": 6914,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 187
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private final byte getEarringsIndex();",
+      "startLine": 6915,
+      "endLine": 6965,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 99
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance checkEquippedItem(int);",
+      "startLine": 6966,
+      "endLine": 7003,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 70
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean checkEquipped(int);",
+      "startLine": 7004,
+      "endLine": 7041,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 70
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean checkEquipped(java.lang.String);",
+      "startLine": 7042,
+      "endLine": 7079,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 70
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean checkEquipped(int[]);",
+      "startLine": 7080,
+      "endLine": 7117,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 55
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean checkEquipped(java.lang.String[]);",
+      "startLine": 7118,
+      "endLine": 7155,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 55
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public int getTypeEquipped(int, int);",
+      "startLine": 7156,
+      "endLine": 7198,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 94
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance getItemEquipped(int, int);",
+      "startLine": 7199,
+      "endLine": 7243,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 97
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public final com.lineage.server.model.Instance.L1ItemInstance[] getRingEquipped();",
+      "startLine": 7244,
+      "endLine": 7281,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 85
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void takeoffEquip(int);",
+      "startLine": 7282,
+      "endLine": 7291,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 10
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void takeoffWeapon(int);",
+      "startLine": 7292,
+      "endLine": 7326,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 59
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void takeoffArmor(int);",
+      "startLine": 7327,
+      "endLine": 7409,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 138
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance getArrow();",
+      "startLine": 7410,
+      "endLine": 7416,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 6
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance getSting();",
+      "startLine": 7417,
+      "endLine": 7423,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 6
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.Instance.L1ItemInstance getBullet(int);",
+      "startLine": 7424,
+      "endLine": 7535,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 223
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean hasProjectile(int);",
+      "startLine": 7536,
+      "endLine": 7580,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 90
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean hasRequiredProjectile(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 7581,
+      "endLine": 7617,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 82
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void setArrow(int);",
+      "startLine": 7618,
+      "endLine": 7624,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 5
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public boolean toggleArrowSelection(int);",
+      "startLine": 7625,
+      "endLine": 7643,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 25
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void setSting(int);",
+      "startLine": 7644,
+      "endLine": 7650,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 5
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public int hpRegenPerTick();",
+      "startLine": 7651,
+      "endLine": 7690,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 74
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public int mpRegenPerTick();",
+      "startLine": 7691,
+      "endLine": 7730,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 74
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private boolean isEligibleForDeathDrop(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 7731,
+      "endLine": 7814,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 164
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public com.lineage.server.model.Instance.L1ItemInstance caoPenalty();",
+      "startLine": 7815,
+      "endLine": 7879,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 112
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public java.util.List<com.lineage.server.model.Instance.L1ItemInstance> getAlwaysDropItemsForDeath();",
+      "startLine": 7880,
+      "endLine": 7917,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 78
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public java.util.List<com.lineage.server.model.Instance.L1ItemInstance> getAlwaysVanishItemsForDeath();",
+      "startLine": 7918,
+      "endLine": 7955,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 78
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "public void delQuestItem(int);",
+      "startLine": 7956,
+      "endLine": 8015,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 125
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void lambda$setEquipped$32(com.lineage.server.model.Instance.L1ItemInstance, boolean, boolean, boolean);",
+      "startLine": 8016,
+      "endLine": 8025,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 9
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void lambda$deleteItem$31(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 8026,
+      "endLine": 8301,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 610
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$SkillPurchaseCommitResult lambda$consumeItemsAndPersistSkillAtomically$30(java.util.Map, com.lineage.server.templates.L1UserSkillTmp);",
+      "startLine": 8302,
+      "endLine": 8395,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 187
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private java.lang.Long lambda$removeItem$29(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 8396,
+      "endLine": 8512,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 235
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult lambda$consumeItemDurably$28(java.util.Map);",
+      "startLine": 8513,
+      "endLine": 8526,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 22
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult lambda$consumeItemsAtomicallyDetailed$27(java.util.Map);",
+      "startLine": 8527,
+      "endLine": 8533,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 5
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult lambda$consumeExactItemForUpgrade$26(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 8534,
+      "endLine": 8675,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 311
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult lambda$consumeExactItemDurably$25(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 8676,
+      "endLine": 8690,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 23
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$ItemConsumeCommitResult lambda$consumeExactItemAtomically$24(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 8691,
+      "endLine": 8698,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 6
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$SystemPurchaseResult lambda$purchaseConfiguredStackableSupply$23(int, long, int, long);",
+      "startLine": 8699,
+      "endLine": 8708,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 10
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private java.lang.Boolean lambda$consumeEnchantItem$22(long, int, int);",
+      "startLine": 8709,
+      "endLine": 8726,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 25
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.Instance.L1ItemInstance lambda$tradeItem$21(com.lineage.server.model.Instance.L1ItemInstance, int, int, com.lineage.server.model.L1GroundInventory);",
+      "startLine": 8727,
+      "endLine": 8841,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 214
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.Instance.L1ItemInstance lambda$tradeItem$20(com.lineage.server.model.L1PcInventory, com.lineage.server.model.Instance.L1ItemInstance, long, com.lineage.server.model.L1Inventory);",
+      "startLine": 8842,
+      "endLine": 8959,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 225
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void lambda$updateItem$19(com.lineage.server.model.Instance.L1ItemInstance, int);",
+      "startLine": 8960,
+      "endLine": 8971,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 16
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void lambda$updateItem$18(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 8972,
+      "endLine": 9260,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 601
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.Instance.L1ItemInstance lambda$storeTradeItem$17(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 9261,
+      "endLine": 9460,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 440
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.Instance.L1ItemInstance lambda$storeItem$16(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 9461,
+      "endLine": 9660,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 440
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$PrivateShopExchangeResult lambda$exchangePrivateShop$15(com.lineage.server.model.L1PcInventory, com.lineage.server.model.Instance.L1ItemInstance, long, com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 9661,
+      "endLine": 9671,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 11
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.Instance.L1ItemInstance lambda$tradeItemFromInventoryIfCanAdd$14(com.lineage.server.model.L1PcInventory, com.lineage.server.model.Instance.L1ItemInstance, long, boolean, com.lineage.server.model.L1Inventory);",
+      "startLine": 9672,
+      "endLine": 9700,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 47
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.Instance.L1ItemInstance lambda$storeItemIfCanAdd$13(com.lineage.server.model.Instance.L1ItemInstance, long, boolean);",
+      "startLine": 9701,
+      "endLine": 9721,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 30
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private java.lang.Boolean lambda$consumeProjectile$12(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 9722,
+      "endLine": 9938,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 415
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private java.lang.Boolean lambda$applyCommittedItemTemplateReplacement$11(com.lineage.server.model.Instance.L1ItemInstance, com.lineage.server.templates.L1Item, int, java.lang.String);",
+      "startLine": 9939,
+      "endLine": 10036,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 193
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private java.lang.Boolean lambda$restoreCompensationSnapshot$10(boolean, com.lineage.server.model.L1PcInventory$InventoryMutationSnapshot, java.lang.String);",
+      "startLine": 10037,
+      "endLine": 10345,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 740
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static boolean lambda$restoreCompensationSnapshot$9(com.lineage.server.model.Instance.L1ItemInstance, com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 10346,
+      "endLine": 10360,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 21
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private java.lang.Boolean lambda$restoreConfirmedDebitSnapshot$8(com.lineage.server.model.L1PcInventory$InventoryMutationSnapshot, java.lang.String);",
+      "startLine": 10361,
+      "endLine": 10443,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 194
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$MaterialRefundResult lambda$restoreUnawardedMaterials$7(com.lineage.server.model.L1PcInventory$InventoryMutationSnapshot, java.lang.String);",
+      "startLine": 10444,
+      "endLine": 10816,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 852
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$InventoryMutationSnapshot lambda$snapshotForExchangeCompensation$6(java.util.Set, java.util.Set);",
+      "startLine": 10817,
+      "endLine": 10913,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 228
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private com.lineage.server.model.L1PcInventory$InventoryMutationSnapshot lambda$snapshotForCompensation$5();",
+      "startLine": 10914,
+      "endLine": 10951,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 74
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private void lambda$quarantineItemMutation$4(com.lineage.echo.ClientExecutor, long, com.lineage.echo.ClientExecutor$ActiveCharacterBinding);",
+      "startLine": 10952,
+      "endLine": 10984,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 58
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static java.lang.Object lambda$runPairedItemMutationSerialized$3(java.lang.Runnable);",
+      "startLine": 10985,
+      "endLine": 10991,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static void lambda$callPlayerInventoriesSerialized$2(java.util.concurrent.atomic.AtomicReference, com.lineage.server.model.L1PcInventory, com.lineage.server.model.L1PcInventory, java.util.function.Supplier);",
+      "startLine": 10992,
+      "endLine": 11001,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 10
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static java.lang.Object lambda$runPlayerInventorySerialized$1(java.lang.Runnable);",
+      "startLine": 11002,
+      "endLine": 11008,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/L1PcInventory.javap.txt",
+      "signature": "private static java.lang.Object lambda$callPlayerInventorySerialized$0(com.lineage.server.model.L1PcInventory, java.util.function.Supplier);",
+      "startLine": 11009,
+      "endLine": 11030,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 28
+    },
+    {
+      "file": "classes/OpcodesClient.javap.txt",
+      "signature": "public com.lineage.echo.OpcodesClient();",
+      "startLine": 221,
+      "endLine": 305,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 107
+    },
+    {
+      "file": "classes/PlayerActionLock.javap.txt",
+      "signature": "private com.lineage.server.model.PlayerActionLock();",
+      "startLine": 5,
+      "endLine": 10,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 4
+    },
+    {
+      "file": "classes/PlayerActionLock.javap.txt",
+      "signature": "public static void run(com.lineage.server.model.Instance.L1PcInstance, java.lang.Runnable);",
+      "startLine": 11,
+      "endLine": 46,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 58
+    },
+    {
+      "file": "classes/PlayerActionLock.javap.txt",
+      "signature": "public static <T> T call(com.lineage.server.model.Instance.L1PcInstance, java.util.function.Supplier<T>);",
+      "startLine": 47,
+      "endLine": 84,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 59
+    },
+    {
+      "file": "classes/PlayerActionLock.javap.txt",
+      "signature": "public static void runPairOrdered(com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.Instance.L1PcInstance, java.lang.Runnable);",
+      "startLine": 85,
+      "endLine": 180,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 164
+    },
+    {
+      "file": "classes/PlayerActionLock.javap.txt",
+      "signature": "private static void runLockedPair(com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.Instance.L1PcInstance, java.lang.Runnable);",
+      "startLine": 181,
+      "endLine": 238,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 106
+    },
+    {
+      "file": "classes/PlayerActionLock.javap.txt",
+      "signature": "private static java.util.concurrent.locks.ReentrantLock actionLock(com.lineage.server.model.Instance.L1PcInstance);",
+      "startLine": 239,
+      "endLine": 255,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 12
+    },
+    {
+      "file": "classes/S_AddItem.javap.txt",
+      "signature": "public com.lineage.server.serverpackets.S_AddItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 5,
+      "endLine": 207,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 368
+    },
+    {
+      "file": "classes/S_AddItem.javap.txt",
+      "signature": "public byte[] getContent();",
+      "startLine": 208,
+      "endLine": 220,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 19
+    },
+    {
+      "file": "classes/S_AddItem.javap.txt",
+      "signature": "public java.lang.String getType();",
+      "startLine": 221,
+      "endLine": 227,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/S_ChangeHeading.javap.txt",
+      "signature": "public com.lineage.server.serverpackets.S_ChangeHeading(com.lineage.server.model.L1Character);",
+      "startLine": 5,
+      "endLine": 18,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 18
+    },
+    {
+      "file": "classes/S_ChangeHeading.javap.txt",
+      "signature": "private void buildPacket(com.lineage.server.model.L1Character);",
+      "startLine": 19,
+      "endLine": 33,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 22
+    },
+    {
+      "file": "classes/S_ChangeHeading.javap.txt",
+      "signature": "public byte[] getContent();",
+      "startLine": 34,
+      "endLine": 46,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 19
+    },
+    {
+      "file": "classes/S_ChangeHeading.javap.txt",
+      "signature": "public java.lang.String getType();",
+      "startLine": 47,
+      "endLine": 53,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/S_DeleteInventoryItem.javap.txt",
+      "signature": "public com.lineage.server.serverpackets.S_DeleteInventoryItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 5,
+      "endLine": 22,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 27
+    },
+    {
+      "file": "classes/S_DeleteInventoryItem.javap.txt",
+      "signature": "public com.lineage.server.serverpackets.S_DeleteInventoryItem(int);",
+      "startLine": 23,
+      "endLine": 39,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 24
+    },
+    {
+      "file": "classes/S_DeleteInventoryItem.javap.txt",
+      "signature": "public byte[] getContent();",
+      "startLine": 40,
+      "endLine": 52,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 19
+    },
+    {
+      "file": "classes/S_DeleteInventoryItem.javap.txt",
+      "signature": "public java.lang.String getType();",
+      "startLine": 53,
+      "endLine": 59,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/S_DoActionGFX.javap.txt",
+      "signature": "public com.lineage.server.serverpackets.S_DoActionGFX(int, int);",
+      "startLine": 7,
+      "endLine": 26,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 30
+    },
+    {
+      "file": "classes/S_DoActionGFX.javap.txt",
+      "signature": "public byte[] getContent();",
+      "startLine": 27,
+      "endLine": 39,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 19
+    },
+    {
+      "file": "classes/S_DoActionGFX.javap.txt",
+      "signature": "public java.lang.String getType();",
+      "startLine": 40,
+      "endLine": 52,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/S_ItemAmount.javap.txt",
+      "signature": "public com.lineage.server.serverpackets.S_ItemAmount(com.lineage.server.model.Instance.L1ItemInstance, int);",
+      "startLine": 5,
+      "endLine": 28,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 38
+    },
+    {
+      "file": "classes/S_ItemAmount.javap.txt",
+      "signature": "private void buildPacket(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 29,
+      "endLine": 85,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 102
+    },
+    {
+      "file": "classes/S_ItemAmount.javap.txt",
+      "signature": "public byte[] getContent();",
+      "startLine": 86,
+      "endLine": 98,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 19
+    },
+    {
+      "file": "classes/S_ItemAmount.javap.txt",
+      "signature": "public java.lang.String getType();",
+      "startLine": 99,
+      "endLine": 105,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/S_ItemStatus.javap.txt",
+      "signature": "public com.lineage.server.serverpackets.S_ItemStatus(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 5,
+      "endLine": 28,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 38
+    },
+    {
+      "file": "classes/S_ItemStatus.javap.txt",
+      "signature": "private void buildPacket(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 29,
+      "endLine": 109,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 150
+    },
+    {
+      "file": "classes/S_ItemStatus.javap.txt",
+      "signature": "public com.lineage.server.serverpackets.S_ItemStatus(com.lineage.server.model.Instance.L1ItemInstance, long);",
+      "startLine": 110,
+      "endLine": 196,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 164
+    },
+    {
+      "file": "classes/S_ItemStatus.javap.txt",
+      "signature": "public static boolean shouldUseLongStatus(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 197,
+      "endLine": 211,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 21
+    },
+    {
+      "file": "classes/S_ItemStatus.javap.txt",
+      "signature": "private static boolean shouldUseLongStatus(com.lineage.server.model.Instance.L1ItemInstance, byte[]);",
+      "startLine": 212,
+      "endLine": 235,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 41
+    },
+    {
+      "file": "classes/S_ItemStatus.javap.txt",
+      "signature": "private void writeLongStatus(com.lineage.server.model.Instance.L1ItemInstance, java.lang.String, int, byte[]);",
+      "startLine": 236,
+      "endLine": 278,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 75
+    },
+    {
+      "file": "classes/S_ItemStatus.javap.txt",
+      "signature": "public byte[] getContent();",
+      "startLine": 279,
+      "endLine": 291,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 19
+    },
+    {
+      "file": "classes/S_ItemStatus.javap.txt",
+      "signature": "public java.lang.String getType();",
+      "startLine": 292,
+      "endLine": 298,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/S_NPCPack_Item.javap.txt",
+      "signature": "public com.lineage.server.serverpackets.S_NPCPack_Item(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 5,
+      "endLine": 18,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 18
+    },
+    {
+      "file": "classes/S_NPCPack_Item.javap.txt",
+      "signature": "private void buildPacket(com.lineage.server.model.Instance.L1ItemInstance);",
+      "startLine": 19,
+      "endLine": 184,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 140008
+    },
+    {
+      "file": "classes/S_NPCPack_Item.javap.txt",
+      "signature": "public byte[] getContent();",
+      "startLine": 185,
+      "endLine": 197,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 19
+    },
+    {
+      "file": "classes/S_NPCPack_Item.javap.txt",
+      "signature": "public java.lang.String getType();",
+      "startLine": 198,
+      "endLine": 204,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/S_RemoveObject.javap.txt",
+      "signature": "public com.lineage.server.serverpackets.S_RemoveObject(com.lineage.server.model.L1Object);",
+      "startLine": 5,
+      "endLine": 22,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 27
+    },
+    {
+      "file": "classes/S_RemoveObject.javap.txt",
+      "signature": "public byte[] getContent();",
+      "startLine": 23,
+      "endLine": 35,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 19
+    },
+    {
+      "file": "classes/S_RemoveObject.javap.txt",
+      "signature": "public java.lang.String getType();",
+      "startLine": 36,
+      "endLine": 42,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 7
+    },
+    {
+      "file": "classes/WorldInteractionGuard.javap.txt",
+      "signature": "private com.lineage.server.utils.WorldInteractionGuard();",
+      "startLine": 3,
+      "endLine": 8,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 4
+    },
+    {
+      "file": "classes/WorldInteractionGuard.javap.txt",
+      "signature": "public static com.lineage.server.utils.WorldInteractionGuard$Interaction capture(com.lineage.echo.ClientExecutor, com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.L1Object);",
+      "startLine": 9,
+      "endLine": 22,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 18
+    },
+    {
+      "file": "classes/WorldInteractionGuard.javap.txt",
+      "signature": "public static boolean isCurrentPlayer(com.lineage.echo.ClientExecutor, com.lineage.server.model.Instance.L1PcInstance);",
+      "startLine": 23,
+      "endLine": 62,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 78
+    },
+    {
+      "file": "classes/WorldInteractionGuard.javap.txt",
+      "signature": "private static boolean currentObjects(com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.L1Object);",
+      "startLine": 63,
+      "endLine": 91,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 55
+    },
+    {
+      "file": "classes/WorldInteractionGuard.javap.txt",
+      "signature": "private static boolean sameWorld(com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.L1Object);",
+      "startLine": 92,
+      "endLine": 112,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 35
+    },
+    {
+      "file": "classes/WorldInteractionGuard.javap.txt",
+      "signature": "public static boolean withinDistance(com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.L1Object, int);",
+      "startLine": 113,
+      "endLine": 158,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 76
+    },
+    {
+      "file": "classes/WorldInteractionGuard.javap.txt",
+      "signature": "public static boolean npcTalk(com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.Instance.L1NpcInstance);",
+      "startLine": 159,
+      "endLine": 180,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 36
+    },
+    {
+      "file": "classes/WorldInteractionGuard.javap.txt",
+      "signature": "public static boolean npcAction(com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.L1Object);",
+      "startLine": 181,
+      "endLine": 229,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 84
+    },
+    {
+      "file": "classes/WorldInteractionGuard.javap.txt",
+      "signature": "public static boolean door(com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.Instance.L1DoorInstance);",
+      "startLine": 230,
+      "endLine": 297,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 126
+    },
+    {
+      "file": "classes/WorldInteractionGuard.javap.txt",
+      "signature": "public static boolean hasString(byte[], int);",
+      "startLine": 298,
+      "endLine": 326,
+      "bytecodeOffsetMin": 0,
+      "bytecodeOffsetMax": 39
+    }
+  ]
+}

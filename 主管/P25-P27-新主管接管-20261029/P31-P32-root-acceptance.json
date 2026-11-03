@@ -1,0 +1,173 @@
+{
+  "schema": "p31-p32-supervisor-bounded-acceptance-v1",
+  "utc": "2026-10-29T07:21:10.304409+00:00",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "status": "accepted-two-parallel-offline-behavior-deliveries",
+  "baseline": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-r2-final-acceptance.json",
+    "size": 6919,
+    "sha256": "b37e5993a5a2fd5c0aed6f10e5c1c313da6dbcaf5899fcb729fffd6d08c03cf1"
+  },
+  "dispatch": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P31-P32-dispatch.json",
+    "size": 11181,
+    "sha256": "e5f69053b211da7688f4c7f58f3b8e642e768ea85a98712e116016a7c99c3e7f"
+  },
+  "workers": [
+    {
+      "phase": "P31",
+      "threadId": "01a18676-3321-7c60-a658-cc70dbe320ba",
+      "turnId": "01a18676-34ad-71b3-9d59-6f7774b23f2a",
+      "status": "idle",
+      "turnStatus": "completed",
+      "root": "work/P31-pickup-composite-review-r1",
+      "goalEvidence": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\goal-status.json",
+        "size": 232,
+        "sha256": "b112d1f2f22f7b4c5d962fa0e0f4e04c162be880a053618dfa48c344e463016c"
+      }
+    },
+    {
+      "phase": "P32",
+      "threadId": "01a18676-7607-7120-8804-d19ca3805f36",
+      "turnId": "01a18676-790d-7ec0-a905-3c67385543d2",
+      "status": "idle",
+      "turnStatus": "completed",
+      "root": "work/P32-pickup-lifecycle-review-r1",
+      "goalEvidence": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\goal-readback.json",
+        "size": 403,
+        "sha256": "295263aa54b2ce036ba7acb07d8e220b0211a6f7db9c62f83ba8875e6920c167"
+      }
+    }
+  ],
+  "P31": {
+    "seal": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\artifact-manifest.json",
+      "size": 88940,
+      "sha256": "7d5fe8e598dad7979c32d5c84707f94c31381ce60b278b7f3b2c0171c194f7cb"
+    },
+    "rootReview": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P31-root-review.json",
+      "size": 2332,
+      "sha256": "ebc50b16a96cbc60c85c2f068f1aa8453702f87c808c653bedbf1781556802f2"
+    },
+    "cases": 56,
+    "pixels": 191232,
+    "differentPixels": 0,
+    "negativeControls": 144,
+    "behavior": "Selected exact-profile idle/pickup/terminal/finish pixels, shadow suppression/restoration, opaque occlusion and final entity ownership match independent original-source oracle.",
+    "scope": "4 exact pairs, 8 pair/direction trajectories, speed0, synthetic finite scene; no full original-map or GUI claim."
+  },
+  "P32": {
+    "seal": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\artifact-manifest.json",
+      "size": 36331,
+      "sha256": "2668b3754b39af60659063ea096439b872c5417584e5cb2c5f1860924be588db"
+    },
+    "rootReview": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P32-root-review.json",
+      "size": 7107,
+      "sha256": "aea9d2c649a662ef335c4a23c369925a1348f89cf1eb019cf3a8a7c2a264ff72"
+    },
+    "cases": 196,
+    "families": {
+      "lifecycle": 39,
+      "direction-window": 105,
+      "terminal-replacement": 42,
+      "latest-eligible": 1,
+      "lease": 2,
+      "guard-isolation": 6,
+      "actor-reentry": 1
+    },
+    "negativeControls": 3,
+    "behavior": "12 owner fields and selected cancellation events prevent stale resurrection; valid receipts recover; directions1-7 selected windows, terminal replacement, guard isolation and lease completion isolation pass.",
+    "scope": "Synthetic packets and clock/reflection seams; representative profiles only. Ground lease is separate from pickup owner."
+  },
+  "productChanges": 0,
+  "productRebuilds": 0,
+  "confirmedProductDefects": 0,
+  "historicalRowsAdded": 0,
+  "improvement": "Closes bounded runtime acceptance gaps with executable independent oracles and retained raw evidence; no product behavior change was necessary.",
+  "preservedPins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+      "size": 158,
+      "sha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+      "size": 31361,
+      "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\build\\client-product-r34\\P11.ClientEngine.dll",
+      "size": 4925440,
+      "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\build\\client-product-r34\\P24.Audio.dll",
+      "size": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    }
+  ],
+  "formalEntry": "r33",
+  "formalR34Activated": false,
+  "wholeProjectComplete": false,
+  "nativeAccepted": false,
+  "DBActions": 0,
+  "permanentDeletions": 0,
+  "remaining": [
+    {
+      "id": "COMPOSITE-WIDER",
+      "scope": "Original-map finite scene, real occluder/opacity transitions and untested profile/direction combinations; native GUI separate.",
+      "dependency": "select source-backed finite scene oracle"
+    },
+    {
+      "id": "REAL-S30",
+      "scope": "Three real S30 flight vectors and resulting hit priority, not synthetic hit cache.",
+      "dependency": "existing exact packet/flight source contract"
+    },
+    {
+      "id": "RESOURCE-FAULTS",
+      "scope": "Hash/parser/missing group/base-key and extension fallback behavior.",
+      "dependency": "fresh bounded fault harness; immutable product/resources remain untouched"
+    },
+    {
+      "id": "TRANSPORT-EVENTS",
+      "scope": "900/3000 controlled transport timing, authoritative quantities and audio/effect/send metadata counters.",
+      "dependency": "isolated in-memory instrumentation; no real service or DB"
+    },
+    {
+      "id": "RELEASE-RG2",
+      "scope": "General release generator product manifest inclusion defect remains open; accepted concrete r34 package was corrected separately.",
+      "dependency": "exact bounded tool-only repair and independent review"
+    },
+    {
+      "id": "NATIVE",
+      "scope": "Same-version full native workflow, mouse/HUD, map/audio behavior.",
+      "dependency": "explicit native authority and user-owned service readiness; outside current offline authorization"
+    }
+  ],
+  "environmentDeviation": {
+    "evidence": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\environment-deviation.json",
+      "size": 1049,
+      "sha256": "f7f4e762aea8efc9fa40ea276b4aa7b0c8847a9a967453a8be92ad6fb0e64269"
+    },
+    "action": "P32 build-01: dotnet build helper",
+    "observation": "SDK stderr reports ASP.NET Core HTTPS development certificate installed.",
+    "persistentStoreEffect": "uncertain; not inspected",
+    "containment": "Subsequent build source snapshots set certificate generation and global-tools PATH changes false; no trust/removal/cleanup attempted.",
+    "futureRequirement": "Set DOTNET_GENERATE_ASPNET_CERTIFICATE=false and DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false before first helper build; record these in run receipt."
+  },
+  "entryBlocker": {
+    "action": "send_message_to_thread ENGINE-R34-ENTRY-ACTIVATE-P26-R1",
+    "target": "01a17a22-17e4-70c0-9792-166ddb86ea42; root 啟動引擎.cmd and project-manifest.json",
+    "state": "denied-not-executed; user approval pending",
+    "reason": "Automatic approval review requires explicit authorization for formal persistent entry activation.",
+    "retried": false
+  },
+  "goal": "P31 and P32 actual Goal complete reported with tool readback artifacts; supervisor Goal tools unavailable.",
+  "next": "Select the next finite independent offline gaps from remaining; no user acceptance needed to continue already-authorized offline work."
+}

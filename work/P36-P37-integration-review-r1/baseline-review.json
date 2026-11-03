@@ -1,0 +1,147 @@
+{
+  "schema": "p36-p37-independent-baseline-v1",
+  "utc": "2026-10-29T08:16:25.114449+00:00",
+  "status": "authority-and-four-replacements-one-addition-verified",
+  "exactInputPins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-r2-final-acceptance.json",
+      "size": 6919,
+      "sha256": "b37e5993a5a2fd5c0aed6f10e5c1c313da6dbcaf5899fcb729fffd6d08c03cf1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P35-root-acceptance.json",
+      "size": 6061,
+      "sha256": "04174872b4a7d271776cdb8babd1eb4a8727d0c84ec1cacc8a8ce556adfccb95"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\stage-files-seal.json",
+      "size": 65164,
+      "sha256": "45bf24321192718e090deca882ce1ce884113cb9bfae817b73ab92892d3f5514"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-fix-r1\\candidate\\generate_package_plan.py",
+      "size": 16695,
+      "sha256": "4fbf32a4d1a5faa12e34631ad2c0e9ee02647ff51947128c69e1894690f13fa2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-fix-r1\\artifact-seal.json",
+      "size": 398,
+      "sha256": "664a0d7df517d7c9bb191c99cf94995843be882eae26302c8cf344998596156a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\artifact-seal.json",
+      "size": 407,
+      "sha256": "a210842eabf2b486add553fc41026f5a5468136d8f831134b92d3e1007a3ffb5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+      "size": 158,
+      "sha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+      "size": 31361,
+      "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+    }
+  ],
+  "stageFilesVerified": 347,
+  "acceptedSources": 181,
+  "currentCanonicalSources": 180,
+  "unchangedSources": 176,
+  "delta": [
+    {
+      "path": "source/ObjectAssets.cs",
+      "operation": "replace",
+      "before": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\engine\\source\\ObjectAssets.cs",
+        "size": 7023,
+        "sha256": "707ee6d9867e8eebb1a8fce89f28aeddff1ce8fb9cfd3d8f3daef31789d8f94a"
+      },
+      "after": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\ObjectAssets.cs",
+        "size": 7169,
+        "sha256": "b09a5849e71b2c282561df96f628f4bd5cca5e5ecb02ad8d61b06cf24e12cd3d"
+      },
+      "targetHardlinkCount": 1
+    },
+    {
+      "path": "source/OfflineClient.csproj",
+      "operation": "replace",
+      "before": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\engine\\source\\OfflineClient.csproj",
+        "size": 1154,
+        "sha256": "ccf86adc2ad35473d9cce17ca9b40e3a9698d04bda578e9b20d2966946360450"
+      },
+      "after": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\OfflineClient.csproj",
+        "size": 1327,
+        "sha256": "5a5ab7283e5477228bd0f0ef664571aae4218de3fb1372d28bf0ef457d31dbc3"
+      },
+      "targetHardlinkCount": 1
+    },
+    {
+      "path": "source/PickupAssets.cs",
+      "operation": "replace",
+      "before": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\engine\\source\\PickupAssets.cs",
+        "size": 3546,
+        "sha256": "c9ed777b82948c6785d28e6807cda8b485e5321bfeb9d3587c643814caf491f2"
+      },
+      "after": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupAssets.cs",
+        "size": 6448,
+        "sha256": "c3c27789794fd0579062d7e3328be605735cc148e1cbd829f3413ffe2dde7f03"
+      },
+      "targetHardlinkCount": 1
+    },
+    {
+      "path": "source/PickupPresentation.cs",
+      "operation": "replace",
+      "before": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\engine\\source\\PickupPresentation.cs",
+        "size": 6606,
+        "sha256": "b28e1bc5dcdaea4b42e12783697af1a1976d580cbc48724b7bc3b25e9cd9e326"
+      },
+      "after": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupPresentation.cs",
+        "size": 6721,
+        "sha256": "e4dfc947c163485d80813a9027599e904584f0db6426eb661284a39a5322deb6"
+      },
+      "targetHardlinkCount": 1
+    },
+    {
+      "path": "source/Resources/pickup-own-base15-profile-extension.json",
+      "operation": "add",
+      "before": null,
+      "after": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\Resources\\pickup-own-base15-profile-extension.json",
+        "size": 2473547,
+        "sha256": "aff2e04d4f9395f7993baf5818eb16218730b7def0a29c7d07e86c314db513ba"
+      },
+      "targetHardlinkCount": null
+    }
+  ],
+  "acceptedProduct": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\build\\client-product-r34\\P11.ClientEngine.dll",
+    "size": 4925440,
+    "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+  },
+  "acceptedAudio": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\build\\client-product-r34\\P24.Audio.dll",
+    "size": 53760,
+    "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+  },
+  "entryTargetsR33": true,
+  "sourceDeltaOverlapsEntry": false,
+  "legacyToolRisks": [
+    "P26 completed_context requires exactly 180 source-manifest rows and pins original r34 four identities; it is not valid evidence for a new 181-source integration.",
+    "P26 requires original eight completed canonical steps and historical 690-pin closure. New integration may reference those only as historical evidence; no unexecuted steps may be marked completed.",
+    "P35 changes only package_inventory; IDENTITIES still names build/client-product-r34 and product-r34-manifest.json. P37 needs explicit versioned inventory-only binding without changing historical r34 material or permitting packaging.",
+    "New expected product hash must remain the P30 accepted hash. Build from canonical engine source with private project-specific intermediates; no isolated-stage DLL copy may substitute for the canonical build."
+  ],
+  "buildEnvironmentCaution": "P30 historical execution-contract overrides HOME/USERPROFILE. Current dispatch explicitly prohibits this; do not inherit that old environment recipe unchanged.",
+  "sharedWrites": false,
+  "buildInvocations": 0,
+  "candidateExecuted": false,
+  "finalPlanReview": "pending supervisor exact seals"
+}

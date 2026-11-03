@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-28T23:47:51.816420+00:00",
+  "decision": "accepted-exact-r33-independent-review",
+  "artifactSealSha256": "3ead78e2deff945cb0b191c88c139f54865595b5ec66edf2d5a704a4a1e7b5aa",
+  "reviewAcceptanceSha256": "d72c99054b009c940f7ecc88d147fa996ec77c23a7498fc964ec44132d7e9bd7",
+  "artifactFiles": 48,
+  "externalPins": 570,
+  "rows": 816,
+  "assertionsPassed": 735,
+  "observationsSeparate": 81,
+  "functionalAssertions": 731,
+  "socketGuards": 4,
+  "baselineGapsClosed": 14,
+  "newOwnerPendingDischarged": 24,
+  "readonlyVerifierExecuted": true,
+  "unresolvedFindings": [],
+  "nativeLiveAccepted": false
+}

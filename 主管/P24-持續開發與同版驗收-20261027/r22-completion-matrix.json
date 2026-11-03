@@ -1,0 +1,316 @@
+{
+  "utc": "2026-10-27T06:26:22.083Z",
+  "baseline": "r22 sealed and root clean rebuilt",
+  "dllSha256": "4d33d6adfd026eed1162e1135b8003d1419f3f17c17773ef4d2e67f191f333d7",
+  "manifestSha256": "2375e9683ef48ffcfabe4cc81a7917c371f6e1bcf2ba18381431fc2de8dcf75b",
+  "previousStopReason": "Supervisor incorrectly ended after bounded patch regression despite remaining fixed-version full-flow gate; not a user pause or external blocker.",
+  "wholeP24Complete": false,
+  "crossVersionEvidenceIsNotR22Pass": true,
+  "rows": [
+    {
+      "feature": "正常入口/登入/選角/移動/重登",
+      "status": "r22完整流程直接實測（有原服回覆與保存證據）",
+      "evidence": [
+        "r22-final-live/g00-main-blank-entry-state.json",
+        "r22-final-live/g01-main-normal-walk.json",
+        "r22-final-live/fix-gift-normal-relogin.json",
+        "r22-full-flow/g01-main-normal-login.json",
+        "r22-full-flow/g01-peer-normal-login.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "保留本輪直接證據；新圖示缺件另列修正",
+      "r22FullFlowPassed": true
+    },
+    {
+      "feature": "匕首重登/原生鍵盤/圖示957",
+      "status": "r22直接實測",
+      "evidence": [
+        "r22-final-live/g02-dagger-native-keyboard-walk.json",
+        "r22-final-live/g02-dagger-normal-relogin.json",
+        "r22-final-live/fix-gift-icon-visible-state.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "保持r22固定版本，後續流程持續觀察",
+      "r22FullFlowPassed": false
+    },
+    {
+      "feature": "戰鬥/自然EXP與戰利品",
+      "status": "r22完整流程直接實測（有原服回覆與保存證據）",
+      "evidence": [
+        "r21-final-live/g02-combat-reward-reconciliation.json",
+        "r22-full-flow/g02-dwarf-light-arrow-kill.json",
+        "r22-full-flow/g02-zombie-live-melee.json",
+        "r22-full-flow/g02-postcombat-normal-home.json",
+        "r22-full-flow/g02-kill-loot-offline-db.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "保留本輪直接證據；新圖示缺件另列修正",
+      "r22FullFlowPassed": true
+    },
+    {
+      "feature": "技能學習/施法",
+      "status": "r22完整流程直接實測（有原服回覆與保存證據）",
+      "evidence": [
+        "r20-final-live/g03-learn-heal-and-normal-home.json",
+        "r21-final-live/g03-postcombat-normal-recovery.json",
+        "r22-full-flow/g03-shield-quote.json",
+        "r22-full-flow/g03-shield-learned.json",
+        "r22-full-flow/g03-shield-cast-after-relogin.json",
+        "r22-full-flow/g03-learn-cast-offline-db.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "保留本輪直接證據；新圖示缺件另列修正",
+      "r22FullFlowPassed": true
+    },
+    {
+      "feature": "食物/藥水/裝備/地面拾取",
+      "status": "r22完整流程直接實測（有原服回覆與保存證據）",
+      "evidence": [
+        "r19-final-live/g04-food-use.json",
+        "r19-final-live/g04-native-p-pickup.json",
+        "r20-final-live/g04-haste-normal-use.json",
+        "r21-final-live/fix-dagger-normal-equipped.json",
+        "r22-full-flow/g04-main-food.json",
+        "r22-full-flow/g04-peer-green-used.json",
+        "r22-full-flow/g04-main-postcombat-recovery.json",
+        "r22-full-flow/g04-shield-off.json",
+        "r22-full-flow/g04-shield-on.json",
+        "r22-full-flow/g04-normal-meat-drop.json",
+        "r22-full-flow/g04-normal-meat-picked-up.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "保留本輪直接證據；新圖示缺件另列修正",
+      "r22FullFlowPassed": true
+    },
+    {
+      "feature": "NPC購買",
+      "status": "r22潘朵拉正常買補給1144、重登與離線DB已驗",
+      "evidence": [
+        "r21-final-live/fix-merchant-normal-supply-purchase.json",
+        "r22-full-flow/g05-pandora-normal-supplies-purchase.json",
+        "r22-full-flow/g05-pandora-purchase-normal-relogin.json",
+        "r22-full-flow/g07-ticket-offline-db.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "r22可見原商人正常少量補給與保存",
+      "r22FullFlowPassed": true
+    },
+    {
+      "feature": "NPC正向出售",
+      "status": "固定SQL與live DB全部1631商店收購價為-1，正向成交條件不成立",
+      "evidence": [
+        "r21-final-live/g05-merchant-sell-quote.json"
+      ],
+      "owner": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "nextAction": "npc-positive-sale-review-r1固定JAR/SQL條件核對，主管liveDB/UI確認合法可出售物",
+      "r22FullFlowPassed": false
+    },
+    {
+      "feature": "玩家直接交易",
+      "status": "r22完整流程直接實測（有原服回覆與保存證據）",
+      "evidence": [
+        "r19-final-live/g06-direct-trade-resource-reconciliation.json",
+        "r20-final-live/g06-one-red-trade-completed.json",
+        "r22-full-flow/g06-trade-preconfirm.json",
+        "r22-full-flow/g06-trade-normal-relogin.json",
+        "r22-full-flow/g06-trade-offline-db.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "保留本輪直接證據；新圖示缺件另列修正",
+      "r22FullFlowPassed": true
+    },
+    {
+      "feature": "私商正向購買",
+      "status": "r22完整流程直接實測（有原服回覆與保存證據）",
+      "evidence": [
+        "r19-final-live/g06p-buy-one-sapphire.json",
+        "r20-final-live/fix-private-normal-recovery-list.json",
+        "r22-full-flow/g06p-ruby-purchase.json",
+        "r22-full-flow/g06p-ruby-stock-after.json",
+        "r22-full-flow/g06p-ruby-normal-relogin.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "保留本輪直接證據；新圖示缺件另列修正",
+      "r22FullFlowPassed": true
+    },
+    {
+      "feature": "私商正向回購",
+      "status": "AI收購要求+7武器；現有物品不符合，正向回購未驗",
+      "evidence": [
+        "r19-final-live/g06p-sell-current-owned-quote.json"
+      ],
+      "owner": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "nextAction": "private-positive-buyback-review-r1核對現有AI店主buylist和原條件；沒有條目不標正向通過",
+      "r22FullFlowPassed": false
+    },
+    {
+      "feature": "倉庫存取",
+      "status": "r20直接實測",
+      "evidence": [
+        "r20-final-live/g06-warehouse-relogin-ten-preserved.json",
+        "r20-final-live/g06-warehouse-withdraw-six.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "r22正常存少量紅水、重登、領回與費用對帳",
+      "r22FullFlowPassed": false
+    },
+    {
+      "feature": "洞穴跨圖",
+      "status": "r22完整流程直接實測（有原服回覆與保存證據）",
+      "evidence": [
+        "r21-final-live/g02-dagger-cave-entry.json",
+        "r21-final-live/g09-dagger-normal-cave-exit.json",
+        "r22-full-flow/g09-main-normal-cave-entry.json",
+        "r22-full-flow/g09-main-cave-normal-relogin.json",
+        "r22-full-flow/g09-normal-cave-exit-before-town.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "保留本輪直接證據；新圖示缺件另列修正",
+      "r22FullFlowPassed": true
+    },
+    {
+      "feature": "往返船運",
+      "status": "r22已實際遇首領堵路並安全撤離，仍未完成同版船運",
+      "evidence": [
+        "r20-final-live/g07-outbound-arrival-ready.json",
+        "r21-final-live/g07-return-natural-arrival-ready.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "r22原時鐘自然往返與票消耗，不重播或改時鐘",
+      "r22FullFlowPassed": false
+    },
+    {
+      "feature": "旅館房間/會議廳",
+      "status": "r22房間與會議廳正常租入已驗，會議廳步行/主動出口尚未驗",
+      "evidence": [
+        "r19-final-live/g10-hall-enter.json",
+        "r19-final-live/g10-room-enter-and-walk.json",
+        "r19-final-live/g10-room-relogin-outside.json",
+        "r22-full-flow/g08-room-key-purchase.json",
+        "r22-full-flow/g08-room-walk-state.json",
+        "r22-full-flow/g08-room-normal-relogin.json",
+        "r22-full-flow/g08-hall-key-purchase.json",
+        "r22-full-flow/player-ui-priority-offline-db.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "r22用既有金幣正常購買限時鑰匙與進出/重登；不補key",
+      "r22FullFlowPassed": false
+    },
+    {
+      "feature": "鑰匙歷史精確刪除",
+      "status": "規則/時間相符，非直接證明",
+      "evidence": [
+        "inn-key-independent-review/result.json",
+        "r21-final-live/g10-inn-key-readonly-db.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "保留缺證；之後新正常購買若需到期測試先唯讀保存deadline，不補造舊紀錄",
+      "r22FullFlowPassed": false
+    },
+    {
+      "feature": "原生全視窗像素/滑鼠",
+      "status": "環境擷取逾時；未驗",
+      "evidence": [
+        "r20-final-live/native-capture-retry-still-timeout.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "保持與原生鍵盤/UIA及實際WebView畫面證據分列，不無限重試或要求使用者再確認螢幕",
+      "r22FullFlowPassed": false
+    },
+    {
+      "feature": "能力點",
+      "status": "r17/r20直接實測",
+      "evidence": [
+        "r20-final-live/g08-bonus-normal-relogin.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "同版正常查詢剩餘能力點；僅原服允許才單次分配並保存",
+      "r22FullFlowPassed": false
+    },
+    {
+      "feature": "完整內容範圍/技能",
+      "status": "仍有限，未支援內容不得外推",
+      "evidence": [
+        "r22-final-live/result.json"
+      ],
+      "owner": "01a1748a-d237-71a0-9323-60ad8462794c",
+      "nextAction": "固定現有支援範圍寫明未支援項，不擴張全職業/全技能/全部素材",
+      "r22FullFlowPassed": false
+    },
+    {
+      "feature": "可重建固定交付",
+      "status": "r22獨立重建通過",
+      "evidence": [
+        "r22-independent-review/result.json",
+        "r22-clean-delivery/rebuild-receipt.json"
+      ],
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "nextAction": "目前待命；僅有新確證缺陷才另派隔離修補和串行整合",
+      "r22FullFlowPassed": false
+    },
+    {
+      "feature": "玩家HUD/快捷槽/圖示背包與技能",
+      "owner": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "directory": "player-hud-implementation-r1",
+      "status": "隔離模組實作中，尚未整合或實機通過",
+      "r22FullFlowPassed": false,
+      "evidence": [
+        "player-ui-priority-20261027.json",
+        "player-facing-integration-contract.json"
+      ],
+      "nextAction": "可建置候選→唯一整合→正常玩家畫面實機驗證"
+    },
+    {
+      "feature": "原始玩家與NPC陰影",
+      "owner": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "directory": "player-shadow-implementation-r1",
+      "status": "隔離模組實作中，尚未整合或實機通過",
+      "r22FullFlowPassed": false,
+      "evidence": [
+        "player-ui-priority-20261027.json",
+        "player-facing-integration-contract.json"
+      ],
+      "nextAction": "可建置候選→唯一整合→正常玩家畫面實機驗證"
+    },
+    {
+      "feature": "原生滑鼠點地移動/攻擊/交談",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "directory": "player-pointer-input-r1",
+      "status": "隔離模組實作中，尚未整合或實機通過",
+      "r22FullFlowPassed": false,
+      "evidence": [
+        "player-ui-priority-20261027.json",
+        "player-facing-integration-contract.json"
+      ],
+      "nextAction": "可建置候選→唯一整合→正常玩家畫面實機驗證"
+    }
+  ],
+  "nextRootAction": "Start a new normal r22 full-flow run from preserved roles; root soleUI/DB operator. No grants/reset/service restart. Existing2workers bounded independent originalsale/buyback reviews; integrator idle until needed.",
+  "resourceLimits": {
+    "newGrants": false,
+    "normalTradeTransferGoldMax": 4000,
+    "normalSkillLearningMax": 6000,
+    "ordinaryNpcPurchasesMax": 3000,
+    "privatePurchaseMax": 15000,
+    "innKeysMax": 200,
+    "roundtripTicketsMax": 612,
+    "warehouseFeesMax": 60
+  },
+  "finalGates": [
+    "samefixedversion continuous normal gameplay chain",
+    "resolve or evidence-limit positiveNPC/privatebuyback paths separately",
+    "final role/resource persistence audit preserving failed history",
+    "truthful supported content and capture limitations",
+    "fixed product operation guide and supervisor final acceptance; goal not falselycompleted"
+  ],
+  "discoveredDefects": [
+    {
+      "icons": [
+        242,
+        318
+      ],
+      "status": "independently reviewed original assets; r23 integration sealed, pending root delivery/live"
+    }
+  ],
+  "playerUiCompletion": "Not complete: player HUD, original shadows and native pointer gameplay are now separate implementation tasks; service receipts do not satisfy these"
+}

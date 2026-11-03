@@ -1,0 +1,104 @@
+{
+  "status": "pass",
+  "cases": 16,
+  "results": [
+    {
+      "name": "missing-execution-receipt",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "new supervisor execution receipt and external SHA required"
+    },
+    {
+      "name": "legacy-r34-receipt-forbidden",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "exact execution receipt path"
+    },
+    {
+      "name": "wrong-plan-pin",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "external exact plan/contract SHA"
+    },
+    {
+      "name": "wrong-contract-pin",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "external exact plan/contract SHA"
+    },
+    {
+      "name": "after-state-not-yet-installed",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "exact canonical source set after"
+    },
+    {
+      "name": "inventory-requires-new-final-receipt",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "[Errno 2] No such file or directory: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\主管\\\\P25-P27-新主管接管-20261029\\\\P36-final-acceptance.json'"
+    },
+    {
+      "name": "child-environment-identity-preserved-and-certificate-path-disabled",
+      "status": "pass"
+    },
+    {
+      "name": "synthetic-four-identity-positive",
+      "status": "pass",
+      "qualification": "row-shape only"
+    },
+    {
+      "name": "synthetic-missing-productDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "required runtime identity target missing or misbound: build/client-product-p36-r1/P11.ClientEngine.dll"
+    },
+    {
+      "name": "synthetic-wrong-productDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "runtime identity mismatch: productDllSha256"
+    },
+    {
+      "name": "synthetic-missing-audioDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "required runtime identity target missing or misbound: build/client-product-p36-r1/P24.Audio.dll"
+    },
+    {
+      "name": "synthetic-wrong-audioDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "runtime identity mismatch: audioDllSha256"
+    },
+    {
+      "name": "synthetic-missing-productManifestSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "required runtime identity target missing or misbound: build/product-p36-r1-manifest.json"
+    },
+    {
+      "name": "synthetic-wrong-productManifestSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "runtime identity mismatch: productManifestSha256"
+    },
+    {
+      "name": "synthetic-missing-launcherDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "required runtime identity target missing or misbound: launcher/P24.Launcher.dll"
+    },
+    {
+      "name": "synthetic-wrong-launcherDllSha256",
+      "status": "pass",
+      "expected": "refusal",
+      "reason": "runtime identity mismatch: launcherDllSha256"
+    }
+  ],
+  "productBuilds": 0,
+  "sharedWrites": 0,
+  "actualSuccessfulInstallNotTested": true,
+  "actualCanonicalBuildNotTested": true,
+  "validFutureReceiptPathNotExercised": true
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "p26-timeout-evidence-fix-v1",
+  "authority": "new supervisor follow-up during unsealed P26 rebind",
+  "separateFromAuthorityRebind": true,
+  "original": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\execution_support.py",
+    "size": 4678,
+    "sha256": "9d4a708d5c1e00e11525a38af8188375597626b061fa32976c171ce1d9faa5fc"
+  },
+  "updated": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\execution_support.py",
+    "size": 5265,
+    "sha256": "439fdf260c87587df8c43059e225d04ad8c266599c0065c28ae019e4374a7380"
+  },
+  "diff": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\diffs\\execution_support.py.patch",
+    "size": 1169,
+    "sha256": "7a9881ad7c30789492211a6b0f98270f39c00de5953181e174487b1aad3bbb70"
+  },
+  "findingSource": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\synthetic-tests.json",
+  "change": "explicit TimeoutExpired capture of partial bytes + decoder/hash + failure metadata; rethrow",
+  "successSemanticsChanged": false,
+  "autoReplayAdded": false,
+  "productOrExpectedChanged": false,
+  "tests": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\synthetic-timeout\\result.json",
+    "size": 1468,
+    "sha256": "0984c7817f67cbf8fac8e2e0a4ccf8be5315ec2287862c8dabfdc4a48ef039be"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "status": "pass",
+  "source": "explicit synthetic negatives and original captured wire replay",
+  "packets": 466,
+  "negatives": [
+    "truncated 87",
+    "truncated 10",
+    "truncated 122",
+    "truncated 120",
+    "truncated 158"
+  ],
+  "duplicateFullUpdates": true,
+  "unknownIdIgnored": true,
+  "removedIdIgnored": true,
+  "targetRemoval": true,
+  "mapClears": true,
+  "taggedOwnershipLowIdMapCollision": true,
+  "unsignedSentinelCollision": true,
+  "tenGfxEightDirections": true,
+  "namesFromOriginalText": true,
+  "exactOverlapStableTopmost": true,
+  "removalRevealsLower": true,
+  "standingFootOrigins": true
+}

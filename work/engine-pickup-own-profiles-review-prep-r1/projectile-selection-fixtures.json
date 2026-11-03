@@ -1,0 +1,214 @@
+{
+  "rules": [
+    "Select due strictly-newer hit unless dead; equality keeps current",
+    "Then check timing profile match and Supports",
+    "Then death indefinite or age < captured AnimationMs / double appearance Duration",
+    "Expired selected hit must not fall back to older combat"
+  ],
+  "vectors": [
+    {
+      "id": "hit-no-history-active",
+      "current": null,
+      "hit": {
+        "action": 2,
+        "at": 0
+      },
+      "now": 583,
+      "dead": false,
+      "selected": "hit",
+      "selectedVisible": true,
+      "pickupAdmitted": false,
+      "profile": [
+        0,
+        0
+      ],
+      "speed": 0,
+      "appearanceDamageMs": 583.3333333333334,
+      "executed": false
+    },
+    {
+      "id": "hit-no-history-expired",
+      "current": null,
+      "hit": {
+        "action": 2,
+        "at": 0
+      },
+      "now": 584,
+      "dead": false,
+      "selected": "hit",
+      "selectedVisible": false,
+      "pickupAdmitted": true,
+      "profile": [
+        0,
+        0
+      ],
+      "speed": 0,
+      "appearanceDamageMs": 583.3333333333334,
+      "executed": false
+    },
+    {
+      "id": "newer-expired-hit-before-expiry-test",
+      "current": {
+        "action": 1,
+        "at": -1,
+        "capturedMs": 800
+      },
+      "hit": {
+        "action": 2,
+        "at": 0
+      },
+      "now": 584,
+      "dead": false,
+      "selected": "hit",
+      "selectedVisible": false,
+      "pickupAdmitted": true,
+      "olderAttackWouldStillBeVisible": true,
+      "mustNotFallbackToOlderAttack": true,
+      "profile": [
+        0,
+        0
+      ],
+      "speed": 0,
+      "appearanceDamageMs": 583.3333333333334,
+      "executed": false
+    },
+    {
+      "id": "equal-time-current-wins",
+      "current": {
+        "action": 1,
+        "at": 0,
+        "capturedMs": 800
+      },
+      "hit": {
+        "action": 2,
+        "at": 0
+      },
+      "now": 584,
+      "dead": false,
+      "selected": "current",
+      "selectedVisible": true,
+      "pickupAdmitted": false,
+      "profile": [
+        0,
+        0
+      ],
+      "speed": 0,
+      "appearanceDamageMs": 583.3333333333334,
+      "executed": false
+    },
+    {
+      "id": "newer-current-wins",
+      "current": {
+        "action": 1,
+        "at": 100,
+        "capturedMs": 800
+      },
+      "hit": {
+        "action": 2,
+        "at": 0
+      },
+      "now": 584,
+      "dead": false,
+      "selected": "current",
+      "selectedVisible": true,
+      "pickupAdmitted": false,
+      "profile": [
+        0,
+        0
+      ],
+      "speed": 0,
+      "appearanceDamageMs": 583.3333333333334,
+      "executed": false
+    },
+    {
+      "id": "future-hit-not-selected",
+      "current": null,
+      "hit": {
+        "action": 2,
+        "at": 1000
+      },
+      "now": 999,
+      "dead": false,
+      "selected": null,
+      "selectedVisible": false,
+      "pickupAdmitted": true,
+      "profile": [
+        0,
+        0
+      ],
+      "speed": 0,
+      "appearanceDamageMs": 583.3333333333334,
+      "executed": false
+    },
+    {
+      "id": "death-over-hit",
+      "current": {
+        "action": 8,
+        "at": 0
+      },
+      "hit": {
+        "action": 2,
+        "at": 100
+      },
+      "now": 1000000,
+      "dead": true,
+      "selected": "current",
+      "selectedVisible": true,
+      "pickupAdmitted": false,
+      "profile": [
+        0,
+        0
+      ],
+      "speed": 0,
+      "appearanceDamageMs": 583.3333333333334,
+      "executed": false
+    }
+  ],
+  "realProjectileFutureCases": [
+    {
+      "id": "S30-due-before-first-compose",
+      "packetFields": {
+        "opcode": 30,
+        "action": 1,
+        "attacker": 101,
+        "target": 100,
+        "damage": 10,
+        "heading": 2,
+        "marker": 338,
+        "gfx": 66,
+        "flight": 127,
+        "source": [
+          32586,
+          32930
+        ],
+        "destination": [
+          32590,
+          32930
+        ]
+      },
+      "attackerProfile": [
+        0,
+        20
+      ],
+      "targetProfile": [
+        0,
+        0
+      ],
+      "setup": "Feed S30 without renderer compose, then set injected now to computed release+90, feed own S158/action15",
+      "expected": "Real flight/hit exists; pickup suppressed; no injected hit cache",
+      "executed": false
+    },
+    {
+      "id": "S30-future-hit-cancel",
+      "input": "Same S30; start own pickup at release; advance injected now to release+90",
+      "expected": "Pickup active during flight, then cancelled for actual hit with OwnCombat null",
+      "executed": false
+    },
+    {
+      "id": "S30-same-now-idempotence",
+      "input": "Repeat actual compose at identical flight and impact clocks",
+      "expected": "Commands/colors/mask/visual geometry and report/event counts unchanged; no duplicate side effects",
+      "executed": false
+    }
+  ]
+}

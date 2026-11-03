@@ -1,0 +1,338 @@
+{
+  "utc": "2026-10-26T13:41:52.631098+00:00",
+  "authorization": "User explicitly approved dedicated service test role, 100000 test adena, 100 white potions, base equipment; existing 8 roles preserved.",
+  "identity": {
+    "utc": "2026-10-26T13:41:52.214139+00:00",
+    "db": [
+      43324,
+      "D:\\P24Lab-ClientEngine\\db-data\\",
+      "e3443e40-d090-11f1-8040-4cedfb679789",
+      "127.0.0.1",
+      "8.0.40"
+    ],
+    "dbOs": {
+      "processes": [
+        {
+          "ProcessId": 69176,
+          "ParentProcessId": 64892,
+          "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+          "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+          "CreationDate": "/Date(1792945658396)/"
+        },
+        {
+          "ProcessId": 59052,
+          "ParentProcessId": 69176,
+          "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+          "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+          "CreationDate": "/Date(1792945658443)/"
+        }
+      ],
+      "listeners": [
+        {
+          "LocalAddress": "127.0.0.1",
+          "LocalPort": 43324,
+          "OwningProcess": 59052
+        }
+      ]
+    },
+    "game": {
+      "process": {
+        "ProcessId": 80144,
+        "ParentProcessId": 66016,
+        "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+        "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P24Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P24Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P24Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P24Lab-ClientEngine\\server\\Server_Game.jar",
+        "CreationDate": "/Date(1793004660590)/"
+      },
+      "listeners": [
+        {
+          "LocalAddress": "0.0.0.0",
+          "LocalPort": 42061,
+          "OwningProcess": 80144
+        }
+      ]
+    },
+    "roles": [
+      {
+        "x": 32640,
+        "y": 33109,
+        "hp": 26,
+        "id": 1900240001,
+        "mp": 82,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p241db6e"
+      },
+      {
+        "x": 32477,
+        "y": 32853,
+        "hp": 103,
+        "id": 1900240002,
+        "mp": 84,
+        "map": 0,
+        "level": 59,
+        "online": 0,
+        "account": "p242db6e"
+      },
+      {
+        "x": 32588,
+        "y": 32981,
+        "hp": 500,
+        "id": 1900240003,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p243db6e"
+      },
+      {
+        "x": 32588,
+        "y": 32981,
+        "hp": 500,
+        "id": 1900240004,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p244db6e"
+      },
+      {
+        "x": 32648,
+        "y": 33068,
+        "hp": 163,
+        "id": 1900240005,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p245db6e"
+      },
+      {
+        "x": 32608,
+        "y": 32976,
+        "hp": 384,
+        "id": 1900240006,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p246db6e"
+      },
+      {
+        "x": 32587,
+        "y": 32998,
+        "hp": 700,
+        "id": 1900240007,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p247db6e"
+      },
+      {
+        "x": 32587,
+        "y": 32998,
+        "hp": 700,
+        "id": 1900240008,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p248db6e"
+      }
+    ]
+  },
+  "before": {
+    "accounts": {
+      "rows": 8,
+      "sha256": "ee12417cf61b1e1d03b06777b43c9ea9249747f36e5e739df9d9695cafbd0dc0"
+    },
+    "characters": {
+      "rows": 8,
+      "sha256": "5b171d5abb73c09ac6f22ebe33a620928de35b5df1ca31e031a954e8b6e4a2cc"
+    },
+    "character_items": {
+      "rows": 41,
+      "sha256": "fe1f78013998de311f91bc52f74780a3682094271057e17bd7420a375e9700f8"
+    },
+    "character_skills": {
+      "rows": 8,
+      "sha256": "1b08dc5e7d1c9f313b8bb4671a79189c11575bfae6c8e0fb2b98762b4e23b161"
+    }
+  },
+  "rows": [
+    {
+      "table": "accounts",
+      "row": {
+        "login": "p24svc01",
+        "password": "[private credential]",
+        "lastactive": "2026-10-26 21:41:52",
+        "access_level": 0,
+        "ip": "127.0.0.1",
+        "host": "127.0.0.1",
+        "character_slot": 0,
+        "spw": "未建立超級密碼",
+        "server_no": 0
+      }
+    },
+    {
+      "table": "characters",
+      "row": {
+        "account_name": "p24svc01",
+        "char_name": "服務驗證",
+        "objid": 1900249001,
+        "level": 60,
+        "HighLevel": 60,
+        "Exp": 416461882,
+        "MaxHp": 700,
+        "CurHp": 700,
+        "MaxMp": 120,
+        "CurMp": 120,
+        "Ac": 10,
+        "Str": 18,
+        "Dex": 13,
+        "Con": 16,
+        "Wis": 12,
+        "Cha": 10,
+        "Intel": 11,
+        "OriginalStr": 18,
+        "OriginalDex": 13,
+        "OriginalCon": 16,
+        "OriginalWis": 12,
+        "OriginalCha": 10,
+        "OriginalInt": 11,
+        "Class": 0,
+        "Type": 0,
+        "Sex": 0,
+        "LocX": 32588,
+        "LocY": 32981,
+        "MapID": 0,
+        "Heading": 5,
+        "Food": 40,
+        "CreateTime": 20261026
+      }
+    },
+    {
+      "table": "character_skills",
+      "row": {
+        "char_obj_id": 1900249001,
+        "skill_id": 1,
+        "skill_name": "初級治癒術",
+        "is_active": 0,
+        "activetimeleft": 0
+      }
+    },
+    {
+      "table": "character_skills",
+      "row": {
+        "char_obj_id": 1900249001,
+        "skill_id": 4,
+        "skill_name": "光箭",
+        "is_active": 0,
+        "activetimeleft": 0
+      }
+    },
+    {
+      "table": "character_items",
+      "row": {
+        "id": 1900249101,
+        "item_id": 40308,
+        "char_id": 1900249001,
+        "item_name": "金幣",
+        "count": 100000,
+        "is_equipped": 0,
+        "is_sealed": 0,
+        "enchantlvl": 0,
+        "is_id": 1,
+        "durability": 0,
+        "charge_count": 0,
+        "remaining_time": 0,
+        "bless": 0,
+        "attr_enchant_kind": 0,
+        "attr_enchant_level": 0
+      }
+    },
+    {
+      "table": "character_items",
+      "row": {
+        "id": 1900249102,
+        "item_id": 40012,
+        "char_id": 1900249001,
+        "item_name": "終極治癒藥水",
+        "count": 100,
+        "is_equipped": 0,
+        "is_sealed": 0,
+        "enchantlvl": 0,
+        "is_id": 1,
+        "durability": 0,
+        "charge_count": 0,
+        "remaining_time": 0,
+        "bless": 0,
+        "attr_enchant_kind": 0,
+        "attr_enchant_level": 0
+      }
+    },
+    {
+      "table": "character_items",
+      "row": {
+        "id": 1900249103,
+        "item_id": 31,
+        "char_id": 1900249001,
+        "item_name": "長劍",
+        "count": 1,
+        "is_equipped": 0,
+        "is_sealed": 0,
+        "enchantlvl": 0,
+        "is_id": 1,
+        "durability": 0,
+        "charge_count": 0,
+        "remaining_time": 0,
+        "bless": 0,
+        "attr_enchant_kind": 0,
+        "attr_enchant_level": 0
+      }
+    },
+    {
+      "table": "character_items",
+      "row": {
+        "id": 1900249104,
+        "item_id": 20096,
+        "char_id": 1900249001,
+        "item_name": "環甲",
+        "count": 1,
+        "is_equipped": 0,
+        "is_sealed": 0,
+        "enchantlvl": 0,
+        "is_id": 1,
+        "durability": 0,
+        "charge_count": 0,
+        "remaining_time": 0,
+        "bless": 0,
+        "attr_enchant_kind": 0,
+        "attr_enchant_level": 0
+      }
+    },
+    {
+      "table": "character_items",
+      "row": {
+        "id": 1900249105,
+        "item_id": 20222,
+        "char_id": 1900249001,
+        "item_name": "木盾",
+        "count": 1,
+        "is_equipped": 0,
+        "is_sealed": 0,
+        "enchantlvl": 0,
+        "is_id": 1,
+        "durability": 0,
+        "charge_count": 0,
+        "remaining_time": 0,
+        "bless": 0,
+        "attr_enchant_kind": 0,
+        "attr_enchant_level": 0
+      }
+    }
+  ],
+  "atomic": false,
+  "engineNote": "Existing MyISAM tables; insert-only, each row logged, no reset/delete/rollback claimed."
+}

@@ -1,0 +1,27 @@
+{
+  "utc": "2026-10-29T08:18:57.998881+00:00",
+  "workers": [
+    {
+      "phase": "P36-P37-integrator",
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a186b8-edd0-7960-96fa-6dc55cf589e3",
+      "status": "active",
+      "turnStatus": "inProgress",
+      "actualStarted": true,
+      "evidence": "prepare.py executed; canonical source ledger and independent copies prepared",
+      "root": "work/P36-P37-integration-plan-r1"
+    },
+    {
+      "phase": "P36-P37-reviewer",
+      "threadId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "turnId": "01a186b9-0075-7d83-b4a7-338b3619557b",
+      "status": "active",
+      "turnStatus": "inProgress",
+      "actualStarted": true,
+      "evidence": "baseline-01 exit0: 347 stage files,181 source rows,4 replacements,1 addition",
+      "root": "work/P36-P37-integration-review-r1"
+    }
+  ],
+  "sharedExecutionAuthorized": false,
+  "entryActivationAuthorized": false
+}

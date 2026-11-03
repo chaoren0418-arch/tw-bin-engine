@@ -1,0 +1,35 @@
+{
+  "schema": "p37-independent-source-seal-v1",
+  "files": [
+    {
+      "path": "final-pins.json",
+      "size": 533,
+      "sha256": "24597b10077cc2cdab24e309afb866fa818abf0b6432fe714047fa5f17a05700"
+    },
+    {
+      "path": "finalize_plan_review.py",
+      "size": 7372,
+      "sha256": "aaba9271c3fb9291669d74f72fa014ef85ebbe19df11cdbe019cde0183d3f7d2"
+    },
+    {
+      "path": "review_inventory.py",
+      "size": 8817,
+      "sha256": "52699d78550ddd91c7deb95c5bcbc0018210b3a30250cd3bc028d39759697273"
+    },
+    {
+      "path": "run_recorded.py",
+      "size": 1304,
+      "sha256": "2bc21a186fffb94200913d3451966990947a12ff5aa1f51580a7252344d2be57"
+    },
+    {
+      "path": "seal_review.py",
+      "size": 1174,
+      "sha256": "1a3dbec833ea3ef6d852b1500319a3045259c4626598a1b0eb7384d0f766d9eb"
+    },
+    {
+      "path": "verify_delivery.py",
+      "size": 1381,
+      "sha256": "24a9852d2cd293a1cb271f6ad83deda69c99ed711ccd596efa34dce28d3ae8a2"
+    }
+  ]
+}

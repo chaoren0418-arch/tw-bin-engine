@@ -1,0 +1,190 @@
+using System.Runtime.InteropServices;
+
+namespace P24.Audio;
+
+internal sealed record NativeReply(uint Code, string Text, bool PlatformFailure = false, bool ResourceOwned = false,
+    AudioNativeEvent? NativeEvent = null, bool EventFailure = false)
+{
+    internal bool Ok => Code == 0 && !PlatformFailure && !EventFailure;
+    internal bool InvalidFile => Code == 0x8004022f; // VFW_E_INVALID_FILE_FORMAT; never classify arbitrary device failure as format.
+}
+internal static class DirectShowEvents
+{
+    internal const int Complete=0x01, UserAbort=0x02, ErrorAbort=0x03, StreamErrorStopped=0x06,
+        ErrorStillPlaying=0x08, DeviceLost=0x1f, ClockUnset=0x51;
+    internal static NativeReply Classify(int code, nint one, nint two)
+    {
+        // Copy scalar values before FreeEventParams. Do not dereference or keep string/interface pointers.
+        var data = new AudioNativeEvent(code, (long)one, (long)two, null, "Information");
+        if (code == Complete) return new(0, "stopped", NativeEvent: data with { Disposition="Complete" });
+        if (code is ErrorAbort or StreamErrorStopped or ErrorStillPlaying)
+        {
+            uint hr = unchecked((uint)(long)one); // LONG_PTR may be sign- or zero-extended; HRESULT is low 32 bits.
+            return new(hr, $"DirectShow error event 0x{code:X}; HRESULT=0x{hr:X8}",
+                NativeEvent: data with { OriginalHResult=hr, Disposition="ErrorHResult" }, EventFailure:true);
+        }
+        string? policy = code switch
+        {
+            UserAbort => "UserAbort",
+            DeviceLost when two == 0 => "DeviceRemoved",
+            DeviceLost when two == 1 => "DeviceAvailableRequiresRebuild",
+            DeviceLost => "UnknownDeviceStateRequiresRebuild",
+            ClockUnset => "ClockUnsetConservativeStop",
+            _ => null
+        };
+        // These events have no HRESULT parameter. E_FAIL is an explicit engine failure marker, not a pointer cast.
+        return policy == null ? new(0, "information", NativeEvent:data)
+            : new(0x80004005, $"DirectShow event 0x{code:X}: {policy}; engine E_FAIL marker (no native HRESULT)",
+                NativeEvent:data with { Disposition=policy }, EventFailure:true);
+    }
+}
+internal interface IAudioDriver
+{
+    NativeReply Open(string path, string format, string voice);
+    NativeReply Gain(string voice, double normalized);
+    NativeReply Play(string voice);
+    NativeReply Status(string voice);
+    NativeReply Stop(string voice);
+    NativeReply Close(string voice);
+}
+internal interface IPlaybackGraph
+{
+    int Open(string path);
+    int Volume(int hundredthDecibels);
+    int Run();
+    NativeReply Status();
+    int Stop();
+    void Release();
+}
+internal static class AudioGain
+{
+    internal static bool Valid(double value) => double.IsFinite(value) && value >= 0 && value <= 1;
+    internal static int Decibels(double value)
+    {
+        if (!Valid(value)) throw new ArgumentOutOfRangeException(nameof(value));
+        return value == 0 ? -10000 : (int)Math.Clamp(Math.Round(2000 * Math.Log10(value)), -10000, 0);
+    }
+}
+internal sealed class DirectShowDriver(Func<IPlaybackGraph> create) : IAudioDriver
+{
+    readonly Dictionary<string, IPlaybackGraph> graphs = [];
+    internal static NativeReply HResult(int hr) => hr >= 0 ? new(0, "accepted") : new(unchecked((uint)hr), $"HRESULT 0x{hr:X8}");
+    static NativeReply Failure(Exception ex) => new(unchecked((uint)ex.HResult), ex.Message,
+        ex is PlatformNotSupportedException or DllNotFoundException || ex.HResult == unchecked((int)0x80040154));
+    static NativeReply Guard(Func<NativeReply> work) { try { return work(); } catch (Exception ex) { return Failure(ex); } }
+    NativeReply With(string voice, Func<IPlaybackGraph, NativeReply> work) => Guard(() =>
+        graphs.TryGetValue(voice, out var graph) ? work(graph) : new(0x80070006, "Unknown voice"));
+    public NativeReply Open(string path, string format, string voice)
+    {
+        return Guard(() =>
+        {
+            if (graphs.ContainsKey(voice)) return new(0x80070057, "Duplicate voice");
+            var graph = create(); graphs.Add(voice, graph); // Track before render: failed loading may own partial native resources.
+            NativeReply result = Guard(() => HResult(graph.Open(path)));
+            return result with { ResourceOwned = true };
+        });
+    }
+    public NativeReply Gain(string voice, double normalized) => With(voice, g => HResult(g.Volume(AudioGain.Decibels(normalized))));
+    public NativeReply Play(string voice) => With(voice, g => HResult(g.Run()));
+    public NativeReply Status(string voice) => With(voice, g => g.Status());
+    public NativeReply Stop(string voice) => With(voice, g => HResult(g.Stop()));
+    public NativeReply Close(string voice) => Guard(() =>
+    {
+        if (!graphs.TryGetValue(voice, out var graph)) return new(0, "Already released");
+        graph.Release(); // If release throws, keep the graph tracked for cleanup retry.
+        graphs.Remove(voice); return new(0, "Released");
+    });
+}
+
+// Instantiated only on the transport MTA thread, after source verification and dispatch gating.
+// Each voice owns its own graph and explicitly inserted DirectSound renderer. No system/session-volume API.
+internal sealed class WindowsPlaybackGraph : IPlaybackGraph
+{
+    object? graph, renderer;
+    static object Activate(string clsid) => Activator.CreateInstance(Type.GetTypeFromCLSID(new Guid(clsid), true)!)!;
+    static void Check(int hr) { if (hr < 0) Marshal.ThrowExceptionForHR(hr); }
+    static void ReleaseObject(ref object? value)
+    {
+        if (value == null) return;
+        Marshal.FinalReleaseComObject(value); value = null;
+    }
+    public int Open(string path)
+    {
+        if (!OperatingSystem.IsWindows()) throw new PlatformNotSupportedException("DirectShow requires Windows");
+        graph = Activate("e436ebb3-524f-11ce-9f53-0020af0ba770"); // CLSID_FilterGraph
+        renderer = Activate("79376820-07d0-11cf-a24d-0020afd79767"); // CLSID_DSoundRender
+        var builder = (IFilterGraph2)graph;
+        Check(builder.AddFilter((IBaseFilter)renderer, "P24 isolated voice renderer"));
+        IBaseFilter? source = null; IEnumPins? pins = null;
+        try
+        {
+            Check(builder.AddSourceFilter(path, "P24 pinned local audio", out source));
+            Check(source.EnumPins(out pins));
+            int rendered = 0;
+            while (true)
+            {
+                var next = new IPin[1]; int hr = pins.Next(1, next, out int fetched);
+                if (hr < 0) Check(hr);
+                if (fetched == 0) break;
+                try
+                {
+                    Check(next[0].QueryDirection(out int direction));
+                    if (direction != 1) continue;
+                    // AM_RENDEREX_RENDERTOEXISTINGRENDERERS=1: never add WaveOut/other renderers as fallback.
+                    Check(builder.RenderEx(next[0], 1, 0)); rendered++;
+                }
+                finally { Marshal.FinalReleaseComObject(next[0]); }
+            }
+            return rendered > 0 ? 0 : unchecked((int)0x8004022f);
+        }
+        finally
+        {
+            if (pins != null) Marshal.FinalReleaseComObject(pins);
+            if (source != null) Marshal.FinalReleaseComObject(source);
+        }
+    }
+    public int Volume(int hundredthDecibels) => ((IBasicAudio)renderer!).put_Volume(hundredthDecibels);
+    public int Run() => ((IMediaControl)graph!).Run();
+    public int Stop() => graph == null ? 0 : ((IMediaControl)graph).Stop();
+    public NativeReply Status()
+    {
+        var events = (IMediaEvent)graph!;
+        AudioNativeEvent? lastInformation = null;
+        for (int i = 0; i < 64; i++) // Bounded drain; no GUI/message callback or infinite wait.
+        {
+            int hr = events.GetEvent(out int code, out nint one, out nint two, 0);
+            if (hr == unchecked((int)0x80004004)) return new(0, "playing", NativeEvent:lastInformation); // E_ABORT means no queued event.
+            if (hr < 0) return DirectShowDriver.HResult(hr);
+            NativeReply classified;
+            int freed = 0; Exception? freeException = null;
+            try { classified = DirectShowEvents.Classify(code, one, two); }
+            finally
+            {
+                // Exactly one attempt for every successfully obtained event, including ignored information.
+                try { freed = events.FreeEventParams(code, one, two); }
+                catch (Exception ex) { freed=ex.HResult; freeException=ex; }
+            }
+            classified = classified with { NativeEvent=classified.NativeEvent! with { FreeParametersHResult=freed } };
+            if (freed < 0 || freeException != null)
+            {
+                // Preserve primary event HRESULT if present; expose cleanup failure separately, never overwrite it.
+                return classified with {
+                    Code=classified.Ok ? unchecked((uint)freed) : classified.Code,
+                    Text=classified.Text+$"; FreeEventParams failed 0x{freed:X8}"+(freeException == null ? "" : "; "+freeException.Message),
+                    EventFailure=true
+                };
+            }
+            if (!classified.Ok || classified.Text == "stopped") return classified;
+            lastInformation = classified.NativeEvent;
+        }
+        return new(0, "playing", NativeEvent:lastInformation);
+    }
+    public void Release()
+    {
+        // Stop is attempted separately even if it fails. Release every owned RCW; retain any failure for retry.
+        Exception? error = null;
+        try { ReleaseObject(ref graph); } catch (Exception ex) { error = ex; }
+        try { ReleaseObject(ref renderer); } catch (Exception ex) { error ??= ex; }
+        if (error != null) throw error;
+    }
+}

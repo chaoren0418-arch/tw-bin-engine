@@ -1,0 +1,422 @@
+[
+  {
+    "class": "com.lineage.server.datatables.user.CharItemsTimeTable",
+    "jarEntry": "com/lineage/server/datatables/user/CharItemsTimeTable.class",
+    "classSha256": "7edb1d61a1a66ab33dfdfb2e23835ece9b7df86e72a3212926ac2a249cfd8408",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTimeTable.java",
+    "sourceSha256": "d7e16137305fcb744c9935dec5eede6c0a0f3bd56c3f9418f8dfa00f344161c0",
+    "javap": "datatables.user.CharItemsTimeTable.javap.txt",
+    "javapSha256": "35286d3a0945508977e62f6968cc2de92c40d9e37c00ef625233f24bb19cc306",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.datatables.user.CharItemsTimeTable"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.model.CharItemsTimePersistenceService",
+    "jarEntry": "com/lineage/server/model/CharItemsTimePersistenceService.class",
+    "classSha256": "514579860f0140909a3afe4c2cf410f226adfcdbb121030158d6470561063950",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\CharItemsTimePersistenceService.java",
+    "sourceSha256": "b17c03be760473bdfd8b819fe84cafaa433bccbd31002637d23746ce7103ff6b",
+    "javap": "model.CharItemsTimePersistenceService.javap.txt",
+    "javapSha256": "9870559f424253dd986eb38533b13755f9757fd143ce3dd14c845940cc3728c1",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.model.CharItemsTimePersistenceService"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.datatables.user.CharItemsTable",
+    "jarEntry": "com/lineage/server/datatables/user/CharItemsTable.class",
+    "classSha256": "27087f934b7018293428857da330f62682e74c2ef3fd42beb1c65e31a27ed36d",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTable.java",
+    "sourceSha256": "1d7c57c067fef60e555e42138b5feab951d5c7be33f7169e4c3d1b3766cb9074",
+    "javap": "datatables.user.CharItemsTable.javap.txt",
+    "javapSha256": "57907fa8cc48db410b7c98a34975973b523c33e467f30bb9ebea68091fb5b3a4",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.datatables.user.CharItemsTable"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.model.L1PcInventory",
+    "jarEntry": "com/lineage/server/model/L1PcInventory.class",
+    "classSha256": "a869c2760971d82898db4904562083ff6b5b61913efd55be2b5f6679e8b2209f",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1PcInventory.java",
+    "sourceSha256": "220b001573ec6766dcdd16370c4e1cbd522721367e00c127c90bc2d3779926e4",
+    "javap": "model.L1PcInventory.javap.txt",
+    "javapSha256": "908a0d1cd1fadc318eba17c560f842f553318f7a2f592c4e7327d40a7766948b",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.model.L1PcInventory"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.model.item.CharacterItemPersistenceService",
+    "jarEntry": "com/lineage/server/model/item/CharacterItemPersistenceService.class",
+    "classSha256": "0473b9f218cb4aac95d2e74864ee779c1da3cb0b86d99b492907f50a60ce4c50",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\item\\CharacterItemPersistenceService.java",
+    "sourceSha256": "4d13f420bdbbabf1285fc4b3ae213c28f2ac2cefac6e16d6941a546f2f46fcaf",
+    "javap": "model.item.CharacterItemPersistenceService.javap.txt",
+    "javapSha256": "c069a8e0b7498a9d7e82bbdb174ecbffbd2f8dee95f23e2ac67a7d5ccd474481",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.model.item.CharacterItemPersistenceService"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.timecontroller.server.ServerItemUserTimer",
+    "jarEntry": "com/lineage/server/timecontroller/server/ServerItemUserTimer.class",
+    "classSha256": "daa7613e444f7e0b6fe3b85e0af2097e993c22ab77fda115c83b3e2f16d3c1f5",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\timecontroller\\server\\ServerItemUserTimer.java",
+    "sourceSha256": "80ec2aedf3d05968cb428a64c9a72f615e76da4736f409c7b790400141f1da3d",
+    "javap": "timecontroller.server.ServerItemUserTimer.javap.txt",
+    "javapSha256": "784144346e9f58e6bcebc66e14b61c2295d11f43e97dcf03ef1c11512249c536",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.timecontroller.server.ServerItemUserTimer"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.model.L1EquipmentTimer",
+    "jarEntry": "com/lineage/server/model/L1EquipmentTimer.class",
+    "classSha256": "33883c08b9a1a2bad15b0e1ac76e0ff8f0627cdd521e9cd5647fe30e5816ed13",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1EquipmentTimer.java",
+    "sourceSha256": "7f03f5819e2c392a7e49cc55d511687c01dff876f13642868761b6137c6e780b",
+    "javap": "model.L1EquipmentTimer.javap.txt",
+    "javapSha256": "5a135e822ffd6e55fb3577b441bedc25b7088681185f8c93576db58bd7b2f0cd",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.model.L1EquipmentTimer"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.model.Instance.L1ItemInstance",
+    "jarEntry": "com/lineage/server/model/Instance/L1ItemInstance.class",
+    "classSha256": "1f2b8050c0c60b7846596529faecd6d66a41bbdb5412888ed9e1970d16a657f2",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1ItemInstance.java",
+    "sourceSha256": "0ba0e50cf7e47649a03c2f69b29a562d097ce5b54be4d8f2b55c848830f811b0",
+    "javap": "model.Instance.L1ItemInstance.javap.txt",
+    "javapSha256": "ea13fda5cca763610b7c7f90643ce4d4ead65333a6c833224ea9c98b234b66de",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.model.Instance.L1ItemInstance"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.clientpackets.C_LoginToServer",
+    "jarEntry": "com/lineage/server/clientpackets/C_LoginToServer.class",
+    "classSha256": "7cb6fc885ca88b7972dab71b9e02ed7ee6c48b23f284b7ab9e29d8c580950cd1",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_LoginToServer.java",
+    "sourceSha256": "437bdd8fdb9ab6a855ac6cc7770024bf0dfc99bee836e5b36fe2e53322073d4a",
+    "javap": "clientpackets.C_LoginToServer.javap.txt",
+    "javapSha256": "a74093e743a275b8c0e93ce27a4f73c0063486e8a27b3b77a1a5b6d1302c282e",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.clientpackets.C_LoginToServer"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.datatables.ItemTimeTable",
+    "jarEntry": "com/lineage/server/datatables/ItemTimeTable.class",
+    "classSha256": "312ae4d1fbc08691d4c5b6e68c63b927aa34f530c558de59d6e62e9265f45afb",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\ItemTimeTable.java",
+    "sourceSha256": "ee21caab0edbcf738706ef7b902e2be5d101844af9e8b8c16c0470fc13b6e93c",
+    "javap": "datatables.ItemTimeTable.javap.txt",
+    "javapSha256": "6a5f250b77b45c4b94b283e4b9178226061d3e8abdd54e0a0ee8d9578f175905",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.datatables.ItemTimeTable"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.datatables.NpcMakingTable",
+    "jarEntry": "com/lineage/server/datatables/NpcMakingTable.class",
+    "classSha256": "2ef70864adb9df0a8761951c5e471bc31a0a27e0716b1f5bd167e746b7df83c5",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\NpcMakingTable.java",
+    "sourceSha256": "e790658153fcbe811baafdf3b3c5c9577c55816c3d8b88d9836bce71df0d4c81",
+    "javap": "datatables.NpcMakingTable.javap.txt",
+    "javapSha256": "2e0627ebeb92acdf197f903b670f87d1a4af11e4589a4570ca4138f550f3b990",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.datatables.NpcMakingTable"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.model.npc.action.NpcTeleportExecutor",
+    "jarEntry": "com/lineage/server/model/npc/action/NpcTeleportExecutor.class",
+    "classSha256": "e9a7e561090f7d10a6a5ac9003924c8441f17488c64c0a93648f8a838eca4120",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\npc\\action\\NpcTeleportExecutor.java",
+    "sourceSha256": "40f8be6b4c2f2226b5d4ba43392c2ee49b318a4513701aad4d0368bc29bceba6",
+    "javap": "model.npc.action.NpcTeleportExecutor.javap.txt",
+    "javapSha256": "3f19220c8b26c1028eb6c627e9fed91ab62d98d54a53df18097e33197c00d057",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.model.npc.action.NpcTeleportExecutor"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.GameServer",
+    "jarEntry": "com/lineage/server/GameServer.class",
+    "classSha256": "fa4089643558b801eb0a376206c70026cf039f805bb2c4f690d109407b6a4d84",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\GameServer.java",
+    "sourceSha256": "7d1dba1568dc715800fa45ae384275d63d3c4186526a980505f0f356f8b865eb",
+    "javap": "GameServer.javap.txt",
+    "javapSha256": "99e8b8a7d28735835530fe4f166061ca0481de77608cb623a0e10afcbf172478",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.GameServer"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.clientpackets.C_NPCAction",
+    "jarEntry": "com/lineage/server/clientpackets/C_NPCAction.class",
+    "classSha256": "a852ccac8ea10a55b590c311c4cc646891b1bd7d7d108f7ddb199d6c55a0142c",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_NPCAction.java",
+    "sourceSha256": "370123f1324e73c5dbee7d71fc7b527b67e1f927d501e757e6399e0af5c66fa4",
+    "javap": "clientpackets.C_NPCAction.javap.txt",
+    "javapSha256": "80c0582e16ae94f0c89b0cb8f9f4ec2a3d617198183efcc57dcfa8726931cc32",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.clientpackets.C_NPCAction"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.model.npc.action.NpcMakingExecutor",
+    "jarEntry": "com/lineage/server/model/npc/action/NpcMakingExecutor.class",
+    "classSha256": "44c0951c6714f6f9904c7d58d9ea39c9529e9621ff43d417902c8c9fc6419deb",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\npc\\action\\NpcMakingExecutor.java",
+    "sourceSha256": "69bac446647eed4701f16003c95b77e6dc1b75577327287825a25a6d93a85672",
+    "javap": "model.npc.action.NpcMakingExecutor.javap.txt",
+    "javapSha256": "247a1913e0a7fb35e6a4a5bf08bdcfec96e025ce5b818edfea094766cebacc08",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.model.npc.action.NpcMakingExecutor"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.datatables.user.CharacterTable",
+    "jarEntry": "com/lineage/server/datatables/user/CharacterTable.class",
+    "classSha256": "e998f2784467575608889e0329313b30d1bf3cf39a7560f21b4b12684a2c3277",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharacterTable.java",
+    "sourceSha256": "246e56d7ee72461e45fab843d159ba800348dc4898bb2c149ea45fb48de3a0c5",
+    "javap": "datatables.user.CharacterTable.javap.txt",
+    "javapSha256": "9e8d808ac60432f2fed7116c0501130a0fb236a28316d43b91d7748f2ccc30ff",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.datatables.user.CharacterTable"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.model.L1Inventory",
+    "jarEntry": "com/lineage/server/model/L1Inventory.class",
+    "classSha256": "76a1748118bf6a1725cf8c12c14d73095ebb30ee943bedfedf0007c500dd7e11",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1Inventory.java",
+    "sourceSha256": "42800d2291b7fb8d5527d79db129f1627eab887f872a91b547ac9485577726d2",
+    "javap": "model.L1Inventory.javap.txt",
+    "javapSha256": "ce71698e06b08974e5daaf9df9da58a220b7343dc79b017efd2efaba5fbef4c5",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.model.L1Inventory"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.serverpackets.S_InvList",
+    "jarEntry": "com/lineage/server/serverpackets/S_InvList.class",
+    "classSha256": "64b4216a8606a38148780bbd65fb8d4116b6a4643f69b08d078bd91631b04a70",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_InvList.java",
+    "sourceSha256": "cd3c0c20a7285b0ef32d9305e0559cf7ea02030c2ff0665363ffad91521f2820",
+    "javap": "serverpackets.S_InvList.javap.txt",
+    "javapSha256": "40bbfd787cb52537929b5491835143ae2b2a3854e9517cee05427c952fc419a5",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.serverpackets.S_InvList"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.model.Instance.L1ItemStatus",
+    "jarEntry": "com/lineage/server/model/Instance/L1ItemStatus.class",
+    "classSha256": "ac1be43e6280dd9d76d1b640daadceccac6e77f91b7cc2abf5e0f605c2796248",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1ItemStatus.java",
+    "sourceSha256": "f1a3278381b7e620961567d70e804d82dea05f9304505238983383e5bbe83dbd",
+    "javap": "model.Instance.L1ItemStatus.javap.txt",
+    "javapSha256": "af41871f4220f3d09aa0f6e8b6fc13aa1f68969e9a827b01ea0d18a79039bbdf",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.model.Instance.L1ItemStatus"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  },
+  {
+    "class": "com.lineage.server.datatables.ItemTable",
+    "jarEntry": "com/lineage/server/datatables/ItemTable.class",
+    "classSha256": "959b49dccda1ec12326284ebcc2e1eddf32eaa7f80aacf600b0f260d4a5c63a5",
+    "sourcePath": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\ItemTable.java",
+    "sourceSha256": "b4531d3451817374ec9307cc74bfb347f64572775c7b37c4f07f0196bf4fef81",
+    "javap": "datatables.ItemTable.javap.txt",
+    "javapSha256": "4319d84178159307827e07b20cc996ebc701f578969705fa5354712303e456de",
+    "command": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "-J-XX:-UsePerfData",
+      "-J-Dfile.encoding=UTF-8",
+      "-classpath",
+      "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "-c",
+      "-p",
+      "-l",
+      "com.lineage.server.datatables.ItemTable"
+    ],
+    "matchScope": "Bytecode evidence captured. Source equivalence requires method-level comparison; no whole-source equality claim."
+  }
+]

@@ -1,0 +1,114 @@
+{
+  "status": "independent-clean-build-and-trade-wiring-checks-pass",
+  "snapshotFiles": 156,
+  "assetInputs": 534,
+  "checks": {
+    "trade": 58,
+    "trade-dom": 19,
+    "regression": 73,
+    "service-dom": 24
+  },
+  "workerDll": "f6da48faec7406c1a3cae3eb96ba7bd5613ab98c6f4ca0e963e22aa1cbef9a4d",
+  "cleanDll": "816e525a1ea873e8134cb4fbe976c79901ac1848ff11e8ea51ea779022ecd706",
+  "processes": [
+    {
+      "name": "build-product",
+      "pid": 73900,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-交易接線獨立審查-20261026\\source\\OfflineClient.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-交易接線獨立審查-20261026\\build\\client",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-交易接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 7.931288242340088
+    },
+    {
+      "name": "build-trade",
+      "pid": 79728,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-交易接線獨立審查-20261026\\reference\\development\\trade-r1\\harness\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-交易接線獨立審查-20261026\\build\\trade",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-交易接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 4.21034836769104
+    },
+    {
+      "name": "build-regression",
+      "pid": 7340,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-交易接線獨立審查-20261026\\reference\\development\\trade-r1\\regression-harness\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-交易接線獨立審查-20261026\\build\\regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-交易接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.9752111434936523
+    },
+    {
+      "name": "trade",
+      "pid": 42952,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-交易接線獨立審查-20261026\\build\\trade\\P24.TradeChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.3087422847747803
+    },
+    {
+      "name": "trade-dom",
+      "pid": 81528,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-交易接線獨立審查-20261026\\reference\\development\\trade-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.20245909690856934
+    },
+    {
+      "name": "regression",
+      "pid": 80288,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-交易接線獨立審查-20261026\\build\\regression\\P24.TradeRegression.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 7.385844469070435
+    },
+    {
+      "name": "service-dom",
+      "pid": 86120,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-交易接線獨立審查-20261026\\reference\\development\\skill-warehouse-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.10495853424072266
+    }
+  ],
+  "ui": false,
+  "live": false,
+  "fullP24Accepted": false,
+  "scope": "Actual rebuilt product, two synthetic sessions with explicit memory senders and DOM doubles. Prior service/429 original pixel checks rerun. No live exchange/persistence or UI acceptance."
+}

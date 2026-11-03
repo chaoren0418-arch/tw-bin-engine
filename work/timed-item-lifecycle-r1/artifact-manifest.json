@@ -1,0 +1,190 @@
+{
+  "schema": "timed-item-lifecycle-r1-artifacts-v1",
+  "files": [
+    {
+      "path": "analyze.py",
+      "sha256": "9faff5fd810e4e13609ff7d21ec3b745c7857841fa77f6f3fd9ed2d5520e709d",
+      "bytes": 12895
+    },
+    {
+      "path": "causal-table.json",
+      "sha256": "670450d70216c75a645315b4418495703f316d6a6aa6fc7ac6a2b8d07e0a3e61",
+      "bytes": 74857
+    },
+    {
+      "path": "CAUSAL-TABLE.md",
+      "sha256": "0af23022044af9e6f1b6d7bcaaf69a5d34e3eb173d75040b0634e85d5f95a956",
+      "bytes": 14787
+    },
+    {
+      "path": "class-evidence.json",
+      "sha256": "e82520d90942027a1918d0e141cc91c3da3234ba74ec6dc176d545facc1e4aff",
+      "bytes": 21945
+    },
+    {
+      "path": "clientpackets.C_LoginToServer.javap.txt",
+      "sha256": "a74093e743a275b8c0e93ce27a4f73c0063486e8a27b3b77a1a5b6d1302c282e",
+      "bytes": 201841
+    },
+    {
+      "path": "clientpackets.C_NPCAction.javap.txt",
+      "sha256": "80c0582e16ae94f0c89b0cb8f9f4ec2a3d617198183efcc57dcfa8726931cc32",
+      "bytes": 1251107
+    },
+    {
+      "path": "collect.py",
+      "sha256": "5f8d591ebd48ad5ba31f5f8c943d1d4c83714041d8632fdbd6bc6a63e0b25922",
+      "bytes": 2790
+    },
+    {
+      "path": "datatables.ItemTable.javap.txt",
+      "sha256": "4319d84178159307827e07b20cc996ebc701f578969705fa5354712303e456de",
+      "bytes": 227217
+    },
+    {
+      "path": "datatables.ItemTimeTable.javap.txt",
+      "sha256": "6a5f250b77b45c4b94b283e4b9178226061d3e8abdd54e0a0ee8d9578f175905",
+      "bytes": 14259
+    },
+    {
+      "path": "datatables.NpcMakingTable.javap.txt",
+      "sha256": "2e0627ebeb92acdf197f903b670f87d1a4af11e4589a4570ca4138f550f3b990",
+      "bytes": 41495
+    },
+    {
+      "path": "datatables.user.CharacterTable.javap.txt",
+      "sha256": "9e8d808ac60432f2fed7116c0501130a0fb236a28316d43b91d7748f2ccc30ff",
+      "bytes": 153219
+    },
+    {
+      "path": "datatables.user.CharItemsTable.javap.txt",
+      "sha256": "57907fa8cc48db410b7c98a34975973b523c33e467f30bb9ebea68091fb5b3a4",
+      "bytes": 258040
+    },
+    {
+      "path": "datatables.user.CharItemsTimeTable.javap.txt",
+      "sha256": "35286d3a0945508977e62f6968cc2de92c40d9e37c00ef625233f24bb19cc306",
+      "bytes": 66816
+    },
+    {
+      "path": "GameServer.javap.txt",
+      "sha256": "99e8b8a7d28735835530fe4f166061ca0481de77608cb623a0e10afcbf172478",
+      "bytes": 99604
+    },
+    {
+      "path": "HANDOFF.md",
+      "sha256": "a54ec5746b1b0fadd4e6c8fdffe7c9baeea320692cbd7ec6381251e19466eb38",
+      "bytes": 8829
+    },
+    {
+      "path": "historical-evidence.json",
+      "sha256": "294b7c428cf1ead9149f55e7627c176efa14a6d486c00728d8b4d4d162a11bfd",
+      "bytes": 20957
+    },
+    {
+      "path": "initial-source-pins.json",
+      "sha256": "0012774b8fbc90d918b8cbe4fac9b0837c26dd64e7ddd918de9686453338ac23",
+      "bytes": 5137
+    },
+    {
+      "path": "method-evidence.json",
+      "sha256": "37047043a6d636f8bdb96966ae6898f8c20c11f7529421210e072ac41cf7bbae",
+      "bytes": 603200
+    },
+    {
+      "path": "minimal-select.sql",
+      "sha256": "facac8e7a3cdfc5e84100437a8b2b644049b7cbd758ad48ac480819fcdbe7498",
+      "bytes": 2707
+    },
+    {
+      "path": "model.CharItemsTimePersistenceService.javap.txt",
+      "sha256": "9870559f424253dd986eb38533b13755f9757fd143ce3dd14c845940cc3728c1",
+      "bytes": 47489
+    },
+    {
+      "path": "model.Instance.L1ItemInstance.javap.txt",
+      "sha256": "ea13fda5cca763610b7c7f90643ce4d4ead65333a6c833224ea9c98b234b66de",
+      "bytes": 376862
+    },
+    {
+      "path": "model.Instance.L1ItemStatus.javap.txt",
+      "sha256": "af41871f4220f3d09aa0f6e8b6fc13aa1f68969e9a827b01ea0d18a79039bbdf",
+      "bytes": 327037
+    },
+    {
+      "path": "model.item.CharacterItemPersistenceService.javap.txt",
+      "sha256": "c069a8e0b7498a9d7e82bbdb174ecbffbd2f8dee95f23e2ac67a7d5ccd474481",
+      "bytes": 314612
+    },
+    {
+      "path": "model.L1EquipmentTimer.javap.txt",
+      "sha256": "5a135e822ffd6e55fb3577b441bedc25b7088681185f8c93576db58bd7b2f0cd",
+      "bytes": 5659
+    },
+    {
+      "path": "model.L1Inventory.javap.txt",
+      "sha256": "ce71698e06b08974e5daaf9df9da58a220b7343dc79b017efd2efaba5fbef4c5",
+      "bytes": 247959
+    },
+    {
+      "path": "model.L1PcInventory.javap.txt",
+      "sha256": "908a0d1cd1fadc318eba17c560f842f553318f7a2f592c4e7327d40a7766948b",
+      "bytes": 730700
+    },
+    {
+      "path": "model.npc.action.NpcMakingExecutor.javap.txt",
+      "sha256": "247a1913e0a7fb35e6a4a5bf08bdcfec96e025ce5b818edfea094766cebacc08",
+      "bytes": 57325
+    },
+    {
+      "path": "model.npc.action.NpcTeleportExecutor.javap.txt",
+      "sha256": "3f19220c8b26c1028eb6c627e9fed91ab62d98d54a53df18097e33197c00d057",
+      "bytes": 22344
+    },
+    {
+      "path": "report.py",
+      "sha256": "4d8d9841c3a3a890230594d5938acfb38119d8547d058f5655aa0b0192b27633",
+      "bytes": 10202
+    },
+    {
+      "path": "result.json",
+      "sha256": "b4f83a474f552229cb19c00424298039f0b61a0ac140695e4237cee4c7c59691",
+      "bytes": 6686
+    },
+    {
+      "path": "serverpackets.S_InvList.javap.txt",
+      "sha256": "40bbfd787cb52537929b5491835143ae2b2a3854e9517cee05427c952fc419a5",
+      "bytes": 13144
+    },
+    {
+      "path": "source-pins.json",
+      "sha256": "26b25c5a0161c3f17196cc56d8395c8749e1c06ca2b33f2987e6faacc6876b28",
+      "bytes": 12828
+    },
+    {
+      "path": "static-verification.json",
+      "sha256": "11b31dcfb57374f23f7160f9ef595bc2ce8bdf74d98d08cf26ad43bfe7409b50",
+      "bytes": 3751
+    },
+    {
+      "path": "supervisor-select-evidence.json",
+      "sha256": "446a4ac48adc71736da261d16ed2ca7e7d16bc70e4da4b1a821bd534a4265e57",
+      "bytes": 3889
+    },
+    {
+      "path": "timecontroller.server.ServerItemUserTimer.javap.txt",
+      "sha256": "784144346e9f58e6bcebc66e14b61c2295d11f43e97dcf03ef1c11512249c536",
+      "bytes": 34243
+    },
+    {
+      "path": "verification.json",
+      "sha256": "02f9bae20e6b85c7fd743b9688e396607271d5e2e3abb7de241161357580a500",
+      "bytes": 343
+    },
+    {
+      "path": "verify_seal.py",
+      "sha256": "d67f7842101d0b13df3d2c0e6edb6a6edd599f55ea41107c8f1704235be2bd73",
+      "bytes": 4108
+    }
+  ]
+}

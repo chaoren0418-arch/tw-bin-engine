@@ -1,0 +1,278 @@
+{
+  "status": "pass",
+  "productDllSha256": "a655d70fc3d974eaaeb093a98e9bf882ac4adebb67adae1356dd1e0f23d18006",
+  "productAssembly": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\\u4E3B\u7BA1\\P24-owned-lifetime-review-20261026\\build\\lifetime\\P11.ClientEngine.dll",
+  "scope": "Owned managed engine cleanup only; actual product DLL with synthetic catalogs, explicit packet replay and controlled clock. No native-code execution, login, socket, UI, original-runtime reachability or original lifetime equivalence claim.",
+  "fixtureSha256": "46962d1c7e7d79c72a00ad7b7bfae9967e714887dde1aee3e1e57ef351b144f5",
+  "cases": 8,
+  "failures": 0,
+  "rows": [
+    {
+      "name": "rebind-eviction-survivor-and-reentry",
+      "status": "pass",
+      "detail": {
+        "rebinds": 9,
+        "reentries": 16,
+        "beforeRetained": {
+          "Flags": 1024,
+          "Alpha": 31,
+          "Target": 2,
+          "Transition": true,
+          "Hidden": false,
+          "Half": false
+        },
+        "afterRebind": {
+          "revision": 2,
+          "time": 0,
+          "position": [
+            32576,
+            32896
+          ],
+          "groups": [
+            "keep@1:0"
+          ],
+          "states": [
+            [
+              "objects",
+              1,
+              1024,
+              31,
+              2
+            ]
+          ],
+          "timers": [
+            {
+              "at": 50,
+              "direction": "down",
+              "key": "keep@1:0"
+            }
+          ]
+        },
+        "afterPump": {
+          "revision": 28,
+          "time": 100,
+          "position": [
+            32576,
+            32896
+          ],
+          "groups": [
+            "keep@1:0",
+            "reload@2:0"
+          ],
+          "states": [
+            [
+              "objects",
+              1,
+              1024,
+              27,
+              2
+            ],
+            [
+              "objects",
+              3,
+              1024,
+              27,
+              2
+            ]
+          ],
+          "timers": [
+            {
+              "at": 150,
+              "direction": "down",
+              "key": "keep@1:0"
+            },
+            {
+              "at": 150,
+              "direction": "down",
+              "key": "reload@2:0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "real-cache-repeat-eviction-reference-collection",
+      "status": "pass",
+      "detail": {
+        "shifts": 8,
+        "rows": [
+          {
+            "cycle": 0,
+            "direction": 4,
+            "allOldWeakRefsDead": true,
+            "detail": {
+              "direction": 4,
+              "cacheRevision": 2,
+              "groups": 907,
+              "nodes": 70744,
+              "timers": [
+                {
+                  "at": 150,
+                  "direction": "down",
+                  "key": "7ffd8003@1:2"
+                },
+                {
+                  "at": 150,
+                  "direction": "down",
+                  "key": "7ffc8003@2:20"
+                }
+              ]
+            }
+          },
+          {
+            "cycle": 0,
+            "direction": 0,
+            "allOldWeakRefsDead": true,
+            "detail": {
+              "direction": 0,
+              "cacheRevision": 3,
+              "groups": 703,
+              "nodes": 63664,
+              "timers": [
+                {
+                  "at": 250,
+                  "direction": "up",
+                  "key": "7ffd8003@1:2"
+                },
+                {
+                  "at": 250,
+                  "direction": "up",
+                  "key": "7ffc8003@2:20"
+                }
+              ]
+            }
+          },
+          {
+            "cycle": 1,
+            "direction": 4,
+            "allOldWeakRefsDead": true,
+            "detail": {
+              "direction": 4,
+              "cacheRevision": 4,
+              "groups": 907,
+              "nodes": 72219,
+              "timers": []
+            }
+          },
+          {
+            "cycle": 1,
+            "direction": 0,
+            "allOldWeakRefsDead": true,
+            "detail": {
+              "direction": 0,
+              "cacheRevision": 5,
+              "groups": 703,
+              "nodes": 65139,
+              "timers": []
+            }
+          },
+          {
+            "cycle": 2,
+            "direction": 4,
+            "allOldWeakRefsDead": true,
+            "detail": {
+              "direction": 4,
+              "cacheRevision": 6,
+              "groups": 907,
+              "nodes": 73694,
+              "timers": []
+            }
+          },
+          {
+            "cycle": 2,
+            "direction": 0,
+            "allOldWeakRefsDead": true,
+            "detail": {
+              "direction": 0,
+              "cacheRevision": 7,
+              "groups": 703,
+              "nodes": 66614,
+              "timers": []
+            }
+          },
+          {
+            "cycle": 3,
+            "direction": 4,
+            "allOldWeakRefsDead": true,
+            "detail": {
+              "direction": 4,
+              "cacheRevision": 8,
+              "groups": 907,
+              "nodes": 75169,
+              "timers": []
+            }
+          },
+          {
+            "cycle": 3,
+            "direction": 0,
+            "allOldWeakRefsDead": true,
+            "detail": {
+              "direction": 0,
+              "cacheRevision": 9,
+              "groups": 703,
+              "nodes": 68089,
+              "timers": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "cancel-dispose-release-owned-references",
+      "status": "pass",
+      "detail": {
+        "resourcesChecked": 7,
+        "allDead": true,
+        "repeatedCancelAndDisposeSafe": true,
+        "epoch": 5
+      }
+    },
+    {
+      "name": "old-scene-cannot-mutate-reseeded-world",
+      "status": "pass",
+      "detail": {
+        "oldEpoch": 1,
+        "newEpoch": 4,
+        "retainedOldObjectPumpedWithoutNewWorldMutation": true,
+        "postCancelObservationCount": 0,
+        "scope": "offline Reset and packet reseed, not actual network relogin"
+      }
+    },
+    {
+      "name": "two-connection-cache-isolation",
+      "status": "pass",
+      "detail": {
+        "distinctOwners": true,
+        "otherSessionUnchangedByCancel": true,
+        "otherSessionAdvanced": true
+      }
+    },
+    {
+      "name": "reentrant-cancel-on-move-observation",
+      "status": "pass",
+      "detail": {
+        "onAdvance": false,
+        "cancelCalls": 1,
+        "noWorldResurrection": true
+      }
+    },
+    {
+      "name": "reentrant-cancel-on-advance-observation",
+      "status": "pass",
+      "detail": {
+        "onAdvance": true,
+        "cancelCalls": 1,
+        "noWorldResurrection": true
+      }
+    },
+    {
+      "name": "backward-clock-rejection-preserves-pending-work",
+      "status": "pass",
+      "detail": {
+        "rejected": true,
+        "queueUnchangedOnReject": true,
+        "validFollowingPump": true
+      }
+    }
+  ]
+}

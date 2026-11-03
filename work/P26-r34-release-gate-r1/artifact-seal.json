@@ -1,0 +1,107 @@
+{
+  "schema": "p26-release-gate-artifact-seal-v1",
+  "files": [
+    {
+      "path": "acceptance_gate.py",
+      "size": 21873,
+      "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+    },
+    {
+      "path": "artifact-manifest.json",
+      "size": 3097,
+      "sha256": "25b73d3b5c8371e3a13af20a8f14e3e18644271056e892aff94fa9389fcc6e54"
+    },
+    {
+      "path": "before-state.json",
+      "size": 2709,
+      "sha256": "3b9e92c5c8ff8ed11d89ca1ab5387cf956be02ce44d72e353b2748fdff31a539"
+    },
+    {
+      "path": "context.json",
+      "size": 1504,
+      "sha256": "79078f10a81be3f9eb817449f2950c3276c7c952b129d43e80646daa8df90f62"
+    },
+    {
+      "path": "diffs/package_release.py.patch",
+      "size": 7173,
+      "sha256": "4166f6419e375052cf83b284eed6efec4960707217c2d5199d059d9e9325d018"
+    },
+    {
+      "path": "generate_package_plan.py",
+      "size": 15634,
+      "sha256": "615d16cabc865d896969c256bccaccbc32919758ab6fd72f1c13b88707f1b61d"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 5304,
+      "sha256": "88793e243d47b3edd0bb0ff1f6cba65eac65d1a4fb631288a616eec30ade8eb3"
+    },
+    {
+      "path": "historical/package_release.py.txt",
+      "size": 9394,
+      "sha256": "9324a77b90f3e64b85a6cc3678660de91dc5ba58edd7e2760236f0c17784af90"
+    },
+    {
+      "path": "historical/verify_release_r34.py.txt",
+      "size": 1746,
+      "sha256": "a20f3dfcaae5d24d098b6c60bf0fd7699c289afdf5e5cb366ffe80599f7b1d9f"
+    },
+    {
+      "path": "package_release.py",
+      "size": 9229,
+      "sha256": "6f71f11590b72df554563f39dc510f3a9e115bd4a87dc585864cc0787f444605"
+    },
+    {
+      "path": "pe_resource.py",
+      "size": 3519,
+      "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+    },
+    {
+      "path": "progress.json",
+      "size": 1538,
+      "sha256": "0a9299a9047c4c8f067366291985d033a3596fc75b24441bff67ed10dddd3ef3"
+    },
+    {
+      "path": "release-authority-policy.json",
+      "size": 2241,
+      "sha256": "ed7b626da713ba02a8e606fd13f57fe730d84f99983b7034495e5389b609151a"
+    },
+    {
+      "path": "release_authority.py",
+      "size": 4488,
+      "sha256": "02bf004f0a2d132c985770837f69751b3eea89903737fcabada39328e8747265"
+    },
+    {
+      "path": "release_checks.py",
+      "size": 691,
+      "sha256": "da3c4ebb17fc9de7c184cad911ac8b9cdc551b6b20a6598b90e33b6333912684"
+    },
+    {
+      "path": "result.json",
+      "size": 2772,
+      "sha256": "8de23c31ceaec8972a6c37bde66605e4d11506cbd0e4faedf2ae7eb1d0a78878"
+    },
+    {
+      "path": "source-rebindings.json",
+      "size": 2679,
+      "sha256": "af681a0bcce23ca73a01ed3ed8192bd32949dfb83badc41e41664e27be787325"
+    },
+    {
+      "path": "tool-source-seal.json",
+      "size": 3782,
+      "sha256": "40b32ea97bb80259c329ccb78001c71b0a5c9edbda160d66315d061fb5336c93"
+    },
+    {
+      "path": "verification.json",
+      "size": 4602,
+      "sha256": "da2189db61c668d7125ceb3cfc70b4a4bef4ac3568034b6967c18114b98412f7"
+    },
+    {
+      "path": "verify_tools.py",
+      "size": 5972,
+      "sha256": "32b2be5ca18059b41dd9e4c325a3ae0b16b29ea0dd8161504403d9cd00d840c2"
+    }
+  ],
+  "fullSHA": true,
+  "executionAuthorized": false
+}

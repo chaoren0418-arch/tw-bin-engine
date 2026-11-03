@@ -1,0 +1,23 @@
+{
+  "schema": "p26-r34-release-tool-context-v1",
+  "projectRoot": "D:\\lineage開發\\TW1608262200研究",
+  "preparationRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2",
+  "canonicalEngine": "D:\\lineage開發\\TW1608262200研究\\engine",
+  "workflowRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01",
+  "stageRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01",
+  "stageSealSha256": "9544f137a10914825b53080d4d390d17902cd40866467cebbf69578290240018",
+  "knownCanonicalPreparation": {
+    "pin": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\canonical-plan.json",
+      "size": 714350,
+      "sha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761"
+    },
+    "status": "sealed preparation under independent review; not executed or accepted as shared"
+  },
+  "releaseRoot": "D:\\lineage開發\\TW1608262200研究\\releases\\r34",
+  "packagePlanStatus": "pending-real-canonical-completion",
+  "productDllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productManifestSha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d",
+  "launcherDllSha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8"
+}

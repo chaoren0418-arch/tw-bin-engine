@@ -1,0 +1,20 @@
+{
+  "scope": "file extraction and exact SHA recovery, not logical DB startup/restore",
+  "files": [
+    {
+      "entry": "mysql.ini",
+      "output": "D:\\lineage開發\\TW1608262200研究\\recovery\\restore-probe\\mysql.ini",
+      "sha256": "6ddf708c3ee10e4e210d67e5c1538f2affa09fa6f63506163acb8dc608c72474"
+    },
+    {
+      "entry": "db-data/auto.cnf",
+      "output": "D:\\lineage開發\\TW1608262200研究\\recovery\\restore-probe\\db-data\\auto.cnf",
+      "sha256": "be2e2f6139ec6217ae59c4b2d43a7eafa73a0ebcd48051df9c6a7b93a66842a8"
+    },
+    {
+      "entry": "db-data/sys/sys_config.ibd",
+      "output": "D:\\lineage開發\\TW1608262200研究\\recovery\\restore-probe\\db-data\\sys\\sys_config.ibd",
+      "sha256": "a1f587f11ad18abc279454d24bbc4851d768bcbd05fd7734951d0abea4d1ebba"
+    }
+  ]
+}

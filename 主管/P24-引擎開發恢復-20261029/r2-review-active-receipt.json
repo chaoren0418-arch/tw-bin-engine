@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"timedOut\":true,\"wake\":null,\"polls\":[{\"schemaVersion\":1,\"cursor\":\"7d1d6419-2d65-4aa3-a69c-534fb7f98d8a:33\",\"revision\":33,\"changed\":true,\"thread\":{\"id\":\"01a17a21-8dec-7410-8a1b-80f7fa84d0a1\",\"hostId\":\"local\",\"status\":{\"type\":\"active\",\"activeFlags\":[]}},\"latestTurn\":{\"id\":\"01a18411-8955-7061-adc4-d96ee0f170d4\",\"status\":\"inProgress\",\"error\":null,\"startedAt\":1793217104,\"completedAt\":null,\"durationMs\":null},\"latestAssistantMessageId\":\"msg_03bad4afb6dfb9e5016ae252522d1c8191bacdf3a6fc75c54d\",\"latestAssistantMessage\":{\"id\":\"msg_03bad4afb6dfb9e5016ae252522d1c8191bacdf3a6fc75c54d\",\"turnId\":\"01a18411-8955-7061-adc4-d96ee0f170d4\",\"phase\":\"commentary\",\"text\":\"已接手 R2 複驗。我會核對新 seal、DLL 與單檔修正，再以自己的 1,199 項向量和六組最小重現驗證，並補查 Speed／Brave 的兩種恢復順序；R1 證據保持封存。\"},\"latestToolMarkerId\":\"exec-1ec90068-8506-4a4c-a1b4-53eb6371eb83\",\"latestToolMarker\":{\"id\":\"exec-1ec90068-8506-4a4c-a1b4-53eb6371eb83\",\"turnId\":\"01a18411-8955-7061-adc4-d96ee0f170d4\",\"type\":\"commandExecution\",\"name\":\"commandExecution\",\"status\":\"completed\"}}]}"
+    }
+  ],
+  "isError": false
+}

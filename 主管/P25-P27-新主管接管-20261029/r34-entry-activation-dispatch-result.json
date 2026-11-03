@@ -1,0 +1,18 @@
+{
+  "schema": "r34-entry-activation-dispatch-result-v1",
+  "utc": "2026-10-29T04:48:28.228920+00:00",
+  "action": "send_message_to_thread: ENGINE-R34-ENTRY-ACTIVATE-P26-R1",
+  "target": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "status": "denied-by-automatic-approval-review",
+  "reason": "此派工會持久修改正式入口與 project-manifest，將 r34 提升為現行產品版本，屬外部／正式承諾；使用者只授權引擎開發，未明確授權這次入口啟用，且政策不以先前助手派工替代該核准。",
+  "receipt": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-entry-activation-acceptance.json",
+    "size": 1611,
+    "sha256": "db02c373966272a3444efb6fefe714b2984e1c6348b489287f74cdd975b64b1a"
+  },
+  "executed": false,
+  "retried": false,
+  "rootEntry": "r33",
+  "scopeStillAllowed": "sealed r34 accepted offline; isolated engine development and review",
+  "required": "explicit user approval to activate r34 root entry and project-manifest; no reroute"
+}

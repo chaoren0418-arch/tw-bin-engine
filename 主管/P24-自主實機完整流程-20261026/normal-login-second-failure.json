@@ -1,0 +1,636 @@
+{
+  "attempt": 2,
+  "reason": "test whether process warm state changes cold-map timeout; no other world actions",
+  "states": [
+    {
+      "utc": "2026-10-26T09:07:04.5188037+00:00",
+      "rev": 45,
+      "state": "Cancelled",
+      "detail": "使用者取消；連線已關閉",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:04.5234053+00:00",
+      "rev": 46,
+      "state": "Connecting",
+      "detail": "127.0.0.1:42061",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:04.5249751+00:00",
+      "rev": 47,
+      "state": "Connecting",
+      "detail": "127.0.0.1:42061",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:04.5254189+00:00",
+      "rev": 48,
+      "state": "Connecting",
+      "detail": "127.0.0.1:42061",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:04.528231+00:00",
+      "rev": 49,
+      "state": "AwaitSeed",
+      "detail": "等待已識別 profile 首包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:04.5740866+00:00",
+      "rev": 50,
+      "state": "Authenticating",
+      "detail": "首包已解析；等待登入結果",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:04.5879178+00:00",
+      "rev": 51,
+      "state": "AwaitList",
+      "detail": "登入結果成功；等待角色數量",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:04.6042407+00:00",
+      "rev": 52,
+      "state": "ReadingCharacters",
+      "detail": "收到角色數量 1/4",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:04.6123817+00:00",
+      "rev": 53,
+      "state": "CharacterList",
+      "detail": "已解析角色 1/1",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.1934987+00:00",
+      "rev": 54,
+      "state": "CharacterList",
+      "detail": "已解析角色 1/1",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.1957072+00:00",
+      "rev": 55,
+      "state": "EnteringWorld",
+      "detail": "要求進入角色：透明王子乙",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.1962533+00:00",
+      "rev": 56,
+      "state": "EnteringWorld",
+      "detail": "要求進入角色：透明王子乙",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.1965314+00:00",
+      "rev": 57,
+      "state": "EnteringWorld",
+      "detail": "要求進入角色：透明王子乙",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.1968311+00:00",
+      "rev": 58,
+      "state": "EnteringWorld",
+      "detail": "要求進入角色：透明王子乙",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.2196812+00:00",
+      "rev": 59,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.2399071+00:00",
+      "rev": 60,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.2434869+00:00",
+      "rev": 61,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.2474993+00:00",
+      "rev": 62,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.2638657+00:00",
+      "rev": 63,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.2678981+00:00",
+      "rev": 64,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.2719984+00:00",
+      "rev": 65,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.2761997+00:00",
+      "rev": 66,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.2970708+00:00",
+      "rev": 67,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.3011638+00:00",
+      "rev": 68,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.3053925+00:00",
+      "rev": 69,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.3136957+00:00",
+      "rev": 70,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.3175407+00:00",
+      "rev": 71,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.325451+00:00",
+      "rev": 72,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.3454599+00:00",
+      "rev": 73,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.3492663+00:00",
+      "rev": 74,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.3532307+00:00",
+      "rev": 75,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.3575698+00:00",
+      "rev": 76,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.3613231+00:00",
+      "rev": 77,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.3654793+00:00",
+      "rev": 78,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.3692805+00:00",
+      "rev": 79,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.3890689+00:00",
+      "rev": 80,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:13.3936015+00:00",
+      "rev": 81,
+      "state": "EnteringWorld",
+      "detail": "已收到地圖；等待角色位置與原始資源載入。",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.0344463+00:00",
+      "rev": 82,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 0,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.0383796+00:00",
+      "rev": 83,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.0436731+00:00",
+      "rev": 84,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.0879876+00:00",
+      "rev": 85,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.105354+00:00",
+      "rev": 86,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.1100699+00:00",
+      "rev": 87,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.11315+00:00",
+      "rev": 88,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.1184714+00:00",
+      "rev": 89,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.1222495+00:00",
+      "rev": 90,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.1472445+00:00",
+      "rev": 91,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.1502209+00:00",
+      "rev": 92,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.1537923+00:00",
+      "rev": 93,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.1609893+00:00",
+      "rev": 94,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.1640595+00:00",
+      "rev": 95,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.1668096+00:00",
+      "rev": 96,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.1708885+00:00",
+      "rev": 97,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.1895216+00:00",
+      "rev": 98,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.1933988+00:00",
+      "rev": 99,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.2008033+00:00",
+      "rev": 100,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.2044843+00:00",
+      "rev": 101,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.2201572+00:00",
+      "rev": 102,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.2257666+00:00",
+      "rev": 103,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.2291975+00:00",
+      "rev": 104,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.2319615+00:00",
+      "rev": 105,
+      "state": "EnteringWorld",
+      "detail": "接收世界初始化封包",
+      "complete": true,
+      "ready": false,
+      "probe": 1,
+      "resource": "ready"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.2408868+00:00",
+      "rev": 106,
+      "state": "Faulted",
+      "detail": "ProtocolException: truncated field",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    },
+    {
+      "utc": "2026-10-26T09:07:14.2456503+00:00",
+      "rev": 107,
+      "state": "Faulted",
+      "detail": "ProtocolException: truncated field",
+      "complete": false,
+      "ready": false,
+      "probe": 0,
+      "resource": "waiting"
+    }
+  ]
+}

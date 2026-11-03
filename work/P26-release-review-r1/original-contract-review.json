@@ -1,0 +1,22 @@
+{
+  "schema": "p26-original-release-contract-review-v1",
+  "status": "completed-contract-and-negative-preparation",
+  "controller": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\package_release.py",
+    "size": 9394,
+    "sha256": "9324a77b90f3e64b85a6cc3678660de91dc5ba58edd7e2760236f0c17784af90"
+  },
+  "guardCount": 29,
+  "syntheticCases": 63,
+  "caseScope": "isolated original guards/helpers/evidence loop; no full package validation, receipt or completed fixture",
+  "inheritedLimitations": [
+    "old supervisor constant rejects new supervisor; replaced only in exact new tool",
+    "package source manifest count is >177, not exact180",
+    "completed record/result hashes are checked but original package gate does not replay suite-result semantics/attempt provenance",
+    "all asset bodies are pinned during package loop and full release verification, not by read-only preflight",
+    "reserved generated-file collisions historically fail after mkdir; new generator must filter them"
+  ],
+  "productBuilds": 0,
+  "packageInvocations": 0,
+  "releaseAccepted": false
+}

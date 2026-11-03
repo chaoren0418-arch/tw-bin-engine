@@ -1,0 +1,60 @@
+{
+  "schema": "engine-r29-preparation-seal-v1",
+  "files": [
+    {
+      "path": "acceptance_gate.py",
+      "size": 10064,
+      "sha256": "99308bd3e9a546795f30f934b153783a66bb3dbb4a83de26468adab0222081e8"
+    },
+    {
+      "path": "run_next_stage.py",
+      "size": 3833,
+      "sha256": "8ddb479e72b3cc448293bc9c2841cafeeede357982c3e775a6f6084bed0d7db7"
+    },
+    {
+      "path": "test_rejections.py",
+      "size": 6361,
+      "sha256": "99f756ed18112466a7f57cecf9133ebc61e27a35732263cd909c97e932bf28b1"
+    },
+    {
+      "path": "prepare.py",
+      "size": 2232,
+      "sha256": "98613e55f5195ee243128666d8f71ef432a8b79080ee07e86824829131203d8c"
+    },
+    {
+      "path": "acceptance-materials.schema.json",
+      "size": 10819,
+      "sha256": "c0807931c0ff015b4ac3bcb2f1a0ec7618da00bafe31ff118490060517bfb2c6"
+    },
+    {
+      "path": "baseline-lock.json",
+      "size": 33239,
+      "sha256": "2f810caf6d3f64a857173637416ebbd6e0ed6a104f67ef985706de213cadb1f4"
+    },
+    {
+      "path": "baseline/common.py",
+      "size": 1932,
+      "sha256": "7c4190a4a5726757c290742fdb77bc0320856248fc70da15a87afb53bbbd09a4"
+    },
+    {
+      "path": "baseline/run_stage.py",
+      "size": 6730,
+      "sha256": "0075560118430506e53ea674839f56398f495bb715d97e9046acc14e44e10720"
+    },
+    {
+      "path": "delta/_integration/run_stage_r29.py",
+      "size": 7043,
+      "sha256": "78c0767aff8cb3b27e028fa8d1e1cbb8594494961b423c492f3016b2bad8ff9f"
+    },
+    {
+      "path": "runner-delta.patch",
+      "size": 7311,
+      "sha256": "721fe9f6c9e7b63d25d1503f512c823f5dd5815c785956d9248b3ce4cf04ce80"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 7642,
+      "sha256": "366b8198230b08a7c3fa0958a7cc8a2fa0bd1b4873e8c5791bdc05f505f70f3f"
+    }
+  ]
+}

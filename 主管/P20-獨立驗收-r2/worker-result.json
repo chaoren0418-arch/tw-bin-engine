@@ -1,0 +1,104 @@
+{
+  "status": "worker-passed-ready-for-independent-supervisor",
+  "goal": "active",
+  "stage": "P20",
+  "fixedJarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "proofs": {
+    "equipment-worker-cli-r3/result.json": {
+      "sha256": "b17afcb9afd3beaa4c679b02f64cd7339fdcc339dcd72deae9ef860686c44848",
+      "snapshots": null,
+      "expGain": null,
+      "goldGain": null
+    },
+    "equipment-worker-cli-r3/independent-equipment.json": {
+      "sha256": "cac1b85ee9fa9752f71c8e974c33e5dbd1d6d734d6f8e7aff1548da9248ac4f5",
+      "snapshots": 106,
+      "expGain": null,
+      "goldGain": null
+    },
+    "equipment-worker-cli-r3/independent-rewards.json": {
+      "sha256": "5f535a3ec34deeabdb78ebd723ca0dc0030aa7afcf036ea8a0a7addf83c72473",
+      "snapshots": 106,
+      "expGain": 20,
+      "goldGain": 44
+    },
+    "equipment-worker-ui-r4/result.json": {
+      "sha256": "507f637abb6bab64014f958d4b129cce60fba94d703db6c4ec4ae95787fc8c27",
+      "snapshots": null,
+      "expGain": null,
+      "goldGain": null
+    },
+    "equipment-worker-ui-r4/independent-equipment.json": {
+      "sha256": "30a13172fc38344dd2a70729bb5bae483e291011de2a1bc3097121ccfc1d944b",
+      "snapshots": 180,
+      "expGain": null,
+      "goldGain": null
+    },
+    "equipment-worker-ui-r4/independent-rewards.json": {
+      "sha256": "01585449ca0fe2dcb9648460c23f597b2b47781a022345b31e358c435152663d",
+      "snapshots": 180,
+      "expGain": 20,
+      "goldGain": 42
+    },
+    "equipment-tests-final.json": {
+      "sha256": "bdfe9abfa467528a41efdfb8359ba4d957d1708670f7099d576b23f459b2ad4a",
+      "snapshots": null,
+      "expGain": null,
+      "goldGain": null
+    },
+    "equipment-gates.json": {
+      "sha256": "09cc79a734c6d2b43eae55994192304d66d57e32da1d086ec0e105568999501c",
+      "snapshots": null,
+      "expGain": null,
+      "goldGain": null
+    },
+    "equipment-pixels-result.json": {
+      "sha256": "b9dd29ae3a9ac4b52d1d2ef47f8ddf16c22130b54f13f172555e49ed2de661f5",
+      "snapshots": null,
+      "expGain": null,
+      "goldGain": null
+    },
+    "combat-pixels-result.json": {
+      "sha256": "490d505dde349fb3863fb010c00291882c27d33c8b719c5dcad62330281f8d84",
+      "snapshots": null,
+      "expGain": null,
+      "goldGain": null
+    },
+    "web-regression/web-test-result.json": {
+      "sha256": "115bf5daf77837b4d9335c390d0f13fb33e760e035dfaa9dea85772171069d66",
+      "snapshots": null,
+      "expGain": null,
+      "goldGain": null
+    }
+  },
+  "supervisorReserved": [],
+  "serviceState": "same original JAR/DB running",
+  "sourceManifestSha256": "227064f974bbc282d3139d0edd17f9afb0402f29acc6ce7c6239961f8d0b7bee",
+  "environmentManifestSha256": "cdc434700f1984c7fecd0d718f44aaf3300b08d910f2497b1412fa42340f4397",
+  "supported": {
+    "weapons": [
+      31,
+      52
+    ],
+    "armor": [
+      20096,
+      20222
+    ],
+    "weaponTypes": [
+      4,
+      50
+    ]
+  },
+  "limits": [
+    "Four original identified +0 normal-bless equipment fingerprints only, not all items",
+    "UI uses WinForms controller and WebView2 DOM, not external OS input",
+    "No natural ground pickup or real level-up claim",
+    "P18 original8 meat unresolved and pickup animation not rendered remain historical limitations",
+    "P10 old EXE unaccepted; complete engine goal remains active; no magic/ranged/shop/trade/warehouse/full-world claim"
+  ],
+  "revision": 2,
+  "supervisorFreshRoles": false,
+  "supervisorCli": "passed independently on v1; unchanged product/CLI source",
+  "supervisorUi": "awaiting Fresh=false continuation on v2",
+  "revisionEvidence": "f42bbbf397369209863f0e2cc15248b8a457bcfed854c7fae6f7ba45f6c09f2f"
+}

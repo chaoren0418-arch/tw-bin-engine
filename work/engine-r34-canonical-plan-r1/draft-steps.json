@@ -1,0 +1,719 @@
+[
+  {
+    "id": "product",
+    "commands": [
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "product/rebuild"
+        ],
+        "probes": [
+          "markers/product/rebuild.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "product/collect"
+        ],
+        "probes": [
+          "markers/product/collect.json"
+        ]
+      }
+    ],
+    "result": "results/product.json"
+  },
+  {
+    "id": "baseline",
+    "commands": [
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "baseline/setup"
+        ],
+        "probes": [
+          "markers/baseline/setup.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "baseline/host-build"
+        ],
+        "probes": [
+          "markers/baseline/host-build.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "baseline/host-checks"
+        ],
+        "probes": [
+          "markers/baseline/host-checks.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "baseline/client-extract"
+        ],
+        "probes": [
+          "markers/baseline/client-extract.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "baseline/client-build"
+        ],
+        "probes": [
+          "markers/baseline/client-build.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "baseline/client-checks"
+        ],
+        "probes": [
+          "markers/baseline/client-checks.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "baseline/audio-extract"
+        ],
+        "probes": [
+          "markers/baseline/audio-extract.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "baseline/audio-settings-build"
+        ],
+        "probes": [
+          "markers/baseline/audio-settings-build.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "baseline/audio-settings-checks"
+        ],
+        "probes": [
+          "markers/baseline/audio-settings-checks.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "baseline/web-checks"
+        ],
+        "probes": [
+          "markers/baseline/web-checks.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "baseline/collect"
+        ],
+        "probes": [
+          "markers/baseline/collect.json"
+        ]
+      }
+    ],
+    "result": "results/baseline.json",
+    "helperNames": [
+      "r34-canonical-baseline-host",
+      "r34-canonical-baseline-client",
+      "r34-canonical-baseline-audio-settings"
+    ]
+  },
+  {
+    "id": "ground",
+    "commands": [
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "ground/setup"
+        ],
+        "probes": [
+          "markers/ground/setup.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "ground/ground-build"
+        ],
+        "probes": [
+          "markers/ground/ground-build.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "ground/ground-baseline"
+        ],
+        "probes": [
+          "markers/ground/ground-baseline.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "ground/ground-extended"
+        ],
+        "probes": [
+          "markers/ground/ground-extended.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "ground/ground-supplement"
+        ],
+        "probes": [
+          "markers/ground/ground-supplement.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "ground/ground-formal"
+        ],
+        "probes": [
+          "markers/ground/ground-formal.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "ground/ground-checker"
+        ],
+        "probes": [
+          "markers/ground/ground-checker.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "ground/collect"
+        ],
+        "probes": [
+          "markers/ground/collect.json"
+        ]
+      }
+    ],
+    "result": "results/ground.json",
+    "helperNames": [
+      "r34-canonical-ground"
+    ]
+  },
+  {
+    "id": "utility",
+    "commands": [
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "utility/setup"
+        ],
+        "probes": [
+          "markers/utility/setup.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "utility/utility-build"
+        ],
+        "probes": [
+          "markers/utility/utility-build.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "utility/utility-probe"
+        ],
+        "probes": [
+          "markers/utility/utility-probe.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "utility/collect"
+        ],
+        "probes": [
+          "markers/utility/collect.json"
+        ]
+      }
+    ],
+    "result": "results/utility.json",
+    "helperNames": [
+      "r34-canonical-utility"
+    ]
+  },
+  {
+    "id": "haste",
+    "commands": [
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "haste/setup"
+        ],
+        "probes": [
+          "markers/haste/setup.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "haste/haste-build"
+        ],
+        "probes": [
+          "markers/haste/haste-build.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "haste/haste-probe"
+        ],
+        "probes": [
+          "markers/haste/haste-probe.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "haste/collect"
+        ],
+        "probes": [
+          "markers/haste/collect.json"
+        ]
+      }
+    ],
+    "result": "results/haste.json",
+    "helperNames": [
+      "r34-canonical-haste"
+    ]
+  },
+  {
+    "id": "versioned-slow",
+    "commands": [
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "versioned-slow/setup"
+        ],
+        "probes": [
+          "markers/versioned-slow/setup.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "versioned-slow/versioned-slow-build"
+        ],
+        "probes": [
+          "markers/versioned-slow/versioned-slow-build.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "versioned-slow/versioned-slow-probe"
+        ],
+        "probes": [
+          "markers/versioned-slow/versioned-slow-probe.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "versioned-slow/collect"
+        ],
+        "probes": [
+          "markers/versioned-slow/collect.json"
+        ]
+      }
+    ],
+    "result": "results/versioned-slow.json",
+    "helperNames": [
+      "r34-canonical-versioned-slow"
+    ]
+  },
+  {
+    "id": "f1",
+    "commands": [
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "f1/setup"
+        ],
+        "probes": [
+          "markers/f1/setup.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "f1/f1-build"
+        ],
+        "probes": [
+          "markers/f1/f1-build.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "f1/f1-probe"
+        ],
+        "probes": [
+          "markers/f1/f1-probe.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "f1/collect"
+        ],
+        "probes": [
+          "markers/f1/collect.json"
+        ]
+      }
+    ],
+    "result": "results/f1.json",
+    "helperNames": [
+      "r34-canonical-f1"
+    ]
+  },
+  {
+    "id": "pickup",
+    "commands": [
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "pickup/setup"
+        ],
+        "probes": [
+          "markers/pickup/setup.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "pickup/pickup-main-174-build"
+        ],
+        "probes": [
+          "markers/pickup/pickup-main-174-build.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "pickup/pickup-main-174-probe"
+        ],
+        "probes": [
+          "markers/pickup/pickup-main-174-probe.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "pickup/pickup-supplement-10-build"
+        ],
+        "probes": [
+          "markers/pickup/pickup-supplement-10-build.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "pickup/pickup-supplement-10-probe"
+        ],
+        "probes": [
+          "markers/pickup/pickup-supplement-10-probe.json"
+        ]
+      },
+      {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+          "--execute",
+          "--operation",
+          "pickup/collect"
+        ],
+        "probes": [
+          "markers/pickup/collect.json"
+        ]
+      }
+    ],
+    "result": "results/pickup.json",
+    "helperNames": [
+      "r34-canonical-pickup-main-174",
+      "r34-canonical-pickup-supplement-10"
+    ]
+  }
+]

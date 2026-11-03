@@ -1,0 +1,92 @@
+{
+  "utc": "2026-10-26T09:36:56.032Z",
+  "status": "source reviewed; immutable snapshot verified; cleared for actual diagnostic UI retry, not product acceptance",
+  "snapshotFiles": 259,
+  "workerResult": {
+    "status": "offline-fix-ready-for-supervisor-ui-retry",
+    "productDll": "build/client-product-r2/P11.ClientEngine.dll",
+    "productDllSha256": "c902f72e099b5853d89e4063eceee8a0358d383bdcbbefa2891dbc1317e3df58",
+    "productManifest": "build/product-r2-manifest.json",
+    "productManifestSha256": "e612a4af70d366f6169ac5624e2f67a37b1e80d6e8a26bf4e6a5df8240121389",
+    "snapshotFiles": 259,
+    "changed": [
+      "source/LoginConnection.cs",
+      "source/LoginProtocol.cs",
+      "source/OriginalMapCache.cs",
+      "source/SceneOpacity.cs",
+      "source/WorldEntry.cs",
+      "source/WorldSession.cs",
+      "web/panel.js"
+    ],
+    "checks": {
+      "entry-r4": {
+        "entry": 47,
+        "dom": 29
+      },
+      "login-r2": {
+        "entry": 53,
+        "dom": 23
+      },
+      "regressions-r2": {
+        "effects": 368,
+        "maps": 35,
+        "trade": 58,
+        "service": 73,
+        "casting": 293,
+        "casting-dom": 29,
+        "map-panel": 10,
+        "trade-dom": 19,
+        "service-dom": 24
+      },
+      "extended-r2": {
+        "appearance": 2390,
+        "death": 97,
+        "equipment": 926
+      }
+    },
+    "launchPlan": {
+      "status": "checked-only",
+      "executable": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\build\\client-product-r2\\P11.ClientEngine.exe",
+      "workingDirectory": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入",
+      "arguments": [
+        "--normal-product"
+      ],
+      "assets": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\assets",
+      "web": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\web",
+      "manifest": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\build\\product-r2-manifest.json",
+      "hashedRuntimeAndWebFiles": 31,
+      "assetFilesCheckedForPresenceAndSize": 13877,
+      "assetContentVerification": "Pinned integrity manifest; product verifies content when loaded.",
+      "profile": "p24-real-jar-d287-client2",
+      "port": 42061,
+      "autoLogin": false,
+      "uiStarted": false,
+      "networkStarted": false,
+      "servicesStarted": false
+    },
+    "assetsHashed": 13877,
+    "appearancePngsUnchanged": 41,
+    "r1RuntimeUnchanged": true,
+    "ui": false,
+    "live": false,
+    "database": false,
+    "stageComplete": false,
+    "goalStatus": "blocked",
+    "fixed": [
+      "background cold-map loading, cancellation and stale-result guards",
+      "initial probe/deadline ordering and bounded waits",
+      "per-transition deadline lifecycle after long-running world session",
+      "unknown resistance display"
+    ],
+    "diagnosticOnly": [
+      "post-core truncated packet cause is unknown; strict failure now preserves opcode/length/bytes/hash/offset/stack"
+    ],
+    "deferred": [
+      "item name localization tokens $238 and +0 $0",
+      "real normal-product login and full UI/gameplay/freeze acceptance"
+    ],
+    "next": "Stop worker; supervisor alone retries normal r2 UI and returns decodeFailure evidence if truncated field recurs."
+  },
+  "reviewFinding": "initial deadline retired after completion and recreated per transition; verified source",
+  "fullUi": false
+}

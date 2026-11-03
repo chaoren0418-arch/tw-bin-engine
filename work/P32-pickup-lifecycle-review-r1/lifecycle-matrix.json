@@ -1,0 +1,275 @@
+[
+  {
+    "id": "session",
+    "reason": "owner/revision/position",
+    "api": "synthetic single-field reflection seam",
+    "dimension": "session",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "world",
+    "reason": "owner/revision/position",
+    "api": "synthetic single-field reflection seam",
+    "dimension": "world",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "map",
+    "reason": "owner/revision/position",
+    "api": "synthetic single-field reflection seam",
+    "dimension": "map",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "actor",
+    "reason": "owner/revision/position",
+    "api": "synthetic single-field reflection seam",
+    "dimension": "actor",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "appearanceRevision",
+    "reason": "owner/revision/position",
+    "api": "synthetic single-field reflection seam",
+    "dimension": "appearanceRevision",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "correctionRevision",
+    "reason": "owner/revision/position",
+    "api": "synthetic single-field reflection seam",
+    "dimension": "correctionRevision",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "speedRevision",
+    "reason": "owner/revision/position",
+    "api": "synthetic single-field reflection seam",
+    "dimension": "speedRevision",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "gfx",
+    "reason": "owner/revision/position",
+    "api": "synthetic single-field reflection seam",
+    "dimension": "gfx",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "weapon",
+    "reason": "owner/revision/position",
+    "api": "synthetic single-field reflection seam",
+    "dimension": "weapon",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "direction",
+    "reason": "owner/revision/position",
+    "api": "synthetic single-field reflection seam",
+    "dimension": "direction",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "x",
+    "reason": "owner/revision/position",
+    "api": "synthetic single-field reflection seam",
+    "dimension": "x",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "y",
+    "reason": "owner/revision/position",
+    "api": "synthetic single-field reflection seam",
+    "dimension": "y",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "speedRevisionRoundtrip",
+    "reason": "owner/revision/position",
+    "api": "internal ApplyWorldPacket with synthetic authoritative packet",
+    "dimension": "speedRevisionRoundtrip",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "same-speed",
+    "reason": "owner/revision/position",
+    "api": "internal ApplyWorldPacket with synthetic authoritative packet",
+    "dimension": "same-speed",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "brave",
+    "reason": "owner/revision/position",
+    "api": "internal ApplyWorldPacket with synthetic authoritative packet",
+    "dimension": "brave",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "pending-appearance",
+    "reason": "owner/revision/position",
+    "api": "internal ApplyWorldPacket with synthetic authoritative packet",
+    "dimension": "pending-appearance",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "hp0",
+    "reason": "health/death",
+    "api": "internal ApplyWorldPacket with synthetic authoritative packet",
+    "dimension": "hp0",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "hp-percent",
+    "reason": "health/death",
+    "api": "internal ApplyWorldPacket with synthetic authoritative packet",
+    "dimension": "hp-percent",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "death",
+    "reason": "authoritative-action",
+    "api": "internal ApplyWorldPacket S158",
+    "dimension": "death",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "shop",
+    "reason": "authoritative-action",
+    "api": "internal ApplyWorldPacket S158",
+    "dimension": "shop",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "newAttack",
+    "reason": "authoritative-action",
+    "api": "internal ApplyWorldPacket S158",
+    "dimension": "newAttack",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "damage",
+    "reason": "authoritative-action",
+    "api": "internal ApplyWorldPacket S158",
+    "dimension": "damage",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "newSpell",
+    "reason": "authoritative-action",
+    "api": "internal ApplyWorldPacket S158",
+    "dimension": "newSpell",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "spell-no-dir",
+    "reason": "authoritative-action",
+    "api": "internal ApplyWorldPacket S158",
+    "dimension": "spell-no-dir",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "unknown-action",
+    "reason": "authoritative-action",
+    "api": "internal ApplyWorldPacket S158",
+    "dimension": "unknown-action",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "actionLock",
+    "reason": "locked",
+    "api": "internal ApplyWorldPacket with synthetic authoritative packet",
+    "dimension": "actionLock",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "remove",
+    "reason": "actor-removed",
+    "api": "internal ApplyWorldPacket with synthetic authoritative packet",
+    "dimension": "remove",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "heading-packet",
+    "reason": "authoritative-heading",
+    "api": "internal ApplyWorldPacket with synthetic authoritative packet",
+    "dimension": "heading-packet",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "move-packet",
+    "reason": "authoritative-move",
+    "api": "internal ApplyWorldPacket with synthetic authoritative packet",
+    "dimension": "move-packet",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "pack",
+    "reason": "authoritative-pack",
+    "api": "internal ApplyWorldPacket with synthetic authoritative packet",
+    "dimension": "pack",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "world-packet",
+    "reason": "world-reset",
+    "api": "internal ApplyWorldPacket with synthetic authoritative packet",
+    "dimension": "world-packet",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "teleport-packet",
+    "reason": "world-reset",
+    "api": "internal ApplyWorldPacket with synthetic authoritative packet",
+    "dimension": "teleport-packet",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "readyLoss",
+    "reason": "world-unavailable",
+    "api": "synthetic single-field reflection seam",
+    "dimension": "readyLoss",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "renderableLoss",
+    "reason": "world-unavailable",
+    "api": "synthetic single-field reflection seam",
+    "dimension": "renderableLoss",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "movement",
+    "reason": "movement/turn",
+    "api": "internal WorldSession.Predict",
+    "dimension": "movement",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "predicted-action",
+    "reason": "predicted-action",
+    "api": "internal WorldSession.PredictAction",
+    "dimension": "predicted-action",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "walking",
+    "reason": "walking",
+    "api": "public World.NetworkStep plus real bound render-context validation",
+    "dimension": "walking",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "reset",
+    "reason": "world-reset",
+    "api": "public WorldSession.Reset",
+    "dimension": "reset",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  },
+  {
+    "id": "cancel",
+    "reason": "world-reset",
+    "api": "public LoginConnection.Cancel on never-connected fixture",
+    "dimension": "cancel",
+    "expected": "cancel old; stale callback null and state unchanged; reseed same WorldSession and new receipt serial strictly greater"
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "utc": "2026-10-28T23:32:46.643730+00:00",
+  "decision": "accepted-independent-preparation-only",
+  "artifactSealSha256": "1b7fbe6eb168a4b41fb34c5d703ef5b0f132297cec9fb65148fa9f7020f11b8d",
+  "resultSha256": "bc2718c9f8b0b04717b9915d9eb80125ca26b7e87250e1968dfd3928c416da87",
+  "artifactFiles": 42,
+  "externalPins": 563,
+  "totalRows": 352,
+  "baselineAssertionsPassed": 234,
+  "futureSafetyMet": 23,
+  "futureSafetyGaps": 14,
+  "observations": 81,
+  "newOwnerCandidatePending": 24,
+  "finalR32Bound": true,
+  "readonlyVerifierExecuted": true,
+  "candidateReviewed": false,
+  "turnId": "01a184ce-9358-7f21-a22f-8952e7b26792",
+  "cursor": "8733f9b2-2e3c-4239-bb56-0b27e2dd2974:119"
+}

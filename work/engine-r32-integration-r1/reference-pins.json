@@ -1,0 +1,264 @@
+{
+  "schema": "engine-r32-preparation-reference-pins-v1",
+  "references": [
+    {
+      "source": "work/engine-r31-integration-r1/acceptance_gate.py",
+      "copy": "reference/r31/acceptance_gate.py",
+      "size": 12803,
+      "sha256": "6c07b31e61c4aadad9a9352d4e34331f3d7eca74934fbf7f4afd401ca7d705c8"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/run_next_stage.py",
+      "copy": "reference/r31/run_next_stage.py",
+      "size": 4636,
+      "sha256": "efe8ca45a248916c73acad35a99999381fa2f7824f2c2429a4b8a97afc4def5d"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/prepare_rebuild.py",
+      "copy": "reference/r31/prepare_rebuild.py",
+      "size": 4740,
+      "sha256": "30983edc92bf92c47e5da9ffb2f34da9d4b7c48090e4aa65828795d6efac50fd"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/prepared/run_stage_r31.py",
+      "copy": "reference/r31/run_stage_r31.py",
+      "size": 7030,
+      "sha256": "36e1030d382d3d00455576db6b5badb8ea03a4afcd3a436b97fc5931403af3b6"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/prepared/rebuild_template_r31.py",
+      "copy": "reference/r31/rebuild_template_r31.py",
+      "size": 8199,
+      "sha256": "006be05a483d6db00a33e80156032b481d12908aab6afe36463e58f28845e72d"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/prepared/build-product.ps1",
+      "copy": "reference/r31/build-product.ps1",
+      "size": 1702,
+      "sha256": "68bca98a7b8e2e8a48a1d7a164744735cf35af0fc821243292f3c9afbc9037e4"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/prepared/launch-product.ps1",
+      "copy": "reference/r31/launch-product.ps1",
+      "size": 2756,
+      "sha256": "120a4c3cbb839c744d4b72c97367c04dfd4e3601561d28dc486bb36dc509ce5d"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/acceptance-materials.schema.json",
+      "copy": "reference/r31/acceptance-materials.schema.json",
+      "size": 11677,
+      "sha256": "22bf9213a643ba1b5b3d70f48da3ee8d0a9b872434168299901c377cab042b5f"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/test_rejections.py",
+      "copy": "reference/r31/test_rejections.py",
+      "size": 5694,
+      "sha256": "9f3929e0c8986308e3bb0d83b01eff2dcc1829ae37d3df0893d4f5df8595aa2d"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/assertion_occurrences.py",
+      "copy": "reference/r31/assertion_occurrences.py",
+      "size": 873,
+      "sha256": "5b3d3c9d7f9b77fc718b5d773e1b719cf3eccfde32ff83dc24e2ebcea29bb611"
+    },
+    {
+      "source": "主管/P24-緩速加速水例外-20261029/baseline-final.json",
+      "copy": "reference/supervisor/baseline-final.json",
+      "size": 29934,
+      "sha256": "00e9d4664024119595faeead50ade5827258763e47dc3d7068ea9b78abf8c813"
+    },
+    {
+      "source": "主管/P24-緩速加速水例外-20261029/baseline.json",
+      "copy": "reference/supervisor/baseline.json",
+      "size": 50001,
+      "sha256": "16ab9dbb534e20e03e622777ab530065e1bc97363c08d8b765e2cb880115bb87"
+    },
+    {
+      "source": "主管/P24-緩速加速水例外-20261029/final-base-binding.json",
+      "copy": "reference/supervisor/final-base-binding.json",
+      "size": 838,
+      "sha256": "d6946c449f35b1d26804bd3fd4878bf24bdb0f74d66a302765dfd91058010fa4"
+    },
+    {
+      "source": "主管/P24-加速攻擊施法接續-20261029/r31-supervisor-acceptance.json",
+      "copy": "reference/supervisor/r31-supervisor-acceptance.json",
+      "size": 2204,
+      "sha256": "c61b78bc32afb590675f9a73e1c7e5f171156af2afa9e8d58c4ff03b55c25d1d"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/r31-runs/accepted-haste-actions-r1-01/stage-work/adaptation-collection-failure.json",
+      "copy": "reference/r31-lessons/adaptation-collection-failure.json",
+      "size": 427,
+      "sha256": "314440f6253fc27c2b24f9601f43895337253c7a7debb182e218e5d9d4dc81ed"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/r31-runs/accepted-haste-actions-r1-01/stage-work/run_final_suites.py",
+      "copy": "reference/r31-lessons/run_final_suites.py",
+      "size": 5093,
+      "sha256": "b860756759720da4f3f7b69c7a5464c772d523379696969e16026325115d50a3"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/r31-runs/accepted-haste-actions-r1-01/stage-work/suite-adaptation-plan.json",
+      "copy": "reference/r31-lessons/suite-adaptation-plan.json",
+      "size": 431254,
+      "sha256": "da79623f32efc706c5330278c84357fdd0764eedbb6059918db30f91dd4cd9db"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/shared-integration-r1/release.py",
+      "copy": "reference/r31-lessons/release.py",
+      "size": 15367,
+      "sha256": "cb69c26c30259aa658a59331272de7f77cf60c71958d20c56b7f43f144ef4f51"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/shared-integration-r1/resume_preservation.py",
+      "copy": "reference/r31-lessons/resume_preservation.py",
+      "size": 3360,
+      "sha256": "5390d2be2c1fc29a02f8097e6dcf45da2daedd8e3211efdcb49b8c1161f22ec4"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/shared-integration-r1/preservation-failure.json",
+      "copy": "reference/r31-lessons/preservation-failure.json",
+      "size": 991,
+      "sha256": "f26dfbe00539111675e619240d10c43592d5839fafe51e1179dc1393f200255b"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/shared-integration-r1/preservation-recovery.json",
+      "copy": "reference/r31-lessons/preservation-recovery.json",
+      "size": 462,
+      "sha256": "96f2c611cc13b0a2071275fad0bcaf166a97771292f27cbf1ca5db8aab558dd7"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/shared-integration-r1/preservation-wiring.patch",
+      "copy": "reference/r31-lessons/preservation-wiring.patch",
+      "size": 606,
+      "sha256": "91548acdcb60c7479162353ed841ce393a3975f587a794f265cdbac74b51cf47"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/shared-integration-r1/HANDOFF-r31.md",
+      "copy": "reference/r31-lessons/HANDOFF-r31.md",
+      "size": 5418,
+      "sha256": "f5d6d0708277d955b20c035c01c4d79d30826e1d4c6066ebebd5e92cfaca3a66"
+    },
+    {
+      "source": "work/engine-slow-utility-source-r1/HANDOFF.md",
+      "copy": "reference/utility/engine-slow-utility-source-r1/HANDOFF.md",
+      "size": 6342,
+      "sha256": "5938e3ec83cc2b54c6e00356fffadefbdbc1e0da4042491b5a83707c7cb2e212"
+    },
+    {
+      "source": "work/engine-slow-utility-source-r1/source-contract.json",
+      "copy": "reference/utility/engine-slow-utility-source-r1/source-contract.json",
+      "size": 21240,
+      "sha256": "85385401cdf40ef31ad966577da8527ed30ad1dae37b19eea6c8267fc138e0fc"
+    },
+    {
+      "source": "work/engine-slow-utility-review-r1/HANDOFF.md",
+      "copy": "reference/utility/engine-slow-utility-review-r1/HANDOFF.md",
+      "size": 2641,
+      "sha256": "873559defbaeca0a43cc1ddacbd233fcf7c928419819f73793ed9660642a73a3"
+    },
+    {
+      "source": "work/engine-slow-utility-review-r1/CONTRACT.md",
+      "copy": "reference/utility/engine-slow-utility-review-r1/CONTRACT.md",
+      "size": 11472,
+      "sha256": "5c296ceaaf625410e1dbfa833812b9eb4312cadea9475b193868d4be0aed23ba"
+    },
+    {
+      "source": "主管/P24-緩速生活操作來源-20261029/source-report-root-verification.json",
+      "copy": "reference/supervisor/source-report-root-verification.json",
+      "size": 741,
+      "sha256": "8e65a682ed554a1f97eac6fd32b0de8a62e8ff4fa39bf6103aeba197e923cd02"
+    },
+    {
+      "source": "主管/P24-緩速生活操作來源-20261029/independent-preparation-root-verification.json",
+      "copy": "reference/supervisor/independent-preparation-root-verification.json",
+      "size": 527,
+      "sha256": "bd4b592f10bf31ce76708a3bb826e447d925bc7e46a9a629b5a0261a79fa0ee2"
+    },
+    {
+      "source": "work/engine-r31-integration-r1/baseline-lock.json",
+      "copy": "reference/r31/baseline-lock.json",
+      "size": 37386,
+      "sha256": "99223b952e402548bf1d141a976aecca94a24d2b20af6af22bcc79fbca07ba9f"
+    }
+  ],
+  "previousPreparationSeal": {
+    "path": "work/engine-r31-integration-r1/preparation-seal.json",
+    "size": 5474,
+    "sha256": "1262f8d4e6bf52baa5e48aba28ff9e58a965d79a03c557ca3a20189ea8c1cf75"
+  },
+  "previousArtifactSeal": {
+    "path": "work/engine-r31-integration-r1/artifact-seal.json",
+    "size": 6003,
+    "sha256": "5ee366afa4f559a3ab34f4994117b2cb795687c535756c7f70708f158e207399"
+  },
+  "previousStageSeal": {
+    "path": "work/engine-r31-integration-r1/r31-runs/accepted-haste-actions-r1-01/stage-seal.json",
+    "size": 2456879,
+    "sha256": "5b014aa0f9c91185b8ca4d00cba2ba815dd1d45e193a77e753153639145835bb"
+  },
+  "previousSharedIntegrationSeal": {
+    "path": "work/engine-r31-integration-r1/shared-integration-r1/integration-seal.json",
+    "size": 8228,
+    "sha256": "7f60c38b5b24b224a5e27b6eacea4eb7949d248384f22d498a6a42e3eda37e49"
+  },
+  "utilityManifests": [
+    {
+      "path": "work/engine-slow-utility-source-r1/artifact-manifest.json",
+      "size": 15514,
+      "sha256": "e21d05d5638742afdb069d988626e103a024f8c0555102cda6264a21e9eb4639"
+    },
+    {
+      "path": "work/engine-slow-utility-review-r1/artifact-manifest.json",
+      "size": 11606,
+      "sha256": "0844c5f809903930bfe10ebfd658b3f22bbed72693b1bb584a555aecabcb301a"
+    }
+  ],
+  "testSources": [
+    {
+      "path": "work/engine-r31-integration-r1/r31-runs/accepted-haste-actions-r1-01/stage-work/haste/harness/Candidate.cs",
+      "size": 6936,
+      "sha256": "d8ae35a9e24ea3fbddd1ced21d3dd637a2e9ca21e8fdc620044cd18f63684361"
+    },
+    {
+      "path": "work/engine-r31-integration-r1/r31-runs/accepted-haste-actions-r1-01/stage-work/haste/harness/CandidateRelease.cs",
+      "size": 3118,
+      "sha256": "3a72d80ebb955f2ab6e8ca4d865287964edae1276561600a41bd54fb0be91938"
+    },
+    {
+      "path": "work/engine-r31-integration-r1/r31-runs/accepted-haste-actions-r1-01/stage-work/haste/harness/Extra.cs",
+      "size": 16831,
+      "sha256": "542876ff537a3f2f42ae33137cc80d9cf61603959f11c7baa5a8c81a78a19015"
+    },
+    {
+      "path": "work/engine-r31-integration-r1/r31-runs/accepted-haste-actions-r1-01/stage-work/haste/harness/Haste.cs",
+      "size": 12064,
+      "sha256": "53b1f595469df19d2aee3d649158bd6f0bd594587061ee492663dd4735c47231"
+    },
+    {
+      "path": "work/engine-r31-integration-r1/r31-runs/accepted-haste-actions-r1-01/stage-work/haste/harness/HasteCompletion.cs",
+      "size": 2239,
+      "sha256": "22b5130c1abb361f23787c2d7247618569706810cf1766cff6b7b5fce608307f"
+    },
+    {
+      "path": "work/engine-r31-integration-r1/r31-runs/accepted-haste-actions-r1-01/stage-work/haste/harness/Program.cs",
+      "size": 10063,
+      "sha256": "e634f37b8e26dd7f0af89376948514908b82a7a7601647a808d7c2f61697e5e7"
+    },
+    {
+      "path": "work/engine-r31-integration-r1/r31-runs/accepted-haste-actions-r1-01/stage-work/versioned-slow/harness/Extra.cs",
+      "size": 9423,
+      "sha256": "13bb4068e75db80d908f9aafc2e2d8432505de7002febe6d38a894dbd2b9d621"
+    },
+    {
+      "path": "work/engine-r31-integration-r1/r31-runs/accepted-haste-actions-r1-01/stage-work/versioned-slow/harness/Program.cs",
+      "size": 8080,
+      "sha256": "9005b27a43a00973215d4a04bb014b6423cca7435a95b15502c19aab869b8c5e"
+    },
+    {
+      "path": "work/engine-r31-integration-r1/r31-runs/accepted-haste-actions-r1-01/stage-work/f1/harness/Program.cs",
+      "size": 6557,
+      "sha256": "c10539748c29e9cf9ed3869c83244fb9f57d763584b1e64e16f4062a4582888f"
+    }
+  ]
+}

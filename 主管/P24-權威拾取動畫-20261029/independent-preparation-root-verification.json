@@ -1,0 +1,36 @@
+{
+  "utc": "2026-10-29T00:37:43.100617+00:00",
+  "status": "accepted-independent-review-preparation",
+  "artifactSealSha256": "db2267a456ff5d802ec639b2819251c151407670ad26de5c7a7f85cfefe24229",
+  "resultSha256": "186b368684dbd4b8eaf315303873c93c9bcdf559bae5643f01776445cd766e0b",
+  "artifactsVerified": 559,
+  "sourcePinsVerified": 411,
+  "baselineSources": 177,
+  "eligibilitySourceArtifacts": 154,
+  "resourceBytes": 239766,
+  "exactFrameComparisons": 32,
+  "differentPixelChannels": 0,
+  "baselineRows": 84,
+  "assertions": 53,
+  "observations": 31,
+  "candidateExecutedRows": 0,
+  "candidateAccepted": false,
+  "proposedCandidateRiskRows": 24,
+  "formalBaseBinding": {
+    "sealSha256": "f0bbf30212a1aecf6e677b55effe95dce31bda1d629799c917ed61bc489dddde",
+    "resultSha256": "966edb9e946f2f40d0134dc1b4d8efb123405b8038197e5a153ee7e75dcde245",
+    "artifacts": 7,
+    "pins": 371,
+    "sourcePairs": 177,
+    "identities": 4,
+    "testsRerun": 0
+  },
+  "rootVisualInspection": {
+    "path": "work/engine-pickup-presentation-review-r1/frame-contact.png",
+    "directions": 8,
+    "frameIndices": 4,
+    "imagesViewed": 32,
+    "observation": "Coherent standing/bending/recovery original body poses; no obvious cutoffs or tile seams in contact; metadata order shown, not native playback."
+  },
+  "nativeLiveAccepted": false
+}

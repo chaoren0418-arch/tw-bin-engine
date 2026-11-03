@@ -1,0 +1,20 @@
+{
+  "utc": "2026-10-27T02:40:55.717Z",
+  "status": "clean-rebuild-passed-live-starting",
+  "revision": "r19",
+  "dllSha256": "bcd15962949c0cc35190ad1ea1841f4640928773a0ee444067ea9209629cdc04",
+  "manifestSha256": "3e1e17bad489546b82dfb35c11201cb42d578a4060c44516242b13c06ff01209",
+  "lockSha256": "72bb29995bb40db51a2e44a81055902cb22b5d0007bcc9ee9d5ec309a35401cc",
+  "sourceReview": "r19-independent-review/result.json",
+  "lock": "r19-final-lock/version-lock.json",
+  "rebuild": "r19-clean-delivery/rebuild-receipt.json",
+  "liveRoot": "r19-final-live",
+  "wholeP24Complete": false,
+  "priorLive": "r18-final-live/closed-round-reconciliation.json",
+  "next": "Review isolated r20 exact merge and rebuild, then normal client fixes regression and remaining live flows",
+  "workersIdle": false,
+  "normalSharedVersion": "r16 unchanged",
+  "phase": "closed-exploration-incomplete-r20-integration",
+  "liveProgress": "r19-live-progress.json",
+  "reconciliation": "r19-final-live/closed-round-reconciliation.json"
+}

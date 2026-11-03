@@ -1,0 +1,25 @@
+{
+  "schema": "engine-r34-canonical-plan-static-verification-v1",
+  "status": "pass-static-only",
+  "planSha256": "d25c306fae5abee9209e46c557453f7b6a0a96645e5c052fbda70555f11f15ff",
+  "checks": [
+    "all preparation Python parses/compiles in memory; no module/process execution",
+    "sealed R2 files, accepted stage non-assets, and original canonical baseline pins unchanged",
+    "sealed controller schema, strict order, future script pins, 10 helper outputs, probe containment, archive ordering",
+    "138 copy mappings pinned; only one additional ground report literal; native assertions/expected inputs unchanged",
+    "sealed raw attempt remains untouched; derived command schema adds verified stdout/stderr specs"
+  ],
+  "plannedCommands": 44,
+  "plannedHelpers": 10,
+  "copyMappings": 138,
+  "newFixtureCopies": 51,
+  "assertionsExecuted": 0,
+  "observationsExecuted": 0,
+  "buildsExecuted": 0,
+  "controllerGateExecuted": false,
+  "fakeSharedReceiptCreated": false,
+  "workflowCreated": false,
+  "nativeCollectorAssertionChecksUnchanged": true,
+  "nativeCollectorIoGuardAdaptations": 1,
+  "planReadyForSupervisorReview": true
+}

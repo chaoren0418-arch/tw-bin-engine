@@ -1,0 +1,103 @@
+{
+  "imageBase": "0x400000",
+  "binSha256": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2",
+  "chunks": [
+    {
+      "source": "native\\effects01\\functions.json",
+      "function": "0x934690",
+      "va": "0x934690",
+      "rva": "0x534690",
+      "fileOffset": "0x533a90",
+      "size": 2959,
+      "sha256": "2cc0d5c1392621d64bebb79ddaae18836efce5e78e5936d2e651c985dca8df5d",
+      "peMappedOffset": "0x533a90",
+      "revalidatedSha256": "2cc0d5c1392621d64bebb79ddaae18836efce5e78e5936d2e651c985dca8df5d",
+      "match": true
+    },
+    {
+      "source": "native\\effects01\\functions.json",
+      "function": "0x934690",
+      "va": "0x109cae0",
+      "rva": "0xc9cae0",
+      "fileOffset": "0xc9bee0",
+      "size": 121,
+      "sha256": "e5826c5f2a82789ea4e9b397bfcc842fe5322bcfca41cc006fbc7b1fbffb4fcd",
+      "peMappedOffset": "0xc9bee0",
+      "revalidatedSha256": "e5826c5f2a82789ea4e9b397bfcc842fe5322bcfca41cc006fbc7b1fbffb4fcd",
+      "match": true
+    },
+    {
+      "source": "native\\effects01\\functions.json",
+      "function": "0x8abc10",
+      "va": "0x8abc10",
+      "rva": "0x4abc10",
+      "fileOffset": "0x4ab010",
+      "size": 3358,
+      "sha256": "e948a50f2da5ebca5cf99e59197189055982e691b1fd0e1a1cc63695d22dea11",
+      "peMappedOffset": "0x4ab010",
+      "revalidatedSha256": "e948a50f2da5ebca5cf99e59197189055982e691b1fd0e1a1cc63695d22dea11",
+      "match": true
+    },
+    {
+      "source": "native\\effects01\\functions.json",
+      "function": "0x8abc10",
+      "va": "0x1093d00",
+      "rva": "0xc93d00",
+      "fileOffset": "0xc93100",
+      "size": 91,
+      "sha256": "9071a076955b96aa28196aab61d0101712c6923a26b61dd1e23782c00b5a56c8",
+      "peMappedOffset": "0xc93100",
+      "revalidatedSha256": "9071a076955b96aa28196aab61d0101712c6923a26b61dd1e23782c00b5a56c8",
+      "match": true
+    },
+    {
+      "source": "native\\packet01\\functions.json",
+      "function": "0x934690",
+      "va": "0x934690",
+      "rva": "0x534690",
+      "fileOffset": "0x533a90",
+      "size": 2959,
+      "sha256": "2cc0d5c1392621d64bebb79ddaae18836efce5e78e5936d2e651c985dca8df5d",
+      "peMappedOffset": "0x533a90",
+      "revalidatedSha256": "2cc0d5c1392621d64bebb79ddaae18836efce5e78e5936d2e651c985dca8df5d",
+      "match": true
+    },
+    {
+      "source": "native\\packet01\\functions.json",
+      "function": "0x934690",
+      "va": "0x109cae0",
+      "rva": "0xc9cae0",
+      "fileOffset": "0xc9bee0",
+      "size": 121,
+      "sha256": "e5826c5f2a82789ea4e9b397bfcc842fe5322bcfca41cc006fbc7b1fbffb4fcd",
+      "peMappedOffset": "0xc9bee0",
+      "revalidatedSha256": "e5826c5f2a82789ea4e9b397bfcc842fe5322bcfca41cc006fbc7b1fbffb4fcd",
+      "match": true
+    },
+    {
+      "source": "native\\packet01\\functions.json",
+      "function": "0x94c530",
+      "va": "0x94c530",
+      "rva": "0x54c530",
+      "fileOffset": "0x54b930",
+      "size": 325,
+      "sha256": "a498af93ac848b174aa58db724f7af6a43776352f21d0342a0064ebc6bedb18f",
+      "peMappedOffset": "0x54b930",
+      "revalidatedSha256": "a498af93ac848b174aa58db724f7af6a43776352f21d0342a0064ebc6bedb18f",
+      "match": true
+    },
+    {
+      "source": "native\\speed01\\functions.json",
+      "function": "0x94c530",
+      "va": "0x94c530",
+      "rva": "0x54c530",
+      "fileOffset": "0x54b930",
+      "size": 325,
+      "sha256": "a498af93ac848b174aa58db724f7af6a43776352f21d0342a0064ebc6bedb18f",
+      "peMappedOffset": "0x54b930",
+      "revalidatedSha256": "a498af93ac848b174aa58db724f7af6a43776352f21d0342a0064ebc6bedb18f",
+      "match": true
+    }
+  ],
+  "scope": "static byte identity; no native process execution; utility input scheduler still unknown"
+}

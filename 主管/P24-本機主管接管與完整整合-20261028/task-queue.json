@@ -1,0 +1,116 @@
+{
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "product": "r28",
+  "wholeP24Complete": false,
+  "tasks": [
+    {
+      "id": "controller-r1",
+      "worker": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "state": "independently-accepted"
+    },
+    {
+      "id": "audio-controls-r2",
+      "worker": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "state": "r3-independently-accepted",
+      "root": "reference/development/r27-6016-audio-controls-r3"
+    },
+    {
+      "id": "audio-interop-review",
+      "worker": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "state": "interop-findings-fixed-and-accepted"
+    },
+    {
+      "id": "audio-signal-meter",
+      "worker": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "state": "independently-accepted-and-native-own-pid-verified",
+      "writeRoot": "reference/development/r28-audio-signal-meter-r1",
+      "evidence": "meter-review/root-review.json"
+    },
+    {
+      "id": "host-independent-review",
+      "worker": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "state": "r3-final-probes-and-pins-independently-accepted",
+      "writeRoot": "reference/development/r28-6016-host-review-r2"
+    },
+    {
+      "id": "native-6016-route",
+      "worker": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "state": "independently-reviewed-route-plan-accepted",
+      "writeRoot": "reference/development/r28-6016-native-route-plan-r1"
+    },
+    {
+      "id": "normal-death-recovery",
+      "state": "source-contract-20-pins-and-live-relogin-accepted",
+      "worker": "01a1749a-7e8d-7200-9fc8-8618ed2559ac"
+    },
+    {
+      "id": "town-port-route",
+      "state": "r1-no-route-and-r2-maximum-clearance-independently-accepted-worker-idle",
+      "worker": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "writeRoot": "reference/development/r28-town-to-port-clearance-r2"
+    }
+  ],
+  "integrator": {
+    "worker": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+    "state": "formal-r28-package-independently-accepted-worker-idle",
+    "gate": "Accepted host-r3 root-review and independent final hash evidence; formal final verification and native flow remain",
+    "writeRoot": "reference/development/release-integration-r12/delivery"
+  },
+  "native": {
+    "owner": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+    "state": "r28-one-point-strength-save-relogin-passed; continuing-services",
+    "evidence": "native-r28/current-status.json"
+  },
+  "updatedUtc": "2026-10-27T21:58:16.278116+00:00",
+  "villageServices": {
+    "state": "28pins-two-routes-independently-accepted-worker-idle",
+    "writeRoot": "reference/development/r28-village-services-plan-r1"
+  },
+  "innPortRoute": {
+    "state": "15pins-independently-accepted-sealed-worker-idle; live-attempt-failed-dynamic-pursuit; no-retry",
+    "worker": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+    "writeRoot": "reference/development/r28-inn-to-port-route-r1"
+  },
+  "southPortAlternative": {
+    "state": "16pins-no-route-proof-independently-accepted-sealed-worker-idle",
+    "writeRoot": "reference/development/r28-south-port-avoidance-r1",
+    "reachableNodes": 11018,
+    "boundaryEdges": 3910,
+    "thresholdRelaxed": false
+  },
+  "caveAlternative": {
+    "state": "398pins-and-actual-initial-cache-independently-accepted-worker-idle",
+    "worker": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+    "writeRoot": "reference/development/r28-cave-to-mainland-route-r1",
+    "cursor": "449bd82b-584e-41f1-959e-1f4fd5e5e7e2:832",
+    "evidence": "native-r28/cave-route-review.json",
+    "nativeTraversalAccepted": false,
+    "nativeAttempt": "153planned+4combat steps; normal home-scroll retreat at map1step29; no full traversal acceptance"
+  },
+  "mainlandNormalAlternatives": {
+    "state": "36source-pins-reviewed-no-shorter-confirmed-option-worker-idle",
+    "worker": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+    "writeRoot": "reference/development/r28-mainland-normal-alternatives-r1",
+    "evidence": "native-r28/caesar-and-private-shop-review.json",
+    "cursor": "449bd82b-584e-41f1-959e-1f4fd5e5e7e2:844"
+  },
+  "existingCombatCapability": {
+    "state": "33source-6artifact-pins-reviewed-accepted-worker-idle",
+    "worker": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+    "writeRoot": "reference/development/r28-existing-combat-capability-r1",
+    "evidence": "native-r28/existing-combat-capability-review.json",
+    "cursor": "7067bea7-93db-4aaf-a670-9c1a4be84c4f:160"
+  },
+  "activeVillageServices": {
+    "worker": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+    "state": "sealed-worker-idle-awaiting-root-review",
+    "writeRoot": "reference/development/r28-active-village-services-r1",
+    "cursor": "449bd82b-584e-41f1-959e-1f4fd5e5e7e2:847"
+  },
+  "existingRoleServices": {
+    "worker": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+    "state": "sealed-worker-idle-root-SELECT-receipts-captured",
+    "writeRoot": "reference/development/r28-existing-role-service-conditions-r1",
+    "cursor": "7067bea7-93db-4aaf-a670-9c1a4be84c4f:163"
+  }
+}

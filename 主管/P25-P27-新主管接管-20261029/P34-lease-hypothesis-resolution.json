@@ -1,0 +1,21 @@
+{
+  "schema": "p34-supervisor-hypothesis-v1",
+  "utc": "2026-10-29T07:34:04.933103+00:00",
+  "hypothesis": "Rejected second pickup might advance lease while first send pending.",
+  "status": "refuted-by-source-dependency-and-runtime-observation",
+  "correction": "SendGround initial MovementBusy includes GroundBusy through OnlineMovement.cs:46; GroundBusy includes groundSending/pending/900ms. Thus rejection precedes lease increment.",
+  "productDefectEstablished": false,
+  "newProductPatchAuthorized": false,
+  "inputs": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\Ground.cs",
+      "sha256": "6df52d49787795c432309ed0b02deaacc2a582f4927f98b9b186f89fda06a599"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\OnlineMovement.cs",
+      "sha256": "c88269dc968e03da158ab8e4d0757b964fab396828cba6d71c7c5cb20287b8f4"
+    }
+  ],
+  "runtimeAcceptance": "P33-P34-root-acceptance.json",
+  "runtimeCase": "early-partial-2796-20-s0: rapid-repeat-kept-first-lease; first completion GroundSent once"
+}

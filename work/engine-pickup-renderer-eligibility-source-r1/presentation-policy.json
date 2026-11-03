@@ -1,0 +1,91 @@
+{
+  "id": "OWN-BASE-15-001",
+  "status": "implementable specification, no implementation in this task",
+  "baseline": "final r32 only; rebase on a separately accepted later release at future dispatch",
+  "scope": {
+    "actorKind": "own",
+    "gfx": 0,
+    "weapon": 0,
+    "speed": [
+      0,
+      1
+    ],
+    "brave": 0,
+    "directions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "remote": false,
+    "otherProfiles": "deferred despite bounded base metadata availability"
+  },
+  "trigger": "At each parsed authoritative S158/action15, after existing ReceivePickupAction heading update, invoke a proposed per-receipt presentation hook with id and captured current owner. Never infer from C112, item deltas, or global PickupActions polling.",
+  "observableAdmission": [
+    "id==Actor.ObjectId==Status.ObjectId; session/world/map current",
+    "Ready && Renderable && !OwnDead && Status.Hp>0 && !SelfAppearancePending",
+    "Actor.Gfx==0 && Actor.Weapon==0 && Direction<8 && Speed in[0,1] && Brave==0",
+    "Exact accepted pickup asset profile/hash/keys available; nativeNeutral remains unknown",
+    "World.Walking==false; OwnCombat==null; !ActionLocked; no conflicting other presentation; an existing pickup instance may be replaced"
+  ],
+  "ownerCapture": [
+    "LoginConnection session generation from caller",
+    "WorldEpoch",
+    "MapId",
+    "Actor.ObjectId",
+    "AppearanceRevision",
+    "Corrections",
+    "SpeedRevision",
+    "Gfx",
+    "Weapon",
+    "Direction",
+    "X/Y",
+    "new presentation instance serial"
+  ],
+  "newState": "A presentation instance and per-receipt hook are required; do not overload OwnCombat or ReceivedAction whitelist to claim a native action queue. One instance only; each accepted own receipt replaces prior instance by explicit latest-receipt policy.",
+  "frames": "Accepted base metadata index1->2->3->0, directional original sprite keys, no mirrored or invented frames. Source events retained as metadata; no new audio/effect event execution in first increment.",
+  "clock": "Use injectable presentation clock (can share existing ActionClock convention); no wall-clock claim. First deadlineN+D1+1, following source-derived recurrence from prior sealed scheduler, one advance per due callback.",
+  "terminal": "Bind base frame0 then hold584 nominal ms, cancelable/nonblocking, then remove only that instance and restore current existing presentation. This selects a finite presentation policy inspired by the ordinary empty-queue branch, not a native queue/variant proof.",
+  "repeatAndCancel": "Newest own action15 replaces prior presentation rather than native FIFO. Any new incompatible authoritative action, death, movement, direction/position correction, speed/appearance change, session/world reset/removal, key/hash failure or guard loss cancels current instance. Delayed callbacks compare owner+serial before rendering or clearing.",
+  "r32IntegrationPoints": [
+    "Ground.cs ReceivePickupAction: per-receipt hook after existing heading logic, no completion-rule changes",
+    "WorldObjects.cs action/death/move/appearance handlers: cancellation event or revision signal; do not persist ReceivedAction15 in current remote whitelist",
+    "WorldEntry.cs/session reset: pass owner/session identity and invalidate; integrate only after assigned baseline reconciliation",
+    "ObjectAssets.cs/catalog: separate additive pickup frames/profile from accepted bounded package, preserve existing sealed assets",
+    "ObjectRendering.cs: own-body/shadow pickup selector below death/combat/movement priority; existing layering preserved"
+  ],
+  "whatMatchesSource": [
+    "Selected base frame metadata/pixels are independently accepted bounded sources",
+    "Frame index order and neutral Speed0/1 arithmetic from sealed scheduler source",
+    "584 terminalhold resembles ordinary empty nativequeue branch; newactions can cancel"
+  ],
+  "whatDoesNotClaim": [
+    "No known full-neutral state from engine fields",
+    "No runtime variant list/selectedvariant equivalence",
+    "No native queue/FIFO/backlog parity; replacement is explicit policy",
+    "No precise native input/start/presentation/duration parity",
+    "No remote actor,SlowSpeed2 or utility cooldown changes",
+    "No full archive/BIN version identity"
+  ],
+  "immutableBehavior": [
+    "C112900ms click guard",
+    "pending3000ms fallback",
+    "authoritative inventory/ground quantity and completion",
+    "Existing owner lifecycle fixes are not recreated from r33 candidate in this task"
+  ],
+  "fallback": "If policy guard fails, do nothing to existing rendering and still process authoritative receipts. Unknown private flags are recorded as native-equivalence gaps, not an endless source-research gate for this explicitly nominal feature.",
+  "requiredDiagnostics": [
+    "policyId",
+    "sourceEligibility=native-unproven",
+    "actor/profile/instance/receipt serial",
+    "started/suppressed/cancelled/finished reason",
+    "no runtime timing certification"
+  ],
+  "tests": "test-matrix.json; all rows proposed, executed=false; current runtimeChecks0",
+  "assetDelivery": "asset-delivery-plan.json and minimal-frame-inventory.json:24 new exact body frames embedded in a new source resource;8 existing frame0 bodies reused from pinned objects/0.json. No asset junction/players manifest mutation, no whole package copy. Prospective resource bytes/hash computed by asset_plan.py without writing pixel payload.",
+  "nextWork": "One separately authorized isolated implementation with offline tests for this policy; no additional variant/private-flag hunt required for policy delivery. Expand own profiles or remote only after bounded candidate review."
+}

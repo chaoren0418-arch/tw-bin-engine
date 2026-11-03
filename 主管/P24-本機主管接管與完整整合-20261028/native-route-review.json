@@ -1,0 +1,35 @@
+{
+  "utc": "2026-10-27T18:11:06.301334+00:00",
+  "decision": "accepted-for-normal-route-planning-only",
+  "sourcePinsVerified": 37,
+  "map0ConfirmedActors": 0,
+  "known6016": {
+    "map": 4,
+    "block": "7ffd8000",
+    "ordinal": 1,
+    "x": 32635,
+    "y": 32782,
+    "offset": 162845
+  },
+  "unknownCoverage": {
+    "parserLimited": 473,
+    "missingIndex": 1
+  },
+  "historicalAudioAnchor": [
+    32565,
+    32726
+  ],
+  "proposedClosePosition": [
+    32635,
+    32781
+  ],
+  "normalBoatRequired": true,
+  "newRouteExecuted": false,
+  "physicalAudibilityVerified": false,
+  "evidence": {
+    "HANDOFF.md": "497f992f0646cf30277d82edcaa6f0f276fa4e60751041e4e893c22d3b9faac8",
+    "route-plan.json": "0c4b69e81642f59a25c3dd598e50a45be864b2c6fea70f59aeadee98492e9a0a",
+    "source-pins.json": "4c73987a201238e3f039af03278991e855a16379c3d4abdd6acf5bd881dbab2b",
+    "artifact-manifest.json": "8ec5a39d0f4aa8c15b06180fcf6a7c6114a4b6caf9be1ebbe4a05809f6226aa9"
+  }
+}

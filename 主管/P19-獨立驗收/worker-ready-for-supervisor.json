@@ -1,0 +1,195 @@
+{
+  "status": "ready-frozen",
+  "utc": 1792911969.2751384,
+  "goal": "active",
+  "supervisorThread": "01a171b6-48f6-75c0-b8fb-70ba36193dd9",
+  "server": {
+    "process": {
+      "ProcessId": 81072,
+      "ParentProcessId": 17028,
+      "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P19Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P19Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P19Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P19Lab-ClientEngine\\server\\Server_Game.jar",
+      "CreationDate": "/Date(1792910724710)/"
+    },
+    "listeners": [
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42041,
+        "OwningProcess": 81072
+      }
+    ]
+  },
+  "db": {
+    "values": [
+      "43319",
+      "D:\\P19Lab-ClientEngine\\db-data\\",
+      "7f02dbea-d03b-11f1-ae5d-4cedfb679789",
+      "127.0.0.1",
+      "8.0.40"
+    ],
+    "process": {
+      "process": {
+        "ProcessId": 14516,
+        "ParentProcessId": 26020,
+        "ExecutablePath": "D:\\P19Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P19Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P19Lab-ClientEngine\\mysql.ini --init-file=D:\\P19Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792909046194)/"
+      },
+      "listeners": [
+        {
+          "LocalAddress": "127.0.0.1",
+          "LocalPort": 43319,
+          "OwningProcess": 14516
+        }
+      ]
+    }
+  },
+  "clients": {
+    "items": []
+  },
+  "roles": [
+    {
+      "x": 32591,
+      "y": 32945,
+      "hp": 307,
+      "id": 1900190001,
+      "mp": 120,
+      "exp": 416461922,
+      "gold": 62,
+      "meat": 8,
+      "name": "戰利王子",
+      "level": 60,
+      "online": 0,
+      "heading": 7,
+      "potions": 5,
+      "accountOnline": 0
+    },
+    {
+      "x": 32591,
+      "y": 32945,
+      "hp": 549,
+      "id": 1900190002,
+      "mp": 120,
+      "exp": 416461902,
+      "gold": 51,
+      "meat": 8,
+      "name": "戰利王子乙",
+      "level": 60,
+      "online": 0,
+      "heading": 7,
+      "potions": 6,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900190003,
+      "mp": 120,
+      "exp": 416461882,
+      "gold": 3,
+      "meat": 8,
+      "name": "驗收王子",
+      "level": 60,
+      "online": 0,
+      "heading": 5,
+      "potions": 6,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900190004,
+      "mp": 120,
+      "exp": 416461882,
+      "gold": 3,
+      "meat": 8,
+      "name": "驗收王子乙",
+      "level": 60,
+      "online": 0,
+      "heading": 5,
+      "potions": 6,
+      "accountOnline": 0
+    },
+    {
+      "x": 32590,
+      "y": 32946,
+      "hp": 700,
+      "id": 1900190005,
+      "mp": 120,
+      "exp": 416461882,
+      "gold": 0,
+      "meat": 0,
+      "name": "戰利觀察甲",
+      "level": 60,
+      "online": 0,
+      "heading": 4,
+      "potions": 0,
+      "accountOnline": 0
+    },
+    {
+      "x": 32590,
+      "y": 32946,
+      "hp": 700,
+      "id": 1900190006,
+      "mp": 120,
+      "exp": 416461882,
+      "gold": 0,
+      "meat": 0,
+      "name": "戰利觀察乙",
+      "level": 60,
+      "online": 0,
+      "heading": 4,
+      "potions": 0,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900190007,
+      "mp": 120,
+      "exp": 416461882,
+      "gold": 0,
+      "meat": 0,
+      "name": "驗收觀察甲",
+      "level": 60,
+      "online": 0,
+      "heading": 5,
+      "potions": 0,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900190008,
+      "mp": 120,
+      "exp": 416461882,
+      "gold": 0,
+      "meat": 0,
+      "name": "驗收觀察乙",
+      "level": 60,
+      "online": 0,
+      "heading": 5,
+      "potions": 0,
+      "accountOnline": 0
+    }
+  ],
+  "source": "963939b5b9b0a408b99cde478111e4d559c4c3f8b823f77514a77ac4141e8194",
+  "environment": "44c218592b5d4f8af60ac2a3d68c034d92001b15f0bbd83ad20a7ab3debb9520",
+  "privateCredentialsPath": "D:\\P19Lab-ClientEngine\\private-tests.json",
+  "workerEvidence": [
+    "reward-worker-cli-r5",
+    "reward-worker-ui"
+  ],
+  "commands": [
+    "./build.ps1 -Clean",
+    "python -B -X utf8 reward_integration.py cli supervisor",
+    "python -B -X utf8 reward_integration.py ui supervisor",
+    "python -B -X utf8 verify_rewards.py evidence/reward-supervisor-cli/result.json",
+    "python -B -X utf8 verify_rewards.py evidence/reward-supervisor-ui/result.json"
+  ],
+  "notes": "No further worker source edits/login/restart/cleanup until explicit supervisor handback. Normal original respawn and rates remain active."
+}

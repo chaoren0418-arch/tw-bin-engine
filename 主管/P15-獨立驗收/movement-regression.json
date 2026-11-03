@@ -1,0 +1,16 @@
+{
+  "status": "pass",
+  "kind": "explicit synthetic delayed transport gate over real captured initialization; no real server success claimed",
+  "delayedBeforeAdmissionMs": 790,
+  "remainingAtAdmission": 640,
+  "admittedAt": 229630203,
+  "queuedConsumesNothing": true,
+  "cancelDropsQueued": true,
+  "correctionDropsQueued": true,
+  "oldFailureIsolated": true,
+  "stateDrops": [
+    "haste",
+    "brave",
+    "dead"
+  ]
+}

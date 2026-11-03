@@ -1,0 +1,95 @@
+{
+  "startedUtc": "2026-10-29T07:26:16.2770693+00:00",
+  "finishedUtc": "2026-10-29T07:26:16.4546828+00:00",
+  "identity": {
+    "name": "DESKTOP-CV2L01A\\CodexSandboxOffline",
+    "sid": "S-1-5-21-1644292704-59536754-1411949733-1003",
+    "authenticationType": "NTLM",
+    "impersonationLevel": "None"
+  },
+  "originalBuildUtc": {
+    "end": "2026-10-29T07:08:25.9706190+00:00",
+    "start": "2026-10-29T07:08:21.8922750+00:00"
+  },
+  "filter": {
+    "localhostCriterion": "Subject CN=localhost and NotBefore within build interval +/-15 minutes",
+    "markerOid": "1.3.6.1.4.1.311.84.1.1",
+    "windowStartUtc": "2026-10-29T06:53:21.8922750+00:00",
+    "windowEndUtc": "2026-10-29T07:23:25.9706190+00:00",
+    "friendlyName": "contains ASP.NET"
+  },
+  "stores": [
+    {
+      "location": "CurrentUser",
+      "store": "My",
+      "openedReadOnlyExisting": true,
+      "matchingCount": 0
+    },
+    {
+      "location": "CurrentUser",
+      "store": "Root",
+      "openedReadOnlyExisting": true,
+      "matchingCount": 0
+    },
+    {
+      "location": "CurrentUser",
+      "store": "CA",
+      "openedReadOnlyExisting": true,
+      "matchingCount": 0
+    },
+    {
+      "location": "CurrentUser",
+      "store": "TrustedPeople",
+      "openedReadOnlyExisting": true,
+      "matchingCount": 0
+    },
+    {
+      "location": "CurrentUser",
+      "store": "Disallowed",
+      "openedReadOnlyExisting": true,
+      "matchingCount": 0
+    },
+    {
+      "location": "LocalMachine",
+      "store": "My",
+      "openedReadOnlyExisting": true,
+      "matchingCount": 0
+    },
+    {
+      "location": "LocalMachine",
+      "store": "Root",
+      "openedReadOnlyExisting": true,
+      "matchingCount": 0
+    },
+    {
+      "location": "LocalMachine",
+      "store": "CA",
+      "openedReadOnlyExisting": true,
+      "matchingCount": 0
+    },
+    {
+      "location": "LocalMachine",
+      "store": "TrustedPeople",
+      "openedReadOnlyExisting": true,
+      "matchingCount": 0
+    },
+    {
+      "location": "LocalMachine",
+      "store": "Disallowed",
+      "openedReadOnlyExisting": true,
+      "matchingCount": 0
+    }
+  ],
+  "matchingCertificates": [],
+  "distinctMatchingCertificates": 0,
+  "rootMembershipScope": "Only the two opened Root stores; exact candidate membership, no chain build, no global trust conclusion.",
+  "restrictions": [
+    "ReadOnly|OpenExistingOnly",
+    "no private-key access/export",
+    "no chain build/network",
+    "no dotnet invocation",
+    "no store writes",
+    "no other-account inspection",
+    "no unrelated certificate metadata output"
+  ]
+}

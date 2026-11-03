@@ -1,0 +1,257 @@
+{
+  "normalManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\prepared\\build\\product-p36-delivery-manifest.json",
+    "size": 7761,
+    "sha256": "eb7bd750b534ed3190cb1b332bd3f0356721b85fbbec08f179ec0d407bdc56d2"
+  },
+  "runtimeFiles": [
+    {
+      "path": "assets/integrity.json",
+      "size": 1729333,
+      "sha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98"
+    },
+    {
+      "path": "build/client-product-p36-r1/Microsoft.Web.WebView2.Core.dll",
+      "size": 698208,
+      "sha256": "d60e6e94245078cb56e44ebd5f360dc04bf18e460136be93bfc4cfca43b98505"
+    },
+    {
+      "path": "build/client-product-p36-r1/Microsoft.Web.WebView2.Core.xml",
+      "size": 612031,
+      "sha256": "8684cd74000c77533e563785208308ada63808da85825206856cab11a9eeffce"
+    },
+    {
+      "path": "build/client-product-p36-r1/Microsoft.Web.WebView2.WinForms.dll",
+      "size": 39264,
+      "sha256": "84b5772260dbdfe95591197edc9315dcd2cc86ad610e4b14ddd5e4291e31a381"
+    },
+    {
+      "path": "build/client-product-p36-r1/Microsoft.Web.WebView2.WinForms.xml",
+      "size": 41869,
+      "sha256": "6a8ec199373824fdebceda7b3d780d0b31c82edceae04d92391027c971dea6c2"
+    },
+    {
+      "path": "build/client-product-p36-r1/P11.ClientEngine.deps.json",
+      "size": 2750,
+      "sha256": "9a336a6f36c706c5f9dc0c586e90e1f87502d21a24b747bc32bce85eb99d8d37"
+    },
+    {
+      "path": "build/client-product-p36-r1/P11.ClientEngine.dll",
+      "size": 4925440,
+      "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+    },
+    {
+      "path": "build/client-product-p36-r1/P11.ClientEngine.exe",
+      "size": 162304,
+      "sha256": "73e816f7a6e6079443a3e4079d5ec2de46072b1d0869231586e4794301c9563f"
+    },
+    {
+      "path": "build/client-product-p36-r1/P11.ClientEngine.pdb",
+      "size": 357460,
+      "sha256": "ae1f90c2b36022d9326c3071c33e7d58b5c0f5fe292db6a6cee1b184914f4d98"
+    },
+    {
+      "path": "build/client-product-p36-r1/P11.ClientEngine.runtimeconfig.json",
+      "size": 519,
+      "sha256": "96bc2946dff8790400d652ec7f8de7bb043e954980d59470c112788b68a1fbd3"
+    },
+    {
+      "path": "build/client-product-p36-r1/P24.Audio.deps.json",
+      "size": 421,
+      "sha256": "b9a05c9915f7c361f595f0cd4bebf0510902a603e1431ca435468842597d03b5"
+    },
+    {
+      "path": "build/client-product-p36-r1/P24.Audio.dll",
+      "size": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    {
+      "path": "build/client-product-p36-r1/P24.Audio.pdb",
+      "size": 20720,
+      "sha256": "91ac164c2f1ac104fb774501cae1988d24bd3ee2113ba99ff95930e6866811ed"
+    },
+    {
+      "path": "build/client-product-p36-r1/runtimes/win-arm64/native/WebView2Loader.dll",
+      "size": 180064,
+      "sha256": "4f48cb32d34298c86cca2108057eea0d900b5e422575e926e8086318a0b9cbf0"
+    },
+    {
+      "path": "build/client-product-p36-r1/runtimes/win-x64/native/WebView2Loader.dll",
+      "size": 194912,
+      "sha256": "3426dcc55fdfb8b5e7ac623cf33b4ccf283fbf68a0c5a65bddfdb4d749a8abee"
+    },
+    {
+      "path": "build/client-product-p36-r1/runtimes/win-x86/native/WebView2Loader.dll",
+      "size": 155488,
+      "sha256": "87c61e2cae380112c60853e28178b8ea9a0d63739fc03cead680d4ad3fde6b7d"
+    },
+    {
+      "path": "web/bonus-stats.js",
+      "size": 2361,
+      "sha256": "eaaddd0f2c2524f931c11518f24d9bb3da14b3658c2d70aad4fd5da5c801c0f0"
+    },
+    {
+      "path": "web/ground/36.png",
+      "size": 289,
+      "sha256": "8d72431ab657dc156297aa3007b0843c01e75f20dfe5379b27d5cd8d5b9f29f5"
+    },
+    {
+      "path": "web/ground/66.png",
+      "size": 465,
+      "sha256": "3ecde86e10281647ddc1f66ddb42a44a83a98c86baa4ae317ddb8859b3e4fe34"
+    },
+    {
+      "path": "web/icons/124.png",
+      "size": 844,
+      "sha256": "7a989ea2e4f676a42d82e612ca9ff6a1d25e27005acf0cc312ffd270cef62919"
+    },
+    {
+      "path": "web/icons/138.png",
+      "size": 858,
+      "sha256": "335162b3786bced49563cfe86aa14fc4114867c9aa8237821023704a08ee0b98"
+    },
+    {
+      "path": "web/icons/2.png",
+      "size": 495,
+      "sha256": "0f609374be13892e61096e39fbd126cc7258a179a108dcfd80ad2e9e34d430a0"
+    },
+    {
+      "path": "web/icons/242.png",
+      "size": 996,
+      "sha256": "5ee66ffca19d9d3395318df30ee32aaf94c36753dadf8a9bb9935b564b07dccd"
+    },
+    {
+      "path": "web/icons/245.png",
+      "size": 1036,
+      "sha256": "ea4ac1c311981c4380e17779b4b15f1ef2a2a71d2b1962a2591f203522e9b001"
+    },
+    {
+      "path": "web/icons/278.png",
+      "size": 401,
+      "sha256": "c7a17e518c4e3978a83446e66c4cf7ae5cd54caeb04184556442a48b9f75f220"
+    },
+    {
+      "path": "web/icons/318.png",
+      "size": 1499,
+      "sha256": "ec7b23a61616e87b992ae01fd95ddfa83430300141aa85f4ded444af31c46a26"
+    },
+    {
+      "path": "web/icons/35.png",
+      "size": 460,
+      "sha256": "9ded6e008b2f981978dab2874f924b72b8d5f96ea6c4c856c4ebe60884a00073"
+    },
+    {
+      "path": "web/icons/4.png",
+      "size": 510,
+      "sha256": "75ab427d9ee5b9051b6cc4103b43eaadfd7cadd75d73d29bae9caf28ce3ac93e"
+    },
+    {
+      "path": "web/icons/474.png",
+      "size": 1352,
+      "sha256": "569b75068a19f536d78b12a6b75d8bf6e61655b9c1a7f282b0096b9043ecfa1d"
+    },
+    {
+      "path": "web/icons/475.png",
+      "size": 1365,
+      "sha256": "af4f6debaadb18732f040901c0ecf166156782a25e26da6b6867445d3c325846"
+    },
+    {
+      "path": "web/icons/5.png",
+      "size": 907,
+      "sha256": "9e35714d6b77ab794679b0a32f295cea5a78b773fbb745f46ce00366a4b06ff7"
+    },
+    {
+      "path": "web/icons/59.png",
+      "size": 499,
+      "sha256": "cb4045a12f6d28c81bbb25e12173741b184f8bc2fc90b42d9063d0ee076a669e"
+    },
+    {
+      "path": "web/icons/7.png",
+      "size": 359,
+      "sha256": "90f23210260582bfcc8c9e8b7a00cb727840e73082e3c7ca33c1e1fbc8b3143a"
+    },
+    {
+      "path": "web/icons/77.png",
+      "size": 743,
+      "sha256": "19f5dd065bc709dbd1c0fe59bad01e0a8acfad39593ff90621f069a709c9a727"
+    },
+    {
+      "path": "web/icons/80.png",
+      "size": 724,
+      "sha256": "0a6b703b2b6b0709ce4c7364f36ed99ef4cc907712d7d0059aea90c0ed9f4f37"
+    },
+    {
+      "path": "web/icons/81.png",
+      "size": 696,
+      "sha256": "eda21f8685278d50e150fa50ea4975756ea5cede2161fc86f1726199615ab988"
+    },
+    {
+      "path": "web/icons/86.png",
+      "size": 1306,
+      "sha256": "f1a70fcdcee29ea66ff20f204157927e07468cfb50da545adcc2c93831b389a9"
+    },
+    {
+      "path": "web/icons/957.png",
+      "size": 1192,
+      "sha256": "9b1df82afe88dc2183d9f3e69e8218d4126330e1f8f4179bf861ae305aec3a31"
+    },
+    {
+      "path": "web/icons/97.png",
+      "size": 776,
+      "sha256": "a630764b5725c0fc3629a4b86cc60d309695e9673179cb35d73b406d2769ec1d"
+    },
+    {
+      "path": "web/index.html",
+      "size": 8086,
+      "sha256": "27795cafd5b135781629df09c083ad290e8ce4527f4a51d498e367d5d3204b38"
+    },
+    {
+      "path": "web/interaction.js",
+      "size": 3596,
+      "sha256": "b007e3ce0a2a4f2ef13dcf72db66adc26640379ad4eebedb357dc8e026132aae"
+    },
+    {
+      "path": "web/login.js",
+      "size": 4568,
+      "sha256": "482384344ac719449c81c8e7c2212370dfd422dda52f8d4dbff8c9b3405c5a51"
+    },
+    {
+      "path": "web/panel.css",
+      "size": 2933,
+      "sha256": "66310ea6a1cdeda68bf1a817c24127830a0baacff0cbef88a7ed6dfd4f0b4a91"
+    },
+    {
+      "path": "web/panel.js",
+      "size": 15490,
+      "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab"
+    },
+    {
+      "path": "web/private-shop.js",
+      "size": 4228,
+      "sha256": "f9afcb14c0c1f3ef5a69556203d25348035a6fcb888084e59a50da1f53a140a4"
+    },
+    {
+      "path": "web/trade.js",
+      "size": 4161,
+      "sha256": "5b677e40462c5ec933fc5fa014b94fa70b3b1f2e53bc860cec9f9ba66e4f42f9"
+    }
+  ],
+  "productAssetsRootRelativeToEntry": "../../assets",
+  "webCount": 30,
+  "assetIndex": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\integrity.json",
+    "size": 1729333,
+    "sha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98"
+  },
+  "assetBodies": 13957,
+  "externalRuntimeRequirements": [
+    "Windows x64",
+    ".NET 10 Core and Windows Desktop Runtime",
+    "installed WebView2 runtime queried through pinned win-x64 loader"
+  ],
+  "externalServicesRequiredForNormalLoginButNotCheckOnly": [
+    "user-managed server on profile p24-real-jar-d287-client2 port42061"
+  ],
+  "normalLaunchAuthorized": false,
+  "launcherOutputHashes": null
+}

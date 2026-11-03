@@ -1,0 +1,84 @@
+{
+  "schema": "p29-review-preparation-result-v1",
+  "status": "harness-ready-candidate-pins-pending",
+  "owner": "P29",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "baselineSha256": "ac4254ea339ed35c4257e27e955f0411c617f21698a1da5bb59330a162933024",
+  "goalStatus": "active",
+  "counts": {
+    "fixturePngDecoded": 416,
+    "mappingRowsJoined": 2688,
+    "profilePairs": 42,
+    "durationRowsRead": 294,
+    "familiesCatalogued": 14,
+    "harnessBuildAttempts": 2,
+    "harnessBuildPassed": 2,
+    "harnessGateAndRawSelftestsPassed": 5,
+    "candidateBuild": 0,
+    "candidateRuntimeAssertions": 0,
+    "historicalAssertionsImported": 0,
+    "native": 0
+  },
+  "finalBuild": {
+    "argv": [
+      "dotnet",
+      "build",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\Review.csproj",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\NuGet.Config",
+      "-p:ReviewedDll=D:\\lineage開發\\TW1608262200研究\\releases\\r34\\build\\client-product-r34\\P11.ClientEngine.dll",
+      "-p:BaseIntermediateOutputPath=D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\harness-build-final\\obj\\",
+      "-o",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\harness-build-final\\bin",
+      "-v:q"
+    ],
+    "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1",
+    "returncode": 0,
+    "classification": "harness-build-only",
+    "streams": {
+      "stdout": {
+        "bytes": 82,
+        "sha256": "df606a8f9906dbaab92970ee3a2a315aa1ad5ce3913e14edca294fcfa05140de",
+        "encoding": "raw-bytes",
+        "displayDecoder": "utf-8",
+        "displayErrors": "replace",
+        "displayReplacementCount": 0
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "encoding": "raw-bytes",
+        "displayDecoder": "utf-8",
+        "displayErrors": "replace",
+        "displayReplacementCount": 0
+      }
+    }
+  },
+  "sourceSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\source-manifest.json",
+    "size": 160201,
+    "sha256": "1e1e0c6ec490ef39086b5f8270097083801d08b33821174d13cc5346cb50111e"
+  },
+  "coverage": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\coverage-gaps.json",
+    "size": 3839,
+    "sha256": "7d7b93939cd8bea09e4606b941cbf7ac4fb67cd9c92efe2fcaca1c588e794ebf"
+  },
+  "missingPins": [
+    "supervisor dispatch path/SHA",
+    "candidate artifact manifest path/SHA",
+    "candidate source manifest path/SHA/root",
+    "candidate product DLL path/SHA and sealed managed dependencies"
+  ],
+  "limitations": [
+    "dynamic adapter compiled against sealed r34 only; candidate not loaded",
+    "full composite/real S30/gameplay transport/events/resource fault adapters remain pending",
+    "no product/fullproject/native completion claim"
+  ],
+  "officialEntryModified": false,
+  "candidateOutputsUsedAsExpected": false,
+  "sharedOrOtherWorkWrites": false,
+  "handoff": "HANDOFF.md"
+}

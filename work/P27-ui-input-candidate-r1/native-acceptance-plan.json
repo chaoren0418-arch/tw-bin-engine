@@ -1,0 +1,180 @@
+{
+  "schema": "p27-native-plan-v1",
+  "utc": "2026-10-29T03:45:15.884430+00:00",
+  "identity": {
+    "release": "r33",
+    "basePinsSha256": "d716dcbe30b9aebfdc558f59addf4910fe94e026aec31ae7823572a40a1ffced",
+    "files": 171,
+    "releaseSeal": {
+      "path": "releases/r33/_integration/r33/release-seal.json",
+      "sha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417"
+    },
+    "productDll": {
+      "path": "engine/build/client-product-r33/P11.ClientEngine.dll",
+      "sha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2"
+    },
+    "nativeAcceptance": false
+  },
+  "executionAuthorizedByThisDocument": false,
+  "executed": 0,
+  "owner": "Current supervisor or separately authorized operator; P27 performs no native operations",
+  "preconditions": [
+    "Supervisor independently accepts this bounded review",
+    "Bind exact final product release: if r34 replaces r33, re-pin and re-run compatible offline checks; record delta and do not reuse r33 results as r34 acceptance",
+    "User manages DB/services; no DB/service operations in this plan",
+    "Use current observed geometry and supported capture; if unavailable record exact failure, no invented coordinate/pixel proof"
+  ],
+  "cases": [
+    {
+      "id": "N01",
+      "status": "planned-not-executed",
+      "action": "Pin normal launcher, release seal, product DLL/source/web; record new process identity and window geometry before normal login.",
+      "expected": "All evidence belongs to one exact version; no automatic promotion from r27/r28 or r33 to r34.",
+      "evidence": [
+        "seal+DLL SHA",
+        "PID/process start",
+        "window bounds/DPI",
+        "credential-free focus labels"
+      ],
+      "dependency": "Authorized native operator, supported capture and observed window geometry, user-managed server availability"
+    },
+    {
+      "id": "N02",
+      "status": "planned-not-executed",
+      "action": "Normal login controls: Tab through account/password/login/character; Enter once and hold/release; use disabled states.",
+      "expected": "No world input while controls focused; single guarded login; clear password field; ordinary selection/enter workflow.",
+      "evidence": [
+        "native event sequence/timestamps",
+        "focus snapshot labels only",
+        "login state/revision; no secret text"
+      ],
+      "dependency": "Authorized native operator, supported capture and observed window geometry, user-managed server availability"
+    },
+    {
+      "id": "N03",
+      "status": "planned-not-executed",
+      "action": "In supported safe loaded scene, exercise eight directions and release; press opposite keys; Esc/Space stop.",
+      "expected": "Expected one movement stream; release/stop clears held input and further queued motion; already-admitted requests remain authoritative.",
+      "evidence": [
+        "native keys/timing",
+        "held state and movement revisions",
+        "before/after visible actor and authoritative coordinates"
+      ],
+      "dependency": "Authorized native operator, supported capture and observed window geometry, user-managed server availability"
+    },
+    {
+      "id": "N04",
+      "status": "planned-not-executed",
+      "action": "While holding movement, focus native HUD/service editor/Web notes, then release; Alt-Tab/minimize and return.",
+      "expected": "Focus transfer cancels queued intent; typing does not move; explicit game focus restore works; no stale held key.",
+      "evidence": [
+        "focus labels/active form",
+        "ordered input and cancel records",
+        "server request count/positions"
+      ],
+      "dependency": "Authorized native operator, supported capture and observed window geometry, user-managed server availability"
+    },
+    {
+      "id": "N05",
+      "status": "planned-not-executed",
+      "action": "Use observed scene coordinates for empty ground, object edge, HUD border, visible child/service pane, Web pane, chat drawer.",
+      "expected": "Only visible scene pixels route world action; covered/outside UI clicks do not walk/attack; no guessed coordinates.",
+      "evidence": [
+        "same-time native screenshot+bounds/DPI",
+        "click coordinates",
+        "scene transform/owner ID and action log"
+      ],
+      "dependency": "Authorized native operator, supported capture and observed window geometry, user-managed server availability"
+    },
+    {
+      "id": "N06",
+      "status": "planned-not-executed",
+      "action": "In safe supported area, click short ground route; cancel via Esc, new destination, keyboard, focus change.",
+      "expected": "Finite route respects obstacles; no future queued sends after cancel; final state follows server.",
+      "evidence": [
+        "route/versions",
+        "native click/key sequence",
+        "before/after geometry and server state"
+      ],
+      "dependency": "Authorized native operator, supported capture and observed window geometry, user-managed server availability"
+    },
+    {
+      "id": "N07",
+      "status": "planned-not-executed",
+      "action": "For a supported valid target under normal safe conditions: single left select, double/Ctrl-left single attack, right talk; cancel before delayed action.",
+      "expected": "Selection does not attack; action submitted once per explicit action; stale/invalid target rejects; server reply defines outcome.",
+      "evidence": [
+        "owner pixel+target ID",
+        "selection revision",
+        "admitted request and server reply"
+      ],
+      "dependency": "Supervisor chooses safe supported target and explicit combat/talk acceptance scope; no dangerous route retry"
+    },
+    {
+      "id": "N08",
+      "status": "planned-not-executed",
+      "action": "Use visible inventory/skills HUD: select without action, assign/clear F1–F4, click/use slot, hold/release F key; switch character/relogin.",
+      "expected": "Selection alone does not consume; one explicit activation; missing item unavailable; bindings actor-isolated; actual layout usable.",
+      "evidence": [
+        "native screenshots and focus",
+        "slot labels/binding IDs",
+        "request/reply/state delta; no fabricated inventory"
+      ],
+      "dependency": "Authorized native operator, supported capture and observed window geometry, user-managed server availability"
+    },
+    {
+      "id": "N09",
+      "status": "planned-not-executed",
+      "action": "Chat via Enter and button: hold opening Enter with saved draft, release then submit; type movement keys, use IME, Escape/F10, relogin.",
+      "expected": "Opening Enter/repeat does not submit; single server echo after explicit submit; no world movement; draft/identity behavior matches source.",
+      "evidence": [
+        "native keys/composition",
+        "focus labels",
+        "one send/one authoritative chat echo",
+        "no private chat in shared evidence"
+      ],
+      "dependency": "Authorized native operator, supported capture and observed window geometry, user-managed server availability"
+    },
+    {
+      "id": "N10",
+      "status": "planned-not-executed",
+      "action": "Open native NPC/service panel through legitimate response and test pointer blocking/control focus.",
+      "expected": "No world input leaks through panels; server-driven page activates once per revision; controls remain accessible.",
+      "evidence": [
+        "native panel capture",
+        "revision/selection and focus",
+        "server response"
+      ],
+      "dependency": "Existing supported NPC/service state; positive sale/buyback require existing conditions, never DB mutation to manufacture success"
+    },
+    {
+      "id": "N11",
+      "status": "planned-not-executed",
+      "action": "Open Web panel and notes, F10/F11, direction/item/magic controls and stale-selection rejection through normal interaction.",
+      "expected": "Host validates command identity; no duplicate pending action; native game keys isolated while web focused.",
+      "evidence": [
+        "native/Web focus transitions",
+        "bridge ID/epoch/revision without secrets",
+        "host admission and authoritative state"
+      ],
+      "dependency": "Authorized native operator, supported capture and observed window geometry, user-managed server availability"
+    },
+    {
+      "id": "N12",
+      "status": "planned-not-executed",
+      "action": "Repeat viewport/HUD checks at normal minimum size, expanded drawers, diagnostic pane and supported DPI; normal save/close/relaunch only if separately authorized.",
+      "expected": "No clipping or pointer offset; evidence stays pinned to same build; relogin acceptance records actual restored state.",
+      "evidence": [
+        "full native pixels+bounds/DPI",
+        "scene/HUD boundary captures",
+        "normal exit/relaunch and identity snapshots"
+      ],
+      "dependency": "Authorized native operator, supported capture and observed window geometry, user-managed server availability"
+    }
+  ],
+  "excluded": [
+    "Pickup presentation acceptance belongs to P26/r34 contract",
+    "No DB query/change/service restart or synthetic inventory in native acceptance",
+    "No dangerous route retries or role expenditure to obtain evidence"
+  ]
+}

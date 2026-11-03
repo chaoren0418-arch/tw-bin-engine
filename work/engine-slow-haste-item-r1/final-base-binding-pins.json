@@ -1,0 +1,50 @@
+[
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-緩速加速水例外-20261029\\final-base-binding.json",
+    "size": 838,
+    "sha256": "d6946c449f35b1d26804bd3fd4878bf24bdb0f74d66a302765dfd91058010fa4",
+    "role": "final r31 binding"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-緩速加速水例外-20261029\\baseline-final.json",
+    "size": 29934,
+    "sha256": "00e9d4664024119595faeead50ade5827258763e47dc3d7068ea9b78abf8c813",
+    "role": "final r31 binding"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r31\\_integration\\r31\\release-seal.json",
+    "size": 2440176,
+    "sha256": "1d5b1c149495cb2b44f50daf2c3361eb15e8000ba27bf133d1029735f10cfd90",
+    "role": "final release seal"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-加速攻擊施法接續-20261029\\r31-supervisor-acceptance.json",
+    "size": 2204,
+    "sha256": "c61b78bc32afb590675f9a73e1c7e5f171156af2afa9e8d58c4ff03b55c25d1d",
+    "role": "final release acceptance"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r31\\build\\client-product-r31\\P11.ClientEngine.dll",
+    "size": 2178048,
+    "sha256": "12ad5bbfac696033ee1f8d807346f401216138f4ce51cb58da9438e0b4ba5ec1",
+    "role": "final release productDllSha256"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r31\\build\\client-product-r31\\P24.Audio.dll",
+    "size": 53760,
+    "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "role": "final release audioDllSha256"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r31\\build\\product-r31-manifest.json",
+    "size": 7955,
+    "sha256": "dd56d46466a60cae52e6bbc5b4561e5ad7db331c8db2b04930912cb251cab1d9",
+    "role": "final release productManifestSha256"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r31\\launcher\\P24.Launcher.dll",
+    "size": 24064,
+    "sha256": "78b8a832ae8c1c1ff3fa25290d4cc28931fc9d11223acb0737823c9bfd4d3d72",
+    "role": "final release launcherDllSha256"
+  }
+]

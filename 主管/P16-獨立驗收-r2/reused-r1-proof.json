@@ -1,0 +1,58 @@
+{
+  "status": "pass",
+  "scope": "Unchanged product inputs justify reuse of R1 baseline TCP/vector/Netty and offline replay checks; R2 live combat UI still requires independent clean build and replay.",
+  "changed_inputs": [
+    "HANDOFF.md",
+    "PROTOCOL.md",
+    "audit_lure_revision.py",
+    "freeze_p16.py",
+    "reference/combat/lure-distance/L1Location.class",
+    "reference/combat/lure-distance/L1Location.java",
+    "reference/combat/lure-distance/L1Location.javap.txt",
+    "reference/combat/lure-distance/NpcMove.class",
+    "reference/combat/lure-distance/NpcMove.java",
+    "reference/combat/lure-distance/NpcMove.javap.txt",
+    "reference/combat/lure-distance/Point.class",
+    "reference/combat/lure-distance/Point.java",
+    "reference/combat/lure-distance/Point.javap.txt",
+    "reference/combat/lure-distance/manifest.json",
+    "source/CombatUiTests.cs",
+    "source/CombatVisibilityPlan.cs",
+    "verify_combat.py",
+    "verify_lure.py",
+    "worker_report.py"
+  ],
+  "product_changes": [],
+  "evidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P16-獨立驗收\\P16-基礎近戰與傷害回饋\\evidence\\tcp-summary.json",
+      "sha256": "d7f873f9638727c07f20e4375ab1faf8be8b580ad0e63ac2880eb18960f13789"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P16-獨立驗收\\P16-基礎近戰與傷害回饋\\evidence\\vectors-result.json",
+      "sha256": "afa5452ea6e0a47339a5c2d6ed54d2172492dac0cc72d05614fb812279b83616"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P16-獨立驗收\\P16-基礎近戰與傷害回饋\\evidence\\netty-slice.json",
+      "sha256": "edfaf9605a2064294fd78198bd8350b6cf88a80cd787693013c1cb15cd1213d7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P16-獨立驗收\\offline-evidence\\combat.json",
+      "sha256": "6b3c9c9eef7f2eae1199fc113b5bc2bcf02042b2d3ab317bb0fab2040473100d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P16-獨立驗收\\offline-evidence\\movement-gate.json",
+      "sha256": "24dc2a08c872383146af442f929f6799d854a582df3c1b074cf38302b4941c47"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P16-獨立驗收\\offline-evidence\\objects.json",
+      "sha256": "a92d6763fd2f6dd67676d89407a15fd9cae6d82ddffaf5fb1f1fc476b00522a9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P16-獨立驗收\\offline-evidence\\world.json",
+      "sha256": "47711736c0b18f63639fc03483fc1efced55c853da408d51a3102045eab10bdd"
+    }
+  ],
+  "tcp_cases": 16,
+  "vector_checks": 1100
+}

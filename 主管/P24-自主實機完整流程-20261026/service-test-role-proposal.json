@@ -1,0 +1,32 @@
+{
+  "status": "proposal only; no account, character, item or money written",
+  "purpose": "Verify successful skill learning, ship travel, shop outcomes and personal warehouse through normal UI",
+  "scope": "existing isolated P24Lab MySQL only, original services/files remain read-only",
+  "proposedNewAccount": "p24svc01",
+  "proposedCharacter": "服務驗證",
+  "level": 60,
+  "startingMap": 0,
+  "startingPosition": [
+    32588,
+    32981
+  ],
+  "adena": 100000,
+  "whitePotions": 100,
+  "equipment": [
+    "+0 long sword",
+    "+0 ring mail",
+    "+0 wooden shield"
+  ],
+  "initialSkills": [
+    "minor heal",
+    "energy bolt"
+  ],
+  "existingCharacters": "no reset, no relocation, no healing or grants to existing 8 roles",
+  "requirements": [
+    "explicit user authorization for resource provisioning",
+    "verify DB UUID, server JAR/policy identities, and account/character absence",
+    "record exact inserted rows and new role identity",
+    "preserve subsequent actual item/EXP/death outcomes",
+    "never describe provisioned resources as gameplay-earned"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "checks": [
+    {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-review-r1",
+      "sealSha256": "29fb10cb6919a9ea07c13185af3ffc0eab2b8be4944c18093cbf84cb00326095",
+      "selectedSealedArtifactsVerified": 12,
+      "rawNativeChunksOrClassesRevalidated": false
+    },
+    {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1",
+      "sealSha256": "8b1110e77614fbe8f9cb9b68718348c71f75d04110451cbca3c90699114125e1",
+      "selectedSealedArtifactsVerified": 3,
+      "rawNativeChunksOrClassesRevalidated": false
+    }
+  ],
+  "note": "Only selected already sealed conclusions/reports/helpers are pinned. No original BIN/JAR execution or byte/chunk/class/meta audit repeated."
+}

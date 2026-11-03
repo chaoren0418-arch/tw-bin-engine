@@ -1,0 +1,36 @@
+{
+  "decision": "accepted-bounded-static",
+  "blockingFindings": 0,
+  "findings": [
+    {
+      "id": "F01",
+      "severity": "boundary",
+      "blocking": false,
+      "finding": "The source contract is acceptable only as conditional static control/dataflow; renderer policy and numeric sums do not confer runtime or eligibility qualification."
+    },
+    {
+      "id": "F02",
+      "severity": "clarification",
+      "blocking": false,
+      "finding": "Incoming-action8 nonnull erase restarts from0, but a null entry erase increments and can skip its shifted successor. Preserve can erase pending pickup wording; do not claim universal all-clear without a queue invariant."
+    },
+    {
+      "id": "F03",
+      "severity": "provenance",
+      "blocking": false,
+      "finding": "44 import labels are library ordinal resolutions rather than strings in BIN. 874 literal named imports and all918 IAT identities checked. QPC/GetTickCount are actual named imports."
+    },
+    {
+      "id": "F04",
+      "severity": "provenance",
+      "blocking": false,
+      "finding": "Whole BIN SHA is inherited, not recomputed. This review independently checks fixed path/size, PE mapping, selected chunks/ranges/import records. No full BIN scan/hash is represented as new evidence."
+    },
+    {
+      "id": "F05",
+      "severity": "boundary",
+      "blocking": false,
+      "finding": "41/166 fixed-duration example values are inherited pinned inputs. Arithmetic, scheduler additions and native duration transforms are reviewed; upstream tick conversion and live status eligibility are not newly established."
+    }
+  ]
+}

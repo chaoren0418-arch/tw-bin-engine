@@ -1,0 +1,71 @@
+{
+  "schema": "p27-historical-focus-v1",
+  "source": {
+    "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/movement-focus-review.json",
+    "sha256": "6d30ae6c91b05f33cb72d246aa7116db09b318923f4798552e69a3de36d0cddd"
+  },
+  "sourceUtc": "2026-10-27T18:58:29.288250+00:00",
+  "sourceResult": "limited-native-keyboard-movement-and-web-focus-observed",
+  "scope": "Existing native-r28 evidence only; not rerun or promoted to r33/r34",
+  "pinsVerified": [
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/13-native-home-step.json",
+      "sha256": "b6eb98c1376ea3f7313979d0516e46f258c9e9938faf7afe6a046a4d3c3514bf"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/14-native-pagedown-return.json",
+      "sha256": "9bfa33d04d8f45ee04c31af05e9e94f4a9c95d6ad5cc372efb2c500bf0bae672"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/15-native-up-step.json",
+      "sha256": "da37d79a78a8e40ee5449ee299a8c9395e844035e55d9cf381653b5719ab6ec5"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/16-native-down-return.json",
+      "sha256": "be33fd408270abeae9f85c39b4d5eaa87ee41f1ce711dc066dd8aa1919b5ebc0"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/17-native-pageup-step.json",
+      "sha256": "6a052fb5487ad17932ed00b5de714b1aa805151331dc523838450802e6eeaebd"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/18-native-end-return.json",
+      "sha256": "bace1316e92a776de5ecc4a0e18311fdef39e3e8d1bad90c7e491c585b7e5e32"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/19-native-right-step.json",
+      "sha256": "7a22cdd16e13848154e3673314089094b2574f83e6f0c79b7697a0395c6cee64"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/20-native-left-return.json",
+      "sha256": "c1e2f0155e7fc51ec61f5977a74745ed282c06d6eeef7470878f711c34ce6549"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/21-notes-focused.json",
+      "sha256": "48807c2cf34115243711f9ce3b06d5bc76b7c80b6031f9d5b9c2772255b41fda"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/22-web-down-isolated.json",
+      "sha256": "14b969741932809ac1f7917d173bd9083f1517c7271ee7841f9998497382cc0d"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/23-web-u-isolated.json",
+      "sha256": "d227c059e63dc68003716285d633e2677b93d6e17bc92318f44b6fdcc27e93ea"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/native-r28/23-web-u-isolated.txt",
+      "sha256": "e9de34b2a983a71eedf1594864d3bd63783825d94b0a7aedd161e6227da287b8"
+    }
+  ],
+  "observations": [
+    "Eight native direction-key observations recorded product predictedSteps 1..8; all successAck=false",
+    "WebView focus observations retained predictedSteps=8 and inventoryRevision=35 during Down/U typing",
+    "typedUVisibleInNotes=true in historical review"
+  ],
+  "limitations": [
+    "Each movement is normal key input with actual product prediction; no per-step server ACK exists. Offline save/relogin of a changed position still required.",
+    "No screenshot/mouse/fullscreen or full combat/6016 acceptance inferred."
+  ],
+  "newNativeRuns": 0,
+  "newProductBug": false
+}

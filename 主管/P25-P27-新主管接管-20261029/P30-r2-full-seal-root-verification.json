@@ -1,0 +1,22 @@
+{
+  "utc": "2026-10-29T06:47:08.326517+00:00",
+  "status": "pass-full-run-and-stage-SHA-verification",
+  "seals": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\artifact-seal.json",
+      "sha256": "2ceaf7801cc52d85a3abd7d9d331cd7298c2da754d72de9578c2eba4fc8490bd",
+      "rows": 41,
+      "failures": []
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\stage-files-seal.json",
+      "sha256": "45bf24321192718e090deca882ce1ce884113cb9bfae817b73ab92892d3f5514",
+      "rows": 347,
+      "failures": []
+    }
+  ],
+  "actualSourceIndependentCopiesPreviouslyVerified": 184,
+  "productAndAudioExactHashPreviouslyVerified": true,
+  "finalIndependentBinlogReview": "pending",
+  "runtimeRerun": false
+}

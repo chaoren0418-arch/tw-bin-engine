@@ -1,0 +1,28 @@
+{
+  "taskId": "ENGINE-SLOW-PICKUP-SOURCE-R1",
+  "owner": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+  "writeRoot": "work/engine-slow-pickup-source-r1",
+  "status": "source-and-independent-review-accepted-unqualified-for-slow-opening",
+  "turnId": "01a184b6-b164-7ae0-b9f4-e3862873a20c",
+  "cursor": "1e47fa6f-0252-43ab-bc1b-299701dcebdc:65",
+  "baseline": "r31",
+  "implementationAuthorized": false,
+  "sharedMergeAuthorized": false,
+  "databaseOperationsAuthorized": false,
+  "utc": "2026-10-28T23:12:02.846776+00:00",
+  "independentPreparation": {
+    "taskId": "ENGINE-SLOW-PICKUP-REVIEW-PREP-R1",
+    "owner": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+    "turnId": "01a184c0-8b80-7bc3-a939-f1ebda7ba9a4",
+    "cursor": "8733f9b2-2e3c-4239-bb56-0b27e2dd2974:97",
+    "status": "sealed-preparation-accepted",
+    "utc": "2026-10-28T23:03:04.678Z",
+    "writeRoot": "work/engine-slow-pickup-review-r1",
+    "baseline": "r31",
+    "implementationAuthorized": false
+  },
+  "authorIdle": true,
+  "sourceIntegrityVerified": true,
+  "independentSemanticReviewPending": false,
+  "next": "r33 normal ground lifecycle fix; action15 assets and scheduler remain unqualified"
+}

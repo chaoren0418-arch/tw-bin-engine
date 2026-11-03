@@ -1,0 +1,46 @@
+{
+  "status": "pass",
+  "checks": [
+    {
+      "name": "copied-protected-document-row-deletion",
+      "expected": "contract-document-pin-refusal",
+      "actual": "pin drift: D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\negative-fixture\\protected-pins.json",
+      "originalContractRow": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\protected-pins.json",
+        "size": 7925,
+        "sha256": "2d69faddd4e2cd887f0b824e64d4e3d1a8d738dec36ab45fe6f6659f5f5ff448"
+      },
+      "isolatedPathAlias": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\negative-fixture\\protected-pins.json",
+        "size": 7925,
+        "sha256": "2d69faddd4e2cd887f0b824e64d4e3d1a8d738dec36ab45fe6f6659f5f5ff448"
+      },
+      "removedRow": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+        "size": 158,
+        "sha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+      },
+      "modifiedCopy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\negative-fixture\\protected-pins.json",
+        "size": 7913,
+        "sha256": "86571a73da5bf6d0fbea74f0b378a996e44b25ffac6532c46edf83dee815cb9a"
+      },
+      "realMetadataUnchanged": true
+    },
+    {
+      "name": "P37-post-install-validation-edge",
+      "staticCall": "validate(plan_sha, contract_sha, initial=False, dependencies=False)",
+      "inputPinLoopBeforeMetadata": true,
+      "actualGateInvocation": {
+        "initial": false,
+        "dependencies": false
+      },
+      "actualGuardRefusal": "exact canonical source set after",
+      "qualification": "Actual gate.validate reached after181 check; inventory receipt prefix was statically inspected, not bypassed or executed using forged receipts."
+    }
+  ],
+  "original16CasesRerun": false,
+  "successfulSupervisorReceiptFabricated": false,
+  "builds": 0,
+  "sharedWrites": 0
+}

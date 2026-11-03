@@ -1,0 +1,59 @@
+[
+  {
+    "name": "build-product",
+    "pid": 14044,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-Web\u767b\u5165\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\source\\OfflineClient.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-Web\u767b\u5165\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\client",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-Web\u767b\u5165\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 7.040420770645142
+  },
+  {
+    "name": "build-harness",
+    "pid": 85584,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-Web\u767b\u5165\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\harness\\WebLoginChecks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-Web\u767b\u5165\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\checks",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-Web\u767b\u5165\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 3.9520370960235596
+  },
+  {
+    "name": "controller",
+    "pid": 15836,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-Web\u767b\u5165\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\checks\\P24.WebLoginChecks.exe"
+    ],
+    "exitCode": 0,
+    "elapsed": 0.3450784683227539
+  },
+  {
+    "name": "dom",
+    "pid": 71820,
+    "args": [
+      "node",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-Web\u767b\u5165\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\test_dom.cjs"
+    ],
+    "exitCode": 0,
+    "elapsed": 0.09973430633544922
+  }
+]

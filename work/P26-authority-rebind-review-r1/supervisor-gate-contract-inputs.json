@@ -1,0 +1,62 @@
+{
+  "schema": "p26-shared-gate-handoff-inputs-v1",
+  "reviewDecision": "accepted-for-supervisor-shared-gate",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "integrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "plan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\canonical-plan.json",
+    "size": 714350,
+    "sha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761"
+  },
+  "controller": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\serial_canonical.py",
+    "size": 12913,
+    "sha256": "257533f50b13c4483c337791006483e07ceac7a90be4749cb66058e36dfb7ba3"
+  },
+  "seal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\artifact-seal.json",
+    "size": 8250,
+    "sha256": "867c75d72137b18becc8138576bc0b2e8b6e529fabcd51482b485caa17419ad6",
+    "verifiedFiles": 50
+  },
+  "futureReceiptPath": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-shared-acceptance.json",
+  "requiredReceiptFields": {
+    "schema": "engine-r34-shared-acceptance-v1",
+    "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+    "decision": "accepted-for-r34-serial-canonical",
+    "authorization": "install-build-and-offline-suites",
+    "dispatchIdRequirement": "fresh ENGINE-R34-SHARED-INTEGRATE- prefix; assigned by supervisor, no receipt constructed here",
+    "planSha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761",
+    "candidateId": "ENGINE-PICKUP-PRESENTATION-IMPL-R1",
+    "revision": "r34",
+    "stageSealSha256": "9544f137a10914825b53080d4d390d17902cd40866467cebbf69578290240018",
+    "stageAcceptanceSha256": "d8923799b13660f4eab08ac52d45f27c183c3d0e01aed3d491a62b593e110308",
+    "productDllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+    "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "productManifestSha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d",
+    "launcherDllSha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8"
+  },
+  "authorityPolicy": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\authority-policy.json",
+    "size": 2391,
+    "sha256": "b0375a991b0128beca63fb53b31264d869f23ccb87e539bf4b1a1ab90c4dd6da"
+  },
+  "takeover": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\takeover.json",
+    "size": 4697,
+    "sha256": "d7f7d19b500238a3e9894ac8caae74d99d5d9e31ea0de1acc2cf100866ed3bb1"
+  },
+  "currentPolicy": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+    "size": 11741,
+    "sha256": "0c8f214831a286bec4a6844ab1293b4f4798ff829ef0a3d6507dbf455eddc040"
+  },
+  "rules": [
+    "Current supervisor issues receipt only after its own acceptance; original integrator first runs full read-only validate_plan with actual receipt pins.",
+    "Only new controller path. One serial step at a time: install/product/baseline/ground/utility/haste/versioned-slow/f1/pickup. No replay of completed steps.",
+    "Any failed/partial attempt is retained and uncollectable. F2 bindings interruption and F3b nested missing diagnostics must stop for supervisor; never delete evidence or rerun builds/probes to repair collection.",
+    "Archive must retain new44-file plan evidence and verified actual original-to-archived pins. Future package/release acceptance must also preserve source seal and reviewer acceptance; release/entry separate authorization.",
+    "41 profiles implementation needs final canonical r34 base binding and a new explicit contract; historical stage identity is not final canonical acceptance."
+  ],
+  "isAuthorizationReceipt": false
+}

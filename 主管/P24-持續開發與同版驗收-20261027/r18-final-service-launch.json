@@ -1,0 +1,17 @@
+{
+  "utc": "2026-10-26T23:26:37.700140+00:00",
+  "pid": 85260,
+  "productRoot": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r18-clean-delivery\\delivery",
+  "revision": "r18",
+  "executable": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r18-clean-delivery\\delivery\\build\\client-product-r18\\P11.ClientEngine.exe",
+  "dllSha256": "5ca5b68cd683c6d54bc3d3f38ec1a4a1f4bac1d6c64c04c9da77790ad7f40f0c",
+  "manifestSha256": "52237810459172dd71d930c1ad91950a33d84741a1cbc24e267e1117ddf740e4",
+  "arguments": [
+    "--normal-product"
+  ],
+  "autoLogin": false,
+  "servicesStarted": false,
+  "remoteDebugging": "127.0.0.1:9424",
+  "mode": "Actual normal UI with initially blank login; supervisor normal controls only",
+  "instance": "final-service"
+}

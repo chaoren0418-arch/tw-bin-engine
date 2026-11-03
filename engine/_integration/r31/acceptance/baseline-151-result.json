@@ -1,0 +1,196 @@
+{
+  "status": "pass-r31-baseline-151-only",
+  "productDllSha256": "12ad5bbfac696033ee1f8d807346f401216138f4ce51cb58da9438e0b4ba5ec1",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productManifestSha256": "dd56d46466a60cae52e6bbc5b4561e5ad7db331c8db2b04930912cb251cab1d9",
+  "launcherDllSha256": "78b8a832ae8c1c1ff3fa25290d4cc28931fc9d11223acb0737823c9bfd4d3d72",
+  "assetCount": 13957,
+  "hostCases": 22,
+  "hostChecks": 77,
+  "audioSettingsCases": 7,
+  "audioSettingsChecks": 39,
+  "domChecks": 35,
+  "totalChecks": 151,
+  "warnings": 0,
+  "errors": 0,
+  "productBuilds": 1,
+  "historicalSuitesRerun": false,
+  "GUI": false,
+  "COM": false,
+  "playback": false,
+  "network": false,
+  "services": false,
+  "database": false,
+  "commands": [
+    {
+      "name": "sdk",
+      "command": [
+        "dotnet",
+        "--version"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01",
+      "exitCode": 0
+    },
+    {
+      "name": "product-build",
+      "command": [
+        "pwsh",
+        "-NoProfile",
+        "-File",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\build-product.ps1"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01",
+      "exitCode": 0
+    },
+    {
+      "name": "launcher-build",
+      "command": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\launcher-source\\Launcher.csproj",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\launcher"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01",
+      "exitCode": 0
+    },
+    {
+      "name": "same-cmd-check-only",
+      "command": "\"C:\\WINDOWS\\System32\\cmd.exe\" /d /s /c \"\"D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\啟動新版客戶端.cmd\" --check-only\"",
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01",
+      "exitCode": 0
+    },
+    {
+      "name": "host-build",
+      "command": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\checks\\tests\\HostChecks.csproj",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-p:ProductDll=D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\build\\client-product-r31\\P11.ClientEngine.dll",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\helpers\\host"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01",
+      "exitCode": 0
+    },
+    {
+      "name": "host-checks",
+      "command": [
+        "dotnet",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\helpers\\host\\HostChecks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\checks",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\assets"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01",
+      "exitCode": 0
+    },
+    {
+      "name": "client-extract",
+      "command": [
+        "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\checks\\prepare_client_checks.py"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01",
+      "exitCode": 0
+    },
+    {
+      "name": "client-build",
+      "command": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\checks\\client-tests\\ClientChecks.csproj",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-p:ProductDll=D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\build\\client-product-r31\\P11.ClientEngine.dll",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\helpers\\client"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01",
+      "exitCode": 0
+    },
+    {
+      "name": "client-checks",
+      "command": [
+        "dotnet",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\helpers\\client\\ClientChecks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\checks"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01",
+      "exitCode": 0
+    },
+    {
+      "name": "audio-extract",
+      "command": [
+        "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\checks\\prepare_audio_checks.py"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01",
+      "exitCode": 0
+    },
+    {
+      "name": "audio-settings-build",
+      "command": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\checks\\audio-tests\\AudioSettingsChecks.csproj",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-p:ProductDll=D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\build\\client-product-r31\\P11.ClientEngine.dll",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\helpers\\audio-settings"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01",
+      "exitCode": 0
+    },
+    {
+      "name": "audio-settings-checks",
+      "command": [
+        "dotnet",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\helpers\\audio-settings\\AudioSettingsChecks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\checks"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01",
+      "exitCode": 0
+    },
+    {
+      "name": "web-checks",
+      "command": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\checks\\audio-tests\\web-checks.cjs",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01\\_integration\\evidence\\build01\\checks"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r31-integration-r1\\r31-runs\\accepted-haste-actions-r1-01",
+      "exitCode": 0
+    }
+  ]
+}

@@ -1,0 +1,296 @@
+{
+  "utc": "2026-10-26T12:05:49.712Z",
+  "manifest": {
+    "schema": "p24-normal-product-v1",
+    "entry": "build/client-product-r6/P11.ClientEngine.exe",
+    "arguments": [
+      "--normal-product"
+    ],
+    "profile": "p24-real-jar-d287-client2",
+    "port": 42061,
+    "autoLogin": false,
+    "files": [
+      {
+        "path": "assets/integrity.json",
+        "size": 2263090,
+        "sha256": "79f83c7238c15379540445649d514141b87b0237fc159d068e97372959779990"
+      },
+      {
+        "path": "build/client-product-r6/Microsoft.Web.WebView2.Core.dll",
+        "size": 698208,
+        "sha256": "d60e6e94245078cb56e44ebd5f360dc04bf18e460136be93bfc4cfca43b98505"
+      },
+      {
+        "path": "build/client-product-r6/Microsoft.Web.WebView2.Core.xml",
+        "size": 612031,
+        "sha256": "8684cd74000c77533e563785208308ada63808da85825206856cab11a9eeffce"
+      },
+      {
+        "path": "build/client-product-r6/Microsoft.Web.WebView2.WinForms.dll",
+        "size": 39264,
+        "sha256": "84b5772260dbdfe95591197edc9315dcd2cc86ad610e4b14ddd5e4291e31a381"
+      },
+      {
+        "path": "build/client-product-r6/Microsoft.Web.WebView2.WinForms.xml",
+        "size": 41869,
+        "sha256": "6a8ec199373824fdebceda7b3d780d0b31c82edceae04d92391027c971dea6c2"
+      },
+      {
+        "path": "build/client-product-r6/P11.ClientEngine.deps.json",
+        "size": 2413,
+        "sha256": "021414853710328cc032d7dc8df113057a8f60ff015b272bc06904a801631c34"
+      },
+      {
+        "path": "build/client-product-r6/P11.ClientEngine.dll",
+        "size": 1869824,
+        "sha256": "1ebc3a18616cd68a9d44627fc59a5cab19a7d38342b7098e6857d24ab83421e2"
+      },
+      {
+        "path": "build/client-product-r6/P11.ClientEngine.exe",
+        "size": 162304,
+        "sha256": "73e816f7a6e6079443a3e4079d5ec2de46072b1d0869231586e4794301c9563f"
+      },
+      {
+        "path": "build/client-product-r6/P11.ClientEngine.pdb",
+        "size": 290228,
+        "sha256": "e9aec7c9f4cb3ad4606dfe8db2e59a1897354bd381bae34d3971ca4c61d779ac"
+      },
+      {
+        "path": "build/client-product-r6/P11.ClientEngine.runtimeconfig.json",
+        "size": 519,
+        "sha256": "96bc2946dff8790400d652ec7f8de7bb043e954980d59470c112788b68a1fbd3"
+      },
+      {
+        "path": "build/client-product-r6/runtimes/win-arm64/native/WebView2Loader.dll",
+        "size": 180064,
+        "sha256": "4f48cb32d34298c86cca2108057eea0d900b5e422575e926e8086318a0b9cbf0"
+      },
+      {
+        "path": "build/client-product-r6/runtimes/win-x64/native/WebView2Loader.dll",
+        "size": 194912,
+        "sha256": "3426dcc55fdfb8b5e7ac623cf33b4ccf283fbf68a0c5a65bddfdb4d749a8abee"
+      },
+      {
+        "path": "build/client-product-r6/runtimes/win-x86/native/WebView2Loader.dll",
+        "size": 155488,
+        "sha256": "87c61e2cae380112c60853e28178b8ea9a0d63739fc03cead680d4ad3fde6b7d"
+      },
+      {
+        "path": "web/ground/36.png",
+        "size": 289,
+        "sha256": "8d72431ab657dc156297aa3007b0843c01e75f20dfe5379b27d5cd8d5b9f29f5"
+      },
+      {
+        "path": "web/ground/66.png",
+        "size": 465,
+        "sha256": "3ecde86e10281647ddc1f66ddb42a44a83a98c86baa4ae317ddb8859b3e4fe34"
+      },
+      {
+        "path": "web/icons/124.png",
+        "size": 844,
+        "sha256": "7a989ea2e4f676a42d82e612ca9ff6a1d25e27005acf0cc312ffd270cef62919"
+      },
+      {
+        "path": "web/icons/2.png",
+        "size": 495,
+        "sha256": "0f609374be13892e61096e39fbd126cc7258a179a108dcfd80ad2e9e34d430a0"
+      },
+      {
+        "path": "web/icons/278.png",
+        "size": 401,
+        "sha256": "c7a17e518c4e3978a83446e66c4cf7ae5cd54caeb04184556442a48b9f75f220"
+      },
+      {
+        "path": "web/icons/4.png",
+        "size": 510,
+        "sha256": "75ab427d9ee5b9051b6cc4103b43eaadfd7cadd75d73d29bae9caf28ce3ac93e"
+      },
+      {
+        "path": "web/icons/475.png",
+        "size": 1365,
+        "sha256": "af4f6debaadb18732f040901c0ecf166156782a25e26da6b6867445d3c325846"
+      },
+      {
+        "path": "web/icons/5.png",
+        "size": 907,
+        "sha256": "9e35714d6b77ab794679b0a32f295cea5a78b773fbb745f46ce00366a4b06ff7"
+      },
+      {
+        "path": "web/icons/7.png",
+        "size": 359,
+        "sha256": "90f23210260582bfcc8c9e8b7a00cb727840e73082e3c7ca33c1e1fbc8b3143a"
+      },
+      {
+        "path": "web/icons/81.png",
+        "size": 696,
+        "sha256": "eda21f8685278d50e150fa50ea4975756ea5cede2161fc86f1726199615ab988"
+      },
+      {
+        "path": "web/icons/86.png",
+        "size": 1306,
+        "sha256": "f1a70fcdcee29ea66ff20f204157927e07468cfb50da545adcc2c93831b389a9"
+      },
+      {
+        "path": "web/icons/97.png",
+        "size": 776,
+        "sha256": "a630764b5725c0fc3629a4b86cc60d309695e9673179cb35d73b406d2769ec1d"
+      },
+      {
+        "path": "web/index.html",
+        "size": 6686,
+        "sha256": "070884155388a7230abde8719c657cef86c8ad37b17e145dbc17ce2b6c1f43d4"
+      },
+      {
+        "path": "web/interaction.js",
+        "size": 3596,
+        "sha256": "b007e3ce0a2a4f2ef13dcf72db66adc26640379ad4eebedb357dc8e026132aae"
+      },
+      {
+        "path": "web/login.js",
+        "size": 4568,
+        "sha256": "482384344ac719449c81c8e7c2212370dfd422dda52f8d4dbff8c9b3405c5a51"
+      },
+      {
+        "path": "web/panel.css",
+        "size": 2696,
+        "sha256": "bc27f0e84c5d673ef8471de94858151ea5663007e9edd0e98dc55b52cea04ec2"
+      },
+      {
+        "path": "web/panel.js",
+        "size": 11887,
+        "sha256": "5c214ac5d1c01d435bf163230c5f9729f06b3f8a8ec6cd8b3227f996c3b08d33"
+      },
+      {
+        "path": "web/trade.js",
+        "size": 3234,
+        "sha256": "47e26978b883e6292a095b1cca10f9eba450d5327bbc44b62df7b40c4732eee1"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "path": "assets/integrity.json",
+      "ok": true
+    },
+    {
+      "path": "build/client-product-r6/Microsoft.Web.WebView2.Core.dll",
+      "ok": true
+    },
+    {
+      "path": "build/client-product-r6/Microsoft.Web.WebView2.Core.xml",
+      "ok": true
+    },
+    {
+      "path": "build/client-product-r6/Microsoft.Web.WebView2.WinForms.dll",
+      "ok": true
+    },
+    {
+      "path": "build/client-product-r6/Microsoft.Web.WebView2.WinForms.xml",
+      "ok": true
+    },
+    {
+      "path": "build/client-product-r6/P11.ClientEngine.deps.json",
+      "ok": true
+    },
+    {
+      "path": "build/client-product-r6/P11.ClientEngine.dll",
+      "ok": true
+    },
+    {
+      "path": "build/client-product-r6/P11.ClientEngine.exe",
+      "ok": true
+    },
+    {
+      "path": "build/client-product-r6/P11.ClientEngine.pdb",
+      "ok": true
+    },
+    {
+      "path": "build/client-product-r6/P11.ClientEngine.runtimeconfig.json",
+      "ok": true
+    },
+    {
+      "path": "build/client-product-r6/runtimes/win-arm64/native/WebView2Loader.dll",
+      "ok": true
+    },
+    {
+      "path": "build/client-product-r6/runtimes/win-x64/native/WebView2Loader.dll",
+      "ok": true
+    },
+    {
+      "path": "build/client-product-r6/runtimes/win-x86/native/WebView2Loader.dll",
+      "ok": true
+    },
+    {
+      "path": "web/ground/36.png",
+      "ok": true
+    },
+    {
+      "path": "web/ground/66.png",
+      "ok": true
+    },
+    {
+      "path": "web/icons/124.png",
+      "ok": true
+    },
+    {
+      "path": "web/icons/2.png",
+      "ok": true
+    },
+    {
+      "path": "web/icons/278.png",
+      "ok": true
+    },
+    {
+      "path": "web/icons/4.png",
+      "ok": true
+    },
+    {
+      "path": "web/icons/475.png",
+      "ok": true
+    },
+    {
+      "path": "web/icons/5.png",
+      "ok": true
+    },
+    {
+      "path": "web/icons/7.png",
+      "ok": true
+    },
+    {
+      "path": "web/icons/81.png",
+      "ok": true
+    },
+    {
+      "path": "web/icons/86.png",
+      "ok": true
+    },
+    {
+      "path": "web/icons/97.png",
+      "ok": true
+    },
+    {
+      "path": "web/index.html",
+      "ok": true
+    },
+    {
+      "path": "web/interaction.js",
+      "ok": true
+    },
+    {
+      "path": "web/login.js",
+      "ok": true
+    },
+    {
+      "path": "web/panel.css",
+      "ok": true
+    },
+    {
+      "path": "web/panel.js",
+      "ok": true
+    },
+    {
+      "path": "web/trade.js",
+      "ok": true
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "goal": {
+    "toolAvailable": true,
+    "result": null,
+    "created": false,
+    "modified": false
+  },
+  "readEvidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+      "size": 11741,
+      "sha256": "0c8f214831a286bec4a6844ab1293b4f4798ff829ef0a3d6507dbf455eddc040"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\takeover.json",
+      "size": 4697,
+      "sha256": "d7f7d19b500238a3e9894ac8caae74d99d5d9e31ea0de1acc2cf100866ed3bb1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\dispatch-contracts.json",
+      "size": 8145,
+      "sha256": "5d0cc5dbd1d20a56bccfcd5cef0a11e74f26a7b8a079ef9fda3d40feb14097cc"
+    }
+  ],
+  "oldPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\canonical-plan.json",
+    "size": 378638,
+    "sha256": "d25c306fae5abee9209e46c557453f7b6a0a96645e5c052fbda70555f11f15ff"
+  },
+  "oldSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\artifact-seal.json",
+    "size": 4022,
+    "sha256": "faf5f661f5d569c950ff854dfa8bff6f1cf9d338d98e3bbf9006fd6555b3a2fe"
+  },
+  "immutablePreparation": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\preparation-seal.json",
+    "size": 45733,
+    "sha256": "795705e162ffcc422e66343fa4a6f68c6430ff4ac6ee6e54220155a60ccb9d88"
+  }
+}

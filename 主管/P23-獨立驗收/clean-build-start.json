@@ -1,0 +1,14 @@
+{
+  "pid": 77952,
+  "args": [
+    "powershell",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "D:\\lineage開發\\TW1608262200研究\\主管\\P23-獨立驗收\\P23-原場景群組透明與遮擋\\build.ps1",
+    "-Clean"
+  ],
+  "snapshot_sha256": "00be9512d14182a819e6c38ba54367b2ea18a123f4644d985b8715da6df97317",
+  "ready_sha256": "409b57c098bf6adb79285b53410a115ff4ad774a70e7f24e97b9c4529b6638d1"
+}

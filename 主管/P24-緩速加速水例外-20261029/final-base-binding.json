@@ -1,0 +1,15 @@
+{
+  "schema": "engine-supervisor-stage-to-release-binding-v1",
+  "revision": "r31",
+  "targetRevision": "r32",
+  "utc": "2026-10-28T22:44:22.246133+00:00",
+  "stageBaselineSha256": "16ab9dbb534e20e03e622777ab530065e1bc97363c08d8b765e2cb880115bb87",
+  "finalBaselinePath": "主管/P24-緩速加速水例外-20261029/baseline-final.json",
+  "finalBaselineSha256": "00e9d4664024119595faeead50ade5827258763e47dc3d7068ea9b78abf8c813",
+  "releaseSealSha256": "1d5b1c149495cb2b44f50daf2c3361eb15e8000ba27bf133d1029735f10cfd90",
+  "releaseAcceptanceSha256": "c61b78bc32afb590675f9a73e1c7e5f171156af2afa9e8d58c4ff03b55c25d1d",
+  "sourcePinsMatched": 177,
+  "productDllSha256": "12ad5bbfac696033ee1f8d807346f401216138f4ce51cb58da9438e0b4ba5ec1",
+  "allFourProductIdentitiesMatched": true,
+  "formalR32IntegrationAuthorized": false
+}

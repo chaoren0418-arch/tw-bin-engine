@@ -1,0 +1,97 @@
+{
+  "schema": "p25-architecture-result-v1",
+  "phase": "P25",
+  "baseline": "r33",
+  "status": "completed-documentary-baseline-awaiting-supervisor-review",
+  "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "productIntegrationOwner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "onlyWrittenRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P25-architecture-baseline-r1",
+  "deliverables": [
+    "architecture.md",
+    "module-map.json",
+    "completion-matrix.json",
+    "finite-backlog.json",
+    "HANDOFF.md"
+  ],
+  "verification": {
+    "schema": "p25-static-verification-v1",
+    "status": "pass",
+    "scope": "document/source binding and artifact integrity only; not product runtime testing",
+    "sourcePinsVerified": 523,
+    "acceptedSourcesBound": 177,
+    "modules": 11,
+    "oldRowsReconciled": 32,
+    "supplementalOccurrencesReconciled": 16,
+    "finiteBacklogItems": 12,
+    "historicalReferences": 120,
+    "historicalReferencesUnresolved": 0,
+    "sealedArtifactsVerified": 0,
+    "productBuilds": 0,
+    "productTestRuns": 0,
+    "nativeRuns": 0,
+    "databaseOperations": 0,
+    "errors": [],
+    "wholeProjectComplete": false
+  },
+  "sourcePins": "source-pins.json",
+  "sourceBinding": "source-binding.json",
+  "historyIndex": "historical-evidence-index.json",
+  "commands": "commands.json",
+  "productCandidateCreated": false,
+  "offlineProductTestsExecuted": false,
+  "nativeExecuted": false,
+  "confirmedNewImplementationBugs": [],
+  "knownImplementationGaps": [
+    "MAP-F4 local-effect group fade needs real source contract",
+    "non6016 event tokens need semantics and event/lifecycle contract"
+  ],
+  "staleImplementationTodoReconciled": [
+    "6016 controller/audio/host not integrated",
+    "ground36 missing",
+    "all HUD/chat/pointer/shadow absent",
+    "all SEG unsupported"
+  ],
+  "r34": "accepted isolated stage and sealed canonical plan; not promoted to formal r33 or canonical success",
+  "r34ExactPlanSha256": "d25c306fae5abee9209e46c557453f7b6a0a96645e5c052fbda70555f11f15ff",
+  "r34StageSealSha256": "9544f137a10914825b53080d4d390d17902cd40866467cebbf69578290240018",
+  "downstreamDependencies": [
+    {
+      "phase": "P26",
+      "required": "exact canonical plan/current-supervisor gate review; final accepted base before profile extension"
+    },
+    {
+      "phase": "P27",
+      "required": "bounded UI/input review and final-version native plan; fix only reproducible independent defects"
+    },
+    {
+      "owner": "supervisor/user",
+      "required": "future native authority/readiness and legitimate service/resource conditions; no DB work by this stage"
+    }
+  ],
+  "blockingDependenciesForP25": [],
+  "limitations": [
+    "No product tests/builds/native execution",
+    "Existing acceptance receipt hashes are verified, not their suites replayed",
+    "Historical native versions and failures retained; no r33 native promotion",
+    "Full asset-body/pixel audit not rerun",
+    "P25 does not independently accept P26 plan logic or P27 UI outcome",
+    "Pins capture the current baseline; later mutable-source changes require an explicit updated baseline"
+  ],
+  "goal": {
+    "available": true,
+    "initialRead": null,
+    "createdAndReadBack": true,
+    "threadId": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+    "statusAtArtifactPreparation": "active",
+    "completionGate": "mark complete only after final sealed verification passes"
+  },
+  "newChatsOrAgentsCreated": false,
+  "sharedWrites": false,
+  "databaseOperations": false,
+  "serviceOperations": false,
+  "socketOperations": false,
+  "guiOperations": false,
+  "wholeProjectComplete": false,
+  "completionPercentage": null
+}

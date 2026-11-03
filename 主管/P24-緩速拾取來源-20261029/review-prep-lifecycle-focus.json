@@ -1,0 +1,9 @@
+{
+  "taskId": "ENGINE-SLOW-PICKUP-REVIEW-PREP-R1",
+  "utc": "2026-10-28T23:06:11.078822+00:00",
+  "threadId": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+  "turnId": "01a184c0-8b80-7bc3-a939-f1ebda7ba9a4",
+  "messageSent": true,
+  "scope": "Verify or refute Ground.cs same-session world/actor stale completion via actual ApplyWorldPacket wrapper for existing normal single meat/arrow pickup; preserve valid early replies; no product, drop or Slow gate changes.",
+  "rootObservation": "SendGround completion/catch use generation only; finally generation+lease; final predicate lacks actor ID and groundLease. Static suspicion, not established defect."
+}

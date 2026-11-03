@@ -1,0 +1,32 @@
+{
+  "utc": "2026-10-27T18:18:00.900455+00:00",
+  "decision": "accepted-for-formal-r28-integration",
+  "candidate": "r28-6016-host-adapter-r3",
+  "sealSha256": "f322c11e45d9b0fd64048c7fb0d464aa7fc76c1fc0c3b334efac6122b0928915",
+  "productDllSha256": "7762951fba9a2d37d08e2d40a34dfa7f2a6f2219b93689a031a566a8fd8f8cb8",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "rootVerifiedPins": 307,
+  "rootRebuiltChecks": 151,
+  "rootBuildWarnings": 0,
+  "rootBuildErrors": 0,
+  "independentManagedChecks": 68,
+  "independentDomChecks": 23,
+  "independentEvidence": {
+    "seal-verification-final.json": "8f3e7ad5de36d97f36d059a51bf739021430743618768d1d9aba70a1b24fc246",
+    "managed-result.json": "50ade85b97f43e2c22a24c608e39f43bdb37b3e474bb9e0509cfeb1bcdf27a22",
+    "dom-result-after.json": "982d4ffca8d7dcb9b2db1b4cb83305ba89d3ab432566c21b5f77d64aac0c82b5",
+    "static-audit.json": "f488002f64fa5a5fe2907a8358945d4df2ea0a71463495447a04f873d10a79a1"
+  },
+  "sourceReviewed": [
+    "Effect6016Host",
+    "ClientEffect6016",
+    "PlayerAudioSettings",
+    "ClientAudioSettings",
+    "WebPanel",
+    "panel.js",
+    "AudioApiTransport"
+  ],
+  "findings": "F1/F2/F3/F3b/F4 repaired and bounded evidence accepted",
+  "nativeHostAccepted": false,
+  "wholeP24Complete": false
+}

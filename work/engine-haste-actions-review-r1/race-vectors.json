@@ -1,0 +1,99 @@
+{
+  "scope": "Executed baseline and formal-candidate obligations are separate. Baseline failures identify haste gaps; future checks do not count as passed now.",
+  "executedOnR30": [
+    {
+      "family": "haste-transient-highwater-",
+      "assertions": 25,
+      "failed": 0
+    },
+    {
+      "family": "haste-transient-queued-",
+      "assertions": 25,
+      "failed": 0
+    },
+    {
+      "family": "haste-consumer-boundary-",
+      "assertions": 45,
+      "failed": 30
+    },
+    {
+      "family": "haste-consumer-realtime-",
+      "assertions": 20,
+      "failed": 10
+    },
+    {
+      "family": "haste-restored-normal-cross-consumers-",
+      "assertions": 5,
+      "failed": 0
+    },
+    {
+      "family": "haste-ack-snapshot-",
+      "assertions": 30,
+      "failed": 30
+    },
+    {
+      "family": "haste-late-first-render-expired-",
+      "assertions": 15,
+      "failed": 0
+    },
+    {
+      "family": "haste-release-exact-",
+      "assertions": 6,
+      "failed": 6
+    },
+    {
+      "family": "haste-remote-",
+      "assertions": 9,
+      "failed": 9
+    },
+    {
+      "family": "haste-stale-completion-",
+      "assertions": 94,
+      "failed": 0
+    },
+    {
+      "family": "haste-self-completion-unrelated-target-",
+      "assertions": 6,
+      "failed": 0
+    },
+    {
+      "family": "haste-new-lease-survives-finally-",
+      "assertions": 10,
+      "failed": 0
+    }
+  ],
+  "futureCandidateRequirements": [
+    {
+      "name": "exact-identity",
+      "requirement": "Verify supervisor-provided candidate seal/result/source/DLL and full file lists before execution."
+    },
+    {
+      "name": "all-current-assertions",
+      "requirement": "Run all1563 current assertions on the exact sealed candidate, retaining source-backed Speed1 and acceptedSpeed0/2 expectations. Any API adaptation must be recorded without dropping checks."
+    },
+    {
+      "name": "all-transition-directions",
+      "requirement": "Retain nine ordered 0/1/2 transitions, same-value revision invalidation, 1->0->1 and1->2->1; ensure deadline high-water after delayed success and error; next action uses new speed."
+    },
+    {
+      "name": "other-busy-producers",
+      "requirement": "Explicitly exercise movement/item/ground busy admission before haste attack/spell, and final sender admission after competing action. Current baseline helper primarily covers action as producer and all consumers."
+    },
+    {
+      "name": "haste-release-cancellation",
+      "requirement": "Add Speed1-specific release-before death/map/appearance/weapon cancellation and target locking at haste prefix; current helper retains full Speed2 release cancellation and adds Speed1 exactprefix."
+    },
+    {
+      "name": "gate-lifecycle",
+      "requirement": "Static inspect and run remaining final-admit correction/actor/input/target position cases for Speed1; current queued cases and delayed success/error matrices are retained."
+    },
+    {
+      "name": "scope-protection",
+      "requirement": "Keep unknown/Brave and slow nonwalk rejection, zero-frame support, flight30/60 and independent effects. No native absolute scheduler claim."
+    },
+    {
+      "name": "decision",
+      "requirement": "Only after exact candidate execution issue engine-independent-review-v1 accepted/rejected with unresolvedFindings; preparation remains candidateReviewed=false and reviewComplete=false."
+    }
+  ]
+}

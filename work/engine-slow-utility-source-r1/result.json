@@ -1,0 +1,27 @@
+{
+  "schema": "engine-source-qualification-result-v1",
+  "task": "ENGINE-SLOW-UTILITY-SOURCE-R1",
+  "status": "sealed-source-qualification-for-supervisor-review",
+  "sourceQualificationComplete": true,
+  "qualifiedCount": 1,
+  "unqualifiedCount": 9,
+  "qualified": [
+    "haste-potion"
+  ],
+  "qualifiedScope": "qualified means sufficient explicit source for proposing the narrowly specified server-authoritative request increment; it does NOT certify original-native input parity, current DB configuration, implementation, or acceptance.",
+  "checksPassed": true,
+  "checks": 36,
+  "checksMeaning": "unchanged r30 gate fixture observations only",
+  "staticClassCount": 20,
+  "nativeChunkRecordsVerified": 161,
+  "productChanged": false,
+  "candidateBuilt": false,
+  "productChecks": 0,
+  "sharedEngineMerged": false,
+  "nativeLiveAcceptance": false,
+  "sqlOrDbChecked": false,
+  "normalProductStarted": false,
+  "sourceContract": "source-contract.json",
+  "goalActual": "blocked",
+  "goalModified": false
+}

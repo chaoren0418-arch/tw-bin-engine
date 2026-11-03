@@ -1,0 +1,73 @@
+{
+  "observedUtc": "2026-10-28T17:09:30.953Z",
+  "p24": [
+    {
+      "id": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+      "title": "自主 BIN 引擎｜P24 本機新主管與完整整合",
+      "status": {
+        "type": "notLoaded"
+      },
+      "turn": {
+        "id": "01a17f5f-251a-7e51-96c0-11a18e5ac2c2",
+        "status": "failed",
+        "error": {
+          "message": "Selected model is at capacity. Please try a different model.",
+          "additionalDetails": null
+        },
+        "completedAt": 1793138611
+      },
+      "final": "目前已走完前 7 步，位置與四槽快取皆符合路線，沒有位置校正或失血。附近可見其他攤位，仍先前往既定的紅寶石攤位位置。\n"
+    },
+    {
+      "id": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "title": "自主 BIN 引擎｜P24 新版續測與正式交付",
+      "status": {
+        "type": "notLoaded"
+      },
+      "turn": {
+        "id": "01a17f55-5f8b-7eb1-a607-f6630124e2e6",
+        "status": "completed",
+        "error": null,
+        "completedAt": 1793138164
+      },
+      "final": "已完成離線驗證並封存至 [HANDOFF.md](D:/lineage開發/TW1608262200研究/P24-原2x2地圖快取與跨區載入/reference/development/r28-active-village-services-r1/HANDOFF.md)。\n\n- 詹姆／歷史紅寶石攤位共同範圍：**28步**；須現場確認賣家與新報價。\n- 吉倫技能學習入口：**126步**；實際技能與學費以當次回包為準。\n- 六個 count>0 NPC 中，未建立物品倉庫入口；詹森是寵物寄放。\n- 潘朵拉全部對話格均落在固定排除區，沒有放寬距離。\n\n**357項來源雜湊、2353項檢查通過**，包含路線最短距離與快取資產。各路線皆從原快照起點出發，不可直接串接。尚未執行實機操作，僅供主管接手驗收。"
+    },
+    {
+      "id": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "title": "P24｜實測缺失外觀隔離補件",
+      "status": {
+        "type": "notLoaded"
+      },
+      "turn": {
+        "id": "01a17f55-628e-7262-8326-81f58eeed2c1",
+        "status": "completed",
+        "error": null,
+        "completedAt": 1793138137
+      },
+      "final": "已完成並停寫。[交接報告](D:/lineage開發/TW1608262200研究/P24-原2x2地圖快取與跨區載入/reference/development/r28-existing-role-service-conditions-r1/HANDOFF.md)\n\n- **0006 是條件候選**：不同帳號、既有憑證欄位存在，金幣1923、缺技能4／8；登入、職業／正義值與路線仍待主管確認。\n- 可考慮主角正常交易補足學費，再向吉倫取得新報價；未操作角色。\n- 紅／藍寶石固定AI收購量均為0，沒有已確認買家。\n- 已交付服務條件及R17只讀SQL；力量保存比較欄位為 `Str`、`BonusStatus`、`OriginalStr`。\n\n30個來源、8個交付檔驗證通過，未輸出帳密。Goal complete，約7分28秒。"
+    },
+    {
+      "id": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "status": "notLoaded",
+      "latestTurn": "01a17e95-601b-7860-8431-567ba936c73a",
+      "turnStatus": "completed",
+      "result": "r28 sealed; worker stopped writing"
+    }
+  ],
+  "otherActiveThread": {
+    "id": "01a13b3b-bca9-73c2-8c87-0874f2d5c92a",
+    "title": "LITO－戰鬥技能同源化與外控補全",
+    "scope": "not this project; untouched"
+  },
+  "processInventory": {
+    "action": "Get-CimInstance Win32_Process",
+    "outcome": "denied",
+    "reason": "Access denied by operating system; no process ownership or service-stop conclusion"
+  },
+  "goal": {
+    "availableTools": [],
+    "status": "not-created-tools-unavailable",
+    "noDirectStorageEdits": true
+  },
+  "noMessagesSent": true
+}

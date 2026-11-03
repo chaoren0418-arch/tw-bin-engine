@@ -1,0 +1,29 @@
+{
+  "verified": true,
+  "sealFiles": 238,
+  "sourceFiles": 177,
+  "sharedR31SourcesVerified": 177,
+  "changedSources": [
+    "source/Inventory.cs",
+    "source/WorldEntry.cs"
+  ],
+  "candidateSealSha256": "0976aa3ffe829a1b4f77c3b94241f113ed77ca0dab245b6c6e1dca1ac18f3369",
+  "sourceManifestSha256": "2713dd94bea243bfd71576878bbbb3649938703cdd04fb81ab519e9dcb851518",
+  "candidateResultSha256": "6793b846a7a2cb0ce282014758a4defa13c544c43ea81afb52c8e3537a7c37e0",
+  "productDllSha256": "c64bf0069722e28fc174d70d261b7540da6e3f74ee422d4874cbffb77149364f",
+  "candidateReportedChecks": 377,
+  "probeKeys": [
+    "status",
+    "checks",
+    "passed",
+    "assembly",
+    "assemblySha256",
+    "clock",
+    "rows",
+    "error"
+  ],
+  "candidateAccepted": false,
+  "utc": "2026-10-28T22:50:29.988893+00:00",
+  "candidateProbeAssertionsVerified": 377,
+  "candidateProbeAllPassed": true
+}

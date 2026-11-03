@@ -1,0 +1,92 @@
+{
+  "schema": "p29-review-coverage-v1",
+  "candidateBound": false,
+  "runtimeAssertions": 0,
+  "plannedSlotsAreNotExecuted": true,
+  "families": [
+    {
+      "id": "PROFILE-MAP",
+      "status": "authored-unexecuted",
+      "implemented": "2688 exact mapping slots, real bound receipt and ComposeObjects",
+      "remaining": "Candidate seals; invocation/API behavior remains unverified"
+    },
+    {
+      "id": "BODY-PIXELS",
+      "status": "authored-unexecuted",
+      "implemented": "Body command RGBA against sealed PNG hash",
+      "remaining": "Final composite buffer and occluder oracle not implemented"
+    },
+    {
+      "id": "EXACT-KEY-EXCEPTIONS",
+      "status": "authored-unexecuted",
+      "implemented": "Full sprite/key/pair mapping covers 2796 and namespace collisions",
+      "remaining": "Dedicated resource corruption namespace seam not implemented"
+    },
+    {
+      "id": "RESOURCE-INTEGRITY",
+      "status": "partial-adapter-unexecuted",
+      "implemented": "Two manifest resource byte counts and SHA",
+      "remaining": "Hash/parser faults, missing group and resource corruption injection"
+    },
+    {
+      "id": "BASE-REUSE",
+      "status": "authored-unexecuted",
+      "implemented": "Current exact profile Frame reference identity at terminal",
+      "remaining": "Missing base-key/profile mutation cancellation seam"
+    },
+    {
+      "id": "SHADOW",
+      "status": "partial-adapter-unexecuted",
+      "implemented": "Actual draw commands equal exact authenticated shadow JSON; pickup has none",
+      "remaining": "Final blended composite and opaque occluder ordering"
+    },
+    {
+      "id": "ACTIVE-WINDOWS",
+      "status": "partial-adapter-unexecuted",
+      "implemented": "672 scenario records with listed ages at direction0; double durations; Timing.Matches",
+      "remaining": "Directions1-7 not executed or looped by this adapter; immutable report assertion included"
+    },
+    {
+      "id": "PROJECTILE-DEATH",
+      "status": "partial-adapter-unexecuted",
+      "implemented": "7 synthetic hit-cache selector vectors; death ages; S87 weapon8",
+      "remaining": "3 real S30 flight vectors; event/geometry duplication"
+    },
+    {
+      "id": "SAME-GFX-WEAPON-CHANGE",
+      "status": "authored-unexecuted",
+      "implemented": "42 directed transitions and stale callback serial; mismatched cadence",
+      "remaining": "All other captured ownership dimensions remain pending"
+    },
+    {
+      "id": "BURST-CANCEL-SCHEDULER",
+      "status": "partial-adapter-unexecuted",
+      "implemented": "84 same-time double receipts/latest replacement; terminal584; 2796 late callbacks",
+      "remaining": "Full 22 cancel dimensions, clamp variants, terminal replacement"
+    },
+    {
+      "id": "NEGATIVE-SCOPE",
+      "status": "authored-unexecuted",
+      "implemented": "11 negative vectors + remote/unknown own-instance preservation",
+      "remaining": "Candidate runtime required to establish actual rejection reasons"
+    },
+    {
+      "id": "GAMEPLAY-PRESERVATION",
+      "status": "pending-adapter",
+      "implemented": "Per-receipt PickupActions only in replacement subset",
+      "remaining": "900/3000 controlled transport, quantities, input completions, item regressions"
+    },
+    {
+      "id": "EVENTS-AND-CONTROL",
+      "status": "partial-adapter-unexecuted",
+      "implemented": "0/0 body mappings and original resource identity",
+      "remaining": "audio/effect/send counter instrumentation; metadata inert execution proof"
+    },
+    {
+      "id": "LIVE-SEPARATE",
+      "status": "not-authorized",
+      "implemented": "No GUI/socket/native operations",
+      "remaining": "Explicit separate authorization and native environment required; no native claims"
+    }
+  ]
+}

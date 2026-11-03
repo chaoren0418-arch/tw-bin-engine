@@ -1,0 +1,247 @@
+{
+  "status": "independent-clean-build-and-skill-casting-checks-pass",
+  "snapshotFiles": 200,
+  "assetInputs": 13839,
+  "checks": {
+    "harness": 293,
+    "effects-regression": 368,
+    "maps-regression": 35,
+    "trade-regression": 58,
+    "service-regression": 73,
+    "casting-dom": 17,
+    "map-panel": 10,
+    "trade-dom": 19,
+    "service-dom": 24
+  },
+  "pixelFrames": 18,
+  "cleanDll": "78a5330f8595853147f1e4771b44518a25e21e1c689788e77fb7d83ecf7a2cc8",
+  "renderedScenes": [
+    {
+      "name": "effect-221-t0.png",
+      "sha256": "b76d2a00311c0d81b7e955cfe81fdd788551da9c3d80b3c78661c22b2922031c"
+    },
+    {
+      "name": "effect-221-t180.png",
+      "sha256": "b3ac3eb04774a313ede553f4989ec72eb22338919b909266b10de6e0ea7c2141"
+    },
+    {
+      "name": "effect-2165-t0.png",
+      "sha256": "96c13bd1c90a573166294c8a3de26eb88ea90219055297805af2f3d0666d0a66"
+    },
+    {
+      "name": "effect-2165-t180.png",
+      "sha256": "02342f461732994ccb3760651efa82432836b24ced5408beaa6269f5ffc15ca7"
+    }
+  ],
+  "processes": [
+    {
+      "name": "build-product",
+      "pid": 80572,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\source\\OfflineClient.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\build\\client",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 7.483283996582031
+    },
+    {
+      "name": "build-harness",
+      "pid": 87072,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\reference\\development\\skill-casting-r1\\harness\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\build\\harness",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 4.1158599853515625
+    },
+    {
+      "name": "build-effects-regression",
+      "pid": 66028,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\reference\\development\\skill-casting-r1\\effects-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\build\\effects-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.6168949604034424
+    },
+    {
+      "name": "build-maps-regression",
+      "pid": 54840,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\reference\\development\\skill-casting-r1\\maps-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\build\\maps-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.477609872817993
+    },
+    {
+      "name": "build-trade-regression",
+      "pid": 75188,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\reference\\development\\skill-casting-r1\\trade-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\build\\trade-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.605311393737793
+    },
+    {
+      "name": "build-service-regression",
+      "pid": 65648,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\reference\\development\\skill-casting-r1\\service-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\build\\service-regression",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.966829776763916
+    },
+    {
+      "name": "harness",
+      "pid": 86724,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\build\\harness\\P24.SkillCastingChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 4.533656597137451
+    },
+    {
+      "name": "effects-regression",
+      "pid": 81500,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\build\\effects-regression\\P24.MapEffectChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 14.384986162185669
+    },
+    {
+      "name": "maps-regression",
+      "pid": 61060,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\build\\maps-regression\\P24.EffectMapRegression.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 12.352744340896606
+    },
+    {
+      "name": "trade-regression",
+      "pid": 67604,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\build\\trade-regression\\P24.EffectTradeRegression.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.3549802303314209
+    },
+    {
+      "name": "service-regression",
+      "pid": 83724,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\build\\service-regression\\P24.EffectServiceRegression.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 7.210837364196777
+    },
+    {
+      "name": "casting-dom",
+      "pid": 85340,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\reference\\development\\skill-casting-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.3870382308959961
+    },
+    {
+      "name": "map-panel",
+      "pid": 82380,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\reference\\development\\maps-r1\\test_panel.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.07810688018798828
+    },
+    {
+      "name": "trade-dom",
+      "pid": 84384,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\reference\\development\\trade-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.09645962715148926
+    },
+    {
+      "name": "service-dom",
+      "pid": 81392,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能施法接線獨立審查-20261026-r2\\reference\\development\\skill-warehouse-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.10002779960632324
+    }
+  ],
+  "ui": false,
+  "live": false,
+  "fullProductComplete": false,
+  "scope": "Original skill effect frames independently compared with C# oracle; new skill scenes match fixed delivery and prior map scenes remain identical. Actual controller/status checks use synthetic replay; DOM doubles, no native UI, socket or live spell result."
+}

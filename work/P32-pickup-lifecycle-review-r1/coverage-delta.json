@@ -1,0 +1,50 @@
+{
+  "priorIndependentRows": 5196,
+  "historicalRowsAdded": 0,
+  "newDistinctCases": 196,
+  "families": {
+    "lifecycle": 39,
+    "direction-window": 105,
+    "terminal-replacement": 42,
+    "latest-eligible": 1,
+    "lease": 2,
+    "guard-isolation": 6,
+    "actor-reentry": 1
+  },
+  "windowScenarios": 105,
+  "windowAgeSamples": 315,
+  "windowDirections": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "terminalReplacementScenarios": 42,
+  "profileSelection": {
+    "mainWindow": "2796/0 all finite actions, speed0/1, captured where available and fallback",
+    "fractional": "0/0 damage fallback 583.3333333333334",
+    "terminal": "0/0 control, 2796/0 special sequence, 6658/4 general extension"
+  },
+  "spec22": {
+    "executed": 20,
+    "excluded": [
+      "missingKey/resource faults",
+      "newProjectileHit/real S30"
+    ]
+  },
+  "guardIsolation": "unsupported speed and brave retain same owner; pending appearance hits world-unavailable before appearance-pending guard",
+  "lease": "real SendGround with injected no-network completion gate; completion and exception isolation; not 900/3000 timing",
+  "counting": "each scenario chain counted once; multiple samples/frames/assertions and controls not additional cases",
+  "remaining": [
+    "all-profile cross-direction windows (representative profiles only)",
+    "resource faults",
+    "real S30 flight",
+    "final pixel composition handled separately by P31",
+    "controlled 900/3000 timing and broad authoritative quantity flow",
+    "audio/effect/send all-event instrumentation",
+    "native/GUI/live timing"
+  ]
+}

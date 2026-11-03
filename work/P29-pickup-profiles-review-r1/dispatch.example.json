@@ -1,0 +1,22 @@
+{
+  "schema": "p29-candidate-review-dispatch-v1",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "reviewRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1",
+  "baselineSha256": "ac4254ea339ed35c4257e27e955f0411c617f21698a1da5bb59330a162933024",
+  "authorization": "offline-candidate-review",
+  "candidateRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1",
+  "sourceRoot": null,
+  "artifactManifest": {
+    "path": null,
+    "sha256": null
+  },
+  "sourceManifest": {
+    "path": null,
+    "sha256": null
+  },
+  "productDll": {
+    "path": null,
+    "sha256": null
+  },
+  "note": "Template only; not executable authorization. Supervisor supplies exact pins in its own directory."
+}

@@ -1,0 +1,1531 @@
+{
+  "source": "D:\\lineage開發\\TW1608262200研究\\P13-選角與世界初始化",
+  "destination": "D:\\lineage開發\\TW1608262200研究\\主管\\P13-獨立驗收\\P13-選角與世界初始化",
+  "inputs": [
+    {
+      "path": "assets\\character\\animation.json",
+      "sha256": "5924258d20c26696951e66a6f4631a3b0e2811603a8991bce7dd75d026620541",
+      "bytes": 87909
+    },
+    {
+      "path": "assets\\character\\blocks.json",
+      "sha256": "d55a74d33667036a552b7853c7bca3e11d6b53420314fe3ede4cf82f0e7957bc",
+      "bytes": 6051324
+    },
+    {
+      "path": "assets\\character\\breath-8directions.gif",
+      "sha256": "9fa8b570744c80d9e3b2cfe64b61becbf16801b4aceca43a47c0f73054a7531a",
+      "bytes": 269099
+    },
+    {
+      "path": "assets\\character\\canvas-checks.json",
+      "sha256": "3dc85af6f02c6b80a11e7f82c1e0a01834b34734b6ae2ab92cf881d1169b21a2",
+      "bytes": 29390
+    },
+    {
+      "path": "assets\\character\\character-entry.txt",
+      "sha256": "c0e63870fee5e86ea3ac68ef66b05198672d7a70e0ed1f19bc4a3ad3f4b0c14c",
+      "bytes": 3675
+    },
+    {
+      "path": "assets\\character\\contact-sheet.png",
+      "sha256": "dec8e488bd3f14328d2b0b82138e30ff7c34aa1b330ae4719c6b7181a7be0c20",
+      "bytes": 284137
+    },
+    {
+      "path": "assets\\character\\frames\\3225-0-0.png",
+      "sha256": "49f847c9fbaa368cd696c168e6a60688f0597bc78a29f0c5eb99e54966ce6d93",
+      "bytes": 1827
+    },
+    {
+      "path": "assets\\character\\frames\\3225-0-1.png",
+      "sha256": "0a3aa11de668116804ea2043f7d1239ee7eec650e981c907817d5bb78263d5c9",
+      "bytes": 1772
+    },
+    {
+      "path": "assets\\character\\frames\\3225-0-2.png",
+      "sha256": "bdbfa79d0559fe255cda5368dee3ff5a752a89e0588d8f39f6d23f40ea29f59b",
+      "bytes": 1834
+    },
+    {
+      "path": "assets\\character\\frames\\3225-0-3.png",
+      "sha256": "ff3c609148d3c1755e0f7bd5888ac09dcb793ce3b694f2635d08e67d48bd221e",
+      "bytes": 1660
+    },
+    {
+      "path": "assets\\character\\frames\\3225-1-0.png",
+      "sha256": "ae77d0eefc11e418e590b98ff9c55e0ddfe7678719a2b1fd56df7814dfc3cb78",
+      "bytes": 1768
+    },
+    {
+      "path": "assets\\character\\frames\\3225-1-1.png",
+      "sha256": "8752fc53017fc47b53694d2bb4f23d414d5248b8ece209825d8a8d4f2621bb1a",
+      "bytes": 1665
+    },
+    {
+      "path": "assets\\character\\frames\\3225-1-2.png",
+      "sha256": "875b95e0a0b0658bf9bbd2b91d91a7e3b78aa0e2eb8f6e86f225938c3d33f63f",
+      "bytes": 1712
+    },
+    {
+      "path": "assets\\character\\frames\\3225-1-3.png",
+      "sha256": "58750ea4eecd145d6b20eeb329d0090c0bebd1ba002c1d6fbb3178d2887201db",
+      "bytes": 1674
+    },
+    {
+      "path": "assets\\character\\frames\\3225-10-0.png",
+      "sha256": "fc293344987a7015e73c5b44d85627cd1fa8d6492826e96844b5ae7392018a89",
+      "bytes": 1491
+    },
+    {
+      "path": "assets\\character\\frames\\3225-10-1.png",
+      "sha256": "32dac19bc9b9639d994edfbad47fc2490ec589d11210a6f6f5261398985b48a5",
+      "bytes": 1496
+    },
+    {
+      "path": "assets\\character\\frames\\3225-10-2.png",
+      "sha256": "2268edacfc57c6712da983ba41c7045b68b3f199dc68f1b03a29c1657fc86010",
+      "bytes": 1495
+    },
+    {
+      "path": "assets\\character\\frames\\3225-10-3.png",
+      "sha256": "9ec9bc53b6fe43269da982d303a13964e1dacf667c339935ad7c86d8441b7f34",
+      "bytes": 1475
+    },
+    {
+      "path": "assets\\character\\frames\\3225-10-4.png",
+      "sha256": "a2c586eeb08ef7f5124161454e0288a334a4a81505d4f8a970a1ec058d2b26eb",
+      "bytes": 1470
+    },
+    {
+      "path": "assets\\character\\frames\\3225-10-5.png",
+      "sha256": "65b172877595e06b28786e3bf54b5540f63bd80e361cf099f5fda6b3395810d3",
+      "bytes": 1507
+    },
+    {
+      "path": "assets\\character\\frames\\3225-10-6.png",
+      "sha256": "a6cf506ba4053dd6f81804895ba8b774e4e8e4e1403d1857ab6ca09d550f79ca",
+      "bytes": 1524
+    },
+    {
+      "path": "assets\\character\\frames\\3225-10-7.png",
+      "sha256": "9331148f70c905b299f1f92d1fe48e88b21ce394aa93bc404f4dfb1037ec814f",
+      "bytes": 1529
+    },
+    {
+      "path": "assets\\character\\frames\\3225-11-0.png",
+      "sha256": "86a41bd9e7bbb6f380e092acd332ac5f67e2a176d0ca4bebbf49c9f1d7a40fce",
+      "bytes": 1451
+    },
+    {
+      "path": "assets\\character\\frames\\3225-11-1.png",
+      "sha256": "ad11039fdeb699a7bad4f38c1412d803baa113bf2fb3256b1291663ac081da70",
+      "bytes": 1435
+    },
+    {
+      "path": "assets\\character\\frames\\3225-11-2.png",
+      "sha256": "77fb67c9cc915ef27f9bff8e407e3f617e011a134c221bf5b1a78a24a06f5426",
+      "bytes": 1444
+    },
+    {
+      "path": "assets\\character\\frames\\3225-11-3.png",
+      "sha256": "28f54e7249f1c5f7a3869c96ba98914dcf5675d8c85529898bd2417bc45e3e5f",
+      "bytes": 1419
+    },
+    {
+      "path": "assets\\character\\frames\\3225-11-4.png",
+      "sha256": "ac85cb086be130da5c9afad033d2f43ff3d7fc64fdefd949d6b2dd018299e225",
+      "bytes": 1438
+    },
+    {
+      "path": "assets\\character\\frames\\3225-11-5.png",
+      "sha256": "7a6dc153992eaa39523f0873ad690cd241864cc42c10a7c35642411b018b2617",
+      "bytes": 1457
+    },
+    {
+      "path": "assets\\character\\frames\\3225-11-6.png",
+      "sha256": "f327dec4a19863edb6a008707fe3af015dadf2111cb2cc43f5bb86dfe973fbad",
+      "bytes": 1458
+    },
+    {
+      "path": "assets\\character\\frames\\3225-11-7.png",
+      "sha256": "222e0b5160364057b3250521b09e008e87b60ff55ff8353169491dc709ede956",
+      "bytes": 1478
+    },
+    {
+      "path": "assets\\character\\frames\\3225-12-0.png",
+      "sha256": "878641ba6ee907a532c8ddfeeaf3cfb77e8dab46a2bbe47e748ab13e24c389f1",
+      "bytes": 1708
+    },
+    {
+      "path": "assets\\character\\frames\\3225-12-1.png",
+      "sha256": "5784fbc9998d46021be599b2d33191bb7f056562418acf3d621cc5772591a6c5",
+      "bytes": 1717
+    },
+    {
+      "path": "assets\\character\\frames\\3225-12-2.png",
+      "sha256": "6fd64ce5715cb9ebfec353adc65753805291472d7354247f5bd989a63ad003ba",
+      "bytes": 1694
+    },
+    {
+      "path": "assets\\character\\frames\\3225-12-3.png",
+      "sha256": "84cea6f0ae5537e8395ff82917b5358324c3287b00168c2ace97b6a2abe1073f",
+      "bytes": 1709
+    },
+    {
+      "path": "assets\\character\\frames\\3225-12-4.png",
+      "sha256": "d1991ce7ff3849551fa564cd1aa68ca03e52268eaf3aa38f08e879fe6fa42644",
+      "bytes": 1685
+    },
+    {
+      "path": "assets\\character\\frames\\3225-12-5.png",
+      "sha256": "eb30817c813dad994fb61331e14b7d44b62c2c774d07925c4b588e8574ebb6ab",
+      "bytes": 1705
+    },
+    {
+      "path": "assets\\character\\frames\\3225-12-6.png",
+      "sha256": "a415988d8082f251ea702b27df0da6e895c03b3151c1c83e1be5ef51bd55d5c6",
+      "bytes": 1707
+    },
+    {
+      "path": "assets\\character\\frames\\3225-12-7.png",
+      "sha256": "b6d13cb365587934cdd2df5a4b3c79c69b128f6684380c0867a36a365c5b8e00",
+      "bytes": 1711
+    },
+    {
+      "path": "assets\\character\\frames\\3225-13-0.png",
+      "sha256": "c30d562c1daee442c7493a5cc4dd6341c0ef0fe34c12dc4030325a72a0e6fa74",
+      "bytes": 1698
+    },
+    {
+      "path": "assets\\character\\frames\\3225-13-1.png",
+      "sha256": "b56989cd2e7f9c57fd01ba8304577c7468954e97886c4adfbfdb559bfdcf6930",
+      "bytes": 1691
+    },
+    {
+      "path": "assets\\character\\frames\\3225-13-2.png",
+      "sha256": "4c37d484c35274164ba780d85ac14865665d21a7aef0774fa99206531736f618",
+      "bytes": 1709
+    },
+    {
+      "path": "assets\\character\\frames\\3225-13-3.png",
+      "sha256": "2cc2d40d405b2103446b652030b81b0f67058cb0edf2ad34996d168708b67ffa",
+      "bytes": 1721
+    },
+    {
+      "path": "assets\\character\\frames\\3225-13-4.png",
+      "sha256": "936dc6b2f0fd7a4eeb1d511571d6d76771503eb78c19136928dc602994222a95",
+      "bytes": 1674
+    },
+    {
+      "path": "assets\\character\\frames\\3225-13-5.png",
+      "sha256": "b5a354134e907199584f520351dcbf882bbd4337a90b70d9fdb516f269749e45",
+      "bytes": 1733
+    },
+    {
+      "path": "assets\\character\\frames\\3225-13-6.png",
+      "sha256": "9b77b6d0c700a747f97fb733f9c204e5b796550a197b1baa44c2e58eb545b71f",
+      "bytes": 1686
+    },
+    {
+      "path": "assets\\character\\frames\\3225-13-7.png",
+      "sha256": "6ec6b5556061bef774dbd3072eb030d85b66a69b2c51a8af6908951f438327f0",
+      "bytes": 1682
+    },
+    {
+      "path": "assets\\character\\frames\\3225-14-0.png",
+      "sha256": "c815bf6c05e7daf78e2f61fc10d212bcee8912056646956fd21a0adf5299064b",
+      "bytes": 1695
+    },
+    {
+      "path": "assets\\character\\frames\\3225-14-1.png",
+      "sha256": "15e1051495a311bbaded1a9d15a3c8ee6e43bd481c6528dd7e72445f470443a6",
+      "bytes": 1662
+    },
+    {
+      "path": "assets\\character\\frames\\3225-14-2.png",
+      "sha256": "b7e57ce8830dae7f575e7c2f1c8f3bdaab9b2d00fe8e3e954eaf5e3385b24c4a",
+      "bytes": 1679
+    },
+    {
+      "path": "assets\\character\\frames\\3225-14-3.png",
+      "sha256": "842f2a4e610ad6c7a5bf5caafd16c7340058335b1e40ea978b71b76e65ca63e9",
+      "bytes": 1679
+    },
+    {
+      "path": "assets\\character\\frames\\3225-14-4.png",
+      "sha256": "33c2776fc9b7675ff94feca965c40cee52795ff8b4df1967bd4fbda7b8d16979",
+      "bytes": 1684
+    },
+    {
+      "path": "assets\\character\\frames\\3225-14-5.png",
+      "sha256": "17250d353466128b8a0e0d5d903a8c183b4767c9ac835bb6fa2db7254914bf56",
+      "bytes": 1678
+    },
+    {
+      "path": "assets\\character\\frames\\3225-14-6.png",
+      "sha256": "c9c3b9a9414ce0ff0dff672004faf16914d5d190f75619f87fa9cfe2db7337f3",
+      "bytes": 1677
+    },
+    {
+      "path": "assets\\character\\frames\\3225-14-7.png",
+      "sha256": "2e7297916393efb673acc4b4fea9cad377a41c754afb47483e64324e26a8f697",
+      "bytes": 1689
+    },
+    {
+      "path": "assets\\character\\frames\\3225-15-0.png",
+      "sha256": "4c51db44a57c66546fa7cedc1240904b09f4a803f99d69167a335daad9eac1e1",
+      "bytes": 1455
+    },
+    {
+      "path": "assets\\character\\frames\\3225-15-1.png",
+      "sha256": "fd26a02a04280027ab85c372cc037df159d6e7f6083c36b0428b5ebc4cd5679e",
+      "bytes": 1456
+    },
+    {
+      "path": "assets\\character\\frames\\3225-15-2.png",
+      "sha256": "9bdee7a121f49d247a19c3c6d307cc709ff9d7d397e1d76c11acb2c3c40f824d",
+      "bytes": 1468
+    },
+    {
+      "path": "assets\\character\\frames\\3225-15-3.png",
+      "sha256": "51cc8e55c699cb0c810910104627de678e057832d264c7f30df3c965dad622bc",
+      "bytes": 1473
+    },
+    {
+      "path": "assets\\character\\frames\\3225-15-4.png",
+      "sha256": "93e2feb7d64d6291b0f3416581e01e9bcde8e02aae95fe44fd96f612bb7fd7ee",
+      "bytes": 1448
+    },
+    {
+      "path": "assets\\character\\frames\\3225-15-5.png",
+      "sha256": "115338911c02662866606cefd7335f4839cb422f0b492f8433f48b83fe65a4d8",
+      "bytes": 1466
+    },
+    {
+      "path": "assets\\character\\frames\\3225-15-6.png",
+      "sha256": "d6b47e8470d50476e4a4a242439b67d5d0e564d72cc394168e534857ebb269a6",
+      "bytes": 1488
+    },
+    {
+      "path": "assets\\character\\frames\\3225-15-7.png",
+      "sha256": "55418280c456ec9f7791b5aad48c9fbc600a12fd55f22ab405b925d76e92d9b9",
+      "bytes": 1448
+    },
+    {
+      "path": "assets\\character\\frames\\3225-2-0.png",
+      "sha256": "9c85f32ec74bf8ad17d746555d6aee9da1f7a6a8ed7aa29f42e0ad4ca8277f01",
+      "bytes": 1795
+    },
+    {
+      "path": "assets\\character\\frames\\3225-2-1.png",
+      "sha256": "0abe395d7ba81c652c4531cc7e37fec49a1381fb35f30efea9e0a18137f381b0",
+      "bytes": 1568
+    },
+    {
+      "path": "assets\\character\\frames\\3225-2-2.png",
+      "sha256": "bacc04dfe85e3292e56c76818ebdb9283255c906b754febfad0e1dd2d5052eaf",
+      "bytes": 1844
+    },
+    {
+      "path": "assets\\character\\frames\\3225-2-3.png",
+      "sha256": "28c5d461477d4d31f0a08a6b12ed01f7e7d886d85d3bd56963a799017c7ce769",
+      "bytes": 1683
+    },
+    {
+      "path": "assets\\character\\frames\\3225-3-0.png",
+      "sha256": "052edeb61066dec21c73a6649ea42c41624bb45c1cb87f65e171b6af1ea4839b",
+      "bytes": 1758
+    },
+    {
+      "path": "assets\\character\\frames\\3225-3-1.png",
+      "sha256": "62eaaad2399fb1e8b454d417141b7dc1c1f826a5e2a42fb521861ba317629103",
+      "bytes": 1699
+    },
+    {
+      "path": "assets\\character\\frames\\3225-3-2.png",
+      "sha256": "00a2ba5f7d96ebdb4fa1d395eb609fc25dead43c73de39698b3f173d403bdaed",
+      "bytes": 1858
+    },
+    {
+      "path": "assets\\character\\frames\\3225-3-3.png",
+      "sha256": "53e7892ab086a21c3a46252ab749d9f01d45872ef2b33a3244ecbb86125ca1c4",
+      "bytes": 1616
+    },
+    {
+      "path": "assets\\character\\frames\\3225-4-0.png",
+      "sha256": "67b9d07755ab2578690eaed8797f0841e6c31933ef0a1f00def4a3c784f97d2c",
+      "bytes": 1750
+    },
+    {
+      "path": "assets\\character\\frames\\3225-4-1.png",
+      "sha256": "16858668116cef9c89653b09c57b336ef7ae5662bbe79ace1fbcfdf62a3f8ad2",
+      "bytes": 1846
+    },
+    {
+      "path": "assets\\character\\frames\\3225-4-2.png",
+      "sha256": "cd2eba415f7794c453488f40de40488db2f257600a75fe8910b3b1c1a77f332d",
+      "bytes": 1912
+    },
+    {
+      "path": "assets\\character\\frames\\3225-4-3.png",
+      "sha256": "194d6243184a43aaef5831474a4a0e27645624a723f84807ecfbaf9e52f2cbc9",
+      "bytes": 1815
+    },
+    {
+      "path": "assets\\character\\frames\\3225-5-0.png",
+      "sha256": "f4b78c9cd2b74fc8dff2bbfd6a28940d5906240245e2acf063f8efdc5fbd27c4",
+      "bytes": 1831
+    },
+    {
+      "path": "assets\\character\\frames\\3225-5-1.png",
+      "sha256": "e21aa60e6bd43e274c3450b72d7c5e6bbce0b8a0f22cad7a91df23cd155ebfd2",
+      "bytes": 1901
+    },
+    {
+      "path": "assets\\character\\frames\\3225-5-2.png",
+      "sha256": "53d7c1b1dfa76710ef4657e6ce684c15c6a82ffcd25d14dcd91ac9d5b46a1e94",
+      "bytes": 1808
+    },
+    {
+      "path": "assets\\character\\frames\\3225-5-3.png",
+      "sha256": "347d2419c9ca4c504cc5d6437e69e01010a1d59a4b89c3cb9fd11ca58d108ba4",
+      "bytes": 1887
+    },
+    {
+      "path": "assets\\character\\frames\\3225-6-0.png",
+      "sha256": "2a2aa324bb2014c7924d38e2bc46bc052fede1627d0997411691a29e6b3f8417",
+      "bytes": 1909
+    },
+    {
+      "path": "assets\\character\\frames\\3225-6-1.png",
+      "sha256": "40b1b9f97048fa7e530a34edf1bca2cade5f5f3662a2367e728ba4297db1d0ba",
+      "bytes": 1782
+    },
+    {
+      "path": "assets\\character\\frames\\3225-6-2.png",
+      "sha256": "1c7ef55bc2d9dc634a640484d76e44c5a5aaea9ccecae9fffa436d077d0394f8",
+      "bytes": 1872
+    },
+    {
+      "path": "assets\\character\\frames\\3225-6-3.png",
+      "sha256": "abf7129372b3c7baeaa567ab3e81611decb75bb3ac630ee7e6790449ff3dab70",
+      "bytes": 1814
+    },
+    {
+      "path": "assets\\character\\frames\\3225-7-0.png",
+      "sha256": "438c8ce861832f1fd8100de7a546d4adae6a9d41efbcc6c9dcf908be46a4d56b",
+      "bytes": 1817
+    },
+    {
+      "path": "assets\\character\\frames\\3225-7-1.png",
+      "sha256": "22beffabeda9bb5d50fd4a7211b91ccf4d876dbed82c2e9d5f7eef136d03fab1",
+      "bytes": 1655
+    },
+    {
+      "path": "assets\\character\\frames\\3225-7-2.png",
+      "sha256": "2fabdeeec3596f5f9abf40189cf4b2ed2b9e43ae6194bac3314b20dcab22f39d",
+      "bytes": 1797
+    },
+    {
+      "path": "assets\\character\\frames\\3225-7-3.png",
+      "sha256": "9b29391d07448449c952af6108e55e08f2a68b0e52f832b2321028c7921c61c1",
+      "bytes": 1729
+    },
+    {
+      "path": "assets\\character\\frames\\3225-8-0.png",
+      "sha256": "0da2bb2479195d1562fc4885b938f45f31f3dda5d7057eb87009723fe5163b0e",
+      "bytes": 1591
+    },
+    {
+      "path": "assets\\character\\frames\\3225-8-1.png",
+      "sha256": "108d170f2e58b05e7c90570d6ff648a1187c4dad9b33b3dbbcbd0bd21de81240",
+      "bytes": 1596
+    },
+    {
+      "path": "assets\\character\\frames\\3225-8-2.png",
+      "sha256": "16425fd358c99a3dc2197375440ebc27f727ecfa3a1d36cbb5f66bd1c001decb",
+      "bytes": 1591
+    },
+    {
+      "path": "assets\\character\\frames\\3225-8-3.png",
+      "sha256": "f51d3ae185246b13871c3b3ee0553ee18f53dae5b40c87d20aa3e9a3d95d0b8a",
+      "bytes": 1580
+    },
+    {
+      "path": "assets\\character\\frames\\3225-8-4.png",
+      "sha256": "e35c647966be567bd422389b402bd476a08597d8757210dd9e521a124d39dd5f",
+      "bytes": 1597
+    },
+    {
+      "path": "assets\\character\\frames\\3225-8-5.png",
+      "sha256": "4db1d91715a058d8b98edfb98de523687776da686ce2b0f066a832083ad60377",
+      "bytes": 1603
+    },
+    {
+      "path": "assets\\character\\frames\\3225-8-6.png",
+      "sha256": "f198743bf2501416600eb851a56b20ce8f144b50c8c0ac258eb5612b3595d290",
+      "bytes": 1593
+    },
+    {
+      "path": "assets\\character\\frames\\3225-8-7.png",
+      "sha256": "3d14c38cbd8aa02ccdaf3f7637bf9cd6c3cde749467179bee424a5f77cb5ecc3",
+      "bytes": 1608
+    },
+    {
+      "path": "assets\\character\\frames\\3225-9-0.png",
+      "sha256": "e21f81771fb066310f5c0ed0bd1efa44652be8b48930c6a012c734bfc304c81c",
+      "bytes": 1507
+    },
+    {
+      "path": "assets\\character\\frames\\3225-9-1.png",
+      "sha256": "5df20fba15528035482c538449d81b27ead868a0f440431ce5885c340147e231",
+      "bytes": 1516
+    },
+    {
+      "path": "assets\\character\\frames\\3225-9-2.png",
+      "sha256": "83ce9ea2dd0ec9f704861a503b8a5ce4dd9e207564ad41817f3641c83dd2b4e2",
+      "bytes": 1504
+    },
+    {
+      "path": "assets\\character\\frames\\3225-9-3.png",
+      "sha256": "9571061f23b8b105dcc0afc52bfb7df22b6f848fc7dc00472082443635e4fd1d",
+      "bytes": 1541
+    },
+    {
+      "path": "assets\\character\\frames\\3225-9-4.png",
+      "sha256": "e716f3ad9d4c73262e7fc5b4ee0157f12d1215caf2d0b8f848f998c11d494faf",
+      "bytes": 1529
+    },
+    {
+      "path": "assets\\character\\frames\\3225-9-5.png",
+      "sha256": "495ed7f50a3ebc2876cb68c1131424ef45c3e97eca3e2a5a41ae4ffaafb46088",
+      "bytes": 1511
+    },
+    {
+      "path": "assets\\character\\frames\\3225-9-6.png",
+      "sha256": "ac7bf4c60275be1c8f9243937a1bd11e1ef7a62d45be6e84ac733393a2e04568",
+      "bytes": 1528
+    },
+    {
+      "path": "assets\\character\\frames\\3225-9-7.png",
+      "sha256": "5f5761eef18877a903d7e331e7993f2dcd5c44fe62c9dff8f1415cf8385723f3",
+      "bytes": 1525
+    },
+    {
+      "path": "assets\\character\\walk-8directions.gif",
+      "sha256": "f11dc30263bcbf6484caa901140b0b35a8d8fce326ef74346514180cc5548e38",
+      "bytes": 145307
+    },
+    {
+      "path": "assets\\integrity.json",
+      "sha256": "9318962b68c42f7cdc23fd0405fa8f83434d2fa4335bd84b0b70be1507ced364",
+      "bytes": 19484
+    },
+    {
+      "path": "assets\\motion.json",
+      "sha256": "050410a887a1a825a82ca5bd596a7218216fceab25ac6d0c53d01a7d570c7c0b",
+      "bytes": 2250
+    },
+    {
+      "path": "assets\\scene\\atlas.png",
+      "sha256": "c42ad755b2c1577940e682e94c27b8f5412b9d521325ce66eac7bea006c75caf",
+      "bytes": 2878807
+    },
+    {
+      "path": "assets\\scene\\draw-commands.json",
+      "sha256": "8a37fa29c36b3a18cc77d9a398604f6b449e8185e431983ee6262f825730b09c",
+      "bytes": 1673483
+    },
+    {
+      "path": "assets\\scene\\ground-cover.png",
+      "sha256": "71c5f877c3a51ef87db23df09f606939ecc8b07b6df47bb9e5a45517bec8caf1",
+      "bytes": 3205129
+    },
+    {
+      "path": "assets\\scene\\ground.png",
+      "sha256": "71c5f877c3a51ef87db23df09f606939ecc8b07b6df47bb9e5a45517bec8caf1",
+      "bytes": 3205129
+    },
+    {
+      "path": "assets\\scene\\manifest.json",
+      "sha256": "0204d7ba1019405bc7b5eef93b775dd79d0c80142f2fcbbf2c627afdc5c75bee",
+      "bytes": 42478
+    },
+    {
+      "path": "assets\\scene\\map.json",
+      "sha256": "bc15eb9bc98499b56331c79534851b313573333fd499a0e192a07de9188097ae",
+      "bytes": 2580835
+    },
+    {
+      "path": "assets\\scene\\objects.png",
+      "sha256": "88f571ed2bec1543c59cafc4102ac0aa0e4c818ff548901380f32b77b0347eb7",
+      "bytes": 1251068
+    },
+    {
+      "path": "assets\\scene\\overview.png",
+      "sha256": "aa80e818ad84203729346e0adfcbf47b36cf44145aafbb53d1ed8ef2e6c09fb5",
+      "bytes": 931198
+    },
+    {
+      "path": "assets\\scene\\region.png",
+      "sha256": "6a6d8aa869f92b3490bd2f12c6b930703c58e5c23ffc967bac8e4df42288e407",
+      "bytes": 3671212
+    },
+    {
+      "path": "assets\\scene\\region.rgb555",
+      "sha256": "791e2ecf7369707538bccc1c1b453a9b8513b6e8fd7a81c40f274451f6c7c59c",
+      "bytes": 10027008
+    },
+    {
+      "path": "assets\\scene\\tile-pixels.json",
+      "sha256": "471924fd9ad06720c1b82a4bdbc0531979fe80df9c6024acee8eb832eead2a88",
+      "bytes": 19433118
+    },
+    {
+      "path": "assets\\scene\\tiles.json",
+      "sha256": "268ff3a7bb95da17b6f24f26c2c4d508ba4fb2026715d506ea7272458decfefe",
+      "bytes": 2429557
+    },
+    {
+      "path": "build.ps1",
+      "sha256": "3e7314e745a880ef22a1eb4482524475abfefb5288f7f213e390550797840f5e",
+      "bytes": 1629
+    },
+    {
+      "path": "fixtures\\golden.json",
+      "sha256": "cc5c480d458431211c6f6c8f8af199a1a6e70ed1f8c123119faa2bbf32f2bab6",
+      "bytes": 13379
+    },
+    {
+      "path": "global.json",
+      "sha256": "fe15c79ed27b7261f804746cdb9b8343003b2ecbdbc1cde8cd34e0eda4149921",
+      "bytes": 55
+    },
+    {
+      "path": "NuGet.Config",
+      "sha256": "cc788835ce0c5a61d0fb15e76724ceaaad2b778a8b89847a3a581967d7c520f9",
+      "bytes": 153
+    },
+    {
+      "path": "reference\\character-fixture.sql",
+      "sha256": "d6457c3937cde04cc91a27583e44fe3b4d0a3708acf9a5ded4203be3da61641b",
+      "bytes": 435
+    },
+    {
+      "path": "reference\\class-bytes\\config.ConfigClient.class",
+      "sha256": "41e64079c0ed8789518bfb00b7d1a1e6c89ee383d1087bc212dcb2b50d98440f",
+      "bytes": 1387
+    },
+    {
+      "path": "reference\\class-bytes\\echo.encryptions.Blowfish.class",
+      "sha256": "c2f92c1dfd74fc1d6c17ccb115f0f87da91a39cd1ad5f85e55ff7c66cb72831a",
+      "bytes": 19938
+    },
+    {
+      "path": "reference\\class-bytes\\echo.encryptions.Encryption.class",
+      "sha256": "e6c696051744168650f14bb3c67cd94b722d3a99935eba18adc92a303746c2d4",
+      "bytes": 3892
+    },
+    {
+      "path": "reference\\class-bytes\\echo.OpcodesClient.class",
+      "sha256": "6d1b160c0b381a56d7897c678a1f8bb5029ebb13417b052401092058aba5be5c",
+      "bytes": 5144
+    },
+    {
+      "path": "reference\\class-bytes\\echo.PacketHandler.class",
+      "sha256": "57e1e727935beb67d8a923c40c61656218ca8832ea13d04c98cdd18a878910e1",
+      "bytes": 13382
+    },
+    {
+      "path": "reference\\class-bytes\\echo.SessionPacketPolicy.class",
+      "sha256": "3714f31e54a53f0c89891c850429f2bcd97ad8a952a4ad7006ca89c7cc7cec05",
+      "bytes": 2821
+    },
+    {
+      "path": "reference\\class-bytes\\netty.codec.L1CipherEncoder.class",
+      "sha256": "95631c599ab651a65b612ba861d27dedcc220043af76e58561ef98b0096e32ce",
+      "bytes": 3474
+    },
+    {
+      "path": "reference\\class-bytes\\netty.handler.L1HandshakeHandler.class",
+      "sha256": "5335e6c20db9bb5480b95f271a5050f1efcdaeb1f6bdc2ac74c0954e59d5f3c4",
+      "bytes": 13275
+    },
+    {
+      "path": "reference\\class-bytes\\netty.NettyChannelInitializer.class",
+      "sha256": "7519b1311b0761253ac821e5b28e9d5b80cbb87c7b5a53728cb4ddceef9e07ad",
+      "bytes": 2393
+    },
+    {
+      "path": "reference\\class-bytes\\server.clientpackets.C_AuthLogin.class",
+      "sha256": "ea59837424753d59754024d8cc4cbc457eb006775043f60927261ff4b8f3d481",
+      "bytes": 13883
+    },
+    {
+      "path": "reference\\class-bytes\\server.clientpackets.C_CommonClick.class",
+      "sha256": "42d0d979d67e47b2f557d26862ae20768717252ec46d7224d9b9f145b1a0219f",
+      "bytes": 7426
+    },
+    {
+      "path": "reference\\class-bytes\\server.clientpackets.ClientBasePacket.class",
+      "sha256": "0e955e54fae4d19bab197b95c02b4d003da5a03b6ea438b72c223599b661b451",
+      "bytes": 3689
+    },
+    {
+      "path": "reference\\class-bytes\\server.clientpackets.ClientPacketStructure.class",
+      "sha256": "f9235526701216be001bea37247f3a0bb55e868a1139c6db4c7e32e38fa85aa7",
+      "bytes": 6155
+    },
+    {
+      "path": "reference\\class-bytes\\server.serverpackets.OpcodesServer.class",
+      "sha256": "e38b4f92b2728287dd5ae1741dc7d0bbd4a2ca78bc6739f9b634609427a40b1d",
+      "bytes": 5069
+    },
+    {
+      "path": "reference\\class-bytes\\server.serverpackets.S_CharAmount.class",
+      "sha256": "5957e1a5e853b2237475dc556603bc44578f253451d8ff6ba739335e4bed0eeb",
+      "bytes": 1457
+    },
+    {
+      "path": "reference\\class-bytes\\server.serverpackets.S_CharPacks.class",
+      "sha256": "f43b5d28aee68a405776f6072e5226fa16a86f3f0c340d554cbd7d6f35d83caf",
+      "bytes": 1903
+    },
+    {
+      "path": "reference\\class-bytes\\server.serverpackets.S_CommonNews.class",
+      "sha256": "ac035576d36c2607ad803664f48ef6adf2a878e46341146e7444569aa856571f",
+      "bytes": 2290
+    },
+    {
+      "path": "reference\\class-bytes\\server.serverpackets.S_LoginResult.class",
+      "sha256": "fee0fa4da638e2756644d0c27a14bc010c1121ac850f9790d2b913cf0d4e6aec",
+      "bytes": 1801
+    },
+    {
+      "path": "reference\\class-bytes\\server.serverpackets.ServerBasePacket.class",
+      "sha256": "cbfbc11d757d8a96edf432fdfd852aaf7b19e380535ab2d494d5e1a66a44833b",
+      "bytes": 12474
+    },
+    {
+      "path": "reference\\class-manifest.json",
+      "sha256": "aeae0f908730dd303f3c95354c5c13c0f98072ad411ba6007bb901f556956311",
+      "bytes": 4386
+    },
+    {
+      "path": "reference\\config.ConfigClient.javap.txt",
+      "sha256": "2df2df6a5a6b147e21f8a0053ecf17abafe1447d25cbb99fa7354d44b27ada71",
+      "bytes": 1851
+    },
+    {
+      "path": "reference\\echo.encryptions.Blowfish.javap.txt",
+      "sha256": "1bf51b6756a1ea9fb1c181bd65055f63ac62353dcc42bae80c2cc25693e1a865",
+      "bytes": 146517
+    },
+    {
+      "path": "reference\\echo.encryptions.Encryption.javap.txt",
+      "sha256": "89e91550e8950293231663cfb1bf82b83b0ba9a69dcdb4387d0d10a4e8d4b555",
+      "bytes": 18561
+    },
+    {
+      "path": "reference\\echo.OpcodesClient.javap.txt",
+      "sha256": "650ca3f7558f5d5b4b3916f61afe3dbdfff52087349456b2e1a057299bc4f70e",
+      "bytes": 7992
+    },
+    {
+      "path": "reference\\echo.PacketHandler.javap.txt",
+      "sha256": "15a508c48f4870295aa8740894d6f7a8ba4fe92557381a5078b50dbf616a6cee",
+      "bytes": 69934
+    },
+    {
+      "path": "reference\\echo.SessionPacketPolicy.javap.txt",
+      "sha256": "acd42d5faaa7bbc3b5c879cef53329bee95d01c285624e82e5d0bd3ea8c8cd9f",
+      "bytes": 13024
+    },
+    {
+      "path": "reference\\JarOracle.java",
+      "sha256": "453d76eb2820791cc1549bb17d24a2525d9df323930655bcc7591b6c0227c5d1",
+      "bytes": 6369
+    },
+    {
+      "path": "reference\\lib\\log4j-api-2.22.1.jar",
+      "sha256": "5d7beae7ff15d8516d6517121d7f12a79a6ac180df64b5fcec55d5be21056e53",
+      "bytes": 335001
+    },
+    {
+      "path": "reference\\lib\\log4j-core-2.22.1.jar",
+      "sha256": "46dccecac556623d8e2ce8648496824a82951d139062a4e61148aff1a25ed18d",
+      "bytes": 1900022
+    },
+    {
+      "path": "reference\\lib\\log4j-slf4j-impl-2.22.1.jar",
+      "sha256": "05e6b1a44022d9a30c4dd592c5ebd62309a857bdc6ccfd2f41a3e7495f5ec8b3",
+      "bytes": 24583
+    },
+    {
+      "path": "reference\\lib\\netty-buffer-4.1.104.Final.jar",
+      "sha256": "1e5361d1371ae75836717a22d0b0fba8393ef3ddb345abd7581c97c37aeac568",
+      "bytes": 307707
+    },
+    {
+      "path": "reference\\lib\\netty-codec-4.1.104.Final.jar",
+      "sha256": "36d9840e76de66fbf60da20d740b3974a3545b0a4d68a16a7c19ae998f541098",
+      "bytes": 345299
+    },
+    {
+      "path": "reference\\lib\\netty-common-4.1.104.Final.jar",
+      "sha256": "b98b35afc0c704039dc636c5531583e3100c65e1c6bbf1b109761324bbedb06a",
+      "bytes": 660541
+    },
+    {
+      "path": "reference\\lib\\netty-handler-4.1.104.Final.jar",
+      "sha256": "4c30c26d158fbf6dcebb54f8524e902a0df4fc6157f597af96a27f5459f7d046",
+      "bytes": 561477
+    },
+    {
+      "path": "reference\\lib\\netty-resolver-4.1.104.Final.jar",
+      "sha256": "7d1cf459a1094cdefdae457686118d9dcc00d96b0ad1cea798483a43ffca1064",
+      "bytes": 37791
+    },
+    {
+      "path": "reference\\lib\\netty-transport-4.1.104.Final.jar",
+      "sha256": "28fd78156e8908146e66d247985aa5018a4bce9503c5b3d883481448b23270d3",
+      "bytes": 496582
+    },
+    {
+      "path": "reference\\lib\\Server_Game.jar",
+      "sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+      "bytes": 6928681
+    },
+    {
+      "path": "reference\\log4j2.xml",
+      "sha256": "3056cb40871b649e05705270884be5ef1184f5487dbfa321b8bf39cae42f8eb1",
+      "bytes": 243
+    },
+    {
+      "path": "reference\\netty.codec.L1CipherEncoder.javap.txt",
+      "sha256": "6688644472947a425342f4c915c949ccf2c14d387f3795b6a2cddd4126b7737e",
+      "bytes": 6400
+    },
+    {
+      "path": "reference\\netty.handler.L1HandshakeHandler.javap.txt",
+      "sha256": "b81e7bec19190ba0615bf35113d3cd525a8f43e12eac21c4a04f9931b9f2a063",
+      "bytes": 50637
+    },
+    {
+      "path": "reference\\netty.NettyChannelInitializer.javap.txt",
+      "sha256": "06fa3ecf9623cf8efbad2d25b1a1d31e6ddbced2ee457cd55a7c6da5676971a7",
+      "bytes": 5344
+    },
+    {
+      "path": "reference\\NettySliceOracle.java",
+      "sha256": "f0c5a54a7232ae6bc17ae8818b28123323d46de25d952ae66146e40121064cb4",
+      "bytes": 2663
+    },
+    {
+      "path": "reference\\oracle-vectors.tsv",
+      "sha256": "41f31b74e34cf9114d0f4b85a2cecd1179a54b6848e71e03e889ec848842b1c6",
+      "bytes": 4696
+    },
+    {
+      "path": "reference\\p09-to-p11.diff",
+      "sha256": "bf67f69f44f8da7d9162701ed3ed9d52c4063ce34ba4fcb0c7553732883b2cb9",
+      "bytes": 33993
+    },
+    {
+      "path": "reference\\p12-account-character-schema.txt",
+      "sha256": "18e01897931bf13a9a20cd59d11216a300895510445db75835f410f556fe2e69",
+      "bytes": 4541
+    },
+    {
+      "path": "reference\\p12-migration.sql",
+      "sha256": "1a7871edca4b53294d68724f0d114649a5b5904da35962f122d29ba1dc76539a",
+      "bytes": 65998
+    },
+    {
+      "path": "reference\\p12-preview.sql",
+      "sha256": "97427a3c5bd4232d1e82e211b0adb56dd645bcb0160087dff51a36693532e3bd",
+      "bytes": 65794
+    },
+    {
+      "path": "reference\\p12-recovered-column-map.json",
+      "sha256": "18e5f9a08857e31ff63c0c71e1ab8b76e7aa1574f141f63b0b6062205ba2ffbd",
+      "bytes": 35830
+    },
+    {
+      "path": "reference\\p13-migration.sql",
+      "sha256": "e8d3694e7b7f3a3eda61dcf8c5c3f30485535661130c1bb41aee10cffa6d4b32",
+      "bytes": 65998
+    },
+    {
+      "path": "reference\\p13-preview.sql",
+      "sha256": "312db79cbef468d39713e5fe2ba36d4f8a9e6b733ad5974663504c4f5712db01",
+      "bytes": 65794
+    },
+    {
+      "path": "reference\\p13-recovered-column-map.json",
+      "sha256": "18e5f9a08857e31ff63c0c71e1ab8b76e7aa1574f141f63b0b6062205ba2ffbd",
+      "bytes": 35830
+    },
+    {
+      "path": "reference\\read-snapshots\\config.ConfigClient.java",
+      "sha256": "798b3978b9bafc33d2bca7d1f5664dd932b4b592a7a2e44c2c06828c59038f8f",
+      "bytes": 1207
+    },
+    {
+      "path": "reference\\read-snapshots\\echo.encryptions.Blowfish.java",
+      "sha256": "1a7e5f645286b35b3bb718d6b1a2d3cdd2a03f9314b199bf16972578551a7746",
+      "bytes": 18404
+    },
+    {
+      "path": "reference\\read-snapshots\\echo.encryptions.Encryption.java",
+      "sha256": "ee1ad689385c1734e41f325681ca207e3be6424b7f88c4186fb6250660a9cb4d",
+      "bytes": 5555
+    },
+    {
+      "path": "reference\\read-snapshots\\echo.OpcodesClient.java",
+      "sha256": "3b9df4518cad4ab3021d7a6454f88fe4513bd715eb3eb461ffaa873a64fe8931",
+      "bytes": 9133
+    },
+    {
+      "path": "reference\\read-snapshots\\echo.PacketHandler.java",
+      "sha256": "001014e4f858abaef5734efe558d1759f97f85d4314d27bd44fefd72d4b3cd30",
+      "bytes": 17584
+    },
+    {
+      "path": "reference\\read-snapshots\\echo.SessionPacketPolicy.java",
+      "sha256": "e6b33150986f64550a1f02b148c68fc27f5085b41179d2796aac833a80dce8b2",
+      "bytes": 3959
+    },
+    {
+      "path": "reference\\read-snapshots\\netty.codec.L1CipherEncoder.java",
+      "sha256": "136f4d9ecc545281dd5cd6a06f99b1be542895a6a675172bc134baef913bbd25",
+      "bytes": 2695
+    },
+    {
+      "path": "reference\\read-snapshots\\netty.handler.L1HandshakeHandler.java",
+      "sha256": "afbd4aaa76d3638a8f7bc27d9f661d8e1db11830f47077654e82e78b8393b2e4",
+      "bytes": 14865
+    },
+    {
+      "path": "reference\\read-snapshots\\netty.NettyChannelInitializer.java",
+      "sha256": "133ba347c2ba26f1ef0365fb2895928450ef4091106c969a883836bedb0b4624",
+      "bytes": 1974
+    },
+    {
+      "path": "reference\\read-snapshots\\P07-測試通訊-format-and-state.md",
+      "sha256": "7df2210d35b397e34b3fa14d430c4f9c02b01c7b042634801e39209665914dc9",
+      "bytes": 7690
+    },
+    {
+      "path": "reference\\read-snapshots\\P07-測試通訊-selection.md",
+      "sha256": "f1a63778da419d0089c6723639cb22b0ae76615aa814bec1c7b3e6e72d5fd5b8",
+      "bytes": 2813
+    },
+    {
+      "path": "reference\\read-snapshots\\P10-舊版完整流程基準-actual-Server-javap.txt",
+      "sha256": "9c28ad446d027e43d9401d68f6f0a355af593ef86317dc9060d33ac88c9acf32",
+      "bytes": 13926
+    },
+    {
+      "path": "reference\\read-snapshots\\P10-舊版完整流程基準-engine-gap-matrix.md",
+      "sha256": "fe360d91e6d0a4a0483d6dad5a00b65610399fe5eff5d2795d95fc8e990ee884",
+      "bytes": 3143
+    },
+    {
+      "path": "reference\\read-snapshots\\P10-舊版完整流程基準-HANDOFF.md",
+      "sha256": "9993371c827bc057cc84e33896aac0e6e66d09ea5c6c3a30a6031f4c8fb82340",
+      "bytes": 6175
+    },
+    {
+      "path": "reference\\read-snapshots\\P10-舊版完整流程基準-native-argument-emulation.json",
+      "sha256": "3f119b603a17f92e0604ef0909d8a30f896e56887623bfba04a4126d12673cec",
+      "bytes": 2715
+    },
+    {
+      "path": "reference\\read-snapshots\\P10-舊版完整流程基準-native-launch-review.json",
+      "sha256": "342217bdba2e7d502975e745b56ef5ff47736e6798c9b328006dd14a50ba9c0c",
+      "bytes": 2338
+    },
+    {
+      "path": "reference\\read-snapshots\\server.clientpackets.C_AuthLogin.java",
+      "sha256": "1902f2244a893eaa8e9a434ce4293a3cbdfa460a5bef7e8210c8696d428bfaa1",
+      "bytes": 15881
+    },
+    {
+      "path": "reference\\read-snapshots\\server.clientpackets.C_CommonClick.java",
+      "sha256": "931376b9fe56edc6d222aa00fc2a4aa843a091ff7d224d868f5b3739530f259f",
+      "bytes": 4974
+    },
+    {
+      "path": "reference\\read-snapshots\\server.clientpackets.ClientBasePacket.java",
+      "sha256": "83b48cc84680c6238d2491c71a776ec5beb542c39b6232f3a1b4e620aaf77636",
+      "bytes": 3788
+    },
+    {
+      "path": "reference\\read-snapshots\\server.clientpackets.ClientPacketStructure.java",
+      "sha256": "759a39366d2b8fd2d1972bfc74e50fb9bffa30a9910fe5773fd08a47d542551d",
+      "bytes": 10434
+    },
+    {
+      "path": "reference\\read-snapshots\\server.serverpackets.OpcodesServer.java",
+      "sha256": "9044cb98cf8a0548a421fbb05e6cdcef26147b2a2b85a1ef896fde8a8016f152",
+      "bytes": 8767
+    },
+    {
+      "path": "reference\\read-snapshots\\server.serverpackets.S_CharAmount.java",
+      "sha256": "5d1aba56407fad1d758ed9fa240be6d44ef5c2ad4d70450bfdad00142d7f97a8",
+      "bytes": 1122
+    },
+    {
+      "path": "reference\\read-snapshots\\server.serverpackets.S_CharPacks.java",
+      "sha256": "25020fc64589a38f32ad63b6c75b07d2dd360a76bdcca14a0b0f465ed8555f99",
+      "bytes": 2144
+    },
+    {
+      "path": "reference\\read-snapshots\\server.serverpackets.S_CommonNews.java",
+      "sha256": "3761de2cee68f46dbd351c264fd58eee9510ec978cf87cc11c275acefc3b8434",
+      "bytes": 1037
+    },
+    {
+      "path": "reference\\read-snapshots\\server.serverpackets.S_LoginResult.java",
+      "sha256": "e821e56d72478a893518d754fe7d79812be558b5fdf47fea01b7d4e1882590ba",
+      "bytes": 3156
+    },
+    {
+      "path": "reference\\read-snapshots\\server.serverpackets.ServerBasePacket.java",
+      "sha256": "3348c199e9694bd1eec050b130f28ab99590cae16f0047964c17b32df309a439",
+      "bytes": 15211
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.echo.ClientExecutor.java",
+      "sha256": "1424f1ef9b4b0372666834e4587caaa3f9c362b23b6688bde66b3bec9adc8c6c",
+      "bytes": 23538
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.echo.ClientExecutor.javap.txt",
+      "sha256": "461bf3880b6d8ba36b6f6f4d2c571f5211962e1940d032760e01b1b52705159d",
+      "bytes": 92084
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.list.OnlineUser.java",
+      "sha256": "deacf95c21c38c06a8895b3bcccea8c97afcd3b21beebcad70050651131daf08",
+      "bytes": 4492
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.list.OnlineUser.javap.txt",
+      "sha256": "4f48bc66f4fa351996262101336115bccd29a0bbc843014dab6ac52fd31ab6c2",
+      "bytes": 11805
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.clientpackets.C_AuthLogin.java",
+      "sha256": "1902f2244a893eaa8e9a434ce4293a3cbdfa460a5bef7e8210c8696d428bfaa1",
+      "bytes": 15881
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.clientpackets.C_AuthLogin.javap.txt",
+      "sha256": "c3628a0ba348643ab00ad20c8adb55d0fd4e5f8070365e6ff6d785d81505e3c4",
+      "bytes": 63943
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.clientpackets.C_CommonClick.java",
+      "sha256": "931376b9fe56edc6d222aa00fc2a4aa843a091ff7d224d868f5b3739530f259f",
+      "bytes": 4974
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.clientpackets.C_CommonClick.javap.txt",
+      "sha256": "7580bdfee96c8ceb8e3e6b4d8162900f3c5ee41df864c9859642cc3aeb7f0d70",
+      "bytes": 28152
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.CmdEcho.java",
+      "sha256": "b91d54a1bd935a151473e3d9389c29004b050aaf07370769624e89428fd80a81",
+      "bytes": 4200
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.CmdEcho.javap.txt",
+      "sha256": "a6492180fe6b090b00678c3bc218f6a884a6cd84bbc3e5b31ae77975bee77897",
+      "bytes": 14649
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.command.executor.L1Shutdown.java",
+      "sha256": "baa3eaf02369a7db8af6e6c41ab68e0525b217dbfccbb8d2d7fa1718370b033a",
+      "bytes": 1543
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.command.executor.L1Shutdown.javap.txt",
+      "sha256": "fe813d44477c373b6fbb84a7faea6a197dca63d6ee4c7c4e22390d8c5d5f7cb8",
+      "bytes": 5505
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.datatables.user.AccountTable.java",
+      "sha256": "a4212aa4ac4384e1a2b067e20e30adfc0b56cab1b5b951f12dfd59c287bfd263",
+      "bytes": 9545
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.datatables.user.AccountTable.javap.txt",
+      "sha256": "d4cd7aba690b5f44e95eaff75d0e2ca7cc842925a43c913c5a4a2e88c301474c",
+      "bytes": 48569
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.model.AccountPersistenceService.java",
+      "sha256": "ad8291b760678ae6d69bbf330b70210e5392cc82d605e11499ca6d9c67dc070a",
+      "bytes": 12612
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.model.AccountPersistenceService.javap.txt",
+      "sha256": "48a563a94d5b99e1b4db690ac7e9ffcf7845a8b9e90cc6895174fd7e8a2b7938",
+      "bytes": 67902
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.model.CharacterPersistenceService.java",
+      "sha256": "3eac3349eb060a45a3e513d80bc08b2e33fcdcef2783ca6252f4b94adb0a557f",
+      "bytes": 42527
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.model.CharacterPersistenceService.javap.txt",
+      "sha256": "6559b8a8dc908f2fedd042b29505afb6f6ce0e090f857fb95bceeda96b4faef1",
+      "bytes": 183395
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.monitor.ServerMetricsCoordinator.java",
+      "sha256": "2ba576ce9679cc61aa822609c50f17f8ec514d4ada771ba6cbc0420529120440",
+      "bytes": 8355
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.monitor.ServerMetricsCoordinator.javap.txt",
+      "sha256": "e5b8fe9cbafb4b7625feeb267c4ee25fc59a19b1ede768096a05485a9150ae51",
+      "bytes": 14197
+    },
+    {
+      "path": "reference\\real-server\\com.lineage.server.Shutdown.java",
+      "sha256": "ba85abeb5c3f73b3be2f89d959ae1b9dbea47c39208b5b107cd95d0f6cde78b1",
+      "bytes": 36375
+    },
+    {
+      "path": "reference\\real-server\\source-manifest.json",
+      "sha256": "0918522473b564dcd2aa008b8e9b8a13e80410e9e59a8dcf6ef69f14ab845783",
+      "bytes": 2152
+    },
+    {
+      "path": "reference\\server.clientpackets.C_AuthLogin.javap.txt",
+      "sha256": "7fd16322daac488f0eecdc2486a4d0190068ed77fbf0ec2b62a9e3cf7d467184",
+      "bytes": 64185
+    },
+    {
+      "path": "reference\\server.clientpackets.C_CommonClick.javap.txt",
+      "sha256": "7580bdfee96c8ceb8e3e6b4d8162900f3c5ee41df864c9859642cc3aeb7f0d70",
+      "bytes": 28152
+    },
+    {
+      "path": "reference\\server.clientpackets.ClientBasePacket.javap.txt",
+      "sha256": "1641062110b6bd77f3f2beb52778725f86eae1a5369d747364226c0eb9568813",
+      "bytes": 12202
+    },
+    {
+      "path": "reference\\server.clientpackets.ClientPacketStructure.javap.txt",
+      "sha256": "d8186455bdcd991c8d62afde5281bf61c11c1d3cd0365439e1933faea12c3705",
+      "bytes": 34271
+    },
+    {
+      "path": "reference\\server.serverpackets.OpcodesServer.javap.txt",
+      "sha256": "884d0de9166544e1e7e676062c73a1ac95c470d3d00ef8a93712049ecc92e8b9",
+      "bytes": 6451
+    },
+    {
+      "path": "reference\\server.serverpackets.S_CharAmount.javap.txt",
+      "sha256": "1f214e62f48e5a6bf9d86ab72bec3f0a157802bb6019a592a4fa4b1bc4ff0484",
+      "bytes": 2422
+    },
+    {
+      "path": "reference\\server.serverpackets.S_CharPacks.javap.txt",
+      "sha256": "46e229a83cab76d9c6225512b43da7722e1cbde1d45984cbffe1a5fc133e830b",
+      "bytes": 6168
+    },
+    {
+      "path": "reference\\server.serverpackets.S_CommonNews.javap.txt",
+      "sha256": "bd206ad272b255861d9d9c87b4f985a11ed525aa41ecc86cc9061843a53d27f0",
+      "bytes": 3712
+    },
+    {
+      "path": "reference\\server.serverpackets.S_LoginResult.javap.txt",
+      "sha256": "71966d55e03fbec06f6647e7f1c4e5366489e18f899c090585d19620983bebaf",
+      "bytes": 2948
+    },
+    {
+      "path": "reference\\server.serverpackets.ServerBasePacket.javap.txt",
+      "sha256": "93adf09233e05b7c2e09ad7d70e1e1b115639397e918c46aa3701ad8304ab96d",
+      "bytes": 46100
+    },
+    {
+      "path": "reference\\source-manifest.json",
+      "sha256": "5c2060046fe36341dc8d0615ef1c95db158af4bfe88a744d922a6de3c12a19fe",
+      "bytes": 44824
+    },
+    {
+      "path": "reference\\world\\asset-mapping.json",
+      "sha256": "a25156fae1c8e45fb9f45f7b1f68c0e805004e45cba2c87e3e2f4745eaf5b161",
+      "bytes": 435
+    },
+    {
+      "path": "reference\\world\\com.lineage.echo.OpcodesClient.java",
+      "sha256": "3b9df4518cad4ab3021d7a6454f88fe4513bd715eb3eb461ffaa873a64fe8931",
+      "bytes": 9133
+    },
+    {
+      "path": "reference\\world\\com.lineage.echo.OpcodesClient.javap.txt",
+      "sha256": "953bd9bcbe67a66f5d24095abb2de62d0624a3e50862a8ccdef5b0ce4f4b0cfe",
+      "bytes": 7981
+    },
+    {
+      "path": "reference\\world\\com.lineage.echo.PacketHandler.java",
+      "sha256": "001014e4f858abaef5734efe558d1759f97f85d4314d27bd44fefd72d4b3cd30",
+      "bytes": 17584
+    },
+    {
+      "path": "reference\\world\\com.lineage.echo.PacketHandler.javap.txt",
+      "sha256": "15a508c48f4870295aa8740894d6f7a8ba4fe92557381a5078b50dbf616a6cee",
+      "bytes": 69934
+    },
+    {
+      "path": "reference\\world\\com.lineage.echo.SessionPacketPolicy.java",
+      "sha256": "e6b33150986f64550a1f02b148c68fc27f5085b41179d2796aac833a80dce8b2",
+      "bytes": 3959
+    },
+    {
+      "path": "reference\\world\\com.lineage.echo.SessionPacketPolicy.javap.txt",
+      "sha256": "6d15f4bfd0471c760433668163741ffd5dc101d644ba61c35fd96a756f649185",
+      "bytes": 12764
+    },
+    {
+      "path": "reference\\world\\com.lineage.echo.SessionPhaseGate.java",
+      "sha256": "26d02a6398b4e25b007f21ae565493150d194303fa4ea0d9b798a3eacdd6be61",
+      "bytes": 15939
+    },
+    {
+      "path": "reference\\world\\com.lineage.echo.SessionPhaseGate.javap.txt",
+      "sha256": "aa37a05d4efb16d930647189c1dd2bb28bb6ed8d5d29b64f68b03c77bc0bb073",
+      "bytes": 43404
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.clientpackets.C_KeepALIVE.java",
+      "sha256": "d5c68dfc1d2711f9209a654bb6a0da3465360e03f0abafcfe75d3f2d2db3cd85",
+      "bytes": 2248
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.clientpackets.C_KeepALIVE.javap.txt",
+      "sha256": "b4d8a7e90e7cbb957501785deb9e75c99101d88a745a746d24f92858c47fe520",
+      "bytes": 6271
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.clientpackets.C_LoginToServer.java",
+      "sha256": "437bdd8fdb9ab6a855ac6cc7770024bf0dfc99bee836e5b36fe2e53322073d4a",
+      "bytes": 47096
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.clientpackets.C_LoginToServer.javap.txt",
+      "sha256": "44c49c39088dfe7e37e337b5dde7d80d0b34c6d0cdd56504e99510c78dac2976",
+      "bytes": 168800
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.clientpackets.C_LoginToServerOK.java",
+      "sha256": "59461309d595f1118073a49cc338dce7a6c2fc9f034f1b3007063ba629c0d151",
+      "bytes": 2373
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.clientpackets.C_LoginToServerOK.javap.txt",
+      "sha256": "0b2af98ac736135ce8a3e88f6b87f21a1cb944b1ab3f42534060f668453c65ed",
+      "bytes": 6347
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.datatables.user.CharacterTable.java",
+      "sha256": "246e56d7ee72461e45fab843d159ba800348dc4898bb2c149ea45fb48de3a0c5",
+      "bytes": 30716
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.datatables.user.CharacterTable.javap.txt",
+      "sha256": "586199c62af0fb71a82523a5956d52d5a8675b64e1c736d3288dd286a6f1e319",
+      "bytes": 126788
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.model.CharacterPersistenceService.java",
+      "sha256": "3eac3349eb060a45a3e513d80bc08b2e33fcdcef2783ca6252f4b94adb0a557f",
+      "bytes": 42527
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.model.CharacterPersistenceService.javap.txt",
+      "sha256": "7143b1ff11e397619cbcd6aaad34decb91ef5a97535b6ad342234b69691ffaa7",
+      "bytes": 186363
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.OpcodesServer.java",
+      "sha256": "9044cb98cf8a0548a421fbb05e6cdcef26147b2a2b85a1ef896fde8a8016f152",
+      "bytes": 8767
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.OpcodesServer.javap.txt",
+      "sha256": "884d0de9166544e1e7e676062c73a1ac95c470d3d00ef8a93712049ecc92e8b9",
+      "bytes": 6451
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.S_EnterGame.java",
+      "sha256": "e0028828980e665ce86d75f055cd17aad11cb3e629ba49f6633e54d156e1891f",
+      "bytes": 902
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.S_EnterGame.javap.txt",
+      "sha256": "8af6fdb20cbc0ecc98e7debb2f3b0d81e0df960658ecb932436b9bf4562e6e5f",
+      "bytes": 2232
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.S_GameTime.java",
+      "sha256": "14c950e819c2e9cc4a02835e85509929feeb788c56127404e9a2f008d15039ef",
+      "bytes": 703
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.S_GameTime.javap.txt",
+      "sha256": "302637d4c61c87a42d21bfdbbf023061f0c4042d2b188d745ef11950bb9ff45e",
+      "bytes": 1913
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.S_HPUpdate.java",
+      "sha256": "f96021109939b861a6442fdb9b731f11e30340329ec62177f42bedff0ef1b29d",
+      "bytes": 1844
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.S_HPUpdate.javap.txt",
+      "sha256": "0f688c156b05dde0f28755a2ece81b7eae52747224e7275558955c6ccb052ac4",
+      "bytes": 4518
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.S_MapID.java",
+      "sha256": "e4f8e0f4d4b98bdc90333233a9daba53ffee547881905956ef2e1cb33e28fb68",
+      "bytes": 2347
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.S_MapID.javap.txt",
+      "sha256": "063e0abb348bce78dcf384617383b8539d2264d5dba88035117c6d7c4236c3a5",
+      "bytes": 5263
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.S_MPUpdate.java",
+      "sha256": "966ebd8c869f5bf0e50e14127ca9fd5adc37710d5dc90678819a8d6e71eef53d",
+      "bytes": 1913
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.S_MPUpdate.javap.txt",
+      "sha256": "d0c495f2697cb82447fd5d5ea981b2aab03b13f4c2c2b98226110dac9838e080",
+      "bytes": 4518
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.S_OwnCharPack.java",
+      "sha256": "6925f701e7d0245e2ba41bf0e2892fa9d8a1c786d6ebe6d87363e77004020f26",
+      "bytes": 3484
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.S_OwnCharPack.javap.txt",
+      "sha256": "af5e6598419dd85c64f34dc2ada01f91bcd8cb0eb89bb96c0e23a7d7fdae295d",
+      "bytes": 12222
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.S_OwnCharStatus.java",
+      "sha256": "11c32ff65b296d0b4b4ac6ec9d1ce2632b731ee6664422c73d970d18fa4eac7c",
+      "bytes": 3680
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.S_OwnCharStatus.javap.txt",
+      "sha256": "eef2d0e44652c8158345dee7e0ae3991853e10647dc9db9d732b7fcae431caac",
+      "bytes": 16554
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.ServerBasePacket.java",
+      "sha256": "3348c199e9694bd1eec050b130f28ab99590cae16f0047964c17b32df309a439",
+      "bytes": 15211
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.serverpackets.ServerBasePacket.javap.txt",
+      "sha256": "be8c314edd5624bdac4845162dc801af8930d481b9fde29ae45f20fde674fcf4",
+      "bytes": 46094
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.utils.CheckUtil.java",
+      "sha256": "cc87c79a961b3129d765bf0666e46ac23bc4d91a9b28c5bcdefc31171e238d75",
+      "bytes": 45043
+    },
+    {
+      "path": "reference\\world\\com.lineage.server.utils.CheckUtil.javap.txt",
+      "sha256": "3289b5f1af282fdae8463123c8591e410e97dbdd2a3a8065bd46afccd288f57c",
+      "bytes": 131513
+    },
+    {
+      "path": "reference\\world\\gfx0-character-entry.txt",
+      "sha256": "c0e63870fee5e86ea3ac68ef66b05198672d7a70e0ed1f19bc4a3ad3f4b0c14c",
+      "bytes": 3675
+    },
+    {
+      "path": "reference\\world\\manifest.json",
+      "sha256": "278766d70cea78d732842689b0e5595df136a75d3a2c8e3c00bdd2050144bb4c",
+      "bytes": 7259
+    },
+    {
+      "path": "reference\\world\\observed-opcodes.json",
+      "sha256": "5247ef973f6b4e43d90b374201705b46219331dc2a4ef888c654d0592f7980ad",
+      "bytes": 3868
+    },
+    {
+      "path": "reference\\world-fixture.sql",
+      "sha256": "b4a4e0058480b85f6e7b2e14302d98fb6ebf3b2495721364a022a5d08f68fc93",
+      "bytes": 352
+    },
+    {
+      "path": "run-offline.ps1",
+      "sha256": "b1e26364551a26fa6ae9e4f9dd508ee09c698cb9650977c2fa122dea3774e77b",
+      "bytes": 157
+    },
+    {
+      "path": "run-reference.ps1",
+      "sha256": "a291ef067136de95e84e2d939b46adf86739f7252aa3d381c56a72282e45c83e",
+      "bytes": 169
+    },
+    {
+      "path": "scripts\\audit_sources.py",
+      "sha256": "dc24bad0d01a0987e0690edab1a369e2fc4a40adf72cab1ba1f92922822fd45d",
+      "bytes": 3248
+    },
+    {
+      "path": "scripts\\launch.py",
+      "sha256": "d0b3e37fbdd7b371b497556797069d6ab82d356399fc77e622244da9a13b0d30",
+      "bytes": 867
+    },
+    {
+      "path": "scripts\\run_regressions.py",
+      "sha256": "83b2eec37ce386c8ff6dd32632876f9943d96cb52a592f7a487bb603dd39b008",
+      "bytes": 538
+    },
+    {
+      "path": "scripts\\run_tests.py",
+      "sha256": "afddbb531afe650fd69afb2215abed497df23618b8d237d46fa460e7c2dabb9d",
+      "bytes": 4492
+    },
+    {
+      "path": "source\\Assets.cs",
+      "sha256": "f1d9dfd9331f80a818bc85427b9ff6831ed5aab38f86bd4f22b93a61df98f287",
+      "bytes": 6587
+    },
+    {
+      "path": "source\\ClientLogin.cs",
+      "sha256": "7ed6ef80e52f4a311a9b2bc1bf075be7c9a771364f8c492cb939cde1fa7eb599",
+      "bytes": 6219
+    },
+    {
+      "path": "source\\ClientNetwork.cs",
+      "sha256": "a0fb986760c8a2b215cd03d044e4aa3f303cc8c53d10acf75e283b5b7369e88c",
+      "bytes": 8638
+    },
+    {
+      "path": "source\\LoginConnection.cs",
+      "sha256": "52a6e37852250340866b000ffbd3e2d9478490f4d660071dfd9c1e99c3681f67",
+      "bytes": 7599
+    },
+    {
+      "path": "source\\LoginProtocol.cs",
+      "sha256": "b25b171dc30014ea4e4dbc6bf25f70d37d1e58a86082d40c6d87f1ca5617dff7",
+      "bytes": 5494
+    },
+    {
+      "path": "source\\LoginTests.cs",
+      "sha256": "6ae6514eaa10cb8b3465230737db89dbc00f3895f50028e9282b17362b194cd3",
+      "bytes": 4850
+    },
+    {
+      "path": "source\\Network.cs",
+      "sha256": "e77db160dd01fd4ca8b29a097f03a9f2428f5f0c4bb5e068f2e259f40efbacc9",
+      "bytes": 6159
+    },
+    {
+      "path": "source\\OfflineClient.csproj",
+      "sha256": "ade3fdbc3c4310dbc22f2e19728441752d5d210e60ff9850e9de00c55c3a2a7c",
+      "bytes": 799
+    },
+    {
+      "path": "source\\Program.cs",
+      "sha256": "1e375584ba7ba3f59947e92831b5ad20faddb0f1b3dec687107301672549a1dd",
+      "bytes": 15254
+    },
+    {
+      "path": "source\\Protocol.cs",
+      "sha256": "295729b254ce9789b8a0833285e12bd51a5c5409fb1d589cb4b9627f4325f849",
+      "bytes": 3632
+    },
+    {
+      "path": "source\\ProtocolTests.cs",
+      "sha256": "d822baacbc9758acd9b2823183d09b5924d593f0dd7e173e7ca90078efea08fd",
+      "bytes": 3362
+    },
+    {
+      "path": "source\\RealLoginTests.cs",
+      "sha256": "c9c51fe4750120887102510321a5295fade02bbeaf025b165ed23f25b26f1571",
+      "bytes": 1938
+    },
+    {
+      "path": "source\\Renderer.cs",
+      "sha256": "350fee7d4379917be90f3eb12fb4f9c3bcfa5c46f21e5c75e7c67b190c74c80f",
+      "bytes": 3140
+    },
+    {
+      "path": "source\\Tests.cs",
+      "sha256": "69e3ef32797bcd98304e9fd04f472710728954d2a8855a9e4d5588ee52d9faa1",
+      "bytes": 12087
+    },
+    {
+      "path": "source\\WebPanel.cs",
+      "sha256": "cb4312fd3b07ff383dbcca4ad58985d0c0879d4a769498b62bc046ed005b2e1f",
+      "bytes": 12524
+    },
+    {
+      "path": "source\\WebTests.cs",
+      "sha256": "cf8b3f205aefdc81a2db113216096c4de5c44ce8df1d75dc7f3474be2b30c42c",
+      "bytes": 5275
+    },
+    {
+      "path": "source\\World.cs",
+      "sha256": "cb340a7ed7ccf0a336438106f05f4fb35974dbfa9144f3080572c009f31c03f5",
+      "bytes": 4901
+    },
+    {
+      "path": "source\\WorldRegression.cs",
+      "sha256": "1279440b113f5e5318457e831312f71114e5fb28164e89d5230f4ebd70024715",
+      "bytes": 3080
+    },
+    {
+      "path": "source\\WorldSession.cs",
+      "sha256": "cff41a7893b40d89084d8248d45197202abfcef036fe1746030b411e353cc3d7",
+      "bytes": 5984
+    },
+    {
+      "path": "source\\WorldTests.cs",
+      "sha256": "5f1790aedde3e75694a5106869427403f06fd2f073c9cd5f99fb77343271ae2d",
+      "bytes": 7060
+    },
+    {
+      "path": "vendor\\microsoft.web.webview2.1.0.4258.31.nupkg",
+      "sha256": "56f7f4b8bf9aee4b8efefbbdd4f67d5f74ebd1b100ed0806da71bf76af481aa9",
+      "bytes": 9801922
+    },
+    {
+      "path": "web\\index.html",
+      "sha256": "c8e43ca07fd9f2ef7f50c6b35007a6a1c5a5898feff621ac2e8804515c514fdc",
+      "bytes": 1950
+    },
+    {
+      "path": "web\\panel.css",
+      "sha256": "170b6fea6e290eb07510f540366c8b6d8af2ac4472006f6977237ed10b20321f",
+      "bytes": 1486
+    },
+    {
+      "path": "web\\panel.js",
+      "sha256": "b6c3688134e2fe89c1e67a39478cc54535f374fa4bf0ab6ffcf36cfd395ee1a6",
+      "bytes": 3101
+    }
+  ]
+}

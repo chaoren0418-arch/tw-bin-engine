@@ -1,0 +1,122 @@
+{
+  "schema": "engine-r34-canonical-plan-artifact-manifest-v1",
+  "dispatchId": "ENGINE-R34-CANONICAL-PLAN-R1",
+  "status": "planning-only",
+  "files": [
+    {
+      "path": "adaptations/ground-canonical-label.patch",
+      "size": 2782,
+      "sha256": "1ed71503d0884ed63facc82393cdc5563382af4b3fba9bec7ffac441bc77e5cf"
+    },
+    {
+      "path": "adaptations.json",
+      "size": 1202,
+      "sha256": "6fc07e54e08b4eff3bafdf7b0bc99b078ebb696d6891a1b68d97e17bccd49dca"
+    },
+    {
+      "path": "assertion_occurrences.py",
+      "size": 873,
+      "sha256": "5b3d3c9d7f9b77fc718b5d773e1b719cf3eccfde32ff83dc24e2ebcea29bb611"
+    },
+    {
+      "path": "before-state.json",
+      "size": 3847,
+      "sha256": "70cc332bde82e6339f48f7b3a7e80f97c37d9adc03f9cae2450357e9ca0570fe"
+    },
+    {
+      "path": "canonical-plan.json",
+      "size": 378638,
+      "sha256": "d25c306fae5abee9209e46c557453f7b6a0a96645e5c052fbda70555f11f15ff"
+    },
+    {
+      "path": "collector-provenance.json",
+      "size": 1108,
+      "sha256": "8cae042b9bfd72d52e3bdbf199fa8f7ff9f95026bdef239e32bc1f6fea2edd2e"
+    },
+    {
+      "path": "collector.py",
+      "size": 6859,
+      "sha256": "2c5398e8e28971a327cfb89c8bb43ae372322800df22bf42c7ce240980c131e6"
+    },
+    {
+      "path": "command-recipes.json",
+      "size": 61018,
+      "sha256": "1b515878d59e684d174f5b88c1562493437c2eb16f82bb9f701836a61c575839"
+    },
+    {
+      "path": "common.py",
+      "size": 4177,
+      "sha256": "bb75a5523205e10a75a483bddd74ddbb87319b2e30914b6f9c7ce58480e5cd11"
+    },
+    {
+      "path": "context.json",
+      "size": 1500,
+      "sha256": "bfb8d5daba6898111e4dc8003584b1076621aa6e8fb85af8950c4cc9b24bdba1"
+    },
+    {
+      "path": "derived/ground/Program.cs",
+      "size": 13338,
+      "sha256": "6c1fcbaf37e53c74947fdb0208345f6306d764990e72b286e2f6d25a40ee64a5"
+    },
+    {
+      "path": "draft-steps.json",
+      "size": 20215,
+      "sha256": "34d4c6de512acbc95d92bbe037ae6e652e07bd8b2d8ddbcd92c6245de127973a"
+    },
+    {
+      "path": "finalize_plan.py",
+      "size": 3810,
+      "sha256": "4983b8df86b8a7479560109fabccd096fee085c8c5ab9355ee6d45c9885dfbc8"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 7590,
+      "sha256": "d9f9ed9163a31b15fdce537436753fa7458c58b9e173bbd8f912e13309a7f833"
+    },
+    {
+      "path": "native_collector.py",
+      "size": 6766,
+      "sha256": "5a08c8824c9f25d115d40c0e4cb0396301b4b3d9c908855d4cfc3f07292832a4"
+    },
+    {
+      "path": "nested-product-command-plan.json",
+      "size": 4442,
+      "sha256": "08ddef8d55952364505fc0dee9f75f62b16123e81d326ef10460c38d81885f5a"
+    },
+    {
+      "path": "prepare_plan.py",
+      "size": 14337,
+      "sha256": "cff42d977e1ed0ccba0c993010448a2105c11c02077a438463ad360f4fbe5c9a"
+    },
+    {
+      "path": "recovery.py",
+      "size": 3119,
+      "sha256": "a92ef7a6aa0e0261488272d1068457b17519f2056fdbcc249aa52cdc0ab67ede"
+    },
+    {
+      "path": "result.json",
+      "size": 4207,
+      "sha256": "9140588652042df8da7e5f09afd5e423bfbae4529f3f766cd6af113225595401"
+    },
+    {
+      "path": "source-copy-mappings.json",
+      "size": 77990,
+      "sha256": "4005977d7f467eb3c96620e13eadc156740cb1f625477b024870b5e32e0423d6"
+    },
+    {
+      "path": "static-verification.json",
+      "size": 1163,
+      "sha256": "f4dee06675ee5ef140c0a30a3cbe891c6a4c5bcfda85ddb7297333ff1929c744"
+    },
+    {
+      "path": "static_verify.py",
+      "size": 8754,
+      "sha256": "875d38725ab70efc8c5d7b541a5fb693ad923eb63287777e4e5a2c23b97c405c"
+    },
+    {
+      "path": "wrapper.py",
+      "size": 5215,
+      "sha256": "04202c0125c01a67a438e9410f75ce060c1d6d1f8fe157e7bf1ba40977346319"
+    }
+  ]
+}

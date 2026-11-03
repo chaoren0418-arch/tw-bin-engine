@@ -1,0 +1,456 @@
+{
+  "imageBase": "0x400000",
+  "binSha256": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2",
+  "staticOnly": true,
+  "proofs": [
+    {
+      "id": "P01",
+      "claim": "A467A0 normal action15 selects action, resets index0, A43560 preincrements to1; schedules first callback D1+1 and stores baseline at actor+0xBC.",
+      "ranges": [
+        {
+          "VA": "0xa46baa",
+          "endExclusiveVA": "0xa46bcf",
+          "RVA": "0x646baa",
+          "fileOffset": "0x645faa",
+          "size": 37,
+          "sha256": "a6c2cd8d778c5bdb2680b1bdebb9b5d18d3a7d0b25d1192faf4e5b0051d22638",
+          "byteEvidence": "prior/0xa467a0.json"
+        },
+        {
+          "VA": "0xa46c5e",
+          "endExclusiveVA": "0xa46c93",
+          "RVA": "0x646c5e",
+          "fileOffset": "0x64605e",
+          "size": 53,
+          "sha256": "4405698ba27d1eabc18898ddd765e0d1487852a6174ec6023ebb0a58ff448e59",
+          "byteEvidence": "prior/0xa467a0.json"
+        },
+        {
+          "VA": "0xa46dd7",
+          "endExclusiveVA": "0xa46e97",
+          "RVA": "0x646dd7",
+          "fileOffset": "0x6461d7",
+          "size": 192,
+          "sha256": "407f2befaaeea6878f44b07a7ed7e14e531196075fe0f4e2366728201f85496b",
+          "byteEvidence": "prior/0xa467a0.json"
+        },
+        {
+          "VA": "0xa43560",
+          "endExclusiveVA": "0xa435d3",
+          "RVA": "0x643560",
+          "fileOffset": "0x642960",
+          "size": 115,
+          "sha256": "8c066608677a4a44144f9ebf7bf844628a2b578b96764b4a8b0d32aaa46927c6",
+          "byteEvidence": "prior/0xa43560.json"
+        }
+      ],
+      "limits": "Conditional valid action15; previous action8, metadata variants, +70 special override and all early/special routes excluded. Frame1 binds before the A231C0 clock sample."
+    },
+    {
+      "id": "P02",
+      "claim": "A43560 terminal resets index0 and binds it through A3EF40; returns false. Metadata variant branch may change selected variant before frame0.",
+      "ranges": [
+        {
+          "VA": "0xa435d3",
+          "endExclusiveVA": "0xa438a7",
+          "RVA": "0x6435d3",
+          "fileOffset": "0x6429d3",
+          "size": 724,
+          "sha256": "5dc016f04977536d6016557fdaa1021a20f8f024236edb2400bd46b18e8f78d5",
+          "byteEvidence": "prior/0xa43560.json"
+        },
+        {
+          "VA": "0xa3f41f",
+          "endExclusiveVA": "0xa3f49d",
+          "RVA": "0x63f41f",
+          "fileOffset": "0x63e81f",
+          "size": 126,
+          "sha256": "e0d78e0ec76ca563b982f966adb7761bee2ae0cad5fcde3e6b1dfbe5dfb4f598",
+          "byteEvidence": "prior/0xa3ef40.json"
+        },
+        {
+          "VA": "0xa3fd80",
+          "endExclusiveVA": "0xa3fda6",
+          "RVA": "0x63fd80",
+          "fileOffset": "0x63f180",
+          "size": 38,
+          "sha256": "dbc4630a7aa05528be5765aa853a49db4ea14e9ffd5bc1680f5ff9dac2780181",
+          "byteEvidence": "prior/0xa3ef40.json"
+        }
+      ],
+      "limits": "Not universal loop/no-loop metadata proof; special-class action0/20/24/62 and 44/45 state changes are separate. Pixel presentation is not measured."
+    },
+    {
+      "id": "P03",
+      "claim": "A4B060 terminal passes D0 via vtable+48, but +0xD8 nonzero forces duration1 when current action !=8.",
+      "ranges": [
+        {
+          "VA": "0xa4b4b7",
+          "endExclusiveVA": "0xa4b4f3",
+          "RVA": "0x64b4b7",
+          "fileOffset": "0x64a8b7",
+          "size": 60,
+          "sha256": "342aeb84438ad4de2feacb82ee643fc90a36e6fc4b8dcfda2c10a2ed429280c6",
+          "byteEvidence": "native/00a4b060.bin"
+        },
+        {
+          "VA": "0xa4b594",
+          "endExclusiveVA": "0xa4b5ca",
+          "RVA": "0x64b594",
+          "fileOffset": "0x64a994",
+          "size": 54,
+          "sha256": "f62f9483f94c344d30111facec8e93c4d2d64ff96b832a1662e10c54f9672758",
+          "byteEvidence": "native/00a4b060.bin"
+        }
+      ],
+      "limits": "Neutral table requires actor+0xD8=0. No continuing A4B060 scheduling from this terminal branch."
+    },
+    {
+      "id": "P04",
+      "claim": "A44500: queue>0 schedules consumer after argument D0; ordinary queue-empty action15 schedules weapon+3 consumer after584, with no +1 here.",
+      "ranges": [
+        {
+          "VA": "0xa44500",
+          "endExclusiveVA": "0xa447ab",
+          "RVA": "0x644500",
+          "fileOffset": "0x643900",
+          "size": 683,
+          "sha256": "82c8617b2c06e33cb4518fabca2b6afc29fb50b73e6b667f96999c50d7f6015f",
+          "byteEvidence": "native/00a44500.bin"
+        }
+      ],
+      "limits": "584 branch requires valid ordinary idle metadata, +34 getter returns0, self-specific gates allow it, weapon+3 !=15, current action15. Suppressed enqueue / base no-op may leave no command."
+    },
+    {
+      "id": "P05",
+      "claim": "Base and derived vtables differ: +64 base51E860 no-op, derivedA3C4F0; +48 base51E8E0 wrapperA44500, derivedA44500; +4C dispatchers lead toA467A0.",
+      "ranges": [
+        {
+          "VA": "0x1150c24",
+          "endExclusiveVA": "0x1150cc4",
+          "RVA": "0xd50c24",
+          "fileOffset": "0xd4f824",
+          "size": 160,
+          "sha256": "17c10b0205e6349386c7c66ffd167ce552fee950a6d72cd86040069d844bebc8",
+          "byteEvidence": "native/vtable-1150c24.bin"
+        },
+        {
+          "VA": "0x1150e8c",
+          "endExclusiveVA": "0x1150f2c",
+          "RVA": "0xd50e8c",
+          "fileOffset": "0xd4fa8c",
+          "size": 160,
+          "sha256": "baba0e0dd8cd4e93aa17ba7b281942b0f2f75126457273cea6ff1d92f34151fe",
+          "byteEvidence": "native/vtable-1150e8c.bin"
+        },
+        {
+          "VA": "0x1150f7c",
+          "endExclusiveVA": "0x115101c",
+          "RVA": "0xd50f7c",
+          "fileOffset": "0xd4fb7c",
+          "size": 160,
+          "sha256": "289034b57db28d830253de7c34a8d7a2446161eb31fbe1e58cde9eb39bb5d864",
+          "byteEvidence": "native/vtable-1150f7c.bin"
+        },
+        {
+          "VA": "0x51e860",
+          "endExclusiveVA": "0x51e870",
+          "RVA": "0x11e860",
+          "fileOffset": "0x11dc60",
+          "size": 16,
+          "sha256": "7e31caca15f92bd7b3289cc2d8d2c2a4d7e636eb4c8b8edc4c12fc657f52e00c",
+          "byteEvidence": "native/0051e860.bin"
+        },
+        {
+          "VA": "0x51e8e0",
+          "endExclusiveVA": "0x51e900",
+          "RVA": "0x11e8e0",
+          "fileOffset": "0x11dce0",
+          "size": 32,
+          "sha256": "fcca38d99c0b3f433c951c284a858e12168d5b5e6ad1da1b45d2fdb7fb02158c",
+          "byteEvidence": "native/0051e8e0.bin"
+        },
+        {
+          "VA": "0x51e920",
+          "endExclusiveVA": "0x51e940",
+          "RVA": "0x11e920",
+          "fileOffset": "0x11dd20",
+          "size": 32,
+          "sha256": "49d01631654ead62a105a09c40e3022aeb31bc78ab1238984d5fe3b9dbe566ca",
+          "byteEvidence": "native/0051e920.bin"
+        },
+        {
+          "VA": "0x521e20",
+          "endExclusiveVA": "0x521ecf",
+          "RVA": "0x121e20",
+          "fileOffset": "0x121220",
+          "size": 175,
+          "sha256": "3d5a7cc28c2e2d8cd71b518433c98e330d85bc86d75996f48cb53b821ea122c7",
+          "byteEvidence": "native/00521e20.bin"
+        }
+      ],
+      "limits": "Table binding is conditional; six constructor/destructor reference chunks reverified. No claim that every actor uses a derived table."
+    },
+    {
+      "id": "P06",
+      "claim": "A3C4F0 allocates8 bytes {226,action}, A3C100 appends at actor array+0x19C. Duplicate suppression only action2; allocation failure adds nothing.",
+      "ranges": [
+        {
+          "VA": "0xa3c4f0",
+          "endExclusiveVA": "0xa3c5a0",
+          "RVA": "0x63c4f0",
+          "fileOffset": "0x63b8f0",
+          "size": 176,
+          "sha256": "a7e0cff74bf9300e7e77fe55a63cfc257c50211f3047df550c8ed041ca9b2385",
+          "byteEvidence": "native/00a3c4f0.bin"
+        },
+        {
+          "VA": "0xa3c100",
+          "endExclusiveVA": "0xa3c140",
+          "RVA": "0x63c100",
+          "fileOffset": "0x63b500",
+          "size": 64,
+          "sha256": "01a665e9c48fc0cdd0f2a68e9fea5ad4fd4c4a78fcc11efe3ec20c07707b4181",
+          "byteEvidence": "native/00a3c100.bin"
+        }
+      ],
+      "limits": "Memory allocation/runtime success not tested; not an outgoing packet."
+    },
+    {
+      "id": "P07",
+      "claim": "A44B60 pops index0, A4BF00 dispatches opcode226 using verified switch table to A4BFB9, invokes actor+4C(action), frees command.",
+      "ranges": [
+        {
+          "VA": "0xa44b60",
+          "endExclusiveVA": "0xa44bb0",
+          "RVA": "0x644b60",
+          "fileOffset": "0x643f60",
+          "size": 80,
+          "sha256": "734b2a1157fc1d32ad189b62761e056aa9125c702c40d5e86ba2bba594ae8421",
+          "byteEvidence": "native/00a44b60.bin"
+        },
+        {
+          "VA": "0xa4bf00",
+          "endExclusiveVA": "0xa4c14f",
+          "RVA": "0x64bf00",
+          "fileOffset": "0x64b300",
+          "size": 591,
+          "sha256": "9a2aec7116b582a9ca0d6770042e37e609afdfc60bec28016f7c7eb9522e4e09",
+          "byteEvidence": "native/00a4bf00.bin"
+        },
+        {
+          "VA": "0xa4c150",
+          "endExclusiveVA": "0xa4c26c",
+          "RVA": "0x64c150",
+          "fileOffset": "0x64b550",
+          "size": 284,
+          "sha256": "d955dfa9fdf5b32c28faf03f07a542a9ed362f6dbedf4debce0937fcedd5cb39",
+          "byteEvidence": "native/00a4bf00.bin"
+        },
+        {
+          "VA": "0x92ad40",
+          "endExclusiveVA": "0x92ad8e",
+          "RVA": "0x52ad40",
+          "fileOffset": "0x52a140",
+          "size": 78,
+          "sha256": "dc6abeb79a1db2a0a15e6b72ce68ffa8ac7726cff65d044a6ea71e11aa012026",
+          "byteEvidence": "native/0092ad40.bin"
+        }
+      ],
+      "limits": "A4C150 onward is switch data, never adopt linear disassembly there as code. FIFO only while no cancellation/clear intervenes."
+    },
+    {
+      "id": "P08",
+      "claim": "A3EBF0 preempts an idle head/current idle and A23AC0 removes scheduler entries matching callback AND actor context.",
+      "ranges": [
+        {
+          "VA": "0xa3ebf0",
+          "endExclusiveVA": "0xa3ed4e",
+          "RVA": "0x63ebf0",
+          "fileOffset": "0x63dff0",
+          "size": 350,
+          "sha256": "e0ff90d126bc7647bc1e80b45712cc36d8379e5a44fb34db9d577c41801a78d6",
+          "byteEvidence": "native/00a3ebf0.bin"
+        },
+        {
+          "VA": "0xa23ac0",
+          "endExclusiveVA": "0xa23b21",
+          "RVA": "0x623ac0",
+          "fileOffset": "0x622ec0",
+          "size": 97,
+          "sha256": "41914183783137f20668b0b83fb60f9d1dc0c013f7f08152b2ab7fb06d29bbd2",
+          "byteEvidence": "native/00a23ac0.bin"
+        },
+        {
+          "VA": "0xa229b0",
+          "endExclusiveVA": "0xa22a00",
+          "RVA": "0x6229b0",
+          "fileOffset": "0x621db0",
+          "size": 80,
+          "sha256": "0f4f0fd747535f2d4137ec680521bb9bb277087644284ad3b9f42fce0ff0c7d9",
+          "byteEvidence": "native/00a229b0.bin"
+        }
+      ],
+      "limits": "Queued head predicate is (opcode226 AND action==weapon+3) OR (second word==9 AND A43170); second term lacks an opcode guard. Action15 does not match with ordinary weapons."
+    },
+    {
+      "id": "P09",
+      "claim": "92CB70 true predicate routes action15 to+64 unless currentaction8; incoming action8 can clear queued opcode226/action15. A44BB0 separately erases matching action226 records.",
+      "ranges": [
+        {
+          "VA": "0x92cffe",
+          "endExclusiveVA": "0x92d042",
+          "RVA": "0x52cffe",
+          "fileOffset": "0x52c3fe",
+          "size": 68,
+          "sha256": "78f74f898fc44e093c2e8bcff4f7f8522a8f21371ec6b1da5a868d3637170a7e",
+          "byteEvidence": "native/0092cb70.bin"
+        },
+        {
+          "VA": "0x92d188",
+          "endExclusiveVA": "0x92d32e",
+          "RVA": "0x52d188",
+          "fileOffset": "0x52c588",
+          "size": 422,
+          "sha256": "556400d604f8be5507d101f73583df319da33d5f96b5e40724aa264787bd42c0",
+          "byteEvidence": "native/0092cb70.bin"
+        },
+        {
+          "VA": "0xa44bb0",
+          "endExclusiveVA": "0xa44c32",
+          "RVA": "0x644bb0",
+          "fileOffset": "0x643fb0",
+          "size": 130,
+          "sha256": "49705189c45e04cffb328962f51081fbd391d2c673c57226e5af43264a41d4a8",
+          "byteEvidence": "native/00a44bb0.bin"
+        }
+      ],
+      "limits": "Incoming8 clear preserves opcode186; null-entry loop has its own index increment. A44BB0 caller not established, increments after erase and does not itself free record or cancel timers; no universal cancel policy claimed."
+    },
+    {
+      "id": "P10",
+      "claim": "A228B0 conditionally returns QPC*1000/configured64bitdivisor low32, else GetTickCount; exact IAT names from PE.",
+      "ranges": [
+        {
+          "VA": "0xa228b0",
+          "endExclusiveVA": "0xa2290c",
+          "RVA": "0x6228b0",
+          "fileOffset": "0x621cb0",
+          "size": 92,
+          "sha256": "24761ea2eab64c1600ebed51b718567ab9114ea100b130349a35bb7f2aa6e249",
+          "byteEvidence": "native/00a228b0.bin"
+        },
+        {
+          "VA": "0x103d750",
+          "endExclusiveVA": "0x103d784",
+          "RVA": "0xc3d750",
+          "fileOffset": "0xc3cb50",
+          "size": 52,
+          "sha256": "3d0898d998acc8af3ea17032ff56fd1b963c685b072f669c52d4b8267f9d0a78",
+          "byteEvidence": "native/0103d750.bin"
+        },
+        {
+          "VA": "0x103d5e0",
+          "endExclusiveVA": "0x103d68a",
+          "RVA": "0xc3d5e0",
+          "fileOffset": "0xc3c9e0",
+          "size": 170,
+          "sha256": "8964dcf0d769cb61dd4354feac00491ae8c1b34eb9627a4c5ec2d4350243d395",
+          "byteEvidence": "native/0103d5e0.bin"
+        }
+      ],
+      "limits": "Clock-selector/frequency initialization and actual configured values unresolved. Arithmetic helper slices may include alignment after RET; no instructions after the final RET adopted."
+    },
+    {
+      "id": "P11",
+      "claim": "A231C0 samples clock then inserts now+delay; A23260 inserts suppliedbase+delay; equal deadlines inserted after existing equals using unsigned comparison.",
+      "ranges": [
+        {
+          "VA": "0xa231c0",
+          "endExclusiveVA": "0xa2325b",
+          "RVA": "0x6231c0",
+          "fileOffset": "0x6225c0",
+          "size": 155,
+          "sha256": "be21dcebc5df85a254cb52d71cc80db60d2ba77311467a775a9fd34772ee83cd",
+          "byteEvidence": "native/00a231c0.bin"
+        },
+        {
+          "VA": "0xa23260",
+          "endExclusiveVA": "0xa232f0",
+          "RVA": "0x623260",
+          "fileOffset": "0x622660",
+          "size": 144,
+          "sha256": "cb28bc688f04ce8116aaaccd04439fe2409e74c246b489866e93270b0808c543",
+          "byteEvidence": "native/00a23260.bin"
+        },
+        {
+          "VA": "0xa22830",
+          "endExclusiveVA": "0xa228aa",
+          "RVA": "0x622830",
+          "fileOffset": "0x621c30",
+          "size": 122,
+          "sha256": "1bd83eb6547deebdfe605e8a49f105de8784bba1614703a0666d5c6c2cccc1d0",
+          "byteEvidence": "native/00a22830.bin"
+        }
+      ],
+      "limits": "32bit modulo additions and unsigned sort; no wrap-safe equivalence claimed."
+    },
+    {
+      "id": "P12",
+      "claim": "A4B060 continuing: lateness=now-B; nextdue=now+max_signed(1,D-lateness)+1; idealbaseline=B+D+1.",
+      "ranges": [
+        {
+          "VA": "0xa4b5ca",
+          "endExclusiveVA": "0xa4b63b",
+          "RVA": "0x64b5ca",
+          "fileOffset": "0x64a9ca",
+          "size": 113,
+          "sha256": "43dc290613d060b9e9905b6ea5a84ced6ec5b6c54aaa2d2bdcfb28b76244ca7a",
+          "byteEvidence": "native/00a4b060.bin"
+        },
+        {
+          "VA": "0x4e7f50",
+          "endExclusiveVA": "0x4e7f80",
+          "RVA": "0xe7f50",
+          "fileOffset": "0xe7350",
+          "size": 48,
+          "sha256": "420353e7248a3102dd899ea07d97470309b82685fe1beecb0893adc5a2817086",
+          "byteEvidence": "native/004e7f50.bin"
+        }
+      ],
+      "limits": "Formula simplified to max(now+2,B+D+1) only without integer wrap/overflow. No catch-up loop within actor callback."
+    },
+    {
+      "id": "P13",
+      "claim": "A23360 samples clock once, removes due head before callback(context), repeats against same sample until no due head.",
+      "ranges": [
+        {
+          "VA": "0xa23360",
+          "endExclusiveVA": "0xa233de",
+          "RVA": "0x623360",
+          "fileOffset": "0x622760",
+          "size": 126,
+          "sha256": "582397fb8d9acf09386646c922ec955a54c7f24a19f7457373663f579dc23786",
+          "byteEvidence": "native/scheduler-local-a22000-a23d00.bin"
+        }
+      ],
+      "limits": "Pump caller cadence, scheduling/OS delays, actual frame presentation and elapsed input latency not established."
+    },
+    {
+      "id": "P14",
+      "claim": "A407D0 uses per-frame duration and speed/status multipliers; nonself branch divides by queue depth thresholds at actor+0x19C.",
+      "ranges": [
+        {
+          "VA": "0xa407d0",
+          "endExclusiveVA": "0xa40e3c",
+          "RVA": "0x6407d0",
+          "fileOffset": "0x63fbd0",
+          "size": 1644,
+          "sha256": "df99bc065dd5014d263cc0ea9b59a50e659504454294d558ad2c956718b223af",
+          "byteEvidence": "prior/0xa407d0.json"
+        }
+      ],
+      "limits": "Neutral examples require all modifiers neutral, valid fixed-duration metadata, correct self/remote source and remote queue count<=1 at every sampled frame. Brave0 alone is insufficient."
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+[
+  {
+    "name": "canonical-static",
+    "argv": [
+      "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\static_verify.py"
+    ],
+    "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1",
+    "exitCode": 0,
+    "exitSource": "initial actual tool exit confirmed; saved stderr crosscheck",
+    "stdout": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\canonical-static.stdout.txt",
+      "size": 1163,
+      "sha256": "f4dee06675ee5ef140c0a30a3cbe891c6a4c5bcfda85ddb7297333ff1929c744"
+    },
+    "stderr": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\canonical-static.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "name": "profiles-source",
+    "argv": [
+      "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\verify.py",
+      "--seal",
+      "7e5605b111825be0e3d719bfea230743b11f7ed65e41b259eea23929e9616904"
+    ],
+    "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1",
+    "exitCode": 0,
+    "exitSource": "initial actual tool exit confirmed; saved stderr crosscheck",
+    "stdout": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\profiles-source.stdout.txt",
+      "size": 319,
+      "sha256": "f71e307a368ecf1cc71f29966946340592cad145c5d2ea6b1a57f5755a5571e5"
+    },
+    "stderr": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\profiles-source.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "name": "profiles-prep",
+    "argv": [
+      "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\verify.py",
+      "--seal",
+      "2f56ff408f7a2b96197d64313ec898f962ac1c53b49df8acc5b8a7b6cb316a66"
+    ],
+    "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1",
+    "exitCode": 1,
+    "exitSource": "initial actual tool exit confirmed; saved stderr crosscheck",
+    "stdout": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\profiles-prep.stdout.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\profiles-prep.stderr.txt",
+      "size": 681,
+      "sha256": "8af3037877ce70091fda4d1f0d20fb58876291fedc8cb16464cf2ceba91a0048"
+    }
+  }
+]

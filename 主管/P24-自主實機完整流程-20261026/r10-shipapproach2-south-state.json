@@ -1,0 +1,1418 @@
+{
+  "busy": false,
+  "character": "服務驗證",
+  "confirmed": 0,
+  "connection": "Disconnected",
+  "direction": 5,
+  "gameFocus": false,
+  "ground": {
+    "busy": false,
+    "epoch": 15,
+    "items": [],
+    "notice": "等待原服地面物品",
+    "selectedId": null
+  },
+  "interaction": {
+    "canTalk": false,
+    "model": {
+      "canSubmit": false,
+      "currency": 0,
+      "epoch": 15,
+      "feePerRow": false,
+      "hasResult": false,
+      "kind": "closed",
+      "notice": "世界已清除，舊對話已失效。",
+      "npcId": null,
+      "options": null,
+      "priceLabel": "單價",
+      "revision": 15,
+      "rows": [],
+      "selection": false,
+      "targetId": null,
+      "targetRevision": 0,
+      "text": null,
+      "title": "NPC 對話"
+    },
+    "notice": "世界已清除，舊對話已失效。",
+    "options": null,
+    "rows": [],
+    "targets": [
+      {
+        "id": 2000035929,
+        "name": "史萊姆"
+      },
+      {
+        "id": 2000035948,
+        "name": "史萊姆"
+      },
+      {
+        "id": 2000035950,
+        "name": "史萊姆"
+      },
+      {
+        "id": 2000035952,
+        "name": "史萊姆"
+      },
+      {
+        "id": 2000036179,
+        "name": "老虎"
+      }
+    ],
+    "text": ""
+  },
+  "inventory": {
+    "available": false,
+    "busy": false,
+    "epoch": 15,
+    "items": [
+      {
+        "action": "單次使用",
+        "count": 94000,
+        "droppable": false,
+        "equipped": null,
+        "icon": "https://p08.example/icons/5.png",
+        "id": 1900249101,
+        "name": "金幣",
+        "selected": false,
+        "state": "此道具的使用尚未支援",
+        "usable": false
+      },
+      {
+        "action": "單次使用",
+        "count": 12,
+        "droppable": false,
+        "equipped": null,
+        "icon": "https://p08.example/icons/81.png",
+        "id": 1900249102,
+        "name": "白色藥水",
+        "selected": false,
+        "state": "可單次使用；滿血仍會消耗",
+        "usable": true
+      },
+      {
+        "action": "卸下",
+        "count": 1,
+        "droppable": false,
+        "equipped": true,
+        "icon": "https://p08.example/icons/2.png",
+        "id": 1900249103,
+        "name": "+0 長劍 (揮舞)",
+        "selected": false,
+        "state": "已裝備；可單次卸下",
+        "usable": true
+      },
+      {
+        "action": "卸下",
+        "count": 1,
+        "droppable": false,
+        "equipped": true,
+        "icon": "https://p08.example/icons/86.png",
+        "id": 1900249104,
+        "name": "+0 環甲 (使用中)",
+        "selected": false,
+        "state": "已裝備；可單次卸下",
+        "usable": true
+      },
+      {
+        "action": "卸下",
+        "count": 1,
+        "droppable": false,
+        "equipped": true,
+        "icon": "https://p08.example/icons/97.png",
+        "id": 1900249105,
+        "name": "+0 木盾 (使用中)",
+        "selected": false,
+        "state": "已裝備；可單次卸下",
+        "usable": true
+      }
+    ],
+    "message": null,
+    "notice": "原服背包已同步",
+    "revision": 43,
+    "selectedId": null
+  },
+  "kind": "state",
+  "login": {
+    "appliedPacketSequence": 128,
+    "characters": [
+      {
+        "Ac": -5,
+        "Charisma": 10,
+        "CheckCode": 62,
+        "Clan": "",
+        "Class": 0,
+        "Constitution": 16,
+        "CreateTime": 20261026,
+        "Dexterity": 13,
+        "Gm": 0,
+        "Hp": 700,
+        "Intelligence": 11,
+        "Lawful": -10,
+        "Level": 60,
+        "Mp": 120,
+        "Name": "服務驗證",
+        "Sex": 0,
+        "Strength": 18,
+        "Wisdom": 12
+      }
+    ],
+    "decodeFailure": null,
+    "detail": "地圖 0 已載入原始區塊。",
+    "entryFailure": null,
+    "expected": 1,
+    "news": "",
+    "profile": "p24-real-jar-d287-client2",
+    "revision": 478,
+    "scope": "P24 independent real JAR + MySQL world initialization",
+    "slots": 4,
+    "state": "InWorld",
+    "world": {
+      "actor": {
+        "Brave": 0,
+        "Clan": "",
+        "ClanId": 0,
+        "Direction": 5,
+        "Exp": 416461882,
+        "Flags": 4,
+        "Gfx": 0,
+        "HpPercent": 255,
+        "Lawful": -10,
+        "Level": 0,
+        "Light": 0,
+        "Name": "服務驗證",
+        "ObjectId": 1900249001,
+        "Owner": "",
+        "Rank": 176,
+        "Speed": 0,
+        "Tail1": 255,
+        "Tail2": 255,
+        "Title": "",
+        "Unknown": 0,
+        "Weapon": 4,
+        "X": 32620,
+        "Y": 32975
+      },
+      "announcement": "",
+      "appearanceNotice": "角色外觀已載入",
+      "appearanceProfile": {
+        "CastReleaseMs": {
+          "spellDir": 916,
+          "spellNoDir": 916
+        },
+        "Gfx": 0,
+        "Path": "objects/0-weapon-4.json",
+        "ProjectileReleaseMs": null,
+        "ServerActionMs": {
+          "attack": 960,
+          "spellDir": 1320,
+          "spellNoDir": 1480,
+          "walk": 640
+        },
+        "Sha256": "858444d08c367a9cab98bcbf6b4feda44c3cc72c68d1b676e0d296d5f692c771",
+        "StepMs": 640,
+        "Weapon": 4
+      },
+      "appearanceRevision": 19,
+      "bonusStatsNotice": "原服提示有能力點待分配；此版本尚未支援能力點分配，未自動分配。",
+      "cache": {
+        "bounds": {
+          "Height": 512,
+          "MaxX": 32767,
+          "MaxY": 33279,
+          "MinX": 32256,
+          "MinY": 32768,
+          "Width": 512
+        },
+        "events": [
+          {
+            "block": "7ffe8003",
+            "generation": 1,
+            "kind": "load",
+            "slot": 3,
+            "source": "325c1c59b36be74fec48bb69703f09ef26a68ebe7226f720aa3be6db32abb289"
+          },
+          {
+            "block": "7ffd8003",
+            "generation": 2,
+            "kind": "load",
+            "slot": 2,
+            "source": "23ad0e1ef9001c6e331a3425e5a1faa410d3cf4a8e5d9425f38daa85c22e7e3a"
+          },
+          {
+            "block": "7ffe8002",
+            "generation": 3,
+            "kind": "load",
+            "slot": 1,
+            "source": "b15c05883cfe65a1e2c11f6b2af18e51f086b8d6dfcc185c93c655c3490eed1d"
+          },
+          {
+            "block": "7ffd8002",
+            "generation": 4,
+            "kind": "load",
+            "slot": 0,
+            "source": "a7e3e584202ddb9221fe6cd5042190486651f4a71db7e056b5e161bf31b30239"
+          },
+          {
+            "kind": "cold",
+            "order": [
+              3,
+              2,
+              1,
+              0
+            ],
+            "origin": [
+              32384,
+              32896
+            ],
+            "x": 32606,
+            "y": 32955
+          }
+        ],
+        "lastDirection": null,
+        "loads": 4,
+        "mapId": 0,
+        "nodes": 45837,
+        "origin": [
+          32384,
+          32896
+        ],
+        "revision": 1,
+        "slots": [
+          {
+            "block": "7ffd8002",
+            "effects": [],
+            "effectsAt": 366295625,
+            "generation": 4,
+            "sha256": "a7e3e584202ddb9221fe6cd5042190486651f4a71db7e056b5e161bf31b30239",
+            "slot": 0
+          },
+          {
+            "block": "7ffe8002",
+            "effects": [],
+            "effectsAt": 366295625,
+            "generation": 3,
+            "sha256": "b15c05883cfe65a1e2c11f6b2af18e51f086b8d6dfcc185c93c655c3490eed1d",
+            "slot": 1
+          },
+          {
+            "block": "7ffd8003",
+            "effects": [],
+            "effectsAt": 366295625,
+            "generation": 2,
+            "sha256": "23ad0e1ef9001c6e331a3425e5a1faa410d3cf4a8e5d9425f38daa85c22e7e3a",
+            "slot": 2
+          },
+          {
+            "block": "7ffe8003",
+            "effects": [],
+            "effectsAt": 366295625,
+            "generation": 1,
+            "sha256": "325c1c59b36be74fec48bb69703f09ef26a68ebe7226f720aa3be6db32abb289",
+            "slot": 3
+          }
+        ],
+        "tileDecodes": 18214
+      },
+      "combat": {
+        "damageMeaning": "ClientLogin=2 original attack damage word, not independently established HP loss; zero does not distinguish miss from zero damage",
+        "lastAttack": null,
+        "lastProjectile": null,
+        "notice": "選取可見目標後按 G：依原武器單次攻擊",
+        "ownAnimation": null,
+        "ownDead": false,
+        "projectiles": [],
+        "reports": 0
+      },
+      "coreComplete": true,
+      "entered": true,
+      "equipment": {
+        "listReceived": true,
+        "replyPending": false,
+        "revision": 23,
+        "slots": [
+          {
+            "ObjectId": 1900249103,
+            "Slot": 8
+          },
+          {
+            "ObjectId": 1900249104,
+            "Slot": 2
+          },
+          {
+            "ObjectId": 1900249105,
+            "Slot": 7
+          }
+        ]
+      },
+      "ground": {
+        "awaitingPickupAction": false,
+        "items": [],
+        "lastPickupActor": null,
+        "lastPickupHeading": null,
+        "notice": "等待原服地面物品",
+        "pickupActions": 0,
+        "pickupOutcomeTimedOut": false,
+        "revision": 15,
+        "selectedId": null,
+        "selectionRevision": 15
+      },
+      "inventory": {
+        "effectNumber": 0,
+        "emptyInventoryFromWorldSync": false,
+        "items": [
+          {
+            "Bless": 1,
+            "Charges": 0,
+            "Count": 94000,
+            "DescriptionId": 0,
+            "Equipped": null,
+            "Flags": 1,
+            "IconId": 5,
+            "Name": "$4 (94000)",
+            "ObjectId": 1900249101,
+            "StatusHex": "170F00000000",
+            "SupportedArrow": false,
+            "SupportedEquipment": false,
+            "SupportedPotion": false,
+            "SupportedUse": false,
+            "TailHex": "0A00000000000000000000",
+            "UseAction": "單次使用",
+            "UseState": "此道具的使用尚未支援",
+            "UseType": 255
+          },
+          {
+            "Bless": 1,
+            "Charges": 0,
+            "Count": 12,
+            "DescriptionId": 130,
+            "Equipped": null,
+            "Flags": 1,
+            "IconId": 81,
+            "Name": "$238 (12)",
+            "ObjectId": 1900249102,
+            "StatusHex": "171346000000",
+            "SupportedArrow": false,
+            "SupportedEquipment": false,
+            "SupportedPotion": true,
+            "SupportedUse": true,
+            "TailHex": "0A00000000000000000000",
+            "UseAction": "單次使用",
+            "UseState": "可單次使用；滿血仍會消耗",
+            "UseType": 249
+          },
+          {
+            "Bless": 1,
+            "Charges": 0,
+            "Count": 1,
+            "DescriptionId": 0,
+            "Equipped": true,
+            "Flags": 1,
+            "IconId": 2,
+            "Name": "+0 $0 ($9)",
+            "ObjectId": 1900249103,
+            "StatusHex": "01080C0B2800000027A677A977BDE83A203600073F27B8CBB3C6AB7EAFC53A20A440AFEB00",
+            "SupportedArrow": false,
+            "SupportedEquipment": true,
+            "SupportedPotion": false,
+            "SupportedUse": true,
+            "TailHex": "0A00000000000000000000",
+            "UseAction": "卸下",
+            "UseState": "已裝備；可單次卸下",
+            "UseType": 1
+          },
+          {
+            "Bless": 1,
+            "Charges": 0,
+            "Count": 1,
+            "DescriptionId": 0,
+            "Equipped": true,
+            "Flags": 1,
+            "IconId": 86,
+            "Name": "+0 $164 ($117)",
+            "ObjectId": 1900249104,
+            "StatusHex": "13030B27FA000000077F27A677A977BDE83A20340027B8CBB3C6AB7EAFC53A20A440AFEB00",
+            "SupportedArrow": false,
+            "SupportedEquipment": true,
+            "SupportedPotion": false,
+            "SupportedUse": true,
+            "TailHex": "0A00000000000000000000",
+            "UseAction": "卸下",
+            "UseState": "已裝備；可單次卸下",
+            "UseType": 2
+          },
+          {
+            "Bless": 1,
+            "Charges": 0,
+            "Count": 1,
+            "DescriptionId": 0,
+            "Equipped": true,
+            "Flags": 1,
+            "IconId": 97,
+            "Name": "+0 $778 ($117)",
+            "ObjectId": 1900249105,
+            "StatusHex": "130108271E000000077F27A677A977BDE83A20340027B8CBB3C6AB7EAFC53A20A440AFEB00",
+            "SupportedArrow": false,
+            "SupportedEquipment": true,
+            "SupportedPotion": false,
+            "SupportedUse": true,
+            "TailHex": "0A00000000000000000000",
+            "UseAction": "卸下",
+            "UseState": "已裝備；可單次卸下",
+            "UseType": 25
+          }
+        ],
+        "lastEffect": null,
+        "loaded": true,
+        "notice": "原服背包已同步",
+        "revision": 43,
+        "selectedId": null,
+        "selectionRevision": 15,
+        "serverMessage": null,
+        "serverReply": null,
+        "unknownUpdates": 0
+      },
+      "keepalivesSent": 2,
+      "loadedRegion": {
+        "maxX": 32703,
+        "maxY": 33023,
+        "minX": 32576,
+        "minY": 32896,
+        "mode": "original moving 2x2 cache"
+      },
+      "magic": {
+        "ac": null,
+        "acNotice": "AC：等待伺服器完整更新",
+        "buffNotice": "",
+        "buffs": [],
+        "effectCount": 0,
+        "effectiveTargetSelf": false,
+        "effects": [],
+        "learned": [
+          {
+            "Id": 1,
+            "Name": "初級治癒術",
+            "NominalMp": 4,
+            "Supported": true,
+            "Target": "自己／指定對象"
+          },
+          {
+            "Id": 3,
+            "Name": "保護罩",
+            "NominalMp": 8,
+            "Supported": true,
+            "Target": "自己"
+          },
+          {
+            "Id": 4,
+            "Name": "光箭",
+            "NominalMp": 3,
+            "Supported": true,
+            "Target": "指定敵人"
+          }
+        ],
+        "notice": "原服已學技能已更新",
+        "partialAcByte": 251,
+        "received": true,
+        "revision": 19,
+        "selectedId": null,
+        "targetName": "尚未選擇技能",
+        "targetSelf": true
+      },
+      "mapId": 0,
+      "mapResourceNotice": "地圖 0 已載入原始區塊。",
+      "mapResourceState": "ready",
+      "movement": {
+        "authoritativeActor": {
+          "Brave": 0,
+          "Clan": "",
+          "ClanId": 0,
+          "Direction": 7,
+          "Exp": 416461882,
+          "Flags": 4,
+          "Gfx": 0,
+          "HpPercent": 255,
+          "Lawful": -10,
+          "Level": 0,
+          "Light": 0,
+          "Name": "服務驗證",
+          "ObjectId": 1900249001,
+          "Owner": "",
+          "Rank": 176,
+          "Speed": 0,
+          "Tail1": 255,
+          "Tail2": 255,
+          "Title": "",
+          "Unknown": 0,
+          "Weapon": 4,
+          "X": 32606,
+          "Y": 32955
+        },
+        "corrections": 0,
+        "notice": "已送出步行；本地預測（無逐步 ACK）",
+        "predictedSteps": 20,
+        "predictedTurns": 0,
+        "stepMs": 640,
+        "successAck": false
+      },
+      "objectRevision": 202,
+      "objects": [
+        {
+          "Action": 0,
+          "AppearancePending": false,
+          "Brave": 0,
+          "Clan": "",
+          "ClanId": 0,
+          "Classification": "non-PC flag",
+          "Combat": null,
+          "Dead": false,
+          "Direction": 3,
+          "Flags": 0,
+          "Gfx": 31,
+          "HpByte": 255,
+          "HpPercent": null,
+          "Lawful": -6,
+          "Level": 6,
+          "Light": 0,
+          "MotionAt": 366311453,
+          "Name": "$8",
+          "ObjectId": 2000035929,
+          "Owner": "",
+          "Rank": 0,
+          "ReceivedAction": null,
+          "ShopActive": false,
+          "ShopAt": 0,
+          "ShopText": "",
+          "SourceX": 32625,
+          "SourceY": 32962,
+          "Speed": 0,
+          "Tail1": 255,
+          "Tail2": 255,
+          "Title": "",
+          "Unknown": 0,
+          "UpdatedAt": 366311453,
+          "WireExp": 37,
+          "X": 32626,
+          "Y": 32963
+        },
+        {
+          "Action": 0,
+          "AppearancePending": false,
+          "Brave": 0,
+          "Clan": "",
+          "ClanId": 0,
+          "Classification": "non-PC flag",
+          "Combat": null,
+          "Dead": false,
+          "Direction": 3,
+          "Flags": 0,
+          "Gfx": 31,
+          "HpByte": 255,
+          "HpPercent": null,
+          "Lawful": -6,
+          "Level": 6,
+          "Light": 0,
+          "MotionAt": 366307562,
+          "Name": "$8",
+          "ObjectId": 2000035948,
+          "Owner": "",
+          "Rank": 0,
+          "ReceivedAction": null,
+          "ShopActive": false,
+          "ShopAt": 0,
+          "ShopText": "",
+          "SourceX": 32617,
+          "SourceY": 32972,
+          "Speed": 0,
+          "Tail1": 255,
+          "Tail2": 255,
+          "Title": "",
+          "Unknown": 0,
+          "UpdatedAt": 366307562,
+          "WireExp": 37,
+          "X": 32618,
+          "Y": 32973
+        },
+        {
+          "Action": 0,
+          "AppearancePending": false,
+          "Brave": 0,
+          "Clan": "",
+          "ClanId": 0,
+          "Classification": "non-PC flag",
+          "Combat": null,
+          "Dead": false,
+          "Direction": 3,
+          "Flags": 0,
+          "Gfx": 31,
+          "HpByte": 255,
+          "HpPercent": null,
+          "Lawful": -6,
+          "Level": 6,
+          "Light": 0,
+          "MotionAt": 366311671,
+          "Name": "$8",
+          "ObjectId": 2000035950,
+          "Owner": "",
+          "Rank": 0,
+          "ReceivedAction": null,
+          "ShopActive": false,
+          "ShopAt": 0,
+          "ShopText": "",
+          "SourceX": 32619,
+          "SourceY": 32964,
+          "Speed": 0,
+          "Tail1": 255,
+          "Tail2": 255,
+          "Title": "",
+          "Unknown": 0,
+          "UpdatedAt": 366311671,
+          "WireExp": 37,
+          "X": 32620,
+          "Y": 32965
+        },
+        {
+          "Action": 0,
+          "AppearancePending": false,
+          "Brave": 0,
+          "Clan": "",
+          "ClanId": 0,
+          "Classification": "non-PC flag",
+          "Combat": null,
+          "Dead": false,
+          "Direction": 1,
+          "Flags": 0,
+          "Gfx": 31,
+          "HpByte": 255,
+          "HpPercent": null,
+          "Lawful": -6,
+          "Level": 6,
+          "Light": 0,
+          "MotionAt": 366309875,
+          "Name": "$8",
+          "ObjectId": 2000035952,
+          "Owner": "",
+          "Rank": 0,
+          "ReceivedAction": null,
+          "ShopActive": false,
+          "ShopAt": 0,
+          "ShopText": "",
+          "SourceX": 32609,
+          "SourceY": 32973,
+          "Speed": 0,
+          "Tail1": 255,
+          "Tail2": 255,
+          "Title": "",
+          "Unknown": 0,
+          "UpdatedAt": 366309875,
+          "WireExp": 37,
+          "X": 32610,
+          "Y": 32972
+        },
+        {
+          "Action": 0,
+          "AppearancePending": false,
+          "Brave": 0,
+          "Clan": "",
+          "ClanId": 0,
+          "Classification": "non-PC flag",
+          "Combat": null,
+          "Dead": false,
+          "Direction": 4,
+          "Flags": 0,
+          "Gfx": 3918,
+          "HpByte": 255,
+          "HpPercent": null,
+          "Lawful": 0,
+          "Level": 5,
+          "Light": 0,
+          "MotionAt": 0,
+          "Name": "$3041",
+          "ObjectId": 2000036179,
+          "Owner": "",
+          "Rank": 0,
+          "ReceivedAction": null,
+          "ShopActive": false,
+          "ShopAt": 0,
+          "ShopText": "",
+          "SourceX": 32632,
+          "SourceY": 32969,
+          "Speed": 0,
+          "Tail1": 255,
+          "Tail2": 255,
+          "Title": "",
+          "Unknown": 0,
+          "UpdatedAt": 366304140,
+          "WireExp": 26,
+          "X": 32632,
+          "Y": 32969
+        }
+      ],
+      "opacity": {
+        "groups": [],
+        "position": [
+          32620,
+          32975
+        ],
+        "revision": 45,
+        "states": [
+          [
+            "objects",
+            21611,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21612,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21569,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21613,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21570,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21571,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21572,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21614,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21615,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21573,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21616,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21574,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21575,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21576,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21577,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21617,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21618,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21619,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21578,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21620,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21579,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21580,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21581,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21621,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21622,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21582,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21623,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21583,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21624,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21584,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21585,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21586,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21625,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21626,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21587,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21588,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21519,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21520,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21521,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21522,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21523,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21524,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21525,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21526,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21527,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21528,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21529,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21530,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21531,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21532,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21533,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21534,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21535,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21536,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21537,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21538,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21539,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21540,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21541,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21542,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21543,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21544,
+            257,
+            0,
+            0
+          ],
+          [
+            "objects",
+            21545,
+            257,
+            0,
+            0
+          ]
+        ],
+        "time": 366311718,
+        "timers": []
+      },
+      "ready": true,
+      "renderable": true,
+      "rewards": {
+        "experience": {
+          "Level": 60,
+          "LevelStart": 416461882,
+          "Limitation": "",
+          "NextLevel": 452526974,
+          "Percent": 0,
+          "Source": "S8",
+          "Total": 416461882,
+          "WireLow32": 416461882
+        },
+        "experienceChanges": 0,
+        "inventoryChanges": [],
+        "lastExperienceChange": null,
+        "notice": "原回包狀態差值；背包增加的來源需由實際戰鬥證據核對"
+      },
+      "serverTime": 344028171,
+      "status": {
+        "Ac": -5,
+        "Charisma": 10,
+        "Constitution": 16,
+        "Dexterity": 13,
+        "Earth": 0,
+        "Exp": 416461882,
+        "Fire": 0,
+        "Food": 40,
+        "Hp": 700,
+        "Intelligence": 11,
+        "Kills": 0,
+        "Lawful": -10,
+        "Level": 60,
+        "MaxHp": 700,
+        "MaxMp": 120,
+        "Mp": 120,
+        "ObjectId": 1900249001,
+        "Strength": 18,
+        "Time": 344028000,
+        "Water": 0,
+        "Weight": 0,
+        "Wind": 0,
+        "Wisdom": 12
+      },
+      "supportedAppearance": true,
+      "supportedMap": true,
+      "target": null,
+      "targetId": null,
+      "teleport": {
+        "actionLocked": false,
+        "generation": 15,
+        "marker": null,
+        "notice": "已收到原服角色位置並載入地圖。",
+        "paralysis": "",
+        "pending": false,
+        "portal": null,
+        "state": "arrived"
+      },
+      "timeReplies": 2,
+      "underwater": false,
+      "unhandled": {
+        "0x25": 6,
+        "0x28": 1,
+        "0x40": 12,
+        "0x73": 1,
+        "0x9B": 1,
+        "0xD1": 1,
+        "0xF2": 1,
+        "0xFA": 8
+      },
+      "unknownObjectUpdates": 1,
+      "worldEpoch": 15
+    },
+    "worldEntry": {
+      "coreTimeoutMs": 12000,
+      "localTimeoutMs": 30000,
+      "pendingMap": null,
+      "probeAt": null,
+      "probeTimeoutMs": 8000,
+      "startedAt": null,
+      "totalTimeoutMs": 60000,
+      "transition": null
+    }
+  },
+  "loginControl": {
+    "canCancel": true,
+    "canEnter": false,
+    "canLogin": false,
+    "generation": 11,
+    "notice": "已要求進入世界，請查看連線狀態。",
+    "revision": 19,
+    "sessionRevision": 478,
+    "startFailure": null
+  },
+  "magic": {
+    "ac": null,
+    "acNotice": "AC：等待伺服器完整更新",
+    "available": false,
+    "buffs": "",
+    "earth": 0,
+    "epoch": 15,
+    "fire": 0,
+    "hp": 700,
+    "maxHp": 700,
+    "maxMp": 120,
+    "message": null,
+    "mp": 120,
+    "notice": "原服已學技能已更新",
+    "selectedId": null,
+    "skills": [
+      {
+        "Id": 1,
+        "Name": "初級治癒術",
+        "NominalMp": 4,
+        "Supported": true,
+        "Target": "自己／指定對象"
+      },
+      {
+        "Id": 3,
+        "Name": "保護罩",
+        "NominalMp": 8,
+        "Supported": true,
+        "Target": "自己"
+      },
+      {
+        "Id": 4,
+        "Name": "光箭",
+        "NominalMp": 3,
+        "Supported": true,
+        "Target": "指定敵人"
+      }
+    ],
+    "targetId": null,
+    "targetMode": "none",
+    "targetName": "尚未選擇技能",
+    "targets": [
+      {
+        "id": 2000035929,
+        "name": "史萊姆"
+      },
+      {
+        "id": 2000035948,
+        "name": "史萊姆"
+      },
+      {
+        "id": 2000035950,
+        "name": "史萊姆"
+      },
+      {
+        "id": 2000035952,
+        "name": "史萊姆"
+      },
+      {
+        "id": 2000036179,
+        "name": "老虎"
+      }
+    ],
+    "water": 0,
+    "wind": 0
+  },
+  "movementControl": {
+    "available": true,
+    "busy": false,
+    "reason": ""
+  },
+  "networkMode": false,
+  "normalProduct": true,
+  "onlineMode": true,
+  "presence": {
+    "IncomingAttack": "",
+    "Labels": []
+  },
+  "revision": 599,
+  "steps": 33,
+  "targetName": null,
+  "trade": {
+    "canInvite": false,
+    "facingName": null,
+    "inventory": [
+      {
+        "count": 94000,
+        "id": 1900249101,
+        "name": "金幣"
+      },
+      {
+        "count": 12,
+        "id": 1900249102,
+        "name": "白色藥水"
+      }
+    ],
+    "inventoryRevision": 43,
+    "model": {
+      "canAccept": false,
+      "canAdd": false,
+      "canCancel": false,
+      "canConfirm": false,
+      "canReject": false,
+      "challenge": 0,
+      "epoch": 15,
+      "generation": 15,
+      "notice": "世界已清除，舊交易已失效。",
+      "offers": [],
+      "ownConfirmed": false,
+      "peer": "",
+      "peerId": null,
+      "revision": 15,
+      "state": "idle"
+    },
+    "notice": "世界已清除，舊交易已失效。",
+    "offers": []
+  },
+  "v": 1,
+  "walking": false,
+  "x": 32620,
+  "y": 32975
+}

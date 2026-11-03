@@ -1,0 +1,29 @@
+{
+  "utc": "2026-10-26T15:19:55.561Z",
+  "ticketAcquired": false,
+  "harborNpcSeen": true,
+  "harborInteractionReached": false,
+  "artifactNameCaveat": "r10-harbor-arrived-state.json and -scene.png show approach only at32626,32961, not NPC talk range/arrival",
+  "death": "second service-role death on retreat login; preserved",
+  "current": {
+    "account": "p24svc01",
+    "name": "服務驗證",
+    "id": 1900249001,
+    "x": 32600,
+    "y": 32942,
+    "hp": 86,
+    "mp": 93,
+    "level": 60,
+    "exp": 416461882,
+    "adena": 94000,
+    "whitePotions": 12,
+    "skills": [
+      1,
+      3,
+      4
+    ],
+    "status": "offline after second preserved service-role death; normal village respawn and partial normal healing"
+  },
+  "controller": "node_repl timed out during normal healing, reset; native Alt+F4 used to exit normally",
+  "dbEvidence": "service-role-after-recovery-interrupt.json"
+}

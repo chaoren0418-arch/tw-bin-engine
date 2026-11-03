@@ -1,0 +1,706 @@
+{
+  "schema": "p35-independent-review-artifact-manifest-v1",
+  "qualification": "isolated RG2 review only; synthetic fixtures are not canonical",
+  "files": [
+    {
+      "path": "baseline-review.json",
+      "size": 4847,
+      "sha256": "03553d352832091d0f6c1545a035c9813dea1bfc39c6aca73e6226e70d38fceb"
+    },
+    {
+      "path": "commands/baseline-01/receipt.json",
+      "size": 1007,
+      "sha256": "7c23507a3f0247e994851ae0a72775e839abe880fd0dd4dd689ee53e360e0b46"
+    },
+    {
+      "path": "commands/baseline-01/stderr",
+      "size": 389,
+      "sha256": "524fbbee653c0da05c4fb56a02fa526a9385fa3c0fefe7f2c6da50f91b936e4a"
+    },
+    {
+      "path": "commands/baseline-01/stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/baseline-02/receipt.json",
+      "size": 1007,
+      "sha256": "270cb1cb5084fb827f405936d66a40670f25d3e597a76f69820d581808ced625"
+    },
+    {
+      "path": "commands/baseline-02/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/baseline-02/stdout",
+      "size": 180,
+      "sha256": "88e886a15c36ee5797b0f74fa7a69b2e85893a7cd61b26302e9f7bbb3e3605c1"
+    },
+    {
+      "path": "commands/final-01/receipt.json",
+      "size": 995,
+      "sha256": "1a8b61444c5cd310e8982dcb6259f92a13d0ea04ef4bd36a47fa7549f539cf4b"
+    },
+    {
+      "path": "commands/final-01/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/final-01/stdout",
+      "size": 152,
+      "sha256": "73c6e626cfbafdc7d635d8539d7af17509a91d88f79561d708ed1f69f7f35711"
+    },
+    {
+      "path": "commands/finalize-01/receipt.json",
+      "size": 1006,
+      "sha256": "f479fa6a8aeb3f1d424df82b26b1386a238436b5f5cb12913a49a139c939d8de"
+    },
+    {
+      "path": "commands/finalize-01/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/finalize-01/stdout",
+      "size": 137,
+      "sha256": "5037606338bebab0b61fd13be55d832dbe5ad64a0889ea1d06f4a99aa04c8369"
+    },
+    {
+      "path": "final-pins.json",
+      "size": 1065,
+      "sha256": "1b7dfaf34d2b92f7560fff787af14ca4325aa7c3b62f04cebd04ca7d0591d94a"
+    },
+    {
+      "path": "final-review.json",
+      "size": 1311,
+      "sha256": "3784c24e0becc77110876ab98642dfe2ed01553a8b8e04a2bc0d082fe7088777"
+    },
+    {
+      "path": "finalize_review.py",
+      "size": 6854,
+      "sha256": "b1a4c7db42565e9d5afb61b0b932f2e28c35d45abc26497c8d6c0e7d28b191ef"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 4374,
+      "sha256": "7e846d9d8914e61551ef5799cba0221c4860192399c5d436bc56437c39425d4b"
+    },
+    {
+      "path": "independent-cases.json",
+      "size": 3089,
+      "sha256": "6486d58791e9c8aa14412c3ddb15d40f25c281c43f16c7c5a57f88c3f2f4dbc3"
+    },
+    {
+      "path": "independent-final.diff",
+      "size": 1775,
+      "sha256": "1eec390b9865e019ce1eb637543e0492052fee0ae8e80f0aa82fe6ccda9be0bb"
+    },
+    {
+      "path": "inspect_baseline.py",
+      "size": 4319,
+      "sha256": "d72db9088894c9b01654bd10e21b7608d91694084a42a994f54f56875a3bfac3"
+    },
+    {
+      "path": "progress.json",
+      "size": 1537,
+      "sha256": "1af3cd8cacf2df235cda0a5e8e5e34936ae3c1ea1c884d5c3091c901d17abb93"
+    },
+    {
+      "path": "protected-baseline.json",
+      "size": 1830,
+      "sha256": "9ad592528403ab41a5f7c0ecff183a17f780e2ad3b29603a3f92f3287f21a748"
+    },
+    {
+      "path": "real-inventory-comparison.json",
+      "size": 604,
+      "sha256": "766c39b8f3e32a5c9c76408291dff44adb1ddf41cc7b0ebf8d9faf1f32574475"
+    },
+    {
+      "path": "result.json",
+      "size": 3680,
+      "sha256": "69ec58d51cc5cb3a3d4fb41e34f2dd63570f99689a517f12b0efae02fa6a6672"
+    },
+    {
+      "path": "review-scope.json",
+      "size": 2124,
+      "sha256": "c8fc42d1be58189b5ffdbb6eab9b793a83ab71d39a993bbfe059aef2f7fa73f0"
+    },
+    {
+      "path": "run_recorded.py",
+      "size": 1382,
+      "sha256": "27e084b1343ca73b28810ee77c9946d04c599d7877a99fe5e0067b3832af57aa"
+    },
+    {
+      "path": "run_review.py",
+      "size": 9912,
+      "sha256": "273e5315e1f1921efcba76c3d351495a2bf6e34c8e7ece22c27bbf80608e69b2"
+    },
+    {
+      "path": "seal_review.py",
+      "size": 1435,
+      "sha256": "9bbe48f78f0400f1d34df4f8cc146183c3e848ef71baf4b10ef70e283e216e80"
+    },
+    {
+      "path": "source-seal.json",
+      "size": 1480,
+      "sha256": "581c93a5b4fe5bd852e3f52280f010c0811d37459210881d18b6cf81f9dcd233"
+    },
+    {
+      "path": "synthetic-wi9s08by/casefold-manifest-target-collision/engine/_integration/r34/rebuild-lock.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/casefold-manifest-target-collision/engine/build/client-product-r34/P11.ClientEngine.dll",
+      "size": 39,
+      "sha256": "6e60db46030a6716bb2f019cb82e28daa8b54d7b61ec31ed768e9d56b69c12b2"
+    },
+    {
+      "path": "synthetic-wi9s08by/casefold-manifest-target-collision/engine/build/client-product-r34/P24.Audio.dll",
+      "size": 37,
+      "sha256": "2b78cd3b1539c88260384a14f4613493a86ee195daafde691ebdf0d6d4374d2c"
+    },
+    {
+      "path": "synthetic-wi9s08by/casefold-manifest-target-collision/engine/build/product-r34-manifest.json",
+      "size": 381,
+      "sha256": "6d132e111d55306f3b7310372922480206638860970ca00805fa58eaee655829"
+    },
+    {
+      "path": "synthetic-wi9s08by/casefold-manifest-target-collision/engine/launcher/P24.Launcher.deps.json",
+      "size": 32,
+      "sha256": "5e56928351e1534973a4053c248ad36d69919989a2e5aca98b5114cf6e66eb68"
+    },
+    {
+      "path": "synthetic-wi9s08by/casefold-manifest-target-collision/engine/launcher/P24.Launcher.dll",
+      "size": 26,
+      "sha256": "5dd6e81c459322f7f40a53ad3363f0b185ce8bfac9fd8d3326c0ffd26e852f76"
+    },
+    {
+      "path": "synthetic-wi9s08by/casefold-manifest-target-collision/engine/launcher/P24.Launcher.exe",
+      "size": 26,
+      "sha256": "dcc37e55acd8ab514e0af91f93a8728b84c593d828e71df60b4741de153dda4a"
+    },
+    {
+      "path": "synthetic-wi9s08by/casefold-manifest-target-collision/engine/launcher/P24.Launcher.runtimeconfig.json",
+      "size": 41,
+      "sha256": "f27b50a06d1a83994f63d1add4fc96bb6f1806827d159fb9dd4fa84103d4dfb0"
+    },
+    {
+      "path": "synthetic-wi9s08by/casefold-manifest-target-collision/fixture-view.json",
+      "size": 1561,
+      "sha256": "3266c235d5b105b5d9c0c539001d7e621e9d4a244cbddc1e05e3ac6b7b5a52e7"
+    },
+    {
+      "path": "synthetic-wi9s08by/casefold-manifest-target-collision/stage/rebuild-overlay/OVERLAY.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/casefold-manifest-target-collision/stage/stage-seal.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/four-identities-and-exact-one-row-addition/engine/_integration/r34/rebuild-lock.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/four-identities-and-exact-one-row-addition/engine/build/client-product-r34/P11.ClientEngine.dll",
+      "size": 39,
+      "sha256": "6e60db46030a6716bb2f019cb82e28daa8b54d7b61ec31ed768e9d56b69c12b2"
+    },
+    {
+      "path": "synthetic-wi9s08by/four-identities-and-exact-one-row-addition/engine/build/client-product-r34/P24.Audio.dll",
+      "size": 37,
+      "sha256": "2b78cd3b1539c88260384a14f4613493a86ee195daafde691ebdf0d6d4374d2c"
+    },
+    {
+      "path": "synthetic-wi9s08by/four-identities-and-exact-one-row-addition/engine/build/product-r34-manifest.json",
+      "size": 381,
+      "sha256": "6d132e111d55306f3b7310372922480206638860970ca00805fa58eaee655829"
+    },
+    {
+      "path": "synthetic-wi9s08by/four-identities-and-exact-one-row-addition/engine/launcher/P24.Launcher.deps.json",
+      "size": 32,
+      "sha256": "5e56928351e1534973a4053c248ad36d69919989a2e5aca98b5114cf6e66eb68"
+    },
+    {
+      "path": "synthetic-wi9s08by/four-identities-and-exact-one-row-addition/engine/launcher/P24.Launcher.dll",
+      "size": 26,
+      "sha256": "5dd6e81c459322f7f40a53ad3363f0b185ce8bfac9fd8d3326c0ffd26e852f76"
+    },
+    {
+      "path": "synthetic-wi9s08by/four-identities-and-exact-one-row-addition/engine/launcher/P24.Launcher.exe",
+      "size": 26,
+      "sha256": "dcc37e55acd8ab514e0af91f93a8728b84c593d828e71df60b4741de153dda4a"
+    },
+    {
+      "path": "synthetic-wi9s08by/four-identities-and-exact-one-row-addition/engine/launcher/P24.Launcher.runtimeconfig.json",
+      "size": 41,
+      "sha256": "f27b50a06d1a83994f63d1add4fc96bb6f1806827d159fb9dd4fa84103d4dfb0"
+    },
+    {
+      "path": "synthetic-wi9s08by/four-identities-and-exact-one-row-addition/fixture-view.json",
+      "size": 1417,
+      "sha256": "920f7ee3ae0a61e567ca0b0e71a8be79544135d520b294cb4f076da6bf69ad91"
+    },
+    {
+      "path": "synthetic-wi9s08by/four-identities-and-exact-one-row-addition/stage/rebuild-overlay/OVERLAY.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/four-identities-and-exact-one-row-addition/stage/stage-seal.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-canonical-manifest-identity/engine/_integration/r34/rebuild-lock.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-canonical-manifest-identity/engine/build/client-product-r34/P11.ClientEngine.dll",
+      "size": 39,
+      "sha256": "6e60db46030a6716bb2f019cb82e28daa8b54d7b61ec31ed768e9d56b69c12b2"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-canonical-manifest-identity/engine/build/client-product-r34/P24.Audio.dll",
+      "size": 37,
+      "sha256": "2b78cd3b1539c88260384a14f4613493a86ee195daafde691ebdf0d6d4374d2c"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-canonical-manifest-identity/engine/build/product-r34-manifest.json",
+      "size": 381,
+      "sha256": "6d132e111d55306f3b7310372922480206638860970ca00805fa58eaee655829"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-canonical-manifest-identity/engine/launcher/P24.Launcher.deps.json",
+      "size": 32,
+      "sha256": "5e56928351e1534973a4053c248ad36d69919989a2e5aca98b5114cf6e66eb68"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-canonical-manifest-identity/engine/launcher/P24.Launcher.dll",
+      "size": 26,
+      "sha256": "5dd6e81c459322f7f40a53ad3363f0b185ce8bfac9fd8d3326c0ffd26e852f76"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-canonical-manifest-identity/engine/launcher/P24.Launcher.exe",
+      "size": 26,
+      "sha256": "dcc37e55acd8ab514e0af91f93a8728b84c593d828e71df60b4741de153dda4a"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-canonical-manifest-identity/engine/launcher/P24.Launcher.runtimeconfig.json",
+      "size": 41,
+      "sha256": "f27b50a06d1a83994f63d1add4fc96bb6f1806827d159fb9dd4fa84103d4dfb0"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-canonical-manifest-identity/fixture-view.json",
+      "size": 1284,
+      "sha256": "82046addd5292cb9731199c23d602fc2b02bfe619fe1ff134cd50fa456b182ab"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-canonical-manifest-identity/stage/rebuild-overlay/OVERLAY.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-canonical-manifest-identity/stage/stage-seal.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-manifest-file/engine/_integration/r34/rebuild-lock.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-manifest-file/engine/build/client-product-r34/P11.ClientEngine.dll",
+      "size": 39,
+      "sha256": "6e60db46030a6716bb2f019cb82e28daa8b54d7b61ec31ed768e9d56b69c12b2"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-manifest-file/engine/build/client-product-r34/P24.Audio.dll",
+      "size": 37,
+      "sha256": "2b78cd3b1539c88260384a14f4613493a86ee195daafde691ebdf0d6d4374d2c"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-manifest-file/engine/build/product-r34-manifest.absent",
+      "size": 381,
+      "sha256": "6d132e111d55306f3b7310372922480206638860970ca00805fa58eaee655829"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-manifest-file/engine/launcher/P24.Launcher.deps.json",
+      "size": 32,
+      "sha256": "5e56928351e1534973a4053c248ad36d69919989a2e5aca98b5114cf6e66eb68"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-manifest-file/engine/launcher/P24.Launcher.dll",
+      "size": 26,
+      "sha256": "5dd6e81c459322f7f40a53ad3363f0b185ce8bfac9fd8d3326c0ffd26e852f76"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-manifest-file/engine/launcher/P24.Launcher.exe",
+      "size": 26,
+      "sha256": "dcc37e55acd8ab514e0af91f93a8728b84c593d828e71df60b4741de153dda4a"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-manifest-file/engine/launcher/P24.Launcher.runtimeconfig.json",
+      "size": 41,
+      "sha256": "f27b50a06d1a83994f63d1add4fc96bb6f1806827d159fb9dd4fa84103d4dfb0"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-manifest-file/fixture-view.json",
+      "size": 1312,
+      "sha256": "602479019e878354050c41611433f47c1d8ede6fdd386a5b7d5914db3a792941"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-manifest-file/stage/rebuild-overlay/OVERLAY.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-manifest-file/stage/stage-seal.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-audioDllSha256/engine/_integration/r34/rebuild-lock.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-audioDllSha256/engine/build/client-product-r34/P11.ClientEngine.dll",
+      "size": 39,
+      "sha256": "6e60db46030a6716bb2f019cb82e28daa8b54d7b61ec31ed768e9d56b69c12b2"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-audioDllSha256/engine/build/client-product-r34/P24.Audio.dll",
+      "size": 37,
+      "sha256": "2b78cd3b1539c88260384a14f4613493a86ee195daafde691ebdf0d6d4374d2c"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-audioDllSha256/engine/build/product-r34-manifest.json",
+      "size": 206,
+      "sha256": "74813f9152ec1bca43048bf206144f891ad02cd30bfc4981978191b19c2cbf84"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-audioDllSha256/engine/launcher/P24.Launcher.deps.json",
+      "size": 32,
+      "sha256": "5e56928351e1534973a4053c248ad36d69919989a2e5aca98b5114cf6e66eb68"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-audioDllSha256/engine/launcher/P24.Launcher.dll",
+      "size": 26,
+      "sha256": "5dd6e81c459322f7f40a53ad3363f0b185ce8bfac9fd8d3326c0ffd26e852f76"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-audioDllSha256/engine/launcher/P24.Launcher.exe",
+      "size": 26,
+      "sha256": "dcc37e55acd8ab514e0af91f93a8728b84c593d828e71df60b4741de153dda4a"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-audioDllSha256/engine/launcher/P24.Launcher.runtimeconfig.json",
+      "size": 41,
+      "sha256": "f27b50a06d1a83994f63d1add4fc96bb6f1806827d159fb9dd4fa84103d4dfb0"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-audioDllSha256/fixture-view.json",
+      "size": 1352,
+      "sha256": "d3253f374aa995cee02d53b7acb7d90a285f5e427aa6d4d5870afdcc58364665"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-audioDllSha256/stage/rebuild-overlay/OVERLAY.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-audioDllSha256/stage/stage-seal.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-productDllSha256/engine/_integration/r34/rebuild-lock.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-productDllSha256/engine/build/client-product-r34/P11.ClientEngine.dll",
+      "size": 39,
+      "sha256": "6e60db46030a6716bb2f019cb82e28daa8b54d7b61ec31ed768e9d56b69c12b2"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-productDllSha256/engine/build/client-product-r34/P24.Audio.dll",
+      "size": 37,
+      "sha256": "2b78cd3b1539c88260384a14f4613493a86ee195daafde691ebdf0d6d4374d2c"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-productDllSha256/engine/build/product-r34-manifest.json",
+      "size": 199,
+      "sha256": "af03db0f2cdb81ec97a22e38ac94b08341da34ad0e393af0c9efb8e7182bb5d7"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-productDllSha256/engine/launcher/P24.Launcher.deps.json",
+      "size": 32,
+      "sha256": "5e56928351e1534973a4053c248ad36d69919989a2e5aca98b5114cf6e66eb68"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-productDllSha256/engine/launcher/P24.Launcher.dll",
+      "size": 26,
+      "sha256": "5dd6e81c459322f7f40a53ad3363f0b185ce8bfac9fd8d3326c0ffd26e852f76"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-productDllSha256/engine/launcher/P24.Launcher.exe",
+      "size": 26,
+      "sha256": "dcc37e55acd8ab514e0af91f93a8728b84c593d828e71df60b4741de153dda4a"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-productDllSha256/engine/launcher/P24.Launcher.runtimeconfig.json",
+      "size": 41,
+      "sha256": "f27b50a06d1a83994f63d1add4fc96bb6f1806827d159fb9dd4fa84103d4dfb0"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-productDllSha256/fixture-view.json",
+      "size": 1362,
+      "sha256": "93b5ce20fe8086b34f823300a73b74fc70f34575ffb39c2833d625c2d5360060"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-productDllSha256/stage/rebuild-overlay/OVERLAY.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/missing-target-productDllSha256/stage/stage-seal.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-audioDllSha256/engine/_integration/r34/rebuild-lock.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-audioDllSha256/engine/build/client-product-r34/P11.ClientEngine.dll",
+      "size": 39,
+      "sha256": "6e60db46030a6716bb2f019cb82e28daa8b54d7b61ec31ed768e9d56b69c12b2"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-audioDllSha256/engine/build/client-product-r34/P24.Audio.dll",
+      "size": 37,
+      "sha256": "2b78cd3b1539c88260384a14f4613493a86ee195daafde691ebdf0d6d4374d2c"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-audioDllSha256/engine/build/product-r34-manifest.json",
+      "size": 381,
+      "sha256": "6d132e111d55306f3b7310372922480206638860970ca00805fa58eaee655829"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-audioDllSha256/engine/launcher/P24.Launcher.deps.json",
+      "size": 32,
+      "sha256": "5e56928351e1534973a4053c248ad36d69919989a2e5aca98b5114cf6e66eb68"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-audioDllSha256/engine/launcher/P24.Launcher.dll",
+      "size": 26,
+      "sha256": "5dd6e81c459322f7f40a53ad3363f0b185ce8bfac9fd8d3326c0ffd26e852f76"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-audioDllSha256/engine/launcher/P24.Launcher.exe",
+      "size": 26,
+      "sha256": "dcc37e55acd8ab514e0af91f93a8728b84c593d828e71df60b4741de153dda4a"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-audioDllSha256/engine/launcher/P24.Launcher.runtimeconfig.json",
+      "size": 41,
+      "sha256": "f27b50a06d1a83994f63d1add4fc96bb6f1806827d159fb9dd4fa84103d4dfb0"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-audioDllSha256/fixture-view.json",
+      "size": 1357,
+      "sha256": "77562ac74a6517245df9e34bc7a285d024922663f93dded9148073743a2b1143"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-audioDllSha256/stage/rebuild-overlay/OVERLAY.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-audioDllSha256/stage/stage-seal.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-launcherDllSha256/engine/_integration/r34/rebuild-lock.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-launcherDllSha256/engine/build/client-product-r34/P11.ClientEngine.dll",
+      "size": 39,
+      "sha256": "6e60db46030a6716bb2f019cb82e28daa8b54d7b61ec31ed768e9d56b69c12b2"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-launcherDllSha256/engine/build/client-product-r34/P24.Audio.dll",
+      "size": 37,
+      "sha256": "2b78cd3b1539c88260384a14f4613493a86ee195daafde691ebdf0d6d4374d2c"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-launcherDllSha256/engine/build/product-r34-manifest.json",
+      "size": 381,
+      "sha256": "6d132e111d55306f3b7310372922480206638860970ca00805fa58eaee655829"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-launcherDllSha256/engine/launcher/P24.Launcher.deps.json",
+      "size": 32,
+      "sha256": "5e56928351e1534973a4053c248ad36d69919989a2e5aca98b5114cf6e66eb68"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-launcherDllSha256/engine/launcher/P24.Launcher.dll",
+      "size": 26,
+      "sha256": "5dd6e81c459322f7f40a53ad3363f0b185ce8bfac9fd8d3326c0ffd26e852f76"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-launcherDllSha256/engine/launcher/P24.Launcher.exe",
+      "size": 26,
+      "sha256": "dcc37e55acd8ab514e0af91f93a8728b84c593d828e71df60b4741de153dda4a"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-launcherDllSha256/engine/launcher/P24.Launcher.runtimeconfig.json",
+      "size": 41,
+      "sha256": "f27b50a06d1a83994f63d1add4fc96bb6f1806827d159fb9dd4fa84103d4dfb0"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-launcherDllSha256/fixture-view.json",
+      "size": 1372,
+      "sha256": "f6dae22715bf557174a261b7876e0cd45255876418f1b09d6ece8f0f4eb5ef3d"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-launcherDllSha256/stage/rebuild-overlay/OVERLAY.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-launcherDllSha256/stage/stage-seal.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productDllSha256/engine/_integration/r34/rebuild-lock.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productDllSha256/engine/build/client-product-r34/P11.ClientEngine.dll",
+      "size": 39,
+      "sha256": "6e60db46030a6716bb2f019cb82e28daa8b54d7b61ec31ed768e9d56b69c12b2"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productDllSha256/engine/build/client-product-r34/P24.Audio.dll",
+      "size": 37,
+      "sha256": "2b78cd3b1539c88260384a14f4613493a86ee195daafde691ebdf0d6d4374d2c"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productDllSha256/engine/build/product-r34-manifest.json",
+      "size": 381,
+      "sha256": "6d132e111d55306f3b7310372922480206638860970ca00805fa58eaee655829"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productDllSha256/engine/launcher/P24.Launcher.deps.json",
+      "size": 32,
+      "sha256": "5e56928351e1534973a4053c248ad36d69919989a2e5aca98b5114cf6e66eb68"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productDllSha256/engine/launcher/P24.Launcher.dll",
+      "size": 26,
+      "sha256": "5dd6e81c459322f7f40a53ad3363f0b185ce8bfac9fd8d3326c0ffd26e852f76"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productDllSha256/engine/launcher/P24.Launcher.exe",
+      "size": 26,
+      "sha256": "dcc37e55acd8ab514e0af91f93a8728b84c593d828e71df60b4741de153dda4a"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productDllSha256/engine/launcher/P24.Launcher.runtimeconfig.json",
+      "size": 41,
+      "sha256": "f27b50a06d1a83994f63d1add4fc96bb6f1806827d159fb9dd4fa84103d4dfb0"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productDllSha256/fixture-view.json",
+      "size": 1367,
+      "sha256": "05be0e8d579012f6560ebb15d3de67dfbedae0884f427204fd965b83a06a4b8f"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productDllSha256/stage/rebuild-overlay/OVERLAY.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productDllSha256/stage/stage-seal.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productManifestSha256/engine/_integration/r34/rebuild-lock.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productManifestSha256/engine/build/client-product-r34/P11.ClientEngine.dll",
+      "size": 39,
+      "sha256": "6e60db46030a6716bb2f019cb82e28daa8b54d7b61ec31ed768e9d56b69c12b2"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productManifestSha256/engine/build/client-product-r34/P24.Audio.dll",
+      "size": 37,
+      "sha256": "2b78cd3b1539c88260384a14f4613493a86ee195daafde691ebdf0d6d4374d2c"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productManifestSha256/engine/build/product-r34-manifest.json",
+      "size": 381,
+      "sha256": "6d132e111d55306f3b7310372922480206638860970ca00805fa58eaee655829"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productManifestSha256/engine/launcher/P24.Launcher.deps.json",
+      "size": 32,
+      "sha256": "5e56928351e1534973a4053c248ad36d69919989a2e5aca98b5114cf6e66eb68"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productManifestSha256/engine/launcher/P24.Launcher.dll",
+      "size": 26,
+      "sha256": "5dd6e81c459322f7f40a53ad3363f0b185ce8bfac9fd8d3326c0ffd26e852f76"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productManifestSha256/engine/launcher/P24.Launcher.exe",
+      "size": 26,
+      "sha256": "dcc37e55acd8ab514e0af91f93a8728b84c593d828e71df60b4741de153dda4a"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productManifestSha256/engine/launcher/P24.Launcher.runtimeconfig.json",
+      "size": 41,
+      "sha256": "f27b50a06d1a83994f63d1add4fc96bb6f1806827d159fb9dd4fa84103d4dfb0"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productManifestSha256/fixture-view.json",
+      "size": 1392,
+      "sha256": "6b92069ce82dba23b32db6f54b4547725f48d2e9459660cac0a6837f62bb8580"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productManifestSha256/stage/rebuild-overlay/OVERLAY.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "synthetic-wi9s08by/wrong-canonical-productManifestSha256/stage/stage-seal.json",
+      "size": 21,
+      "sha256": "9979c686d4f4ef4af012e250578c75eaa6f8e60ae5e6f3780f58a2db5169a267"
+    },
+    {
+      "path": "verify_delivery.py",
+      "size": 4071,
+      "sha256": "1ed351c016cdd838dce1f77f9125596b0ee85243dd34d3c1506f69048e5b4271"
+    }
+  ]
+}

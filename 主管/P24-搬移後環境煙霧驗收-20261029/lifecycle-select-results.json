@@ -1,0 +1,167 @@
+{
+  "utc": "2026-10-28T19:01:34.051166+00:00",
+  "readOnly": true,
+  "sqlSource": "D:\\lineage開發\\TW1608262200研究\\work\\timed-item-lifecycle-r1\\minimal-select.sql",
+  "sqlSha256": "facac8e7a3cdfc5e84100437a8b2b644049b7cbd758ad48ac480819fcdbe7498",
+  "dbRuntime": {
+    "processes": [
+      {
+        "ProcessId": 4208,
+        "ParentProcessId": 1208,
+        "CreationDate": "/Date(1793206531925)/",
+        "ExecutablePath": null,
+        "CommandLine": null
+      },
+      {
+        "ProcessId": 20392,
+        "ParentProcessId": 7876,
+        "CreationDate": "/Date(1793212131511)/",
+        "ExecutablePath": "D:\\BinEngine\\environments\\p24\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "\"D:\\BinEngine\\environments\\p24\\mysql\\bin\\mysqld.exe\" --defaults-file=D:/BinEngine/environments/p24/mysql.ini --console"
+      },
+      {
+        "ProcessId": 19324,
+        "ParentProcessId": 20392,
+        "CreationDate": "/Date(1793212131915)/",
+        "ExecutablePath": "D:\\BinEngine\\environments\\p24\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\BinEngine\\environments\\p24\\mysql\\bin\\mysqld.exe --defaults-file=D:/BinEngine/environments/p24/mysql.ini --console"
+      }
+    ],
+    "listeners": [
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 43324,
+        "OwningProcess": 19324
+      }
+    ]
+  },
+  "results": [
+    {
+      "query": 1,
+      "rows": [
+        {
+          "server_uuid": "e3443e40-d090-11f1-8040-4cedfb679789",
+          "port": "43324",
+          "server_now": "2026-10-29 03:01:34.018657",
+          "session_time_zone": "SYSTEM",
+          "system_time_zone": "?x?_?зǮɶ?"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "query": 2,
+      "rows": [
+        {
+          "TABLE_SCHEMA": "p24_accounts",
+          "TABLE_NAME": "character_items",
+          "ENGINE": "MyISAM"
+        },
+        {
+          "TABLE_SCHEMA": "p24_accounts",
+          "TABLE_NAME": "character_items_time",
+          "ENGINE": "MyISAM"
+        }
+      ],
+      "count": 2
+    },
+    {
+      "query": 3,
+      "rows": [
+        {
+          "TABLE_SCHEMA": "p24_accounts",
+          "TABLE_NAME": "character_items",
+          "INDEX_NAME": "key_id",
+          "NON_UNIQUE": "1",
+          "SEQ_IN_INDEX": "1",
+          "COLUMN_NAME": "char_id"
+        },
+        {
+          "TABLE_SCHEMA": "p24_accounts",
+          "TABLE_NAME": "character_items",
+          "INDEX_NAME": "PRIMARY",
+          "NON_UNIQUE": "0",
+          "SEQ_IN_INDEX": "1",
+          "COLUMN_NAME": "id"
+        },
+        {
+          "TABLE_SCHEMA": "p24_accounts",
+          "TABLE_NAME": "character_items_time",
+          "INDEX_NAME": "PRIMARY",
+          "NON_UNIQUE": "0",
+          "SEQ_IN_INDEX": "1",
+          "COLUMN_NAME": "itemr_obj_id"
+        }
+      ],
+      "count": 3
+    },
+    {
+      "query": 4,
+      "rows": [
+        {
+          "itemr_obj_id": "10326",
+          "usertime": "2026-10-28 05:33:31",
+          "main_id": null,
+          "char_id": null,
+          "item_id": null,
+          "count": null,
+          "remaining_time": null,
+          "expired_now": "1"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "query": 5,
+      "rows": [],
+      "count": 0
+    },
+    {
+      "query": 6,
+      "rows": [
+        {
+          "itemid": "49290",
+          "h": "2"
+        },
+        {
+          "itemid": "49900",
+          "h": "2"
+        }
+      ],
+      "count": 2
+    },
+    {
+      "query": 7,
+      "rows": [
+        {
+          "id": "1237",
+          "npc_id": "70012",
+          "action_name": "room",
+          "materials": "40308",
+          "materials_count": "100",
+          "results": "49290",
+          "results_count": "1",
+          "success_rate": "1000",
+          "amount_inputable": "0"
+        },
+        {
+          "id": "1238",
+          "npc_id": "70012",
+          "action_name": "hall",
+          "materials": "40308",
+          "materials_count": "100",
+          "results": "49900",
+          "results_count": "1",
+          "success_rate": "1000",
+          "amount_inputable": "0"
+        }
+      ],
+      "count": 2
+    },
+    {
+      "query": 8,
+      "rows": [],
+      "count": 0
+    }
+  ]
+}

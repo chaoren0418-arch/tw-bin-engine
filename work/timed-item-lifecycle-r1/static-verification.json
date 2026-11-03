@@ -1,0 +1,149 @@
+{
+  "status": "pass",
+  "methodChecks": [
+    {
+      "id": "startup-order",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "timed-load",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "time-delete-swallow",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "time-delete-lock",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "time-delete-confirmed",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "time-select",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "time-sql-delete",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "time-initialize",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "store-confirm",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "store-timed",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "store-prepare",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "store-insert",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "online-delete",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "pending-delete-save",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "offline-delete",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "offline-expiry",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "absolute-timer",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "absolute-timer-online",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "absolute-timer-cadence",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "relative-timer-exclusion",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "relative-timer-zero",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "relative-timer-delete",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "login-items",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "login-restore",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "login-inventory",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "login-packet",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "main-delete-sql",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "base-remove",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "making-create",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "entry-key-check",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "time-config",
+      "requiredInstructionTokensPresent": true
+    },
+    {
+      "id": "factory",
+      "requiredInstructionTokensPresent": true
+    }
+  ],
+  "methodCount": 32,
+  "jarClasses": 20,
+  "sourcePins": 52,
+  "beforeAfterMain10326Absent": true,
+  "historicalSourcePinsMatched": true,
+  "coldBackupReceiptFourTableFilesMatched": true,
+  "noRuntimeReproduction": true,
+  "noServiceDbUiSocketActions": true,
+  "workerGoalActualStatus": "blocked",
+  "supervisorReceiptGoalStatus": "paused",
+  "goalChanged": false,
+  "limits": [
+    "Static bytecode/receipt checks only; no item-specific deletion call receipt.",
+    "LineNumberTable correspondence is not whole-source or reproducible-build identity.",
+    "No live table files read; MyISAM evidence is supervisor receipt, no assumed rollback."
+  ]
+}

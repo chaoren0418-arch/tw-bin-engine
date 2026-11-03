@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-27T18:03:43.125480+00:00",
+  "decision": "partial-source-review-complete-await-r2-web-controls",
+  "sealSha256": "bd61e78f1f4bca51e92597c1ee24020aedf3564193e4262bab466cea90234548",
+  "pinsVerified": 374,
+  "sourceInspected": [
+    "ClientEffect6016.cs",
+    "WebPanel.cs",
+    "Effect6016Host.cs"
+  ],
+  "independentReviewer": "r28-6016-host-review-r1",
+  "F1F2": "reviewer after probes 4/21 passed, root source checked",
+  "W1": "web gain/mute state and controls missing; dispatched new r2; r1 remains sealed",
+  "rootBuildRerun": false,
+  "reason": "Full independent rebuild planned on final r2 instead of repeating unchanged tests twice",
+  "formalR28Accepted": false,
+  "wholeP24Complete": false
+}

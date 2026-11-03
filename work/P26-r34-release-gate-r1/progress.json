@@ -1,0 +1,45 @@
+{
+  "schema": "p26-release-gate-progress-v1",
+  "dispatchId": "P26-RELEASE-GATE-PREP-R1",
+  "status": "release-tooling-sealed-safely-before-separate-shared-execution",
+  "onlyWritableRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r1",
+  "goal": {
+    "toolAvailable": true,
+    "value": null,
+    "created": false,
+    "modified": false
+  },
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "readEvidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+      "size": 11741,
+      "sha256": "0c8f214831a286bec4a6844ab1293b4f4798ff829ef0a3d6507dbf455eddc040"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\takeover.json",
+      "size": 4697,
+      "sha256": "d7f7d19b500238a3e9894ac8caae74d99d5d9e31ea0de1acc2cf100866ed3bb1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\package_release.py",
+      "size": 9394,
+      "sha256": "9324a77b90f3e64b85a6cc3678660de91dc5ba58edd7e2760236f0c17784af90"
+    }
+  ],
+  "pending": [
+    "real canonical completed records",
+    "exact future package plan",
+    "new exact release acceptance"
+  ],
+  "actual": {
+    "packagePlanCreated": false,
+    "receiptCreated": false,
+    "releaseCreated": false,
+    "builds": 0,
+    "productTests": 0
+  },
+  "utc": "2026-10-29T04:05:14.541841+00:00",
+  "syntheticCasesPassed": 14,
+  "nextDispatch": "ENGINE-R34-SHARED-INTEGRATE-P26-R1"
+}

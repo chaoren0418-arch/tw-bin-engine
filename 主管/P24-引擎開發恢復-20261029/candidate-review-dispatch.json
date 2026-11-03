@@ -1,0 +1,13 @@
+{
+  "task": "ENGINE-SLOW-REVIEW-CANDIDATE-R1",
+  "prompt": "接續 ENGINE-SLOW-REVIEW-R1：實作者已封存，現在請實際審查此精確候選並交 accept/reject，不再停在 awaiting-candidate。使用者明確授權未回應驗收也繼續開發；你仍是既有獨立覆核者，其他權限不變，不碰DB／服務，不改模型或Goal儲存、不開新代理。\n唯一根 D:/lineage開發/TW1608262200研究。主管已逐一核對 work/engine-slow-r1/delivery-manifest.json 全296檔、9個delta與candidate source SHA，且共享engine9個base SHA未變，結果主管/P24-引擎開發恢復-20261029/candidate-root-identity-review.json。\n候選seal SHA bf22ad09f0d2b2940dfb295680d363287b56a253249f128de393520b562dac61，result SHA 18342b1de15af414cfc50bed9545b889a903a961cb4882d8cdda2af26e3e6e1f，DLL SHA a595559878d3e24b447d8be3a5c1e8ce595ff3a47dceb6877b9256ba00f12472。先核對身份與HANDOFF/changes.diff/consumer-audit，再用你先建立的CONTRACT與獨立vectors跑此候選，驗證renderer當步快照、0↔2/1↔2/同值及transient slow、冷卻/排隊/已准入待完成的競態、未知速度/Brave拒絕。嚴格限定Speed2/Brave0步行和物件顯示；緩速攻擊/施法/道具/拾取等保持拒絕，不能要求擴充全緩速戰鬥。既有準備證據不重做；必要重建與測試只在你專屬 work/engine-slow-review-r1 新 scratch 子目錄，候選封存本文不得寫入，也不可一邊修改候選一邊驗。\nHANDOFF提到實作者runner依所在work直接子目錄求根；若你放在更深scratch，請在自己副本修正root解析，記錄純測試環境差異，不改候選。獨立helper不需照抄實作者1371 checks；覆核後可重跑有價值的實作suite，精確載入DLL身份，無GUI/socket/DB。\n在你的work新子目錄 candidate-review-r1 交HANDOFF.md/result.json、findings（可重現行號）、來源與產物manifest，明確candidateReviewed:true/candidateAccepted true或false/unresolvedFindings。若接受，另輸出review-acceptance.json schema engine-independent-review-v1，candidateId ENGINE-SLOW-IMPL-R1，decision accepted，candidateSealSha256 精確採上列原始seal，unresolvedFindings:[]，並連結你真正的測試結果。這份是針對原封存候選的實際審查，後續整合格式轉接如需不同seal還須核對，勿預先接受未知包裝。失敗如實reject由主管退修。請現在開始、留接收回合，完成後停寫被引用的覆核結果。",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"threadId\":\"01a17a21-8dec-7410-8a1b-80f7fa84d0a1\"}"
+      }
+    ],
+    "isError": false
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "vtables": [
+    {
+      "baseVA": "0x1150c24",
+      "slots": {
+        "0x34": "0xa41490",
+        "0x48": "0x51e8e0",
+        "0x4c": "0x51e920",
+        "0x64": "0x51e860"
+      }
+    },
+    {
+      "baseVA": "0x1150e8c",
+      "slots": {
+        "0x34": "0x51f3e0",
+        "0x48": "0xa44500",
+        "0x4c": "0x521e20",
+        "0x64": "0xa3c4f0"
+      }
+    },
+    {
+      "baseVA": "0x1150f7c",
+      "slots": {
+        "0x34": "0x51f3e0",
+        "0x48": "0xa44500",
+        "0x4c": "0x521e20",
+        "0x64": "0xa3c4f0"
+      }
+    }
+  ],
+  "consumer226": {
+    "indexVA": "0xa4c259",
+    "index": 8,
+    "targetSlotVA": "0xa4c170",
+    "targetVA": "0xa4bfb9"
+  },
+  "consumerCodeEnd": "0xa4c14f exclusive; 0xa4c150 onward switch data, linear-disassembly text beyond RET is not code evidence"
+}

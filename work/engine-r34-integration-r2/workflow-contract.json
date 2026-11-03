@@ -1,0 +1,71 @@
+{
+  "schema": "engine-r34-future-workflow-contract-v1",
+  "stage": {
+    "entry": "run_next_stage.py",
+    "readOnlyDefault": true,
+    "requires": [
+      "sealed native candidate result/seal/full180 source manifest",
+      "sealed native resource-projection.json with explicit native-projection format; strict manifest remains alternative",
+      "exact independentReviewRoot and independentReviewSeal with native acceptance/evidence",
+      "new supervisor-owned isolated receipt accepting exact R2 input contract and R2 prep seal"
+    ],
+    "postBuild": "baseline151 only; all accepted suites still required; stage-result schema below is required before shared gate"
+  },
+  "normalizedStageResult": {
+    "schema": "engine-r34-stage-result-v1",
+    "status": "pass-r34-offline-stage",
+    "requiredFields": [
+      "candidateId",
+      "productDllSha256",
+      "audioDllSha256",
+      "productManifestSha256",
+      "launcherDllSha256",
+      "counts"
+    ],
+    "counts": {
+      "baselineAssertions": 4337,
+      "baselineObservations": 93,
+      "pickupAssertions": "184 from exact accepted review; stage must actually execute same assertions",
+      "pickupObservations": 0
+    }
+  },
+  "canonical": {
+    "entry": "serial_canonical.py",
+    "readOnlyDefault": true,
+    "newReceiptSchema": "engine-r34-shared-acceptance-v1",
+    "planSchema": "engine-r34-canonical-plan-v1",
+    "planFields": [
+      "candidateId",
+      "revision",
+      "canonicalEngine",
+      "stageRoot",
+      "stageSealSha256",
+      "stageAcceptance {path,sha256}",
+      "preparationSha256",
+      "workflowRoot (direct child of this prep/r34-shared)",
+      "four DLL/manifest identities",
+      "canonicalBuildEvidence (fresh engine/_integration/evidence/r34-*)",
+      "steps (product,baseline,ground,utility,haste,versioned-slow,f1,pickup)"
+    ],
+    "stepFields": [
+      "id",
+      "commands [{argv,scriptPins,probes}]",
+      "result (relative workflow path)",
+      "helperNames (nonempty list of r34-canonical-* destinations; baseline requires its three helper outputs)"
+    ],
+    "normalization": "Pinned collector adapters may map existing report keys only; preserve original reports, occurrence rows, counts and clocks. Suite results require productDllSha256,assertionsPassed,observations,assertionsFailed,pending,occurrencesMatched,socketEvents. Product uses native rebuild result.",
+    "scriptPins": "Every executed helper/script and dependency must be separately accepted/pinned; missing future engine/_integration/r34 scripts are verified from sealed stage/rebuild-overlay before install and from installed path before execution.",
+    "buildLogs": "Bind actual product/launcher commands and raw logs from canonicalBuildEvidence after product, before baseline; generated runtime pins never fabricated in preparation.",
+    "attempts": "Fresh first attempts; no replay of completed steps. Failure preserves evidence. Explicit --collect-only manifest selects pinned successful records; no subprocess. Any command rerun/correction needs separate reviewed future dispatch, not automatic retry.",
+    "pickupSourceSnapshots": "pickup-suite-snapshots.json; exact main-174 and supplement-10 source groups, not final harness; keep174+10 ordinal/IDs, bind current built product/fixtures and engine/build helper directories"
+  },
+  "release": {
+    "entry": "package_release.py",
+    "readOnlyDefault": true,
+    "newReceiptSchema": "engine-r34-release-acceptance-v1",
+    "planSchema": "engine-r34-package-plan-v1",
+    "requires": "exact completed canonical step receipts+results; complete source/resource/rebuild/runtime/evidence copy list with size/SHA; fresh releases/r34; new supervisor release receipt; asset inventory13958 immutable hardlinks; exact stageRoot/stageSealSha256 matching canonical installed receipt; all sealed stage-work and _integration/evidence plus stage result/seal included",
+    "activation": "not implemented/authorized by this preparation; separate exact supervisor dispatch"
+  },
+  "currentAuthorization": "R2 preparation compatibility validation only; no formal receipt supplied"
+}

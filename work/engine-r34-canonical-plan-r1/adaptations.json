@@ -1,0 +1,26 @@
+{
+  "inheritedStageAdaptations": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\stage-work\\suite-adaptations.json",
+    "size": 1808,
+    "sha256": "7abe19f07023026217ebb5f86d69f1617cb51314091071f6183c4de6e08d6d19"
+  },
+  "additional": [
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\stage-work\\ground\\harness\\Program.cs",
+        "size": 13337,
+        "sha256": "f8a91f9ca2b7c93290f33a32baa08fce7df8c503f252bdbe1f6bf57b6bfe24d4"
+      },
+      "derived": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\derived\\ground\\Program.cs",
+        "size": 13338,
+        "sha256": "6c1fcbaf37e53c74947fdb0208345f6306d764990e72b286e2f6d25a40ee64a5"
+      },
+      "kind": "report metadata literal only",
+      "before": "final r33; exact r34 isolated stage under offline acceptance",
+      "after": "final r33; exact r34 canonical build under offline acceptance",
+      "functionalChanges": 0,
+      "expectedChanges": 0
+    }
+  ]
+}

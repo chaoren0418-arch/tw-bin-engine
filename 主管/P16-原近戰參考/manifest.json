@@ -1,0 +1,65 @@
+[
+  {
+    "class_name": "com.lineage.server.clientpackets.C_Attack",
+    "jar_entry": "com/lineage/server/clientpackets/C_Attack.class",
+    "class_sha256": "4d56f3383955f26d0e581893ce479de5b8aabab4db7adccd2c493049961f1568",
+    "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_Attack.java",
+    "source_sha256": "3726df0441bcdf88e62a24e63bb81d36b78106f7d21131d571979d8cc3946324",
+    "javap": "D:\\lineage開發\\TW1608262200研究\\主管\\P16-原近戰參考\\C_Attack.javap.txt",
+    "javap_sha256": "f8b6cebacc19bbf1a84abec1ff1d617667e1e95392fac3b2b4de43c9fb138855"
+  },
+  {
+    "class_name": "com.lineage.server.serverpackets.S_AttackPacketPc",
+    "jar_entry": "com/lineage/server/serverpackets/S_AttackPacketPc.class",
+    "class_sha256": "17b131affbba01ada646a94c7f990c419a1b6cb3028d94c11a735c9c0cead5f8",
+    "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_AttackPacketPc.java",
+    "source_sha256": "8b1cf5a0e0cb00183dd2803b27161f6b8cc64a668b9a0ee761034e8d937bc3a1",
+    "javap": "D:\\lineage開發\\TW1608262200研究\\主管\\P16-原近戰參考\\S_AttackPacketPc.javap.txt",
+    "javap_sha256": "397590bc5a633a93aa086f0d8fa6df0cccd4b5158887102a22ac89e03c43b3e4"
+  },
+  {
+    "class_name": "com.lineage.server.serverpackets.S_AttackPacketNpc",
+    "jar_entry": "com/lineage/server/serverpackets/S_AttackPacketNpc.class",
+    "class_sha256": "ea3279ec3a491428344eeceab787e6d4150c792852f9cdaa38fdb79ec81ea89d",
+    "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_AttackPacketNpc.java",
+    "source_sha256": "aa612c0c22d3ca9dd6373ce170433f73cc8be3c1cb029edc8a1f7b53e656889d",
+    "javap": "D:\\lineage開發\\TW1608262200研究\\主管\\P16-原近戰參考\\S_AttackPacketNpc.javap.txt",
+    "javap_sha256": "e89a2bd9627b37ee4e14f1358c26bacbaa139949d55344aed454611546099d7a"
+  },
+  {
+    "class_name": "com.lineage.server.serverpackets.ServerBasePacket",
+    "jar_entry": "com/lineage/server/serverpackets/ServerBasePacket.class",
+    "class_sha256": "cbfbc11d757d8a96edf432fdfd852aaf7b19e380535ab2d494d5e1a66a44833b",
+    "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\ServerBasePacket.java",
+    "source_sha256": "3348c199e9694bd1eec050b130f28ab99590cae16f0047964c17b32df309a439",
+    "javap": "D:\\lineage開發\\TW1608262200研究\\主管\\P16-原近戰參考\\ServerBasePacket.javap.txt",
+    "javap_sha256": "be8c314edd5624bdac4845162dc801af8930d481b9fde29ae45f20fde674fcf4"
+  },
+  {
+    "class_name": "com.lineage.server.datatables.HitReactionSuppressTable",
+    "jar_entry": "com/lineage/server/datatables/HitReactionSuppressTable.class",
+    "class_sha256": "b0a923a66bffaf9aafd6333ba336498917886ef51cabff2c96e7d8f832dbaa5e",
+    "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\HitReactionSuppressTable.java",
+    "source_sha256": "b68b67fe6b396b21d6500d161532c0881cd0803f68b9a48d4c360b47c5ea29a5",
+    "javap": "D:\\lineage開發\\TW1608262200研究\\主管\\P16-原近戰參考\\HitReactionSuppressTable.javap.txt",
+    "javap_sha256": "fe262308a65dc48a6d175d54cc9e6cf556a485f1a2e7d0f45799456d947cc973"
+  },
+  {
+    "class_name": "com.lineage.server.serverpackets.S_UseAttackSkill",
+    "jar_entry": "com/lineage/server/serverpackets/S_UseAttackSkill.class",
+    "class_sha256": "d11f5d72b06e10353c468506263adb66b80c7bec1fbef523928e21b961578f25",
+    "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_UseAttackSkill.java",
+    "source_sha256": "83e00ecf1da363510643ae259d8da3c43d99508fef9edb36fa9dacf74403dcfe",
+    "javap": "D:\\lineage開發\\TW1608262200研究\\主管\\P16-原近戰參考\\S_UseAttackSkill.javap.txt",
+    "javap_sha256": "f76146d0067224512ebca5c8e62d4b7778d8cf831e473cc7a9df0410c36e7dbe"
+  },
+  {
+    "class_name": "com.lineage.server.serverpackets.S_UseArrowSkill",
+    "jar_entry": "com/lineage/server/serverpackets/S_UseArrowSkill.class",
+    "class_sha256": "c8133d3a76daba30590bd5dbc54ed288a58591c54269ff35b2c1f4fd5cf794b6",
+    "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_UseArrowSkill.java",
+    "source_sha256": "870d1757e281e346a635c52e6f3b4cf8b5dc22a06959ff5c88a1029bc6a0a769",
+    "javap": "D:\\lineage開發\\TW1608262200研究\\主管\\P16-原近戰參考\\S_UseArrowSkill.javap.txt",
+    "javap_sha256": "f788bd6151ab24aec938e6f0ce24f875f1d0946ee84b2200e5974a625b2232de"
+  }
+]

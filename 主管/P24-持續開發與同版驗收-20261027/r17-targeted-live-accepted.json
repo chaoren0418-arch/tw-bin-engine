@@ -1,0 +1,303 @@
+{
+  "utc": "2026-10-26T22:50:47.050309+00:00",
+  "status": "r17-targeted-live-accepted-final-full-flow-pending",
+  "wholeP24Complete": false,
+  "formalFreeze": false,
+  "review": "r17-independent-review03/result.json",
+  "launch": "r17-service-first-launch.json",
+  "revision": "r17",
+  "dllSha256": "88dab8033512fb830abd0be988dd84e70d7cc53e9b85a7e90249bd23a88e0a33",
+  "manifestSha256": "7c8fbdd6c0e8fb1d52af7f7bd4e05201cb1753613b0ad675578beef52383e0e5",
+  "method": "Actual embedded WebView controls and displayed scene PNG; normal login/select/confirm/movement/cancel/relogin. No bridge/packet/state injection.",
+  "bonus": {
+    "singleExplicitStrAllocation": true,
+    "changes": {
+      "Str": [
+        18,
+        19
+      ],
+      "LocX": [
+        32599,
+        32595
+      ],
+      "LocY": [
+        32931,
+        32932
+      ],
+      "BonusStatus": [
+        0,
+        1
+      ],
+      "OriginalStr": [
+        18,
+        19
+      ]
+    },
+    "manualQueryDidNotAllocate": true,
+    "remainingUnknown": true,
+    "originalStrSemantics": "Accepted fixed JAR normal logout saves current Base* to DB Original*. STR18→19, BonusStatus0→1 and OriginalStr18→19 expected; five other attributes/Original and Elixir unchanged."
+  },
+  "appearance": {
+    "sixPreviouslyMissingShopsResolved": [
+      2000041011,
+      2000041022,
+      2000041047,
+      2000041058,
+      2000041065,
+      2000041071
+    ],
+    "doorId": 2000039493,
+    "doorInitialAction": 28,
+    "visual": "Actual open inn door and shop bodies visible; normal movement switches roof occlusion. Not all six bodies claimed simultaneously in one crop.",
+    "doorInteractionOrCollisionTested": false
+  },
+  "movement": {
+    "steps": 4,
+    "start": [
+      32599,
+      32931
+    ],
+    "end": [
+      32595,
+      32932
+    ],
+    "savedPositionMatches": true,
+    "perStepServerAck": false
+  },
+  "preservation": {
+    "existingEightExact": true,
+    "serviceInventorySkillsWarehouseExact": true,
+    "allNineOffline": true,
+    "sameDbAndServer": true,
+    "newDeaths": 0,
+    "noGrantsResetOrReseed": true,
+    "gold": 89020,
+    "redPotions": 70,
+    "keys": "No inn keys in fresh pre-r17 DB or final DB; historical r16 keys are not current resources."
+  },
+  "limitations": [
+    "Native screenshot capture failed twice: FrameArrived timed out / window capture timed out; native canvas pixel input not accepted.",
+    "Two movement driver RAF waits timed out despite eventual expected position; no duplicate steps sent. Subsequent explicit polling=100ms wait passed.",
+    "One screenshot evidence attempt caught a scene/hash race; recaptured after settling, no mismatched image accepted.",
+    "r17 excludes private-shop candidate. Final integrated same-version full gameplay and clean complete-delivery acceptance remain."
+  ],
+  "evidence": [
+    {
+      "path": "r17-live/after-normal-cancel-state.json",
+      "size": 9560,
+      "sha256": "b010d22ef0f56c7e91db57dabbb46be960f3334ba1a0e907eb2703bd034f538a"
+    },
+    {
+      "path": "r17-live/after-normal-cancel-webview.png",
+      "size": 22339,
+      "sha256": "5ea4c0a228484fd58cf92d810f4b401769682f4be7e5d9ddf84a514c761cd5cb"
+    },
+    {
+      "path": "r17-live/blank-entry-state.json",
+      "size": 9474,
+      "sha256": "52fb7cfea04528d56a30078c240a1f09e4fc6b05e6de8a56f214a07944e65e1c"
+    },
+    {
+      "path": "r17-live/blank-entry-webview.png",
+      "size": 29871,
+      "sha256": "b479aa21d1d853fe7bde721dba8c0a742e5f02ddb666988e8744182e3542fc56"
+    },
+    {
+      "path": "r17-live/bonus-before-select-scene.png",
+      "size": 432454,
+      "sha256": "f090888b6783ea07e4e9836cae1d825d48bf9109a1c7af11c7de7a39de0149c5"
+    },
+    {
+      "path": "r17-live/bonus-before-select-state.json",
+      "size": 137699,
+      "sha256": "84ef20ce9fc8d47b0de6086907ae72f01b9642ca0e41229db3258a0f33344f45"
+    },
+    {
+      "path": "r17-live/bonus-before-select-webview.png",
+      "size": 39479,
+      "sha256": "5621386321594cab0a0c21511919a0fda51e0d268629bb9e01e513cb18056692"
+    },
+    {
+      "path": "r17-live/bonus-confirmed-scene.png",
+      "size": 432382,
+      "sha256": "7a8d1f1f629cd402dbf31fa1aace5c15c408f6675fd8753e2a75977654962f81"
+    },
+    {
+      "path": "r17-live/bonus-confirmed-state.json",
+      "size": 137783,
+      "sha256": "fcc5bd924026b7caef2bdf600b7023f56745445a442566037bb778f432ebfb96"
+    },
+    {
+      "path": "r17-live/bonus-confirmed-webview.png",
+      "size": 40591,
+      "sha256": "b05ea0f9d841ab9c8e79ce4f8e69661bf68354dd8b05b724e08eee6413ce9fc3"
+    },
+    {
+      "path": "r17-live/bonus-selected-only-scene.png",
+      "size": 432268,
+      "sha256": "552cbef94c95976c76d0eebd914ea26ddc8d562a9235bebb75277c7f77d86013"
+    },
+    {
+      "path": "r17-live/bonus-selected-only-state.json",
+      "size": 137699,
+      "sha256": "d098e21ca03e5ddae2b982d059d167602f9c2c524e03c7fcb03ee7a64086fb67"
+    },
+    {
+      "path": "r17-live/bonus-selected-only-webview.png",
+      "size": 40404,
+      "sha256": "cb5a473cbf39b128edd1b006302745f6c804ccd9c45f383616f1f3c73b9ab1f8"
+    },
+    {
+      "path": "r17-live/final-normal-cancel-state.json",
+      "size": 9566,
+      "sha256": "78ba84603bd3391dbf657c532409c3af8b3f5be67a7490bb1f3ce8c372633d4b"
+    },
+    {
+      "path": "r17-live/final-normal-cancel-webview.png",
+      "size": 22339,
+      "sha256": "5ea4c0a228484fd58cf92d810f4b401769682f4be7e5d9ddf84a514c761cd5cb"
+    },
+    {
+      "path": "r17-live/guard-final.json",
+      "size": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "r17-live/manual-bonus-query-only-scene.png",
+      "size": 432613,
+      "sha256": "03044ea323376f52cf4c07ef1acf122226938e6cda7a80677d17e47ca9900f92"
+    },
+    {
+      "path": "r17-live/manual-bonus-query-only-state.json",
+      "size": 139575,
+      "sha256": "6ddbafad5e6f4936884a8acfd4da9a5df52acffe317b3eb4a25b53319cc386a9"
+    },
+    {
+      "path": "r17-live/manual-bonus-query-only-webview.png",
+      "size": 47679,
+      "sha256": "2d7b7ee7eccbbac235e54f87f7425cccbac9e5818d4e8f3f670d53697fe27a3f"
+    },
+    {
+      "path": "r17-live/move-timeout-observed-scene.png",
+      "size": 434413,
+      "sha256": "e25bf4742c60f3199536c679576b6f0fe89f36144b19f1912fc538793605f834"
+    },
+    {
+      "path": "r17-live/move-timeout-observed-state.json",
+      "size": 140976,
+      "sha256": "8eeae3bdafb2d26a23451e7b5a844191f4aa55ffb7f9b4e2b467c31453960c90"
+    },
+    {
+      "path": "r17-live/move-timeout-observed-webview.png",
+      "size": 36991,
+      "sha256": "11bc667ee21cd6f4d5260bc38a9b25a8e43e0e2f58b8f6e50cc84bbd51accbb3"
+    },
+    {
+      "path": "r17-live/move-toward-shops-1-scene.png",
+      "size": 433952,
+      "sha256": "3fb68858a9f4c29c224280b41d7e177087760fe0d95d2809d5cfa673a25a0d06"
+    },
+    {
+      "path": "r17-live/move-toward-shops-1-state.json",
+      "size": 138028,
+      "sha256": "79420e59da45df3a41b9aa0575ff39db3e12e8915e68f05fe3885ed4b65ee6ea"
+    },
+    {
+      "path": "r17-live/move-toward-shops-1-webview.png",
+      "size": 37077,
+      "sha256": "90a29ec1231d74934288d7750812f9ab9c4fa9871ec515cb5ea9ae8d431a2cf4"
+    },
+    {
+      "path": "r17-live/move-toward-shops-3-scene.png",
+      "size": 437683,
+      "sha256": "dd42e03b3dc47528ce3e0c1d0b728312fee0de2288492e41f7b161f8e4600619"
+    },
+    {
+      "path": "r17-live/move-toward-shops-3-state.json",
+      "size": 143319,
+      "sha256": "c7e42e9f04eebc29b0afa6fd56ed6cfbcd8cb162302b09caead1dfc0db3240b4"
+    },
+    {
+      "path": "r17-live/move-toward-shops-3-webview.png",
+      "size": 37024,
+      "sha256": "d14673c23985f838c5f02cd3fc63e1a05c939379c9ba6c30d83ee035ecb97d97"
+    },
+    {
+      "path": "r17-live/relogin-scene-ready-scene.png",
+      "size": 432599,
+      "sha256": "9c3f61d5667dc4b0a24a853648e632c73992d182d354436c4f77268516139b27"
+    },
+    {
+      "path": "r17-live/relogin-scene-ready-state.json",
+      "size": 139575,
+      "sha256": "6dd94f82ff2717f45dc905f1045cea94c356cb37a53f6609674c972c503c20d0"
+    },
+    {
+      "path": "r17-live/relogin-scene-ready-webview.png",
+      "size": 117838,
+      "sha256": "884c6e6a7c5d94c0328a69c2365f4608674d2ca61a6dbc53aee0d9b58c2eb87f"
+    },
+    {
+      "path": "r17-live/service-login-scene.png",
+      "size": 434724,
+      "sha256": "4b685df40a9cdd0ad109a1e7339b68dd744c4ad6bf549f1c7b22ffe54a8e497e"
+    },
+    {
+      "path": "r17-live/service-login-state.json",
+      "size": 140501,
+      "sha256": "50ec000b6e2732f2c4ab1e4219630f79dfb2b52663c0693a60a2f9f51975cd56"
+    },
+    {
+      "path": "r17-live/service-login-webview.png",
+      "size": 31220,
+      "sha256": "8cde75f144e3915f4213422cf9d2fdd78cad2f817b6568fb338c4a97049703e9"
+    },
+    {
+      "path": "r17-live/service-relogin-persisted-state.json",
+      "size": 136323,
+      "sha256": "0354791a5b5a2c716e07f1380477b261e7b95b301194e107a90561010eee3571"
+    },
+    {
+      "path": "r17-live/service-relogin-persisted-webview.png",
+      "size": 22907,
+      "sha256": "af37a0dcb9c11a7956d3410c267728a5bb7c571287a86002b7059e983ee05ce3"
+    },
+    {
+      "path": "r17-live/shops-nearby-scene.png",
+      "size": 432780,
+      "sha256": "44d603dba7fb25999296aff1f84df234d60d5557fb368ea6c65467d3e8b78282"
+    },
+    {
+      "path": "r17-live/shops-nearby-state.json",
+      "size": 143161,
+      "sha256": "72d25047b18008ff9a9a8adb4f2a39fa21b13e1da3eda06cbf03d445a068e36c"
+    },
+    {
+      "path": "r17-live/shops-nearby-webview.png",
+      "size": 36871,
+      "sha256": "08d117fab44165486fb2528fa566033eab09fda6a4313d6c9c578c749c53aa6c"
+    },
+    {
+      "path": "r17-live/ui-closed.json",
+      "size": 141,
+      "sha256": "fb6b7af6b3dfb6eb88566d8f168363fe7d96ac48775e820145cb1810f47582ac"
+    },
+    {
+      "path": "r17-live/visible-shop-selected-scene.png",
+      "size": 432491,
+      "sha256": "efb59cd88b5d236ae1f6b22dabc367544bf167648437a320573edd7150e96222"
+    },
+    {
+      "path": "r17-live/visible-shop-selected-state.json",
+      "size": 143168,
+      "sha256": "549aab5480cf75524d6f1269de38193766f0219221455f2a07b40434c2ea236c"
+    },
+    {
+      "path": "r17-live/visible-shop-selected-webview.png",
+      "size": 35409,
+      "sha256": "8622592a0f8ac4e13ac5b1c3c68945519e0ab50ee86b3a51cfd3a4c3944374ed"
+    }
+  ],
+  "nativeKeyboard": "r17-native-key-live-result.json",
+  "persistenceReview": "bonus-persistence-independent-review02/result.json"
+}

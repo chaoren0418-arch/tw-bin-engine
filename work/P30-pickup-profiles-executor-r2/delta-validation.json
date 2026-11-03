@@ -1,0 +1,159 @@
+{
+  "status": "pass",
+  "checks": [
+    {
+      "id": "exact-one-env-addition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "environment-policy-otherwise-identical",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "environment-function-matches-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fixed-value-overrides-parent",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "no-broader-environment-inheritance",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "184-destination-only-mapping",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source-pins-identical",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "build-argv-only-root-mapping",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "diagnostic-amendment-unchanged-except-path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "executor.py-byte-identical",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "win_process.py-byte-identical",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "build-dependency-pins.json-byte-identical",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "expected-product-audio-identities-unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "no-other-contract-semantic-delta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reject-r1-contract",
+      "passed": true,
+      "detail": "authority identity"
+    },
+    {
+      "id": "reject-old-failed-root",
+      "passed": true,
+      "detail": "exact roots"
+    },
+    {
+      "id": "reject-old-destination",
+      "passed": true,
+      "detail": "outside write root: D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\audio\\AudioAssets.cs"
+    },
+    {
+      "id": "reject-old-receipt-path",
+      "passed": true,
+      "detail": "only current supervisor exact receipt path accepted"
+    },
+    {
+      "id": "fixed-directory-exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "nuget-config-presence-unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "r2-readonly-validate-exit0",
+      "passed": true,
+      "detail": {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\executor.py",
+          "validate",
+          "--contract-sha256",
+          "3f4bf1a3e6ec5f9db90ed8583f14d0f53869ad0c2e98ad3fc20ba6427d86b75d"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2",
+        "exitCode": 0,
+        "stdout": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\validate.stdout",
+          "size": 211,
+          "sha256": "455bf708440e0b1b71048e2972837210baf6604b42939c8391a3e062dc5612ec",
+          "decoder": "utf-8-sig errors=replace",
+          "replacementCount": 0
+        },
+        "stderr": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\validate.stderr",
+          "size": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "decoder": "utf-8-sig errors=replace",
+          "replacementCount": 0
+        },
+        "kind": "read-only-r2-validation"
+      }
+    },
+    {
+      "id": "old-r1-and-failed-evidence-unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "future02-absent",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "count": 23,
+  "productBuilds": 0,
+  "runtimeProbes": 0,
+  "jobSyntheticTestsRerun": 0,
+  "old53TestsRerun": false,
+  "nugetDiagnosticsRerun": false,
+  "readOnlyCommand": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\validate.command.json",
+    "size": 1106,
+    "sha256": "3aaed0dd353c8ed91c387101fba0f180d4b668cd6b59084c76758eae523d2ce5"
+  }
+}

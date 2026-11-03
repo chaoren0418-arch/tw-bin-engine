@@ -1,0 +1,74 @@
+{
+  "schema": "p30-isolated-stage-planning-contract-v1",
+  "utc": "2026-10-29T05:43:30.978957+00:00",
+  "dispatchId": "ENGINE-PROFILES-P30-ISOLATED-PLAN-R1",
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "authorization": "prepare-isolated-stage-plan-and-controller-only",
+  "writeRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1",
+  "candidateAcceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P28-P29-candidate-root-acceptance.json",
+    "size": 2560,
+    "sha256": "2537af60910b67dd6803b1ec8f5252823288e65936cd06c57d6197c5f1e05dd3"
+  },
+  "baseline": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-final-offline-baseline.json",
+    "size": 1969,
+    "sha256": "ac4254ea339ed35c4257e27e955f0411c617f21698a1da5bb59330a162933024"
+  },
+  "inputs": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\artifact-manifest.json",
+      "size": 214902,
+      "sha256": "3abd6ac7246f3ffbccc923e46611a37d91e2e7d6a331697661677b5bb4488eee"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\source-manifest.json",
+      "size": 32302,
+      "sha256": "18aecf0d68455b5561637ca23f62d33228ef4b451be0e66602f07995daee49a9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\candidate\\build\\P11.ClientEngine.dll",
+      "size": 4925440,
+      "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\runtime-review-r1\\artifact-manifest.json",
+      "size": 46147,
+      "sha256": "a641244d40f8ca17cca56538dc927bd8b534409d74a212006046be790a726532"
+    }
+  ],
+  "requiredOutputs": [
+    "HANDOFF.md",
+    "result.json",
+    "artifact-manifest.json",
+    "stage-plan.json",
+    "read-only validation output",
+    "exact command/log/recovery contract"
+  ],
+  "scope": [
+    "Verify current pins and no active competing integrator before work.",
+    "Plan a fresh independent source copy: 180 sealed r34 source/audio/web files plus extension; 4 exact replacements and 1 addition. Reconcile actual count rather than assuming it.",
+    "Plan reproducible offline build and actual-DLL regression binding; candidate DLL comparison must account explicitly for build paths and metadata.",
+    "Adapt existing accepted isolated controller contracts by independent copy; preserve nested raw logs, exact source/assembly pins, timeout and interrupted-step recovery gates.",
+    "Inventory inherited 8-step r34 regressions and P28 profile suites. Identify required harness rebinding to 42 allowed pairs without changing expectations to observed values.",
+    "Map P29 remaining coverage to inherited evidence or genuinely unexecuted gaps; do not import historical assertions as new stage runs.",
+    "If preparing future package logic, retain RG2 missing product-manifest defect as unresolved; no package execution in this dispatch."
+  ],
+  "stopConditions": [
+    "Any input pin mismatch",
+    "Need to write outside own work root",
+    "Build/test execution requires separately reviewed exact stage plan",
+    "Uncertain prior action outcome; inspect before retry"
+  ],
+  "prohibited": [
+    "shared engine/release/entry/manifest writes",
+    "product build or runtime probes in this planning dispatch",
+    "DB/service/game/network/GUI actions",
+    "asset/hardlink in-place edits",
+    "permanent deletion",
+    "new agents/chats",
+    "model or platform storage changes"
+  ],
+  "formalEntry": "r33",
+  "entryActivationApproval": "pending; rejected dispatch must not be retried"
+}

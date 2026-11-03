@@ -1,0 +1,52 @@
+{
+  "status": "accepted-for-host-integration",
+  "utc": "2026-10-27T17:50:24.252141+00:00",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "candidateResultSha256": "f1b71f9f3eabf301748fcf40bbeedf02ddef209f280ee3ab98e832b3bd69b286",
+  "candidateManifestSha256": "75fcaccbcdd9cdbdd31a2f42236c0e0660f17b30436aacac9d0aa76dca571b2c",
+  "artifactPins": 54,
+  "sourceReviewed": [
+    "source/AudioPlayer.cs",
+    "source/AudioCore.cs",
+    "source/DirectShowDriver.cs",
+    "source/DirectShowInterop.cs",
+    "API.md",
+    "source-changes.patch"
+  ],
+  "independentRebuild": {
+    "eventsCases": 9,
+    "eventAssertions": 116,
+    "offlineCases": 22,
+    "ownerRaceScenarios": 2,
+    "extraFenceChecks": 4,
+    "warnings": 0,
+    "errors": 0,
+    "dllIdentical": true,
+    "dllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+  },
+  "resolved": [
+    "F1 asynchronous failure cleanup/capacity",
+    "F2 original HRESULT preserved",
+    "r2 owner retirement fence preserved"
+  ],
+  "nativeDiagnostic": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\audio-r3-native-probe\\receipts\\native-result.json",
+    "sha256": "b3ede5a605b9ed1fff1fb2d3c41729bcaeea211f38ab0147859c1c6b9f954476",
+    "realCOM": true,
+    "bothWavSubmitted": true,
+    "overlapAndGainAndMuteAndRetireAndShutdown": "native calls succeeded",
+    "remainingVoices": 0,
+    "audibleSignalVerified": true,
+    "signalScope": "PID-attributed Windows session signal; not physical speaker audibility",
+    "signalAnalysis": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\audio-r3-native-probe\\receipts\\signal-phase-analysis.json",
+    "gainHalfOverQuarterPeakRatio": 2.0017182432875082,
+    "muteAndRetireSamples": "valid PID-scoped0 with preceding/following positive signal; no missing samples"
+  },
+  "formalHostIntegrated": false,
+  "wholeP24Complete": false,
+  "limits": [
+    "No complete game/native-window acceptance",
+    "Physical speaker audibility not measured",
+    "Native asynchronous failure event injection tested with managed doubles only"
+  ]
+}

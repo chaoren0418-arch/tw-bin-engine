@@ -1,0 +1,871 @@
+{
+  "schema_version": 1,
+  "supervisor_thread_id": "01a171b6-48f6-75c0-b8fb-70ba36193dd9",
+  "project_id": "68e5a2a7-5ef5-4e49-ae6a-158d9c1a86e4",
+  "execution_mode": "sequential",
+  "current_stage": "P24",
+  "stages": [
+    {
+      "id": "P01",
+      "status": "accepted",
+      "title": "TW1608262200｜P01 分析基準與工具驗證",
+      "thread_id": "01a16e8f-989d-7982-9fee-84f38eeed377",
+      "host_id": "local",
+      "goal_verified": true,
+      "wait_cursor": "8e0cddac-d7f9-4624-b0c5-04d2558d81f5:189",
+      "goal_evidence": "P01-目標工具收據.json: raw worker session create_goal call_8b18512afe504a1ea2a20e96be56ddcb returned matching threadId and active status at 2026-10-24T15:38:24.882Z",
+      "last_observation": "P01 accepted: independent 93 artifact hashes, source identity, replay and saved/reopened IDB checks pass. Actual goal complete and worker idle verified. Decision: P01-驗收決策.md.",
+      "direct_progress_evidence": "P01-IDA唯讀進度判讀.md; P01-IDA狀態唯讀採樣.jsonl; sample_ida_progress.py (only original task-owned PID 7864)"
+    },
+    {
+      "id": "P02",
+      "status": "accepted",
+      "title": "TW1608262200｜P02 靜態模組地圖",
+      "thread_id": "01a16f09-2011-7f73-b7db-e3226d20f1f4",
+      "host_id": "local",
+      "goal_verified": true,
+      "wait_cursor": "61f1b9bb-0897-4c34-bf95-d7732fd733bb:38",
+      "last_observation": "P02 accepted. Five module chains, 2957 CSV edges/101 chunks, all manifest hashes and supervisor independent 70-function IDB replay verified. Goal complete receipt and idle worker confirmed. See P02-驗收決策.md."
+    },
+    {
+      "id": "P03",
+      "status": "accepted",
+      "title": "TW1608262200｜P03 IDX／PAK 資源讀取器",
+      "thread_id": "01a16f1a-c5b6-7581-8640-bea43848417f",
+      "host_id": "local",
+      "goal_verified": true,
+      "wait_cursor": "4ae0beac-0bd2-4106-b1dc-5c8d014747ab:25",
+      "last_observation": "P03 accepted: real 92356-row plain28 reader, supervisor 27-check replay and five direct-reference CLI samples including multi-chunk maximum, artifact/source hashes and actual complete goal receipt verified. Worker idle. See P03-驗收決策.md."
+    },
+    {
+      "id": "P04",
+      "status": "accepted",
+      "title": "TW1608262200｜P04 單角色精靈與動畫",
+      "thread_id": "01a16f28-5058-7113-b047-ca2cecbf9a7e",
+      "host_id": "local",
+      "goal_verified": true,
+      "wait_cursor": "11c48fd4-75b5-4246-9e25-9e48d28c9bc8:64",
+      "last_observation": "P04 accepted: 96 frames/eight directions, independent zero-difference reference, clean 102-file rebuild, 63 tests, original bytes and 1236 artifact hashes verified. Actual goal complete and worker idle. Windows supervisor capture failure retained as limitation; native selftest screenshots reviewed. See P04-驗收決策.md."
+    },
+    {
+      "id": "P05",
+      "status": "accepted",
+      "title": "TW1608262200｜P05 單地圖解碼與展示",
+      "last_observation": "Accepted: 2145 artifact + 3 envelope hashes, 12 default CLI outputs, original bytes/sources, 63 tests and independent pixel/interface replay verified. Actual Goal complete receipt and idle worker confirmed. See P05-驗收決策.md.",
+      "thread_id": "01a16f4d-ba09-73a3-a551-84c3692f3792",
+      "host_id": "local",
+      "goal_verified": true,
+      "wait_cursor": "625c52e2-0f56-43f2-bd03-852826428653:56"
+    },
+    {
+      "id": "P06",
+      "status": "accepted",
+      "title": "TW1608262200｜P06 獨立離線客戶端",
+      "thread_id": "01a16f6f-e015-7192-a47b-731388f2cf30",
+      "host_id": "local",
+      "goal_verified": true,
+      "last_observation": "Accepted: 756 artifact + 3 envelope hashes, reviewed source snapshot, clean rebuild/226 tests/4 loader errors, independent pixels, native keys/Alt+F4 and actual focus lifecycle verified. Actual Goal complete receipt and worker idle confirmed. See P06-驗收決策.md.",
+      "wait_cursor": "f007ec7a-5932-4ff6-ae9b-2d8f8e26ed91:45"
+    },
+    {
+      "id": "P07",
+      "status": "accepted",
+      "title": "TW1608262200｜P07 測試通訊切片",
+      "thread_id": "01a16f82-6ed9-76b2-b5ce-a17e0904103e",
+      "host_id": "local",
+      "goal_verified": true,
+      "last_observation": "Accepted: 2154 artifacts/2 envelopes, 139 reviewed snapshot files, 130 upstream fingerprints, 63 original functions/81 chunks, clean rebuild and full protocol/socket/UI/lifecycle replay verified. Actual Goal complete and worker idle. See P07-驗收決策.md.",
+      "wait_cursor": "2068f131-069f-4f84-aa81-891568c9285f:45"
+    },
+    {
+      "id": "P08",
+      "status": "accepted",
+      "title": "TW1608262200｜P08 本機網頁面板",
+      "last_observation": "Accepted: 2019 artifacts/2 envelopes, 147 final snapshot inputs, 150 upstream files, clean build/full regression/final failure checks, native keyboard/UIA and raw oracle verified. Actual Goal complete/worker idle/UI released. See P08-驗收決策.md.",
+      "thread_id": "01a16f98-1684-72c2-a5f3-b661da2a25e7",
+      "host_id": "local",
+      "goal_verified": true,
+      "wait_cursor": "f3cdc94a-86b5-426c-99ef-1fe71b2df1f4:52",
+      "goal_evidence": "P08-目標工具收據.json: raw create_goal call_285027e501884f798c2139fee408bb15 returned active matching threadId at 2026-10-24T20:26:52.942Z."
+    },
+    {
+      "id": "P09",
+      "status": "accepted",
+      "title": "TW1608262200｜P09 學期報告與獨立展示交付",
+      "thread_id": "01a16fb1-c321-7a32-97a3-62563f4d5f2d",
+      "host_id": "local",
+      "goal_verified": true,
+      "last_observation": "Accepted: final ZIP e85359ec...1286 entries,1283 package/1360 outer artifacts,731 sources,150 entry inputs,independent build/185 links/offline HTML/39 UI checks/raw oracle/native tool receipts. Actual Goal complete and worker idle. See P09-驗收決策.md and 最終目標驗收.md.",
+      "wait_cursor": "82ac2b59-1e74-456f-a9e1-19965cde3371:43",
+      "goal_evidence": "P09-目標工具收據.json: raw create_goal call_733495b08820485fa4878decaee6c9ae returned active matching threadId at 2026-10-24T20:54:54.704Z."
+    },
+    {
+      "id": "P10",
+      "status": "not_accepted_environment_blocked",
+      "title": "TW1608262200｜P10 舊版完整遊戲流程基準",
+      "thread_id": "01a16fd9-e347-7e82-8d35-4f80e6c1e268",
+      "host_id": "local",
+      "goal_verified": true,
+      "last_observation": "完整遊戲11項未執行，P10仍未驗收。最新使用者指示已解除P10作為自主引擎全部開發前置；保留原隔離實證與限制，不再阻擋P11/P12。",
+      "dispatch": "P10-派工單.md",
+      "goal_evidence": "P10-目標工具收據.json：已核對原始 session 真實 create_goal 回傳 active 與匹配 threadId",
+      "wait_cursor": "da59fb50-12fa-4b9d-bb8a-cfeb39bfa44a:93",
+      "supervisor_decision": "P10-未通過驗收與恢復條件.md"
+    },
+    {
+      "id": "P11",
+      "status": "accepted",
+      "title": "自主 BIN 引擎｜P11 登入與角色清單實作",
+      "thread_id": "01a17014-7a74-79c1-9013-6fb070d8e58d",
+      "host_id": "local",
+      "goal_verified": true,
+      "dispatch": "P11-派工單.md",
+      "last_observation": "主管獨立乾淨build/40 vectors1100 checks/16 TCP/4 UI/Netty/offline-heading-web regression通過；246 delivery/226 snapshot/171 references/19 classes核對；Goal complete原始收據與idle確認。僅P11參考登入核心通過，真實DB及完整遊戲待後續。",
+      "goal_evidence": "P11-目標工具收據.json：原session call_7bae05d239ed4781b13489284d4af540回傳匹配threadId及active，2026-10-24T22:42:42.381Z",
+      "wait_cursor": "463d5334-4db1-4917-9c5a-7ce39f5c3ce7:31",
+      "acceptance": "P11-驗收決策.md"
+    },
+    {
+      "id": "P12",
+      "status": "accepted",
+      "title": "自主 BIN 引擎｜P12 真實登入與角色清單整合",
+      "thread_id": "01a17027-e7f6-7892-ae4c-48710bbca487",
+      "host_id": "local",
+      "goal_verified": true,
+      "dispatch": "P12-派工單.md",
+      "last_observation": "主管乾淨255檔build、6真實TCP/3真實UI/32角色欄位及完整既有回歸通過；892交付/3025來源/10原Java/19JARclass核對；自有服務正常控制退出及DB SHUTDOWN，Goal complete原始收據與idle已驗證。",
+      "goal_evidence": "P12-目標工具收據.json：原始session create_goal回傳匹配threadId及active",
+      "wait_cursor": "da277b90-b5ce-4728-9389-6efe4658a584:55",
+      "acceptance": "P12-驗收決策.md"
+    },
+    {
+      "id": "P13",
+      "status": "accepted",
+      "title": "自主 BIN 引擎｜P13 選角與真實世界初始化",
+      "thread_id": "01a1703e-5961-7b72-a474-16db7280e5a0",
+      "host_id": "local",
+      "goal_verified": true,
+      "dispatch": "P13-派工單.md",
+      "last_observation": "主管305檔乾淨build、8真實world/3UI與全部既有回歸通過；895交付/4315來源及世界參考雜湊核對；自有服務已正常關閉，實際Goal complete收據與idle確認。",
+      "wait_cursor": "b9e7c10d-3e86-4a0e-a044-572ea810a5d5:56",
+      "goal_evidence": "P13-目標工具收據.json：call_7b8d963b04d44a7493c51bb0c7f2fe89，2026-10-24T23:28:28.584Z，匹配threadId與active",
+      "acceptance": "P13-驗收決策.md"
+    },
+    {
+      "id": "P14",
+      "status": "accepted",
+      "title": "自主 BIN 引擎｜P14 在線移動與位置保存",
+      "thread_id": "01a1705c-f13d-7121-b57b-73c8c14c03ce",
+      "host_id": "local",
+      "goal_verified": true,
+      "dispatch": "P14-派工單.md",
+      "wait_cursor": "e75c30aa-d605-454d-bec1-1ae76aa61aa7:68",
+      "goal_evidence": "P14-目標工具收據.json：call_e9a2887923b64c3a93efdffc4dd2dc4f，2026-10-25T00:01:53.932Z，匹配threadId與active",
+      "last_observation": "主管369檔乾淨build、8真實movement/world/UI及全部必要回歸通過；940交付/5743來源核對；正常清理、實際Goal complete原始收據與idle確認。",
+      "acceptance": "P14-驗收決策.md"
+    },
+    {
+      "id": "P15",
+      "status": "accepted",
+      "title": "自主 BIN 引擎｜P15 世界物件與目標選取",
+      "thread_id": "01a1707d-e143-76d0-ab04-9e1502b310c2",
+      "host_id": "local",
+      "goal_verified": true,
+      "dispatch": "P15-派工單.md",
+      "wait_cursor": "2981b3e6-e5d3-4c95-99b8-62d4e06ea3a7:97",
+      "goal_evidence": "P15-目標工具收據.json：call_0f4fff0f7d374856bbb14c3962492aef，2026-10-25T00:37:51.896Z，匹配threadId與active",
+      "last_observation": "主管677檔乾淨build、真實物件/UI/移動/5world/未支援UI及必要回歸、1200幀獨立像素通過；1430交付/6495來源核對，正常清理、實際Goal complete收據與idle確認。",
+      "acceptance": "P15-驗收決策.md"
+    },
+    {
+      "id": "P16",
+      "status": "accepted",
+      "title": "自主 BIN 引擎｜P16 基礎近戰與傷害回饋",
+      "thread_id": "01a170b6-b041-7b11-b453-7d3384fd1825",
+      "host_id": "local",
+      "goal_verified": true,
+      "dispatch": "P16-派工單.md",
+      "last_observation": "主管906檔clean build、11真實case及必要回歸通過，2717最終交付檔獨立核對；正常清理及exact PID/ports消失、實際Goal complete收據與idle確認。P16正式驗收，完整引擎仍未完成。",
+      "goal_evidence": "P16-目標工具收據.json：call_71dae65a47f2463fadc3310900d0751c，2026-10-25T01:39:55.921Z，匹配threadId及active",
+      "wait_cursor": "c1c58023-2266-4200-b638-ed242c4c2bb1:179",
+      "acceptance": "P16-驗收決策.md",
+      "completion_evidence": "P16-完成目標收據.json：call_0cc48704fed2449b951919c308dff959，2026-10-25T03:58:46.816Z，complete"
+    },
+    {
+      "id": "P17",
+      "status": "accepted",
+      "title": "自主 BIN 引擎｜P17 背包與原道具使用",
+      "thread_id": "01a17138-73c4-7c62-be65-14e13b837a5f",
+      "host_id": "local",
+      "goal_verified": true,
+      "dispatch": "P17-派工單.md",
+      "last_observation": "主管1025檔clean build、兩全新角色真實CLI/UI及完整原封包重播通過；1814最終交付檔hash、正常清理與actual Goal complete/idle確認。完整引擎仍未完成。",
+      "goal_evidence": "P17-目標工具收據.json：call_e430629c40004da6bbadcec46deaea7b，2026-10-25T04:01:42.664Z，匹配threadId及active",
+      "wait_cursor": "9544e8e7-2d89-49de-a95d-311f3842ba47:61",
+      "review_ready_sha256": "a9911deb6efbc6b15741cf378fa8f076b7d42f65574ca5af86e758a7aee558e2",
+      "acceptance": "P17-驗收決策.md",
+      "completion_evidence": "P17-完成目標收據.json：call_6d57f05a6b26415ea049c553664dcac1，2026-10-25T05:03:50.583Z，complete"
+    },
+    {
+      "id": "P18",
+      "status": "accepted",
+      "title": "自主 BIN 引擎｜P18 地面物品與拾取",
+      "thread_id": "01a17173-03a3-77a0-b3ff-6b4264ad0eaf",
+      "host_id": "local",
+      "goal_verified": true,
+      "dispatch": "P18-派工單.md",
+      "last_observation": "正式接受P18限定功能：主管1141檔clean build、8回歸、fresh CLI/UI100雙端快照與原SQL保存通過，1733最終交付檔及正常清理四PID/ports消失已核對；actual Goal complete與idle確認。保留24肉保存/原UI8去向未證、無拾取動畫/自然怪物掉落限制；完整引擎未完成。",
+      "goal_evidence": "P18-目標工具收據.json：call_bb1b9b53e9c94c4d9e0519c0dd5a25e3，2026-10-25T05:05:41.325Z，匹配threadId與active",
+      "wait_cursor": "80559ce4-690f-4f46-a0b6-2d06334777ac:60",
+      "direct_progress_evidence": "P18-來源與隔離初審.json；P18-地面序列化獨立核對.json；P18-地面圖像獨立核對.json；P18-背包肉圖示像素獨立核對.json；P18-拾取朝向初審缺口.json；P18-地面遮擋診斷.json；P18-點選與晚到修正初審.json；P18-初始資料獨立核對.json；P18-worker-cli-r2原封包獨立核對.json；P18-worker-cli-r2保存獨立核對.json；P18-工作者UI首輪失敗.json；P18-地物回收接續紀錄.json；P18-原服啟動獨立OS採樣.json；P18-失敗流程原封包獨立核對.json；P18-有限原物品暫借獨立核對.json；P18-worker-ui-r5原封包獨立核對.json；P18-worker-ui-r5保存獨立核對.json；P18-完整UI輪證據初審.json",
+      "review_ready_sha256": "6d34280404e8faaa83a6e9ff8d71d74364775cae22ca0d8d18cee27cb14f2309",
+      "handback": "P18-功能驗證與清理交還.json",
+      "acceptance": "P18-驗收決策.md",
+      "completion_evidence": "P18-完成目標收據.json：call_927e6dee22c542f7abfbba257ebac1fe，2026-10-25T06:08:00.682Z，complete"
+    },
+    {
+      "id": "P19",
+      "status": "accepted",
+      "title": "自主 BIN 引擎｜P19 擊殺經驗與原戰利品",
+      "thread_id": "01a171b0-d619-7373-a35a-5a1940bef921",
+      "host_id": "local",
+      "goal_verified": true,
+      "dispatch": "P19-派工單.md",
+      "last_observation": "P19 accepted: v2 clean1255/9regressions+selection replay; worker and supervisor raw/SQL/UI checks pass with original failures retained. All4 processes/ports normally stopped, final complete manifest and unchanged tested source verified, actual worker Goal complete and idle. Full engine Goal remains active.",
+      "goal_evidence": "P19-目標工具收據.json：call_3b480d55f0204e98b1de99507663dbdd，2026-10-25T06:13:12.656Z，匹配threadId及active",
+      "wait_cursor": "29629550-61dd-4059-a844-cdfb40295f5d:108",
+      "direct_progress_evidence": "P19-來源與隔離初審.json；P19-EXP與自然戰利品來源獨立核對.json；P19-原倍率SELECT獨立核對.json；P19-原EXP序列化向量獨立核對.json；P19-主管檢查開發紀錄.json",
+      "review_ready_sha256": "082b55229054fcacfa93159d0fd4b3c8c6af41ec5827d1bf08389fb8f3d3e1b8",
+      "review_failure_evidence": "P19-supervisor-ui選取移除失敗診斷.json",
+      "review_directory": "D:\\lineage開發\\TW1608262200研究\\主管\\P19-獨立驗收-r2",
+      "cleanup_handback": "P19-功能驗證與清理交還.json",
+      "acceptance_evidence": "P19-驗收決策.md",
+      "final_delivery_sha256": "4e41aa3f588ce1a40efcdfbff02e140ee7e824117dc676062874429efdab4682"
+    },
+    {
+      "id": "P20",
+      "status": "accepted",
+      "title": "自主 BIN 引擎｜P20 原裝備與武器外觀",
+      "thread_id": "01a171fc-6348-7ad2-978a-916083cea447",
+      "host_id": "local",
+      "goal_verified": true,
+      "dispatch": "P20-派工單.md",
+      "last_observation": "P20 formally accepted: original four equipment/weapon visuals, clean v1/v2 builds, worker and supervisor raw/SQL/images pass; all failures retained. Normal four-process shutdown and final manifest, actual Goal complete/idle verified. Full engine remains active.",
+      "created_utc": "2026-10-25T07:35:54.127860+00:00",
+      "wait_cursor": "67cb3883-5518-41c4-805f-a7141217e334:50",
+      "goal_evidence": "P20-目標工具收據.json: actual create_goal call_a8c7ce7a93da496b9681223c8867bc2c returned active at 2026-10-25T07:35:44.731Z",
+      "direct_progress_evidence": "P20-來源與隔離初審.json；P20-原裝備序列化向量獨立核對.json；P20-原裝備來源清單獨立核對.json；P20-原裝備模板SELECT獨立核對.json；P20-DB身分獨立核對.json；P20-武器素材與像素獨立核對.json；P20-原動作時序獨立核對.json；P20-裝備圖示像素獨立核對.json；P20-裝備獨立解碼器原向量檢查.json；P20-裝備附加表SELECT採樣.json；P20-裝備能力來源預期.json；P20-狼人素材與像素獨立核對.json；P20-繼承死亡動畫修正初審.json；P20-初始資料獨立核對.json；P20-保留角色初始SELECT獨立核對.json；P20-原服啟動獨立OS採樣.json；P20-worker-cli原占格返程失敗診斷.json；P20-worker-cli-r2首擊移除失敗診斷.json；P20-原裝備實例預設SELECT核對.json；P20-worker-cli-r3完整閉環核對.json",
+      "review_ready_sha256": "2567d95cd9f926a759b40ae9b5e3008d91386e02a19241db0ce72c9e8b0ffad0",
+      "review_v1_ready_sha256": "2f5b887f48528c491ad445bc93b2241b88c3b23a2698cde3b2b6a19871ee12c4",
+      "cleanup_handback": "P20-功能驗證與清理交還.json",
+      "acceptance_evidence": "P20-驗收決策.md",
+      "final_delivery_sha256": "c0a7f907e552a7b1eec9e1890286bae6331e09368ab9ff12fae2a3c209ca995c"
+    },
+    {
+      "id": "P21",
+      "status": "accepted",
+      "title": "自主 BIN 引擎｜P21 弓箭遠程與有限彈藥",
+      "thread_id": "01a17242-19e9-7360-bb6d-b1c0960e4ad9",
+      "host_id": "local",
+      "goal_verified": true,
+      "dispatch": "P21-派工單.md",
+      "last_observation": "P21 formally accepted:1701cleanbuild/14regressions/24impact checks; worker continuations and supervisor freshCLI/UI raw/SQL/actualimages finite80/noammo/relogin pass. Four original processes/ports normally stopped,2765finalfiles verified, actual Goal complete/idle confirmed. Full engine remains active.",
+      "goal_evidence": "P21-目標工具收據.json: call_0a9bad5f25974f488c3173581440053e",
+      "wait_cursor": "0a4aaa6d-9f02-48e1-8d53-27905d969948:47",
+      "direct_progress_evidence": "P21-弓素材與像素獨立核對.json；P21-箭素材與像素獨立核對.json；P21-原動作時序獨立核對.json；P21-弓附加能力SELECT獨立核對.json；P21-worker-cli有限箭完整閉環.json；P21-worker-cli-r3無箭刪除與重登閉環.json；P21-worker-cli-r3逐箭與擊殺因果.json；P21-worker-cli-r3原封包一致性.json；P21-worker-cli-r3保存SQL與原封包一致性.json；P21-worker-ui首輪原封包一致性.json；P21-worker-ui首輪逐箭因果.json；P21-worker-ui首輪保存一致性.json；P21-worker-ui-r3原封包一致性.json；P21-worker-ui-r3收益快照一致性.json；P21-worker-ui-r3逐箭因果.json；P21-worker-ui-r3保存一致性.json；P21-worker-ui-r3無箭刪除與重登閉環.json；P21-worker-ui有限箭完整閉環.json；P21-worker-ui控制與圖片獨立核對.json；P21-主管乾淨驗收進入門檻.json；P21-freeze後保留角色SELECT獨立核對.json；P21-主管乾淨建置與箭抵達回歸.json；P21-箭抵達BIN位元獨立核對.json；P21-supervisor-cli原封包一致性.json；P21-supervisor-cli逐箭因果.json；P21-supervisor-cli保存一致性.json；P21-supervisor-cli無箭重登閉環.json；P21-supervisor-cli收益快照一致性.json",
+      "dispatch_addendum": "P21-無箭驗證來源修正派工.md",
+      "review_ready_sha256": "76ab9b386acf13923684dba490bd1f42311f8be7076c920f12ebbe02104ca7db",
+      "cleanup_handback": "P21-功能驗證與清理交還.json",
+      "acceptance_evidence": "P21-驗收決策.md",
+      "completion_evidence": "P21-完成目標收據.json: call_6a37b0f9cd944daf9dbe6b9ce64b7596",
+      "final_delivery_sha256": "95a1186593ec855035b8447d745d898e033a1bd8511325426c7d6c2422dd8bf8"
+    },
+    {
+      "id": "P22",
+      "status": "accepted",
+      "title": "自主 BIN 引擎｜P22 原魔法清單與單次施法",
+      "thread_id": "01a1728f-4fb7-7cb1-9a35-506cbf1a5c5c",
+      "host_id": "local",
+      "goal_verified": true,
+      "dispatch": "P22-派工單.md",
+      "created_utc": "2026-10-25T10:16:08.144627+00:00",
+      "last_observation": "P22 formally accepted. r6 full CLI/UI independent verification, normalcleanup, full finalmanifest, actualGoalcomplete and idle all passed. Fullengine remains active.",
+      "goal_evidence": "P22-完成目標收據.json",
+      "wait_cursor": "1404d409-7d6f-4b6b-90ed-9390557982a5:101",
+      "prior_review_ready_sha256": "17d24ca56aef6cda94cc83d69ae1156d446427602bcd66fc9962e7bcc2f93102",
+      "correction_handback": "D:\\lineage開發\\TW1608262200研究\\主管\\P22-主管r5雙介面目標選取具體退修.json",
+      "review_revision": "r6-original-resident-dual-blocks",
+      "review_directory": "D:\\lineage開發\\TW1608262200研究\\主管\\P22-獨立驗收-r6",
+      "prior_r2_ready_sha256": "d4e5b6958f1182c66f0588b60ed969010c5d2d858578526458ce6b272e7888af",
+      "prior_r3_ready_sha256": "80fcb052c9a1c4fbce5965031a8106a5057024ddefbda55eca07fd417a959dac",
+      "review_ready_sha256": "d538defe47bf5d49f21c4423b23a5fa52ae809aa914e7dc8dbb5c21cd6c7f47d",
+      "correction_authorization": "D:\\lineage開發\\TW1608262200研究\\主管\\P22-主管r5雙介面目標選取具體退修.json",
+      "prior_r4_ready_sha256": "03d64dc9507d7771539f65006c4a60bcc80548cdf80ad190103327e0ae35a812",
+      "prior_r5_ready_sha256": "60582c9bbc97f10269a00a33608112e84f0b62845f859e29dcc266f9e1182c82",
+      "cleanup_handback": "P22-功能驗證與清理交還.json",
+      "delivery_manifest_sha256": "9130d173575233ad3c0bddc2ebb2f595e29e4a8c32a01cbc6fc9e8b7507ca55b",
+      "decision": "P22-驗收決策.md"
+    },
+    {
+      "id": "P23",
+      "status": "accepted",
+      "title": "自主 BIN 引擎｜P23 原場景群組透明與遮擋",
+      "thread_id": "01a1736b-0caa-75d1-b556-d509565dd40b",
+      "host_id": "local",
+      "goal_verified": true,
+      "last_observation": "P23 formally accepted: original-native/state/pixel proof, clean22regressions, worker and fresh supervisor CLI/UI, normalcleanup, finalmanifest, actualGoalcomplete andidle all verified. Fullengine remainsactive.",
+      "dispatch": "P23-派工單.md",
+      "lab": "D:/P23Lab-ClientEngine",
+      "game_port": 42057,
+      "db_port": 43323,
+      "synthetic_ports": [
+        42058,
+        42059
+      ],
+      "goal_evidence": "P23-完成目標收據.json",
+      "wait_cursor": "c0200381-8bcc-4357-a146-937d096493cb:34",
+      "independent_progress": [
+        "P23-原透明觸發多重關係獨立核對.json",
+        "P23-原透明漸變狀態獨立核對.json",
+        "P23-初始真副本來源獨立核對.json"
+      ],
+      "review_ready_sha256": "409b57c098bf6adb79285b53410a115ff4ad774a70e7f24e97b9c4529b6638d1",
+      "review_directory": "D:\\lineage開發\\TW1608262200研究\\主管\\P23-獨立驗收",
+      "review_revision": "p23-original-opacity-r3",
+      "cleanup_handback": "P23-功能驗證與清理交還.json",
+      "delivery_manifest_sha256": "1fef31d67448227ce1346027774bb312bd20e81d601de92518e52649cd7c4e7a",
+      "decision": "P23-驗收決策.md"
+    },
+    {
+      "id": "P24",
+      "status": "in_progress",
+      "title": "自主 BIN 引擎｜P24 原2×2地圖快取與跨區載入",
+      "thread_id": "01a173c8-ce38-7980-b4ca-6465d833f9c3",
+      "host_id": "local",
+      "goal_verified": true,
+      "dispatch": "P24-派工單.md",
+      "lab": "D:/P24Lab-ClientEngine",
+      "game_port": 42061,
+      "db_port": 43324,
+      "synthetic_ports": [
+        42062,
+        42063
+      ],
+      "last_observation": "使用者延後人工UI，禁止新窗口/登入直到另通知。r4原600秒正常逾時無click/child/login，保存未變已獨立核對。離線scheduler修正DLL83bffafa通過27項；新增215原native檢查點全相等，舊01456有效反例59不同；9frame2304000來源像素獨立重繪通過。未freeze/主管clean/fresh驗收，原evicted-owner機制仍未證。",
+      "goal_evidence": "P24-目標工具收據.json",
+      "wait_cursor": "39cc4633-3044-4df6-816c-2de127343905:75",
+      "initial_position_approval": "P24-首次seed前站位及第二輪修訂核定.md"
+    }
+  ],
+  "final_audit": "P22_active_full_engine_incomplete",
+  "final_delivery": "D:\\lineage開發\\TW1608262200研究\\P09-學期交付",
+  "supervisor_goal_status": "active",
+  "completion_receipt": "主管總目標完成收據.json",
+  "prior_prototype_completion": {
+    "final_audit": "passed",
+    "completion_receipt": "主管總目標完成收據.json",
+    "scope": "P01-P09 展示原型；非完整遊戲引擎"
+  },
+  "supervision_mode": "direct_user_instruction_continue_engine",
+  "latest_user_direction": "2026-10-25使用者要求新對話接續自主引擎開發；P10實機驗收不再是全部開發前置，保留P10未驗收狀態。",
+  "goal_objective_override": "依使用者逐階段授權繼續完整自主引擎；P21正式接受，P22原技能清單與單次施法已派工。完整引擎未完成。",
+  "supervisor_takeover": {
+    "previous_thread_id": "01a16e81-b7aa-7851-bf88-1f3464923b75",
+    "thread_id": "01a171b6-48f6-75c0-b8fb-70ba36193dd9",
+    "utc": "2026-10-25T06:19:52.566059+00:00",
+    "authority": "使用者要求新對話接續，見新主管接續交接.md；舊主管停止並行驗收寫入",
+    "goal_receipt": "新主管-目標工具收據.json"
+  },
+  "utc": "2026-10-25T13:33:13.747743+00:00",
+  "cursor": "1404d409-7d6f-4b6b-90ed-9390557982a5:79",
+  "P22_early_evidence": [
+    "P22-來源與隔離初審.json",
+    "P22-原技能模板靜態核對.json",
+    "P22-原技能來源獨立核對/manifest.json",
+    "P22-原技能補充來源/manifest.json",
+    "P22-原技能序列化向量獨立核對.json",
+    "P22-原技能語義初審.json",
+    "P22-驗收門檻矩陣.json",
+    "P22-來源階段協調紀錄.json",
+    "P22-耗魔回復原來源/manifest.json",
+    "P22-耗魔回復與治癒原語義.json",
+    "P22-魔法素材與像素獨立核對.json",
+    "P22-魔法呈現時序獨立核對.json",
+    "P22-魔法BIN位元獨立核對.json",
+    "P22-DB啟動獨立OS採樣.json",
+    "P22-DB身分獨立核對.json",
+    "P22-初始化程序獨立OS採樣.json",
+    "P22-首次初始化來源提醒已落實.json",
+    "P22-原BIN魔法算術向量獨立核對.json",
+    "P22-魔法算術產品初稿獨立核對.json",
+    "P22-原技能增刪與光箭封包獨立核對.json",
+    "P22-原施法請求結構向量獨立核對.json",
+    "P22-施法姿勢素材與像素獨立核對.json",
+    "P22-原技能與施法模板SELECT獨立核對.json",
+    "P22-恢復與治癒屬性SELECT獨立核對.json",
+    "P22-地圖與屬性恢復原來源/manifest.json",
+    "P22-初始化連續進度獨立採樣.json",
+    "P22-魔法第二輪初審協調.json",
+    "P22-魔法BIN位元獨立核對-v2.json",
+    "P22-純特效起始影格與產品核對.json",
+    "P22-純特效第三輪初審紀錄.json",
+    "P22-初始資料獨立核對.json",
+    "P22-八角色初始SELECT獨立核對.json",
+    "P22-魔法獨立解碼器原向量核對.json",
+    "P22-首次初始化完成獨立核對.json",
+    "P22-原服啟動獨立OS採樣.json",
+    "P22-工作者離線回歸收據初審.json",
+    "P22-worker-cli原封包一致性-r2.json",
+    "P22-worker-cli施法因果-r2.json",
+    "P22-worker-cli收益快照一致性.json",
+    "P22-worker-cli保存一致性.json",
+    "P22-worker-cli保存與保留角色SELECT獨立核對.json",
+    "P22-原完整地形LOS向量獨立核對.json",
+    "P22-worker-ui首輪失敗原封包一致性.json",
+    "P22-worker-ui首輪失敗收益快照一致性.json",
+    "P22-worker-ui首輪提前判斷失敗核對.json",
+    "P22-worker-cli獨立閉環.json",
+    "P22-worker-ui-r2原封包一致性.json",
+    "P22-worker-ui-r2施法因果.json",
+    "P22-worker-ui-r2收益快照一致性.json",
+    "P22-worker-ui-r2保存一致性.json",
+    "P22-worker-ui-r2控制與圖片核對.json",
+    "P22-worker-ui-r2靜態LOS與原觀察窗.json",
+    "P22-worker-ui-r2獨立核對與待補畫面.json",
+    "P22-worker-ui視覺補驗首輪失敗原封包.json",
+    "P22-worker-ui視覺補驗首輪失敗保存一致性.json",
+    "P22-即時HPMP畫面與首輪補驗失敗核對.json",
+    "P22-worker-ui視覺補驗r2原封包.json",
+    "P22-worker-ui視覺補驗r2保存一致性.json",
+    "P22-worker-ui視覺補驗r2收益快照一致性.json",
+    "P22-worker-ui視覺補驗r2獨立閉環.json",
+    "P22-最終工作者回歸與送出門檻核對.json",
+    "P22-凍結交接即時獨立核對.json",
+    "P22-主管乾淨重建與離線驗收.json",
+    "P22-主管CLI原封包一致性.json",
+    "P22-主管CLI施法因果.json",
+    "P22-主管CLI收益快照一致性.json",
+    "P22-主管CLI保存一致性.json",
+    "P22-主管CLI獨立閉環.json",
+    "P22-主管UI首輪失敗原封包一致性.json",
+    "P22-主管UI首輪失敗收益快照一致性.json",
+    "P22-主管UI首輪焦點死亡失敗核對.json",
+    "P22-死亡保存城鎮超區塊限制核對.json",
+    "P22-原死亡HP0保存HP1獨立核對.json",
+    "P22-保存城鎮原地形跨區返回路徑.json",
+    "P22-主管UI失敗具體退修-r2.json",
+    "P22-原南區塊像素與來源獨立核對.json",
+    "P22-原雙區塊越界物件與接縫驗收條件.json",
+    "P22-原跨區同深度像素交疊核對.json",
+    "P22-原跨區初載排序獨立核對.json",
+    "P22-原雙區冷載全畫面像素獨立核對.json"
+  ],
+  "P22_next": [
+    "Finish same actualr6UI process and audit nativeclear/Webtarget/raw/SQL/images",
+    "FullCLI r6 exact633HP1MP saved continuation; naturalMP recovery only",
+    "All required functional evidence then concrete cleanup handback; no cleanup yet"
+  ],
+  "current_runtime_case": {
+    "status": "P22-first-normal-JAR-ready",
+    "runtime_started": "JAR58508/parent59016 independently pinned; same firstDB80716/5808 UUID2d062607-d05f-11f1-9855-4cedfb679789",
+    "do_not_restart": "Same first normal JAR/DB only. No reset/refill/reinitialization. Supervisor rolesreserved until explicitfreeze."
+  },
+  "previous_goal_turn": {
+    "classification": "progress",
+    "progress": "Original A1 bookkeeping20 cases and3scene vectors passed; original scheduler callback read modeled freed owner+8 at85E63E and stopped bymemory hook. Six source copies16supplementfiles717preservedpaths independently verified.",
+    "next": "Continue original caller/update timing and reachability scope while user defers UI. Newlive/formalfreeze/complete engine still pending."
+  },
+  "P22_runtime": {
+    "db_pid": 80716,
+    "db_parent": 5808,
+    "db_created_ms": 1792924312966,
+    "db_uuid": "2d062607-d05f-11f1-9855-4cedfb679789",
+    "db_port": 43322,
+    "game_port": 42053,
+    "game_pid": 58508,
+    "game_parent": 59016,
+    "game_created": "/Date(1792925917386)/"
+  },
+  "P22_initialization_observed": {
+    "utc": "2026-10-25T10:33:35.637232+00:00",
+    "processes": [
+      {
+        "ProcessId": 59716,
+        "ParentProcessId": 87064,
+        "CreationDate": "/Date(1792924261644)/",
+        "ExecutablePath": "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "CommandLine": "\"C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe\" -B -X utf8 initialize_p22.py"
+      },
+      {
+        "ProcessId": 73424,
+        "ParentProcessId": 59716,
+        "CreationDate": "/Date(1792924319366)/",
+        "ExecutablePath": "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "CommandLine": "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe -B -X utf8 lab.py import"
+      }
+    ],
+    "scope": "Independent current OS snapshot of worker first initializer/import; no restart, fixture completion or game-start claim."
+  },
+  "P22_initialization_current": {
+    "utc": "2026-10-25T10:58:32.374853+00:00",
+    "completion": {
+      "status": "pass",
+      "exitCode": 0,
+      "pid": 59716,
+      "steps": [
+        {
+          "args": [
+            "lab.py",
+            "init"
+          ],
+          "pid": 63096,
+          "started": 1792924261.7340078,
+          "exitCode": 0,
+          "ended": 1792924312.769044
+        },
+        {
+          "args": [
+            "lab.py",
+            "start"
+          ],
+          "pid": 75616,
+          "started": 1792924312.7750282,
+          "exitCode": 0,
+          "ended": 1792924319.364658
+        },
+        {
+          "args": [
+            "lab.py",
+            "import"
+          ],
+          "pid": 73424,
+          "started": 1792924319.3706422,
+          "exitCode": 0,
+          "ended": 1792924476.0107539
+        },
+        {
+          "args": [
+            "migrate.py"
+          ],
+          "pid": 87860,
+          "started": 1792924476.0303338,
+          "exitCode": 0,
+          "ended": 1792924509.4694479
+        },
+        {
+          "args": [
+            "initialize_fixtures.py"
+          ],
+          "pid": 66036,
+          "started": 1792924509.4756992,
+          "exitCode": 0,
+          "ended": 1792925807.6188943
+        },
+        {
+          "args": [
+            "initial_state_audit.py"
+          ],
+          "pid": 80404,
+          "started": 1792925807.6188943,
+          "exitCode": 0,
+          "ended": 1792925812.778616
+        },
+        {
+          "args": [
+            "pre_dynamic_audit.py"
+          ],
+          "pid": 75640,
+          "started": 1792925812.7841692,
+          "exitCode": 0,
+          "ended": 1792925869.1885674
+        }
+      ],
+      "normalJarStarted": false
+    },
+    "initial_processes_absent": true,
+    "server_start": false,
+    "server_ready": false,
+    "evidence": [
+      "P22-初始資料獨立核對.json",
+      "P22-八角色初始SELECT獨立核對.json",
+      "P22-魔法獨立解碼器原向量核對.json"
+    ]
+  },
+  "P22_prepared_tools": [
+    "audit_p22_magic_capture.py: syntaxchecked, no actualcaptureyet; original80vector decoder pass",
+    "pin_p22_first_game.py: awaitactualfirstreceipt/listener, no start authority transferred to supervisor",
+    "p22_ready_roles.py/snapshot_p22_for_review.py/audit_p22_frozen.py/verify_p22_runtime.py/run_p22_review_regressions.py syntaxcheckedonly; actualfreeze schema/finalcommands mustreview beforeexecute"
+  ],
+  "P22_runtime_guard": "p22_runtime_identity.py passed against independently pinned first4processes/exactcommands/creation/listeners/JARpolicyhash; all poststartSELECT require this guard.",
+  "P22_worker_cli": {
+    "status": "independently verified",
+    "evidence": "P22-worker-cli獨立閉環.json"
+  },
+  "P22_worker_ui": {
+    "status": "worker-ui-r2-behavior-pass-visual-followup-pending",
+    "evidence": "P22-worker-ui-r2獨立核對與待補畫面.json"
+  },
+  "P22_visual_followup": {
+    "status": "independently passed HUD and clear original flight/impact; failed first supplement preserved",
+    "evidence": "P22-worker-ui視覺補驗r2獨立閉環.json"
+  },
+  "P22_supervisor_live": null,
+  "P22_dual_block_scope": {
+    "current": "Two complete original adjacent blocks resident, original coldload insertion order; fullnorth/southmovement within supportedregion required",
+    "verified_original": "42 native insertvectors,33 truepixeloverlaps,26,960draw/10,727,424pixel original oracle;65536 unchangedJAR movement directions and384 seam vectors;8192 exactterrain",
+    "pending_product": "Current r2 source/output/gates still implementing, no final freeze or live continuation",
+    "full_engine_still_required": [
+      "Original2x2cache shift/reinsertion and eviction history",
+      "Additional neighboring blocks and full-map streaming",
+      "Original dynamic opacity/group triggers and portals"
+    ]
+  },
+  "P22_r2_prepared_tools": {
+    "p22_ready_roles.py": "bf6cec25049a06249534e37d087aa92b6d60e92fd5307b898e7ed0e102dc8461",
+    "verify_p22_runtime.py": "beefa805c982daf86f1a2d55634412ba5c396c02ce5ab9cad713e75e8c31d1db",
+    "audit_p22_ready_live_r2.py": "13dab3ed9791f72ba45e3727dfddb9c80427c5d316c00f5a10fd55fa5478d6e0",
+    "run_p22_review_regressions.py": "558d9243fc2d6cf3bfa7c0a7213e67631cd695e060633f51a30293bf9e94f1af",
+    "audit_p22_supervisor_ui_controls_r2.py": "53a1a9b696f92c4fcc8f7dbb50bbc4fe073a89790ba441b91413c5f55cbd8977"
+  },
+  "P22_r2_review": {
+    "status": "offline-failed-no-live",
+    "review_directory": "D:\\lineage開發\\TW1608262200研究\\主管\\P22-獨立驗收-r2",
+    "ready_sha256": "d4e5b6958f1182c66f0588b60ed969010c5d2d858578526458ce6b272e7888af",
+    "fresh": false,
+    "reset": false,
+    "normalJarStarts": 1,
+    "archive": "P22-r1修正前歷史封存獨立核對.json",
+    "ready_audit": "P22-r2凍結交接即時獨立核對.json",
+    "clean_build": true,
+    "offline_passed": 17,
+    "offline_required": 18,
+    "failed_case": "--object-regression: stale SourceIndex ownership fixture",
+    "new_logins": 0,
+    "original_math_passed": true,
+    "visual_proof": "P22-r2離線雙區畫面實際檢視.json",
+    "next": "Workeracknowledgedr3 correction; root snapshot includes specific originalBIN evidence directory; allotherbuild bin/obj excluded."
+  },
+  "P22_r3_prepared_tools": {
+    "p22_ready_roles.py": "f51a0005b509730f611b9b20e9c1aa5af59c769465c7a3c02531fd11c9201a9e",
+    "verify_p22_runtime.py": "3be3ff7d6a5775d60dfcd657405cb37bf2c92f45da80c5a7d041d6e56dec1a0f",
+    "snapshot_p22_for_review.py": "61716a80bd686ef9891bc0019c0cdcc8b90c41b0ec27b4b4eb7f197750dd17b5",
+    "audit_p22_supervisor_ui_controls_r2.py": "7ba2b8b4e07764df157b82327be091eee90cbd4f8a7c9b438b722999a83701b6",
+    "audit_p22_resume_recovery.py": "2a565da9af5e980ecd5d5136f4763206a9c95d602f7de94dea7e2a910e19f7df"
+  },
+  "P22_r3_review": {
+    "status": "ui-visible-target-failed-normal-save",
+    "review_directory": "D:\\lineage開發\\TW1608262200研究\\主管\\P22-獨立驗收-r3",
+    "ready_sha256": "80fcb052c9a1c4fbce5965031a8106a5057024ddefbda55eca07fd417a959dac",
+    "fresh": false,
+    "reset": false,
+    "normalJarStarts": 1,
+    "offline_cases": 18,
+    "dll_sha256": "99bd5334dc285925fc16bbf9fa396cc8caa0970a59fbb3362422f9e18a593241",
+    "live": {
+      "phase": "ui-r3-exact-saved-continuation",
+      "pid": 13220,
+      "runner_session": null,
+      "folder": "D:\\lineage開發\\TW1608262200研究\\主管\\P22-獨立驗收-r3\\world-evidence\\magic-supervisor-ui-r3",
+      "actual_process": {
+        "ProcessId": 13220,
+        "ParentProcessId": 85232,
+        "CreationDate": "/Date(1792931403533)/",
+        "ExecutablePath": "D:\\lineage開發\\TW1608262200研究\\主管\\P22-獨立驗收-r3\\P22-魔法清單與單次施法\\build\\client\\P11.ClientEngine.exe"
+      },
+      "status": "terminal exit7; normal saved521HP83MP; no potions; no retry authorized"
+    },
+    "handback": "D:\\lineage開發\\TW1608262200研究\\主管\\P22-主管r3目標可見性具體退修.json"
+  },
+  "P22_r4_prepared_tools": {
+    "p22_ready_roles.py": "a896f938b8d3111d31a345aa795b90ebc6bec7f036531911454760d73ec2bd58",
+    "verify_p22_runtime.py": "91482d753dda2327aaddb016ac784a92f3b2d31bb1840c41ec69c7176737d8de",
+    "audit_p22_ready_live_r4.py": "3751972e25b05e84262eef9a59c3657e0de32c85354d3ea6a6df61db2eea07f0",
+    "start_p22_r4_review.py": "c0033f86608eb7fd6b72c95ce432591afb6b3474e14b3b3f18d376312ab70dfd",
+    "run_p22_review_regressions.py": "1abe50c40481b500a1bd37d3e5e36d22b72992c13483093a8bd36e8baa1bc2b0",
+    "audit_p22_supervisor_ui_controls_r4.py": "2296f74b38aaa578caa6149bce628a61892acc5c7b3251bf1aacf35884074052",
+    "audit_p22_frozen.py": "972e6745f995cd9c7f59309d20e3725d08536ec0b70ef3b35f128eb372a6fdff"
+  },
+  "P22_r4_independent_progress": [
+    "P22-r3失敗目標附近原遮擋離線規劃收據.json",
+    "P22-r4有限走位原地形離線旁證.json",
+    "P22-r4失敗封包素材與r3封存獨立核對.json"
+  ],
+  "P22_r4_review": {
+    "status": "ui-damage-stop-failed-normal-save",
+    "review_directory": "D:\\lineage開發\\TW1608262200研究\\主管\\P22-獨立驗收-r4",
+    "ready_sha256": "03d64dc9507d7771539f65006c4a60bcc80548cdf80ad190103327e0ae35a812",
+    "fresh": false,
+    "reset": false,
+    "normalJarStarts": 1,
+    "offline_cases": 19,
+    "dll_sha256": "945ac0bc40ff74db2ce1402065733792a8540e603d2c40a86f52b3df94629c9d",
+    "handback": "D:\\lineage開發\\TW1608262200研究\\主管\\P22-主管r4攻擊前站位具體退修.json",
+    "live": {
+      "phase": "ui-r4-exact-saved-continuation",
+      "pid": 78908,
+      "runner_session": null,
+      "folder": "D:\\lineage開發\\TW1608262200研究\\主管\\P22-獨立驗收-r4\\world-evidence\\magic-supervisor-ui-r4",
+      "status": "terminal exit7; normal saved526HP79MP zero potions; no automatic retry"
+    }
+  },
+  "P22_r5_prepared_tools": {
+    "p22_ready_roles.py": "7666ed301cc262c27037841e0be076341dddf16f8449a49569d093116519baf1",
+    "verify_p22_runtime.py": "35a7e770a269d8059ffcd601987842fa336fde22951def833d515da54d966649",
+    "audit_p22_frozen.py": "20cd4de6e8635568d894c9be6e67e34319d42be56d65e03140feaffaa521a597",
+    "audit_p22_ready_live_r5.py": "59b5a9555c09fc2766f9cc49c31df0ca22275013e84566968c8a32fbf60134bc",
+    "start_p22_r5_review.py": "82c851009a1cb5b257eef5c7cb3098a2a6070dc3c37fb833ed0dcba580ca4ab7",
+    "audit_p22_supervisor_ui_controls_r5.py": "e25f17887aece8e25aff944db33c535366ecd6159a4d91fd7aadca98554d1f62"
+  },
+  "P22_r5_prepared_tools_scope": "syntax and prior4ready schema pass only; actualr5 staging check names/schema require inspection before execution",
+  "P22_r5_independent_progress": [
+    "P22-r5原狼主動性模板唯讀旁證.json",
+    "P22-r4失敗終點原渲染重播核對.json",
+    "P22-r4封存與r5修正邊界獨立核對.json",
+    "P22-r5實際r4序列素材獨立核對.json",
+    "P22-r5站位原來源理由獨立核對.json"
+  ],
+  "P22_r5_review": {
+    "status": "fullflows-passed-web-selection-coverage-correction",
+    "review_directory": "D:\\lineage開發\\TW1608262200研究\\主管\\P22-獨立驗收-r5",
+    "ready_sha256": "60582c9bbc97f10269a00a33608112e84f0b62845f859e29dcc266f9e1182c82",
+    "fresh": false,
+    "reset": false,
+    "normalJarStarts": 1,
+    "offline_cases": 19,
+    "dll_sha256": "33cf0d0452faa76acc1c4039a8c706eeb1c882e00b32595bd9bcc18b70cc546d",
+    "ui_status": "full flow andraw/SQL/staging pass; currentWebtargetevent supplement required",
+    "cli_status": "complete-flow raw/causality/staging/SQL independently passed",
+    "handback": "D:\\lineage開發\\TW1608262200研究\\主管\\P22-主管r5雙介面目標選取具體退修.json"
+  },
+  "P22_r6_status": "P22 formally accepted. r6 full CLI/UI independent verification, normalcleanup, full finalmanifest, actualGoalcomplete and idle all passed. Fullengine remains active.",
+  "P22_r6_prepared_tools": {
+    "p22_ready_roles.py": "e5c3645ed67d708dff3a5ae4341890b4a3609f9f515fa41f0b5f953481fdb49c",
+    "verify_p22_runtime.py": "3c0bbc5ecb65064066ff22a70702a21aead72e7819322ea91971647542ff71b7",
+    "audit_p22_frozen.py": "d024ec94cfbc9c385e40246a04576e07f74bc45b5d8e96d9f059e0221047ed1f",
+    "audit_p22_ready_live_r6.py": "a4b14a69c7bd5abc5df14a23da3a22bb8435b86c0f2bc5ab208ec724b1f16889",
+    "start_p22_r6_review.py": "c636fa917e7482ee5fdd49f92641f7b00d21ef0cdbfedcebff5b4a29736c7953",
+    "audit_p22_supervisor_ui_controls_r6.py": "6b259b7a2cc25401471dc195fa7888dffd6ced03a5c114816cc4602bb6c3d1d9",
+    "audit_p22_staging_capture.py": "6697727a92ccc147da6d1cd5b031799a36f3ad459baf5c58671ec61bf8483dee"
+  },
+  "P22_r6_review": {
+    "status": "formally-accepted",
+    "review_directory": "D:\\lineage開發\\TW1608262200研究\\主管\\P22-獨立驗收-r6",
+    "ready_sha256": "d538defe47bf5d49f21c4423b23a5fa52ae809aa914e7dc8dbb5c21cd6c7f47d",
+    "fresh": false,
+    "reset": false,
+    "normalJarStarts": 1,
+    "offline_cases": 19,
+    "dll_sha256": "ddb18f34bed275f8d4953e9a0bc2dde70c1ed4519b7281b93c82104511d9b843"
+  },
+  "P23_source_progress": "P23-主管來源驗證進度.json",
+  "P23_runtime": {
+    "jarPid": 75900,
+    "jarParent": 81724,
+    "dbPid": 67280,
+    "dbParent": 20048,
+    "dbUuid": "d399e000-d080-11f1-ae98-4cedfb679789"
+  },
+  "P23_worker_r2_handback": "Superseded by P23-workerCLI-r2失敗與原狀態修正交還.json; r2failed, r3notauthorized",
+  "P24_current_verified_checkpoint": {
+    "utc": "2026-10-25T19:06:17.706556+00:00",
+    "firstJar": [
+      80756,
+      11472
+    ],
+    "firstDb": [
+      59052,
+      69176
+    ],
+    "initialEightRolesSelect": "passed-before-login",
+    "workerGate": "explicitly-released",
+    "supervisorRoles": "Last actual SELECT confirmed all4fresh; no new login performed in offline work.",
+    "latestCheckpoint": "主管接續最新檢查點.json",
+    "phase": "user-deferred-ui; independent-clean27-native215-opacity-cache-source-pass; noformalacceptance",
+    "currentSavedMain": [
+      32588,
+      33003
+    ],
+    "currentSavedObserver": [
+      32588,
+      32997
+    ],
+    "latestApproval": "P24-UI焦點恢復後有限續測核定.md",
+    "uiRecoveryApproved": false,
+    "freshActualAudit": "P24-人工焦點等待期間角色資源獨立核對.json",
+    "focusExpiryAudit": "P24-離線人工焦點逾時獨立核對.json",
+    "launcherAudit": "P24-點擊啟動器與保存狀態獨立核對.json",
+    "workerGoalStatus": "blocked",
+    "singleButtonAudit": "P24-單按鈕離線結果獨立核對.json",
+    "rootGoalStatus": "active",
+    "goalReceipt": "P24-人工焦點阻礙Goal收據.json"
+  },
+  "P24_provisional_clean_offline": {
+    "directory": "P24-scheduler-r2-clean-offline",
+    "status": "cleanbuild27-and-original-source-audits-pass",
+    "dllSha256": "a655d70fc3d974eaaeb093a98e9bf882ac4adebb67adae1356dd1e0f23d18006",
+    "inputs": 2951,
+    "supplementalNativeBins": 64,
+    "originalNativeBinsChecked": 102,
+    "sourceDrift": [],
+    "receipt": "P24-scheduler-r2-clean-offline\\completed-offline-review.json",
+    "opacityProof": "independent-opacity/result.json",
+    "cacheProof": "independent-cache/source-check.json",
+    "formalReview": false,
+    "goalStateException": false,
+    "utc": "2026-10-25T19:06:17.706556+00:00"
+  },
+  "P24_region_lifecycle": {
+    "status": "original-region-manager-scoped-pass",
+    "utc": "2026-10-25T19:13:33.028391+00:00",
+    "proof": "P24-原區域管理器生命週期獨立核對.json",
+    "comparedBytes": 4194304,
+    "regionCases": 16,
+    "nodeCounts": [
+      62189,
+      70744,
+      63664
+    ],
+    "evictedOwnerCancellationProven": false
+  },
+  "P24_freeze_gate_revision": {
+    "status": "offline-supplement-independently-verified",
+    "proof": "P24-新版交付閘門補件獨立核對.json",
+    "workerCases": 29,
+    "independentNegatives": 7,
+    "formalExecution": false,
+    "workerIdle": {
+      "threadId": "01a173c8-ce38-7980-b4ca-6465d833f9c3",
+      "turnId": "01a17475-5f82-7391-a096-5494bc9b1a5c",
+      "cursor": "39cc4633-3044-4df6-816c-2de127343905:94",
+      "status": "idle"
+    },
+    "rootPreparedSyntax": "P24-scheduler-r2正式閘門準備語法核對.json"
+  },
+  "P24_running_root_exec_sessions": [],
+  "P24_resource_lifecycle": {
+    "status": "original-resource-bookkeeping-and-synthetic-freed-read-observed",
+    "utc": "2026-10-25T19:25:49.565492+00:00",
+    "cases": 20,
+    "nodeCounts": [
+      62189,
+      70744,
+      63664
+    ],
+    "proofs": [
+      "P24-原資源引用管理生命週期獨立核對.json",
+      "P24-原待執行回呼讀取已釋放owner核對.json",
+      "P24-原資源生命週期執行收據.json"
+    ],
+    "originalReadInstruction": "0x85e63e",
+    "ownerOffset": 8,
+    "normalGameplayReachabilityProven": false,
+    "fullLifecycleProven": false,
+    "supplementProof": "P24-原資源生命週期補件獨立核對.json",
+    "worker": {
+      "thread": "01a173c8-ce38-7980-b4ca-6465d833f9c3",
+      "turn": "01a17484-333a-7d10-beeb-128e9e6f2de9",
+      "status": "idle",
+      "cursor": "39cc4633-3044-4df6-816c-2de127343905:98"
+    }
+  }
+}

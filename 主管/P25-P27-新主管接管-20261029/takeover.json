@@ -1,0 +1,81 @@
+{
+  "schema": "bin-engine-supervisor-takeover-v1",
+  "utc": "2026-10-29T03:31:39.936Z",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "authority": {
+    "parent": "01a17821-bfc6-72b7-99cf-ef703f19203b",
+    "userQuote": "先確認目前開發現況,開設新主管 建立對話時 依照先前模式 個別進度P25/26/27...不要P24卡這麼久,是有做分工嗎?還是有無分配任務?"
+  },
+  "observations": [
+    {
+      "id": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "title": "自主 BIN 引擎｜P24 新版續測與正式交付",
+      "status": {
+        "type": "idle"
+      },
+      "turnId": "01a18523-4b3c-7d82-8629-b188a5343cdc",
+      "turnStatus": "completed",
+      "error": null,
+      "final": [
+        "規劃已封存並停寫：[HANDOFF.md](/D:/lineage開發/TW1608262200研究/work/engine-pickup-own-profiles-plan-r1/HANDOFF.md)。\n\n- 42 profiles 來源齊備；其餘41組可提出有限政策擴展。\n- 最小新增資源：12個共用組、288幀、**2,473,547 bytes**；未寫像素payload。\n- 1,612項靜態一致性斷言通過；封存核驗12 artifacts／191 pins。\n- 產品build／runtime／native測試均為 **0**。\n- 下一實作仍須等待r34接受、主管契約及最終base綁定。\n\nSeal：`7e5605b111825be0e3d719bfea230743b11f7ed65e41b259eea23929e9616904`\n\nResult：`6b0cd8221231b2cd4d01fef21322fa7248551f21896651a005ed64e8384e0a15`\n\n預期資源SHA：`aff2e04d4f9395f7993baf5818eb16218730b7def0a29c7d07e86c314db513ba`"
+      ]
+    },
+    {
+      "id": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "title": "P24｜實測缺失外觀隔離補件",
+      "status": {
+        "type": "idle"
+      },
+      "turnId": "01a1855a-2e30-78c2-a85a-b15f991c7c0e",
+      "turnStatus": "completed",
+      "error": null,
+      "final": [
+        "準備完成並封存，獨立 verify 通過。\n\n- 416 個 body PNG、14 張 contact／overview。\n- 2,688 列待測映射、各 profile 時間邊界與 14 類具體測試規格。\n- 1,118 個靜態斷言全通過；451 artifacts／308 pins。\n- 候選執行、產品 build、native 均為 0；等待主管綁定 final r34 與候選。\n\n[交接文件](D:/lineage開發/TW1608262200研究/work/engine-pickup-own-profiles-review-prep-r1/HANDOFF.md) · [圖像總覽](D:/lineage開發/TW1608262200研究/work/engine-pickup-own-profiles-review-prep-r1/contacts/overview.png)\n\nSeal：`2f56ff408f7a2b96197d64313ec898f962ac1c53b49df8acc5b8a7b6cb316a66`  \nResult：`945760f87966ed206dd185cdf5f8f00ce44d039342b10de905ef1ab0df056189`"
+      ]
+    },
+    {
+      "id": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "title": "P24｜固定版本完整驗收與重建準備",
+      "status": {
+        "type": "idle"
+      },
+      "turnId": "01a18559-45e7-77e1-9097-84fd06cc2b4b",
+      "turnStatus": "completed",
+      "error": null,
+      "final": [
+        "已完成並封存 [canonical plan](D:/lineage開發/TW1608262200研究/work/engine-r34-canonical-plan-r1/canonical-plan.json)，[交接說明](D:/lineage開發/TW1608262200研究/work/engine-r34-canonical-plan-r1/HANDOFF.md) 已列明執行順序與恢復限制。\n\n- 靜態驗證通過：44 個操作、10 個 helper、138 筆來源映射。\n- 已修正 raw-log schema adapter，加入授權後保存計畫證據至 workflow 的步驟。\n- 未 install、build 或執行測試；workflowRoot 未建立，原封存檔與 engine 未變。\n\nPlan SHA256：\n`d25c306fae5abee9209e46c557453f7b6a0a96645e5c052fbda70555f11f15ff`\n\n24 檔封存 SHA256：\n`faf5f661f5d569c950ff854dfa8bff6f1cf9d338d98e3bbf9006fd6555b3a2fe`\n\n等待主管以此 exact plan SHA 核發新的 shared receipt。"
+      ]
+    },
+    {
+      "id": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+      "title": "自主 BIN 引擎｜P24 本機新主管與完整整合",
+      "status": {
+        "type": "systemError"
+      },
+      "turnId": "01a18553-2e2d-7150-a05a-34464e828dfd",
+      "turnStatus": "failed",
+      "error": {
+        "message": "Selected model is at capacity. Please try a different model.",
+        "additionalDetails": null
+      },
+      "final": []
+    }
+  ],
+  "formalRelease": "r33",
+  "r34": "stage accepted; canonical plan sealed; shared integration not executed",
+  "integrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "goal": {
+    "toolAvailable": false,
+    "read": false,
+    "created": false,
+    "status": "unknown"
+  },
+  "restrictions": [
+    "no DB/services/native/game",
+    "no retired supervisor messages",
+    "no immutable release/assets/hardlink writes",
+    "only original integrator may write shared product after new exact authorization"
+  ],
+  "wholeProjectComplete": false,
+  "completionPercentage": null
+}

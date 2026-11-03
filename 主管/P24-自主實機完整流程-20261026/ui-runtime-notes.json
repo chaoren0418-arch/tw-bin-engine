@@ -1,0 +1,23 @@
+{
+  "utc": "2026-10-26T09:10:16.304Z",
+  "userConfirmed": "display on and desktop unlocked; actual desktop attachment confirms rendering",
+  "nativeCapture": "window capture timed out for current PID87596; no assumption of monitor off",
+  "actualBrowserControl": "WebView2 local CDP9424, actual login inputs/buttons with server data; no bridge invocation or fabricated UI",
+  "loginAttempts": [
+    {
+      "outcome": "cold world initialization timeout",
+      "evidence": "normal-login-failure.json"
+    },
+    {
+      "outcome": "warm ProtocolException truncated field",
+      "evidence": "normal-login-second-failure.json"
+    }
+  ],
+  "workerFix": {
+    "thread": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+    "turn": "01a17776-706d-7760-9257-bee01f652869",
+    "status": "inProgress"
+  },
+  "db": "all 8 roles offline after attempts; position/hp/mp unchanged",
+  "nativeClose": "Alt+F4 sent to observed target after offline failure; process exit checked separately"
+}

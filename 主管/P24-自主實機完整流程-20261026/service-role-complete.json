@@ -1,0 +1,79 @@
+{
+  "utc": "2026-10-26T13:41:53.494732+00:00",
+  "status": "provisioned for testing, not gameplay-earned",
+  "checks": [
+    {
+      "access": 0,
+      "account": "p24svc01"
+    },
+    {
+      "x": 32588,
+      "y": 32981,
+      "hp": 700,
+      "id": 1900249001,
+      "mp": 120,
+      "map": 0,
+      "name": "服務驗證",
+      "level": 60,
+      "online": 0
+    },
+    {
+      "id": 1900249101,
+      "item": 40308,
+      "count": 100000,
+      "equipped": 0
+    },
+    {
+      "id": 1900249102,
+      "item": 40012,
+      "count": 100,
+      "equipped": 0
+    },
+    {
+      "id": 1900249103,
+      "item": 31,
+      "count": 1,
+      "equipped": 0
+    },
+    {
+      "id": 1900249104,
+      "item": 20096,
+      "count": 1,
+      "equipped": 0
+    },
+    {
+      "id": 1900249105,
+      "item": 20222,
+      "count": 1,
+      "equipped": 0
+    },
+    {
+      "name": "初級治癒術",
+      "skill": 1
+    },
+    {
+      "name": "光箭",
+      "skill": 4
+    }
+  ],
+  "existingEightAfter": {
+    "accounts": {
+      "rows": 8,
+      "sha256": "ee12417cf61b1e1d03b06777b43c9ea9249747f36e5e739df9d9695cafbd0dc0"
+    },
+    "characters": {
+      "rows": 8,
+      "sha256": "5b171d5abb73c09ac6f22ebe33a620928de35b5df1ca31e031a954e8b6e4a2cc"
+    },
+    "character_items": {
+      "rows": 41,
+      "sha256": "fe1f78013998de311f91bc52f74780a3682094271057e17bd7420a375e9700f8"
+    },
+    "character_skills": {
+      "rows": 8,
+      "sha256": "1b08dc5e7d1c9f313b8bb4671a79189c11575bfae6c8e0fb2b98762b4e23b161"
+    }
+  },
+  "existingEightUnchanged": true,
+  "privateCredentials": "D:\\P24Lab-ClientEngine\\private-service-test-role.json"
+}

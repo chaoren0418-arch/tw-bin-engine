@@ -1,0 +1,12 @@
+{
+  "utc": "2026-10-26T12:12:41.139Z",
+  "sequence": [
+    "normal r6 cold login succeeds",
+    "walk to32503,32879",
+    "normal cancel from HP protection228",
+    "3 normal login attempts report cannot start; no login socket seen in server log",
+    "PID4720 later absent; reason not established"
+  ],
+  "lastGuard": null,
+  "note": "Do not classify as successful crossmap or user shutdown; native capture unavailable"
+}

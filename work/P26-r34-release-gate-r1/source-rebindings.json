@@ -1,0 +1,67 @@
+[
+  {
+    "old": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\acceptance_gate.py",
+      "size": 21873,
+      "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+    },
+    "new": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r1\\acceptance_gate.py",
+      "size": 21873,
+      "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+    },
+    "change": "byte-identical independent copy"
+  },
+  {
+    "old": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\pe_resource.py",
+      "size": 3519,
+      "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+    },
+    "new": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r1\\pe_resource.py",
+      "size": 3519,
+      "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+    },
+    "change": "byte-identical independent copy"
+  },
+  {
+    "old": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\package_release.py",
+      "size": 9394,
+      "sha256": "9324a77b90f3e64b85a6cc3678660de91dc5ba58edd7e2760236f0c17784af90"
+    },
+    "new": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r1\\historical\\package_release.py.txt",
+      "size": 9394,
+      "sha256": "9324a77b90f3e64b85a6cc3678660de91dc5ba58edd7e2760236f0c17784af90"
+    },
+    "change": "byte-identical independent copy"
+  },
+  {
+    "old": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\prepared\\verify_release_r34.py",
+      "size": 1746,
+      "sha256": "a20f3dfcaae5d24d098b6c60bf0fd7699c289afdf5e5cb366ffe80599f7b1d9f"
+    },
+    "new": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r1\\historical\\verify_release_r34.py.txt",
+      "size": 1746,
+      "sha256": "a20f3dfcaae5d24d098b6c60bf0fd7699c289afdf5e5cb366ffe80599f7b1d9f"
+    },
+    "change": "byte-identical independent copy"
+  },
+  {
+    "old": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\package_release.py",
+      "size": 9394,
+      "sha256": "9324a77b90f3e64b85a6cc3678660de91dc5ba58edd7e2760236f0c17784af90"
+    },
+    "new": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r1\\package_release.py",
+      "size": 9229,
+      "sha256": "6f71f11590b72df554563f39dc510f3a9e115bd4a87dc585864cc0787f444605"
+    },
+    "change": "authority/root binding and extracted unchanged pure coverage predicates only"
+  }
+]

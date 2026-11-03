@@ -1,0 +1,183 @@
+{
+  "utc": "2026-10-28T18:14:47.829013+00:00",
+  "status": "pass-content-preservation-build-entry-and-recovery",
+  "preservation": [
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery",
+      "target": "D:\\lineage開發\\TW1608262200研究\\releases\\r28",
+      "files_accounted": 15789,
+      "content_sha_verified": 14494,
+      "volatile_evidence_size_mtime_only": 1295,
+      "config_changes_verified_against_original_backup": 0,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P10Lab-TW13081901",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P10Lab-TW13081901",
+      "files_accounted": 2509,
+      "content_sha_verified": 2509,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 2,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P12Lab-ClientEngine",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P12Lab-ClientEngine",
+      "files_accounted": 1759,
+      "content_sha_verified": 1759,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 2,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P13Lab-ClientEngine",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P13Lab-ClientEngine",
+      "files_accounted": 1759,
+      "content_sha_verified": 1759,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 2,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P14Lab-ClientEngine",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P14Lab-ClientEngine",
+      "files_accounted": 1760,
+      "content_sha_verified": 1760,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 2,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P15Lab-ClientEngine",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P15Lab-ClientEngine",
+      "files_accounted": 1761,
+      "content_sha_verified": 1761,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 2,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P16Lab-ClientEngine",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P16Lab-ClientEngine",
+      "files_accounted": 1765,
+      "content_sha_verified": 1765,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 2,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P17Lab-ClientEngine",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P17Lab-ClientEngine",
+      "files_accounted": 1758,
+      "content_sha_verified": 1758,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 2,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P18Lab-ClientEngine",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P18Lab-ClientEngine",
+      "files_accounted": 1761,
+      "content_sha_verified": 1761,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 2,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P19Lab-ClientEngine",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P19Lab-ClientEngine",
+      "files_accounted": 1759,
+      "content_sha_verified": 1759,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 2,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P20Lab-ClientEngine",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P20Lab-ClientEngine",
+      "files_accounted": 1759,
+      "content_sha_verified": 1759,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 2,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P21Lab-ClientEngine",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P21Lab-ClientEngine",
+      "files_accounted": 1903,
+      "content_sha_verified": 1903,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 2,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P22Lab-ClientEngine",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P22Lab-ClientEngine",
+      "files_accounted": 1926,
+      "content_sha_verified": 1926,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 2,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P23Lab-ClientEngine",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P23Lab-ClientEngine",
+      "files_accounted": 1898,
+      "content_sha_verified": 1898,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 2,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P24Lab-ClientEngine",
+      "target": "D:\\lineage開發\\TW1608262200研究\\environments\\p24",
+      "files_accounted": 1846,
+      "content_sha_verified": 1846,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 2,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\P24Lab-6016-Export-r1",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\research\\6016-export-r1",
+      "files_accounted": 161,
+      "content_sha_verified": 161,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 0,
+      "result": "pass"
+    },
+    {
+      "source": "D:\\TW1608262200_research",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\research\\ascii",
+      "files_accounted": 845,
+      "content_sha_verified": 845,
+      "volatile_evidence_size_mtime_only": 0,
+      "config_changes_verified_against_original_backup": 0,
+      "result": "pass"
+    }
+  ],
+  "formal_r28_full_sha_files": 14364,
+  "formal_seal_sha256": "83770091f8051466d5dccb420210cd0567ffef5a1158e8f7ebf5c7667127bfcd",
+  "hardlink_substitutions": 10868,
+  "quarantine_logical_bytes": 2957933947,
+  "permanent_deletions": 0,
+  "quarantine_bytes_reclaimed": 0,
+  "engine_source_vendor_files_verified": 177,
+  "engine_product_audio_identical_to_r28": true,
+  "root_entry_check_only": true,
+  "ui_started": false,
+  "services_started": false,
+  "database_config_checks": 14,
+  "database_backup_files_restored": 3,
+  "original_16_roots_absent": true,
+  "compatibility_junctions": [
+    "D:\\BinEngine",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\assets",
+    "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery"
+  ],
+  "file_id_correction": "Initial DirEntry IDs were zero, not valid identity. All nonvolatile original contents are now verified by SHA; volatile r28 logs/cache retain path mapping, size/mtime and same-volume move receipts, not a full-body identity claim.",
+  "hash_distinct_files": 30765,
+  "hash_distinct_bytes": 9293291168,
+  "disk_free_after_bytes": 6781485465600,
+  "development_resumed": false
+}

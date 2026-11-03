@@ -1,0 +1,49 @@
+{
+  "schema": "p33-bounded-resource-fault-review-v1",
+  "status": "completed-awaiting-supervisor-acceptance",
+  "completedUtc": "2026-10-29T07:37:26.348381+00:00",
+  "baseline": {
+    "P30AcceptanceSha": "b37e5993a5a2fd5c0aed6f10e5c1c313da6dbcaf5899fcb729fffd6d08c03cf1",
+    "stageSealSha": "45bf24321192718e090deca882ce1ce884113cb9bfae817b73ab92892d3f5514",
+    "P31P32AcceptanceSha": "217e44587a14ae2b65441aceb4f551cca1717d4b228616e51d5a2ec6a62acccf",
+    "actualDLLsha": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+    "audioSha": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+  },
+  "distinctCases": 28,
+  "passed": 28,
+  "failed": 0,
+  "families": {
+    "constructor": 8,
+    "resource-lifecycle": 12,
+    "constructor-distinction": 2,
+    "api": 4,
+    "parser-seam-only": 2
+  },
+  "helperBuilds": 1,
+  "runtimeRuns": 1,
+  "productBuilds": 0,
+  "productChanges": 0,
+  "confirmedProductDefects": 0,
+  "native": 0,
+  "sourcePins": 45,
+  "parserOnlyCases": 2,
+  "postLoadMemoryFaultChains": 12,
+  "syntheticPackets": true,
+  "sourceSeals": "source-manifest.json",
+  "raw": "runs/runtime-01/runtime.json",
+  "coverage": "coverage-delta.json",
+  "verification": "verification.json",
+  "reproduce": "REPRODUCE.md",
+  "formalEntry": "r33",
+  "entryActivationAuthorized": false,
+  "sharedWrites": 0,
+  "DBServiceNetworkGUIActions": 0,
+  "certificateCommands": 0,
+  "permanentDeletions": 0,
+  "goal": "See goal-readback.json; actual tool state, not inferred",
+  "qualification": {
+    "104base": "historical-selected-payload-matched",
+    "312pickup": "bounded-slice-only"
+  },
+  "wholeProjectComplete": false
+}

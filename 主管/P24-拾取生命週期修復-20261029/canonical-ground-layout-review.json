@@ -1,0 +1,14 @@
+{
+  "utc": "2026-10-29T00:21:16.786436+00:00",
+  "status": "identified-runner-layout-failure-recovery-authorized",
+  "failedCommand": "canonical-suites/ground/command-1",
+  "observedExitCode": 3762504530,
+  "exception": "DirectoryNotFoundException shared-integration-r1/assets/integrity.json via PlayerProfiles lazy getter",
+  "rootCause": "Ground harness has no direct asset reads, but product PlayerProfiles resolves ../../assets from AppContext.BaseDirectory. Stage helper was under stage/build with stage/assets; canonical shared helper layout lacked the sibling assets root.",
+  "correctedUnderstanding": "Only the old run.ps1 root/ground/assets junction was unused. Indirect product asset dependency remains required.",
+  "authorizedRecovery": "Preserve failed command/log/helper; copy already built helper byte-identically to fresh engine/build/ground-canonical-r33-checks, use existing read-only engine/assets; rerun failed incomplete baseline and then unrun modes/checker without rebuilding product or changing tests.",
+  "productAssertionFailureObserved": false,
+  "completeProbeProduced": false,
+  "doNotClaimAllModesExecutedOnce": true,
+  "existingSuccessfulChecksMustNotRerun": true
+}

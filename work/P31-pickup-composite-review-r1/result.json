@@ -1,0 +1,39 @@
+{
+  "schema": "p31-composite-review-v1",
+  "status": "passed-bounded-offline",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "dllSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "audioSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "helperBuilds": 1,
+  "runtimeLaunches": 1,
+  "productBuilds": 0,
+  "trajectories": 8,
+  "uniqueCompositeCases": 56,
+  "passed": 56,
+  "failed": 0,
+  "comparedPixels": 191232,
+  "differentPixels": 0,
+  "negativeControls": {
+    "checks": 144,
+    "detected": 144,
+    "notAdditionalProductCases": true
+  },
+  "historicalRowsAdded": 0,
+  "productDefectsFound": [],
+  "sourcePreparationFailure": "preserved adapter index mapping error; fixed by explicit sealed block index, oracle hash unchanged",
+  "sourceIdentity": "104 base historical-selected-payload-matched / 312 pickup current-idx-and-bounded-slice-only",
+  "playerVisibleConclusion": "selected fixtures show correct pickup shadow suppression, exact-key terminal restoration/hold, exact weapon breath return, depth occlusion and final pixel ownership",
+  "coverageDelta": "coverage-delta.json",
+  "limitations": [
+    "synthetic scene, synthetic selectable entity7001",
+    "4 exact pairs;8 pair-direction trajectories;speed0",
+    "direction1/3/5/6 and remaining38 pairs not tested",
+    "no native,GUI,network,DB,services,shared writes",
+    "no P32 lifecycle,full opacity,transport or event-counter claims"
+  ],
+  "formalEntry": "r33",
+  "entryActivation": "prior automatic approval review denied; not executed/retried; approval pending",
+  "wholeProjectComplete": false,
+  "goal": "complete; tool readback in goal-status.json",
+  "handoff": "HANDOFF.md"
+}

@@ -1,0 +1,143 @@
+{
+  "status": "extracted_not_gameplay_acceptance",
+  "jar": "D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+  "jar_sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "classes": [
+    {
+      "jar_entry": "com/lineage/server/serverpackets/S_InvList.class",
+      "class_sha256": "64b4216a8606a38148780bbd65fb8d4116b6a4643f69b08d078bd91631b04a70",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_InvList.java",
+      "source_sha256": "cd3c0c20a7285b0ef32d9305e0559cf7ea02030c2ff0665363ffad91521f2820",
+      "javap_sha256": "ccab775d583623cfd7570e8b32e57cfb13e4ebda232f288fea501c251ab0664b",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/server/serverpackets/S_AddItem.class",
+      "class_sha256": "c034106136f63cf4ccc7979cc6f5ba0d1f8dc7f6aacb13c7043d3e82e5e28d95",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_AddItem.java",
+      "source_sha256": "cde671d3b9de5f57bbd68bf5b2ef8d315bb196e49575d8fe8d4d966534d7dfa2",
+      "javap_sha256": "b85933bf39640b12fae7e78b4b4d6406360442f4b4c3d963416e3e1eeffbd150",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/server/serverpackets/S_ItemCount.class",
+      "class_sha256": "7685576fc7159de145da8c0c17a6cbed95ea5625fc0967733e0a33a8ee35ad89",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_ItemCount.java",
+      "source_sha256": "eaf19618fbd008fbc571f52647fbda3920f824f88a7685e13a64e0cf9afefa50",
+      "javap_sha256": "1e4bef7ff6ba6fc46eab968124dd65d298035ac8d4abdee06cdc638731e41557",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/server/serverpackets/S_ItemName.class",
+      "class_sha256": "ee38a15e9216db2bd853c0434645abe869f28dbc9b19399dc8ffe4a1b3925b99",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_ItemName.java",
+      "source_sha256": "498eb49f65ad9a308afaf98bbf91ac497d70c603e97ebc70a5c3623ee30172b0",
+      "javap_sha256": "2a07a7ef9be49ea06d5aa1402aa4a94cfb233d86e7307a6e941799855847c07e",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/server/serverpackets/S_ItemStatus.class",
+      "class_sha256": "11b3ed7797141bd48a6a16af27962cf9e8720c0bbe4cd2c9233d12ca331b9c4a",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_ItemStatus.java",
+      "source_sha256": "6e69ff83cbbe91f7a8914a2e43bda498eb0d2fc5808e5218edea5cfe1d513eac",
+      "javap_sha256": "9e93a8fd2c3eec202ed4156059d39c71a4a04f9b32912895eeb5d522f43b8eac",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/server/serverpackets/S_DeleteInventoryItem.class",
+      "class_sha256": "57f802a1e9f879b0b6343ab43fd26bfe68cc8d699a5043cb79e6d5e450b11a95",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_DeleteInventoryItem.java",
+      "source_sha256": "53f78032ca8bbc25a32e94b31f0914b356c556a9ed2abd5a93cbea3b5daffb93",
+      "javap_sha256": "05b17ae1b40d2952340522a2ad9d96efc4cb8ef9578db619ac59464f8e529288",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/server/serverpackets/S_HPUpdate.class",
+      "class_sha256": "93dc3456c59e8e29c30e1fa0efa9e6a11c1dfd41fb50211b55bfee122b7ef164",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_HPUpdate.java",
+      "source_sha256": "f96021109939b861a6442fdb9b731f11e30340329ec62177f42bedff0ef1b29d",
+      "javap_sha256": "0f688c156b05dde0f28755a2ece81b7eae52747224e7275558955c6ccb052ac4",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/server/serverpackets/S_ItemColor.class",
+      "class_sha256": "1f118002409e8799393b47e01ee74f6dda1568e26c593ce00985b1380322d9d9",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_ItemColor.java",
+      "source_sha256": "f4bbd6054b8076a37bdf3e8591d0ffdc536e293cbe9f371636d774fa60c78d42",
+      "javap_sha256": "6e727fe8988ad01e0dc7ebe72e2569bb0788736c93611231ff082a2c0a99fb33",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/server/serverpackets/S_SkillSound.class",
+      "class_sha256": "58cbc861e1a6a29122d263cc0f7ffe4706a3f9d73baeb7fdd8b8c3db20e928d7",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_SkillSound.java",
+      "source_sha256": "d59df752b4bacbd0158d9962afed424cc9c876d348d1154f633ac0e38b986ccb",
+      "javap_sha256": "988ff89ee680418dc2086976c433a684708cc4ab183309d5e960f548cf73b97d",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/server/serverpackets/S_ServerMessage.class",
+      "class_sha256": "c4312bebc53f5539fd3c9f04bc28f1e2cf45aafd55d8f6d303ba272629d09d01",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_ServerMessage.java",
+      "source_sha256": "6f2ae74bc885da8d7807c816b1e139629cb14924ca38e176a44f031d26bcaf92",
+      "javap_sha256": "0060db24e8a44ade57808de1e8289db9829f233cddba5230777d9def04b8fc07",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/server/clientpackets/C_ItemUSe.class",
+      "class_sha256": "32dea956650ff787697f465f52309ae4653b083281b279cfdb3dd5dcebf0fc6a",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_ItemUSe.java",
+      "source_sha256": "9cba57e80f4e62f76ccfc461f12294ebc4e8428d74472765f3aba19a9bfd7959",
+      "javap_sha256": "e9262db38e932e458ccdee33006720f3660640acf95cc944669fd41793b4ac19",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/server/model/L1ItemDelay.class",
+      "class_sha256": "d76ee297cbf4308716886fbf791effdbdf1cd1593bf6e87dd6a85a8f4484de37",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1ItemDelay.java",
+      "source_sha256": "eebeabeb1fa5982e3f117fd11d7d7be3324380cd41882136ee68e5cbf9ccdcd2",
+      "javap_sha256": "d780df0f595751e1d709b78362f680570b8e7f8b9624544b6988aa05aeb13308",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/data/item_etcitem/hp/UserAddHp.class",
+      "class_sha256": "ddb86ef10d6ede395eb8a93165760d454888bf178ab5a76f1afa78b466167cf6",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\data\\item_etcitem\\hp\\UserAddHp.java",
+      "source_sha256": "346191128586d8cc404b2f15013b06e9355c9d0b1cb8bb050ecb9f43f3810cf3",
+      "javap_sha256": "d2ba7dcdd1fd2bc29b9742c2543cefb94faf124bc4ca49317cb16f48de91bb2e",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/echo/OpcodesClient.class",
+      "class_sha256": "6d1b160c0b381a56d7897c678a1f8bb5029ebb13417b052401092058aba5be5c",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\echo\\OpcodesClient.java",
+      "source_sha256": "3b9df4518cad4ab3021d7a6454f88fe4513bd715eb3eb461ffaa873a64fe8931",
+      "javap_sha256": "953bd9bcbe67a66f5d24095abb2de62d0624a3e50862a8ccdef5b0ce4f4b0cfe",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/echo/PacketHandler.class",
+      "class_sha256": "57e1e727935beb67d8a923c40c61656218ca8832ea13d04c98cdd18a878910e1",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\echo\\PacketHandler.java",
+      "source_sha256": "001014e4f858abaef5734efe558d1759f97f85d4314d27bd44fefd72d4b3cd30",
+      "javap_sha256": "15a508c48f4870295aa8740894d6f7a8ba4fe92557381a5078b50dbf616a6cee",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/server/model/L1PcInventory.class",
+      "class_sha256": "a869c2760971d82898db4904562083ff6b5b61913efd55be2b5f6679e8b2209f",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1PcInventory.java",
+      "source_sha256": "220b001573ec6766dcdd16370c4e1cbd522721367e00c127c90bc2d3779926e4",
+      "javap_sha256": "24a5258c86c25af9ebbe2efb2cb401e1aeed5391b4c2c046d5ab2bf4e5c44a96",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/server/serverpackets/S_SystemMessage.class",
+      "class_sha256": "a7cbc563cc6138f509193ba260a94ca65fbb49f23955ed9ef71f4a71dcdd1eac",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_SystemMessage.java",
+      "source_sha256": "5b137ec3683e6170bc4ebc960c290cd672d24513d8bfe9c7c69d02296ddc85ed",
+      "javap_sha256": "07f0571e99acb5a64fff918b3ce3b3fcdf2aa931fc616d6f3cfdb68d0432bcd6",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    }
+  ]
+}

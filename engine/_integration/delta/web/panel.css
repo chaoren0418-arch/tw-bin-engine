@@ -1,0 +1,18 @@
+:root{color-scheme:dark;font:14px 'Microsoft JhengHei UI',sans-serif;background:#13232a;color:#e6efe9}*{box-sizing:border-box}body{margin:0;padding:25px 22px}.eyebrow{font-size:11px;letter-spacing:2px;color:#84c4b1}h1{font-size:25px;margin:10px 0 4px}h2{font-size:24px;margin:12px 0}h3{margin:22px 0 4px}.muted,footer{color:#a8bdbb;font-size:12px;line-height:1.7}section{border:1px solid #36535a;background:#1b333b;border-radius:12px;padding:18px;margin-top:20px;line-height:1.8}.label{font-size:11px;letter-spacing:2px;color:#b8d7a5}small{color:#9fbbb4}.directions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:13px 0 22px}button{background:#2a4a50;border:1px solid #5c807d;color:#eff9ef;padding:10px 5px;border-radius:6px;cursor:pointer}button:hover{background:#3a6064}button:focus-visible,input:focus{outline:2px solid #e4c887}button:disabled{opacity:.4;cursor:wait}input{display:block;width:100%;background:#0e1c22;color:#fff;border:1px solid #78928b;border-radius:6px;padding:12px;margin-top:8px}.wide{width:100%;background:#6c603d;border-color:#bdab77}#reply{margin:14px 0;font-size:12px;color:#dac68e}footer{border-top:1px solid #355058;padding-top:16px;margin-top:18px;font-size:11px}
+
+#loginResult{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.6 sans-serif;color:#cfe7bc}
+#audioGain{padding:0;accent-color:#84c4b1}#audioMuted{display:inline-block;width:auto;padding:0;margin:12px 8px 0 0;accent-color:#84c4b1}#audioGainValue{float:right}#audioNotice{margin-bottom:0}#audioSettings input:disabled{opacity:.5}
+
+#worldResult{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.65 sans-serif;color:#e9eed1;margin:10px 0 0}#worldPanel h3{margin:0}#worldPanel{border-color:#729888}
+
+#combatResult{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.65 sans-serif;margin:12px 0 0;color:#e9eed1}
+
+.inventoryItem{display:flex;width:100%;gap:10px;text-align:left;align-items:center;margin:6px 0;white-space:pre-line}.inventoryItem img{width:32px;height:32px;object-fit:contain;image-rendering:pixelated}.inventoryItem.selected{outline:2px solid #e4c575}
+#magicNotice{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.6 sans-serif;margin:12px 0 0}#magicPanel select{max-width:100%;width:100%;margin:4px 0}#magicVitals{color:#e9eed1;margin:8px 0}
+
+#sceneImage{display:block;width:100%;height:auto;image-rendering:pixelated;background:#11191b}
+#loginPanel h3{margin-top:0}#loginPanel select{display:block;width:100%;max-width:100%;margin:6px 0 12px;padding:8px;background:#0e1c22;color:#fff;border:1px solid #78928b;border-radius:6px}#loginPanel button{margin-top:10px}#webLoginSubmit,#webEnterWorld{width:100%}.loginActions{display:flex;gap:8px}.loginActions button{flex:1}#webLoginNotice{white-space:pre-wrap;overflow-wrap:anywhere;color:#dac68e}
+
+#npcContent p { white-space: pre-wrap; }
+#npcContent label { display:block; margin:10px 0; }
+#npcContent input { width:100%; }

@@ -1,0 +1,547 @@
+{
+  "scope": "original predicates/helpers/evidence loop only; no complete controller call, receipts or canonical simulation",
+  "cases": [
+    {
+      "id": "shared-receipt-is-not-release",
+      "type": "isolated-original-predicate",
+      "sourceLine": 16,
+      "guard": "release plan/receipt schema",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "shared-plan-is-not-package-plan",
+      "type": "isolated-original-predicate",
+      "sourceLine": 16,
+      "guard": "release plan/receipt schema",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "new-supervisor-blocked-by-original-constant",
+      "type": "isolated-original-predicate",
+      "sourceLine": 17,
+      "guard": "new exact release dispatch required",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "missing-completed-product",
+      "type": "isolated-original-predicate",
+      "sourceLine": 22,
+      "guard": "every canonical step required",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "missing-completed-baseline",
+      "type": "isolated-original-predicate",
+      "sourceLine": 22,
+      "guard": "every canonical step required",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "missing-completed-ground",
+      "type": "isolated-original-predicate",
+      "sourceLine": 22,
+      "guard": "every canonical step required",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "missing-completed-utility",
+      "type": "isolated-original-predicate",
+      "sourceLine": 22,
+      "guard": "every canonical step required",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "missing-completed-haste",
+      "type": "isolated-original-predicate",
+      "sourceLine": 22,
+      "guard": "every canonical step required",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "missing-completed-versioned-slow",
+      "type": "isolated-original-predicate",
+      "sourceLine": 22,
+      "guard": "every canonical step required",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "missing-completed-f1",
+      "type": "isolated-original-predicate",
+      "sourceLine": 22,
+      "guard": "every canonical step required",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "missing-completed-pickup",
+      "type": "isolated-original-predicate",
+      "sourceLine": 22,
+      "guard": "every canonical step required",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "extra-completed-step",
+      "type": "isolated-original-predicate",
+      "sourceLine": 22,
+      "guard": "every canonical step required",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "all-step-names-only-positive-control",
+      "type": "isolated-original-predicate",
+      "sourceLine": 22,
+      "guard": "every canonical step required",
+      "expected": true,
+      "actual": true,
+      "synthetic": true
+    },
+    {
+      "id": "completed-receipt-pin-disagreement",
+      "type": "isolated-original-predicate",
+      "sourceLine": 25,
+      "guard": "release receipt must accept exact completed records",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "wrong-completed-product-identity",
+      "type": "isolated-original-predicate",
+      "sourceLine": 24,
+      "guard": "different canonical DLL",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "wrong-candidate-id",
+      "type": "isolated-original-helper",
+      "outcome": "rejected",
+      "reason": "candidate identity mismatch",
+      "synthetic": true
+    },
+    {
+      "id": "wrong-revision",
+      "type": "isolated-original-helper",
+      "outcome": "rejected",
+      "reason": "native candidate revision mismatch",
+      "synthetic": true
+    },
+    {
+      "id": "wrong-source-schema",
+      "type": "isolated-original-predicate",
+      "sourceLine": 27,
+      "guard": "native source schema",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "duplicate-source-rows",
+      "type": "isolated-original-predicate",
+      "sourceLine": 28,
+      "guard": "full source manifest including new resource required",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "baseline-only-177-source-count",
+      "type": "isolated-original-predicate",
+      "sourceLine": 28,
+      "guard": "full source manifest including new resource required",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "old-gate-is-threshold-not-exact180",
+      "type": "isolated-original-predicate",
+      "sourceLine": 28,
+      "guard": "full source manifest including new resource required",
+      "expected": true,
+      "actual": true,
+      "synthetic": true
+    },
+    {
+      "id": "source-omitted",
+      "type": "isolated-original-predicate",
+      "sourceLine": 38,
+      "guard": "source omitted from package: ",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "source-size-sha-drift",
+      "type": "isolated-original-predicate",
+      "sourceLine": 39,
+      "guard": "source package pin mismatch",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "resource-absent",
+      "type": "isolated-original-predicate",
+      "sourceLine": 40,
+      "guard": "required embedded source missing",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "resource-wrong-sha",
+      "type": "isolated-original-predicate",
+      "sourceLine": 40,
+      "guard": "required embedded source missing",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "four-identity-productDllSha256-omitted",
+      "type": "isolated-original-predicate",
+      "sourceLine": 43,
+      "guard": "package four identity mismatch",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "four-identity-productDllSha256-receipt-drift",
+      "type": "isolated-original-predicate",
+      "sourceLine": 43,
+      "guard": "package four identity mismatch",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "four-identity-audioDllSha256-omitted",
+      "type": "isolated-original-predicate",
+      "sourceLine": 43,
+      "guard": "package four identity mismatch",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "four-identity-audioDllSha256-receipt-drift",
+      "type": "isolated-original-predicate",
+      "sourceLine": 43,
+      "guard": "package four identity mismatch",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "four-identity-productManifestSha256-omitted",
+      "type": "isolated-original-predicate",
+      "sourceLine": 43,
+      "guard": "package four identity mismatch",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "four-identity-productManifestSha256-receipt-drift",
+      "type": "isolated-original-predicate",
+      "sourceLine": 43,
+      "guard": "package four identity mismatch",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "four-identity-launcherDllSha256-omitted",
+      "type": "isolated-original-predicate",
+      "sourceLine": 43,
+      "guard": "package four identity mismatch",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "four-identity-launcherDllSha256-receipt-drift",
+      "type": "isolated-original-predicate",
+      "sourceLine": 43,
+      "guard": "package four identity mismatch",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "rebuild-tool-absent",
+      "type": "isolated-original-predicate",
+      "sourceLine": 44,
+      "guard": "rebuild package missing",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "rebuild-input-absent",
+      "type": "isolated-original-predicate",
+      "sourceLine": 47,
+      "guard": "rebuild input omitted or changed: ",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "runtime-dependency-absent",
+      "type": "isolated-original-predicate",
+      "sourceLine": 50,
+      "guard": "product runtime dependency omitted: ",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "launcher-runtimeconfig-absent",
+      "type": "isolated-original-predicate",
+      "sourceLine": 52,
+      "guard": "launcher runtime dependency omitted",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "source-outside-three-allowed-roots",
+      "type": "isolated-original-predicate",
+      "sourceLine": 33,
+      "guard": "package source outside canonical engine/workflow/accepted stage",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "relative-source-refused",
+      "type": "isolated-original-predicate",
+      "sourceLine": 33,
+      "guard": "package source outside canonical engine/workflow/accepted stage",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "unsealed-stage-source-refused",
+      "type": "isolated-original-predicate",
+      "sourceLine": 35,
+      "guard": "unsealed stage source",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "missing-stage-evidence",
+      "type": "isolated-original-predicate",
+      "sourceLine": 55,
+      "guard": "sealed stage evidence omitted: ",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "missing-stage-seal",
+      "type": "isolated-original-predicate",
+      "sourceLine": 56,
+      "guard": "stage seal omitted",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "copy-target-forbidden-assets/synthetic.png",
+      "type": "isolated-original-predicate",
+      "sourceLine": 31,
+      "guard": "assets/runtime outside explicit copies",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "copy-target-forbidden-runtime/session.json",
+      "type": "isolated-original-predicate",
+      "sourceLine": 31,
+      "guard": "assets/runtime outside explicit copies",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "copy-target-forbidden-runs/attempt.json",
+      "type": "isolated-original-predicate",
+      "sourceLine": 31,
+      "guard": "assets/runtime outside explicit copies",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "duplicate-target-casefold",
+      "type": "isolated-original-predicate",
+      "sourceLine": 32,
+      "guard": "duplicate package target",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "unsafe-relative-../escape",
+      "type": "isolated-original-helper",
+      "outcome": "rejected",
+      "reason": "traversal/ambiguous Windows path rejected",
+      "synthetic": true
+    },
+    {
+      "id": "unsafe-relative-x/../escape",
+      "type": "isolated-original-helper",
+      "outcome": "rejected",
+      "reason": "traversal/ambiguous Windows path rejected",
+      "synthetic": true
+    },
+    {
+      "id": "unsafe-relative-C:/escape",
+      "type": "isolated-original-helper",
+      "outcome": "rejected",
+      "reason": "canonical relative path required",
+      "synthetic": true
+    },
+    {
+      "id": "unsafe-relative-x\\y",
+      "type": "isolated-original-helper",
+      "outcome": "rejected",
+      "reason": "canonical relative path required",
+      "synthetic": true
+    },
+    {
+      "id": "unsafe-relative-NUL.txt",
+      "type": "isolated-original-helper",
+      "outcome": "rejected",
+      "reason": "traversal/ambiguous Windows path rejected",
+      "synthetic": true
+    },
+    {
+      "id": "unsafe-relative-file:stream",
+      "type": "isolated-original-helper",
+      "outcome": "rejected",
+      "reason": "canonical relative path required",
+      "synthetic": true
+    },
+    {
+      "id": "unsafe-relative-a./b",
+      "type": "isolated-original-helper",
+      "outcome": "rejected",
+      "reason": "traversal/ambiguous Windows path rejected",
+      "synthetic": true
+    },
+    {
+      "id": "unsafe-relative-a//b",
+      "type": "isolated-original-helper",
+      "outcome": "rejected",
+      "reason": "traversal/ambiguous Windows path rejected",
+      "synthetic": true
+    },
+    {
+      "id": "hash-drift",
+      "type": "isolated-original-helper",
+      "outcome": "rejected",
+      "reason": "source/material drift: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r1\\synthetic-contract-fmak1edg\\hash-fixture.json",
+      "synthetic": true
+    },
+    {
+      "id": "size-drift",
+      "type": "isolated-original-helper",
+      "outcome": "rejected",
+      "reason": "size drift: D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r1\\synthetic-contract-fmak1edg\\hash-fixture.json",
+      "synthetic": true
+    },
+    {
+      "id": "duplicate-json-key",
+      "type": "isolated-original-helper",
+      "outcome": "rejected",
+      "reason": "duplicate JSON field: synthetic",
+      "synthetic": true
+    },
+    {
+      "id": "existing-release-refused",
+      "type": "isolated-original-predicate",
+      "sourceLine": 60,
+      "guard": "fresh exact release required",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "wrong-output-refused",
+      "type": "isolated-original-predicate",
+      "sourceLine": 60,
+      "guard": "fresh exact release required",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "asset-count-short",
+      "type": "isolated-original-predicate",
+      "sourceLine": 62,
+      "guard": "asset inventory count",
+      "expected": false,
+      "actual": false,
+      "synthetic": true
+    },
+    {
+      "id": "asset-count-exact-positive-control",
+      "type": "isolated-original-predicate",
+      "sourceLine": 62,
+      "guard": "asset inventory count",
+      "expected": true,
+      "actual": true,
+      "synthetic": true
+    },
+    {
+      "id": "missing-canonical-evidence-loop",
+      "type": "isolated-original-helper",
+      "outcome": "rejected",
+      "reason": "canonical evidence omitted: lost.log",
+      "synthetic": true
+    },
+    {
+      "id": "synthetic-evidence-loop-positive-control",
+      "type": "isolated-original-loop",
+      "synthetic": true,
+      "onlyFakeFiles": true,
+      "passed": true
+    }
+  ],
+  "productExecutions": 0,
+  "packageInvocations": 0,
+  "realAssetLinks": 0,
+  "realSubprocesses": 0,
+  "fixtures": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r1\\synthetic-contract-fmak1edg"
+}

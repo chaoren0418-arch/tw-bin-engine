@@ -1,0 +1,48 @@
+{
+  "roots": [
+    {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1",
+      "files": 581,
+      "unchanged": true
+    },
+    {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1",
+      "files": 62,
+      "unchanged": true
+    },
+    {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2",
+      "files": 37,
+      "unchanged": true
+    },
+    {
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "files": 202,
+      "unchanged": true
+    }
+  ],
+  "protectedPins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+      "size": 158,
+      "sha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+      "size": 31361,
+      "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+      "size": 11741,
+      "sha256": "0c8f214831a286bec4a6844ab1293b4f4798ff829ef0a3d6507dbf455eddc040"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\release-seal.json",
+      "size": 2867987,
+      "sha256": "955ea88173cb36cecaefb6d5e9bbce7d76dfd7bf39ccd7830e56a269ab3155c3"
+    }
+  ],
+  "protectedPinsUnchanged": true,
+  "formalEntry": "r33"
+}

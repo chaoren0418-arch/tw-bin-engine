@@ -1,0 +1,247 @@
+{
+  "baseline": "normal r16",
+  "dllSha256": "e6ad52b3741abe65fe4eb2269f4e29d0ed55e56fce7fb659a6e2f5f946ea1f29",
+  "manifestSha256": "c8af4f9f01fc2eca6a0d5a8d431b43607529edabceffb509b083ab40da6b5456",
+  "tasks": [
+    {
+      "id": "skill-learning-refusal-r1",
+      "threadId": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "writeRoot": "reference/development/skill-learning-refusal-r1",
+      "purpose": "Narrow fixed-JAR normal teacher refusal condition and legitimate recovery review; no UI/DB/server actions",
+      "status": "accepted-independent-review",
+      "turnId": "01a17aa9-9a0c-7be3-89da-a6ddb326e3ee",
+      "evidence": "skill-refusal-independent-review/result.json"
+    },
+    {
+      "id": "private-shop-review-r2",
+      "threadId": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "writeRoot": "reference/development/private-shop-review-r2",
+      "purpose": "Independent adversarial review of private-shop-r2 parser, unknown send result and uncertainty fence",
+      "dependsOn": [],
+      "status": "accepted-independent-review",
+      "turnId": "01a17a69-309d-7bc0-aebd-c36f9ad16ea7",
+      "next": "Keep review frozen; no further task"
+    },
+    {
+      "id": "release-integration-r2",
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "writeRoot": "reference/development/release-integration-r2",
+      "purpose": "Sole integrator adds accepted private shop r2 to accepted complete r17, creates isolated complete r18",
+      "status": "accepted-source-inputs-and-full-clean-rebuild",
+      "turnId": "01a17a6f-0961-7a61-8ca9-b39cd29af3c5",
+      "next": "Supervisor source review/full fresh delivery rebuild/live flow",
+      "sealSha256": "467329539335583bdb376d44825418502d2f3cd5c401ec10fee1332917ff9b25"
+    },
+    {
+      "id": "server-message-labels-r1",
+      "threadId": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "writeRoot": "reference/development/server-message-labels-r1",
+      "baseline": "sealed r18 release-integration-r2/delivery",
+      "purpose": "Fix confirmed raw $4 currency tag in player-facing magic/inventory status using existing name resolution; preserve raw protocol evidence",
+      "status": "accepted-independent-rebuild",
+      "evidence": "message-labels-independent-review/result.json",
+      "turnId": "01a17acd-df24-7dd2-ba6a-19062be32654"
+    },
+    {
+      "id": "basic-food-home-scroll-r1",
+      "threadId": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "writeRoot": "reference/development/basic-food-home-scroll-r1",
+      "baseline": "sealed r18 release-integration-r2/delivery",
+      "purpose": "Wire observed normal meat and home scroll use through fixed-JAR proven packet shape, include observed missing icon35/474; isolated patch and checks only",
+      "status": "accepted-independent-rebuild",
+      "turnId": "01a17ad1-fa4e-7711-a06c-2c2e1c2c0310",
+      "evidence": "basic-supplies-independent-review/result.json"
+    },
+    {
+      "id": "release-integration-r3",
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a17af2-4df2-70b3-9db9-bc609fb6875f",
+      "writeRoot": "reference/development/release-integration-r3",
+      "baseline": "sealed r18 release-integration-r2/delivery",
+      "purpose": "Sole integrator creates isolated r19 with independently accepted server-message-labels-r1 and basic-food-home-scroll-r1",
+      "status": "accepted-independent-source-merge",
+      "dependsOn": [
+        "server-message-labels-r1",
+        "basic-food-home-scroll-r1"
+      ],
+      "evidence": "r19-independent-review/result.json",
+      "sealSha256": "ccf3b3099fe1a8625fa726b506e157b7ee18e8d7beae64867e37940f7a2a4b20"
+    },
+    {
+      "id": "trade-validation-notice-r1",
+      "threadId": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "status": "accepted-isolated-candidate",
+      "evidence": "trade-notice-independent-review/result.json",
+      "writeRoot": "reference/development/trade-validation-notice-r1",
+      "baseline": "sealed r19 release-integration-r3/delivery",
+      "forbidden": "Shared areas/live/server/DB/UI read-only to workers; no grants/reset",
+      "utc": "2026-10-27T02:24:29.177Z"
+    },
+    {
+      "id": "private-shop-query-guidance-r1",
+      "threadId": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "status": "accepted-independent-rebuild",
+      "writeRoot": "reference/development/private-shop-query-guidance-r1",
+      "baseline": "sealed r19 release-integration-r3/delivery",
+      "forbidden": "Shared areas/live/server/DB/UI read-only to workers; no grants/reset",
+      "utc": "2026-10-27T02:24:29.177Z",
+      "evidence": "shop-guidance-independent-review/result.json"
+    },
+    {
+      "id": "encountered-sapphire-icon-r1",
+      "threadId": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "status": "accepted-independent-full-audit-and-r20-live",
+      "writeRoot": "reference/development/encountered-sapphire-icon-r1",
+      "baseline": "sealed r19 release-integration-r3/delivery",
+      "forbidden": "Shared areas/live/server/DB/UI read-only to workers; no grants/reset",
+      "utc": "2026-10-27T02:24:29.177Z",
+      "evidence": "sapphire-icon-independent-review/selected-delta-review.json"
+    },
+    {
+      "id": "release-integration-r4",
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "status": "accepted-independent-review-clean-rebuild-r20-live",
+      "writeRoot": "reference/development/release-integration-r4",
+      "baseline": "sealed r19",
+      "dependsOn": [
+        "trade-validation-notice-r1",
+        "private-shop-query-guidance-r1",
+        "encountered-sapphire-icon-r1"
+      ],
+      "purpose": "Sole integrator builds r20 with exact6file delta plus required revision/manifest"
+    },
+    {
+      "id": "encountered-dagger-appearance-r1",
+      "threadId": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "status": "accepted-independent-review-and-r21-live",
+      "evidence": "dagger-independent-review/result.json",
+      "purpose": "Exact gfx0 weapon46 original appearance, three asset delta",
+      "baseline": "sealed r20 release-integration-r4/delivery",
+      "writeRoot": "reference/development/encountered-dagger-appearance-r1",
+      "forbidden": "No UI/game/server/DB operations by workers, no new grants/reset/reseed/deployment, no edits to supervisor directory or other task roots."
+    },
+    {
+      "id": "encountered-gludin-merchant-r1",
+      "threadId": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "status": "accepted-independent-review-and-r21-live",
+      "purpose": "Observed gfx234 normal merchant absent selectable targets; original full appearance and minimum required wiring",
+      "baseline": "sealed r20 release-integration-r4/delivery",
+      "writeRoot": "reference/development/encountered-gludin-merchant-r1",
+      "forbidden": "No UI/game/server/DB operations by workers, no new grants/reset/reseed/deployment, no edits to supervisor directory or other task roots.",
+      "evidence": "merchant-independent-review/result.json"
+    },
+    {
+      "id": "release-integration-r5",
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "status": "accepted-independent-review-clean-rebuild-r21-live",
+      "purpose": "Sole isolated r21 integration of independently approved dagger and merchant assets",
+      "baseline": "sealed r20 release-integration-r4/delivery",
+      "writeRoot": "reference/development/release-integration-r5",
+      "forbidden": "No UI/game/server/DB operations by workers, no new grants/reset/reseed/deployment, no edits to supervisor directory or other task roots.",
+      "evidence": "r21-independent-review/result.json"
+    },
+    {
+      "id": "inn-key-expiry-review-r1",
+      "threadId": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "baseline": "fixed server JAR d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+      "writeRoot": "reference/development/inn-key-expiry-review-r1",
+      "purpose": "Read-only static original timed-key rule and saved timeline review; no live operations",
+      "status": "accepted-limited-static-review",
+      "evidence": "inn-key-independent-review/result.json",
+      "limit": "Incident deletion not directly proven"
+    },
+    {
+      "id": "encountered-online-gift-icon-r1",
+      "threadId": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "baseline": "sealed r21 release-integration-r5/delivery",
+      "writeRoot": "reference/development/encountered-online-gift-icon-r1",
+      "status": "accepted-independent-review-and-r22-live",
+      "purpose": "Original icon957 for observed naturalreward350355; no gift use or newresources",
+      "forbidden": "No shared/sealed/runtime/UI/DB/server mutation; no newagents",
+      "evidence": "online-gift-icon-independent-review/root-review.json"
+    },
+    {
+      "id": "release-integration-r6",
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "baseline": "sealed r21 release-integration-r5/delivery",
+      "writeRoot": "reference/development/release-integration-r6",
+      "status": "accepted-independent-review-clean-rebuild-targeted-live",
+      "purpose": "r22 exact accepted onlinegift icon957 three-file delta plus required version/manifest only",
+      "forbidden": "No shared/sealed/runtime/UI/DB/server mutation; no grants/reset/newagents",
+      "evidence": "r22-final-live/result.json"
+    },
+    {
+      "id": "npc-positive-sale-review-r1",
+      "threadId": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "baseline": "sealedr22",
+      "writeRoot": "reference/development/npc-positive-sale-review-r1",
+      "status": "read-only-independent-review-running",
+      "forbidden": "NoUI/DB/services/roles/sharedsealedmutations/noagents",
+      "next": "HANDOFF/result originalconditions; root independentUI"
+    },
+    {
+      "id": "private-positive-buyback-review-r1",
+      "threadId": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "baseline": "sealedr22",
+      "writeRoot": "reference/development/private-positive-buyback-review-r1",
+      "status": "read-only-independent-review-running",
+      "forbidden": "NoUI/DB/services/roles/sharedsealedmutations/noagents",
+      "next": "HANDOFF/result originalconditions; root independentUI"
+    }
+  ],
+  "normalIntegration": "Normal r16 unchanged; r17-r22 sealed immutable; latest root clean r22 targetedlive passed; clientsclosed",
+  "liveUiOwner": "01a1748a-d237-71a0-9323-60ad8462794c",
+  "forbidden": "No UI/game/server/DB operations by workers, no new grants/reset/reseed/deployment, no edits to supervisor directory or other task roots.",
+  "handoff": "HANDOFF.md, result.json, source hashes and address bases, changed-file list, rerunnable commands, actual test receipts and explicit limits; supervisor independently reviews before integration.",
+  "utc": "2026-10-27T05:11:06.539236+00:00",
+  "authorizationEvidence": "division-authorization-evidence.json",
+  "reviewedTasks": [
+    {
+      "id": "encountered-appearance",
+      "threadId": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "writeRoot": "reference/development/encountered-appearance-r2",
+      "purpose": "Observed missing appearance assets/decoding, finite list from saved actual states",
+      "dependsOn": [],
+      "status": "accepted-offline-live-pending",
+      "evidence": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\appearance-independent-review02\\result.json"
+    },
+    {
+      "id": "bonus-stats",
+      "threadId": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "writeRoot": "reference/development/bonus-stats-r1",
+      "purpose": "Ability allocation wiring; isolated code and UI candidate",
+      "dependsOn": [],
+      "status": "accepted-offline-live-pending",
+      "evidence": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\bonus-independent-review\\result.json"
+    },
+    {
+      "id": "final-acceptance-preparation",
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "writeRoot": "reference/development/final-acceptance-prep-r1",
+      "purpose": "Fixed-version acceptance/rebuild plan and isolated verification tools; no current live acceptance claim",
+      "dependsOnForExecution": [
+        "all accepted final integrations"
+      ],
+      "status": "accepted-preparation-only",
+      "evidence": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\acceptance-preparation-independent-review\\result.json"
+    },
+    {
+      "id": "inn-door",
+      "threadId": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "writeRoot": "reference/development/inn-door-r1",
+      "purpose": "Observed gfx2346 original initial/update open-close state and assets",
+      "dependsOn": [],
+      "status": "accepted-offline-live-pending",
+      "turnId": "01a17a2d-18db-7d43-9098-d8ca2d82a146",
+      "evidence": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\door-independent-review\\result.json"
+    },
+    {
+      "id": "reproducible-build",
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "writeRoot": "reference/development/reproducible-build-r1",
+      "purpose": "Fix and verify reproducible compiler outputs in two fresh different absolute paths",
+      "status": "accepted-reproducibility-candidate",
+      "evidence": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\reproducibility-independent-review\\result.json"
+    }
+  ]
+}

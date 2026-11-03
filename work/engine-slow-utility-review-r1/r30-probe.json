@@ -1,0 +1,991 @@
+{
+  "candidateReviewed": false,
+  "scope": "Independent preparation against immutable r30, future requirements are NOT candidate acceptance",
+  "assembly": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\work\\engine-slow-utility-review-r1\\helper\\r30\\P11.ClientEngine.dll",
+  "sha256": "1abc1eed02917d14fd775be60920fe74efb9b102bc53eea5874fc0128e5247ef",
+  "clock": "ActionClock and MovementClock both Environment.TickCount64; item/ground real clock",
+  "checks": [
+    {
+      "id": "initial-speed-0-brave-0",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": true,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-0-brave-1",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-1-brave-0",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": true,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-1-brave-1",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-2-brave-0",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": false,
+        "expected": true,
+        "wire": [],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-2-brave-1",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": false,
+        "expected": false,
+        "wire": [],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-3-brave-0",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-3-brave-1",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-17-brave-0",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-17-brave-1",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-255-brave-0",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "initial-speed-255-brave-1",
+      "meetsContract": false,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "sent": true,
+        "expected": false,
+        "wire": [
+          "A4D2040000000000"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "id": "envelope-normal",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "valid": true,
+        "actual": true
+      }
+    },
+    {
+      "id": "envelope-one",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "valid": true,
+        "actual": true
+      }
+    },
+    {
+      "id": "envelope-zero-id",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "valid": false,
+        "actual": false
+      }
+    },
+    {
+      "id": "envelope-zero-count",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "valid": false,
+        "actual": false
+      }
+    },
+    {
+      "id": "envelope-charge",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "valid": false,
+        "actual": false
+      }
+    },
+    {
+      "id": "envelope-bless",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "valid": false,
+        "actual": false
+      }
+    },
+    {
+      "id": "envelope-flags",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "valid": false,
+        "actual": false
+      }
+    },
+    {
+      "id": "envelope-name",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "valid": false,
+        "actual": false
+      }
+    },
+    {
+      "id": "envelope-desc",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "valid": false,
+        "actual": false
+      }
+    },
+    {
+      "id": "envelope-icon",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "valid": false,
+        "actual": false
+      }
+    },
+    {
+      "id": "envelope-type",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "valid": false,
+        "actual": false
+      }
+    },
+    {
+      "id": "initial-busy-movementSending",
+      "meetsContract": true,
+      "scope": "injected busy state; same actual monotonic clocks",
+      "data": {
+        "sent": false,
+        "wire": []
+      }
+    },
+    {
+      "id": "initial-busy-combatSending",
+      "meetsContract": true,
+      "scope": "injected busy state; same actual monotonic clocks",
+      "data": {
+        "sent": false,
+        "wire": []
+      }
+    },
+    {
+      "id": "initial-busy-magicSending",
+      "meetsContract": true,
+      "scope": "injected busy state; same actual monotonic clocks",
+      "data": {
+        "sent": false,
+        "wire": []
+      }
+    },
+    {
+      "id": "initial-busy-itemSending",
+      "meetsContract": true,
+      "scope": "injected busy state; same actual monotonic clocks",
+      "data": {
+        "sent": false,
+        "wire": []
+      }
+    },
+    {
+      "id": "initial-busy-groundSending",
+      "meetsContract": true,
+      "scope": "injected busy state; same actual monotonic clocks",
+      "data": {
+        "sent": false,
+        "wire": []
+      }
+    },
+    {
+      "id": "initial-busy-nextCombatAt",
+      "meetsContract": true,
+      "scope": "injected busy state; same actual monotonic clocks",
+      "data": {
+        "sent": false,
+        "wire": []
+      }
+    },
+    {
+      "id": "initial-busy-nextMagicAt",
+      "meetsContract": true,
+      "scope": "injected busy state; same actual monotonic clocks",
+      "data": {
+        "sent": false,
+        "wire": []
+      }
+    },
+    {
+      "id": "initial-busy-nextItemAt",
+      "meetsContract": true,
+      "scope": "injected busy state; same actual monotonic clocks",
+      "data": {
+        "sent": false,
+        "wire": []
+      }
+    },
+    {
+      "id": "initial-busy-nextGroundAt",
+      "meetsContract": true,
+      "scope": "injected busy state; same actual monotonic clocks",
+      "data": {
+        "sent": false,
+        "wire": []
+      }
+    },
+    {
+      "id": "queued-same",
+      "meetsContract": true,
+      "scope": "queued real DLL final predicate",
+      "data": {
+        "entered": true,
+        "sent": false,
+        "count": 0
+      }
+    },
+    {
+      "id": "queued-transient",
+      "meetsContract": true,
+      "scope": "queued real DLL final predicate",
+      "data": {
+        "entered": true,
+        "sent": false,
+        "count": 0
+      }
+    },
+    {
+      "id": "queued-haste",
+      "meetsContract": true,
+      "scope": "queued real DLL final predicate",
+      "data": {
+        "entered": true,
+        "sent": false,
+        "count": 0
+      }
+    },
+    {
+      "id": "queued-brave",
+      "meetsContract": true,
+      "scope": "queued real DLL final predicate",
+      "data": {
+        "entered": true,
+        "sent": false,
+        "count": 0
+      }
+    },
+    {
+      "id": "queued-world",
+      "meetsContract": true,
+      "scope": "queued real DLL final predicate",
+      "data": {
+        "entered": true,
+        "sent": false,
+        "count": 0
+      }
+    },
+    {
+      "id": "queued-session",
+      "meetsContract": true,
+      "scope": "queued real DLL final predicate",
+      "data": {
+        "entered": true,
+        "sent": false,
+        "count": 0
+      }
+    },
+    {
+      "id": "queued-lease",
+      "meetsContract": false,
+      "scope": "synthetic defensive mutation; not proof of public API reachability",
+      "data": {
+        "entered": true,
+        "sent": true,
+        "count": 1
+      }
+    },
+    {
+      "id": "queued-input",
+      "meetsContract": true,
+      "scope": "queued real DLL final predicate",
+      "data": {
+        "entered": true,
+        "sent": false,
+        "count": 0
+      }
+    },
+    {
+      "id": "queued-selection",
+      "meetsContract": true,
+      "scope": "queued real DLL final predicate",
+      "data": {
+        "entered": true,
+        "sent": false,
+        "count": 0
+      }
+    },
+    {
+      "id": "queued-record",
+      "meetsContract": true,
+      "scope": "queued real DLL final predicate",
+      "data": {
+        "entered": true,
+        "sent": false,
+        "count": 0
+      }
+    },
+    {
+      "id": "queued-death",
+      "meetsContract": true,
+      "scope": "queued real DLL final predicate",
+      "data": {
+        "entered": true,
+        "sent": false,
+        "count": 0
+      }
+    },
+    {
+      "id": "queued-movementSending",
+      "meetsContract": true,
+      "scope": "queued real DLL final predicate",
+      "data": {
+        "entered": true,
+        "sent": false,
+        "count": 0
+      }
+    },
+    {
+      "id": "queued-combatSending",
+      "meetsContract": true,
+      "scope": "queued real DLL final predicate",
+      "data": {
+        "entered": true,
+        "sent": false,
+        "count": 0
+      }
+    },
+    {
+      "id": "queued-magicSending",
+      "meetsContract": false,
+      "scope": "synthetic defensive mutation; not proof of public API reachability",
+      "data": {
+        "entered": true,
+        "sent": true,
+        "count": 1
+      }
+    },
+    {
+      "id": "queued-groundSending",
+      "meetsContract": false,
+      "scope": "synthetic defensive mutation; not proof of public API reachability",
+      "data": {
+        "entered": true,
+        "sent": true,
+        "count": 1
+      }
+    },
+    {
+      "id": "queued-nextCombatAt",
+      "meetsContract": true,
+      "scope": "queued real DLL final predicate",
+      "data": {
+        "entered": true,
+        "sent": false,
+        "count": 0
+      }
+    },
+    {
+      "id": "queued-nextMagicAt",
+      "meetsContract": false,
+      "scope": "synthetic defensive mutation; not proof of public API reachability",
+      "data": {
+        "entered": true,
+        "sent": true,
+        "count": 1
+      }
+    },
+    {
+      "id": "queued-nextGroundAt",
+      "meetsContract": false,
+      "scope": "synthetic defensive mutation; not proof of public API reachability",
+      "data": {
+        "entered": true,
+        "sent": true,
+        "count": 1
+      }
+    },
+    {
+      "id": "queued-item-blocks-public-move",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "competing": false,
+        "enters": 1,
+        "original": true
+      }
+    },
+    {
+      "id": "queued-item-blocks-public-attack",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "competing": false,
+        "enters": 1,
+        "original": true
+      }
+    },
+    {
+      "id": "queued-item-blocks-public-magic",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "competing": false,
+        "enters": 1,
+        "original": true
+      }
+    },
+    {
+      "id": "queued-item-blocks-public-item",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "competing": false,
+        "enters": 1,
+        "original": true
+      }
+    },
+    {
+      "id": "queued-item-blocks-public-ground",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "competing": false,
+        "enters": 1,
+        "original": true
+      }
+    },
+    {
+      "id": "public-producer-blocks-item-move",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "item": false,
+        "enters": 1,
+        "producer": true
+      }
+    },
+    {
+      "id": "public-producer-blocks-item-attack",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "item": false,
+        "enters": 1,
+        "producer": true
+      }
+    },
+    {
+      "id": "public-producer-blocks-item-magic",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "item": false,
+        "enters": 1,
+        "producer": true
+      }
+    },
+    {
+      "id": "public-producer-blocks-item-item",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "item": false,
+        "enters": 1,
+        "producer": true
+      }
+    },
+    {
+      "id": "public-producer-blocks-item-ground",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "item": false,
+        "enters": 1,
+        "producer": true
+      }
+    },
+    {
+      "id": "admitted-authoritative-direct-haste-count",
+      "meetsContract": true,
+      "scope": "r30 admits at Speed0; subsequent real decoder updates are legal completion, not stale ownership. Initial Speed2 admission requires future candidate.",
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "world": 0,
+        "lease": 1,
+        "speed": 1,
+        "brave": 0,
+        "count": 2,
+        "beforeRevision": 2,
+        "afterRevision": 4
+      }
+    },
+    {
+      "id": "admitted-authoritative-slow-normal-haste-brave-count",
+      "meetsContract": true,
+      "scope": "r30 admits at Speed0; subsequent real decoder updates are legal completion, not stale ownership. Initial Speed2 admission requires future candidate.",
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "world": 0,
+        "lease": 1,
+        "speed": 1,
+        "brave": 1,
+        "count": 2,
+        "beforeRevision": 2,
+        "afterRevision": 6
+      }
+    },
+    {
+      "id": "admitted-authoritative-last-item-removed",
+      "meetsContract": true,
+      "scope": "r30 admits at Speed0; subsequent real decoder updates are legal completion, not stale ownership. Initial Speed2 admission requires future candidate.",
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "world": 0,
+        "lease": 1,
+        "speed": 1,
+        "brave": 0,
+        "count": null,
+        "beforeRevision": 2,
+        "afterRevision": 4
+      }
+    },
+    {
+      "id": "stale-world-success",
+      "meetsContract": false,
+      "scope": "actual S206 decoder or Cancel; delayed in-memory sender completion",
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "beforeDeadline": 1209740,
+        "afterDeadline": 1209771,
+        "beforeState": "InWorld",
+        "afterState": "InWorld",
+        "beforeWorld": 1,
+        "afterWorld": 1,
+        "ownerSending": false
+      }
+    },
+    {
+      "id": "stale-world-error",
+      "meetsContract": false,
+      "scope": "actual S206 decoder or Cancel; delayed in-memory sender completion",
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "beforeDeadline": 1209771,
+        "afterDeadline": 0,
+        "beforeState": "InWorld",
+        "afterState": "Faulted",
+        "beforeWorld": 1,
+        "afterWorld": 2,
+        "ownerSending": false
+      }
+    },
+    {
+      "id": "stale-session-success",
+      "meetsContract": true,
+      "scope": "actual S206 decoder or Cancel; delayed in-memory sender completion",
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "beforeDeadline": 0,
+        "afterDeadline": 0,
+        "beforeState": "Cancelled",
+        "afterState": "Cancelled",
+        "beforeWorld": 1,
+        "afterWorld": 1,
+        "ownerSending": false
+      }
+    },
+    {
+      "id": "stale-session-error",
+      "meetsContract": true,
+      "scope": "actual S206 decoder or Cancel; delayed in-memory sender completion",
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "beforeDeadline": 0,
+        "afterDeadline": 0,
+        "beforeState": "Cancelled",
+        "afterState": "Cancelled",
+        "beforeWorld": 1,
+        "afterWorld": 1,
+        "ownerSending": false
+      }
+    },
+    {
+      "id": "stale-lease-success",
+      "meetsContract": false,
+      "scope": "synthetic reset/new owner; public reachability unproven",
+      "data": {
+        "admitted": true,
+        "sent": true,
+        "events": 1,
+        "beforeDeadline": 0,
+        "afterDeadline": 1209896,
+        "beforeState": "InWorld",
+        "afterState": "InWorld",
+        "beforeWorld": 0,
+        "afterWorld": 0,
+        "ownerSending": true
+      }
+    },
+    {
+      "id": "stale-lease-error",
+      "meetsContract": false,
+      "scope": "synthetic reset/new owner; public reachability unproven",
+      "data": {
+        "admitted": true,
+        "sent": false,
+        "events": 0,
+        "beforeDeadline": 0,
+        "afterDeadline": 0,
+        "beforeState": "InWorld",
+        "afterState": "Faulted",
+        "beforeWorld": 0,
+        "afterWorld": 1,
+        "ownerSending": false
+      }
+    },
+    {
+      "id": "no-local-unslow-count",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "speed": 2,
+        "count": 3,
+        "wire": []
+      }
+    },
+    {
+      "id": "S255-normal",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "speed": 0
+      }
+    },
+    {
+      "id": "S255-haste",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "speed": 1
+      }
+    },
+    {
+      "id": "S67-independent",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "Speed": 1,
+        "Brave": 1
+      }
+    },
+    {
+      "id": "S24-count-only",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "count": 2
+      }
+    },
+    {
+      "id": "S57-remove",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "items": 0
+      }
+    },
+    {
+      "id": "remote-speed-does-not-revise-own",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "before": 5,
+        "after": 5
+      }
+    },
+    {
+      "id": "same-own-speed-revises",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "before": 5,
+        "after": 6
+      }
+    },
+    {
+      "id": "talk-observation-direct-0",
+      "meetsContract": true,
+      "scope": "observation only: no expanded NPC authorization; route mismatch recorded",
+      "data": {
+        "sent": true,
+        "wires": [
+          "22E7030000000000"
+        ],
+        "canTalk": true
+      }
+    },
+    {
+      "id": "talk-observation-pointer-low-0",
+      "meetsContract": true,
+      "scope": "observation only: no expanded NPC authorization; route mismatch recorded",
+      "data": {
+        "sent": true,
+        "wires": [
+          "22E7030000000000"
+        ],
+        "canTalk": true
+      }
+    },
+    {
+      "id": "talk-observation-pointer-controller-0",
+      "meetsContract": true,
+      "scope": "observation only: no expanded NPC authorization; route mismatch recorded",
+      "data": {
+        "sent": true,
+        "wires": [
+          "22E7030000000000"
+        ],
+        "canTalk": true
+      }
+    },
+    {
+      "id": "talk-observation-direct-1",
+      "meetsContract": true,
+      "scope": "observation only: no expanded NPC authorization; route mismatch recorded",
+      "data": {
+        "sent": true,
+        "wires": [
+          "22E7030000000000"
+        ],
+        "canTalk": true
+      }
+    },
+    {
+      "id": "talk-observation-pointer-low-1",
+      "meetsContract": true,
+      "scope": "observation only: no expanded NPC authorization; route mismatch recorded",
+      "data": {
+        "sent": true,
+        "wires": [
+          "22E7030000000000"
+        ],
+        "canTalk": true
+      }
+    },
+    {
+      "id": "talk-observation-pointer-controller-1",
+      "meetsContract": true,
+      "scope": "observation only: no expanded NPC authorization; route mismatch recorded",
+      "data": {
+        "sent": true,
+        "wires": [
+          "22E7030000000000"
+        ],
+        "canTalk": true
+      }
+    },
+    {
+      "id": "talk-observation-direct-2",
+      "meetsContract": true,
+      "scope": "observation only: no expanded NPC authorization; route mismatch recorded",
+      "data": {
+        "sent": true,
+        "wires": [
+          "22E7030000000000"
+        ],
+        "canTalk": true
+      }
+    },
+    {
+      "id": "talk-observation-pointer-low-2",
+      "meetsContract": true,
+      "scope": "observation only: no expanded NPC authorization; route mismatch recorded",
+      "data": {
+        "sent": true,
+        "wires": [
+          "22E7030000000000"
+        ],
+        "canTalk": true
+      }
+    },
+    {
+      "id": "talk-observation-pointer-controller-2",
+      "meetsContract": true,
+      "scope": "observation only: no expanded NPC authorization; route mismatch recorded",
+      "data": {
+        "sent": false,
+        "wires": [],
+        "canTalk": true
+      }
+    },
+    {
+      "id": "talk-observation-direct-3",
+      "meetsContract": true,
+      "scope": "observation only: no expanded NPC authorization; route mismatch recorded",
+      "data": {
+        "sent": true,
+        "wires": [
+          "22E7030000000000"
+        ],
+        "canTalk": true
+      }
+    },
+    {
+      "id": "talk-observation-pointer-low-3",
+      "meetsContract": true,
+      "scope": "observation only: no expanded NPC authorization; route mismatch recorded",
+      "data": {
+        "sent": true,
+        "wires": [
+          "22E7030000000000"
+        ],
+        "canTalk": true
+      }
+    },
+    {
+      "id": "talk-observation-pointer-controller-3",
+      "meetsContract": true,
+      "scope": "observation only: no expanded NPC authorization; route mismatch recorded",
+      "data": {
+        "sent": false,
+        "wires": [],
+        "canTalk": true
+      }
+    },
+    {
+      "id": "no-socket-events",
+      "meetsContract": true,
+      "scope": "real r30 DLL with synthetic fixture",
+      "data": {
+        "Observed": false
+      }
+    }
+  ]
+}

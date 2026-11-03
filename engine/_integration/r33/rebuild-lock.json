@@ -1,0 +1,986 @@
+{
+  "schema": "accepted-r33-rebuild-lock-v1",
+  "candidateId": "ENGINE-GROUND-LIFECYCLE-IMPL-R1",
+  "sourceCount": 177,
+  "productDllSha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productManifestSha256": "7c4d23327c0588d1029e9721c806b2e868ee2839c6e2087fb2c516632a656bf0",
+  "launcherDllSha256": "8b0cfba16676c6d3d8294db217dfacc343813dd69bbc753574f3d32a23b3008b",
+  "files": [
+    {
+      "path": "audio/AudioAssets.cs",
+      "size": 3553,
+      "sha256": "a35890d65e2f3cfc7922aafea59f500d333a445d6ce8aaeb50960b031e272bb9"
+    },
+    {
+      "path": "audio/AudioCore.cs",
+      "size": 10244,
+      "sha256": "53d4aa73be42ee674daceb08751c7c494ebf3c257dd1178257a4caaf94e316c4"
+    },
+    {
+      "path": "audio/AudioPlayer.cs",
+      "size": 9556,
+      "sha256": "bad9ab78a2d9a2eeb334d2e8313e6bdcf97406efca730c36676a06ebc33c3745"
+    },
+    {
+      "path": "audio/DirectShowDriver.cs",
+      "size": 9770,
+      "sha256": "914c9e9b62a55d1e752539eb05990389e3e8b654e276b51c1edf9831683d2772"
+    },
+    {
+      "path": "audio/DirectShowInterop.cs",
+      "size": 3937,
+      "sha256": "174492eaaeeee9dbaf8d29d1ee9e2caa8d3c9a947a4d2f16109dd882f62976ba"
+    },
+    {
+      "path": "audio/P24.Audio.csproj",
+      "size": 355,
+      "sha256": "30cb249a292c0b9e4df6d592e834896d9cf621cbae9a9d3a31dd3fbbff3d65db"
+    },
+    {
+      "path": "source/ActionCadence.cs",
+      "size": 7714,
+      "sha256": "0649a30f4038a6259f20eadf3f8d57cd899ee3de9987c27c91a596b0fe48d8ea"
+    },
+    {
+      "path": "source/Assets.cs",
+      "size": 7448,
+      "sha256": "7338b577e307dbf11a7d4699a11eeb0ce472186b77c82fdf0807bef4ef729b6a"
+    },
+    {
+      "path": "source/AudioApiTransport.cs",
+      "size": 1616,
+      "sha256": "b1a18d9fc09bfba275e9c17230c57cc398dba06ccd30631f44333a17b9e42c7b"
+    },
+    {
+      "path": "source/BasicSupplies.cs",
+      "size": 3547,
+      "sha256": "5311b9c03f0624f5425946f4f4615ebf1456141c82b73a5096e1d85794f2a201"
+    },
+    {
+      "path": "source/BonusStats.cs",
+      "size": 8791,
+      "sha256": "b1dc4950bc1bd30218ab776b38bd68a6656ed68ae0eeef7f5817f1a3fcc8ad43"
+    },
+    {
+      "path": "source/BonusStatsUi.cs",
+      "size": 4738,
+      "sha256": "072a214367754da457a0aee4ebcc457d441955cdf17caf30df31cbb1e91649c9"
+    },
+    {
+      "path": "source/CacheFrameEvidence.cs",
+      "size": 2669,
+      "sha256": "313ec8d28c59bebd97d05d734e082e7e5b04398e673b8d89e7f64973014dc5ea"
+    },
+    {
+      "path": "source/CacheTests.cs",
+      "size": 11154,
+      "sha256": "4584ba1a014e5378870bf1520427c10ff7ace1947ce350dc813ba5d772e5d521"
+    },
+    {
+      "path": "source/ClientAudioSettings.cs",
+      "size": 1723,
+      "sha256": "7000c30e62f17cc58a1be9318cf53d8b793d8899d64016713114b5c709995bf7"
+    },
+    {
+      "path": "source/ClientEffect6016.cs",
+      "size": 4853,
+      "sha256": "19be31bff33a4584e638d3314225648b1ccc72bb382dd4adf64e320e1aa08eeb"
+    },
+    {
+      "path": "source/ClientLogin.cs",
+      "size": 11588,
+      "sha256": "a00779bb20bc2bb97aac8fb520788f0f8cd674bfeb7f4ce35279b3713e4003d7"
+    },
+    {
+      "path": "source/ClientNetwork.cs",
+      "size": 8638,
+      "sha256": "a0fb986760c8a2b215cd03d044e4aa3f303cc8c53d10acf75e283b5b7369e88c"
+    },
+    {
+      "path": "source/Combat.cs",
+      "size": 12144,
+      "sha256": "e72969b87dc4be034631b8fd6068798d6def15af87c2bcd6147650ebea44dd3a"
+    },
+    {
+      "path": "source/CombatRegression.cs",
+      "size": 8083,
+      "sha256": "70e8f14db6bd3adfc6f92701e7a397a26ef38bc5985a9d84a8eb5e55e39cb554"
+    },
+    {
+      "path": "source/CombatTests.cs",
+      "size": 9297,
+      "sha256": "22bc5eb8fef2b060f679c1ea98d1c1de4977729c432592744cbb836f432b39b3"
+    },
+    {
+      "path": "source/CombatUiTests.cs",
+      "size": 11379,
+      "sha256": "60358fa7fc128420d9557f5acac448f54aa873176f8798992e9837466a76a97c"
+    },
+    {
+      "path": "source/CombatVisibilityPlan.cs",
+      "size": 2604,
+      "sha256": "4cb71ff1ef122dec7974554d443f0fae236bef48674979ffd5c0428610e696c1"
+    },
+    {
+      "path": "source/DualBlockTests.cs",
+      "size": 8637,
+      "sha256": "4d6990df06e302353b7eba857ba937b1b6f86ae570cad0f9c8e32601ce9c7546"
+    },
+    {
+      "path": "source/DuplicateRecoveryProbe.cs",
+      "size": 1765,
+      "sha256": "bd9fac40979690f34622fe5112cc4359f52e185b205c8279d78a86bc1880c2c7"
+    },
+    {
+      "path": "source/Effect6016Controller.cs",
+      "size": 12999,
+      "sha256": "5c24d747277a6428a9faf83b96682c33fb40f039989137c438c6555f5a1cae66"
+    },
+    {
+      "path": "source/Effect6016Definition.cs",
+      "size": 3300,
+      "sha256": "c978e0ba6b83d6d9dd34729a29b2f5f04658ad2373cc3a1a40930abe63594ab0"
+    },
+    {
+      "path": "source/Effect6016Host.cs",
+      "size": 7903,
+      "sha256": "7a8ac5da322014f1cee956903b5e21d65a50435107eff51b0ccfe82340ebf6ab"
+    },
+    {
+      "path": "source/Equipment.cs",
+      "size": 5373,
+      "sha256": "54886622111435489a1bc1c36bcfafefa91278dd7b9ba3e2a352563cd8ab3c65"
+    },
+    {
+      "path": "source/EquipmentGateTests.cs",
+      "size": 3436,
+      "sha256": "f0779f792543a6cdf19dd9780bda12144ceb3e180f7e3e07d1cada1a1199ce8a"
+    },
+    {
+      "path": "source/EquipmentIntegration.cs",
+      "size": 6065,
+      "sha256": "45cc77321d5ce7e044b549105b22f27a61b64a5445758d36b9090fd606a22d88"
+    },
+    {
+      "path": "source/EquipmentTests.cs",
+      "size": 4389,
+      "sha256": "9aea8c38ff99e5b3b134d305dc6fac5193cbcb80861b0c234e5a1e0333d1b063"
+    },
+    {
+      "path": "source/EquipmentUiTests.cs",
+      "size": 8179,
+      "sha256": "13d3ea5b8a34983b7a0c9ea83980e861705712e890c1209880a40d1c831e2b48"
+    },
+    {
+      "path": "source/EventJournal.cs",
+      "size": 1474,
+      "sha256": "4d0b1989f0ac6fb8ec76a0919c58538db0c3e8a7ff99e6916942818b151cd510"
+    },
+    {
+      "path": "source/Ground.cs",
+      "size": 9336,
+      "sha256": "d2c066f3b69caba0f15ce71dfec6eec966a643e16a7b94e14707d9865b96a6c8"
+    },
+    {
+      "path": "source/GroundIntegration.cs",
+      "size": 14794,
+      "sha256": "9adbb3b7ad67da62e76ed59c6fe13a0111459d215d0b6c2551cae9ed85818aca"
+    },
+    {
+      "path": "source/GroundLayoutTest.cs",
+      "size": 4065,
+      "sha256": "ee0034b15f7795dbfa89058259996f8b87dfeaf714e7a7fa0f26a416a7c8d996"
+    },
+    {
+      "path": "source/GroundRendering.cs",
+      "size": 1566,
+      "sha256": "a0a13e18ec6702cdb8f0deb6011586b20667c598c5010b46016b8844ce141e54"
+    },
+    {
+      "path": "source/GroundTests.cs",
+      "size": 8324,
+      "sha256": "87777facedb0f6009b63e1e55768f33c6d89a0cfc74b5927a02d2713862d8cca"
+    },
+    {
+      "path": "source/GroundTransfer.cs",
+      "size": 2488,
+      "sha256": "60bd7b015b3dd6c9cd4f0a79008e58666422fea1153bf202ae23a65aba1459ee"
+    },
+    {
+      "path": "source/GroundUi.cs",
+      "size": 3799,
+      "sha256": "d1fc05f61dbeef2df739cc01d4b5bddf6e414e07997401f14332c659124f845d"
+    },
+    {
+      "path": "source/Inventory.cs",
+      "size": 14236,
+      "sha256": "96b10ba12aaea4bd0288bb3b2d41253af27974e8f0e8969ff35fa4b45709d8df"
+    },
+    {
+      "path": "source/InventoryIntegration.cs",
+      "size": 14089,
+      "sha256": "d412953fe22db17434f23e3ae1d8311689ca6f6492b580de0dd82dae6a5255f1"
+    },
+    {
+      "path": "source/InventoryLayoutTest.cs",
+      "size": 3684,
+      "sha256": "ae7eeb059aa737d498a82ff2206d051b185b4d4c50a84c9a335a32b837ad6bb3"
+    },
+    {
+      "path": "source/InventoryTests.cs",
+      "size": 9732,
+      "sha256": "0ab9ce7721b8178b377ef43411d9f6aebdb06bca8b8efacb71f3d02579019997"
+    },
+    {
+      "path": "source/InventoryUi.cs",
+      "size": 4450,
+      "sha256": "24327c9e640d09b9813f3778c3c76543ff8880b553c1983cb83e9f806e50a153"
+    },
+    {
+      "path": "source/JournalTests.cs",
+      "size": 2010,
+      "sha256": "860c983b8a7002c35c2f6f2f35de68036b8f76d400b17774b8b030bb1a0a24b8"
+    },
+    {
+      "path": "source/KeyboardNavigation.cs",
+      "size": 1812,
+      "sha256": "a14571c5746777373cda58022e1374b256ba8f342c00b45d578181e7a4ea8a99"
+    },
+    {
+      "path": "source/LoginConnection.cs",
+      "size": 10284,
+      "sha256": "1b8bee80a602996cda8d032572f117428cd4cb104c6786eed7329c23cf5cb47a"
+    },
+    {
+      "path": "source/LoginControl.cs",
+      "size": 8054,
+      "sha256": "02f97ac834993fb26871759c2dc7c2853494e804eac793b199bcc64c59553e2c"
+    },
+    {
+      "path": "source/LoginProtocol.cs",
+      "size": 5510,
+      "sha256": "c72b0d6a517949301be34458eb8ffa5166b876388a1b06680dc9739b381ce2be"
+    },
+    {
+      "path": "source/LoginTests.cs",
+      "size": 4850,
+      "sha256": "6ae6514eaa10cb8b3465230737db89dbc00f3895f50028e9282b17362b194cd3"
+    },
+    {
+      "path": "source/Magic.cs",
+      "size": 11027,
+      "sha256": "a5a3497d12ab516b30b705ba827cff3a9679976db1692f7ab137719c46426e58"
+    },
+    {
+      "path": "source/MagicIntegration.cs",
+      "size": 18560,
+      "sha256": "7831385e157937e560fc9445da3a28c0228be61fd9c3338ec3d10dff335c3ccc"
+    },
+    {
+      "path": "source/MagicRendering.cs",
+      "size": 4867,
+      "sha256": "c65cd7e3af2f92d689bb093de1007003efff060798e71a7fe1cad602120f9963"
+    },
+    {
+      "path": "source/MagicRenderingTests.cs",
+      "size": 4161,
+      "sha256": "58ae873c2c0a31d5a460eb059148697ca95c80b85544f8e98d338440d30fa2e3"
+    },
+    {
+      "path": "source/MagicSelectionRegression.cs",
+      "size": 4749,
+      "sha256": "5fb664de0fa677308bb515148cc085670c8c0c32c0ba263c81fb08012ee5e110"
+    },
+    {
+      "path": "source/MagicSpells.cs",
+      "size": 1129,
+      "sha256": "20cc278da9390e90757349fb27080a258b412928ff1bd0e9a3bbabc232822de0"
+    },
+    {
+      "path": "source/MagicStatus.cs",
+      "size": 3337,
+      "sha256": "5b8d0eeec6a7a45457f430ab587d833d8eea387e3ac94d2e3717c2e3f805a8ce"
+    },
+    {
+      "path": "source/MagicTargetPreparation.cs",
+      "size": 8802,
+      "sha256": "70987fd3993bf663eb9731df11ec135a14ef0d2d03bdda51d9d2262d557b790a"
+    },
+    {
+      "path": "source/MagicTargetTests.cs",
+      "size": 12548,
+      "sha256": "b2f1a30941f61604c982267c70dd2c912f428b880d2ebab654991aa6723b1b18"
+    },
+    {
+      "path": "source/MagicTests.cs",
+      "size": 7160,
+      "sha256": "55cf1bbcd8643570ff0d8d954089c9d9d8877057e7ea84cb95124878de94dad9"
+    },
+    {
+      "path": "source/MagicUi.cs",
+      "size": 4913,
+      "sha256": "bfc95fe67b281d8c2ab9beeb95a07cd607dbb91b52a04f9837460423c6ac4c92"
+    },
+    {
+      "path": "source/MagicUiTests.cs",
+      "size": 15775,
+      "sha256": "cdb6bab4d853d13cc22a8c925b944702faaef7fea1dafdb618d3a0327ecbb8c5"
+    },
+    {
+      "path": "source/MapEffects.cs",
+      "size": 4465,
+      "sha256": "151017e2a085c66427959f9d6164f3cec08a455ea3866fd7e1f411f38261debd"
+    },
+    {
+      "path": "source/MapResources.cs",
+      "size": 1187,
+      "sha256": "8e3e1663a58345ab42bee1fe2c07777a74ece63da7fd6500323efd5b8daa016b"
+    },
+    {
+      "path": "source/MovementRegression.cs",
+      "size": 4481,
+      "sha256": "bb6434e453e3be718606d02d61dd1b9c47c96709751f401a93f234ab13716def"
+    },
+    {
+      "path": "source/MovementTests.cs",
+      "size": 9031,
+      "sha256": "e71343ddef87fbfb998ca661eba9ff48e863486ba633f8f8006ba81999af70a1"
+    },
+    {
+      "path": "source/MovementUiTests.cs",
+      "size": 6825,
+      "sha256": "7021dbcfbf3427142de2d6890e0942c253374cbce798cd581d1687df19317051"
+    },
+    {
+      "path": "source/NativeFocusDiagnostics.cs",
+      "size": 1837,
+      "sha256": "deaf7308df2c3f4d2f9f09406510f84bc42c2c96267b739a3fcd8bd6b0b5cca8"
+    },
+    {
+      "path": "source/Network.cs",
+      "size": 6231,
+      "sha256": "023722c40298ab25dfd20963714e060704b0f51a0540ef7117c0e8e9d598eee8"
+    },
+    {
+      "path": "source/NormalHaste.cs",
+      "size": 3032,
+      "sha256": "9eb5d6bb5b63ef5a0bef2631c184420589bf30aa3149e146b08106f63e53a6ee"
+    },
+    {
+      "path": "source/NpcInteraction.cs",
+      "size": 12417,
+      "sha256": "482cd99aff9bc74be2a58dc6a14fe7d5de09b66cb08d06e25c6afa0891aa0505"
+    },
+    {
+      "path": "source/NpcServices.cs",
+      "size": 7391,
+      "sha256": "3e35cdf0b495a0df7cb154f0f8f4e2da851257284a8844c7aefc73741921a65b"
+    },
+    {
+      "path": "source/NpcTemplates.cs",
+      "size": 4724,
+      "sha256": "8a55bc6e2494767e00a6ee101627a2e63614d7dee49f1d027fd3fdab6f5f023b"
+    },
+    {
+      "path": "source/NpcUi.cs",
+      "size": 7501,
+      "sha256": "9bae4c5a5253f11ac3d316cdb5033c64e2e5d4182e1445dbe493ced9c213d020"
+    },
+    {
+      "path": "source/ObjectAssets.cs",
+      "size": 6846,
+      "sha256": "3bff495b6a642f89ba2a2dd5d3efa85e8e1152430ac5dc654f6eb5f4768a4f23"
+    },
+    {
+      "path": "source/ObjectPresence.cs",
+      "size": 3409,
+      "sha256": "2284a95a4c8a977799d9e21f9c38d37e0a0c96d15f4f957efbd0ae7eb79434fb"
+    },
+    {
+      "path": "source/ObjectRegression.cs",
+      "size": 5940,
+      "sha256": "a564442accb3d14d31759f1e2c221b1cde7cdd5f5a07398dbef68f799b77be7e"
+    },
+    {
+      "path": "source/ObjectRendering.cs",
+      "size": 9439,
+      "sha256": "a92ce0156f59cd75fb5da639760924d053a92febe15787657d39f28cf580fc5a"
+    },
+    {
+      "path": "source/ObjectTests.cs",
+      "size": 7033,
+      "sha256": "ee59363cf3a72a711884c91568a429c5b9e34ed52101225e7e5c6ccf6f321db5"
+    },
+    {
+      "path": "source/ObjectUiTests.cs",
+      "size": 6834,
+      "sha256": "1c4b7c0f6ff16224a8894d0fb16c5ba6dc4c1b7199b22eb02f5527aeb9d3656a"
+    },
+    {
+      "path": "source/OfflineClient.csproj",
+      "size": 991,
+      "sha256": "4486a4dea1367d8f7aac3f4860a4179bcd3e34f5a5c3f9edc93495a52c80bbed"
+    },
+    {
+      "path": "source/OnlineInput.cs",
+      "size": 1663,
+      "sha256": "be57d6afe82f1aa263d286649a13242a0b9b002e3fd11e2fd4945068bad735f3"
+    },
+    {
+      "path": "source/OnlineMovement.cs",
+      "size": 10477,
+      "sha256": "8b066e453caf0a85196797cb7a11b3f29019b126acc050b14816eba81abe33ba"
+    },
+    {
+      "path": "source/OpacityHistoricalPumps.cs",
+      "size": 803,
+      "sha256": "54a54a27f4ba685d7a9f43c163c62e04622e171ee21f11788ee0de9ba78bdc83"
+    },
+    {
+      "path": "source/OpacityIntegration.cs",
+      "size": 12930,
+      "sha256": "568d1a564d769cfd716c9dc55b035d05fd33b7cb8532181f06d511fbe79bd929"
+    },
+    {
+      "path": "source/OpacityPixelTests.cs",
+      "size": 3609,
+      "sha256": "14bfbfa68816b60d553c4e6e50a6707b9c259219c3e0d580fa2c0f11f5fdc382"
+    },
+    {
+      "path": "source/OpacityRendering.cs",
+      "size": 4181,
+      "sha256": "bd7672c9d1378e908fa2ea1db3d78148dc7aec6c6f0bbe595ba2d9236a531608"
+    },
+    {
+      "path": "source/OpacityReplayTests.cs",
+      "size": 5775,
+      "sha256": "c04a4076ec6bfb19e77d2dc04c2689a05db22ecceef8c55cb4634cd573edb6f1"
+    },
+    {
+      "path": "source/OpacitySchedulerTests.cs",
+      "size": 3565,
+      "sha256": "8b0ac7118c194438f23f4a0adeb0de3027fa271853ae3d6c05af12ff74352046"
+    },
+    {
+      "path": "source/OpacityTests.cs",
+      "size": 2989,
+      "sha256": "9141e8c187dca510dae15bc72d279729b5193fc9eb1a1c27df361a7d3d7cae0f"
+    },
+    {
+      "path": "source/OpacityUiTests.cs",
+      "size": 8762,
+      "sha256": "637feca43666c12f9df5ab4cfc96d4477a1d2cf5e9465a41561a9ff5cde69e13"
+    },
+    {
+      "path": "source/OpacityWeb.cs",
+      "size": 1862,
+      "sha256": "17c2b8c8c68ce0e3d5b929899186c6f3679edfd04e5362deb620f3c80e14fb29"
+    },
+    {
+      "path": "source/OriginalExpTable.cs",
+      "size": 1286,
+      "sha256": "325384a1437d6959b6233cbf2b7c76c681a2c8c6c1a05b41b7b9373e5bc198b1"
+    },
+    {
+      "path": "source/OriginalMapCache.cs",
+      "size": 20268,
+      "sha256": "8c7009fd8483196beda9108a07a01f54b1e02d4447ba6cb3c6b88fb78b15d084"
+    },
+    {
+      "path": "source/PlayerAudioSettings.cs",
+      "size": 2704,
+      "sha256": "d72460ffa9c1fe7a3959ea614f00355ba1dbf1facf21a9f584413c3c0d074c3f"
+    },
+    {
+      "path": "source/PlayerChat.cs",
+      "size": 4117,
+      "sha256": "39d47921f20315167b2dc095d5475cd033ae5f5338fcfbc66d10b1b2526343d8"
+    },
+    {
+      "path": "source/PlayerChatKeyboardFlow.cs",
+      "size": 1915,
+      "sha256": "ea2330e6de11e4815f679eca1552ebd7546e01ad72ef6a4a4cf835c6e7d8035e"
+    },
+    {
+      "path": "source/PlayerHudChat.cs",
+      "size": 4390,
+      "sha256": "a737ee8f3ba7a9b502f7871d06c335cef921665507aa30e790ff96cfe29e3847"
+    },
+    {
+      "path": "source/PlayerHudIntegration.cs",
+      "size": 6631,
+      "sha256": "c1b8d5f44489b0e1878f2db412485449dc043b9e255b972c4c3b406bb663648e"
+    },
+    {
+      "path": "source/PlayerHudModel.cs",
+      "size": 4055,
+      "sha256": "40e34662696e391ada88cf634088562dda37d1425288726d3e82466db798d526"
+    },
+    {
+      "path": "source/PlayerHudServices.cs",
+      "size": 2506,
+      "sha256": "70393c3cfb18d470491b2ce6f2410fcdd195ea1b7043a3a2f493ecd97c6e320f"
+    },
+    {
+      "path": "source/PlayerHudView.cs",
+      "size": 14880,
+      "sha256": "aa8396e96b2cbff56313c148289c460ed2e37c8f07c2810ea70ca2f19d1aa271"
+    },
+    {
+      "path": "source/PlayerPointer.cs",
+      "size": 9105,
+      "sha256": "4214c71199b3db6a582e48049513028540b89fd7ad27e01b79c705590f8d07d8"
+    },
+    {
+      "path": "source/PlayerPointerHud.cs",
+      "size": 1527,
+      "sha256": "64dbce54801a133cfb2e76f175f2b30cd8562aea0bb107727aaa029186b3cda9"
+    },
+    {
+      "path": "source/PlayerPointerUi.cs",
+      "size": 3218,
+      "sha256": "05db52e330846e9abc684f0edbc33f001ca2ec355d097d47479ad3922e77b11a"
+    },
+    {
+      "path": "source/PlayerProfiles.cs",
+      "size": 3355,
+      "sha256": "8257012faba79f2977e979712f596c80f2610097c9e45ae13cee91561240c5f2"
+    },
+    {
+      "path": "source/PlayerShadows.cs",
+      "size": 3677,
+      "sha256": "c44d4c21bdf4764a891e8e366b3211f80898336b8fab651e18874ceaee86bca2"
+    },
+    {
+      "path": "source/PrivateShop.cs",
+      "size": 15256,
+      "sha256": "01628e7caaf8f52331166f12fdde8866ed1253b11312ffd9f1ecc61def15a3b1"
+    },
+    {
+      "path": "source/PrivateShopUi.cs",
+      "size": 9420,
+      "sha256": "3e091b7d014d1ca58080a37a9a7ae230f3ee2f733d3cb28ead6c84f4a6c4ce4f"
+    },
+    {
+      "path": "source/ProductEntry.cs",
+      "size": 2593,
+      "sha256": "be174e03d4ae6400acf7b6ba36f52e7c77521f1ab12864fdc9f3ad4fdf8e4cb1"
+    },
+    {
+      "path": "source/Program.cs",
+      "size": 25045,
+      "sha256": "f055f64ddc4d05b8ca75571690769839ea12fc3f15261057dda858b8eeffbee8"
+    },
+    {
+      "path": "source/ProjectileRendering.cs",
+      "size": 5561,
+      "sha256": "917625f6c00b430195311f34e5c7fdabf56b0d5d28f7a53b8abc1053368ff466"
+    },
+    {
+      "path": "source/Protocol.cs",
+      "size": 3680,
+      "sha256": "9c51aad89c9bda86dcedcdaa46cf135b0f787bb8105aa3826c8d7759e176f3f8"
+    },
+    {
+      "path": "source/ProtocolTests.cs",
+      "size": 3386,
+      "sha256": "ea9a6964091f310477c60cdec3c1447fd2d89927397d9bfb409762b513287a7b"
+    },
+    {
+      "path": "source/Ranged.cs",
+      "size": 752,
+      "sha256": "0ca871255023fe2b0405cbaa09e54b9982e3e93eda820a3491376aa9acaf9074"
+    },
+    {
+      "path": "source/RangedGateTests.cs",
+      "size": 3697,
+      "sha256": "fffadae8d9d09f189ce574eef56238aaa2b536f6210fc2e12b400ff969d2aeb2"
+    },
+    {
+      "path": "source/RangedIntegration.cs",
+      "size": 11751,
+      "sha256": "b7401c07772fc7713e3fa52aa66a0dd53c7be2c71dc95f8480bb7c5045ae38ac"
+    },
+    {
+      "path": "source/RangedRenderingTests.cs",
+      "size": 3422,
+      "sha256": "f2f914622b7fa2d47e66d22b84ee6b1c4e9683ff84d1afa09fb45198e9cded94"
+    },
+    {
+      "path": "source/RangedTests.cs",
+      "size": 3013,
+      "sha256": "860e8978d2912b6431c7023d53558594fd2e844b2c76aa85bee02af06a247a0e"
+    },
+    {
+      "path": "source/RangedUiTests.cs",
+      "size": 11175,
+      "sha256": "127a458d342d598675ae57b4c6602b96768e9476f7e3cf3fd7c4f20cb797caae"
+    },
+    {
+      "path": "source/RealLoginTests.cs",
+      "size": 1938,
+      "sha256": "929d1bff1cf4405287ebec0920bcbb47ddb3325db4697c2871a70266f0ea28ce"
+    },
+    {
+      "path": "source/ReceiveLoadTests.cs",
+      "size": 4517,
+      "sha256": "7a7d74ac0bb854e3ef55f8e9df38ae3e94d2d261ae5fd86a884bbb43d6ce0eaa"
+    },
+    {
+      "path": "source/Renderer.cs",
+      "size": 7142,
+      "sha256": "889b6587ebc5b6d85cb914284efc800c2c18c1c2c4713226d7b1d3e60a1f74e5"
+    },
+    {
+      "path": "source/RewardIntegration.cs",
+      "size": 14142,
+      "sha256": "a1fd17efcc8539fc0df8848634f14361dfe89b3320ffbe4ee56c3a355b86995f"
+    },
+    {
+      "path": "source/Rewards.cs",
+      "size": 4546,
+      "sha256": "eab28b4facf6de1fd9576f87ff99c19d3c929042b6ecb100d747681e419826b5"
+    },
+    {
+      "path": "source/RewardTests.cs",
+      "size": 5424,
+      "sha256": "6c55245e46c70208f807668dde060725a1d5d76d5364e2bed67d1e93bcb7bdeb"
+    },
+    {
+      "path": "source/SceneOpacity.cs",
+      "size": 10283,
+      "sha256": "c6dc450181b1f19d3778738512b5a3dee5b95f7bdb27442241081f9acb0200b1"
+    },
+    {
+      "path": "source/ServerMessageText.cs",
+      "size": 1107,
+      "sha256": "c53e40fc756fb0bf73586d38cdb42f65296439c32c99144cf686be49dd95d9a7"
+    },
+    {
+      "path": "source/ServerStatusMessages.cs",
+      "size": 564,
+      "sha256": "80595b85cb06efa6875fedc75f41796156bc967a3794288ed553c80755a897a4"
+    },
+    {
+      "path": "source/ShipBackdrop.cs",
+      "size": 7711,
+      "sha256": "c3226978d6a99d646ad669c09af31ff4188de83a96470e429149b24a7fe52f1f"
+    },
+    {
+      "path": "source/ShipTravel.cs",
+      "size": 9590,
+      "sha256": "be5f5bd8c3086c0aefd561ddf8579cfe3a24847456112fc59b1e56026e7b040d"
+    },
+    {
+      "path": "source/SystemAnnouncements.cs",
+      "size": 760,
+      "sha256": "24267217581cf3c6abbca50627b00a20bb2aeacf79197c46c07cc6283812a043"
+    },
+    {
+      "path": "source/Teleport.cs",
+      "size": 4346,
+      "sha256": "be65b1ed0776e8fcef557115525945ea49c8b3080c74386f20044426f5344e37"
+    },
+    {
+      "path": "source/Tests.cs",
+      "size": 12205,
+      "sha256": "7c6c04dc6bf70a505d6ac518ebadc79c0832f72748959e0d8c73182a9aa7b612"
+    },
+    {
+      "path": "source/Trade.cs",
+      "size": 11364,
+      "sha256": "964388f41f6841a5a86503aeee2fefd85a8e081712f552de5ff5aa5aa0b8cd37"
+    },
+    {
+      "path": "source/TradeUi.cs",
+      "size": 7341,
+      "sha256": "007b0f58d5e0e41f035abf044673430645aff0e199930b58c91047bd77c3d544"
+    },
+    {
+      "path": "source/WebPanel.cs",
+      "size": 19383,
+      "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e"
+    },
+    {
+      "path": "source/WebTests.cs",
+      "size": 6046,
+      "sha256": "e442819277dbab19f31c1677469d55a22b3f06408e1d4d0b85f078354c2f3809"
+    },
+    {
+      "path": "source/World.cs",
+      "size": 7187,
+      "sha256": "94013006de44509dbf2837abd4d3b56c3abe3f6c2bf15e855765522fd6e69fbd"
+    },
+    {
+      "path": "source/WorldEffect6016.cs",
+      "size": 1574,
+      "sha256": "e631a0aea5c79e4f7d70eebe9bdaf4696a9d95c746199e0f0c72b04ce65dd8cb"
+    },
+    {
+      "path": "source/WorldEntry.cs",
+      "size": 7815,
+      "sha256": "bb1297828934f750aaf14a41619f35392a118aaa1013c43716eb711f500ec3fd"
+    },
+    {
+      "path": "source/WorldObjects.cs",
+      "size": 5539,
+      "sha256": "33444f970443946b6b5fab902001086e676f2bead429cc3e8ec9eb5c486473a3"
+    },
+    {
+      "path": "source/WorldRegression.cs",
+      "size": 3238,
+      "sha256": "35a52654aa262a0689f24148be63e558ac0e81c1b163c098c93d99056e243d3f"
+    },
+    {
+      "path": "source/WorldSession.cs",
+      "size": 8958,
+      "sha256": "96d9795b437544b453ecea77ee70a395468794dc9a9a9b1ceeaca99a8ecaa326"
+    },
+    {
+      "path": "source/WorldTests.cs",
+      "size": 8432,
+      "sha256": "89840da776b378d7e0ea05a8178d02c436547f0fe62ed0ea2330ff7f923b9bc4"
+    },
+    {
+      "path": "web/bonus-stats.js",
+      "size": 2361,
+      "sha256": "eaaddd0f2c2524f931c11518f24d9bb3da14b3658c2d70aad4fd5da5c801c0f0"
+    },
+    {
+      "path": "web/ground/36.png",
+      "size": 289,
+      "sha256": "8d72431ab657dc156297aa3007b0843c01e75f20dfe5379b27d5cd8d5b9f29f5"
+    },
+    {
+      "path": "web/ground/66.png",
+      "size": 465,
+      "sha256": "3ecde86e10281647ddc1f66ddb42a44a83a98c86baa4ae317ddb8859b3e4fe34"
+    },
+    {
+      "path": "web/icons/124.png",
+      "size": 844,
+      "sha256": "7a989ea2e4f676a42d82e612ca9ff6a1d25e27005acf0cc312ffd270cef62919"
+    },
+    {
+      "path": "web/icons/138.png",
+      "size": 858,
+      "sha256": "335162b3786bced49563cfe86aa14fc4114867c9aa8237821023704a08ee0b98"
+    },
+    {
+      "path": "web/icons/2.png",
+      "size": 495,
+      "sha256": "0f609374be13892e61096e39fbd126cc7258a179a108dcfd80ad2e9e34d430a0"
+    },
+    {
+      "path": "web/icons/242.png",
+      "size": 996,
+      "sha256": "5ee66ffca19d9d3395318df30ee32aaf94c36753dadf8a9bb9935b564b07dccd"
+    },
+    {
+      "path": "web/icons/245.png",
+      "size": 1036,
+      "sha256": "ea4ac1c311981c4380e17779b4b15f1ef2a2a71d2b1962a2591f203522e9b001"
+    },
+    {
+      "path": "web/icons/278.png",
+      "size": 401,
+      "sha256": "c7a17e518c4e3978a83446e66c4cf7ae5cd54caeb04184556442a48b9f75f220"
+    },
+    {
+      "path": "web/icons/318.png",
+      "size": 1499,
+      "sha256": "ec7b23a61616e87b992ae01fd95ddfa83430300141aa85f4ded444af31c46a26"
+    },
+    {
+      "path": "web/icons/35.png",
+      "size": 460,
+      "sha256": "9ded6e008b2f981978dab2874f924b72b8d5f96ea6c4c856c4ebe60884a00073"
+    },
+    {
+      "path": "web/icons/4.png",
+      "size": 510,
+      "sha256": "75ab427d9ee5b9051b6cc4103b43eaadfd7cadd75d73d29bae9caf28ce3ac93e"
+    },
+    {
+      "path": "web/icons/474.png",
+      "size": 1352,
+      "sha256": "569b75068a19f536d78b12a6b75d8bf6e61655b9c1a7f282b0096b9043ecfa1d"
+    },
+    {
+      "path": "web/icons/475.png",
+      "size": 1365,
+      "sha256": "af4f6debaadb18732f040901c0ecf166156782a25e26da6b6867445d3c325846"
+    },
+    {
+      "path": "web/icons/5.png",
+      "size": 907,
+      "sha256": "9e35714d6b77ab794679b0a32f295cea5a78b773fbb745f46ce00366a4b06ff7"
+    },
+    {
+      "path": "web/icons/59.png",
+      "size": 499,
+      "sha256": "cb4045a12f6d28c81bbb25e12173741b184f8bc2fc90b42d9063d0ee076a669e"
+    },
+    {
+      "path": "web/icons/7.png",
+      "size": 359,
+      "sha256": "90f23210260582bfcc8c9e8b7a00cb727840e73082e3c7ca33c1e1fbc8b3143a"
+    },
+    {
+      "path": "web/icons/77.png",
+      "size": 743,
+      "sha256": "19f5dd065bc709dbd1c0fe59bad01e0a8acfad39593ff90621f069a709c9a727"
+    },
+    {
+      "path": "web/icons/80.png",
+      "size": 724,
+      "sha256": "0a6b703b2b6b0709ce4c7364f36ed99ef4cc907712d7d0059aea90c0ed9f4f37"
+    },
+    {
+      "path": "web/icons/81.png",
+      "size": 696,
+      "sha256": "eda21f8685278d50e150fa50ea4975756ea5cede2161fc86f1726199615ab988"
+    },
+    {
+      "path": "web/icons/86.png",
+      "size": 1306,
+      "sha256": "f1a70fcdcee29ea66ff20f204157927e07468cfb50da545adcc2c93831b389a9"
+    },
+    {
+      "path": "web/icons/957.png",
+      "size": 1192,
+      "sha256": "9b1df82afe88dc2183d9f3e69e8218d4126330e1f8f4179bf861ae305aec3a31"
+    },
+    {
+      "path": "web/icons/97.png",
+      "size": 776,
+      "sha256": "a630764b5725c0fc3629a4b86cc60d309695e9673179cb35d73b406d2769ec1d"
+    },
+    {
+      "path": "web/index.html",
+      "size": 8086,
+      "sha256": "27795cafd5b135781629df09c083ad290e8ce4527f4a51d498e367d5d3204b38"
+    },
+    {
+      "path": "web/interaction.js",
+      "size": 3596,
+      "sha256": "b007e3ce0a2a4f2ef13dcf72db66adc26640379ad4eebedb357dc8e026132aae"
+    },
+    {
+      "path": "web/login.js",
+      "size": 4568,
+      "sha256": "482384344ac719449c81c8e7c2212370dfd422dda52f8d4dbff8c9b3405c5a51"
+    },
+    {
+      "path": "web/panel.css",
+      "size": 2933,
+      "sha256": "66310ea6a1cdeda68bf1a817c24127830a0baacff0cbef88a7ed6dfd4f0b4a91"
+    },
+    {
+      "path": "web/panel.js",
+      "size": 15490,
+      "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab"
+    },
+    {
+      "path": "web/private-shop.js",
+      "size": 4228,
+      "sha256": "f9afcb14c0c1f3ef5a69556203d25348035a6fcb888084e59a50da1f53a140a4"
+    },
+    {
+      "path": "web/trade.js",
+      "size": 4161,
+      "sha256": "5b677e40462c5ec933fc5fa014b94fa70b3b1f2e53bc860cec9f9ba66e4f42f9"
+    },
+    {
+      "path": "vendor/microsoft.web.webview2.1.0.4258.31.nupkg",
+      "size": 9801922,
+      "sha256": "56f7f4b8bf9aee4b8efefbbdd4f67d5f74ebd1b100ed0806da71bf76af481aa9"
+    },
+    {
+      "path": "global.json",
+      "size": 56,
+      "sha256": "1c530f4c116bcf04e451cf0ca155fa18d73415c85145534a415f1eb4c39198b3"
+    },
+    {
+      "path": "NuGet.Config",
+      "size": 155,
+      "sha256": "337ed22a5dd2b3a69d86fac14c3a86a05cf3ffc3d1d65e400850c747010b4f19"
+    },
+    {
+      "path": "啟動新版客戶端.cmd",
+      "size": 486,
+      "sha256": "74fa93e621839389a8bf5e13d18e82a51fc3b55b5e478b35fc2f793e4a80b117"
+    },
+    {
+      "path": "_integration/common.py",
+      "size": 1932,
+      "sha256": "7c4190a4a5726757c290742fdb77bc0320856248fc70da15a87afb53bbbd09a4"
+    },
+    {
+      "path": "assets/integrity.json",
+      "size": 1729333,
+      "sha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98"
+    },
+    {
+      "path": "_integration/r33/acceptance/baseline-151-result.json",
+      "size": 10015,
+      "sha256": "272acfecd8674028e57f2dc980a77eff83891ee27d160996911f362058289e83"
+    },
+    {
+      "path": "_integration/r33/acceptance/candidate-result.json",
+      "size": 2822,
+      "sha256": "359cb5a3111e0dc95e91000024d780098f842cff711c924e7f551212824cb207"
+    },
+    {
+      "path": "_integration/r33/acceptance/candidate-seal.json",
+      "size": 59650,
+      "sha256": "2ad5c438372732384dbb505936a94ce386d25933223194c39c2997de524073cf"
+    },
+    {
+      "path": "_integration/r33/acceptance/independent-review.json",
+      "size": 7178,
+      "sha256": "fd699ef75df6b3116c52e14511756ba331bc16c7b43acd2d92391ad1e8065649"
+    },
+    {
+      "path": "_integration/r33/acceptance/r33-input-contract.json",
+      "size": 1251,
+      "sha256": "048770f99ca923ab05227dbd8fc3049f1aeddf70260f3423c553aa0427744c50"
+    },
+    {
+      "path": "_integration/r33/acceptance/r33-integration-acceptance.json",
+      "size": 2307,
+      "sha256": "3676137771224079b0a3a26abf094165c34e2b8b68e203da8089f2f877fc4a28"
+    },
+    {
+      "path": "_integration/r33/acceptance/source-manifest.json",
+      "size": 43756,
+      "sha256": "adf30cb60180285541857fac85b3e522d68855a1a63d0117dd4fb71cb1de0056"
+    },
+    {
+      "path": "_integration/r33/launcher-source/Launcher.csproj",
+      "size": 412,
+      "sha256": "59a5f22c8ced415eb3d9a36d5f356b52766956a3ae66597e29214a53280e62ee"
+    },
+    {
+      "path": "_integration/r33/launcher-source/Program.cs",
+      "size": 8488,
+      "sha256": "105a4c5ab320b36222670b913d81eb131bbf6d382525c3b7bd2252c74a2da917"
+    },
+    {
+      "path": "_integration/r33/product-build.ps1",
+      "size": 2088,
+      "sha256": "9b69f5b3a20c8b260e331ca2b3c35290de534d8cdeda1a27acd3579552de6f51"
+    },
+    {
+      "path": "build-product.ps1",
+      "size": 189,
+      "sha256": "e128ad26b7547a43eb4ba3de904aecef7b4417966410cd948ffa5453c1da6f62"
+    },
+    {
+      "path": "launch-product.ps1",
+      "size": 2781,
+      "sha256": "40f86aecf3d4d7469da8093dc50ceb9a56bb4f71ed8c1203f18bbb9594afa5db"
+    }
+  ]
+}

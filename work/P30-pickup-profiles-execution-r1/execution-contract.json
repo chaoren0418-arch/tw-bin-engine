@@ -1,0 +1,177 @@
+{
+  "schema": "p30-product-execution-contract-v1",
+  "dispatchSha256": "4be1242a443975632a8f13ab23c528aec6eb2f536b144647e579175dcbb80568",
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "executorRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1",
+  "futureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+  "mode": "product-only",
+  "maxBuildInvocations": 1,
+  "executionAuthorizedByPreparation": false,
+  "receiptPath": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-product-only-execution-acceptance.json",
+  "scriptPins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\executor.py",
+      "size": 9818,
+      "sha256": "4bd924cfa769d6ec4146ff0086e444d79f00e4dd3ed37b2b5a827ff457b8e6d0"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\gate.py",
+      "size": 9164,
+      "sha256": "f4b14f7cb136c629b93f90d7807bf61bc9c95fbcfe66bf206b7d92079e8326b9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\win_process.py",
+      "size": 5934,
+      "sha256": "37f21ac740a11f780a937f085598bbb3dbbe928a65fa8d19d6c6d0f39e0ef0dc"
+    }
+  ],
+  "materialization": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\product-materialization.json",
+    "size": 92977,
+    "sha256": "63290a5c650dd992172d605210ca882b8212e1622f98ec000310f68e590c4f33"
+  },
+  "dependencies": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\build-dependency-pins.json",
+    "size": 1126895,
+    "sha256": "58fd3d9a4de20417a2336c00f99494a7e4874352c470676cdbdfefa3763b116b"
+  },
+  "planningPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\stage-plan.json",
+    "size": 7441,
+    "sha256": "f58e0d6400d1715ad03ef32fc26486ac89a9b915824bbd7470a4ca6dff4f19f3"
+  },
+  "planningMaterialization": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\materialization-plan.json",
+    "size": 152598,
+    "sha256": "de67b00de533abb45e196f3c0e97d245c36ed1e9c7312e9b8badf72fdcc64050"
+  },
+  "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "expectedAudioSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "protectedPins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+      "size": 158,
+      "sha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+      "size": 31361,
+      "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+      "size": 11741,
+      "sha256": "0c8f214831a286bec4a6844ab1293b4f4798ff829ef0a3d6507dbf455eddc040"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\release-seal.json",
+      "size": 2867987,
+      "sha256": "955ea88173cb36cecaefb6d5e9bbce7d76dfd7bf39ccd7830e56a269ab3155c3"
+    }
+  ],
+  "ancestorPolicies": [],
+  "environment": {
+    "inheritNames": [
+      "SYSTEMROOT",
+      "WINDIR",
+      "OS",
+      "PROCESSOR_ARCHITECTURE",
+      "NUMBER_OF_PROCESSORS"
+    ],
+    "overrides": {
+      "TEMP": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\tmp",
+      "TMP": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\tmp",
+      "DOTNET_CLI_HOME": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\cli-home",
+      "NUGET_PACKAGES": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\nuget",
+      "NUGET_HTTP_CACHE_PATH": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\http-cache",
+      "NUGET_PLUGINS_CACHE_PATH": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\plugin-cache",
+      "NUGET_SCRATCH": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\nuget-scratch",
+      "APPDATA": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\appdata\\roaming",
+      "LOCALAPPDATA": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\appdata\\local",
+      "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+      "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "1",
+      "DOTNET_CLI_WORKLOAD_UPDATE_NOTIFY_DISABLE": "true",
+      "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false",
+      "NUGET_CERT_REVOCATION_MODE": "offline",
+      "MSBUILDDISABLENODEREUSE": "1",
+      "DOTNET_CLI_USE_MSBUILD_SERVER": "0",
+      "USERPROFILE": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\userprofile",
+      "HOME": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\environment\\userprofile",
+      "DOTNET_CLI_UI_LANGUAGE": "en-US",
+      "DOTNET_ROOT": "C:\\Program Files\\dotnet"
+    },
+    "pathComponents": [
+      "C:\\Program Files\\dotnet",
+      "C:\\Windows\\System32",
+      "C:\\Windows"
+    ],
+    "comspec": "C:\\Windows\\System32\\cmd.exe",
+    "pathext": ".COM;.EXE;.BAT;.CMD",
+    "otherParentVariables": "discarded; record names only, never secret values"
+  },
+  "buildCommand": {
+    "argv": [
+      "C:\\Program Files\\dotnet\\dotnet.exe",
+      "build",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\source\\OfflineClient.csproj",
+      "-o",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\client-product-r34",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\NuGet.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "--nologo",
+      "-v:diag",
+      "-bl:D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\msbuild.binlog;ProjectImports=None"
+    ],
+    "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+    "attemptRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01",
+    "kind": "product",
+    "probes": [],
+    "expectedArtifacts": [
+      "build/client-product-r34/P11.ClientEngine.dll",
+      "build/client-product-r34/P24.Audio.dll"
+    ],
+    "nestedLogsRequired": true,
+    "timeoutSeconds": 600
+  },
+  "diagnosticAmendment": {
+    "baseCommand": [
+      "C:\\Program Files\\dotnet\\dotnet.exe",
+      "build",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\source\\OfflineClient.csproj",
+      "-o",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\client-product-r34",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\NuGet.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "--nologo"
+    ],
+    "addedArgv": [
+      "-v:diag",
+      "-bl:D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\msbuild.binlog;ProjectImports=None"
+    ],
+    "reason": "MSBuild diagnostic stdout and actual binary log for compiler/task provenance only; no functional build property changed; ProjectImports=None avoids packaging imported source text in binlog.",
+    "separateSupervisorAcceptanceRequired": true
+  },
+  "formalEntry": "r33",
+  "runtimeProbes": 0,
+  "sharedWrites": false,
+  "releaseWrites": false,
+  "entryActivationAuthorized": false,
+  "outputs": {
+    "product": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\client-product-r34\\P11.ClientEngine.dll",
+    "audio": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\client-product-r34\\P24.Audio.dll",
+    "rawRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01",
+    "result": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\result.json"
+  },
+  "failurePolicy": "Exclusive root and started markers; streamed raw stdout/stderr, job assignment before resume, owned-job termination on timeout/interrupt; preserve partial outputs and refuse all existing-root reruns; expected identity is never rewritten."
+}

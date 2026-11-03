@@ -1,0 +1,2519 @@
+{
+  "scope": "32 exact body frames,8 already shipped reused;24 new embedded frames only",
+  "frames": [
+    {
+      "direction": 0,
+      "metadataIndex": 0,
+      "frameKey": "3225/0:0",
+      "productFrameKey": "0:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        12,
+        -40,
+        37,
+        16
+      ],
+      "logicalAnchor": [
+        -12,
+        40
+      ],
+      "sourceRawSha256": "cbf1d6832b05dd5b86a14f5a4dda9c783f42feae7a06963acad80f20a87f6eec",
+      "sourceRawBytes": 5469,
+      "sourceEntryBytes": 5469,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "historical-selected-payload-matched",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 303411926,
+      "sourceEntryNumber": 42438,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-0.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 778,
+      "delivery": "reuse existing loaded frame; zero additional pixel bytes",
+      "existingProfile": "objects/0.json",
+      "existingProfileSha256": "27ab41e8a398eb180ce957d9215b2c9b5cf6bf5343b32f6c101757b8882efdf8",
+      "existingFrameCanonicalBytes": 10672,
+      "existingFrameCanonicalSha256": "944512120afe9b782e9613025af1ccc2d8dc4de7546f776869f8949e6be6d68d",
+      "proposedAdditionalBytes": 0
+    },
+    {
+      "direction": 0,
+      "metadataIndex": 1,
+      "frameKey": "3225/88:0",
+      "productFrameKey": "88:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        5,
+        -33,
+        39,
+        17
+      ],
+      "logicalAnchor": [
+        -5,
+        33
+      ],
+      "sourceRawSha256": "f91603374d529ec4961e918bda0cb37fab46e5871134520367789a862544e682",
+      "sourceRawBytes": 4426,
+      "sourceEntryBytes": 4426,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301494636,
+      "sourceEntryNumber": 42729,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-88.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 871,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 11417,
+      "canonicalFrameSha256": "9e9f4f5081f4961f329603015e73ad89d719cf409f8911fadf51bbe93471f47a",
+      "blockCount": 8,
+      "sourceBlocks": [
+        {
+          "index": 0,
+          "start": 790,
+          "endExclusive": 957,
+          "storedSha256": "f235858460e8eb40da82eef3b72ca942e7148cd2d42930e96342922300500338",
+          "tileRecordOffset": 529
+        },
+        {
+          "index": 1,
+          "start": 957,
+          "endExclusive": 975,
+          "storedSha256": "ae086ead18fb05b053530b0b4b306750fc7fe3476c2fac1cd7529c3d2e7ae676",
+          "tileRecordOffset": 534
+        },
+        {
+          "index": 2,
+          "start": 975,
+          "endExclusive": 1091,
+          "storedSha256": "07a758fc65da59e2b8a8092065e2c84788656ac83f57635b3243c6f190b07999",
+          "tileRecordOffset": 539
+        },
+        {
+          "index": 3,
+          "start": 1091,
+          "endExclusive": 1384,
+          "storedSha256": "fd79cd4b56abd728defc7385427c9dd046f4ce067ff59d5bd67fe6b8eae599d9",
+          "tileRecordOffset": 544
+        },
+        {
+          "index": 4,
+          "start": 1384,
+          "endExclusive": 1665,
+          "storedSha256": "82365522dabe586230d2284c726ff539e5632a26846d4b3048f9821f592bd17b",
+          "tileRecordOffset": 549
+        },
+        {
+          "index": 5,
+          "start": 1665,
+          "endExclusive": 1772,
+          "storedSha256": "bdf1756b316dbe92c689d08e4931fa0d1b452cf5e1e920c3f7630da1bf682174",
+          "tileRecordOffset": 554
+        },
+        {
+          "index": 6,
+          "start": 1772,
+          "endExclusive": 1913,
+          "storedSha256": "64bea578ba0aaba72a0ff121882c4e7807dfd22ef3b4131f683eb4df5abb9059",
+          "tileRecordOffset": 559
+        },
+        {
+          "index": 7,
+          "start": 1913,
+          "endExclusive": 2048,
+          "storedSha256": "83e6bfa6e196912ad9bb2193ec540fbcfd950c726397a54e3fd495491a5a3e77",
+          "tileRecordOffset": 564
+        }
+      ]
+    },
+    {
+      "direction": 0,
+      "metadataIndex": 2,
+      "frameKey": "3225/88:1",
+      "productFrameKey": "88:1",
+      "ticks": 4,
+      "events": "<206",
+      "bounds": [
+        5,
+        -20,
+        45,
+        17
+      ],
+      "logicalAnchor": [
+        -5,
+        20
+      ],
+      "sourceRawSha256": "f91603374d529ec4961e918bda0cb37fab46e5871134520367789a862544e682",
+      "sourceRawBytes": 4426,
+      "sourceEntryBytes": 4426,
+      "sourceHeaderOffset": 569,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301494636,
+      "sourceEntryNumber": 42729,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-88.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 762,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 10062,
+      "canonicalFrameSha256": "1ac99f12243b6f2c43ca42aaee5718aae03ac6219ee6dc2f4c5e5f1eb236496d",
+      "blockCount": 7,
+      "sourceBlocks": [
+        {
+          "index": 8,
+          "start": 2048,
+          "endExclusive": 2091,
+          "storedSha256": "5dfe80fe2933378f92f3868651b4f4e94624652cad3a14b6ca815cf4f54e9e95",
+          "tileRecordOffset": 583
+        },
+        {
+          "index": 9,
+          "start": 2091,
+          "endExclusive": 2250,
+          "storedSha256": "e876488bdedf7b3260d596805e0b1392954186c671fc99f7d5a8aeaf95d8c4e9",
+          "tileRecordOffset": 588
+        },
+        {
+          "index": 10,
+          "start": 2250,
+          "endExclusive": 2544,
+          "storedSha256": "5633f6e80aaa2d970aa572da3f2c8495baa99ba3ee500363a33b37aac71c40f9",
+          "tileRecordOffset": 593
+        },
+        {
+          "index": 11,
+          "start": 2544,
+          "endExclusive": 2672,
+          "storedSha256": "89a0a12d8359e59563e9309226279dd1f8de0e22d057034204163175c21e6bee",
+          "tileRecordOffset": 598
+        },
+        {
+          "index": 12,
+          "start": 2672,
+          "endExclusive": 2810,
+          "storedSha256": "af74aef29d9750c6a4afa12162892887354cd92cdafd2f821f91d1a503301909",
+          "tileRecordOffset": 603
+        },
+        {
+          "index": 13,
+          "start": 2810,
+          "endExclusive": 2988,
+          "storedSha256": "cdec4802885c269dfb1a30522380f53c435d13437569c1f327e72e3a6ba339a0",
+          "tileRecordOffset": 608
+        },
+        {
+          "index": 14,
+          "start": 2988,
+          "endExclusive": 3131,
+          "storedSha256": "8755752b7f08f0e4d6bfd7968150efb3a40783169e0ca42845a3574555eddf3f",
+          "tileRecordOffset": 613
+        }
+      ]
+    },
+    {
+      "direction": 0,
+      "metadataIndex": 3,
+      "frameKey": "3225/88:2",
+      "productFrameKey": "88:2",
+      "ticks": 4,
+      "events": "",
+      "bounds": [
+        10,
+        -38,
+        37,
+        15
+      ],
+      "logicalAnchor": [
+        -10,
+        38
+      ],
+      "sourceRawSha256": "f91603374d529ec4961e918bda0cb37fab46e5871134520367789a862544e682",
+      "sourceRawBytes": 4426,
+      "sourceEntryBytes": 4426,
+      "sourceHeaderOffset": 618,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301494636,
+      "sourceEntryNumber": 42729,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-88.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 835,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 11251,
+      "canonicalFrameSha256": "6aba0af5067c9518c6602a0e2265431ff7010dd514daac7e7e107ef7be5c5157",
+      "blockCount": 10,
+      "sourceBlocks": [
+        {
+          "index": 15,
+          "start": 3131,
+          "endExclusive": 3244,
+          "storedSha256": "afe3248754218467608d3876ab34adbd40588b3cff4756bbaaabcc15e1a2eec2",
+          "tileRecordOffset": 632
+        },
+        {
+          "index": 16,
+          "start": 3244,
+          "endExclusive": 3415,
+          "storedSha256": "1c63787337235fc262502a442b05920c1f40db8581b6dd25f7b81e49e1e43ddb",
+          "tileRecordOffset": 637
+        },
+        {
+          "index": 17,
+          "start": 3415,
+          "endExclusive": 3494,
+          "storedSha256": "11bae020cbcef1eef2e913cecbdc203d7377d8a824eaf716513e2af223b7fb34",
+          "tileRecordOffset": 642
+        },
+        {
+          "index": 18,
+          "start": 3494,
+          "endExclusive": 3590,
+          "storedSha256": "4567f7f23d1963dba7782a2d82b46fbc6a959d6515b1f6d3785cdfce575218ee",
+          "tileRecordOffset": 647
+        },
+        {
+          "index": 19,
+          "start": 3590,
+          "endExclusive": 3890,
+          "storedSha256": "9c774cc5edca701ae119e9a5a2fcc8484d2c7bd69ada72098d62623433c406ac",
+          "tileRecordOffset": 652
+        },
+        {
+          "index": 20,
+          "start": 3890,
+          "endExclusive": 4099,
+          "storedSha256": "151134332cde2599c961566abff6432faf666298b310913b2d4cbbe08332ae57",
+          "tileRecordOffset": 657
+        },
+        {
+          "index": 21,
+          "start": 4099,
+          "endExclusive": 4220,
+          "storedSha256": "b61b5f0a7e904aaebc0f32a96b3169ba67cc2d722a939ca708176f03e6fd9959",
+          "tileRecordOffset": 662
+        },
+        {
+          "index": 22,
+          "start": 4220,
+          "endExclusive": 4244,
+          "storedSha256": "540af532bb7a73a912825ed7c42c1a72e72a79815d41cc0abd76232fda991d96",
+          "tileRecordOffset": 667
+        },
+        {
+          "index": 23,
+          "start": 4244,
+          "endExclusive": 4393,
+          "storedSha256": "d223e66502d450fa1aa2883660e9d529b05c158b45d78495bc47aeabac082906",
+          "tileRecordOffset": 672
+        },
+        {
+          "index": 24,
+          "start": 4393,
+          "endExclusive": 4426,
+          "storedSha256": "dc958ed0c340d59e295f29ef501094e6dbdb8abdff79e4df96e84f4017184ef3",
+          "tileRecordOffset": 677
+        }
+      ]
+    },
+    {
+      "direction": 1,
+      "metadataIndex": 0,
+      "frameKey": "3225/1:0",
+      "productFrameKey": "1:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        13,
+        -40,
+        32,
+        18
+      ],
+      "logicalAnchor": [
+        -13,
+        40
+      ],
+      "sourceRawSha256": "15a660df9a2985212f2f12f22c54aa5f12ecf4e6f7029e488bedac316fec1d9d",
+      "sourceRawBytes": 5910,
+      "sourceEntryBytes": 5910,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "historical-selected-payload-matched",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 303406016,
+      "sourceEntryNumber": 42439,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-1.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 783,
+      "delivery": "reuse existing loaded frame; zero additional pixel bytes",
+      "existingProfile": "objects/0.json",
+      "existingProfileSha256": "27ab41e8a398eb180ce957d9215b2c9b5cf6bf5343b32f6c101757b8882efdf8",
+      "existingFrameCanonicalBytes": 10915,
+      "existingFrameCanonicalSha256": "001117809b1c65aff584099b461541b1a2777d02af558ab4a2fdda751ba238fe",
+      "proposedAdditionalBytes": 0
+    },
+    {
+      "direction": 1,
+      "metadataIndex": 1,
+      "frameKey": "3225/89:0",
+      "productFrameKey": "89:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        14,
+        -35,
+        34,
+        18
+      ],
+      "logicalAnchor": [
+        -14,
+        35
+      ],
+      "sourceRawSha256": "f60a1f43838f3a305c4554676795c9c5187341ca48909c26a0367d1772ee395f",
+      "sourceRawBytes": 4021,
+      "sourceEntryBytes": 4021,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301490615,
+      "sourceEntryNumber": 42730,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-89.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 650,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 8787,
+      "canonicalFrameSha256": "960a57721e25fa5a6475c2dd2c2add4ad230bfe82947cc001737d27cb3c65826",
+      "blockCount": 10,
+      "sourceBlocks": [
+        {
+          "index": 0,
+          "start": 808,
+          "endExclusive": 873,
+          "storedSha256": "3ee9e4ba803f608b18b59309b67082a16805dcf75bcd308f586a9697adc69cfa",
+          "tileRecordOffset": 529
+        },
+        {
+          "index": 1,
+          "start": 873,
+          "endExclusive": 943,
+          "storedSha256": "2acd2c2a364afeb838b5a8240f07a09f7c7143444f2709d813d43a6b883bdc18",
+          "tileRecordOffset": 534
+        },
+        {
+          "index": 2,
+          "start": 943,
+          "endExclusive": 1004,
+          "storedSha256": "88545b14bb59986d14ae754ab2ebcad04a4bc746dfe7572d50a2f697dae49d12",
+          "tileRecordOffset": 539
+        },
+        {
+          "index": 3,
+          "start": 1004,
+          "endExclusive": 1048,
+          "storedSha256": "c5b042c7b5885a3bcf41e5ae08567208e1ceb34a4b386993a8e2208f97195c3e",
+          "tileRecordOffset": 544
+        },
+        {
+          "index": 4,
+          "start": 1048,
+          "endExclusive": 1288,
+          "storedSha256": "8efe6c76f96a2622e382b3bf2d904b2497823c9a38a1f0ab13a927a42c9e1473",
+          "tileRecordOffset": 549
+        },
+        {
+          "index": 5,
+          "start": 1288,
+          "endExclusive": 1522,
+          "storedSha256": "51d6558051deea9757aa6e5fb16c6b8235578e283b7c9adbdfda78861177f7ff",
+          "tileRecordOffset": 554
+        },
+        {
+          "index": 6,
+          "start": 1522,
+          "endExclusive": 1575,
+          "storedSha256": "f8a7c1e1be9439d29e545ba48c9914f81f42cbc8850b38e212a4016d152f22f6",
+          "tileRecordOffset": 559
+        },
+        {
+          "index": 7,
+          "start": 1575,
+          "endExclusive": 1690,
+          "storedSha256": "c845b77a3db233902ba7fa84c8208f48724a4381774dda01e2a33af89f28f17a",
+          "tileRecordOffset": 564
+        },
+        {
+          "index": 8,
+          "start": 1690,
+          "endExclusive": 1834,
+          "storedSha256": "94b8e1ca47608d63f3564dc54d863068b305255210e4e27c508c0bf29de183fd",
+          "tileRecordOffset": 569
+        },
+        {
+          "index": 9,
+          "start": 1834,
+          "endExclusive": 1906,
+          "storedSha256": "f2ec1a422b47870edac3e553b8904e4b99790172900a7f12c32ce7ac4d80f6d1",
+          "tileRecordOffset": 574
+        }
+      ]
+    },
+    {
+      "direction": 1,
+      "metadataIndex": 2,
+      "frameKey": "3225/89:1",
+      "productFrameKey": "89:1",
+      "ticks": 4,
+      "events": "<206",
+      "bounds": [
+        12,
+        -23,
+        32,
+        18
+      ],
+      "logicalAnchor": [
+        -12,
+        23
+      ],
+      "sourceRawSha256": "f60a1f43838f3a305c4554676795c9c5187341ca48909c26a0367d1772ee395f",
+      "sourceRawBytes": 4021,
+      "sourceEntryBytes": 4021,
+      "sourceHeaderOffset": 579,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301490615,
+      "sourceEntryNumber": 42730,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-89.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 511,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 6883,
+      "canonicalFrameSha256": "894d23995c8f2ca4054b2d65513bf4eef7a5389e0e10b203d9d9138dba36ff64",
+      "blockCount": 7,
+      "sourceBlocks": [
+        {
+          "index": 10,
+          "start": 1906,
+          "endExclusive": 2043,
+          "storedSha256": "63010d5358384926734965f571c07f480c3c6a12202bd942ba39715c90b44077",
+          "tileRecordOffset": 593
+        },
+        {
+          "index": 11,
+          "start": 2043,
+          "endExclusive": 2192,
+          "storedSha256": "03f8fd983aa913f0552b00f67bbd27769521ec3f6f185b426d02bdf8ad4394a8",
+          "tileRecordOffset": 598
+        },
+        {
+          "index": 12,
+          "start": 2192,
+          "endExclusive": 2242,
+          "storedSha256": "b62903694fc41ee313d0360c0350be01d6916c73fa43999327e59bc9532eb81f",
+          "tileRecordOffset": 603
+        },
+        {
+          "index": 13,
+          "start": 2242,
+          "endExclusive": 2296,
+          "storedSha256": "37e3dec926bab217a8cdfd65ebde93e876bff60a1c6bcdd31e9a6aa460df98dc",
+          "tileRecordOffset": 608
+        },
+        {
+          "index": 14,
+          "start": 2296,
+          "endExclusive": 2551,
+          "storedSha256": "75a2b1e97ce7290424db86967f1c52a21a6c5bbcadf35803ce699494fd1f9052",
+          "tileRecordOffset": 613
+        },
+        {
+          "index": 15,
+          "start": 2551,
+          "endExclusive": 2737,
+          "storedSha256": "d041749c6436b725c80d0ce16c7d7c599934653d9489c26cc2e96c12dd76d762",
+          "tileRecordOffset": 618
+        },
+        {
+          "index": 16,
+          "start": 2737,
+          "endExclusive": 2745,
+          "storedSha256": "e021970a601c2ce55bd39a0aa0041f44654f7be88c3141f5e5f6bf8df4642366",
+          "tileRecordOffset": 623
+        }
+      ]
+    },
+    {
+      "direction": 1,
+      "metadataIndex": 3,
+      "frameKey": "3225/89:2",
+      "productFrameKey": "89:2",
+      "ticks": 4,
+      "events": "",
+      "bounds": [
+        12,
+        -40,
+        33,
+        18
+      ],
+      "logicalAnchor": [
+        -12,
+        40
+      ],
+      "sourceRawSha256": "f60a1f43838f3a305c4554676795c9c5187341ca48909c26a0367d1772ee395f",
+      "sourceRawBytes": 4021,
+      "sourceEntryBytes": 4021,
+      "sourceHeaderOffset": 628,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301490615,
+      "sourceEntryNumber": 42730,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-89.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 802,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 10871,
+      "canonicalFrameSha256": "9c7df9999cf7b79bafb9826b97b56b4ce11a36442228b2fc065dde9ad91bae91",
+      "blockCount": 10,
+      "sourceBlocks": [
+        {
+          "index": 17,
+          "start": 2745,
+          "endExclusive": 2840,
+          "storedSha256": "82cc11881752bd55267d6b34f795f1ac2ebd2ff98466557faefe186bef19167c",
+          "tileRecordOffset": 642
+        },
+        {
+          "index": 18,
+          "start": 2840,
+          "endExclusive": 2970,
+          "storedSha256": "5571e2025a605a461ec711a0d9101ae0db73a306f76abe205b145ac8ec24e908",
+          "tileRecordOffset": 647
+        },
+        {
+          "index": 19,
+          "start": 2970,
+          "endExclusive": 3088,
+          "storedSha256": "b6576f78648a92734471e3aa549f8fddb4c2f1d8c4cecaacf6a8395103f4dd2a",
+          "tileRecordOffset": 652
+        },
+        {
+          "index": 20,
+          "start": 3088,
+          "endExclusive": 3169,
+          "storedSha256": "3e0d058a5f8f900eebd94e160b83fd02bbdbbbac90d3692de16df804c4a90628",
+          "tileRecordOffset": 657
+        },
+        {
+          "index": 21,
+          "start": 3169,
+          "endExclusive": 3431,
+          "storedSha256": "9350f312449cf5bef3479fbf40dd1243faa5c4fb043a7d8635c41d81fc8fa2f7",
+          "tileRecordOffset": 662
+        },
+        {
+          "index": 22,
+          "start": 3431,
+          "endExclusive": 3641,
+          "storedSha256": "65ac33361fa036aa3ab747c359ef93728be150e888fc276d2c02b9b087924238",
+          "tileRecordOffset": 667
+        },
+        {
+          "index": 23,
+          "start": 3641,
+          "endExclusive": 3707,
+          "storedSha256": "0e578faa552e72c510484e564c7b8867d4d0a42cec1c17276095e9a711f96f6f",
+          "tileRecordOffset": 672
+        },
+        {
+          "index": 24,
+          "start": 3707,
+          "endExclusive": 3855,
+          "storedSha256": "f1f8782866c55a32174a003e20f7ff9062edecf6ce006adf0c845e95cbca7729",
+          "tileRecordOffset": 677
+        },
+        {
+          "index": 25,
+          "start": 3855,
+          "endExclusive": 3984,
+          "storedSha256": "7db438b71fc0fb4495c15fd9c5306e9ac4dff84f4da7233ef54ad755e221b07c",
+          "tileRecordOffset": 682
+        },
+        {
+          "index": 26,
+          "start": 3984,
+          "endExclusive": 4021,
+          "storedSha256": "04a4c85431bb4403c21f7a644d3713dab88ccbc3d4ea08ab60ec1d79e3bc6570",
+          "tileRecordOffset": 687
+        }
+      ]
+    },
+    {
+      "direction": 2,
+      "metadataIndex": 0,
+      "frameKey": "3225/2:0",
+      "productFrameKey": "2:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        12,
+        -40,
+        37,
+        16
+      ],
+      "logicalAnchor": [
+        -12,
+        40
+      ],
+      "sourceRawSha256": "c6e15d8cbd4f525997bf6ba3c25460329cac070c4eeac3e95c858d0e86a0efb4",
+      "sourceRawBytes": 5451,
+      "sourceEntryBytes": 5451,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "historical-selected-payload-matched",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 302775430,
+      "sourceEntryNumber": 42550,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-2.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 770,
+      "delivery": "reuse existing loaded frame; zero additional pixel bytes",
+      "existingProfile": "objects/0.json",
+      "existingProfileSha256": "27ab41e8a398eb180ce957d9215b2c9b5cf6bf5343b32f6c101757b8882efdf8",
+      "existingFrameCanonicalBytes": 10659,
+      "existingFrameCanonicalSha256": "18374772e46471e32c50851b64b374abafaf7d6c84db42e21723e9d987292660",
+      "proposedAdditionalBytes": 0
+    },
+    {
+      "direction": 2,
+      "metadataIndex": 1,
+      "frameKey": "3225/90:0",
+      "productFrameKey": "90:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        12,
+        -32,
+        44,
+        17
+      ],
+      "logicalAnchor": [
+        -12,
+        32
+      ],
+      "sourceRawSha256": "ac0d4f7dddb2ddd39322c5d1246c1e86a4465fbbae71f0d026e54a4429172d83",
+      "sourceRawBytes": 4519,
+      "sourceEntryBytes": 4519,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301475450,
+      "sourceEntryNumber": 42732,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-90.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 889,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 11747,
+      "canonicalFrameSha256": "eca34a633fce5c490f8f3799d3833b2b9c1985fa3b56b38a61ea39ce7d73d770",
+      "blockCount": 9,
+      "sourceBlocks": [
+        {
+          "index": 0,
+          "start": 799,
+          "endExclusive": 811,
+          "storedSha256": "a0bdaad63423f73a2d157d63c8fcaca6ea1f7dcf9d4b4e5e1056c9bce3e4a037",
+          "tileRecordOffset": 529
+        },
+        {
+          "index": 1,
+          "start": 811,
+          "endExclusive": 856,
+          "storedSha256": "59d4e8cb5187261059483c683ad32d861f24fd4fed88d0bb117b717d7fb22bed",
+          "tileRecordOffset": 534
+        },
+        {
+          "index": 2,
+          "start": 856,
+          "endExclusive": 948,
+          "storedSha256": "535e0e85ed2a20386b3738cd92021266a5055e0ba5f7247cb43b68a1dcd591ca",
+          "tileRecordOffset": 539
+        },
+        {
+          "index": 3,
+          "start": 948,
+          "endExclusive": 1203,
+          "storedSha256": "b705a565b212f73ddb600aae80c6d27a4ac3df4525802d53b2641ea6282e460f",
+          "tileRecordOffset": 544
+        },
+        {
+          "index": 4,
+          "start": 1203,
+          "endExclusive": 1538,
+          "storedSha256": "cdea60ab59bc7d3c09f575df50dceb78aea3f023cf9f270831109721072bd696",
+          "tileRecordOffset": 549
+        },
+        {
+          "index": 5,
+          "start": 1538,
+          "endExclusive": 1752,
+          "storedSha256": "9b394093deec600da77db6af713c97c74b40dc060b8dfd7457563c0fafb68f1d",
+          "tileRecordOffset": 554
+        },
+        {
+          "index": 6,
+          "start": 1752,
+          "endExclusive": 1895,
+          "storedSha256": "51ff90ddabcb98810dab556c3834a6f2159e96225c5ab3e085454f3cb5b5d577",
+          "tileRecordOffset": 559
+        },
+        {
+          "index": 7,
+          "start": 1895,
+          "endExclusive": 1995,
+          "storedSha256": "ffcec42a9a7bf5e674c25d1fc8efc90d99bca46a040a465c7cc9d7a7b5ac3cb2",
+          "tileRecordOffset": 564
+        },
+        {
+          "index": 8,
+          "start": 1995,
+          "endExclusive": 2121,
+          "storedSha256": "9a0bd98e054970265164ee4ecc03cafa96ff2348bb66bf7971797475c1e9818d",
+          "tileRecordOffset": 569
+        }
+      ]
+    },
+    {
+      "direction": 2,
+      "metadataIndex": 2,
+      "frameKey": "3225/90:1",
+      "productFrameKey": "90:1",
+      "ticks": 4,
+      "events": "<206",
+      "bounds": [
+        6,
+        -23,
+        42,
+        18
+      ],
+      "logicalAnchor": [
+        -6,
+        23
+      ],
+      "sourceRawSha256": "ac0d4f7dddb2ddd39322c5d1246c1e86a4465fbbae71f0d026e54a4429172d83",
+      "sourceRawBytes": 4519,
+      "sourceEntryBytes": 4519,
+      "sourceHeaderOffset": 574,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301475450,
+      "sourceEntryNumber": 42732,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-90.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 743,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 9847,
+      "canonicalFrameSha256": "83762177896a46d2e36d23b50a45e9d0712cd709e24aeb8b94322a9a4edc299f",
+      "blockCount": 7,
+      "sourceBlocks": [
+        {
+          "index": 9,
+          "start": 2121,
+          "endExclusive": 2239,
+          "storedSha256": "06863fcc2a5d76d44297948b0d9d764090a4708c26830cba6eaa0a3f4133f6fa",
+          "tileRecordOffset": 588
+        },
+        {
+          "index": 10,
+          "start": 2239,
+          "endExclusive": 2376,
+          "storedSha256": "a590f8a4106868d763db26216022663cd85b53517e12b53f1fcddca8af3f8b4d",
+          "tileRecordOffset": 593
+        },
+        {
+          "index": 11,
+          "start": 2376,
+          "endExclusive": 2692,
+          "storedSha256": "bee4d195ade3b1a82c54aa1842163950337df59e888207c045df4404da4cd8ae",
+          "tileRecordOffset": 598
+        },
+        {
+          "index": 12,
+          "start": 2692,
+          "endExclusive": 2752,
+          "storedSha256": "a7bb5c019ef825d6ddc5bbffa51d8e94c0a8457c055a74894915000b5a5d185e",
+          "tileRecordOffset": 603
+        },
+        {
+          "index": 13,
+          "start": 2752,
+          "endExclusive": 2914,
+          "storedSha256": "d7df2ea373d7411582a6efa59b1c956db2735597bb8c37cfbb1485f7203dd958",
+          "tileRecordOffset": 608
+        },
+        {
+          "index": 14,
+          "start": 2914,
+          "endExclusive": 3027,
+          "storedSha256": "81511b7f0c8370eaa89ada9f9a6778d31812a5a0c07105ffcfb2e044908e81df",
+          "tileRecordOffset": 613
+        },
+        {
+          "index": 15,
+          "start": 3027,
+          "endExclusive": 3216,
+          "storedSha256": "c19cc899c83bb2a187b1ebd3790e13a5035834a3e44501c09ee48ecdd6d7b121",
+          "tileRecordOffset": 618
+        }
+      ]
+    },
+    {
+      "direction": 2,
+      "metadataIndex": 3,
+      "frameKey": "3225/90:2",
+      "productFrameKey": "90:2",
+      "ticks": 4,
+      "events": "",
+      "bounds": [
+        8,
+        -39,
+        39,
+        17
+      ],
+      "logicalAnchor": [
+        -8,
+        39
+      ],
+      "sourceRawSha256": "ac0d4f7dddb2ddd39322c5d1246c1e86a4465fbbae71f0d026e54a4429172d83",
+      "sourceRawBytes": 4519,
+      "sourceEntryBytes": 4519,
+      "sourceHeaderOffset": 623,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301475450,
+      "sourceEntryNumber": 42732,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-90.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 840,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 11274,
+      "canonicalFrameSha256": "8737bbeecf24c80aa3522805e05a077a5182e71d2ca10ba4fb211d5d7e05dff5",
+      "blockCount": 10,
+      "sourceBlocks": [
+        {
+          "index": 16,
+          "start": 3216,
+          "endExclusive": 3246,
+          "storedSha256": "29d20d5f4dc282ff39ab7bfd204f6caaf20c9204f27fdc4a8c46416731cf5544",
+          "tileRecordOffset": 637
+        },
+        {
+          "index": 17,
+          "start": 3246,
+          "endExclusive": 3290,
+          "storedSha256": "4c569e3c0ce398931a02e08e14c963ccd49090c4624594bc78710deb0c0212b4",
+          "tileRecordOffset": 642
+        },
+        {
+          "index": 18,
+          "start": 3290,
+          "endExclusive": 3445,
+          "storedSha256": "c0d8bd7c716db8ab3ec70e5fc2d68b232f58723c87459de594445588f85c5d12",
+          "tileRecordOffset": 647
+        },
+        {
+          "index": 19,
+          "start": 3445,
+          "endExclusive": 3576,
+          "storedSha256": "f7eea130146d8f40f4543b798e360397966030270e11d498e41eaad13d78cf7f",
+          "tileRecordOffset": 652
+        },
+        {
+          "index": 20,
+          "start": 3576,
+          "endExclusive": 3822,
+          "storedSha256": "b5a66b0e22b50fd20ad77c4fdd264fc7cc329dcd6c1467467163b360106b7a59",
+          "tileRecordOffset": 657
+        },
+        {
+          "index": 21,
+          "start": 3822,
+          "endExclusive": 4103,
+          "storedSha256": "f6350912c6208e5822393bf5171c9ac99d7b51e7c6f8935c102e91223a6f1693",
+          "tileRecordOffset": 662
+        },
+        {
+          "index": 22,
+          "start": 4103,
+          "endExclusive": 4231,
+          "storedSha256": "33db3dcb34b9c04f6e3a9a0fe2f335d6389292f53ad9765a8922cf33a5015c61",
+          "tileRecordOffset": 667
+        },
+        {
+          "index": 23,
+          "start": 4231,
+          "endExclusive": 4380,
+          "storedSha256": "715b2b5b0fe17cf218173d9e01bb66d7451d4a37e4e84ce96e9bcfb5eb68104c",
+          "tileRecordOffset": 672
+        },
+        {
+          "index": 24,
+          "start": 4380,
+          "endExclusive": 4466,
+          "storedSha256": "41fb218cce92efb2c8c3b22c1799f3263cef95c998efefb68a7c72f9fb051021",
+          "tileRecordOffset": 677
+        },
+        {
+          "index": 25,
+          "start": 4466,
+          "endExclusive": 4519,
+          "storedSha256": "b421af67868c4adfcdb5bdee1fe904f7242c2adfc6bafd4c67dc3775316d8734",
+          "tileRecordOffset": 682
+        }
+      ]
+    },
+    {
+      "direction": 3,
+      "metadataIndex": 0,
+      "frameKey": "3225/3:0",
+      "productFrameKey": "3:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        9,
+        -40,
+        37,
+        13
+      ],
+      "logicalAnchor": [
+        -9,
+        40
+      ],
+      "sourceRawSha256": "e430771b9600d0e5474e954b2c1cdf7748379d8d2ea082c086c863dc78af75e3",
+      "sourceRawBytes": 5108,
+      "sourceEntryBytes": 5108,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "historical-selected-payload-matched",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 302222887,
+      "sourceEntryNumber": 42661,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-3.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 711,
+      "delivery": "reuse existing loaded frame; zero additional pixel bytes",
+      "existingProfile": "objects/0.json",
+      "existingProfileSha256": "27ab41e8a398eb180ce957d9215b2c9b5cf6bf5343b32f6c101757b8882efdf8",
+      "existingFrameCanonicalBytes": 9790,
+      "existingFrameCanonicalSha256": "45140ebdfbbccbabb7401227010eea45f03dd59dcf20ac0e8dbf678ab799249f",
+      "proposedAdditionalBytes": 0
+    },
+    {
+      "direction": 3,
+      "metadataIndex": 1,
+      "frameKey": "3225/91:0",
+      "productFrameKey": "91:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        10,
+        -26,
+        49,
+        13
+      ],
+      "logicalAnchor": [
+        -10,
+        26
+      ],
+      "sourceRawSha256": "6428b98762e407ae2704b172c2421033dec752d945620ecde78f0b8a88825b9d",
+      "sourceRawBytes": 4567,
+      "sourceEntryBytes": 4567,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301470883,
+      "sourceEntryNumber": 42733,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-91.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 974,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 12799,
+      "canonicalFrameSha256": "12d6a40ae4b6ebee3ddd56f4decea7939e2a0deeb93f183c62d34021ac129d2f",
+      "blockCount": 8,
+      "sourceBlocks": [
+        {
+          "index": 0,
+          "start": 790,
+          "endExclusive": 925,
+          "storedSha256": "5a4aebcdfa2d32ed5551c80586310d13c75cf7427200994d49c1b0c0d715839b",
+          "tileRecordOffset": 529
+        },
+        {
+          "index": 1,
+          "start": 925,
+          "endExclusive": 1043,
+          "storedSha256": "3ec9e5a57cab1bdf946abc66e622b39bc1971848f1553194fd41b70b930ac55e",
+          "tileRecordOffset": 534
+        },
+        {
+          "index": 2,
+          "start": 1043,
+          "endExclusive": 1164,
+          "storedSha256": "86ce3ede3372be86a5d24e1d2c6d3e43071dc6647b3cc0b1e0e51c8502106649",
+          "tileRecordOffset": 539
+        },
+        {
+          "index": 3,
+          "start": 1164,
+          "endExclusive": 1375,
+          "storedSha256": "ff6eda01cb1e1ae66be42878cba8f95706e3cd1d005ff73314c003fbe785351a",
+          "tileRecordOffset": 544
+        },
+        {
+          "index": 4,
+          "start": 1375,
+          "endExclusive": 1633,
+          "storedSha256": "50b6cec1e777d08137f12e8fa62552eb8090f80fdc073edfb5400f489238457e",
+          "tileRecordOffset": 549
+        },
+        {
+          "index": 5,
+          "start": 1633,
+          "endExclusive": 1976,
+          "storedSha256": "bc3bfff7cc86abc292608dabc2ae93803671ef4b3ea4e7dc5a5befd7fd155fde",
+          "tileRecordOffset": 554
+        },
+        {
+          "index": 6,
+          "start": 1976,
+          "endExclusive": 2152,
+          "storedSha256": "6b38164d613bd31b01e74f2c26db4db0bec1167891f71d081d04e90a9aceacf5",
+          "tileRecordOffset": 559
+        },
+        {
+          "index": 7,
+          "start": 2152,
+          "endExclusive": 2187,
+          "storedSha256": "894b263d42a6a03dec8086ee02cdd74f1542b03d48e876286c936322fa3ae608",
+          "tileRecordOffset": 564
+        }
+      ]
+    },
+    {
+      "direction": 3,
+      "metadataIndex": 2,
+      "frameKey": "3225/91:1",
+      "productFrameKey": "91:1",
+      "ticks": 4,
+      "events": "<206",
+      "bounds": [
+        2,
+        -18,
+        49,
+        14
+      ],
+      "logicalAnchor": [
+        -2,
+        18
+      ],
+      "sourceRawSha256": "6428b98762e407ae2704b172c2421033dec752d945620ecde78f0b8a88825b9d",
+      "sourceRawBytes": 4567,
+      "sourceEntryBytes": 4567,
+      "sourceHeaderOffset": 569,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301470883,
+      "sourceEntryNumber": 42733,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-91.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 856,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 11340,
+      "canonicalFrameSha256": "d347bced99fa8d0826d5ee277a2cf8fd5e7ebac3f6953b4fd03f10c25bc67d8e",
+      "blockCount": 8,
+      "sourceBlocks": [
+        {
+          "index": 8,
+          "start": 2187,
+          "endExclusive": 2371,
+          "storedSha256": "283ca972b38b53d26a7d70e5311570f4aec9bea9763961f60328cb669cbfb652",
+          "tileRecordOffset": 583
+        },
+        {
+          "index": 9,
+          "start": 2371,
+          "endExclusive": 2477,
+          "storedSha256": "6299b508545d11fb19edb15a28688425f4fe2983365ec536b4ba2140a6a5e3e5",
+          "tileRecordOffset": 588
+        },
+        {
+          "index": 10,
+          "start": 2477,
+          "endExclusive": 2760,
+          "storedSha256": "5ebaed8ac6b1a7b91de7460f62a33aedcb53f35be3fac3ec7bdcae434180bfaf",
+          "tileRecordOffset": 593
+        },
+        {
+          "index": 11,
+          "start": 2760,
+          "endExclusive": 2769,
+          "storedSha256": "1ab2bc06197ce58c0bcc06a31a3ae9b6e0e240b44c7200d06cfe19029460056c",
+          "tileRecordOffset": 598
+        },
+        {
+          "index": 12,
+          "start": 2769,
+          "endExclusive": 2905,
+          "storedSha256": "a39fe2a3a2504f9a79638690c8c80f76fe181da92b2f4baa9fbe90580b9f42d6",
+          "tileRecordOffset": 603
+        },
+        {
+          "index": 13,
+          "start": 2905,
+          "endExclusive": 3088,
+          "storedSha256": "71c294b66afdbe846445497d14d80efbfb851fce6de6c4e6314e7f098e384f6e",
+          "tileRecordOffset": 608
+        },
+        {
+          "index": 14,
+          "start": 3088,
+          "endExclusive": 3364,
+          "storedSha256": "827ae4f84f6077a19e819942827e867211e23b5e79c6c3319759248b298e8136",
+          "tileRecordOffset": 613
+        },
+        {
+          "index": 15,
+          "start": 3364,
+          "endExclusive": 3372,
+          "storedSha256": "525140c7cffa84b297ece32e1daae2d03989b2af33b44b24ce736865cfa508dc",
+          "tileRecordOffset": 618
+        }
+      ]
+    },
+    {
+      "direction": 3,
+      "metadataIndex": 3,
+      "frameKey": "3225/91:2",
+      "productFrameKey": "91:2",
+      "ticks": 4,
+      "events": "",
+      "bounds": [
+        7,
+        -33,
+        42,
+        13
+      ],
+      "logicalAnchor": [
+        -7,
+        33
+      ],
+      "sourceRawSha256": "6428b98762e407ae2704b172c2421033dec752d945620ecde78f0b8a88825b9d",
+      "sourceRawBytes": 4567,
+      "sourceEntryBytes": 4567,
+      "sourceHeaderOffset": 623,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301470883,
+      "sourceEntryNumber": 42733,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-91.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 804,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 10467,
+      "canonicalFrameSha256": "e7e75c4f83b1b95a25b0ce0799b397112fd4389866909065a0b87c720d5ce4b6",
+      "blockCount": 9,
+      "sourceBlocks": [
+        {
+          "index": 16,
+          "start": 3372,
+          "endExclusive": 3497,
+          "storedSha256": "9dcfeeca157594dc05910d779c46b1808f37b80716dc194307ddd42e4548fa7c",
+          "tileRecordOffset": 637
+        },
+        {
+          "index": 17,
+          "start": 3497,
+          "endExclusive": 3587,
+          "storedSha256": "cd70f1000d2da50afe3b61e37fe8acf7684b2eeccddabd750a2b0fd754975bd6",
+          "tileRecordOffset": 642
+        },
+        {
+          "index": 18,
+          "start": 3587,
+          "endExclusive": 3733,
+          "storedSha256": "58676ad1718cc2f8e90dc4043fb2ccd07143645b0276ab9115425fe3466b84bd",
+          "tileRecordOffset": 647
+        },
+        {
+          "index": 19,
+          "start": 3733,
+          "endExclusive": 3835,
+          "storedSha256": "e3194433e300b043041b9e1b6d28c7f0eac1bcdd2d06c87df2a842b2d79a680c",
+          "tileRecordOffset": 652
+        },
+        {
+          "index": 20,
+          "start": 3835,
+          "endExclusive": 4036,
+          "storedSha256": "c138cb3d0bed52bebd694d9a936ee1bb1cb3b8be6973cfa63720c4aeda7cd071",
+          "tileRecordOffset": 657
+        },
+        {
+          "index": 21,
+          "start": 4036,
+          "endExclusive": 4332,
+          "storedSha256": "47e64f42508441e132880effc3b36766009d359eba63afbede417f406981f906",
+          "tileRecordOffset": 662
+        },
+        {
+          "index": 22,
+          "start": 4332,
+          "endExclusive": 4340,
+          "storedSha256": "899459212cdc786e915765c09f4a19fc1964fc0c0ebdebc5efe62d7a0e24315b",
+          "tileRecordOffset": 667
+        },
+        {
+          "index": 23,
+          "start": 4340,
+          "endExclusive": 4499,
+          "storedSha256": "e3a098977737a25d6d0626cf4ebca1b33d765510d777970bf8e61dc5818a90ad",
+          "tileRecordOffset": 672
+        },
+        {
+          "index": 24,
+          "start": 4499,
+          "endExclusive": 4567,
+          "storedSha256": "824620140dedc7967a6b5e14ede7b6736e9e75786c08b937d3d2cf583b0a8223",
+          "tileRecordOffset": 677
+        }
+      ]
+    },
+    {
+      "direction": 4,
+      "metadataIndex": 0,
+      "frameKey": "3225/4:0",
+      "productFrameKey": "4:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        9,
+        -39,
+        35,
+        16
+      ],
+      "logicalAnchor": [
+        -9,
+        39
+      ],
+      "sourceRawSha256": "dad0417ac727d179022a3d39039cc8eb4107072e0479c004045d97842dc192da",
+      "sourceRawBytes": 5313,
+      "sourceEntryBytes": 5313,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "historical-selected-payload-matched",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 302105358,
+      "sourceEntryNumber": 42676,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-4.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 696,
+      "delivery": "reuse existing loaded frame; zero additional pixel bytes",
+      "existingProfile": "objects/0.json",
+      "existingProfileSha256": "27ab41e8a398eb180ce957d9215b2c9b5cf6bf5343b32f6c101757b8882efdf8",
+      "existingFrameCanonicalBytes": 9689,
+      "existingFrameCanonicalSha256": "8b1bb3e34442726601983b1fb60bf0f5415e5112f70fdf752b289bf9c103ce7f",
+      "proposedAdditionalBytes": 0
+    },
+    {
+      "direction": 4,
+      "metadataIndex": 1,
+      "frameKey": "3225/92:0",
+      "productFrameKey": "92:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        8,
+        -22,
+        42,
+        17
+      ],
+      "logicalAnchor": [
+        -8,
+        22
+      ],
+      "sourceRawSha256": "2d2d2f4da44bbd3ab035df21adc6cb7a9aeffea62a071b393cac7765cff5e9e2",
+      "sourceRawBytes": 4049,
+      "sourceEntryBytes": 4049,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301466834,
+      "sourceEntryNumber": 42734,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-92.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 790,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 10288,
+      "canonicalFrameSha256": "03a45f12273209f41473545b21de532712ac9424cb6690edd8adb444d66b4e51",
+      "blockCount": 7,
+      "sourceBlocks": [
+        {
+          "index": 0,
+          "start": 763,
+          "endExclusive": 874,
+          "storedSha256": "ed2fc84050f2802ba846dd6042e6c225943d7c18fbd90ebde7333e8bc7b21417",
+          "tileRecordOffset": 529
+        },
+        {
+          "index": 1,
+          "start": 874,
+          "endExclusive": 1125,
+          "storedSha256": "0d802525c915ebf72c9918f5888a7dc67227caedb885354f542c54a3e8d38fcd",
+          "tileRecordOffset": 534
+        },
+        {
+          "index": 2,
+          "start": 1125,
+          "endExclusive": 1445,
+          "storedSha256": "308d16489b46da24a26490c986eb740386eae95bca78c31b656d143f00b626b4",
+          "tileRecordOffset": 539
+        },
+        {
+          "index": 3,
+          "start": 1445,
+          "endExclusive": 1475,
+          "storedSha256": "26f60ea0ba6038f8853aae659e414e3c22a9f1aa3eef349c7f41f968ddf797ee",
+          "tileRecordOffset": 544
+        },
+        {
+          "index": 4,
+          "start": 1475,
+          "endExclusive": 1579,
+          "storedSha256": "6c28efb36995c8d239cb52e907c6b9d34a13b6e4b0d51b66e97c80d6cf346eae",
+          "tileRecordOffset": 549
+        },
+        {
+          "index": 5,
+          "start": 1579,
+          "endExclusive": 1746,
+          "storedSha256": "e16d92d9c865124796bb32e6caf85c6fd1e7d3fc36fc607e6904970f2ee753e3",
+          "tileRecordOffset": 554
+        },
+        {
+          "index": 6,
+          "start": 1746,
+          "endExclusive": 1902,
+          "storedSha256": "aadcba73847af545605cdd3ebca80435950a5765d3bfb60f87a53c005a84fadc",
+          "tileRecordOffset": 559
+        }
+      ]
+    },
+    {
+      "direction": 4,
+      "metadataIndex": 2,
+      "frameKey": "3225/92:1",
+      "productFrameKey": "92:1",
+      "ticks": 4,
+      "events": "<206",
+      "bounds": [
+        2,
+        -14,
+        43,
+        20
+      ],
+      "logicalAnchor": [
+        -2,
+        14
+      ],
+      "sourceRawSha256": "2d2d2f4da44bbd3ab035df21adc6cb7a9aeffea62a071b393cac7765cff5e9e2",
+      "sourceRawBytes": 4049,
+      "sourceEntryBytes": 4049,
+      "sourceHeaderOffset": 564,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301466834,
+      "sourceEntryNumber": 42734,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-92.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 758,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 9963,
+      "canonicalFrameSha256": "d8ef9de832abfed73655a8e679759dad07b076ffc2d4ad5c574b9ef56a871c56",
+      "blockCount": 7,
+      "sourceBlocks": [
+        {
+          "index": 7,
+          "start": 1902,
+          "endExclusive": 2073,
+          "storedSha256": "cba10bff49717a88695c21c2972b492394cc98ef081cf22e0ec5062a0096c510",
+          "tileRecordOffset": 578
+        },
+        {
+          "index": 8,
+          "start": 2073,
+          "endExclusive": 2238,
+          "storedSha256": "c3ee715d1f0bcc8a1733a67edbebd808c59b7a5b140ec47c9d6a5c570f93c7b7",
+          "tileRecordOffset": 583
+        },
+        {
+          "index": 9,
+          "start": 2238,
+          "endExclusive": 2415,
+          "storedSha256": "9bd3e15c83c08516c99a8fd780c44caa7ccb015c85b23e849aa96d9055715a94",
+          "tileRecordOffset": 588
+        },
+        {
+          "index": 10,
+          "start": 2415,
+          "endExclusive": 2534,
+          "storedSha256": "44bb91994b32060348526f157fd76dc8837168cc79a70cb0780d5a2f525d8b2b",
+          "tileRecordOffset": 593
+        },
+        {
+          "index": 11,
+          "start": 2534,
+          "endExclusive": 2770,
+          "storedSha256": "48339e3ce23c89b4cc53aede096c7602157a4a4730878bb9fcf24ec248471be9",
+          "tileRecordOffset": 598
+        },
+        {
+          "index": 12,
+          "start": 2770,
+          "endExclusive": 2966,
+          "storedSha256": "cc4747b780c100d3092abe1b6a993a9adc8336ca4e0a5a5e8653f880d77fce2b",
+          "tileRecordOffset": 603
+        },
+        {
+          "index": 13,
+          "start": 2966,
+          "endExclusive": 2979,
+          "storedSha256": "60627e1f6457d50a95900344c0f0fd594585d8d52dd69ab5978939e4a7d8f6ef",
+          "tileRecordOffset": 608
+        }
+      ]
+    },
+    {
+      "direction": 4,
+      "metadataIndex": 3,
+      "frameKey": "3225/92:2",
+      "productFrameKey": "92:2",
+      "ticks": 4,
+      "events": "",
+      "bounds": [
+        9,
+        -28,
+        38,
+        17
+      ],
+      "logicalAnchor": [
+        -9,
+        28
+      ],
+      "sourceRawSha256": "2d2d2f4da44bbd3ab035df21adc6cb7a9aeffea62a071b393cac7765cff5e9e2",
+      "sourceRawBytes": 4049,
+      "sourceEntryBytes": 4049,
+      "sourceHeaderOffset": 613,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301466834,
+      "sourceEntryNumber": 42734,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-92.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 691,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 8959,
+      "canonicalFrameSha256": "09c9d8f4c64798a4b0c0e3f645cb2a052b78acf6cf7c61ec233a5b377fc3cd27",
+      "blockCount": 8,
+      "sourceBlocks": [
+        {
+          "index": 14,
+          "start": 2979,
+          "endExclusive": 2992,
+          "storedSha256": "c1e411c2332f5b303160bb15fbfa0e3c33d245c9b40923404c0e67cd08329467",
+          "tileRecordOffset": 627
+        },
+        {
+          "index": 15,
+          "start": 2992,
+          "endExclusive": 3106,
+          "storedSha256": "e9b4099a5299761924cf9a30c8892d0ee7ed91dcd999725fe6161b6598ba21fe",
+          "tileRecordOffset": 632
+        },
+        {
+          "index": 16,
+          "start": 3106,
+          "endExclusive": 3326,
+          "storedSha256": "3380a2f1ce12b837f27f2e0be8995ebe3a45cf36af2e32f5e6bf022a33999839",
+          "tileRecordOffset": 637
+        },
+        {
+          "index": 17,
+          "start": 3326,
+          "endExclusive": 3630,
+          "storedSha256": "9f357c1b1f24f70580f33f43b68435db4c2a19c2084aa713a3b5f85250514eb3",
+          "tileRecordOffset": 642
+        },
+        {
+          "index": 18,
+          "start": 3630,
+          "endExclusive": 3738,
+          "storedSha256": "1185427f70463438df23098a473834376c9f24fd818efd049032ce100f9fa0b2",
+          "tileRecordOffset": 647
+        },
+        {
+          "index": 19,
+          "start": 3738,
+          "endExclusive": 3829,
+          "storedSha256": "4a7d69b34d598a5ac5c1a5e3a6cbbed6f51d0323599c5d33fb07f744406b3575",
+          "tileRecordOffset": 652
+        },
+        {
+          "index": 20,
+          "start": 3829,
+          "endExclusive": 3959,
+          "storedSha256": "e540b758c864a543f4500ee099f5437a443fbd7fc128bb8ff53aaf59ddf3f78c",
+          "tileRecordOffset": 657
+        },
+        {
+          "index": 21,
+          "start": 3959,
+          "endExclusive": 4049,
+          "storedSha256": "4ae7bee88e61dfe172790657552197778f3d17dcb1f2019ad20d337e1c886e1b",
+          "tileRecordOffset": 662
+        }
+      ]
+    },
+    {
+      "direction": 5,
+      "metadataIndex": 0,
+      "frameKey": "3225/5:0",
+      "productFrameKey": "5:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        14,
+        -40,
+        33,
+        18
+      ],
+      "logicalAnchor": [
+        -14,
+        40
+      ],
+      "sourceRawSha256": "50821ebd8b05891703a9844982b3e3f6a6cc989dff1c02f7c417ea959eeab565",
+      "sourceRawBytes": 5672,
+      "sourceEntryBytes": 5672,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "historical-selected-payload-matched",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301979521,
+      "sourceEntryNumber": 42687,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-5.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 698,
+      "delivery": "reuse existing loaded frame; zero additional pixel bytes",
+      "existingProfile": "objects/0.json",
+      "existingProfileSha256": "27ab41e8a398eb180ce957d9215b2c9b5cf6bf5343b32f6c101757b8882efdf8",
+      "existingFrameCanonicalBytes": 9711,
+      "existingFrameCanonicalSha256": "f1c2d61e99490833b49f0cd3dd7080dd06f9c18778ebcbc1d72ac24ccfc38015",
+      "proposedAdditionalBytes": 0
+    },
+    {
+      "direction": 5,
+      "metadataIndex": 1,
+      "frameKey": "3225/93:0",
+      "productFrameKey": "93:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        14,
+        -23,
+        33,
+        19
+      ],
+      "logicalAnchor": [
+        -14,
+        23
+      ],
+      "sourceRawSha256": "08a1af48b6e29acf0529cb8e69deba545efdb3b16c6225c3460e3d5b754214c4",
+      "sourceRawBytes": 3227,
+      "sourceEntryBytes": 3227,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301463607,
+      "sourceEntryNumber": 42735,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-93.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 498,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 6592,
+      "canonicalFrameSha256": "22c3c5873db8fcd912acf40ccad0020e13f574dfbfa3cce4c88d37e6accc77ec",
+      "blockCount": 6,
+      "sourceBlocks": [
+        {
+          "index": 0,
+          "start": 763,
+          "endExclusive": 830,
+          "storedSha256": "88cd3e8b44c5515001b26cee709e0ebfbb6d5719c0a9b94339b0d52c19a6e5ed",
+          "tileRecordOffset": 529
+        },
+        {
+          "index": 1,
+          "start": 830,
+          "endExclusive": 1068,
+          "storedSha256": "32817afa97d7f3845b1ac56d6a858804b080acc06c72c2001e351250aaccd3c2",
+          "tileRecordOffset": 534
+        },
+        {
+          "index": 2,
+          "start": 1068,
+          "endExclusive": 1281,
+          "storedSha256": "cefd51f36c084b2579886a424b07913042e6bd973bbeb538c25ac8dc1099d0ec",
+          "tileRecordOffset": 539
+        },
+        {
+          "index": 3,
+          "start": 1281,
+          "endExclusive": 1383,
+          "storedSha256": "f8c185d7a6478e2c9d1fcf408b87a4995e36757a4d4244563b06030975631e01",
+          "tileRecordOffset": 544
+        },
+        {
+          "index": 4,
+          "start": 1383,
+          "endExclusive": 1515,
+          "storedSha256": "f3e27917a822016dc264577b507d4f822a7702266cd97f05f217030b4f01c796",
+          "tileRecordOffset": 549
+        },
+        {
+          "index": 5,
+          "start": 1515,
+          "endExclusive": 1542,
+          "storedSha256": "1a496e66ab9c6ae61bdaa6610616bb3903c0023b2f5ce45d026253fbc46db3be",
+          "tileRecordOffset": 554
+        }
+      ]
+    },
+    {
+      "direction": 5,
+      "metadataIndex": 2,
+      "frameKey": "3225/93:1",
+      "productFrameKey": "93:1",
+      "ticks": 4,
+      "events": "<206",
+      "bounds": [
+        14,
+        -18,
+        34,
+        19
+      ],
+      "logicalAnchor": [
+        -14,
+        18
+      ],
+      "sourceRawSha256": "08a1af48b6e29acf0529cb8e69deba545efdb3b16c6225c3460e3d5b754214c4",
+      "sourceRawBytes": 3227,
+      "sourceEntryBytes": 3227,
+      "sourceHeaderOffset": 559,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301463607,
+      "sourceEntryNumber": 42735,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-93.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 496,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 6629,
+      "canonicalFrameSha256": "ec255ce1189afcd5c89e60a77d88bbc2213dfe46926365263e4052d404065c84",
+      "blockCount": 6,
+      "sourceBlocks": [
+        {
+          "index": 6,
+          "start": 1542,
+          "endExclusive": 1719,
+          "storedSha256": "63713a77e16a243ff0f2e7a5a5704907c61f65444523171b43ce78dc50c14645",
+          "tileRecordOffset": 573
+        },
+        {
+          "index": 7,
+          "start": 1719,
+          "endExclusive": 1865,
+          "storedSha256": "d0fd3c6990dde30cf97ddf5f2e70a206f810419505a9200c5cf108ffea390285",
+          "tileRecordOffset": 578
+        },
+        {
+          "index": 8,
+          "start": 1865,
+          "endExclusive": 1914,
+          "storedSha256": "8aa0248e76d850b2da798bdfadc4f8a58dc88e9c492dcdb422500325284337eb",
+          "tileRecordOffset": 583
+        },
+        {
+          "index": 9,
+          "start": 1914,
+          "endExclusive": 1986,
+          "storedSha256": "1720663d55a120cb15f6eb8cd0902994804538ab192595c49671ad12b8f3a82f",
+          "tileRecordOffset": 588
+        },
+        {
+          "index": 10,
+          "start": 1986,
+          "endExclusive": 2175,
+          "storedSha256": "5949b1e5f1c6208a7eaf2d8b37aa220d1a01f74ba6d7b43164f754c99ea58c50",
+          "tileRecordOffset": 593
+        },
+        {
+          "index": 11,
+          "start": 2175,
+          "endExclusive": 2321,
+          "storedSha256": "c21001a03adb76fdda3e3af4ec52ce8864d9ae8b7b34761f39ec575977f29286",
+          "tileRecordOffset": 598
+        }
+      ]
+    },
+    {
+      "direction": 5,
+      "metadataIndex": 3,
+      "frameKey": "3225/93:2",
+      "productFrameKey": "93:2",
+      "ticks": 4,
+      "events": "",
+      "bounds": [
+        14,
+        -28,
+        35,
+        19
+      ],
+      "logicalAnchor": [
+        -14,
+        28
+      ],
+      "sourceRawSha256": "08a1af48b6e29acf0529cb8e69deba545efdb3b16c6225c3460e3d5b754214c4",
+      "sourceRawBytes": 3227,
+      "sourceEntryBytes": 3227,
+      "sourceHeaderOffset": 603,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301463607,
+      "sourceEntryNumber": 42735,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-93.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 556,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 7474,
+      "canonicalFrameSha256": "639b4758145ebc0f4974d823217bf9caf7f417349e0e407293065bc379328a93",
+      "blockCount": 10,
+      "sourceBlocks": [
+        {
+          "index": 12,
+          "start": 2321,
+          "endExclusive": 2367,
+          "storedSha256": "81a5d520b9cb55f5ecdea5606e053a91744b3ff2a04222bb68ec64377af4bb77",
+          "tileRecordOffset": 617
+        },
+        {
+          "index": 13,
+          "start": 2367,
+          "endExclusive": 2385,
+          "storedSha256": "db8fc38cfe364a432878f35c5147c97efa25afacba58d2b7c4a3d97c69c7e1be",
+          "tileRecordOffset": 622
+        },
+        {
+          "index": 14,
+          "start": 2385,
+          "endExclusive": 2401,
+          "storedSha256": "215604e9c86093c582025ef9df862e8a872d3b38927c36d0fb3ee700eef04459",
+          "tileRecordOffset": 627
+        },
+        {
+          "index": 15,
+          "start": 2401,
+          "endExclusive": 2449,
+          "storedSha256": "27d544247a21721c4e8a5fd5c451fc6c3cc897ebf16ed9e34052e26491b9ab84",
+          "tileRecordOffset": 632
+        },
+        {
+          "index": 16,
+          "start": 2449,
+          "endExclusive": 2698,
+          "storedSha256": "558fec42eac2c9429786376809a33df85fea96de544cfac286415a411fb140f1",
+          "tileRecordOffset": 637
+        },
+        {
+          "index": 17,
+          "start": 2698,
+          "endExclusive": 2955,
+          "storedSha256": "5101f83ba5d57e86d9c45195bce3bd7663c241df81e573eb6698f3b3512c7146",
+          "tileRecordOffset": 642
+        },
+        {
+          "index": 18,
+          "start": 2955,
+          "endExclusive": 3005,
+          "storedSha256": "c66714aeeec24d90162f4458e9396c1a1107906a5af3d00c258b32ed86eb1371",
+          "tileRecordOffset": 647
+        },
+        {
+          "index": 19,
+          "start": 3005,
+          "endExclusive": 3063,
+          "storedSha256": "5c871eb0c68e91997d63f04d3124bd423191fbc4c4e0128a19aefc8a16a50056",
+          "tileRecordOffset": 652
+        },
+        {
+          "index": 20,
+          "start": 3063,
+          "endExclusive": 3191,
+          "storedSha256": "c7d2c5d6f62ac9abbe3ad53f40c350323b86649e66bb19c1ef05908af2357e3c",
+          "tileRecordOffset": 657
+        },
+        {
+          "index": 21,
+          "start": 3191,
+          "endExclusive": 3227,
+          "storedSha256": "c3d336e454e4310db6a8313135dace49ff5ca3cfce747908edacbb51142b9f1f",
+          "tileRecordOffset": 662
+        }
+      ]
+    },
+    {
+      "direction": 6,
+      "metadataIndex": 0,
+      "frameKey": "3225/6:0",
+      "productFrameKey": "6:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        10,
+        -40,
+        35,
+        17
+      ],
+      "logicalAnchor": [
+        -10,
+        40
+      ],
+      "sourceRawSha256": "825a29af39a5d551d3758817a908e55d124840851dbb578c088b6b761f85c838",
+      "sourceRawBytes": 5285,
+      "sourceEntryBytes": 5285,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "historical-selected-payload-matched",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301869926,
+      "sourceEntryNumber": 42698,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-6.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 702,
+      "delivery": "reuse existing loaded frame; zero additional pixel bytes",
+      "existingProfile": "objects/0.json",
+      "existingProfileSha256": "27ab41e8a398eb180ce957d9215b2c9b5cf6bf5343b32f6c101757b8882efdf8",
+      "existingFrameCanonicalBytes": 9703,
+      "existingFrameCanonicalSha256": "1c64ddb2098f1cec8cb1c9517f4a6cd38a6edf829b73e526256e76b77ebd7ce9",
+      "proposedAdditionalBytes": 0
+    },
+    {
+      "direction": 6,
+      "metadataIndex": 1,
+      "frameKey": "3225/94:0",
+      "productFrameKey": "94:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        4,
+        -22,
+        35,
+        18
+      ],
+      "logicalAnchor": [
+        -4,
+        22
+      ],
+      "sourceRawSha256": "0a619187df5fec11261db2a582eee6b6632da4836157dd94ebce62c4a05c6885",
+      "sourceRawBytes": 3903,
+      "sourceEntryBytes": 3903,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301459704,
+      "sourceEntryNumber": 42736,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-94.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 721,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 9324,
+      "canonicalFrameSha256": "d6015f332cf8f97b72d72c8605cec0a62aa00ddb29430a28ca6c3b221dbd342d",
+      "blockCount": 7,
+      "sourceBlocks": [
+        {
+          "index": 0,
+          "start": 763,
+          "endExclusive": 797,
+          "storedSha256": "785c793ad52b96890376145e21245713bdf2facf9f7ad368cc86258c4be89eef",
+          "tileRecordOffset": 529
+        },
+        {
+          "index": 1,
+          "start": 797,
+          "endExclusive": 1004,
+          "storedSha256": "8cfcf9032faee07e516b0e4f6ac764c9a35ee5fd3b2668d48ab92ec9f276d7f4",
+          "tileRecordOffset": 534
+        },
+        {
+          "index": 2,
+          "start": 1004,
+          "endExclusive": 1331,
+          "storedSha256": "b09edf02b62f93e95d9dd2939e53376d8755ca5b8e5a5543bef86f30c056d40f",
+          "tileRecordOffset": 539
+        },
+        {
+          "index": 3,
+          "start": 1331,
+          "endExclusive": 1571,
+          "storedSha256": "07c04e93921fa96f3e598ad52c946d8f24fa9a5d8c2ed33682d0c6ffc7466481",
+          "tileRecordOffset": 544
+        },
+        {
+          "index": 4,
+          "start": 1571,
+          "endExclusive": 1723,
+          "storedSha256": "24b1372f725ef9276002b002a9aa659fadbfc98d48a5a64ea68bd3212d8e3ff3",
+          "tileRecordOffset": 549
+        },
+        {
+          "index": 5,
+          "start": 1723,
+          "endExclusive": 1798,
+          "storedSha256": "e174c47ca8e470d37c93ee766d95212458b1a7cb5c4713a63716454cc4f0974b",
+          "tileRecordOffset": 554
+        },
+        {
+          "index": 6,
+          "start": 1798,
+          "endExclusive": 1842,
+          "storedSha256": "1b4b7ae9f731d99d7714d941326979fec04d75148869bd1f7b061544e78e3fe4",
+          "tileRecordOffset": 559
+        }
+      ]
+    },
+    {
+      "direction": 6,
+      "metadataIndex": 2,
+      "frameKey": "3225/94:1",
+      "productFrameKey": "94:1",
+      "ticks": 4,
+      "events": "<206",
+      "bounds": [
+        5,
+        -18,
+        41,
+        17
+      ],
+      "logicalAnchor": [
+        -5,
+        18
+      ],
+      "sourceRawSha256": "0a619187df5fec11261db2a582eee6b6632da4836157dd94ebce62c4a05c6885",
+      "sourceRawBytes": 3903,
+      "sourceEntryBytes": 3903,
+      "sourceHeaderOffset": 564,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301459704,
+      "sourceEntryNumber": 42736,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-94.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 711,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 9342,
+      "canonicalFrameSha256": "9a75fec6a36fb9cb956db760ef842e430ba5b614c7ec349bf08cf236205ebc4c",
+      "blockCount": 7,
+      "sourceBlocks": [
+        {
+          "index": 7,
+          "start": 1842,
+          "endExclusive": 2077,
+          "storedSha256": "4bed016565a49b5a76ead001f7f845cd74f22bebd8c3219274f8d366bab89505",
+          "tileRecordOffset": 578
+        },
+        {
+          "index": 8,
+          "start": 2077,
+          "endExclusive": 2150,
+          "storedSha256": "b520ff7bea5d75c753cf5ff08ae083756e13ae30afd997361706f1b4c51d48cb",
+          "tileRecordOffset": 583
+        },
+        {
+          "index": 9,
+          "start": 2150,
+          "endExclusive": 2158,
+          "storedSha256": "3a35dead5b38177ae9271fd49541d211f90b9dd40d6e0553b3b724776ccbd664",
+          "tileRecordOffset": 588
+        },
+        {
+          "index": 10,
+          "start": 2158,
+          "endExclusive": 2360,
+          "storedSha256": "30163fb17ef00deeda7e343537f134bf2c0503b8d98e2a83c868754bfddc22e4",
+          "tileRecordOffset": 593
+        },
+        {
+          "index": 11,
+          "start": 2360,
+          "endExclusive": 2481,
+          "storedSha256": "dd74f5d8537ee4857a4aacd87444c89dffe136adeea10c23f73f9a086093adff",
+          "tileRecordOffset": 598
+        },
+        {
+          "index": 12,
+          "start": 2481,
+          "endExclusive": 2638,
+          "storedSha256": "bfc53b86f9d722f9fe24120faed0de6fb36cddb9adfab7d4248522ba389720d9",
+          "tileRecordOffset": 603
+        },
+        {
+          "index": 13,
+          "start": 2638,
+          "endExclusive": 2858,
+          "storedSha256": "ae280bc87d669fe72cd1dad0a4be91d3cee3ce1d53be25888f2224146a54b129",
+          "tileRecordOffset": 608
+        }
+      ]
+    },
+    {
+      "direction": 6,
+      "metadataIndex": 3,
+      "frameKey": "3225/94:2",
+      "productFrameKey": "94:2",
+      "ticks": 4,
+      "events": "",
+      "bounds": [
+        9,
+        -28,
+        40,
+        18
+      ],
+      "logicalAnchor": [
+        -9,
+        28
+      ],
+      "sourceRawSha256": "0a619187df5fec11261db2a582eee6b6632da4836157dd94ebce62c4a05c6885",
+      "sourceRawBytes": 3903,
+      "sourceEntryBytes": 3903,
+      "sourceHeaderOffset": 613,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301459704,
+      "sourceEntryNumber": 42736,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-94.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 645,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 8511,
+      "canonicalFrameSha256": "21df2d907e60ba28d9985c6dc9396c76baecb415021469c58bc81e28808a5415",
+      "blockCount": 8,
+      "sourceBlocks": [
+        {
+          "index": 14,
+          "start": 2858,
+          "endExclusive": 2984,
+          "storedSha256": "2c1b9f6696086cef2534530d9658e61ffe47bae3e0b3dd8a5524562ecae6e3df",
+          "tileRecordOffset": 627
+        },
+        {
+          "index": 15,
+          "start": 2984,
+          "endExclusive": 3002,
+          "storedSha256": "c13074993253c59f6877f81b278f24c02edf169765e73765ce144e4d2c1ca4e1",
+          "tileRecordOffset": 632
+        },
+        {
+          "index": 16,
+          "start": 3002,
+          "endExclusive": 3084,
+          "storedSha256": "6307becea3be106b4c687d6d919f4c35abad7dee6abebf3409de917d62f5c07a",
+          "tileRecordOffset": 637
+        },
+        {
+          "index": 17,
+          "start": 3084,
+          "endExclusive": 3380,
+          "storedSha256": "1c55d9c458fdb91a9de3e33d87155fed61ab1e9b4b47b5252ad45e9ccd39f79a",
+          "tileRecordOffset": 642
+        },
+        {
+          "index": 18,
+          "start": 3380,
+          "endExclusive": 3600,
+          "storedSha256": "aaf18c732e615cf68469e42087d9bbb8969dfc90b0134937036619f9ca9e277f",
+          "tileRecordOffset": 647
+        },
+        {
+          "index": 19,
+          "start": 3600,
+          "endExclusive": 3731,
+          "storedSha256": "cdee8ec2f356742c09074e8e14d2b4825667f89eb21eefd9d26e2a04cd079a8b",
+          "tileRecordOffset": 652
+        },
+        {
+          "index": 20,
+          "start": 3731,
+          "endExclusive": 3799,
+          "storedSha256": "8094d292379bf1bacd621d45d85beb17341c9c2ad1ed789b019472744a37d8a9",
+          "tileRecordOffset": 657
+        },
+        {
+          "index": 21,
+          "start": 3799,
+          "endExclusive": 3903,
+          "storedSha256": "e45aa56775e0591c67f2db55415212aecc620a45fb6690be9ffc3db3038216f8",
+          "tileRecordOffset": 662
+        }
+      ]
+    },
+    {
+      "direction": 7,
+      "metadataIndex": 0,
+      "frameKey": "3225/7:0",
+      "productFrameKey": "7:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        10,
+        -40,
+        38,
+        14
+      ],
+      "logicalAnchor": [
+        -10,
+        40
+      ],
+      "sourceRawSha256": "c777fc31957de7f456b98850624367c27b7d055037bf587dad37750f3a546b91",
+      "sourceRawBytes": 5092,
+      "sourceEntryBytes": 5092,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "historical-selected-payload-matched",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301742262,
+      "sourceEntryNumber": 42709,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-7.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 712,
+      "delivery": "reuse existing loaded frame; zero additional pixel bytes",
+      "existingProfile": "objects/0.json",
+      "existingProfileSha256": "27ab41e8a398eb180ce957d9215b2c9b5cf6bf5343b32f6c101757b8882efdf8",
+      "existingFrameCanonicalBytes": 9783,
+      "existingFrameCanonicalSha256": "1f6b4661f0de974a7e93f8f0cbe0e93bdf644e4ae71f4e1cd38d648b4a8907f5",
+      "proposedAdditionalBytes": 0
+    },
+    {
+      "direction": 7,
+      "metadataIndex": 1,
+      "frameKey": "3225/95:0",
+      "productFrameKey": "95:0",
+      "ticks": 1,
+      "events": "",
+      "bounds": [
+        -2,
+        -27,
+        36,
+        14
+      ],
+      "logicalAnchor": [
+        2,
+        27
+      ],
+      "sourceRawSha256": "be83e7f0986c78eb02f0a6c406c1a739db79126e6d6081f5c31304b3a05e2987",
+      "sourceRawBytes": 4468,
+      "sourceEntryBytes": 4468,
+      "sourceHeaderOffset": 515,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301455236,
+      "sourceEntryNumber": 42737,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-95.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 837,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 10845,
+      "canonicalFrameSha256": "277c6d263b8410adc2e0866197ae31e68098412ae681c61399bb94d4e8c90afa",
+      "blockCount": 8,
+      "sourceBlocks": [
+        {
+          "index": 0,
+          "start": 781,
+          "endExclusive": 906,
+          "storedSha256": "41cb2773fcd81a426b31bf21eeb39f8c4b4343921b5c77c4cd06a1c1bc3f7d6e",
+          "tileRecordOffset": 529
+        },
+        {
+          "index": 1,
+          "start": 906,
+          "endExclusive": 1015,
+          "storedSha256": "981e61e04f16ceeb1a432d6bbb1079f00689cb5de203aca3af02859bcd37e261",
+          "tileRecordOffset": 534
+        },
+        {
+          "index": 2,
+          "start": 1015,
+          "endExclusive": 1216,
+          "storedSha256": "897ab23e7efe695d1cb1a5b29db8824baa49bc12d67f3ada278330895fad1d20",
+          "tileRecordOffset": 539
+        },
+        {
+          "index": 3,
+          "start": 1216,
+          "endExclusive": 1294,
+          "storedSha256": "ffc559cac501c55e5079b8f721282551acd54681edcb02afc6ac179cc1276e10",
+          "tileRecordOffset": 544
+        },
+        {
+          "index": 4,
+          "start": 1294,
+          "endExclusive": 1618,
+          "storedSha256": "7eccbd542c4448f91294ac422db9d4d0fa61b0fb8914a41df3d0131e4d11b376",
+          "tileRecordOffset": 549
+        },
+        {
+          "index": 5,
+          "start": 1618,
+          "endExclusive": 1847,
+          "storedSha256": "9ff97a65ab8014f8078e8908745e0b1de68e9dfd413d3f23b43e10de046602ac",
+          "tileRecordOffset": 554
+        },
+        {
+          "index": 6,
+          "start": 1847,
+          "endExclusive": 2003,
+          "storedSha256": "b70accbfbc290d51a7751221b767a72f105bf623b32cf2d8a52df9fe15f19473",
+          "tileRecordOffset": 559
+        },
+        {
+          "index": 7,
+          "start": 2003,
+          "endExclusive": 2041,
+          "storedSha256": "9d8c7b7bcfb411d4522ae17fcdc07ffdd38e07fa6c570bb0021407c0639eaffa",
+          "tileRecordOffset": 564
+        }
+      ]
+    },
+    {
+      "direction": 7,
+      "metadataIndex": 2,
+      "frameKey": "3225/95:1",
+      "productFrameKey": "95:1",
+      "ticks": 4,
+      "events": "<206",
+      "bounds": [
+        -1,
+        -16,
+        45,
+        14
+      ],
+      "logicalAnchor": [
+        1,
+        16
+      ],
+      "sourceRawSha256": "be83e7f0986c78eb02f0a6c406c1a739db79126e6d6081f5c31304b3a05e2987",
+      "sourceRawBytes": 4468,
+      "sourceEntryBytes": 4468,
+      "sourceHeaderOffset": 569,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301455236,
+      "sourceEntryNumber": 42737,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-95.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 881,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 11555,
+      "canonicalFrameSha256": "53c25e448601de8c93803e4586b83408c617a86239f70e6e7f0cd35bcb171803",
+      "blockCount": 7,
+      "sourceBlocks": [
+        {
+          "index": 8,
+          "start": 2041,
+          "endExclusive": 2210,
+          "storedSha256": "5cfc80f19f803f33a80f80ced1b18151e5ae3475e620272ae5d333416a3c1a42",
+          "tileRecordOffset": 583
+        },
+        {
+          "index": 9,
+          "start": 2210,
+          "endExclusive": 2337,
+          "storedSha256": "92f32968150ab937aa2133fd351fd779250d7096a3c588c5fd8690e125541aee",
+          "tileRecordOffset": 588
+        },
+        {
+          "index": 10,
+          "start": 2337,
+          "endExclusive": 2633,
+          "storedSha256": "9bf6a43195ef37fa5f0dda91beb6afb449981812ab9dc18ec0005153da3ac5b6",
+          "tileRecordOffset": 593
+        },
+        {
+          "index": 11,
+          "start": 2633,
+          "endExclusive": 2866,
+          "storedSha256": "a29104ff18739b4d41e7c85f71b72603358e2fba0ca33d401b48f1f5eebeb7c5",
+          "tileRecordOffset": 598
+        },
+        {
+          "index": 12,
+          "start": 2866,
+          "endExclusive": 3110,
+          "storedSha256": "45788dcfa7d5511514c84815b37b6d873d1f40eb928d910b8d901c7f1a5e87a0",
+          "tileRecordOffset": 603
+        },
+        {
+          "index": 13,
+          "start": 3110,
+          "endExclusive": 3233,
+          "storedSha256": "9e2cc241053ddba206e50cdb12bd4a1059fcdb833993a4cb494679431d3e2152",
+          "tileRecordOffset": 608
+        },
+        {
+          "index": 14,
+          "start": 3233,
+          "endExclusive": 3261,
+          "storedSha256": "5e72537dbe1d134af017bf16dbb41704472940f979a7d37c7d91d51b6539cef0",
+          "tileRecordOffset": 613
+        }
+      ]
+    },
+    {
+      "direction": 7,
+      "metadataIndex": 3,
+      "frameKey": "3225/95:2",
+      "productFrameKey": "95:2",
+      "ticks": 4,
+      "events": "",
+      "bounds": [
+        4,
+        -34,
+        40,
+        14
+      ],
+      "logicalAnchor": [
+        -4,
+        34
+      ],
+      "sourceRawSha256": "be83e7f0986c78eb02f0a6c406c1a739db79126e6d6081f5c31304b3a05e2987",
+      "sourceRawBytes": 4468,
+      "sourceEntryBytes": 4468,
+      "sourceHeaderOffset": 618,
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only",
+      "sourceIdx": "Sprite.idx",
+      "sourcePak": "Sprite.pak",
+      "sourceEntryOffset": 301455236,
+      "sourceEntryNumber": 42737,
+      "sourceBlockMap": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-95.json",
+      "sourceEvidenceFrameIndex": "frame-map.json",
+      "opaquePixels": 795,
+      "delivery": "embed new exact body frame from accepted JSON",
+      "canonicalFrameBytes": 10570,
+      "canonicalFrameSha256": "a6d984fba0b6477df63ea5481c5a5b1843278d31a61e3d41b354a4ac7d5a9b44",
+      "blockCount": 9,
+      "sourceBlocks": [
+        {
+          "index": 15,
+          "start": 3261,
+          "endExclusive": 3365,
+          "storedSha256": "1e7b5db32c0015251278833ea34f17feaecdc3fbf18bd1b0cb26bd887bc25740",
+          "tileRecordOffset": 632
+        },
+        {
+          "index": 16,
+          "start": 3365,
+          "endExclusive": 3469,
+          "storedSha256": "a1e4966e7754483474ee12e898dc22d7e55c48c4497c637cdeb707b1a014f951",
+          "tileRecordOffset": 637
+        },
+        {
+          "index": 17,
+          "start": 3469,
+          "endExclusive": 3574,
+          "storedSha256": "c85cfdb19fb3182e1a2a9750b5475c63b561a006585e438872a97bb224b0fbf8",
+          "tileRecordOffset": 642
+        },
+        {
+          "index": 18,
+          "start": 3574,
+          "endExclusive": 3726,
+          "storedSha256": "c268e6c5a0a326ad58e8253ebd3f726b3edfa06dcdb20ff56ac43e8f99636f5c",
+          "tileRecordOffset": 647
+        },
+        {
+          "index": 19,
+          "start": 3726,
+          "endExclusive": 4032,
+          "storedSha256": "c54683fb795676330b341dc1044c7a09b3fbd5fa528d235783bf348f49ccbff2",
+          "tileRecordOffset": 652
+        },
+        {
+          "index": 20,
+          "start": 4032,
+          "endExclusive": 4221,
+          "storedSha256": "b4724f2ba8c82f7d405006a892c761d58b6379c8c24b9ce7325d7f056570ab0a",
+          "tileRecordOffset": 657
+        },
+        {
+          "index": 21,
+          "start": 4221,
+          "endExclusive": 4392,
+          "storedSha256": "b1edb39045f2ce3dc3cfec75e948d3fc395854e96df1e37491c9d442568d2207",
+          "tileRecordOffset": 662
+        },
+        {
+          "index": 22,
+          "start": 4392,
+          "endExclusive": 4400,
+          "storedSha256": "da49bfbc9be3719c9f7a9f7b48ddef4e5f9e65a79cb6bd201b856fb2de3ada85",
+          "tileRecordOffset": 667
+        },
+        {
+          "index": 23,
+          "start": 4400,
+          "endExclusive": 4468,
+          "storedSha256": "ac88e70dd7f114a8ecb55591820dfe88b5c7e986a00fdb2c76f76de0c1f32610",
+          "tileRecordOffset": 672
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "required": 32,
+    "reused": 8,
+    "additional": 24,
+    "sourceBlockFiles": 8
+  },
+  "additionalCanonicalFrameByteSum": 236797,
+  "sourceIdentityCounts": {
+    "current-idx-and-bounded-slice-only": 24,
+    "historical-selected-payload-matched": 8
+  }
+}

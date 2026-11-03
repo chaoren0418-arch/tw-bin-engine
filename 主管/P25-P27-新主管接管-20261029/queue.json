@@ -1,0 +1,424 @@
+{
+  "schema": "bin-engine-supervisor-queue-v1",
+  "utc": "2026-10-29T10:27:22.161462+00:00",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "formalRelease": "r33",
+  "productIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "wholeProjectComplete": false,
+  "tasks": [
+    {
+      "id": "P25-ARCH",
+      "owner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+      "state": "accepted-documentary-baseline",
+      "requires": [],
+      "deliverables": "work/P25-architecture-baseline-r1",
+      "acceptance": "source-backed architecture + 32 historical matrix rows + 7 unfinished rows + r29-r33 acceptance crosswalk",
+      "next": "P25 scope complete; 12 finite backlog items remain independently classified",
+      "acceptanceReceipt": "p25-p27-root-acceptance.json",
+      "threadStatus": "idle",
+      "turnId": "01a185b7-df4d-7171-8c4a-6a048e09e2fe"
+    },
+    {
+      "id": "P26-REVIEW",
+      "owner": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "state": "accepted-bounded-review",
+      "requires": [],
+      "deliverables": "work/P26-pickup-integration-review-r1",
+      "next": "wait for exact sealed authority version, then P26-REBIND-REVIEW"
+    },
+    {
+      "id": "P26-REBIND",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "state": "accepted",
+      "requires": [],
+      "deliverables": "work/P26-r34-authority-rebind-r1",
+      "next": "canonical execution under new exact shared receipt",
+      "threadStatus": "idle",
+      "turnId": "01a185b9-432d-7633-99c3-9958e6814faf"
+    },
+    {
+      "id": "P26-REBIND-REVIEW",
+      "owner": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "state": "accepted-completed",
+      "requires": [
+        "P26-REBIND"
+      ],
+      "next": "bounded source revision accepted; next assigned release review",
+      "threadStatus": "idle",
+      "turnId": "01a185c4-5572-7692-afd3-ddfd8ee8a29c"
+    },
+    {
+      "id": "P26-CANONICAL",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "state": "accepted-offline-canonical",
+      "requires": [
+        "P26-REBIND-REVIEW"
+      ],
+      "next": "release tool RG1 repair, exact package plan, sealed release then separate root activation",
+      "receipt": "r34-shared-acceptance.json",
+      "receiptSha256": "0b96bf307f38e749143138d0930585b2bd7da6ef11d6b8a6d1ec1c66e4fc6e0c",
+      "turnId": "01a185cc-721f-73a1-bad9-b5088ba02346",
+      "completedSteps": [
+        "product",
+        "baseline",
+        "ground",
+        "utility",
+        "haste",
+        "versioned-slow",
+        "f1",
+        "pickup"
+      ],
+      "acceptanceReceipt": "r34-canonical-acceptance.json"
+    },
+    {
+      "id": "P26-PROFILES",
+      "state": "P28-P29-bounded-candidate-accepted",
+      "requires": [],
+      "next": "P30 isolated stage plan",
+      "owner": "P28 implementation; P29 independent review"
+    },
+    {
+      "id": "P27-INPUT",
+      "owner": "01a185b7-f732-7f60-8716-a944d67724c2",
+      "state": "accepted-bounded-review-native-remains",
+      "requires": [],
+      "deliverables": "work/P27-ui-input-candidate-r1",
+      "next": "no defect patch identified; 12 native cases remain planned only",
+      "acceptanceReceipt": "p25-p27-root-acceptance.json",
+      "threadStatus": "idle",
+      "latestTurn": "01a185c8-8dd0-7373-99e8-18831ecd854d"
+    },
+    {
+      "id": "NATIVE-SAME-VERSION",
+      "owner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+      "state": "not-executed",
+      "requires": [
+        "fixed accepted product",
+        "safe native evidence route",
+        "user-managed server availability if needed"
+      ],
+      "next": "plan and preserve old evidence; this turn no live/game/DB actions"
+    },
+    {
+      "id": "P26-RELEASE-TOOLS",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "state": "accepted-exact-r2-tool-RG2-plan-correction-required",
+      "requires": [],
+      "deliverables": "work/P26-r34-release-gate-r2",
+      "turnId": "01a185cc-721f-73a1-bad9-b5088ba02346",
+      "sealSha256": "30655ae3c7ce2b8efb82a2f7bfb35adc0f962a0f0162a0d323c29e231577fe13",
+      "next": "do not reuse general generator without RG2 fix; current corrected plan accepted",
+      "threadStatus": "idle"
+    },
+    {
+      "id": "P26-RELEASE-REVIEW",
+      "owner": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "state": "accepted-completed",
+      "requires": [],
+      "deliverables": "work/P26-release-review-r2",
+      "next": "exact tool accepted; supervisor separately accepted corrected concrete plan",
+      "threadStatus": "idle",
+      "turnId": "01a185e7-ead7-7cf2-9ea1-fc3278c9d54d",
+      "exactToolSeal": "5bbde28bc03eef1e99453bedd92893ec7e5a4c4545023a9e0bbaef92dd391ec6",
+      "acceptance": "r34-package-plan-dispatch.json"
+    },
+    {
+      "id": "P26-RELEASE",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "state": "accepted-full-release-offline",
+      "requires": [
+        "P26-CANONICAL",
+        "P26-RELEASE-REVIEW"
+      ],
+      "receipt": "r34-release-acceptance.json",
+      "plan": "work/P26-r34-package-plan-r2/package-plan.json",
+      "next": "entry activation denied; explicit user approval pending; isolated follow-up development continues",
+      "acceptance": "r34-release-root-acceptance.json",
+      "threadStatus": "idle",
+      "turnId": "01a185f5-9a15-7920-ad08-677c6848a4fe"
+    },
+    {
+      "id": "P28-PROFILES-IMPLEMENT",
+      "owner": "01a185fd-fce6-77d2-961f-45a6d9accaa8",
+      "turnId": "01a185fd-fe63-75f2-8551-633db36e9650",
+      "state": "accepted-bounded-offline-candidate",
+      "deliverables": "work/P28-pickup-profiles-candidate-r1",
+      "requires": [],
+      "next": "immutable delivery; P30 isolated stage plan follows",
+      "threadStatus": "idle",
+      "sealSha256": "3abd6ac7246f3ffbccc923e46611a37d91e2e7d6a331697661677b5bb4488eee",
+      "acceptance": "P28-P29-candidate-root-acceptance.json"
+    },
+    {
+      "id": "P29-PROFILES-REVIEW",
+      "owner": "01a185fe-5350-74c3-bfe6-96842287e610",
+      "turnId": "01a1861f-0049-7f20-93e6-15c24c6872d7",
+      "state": "accepted-bounded-offline-candidate",
+      "deliverables": "work/P29-pickup-profiles-review-r1",
+      "requires": [
+        "exact P28 candidate pins for runtime stage only"
+      ],
+      "next": "immutable delivery; P30 isolated stage plan follows",
+      "dispatch": "P29-candidate-review-dispatch-r1.json",
+      "threadStatus": "idle",
+      "acceptance": "P28-P29-candidate-root-acceptance.json",
+      "sealSha256": "a641244d40f8ca17cca56538dc927bd8b534409d74a212006046be790a726532"
+    },
+    {
+      "id": "R34-ENTRY-ACTIVATION",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "state": "denied-awaiting-explicit-user-approval",
+      "requires": [
+        "user approval for r34 root entry and manifest switch"
+      ],
+      "next": "no retry/reroute without new relevant user authorization",
+      "evidence": "r34-entry-activation-dispatch-result.json",
+      "proposal": "entry-proposal/review.json"
+    },
+    {
+      "id": "P30-ISOLATED-STAGE-PLAN",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "state": "accepted-product-only-planning-scope",
+      "requires": [
+        "P28-P29 bounded acceptance"
+      ],
+      "deliverables": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1",
+      "dispatch": "P30-isolated-stage-plan-dispatch.json",
+      "next": "Exact product-only plan consumed; fresh rebuild now accepted.",
+      "turnId": "01a1862f-aa42-7712-b4e2-8b73dbeb1eae",
+      "threadStatus": "completed",
+      "acceptance": "P30-plan-root-verification.json"
+    },
+    {
+      "id": "P30-PRODUCT-EXECUTOR",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a1863e-4be3-7b81-96c1-1c83eeb67fcd",
+      "state": "r1-preserved-r2-repair-and-build-accepted",
+      "deliverables": "work/P30-pickup-profiles-executor-r1",
+      "dispatch": "P30-executor-preparation-dispatch.json",
+      "next": "No further build authorized by this completed receipt.",
+      "threadStatus": "idle",
+      "seal": "32413f1b4693325cddf8f5c2ac189902d09b5bc969829f43f062aba46638a50f",
+      "contract": "37af732d7d30629d71cd3fb8e66bc18d77352bbef2ff3191de920743ced4a2d9",
+      "latestExecutor": "work/P30-pickup-profiles-executor-r2",
+      "acceptance": "P30-r2-final-acceptance.json"
+    },
+    {
+      "id": "P30-INDEPENDENT-REBUILD-REVIEW",
+      "owner": "01a185fe-5350-74c3-bfe6-96842287e610",
+      "turnId": "01a18663-be09-7db2-828d-9d893058ce5b",
+      "state": "accepted-fresh-rebuild-final-review",
+      "deliverables": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\P30-rebuild-review-r1\\r2-final-review-r1",
+      "next": "Immutable review; remaining runtime gaps retained.",
+      "threadStatus": "idle",
+      "planningSeal": "0ddb55ea76dad379769a87c2a23ecf0997e7294fd6e1ef38c5452da15b162c2d",
+      "executorReviewSeal": "4e9a0ec1b180788dbc1c08aef1bb5d9806d4b30c39568fa95d5965ad25ac443a",
+      "acceptance": "P30-r2-final-acceptance.json",
+      "finalReviewSeal": "3c6570129e79caf384883b5c1bec9501239f92301493d88b82dc80144d123ae8"
+    },
+    {
+      "id": "P30-FRESH-REBUILD",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a18663-acba-7c52-ba15-5f9ffdd220a9",
+      "state": "accepted-fresh-isolated-rebuild-identical-to-tested-candidate",
+      "threadStatus": "idle",
+      "deliverables": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2",
+      "acceptance": "P30-r2-final-acceptance.json",
+      "next": "Review the finite remaining offline regression gaps against identical-DLL prior evidence and authorize only missing checks; entry approval is not a dependency for isolated work."
+    },
+    {
+      "id": "P31-COMPOSITE",
+      "owner": "01a18676-3321-7c60-a658-cc70dbe320ba",
+      "turnId": "01a18676-34ad-71b3-9d59-6f7774b23f2a",
+      "state": "accepted-bounded-offline-behavior",
+      "threadStatus": "idle",
+      "deliverables": "work/P31-pickup-composite-review-r1",
+      "dispatch": "P31-P32-dispatch.json",
+      "requires": [
+        "accepted exact P30 DLL"
+      ],
+      "next": "Scope delivered; distinct residual offline tasks tracked, no rerun of passed suite.",
+      "acceptance": "P31-P32-root-acceptance.json"
+    },
+    {
+      "id": "P32-LIFECYCLE",
+      "owner": "01a18676-7607-7120-8804-d19ca3805f36",
+      "turnId": "01a18676-790d-7ec0-a905-3c67385543d2",
+      "state": "accepted-bounded-offline-behavior",
+      "threadStatus": "idle",
+      "deliverables": "work/P32-pickup-lifecycle-review-r1",
+      "dispatch": "P31-P32-dispatch.json",
+      "requires": [
+        "accepted exact P30 DLL"
+      ],
+      "next": "Scope delivered; distinct residual offline tasks tracked, no rerun of passed suite.",
+      "acceptance": "P31-P32-root-acceptance.json"
+    },
+    {
+      "id": "P33",
+      "owner": "01a1868e-d476-7ad1-8b4c-f6ac0dce7b5b",
+      "turnId": "01a1868e-d69e-7913-818f-9596c44dce81",
+      "state": "accepted-bounded-offline-behavior",
+      "threadStatus": "idle",
+      "deliverables": "work/P33-pickup-resource-fault-review-r1",
+      "dispatch": "P33-P34-dispatch.json",
+      "next": "Finite scope sealed and accepted; residual distinct tasks require next exact dispatch, no repeated passed suite.",
+      "acceptance": "P33-P34-root-acceptance.json"
+    },
+    {
+      "id": "P34",
+      "owner": "01a1868f-050d-7802-8b13-d1d8984858b5",
+      "turnId": "01a1868f-0786-7c30-9ccc-bda25b870bcc",
+      "state": "accepted-bounded-offline-behavior",
+      "threadStatus": "idle",
+      "deliverables": "work/P34-pickup-authoritative-flow-review-r1",
+      "dispatch": "P33-P34-dispatch.json",
+      "next": "Finite scope sealed and accepted; residual distinct tasks require next exact dispatch, no repeated passed suite.",
+      "acceptance": "P33-P34-root-acceptance.json"
+    },
+    {
+      "id": "P35-author",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a186a4-8db4-79e2-9929-fc6b320d069e",
+      "state": "accepted-isolated-rg2-fix",
+      "threadStatus": "idle",
+      "deliverables": "work/P35-release-generator-rg2-fix-r1",
+      "dispatch": "P35-dispatch.json",
+      "next": "This finite scope complete; legacy tool unchanged. Future installation/integration requires exact supervisor contract, not repeated tests.",
+      "acceptance": "P35-root-acceptance.json"
+    },
+    {
+      "id": "P35-review",
+      "owner": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "turnId": "01a186a4-9e46-7131-ab4e-27f2f3f63c82",
+      "state": "accepted-isolated-rg2-fix",
+      "threadStatus": "idle",
+      "deliverables": "work/P35-release-generator-rg2-review-r1",
+      "dispatch": "P35-dispatch.json",
+      "next": "This finite scope complete; legacy tool unchanged. Future installation/integration requires exact supervisor contract, not repeated tests.",
+      "acceptance": "P35-root-acceptance.json"
+    },
+    {
+      "id": "P36-P37-integrator",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a186b8-edd0-7960-96fa-6dc55cf589e3",
+      "state": "completed-through-P36-P37-final-acceptance",
+      "threadStatus": "idle",
+      "deliverables": "work/P36-P37-integration-plan-r1",
+      "dispatch": "P36-P37-plan-dispatch.json",
+      "next": "Finite scope complete; see P36-P37-convergence-delta.json",
+      "acceptance": "P36-final-acceptance.json; P37-final-acceptance.json"
+    },
+    {
+      "id": "P36-P37-reviewer",
+      "owner": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "turnId": "01a186b9-0075-7d83-b4a7-338b3619557b",
+      "state": "completed-through-P36-P37-final-acceptance",
+      "threadStatus": "idle",
+      "deliverables": "work/P36-P37-integration-review-r1",
+      "dispatch": "P36-P37-plan-dispatch.json",
+      "next": "Finite scope complete; see P36-P37-convergence-delta.json",
+      "acceptance": "P36-final-acceptance.json; P37-final-acceptance.json"
+    },
+    {
+      "id": "P36-canonical-final",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a186e0-6f22-7df3-84b3-e6a670a2c3ee",
+      "state": "accepted",
+      "acceptance": "P36-final-acceptance.json",
+      "threadStatus": "idle"
+    },
+    {
+      "id": "P37-inventory-final",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a186ec-2d74-7c00-b64f-60f1170c9fa8",
+      "state": "accepted-inventory-only",
+      "acceptance": "P37-final-acceptance.json",
+      "threadStatus": "idle"
+    },
+    {
+      "id": "P37-independent-final",
+      "owner": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "turnId": "01a186ef-85b4-77e1-b2d9-56de7893885c",
+      "state": "accepted",
+      "deliverables": "work/P37-bound-inventory-review-r1",
+      "threadStatus": "idle"
+    },
+    {
+      "id": "P38-isolated-delivery",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a1871d-2a1e-7c80-804c-6dd91e0c365c",
+      "state": "accepted-bounded-offline-delivery",
+      "threadStatus": "idle",
+      "deliverables": "work/P38-delivery-plan-r1",
+      "dispatch": "P38-dispatch.json",
+      "next": "Scope complete; remaining source/native/entry conditions in P38-convergence-delta.json",
+      "executionReceipt": "P38-delivery-execution-acceptance-r1.json",
+      "acceptance": "P38-final-acceptance.json"
+    },
+    {
+      "id": "P38-independent-review",
+      "owner": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "turnId": "01a18729-3ff9-7993-9b94-9204713fb008",
+      "state": "accepted-bounded-offline-delivery",
+      "threadStatus": "idle",
+      "deliverables": "work/P38-delivery-review-r1",
+      "dispatch": "P38-final-review-dispatch.json",
+      "next": "Scope complete; remaining source/native/entry conditions in P38-convergence-delta.json",
+      "acceptance": "P38-final-acceptance.json"
+    }
+  ],
+  "goal": {
+    "supervisor": "tools unavailable; actual unknown",
+    "P25": "reported complete",
+    "P26": "reported blocked; no resume API; bounded review delivered",
+    "P27": "reported prior complete then null",
+    "P28": "worker reports complete; thread idle/completed confirmed",
+    "P29": "worker reports complete; thread idle/completed confirmed",
+    "integrator": "get_goal null; unchanged",
+    "P32": "historical development complete; later certificate follow-up get_goal null, unchanged",
+    "P33": "complete in saved actual tool readback",
+    "P34": "worker final reports complete; sealed file preserves earlier active readback only; root Goal API unavailable",
+    "P35Author": "null; unchanged",
+    "P35Reviewer": "historical blocked; no resume API; bounded review accepted"
+  },
+  "historyRule": "older P24 queue running fields are historical; use these actual thread observations",
+  "reconcile": "read actual turn and sealed HANDOFF/result; completed is review, accepted only after supervisor assessment; dispatch only eligible independent task",
+  "history": [
+    {
+      "event": "first three stage threads observed running",
+      "receipt": "dispatch-receipts.json"
+    },
+    {
+      "event": "original P26 review accepted, precise rebind/timeout repair delivered and review redispatched",
+      "receipt": "p26-rebind-review-dispatch.json"
+    },
+    {
+      "event": "P25/P27 bounded scopes accepted",
+      "receipt": "p25-p27-root-acceptance.json"
+    },
+    {
+      "event": "new authority review accepted; real shared receipt issued and full read-only validate passed; sole-integrator execution dispatched",
+      "receipt": "r34-shared-dispatch.json"
+    },
+    {
+      "event": "P30 fresh02 build and independent final review accepted; failed01 preserved; formal r33 unchanged",
+      "receipt": "P30-r2-final-acceptance.json"
+    },
+    {
+      "event": "P31/P32 parallel runtime behavior accepted: 56 composite cases and 196 lifecycle cases; no product defect; SDK deviation preserved",
+      "receipt": "P31-P32-root-acceptance.json"
+    },
+    {
+      "event": "P38 isolated candidate, one launcher build/two check-only, full13957 asset SHA and independent final review accepted; r33 unchanged",
+      "receipt": "P38-final-acceptance.json"
+    }
+  ],
+  "sealedAcceptedRelease": "r34",
+  "RG2Repair": {
+    "status": "P35 repair and P37 version-bound inventory accepted",
+    "acceptance": "P37-final-acceptance.json",
+    "fullReleaseAccepted": false
+  },
+  "currentConvergence": "P38-convergence-delta.json"
+}

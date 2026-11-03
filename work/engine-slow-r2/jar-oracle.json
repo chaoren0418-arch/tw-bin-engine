@@ -1,0 +1,296 @@
+{
+  "classPins": [
+    {
+      "entry": "com/lineage/server/model/ActionIntervalCalculator.class",
+      "sha256": "fb68797f9442be1c3edcdb7c186b4127f4d4819026079103ba91f319a5a2a788"
+    },
+    {
+      "entry": "com/lineage/server/model/ActionIntervalCalculator$ActionType.class",
+      "sha256": "1a14c9579e00cfc73cbcde8bd0d773ad0d0e4f20f5d3139562b8d2f7c13ffc0b"
+    },
+    {
+      "entry": "com/lineage/server/model/ActionIntervalCalculator$SpeedState.class",
+      "sha256": "9d2a606532d0220b62add13b6df7bea8b7d8c45506711e349dad9053f5b35885"
+    }
+  ],
+  "rows": [
+    {
+      "basis": 4,
+      "speed": 0,
+      "MOVE": 4,
+      "ATTACK": 4,
+      "SPELL": 4
+    },
+    {
+      "basis": 4,
+      "speed": 1,
+      "MOVE": 3,
+      "ATTACK": 3,
+      "SPELL": 3
+    },
+    {
+      "basis": 4,
+      "speed": 2,
+      "MOVE": 8,
+      "ATTACK": 8,
+      "SPELL": 8
+    },
+    {
+      "basis": 7,
+      "speed": 0,
+      "MOVE": 7,
+      "ATTACK": 7,
+      "SPELL": 7
+    },
+    {
+      "basis": 7,
+      "speed": 1,
+      "MOVE": 5,
+      "ATTACK": 5,
+      "SPELL": 5
+    },
+    {
+      "basis": 7,
+      "speed": 2,
+      "MOVE": 14,
+      "ATTACK": 14,
+      "SPELL": 14
+    },
+    {
+      "basis": 80,
+      "speed": 0,
+      "MOVE": 80,
+      "ATTACK": 80,
+      "SPELL": 80
+    },
+    {
+      "basis": 80,
+      "speed": 1,
+      "MOVE": 60,
+      "ATTACK": 60,
+      "SPELL": 60
+    },
+    {
+      "basis": 80,
+      "speed": 2,
+      "MOVE": 160,
+      "ATTACK": 160,
+      "SPELL": 160
+    },
+    {
+      "basis": 333,
+      "speed": 0,
+      "MOVE": 333,
+      "ATTACK": 333,
+      "SPELL": 333
+    },
+    {
+      "basis": 333,
+      "speed": 1,
+      "MOVE": 251,
+      "ATTACK": 251,
+      "SPELL": 251
+    },
+    {
+      "basis": 333,
+      "speed": 2,
+      "MOVE": 666,
+      "ATTACK": 666,
+      "SPELL": 666
+    },
+    {
+      "basis": 640,
+      "speed": 0,
+      "MOVE": 640,
+      "ATTACK": 640,
+      "SPELL": 640
+    },
+    {
+      "basis": 640,
+      "speed": 1,
+      "MOVE": 483,
+      "ATTACK": 483,
+      "SPELL": 483
+    },
+    {
+      "basis": 640,
+      "speed": 2,
+      "MOVE": 1280,
+      "ATTACK": 1280,
+      "SPELL": 1280
+    },
+    {
+      "basis": 641,
+      "speed": 0,
+      "MOVE": 641,
+      "ATTACK": 641,
+      "SPELL": 641
+    },
+    {
+      "basis": 641,
+      "speed": 1,
+      "MOVE": 483,
+      "ATTACK": 483,
+      "SPELL": 483
+    },
+    {
+      "basis": 641,
+      "speed": 2,
+      "MOVE": 1282,
+      "ATTACK": 1282,
+      "SPELL": 1282
+    },
+    {
+      "basis": 840,
+      "speed": 0,
+      "MOVE": 840,
+      "ATTACK": 840,
+      "SPELL": 840
+    },
+    {
+      "basis": 840,
+      "speed": 1,
+      "MOVE": 634,
+      "ATTACK": 634,
+      "SPELL": 634
+    },
+    {
+      "basis": 840,
+      "speed": 2,
+      "MOVE": 1680,
+      "ATTACK": 1680,
+      "SPELL": 1680
+    },
+    {
+      "basis": 960,
+      "speed": 0,
+      "MOVE": 960,
+      "ATTACK": 960,
+      "SPELL": 960
+    },
+    {
+      "basis": 960,
+      "speed": 1,
+      "MOVE": 724,
+      "ATTACK": 724,
+      "SPELL": 724
+    },
+    {
+      "basis": 960,
+      "speed": 2,
+      "MOVE": 1920,
+      "ATTACK": 1920,
+      "SPELL": 1920
+    },
+    {
+      "basis": 1320,
+      "speed": 0,
+      "MOVE": 1320,
+      "ATTACK": 1320,
+      "SPELL": 1320
+    },
+    {
+      "basis": 1320,
+      "speed": 1,
+      "MOVE": 996,
+      "ATTACK": 996,
+      "SPELL": 996
+    },
+    {
+      "basis": 1320,
+      "speed": 2,
+      "MOVE": 2640,
+      "ATTACK": 2640,
+      "SPELL": 2640
+    },
+    {
+      "basis": 1480,
+      "speed": 0,
+      "MOVE": 1480,
+      "ATTACK": 1480,
+      "SPELL": 1480
+    },
+    {
+      "basis": 1480,
+      "speed": 1,
+      "MOVE": 1117,
+      "ATTACK": 1117,
+      "SPELL": 1117
+    },
+    {
+      "basis": 1480,
+      "speed": 2,
+      "MOVE": 2960,
+      "ATTACK": 2960,
+      "SPELL": 2960
+    },
+    {
+      "basis": 32767,
+      "speed": 0,
+      "MOVE": 32767,
+      "ATTACK": 32767,
+      "SPELL": 32767
+    },
+    {
+      "basis": 32767,
+      "speed": 1,
+      "MOVE": 24739,
+      "ATTACK": 24739,
+      "SPELL": 24739
+    },
+    {
+      "basis": 32767,
+      "speed": 2,
+      "MOVE": 65534,
+      "ATTACK": 65534,
+      "SPELL": 65534
+    },
+    {
+      "basis": 65535,
+      "speed": 0,
+      "MOVE": 65535,
+      "ATTACK": 65535,
+      "SPELL": 65535
+    },
+    {
+      "basis": 65535,
+      "speed": 1,
+      "MOVE": 49478,
+      "ATTACK": 49478,
+      "SPELL": 49478
+    },
+    {
+      "basis": 65535,
+      "speed": 2,
+      "MOVE": 131070,
+      "ATTACK": 131070,
+      "SPELL": 131070
+    }
+  ],
+  "commands": [
+    {
+      "command": [
+        "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javac.exe",
+        "-encoding",
+        "UTF-8",
+        "-cp",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-d",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\java-out",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\SlowOracle.java"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+        "-XX:-UsePerfData",
+        "-cp",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\java-out;D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "SlowOracle"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "scope": "Only retained pure calculate(int,ActionType,SpeedState), no live actor, no service or DB."
+}

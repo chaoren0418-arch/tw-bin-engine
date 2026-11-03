@@ -1,0 +1,23 @@
+{
+  "status": "extracted_not_gameplay_acceptance",
+  "jar": "D:\\P17Lab-ClientEngine\\server\\Server_Game.jar",
+  "jar_sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "classes": [
+    {
+      "jar_entry": "com/lineage/server/clientpackets/C_LoginToServer.class",
+      "class_sha256": "7cb6fc885ca88b7972dab71b9e02ed7ee6c48b23f284b7ab9e29d8c580950cd1",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_LoginToServer.java",
+      "source_sha256": "437bdd8fdb9ab6a855ac6cc7770024bf0dfc99bee836e5b36fe2e53322073d4a",
+      "javap_sha256": "44c49c39088dfe7e37e337b5dde7d80d0b34c6d0cdd56504e99510c78dac2976",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    },
+    {
+      "jar_entry": "com/lineage/server/serverpackets/S_InvList.class",
+      "class_sha256": "64b4216a8606a38148780bbd65fb8d4116b6a4643f69b08d078bd91631b04a70",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_InvList.java",
+      "source_sha256": "cd3c0c20a7285b0ef32d9305e0559cf7ea02030c2ff0665363ffad91521f2820",
+      "javap_sha256": "ccab775d583623cfd7570e8b32e57cfb13e4ebda232f288fea501c251ab0664b",
+      "offset_type": "javap method bytecode offsets; not file offsets/RVA"
+    }
+  ]
+}

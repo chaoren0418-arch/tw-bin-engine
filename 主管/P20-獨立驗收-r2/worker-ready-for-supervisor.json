@@ -1,0 +1,697 @@
+{
+  "status": "ready-frozen",
+  "utc": 1792917652.8398347,
+  "goal": "active",
+  "supervisorThread": "01a171b6-48f6-75c0-b8fb-70ba36193dd9",
+  "server": {
+    "process": {
+      "ProcessId": 13012,
+      "ParentProcessId": 87848,
+      "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P20Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P20Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P20Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P20Lab-ClientEngine\\server\\Server_Game.jar",
+      "CreationDate": "/Date(1792915684144)/"
+    },
+    "listeners": [
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42045,
+        "OwningProcess": 13012
+      }
+    ]
+  },
+  "db": {
+    "values": [
+      "43320",
+      "D:\\P20Lab-ClientEngine\\db-data\\",
+      "052f6955-d047-11f1-99cf-4cedfb679789",
+      "127.0.0.1",
+      "8.0.40"
+    ],
+    "process": {
+      "process": {
+        "ProcessId": 86324,
+        "ParentProcessId": 66036,
+        "ExecutablePath": "D:\\P20Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P20Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P20Lab-ClientEngine\\mysql.ini --init-file=D:\\P20Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792913941321)/"
+      },
+      "listeners": [
+        {
+          "LocalAddress": "127.0.0.1",
+          "LocalPort": 43320,
+          "OwningProcess": 86324
+        }
+      ]
+    }
+  },
+  "clients": {
+    "items": []
+  },
+  "roles": [
+    {
+      "role": "workerCli",
+      "saved": {
+        "main": [
+          {
+            "X": 32591,
+            "Y": 32945,
+            "Ac": -4,
+            "Hp": 648,
+            "Mp": 120,
+            "Exp": 416461902,
+            "Gfx": 0,
+            "Name": "裝備王子",
+            "Level": 60,
+            "MapId": 0,
+            "MaxHp": 700,
+            "MaxMp": 120,
+            "Lawful": 9,
+            "Wisdom": 12,
+            "Charisma": 10,
+            "ObjectId": 1900200001,
+            "Strength": 18,
+            "Dexterity": 13,
+            "Direction": 7,
+            "Constitution": 16,
+            "Intelligence": 11,
+            "OnlineStatus": 0
+          }
+        ],
+        "observer": [
+          {
+            "X": 32590,
+            "Y": 32946,
+            "Ac": -1,
+            "Hp": 700,
+            "Mp": 120,
+            "Exp": 416461882,
+            "Gfx": 0,
+            "Name": "裝備觀察甲",
+            "Level": 60,
+            "MapId": 0,
+            "MaxHp": 700,
+            "MaxMp": 120,
+            "Lawful": 0,
+            "Wisdom": 12,
+            "Charisma": 10,
+            "ObjectId": 1900200005,
+            "Strength": 18,
+            "Dexterity": 13,
+            "Direction": 4,
+            "Constitution": 16,
+            "Intelligence": 11,
+            "OnlineStatus": 0
+          }
+        ],
+        "items": [
+          {
+            "Name": "終極治癒藥水",
+            "Bless": 0,
+            "Count": 6,
+            "Enchant": 0,
+            "ObjectId": 1900201011,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40012,
+            "CharacterId": 1900200001
+          },
+          {
+            "Name": "金幣",
+            "Bless": 0,
+            "Count": 47,
+            "Enchant": 0,
+            "ObjectId": 1900201012,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40308,
+            "CharacterId": 1900200001
+          },
+          {
+            "Name": "鑒定卷軸",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201013,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40126,
+            "CharacterId": 1900200001
+          },
+          {
+            "Name": "肉",
+            "Bless": 0,
+            "Count": 8,
+            "Enchant": 0,
+            "ObjectId": 1900201014,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40056,
+            "CharacterId": 1900200001
+          },
+          {
+            "Name": "長劍",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201015,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 31,
+            "CharacterId": 1900200001
+          },
+          {
+            "Name": "雙手劍",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201016,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 1,
+            "TemplateId": 52,
+            "CharacterId": 1900200001
+          },
+          {
+            "Name": "環甲",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201017,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 1,
+            "TemplateId": 20096,
+            "CharacterId": 1900200001
+          },
+          {
+            "Name": "木盾",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201018,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 20222,
+            "CharacterId": 1900200001
+          }
+        ],
+        "observerItems": []
+      },
+      "proof": "D:\\lineage開發\\TW1608262200研究\\P20-裝備與武器外觀\\evidence\\equipment-worker-cli-r3\\db-proof.json",
+      "proofSha256": "b95eeb678debdba92a819508c408b30e443f1b1d9ca21e6bb42a4a9e9c87329d"
+    },
+    {
+      "role": "workerUi",
+      "saved": {
+        "main": [
+          {
+            "X": 32591,
+            "Y": 32945,
+            "Ac": -4,
+            "Hp": 600,
+            "Mp": 120,
+            "Exp": 416461902,
+            "Gfx": 0,
+            "Name": "裝備王子乙",
+            "Level": 60,
+            "MapId": 0,
+            "MaxHp": 700,
+            "MaxMp": 120,
+            "Lawful": 9,
+            "Wisdom": 12,
+            "Charisma": 10,
+            "ObjectId": 1900200002,
+            "Strength": 18,
+            "Dexterity": 13,
+            "Direction": 7,
+            "Constitution": 16,
+            "Intelligence": 11,
+            "OnlineStatus": 0
+          }
+        ],
+        "observer": [
+          {
+            "X": 32590,
+            "Y": 32946,
+            "Ac": -1,
+            "Hp": 700,
+            "Mp": 120,
+            "Exp": 416461882,
+            "Gfx": 0,
+            "Name": "裝備觀察乙",
+            "Level": 60,
+            "MapId": 0,
+            "MaxHp": 700,
+            "MaxMp": 120,
+            "Lawful": 0,
+            "Wisdom": 12,
+            "Charisma": 10,
+            "ObjectId": 1900200006,
+            "Strength": 18,
+            "Dexterity": 13,
+            "Direction": 4,
+            "Constitution": 16,
+            "Intelligence": 11,
+            "OnlineStatus": 0
+          }
+        ],
+        "items": [
+          {
+            "Name": "終極治癒藥水",
+            "Bless": 0,
+            "Count": 6,
+            "Enchant": 0,
+            "ObjectId": 1900201021,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40012,
+            "CharacterId": 1900200002
+          },
+          {
+            "Name": "金幣",
+            "Bless": 0,
+            "Count": 45,
+            "Enchant": 0,
+            "ObjectId": 1900201022,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40308,
+            "CharacterId": 1900200002
+          },
+          {
+            "Name": "鑒定卷軸",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201023,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40126,
+            "CharacterId": 1900200002
+          },
+          {
+            "Name": "肉",
+            "Bless": 0,
+            "Count": 8,
+            "Enchant": 0,
+            "ObjectId": 1900201024,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40056,
+            "CharacterId": 1900200002
+          },
+          {
+            "Name": "長劍",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201025,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 31,
+            "CharacterId": 1900200002
+          },
+          {
+            "Name": "雙手劍",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201026,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 1,
+            "TemplateId": 52,
+            "CharacterId": 1900200002
+          },
+          {
+            "Name": "環甲",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201027,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 1,
+            "TemplateId": 20096,
+            "CharacterId": 1900200002
+          },
+          {
+            "Name": "木盾",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201028,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 20222,
+            "CharacterId": 1900200002
+          }
+        ],
+        "observerItems": []
+      },
+      "proof": "D:\\lineage開發\\TW1608262200研究\\P20-裝備與武器外觀\\evidence\\equipment-worker-ui-r4\\db-proof.json",
+      "proofSha256": "2f0117f0c7ff29e85d12061d2eaa8cf85debc96b6d1ff85347eca0a98e538d0d"
+    },
+    {
+      "role": "supervisorCli",
+      "saved": {
+        "main": [
+          {
+            "X": 32591,
+            "Y": 32945,
+            "Ac": -4,
+            "Hp": 624,
+            "Mp": 120,
+            "Exp": 416461902,
+            "Gfx": 0,
+            "Name": "驗收王子",
+            "Level": 60,
+            "MapId": 0,
+            "MaxHp": 700,
+            "MaxMp": 120,
+            "Lawful": 9,
+            "Wisdom": 12,
+            "Charisma": 10,
+            "ObjectId": 1900200003,
+            "Strength": 18,
+            "Dexterity": 13,
+            "Direction": 7,
+            "Constitution": 16,
+            "Intelligence": 11,
+            "OnlineStatus": 0
+          }
+        ],
+        "observer": [
+          {
+            "X": 32590,
+            "Y": 32946,
+            "Ac": -1,
+            "Hp": 700,
+            "Mp": 120,
+            "Exp": 416461882,
+            "Gfx": 0,
+            "Name": "驗收觀察甲",
+            "Level": 60,
+            "MapId": 0,
+            "MaxHp": 700,
+            "MaxMp": 120,
+            "Lawful": 0,
+            "Wisdom": 12,
+            "Charisma": 10,
+            "ObjectId": 1900200007,
+            "Strength": 18,
+            "Dexterity": 13,
+            "Direction": 4,
+            "Constitution": 16,
+            "Intelligence": 11,
+            "OnlineStatus": 0
+          }
+        ],
+        "items": [
+          {
+            "Name": "終極治癒藥水",
+            "Bless": 0,
+            "Count": 6,
+            "Enchant": 0,
+            "ObjectId": 1900201031,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40012,
+            "CharacterId": 1900200003
+          },
+          {
+            "Name": "金幣",
+            "Bless": 0,
+            "Count": 36,
+            "Enchant": 0,
+            "ObjectId": 1900201032,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40308,
+            "CharacterId": 1900200003
+          },
+          {
+            "Name": "鑒定卷軸",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201033,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40126,
+            "CharacterId": 1900200003
+          },
+          {
+            "Name": "肉",
+            "Bless": 0,
+            "Count": 8,
+            "Enchant": 0,
+            "ObjectId": 1900201034,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40056,
+            "CharacterId": 1900200003
+          },
+          {
+            "Name": "長劍",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201035,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 31,
+            "CharacterId": 1900200003
+          },
+          {
+            "Name": "雙手劍",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201036,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 1,
+            "TemplateId": 52,
+            "CharacterId": 1900200003
+          },
+          {
+            "Name": "環甲",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201037,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 1,
+            "TemplateId": 20096,
+            "CharacterId": 1900200003
+          },
+          {
+            "Name": "木盾",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201038,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 20222,
+            "CharacterId": 1900200003
+          }
+        ],
+        "observerItems": []
+      },
+      "proof": "D:\\lineage開發\\TW1608262200研究\\主管\\P20-獨立驗收\\world-evidence\\equipment-supervisor-cli\\db-proof.json",
+      "proofSha256": "53e27a4e9a80c92da6567fa05047d39bc94746c419981e5c0f82ac1fa4314ac2"
+    },
+    {
+      "role": "supervisorUi",
+      "saved": {
+        "main": [
+          {
+            "X": 32588,
+            "Y": 32930,
+            "Ac": -4,
+            "Hp": 700,
+            "Mp": 120,
+            "Exp": 416461882,
+            "Gfx": 0,
+            "Name": "驗收王子乙",
+            "Level": 60,
+            "MapId": 0,
+            "MaxHp": 700,
+            "MaxMp": 120,
+            "Lawful": 0,
+            "Wisdom": 12,
+            "Charisma": 10,
+            "ObjectId": 1900200004,
+            "Strength": 18,
+            "Dexterity": 13,
+            "Direction": 5,
+            "Constitution": 16,
+            "Intelligence": 11,
+            "OnlineStatus": 0
+          }
+        ],
+        "observer": [
+          {
+            "X": 32588,
+            "Y": 32930,
+            "Ac": -1,
+            "Hp": 700,
+            "Mp": 120,
+            "Exp": 416461882,
+            "Gfx": 0,
+            "Name": "驗收觀察乙",
+            "Level": 60,
+            "MapId": 0,
+            "MaxHp": 700,
+            "MaxMp": 120,
+            "Lawful": 0,
+            "Wisdom": 12,
+            "Charisma": 10,
+            "ObjectId": 1900200008,
+            "Strength": 18,
+            "Dexterity": 13,
+            "Direction": 5,
+            "Constitution": 16,
+            "Intelligence": 11,
+            "OnlineStatus": 0
+          }
+        ],
+        "items": [
+          {
+            "Name": "終極治癒藥水",
+            "Bless": 0,
+            "Count": 6,
+            "Enchant": 0,
+            "ObjectId": 1900201041,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40012,
+            "CharacterId": 1900200004
+          },
+          {
+            "Name": "金幣",
+            "Bless": 0,
+            "Count": 3,
+            "Enchant": 0,
+            "ObjectId": 1900201042,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40308,
+            "CharacterId": 1900200004
+          },
+          {
+            "Name": "鑒定卷軸",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201043,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40126,
+            "CharacterId": 1900200004
+          },
+          {
+            "Name": "肉",
+            "Bless": 0,
+            "Count": 8,
+            "Enchant": 0,
+            "ObjectId": 1900201044,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40056,
+            "CharacterId": 1900200004
+          },
+          {
+            "Name": "長劍",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201045,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 31,
+            "CharacterId": 1900200004
+          },
+          {
+            "Name": "雙手劍",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201046,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 1,
+            "TemplateId": 52,
+            "CharacterId": 1900200004
+          },
+          {
+            "Name": "環甲",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201047,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 1,
+            "TemplateId": 20096,
+            "CharacterId": 1900200004
+          },
+          {
+            "Name": "木盾",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900201048,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 20222,
+            "CharacterId": 1900200004
+          }
+        ],
+        "observerItems": []
+      },
+      "proof": "D:\\lineage開發\\TW1608262200研究\\主管\\P20-獨立驗收\\world-evidence\\equipment-supervisor-ui\\db-proof.json",
+      "proofSha256": "f2bd09be323060b56b42272196f1f852a4d88524c48b2b8166e45b1613d31fc4"
+    }
+  ],
+  "source": "227064f974bbc282d3139d0edd17f9afb0402f29acc6ce7c6239961f8d0b7bee",
+  "environment": "cdc434700f1984c7fecd0d718f44aaf3300b08d910f2497b1412fa42340f4397",
+  "privateCredentialsPath": "D:\\P20Lab-ClientEngine\\private-tests.json",
+  "workerEvidence": [
+    "equipment-worker-cli-r3",
+    "equipment-worker-ui-r4"
+  ],
+  "commands": [
+    "./build.ps1 -Clean"
+  ],
+  "notes": "v2 test-only focus retry. Supervisor CLI already passed; do not rerun fresh. Supervisor UI must resume Fresh=false from its retained failed attempt. All eight roles offline and saved states verified unchanged. No worker login, product changes, reset, restart or cleanup. Wait explicit handback.",
+  "revision": 2,
+  "previousReady": "2f5b887f48528c491ad445bc93b2241b88c3b23a2698cde3b2b6a19871ee12c4"
+}

@@ -1,0 +1,462 @@
+{
+  "stage": "P21",
+  "status": "source-environment-frozen-ready-for-supervisor",
+  "goalStatus": "active",
+  "scope": "original bow172 + arrow40743 on gfx0 royal; manual one-shot game/Web, authoritative finite ammo/rewards/save",
+  "workerCases": [
+    {
+      "mode": "cli",
+      "initialFiniteArrows": 80,
+      "consumed": 80,
+      "remaining": 0,
+      "attempts": [
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\evidence\\ranged-worker-cli",
+          "status": "fail",
+          "ledger": {
+            "initial": 80,
+            "consumed": 0,
+            "saved": 80
+          },
+          "captureSha256": "e33191f6c4d03af616aec523376c74a884ce28ac9c0e4eb3363dba39083bc8f9",
+          "independentSha256": "a8bdcf2d5ddb03bb3143feb9ad377daf1eb3a6c1be3bc6e24e3046706d3ee523",
+          "savedProofSha256": "757a31df6a89ef2b9d6529962e7ed47e621baed82b40c8ff3b86131f8d980018"
+        },
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\evidence\\ranged-worker-cli-r2",
+          "status": "fail",
+          "ledger": {
+            "initial": 80,
+            "consumed": 10,
+            "saved": 70
+          },
+          "captureSha256": "774edec425cc96749289b5fe7936ba226e61b0fdb3f375748d1f189f115f6711",
+          "independentSha256": "995d2a2a39fbdb5d81168b2470fbb1c1dbc9dd7bfae1e2c1f251850fbe0d01f3",
+          "savedProofSha256": "ef34a10246d1df5d9d1c6d086981fe285de9d655bcdaa6e8217d95a9cdab7927"
+        },
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\evidence\\ranged-worker-cli-r3",
+          "status": "pass",
+          "ledger": {
+            "initial": 70,
+            "consumed": 70,
+            "saved": 0
+          },
+          "captureSha256": "225032a8f079a9849e661e8ec0f82dc03ce255d9a80bf5562e486b2f98b6e5ff",
+          "independentSha256": "e5a8ffac33e7d5b632f609e53c9c1e47ccb9ed65d1c92a148efd3056a998efa3",
+          "savedProofSha256": "0d96a888f409c5547b983a3048b795178b466e4b4e98f09b007b242a423d4c5a"
+        }
+      ],
+      "final": {
+        "main": [
+          {
+            "X": 32588,
+            "Y": 32930,
+            "Ac": -4,
+            "Hp": 700,
+            "Mp": 120,
+            "Exp": 416461922,
+            "Gfx": 0,
+            "Name": "弓箭王子",
+            "Level": 60,
+            "MapId": 0,
+            "MaxHp": 700,
+            "MaxMp": 120,
+            "Lawful": 18,
+            "Wisdom": 12,
+            "Charisma": 10,
+            "ObjectId": 1900210001,
+            "Strength": 18,
+            "Dexterity": 13,
+            "Direction": 2,
+            "Constitution": 16,
+            "Intelligence": 11,
+            "OnlineStatus": 0
+          }
+        ],
+        "observer": [
+          {
+            "X": 32589,
+            "Y": 32930,
+            "Ac": -1,
+            "Hp": 700,
+            "Mp": 120,
+            "Exp": 416461882,
+            "Gfx": 0,
+            "Name": "弓箭觀察甲",
+            "Level": 60,
+            "MapId": 0,
+            "MaxHp": 700,
+            "MaxMp": 120,
+            "Lawful": 0,
+            "Wisdom": 12,
+            "Charisma": 10,
+            "ObjectId": 1900210005,
+            "Strength": 18,
+            "Dexterity": 13,
+            "Direction": 1,
+            "Constitution": 16,
+            "Intelligence": 11,
+            "OnlineStatus": 0
+          }
+        ],
+        "items": [
+          {
+            "Name": "魔法書 (通暢氣脈術)",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 10317,
+            "Durability": 0,
+            "Identified": 0,
+            "IsEquipped": 0,
+            "TemplateId": 40171,
+            "CharacterId": 1900210001
+          },
+          {
+            "Name": "終極治癒藥水",
+            "Bless": 0,
+            "Count": 6,
+            "Enchant": 0,
+            "ObjectId": 1900211011,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40012,
+            "CharacterId": 1900210001
+          },
+          {
+            "Name": "金幣",
+            "Bless": 0,
+            "Count": 84,
+            "Enchant": 0,
+            "ObjectId": 1900211012,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40308,
+            "CharacterId": 1900210001
+          },
+          {
+            "Name": "鑒定卷軸",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900211013,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40126,
+            "CharacterId": 1900210001
+          },
+          {
+            "Name": "肉",
+            "Bless": 0,
+            "Count": 8,
+            "Enchant": 0,
+            "ObjectId": 1900211014,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40056,
+            "CharacterId": 1900210001
+          },
+          {
+            "Name": "長劍",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900211015,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 31,
+            "CharacterId": 1900210001
+          },
+          {
+            "Name": "雙手劍",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900211016,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 52,
+            "CharacterId": 1900210001
+          },
+          {
+            "Name": "環甲",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900211017,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 1,
+            "TemplateId": 20096,
+            "CharacterId": 1900210001
+          },
+          {
+            "Name": "木盾",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900211018,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 20222,
+            "CharacterId": 1900210001
+          },
+          {
+            "Name": "弓",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900211019,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 1,
+            "TemplateId": 172,
+            "CharacterId": 1900210001
+          }
+        ],
+        "observerItems": []
+      }
+    },
+    {
+      "mode": "ui",
+      "initialFiniteArrows": 80,
+      "consumed": 80,
+      "remaining": 0,
+      "attempts": [
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\evidence\\ranged-worker-ui",
+          "status": "fail",
+          "ledger": {
+            "initial": 80,
+            "consumed": 1,
+            "saved": 79
+          },
+          "captureSha256": "fb5f7dfa02a20ebb3a35f2a3660fe428b03c421667ecb95b1fb88a6b2258bf85",
+          "independentSha256": "8eb27999bbfb2cfece5cff42a415e01f759ffcf3e49e9f45ca3bf6dcbe171e72",
+          "savedProofSha256": "7f038cd87f450ba6a837186daea71e6f03f4970eeaa4f54cb7124458dd5570ec"
+        },
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\evidence\\ranged-worker-ui-r2",
+          "status": "fail",
+          "ledger": {
+            "initial": 79,
+            "consumed": 3,
+            "saved": 76
+          },
+          "captureSha256": "0a354eb25e20b7eacc6cb8e7ea5231646dc8f19e3f602a9646c410761f2ef2f8",
+          "independentSha256": "e1d0fea5d3ef165d77a371d8e6d35c1fe3c77b8a68665b76bbb31cc4ef15f999",
+          "savedProofSha256": "0c7a1ea6571db09e4881f8bdbcb9cb6fe9170ad5fbfa94b9d13c9fc544e14715"
+        },
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\evidence\\ranged-worker-ui-r3",
+          "status": "pass",
+          "ledger": {
+            "initial": 76,
+            "consumed": 76,
+            "saved": 0
+          },
+          "captureSha256": "c306300b92f067835af8df0f4b0f9d860d8af1bed315c2aca32edd312ab02f79",
+          "independentSha256": "082fd9705da3ab6316eebb73328c6f3be7cf0635c480f02c4e0b85fb82449286",
+          "savedProofSha256": "560f24b06127983ad965f00003bd7e142b73f207d482dc53cee358f37dcb1194"
+        }
+      ],
+      "final": {
+        "main": [
+          {
+            "X": 32588,
+            "Y": 32930,
+            "Ac": -4,
+            "Hp": 528,
+            "Mp": 120,
+            "Exp": 416461902,
+            "Gfx": 0,
+            "Name": "弓箭王子乙",
+            "Level": 60,
+            "MapId": 0,
+            "MaxHp": 700,
+            "MaxMp": 120,
+            "Lawful": 9,
+            "Wisdom": 12,
+            "Charisma": 10,
+            "ObjectId": 1900210002,
+            "Strength": 18,
+            "Dexterity": 13,
+            "Direction": 2,
+            "Constitution": 16,
+            "Intelligence": 11,
+            "OnlineStatus": 0
+          }
+        ],
+        "observer": [
+          {
+            "X": 32589,
+            "Y": 32930,
+            "Ac": -1,
+            "Hp": 700,
+            "Mp": 120,
+            "Exp": 416461882,
+            "Gfx": 0,
+            "Name": "弓箭觀察乙",
+            "Level": 60,
+            "MapId": 0,
+            "MaxHp": 700,
+            "MaxMp": 120,
+            "Lawful": 0,
+            "Wisdom": 12,
+            "Charisma": 10,
+            "ObjectId": 1900210006,
+            "Strength": 18,
+            "Dexterity": 13,
+            "Direction": 1,
+            "Constitution": 16,
+            "Intelligence": 11,
+            "OnlineStatus": 0
+          }
+        ],
+        "items": [
+          {
+            "Name": "終極治癒藥水",
+            "Bless": 0,
+            "Count": 6,
+            "Enchant": 0,
+            "ObjectId": 1900211021,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40012,
+            "CharacterId": 1900210002
+          },
+          {
+            "Name": "金幣",
+            "Bless": 0,
+            "Count": 27,
+            "Enchant": 0,
+            "ObjectId": 1900211022,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40308,
+            "CharacterId": 1900210002
+          },
+          {
+            "Name": "鑒定卷軸",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900211023,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40126,
+            "CharacterId": 1900210002
+          },
+          {
+            "Name": "肉",
+            "Bless": 0,
+            "Count": 8,
+            "Enchant": 0,
+            "ObjectId": 1900211024,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 40056,
+            "CharacterId": 1900210002
+          },
+          {
+            "Name": "長劍",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900211025,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 31,
+            "CharacterId": 1900210002
+          },
+          {
+            "Name": "雙手劍",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900211026,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 52,
+            "CharacterId": 1900210002
+          },
+          {
+            "Name": "環甲",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900211027,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 1,
+            "TemplateId": 20096,
+            "CharacterId": 1900210002
+          },
+          {
+            "Name": "木盾",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900211028,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 0,
+            "TemplateId": 20222,
+            "CharacterId": 1900210002
+          },
+          {
+            "Name": "弓",
+            "Bless": 0,
+            "Count": 1,
+            "Enchant": 0,
+            "ObjectId": 1900211029,
+            "Durability": 0,
+            "Identified": 1,
+            "IsEquipped": 1,
+            "TemplateId": 172,
+            "CharacterId": 1900210002
+          }
+        ],
+        "observerItems": []
+      }
+    }
+  ],
+  "regressions": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\evidence\\ranged-regressions-1792921561417444100",
+  "cleanBuild": {
+    "log": "evidence/build-final-clean.log",
+    "dllSha256": "d487117fab2367cae44c36dda8d3df622596725b563ec83bd7b8f072e1b7bd6a",
+    "identicalToTested": true
+  },
+  "sourceEvidence": "PROTOCOL.md",
+  "visualReview": "evidence/visual-review.json",
+  "normalJarStarts": 1,
+  "sourceFrozen": true,
+  "supervisorAcceptance": false,
+  "cleanupComplete": false,
+  "limitations": [
+    "Only the selected normal bow/arrow/gfx0; no all-ranged/magic claim.",
+    "Original arrow drop refused125; no successful real arrow ground/pickup claim.",
+    "Range dynamic refusal is original AOI removal plus local stale-target refusal; terrain-blocked branch is source-only.",
+    "Fixed normal sprite release/flight supported; other effects, accelerated states and all BIN interruption variants not claimed.",
+    "P18 old UI8 meat unproved and pickup animation absent; P19 no natural ground loot/real level-up; P10 old EXE0/11 unaccepted."
+  ],
+  "readyReceipt": "ready-for-supervisor.json",
+  "freezeVersion": 2,
+  "sourceManifestSha256": "5e3215371cfad53d34f0199dc66c349ae89054518b5853aaeac66c75853bdf87",
+  "environmentManifestSha256": "673c25718b17d0bbb34bebbdbc0b22f187736b6e95a724c7cd852852f2d0a0b7",
+  "manifestCorrection": "v1 coverage history retained; no product/assets/web/build change"
+}

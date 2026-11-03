@@ -1,0 +1,33 @@
+{
+  "taskId": "ENGINE-PICKUP-SCHEDULER-SOURCE-R1",
+  "owner": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+  "turnId": "01a184e4-79a8-7602-8576-78ea4469c188",
+  "cursor": "1e47fa6f-0252-43ab-bc1b-299701dcebdc:145",
+  "status": "source-and-independent-static-review-accepted",
+  "utc": "2026-10-28T23:42:18.890Z",
+  "writeRoot": "work/engine-pickup-scheduler-source-r1",
+  "baseline": "final-r32",
+  "implementationAuthorized": false,
+  "nativeExecutionAuthorized": false,
+  "updatedUtc": "2026-10-29T00:17:13.537728+00:00",
+  "eligibilityFollowup": {
+    "taskId": "ENGINE-PICKUP-RENDERER-ELIGIBILITY-SOURCE-R1",
+    "owner": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+    "turnId": "01a184f3-9f06-71c1-a1e9-c5905de7dc19",
+    "cursor": "1e47fa6f-0252-43ab-bc1b-299701dcebdc:182",
+    "status": "sealed-source-integrity-accepted",
+    "utc": "2026-10-28T23:59:01.165338+00:00",
+    "writeRoot": "work/engine-pickup-renderer-eligibility-source-r1",
+    "implementationAuthorized": false,
+    "sealSha256": "ad19e01822d2ee6a096dcc7829c4ad5c097a1b48eec4298757e72092fa54b904"
+  },
+  "independentReview": {
+    "taskId": "ENGINE-PICKUP-SCHEDULER-REVIEW-R1",
+    "owner": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+    "status": "sealed-accepted-correction-r1",
+    "writeRoot": "work/engine-pickup-scheduler-review-r1",
+    "turnId": "01a184ef-4b95-7331-8f9d-88eaedd046c4",
+    "cursor": "8733f9b2-2e3c-4239-bb56-0b27e2dd2974:185",
+    "finalSealSha256": "fe60ebb07bc282e194612a938f20ac04f59f0fd89281b1673f5c591861a2c6b0"
+  }
+}

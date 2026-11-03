@@ -1,0 +1,364 @@
+{
+  "java": {
+    "item-common": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "C_ItemUSe",
+      "method": "useItemRequest(",
+      "offsets": [
+        168,
+        188,
+        360,
+        381,
+        407,
+        503,
+        519,
+        678,
+        688,
+        749,
+        3506
+      ],
+      "claim": "Owned object lookup, argument validation, map/state/common and category delay gates, then post-use delay registration. Not a blanket server success assertion.",
+      "artifact": "classes/C_ItemUSe.javap.txt",
+      "classSha256": "32dea956650ff787697f465f52309ae4653b083281b279cfdb3dd5dcebf0fc6a"
+    },
+    "item-dispatch": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "C_ItemUSe",
+      "method": "useItemRequest(",
+      "offsets": [
+        1210,
+        1601,
+        1700,
+        1935,
+        1973,
+        2245,
+        2752
+      ],
+      "claim": "use_type switch routes haste, healing, weapon, armor, home and food to distinct methods. Case labels are not bytecode addresses.",
+      "artifact": "classes/C_ItemUSe.javap.txt",
+      "classSha256": "32dea956650ff787697f465f52309ae4653b083281b279cfdb3dd5dcebf0fc6a"
+    },
+    "haste-execute": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "StatusHaste",
+      "method": "execute(",
+      "offsets": [
+        10,
+        30,
+        223,
+        262,
+        294,
+        326,
+        360,
+        399,
+        414
+      ],
+      "claim": "stopPotion; configured consume branch; independent effect; explicit SLOW29/MASS_SLOW76/ENTANGLE152 cleanup; S255 mode1, setMoveSpeed(1), STATUS_HASTE duration.",
+      "artifact": "classes/StatusHaste.javap.txt",
+      "classSha256": "41cba6e0aac35b49d1337eb03f8f55c86744d90c6185ae10c706051a46aab62f"
+    },
+    "buff-all": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "L1BuffUtil",
+      "method": "getUseItemAll(",
+      "offsets": [
+        0,
+        12,
+        24,
+        35,
+        46,
+        57,
+        68,
+        80
+      ],
+      "claim": "Complete utility returns false for listed blockers1011/1009/66/87/50/80/194, true otherwise. Not a proof that Brave0 implies neutral buffs.",
+      "artifact": "classes/L1BuffUtil.javap.txt",
+      "classSha256": "a834b7ea528211de92c51672862057403ae4e8cb2c1fa2ad70a4b9854e477304"
+    },
+    "potion-blocker": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "L1BuffUtil",
+      "method": "stopPotion(",
+      "offsets": [
+        0,
+        1,
+        12,
+        23,
+        24
+      ],
+      "claim": "Decay potion condition reports698 and rejects; otherwise returns true.",
+      "artifact": "classes/L1BuffUtil.javap.txt",
+      "classSha256": "a834b7ea528211de92c51672862057403ae4e8cb2c1fa2ad70a4b9854e477304"
+    },
+    "heal-execute": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "UserAddHp",
+      "method": "execute(",
+      "offsets": [
+        10,
+        30,
+        142,
+        166,
+        169
+      ],
+      "claim": "Configured consumption, cancelAbsoluteBarrier and own potion-effect broadcast; healing branch remains server authority.",
+      "artifact": "classes/UserAddHp.javap.txt",
+      "classSha256": "ddb86ef10d6ede395eb8a93165760d454888bf178ab5a76f1afa78b466167cf6"
+    },
+    "food-execute": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "Food1",
+      "method": "execute(",
+      "offsets": [
+        6,
+        15,
+        16,
+        40,
+        79,
+        97,
+        132
+      ],
+      "claim": "Remove first, food increments only below threshold; no client-predicted success.",
+      "artifact": "classes/Food1.javap.txt",
+      "classSha256": "c14ba7e33b66df901cf5894469753a45e3014bbbcdac23e1e535393ad4980a35"
+    },
+    "home-execute": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "GoHome_Reel",
+      "method": "execute(",
+      "offsets": [
+        0,
+        14,
+        17,
+        40,
+        43,
+        52,
+        98,
+        123
+      ],
+      "claim": "Escapable/GM path chooses server getback and consumes; denied path sends647/unlock. New native slow teleport cadence not established.",
+      "artifact": "classes/GoHome_Reel.javap.txt",
+      "classSha256": "bab4e48e1c0f6321e7a3a655c4f135cfb0c93f35eb0385282cf439cdff273530"
+    },
+    "delay": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "L1ItemDelay",
+      "method": "onItemUse(com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.Instance.L1ItemInstance)",
+      "offsets": [
+        75,
+        86,
+        93,
+        94,
+        153,
+        157
+      ],
+      "claim": "Type0 takes template delay id/time; weapon returns; ordinary armor returns except explicit invisibility cases. No blanket actor-speed multiplier.",
+      "artifact": "classes/L1ItemDelay.javap.txt",
+      "classSha256": "d76ee297cbf4308716886fbf791effdbdf1cd1593bf6e87dd6a85a8f4484de37"
+    },
+    "delay-zero": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "L1ItemDelay",
+      "method": "scheduleDelay(",
+      "offsets": [
+        12,
+        16,
+        27
+      ],
+      "claim": "Zero delay id/time short-circuit; other leases use separate action/runtime timing. Local margin is not server delay.",
+      "artifact": "classes/L1ItemDelay.javap.txt",
+      "classSha256": "d76ee297cbf4308716886fbf791effdbdf1cd1593bf6e87dd6a85a8f4484de37"
+    },
+    "weapon-armor": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "C_ItemUSe",
+      "method": "useItemRequest(",
+      "offsets": [
+        1905,
+        1908,
+        1924,
+        1935,
+        1943,
+        1946,
+        1962,
+        1973
+      ],
+      "claim": "500/501 prohibition gates precede useItem and weapon/armor methods; cannot infer next interval simply from no Speed field.",
+      "artifact": "classes/C_ItemUSe.javap.txt",
+      "classSha256": "32dea956650ff787697f465f52309ae4653b083281b279cfdb3dd5dcebf0fc6a"
+    },
+    "pickup-handler": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "C_PickUpItem",
+      "method": "start(",
+      "offsets": [
+        0,
+        6,
+        31
+      ],
+      "claim": "Packet/current-player/state and authoritative item/range validation before inventory transaction; complete static method available.",
+      "artifact": "classes/C_PickUpItem.javap.txt",
+      "classSha256": "721b3f27cd3be1bbe1ac9f5c1646946af7a53b6dcbff2d759ceb9081ff8c45a5"
+    },
+    "pickup-action": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "C_PickUpItem",
+      "method": "lambda$start$0(",
+      "offsets": [
+        206,
+        541,
+        574
+      ],
+      "claim": "Committed transfer path changes heading and broadcasts ACTION_Pickup15. No certified native Speed2 action15 schedule in this work.",
+      "artifact": "classes/C_PickUpItem.javap.txt",
+      "classSha256": "721b3f27cd3be1bbe1ac9f5c1646946af7a53b6dcbff2d759ceb9081ff8c45a5"
+    },
+    "drop-handler": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "C_DropItem",
+      "method": "lambda$start$0(",
+      "offsets": [
+        23
+      ],
+      "claim": "PlayerActionLock transaction performs inventory-to-ground transfer; configured tradability/time/pet/map policies remain upstream.",
+      "artifact": "classes/C_DropItem.javap.txt",
+      "classSha256": "5b097f52ad2f3b7f6836ceb4124208adc8d9f4c8ddf172c658456f5629225319"
+    },
+    "npc-handler": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "C_NPCTalk",
+      "method": "start(",
+      "offsets": [
+        79,
+        112,
+        250,
+        264,
+        294,
+        308
+      ],
+      "claim": "Read target, npcTalk guard, then executor talk/legacy HTML/onTalkAction. Does not certify every NPC executor or original input cadence.",
+      "artifact": "classes/C_NPCTalk.javap.txt",
+      "classSha256": "1786ac226467151513e5a51ea8629bcfbb3f6c4c80c8c108384766231c94d4a4"
+    },
+    "npc-range": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "WorldInteractionGuard",
+      "method": "npcTalk(",
+      "offsets": [
+        24,
+        25,
+        36
+      ],
+      "claim": "Server ordinary NPC talk distance5 with companion-owner exception; r30 client retains stricter3-tile gate.",
+      "artifact": "classes/WorldInteractionGuard.javap.txt",
+      "classSha256": "53c73aa47857d46a5c69a97cbb9e81ef350b91f7169ea5daf090b3803cf99f71"
+    },
+    "speed-packet": {
+      "kind": "JVM-method-bytecode-offset",
+      "className": "S_SkillHaste",
+      "method": "S_SkillHaste(",
+      "offsets": [
+        10,
+        18,
+        23,
+        28
+      ],
+      "claim": "Fixed JAR S255+D actor+C mode+H duration.",
+      "artifact": "classes/S_SkillHaste.javap.txt",
+      "classSha256": "65d33e67194b603f22f323782566475ca33b2534d4659fc54891de6a84df5003"
+    }
+  },
+  "native": {
+    "0x94c530": [
+      {
+        "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+        "functionVA": "0x94c530",
+        "VA": "0x94c530",
+        "RVA": "0x54c530",
+        "fileOffset": "0x54b930",
+        "size": 325,
+        "sha256": "a498af93ac848b174aa58db724f7af6a43776352f21d0342a0064ebc6bedb18f"
+      },
+      {
+        "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\speed01\\functions.json",
+        "functionVA": "0x94c530",
+        "VA": "0x94c530",
+        "RVA": "0x54c530",
+        "fileOffset": "0x54b930",
+        "size": 325,
+        "sha256": "a498af93ac848b174aa58db724f7af6a43776352f21d0342a0064ebc6bedb18f"
+      }
+    ],
+    "0x934690": [
+      {
+        "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+        "functionVA": "0x934690",
+        "VA": "0x934690",
+        "RVA": "0x534690",
+        "fileOffset": "0x533a90",
+        "size": 2959,
+        "sha256": "2cc0d5c1392621d64bebb79ddaae18836efce5e78e5936d2e651c985dca8df5d"
+      },
+      {
+        "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+        "functionVA": "0x934690",
+        "VA": "0x109cae0",
+        "RVA": "0xc9cae0",
+        "fileOffset": "0xc9bee0",
+        "size": 121,
+        "sha256": "e5826c5f2a82789ea4e9b397bfcc842fe5322bcfca41cc006fbc7b1fbffb4fcd"
+      },
+      {
+        "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+        "functionVA": "0x934690",
+        "VA": "0x934690",
+        "RVA": "0x534690",
+        "fileOffset": "0x533a90",
+        "size": 2959,
+        "sha256": "2cc0d5c1392621d64bebb79ddaae18836efce5e78e5936d2e651c985dca8df5d"
+      },
+      {
+        "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+        "functionVA": "0x934690",
+        "VA": "0x109cae0",
+        "RVA": "0xc9cae0",
+        "fileOffset": "0xc9bee0",
+        "size": 121,
+        "sha256": "e5826c5f2a82789ea4e9b397bfcc842fe5322bcfca41cc006fbc7b1fbffb4fcd"
+      }
+    ],
+    "0x8abc10": [
+      {
+        "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+        "functionVA": "0x8abc10",
+        "VA": "0x8abc10",
+        "RVA": "0x4abc10",
+        "fileOffset": "0x4ab010",
+        "size": 3358,
+        "sha256": "e948a50f2da5ebca5cf99e59197189055982e691b1fd0e1a1cc63695d22dea11"
+      },
+      {
+        "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+        "functionVA": "0x8abc10",
+        "VA": "0x1093d00",
+        "RVA": "0xc93d00",
+        "fileOffset": "0xc93100",
+        "size": 91,
+        "sha256": "9071a076955b96aa28196aab61d0101712c6923a26b61dd1e23782c00b5a56c8"
+      }
+    ],
+    "0xa407d0": [
+      {
+        "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\speed01\\functions.json",
+        "functionVA": "0xa407d0",
+        "VA": "0xa407d0",
+        "RVA": "0x6407d0",
+        "fileOffset": "0x63fbd0",
+        "size": 1644,
+        "sha256": "df99bc065dd5014d263cc0ea9b59a50e659504454294d558ad2c956718b223af"
+      }
+    ]
+  },
+  "nativeAddressBase": "0x400000",
+  "note": "VA/RVA/FileOffset are BIN addresses. Java offsets are local to named methods, never BIN offsets. Static byte verification only."
+}

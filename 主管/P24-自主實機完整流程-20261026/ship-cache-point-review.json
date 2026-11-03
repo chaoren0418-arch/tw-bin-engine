@@ -1,0 +1,134 @@
+[
+  {
+    "mapId": 5,
+    "x": 32733,
+    "y": 32797,
+    "slots": [
+      {
+        "name": "7fff8000",
+        "unsupported": null,
+        "absent": false,
+        "packaged": true
+      },
+      {
+        "name": "80008000",
+        "unsupported": null,
+        "absent": true,
+        "packaged": false
+      },
+      {
+        "name": "7fff8001",
+        "unsupported": null,
+        "absent": true,
+        "packaged": false
+      },
+      {
+        "name": "80008001",
+        "unsupported": null,
+        "absent": true,
+        "packaged": false
+      }
+    ]
+  },
+  {
+    "mapId": 6,
+    "x": 32735,
+    "y": 32795,
+    "slots": [
+      {
+        "name": "7fff8000",
+        "unsupported": {
+          "name": "7fff8000",
+          "sources": [
+            {
+              "path": "D:\\lineage開發\\0-客戶端\\map\\6\\7fff8000.seg",
+              "sha256": "aad5ff598f9daeb6574fcef8fdaa1b3b2963d6c0d60d8840057ef48d39101a45"
+            }
+          ]
+        },
+        "absent": false,
+        "packaged": false
+      },
+      {
+        "name": "80008000",
+        "unsupported": null,
+        "absent": false,
+        "packaged": true
+      },
+      {
+        "name": "7fff8001",
+        "unsupported": null,
+        "absent": true,
+        "packaged": false
+      },
+      {
+        "name": "80008001",
+        "unsupported": null,
+        "absent": true,
+        "packaged": false
+      }
+    ]
+  },
+  {
+    "mapId": 4,
+    "x": 32544,
+    "y": 32727,
+    "slots": [
+      {
+        "name": "7ffc7fff",
+        "unsupported": null,
+        "absent": false,
+        "packaged": true
+      },
+      {
+        "name": "7ffd7fff",
+        "unsupported": null,
+        "absent": false,
+        "packaged": true
+      },
+      {
+        "name": "7ffc8000",
+        "unsupported": null,
+        "absent": false,
+        "packaged": true
+      },
+      {
+        "name": "7ffd8000",
+        "unsupported": null,
+        "absent": false,
+        "packaged": true
+      }
+    ]
+  },
+  {
+    "mapId": 4,
+    "x": 32608,
+    "y": 32787,
+    "slots": [
+      {
+        "name": "7ffd7fff",
+        "unsupported": null,
+        "absent": false,
+        "packaged": true
+      },
+      {
+        "name": "7ffe7fff",
+        "unsupported": null,
+        "absent": false,
+        "packaged": true
+      },
+      {
+        "name": "7ffd8000",
+        "unsupported": null,
+        "absent": false,
+        "packaged": true
+      },
+      {
+        "name": "7ffe8000",
+        "unsupported": null,
+        "absent": false,
+        "packaged": true
+      }
+    ]
+  }
+]

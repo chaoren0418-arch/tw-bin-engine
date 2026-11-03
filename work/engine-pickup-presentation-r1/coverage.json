@@ -1,0 +1,744 @@
+{
+  "proposedRows": 36,
+  "rows": [
+    {
+      "id": "POS-0-0",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-0-0-1",
+        "pixels-0-0-1",
+        "frame-0-0-2",
+        "pixels-0-0-2",
+        "frame-0-0-3",
+        "pixels-0-0-3",
+        "frame-0-0-0",
+        "pixels-0-0-0",
+        "terminal-before-0-0",
+        "terminal-finish-0-0"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-0-1",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-0-1-1",
+        "pixels-0-1-1",
+        "frame-0-1-2",
+        "pixels-0-1-2",
+        "frame-0-1-3",
+        "pixels-0-1-3",
+        "frame-0-1-0",
+        "pixels-0-1-0",
+        "terminal-before-0-1",
+        "terminal-finish-0-1"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-0-2",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-0-2-1",
+        "pixels-0-2-1",
+        "frame-0-2-2",
+        "pixels-0-2-2",
+        "frame-0-2-3",
+        "pixels-0-2-3",
+        "frame-0-2-0",
+        "pixels-0-2-0",
+        "terminal-before-0-2",
+        "terminal-finish-0-2"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-0-3",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-0-3-1",
+        "pixels-0-3-1",
+        "frame-0-3-2",
+        "pixels-0-3-2",
+        "frame-0-3-3",
+        "pixels-0-3-3",
+        "frame-0-3-0",
+        "pixels-0-3-0",
+        "terminal-before-0-3",
+        "terminal-finish-0-3"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-0-4",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-0-4-1",
+        "pixels-0-4-1",
+        "frame-0-4-2",
+        "pixels-0-4-2",
+        "frame-0-4-3",
+        "pixels-0-4-3",
+        "frame-0-4-0",
+        "pixels-0-4-0",
+        "terminal-before-0-4",
+        "terminal-finish-0-4"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-0-5",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-0-5-1",
+        "pixels-0-5-1",
+        "frame-0-5-2",
+        "pixels-0-5-2",
+        "frame-0-5-3",
+        "pixels-0-5-3",
+        "frame-0-5-0",
+        "pixels-0-5-0",
+        "terminal-before-0-5",
+        "terminal-finish-0-5"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-0-6",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-0-6-1",
+        "pixels-0-6-1",
+        "frame-0-6-2",
+        "pixels-0-6-2",
+        "frame-0-6-3",
+        "pixels-0-6-3",
+        "frame-0-6-0",
+        "pixels-0-6-0",
+        "terminal-before-0-6",
+        "terminal-finish-0-6"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-0-7",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-0-7-1",
+        "pixels-0-7-1",
+        "frame-0-7-2",
+        "pixels-0-7-2",
+        "frame-0-7-3",
+        "pixels-0-7-3",
+        "frame-0-7-0",
+        "pixels-0-7-0",
+        "terminal-before-0-7",
+        "terminal-finish-0-7"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-1-0",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-1-0-1",
+        "pixels-1-0-1",
+        "frame-1-0-2",
+        "pixels-1-0-2",
+        "frame-1-0-3",
+        "pixels-1-0-3",
+        "frame-1-0-0",
+        "pixels-1-0-0",
+        "terminal-before-1-0",
+        "terminal-finish-1-0"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-1-1",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-1-1-1",
+        "pixels-1-1-1",
+        "frame-1-1-2",
+        "pixels-1-1-2",
+        "frame-1-1-3",
+        "pixels-1-1-3",
+        "frame-1-1-0",
+        "pixels-1-1-0",
+        "terminal-before-1-1",
+        "terminal-finish-1-1"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-1-2",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-1-2-1",
+        "pixels-1-2-1",
+        "frame-1-2-2",
+        "pixels-1-2-2",
+        "frame-1-2-3",
+        "pixels-1-2-3",
+        "frame-1-2-0",
+        "pixels-1-2-0",
+        "terminal-before-1-2",
+        "terminal-finish-1-2"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-1-3",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-1-3-1",
+        "pixels-1-3-1",
+        "frame-1-3-2",
+        "pixels-1-3-2",
+        "frame-1-3-3",
+        "pixels-1-3-3",
+        "frame-1-3-0",
+        "pixels-1-3-0",
+        "terminal-before-1-3",
+        "terminal-finish-1-3"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-1-4",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-1-4-1",
+        "pixels-1-4-1",
+        "frame-1-4-2",
+        "pixels-1-4-2",
+        "frame-1-4-3",
+        "pixels-1-4-3",
+        "frame-1-4-0",
+        "pixels-1-4-0",
+        "terminal-before-1-4",
+        "terminal-finish-1-4"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-1-5",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-1-5-1",
+        "pixels-1-5-1",
+        "frame-1-5-2",
+        "pixels-1-5-2",
+        "frame-1-5-3",
+        "pixels-1-5-3",
+        "frame-1-5-0",
+        "pixels-1-5-0",
+        "terminal-before-1-5",
+        "terminal-finish-1-5"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-1-6",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-1-6-1",
+        "pixels-1-6-1",
+        "frame-1-6-2",
+        "pixels-1-6-2",
+        "frame-1-6-3",
+        "pixels-1-6-3",
+        "frame-1-6-0",
+        "pixels-1-6-0",
+        "terminal-before-1-6",
+        "terminal-finish-1-6"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "POS-1-7",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-1-7-1",
+        "pixels-1-7-1",
+        "frame-1-7-2",
+        "pixels-1-7-2",
+        "frame-1-7-3",
+        "pixels-1-7-3",
+        "frame-1-7-0",
+        "pixels-1-7-0",
+        "terminal-before-1-7",
+        "terminal-finish-1-7"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "TRIGGER",
+      "status": "executed-bounded",
+      "assertions": [
+        "local-send-no-animation",
+        "count-delta-no-animation",
+        "raw-world-receive-no-session-owner"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "BURST",
+      "status": "executed-bounded",
+      "assertions": [
+        "burst-per-receipt"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "UNKNOWN",
+      "status": "executed-bounded",
+      "assertions": [
+        "unknown-remote-receipts-retain"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "PROFILE",
+      "status": "executed-bounded",
+      "assertions": [
+        "other-profile-61-0",
+        "other-profile-61-4",
+        "other-profile-61-20",
+        "other-profile-61-50",
+        "other-profile-48-0",
+        "other-profile-48-4",
+        "other-profile-48-20",
+        "other-profile-48-50",
+        "other-profile-37-0",
+        "other-profile-37-4",
+        "other-profile-37-20",
+        "other-profile-734-0",
+        "other-profile-734-4",
+        "other-profile-734-20",
+        "other-profile-1186-0",
+        "other-profile-1186-4",
+        "other-profile-1186-20",
+        "other-profile-2786-0",
+        "other-profile-2786-4",
+        "other-profile-2786-20",
+        "other-profile-2796-0",
+        "other-profile-2796-4",
+        "other-profile-2796-20",
+        "other-profile-0-4",
+        "other-profile-0-20",
+        "other-profile-0-50",
+        "other-profile-1-0",
+        "other-profile-1-4",
+        "other-profile-1-20",
+        "other-profile-1-50",
+        "other-profile-6658-0",
+        "other-profile-6658-4",
+        "other-profile-6658-50",
+        "other-profile-6661-0",
+        "other-profile-6661-4",
+        "other-profile-6661-50",
+        "other-profile-6671-0",
+        "other-profile-6671-20",
+        "other-profile-6650-0",
+        "other-profile-6650-20",
+        "other-profile-0-46",
+        "other-profile-count"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "SPEED",
+      "status": "executed-bounded",
+      "assertions": [
+        "suppress-brave",
+        "unsupported-speed-2",
+        "unsupported-speed-17",
+        "unsupported-speed-18",
+        "unsupported-speed-255"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "STATUS",
+      "status": "executed-bounded",
+      "assertions": [
+        "cancel-same-speed",
+        "cancel-same-brave",
+        "speed-roundtrip-not-resurrected"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "OWNER",
+      "status": "executed-bounded",
+      "assertions": [
+        "late-old-callback-no-touch",
+        "session-reset-late-callback",
+        "r33-world-old-error-isolated"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "APPEAR",
+      "status": "executed-bounded",
+      "assertions": [
+        "cancel-gfx",
+        "cancel-weapon",
+        "cancel-pending-appearance",
+        "cancel-pack"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "MOTION",
+      "status": "executed-bounded",
+      "assertions": [
+        "cancel-walking",
+        "cancel-predict",
+        "cancel-predicted-action",
+        "cancel-heading-packet",
+        "cancel-move-packet",
+        "suppress-walking"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "COMBAT",
+      "status": "executed-bounded",
+      "assertions": [
+        "combat-last-0-1",
+        "combat-active-suppresses-0-1",
+        "combat-expired-0-1",
+        "expired-history-admits-0-1",
+        "combat-last-0-2",
+        "combat-active-suppresses-0-2",
+        "combat-expired-0-2",
+        "expired-history-admits-0-2",
+        "combat-last-0-18",
+        "combat-active-suppresses-0-18",
+        "combat-expired-0-18",
+        "expired-history-admits-0-18",
+        "combat-last-0-19",
+        "combat-active-suppresses-0-19",
+        "combat-expired-0-19",
+        "expired-history-admits-0-19",
+        "combat-last-1-1",
+        "combat-active-suppresses-1-1",
+        "combat-expired-1-1",
+        "expired-history-admits-1-1",
+        "combat-last-1-2",
+        "combat-active-suppresses-1-2",
+        "combat-expired-1-2",
+        "expired-history-admits-1-2",
+        "combat-last-1-18",
+        "combat-active-suppresses-1-18",
+        "combat-expired-1-18",
+        "expired-history-admits-1-18",
+        "combat-last-1-19",
+        "combat-active-suppresses-1-19",
+        "combat-expired-1-19",
+        "expired-history-admits-1-19",
+        "death-indefinite-priority",
+        "death-suppresses",
+        "cancel-attack",
+        "cancel-damage",
+        "cancel-spell",
+        "cancel-spell-no-dir",
+        "projectile-hit-cancels",
+        "projectile-583-blocks",
+        "projectile-584-admits",
+        "death-beats-newer-projectile"
+      ],
+      "clarification": "Supervisor active-window override replaces old nonnull-history expectation"
+    },
+    {
+      "id": "LOCK",
+      "status": "executed-bounded",
+      "assertions": [
+        "cancel-map",
+        "suppress-hp",
+        "suppress-hp-percent",
+        "suppress-locked",
+        "suppress-not-ready"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "ASSET",
+      "status": "executed-bounded",
+      "assertions": [
+        "embedded-resource-exact",
+        "tampered-resource-rejected",
+        "missing-base-key-fallback",
+        "missing-key-cancels-active",
+        "base-frame-reuse"
+      ],
+      "clarification": "All accepted gfx0 base frames have pixels; hypothetical transparent base profile not substituted/tested"
+    },
+    {
+      "id": "LATE",
+      "status": "executed-bounded",
+      "assertions": [
+        "late-one-step",
+        "same-time-no-catchup",
+        "min2-before",
+        "min2-next",
+        "lateness20-preserves-baseline",
+        "lateness-recovers-next-baseline"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "TERMINAL",
+      "status": "executed-bounded",
+      "assertions": [
+        "terminal-before-0-0",
+        "terminal-finish-0-0",
+        "no-restart-0-0",
+        "terminal-before-0-1",
+        "terminal-finish-0-1",
+        "no-restart-0-1",
+        "terminal-before-0-2",
+        "terminal-finish-0-2",
+        "no-restart-0-2",
+        "terminal-before-0-3",
+        "terminal-finish-0-3",
+        "no-restart-0-3",
+        "terminal-before-0-4",
+        "terminal-finish-0-4",
+        "no-restart-0-4",
+        "terminal-before-0-5",
+        "terminal-finish-0-5",
+        "no-restart-0-5",
+        "terminal-before-0-6",
+        "terminal-finish-0-6",
+        "no-restart-0-6",
+        "terminal-before-0-7",
+        "terminal-finish-0-7",
+        "no-restart-0-7",
+        "terminal-before-1-0",
+        "terminal-finish-1-0",
+        "no-restart-1-0",
+        "terminal-before-1-1",
+        "terminal-finish-1-1",
+        "no-restart-1-1",
+        "terminal-before-1-2",
+        "terminal-finish-1-2",
+        "no-restart-1-2",
+        "terminal-before-1-3",
+        "terminal-finish-1-3",
+        "no-restart-1-3",
+        "terminal-before-1-4",
+        "terminal-finish-1-4",
+        "no-restart-1-4",
+        "terminal-before-1-5",
+        "terminal-finish-1-5",
+        "no-restart-1-5",
+        "terminal-before-1-6",
+        "terminal-finish-1-6",
+        "no-restart-1-6",
+        "terminal-before-1-7",
+        "terminal-finish-1-7",
+        "no-restart-1-7"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "PREEMPT",
+      "status": "executed-bounded",
+      "assertions": [
+        "old-terminal-does-not-clear",
+        "terminal-preempt-attack",
+        "terminal-preempt-damage",
+        "terminal-preempt-spell",
+        "terminal-preempt-dead",
+        "terminal-preempt-predict",
+        "terminal-preempt-pack",
+        "terminal-preempt-locked"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "GATES",
+      "status": "executed-bounded",
+      "assertions": [
+        "local-send-no-animation",
+        "r33-early-reply-completion",
+        "pending3000-retained",
+        "r32-slow-haste-item-still-admitted",
+        "finish-does-not-mutate-gameplay"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "DEPTH",
+      "status": "executed-bounded",
+      "assertions": [
+        "frame-0-0-1",
+        "pixels-0-0-1",
+        "frame-0-0-2",
+        "pixels-0-0-2",
+        "frame-0-0-3",
+        "pixels-0-0-3",
+        "frame-0-0-0",
+        "pixels-0-0-0",
+        "frame-0-1-1",
+        "pixels-0-1-1",
+        "frame-0-1-2",
+        "pixels-0-1-2",
+        "frame-0-1-3",
+        "pixels-0-1-3",
+        "frame-0-1-0",
+        "pixels-0-1-0",
+        "frame-0-2-1",
+        "pixels-0-2-1",
+        "frame-0-2-2",
+        "pixels-0-2-2",
+        "frame-0-2-3",
+        "pixels-0-2-3",
+        "frame-0-2-0",
+        "pixels-0-2-0",
+        "frame-0-3-1",
+        "pixels-0-3-1",
+        "frame-0-3-2",
+        "pixels-0-3-2",
+        "frame-0-3-3",
+        "pixels-0-3-3",
+        "frame-0-3-0",
+        "pixels-0-3-0",
+        "frame-0-4-1",
+        "pixels-0-4-1",
+        "frame-0-4-2",
+        "pixels-0-4-2",
+        "frame-0-4-3",
+        "pixels-0-4-3",
+        "frame-0-4-0",
+        "pixels-0-4-0",
+        "frame-0-5-1",
+        "pixels-0-5-1",
+        "frame-0-5-2",
+        "pixels-0-5-2",
+        "frame-0-5-3",
+        "pixels-0-5-3",
+        "frame-0-5-0",
+        "pixels-0-5-0",
+        "frame-0-6-1",
+        "pixels-0-6-1",
+        "frame-0-6-2",
+        "pixels-0-6-2",
+        "frame-0-6-3",
+        "pixels-0-6-3",
+        "frame-0-6-0",
+        "pixels-0-6-0",
+        "frame-0-7-1",
+        "pixels-0-7-1",
+        "frame-0-7-2",
+        "pixels-0-7-2",
+        "frame-0-7-3",
+        "pixels-0-7-3",
+        "frame-0-7-0",
+        "pixels-0-7-0",
+        "frame-1-0-1",
+        "pixels-1-0-1",
+        "frame-1-0-2",
+        "pixels-1-0-2",
+        "frame-1-0-3",
+        "pixels-1-0-3",
+        "frame-1-0-0",
+        "pixels-1-0-0",
+        "frame-1-1-1",
+        "pixels-1-1-1",
+        "frame-1-1-2",
+        "pixels-1-1-2",
+        "frame-1-1-3",
+        "pixels-1-1-3",
+        "frame-1-1-0",
+        "pixels-1-1-0",
+        "frame-1-2-1",
+        "pixels-1-2-1",
+        "frame-1-2-2",
+        "pixels-1-2-2",
+        "frame-1-2-3",
+        "pixels-1-2-3",
+        "frame-1-2-0",
+        "pixels-1-2-0",
+        "frame-1-3-1",
+        "pixels-1-3-1",
+        "frame-1-3-2",
+        "pixels-1-3-2",
+        "frame-1-3-3",
+        "pixels-1-3-3",
+        "frame-1-3-0",
+        "pixels-1-3-0",
+        "frame-1-4-1",
+        "pixels-1-4-1",
+        "frame-1-4-2",
+        "pixels-1-4-2",
+        "frame-1-4-3",
+        "pixels-1-4-3",
+        "frame-1-4-0",
+        "pixels-1-4-0",
+        "frame-1-5-1",
+        "pixels-1-5-1",
+        "frame-1-5-2",
+        "pixels-1-5-2",
+        "frame-1-5-3",
+        "pixels-1-5-3",
+        "frame-1-5-0",
+        "pixels-1-5-0",
+        "frame-1-6-1",
+        "pixels-1-6-1",
+        "frame-1-6-2",
+        "pixels-1-6-2",
+        "frame-1-6-3",
+        "pixels-1-6-3",
+        "frame-1-6-0",
+        "pixels-1-6-0",
+        "frame-1-7-1",
+        "pixels-1-7-1",
+        "frame-1-7-2",
+        "pixels-1-7-2",
+        "frame-1-7-3",
+        "pixels-1-7-3",
+        "frame-1-7-0",
+        "pixels-1-7-0"
+      ],
+      "clarification": null
+    },
+    {
+      "id": "UNKNOWN-FLAGS",
+      "status": "static-policy-labels",
+      "assertions": [],
+      "clarification": null
+    },
+    {
+      "id": "REMOTE",
+      "status": "executed-bounded",
+      "assertions": [
+        "known-remote15-retains-own-and-remote"
+      ],
+      "clarification": "One real known remote idle envelope plus unknown IDs; all remote motion/PC-flag permutations not executed"
+    },
+    {
+      "id": "LIVE-SEPARATE",
+      "status": "pending-live",
+      "assertions": [],
+      "clarification": null
+    }
+  ],
+  "additional": [
+    "fractional damage duration583.3333333333334, visible583 and expired584",
+    "actual product DLL resource integrity and source projection",
+    "r32 slow-haste item admission and r33 old completion isolation"
+  ],
+  "notClaimed": [
+    "native runtime timing/variant/FIFO/private-flag equivalence",
+    "normal GUI/live product acceptance",
+    "native32-bit tick wrap equivalence; policy uses engine monotonic64-bit clock",
+    "audio device execution; no new audio dispatch statically verified, unchanged audio DLL",
+    "all remote state permutations",
+    "full historical suite or full release audit repeated by worker"
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "status": "pass",
+  "accounts": {
+    "zero": {
+      "account": [],
+      "characters": [],
+      "account_absent": true
+    },
+    "multi": {
+      "account": [
+        {
+          "name": "p15md998d2",
+          "slots": 0,
+          "server_no": 0,
+          "lastactive": "2026-10-25 09:33:10.000000"
+        }
+      ],
+      "characters": [
+        {
+          "X": 32589,
+          "Y": 32930,
+          "Ac": 9,
+          "Hp": 1234,
+          "Mp": 222,
+          "Exp": 0,
+          "Gfx": 0,
+          "Name": "整合王子",
+          "Level": 1,
+          "MapId": 0,
+          "MaxHp": 1234,
+          "MaxMp": 222,
+          "Lawful": -123,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "ObjectId": 1900120001,
+          "Strength": 18,
+          "Dexterity": 13,
+          "Direction": 0,
+          "Constitution": 16,
+          "Intelligence": 11,
+          "OnlineStatus": 0
+        },
+        {
+          "X": 33087,
+          "Y": 33396,
+          "Ac": 2,
+          "Hp": 767,
+          "Mp": 882,
+          "Exp": 0,
+          "Gfx": 1186,
+          "Name": "整合法師",
+          "Level": 1,
+          "MapId": 4,
+          "MaxHp": 800,
+          "MaxMp": 900,
+          "Lawful": 32767,
+          "Wisdom": 18,
+          "Charisma": 8,
+          "ObjectId": 1900120002,
+          "Strength": 12,
+          "Dexterity": 14,
+          "Direction": 3,
+          "Constitution": 16,
+          "Intelligence": 20,
+          "OnlineStatus": 0
+        }
+      ],
+      "account_absent": false
+    },
+    "missing": {
+      "account": [],
+      "characters": [],
+      "account_absent": true
+    },
+    "observer": {
+      "account": [
+        {
+          "name": "p15od998d2",
+          "slots": 0,
+          "server_no": 0,
+          "lastactive": "2026-10-25 09:28:56.000000"
+        }
+      ],
+      "characters": [
+        {
+          "X": 32586,
+          "Y": 32930,
+          "Ac": 9,
+          "Hp": 1000,
+          "Mp": 100,
+          "Exp": 0,
+          "Gfx": 0,
+          "Name": "觀察王子",
+          "Level": 1,
+          "MapId": 0,
+          "MaxHp": 1000,
+          "MaxMp": 100,
+          "Lawful": 0,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "ObjectId": 1900140003,
+          "Strength": 18,
+          "Dexterity": 13,
+          "Direction": 7,
+          "Constitution": 16,
+          "Intelligence": 11,
+          "OnlineStatus": 0
+        }
+      ],
+      "account_absent": false
+    }
+  },
+  "own_client_webview_processes": [],
+  "services": {
+    "processes": [
+      {
+        "ProcessId": 84628,
+        "ParentProcessId": 14740,
+        "ExecutablePath": "D:\\P15Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P15Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P15Lab-ClientEngine\\mysql.ini --init-file=D:\\P15Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792888819129)/"
+      },
+      {
+        "ProcessId": 71744,
+        "ParentProcessId": 79620,
+        "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+        "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P15Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P15Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P15Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P15Lab-ClientEngine\\server\\Server_Game.jar",
+        "CreationDate": "/Date(1792889103602)/"
+      }
+    ],
+    "listeners": [
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 43315,
+        "OwningProcess": 84628
+      },
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42034,
+        "OwningProcess": 71744
+      }
+    ]
+  },
+  "note": "zero/missing account names have no rows; both actual accounts offline. Final helper originally assumed all fixture names existed; corrected read-only assertion. No mutation."
+}

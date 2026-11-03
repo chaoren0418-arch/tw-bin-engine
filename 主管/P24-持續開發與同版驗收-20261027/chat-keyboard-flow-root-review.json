@@ -1,0 +1,42 @@
+{
+  "status": "accepted-chat-keyboard-flow-not-native-proof",
+  "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\player-chat-keyboard-flow-r1",
+  "review": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\player-chat-flow-root-review-r1",
+  "sealSha256": "0b751f1871ccadd202c54c09e1d92813a309b0d8062a2d0339718d17f669faf4",
+  "rebuiltDllSha256": "1fdba73b5d52e6fb6b58e4fa1c9f18bfd8175cb31ac671c08ee819ce7062f4b1",
+  "checks": {
+    "status": "pass",
+    "assertions": 23,
+    "checks": [
+      "opening Enter plus held repeats cannot submit even if draft already exists",
+      "mouse refocus while opening Enter still held cannot unlock submission",
+      "release then next explicit Enter admits one submission, never held repeats",
+      "later distinct Enter remains available",
+      "mouse opening does not consume first explicit Enter",
+      "modified Enter does not submit or turn into bare repeat submission",
+      "Ctrl Enter does not submit",
+      "exit/release clears Enter latch for future explicit use",
+      "active normal game with existing CanSend permits chat open",
+      "not in-world cannot open game chat: Offline",
+      "not in-world cannot open game chat: CharacterList",
+      "not in-world cannot open game chat: EnteringWorld",
+      "not in-world cannot open game chat: Disconnected",
+      "diagnostic entry keeps original Enter behavior",
+      "inactive window cannot acquire chat focus",
+      "hidden HUD cannot acquire chat input",
+      "existing CanSend=false veto retained for death/HP0/transition/action lock/sending/cooldown",
+      "existing chat length constant retained",
+      "existing encoder is callable without any send",
+      "existing empty/length/control-character/Big5 boundary rejects fixture 0",
+      "existing empty/length/control-character/Big5 boundary rejects fixture 53",
+      "existing empty/length/control-character/Big5 boundary rejects fixture 3",
+      "existing empty/length/control-character/Big5 boundary rejects fixture 2"
+    ],
+    "uiCreated": false,
+    "liveServer": false,
+    "packetsSent": 0,
+    "scope": "Pure Enter press state and opening-rule checks against candidate DLL plus unchanged encoder boundaries; no Form, LoginConnection, native keyboard or sender instantiated.",
+    "candidateDllSha256": "1fdba73b5d52e6fb6b58e4fa1c9f18bfd8175cb31ac671c08ee819ce7062f4b1"
+  },
+  "live": false
+}

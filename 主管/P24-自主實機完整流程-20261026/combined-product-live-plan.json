@@ -1,0 +1,29 @@
+{
+  "utc": "2026-10-26T15:57:58.329Z",
+  "status": "planned; not executed",
+  "role": "p24svc01",
+  "start": {
+    "map": 0,
+    "x": 32600,
+    "y": 32942,
+    "hp": 679,
+    "mp": 77,
+    "adena": 94000,
+    "whitePotions": 4
+  },
+  "steps": [
+    "Normal blank-form login and select service role; verify saved items/skill3 and world scene",
+    "Reach Pandora via observed terrain and dynamic monster positions; normal purchase of ordinary healing and haste potions with own test gold",
+    "Use purchased healing potion and normal haste, verify authoritative quantity/HP/speed, movement animation and expiry/relogin",
+    "Normal purchase of one ship ticket and boarding during original server window; verify actual ship scene and time notice",
+    "Boat cancel/relogin, actual timed arrival and ticket consumption with authoritative new map and own coordinates",
+    "Walk to personal warehouse gfx143, deposit part of purchased potion stack, reopen list, cancel/relogin, withdraw and verify per-row fee and exact count",
+    "Return ticket and actual reverse voyage; preserve all normal outcomes and final offline DB state"
+  ],
+  "constraints": [
+    "No extra grants, resets, GM teleport, monster change or direct game packet actions",
+    "UI observations and actual scene screenshots are required; offline passing tests alone do not prove this flow",
+    "Kurt proximity and incoming damage are gameplay hazards, not a reason to fake successful travel"
+  ],
+  "knownNormalProduct": "r10 remains fixed until combined candidate review passes"
+}

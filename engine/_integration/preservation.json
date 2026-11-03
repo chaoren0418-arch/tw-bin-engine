@@ -1,0 +1,49 @@
+{
+  "status": "pass",
+  "exactInputDeltaFiles": 34,
+  "trees": [
+    {
+      "tree": "source",
+      "before": 132,
+      "after": 140,
+      "unchanged": 123
+    },
+    {
+      "tree": "web",
+      "before": 30,
+      "after": 30,
+      "unchanged": 27
+    },
+    {
+      "tree": "audio",
+      "before": 0,
+      "after": 6,
+      "unchanged": 0
+    },
+    {
+      "tree": "vendor",
+      "before": 1,
+      "after": 1,
+      "unchanged": 1
+    },
+    {
+      "tree": "launcher",
+      "before": 4,
+      "after": 4,
+      "unchanged": 3
+    },
+    {
+      "tree": "assets",
+      "before": 13955,
+      "after": 13958,
+      "unchanged": 13954
+    }
+  ],
+  "cumulativeCandidateDeltaPreserved": true,
+  "sameCmdBytesAsR27": true,
+  "baselineSealPreserved": true,
+  "baselineRuntimeRunsNotCopied": true,
+  "noLinks": true,
+  "originalAssetPinsUnchanged": true,
+  "historicalSuitesRerun": false
+}

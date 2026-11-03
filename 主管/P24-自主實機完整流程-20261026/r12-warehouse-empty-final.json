@@ -1,0 +1,118 @@
+{
+  "at": "2026-10-26T17:38:28.177Z",
+  "interaction": {
+    "canTalk": false,
+    "model": {
+      "canSubmit": false,
+      "currency": 0,
+      "epoch": 17,
+      "feePerRow": false,
+      "hasResult": false,
+      "kind": "dialog",
+      "notice": "",
+      "npcId": 2000038639,
+      "options": [],
+      "priceLabel": "單價",
+      "revision": 44,
+      "rows": [],
+      "selection": false,
+      "targetId": 2000038639,
+      "targetRevision": 2,
+      "text": "$334：\n\n沒有用您的名義來託管的物品，請您再確認一次。",
+      "title": "NPC 對話"
+    },
+    "notice": "",
+    "options": [],
+    "rows": [],
+    "targets": [
+      {
+        "id": 2000038639,
+        "name": "倉庫管理員^凱倫"
+      },
+      {
+        "id": 2000040834,
+        "name": "老虎"
+      },
+      {
+        "id": 2000040835,
+        "name": "老虎"
+      },
+      {
+        "id": 2000040836,
+        "name": "老虎"
+      }
+    ],
+    "text": "倉庫管理員^凱倫：\n\n沒有用您的名義來託管的物品，請您再確認一次。"
+  },
+  "inventory": {
+    "available": false,
+    "busy": false,
+    "epoch": 17,
+    "items": [
+      {
+        "action": "單次使用",
+        "count": 70,
+        "droppable": false,
+        "equipped": null,
+        "icon": "https://p08.example/icons/80.png",
+        "id": 10322,
+        "name": "治癒藥水",
+        "selected": false,
+        "state": "可單次使用；滿血仍會消耗",
+        "usable": true
+      },
+      {
+        "action": "單次使用",
+        "count": 1,
+        "droppable": false,
+        "equipped": null,
+        "icon": "https://p08.example/icons/77.png",
+        "id": 10324,
+        "name": "綠色藥水",
+        "selected": false,
+        "state": "可單次使用；消耗一瓶，約 5 分鐘加速，以伺服器回報為準",
+        "usable": true
+      },
+      {
+        "action": "單次使用",
+        "count": 89526,
+        "droppable": false,
+        "equipped": null,
+        "icon": "https://p08.example/icons/5.png",
+        "id": 1900249101,
+        "name": "金幣",
+        "selected": false,
+        "state": "此道具的使用尚未支援",
+        "usable": false
+      },
+      {
+        "action": "卸下",
+        "count": 1,
+        "droppable": false,
+        "equipped": true,
+        "icon": "https://p08.example/icons/2.png",
+        "id": 1900249103,
+        "name": "+0 長劍 (揮舞)",
+        "selected": false,
+        "state": "已裝備；可單次卸下",
+        "usable": true
+      },
+      {
+        "action": "卸下",
+        "count": 1,
+        "droppable": false,
+        "equipped": true,
+        "icon": "https://p08.example/icons/86.png",
+        "id": 1900249104,
+        "name": "+0 環甲 (使用中)",
+        "selected": false,
+        "state": "已裝備；可單次卸下",
+        "usable": true
+      }
+    ],
+    "message": "獲得$26 (6) 。",
+    "notice": "收到原服數量／狀態更新",
+    "revision": 48,
+    "selectedId": null
+  }
+}

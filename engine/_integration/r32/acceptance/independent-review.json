@@ -1,0 +1,36 @@
+{
+  "schema": "engine-independent-review-v1",
+  "task": "ENGINE-SLOW-HASTE-ITEM-CANDIDATE-REVIEW-R1",
+  "candidateId": "ENGINE-SLOW-HASTE-ITEM-IMPL-R1",
+  "candidateSealSha256": "0976aa3ffe829a1b4f77c3b94241f113ed77ca0dab245b6c6e1dca1ac18f3369",
+  "candidateSourceManifestSha256": "2713dd94bea243bfd71576878bbbb3649938703cdd04fb81ab519e9dcb851518",
+  "candidateResultSha256": "6793b846a7a2cb0ce282014758a4defa13c544c43ea81afb52c8e3537a7c37e0",
+  "candidateDllSha256": "c64bf0069722e28fc174d70d261b7540da6e3f74ee422d4874cbffb77149364f",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "revision": "r32",
+  "candidateReviewed": true,
+  "decision": "accepted",
+  "unresolvedFindings": [],
+  "counts": {
+    "executedRows": 443,
+    "assertions": 431,
+    "passedAssertions": 431,
+    "failedAssertions": 0,
+    "npcObservations": 12,
+    "retainedBaselineRows": 339,
+    "resolvedBaselineDifferences": 53,
+    "resolvedSlowPending": 13,
+    "pending": 0
+  },
+  "baselineFinalSha256": "00e9d4664024119595faeead50ade5827258763e47dc3d7068ea9b78abf8c813",
+  "finalReleaseBindingSha256": "d6946c449f35b1d26804bd3fd4878bf24bdb0f74d66a302765dfd91058010fa4",
+  "scope": "Exact candidate only; focused independent offline DLL review. Does not certify integration, live operation, final release or P24 completion.",
+  "evidence": [
+    "candidate-probe.json",
+    "coverage.json",
+    "source-pins.json",
+    "independent.diff",
+    "findings.md",
+    "test-adaptations.md"
+  ]
+}

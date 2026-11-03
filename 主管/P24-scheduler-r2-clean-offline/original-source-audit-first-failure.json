@@ -1,0 +1,13 @@
+{
+  "status": "source-audit-stopped-missing-original-chunk-artifacts",
+  "utc": "2026-10-25T18:55:42.456813+00:00",
+  "audit": "audit_p24_scheduler_clean_opacity.py",
+  "exitCode": 1,
+  "at": "Original source chunk matches fixed PE but expected artifact missing",
+  "manifestSha256": "71599721c6f0b27e5ce18dba0d8e20e07b61195862d29ec4041393ec3e032603",
+  "chunks": 53,
+  "workerBinDirectoryExists": false,
+  "snapshotBinDirectoryExists": false,
+  "completed": "Independent clean27 pass and new215 native product audit pass",
+  "next": "Add original53 byte-exact chunk artifacts as supplemental reference-only inputs; retain snapshot/build/results. No product source changes or repeated regressions needed for byte archival alone."
+}

@@ -1,0 +1,100 @@
+{
+  "kind": "pure static arithmetic; not native execution, simulation acceptance, or measured timings",
+  "origin": "N0 = A231C0 clock sample during initial selector; frame1 binding precedes N0 by unmeasured processing time",
+  "assumptions": [
+    "No lateness, callback/body/sample overhead assumed zero for illustrative sums only",
+    "Stable action15, fixed durations for ticks[1,1,4,4], no metadata variant transition",
+    "All additional multipliers neutral, self values as assumed or nonself queue count<=1",
+    "No deferral, +0xD8 override, cancellation, owner/appearance/status change or integer wrap",
+    "Terminal consumer uses its own fresh clock Nt, so actual symbolic deadline is Nt+D0 or Nt+584"
+  ],
+  "rows": [
+    {
+      "speed": 0,
+      "durationByMetadataFrameIndex": [
+        41,
+        41,
+        166,
+        166
+      ],
+      "frameIndexOrder": [
+        1,
+        2,
+        3,
+        0
+      ],
+      "idealRelativeNodesMs": [
+        0,
+        42,
+        209,
+        376
+      ],
+      "terminalQueuedConsumerIdealMs": 417,
+      "terminalEmptyOrdinaryIdleIdealMs": 960
+    },
+    {
+      "speed": 1,
+      "durationByMetadataFrameIndex": [
+        30,
+        30,
+        124,
+        124
+      ],
+      "frameIndexOrder": [
+        1,
+        2,
+        3,
+        0
+      ],
+      "idealRelativeNodesMs": [
+        0,
+        31,
+        156,
+        281
+      ],
+      "terminalQueuedConsumerIdealMs": 311,
+      "terminalEmptyOrdinaryIdleIdealMs": 865
+    },
+    {
+      "speed": 2,
+      "durationByMetadataFrameIndex": [
+        82,
+        82,
+        332,
+        332
+      ],
+      "frameIndexOrder": [
+        1,
+        2,
+        3,
+        0
+      ],
+      "idealRelativeNodesMs": [
+        0,
+        83,
+        416,
+        749
+      ],
+      "terminalQueuedConsumerIdealMs": 831,
+      "terminalEmptyOrdinaryIdleIdealMs": 1333
+    }
+  ],
+  "latenessExample": {
+    "kind": "algebra only",
+    "speed": 0,
+    "oldBaseline": 42,
+    "callbackClock": 100,
+    "newFrame": 2,
+    "newFrameDuration": 166,
+    "newBaseline": 209,
+    "actualNextDue": 209,
+    "clampedCase": {
+      "oldBaseline": 42,
+      "callbackClock": 300,
+      "newFrame": 2,
+      "newFrameDuration": 166,
+      "newBaseline": 209,
+      "actualNextDue": 302
+    }
+  }
+}

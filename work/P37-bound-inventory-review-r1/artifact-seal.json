@@ -1,0 +1,12 @@
+{
+  "schema": "p37-independent-artifact-seal-v1",
+  "artifactManifest": {
+    "path": "artifact-manifest.json",
+    "size": 2961,
+    "sha256": "f9a3231d4aee1b3d776dd180560676d78210c4def62320df49a46b46c381f563"
+  },
+  "sourceSealSha256": "e1ab709846ea1947945d3ccede26f2290030fd1c496a4379e48a59e90c67ee69",
+  "sealedFiles": 18,
+  "decision": "accepted-inventory-only",
+  "fullReleaseAccepted": false
+}

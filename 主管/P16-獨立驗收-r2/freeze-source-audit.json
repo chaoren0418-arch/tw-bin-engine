@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "original_sources": 839,
+  "mysql_runtime_files": 77,
+  "inherited_sources": 7342,
+  "source_freeze_files": 953,
+  "environment_files": 759,
+  "snapshot_files": 906,
+  "java_jar_classes": 82,
+  "source_freeze_sha256": "9811dacf70fd64292cc0e687729aa188e2bd85ffe12d3606a062e5e149d9ad15",
+  "environment_freeze_sha256": "3610f2bb2eec218adbc00bb81f3dce3d5a51ee45ab7a7f432a049f8253dec99b",
+  "scope": "Independent hash/true-copy verification including MySQL runtime not enumerated by worker environment manifest; not gameplay acceptance."
+}

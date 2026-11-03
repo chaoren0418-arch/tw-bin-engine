@@ -1,0 +1,51 @@
+{
+  "status": "pass",
+  "evidenceClass": "offline actual r33 managed methods; synthetic values; no native event delivery",
+  "cases": 8,
+  "assertions": 182,
+  "details": [
+    {
+      "name": "keyboard ownership requires form focus, game gate, unmodified game key",
+      "assertions": 83,
+      "status": "pass"
+    },
+    {
+      "name": "login Enter admission and repeat suppression",
+      "assertions": 34,
+      "status": "pass"
+    },
+    {
+      "name": "chat opening Enter cannot submit saved draft or autorepeat",
+      "assertions": 35,
+      "status": "pass"
+    },
+    {
+      "name": "held direction release, opposing keys and clear",
+      "assertions": 6,
+      "status": "pass"
+    },
+    {
+      "name": "pointer scene boundaries and HUD exclusion",
+      "assertions": 8,
+      "status": "pass"
+    },
+    {
+      "name": "bounded path and corner guards",
+      "assertions": 6,
+      "status": "pass"
+    },
+    {
+      "name": "HUD slots preserve explicit choices and isolate actor",
+      "assertions": 6,
+      "status": "pass"
+    },
+    {
+      "name": "service auto-open reacts only to relevant revision",
+      "assertions": 4,
+      "status": "pass"
+    }
+  ],
+  "productDllSha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2",
+  "nativeRuns": 0,
+  "productBuilds": 0
+}

@@ -1,0 +1,17 @@
+{
+  "status": "pass",
+  "semanticChanges": 1,
+  "unchangedRuntimeFiles": 12,
+  "mechanicallyChangedDocuments": [
+    "source-ledger.json",
+    "copy-ledger.json",
+    "tool-reference-pins.json",
+    "tool-bundle/source-seal.json",
+    "execution-contract.json",
+    "plan.json",
+    "pending-receipt-requirements.json"
+  ],
+  "originalPlanAndReviewPinsUnchanged": true,
+  "builds": 0,
+  "sharedWrites": 0
+}

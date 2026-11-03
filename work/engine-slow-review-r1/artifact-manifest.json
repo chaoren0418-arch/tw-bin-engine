@@ -1,0 +1,146 @@
+{
+  "stage": "ENGINE-SLOW-REVIEW-R1",
+  "status": "awaiting-candidate",
+  "artifacts": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\baseline-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\baseline-0.stdout",
+      "bytes": 280,
+      "sha256": "40c317d1d8f387dc28f41ee391e254532eebb5078f5cbb91147201044f715957"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\baseline-1.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\baseline-1.stdout",
+      "bytes": 126,
+      "sha256": "6066701a9a4884ec6e768fcad539349626afb9947ff2cf3acba78b3ed53af538"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\baseline-commands.json",
+      "bytes": 2245,
+      "sha256": "da64ae649918185d2a0908b2973de5d14ee6b51ec2ae7f25a0613ffb61304213"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\baseline-probe.json",
+      "bytes": 9770,
+      "sha256": "7e522a677a9753d293fb07c6af4d346ff396d825cfc4b9685b3b324b6755525d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\CONTRACT.md",
+      "bytes": 6055,
+      "sha256": "431620765e32cf6d4cd456f3b5f491d318e4ea3478a6ebceb9725655fb5f3a15"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\HANDOFF.md",
+      "bytes": 4458,
+      "sha256": "c0cb3b1028e8b49e58a839a63ff771072bc26af2896c5b814eb3d56bd0edfc17"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\initial-source-pins.json",
+      "bytes": 2008,
+      "sha256": "307a94a36615a9604ff557a96829603b799c3e315fcae8f9702528ea9eaa6997"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\jar-oracle.json",
+      "bytes": 5839,
+      "sha256": "1eb23d82aa36b47bd09a8944e5191f6d434a2128112fb3464798292edac8b78a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\java-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\java-0.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\java-1.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\java-1.stdout",
+      "bytes": 714,
+      "sha256": "bd713d779ec64bcc79e4d33e209425c2a3576624f039285b40f2c43aff6d12ef"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\native-oracle.json",
+      "bytes": 4890,
+      "sha256": "0b11690c96a93e3c1cc8cd935ad8d9c35b907d48fcb6c1d265d6710f398fbe4a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\oracles.py",
+      "bytes": 6387,
+      "sha256": "3f4310ee406d7e10c515b6f3fc0a89eed321482c635e0ddd38271b437b39b886"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\result.json",
+      "bytes": 1258,
+      "sha256": "330e028416e1569a5c55ace0ea4ed07ff1d0ae8804674241e0c93b41e9bd60bb"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\run_probe.py",
+      "bytes": 2381,
+      "sha256": "4781d56fdbcb63911bf4c8cd1a7123963433628ca8e5b0a7f8ec39663f208d23"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\seal.py",
+      "bytes": 1576,
+      "sha256": "f734f2df5581286be7b3fb93968f52c48d247f5db6d4003a4f090ef8f41982a2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\SlowOracle.java",
+      "bytes": 727,
+      "sha256": "d8f33663aaf41103046b9b348f3f31f1b390c0b367886b5e926fc0591355286d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\source-pins.json",
+      "bytes": 7605,
+      "sha256": "db77b7c13c692db7fb0992d835cf27047e369325ecffb9c776473cade92150d2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\verify.py",
+      "bytes": 651,
+      "sha256": "1af9b022d81c237626f7aaf5a3ab2fc383041e7eb4cc66a143371104bdb442cc"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\harness\\NuGet.Config",
+      "bytes": 74,
+      "sha256": "9508cae5f76364f56e80eb97cb16493977243cf38e5cca6284e3d74f83b20a2c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\harness\\Program.cs",
+      "bytes": 8055,
+      "sha256": "4ab6ca9d1c00c4c87aed091f73859086a1afc4026111409efc60eca2f770ba4e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\harness\\Review.csproj",
+      "bytes": 408,
+      "sha256": "5c14f958e422f3a2d38442bc0e0b935ffe7085ba47c7cbe432f55871ffac6722"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\java-out\\SlowOracle.class",
+      "bytes": 1978,
+      "sha256": "d35b6416ffd54880b8a40c71f055dbe34bfa130c8832650ae092b3490fa99a00"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\helper\\baseline\\SlowReview.dll",
+      "bytes": 30720,
+      "sha256": "e4be9d650ecc8ef61bb5f7cd56f6c59a5a1656bf054e8af6d00e26077eb87f3e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\helper\\baseline\\P11.ClientEngine.dll",
+      "bytes": 2155008,
+      "sha256": "7762951fba9a2d37d08e2d40a34dfa7f2a6f2219b93689a031a566a8fd8f8cb8"
+    }
+  ]
+}

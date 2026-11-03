@@ -1,0 +1,21 @@
+{
+  "utc": "2026-10-29T08:42:54.832641+00:00",
+  "scope": "P37-F1 only plus mechanical preparation root binding",
+  "authorThread": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "reviewThread": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "review": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-review-r1\\result.json",
+    "size": 8067,
+    "sha256": "c37b92bf89bd7d73cc845e87a7746d62a4886335ec92745cfa7d80dfa198d60a"
+  },
+  "reviewSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-review-r1\\artifact-seal.json",
+    "size": 377,
+    "sha256": "9cf3aeeac98b4a16d01f0b1089fbf0e561ca705efb2e749a911a9a629e81503b"
+  },
+  "verifiedReviewFiles": 25,
+  "newAuthorRoot": "work/P36-P37-integration-plan-r2",
+  "semanticChange": "Validate contract inputDocuments before P37 consumes metadata using validate(initial=False,dependencies=False)",
+  "sharedExecutionAuthorized": false,
+  "entryActivationAuthorized": false
+}

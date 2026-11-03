@@ -1,0 +1,9 @@
+{
+  "status": "not-accepted-UI-latency",
+  "journal_events": 12000,
+  "journal_bytes": 197154890,
+  "journal_memory_growth": 148864,
+  "receive_packets": 5352,
+  "receive_max_timer_gap_ms": 5534,
+  "reason": "Worker status pass does not establish usable UI responsiveness; 5534 ms longest timer gap. Worker added finer slicing and stricter gate; rerun pending."
+}

@@ -1,0 +1,59 @@
+{
+  "schema": "engine-candidate-result-v1",
+  "candidateId": "ENGINE-SLOW-HASTE-ITEM-IMPL-R1",
+  "revision": "r32",
+  "task": "ENGINE-SLOW-HASTE-ITEM-IMPL-R1",
+  "status": "candidate-ready-for-independent-review",
+  "checksPassed": true,
+  "checks": 377,
+  "productDllSha256": "c64bf0069722e28fc174d70d261b7540da6e3f74ee422d4874cbffb77149364f",
+  "candidateDllSha256": "c64bf0069722e28fc174d70d261b7540da6e3f74ee422d4874cbffb77149364f",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "sourceManifest": "source-manifest.json",
+  "sourceManifestFiles": 177,
+  "changedSourceFiles": 2,
+  "sourceBase": "accepted immutable r31 stage, verified equivalent to accepted final r31 release",
+  "stagedBaselineSha256": "16ab9dbb534e20e03e622777ab530065e1bc97363c08d8b765e2cb880115bb87",
+  "finalBaseBindingSha256": "d6946c449f35b1d26804bd3fd4878bf24bdb0f74d66a302765dfd91058010fa4",
+  "finalReleaseSealSha256": "1d5b1c149495cb2b44f50daf2c3361eb15e8000ba27bf133d1029735f10cfd90",
+  "tests": {
+    "candidate": {
+      "checks": 377,
+      "passed": 377,
+      "path": "evidence/candidate-result.json"
+    },
+    "initialRun": {
+      "checks": 353,
+      "path": "evidence/initial-353-checks.json",
+      "includedInChecksTotal": false
+    },
+    "priorSourceObservations": {
+      "count": 36,
+      "includedInChecksTotal": false
+    },
+    "priorIndependentPreparation": {
+      "count": 90,
+      "includedInChecksTotal": false
+    }
+  },
+  "build": {
+    "configuration": "Release",
+    "warnings": 0,
+    "errors": 0
+  },
+  "sealed": true,
+  "candidateAccepted": false,
+  "sharedEngineMerged": false,
+  "nativeLiveAcceptance": false,
+  "wholeProjectComplete": false,
+  "goal": "existing worker Goal blocked; not changed",
+  "limitations": [
+    "Real candidate DLL and packet/admission APIs, synthetic actors/inventory/sender; no socket or normal-product live acceptance.",
+    "Original native utility input scheduler remains unknown, not zero milliseconds.",
+    "Unknown Speed and nonzero Brave conservative item policy is not an original-server prohibition claim.",
+    "Public producer mutual exclusion separated from defensive injected states.",
+    "Existing direct/pointer NPC talk discrepancy retained without expanded authorization.",
+    "Source review 36 and independent preparation 90 observations are not candidate check counts.",
+    "Independent review and designated serial integration remain pending."
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "status": "pass",
+  "independentOriginalPixelProof": "D:\\lineage開發\\TW1608262200研究\\主管\\P17-圖示像素獨立核對.json",
+  "exactInputs": [
+    {
+      "path": "reference/inventory/icons/81.tbt",
+      "sha256": "a8a0666aeb498833135d29e2aef79159654723c59a74c5594e3450028bade9fc"
+    },
+    {
+      "path": "assets/inventory/81.png",
+      "sha256": "eda21f8685278d50e150fa50ea4975756ea5cede2161fc86f1726199615ab988"
+    },
+    {
+      "path": "web/icons/81.png",
+      "sha256": "eda21f8685278d50e150fa50ea4975756ea5cede2161fc86f1726199615ab988"
+    },
+    {
+      "path": "reference/inventory/icons/5.tbt",
+      "sha256": "440043937792f507f54c8d6ca1878df1aa660e9446aea3ed2c2e35833576e3a7"
+    },
+    {
+      "path": "assets/inventory/5.png",
+      "sha256": "9e35714d6b77ab794679b0a32f295cea5a78b773fbb745f46ce00366a4b06ff7"
+    },
+    {
+      "path": "web/icons/5.png",
+      "sha256": "9e35714d6b77ab794679b0a32f295cea5a78b773fbb745f46ce00366a4b06ff7"
+    },
+    {
+      "path": "reference/inventory/icons/475.tbt",
+      "sha256": "8d24493618345d66521523824b4f067b5aadb07fd46002f61c176fdd9b5f1f31"
+    },
+    {
+      "path": "assets/inventory/475.png",
+      "sha256": "af4f6debaadb18732f040901c0ecf166156782a25e26da6b6867445d3c325846"
+    },
+    {
+      "path": "web/icons/475.png",
+      "sha256": "af4f6debaadb18732f040901c0ecf166156782a25e26da6b6867445d3c325846"
+    }
+  ],
+  "pixels": 1779,
+  "scope": "Frozen TBT and both native/Web PNGs exactly match supervisor original-DLL pixel proof; fresh clean-build icon test also passed."
+}

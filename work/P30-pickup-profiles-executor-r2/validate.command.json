@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\executor.py",
+    "validate",
+    "--contract-sha256",
+    "3f4bf1a3e6ec5f9db90ed8583f14d0f53869ad0c2e98ad3fc20ba6427d86b75d"
+  ],
+  "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2",
+  "exitCode": 0,
+  "stdout": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\validate.stdout",
+    "size": 211,
+    "sha256": "455bf708440e0b1b71048e2972837210baf6604b42939c8391a3e062dc5612ec",
+    "decoder": "utf-8-sig errors=replace",
+    "replacementCount": 0
+  },
+  "stderr": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\validate.stderr",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "decoder": "utf-8-sig errors=replace",
+    "replacementCount": 0
+  },
+  "kind": "read-only-r2-validation"
+}

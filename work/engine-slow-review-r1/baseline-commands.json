@@ -1,0 +1,51 @@
+{
+  "commands": [
+    {
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\harness\\Review.csproj",
+        "-c",
+        "Release",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\helper\\baseline",
+        "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\releases\\r28\\build\\client-product-r28\\P11.ClientEngine.dll",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\harness\\NuGet.Config",
+        "--nologo"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "dotnet",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\helper\\baseline\\SlowReview.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\native-oracle.json",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\jar-oracle.json",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\baseline-probe.json"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "assetCopies": [
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\assets\\integrity.json",
+      "copy": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\assets\\integrity.json",
+      "sha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98",
+      "sameFile": false
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\assets\\players\\manifest.json",
+      "copy": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\assets\\players\\manifest.json",
+      "sha256": "e0493630f26b3d51625461809194e84eea1391d6987376d5a135485afc798d39",
+      "sameFile": false
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\assets\\magic\\catalog.json",
+      "copy": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\assets\\magic\\catalog.json",
+      "sha256": "024576e3c96bedc33c63b889d77366f4204b99ceb40c78f3c743ff6e54a44ebf",
+      "sameFile": false
+    }
+  ],
+  "dllSha256": "7762951fba9a2d37d08e2d40a34dfa7f2a6f2219b93689a031a566a8fd8f8cb8"
+}

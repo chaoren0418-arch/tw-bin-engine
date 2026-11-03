@@ -1,0 +1,24 @@
+{
+  "status": "provisional-source-observations-not-candidate-verdict",
+  "candidate": "ENGINE-SLOW-ACTIONS-IMPL-R1",
+  "sentTo": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+  "observedActiveTurn": "01a18438-ab04-7f62-95bd-0d5f1bf58826",
+  "observedCursor": "fd544505-99d4-4743-96cd-cd467d1820dc:54",
+  "items": [
+    {
+      "id": "ROOT-ACTION-LATE-COMPLETION",
+      "observation": "At read time, AttackCore and CastSelectedMagic checked generation after await sender, then wrote completion deadline; no matching WorldEpoch check at that point.",
+      "requestedVerification": "Admitted send, same-session map/world reset, then late completion must not alter new-world timing or emit stale success events. Distinguish valid old action high-water mark from invalid old-world callback.",
+      "status": "implementation-confirmed-and-fixed-pending-final-seal-and-independent-review",
+      "workerEvidence": "cursor fd544505-99d4-4743-96cd-cd467d1820dc:66 confirms original same-session world-switch completion issue; added world, actor, appearance, correction and lease checks"
+    },
+    {
+      "id": "ROOT-RELEASE-EVIDENCE-SCOPE",
+      "observation": "Independent contract supports actor release relative scaling and separate flight cycles; full native absolute marker origin is not independently certified.",
+      "requestedVerification": "Document retained r29 release origin versus any changed absolute native origin. Preserve Speed0/1 scope; disclose gfx0 native frame normalization strategy.",
+      "status": "sent-for-preseal-documentation-and-verification"
+    }
+  ],
+  "candidateAccepted": false,
+  "sharedMergeAuthorized": false
+}

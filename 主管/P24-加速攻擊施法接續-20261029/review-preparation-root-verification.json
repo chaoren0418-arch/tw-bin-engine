@@ -1,0 +1,16 @@
+{
+  "verified": true,
+  "artifacts": 44,
+  "sources": 259,
+  "resultSha256": "10ad866794d1ff0812fe0a1ada18e379fb6553f1d80578f470650790b6c9c5d1",
+  "artifactManifestSha256": "1083f4052b4f175cb2dd93ea93a3abfa8eb08aed9280777efb1fee3ff4f12bae",
+  "checks": {
+    "executedOnR30": 1553,
+    "passed": 1057,
+    "expectedSpeed1Gaps": 496,
+    "unchangedOldAssertionsPassed": 820
+  },
+  "acceptance": "preparation-only",
+  "candidateReviewPending": true,
+  "utc": "2026-10-28T22:09:47.552Z"
+}

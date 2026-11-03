@@ -1,0 +1,121 @@
+{
+  "observedUtc": "2026-10-28T21:53:29.044Z",
+  "sends": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"threadId\":\"01a1749a-7e8d-7200-9fc8-8618ed2559ac\"}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"threadId\":\"01a17a21-8dec-7410-8a1b-80f7fa84d0a1\"}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"threadId\":\"01a17a22-17e4-70c0-9792-166ddb86ea42\"}"
+          }
+        ],
+        "isError": false
+      }
+    }
+  ],
+  "polls": [
+    {
+      "schemaVersion": 1,
+      "cursor": "fd544505-99d4-4743-96cd-cd467d1820dc:88",
+      "revision": 88,
+      "changed": true,
+      "thread": {
+        "id": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+        "hostId": "local",
+        "status": {
+          "type": "active",
+          "activeFlags": []
+        }
+      },
+      "latestTurn": {
+        "id": "01a18480-b8c5-7370-8aaa-58519e3e969e",
+        "status": "inProgress",
+        "error": null,
+        "startedAt": 1793224390,
+        "completedAt": null,
+        "durationMs": null
+      },
+      "latestAssistantMessageId": null,
+      "latestAssistantMessage": null,
+      "latestToolMarkerId": null,
+      "latestToolMarker": null
+    },
+    {
+      "schemaVersion": 1,
+      "cursor": "7d1d6419-2d65-4aa3-a69c-534fb7f98d8a:85",
+      "revision": 85,
+      "changed": true,
+      "thread": {
+        "id": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+        "hostId": "local",
+        "status": {
+          "type": "active",
+          "activeFlags": []
+        }
+      },
+      "latestTurn": {
+        "id": "01a18480-ba51-7461-8727-f7ed73dcab91",
+        "status": "inProgress",
+        "error": null,
+        "startedAt": 1793224391,
+        "completedAt": null,
+        "durationMs": null
+      },
+      "latestAssistantMessageId": null,
+      "latestAssistantMessage": null,
+      "latestToolMarkerId": null,
+      "latestToolMarker": null
+    },
+    {
+      "schemaVersion": 1,
+      "cursor": "d0af65fb-9735-4df3-ad9d-148fd38221c5:105",
+      "revision": 105,
+      "changed": true,
+      "thread": {
+        "id": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "hostId": "local",
+        "status": {
+          "type": "active",
+          "activeFlags": []
+        }
+      },
+      "latestTurn": {
+        "id": "01a18480-bb4f-7593-8c70-8b37cceb0d43",
+        "status": "inProgress",
+        "error": null,
+        "startedAt": 1793224391,
+        "completedAt": null,
+        "durationMs": null
+      },
+      "latestAssistantMessageId": null,
+      "latestAssistantMessage": null,
+      "latestToolMarkerId": null,
+      "latestToolMarker": null
+    }
+  ]
+}

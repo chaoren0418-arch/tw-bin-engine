@@ -1,0 +1,59 @@
+[
+  {
+    "name": "build-product",
+    "pid": 59636,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-NPC\u5546\u5e97\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\source\\OfflineClient.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-NPC\u5546\u5e97\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\client",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-NPC\u5546\u5e97\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 7.1276280879974365
+  },
+  {
+    "name": "build-harness",
+    "pid": 83944,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-NPC\u5546\u5e97\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\npc-commerce-r1\\harness\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-NPC\u5546\u5e97\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\checks",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-NPC\u5546\u5e97\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 4.739045143127441
+  },
+  {
+    "name": "controller",
+    "pid": 53380,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-NPC\u5546\u5e97\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\checks\\P24.NpcChecks.exe"
+    ],
+    "exitCode": 0,
+    "elapsed": 6.201369285583496
+  },
+  {
+    "name": "dom",
+    "pid": 14500,
+    "args": [
+      "node",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-NPC\u5546\u5e97\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\npc-commerce-r1\\test_dom.cjs"
+    ],
+    "exitCode": 0,
+    "elapsed": 1.522456169128418
+  }
+]

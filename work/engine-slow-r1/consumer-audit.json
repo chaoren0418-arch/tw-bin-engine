@@ -1,0 +1,61 @@
+{
+  "status": "reviewed",
+  "scope": "Production consumers; test/integration entry points were not executed",
+  "consumers": [
+    {
+      "paths": [
+        "OnlineMovement.cs",
+        "OnlineInput.cs",
+        "ClientLogin.cs",
+        "WebPanel.cs"
+      ],
+      "decision": "Speed2/Brave0 enabled for keyboard, button, mouse movement and turn. Existing available/busy/final revision gates retained. Own NetworkStep takes captured from.Speed and retains current step duration."
+    },
+    {
+      "paths": [
+        "PlayerPointer.cs"
+      ],
+      "decision": "Movement route stamps include SpeedRevision; same-value reports cancel route. Slow attack/pickup/talk explicitly rejected before mouse action dispatch, so widening MovementAvailable does not open these mouse actions."
+    },
+    {
+      "paths": [
+        "Combat.cs",
+        "Magic.cs"
+      ],
+      "decision": "SlowActionsBlocked closes attack/cast availability and final send predicate. SpeedRevision rejects queued 0->2->0 and same-value updates. Existing Speed0/1 durations are unchanged; no new slow attack/cast cadence claim."
+    },
+    {
+      "paths": [
+        "Inventory.cs",
+        "Ground.cs"
+      ],
+      "decision": "Conservative Speed2 gate for use/equip, pickup/drop; visible unsupported notice. Final SpeedRevision fence closes transient slow queue window. Existing Speed0/1 delays and 900ms ground guard unchanged."
+    },
+    {
+      "paths": [
+        "PlayerHudModel.cs",
+        "InventoryUi.cs",
+        "MagicUi.cs",
+        "GroundUi.cs"
+      ],
+      "decision": "HUD/hotkeys/native/web commands funnel to the gated public methods. These paths do not bypass ItemAvailable/MagicAvailable/GroundAvailable."
+    },
+    {
+      "paths": [
+        "NpcInteraction.cs",
+        "Trade.cs",
+        "PrivateShop.cs",
+        "BonusStats.cs",
+        "ShipTravel.cs"
+      ],
+      "decision": "These existing non-animation flows consume MovementBusy, not newly widened MovementAvailable; retain own epoch/state/selection gates and extended movement spacing. No new support claim or edits. Mouse talk is separately closed above."
+    },
+    {
+      "paths": [
+        "WorldObjects.cs",
+        "ObjectRendering.cs"
+      ],
+      "decision": "S10 snapshots MotionSpeed/MotionBrave; rendering uses admitted walk duration until next S10. Current unsupported speed/brave still unavailable. Remote attack/cast animation timing is outside this movement increment and not certified."
+    }
+  ]
+}

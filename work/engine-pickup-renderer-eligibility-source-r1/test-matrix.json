@@ -1,0 +1,258 @@
+{
+  "status": "proposed not executed",
+  "runtimeChecks": 0,
+  "tests": [
+    {
+      "id": "POS-0-0",
+      "case": "Current own gfx0 weapon0 Speed0 Brave0 dir0, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-0-1",
+      "case": "Current own gfx0 weapon0 Speed0 Brave0 dir1, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-0-2",
+      "case": "Current own gfx0 weapon0 Speed0 Brave0 dir2, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-0-3",
+      "case": "Current own gfx0 weapon0 Speed0 Brave0 dir3, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-0-4",
+      "case": "Current own gfx0 weapon0 Speed0 Brave0 dir4, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-0-5",
+      "case": "Current own gfx0 weapon0 Speed0 Brave0 dir5, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-0-6",
+      "case": "Current own gfx0 weapon0 Speed0 Brave0 dir6, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-0-7",
+      "case": "Current own gfx0 weapon0 Speed0 Brave0 dir7, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-1-0",
+      "case": "Current own gfx0 weapon0 Speed1 Brave0 dir0, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-1-1",
+      "case": "Current own gfx0 weapon0 Speed1 Brave0 dir1, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-1-2",
+      "case": "Current own gfx0 weapon0 Speed1 Brave0 dir2, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-1-3",
+      "case": "Current own gfx0 weapon0 Speed1 Brave0 dir3, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-1-4",
+      "case": "Current own gfx0 weapon0 Speed1 Brave0 dir4, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-1-5",
+      "case": "Current own gfx0 weapon0 Speed1 Brave0 dir5, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-1-6",
+      "case": "Current own gfx0 weapon0 Speed1 Brave0 dir6, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "POS-1-7",
+      "case": "Current own gfx0 weapon0 Speed1 Brave0 dir7, all policy guards pass, authoritative action15",
+      "expected": "One finite1,2,3,0 instance; exact accepted frame keys for direction; terminal584 nominal hold then restore; no outgoing packet",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "TRIGGER",
+      "case": "Outgoing C112/no receipt; ground/inventory delta only",
+      "expected": "No overlay start; do not infer action15 from item result",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "BURST",
+      "case": "Multiple action15 receipts within one render tick",
+      "expected": "Handle each receipt hook; monotonically increase presentation serial; newest own instance wins; count/last-id polling prohibited",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "UNKNOWN",
+      "case": "Unknown or remote receipt id",
+      "expected": "Receipt accounting preserved; no own overlay",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "PROFILE",
+      "case": "Every other41 profile pair and unlisted pair",
+      "expected": "Existing presentation; contract table says deferred, never substitute gfx0 pixels",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "SPEED",
+      "case": "Speed2,17,18 or Brave nonzero",
+      "expected": "No overlay; leave existing Slow policy unchanged",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "STATUS",
+      "case": "Speed0↔1 update during instance",
+      "expected": "Cancel old instance on SpeedRevision; no duration rescale mid-flight",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "OWNER",
+      "case": "Same numeric id after reconnect/map replacement",
+      "expected": "Old epoch/session/serial cannot render or cancel new instance",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "APPEAR",
+      "case": "S76 pending, later full pack or weapon/gfx changes",
+      "expected": "Cancel before next draw; validate captured profile",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "MOTION",
+      "case": "Active walking at start; move/correction/direction change while active",
+      "expected": "Suppress/cancel overlay; do not overwrite position/heading",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "COMBAT",
+      "case": "OwnCombat nonnull at start, newer attack/damage/spell/death during instance",
+      "expected": "Suppress/cancel; death and combat take priority even if old animation duration elapsed",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "LOCK",
+      "case": "ActionLocked/teleport/notReady/notRenderable or hp<=0",
+      "expected": "No overlay; preserve packet and lifecycle behavior",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "ASSET",
+      "case": "Missing hash/key or transparent frame0",
+      "expected": "Integrity/key failure fallback; legitimate transparent frame stays valid, never replace by invented image",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "LATE",
+      "case": "Late callback beyond one or several frame durations",
+      "expected": "Use inherited recurrence once per callback, min2ms next scheduling; no unbounded catch-up loop; test ideal baseline distinct from due",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "TERMINAL",
+      "case": "No further receipts after terminal frame0",
+      "expected": "584ms nominal nonblocking hold then remove only this instance; nativeVariant/queue/timing flags remain false",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "PREEMPT",
+      "case": "New action while terminal hold pending",
+      "expected": "Cancel old hold immediately; no stale restore overriding new appearance",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "GATES",
+      "case": "900ms click gate,3000ms pending fallback and authoritative item/ground replies",
+      "expected": "Unchanged; renderer elapsed/finish never completes pending request or adjusts amounts",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "DEPTH",
+      "case": "Body/shadow layering,8directions,frame0 pose",
+      "expected": "Use accepted anchors/source order and shadow policy; finite selector controls pose without changing terrain/depth code",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "UNKNOWN-FLAGS",
+      "case": "No exact fields for native+220,+223,+268,FPS orvariant",
+      "expected": "Policy still explicitly labeled nominal; diagnostics never report nativeExactEligible or fullNeutral true",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "REMOTE",
+      "case": "Remote movement/combat/PC-flag combinations",
+      "expected": "First increment produces no remote pickup overlay; no queuecount=Objects.Count assumption",
+      "kind": "offline proposed",
+      "executed": false
+    },
+    {
+      "id": "LIVE-SEPARATE",
+      "case": "Actual own pickup appearance/timing observation after implementation",
+      "expected": "Separate approval/native measurement needed; not covered by this source contract or offline matrix",
+      "kind": "future live acceptance",
+      "executed": false
+    }
+  ]
+}

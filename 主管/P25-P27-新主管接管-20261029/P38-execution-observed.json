@@ -1,0 +1,23 @@
+{
+  "schema": "p38-root-execution-observation-v1",
+  "utc": "2026-10-29T10:11:37.315590+00:00",
+  "authorTurn": "01a1871d-2a1e-7c80-804c-6dd91e0c365c",
+  "resultPin": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\result.json",
+    "size": 2882,
+    "sha256": "37655945b75dc0f86b6fe4153ba17779a186df571726f4ce162dcd8ee1807a2f"
+  },
+  "status": "pass-isolated-launcher-check-only-awaiting-final-review",
+  "candidateFiles": 14181,
+  "identities": {
+    "productDllSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+    "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "productManifestSha256": "eb7bd750b534ed3190cb1b332bd3f0356721b85fbbec08f179ec0d407bdc56d2",
+    "launcherDllSha256": "44361072a33d572e155d80af41bf6245cf80fe8770eb1b80bdae0958540053b6"
+  },
+  "launcherBuilds": 1,
+  "checkOnlyRuns": 2,
+  "productBuilds": 0,
+  "finalAcceptance": false,
+  "next": "author evidence seal then independent final content/compiler review"
+}

@@ -1,0 +1,11 @@
+{
+  "utc": "2026-10-26T18:13:49.107Z",
+  "map6Loaded": true,
+  "boardedAt": "2026-10-26T18:00:36Z",
+  "originalPortal": 50008,
+  "ticketObject": 10331,
+  "capture": "Initial screenshot read immediately after map change found src null; waited for actual scene src and obtained normal original map6 image. No fake scene used.",
+  "terrain": "First requested deck destination32737,32797 has original terrain value16 and is not walkable. Alternate observed route32736,32796→32736,32797→32735,32798 succeeded.",
+  "relogin": "Normal ship logout/login returned configured Gludin pier32543,32728 with ticket retained; normal second boarding passed.",
+  "awaitingArrival": true
+}

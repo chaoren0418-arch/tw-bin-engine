@@ -1,0 +1,30 @@
+{
+  "schema": "engine-r34-shared-acceptance-v1",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "decision": "accepted-for-r34-serial-canonical",
+  "authorization": "install-build-and-offline-suites",
+  "planSha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761",
+  "candidateId": "ENGINE-PICKUP-PRESENTATION-IMPL-R1",
+  "revision": "r34",
+  "stageSealSha256": "9544f137a10914825b53080d4d390d17902cd40866467cebbf69578290240018",
+  "stageAcceptanceSha256": "d8923799b13660f4eab08ac52d45f27c183c3d0e01aed3d491a62b593e110308",
+  "productDllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productManifestSha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d",
+  "launcherDllSha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8",
+  "dispatchId": "ENGINE-R34-SHARED-INTEGRATE-P26-R1",
+  "utc": "2026-10-29T04:00:13.669320+00:00",
+  "integrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "independentReview": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\artifact-manifest.json",
+    "sha256": "c84747bc79756e2a94a9c3e9d3831fb7eb682f6018048e07730e39df81a77a00"
+  },
+  "sourceSealSha256": "867c75d72137b18becc8138576bc0b2e8b6e529fabcd51482b485caa17419ad6",
+  "stopConditions": [
+    "Any failed or partial build/probe stays failed; no replay of completed steps",
+    "F2 product binding partial-write interruption stops for separately pinned recovery",
+    "F3b nested rebuild timeout missing child raw logs stops for supervisor; do not infer full log preservation"
+  ],
+  "releaseAuthorized": false,
+  "entryActivationAuthorized": false
+}

@@ -1,0 +1,26 @@
+{
+  "utc": "2026-10-29T05:42:29.249582+00:00",
+  "artifactRows": 243,
+  "sourcePins": 2004,
+  "pinFailures": [],
+  "runtimeUniqueRows": 5196,
+  "failedRows": 0,
+  "actualDll": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "familyCounts": {
+    "resource-integrity": 2,
+    "mapping-body-shadow": 2688,
+    "terminal584": 672,
+    "same-gfx-weapon-stale": 42,
+    "negative-scope": 13,
+    "active-windows": 1344,
+    "projectile-selection": 7,
+    "duration-double": 294,
+    "timing-matches": 42,
+    "latest-eligible-replace": 84,
+    "late-callback": 7,
+    "death-fallback": 1
+  },
+  "formalEntry": "r33 unchanged",
+  "nativeAssertions": 0,
+  "scope": "Independent supervisor hash/raw-result verification; no repeated candidate runtime"
+}

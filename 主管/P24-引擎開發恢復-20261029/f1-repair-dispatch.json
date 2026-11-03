@@ -1,0 +1,13 @@
+{
+  "task": "ENGINE-SLOW-IMPL-R2",
+  "prompt": "ENGINE-SLOW-IMPL-R2：原r1候選已經獨立覆核reject，現在立即只修F1，不等待使用者。你仍是原實作者；原work/engine-slow-r1已封存不可改，新的唯一寫入根為 D:/lineage開發/TW1608262200研究/work/engine-slow-r2。從r1獨立複製必要來源到r2（不硬連結、不沿assets junction複製/寫入），保留r1作失敗基準。共享engine與r28禁止寫入。DB、服務、正常產品一律不查詢、不啟停、不修改；不改模型/Goal平台儲存，不新開代理。\n精確被拒候選seal bf22ad09f0d2b2940dfb295680d363287b56a253249f128de393520b562dac61，DLL a595559878d3e24b447d8be3a5c1e8ce595ff3a47dceb6877b9256ba00f12472。讀 work/engine-slow-review-r1/candidate-review-r1/HANDOFF.md、result.json、findings.json、repro-baseline.json/repro-candidate.json（已封存）。\nF1：ObjectRendering.cs:21–22 無限期以舊 MotionSpeed/MotionBrave 擋整個角色；遠端Speed3或Brave1時收到S10，之後S255/S67回Speed0/1/2、Brave0，即使當步結束仍missing，須另一個合法S10才出現。相同helper對r28有4組已知速度回復通過，candidate失敗；Speed2兩組亦失敗。獨立1199檢查中6個F1失敗，其餘1193過；原實作1371均過，不能只重跑原suite宣稱修好。\n修正只需讓已恢復支援狀態的遠端角色可正常呈現，不猜測未知速度的時長/倍率；未知當前速度與非零Brave仍拒絕，合法0/1/2當步快照、冷卻及所有其他拒絕閘門保留。可在恢復合法狀態時明確丟棄無法計時的舊不支援步行快照，或等價安全方式；不能把未知快照直接套成正常/慢速動畫。保持緩速攻擊/施法/道具等不支援，不擴張功能。\n在r2重現F1，再修正並測實際renderer六個恢復案例、仍不支援期間、無新S10即可恢復、下一步正確速度、既有合法快照切換；對真正改動的候選重跑有關suite，勿重跑不受影響原BIN/JAR逆向。產出新HANDOFF/result/delivery-manifest、delta/changed-files對共享r28原基底，另列r1→r2實際最小差異，將來源證據連結原r1固定檔並核對hash即可，不需要製造新來源。新DLL與seal完整pin，CandidateId請明確ENGINE-SLOW-IMPL-R2。交付後停寫r2，主管會讓同一覆核者複驗。",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"threadId\":\"01a1749a-7e8d-7200-9fc8-8618ed2559ac\"}"
+      }
+    ],
+    "isError": false
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "schema": "p36-final-canonical-acceptance-v1",
+  "decision": "accepted-p36-canonical-source-product",
+  "utc": "2026-10-29T09:09:10.280205+00:00",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "planSha256": "f67fa56815fbc133c1710c450efe1305d58da7c75566e02a9d909a24ca6059bd",
+  "contractSha256": "f439915614397edb8a478196375706aec1af68b670bd06c310d1ba3e251e8c30",
+  "sourceFiles": 181,
+  "productDllSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productManifestSha256": "d55389e048aee9eb2b64088ddfb0128de6166071e21969bd1dd57b9464d9ce75",
+  "launcherDllSha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8",
+  "executionResult": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\result.json",
+    "size": 6818,
+    "sha256": "a86b0e4ea202d4dc02c71aec25a7c97e2609874a7b20662d839c0971509f0a8e"
+  },
+  "sourceManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\source-manifest.json",
+    "size": 45035,
+    "sha256": "f3275b4f202ee0d277e5749e85e2e10297396ce8f9bafa70696509a91027f95d"
+  },
+  "productManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-p36-r1-manifest.json",
+    "size": 4715,
+    "sha256": "d55389e048aee9eb2b64088ddfb0128de6166071e21969bd1dd57b9464d9ce75"
+  },
+  "formalEntry": "r33",
+  "newRuntimeRuns": 0,
+  "canonical4521Replayed": false,
+  "buildInvocations": 1,
+  "cscTasks": 2,
+  "all15OutputsExact": true,
+  "independentReview": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-final-review-r1\\result.json",
+    "size": 4318,
+    "sha256": "63c2801789dadc95310348edbe0b3c440ed91ab537b6a609193eb65cb30cb631"
+  },
+  "independentReviewSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-final-review-r1\\artifact-seal.json",
+    "size": 440,
+    "sha256": "fef92b16831f15a2b9d03048a6b257ad2ef64a72eb4411f2d0f5aac8bc3335f6"
+  },
+  "executionArtifactSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\artifact-seal.json",
+    "size": 964,
+    "sha256": "c7c194fed021123fcca4586df4b9b05d5381e0f6838d24e759728d8598bf52bf"
+  },
+  "externalMaterialSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\external-material-seal.json",
+    "size": 41121,
+    "sha256": "257d957cfc3c6b7061c1face5baeaf19c111f229a76c3834a3c90d68ab60ffa5"
+  },
+  "rootMaterialReview": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-root-material-review.json",
+    "size": 928,
+    "sha256": "f4a2f5ee43302cfc2a1c674bb3cb43c00430b65be44b9edae82f07c4c9cb0d83"
+  },
+  "sourceReplacements": 4,
+  "sourceAdditions": 1,
+  "additionalOwnPickupProfiles": 41,
+  "totalProfilesWithControl": 42,
+  "speed": [
+    0,
+    1
+  ],
+  "brave": 0,
+  "sourceQualification": "P30 bounded source profiles inherited; not complete original asset semantics or native equivalence",
+  "entryActivationAuthorized": false,
+  "fullReleaseAuthorized": false,
+  "wholeProjectComplete": false,
+  "actualP37InventoryAccepted": false
+}

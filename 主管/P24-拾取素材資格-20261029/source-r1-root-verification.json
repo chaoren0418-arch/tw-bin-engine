@@ -1,0 +1,26 @@
+{
+  "utc": "2026-10-28T23:41:36.162140+00:00",
+  "decision": "source-package-integrity-verified-independent-review-pending",
+  "artifactSealSha256": "b9033cb8c0767eccd9eb8c739b0eb6a42d48834f81960404e84e418b7dad8efc",
+  "resultSha256": "163f1e6d2df4e8f11e9d7800ee2da4de1643e4e8caa1b3087858902f568b8c63",
+  "sourceContractSha256": "1761be09e6ba1d38131b12dc3c9b113a9fa5f299ef5f79b3ae46b0f04309ccf4",
+  "artifactFiles": 1327,
+  "sourcePins": 185,
+  "boundedSprSlicesVerified": 208,
+  "pngRgbaVerified": 416,
+  "rootVisualSpotcheck": [
+    "contacts/gfx-61.png: all 8 directions, metadata token order only"
+  ],
+  "minimalNewFrames": 312,
+  "reusedFrames": 104,
+  "historicalPayloadMatchedEntries": 104,
+  "currentIdxSliceOnlyEntries": 104,
+  "currentWholePakIdentityVerified": false,
+  "archiveSizeMismatchesPreserved": 8,
+  "productImplementationAuthorized": false,
+  "slowQualified": false,
+  "sourceSemanticReviewPending": true,
+  "readonlyVerifierExecuted": true,
+  "turnId": "01a184d6-89e3-72b2-a669-84e6a89cf3cd",
+  "cursor": "1e47fa6f-0252-43ab-bc1b-299701dcebdc:121"
+}

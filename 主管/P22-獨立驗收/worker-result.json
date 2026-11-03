@@ -1,0 +1,285 @@
+{
+  "status": "ready-for-supervisor",
+  "goalStatus": "active",
+  "stage": "P22",
+  "normalJarStarts": 1,
+  "worker": [
+    {
+      "folder": "magic-worker-cli",
+      "status": "pass",
+      "captureSha256": "21f3349f98209365247322302d88a8c5176706058aa4e20b31badb9998afcac0",
+      "proofSha256": "674814a29000f6b6caa3fb72d7473ddafd2cb2137c1e4ba8fcef7d899115c931",
+      "independentSha256": "ea4e0bde7bb470a151e503c5794b615d41eb0e299c6cae597bc3c2b1c79913b8",
+      "fields": 16201,
+      "mainMpConservation": {
+        "1": {
+          "initial": 120,
+          "positive": 8,
+          "negative": -127,
+          "duplicates": 82,
+          "last": 1
+        },
+        "2": {
+          "initial": 1,
+          "positive": 0,
+          "negative": 0,
+          "duplicates": 4,
+          "last": 1
+        }
+      },
+      "clientExit": 0,
+      "saved": [
+        {
+          "X": 32588,
+          "Y": 32930,
+          "Ac": -1,
+          "Hp": 632,
+          "Mp": 1,
+          "Exp": 416461902,
+          "Gfx": 0,
+          "Name": "魔法王子",
+          "Level": 60,
+          "MapId": 0,
+          "MaxHp": 700,
+          "MaxMp": 120,
+          "Lawful": 9,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "ObjectId": 1900220001,
+          "Strength": 18,
+          "Dexterity": 13,
+          "Direction": 0,
+          "Constitution": 16,
+          "Intelligence": 11,
+          "OnlineStatus": 0
+        }
+      ],
+      "requests": 48
+    },
+    {
+      "folder": "magic-worker-ui",
+      "status": "fail",
+      "captureSha256": "53dab0d48df7afdf4dec4c325ac47d93980c883ecd12ae10c13deff863a18916",
+      "proofSha256": "d99a6bfe5aa4c4eabe9aa11df8d877aecb9d313d4018804c58aeba5653da85ac",
+      "independentSha256": "eb073ea89b0a2afb71ede3c0869637f0b862d9250220108b0d14bf0e55cbf1db",
+      "fields": 913,
+      "mainMpConservation": {
+        "1": {
+          "initial": 120,
+          "positive": 0,
+          "negative": -3,
+          "duplicates": 5,
+          "last": 117
+        }
+      },
+      "clientExit": 7,
+      "saved": [
+        {
+          "X": 32588,
+          "Y": 32930,
+          "Ac": -1,
+          "Hp": 507,
+          "Mp": 117,
+          "Exp": 416461882,
+          "Gfx": 0,
+          "Name": "魔法王子乙",
+          "Level": 60,
+          "MapId": 0,
+          "MaxHp": 700,
+          "MaxMp": 120,
+          "Lawful": 0,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "ObjectId": 1900220002,
+          "Strength": 18,
+          "Dexterity": 13,
+          "Direction": 5,
+          "Constitution": 16,
+          "Intelligence": 11,
+          "OnlineStatus": 0
+        }
+      ],
+      "requests": 1
+    },
+    {
+      "folder": "magic-worker-ui-r2",
+      "status": "pass",
+      "captureSha256": "efc9fe95175b9f6295afe9818da58ec9e595695dc5d8c3856636b80fafb959de",
+      "proofSha256": "05e7600068faf05d13d178a80d251659cc9c9e129ec4133f7e0f30dc3df40bcc",
+      "independentSha256": "246b4d19adc74bc00febc748eb87cf8022f39dc765fa4f9e5479d152bebd05fc",
+      "fields": 31957,
+      "mainMpConservation": {
+        "1": {
+          "initial": 117,
+          "positive": 9,
+          "negative": -125,
+          "duplicates": 78,
+          "last": 1
+        },
+        "2": {
+          "initial": 1,
+          "positive": 0,
+          "negative": 0,
+          "duplicates": 4,
+          "last": 1
+        }
+      },
+      "clientExit": 0,
+      "saved": [
+        {
+          "X": 32588,
+          "Y": 32930,
+          "Ac": -1,
+          "Hp": 569,
+          "Mp": 1,
+          "Exp": 416461902,
+          "Gfx": 0,
+          "Name": "魔法王子乙",
+          "Level": 60,
+          "MapId": 0,
+          "MaxHp": 700,
+          "MaxMp": 120,
+          "Lawful": 9,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "ObjectId": 1900220002,
+          "Strength": 18,
+          "Dexterity": 13,
+          "Direction": 0,
+          "Constitution": 16,
+          "Intelligence": 11,
+          "OnlineStatus": 0
+        }
+      ],
+      "requests": 49
+    },
+    {
+      "folder": "magic-worker-ui-review",
+      "status": "fail",
+      "captureSha256": "aada37a8b5f8b5d790378378050c72f826ec8b802b2887fa71073823e9a319eb",
+      "proofSha256": "d75ea4f745e03c132c4acf83801254a512867faebb317e547d815287e7254ea3",
+      "independentSha256": "eb0276b61d62fddf9ec7fb63d0221b640825eb1e08e22f5143b1dc8423c01157",
+      "fields": 1046,
+      "mainMpConservation": {
+        "1": {
+          "initial": 1,
+          "positive": 5,
+          "negative": -3,
+          "duplicates": 6,
+          "last": 3
+        }
+      },
+      "clientExit": 7,
+      "saved": [
+        {
+          "X": 32598,
+          "Y": 32941,
+          "Ac": -1,
+          "Hp": 591,
+          "Mp": 3,
+          "Exp": 416461902,
+          "Gfx": 0,
+          "Name": "魔法王子乙",
+          "Level": 60,
+          "MapId": 0,
+          "MaxHp": 700,
+          "MaxMp": 120,
+          "Lawful": 9,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "ObjectId": 1900220002,
+          "Strength": 18,
+          "Dexterity": 13,
+          "Direction": 3,
+          "Constitution": 16,
+          "Intelligence": 11,
+          "OnlineStatus": 0
+        }
+      ],
+      "requests": 1
+    },
+    {
+      "folder": "magic-worker-ui-review-r2",
+      "status": "pass",
+      "captureSha256": "1c227bf9bf378f7dc98eab446fecea04476b7bf72b4cc978d741a1ab5f81c17e",
+      "proofSha256": "1485077d4977db82d6cdc5124d565f77c1b2c372eb3d3a69a55859540bc8b078",
+      "independentSha256": "d4b04c3d327e85ce929c7eea011efc72a7f042bf884a60ecd5f34f46e4f664eb",
+      "fields": 2450,
+      "mainMpConservation": {
+        "1": {
+          "initial": 3,
+          "positive": 1,
+          "negative": -2,
+          "duplicates": 4,
+          "last": 2
+        },
+        "2": {
+          "initial": 2,
+          "positive": 0,
+          "negative": 0,
+          "duplicates": 4,
+          "last": 2
+        }
+      },
+      "clientExit": 0,
+      "saved": [
+        {
+          "X": 32588,
+          "Y": 32930,
+          "Ac": -1,
+          "Hp": 595,
+          "Mp": 2,
+          "Exp": 416461902,
+          "Gfx": 0,
+          "Name": "魔法王子乙",
+          "Level": 60,
+          "MapId": 0,
+          "MaxHp": 700,
+          "MaxMp": 120,
+          "Lawful": 9,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "ObjectId": 1900220002,
+          "Strength": 18,
+          "Dexterity": 13,
+          "Direction": 0,
+          "Constitution": 16,
+          "Intelligence": 11,
+          "OnlineStatus": 0
+        }
+      ],
+      "requests": 1
+    }
+  ],
+  "finalRegressionRuns": [
+    {
+      "path": "evidence\\magic-regressions-1792927599509803200\\run.json",
+      "sha256": "db787bf13eecaf975bbd2e561724135fa64b4c8ae5bf28b6a7ad1b333f3f0fc2",
+      "rows": 2
+    },
+    {
+      "path": "evidence\\ranged-regressions-1792927604473661500\\run.json",
+      "sha256": "20a5fb18f3cf07b4baf694e3c0a4b0b60e7ddb4c7511ceb5f5ac5c472efcfe5c",
+      "rows": 8
+    }
+  ],
+  "buildSha256": "4c6786418bd60992c49c30c7d90ea8313cf8c6afc141c0cae0efee479bb52d69",
+  "sourceProtocol": "PROTOCOL.md",
+  "handoff": "HANDOFF.md",
+  "limitations": [
+    "Only skills1/4 and original learned list; no skill learning/all-magic claim",
+    "Static original LOS plus observed silent real probe; precise dynamic-door/handler cause not directly observed",
+    "Historical raw failure tails preserved separately from later original saved HP",
+    "Visual review-r2 flight-client filename shows gfx219 impact; observer renderer shows gfx167 flight",
+    "Prior-stage limitations retained in HANDOFF"
+  ],
+  "supervisorFunctionalAcceptancePending": true,
+  "cleanupAuthorized": false,
+  "utc": 1792927797.4441464,
+  "sourceManifestSha256": "246fa8889af523d93ecdde3321f26409a6af4af6f6e172e80b595048de1112a3",
+  "environmentManifestSha256": "dc78bf1c9e7d7afd284c1ac683edc5f75c8ef87fe650437869879283dd02ba06",
+  "readySha256": "17d24ca56aef6cda94cc83d69ae1156d446427602bcd66fc9962e7bcc2f93102",
+  "sourceFrozen": true,
+  "clientAndWebViewReleased": true,
+  "supervisorReservedUntouched": true
+}

@@ -1,0 +1,119 @@
+{
+  "observedUtc": "2026-10-28T20:42:39.443Z",
+  "scope": "Speed2/Brave0 attack/spell",
+  "polls": [
+    {
+      "schemaVersion": 1,
+      "cursor": "fd544505-99d4-4743-96cd-cd467d1820dc:48",
+      "revision": 48,
+      "changed": true,
+      "thread": {
+        "id": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+        "hostId": "local",
+        "status": {
+          "type": "active",
+          "activeFlags": []
+        }
+      },
+      "latestTurn": {
+        "id": "01a18438-ab04-7f62-95bd-0d5f1bf58826",
+        "status": "inProgress",
+        "error": null,
+        "startedAt": 1793219668,
+        "completedAt": null,
+        "durationMs": null
+      },
+      "latestAssistantMessageId": "msg_0a4767e243e51a4c016ae25e261f208191b1324fd6c85590bc",
+      "latestAssistantMessage": {
+        "id": "msg_0a4767e243e51a4c016ae25e261f208191b1324fd6c85590bc",
+        "turnId": "01a18438-ab04-7f62-95bd-0d5f1bf58826",
+        "phase": "commentary",
+        "text": "已確認原生角色幀計時會套用 Speed2 倍率，但箭矢的 30ms、光箭的 60ms 飛行步進是獨立排程。另發現部分舊外觀的展示時長與伺服器動作基底不同；候選會分別保存動畫、釋放、伺服器間隔、reuse 與本機餘裕，避免下一個動作提前開始。"
+      },
+      "latestToolMarkerId": "exec-f9d32e9c-3753-4036-aa09-035362bf9a7c",
+      "latestToolMarker": {
+        "id": "exec-f9d32e9c-3753-4036-aa09-035362bf9a7c",
+        "turnId": "01a18438-ab04-7f62-95bd-0d5f1bf58826",
+        "type": "commandExecution",
+        "name": "commandExecution",
+        "status": "completed"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "cursor": "7d1d6419-2d65-4aa3-a69c-534fb7f98d8a:49",
+      "revision": 49,
+      "changed": true,
+      "thread": {
+        "id": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+        "hostId": "local",
+        "status": {
+          "type": "active",
+          "activeFlags": []
+        }
+      },
+      "latestTurn": {
+        "id": "01a18438-aca6-7332-8fba-4189bda8ca5f",
+        "status": "inProgress",
+        "error": null,
+        "startedAt": 1793219669,
+        "completedAt": null,
+        "durationMs": null
+      },
+      "latestAssistantMessageId": "msg_03bad4afb6dfb9e5016ae25cac8b5481919c6a6437d3222715",
+      "latestAssistantMessage": {
+        "id": "msg_03bad4afb6dfb9e5016ae25cac8b5481919c6a6437d3222715",
+        "turnId": "01a18438-aca6-7332-8fba-4189bda8ca5f",
+        "phase": "commentary",
+        "text": "已確認不能把施法總等待直接乘二：r29 的 CastMsFor 先取 max(reuse, 動作基底)，另加 100ms 本機餘裕；原素材的動畫總長與伺服器動作基底也不同。我會用原 BIN 的逐幀計時與釋放事件鏈，確認應放慢哪一段，並將箭矢 30ms、光箭 60ms 飛行節奏分開驗證。"
+      },
+      "latestToolMarkerId": "exec-0e127599-9ad8-422c-8a43-5a8a16c0720d",
+      "latestToolMarker": {
+        "id": "exec-0e127599-9ad8-422c-8a43-5a8a16c0720d",
+        "turnId": "01a18438-aca6-7332-8fba-4189bda8ca5f",
+        "type": "commandExecution",
+        "name": "commandExecution",
+        "status": "completed"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "cursor": "d0af65fb-9735-4df3-ad9d-148fd38221c5:48",
+      "revision": 48,
+      "changed": true,
+      "thread": {
+        "id": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "hostId": "local",
+        "status": {
+          "type": "active",
+          "activeFlags": []
+        }
+      },
+      "latestTurn": {
+        "id": "01a18439-cd9c-7252-b4c2-0f595c361652",
+        "status": "inProgress",
+        "error": null,
+        "startedAt": 1793219743,
+        "completedAt": null,
+        "durationMs": null
+      },
+      "latestAssistantMessageId": "msg_07ee2ec7275ff6ae016ae25dfcb90c8191ac31b17e55d27ce6",
+      "latestAssistantMessage": {
+        "id": "msg_07ee2ec7275ff6ae016ae25dfcb90c8191ac31b17e55d27ce6",
+        "turnId": "01a18439-cd9c-7252-b4c2-0f595c361652",
+        "phase": "commentary",
+        "text": "6 項 r30 專用驗證已通過，涵蓋錯版接受收據、錯誤基底／來源身分、缺件及錯誤的候選／覆核 pins。未執行建置或 suite。新流程也會將「151 項基準回歸通過」與「新動作驗收通過」分開記錄，不會把前者當成 r30 完成。"
+      },
+      "latestToolMarkerId": "exec-24655db3-9b6e-4615-828b-b5b4e797b60c",
+      "latestToolMarker": {
+        "id": "exec-24655db3-9b6e-4615-828b-b5b4e797b60c",
+        "turnId": "01a18439-cd9c-7252-b4c2-0f595c361652",
+        "type": "commandExecution",
+        "name": "commandExecution",
+        "status": "completed"
+      }
+    }
+  ],
+  "sharedMergeAuthorized": false,
+  "databaseOperations": false
+}

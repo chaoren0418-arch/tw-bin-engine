@@ -1,0 +1,54 @@
+{
+  "schema": "p36-p37-bounded-supervision-outcome-v1",
+  "utc": "2026-10-29T09:21:57.112767+00:00",
+  "status": "accepted-finite-scope-complete",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "deliverables": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-final-acceptance.json",
+      "size": 3382,
+      "sha256": "76145832e5865fad75741450f53500cfad455aa73507bb0a75709c35a86e1e17"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P37-final-acceptance.json",
+      "size": 4089,
+      "sha256": "1e6cc6f0296f85484402f5c9ab7cf345275342f345924c2fb54e60fc5d834336"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-P37-convergence-delta.json",
+      "size": 3777,
+      "sha256": "c198d6836dfb9db55cda5b8dbc176a4afb2f9cefd83ddfebabf8bde2317875a1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-P37-HANDOFF.md",
+      "size": 5587,
+      "sha256": "a9bd7373db9fdddd28742bd8f5ba1f26a282cad7179993a241fadf27dd11702d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-map-research-triage.json",
+      "size": 2680,
+      "sha256": "ee298d752d4d53cd6513c65fcf3dec0f0785149093fa2c2db0bf5f74241cea91"
+    }
+  ],
+  "productBuilds": 1,
+  "canonicalSources": 181,
+  "newOwnPickupProfiles": 41,
+  "productOutputFilesExact": 15,
+  "inventoryInvocations": 1,
+  "inventoryRows": 210,
+  "workerStatus": "both idle/completed; outcomes accepted by supervisor",
+  "activeWorkers": 0,
+  "sharedWriter": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "independentReviewer": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "nativeAccepted": false,
+  "fullP36ReleaseAccepted": false,
+  "formalEntry": "r33",
+  "entrySwitchStatus": "prior automatic-review denial; not executed/retried; pending explicit user authorization",
+  "DBActions": 0,
+  "serviceActions": 0,
+  "certificateChanges": 0,
+  "permanentDeletions": 0,
+  "goalTools": "not available in supervisor tool list; no platform Goal claimed",
+  "wholeProjectComplete": false,
+  "allRemainingBlockedOnUser": false
+}

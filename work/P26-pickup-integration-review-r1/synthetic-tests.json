@@ -1,0 +1,55 @@
+{
+  "classification": "synthetic compatibility and negative tests; not product success",
+  "fixtures": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\synthetic-tj11g_rj",
+  "tests": [
+    {
+      "id": "new-supervisor-predicate",
+      "passExpectedRejection": true,
+      "line": 23,
+      "oldConstant": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+      "currentAuthority": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+      "receiptFileCreated": false,
+      "controllerInvoked": false
+    },
+    {
+      "id": "adapter-raw-to-derived",
+      "passed": true,
+      "originalAttemptUnchanged": true,
+      "equalCollectionAccepted": true
+    },
+    {
+      "id": "adapter-rejects-raw-drift",
+      "passed": true
+    },
+    {
+      "id": "collection-rejects-different-existing",
+      "passed": true
+    },
+    {
+      "id": "nonzero-retention-and-replay-refusal",
+      "passed": true,
+      "realSubprocesses": 0
+    },
+    {
+      "id": "timeout-partial-stream-loss-reproduced",
+      "passedExpectedLimitation": true,
+      "failureAttemptRetained": true,
+      "partialStreamsRetained": false,
+      "realSubprocesses": 0
+    },
+    {
+      "id": "product-interrupted-bindings-refusal",
+      "passedExpectedLimitation": true,
+      "existingBindingsUntouched": true
+    },
+    {
+      "id": "collect-only-callgraph",
+      "passed": true,
+      "controllerCollectProcessCalls": 0,
+      "recoveryOnlyFinalCollector": true
+    }
+  ],
+  "productAssertions": 0,
+  "nativeChecks": 0,
+  "realControllerInvocations": 0
+}

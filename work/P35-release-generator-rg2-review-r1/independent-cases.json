@@ -1,0 +1,77 @@
+{
+  "cases": [
+    {
+      "name": "four-identities-and-exact-one-row-addition",
+      "outcome": "accepted",
+      "expected": "accepted",
+      "qualification": "synthetic inventory only"
+    },
+    {
+      "name": "missing-target-productDllSha256",
+      "outcome": "refused",
+      "expectedReason": "required runtime identity target missing or misbound",
+      "reason": "required runtime identity target missing or misbound: build/client-product-r34/P11.ClientEngine.dll",
+      "qualification": "synthetic inventory only"
+    },
+    {
+      "name": "missing-target-audioDllSha256",
+      "outcome": "refused",
+      "expectedReason": "required runtime identity target missing or misbound",
+      "reason": "required runtime identity target missing or misbound: build/client-product-r34/P24.Audio.dll",
+      "qualification": "synthetic inventory only"
+    },
+    {
+      "name": "wrong-canonical-productDllSha256",
+      "outcome": "refused",
+      "expectedReason": "runtime identity mismatch",
+      "reason": "runtime identity mismatch: productDllSha256",
+      "qualification": "synthetic inventory only"
+    },
+    {
+      "name": "wrong-canonical-audioDllSha256",
+      "outcome": "refused",
+      "expectedReason": "runtime identity mismatch",
+      "reason": "runtime identity mismatch: audioDllSha256",
+      "qualification": "synthetic inventory only"
+    },
+    {
+      "name": "wrong-canonical-productManifestSha256",
+      "outcome": "refused",
+      "expectedReason": "runtime identity mismatch",
+      "reason": "runtime identity mismatch: productManifestSha256",
+      "qualification": "synthetic inventory only"
+    },
+    {
+      "name": "wrong-canonical-launcherDllSha256",
+      "outcome": "refused",
+      "expectedReason": "runtime identity mismatch",
+      "reason": "runtime identity mismatch: launcherDllSha256",
+      "qualification": "synthetic inventory only"
+    },
+    {
+      "name": "missing-canonical-manifest-identity",
+      "outcome": "refused",
+      "expectedReason": "exact lowercase SHA256 required",
+      "reason": "exact lowercase SHA256 required",
+      "qualification": "synthetic inventory only"
+    },
+    {
+      "name": "missing-manifest-file",
+      "outcome": "refused",
+      "expectedReason": "missing or unreadable JSON",
+      "reason": "missing or unreadable JSON: D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\synthetic-wi9s08by\\missing-manifest-file\\engine\\build\\product-r34-manifest.json",
+      "qualification": "synthetic inventory only"
+    },
+    {
+      "name": "casefold-manifest-target-collision",
+      "outcome": "refused",
+      "expectedReason": "package collision",
+      "reason": "package collision: build/product-r34-manifest.json",
+      "qualification": "synthetic inventory only"
+    }
+  ],
+  "total": 10,
+  "expectedOutcomesMatched": true,
+  "productTests": false,
+  "fixtureRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\synthetic-wi9s08by"
+}

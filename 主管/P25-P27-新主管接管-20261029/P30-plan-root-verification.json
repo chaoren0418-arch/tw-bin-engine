@@ -1,0 +1,34 @@
+{
+  "utc": "2026-10-29T05:58:51.508613+00:00",
+  "artifacts": 580,
+  "failed": [],
+  "planSha256": "f58e0d6400d1715ad03ef32fc26486ac89a9b915824bbd7470a4ca6dff4f19f3",
+  "argv": [
+    "python",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\stage_controller.py",
+    "validate",
+    "--plan-sha256",
+    "f58e0d6400d1715ad03ef32fc26486ac89a9b915824bbd7470a4ca6dff4f19f3"
+  ],
+  "exitCode": 0,
+  "validation": {
+    "status": "pass-read-only-planning-validation",
+    "sourceFiles": 181,
+    "replacements": 4,
+    "additions": 1,
+    "inputPins": 2635,
+    "independentCopies": 539,
+    "inheritedSteps": 8,
+    "inheritedOperations": 44,
+    "profileSuites": 5,
+    "p29Families": 14,
+    "productBuilds": 0,
+    "runtimeProbes": 0,
+    "executionAuthorized": false,
+    "writes": false
+  },
+  "scope": "planning-only validation; build/runtime not executed"
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "engine-r32-input-contract-v1",
+  "revision": "r32",
+  "candidateId": "ENGINE-SLOW-HASTE-ITEM-IMPL-R1",
+  "candidateRoot": "work/engine-slow-haste-item-r1",
+  "preparationSha256": "d4f5f311e323ee66cda2f903b671d0a25bd2b31e814b689b28c603ab6564e863",
+  "baseRevision": "r31",
+  "baseReleaseSealSha256": "1d5b1c149495cb2b44f50daf2c3361eb15e8000ba27bf133d1029735f10cfd90",
+  "basePinsSha256": "00e9d4664024119595faeead50ade5827258763e47dc3d7068ea9b78abf8c813",
+  "sourceManifest": {
+    "path": "work/engine-slow-haste-item-r1/source-manifest.json",
+    "sha256": "2713dd94bea243bfd71576878bbbb3649938703cdd04fb81ab519e9dcb851518"
+  },
+  "candidateSeal": {
+    "path": "work/engine-slow-haste-item-r1/delivery-manifest.json",
+    "sha256": "0976aa3ffe829a1b4f77c3b94241f113ed77ca0dab245b6c6e1dca1ac18f3369"
+  },
+  "candidateResult": {
+    "path": "work/engine-slow-haste-item-r1/result.json",
+    "sha256": "6793b846a7a2cb0ce282014758a4defa13c544c43ea81afb52c8e3537a7c37e0"
+  },
+  "independentReview": {
+    "path": "work/engine-slow-utility-review-r1/candidate-review-r1/review-acceptance.json",
+    "sha256": "65ca9373b31bac4e279c143c34b14208271e846af96f4cf2fa65133fae0a2d95"
+  }
+}

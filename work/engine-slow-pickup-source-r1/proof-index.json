@@ -1,0 +1,140 @@
+{
+  "schema": "engine-source-proof-index-v1",
+  "task": "ENGINE-SLOW-PICKUP-SOURCE-R1",
+  "proofs": [
+    {
+      "id": "SERVER-REQUEST",
+      "claim": "C112 hhdd; positive object/count/distance and actor/session eligibility",
+      "files": [
+        "classes/C_PickUpItem.javap.txt",
+        "classes/OpcodesClient.javap.txt",
+        "classes/ClientPacketStructure.javap.txt",
+        "classes/WorldInteractionGuard.javap.txt"
+      ],
+      "ranges": [
+        "C_PickUpItem.start 0..514",
+        "WorldInteractionGuard.withinDistance 0..76"
+      ]
+    },
+    {
+      "id": "SERVER-COMMIT",
+      "claim": "Action/inventory lock serialized lambda, revalidation then transfer; no pickup timer established",
+      "files": [
+        "classes/C_PickUpItem.javap.txt",
+        "classes/L1PcInventory.javap.txt",
+        "classes/PlayerActionLock.javap.txt",
+        "classes/L1Inventory.javap.txt"
+      ],
+      "ranges": [
+        "lambda$start$0 0..427",
+        "runItemMutationSerialized 0..19",
+        "PlayerActionLock.call 0..59"
+      ]
+    },
+    {
+      "id": "SERVER-RESULT",
+      "claim": "Receipt ID may differ; authoritative inventory/ground packets separate from C158 actor/action15",
+      "files": [
+        "classes/C_PickUpItem.javap.txt",
+        "classes/S_DoActionGFX.javap.txt",
+        "classes/L1GroundInventory.javap.txt",
+        "classes/S_AddItem.javap.txt",
+        "classes/S_ItemStatus.javap.txt",
+        "classes/S_ItemAmount.javap.txt",
+        "classes/S_NPCPack_Item.javap.txt",
+        "classes/S_RemoveObject.javap.txt"
+      ],
+      "ranges": [
+        "lambda$start$0 428..580",
+        "S_DoActionGFX constructor 9..23"
+      ]
+    },
+    {
+      "id": "BIN-RECEIVE",
+      "claim": "Fixed BIN opcode226 parses dc; A3EBF0=false reaches actor vtable+4c, true may queue via +64/A3C4F0; queue consumption/cancellation unknown; different from JAR158",
+      "files": [
+        "native/0x947530.json",
+        "native/handler-92cb70.txt",
+        "native/action-packet-format.bin",
+        "native/details-index.json",
+        "native/vtable-references.json",
+        "native/0x51e920.txt",
+        "native/0x521e20.txt",
+        "native/0xa3ebf0.txt",
+        "native/0xa3c4f0.txt",
+        "native/0x51e860.txt"
+      ],
+      "ranges": [
+        "VA92CBA0..92CBC3",
+        "VA92CFFE",
+        "VA92D2A9..92D2CB",
+        "VA92D31C..92D32C"
+      ]
+    },
+    {
+      "id": "BIN-SELECT-FRAME",
+      "claim": "Conditional action15 default setter and advancing frame, valid metadata lookup to common timing",
+      "files": [
+        "native/0xa467a0.json",
+        "native/0xa43560.json",
+        "native/0xa3ef40.json",
+        "native/0xa407d0.json",
+        "native/0x66d480.txt"
+      ],
+      "ranges": [
+        "function VAA467A0",
+        "function VAA43560",
+        "function VAA3EF40",
+        "function VAA407D0"
+      ]
+    },
+    {
+      "id": "BIN-SCHEDULE",
+      "claim": "Frame+1 callbacks and lateness compensation; terminal transition and whole input window not certified",
+      "files": [
+        "native/0xa4b060.txt",
+        "native/0xa231c0.txt",
+        "native/0xa23260.txt",
+        "native/0xa228b0.txt",
+        "native/0x51e8e0.txt"
+      ],
+      "ranges": [
+        "VAA4B4BE",
+        "VAA4B5CA..A4B635",
+        "next terminal VAA44500"
+      ]
+    },
+    {
+      "id": "METADATA",
+      "claim": "42 hashes match original entries; explicit15.get present, no full pickup frame set in current profiles",
+      "files": [
+        "metadata/profile-audit.json",
+        "metadata/pickup-frames.json"
+      ],
+      "ranges": [
+        "13 unique gfx; 42 qualified gfx/weapon profiles"
+      ]
+    },
+    {
+      "id": "ENGINE-GAP",
+      "claim": "r31 supported meat/arrow single request, local900/pending3000, action15 heading only; slow gate retained",
+      "files": [
+        "engine-readback/Ground.cs",
+        "engine-readback/PlayerPointer.cs",
+        "engine-readback/WorldObjects.cs",
+        "engine-readback/ActionCadence.cs",
+        "engine-readback/PlayerProfiles.cs"
+      ],
+      "ranges": [
+        "GroundRules.IsGround",
+        "SendGround",
+        "ReceivePickupAction",
+        "WorldObjects case158"
+      ]
+    }
+  ],
+  "methodIndex": "method-index.json",
+  "nativeByteAudit": "native-byte-audit.json",
+  "sourcePins": "source-pins.json",
+  "qualification": "CONTRACT.md"
+}

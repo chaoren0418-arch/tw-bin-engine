@@ -1,0 +1,18 @@
+{
+  "task": "private-shop-r1",
+  "threadId": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+  "writeRoot": "reference/development/private-shop-r1",
+  "baseline": "r16",
+  "status": "dispatched",
+  "priorTaskAccepted": "bonus-independent-review/result.json",
+  "scope": "Observed existing private shop browsing and explicit single buy/sell; no creating stalls or shared writes/live",
+  "receipt": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"threadId\":\"01a1749a-7e8d-7200-9fc8-8618ed2559ac\"}"
+      }
+    ],
+    "isError": false
+  }
+}

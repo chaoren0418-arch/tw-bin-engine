@@ -1,0 +1,68 @@
+{
+  "schema": "engine-r33-stage-acceptance-v1",
+  "utc": "2026-10-29T00:08:51.827436+00:00",
+  "status": "pass",
+  "stageRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\r33-runs\\accepted-ground-lifecycle-r1-01",
+  "stageSealSha256": "6682cd2eedb7b1a7a8e6b5824d3f92e0408b57949a9e78dbeae471a056acd9e7",
+  "stageResultSha256": "fd4155f97e637a2ffb041f1ccbd2236cec1851f6159637d5148f68a98365d608",
+  "sealedFiles": 14534,
+  "rootNonAssetAndIndexShaFiles": 577,
+  "assetInventoryRowsMatchedToR28": 13958,
+  "assetSamefileVerified": true,
+  "rootRepeatedFullStageAssetBodyHash": false,
+  "sourceFiles": 177,
+  "changedSources": [
+    "source/Ground.cs",
+    "source/WorldEntry.cs"
+  ],
+  "baselineChecks": 151,
+  "suites": {
+    "ground": {
+      "assertions": 735,
+      "observations": 81,
+      "actualRows": 816,
+      "dllVerified": true
+    },
+    "utility": {
+      "assertions": 431,
+      "observations": 12,
+      "actualRows": 443,
+      "dllVerified": true
+    },
+    "haste": {
+      "assertions": 1707,
+      "observations": 0,
+      "actualRows": 1707,
+      "dllVerified": true
+    },
+    "versioned-slow": {
+      "assertions": 1201,
+      "observations": 0,
+      "actualRows": 1201,
+      "dllVerified": true
+    },
+    "f1": {
+      "assertions": 112,
+      "observations": 0,
+      "actualRows": 112,
+      "dllVerified": true
+    }
+  },
+  "totalAssertions": 4337,
+  "observationsSeparate": 93,
+  "productDllSha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productManifestSha256": "7c4d23327c0588d1029e9721c806b2e868ee2839c6e2087fb2c516632a656bf0",
+  "launcherDllSha256": "8b0cfba16676c6d3d8294db217dfacc343813dd69bbc753574f3d32a23b3008b",
+  "sharedMergeAuthorized": true,
+  "nativeLiveAccepted": false,
+  "decision": "accepted-for-serial-shared-r33-integration",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "dispatchId": "ENGINE-R33-SHARED-INTEGRATE-R1",
+  "integrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "exactOriginalToStageCopiesVerified": 71,
+  "testBodiesChanged": 0,
+  "unresolvedFindings": [],
+  "wholeP24Complete": false,
+  "stageBookkeepingCorrections": "Two recorded reference-copy / observation collector corrections; original tests and expectations unchanged, all suites once, no product or suite failures."
+}

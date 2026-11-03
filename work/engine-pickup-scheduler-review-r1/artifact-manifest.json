@@ -1,0 +1,176 @@
+{
+  "task": "ENGINE-PICKUP-SCHEDULER-REVIEW-R1",
+  "decision": "accepted-bounded-static",
+  "files": [
+    {
+      "path": "arithmetic-review.json",
+      "size": 4410,
+      "sha256": "44708c394c017dabde3341966713530774b7ea2af03f5d2d19d78020fedc9ca6"
+    },
+    {
+      "path": "arithmetic.py",
+      "size": 1817,
+      "sha256": "69948a4c35844fe67c9b55291d612b59548d180422157542c9936751dd57a914"
+    },
+    {
+      "path": "audit.py",
+      "size": 7180,
+      "sha256": "eb43e6ba25f7b691330e5af5d996322ee05b268dd93f3c67139c6c5ea055f458"
+    },
+    {
+      "path": "binary-read-pins.json",
+      "size": 3802432,
+      "sha256": "eb3513eaa410941c3b390c4d4f9f2bd5b1b9e521fc89b5577baf3c672bffad8a"
+    },
+    {
+      "path": "boundaries.json",
+      "size": 548,
+      "sha256": "cb598ba4b755418368bc4c3a06c0c6de7d53812341e8904507561c380f1d5df3"
+    },
+    {
+      "path": "build_review.py",
+      "size": 15979,
+      "sha256": "084753a14beb8008cc6e5c6ec96e5381ad744ba478b3fb71c168db392254aa40"
+    },
+    {
+      "path": "claim-review.json",
+      "size": 9339,
+      "sha256": "292a741e3865ab8dbd969de0620cce283695d8dbb9082486a72eff254f7f52fb"
+    },
+    {
+      "path": "disassembly/P01.txt",
+      "size": 7383,
+      "sha256": "c0f1281aec7bca9c72a2e088fc1851616849d5d3c6c1d7443cfd01ac919c925a"
+    },
+    {
+      "path": "disassembly/P02.txt",
+      "size": 15412,
+      "sha256": "41a2493af6d1fcd4ac9de5debd5877e6f4113bee77d4044cf91b2d350b3ed4ad"
+    },
+    {
+      "path": "disassembly/P03.txt",
+      "size": 2055,
+      "sha256": "ce6a441b4058804bc70a202994772e9249f46ddc56c3a8039a10bfaa072cfe2f"
+    },
+    {
+      "path": "disassembly/P04.txt",
+      "size": 12055,
+      "sha256": "9db3f0f7bc16e3d32cf9d86f2507a50a83f17776c947d2dd67ae49ab618e8b66"
+    },
+    {
+      "path": "disassembly/P05.txt",
+      "size": 6311,
+      "sha256": "6a5e9bb5e03632bbdfcfdfc0acd696cb1bc3f9c099751e578629afba26f399e8"
+    },
+    {
+      "path": "disassembly/P06.txt",
+      "size": 5336,
+      "sha256": "547208620bcd07d9f82e2505e1d9f5830830a86efd4298aefbea4c8e933e922c"
+    },
+    {
+      "path": "disassembly/P07.txt",
+      "size": 15543,
+      "sha256": "2834ab55fcbcec7b7b1e33ec809139ffbcd5dae950a545efb0d84f0f3309d285"
+    },
+    {
+      "path": "disassembly/P08.txt",
+      "size": 9728,
+      "sha256": "ef881cf32b24435d02454bb5e61160e0e43bd6dbb58194a89afa6c6c41a6665a"
+    },
+    {
+      "path": "disassembly/P09.txt",
+      "size": 11004,
+      "sha256": "f861ebaf723d060e620260ff6e110596461963e707d2835f629d21ff20175d9e"
+    },
+    {
+      "path": "disassembly/P10.txt",
+      "size": 6693,
+      "sha256": "b14dd49b0dc9c60da71368ddbc85f6fdea137207b66342dab2ed25d2f0efb26d"
+    },
+    {
+      "path": "disassembly/P11.txt",
+      "size": 8913,
+      "sha256": "f2daa6fb3ed0ffb6e4ead322bbc7b45022919a2d7dc13785a3bcc9500ac0fbb9"
+    },
+    {
+      "path": "disassembly/P12.txt",
+      "size": 3378,
+      "sha256": "58453e272d28c4ae989b0a47b9241535e73e59c24f8f8395d95ee662a6eae239"
+    },
+    {
+      "path": "disassembly/P13.txt",
+      "size": 2369,
+      "sha256": "b91ffa3987e524928137a8522ff026254074f32c0b328c40043f38aa53d2914d"
+    },
+    {
+      "path": "disassembly/P14.txt",
+      "size": 29350,
+      "sha256": "b7e34e0afd174afb630618516992ef4881102ab0a90cb3725d0fc65f7e497720"
+    },
+    {
+      "path": "disassembly/supplement-0092d042.txt",
+      "size": 5682,
+      "sha256": "334e06e6ca9ac44efd2eaec527d24b2dec1aca573666933f098003a554e298b8"
+    },
+    {
+      "path": "disassembly/supplement-00a4b4f3.txt",
+      "size": 2650,
+      "sha256": "a680e7076b1f48f9347f026938647c6bee759a0e118e78a85f6fa3b57900a092"
+    },
+    {
+      "path": "finalize.py",
+      "size": 805,
+      "sha256": "b16afdfb7dfacfffc08502593ed3cf4372b1070e52f5f219ae569ad1ddff3c1a"
+    },
+    {
+      "path": "findings.json",
+      "size": 1651,
+      "sha256": "6d6c4a37cb338af9e4154dc36e6abc66dba572a2c22beef67b0122e239028372"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 1808,
+      "sha256": "69b4f2b9888547a54a8b7f1a5ade0b4e05fea46fd77760a3d84fbed1e88d0aeb"
+    },
+    {
+      "path": "integrity-audit.json",
+      "size": 45513,
+      "sha256": "f00b4f145eef57a4183efba768b1155ca1425bfdc0763dca578ed01f57218d11"
+    },
+    {
+      "path": "result.json",
+      "size": 1977,
+      "sha256": "01a57beb203e028c7cc78e286286d39d3e0e98be2ad4b171a445039f4da1e846"
+    },
+    {
+      "path": "review.json",
+      "size": 247,
+      "sha256": "0001ffcc9bd3b1985bf2f2723fa8898bb1a0fabbe5c3d9edf7886b6051d72148"
+    },
+    {
+      "path": "semantic-review.md",
+      "size": 9514,
+      "sha256": "dbee51c01442b3cf2f1c65328b6de6ff5dd558c0accba1adfdeda6587ffd677e"
+    },
+    {
+      "path": "source-pins.json",
+      "size": 41413,
+      "sha256": "afec810d7b1ba258cfd26356ec76b60ce3eff8c9925d61851a2e7f02377ab78e"
+    },
+    {
+      "path": "supplement.py",
+      "size": 1607,
+      "sha256": "f1871d7fe676c29af7d90df8bed228b82519b4836ce64ecf291075829503fc35"
+    },
+    {
+      "path": "supplemental-ranges.json",
+      "size": 735,
+      "sha256": "8dcb68e7d0cf7871a99fef945de179239897d0291d0f28092c938be3d92536d8"
+    },
+    {
+      "path": "verify.py",
+      "size": 3029,
+      "sha256": "103ab1c19a26eb5d87aef785abb50e730b2fab20611e93775a5a84d364c987f5"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "schema": "p32-supervisor-independent-review-v1",
+  "utc": "2026-10-29T07:18:57.448378+00:00",
+  "status": "accepted-bounded-lifecycle-behavior-with-environment-deviation",
+  "seal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\artifact-manifest.json",
+    "size": 36331,
+    "sha256": "2668b3754b39af60659063ea096439b872c5417584e5cb2c5f1860924be588db"
+  },
+  "artifactsVerified": 202,
+  "sourcePinsVerified": 33,
+  "distinctCases": 196,
+  "families": {
+    "lifecycle": 39,
+    "direction-window": 105,
+    "terminal-replacement": 42,
+    "latest-eligible": 1,
+    "lease": 2,
+    "guard-isolation": 6,
+    "actor-reentry": 1
+  },
+  "negativeControls": 3,
+  "productDefectsFound": [],
+  "rootRuntimeReruns": 0,
+  "productChanges": 0,
+  "commands": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\build-01\\command.json",
+      "size": 3680,
+      "sha256": "205369dbb5be41155da1875e9fc2e9f5f4bee4520f1b92a0bee14320b4386c54"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\runtime-01\\command.json",
+      "size": 3048,
+      "sha256": "7e4fc7627ac9659cebdf5d6402a3aed3150ac27f45886e927532eb5f3592e944"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\build-02\\command.json",
+      "size": 3678,
+      "sha256": "6b0ef0ace50ae5430710403a9bfbc48b89df8a2ed02ed1900d876513683259b8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\runtime-02\\command.json",
+      "size": 3067,
+      "sha256": "26faf6fe6217fa7bf078c5350eb77051d77b2acb9b44a6ace2e566932005f7ea"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\build-03\\command.json",
+      "size": 3678,
+      "sha256": "5539bdb908663987c0266ead58a8616b8b744204e2d7ce9845758af539a55e61"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\runtime-03\\command.json",
+      "size": 3070,
+      "sha256": "fe1a2dbe3a3273ae4af46de31470748bca3fd728c188ec632294414a0f374bd2"
+    }
+  ],
+  "reviewMethod": "Read helper source and original packet/owner contract; verified oracle membership in original accepted manifest; independently evaluated saved cancellation/recovery/window/terminal/lease/guard/actor transition observations, distinct IDs and original raw streams.",
+  "sealQualification": "202 deliverables, not the whole cache/home/tmp tree; exact exclusions checked. Initial supervisor validator incorrectly assumed full-tree closure; preserved initial script, corrected to declared seal scope.",
+  "excludedCurrentSnapshots": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\verify-delivery.json",
+      "size": 134,
+      "sha256": "542fe449588636909b7804a685093a0085eb303c55da121b193504c8edfe12a1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\tmp\\Microsoft.NET.Workload_17544_20261029_151202_399.log",
+      "size": 1680,
+      "sha256": "ce90b7548b93359ab76dfe07682310f08ec90e173b66e1f9f2788a970dd5f912"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\tmp\\Microsoft.NET.Workload_23964_20261029_151027_966.log",
+      "size": 1681,
+      "sha256": "4729ad860ec35656fc1630a3cefc70435e8032abfe1f372b9052e3dd10dd9195"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\tmp\\Microsoft.NET.Workload_25136_20261029_150822_219.log",
+      "size": 1680,
+      "sha256": "68e9bb42fab9cb4bab5aced3055deb02a09592c8b4ec206fe3b490a8decec77b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\tmp\\Microsoft.NET.Workload_25136_20261029_150822_272.log",
+      "size": 1681,
+      "sha256": "d85ae5b8c3ee52b7cfd4f867dcdc5c3ed2ee51824512e2380272d6a94a83b167"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\home\\.dotnet\\.workloadAdvertisingManifestSentinel10.0.300",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\home\\.dotnet\\10.0.300.aspNetCertificateSentinel",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\home\\.dotnet\\10.0.300.dotnetFirstUseSentinel",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\home\\.dotnet\\10.0.300.toolpath.sentinel",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "environmentDeviation": {
+    "id": "SDK-FIRST-RUN-CERTIFICATE-BANNER",
+    "phase": "build-01",
+    "observed": "raw stderr says Installed an ASP.NET Core HTTPS development certificate.",
+    "limits": "Certificate store was not inspected, trusted, modified, or cleaned up by P32; the banner alone does not identify a new certificate or establish persistent store change.",
+    "cause": "DOTNET_SKIP_FIRST_TIME_EXPERIENCE did not suppress modern SDK first-run certificate step; DOTNET_GENERATE_ASPNET_CERTIFICATE was absent in build-01",
+    "containment": "Before build-02 set DOTNET_GENERATE_ASPNET_CERTIFICATE=false and DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false; subsequent build raw stderr empty.",
+    "scope": "Unexpected SDK behavior outside intended helper-only file writes; do not claim zero possible certificate-store effects.",
+    "evidence": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P32-pickup-lifecycle-review-r1\\runs\\build-01\\stderr.raw",
+      "size": 687,
+      "sha256": "130b08dda99660da8240c82dc8c1124c24f0161732833437223d112b51edcd8c"
+    }
+  },
+  "certificateStorePersistence": "unknown; no certificate store inspection, trust or removal performed",
+  "futureHelperRequirement": "Set DOTNET_GENERATE_ASPNET_CERTIFICATE=false and DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false before first helper build; record these in run receipt.",
+  "limits": [
+    "Synthetic packets and explicit reflection/clock seams, not native tests.",
+    "12 owner fields are not identical to the historical 22 scenario categories.",
+    "Selected directions1-7/action/profile samples only; no all-content guarantee.",
+    "Lease completion isolation does not establish 900/3000 timing, authoritative network quantities or audio/effect counters.",
+    "Real S30 flight, resource faults and native integration remain outstanding."
+  ]
+}

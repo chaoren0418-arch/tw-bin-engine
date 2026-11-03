@@ -1,0 +1,22 @@
+{
+  "method": "Actual model inspection of freshly independently decoded contact images via view_image; 2x nearest display, original logical origin retained",
+  "sampledGfx": [
+    61,
+    48,
+    2796,
+    6650,
+    1186
+  ],
+  "directionsEach": 8,
+  "tokensEach": 4,
+  "sampledFrames": 160,
+  "all416ManuallyViewed": false,
+  "observations": [
+    "Each sampled direction has a coherent standing/bending/recovering pose sequence; no visible tile seams, missing strips or header clipping in samples.",
+    "Gfx2796 labels preserve pickup frame1/2/3 on sid48..55 rather than shifting to0/1/2.",
+    "Aliases61->3213,48->3215,1186->3221 and non-alias2796/6650 retain separate directional raw entries; no mirrored substitutes.",
+    "Red cross is logical origin and can sit away from feet; original signed bounds are not a foot-pivot claim.",
+    "Transparent surroundings and dark opaque body details remain visible; 6752 black pixels are established numerically, not counted visually."
+  ],
+  "sourceSemanticQualification": "sampled visual plausibility only, not native playback/timing or release provenance"
+}

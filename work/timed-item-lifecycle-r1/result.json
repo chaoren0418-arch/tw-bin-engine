@@ -1,0 +1,201 @@
+{
+  "status": "offline-diagnosis-complete-no-repair",
+  "task": "timed-item-lifecycle-r1",
+  "baseline": "sealed r28; retained Server_Game.jar",
+  "jarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "exclusiveWriteDirectory": "D:\\lineage開發\\TW1608262200研究\\work\\timed-item-lifecycle-r1",
+  "workerGoalActualStatus": "blocked",
+  "goalChanged": false,
+  "supervisorReceiptGoalStatus": "paused",
+  "mainItem": {
+    "objectId": 10326,
+    "templateId": 49290,
+    "owner": 1900249001,
+    "origin": "normal Serena room rental; historical receipt and DB evidence",
+    "disappearedBeforeMigration": true,
+    "specificDeletionCause": "unknown",
+    "timeRowStillPresent": true
+  },
+  "verifiedMechanisms": [
+    "ordinary delete gates time cleanup on remainingTime>0",
+    "offline delete cleans time unconditionally after main delete",
+    "time cleanup facade swallows Exceptions",
+    "pending main deletes do not retry time cleanup",
+    "startup validates all time references and refuses orphan",
+    "inspected login chain has no direct absolute-expiry deletion branch",
+    "absolute deadline excludes relative timer startup"
+  ],
+  "eventAttribution": "expiry-compatible timing only; no object-level deletion cause receipt",
+  "migrationAssessment": "pre-migration main-row absence proven; 904-file cold-backup equality supports byte preservation, does not identify earlier cause",
+  "storageEngineEvidence": "Supervisor current SELECT confirms both MyISAM, primary id/itemr_obj_id; no transactional rollback assumption",
+  "supervisorSqlExecution": {
+    "receipt": "supervisor-select-evidence.json",
+    "selectStatements": 8,
+    "workerExecuted": false,
+    "timeTableTotal": 1,
+    "orphans": 1,
+    "durationHours": 2,
+    "triggerMetadataRows": 0,
+    "systemTimezoneTextUndecodable": true
+  },
+  "sourceJarAgreement": "20 class entries pinned, 32 key methods inspected; whole-source equality NOT established; NpcMakingExecutor notice implementation known different",
+  "verification": {
+    "status": "pass",
+    "methodChecks": [
+      {
+        "id": "startup-order",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "timed-load",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "time-delete-swallow",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "time-delete-lock",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "time-delete-confirmed",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "time-select",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "time-sql-delete",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "time-initialize",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "store-confirm",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "store-timed",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "store-prepare",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "store-insert",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "online-delete",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "pending-delete-save",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "offline-delete",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "offline-expiry",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "absolute-timer",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "absolute-timer-online",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "absolute-timer-cadence",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "relative-timer-exclusion",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "relative-timer-zero",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "relative-timer-delete",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "login-items",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "login-restore",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "login-inventory",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "login-packet",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "main-delete-sql",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "base-remove",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "making-create",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "entry-key-check",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "time-config",
+        "requiredInstructionTokensPresent": true
+      },
+      {
+        "id": "factory",
+        "requiredInstructionTokensPresent": true
+      }
+    ],
+    "methodCount": 32,
+    "jarClasses": 20,
+    "sourcePins": 52,
+    "beforeAfterMain10326Absent": true,
+    "historicalSourcePinsMatched": true,
+    "coldBackupReceiptFourTableFilesMatched": true,
+    "noRuntimeReproduction": true,
+    "noServiceDbUiSocketActions": true,
+    "workerGoalActualStatus": "blocked",
+    "supervisorReceiptGoalStatus": "paused",
+    "goalChanged": false,
+    "limits": [
+      "Static bytecode/receipt checks only; no item-specific deletion call receipt.",
+      "LineNumberTable correspondence is not whole-source or reproducible-build identity.",
+      "No live table files read; MyISAM evidence is supervisor receipt, no assumed rollback."
+    ]
+  },
+  "causalRows": 12,
+  "sqlExecuted": false,
+  "sqlProposal": "minimal-select.sql",
+  "repairsOrGrantsOrDeletes": 0,
+  "nativeGuiServiceSocketOperations": 0,
+  "subagentsOrNewChats": 0,
+  "wholeP24Complete": false,
+  "next": "Supervisor reviews diagnosis and the completed SELECT receipts. No further SELECT is required by this finite diagnosis; specific historical cause remains unknown. No repair or service restart authorized by this delivery. Worker stops writing after sealing.",
+  "finalVerification": "verification.json",
+  "sealed": true
+}

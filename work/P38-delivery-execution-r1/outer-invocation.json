@@ -1,0 +1,27 @@
+{
+  "source": "Actual exec tool completion transcript, not separately captured raw pipe; each build/check raw stream is recorded under commands.",
+  "executor": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-plan-r1\\executor.py",
+  "mode": "execute",
+  "planSha256": "d1649ed3104850b96b719a367583835c781aa0a1fd05fad52c27b6ce402cce92",
+  "contractSha256": "0ceba81b82f80ccd601c12da36b10557a2a5b9bd2d867cc166923a4816b43b3e",
+  "receiptPath": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P38-delivery-execution-acceptance-r1.json",
+  "receiptSha256": "11788b37e42a85f25d4a9cd9d8839a897d42fd16c1f98ed6e0d7322e454cc334",
+  "pythonOptions": [
+    "-B",
+    "-X",
+    "utf8"
+  ],
+  "cwd": "D:\\lineage開發\\TW1608262200研究",
+  "sessionId": 92343,
+  "startChunkId": "4f0d93",
+  "completionChunkId": "dde20b",
+  "exitCode": 0,
+  "dispatchId": "ENGINE-P38-DELIVERY-R1-01",
+  "goalActualRead": null,
+  "goalCreatedOrModified": false,
+  "result": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1\\result.json",
+    "size": 2882,
+    "sha256": "37655945b75dc0f86b6fe4153ba17779a186df571726f4ce162dcd8ee1807a2f"
+  }
+}

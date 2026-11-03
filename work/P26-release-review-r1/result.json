@@ -1,0 +1,55 @@
+{
+  "schema": "p26-release-independent-review-result-v1",
+  "taskId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "turnId": null,
+  "utc": "2026-10-29T04:14:35.498950+00:00",
+  "status": "original-contract-complete-new-tool-reviewed-needs-revision",
+  "decision": "requires-minimal-generator-evidence-closure-revision",
+  "originalReview": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r1\\original-contract-review.json",
+    "size": 1140,
+    "sha256": "090f3c356e901f07453da57be3f3dd86f845506c8a820a7c8a1162bac727b8ba"
+  },
+  "toolReview": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r1\\tool-review.json",
+    "size": 1918,
+    "sha256": "a784c5050fb013973dd3794d5ec7c9bee78447b8b528f99211a851a5c8b36039"
+  },
+  "finding": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r1\\findings.json",
+    "size": 4403,
+    "sha256": "330c1e953e1f6bba06d00b2a3abab5ed16409e58e87f2fb1729b36dfd6738e35"
+  },
+  "contract": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r1\\release-contract.json",
+    "size": 6282,
+    "sha256": "0a698fba33d5a2fc550ee919b8cdf29dddc1751a7e4727a606b8e75843e65469"
+  },
+  "toolAccepted": false,
+  "exactPackagePlanAccepted": false,
+  "actualReleaseAccepted": false,
+  "sharedReceiptCreated": false,
+  "releaseReceiptCreated": false,
+  "sharedWorkflowWritten": false,
+  "packageExecuted": false,
+  "releaseCreated": false,
+  "engineOrEntryWritten": false,
+  "productBuilds": 0,
+  "productAssertions": 0,
+  "nativeChecks": 0,
+  "goal": "active; exact revised tools and later package-plan/completed pins remain required",
+  "dependencies": [
+    {
+      "id": "D-RG1",
+      "needed": "fresh corrected generator/tool-source/artifact exact seal pins from supervisor"
+    },
+    {
+      "id": "D-PLAN",
+      "needed": "real completed canonical and exact package plan pins from supervisor; no synthetic substitution"
+    },
+    {
+      "id": "D-RELEASE",
+      "needed": "later separately authorized real package/full release verification"
+    }
+  ]
+}

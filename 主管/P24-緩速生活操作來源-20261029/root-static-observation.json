@@ -1,0 +1,12 @@
+{
+  "status": "hypotheses-dispatched-for-independent-proof",
+  "base": "releases/r30/source/Inventory.cs",
+  "observations": [
+    "Initial MovementBusy includes MagicBusy/GroundBusy but final sender predicate has no explicit magicSending/nextMagicAt/GroundBusy checks.",
+    "After await success and catch test only generation, not captured worldEpoch or lease; late same-session world replacement may leave stale effects."
+  ],
+  "reviewer": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+  "productDefectConfirmed": false,
+  "productWritesAuthorized": false,
+  "utc": "2026-10-28T22:21:57.484Z"
+}

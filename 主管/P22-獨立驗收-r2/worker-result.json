@@ -1,0 +1,29 @@
+{
+  "status": "ready-for-supervisor",
+  "goalStatus": "active",
+  "revision": "r2-resident-original-dual-blocks",
+  "validation": {
+    "status": "pass-offline",
+    "dllSha256": "3f26ff2c2d82d177463b65c84d720db9a347f429d3c7a4447a92e5e2baecdb83",
+    "runs": {
+      "magic-regressions-": "evidence\\magic-regressions-1792930155907073600",
+      "ranged-regressions-": "evidence\\ranged-regressions-1792930155922695300",
+      "dual-block-tests-": "evidence\\dual-block-tests-1792930094836028800",
+      "offline-compositor-r2-": "evidence\\offline-compositor-r2-1792930098752965400"
+    },
+    "noLiveRepairSessions": true,
+    "originalPixelComparison": "reference/dual-block/supervisor-independent-comparison.json",
+    "originalMovementComparison": "reference/dual-block/P22-原雙區移動方向獨立核對.json"
+  },
+  "priorResult": "history/r1/result.json",
+  "priorFrozenSource": "history/r1/source-freeze-manifest.json",
+  "functionalAcceptancePending": true,
+  "cleanupAuthorized": false,
+  "noRoleLoginDuringRepair": true,
+  "supervisorRolesFresh": false,
+  "scopeLimitations": "reference/dual-block/resident-scope.json",
+  "readySha256": "d4e5b6958f1182c66f0588b60ed969010c5d2d858578526458ce6b272e7888af",
+  "sourceFreezeSha256": "449e6bf9c23f618bdd595bbab0e9b7c8c270f7f5a7a1acc9595e32404ca6a569",
+  "environmentFreezeSha256": "b0667ae1902a1e1e61832c4a41c489ebf1bddb837d339d18404073b97de9ac12",
+  "frozen": true
+}

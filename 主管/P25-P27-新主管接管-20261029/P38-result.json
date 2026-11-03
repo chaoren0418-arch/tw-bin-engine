@@ -1,0 +1,65 @@
+{
+  "schema": "p38-supervisor-result-v1",
+  "utc": "2026-10-29T10:27:22.161462+00:00",
+  "status": "accepted-bounded-offline-delivery",
+  "completed": true,
+  "wholeEngineComplete": false,
+  "acceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P38-final-acceptance.json",
+    "size": 4543,
+    "sha256": "e4ac694414f9d112d181323e46b2f6fb61a5e788ee57554ba1e33971392ce478"
+  },
+  "convergence": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P38-convergence-delta.json",
+    "size": 3653,
+    "sha256": "c222f594df5342457d7ca0e574195148e50338d19d2cb9667c7049dc0bce95d7"
+  },
+  "handoff": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P38-HANDOFF.md",
+    "size": 3420,
+    "sha256": "3e14fe61140818a3601572d1b3c26b7fdef05a162d9471be02eb9cee23235398"
+  },
+  "formalEntry": "r33",
+  "workers": "both idle/completed; exact turn IDs in acceptance",
+  "remainingBlockers": [
+    {
+      "id": "NORMAL/NATIVE",
+      "state": "awaiting-native-authority-and-required-user-environment",
+      "functions": [
+        "normal launcher-to-product GUI transition",
+        "native whole screen/mouse/HUD/focus/shadows",
+        "fixed-version login,movement,combat,items,transactions,save/relogin",
+        "safe supported maps/occlusion and world6016 audio"
+      ],
+      "resume": "Explicit native-operation authority for pinned P38 or other named version; capture/input and safe legitimate scenario. User supplies DB/services where needed. Isolated native testing does not inherently require root entry activation."
+    },
+    {
+      "id": "ENTRY",
+      "state": "prior-action-denied-user-decision-pending",
+      "functions": [
+        "persistent root 啟動引擎.cmd and project-manifest version switch"
+      ],
+      "resume": "Explicit user authorization naming exact target and changes. Old proposed r34 does not include P36/P38 extra41 profiles."
+    },
+    {
+      "id": "SOURCE",
+      "state": "specific-source-contracts-missing",
+      "functions": [
+        "real map-local effect to nonzero group/fade/render association",
+        "non6016 animation-event token semantics/resource/trigger/lifecycle",
+        "unsupported46 map blocks and missing312 pickup-shadow keys"
+      ],
+      "resume": "Exact authoritative IDs/formats and real source/behavior evidence. No repeated research without a new source lead; no guessed implementation."
+    },
+    {
+      "id": "HISTORY",
+      "state": "evidence-limit-retained",
+      "functions": [
+        "historical timing and broader unexecuted regression/native-equivalence claims"
+      ],
+      "resume": "Do not manufacture old receipts or rerun unrelated accepted suites; select further evidence only against a concrete gap or observed defect."
+    }
+  ],
+  "entryAction": "denied previously, explicit user decision pending; no retry",
+  "newPhaseCreated": false
+}

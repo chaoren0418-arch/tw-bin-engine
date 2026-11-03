@@ -1,0 +1,26 @@
+{
+  "utc": "2026-10-26T15:26:54.873Z",
+  "scope": "continue development after ship isolated candidate is delivered, same sole worker",
+  "reason": "Normal village replenishment loop is incomplete: Pandora sells40010 but InventoryItem.SupportedPotion accepts white potion only.",
+  "currentSource": "source/Inventory.cs SupportedPotion: DescriptionId130 IconId81 UseType249 Name$238",
+  "required": "source-backed exact identities and normal use path for shop healing potion; preserve cooldown/status-message/NPC-dialogue semantics; no database grant/reset; verify actual purchase/use/persistence with remaining94000gold; ordinary haste potion40013 and source-backed normal Speed1 movement/animation/cooldown/expiry/relogin; retain unknown speed/Brave rejection",
+  "source": "D:/P24Lab-ClientEngine/sql/380_db.sql",
+  "status": "pending development; not live passed",
+  "sourceGap2": "source/OnlineMovement.cs MovementAvailable requires Speed0 Brave0; normal haste would disable all movement",
+  "visualFollowup": {
+    "icons": [
+      80,
+      77
+    ],
+    "attachedEffects": [
+      189,
+      191,
+      197
+    ],
+    "reason": "MagicSpells.AttachedEffect currently excludes these; ordinary potion use must not imply visual effect coverage",
+    "source": "fixed JAR S_SkillSound IDs and original assets; no synthetic replacements"
+  },
+  "movementFollowup": "SpeedRevision must invalidate queued movement across0→1/1→0/1→0→1 and unknown speed; current step animation captured, next step uses new speed",
+  "hasteCostReview": "StatusHaste javap _isConsume=true removes potion then goto223; costItem branch skipped. No additional10adena expected for this template.",
+  "postSendExpiry": "Verify t0 haste movement, t0+200 Speed0, no next send at483ms if server now requires640ms; preserve already-started animation and extend send deadline conservatively from last movement."
+}

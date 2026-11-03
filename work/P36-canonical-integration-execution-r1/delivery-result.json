@@ -1,0 +1,51 @@
+{
+  "schema": "p36-execution-delivery-v1",
+  "status": "successful-canonical-build-awaiting-independent-provenance-review",
+  "executionResult": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\result.json",
+    "size": 6818,
+    "sha256": "a86b0e4ea202d4dc02c71aec25a7c97e2609874a7b20662d839c0971509f0a8e"
+  },
+  "sourceManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\source-manifest.json",
+    "size": 45035,
+    "sha256": "f3275b4f202ee0d277e5749e85e2e10297396ce8f9bafa70696509a91027f95d"
+  },
+  "productManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-p36-r1-manifest.json",
+    "size": 4715,
+    "sha256": "d55389e048aee9eb2b64088ddfb0128de6166071e21969bd1dd57b9464d9ce75"
+  },
+  "product": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1\\P11.ClientEngine.dll",
+    "size": 4925440,
+    "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+  },
+  "audio": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1\\P24.Audio.dll",
+    "size": 53760,
+    "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+  },
+  "compilerEvidence": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\attempt\\build-01\\msbuild.binlog",
+    "size": 216085,
+    "sha256": "ddcc351fc4b28c936dd767ecb7af76245caf903f7e6d361292d794c948ebb882"
+  },
+  "sourceCount": 181,
+  "replacements": 4,
+  "additions": 1,
+  "buildInvocations": 1,
+  "compilerTasks": 2,
+  "warnings": 0,
+  "errors": 0,
+  "outputs": 15,
+  "outputsMatchingAcceptedStage": 15,
+  "runtimeRuns": 0,
+  "rollbackExecuted": false,
+  "formalEntry": "r33",
+  "entryActivated": false,
+  "P37InventoryExecuted": false,
+  "supervisorFinalAcceptancePending": true,
+  "independentProvenanceReviewPending": true,
+  "fullReleaseAuthorized": false
+}

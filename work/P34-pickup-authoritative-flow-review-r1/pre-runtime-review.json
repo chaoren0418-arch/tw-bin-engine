@@ -1,0 +1,7 @@
+{
+  "build01": "success; not launched",
+  "reason": "Supervisor identified full MovementBusy -> GroundBusy getter chain. Corrected unexecuted helper timeout repeat expectation from reaches gate to early refusal; added same-chain rapid repeat lease preservation assertion. Product/quantity/frame oracle unchanged.",
+  "newBuild": "build-02",
+  "priorSnapshots": "runs/build-01",
+  "productDefect": false
+}

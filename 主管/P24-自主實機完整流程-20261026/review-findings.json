@@ -1,0 +1,34 @@
+{
+  "updated": "2026-10-26T09:25:27.634Z",
+  "findings": [
+    {
+      "id": "entry-cold-timeout",
+      "kind": "actual UI failure",
+      "state": "worker repair pending live retest",
+      "evidence": "normal-login-failure.json"
+    },
+    {
+      "id": "world-packet-truncated",
+      "kind": "actual UI failure",
+      "state": "diagnostic candidate pending actual repro",
+      "evidence": "normal-login-second-failure.json"
+    },
+    {
+      "id": "entry-timer-later-transition",
+      "kind": "source review, not live reproduction",
+      "state": "sent for targeted regression",
+      "description": "WorldEntryTiming StartedAt may outlive initial entry; ready/loading later transition must not inherit elapsed >60sec since original login."
+    },
+    {
+      "id": "resistance-null",
+      "kind": "visible actual UI defect",
+      "state": "worker source fix and DOM regression, pending live observation"
+    },
+    {
+      "id": "unresolved-name-tokens",
+      "kind": "actual server inventory observation",
+      "state": "queued after entry repair",
+      "description": "Names $238 and +0 $0 remain unresolved; use original text catalog, preserve raw protocol values."
+    }
+  ]
+}

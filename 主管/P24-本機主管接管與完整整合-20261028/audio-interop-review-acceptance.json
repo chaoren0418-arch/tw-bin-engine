@@ -1,0 +1,11 @@
+{
+  "reviewResultSha256": "9d1b2071377a76e2e02e0963ac5de1ce50d30036a4158a1b7e76061170a1834a",
+  "artifactPinsVerified": 21,
+  "findingsAccepted": [
+    "F1 event0x06/0x08/device removal ignores terminal failure and retains capacity",
+    "F2 EC_ERRORABORT replaces HRESULT with E_FAIL"
+  ],
+  "fixAssigned": "r27-6016-audio-controls-r3",
+  "formalAudioAccepted": false,
+  "nativeR1DiagnosticIsSeparate": true
+}

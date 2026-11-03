@@ -1,0 +1,25 @@
+{
+  "schema": "bin-engine-stage-contracts-v1",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "utc": "2026-10-29T03:32:57.413Z",
+  "tasks": [
+    {
+      "phase": "P25",
+      "title": "P25｜盤點現行架構與完成證據",
+      "root": "work/P25-architecture-baseline-r1",
+      "prompt": "你是使用者明確要求新開的階段工作者，由新主管 01a185b4-ecf6-705c-90e6-83b9eb1ba02f 協調。專案根 D:\\lineage開發\\TW1608262200研究。先讀根 AGENTS.md 及 主管/P25-P27-新主管接管-20261029/takeover.json。舊P24主管已退役，不聯絡或喚醒；最新使用者要求優先於舊階段停寫/不開P25指示。先用可用Goal工具讀自己的Goal，若null且工具可用則建立本階段具體Goal並讀回；無工具如實記錄，勿改平台儲存。不能增開對話/子代理。只能寫指定work子目錄；engine/releases/其他work/主管/原客戶端/原BIN皆唯讀，assets junction及硬連結不可變。禁止DB查詢/診斷/更改、服務啟停、socket/GUI/原生遊戲/角色操作、不重建外部Lab。可獨立離線工作不因等待用戶驗收而停；遇精確依賴缺少則完成其他獨立項後明列依賴。開始讀檔後立刻在專屬root寫 progress.json（真實task/turn若可取得、已讀檔、目前步驟/依賴），完成產出HANDOFF.md、result.json、來源sha256和可重跑命令。候選、離線測試、原生實測分開；不要用測試數稱全案完成。\n\n建立現行r33引擎的全案架構與可驗收責任矩陣，這是P25，非重新命名P24。寫入只限work/P25-architecture-baseline-r1。讀engine/source/audio/web/launcher實際檔案與project-manifest；對照早期P02 modules、P06 architecture-and-evidence、P09 architecture-and-boundaries；逐項對帳主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json和主管/完整引擎未完成項目.json，加入r29-r33接受證據及r34隔離stage界線。產出architecture.md、module-map.json、completion-matrix.json、finite-backlog.json。每模組須有實際source路徑/狀態owner/資料流/相依/現有驗證/unknown/下一步/完成標準/承接P階段；不要憑檔名推全部功能。核心至少入口登入網路/世界與跨圖生命週期/移動指標輸入/戰鬥物品/渲染資源/6016音訊/Web與HUD/建置封存。逐項保留歷史native版本，不能升格r33。對每個舊matrix row給對帳結果，不漏分母、不報完成率。不重跑產品測試，不改產品。這一路無需等待r34。驗收為來源pins可核、舊row完整對帳、模組連接與責任可執行、有限優先待辦分開實作缺陷與待原生驗收。你是P25產物owner；產品整合owner仍原整合者，P26拾取/P27輸入覆核作責任映射。"
+    },
+    {
+      "phase": "P26",
+      "title": "P26｜覆核權威拾取整合與回復契約",
+      "root": "work/P26-pickup-integration-review-r1",
+      "prompt": "你是使用者明確要求新開的階段工作者，由新主管 01a185b4-ecf6-705c-90e6-83b9eb1ba02f 協調。專案根 D:\\lineage開發\\TW1608262200研究。先讀根 AGENTS.md 及 主管/P25-P27-新主管接管-20261029/takeover.json。舊P24主管已退役，不聯絡或喚醒；最新使用者要求優先於舊階段停寫/不開P25指示。先用可用Goal工具讀自己的Goal，若null且工具可用則建立本階段具體Goal並讀回；無工具如實記錄，勿改平台儲存。不能增開對話/子代理。只能寫指定work子目錄；engine/releases/其他work/主管/原客戶端/原BIN皆唯讀，assets junction及硬連結不可變。禁止DB查詢/診斷/更改、服務啟停、socket/GUI/原生遊戲/角色操作、不重建外部Lab。可獨立離線工作不因等待用戶驗收而停；遇精確依賴缺少則完成其他獨立項後明列依賴。開始讀檔後立刻在專屬root寫 progress.json（真實task/turn若可取得、已讀檔、目前步驟/依賴），完成產出HANDOFF.md、result.json、來源sha256和可重跑命令。候選、離線測試、原生實測分開；不要用測試數稱全案完成。\n\n獨立審核已封存r34 canonical整合計畫。寫入只限work/P26-pickup-integration-review-r1。讀work/engine-r34-canonical-plan-r1、engine-r34-integration-r2、主管/P24-權威拾取動畫-20261029/r34-stage-root-acceptance.json、canonical-plan-draft-finding.json。exact plan sha=d25c306fae5abee9209e46c557453f7b6a0a96645e5c052fbda70555f11f15ff，stage seal=9544f137a10914825b53080d4d390d17902cd40866467cebbf69578290240018。核驗seal/來源/180來源與138copy mappings、44操作、raw log adapter與nested commands完整性、失敗保留與collect-only不重建、canonical source/immutable assets邊界；特別核對主管更換後validate_plan是否硬編碼舊主管造成合法接管gate失配。不得改sealed計畫或engine，不建立shared receipt、不install/build產品、不執行原controller mutation。可在自己的root以純memory/臨時fixtures做相容性單元檢驗，需明示synthetic不作產品成功。產出逐項review.json與精確finding、是可接受還是須最小新版本修正；若須修正只提出最小patch或在自己root獨立複本修正並驗證，不能偽造舊主管身分或繞過gate。另核對其餘41 profiles擴展的source plan及review prep封存，產出後續實作contract所需base pins/限制，不提前寫產品。這是獨立review，不擁有正式整合權。完成條件是主管可據此發精確整合/退修契約，不把plan預期4521斷言當本輪實測。"
+    },
+    {
+      "phase": "P27",
+      "title": "P27｜查核介面與輸入缺口並製作隔離修復",
+      "root": "work/P27-ui-input-candidate-r1",
+      "prompt": "你是使用者明確要求新開的階段工作者，由新主管 01a185b4-ecf6-705c-90e6-83b9eb1ba02f 協調。專案根 D:\\lineage開發\\TW1608262200研究。先讀根 AGENTS.md 及 主管/P25-P27-新主管接管-20261029/takeover.json。舊P24主管已退役，不聯絡或喚醒；最新使用者要求優先於舊階段停寫/不開P25指示。先用可用Goal工具讀自己的Goal，若null且工具可用則建立本階段具體Goal並讀回；無工具如實記錄，勿改平台儲存。不能增開對話/子代理。只能寫指定work子目錄；engine/releases/其他work/主管/原客戶端/原BIN皆唯讀，assets junction及硬連結不可變。禁止DB查詢/診斷/更改、服務啟停、socket/GUI/原生遊戲/角色操作、不重建外部Lab。可獨立離線工作不因等待用戶驗收而停；遇精確依賴缺少則完成其他獨立項後明列依賴。開始讀檔後立刻在專屬root寫 progress.json（真實task/turn若可取得、已讀檔、目前步驟/依賴），完成產出HANDOFF.md、result.json、來源sha256和可重跑命令。候選、離線測試、原生實測分開；不要用測試數稱全案完成。\n\n負責既有UI/原生輸入責任邊界的離線查核與可證實缺陷修復。寫入只限work/P27-ui-input-candidate-r1；精確base是現行r33 engine/source及web，先建立基準SHA。讀PlayerPointer*.cs、KeyboardNavigation.cs、OnlineInput.cs、PlayerChatKeyboardFlow.cs、PlayerHud*.cs、WebPanel.cs與web的interaction/login/panel等，配合既有MovementUiTests/InventoryLayout/相關測試與主管舊matrix的畫面/滑鼠/焦點未驗紀錄。首輪必須區分實作缺陷與僅缺native證據，不可把未實測當bug或造新功能。產出input-routing-map.json、gap-evidence.json及同版native驗收準備（只計畫，不操作遊戲）。若找到可離線確切重現、與拾取r34修改不衝突的缺陷，就在專屬root建立必要的獨立source副本，做最小修復及對應回歸測試，輸出patch/changed-file pins/重跑命令；不得改產品共享engine、不得碰Ground/WorldEntry拾取範圍、不複製整包assets、不用假畫面當完成。若沒有可證實缺陷，交付bounded review與可執行離線驗證結果、精確缺的native證據即可，勿虛構修復。r34無關工作立即做，產品候選須主管獨立覆核後才可由原整合者合入。"
+    }
+  ]
+}

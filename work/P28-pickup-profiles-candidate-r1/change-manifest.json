@@ -1,0 +1,77 @@
+{
+  "files": [
+    {
+      "path": "source/ObjectAssets.cs",
+      "kind": "modified",
+      "before": {
+        "path": "source/ObjectAssets.cs",
+        "source": "work/engine-pickup-presentation-r1/candidate/source/ObjectAssets.cs",
+        "size": 7023,
+        "sha256": "707ee6d9867e8eebb1a8fce89f28aeddff1ce8fb9cfd3d8f3daef31789d8f94a"
+      },
+      "after": {
+        "path": "source/ObjectAssets.cs",
+        "size": 7169,
+        "sha256": "b09a5849e71b2c282561df96f628f4bd5cca5e5ecb02ad8d61b06cf24e12cd3d"
+      }
+    },
+    {
+      "path": "source/OfflineClient.csproj",
+      "kind": "modified",
+      "before": {
+        "path": "source/OfflineClient.csproj",
+        "source": "work/engine-pickup-presentation-r1/candidate/source/OfflineClient.csproj",
+        "size": 1154,
+        "sha256": "ccf86adc2ad35473d9cce17ca9b40e3a9698d04bda578e9b20d2966946360450"
+      },
+      "after": {
+        "path": "source/OfflineClient.csproj",
+        "size": 1327,
+        "sha256": "5a5ab7283e5477228bd0f0ef664571aae4218de3fb1372d28bf0ef457d31dbc3"
+      }
+    },
+    {
+      "path": "source/PickupAssets.cs",
+      "kind": "modified",
+      "before": {
+        "path": "source/PickupAssets.cs",
+        "source": "work/engine-pickup-presentation-r1/candidate/source/PickupAssets.cs",
+        "size": 3546,
+        "sha256": "c9ed777b82948c6785d28e6807cda8b485e5321bfeb9d3587c643814caf491f2"
+      },
+      "after": {
+        "path": "source/PickupAssets.cs",
+        "size": 6448,
+        "sha256": "c3c27789794fd0579062d7e3328be605735cc148e1cbd829f3413ffe2dde7f03"
+      }
+    },
+    {
+      "path": "source/PickupPresentation.cs",
+      "kind": "modified",
+      "before": {
+        "path": "source/PickupPresentation.cs",
+        "source": "work/engine-pickup-presentation-r1/candidate/source/PickupPresentation.cs",
+        "size": 6606,
+        "sha256": "b28e1bc5dcdaea4b42e12783697af1a1976d580cbc48724b7bc3b25e9cd9e326"
+      },
+      "after": {
+        "path": "source/PickupPresentation.cs",
+        "size": 6721,
+        "sha256": "e4dfc947c163485d80813a9027599e904584f0db6426eb661284a39a5322deb6"
+      }
+    },
+    {
+      "path": "source/Resources/pickup-own-base15-profile-extension.json",
+      "kind": "added",
+      "before": null,
+      "after": {
+        "path": "source/Resources/pickup-own-base15-profile-extension.json",
+        "size": 2473547,
+        "sha256": "aff2e04d4f9395f7993baf5818eb16218730b7def0a29c7d07e86c314db513ba"
+      }
+    }
+  ],
+  "schedulerBodyUnchanged": true,
+  "selectorBodyUnchanged": true,
+  "audioDllUnchanged": true
+}

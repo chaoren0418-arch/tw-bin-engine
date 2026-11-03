@@ -1,0 +1,59 @@
+{
+  "schema": "p25-p27-supervisor-bounded-assessment-v1",
+  "utc": "2026-10-29T03:48:58.265Z",
+  "reviewer": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "P25": {
+    "decision": "accepted-documentary-architecture-baseline",
+    "sealSha256": "3f5b1f5d637127b33f9fa75d089e90dd32d6b40ab28b485c1d5f2beb2a245b19",
+    "evidence": "work/P25-architecture-baseline-r1",
+    "checks": {
+      "sourcePins": 523,
+      "acceptedSources": 177,
+      "modules": 11,
+      "oldMatrixRows": 32,
+      "supplementalOccurrences": 16,
+      "backlogItems": 12,
+      "historicalReferences": 120,
+      "unresolvedReferences": 0,
+      "sealedArtifacts": 15
+    },
+    "independentAssessment": [
+      "architecture read and actual WorldSession/LoginConnection/WorldEntry/input/6016 source samples inspected",
+      "independent comparison confirms all 32 original matrix rows retained verbatim in order",
+      "read-only verifier rerun passes source/doc/manifest integrity"
+    ],
+    "limits": [
+      "documentary baseline, not runtime acceptance",
+      "r34 original plan is a historical snapshot; new authority revision tracked by supervisor queue"
+    ]
+  },
+  "P27": {
+    "decision": "accepted-bounded-input-review-and-native-plan",
+    "artifactPinsSha256": "87a1a42e3d1f4fda3b76a5cebc238069037f2928e99e2324045c541986a125c2",
+    "evidence": "work/P27-ui-input-candidate-r1",
+    "independentChecks": {
+      "basePins": 171,
+      "artifacts": 19,
+      "reviewedSources": 31,
+      "routes": 11,
+      "sourceAnchors": 45
+    },
+    "reportedOffline": {
+      "csharpCases": 8,
+      "csharpAssertions": 182,
+      "webSyntheticCases": 6,
+      "webSyntheticAssertions": 55
+    },
+    "confirmedDefects": 0,
+    "productPatch": null,
+    "nativeCasesPlanned": 12,
+    "nativeExecuted": 0,
+    "limits": [
+      "pure managed methods plus synthetic DOM/bridge",
+      "no OS event delivery, pixel, actual sender, or server proof",
+      "no new product build; harness only"
+    ]
+  },
+  "wholeProjectComplete": false,
+  "sharedIntegrationAuthorized": false
+}

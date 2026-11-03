@@ -1,0 +1,14 @@
+{
+  "pid": 69196,
+  "args": [
+    "powershell",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "D:\\lineage開發\\TW1608262200研究\\主管\\P22-獨立驗收-r4\\P22-魔法清單與單次施法\\build.ps1",
+    "-Clean"
+  ],
+  "snapshot_sha256": "87dfead8fae1f45e49ca0e39c79bc854339d33e70c16c700ac8bc5e71805e0d9",
+  "ready_sha256": "03d64dc9507d7771539f65006c4a60bcc80548cdf80ad190103327e0ae35a812"
+}

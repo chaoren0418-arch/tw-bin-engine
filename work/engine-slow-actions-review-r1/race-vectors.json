@@ -1,0 +1,646 @@
+{
+  "executedEvidence": "r29-probe.json",
+  "planned": [
+    {
+      "action": "attack",
+      "transition": "0->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "0->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "0->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "2->0",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "2->0",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "2->0",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "1->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "1->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "1->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "2->1",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "2->1",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "2->1",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "2->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "2->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "2->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "0->2->0",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "0->2->0",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "attack",
+      "transition": "0->2->0",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "0->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "0->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "0->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "2->0",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "2->0",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "2->0",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "1->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "1->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "1->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "2->1",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "2->1",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "2->1",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "2->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "2->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "2->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "0->2->0",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "0->2->0",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell1",
+      "transition": "0->2->0",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "0->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "0->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "0->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "2->0",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "2->0",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "2->0",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "1->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "1->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "1->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "2->1",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "2->1",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "2->1",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "2->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "2->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "2->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "0->2->0",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "0->2->0",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell3",
+      "transition": "0->2->0",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "0->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "0->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "0->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "2->0",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "2->0",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "2->0",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "1->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "1->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "1->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "2->1",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "2->1",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "2->1",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "2->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "2->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "2->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "0->2->0",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "0->2->0",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell4",
+      "transition": "0->2->0",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "0->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "0->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "0->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "2->0",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "2->0",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "2->0",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "1->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "1->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "1->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "2->1",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "2->1",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "2->1",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "2->2",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "2->2",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "2->2",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "0->2->0",
+      "phase": "queued-before-admit",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "0->2->0",
+      "phase": "admitted-awaiting-completion",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    },
+    {
+      "action": "spell8",
+      "transition": "0->2->0",
+      "phase": "server-ack-during-animation",
+      "status": "candidate-stage-planned-not-counted-as-executed",
+      "expectation": "Cancel/revalidate stale queued request; preserve admitted high-water deadline, action snapshot and release; same-state must not advance timing."
+    }
+  ],
+  "additionalCandidateGates": [
+    "own/remote independence",
+    "unknown current refused and recovered snapshot visible",
+    "death/session/map/appearance/weapon/target/correction stale callback",
+    "move->attack, attack->move, spell->attack, attack->spell",
+    "item/ground remain slow-rejected and cannot bypass any active timeline",
+    "release-before-death cancellation and map/session cache reset",
+    "target resolved once at release; flight immutable30/60ms",
+    "ack must not shorten already admitted slow action",
+    "new candidate specific supported/gated profile policy, no unsupported class expansion"
+  ]
+}

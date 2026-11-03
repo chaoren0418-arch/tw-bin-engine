@@ -1,0 +1,264 @@
+{
+  "ownerFields": [
+    "Session",
+    "World",
+    "Map",
+    "Actor",
+    "Appearance",
+    "Correction",
+    "Speed",
+    "Gfx",
+    "Weapon",
+    "Direction",
+    "X",
+    "Y"
+  ],
+  "specDimensions": [
+    {
+      "dimension": "session",
+      "cases": [
+        "session"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-session"
+      ]
+    },
+    {
+      "dimension": "world",
+      "cases": [
+        "world"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-world"
+      ]
+    },
+    {
+      "dimension": "map",
+      "cases": [
+        "map"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-map"
+      ]
+    },
+    {
+      "dimension": "actor",
+      "cases": [
+        "actor"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-actor"
+      ]
+    },
+    {
+      "dimension": "appearanceRevision",
+      "cases": [
+        "appearanceRevision"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-appearanceRevision"
+      ]
+    },
+    {
+      "dimension": "correctionRevision",
+      "cases": [
+        "correctionRevision"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-correctionRevision"
+      ]
+    },
+    {
+      "dimension": "speedRevisionRoundtrip",
+      "cases": [
+        "speedRevisionRoundtrip"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-speedRevisionRoundtrip"
+      ]
+    },
+    {
+      "dimension": "weapon",
+      "cases": [
+        "weapon"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-weapon"
+      ]
+    },
+    {
+      "dimension": "gfx",
+      "cases": [
+        "gfx"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-gfx"
+      ]
+    },
+    {
+      "dimension": "direction",
+      "cases": [
+        "direction"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-direction"
+      ]
+    },
+    {
+      "dimension": "position",
+      "cases": [
+        "x",
+        "y"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-x",
+        "lifecycle-y"
+      ]
+    },
+    {
+      "dimension": "movement",
+      "cases": [
+        "movement"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-movement"
+      ]
+    },
+    {
+      "dimension": "hp0",
+      "cases": [
+        "hp0"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-hp0"
+      ]
+    },
+    {
+      "dimension": "death",
+      "cases": [
+        "death"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-death"
+      ]
+    },
+    {
+      "dimension": "shop",
+      "cases": [
+        "shop"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-shop"
+      ]
+    },
+    {
+      "dimension": "actionLock",
+      "cases": [
+        "actionLock"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-actionLock"
+      ]
+    },
+    {
+      "dimension": "readyLoss",
+      "cases": [
+        "readyLoss"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-readyLoss"
+      ]
+    },
+    {
+      "dimension": "renderableLoss",
+      "cases": [
+        "renderableLoss"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-renderableLoss"
+      ]
+    },
+    {
+      "dimension": "missingKey",
+      "cases": [],
+      "status": "excluded-resource-fault",
+      "note": "22 spec categories are not 22 PickupOwner fields"
+    },
+    {
+      "dimension": "newAttack",
+      "cases": [
+        "newAttack"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-newAttack"
+      ]
+    },
+    {
+      "dimension": "newSpell",
+      "cases": [
+        "newSpell"
+      ],
+      "status": "executed",
+      "note": "22 spec categories are not 22 PickupOwner fields",
+      "actualCaseIds": [
+        "lifecycle-newSpell"
+      ]
+    },
+    {
+      "dimension": "newProjectileHit",
+      "cases": [],
+      "status": "excluded-real-S30-flight",
+      "note": "22 spec categories are not 22 PickupOwner fields"
+    }
+  ],
+  "lease": "groundLease is SendGround completion ownership, not PickupOwner; tested separately",
+  "actualOwnerFieldIsolation": 12,
+  "specDimensionsExecuted": 20,
+  "specDimensionsExcluded": [
+    "missingKey",
+    "newProjectileHit"
+  ],
+  "extraActualCaseFamilies": {
+    "guard-isolation": 6,
+    "actor-reentry": 1,
+    "lease": 2
+  }
+}

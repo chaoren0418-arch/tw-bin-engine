@@ -1,0 +1,91 @@
+{
+  "schema": "engine-r34-nested-command-plan-v1",
+  "commands": [
+    {
+      "name": "sdk",
+      "argv": [
+        "dotnet",
+        "--version"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+      "commandRecord": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\sdk.command.json",
+      "rawStdout": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\sdk.stdout",
+      "rawStderr": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\sdk.stderr"
+    },
+    {
+      "name": "product-build",
+      "argv": [
+        "pwsh",
+        "-NoProfile",
+        "-File",
+        "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\r34\\product-build.ps1"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+      "commandRecord": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\product-build.command.json",
+      "rawStdout": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\product-build.stdout",
+      "rawStderr": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\product-build.stderr"
+    },
+    {
+      "name": "launcher-build",
+      "argv": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\r34\\launcher-source\\Launcher.csproj",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\engine\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\launcher"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+      "commandRecord": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\launcher-build.command.json",
+      "rawStdout": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\launcher-build.stdout",
+      "rawStderr": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\launcher-build.stderr"
+    },
+    {
+      "name": "same-entry-check-only",
+      "argv": "\"C:\\WINDOWS\\System32\\cmd.exe\" /d /s /c \"\"D:\\lineage開發\\TW1608262200研究\\engine\\啟動新版客戶端.cmd\" --check-only\"",
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+      "commandRecord": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\same-entry-check-only.command.json",
+      "rawStdout": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\same-entry-check-only.stdout",
+      "rawStderr": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01\\same-entry-check-only.stderr"
+    }
+  ],
+  "productPowerShellChildren": [
+    {
+      "argv": [
+        "python",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\r34\\rebuild.py"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+      "purpose": "read-only accepted source verification"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\engine\\source\\OfflineClient.csproj",
+        "-c",
+        "Release",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\engine\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+      "purpose": "single product build"
+    }
+  ],
+  "childLogging": "Sealed product-build.ps1 checks each child LASTEXITCODE and throws on nonzero; their inherited streams are retained in the parent product-build stdout/stderr. It does not emit individual child command receipts. No inferred child receipt is fabricated.",
+  "sealedScriptsUnmodified": true
+}

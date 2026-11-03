@@ -1,0 +1,11 @@
+{
+  "schema": "p36-p37-independent-artifact-seal-v1",
+  "artifactManifest": {
+    "path": "artifact-manifest.json",
+    "size": 4174,
+    "sha256": "ecf1f12dcbb976dfdaa546d12ac0ae8bdaa69964199dc32c45c7fa99dec542f2"
+  },
+  "sourceSealSha256": "c89d5c067b844a88325c4ec17d2b93c37fb8fb91c30ae9e059f6805bdce03a58",
+  "sealedFiles": 25,
+  "decision": "changes-required"
+}

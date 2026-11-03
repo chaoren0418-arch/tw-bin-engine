@@ -1,0 +1,615 @@
+{
+  "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\active-window-slots.json",
+  "rows": [
+    {
+      "slotId": "WINDOW-2796-0-s0-attack-fallback",
+      "gfx": 2796,
+      "weapon": 0,
+      "speed": 0,
+      "brave": 0,
+      "action": "attack",
+      "timingMode": "fallback",
+      "durationMs": 831,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 830,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 831,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": false,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    },
+    {
+      "slotId": "WINDOW-2796-0-s0-attack-captured",
+      "gfx": 2796,
+      "weapon": 0,
+      "speed": 0,
+      "brave": 0,
+      "action": "attack",
+      "timingMode": "captured",
+      "durationMs": 831,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 830,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 831,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": true,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    },
+    {
+      "slotId": "WINDOW-2796-0-s1-attack-fallback",
+      "gfx": 2796,
+      "weapon": 0,
+      "speed": 1,
+      "brave": 0,
+      "action": "attack",
+      "timingMode": "fallback",
+      "durationMs": 831,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 830,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 831,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": false,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    },
+    {
+      "slotId": "WINDOW-2796-0-s1-attack-captured",
+      "gfx": 2796,
+      "weapon": 0,
+      "speed": 1,
+      "brave": 0,
+      "action": "attack",
+      "timingMode": "captured",
+      "durationMs": 619,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 618,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 619,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": true,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    },
+    {
+      "slotId": "WINDOW-2796-0-s0-damage-fallback",
+      "gfx": 2796,
+      "weapon": 0,
+      "speed": 0,
+      "brave": 0,
+      "action": "damage",
+      "timingMode": "fallback",
+      "durationMs": 458,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 457,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 458,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": false,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    },
+    {
+      "slotId": "WINDOW-2796-0-s1-damage-fallback",
+      "gfx": 2796,
+      "weapon": 0,
+      "speed": 1,
+      "brave": 0,
+      "action": "damage",
+      "timingMode": "fallback",
+      "durationMs": 458,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 457,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 458,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": false,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    },
+    {
+      "slotId": "WINDOW-2796-0-s0-spellDir-fallback",
+      "gfx": 2796,
+      "weapon": 0,
+      "speed": 0,
+      "brave": 0,
+      "action": "spellDir",
+      "timingMode": "fallback",
+      "durationMs": 1413,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 1412,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 1413,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": false,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    },
+    {
+      "slotId": "WINDOW-2796-0-s0-spellDir-captured",
+      "gfx": 2796,
+      "weapon": 0,
+      "speed": 0,
+      "brave": 0,
+      "action": "spellDir",
+      "timingMode": "captured",
+      "durationMs": 1413,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 1412,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 1413,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": true,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    },
+    {
+      "slotId": "WINDOW-2796-0-s1-spellDir-fallback",
+      "gfx": 2796,
+      "weapon": 0,
+      "speed": 1,
+      "brave": 0,
+      "action": "spellDir",
+      "timingMode": "fallback",
+      "durationMs": 1413,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 1412,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 1413,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": false,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    },
+    {
+      "slotId": "WINDOW-2796-0-s1-spellDir-captured",
+      "gfx": 2796,
+      "weapon": 0,
+      "speed": 1,
+      "brave": 0,
+      "action": "spellDir",
+      "timingMode": "captured",
+      "durationMs": 1054,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 1053,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 1054,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": true,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    },
+    {
+      "slotId": "WINDOW-2796-0-s0-spellNoDir-fallback",
+      "gfx": 2796,
+      "weapon": 0,
+      "speed": 0,
+      "brave": 0,
+      "action": "spellNoDir",
+      "timingMode": "fallback",
+      "durationMs": 1749,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 1748,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 1749,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": false,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    },
+    {
+      "slotId": "WINDOW-2796-0-s0-spellNoDir-captured",
+      "gfx": 2796,
+      "weapon": 0,
+      "speed": 0,
+      "brave": 0,
+      "action": "spellNoDir",
+      "timingMode": "captured",
+      "durationMs": 1749,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 1748,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 1749,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": true,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    },
+    {
+      "slotId": "WINDOW-2796-0-s1-spellNoDir-fallback",
+      "gfx": 2796,
+      "weapon": 0,
+      "speed": 1,
+      "brave": 0,
+      "action": "spellNoDir",
+      "timingMode": "fallback",
+      "durationMs": 1749,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 1748,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 1749,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": false,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    },
+    {
+      "slotId": "WINDOW-2796-0-s1-spellNoDir-captured",
+      "gfx": 2796,
+      "weapon": 0,
+      "speed": 1,
+      "brave": 0,
+      "action": "spellNoDir",
+      "timingMode": "captured",
+      "durationMs": 1302,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 1301,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 1302,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": true,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    },
+    {
+      "slotId": "WINDOW-0-0-s0-damage-fallback",
+      "gfx": 0,
+      "weapon": 0,
+      "speed": 0,
+      "brave": 0,
+      "action": "damage",
+      "timingMode": "fallback",
+      "durationMs": 583.3333333333334,
+      "nominalDeathDurationUnusedMs": null,
+      "ageCases": [
+        {
+          "ageMs": 583,
+          "expectedSelectedActionVisible": true,
+          "expectedPickupAdmitted": false,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        },
+        {
+          "ageMs": 584,
+          "expectedSelectedActionVisible": false,
+          "expectedPickupAdmitted": true,
+          "reportObjectMustRemainIdentical": true,
+          "executed": false
+        }
+      ],
+      "requireTimingProfileMatch": false,
+      "selectionStage": "WithProjectileHit before active-window comparison",
+      "directionCoverage": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "executed": false
+    }
+  ],
+  "directions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "sampleAges": "0, ceil(duration)-1, ceil(duration); compare real selector, receipt admission, first frame, report identity"
+}

@@ -1,0 +1,16 @@
+{
+  "status": "pass-exact-final-execution-seals",
+  "executionArtifactSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\artifact-seal.json",
+    "size": 964,
+    "sha256": "c7c194fed021123fcca4586df4b9b05d5381e0f6838d24e759728d8598bf52bf"
+  },
+  "artifactMembers": 202,
+  "externalSources": 181,
+  "externalOutputs": 15,
+  "evidenceIndependentCopies": 28,
+  "allProvisionalCorePinsUnchanged": true,
+  "all15OutputsExactlyMatchAcceptedStage": true,
+  "protectedPinsUnchanged": true,
+  "readerAndCoreAuditNotRerun": true
+}

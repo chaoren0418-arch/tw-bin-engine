@@ -1,0 +1,284 @@
+{
+  "schema": "p26-authority-source-rebindings-v1",
+  "pairs": [
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\wrapper.py",
+        "size": 5215,
+        "sha256": "04202c0125c01a67a438e9410f75ce060c1d6d1f8fe157e7bf1ba40977346319"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\wrapper.py",
+        "size": 5215,
+        "sha256": "04202c0125c01a67a438e9410f75ce060c1d6d1f8fe157e7bf1ba40977346319"
+      },
+      "change": "byte-identical independent copy"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\collector.py",
+        "size": 6859,
+        "sha256": "2c5398e8e28971a327cfb89c8bb43ae372322800df22bf42c7ce240980c131e6"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\collector.py",
+        "size": 6859,
+        "sha256": "2c5398e8e28971a327cfb89c8bb43ae372322800df22bf42c7ce240980c131e6"
+      },
+      "change": "byte-identical independent copy"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\native_collector.py",
+        "size": 6766,
+        "sha256": "5a08c8824c9f25d115d40c0e4cb0396301b4b3d9c908855d4cfc3f07292832a4"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\native_collector.py",
+        "size": 6766,
+        "sha256": "5a08c8824c9f25d115d40c0e4cb0396301b4b3d9c908855d4cfc3f07292832a4"
+      },
+      "change": "byte-identical independent copy"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\recovery.py",
+        "size": 3119,
+        "sha256": "a92ef7a6aa0e0261488272d1068457b17519f2056fdbcc249aa52cdc0ab67ede"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\recovery.py",
+        "size": 3119,
+        "sha256": "a92ef7a6aa0e0261488272d1068457b17519f2056fdbcc249aa52cdc0ab67ede"
+      },
+      "change": "byte-identical independent copy"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\assertion_occurrences.py",
+        "size": 873,
+        "sha256": "5b3d3c9d7f9b77fc718b5d773e1b719cf3eccfde32ff83dc24e2ebcea29bb611"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\assertion_occurrences.py",
+        "size": 873,
+        "sha256": "5b3d3c9d7f9b77fc718b5d773e1b719cf3eccfde32ff83dc24e2ebcea29bb611"
+      },
+      "change": "byte-identical independent copy"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\nested-product-command-plan.json",
+        "size": 4442,
+        "sha256": "08ddef8d55952364505fc0dee9f75f62b16123e81d326ef10460c38d81885f5a"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\nested-product-command-plan.json",
+        "size": 4442,
+        "sha256": "08ddef8d55952364505fc0dee9f75f62b16123e81d326ef10460c38d81885f5a"
+      },
+      "change": "byte-identical independent copy"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\before-state.json",
+        "size": 3847,
+        "sha256": "70cc332bde82e6339f48f7b3a7e80f97c37d9adc03f9cae2450357e9ca0570fe"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\before-state.json",
+        "size": 3847,
+        "sha256": "70cc332bde82e6339f48f7b3a7e80f97c37d9adc03f9cae2450357e9ca0570fe"
+      },
+      "change": "byte-identical independent copy"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\common.py",
+        "size": 4177,
+        "sha256": "bb75a5523205e10a75a483bddd74ddbb87319b2e30914b6f9c7ce58480e5cd11"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\common.py",
+        "size": 4237,
+        "sha256": "7f8430a09c3498b8bcd7486266f0fc2b31a177d10b1cd18fc04da5608cd4c583"
+      },
+      "change": "minimal diff"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\execution_support.py",
+        "size": 4678,
+        "sha256": "9d4a708d5c1e00e11525a38af8188375597626b061fa32976c171ce1d9faa5fc"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\execution_support.py",
+        "size": 5265,
+        "sha256": "439fdf260c87587df8c43059e225d04ad8c266599c0065c28ae019e4374a7380"
+      },
+      "change": "separately authorized timeout evidence fix only; see diffs/execution_support.py.patch"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\pe_resource.py",
+        "size": 3519,
+        "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\pe_resource.py",
+        "size": 3519,
+        "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+      },
+      "change": "byte-identical independent copy"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\acceptance_gate.py",
+        "size": 21888,
+        "sha256": "c446cd8b7f8070dfd0328ca71c4563671e31d7dc37bc2c45e39678664bcc6979"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\acceptance_gate.py",
+        "size": 21873,
+        "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+      },
+      "change": "minimal diff"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\serial_canonical.py",
+        "size": 12869,
+        "sha256": "c087073244eaa2a3d0bcb334652a66c1abe0bf3c4a6de1b3d2e2ab18d09a3d48"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\serial_canonical.py",
+        "size": 12913,
+        "sha256": "257533f50b13c4483c337791006483e07ceac7a90be4749cb66058e36dfb7ba3"
+      },
+      "change": "minimal diff"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\derived\\ground\\Program.cs",
+        "size": 13338,
+        "sha256": "6c1fcbaf37e53c74947fdb0208345f6306d764990e72b286e2f6d25a40ee64a5"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\derived\\ground\\Program.cs",
+        "size": 13338,
+        "sha256": "6c1fcbaf37e53c74947fdb0208345f6306d764990e72b286e2f6d25a40ee64a5"
+      },
+      "change": "byte-identical independent copy"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\adaptations\\ground-canonical-label.patch",
+        "size": 2782,
+        "sha256": "1ed71503d0884ed63facc82393cdc5563382af4b3fba9bec7ffac441bc77e5cf"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\adaptations\\ground-canonical-label.patch",
+        "size": 2782,
+        "sha256": "1ed71503d0884ed63facc82393cdc5563382af4b3fba9bec7ffac441bc77e5cf"
+      },
+      "change": "byte-identical independent copy"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\context.json",
+        "size": 1500,
+        "sha256": "bfb8d5daba6898111e4dc8003584b1076621aa6e8fb85af8950c4cc9b24bdba1"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\context.json",
+        "size": 1727,
+        "sha256": "ff3cd8dacf6fb6ddcc391e48bfc8318eac85f4bc5fe6137495619992b184af14"
+      },
+      "change": "planning-root rebind only; context adds current authority and immutable preparation/script separation"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\source-copy-mappings.json",
+        "size": 77990,
+        "sha256": "4005977d7f467eb3c96620e13eadc156740cb1f625477b024870b5e32e0423d6"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\source-copy-mappings.json",
+        "size": 76724,
+        "sha256": "2ae78956ece2d27ab335c00ad213897e10b9ff5a0210264279de601e28a794d9"
+      },
+      "change": "planning-root rebind only; context adds current authority and immutable preparation/script separation"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\command-recipes.json",
+        "size": 61018,
+        "sha256": "1b515878d59e684d174f5b88c1562493437c2eb16f82bb9f701836a61c575839"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\command-recipes.json",
+        "size": 59897,
+        "sha256": "d7ff9a1bce8d701f8763333fa8d67c4ce0d4bf4bad1608f14ac5c3c4d398cef7"
+      },
+      "change": "planning-root rebind only; context adds current authority and immutable preparation/script separation"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\adaptations.json",
+        "size": 1202,
+        "sha256": "6fc07e54e08b4eff3bafdf7b0bc99b078ebb696d6891a1b68d97e17bccd49dca"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\adaptations.json",
+        "size": 1175,
+        "sha256": "37debb75c9b78e1c51f900087a021bec3770e20f4e187f77daabe31198714158"
+      },
+      "change": "planning-root rebind only; context adds current authority and immutable preparation/script separation"
+    },
+    {
+      "old": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\collector-provenance.json",
+        "size": 1108,
+        "sha256": "8cae042b9bfd72d52e3bdbf199fa8f7ff9f95026bdef239e32bc1f6fea2edd2e"
+      },
+      "new": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\collector-provenance.json",
+        "size": 1090,
+        "sha256": "c9b442afa0582685e56818eb2c63299f20bbdc154664fee4b702a60d6ac4c213"
+      },
+      "change": "planning-root rebind only; context adds current authority and immutable preparation/script separation"
+    }
+  ],
+  "newAuthority": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\shared_authority.py",
+    "size": 3182,
+    "sha256": "607389241094aaba2e841c75a3908e03e1c90760aaeb0b8ef0470d9c697623b7"
+  },
+  "newPolicy": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\authority-policy.json",
+    "size": 2391,
+    "sha256": "b0375a991b0128beca63fb53b31264d869f23ccb87e539bf4b1a1ab90c4dd6da"
+  },
+  "separateTimeoutChange": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\timeout-fix.json",
+    "size": 1448,
+    "sha256": "62d3e0e59d162041d6c2769ae7d4ab219101a25092d63a100fd5b6782cc37198"
+  },
+  "planDelta": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\plan-delta.json",
+    "size": 1707,
+    "sha256": "5a8c19065deae64a99e437300026b54c1b48bcd66d069156b82b24ee12456ade"
+  },
+  "oldPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1\\canonical-plan.json",
+    "size": 378638,
+    "sha256": "d25c306fae5abee9209e46c557453f7b6a0a96645e5c052fbda70555f11f15ff"
+  },
+  "newPlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\canonical-plan.json",
+    "size": 714350,
+    "sha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761"
+  },
+  "sealedOriginalsModified": false,
+  "allNewCopiesIndependent": true
+}

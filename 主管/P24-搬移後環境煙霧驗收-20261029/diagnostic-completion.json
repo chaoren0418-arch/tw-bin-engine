@@ -1,0 +1,16 @@
+{
+  "utc": "2026-10-28T19:06:26.059959+00:00",
+  "status": "two-diagnostic-handbacks-independently-reviewed-decision-package-ready",
+  "rolesUnchanged": 9,
+  "itemRowsUnchanged": 58,
+  "skillRowsUnchanged": 14,
+  "originalTimedRowUnchanged": true,
+  "sourceOrDatabaseRepairApplied": false,
+  "workersIdleObserved": true,
+  "goalActualStatus": "paused",
+  "environmentSmokePassed": false,
+  "wholeP24Complete": false,
+  "decisionFile": "DIAGNOSTIC-DECISION.md",
+  "decisionSha256": "e93307fe51921f0aa5c59fd5ff7b409ddab462bc63f0a6fd8000275eff0795ad",
+  "next": "Parent decision on bounded isolated reproduction and later concrete original-data remediation; no original-data mutation approved."
+}

@@ -1,0 +1,28 @@
+{
+  "observedUtc": "2026-10-27T13:36:19.1437224Z",
+  "processes": [
+    {
+      "Id": 88012,
+      "ProcessName": "java",
+      "StartTime": "2026-10-26T21:47:45.2297354+08:00"
+    },
+    {
+      "Id": 59052,
+      "ProcessName": "mysqld",
+      "StartTime": "2026-10-26T00:27:38.4439719+08:00"
+    }
+  ],
+  "listeners": [
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 43324,
+      "OwningProcess": 59052
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 42061,
+      "OwningProcess": 88012
+    }
+  ],
+  "action": "read-only; services not restarted or stopped"
+}

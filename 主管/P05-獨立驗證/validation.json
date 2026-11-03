@@ -1,0 +1,434 @@
+{
+  "stage": "P05",
+  "status": "pass",
+  "checks": [
+    {
+      "check": "real selected map all layers consumed",
+      "status": "pass"
+    },
+    {
+      "check": "map truncated 0",
+      "status": "pass",
+      "rejected": "truncated at 0, need 4"
+    },
+    {
+      "check": "map truncated 1",
+      "status": "pass",
+      "rejected": "truncated at 0, need 4"
+    },
+    {
+      "check": "map truncated 32767",
+      "status": "pass",
+      "rejected": "truncated at 32764, need 4"
+    },
+    {
+      "check": "map truncated 32768",
+      "status": "pass",
+      "rejected": "truncated at 32768, need 2"
+    },
+    {
+      "check": "map truncated 32770",
+      "status": "pass",
+      "rejected": "truncated at 32770, need 4"
+    },
+    {
+      "check": "map truncated 49154",
+      "status": "pass",
+      "rejected": "truncated at 49154, need 4"
+    },
+    {
+      "check": "map truncated 94613",
+      "status": "pass",
+      "rejected": "truncated at 94613, need 4"
+    },
+    {
+      "check": "map truncated 101517",
+      "status": "pass",
+      "rejected": "truncated at 101517, need 4"
+    },
+    {
+      "check": "map truncated 101905",
+      "status": "pass",
+      "rejected": "truncated at 101905, need 2"
+    },
+    {
+      "check": "map truncated 101937",
+      "status": "pass",
+      "rejected": "truncated at 101937, need 2"
+    },
+    {
+      "check": "map truncated 101938",
+      "status": "pass",
+      "rejected": "truncated at 101937, need 2"
+    },
+    {
+      "check": "invalid cover count",
+      "status": "pass",
+      "rejected": "invalid count 65535 at 32770"
+    },
+    {
+      "check": "invalid objects count",
+      "status": "pass",
+      "rejected": "invalid count 2147483647 at 49158"
+    },
+    {
+      "check": "invalid opacity count",
+      "status": "pass",
+      "rejected": "invalid count -1 at 94617"
+    },
+    {
+      "check": "invalid tile_refs count",
+      "status": "pass",
+      "rejected": "invalid count 2147483647 at 101521"
+    },
+    {
+      "check": "invalid portals count",
+      "status": "pass",
+      "rejected": "invalid count 65535 at 101907"
+    },
+    {
+      "check": "invalid effects count",
+      "status": "pass",
+      "rejected": "truncated at 101939, need 6"
+    },
+    {
+      "check": "invalid opacity group ordinal",
+      "status": "pass",
+      "rejected": "opacity group ordinal out of range"
+    },
+    {
+      "check": "map trailing bytes",
+      "status": "pass",
+      "rejected": "trailing bytes at 101939: 1"
+    },
+    {
+      "check": "unsupported uk",
+      "status": "pass",
+      "rejected": "unsupported nonzero UK"
+    },
+    {
+      "check": "unsupported effects",
+      "status": "pass",
+      "rejected": "unsupported SPR effect layer"
+    },
+    {
+      "check": "unsupported opacity_type",
+      "status": "pass",
+      "rejected": "unsupported opacity trigger type"
+    },
+    {
+      "check": "tile truncated 0",
+      "status": "pass",
+      "rejected": "truncated at 0, need 4"
+    },
+    {
+      "check": "tile truncated 3",
+      "status": "pass",
+      "rejected": "truncated at 0, need 4"
+    },
+    {
+      "check": "tile truncated 1031",
+      "status": "pass",
+      "rejected": "truncated at 4, need 1028"
+    },
+    {
+      "check": "tile truncated 84796",
+      "status": "pass",
+      "rejected": "tile end offset/length mismatch"
+    },
+    {
+      "check": "tile invalid field 0=0",
+      "status": "pass",
+      "rejected": "zero tile block count"
+    },
+    {
+      "check": "tile invalid field 0=65537",
+      "status": "pass",
+      "rejected": "invalid count 65537 at 4"
+    },
+    {
+      "check": "tile invalid field 4=-1",
+      "status": "pass",
+      "rejected": "invalid tile offset"
+    },
+    {
+      "check": "tile invalid field 1028=84797",
+      "status": "pass",
+      "rejected": "tile end offset/length mismatch"
+    },
+    {
+      "check": "unsupported block type",
+      "status": "pass",
+      "rejected": "unsupported TIL type 0xff"
+    },
+    {
+      "check": "block truncated 0",
+      "status": "pass",
+      "rejected": "truncated at 0, need 1"
+    },
+    {
+      "check": "block truncated 1",
+      "status": "pass",
+      "rejected": "truncated at 1, need 4"
+    },
+    {
+      "check": "block truncated 4",
+      "status": "pass",
+      "rejected": "truncated at 1, need 4"
+    },
+    {
+      "check": "block truncated 11",
+      "status": "pass",
+      "rejected": "truncated at 10, need 2"
+    },
+    {
+      "check": "RLE bad dimension 1",
+      "status": "pass",
+      "rejected": "invalid RLE dimensions"
+    },
+    {
+      "check": "RLE bad dimension 3",
+      "status": "pass",
+      "rejected": "invalid RLE dimensions"
+    },
+    {
+      "check": "RLE bad dimension 4",
+      "status": "pass",
+      "rejected": "invalid RLE dimensions"
+    },
+    {
+      "check": "RLE run overflow",
+      "status": "pass",
+      "rejected": "RLE run out of bounds"
+    },
+    {
+      "check": "odd byte skip",
+      "status": "pass",
+      "rejected": "odd byte skip unsupported"
+    },
+    {
+      "check": "block trailing data",
+      "status": "pass",
+      "rejected": "trailing bytes at 12: 1"
+    },
+    {
+      "check": "canvas would crop actual object",
+      "status": "pass",
+      "rejected": "canvas clipping detected"
+    },
+    {
+      "check": "unknown sort profile",
+      "status": "pass",
+      "rejected": "unknown draw ordering"
+    },
+    {
+      "check": "negative block index",
+      "status": "pass",
+      "rejected": "tile block index out of bounds"
+    },
+    {
+      "check": "block index at real count",
+      "status": "pass",
+      "rejected": "tile block index out of bounds"
+    },
+    {
+      "check": "full load missing-file",
+      "status": "pass",
+      "rejected": "missing tile 15"
+    },
+    {
+      "check": "full load out-of-range-index",
+      "status": "pass",
+      "rejected": "tile block index out of bounds"
+    },
+    {
+      "check": "archive truncated",
+      "status": "pass",
+      "rejected": "index count/length"
+    },
+    {
+      "check": "archive count",
+      "status": "pass",
+      "rejected": "index count/length"
+    },
+    {
+      "check": "archive bounds",
+      "status": "pass",
+      "rejected": "index bounds"
+    },
+    {
+      "check": "archive unsupported",
+      "status": "pass",
+      "rejected": "unsupported index header"
+    },
+    {
+      "check": "missing tile",
+      "status": "pass",
+      "rejected": "missing tile missing.til"
+    },
+    {
+      "check": "2058 signed world/block identities",
+      "status": "pass"
+    },
+    {
+      "check": "114075 inverse points across negative/local/block bounds",
+      "status": "pass"
+    },
+    {
+      "check": "inverse diamond right vertex",
+      "status": "pass"
+    },
+    {
+      "check": "3072 channel half-blend hand rule combinations",
+      "status": "pass"
+    },
+    {
+      "check": "ground parity matches BIN floor branches",
+      "status": "pass"
+    },
+    {
+      "check": "groups match ordinal references in selected real map",
+      "status": "pass"
+    },
+    {
+      "check": "real same-position equal-z ties exist",
+      "status": "pass"
+    },
+    {
+      "check": "same-cell ties are reverse source order",
+      "status": "pass"
+    },
+    {
+      "check": "all 3339425 source pixel writes inside full canvas",
+      "status": "pass"
+    },
+    {
+      "check": "PNG dimensions and complete transparent exterior",
+      "status": "pass"
+    }
+  ],
+  "count": 63,
+  "success_inputs": "real 7ffd8002 and its 96 TIL payloads; synthetic only malformed/math paths",
+  "coordinate_samples": [
+    {
+      "world": [
+        32576,
+        32896
+      ],
+      "block": [
+        [
+          32765,
+          0
+        ],
+        [
+          32770,
+          0
+        ]
+      ],
+      "pixel": [
+        24,
+        12
+      ]
+    },
+    {
+      "world": [
+        32639,
+        32959
+      ],
+      "block": [
+        [
+          32765,
+          63
+        ],
+        [
+          32770,
+          63
+        ]
+      ],
+      "pixel": [
+        3048,
+        12
+      ]
+    },
+    {
+      "world": [
+        32598,
+        32927
+      ],
+      "block": [
+        [
+          32765,
+          22
+        ],
+        [
+          32770,
+          31
+        ]
+      ],
+      "pixel": [
+        1296,
+        120
+      ]
+    },
+    {
+      "world": [
+        32575,
+        32895
+      ],
+      "block": [
+        [
+          32764,
+          63
+        ],
+        [
+          32769,
+          63
+        ]
+      ],
+      "pixel": [
+        -24,
+        12
+      ]
+    },
+    {
+      "world": [
+        32640,
+        32960
+      ],
+      "block": [
+        [
+          32766,
+          0
+        ],
+        [
+          32771,
+          0
+        ]
+      ],
+      "pixel": [
+        3096,
+        12
+      ]
+    },
+    {
+      "world": [
+        -1,
+        -1
+      ],
+      "block": [
+        [
+          32255,
+          63
+        ],
+        [
+          32255,
+          63
+        ]
+      ],
+      "pixel": [
+        -1571352,
+        -3828
+      ]
+    }
+  ]
+}

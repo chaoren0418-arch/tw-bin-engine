@@ -1,0 +1,8 @@
+{
+  "reason": "First full-HP use consumed 6->5; two requests at local TickCount64 +1000 but UTC +998.2103ms were both rejected. Continue same role with five; no DB mutation/refill/restart.",
+  "previousResult": "D:\\lineage開發\\TW1608262200研究\\P17-背包與原道具使用\\evidence\\history\\inventory-worker-cli-cooldown-boundary\\result.json",
+  "previousSha256": "635d5e36915c986fbb9d9fec6506741cc0182bf2fd5dd83f924ccfbf546aeef4",
+  "initialCount": 5,
+  "previousConsumed": 1,
+  "previousRequests": 3
+}

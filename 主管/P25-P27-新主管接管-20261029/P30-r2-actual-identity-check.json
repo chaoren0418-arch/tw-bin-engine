@@ -1,0 +1,29 @@
+{
+  "utc": "2026-10-29T06:43:57.650837+00:00",
+  "status": "actual-r2-DLLs-independently-hash-verified-await-full-review",
+  "result": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\result.json",
+    "size": 2642,
+    "sha256": "f897e57008bf9a6690c92a99a8355e4616c9e2faed16000d7c5aaa54b3458f17"
+  },
+  "command": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\attempts\\product\\build-01\\command.json",
+    "size": 2208,
+    "sha256": "a134a7012eb35461bf8b2de75ff1d2b2f08ed428ca24f8e3478f23425ff9011f"
+  },
+  "product": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\build\\client-product-r34\\P11.ClientEngine.dll",
+    "size": 4925440,
+    "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+  },
+  "audio": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\build\\client-product-r34\\P24.Audio.dll",
+    "size": 53760,
+    "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+  },
+  "localAttemptBuildInvocations": 1,
+  "wholeP30Attempts": 2,
+  "priorAttemptsFailed": 1,
+  "runtimeProbes": 0,
+  "nativeAccepted": false
+}

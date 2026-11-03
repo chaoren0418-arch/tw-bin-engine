@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "cursor": "d0af65fb-9735-4df3-ad9d-148fd38221c5:81",
+  "revision": 81,
+  "changed": true,
+  "thread": {
+    "id": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+    "hostId": "local",
+    "status": {
+      "type": "active",
+      "activeFlags": []
+    }
+  },
+  "latestTurn": {
+    "id": "01a1846f-4728-7001-ad0a-9940beb9213a",
+    "status": "inProgress",
+    "error": null,
+    "startedAt": 1793223247,
+    "completedAt": null,
+    "durationMs": null
+  },
+  "latestAssistantMessageId": null,
+  "latestAssistantMessage": null,
+  "latestToolMarkerId": null,
+  "latestToolMarker": null
+}

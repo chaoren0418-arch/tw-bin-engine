@@ -1,0 +1,30 @@
+{
+  "schema": "RG2-correction-command-observations-v1",
+  "records": [
+    {
+      "argv": [
+        "python",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r2\\correct_rg2.py",
+        "--write"
+      ],
+      "exitCode": 0
+    },
+    {
+      "argv": [
+        "python",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r2\\verify_correction.py",
+        "--report"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "observation": "actual exec tool return codes; not product build/suite command records",
+  "generatorReexecuted": false,
+  "productCommandsExecuted": 0
+}

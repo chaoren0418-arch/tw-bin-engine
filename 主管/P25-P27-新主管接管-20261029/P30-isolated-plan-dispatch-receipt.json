@@ -1,0 +1,23 @@
+{
+  "utc": "2026-10-29T05:44:15.156055+00:00",
+  "dispatchId": "ENGINE-PROFILES-P30-ISOLATED-PLAN-R1",
+  "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "turnId": "01a1862f-aa42-7712-b4e2-8b73dbeb1eae",
+  "toolSendConfirmed": true,
+  "threadStatus": "active",
+  "turnStatus": "inProgress",
+  "actualReadCommandsObserved": true,
+  "scope": "isolated stage plan/controller only; not entry activation; no build/runtime yet",
+  "actualReads": [
+    "AGENTS.md",
+    "P30-isolated-stage-plan-dispatch.json",
+    "P28-P29-candidate-root-acceptance.json",
+    "r34-final-offline-baseline.json",
+    "P28 run.py/HANDOFF",
+    "P29 runtime coverage",
+    "prior r34 stage controller"
+  ],
+  "pinValidation": "six exact input pins reported PIN OK",
+  "title": "自主 BIN 引擎｜P30 準備拾取外觀隔離整合（唯一整合者）",
+  "observationUtc": "2026-10-29T05:44:56.874204+00:00"
+}

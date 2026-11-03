@@ -1,0 +1,26 @@
+{
+  "status": "test-setup-failed-selection-cleared",
+  "source": "D:\\lineage開發\\TW1608262200研究\\P16-基礎近戰與傷害回饋\\evidence\\history\\combat-ui-1792897908246608500\\result.json",
+  "capture_sha256": "d4a56f701ab99b34f9b4416cb8c5e8a5333df2ed5800e2d6091fea684ab4a59d",
+  "error": "System.Exception: initial single hit to selected target rejected\r\n   at P06.ClientForm.CombatDemo() in D:\\lineage開發\\TW1608262200研究\\P16-基礎近戰與傷害回饋\\source\\CombatUiTests.cs:line 33",
+  "target_id": null,
+  "attack_reports": 0,
+  "hp": 506,
+  "original_events_after_selection": [
+    {
+      "seq": 330,
+      "kind": "remove",
+      "id": 2000042655
+    },
+    {
+      "seq": 332,
+      "kind": "full-add",
+      "id": 2000042655,
+      "position": [
+        32598,
+        32948
+      ]
+    }
+  ],
+  "interpretation": "Original removal/re-add cleared target; test must perform actual pixel reselection after home return, not bypass product gate."
+}

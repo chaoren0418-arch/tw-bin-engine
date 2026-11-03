@@ -1,0 +1,12 @@
+{
+  "prompt": "ENGINE-SLOW-REVIEW-R2：原實作者已完成F1修正且停寫，現在立即對精確R2複驗並給accept/reject。唯一根D:/lineage開發/TW1608262200研究。新candidate work/engine-slow-r2，seal 7bed792d86ec1838ce97e0efa935d061420fa56cf6c0435dbaba0f0c919859b9，DLL 8ccfa4e3b5d253206779a5d4b1e59682263ffbddf5dab43fe15b0aa1f86a7397，candidateId ENGINE-SLOW-IMPL-R2。r1仍rejected不可改。R2相對r1僅NormalHaste.cs一檔：遠端S255/S67恢復合法current speed/brave時清除無法計時的unsupported MotionAt，不改未知快照倍率；合法快照保留。讀HANDOFF/result/r1-to-r2.diff/changed-files/source-manifest/delivery-manifest後核對。\n你唯一新寫入 work/engine-slow-review-r1/candidate-review-r2；原candidate-review-r1證據封存不寫。先核對新seal與精確source/dll、最小差異，再親自重跑你已建的1199獨立向量與同一最小六組repro（載入真正r2 DLL），驗F1消失且未知current仍拒絕、合法快照/當步/下一步及冷卻保留；檢查R2專項112的必要新增情境（Speed/Brave兩種恢復順序），不重做已通過BIN/JAR來源逆向。實作者重跑你的suite不是獨立接受，需你的結果。可直接引用封存DLL而非再重建完整產品；有需要才補針對新差異的測試，避免重跑不相關整套。嚴格Speed2/Brave0步行與物件顯示，其他緩速動作仍拒絕。不操作DB/服務/正常產品、不改共享engine/r28/候選，Goal如實不改平台、不改模型、新代理。\n交付HANDOFF/result/findings與manifest，result必須candidateReviewed:true,candidateAccepted:true或false,candidateSealSha256,unresolvedFindings。若確實接受，請產生 review-acceptance.json：schema engine-independent-review-v1、candidateId ENGINE-SLOW-IMPL-R2、decision accepted、candidateSealSha256上述新seal、unresolvedFindings:[]、連結你的真實證據，供現成r29入口核驗。R2本身已採engine-candidate-seal-v1/result-v1/source-pins-v1兼容格式，完整176來源；你可順便核對這些材料確實指向同一封存來源，不額外包裝候選。完成後停寫被接受的審查材料，主管立刻接續整合。",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"threadId\":\"01a17a21-8dec-7410-8a1b-80f7fa84d0a1\"}"
+      }
+    ],
+    "isError": false
+  }
+}

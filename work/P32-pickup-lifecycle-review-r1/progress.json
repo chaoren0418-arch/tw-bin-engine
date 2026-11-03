@@ -1,0 +1,52 @@
+{
+  "stage": "completed and stopped writing; awaiting supervisor acceptance",
+  "readDocuments": [
+    "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+    "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\takeover.json",
+    "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P31-P32-dispatch.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\Probe.cs",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\HANDOFF.md",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\coverage.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\checks\\Program.cs",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\runtime-review-r1\\HANDOFF.md",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\runtime-review-r1\\coverage.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\P30-rebuild-review-r1\\r2-final-review-r1\\remaining-scope.json",
+    "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-r2-final-acceptance.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\stage-files-seal.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\build\\client-product-r34\\P11.ClientEngine.dll",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\build\\client-product-r34\\P24.Audio.dll",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\test-families.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\active-window-slots.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\planned-mapping.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\profile-inputs.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupPresentation.cs",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\WorldSession.cs",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\WorldEntry.cs",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\WorldObjects.cs",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\OnlineMovement.cs",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\ActionCadence.cs",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\NormalHaste.cs",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\Ground.cs",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\Combat.cs",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\Teleport.cs",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\LoginConnection.cs",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\ObjectAssets.cs"
+  ],
+  "goal": {
+    "available": true,
+    "created": true,
+    "timeUsedSeconds": 742,
+    "read": "complete",
+    "tokensUsed": 31038
+  },
+  "dependencies": [
+    "supervisor review; no development dependency remains"
+  ],
+  "productBuilds": 0,
+  "completedRuns": [
+    "runtime-01:188",
+    "runtime-02:7",
+    "runtime-03:1"
+  ],
+  "environmentDeviation": "build-01 SDK certificate banner; see environment-deviation.json"
+}

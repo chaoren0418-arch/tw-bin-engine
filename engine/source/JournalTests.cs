@@ -1,0 +1,10 @@
+using System.Diagnostics;using System.Text.Json;
+namespace P06;
+public static class JournalTests {
+ public static async Task Run(string folder){Directory.CreateDirectory(folder);string path=Path.Combine(folder,"events.json");string payload=new('x',16384);var times=new List<object>();GC.Collect();long memoryBefore=GC.GetTotalMemory(true);using var journal=new EventJournal(path);int n=0;
+ foreach(int count in new[]{3000,3000,6000}){var clock=Stopwatch.StartNew();long before=journal.BytesWritten;for(int j=0;j<count;j++,n++)journal.Append(n%2==0?"even":"odd",new{kind=n%2==0?"even":"odd",sequence=n,payload});times.Add(new{count,elapsedMs=clock.Elapsed.TotalMilliseconds,bytes=journal.BytesWritten-before});}
+ long memoryGrowth=GC.GetTotalMemory(true)-memoryBefore;if(memoryGrowth>32000000)throw new Exception("journal retained accumulated payloads");journal.Flush();if(new FileInfo(path+"l").Length!=journal.BytesWritten)throw new Exception("append bytes mismatch");journal.Complete();int lines=0;foreach(string line in File.ReadLines(path+"l")){using var doc=JsonDocument.Parse(line);if(doc.RootElement.GetProperty("sequence").GetInt32()!=lines++||doc.RootElement.GetProperty("payload").GetString()!=payload)throw new Exception("JSONL ordering/content");}
+ int array=0;await using(var stream=File.OpenRead(path)){await foreach(var item in JsonSerializer.DeserializeAsyncEnumerable<JsonElement>(stream)){if(item.GetProperty("sequence").GetInt32()!=array++||item.GetProperty("payload").GetString()!=payload)throw new Exception("legacy array ordering/content");}}
+ if(lines!=12000||array!=lines||journal.Count("even")!=6000||journal.Count("odd")!=6000)throw new Exception("journal event loss");Json.Save(Path.Combine(folder,"result.json"),new{status="pass",kind="synthetic large diagnostic records; no original-server claims",events=lines,jsonlBytes=journal.BytesWritten,legacyBytes=new FileInfo(path).Length,memoryGrowth,times,exactlyOneSerializationPerAppend=true,streamedLegacyArray=true});
+ }
+}

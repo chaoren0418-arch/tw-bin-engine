@@ -1,0 +1,24 @@
+{
+  "schema": "p26-rebind-root-acceptance-v1",
+  "utc": "2026-10-29T04:00:13.669320+00:00",
+  "decision": "accepted-exact-plan-for-serial-canonical",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "planSha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761",
+  "sourceSealSha256": "867c75d72137b18becc8138576bc0b2e8b6e529fabcd51482b485caa17419ad6",
+  "reviewSealSha256": "c84747bc79756e2a94a9c3e9d3831fb7eb682f6018048e07730e39df81a77a00",
+  "verifiedArtifacts": [
+    50,
+    37
+  ],
+  "reviewTurn": "01a185c4-5572-7692-afd3-ddfd8ee8a29c",
+  "reviewThreadStatus": "idle/completed",
+  "findingsDisposition": {
+    "F1": "resolved",
+    "F2": "retained stop and supervisor recovery",
+    "F3a": "resolved at outer execute_once only",
+    "F3b": "nested limit retained; stop if encountered",
+    "F4": "historical policy drift explicitly preserved"
+  },
+  "nativeAccepted": false,
+  "wholeProjectComplete": false
+}

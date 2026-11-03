@@ -1,0 +1,13 @@
+{
+  "status": "manifest-only-correction-requested",
+  "missingBuildInput": "global.json",
+  "alsoExcluded": "scripts/",
+  "workerCorrectionAuthorized": "Preserve prior manifests; amend freeze coverage and matching ready/delivery only, no product/build/runtime changes or rerun",
+  "supervisorReservedRolesUsed": false,
+  "cleanBuildStarted": false,
+  "files": {
+    "ready-for-supervisor.json": "25fdfc28d5f330acc6fbb54e1f3f3ff5e410b2ec105857c91ac6efc3f69fb106",
+    "source-freeze-manifest.json": "de4daeefca28e2d60e12746da634e2513c32c710beca1315ce7fb3f207e8bcb4",
+    "environment-freeze-manifest.json": "673c25718b17d0bbb34bebbdbc0b22f187736b6e95a724c7cd852852f2d0a0b7"
+  }
+}

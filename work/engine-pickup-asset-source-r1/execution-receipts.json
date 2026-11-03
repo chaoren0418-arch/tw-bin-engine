@@ -1,0 +1,54 @@
+{
+  "scope": "Commands actually executed this turn; tool-reported exits. Managed runner also retains captured stdout/stderr/command JSON.",
+  "python": "C:/Users/CHAOREN/AppData/Local/Programs/Python/Python312/python.exe -B -X utf8",
+  "runs": [
+    {
+      "script": "setup.py",
+      "exitCode": 0
+    },
+    {
+      "script": "evidence/extract-first.py",
+      "executedAs": "extract.py before size-identity correction",
+      "exitCode": 1,
+      "detail": "evidence/extract-first-failure.json"
+    },
+    {
+      "script": "extract.py",
+      "exitCode": 0,
+      "output": {
+        "requiredSpr": 208,
+        "extracted": 208,
+        "storedBytes": 1256525,
+        "parsed": 208,
+        "errors": [],
+        "idxRecordsRead": 1725,
+        "archives": 17
+      }
+    },
+    {
+      "script": "run_reference.py",
+      "exitCode": 0,
+      "logs": "evidence/reference-*.command.json"
+    },
+    {
+      "script": "qualify.py",
+      "exitCode": 0,
+      "output": {
+        "uniqueFrames": 416,
+        "pixelsQualified": 416,
+        "referenceComparedPixels": 1402968,
+        "profiles": 42,
+        "profilesPixelsQualified": 42,
+        "reusedProfileFrameKeys": 336,
+        "newProfileFrameKeys": 1008,
+        "overlappingWrites": 0,
+        "conflictingWrites": 0
+      },
+      "warnings": "Pillow getdata deprecation"
+    },
+    {
+      "script": "contacts.py",
+      "exitCode": 0
+    }
+  ]
+}

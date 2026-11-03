@@ -1,0 +1,29 @@
+{
+  "scope": "In-progress review snapshot only; no frozen-source or recovery success claim",
+  "files": [
+    {
+      "source": "source/EventJournal.cs",
+      "sha256": "4d0b1989f0ac6fb8ec76a0919c58538db0c3e8a7ff99e6916942818b151cd510"
+    },
+    {
+      "source": "source/WebPanel.cs",
+      "sha256": "e7c7c76ebd8e15adb16fe9895f552584867efc2438d970d51f48d273b96a3edb"
+    },
+    {
+      "source": "source/LoginConnection.cs",
+      "sha256": "3b2f91b665cf73a4506b9fbf85dc40f0f36b4b60619e0d56de4caab834db12b3"
+    },
+    {
+      "source": "evidence/ui-recovery-actions.json",
+      "sha256": "dc8d53c3b0cd363fb3ca92d582f522e4ffdc53fa903dbd9763d59da84d73d55b"
+    },
+    {
+      "source": "evidence/ui-recovery-os-refused.json",
+      "sha256": "e231ee1e3ad03b3dadd04af9b066ec83492bc1840b68d9d768d1b7cdc0855897"
+    },
+    {
+      "source": "evidence/ui-duplicate-login-recovery/result.json",
+      "sha256": "cb9e33bf2385ab7865f2fb57a5a2c7f4985efb06456505b938449dca5a61a85b"
+    }
+  ]
+}

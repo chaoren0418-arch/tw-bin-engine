@@ -1,0 +1,112 @@
+[
+  {
+    "name": "build-product",
+    "pid": 69216,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\source\\OfflineClient.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\build\\client",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 6.710395812988281
+  },
+  {
+    "name": "build-harness",
+    "pid": 69164,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\reference\\development\\player-death-fix-r1\\harness\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\build\\harness",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 4.052678823471069
+  },
+  {
+    "name": "build-appearance-regression",
+    "pid": 75104,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\reference\\development\\player-death-fix-r1\\appearance-regression\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\build\\appearance-regression",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 4.05436110496521
+  },
+  {
+    "name": "build-casting-regression",
+    "pid": 58988,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\reference\\development\\player-death-fix-r1\\casting-regression\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\build\\casting-regression",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 3.68387508392334
+  },
+  {
+    "name": "harness",
+    "pid": 56568,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\build\\harness\\P24.PlayerDeathChecks.exe",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\evidence"
+    ],
+    "exitCode": 0,
+    "elapsed": 6.584456205368042
+  },
+  {
+    "name": "appearance-regression",
+    "pid": 72416,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\build\\appearance-regression\\P24.PlayerAppearanceChecks.exe",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\evidence"
+    ],
+    "exitCode": 0,
+    "elapsed": 26.401851654052734
+  },
+  {
+    "name": "casting-regression",
+    "pid": 82968,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\build\\casting-regression\\P24.SkillCastingChecks.exe",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026-r2\\evidence"
+    ],
+    "exitCode": 0,
+    "elapsed": 5.352988004684448
+  }
+]

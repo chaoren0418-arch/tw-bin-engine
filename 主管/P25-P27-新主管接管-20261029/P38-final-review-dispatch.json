@@ -1,0 +1,19 @@
+{
+  "schema": "p38-final-review-dispatch-v1",
+  "utc": "2026-10-29T10:17:10.638119+00:00",
+  "reviewerThread": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "reviewerTurn": "01a18729-3ff9-7993-9b94-9204713fb008",
+  "actualReadStarted": true,
+  "assetHashStartedVerified": false,
+  "authorThread": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "authorTurn": "01a1871d-2a1e-7c80-804c-6dd91e0c365c",
+  "authorState": "idle-completed",
+  "candidateFiles": 14181,
+  "rootVerifiedExecutionFiles": 72,
+  "executionArtifactSealSha256": "b68ac8eb18888ca5806c81fc2ba38b8ff3dd0eea847d731f56ad02c0496d261b",
+  "executionResultSha256": "37655945b75dc0f86b6fe4153ba17779a186df571726f4ce162dcd8ee1807a2f",
+  "candidateSealSha256": "3470b0ff44b49ae08c4751efe14ea2b8bd983437a8111c0512dc6c799d71e683",
+  "scope": "Exact candidate closure/content and actual launcher compiler/check-only provenance; no rebuild or re-execution",
+  "formalEntry": "r33",
+  "entryActivationAuthorized": false
+}

@@ -1,0 +1,8 @@
+{
+  "message": "r31 最終 release 已由主管接受，兩個隔離工作繼續，毋須重複已通過測試或改寫原 staged baseline。新的最終綁定在主管/P24-緩速加速水例外-20261029/final-base-binding.json SHA d6946c449f35b1d26804bd3fd4878bf24bdb0f74d66a302765dfd91058010fa4；baseline-final.json SHA00e9d4664024119595faeead50ade5827258763e47dc3d7068ea9b78abf8c813。r31 release seal1d5b1c149495cb2b44f50daf2c3361eb15e8000ba27bf133d1029735f10cfd90；主管接受收據r31-supervisor-acceptance SHA c61b78bc32afb590675f9a73e1c7e5f171156af2afa9e8d58c4ff03b55c25d1d。主管已驗177sources及四產品身份與你們固定的stage完全一致，並實驗全部14329release檔SHA和根入口check-only。你們的source基底不變，交付可另引用這份最終綁定；仍只寫指定work，不寫共享engine，原staged baseline.json保持immutable。",
+  "targets": [
+    "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+    "01a17a21-8dec-7410-8a1b-80f7fa84d0a1"
+  ],
+  "utc": "2026-10-28T22:44:41.627Z"
+}

@@ -1,0 +1,250 @@
+{
+  "task": "ENGINE-SLOW-PICKUP-REVIEW-PREP-R1",
+  "candidateReviewed": false,
+  "exclusions": [
+    "self",
+    "assets read-only junction",
+    ".dotnet",
+    ".nuget",
+    "tmp",
+    "harness/obj",
+    "__pycache__"
+  ],
+  "artifacts": [
+    {
+      "path": "HANDOFF.md",
+      "bytes": 2407,
+      "sha256": "bcc690a23104a9dc37a46773e1c4cc9f6ced3bd0a1d66fb83423b7f439eebfae"
+    },
+    {
+      "path": "baseline-binding.json",
+      "bytes": 29934,
+      "sha256": "00e9d4664024119595faeead50ade5827258763e47dc3d7068ea9b78abf8c813"
+    },
+    {
+      "path": "baseline-findings.md",
+      "bytes": 3772,
+      "sha256": "db6ebcf451f539e52e07af44b6bc1b99ad1c2c1cdec49378fa80d96a1f101620"
+    },
+    {
+      "path": "baseline-probe.json",
+      "bytes": 66867,
+      "sha256": "017be829d85b140cd5172ecb34147169a053e48588c4993cecf3d5baee6ed3fa"
+    },
+    {
+      "path": "build.log",
+      "bytes": 289,
+      "sha256": "0a619880dc051a78e68b027b69fec48b899236fe3f8f3f1b42613f6ea80442db"
+    },
+    {
+      "path": "class-pins.json",
+      "bytes": 3580,
+      "sha256": "0d8d5d837fc08423de4a5766198e22744f0b3b991cec2c8868bf58157ee8bbfd"
+    },
+    {
+      "path": "classes/C_PickUpItem.class",
+      "bytes": 9954,
+      "sha256": "721b3f27cd3be1bbe1ac9f5c1646946af7a53b6dcbff2d759ceb9081ff8c45a5"
+    },
+    {
+      "path": "classes/C_PickUpItem.javap.txt",
+      "bytes": 33696,
+      "sha256": "5150be1fe5149636a91707fb823562b968c86a7ee1ec2655090a696b6455c0ba"
+    },
+    {
+      "path": "classes/C_PickUpItem.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "classes/S_ChangeHeading.class",
+      "bytes": 1225,
+      "sha256": "11f7fe274cba2d1e87da37294f4a9bee99256610e9b8aa419e2abc8ffab86366"
+    },
+    {
+      "path": "classes/S_ChangeHeading.javap.txt",
+      "bytes": 2150,
+      "sha256": "0f8100bfe838c083f91eacbe77d379f6695732fa289bef930e50d7016ac175c7"
+    },
+    {
+      "path": "classes/S_ChangeHeading.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "classes/S_DoActionGFX.class",
+      "bytes": 1066,
+      "sha256": "dbaa27bdc71cf28e626a6062e537b5ede07d0fda76409777f2d3b3c62b34d11e"
+    },
+    {
+      "path": "classes/S_DoActionGFX.javap.txt",
+      "bytes": 1841,
+      "sha256": "f0c6c0f0a7cdf5cdc9eb658f81d9953f58377ea2bef108db1af84ecae4244694"
+    },
+    {
+      "path": "classes/S_DoActionGFX.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "classes/WorldInteractionGuard.class",
+      "bytes": 5315,
+      "sha256": "53c73aa47857d46a5c69a97cbb9e81ef350b91f7169ea5daf090b3803cf99f71"
+    },
+    {
+      "path": "classes/WorldInteractionGuard.javap.txt",
+      "bytes": 15573,
+      "sha256": "15f78717d7d3b5515e4f0d59a29e259a8615ddcfdcc4287ba66399d4018f3419"
+    },
+    {
+      "path": "classes/WorldInteractionGuard.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "collect.py",
+      "bytes": 4240,
+      "sha256": "d3135482c2e49559efcb9e90bab6d4a3071afa0241c5590bbe9634015571a6d5"
+    },
+    {
+      "path": "commands.json",
+      "bytes": 1095,
+      "sha256": "c48fb7ff903e91967b7ea9564e9c07c3210540476c4a538c4b52afb5db12e9d8"
+    },
+    {
+      "path": "crosscheck.py",
+      "bytes": 4375,
+      "sha256": "cd996e69ebc8279d3cdf7934efffe965cae66bd895d1f7e5690963664b9e6f5d"
+    },
+    {
+      "path": "harness/Lifecycle.cs",
+      "bytes": 5351,
+      "sha256": "70e1dc0b9ee21db7df7ec2ee0caffb24d052c69bba37fba17cbad7aec94f2274"
+    },
+    {
+      "path": "harness/Program.cs",
+      "bytes": 13035,
+      "sha256": "07e62ad88ae1f8e837242b689b40f2dc79f12c21e8700df634d666fbac62202e"
+    },
+    {
+      "path": "harness/Review.csproj",
+      "bytes": 410,
+      "sha256": "6b8a520d3007553244fdd1a7259791ae8604703c5b2a5563d50beb8cad25295a"
+    },
+    {
+      "path": "helper/r31/Microsoft.Web.WebView2.Core.dll",
+      "bytes": 698208,
+      "sha256": "d60e6e94245078cb56e44ebd5f360dc04bf18e460136be93bfc4cfca43b98505"
+    },
+    {
+      "path": "helper/r31/Microsoft.Web.WebView2.Core.xml",
+      "bytes": 612031,
+      "sha256": "8684cd74000c77533e563785208308ada63808da85825206856cab11a9eeffce"
+    },
+    {
+      "path": "helper/r31/Microsoft.Web.WebView2.WinForms.dll",
+      "bytes": 39264,
+      "sha256": "84b5772260dbdfe95591197edc9315dcd2cc86ad610e4b14ddd5e4291e31a381"
+    },
+    {
+      "path": "helper/r31/Microsoft.Web.WebView2.WinForms.xml",
+      "bytes": 41869,
+      "sha256": "6a8ec199373824fdebceda7b3d780d0b31c82edceae04d92391027c971dea6c2"
+    },
+    {
+      "path": "helper/r31/P11.ClientEngine.dll",
+      "bytes": 2178048,
+      "sha256": "12ad5bbfac696033ee1f8d807346f401216138f4ce51cb58da9438e0b4ba5ec1"
+    },
+    {
+      "path": "helper/r31/P11.ClientEngine.pdb",
+      "bytes": 351900,
+      "sha256": "95b6a84ca3af832eaa3353b04bdc441d4badce567aada6696e424e5e5a691ace"
+    },
+    {
+      "path": "helper/r31/P24.Audio.dll",
+      "bytes": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    {
+      "path": "helper/r31/P24.Audio.pdb",
+      "bytes": 20720,
+      "sha256": "91ac164c2f1ac104fb774501cae1988d24bd3ee2113ba99ff95930e6866811ed"
+    },
+    {
+      "path": "helper/r31/PickupPreparation.deps.json",
+      "bytes": 1938,
+      "sha256": "d723e7327e2b19691b11e49c8478731060e82ad1852eecfea6f0dbb5c4c32a33"
+    },
+    {
+      "path": "helper/r31/PickupPreparation.dll",
+      "bytes": 78848,
+      "sha256": "6c85cc8a45028a4597a490841d30113c8df693e189a6f4b07a5911a2021ab78c"
+    },
+    {
+      "path": "helper/r31/PickupPreparation.exe",
+      "bytes": 162304,
+      "sha256": "79d51b3480cdd4110b532a62419e9426ac8ad4757777a4fec62e93e956b9ad8e"
+    },
+    {
+      "path": "helper/r31/PickupPreparation.pdb",
+      "bytes": 21312,
+      "sha256": "014ff88268e9b460caff86c5204c1961741a13cd2c03c9e8c0eb8964bad34129"
+    },
+    {
+      "path": "helper/r31/PickupPreparation.runtimeconfig.json",
+      "bytes": 447,
+      "sha256": "039a0defb81019310fa2e8a17ef8d2ad086b1a37656149aa598f1f75893f2a22"
+    },
+    {
+      "path": "probe.log",
+      "bytes": 10,
+      "sha256": "df0560fa59687ee8e573dca80844e5a432e98c893ea1b0114927ac0fdc981681"
+    },
+    {
+      "path": "profile-audit.json",
+      "bytes": 26428,
+      "sha256": "9d9f9fed4d77d7949826325077e16887b42afd297e38e29bcf34d4936584cdc7"
+    },
+    {
+      "path": "result.json",
+      "bytes": 4942,
+      "sha256": "91e51704cc0dab2727339c8e022709b841c045a41ae07f324a91337dbbabce7a"
+    },
+    {
+      "path": "review-contract.md",
+      "bytes": 11834,
+      "sha256": "8e54eceb3010ccafbd0a6591611340d1bbcb13c3d64744557360e3cc44bb1763"
+    },
+    {
+      "path": "run.ps1",
+      "bytes": 925,
+      "sha256": "d2b1e75f99d37c2f58f67719aa604086d6c3faa1b5fb7b3c1ab6950c2c13d039"
+    },
+    {
+      "path": "seal.py",
+      "bytes": 6558,
+      "sha256": "7ee34faf6fda3ea19a53cbcbdd1d54a852b52f9bfcd010ab55ce551d529bf2a6"
+    },
+    {
+      "path": "sealed-source-conclusion.md",
+      "bytes": 2435,
+      "sha256": "3c98fc3857bb45e89b5d069c33cfb9f45fa09e8549f1056990205dc7d5b6513f"
+    },
+    {
+      "path": "sealed-source-crosscheck.json",
+      "bytes": 74956,
+      "sha256": "1c9f6a60fe1772a87a89b25a0a47cd07034b664b0cff6e7b6352a652929813d3"
+    },
+    {
+      "path": "source-pins.json",
+      "bytes": 117949,
+      "sha256": "15466f3780081b4123aef11a737d93c6afcfbe355a9cb30fd223b4535fe83897"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 1418,
+      "sha256": "3d8225c4c70e0dae8ea3215abc1205c182b7c80ea839dca592c1df9250d097ba"
+    }
+  ]
+}

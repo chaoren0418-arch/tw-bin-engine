@@ -1,0 +1,146 @@
+[
+  {
+    "path": "D:\\lineage開發\\登入器bin資源\\TW1608262200.bin拆解\\TW1608262200.bin",
+    "size": 16810496,
+    "sha256": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2",
+    "role": "fixed BIN"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r32\\_integration\\r32\\release-seal.json",
+    "size": 2442883,
+    "sha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507",
+    "role": "final r32 seal"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-拾取生命週期修復-20261029\\baseline-final.json",
+    "size": 29654,
+    "sha256": "0c645bf5c3a515fd5da88cf28c834a4b2967aed268946d45fb5a6ebe9f03fcb7",
+    "role": "final r32 baseline"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\artifact-manifest.json",
+    "size": 46172,
+    "sha256": "8b1110e77614fbe8f9cb9b68718348c71f75d04110451cbca3c90699114125e1",
+    "role": "prior pickup source seal"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-review-r1\\artifact-manifest.json",
+    "size": 8028,
+    "sha256": "29fb10cb6919a9ea07c13185af3ffc0eab2b8be4944c18093cbf84cb00326095",
+    "role": "independent review seal"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\artifact-manifest.json",
+    "size": 214103,
+    "sha256": "b9033cb8c0767eccd9eb8c739b0eb6a42d48834f81960404e84e418b7dad8efc",
+    "role": "bounded metadata/pixel seal"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa467a0.json",
+    "size": 156373,
+    "sha256": "8e625b303b4d9b20b41519c49ff6698b9b401ce5243b025f99a9d2a02253e276",
+    "role": "prior static disassembly; exact bytes reverified"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa467a0.c",
+    "size": 19511,
+    "sha256": "804890cf5e7f2bf53d1f822cff6fdb9d3b7e3dbc2164737444433f3a0318c05c",
+    "role": "prior pseudocode; not independent source"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa43560.json",
+    "size": 26964,
+    "sha256": "591608eba014bbe515d61b2b811b8c20fa2e01ea6b54d90ea9163293cc2488fe",
+    "role": "prior static disassembly; exact bytes reverified"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa43560.c",
+    "size": 3386,
+    "sha256": "70b51ee980621b578148ffe83c8cca575447c606d23b121c1681fee15381e4b5",
+    "role": "prior pseudocode; not independent source"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa3ef40.json",
+    "size": 108545,
+    "sha256": "b43377adab4fadd67838d8efec44cb97bbe320a672d0e99e03cc0bcdd0ec456f",
+    "role": "prior static disassembly; exact bytes reverified"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa3ef40.c",
+    "size": 12971,
+    "sha256": "b4494eb67e243fb0b709322c8ecdecb71eb15e1519e4f5dea6bf6240818baee1",
+    "role": "prior pseudocode; not independent source"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa407d0.json",
+    "size": 49638,
+    "sha256": "2f9549202bbb24e7898825c1cae74e1960b5709019339ae5edf7c32bf1b8af92",
+    "role": "prior static disassembly; exact bytes reverified"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa407d0.c",
+    "size": 5375,
+    "sha256": "6249cd93c3c8cb9213b5b359afe3f816e323e77c65dbbf5db83c047cb9111cfc",
+    "role": "prior pseudocode; not independent source"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\CONTRACT.md",
+    "size": 10910,
+    "sha256": "ad976cc46a98a560aa36fc085c129522bb0806c13c747add897114e0de45b613",
+    "role": "prior source/metadata context"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\source-contract.json",
+    "size": 3271,
+    "sha256": "8c29fd1b806789caec833e7b23cf7bfea719d912751e4429817d89b2b68fea65",
+    "role": "prior source/metadata context"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\metadata\\pickup-frames.json",
+    "size": 75287,
+    "sha256": "3f7bea876ba6303b104c14889bcd6ba5dc58eb8fd74958070670065d75dd1453",
+    "role": "prior source/metadata context"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\details-index.json",
+    "size": 6794,
+    "sha256": "9a11614f6b7f0d14a2722fe03d10c21f1df87af5d3064e479a36a4f994cbc77b",
+    "role": "prior source/metadata context"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\vtable-references.json",
+    "size": 1725,
+    "sha256": "5d83ffec4853ab4d15cf239171ec20017675d89c362c765c30fce536f6e27a5a",
+    "role": "prior source/metadata context"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\handler-92cb70.txt",
+    "size": 31639,
+    "sha256": "d7a45032cedd2e2302b723f46b28d11ea0595fce374c5075046f284ce91befa1",
+    "role": "prior source/metadata context"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\result.json",
+    "size": 1436,
+    "sha256": "163f1e6d2df4e8f11e9d7800ee2da4de1643e4e8caa1b3087858902f568b8c63",
+    "role": "asset qualification boundaries only"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\gaps.json",
+    "size": 6103,
+    "sha256": "c01fe9abbbaebba0c114a807b1875cceaab95e53c643ca254106de84bfade3da",
+    "role": "asset qualification boundaries only"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\entry-identity-layers.json",
+    "size": 193191,
+    "sha256": "f05cbd6ba720ecbc3cbf62152e4b051b1200df4c501d9375858b9932ce069c61",
+    "role": "asset qualification boundaries only"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\object-assets\\inner-list.spz",
+    "size": 4864856,
+    "sha256": "e8cec0388d6e9fdf518493fba1674953141c023765e02c210c05a23dfbbe6242",
+    "role": "prior metadata raw source identity reverified; no new archive extraction"
+  }
+]

@@ -1,0 +1,174 @@
+{
+  "files": [
+    {
+      "path": "HANDOFF.md",
+      "sha256": "2744a7ddea3a4718b7d4df3dca0393deb10f0374b64f3131bfa55ada9d80b2ca",
+      "size": 8315
+    },
+    {
+      "path": "PROTOCOL.md",
+      "sha256": "1c32f3558e815cbdb9816b573d93a598259cab6c950c90141e47aa6b1b6e2a72",
+      "size": 9083
+    },
+    {
+      "path": "result.json",
+      "sha256": "14b1e3b8ae570794816b03edc44406e0e31d425111f4b5385980f33ab0469663",
+      "size": 9257
+    },
+    {
+      "path": "source-freeze.json",
+      "sha256": "9811dacf70fd64292cc0e687729aa188e2bd85ffe12d3606a062e5e149d9ad15",
+      "size": 169427
+    },
+    {
+      "path": "environment-freeze.json",
+      "sha256": "3610f2bb2eec218adbc00bb81f3dce3d5a51ee45ab7a7f432a049f8253dec99b",
+      "size": 141468
+    },
+    {
+      "path": "ready-for-supervisor.json",
+      "sha256": "f57308bdc4d474bbb10e096c11172dbf8b74ec20b5ac5e21c69dbb8ae6c1d689",
+      "size": 2560
+    },
+    {
+      "path": "evidence/r2-clean-build.json",
+      "sha256": "d687905c46bac01d4eb74cb3b877a8dec0607d2576552af6ecc59dcecb7c6019",
+      "size": 534
+    },
+    {
+      "path": "evidence/combat-ui/visual-review.json",
+      "sha256": "43b3699fd199e9f8d9d996a4de5868c6849af2dc6d0e73eee51b1ff428e22974",
+      "size": 1666
+    },
+    {
+      "path": "evidence/lure-revision-scope.json",
+      "sha256": "3cf38d8293cbaddd66420efd6f2b412a5ed4e1994ef8733a244621ef1c04361e",
+      "size": 4006
+    },
+    {
+      "path": "evidence/combat-ui/independent-axis-lure.json",
+      "sha256": "cd323c3407da254ee7bdfd2dc5329967bd7cfcc47898fea5f6b6972dbba0411f",
+      "size": 1885
+    },
+    {
+      "path": "evidence/combat-suite/result.json",
+      "sha256": "5c9cb027d20cc9b45679ea3a332af9f084dfc1e6e5efb6950ae4a3d0461f75b3",
+      "size": 679623
+    },
+    {
+      "path": "evidence/combat-suite/independent-combat-replay.json",
+      "sha256": "03f99a7892bd36011aaa5fb7c51e6d0d6a0aad0811c74ee3db39fde77b05f59c",
+      "size": 14820
+    },
+    {
+      "path": "evidence/combat-ui/result.json",
+      "sha256": "40e7ac40ea1c89a5d3ef9b1fd9364e5ef5c096daa7d67fa2e3ebbfd4138c9584",
+      "size": 2509491
+    },
+    {
+      "path": "evidence/combat-ui/independent-combat-replay.json",
+      "sha256": "fd0737261c13cb769a3be94370eddb992478fe8c74bed80d2015b5cfb115f04e",
+      "size": 33503
+    },
+    {
+      "path": "evidence/objects-suite/result.json",
+      "sha256": "9bdee0f61d569868a44413c00e5ded8d479e6e9a682609b60c91727bd72c1ee2",
+      "size": 692804
+    },
+    {
+      "path": "evidence/objects-suite/independent-full-replay.json",
+      "sha256": "dda9ecc6458eabd33a207dd9e0e5ebab3bf80fe53830af37887f9605642fedbd",
+      "size": 17989
+    },
+    {
+      "path": "evidence/objects-ui/result.json",
+      "sha256": "c0154673cdc3c9035459f0758d23120c0259b6db95f1b164bbfbf1f24c93caa3",
+      "size": 299380
+    },
+    {
+      "path": "evidence/objects-ui/independent-full-replay.json",
+      "sha256": "519e2968043f2325618f9bea267868d889c034eb211e97461de4ca962910f686",
+      "size": 13481
+    },
+    {
+      "path": "evidence/movement-ui/movement-ui-result.json",
+      "sha256": "dc083d63e3522d538e1efb042709cc2241e4a4efecba4c4a6085cf55dfe548bf",
+      "size": 120150
+    },
+    {
+      "path": "evidence/movement-suite/result.json",
+      "sha256": "a123db571c94cc21cb4f3c162d540801dde7a5903b90798cca29783542b15e03",
+      "size": 552205
+    },
+    {
+      "path": "evidence/movement-suite/independent-setup-proof.json",
+      "sha256": "e4a1b0108c78dd233d5233a1ae96f326a3cce4f1f28b7da94125e4a7b1bb828c",
+      "size": 10180
+    },
+    {
+      "path": "evidence/ui-world-long/world-ui-result.json",
+      "sha256": "07eda9f114559247d8160b70546d8c06aeb3dcc36445e95391bf70926eefc0c0",
+      "size": 99223
+    },
+    {
+      "path": "evidence/ui-world-long/independent-long-ui.json",
+      "sha256": "0f962104d9a8897b84f5ade46ca10152e68e5ef9adae0229614a78fd4b1c7716",
+      "size": 597
+    },
+    {
+      "path": "evidence/receive-load/receive-load-result.json",
+      "sha256": "64fd46ccad01909b6fbc2a073d215656ca7055e192187f162035a80e8466be94",
+      "size": 738
+    },
+    {
+      "path": "evidence/journal-regression/result.json",
+      "sha256": "e2b01cd4ba3b68bb9e418852399e5295f395b6da337ac2cc13fbc6e72570cbc9",
+      "size": 575
+    },
+    {
+      "path": "evidence/combat-regression.json",
+      "sha256": "6b3c9c9eef7f2eae1199fc113b5bc2bcf02042b2d3ab317bb0fab2040473100d",
+      "size": 1258
+    },
+    {
+      "path": "evidence/object-regression.json",
+      "sha256": "a92d6763fd2f6dd67676d89407a15fd9cae6d82ddffaf5fb1f1fc476b00522a9",
+      "size": 645
+    },
+    {
+      "path": "evidence/world-regression.json",
+      "sha256": "1b84dca416fa4a43bbf80b601d189caca6a4e66a03dad546b25340a8d973538c",
+      "size": 608
+    },
+    {
+      "path": "evidence/movement-gate-regression.json",
+      "sha256": "0e8eb59b6169e6a2a042f7a41b47d0cb316182e7134f413e03af6eff40c91595",
+      "size": 436
+    },
+    {
+      "path": "evidence/web-regression/web-test-result.json",
+      "sha256": "fc14fd18ab1ba087a44c64c7d61c521006bbb3919d834805994e6e0ffe463eaf",
+      "size": 1868
+    },
+    {
+      "path": "evidence/combat-ui/build-provenance.json",
+      "sha256": "e5329a4a13848054fbfe106f008b98238b05695ef3ac07655d8a7ad3c7d8012b",
+      "size": 694
+    },
+    {
+      "path": "evidence/combat-ui/test-driver-built.cs",
+      "sha256": "e4418d43d615d6082ff7614db503c662299229624d7d2c36ea3232475fbc002e",
+      "size": 11179
+    },
+    {
+      "path": "evidence/combat-ui/test-driver-final.diff",
+      "sha256": "a4e04166637ef979de43951454875a0a8f2b2436ad1b0aa919fa7cb8a0d95fbf",
+      "size": 2611
+    },
+    {
+      "path": "evidence/combat-visibility-plan-r2.json",
+      "sha256": "e2e16b1e27fc61361ba974591e55403ada0a7ba6444e831dce193ee014c12b1b",
+      "size": 8370
+    }
+  ]
+}

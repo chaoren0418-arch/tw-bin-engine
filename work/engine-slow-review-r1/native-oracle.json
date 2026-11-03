@@ -1,0 +1,255 @@
+{
+  "imageBase": "0x400000",
+  "functionVA": "0xA407D0",
+  "rows": [
+    {
+      "basis": 4,
+      "speed": 0,
+      "brave": 0,
+      "nativeAnimationMs": 4
+    },
+    {
+      "basis": 4,
+      "speed": 1,
+      "brave": 0,
+      "nativeAnimationMs": 3
+    },
+    {
+      "basis": 4,
+      "speed": 2,
+      "brave": 0,
+      "nativeAnimationMs": 8
+    },
+    {
+      "basis": 7,
+      "speed": 0,
+      "brave": 0,
+      "nativeAnimationMs": 7
+    },
+    {
+      "basis": 7,
+      "speed": 1,
+      "brave": 0,
+      "nativeAnimationMs": 5
+    },
+    {
+      "basis": 7,
+      "speed": 2,
+      "brave": 0,
+      "nativeAnimationMs": 14
+    },
+    {
+      "basis": 80,
+      "speed": 0,
+      "brave": 0,
+      "nativeAnimationMs": 80
+    },
+    {
+      "basis": 80,
+      "speed": 1,
+      "brave": 0,
+      "nativeAnimationMs": 60
+    },
+    {
+      "basis": 80,
+      "speed": 2,
+      "brave": 0,
+      "nativeAnimationMs": 160
+    },
+    {
+      "basis": 333,
+      "speed": 0,
+      "brave": 0,
+      "nativeAnimationMs": 333
+    },
+    {
+      "basis": 333,
+      "speed": 1,
+      "brave": 0,
+      "nativeAnimationMs": 249
+    },
+    {
+      "basis": 333,
+      "speed": 2,
+      "brave": 0,
+      "nativeAnimationMs": 666
+    },
+    {
+      "basis": 640,
+      "speed": 0,
+      "brave": 0,
+      "nativeAnimationMs": 640
+    },
+    {
+      "basis": 640,
+      "speed": 1,
+      "brave": 0,
+      "nativeAnimationMs": 480
+    },
+    {
+      "basis": 640,
+      "speed": 2,
+      "brave": 0,
+      "nativeAnimationMs": 1280
+    },
+    {
+      "basis": 641,
+      "speed": 0,
+      "brave": 0,
+      "nativeAnimationMs": 641
+    },
+    {
+      "basis": 641,
+      "speed": 1,
+      "brave": 0,
+      "nativeAnimationMs": 480
+    },
+    {
+      "basis": 641,
+      "speed": 2,
+      "brave": 0,
+      "nativeAnimationMs": 1282
+    },
+    {
+      "basis": 840,
+      "speed": 0,
+      "brave": 0,
+      "nativeAnimationMs": 840
+    },
+    {
+      "basis": 840,
+      "speed": 1,
+      "brave": 0,
+      "nativeAnimationMs": 630
+    },
+    {
+      "basis": 840,
+      "speed": 2,
+      "brave": 0,
+      "nativeAnimationMs": 1680
+    },
+    {
+      "basis": 960,
+      "speed": 0,
+      "brave": 0,
+      "nativeAnimationMs": 960
+    },
+    {
+      "basis": 960,
+      "speed": 1,
+      "brave": 0,
+      "nativeAnimationMs": 720
+    },
+    {
+      "basis": 960,
+      "speed": 2,
+      "brave": 0,
+      "nativeAnimationMs": 1920
+    },
+    {
+      "basis": 1320,
+      "speed": 0,
+      "brave": 0,
+      "nativeAnimationMs": 1320
+    },
+    {
+      "basis": 1320,
+      "speed": 1,
+      "brave": 0,
+      "nativeAnimationMs": 990
+    },
+    {
+      "basis": 1320,
+      "speed": 2,
+      "brave": 0,
+      "nativeAnimationMs": 2640
+    },
+    {
+      "basis": 1480,
+      "speed": 0,
+      "brave": 0,
+      "nativeAnimationMs": 1480
+    },
+    {
+      "basis": 1480,
+      "speed": 1,
+      "brave": 0,
+      "nativeAnimationMs": 1110
+    },
+    {
+      "basis": 1480,
+      "speed": 2,
+      "brave": 0,
+      "nativeAnimationMs": 2960
+    },
+    {
+      "basis": 32767,
+      "speed": 0,
+      "brave": 0,
+      "nativeAnimationMs": 32767
+    },
+    {
+      "basis": 32767,
+      "speed": 1,
+      "brave": 0,
+      "nativeAnimationMs": 24575
+    },
+    {
+      "basis": 32767,
+      "speed": 2,
+      "brave": 0,
+      "nativeAnimationMs": 65534
+    },
+    {
+      "basis": 65535,
+      "speed": 0,
+      "brave": 0,
+      "nativeAnimationMs": 65535
+    },
+    {
+      "basis": 65535,
+      "speed": 1,
+      "brave": 0,
+      "nativeAnimationMs": 49151
+    },
+    {
+      "basis": 65535,
+      "speed": 2,
+      "brave": 0,
+      "nativeAnimationMs": 131070
+    }
+  ],
+  "auditedChunks": [
+    {
+      "functionVA": "0xa407d0",
+      "VA": "0xa407d0",
+      "RVA": "0x6407d0",
+      "fileOffset": "0x63fbd0",
+      "bytes": 1644,
+      "sha256": "df99bc065dd5014d263cc0ea9b59a50e659504454294d558ad2c956718b223af"
+    },
+    {
+      "functionVA": "0x94c530",
+      "VA": "0x94c530",
+      "RVA": "0x54c530",
+      "fileOffset": "0x54b930",
+      "bytes": 325,
+      "sha256": "a498af93ac848b174aa58db724f7af6a43776352f21d0342a0064ebc6bedb18f"
+    },
+    {
+      "functionVA": "0x9e3260",
+      "VA": "0x9e3260",
+      "RVA": "0x5e3260",
+      "fileOffset": "0x5e2660",
+      "bytes": 137,
+      "sha256": "7d423538a33d50c7aa4e319bf0a4a61758c580ed3f09c8379740139ecce40989"
+    }
+  ],
+  "stubbedCallees": [
+    "0x506210",
+    "0x66d350",
+    "0xa41c30",
+    "0xa4add0"
+  ],
+  "scope": "Original x86 bytes under Unicorn with synthetic metadata and neutral status; not native gameplay or original self-state decryption."
+}

@@ -1,0 +1,511 @@
+{
+  "status": "pass",
+  "cases": [
+    {
+      "id": "readonly-validate",
+      "passed": true,
+      "detail": {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\executor.py",
+          "validate",
+          "--contract-sha256",
+          "37af732d7d30629d71cd3fb8e66bc18d77352bbef2ff3191de920743ced4a2d9"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1",
+        "exitCode": 0,
+        "stdout": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\readonly-validate\\stdout",
+          "size": 211,
+          "sha256": "455bf708440e0b1b71048e2972837210baf6604b42939c8391a3e062dc5612ec",
+          "decoder": "utf-8-sig errors=replace",
+          "replacementCount": 0
+        },
+        "stderr": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\readonly-validate\\stderr",
+          "size": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "decoder": "utf-8-sig errors=replace",
+          "replacementCount": 0
+        },
+        "productBuild": false
+      }
+    },
+    {
+      "id": "execute-missing-receipt",
+      "passed": true,
+      "detail": {
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\executor.py",
+          "execute",
+          "--contract-sha256",
+          "37af732d7d30629d71cd3fb8e66bc18d77352bbef2ff3191de920743ced4a2d9"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1",
+        "exitCode": 2,
+        "stdout": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\execute-missing-receipt\\stdout",
+          "size": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "decoder": "utf-8-sig errors=replace",
+          "replacementCount": 0
+        },
+        "stderr": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\execute-missing-receipt\\stderr",
+          "size": 112,
+          "sha256": "9cb58143887b1afe5d907c4ebd972a8c2008e063bb4fb52d895bd3457a29e834",
+          "decoder": "utf-8-sig errors=replace",
+          "replacementCount": 0
+        },
+        "productBuild": false
+      }
+    },
+    {
+      "id": "future-root-absent-after-real-cli",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "contract-owner",
+      "passed": true,
+      "detail": "authority identity"
+    },
+    {
+      "id": "contract-supervisor",
+      "passed": true,
+      "detail": "authority identity"
+    },
+    {
+      "id": "contract-futureRoot",
+      "passed": true,
+      "detail": "exact roots"
+    },
+    {
+      "id": "contract-executorRoot",
+      "passed": true,
+      "detail": "exact roots"
+    },
+    {
+      "id": "contract-mode",
+      "passed": true,
+      "detail": "single product-only build"
+    },
+    {
+      "id": "contract-maxBuildInvocations",
+      "passed": true,
+      "detail": "single product-only build"
+    },
+    {
+      "id": "contract-executionAuthorizedByPreparation",
+      "passed": true,
+      "detail": "preparation cannot authorize execution"
+    },
+    {
+      "id": "contract-expectedProductSha256",
+      "passed": true,
+      "detail": "immutable expected identity"
+    },
+    {
+      "id": "contract-expectedAudioSha256",
+      "passed": true,
+      "detail": "immutable expected identity"
+    },
+    {
+      "id": "contract-formalEntry",
+      "passed": true,
+      "detail": "offline scope"
+    },
+    {
+      "id": "contract-runtimeProbes",
+      "passed": true,
+      "detail": "offline scope"
+    },
+    {
+      "id": "contract-sharedWrites",
+      "passed": true,
+      "detail": "offline scope"
+    },
+    {
+      "id": "contract-receiptPath",
+      "passed": true,
+      "detail": "exact future receipt location"
+    },
+    {
+      "id": "in-memory-field-schema-only",
+      "passed": true,
+      "detail": "No receipt written or used for execution"
+    },
+    {
+      "id": "receipt-decision",
+      "passed": true,
+      "detail": "receipt field mismatch: decision"
+    },
+    {
+      "id": "receipt-supervisor",
+      "passed": true,
+      "detail": "receipt field mismatch: supervisor"
+    },
+    {
+      "id": "receipt-owner",
+      "passed": true,
+      "detail": "receipt field mismatch: owner"
+    },
+    {
+      "id": "receipt-contractSha256",
+      "passed": true,
+      "detail": "receipt field mismatch: contractSha256"
+    },
+    {
+      "id": "receipt-materializationSha256",
+      "passed": true,
+      "detail": "receipt field mismatch: materializationSha256"
+    },
+    {
+      "id": "receipt-planningPlanSha256",
+      "passed": true,
+      "detail": "receipt field mismatch: planningPlanSha256"
+    },
+    {
+      "id": "receipt-authorizedOutput",
+      "passed": true,
+      "detail": "receipt field mismatch: authorizedOutput"
+    },
+    {
+      "id": "receipt-maxBuildInvocations",
+      "passed": true,
+      "detail": "receipt field mismatch: maxBuildInvocations"
+    },
+    {
+      "id": "receipt-sharedWrites",
+      "passed": true,
+      "detail": "receipt field mismatch: sharedWrites"
+    },
+    {
+      "id": "receipt-releaseWrites",
+      "passed": true,
+      "detail": "receipt field mismatch: releaseWrites"
+    },
+    {
+      "id": "receipt-entryActivationAuthorized",
+      "passed": true,
+      "detail": "receipt field mismatch: entryActivationAuthorized"
+    },
+    {
+      "id": "receipt-runtimeProbesAuthorized",
+      "passed": true,
+      "detail": "receipt field mismatch: runtimeProbesAuthorized"
+    },
+    {
+      "id": "receipt-scriptPins",
+      "passed": true,
+      "detail": "receipt exact script set required"
+    },
+    {
+      "id": "receipt-not-supervisor-path",
+      "passed": true,
+      "detail": "only current supervisor exact receipt path accepted"
+    },
+    {
+      "id": "materialization-missing-row",
+      "passed": true,
+      "detail": "exact184 files required"
+    },
+    {
+      "id": "materialization-duplicate",
+      "passed": true,
+      "detail": "duplicate destination"
+    },
+    {
+      "id": "materialization-outside-root",
+      "passed": true,
+      "detail": "outside write root: D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\outside.cs"
+    },
+    {
+      "id": "materialization-source-tamper",
+      "passed": true,
+      "detail": "pin mismatch: D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\prepared\\source-tree\\audio\\AudioAssets.cs"
+    },
+    {
+      "id": "write-traversal",
+      "passed": true,
+      "detail": "outside write root: D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\..\\outside"
+    },
+    {
+      "id": "ADS-destination",
+      "passed": true,
+      "detail": "outside write root: D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\x:stream"
+    },
+    {
+      "id": "environment-injection-discarded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "environment-path-fixed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "copy-byte-independent",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "copy-existing-refused",
+      "passed": true,
+      "detail": "refuse overwrite"
+    },
+    {
+      "id": "copy-bad-pin-before-write",
+      "passed": true,
+      "detail": "pin mismatch: D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\copy-fixture\\source.bin"
+    },
+    {
+      "id": "copy-bad-pin-no-file",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "job-success",
+      "passed": true,
+      "detail": {
+        "exitCode": 0,
+        "completed": true,
+        "timeout": false,
+        "interrupted": false,
+        "jobAssigned": true,
+        "processTreeEnded": true,
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-c",
+          "import sys;sys.stdout.buffer.write(b'raw\\x00\\xff');sys.stderr.buffer.write(b'error\\xfe');sys.stdout.flush();sys.stderr.flush()"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\synthetic-success",
+        "pid": 15880,
+        "resumed": true,
+        "postExitDrainLimitSeconds": 2,
+        "kind": "synthetic-python-only",
+        "events": [
+          {
+            "pid": 15880,
+            "jobAssigned": true,
+            "resumed": false
+          },
+          {
+            "pid": 15880,
+            "jobAssigned": true,
+            "resumed": true
+          }
+        ],
+        "stdout": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\synthetic-success\\stdout",
+          "size": 5,
+          "sha256": "2c04c3f8f309ba44e72590389e1f58e0bda078bee8c915b47bcb9ce438831ee6",
+          "decoder": "utf-8-sig errors=replace",
+          "replacementCount": 1
+        },
+        "stderr": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\synthetic-success\\stderr",
+          "size": 6,
+          "sha256": "001309a4a690cd49c30ef630e968a27a515a8b27ea2c1482d031d0517ea76cf3",
+          "decoder": "utf-8-sig errors=replace",
+          "replacementCount": 1
+        }
+      }
+    },
+    {
+      "id": "raw-bytes-preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "decoder-loss-only-display",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "nonzero-preserved",
+      "passed": true,
+      "detail": {
+        "exitCode": 7,
+        "completed": false,
+        "timeout": false,
+        "interrupted": false,
+        "jobAssigned": true,
+        "processTreeEnded": true,
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-c",
+          "import sys;print('preserved failure',flush=True);sys.exit(7)"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\synthetic-nonzero",
+        "pid": 23872,
+        "resumed": true,
+        "postExitDrainLimitSeconds": 2,
+        "kind": "synthetic-python-only",
+        "events": [
+          {
+            "pid": 23872,
+            "jobAssigned": true,
+            "resumed": false
+          },
+          {
+            "pid": 23872,
+            "jobAssigned": true,
+            "resumed": true
+          }
+        ],
+        "stdout": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\synthetic-nonzero\\stdout",
+          "size": 19,
+          "sha256": "911a91e2760dff223014a60bcb1bef219dbbdd077a80d52f932c7ec3d62db629",
+          "decoder": "utf-8-sig errors=replace",
+          "replacementCount": 0
+        },
+        "stderr": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\synthetic-nonzero\\stderr",
+          "size": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "decoder": "utf-8-sig errors=replace",
+          "replacementCount": 0
+        }
+      }
+    },
+    {
+      "id": "timeout-owned-tree-ended",
+      "passed": true,
+      "detail": {
+        "exitCode": null,
+        "completed": false,
+        "timeout": true,
+        "interrupted": false,
+        "jobAssigned": true,
+        "processTreeEnded": true,
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-c",
+          "import subprocess,sys,time;p=subprocess.Popen([sys.executable,'-B','-c','import time;time.sleep(30)']);print('owned child',p.pid,flush=True);time.sleep(30)"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\synthetic-timeout-tree",
+        "pid": 23304,
+        "resumed": true,
+        "terminatedOwnedJob": true,
+        "kind": "synthetic-python-only",
+        "events": [
+          {
+            "pid": 23304,
+            "jobAssigned": true,
+            "resumed": false
+          },
+          {
+            "pid": 23304,
+            "jobAssigned": true,
+            "resumed": true
+          }
+        ],
+        "stdout": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\synthetic-timeout-tree\\stdout",
+          "size": 19,
+          "sha256": "79875134efe7fbe4d4e7f3549b397a2e48567dab54e5b0b191f4e9de47cafb8f",
+          "decoder": "utf-8-sig errors=replace",
+          "replacementCount": 0
+        },
+        "stderr": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\synthetic-timeout-tree\\stderr",
+          "size": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "decoder": "utf-8-sig errors=replace",
+          "replacementCount": 0
+        }
+      }
+    },
+    {
+      "id": "timeout-partial-raw-preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "interrupt-owned-tree-ended",
+      "passed": true,
+      "detail": {
+        "exitCode": null,
+        "completed": false,
+        "timeout": false,
+        "interrupted": true,
+        "jobAssigned": true,
+        "processTreeEnded": true,
+        "argv": [
+          "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "-c",
+          "import time;time.sleep(30)"
+        ],
+        "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\synthetic-interrupt",
+        "pid": 22840,
+        "resumed": true,
+        "error": "KeyboardInterrupt('synthetic interruption')",
+        "terminatedOwnedJob": true,
+        "kind": "synthetic-python-only",
+        "events": [
+          {
+            "pid": 22840,
+            "jobAssigned": true,
+            "resumed": false
+          },
+          {
+            "pid": 22840,
+            "jobAssigned": true,
+            "resumed": true
+          }
+        ],
+        "stdout": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\synthetic-interrupt\\stdout",
+          "size": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "decoder": "utf-8-sig errors=replace",
+          "replacementCount": 0
+        },
+        "stderr": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2\\synthetic-interrupt\\stderr",
+          "size": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "decoder": "utf-8-sig errors=replace",
+          "replacementCount": 0
+        }
+      }
+    },
+    {
+      "id": "execute-gate-inside-entry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "future-root-still-absent",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "protected-entry-and-manifest-unchanged",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "count": 53,
+  "productBuilds": 0,
+  "candidateRuntimeProbes": 0,
+  "syntheticPythonProcesses": 4,
+  "syntheticDescendants": 1,
+  "futureRootCreated": false,
+  "receiptFilesCreated": 0,
+  "rawLogsRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-r2"
+}

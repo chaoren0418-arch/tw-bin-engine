@@ -1,0 +1,51 @@
+{
+  "schema": "r34-actual-release-root-acceptance-v1",
+  "utc": "2026-10-29T04:46:52.616360+00:00",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "decision": "accepted-sealed-offline-r34-release",
+  "releaseSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\release-seal.json",
+    "size": 2867987,
+    "sha256": "955ea88173cb36cecaefb6d5e9bbce7d76dfd7bf39ccd7830e56a269ab3155c3"
+  },
+  "packagePlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\package-plan.json",
+    "size": 1099423,
+    "sha256": "939fcbd2176d1360b510153993f43deacf91b34a3b1737fb4d91ad8b30bb0c01"
+  },
+  "releaseReceipt": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\release-acceptance.json",
+    "size": 5501,
+    "sha256": "98053457e8accacbfce4618f3fe6906b04c1f17ce0483167f2ec5907085770df"
+  },
+  "fullVerifierCommand": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-full-release-command.json",
+    "size": 744,
+    "sha256": "dde6510c730560798401c4ff93de2f98a7bf0bd662e500f197169687bbb1075b"
+  },
+  "fullVerifierOutput": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-full-release.stdout",
+    "size": 410,
+    "sha256": "13f9bd04a1154e1dcffdbbf85281a157989ea926a37023a4da996086e046b786"
+  },
+  "sealedFiles": 16252,
+  "independentPlanCopies": 2290,
+  "actualAssetSamefiles": 13958,
+  "canonicalAssertions": 4521,
+  "canonicalObservations": 93,
+  "nativeAccepted": false,
+  "rootEntryActivated": false,
+  "wholeProjectComplete": false,
+  "knownLimitations": [
+    "other41profiles not implemented",
+    "same-version native and full mouse/6016 map4 routes unverified",
+    "sealed r2 general plan generator RG2 omission corrected only in exact accepted plan",
+    "extra optional synthetic provenance fixture could not be copied; required provenance complete"
+  ],
+  "identities": {
+    "productDllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+    "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "productManifestSha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d",
+    "launcherDllSha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8"
+  }
+}

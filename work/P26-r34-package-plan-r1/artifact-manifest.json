@@ -1,0 +1,56 @@
+{
+  "schema": "r34-package-plan-attempt-manifest-v1",
+  "files": [
+    {
+      "path": "generation-result.json",
+      "size": 1021,
+      "sha256": "d5b0e3deba495c40ae5cfc43586e5e86381cc700f4d14ad63eef2199c75ca78f"
+    },
+    {
+      "path": "generator.command.json",
+      "size": 1002,
+      "sha256": "99f3816d0ee876f6d4a8cfc514ff7c314a0e1fd8f4354820e2c3c07989178360"
+    },
+    {
+      "path": "generator.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "generator.stdout",
+      "size": 373,
+      "sha256": "764c6657749851e1c9ce7b49f5ca20919dbfe7f8f92980152b5c35d0c37aa278"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 2003,
+      "sha256": "40a39391022142a2fef1818a98a1124ecf485b2cf0508c695f5b58317eac473c"
+    },
+    {
+      "path": "inventory-findings.json",
+      "size": 5965,
+      "sha256": "7f4c4007d896747a9818dc86ff512e1d1effa69fdb740522999490fae8374f40"
+    },
+    {
+      "path": "inventory-verification-failure.json",
+      "size": 661,
+      "sha256": "74511db6cda46771f338f15f78f756b53516b617793eb52418d6152100f7d6b4"
+    },
+    {
+      "path": "package-plan.json",
+      "size": 1098050,
+      "sha256": "a831ca6dbbe13dee16bf544b6ff9f1ea3284ff7091915af23685ab8827d0d890"
+    },
+    {
+      "path": "result.json",
+      "size": 5877,
+      "sha256": "d07d13eecb17cc723490a81d3256219de6b8b81d547f1a0ae794dd18fbd94861"
+    },
+    {
+      "path": "verify_plan_inventory.py",
+      "size": 5986,
+      "sha256": "7aec137c2bf345891d259111f697988ee0576a1c6525f6cc25ea24d8454b2afd"
+    }
+  ],
+  "acceptedForPackaging": false
+}

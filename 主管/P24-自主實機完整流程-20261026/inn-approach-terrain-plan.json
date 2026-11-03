@@ -1,0 +1,16 @@
+{
+  "utc": "2026-10-26T18:20:04.429Z",
+  "planningOnly": true,
+  "sourceState": "r13-return-arrival-state.json",
+  "start": [
+    32632,
+    32979
+  ],
+  "target": [
+    32594,
+    32931
+  ],
+  "avoidCapturedKurtRadius": 6,
+  "path": null,
+  "limitation": "NPCs and monsters move; live per-step observations and HP guard remain authoritative."
+}

@@ -1,0 +1,94 @@
+{
+  "schema": "p37-independent-inventory-review-v1",
+  "status": "accepted-actual-p37-inventory-only",
+  "decision": "accepted-inventory-only",
+  "utc": "2026-10-29T09:16:57.721323+00:00",
+  "reviewer": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "executionArtifactSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-execution-r1\\artifact-seal.json",
+    "size": 705,
+    "sha256": "5a6dee83c3ed2a0fdc856b40703f6db517f1920b4997ebe62e4f2812a2a466c0"
+  },
+  "executionCommand": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-execution-r1\\command.json",
+    "size": 1271,
+    "sha256": "6b90c34810d8740d211bd8c1974f940848135024b83c6cb3c32069d14d047646"
+  },
+  "rawInventory": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-execution-r1\\inventory.stdout.json",
+    "size": 58242,
+    "sha256": "2bb58c3c48b576a213c05f5a9b2835e5f2ed4b717afe8fbbe8719009780bc778"
+  },
+  "executionArtifactMembersVerified": 8,
+  "rows": 210,
+  "categories": {
+    "source": 181,
+    "build": 15,
+    "productManifest": 1,
+    "inheritedLauncher": 4,
+    "evidence": 9
+  },
+  "allRowsExact": true,
+  "fourIdentities": {
+    "productDllSha256": {
+      "path": "build/client-product-p36-r1/P11.ClientEngine.dll",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1\\P11.ClientEngine.dll",
+      "size": 4925440,
+      "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+    },
+    "audioDllSha256": {
+      "path": "build/client-product-p36-r1/P24.Audio.dll",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1\\P24.Audio.dll",
+      "size": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    "productManifestSha256": {
+      "path": "build/product-p36-r1-manifest.json",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-p36-r1-manifest.json",
+      "size": 4715,
+      "sha256": "d55389e048aee9eb2b64088ddfb0128de6166071e21969bd1dd57b9464d9ce75"
+    },
+    "launcherDllSha256": {
+      "path": "launcher/P24.Launcher.dll",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\launcher\\P24.Launcher.dll",
+      "size": 24064,
+      "sha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8"
+    }
+  },
+  "protectedPinsUnchanged": 33,
+  "assetsJunctionUnchanged": true,
+  "provisionalCorePinsUnchanged": true,
+  "unresolvedFindings": [],
+  "authorInventoryCliInvocations": 1,
+  "reviewerInventoryCliInvocations": 0,
+  "productBuilds": 0,
+  "productRuntimeRuns": 0,
+  "sharedWrites": false,
+  "fullReleaseAccepted": false,
+  "nativeAccepted": false,
+  "launcherRebuilt": false,
+  "launcherUsabilityAccepted": false,
+  "inheritedRuntimeEvidenceNotNew": true,
+  "formalEntry": "r33",
+  "entryActivated": false,
+  "wholeProjectComplete": false,
+  "evidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-review-r1\\inventory-review.json",
+      "size": 1969,
+      "sha256": "19477448a3e0a586ea4379a92b1ac3396de89a3bd71375b9d7fbcf755323e015"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-review-r1\\provisional-pins.json",
+      "size": 1746,
+      "sha256": "9189f647be7cd56988843a2448138be3818089770bbb6237ebf84daceae85994"
+    }
+  ],
+  "goalActualStatus": "historical I01 blocked; unchanged",
+  "deniedActivation": {
+    "dispatchId": "ENGINE-R34-ENTRY-ACTIVATE-P26-R1",
+    "status": "send_message_to_thread automatic approval review denied; not executed/retried",
+    "reason": "此派工會持久修改正式入口與 project-manifest，將 r34 提升為現行產品版本，屬外部／正式承諾；使用者只授權引擎開發，未明確授權這次入口啟用，且政策不以先前助手派工替代該核准。"
+  }
+}

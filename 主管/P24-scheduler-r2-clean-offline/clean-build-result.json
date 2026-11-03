@@ -1,0 +1,54 @@
+{
+  "status": "pass",
+  "pid": 83280,
+  "exitCode": 0,
+  "seconds": 8.53200000000652,
+  "scope": "Provisional offline independent build; not formal freeze/live acceptance",
+  "outputs": [
+    {
+      "path": "build/client/Microsoft.Web.WebView2.Core.dll",
+      "sha256": "d60e6e94245078cb56e44ebd5f360dc04bf18e460136be93bfc4cfca43b98505",
+      "size": 698208
+    },
+    {
+      "path": "build/client/Microsoft.Web.WebView2.Core.xml",
+      "sha256": "8684cd74000c77533e563785208308ada63808da85825206856cab11a9eeffce",
+      "size": 612031
+    },
+    {
+      "path": "build/client/Microsoft.Web.WebView2.WinForms.dll",
+      "sha256": "84b5772260dbdfe95591197edc9315dcd2cc86ad610e4b14ddd5e4291e31a381",
+      "size": 39264
+    },
+    {
+      "path": "build/client/Microsoft.Web.WebView2.WinForms.xml",
+      "sha256": "6a8ec199373824fdebceda7b3d780d0b31c82edceae04d92391027c971dea6c2",
+      "size": 41869
+    },
+    {
+      "path": "build/client/P11.ClientEngine.deps.json",
+      "sha256": "021414853710328cc032d7dc8df113057a8f60ff015b272bc06904a801631c34",
+      "size": 2413
+    },
+    {
+      "path": "build/client/P11.ClientEngine.dll",
+      "sha256": "a655d70fc3d974eaaeb093a98e9bf882ac4adebb67adae1356dd1e0f23d18006",
+      "size": 1613824
+    },
+    {
+      "path": "build/client/P11.ClientEngine.exe",
+      "sha256": "73e816f7a6e6079443a3e4079d5ec2de46072b1d0869231586e4794301c9563f",
+      "size": 162304
+    },
+    {
+      "path": "build/client/P11.ClientEngine.pdb",
+      "sha256": "7efa267d1392220d0d5ca583f2987ab8969518d2a3a3e2e8c0353f6695cd41ce",
+      "size": 250796
+    },
+    {
+      "path": "build/client/P11.ClientEngine.runtimeconfig.json",
+      "sha256": "96bc2946dff8790400d652ec7f8de7bb043e954980d59470c112788b68a1fbd3",
+      "size": 519
+    }
+  ]
+}

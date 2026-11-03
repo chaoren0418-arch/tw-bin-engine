@@ -1,0 +1,865 @@
+{
+  "sources": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\artifact-manifest.json",
+      "bytes": 23759,
+      "sha256": "aecf48c342d082c17520351f992a387b880dc980ab4c500143036ce35f86b07a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\result.json",
+      "bytes": 3127,
+      "sha256": "446361792ed63eb83b5369677d48d637ca7be0e5a8b5d7ae8d3337c178577e0e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\source-contract.json",
+      "bytes": 6708,
+      "sha256": "e81305a50c2ce4186a02930cd694b43e8e9701466b0286ff4105bc089c76db90"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\analysis-boundaries.json",
+      "bytes": 1675,
+      "sha256": "c7a8e4b05d22111e3a75b0dfa67493cdb034627d361a06414fb16426549130de"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\build_reports.py",
+      "bytes": 15147,
+      "sha256": "efbd3d69643300c26b32ee21dd509f43fdc9a5fd2aadcd89836cd091d5a72198"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\collect.py",
+      "bytes": 3866,
+      "sha256": "8e2a79377df672ac1806fd8828f1eda585cecd704d65657d24ab0ab77036c36b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\dispatch-tables.json",
+      "bytes": 847,
+      "sha256": "4421579bd3e9449fd84aa01741cbcc55cfccc23598b473f162659dae3c192804"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\evidence\\verification-before-seal.json",
+      "bytes": 313,
+      "sha256": "af4d18b9a651e766ec51f87a4b9023ee222d7af51f86ac89308532deba697281"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\extend.py",
+      "bytes": 2109,
+      "sha256": "fe09a35fca0f7c079e8770d4c60384eb4b8a1a825acb6f73f4b4b2a4fca7f073"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\extend2.py",
+      "bytes": 1252,
+      "sha256": "e0e7bf5e57c982fa3bcc26f45a3d33d3912dd4412444acaa9215d6f966ca3b63"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\finalize_evidence.py",
+      "bytes": 1728,
+      "sha256": "997353ebcf2e29605890070a0fca807c26dfe3e36270b5fc47b67f2ade979fd0"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\goal-read.json",
+      "bytes": 49,
+      "sha256": "39e22d83692f3f221822fcc9123436da59d7156fc021dba4beb30bd93d729a6d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\HANDOFF.md",
+      "bytes": 8121,
+      "sha256": "680de2dd45175070609aaf363642595013f03fff3a94cf6e38484e96a3455d81"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\imports.json",
+      "bytes": 94169,
+      "sha256": "963a4c0698da528687121cb5f691af4f465467bc60363f2d99bac84585467d8f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\004e7f50.bin",
+      "bytes": 48,
+      "sha256": "420353e7248a3102dd899ea07d97470309b82685fe1beecb0893adc5a2817086"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\004e7f50.txt",
+      "bytes": 1186,
+      "sha256": "33a98be96c13d5f1594b7473780081347f80b3d49b0db99e6432387bdda31f2b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00516180.bin",
+      "bytes": 48,
+      "sha256": "fb6598dacee7038ba1f5464273717ea711994aadb7b4e2266a97061ae999f906"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00516180.txt",
+      "bytes": 1303,
+      "sha256": "25733a35c7be38122b63b1d0ded5c8bb7d9ad0fc7ec8acc36a658ff6b44d240b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\005161b0.bin",
+      "bytes": 48,
+      "sha256": "f73f35ae999b916bf0839bf42866a62957a4c183e6a9f9d12a970f6d3b78c81e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\005161b0.txt",
+      "bytes": 1303,
+      "sha256": "90bcc32e6e15792e71bcfe5d2178af850b2d9ba3345d847d931deea5aea92073"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00516290.bin",
+      "bytes": 48,
+      "sha256": "c609bfd16248e1114a6084b3e2278e505d70a5c17d3deba3fac2f6b4d989e974"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00516290.txt",
+      "bytes": 1303,
+      "sha256": "90090eb2d14c23357644726d0e8019c698e0d9a0aa5c718e225351b998e446ba"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0051e860.bin",
+      "bytes": 16,
+      "sha256": "7e31caca15f92bd7b3289cc2d8d2c2a4d7e636eb4c8b8edc4c12fc657f52e00c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0051e860.txt",
+      "bytes": 453,
+      "sha256": "65d0593a56cbdda8f973018f55e63a576409f67f29abe13fb5ffa6dfec92ed35"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0051e8e0.bin",
+      "bytes": 32,
+      "sha256": "fcca38d99c0b3f433c951c284a858e12168d5b5e6ad1da1b45d2fdb7fb02158c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0051e8e0.txt",
+      "bytes": 838,
+      "sha256": "e175ed9a001ad20daf1e2197039e0ccad4ecf8699b3c22980ac1032907e94196"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0051e920.bin",
+      "bytes": 32,
+      "sha256": "49d01631654ead62a105a09c40e3022aeb31bc78ab1238984d5fe3b9dbe566ca"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0051e920.txt",
+      "bytes": 838,
+      "sha256": "cdf11dd150c718f1f2c08ba7d2d689b5e422119702fcaa698e8da149ca52e6f7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0051f3e0.bin",
+      "bytes": 32,
+      "sha256": "4819960437fe944ec7d9649ef9c19f88e77e4020f2b8373b2a6c2d0a8f3a2ef4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0051f3e0.txt",
+      "bytes": 1075,
+      "sha256": "5719b8d3eb470bb784a7ce4b13e1ed26802b41bf5623032968bf2dd054f4a595"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00521e20.bin",
+      "bytes": 176,
+      "sha256": "a46d70a8d96c001c7e7c39c66ea819bdbda654765594d05dd41818123c597ea2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00521e20.txt",
+      "bytes": 2820,
+      "sha256": "4f42315a0a10a7d6684a5df2679a5ede8d3deb40642c4eb90381646322a7a21e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0066d320.bin",
+      "bytes": 48,
+      "sha256": "325d14546fb35bc27529919875cddb84ceefcf186177184aef77001f8e37fe5e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0066d320.txt",
+      "bytes": 1312,
+      "sha256": "e35e12e4f471754a4ba4a8d11f8b37749ebf19d52e0fdad1d9f395477f7d1b34"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0066d3b0.bin",
+      "bytes": 48,
+      "sha256": "e8f1ccb5ce7e98de6ab5dc7ed2658ff2f30e24e7699bb7fdb9be17be5b425890"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0066d3b0.txt",
+      "bytes": 1245,
+      "sha256": "7ef5fba4e259cc3b2f860332d5814382bf39227f8fe02bcaa0b669d9f5c63872"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0066d480.bin",
+      "bytes": 64,
+      "sha256": "98a6c965a88659dd423807bf3293866d3785bedbe56b4fed5b0859dfc658b3f6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0066d480.txt",
+      "bytes": 1341,
+      "sha256": "35e898739fb33fc856d35310d275dc2151b26cadad1482453056f112fcf546d5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0066d540.bin",
+      "bytes": 48,
+      "sha256": "819a119983b3d02152a35c055502c760b86498e96812f5f15b96dbf9c69fc373"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0066d540.txt",
+      "bytes": 1245,
+      "sha256": "f6034b3287caf8be4fd9f75960b5bffeb43bf9865216f2b6f35252f6df7263ba"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00920e70.bin",
+      "bytes": 32,
+      "sha256": "1df11a5b68834cf3322667dfbba698e84c43a7d733435dfcbc212a47857abc29"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00920e70.txt",
+      "bytes": 867,
+      "sha256": "f166f0b80a31b1f5fe74d9019070649d73f2470c018ae5e483ad90132772c332"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0092ad40.bin",
+      "bytes": 80,
+      "sha256": "1df7787416b89606e982422a6071f1f32f7ce3eb5e004d3112c26d999160865c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0092ad40.txt",
+      "bytes": 1696,
+      "sha256": "58be0fe965149a3a1dc75db83566843fd7ad4dab865a3e2f9ae6b17d5c42564d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0092cb70.bin",
+      "bytes": 2000,
+      "sha256": "81d34316824d70fa25b782a344b20c920802c95a8cae3a2a00f7bc680778d4e4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0092cb70.txt",
+      "bytes": 31639,
+      "sha256": "d7a45032cedd2e2302b723f46b28d11ea0595fce374c5075046f284ce91befa1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a21cf0.bin",
+      "bytes": 32,
+      "sha256": "80d6168b6887461c779ad4a5c20ae94b3931065f7c38d441bcc9ba60aeaeeed0"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a21cf0.txt",
+      "bytes": 724,
+      "sha256": "eae084cdde40cd9189d9fe92482e6aa6ccf323f9456d53d24167e009b3fa283c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a22830.bin",
+      "bytes": 128,
+      "sha256": "99493c9e659d490f928ad76cb8e985659f22e7a141a234f8da2595585bbf365a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a22830.txt",
+      "bytes": 2808,
+      "sha256": "8e45d9b5262cbf9177bc5873680080772b5ff180ba19e05e7ec1977deed2b5cd"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a228b0.bin",
+      "bytes": 96,
+      "sha256": "ac6e00255fd8357e64accb3456027b8b085afa4f08d4623fe79fc3bfbc44f48c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a228b0.txt",
+      "bytes": 1839,
+      "sha256": "0226114da4bca498b4c18f29ff73e211283ec0ce6c9f684d13d4b9830a9b16fa"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a22910.bin",
+      "bytes": 128,
+      "sha256": "f44154607e03e70f47abcae9de9d1d9dec93b21f7e0f526b046dedd349c11f80"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a22910.txt",
+      "bytes": 2863,
+      "sha256": "e7023b33c5f190adbd5fc7eacc142c8445c1c1923dce531fa64ad380fe959f00"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a229b0.bin",
+      "bytes": 80,
+      "sha256": "0f4f0fd747535f2d4137ec680521bb9bb277087644284ad3b9f42fce0ff0c7d9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a229b0.txt",
+      "bytes": 1685,
+      "sha256": "0af8f9972bee8a5660926b3df3321680cbfda93981c4e3d870a1bcc47e6fe51d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a231c0.bin",
+      "bytes": 160,
+      "sha256": "f3f4da7e5e162ccc182fdd71d1cc24dc1c57d61d07183da66c9a58ea5a13a927"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a231c0.txt",
+      "bytes": 3215,
+      "sha256": "f913ee35d9df3bb112c8ca205f96e60f8a73e0cbc1660aedb580d41e4c4a865c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a23260.bin",
+      "bytes": 144,
+      "sha256": "cb28bc688f04ce8116aaaccd04439fe2409e74c246b489866e93270b0808c543"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a23260.txt",
+      "bytes": 2829,
+      "sha256": "f0d1c724d37a04d4346924f5e46c718a05f7be3abbb7692b8d7f6d582979b80e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a23360.bin",
+      "bytes": 128,
+      "sha256": "640d0cea570886dca2c3923ba61e204a7f559f83c49d95b86e9c3c57d54c044a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a23360.txt",
+      "bytes": 2311,
+      "sha256": "b3b1ae29c77362c38a6e1cd87e49d91bdf13f54ab8174e4f455842852e73079d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a23ac0.bin",
+      "bytes": 112,
+      "sha256": "554af572006cd85edb2cfecaf9c3d45e176ea4e6bea92bf116884dec9854e4f8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a23ac0.txt",
+      "bytes": 2377,
+      "sha256": "4f60276541ea6efc89e73f4ba4cf808ba57559e0b2f31d49b00f14f303b8a52e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a3c070.bin",
+      "bytes": 144,
+      "sha256": "a4819e775204d3424babef0123b62ace2e9f5e4b5e272e381e243b5b88e502c9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a3c070.txt",
+      "bytes": 2959,
+      "sha256": "ace0a3a4a6afe48cab89cf3c449f215c254df1a71576176b5da8c989c234195a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a3c100.bin",
+      "bytes": 64,
+      "sha256": "01a665e9c48fc0cdd0f2a68e9fea5ad4fd4c4a78fcc11efe3ec20c07707b4181"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a3c100.txt",
+      "bytes": 1654,
+      "sha256": "1ad4cc3ebb6eff992f8250efb700cd9cff046a7731bed2254302a4b436456944"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a3c4f0.bin",
+      "bytes": 176,
+      "sha256": "a7e0cff74bf9300e7e77fe55a63cfc257c50211f3047df550c8ed041ca9b2385"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a3c4f0.txt",
+      "bytes": 3371,
+      "sha256": "dfcb33b75e729fe8da349059475ee26cf430cd54cef62a306692d010338432d4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a3ebf0.bin",
+      "bytes": 352,
+      "sha256": "e2e88d1f929c4d09bd91498d649a9e0e6eccd59709b7b120a22c291642f8c3dd"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a3ebf0.txt",
+      "bytes": 5807,
+      "sha256": "2a52f498a7449802e8e24e85223890c23c69f0237c82423e8758056ce02050cb"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a40530.bin",
+      "bytes": 16,
+      "sha256": "0f78dad7639f67e6b5924af7c53d999bad85694c281a6d4a077d0382ff12ad6a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a40530.txt",
+      "bytes": 624,
+      "sha256": "484aae301a40814f45629559e632dae7b95aa69b94ceab62761fa990265e3b57"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a40540.bin",
+      "bytes": 16,
+      "sha256": "0f78dad7639f67e6b5924af7c53d999bad85694c281a6d4a077d0382ff12ad6a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a40540.txt",
+      "bytes": 624,
+      "sha256": "9589eb9ecbbe10f14d36d89ed3aaf67b502d1d568978157c0399060c18d454b6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a40660.bin",
+      "bytes": 48,
+      "sha256": "7cc8bec67f6e7f4d7d362c356984df70adabfcea32d52c9f16196e66d2980b0a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a40660.txt",
+      "bytes": 1246,
+      "sha256": "8e3fadb78172e6cd1569d343626cfc388ed1f9d1f35c8a0dd6650c323699a570"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a41490.bin",
+      "bytes": 32,
+      "sha256": "4819960437fe944ec7d9649ef9c19f88e77e4020f2b8373b2a6c2d0a8f3a2ef4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a41490.txt",
+      "bytes": 1075,
+      "sha256": "b9b15d7bf880c99743819d7dc20dd25d28ec8b33de9874f3a094fa6f0441887b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a42140.bin",
+      "bytes": 240,
+      "sha256": "2bd45f6e13d970076f2524c49bb069fc1f288680f101cc55ce3557864189da27"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a42140.txt",
+      "bytes": 4657,
+      "sha256": "b1c5ca956afe39200303951d4d079e7d9e400a380dddfbefb91b05a0dc9b8efb"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a43170.bin",
+      "bytes": 480,
+      "sha256": "50a171f25dcebfbeae98703f47bdfa94195065788afb9afabcc6b1c3c3cb04fc"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a43170.txt",
+      "bytes": 7180,
+      "sha256": "c5a84eaf77bfb1f889b514707295c75afc8120be1b0b1a8a5248bc089ba7ff64"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a43560.bin",
+      "bytes": 848,
+      "sha256": "840decef9d69246ab5953e91d16bfd66ff53357c3024ef3fbf43583b31b6cc01"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a43560.txt",
+      "bytes": 14074,
+      "sha256": "04b3aa1113b4fdc0585d973a02b6992317fad1ab921c0f7c7e6661735da32a87"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a44500.bin",
+      "bytes": 688,
+      "sha256": "ae67b54523df6d0655c6dc63389285cba928e94415068b232d3dad13141e6ae1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a44500.txt",
+      "bytes": 11694,
+      "sha256": "002071ca1250ba1a2d33627a94ad67b8ed6aaac51054218aa9fc4f41b8c4fd3b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a447b0.bin",
+      "bytes": 48,
+      "sha256": "ad0ce59c1780a1f58b0d3377f25c56e138c847f92fab54dfe90588b91789c8bd"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a447b0.txt",
+      "bytes": 944,
+      "sha256": "9c18efc17bcb5e9be4d7b153ddb823e7042a00d72d528d2d957bd3c531a328a7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a44b60.bin",
+      "bytes": 80,
+      "sha256": "734b2a1157fc1d32ad189b62761e056aa9125c702c40d5e86ba2bba594ae8421"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a44b60.txt",
+      "bytes": 1620,
+      "sha256": "a3948d02d018e7474875220aefa14bbbd897c14dae28f4eb78de6d0184db3cb4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a44bb0.bin",
+      "bytes": 144,
+      "sha256": "3f05e5c3317a75fcf8719d2398db4d6fa4d6673fdc296b81faf0904b7a77a3ab"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a44bb0.txt",
+      "bytes": 2927,
+      "sha256": "d3cb7e0964c5be503eea7c1e578c0cd9a037f1f4a9ed8527322022f31c4244c4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a46620.bin",
+      "bytes": 384,
+      "sha256": "fcc71f9b41db1816754039bd26b5afeec9f8275ffac6df18d18d00f5a6e044a5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a46620.txt",
+      "bytes": 5870,
+      "sha256": "907d768467d65ddfb321c1c8ab477458bfcff1a695c41542ed845cbcb51a86d3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a4b060.bin",
+      "bytes": 2496,
+      "sha256": "7e23dc788a581acabdfabc393d657899057e48105e7836ac4d4c401cb5622b59"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a4b060.txt",
+      "bytes": 41584,
+      "sha256": "ce51b73028ac98c863afb3f04902cfd09e3023d84fc189aceb16b2a0fd3f6ead"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a4bf00.bin",
+      "bytes": 880,
+      "sha256": "f683e83b3321eb752e99d45c4b061565d9bb811c4dbe6693a1290e23a02cd539"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\00a4bf00.txt",
+      "bytes": 18462,
+      "sha256": "610df0dfa12845bbd1b97ffc78e21c199f25da22c0eaffa30ab468fa942ceed1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0103d5e0.bin",
+      "bytes": 192,
+      "sha256": "5584a24377705912d4084e3cac94c21edb48bf131ed46afbe924b40e48f95b0b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0103d5e0.txt",
+      "bytes": 4171,
+      "sha256": "b44fa1bc7e960bb30e3c2b0742300c1862e9743147ba8e24d9a17a134880b23a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0103d750.bin",
+      "bytes": 64,
+      "sha256": "b6a171abe65a378eeac09fdafb0f0727964af2e63bcb2276bae020e98e234d08"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\0103d750.txt",
+      "bytes": 1138,
+      "sha256": "8b2bceb7e5587b8b9e3c52ad41b4a9cf848434a74f7c3f72e406f87b2f51228f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\adopted-0xa3ef40.txt",
+      "bytes": 60111,
+      "sha256": "761aa96fa506b4db3bd9b7d7489b65088eddbbe03971eae988aa776040d46554"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\adopted-0xa407d0.txt",
+      "bytes": 28047,
+      "sha256": "79e14c32999a94289fe4c210381c10b527340bd1cfe5456bc60e6dc29421e290"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\adopted-0xa43560.txt",
+      "bytes": 13721,
+      "sha256": "29852870967ff8663bbd198ec90371b901c30e27b4872f2099b6814eaaf2027c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\adopted-0xa467a0.txt",
+      "bytes": 86825,
+      "sha256": "6a56e87964f8036bc757b969a34404a5c97d95b9f5010e0ceab110a688a504aa"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\consumer-switch.bin",
+      "bytes": 284,
+      "sha256": "d955dfa9fdf5b32c28faf03f07a542a9ed362f6dbedf4debce0937fcedd5cb39"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\scheduler-local-a22000-a23d00.bin",
+      "bytes": 7424,
+      "sha256": "e858a51ccad3a2acb3a54a507d0cc9a27096a8427793865794385e4832272aa6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\scheduler-local-a22000-a23d00.txt",
+      "bytes": 155231,
+      "sha256": "fc1158a48bac7f49c50e8bfdf84896788bad5c55274cc57cd44742f16297dbb4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-1150c24.bin",
+      "bytes": 160,
+      "sha256": "17c10b0205e6349386c7c66ffd167ce552fee950a6d72cd86040069d844bebc8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-1150e8c.bin",
+      "bytes": 160,
+      "sha256": "baba0e0dd8cd4e93aa17ba7b281942b0f2f75126457273cea6ff1d92f34151fe"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-1150f7c.bin",
+      "bytes": 160,
+      "sha256": "289034b57db28d830253de7c34a8d7a2446161eb31fbe1e58cde9eb39bb5d864"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-ref-51e7aa.bin",
+      "bytes": 78,
+      "sha256": "c3dc099c46a3826fbb072d0e7428bf1ad56e8b212d3cdc590cec963c5944924a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-ref-51e7aa.txt",
+      "bytes": 1189,
+      "sha256": "05e4c97e1e168daab59d3b7868bb6cdc943a505b8ac654434ecb077856cf4227"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-ref-51e7fb.bin",
+      "bytes": 63,
+      "sha256": "f1fdbe758467c5865f9581edc265536bd058f2bafe98bad3c81047ae69ad21c5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-ref-51e7fb.txt",
+      "bytes": 940,
+      "sha256": "3ab239672344e36b766e39066c0861ba6448cc8aaee1c6f1d2566d06de809747"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-ref-51f20c.bin",
+      "bytes": 96,
+      "sha256": "57b2c1e59151ad91d0ea4de53f796b33edd9bb6233bede82ffde2f79cb000c65"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-ref-51f20c.txt",
+      "bytes": 1353,
+      "sha256": "77208927d6d35d40038509325bc85244eb43ce12eea99c119ddf77067a3a8a0c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-ref-51f2cb.bin",
+      "bytes": 63,
+      "sha256": "ad52bdafdfb85025f20819b1e3c38a72b47fcbed88ec8fbb832a28a705c66121"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-ref-51f2cb.txt",
+      "bytes": 948,
+      "sha256": "920015dc61a5a01f4cb7b2b20c351d049bf0a87915f9128d96cd1b3f78dca372"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-ref-520dba.bin",
+      "bytes": 78,
+      "sha256": "687f4e92a3d6a050b4e7134af0b99662cc6a024651ed3e5cf0fb5ca7c1eddad7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-ref-520dba.txt",
+      "bytes": 1183,
+      "sha256": "6c17020c990538b497a9b5fc95cc943ed49ef49c0a011302a2c3265c8aa5811f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-ref-520f5d.bin",
+      "bytes": 65,
+      "sha256": "f6db9aabaa3dee36f206ed876ee36c255438bd40ae6649b5c8083d4e5504dae7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native\\vtable-ref-520f5d.txt",
+      "bytes": 1053,
+      "sha256": "9576fd5235e11681449590f3788e73fb2718727eed504d121e7b2f8b98d2c558"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\native-byte-audit.json",
+      "bytes": 20323,
+      "sha256": "c240da5b9255f4ce7f2ab96ac42df2519cb90c5edd626268cbf2a9d56792e557"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\0xa3ef40.c",
+      "bytes": 12971,
+      "sha256": "b4494eb67e243fb0b709322c8ecdecb71eb15e1519e4f5dea6bf6240818baee1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\0xa3ef40.json",
+      "bytes": 108545,
+      "sha256": "b43377adab4fadd67838d8efec44cb97bbe320a672d0e99e03cc0bcdd0ec456f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\0xa407d0.c",
+      "bytes": 5375,
+      "sha256": "6249cd93c3c8cb9213b5b359afe3f816e323e77c65dbbf5db83c047cb9111cfc"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\0xa407d0.json",
+      "bytes": 49638,
+      "sha256": "2f9549202bbb24e7898825c1cae74e1960b5709019339ae5edf7c32bf1b8af92"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\0xa43560.c",
+      "bytes": 3386,
+      "sha256": "70b51ee980621b578148ffe83c8cca575447c606d23b121c1681fee15381e4b5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\0xa43560.json",
+      "bytes": 26964,
+      "sha256": "591608eba014bbe515d61b2b811b8c20fa2e01ea6b54d90ea9163293cc2488fe"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\0xa467a0.c",
+      "bytes": 19511,
+      "sha256": "804890cf5e7f2bf53d1f822cff6fdb9d3b7e3dbc2164737444433f3a0318c05c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\0xa467a0.json",
+      "bytes": 156373,
+      "sha256": "8e625b303b4d9b20b41519c49ff6698b9b401ce5243b025f99a9d2a02253e276"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\asset-entry-identity-layers.json",
+      "bytes": 193191,
+      "sha256": "f05cbd6ba720ecbc3cbf62152e4b051b1200df4c501d9375858b9932ce069c61"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\asset-gaps.json",
+      "bytes": 6103,
+      "sha256": "c01fe9abbbaebba0c114a807b1875cceaab95e53c643ca254106de84bfade3da"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\asset-result.json",
+      "bytes": 1436,
+      "sha256": "163f1e6d2df4e8f11e9d7800ee2da4de1643e4e8caa1b3087858902f568b8c63"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\CONTRACT.md",
+      "bytes": 10910,
+      "sha256": "ad976cc46a98a560aa36fc085c129522bb0806c13c747add897114e0de45b613"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\details-index.json",
+      "bytes": 6794,
+      "sha256": "9a11614f6b7f0d14a2722fe03d10c21f1df87af5d3064e479a36a4f994cbc77b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\handler-92cb70.txt",
+      "bytes": 31639,
+      "sha256": "d7a45032cedd2e2302b723f46b28d11ea0595fce374c5075046f284ce91befa1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\pickup-frames.json",
+      "bytes": 75287,
+      "sha256": "3f7bea876ba6303b104c14889bcd6ba5dc58eb8fd74958070670065d75dd1453"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\source-contract.json",
+      "bytes": 3271,
+      "sha256": "8c29fd1b806789caec833e7b23cf7bfea719d912751e4429817d89b2b68fea65"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\prior\\vtable-references.json",
+      "bytes": 1725,
+      "sha256": "5d83ffec4853ab4d15cf239171ec20017675d89c362c765c30fce536f6e27a5a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\proof-index.json",
+      "bytes": 18001,
+      "sha256": "58e6fffd94f9f7ca82ce6c81527e4e0e642d265ea82f5475d0aad8303eaf6f92"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\relative-timeline.json",
+      "bytes": 2403,
+      "sha256": "c2b52c47eea863baae600fa677335c29f12cf104a54f5e63700610a66147a83f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\seal.py",
+      "bytes": 3297,
+      "sha256": "54691ad7d29a9fbd7cf9997bec4ca90dde3e8704aa5cd775f9a3b04a904d9920"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\source-pins.json",
+      "bytes": 6659,
+      "sha256": "e7c581edbd44cb43a84f2bb4a3409e5f99ffd04abe4d82e604e21aab2036ecd2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-scheduler-source-r1\\verify.py",
+      "bytes": 4617,
+      "sha256": "8167aec437206fc99930f44184e35e61d540f66e275c4b1c8f2528dd36aa3682"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r32\\_integration\\r32\\release-seal.json",
+      "bytes": 2442883,
+      "sha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-拾取生命週期修復-20261029\\baseline-final.json",
+      "bytes": 29654,
+      "sha256": "0c645bf5c3a515fd5da88cf28c834a4b2967aed268946d45fb5a6ebe9f03fcb7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\artifact-manifest.json",
+      "bytes": 46172,
+      "sha256": "8b1110e77614fbe8f9cb9b68718348c71f75d04110451cbca3c90699114125e1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-review-r1\\artifact-manifest.json",
+      "bytes": 8028,
+      "sha256": "29fb10cb6919a9ea07c13185af3ffc0eab2b8be4944c18093cbf84cb00326095"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\artifact-manifest.json",
+      "bytes": 214103,
+      "sha256": "b9033cb8c0767eccd9eb8c739b0eb6a42d48834f81960404e84e418b7dad8efc"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa467a0.json",
+      "bytes": 156373,
+      "sha256": "8e625b303b4d9b20b41519c49ff6698b9b401ce5243b025f99a9d2a02253e276"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa467a0.c",
+      "bytes": 19511,
+      "sha256": "804890cf5e7f2bf53d1f822cff6fdb9d3b7e3dbc2164737444433f3a0318c05c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa43560.json",
+      "bytes": 26964,
+      "sha256": "591608eba014bbe515d61b2b811b8c20fa2e01ea6b54d90ea9163293cc2488fe"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa43560.c",
+      "bytes": 3386,
+      "sha256": "70b51ee980621b578148ffe83c8cca575447c606d23b121c1681fee15381e4b5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa3ef40.json",
+      "bytes": 108545,
+      "sha256": "b43377adab4fadd67838d8efec44cb97bbe320a672d0e99e03cc0bcdd0ec456f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa3ef40.c",
+      "bytes": 12971,
+      "sha256": "b4494eb67e243fb0b709322c8ecdecb71eb15e1519e4f5dea6bf6240818baee1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa407d0.json",
+      "bytes": 49638,
+      "sha256": "2f9549202bbb24e7898825c1cae74e1960b5709019339ae5edf7c32bf1b8af92"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\0xa407d0.c",
+      "bytes": 5375,
+      "sha256": "6249cd93c3c8cb9213b5b359afe3f816e323e77c65dbbf5db83c047cb9111cfc"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\CONTRACT.md",
+      "bytes": 10910,
+      "sha256": "ad976cc46a98a560aa36fc085c129522bb0806c13c747add897114e0de45b613"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\source-contract.json",
+      "bytes": 3271,
+      "sha256": "8c29fd1b806789caec833e7b23cf7bfea719d912751e4429817d89b2b68fea65"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\metadata\\pickup-frames.json",
+      "bytes": 75287,
+      "sha256": "3f7bea876ba6303b104c14889bcd6ba5dc58eb8fd74958070670065d75dd1453"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\details-index.json",
+      "bytes": 6794,
+      "sha256": "9a11614f6b7f0d14a2722fe03d10c21f1df87af5d3064e479a36a4f994cbc77b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\vtable-references.json",
+      "bytes": 1725,
+      "sha256": "5d83ffec4853ab4d15cf239171ec20017675d89c362c765c30fce536f6e27a5a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-source-r1\\native\\handler-92cb70.txt",
+      "bytes": 31639,
+      "sha256": "d7a45032cedd2e2302b723f46b28d11ea0595fce374c5075046f284ce91befa1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\result.json",
+      "bytes": 1436,
+      "sha256": "163f1e6d2df4e8f11e9d7800ee2da4de1643e4e8caa1b3087858902f568b8c63"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\gaps.json",
+      "bytes": 6103,
+      "sha256": "c01fe9abbbaebba0c114a807b1875cceaab95e53c643ca254106de84bfade3da"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\entry-identity-layers.json",
+      "bytes": 193191,
+      "sha256": "f05cbd6ba720ecbc3cbf62152e4b051b1200df4c501d9375858b9932ce069c61"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\object-assets\\inner-list.spz",
+      "bytes": 4864856,
+      "sha256": "e8cec0388d6e9fdf518493fba1674953141c023765e02c210c05a23dfbbe6242"
+    }
+  ],
+  "boundedBinaryPins": "binary-read-pins.json"
+}

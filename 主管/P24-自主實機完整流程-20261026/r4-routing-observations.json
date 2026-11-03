@@ -1,0 +1,60 @@
+{
+  "utc": "2026-10-26T10:32:22.823Z",
+  "method": "Actual UI movement buttons, bounded observed steps; original terrain consulted for navigation, no direct runtime mutation",
+  "lastLocation": {
+    "Brave": 0,
+    "Clan": "",
+    "ClanId": 0,
+    "Direction": 3,
+    "Exp": 414658628,
+    "Flags": 4,
+    "Gfx": 0,
+    "HpPercent": 255,
+    "Lawful": 0,
+    "Level": 0,
+    "Light": 0,
+    "Name": "透明王子乙",
+    "ObjectId": 1900240002,
+    "Owner": "",
+    "Rank": 176,
+    "Speed": 0,
+    "Tail1": 255,
+    "Tail2": 255,
+    "Title": "",
+    "Unknown": 0,
+    "Weapon": 20,
+    "X": 32629,
+    "Y": 32951
+  },
+  "combat": {
+    "damageMeaning": "ClientLogin=2 original attack damage word, not independently established HP loss; zero does not distinguish miss from zero damage",
+    "lastAttack": {
+      "Action": 1,
+      "Attacker": 2000040109,
+      "DamageWord": 267,
+      "Flags": 0,
+      "Heading": 0,
+      "Number": 3,
+      "Target": 1900240002,
+      "X": 0,
+      "Y": 0
+    },
+    "lastProjectile": null,
+    "notice": "原服攻擊回報 #3：2000040109 → 1900240002，傷害欄 267（非 HP 扣除量）",
+    "ownAnimation": {
+      "Action": 8,
+      "At": 349369765,
+      "Predicted": false
+    },
+    "ownDead": true,
+    "projectiles": [],
+    "reports": 3
+  },
+  "deathPreserved": true,
+  "knownInvisibleGraphics": [
+    3101,
+    31,
+    3918
+  ],
+  "normalCancelRequested": true
+}

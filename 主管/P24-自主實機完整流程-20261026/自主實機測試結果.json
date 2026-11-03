@@ -1,0 +1,45 @@
+{
+  "utc": "2026-10-26T19:25:58.552182+00:00",
+  "status": "本輪自主實機測試與已發現缺口修正完成",
+  "latestRevision": "r16",
+  "entry": "D:/lineage開發/TW1608262200研究/P24-原2x2地圖快取與跨區載入/啟動新版客戶端.cmd",
+  "verifiedFlows": [
+    "正常登入、選角、進入遊戲與保存重登",
+    "移動、戰鬥、技能學習與施放",
+    "物品、裝備、拾取、商店、玩家交易",
+    "洞穴跨圖、船運往返、倉庫存取",
+    "旅館房間與會議廳租用、進出、拒絕提示"
+  ],
+  "latestFixes": [
+    "旅館NPC名稱缺參數",
+    "無回應後可恢復對話",
+    "原始鑰匙圖示",
+    "無鑰匙拒絕封包漏接",
+    "材料與金幣不足訊息337原文解碼"
+  ],
+  "limits": [
+    "additional unsupported actor/private-shop appearances",
+    "native WGC capture unavailable; actual WebView screenshots work",
+    "fixed server return rental action unsupported; client does not invent success",
+    "bonus-stat allocation and general private-shop operations remain explicitly unsupported; no blanket whole-game completion claim"
+  ],
+  "evidenceScope": "Actual normal UI evidence acrossr3-r16: login,combat,magic,items,equipment,trade,skills,shop,cave,roundtrip ships,warehouse,inn,relogin. Latestr16 targeted regression and source/hash evidence; not a claim every historical action was repeated onr16.",
+  "resources": {
+    "serviceGold": 89020,
+    "redPotions": 70,
+    "roomKeys": 1,
+    "hallKeys": 1,
+    "newGrants": 0,
+    "newDeathsThisInnRound": 0,
+    "allNineRolesOffline": true
+  },
+  "evidence": [
+    "r14-inn-live-reconciliation.json",
+    "r15-inn-live-reconciliation.json",
+    "r16-live-result.json",
+    "ship-warehouse-roundtrip-reconciliation.json",
+    "flow-coverage.json"
+  ],
+  "wholeP24Complete": false,
+  "formalFreeze": false
+}

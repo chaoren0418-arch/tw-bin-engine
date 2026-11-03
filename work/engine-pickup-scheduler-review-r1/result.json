@@ -1,0 +1,53 @@
+{
+  "task": "ENGINE-PICKUP-SCHEDULER-REVIEW-R1",
+  "decision": "accepted-bounded-static",
+  "reviewedSourceSeal": "aecf48c342d082c17520351f992a387b880dc980ab4c500143036ce35f86b07a",
+  "reviewedResultSha256": "446361792ed63eb83b5369677d48d637ca7be0e5a8b5d7ae8d3337c178577e0e",
+  "reviewedContractSha256": "e81305a50c2ce4186a02930cd694b43e8e9701466b0286ff4105bc089c76db90",
+  "sourceArtifactsVerified": 148,
+  "sourcePins": {
+    "total": 24,
+    "wholeFileVerified": 23,
+    "binBoundedOnly": 1
+  },
+  "nativeChunks": 62,
+  "claimsReviewed": 14,
+  "sourceProofRanges": 39,
+  "supplementalConnectors": 2,
+  "vtables": 3,
+  "externalWholeFilePins": 172,
+  "boundedBinaryReadPins": 20991,
+  "arithmeticRowsMatched": 3,
+  "blockingFindings": 0,
+  "runtimeChecks": 0,
+  "nativeExecuted": false,
+  "nativeEmulated": false,
+  "jarExecuted": false,
+  "productChanged": false,
+  "candidateBuilt": false,
+  "fullBinReadOrHash": false,
+  "pakRead": false,
+  "dbServiceGuiSocketUsed": false,
+  "unsealedEligibilityResearchUsed": false,
+  "timingParity": false,
+  "slowQualified": false,
+  "rendererImplemented": false,
+  "inputOriginQualified": false,
+  "fullInputToFinishLatencyQualified": false,
+  "neutralEligibilityQualified": false,
+  "newWholeBinIdentityQualified": false,
+  "acceptedScope": [
+    "Conditional frame1,2,3,terminal0 source sequence",
+    "Distinct terminal passedD0 and ordinary empty584 branches",
+    "Derived queue/FIFO, restricted idle preemption and incoming8 deletion",
+    "actor+0xBC recurrence, +1/clamp, one-sample pump",
+    "Conditional nonself backlog divisors and neutral duration arithmetic"
+  ],
+  "notGranted": [
+    "Implementation or merge authorization",
+    "Blanket neutral eligibility or actor/variant binding",
+    "Renderer/native timing parity",
+    "Slow/input/total utility qualification"
+  ],
+  "readonlyVerification": "python -B -X utf8 verify.py --seal <published manifest SHA256>"
+}

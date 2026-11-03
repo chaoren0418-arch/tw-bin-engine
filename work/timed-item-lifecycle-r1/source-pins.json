@@ -1,0 +1,264 @@
+{
+  "files": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+      "bytes": 6928681
+    },
+    {
+      "path": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "sha256": "09a29817b39833f5cfed07a8267c7d7db5bfd2501513466f9c7525cdbb4caa0a",
+      "bytes": 24096
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTimeTable.java",
+      "sha256": "d7e16137305fcb744c9935dec5eede6c0a0f3bd56c3f9418f8dfa00f344161c0",
+      "bytes": 12016
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\CharItemsTimePersistenceService.java",
+      "sha256": "b17c03be760473bdfd8b819fe84cafaa433bccbd31002637d23746ce7103ff6b",
+      "bytes": 9863
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTable.java",
+      "sha256": "1d7c57c067fef60e555e42138b5feab951d5c7be33f7169e4c3d1b3766cb9074",
+      "bytes": 48814
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1PcInventory.java",
+      "sha256": "220b001573ec6766dcdd16370c4e1cbd522721367e00c127c90bc2d3779926e4",
+      "bytes": 161516
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\item\\CharacterItemPersistenceService.java",
+      "sha256": "4d13f420bdbbabf1285fc4b3ae213c28f2ac2cefac6e16d6941a546f2f46fcaf",
+      "bytes": 60303
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\timecontroller\\server\\ServerItemUserTimer.java",
+      "sha256": "80ec2aedf3d05968cb428a64c9a72f615e76da4736f409c7b790400141f1da3d",
+      "bytes": 7502
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1EquipmentTimer.java",
+      "sha256": "7f03f5819e2c392a7e49cc55d511687c01dff876f13642868761b6137c6e780b",
+      "bytes": 1444
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1ItemInstance.java",
+      "sha256": "0ba0e50cf7e47649a03c2f69b29a562d097ce5b54be4d8f2b55c848830f811b0",
+      "bytes": 89373
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_LoginToServer.java",
+      "sha256": "437bdd8fdb9ab6a855ac6cc7770024bf0dfc99bee836e5b36fe2e53322073d4a",
+      "bytes": 47096
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\ItemTimeTable.java",
+      "sha256": "ee21caab0edbcf738706ef7b902e2be5d101844af9e8b8c16c0470fc13b6e93c",
+      "bytes": 3213
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\NpcMakingTable.java",
+      "sha256": "e790658153fcbe811baafdf3b3c5c9577c55816c3d8b88d9836bce71df0d4c81",
+      "bytes": 10213
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\npc\\action\\NpcTeleportExecutor.java",
+      "sha256": "40f8be6b4c2f2226b5d4ba43392c2ee49b318a4513701aad4d0368bc29bceba6",
+      "bytes": 6549
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\GameServer.java",
+      "sha256": "7d1dba1568dc715800fa45ae384275d63d3c4186526a980505f0f356f8b865eb",
+      "bytes": 39987
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_NPCAction.java",
+      "sha256": "370123f1324e73c5dbee7d71fc7b527b67e1f927d501e757e6399e0af5c66fa4",
+      "bytes": 204170
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\npc\\action\\NpcMakingExecutor.java",
+      "sha256": "69bac446647eed4701f16003c95b77e6dc1b75577327287825a25a6d93a85672",
+      "bytes": 14597
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharacterTable.java",
+      "sha256": "246e56d7ee72461e45fab843d159ba800348dc4898bb2c149ea45fb48de3a0c5",
+      "bytes": 30716
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1Inventory.java",
+      "sha256": "42800d2291b7fb8d5527d79db129f1627eab887f872a91b547ac9485577726d2",
+      "bytes": 56583
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_InvList.java",
+      "sha256": "cd3c0c20a7285b0ef32d9305e0559cf7ea02030c2ff0665363ffad91521f2820",
+      "bytes": 2440
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1ItemStatus.java",
+      "sha256": "f1a3278381b7e620961567d70e804d82dea05f9304505238983383e5bbe83dbd",
+      "bytes": 76538
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\ItemTable.java",
+      "sha256": "b4531d3451817374ec9307cc74bfb347f64572775c7b37c4f07f0196bf4fef81",
+      "bytes": 36835
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+      "sha256": "d575db28e4c7e9764d34236d1e42f87318901b167d2bc154cf2c2819fd8a7a8b",
+      "bytes": 29237
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\engine\\tools\\resolve-path.py",
+      "sha256": "fe1ce763f30a071163c6bb627bc85ffd5557acbea2084be284a1a8ebeacf71da",
+      "bytes": 741
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+      "sha256": "43d9add8cd3bab2835dc8638a95a885a36d05608e4facd64ada84183db4f461d",
+      "bytes": 8321
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-搬移後環境煙霧驗收-20261029\\result.json",
+      "sha256": "308af8050dbffbef1113228da520056e9446f6a5d3df1e4472f92925ad747853",
+      "bytes": 3713
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-搬移後環境煙霧驗收-20261029\\preflight.json",
+      "sha256": "39c8f312e18f72797a34e3832600a2a779cc00b1021f841c9d418065577c2b6f",
+      "bytes": 168613
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-搬移後環境煙霧驗收-20261029\\before-server.json",
+      "sha256": "d057f1cad35c40dfa4aec0e92128c901fa6a655113f6bcce90daf2fea9d048c9",
+      "bytes": 16202
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-搬移後環境煙霧驗收-20261029\\after-server-start-failure.json",
+      "sha256": "33b701fb389a4d0746234b9a4e0abe6956a1fbd601aced6ecb47d25d6aea3a83",
+      "bytes": 16202
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-搬移後環境煙霧驗收-20261029\\timed-rows.json",
+      "sha256": "168bd7631eaf467b0c951726d790f5ffde96aff8ca3084ae1e19475cf789a865",
+      "bytes": 1730
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-搬移後環境煙霧驗收-20261029\\timed-schema.json",
+      "sha256": "294d41b8a3f87e71d350db357e808cb1061908f0de094b71523ea1761f8ed948",
+      "bytes": 1581
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-搬移後環境煙霧驗收-20261029\\CharItemsTimeTable.javap.txt",
+      "sha256": "adbcfd8b6e87ff80147b5594fd70487a44a7346537ebd42eabee0c26597481e9",
+      "bytes": 56328
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-搬移後環境煙霧驗收-20261029\\server.stdout.log",
+      "sha256": "f0bb99dd4ccb95ee2609213974146a370409c5811c756b27dd5f4e7efb7aaba0",
+      "bytes": 27720
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-搬移後環境煙霧驗收-20261029\\key10326-timeline.json",
+      "sha256": "2c59e8f8d8afc4c3ca19e83918aa05b0b3b9502ee18743cf265d8670b49fe956",
+      "bytes": 7334
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-搬移後環境煙霧驗收-20261029\\lifecycle-select-results.json",
+      "sha256": "2790f6b8840fa5ddab0a35e1a80a44fe9dcd32e1e7b691eb2950955c69007308",
+      "bytes": 4363
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-搬移後環境煙霧驗收-20261029\\timed-counts.json",
+      "sha256": "c4fa0de3550e7561a54e7b2640e1f06c97338c224cae89eb6b211081c437a737",
+      "bytes": 1562
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-rented.json",
+      "sha256": "2ebc90b9362eeb61f041d00b9145483d5bb622fa77801218b6f9a907d76b67a4",
+      "bytes": 186431
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-cave-home-save.json",
+      "sha256": "f13eeeb580c55775e789b47c9d5198939f484ba0d841abecddb6ab49203341df",
+      "bytes": 15896
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\cave-home-relogin-world.json",
+      "sha256": "97ea389039bab16937c55b6fc406bf35c133e45a1baa205fb283b7eb2dcb9ddc",
+      "bytes": 65987
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-caesar-disconnect.json",
+      "sha256": "79d24e54e9d760d6475f278530b4d0e37ca943b6106e086fba74a2ebf9e92a1c",
+      "bytes": 15896
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\caesar-service-relogin-world.json",
+      "sha256": "c05e6aa8b88467aa1ab01b2e35aeab21409be6d304a01bb97795882e871cd107",
+      "bytes": 66182
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\retained-roles-after-strength-save.json",
+      "sha256": "4a833f6b1e3c12685f5a73cb8501ed9cefac6a3f87274ef41a143edbb1a29e4f",
+      "bytes": 15723
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\bonus-strength-relogin-world.json",
+      "sha256": "9b70c3f103c9d07017a43b6a0961be289f769ec57a430b9bed6af30f57c9939f",
+      "bytes": 65587
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\james-ruby-step008.json",
+      "sha256": "5c8c561535ab9469f634d7c848e8456a346561cf273f8966086a89930f09621e",
+      "bytes": 87102
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\evidence\\r28-runtime-before-consolidation\\runs\\interactive-86656\\web-events.jsonl",
+      "sha256": "08b145679e75285ee1b8db07d0fdb4f6f16c8cb3e4e8000d1aae215ed747ee73",
+      "bytes": 260856330
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-review.json",
+      "sha256": "23b34d729baee4a84db50e4e41777f74bbe43b5c64d11a0269c55e87cfdcfba9",
+      "bytes": 1392
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-dialogue-request.json",
+      "sha256": "d8143f3e53a68d18a472f8cb5df5668d3eaaeb6d724eb7c74698095128e79fa5",
+      "bytes": 184872
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-entered.json",
+      "sha256": "e252df086f5cee7c8cfdc025242b3d6e4424236ddc3ff0e2703388c7ea5510b5",
+      "bytes": 45961
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-walk-1.json",
+      "sha256": "06825be725db245c4f6712f02e4d788409cde222e69d0e1dc3b18b73b0a2e0e7",
+      "bytes": 45964
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-walk-2.json",
+      "sha256": "e51987f2132b4614e66ebbad88a6490e3c2342f2aa2c9f2092e84d2addb5e6f5",
+      "bytes": 45976
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-exited.json",
+      "sha256": "c91873feec82aea695c34a36f61d75a1ec3d6454a3a45576913c4bb2fdd613c4",
+      "bytes": 173274
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-自主實機完整流程-20261026\\inn-runtime-config-readonly.json",
+      "sha256": "c383c0ef12b5cec60b42f5bea21f042a30b40924e617b8513c984f0fc1b78a83",
+      "bytes": 9754
+    }
+  ]
+}

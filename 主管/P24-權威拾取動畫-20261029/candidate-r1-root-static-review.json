@@ -1,0 +1,31 @@
+{
+  "utc": "2026-10-29T00:46:44.739113+00:00",
+  "candidateId": "ENGINE-PICKUP-PRESENTATION-IMPL-R1",
+  "candidateSealSha256": "cc7761665593c79b9f82255f5d361bedd6c8ac4563434e7cf7a6e07c5c16cbdc",
+  "status": "root-static-review-complete-independent-runtime-review-pending",
+  "filesRead": [
+    "PickupPresentation.cs",
+    "PickupAssets.cs",
+    "all ten modified source diffs",
+    "ProjectileRendering.cs",
+    "LoginConnection.cs"
+  ],
+  "findings": [],
+  "verifiedStatic": [
+    "S158 own receipt hook follows existing pending heading handling",
+    "sender and completion LoginConnection body is byte-identical to final r33",
+    "latest serial check precedes old callback mutation",
+    "owner and guards rechecked at packet processing and render advance",
+    "original double-duration active combat comparison preserved; history retained",
+    "terminal frame0 uses actual callback now+584; no catch-up loop",
+    "resource hash and logical name pinned; no shared assets changes",
+    "no new audio/effect dispatch or network send from presentation"
+  ],
+  "pendingIndependentEvidence": [
+    "actual ProjectileReport flight and impact with receipt before initial compose",
+    "64 speed/direction/frame groups and compositor pixels",
+    "lifecycle, timing and unsupported profiles via sealed DLL"
+  ],
+  "nativeParityAccepted": false,
+  "formalBuildAuthorized": false
+}

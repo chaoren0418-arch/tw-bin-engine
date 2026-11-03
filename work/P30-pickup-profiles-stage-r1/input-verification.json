@@ -1,0 +1,32 @@
+{
+  "status": "pass",
+  "audits": [
+    {
+      "manifest": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\artifact-manifest.json",
+        "size": 214902,
+        "sha256": "3abd6ac7246f3ffbccc923e46611a37d91e2e7d6a331697661677b5bb4488eee"
+      },
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1",
+      "files": 1207,
+      "fullShaVerified": true
+    },
+    {
+      "manifest": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\runtime-review-r1\\artifact-manifest.json",
+        "size": 46147,
+        "sha256": "a641244d40f8ca17cca56538dc927bd8b534409d74a212006046be790a726532"
+      },
+      "root": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1",
+      "files": 243,
+      "fullShaVerified": true
+    }
+  ],
+  "dispatchVerified": true,
+  "sourceReconciled": true,
+  "goal": null,
+  "notes": [
+    "Recursive legacy work AGENTS discovery encountered existing access-denied synthetic fixtures. No ACL changes/retries; applicable root/work/target ancestor policy inspected directly.",
+    "Only SDK inventory read; compiler and helper runtime not executed."
+  ]
+}

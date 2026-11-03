@@ -1,0 +1,16 @@
+{
+  "utc": "2026-10-29T04:40:29.272520+00:00",
+  "dispatchId": "ENGINE-R34-RELEASE-P26-R2",
+  "target": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "planSha256": "939fcbd2176d1360b510153993f43deacf91b34a3b1737fb4d91ad8b30bb0c01",
+  "receiptSha256": "98053457e8accacbfce4618f3fe6906b04c1f17ce0483167f2ec5907085770df",
+  "readOnlyControllerValidation": {
+    "exit": 0,
+    "status": "validated-only",
+    "copies": 2290,
+    "assetHardlinks": 13958,
+    "writes": false
+  },
+  "authorized": "one fresh local sealed release, no activation",
+  "state": "sent-awaiting-actual-start"
+}

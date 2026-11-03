@@ -1,0 +1,148 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BIN 引擎專案整併交付</title><style>body{max-width:1180px;margin:32px auto;padding:0 24px;font:16px/1.7 system-ui;color:#15283b;background:#f6f8fa}nav{padding:16px;background:#e4edf6}section{background:white;padding:24px;margin:24px 0;border:1px solid #d5dfe9;border-radius:8px}table{border-collapse:collapse;width:100%;font-size:14px}td{border:1px solid #cbd5df;padding:8px;overflow-wrap:anywhere}tr:first-child{font-weight:600;background:#edf2f7}code{overflow-wrap:anywhere;background:#f1f4f7}pre{white-space:pre-wrap;background:#eff3f7;padding:16px}a{color:#145c9d}h1{font-size:27px}h2{font-size:21px}p{overflow-wrap:anywhere}@media print{body{margin:0;padding:0;background:white}section{break-before:page;border:0}nav{display:none}}</style><aside style="padding:16px;border:2px solid #367d67;background:#e8f5ef">最新交接：既有主管已實際接收，正在搬移後最小環境煙霧驗收，功能開發尚待此門檻通過。Goal 回報仍 paused，恢復操作不可用。以下是整理完成當時的快照。<a href="physical-migration/resume-handoff.json">恢復收據</a></aside><h1>專案整併完成・P24 驗收待續</h1><p>實體集中／來源保全／可回復去重。未恢復開發，未永久刪除，未宣稱空間回收。</p><nav><a href="#s0">交付摘要</a> · <a href="#s1">功能進度</a> · <a href="#s2">16 路徑盤點</a> · <a href="#s3">專案結構</a> · <a href="#s4">批次與下一步</a></nav><section id="s0"><h1>整理交付</h1>
+<p>完成時間：2026-10-28T18:20:31.138849+00:00。唯一根 <code>D:\lineage開發\TW1608262200研究</code>。B1～B6 已完成授權的 16 根實體整併與可回復去重；未恢復開發。</p>
+<p>- 16 個舊 D 槽根已不存在；全部內容搬至根內的 environments/history。r28 已集中 releases/r28；engine 是後續唯一有效來源。</p>
+<p>- 原始26,929檔全 SHA 核對；r28 seal 14,364檔全 SHA；正常入口 --check-only、engine 重建及14組 MySQL 配置驗證通過。</p>
+<p>- 10,868 個重複部署檔改為不可變硬連結，2,957,933,947 bytes 原件仍在 recovery/duplicate-quarantine。回復抽查通過；永久刪除0，回收空間0。</p>
+<p>- 14組 DB 冷備份及原設定已保留；只做檔案解壓／SHA回復，未驗 DB 啟動。1,295個r28易變證據僅核對大小／mtime／搬移收據。</p>
+<p>- D:\BinEngine 是中文路徑相容 junction，非另一專案複本；既有 P01～P24 根內歷史及必要外部原始資產保留。</p>
+<p>- 主管與三工作者停寫，無現行專案監聽埠；系統 MySQL 未觸碰。沒有待使用者解除的權限阻礙。仍未完成的 P24 遊戲驗收見 progress。</p>
+<p>閱讀順序：<a href="index.html">總覽</a> → <a href="progress.md">功能進度</a> → <a href="inventory-report.md">16路徑</a> → <a href="structure.md">結構</a> → <a href="migration-plan.md">下一步</a>。</p>
+<p>機器收據：<a href="result.json">result</a>、<a href="../../project-manifest.json">manifest</a>、<a href="physical-migration/final-verification.json">最終保全</a>、<a href="physical-migration/rollback-probe.json">回復抽查</a>、<a href="physical-migration/verification-correction.json">驗證更正</a>。</p></section><section id="s1"><h1>自主 BIN 引擎進度報告</h1>
+<p>盤點日期：2026-10-28（UTC）。本報告由新整理對話「彙整引擎進度與統一專案」建立；本輪已依使用者後續授權完成 16 根實體整併與可回復去重；不接任開發主管，未操作遊戲或啟動資料庫。</p>
+<h2>結論</h2>
+<p>目前開發階段仍是 P24，最新被接受的固定交付為 <strong>r28</strong>。r28 的封裝與離線整合已通過，並有正常入口及部分遊戲流程的實機證據；<strong>整個 P24、同版全流程、map4 的 6016 場景音訊與完整原生畫面／滑鼠驗收尚未完成</strong>。不能以測試斷言數、檔案數或歷史版本通過項目計算完成率。</p>
+<p>先前開發停滯的直接證據是主管回合回報 <code>Selected model is at capacity. Please try a different model.</code>。其後本輪已取得主管與三位工作者的明確停寫確認，主管 Goal 暫停；目前維持暫停是依使用者「先整理再開發」的要求。主管同時補正最後原生收據為第 8 步 (32581,32950)，仍未完成路線。詳見 physical-migration/pause-confirmations.json。</p>
+<p>舊 completion-matrix 與 task-queue 仍含 r27 或「待新主管」的歷史 next 欄位；應以同列 r28Current、r28 固定交付、最新主管覆核及最新回合交叉判定。本輪不改寫主管專用紀錄，避免把索引整理冒充主管驗收。</p>
+<h2>已完成實作及固定交付</h2>
+<table>
+<tr><td>功能</td><td>已完成範圍</td><td>尚不能外推的範圍</td></tr>
+<tr><td>客戶端基本流程</td><td>正常啟動器、手動登入選角、世界移動、背包裝備、單次攻擊／施法、原服回包與保存接線</td><td>不代表全部技能、怪物、地圖或服務完整</td></tr>
+<tr><td>玩家介面</td><td>HUD、背包／技能／服務面板、快捷列、鍵盤焦點隔離、一般聊天、能力點面板</td><td>完整畫面、滑鼠操作、所有介面流程仍缺同版實機證據</td></tr>
+<tr><td>地圖與顯示</td><td>原 2×2 四槽快取、跨區／換圖生命週期、已封裝 S32 特效、一般 tile group 透明；SPR 透明及原陰影</td><td>未知格式、未封裝內容、map-local actor 的真實 group 關聯未補齊</td></tr>
+<tr><td>6016 事件及音訊</td><td>控制器、音量／靜音、退役停止、host 及 Web／原生設定接線已納入 r28；兩個原 WAV</td><td>不等於原 Miles 時鐘／距離／pan 等價；其他 token 及缺少 MP3 未解決</td></tr>
+<tr><td>可重建交付</td><td>r28 source／audio／web／assets／vendor／launcher 原始碼與重建工具成套封存</td><td>SDK/runtime 需機器既有安裝；封裝不是內含所有 runtime 的安裝器</td></tr>
+</table>
+<p>r28 整合者記錄 151 項最終包檢查、零警告／錯誤、13,957 資產完整 SHA 檢查，seal 收錄 14,364 檔。主管獨立審查重新雜湊 407 個非資產檔、13,957 資產大小與索引，並覆核整合者的全資產收據，並非主管又重算全部資產本文。本輪已對封存 seal 的 14,364 檔重新作全本文 SHA 核對，另在 engine 重建並比對產品與音訊 DLL 相同；封存包本身未改，未重跑遊戲。</p>
+<p>來源：<code>P24-原2x2地圖快取與跨區載入/reference/development/release-integration-r12/delivery/_integration/HANDOFF.md</code>、<code>result.json</code>、<code>full-assets-verification.json</code>；<code>主管/P24-本機主管接管與完整整合-20261028/formal-r28-review/root-review.json</code>。</p>
+<h2>r28 已有實機分項證據</h2>
+<p>以下是讀取現存紀錄後確認的歷史驗證結果，不是本輪再次操作。所有路線與程序 ID 都是歷史資料，不得直接用於下次操作。</p>
+<table>
+<tr><td>分項</td><td>結果與邊界</td><td>主管 native-r28 證據檔</td></tr>
+<tr><td>正常入口／保存</td><td>CMD 正常啟動，手動登入選角，移動後正常退出與新程序重登，位置及物品裝備保存</td><td>normal-save-review.json</td></tr>
+<tr><td>移動與焦點</td><td>八方向鍵、指定路線及多次快取平移有紀錄；不是滑鼠或逐步 ACK 證明</td><td>movement-focus-review.json、cave-entry-review.json</td></tr>
+<tr><td>補血、吃肉、裝備</td><td>數量、飽食、匕首裝備及重登保存有分項證據</td><td>normal-save-review.json</td></tr>
+<tr><td>施法</td><td>治癒、保護罩、光箭、神聖武器有原服回覆；神聖武器傷害加成未量測</td><td>cave-eye-combat-review.json、holy-weapon-review.json</td></tr>
+<tr><td>旅館</td><td>扣 100 金幣、取得鑰匙、進 map16384、房內移動、返回 map0</td><td>inn-room-review.json</td></tr>
+<tr><td>丟拾物</td><td>肉 5→4→5，地面物件移除與正常保存</td><td>ground-review.json</td></tr>
+<tr><td>洞穴／戰鬥</td><td>map0→map1、一次浮動之眼擊殺 EXP +44，正常保存重登；未觀察到戰利品</td><td>cave-entry-review.json、cave-eye-combat-review.json、cave-home-save-review.json</td></tr>
+<tr><td>回城</td><td>遭追擊後正常使用回家卷軸 3→2，存檔重登保持</td><td>cave-home-save-review.json</td></tr>
+<tr><td>能力點</td><td>力量 20→21，原服回覆、正常退出、DB 保存及新程序重登一致；缺提交前 DB stat 快照</td><td>bonus-strength-save-review.json</td></tr>
+<tr><td>聲音設定</td><td>原生音量 25%、mute/unmute、同程序重連及關窗釋放有紀錄</td><td>current-status.json</td></tr>
+</table>
+<h2>未驗證、缺項與限制</h2>
+<table>
+<tr><td>類別</td><td>尚未完成</td><td>下一個有效完成條件</td></tr>
+<tr><td>整合場景驗收</td><td>map4／6016 真實場景播放、換區退役及同版音量行為</td><td>固定 r28 從正常入口取得場景、同程序音訊與退役證據；獨立模組音訊量測不能代替</td></tr>
+<tr><td>原生 UI</td><td>全視窗像素、動畫、滑鼠點地／攻擊／交談／拾取</td><td>畫面擷取及幾何／輸入工具恢復後完成實機；UIA、鍵盤及場景 PNG 不能代替</td></tr>
+<tr><td>同版服務</td><td>NPC 購買、技能學習、直接交易、私商成交、倉庫、船運、會議廳</td><td>每項具正常前置條件、當次回包與資源對帳；舊 r20/r22 證據保留原版本身分</td></tr>
+<tr><td>報價與來源條件</td><td>NPC 正向出售／私商回購缺可行條件；目前配置不代表一定存在買家</td><td>先核實真實報價、需求、物品及角色資格；不改商店資料或補發資源製造通過</td></tr>
+<tr><td>顯示實作缺項</td><td>map-local effect associated group-id fade 沒有完整接線，也缺真實非零 record 的關聯證據</td><td>先取得來源關聯及可重現案例，再做最小修正；不把所有 actor 綁屋頂</td></tr>
+<tr><td>地圖／內容來源</td><td>154 未封裝特效、部分 extended L8／SEG／尺寸或缺檔問題；僅四種施法及有限外觀範圍</td><td>指定具體 ID 與權威素材；不能外推「完整還原」</td></tr>
+<tr><td>歷史資料精確性</td><td>旅館鑰匙刪除缺物件級原因，角色歷次損耗仍須保留對帳</td><td>來源規則、物件 ID、保存與刪除時間互證，未知保持未知</td></tr>
+</table>
+<p>港口路線兩次死亡造成經驗損失；之後洞穴追擊以正常回城退出。舊危險路線不可盲目重試，靜態可通行路徑不證明動態安全。最近村內攤位路線 357 pins／2,353 檢查是離線證據；主管最新確認為第 8 步 (32581,32950)，仍不能算成交完成。</p>
+<p>資源更正：綠藥 object10386／item40013 數量 3，不是回家卷軸。回家 object10404／item40079 由 3→2 並正常保存；旅館鑰匙 object10326／item49290 曾保存，約兩小時後消失與限時規則相容，但缺直接刪除原因，不能認定未保存 bug。這段包含父監督交接更正；底層本機證據索引與更正的來源層級在 evidence-index.json 記錄。音量新程序預設 50% 並未違反既有跨程序保存契約。</p>
+<h2>本輪整理已完成的實際結果</h2>
+<p>B1～B6 已完成本輪授權的 16 個外部根整併、r28 搬移、engine 建立、相依重綁及可回復去重。詳見 <a href="inventory-report.md">實體處置</a> 與 <a href="physical-migration/final-verification.json">收據</a>。目前主管及三個工作者均明確停寫，主管 Goal 已暫停；本輪未建立新 Goal、未恢復開發、未啟動遊戲。</p>
+<p>原先 Win32_Process 的權限阻礙已經使用者新授權後的審查允許讀取解除；沒有停止任何程序。唯一既有 mysqld 屬系統 MySQL 5.5，未觸碰。MySQL 的中文路徑問題以單一 ASCII junction 解決，14 環境選項驗證皆通過。這是配置檢查，不等於資料庫引擎啟動或完整遊戲驗收。</p>
+<p>最後原生驗收仍以主管停寫回覆第 8 步 (32581,32950) 為準。以上功能進度不因整理成功而升格：map4/6016、原生擷取、同版完整流程、來源缺口仍須後續驗證。</p></section><section id="s2"><h1>16 路徑實體整併結果</h1>
+<p>更新：2026-10-28T18:20:31.138849+00:00。16 個來源原本均為實體資料夾，現在均已同磁碟搬入專案根，原 16 路徑已不存在；並非僅建立索引或換名。沒有刪除獨有檔案。</p>
+<table>
+<tr><td>原路徑</td><td>現行根內位置</td><td>遷移前檔數</td><td>遷移前邏輯 bytes</td></tr>
+<tr><td><code>D:\P10Lab-TW13081901</code></td><td><code>history\labs\P10Lab-TW13081901</code></td><td>2,509</td><td>497,113,008</td></tr>
+<tr><td><code>D:\P12Lab-ClientEngine</code></td><td><code>history\labs\P12Lab-ClientEngine</code></td><td>1,759</td><td>452,173,355</td></tr>
+<tr><td><code>D:\P13Lab-ClientEngine</code></td><td><code>history\labs\P13Lab-ClientEngine</code></td><td>1,759</td><td>452,176,519</td></tr>
+<tr><td><code>D:\P14Lab-ClientEngine</code></td><td><code>history\labs\P14Lab-ClientEngine</code></td><td>1,760</td><td>452,174,325</td></tr>
+<tr><td><code>D:\P15Lab-ClientEngine</code></td><td><code>history\labs\P15Lab-ClientEngine</code></td><td>1,761</td><td>452,195,383</td></tr>
+<tr><td><code>D:\P16Lab-ClientEngine</code></td><td><code>history\labs\P16Lab-ClientEngine</code></td><td>1,765</td><td>452,197,180</td></tr>
+<tr><td><code>D:\P17Lab-ClientEngine</code></td><td><code>history\labs\P17Lab-ClientEngine</code></td><td>1,758</td><td>451,864,083</td></tr>
+<tr><td><code>D:\P18Lab-ClientEngine</code></td><td><code>history\labs\P18Lab-ClientEngine</code></td><td>1,761</td><td>451,874,771</td></tr>
+<tr><td><code>D:\P19Lab-ClientEngine</code></td><td><code>history\labs\P19Lab-ClientEngine</code></td><td>1,759</td><td>451,875,691</td></tr>
+<tr><td><code>D:\P20Lab-ClientEngine</code></td><td><code>history\labs\P20Lab-ClientEngine</code></td><td>1,759</td><td>451,876,946</td></tr>
+<tr><td><code>D:\P21Lab-ClientEngine</code></td><td><code>history\labs\P21Lab-ClientEngine</code></td><td>1,903</td><td>711,189,150</td></tr>
+<tr><td><code>D:\P22Lab-ClientEngine</code></td><td><code>history\labs\P22Lab-ClientEngine</code></td><td>1,926</td><td>711,738,172</td></tr>
+<tr><td><code>D:\P23Lab-ClientEngine</code></td><td><code>history\labs\P23Lab-ClientEngine</code></td><td>1,898</td><td>712,621,525</td></tr>
+<tr><td><code>D:\P24Lab-ClientEngine</code></td><td><code>environments\p24</code></td><td>1,846</td><td>723,189,805</td></tr>
+<tr><td><code>D:\P24Lab-6016-Export-r1</code></td><td><code>history\research\6016-export-r1</code></td><td>161</td><td>256,245,805</td></tr>
+<tr><td><code>D:\TW1608262200_research</code></td><td><code>history\research\ascii</code></td><td>845</td><td>2,292,409,415</td></tr>
+</table>
+<p>總計 26,929 檔、9,972,915,133 bytes。這是遷移前內容量，不是整個專案目前實體佔用，也不將硬連結重複計入磁碟節省。</p>
+<h2>分類與去重</h2>
+<p>- 現用環境：environments/p24，保留實際 DB、設定及 IDA；不與舊階段 DB 合併。</p>
+<p>- 歷史環境：history/labs 的 13 個 Lab；DB 狀態、差異設定與 IDA 保留。</p>
+<p>- 研究來源：6016 匯出與 ASCII 研究各保留完整來源、IDB、腳本及證據。</p>
+<p>- 不可變且內容相同的 MySQL 工具、原 JAR、原地形、原 SQL：570 組，10,868 個部署路徑改用硬連結；原件 2,957,933,947 bytes 置於 recovery/duplicate-quarantine。修改這些檔案前必須建立獨立新版本，禁止原地改寫共享本文。</p>
+<p>- 初次靜態盤點共 600 組跨根重複；其餘 30 組涉及設定／證據或用途不宜合併，保留。初次雜湊範圍內有 1,124 個獨有檔，不代表未納入靜態掃描的 DB 也已做語意去重。</p>
+<p>- 可重建資料：r28 的 .nuget、.dotnet、tmp 已移入 recovery/r28-build-cache；未永久刪除。engine 新建產物在 engine/build。</p>
+<p>- 必要原始資產：封存 assets 留在 releases/r28，engine/assets 為不可寫入的基準 junction；原 BIN、正式客戶端等外部來源保持唯讀，不納入垃圾清理。</p>
+<p>原件仍在隔離區，因此本輪去重回收空間為 0 bytes；磁碟餘量前後為 6,782,588,211,200 → 6,781,455,458,304 bytes，差值 -1,132,752,896 bytes。差值包含備份、重建與全磁碟其他活動，不能當成去重收益。</p>
+<h2>證據與限制</h2>
+<p>所有 26,929 個外部原檔已全 SHA 核對；28 個設定檔以遷移前備份 SHA 及授權變更後 SHA 配對。r28 的 14,364 個 seal 檔案全本文核對；其完整搬移清單中另有 1,295 個易變日誌／快取只比大小、mtime 與搬移收據，不宣稱本文雜湊證明。</p>
+<p>早期搬移收據把 Windows DirEntry 的零 file ID 當成身分證明，此說法已撤回；以 <a href="physical-migration/verification-correction.json">更正</a> 及 <a href="physical-migration/final-verification.json">最終驗證</a> 為準。舊收據保留供稽核。</p>
+<p><a href="path-map.json">機器可讀對照</a> · <a href="path-map.csv">CSV</a> · <a href="result.json">結果</a></p></section><section id="s3"><h1>唯一專案結構與入口</h1>
+<p>唯一實體專案根：<code>D:\lineage開發\TW1608262200研究</code>。</p>
+<table>
+<tr><td>根內位置</td><td>用途／寫入責任</td></tr>
+<tr><td>啟動引擎.cmd</td><td>正常 r28 客戶端入口；加 --check-only 可檢查但不啟動遊戲</td></tr>
+<tr><td>engine/source、audio、web</td><td>後續唯一有效引擎原始碼；由唯一整合者串行合入</td></tr>
+<tr><td>engine/vendor、launcher、_integration</td><td>建置相依、啟動器原始碼與驗證工具</td></tr>
+<tr><td>engine/build</td><td>可重建產物；本輪重建與 r28 產品／音訊 DLL 相同</td></tr>
+<tr><td>engine/assets</td><td>指向 releases/r28/assets 的 junction；封存基準，不得直接改寫</td></tr>
+<tr><td>releases/r28</td><td>正式封存交付；產品 seal 未改</td></tr>
+<tr><td>environments/p24</td><td>現用實驗伺服器／DB／設定；目前停寫，未開機測試</td></tr>
+<tr><td>history/labs</td><td>13 個舊 Lab 的狀態與研究歷史</td></tr>
+<tr><td>history/research</td><td>6016 匯出、ASCII 研究</td></tr>
+<tr><td>evidence/r28-runtime-before-consolidation</td><td>遷移前 runs、runtime 證據</td></tr>
+<tr><td>recovery</td><td>冷備份、設定原件、隔離重複原件、舊快取及回復抽查</td></tr>
+<tr><td>docs/project-consolidation</td><td>本次報告、索引、基準與執行收據</td></tr>
+<tr><td>既有 P01～P24、主管</td><td>凍結的階段歷史及權威驗收證據，保持根內原位置</td></tr>
+</table>
+<p>既有根內歷史約 112.36 GiB 的原始盤點沒有整批複製或重新搬家；它們已在唯一根內，保留以免破壞歷史相對路徑。此輪沒有宣稱完成所有歷史內容的去重。</p>
+<h2>相容與路徑解析</h2>
+<p>只保留三個用途明確的相容連結：<code>D:\BinEngine</code> 指向本根（MySQL 選項路徑需要 ASCII）、舊 r28 delivery 指向 releases/r28、engine/assets 指向封存素材。原 16 個 D 槽根資料夾沒有留下相容副本。</p>
+<p>14 個 mysql.ini 與 14 個 server.policy 已重綁到新根的 ASCII 別名；憑證、埠號及 policy 權限語意未變。沒有改 ACL、OS 安全設定或 DB 內容。舊報告與歷史腳本保留原文，不代表仍可直接重跑；先以 manifest 對照轉換輸入路徑。正式接續只使用 engine 與 environments/p24。</p>
+<p>舊路徑解析範例（僅輸出路徑，不執行歷史程式）：</p>
+<pre>
+python -X utf8 .\engine\tools\resolve-path.py &#x27;D:\P24Lab-ClientEngine\mysql.ini&#x27;
+
+</pre>
+<h2>可重跑的必要檢查</h2>
+<p>在本根執行 <code>./啟動引擎.cmd --check-only</code>。建置重現命令為 <code>python -B -X utf8 engine/_integration/run_stage.py --output engine/_integration/evidence/migration-rebuild-20261028</code>，既有結果已通過，不需為閱讀報告重跑。該腳本是 r28 基準驗證；未來修改產品時應更新版本與驗收規格，不能沿用舊 seal 宣稱新版本通過。</p>
+<p><a href="../../project-manifest.json">manifest</a> · <a href="../../engine/README.md">原始碼說明</a> · <a href="../../engine/_integration/evidence/migration-rebuild-20261028/result.json">重建結果</a></p></section><section id="s4"><h1>B1–B6 執行結果與回復</h1>
+<p>本文件已由計畫更新為實際結果；初版文件保存在 physical-migration/phase1-documents.zip。整理不等於遊戲專案完成。</p>
+<table>
+<tr><td>批次</td><td>實際處置與完成門檻</td><td>結果</td></tr>
+<tr><td>B1</td><td>使用者指定唯一整合者；主管及三工作者停寫確認；讀程序與埠、空間、完整檔案基準；14 組 DB 冷備份</td><td>通過，未停未知程序</td></tr>
+<tr><td>B2</td><td>r28 同磁碟搬至 releases/r28；原 delivery 為相容 junction；seal 全本文核對</td><td>通過，封存產品未改</td></tr>
+<tr><td>B3</td><td>建立 engine 唯一來源；修正整合工具固定祖先層數問題；產品與音訊可重現；正常入口 check-only</td><td>通過，未啟動 UI／網路</td></tr>
+<tr><td>B4</td><td>14 Lab 分別搬至現用 environments/p24 或 history/labs；28 設定檔重綁；14 mysql validate-config</td><td>通過，無 DB 內容修改</td></tr>
+<tr><td>B5</td><td>2 外部研究根搬至 history/research；原本已在根內的階段歷史保留；runs/runtime 與建置快取分開封存</td><td>通過，來源與證據保留</td></tr>
+<tr><td>B6</td><td>僅白名單不可變檔全 SHA 判重；10,868 原件移入可回復隔離；部署位置硬連結；原件回復／重套抽查</td><td>通過，永久刪除 0、空間回收 0</td></tr>
+</table>
+<h2>已解決問題</h2>
+<p>Win32_Process 初次遭拒絕後，使用者補充授權，合規審查允許一次重試讀取並成功。搬移後設定檔繼承原權限，正常寫入被拒後以已授權審查執行成功，未改 ACL。MySQL 中文選項路徑導致 Illegal byte sequence，改用 D:\BinEngine 別名後全數通過。建置 helper 的固定祖先層數已只在 engine 修正。早期零 file ID 證明已正式更正，由全本文核對取代。</p>
+<h2>回復順序</h2>
+<p>1. 再確認本專案停止寫入；讀 migration journals、before snapshots、config-relocations、dedupe-plan。不可直接重跑搬移腳本。</p>
+<p>2. 對指定 hardlink 檔，先將現行連結移入暫存保留，再將 quarantine 原件移回；比 SHA。已有 mysql.exe 的實際往返成功收據。保留回復動作紀錄，沒有必要永久刪除。</p>
+<p>3. 需要回舊路徑時，先用 config-before-relocation 的原件還原設定，再按外部搬移 journal 反向逐根移回；每次檢查絕對來源／目的邊界及目的不存在。</p>
+<p>4. r28 回復先移開相容 junction（只處理已核對的連結本身），再按 journal 將 releases/r28 移回；runs/runtime/cache 依 runtime-archives 對照移回。不可遞迴刪除連結目標。</p>
+<p>5. DB 冷備份解壓與 SHA 已驗證，並抽取 3 個檔案回復比對；未做資料庫邏輯恢復或啟動一致性檢查，若需回復運作須另以受控停寫環境驗收。</p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/server-configuration-validation.html">MySQL 官方文件</a> 說明 validate-config 不初始化儲存引擎；因此本輪不把配置檢查宣稱成 DB 啟動通過。</p>
+<h2>下一步與獨立子任務（尚未派出）</h2>
+<p>1. 父對話讀回本次 HANDOFF／result、確認唯一開發主管及新 Goal。原整理者只交付，不成為第二主管。現有開發 Goal 仍暫停。</p>
+<p>2. 先安排唯一環境負責人，以新 environments/p24 與 ASCII 別名正常啟動實驗服務、登入／保存／重登煙霧驗證；不變更角色資料製造通過。若環境驗收失敗先修遷移相依，不推進功能。</p>
+<p>3. 可平行的唯讀任務 A：來源完整性／缺少154特效與 map-local effect 關聯證據，輸出明確來源 ID、hash、缺口，不改 source/assets。</p>
+<p>4. 可平行的隔離任務 B：原生擷取逾時重現與最小修復候選，專屬 work/&lt;派工ID&gt;，不得搶佔遊戲／服務或改共享入口；實機操作由唯一主管串行。</p>
+<p>5. 唯一主管安排 map4/6016 播放、離區退役、音量行為與同版完整服務流程驗收。避開已造成死亡的危險港口路線；不要用模組測量替代場景證據。</p>
+<p>6. 唯一整合者審查候選後合入 engine，重建新版本、核對資源對帳，通過才產出下一個 releases/&lt;revision&gt;。其他工作者不得發布或直接改封存 r28。</p>
+<p>每個子任務需明列基準、專屬輸出、禁止共享區、完成標準與證據；任務真正需要才建 work 子目錄，不預建空資料夾。恢復開發需父對話落實主管／新目標的既有要求；本輪沒有額外必要的使用者批准阻礙。清空隔離或永久刪除不在此次授權內，不自動執行。</p></section></html>

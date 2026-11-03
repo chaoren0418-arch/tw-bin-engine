@@ -1,0 +1,30 @@
+{
+  "status": "worker-visible-ui-and-independent-wire-pass",
+  "images": [
+    {
+      "name": "original-own-attack-screen.png",
+      "sha256": "7fb9141042742aba10f608a6b391a08e18dd15969cd6c885c5be81a1e3a3cb47"
+    },
+    {
+      "name": "original-own-hit-HP-screen.png",
+      "sha256": "ff51bd0623cfce2df3c9601d843968838d385d4f48de7c6d08cefd316ffdee3f"
+    },
+    {
+      "name": "original-death-corpse-screen.png",
+      "sha256": "8c710063dd58448010599f53cdb5944b56c159f88bbe5fb4eeadd3628cf763b2"
+    }
+  ],
+  "position": {
+    "main": [
+      32600,
+      32947
+    ],
+    "target": [
+      32600,
+      32948
+    ]
+  },
+  "observation": "Original sprites visibly separated and outside roof; own attack and damage visible with web target/HP and original report. Death image is initial die frame with target cleared; later corpse frame requested for supervisor replay. Full wire/current pass and natural-recovery completion still pending.",
+  "wire_result": "wire-independent.json",
+  "limitations": "Not supervisor clean-build acceptance; later corpse frame added to test driver remains for supervisor replay. Worker other regressions/freeze pending."
+}

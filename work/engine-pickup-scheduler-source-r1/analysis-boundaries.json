@@ -1,0 +1,45 @@
+{
+  "method": "Read fixed PE bytes, Capstone static disassembly, pinned prior pseudocode and metadata, pure integer arithmetic",
+  "nativeExecuted": false,
+  "runtimeChecks": 0,
+  "sourceDiscovery": [
+    "Assigned direct actor/queue/scheduler chain",
+    "Scheduler local bounded window0xA22000..0xA23D00",
+    "Six prior vtable binding slices reverified"
+  ],
+  "excludedLinearData": [
+    {
+      "artifact": "native/00a4bf00.txt",
+      "fromVA": "0xa4c150",
+      "reason": "jump/switch tables; adopt code only through RET0xa4c14e"
+    },
+    {
+      "artifact": "native/0103d750.txt",
+      "fromVA": "0x103d784",
+      "reason": "after multiply helper RET"
+    },
+    {
+      "artifact": "native/0103d5e0.txt",
+      "fromVA": "0x103d68a",
+      "reason": "after divide helper RET"
+    },
+    {
+      "artifact": "native/scheduler-local-a22000-a23d00.txt",
+      "reason": "bounded navigation dump; only explicitly proved function/ranges adopted"
+    }
+  ],
+  "notUsed": [
+    "No original BIN/JAR execution or emulator",
+    "No process attachment, live-memory reverse tools, GUI, socket, DB, service operations",
+    "No full binary discovery scan or PAK payload scan",
+    "No shared engine/release/assets mutation"
+  ],
+  "knownCorrections": [
+    "+0xBC is decimal188; never write +0x188",
+    "A3EBF0 second head-action9 predicate lacks opcode guard",
+    "A4B060+0xD8 can override terminalD0 to1",
+    "Remote queue count at+0x19C affects A407D0 durations",
+    "Incomingaction8 handler can erase pending pickup commands",
+    "Frame1 presentation precedes N0; zero relative node is reference convention only"
+  ]
+}

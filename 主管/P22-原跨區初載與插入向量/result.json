@@ -1,0 +1,3222 @@
+{
+  "status": "original-x86-initial-block-order-and42cell-insert-vectors-pass",
+  "utc": "2026-10-25T11:54:45.937571+00:00",
+  "bin_sha256": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2",
+  "raw_ranges": [
+    {
+      "va": "0xf09e53",
+      "rva": "0xb09e53",
+      "file_offset": 11571795,
+      "end": "0xf09ea2",
+      "bytes": "c745f803000000eb098b4df883e901894df8837df8007c378b55f852e86c6e000083c4048b45f850e870fcffff83c4048b4df851e8f4dbffff83c4048b55f852e8d816000083c404e8a0db9affebba",
+      "sha256": "3ead3fc93a8b851b850cee91e6c7bdb8abae3a81e7e871a0e8591946b02efe11",
+      "instructions": [
+        {
+          "va": "0xf09e53",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 8], 3"
+        },
+        {
+          "va": "0xf09e5a",
+          "mnemonic": "jmp",
+          "operands": "0xf09e65"
+        },
+        {
+          "va": "0xf09e5c",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf09e5f",
+          "mnemonic": "sub",
+          "operands": "ecx, 1"
+        },
+        {
+          "va": "0xf09e62",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 8], ecx"
+        },
+        {
+          "va": "0xf09e65",
+          "mnemonic": "cmp",
+          "operands": "dword ptr [ebp - 8], 0"
+        },
+        {
+          "va": "0xf09e69",
+          "mnemonic": "jl",
+          "operands": "0xf09ea2"
+        },
+        {
+          "va": "0xf09e6b",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf09e6e",
+          "mnemonic": "push",
+          "operands": "edx"
+        },
+        {
+          "va": "0xf09e6f",
+          "mnemonic": "call",
+          "operands": "0xf10ce0"
+        },
+        {
+          "va": "0xf09e74",
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        },
+        {
+          "va": "0xf09e77",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf09e7a",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "0xf09e7b",
+          "mnemonic": "call",
+          "operands": "0xf09af0"
+        },
+        {
+          "va": "0xf09e80",
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        },
+        {
+          "va": "0xf09e83",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf09e86",
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "va": "0xf09e87",
+          "mnemonic": "call",
+          "operands": "0xf07a80"
+        },
+        {
+          "va": "0xf09e8c",
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        },
+        {
+          "va": "0xf09e8f",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf09e92",
+          "mnemonic": "push",
+          "operands": "edx"
+        },
+        {
+          "va": "0xf09e93",
+          "mnemonic": "call",
+          "operands": "0xf0b570"
+        },
+        {
+          "va": "0xf09e98",
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        },
+        {
+          "va": "0xf09e9b",
+          "mnemonic": "call",
+          "operands": "0x8b7a40"
+        },
+        {
+          "va": "0xf09ea0",
+          "mnemonic": "jmp",
+          "operands": "0xf09e5c"
+        }
+      ]
+    },
+    {
+      "va": "0xf0ed00",
+      "rva": "0xb0ed00",
+      "file_offset": 11591936,
+      "end": "0xf0eed3",
+      "bytes": "558bec83ec188b45086bc0148b0dc04254018b54010c8955fc8b45086bc0148b0dc0425401c644010800837dfc00753f6a1ce88fdd120083c4048945f08b55f08955fc33c08b4dfc668901ba010000008b45fc668950028b4d086bc9148b15c04254018b45fc89440a0ce9870000008b4dfc0fbf51028b45fc0fbf083bd17f768b55fc0fbf4202d1e08b4dfc668941028b55fc0fbf42026bc01883c00450e823dd120083c4048945ec8b4dec894df48b55fc0fbf026bc01883c004508b4dfc518b55f452e80be1120083c40c8b45fc8945e88b4de851e8c5e0120083c4048b55086bd214a1c04254018b4df4894c100c8b55f48955fcc745f800000000c745f800000000eb098b45f883c0018945f88b4dfc0fbf113955f87d178b45f86bc0188b4dfc0fb654010439550c7f02eb02ebd58b45fc0fbf08394df87d358b55fc0fbf022b45f86bc018508b4df86bc9188b55fc8d440a04508b4df883c1016bc9188b55fc8d440a0450ff15f4b5140183c40c8b4df86bc9188b55fc8b451089440a088b4df86bc9188b55fc8a450c88440a048b4df86bc9188b55fc8b451489440a0c8b4df86bc9188b55fcc6440a10008b45f86bc01833c98b55fc66894c02128b45fc668b086683c1018b55fc66890a8be55dc3",
+      "sha256": "c4895bd1fd1cee918f63dcf951cda7f19cae785b0739398b23565af6cc077de4",
+      "instructions": [
+        {
+          "va": "0xf0ed00",
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "va": "0xf0ed01",
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "va": "0xf0ed03",
+          "mnemonic": "sub",
+          "operands": "esp, 0x18"
+        },
+        {
+          "va": "0xf0ed06",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp + 8]"
+        },
+        {
+          "va": "0xf0ed09",
+          "mnemonic": "imul",
+          "operands": "eax, eax, 0x14"
+        },
+        {
+          "va": "0xf0ed0c",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0x15442c0]"
+        },
+        {
+          "va": "0xf0ed12",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ecx + eax + 0xc]"
+        },
+        {
+          "va": "0xf0ed16",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 4], edx"
+        },
+        {
+          "va": "0xf0ed19",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp + 8]"
+        },
+        {
+          "va": "0xf0ed1c",
+          "mnemonic": "imul",
+          "operands": "eax, eax, 0x14"
+        },
+        {
+          "va": "0xf0ed1f",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0x15442c0]"
+        },
+        {
+          "va": "0xf0ed25",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ecx + eax + 8], 0"
+        },
+        {
+          "va": "0xf0ed2a",
+          "mnemonic": "cmp",
+          "operands": "dword ptr [ebp - 4], 0"
+        },
+        {
+          "va": "0xf0ed2e",
+          "mnemonic": "jne",
+          "operands": "0xf0ed6f"
+        },
+        {
+          "va": "0xf0ed30",
+          "mnemonic": "push",
+          "operands": "0x1c"
+        },
+        {
+          "va": "0xf0ed32",
+          "mnemonic": "call",
+          "operands": "0x103cac6"
+        },
+        {
+          "va": "0xf0ed37",
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        },
+        {
+          "va": "0xf0ed3a",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x10], eax"
+        },
+        {
+          "va": "0xf0ed3d",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 0x10]"
+        },
+        {
+          "va": "0xf0ed40",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 4], edx"
+        },
+        {
+          "va": "0xf0ed43",
+          "mnemonic": "xor",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "0xf0ed45",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ed48",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx], ax"
+        },
+        {
+          "va": "0xf0ed4b",
+          "mnemonic": "mov",
+          "operands": "edx, 1"
+        },
+        {
+          "va": "0xf0ed50",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ed53",
+          "mnemonic": "mov",
+          "operands": "word ptr [eax + 2], dx"
+        },
+        {
+          "va": "0xf0ed57",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp + 8]"
+        },
+        {
+          "va": "0xf0ed5a",
+          "mnemonic": "imul",
+          "operands": "ecx, ecx, 0x14"
+        },
+        {
+          "va": "0xf0ed5d",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [0x15442c0]"
+        },
+        {
+          "va": "0xf0ed63",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ed66",
+          "mnemonic": "mov",
+          "operands": "dword ptr [edx + ecx + 0xc], eax"
+        },
+        {
+          "va": "0xf0ed6a",
+          "mnemonic": "jmp",
+          "operands": "0xf0edf6"
+        },
+        {
+          "va": "0xf0ed6f",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ed72",
+          "mnemonic": "movsx",
+          "operands": "edx, word ptr [ecx + 2]"
+        },
+        {
+          "va": "0xf0ed76",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ed79",
+          "mnemonic": "movsx",
+          "operands": "ecx, word ptr [eax]"
+        },
+        {
+          "va": "0xf0ed7c",
+          "mnemonic": "cmp",
+          "operands": "edx, ecx"
+        },
+        {
+          "va": "0xf0ed7e",
+          "mnemonic": "jg",
+          "operands": "0xf0edf6"
+        },
+        {
+          "va": "0xf0ed80",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ed83",
+          "mnemonic": "movsx",
+          "operands": "eax, word ptr [edx + 2]"
+        },
+        {
+          "va": "0xf0ed87",
+          "mnemonic": "shl",
+          "operands": "eax, 1"
+        },
+        {
+          "va": "0xf0ed89",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ed8c",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 2], ax"
+        },
+        {
+          "va": "0xf0ed90",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ed93",
+          "mnemonic": "movsx",
+          "operands": "eax, word ptr [edx + 2]"
+        },
+        {
+          "va": "0xf0ed97",
+          "mnemonic": "imul",
+          "operands": "eax, eax, 0x18"
+        },
+        {
+          "va": "0xf0ed9a",
+          "mnemonic": "add",
+          "operands": "eax, 4"
+        },
+        {
+          "va": "0xf0ed9d",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "0xf0ed9e",
+          "mnemonic": "call",
+          "operands": "0x103cac6"
+        },
+        {
+          "va": "0xf0eda3",
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        },
+        {
+          "va": "0xf0eda6",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x14], eax"
+        },
+        {
+          "va": "0xf0eda9",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0x14]"
+        },
+        {
+          "va": "0xf0edac",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0xc], ecx"
+        },
+        {
+          "va": "0xf0edaf",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0edb2",
+          "mnemonic": "movsx",
+          "operands": "eax, word ptr [edx]"
+        },
+        {
+          "va": "0xf0edb5",
+          "mnemonic": "imul",
+          "operands": "eax, eax, 0x18"
+        },
+        {
+          "va": "0xf0edb8",
+          "mnemonic": "add",
+          "operands": "eax, 4"
+        },
+        {
+          "va": "0xf0edbb",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "0xf0edbc",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0edbf",
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "va": "0xf0edc0",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "va": "0xf0edc3",
+          "mnemonic": "push",
+          "operands": "edx"
+        },
+        {
+          "va": "0xf0edc4",
+          "mnemonic": "call",
+          "operands": "0x103ced4"
+        },
+        {
+          "va": "0xf0edc9",
+          "mnemonic": "add",
+          "operands": "esp, 0xc"
+        },
+        {
+          "va": "0xf0edcc",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0edcf",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x18], eax"
+        },
+        {
+          "va": "0xf0edd2",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0x18]"
+        },
+        {
+          "va": "0xf0edd5",
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "va": "0xf0edd6",
+          "mnemonic": "call",
+          "operands": "0x103cea0"
+        },
+        {
+          "va": "0xf0eddb",
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        },
+        {
+          "va": "0xf0edde",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp + 8]"
+        },
+        {
+          "va": "0xf0ede1",
+          "mnemonic": "imul",
+          "operands": "edx, edx, 0x14"
+        },
+        {
+          "va": "0xf0ede4",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0x15442c0]"
+        },
+        {
+          "va": "0xf0ede9",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "va": "0xf0edec",
+          "mnemonic": "mov",
+          "operands": "dword ptr [eax + edx + 0xc], ecx"
+        },
+        {
+          "va": "0xf0edf0",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "va": "0xf0edf3",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 4], edx"
+        },
+        {
+          "va": "0xf0edf6",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 8], 0"
+        },
+        {
+          "va": "0xf0edfd",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 8], 0"
+        },
+        {
+          "va": "0xf0ee04",
+          "mnemonic": "jmp",
+          "operands": "0xf0ee0f"
+        },
+        {
+          "va": "0xf0ee06",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf0ee09",
+          "mnemonic": "add",
+          "operands": "eax, 1"
+        },
+        {
+          "va": "0xf0ee0c",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 8], eax"
+        },
+        {
+          "va": "0xf0ee0f",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ee12",
+          "mnemonic": "movsx",
+          "operands": "edx, word ptr [ecx]"
+        },
+        {
+          "va": "0xf0ee15",
+          "mnemonic": "cmp",
+          "operands": "dword ptr [ebp - 8], edx"
+        },
+        {
+          "va": "0xf0ee18",
+          "mnemonic": "jge",
+          "operands": "0xf0ee31"
+        },
+        {
+          "va": "0xf0ee1a",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf0ee1d",
+          "mnemonic": "imul",
+          "operands": "eax, eax, 0x18"
+        },
+        {
+          "va": "0xf0ee20",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ee23",
+          "mnemonic": "movzx",
+          "operands": "edx, byte ptr [ecx + eax + 4]"
+        },
+        {
+          "va": "0xf0ee28",
+          "mnemonic": "cmp",
+          "operands": "dword ptr [ebp + 0xc], edx"
+        },
+        {
+          "va": "0xf0ee2b",
+          "mnemonic": "jg",
+          "operands": "0xf0ee2f"
+        },
+        {
+          "va": "0xf0ee2d",
+          "mnemonic": "jmp",
+          "operands": "0xf0ee31"
+        },
+        {
+          "va": "0xf0ee2f",
+          "mnemonic": "jmp",
+          "operands": "0xf0ee06"
+        },
+        {
+          "va": "0xf0ee31",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ee34",
+          "mnemonic": "movsx",
+          "operands": "ecx, word ptr [eax]"
+        },
+        {
+          "va": "0xf0ee37",
+          "mnemonic": "cmp",
+          "operands": "dword ptr [ebp - 8], ecx"
+        },
+        {
+          "va": "0xf0ee3a",
+          "mnemonic": "jge",
+          "operands": "0xf0ee71"
+        },
+        {
+          "va": "0xf0ee3c",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ee3f",
+          "mnemonic": "movsx",
+          "operands": "eax, word ptr [edx]"
+        },
+        {
+          "va": "0xf0ee42",
+          "mnemonic": "sub",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf0ee45",
+          "mnemonic": "imul",
+          "operands": "eax, eax, 0x18"
+        },
+        {
+          "va": "0xf0ee48",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "0xf0ee49",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf0ee4c",
+          "mnemonic": "imul",
+          "operands": "ecx, ecx, 0x18"
+        },
+        {
+          "va": "0xf0ee4f",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ee52",
+          "mnemonic": "lea",
+          "operands": "eax, [edx + ecx + 4]"
+        },
+        {
+          "va": "0xf0ee56",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "0xf0ee57",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf0ee5a",
+          "mnemonic": "add",
+          "operands": "ecx, 1"
+        },
+        {
+          "va": "0xf0ee5d",
+          "mnemonic": "imul",
+          "operands": "ecx, ecx, 0x18"
+        },
+        {
+          "va": "0xf0ee60",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ee63",
+          "mnemonic": "lea",
+          "operands": "eax, [edx + ecx + 4]"
+        },
+        {
+          "va": "0xf0ee67",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "0xf0ee68",
+          "mnemonic": "call",
+          "operands": "dword ptr [0x114b5f4]"
+        },
+        {
+          "va": "0xf0ee6e",
+          "mnemonic": "add",
+          "operands": "esp, 0xc"
+        },
+        {
+          "va": "0xf0ee71",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf0ee74",
+          "mnemonic": "imul",
+          "operands": "ecx, ecx, 0x18"
+        },
+        {
+          "va": "0xf0ee77",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ee7a",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp + 0x10]"
+        },
+        {
+          "va": "0xf0ee7d",
+          "mnemonic": "mov",
+          "operands": "dword ptr [edx + ecx + 8], eax"
+        },
+        {
+          "va": "0xf0ee81",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf0ee84",
+          "mnemonic": "imul",
+          "operands": "ecx, ecx, 0x18"
+        },
+        {
+          "va": "0xf0ee87",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ee8a",
+          "mnemonic": "mov",
+          "operands": "al, byte ptr [ebp + 0xc]"
+        },
+        {
+          "va": "0xf0ee8d",
+          "mnemonic": "mov",
+          "operands": "byte ptr [edx + ecx + 4], al"
+        },
+        {
+          "va": "0xf0ee91",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf0ee94",
+          "mnemonic": "imul",
+          "operands": "ecx, ecx, 0x18"
+        },
+        {
+          "va": "0xf0ee97",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0ee9a",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp + 0x14]"
+        },
+        {
+          "va": "0xf0ee9d",
+          "mnemonic": "mov",
+          "operands": "dword ptr [edx + ecx + 0xc], eax"
+        },
+        {
+          "va": "0xf0eea1",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf0eea4",
+          "mnemonic": "imul",
+          "operands": "ecx, ecx, 0x18"
+        },
+        {
+          "va": "0xf0eea7",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0eeaa",
+          "mnemonic": "mov",
+          "operands": "byte ptr [edx + ecx + 0x10], 0"
+        },
+        {
+          "va": "0xf0eeaf",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "va": "0xf0eeb2",
+          "mnemonic": "imul",
+          "operands": "eax, eax, 0x18"
+        },
+        {
+          "va": "0xf0eeb5",
+          "mnemonic": "xor",
+          "operands": "ecx, ecx"
+        },
+        {
+          "va": "0xf0eeb7",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0eeba",
+          "mnemonic": "mov",
+          "operands": "word ptr [edx + eax + 0x12], cx"
+        },
+        {
+          "va": "0xf0eebf",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0eec2",
+          "mnemonic": "mov",
+          "operands": "cx, word ptr [eax]"
+        },
+        {
+          "va": "0xf0eec5",
+          "mnemonic": "add",
+          "operands": "cx, 1"
+        },
+        {
+          "va": "0xf0eec9",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 4]"
+        },
+        {
+          "va": "0xf0eecc",
+          "mnemonic": "mov",
+          "operands": "word ptr [edx], cx"
+        },
+        {
+          "va": "0xf0eecf",
+          "mnemonic": "mov",
+          "operands": "esp, ebp"
+        },
+        {
+          "va": "0xf0eed1",
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "va": "0xf0eed2",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "va": "0x138d760",
+      "rva": "0xf8d760",
+      "file_offset": 16301920,
+      "end": "0x138d7a0",
+      "bytes": "00000000800000000040000080400000000080000000800000000000400040000001000080000000000100008000000080000000800000004000000040000000",
+      "sha256": "33ea49f6d6dd8875e99a5fc0510ff354285d5d0dcbcb7696ad07f3cdbf8f278f",
+      "instructions": []
+    }
+  ],
+  "initial_slots": [
+    3,
+    2,
+    1,
+    0
+  ],
+  "cell_slot_bases": [
+    0,
+    128,
+    16384,
+    16512
+  ],
+  "x_limits": [
+    256,
+    128,
+    256,
+    128
+  ],
+  "y_limits": [
+    128,
+    128,
+    64,
+    64
+  ],
+  "vectors": [
+    {
+      "cell": [
+        48,
+        65,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 476,
+          "tile": 1235,
+          "sprite": 254
+        },
+        {
+          "block": "north",
+          "index": 72,
+          "tile": 1236,
+          "sprite": 140
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 72,
+          "tile": 1236,
+          "sprite": 140
+        },
+        {
+          "block": "south",
+          "index": 476,
+          "tile": 1235,
+          "sprite": 254
+        }
+      ]
+    },
+    {
+      "cell": [
+        49,
+        65,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 477,
+          "tile": 1235,
+          "sprite": 255
+        },
+        {
+          "block": "north",
+          "index": 73,
+          "tile": 1236,
+          "sprite": 141
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 73,
+          "tile": 1236,
+          "sprite": 141
+        },
+        {
+          "block": "south",
+          "index": 477,
+          "tile": 1235,
+          "sprite": 255
+        }
+      ]
+    },
+    {
+      "cell": [
+        47,
+        65,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 478,
+          "tile": 1236,
+          "sprite": 5
+        },
+        {
+          "block": "north",
+          "index": 75,
+          "tile": 1236,
+          "sprite": 145
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 75,
+          "tile": 1236,
+          "sprite": 145
+        },
+        {
+          "block": "south",
+          "index": 478,
+          "tile": 1236,
+          "sprite": 5
+        }
+      ]
+    },
+    {
+      "cell": [
+        48,
+        66,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 479,
+          "tile": 1236,
+          "sprite": 6
+        },
+        {
+          "block": "north",
+          "index": 76,
+          "tile": 1236,
+          "sprite": 146
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 76,
+          "tile": 1236,
+          "sprite": 146
+        },
+        {
+          "block": "south",
+          "index": 479,
+          "tile": 1236,
+          "sprite": 6
+        }
+      ]
+    },
+    {
+      "cell": [
+        11,
+        72,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3164,
+          "tile": 869,
+          "sprite": 161
+        },
+        {
+          "block": "north",
+          "index": 1515,
+          "tile": 1290,
+          "sprite": 134
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 1515,
+          "tile": 1290,
+          "sprite": 134
+        },
+        {
+          "block": "south",
+          "index": 3164,
+          "tile": 869,
+          "sprite": 161
+        }
+      ]
+    },
+    {
+      "cell": [
+        8,
+        72,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3143,
+          "tile": 869,
+          "sprite": 105
+        },
+        {
+          "block": "south",
+          "index": 3180,
+          "tile": 869,
+          "sprite": 151
+        },
+        {
+          "block": "north",
+          "index": 1526,
+          "tile": 1290,
+          "sprite": 145
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 1526,
+          "tile": 1290,
+          "sprite": 145
+        },
+        {
+          "block": "south",
+          "index": 3180,
+          "tile": 869,
+          "sprite": 151
+        },
+        {
+          "block": "south",
+          "index": 3143,
+          "tile": 869,
+          "sprite": 105
+        }
+      ]
+    },
+    {
+      "cell": [
+        9,
+        72,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3144,
+          "tile": 869,
+          "sprite": 106
+        },
+        {
+          "block": "south",
+          "index": 3181,
+          "tile": 869,
+          "sprite": 152
+        },
+        {
+          "block": "north",
+          "index": 1527,
+          "tile": 1290,
+          "sprite": 146
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 1527,
+          "tile": 1290,
+          "sprite": 146
+        },
+        {
+          "block": "south",
+          "index": 3181,
+          "tile": 869,
+          "sprite": 152
+        },
+        {
+          "block": "south",
+          "index": 3144,
+          "tile": 869,
+          "sprite": 106
+        }
+      ]
+    },
+    {
+      "cell": [
+        11,
+        73,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3166,
+          "tile": 869,
+          "sprite": 163
+        },
+        {
+          "block": "south",
+          "index": 3183,
+          "tile": 869,
+          "sprite": 154
+        },
+        {
+          "block": "north",
+          "index": 1528,
+          "tile": 1290,
+          "sprite": 147
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 1528,
+          "tile": 1290,
+          "sprite": 147
+        },
+        {
+          "block": "south",
+          "index": 3183,
+          "tile": 869,
+          "sprite": 154
+        },
+        {
+          "block": "south",
+          "index": 3166,
+          "tile": 869,
+          "sprite": 163
+        }
+      ]
+    },
+    {
+      "cell": [
+        6,
+        72,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3145,
+          "tile": 869,
+          "sprite": 110
+        },
+        {
+          "block": "north",
+          "index": 1535,
+          "tile": 1290,
+          "sprite": 154
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 1535,
+          "tile": 1290,
+          "sprite": 154
+        },
+        {
+          "block": "south",
+          "index": 3145,
+          "tile": 869,
+          "sprite": 110
+        }
+      ]
+    },
+    {
+      "cell": [
+        7,
+        72,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3146,
+          "tile": 869,
+          "sprite": 111
+        },
+        {
+          "block": "north",
+          "index": 1536,
+          "tile": 1290,
+          "sprite": 155
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 1536,
+          "tile": 1290,
+          "sprite": 155
+        },
+        {
+          "block": "south",
+          "index": 3146,
+          "tile": 869,
+          "sprite": 111
+        }
+      ]
+    },
+    {
+      "cell": [
+        5,
+        72,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3148,
+          "tile": 869,
+          "sprite": 116
+        },
+        {
+          "block": "north",
+          "index": 1542,
+          "tile": 1290,
+          "sprite": 161
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 1542,
+          "tile": 1290,
+          "sprite": 161
+        },
+        {
+          "block": "south",
+          "index": 3148,
+          "tile": 869,
+          "sprite": 116
+        }
+      ]
+    },
+    {
+      "cell": [
+        30,
+        66,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 513,
+          "tile": 1264,
+          "sprite": 112
+        },
+        {
+          "block": "north",
+          "index": 2114,
+          "tile": 1228,
+          "sprite": 190
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2114,
+          "tile": 1228,
+          "sprite": 190
+        },
+        {
+          "block": "south",
+          "index": 513,
+          "tile": 1264,
+          "sprite": 112
+        }
+      ]
+    },
+    {
+      "cell": [
+        31,
+        66,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 514,
+          "tile": 1264,
+          "sprite": 113
+        },
+        {
+          "block": "north",
+          "index": 2115,
+          "tile": 1228,
+          "sprite": 191
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2115,
+          "tile": 1228,
+          "sprite": 191
+        },
+        {
+          "block": "south",
+          "index": 514,
+          "tile": 1264,
+          "sprite": 113
+        }
+      ]
+    },
+    {
+      "cell": [
+        28,
+        66,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 515,
+          "tile": 1264,
+          "sprite": 114
+        },
+        {
+          "block": "north",
+          "index": 2120,
+          "tile": 1228,
+          "sprite": 196
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2120,
+          "tile": 1228,
+          "sprite": 196
+        },
+        {
+          "block": "south",
+          "index": 515,
+          "tile": 1264,
+          "sprite": 114
+        }
+      ]
+    },
+    {
+      "cell": [
+        29,
+        66,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 516,
+          "tile": 1264,
+          "sprite": 115
+        },
+        {
+          "block": "north",
+          "index": 2121,
+          "tile": 1228,
+          "sprite": 197
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2121,
+          "tile": 1228,
+          "sprite": 197
+        },
+        {
+          "block": "south",
+          "index": 516,
+          "tile": 1264,
+          "sprite": 115
+        }
+      ]
+    },
+    {
+      "cell": [
+        30,
+        67,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 517,
+          "tile": 1264,
+          "sprite": 116
+        },
+        {
+          "block": "north",
+          "index": 2122,
+          "tile": 1228,
+          "sprite": 198
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2122,
+          "tile": 1228,
+          "sprite": 198
+        },
+        {
+          "block": "south",
+          "index": 517,
+          "tile": 1264,
+          "sprite": 116
+        }
+      ]
+    },
+    {
+      "cell": [
+        31,
+        67,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 518,
+          "tile": 1264,
+          "sprite": 117
+        },
+        {
+          "block": "north",
+          "index": 2123,
+          "tile": 1228,
+          "sprite": 199
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2123,
+          "tile": 1228,
+          "sprite": 199
+        },
+        {
+          "block": "south",
+          "index": 518,
+          "tile": 1264,
+          "sprite": 117
+        }
+      ]
+    },
+    {
+      "cell": [
+        28,
+        67,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 519,
+          "tile": 1264,
+          "sprite": 118
+        },
+        {
+          "block": "north",
+          "index": 2128,
+          "tile": 1228,
+          "sprite": 204
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2128,
+          "tile": 1228,
+          "sprite": 204
+        },
+        {
+          "block": "south",
+          "index": 519,
+          "tile": 1264,
+          "sprite": 118
+        }
+      ]
+    },
+    {
+      "cell": [
+        29,
+        67,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 520,
+          "tile": 1264,
+          "sprite": 119
+        },
+        {
+          "block": "north",
+          "index": 2129,
+          "tile": 1228,
+          "sprite": 205
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2129,
+          "tile": 1228,
+          "sprite": 205
+        },
+        {
+          "block": "south",
+          "index": 520,
+          "tile": 1264,
+          "sprite": 119
+        }
+      ]
+    },
+    {
+      "cell": [
+        30,
+        68,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 521,
+          "tile": 1264,
+          "sprite": 120
+        },
+        {
+          "block": "north",
+          "index": 2130,
+          "tile": 1228,
+          "sprite": 206
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2130,
+          "tile": 1228,
+          "sprite": 206
+        },
+        {
+          "block": "south",
+          "index": 521,
+          "tile": 1264,
+          "sprite": 120
+        }
+      ]
+    },
+    {
+      "cell": [
+        35,
+        70,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3756,
+          "tile": 2531,
+          "sprite": 117
+        },
+        {
+          "block": "north",
+          "index": 2135,
+          "tile": 1228,
+          "sprite": 211
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2135,
+          "tile": 1228,
+          "sprite": 211
+        },
+        {
+          "block": "south",
+          "index": 3756,
+          "tile": 2531,
+          "sprite": 117
+        }
+      ]
+    },
+    {
+      "cell": [
+        27,
+        67,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 522,
+          "tile": 1264,
+          "sprite": 121
+        },
+        {
+          "block": "north",
+          "index": 2137,
+          "tile": 1228,
+          "sprite": 213
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2137,
+          "tile": 1228,
+          "sprite": 213
+        },
+        {
+          "block": "south",
+          "index": 522,
+          "tile": 1264,
+          "sprite": 121
+        }
+      ]
+    },
+    {
+      "cell": [
+        34,
+        71,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3759,
+          "tile": 2531,
+          "sprite": 129
+        },
+        {
+          "block": "north",
+          "index": 2144,
+          "tile": 1228,
+          "sprite": 220
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2144,
+          "tile": 1228,
+          "sprite": 220
+        },
+        {
+          "block": "south",
+          "index": 3759,
+          "tile": 2531,
+          "sprite": 129
+        }
+      ]
+    },
+    {
+      "cell": [
+        35,
+        71,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3760,
+          "tile": 2531,
+          "sprite": 130
+        },
+        {
+          "block": "north",
+          "index": 2145,
+          "tile": 1228,
+          "sprite": 221
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2145,
+          "tile": 1228,
+          "sprite": 221
+        },
+        {
+          "block": "south",
+          "index": 3760,
+          "tile": 2531,
+          "sprite": 130
+        }
+      ]
+    },
+    {
+      "cell": [
+        32,
+        71,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3762,
+          "tile": 2531,
+          "sprite": 141
+        },
+        {
+          "block": "north",
+          "index": 2153,
+          "tile": 1228,
+          "sprite": 229
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2153,
+          "tile": 1228,
+          "sprite": 229
+        },
+        {
+          "block": "south",
+          "index": 3762,
+          "tile": 2531,
+          "sprite": 141
+        }
+      ]
+    },
+    {
+      "cell": [
+        33,
+        71,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3763,
+          "tile": 2531,
+          "sprite": 142
+        },
+        {
+          "block": "north",
+          "index": 2154,
+          "tile": 1228,
+          "sprite": 230
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2154,
+          "tile": 1228,
+          "sprite": 230
+        },
+        {
+          "block": "south",
+          "index": 3763,
+          "tile": 2531,
+          "sprite": 142
+        }
+      ]
+    },
+    {
+      "cell": [
+        34,
+        72,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3764,
+          "tile": 2531,
+          "sprite": 143
+        },
+        {
+          "block": "north",
+          "index": 2155,
+          "tile": 1228,
+          "sprite": 231
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2155,
+          "tile": 1228,
+          "sprite": 231
+        },
+        {
+          "block": "south",
+          "index": 3764,
+          "tile": 2531,
+          "sprite": 143
+        }
+      ]
+    },
+    {
+      "cell": [
+        32,
+        72,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3711,
+          "tile": 2530,
+          "sprite": 170
+        },
+        {
+          "block": "south",
+          "index": 3766,
+          "tile": 2531,
+          "sprite": 153
+        },
+        {
+          "block": "north",
+          "index": 2164,
+          "tile": 1228,
+          "sprite": 240
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2164,
+          "tile": 1228,
+          "sprite": 240
+        },
+        {
+          "block": "south",
+          "index": 3766,
+          "tile": 2531,
+          "sprite": 153
+        },
+        {
+          "block": "south",
+          "index": 3711,
+          "tile": 2530,
+          "sprite": 170
+        }
+      ]
+    },
+    {
+      "cell": [
+        33,
+        72,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3712,
+          "tile": 2530,
+          "sprite": 171
+        },
+        {
+          "block": "south",
+          "index": 3767,
+          "tile": 2531,
+          "sprite": 154
+        },
+        {
+          "block": "north",
+          "index": 2165,
+          "tile": 1228,
+          "sprite": 241
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2165,
+          "tile": 1228,
+          "sprite": 241
+        },
+        {
+          "block": "south",
+          "index": 3767,
+          "tile": 2531,
+          "sprite": 154
+        },
+        {
+          "block": "south",
+          "index": 3712,
+          "tile": 2530,
+          "sprite": 171
+        }
+      ]
+    },
+    {
+      "cell": [
+        30,
+        72,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3715,
+          "tile": 2530,
+          "sprite": 180
+        },
+        {
+          "block": "north",
+          "index": 2172,
+          "tile": 1228,
+          "sprite": 248
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2172,
+          "tile": 1228,
+          "sprite": 248
+        },
+        {
+          "block": "south",
+          "index": 3715,
+          "tile": 2530,
+          "sprite": 180
+        }
+      ]
+    },
+    {
+      "cell": [
+        29,
+        72,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 3720,
+          "tile": 2530,
+          "sprite": 194
+        },
+        {
+          "block": "north",
+          "index": 2174,
+          "tile": 1228,
+          "sprite": 250
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2174,
+          "tile": 1228,
+          "sprite": 250
+        },
+        {
+          "block": "south",
+          "index": 3720,
+          "tile": 2530,
+          "sprite": 194
+        }
+      ]
+    },
+    {
+      "cell": [
+        90,
+        65,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 2513,
+          "tile": 1238,
+          "sprite": 158
+        },
+        {
+          "block": "north",
+          "index": 2876,
+          "tile": 1238,
+          "sprite": 144
+        },
+        {
+          "block": "north",
+          "index": 2896,
+          "tile": 1238,
+          "sprite": 216
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2896,
+          "tile": 1238,
+          "sprite": 216
+        },
+        {
+          "block": "north",
+          "index": 2876,
+          "tile": 1238,
+          "sprite": 144
+        },
+        {
+          "block": "south",
+          "index": 2513,
+          "tile": 1238,
+          "sprite": 158
+        }
+      ]
+    },
+    {
+      "cell": [
+        92,
+        64,
+        29
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 2491,
+          "tile": 1237,
+          "sprite": 48
+        },
+        {
+          "block": "north",
+          "index": 2882,
+          "tile": 1237,
+          "sprite": 140
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2882,
+          "tile": 1237,
+          "sprite": 140
+        },
+        {
+          "block": "south",
+          "index": 2491,
+          "tile": 1237,
+          "sprite": 48
+        }
+      ]
+    },
+    {
+      "cell": [
+        91,
+        64,
+        25
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 2493,
+          "tile": 1237,
+          "sprite": 63
+        },
+        {
+          "block": "north",
+          "index": 2884,
+          "tile": 1237,
+          "sprite": 148
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2884,
+          "tile": 1237,
+          "sprite": 148
+        },
+        {
+          "block": "south",
+          "index": 2493,
+          "tile": 1237,
+          "sprite": 63
+        }
+      ]
+    },
+    {
+      "cell": [
+        90,
+        65,
+        21
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 2496,
+          "tile": 1237,
+          "sprite": 77
+        },
+        {
+          "block": "north",
+          "index": 2886,
+          "tile": 1237,
+          "sprite": 160
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2886,
+          "tile": 1237,
+          "sprite": 160
+        },
+        {
+          "block": "south",
+          "index": 2496,
+          "tile": 1237,
+          "sprite": 77
+        }
+      ]
+    },
+    {
+      "cell": [
+        89,
+        65,
+        17
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 2500,
+          "tile": 1237,
+          "sprite": 92
+        },
+        {
+          "block": "north",
+          "index": 2888,
+          "tile": 1237,
+          "sprite": 174
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2888,
+          "tile": 1237,
+          "sprite": 174
+        },
+        {
+          "block": "south",
+          "index": 2500,
+          "tile": 1237,
+          "sprite": 92
+        }
+      ]
+    },
+    {
+      "cell": [
+        88,
+        66,
+        17
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 2504,
+          "tile": 1237,
+          "sprite": 108
+        },
+        {
+          "block": "north",
+          "index": 2890,
+          "tile": 1237,
+          "sprite": 190
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2890,
+          "tile": 1237,
+          "sprite": 190
+        },
+        {
+          "block": "south",
+          "index": 2504,
+          "tile": 1237,
+          "sprite": 108
+        }
+      ]
+    },
+    {
+      "cell": [
+        89,
+        66,
+        17
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 2505,
+          "tile": 1237,
+          "sprite": 109
+        },
+        {
+          "block": "north",
+          "index": 2891,
+          "tile": 1237,
+          "sprite": 191
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2891,
+          "tile": 1237,
+          "sprite": 191
+        },
+        {
+          "block": "south",
+          "index": 2505,
+          "tile": 1237,
+          "sprite": 109
+        }
+      ]
+    },
+    {
+      "cell": [
+        89,
+        65,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 2514,
+          "tile": 1238,
+          "sprite": 167
+        },
+        {
+          "block": "north",
+          "index": 2898,
+          "tile": 1238,
+          "sprite": 224
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2898,
+          "tile": 1238,
+          "sprite": 224
+        },
+        {
+          "block": "south",
+          "index": 2514,
+          "tile": 1238,
+          "sprite": 167
+        }
+      ]
+    },
+    {
+      "cell": [
+        90,
+        66,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 2515,
+          "tile": 1238,
+          "sprite": 168
+        },
+        {
+          "block": "north",
+          "index": 2899,
+          "tile": 1238,
+          "sprite": 225
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2899,
+          "tile": 1238,
+          "sprite": 225
+        },
+        {
+          "block": "south",
+          "index": 2515,
+          "tile": 1238,
+          "sprite": 168
+        }
+      ]
+    },
+    {
+      "cell": [
+        88,
+        66,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 2517,
+          "tile": 1238,
+          "sprite": 176
+        },
+        {
+          "block": "north",
+          "index": 2900,
+          "tile": 1238,
+          "sprite": 235
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2900,
+          "tile": 1238,
+          "sprite": 235
+        },
+        {
+          "block": "south",
+          "index": 2517,
+          "tile": 1238,
+          "sprite": 176
+        }
+      ]
+    },
+    {
+      "cell": [
+        89,
+        66,
+        8
+      ],
+      "insert_order": [
+        {
+          "block": "south",
+          "index": 2518,
+          "tile": 1238,
+          "sprite": 177
+        },
+        {
+          "block": "north",
+          "index": 2901,
+          "tile": 1238,
+          "sprite": 236
+        }
+      ],
+      "original_draw_order": [
+        {
+          "block": "north",
+          "index": 2901,
+          "tile": 1238,
+          "sprite": 236
+        },
+        {
+          "block": "south",
+          "index": 2518,
+          "tile": 1238,
+          "sprite": 177
+        }
+      ]
+    }
+  ],
+  "heap_copy_hooks": [
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 100
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 52
+    },
+    {
+      "kind": "memmove",
+      "bytes": 48
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 100
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 52
+    },
+    {
+      "kind": "memmove",
+      "bytes": 48
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 100
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 52
+    },
+    {
+      "kind": "memmove",
+      "bytes": 48
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 100
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 52
+    },
+    {
+      "kind": "memmove",
+      "bytes": 48
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 100
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 52
+    },
+    {
+      "kind": "memmove",
+      "bytes": 48
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 100
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 52
+    },
+    {
+      "kind": "memmove",
+      "bytes": 48
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    },
+    {
+      "kind": "allocate",
+      "bytes": 28
+    },
+    {
+      "kind": "allocate",
+      "bytes": 52
+    },
+    {
+      "kind": "memcpy",
+      "bytes": 28
+    },
+    {
+      "kind": "memmove",
+      "bytes": 24
+    }
+  ],
+  "conclusion": "Initial cache load invokes slots3,2,1,0. Same-column south loads before north. Actual F0ED00 insert-before-equal-z reverses source insertion, so equal-depth overlapping north records draw before south for this initial-load path. Within each block source records also reverse.",
+  "scope": "Unmodified x86 loop and F0ED00 execute in Unicorn. Map loading calls are intercepted only to record slot arguments; malloc/memcpy/memmove/delete emulated as ordinary memory helpers. No original process/network. This does not yet prove incremental cache shift/reinsertion order or whole native renderer."
+}

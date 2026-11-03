@@ -1,0 +1,150 @@
+{
+  "status": "pass",
+  "validatorResult": {
+    "status": "pass-read-only-planning-validation",
+    "sourceFiles": 181,
+    "replacements": 4,
+    "additions": 1,
+    "inputPins": 2635,
+    "independentCopies": 539,
+    "inheritedSteps": 8,
+    "inheritedOperations": 44,
+    "profileSuites": 5,
+    "p29Families": 14,
+    "productBuilds": 0,
+    "runtimeProbes": 0,
+    "executionAuthorized": false,
+    "writes": false
+  },
+  "planningChecks": [
+    {
+      "id": "reject-executionAuthorized",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "reject-preparationOnly",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "reject-owner",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "reject-supervisor",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "reject-writeRoot",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "reject-futureStageRoot",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "reject-formalEntry",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "reject-productBuilds",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "reject-runtimeProbes",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "reject-packageLogicPrepared",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "reject-RG2",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "external-plan-sha-mismatch",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "different-plan-path",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "outside-output-path",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "traversal-output-path",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "changed-source-pin",
+      "passed": true,
+      "kind": "in-memory-or-read-only-refusal"
+    },
+    {
+      "id": "controller-has-no-write-or-execution-api",
+      "passed": true,
+      "kind": "static-AST"
+    },
+    {
+      "id": "no-stage-output-created",
+      "passed": true,
+      "kind": "read-only"
+    },
+    {
+      "id": "migration-cancellation-and-assertion-bodies-preserved",
+      "passed": true,
+      "kind": "static-byte-source-comparison"
+    }
+  ],
+  "planningCheckCount": 19,
+  "productBuilds": 0,
+  "runtimeProbes": 0,
+  "rawCommand": {
+    "argv": [
+      "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\stage_controller.py",
+      "validate",
+      "--plan-sha256",
+      "f58e0d6400d1715ad03ef32fc26486ac89a9b915824bbd7470a4ca6dff4f19f3"
+    ],
+    "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1",
+    "startedUtc": "2026-10-29T05:56:25.906662+00:00",
+    "finishedUtc": "2026-10-29T05:56:30.936763+00:00",
+    "exitCode": 0,
+    "kind": "read-only-planning-validation-not-product-runtime",
+    "stdout": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\validation\\attempt-02\\stdout",
+      "size": 369,
+      "sha256": "6c58f9d94dd3b36defd7b5e9e51f9b4fce3ff673bc4bb19d7f18a05d265c31ee",
+      "decoder": "utf-8-sig errors=replace",
+      "replacementCount": 0
+    },
+    "stderr": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\validation\\attempt-02\\stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "decoder": "utf-8-sig errors=replace",
+      "replacementCount": 0
+    }
+  }
+}

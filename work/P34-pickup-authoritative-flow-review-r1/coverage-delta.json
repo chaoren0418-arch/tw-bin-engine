@@ -1,0 +1,29 @@
+{
+  "prior": {
+    "P28": "control0/0 early reply and deadline construction; no real elapsed pending timeout in regression-01",
+    "GroundRegression": "base fixture true 3100ms retained heading and explicit second action; no extension presentation combined",
+    "P29": "transport/quantity complete adapter explicitly excluded",
+    "P31": "56 pixel cases accepted, not rerun",
+    "P32": "196 cases including 2 reset-lease completion cases accepted, not rerun"
+  },
+  "newChains": [
+    "early-partial-0-0-s0",
+    "early-partial-2796-20-s0",
+    "early-partial-2796-20-s1",
+    "early-delete-add-6658-4-s1",
+    "pre-admit-selection",
+    "pre-admit-speed",
+    "pre-admit-appearance",
+    "post-admit-revisions",
+    "teleport-old-completion",
+    "real-deadline-recovery",
+    "real-900-guard-without-pending"
+  ],
+  "distinctCaseCounting": "one entire chain = one case; observations/assertions not added",
+  "remaining": [
+    "all audio/effect event counters",
+    "real sockets/native/GUI",
+    "unselected profiles and event permutations"
+  ],
+  "supplementReason": "runtime01 real deadline chain retains pending across900, so it cannot independently prove guard-only Busy. One distinct supplemental chain removes pending through early S158 and tests real900 expiry. Prior10 not rerun."
+}

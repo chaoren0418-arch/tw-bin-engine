@@ -1,0 +1,161 @@
+{
+  "status": "extracted-for-inspection-not-semantic-acceptance",
+  "utc": "2026-10-25T10:18:49.072758+00:00",
+  "jar_sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "classes": [
+    {
+      "name": "com/lineage/echo/OpcodesClient",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\echo\\OpcodesClient.java",
+      "source_sha256": "3b9df4518cad4ab3021d7a6454f88fe4513bd715eb3eb461ffaa873a64fe8931",
+      "class_sha256": "6d1b160c0b381a56d7897c678a1f8bb5029ebb13417b052401092058aba5be5c",
+      "javap_sha256": "953bd9bcbe67a66f5d24095abb2de62d0624a3e50862a8ccdef5b0ce4f4b0cfe"
+    },
+    {
+      "name": "com/lineage/echo/PacketHandler",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\echo\\PacketHandler.java",
+      "source_sha256": "001014e4f858abaef5734efe558d1759f97f85d4314d27bd44fefd72d4b3cd30",
+      "class_sha256": "57e1e727935beb67d8a923c40c61656218ca8832ea13d04c98cdd18a878910e1",
+      "javap_sha256": "15a508c48f4870295aa8740894d6f7a8ba4fe92557381a5078b50dbf616a6cee"
+    },
+    {
+      "name": "com/lineage/server/serverpackets/OpcodesServer",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\OpcodesServer.java",
+      "source_sha256": "9044cb98cf8a0548a421fbb05e6cdcef26147b2a2b85a1ef896fde8a8016f152",
+      "class_sha256": "e38b4f92b2728287dd5ae1741dc7d0bbd4a2ca78bc6739f9b634609427a40b1d",
+      "javap_sha256": "884d0de9166544e1e7e676062c73a1ac95c470d3d00ef8a93712049ecc92e8b9"
+    },
+    {
+      "name": "com/lineage/server/clientpackets/C_UseSkill",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_UseSkill.java",
+      "source_sha256": "4932c6dd71b330d91b75c4fcbf02c30ffa4712c35d7cb07537626159038e168e",
+      "class_sha256": "3592ba46442ec134700d937a234599f37ae8bb7ae41d6759648901b776cc00ad",
+      "javap_sha256": "7319f7ce05790348bf04e8958b65eddc1de71dd6deea09935505f1a433e3bc49"
+    },
+    {
+      "name": "com/lineage/server/clientpackets/ClientPacketStructure",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\ClientPacketStructure.java",
+      "source_sha256": "759a39366d2b8fd2d1972bfc74e50fb9bffa30a9910fe5773fd08a47d542551d",
+      "class_sha256": "f9235526701216be001bea37247f3a0bb55e868a1139c6db4c7e32e38fa85aa7",
+      "javap_sha256": "efe9b68b06db07a8e70d7e4840c5f8c9adf41a9b050667d4ad8e625bf3a40775"
+    },
+    {
+      "name": "com/lineage/server/clientpackets/C_LoginToServer",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_LoginToServer.java",
+      "source_sha256": "437bdd8fdb9ab6a855ac6cc7770024bf0dfc99bee836e5b36fe2e53322073d4a",
+      "class_sha256": "7cb6fc885ca88b7972dab71b9e02ed7ee6c48b23f284b7ab9e29d8c580950cd1",
+      "javap_sha256": "44c49c39088dfe7e37e337b5dde7d80d0b34c6d0cdd56504e99510c78dac2976"
+    },
+    {
+      "name": "com/lineage/server/serverpackets/S_AddSkill",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_AddSkill.java",
+      "source_sha256": "13113864ecbe5af003216de30969abb8d1fc5515e961dbff32b2b24516fe0bdb",
+      "class_sha256": "aeebde3caec2bc030491f4485934f08cb9745aa368c9db7cdd9bb9b277cb4a89",
+      "javap_sha256": "e75a55c914a88e0b7ec994fbe0a84a6b5081a24c5c092fde865005cbb7acbb43"
+    },
+    {
+      "name": "com/lineage/server/serverpackets/S_DelSkill",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_DelSkill.java",
+      "source_sha256": "4a252f732bdfddb0040b5d14c8f3a047e50a3e9868a09c17b91edd8e68d63edf",
+      "class_sha256": "af1c5ae63f1592bca225e1005a21d661c9ded819243dd47e475667b717343db9",
+      "javap_sha256": "bf9ab6d7bc28d8f6016c73b7f58dd67a1f658414e293f2c28d39fd76d4bac89e"
+    },
+    {
+      "name": "com/lineage/server/serverpackets/S_UseAttackSkill",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_UseAttackSkill.java",
+      "source_sha256": "83e00ecf1da363510643ae259d8da3c43d99508fef9edb36fa9dacf74403dcfe",
+      "class_sha256": "d11f5d72b06e10353c468506263adb66b80c7bec1fbef523928e21b961578f25",
+      "javap_sha256": "f76146d0067224512ebca5c8e62d4b7778d8cf831e473cc7a9df0410c36e7dbe"
+    },
+    {
+      "name": "com/lineage/server/serverpackets/S_SkillSound",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_SkillSound.java",
+      "source_sha256": "d59df752b4bacbd0158d9962afed424cc9c876d348d1154f633ac0e38b986ccb",
+      "class_sha256": "58cbc861e1a6a29122d263cc0f7ffe4706a3f9d73baeb7fdd8b8c3db20e928d7",
+      "javap_sha256": "988ff89ee680418dc2086976c433a684708cc4ab183309d5e960f548cf73b97d"
+    },
+    {
+      "name": "com/lineage/server/serverpackets/S_MPUpdate",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_MPUpdate.java",
+      "source_sha256": "966ebd8c869f5bf0e50e14127ca9fd5adc37710d5dc90678819a8d6e71eef53d",
+      "class_sha256": "33e6cd4580a3377856ece6bfa15d35d9af9140f8b6557eb850dab012bf22453d",
+      "javap_sha256": "d0c495f2697cb82447fd5d5ea981b2aab03b13f4c2c2b98226110dac9838e080"
+    },
+    {
+      "name": "com/lineage/server/serverpackets/S_HPUpdate",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_HPUpdate.java",
+      "source_sha256": "f96021109939b861a6442fdb9b731f11e30340329ec62177f42bedff0ef1b29d",
+      "class_sha256": "93dc3456c59e8e29c30e1fa0efa9e6a11c1dfd41fb50211b55bfee122b7ef164",
+      "javap_sha256": "0f688c156b05dde0f28755a2ece81b7eae52747224e7275558955c6ccb052ac4"
+    },
+    {
+      "name": "com/lineage/server/serverpackets/ServerBasePacket",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\ServerBasePacket.java",
+      "source_sha256": "3348c199e9694bd1eec050b130f28ab99590cae16f0047964c17b32df309a439",
+      "class_sha256": "cbfbc11d757d8a96edf432fdfd852aaf7b19e380535ab2d494d5e1a66a44833b",
+      "javap_sha256": "be8c314edd5624bdac4845162dc801af8930d481b9fde29ae45f20fde674fcf4"
+    },
+    {
+      "name": "com/lineage/server/templates/L1Skills",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\templates\\L1Skills.java",
+      "source_sha256": "ad82472d7e5c5a0b26860e4b0fd16125e6a51a3d0eacd820c8364a11b52c359c",
+      "class_sha256": "722a753984044fc85ef7cc3b94e4ef26e481ccf26584d910b615a00e30c12d11",
+      "javap_sha256": "95406048d3fb39239d67fa1ccadc3cb25e0dadf58ae98eb978d8e122fec469d5"
+    },
+    {
+      "name": "com/lineage/server/datatables/SkillsTable",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\SkillsTable.java",
+      "source_sha256": "e06a1aacabb01989edbd6f6a4ee3e5d718eebaa0eda9da685813def70aa40c3a",
+      "class_sha256": "a758cf869cde28466547f5135c0573d406be0fbc1d71c051223af603b2398e56",
+      "javap_sha256": "ed25f1e2f29dded9a9aca03256f086a72d0e9413bc10c82d46b87bcdb27556df"
+    },
+    {
+      "name": "com/lineage/server/datatables/user/CharSkillTable",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharSkillTable.java",
+      "source_sha256": "e22e11b7b0ec7b03eb97aededc266aa5e3a6f2e6ab1c74d89bba4bafc39b3b4c",
+      "class_sha256": "1524f9d52eac421cd707268c65a00ce9275fd26a893e82a98721b36b7f22847c",
+      "javap_sha256": "30f94ab495d69907e21cc2c8c9774b300034e9d1a090b149db9ad20c7909f4c6"
+    },
+    {
+      "name": "com/lineage/server/model/skill/L1SkillUse",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\skill\\L1SkillUse.java",
+      "source_sha256": "fdf419b283b6a521750ffc82599139d49375c656adc1e199d77eba47711b1a29",
+      "class_sha256": "4fd91d4c930fa771a415653a0d025bcd89c86aaa0d93841811c177c463536e1a",
+      "javap_sha256": "35b1f8961b9a9977d8dee8ee63d45e787540fc626154c61810dc660f417d35dd"
+    },
+    {
+      "name": "com/lineage/server/model/L1MagicPc",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1MagicPc.java",
+      "source_sha256": "fdea6bf489e6fef997be6dfc48136476e88b701e00f6dbdf6410b918b1a56546",
+      "class_sha256": "f55c0cecd57d17a32b2e56377a5577c32175fadc63332283aa4ec1ce1785f42a",
+      "javap_sha256": "5d2046a8e2318b168eae485bc2573d5fd6ac0d42eb51623852b84f952a08fb5c"
+    },
+    {
+      "name": "com/lineage/server/model/ClientActionTimeline",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\ClientActionTimeline.java",
+      "source_sha256": "9e888bd225bb24636068aa9b411ca46b8cbd8f21caae132ef86c07260c022c3b",
+      "class_sha256": "9a2b9c80b5d9b47661d7dd72dc8a0eda5051c47de4e6bd4f0b86b71090b3bf9c",
+      "javap_sha256": "090a504c95caf320ad0f540c8ca31eadeb0589a1c470c7fefacce00b49512a9d"
+    },
+    {
+      "name": "com/lineage/server/model/Instance/L1PcInstance",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1PcInstance.java",
+      "source_sha256": "465662bc3bfa41582006022030dde35d7f9057e5c74c07020c826811a058373b",
+      "class_sha256": "5cbacdbab9576d3c8367df09f71888b26d0edb33757a5f4367b3b8f9646bfd27",
+      "javap_sha256": "0bf261f93ba15f676234d2b2b34306246352a88ffab49593ff596c753ee0653d"
+    },
+    {
+      "name": "com/lineage/server/model/Instance/L1CrownInstance",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1CrownInstance.java",
+      "source_sha256": "1101399b312d59f2bf7f27a0e4dfc17c96d2f0c42599af064387af165f1e47be",
+      "class_sha256": "73bc4577decfd4a0da8b82732cfedc2248837c89fed0cd64b7b84514c1ae5907",
+      "javap_sha256": "7ec1e8a67b5adfe4d1cc4fa09760fcb14daa1a0aabf72cc6261a451f771183be"
+    },
+    {
+      "name": "com/lineage/server/model/skill/CharacterSkillPersistenceService",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\skill\\CharacterSkillPersistenceService.java",
+      "source_sha256": "7e5c223c1953e9fb6e343e55d8d7e94987bd01f49dc11adc95f23110a2ab2903",
+      "class_sha256": "c6a89fb57d60d9dd2fd6e6e8145a501ab1f14f763c31b48f71855dc2cd5af5a5",
+      "javap_sha256": "6a0748089bdce01e94afaa19ab92e82c8640d61bf229ab000da5bad102bb9e25"
+    }
+  ]
+}

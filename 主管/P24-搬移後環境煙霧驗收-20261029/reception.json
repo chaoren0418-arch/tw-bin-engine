@@ -1,0 +1,37 @@
+{
+  "utc": "2026-10-28T18:28:38.674140+00:00",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "integrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "acceptedScope": "Post-consolidation serial environment smoke before any development dispatch.",
+  "goalActualStatus": "paused",
+  "goalResumeSupportedByExposedTools": false,
+  "goalLimitation": "get_goal returned existing paused goal; update_goal accepts only complete/blocked/paused and explicitly cannot resume. No replacement goal or platform-storage edits.",
+  "developmentDispatched": false,
+  "wholeP24Complete": false,
+  "readPins": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "43d9add8cd3bab2835dc8638a95a885a36d05608e4facd64ada84183db4f461d"
+    },
+    {
+      "path": "docs/project-consolidation/HANDOFF.md",
+      "sha256": "3952631f49942cd4b6e441118e0535ad4285ea16402842313766c9a64df6bac8"
+    },
+    {
+      "path": "docs/project-consolidation/result.json",
+      "sha256": "170083d04e329c49ad544e9219b01adde44f5216cc5c7539530507b41bb63a33"
+    },
+    {
+      "path": "docs/project-consolidation/structure.md",
+      "sha256": "18119fe079dfb2008adb40921ab2a3dd816c91a3eec8dbd5c5c44a6a4a7671c5"
+    },
+    {
+      "path": "docs/project-consolidation/migration-plan.md",
+      "sha256": "ae2ad52ce5cdbfa00120fc59293a908f44d6d39776751a3c529b24d314644f1f"
+    },
+    {
+      "path": "project-manifest.json",
+      "sha256": "1c880f6558397d0529d7945c1bbb63dfaab59b53cc4e01f10ad9180f471314dc"
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "read_at_utc": "2026-10-28T17:24:36.927692+00:00",
+  "r28_pin_checks": {
+    "seal": true,
+    "productDll": true,
+    "audioDll": true,
+    "productManifest": true,
+    "launcherDll": true,
+    "assetReceipt": true
+  },
+  "sources": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\completion-matrix.json",
+      "sha256": "815ea14323936891a66eedc24e8e8b324d2a873934d9418832437097e48ccd55",
+      "bytes": 44813
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\task-queue.json",
+      "sha256": "4f307bc84668ab31b705d65a1e4b6178cfeabe724c6a1b255c37d29e36c6d21c",
+      "bytes": 5058
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\current-status.json",
+      "sha256": "e16a66c61510d83c3f050a328b561fcfe1a1691ef95bc325307fa0e1150dea9d",
+      "bytes": 32174
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\formal-r28-review\\root-review.json",
+      "sha256": "f93eea01a03c568323d1f7a9a9b89116b46626c3feab3a60588791c759fba8b2",
+      "bytes": 1369
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery\\_integration\\HANDOFF.md",
+      "sha256": "b74ce3439cde7455c0f18537a8f87ca2862c899c6e9521e6c4d03213d25f1d9d",
+      "bytes": 6040
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery\\_integration\\result.json",
+      "sha256": "98c1e436ad0598ac8c3b65fd5f3360704a3ce8d2154be162107deeb30aa1cdf3",
+      "bytes": 1003
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery\\新版客戶端使用說明.md",
+      "sha256": "6b920b89d9c3db6c36198d906f9f9ba17269db45accb188a733a57c3f0f82dfb",
+      "bytes": 7966
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\prepare.py",
+      "sha256": "683763566faadf353f7d34408f141378f8cbb0f1d92f19c4cbf84ffa1d206350",
+      "bytes": 3726
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\lab.py",
+      "sha256": "99ac25fcd2321773c9748d15b5c6c2dc89d574debd44445bf83d973d57817615",
+      "bytes": 5733
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\cache_sources.py",
+      "sha256": "38c3b66485e1bb784207de7a97f79db19e74606ccfbfab4c658cb51ba362fb20",
+      "bytes": 2587
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\cache_assets.py",
+      "sha256": "181c611697a4fc71688368afeab735c1f094329ca85a9dbe7ae2b0a2acf16f06",
+      "bytes": 1986
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\normal-save-review.json",
+      "sha256": "ae8d4120859d815b77b96fc46f59fd6124f0b3bb1b9404910892181011abc213",
+      "bytes": 3193
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\ground-review.json",
+      "sha256": "748318f796449fb7d6f5eab04f1093ca4c9f1cce6a2fdb437239cc9141ff5864",
+      "bytes": 1496
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\inn-room-review.json",
+      "sha256": "23b34d729baee4a84db50e4e41777f74bbe43b5c64d11a0269c55e87cfdcfba9",
+      "bytes": 1392
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\cave-entry-review.json",
+      "sha256": "24130dfb68e4766b18347de8ccd88d644c5bc6cfeac9f3d21b01c3dd3d65da53",
+      "bytes": 18600
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\cave-eye-combat-review.json",
+      "sha256": "69c0d2d2b99930908a3e135ff7117369cfd0169bb47064fdb2f02fa7def27988",
+      "bytes": 4244
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\cave-home-save-review.json",
+      "sha256": "9cfc219e29310333be50969bded7f52b542ee3caa576459d9baa4dc474224fbd",
+      "bytes": 2540
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\bonus-strength-save-review.json",
+      "sha256": "42966cb418b56f62424faf11cfcda36d909b78f7c92955112215ecf5db0a4292",
+      "bytes": 3137
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\holy-weapon-review.json",
+      "sha256": "f8a7ca5b800c051d751fa52e8054da37a310b6de2fc82877f40b9739c8eed291",
+      "bytes": 1022
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-本機主管接管與完整整合-20261028\\native-r28\\active-village-services-review.json",
+      "sha256": "63d5569346fb2d9b0a691465a177428533150b4d8475707cff3e2a7f4c50c4de",
+      "bytes": 2499
+    }
+  ],
+  "resource_correction": {
+    "provenance": "parent delegation with trusted user transcript/history; partially corroborated by cave-home-save and original source rules; no new DB query",
+    "greenPotion": "object10386/item40013 count3",
+    "homeScroll": "object10404/item40079 3->2 saved",
+    "innKey": "object10326/item49290 saved then absent about two hours later; direct deletion cause not established"
+  },
+  "caution": "not all historical evidence bodies independently revalidated; runtime tests not rerun"
+}

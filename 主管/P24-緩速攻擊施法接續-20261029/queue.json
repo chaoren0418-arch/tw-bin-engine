@@ -1,0 +1,68 @@
+{
+  "status": "r30-offline-accepted-next-evidenced-increment-preparing",
+  "utc": "2026-10-28T20:34:57.762828+00:00",
+  "baseline": "r29",
+  "candidateScope": "Speed2/Brave0 existing supported attack/spell animation, release and timing only",
+  "goalActualStatus": "paused",
+  "database": "user-owned-no-operations",
+  "tasks": [
+    {
+      "id": "ENGINE-SLOW-ACTIONS-IMPL-R1",
+      "owner": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "writeRoot": "work/engine-slow-actions-r1",
+      "status": "accepted-for-isolated-integration",
+      "turnId": "01a18438-ab04-7f62-95bd-0d5f1bf58826",
+      "cursor": "fd544505-99d4-4743-96cd-cd467d1820dc:87",
+      "accepted": true,
+      "candidateSealSha256": "6f952b532750778320ef1b238051b4bc37bcbf92fe7d3e2391d207be11cea66f"
+    },
+    {
+      "id": "ENGINE-SLOW-ACTIONS-REVIEW-R1",
+      "owner": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "writeRoot": "work/engine-slow-actions-review-r1/candidate-review-r1",
+      "status": "accepted-sealed",
+      "turnId": "01a18452-7edd-79b1-987e-fd0d35b36f88",
+      "cursor": "7d1d6419-2d65-4aa3-a69c-534fb7f98d8a:84",
+      "accepted": true,
+      "preparationAccepted": true,
+      "reviewComplete": true,
+      "reviewAcceptanceSha256": "2d150a8c224956ecf85c08f19eb0c952977877cc1d1f2af7fdf11a8acf55fa91"
+    },
+    {
+      "id": "ENGINE-R30-INTEGRATION-PREP-R1",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "writeRoot": "work/engine-r30-integration-r1",
+      "accepted": true,
+      "status": "prepared-awaiting-accepted-actions-candidate",
+      "turnId": "01a18439-cd9c-7252-b4c2-0f595c361652",
+      "cursor": "d0af65fb-9735-4df3-ad9d-148fd38221c5:51",
+      "acceptanceScope": "preparation-only",
+      "preparationSealSha256": "cc98bb3b358a03158c170a6b1fa30434dbeb7b0c39f5b2eeadf57a81943ecef6"
+    },
+    {
+      "id": "ENGINE-R30-INTEGRATE-R1",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "writeRoot": "work/engine-r30-integration-r1/r30-runs/accepted-actions-r1-01",
+      "status": "accepted-sealed-stage",
+      "turnId": "01a1845e-e19a-7110-86f5-979027bdc3a8",
+      "cursor": "d0af65fb-9735-4df3-ad9d-148fd38221c5:80",
+      "accepted": true,
+      "stageSealSha256": "ce72859e492ca092cbf3de8854648aa7c171d625a22419e40545b84575180237"
+    },
+    {
+      "id": "ENGINE-R30-SHARED-INTEGRATE-R1",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "writeRoot": "work/engine-r30-integration-r1/shared-integration-r1 and serial authorized canonical/release paths",
+      "status": "accepted-completed",
+      "turnId": "01a1846f-4728-7001-ad0a-9940beb9213a",
+      "cursor": "d0af65fb-9735-4df3-ad9d-148fd38221c5:104",
+      "accepted": true
+    }
+  ],
+  "integrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "sharedMergeAuthorized": false,
+  "wholeP24Complete": false,
+  "next": "Follow both workers through evidence-backed implementation, exact sealed-candidate review, repair if needed and serial next release. After delivery inspect further existing evidenced DB-independent engine work; do not stop on increment completion.",
+  "updatedUtc": "2026-10-28T21:51:58.948434+00:00",
+  "currentRelease": "r30"
+}

@@ -1,0 +1,32 @@
+{
+  "acceptedRun": "review.py final --write:2915 independent static assertions,0 failed",
+  "authorHelperImportedOrExecuted": false,
+  "author1612Added": 0,
+  "r34Author402Added": 0,
+  "r34Prep84Added": 0,
+  "r34Independent184Added": 0,
+  "developmentRunsExcluded": [
+    {
+      "stage": "initial helper invocation",
+      "outcome": "Stopped before reports: older accepted asset-review manifest used bytes rather than size. Reader now supports both fields; no source failure or source modification."
+    },
+    {
+      "stage": "preliminary independent pass",
+      "assertions": 2902,
+      "outcome": "Superseded after adding13 explicit body-group source-reference assertions; not added to final count."
+    },
+    {
+      "stage": "first preseal replay comparator",
+      "outcome": "First actual difference $.checks[2].evidence.pairs[0]: stored list[0,0], recomputed tuple(0,0). All8 full canonical structures/hash pairs identical, no array-order/value differences. Generator now emits explicit lists for pair and boundary arrays; direct full Python structural equality restored. Prior helper and diagnostic retained.",
+      "diagnosisArtifact": "replay-diagnosis.json",
+      "priorHelper": "development-review-before-json-types.py"
+    }
+  ],
+  "productBuilds": 0,
+  "productRuntimeChecks": 0,
+  "nativeRuntimeChecks": 0,
+  "sprDecodeRuns": 0,
+  "archiveScans": 0,
+  "payloadWrites": 0,
+  "newPixelEvidenceMeaning": "Static integer composition of already decoded bounded block JSON; compares all416 accepted RGBA hashes. No original decoder execution."
+}

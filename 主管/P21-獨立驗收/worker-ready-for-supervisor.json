@@ -1,0 +1,281 @@
+{
+  "status": "ready-for-supervisor",
+  "utc": 1792922159.3399794,
+  "goalStatus": "active",
+  "sourceManifestSha256": "5e3215371cfad53d34f0199dc66c349ae89054518b5853aaeac66c75853bdf87",
+  "environmentManifestSha256": "673c25718b17d0bbb34bebbdbc0b22f187736b6e95a724c7cd852852f2d0a0b7",
+  "server": {
+    "process": {
+      "ProcessId": 24180,
+      "ParentProcessId": 83176,
+      "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P21Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P21Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P21Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P21Lab-ClientEngine\\server\\Server_Game.jar",
+      "CreationDate": "/Date(1792920397828)/"
+    },
+    "listeners": [
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42049,
+        "OwningProcess": 24180
+      }
+    ]
+  },
+  "db": {
+    "values": [
+      "43321",
+      "D:\\P21Lab-ClientEngine\\db-data\\",
+      "9f407c5c-d051-11f1-aebc-4cedfb679789",
+      "127.0.0.1",
+      "8.0.40"
+    ],
+    "process": {
+      "process": {
+        "ProcessId": 79464,
+        "ParentProcessId": 73080,
+        "ExecutablePath": "D:\\P21Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P21Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P21Lab-ClientEngine\\mysql.ini --init-file=D:\\P21Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792918506929)/"
+      },
+      "listeners": [
+        {
+          "LocalAddress": "127.0.0.1",
+          "LocalPort": 43321,
+          "OwningProcess": 79464
+        }
+      ]
+    }
+  },
+  "reserved": [
+    {
+      "key": "supervisorCli",
+      "row": {
+        "x": 32588,
+        "y": 32930,
+        "hp": 700,
+        "id": 1900210003,
+        "mp": 120,
+        "exp": 416461882,
+        "name": "驗收王子",
+        "online": 0
+      },
+      "items": [
+        {
+          "id": 1900211031,
+          "role": 1900210003,
+          "bless": 0,
+          "count": 6,
+          "equipped": 0,
+          "template": 40012
+        },
+        {
+          "id": 1900211032,
+          "role": 1900210003,
+          "bless": 0,
+          "count": 3,
+          "equipped": 0,
+          "template": 40308
+        },
+        {
+          "id": 1900211033,
+          "role": 1900210003,
+          "bless": 0,
+          "count": 1,
+          "equipped": 0,
+          "template": 40126
+        },
+        {
+          "id": 1900211034,
+          "role": 1900210003,
+          "bless": 0,
+          "count": 8,
+          "equipped": 0,
+          "template": 40056
+        },
+        {
+          "id": 1900211035,
+          "role": 1900210003,
+          "bless": 0,
+          "count": 1,
+          "equipped": 0,
+          "template": 31
+        },
+        {
+          "id": 1900211036,
+          "role": 1900210003,
+          "bless": 0,
+          "count": 1,
+          "equipped": 0,
+          "template": 52
+        },
+        {
+          "id": 1900211037,
+          "role": 1900210003,
+          "bless": 0,
+          "count": 1,
+          "equipped": 0,
+          "template": 20096
+        },
+        {
+          "id": 1900211038,
+          "role": 1900210003,
+          "bless": 0,
+          "count": 1,
+          "equipped": 0,
+          "template": 20222
+        },
+        {
+          "id": 1900211039,
+          "role": 1900210003,
+          "bless": 0,
+          "count": 1,
+          "equipped": 0,
+          "template": 172
+        },
+        {
+          "id": 1900211040,
+          "role": 1900210003,
+          "bless": 0,
+          "count": 80,
+          "equipped": 0,
+          "template": 40743
+        }
+      ]
+    },
+    {
+      "key": "supervisorUi",
+      "row": {
+        "x": 32588,
+        "y": 32930,
+        "hp": 700,
+        "id": 1900210004,
+        "mp": 120,
+        "exp": 416461882,
+        "name": "驗收王子乙",
+        "online": 0
+      },
+      "items": [
+        {
+          "id": 1900211041,
+          "role": 1900210004,
+          "bless": 0,
+          "count": 6,
+          "equipped": 0,
+          "template": 40012
+        },
+        {
+          "id": 1900211042,
+          "role": 1900210004,
+          "bless": 0,
+          "count": 3,
+          "equipped": 0,
+          "template": 40308
+        },
+        {
+          "id": 1900211043,
+          "role": 1900210004,
+          "bless": 0,
+          "count": 1,
+          "equipped": 0,
+          "template": 40126
+        },
+        {
+          "id": 1900211044,
+          "role": 1900210004,
+          "bless": 0,
+          "count": 8,
+          "equipped": 0,
+          "template": 40056
+        },
+        {
+          "id": 1900211045,
+          "role": 1900210004,
+          "bless": 0,
+          "count": 1,
+          "equipped": 0,
+          "template": 31
+        },
+        {
+          "id": 1900211046,
+          "role": 1900210004,
+          "bless": 0,
+          "count": 1,
+          "equipped": 0,
+          "template": 52
+        },
+        {
+          "id": 1900211047,
+          "role": 1900210004,
+          "bless": 0,
+          "count": 1,
+          "equipped": 0,
+          "template": 20096
+        },
+        {
+          "id": 1900211048,
+          "role": 1900210004,
+          "bless": 0,
+          "count": 1,
+          "equipped": 0,
+          "template": 20222
+        },
+        {
+          "id": 1900211049,
+          "role": 1900210004,
+          "bless": 0,
+          "count": 1,
+          "equipped": 0,
+          "template": 172
+        },
+        {
+          "id": 1900211050,
+          "role": 1900210004,
+          "bless": 0,
+          "count": 80,
+          "equipped": 0,
+          "template": 40743
+        }
+      ]
+    },
+    {
+      "key": "supervisorCliObserver",
+      "row": {
+        "x": 32588,
+        "y": 32930,
+        "hp": 700,
+        "id": 1900210007,
+        "mp": 120,
+        "exp": 416461882,
+        "name": "驗收觀察甲",
+        "online": 0
+      },
+      "items": []
+    },
+    {
+      "key": "supervisorUiObserver",
+      "row": {
+        "x": 32588,
+        "y": 32930,
+        "hp": 700,
+        "id": 1900210008,
+        "mp": 120,
+        "exp": 416461882,
+        "name": "驗收觀察乙",
+        "online": 0
+      },
+      "items": []
+    }
+  ],
+  "allRolesOffline": true,
+  "workerClientProcesses": [],
+  "workerEvidence": [
+    "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\evidence\\ranged-worker-cli-r3",
+    "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\evidence\\ranged-worker-ui-r3"
+  ],
+  "regressions": "D:\\lineage開發\\TW1608262200研究\\P21-弓箭遠程與彈藥\\evidence\\ranged-regressions-1792921561417444100",
+  "normalJarStarts": 1,
+  "cleanupAuthorized": false,
+  "instructions": "Build an independent true copy with build.ps1 -Clean. Use reserved supervisorCli/supervisorUi + own observers, same service. Fresh only on untouched reserved role. No source edits/game sessions/restart/cleanup by worker after this freeze. Concrete functional-acceptance-passed-handback-for-cleanup receipt required for normal shutdown.",
+  "version": 2,
+  "previousReady": "evidence/freeze-v1/ready-for-supervisor.json",
+  "productAssetsWebBuildUnchanged": true
+}

@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-26T17:49:34.107Z",
+  "status": "pass",
+  "revision": "r13",
+  "actualNormalUi": true,
+  "evidence": [
+    "r13-rabbit-live-state.json",
+    "r13-rabbit-live-state2.json",
+    "r13-rabbit-live-scene.png",
+    "r13-rabbit-live-scene2.png"
+  ],
+  "observed": "Original small rabbit body visible at both actual server positions with changed MotionAt, no missing appearance annotation; no attack required",
+  "routeNote": "Initial routing toward exact occupied rabbit cell correctly returned no route; changed destination to nearby free cell.",
+  "nativeWgcAvailable": false
+}

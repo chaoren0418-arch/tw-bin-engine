@@ -1,0 +1,20 @@
+{
+  "revision": "r27",
+  "entry": "release-integration-r11/delivery/啟動新版客戶端.cmd",
+  "role": "existing peer 1900240006",
+  "actions": [
+    "normal launcher under registered user PATH",
+    "normal native login and role selection",
+    "F9 observe state; F10 return game focus",
+    "native Enter opens chat with input focus",
+    "type controlled test text and movement keys; position remains unchanged",
+    "explicit Enter yields one original server echo",
+    "Escape closes drawer and returns actual Form focus",
+    "saved draft survives close/reopen without auto-send",
+    "normal movement then save/relogin and normal close"
+  ],
+  "noReseeding": true,
+  "noServiceRestart": true,
+  "nativeCaptureLimitation": "previous supported recovery exhausted; no repeated capture or guessed pointer coordinates",
+  "stateObservation": "readonly existing embedded WebView state; not native full-window visual proof"
+}

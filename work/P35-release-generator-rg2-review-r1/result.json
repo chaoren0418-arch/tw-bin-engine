@@ -1,0 +1,81 @@
+{
+  "schema": "p35-independent-rg2-review-result-v1",
+  "utc": "2026-10-29T08:05:48.854469+00:00",
+  "reviewer": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "status": "accepted-isolated-rg2-fix-only",
+  "isolatedFixAccepted": true,
+  "RG2ResolvedInCandidate": true,
+  "candidate": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-fix-r1\\candidate\\generate_package_plan.py",
+    "size": 16695,
+    "sha256": "4fbf32a4d1a5faa12e34631ad2c0e9ee02647ff51947128c69e1894690f13fa2"
+  },
+  "authorArtifactSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-fix-r1\\artifact-seal.json",
+    "size": 398,
+    "sha256": "664a0d7df517d7c9bb191c99cf94995843be882eae26302c8cf344998596156a"
+  },
+  "authorSourceSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-fix-r1\\source-seal.json",
+    "size": 1846,
+    "sha256": "0a9499f8e8290883cb71541af24d89792bc304405d65846970a21c8326de3cd3"
+  },
+  "authorArtifactMembersVerified": 173,
+  "independentCases": 10,
+  "independentAcceptedCases": 1,
+  "independentExpectedRefusals": 9,
+  "realInventory": {
+    "originalRows": 2289,
+    "candidateRows": 2290,
+    "unchangedOriginalRows": true,
+    "exactAcceptedPlanFilesMatch": true,
+    "addedTarget": "build/product-r34-manifest.json",
+    "addedBytes": 7955
+  },
+  "evidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\baseline-review.json",
+      "size": 4847,
+      "sha256": "03553d352832091d0f6c1545a035c9813dea1bfc39c6aca73e6226e70d38fceb"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\independent-cases.json",
+      "size": 3089,
+      "sha256": "6486d58791e9c8aa14412c3ddb15d40f25c281c43f16c7c5a57f88c3f2f4dbc3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\real-inventory-comparison.json",
+      "size": 604,
+      "sha256": "766c39b8f3e32a5c9c76408291dff44adb1ddf41cc7b0ebf8d9faf1f32574475"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\final-review.json",
+      "size": 1311,
+      "sha256": "3784c24e0becc77110876ab98642dfe2ed01553a8b8e04a2bc0d082fe7088777"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\independent-final.diff",
+      "size": 1775,
+      "sha256": "1eec390b9865e019ce1eb637543e0492052fee0ae8e80f0aa82fe6ccda9be0bb"
+    }
+  ],
+  "unresolvedFindings": [],
+  "priorRG1CasesRerun": 0,
+  "canonicalReplayed": false,
+  "productCommands": 0,
+  "archiveCalls": 0,
+  "packageCalls": 0,
+  "officialPlanGenerated": false,
+  "sharedWrites": false,
+  "formalInstallation": false,
+  "formalEntry": "r33",
+  "entryActivated": false,
+  "deniedActivation": {
+    "dispatchId": "ENGINE-R34-ENTRY-ACTIVATE-P26-R1",
+    "status": "send_message_to_thread automatic approval review denied, not executed/retried",
+    "reason": "此派工會持久修改正式入口與 project-manifest，將 r34 提升為現行產品版本，屬外部／正式承諾；使用者只授權引擎開發，未明確授權這次入口啟用，且政策不以先前助手派工替代該核准。"
+  },
+  "goalToolObservation": "Existing historical I01 goal is blocked; no new goal created or status falsified.",
+  "nextGate": "Supervisor accepts isolated candidate; any formal tooling installation requires a separate explicit dispatch."
+}

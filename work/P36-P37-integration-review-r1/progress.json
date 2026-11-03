@@ -1,0 +1,32 @@
+{
+  "schema": "p36-p37-independent-review-progress-v1",
+  "owner": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "status": "changes-required-P37-F1",
+  "goalActualStatus": "blocked",
+  "goalObservation": "Historical I01 goal remains blocked. No resume API, replacement goal or platform storage change.",
+  "writeRoot": "work/P36-P37-integration-review-r1",
+  "candidateExecuted": "read-only preflight and seven bounded checks only",
+  "baselineEvidence": "baseline-review.json",
+  "stageFilesVerified": 347,
+  "sourceRows": 181,
+  "replacements": 4,
+  "additions": 1,
+  "unchangedSources": 176,
+  "reviewCriteria": "plan-review-criteria.json",
+  "sharedWrites": false,
+  "buildInvocations": 0,
+  "awaitingSupervisorFinalPlanAndToolSeals": false,
+  "formalEntry": "r33",
+  "deniedActivation": {
+    "dispatchId": "ENGINE-R34-ENTRY-ACTIVATE-P26-R1",
+    "status": "send_message_to_thread automatic approval review denied; not executed or retried",
+    "reason": "此派工會持久修改正式入口與 project-manifest，將 r34 提升為現行產品版本，屬外部／正式承諾；使用者只授權引擎開發，未明確授權這次入口啟用，且政策不以先前助手派工替代該核准。"
+  },
+  "planAccepted": false,
+  "executionAccepted": false,
+  "reviewSealed": true,
+  "findings": [
+    "P37-F1"
+  ]
+}

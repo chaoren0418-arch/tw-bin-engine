@@ -1,0 +1,175 @@
+{
+  "status": "independent-clean-build-and-map-provider-wiring-checks-pass",
+  "snapshotFiles": 13132,
+  "assetInputs": 13497,
+  "checks": {
+    "maps": 35,
+    "trade": 58,
+    "service": 73,
+    "map-panel": 10,
+    "trade-dom": 19,
+    "service-dom": 24
+  },
+  "workerDll": "5ad8c5625fe163fa9ae6c5bb0fe3ba371b397c3375970d46ec914d9d5d0c5c67",
+  "cleanDll": "ab4a44f0d11a53fccd0cb987e6f5f03144a0dcdea420d67877a3ea593551807f",
+  "renderedScenes": [
+    {
+      "tag": "map0-before",
+      "map": 0,
+      "sha256": "8CE85C7EDA9DC3F60ECD725B873442A7C5BD3F22A01B44B9AF8BCFD831FFA714"
+    },
+    {
+      "tag": "map1",
+      "map": 1,
+      "sha256": "A0A0C9E73398A8A6A85123E70982005E7516D1F582ECD38F44C9A33E081C485C"
+    },
+    {
+      "tag": "map0-return",
+      "map": 0,
+      "sha256": "8CE85C7EDA9DC3F60ECD725B873442A7C5BD3F22A01B44B9AF8BCFD831FFA714"
+    }
+  ],
+  "processes": [
+    {
+      "name": "build-product",
+      "pid": 87972,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\source\\OfflineClient.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\build\\client",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 7.618007659912109
+    },
+    {
+      "name": "build-maps",
+      "pid": 12916,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\reference\\development\\maps-r1\\harness\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\build\\maps",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 4.010191917419434
+    },
+    {
+      "name": "build-trade",
+      "pid": 64028,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\reference\\development\\maps-r1\\trade-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\build\\trade",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.5713229179382324
+    },
+    {
+      "name": "build-service",
+      "pid": 86656,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\reference\\development\\maps-r1\\service-regression\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\build\\service",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.9952826499938965
+    },
+    {
+      "name": "maps",
+      "pid": 85048,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\build\\maps\\P24.MapChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 12.996241092681885
+    },
+    {
+      "name": "trade",
+      "pid": 84944,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\build\\trade\\P24.MapTradeRegression.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.3542184829711914
+    },
+    {
+      "name": "service",
+      "pid": 83004,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\build\\service\\P24.MapServiceRegression.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 7.493511915206909
+    },
+    {
+      "name": "map-panel",
+      "pid": 82624,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\reference\\development\\maps-r1\\test_panel.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.3515279293060303
+    },
+    {
+      "name": "trade-dom",
+      "pid": 3760,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\reference\\development\\trade-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.08676791191101074
+    },
+    {
+      "name": "service-dom",
+      "pid": 63612,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-跨圖接線獨立審查-20261026\\reference\\development\\skill-warehouse-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.11640262603759766
+    }
+  ],
+  "ui": false,
+  "live": false,
+  "fullP24Accepted": false,
+  "scope": "Actual clean product, original map resources and headless rendering; explicit synthetic protocol replay/DOM doubles. Three independently rebuilt scene PNG hashes exactly match immutable worker output. No live travel or native UI proof."
+}

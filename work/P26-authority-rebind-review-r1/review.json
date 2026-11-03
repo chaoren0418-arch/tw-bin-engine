@@ -1,0 +1,179 @@
+{
+  "schema": "p26-authority-rebind-independent-review-v1",
+  "decision": "accepted-for-supervisor-shared-gate",
+  "meaning": "bounded review accepted so current supervisor may consider issuing a separate exact shared receipt; this is not that receipt and does not authorize this reviewer to integrate",
+  "candidateRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1",
+  "candidateSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\artifact-seal.json",
+    "size": 8250,
+    "sha256": "867c75d72137b18becc8138576bc0b2e8b6e529fabcd51482b485caa17419ad6",
+    "verifiedFiles": 50
+  },
+  "candidatePlan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\canonical-plan.json",
+    "size": 714350,
+    "sha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761"
+  },
+  "candidateController": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\serial_canonical.py",
+    "size": 12913,
+    "sha256": "257533f50b13c4483c337791006483e07ceac7a90be4749cb66058e36dfb7ba3"
+  },
+  "items": [
+    {
+      "id": "seal",
+      "status": "pass",
+      "conclusion": "50 exact artifact pins and externally supplied seal/plan/controller SHA verified."
+    },
+    {
+      "id": "minimum-delta",
+      "status": "pass",
+      "conclusion": "Independent diffs and AST compare: only declared functions differ; install/collect/main unchanged. Removing TimeoutExpired handler yields original execution_support AST."
+    },
+    {
+      "id": "history-current-authority",
+      "status": "pass",
+      "conclusion": "16 independent pure in-memory authority cases; real file-backed takeover/policy binding verified without receipt file or full validate_plan."
+    },
+    {
+      "id": "roots-and-imports",
+      "status": "pass",
+      "conclusion": "PREPARATION_ROOT/HERE remains original R2; SCRIPT_ROOT/context/common/controller imports bind new P26 root and new execution_support."
+    },
+    {
+      "id": "operation-input-identity",
+      "status": "pass",
+      "conclusion": "44 outer wrapper paths rebound only; inner recipe JSON semantics unchanged (serialization bytes may differ); 138 mappings retain same hashes with one planning-source prefix rebind; 180 sources and four identities unchanged."
+    },
+    {
+      "id": "support-and-archive",
+      "status": "pass-with-release-boundary",
+      "conclusion": "All original pins preserved; new dependency closure complete;44 planned archive files include new authority and timeout code; no actual archive/workflow created."
+    },
+    {
+      "id": "timeout",
+      "status": "pass-with-explicit-nested-limit",
+      "conclusion": "Independent5 timeout cases verify fixed execute_once failure evidence; nested sealed rebuild limit remains F3b."
+    },
+    {
+      "id": "recovery",
+      "status": "retained-stop-rule",
+      "conclusion": "F2 bindings interruption must stop; no deleting bindings or rerunning successful work. Collect/recovery functions unchanged."
+    },
+    {
+      "id": "policy-fixture",
+      "status": "retained-historical-distinction",
+      "conclusion": "F4 already accepted explanation retained; current policy pins verified, historical prep unchanged; extension contract rebind later."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "status": "resolved-for-new-shared-gate",
+      "blocking": false,
+      "evidence": [
+        "authority-tests.json",
+        "comparison.json",
+        "serial_canonical.py.independent.patch"
+      ],
+      "conclusion": "currentSharedSupervisor accepts only new supervisor; retired supervisor new-shared shape rejected; old stage identity remains required; exact takeover/policy pinned; common.controller actually imports new controller and new execution_support."
+    },
+    {
+      "id": "F2",
+      "status": "retained-stop-and-supervisor-review",
+      "blocking": false,
+      "evidence": [
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\serial_canonical.py",
+          "size": 12913,
+          "sha256": "257533f50b13c4483c337791006483e07ceac7a90be4749cb66058e36dfb7ba3",
+          "line": 18
+        },
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\serial_canonical.py",
+          "size": 12913,
+          "sha256": "257533f50b13c4483c337791006483e07ceac7a90be4749cb66058e36dfb7ba3",
+          "line": 106
+        }
+      ],
+      "conclusion": "Product collect interruption after build-log-bindings and before completed/product still refuses equal-existing bindings. Do not delete/edit bindings, retry build/probe, or treat it as complete; stop and ask current supervisor for separately pinned recovery revision."
+    },
+    {
+      "id": "F3a",
+      "status": "resolved-at-execute-once-boundary",
+      "blocking": false,
+      "evidence": [
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\execution_support.py",
+          "size": 5265,
+          "sha256": "439fdf260c87587df8c43059e225d04ad8c266599c0065c28ae019e4374a7380"
+        },
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\timeout-tests.json",
+          "size": 6165,
+          "sha256": "2eddfc6f8faf0a27b5a95583f0d3a69d041899e9c9c73679234f15d2f7e15d07"
+        }
+      ],
+      "conclusion": "Five independently generated fixtures cover non-UTF8 bytes, stdout-only, stderr-only, both unavailable, and available empty streams. Exact raw/hash/replacement counts, availability flags, timeout/unknown exit/failed state, rethrow, collect refusal and replay-before-process refusal verified. Real child processes zero."
+    },
+    {
+      "id": "F3b",
+      "status": "retained-nested-rebuild-diagnostic-limit",
+      "blocking": false,
+      "evidence": [
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\rebuild-overlay\\_integration\\r34\\rebuild.py",
+          "size": 9557,
+          "sha256": "c215fa684a04a1f2fb924b5b28cbf5c259837a11f8170e28e4e7392a42691927",
+          "line": 66
+        },
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\timeout-tests.json",
+          "size": 6165,
+          "sha256": "2eddfc6f8faf0a27b5a95583f0d3a69d041899e9c9c73679234f15d2f7e15d07"
+        }
+      ],
+      "conclusion": "Sealed rebuild.run child subprocess timeout still leaves no child command/partial raw files. Independent AST-extracted synthetic nested timeout confirms this. New outer execute_once cannot recover bytes captured only inside the nested process. F3 is not globally resolved; any such failure must stop and remain uncollectable. Full nested diagnostic retention would need a separate authorized overlay version; no product change required for the current bounded authority acceptance."
+    },
+    {
+      "id": "F4",
+      "status": "historical-policy-explanation-retained",
+      "blocking": false,
+      "evidence": [
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\policy-drift-proof.json",
+          "size": 675,
+          "sha256": "dc2fa0d642ad975ac93cf6365852268a581562bc724cc6aa001be248fe7ea1fd"
+        },
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\p26-original-plan-review-acceptance.json",
+          "size": 1234,
+          "sha256": "86d94ea8b47e273b83a1b62ffc99732db1afe905cbb9ce249a817e06b2954557"
+        }
+      ],
+      "conclusion": "Historical prep verifier FAIL remains correctly classified. Current AGENTS/takeover/dispatch readEvidence pins independently match; future 41-profile contract must bind current policy separately from unchanged historical fixture seal. No sealed fixture modified."
+    },
+    {
+      "id": "A1",
+      "status": "archive-dependency-closure-verified",
+      "blocking": false,
+      "evidence": [
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\dependency-archive-review.json",
+          "size": 13806,
+          "sha256": "a97371a46b491fae06986ce1e257922ba59464270dce44d8a508f8052c0cfe72"
+        }
+      ],
+      "conclusion": "181 old support pins preserved as exact prefix plus43 new =224. Every runtime local import and required context/policy/map pinned. All44 command scriptPins include new runtime dependencies. Unchanged product archive selects43 new local support files plus exact new plan =44 files. Seven final author metadata files are not automatic archive members; they are not runtime dependencies. Supervisor must preserve exact author seal/acceptance separately for future release evidence; no release package authorized or tested."
+    }
+  ],
+  "blockingFindings": [],
+  "fullValidatePlanExecuted": false,
+  "productBuilds": 0,
+  "productAssertions": 0,
+  "nativeChecks": 0,
+  "sharedReceiptCreated": false,
+  "sharedWorkflowCreated": false,
+  "installBuildReleaseEntryExecuted": false,
+  "allTimeoutLayersFixed": false
+}

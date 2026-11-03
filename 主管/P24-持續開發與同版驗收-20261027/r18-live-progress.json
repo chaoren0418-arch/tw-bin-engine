@@ -1,0 +1,185 @@
+{
+  "utc": "2026-10-27T01:01:55.130887+00:00",
+  "status": "r18-round-closed-incomplete-next-development",
+  "identity": {
+    "revision": "r18",
+    "lockSha256": "6f9aa56e09eac3101ae5e368ac2b0f8ca3cbe23e37e3e8e214bd5d5e5dc430e7",
+    "manifestSha256": "52237810459172dd71d930c1ad91950a33d84741a1cbc24e267e1117ddf740e4",
+    "runtimeDllSha256": "5ca5b68cd683c6d54bc3d3f38ec1a4a1f4bac1d6c64c04c9da77790ad7f40f0c",
+    "deliveryRoot": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r18-clean-delivery\\delivery"
+  },
+  "clientPid": 76104,
+  "clientOpen": false,
+  "serviceOffline": true,
+  "service": {
+    "x": 32650,
+    "y": 32951,
+    "hp": 534,
+    "id": 1900249001,
+    "mp": 47,
+    "exp": 414658736,
+    "map": 0,
+    "name": "服務驗證",
+    "level": 59,
+    "online": 0,
+    "account": "p24svc01"
+  },
+  "inventory": [
+    {
+      "id": 10322,
+      "item": 40010,
+      "name": "治癒藥水",
+      "count": 68,
+      "equipped": 0
+    },
+    {
+      "id": 10352,
+      "item": 4,
+      "name": "匕首",
+      "count": 1,
+      "equipped": 0
+    },
+    {
+      "id": 10353,
+      "item": 4,
+      "name": "匕首",
+      "count": 1,
+      "equipped": 0
+    },
+    {
+      "id": 10354,
+      "item": 20239,
+      "name": "小盾牌",
+      "count": 1,
+      "equipped": 1
+    },
+    {
+      "id": 10355,
+      "item": 40056,
+      "name": "肉",
+      "count": 8,
+      "equipped": 0
+    },
+    {
+      "id": 10357,
+      "item": 40013,
+      "name": "自我加速藥水",
+      "count": 3,
+      "equipped": 0
+    },
+    {
+      "id": 10358,
+      "item": 40079,
+      "name": "傳送回家的卷軸",
+      "count": 3,
+      "equipped": 0
+    },
+    {
+      "id": 1900249101,
+      "item": 40308,
+      "name": "金幣",
+      "count": 78255,
+      "equipped": 0
+    },
+    {
+      "id": 1900249103,
+      "item": 31,
+      "name": "長劍",
+      "count": 1,
+      "equipped": 1
+    },
+    {
+      "id": 1900249104,
+      "item": 20096,
+      "name": "環甲",
+      "count": 1,
+      "equipped": 1
+    },
+    {
+      "name": "初級治癒術",
+      "skill": 1
+    },
+    {
+      "name": "保護罩",
+      "skill": 3
+    },
+    {
+      "name": "光箭",
+      "skill": 4
+    },
+    {
+      "name": "神聖武器",
+      "skill": 8
+    }
+  ],
+  "existingEightUnchanged": false,
+  "deathsAdded": 1,
+  "redPotionsUsed": 102,
+  "redPotionsRemaining": 68,
+  "gold": 78255,
+  "expDelta": 108,
+  "noResetReseedOrGrant": true,
+  "workerTask": "skill-learning-refusal-r1 accepted; all workers idle",
+  "workerTurn": "01a17aa9-9a0c-7be3-89da-a6ddb326e3ee",
+  "phaseCoverage": {
+    "G00": "pass clean full rebuild and same identity",
+    "G01": "pass normal blank entry/login/world",
+    "G02": "three kills +108 EXP; natural loot/pickup not observed",
+    "G03": "new skill8 purchase/persistence/cast verified in r18",
+    "G04": "native U shield equip, normal red healing and drop2; meat removed before pickup, no pickup pass. Food/home scroll unsupported and assigned development",
+    "E01": "blank and format rejection recovered through normal login",
+    "E02": "native up/down, F11 text focus isolation, F9 destroy/reopen preserving connection; one F10 later lost via actual deactivate; blocked terrain branch pending",
+    "G06": "normal purchase4765 gold and complete relogin confirmed; positive NPC sale unavailable/empty list; direct/private trades pending",
+    "E07": "peer no-key entry and zero-gold rental rejected; raw currency display defect isolated fix accepted"
+  },
+  "nativeCanvasPixelInputVerified": false,
+  "allGuardsStopped": true,
+  "guard": "stopped; both clients normally closed and all roles offline",
+  "wholeP24Complete": false,
+  "next": "Review basic-food-home-scroll-r1; then sole integration with accepted labels fix into isolated new version. Keep r18 separate; new version needs actual final flow. No repeat unsupported/high-risk attempts in r18.",
+  "learningEvidence": [
+    "r18-final-live/g03-positive-lawful-learning.json",
+    "r18-final-live/g03-new-skill-relogin-and-cast.json",
+    "skill-refusal-independent-review/result.json"
+  ],
+  "deathEvidence": [
+    "r18-final-live/g04-boss-retreat-01.json",
+    "r18-final-live/g04-boss-retreat-02.json",
+    "r18-final-live/g04-town-recovery-selected.json"
+  ],
+  "helperCorrections": [
+    "Inventory available is selected-item usability, not general world readiness; wait World.Ready then explicitly select item. Failed attempts preserved. No product change required.",
+    "Known static threat radii are insufficient for newly encountered BOSS; preserve actual death, use current observations and avoid repeated route oscillation."
+  ],
+  "peerClientPid": 68752,
+  "totalHistoricalDeaths": 8,
+  "existingEightChanges": [
+    {
+      "id": 1900240006,
+      "before": {
+        "x": 32595,
+        "y": 32931,
+        "hp": 204,
+        "id": 1900240006,
+        "mp": 116,
+        "map": 0,
+        "level": 59,
+        "online": 0,
+        "account": "p246db6e"
+      },
+      "after": {
+        "x": 32605,
+        "y": 32947,
+        "hp": 217,
+        "id": 1900240006,
+        "mp": 116,
+        "map": 0,
+        "level": 59,
+        "online": 0,
+        "account": "p246db6e"
+      }
+    }
+  ],
+  "reservedFourEvidence": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-自主實機完整流程-20261026\\r18-reserved-four-preservation.json",
+  "reconciliation": "r18-final-live/closed-round-reconciliation.json"
+}

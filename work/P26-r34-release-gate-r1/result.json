@@ -1,0 +1,51 @@
+{
+  "schema": "p26-release-gate-preparation-result-v1",
+  "dispatchId": "P26-RELEASE-GATE-PREP-R1",
+  "status": "prepared-static-verified-exact-package-plan-pending-real-canonical",
+  "onlyWrittenRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r1",
+  "goal": {
+    "value": null,
+    "created": false,
+    "modified": false
+  },
+  "controller": {
+    "path": "package_release.py",
+    "size": 9229,
+    "sha256": "6f71f11590b72df554563f39dc510f3a9e115bd4a87dc585864cc0787f444605"
+  },
+  "toolSourceSeal": {
+    "path": "tool-source-seal.json",
+    "size": 3782,
+    "sha256": "40b32ea97bb80259c329ccb78001c71b0a5c9edbda160d66315d061fb5336c93"
+  },
+  "verification": {
+    "path": "verification.json",
+    "size": 4602,
+    "sha256": "da2189db61c668d7125ceb3cfc70b4a4bef4ac3568034b6967c18114b98412f7"
+  },
+  "handoff": {
+    "path": "HANDOFF.md",
+    "size": 5304,
+    "sha256": "88793e243d47b3edd0bb0ff1f6cba65eac65d1a4fb631288a616eec30ade8eb3"
+  },
+  "pendingCanonical": [
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\installed.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\product.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\baseline.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\ground.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\utility.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\haste.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\versioned-slow.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\f1.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\pickup.json"
+  ],
+  "syntheticCasesPassed": 14,
+  "productBuilds": 0,
+  "productAssertions": 0,
+  "packagePlanCreated": false,
+  "releaseReceiptCreated": false,
+  "releaseCreated": false,
+  "entryChanged": false,
+  "originalSealsChanged": false,
+  "scopeBoundary": "next shared integration is separately authorized; this package preparation grants no release or activation authority"
+}

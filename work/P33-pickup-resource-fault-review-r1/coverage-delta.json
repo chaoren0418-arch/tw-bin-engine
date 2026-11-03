@@ -1,0 +1,32 @@
+{
+  "prior": {
+    "P28": "Author tests: tamper3 extension offsets, missing terminal cancel/suppress all42, profile hashes and borrowed profile; not counted here.",
+    "P29": "Only 2 resource SHA rows; fault and missing-group/base-key gaps explicitly open.",
+    "P31": "56 composite cases accepted; not repeated.",
+    "P32": "196 lifecycle cases accepted; resource faults excluded; not repeated."
+  },
+  "newScope": "Two pairs (0/0,2796/20), direction0 speed0. Constructor size/hash rejection, in-memory catalog faults through actual APIs and compositor cancellation/recovery; base-only constructor contrasted with production two-resource Load. Two ReadBody parser checks seam-only.",
+  "native": 0,
+  "historicalRowsAdded": 0,
+  "qualification": {
+    "104base": "historical-selected-payload-matched",
+    "312pickup": "bounded-slice-only"
+  },
+  "executedDistinctCases": 28,
+  "families": {
+    "constructor": 8,
+    "resource-lifecycle": 12,
+    "constructor-distinction": 2,
+    "api": 4,
+    "parser-seam-only": 2
+  },
+  "passed": 28,
+  "failed": 0,
+  "remaining": [
+    "missing embedded resource (requires modified assembly; explicitly not injected)",
+    "Other ReadBody invalid schema/ticks/key completeness permutations not executed",
+    "Other40pairs, directions1-7, speed1 fault combinations not executed",
+    "IOException/JsonException from external resource seams not injected",
+    "Native game, GUI, network, audio/effect instrumentation and full composite pixel oracle not executed here"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "status": "pass",
+  "kind": "retained original supervisor UI S55/S120/S87 replay; explicit synthetic click timing, no server login",
+  "capture": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\\u4E3B\u7BA1\\P19-\u7368\u7ACB\u9A57\u6536\\world-evidence\\reward-supervisor-ui\\result.json",
+  "sha256": "1ED3FAEAC02856490B2FCA192B4182432B686D5A259EED5CEDE3DDEDACCCFB56",
+  "id": 2000041706,
+  "removals": 3,
+  "reappearances": 2,
+  "assertions": [
+    "S120 clears selected live target",
+    "S87 reappearance never auto-selects",
+    "only explicit new selection restores target",
+    "failure capture has zero attacks"
+  ]
+}

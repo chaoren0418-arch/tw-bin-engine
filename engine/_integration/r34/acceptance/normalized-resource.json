@@ -1,0 +1,257 @@
+{
+  "schema": "engine-r34-normalized-resource-v1",
+  "candidateId": "ENGINE-PICKUP-PRESENTATION-IMPL-R1",
+  "files": [
+    {
+      "path": "source/Resources/pickup-own-base15-gfx0-weapon0.json",
+      "size": 239766,
+      "sha256": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90",
+      "logicalName": "P06.Resources.PickupOwnBase15Gfx0Weapon0.json",
+      "project": "source/OfflineClient.csproj",
+      "newFrames": 24,
+      "reusedFrames": 8
+    }
+  ],
+  "derived": true,
+  "original": {
+    "format": "native-projection",
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\resource-projection.json",
+    "sha256": "d71b951e7117bfd05847694266f28a5b209ff54d722cd1ed8dff462efceb6064"
+  },
+  "proof": {
+    "candidateSealSha256": "cc7761665593c79b9f82255f5d361bedd6c8ac4563434e7cf7a6e07c5c16cbdc",
+    "sourceManifestSha256": "337afaa3607e49e0c50f2f388ab8cec8c42f7816e33ed2ee98df6bfb0a48b533",
+    "sourcePath": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\candidate\\source\\Resources\\pickup-own-base15-gfx0-weapon0.json",
+    "projectPath": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\candidate\\source\\OfflineClient.csproj",
+    "projectSha256": "ccf86adc2ad35473d9cce17ca9b40e3a9698d04bda578e9b20d2966946360450",
+    "projectionCoveredByCandidateSeal": true,
+    "resourceCoveredByCandidateSealAndSourceManifest": true,
+    "reviewResourceHashRequired": false
+  },
+  "frameMapping": [
+    {
+      "direction": 0,
+      "metadataIndex": 0,
+      "key": "0:0",
+      "storage": "base-profile",
+      "sourceIdentityTier": "historical-selected-payload-matched"
+    },
+    {
+      "direction": 0,
+      "metadataIndex": 1,
+      "key": "88:0",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 0,
+      "metadataIndex": 2,
+      "key": "88:1",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 0,
+      "metadataIndex": 3,
+      "key": "88:2",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 1,
+      "metadataIndex": 0,
+      "key": "1:0",
+      "storage": "base-profile",
+      "sourceIdentityTier": "historical-selected-payload-matched"
+    },
+    {
+      "direction": 1,
+      "metadataIndex": 1,
+      "key": "89:0",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 1,
+      "metadataIndex": 2,
+      "key": "89:1",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 1,
+      "metadataIndex": 3,
+      "key": "89:2",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 2,
+      "metadataIndex": 0,
+      "key": "2:0",
+      "storage": "base-profile",
+      "sourceIdentityTier": "historical-selected-payload-matched"
+    },
+    {
+      "direction": 2,
+      "metadataIndex": 1,
+      "key": "90:0",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 2,
+      "metadataIndex": 2,
+      "key": "90:1",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 2,
+      "metadataIndex": 3,
+      "key": "90:2",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 3,
+      "metadataIndex": 0,
+      "key": "3:0",
+      "storage": "base-profile",
+      "sourceIdentityTier": "historical-selected-payload-matched"
+    },
+    {
+      "direction": 3,
+      "metadataIndex": 1,
+      "key": "91:0",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 3,
+      "metadataIndex": 2,
+      "key": "91:1",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 3,
+      "metadataIndex": 3,
+      "key": "91:2",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 4,
+      "metadataIndex": 0,
+      "key": "4:0",
+      "storage": "base-profile",
+      "sourceIdentityTier": "historical-selected-payload-matched"
+    },
+    {
+      "direction": 4,
+      "metadataIndex": 1,
+      "key": "92:0",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 4,
+      "metadataIndex": 2,
+      "key": "92:1",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 4,
+      "metadataIndex": 3,
+      "key": "92:2",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 5,
+      "metadataIndex": 0,
+      "key": "5:0",
+      "storage": "base-profile",
+      "sourceIdentityTier": "historical-selected-payload-matched"
+    },
+    {
+      "direction": 5,
+      "metadataIndex": 1,
+      "key": "93:0",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 5,
+      "metadataIndex": 2,
+      "key": "93:1",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 5,
+      "metadataIndex": 3,
+      "key": "93:2",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 6,
+      "metadataIndex": 0,
+      "key": "6:0",
+      "storage": "base-profile",
+      "sourceIdentityTier": "historical-selected-payload-matched"
+    },
+    {
+      "direction": 6,
+      "metadataIndex": 1,
+      "key": "94:0",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 6,
+      "metadataIndex": 2,
+      "key": "94:1",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 6,
+      "metadataIndex": 3,
+      "key": "94:2",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 7,
+      "metadataIndex": 0,
+      "key": "7:0",
+      "storage": "base-profile",
+      "sourceIdentityTier": "historical-selected-payload-matched"
+    },
+    {
+      "direction": 7,
+      "metadataIndex": 1,
+      "key": "95:0",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 7,
+      "metadataIndex": 2,
+      "key": "95:1",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    },
+    {
+      "direction": 7,
+      "metadataIndex": 3,
+      "key": "95:2",
+      "storage": "embedded",
+      "sourceIdentityTier": "current-idx-and-bounded-slice-only"
+    }
+  ]
+}

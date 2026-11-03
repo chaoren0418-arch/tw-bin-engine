@@ -1,0 +1,12 @@
+{
+  "taskId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "turnId": null,
+  "utc": "2026-10-29T03:59:12.334784+00:00",
+  "step": "completed independent rebind review and handoff",
+  "decision": "accepted-for-supervisor-shared-gate",
+  "dependencies": [
+    "actual new shared receipt and full read-only validate_plan belong to supervisor/original integrator",
+    "release/entry and final41-profile base acceptance are future contracts"
+  ],
+  "sharedIntegrationOwned": false
+}

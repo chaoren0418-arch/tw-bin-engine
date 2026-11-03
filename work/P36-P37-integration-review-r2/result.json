@@ -1,0 +1,35 @@
+{
+  "schema": "p36-p37-r2-independent-review-result-v1",
+  "status": "accepted-r2-plan-P37-F1-closed",
+  "receipt": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-review-r2\\plan-review.json",
+    "size": 2315,
+    "sha256": "e6978bc8ff740731fbe52c25e0f32e67db13b183474ff25af94a842cd9f22422"
+  },
+  "authorArtifactSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\artifact-seal.json",
+    "size": 642,
+    "sha256": "d72f2c75fc792df44a5e035651a82e5cb2244d944d42564e2231c7e15a1a30c7"
+  },
+  "authorArtifactMembersVerified": 862,
+  "semanticChanges": 1,
+  "unchangedRuntimeFiles": 12,
+  "mechanicalDocuments": 7,
+  "newBoundedChecks": 2,
+  "originalAuthor16CasesRerun": false,
+  "inheritedR1ReadonlyChecks": 7,
+  "productSuitesRerun": false,
+  "fullBaselineRepeated": false,
+  "unresolvedFindings": [],
+  "actualP36ExecutionAccepted": false,
+  "actualP37InventoryAccepted": false,
+  "sharedWrites": false,
+  "builds": 0,
+  "formalEntry": "r33",
+  "deniedActivation": {
+    "dispatchId": "ENGINE-R34-ENTRY-ACTIVATE-P26-R1",
+    "status": "send_message_to_thread automatic approval review denied; not executed/retried",
+    "reason": "此派工會持久修改正式入口與 project-manifest，將 r34 提升為現行產品版本，屬外部／正式承諾；使用者只授權引擎開發，未明確授權這次入口啟用，且政策不以先前助手派工替代該核准。"
+  },
+  "goalActualStatus": "historical blocked I01; unchanged"
+}

@@ -1,0 +1,25 @@
+{
+  "notRerun": [
+    "r24 1578 checks",
+    "r25 keyboard 73",
+    "r26 focus 8",
+    "launcher hotfix 11",
+    "r27 chat 23",
+    "r27 shadow 35922",
+    "controller internal 280",
+    "audio r3 internal 116 + 22 cases + owner fence"
+  ],
+  "currentFinalR28": {
+    "hostChecks": 77,
+    "audioSettingsChecks": 39,
+    "domChecks": 35,
+    "total": 151,
+    "sameCmdCheckOnly": true
+  },
+  "supervisorIndependentCandidateReview": {
+    "managedChecks": 68,
+    "domChecks": 23,
+    "rerunByIntegrator": false
+  },
+  "nativeHostAccepted": false
+}

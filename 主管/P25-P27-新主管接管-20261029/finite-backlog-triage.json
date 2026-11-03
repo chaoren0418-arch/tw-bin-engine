@@ -1,0 +1,76 @@
+{
+  "utc": "2026-10-29T03:59:28.190Z",
+  "source": "work/P25-architecture-baseline-r1/finite-backlog.json",
+  "decision": "No additional independent product implementation ready before accepted r34; release-tool authority preparation is a real I01 dependency and dispatched in parallel",
+  "items": [
+    {
+      "id": "I01",
+      "state": "active",
+      "work": [
+        "P26 exact authority revision independent review",
+        "sole integrator release gate preparation"
+      ],
+      "next": "shared receipt and serial canonical execution when accepted"
+    },
+    {
+      "id": "I02",
+      "state": "accepted-bounded-scope",
+      "evidence": "p25-p27-root-acceptance.json",
+      "next": "no speculative fixes; final-version input delta only"
+    },
+    {
+      "id": "S01",
+      "state": "blocked-source-contract",
+      "missing": "real nonzero effect-to-group association and final fade/render example",
+      "next": "no speculative patch or repeated old scan"
+    },
+    {
+      "id": "S02",
+      "state": "blocked-source-contract",
+      "missing": "selected non6016 effect/token and same-version event/resource semantics",
+      "next": "no invented new functionality"
+    },
+    {
+      "id": "S03",
+      "state": "waiting-final-r34",
+      "missing": "accepted canonical and formal r34 exact baseline",
+      "next": "41-profile bounded extension implementation and independent review"
+    },
+    {
+      "id": "N01",
+      "state": "not-executed-awaiting-fixed-version-and-native-conditions",
+      "next": "retain precise original case/route requirements; no DB queries or unsafe routes"
+    },
+    {
+      "id": "N02",
+      "state": "not-executed-awaiting-fixed-version-and-native-conditions",
+      "next": "retain precise original case/route requirements; no DB queries or unsafe routes"
+    },
+    {
+      "id": "N03",
+      "state": "not-executed-awaiting-fixed-version-and-native-conditions",
+      "next": "retain precise original case/route requirements; no DB queries or unsafe routes"
+    },
+    {
+      "id": "N04",
+      "state": "not-executed-awaiting-fixed-version-and-native-conditions",
+      "next": "retain precise original case/route requirements; no DB queries or unsafe routes"
+    },
+    {
+      "id": "N05",
+      "state": "not-executed-awaiting-fixed-version-and-native-conditions",
+      "next": "retain precise original case/route requirements; no DB queries or unsafe routes"
+    },
+    {
+      "id": "C01",
+      "state": "external-conditions",
+      "next": "legitimate matching items/prices/roles only; DB owned by user"
+    },
+    {
+      "id": "H01",
+      "state": "historical-limit-preserved",
+      "next": "no reimplementation or repeated verification to keep workers active"
+    }
+  ],
+  "inferredCompletionPercentage": null
+}

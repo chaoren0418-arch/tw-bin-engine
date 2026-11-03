@@ -1,0 +1,213 @@
+{
+  "source": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\package_release.py",
+    "size": 9394,
+    "sha256": "9324a77b90f3e64b85a6cc3678660de91dc5ba58edd7e2760236f0c17784af90"
+  },
+  "guards": [
+    {
+      "message": "supervisor receipt owner",
+      "line": 15,
+      "predicate": "receipt_path.resolve().is_relative_to((project / '主管').resolve())"
+    },
+    {
+      "message": "release plan/receipt schema",
+      "line": 16,
+      "predicate": "plan.get('schema') == 'engine-r34-package-plan-v1' and receipt.get('schema') == 'engine-r34-release-acceptance-v1'"
+    },
+    {
+      "message": "new exact release dispatch required",
+      "line": 17,
+      "predicate": "receipt.get('supervisor') == SUPERVISOR and receipt.get('decision') == 'accepted-for-r34-release' and receipt.get('dispatchId', '').startswith('ENGINE-R34-RELEASE-') and (receipt.get('planSha256') == plan_sha)"
+    },
+    {
+      "message": "canonical workflow root",
+      "line": 19,
+      "predicate": "work.parent == HERE / 'r34-shared'"
+    },
+    {
+      "message": "canonical/stage binding mismatch",
+      "line": 20,
+      "predicate": "installed.get('candidateId') == plan['candidateId'] and installed.get('stageRoot') == plan['stageRoot'] and (installed.get('stageSealSha256') == plan['stageSealSha256'])"
+    },
+    {
+      "message": "stage root outside this preparation",
+      "line": 21,
+      "predicate": "stage.parent == HERE / 'r34-runs'"
+    },
+    {
+      "message": "every canonical step required",
+      "line": 22,
+      "predicate": "set(completed) == set(ORDER)"
+    },
+    {
+      "message": "release receipt must accept exact completed records",
+      "line": 25,
+      "predicate": "receipt.get('completedSteps') == completed"
+    },
+    {
+      "message": "native source schema",
+      "line": 27,
+      "predicate": "manifest.get('schema') == 'engine-r29-source-pins-v1'"
+    },
+    {
+      "message": "full source manifest including new resource required",
+      "line": 28,
+      "predicate": "len(declared) == len(manifest['files']) and len(declared) > 177"
+    },
+    {
+      "message": "required embedded source missing",
+      "line": 40,
+      "predicate": "RESOURCE in declared and declared[RESOURCE]['size'] == 239766 and (declared[RESOURCE]['sha256'] == RESOURCE_SHA)"
+    },
+    {
+      "message": "rebuild package missing",
+      "line": 44,
+      "predicate": "'_integration/r34/rebuild-lock.json' in [v[0] for v in targets.values()] and '_integration/r34/rebuild.py' in [v[0] for v in targets.values()]"
+    },
+    {
+      "message": "stage seal omitted",
+      "line": 56,
+      "predicate": "(stage / 'stage-seal.json').resolve() in packaged_sources"
+    },
+    {
+      "message": "fresh exact release required",
+      "line": 60,
+      "predicate": "receipt.get('authorizedOutput') == 'releases/r34' and (not release.exists())"
+    },
+    {
+      "message": "assets junction drift",
+      "line": 61,
+      "predicate": "(engine / 'assets').resolve() == assetroot.resolve()"
+    },
+    {
+      "message": "asset inventory count",
+      "line": 62,
+      "predicate": "len(assets) == 13957"
+    },
+    {
+      "message": "different canonical DLL",
+      "line": 24,
+      "predicate": "record['productDllSha256'] == plan['productDllSha256']"
+    },
+    {
+      "message": "assets/runtime outside explicit copies",
+      "line": 31,
+      "predicate": "not rel.startswith('assets/') and (not rel.startswith(('runtime/', 'runs/')))"
+    },
+    {
+      "message": "duplicate package target",
+      "line": 32,
+      "predicate": "rel.casefold() not in targets"
+    },
+    {
+      "message": "package source outside canonical engine/workflow/accepted stage",
+      "line": 33,
+      "predicate": "source.is_absolute() and any((source.resolve().is_relative_to(r.resolve()) for r in allowed_roots))"
+    },
+    {
+      "message": "source omitted from package: ",
+      "line": 38,
+      "predicate": "rel.casefold() in targets and targets[rel.casefold()][0] == rel"
+    },
+    {
+      "message": "source package pin mismatch",
+      "line": 39,
+      "predicate": "all((targets[rel.casefold()][2][k] == row[k] for k in ['size', 'sha256']))"
+    },
+    {
+      "message": "package four identity mismatch",
+      "line": 43,
+      "predicate": "rel.casefold() in targets and targets[rel.casefold()][2]['sha256'] == plan[key] == receipt[key]"
+    },
+    {
+      "message": "rebuild input omitted or changed: ",
+      "line": 47,
+      "predicate": "row['path'].casefold() in targets and all((targets[row['path'].casefold()][2][k] == row[k] for k in ['size', 'sha256']))"
+    },
+    {
+      "message": "product runtime dependency omitted: ",
+      "line": 50,
+      "predicate": "row['path'].casefold() in targets and all((targets[row['path'].casefold()][2][k] == row[k] for k in ['size', 'sha256']))"
+    },
+    {
+      "message": "launcher runtime dependency omitted",
+      "line": 52,
+      "predicate": "('launcher/' + name).casefold() in targets"
+    },
+    {
+      "message": "unsealed stage source",
+      "line": 35,
+      "predicate": "source_rel in stage_rows"
+    },
+    {
+      "message": "sealed stage evidence omitted: ",
+      "line": 55,
+      "predicate": "(stage / rel).resolve() in packaged_sources"
+    },
+    {
+      "message": "canonical evidence omitted: ",
+      "line": 59,
+      "predicate": "p.resolve() in packaged_sources"
+    }
+  ],
+  "dependencies": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\package_release.py",
+      "size": 9394,
+      "sha256": "9324a77b90f3e64b85a6cc3678660de91dc5ba58edd7e2760236f0c17784af90"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\acceptance_gate.py",
+      "size": 21888,
+      "sha256": "c446cd8b7f8070dfd0328ca71c4563671e31d7dc37bc2c45e39678664bcc6979"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\serial_canonical.py",
+      "size": 12869,
+      "sha256": "c087073244eaa2a3d0bcb334652a66c1abe0bf3c4a6de1b3d2e2ab18d09a3d48"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\execution_support.py",
+      "size": 4678,
+      "sha256": "9d4a708d5c1e00e11525a38af8188375597626b061fa32976c171ce1d9faa5fc"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\pe_resource.py",
+      "size": 3519,
+      "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\prepared\\verify_release_r34.py",
+      "size": 1746,
+      "sha256": "a20f3dfcaae5d24d098b6c60bf0fd7699c289afdf5e5cb366ffe80599f7b1d9f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\baseline-lock.json",
+      "size": 38506,
+      "sha256": "e0d00a412abdd2de672a5845ae10a160dd35f2b5a81fabf3f0e556c419e6d0fa"
+    }
+  ],
+  "staticMutationAudit": {
+    "validateBeforeMkdir": true,
+    "assetLinks": 13958,
+    "noCopyFallback": true,
+    "noBodyOrAttributeWrites": true,
+    "linkFailurePropagates": true,
+    "partialOutputRetained": true,
+    "rootEntryActivation": false
+  },
+  "assetMetadata": {
+    "integrity": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\integrity.json",
+      "size": 1729333,
+      "sha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98"
+    },
+    "inventoryEntries": 13957,
+    "includingIntegrity": 13958,
+    "casefoldUnique": true,
+    "metadataPathsAndHashesValid": true,
+    "actualBodyHashesThisRound": 0,
+    "actualLinksThisRound": 0
+  }
+}

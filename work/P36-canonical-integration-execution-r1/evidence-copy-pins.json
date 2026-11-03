@@ -1,0 +1,341 @@
+{
+  "files": [
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\artifact-manifest.json",
+        "size": 147613,
+        "sha256": "b106754c71c98a5df611a8b3aeed7f2afefb85159887ae146c2ee577f746667d"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\artifact-manifest.json",
+        "size": 147613,
+        "sha256": "b106754c71c98a5df611a8b3aeed7f2afefb85159887ae146c2ee577f746667d"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\artifact-seal.json",
+        "size": 642,
+        "sha256": "d72f2c75fc792df44a5e035651a82e5cb2244d944d42564e2231c7e15a1a30c7"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\artifact-seal.json",
+        "size": 642,
+        "sha256": "d72f2c75fc792df44a5e035651a82e5cb2244d944d42564e2231c7e15a1a30c7"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\bound_inventory.py",
+        "size": 8952,
+        "sha256": "3bb2bc7a22c486dbfe81b0c8d08c04e18b80c5cda5473dc46b17e319af8e61a1"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\bound_inventory.py",
+        "size": 8952,
+        "sha256": "3bb2bc7a22c486dbfe81b0c8d08c04e18b80c5cda5473dc46b17e319af8e61a1"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\build-dependency-pins.json",
+        "size": 1126895,
+        "sha256": "58fd3d9a4de20417a2336c00f99494a7e4874352c470676cdbdfefa3763b116b"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\build-dependency-pins.json",
+        "size": 1126895,
+        "sha256": "58fd3d9a4de20417a2336c00f99494a7e4874352c470676cdbdfefa3763b116b"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\build-inputs\\global.json",
+        "size": 56,
+        "sha256": "1c530f4c116bcf04e451cf0ca155fa18d73415c85145534a415f1eb4c39198b3"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\build-inputs\\global.json",
+        "size": 56,
+        "sha256": "1c530f4c116bcf04e451cf0ca155fa18d73415c85145534a415f1eb4c39198b3"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\build-inputs\\NuGet.Config",
+        "size": 155,
+        "sha256": "337ed22a5dd2b3a69d86fac14c3a86a05cf3ffc3d1d65e400850c747010b4f19"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\build-inputs\\NuGet.Config",
+        "size": 155,
+        "sha256": "337ed22a5dd2b3a69d86fac14c3a86a05cf3ffc3d1d65e400850c747010b4f19"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\build-isolation.props",
+        "size": 484,
+        "sha256": "bf301d9ee9a5559ced8292b800520bf2d7796dbff4e11fd91ca5866060f29469"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\build-isolation.props",
+        "size": 484,
+        "sha256": "bf301d9ee9a5559ced8292b800520bf2d7796dbff4e11fd91ca5866060f29469"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\build-isolation.targets",
+        "size": 691,
+        "sha256": "054a8223b27d94bed31861dfacaeae640ebf03ac9389f7c683d855aa410833aa"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\build-isolation.targets",
+        "size": 691,
+        "sha256": "054a8223b27d94bed31861dfacaeae640ebf03ac9389f7c683d855aa410833aa"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\common.py",
+        "size": 3866,
+        "sha256": "4e5fbd6aad09885b5ab4092add93e4709489f4d0dd43d2eda805e8e8559b24ee"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\common.py",
+        "size": 3866,
+        "sha256": "4e5fbd6aad09885b5ab4092add93e4709489f4d0dd43d2eda805e8e8559b24ee"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\execution-contract.json",
+        "size": 10326,
+        "sha256": "f439915614397edb8a478196375706aec1af68b670bd06c310d1ba3e251e8c30"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\execution-contract.json",
+        "size": 10326,
+        "sha256": "f439915614397edb8a478196375706aec1af68b670bd06c310d1ba3e251e8c30"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\executor.py",
+        "size": 8781,
+        "sha256": "1d6ef82af066d9fd4779bd6a8f5c9c75e9b5f9c09d6ac7c10009b619a38c0848"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\executor.py",
+        "size": 8781,
+        "sha256": "1d6ef82af066d9fd4779bd6a8f5c9c75e9b5f9c09d6ac7c10009b619a38c0848"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\expected-outputs.json",
+        "size": 6463,
+        "sha256": "c7431dc50fbfaed13965aa35c0599f1486c6506c96fe55df596cb27b61197b55"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\expected-outputs.json",
+        "size": 6463,
+        "sha256": "c7431dc50fbfaed13965aa35c0599f1486c6506c96fe55df596cb27b61197b55"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\gate.py",
+        "size": 6969,
+        "sha256": "f633016e2407f3665a1f22bb139f9598c2f0701b1e14b0fc3d74e40a17fec830"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\gate.py",
+        "size": 6969,
+        "sha256": "f633016e2407f3665a1f22bb139f9598c2f0701b1e14b0fc3d74e40a17fec830"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\plan.json",
+        "size": 4250,
+        "sha256": "f67fa56815fbc133c1710c450efe1305d58da7c75566e02a9d909a24ca6059bd"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\plan.json",
+        "size": 4250,
+        "sha256": "f67fa56815fbc133c1710c450efe1305d58da7c75566e02a9d909a24ca6059bd"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\protected-pins.json",
+        "size": 7925,
+        "sha256": "2d69faddd4e2cd887f0b824e64d4e3d1a8d738dec36ab45fe6f6659f5f5ff448"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\protected-pins.json",
+        "size": 7925,
+        "sha256": "2d69faddd4e2cd887f0b824e64d4e3d1a8d738dec36ab45fe6f6659f5f5ff448"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\source-ledger.json",
+        "size": 216894,
+        "sha256": "b465f2bcb13c6e283e76157b8a862d6ff3e4d0b0dd05d8b445267d4d989dca40"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\source-ledger.json",
+        "size": 216894,
+        "sha256": "b465f2bcb13c6e283e76157b8a862d6ff3e4d0b0dd05d8b445267d4d989dca40"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\tool-bundle\\reference\\acceptance_gate.py",
+        "size": 21873,
+        "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\tool-bundle\\reference\\acceptance_gate.py",
+        "size": 21873,
+        "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\tool-bundle\\reference\\generate_package_plan.py",
+        "size": 16695,
+        "sha256": "4fbf32a4d1a5faa12e34631ad2c0e9ee02647ff51947128c69e1894690f13fa2"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\tool-bundle\\reference\\generate_package_plan.py",
+        "size": 16695,
+        "sha256": "4fbf32a4d1a5faa12e34631ad2c0e9ee02647ff51947128c69e1894690f13fa2"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\tool-bundle\\reference\\pe_resource.py",
+        "size": 3519,
+        "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\tool-bundle\\reference\\pe_resource.py",
+        "size": 3519,
+        "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\tool-bundle\\reference\\release_authority.py",
+        "size": 4531,
+        "sha256": "09115d5dfbfe4d14973f3ec23a6d48ad4135b10e76fcfae5052188208484f67b"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\tool-bundle\\reference\\release_authority.py",
+        "size": 4531,
+        "sha256": "09115d5dfbfe4d14973f3ec23a6d48ad4135b10e76fcfae5052188208484f67b"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\tool-bundle\\reference\\release_checks.py",
+        "size": 691,
+        "sha256": "da3c4ebb17fc9de7c184cad911ac8b9cdc551b6b20a6598b90e33b6333912684"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\tool-bundle\\reference\\release_checks.py",
+        "size": 691,
+        "sha256": "da3c4ebb17fc9de7c184cad911ac8b9cdc551b6b20a6598b90e33b6333912684"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\tool-bundle\\reference\\result_evidence.py",
+        "size": 7225,
+        "sha256": "baaac4a8f0fad1e9faaa7d1512658d268a506dba9f57d9c54477d6f5b96e6809"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\tool-bundle\\reference\\result_evidence.py",
+        "size": 7225,
+        "sha256": "baaac4a8f0fad1e9faaa7d1512658d268a506dba9f57d9c54477d6f5b96e6809"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\tool-bundle\\source-seal.json",
+        "size": 2394,
+        "sha256": "ea73adff65e8887e1b3369147a8c8c22a980f32fc5a6f8cba5868e9b860ad172"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\tool-bundle\\source-seal.json",
+        "size": 2394,
+        "sha256": "ea73adff65e8887e1b3369147a8c8c22a980f32fc5a6f8cba5868e9b860ad172"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\win_process.py",
+        "size": 5934,
+        "sha256": "37f21ac740a11f780a937f085598bbb3dbbe928a65fa8d19d6c6d0f39e0ef0dc"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\tooling\\win_process.py",
+        "size": 5934,
+        "sha256": "37f21ac740a11f780a937f085598bbb3dbbe928a65fa8d19d6c6d0f39e0ef0dc"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-execution-acceptance-r1.json",
+        "size": 2493,
+        "sha256": "4d5a0d73650ddc9bd6d9f121feb3f55fb084b742e45eb26a96430cea540e4032"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\authority\\execution-acceptance.json",
+        "size": 2493,
+        "sha256": "4d5a0d73650ddc9bd6d9f121feb3f55fb084b742e45eb26a96430cea540e4032"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-review-r2\\plan-review.json",
+        "size": 2315,
+        "sha256": "e6978bc8ff740731fbe52c25e0f32e67db13b183474ff25af94a842cd9f22422"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\authority\\independent-plan-review.json",
+        "size": 2315,
+        "sha256": "e6978bc8ff740731fbe52c25e0f32e67db13b183474ff25af94a842cd9f22422"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-review-r2\\artifact-seal.json",
+        "size": 435,
+        "sha256": "8cdfba1534056ca45d6b8fa36bb69c142051035dfea3e9be21cab1d522305bdb"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\authority\\independent-review-seal.json",
+        "size": 435,
+        "sha256": "8cdfba1534056ca45d6b8fa36bb69c142051035dfea3e9be21cab1d522305bdb"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-p36-r1-manifest.json",
+        "size": 4715,
+        "sha256": "d55389e048aee9eb2b64088ddfb0128de6166071e21969bd1dd57b9464d9ce75"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\evidence\\product-manifest.json",
+        "size": 4715,
+        "sha256": "d55389e048aee9eb2b64088ddfb0128de6166071e21969bd1dd57b9464d9ce75"
+      }
+    }
+  ],
+  "independentCopies": true
+}

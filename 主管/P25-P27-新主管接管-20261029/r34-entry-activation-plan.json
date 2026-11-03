@@ -1,0 +1,63 @@
+{
+  "schema": "r34-entry-activation-plan-v1",
+  "utc": "2026-10-29T04:22:22.966137+00:00",
+  "authorization": false,
+  "status": "prepared-awaiting-real-release-seal-and-full-verification",
+  "soleWriter": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "before": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+      "size": 158,
+      "sha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+      "size": 31361,
+      "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+    }
+  ],
+  "requiredPreconditions": [
+    "exact accepted release tool and package plan",
+    "fresh release r34 packaged once",
+    "actual full release seal and all body hashes passed",
+    "supervisor actual-release acceptance",
+    "fresh entry-activation receipt from supervisor"
+  ],
+  "allowedChanges": {
+    "啟動引擎.cmd": "replace two releases\\r33 references with releases\\r34 only, preserve command arguments and encoding",
+    "project-manifest.json": [
+      "preserve mappings, consolidation proof, history and immutable-source policy",
+      "append existing current_release as r33 history exactly",
+      "revision r34; current_release actual accepted seal and paths; offline true native false",
+      "stage P26; separate P25/P27 bounded status and accepted architecture/queue references",
+      "ownership development_supervisor new supervisor; formal integrator unchanged; preserve prior identity as history",
+      "formal_goal_status supervisor tools unavailable, actual state unknown; preserve old paused report only as historical",
+      "whole_project_complete false; explicit finite backlog remains"
+    ]
+  },
+  "backup": "fresh independent copies under sole-integrator activation work root before edits; retain on failure",
+  "validation": [
+    "entry exact bytes replacement",
+    "manifest retained mapping/history fields equality",
+    "release and engine launcher --check-only with raw stdout/stderr/exit pinned",
+    "root entry --check-only verifies actual r34 target; no normal invocation"
+  ],
+  "launcherCheckOnlySource": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\r34\\launcher-source\\Program.cs",
+    "size": 8488,
+    "sha256": "e93ade09f9d773dcec99c5637d162a5ab31ce6445363c76724cc4186857eeaef"
+  },
+  "launcherCheckOnlyReview": "Main returns after Verify when check-only; no product Process.Start branch; hashes runtime/web, presence-size assets, queries installed Desktop/WebView2 runtime only",
+  "forbidden": [
+    "DB",
+    "services",
+    "sockets",
+    "normal launch",
+    "GUI",
+    "game",
+    "rebuild or probe reruns",
+    "changes to sealed releases or hardlinked bodies"
+  ],
+  "nativeAcceptance": false
+}

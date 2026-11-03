@@ -1,0 +1,32 @@
+{
+  "utc": "2026-10-28T19:12:41.614445+00:00",
+  "state": "accepted-two-engine-workers-executing-db-direction-stopped",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "send_count": 1,
+  "user_direction": "Database is user responsibility; continue game engine development",
+  "database_diagnosis_or_repair_authorized": false,
+  "organizer_dispatches_workers": false,
+  "requires": "Supervisor notify previous diagnostic workers; select evidence-backed offline engine implementation and independent review; actual acceptance receipts",
+  "updated_utc": "2026-10-28T19:16:42.171027+00:00",
+  "supervisor_turn": "01a183ed-96f3-7bf3-bf12-7f2b6634b80a",
+  "selected_work": "Speed2 / Brave0 slow movement and display; evidence-backed implementation plus independent source contract and test review",
+  "worker_turns": [
+    {
+      "id": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "turnId": "01a183f0-b512-7df0-b7f7-c762f757526b",
+      "status": "inProgress"
+    },
+    {
+      "id": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "turnId": "01a183f0-b5ec-79c0-a57d-539048ad1835",
+      "status": "inProgress"
+    }
+  ],
+  "database_stop_acknowledged_by_both_workers": true,
+  "scope_rule_updated": "AGENTS.md highest priority section",
+  "server_smoke_blocks_offline_engine_work": false,
+  "server_integration_deferred_to_user_db": true,
+  "observation": "D:\\lineage開發\\TW1608262200研究\\docs\\project-consolidation\\physical-migration\\engine-redirect-observed.json",
+  "supervisor_dispatch": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-引擎開發恢復-20261029\\dispatch.json",
+  "feature_complete": false
+}

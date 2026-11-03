@@ -1,0 +1,101 @@
+{
+  "schema": "engine-r34-canonical-plan-result-v1",
+  "dispatchId": "ENGINE-R34-CANONICAL-PLAN-R1",
+  "status": "prepared-static-verified-awaiting-new-supervisor-shared-acceptance",
+  "candidateId": "ENGINE-PICKUP-PRESENTATION-IMPL-R1",
+  "revision": "r34",
+  "onlyWrittenRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-canonical-plan-r1",
+  "canonicalPlan": {
+    "path": "canonical-plan.json",
+    "size": 378638,
+    "sha256": "d25c306fae5abee9209e46c557453f7b6a0a96645e5c052fbda70555f11f15ff"
+  },
+  "staticVerification": {
+    "path": "static-verification.json",
+    "size": 1163,
+    "sha256": "f4dee06675ee5ef140c0a30a3cbe891c6a4c5bcfda85ddb7297333ff1929c744"
+  },
+  "handoff": {
+    "path": "HANDOFF.md",
+    "size": 7590,
+    "sha256": "d9f9ed9163a31b15fdce537436753fa7458c58b9e173bbd8f912e13309a7f833"
+  },
+  "commandRecipes": {
+    "path": "command-recipes.json",
+    "size": 61018,
+    "sha256": "1b515878d59e684d174f5b88c1562493437c2eb16f82bb9f701836a61c575839"
+  },
+  "sourceCopyMappings": {
+    "path": "source-copy-mappings.json",
+    "size": 77990,
+    "sha256": "4005977d7f467eb3c96620e13eadc156740cb1f625477b024870b5e32e0423d6"
+  },
+  "stageAcceptance": {
+    "path": "主管/P24-權威拾取動畫-20261029/r34-stage-root-acceptance.json",
+    "sha256": "d8923799b13660f4eab08ac52d45f27c183c3d0e01aed3d491a62b593e110308"
+  },
+  "stageSealSha256": "9544f137a10914825b53080d4d390d17902cd40866467cebbf69578290240018",
+  "canonicalEngine": "D:\\lineage開發\\TW1608262200研究\\engine",
+  "workflowRoot": "work/engine-r34-integration-r2/r34-shared/accepted-pickup-presentation-r1-01",
+  "canonicalBuildEvidence": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\evidence\\r34-canonical-rebuild-01",
+  "requiredFutureReceipt": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\r34-shared-acceptance.json",
+  "countsArePlannedOnly": true,
+  "plannedCounts": {
+    "baselineAssertions": 4337,
+    "baselineObservations": 93,
+    "pickupAssertions": 184,
+    "pickupObservations": 0,
+    "totalAssertions": 4521,
+    "totalObservations": 93
+  },
+  "plannedCommands": 44,
+  "plannedHelperBuilds": 10,
+  "plannedProductBuilds": 1,
+  "plannedLauncherBuilds": 1,
+  "copyMappings": 138,
+  "pickupFixtureCopies": 51,
+  "assetBodyCopies": 0,
+  "additionalHarnessChanges": {
+    "metadataLiteral": 1,
+    "functional": 0,
+    "expected": 0
+  },
+  "collectorChanges": {
+    "ioRecoveryGuard": 1,
+    "assertionChecks": 0
+  },
+  "rawAttemptSchemaAdapter": "original attempt retained; verify stdoutDecoder/stderrDecoder rawSha256 then derive stream pins",
+  "futurePlanningEvidenceArchive": "workflow/evidence/canonical-plan/archive-manifest.json",
+  "actualThisRound": {
+    "install": 0,
+    "builds": 0,
+    "assertions": 0,
+    "observations": 0,
+    "workflowCreated": false,
+    "sharedReceiptCreated": false,
+    "controllerExecutionGateInvoked": false,
+    "releaseCreated": false,
+    "rootEntryActivated": false,
+    "sealedOriginalsChanged": false
+  },
+  "qualificationFlags": {
+    "nativeNeutral": false,
+    "nativeFIFO": false,
+    "nativeVariant": false,
+    "nativeRuntimeTiming": false,
+    "slowQualified": false,
+    "sameBinVersion": false
+  },
+  "limitations": [
+    "Static validation does not replace original controller validation with a real new exact shared receipt.",
+    "Sealed product PowerShell child output is captured in the product-build parent raw streams; no fabricated separate child receipts.",
+    "Sealed product collect exclusive binding save has a documented partial-write recovery edge case; original controller is not patched."
+  ],
+  "futureAuthorizationRequired": true,
+  "goalCreated": false,
+  "newChatsOrAgentsCreated": false,
+  "productDllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productManifestSha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d",
+  "launcherDllSha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8"
+}

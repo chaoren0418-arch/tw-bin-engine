@@ -1,0 +1,42 @@
+[
+  {
+    "name": "build-product",
+    "pid": 67416,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\source\\OfflineClient.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\client",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 7.493559837341309
+  },
+  {
+    "name": "build-harness",
+    "pid": 70856,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\player-death-fix-r1\\harness\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\harness",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u6b7b\u4ea1\u5fa9\u6d3b\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 1,
+    "elapsed": 0.2984352111816406
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "schema": "p38-delivery-execution-acceptance-v1",
+  "decision": "accepted-for-p38-isolated-launcher-delivery",
+  "utc": "2026-10-29T10:02:49.706118+00:00",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "dispatchId": "ENGINE-P38-DELIVERY-R1-01",
+  "planSha256": "d1649ed3104850b96b719a367583835c781aa0a1fd05fad52c27b6ce402cce92",
+  "contractSha256": "0ceba81b82f80ccd601c12da36b10557a2a5b9bd2d867cc166923a4816b43b3e",
+  "sourceSealSha256": "3d5f27eb648aa970fe970f00fc5121eda18ecd861c8bc0ae6e882b20ca199216",
+  "authorArtifactSealSha256": "0b601bb1dd624b12e49cc4550dfca166304d318d4615aba65706a1de18732bf5",
+  "candidateRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-candidate-r1",
+  "executionRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-execution-r1",
+  "maxLauncherBuilds": 1,
+  "maxCheckOnlyRuns": 2,
+  "productBuilds": 0,
+  "normalLaunchAuthorized": false,
+  "sharedWrites": false,
+  "entryActivationAuthorized": false,
+  "independentReview": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-review-r1\\plan\\plan-review-receipt.json",
+    "size": 1401,
+    "sha256": "b07969e6d053e15e374ac3b2e124737fc1b85f1fd7740df911301c934b5dee36"
+  },
+  "reviewArtifactSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-review-r1\\plan\\artifact-seal.json",
+    "size": 589,
+    "sha256": "816a5a22dcd349dc2253e9c7324e2d4364fe87541f20038adf74199169f00e16"
+  },
+  "rootVerifiedAuthorArtifactFiles": 51,
+  "rootVerifiedReviewArtifactFiles": 22,
+  "qualification": "Only isolated package and launcher check-only; independent final review required; no whole-engine/native/full-release acceptance",
+  "stopConditions": "Any pin mismatch, unexpected command/side effect or failed step stops; retain partial evidence; no retry or deletion",
+  "formalEntry": "r33"
+}

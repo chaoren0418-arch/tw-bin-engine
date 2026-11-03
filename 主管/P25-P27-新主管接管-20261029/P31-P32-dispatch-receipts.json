@@ -1,0 +1,35 @@
+{
+  "schema": "p31-p32-dispatch-receipts-v1",
+  "dispatchSha256": "e5f69053b211da7688f4c7f58f3b8e642e768ea85a98712e116016a7c99c3e7f",
+  "threads": [
+    {
+      "threadId": "01a18676-3321-7c60-a658-cc70dbe320ba",
+      "turnId": "01a18676-34ad-71b3-9d59-6f7774b23f2a",
+      "status": "active",
+      "turnStatus": "inProgress",
+      "actualStartedEvidence": [
+        {
+          "command": "\"C:\\\\Users\\\\CHAOREN\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -Raw 'D:\\\\lineage開發\\\\TW1608262200研究\\\\AGENTS.md'\"",
+          "exitCode": 0
+        },
+        {
+          "command": "\"C:\\\\Users\\\\CHAOREN\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -Raw 'D:\\\\lineage開發\\\\TW1608262200研究\\\\主管\\\\P25-P27-新主管接管-20261029\\\\takeover.json'\nGet-Content -Raw 'D:\\\\lineage開發\\\\TW1608262200研究\\\\主管\\\\P25-P27-新主管接管-20261029\\\\P31-P32-dispatch.json'\"",
+          "exitCode": 0
+        }
+      ]
+    },
+    {
+      "threadId": "01a18676-7607-7120-8804-d19ca3805f36",
+      "turnId": "01a18676-790d-7ec0-a905-3c67385543d2",
+      "status": "active",
+      "turnStatus": "inProgress",
+      "actualStartedEvidence": [
+        {
+          "command": "\"C:\\\\Users\\\\CHAOREN\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\AGENTS.md'; Get-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\主管\\\\P25-P27-新主管接管-20261029\\\\takeover.json'; Get-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\主管\\\\P25-P27-新主管接管-20261029\\\\P31-P32-dispatch.json'\"",
+          "exitCode": 0
+        }
+      ]
+    }
+  ],
+  "sharedWritesAuthorized": false
+}

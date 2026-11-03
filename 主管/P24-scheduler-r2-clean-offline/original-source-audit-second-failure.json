@@ -1,0 +1,9 @@
+{
+  "status": "auditor-inherited-path-resolution-fixed",
+  "utc": "2026-10-25T19:00:53.795820+00:00",
+  "exitCode": 1,
+  "cause": "Inherited P23 vector source fields incorrectly resolved against P24 evidence",
+  "verification": "P24 inherited file byte-identical to P23; all4 original suite source hashes match",
+  "change": "Resolve inherited source fields against read-only P23 root with path confinement and exact SHA; no product/data changes",
+  "repeat": "One ineffective whitespace patch was detected, a repeated audit stopped at same path before correction; neither partial run was called passed."
+}

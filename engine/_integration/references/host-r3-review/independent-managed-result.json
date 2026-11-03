@@ -1,0 +1,48 @@
+{
+  "status": "pass",
+  "cases": 8,
+  "assertions": 68,
+  "details": [
+    {
+      "name": "strict-schema-and-all-invalid-value-categories",
+      "assertions": 31,
+      "status": "pass"
+    },
+    {
+      "name": "web-native-two-way-no-feedback-or-redundant-configure",
+      "assertions": 10,
+      "status": "pass"
+    },
+    {
+      "name": "configuration-failure-and-late-success-do-not-claim-applied",
+      "assertions": 8,
+      "status": "pass"
+    },
+    {
+      "name": "old-failure-cannot-reverse-new-success",
+      "assertions": 3,
+      "status": "pass"
+    },
+    {
+      "name": "close-logout-reject-settings-and-ignore-late-replies",
+      "assertions": 7,
+      "status": "pass"
+    },
+    {
+      "name": "mute-settings-consume-pending-event-without-replay",
+      "assertions": 4,
+      "status": "pass"
+    },
+    {
+      "name": "render-guard-restored-after-exception",
+      "assertions": 1,
+      "status": "pass"
+    },
+    {
+      "name": "same-applied-settings-preserve-host-snapshot-and-reply",
+      "assertions": 4,
+      "status": "pass"
+    }
+  ],
+  "scope": "Exact production models/host and client method excerpts with explicit managed controls/world/transport. No GUI, COM, audio, network, services or DB."
+}

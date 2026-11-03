@@ -1,0 +1,178 @@
+{
+  "schema": "engine-independent-review-v1",
+  "revision": "r33",
+  "candidateReviewed": true,
+  "decision": "accepted",
+  "candidate": {
+    "id": "ENGINE-GROUND-LIFECYCLE-IMPL-R1",
+    "deliveryManifestSha256": "2ad5c438372732384dbb505936a94ce386d25933223194c39c2997de524073cf",
+    "sourceManifestSha256": "adf30cb60180285541857fac85b3e522d68855a1a63d0117dd4fb71cb1de0056",
+    "resultSha256": "359cb5a3111e0dc95e91000024d780098f842cff711c924e7f551212824cb207",
+    "dll": "D:\\lineage開發\\TW1608262200研究\\work\\engine-ground-lifecycle-r1\\candidate\\build\\P11.ClientEngine.dll",
+    "dllSha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2",
+    "audioSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+  },
+  "finalBaseline": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-拾取生命週期修復-20261029\\baseline-final.json",
+    "sha256": "0c645bf5c3a515fd5da88cf28c834a4b2967aed268946d45fb5a6ebe9f03fcb7",
+    "releaseSealSha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507",
+    "finalBaseBindingSha256": "26cc55267f04896344333a6eda50d058d432aa4df1d2655875b6e9772eedff5e"
+  },
+  "counts": {
+    "rows": 816,
+    "assertionsPassed": 735,
+    "assertionsFailed": 0,
+    "observations": 81,
+    "distinctIds": 813,
+    "socketGuardRows": 4,
+    "functionalAssertions": 731,
+    "original352Retained": 352,
+    "baseline14GapsClosed": 14,
+    "newOwner24PendingDischarged": 24,
+    "pending": 0
+  },
+  "probeCounts": {
+    "baseline": {
+      "rows": 140,
+      "assertionsPassed": 85,
+      "assertionsFailed": 0,
+      "observations": 55
+    },
+    "extended": {
+      "rows": 195,
+      "assertionsPassed": 169,
+      "assertionsFailed": 0,
+      "observations": 26
+    },
+    "supplement": {
+      "rows": 17,
+      "assertionsPassed": 17,
+      "assertionsFailed": 0,
+      "observations": 0
+    },
+    "formal": {
+      "rows": 464,
+      "assertionsPassed": 464,
+      "assertionsFailed": 0,
+      "observations": 0
+    }
+  },
+  "observations": {
+    "count": 81,
+    "promotedToAssertions": 0,
+    "unknownBravePolicy": "unchanged baseline observations, not new supported routes"
+  },
+  "pending": [],
+  "unresolvedFindings": [],
+  "scope": "Offline candidate acceptance only; synthetic initial fixture and in-memory sender, actual sealed DLL/API/ApplyWorldPacket; no GUI/socket/native/live approval",
+  "sourceReview": {
+    "changed": [
+      "source/Ground.cs",
+      "source/WorldEntry.cs"
+    ],
+    "unchanged": 175,
+    "r32InventoryFixPreserved": true,
+    "candidateFilesVerified": 344,
+    "authorExpectedUsed": false,
+    "legacySchemaAccepted": "engine-r29-source-pins-v1 + revision r33"
+  },
+  "build": {
+    "warnings": 0,
+    "errors": 0
+  },
+  "socketEvents": 0,
+  "timing": {
+    "clock": "Environment.TickCount64",
+    "real900Rows": [
+      {
+        "id": "formal-real-900ms-pickup",
+        "kind": "real TickCount64 wait to local 900ms deadline; pickup acknowledged by actual S158 before cooldown test",
+        "pass": true,
+        "data": {
+          "first": true,
+          "immediate": false,
+          "again": true,
+          "deadline": 5075040,
+          "before": 5074140,
+          "after": 5075062,
+          "delay": 908,
+          "elapsed": 922,
+          "wires": [
+            "70597FAC802B02000001000000000000",
+            "70597FAC802B02000001000000000000"
+          ]
+        }
+      },
+      {
+        "id": "formal-real-900ms-drop",
+        "kind": "real TickCount64 wait to local 900ms deadline; pickup acknowledged by actual S158 before cooldown test",
+        "pass": true,
+        "data": {
+          "first": true,
+          "immediate": false,
+          "again": true,
+          "deadline": 5075962,
+          "before": 5075062,
+          "after": 5075984,
+          "delay": 908,
+          "elapsed": 922,
+          "wires": [
+            "19587FAC800903000001000000000000",
+            "19587FAC800903000001000000000000"
+          ]
+        }
+      }
+    ],
+    "real3000Row": {
+      "id": "formal-real-3000ms-pending",
+      "kind": "explicit real TickCount64 timestamps; actual 3100ms Task.Delay; outcome remains unconfirmed and fences repeat",
+      "pass": true,
+      "data": {
+        "sent": true,
+        "early": false,
+        "timeout": true,
+        "again": false,
+        "start": 5075984,
+        "deadline": 5078984,
+        "before": 5075984,
+        "after": 5079093,
+        "elapsed": 3109,
+        "wires": [
+          "70597FAC802B02000001000000000000"
+        ]
+      }
+    }
+  },
+  "limitations": [
+    "Actor replacement uses synthetic matching Status ID before actual S87 wrapper; not normal public wire identity switch.",
+    "Public movement producer controls use Turn, not terrain Move/live movement.",
+    "Session cancellation and isolated lease replacement are separate defensive cases; no socket reconnection.",
+    "S158 contains actor only, no request correlation. Native pickup/animation/timing/source qualification remains unknown.",
+    "No full3602 suite/full asset release scan; sole integrator and supervisor own formal merge/live acceptance."
+  ],
+  "candidateId": "ENGINE-GROUND-LIFECYCLE-IMPL-R1",
+  "candidateSealSha256": "2ad5c438372732384dbb505936a94ce386d25933223194c39c2997de524073cf",
+  "candidateSourceManifestSha256": "adf30cb60180285541857fac85b3e522d68855a1a63d0117dd4fb71cb1de0056",
+  "candidateResultSha256": "359cb5a3111e0dc95e91000024d780098f842cff711c924e7f551212824cb207",
+  "candidateDllSha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "basePins": {
+    "finalBaselineSha256": "0c645bf5c3a515fd5da88cf28c834a4b2967aed268946d45fb5a6ebe9f03fcb7",
+    "finalBaseBindingSha256": "26cc55267f04896344333a6eda50d058d432aa4df1d2655875b6e9772eedff5e",
+    "finalReleaseSealSha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507"
+  },
+  "integrationBindingAppendix": {
+    "task": "ENGINE-GROUND-LIFECYCLE-REVIEW-BINDING-R1",
+    "kind": "equivalent-field-projection-only",
+    "originalReviewAcceptance": "D:\\lineage開發\\TW1608262200研究\\work\\engine-ground-lifecycle-review-r1\\candidate-review-r1\\review-acceptance.json",
+    "originalReviewAcceptanceSha256": "d72c99054b009c940f7ecc88d147fa996ec77c23a7498fc964ec44132d7e9bd7",
+    "originalArtifactManifest": "D:\\lineage開發\\TW1608262200研究\\work\\engine-ground-lifecycle-review-r1\\candidate-review-r1\\artifact-manifest.json",
+    "originalArtifactManifestSha256": "3ead78e2deff945cb0b191c88c139f54865595b5ec66edf2d5a704a4a1e7b5aa",
+    "newProductChanges": false,
+    "newAssertions": false,
+    "newTestsRun": false,
+    "newAcceptanceClaims": false,
+    "originalFieldsPreservedExactly": true,
+    "reason": "Read-only integration gate required top-level exact candidate binding. Original nested fields, decision, counts and limitations are retained unchanged."
+  }
+}

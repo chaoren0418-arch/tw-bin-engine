@@ -1,0 +1,25 @@
+{
+  "status": "prepared-not-executed",
+  "dispatch": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-executor-preparation-dispatch.json",
+    "size": 3612,
+    "sha256": "4be1242a443975632a8f13ab23c528aec6eb2f536b144647e579175dcbb80568"
+  },
+  "planningSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\artifact-seal.json",
+    "size": 108201,
+    "sha256": "3b5e84c46f48c01b80a129caad493b4218a8151bec8f0d9051b687501764637c"
+  },
+  "planningArtifactsVerified": 581,
+  "goal": {
+    "actualRead": null,
+    "created": false,
+    "modified": false
+  },
+  "productBuilds": 0,
+  "runtimeProbes": 0,
+  "futureRootExists": false,
+  "dependencyCount": 4350,
+  "materializationCount": 184,
+  "ancestorPolicies": []
+}

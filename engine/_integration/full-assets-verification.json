@@ -1,0 +1,28 @@
+{
+  "status": "pass",
+  "hashedPins": 13957,
+  "totalFiles": 13958,
+  "totalPinnedBytes": 2222723085,
+  "integritySha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98",
+  "baselinePins": 13954,
+  "unchangedPrefix": true,
+  "added": [
+    {
+      "path": "audio-manifest.json",
+      "size": 3346,
+      "sha256": "87c6cd6867e0d81bdc627c1cac0a922891d650018211b58525de9226926ad9fe"
+    },
+    {
+      "path": "sound/1340.wav",
+      "size": 14322,
+      "sha256": "30b4ce04d5ca914cdbfd80c7ee9b9cdbe3bf79487e609b2a9d32f6546a90f9c3"
+    },
+    {
+      "path": "sound/3332.wav",
+      "size": 24748,
+      "sha256": "973e0a3598edd23c2a24f6900643e43a9155fe36906b939d2d8e24374abeff2a"
+    }
+  ],
+  "fullBodyPasses": 1,
+  "utc": "2026-10-27T18:26:46.729932+00:00"
+}

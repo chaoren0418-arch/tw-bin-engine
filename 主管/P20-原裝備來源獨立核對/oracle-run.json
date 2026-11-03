@@ -1,0 +1,32 @@
+[
+  {
+    "args": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javac.exe",
+      "-encoding",
+      "UTF-8",
+      "-cp",
+      "D:\\lineage開發\\1-伺服器\\Server_Game.jar;D:\\lineage開發\\1-伺服器\\jar\\*",
+      "-d",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P20-原裝備來源獨立核對\\oracle-classes",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P20-原裝備來源獨立核對\\EquipmentPacketOracle.java"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "-XX:-UsePerfData",
+      "-Djava.io.tmpdir=D:\\lineage開發\\TW1608262200研究\\主管\\P20-原裝備來源獨立核對\\tmp",
+      "-Duser.home=D:\\lineage開發\\TW1608262200研究\\主管\\P20-原裝備來源獨立核對\\tmp",
+      "-cp",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P20-原裝備來源獨立核對\\oracle-classes;D:\\lineage開發\\1-伺服器\\Server_Game.jar;D:\\lineage開發\\1-伺服器\\jar\\*",
+      "EquipmentPacketOracle",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P20-原裝備來源獨立核對\\equipment-original-vectors.tsv"
+    ],
+    "exit_code": 0,
+    "stdout": "15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_CharVisualUpdate\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_CharVisualUpdate\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_CharVisualUpdate\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_CharVisualUpdate\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_CharVisualUpdate\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_CharVisualUpdate\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_EquipmentWindow\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_EquipmentWindow\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_EquipmentWindow\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_EquipmentWindow\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_EquipmentWindow\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_EquipmentWindow\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_EquipmentWindow\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_EquipmentWindow\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_EquipmentWindow\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_EquipmentWindow\r\n15:42:01 [main] INFO  com.lineage.server.serverpackets.ServerBasePacket - [S_Packet] S_EquipmentWindow\r\nOriginal equipment serializer vectors: 17; synthetic fields, no gameplay or DB\r\n",
+    "stderr": ""
+  }
+]

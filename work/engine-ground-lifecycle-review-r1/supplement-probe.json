@@ -1,0 +1,218 @@
+{
+  "candidateReviewed": false,
+  "productCandidate": false,
+  "baseline": "accepted r32 stage equivalent to final r32",
+  "assembly": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\work\\engine-ground-lifecycle-review-r1\\helper\\r32\\P11.ClientEngine.dll",
+  "assemblySha256": "c64bf0069722e28fc174d70d261b7540da6e3f74ee422d4874cbffb77149364f",
+  "clock": "ActionClock and MovementClock both real Environment.TickCount64; item/ground direct real clock",
+  "rows": [
+    {
+      "id": "pickup-selection-speed-early-replies-0-36-success",
+      "kind": "admission snapshots selection/count/S255/S67/S158/S15/S24 change legally before completion; success exactly once, current error Faulted",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": true,
+        "events": 1,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "pickup-selection-speed-early-replies-0-36-false",
+      "kind": "admission snapshots selection/count/S255/S67/S158/S15/S24 change legally before completion; success exactly once, current error Faulted",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "pickup-selection-speed-early-replies-0-36-error",
+      "kind": "admission snapshots selection/count/S255/S67/S158/S15/S24 change legally before completion; success exactly once, current error Faulted",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "Faulted"
+      }
+    },
+    {
+      "id": "pickup-selection-speed-early-replies-0-66-success",
+      "kind": "admission snapshots selection/count/S255/S67/S158/S15/S24 change legally before completion; success exactly once, current error Faulted",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": true,
+        "events": 1,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "pickup-selection-speed-early-replies-0-66-false",
+      "kind": "admission snapshots selection/count/S255/S67/S158/S15/S24 change legally before completion; success exactly once, current error Faulted",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "pickup-selection-speed-early-replies-0-66-error",
+      "kind": "admission snapshots selection/count/S255/S67/S158/S15/S24 change legally before completion; success exactly once, current error Faulted",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "Faulted"
+      }
+    },
+    {
+      "id": "pickup-selection-speed-early-replies-1-36-success",
+      "kind": "admission snapshots selection/count/S255/S67/S158/S15/S24 change legally before completion; success exactly once, current error Faulted",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": true,
+        "events": 1,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "pickup-selection-speed-early-replies-1-36-false",
+      "kind": "admission snapshots selection/count/S255/S67/S158/S15/S24 change legally before completion; success exactly once, current error Faulted",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "pickup-selection-speed-early-replies-1-36-error",
+      "kind": "admission snapshots selection/count/S255/S67/S158/S15/S24 change legally before completion; success exactly once, current error Faulted",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "Faulted"
+      }
+    },
+    {
+      "id": "pickup-selection-speed-early-replies-1-66-success",
+      "kind": "admission snapshots selection/count/S255/S67/S158/S15/S24 change legally before completion; success exactly once, current error Faulted",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": true,
+        "events": 1,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "pickup-selection-speed-early-replies-1-66-false",
+      "kind": "admission snapshots selection/count/S255/S67/S158/S15/S24 change legally before completion; success exactly once, current error Faulted",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "InWorld"
+      }
+    },
+    {
+      "id": "pickup-selection-speed-early-replies-1-66-error",
+      "kind": "admission snapshots selection/count/S255/S67/S158/S15/S24 change legally before completion; success exactly once, current error Faulted",
+      "pass": true,
+      "data": {
+        "admitted": true,
+        "authoritative": true,
+        "sent": false,
+        "events": 0,
+        "state": "Faulted"
+      }
+    },
+    {
+      "id": "r32-slow-haste-ground-cross-pickup-True",
+      "kind": "real public ground owner established at Speed0 then authoritative Slow; exact haste eligible but blocked by existing ground ownership",
+      "pass": true,
+      "data": {
+        "ready": true,
+        "eligible": true,
+        "rejected": true,
+        "entries": 1,
+        "admissions": 1,
+        "oldSent": true,
+        "itemSent": false
+      }
+    },
+    {
+      "id": "r32-slow-haste-ground-cross-pickup-False",
+      "kind": "real public ground owner established at Speed0 then authoritative Slow; exact haste eligible but blocked by existing ground ownership",
+      "pass": true,
+      "data": {
+        "ready": true,
+        "eligible": true,
+        "rejected": true,
+        "entries": 1,
+        "admissions": 0,
+        "oldSent": false,
+        "itemSent": false
+      }
+    },
+    {
+      "id": "r32-slow-haste-ground-cross-drop-True",
+      "kind": "real public ground owner established at Speed0 then authoritative Slow; exact haste eligible but blocked by existing ground ownership",
+      "pass": true,
+      "data": {
+        "ready": true,
+        "eligible": true,
+        "rejected": true,
+        "entries": 1,
+        "admissions": 1,
+        "oldSent": true,
+        "itemSent": false
+      }
+    },
+    {
+      "id": "r32-slow-haste-ground-cross-drop-False",
+      "kind": "real public ground owner established at Speed0 then authoritative Slow; exact haste eligible but blocked by existing ground ownership",
+      "pass": true,
+      "data": {
+        "ready": true,
+        "eligible": true,
+        "rejected": true,
+        "entries": 1,
+        "admissions": 0,
+        "oldSent": false,
+        "itemSent": false
+      }
+    },
+    {
+      "id": "no-socket-events",
+      "kind": "baseline-assertion",
+      "pass": true,
+      "data": {
+        "Observed": false
+      }
+    }
+  ]
+}

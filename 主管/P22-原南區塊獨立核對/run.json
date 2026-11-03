@@ -1,0 +1,27 @@
+[
+  {
+    "args": [
+      "dotnet",
+      "build",
+      "Reference.csproj",
+      "-c",
+      "Release",
+      "--configfile",
+      "NuGet.Config",
+      "--nologo",
+      "-p:UseSharedCompilation=false"
+    ],
+    "pid": 84512,
+    "exit_code": 0
+  },
+  {
+    "args": [
+      "dotnet",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P22-原南區塊獨立核對\\reference\\bin\\Release\\net10.0\\Reference.dll",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P22-原南區塊獨立核對\\input",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P22-原南區塊獨立核對\\oracle"
+    ],
+    "pid": 82112,
+    "exit_code": 0
+  }
+]

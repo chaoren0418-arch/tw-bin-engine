@@ -1,0 +1,158 @@
+{
+  "status": "ready-frozen",
+  "utc": 1792907796.9382582,
+  "goal": "active",
+  "server": {
+    "process": {
+      "ProcessId": 74244,
+      "ParentProcessId": 85972,
+      "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P18Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P18Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P18Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P18Lab-ClientEngine\\server\\Server_Game.jar",
+      "CreationDate": "/Date(1792906440376)/"
+    },
+    "listeners": [
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42039,
+        "OwningProcess": 74244
+      }
+    ]
+  },
+  "db": {
+    "values": [
+      "43318",
+      "D:\\P18Lab-ClientEngine\\db-data\\",
+      "e8ac0d64-d031-11f1-a13e-4cedfb679789",
+      "127.0.0.1",
+      "8.0.40"
+    ],
+    "process": {
+      "process": {
+        "ProcessId": 13288,
+        "ParentProcessId": 67088,
+        "ExecutablePath": "D:\\P18Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P18Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P18Lab-ClientEngine\\mysql.ini --init-file=D:\\P18Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792904888950)/"
+      },
+      "listeners": [
+        {
+          "LocalAddress": "127.0.0.1",
+          "LocalPort": 43318,
+          "OwningProcess": 13288
+        }
+      ]
+    }
+  },
+  "clients": {
+    "items": []
+  },
+  "roles": [
+    {
+      "x": 32583,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900180001,
+      "meat": 8,
+      "name": "拾取王子",
+      "online": 0,
+      "heading": 6,
+      "potions": 6,
+      "accountOnline": 0
+    },
+    {
+      "x": 32582,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900180002,
+      "meat": 0,
+      "name": "拾取王子乙",
+      "online": 0,
+      "heading": 7,
+      "potions": 6,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900180003,
+      "meat": 8,
+      "name": "驗收王子",
+      "online": 0,
+      "heading": 5,
+      "potions": 6,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900180004,
+      "meat": 8,
+      "name": "驗收王子乙",
+      "online": 0,
+      "heading": 5,
+      "potions": 6,
+      "accountOnline": 0
+    },
+    {
+      "x": 32584,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900180005,
+      "meat": 0,
+      "name": "拾取觀察甲",
+      "online": 0,
+      "heading": 2,
+      "potions": 0,
+      "accountOnline": 0
+    },
+    {
+      "x": 32584,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900180006,
+      "meat": 0,
+      "name": "拾取觀察乙",
+      "online": 0,
+      "heading": 2,
+      "potions": 0,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900180007,
+      "meat": 0,
+      "name": "驗收觀察甲",
+      "online": 0,
+      "heading": 5,
+      "potions": 0,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900180008,
+      "meat": 0,
+      "name": "驗收觀察乙",
+      "online": 0,
+      "heading": 5,
+      "potions": 0,
+      "accountOnline": 0
+    }
+  ],
+  "source": "59e155a418dabb5297c7d9d14b5963da2152ebc1b8d5d30fa42ebe1458c56c9c",
+  "environment": "4f558bf6ce9f66e7853846fecf0aa6acf9d993e3f3dbbae85ca6b06246b918dd",
+  "privateCredentialsPath": "D:\\P18Lab-ClientEngine\\private-tests.json",
+  "commands": [
+    "./build.ps1 -Clean",
+    "python -B -X utf8 ground_integration.py cli supervisor",
+    "python -B -X utf8 ground_integration.py ui supervisor",
+    "python -B -X utf8 verify_ground.py evidence/ground-supervisor-cli/result.json",
+    "python -B -X utf8 verify_ground.py evidence/ground-supervisor-ui/result.json"
+  ],
+  "notes": "No further worker source changes, login, cleanup or restart until explicit supervisor handback; original ItemDeletionTime global 10-minute cycle remains unchanged."
+}

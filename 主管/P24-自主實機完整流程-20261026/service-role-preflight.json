@@ -1,0 +1,1058 @@
+{
+  "utc": "2026-10-26T13:41:00.149478+00:00",
+  "authorization": "User explicitly approved dedicated service test role, 100000 test adena, 100 white potions, base equipment; existing 8 roles preserved.",
+  "identity": {
+    "utc": "2026-10-26T13:40:59.623395+00:00",
+    "db": [
+      43324,
+      "D:\\P24Lab-ClientEngine\\db-data\\",
+      "e3443e40-d090-11f1-8040-4cedfb679789",
+      "127.0.0.1",
+      "8.0.40"
+    ],
+    "dbOs": {
+      "processes": [
+        {
+          "ProcessId": 69176,
+          "ParentProcessId": 64892,
+          "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+          "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+          "CreationDate": "/Date(1792945658396)/"
+        },
+        {
+          "ProcessId": 59052,
+          "ParentProcessId": 69176,
+          "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+          "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+          "CreationDate": "/Date(1792945658443)/"
+        }
+      ],
+      "listeners": [
+        {
+          "LocalAddress": "127.0.0.1",
+          "LocalPort": 43324,
+          "OwningProcess": 59052
+        }
+      ]
+    },
+    "game": {
+      "process": {
+        "ProcessId": 80144,
+        "ParentProcessId": 66016,
+        "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+        "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P24Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P24Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P24Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P24Lab-ClientEngine\\server\\Server_Game.jar",
+        "CreationDate": "/Date(1793004660590)/"
+      },
+      "listeners": [
+        {
+          "LocalAddress": "0.0.0.0",
+          "LocalPort": 42061,
+          "OwningProcess": 80144
+        }
+      ]
+    },
+    "roles": [
+      {
+        "x": 32640,
+        "y": 33109,
+        "hp": 26,
+        "id": 1900240001,
+        "mp": 82,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p241db6e"
+      },
+      {
+        "x": 32477,
+        "y": 32853,
+        "hp": 103,
+        "id": 1900240002,
+        "mp": 84,
+        "map": 0,
+        "level": 59,
+        "online": 0,
+        "account": "p242db6e"
+      },
+      {
+        "x": 32588,
+        "y": 32981,
+        "hp": 500,
+        "id": 1900240003,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p243db6e"
+      },
+      {
+        "x": 32588,
+        "y": 32981,
+        "hp": 500,
+        "id": 1900240004,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p244db6e"
+      },
+      {
+        "x": 32648,
+        "y": 33068,
+        "hp": 163,
+        "id": 1900240005,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p245db6e"
+      },
+      {
+        "x": 32608,
+        "y": 32976,
+        "hp": 384,
+        "id": 1900240006,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p246db6e"
+      },
+      {
+        "x": 32587,
+        "y": 32998,
+        "hp": 700,
+        "id": 1900240007,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p247db6e"
+      },
+      {
+        "x": 32587,
+        "y": 32998,
+        "hp": 700,
+        "id": 1900240008,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p248db6e"
+      }
+    ]
+  },
+  "schema": [
+    {
+      "table": "accounts",
+      "engine": "MyISAM"
+    },
+    {
+      "table": "character_items",
+      "engine": "MyISAM"
+    },
+    {
+      "table": "character_skills",
+      "engine": "MyISAM"
+    },
+    {
+      "table": "characters",
+      "engine": "MyISAM"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "accounts",
+      "column": "access_level",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "accounts",
+      "column": "server_no",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "varchar(50)",
+      "extra": "",
+      "table": "accounts",
+      "column": "login",
+      "default": "",
+      "nullable": "NO"
+    },
+    {
+      "type": "varchar(50)",
+      "extra": "",
+      "table": "accounts",
+      "column": "password",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "datetime",
+      "extra": "",
+      "table": "accounts",
+      "column": "lastactive",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "varchar(20)",
+      "extra": "",
+      "table": "accounts",
+      "column": "ip",
+      "default": "",
+      "nullable": "NO"
+    },
+    {
+      "type": "varchar(255)",
+      "extra": "",
+      "table": "accounts",
+      "column": "host",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "tinyint unsigned",
+      "extra": "",
+      "table": "accounts",
+      "column": "banned",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "accounts",
+      "column": "character_slot",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "varchar(12)",
+      "extra": "",
+      "table": "accounts",
+      "column": "spw",
+      "default": null,
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "accounts",
+      "column": "warehouse",
+      "default": "-256",
+      "nullable": "NO"
+    },
+    {
+      "type": "bigint",
+      "extra": "",
+      "table": "accounts",
+      "column": "ezpay",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "id",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "item_id",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "char_id",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "varchar(255)",
+      "extra": "",
+      "table": "character_items",
+      "column": "item_name",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "bigint",
+      "extra": "",
+      "table": "character_items",
+      "column": "count",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "is_equipped",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "tinyint(1)",
+      "extra": "",
+      "table": "character_items",
+      "column": "is_sealed",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "enchantlvl",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "is_id",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "durability",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "charge_count",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "remaining_time",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "datetime",
+      "extra": "",
+      "table": "character_items",
+      "column": "last_used",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "bless",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "attr_enchant_kind",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "attr_enchant_level",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "varchar(50)",
+      "extra": "",
+      "table": "character_items",
+      "column": "gamno",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "varchar(64)",
+      "extra": "",
+      "table": "character_items",
+      "column": "Lotto",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "greater",
+      "default": "0",
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "magic_stone_item_id",
+      "default": "0",
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_items",
+      "column": "magic_stone_level",
+      "default": "0",
+      "nullable": "YES"
+    },
+    {
+      "type": "datetime",
+      "extra": "",
+      "table": "character_items",
+      "column": "magic_stone_time",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "auto_increment",
+      "table": "character_skills",
+      "column": "id",
+      "default": null,
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_skills",
+      "column": "char_obj_id",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "character_skills",
+      "column": "skill_id",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "varchar(45)",
+      "extra": "",
+      "table": "character_skills",
+      "column": "skill_name",
+      "default": "",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_skills",
+      "column": "is_active",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "character_skills",
+      "column": "activetimeleft",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "OnlineStatus",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "varchar(13)",
+      "extra": "",
+      "table": "characters",
+      "column": "account_name",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "AccessLevel",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "varchar(45)",
+      "extra": "",
+      "table": "characters",
+      "column": "char_name",
+      "default": "",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "objid",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "level",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "HighLevel",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "Exp",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "MaxHp",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "CurHp",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "MaxMp",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "CurMp",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "Ac",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "Str",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "Con",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "Dex",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "Cha",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "Intel",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "Wis",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "Status",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "Class",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "Sex",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "Type",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "Heading",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "LocX",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "LocY",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "MapID",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "Food",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "Lawful",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "varchar(35)",
+      "extra": "",
+      "table": "characters",
+      "column": "Title",
+      "default": "",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "ClanID",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "varchar(45)",
+      "extra": "",
+      "table": "characters",
+      "column": "Clanname",
+      "default": "",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "ClanRank",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "BonusStatus",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "ElixirStatus",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "ElfAttr",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "PKcount",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "PkCountForElf",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "ExpRes",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "PartnerID",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "HomeTownID",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "Contribution",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "Pay",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "HellTime",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "tinyint unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "Banned",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "Karma",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "datetime",
+      "extra": "",
+      "table": "characters",
+      "column": "LastPk",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "datetime",
+      "extra": "",
+      "table": "characters",
+      "column": "LastPkForElf",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "datetime",
+      "extra": "",
+      "table": "characters",
+      "column": "DeleteTime",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "OriginalStr",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "OriginalCon",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "OriginalDex",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "OriginalCha",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "OriginalInt",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "OriginalWis",
+      "default": "0",
+      "nullable": "NO"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "CreateTime",
+      "default": "20090901",
+      "nullable": "NO"
+    },
+    {
+      "type": "tinyint(1)",
+      "extra": "",
+      "table": "characters",
+      "column": "RingsExpansion",
+      "default": "0",
+      "nullable": "YES"
+    },
+    {
+      "type": "varchar(62)",
+      "extra": "",
+      "table": "characters",
+      "column": "clanNote",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "wenyang_1",
+      "default": "0",
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "wenyang_2",
+      "default": "0",
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "wenyang_3",
+      "default": "0",
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "wenyang_4",
+      "default": "0",
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "wenyang_5",
+      "default": "0",
+      "nullable": "YES"
+    },
+    {
+      "type": "int",
+      "extra": "",
+      "table": "characters",
+      "column": "wenyang_6",
+      "default": "0",
+      "nullable": "YES"
+    },
+    {
+      "type": "int unsigned",
+      "extra": "",
+      "table": "characters",
+      "column": "talent",
+      "default": "0",
+      "nullable": "NO"
+    }
+  ],
+  "absence": {
+    "items": 0,
+    "skills": 0,
+    "accounts": 0,
+    "characters": 0
+  },
+  "templates": [
+    {
+      "id": 40012,
+      "name": "終極治癒藥水",
+      "bless": 0
+    },
+    {
+      "id": 40308,
+      "name": "金幣",
+      "bless": 0
+    },
+    {
+      "id": 31,
+      "name": "長劍",
+      "bless": 0
+    },
+    {
+      "id": 20096,
+      "name": "環甲",
+      "bless": 0
+    },
+    {
+      "id": 20222,
+      "name": "木盾",
+      "bless": 0
+    }
+  ],
+  "existingEightBefore": {
+    "accounts": {
+      "rows": 8,
+      "sha256": "ee12417cf61b1e1d03b06777b43c9ea9249747f36e5e739df9d9695cafbd0dc0"
+    },
+    "characters": {
+      "rows": 8,
+      "sha256": "5b171d5abb73c09ac6f22ebe33a620928de35b5df1ca31e031a954e8b6e4a2cc"
+    },
+    "character_items": {
+      "rows": 41,
+      "sha256": "fe1f78013998de311f91bc52f74780a3682094271057e17bd7420a375e9700f8"
+    },
+    "character_skills": {
+      "rows": 8,
+      "sha256": "1b08dc5e7d1c9f313b8bb4671a79189c11575bfae6c8e0fb2b98762b4e23b161"
+    }
+  },
+  "account": "p24svc01",
+  "name": "服務驗證",
+  "objectId": 1900249001,
+  "status": "read-only plan; not provisioned"
+}

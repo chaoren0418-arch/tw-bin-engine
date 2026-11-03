@@ -1,0 +1,821 @@
+{
+  "at": "2026-10-26T18:00:35.467Z",
+  "state": {
+    "busy": false,
+    "character": "服務驗證",
+    "confirmed": 0,
+    "connection": "Disconnected",
+    "direction": 4,
+    "gameFocus": false,
+    "ground": {
+      "busy": true,
+      "epoch": 5,
+      "items": [],
+      "notice": "等待原服地面物品",
+      "selectedId": null
+    },
+    "interaction": {
+      "canTalk": false,
+      "model": {
+        "canSubmit": false,
+        "currency": 0,
+        "epoch": 5,
+        "feePerRow": false,
+        "hasResult": false,
+        "kind": "closed",
+        "notice": "世界已清除，舊對話已失效。",
+        "npcId": null,
+        "options": null,
+        "priceLabel": "單價",
+        "revision": 5,
+        "rows": [],
+        "selection": false,
+        "targetId": null,
+        "targetRevision": 0,
+        "text": null,
+        "title": "NPC 對話"
+      },
+      "notice": "世界已清除，舊對話已失效。",
+      "options": null,
+      "rows": [],
+      "targets": [],
+      "text": ""
+    },
+    "inventory": {
+      "available": false,
+      "busy": true,
+      "epoch": 5,
+      "items": [
+        {
+          "action": "單次使用",
+          "count": 70,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/80.png",
+          "id": 10322,
+          "name": "治癒藥水",
+          "selected": false,
+          "state": "可單次使用；滿血仍會消耗",
+          "usable": true
+        },
+        {
+          "action": "單次使用",
+          "count": 1,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/77.png",
+          "id": 10324,
+          "name": "綠色藥水",
+          "selected": false,
+          "state": "可單次使用；消耗一瓶，約 5 分鐘加速，以伺服器回報為準",
+          "usable": true
+        },
+        {
+          "action": "單次使用",
+          "count": 1,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/138.png",
+          "id": 10331,
+          "name": "往說話之島的船票",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "單次使用",
+          "count": 89220,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/5.png",
+          "id": 1900249101,
+          "name": "金幣",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "卸下",
+          "count": 1,
+          "droppable": false,
+          "equipped": true,
+          "icon": "https://p08.example/icons/2.png",
+          "id": 1900249103,
+          "name": "+0 長劍 (揮舞)",
+          "selected": false,
+          "state": "已裝備；可單次卸下",
+          "usable": true
+        },
+        {
+          "action": "卸下",
+          "count": 1,
+          "droppable": false,
+          "equipped": true,
+          "icon": "https://p08.example/icons/86.png",
+          "id": 1900249104,
+          "name": "+0 環甲 (使用中)",
+          "selected": false,
+          "state": "已裝備；可單次卸下",
+          "usable": true
+        }
+      ],
+      "message": "\\fW【奇岩競賽】比賽即將開始",
+      "notice": "原服背包已同步",
+      "revision": 10,
+      "selectedId": null
+    },
+    "kind": "state",
+    "login": {
+      "appliedPacketSequence": 170,
+      "characters": [
+        {
+          "Ac": -3,
+          "Charisma": 10,
+          "CheckCode": 57,
+          "Clan": "",
+          "Class": 0,
+          "Constitution": 16,
+          "CreateTime": 20261026,
+          "Dexterity": 13,
+          "Gm": 0,
+          "Hp": 686,
+          "Intelligence": 11,
+          "Lawful": -10,
+          "Level": 59,
+          "Mp": 117,
+          "Name": "服務驗證",
+          "Sex": 0,
+          "Strength": 18,
+          "Wisdom": 12
+        }
+      ],
+      "decodeFailure": null,
+      "detail": "地圖 6 已載入原始區塊。",
+      "entryFailure": null,
+      "expected": 1,
+      "news": "",
+      "profile": "p24-real-jar-d287-client2",
+      "revision": 238,
+      "scope": "P24 independent real JAR + MySQL world initialization",
+      "slots": 4,
+      "state": "InWorld",
+      "world": {
+        "actor": {
+          "Brave": 0,
+          "Clan": "",
+          "ClanId": 0,
+          "Direction": 4,
+          "Exp": 414658628,
+          "Flags": 4,
+          "Gfx": 0,
+          "HpPercent": 255,
+          "Lawful": -10,
+          "Level": 0,
+          "Light": 0,
+          "Name": "服務驗證",
+          "ObjectId": 1900249001,
+          "Owner": "",
+          "Rank": 176,
+          "Speed": 0,
+          "Tail1": 255,
+          "Tail2": 255,
+          "Title": "",
+          "Unknown": 0,
+          "Weapon": 4,
+          "X": 32735,
+          "Y": 32795
+        },
+        "announcement": "已完成清除地面道具。",
+        "appearanceNotice": "角色外觀已載入",
+        "appearanceProfile": {
+          "CastReleaseMs": {
+            "spellDir": 916,
+            "spellNoDir": 916
+          },
+          "Gfx": 0,
+          "Path": "objects/0-weapon-4.json",
+          "ProjectileReleaseMs": null,
+          "ServerActionMs": {
+            "attack": 960,
+            "spellDir": 1320,
+            "spellNoDir": 1480,
+            "walk": 640
+          },
+          "Sha256": "858444d08c367a9cab98bcbf6b4feda44c3cc72c68d1b676e0d296d5f692c771",
+          "StepMs": 640,
+          "Weapon": 4
+        },
+        "appearanceRevision": 6,
+        "bonusStatsNotice": "原服提示有能力點待分配；此版本尚未支援能力點分配，未自動分配。",
+        "cache": {
+          "bounds": {
+            "Height": 64,
+            "MaxX": 32831,
+            "MaxY": 32831,
+            "MinX": 32704,
+            "MinY": 32768,
+            "Width": 128
+          },
+          "events": [
+            {
+              "block": "80008001",
+              "generation": 1,
+              "kind": "load",
+              "slot": 3,
+              "source": "verified-absent-original-four-paths"
+            },
+            {
+              "block": "7fff8001",
+              "generation": 2,
+              "kind": "load",
+              "slot": 2,
+              "source": "verified-absent-original-four-paths"
+            },
+            {
+              "block": "80008000",
+              "generation": 3,
+              "kind": "load",
+              "slot": 1,
+              "source": "8b137f4a1bf32ca3ffe3f4a1a8e8851c053c6b979bf0046a76a4b26d0483f8f0"
+            },
+            {
+              "block": "7fff8000",
+              "generation": 4,
+              "kind": "load",
+              "slot": 0,
+              "source": "aad5ff598f9daeb6574fcef8fdaa1b3b2963d6c0d60d8840057ef48d39101a45"
+            },
+            {
+              "kind": "cold",
+              "order": [
+                3,
+                2,
+                1,
+                0
+              ],
+              "origin": [
+                32640,
+                32768
+              ],
+              "x": 32735,
+              "y": 32795
+            }
+          ],
+          "lastDirection": null,
+          "loads": 4,
+          "mapId": 6,
+          "nodes": 35363,
+          "origin": [
+            32640,
+            32768
+          ],
+          "revision": 1,
+          "slots": [
+            {
+              "block": "7fff8000",
+              "effects": [],
+              "effectsAt": 376316703,
+              "generation": 4,
+              "sha256": "aad5ff598f9daeb6574fcef8fdaa1b3b2963d6c0d60d8840057ef48d39101a45",
+              "slot": 0
+            },
+            {
+              "block": "80008000",
+              "effects": [],
+              "effectsAt": 376316703,
+              "generation": 3,
+              "sha256": "8b137f4a1bf32ca3ffe3f4a1a8e8851c053c6b979bf0046a76a4b26d0483f8f0",
+              "slot": 1
+            },
+            {
+              "block": "7fff8001",
+              "effects": [],
+              "effectsAt": 376316703,
+              "generation": 2,
+              "sha256": "verified-absent-original-four-paths",
+              "slot": 2
+            },
+            {
+              "block": "80008001",
+              "effects": [],
+              "effectsAt": 376316703,
+              "generation": 1,
+              "sha256": "verified-absent-original-four-paths",
+              "slot": 3
+            }
+          ],
+          "tileDecodes": 2590
+        },
+        "combat": {
+          "damageMeaning": "ClientLogin=2 original attack damage word, not independently established HP loss; zero does not distinguish miss from zero damage",
+          "lastAttack": null,
+          "lastProjectile": null,
+          "notice": "選取可見目標後按 G：依原武器單次攻擊",
+          "ownAnimation": null,
+          "ownDead": false,
+          "projectiles": [],
+          "reports": 0
+        },
+        "coreComplete": true,
+        "entered": true,
+        "equipment": {
+          "listReceived": true,
+          "replyPending": false,
+          "revision": 6,
+          "slots": [
+            {
+              "ObjectId": 1900249103,
+              "Slot": 8
+            },
+            {
+              "ObjectId": 1900249104,
+              "Slot": 2
+            }
+          ]
+        },
+        "ground": {
+          "awaitingPickupAction": false,
+          "items": [],
+          "lastPickupActor": null,
+          "lastPickupHeading": null,
+          "notice": "等待原服地面物品",
+          "pickupActions": 0,
+          "pickupOutcomeTimedOut": false,
+          "revision": 5,
+          "selectedId": null,
+          "selectionRevision": 5
+        },
+        "inventory": {
+          "effectNumber": 1,
+          "emptyInventoryFromWorldSync": false,
+          "items": [
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 70,
+              "DescriptionId": 1342,
+              "Equipped": null,
+              "Flags": 1,
+              "IconId": 80,
+              "Name": "$26 (70)",
+              "ObjectId": 10322,
+              "StatusHex": "171311010000",
+              "SupportedArrow": false,
+              "SupportedEquipment": false,
+              "SupportedHastePotion": false,
+              "SupportedHealingPotion": true,
+              "SupportedPotion": true,
+              "SupportedUse": true,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "單次使用",
+              "UseDelayMs": 500,
+              "UseState": "可單次使用；滿血仍會消耗",
+              "UseType": 249
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 1,
+              "DescriptionId": 17,
+              "Equipped": null,
+              "Flags": 1,
+              "IconId": 77,
+              "Name": "$234",
+              "ObjectId": 10324,
+              "StatusHex": "171303000000",
+              "SupportedArrow": false,
+              "SupportedEquipment": false,
+              "SupportedHastePotion": true,
+              "SupportedHealingPotion": false,
+              "SupportedPotion": false,
+              "SupportedUse": true,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "單次使用",
+              "UseDelayMs": 0,
+              "UseState": "可單次使用；消耗一瓶，約 5 分鐘加速，以伺服器回報為準",
+              "UseType": 246
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 1,
+              "DescriptionId": 0,
+              "Equipped": null,
+              "Flags": 1,
+              "IconId": 138,
+              "Name": "$315",
+              "ObjectId": 10331,
+              "StatusHex": "170501000000",
+              "SupportedArrow": false,
+              "SupportedEquipment": false,
+              "SupportedHastePotion": false,
+              "SupportedHealingPotion": false,
+              "SupportedPotion": false,
+              "SupportedUse": false,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "單次使用",
+              "UseDelayMs": 1000,
+              "UseState": "此道具的使用尚未支援",
+              "UseType": 255
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 89220,
+              "DescriptionId": 0,
+              "Equipped": null,
+              "Flags": 1,
+              "IconId": 5,
+              "Name": "$4 (89220)",
+              "ObjectId": 1900249101,
+              "StatusHex": "170F00000000",
+              "SupportedArrow": false,
+              "SupportedEquipment": false,
+              "SupportedHastePotion": false,
+              "SupportedHealingPotion": false,
+              "SupportedPotion": false,
+              "SupportedUse": false,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "單次使用",
+              "UseDelayMs": 1000,
+              "UseState": "此道具的使用尚未支援",
+              "UseType": 255
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 1,
+              "DescriptionId": 0,
+              "Equipped": true,
+              "Flags": 1,
+              "IconId": 2,
+              "Name": "+0 $0 ($9)",
+              "ObjectId": 1900249103,
+              "StatusHex": "01080C0B2800000027A677A977BDE83A203600073F27B8CBB3C6AB7EAFC53A20A440AFEB00",
+              "SupportedArrow": false,
+              "SupportedEquipment": true,
+              "SupportedHastePotion": false,
+              "SupportedHealingPotion": false,
+              "SupportedPotion": false,
+              "SupportedUse": true,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "卸下",
+              "UseDelayMs": 1000,
+              "UseState": "已裝備；可單次卸下",
+              "UseType": 1
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 1,
+              "DescriptionId": 0,
+              "Equipped": true,
+              "Flags": 1,
+              "IconId": 86,
+              "Name": "+0 $164 ($117)",
+              "ObjectId": 1900249104,
+              "StatusHex": "13030B27FA000000077F27A677A977BDE83A20340027B8CBB3C6AB7EAFC53A20A440AFEB00",
+              "SupportedArrow": false,
+              "SupportedEquipment": true,
+              "SupportedHastePotion": false,
+              "SupportedHealingPotion": false,
+              "SupportedPotion": false,
+              "SupportedUse": true,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "卸下",
+              "UseDelayMs": 1000,
+              "UseState": "已裝備；可單次卸下",
+              "UseType": 2
+            }
+          ],
+          "lastEffect": {
+            "actor": 1900249001,
+            "effect": 169,
+            "number": 1
+          },
+          "loaded": true,
+          "notice": "原服背包已同步",
+          "revision": 10,
+          "selectedId": null,
+          "selectionRevision": 3,
+          "serverMessage": "\\fW【奇岩競賽】比賽即將開始",
+          "serverReply": null,
+          "unknownUpdates": 0
+        },
+        "keepalivesSent": 52,
+        "loadedRegion": {
+          "maxX": 32831,
+          "maxY": 32895,
+          "minX": 32704,
+          "minY": 32768,
+          "mode": "original moving 2x2 cache"
+        },
+        "magic": {
+          "ac": null,
+          "acNotice": "AC：等待伺服器完整更新",
+          "buffNotice": "",
+          "buffs": [],
+          "effectCount": 0,
+          "effectiveTargetSelf": false,
+          "effects": [],
+          "learned": [
+            {
+              "Id": 1,
+              "Name": "初級治癒術",
+              "NominalMp": 4,
+              "Supported": true,
+              "Target": "自己／指定對象"
+            },
+            {
+              "Id": 3,
+              "Name": "保護罩",
+              "NominalMp": 8,
+              "Supported": true,
+              "Target": "自己"
+            },
+            {
+              "Id": 4,
+              "Name": "光箭",
+              "NominalMp": 3,
+              "Supported": true,
+              "Target": "指定敵人"
+            }
+          ],
+          "notice": "原服已學技能已更新",
+          "partialAcByte": 253,
+          "received": true,
+          "revision": 4,
+          "selectedId": null,
+          "targetName": "尚未選擇技能",
+          "targetSelf": true
+        },
+        "mapId": 6,
+        "mapResourceNotice": "地圖 6 已載入原始區塊。",
+        "mapResourceState": "ready",
+        "movement": {
+          "animationMs": 640,
+          "authoritativeActor": {
+            "Brave": 0,
+            "Clan": "",
+            "ClanId": 0,
+            "Direction": 4,
+            "Exp": 414658628,
+            "Flags": 4,
+            "Gfx": 0,
+            "HpPercent": 255,
+            "Lawful": -10,
+            "Level": 0,
+            "Light": 0,
+            "Name": "服務驗證",
+            "ObjectId": 1900249001,
+            "Owner": "",
+            "Rank": 176,
+            "Speed": 0,
+            "Tail1": 255,
+            "Tail2": 255,
+            "Title": "",
+            "Unknown": 0,
+            "Weapon": 4,
+            "X": 32735,
+            "Y": 32795
+          },
+          "corrections": 0,
+          "notice": "已初始化；移動使用本地預測",
+          "predictedSteps": 0,
+          "predictedTurns": 0,
+          "speedNotice": "",
+          "speedRevision": 6,
+          "stepMs": 640,
+          "successAck": false
+        },
+        "objectRevision": 46,
+        "objects": [],
+        "opacity": {
+          "groups": [],
+          "position": [
+            32735,
+            32795
+          ],
+          "revision": 1,
+          "states": [],
+          "time": 376316703,
+          "timers": []
+        },
+        "ready": true,
+        "renderable": true,
+        "rewards": {
+          "experience": {
+            "Level": 59,
+            "LevelStart": 380396790,
+            "Limitation": "",
+            "NextLevel": 416461882,
+            "Percent": 95.0000016636586,
+            "Source": "S8",
+            "Total": 414658628,
+            "WireLow32": 414658628
+          },
+          "experienceChanges": 0,
+          "inventoryChanges": [],
+          "lastExperienceChange": null,
+          "notice": "原回包狀態差值；背包增加的來源需由實際戰鬥證據核對"
+        },
+        "serverTime": 344088204,
+        "ship": {
+          "clockFresh": false,
+          "clockRevision": 54,
+          "notice": "前往說話之島：正在同步航程時間，等候伺服器回覆。",
+          "passage": null,
+          "pending": false,
+          "serverSeconds": 344088204,
+          "state": "idle",
+          "ticketConfirmed": true
+        },
+        "status": {
+          "Ac": -3,
+          "Charisma": 10,
+          "Constitution": 16,
+          "Dexterity": 13,
+          "Earth": 0,
+          "Exp": 414658628,
+          "Fire": 0,
+          "Food": 40,
+          "Hp": 686,
+          "Intelligence": 11,
+          "Kills": 0,
+          "Lawful": -10,
+          "Level": 59,
+          "MaxHp": 686,
+          "MaxMp": 117,
+          "Mp": 117,
+          "ObjectId": 1900249001,
+          "Strength": 18,
+          "Time": 344083500,
+          "Water": 0,
+          "Weight": 0,
+          "Wind": 0,
+          "Wisdom": 12
+        },
+        "supportedAppearance": true,
+        "supportedMap": true,
+        "target": null,
+        "targetId": null,
+        "teleport": {
+          "actionLocked": false,
+          "generation": 5,
+          "marker": 6,
+          "notice": "已收到原服角色位置並載入地圖。",
+          "paralysis": "",
+          "pending": false,
+          "portal": 50008,
+          "state": "arrived"
+        },
+        "timeReplies": 52,
+        "underwater": false,
+        "unhandled": {
+          "0x25": 5,
+          "0x28": 1,
+          "0x40": 9,
+          "0x73": 1,
+          "0x9B": 1,
+          "0xA1": 2,
+          "0xD1": 5,
+          "0xF2": 1,
+          "0xF3": 3,
+          "0xFA": 13
+        },
+        "unknownObjectUpdates": 0,
+        "worldEpoch": 5
+      },
+      "worldEntry": {
+        "coreTimeoutMs": 12000,
+        "localTimeoutMs": 30000,
+        "pendingMap": null,
+        "probeAt": null,
+        "probeTimeoutMs": 8000,
+        "startedAt": null,
+        "totalTimeoutMs": 60000,
+        "transition": null
+      }
+    },
+    "loginControl": {
+      "canCancel": true,
+      "canEnter": false,
+      "canLogin": false,
+      "generation": 2,
+      "notice": "已要求進入世界，請查看連線狀態。",
+      "revision": 4,
+      "sessionRevision": 238,
+      "startFailure": null
+    },
+    "magic": {
+      "ac": null,
+      "acNotice": "AC：等待伺服器完整更新",
+      "available": false,
+      "buffs": "",
+      "earth": 0,
+      "epoch": 5,
+      "fire": 0,
+      "hp": 686,
+      "maxHp": 686,
+      "maxMp": 117,
+      "message": "\\fW【奇岩競賽】比賽即將開始",
+      "mp": 117,
+      "notice": "原服已學技能已更新",
+      "selectedId": null,
+      "skills": [
+        {
+          "Id": 1,
+          "Name": "初級治癒術",
+          "NominalMp": 4,
+          "Supported": true,
+          "Target": "自己／指定對象"
+        },
+        {
+          "Id": 3,
+          "Name": "保護罩",
+          "NominalMp": 8,
+          "Supported": true,
+          "Target": "自己"
+        },
+        {
+          "Id": 4,
+          "Name": "光箭",
+          "NominalMp": 3,
+          "Supported": true,
+          "Target": "指定敵人"
+        }
+      ],
+      "targetId": null,
+      "targetMode": "none",
+      "targetName": "尚未選擇技能",
+      "targets": [],
+      "water": 0,
+      "wind": 0
+    },
+    "movementControl": {
+      "available": true,
+      "busy": true,
+      "reason": "未送出：移動間隔尚未結束，請稍候。"
+    },
+    "networkMode": false,
+    "normalProduct": true,
+    "onlineMode": true,
+    "presence": {
+      "IncomingAttack": "",
+      "Labels": []
+    },
+    "revision": 367,
+    "steps": 59,
+    "targetName": null,
+    "trade": {
+      "canInvite": false,
+      "facingName": null,
+      "inventory": [
+        {
+          "count": 70,
+          "id": 10322,
+          "name": "治癒藥水"
+        },
+        {
+          "count": 1,
+          "id": 10324,
+          "name": "綠色藥水"
+        },
+        {
+          "count": 1,
+          "id": 10331,
+          "name": "往說話之島的船票"
+        },
+        {
+          "count": 89220,
+          "id": 1900249101,
+          "name": "金幣"
+        }
+      ],
+      "inventoryRevision": 10,
+      "model": {
+        "canAccept": false,
+        "canAdd": false,
+        "canCancel": false,
+        "canConfirm": false,
+        "canReject": false,
+        "challenge": 0,
+        "epoch": 5,
+        "generation": 5,
+        "notice": "世界已清除，舊交易已失效。",
+        "offers": [],
+        "ownConfirmed": false,
+        "peer": "",
+        "peerId": null,
+        "revision": 5,
+        "state": "idle"
+      },
+      "notice": "世界已清除，舊交易已失效。",
+      "offers": []
+    },
+    "v": 1,
+    "walking": false,
+    "x": 32735,
+    "y": 32795
+  }
+}

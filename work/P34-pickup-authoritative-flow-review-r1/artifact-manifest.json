@@ -1,0 +1,960 @@
+{
+  "schema": "p34-artifact-seal-v1",
+  "root": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1",
+  "files": [
+    {
+      "path": "Bootstrap.cs",
+      "size": 5511,
+      "sha256": "4fafdc200920e0fd2876177583d4461044f53186871feb6906fafc34c55a8d1c"
+    },
+    {
+      "path": "cli-home/.dotnet/.workloadAdvertisingManifestSentinel10.0.300",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "cli-home/.dotnet/10.0.300.dotnetFirstUseSentinel",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "coverage-delta.json",
+      "size": 1325,
+      "sha256": "4b7d75911814161e6f65aaec49346e6300b244cdda0dc73f910779707f9ca388"
+    },
+    {
+      "path": "goal-before-final-verification.json",
+      "size": 699,
+      "sha256": "b70066e1c631385f9b259f6f0a87511bd596949f0a39be3f41765b4c979909ce"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 10247,
+      "sha256": "2f3d91060e5e89ff84615da6d3d491d0c85ef4f2512041b55ae7d69dd2693f40"
+    },
+    {
+      "path": "NuGet.Config",
+      "size": 194,
+      "sha256": "a53526c36d92f310c276e3a8f634c841194d960d91f978862b3ac75bcbeb7ecc"
+    },
+    {
+      "path": "oracle.json",
+      "size": 39542,
+      "sha256": "19293603da21f098c3fc9ecf99549627938a9239c927bdf7bd1a20769f77c9ee"
+    },
+    {
+      "path": "pre-runtime-review.json",
+      "size": 410,
+      "sha256": "5b22e4dddb73ab386d38ee10e83555dfbe5b41abfc90f107a0b667ce9007a9b9"
+    },
+    {
+      "path": "prepare.py",
+      "size": 6161,
+      "sha256": "ffa470926d03bf62be6e3c435fdc219b0b883f976cdfd8a84c13ed27b1a4326d"
+    },
+    {
+      "path": "Probe.cs",
+      "size": 19085,
+      "sha256": "f57fae16cac1c785d2f3e6ccd1e9e3b999c5ace551f8e6c8c4f55ed8c42c8fb6"
+    },
+    {
+      "path": "progress.json",
+      "size": 257,
+      "sha256": "f43c8c68f8db4f3df3f73eb27c8a4ce93ac498dcfbc5d7bc9c15b297214328ca"
+    },
+    {
+      "path": "REPRODUCE.md",
+      "size": 1607,
+      "sha256": "1d226a576f53c67dea299fde0572418f00e3602961404a858297af5737df6770"
+    },
+    {
+      "path": "result.json",
+      "size": 2847,
+      "sha256": "5a41e162dbc7cefb1ab5440249d3f98616d811e96dcc20f9b60f96dd343528d0"
+    },
+    {
+      "path": "Review.csproj",
+      "size": 936,
+      "sha256": "c74696b52d4356b471cb3c63cfef6d815890290811634b69226265d7ce11435c"
+    },
+    {
+      "path": "run.py",
+      "size": 3956,
+      "sha256": "117aace197b709f1487016041787f3e3bb245ef3919d25ced245d102372cc944"
+    },
+    {
+      "path": "runs/build-01/bin/Microsoft.Web.WebView2.Core.dll",
+      "size": 698208,
+      "sha256": "d60e6e94245078cb56e44ebd5f360dc04bf18e460136be93bfc4cfca43b98505"
+    },
+    {
+      "path": "runs/build-01/bin/Microsoft.Web.WebView2.Core.xml",
+      "size": 612031,
+      "sha256": "8684cd74000c77533e563785208308ada63808da85825206856cab11a9eeffce"
+    },
+    {
+      "path": "runs/build-01/bin/Microsoft.Web.WebView2.WinForms.dll",
+      "size": 39264,
+      "sha256": "84b5772260dbdfe95591197edc9315dcd2cc86ad610e4b14ddd5e4291e31a381"
+    },
+    {
+      "path": "runs/build-01/bin/Microsoft.Web.WebView2.WinForms.xml",
+      "size": 41869,
+      "sha256": "6a8ec199373824fdebceda7b3d780d0b31c82edceae04d92391027c971dea6c2"
+    },
+    {
+      "path": "runs/build-01/bin/P11.ClientEngine.dll",
+      "size": 4925440,
+      "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+    },
+    {
+      "path": "runs/build-01/bin/P11.ClientEngine.pdb",
+      "size": 357460,
+      "sha256": "ae1f90c2b36022d9326c3071c33e7d58b5c0f5fe292db6a6cee1b184914f4d98"
+    },
+    {
+      "path": "runs/build-01/bin/P24.Audio.dll",
+      "size": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    {
+      "path": "runs/build-01/bin/P24.Audio.pdb",
+      "size": 20720,
+      "sha256": "91ac164c2f1ac104fb774501cae1988d24bd3ee2113ba99ff95930e6866811ed"
+    },
+    {
+      "path": "runs/build-01/bin/P34.Review.deps.json",
+      "size": 1952,
+      "sha256": "5102ba7db53d0cf48a5a4d5628df9549d159e02ad7c8ac776efbe80c64cc60ae"
+    },
+    {
+      "path": "runs/build-01/bin/P34.Review.dll",
+      "size": 61952,
+      "sha256": "a5a654d3cff6428670759df7de31bbf6a913968322a13595f586c6c08dafa511"
+    },
+    {
+      "path": "runs/build-01/bin/P34.Review.exe",
+      "size": 162304,
+      "sha256": "24c74fa337c7921e8eb496b634c73ef129acb45d378c1e3e8b67404946f53b74"
+    },
+    {
+      "path": "runs/build-01/bin/P34.Review.pdb",
+      "size": 19196,
+      "sha256": "d9f24f637e2ab9a1479f7b62c3c59e305cf302704c3aeb2b136a5ad4482b9a39"
+    },
+    {
+      "path": "runs/build-01/bin/P34.Review.runtimeconfig.json",
+      "size": 519,
+      "sha256": "96bc2946dff8790400d652ec7f8de7bb043e954980d59470c112788b68a1fbd3"
+    },
+    {
+      "path": "runs/build-01/Bootstrap.cs",
+      "size": 5511,
+      "sha256": "4fafdc200920e0fd2876177583d4461044f53186871feb6906fafc34c55a8d1c"
+    },
+    {
+      "path": "runs/build-01/command.json",
+      "size": 4512,
+      "sha256": "a6aacfcb44c579c89b601cc55c9d138270c56b91c491daadf6f6e8d5f007ab5c"
+    },
+    {
+      "path": "runs/build-01/coverage-delta.json",
+      "size": 1041,
+      "sha256": "eaaed4920de8df7acc7ba87b5ff989cdc5f9f941db18ab1681eca56beecba683"
+    },
+    {
+      "path": "runs/build-01/NuGet.Config",
+      "size": 194,
+      "sha256": "a53526c36d92f310c276e3a8f634c841194d960d91f978862b3ac75bcbeb7ecc"
+    },
+    {
+      "path": "runs/build-01/obj/project.assets.json",
+      "size": 22303,
+      "sha256": "46ede6046872952ecd241130cfe43fe2d5a2fefae719c35e4c63d23dd7100ed5"
+    },
+    {
+      "path": "runs/build-01/obj/project.nuget.cache",
+      "size": 244,
+      "sha256": "e6541b47d29bb0447b0e911d76061cb89d63277e55ffad2e8f5bf1678b9a7dac"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "size": 200,
+      "sha256": "93d67476196ebfc80d1d7d8844b91146cfd678d105f5ce635eb900ca40610c9b"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/apphost.exe",
+      "size": 162304,
+      "sha256": "24c74fa337c7921e8eb496b634c73ef129acb45d378c1e3e8b67404946f53b74"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/P34.Review.dll",
+      "size": 61952,
+      "sha256": "a5a654d3cff6428670759df7de31bbf6a913968322a13595f586c6c08dafa511"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/P34.Review.pdb",
+      "size": 19196,
+      "sha256": "d9f24f637e2ab9a1479f7b62c3c59e305cf302704c3aeb2b136a5ad4482b9a39"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/ref/P34.Review.dll",
+      "size": 8192,
+      "sha256": "920f2adafa9f7e6bd6c2791c050a57901499622c786ec61aa561d91e8d4c314f"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/refint/P34.Review.dll",
+      "size": 8192,
+      "sha256": "920f2adafa9f7e6bd6c2791c050a57901499622c786ec61aa561d91e8d4c314f"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/Review.AssemblyInfo.cs",
+      "size": 1124,
+      "sha256": "fe4054453b2782b6f4f8c2673bb67fe5fb461e063e2c3daf5b78738cde68f329"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/Review.AssemblyInfoInputs.cache",
+      "size": 66,
+      "sha256": "47b396bafab491feaf01cd186d5b7f71b09dfc8ed630145d078702ab60d3b1ac"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/Review.assets.cache",
+      "size": 210,
+      "sha256": "33168300fb7b2ad698f4ef709bda262ab3c724c25a082385b1fca456a8f659cf"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/Review.csproj.AssemblyReference.cache",
+      "size": 5860,
+      "sha256": "70664155f7c97f09d3cfd96a7feb6a61ef07cfa01bad4b5416503db3f69172b4"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/Review.csproj.CoreCompileInputs.cache",
+      "size": 66,
+      "sha256": "1e8a7ff009f54328e18af47a43640f5be10dc61ac71feb3aea25dc751a351a5e"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/Review.csproj.FileListAbsolute.txt",
+      "size": 3269,
+      "sha256": "145a46cb82e6d4e02247f4c038467df80c2040e746e66efee3f28f2511e656f3"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/Review.csproj.Up2Date",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/Review.GeneratedMSBuildEditorConfig.editorconfig",
+      "size": 1187,
+      "sha256": "5531bf1772896f3cb4ef2732ba4dc98315202416e9a116d812fd153ec71ffffe"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/Review.genruntimeconfig.cache",
+      "size": 66,
+      "sha256": "77bffe5243137f3f82520f716e89a30a2f7a3c0a1261410c4936b1119623bdd5"
+    },
+    {
+      "path": "runs/build-01/obj/Release/net10.0-windows/Review.GlobalUsings.g.cs",
+      "size": 305,
+      "sha256": "c95ea51a9e8c77e5367f652ede0c8871e7d6413090add59e1b8dd6805ac37e70"
+    },
+    {
+      "path": "runs/build-01/obj/Review.csproj.nuget.dgspec.json",
+      "size": 22984,
+      "sha256": "d6f9188229800b5be353f5342c76174de75c79a22e35f8cf31809d36a52aba03"
+    },
+    {
+      "path": "runs/build-01/obj/Review.csproj.nuget.g.props",
+      "size": 1310,
+      "sha256": "fdd9776675df82941f063ac4f0667f1dc96e38c0c95e4f28f972e77626de0147"
+    },
+    {
+      "path": "runs/build-01/obj/Review.csproj.nuget.g.targets",
+      "size": 150,
+      "sha256": "971cc9b535384849b5c661d776cd7a80833a416265e32e8968e06c367368b8b5"
+    },
+    {
+      "path": "runs/build-01/oracle.json",
+      "size": 39542,
+      "sha256": "19293603da21f098c3fc9ecf99549627938a9239c927bdf7bd1a20769f77c9ee"
+    },
+    {
+      "path": "runs/build-01/prepare.py",
+      "size": 6161,
+      "sha256": "ffa470926d03bf62be6e3c435fdc219b0b883f976cdfd8a84c13ed27b1a4326d"
+    },
+    {
+      "path": "runs/build-01/Probe.cs",
+      "size": 17322,
+      "sha256": "9e1b7a14c7dcce51cdfe9128be93e0884cb7fc2ff5b2b4d6882e0bd8838a88e3"
+    },
+    {
+      "path": "runs/build-01/Review.csproj",
+      "size": 936,
+      "sha256": "c74696b52d4356b471cb3c63cfef6d815890290811634b69226265d7ce11435c"
+    },
+    {
+      "path": "runs/build-01/run.py",
+      "size": 3504,
+      "sha256": "ebebcf02ee8d2bc60921daaaa874d7b25aa95d8d2d780e0ab329ac686dd6d95f"
+    },
+    {
+      "path": "runs/build-01/source-manifest.json",
+      "size": 19405,
+      "sha256": "0985d411c55e266aab58ecf761795f4ef05dd8dcd0b272f94f7aa5a4688650b5"
+    },
+    {
+      "path": "runs/build-01/stderr.raw",
+      "size": 497,
+      "sha256": "7f0b85f13e01776dc0918e791ad9f34b4f435c0c709a31fa62b65b22233862a2"
+    },
+    {
+      "path": "runs/build-01/stdout.raw",
+      "size": 366,
+      "sha256": "99099fcd0e0e52322a7cf4d0e6ffe5560674dd9259107f8e9c2093ea923cc2ba"
+    },
+    {
+      "path": "runs/build-02/bin/Microsoft.Web.WebView2.Core.dll",
+      "size": 698208,
+      "sha256": "d60e6e94245078cb56e44ebd5f360dc04bf18e460136be93bfc4cfca43b98505"
+    },
+    {
+      "path": "runs/build-02/bin/Microsoft.Web.WebView2.Core.xml",
+      "size": 612031,
+      "sha256": "8684cd74000c77533e563785208308ada63808da85825206856cab11a9eeffce"
+    },
+    {
+      "path": "runs/build-02/bin/Microsoft.Web.WebView2.WinForms.dll",
+      "size": 39264,
+      "sha256": "84b5772260dbdfe95591197edc9315dcd2cc86ad610e4b14ddd5e4291e31a381"
+    },
+    {
+      "path": "runs/build-02/bin/Microsoft.Web.WebView2.WinForms.xml",
+      "size": 41869,
+      "sha256": "6a8ec199373824fdebceda7b3d780d0b31c82edceae04d92391027c971dea6c2"
+    },
+    {
+      "path": "runs/build-02/bin/P11.ClientEngine.dll",
+      "size": 4925440,
+      "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+    },
+    {
+      "path": "runs/build-02/bin/P11.ClientEngine.pdb",
+      "size": 357460,
+      "sha256": "ae1f90c2b36022d9326c3071c33e7d58b5c0f5fe292db6a6cee1b184914f4d98"
+    },
+    {
+      "path": "runs/build-02/bin/P24.Audio.dll",
+      "size": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    {
+      "path": "runs/build-02/bin/P24.Audio.pdb",
+      "size": 20720,
+      "sha256": "91ac164c2f1ac104fb774501cae1988d24bd3ee2113ba99ff95930e6866811ed"
+    },
+    {
+      "path": "runs/build-02/bin/P34.Review.deps.json",
+      "size": 1952,
+      "sha256": "5102ba7db53d0cf48a5a4d5628df9549d159e02ad7c8ac776efbe80c64cc60ae"
+    },
+    {
+      "path": "runs/build-02/bin/P34.Review.dll",
+      "size": 62464,
+      "sha256": "de09e014efaf6704e61bb42bd5fe6c033213b9091b9e580f2d57183887761422"
+    },
+    {
+      "path": "runs/build-02/bin/P34.Review.exe",
+      "size": 162304,
+      "sha256": "24c74fa337c7921e8eb496b634c73ef129acb45d378c1e3e8b67404946f53b74"
+    },
+    {
+      "path": "runs/build-02/bin/P34.Review.pdb",
+      "size": 19236,
+      "sha256": "af654ac6557e962bcc58167741c4a2c1d25e47cf6498e7d0d5081b47620171ea"
+    },
+    {
+      "path": "runs/build-02/bin/P34.Review.runtimeconfig.json",
+      "size": 519,
+      "sha256": "96bc2946dff8790400d652ec7f8de7bb043e954980d59470c112788b68a1fbd3"
+    },
+    {
+      "path": "runs/build-02/Bootstrap.cs",
+      "size": 5511,
+      "sha256": "4fafdc200920e0fd2876177583d4461044f53186871feb6906fafc34c55a8d1c"
+    },
+    {
+      "path": "runs/build-02/command.json",
+      "size": 4510,
+      "sha256": "3fea52441835eb4115d8f0ee094b3b9f5186280c70cf2befcb996c405cfb2020"
+    },
+    {
+      "path": "runs/build-02/coverage-delta.json",
+      "size": 1041,
+      "sha256": "eaaed4920de8df7acc7ba87b5ff989cdc5f9f941db18ab1681eca56beecba683"
+    },
+    {
+      "path": "runs/build-02/NuGet.Config",
+      "size": 194,
+      "sha256": "a53526c36d92f310c276e3a8f634c841194d960d91f978862b3ac75bcbeb7ecc"
+    },
+    {
+      "path": "runs/build-02/obj/project.assets.json",
+      "size": 22303,
+      "sha256": "86deb7fbd5a4f46327124166dac86485b0f7c7be646021c901de4c499cb63b30"
+    },
+    {
+      "path": "runs/build-02/obj/project.nuget.cache",
+      "size": 244,
+      "sha256": "ddb36241cc771c3ab0601690defae2503253b4fbe494098f5dbbe2ed4bdc7aff"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "size": 200,
+      "sha256": "93d67476196ebfc80d1d7d8844b91146cfd678d105f5ce635eb900ca40610c9b"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/apphost.exe",
+      "size": 162304,
+      "sha256": "24c74fa337c7921e8eb496b634c73ef129acb45d378c1e3e8b67404946f53b74"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/P34.Review.dll",
+      "size": 62464,
+      "sha256": "de09e014efaf6704e61bb42bd5fe6c033213b9091b9e580f2d57183887761422"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/P34.Review.pdb",
+      "size": 19236,
+      "sha256": "af654ac6557e962bcc58167741c4a2c1d25e47cf6498e7d0d5081b47620171ea"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/ref/P34.Review.dll",
+      "size": 8192,
+      "sha256": "920f2adafa9f7e6bd6c2791c050a57901499622c786ec61aa561d91e8d4c314f"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/refint/P34.Review.dll",
+      "size": 8192,
+      "sha256": "920f2adafa9f7e6bd6c2791c050a57901499622c786ec61aa561d91e8d4c314f"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/Review.AssemblyInfo.cs",
+      "size": 1124,
+      "sha256": "fe4054453b2782b6f4f8c2673bb67fe5fb461e063e2c3daf5b78738cde68f329"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/Review.AssemblyInfoInputs.cache",
+      "size": 66,
+      "sha256": "47b396bafab491feaf01cd186d5b7f71b09dfc8ed630145d078702ab60d3b1ac"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/Review.assets.cache",
+      "size": 210,
+      "sha256": "3c5b8749237a24fbd57a1463a5f48b4f68cfa3aa6e17f96825585aa3bfac8f2c"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/Review.csproj.AssemblyReference.cache",
+      "size": 5811,
+      "sha256": "f3665b7553ea118a130889da4cc2f48646f7810c832379a154fac3cf9ce05e0e"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/Review.csproj.CoreCompileInputs.cache",
+      "size": 66,
+      "sha256": "ec7a1f9e3b7dd2b00ac0937e4e83332c9f127762e7deb6c73a3b412afd97418a"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/Review.csproj.FileListAbsolute.txt",
+      "size": 3269,
+      "sha256": "737d5bcf0bd3fdf35b0e2017c88f4be74324442b80a0cc953b492f4b217086bf"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/Review.csproj.Up2Date",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/Review.GeneratedMSBuildEditorConfig.editorconfig",
+      "size": 1187,
+      "sha256": "5531bf1772896f3cb4ef2732ba4dc98315202416e9a116d812fd153ec71ffffe"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/Review.genruntimeconfig.cache",
+      "size": 66,
+      "sha256": "77bffe5243137f3f82520f716e89a30a2f7a3c0a1261410c4936b1119623bdd5"
+    },
+    {
+      "path": "runs/build-02/obj/Release/net10.0-windows/Review.GlobalUsings.g.cs",
+      "size": 305,
+      "sha256": "c95ea51a9e8c77e5367f652ede0c8871e7d6413090add59e1b8dd6805ac37e70"
+    },
+    {
+      "path": "runs/build-02/obj/Review.csproj.nuget.dgspec.json",
+      "size": 22984,
+      "sha256": "5fba37591da4fcf232f5d3c8e5ed0c1014409859d7c7fdfab3ba099efc90e406"
+    },
+    {
+      "path": "runs/build-02/obj/Review.csproj.nuget.g.props",
+      "size": 1310,
+      "sha256": "fdd9776675df82941f063ac4f0667f1dc96e38c0c95e4f28f972e77626de0147"
+    },
+    {
+      "path": "runs/build-02/obj/Review.csproj.nuget.g.targets",
+      "size": 150,
+      "sha256": "971cc9b535384849b5c661d776cd7a80833a416265e32e8968e06c367368b8b5"
+    },
+    {
+      "path": "runs/build-02/oracle.json",
+      "size": 39542,
+      "sha256": "19293603da21f098c3fc9ecf99549627938a9239c927bdf7bd1a20769f77c9ee"
+    },
+    {
+      "path": "runs/build-02/prepare.py",
+      "size": 6161,
+      "sha256": "ffa470926d03bf62be6e3c435fdc219b0b883f976cdfd8a84c13ed27b1a4326d"
+    },
+    {
+      "path": "runs/build-02/Probe.cs",
+      "size": 17671,
+      "sha256": "9282e72fd7e8c3ebe2724f20d999958430272403a10917547f5120d3fcc19e72"
+    },
+    {
+      "path": "runs/build-02/Review.csproj",
+      "size": 936,
+      "sha256": "c74696b52d4356b471cb3c63cfef6d815890290811634b69226265d7ce11435c"
+    },
+    {
+      "path": "runs/build-02/run.py",
+      "size": 3504,
+      "sha256": "ebebcf02ee8d2bc60921daaaa874d7b25aa95d8d2d780e0ab329ac686dd6d95f"
+    },
+    {
+      "path": "runs/build-02/source-manifest.json",
+      "size": 20299,
+      "sha256": "0d213eb461de683b1a52f917deea5c9eb7a97c464c6ebdb6a4ab22285a456512"
+    },
+    {
+      "path": "runs/build-02/stderr.raw",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/build-02/stdout.raw",
+      "size": 366,
+      "sha256": "fae7ac4702d643857c86d7a4bcf04b7887b51c0922b118e88de59b5f0fbe9172"
+    },
+    {
+      "path": "runs/build-03/bin/Microsoft.Web.WebView2.Core.dll",
+      "size": 698208,
+      "sha256": "d60e6e94245078cb56e44ebd5f360dc04bf18e460136be93bfc4cfca43b98505"
+    },
+    {
+      "path": "runs/build-03/bin/Microsoft.Web.WebView2.Core.xml",
+      "size": 612031,
+      "sha256": "8684cd74000c77533e563785208308ada63808da85825206856cab11a9eeffce"
+    },
+    {
+      "path": "runs/build-03/bin/Microsoft.Web.WebView2.WinForms.dll",
+      "size": 39264,
+      "sha256": "84b5772260dbdfe95591197edc9315dcd2cc86ad610e4b14ddd5e4291e31a381"
+    },
+    {
+      "path": "runs/build-03/bin/Microsoft.Web.WebView2.WinForms.xml",
+      "size": 41869,
+      "sha256": "6a8ec199373824fdebceda7b3d780d0b31c82edceae04d92391027c971dea6c2"
+    },
+    {
+      "path": "runs/build-03/bin/P11.ClientEngine.dll",
+      "size": 4925440,
+      "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+    },
+    {
+      "path": "runs/build-03/bin/P11.ClientEngine.pdb",
+      "size": 357460,
+      "sha256": "ae1f90c2b36022d9326c3071c33e7d58b5c0f5fe292db6a6cee1b184914f4d98"
+    },
+    {
+      "path": "runs/build-03/bin/P24.Audio.dll",
+      "size": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    {
+      "path": "runs/build-03/bin/P24.Audio.pdb",
+      "size": 20720,
+      "sha256": "91ac164c2f1ac104fb774501cae1988d24bd3ee2113ba99ff95930e6866811ed"
+    },
+    {
+      "path": "runs/build-03/bin/P34.Review.deps.json",
+      "size": 1952,
+      "sha256": "5102ba7db53d0cf48a5a4d5628df9549d159e02ad7c8ac776efbe80c64cc60ae"
+    },
+    {
+      "path": "runs/build-03/bin/P34.Review.dll",
+      "size": 65024,
+      "sha256": "40e76e2cefe64004f334f2338fc6d9b511a994883cc0fd610df62224dccc0c4f"
+    },
+    {
+      "path": "runs/build-03/bin/P34.Review.exe",
+      "size": 162304,
+      "sha256": "24c74fa337c7921e8eb496b634c73ef129acb45d378c1e3e8b67404946f53b74"
+    },
+    {
+      "path": "runs/build-03/bin/P34.Review.pdb",
+      "size": 19500,
+      "sha256": "cba93c7b3f028dda50bb0466b4f42456931c3b3f01ea9f6ed8fc1adca3ecbf65"
+    },
+    {
+      "path": "runs/build-03/bin/P34.Review.runtimeconfig.json",
+      "size": 519,
+      "sha256": "96bc2946dff8790400d652ec7f8de7bb043e954980d59470c112788b68a1fbd3"
+    },
+    {
+      "path": "runs/build-03/Bootstrap.cs",
+      "size": 5511,
+      "sha256": "4fafdc200920e0fd2876177583d4461044f53186871feb6906fafc34c55a8d1c"
+    },
+    {
+      "path": "runs/build-03/command.json",
+      "size": 4654,
+      "sha256": "3946aba9fe6af222b57f75c301d522c18afbdd62755904e666c77ba7b4c5a6c7"
+    },
+    {
+      "path": "runs/build-03/coverage-delta.json",
+      "size": 1325,
+      "sha256": "4b7d75911814161e6f65aaec49346e6300b244cdda0dc73f910779707f9ca388"
+    },
+    {
+      "path": "runs/build-03/NuGet.Config",
+      "size": 194,
+      "sha256": "a53526c36d92f310c276e3a8f634c841194d960d91f978862b3ac75bcbeb7ecc"
+    },
+    {
+      "path": "runs/build-03/obj/project.assets.json",
+      "size": 22303,
+      "sha256": "cf22ba90b5d2a8375c7414fd02f450ba3da91f09be7d9d47fec0b23259c78ac8"
+    },
+    {
+      "path": "runs/build-03/obj/project.nuget.cache",
+      "size": 244,
+      "sha256": "5f7978e7106d2ecfcc21f09108aeb7a57df739cb6796dc003031259f02cda0ee"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "size": 200,
+      "sha256": "93d67476196ebfc80d1d7d8844b91146cfd678d105f5ce635eb900ca40610c9b"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/apphost.exe",
+      "size": 162304,
+      "sha256": "24c74fa337c7921e8eb496b634c73ef129acb45d378c1e3e8b67404946f53b74"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/P34.Review.dll",
+      "size": 65024,
+      "sha256": "40e76e2cefe64004f334f2338fc6d9b511a994883cc0fd610df62224dccc0c4f"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/P34.Review.pdb",
+      "size": 19500,
+      "sha256": "cba93c7b3f028dda50bb0466b4f42456931c3b3f01ea9f6ed8fc1adca3ecbf65"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/ref/P34.Review.dll",
+      "size": 8192,
+      "sha256": "d504aeeb9bcc4cc5723e4bde729e0791be1732d2a6b5bb2196666a4f434fd143"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/refint/P34.Review.dll",
+      "size": 8192,
+      "sha256": "d504aeeb9bcc4cc5723e4bde729e0791be1732d2a6b5bb2196666a4f434fd143"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/Review.AssemblyInfo.cs",
+      "size": 1124,
+      "sha256": "fe4054453b2782b6f4f8c2673bb67fe5fb461e063e2c3daf5b78738cde68f329"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/Review.AssemblyInfoInputs.cache",
+      "size": 66,
+      "sha256": "47b396bafab491feaf01cd186d5b7f71b09dfc8ed630145d078702ab60d3b1ac"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/Review.assets.cache",
+      "size": 210,
+      "sha256": "178423f4a81d166972dec42ddda38f7ff434e2239445e317e033f92659ace263"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/Review.csproj.AssemblyReference.cache",
+      "size": 5811,
+      "sha256": "f3665b7553ea118a130889da4cc2f48646f7810c832379a154fac3cf9ce05e0e"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/Review.csproj.CoreCompileInputs.cache",
+      "size": 66,
+      "sha256": "56afa4dd745d0760cd7548d57d3350e11a2f6e3259f7f5da6d6f9d382ccc7a1f"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/Review.csproj.FileListAbsolute.txt",
+      "size": 3269,
+      "sha256": "00fd02db01a27a88cfc892b4ddc3e10e947140c84e88104f8d56d1a363c86d69"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/Review.csproj.Up2Date",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/Review.GeneratedMSBuildEditorConfig.editorconfig",
+      "size": 1187,
+      "sha256": "5531bf1772896f3cb4ef2732ba4dc98315202416e9a116d812fd153ec71ffffe"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/Review.genruntimeconfig.cache",
+      "size": 66,
+      "sha256": "77bffe5243137f3f82520f716e89a30a2f7a3c0a1261410c4936b1119623bdd5"
+    },
+    {
+      "path": "runs/build-03/obj/Release/net10.0-windows/Review.GlobalUsings.g.cs",
+      "size": 305,
+      "sha256": "c95ea51a9e8c77e5367f652ede0c8871e7d6413090add59e1b8dd6805ac37e70"
+    },
+    {
+      "path": "runs/build-03/obj/Review.csproj.nuget.dgspec.json",
+      "size": 22984,
+      "sha256": "cfe451437cb9d337972f30d779569db795a70ab7ddd88be2ee99f6703d1d3694"
+    },
+    {
+      "path": "runs/build-03/obj/Review.csproj.nuget.g.props",
+      "size": 1310,
+      "sha256": "fdd9776675df82941f063ac4f0667f1dc96e38c0c95e4f28f972e77626de0147"
+    },
+    {
+      "path": "runs/build-03/obj/Review.csproj.nuget.g.targets",
+      "size": 150,
+      "sha256": "971cc9b535384849b5c661d776cd7a80833a416265e32e8968e06c367368b8b5"
+    },
+    {
+      "path": "runs/build-03/oracle.json",
+      "size": 39542,
+      "sha256": "19293603da21f098c3fc9ecf99549627938a9239c927bdf7bd1a20769f77c9ee"
+    },
+    {
+      "path": "runs/build-03/prepare.py",
+      "size": 6161,
+      "sha256": "ffa470926d03bf62be6e3c435fdc219b0b883f976cdfd8a84c13ed27b1a4326d"
+    },
+    {
+      "path": "runs/build-03/Probe.cs",
+      "size": 19085,
+      "sha256": "f57fae16cac1c785d2f3e6ccd1e9e3b999c5ace551f8e6c8c4f55ed8c42c8fb6"
+    },
+    {
+      "path": "runs/build-03/Review.csproj",
+      "size": 936,
+      "sha256": "c74696b52d4356b471cb3c63cfef6d815890290811634b69226265d7ce11435c"
+    },
+    {
+      "path": "runs/build-03/run.py",
+      "size": 3956,
+      "sha256": "117aace197b709f1487016041787f3e3bb245ef3919d25ced245d102372cc944"
+    },
+    {
+      "path": "runs/build-03/source-audit-addendum.json",
+      "size": 2038,
+      "sha256": "1d23ef83cd0c0c5a4818fbb403b297bb79fed80c76405c57c96a9bbbe74e9072"
+    },
+    {
+      "path": "runs/build-03/source-manifest.json",
+      "size": 20299,
+      "sha256": "0d213eb461de683b1a52f917deea5c9eb7a97c464c6ebdb6a4ab22285a456512"
+    },
+    {
+      "path": "runs/build-03/stderr.raw",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/build-03/stdout.raw",
+      "size": 366,
+      "sha256": "aac35869eadd2a766bb53984fbb5a71c2934bf702d5bf803fd1e314e2ad02615"
+    },
+    {
+      "path": "runs/runtime-01/Bootstrap.cs",
+      "size": 5511,
+      "sha256": "4fafdc200920e0fd2876177583d4461044f53186871feb6906fafc34c55a8d1c"
+    },
+    {
+      "path": "runs/runtime-01/command.json",
+      "size": 3872,
+      "sha256": "abd151358def6ca1ddc72effdac0a4be4c25ea9a702d64b88549871c04d0697d"
+    },
+    {
+      "path": "runs/runtime-01/coverage-delta.json",
+      "size": 1041,
+      "sha256": "eaaed4920de8df7acc7ba87b5ff989cdc5f9f941db18ab1681eca56beecba683"
+    },
+    {
+      "path": "runs/runtime-01/NuGet.Config",
+      "size": 194,
+      "sha256": "a53526c36d92f310c276e3a8f634c841194d960d91f978862b3ac75bcbeb7ecc"
+    },
+    {
+      "path": "runs/runtime-01/oracle.json",
+      "size": 39542,
+      "sha256": "19293603da21f098c3fc9ecf99549627938a9239c927bdf7bd1a20769f77c9ee"
+    },
+    {
+      "path": "runs/runtime-01/prepare.py",
+      "size": 6161,
+      "sha256": "ffa470926d03bf62be6e3c435fdc219b0b883f976cdfd8a84c13ed27b1a4326d"
+    },
+    {
+      "path": "runs/runtime-01/Probe.cs",
+      "size": 17671,
+      "sha256": "9282e72fd7e8c3ebe2724f20d999958430272403a10917547f5120d3fcc19e72"
+    },
+    {
+      "path": "runs/runtime-01/Review.csproj",
+      "size": 936,
+      "sha256": "c74696b52d4356b471cb3c63cfef6d815890290811634b69226265d7ce11435c"
+    },
+    {
+      "path": "runs/runtime-01/run.py",
+      "size": 3504,
+      "sha256": "ebebcf02ee8d2bc60921daaaa874d7b25aa95d8d2d780e0ab329ac686dd6d95f"
+    },
+    {
+      "path": "runs/runtime-01/runtime.json",
+      "size": 333611,
+      "sha256": "2daccb2a3f6049502cf86ee10a758c2c9e57a63314b472dac5f6c586b5df2869"
+    },
+    {
+      "path": "runs/runtime-01/source-manifest.json",
+      "size": 20299,
+      "sha256": "0d213eb461de683b1a52f917deea5c9eb7a97c464c6ebdb6a4ab22285a456512"
+    },
+    {
+      "path": "runs/runtime-01/stderr.raw",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/runtime-01/stdout.raw",
+      "size": 343,
+      "sha256": "14161d8c1701935bf1bd22b99850e351b7173a9110dd4ba18170af178140050b"
+    },
+    {
+      "path": "runs/runtime-02/Bootstrap.cs",
+      "size": 5511,
+      "sha256": "4fafdc200920e0fd2876177583d4461044f53186871feb6906fafc34c55a8d1c"
+    },
+    {
+      "path": "runs/runtime-02/command.json",
+      "size": 4034,
+      "sha256": "1bc80ba8fc5f6efcb72e254f417b63a107f6de952d79ea50debebd19162cbeb4"
+    },
+    {
+      "path": "runs/runtime-02/coverage-delta.json",
+      "size": 1325,
+      "sha256": "4b7d75911814161e6f65aaec49346e6300b244cdda0dc73f910779707f9ca388"
+    },
+    {
+      "path": "runs/runtime-02/NuGet.Config",
+      "size": 194,
+      "sha256": "a53526c36d92f310c276e3a8f634c841194d960d91f978862b3ac75bcbeb7ecc"
+    },
+    {
+      "path": "runs/runtime-02/oracle.json",
+      "size": 39542,
+      "sha256": "19293603da21f098c3fc9ecf99549627938a9239c927bdf7bd1a20769f77c9ee"
+    },
+    {
+      "path": "runs/runtime-02/prepare.py",
+      "size": 6161,
+      "sha256": "ffa470926d03bf62be6e3c435fdc219b0b883f976cdfd8a84c13ed27b1a4326d"
+    },
+    {
+      "path": "runs/runtime-02/Probe.cs",
+      "size": 19085,
+      "sha256": "f57fae16cac1c785d2f3e6ccd1e9e3b999c5ace551f8e6c8c4f55ed8c42c8fb6"
+    },
+    {
+      "path": "runs/runtime-02/Review.csproj",
+      "size": 936,
+      "sha256": "c74696b52d4356b471cb3c63cfef6d815890290811634b69226265d7ce11435c"
+    },
+    {
+      "path": "runs/runtime-02/run.py",
+      "size": 3956,
+      "sha256": "117aace197b709f1487016041787f3e3bb245ef3919d25ced245d102372cc944"
+    },
+    {
+      "path": "runs/runtime-02/runtime.json",
+      "size": 19161,
+      "sha256": "03066423bbac6a8bfad158e9400e58f5afe1b9c51221fc702cd82da74118e509"
+    },
+    {
+      "path": "runs/runtime-02/source-audit-addendum.json",
+      "size": 2038,
+      "sha256": "1d23ef83cd0c0c5a4818fbb403b297bb79fed80c76405c57c96a9bbbe74e9072"
+    },
+    {
+      "path": "runs/runtime-02/source-manifest.json",
+      "size": 20299,
+      "sha256": "0d213eb461de683b1a52f917deea5c9eb7a97c464c6ebdb6a4ab22285a456512"
+    },
+    {
+      "path": "runs/runtime-02/stderr.raw",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/runtime-02/stdout.raw",
+      "size": 43,
+      "sha256": "efaee390e61f61cea7c62df6a78d19fb63b02bd37c0503f9972d51603e7db959"
+    },
+    {
+      "path": "source-audit-addendum.json",
+      "size": 2038,
+      "sha256": "1d23ef83cd0c0c5a4818fbb403b297bb79fed80c76405c57c96a9bbbe74e9072"
+    },
+    {
+      "path": "source-manifest.json",
+      "size": 20299,
+      "sha256": "0d213eb461de683b1a52f917deea5c9eb7a97c464c6ebdb6a4ab22285a456512"
+    },
+    {
+      "path": "tmp/Microsoft.NET.Workload_18688_20261029_153417_268.log",
+      "size": 1716,
+      "sha256": "1ef3f72e9f46afa0cd8da3595cbeb49b2d06f122f4ad4cfbdb5d26c7f597d2f5"
+    },
+    {
+      "path": "tmp/Microsoft.NET.Workload_18688_20261029_153417_324.log",
+      "size": 1717,
+      "sha256": "45235b7c2ce77c3af4b21810c2585895b8b0d1ef70a94c8454e751fdd98fd613"
+    },
+    {
+      "path": "tmp/Microsoft.NET.Workload_23856_20261029_153720_623.log",
+      "size": 1717,
+      "sha256": "ad7043cce64b444b9621739490fefda79477f9afa64cf6a823667bbed5cecedb"
+    },
+    {
+      "path": "tmp/Microsoft.NET.Workload_5124_20261029_153506_398.log",
+      "size": 1715,
+      "sha256": "70f64ea258621d75e4b6e222291e4b3b6b7bf70271157dc5f123d7c09bb9b87f"
+    },
+    {
+      "path": "verification.json",
+      "size": 8648,
+      "sha256": "2308ce36fac3155ad5222fb1528b5d4ed155cc56c85a68ac0d8b3671e315010a"
+    },
+    {
+      "path": "verify.py",
+      "size": 9513,
+      "sha256": "b2b08f1e42dc2f7425cae1d1354813d69c1d299df2581f8a0fea9150a57d1f7d"
+    }
+  ],
+  "excluded": [
+    "artifact-manifest.json"
+  ],
+  "caseCount": 11
+}

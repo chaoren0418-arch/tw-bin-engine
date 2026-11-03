@@ -1,0 +1,350 @@
+{
+  "readOnly": true,
+  "pins": {
+    "utc": "2026-10-26T18:16:59.322198+00:00",
+    "db": [
+      43324,
+      "D:\\P24Lab-ClientEngine\\db-data\\",
+      "e3443e40-d090-11f1-8040-4cedfb679789",
+      "127.0.0.1",
+      "8.0.40"
+    ],
+    "dbOs": {
+      "processes": [
+        {
+          "ProcessId": 69176,
+          "ParentProcessId": 64892,
+          "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+          "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+          "CreationDate": "/Date(1792945658396)/"
+        },
+        {
+          "ProcessId": 59052,
+          "ParentProcessId": 69176,
+          "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+          "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+          "CreationDate": "/Date(1792945658443)/"
+        }
+      ],
+      "listeners": [
+        {
+          "LocalAddress": "127.0.0.1",
+          "LocalPort": 43324,
+          "OwningProcess": 59052
+        }
+      ]
+    },
+    "game": {
+      "process": {
+        "ProcessId": 88012,
+        "ParentProcessId": 58144,
+        "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+        "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P24Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P24Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P24Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P24Lab-ClientEngine\\server\\Server_Game.jar",
+        "CreationDate": "/Date(1793022465229)/"
+      },
+      "listeners": [
+        {
+          "LocalAddress": "0.0.0.0",
+          "LocalPort": 42061,
+          "OwningProcess": 88012
+        }
+      ]
+    },
+    "roles": [
+      {
+        "x": 32640,
+        "y": 33109,
+        "hp": 26,
+        "id": 1900240001,
+        "mp": 82,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p241db6e"
+      },
+      {
+        "x": 32477,
+        "y": 32853,
+        "hp": 103,
+        "id": 1900240002,
+        "mp": 84,
+        "map": 0,
+        "level": 59,
+        "online": 0,
+        "account": "p242db6e"
+      },
+      {
+        "x": 32588,
+        "y": 32981,
+        "hp": 500,
+        "id": 1900240003,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p243db6e"
+      },
+      {
+        "x": 32588,
+        "y": 32981,
+        "hp": 500,
+        "id": 1900240004,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p244db6e"
+      },
+      {
+        "x": 32648,
+        "y": 33068,
+        "hp": 163,
+        "id": 1900240005,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p245db6e"
+      },
+      {
+        "x": 32604,
+        "y": 32948,
+        "hp": 177,
+        "id": 1900240006,
+        "mp": 116,
+        "map": 0,
+        "level": 59,
+        "online": 0,
+        "account": "p246db6e"
+      },
+      {
+        "x": 32587,
+        "y": 32998,
+        "hp": 700,
+        "id": 1900240007,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p247db6e"
+      },
+      {
+        "x": 32587,
+        "y": 32998,
+        "hp": 700,
+        "id": 1900240008,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p248db6e"
+      }
+    ]
+  },
+  "rows": {
+    "npcaction": [
+      {
+        "npcid": 70012,
+        "teleport_url": "",
+        "caotic_action": "Inn1",
+        "normal_action": "inn",
+        "teleport_urla": ""
+      }
+    ],
+    "spawnlist_npc": [
+      {
+        "id": 1329,
+        "locx": 32596,
+        "locy": 32929,
+        "count": 1,
+        "mapid": 0,
+        "heading": 4,
+        "randomx": 0,
+        "randomy": 0,
+        "location": "瑟琳娜",
+        "respawn_delay": 0,
+        "npc_templateid": 70012,
+        "movement_distance": 0
+      }
+    ],
+    "npc_action_making": [
+      {
+        "id": 1237,
+        "note": "瑟琳娜>旅館房間鑰匙(說話之島)",
+        "npc_id": "70012",
+        "results": "49290",
+        "materials": "40308",
+        "min_level": 0,
+        "action_name": "room",
+        "fail_item_id": 0,
+        "success_rate": 1000,
+        "results_count": "1",
+        "materials_count": "100",
+        "results_enchant": "0",
+        "amount_inputable": 0,
+        "materials_enchant": "-1"
+      },
+      {
+        "id": 1238,
+        "note": "瑟琳娜>旅館會議廳鑰匙(說話之島)",
+        "npc_id": "70012",
+        "results": "49900",
+        "materials": "40308",
+        "min_level": 0,
+        "action_name": "hall",
+        "fail_item_id": 0,
+        "success_rate": 1000,
+        "results_count": "1",
+        "materials_count": "100",
+        "results_enchant": "0",
+        "amount_inputable": 0,
+        "materials_enchant": "-1"
+      }
+    ],
+    "npc_action_teleport": [
+      {
+        "id": 1241,
+        "note": "瑟琳娜>進入旅館房間(說話之島)",
+        "loc_x": 32745,
+        "loc_y": 32803,
+        "map_id": 16384,
+        "npc_id": "70012",
+        "heading": 6,
+        "max_level": 200,
+        "min_level": 0,
+        "action_name": "enter",
+        "deny_message": "請先購買此旅館的房間或會議廳鑰匙。",
+        "price_amount": 0,
+        "price_item_id": 40308,
+        "require_item_id": 49290,
+        "require_quest_id": 0,
+        "require_step_max": 0,
+        "require_step_min": 0,
+        "require_item_count": 1
+      },
+      {
+        "id": 1242,
+        "note": "瑟琳娜>進入旅館會議廳(說話之島)",
+        "loc_x": 32743,
+        "loc_y": 32808,
+        "map_id": 16896,
+        "npc_id": "70012",
+        "heading": 6,
+        "max_level": 200,
+        "min_level": 0,
+        "action_name": "enter",
+        "deny_message": "請先購買此旅館的房間或會議廳鑰匙。",
+        "price_amount": 0,
+        "price_item_id": 40308,
+        "require_item_id": 49900,
+        "require_quest_id": 0,
+        "require_step_max": 0,
+        "require_step_min": 0,
+        "require_item_count": 1
+      }
+    ],
+    "dungeon": [
+      {
+        "note": "旅館房間>說話之島",
+        "new_x": 32599,
+        "new_y": 32931,
+        "src_x": 32746,
+        "src_y": 32803,
+        "new_mapid": 0,
+        "src_mapid": 16384,
+        "new_heading": 1,
+        "require_item_id": 0
+      },
+      {
+        "note": "旅館房間>說話之島",
+        "new_x": 32599,
+        "new_y": 32931,
+        "src_x": 32744,
+        "src_y": 32808,
+        "new_mapid": 0,
+        "src_mapid": 16896,
+        "new_heading": 1,
+        "require_item_id": 0
+      },
+      {
+        "note": "說話之島>旅館房間",
+        "new_x": 32745,
+        "new_y": 32803,
+        "src_x": 32599,
+        "src_y": 32931,
+        "new_mapid": 16384,
+        "src_mapid": 0,
+        "new_heading": 6,
+        "require_item_id": 49290
+      },
+      {
+        "note": "說話之島>旅館會議廳",
+        "new_x": 32743,
+        "new_y": 32808,
+        "src_x": 32599,
+        "src_y": 32931,
+        "new_mapid": 16896,
+        "src_mapid": 0,
+        "new_heading": 6,
+        "require_item_id": 49900
+      }
+    ],
+    "etcitem": [
+      {
+        "name": "旅館房間鑰匙(說話之島)",
+        "note": null,
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 151,
+        "invgfx": 59,
+        "weight": 1000,
+        "item_id": 49290,
+        "max_lvl": 0,
+        "min_lvl": 0,
+        "name_id": "旅館房間鑰匙(說話之島)",
+        "delay_id": 0,
+        "material": "iron",
+        "use_type": "normal",
+        "classname": "teleport.SOR_UserSet false",
+        "item_type": "other",
+        "stackable": 0,
+        "delay_time": 0,
+        "cant_delete": 0,
+        "food_volume": 0,
+        "itemdesc_id": 0,
+        "limit_class": 127,
+        "delay_effect": 0,
+        "save_at_once": 0,
+        "max_charge_count": 0
+      },
+      {
+        "name": "旅館會議廳鑰匙(說話之島)",
+        "note": null,
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 151,
+        "invgfx": 59,
+        "weight": 1000,
+        "item_id": 49900,
+        "max_lvl": 0,
+        "min_lvl": 0,
+        "name_id": "旅館會議廳鑰匙(說話之島)",
+        "delay_id": 0,
+        "material": "iron",
+        "use_type": "normal",
+        "classname": "teleport.SOR_UserSet false",
+        "item_type": "other",
+        "stackable": 0,
+        "delay_time": 0,
+        "cant_delete": 0,
+        "food_volume": 0,
+        "itemdesc_id": 0,
+        "limit_class": 127,
+        "delay_effect": 0,
+        "save_at_once": 0,
+        "max_charge_count": 0
+      }
+    ]
+  },
+  "scope": "Actual isolated DB configuration; original UI behavior still to verify."
+}

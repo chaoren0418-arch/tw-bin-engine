@@ -1,0 +1,387 @@
+{
+  "schema": "remaining-functional-convergence-v1",
+  "utc": "2026-10-29T07:55:57.927950+00:00",
+  "rows": [
+    {
+      "id": "I01",
+      "classification": "delivery-defect-and-separate-authorization",
+      "function": "r34 canonical/release 已接受；正式入口尚為 r33。通用封裝清單漏 build/product-r34-manifest.json，單次補單未修 generator。",
+      "resumeCondition": "P35 修隔離 generator 並獨立覆核；入口切換另外等待明確批准，不能相互替代。"
+    },
+    {
+      "id": "I02",
+      "classification": "implemented-bounded-review-complete-native-evidence-only",
+      "function": "HUD／聊天及 Web 焦點／滑鼠路由已有實作；P27 未發現可重現產品缺陷。",
+      "resumeCondition": "併入 N02 原生輸入驗收，不另做一批離線測試。"
+    },
+    {
+      "id": "S01",
+      "classification": "implementation-gap-source-contract-blocked",
+      "function": "一般地圖 tile 群組 fade 已實作；map-local effect 缺 associatedGroupId，動態 effect Draw.Group=-1，無特效隨關聯群組淡出的接線。",
+      "resumeCondition": "需一份真實非零 L8 effect→group 關聯、精確來源 pin 及對應可見 fade 行為；不能將 extension 猜成 group-id。"
+    },
+    {
+      "id": "S02",
+      "classification": "implementation-gap-source-contract-blocked",
+      "function": "6016 控制器／音訊／host 已整合；其他 map animation token 的聲音／子特效行為尚未實作完整。",
+      "resumeCondition": "指定 effect/token ID 並證明資源引用、觸發次數／循環／淘汰契約；不能把所有 token 套用 6016 政策。"
+    },
+    {
+      "id": "S03",
+      "classification": "bounded-isolated-implementation-plus-source-coverage-limits",
+      "function": "41 個額外 exact gfx/weapon 拾取外觀已在 P28→P30 隔離候選實作接受，P31–P34 補有限行為證據；不等於正式入口已含此候選。其餘素材、shadow keys、地圖格式仍有來源界線。",
+      "resumeCondition": "不重測已接受案例；新內容先指定 ID／原始格式與來源。隔離候選後續合入需精確串行整合契約，入口批准另計。"
+    },
+    {
+      "id": "N01",
+      "classification": "implemented-native-acceptance-and-user-service-readiness",
+      "function": "登入、移動、既有戰鬥／技能／道具／獎勵、保存與重登鏈已接通；缺最終固定版完整串接驗收。",
+      "resumeCondition": "使用者準備服務／DB、另有原生操作授權、固定版本及安全角色條件；主管不代查或修改 DB。"
+    },
+    {
+      "id": "N02",
+      "classification": "implemented-native-acceptance",
+      "function": "原生畫面合成、滑鼠/HUD、聊天/Web焦點、陰影與選取已有實作；P31 有有限合成像素證據，未涵蓋原生完整畫面。",
+      "resumeCondition": "固定版原生視窗擷取與輸入授權，或可核對的使用者實機證據。"
+    },
+    {
+      "id": "N03",
+      "classification": "implemented-native-acceptance-and-legitimate-transaction-conditions",
+      "function": "NPC購買、直接交易、倉庫與私人商店購買已有接線；缺最終版物品／貨幣／保存一致性實測。",
+      "resumeCondition": "合法角色、商品、對手與服務可用，原生操作授權；不造物品或改資料通過。"
+    },
+    {
+      "id": "N04",
+      "classification": "implemented-native-acceptance-with-source-coverage-exclusions",
+      "function": "地圖2×2快取、跨圖、旅館、船圖、一般遮擋及 local-effect 生命週期已有實作；既有原生片段不能合算最新版本完整驗收。",
+      "resumeCondition": "安全路線及固定版原生授權；不重走已造成追擊／死亡路線。未支援區塊另列來源問題，不視為驗收通過。"
+    },
+    {
+      "id": "N05",
+      "classification": "implemented-native-audio-acceptance",
+      "function": "world6016 事件→控制器→audio/host、mute/gain/淘汰/close 已實作；獨立PID音訊證據不等於正式世界場景聲音。",
+      "resumeCondition": "可安全抵達的6016場景、使用者服務就緒及原生音訊量測授權。"
+    },
+    {
+      "id": "C01",
+      "classification": "external-condition-user-owned",
+      "function": "NPC正向售出／私人收購需要實際價格、匹配商品／買方條件；目前不是確證客戶端缺陷。",
+      "resumeCondition": "由使用者準備合法服務資料／交易條件，再授權有限原生交易；不診斷或修 DB。"
+    },
+    {
+      "id": "H01",
+      "classification": "historical-limit-no-work",
+      "function": "舊鑰匙精確刪除時刻等歷史缺證不可事後補造；ground36封裝漏項已解決。",
+      "resumeCondition": "保存歷史資格，不重做已修 ground36，不產生假歷史測試。"
+    }
+  ],
+  "sourcePins": [
+    {
+      "path": "engine/source/OriginalMapCache.cs",
+      "size": 20268,
+      "sha256": "8c7009fd8483196beda9108a07a01f54b1e02d4447ba6cb3c6b88fb78b15d084"
+    },
+    {
+      "path": "engine/source/MapResources.cs",
+      "size": 1187,
+      "sha256": "8e3e1663a58345ab42bee1fe2c07777a74ece63da7fd6500323efd5b8daa016b"
+    },
+    {
+      "path": "engine/source/SceneOpacity.cs",
+      "size": 10283,
+      "sha256": "c6dc450181b1f19d3778738512b5a3dee5b95f7bdb27442241081f9acb0200b1"
+    },
+    {
+      "path": "engine/source/OpacityRendering.cs",
+      "size": 4181,
+      "sha256": "bd7672c9d1378e908fa2ea1db3d78148dc7aec6c6f0bbe595ba2d9236a531608"
+    },
+    {
+      "path": "engine/source/Renderer.cs",
+      "size": 7142,
+      "sha256": "889b6587ebc5b6d85cb914284efc800c2c18c1c2c4713226d7b1d3e60a1f74e5"
+    },
+    {
+      "path": "engine/source/MapEffects.cs",
+      "size": 4465,
+      "sha256": "151017e2a085c66427959f9d6164f3cec08a455ea3866fd7e1f411f38261debd"
+    },
+    {
+      "path": "engine/source/Combat.cs",
+      "size": 12231,
+      "sha256": "e5ff8fc5da264568e0250050a226563e67a6fe21a7e525a0c695913b409167e0"
+    },
+    {
+      "path": "engine/source/ProjectileRendering.cs",
+      "size": 5561,
+      "sha256": "917625f6c00b430195311f34e5c7fdabf56b0d5d28f7a53b8abc1053368ff466"
+    },
+    {
+      "path": "engine/source/PickupPresentation.cs",
+      "size": 6606,
+      "sha256": "b28e1bc5dcdaea4b42e12783697af1a1976d580cbc48724b7bc3b25e9cd9e326"
+    },
+    {
+      "path": "engine/source/ObjectRendering.cs",
+      "size": 9819,
+      "sha256": "6de015ce11c61e71aaa6de096d192abbb7d0c427f3f0bcedf762871d3a536613"
+    },
+    {
+      "path": "engine/source/RangedTests.cs",
+      "size": 3013,
+      "sha256": "860e8978d2912b6431c7023d53558594fd2e844b2c76aa85bee02af06a247a0e"
+    },
+    {
+      "path": "engine/source/RangedRenderingTests.cs",
+      "size": 3422,
+      "sha256": "f2f914622b7fa2d47e66d22b84ee6b1c4e9683ff84d1afa09fb45198e9cded94"
+    },
+    {
+      "path": "engine/source/DualBlockTests.cs",
+      "size": 8637,
+      "sha256": "4d6990df06e302353b7eba857ba937b1b6f86ae570cad0f9c8e32601ce9c7546"
+    },
+    {
+      "path": "engine/assets/maps/manifest.json",
+      "size": 4954075,
+      "sha256": "0fe3a61444180c90abdca0cc94c1cfb9ea19adc67812a43f624d806b51f96ee7"
+    },
+    {
+      "path": "work/P29-pickup-profiles-review-r1/runtime-review-r1/coverage.json",
+      "size": 7517,
+      "sha256": "21d35e768236be3505fb8f2ed13dc834ef19edf79fd44ae54b786003674237c2"
+    },
+    {
+      "path": "work/engine-pickup-own-profiles-review-prep-r1/projectile-selection-fixtures.json",
+      "size": 5030,
+      "sha256": "64b2a9e8d4a53fdc670e92ed748aa37a19c9d7597a78d71be25434e21b7ad4d8"
+    },
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "size": 44813,
+      "sha256": "815ea14323936891a66eedc24e8e8b324d2a873934d9418832437097e48ccd55"
+    },
+    {
+      "path": "work/P26-r34-release-gate-r2/generate_package_plan.py",
+      "size": 16094,
+      "sha256": "32e5cefcc739c7e432dfa9cf00488072c330445695a4b3761d0e43c8ae962578"
+    },
+    {
+      "path": "主管/P25-P27-新主管接管-20261029/r34-package-plan-RG2.json",
+      "size": 706,
+      "sha256": "97cc1dde4b6bc2f2f43501e993bdfd779046bb7c551ef497615e6d55ace8494f"
+    }
+  ],
+  "mapInventory": {
+    "manifestEntries": 713,
+    "blockEntries": 7198,
+    "tileEntries": 5052,
+    "unsupportedBlocks": [
+      {
+        "mapId": 3,
+        "count": 1,
+        "names": [
+          "80008002"
+        ]
+      },
+      {
+        "mapId": 4,
+        "count": 43,
+        "names": [
+          "7ffc7ffc",
+          "7ffc8008",
+          "7ffc8009",
+          "7ffd7ff8",
+          "7ffd7ff9",
+          "7ffd7ffa",
+          "7ffd7ffb",
+          "7ffd7ffc",
+          "7ffd8004",
+          "7ffe7ff8",
+          "7ffe7ff9",
+          "7ffe7ffa",
+          "7ffe7ffc",
+          "7fff7ff8",
+          "7fff7ff9",
+          "7fff7ffc",
+          "7fff7ffd",
+          "7fff7ffe",
+          "80007ffc",
+          "80007ffe",
+          "80008000",
+          "80008001",
+          "80017ffe",
+          "80027ffc",
+          "80027ffd",
+          "80027ffe",
+          "80028000",
+          "80028001",
+          "80028002",
+          "80028003",
+          "80037ffd",
+          "80037ffe",
+          "80037fff",
+          "80038000",
+          "80038001",
+          "80038002",
+          "80038003",
+          "80048001",
+          "80048002",
+          "80048003",
+          "80058002",
+          "80058003",
+          "80058004"
+        ]
+      },
+      {
+        "mapId": 10,
+        "count": 2,
+        "names": [
+          "80007fff",
+          "80008000"
+        ]
+      }
+    ],
+    "formatCounts": {
+      "s32OrDefault": 7197,
+      "classicSeg": 1
+    },
+    "qualification": "Manifest inventory is not a claim that every map/block has been rendered or natively accepted."
+  },
+  "realMapConclusion": "Implemented within declared map/source profiles: verified S32/TIL decoding, 2x2 cache/shift/eviction, groups/triggers/opacity and renderer composition. Broad new-pickup original-map composite/native coverage is evidence gap. 46 unsupported SEG/compressed blocks and nonzero extended semantics are real source-limited exclusions, not merely missing tests.",
+  "S30Conclusion": "Implemented: opcode30 arrow marker338/gfx66/flight127 parser -> projectile reports -> release/motion/impact -> map depth composition -> pickup/combat priority. The three not-run prep cases mean actual product flight path instead of injected hit cache; they still use synthetic packet fields and injected clocks, not live server captures.",
+  "S30Correction": "Prior wording S30 / transport acknowledgement conflated unrelated items. S30 is attack/projectile; teleport network-loop acknowledgement is separate (C52). No S30 transport-ACK implementation gap established.",
+  "selectedAction": {
+    "id": "I01/RG2",
+    "phase": "P35",
+    "reason": "Concrete reproducible general inventory omission; no DB/native/entry/certificate dependency; minimal isolated code fix with independent review.",
+    "dispatch": "P35-dispatch.json",
+    "state": "isolated-fix-and-independent-review-accepted",
+    "acceptance": "P35-root-acceptance.json"
+  },
+  "notSelected": "No new game test phase merely to increase activity. Original-map and S30 unexecuted combinations do not justify an invented implementation patch.",
+  "wholeProjectComplete": false,
+  "completionPercentage": null,
+  "canonicalToP30Comparisons": [
+    {
+      "canonical": "engine/source/OriginalMapCache.cs",
+      "candidate": {
+        "path": "work/P30-pickup-profiles-stage-r1/future-stage-02/source/OriginalMapCache.cs",
+        "size": 20268,
+        "sha256": "8c7009fd8483196beda9108a07a01f54b1e02d4447ba6cb3c6b88fb78b15d084"
+      },
+      "identical": true
+    },
+    {
+      "canonical": "engine/source/MapResources.cs",
+      "candidate": {
+        "path": "work/P30-pickup-profiles-stage-r1/future-stage-02/source/MapResources.cs",
+        "size": 1187,
+        "sha256": "8e3e1663a58345ab42bee1fe2c07777a74ece63da7fd6500323efd5b8daa016b"
+      },
+      "identical": true
+    },
+    {
+      "canonical": "engine/source/SceneOpacity.cs",
+      "candidate": {
+        "path": "work/P30-pickup-profiles-stage-r1/future-stage-02/source/SceneOpacity.cs",
+        "size": 10283,
+        "sha256": "c6dc450181b1f19d3778738512b5a3dee5b95f7bdb27442241081f9acb0200b1"
+      },
+      "identical": true
+    },
+    {
+      "canonical": "engine/source/OpacityRendering.cs",
+      "candidate": {
+        "path": "work/P30-pickup-profiles-stage-r1/future-stage-02/source/OpacityRendering.cs",
+        "size": 4181,
+        "sha256": "bd7672c9d1378e908fa2ea1db3d78148dc7aec6c6f0bbe595ba2d9236a531608"
+      },
+      "identical": true
+    },
+    {
+      "canonical": "engine/source/Renderer.cs",
+      "candidate": {
+        "path": "work/P30-pickup-profiles-stage-r1/future-stage-02/source/Renderer.cs",
+        "size": 7142,
+        "sha256": "889b6587ebc5b6d85cb914284efc800c2c18c1c2c4713226d7b1d3e60a1f74e5"
+      },
+      "identical": true
+    },
+    {
+      "canonical": "engine/source/MapEffects.cs",
+      "candidate": {
+        "path": "work/P30-pickup-profiles-stage-r1/future-stage-02/source/MapEffects.cs",
+        "size": 4465,
+        "sha256": "151017e2a085c66427959f9d6164f3cec08a455ea3866fd7e1f411f38261debd"
+      },
+      "identical": true
+    },
+    {
+      "canonical": "engine/source/Combat.cs",
+      "candidate": {
+        "path": "work/P30-pickup-profiles-stage-r1/future-stage-02/source/Combat.cs",
+        "size": 12231,
+        "sha256": "e5ff8fc5da264568e0250050a226563e67a6fe21a7e525a0c695913b409167e0"
+      },
+      "identical": true
+    },
+    {
+      "canonical": "engine/source/ProjectileRendering.cs",
+      "candidate": {
+        "path": "work/P30-pickup-profiles-stage-r1/future-stage-02/source/ProjectileRendering.cs",
+        "size": 5561,
+        "sha256": "917625f6c00b430195311f34e5c7fdabf56b0d5d28f7a53b8abc1053368ff466"
+      },
+      "identical": true
+    },
+    {
+      "canonical": "engine/source/PickupPresentation.cs",
+      "candidate": {
+        "path": "work/P30-pickup-profiles-stage-r1/future-stage-02/source/PickupPresentation.cs",
+        "size": 6721,
+        "sha256": "e4dfc947c163485d80813a9027599e904584f0db6426eb661284a39a5322deb6"
+      },
+      "identical": false
+    },
+    {
+      "canonical": "engine/source/ObjectRendering.cs",
+      "candidate": {
+        "path": "work/P30-pickup-profiles-stage-r1/future-stage-02/source/ObjectRendering.cs",
+        "size": 9819,
+        "sha256": "6de015ce11c61e71aaa6de096d192abbb7d0c427f3f0bcedf762871d3a536613"
+      },
+      "identical": true
+    },
+    {
+      "canonical": "engine/source/RangedTests.cs",
+      "candidate": {
+        "path": "work/P30-pickup-profiles-stage-r1/future-stage-02/source/RangedTests.cs",
+        "size": 3013,
+        "sha256": "860e8978d2912b6431c7023d53558594fd2e844b2c76aa85bee02af06a247a0e"
+      },
+      "identical": true
+    },
+    {
+      "canonical": "engine/source/RangedRenderingTests.cs",
+      "candidate": {
+        "path": "work/P30-pickup-profiles-stage-r1/future-stage-02/source/RangedRenderingTests.cs",
+        "size": 3422,
+        "sha256": "f2f914622b7fa2d47e66d22b84ee6b1c4e9683ff84d1afa09fb45198e9cded94"
+      },
+      "identical": true
+    },
+    {
+      "canonical": "engine/source/DualBlockTests.cs",
+      "candidate": {
+        "path": "work/P30-pickup-profiles-stage-r1/future-stage-02/source/DualBlockTests.cs",
+        "size": 8637,
+        "sha256": "4d6990df06e302353b7eba857ba937b1b6f86ae570cad0f9c8e32601ce9c7546"
+      },
+      "identical": true
+    }
+  ],
+  "candidateDifference": "PickupPresentation.cs differs by accepted P28 exact-profile guard expansion; map/render/projectile files audited here are byte-identical. Canonical r34 remains base-only pickup; extended profiles are isolated P30 candidate.",
+  "updatedUtc": "2026-10-29T08:07:41.206405+00:00",
+  "notAllRemainingRequireUserApproval": "P30 extended pickup candidate serial integration and future tool binding are controllable delivery work requiring a new exact supervisor contract; they were not selected in this one-item P35 scope. Do not claim all remaining work is blocked on the user."
+}

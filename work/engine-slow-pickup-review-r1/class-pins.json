@@ -1,0 +1,91 @@
+{
+  "jarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "classes": [
+    {
+      "class": "com.lineage.server.clientpackets.C_PickUpItem",
+      "entry": "com/lineage/server/clientpackets/C_PickUpItem.class",
+      "bytes": 9954,
+      "sha256": "721b3f27cd3be1bbe1ac9f5c1646946af7a53b6dcbff2d759ceb9081ff8c45a5",
+      "javap": "classes/C_PickUpItem.javap.txt",
+      "javapSha256": "5150be1fe5149636a91707fb823562b968c86a7ee1ec2655090a696b6455c0ba"
+    },
+    {
+      "class": "com.lineage.server.serverpackets.S_DoActionGFX",
+      "entry": "com/lineage/server/serverpackets/S_DoActionGFX.class",
+      "bytes": 1066,
+      "sha256": "dbaa27bdc71cf28e626a6062e537b5ede07d0fda76409777f2d3b3c62b34d11e",
+      "javap": "classes/S_DoActionGFX.javap.txt",
+      "javapSha256": "f0c6c0f0a7cdf5cdc9eb658f81d9953f58377ea2bef108db1af84ecae4244694"
+    },
+    {
+      "class": "com.lineage.server.serverpackets.S_ChangeHeading",
+      "entry": "com/lineage/server/serverpackets/S_ChangeHeading.class",
+      "bytes": 1225,
+      "sha256": "11f7fe274cba2d1e87da37294f4a9bee99256610e9b8aa419e2abc8ffab86366",
+      "javap": "classes/S_ChangeHeading.javap.txt",
+      "javapSha256": "0f8100bfe838c083f91eacbe77d379f6695732fa289bef930e50d7016ac175c7"
+    },
+    {
+      "class": "com.lineage.server.utils.WorldInteractionGuard",
+      "entry": "com/lineage/server/utils/WorldInteractionGuard.class",
+      "bytes": 5315,
+      "sha256": "53c73aa47857d46a5c69a97cbb9e81ef350b91f7169ea5daf090b3803cf99f71",
+      "javap": "classes/WorldInteractionGuard.javap.txt",
+      "javapSha256": "15f78717d7d3b5515e4f0d59a29e259a8615ddcfdcc4287ba66399d4018f3419"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.server.clientpackets.C_PickUpItem"
+      ],
+      "exitCode": 0,
+      "scope": "static class disassembly; no initialization or handler execution"
+    },
+    {
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.server.serverpackets.S_DoActionGFX"
+      ],
+      "exitCode": 0,
+      "scope": "static class disassembly; no initialization or handler execution"
+    },
+    {
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.server.serverpackets.S_ChangeHeading"
+      ],
+      "exitCode": 0,
+      "scope": "static class disassembly; no initialization or handler execution"
+    },
+    {
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-J-XX:-UsePerfData",
+        "-c",
+        "-p",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "com.lineage.server.utils.WorldInteractionGuard"
+      ],
+      "exitCode": 0,
+      "scope": "static class disassembly; no initialization or handler execution"
+    }
+  ]
+}

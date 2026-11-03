@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-29T09:05:17.450535+00:00",
+  "executionArtifactsVerified": 202,
+  "externalMaterialsVerified": 197,
+  "artifactSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\artifact-seal.json",
+    "size": 964,
+    "sha256": "c7c194fed021123fcca4586df4b9b05d5381e0f6838d24e759728d8598bf52bf"
+  },
+  "externalSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\external-material-seal.json",
+    "size": 41121,
+    "sha256": "257d957cfc3c6b7061c1face5baeaf19c111f229a76c3834a3c90d68ab60ffa5"
+  },
+  "decision": "material verified; independent compiler provenance review pending",
+  "P36FinalAccepted": false,
+  "verifierCorrection": "Initial external-document inspection expected files key; corrected to declared sourceFiles/productManifest/outputs keys. No build/test or source mutation."
+}

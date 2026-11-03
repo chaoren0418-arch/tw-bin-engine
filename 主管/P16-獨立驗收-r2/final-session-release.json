@@ -1,0 +1,100 @@
+{
+  "status": "pass",
+  "services": {
+    "processes": [
+      {
+        "ProcessId": 82644,
+        "ParentProcessId": 8876,
+        "ExecutablePath": "D:\\P16Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P16Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P16Lab-ClientEngine\\mysql.ini --init-file=D:\\P16Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792892591461)/"
+      },
+      {
+        "ProcessId": 87612,
+        "ParentProcessId": 80520,
+        "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+        "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+        "CreationDate": "/Date(1792893019850)/"
+      }
+    ],
+    "listeners": [
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 43316,
+        "OwningProcess": 82644
+      },
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42035,
+        "OwningProcess": 87612
+      }
+    ]
+  },
+  "accounts": [
+    {
+      "name": "p16c776a97",
+      "server_no": 0
+    },
+    {
+      "name": "p16m6e4c6f",
+      "server_no": 0
+    },
+    {
+      "name": "p16o6e4c6f",
+      "server_no": 0
+    }
+  ],
+  "characters": [
+    {
+      "online": 0,
+      "account": "p16c776a97",
+      "object_id": 1900160001
+    },
+    {
+      "online": 0,
+      "account": "p16m6e4c6f",
+      "object_id": 1900120002
+    },
+    {
+      "online": 0,
+      "account": "p16m6e4c6f",
+      "object_id": 1900120001
+    },
+    {
+      "online": 0,
+      "account": "p16o6e4c6f",
+      "object_id": 1900140003
+    }
+  ],
+  "absent_accounts": [
+    "p16n6e4c6f",
+    "p16z6e4c6f"
+  ],
+  "clients": {
+    "items": []
+  },
+  "preserved_failed_role": {
+    "X": 32597,
+    "Y": 32914,
+    "Ac": 8,
+    "Hp": 1,
+    "Mp": 30,
+    "Exp": 10000,
+    "Gfx": 0,
+    "Name": "整合王子",
+    "Level": 10,
+    "MapId": 0,
+    "MaxHp": 160,
+    "MaxMp": 30,
+    "Lawful": -123,
+    "Wisdom": 12,
+    "Charisma": 10,
+    "ObjectId": 1900120001,
+    "Strength": 18,
+    "Dexterity": 13,
+    "Direction": 3,
+    "Constitution": 16,
+    "Intelligence": 11,
+    "OnlineStatus": 0
+  }
+}

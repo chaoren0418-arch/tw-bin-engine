@@ -1,0 +1,54 @@
+{
+  "status": "pass",
+  "utc": "2026-10-25T15:36:45.935917+00:00",
+  "sourceFiles": 2496,
+  "environmentFiles": 749,
+  "snapshotFiles": 2494,
+  "sourceManifestSha256": "75b77fea3a2d92d0374d70374d6a5564ebcc912c1d506c38b133127ba08cff56",
+  "environmentManifestSha256": "46a519ff136d414e87901235b5d4ff52782dc0f51ff236ff22471f0f0101869e",
+  "runtime": {
+    "Processes": [
+      {
+        "ProcessId": 20048,
+        "ParentProcessId": 67568,
+        "CreationDate": "/Date(1792938761219)/",
+        "ExecutablePath": "D:\\P23Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P23Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P23Lab-ClientEngine\\mysql.ini --init-file=D:\\P23Lab-ClientEngine\\db-bootstrap.sql --console"
+      },
+      {
+        "ProcessId": 67280,
+        "ParentProcessId": 20048,
+        "CreationDate": "/Date(1792938761261)/",
+        "ExecutablePath": "D:\\P23Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P23Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P23Lab-ClientEngine\\mysql.ini --init-file=D:\\P23Lab-ClientEngine\\db-bootstrap.sql --console"
+      },
+      {
+        "ProcessId": 81724,
+        "ParentProcessId": 64944,
+        "CreationDate": "/Date(1792940282574)/",
+        "ExecutablePath": "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "CommandLine": "\"C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe\" -B -X utf8 server.py start"
+      },
+      {
+        "ProcessId": 75900,
+        "ParentProcessId": 81724,
+        "CreationDate": "/Date(1792940284849)/",
+        "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+        "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P23Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P23Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P23Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P23Lab-ClientEngine\\server\\Server_Game.jar"
+      }
+    ],
+    "listeners": [
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 43323,
+        "OwningProcess": 67280
+      },
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42057,
+        "OwningProcess": 75900
+      }
+    ]
+  },
+  "scope": "Whole explicit freeze hashes, exact required source-tree coverage including native bins, reserved initial receipts and true distinct-file copy. Original bytes/oracles already independently verified; fresh live runs and clean build still required."
+}

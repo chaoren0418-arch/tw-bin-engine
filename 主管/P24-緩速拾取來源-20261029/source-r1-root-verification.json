@@ -1,0 +1,16 @@
+{
+  "schema": "pickup-source-root-integrity-verification-v1",
+  "utc": "2026-10-28T23:12:02.846776+00:00",
+  "status": "pass-integrity-source-research-only",
+  "artifactFiles": 279,
+  "sourcePins": 68,
+  "classEntries": 17,
+  "originalBinChunks": 101,
+  "artifactManifestSha256": "8b1110e77614fbe8f9cb9b68718348c71f75d04110451cbca3c90699114125e1",
+  "sourceContractSha256": "8c29fd1b806789caec833e7b23cf7bfea719d912751e4429817d89b2b68fea65",
+  "resultSha256": "33fd784f399450ec3cab0fc6ed6b2bc86ed614a1f6d07b33853255e0c90719e8",
+  "qualifiedForSlowPickupOpening": false,
+  "implementationAuthorized": false,
+  "independentSemanticReviewPending": true,
+  "nativeExecution": false
+}

@@ -1,0 +1,789 @@
+{
+  "utc": "2026-10-27T21:14:30.623789+00:00",
+  "revision": "r28",
+  "wholeP24Complete": false,
+  "sealSha256": "83770091f8051466d5dccb420210cd0567ffef5a1158e8f7ebf5c7667127bfcd",
+  "dllSha256": "7762951fba9a2d37d08e2d40a34dfa7f2a6f2219b93689a031a566a8fd8f8cb8",
+  "entry": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery\\啟動新版客戶端.cmd",
+  "goalToolStatus": "active",
+  "auditType": "bounded actual source/assets and accepted evidence review; no new runtime suite",
+  "noPercentage": "Feature rows are different scope sizes and evidence types; no 10/25 completion fraction inferred.",
+  "rows": [
+    {
+      "id": "R01",
+      "feature": "正常入口/登入/選角/移動/重登",
+      "classification": "已解決",
+      "r27Current": "r27 正常 CMD、原生登入/選角/移動、正常保存重登已實測。",
+      "historicalEvidence": [
+        "r22-final-live/g00-main-blank-entry-state.json",
+        "r22-final-live/g01-main-normal-walk.json",
+        "r22-final-live/fix-gift-normal-relogin.json",
+        "r22-full-flow/g01-main-normal-login.json",
+        "r22-full-flow/g01-peer-normal-login.json"
+      ],
+      "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+      "currentEvidence": [
+        "r27-targeted-live/current-status.json"
+      ],
+      "next": "保留 r27-targeted-live 證據；不重做登入接線。",
+      "wholeFeatureComplete": false,
+      "r28Current": "Normal CMD/manual login/character/world; eight native direction keys; normal close and new-process relogin restore position/items/equipment.",
+      "r28Evidence": [
+        "native-r28/normal-save-review.json"
+      ]
+    },
+    {
+      "id": "R02",
+      "feature": "匕首重登/原生鍵盤/圖示957",
+      "classification": "已解決",
+      "r27Current": "r27 正常 CMD、原生登入/選角/移動、正常保存重登已實測。",
+      "historicalEvidence": [
+        "r22-final-live/g02-dagger-native-keyboard-walk.json",
+        "r22-final-live/g02-dagger-normal-relogin.json",
+        "r22-final-live/fix-gift-icon-visible-state.json"
+      ],
+      "historicalR22Status": "r22直接實測",
+      "currentEvidence": [
+        "r27-targeted-live/current-status.json"
+      ],
+      "next": "保留 r27-targeted-live 證據；不重做登入接線。",
+      "wholeFeatureComplete": false,
+      "r28Current": "Dagger equip and new-process relogin persistence confirmed; native keyboard works. Icon visual acceptance remains unavailable.",
+      "r28Evidence": [
+        "native-r28/normal-save-review.json"
+      ]
+    },
+    {
+      "id": "R03",
+      "feature": "戰鬥/自然EXP與戰利品",
+      "classification": "僅驗收缺證",
+      "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+      "historicalEvidence": [
+        "r21-final-live/g02-combat-reward-reconciliation.json",
+        "r22-full-flow/g02-dwarf-light-arrow-kill.json",
+        "r22-full-flow/g02-zombie-live-melee.json",
+        "r22-full-flow/g02-postcombat-normal-home.json",
+        "r22-full-flow/g02-kill-loot-offline-db.json"
+      ],
+      "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+      "currentEvidence": [
+        "r27-scope-audit/root-service-source-review.json"
+      ],
+      "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+      "wholeFeatureComplete": false,
+      "r28Current": "Normal native offensive magic and melee killed floating eye2000004570; original corpse/target-clear and EXP+44 confirmed, actor survived. No loot observed; EXP save/relogin accepted. Natural EXP+44 persisted through normal close, offline DB and new-process relogin.",
+      "r28Evidence": [
+        "native-r28/cave-eye-combat-review.json",
+        "native-r28/cave-home-save-review.json"
+      ]
+    },
+    {
+      "id": "R04",
+      "feature": "技能學習/施法",
+      "classification": "僅驗收缺證",
+      "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+      "historicalEvidence": [
+        "r20-final-live/g03-learn-heal-and-normal-home.json",
+        "r21-final-live/g03-postcombat-normal-recovery.json",
+        "r22-full-flow/g03-shield-quote.json",
+        "r22-full-flow/g03-shield-learned.json",
+        "r22-full-flow/g03-shield-cast-after-relogin.json",
+        "r22-full-flow/g03-learn-cast-offline-db.json"
+      ],
+      "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+      "currentEvidence": [
+        "r27-scope-audit/root-service-source-review.json"
+      ],
+      "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+      "wholeFeatureComplete": false,
+      "r28Current": "Heal and shield actual replies/AC change; native skill-card assignment toF4 and offensive light-arrow gfx167 reply/MP reduction confirmed. Skill learning remains untested in r28. Native holy-weapon skill8 self-cast and1200s buff reply confirmed; damage bonus not measured.",
+      "r28Evidence": [
+        "native-r28/cave-eye-combat-review.json",
+        "native-r28/holy-weapon-review.json"
+      ]
+    },
+    {
+      "id": "R05",
+      "feature": "食物/藥水/裝備/地面拾取",
+      "classification": "僅驗收缺證",
+      "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+      "historicalEvidence": [
+        "r19-final-live/g04-food-use.json",
+        "r19-final-live/g04-native-p-pickup.json",
+        "r20-final-live/g04-haste-normal-use.json",
+        "r21-final-live/fix-dagger-normal-equipped.json",
+        "r22-full-flow/g04-main-food.json",
+        "r22-full-flow/g04-peer-green-used.json",
+        "r22-full-flow/g04-main-postcombat-recovery.json",
+        "r22-full-flow/g04-shield-off.json",
+        "r22-full-flow/g04-shield-on.json",
+        "r22-full-flow/g04-normal-meat-drop.json",
+        "r22-full-flow/g04-normal-meat-picked-up.json"
+      ],
+      "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+      "currentEvidence": [
+        "r27-scope-audit/root-service-source-review.json"
+      ],
+      "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+      "wholeFeatureComplete": false,
+      "r28Current": "Normal potions, food, equipment and save/relogin confirmed; native one-meat drop/P-pickup5->4->5 and offline save confirmed. Normal home scroll3->2, map1->map0 escape and persistence passed.",
+      "r28Evidence": [
+        "native-r28/ground-review.json",
+        "native-r28/cave-home-save-review.json"
+      ]
+    },
+    {
+      "id": "R06",
+      "feature": "NPC購買",
+      "classification": "僅驗收缺證",
+      "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+      "historicalEvidence": [
+        "r21-final-live/fix-merchant-normal-supply-purchase.json",
+        "r22-full-flow/g05-pandora-normal-supplies-purchase.json",
+        "r22-full-flow/g05-pandora-purchase-normal-relogin.json",
+        "r22-full-flow/g07-ticket-offline-db.json"
+      ],
+      "historicalR22Status": "r22潘朵拉正常買補給1144、重登與離線DB已驗",
+      "currentEvidence": [
+        "r27-scope-audit/root-service-source-review.json"
+      ],
+      "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+      "wholeFeatureComplete": false
+    },
+    {
+      "id": "R07",
+      "feature": "NPC正向出售",
+      "classification": "來源或條件限制",
+      "r27Current": "客戶端出售接線存在；固定 SQL 與本次唯讀實驗 DB 1631 列收購價全 -1。沒有正向報價條件。",
+      "historicalEvidence": [
+        "r21-final-live/g05-merchant-sell-quote.json"
+      ],
+      "historicalR22Status": "固定SQL與live DB全部1631商店收購價為-1，正向成交條件不成立",
+      "currentEvidence": [
+        "r27-scope-audit/npc-sale-current-db-prices.json"
+      ],
+      "next": "不改商店資料、不虛構正向成交；若日後有合法正向報價再驗。",
+      "wholeFeatureComplete": false
+    },
+    {
+      "id": "R08",
+      "feature": "玩家直接交易",
+      "classification": "僅驗收缺證",
+      "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+      "historicalEvidence": [
+        "r19-final-live/g06-direct-trade-resource-reconciliation.json",
+        "r20-final-live/g06-one-red-trade-completed.json",
+        "r22-full-flow/g06-trade-preconfirm.json",
+        "r22-full-flow/g06-trade-normal-relogin.json",
+        "r22-full-flow/g06-trade-offline-db.json"
+      ],
+      "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+      "currentEvidence": [
+        "r27-scope-audit/root-service-source-review.json"
+      ],
+      "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+      "wholeFeatureComplete": false
+    },
+    {
+      "id": "R09",
+      "feature": "私商正向購買",
+      "classification": "僅驗收缺證",
+      "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+      "historicalEvidence": [
+        "r19-final-live/g06p-buy-one-sapphire.json",
+        "r20-final-live/fix-private-normal-recovery-list.json",
+        "r22-full-flow/g06p-ruby-purchase.json",
+        "r22-full-flow/g06p-ruby-stock-after.json",
+        "r22-full-flow/g06p-ruby-normal-relogin.json"
+      ],
+      "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+      "currentEvidence": [
+        "r27-scope-audit/root-service-source-review.json"
+      ],
+      "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+      "wholeFeatureComplete": false
+    },
+    {
+      "id": "R10",
+      "feature": "私商正向回購",
+      "classification": "來源或條件限制",
+      "r27Current": "正向回購未驗；固定 AI 18 種條目皆要求 +7 武器，現有兩已用角色沒有匹配物。",
+      "historicalEvidence": [
+        "r19-final-live/g06p-sell-current-owned-quote.json"
+      ],
+      "historicalR22Status": "AI收購要求+7武器；現有物品不符合，正向回購未驗",
+      "currentEvidence": [
+        "r27-scope-audit/root-service-source-review.json"
+      ],
+      "next": "先有正常取得且符合需求的物品/買家；不灌裝備或新增開攤功能。",
+      "wholeFeatureComplete": false
+    },
+    {
+      "id": "R11",
+      "feature": "倉庫存取",
+      "classification": "僅驗收缺證",
+      "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+      "historicalEvidence": [
+        "r20-final-live/g06-warehouse-relogin-ten-preserved.json",
+        "r20-final-live/g06-warehouse-withdraw-six.json"
+      ],
+      "historicalR22Status": "r20直接實測",
+      "currentEvidence": [
+        "r27-scope-audit/root-service-source-review.json"
+      ],
+      "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+      "wholeFeatureComplete": false
+    },
+    {
+      "id": "R12",
+      "feature": "洞穴跨圖",
+      "classification": "僅驗收缺證",
+      "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+      "historicalEvidence": [
+        "r21-final-live/g02-dagger-cave-entry.json",
+        "r21-final-live/g09-dagger-normal-cave-exit.json",
+        "r22-full-flow/g09-main-normal-cave-entry.json",
+        "r22-full-flow/g09-main-cave-normal-relogin.json",
+        "r22-full-flow/g09-normal-cave-exit-before-town.json"
+      ],
+      "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+      "currentEvidence": [
+        "r27-scope-audit/root-service-source-review.json"
+      ],
+      "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+      "wholeFeatureComplete": false,
+      "r28Current": "Normal native map0->map1 entry and first map1 step independently reviewed:124+1steps,3map0 cache shifts,actual arrival32669,32802,HP686; further cave segments remain pending. Actual cave attempt stopped at map1step29 under pursuit; normal home-scroll escape alive. Further cave traversal not accepted. Caesar approach20steps/cache passed; configured spawn count0 and absent, no NPC transfer.",
+      "r28Evidence": [
+        "native-r28/cave-entry-review.json",
+        "native-r28/cave-home-save-review.json",
+        "native-r28/caesar-and-private-shop-review.json"
+      ]
+    },
+    {
+      "id": "R13",
+      "feature": "往返船運",
+      "classification": "僅驗收缺證",
+      "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+      "historicalEvidence": [
+        "r20-final-live/g07-outbound-arrival-ready.json",
+        "r21-final-live/g07-return-natural-arrival-ready.json"
+      ],
+      "historicalR22Status": "r22已實際遇首領堵路並安全撤離，仍未完成同版船運",
+      "currentEvidence": [
+        "r27-scope-audit/root-service-source-review.json"
+      ],
+      "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+      "wholeFeatureComplete": false,
+      "r28Current": "Port approach failed at step30 due dynamic gfx3101 pursuit and death; normal save/relogin recovery confirmed. Fixed18-cell southern alternative is unreachable. No r28 boarding/map4/audio acceptance.",
+      "r28Evidence": [
+        "native-r28/port-attempt-review.json"
+      ]
+    },
+    {
+      "id": "R14",
+      "feature": "旅館房間/會議廳",
+      "classification": "僅驗收缺證",
+      "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+      "historicalEvidence": [
+        "r19-final-live/g10-hall-enter.json",
+        "r19-final-live/g10-room-enter-and-walk.json",
+        "r19-final-live/g10-room-relogin-outside.json",
+        "r22-full-flow/g08-room-key-purchase.json",
+        "r22-full-flow/g08-room-walk-state.json",
+        "r22-full-flow/g08-room-normal-relogin.json",
+        "r22-full-flow/g08-hall-key-purchase.json",
+        "r22-full-flow/player-ui-priority-offline-db.json"
+      ],
+      "historicalR22Status": "r22房間與會議廳正常租入已驗，會議廳步行/主動出口尚未驗",
+      "currentEvidence": [
+        "r27-scope-audit/root-service-source-review.json"
+      ],
+      "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+      "wholeFeatureComplete": false,
+      "r28Current": "100 gold room rental/key, map16384 entry, native room movement and normal portal exit to map0 confirmed. Conference hall not retested in r28.",
+      "r28Evidence": [
+        "native-r28/inn-room-review.json"
+      ]
+    },
+    {
+      "id": "R15",
+      "feature": "鑰匙歷史精確刪除",
+      "classification": "歷史缺證",
+      "r27Current": "原到期規則與前後快照相符，舊鑰匙精確刪除時刻沒有直接紀錄。",
+      "historicalEvidence": [
+        "inn-key-independent-review/result.json",
+        "r21-final-live/g10-inn-key-readonly-db.json"
+      ],
+      "historicalR22Status": "規則/時間相符，非直接證明",
+      "currentEvidence": [
+        "r27-scope-audit/root-service-source-review.json"
+      ],
+      "next": "保留不可回補的歷史限制，不重建舊時刻或補鑰匙。",
+      "wholeFeatureComplete": false
+    },
+    {
+      "id": "R16",
+      "feature": "原生全視窗像素/滑鼠",
+      "classification": "僅待人工或工具恢復驗收",
+      "r27Current": "原生完整畫面/滑鼠未驗；既有支援恢復已失敗。",
+      "historicalEvidence": [
+        "r20-final-live/native-capture-retry-still-timeout.json"
+      ],
+      "historicalR22Status": "環境擷取逾時；未驗",
+      "currentEvidence": [
+        "r27-scope-audit/root-service-source-review.json"
+      ],
+      "next": "等可用擷取/座標輸入或人工實測；不得猜座標或重複無效恢復。",
+      "wholeFeatureComplete": false
+    },
+    {
+      "id": "R17",
+      "feature": "能力點",
+      "classification": "r28-normal-strength-submit-save-relogin-passed",
+      "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+      "historicalEvidence": [
+        "r20-final-live/g08-bonus-normal-relogin.json"
+      ],
+      "historicalR22Status": "r17/r20直接實測",
+      "currentEvidence": [
+        "native-r28/bonus-strength-save-review.json"
+      ],
+      "next": "Other attribute choices and native pixel/mouse verification remain outside this one-point acceptance.",
+      "wholeFeatureComplete": false,
+      "r28Current": "Normal native one-point Strength20->21; original reply21, normal close/offline save and new normal CMD/manual login21; guarded current DB Str21. No pre-submit DB stat capture. See bonus-strength-save-review.json."
+    },
+    {
+      "id": "R18",
+      "feature": "完整內容範圍/技能",
+      "classification": "來源或範圍決策限制",
+      "r27Current": "4 種施法、13 gfx/42 外觀、15 unavailable，物品/怪物仍有限；完整內容目標未達成。",
+      "historicalEvidence": [
+        "r22-final-live/result.json"
+      ],
+      "historicalR22Status": "仍有限，未支援內容不得外推",
+      "currentEvidence": [
+        "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-content-scope-audit-r1\\result.json"
+      ],
+      "next": "依原流程需要指定具體 skill/item/gfx 與充分來源，不批量擴充。",
+      "wholeFeatureComplete": false
+    },
+    {
+      "id": "R19",
+      "feature": "可重建固定交付",
+      "classification": "已解決",
+      "r27Current": "r27 15941 檔完整 SHA，最終 compiler source 與主管獨立重建一致、DLL一致，launcher 另獨立重建。",
+      "historicalEvidence": [
+        "r22-independent-review/result.json",
+        "r22-clean-delivery/rebuild-receipt.json"
+      ],
+      "historicalR22Status": "r22獨立重建通過",
+      "currentEvidence": [
+        "r27-package-root-review.json",
+        "r27-launcher-root-review.json"
+      ],
+      "next": "固定入口保留；不是完整 gameplay 驗收。",
+      "wholeFeatureComplete": false,
+      "r28Current": "Formal r28 sealed and independently rebuilt/reviewed; normal CMD started successfully.",
+      "r28Evidence": [
+        "formal-r28-review/root-review.json"
+      ]
+    },
+    {
+      "id": "R20",
+      "feature": "玩家HUD/快捷槽/圖示背包與技能",
+      "classification": "僅驗收缺證",
+      "r27Current": "HUD/快捷/背包技能與正常服務窗已整合；鍵盤部分有 r25–r27 實測，全視窗/滑鼠仍未驗。",
+      "historicalEvidence": [
+        "player-ui-priority-20261027.json",
+        "player-facing-integration-contract.json"
+      ],
+      "historicalR22Status": "隔離模組實作中，尚未整合或實機通過",
+      "currentEvidence": [
+        "player-hud-root-review.json",
+        "r27-targeted-live/current-status.json"
+      ],
+      "next": "不重派已完成實作；按未驗的原生 UI/滑鼠範圍驗收。",
+      "wholeFeatureComplete": false,
+      "r28Current": "Native HUD/items/skills: F2 home-scroll assignment and F4 light-arrow assignment confirmed through Tab/Space, actual offensive spell replied. Pixel acceptance remains unavailable.",
+      "r28Evidence": [
+        "native-r28/current-status.json"
+      ]
+    },
+    {
+      "id": "R21",
+      "feature": "原始玩家與NPC陰影",
+      "classification": "僅驗收缺證",
+      "r27Current": "原始透明與 13 gfx/42 外觀陰影已整合，原切片與離線 compositor 獨立核對，r27 真實場景已查看；全套原生畫面未驗。",
+      "historicalEvidence": [
+        "player-ui-priority-20261027.json",
+        "player-facing-integration-contract.json"
+      ],
+      "historicalR22Status": "隔離模組實作中，尚未整合或實機通過",
+      "currentEvidence": [
+        "shadow-original-slices-root-review.json",
+        "player-shadow-coverage-root-review.json",
+        "r27-targeted-live/g01-native-chat-movement-state.json"
+      ],
+      "next": "不重派已完成實作；按未驗的原生 UI/滑鼠範圍驗收。",
+      "wholeFeatureComplete": false
+    },
+    {
+      "id": "R22",
+      "feature": "原生滑鼠點地移動/攻擊/交談",
+      "classification": "僅驗收缺證",
+      "r27Current": "點地路徑及選取/攻擊/交談/拾取已整合；滑鼠工具不可用，實機指標動作未驗。",
+      "historicalEvidence": [
+        "player-ui-priority-20261027.json",
+        "player-facing-integration-contract.json"
+      ],
+      "historicalR22Status": "隔離模組實作中，尚未整合或實機通過",
+      "currentEvidence": [
+        "player-pointer-root-review.json",
+        "r27-targeted-live/current-status.json"
+      ],
+      "next": "不重派已完成實作；按未驗的原生 UI/滑鼠範圍驗收。",
+      "wholeFeatureComplete": false
+    },
+    {
+      "id": "R23",
+      "feature": "原生一般聊天",
+      "classification": "已解決",
+      "r27Current": "Enter 開啟/輸入隔離/單次原服回傳/草稿保留/Escape/F10/重登清空已實測。",
+      "currentEvidence": [
+        "r27-targeted-live/current-status.json"
+      ],
+      "next": "滑鼠聊天按鈕仍隨原生滑鼠驗收；不重做聊天接線。"
+    },
+    {
+      "id": "MAP-F1",
+      "feature": "非零 S32 L8 local resource loading/render",
+      "classification": "已解決（現有來源 profile）",
+      "r27Current": "L8 id/x/y/offset → MapEffectCatalog pinned SPR frames/metadata ticks → block.Effects → ComposeMapEffects → sorted commands/Blit。336 effects、4184 frames；非零不再一律拒絕。",
+      "limitation": "",
+      "next": "不派重做接線。",
+      "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json"
+    },
+    {
+      "id": "MAP-F2",
+      "feature": "local resource 區塊保留／淘汰／換圖生命週期",
+      "classification": "已解決（自有產品接線）",
+      "r27Current": "EffectsAt 隨區塊保留、只初始化一次；slot 淘汰移除；新 block 新 generation；換圖/取消 ResetOpacity、ReleaseMap 清 visuals；async commit 也 ActivateEffects。",
+      "limitation": "",
+      "next": "固定整合版的實際換區/換圖驗收；不以此聲稱原 BIN 全生命週期已復原。",
+      "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json"
+    },
+    {
+      "id": "MAP-F3",
+      "feature": "一般 S32 tile group/trigger/render/fade",
+      "classification": "已解決（現有來源 profile）",
+      "r27Current": "Groups/Triggers → OpacityCatalog → Move/Advance/Rebind → SceneBackground 與 Blit 的 transition/weighted RGB555 已存在。",
+      "limitation": "",
+      "next": "不要因舊 local actor 敘述重做已接通的地圖屋頂/群組 fade。",
+      "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json"
+    },
+    {
+      "id": "MAP-F4",
+      "feature": "map-local actor 的 associated group-id opacity/fade",
+      "classification": "確證實作缺項；來源關聯限制",
+      "r27Current": "MapLocalEffect 沒有 associatedGroupId；map-effect Draw.Group=-1；Publish 的 opacity nodes 只含 cache.Scene，沒有動態特效；Get 對它回傳 InitialFlags。故目前只有原始固定 blend，沒有 local-effect group fade。",
+      "limitation": "既有 P23 證據使用合成 associated objects，證實 numeric group-id 傳播但未證實真實非零 L8 record→actor association。不能把所有 map effects/server actors 綁到屋頂；也不能把 extension 當 group-id。未證明現行某張地圖應 fade 卻不 fade。",
+      "next": "本輪有限清單24760筆皆非extended；不推論全體不存在，不猜測補丁或擴研究。",
+      "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json",
+      "sourceContractRefinement": {
+        "id": "S1",
+        "classification": "來源限制；有限既有來源核對已完成",
+        "feature": "非零 map-local effect 與 group-id 的真實關聯",
+        "missing": "已有 extended L8→slot group→actor+612 鏈與合成 mode/alpha 證據；缺真實非零記錄的 group 關聯及最終 fade/render 對照。",
+        "next": "本輪有限清單24760筆皆非extended；不推論全體不存在，不猜測補丁或擴研究。",
+        "sourceReview": "r27-scope-audit/association-source-root-review.json"
+      }
+    },
+    {
+      "id": "MAP-F5",
+      "feature": "原地圖特效 animation event 的完整行為",
+      "classification": "6016正式整合已核定；正式世界音訊與其餘事件行為未完整驗收",
+      "r27Current": "137 個已封裝 effect 的137個 sequence步有非空token（^84、<45、[8）；Events被讀入，但 At/ComposeMapEffects只選frame，不消費token。舊HANDOFF明載聲音/子特效未執行。",
+      "limitation": "目前缺少事件語意、原資源引用與只觸發一次/循環/跨區淘汰的完整契約；token字元本身不能當作已證的聲音/子特效規格。",
+      "next": "由父監督指定新主管與新Goal後接續：6016來源/明示自有時鐘契約及音訊隔離候選已覆核，可派事件控制器實作並由唯一整合者串行整合；再做native音訊與固定同版完整流程驗證。舊主管已停止新派工；r27未整合音訊候選，整體未完成。",
+      "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json",
+      "sourceContractRefinement": {
+        "id": "S2",
+        "classification": "6016來源與自有政策已核定；事件控制器及候選整合未完成",
+        "feature": "137 個已封裝 effect 的非空事件 token",
+        "missing": "只對6016建立最小來源/設計契約並完成音訊候選。事件觸發控制器尚未實作或併入r27，native音訊未驗；其他token與原scheduler/highlight/loader等價未完成。",
+        "next": "由父監督指定新主管與新Goal後接續：6016來源/明示自有時鐘契約及音訊隔離候選已覆核，可派事件控制器實作並由唯一整合者串行整合；再做native音訊與固定同版完整流程驗證。舊主管已停止新派工；r27未整合音訊候選，整體未完成。",
+        "sourceContractReview": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-effect6016-minimal-contract-review\\root-review.json",
+        "audioCandidateReview": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-6016-audio-module-review\\root-review.json"
+      },
+      "r28Current": "6016 controller/audio/host integration sealed r28 and reviewed; standalone own-PID audio signal passed; formal world6016 native playback still pending; not all event tokens.",
+      "r28Evidence": [
+        "formal-r28-review/root-review.json"
+      ]
+    },
+    {
+      "id": "MAP-F6",
+      "feature": "所有地圖／特效來源涵蓋",
+      "classification": "來源或版本決策限制",
+      "r27Current": "154未封裝：141無動畫metadata、6frame dimensions拒絕、3archive版本歧義、3stationary direction未解、1多幀無序列。既有inventory與r27block交集有350區塊引用它們。",
+      "limitation": "",
+      "next": "按指定ID解來源／版本，保留嚴格拒絕；不能從舊笼統未完成敘述派重做整套。",
+      "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json"
+    },
+    {
+      "id": "MAP-F7",
+      "feature": "extended L8／SEG／完整地圖邊界",
+      "classification": "來源限制，非本輪確證可見回歸",
+      "r27Current": "非零extended欄仍拒絕；歷史已成功解析inventory與r27交集的23731筆使用均非extended，不能憑拒絕分支宣稱目前遇到故障。SEG現在已有map6/7fff8000唯一固定profile，不再是全部SEG未支援；另46個unsupportedBlocks、map4472尺寸矛盾、TIL4094缺檔仍存在。",
+      "limitation": "",
+      "next": "要擴充時先指定實際原檔及語意；不拿未知格式/extension=0通過推論非零欄已解。",
+      "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json"
+    },
+    {
+      "id": "MAP-F8",
+      "feature": "曾缺 ground/36 的乾淨交付",
+      "classification": "已解決",
+      "r27Current": "主管 result-fixed 已獨立通過；r27 ground36 JSON/PNG存在，且同時匹配integrity與seal。原失敗不再是現版本缺陷。",
+      "limitation": "",
+      "next": "不派修。",
+      "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json"
+    },
+    {
+      "id": "MAP-F9",
+      "feature": "已支援 nonzero effect 的實機顯示/切換/完整流程",
+      "classification": "僅驗收（已支援profile）；不能覆蓋F4–F7",
+      "r27Current": "歷史獨立乾淨build368 checks/4184像素frames/12圖為離線證據；MapEffects.cs與該審查來源SHA完全相同。r27整合記錄明載未重跑歷史套件及尚待主管native驗收。",
+      "limitation": "",
+      "next": "主管固定同版測map0船景、map4港口/倉庫可見特效、換區/返回清除；本輪不執行，不讓此驗收等待阻止F4/F5來源工作。",
+      "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json"
+    }
+  ],
+  "remaining": [
+    {
+      "id": "S1",
+      "classification": "來源限制；有限既有來源核對已完成",
+      "feature": "非零 map-local effect 與 group-id 的真實關聯",
+      "missing": "已有 extended L8→slot group→actor+612 鏈與合成 mode/alpha 證據；缺真實非零記錄的 group 關聯及最終 fade/render 對照。",
+      "next": "本輪有限清單24760筆皆非extended；不推論全體不存在，不猜測補丁或擴研究。",
+      "sourceReview": "r27-scope-audit/association-source-root-review.json"
+    },
+    {
+      "id": "S2",
+      "classification": "6016來源與自有政策已核定；事件控制器及候選整合未完成",
+      "feature": "137 個已封裝 effect 的非空事件 token",
+      "missing": "6016控制器已實作且獨立19/280通過，音訊r2已修退役競態，r3修正異步錯誤處理中；尚未產品整合，其他token保持未完成。",
+      "next": "完成r3獨立覆核後串行整合r28並實測。",
+      "sourceContractReview": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-effect6016-minimal-contract-review\\root-review.json",
+      "audioCandidateReview": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-6016-audio-module-review\\root-review.json"
+    },
+    {
+      "id": "S3",
+      "classification": "來源或範圍決策限制",
+      "feature": "未封裝地圖特效/格式、其他技能/外觀/物品/怪物",
+      "missing": "明確具體 ID 與同版原來源、完整動作/協定契約；不能以可解析數量推論全內容。",
+      "next": "由已授權正常流程實際必要性決定最小項，不依舊清單批量擴充。"
+    },
+    {
+      "id": "A1",
+      "classification": "同版整合驗收缺證，非功能未接線",
+      "feature": "r27 連續戰鬥/技能/物品/服務/跨圖與保存閉環",
+      "missing": "同一固定版本的完整連續遊戲及服務證據；歷史 r20–r22 不升格。",
+      "next": "主管持有唯一實機權；在已確認支援範圍內補必要串接，完整原生滑鼠段依工具/人工可用性完成。"
+    },
+    {
+      "id": "A2",
+      "classification": "僅待人工或工具恢復驗收",
+      "feature": "完整原生視窗、滑鼠/HUD 互動",
+      "missing": "2026-10-28 supported native get_window_state再次FrameArrived timeout；accessibility可讀、座標geometry仍不可用。",
+      "next": "保留精確失敗，不猜座標；整合後以有新證據的工具恢復繼續，未驗不勾完成。"
+    },
+    {
+      "id": "C1",
+      "classification": "原服/資源條件限制",
+      "feature": "NPC 正向出售、私商正向回購",
+      "missing": "目前 NPC 收購價全停用；現有資源無 +7 匹配物/已證買家。",
+      "next": "不改資料或授物來製造通過。"
+    },
+    {
+      "id": "H1",
+      "classification": "封存研究與歷史缺證",
+      "feature": "原 BIN 完整生命週期/真實可達性、舊鑰匙刪除時刻",
+      "missing": "既有研究/歷史證據界線。",
+      "next": "保留，不重啟封存漏洞研究，不補造歷史。"
+    }
+  ],
+  "directProductFixesReadyToImplement": [
+    {
+      "id": "P24-6016-event-integration",
+      "status": "controller-audio-accepted-host-r2-controls-active",
+      "baseline": "r27",
+      "scope": "Only effect6016; step-entry single candidate, preserved duplicate slot, generation cursor and per-ID cooldown; integrate reviewed native audio transport/WAVs in isolated next candidate.",
+      "sourceContract": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-effect6016-minimal-contract-r1\\contract.json",
+        "size": 13591,
+        "sha256": "f4fdfa8f342f58afed926142a5763d75b286644e2be7d3d628ddb1f98efd70aa"
+      },
+      "audioCandidateResult": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-6016-audio-module-r1\\result.json",
+        "size": 13063,
+        "sha256": "50e19c866542392eb5fb3b005e6af9532aa9ec854108a9f6c55820d0f0981da3"
+      },
+      "sourceReview": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-effect6016-minimal-contract-review\\root-review.json",
+        "size": 2578,
+        "sha256": "7b79d2094906dc9a7b2ac444c32974dd86c718d958cf04f306fff86ebbe5c304"
+      },
+      "audioReview": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-6016-audio-module-review\\root-review.json",
+        "size": 2354,
+        "sha256": "7aac0cf4c31b5e29797a992f5356537c8163b5749c4031b62ca61a4d1d4ea156"
+      },
+      "limitations": [
+        "Original scheduler/highlight/loader not equivalent",
+        "Formal host integration and same-version native full-flow incomplete",
+        "Actual COM calls are not proof of audible signal"
+      ],
+      "authority": "Local supervisor user-authorized 2026-10-28"
+    }
+  ],
+  "warning": "No new defects in targeted r27 run does not prove complete development. Not only waiting for manual testing.",
+  "sourceAudits": {
+    "r27-map-scope-audit-r1": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-map-scope-audit-r1\\result.json",
+      "sha256": "ba4c5294809196a1a44be6a7f9514169944f2f12ebbae32c8d4569401e6e1117"
+    },
+    "r27-content-scope-audit-r1": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-content-scope-audit-r1\\result.json",
+      "sha256": "ff4e5c5e6f2b94fcd679a7501432295a287b0447641d25d5994abfe797b58f4f"
+    }
+  },
+  "sourceFollowup": {
+    "utc": "2026-10-27T12:07:11.978457+00:00",
+    "status": "independently-reviewed-bounded-source-contract-insufficient",
+    "result": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-local-effect-association-source-r1\\result.json",
+    "resultSha256": "722664f2d64dc92a06f5d5a205a2b26f105a9ebc8301fec2a27d4da7773a9165",
+    "sourcePinsVerified": 19,
+    "realMapBytesVerified": true,
+    "knownExtendedFieldChainConfirmed": true,
+    "realGroupFadeRenderCaseMissing": true,
+    "productChanges": false,
+    "noExpandedResearch": true
+  },
+  "effect6016SourceReview": {
+    "utc": "2026-10-27T12:20:17.204845+00:00",
+    "status": "independently-reviewed-partial-original-event-contract",
+    "resultPath": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-effect6016-event-source-r1\\result.json",
+    "resultSha256": "61c5cde6d8d23925133a58764be10c4caa2785dad1a150758c8e64a955551c99",
+    "sourcesHashVerified": 21,
+    "independentlyInspected": [
+      "P04 round02 parser lines542-601",
+      "P04 round06 consumer lines267-313",
+      "P24 inherited general advance caller line121",
+      "r27 MapEffects.cs and ObjectRendering.cs"
+    ],
+    "proven": "6016 has ordered candidate slots [3332,1340,1340], count3, mode0; conditional original consumer chooses one slot using rand()%count. Keep duplicate slots.",
+    "notProven": [
+      "ID resource namespace and final resource consumer",
+      "6016 local actor update/trigger/eviction contract",
+      "end-to-end audio/child visual/fade behavior"
+    ],
+    "missingExactFunctionBodies": [
+      "VA0xA05E30 RVA0x605E30",
+      "VA0xF804B0 RVA0xB804B0",
+      "VA0xA060F0 RVA0x6060F0"
+    ],
+    "imageBase": "0x400000",
+    "doesNotEqualL8GroupAssociation": true,
+    "productImplementationAuthorized": false,
+    "productModified": false,
+    "historicalTestsRerun": false,
+    "f4Rescanned": false,
+    "wholeP24Complete": false
+  },
+  "updatedUtc": "2026-10-27T21:58:16.278116+00:00",
+  "effect6016SourceLocatorReview": {
+    "utc": "2026-10-27T12:45:27.258766+00:00",
+    "status": "bounded-existing-source-locator-independently-reviewed",
+    "review": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-effect6016-source-locator-review\\root-review.json",
+    "workerResultSha256": "e34855e6b48d1475a6c8dd52761c19c136370ff228aa8b3f1b55e40169d0718f",
+    "checkedIndexes": 67,
+    "presentTablePaths": 193,
+    "uniqueTableContents": 92,
+    "missingIndexedPaths": 27,
+    "requiredBodiesFound": 0,
+    "existingStaticLifecycleLocated": true,
+    "next": "在新隔離區複製已核對的 P01 IDB，定點匯出 A05E30、F804B0、A060F0、A4E5D0，核對同版 bytes/VA/RVA 與直接 xrefs，辨識接收端資源命名空間及 local actor 更新註冊；僅有直接證據需要時補具名 caller。此操作尚未執行；不重跑 F4、不擴為全圖逆向或封存研究。",
+    "nextOperationExecuted": false,
+    "productModified": false,
+    "wholeP24Complete": false
+  },
+  "effect6016TargetedExportReview": {
+    "utc": "2026-10-27T12:58:02.653071+00:00",
+    "status": "bounded-four-function-export-independently-reviewed-semantic-edges-open",
+    "review": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-effect6016-targeted-export-review\\root-review.json",
+    "workerResultSha256": "15ecb764b70a1f334fc1a37adc08c20c3b767f5115ab7a85e263161bb3e7d065",
+    "functionBodies": 4,
+    "pseudocodeSuccesses": 3,
+    "instructions": 379,
+    "bytes": 1297,
+    "originalIdbUnchanged": true,
+    "processesExited": [
+      74456,
+      68388
+    ],
+    "productModified": false,
+    "wholeP24Complete": false,
+    "minimalMissingEdges": [
+      {
+        "edge": "Selected numeric ID -> global context keyed lookup -> resource/table source",
+        "firstVisibleBoundary": "F804B0 calls F80130 at F804DF and F7FCC0 at F80521/F80541; initializer A05D80 reached from A05E30.",
+        "smallestQuestion": "Identify the backing table/source for this key. Do not infer it from F804B0 char pseudotype or queue/object allocation.",
+        "boundedFollowupCandidate": "Inspect F80130 / RVA B80130 for the key-to-table boundary first; initializer/table-population evidence only if that exact edge requires it."
+      },
+      {
+        "edge": "Selected numeric ID -> actor-owned context lookup/load -> executed operation",
+        "firstVisibleBoundary": "A060F0 calls A05410(arg_0) at A0618C and A06020(1,0,1) at A061C3.",
+        "smallestQuestion": "What resource A05410 resolves and what A06020 does to that resolved object.",
+        "boundedFollowupCandidate": "A05410 / RVA605410 is the direct lookup/load boundary; A06020 / RVA606020 only for the final operation semantics."
+      },
+      {
+        "edge": "A51920-created actor -> actual updater -> event-enabled A3EF40(1)",
+        "firstVisibleBoundary": "Existing A51920 obtains a new actor via A504A0, invokes vtable+0x40, and initializes with A3EF40(0). A4E5D0 itself does not expose scheduling.",
+        "smallestQuestion": "Which actor type/registration selects the updater for this local 6016 instance; then relate its existing slot cleanup to event policy.",
+        "boundedFollowupCandidate": "A504A0 / RVA6504A0 plus the specific returned type/registration edge, not all A3EF40 callers."
+      }
+    ]
+  },
+  "effect6016MinimalContractReview": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-effect6016-minimal-contract-review\\root-review.json",
+    "size": 2578,
+    "sha256": "7b79d2094906dc9a7b2ac444c32974dd86c718d958cf04f306fff86ebbe5c304"
+  },
+  "effect6016AudioCandidateReview": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-6016-audio-module-review\\root-review.json",
+    "size": 2354,
+    "sha256": "7aac0cf4c31b5e29797a992f5356537c8163b5749c4031b62ca61a4d1d4ea156"
+  },
+  "safeSupervisorHandoff": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-主管安全交接-20261027\\HANDOFF.md",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "current6016": {
+    "controller": "r1 independently accepted and integrated into sealed formal r28",
+    "audioR2": "owner fence independently rebuilt; asynchronous event defects still require r3",
+    "audioR3": "independently accepted 54 pins, deterministic DLL, 116 event assertions / 22 regressions / owner fence tests",
+    "hostAdapter": "r3 independently accepted and integrated into sealed formal r28; 307pins/root151/reviewer68+23",
+    "nativeR1": "Historical COM proof only; superseded own-PID r3 signal proof below; formal host6016 native playback still pending",
+    "nativeWindow": "FrameArrived timeout; pointer geometry unavailable; keyboard/accessibility available",
+    "signalMeter": "independently rebuilt 16 cases / 108 assertions and used on own diagnostic process",
+    "nativeR3": "own PID 1033 valid meter samples; half/quarter peak ratio 2.001718; mute and retired zero peak. No formal host or physical speaker acceptance",
+    "formalR28": "Sealed r12 delivery; root verified407nonbody/13957inventory/179exact source-web-audio matches; full-body receipt independently reviewed; normal CMD native runs recorded, current client online and latest state in native-r28/current-status.json"
+  },
+  "previousMatrixIdentity": {
+    "utc": "2026-10-27T12:01:33.700584+00:00",
+    "revision": "r27",
+    "sealSha256": "a333cc86191f23bc72590f5b2d6f2722339f8a90e769b64c1a2315d3b8e66f07",
+    "dllSha256": "1fdba73b5d52e6fb6b58e4fa1c9f18bfd8175cb31ac671c08ee819ce7062f4b1",
+    "entry": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r11\\delivery\\啟動新版客戶端.cmd"
+  },
+  "r28CurrentEvidence": "native-r28/current-status.json",
+  "versionPolicy": "Existing r27Current and historicalEvidence fields retain their original version; no automatic promotion to r28 runtime acceptance.",
+  "r28AdditionalServiceObservation": "Normal native one-point Strength20->21; original reply21, normal close/offline save and new normal CMD/manual login21; guarded current DB Str21. No pre-submit DB stat capture. See bonus-strength-save-review.json."
+}

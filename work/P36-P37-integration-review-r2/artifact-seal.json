@@ -1,0 +1,12 @@
+{
+  "schema": "p36-p37-r2-review-artifact-seal-v1",
+  "artifactManifest": {
+    "path": "artifact-manifest.json",
+    "size": 3267,
+    "sha256": "c6c53f4bbd18d3159cc2d5b443bcae2e5ce5454fb7f95ffddfb0825f8d6cfc9d"
+  },
+  "sourceSealSha256": "ea7fa24e8f18222a67625fbc65511ae3c44d366f26198f1c5cdcf9eff6cb70d4",
+  "sealedFiles": 20,
+  "decision": "accepted-for-p36-serial-source-build",
+  "actualP37InventoryAccepted": false
+}

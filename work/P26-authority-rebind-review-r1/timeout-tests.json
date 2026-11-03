@@ -1,0 +1,139 @@
+{
+  "classification": "independent synthetic only; no actual subprocess/product",
+  "cases": [
+    {
+      "id": 0,
+      "available": {
+        "stdout": true,
+        "stderr": true
+      },
+      "record": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-0\\attempt.json",
+        "size": 953,
+        "sha256": "1b4845be65398a9ebb87d525e99acdf484d181bc6254546b9764789da07943c2"
+      },
+      "stdout": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-0\\stdout",
+        "size": 11,
+        "sha256": "98f797d6b818202d3e752293f69e7d79a139703d80ee0fc72c854f95bb19068a"
+      },
+      "stderr": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-0\\stderr",
+        "size": 7,
+        "sha256": "093c12fc9ad567d0eb6856f911fad104d4375a20809906b47685e544441d8dfd"
+      },
+      "exceptionRethrown": true,
+      "collectionRefused": true,
+      "replayRefusedBeforeProcess": true
+    },
+    {
+      "id": 1,
+      "available": {
+        "stdout": true,
+        "stderr": false
+      },
+      "record": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-1\\attempt.json",
+        "size": 954,
+        "sha256": "8d18873ab9000e5bd29f8b7ddb60d3e21c6294d2a151645b2c4ee77b5fd2cb83"
+      },
+      "stdout": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-1\\stdout",
+        "size": 8,
+        "sha256": "9f761da9fc5c05ed81e4ea04745f7006e8de90a4b1f9ff5d57d68959ee74e2c8"
+      },
+      "stderr": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-1\\stderr",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exceptionRethrown": true,
+      "collectionRefused": true,
+      "replayRefusedBeforeProcess": true
+    },
+    {
+      "id": 2,
+      "available": {
+        "stdout": false,
+        "stderr": true
+      },
+      "record": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-2\\attempt.json",
+        "size": 954,
+        "sha256": "5d1be58e947f672461a6c064dc3454b7755d362be3db238cbfb550ba32cc6dc7"
+      },
+      "stdout": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-2\\stdout",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-2\\stderr",
+        "size": 8,
+        "sha256": "8dad6585c7bed5aa3d01dc274c221e0c114b9455d84aa79f63748b763eb3a7e5"
+      },
+      "exceptionRethrown": true,
+      "collectionRefused": true,
+      "replayRefusedBeforeProcess": true
+    },
+    {
+      "id": 3,
+      "available": {
+        "stdout": false,
+        "stderr": false
+      },
+      "record": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-3\\attempt.json",
+        "size": 955,
+        "sha256": "c5213108c3f176c0c15598ac92cf8b32f8dcf5da45340d601d76a27aa60d312b"
+      },
+      "stdout": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-3\\stdout",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-3\\stderr",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exceptionRethrown": true,
+      "collectionRefused": true,
+      "replayRefusedBeforeProcess": true
+    },
+    {
+      "id": 4,
+      "available": {
+        "stdout": true,
+        "stderr": true
+      },
+      "record": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-4\\attempt.json",
+        "size": 953,
+        "sha256": "221c2ec5adf1ccd61d8a7601a2bde4bbe005eefd940cf7a0c10382b2666b6afe"
+      },
+      "stdout": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-4\\stdout",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f\\timeout-4\\stderr",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exceptionRethrown": true,
+      "collectionRefused": true,
+      "replayRefusedBeforeProcess": true
+    }
+  ],
+  "realProcesses": 0,
+  "changedExecutionSupportTimeoutFixed": true,
+  "nestedSealedRebuildTimeoutFixed": false,
+  "nestedLimitation": "sealed rebuild.run retains no child command/partial raw files if its own subprocess.run times out; new outer execute_once cannot recover bytes captured only within that child process; failure must stop, never collect/replay",
+  "nestedSource": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\rebuild-overlay\\_integration\\r34\\rebuild.py",
+    "size": 9557,
+    "sha256": "c215fa684a04a1f2fb924b5b28cbf5c259837a11f8170e28e4e7392a42691927"
+  }
+}

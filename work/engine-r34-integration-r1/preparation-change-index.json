@@ -1,0 +1,106 @@
+[
+  {
+    "source": "reference/r33-prep/acceptance-materials.schema.json",
+    "sourceSha256": "c11c96f4ddb35abe9830ecc67bfc43a1daeb28108d12c3d3228982c431c9e683",
+    "prepared": "acceptance-materials.schema.json",
+    "preparedSha256": "9cd3b074ae8a053d1d2b578b491449b1f6635400243dbf2f106a6036badd5bac",
+    "patch": "changes/acceptance-materials.schema.json.patch",
+    "scope": "integration tooling only; no product/testbody changes"
+  },
+  {
+    "source": "reference/r33-prep/acceptance_gate.py",
+    "sourceSha256": "861fcc664cb619dd2925a62246c9d2044576a2aa124e5af0008d98bdda7ffdf4",
+    "prepared": "acceptance_gate.py",
+    "preparedSha256": "6e3dc2af6b3d54599196fdb1f175c91332e57755adf92b2520cbc1d1717ca08d",
+    "patch": "changes/acceptance_gate.py.patch",
+    "scope": "integration tooling only; no product/testbody changes"
+  },
+  {
+    "source": "reference/r33-prep/assertion_occurrences.py",
+    "sourceSha256": "0d6e245d1262cadd3a626789b037f2f3726cdcf2229fd71646551ed87488cb07",
+    "prepared": "assertion_occurrences.py",
+    "preparedSha256": "0d6e245d1262cadd3a626789b037f2f3726cdcf2229fd71646551ed87488cb07",
+    "patch": "changes/assertion_occurrences.py.patch",
+    "scope": "integration tooling only; no product/testbody changes"
+  },
+  {
+    "source": "reference/r33-prep/evidence_pins.py",
+    "sourceSha256": "4b135a0426d1a9140ecdcebff736e7d1325cebb7d3d135b3041616dcfc4355b9",
+    "prepared": "evidence_pins.py",
+    "preparedSha256": "4b135a0426d1a9140ecdcebff736e7d1325cebb7d3d135b3041616dcfc4355b9",
+    "patch": "changes/evidence_pins.py.patch",
+    "scope": "integration tooling only; no product/testbody changes"
+  },
+  {
+    "source": "reference/r33-prep/prepare_rebuild.py",
+    "sourceSha256": "61788ef2937855a694a947d7ed5680aa59ca3481171ac0b4fb714d37b8925a06",
+    "prepared": "prepare_rebuild.py",
+    "preparedSha256": "3c917e0b96f373b6e9f4dc3e6819b52c788bd194911f48b5c84a369fcbd519b6",
+    "patch": "changes/prepare_rebuild.py.patch",
+    "scope": "integration tooling only; no product/testbody changes"
+  },
+  {
+    "source": "reference/r33-prep/prepared/build-product.ps1",
+    "sourceSha256": "f63d3d0fe6eefd1173ccb0a1c6011155a59ec48d6d0dbb33b08b2a7fbec60d87",
+    "prepared": "prepared/build-product.ps1",
+    "preparedSha256": "9cc1cc15abd4df8772eb4419fe5060b1a60c8f9216324252411a99944bec628c",
+    "patch": "changes/prepared__build-product.ps1.patch",
+    "scope": "integration tooling only; no product/testbody changes"
+  },
+  {
+    "source": "reference/r33-prep/prepared/launch-product.ps1",
+    "sourceSha256": "40f86aecf3d4d7469da8093dc50ceb9a56bb4f71ed8c1203f18bbb9594afa5db",
+    "prepared": "prepared/launch-product.ps1",
+    "preparedSha256": "b0f855cedd9d58ba2abd25f033ac8a578aed50393bf4473ee77ba274412b357f",
+    "patch": "changes/prepared__launch-product.ps1.patch",
+    "scope": "integration tooling only; no product/testbody changes"
+  },
+  {
+    "source": "reference/r33-prep/prepared/rebuild_template_r33.py",
+    "sourceSha256": "1ff5956d66c85485f6bedca9de50fc3e3432939dd38df3507bd21c520cfc2a8d",
+    "prepared": "prepared/rebuild_template_r34.py",
+    "preparedSha256": "dd5d512d2fc48b07ac4dc7640fc9d2bba32e342a7445710e0cfc392dbc20ad5d",
+    "patch": "changes/prepared__rebuild_template_r33.py.patch",
+    "scope": "integration tooling only; no product/testbody changes"
+  },
+  {
+    "source": "reference/r33-prep/prepared/regression-plan-r33.json",
+    "sourceSha256": "8f071fd70fc12c92e4bf09c6aaff54f9a24d513e897408c37f8e0632d2544f0b",
+    "prepared": "prepared/regression-plan-r34.json",
+    "preparedSha256": "aaedac3090e7e2e3509fc43904a7e134030a53772b7c6b0d29b9fb08df9461b5",
+    "patch": "changes/prepared__regression-plan-r33.json.patch",
+    "scope": "integration tooling only; no product/testbody changes"
+  },
+  {
+    "source": "reference/r33-prep/prepared/release-layout-r33.json",
+    "sourceSha256": "83626438d8fa57d3d93220f1b3c7d691e211dd3f27c1c8f06c0a34279f0363af",
+    "prepared": "prepared/release-layout-r34.json",
+    "preparedSha256": "267e911c575ec9b9c869c670dd145457c8ba0a7ed88b1beb568c45bb9335414a",
+    "patch": "changes/prepared__release-layout-r33.json.patch",
+    "scope": "integration tooling only; no product/testbody changes"
+  },
+  {
+    "source": "reference/r33-prep/prepared/run_stage_r33.py",
+    "sourceSha256": "a16f2396f6ffd3639b6ff8c793f7e1fc68bc2821ad14fb4e146f0337a7cb395b",
+    "prepared": "prepared/run_stage_r34.py",
+    "preparedSha256": "d94a44d61789cec034d4c3252121940da55191e670594a8f3e389f5ddbc99acc",
+    "patch": "changes/prepared__run_stage_r33.py.patch",
+    "scope": "integration tooling only; no product/testbody changes"
+  },
+  {
+    "source": "reference/r33-prep/prepared/verify_release_r33.py",
+    "sourceSha256": "5738133d713b2cfb9adaa7dffc6b1d73f7053d2675a9e4ce81583c80a7708e59",
+    "prepared": "prepared/verify_release_r34.py",
+    "preparedSha256": "a20f3dfcaae5d24d098b6c60bf0fd7699c289afdf5e5cb366ffe80599f7b1d9f",
+    "patch": "changes/prepared__verify_release_r33.py.patch",
+    "scope": "integration tooling only; no product/testbody changes"
+  },
+  {
+    "source": "reference/r33-prep/run_next_stage.py",
+    "sourceSha256": "3a6804201069ee8cf59ac7013697b3520edee610dab6afcb4c7e126f6dd0f99b",
+    "prepared": "run_next_stage.py",
+    "preparedSha256": "d38efd031b688a43355ef48c423eed67838380cc694cbc32a3492e56913afa7b",
+    "patch": "changes/run_next_stage.py.patch",
+    "scope": "integration tooling only; no product/testbody changes"
+  }
+]

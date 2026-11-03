@@ -1,0 +1,8070 @@
+{
+  "kind": "static source mapping/count/reference assertions only",
+  "assertions": 1612,
+  "passed": 1612,
+  "checks": [
+    {
+      "id": "42-profile-identities",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "shadow-0-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-0-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-4-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-20-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-46-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-0-50-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "shadow-1-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-0-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-4-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-20-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1-50-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "shadow-37-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-0-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-4-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-37-20-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "shadow-48-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-0-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-4-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-20-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-48-50-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "shadow-61-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-0-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-4-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-20-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-61-50-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "shadow-734-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-0-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-4-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-734-20-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "shadow-1186-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-0-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-4-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-1186-20-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "shadow-2786-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-0-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-4-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2786-20-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "shadow-2796-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-0-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-4-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-2796-20-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "shadow-6650-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-0-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6650-20-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "shadow-6658-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-0-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-4-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6658-50-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "shadow-6661-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-0-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-4-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6661-50-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "shadow-6671-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-0-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-identity",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-32-metadata-steps",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-same-nominal-ticks",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-base-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-0-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-0-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-0-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-base-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-1-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-1-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-1-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-base-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-2-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-2-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-2-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-base-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-3-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-3-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-3-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-base-4",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-4-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-4-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-4-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-base-5",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-5-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-5-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-5-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-base-6",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-6-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-6-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-6-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-base-7",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-7-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-7-2",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-new-reference-7-3",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-shadow-terminal-only",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-shared-body-metadata",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "profile-6671-20-combat-supports",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "existing-r34-body-projection",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "minimal-coverage",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "base-reuse-cross-weapon-0",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "base-reuse-cross-weapon-1",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "base-reuse-cross-weapon-37",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "base-reuse-cross-weapon-48",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "base-reuse-cross-weapon-61",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "base-reuse-cross-weapon-734",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "base-reuse-cross-weapon-1186",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "base-reuse-cross-weapon-2786",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "base-reuse-cross-weapon-2796",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "base-reuse-cross-weapon-6650",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "base-reuse-cross-weapon-6658",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "base-reuse-cross-weapon-6661",
+      "pass_": true,
+      "details": null
+    },
+    {
+      "id": "base-reuse-cross-weapon-6671",
+      "pass_": true,
+      "details": null
+    }
+  ],
+  "productBuilds": 0,
+  "productRuntimeChecks": 0,
+  "nativeRuntimeChecks": 0
+}

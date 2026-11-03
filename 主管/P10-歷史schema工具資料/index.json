@@ -1,0 +1,444 @@
+{
+  "source": "C:\\Users\\CHAOREN\\.codex\\sessions\\2026\\10\\23\\rollout-2026-10-23T23-48-55-01a16973-7177-71b1-bb0b-02d7618b9a5c.jsonl",
+  "source_sha256": "5915e903155d51d311c1cee1e171d0e9f3d91bd2109afa01f3cfdfff7c17df71",
+  "classification": "Historical tool input data only; not executed and not authorization to replay old commands",
+  "records": [
+    {
+      "timestamp": "2026-10-23T15:54:29.449Z",
+      "call_id": "call_91101d8167c9419b990e74a0faa0d78d",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 5182,
+      "matches": [
+        "equipment_column_names.py"
+      ],
+      "sha256": "25e3463d26b7ad49ff33dfed36874630d2e0836e390fe0fb53237a4d43b1a2a9",
+      "file": "000-call_91101d8167c9419b990e74a0faa0d78d.txt",
+      "prefix": "text(await tools.apply_patch(\"*** Begin Patch\\n*** Add File: D:/lineage開發/1-伺服器/tools/equipment_column_names.py\\n+\\\"\\\"\\\"Reviewed S"
+    },
+    {
+      "timestamp": "2026-10-23T15:55:23.629Z",
+      "call_id": "call_ff1f9724dc954c3ba8ed9042efea1a10",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 5734,
+      "matches": [
+        "equipment_column_names.py",
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "fb706687a521c66e3308a443661fc34e59fcddfec594bc87367d74342ba39978",
+      "file": "001-call_ff1f9724dc954c3ba8ed9042efea1a10.txt",
+      "prefix": "text(await tools.apply_patch(\"*** Begin Patch\\n*** Add File: D:/lineage開發/1-伺服器/tools/apply_equipment_column_names.py\\n+\\\"\\\"\\\"One-"
+    },
+    {
+      "timestamp": "2026-10-23T15:57:35.975Z",
+      "call_id": "call_362b447c6f48477c950bff04ccf92631",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 12955,
+      "matches": [
+        "build_equipment_column_sql.py",
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "05fa4549e5941a7d56aa478a4003af9f3f241e42c16804be72c534dff499b571",
+      "file": "002-call_362b447c6f48477c950bff04ccf92631.txt",
+      "prefix": "text(await tools.apply_patch(\"*** Begin Patch\\n*** Add File: D:/lineage開發/1-伺服器/tools/build_equipment_column_sql.py\\n+\\\"\\\"\\\"Genera"
+    },
+    {
+      "timestamp": "2026-10-23T15:57:57.714Z",
+      "call_id": "call_f9fcd7336a9f46afa107f08a5d3a2ca4",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 720,
+      "matches": [
+        "build_equipment_column_sql.py"
+      ],
+      "sha256": "82acb0870c47f4e38b11d8f857379c68462c0637e56c3ac040c14cb7530369f0",
+      "file": "003-call_f9fcd7336a9f46afa107f08a5d3a2ca4.txt",
+      "prefix": "text(await tools.apply_patch(\"*** Begin Patch\\n*** Update File: D:/lineage開發/1-伺服器/tools/build_equipment_column_sql.py\\n@@\\n-     "
+    },
+    {
+      "timestamp": "2026-10-23T16:00:21.503Z",
+      "call_id": "call_ec156fe927a449faa72eeff2b5206b27",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 12817,
+      "matches": [
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "a6b8bc2567a994c3a61d96e3ee6cad37a92298f335189d74b263922a99b27a51",
+      "file": "004-call_ec156fe927a449faa72eeff2b5206b27.txt",
+      "prefix": "text(await tools.apply_patch(\"*** Begin Patch\\n*** Add File: D:/lineage開發/1-伺服器/tests/verify_equipment_columns.py\\n+\\\"\\\"\\\"Real MyS"
+    },
+    {
+      "timestamp": "2026-10-23T16:08:09.666Z",
+      "call_id": "call_c74d2383906142718b84662d6a87a3dc",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 757,
+      "matches": [
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "9b2441ed03cfe45dc7d28a20e406d16259075722a1fd8f80f390219a0c2cad5b",
+      "file": "005-call_c74d2383906142718b84662d6a87a3dc.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"Get-CimInstance Win32_Process -Filter \\\"Name='mysqld.exe'\\\" | Where-Object { $_.CommandLine -l"
+    },
+    {
+      "timestamp": "2026-10-23T16:10:38.778Z",
+      "call_id": "call_69a8d36d8335461097a642bfc35bc620",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 4520,
+      "matches": [
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "09b69b2b96df81d5841371eec121d25dcbf571ea4e49598e3f678dc8b5bf495f",
+      "file": "006-call_69a8d36d8335461097a642bfc35bc620.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"$env:PYTHONIOENCODING='utf-8'; @'\\nfrom pathlib import Path\\nimport json,re\\np=Path('db/380_db"
+    },
+    {
+      "timestamp": "2026-10-23T16:14:34.373Z",
+      "call_id": "call_0735da1d3ff34fa2a4f761c38f780313",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 5960,
+      "matches": [
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "4e19f795ca9996200cbc79a99cfa04267dcf7cf4f9521c0064a77d8fb5d49755",
+      "file": "007-call_0735da1d3ff34fa2a4f761c38f780313.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"$env:PYTHONIOENCODING='utf-8'; @'\\nfrom pathlib import Path\\nimport re,json\\nroot=Path('.');ma"
+    },
+    {
+      "timestamp": "2026-10-23T16:19:51.686Z",
+      "call_id": "call_bca933bf38924af784223ff53f666657",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 833,
+      "matches": [
+        "build_equipment_column_sql.py"
+      ],
+      "sha256": "109f3943fcacfdc7b876028f6b86096804bea689b93ac2ee64765485a2fa3ae6",
+      "file": "008-call_bca933bf38924af784223ff53f666657.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"$env:PYTHONIOENCODING='utf-8'; python tests/verify_card_set_proc_sql.py --mysql-home D:/codex-"
+    },
+    {
+      "timestamp": "2026-10-23T16:21:02.196Z",
+      "call_id": "call_567ca7eb8d0b405d97e592d3f037c4a9",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 1325,
+      "matches": [
+        "build_equipment_column_sql.py"
+      ],
+      "sha256": "77df4374d6c98ed29a5744f0094780bbc4acd10dda499f1fa50ced5b21f74a66",
+      "file": "009-call_567ca7eb8d0b405d97e592d3f037c4a9.txt",
+      "prefix": "text(await tools.apply_patch(\"*** Begin Patch\\n*** Update File: D:/lineage開發/1-伺服器/tools/build_equipment_column_sql.py\\n@@\\n-    r"
+    },
+    {
+      "timestamp": "2026-10-23T16:23:18.030Z",
+      "call_id": "call_9b2da7395d5b40149e7a96ece6a740b2",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 3618,
+      "matches": [
+        "build_equipment_column_sql.py"
+      ],
+      "sha256": "d3de2e3c9fdbf9df4550019ae73a67d7469c7719ae6a11db381d0f1d4a066cb9",
+      "file": "010-call_9b2da7395d5b40149e7a96ece6a740b2.txt",
+      "prefix": "text(await tools.apply_patch(\"*** Begin Patch\\n*** Update File: D:/lineage開發/1-伺服器/tools/build_equipment_column_sql.py\\n@@\\n-  DEC"
+    },
+    {
+      "timestamp": "2026-10-23T16:31:20.409Z",
+      "call_id": "call_4e910afab5f6441298b6dcf4e8b78994",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 3671,
+      "matches": [
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "564729298891b3a17769b734d3753d4f2ce3274aa5fbd4785c4d3fdb85501669",
+      "file": "011-call_4e910afab5f6441298b6dcf4e8b78994.txt",
+      "prefix": "text(await tools.apply_patch(\"*** Begin Patch\\n*** Update File: D:/lineage開發/1-伺服器/docs/裝備欄位中文化.md\\n@@\\n 未覆蓋：使用者現有資料庫的實際 schema／外部"
+    },
+    {
+      "timestamp": "2026-10-23T16:32:47.052Z",
+      "call_id": "call_44f8433e4cd243d88cd446ee54b9c968",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 318,
+      "matches": [
+        "build_equipment_column_sql.py"
+      ],
+      "sha256": "d8cb04cdc4ad75ba320930263f6536c43138b9cc6bf0491338e646d04ee13310",
+      "file": "012-call_44f8433e4cd243d88cd446ee54b9c968.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"Get-Content docs/裝備欄位中文化.md -Encoding UTF8; Get-Content tools/build_equipment_column_sql.py -E"
+    },
+    {
+      "timestamp": "2026-10-23T16:35:21.151Z",
+      "call_id": "call_251b036b9c0341d09749e7a102431d1f",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 274,
+      "matches": [
+        "build_equipment_column_sql.py"
+      ],
+      "sha256": "d6a8d1cf26d8c9a1002790302c9e6e78e938597bb0125eb12f81e67d853c3b3c",
+      "file": "013-call_251b036b9c0341d09749e7a102431d1f.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"Get-Content -LiteralPath 'target/equipment-columns-20261023/delivery-manifest.json' -TotalCoun"
+    },
+    {
+      "timestamp": "2026-10-23T16:35:30.498Z",
+      "call_id": "call_e4e3a74a9ab945a786c9500ae0a7eba7",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 630,
+      "matches": [
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "d38ea725ac1210d358dab914269de454f58a510c78a7ae0d2de3d6d53f254fb5",
+      "file": "014-call_e4e3a74a9ab945a786c9500ae0a7eba7.txt",
+      "prefix": "const r=await Promise.allSettled([\ntools.exec_command({cmd:\"Get-Content -LiteralPath 'tests/verify_equipment_columns.py' -TotalCou"
+    },
+    {
+      "timestamp": "2026-10-23T16:36:15.107Z",
+      "call_id": "call_10cac7290ff24d7a84c33cc0e29768c5",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 397,
+      "matches": [
+        "equipment_column_names.py"
+      ],
+      "sha256": "c2b1dfeb98417fef0a8b46c761327662ba91e263bd879a02f8a5efc6d33b2f50",
+      "file": "015-call_10cac7290ff24d7a84c33cc0e29768c5.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"rg -n '^#{1,4} |候選|禁止.*(資料|核心)|SQL|驗證' '伺服器開發規範.md' | Select-Object -First 65; Get-Content -Li"
+    },
+    {
+      "timestamp": "2026-10-23T16:36:30.728Z",
+      "call_id": "call_36a68e34f093481a8e0ed19b39fbe49c",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 1334,
+      "matches": [
+        "build_equipment_column_sql.py"
+      ],
+      "sha256": "5ebe8899681f5451c21f1369721426e4b58c7d6b8fce8b93e2b9090bf88a4e0f",
+      "file": "016-call_36a68e34f093481a8e0ed19b39fbe49c.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"@'\\nimport sys\\nsys.path.insert(0,'tests')\\nfrom verify_equipment_columns import schema\\nfrom "
+    },
+    {
+      "timestamp": "2026-10-23T16:36:41.997Z",
+      "call_id": "call_9508bdd530844570bd032e3c689b2a93",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 259,
+      "matches": [
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "53c960c626c1f3d7a7f9f67747729f78c1130f046477731c0372e9e004e897ee",
+      "file": "017-call_9508bdd530844570bd032e3c689b2a93.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"@'\\nimport json\\nfrom pathlib import Path\\nm=json.loads(Path('db/維護工具/20261023_裝備欄位對照.json').r"
+    },
+    {
+      "timestamp": "2026-10-23T16:37:13.407Z",
+      "call_id": "call_e5ba6eb451ba4129bcab105620797f7e",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 2267,
+      "matches": [
+        "build_equipment_column_sql.py"
+      ],
+      "sha256": "b1065edc608db7a56f7b47875cd983fd0a0b3dca56ee544370ab64af9d08d613",
+      "file": "018-call_e5ba6eb451ba4129bcab105620797f7e.txt",
+      "prefix": "text(await tools.apply_patch(\"*** Begin Patch\\n*** Update File: D:/lineage開發/1-伺服器/tests/verify_equipment_columns.py\\n@@\\n-       "
+    },
+    {
+      "timestamp": "2026-10-23T16:39:52.015Z",
+      "call_id": "call_43c361e92c01466bab5d044d0a228b13",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 567,
+      "matches": [
+        "equipment_column_names.py"
+      ],
+      "sha256": "762e8be079bc44ec53b73faceaab3f95bb6f1e69d33dc63ef864fbbacedf36e5",
+      "file": "019-call_43c361e92c01466bab5d044d0a228b13.txt",
+      "prefix": "const r=await Promise.allSettled([90681,6922,99978].map(session_id=>tools.write_stdin({session_id,chars:\"\",yield_time_ms:1000,max_"
+    },
+    {
+      "timestamp": "2026-10-23T16:40:33.593Z",
+      "call_id": "call_c306e395e35347c59ac5dd574d2bed1f",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 2570,
+      "matches": [
+        "equipment_column_names.py"
+      ],
+      "sha256": "558bd9dd8e59f4fcafff37d6decf4745a25ea4374fab56cdf1c97a2f63cf0664",
+      "file": "020-call_c306e395e35347c59ac5dd574d2bed1f.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"rg --files tools | rg 'equipment|column'; rg -n '道具編號' src/com/lineage/server/datatables/ItemT"
+    },
+    {
+      "timestamp": "2026-10-23T16:43:40.245Z",
+      "call_id": "call_136a6820c6bd48728b3ace94860e2fd6",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 2324,
+      "matches": [
+        "build_equipment_column_sql.py",
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "a9f6b1b423ca67bcb43dc086fc9a98b9e78a4a1d84119250f78766850c967cef",
+      "file": "021-call_136a6820c6bd48728b3ace94860e2fd6.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"@'\\nfrom pathlib import Path\\nimport sys,json,re\\nsys.path.insert(0,'tests')\\nfrom verify_equi"
+    },
+    {
+      "timestamp": "2026-10-23T16:44:56.672Z",
+      "call_id": "call_7541c82e950d4c27a01e9fef832256b0",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 1870,
+      "matches": [
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "420ee0219d8a953263204bdf9c86d2a80858c0954a6a1c462ee65bccec817a62",
+      "file": "022-call_7541c82e950d4c27a01e9fef832256b0.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"@'\\nfrom pathlib import Path\\nimport json,re,sys,shutil,hashlib\\nsys.stdout.reconfigure(encodi"
+    },
+    {
+      "timestamp": "2026-10-23T16:47:52.337Z",
+      "call_id": "call_ecd959c561af4891b5522164390ace22",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 4465,
+      "matches": [
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "5fd7950163c700eca6c1c418f1ae2b86b71459f1a87d00cf9c7ba293218aaef5",
+      "file": "023-call_ecd959c561af4891b5522164390ace22.txt",
+      "prefix": "text(await tools.apply_patch(\"*** Begin Patch\\n*** Add File: D:/lineage開發/1-伺服器/target/equipment-columns-review-20261024/package_r"
+    },
+    {
+      "timestamp": "2026-10-23T16:50:40.693Z",
+      "call_id": "call_024b59501eac46749e213969c08cbcb9",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 932,
+      "matches": [
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "abe19746c01ead6e4c742fe07a891cb7b0b19cb52b5ca3dd15519080d9a69ff0",
+      "file": "024-call_024b59501eac46749e213969c08cbcb9.txt",
+      "prefix": "text(await tools.write_stdin({session_id:99493,chars:\"\",yield_time_ms:1000,max_output_tokens:700}));\ntext(await tools.exec_command"
+    },
+    {
+      "timestamp": "2026-10-23T17:49:12.614Z",
+      "call_id": "call_3b5559efb978487f8012fab6e423dbb7",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 251,
+      "matches": [
+        "equipment_column_names.py",
+        "build_equipment_column_sql.py"
+      ],
+      "sha256": "2a4a160265098e4d0f85317dd8d52fbd02e3c5d49a1919fd4fd63bc49ae760d2",
+      "file": "025-call_3b5559efb978487f8012fab6e423dbb7.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"Get-Content -LiteralPath 'tools/build_equipment_column_sql.py' -TotalCount 225; Get-Content -L"
+    },
+    {
+      "timestamp": "2026-10-23T17:49:26.435Z",
+      "call_id": "call_99af15eb292b45b7bc701e4dfa9e536d",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 425,
+      "matches": [
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "699c614468290ee00a91c56a3574133675dca66c507416994dbf77e935b906f0",
+      "file": "026-call_99af15eb292b45b7bc701e4dfa9e536d.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"@'\\nfrom pathlib import Path\\nimport json\\np=Path('db/維護工具/20261023_裝備欄位中文化/01_改名.sql')\\ns=p.r"
+    },
+    {
+      "timestamp": "2026-10-23T17:50:32.638Z",
+      "call_id": "call_557ea6191bd94a058edc4d3bec5e3af3",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 2034,
+      "matches": [
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "89230dff4e6202a521323dc82440b601f9cd71883639f6d81e7924b0c59360dd",
+      "file": "027-call_557ea6191bd94a058edc4d3bec5e3af3.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"@'\\nfrom pathlib import Path\\nimport json,collections\\nroot=Path.cwd();out=root/'target/equipm"
+    },
+    {
+      "timestamp": "2026-10-23T18:14:23.637Z",
+      "call_id": "call_862b9ba8302a4f3587ce03d336dd32f6",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 304,
+      "matches": [
+        "build_equipment_column_sql.py",
+        "20261023_裝備欄位對照.json"
+      ],
+      "sha256": "f0fc1ff9bba303d7a07f90d0a5aa0b687b25c7cf2f3e246517c70b721f775849",
+      "file": "028-call_862b9ba8302a4f3587ce03d336dd32f6.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"rg -n 'Foreign keys exist|KEY_COLUMN_USAGE|REFERENCED_TABLE_SCHEMA' tools/build_equipment_colu"
+    },
+    {
+      "timestamp": "2026-10-23T18:16:13.555Z",
+      "call_id": "call_1f53da3d4988474c904daec29116f337",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 1180,
+      "matches": [
+        "build_equipment_column_sql.py"
+      ],
+      "sha256": "be108cb53605dcd26ddbeddc00aa7f1ed9fd992636478bdf24d2747b39b92e61",
+      "file": "029-call_1f53da3d4988474c904daec29116f337.txt",
+      "prefix": "text(await tools.apply_patch(\"*** Begin Patch\\n*** Update File: D:/lineage開發/1-伺服器/tools/build_equipment_column_sql.py\\n@@\\n   SEL"
+    },
+    {
+      "timestamp": "2026-10-23T18:18:55.736Z",
+      "call_id": "call_4f958090df774c128ec40b7086400f6f",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 1568,
+      "matches": [
+        "20261024_裝備欄位中文化_外鍵修正版.sql"
+      ],
+      "sha256": "7d4e14f4ac42db821811bdd92160593461787f382e1a59ebb20987a1bf6f14d2",
+      "file": "030-call_4f958090df774c128ec40b7086400f6f.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"@'\\nfrom pathlib import Path\\nroot=Path.cwd();out=root/'target/equipment-columns-review-202610"
+    },
+    {
+      "timestamp": "2026-10-23T18:20:01.842Z",
+      "call_id": "call_c0235e3bafe74588b5574523e455a7cb",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 2302,
+      "matches": [
+        "20261024_裝備欄位中文化_外鍵修正版.sql"
+      ],
+      "sha256": "e4f90963b17968c5ef2cfd6b6817af8183a7752ba082bc0968c363477596eec7",
+      "file": "031-call_c0235e3bafe74588b5574523e455a7cb.txt",
+      "prefix": "text(await tools.exec_command({cmd:\"@'\\nfrom pathlib import Path\\nimport json,hashlib,zipfile\\nroot=Path.cwd();out=root/'target/eq"
+    },
+    {
+      "timestamp": "2026-10-23T18:36:50.937Z",
+      "call_id": "call_267185ab0ad44ad0a9576a9d09490660",
+      "tool": "exec",
+      "type": "custom_tool_call",
+      "length": 2676,
+      "matches": [
+        "equipment_column_names.py",
+        "build_equipment_column_sql.py",
+        "20261023_裝備欄位對照.json",
+        "20261024_裝備欄位中文化_外鍵修正版.sql"
+      ],
+      "sha256": "3437d5d8534f7244c86b4bd4db2e1f87d8d923bc4f38ae1a22736180f15b2b7b",
+      "file": "032-call_267185ab0ad44ad0a9576a9d09490660.txt",
+      "prefix": "const rel=[\n\"target/equipment-columns-20261023\",\"target/equipment-columns-review-20261024\",\n\"target/candidates/equipment-columns-2"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "decision": "rejected-repair-required",
+  "candidateId": "ENGINE-SLOW-IMPL-R1",
+  "candidateSealSha256": "bf22ad09f0d2b2940dfb295680d363287b56a253249f128de393520b562dac61",
+  "finding": "F1",
+  "independentReview": true,
+  "rootSourceInspection": true,
+  "reviewSourcePinsVerified": 490,
+  "reviewArtifactPinsVerified": 129,
+  "evidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r1\\result.json",
+      "sha256": "86449983e05898ffc18b486ee7f7c38f7313a23405635b842f8134065eb04360"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r1\\findings.json",
+      "sha256": "b9f5552393c97ccc0299a2250ed687a32309da07307f60e3cd9a165db19c95e7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r1\\artifact-manifest.json",
+      "sha256": "56af38fd61e94cfed95d5c7c9b9df1c95032ac0359a811d8b757efa02669174e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r1\\repro-baseline.json",
+      "sha256": "e982524df243678b10e467397b66a63348241947b932d27e542c530d0316d3dc"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r1\\repro-candidate.json",
+      "sha256": "27d88961bfc2f3066a3d3d4cf3c84a2891f6c401fd490c51b5a7cd7554d51fc2"
+    }
+  ],
+  "sharedMergeAuthorized": false
+}

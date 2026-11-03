@@ -1,0 +1,88 @@
+{
+  "policyId": "OWN-BASE-15-001",
+  "method": "EmbeddedResource under new source/Resources; not generated or integrated this task",
+  "proposedPath": "source/Resources/pickup-own-base15-gfx0-weapon0.json",
+  "logicalName": "P06.Resources.PickupOwnBase15Gfx0Weapon0.json",
+  "proposedCsprojItem": "<EmbeddedResource Include=\"Resources/pickup-own-base15-gfx0-weapon0.json\" LogicalName=\"P06.Resources.PickupOwnBase15Gfx0Weapon0.json\" />",
+  "canonicalSerialization": "UTF8, no BOM/newline, JSON keys sorted, ensure_ascii=False, compact separators comma/colon; asset_plan.py payload expression",
+  "prospectiveResourceBytes": 239766,
+  "prospectiveResourceSha256": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90",
+  "payloadWritten": false,
+  "pixelPayloadsDecoded": false,
+  "requiredBodyFrames": 32,
+  "embeddedNewBodyFrames": 24,
+  "reuseBaseFrames": 8,
+  "baseProfile": "objects/0.json",
+  "baseProfileSha256": "27ab41e8a398eb180ce957d9215b2c9b5cf6bf5343b32f6c101757b8882efdf8",
+  "minimalInventory": "minimal-frame-inventory.json",
+  "newSourceBlockFiles": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-88.json",
+      "size": 261720,
+      "sha256": "16b8a5dd94ee07644f656eabfe641b3fcfc059026bb35be8cd3466046beb84c1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-89.json",
+      "size": 211865,
+      "sha256": "b720a08966cea3661c0e3e9c63dd2d4e838552a5cde0e7096cfa8534ddb3c812"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-90.json",
+      "size": 262884,
+      "sha256": "6a5fab688ed0fc022fd0f48fb64ebe3e8a96026cde4b5bbd544da61482554ed7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-91.json",
+      "size": 278383,
+      "sha256": "142000a2237e6120ab9bee0410c70368f41d782f30ac4ce3206d5934b8b373ff"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-92.json",
+      "size": 236734,
+      "sha256": "d8d8a68adc364098d574ae1059bd85db02c88f2f21ba95103c51a1890de45697"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-93.json",
+      "size": 167164,
+      "sha256": "acabcc4b44c4cb74099d5536fa1f1b97c03ac2c96d1f4d3fc392e90c49eef10f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-94.json",
+      "size": 220354,
+      "sha256": "0fe000f6ef832d19c074a6c13c2cbe3338e052fda51fa9375427683e05248d5f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-asset-source-r1\\blocks\\3225-95.json",
+      "size": 265472,
+      "sha256": "093a65edbb0a8972738d30f171e10cf6e2cf88b83d629dd6405af421cc267fcf"
+    }
+  ],
+  "doNotShip": [
+    "whole asset source package",
+    "SPR/PNG/RGBA reference images",
+    "block audit offsets/palette evidence in runtime payload",
+    "duplicate8existing frame0 bodies",
+    "whole29MB objects/0.json copy"
+  ],
+  "identity": "Each frame retains exact source identity tier in inventory. Source pixel acceptance does not prove archive/BIN version match; historical/current-only distinction preserved.",
+  "runtimeChecks": [
+    "Read own embedded manifest by exact logical name and verify expected hash before parsing",
+    "Validate schema,gfx0,weapon0,sprite3225,base-profile hash,8directions,24unique new keys and32references",
+    "x/y within0..23,RGB555 within0..32767; opaque black0 remains a written pixel; bounds/order preserved",
+    "Create separate pickup frame dictionary; do not alter cached base ObjectAppearance or global players manifest"
+  ],
+  "shadowPolicy": "Call existing exact-key shadow lookup only. If pickup key has no qualified shadow, leave it unshadowed as existing PlayerShadowCatalog policy. Remove old idle shadow while overlaying new body; never synthesize or borrow a shadow. Body-only acceptance remains explicit.",
+  "integrationPins": [
+    "new resource file hash/size in candidate source manifest",
+    "OfflineClient.csproj exact bytes",
+    "compiled product DLL hash containing resource",
+    "future build/load checks with resource stream hash matching this prospective hash"
+  ],
+  "immutableRoots": [
+    "engine/assets junction",
+    "releases/r28 assets/hardlinks",
+    "final r32 assets",
+    "original players/manifest.json"
+  ],
+  "fallback": "Resource/schema/hash/key failure suppresses pickup overlay; normal authoritative handling unchanged"
+}

@@ -1,0 +1,57 @@
+{
+  "utc": "2026-10-29T08:21:21.077552+00:00",
+  "source": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-local-effect-association-source-r1\\result.json",
+    "size": 12805,
+    "sha256": "722664f2d64dc92a06f5d5a205a2b26f105a9ebc8301fec2a27d4da7773a9165"
+  },
+  "observedStatus": "bounded-source-contract-check-complete-insufficient-for-real-case-fade-implementation",
+  "knownChain": [
+    {
+      "link": "extended L8 dword → slot group array",
+      "established": true,
+      "evidence": [
+        "p23-contract",
+        "p23-scope",
+        "loader"
+      ],
+      "detail": "既有解出文字顯示tail count高bit選extended，附加dword存dword_1545150[6*slot][ordinal]；是既有來源證據，非本輪猜extension。"
+    },
+    {
+      "link": "slot local-resource entry → actor +612",
+      "established": true,
+      "evidence": [
+        "assignment",
+        "accepted-assignment"
+      ],
+      "detail": "F0E9B0既有文字建立/查找local actor，再把對應slot group值寫actor+612；獨立收據已核賦值指令。"
+    },
+    {
+      "link": "numeric group-id → mode/alpha transitions",
+      "established": true,
+      "scope": "synthetic associated objects only",
+      "evidence": [
+        "accepted-fade"
+      ],
+      "detail": "group117的關聯物件alpha31→16→31；group97到mode2/alpha0再恢復；FFFFFFFF對照不變。不可把合成117/97套到6016。"
+    },
+    {
+      "link": "real nonzero L8 case → specific associated group-id → expected fade/render",
+      "established": false,
+      "evidence": [
+        "inventory",
+        "real-block",
+        "accepted-fade"
+      ],
+      "detail": "查得真實6016記錄但非extended，沒有record內group值；既有fade收據沒有該record/actor對照，也沒有本案例最後renderer alpha輸出的對應證據。"
+    }
+  ],
+  "missingEvidence": [
+    "同版本實際非零L8 record與被建立local actor的group-id賦值對照（例如一筆已接受extended record；本輪有限集合未提供）。",
+    "該真實group-id所對應的trigger/group/type及預期mode/alpha進程；不能用合成117/97代替。",
+    "該真實local actor在最終render中消費上述mode/alpha的已接受來源契約；既有傳播trace不是其render證明。"
+  ],
+  "decision": "No new targeted source lead identified in accepted finite audit; no repeat inventory or implementation dispatched",
+  "noNewResearchThread": true,
+  "scope": "Read existing authority report only, not a fresh exhaustive search or source revalidation"
+}

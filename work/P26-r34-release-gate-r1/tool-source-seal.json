@@ -1,0 +1,108 @@
+{
+  "schema": "p26-r34-release-tool-source-seal-v1",
+  "files": [
+    {
+      "path": "acceptance_gate.py",
+      "size": 21873,
+      "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+    },
+    {
+      "path": "context.json",
+      "size": 1504,
+      "sha256": "79078f10a81be3f9eb817449f2950c3276c7c952b129d43e80646daa8df90f62"
+    },
+    {
+      "path": "diffs/package_release.py.patch",
+      "size": 7173,
+      "sha256": "4166f6419e375052cf83b284eed6efec4960707217c2d5199d059d9e9325d018"
+    },
+    {
+      "path": "generate_package_plan.py",
+      "size": 15634,
+      "sha256": "615d16cabc865d896969c256bccaccbc32919758ab6fd72f1c13b88707f1b61d"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 5304,
+      "sha256": "88793e243d47b3edd0bb0ff1f6cba65eac65d1a4fb631288a616eec30ade8eb3"
+    },
+    {
+      "path": "historical/package_release.py.txt",
+      "size": 9394,
+      "sha256": "9324a77b90f3e64b85a6cc3678660de91dc5ba58edd7e2760236f0c17784af90"
+    },
+    {
+      "path": "historical/verify_release_r34.py.txt",
+      "size": 1746,
+      "sha256": "a20f3dfcaae5d24d098b6c60bf0fd7699c289afdf5e5cb366ffe80599f7b1d9f"
+    },
+    {
+      "path": "package_release.py",
+      "size": 9229,
+      "sha256": "6f71f11590b72df554563f39dc510f3a9e115bd4a87dc585864cc0787f444605"
+    },
+    {
+      "path": "pe_resource.py",
+      "size": 3519,
+      "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+    },
+    {
+      "path": "release-authority-policy.json",
+      "size": 2241,
+      "sha256": "ed7b626da713ba02a8e606fd13f57fe730d84f99983b7034495e5389b609151a"
+    },
+    {
+      "path": "release_authority.py",
+      "size": 4488,
+      "sha256": "02bf004f0a2d132c985770837f69751b3eea89903737fcabada39328e8747265"
+    },
+    {
+      "path": "release_checks.py",
+      "size": 691,
+      "sha256": "da3c4ebb17fc9de7c184cad911ac8b9cdc551b6b20a6598b90e33b6333912684"
+    },
+    {
+      "path": "source-rebindings.json",
+      "size": 2679,
+      "sha256": "af681a0bcce23ca73a01ed3ed8192bd32949dfb83badc41e41664e27be787325"
+    },
+    {
+      "path": "verify_tools.py",
+      "size": 5972,
+      "sha256": "32b2be5ca18059b41dd9e4c325a3ae0b16b29ea0dd8161504403d9cd00d840c2"
+    }
+  ],
+  "externalDependencies": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\package_release.py",
+      "size": 9394,
+      "sha256": "9324a77b90f3e64b85a6cc3678660de91dc5ba58edd7e2760236f0c17784af90"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\prepared\\verify_release_r34.py",
+      "size": 1746,
+      "sha256": "a20f3dfcaae5d24d098b6c60bf0fd7699c289afdf5e5cb366ffe80599f7b1d9f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\preparation-seal.json",
+      "size": 45733,
+      "sha256": "795705e162ffcc422e66343fa4a6f68c6430ff4ac6ee6e54220155a60ccb9d88"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\acceptance_gate.py",
+      "size": 21873,
+      "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\pe_resource.py",
+      "size": 3519,
+      "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\artifact-seal.json",
+      "size": 8250,
+      "sha256": "867c75d72137b18becc8138576bc0b2e8b6e529fabcd51482b485caa17419ad6"
+    }
+  ],
+  "executionAuthorized": false
+}

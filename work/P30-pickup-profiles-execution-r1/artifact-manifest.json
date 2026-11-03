@@ -1,0 +1,181 @@
+{
+  "schema": "p30-product-execution-artifact-manifest-v1",
+  "root": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1",
+  "files": [
+    {
+      "path": "before-state.json",
+      "size": 2231,
+      "sha256": "629a197816369f319b389f7840fdba2b2f87324f6efc39f91f6c1a495cee4d82"
+    },
+    {
+      "path": "execution-contract.json",
+      "size": 9434,
+      "sha256": "37af732d7d30629d71cd3fb8e66bc18d77352bbef2ff3191de920743ced4a2d9"
+    },
+    {
+      "path": "executor.command.json",
+      "size": 1744,
+      "sha256": "fe9442c62a1ae194f59e8c4b7457d3c926f314ac6dffd843c54579fc57d0396a"
+    },
+    {
+      "path": "executor.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "executor.stdout",
+      "size": 285,
+      "sha256": "e31308cea1b417ec4d814ed6e2bb8b08e2b33249e6eec814809e812541876dd7"
+    },
+    {
+      "path": "failure-assessment.json",
+      "size": 3752,
+      "sha256": "6662511ae3dff08ab2528632163290f91abda67c9c866032a8befd593d619eb4"
+    },
+    {
+      "path": "failure-log-excerpts.json",
+      "size": 7057,
+      "sha256": "3c3d733b1f2457a152f0bcdcc472a1c27c6159d33c31e44d55b5d63cba35b8e5"
+    },
+    {
+      "path": "final-msbuild-summary.txt",
+      "size": 1901,
+      "sha256": "2b30b39f3660fb354af6cd04e06a032c0cb9ae32f72efadbbfb41c92ec4297ca"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 3065,
+      "sha256": "973717b8861e29619bfbea6ca99660ee33fad7f656d6e00e6f87572786b68a05"
+    },
+    {
+      "path": "input-copy-pins.json",
+      "size": 3190,
+      "sha256": "9d991b0cdb57f729850888e5d619c7e876a0a69d6cccc261c175b90ea93e4ae0"
+    },
+    {
+      "path": "invocation-schema.json",
+      "size": 3260,
+      "sha256": "45914acba14320056e31661cc557bf5912788afefc04b15915c8403902028391"
+    },
+    {
+      "path": "P30-executor-root-verification.json",
+      "size": 800,
+      "sha256": "416ff7209b6b2bb2c9255d8d0c080a2deb35800487ca5d3494de992099a28b68"
+    },
+    {
+      "path": "P30-product-only-execution-acceptance.json",
+      "size": 3231,
+      "sha256": "240ce19f1cd8f10bddff4a34366eacef31598d36b7bce0130a0cb83a431fe541"
+    },
+    {
+      "path": "P30-source-delta-root-review.json",
+      "size": 832,
+      "sha256": "46c1cdc4af83810c5ebef62c25bc159da9190299c9314d715e106cd1b8be4b4a"
+    },
+    {
+      "path": "result.json",
+      "size": 4525,
+      "sha256": "14257ec69cc88af0328f1277e2efea452592a0340e8d46448cb3bcaf06aa87fb"
+    },
+    {
+      "path": "review-artifact-manifest.json",
+      "size": 2393,
+      "sha256": "4e9a0ec1b180788dbc1c08aef1bb5d9806d4b30c39568fa95d5965ad25ac443a"
+    },
+    {
+      "path": "run_once.py",
+      "size": 4131,
+      "sha256": "561f4bd1de69f9344820162735bc90622bb975b2b3d1d96d128cd1cec3919eba"
+    },
+    {
+      "path": "seal_failed_run.py",
+      "size": 10603,
+      "sha256": "d15dc048b74ec8d755f932f0bddca96331740625a13f4e0a4a70cbc436a05640"
+    },
+    {
+      "path": "stage-evidence/attempts/product/build-01/command-started.json",
+      "size": 1052,
+      "sha256": "2b04c8c9f9bea95309629d0219c4f70521a9ccf8b03a24d1030c1069806b15dc"
+    },
+    {
+      "path": "stage-evidence/attempts/product/build-01/command.json",
+      "size": 2207,
+      "sha256": "aaf2ab8fdda9cd1865f7b64615f648440629a0b0f72c406d7108eb5b0bf85435"
+    },
+    {
+      "path": "stage-evidence/attempts/product/build-01/environment.json",
+      "size": 3938,
+      "sha256": "201aac5452a0cdeb1d2be24ef7b8879c706aaee6a2f7401d3106d225acf163b9"
+    },
+    {
+      "path": "stage-evidence/attempts/product/build-01/msbuild.binlog",
+      "size": 61492,
+      "sha256": "90f866f0c82523d47e5a083789bfcac6e4bfc610cef5eb223152afff2ebaba5f"
+    },
+    {
+      "path": "stage-evidence/attempts/product/build-01/post-run-pins.json",
+      "size": 46140,
+      "sha256": "9928c17153cb6ecaa5f48ea4e9eae35a2e51c309e8315e119b0daa1605a256b2"
+    },
+    {
+      "path": "stage-evidence/attempts/product/build-01/process-assigned.json",
+      "size": 62,
+      "sha256": "4c3f7cc9bc149e1c65406dcb5ffc6baf1ce9e0671684d1b3d428cbdc0900fa7b"
+    },
+    {
+      "path": "stage-evidence/attempts/product/build-01/process-resumed.json",
+      "size": 61,
+      "sha256": "54684f1ddf2e48843fbc5693f425751e10dc0bd3075da544579b31b12a13ac93"
+    },
+    {
+      "path": "stage-evidence/attempts/product/build-01/stderr",
+      "size": 497,
+      "sha256": "7f0b85f13e01776dc0918e791ad9f34b4f435c0c709a31fa62b65b22233862a2"
+    },
+    {
+      "path": "stage-evidence/attempts/product/build-01/stdout",
+      "size": 1561330,
+      "sha256": "905c9bd7a1c08a0ddf2f35ee966b0304471feef076f5627118b2e78a4645b35f"
+    },
+    {
+      "path": "stage-evidence/execution-inputs.json",
+      "size": 13430,
+      "sha256": "cf26edc53f4f5dbc21ca3ee935844849c82258e6eee771f7869aa2e3ddfddd81"
+    },
+    {
+      "path": "stage-evidence/materialized.json",
+      "size": 108496,
+      "sha256": "520311abee834a3c3a9dddfa71c959bb5aa010130b957aed5b05df85a4e8ecbd"
+    },
+    {
+      "path": "stage-evidence/result.json",
+      "size": 52450,
+      "sha256": "c5fab50f21132bfeacfc89677f0748e1a859fd36dbdd835711e496786bf19ebb"
+    },
+    {
+      "path": "stage-evidence/started.json",
+      "size": 361,
+      "sha256": "8d5a13618c3b3cddf411b0900d8c27209167762aea717f40fc9b1216ddeca223"
+    },
+    {
+      "path": "stage-evidence-copy-pins.json",
+      "size": 7661,
+      "sha256": "b698119ee5c9ac25c0a3250161495c6b1fbc75c7a1a68c257c335af0c6e0c522"
+    },
+    {
+      "path": "stage-files-seal.json",
+      "size": 33244,
+      "sha256": "174480157bdfcbdb26c76f5f1313c5dc3f296543bbf65f678411cdf58789807c"
+    },
+    {
+      "path": "started.json",
+      "size": 839,
+      "sha256": "556bd2dbede6a075515648a6b52483285ca8217101af05996aa854e2811394f6"
+    }
+  ],
+  "excluded": [
+    "artifact-manifest.json",
+    "artifact-seal.json"
+  ],
+  "status": "failed-preserved-no-retry"
+}

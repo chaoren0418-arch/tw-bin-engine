@@ -1,0 +1,95 @@
+{
+  "schema": "p24-r33-supervisor-acceptance-v1",
+  "utc": "2026-10-29T00:34:14.278767+00:00",
+  "decision": "accepted-offline-development-complete",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "revision": "r33",
+  "scope": "Existing normal pickup and manual drop shared sender session/world/actor/lease ownership; preserves legal early replies and900/3000guards",
+  "release": "D:\\lineage開發\\TW1608262200研究\\releases\\r33",
+  "releaseSealSha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417",
+  "sourceFiles": 177,
+  "changedSources": [
+    "source/Ground.cs",
+    "source/WorldEntry.cs"
+  ],
+  "rootFullReleaseShaFiles": 14653,
+  "rootIntegrationArtifacts": 346,
+  "rootOldReleasePins": 1837,
+  "rootRuntimeAndWebPins": 46,
+  "suiteCounts": [
+    151,
+    735,
+    431,
+    1707,
+    1201,
+    112
+  ],
+  "totalAssertions": 4337,
+  "observationsSeparate": 93,
+  "author339AddedToTotal": false,
+  "utilityHelperWarnings": 1,
+  "productWarnings": 0,
+  "buildErrors": 0,
+  "canonicalBuilds": 1,
+  "passedSuitesRepeatedForCollection": 0,
+  "groundModeExecutionAttempts": {
+    "baseline": 2,
+    "extended": 1,
+    "supplement": 1,
+    "formal": 1
+  },
+  "sharedFailedPhasesPreserved": [
+    "baseline",
+    "baseline-collect",
+    "ground",
+    "ground-ready"
+  ],
+  "productAssertionFailures": 0,
+  "candidateAndStageImmutable": true,
+  "rootEntry": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+  "rootEntrySha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e",
+  "projectManifestSha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada",
+  "unresolvedFindingsInIncrement": [],
+  "nativeLiveAccepted": false,
+  "wholeP24Complete": false,
+  "goalActualStatus": "paused",
+  "databaseOperations": false,
+  "integratorStoppedWriting": true,
+  "integratorTurn": "01a184fd-4913-7d10-a729-830bd67fadf2",
+  "integratorCursor": "06f62879-b242-49d3-a511-42891ee357b8:186",
+  "next": "r34 bounded own authoritative pickup presentation implementation and independent preparation already active",
+  "productDllSha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productManifestSha256": "7c4d23327c0588d1029e9721c806b2e868ee2839c6e2087fb2c516632a656bf0",
+  "launcherDllSha256": "8b0cfba16676c6d3d8294db217dfacc343813dd69bbc753574f3d32a23b3008b",
+  "evidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-拾取生命週期修復-20261029\\r33-stage-acceptance.json",
+      "sha256": "613757a12150148df5b22b88faeef4ab8a1fc5e837720908aa799e3d52483671"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-拾取生命週期修復-20261029\\r33-root-stage-verification.json",
+      "sha256": "50255499f8eb90dda28bea7caed50c7b8ae24e4c68c13c598d6bb8e5178738a6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-拾取生命週期修復-20261029\\r33-root-full-release-verification.json",
+      "sha256": "b77544fe507af07670a51ecc69aa914d45976b20eb5607f948c9969b99498552"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-拾取生命週期修復-20261029\\r33-root-entry-and-canonical-checks.json",
+      "sha256": "b123b3cf73ca8fcc4780acb35c78a97d86cfc743b40dd0ce80f477238d7f8b4d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-拾取生命週期修復-20261029\\canonical-ground-layout-review.json",
+      "sha256": "70b28642fff6ff892297d1e274f15a52774da77f6112340a499202b443a43980"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\integration-seal.json",
+      "sha256": "d3d92c65baf6175852914fd98890c8abcf099f9a695e39566a8e0e5a508f6aee"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r33-integration-r1\\shared-integration-r1\\r33-integration-result.json",
+      "sha256": "7d797c955591dd9acc29f6d3d8f0e4dd4bf64274d8e873ef782ac34acb11c51b"
+    }
+  ]
+}

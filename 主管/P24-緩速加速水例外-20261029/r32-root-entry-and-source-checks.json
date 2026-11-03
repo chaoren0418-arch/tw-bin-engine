@@ -1,0 +1,64 @@
+{
+  "utc": "2026-10-28T23:16:28.095631+00:00",
+  "verified": true,
+  "sourceFilesMatchedAcrossEngineAndRelease": 177,
+  "integrationArtifactsVerified": 68,
+  "integrationSealSha256": "41ed1d21767f14b513e061716aa763af59f1446cf78ef910072519416a5ca0aa",
+  "releaseSealSha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507",
+  "rootEntrySha256": "d65f4d680e491d88f5ae73b652ed95d67a4646afd70714acd7f6f07dfb40a01f",
+  "projectManifestSha256": "c72b5a16e48123858145aea784eeb7d5870068cd4930db49f41f11167b7c4660",
+  "commands": [
+    {
+      "name": "accepted-source-readonly",
+      "command": [
+        "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\r32\\rebuild.py"
+      ],
+      "exitCode": 0,
+      "result": {
+        "status": "accepted-r32-inputs",
+        "sourceFiles": 177,
+        "productDllSha256": "c64bf0069722e28fc174d70d261b7540da6e3f74ee422d4874cbffb77149364f",
+        "writes": false
+      },
+      "stderr": ""
+    },
+    {
+      "name": "root-entry-check-only",
+      "command": "\"C:\\WINDOWS\\System32\\cmd.exe\" /d /s /c \"\"D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd\" --check-only\"",
+      "exitCode": 0,
+      "result": {
+        "status": "checked-only",
+        "revision": "r32",
+        "executable": "D:\\lineage開發\\TW1608262200研究\\releases\\r32\\build\\client-product-r32\\P11.ClientEngine.exe",
+        "workingDirectory": "D:\\lineage開發\\TW1608262200研究\\releases\\r32",
+        "arguments": [
+          "--normal-product"
+        ],
+        "manifest": "D:\\lineage開發\\TW1608262200研究\\releases\\r32\\build\\product-r32-manifest.json",
+        "manifestSha256": "3bb6ee998c36084d420275e6b93d40346fe1fe0db5f285d3d22ad0789833b866",
+        "hashedRuntimeAndWebFiles": 46,
+        "assetFilesCheckedForPresenceAndSize": 13957,
+        "assetContentVerification": "Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.",
+        "runtime": {
+          "architecture": "x64",
+          "loadedCoreVersion": "10.0.8",
+          "loadedCoreDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\10.0.8\\",
+          "desktopVersion": "10.0.8",
+          "desktopDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.WindowsDesktop.App\\10.0.8"
+        },
+        "webView2Version": "156.0.4314.50",
+        "powerShellRequired": false,
+        "pathLookupUsed": false,
+        "autoLogin": false,
+        "uiStarted": false,
+        "networkStarted": false,
+        "servicesStarted": false
+      },
+      "stderr": ""
+    }
+  ]
+}

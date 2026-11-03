@@ -1,0 +1,10 @@
+{
+  "status": "product215-original-scheduler-checkpoints-independently-pass",
+  "utc": "2026-10-25T18:54:43.888603+00:00",
+  "dllSha256": "a655d70fc3d974eaaeb093a98e9bf882ac4adebb67adae1356dd1e0f23d18006",
+  "productResultSha256": "2e2a50e4760867d0e564498828793017daca6685e692b3709a61ec8f1d516e2c",
+  "originalVectorsSha256": "773e91df72651ba9be080a15a721ff5fdb35e7e952fb677a5dd5311b56f77e45",
+  "cases": 20,
+  "steps": 215,
+  "scope": "Every actual result field independently equals original x86-generated values; result booleans alone not trusted. Product test implementation must separately be reviewed for direct single Advance and actual snapshot clock. No live UI or cache lifetime completeness claim."
+}

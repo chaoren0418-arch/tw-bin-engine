@@ -1,0 +1,36 @@
+{
+  "utc": "2026-10-28T17:38:09.850Z",
+  "confirmed": [
+    {
+      "id": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "status": {
+        "type": "idle"
+      },
+      "turnStatus": "completed",
+      "final": "已停止本專案開發、派工、寫入、發布及遊戲驗收，不會自動接回舊任務。\n\n仍由我持有的未完成檔案操作：無。"
+    },
+    {
+      "id": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "status": {
+        "type": "idle"
+      },
+      "turnStatus": "completed",
+      "final": "已停止寫入，不自動接回舊任務；開發、派工、發布與遊戲驗收均不進行。\n\n仍持有的未完成檔案操作：無。"
+    },
+    {
+      "id": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "status": {
+        "type": "idle"
+      },
+      "turnStatus": "completed",
+      "final": "已停止本專案開發、派工、寫入、發布及遊戲驗收，不會自動接回舊任務。\n\n仍持有的未完成檔案操作：無。"
+    },
+    {
+      "id": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+      "status": "idle",
+      "goal": "paused",
+      "openFileOperations": "none",
+      "note": "latest recovery acknowledgement reports last native receipt step8 (32581,32950); prior report based on last visible step7 message"
+    }
+  ]
+}

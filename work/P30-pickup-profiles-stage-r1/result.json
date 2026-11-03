@@ -1,0 +1,77 @@
+{
+  "schema": "p30-isolated-stage-planning-result-v1",
+  "status": "planning-complete-awaiting-supervisor-review-product-executor-not-implemented",
+  "dispatchId": "ENGINE-PROFILES-P30-ISOLATED-PLAN-R1",
+  "utc": "2026-10-29T05:58:14.201012+00:00",
+  "plan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\stage-plan.json",
+    "size": 7441,
+    "sha256": "f58e0d6400d1715ad03ef32fc26486ac89a9b915824bbd7470a4ca6dff4f19f3"
+  },
+  "controller": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\stage_controller.py",
+    "size": 11205,
+    "sha256": "165a7fc19d2a07bf44089986dc06b5f3523619172fb2ff3d0968418765b81cde"
+  },
+  "handoff": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\HANDOFF.md",
+    "size": 6954,
+    "sha256": "b8bba54635e19158df4a9df92c0eab8f5251d6fac7ae8dbfb2675b456e51ea44"
+  },
+  "productOnlySpec": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\product-only-spec.json",
+    "size": 7316,
+    "sha256": "96732bd48ea76890ce5bf82bf5613a7f13b16c882997ae2fdcded5f674de3086"
+  },
+  "materialization": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\materialization-plan.json",
+    "size": 152598,
+    "sha256": "de67b00de533abb45e196f3c0e97d245c36ed1e9c7312e9b8badf72fdcc64050"
+  },
+  "validation": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\read-only-validation.json",
+    "size": 4232,
+    "sha256": "0dbfa64302470c5e5716dc9421186e1956ab1e98076ab533d269797d12e5d6a7"
+  },
+  "sourceCount": 181,
+  "baseSourceCount": 180,
+  "replacements": 4,
+  "additions": 1,
+  "webFiles": 30,
+  "inputPins": 2635,
+  "independentUnmodifiedCopies": 539,
+  "preparedHelperDiffs": 3,
+  "migrationRows": 6,
+  "inheritedSteps": 8,
+  "inheritedOperations": 44,
+  "profileSuites": 5,
+  "p29Families": 14,
+  "planningChecks": 19,
+  "productOnlyMaterializationFiles": 184,
+  "productOnlyExecutorImplemented": false,
+  "nextMilestone": "fresh isolated product/audio build with exact SHA only; no prerequisite inherited suite replay",
+  "productBuilds": 0,
+  "helperBuilds": 0,
+  "runtimeProbes": 0,
+  "newRuntimeAssertions": 0,
+  "stageRootCreated": false,
+  "sharedWrites": false,
+  "releaseWrites": false,
+  "entryActivated": false,
+  "formalEntry": "r33",
+  "protectedPinsUnchanged": true,
+  "goal": {
+    "actualRead": null,
+    "created": false,
+    "modified": false
+  },
+  "RG2": "general generator defect unresolved",
+  "limitations": [
+    "No executable product-only materializer/build runner yet; separately implement and review before exact authorization",
+    "No C# helper compilation or runtime validation in this planning dispatch",
+    "Prepared helper diffs require review before later regressions",
+    "P29 partial coverage remains partial; historical rows not promoted",
+    "Initial validation failure retained as structured finding, not raw stream"
+  ],
+  "supervisorAction": "Review planning seal and minimal product-only spec; issue a separate exact bounded task for missing executor and subsequent execution authorization."
+}

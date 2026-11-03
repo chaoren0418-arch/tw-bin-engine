@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"timedOut\":false,\"wake\":{\"reason\":\"turnCompleted\",\"turnId\":\"01a18415-563c-7190-a98c-b4c4474a88bc\",\"threadId\":\"01a17a22-17e4-70c0-9792-166ddb86ea42\",\"hostId\":\"local\"},\"polls\":[{\"schemaVersion\":1,\"cursor\":\"d0af65fb-9735-4df3-ad9d-148fd38221c5:38\",\"revision\":38,\"changed\":true,\"thread\":{\"id\":\"01a17a22-17e4-70c0-9792-166ddb86ea42\",\"hostId\":\"local\",\"status\":{\"type\":\"idle\"}},\"latestTurn\":{\"id\":\"01a18415-563c-7190-a98c-b4c4474a88bc\",\"status\":\"completed\",\"error\":null,\"startedAt\":1793217353,\"completedAt\":1793218339,\"durationMs\":985809},\"latestAssistantMessageId\":\"msg_07ee2ec7275ff6ae016ae2571f29e881919ac2b8421bbd4467\",\"latestAssistantMessage\":{\"id\":\"msg_07ee2ec7275ff6ae016ae2571f29e881919ac2b8421bbd4467\",\"turnId\":\"01a18415-563c-7190-a98c-b4c4474a88bc\",\"phase\":\"final_answer\",\"text\":\"r29 已完成合入、共享 engine 重建與封存，根入口已切換並通過 check-only。 151＋1199＋112 項檢查及 6 個最小案例全部通過。 stage、engine、release 的產品身分完全一致。 r29 全檔 SHA 通過；r28、候選及覆核封存保持不變。 未操作 DB／服務或啟動正常產品；native/live 尚未驗收，P24 未全部完成。 交接文件 · 完整結果與 seal SHA 已停寫 r29，交主管獨立驗證。\"},\"latestToolMarkerId\":\"exec-60e04055-da1c-4423-93be-c5d5c9db4977\",\"latestToolMarker\":{\"id\":\"exec-60e04055-da1c-4423-93be-c5d5c9db4977\",\"turnId\":\"01a18415-563c-7190-a98c-b4c4474a88bc\",\"type\":\"commandExecution\",\"name\":\"commandExecution\",\"status\":\"completed\"}}]}"
+    }
+  ],
+  "isError": false
+}

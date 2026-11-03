@@ -1,0 +1,18 @@
+{
+  "schema": "p37-inventory-execution-artifact-seal-v1",
+  "artifactManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-execution-r1\\artifact-manifest.json",
+    "size": 1395,
+    "sha256": "2daf0f79dd9bd6522f20da707ff67a8bd3d3ed2d43cb54ab91c4bb6227b98a69"
+  },
+  "sealedFiles": 8,
+  "rawInventory": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-execution-r1\\inventory.stdout.json",
+    "size": 58242,
+    "sha256": "2bb58c3c48b576a213c05f5a9b2835e5f2ed4b717afe8fbbe8719009780bc778"
+  },
+  "inventoryInvocations": 1,
+  "inventoryOnly": true,
+  "independentFinalReviewPending": true,
+  "entryActivated": false
+}

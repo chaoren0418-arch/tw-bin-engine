@@ -1,0 +1,56 @@
+{
+  "schema": "p26-review-result-v1",
+  "taskId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "turnId": null,
+  "taskIdSource": "platform get_goal threadId",
+  "utc": "2026-10-29T03:43:28.962075+00:00",
+  "status": "original-sealed-plan-independent-review-complete",
+  "decision": "requires-minimal-new-authority-version-before-shared-authorization",
+  "reviewScopeComplete": true,
+  "projectComplete": false,
+  "newAuthorityVersionReviewed": false,
+  "productBuilds": 0,
+  "productRuntimeAssertions": 0,
+  "nativeRuntimeChecks": 0,
+  "syntheticCases": 8,
+  "syntheticIsProductSuccess": false,
+  "sourcePlanVerifier": "pass-source-only",
+  "reviewPrepFullVerifier": "fail-known-policy-pin-drift",
+  "reviewPrepFixtureOnly": "pass",
+  "historicalPolicyReconstructedExactly": true,
+  "sharedWrites": false,
+  "receiptCreated": false,
+  "installExecuted": false,
+  "dependencies": [
+    {
+      "id": "D1",
+      "owner": "original integrator via current supervisor",
+      "path": "work/P26-r34-authority-rebind-r1",
+      "exactSeal": null,
+      "status": "await-supervisor-exact-hash-for-separate-review"
+    },
+    {
+      "id": "D2",
+      "owner": "current supervisor / original integrator",
+      "status": "canonical r34 acceptance and final base not yet supplied; required before extension implementation"
+    }
+  ],
+  "findings": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\findings.json",
+    "size": 8234,
+    "sha256": "76760796d3d9405860b3ef614d3d8860617cf60190627b7d8a1d3132308b0fde"
+  },
+  "review": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\review.json",
+    "size": 4771,
+    "sha256": "7bd2b528180f8ae42238fced602ef8ce116b95efd6bbbd0fbe03bc38d3e1de68"
+  },
+  "contractInputs": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\followup-contract-inputs.json",
+    "size": 12244,
+    "sha256": "6397fb11d21222d71e9b418c0653a1389fd73aaf8c706ec7962ee5f4d9604771"
+  },
+  "rerun": "python -B -X utf8 \"D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\run_review.py\" --run-verifiers",
+  "reportAssembly": "python -B -X utf8 \"D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\finalize_review.py\"",
+  "goal": "actual platform goal created/read active; complete only after final artifacts verified"
+}

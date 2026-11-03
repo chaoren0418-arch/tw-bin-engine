@@ -1,0 +1,33 @@
+{
+  "utc": "2026-10-29T00:46:04.822009+00:00",
+  "status": "integrity-verified-functional-review-pending",
+  "candidateId": "ENGINE-PICKUP-PRESENTATION-IMPL-R1",
+  "candidateSealSha256": "cc7761665593c79b9f82255f5d361bedd6c8ac4563434e7cf7a6e07c5c16cbdc",
+  "verifierActuallyExecutedBeforeThisReceipt": true,
+  "artifactCount": 355,
+  "pinCount": 412,
+  "sourceCount": 180,
+  "authorActualChecks": 402,
+  "independentFunctionalAssertions": 0,
+  "separateOriginalR33BaselineRows": 18,
+  "modified": [
+    "source/ActionCadence.cs",
+    "source/Combat.cs",
+    "source/Ground.cs",
+    "source/ObjectAssets.cs",
+    "source/ObjectRendering.cs",
+    "source/OfflineClient.csproj",
+    "source/OnlineMovement.cs",
+    "source/WorldEntry.cs",
+    "source/WorldObjects.cs",
+    "source/WorldSession.cs"
+  ],
+  "added": [
+    "source/PickupAssets.cs",
+    "source/PickupPresentation.cs",
+    "source/Resources/pickup-own-base15-gfx0-weapon0.json"
+  ],
+  "unchangedBaseFiles": 167,
+  "groundLoginConnectionBodyByteIdentical": true,
+  "formalBuildAuthorized": false
+}

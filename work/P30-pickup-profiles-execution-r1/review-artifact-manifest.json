@@ -1,0 +1,80 @@
+{
+  "schema": "p30-executor-review-artifact-seal-v1",
+  "files": [
+    {
+      "path": "checks.json",
+      "size": 3391,
+      "sha256": "5f66a87f3bbaad9c02f20b9f9f3ee66a9c31b174607023acbbf2316e9b3a7ae3"
+    },
+    {
+      "path": "finalize.py",
+      "size": 9466,
+      "sha256": "887792a6318a9d26ab537d084dd1f752a479eabff44b643130654775ace16a7e"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 2901,
+      "sha256": "974b87bc42f7ead7ecf43b61fd2ded0195d4c92e38f03339e02c9c99b675439a"
+    },
+    {
+      "path": "lingering-child/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lingering-child/stdout",
+      "size": 25,
+      "sha256": "210a0124a03e8a848b79c311b139bda05393b2fce82ce9c412cbb469d9a48f7d"
+    },
+    {
+      "path": "lingering-child-result.json",
+      "size": 1915,
+      "sha256": "6d027ad8c691a30b1a469030c2e8ac248237edea221eed3269f606128ef74047"
+    },
+    {
+      "path": "preservation.json",
+      "size": 1017,
+      "sha256": "f66d196773db2235d1c99e5af6afd87547be205dacfa5f6f2803d2d5630cece8"
+    },
+    {
+      "path": "progress.json",
+      "size": 256,
+      "sha256": "4b0d6c51d158876b73b55ff30fd7cbf3260a1182711f8dca1f79c3b146310898"
+    },
+    {
+      "path": "result.json",
+      "size": 2430,
+      "sha256": "e1f51ce634f22e7ee69bd7e258e536a8cfc10bcd3cc7e3e08745a0b6d8114465"
+    },
+    {
+      "path": "review.py",
+      "size": 7041,
+      "sha256": "ac9358fc2feeb6fc565e6cdd7ef72530ddab651b2a2b1cc5ae180582e4de6a70"
+    },
+    {
+      "path": "source-pins.json",
+      "size": 1192555,
+      "sha256": "b1f89241f2b1671b207e3a84cda0bd9e72b4cfb0c9be06ca67826d9b7378af39"
+    },
+    {
+      "path": "static-binding.json",
+      "size": 430,
+      "sha256": "73ab074334724815cc4afa777f48c7ce079a6490f00e849557b61ceca241ae66"
+    },
+    {
+      "path": "validate.command.json",
+      "size": 1419,
+      "sha256": "eb0dc857a28a5f7acc5ca8bbb08675600be7702ba322fce9d0ca34eeeb476ddf"
+    },
+    {
+      "path": "validate.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "validate.stdout",
+      "size": 211,
+      "sha256": "455bf708440e0b1b71048e2972837210baf6604b42939c8391a3e062dc5612ec"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "task": "ENGINE-PICKUP-RENDERER-ELIGIBILITY-SOURCE-R1",
+  "productChanged": false,
+  "candidateBuilt": false,
+  "runtimeChecks": 0,
+  "nativeExecuted": false,
+  "strictNativeNeutralSubset": [],
+  "strictNativeEligibleRows": 0,
+  "eligibilityRows": 84,
+  "resolvedVariantTargets": {
+    "predicate": "0x7be780",
+    "firstId": "0x7be630",
+    "lastId": "0x7be570",
+    "advanceAndWrap": "0x5058a0"
+  },
+  "qualification": {
+    "baseMetadata": "42 profiles/13 gfx accepted bounded source; one base15 and idle weapon+3 each",
+    "pixels": "accepted independent review, not rerun",
+    "variantTargets": "static target chain established",
+    "variantMapContents": "unknown",
+    "fullNativeNeutral": "not proved for any row",
+    "nominalPresentationPolicy": "concrete own0/0 Speed0/1 proposal",
+    "timingParity": false,
+    "inputOrigin": false,
+    "liveNative": false
+  },
+  "policyId": "OWN-BASE-15-001",
+  "noFurtherSourceBlockForNominalPolicy": true,
+  "mandatoryCaveats": [
+    "Private status fields and runtime class/variant state are not inferable from Brave0",
+    "13text type5 entries do not prove native class table bytes",
+    "104historical/104current-only selected assets remain distinct; fullarchive/BIN version identity notproved",
+    "Prior scheduler independent semantic review pending; integrity acceptance is notnative timing"
+  ],
+  "deliverables": [
+    "eligibility-table.json",
+    "condition-catalog.json",
+    "presentation-policy.json",
+    "test-matrix.json",
+    "proof-index.json",
+    "metadata-evidence.json",
+    "native-byte-audit.json",
+    "source-pins.json"
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "utc": "2026-10-27T00:40:01.153164+00:00",
+  "status": "same-r18-live-in-progress-supply-and-peer-negative",
+  "identity": {
+    "revision": "r18",
+    "lockSha256": "6f9aa56e09eac3101ae5e368ac2b0f8ca3cbe23e37e3e8e214bd5d5e5dc430e7",
+    "manifestSha256": "52237810459172dd71d930c1ad91950a33d84741a1cbc24e267e1117ddf740e4",
+    "runtimeDllSha256": "5ca5b68cd683c6d54bc3d3f38ec1a4a1f4bac1d6c64c04c9da77790ad7f40f0c",
+    "deliveryRoot": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r18-clean-delivery\\delivery"
+  },
+  "clientPid": 76104,
+  "clientOpen": true,
+  "serviceOffline": true,
+  "service": {
+    "x": 32627,
+    "y": 32951,
+    "hp": 158,
+    "id": 1900249001,
+    "mp": 55,
+    "exp": 414658704,
+    "map": 0,
+    "name": "服務驗證",
+    "level": 59,
+    "online": 0,
+    "account": "p24svc01"
+  },
+  "inventory": [
+    {
+      "id": 10322,
+      "item": 40010,
+      "name": "治癒藥水",
+      "count": 1,
+      "equipped": 0
+    },
+    {
+      "id": 1900249101,
+      "item": 40308,
+      "name": "金幣",
+      "count": 83020,
+      "equipped": 0
+    },
+    {
+      "id": 1900249103,
+      "item": 31,
+      "name": "長劍",
+      "count": 1,
+      "equipped": 1
+    },
+    {
+      "id": 1900249104,
+      "item": 20096,
+      "name": "環甲",
+      "count": 1,
+      "equipped": 1
+    },
+    {
+      "name": "初級治癒術",
+      "skill": 1
+    },
+    {
+      "name": "保護罩",
+      "skill": 3
+    },
+    {
+      "name": "光箭",
+      "skill": 4
+    },
+    {
+      "name": "神聖武器",
+      "skill": 8
+    }
+  ],
+  "existingEightUnchanged": true,
+  "deathsAdded": 1,
+  "redPotionsUsed": 69,
+  "redPotionsRemaining": 1,
+  "gold": 83020,
+  "expDelta": 76,
+  "noResetReseedOrGrant": true,
+  "workerTask": "skill-learning-refusal-r1 accepted; all workers idle",
+  "workerTurn": "01a17aa9-9a0c-7be3-89da-a6ddb326e3ee",
+  "phaseCoverage": {
+    "G00": "pass clean full rebuild and same identity",
+    "G01": "pass normal blank entry/login/world",
+    "G02": "native and Web melee killed slime +32 EXP; five light-arrow casts killed eye +44 EXP; no natural loot drop yet",
+    "G03": "new skill8 learned for 6000 gold after normal combat made Lawful +4; normal relogin confirmed skill and gold; cast MP107 to98 with buff/gfx2165. Existing heal/shield also observed.",
+    "G04": "red potions 70 to1 through ordinary UI; one actual BOSS death during final retreat/cancel race, normal re-entry at town HP1 and ordinary red healing to158. No reset/grant. Gear/drop/pickup/haste pending.",
+    "E01": "blank and format rejection recovered through normal login",
+    "E02": "native up/down, F11 text focus isolation, F9 destroy/reopen preserving connection; one F10 later lost via actual deactivate; blocked terrain branch pending"
+  },
+  "nativeCanvasPixelInputVerified": false,
+  "allGuardsStopped": false,
+  "guard": "guard18d active; service offline; temporary recovery hp floor 100, Kurt distance 3; finite actions normal cancel",
+  "wholeP24Complete": false,
+  "next": "Use same r18 peer for natural zero-gold/no-key negatives, coordinate normal passage to Pandora with existing peer if needed; buy supplies through actual UI. G05–G12 remain pending.",
+  "learningEvidence": [
+    "r18-final-live/g03-positive-lawful-learning.json",
+    "r18-final-live/g03-new-skill-relogin-and-cast.json",
+    "skill-refusal-independent-review/result.json"
+  ],
+  "deathEvidence": [
+    "r18-final-live/g04-boss-retreat-01.json",
+    "r18-final-live/g04-boss-retreat-02.json",
+    "r18-final-live/g04-town-recovery-selected.json"
+  ],
+  "helperCorrections": [
+    "Inventory available is selected-item usability, not general world readiness; wait World.Ready then explicitly select item. Failed attempts preserved. No product change required.",
+    "Known static threat radii are insufficient for newly encountered BOSS; preserve actual death, use current observations and avoid repeated route oscillation."
+  ],
+  "peerClientPid": 68752,
+  "totalHistoricalDeaths": 8
+}

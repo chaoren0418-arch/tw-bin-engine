@@ -1,0 +1,12 @@
+{
+  "prompt": "ENGINE-R30-INTEGRATION-PREP-R1：r29已由主管獨立接受；使用者要求持續完成可離線引擎工作，現已有兩個worker active：work/engine-slow-actions-r1 實作 Speed2/Brave0 既有攻擊/施法，work/engine-slow-actions-review-r1 獨立來源契約與覆核。你仍唯一正式整合者，但本次只準備下一增量入口，尚未授權共享合入／release建立。\n唯一可寫新目錄 D:/lineage開發/TW1608262200研究/work/engine-r30-integration-r1。重用你已驗證的r29整合程式，建立以目前已接受r29為base的r30隔離建置/驗收/可重建接線；保留所有r28/r29/舊work seal。不要修改engine或根入口，不複製全素材、不提前建置、不反覆跑已通過suite。新材料須等真實候選封存與獨立接受，再由主管精確SHA收據派工才能正式build/merge。只針對版本、base source身份、缺少/錯誤review/candidate pins的拒絕做必要少量驗證；不能刪除SHA驗證、接受未完成候選或製造假接受。\n本輪candidateId預期 ENGINE-SLOW-ACTIONS-IMPL-R1（若退修可能R2），素材及audio預期不改。worker使用既有 schema engine-candidate-result-v1 / engine-candidate-seal-v1 / engine-r29-source-pins-v1 作欄位形狀，revision實際r30，schema名字不代表版本；不要為改格式再包裝、另做一輪review。完整source可有新.cs；須覆蓋全部目前176base，新增來源也要seal。舊r29gate與runner寫死r29/oldbase，請在新隔離work建立明確r30版本轉接，其他既有接受與路徑安全條件保留。重用r29正式151checks+後續新動作suite，但若舊slow1199中明確『slow攻擊必拒』案例被本次有證據功能取代，後續正式驗收須保留原拒絕測試的版本/適用範圍，不可直接刪斷言掩蓋回退；準備階段只提出適配位置，沒有未封存候選可驗。\nr29 seal d3ac187e7fc44745864640e4bcc72fefbaeeaa0b0e9d63de7c0c3cfa8e46273d，DLL8ccfa4e3b5d253206779a5d4b1e59682263ffbddf5dab43fe15b0aa1f86a7397，主管新基底pins在主管/P24-緩速攻擊施法接續-20261029/baseline.json。先get_goal如實，無新Goal/平台儲存/模型/代理變更。DB、服務不得查詢啟停或修改，不啟動正常產品。只讀來源以canonical root解析，不重建舊外部根、硬連結和assets junction不可原地改。交HANDOFF/result及準備seal，狀態prepared-awaiting-accepted-actions-candidate，由主管接續，不自行輪詢候選/發消息/合入。",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"threadId\":\"01a17a22-17e4-70c0-9792-166ddb86ea42\"}"
+      }
+    ],
+    "isError": false
+  }
+}

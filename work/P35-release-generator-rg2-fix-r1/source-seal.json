@@ -1,0 +1,62 @@
+{
+  "schema": "p35-rg2-fix-source-seal-v1",
+  "candidateOnly": true,
+  "authorityRebound": false,
+  "files": [
+    {
+      "path": "candidate/generate_package_plan.py",
+      "size": 16695,
+      "sha256": "4fbf32a4d1a5faa12e34631ad2c0e9ee02647ff51947128c69e1894690f13fa2"
+    },
+    {
+      "path": "finalize.py",
+      "size": 2774,
+      "sha256": "353663fd479edd570da341faee108b87922a485b3c7afc2c1db9938ae80b449e"
+    },
+    {
+      "path": "generator.patch",
+      "size": 1646,
+      "sha256": "a2741c7eeeb623b7fbc7e2a42a240415ff21ee3a658ca573a11ef1de9ad6d2c0"
+    },
+    {
+      "path": "load_modules.py",
+      "size": 1030,
+      "sha256": "1717d43f8acdb7b8c919a2313b970753f9cee698dbc02ec4ab780af799ccd934"
+    },
+    {
+      "path": "prepare.py",
+      "size": 3870,
+      "sha256": "d516f40c108c4d6ad1956ab4f52df629b81c28ae92c0833eea30d7a0c8306830"
+    },
+    {
+      "path": "real_compare.py",
+      "size": 2245,
+      "sha256": "e6e23dfc8d944582bc3847e7f8783fd8a42bd1ec03d816ce94814f760025430e"
+    },
+    {
+      "path": "reference/generate_package_plan.py",
+      "size": 16094,
+      "sha256": "32e5cefcc739c7e432dfa9cf00488072c330445695a4b3761d0e43c8ae962578"
+    },
+    {
+      "path": "run_check.py",
+      "size": 1257,
+      "sha256": "0ec526161f9c060c0b32b87023ad1a89884706d0b0858d10f1ee46def337ab51"
+    },
+    {
+      "path": "seal_delivery.py",
+      "size": 1371,
+      "sha256": "266e6572f26faff48e639fadf63febcc48586fee74059dfcce3dbc92e2320d06"
+    },
+    {
+      "path": "synthetic.py",
+      "size": 4208,
+      "sha256": "bd49bab72148da06a77451dfe17b7e7c1a399f6a80b8ac076cb75fe55877ef4d"
+    },
+    {
+      "path": "verify_delivery.py",
+      "size": 3388,
+      "sha256": "719eb370fd6bb0311992b798c9954fb1255d21dcac656d9b54d1f9025e38ddee"
+    }
+  ]
+}

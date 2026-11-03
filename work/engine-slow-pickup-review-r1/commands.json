@@ -1,0 +1,19 @@
+{
+  "buildAndProbeEntry": "run.ps1",
+  "buildExit": 0,
+  "probeExit": 0,
+  "buildWarnings": 0,
+  "buildErrors": 0,
+  "staticClasses": "class-pins.json commands (javap only)",
+  "crosscheck": "crosscheck.py (raw bytes/metadata only)",
+  "environment": {
+    "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false",
+    "DOTNET_CLI_HOME": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-review-r1\\.dotnet",
+    "NUGET_PACKAGES": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-review-r1\\.nuget",
+    "TEMP": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-review-r1\\tmp",
+    "TMP": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-review-r1\\tmp",
+    "DOTNET_CLI_TELEMETRY_OPTOUT": "1"
+  },
+  "clock": "ActionClock and MovementClock both Environment.TickCount64; real 900ms and 3100ms waits",
+  "history": "Initial104 rows extended for supervisor world lifecycle and legal reply request to128, then synthetic actor wrapper to140. No baseline assertion failures or suppressed helper errors; only final140 counted."
+}

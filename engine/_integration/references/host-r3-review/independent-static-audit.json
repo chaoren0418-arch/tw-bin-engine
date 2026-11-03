@@ -1,0 +1,227 @@
+{
+  "status": "bounded-static-checks-pass",
+  "anchors": [
+    {
+      "id": "strict-fields",
+      "path": "source/PlayerAudioSettings.cs",
+      "line": 7,
+      "sha256": "d72460ffa9c1fe7a3959ea614f00355ba1dbf1facf21a9f584413c3c0d074c3f",
+      "excerpt": "if(!names.Order().SequenceEqual(new[]{\"cmd\",\"gain\",\"id\",\"muted\",\"v\"}))throw new FormatException(\"audio fields\");"
+    },
+    {
+      "id": "strict-values",
+      "path": "source/PlayerAudioSettings.cs",
+      "line": 9,
+      "sha256": "d72460ffa9c1fe7a3959ea614f00355ba1dbf1facf21a9f584413c3c0d074c3f",
+      "excerpt": "if(v.ValueKind!=JsonValueKind.Number||!v.TryGetInt32(out int version)||version!=1||id.ValueKind!=JsonValueKind.Number||!id.TryGetInt32(out int request)||request<1||cmd.ValueKind!=JsonValueKind.String||cmd.GetString()!=\"audioSettings\"||gain.ValueKind!=JsonValueKind.Number||!gain.TryGetDouble(out double level)||!double.IsFinite(level)||level<0||level>1||muted.ValueKind is not (JsonValueKind.True or JsonValueKind.False))throw new FormatException(\"audio values\");"
+    },
+    {
+      "id": "native-value-validation",
+      "path": "source/PlayerAudioSettings.cs",
+      "line": 18,
+      "sha256": "d72460ffa9c1fe7a3959ea614f00355ba1dbf1facf21a9f584413c3c0d074c3f",
+      "excerpt": "if(!double.IsFinite(gain)||gain<0||gain>1)throw new ArgumentOutOfRangeException(nameof(gain));"
+    },
+    {
+      "id": "render-no-feedback",
+      "path": "source/PlayerAudioSettings.cs",
+      "line": 19,
+      "sha256": "d72460ffa9c1fe7a3959ea614f00355ba1dbf1facf21a9f584413c3c0d074c3f",
+      "excerpt": "if(Rendering||!editable||Gain==gain&&Muted==muted)return false;"
+    },
+    {
+      "id": "applied-matches-settings",
+      "path": "source/PlayerAudioSettings.cs",
+      "line": 24,
+      "sha256": "d72460ffa9c1fe7a3959ea614f00355ba1dbf1facf21a9f584413c3c0d074c3f",
+      "excerpt": "bool applied=editable&&host!.ControlsApplied&&host.Gain==Gain&&host.Muted==Muted;"
+    },
+    {
+      "id": "actual-status-and-revision",
+      "path": "source/PlayerAudioSettings.cs",
+      "line": 26,
+      "sha256": "d72460ffa9c1fe7a3959ea614f00355ba1dbf1facf21a9f584413c3c0d074c3f",
+      "excerpt": "return new(Gain,Muted,applied,status,editable,Revision,host?.ControlsStateRevision??0);"
+    },
+    {
+      "id": "single-shared-model",
+      "path": "source/ClientAudioSettings.cs",
+      "line": 3,
+      "sha256": "7000c30e62f17cc58a1be9318cf53d8b793d8899d64016713114b5c709995bf7",
+      "excerpt": "readonly PlayerAudioSettings audioSettings=new();"
+    },
+    {
+      "id": "same-setter-native-web",
+      "path": "source/ClientAudioSettings.cs",
+      "line": 7,
+      "sha256": "7000c30e62f17cc58a1be9318cf53d8b793d8899d64016713114b5c709995bf7",
+      "excerpt": "void SetAudioSettings(double gain,bool muted){"
+    },
+    {
+      "id": "native-render-guard",
+      "path": "source/ClientAudioSettings.cs",
+      "line": 12,
+      "sha256": "7000c30e62f17cc58a1be9318cf53d8b793d8899d64016713114b5c709995bf7",
+      "excerpt": "audioSettings.Render(login.World.Effects6016,webClosing||Disposing||IsDisposed,state=>{"
+    },
+    {
+      "id": "closed-rejects-web",
+      "path": "source/ClientAudioSettings.cs",
+      "line": 21,
+      "sha256": "7000c30e62f17cc58a1be9318cf53d8b793d8899d64016713114b5c709995bf7",
+      "excerpt": "if(!AudioSettingsWeb().editable){Reply(command.Id,\"聲音設定暫不可用\",AudioSettingsWeb());PublishWebState();return;}"
+    },
+    {
+      "id": "settings-leave-game-focus",
+      "path": "source/ClientAudioSettings.cs",
+      "line": 22,
+      "sha256": "7000c30e62f17cc58a1be9318cf53d8b793d8899d64016713114b5c709995bf7",
+      "excerpt": "LeaveGameFocus(\"sound-settings\");SetAudioSettings(command.Gain,command.Muted);"
+    },
+    {
+      "id": "native-focus-hook",
+      "path": "source/ClientEffect6016.cs",
+      "line": 40,
+      "sha256": "19be31bff33a4584e638d3314225648b1ccc72bb382dd4adf64e320e1aa08eeb",
+      "excerpt": "foreach(Control control in new Control[]{slider,mute})control.Enter+=(_,_)=>LeaveGameFocus(\"sound-controls\");"
+    },
+    {
+      "id": "host-pending",
+      "path": "source/Effect6016Host.cs",
+      "line": 66,
+      "sha256": "7a8ac5da322014f1cee956903b5e21d65a50435107eff51b0ccfe82340ebf6ab",
+      "excerpt": "ControlsStatus=\"pending\";ControlsStateRevision++;"
+    },
+    {
+      "id": "latest-result-only",
+      "path": "source/Effect6016Host.cs",
+      "line": 69,
+      "sha256": "7a8ac5da322014f1cee956903b5e21d65a50435107eff51b0ccfe82340ebf6ab",
+      "excerpt": "_=Invoke(\"configure\",()=>audio.ConfigureAsync(gain,muted,allowed),reply=>{if(!closed&&revision==current){configured=reply.Success;ControlsStatus=reply.Success?\"applied\":\"failed\";ControlsStateRevision++;}});"
+    },
+    {
+      "id": "closed-status",
+      "path": "source/Effect6016Host.cs",
+      "line": 102,
+      "sha256": "7a8ac5da322014f1cee956903b5e21d65a50435107eff51b0ccfe82340ebf6ab",
+      "excerpt": "closed=true;configured=false;ControlsStatus=\"closed\";ControlsStateRevision++;++revision;Clear(clock());"
+    },
+    {
+      "id": "closing-no-recreate",
+      "path": "source/ClientEffect6016.cs",
+      "line": 17,
+      "sha256": "19be31bff33a4584e638d3314225648b1ccc72bb382dd4adf64e320e1aa08eeb",
+      "excerpt": "if(webClosing||Disposing||IsDisposed)return;"
+    },
+    {
+      "id": "gate-before-drain",
+      "path": "source/ClientEffect6016.cs",
+      "line": 46,
+      "sha256": "19be31bff33a4584e638d3314225648b1ccc72bb382dd4adf64e320e1aa08eeb",
+      "excerpt": "Apply6016Controls(); // Publish current world/control gate before any registration completion can dispatch."
+    },
+    {
+      "id": "logout-shutdown",
+      "path": "source/ClientEffect6016.cs",
+      "line": 29,
+      "sha256": "19be31bff33a4584e638d3314225648b1ccc72bb382dd4adf64e320e1aa08eeb",
+      "excerpt": "login.Changed+=()=>{if(TerminalAudioState)_=Shutdown6016();else Ensure6016();};"
+    },
+    {
+      "id": "origin-and-size-before-dispatch",
+      "path": "source/WebPanel.cs",
+      "line": 74,
+      "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e",
+      "excerpt": "if(source!=LocalPage||raw.Length>32768)throw new FormatException(\"origin or size\");"
+    },
+    {
+      "id": "audio-parser-branch",
+      "path": "source/WebPanel.cs",
+      "line": 80,
+      "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e",
+      "excerpt": "if(cmd==\"audioSettings\"){var command=AudioSettingsCommand.Parse(o);DispatchAudioSettings(command);return;}"
+    },
+    {
+      "id": "signature-includes-complete-audio",
+      "path": "source/WebPanel.cs",
+      "line": 130,
+      "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e",
+      "excerpt": "string signature=$\"{World.X}/{World.Y}/{World.Direction}/{World.Walking}/{World.Steps}/{networkMode}/{network.State}/{network.Busy}/{network.Confirmed}/{gameFocus}/{login.Revision}/{login.World.ObjectRevision}/{login.World.InventoryRevision}/{login.World.GroundRevision}/{login.World.MagicRevision}/{login.World.InteractionRevision}/{login.World.TradeRevision}/{login.MovementBusy}/{login.MovementAvailable}/{login.MovementBlockReason}/{login.World.PickupOutcomeTimedOut}/{login.World.ShipNotice}/{login.World.SpeedNotice}/{login.World.BonusStatsRevision}/{login.BonusStatsSnapshot().CanSubmit}/{login.BonusStatsSnapshot().CanRefresh}\";signature+=$\"/supplies/{login.World.SustenanceText}/{login.World.BasicSupplyNotice}\";signature+=\"/private/\"+JsonSerializer.Serialize(PrivateShopWeb());signature+=\"/nativeFocus/\"+JsonSerializer.Serialize(nativeFocus);signature+=\"/audio/\"+JsonSerializer.Serialize(audio);if(signature==lastWebState)return;lastWebState=signature;"
+    },
+    {
+      "id": "actual-state-includes-audio",
+      "path": "source/WebPanel.cs",
+      "line": 131,
+      "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e",
+      "excerpt": "var state=new{audio,nativeFocus,nativeFocusSampledAtMs=Environment.TickCount64,privateShop=PrivateShopWeb(),v=1,kind=\"state\",normalProduct,revision=++revision,onlineMode=OnlineMode,character=OnlineMode?login.World.Actor?.Name:\"gfx0 → sprite3225\",x=OnlineMode?(int?)login.World.Actor?.X:World.X,y=OnlineMode?(int?)login.World.Actor?.Y:World.Y,direction=OnlineMode?(int?)login.World.Actor?.Direction:World.Direction,walking=World.Walking,movementControl=login.MovementControlSnapshot(World.Walking),steps=World.Steps,networkMode,connection=network.State,busy=network.Busy,confirmed=network.Confirmed,gameFocus,presence=PresenceSnapshot(),targetName=login.World.Target is {} target?objectAssets?.DisplayName(target):null,bonusStats=login.BonusStatsSnapshot(),trade=TradeWeb(),interaction=InteractionWeb(),magic=MagicWeb(),inventory=InventoryWeb(),ground=GroundWeb(),login=login.Snapshot(),loginControl=loginControl?.Snapshot()};web.CoreWebView2.PostWebMessageAsJson(JsonSerializer.Serialize(state));WebLog(\"bridge-state\",state);"
+    },
+    {
+      "id": "timer-pump-before-refresh",
+      "path": "source/Program.cs",
+      "line": 109,
+      "sha256": "f055f64ddc4d05b8ca75571690769839ea12fc3f15261057dda858b8eeffbee8",
+      "excerpt": "timer.Tick+=(_,_)=>{double now=clock.Elapsed.TotalMilliseconds;World.Advance(now-last);last=now;if(OnlineMode){SyncWorld();OnlineTick();PlayerPointerTick();}Pump6016();RefreshScene();};"
+    },
+    {
+      "id": "refresh-publishes-completion",
+      "path": "source/Program.cs",
+      "line": 167,
+      "sha256": "f055f64ddc4d05b8ca75571690769839ea12fc3f15261057dda858b8eeffbee8",
+      "excerpt": "SyncPlayerHud();PublishWebState();PublishSceneWeb();Invalidate();"
+    },
+    {
+      "id": "web-focus-gates-gameplay",
+      "path": "source/WebPanel.cs",
+      "line": 15,
+      "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e",
+      "excerpt": "bool GameInputAllowed=>gameFocus&&!PlayerChatFocused&&!(web?.ContainsFocus??false)&&ActiveForm==this;"
+    },
+    {
+      "id": "native-focus-gates-gameplay",
+      "path": "source/KeyboardNavigation.cs",
+      "line": 7,
+      "sha256": "a14571c5746777373cda58022e1374b256ba8f342c00b45d578181e7a4ea8a99",
+      "excerpt": "inputAllowed&&formFocused&&(keyData&Keys.Modifiers)==Keys.None&&GameKey(keyData&Keys.KeyCode);"
+    }
+  ],
+  "preserved": {
+    "resource-allowlist": true,
+    "navigation-permission-download": true,
+    "close-panel": true,
+    "outer-dispatch-origin-size-v-id-duplicate-boundary": true,
+    "keyboard-source": true
+  },
+  "scope": "Source validation, not GUI focus or real key/mouse acceptance.",
+  "acknowledgementAnchors": [
+    {
+      "path": "web/panel.js",
+      "line": 133,
+      "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab",
+      "needle": "reply.id!==audioPending.id"
+    },
+    {
+      "path": "web/panel.js",
+      "line": 130,
+      "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab",
+      "needle": "audioPending.id=send("
+    },
+    {
+      "path": "web/panel.js",
+      "line": 39,
+      "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab",
+      "needle": "if(s.audio&&!handleAudioSettingsReply(s))return"
+    },
+    {
+      "path": "web/panel.js",
+      "line": 139,
+      "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab",
+      "needle": "latest.configurationRevision>acknowledged.configurationRevision"
+    },
+    {
+      "path": "source/WebPanel.cs",
+      "line": 127,
+      "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e",
+      "excerpt": "void Reply(int id,string status,PlayerAudioState? audio=null){if(web?.CoreWebView2==null||web.IsDisposed)return;web.CoreWebView2.PostWebMessageAsJson(JsonSerializer.Serialize(new{v=1,kind=\"reply\",id,status,audio}));WebLog(\"bridge-reply\",new{id,status});}"
+    }
+  ]
+}

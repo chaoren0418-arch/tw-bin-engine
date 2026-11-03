@@ -1,0 +1,70 @@
+{
+  "status": "syntax-and-real-historical-binding-with-six-negatives-pass",
+  "utc": "2026-10-25T19:52:14.094869+00:00",
+  "checks": [
+    {
+      "case": "cache-worker-cli-r4",
+      "status": "historical-real-capture-admitted",
+      "binding": {
+        "productDllSha256": "01456b2df3c0b39f0470966345322c634f5d7158fc0216caed8005d1fbba6cdf",
+        "timingModel": "historical-deadline-catchup",
+        "resultSha256": "f2e4626ff608652c1333796657bf69250b7c1b771a856d710c0217614549aae1"
+      }
+    },
+    {
+      "case": "cache-worker-cli-r4/different-capture-hash",
+      "status": "rejected",
+      "reason": "Trace proof belongs to another capture"
+    },
+    {
+      "case": "cache-worker-cli-r4/wrong-timing-status",
+      "status": "rejected",
+      "reason": "Historical DLL requires historical timing proof"
+    },
+    {
+      "case": "cache-worker-cli-r4/missing-observer-trace",
+      "status": "rejected",
+      "reason": "Both role traces required"
+    },
+    {
+      "case": "cache-worker-ui-r2",
+      "status": "historical-real-capture-admitted",
+      "binding": {
+        "productDllSha256": "01456b2df3c0b39f0470966345322c634f5d7158fc0216caed8005d1fbba6cdf",
+        "timingModel": "historical-deadline-catchup",
+        "resultSha256": "a004e01ee680e757801472513be30e527300e86ac988819ffef4984f6e2bf39e"
+      }
+    },
+    {
+      "case": "cache-worker-ui-r2/different-capture-hash",
+      "status": "rejected",
+      "reason": "Trace proof belongs to another capture"
+    },
+    {
+      "case": "cache-worker-ui-r2/wrong-timing-status",
+      "status": "rejected",
+      "reason": "Historical DLL requires historical timing proof"
+    },
+    {
+      "case": "cache-worker-ui-r2/missing-observer-trace",
+      "status": "rejected",
+      "reason": "Both role traces required"
+    }
+  ],
+  "newRevisionLiveExercised": false,
+  "pixelRenderingChanged": false,
+  "evidenceWrittenIntoCapture": false,
+  "newLiveApprovalCreated": false,
+  "scope": "Only supervisor proof adapter; no native-code execution, image rerender, product test rerun, database, or login. Current-pump live branch awaits real new capture. In-memory negative data never saved as a successful live receipt.",
+  "files": [
+    {
+      "path": "p24_trace_binding.py",
+      "sha256": "0a423b00a234afecadfb26e046a2409faa6f62cb15589ce427a3a1d3e5c72253"
+    },
+    {
+      "path": "audit_p24_captured_source_frames.py",
+      "sha256": "588a9d74b0a06e1bd604fe70031c3fce4988cdabd7600b58517c5bdf89235af2"
+    }
+  ],
+  "metadataFollowup": "web-frame-counter-check.json"
+}

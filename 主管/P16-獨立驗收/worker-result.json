@@ -1,0 +1,212 @@
+{
+  "stage": "P16",
+  "status": "frozen-for-supervisor",
+  "completeEngine": false,
+  "goalComplete": false,
+  "jarSHA256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "endpoints": {
+    "game": "127.0.0.1:42035",
+    "db": "127.0.0.1:43316"
+  },
+  "sourceScope": "gfx0 unarmed single melee; raw damage word is not claimed as committed HP loss",
+  "checks": [
+    {
+      "path": "evidence/combat-suite/independent-combat-replay.json",
+      "sha256": "03f99a7892bd36011aaa5fb7c51e6d0d6a0aad0811c74ee3db39fde77b05f59c",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/combat-ui/independent-combat-replay.json",
+      "sha256": "e27fcd89b5be35754bf412826057665e6caf11ca6936d0228bc9333aca62aa10",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/receive-load/receive-load-result.json",
+      "sha256": "64fd46ccad01909b6fbc2a073d215656ca7055e192187f162035a80e8466be94",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/journal-regression/result.json",
+      "sha256": "e2b01cd4ba3b68bb9e418852399e5295f395b6da337ac2cc13fbc6e72570cbc9",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/ui-world-long/independent-long-ui.json",
+      "sha256": "0f962104d9a8897b84f5ade46ca10152e68e5ef9adae0229614a78fd4b1c7716",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/objects-suite/independent-full-replay.json",
+      "sha256": "dda9ecc6458eabd33a207dd9e0e5ebab3bf80fe53830af37887f9605642fedbd",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/objects-ui/independent-full-replay.json",
+      "sha256": "519e2968043f2325618f9bea267868d889c034eb211e97461de4ca962910f686",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/movement-suite/independent-setup-proof.json",
+      "sha256": "e4a1b0108c78dd233d5233a1ae96f326a3cce4f1f28b7da94125e4a7b1bb828c",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/movement-ui/movement-ui-result.json",
+      "sha256": "dc083d63e3522d538e1efb042709cc2241e4a4efecba4c4a6085cf55dfe548bf",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/combat-regression.json",
+      "sha256": "6b3c9c9eef7f2eae1199fc113b5bc2bcf02042b2d3ab317bb0fab2040473100d",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/object-regression.json",
+      "sha256": "a92d6763fd2f6dd67676d89407a15fd9cae6d82ddffaf5fb1f1fc476b00522a9",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/world-regression.json",
+      "sha256": "1b84dca416fa4a43bbf80b601d189caca6a4e66a03dad546b25340a8d973538c",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/movement-gate-regression.json",
+      "sha256": "0e8eb59b6169e6a2a042f7a41b47d0cb316182e7134f413e03af6eff40c91595",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/web-regression/web-test-result.json",
+      "sha256": "fc14fd18ab1ba087a44c64c7d61c521006bbb3919d834805994e6e0ffe463eaf",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/source-combat-audit.json",
+      "sha256": "d536ef7ba4f40dd5192663a026c8d68afc07e0ff9cc59141cf4401892fbd1298",
+      "status": "pass"
+    },
+    {
+      "path": "evidence/combat-pixels-result.json",
+      "sha256": "283e98ec3a73da0bfa43d1264d847aca142d82b28cfe3bed054e65c32ac241e3",
+      "status": "pass"
+    }
+  ],
+  "visibleCombat": [
+    {
+      "phase": "original-own-attack",
+      "ownRatio": 0.9914984059511158,
+      "targets": [
+        {
+          "action": "attack",
+          "ratio": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "original-target-hit",
+      "ownRatio": 0.9914984059511158,
+      "targets": [
+        {
+          "action": "damage",
+          "ratio": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "original-own-hit-HP",
+      "ownRatio": 0.9708454810495627,
+      "targets": [
+        {
+          "action": "attack",
+          "ratio": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "original-death-corpse",
+      "ownRatio": 0.9661266568483063,
+      "targets": [
+        {
+          "action": "die",
+          "ratio": 1.0
+        }
+      ]
+    }
+  ],
+  "uiCaptureSHA256": "30ad8bf087f7d685df141baba4464acfaf25b555009c8d429a51b907598b619e",
+  "pendingSupervisor": [
+    "clean build and independent real JAR rerun",
+    "later/terminal original corpse PNG via newly added test-driver checkpoint; worker current capture has initial die frame and original removal",
+    "explicit handback then normal console/SQL cleanup"
+  ],
+  "limitations": [
+    "not full engine",
+    "no autoattack/autochase/ranged/magic/inventory/loot/full resurrection/multimap/full appearance",
+    "original wildcard bind with loopback peer admission",
+    "synthetic initial role/spawn and synthetic negatives identified separately"
+  ],
+  "failuresPreserved": [
+    {
+      "path": "evidence/history/combat-suite-1792893513941647000/result.json",
+      "status": "fail",
+      "error": "System.Exception: explicit single attack not sent",
+      "mainEntries": 419,
+      "observerEntries": 385
+    },
+    {
+      "path": "evidence/history/combat-suite-1792893602881295400/result.json",
+      "status": "fail",
+      "error": "System.Exception: combat disconnected or player died",
+      "mainEntries": 306,
+      "observerEntries": 239
+    },
+    {
+      "path": "evidence/history/combat-ui-1792893836733884600/result.json",
+      "status": "fail",
+      "error": "System.Exception: no visible pickable pixels for 2000041268",
+      "mainEntries": 151,
+      "observerEntries": 149
+    },
+    {
+      "path": "evidence/history/combat-ui-1792893980372653000/result.json",
+      "status": "pass",
+      "error": "",
+      "mainEntries": 247,
+      "observerEntries": 238
+    },
+    {
+      "path": "evidence/history/combat-ui-1792894095784631700/result.json",
+      "status": "fail",
+      "error": "System.Exception: UI condition timed out",
+      "mainEntries": 354,
+      "observerEntries": 338
+    },
+    {
+      "path": "evidence/history/combat-ui-1792894232911022600/result.json",
+      "status": "fail",
+      "error": "System.Exception: main combat shape obscured; screenshot retained, not accepted: original-own-attack",
+      "mainEntries": 182,
+      "observerEntries": 184
+    },
+    {
+      "path": "evidence/history/combat-ui-1792895915660066600/result.json",
+      "status": "fail",
+      "error": "System.NullReferenceException: Object reference not set to an instance of an object.",
+      "mainEntries": 3876,
+      "observerEntries": 4358
+    },
+    {
+      "path": "evidence/history/combat-ui-1792896053025388000/result.json",
+      "status": "fail",
+      "error": "System.Exception: main combat shape obscured; screenshot retained, not accepted: original-own-hit-HP",
+      "mainEntries": 275,
+      "observerEntries": 217
+    }
+  ],
+  "servicesRemainForSupervisor": true,
+  "utc": 1792896842.070525,
+  "freezeReceipts": {
+    "source-freeze.json": "1f4d33c35da0125b8620ed05e1dcddb62b3c0157dd7365cbfd8b91496aa20660",
+    "environment-freeze.json": "7837e28b88c1d3d4c45ee8a5e5856194d71aac7ec08a0c97e30967f8c276f11d"
+  }
+}

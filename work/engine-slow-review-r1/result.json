@@ -1,0 +1,22 @@
+{
+ "stage":"ENGINE-SLOW-REVIEW-R1",
+ "status":"awaiting-candidate",
+ "independentPreparationComplete":true,
+ "candidateReviewed":false,
+ "candidateAccepted":null,
+ "candidateRejected":null,
+ "goalObserved":null,
+ "goalCreatedOrPlatformStateChanged":false,
+ "nativeVectorsPassed":36,
+ "fixedJarActionChecksPassed":108,
+ "baselineChecks":61,
+ "baselineExpectedGapFailures":19,
+ "baselineOtherChecksPassed":42,
+ "baselineDllSha256":"7762951fba9a2d37d08e2d40a34dfa7f2a6f2219b93689a031a566a8fd8f8cb8",
+ "scope":"Speed2 Brave0; no extra status multipliers",
+ "priorityRisks":["MovementAvailable unlocks attack/spell that currently use unscaled deadlines and no speed stamp","remote rendering recomputes active-step progress from current speed; possible rewind or early completion"],
+ "limits":["native emulator uses explicit neutral callee and metadata stubs","Java helper calls only retained pure calculator","DLL checks use reflected synthetic state and memory sender","renderer, real mouse UI, real login and server gameplay not executed","no sealed candidate available at final bounded check"],
+ "operations":{"db":0,"socket":0,"normalProductLaunch":0,"gameServiceLaunch":0,"sharedWrites":0,"subagents":0},
+ "handoff":"HANDOFF.md",
+ "contract":"CONTRACT.md"
+}

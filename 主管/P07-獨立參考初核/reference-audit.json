@@ -1,0 +1,319 @@
+{
+  "status": "pass",
+  "snapshots": [
+    {
+      "path": "scripts/reference.py",
+      "sha256": "24061c759971fb16bd333beda86e391b1fbecaf24648afb7a811901170b351be"
+    },
+    {
+      "path": "scripts/test_server.py",
+      "sha256": "afc22d30a0c8407fd398e53db3b72e67a270da07bd79f981fe47ede4faabf262"
+    },
+    {
+      "path": "fixtures/golden.json",
+      "sha256": "a8e92073214eea8d44b06bd52b6956ff06a7728f37e81acf3726e4af8f038126"
+    },
+    {
+      "path": "global.json",
+      "sha256": "fe15c79ed27b7261f804746cdb9b8343003b2ecbdbc1cde8cd34e0eda4149921"
+    },
+    {
+      "path": "NuGet.Config",
+      "sha256": "2142cfb2dfa2c7feefbe40fabcc68b0dfecadafa99a1db9b70239d977cf2a7ef"
+    },
+    {
+      "path": "build.ps1",
+      "sha256": "43e7eb090f0bc4ef26ad5c577c6c7afa8df16bbc914287d56dbf8089dde383d0"
+    },
+    {
+      "path": "source/Assets.cs",
+      "sha256": "f1d9dfd9331f80a818bc85427b9ff6831ed5aab38f86bd4f22b93a61df98f287"
+    },
+    {
+      "path": "source/ClientNetwork.cs",
+      "sha256": "4a3037e98eb5ecfe3ac797854814717ff1121735c860067c6682bd8bca14a3a1"
+    },
+    {
+      "path": "source/Network.cs",
+      "sha256": "926b23315c6ad211a66f726153b1623359ee75ee4323dd8975b136975d735c16"
+    },
+    {
+      "path": "source/OfflineClient.csproj",
+      "sha256": "86b8ec2395dcb87e42489e9d38ae32e1aef5a3f75e245139e863f4f37943f36b"
+    },
+    {
+      "path": "source/Program.cs",
+      "sha256": "2e2612bc95ed66845ca3c04a52a1878d3176b542ee86e42dea6c07bbe3ea0a50"
+    },
+    {
+      "path": "source/Protocol.cs",
+      "sha256": "295729b254ce9789b8a0833285e12bd51a5c5409fb1d589cb4b9627f4325f849"
+    },
+    {
+      "path": "source/ProtocolTests.cs",
+      "sha256": "d822baacbc9758acd9b2823183d09b5924d593f0dd7e173e7ca90078efea08fd"
+    },
+    {
+      "path": "source/Renderer.cs",
+      "sha256": "350fee7d4379917be90f3eb12fb4f9c3bcfa5c46f21e5c75e7c67b190c74c80f"
+    },
+    {
+      "path": "source/Tests.cs",
+      "sha256": "69e3ef32797bcd98304e9fd04f472710728954d2a8855a9e4d5588ee52d9faa1"
+    },
+    {
+      "path": "source/World.cs",
+      "sha256": "cb340a7ed7ccf0a336438106f05f4fb35974dbfa9144f3080572c009f31c03f5"
+    },
+    {
+      "path": "evidence/static/9fd880.json",
+      "sha256": "7fff9a7828a4451c22359fe7a9975a0fdf816ff81014520a61db52aeae29fe56"
+    },
+    {
+      "path": "evidence/static/a82050.json",
+      "sha256": "1d336284f9f38a21b76eea732ccf0c6bbcdd1817d0f8fbb4cbe2e4e27f59dcfb"
+    },
+    {
+      "path": "evidence/static/a820f0.json",
+      "sha256": "5d6ed63c09ae60866b6edf689c92f24a44827eaa151863d800c14730a47c7f8c"
+    },
+    {
+      "path": "evidence/static/a81fa0.json",
+      "sha256": "ab0577f3201f2e8d780683e7fe3bebf24110ce4b933bc2022c6aa665a7c2e728"
+    }
+  ],
+  "original_chunks": [
+    {
+      "function": "9fd880",
+      "va": "0x9fd880",
+      "file_offset": 6278272,
+      "size": 371,
+      "sha256": "bca4466a0a980634900f3c02762f4b53d5fc6c2a302a57e17297e135941a3635"
+    },
+    {
+      "function": "a82050",
+      "va": "0xa82050",
+      "file_offset": 6820944,
+      "size": 145,
+      "sha256": "f40a99c85be47ebab739e9823e60d57b1e2478bf3d7c9681552ce7c8e2889342"
+    },
+    {
+      "function": "a820f0",
+      "va": "0xa820f0",
+      "file_offset": 6821104,
+      "size": 53,
+      "sha256": "f6a6bd89cdaf19238d1317d062d839bd224200bcf47ef6c6f820163aa225a425"
+    },
+    {
+      "function": "a81fa0",
+      "va": "0xa81fa0",
+      "file_offset": 6820768,
+      "size": 161,
+      "sha256": "70269c67002bc4e3766458d8a49d08957b63d59e4e3188bd79e34f99742da231"
+    }
+  ],
+  "fixture_json_equal": true,
+  "codec_checks": [
+    {
+      "kind": "c2s",
+      "sequence": 1,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 2,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 3,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 4,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 5,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 6,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 7,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 8,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 9,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 10,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 11,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 12,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 13,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 14,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 15,
+      "pass_": true
+    },
+    {
+      "kind": "c2s",
+      "sequence": 16,
+      "pass_": true
+    },
+    {
+      "kind": "nonzero_padding",
+      "sequence": 1,
+      "pass_": true
+    },
+    {
+      "kind": "nonzero_padding",
+      "sequence": 2,
+      "pass_": true
+    },
+    {
+      "kind": "nonzero_padding",
+      "sequence": 3,
+      "pass_": true
+    },
+    {
+      "kind": "nonzero_padding",
+      "sequence": 4,
+      "pass_": true
+    },
+    {
+      "kind": "nonzero_padding",
+      "sequence": 5,
+      "pass_": true
+    },
+    {
+      "kind": "nonzero_padding",
+      "sequence": 6,
+      "pass_": true
+    },
+    {
+      "kind": "nonzero_padding",
+      "sequence": 7,
+      "pass_": true
+    },
+    {
+      "kind": "nonzero_padding",
+      "sequence": 8,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 0,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 1,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 2,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 3,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 4,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 5,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 6,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 7,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 0,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 1,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 2,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 3,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 4,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 5,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 6,
+      "pass_": true
+    },
+    {
+      "kind": "s2c",
+      "direction": 7,
+      "pass_": true
+    }
+  ],
+  "limitation": "Independent original-byte validation and replay of worker oracle in separate snapshot. Only four pure function chunks execute in emulator; framing and C key update are Python reconstructions. Not a real capture or original game execution."
+}

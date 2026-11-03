@@ -1,0 +1,414 @@
+{
+  "schema": "supervisor-current-finite-backlog-v1",
+  "baseline": "sealed r34 offline; formal root r33; P28/P29 bounded candidate accepted",
+  "items": [
+    {
+      "id": "I01",
+      "priority": 1,
+      "kind": "integration_dependency_not_r33_defect",
+      "scope": "Review and execute exact r34 canonical integration contract; distinguish accepted stage from formal release.",
+      "owner": {
+        "review": "P26",
+        "receipt": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "integration": "01a17a22-17e4-70c0-9792-166ddb86ea42"
+      },
+      "phase": [
+        "P26",
+        "original integrator"
+      ],
+      "dependencies": [
+        "exact plan SHA256 d25c306fae5abee9209e46c557453f7b6a0a96645e5c052fbda70555f11f15ff",
+        "stage seal 9544f137a10914825b53080d4d390d17902cd40866467cebbf69578290240018",
+        "P26 gate handover/raw-log/rollback review",
+        "new supervisor exact shared receipt"
+      ],
+      "exitCriteria": [
+        "P26 accepted review or corrected immutable new plan",
+        "authorized original integrator canonical build/collect/seal receipts",
+        "formal source/DLL/launcher/entry identity review; stage native flags remain false"
+      ],
+      "sourceRows": [
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/4:R05",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/18:R19"
+      ],
+      "status": "offline-canonical-and-release-accepted-entry-pending",
+      "authorization": "Current status/accountability mapping only; exact dispatch controls execution.",
+      "currentEvidence": "r34-release-root-acceptance.json",
+      "next": "Formal entry activation requires pending explicit user decision; do not retry denied action."
+    },
+    {
+      "id": "I02",
+      "priority": 1,
+      "kind": "bounded_review_no_confirmed_bug",
+      "scope": "P27 source review and isolated minimal fix only if independently reproducible; do not touch Ground/WorldEntry.",
+      "owner": {
+        "review": "P27",
+        "acceptance": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "integration": "01a17a22-17e4-70c0-9792-166ddb86ea42"
+      },
+      "phase": [
+        "P27"
+      ],
+      "dependencies": [
+        "exact r33 source pins",
+        "P27 review artifact"
+      ],
+      "exitCriteria": [
+        "gap classified defect vs native-only",
+        "reproducer and minimal independent patch if defect; otherwise bounded no-defect review",
+        "no shared write or unsupported full-input claim"
+      ],
+      "sourceRows": [
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/21:R22"
+      ],
+      "status": "bounded-P27-review-accepted-no-confirmed-defect",
+      "authorization": "Current status/accountability mapping only; exact dispatch controls execution.",
+      "currentEvidence": "p25-p27-root-acceptance.json",
+      "next": "Native input/focus/pixel cases remain N02; no invented patch."
+    },
+    {
+      "id": "S01",
+      "priority": 2,
+      "kind": "implementation_gap_source_blocked",
+      "scope": "MAP-F4 local-effect group fade requires real nonzero association plus final renderer semantic example.",
+      "owner": {
+        "scopeDecision": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "implementation": "01a17a22-17e4-70c0-9792-166ddb86ea42"
+      },
+      "phase": [
+        "future phase unassigned; supervisor must dispatch"
+      ],
+      "dependencies": [
+        "specified original record and source identity",
+        "proven effect-to-group association and fade/render contract"
+      ],
+      "exitCriteria": [
+        "bounded source contract resolves actual record",
+        "isolated implementation/review under fresh task",
+        "negative unknown formats preserved"
+      ],
+      "sourceRows": [
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/25:MAP-F3",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/26:MAP-F4",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#remaining/0:S1",
+        "主管/完整引擎未完成項目.json#remaining/0:S1"
+      ],
+      "status": "source-contract-required",
+      "authorization": "Current status/accountability mapping only; exact dispatch controls execution.",
+      "currentEvidence": null,
+      "next": "Need real nonzero effect/group association and rendering semantic; not a DB task."
+    },
+    {
+      "id": "S02",
+      "priority": 2,
+      "kind": "implementation_gap_source_blocked",
+      "scope": "Other map animation event tokens beyond accepted6016 require individual semantics and resource/event contracts.",
+      "owner": {
+        "scopeDecision": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "implementation": "01a17a22-17e4-70c0-9792-166ddb86ea42"
+      },
+      "phase": [
+        "future phase unassigned; supervisor must dispatch"
+      ],
+      "dependencies": [
+        "specified effect/token ID",
+        "same-version resource and event/lifecycle contract"
+      ],
+      "exitCriteria": [
+        "one bounded token behavior sourced, implemented and reviewed",
+        "6016 policy not generalized without evidence"
+      ],
+      "sourceRows": [
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/27:MAP-F5",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#remaining/1:S2",
+        "主管/完整引擎未完成項目.json#remaining/1:S2"
+      ],
+      "status": "source-contract-required",
+      "authorization": "Current status/accountability mapping only; exact dispatch controls execution.",
+      "currentEvidence": null,
+      "next": "Name and establish supported token/event/resource lifecycle before implementation."
+    },
+    {
+      "id": "S03",
+      "priority": 3,
+      "kind": "source_scope_decision",
+      "scope": "Finite source extension: 41 additional exact own-pickup gfx/weapon pairs implemented; broad unspecified content remains source-gated.",
+      "owner": {
+        "scopeDecision": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "implementation": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "review": "01a185fe-5350-74c3-bfe6-96842287e610"
+      },
+      "phase": [
+        "P28 implementation accepted",
+        "P29 bounded runtime review accepted",
+        "P30 fresh rebuild provenance accepted",
+        "P31 bounded final-composite accepted",
+        "P32 bounded lifecycle and direction-window accepted"
+      ],
+      "dependencies": [
+        "selected IDs and source contract",
+        "pickup extension requires final accepted r34 binding and new implementation contract"
+      ],
+      "exitCriteria": [
+        "specific supported set, refusal set and source pins declared",
+        "new resources/review/qualification separate",
+        "312 pickup-shadow keys remain missing unless separately sourced"
+      ],
+      "sourceRows": [
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/17:R18",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/23:MAP-F1",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/28:MAP-F6",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/29:MAP-F7",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#remaining/2:S3",
+        "主管/完整引擎未完成項目.json#remaining/2:S3"
+      ],
+      "status": "P28-P34-bounded-implementation-rebuild-and-behavior-subsets-accepted",
+      "authorization": "Current status/accountability mapping only; exact dispatch controls execution.",
+      "currentEvidence": "P33-P34-root-acceptance.json",
+      "next": "Resource-fault and controlled authoritative-event finite subsets accepted; real S30/transport, audio/effect counters, original-map composite/native remain. Do not repeat passed suites.",
+      "P33P34": {
+        "resourceFaultCases": 28,
+        "authoritativeEventChains": 11,
+        "productChanges": 0,
+        "native": 0,
+        "acceptance": "P33-P34-root-acceptance.json"
+      }
+    },
+    {
+      "id": "N01",
+      "priority": 2,
+      "kind": "native_acceptance_only",
+      "scope": "Fixed final version normal login→movement→supported combat/skills/items/bonus→save→relogin continuity.",
+      "owner": {
+        "nativeAcceptance": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f"
+      },
+      "phase": [
+        "supervisor native acceptance"
+      ],
+      "dependencies": [
+        "user-owned service readiness",
+        "explicit native operation authority",
+        "fixed release/source/entry/DLL pins"
+      ],
+      "exitCriteria": [
+        "same-version requests, actual replies and normal save/relogin evidence",
+        "natural EXP/loot claims limited to observed outcomes",
+        "historical partial claims not accumulated into completion"
+      ],
+      "sourceRows": [
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/0:R01",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/2:R03",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/3:R04",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/16:R17",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#remaining/3:A1",
+        "主管/完整引擎未完成項目.json#remaining/3:A1"
+      ],
+      "status": "unexecuted-native-or-external-condition",
+      "authorization": "Current status/accountability mapping only; exact dispatch controls execution.",
+      "next": "Separate safe fixed-version acceptance; current dispatch prohibits DB/service/native/game actions."
+    },
+    {
+      "id": "N02",
+      "priority": 2,
+      "kind": "native_acceptance_only",
+      "scope": "Full native pixels, mouse/HUD, shadow, chat/Web focus and pointer interactions.",
+      "owner": {
+        "preparation": "P27",
+        "nativeAcceptance": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f"
+      },
+      "phase": [
+        "P27 preparation",
+        "supervisor native acceptance"
+      ],
+      "dependencies": [
+        "P27 routing/native plan",
+        "working native capture/input or user evidence",
+        "fixed final version"
+      ],
+      "exitCriteria": [
+        "real window evidence with exact input/focus outcome",
+        "keyboard/DOM/synthetic tests remain separate",
+        "failed capture does not create invented bug"
+      ],
+      "sourceRows": [
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/1:R02",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/15:R16",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/19:R20",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/20:R21",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/22:R23",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#remaining/4:A2",
+        "主管/完整引擎未完成項目.json#remaining/4:A2"
+      ],
+      "status": "unexecuted-native-or-external-condition",
+      "authorization": "Current status/accountability mapping only; exact dispatch controls execution.",
+      "next": "Separate safe fixed-version acceptance; current dispatch prohibits DB/service/native/game actions.",
+      "offlinePreparationEvidence": "P31 bounded synthetic final pixels accepted; native GUI/mouse remains unexecuted."
+    },
+    {
+      "id": "N03",
+      "priority": 3,
+      "kind": "native_acceptance_only",
+      "scope": "Fixed-version available NPC purchase, direct trade, warehouse and private purchase/save sequence.",
+      "owner": {
+        "nativeAcceptance": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f"
+      },
+      "phase": [
+        "supervisor native acceptance"
+      ],
+      "dependencies": [
+        "legitimate roles/items/services ready",
+        "fixed final version",
+        "explicit native authority"
+      ],
+      "exitCriteria": [
+        "original responses and item/currency preservation reconciled",
+        "no database changes or artificial items to pass"
+      ],
+      "sourceRows": [
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/5:R06",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/7:R08",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/8:R09",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/10:R11"
+      ],
+      "status": "unexecuted-native-or-external-condition",
+      "authorization": "Current status/accountability mapping only; exact dispatch controls execution.",
+      "next": "Separate safe fixed-version acceptance; current dispatch prohibits DB/service/native/game actions."
+    },
+    {
+      "id": "N04",
+      "priority": 3,
+      "kind": "native_acceptance_only",
+      "scope": "Supported cache shift/cross-map/inn and available boat/map effects continuity.",
+      "owner": {
+        "nativeAcceptance": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f"
+      },
+      "phase": [
+        "supervisor native acceptance"
+      ],
+      "dependencies": [
+        "safe legitimate route and source-supported map",
+        "fixed final version",
+        "native capture/input ready"
+      ],
+      "exitCriteria": [
+        "retention/eviction/return and visible effect outcomes recorded",
+        "failed/death/pursuit route evidence preserved; no repetition without changed conditions",
+        "room and hall acceptance separate"
+      ],
+      "sourceRows": [
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/11:R12",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/12:R13",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/13:R14",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/24:MAP-F2",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/31:MAP-F9"
+      ],
+      "status": "unexecuted-native-or-external-condition",
+      "authorization": "Current status/accountability mapping only; exact dispatch controls execution.",
+      "next": "Separate safe fixed-version acceptance; current dispatch prohibits DB/service/native/game actions."
+    },
+    {
+      "id": "N05",
+      "priority": 2,
+      "kind": "native_acceptance_only",
+      "scope": "Formal world6016 audio dispatch/controls/overlap/retirement and close.",
+      "owner": {
+        "nativeAcceptance": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f"
+      },
+      "phase": [
+        "supervisor native acceptance"
+      ],
+      "dependencies": [
+        "supported world6016 encounter",
+        "fixed final version",
+        "native audio/device/measurement evidence"
+      ],
+      "exitCriteria": [
+        "formal client world event links to audible/device signal with owner/version",
+        "mute/gain/eviction/close behavior recorded",
+        "standalone PID signal not counted as formal-world pass"
+      ],
+      "sourceRows": [
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/27:MAP-F5",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#remaining/1:S2",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#directProductFixesReadyToImplement/0:P24-6016-event-integration",
+        "主管/完整引擎未完成項目.json#remaining/1:S2",
+        "主管/完整引擎未完成項目.json#directProductFixesReadyToImplement/0:P24-6016-event-integration"
+      ],
+      "status": "unexecuted-native-or-external-condition",
+      "authorization": "Current status/accountability mapping only; exact dispatch controls execution.",
+      "next": "Separate safe fixed-version acceptance; current dispatch prohibits DB/service/native/game actions."
+    },
+    {
+      "id": "C01",
+      "priority": 3,
+      "kind": "external_condition_not_product_defect",
+      "scope": "Positive NPC sale/private repurchase await legitimate price and matching item/buyer conditions.",
+      "owner": {
+        "conditionOwner": "user/supervisor; DB owned by user"
+      },
+      "phase": [
+        "supervisor condition tracking"
+      ],
+      "dependencies": [
+        "legitimate original conditions; do not query/change DB in this stage"
+      ],
+      "exitCriteria": [
+        "when conditions exist, bounded native transaction evidence",
+        "otherwise retained explicit unaccepted condition"
+      ],
+      "sourceRows": [
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/6:R07",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/9:R10",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#remaining/5:C1",
+        "主管/完整引擎未完成項目.json#remaining/5:C1"
+      ],
+      "status": "unexecuted-native-or-external-condition",
+      "authorization": "Current status/accountability mapping only; exact dispatch controls execution.",
+      "next": "Separate safe fixed-version acceptance; current dispatch prohibits DB/service/native/game actions."
+    },
+    {
+      "id": "H01",
+      "priority": 4,
+      "kind": "historical_limit_no_reimplementation",
+      "scope": "Preserve original BIN unknowns and old key-expiry instant; ground36 omission is historically resolved.",
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "acceptance": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f"
+      },
+      "phase": [
+        "P25 archival boundary"
+      ],
+      "dependencies": [],
+      "exitCriteria": [
+        "historical version and uncertainty preserved",
+        "no fabricated old timestamps, no reimplementation of resolved ground36 issue"
+      ],
+      "sourceRows": [
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/14:R15",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#rows/30:MAP-F8",
+        "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json#remaining/6:H1",
+        "主管/完整引擎未完成項目.json#remaining/6:H1"
+      ],
+      "status": "historical-limits-preserved-no-reimplementation",
+      "authorization": "Current status/accountability mapping only; exact dispatch controls execution.",
+      "currentEvidence": "p25-p27-root-acceptance.json",
+      "next": "Retain unknown BIN semantics and unobserved timestamps; no fabricated completion."
+    }
+  ],
+  "noConfirmedNewProductDefectFromP25": true,
+  "closedStaleWork": [
+    "6016 controller/audio/host integration pending r27",
+    "ground36 omitted from package",
+    "HUD/chat/shadows/pointer universally unimplemented",
+    "all SEG unsupported",
+    "real login/services entirely unwired"
+  ],
+  "boundary": "12 tracked items have unequal scope; no completion percentage. Historical P25 matrix is preserved. Current delta records documentary, implementation, runtime and native evidence separately.",
+  "utc": "2026-10-29T07:21:10.304409+00:00",
+  "sourceBaseline": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P25-architecture-baseline-r1\\finite-backlog.json",
+    "sha256": "b1dd3fe9c0ba31203c1ad779bdb24f6c4f037743a65ae55b996b9f1201d491c9"
+  },
+  "wholeProjectComplete": false,
+  "updatedUtc": "2026-10-29T07:45:54.159404+00:00"
+}

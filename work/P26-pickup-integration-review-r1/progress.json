@@ -1,0 +1,30 @@
+{
+  "schema": "p26-review-progress-v1",
+  "utc": "2026-10-29T03:43:28.962075+00:00",
+  "taskId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "taskIdSource": "actual get_goal threadId",
+  "turnId": null,
+  "read": [
+    "AGENTS.md",
+    "主管/P25-P27-新主管接管-20261029/takeover.json",
+    "主管/P25-P27-新主管接管-20261029/dispatch-contracts.json",
+    "original canonical plan/R2/stage",
+    "41-profile source plan/review prep"
+  ],
+  "step": "original independent review delivered; separate new-version review awaits exact supervisor pins",
+  "reviewScopeComplete": true,
+  "dependencies": [
+    {
+      "id": "D1",
+      "owner": "original integrator via current supervisor",
+      "path": "work/P26-r34-authority-rebind-r1",
+      "exactSeal": null,
+      "status": "await-supervisor-exact-hash-for-separate-review"
+    },
+    {
+      "id": "D2",
+      "owner": "current supervisor / original integrator",
+      "status": "canonical r34 acceptance and final base not yet supplied; required before extension implementation"
+    }
+  ]
+}

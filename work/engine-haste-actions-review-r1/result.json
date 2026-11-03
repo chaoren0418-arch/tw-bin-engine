@@ -1,0 +1,56 @@
+{
+  "schema": "engine-review-preparation-v1",
+  "taskId": "ENGINE-HASTE-ACTIONS-REVIEW-R1",
+  "status": "preparation-ready-candidate-review-pending",
+  "baseline": "r30",
+  "baselineManifestSha256": "1329700b9fabf59e7406d62790ea8a32758ee9771963d0dcd49c7cde85708a66",
+  "baselineReleaseSealSha256": "199ce6fe81130138e9fedf98e688928ce44b0a45c2aebd1b92fdd9519b8225dc",
+  "baselineDllSha256": "1abc1eed02917d14fd775be60920fe74efb9b102bc53eea5874fc0128e5247ef",
+  "candidateId": null,
+  "candidateSealSha256": null,
+  "candidateReviewed": false,
+  "candidateAccepted": false,
+  "reviewComplete": false,
+  "decision": null,
+  "checks": {
+    "executedOnBaseline": 1553,
+    "passed": 1057,
+    "knownIncrementGaps": 496,
+    "unchangedOldAssertionsPassed": 820,
+    "changedOldExpectations": 156,
+    "newAssertions": 577,
+    "frameBoundaryAggregateAssertions": 126,
+    "frameBoundarySamples": 20112
+  },
+  "sourceReuse": {
+    "nativeVectors": 270,
+    "speed1NativeVectors": 90,
+    "jarPureCalculations": 108,
+    "newNativeExecutions": 0,
+    "newJarExecutions": 0
+  },
+  "preservation": {
+    "sharedR30SourceFilesVerified": 177,
+    "inputPinsVerified": 259,
+    "previousReviewArtifactFilesVerified": 37,
+    "engineAssetsJunctionTarget": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+    "engineAssetsWritten": false,
+    "sharedSourceWritten": false,
+    "candidateRead": false,
+    "oldWorkWritten": false,
+    "goalObserved": null,
+    "goalModified": false,
+    "r30ReleaseSealBodyVerified": true,
+    "full14296ReleaseFilesRechecked": false,
+    "scope": "Baseline seal,177 source pins, fixed source identities and necessary profile pins reverified; no repeated full release validation."
+  },
+  "pending": [
+    "Supervisor supplied exact candidate identity; candidate contents remain unread until this preparation seal is finalized.",
+    "Run existing source-backed helper plus remaining candidate-specific admission/busy/release cases in new candidate-review-r1 subdirectory.",
+    "Issue accepted/rejected receipt tied to exact candidateSealSha256 only after formal execution."
+  ],
+  "goalObserved": null,
+  "goalModified": false,
+  "normalProductStarted": false,
+  "servicesOrDatabaseTouched": false
+}

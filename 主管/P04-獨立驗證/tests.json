@@ -1,0 +1,318 @@
+{
+  "checks": [
+    {
+      "name": "truncation_0",
+      "pass_": true,
+      "error": "truncated at 0"
+    },
+    {
+      "name": "truncation_1",
+      "pass_": true,
+      "error": "truncated at 1"
+    },
+    {
+      "name": "truncation_2",
+      "pass_": true,
+      "error": "truncated at 2"
+    },
+    {
+      "name": "truncation_3",
+      "pass_": true,
+      "error": "truncated at 2"
+    },
+    {
+      "name": "truncation_176",
+      "pass_": true,
+      "error": "truncated at 176"
+    },
+    {
+      "name": "truncation_352",
+      "pass_": true,
+      "error": "truncated at 352"
+    },
+    {
+      "name": "truncation_513",
+      "pass_": true,
+      "error": "truncated at 512"
+    },
+    {
+      "name": "truncation_514",
+      "pass_": true,
+      "error": "truncated at 514"
+    },
+    {
+      "name": "truncation_515",
+      "pass_": true,
+      "error": "truncated at 515"
+    },
+    {
+      "name": "truncation_529",
+      "pass_": true,
+      "error": "truncated at 529"
+    },
+    {
+      "name": "truncation_705",
+      "pass_": true,
+      "error": "truncated at 692"
+    },
+    {
+      "name": "truncation_751",
+      "pass_": true,
+      "error": "truncated at 751"
+    },
+    {
+      "name": "truncation_882",
+      "pass_": true,
+      "error": "truncated at 879"
+    },
+    {
+      "name": "truncation_903",
+      "pass_": true,
+      "error": "truncated at 903"
+    },
+    {
+      "name": "truncation_907",
+      "pass_": true,
+      "error": "truncated at 907"
+    },
+    {
+      "name": "truncation_1058",
+      "pass_": true,
+      "error": "truncated at 1058"
+    },
+    {
+      "name": "truncation_1234",
+      "pass_": true,
+      "error": "truncated at 1233"
+    },
+    {
+      "name": "truncation_1411",
+      "pass_": true,
+      "error": "truncated at 1411"
+    },
+    {
+      "name": "truncation_1587",
+      "pass_": true,
+      "error": "truncated at 1587"
+    },
+    {
+      "name": "truncation_1764",
+      "pass_": true,
+      "error": "truncated at 1763"
+    },
+    {
+      "name": "truncation_1940",
+      "pass_": true,
+      "error": "truncated at 1940"
+    },
+    {
+      "name": "truncation_2117",
+      "pass_": true,
+      "error": "truncated at 2117"
+    },
+    {
+      "name": "truncation_2293",
+      "pass_": true,
+      "error": "truncated at 2292"
+    },
+    {
+      "name": "truncation_2469",
+      "pass_": true,
+      "error": "truncated at 2469"
+    },
+    {
+      "name": "truncation_2646",
+      "pass_": true,
+      "error": "truncated at 2646"
+    },
+    {
+      "name": "truncation_2822",
+      "pass_": true,
+      "error": "truncated at 2822"
+    },
+    {
+      "name": "truncation_2999",
+      "pass_": true,
+      "error": "truncated at 2999"
+    },
+    {
+      "name": "truncation_3175",
+      "pass_": true,
+      "error": "truncated at 3175"
+    },
+    {
+      "name": "truncation_3351",
+      "pass_": true,
+      "error": "truncated at 3351"
+    },
+    {
+      "name": "truncation_3528",
+      "pass_": true,
+      "error": "truncated at 3528"
+    },
+    {
+      "name": "truncation_3704",
+      "pass_": true,
+      "error": "truncated at 3704"
+    },
+    {
+      "name": "truncation_3881",
+      "pass_": true,
+      "error": "truncated at 3880"
+    },
+    {
+      "name": "truncation_4057",
+      "pass_": true,
+      "error": "truncated at 4057"
+    },
+    {
+      "name": "truncation_4234",
+      "pass_": true,
+      "error": "truncated at 4234"
+    },
+    {
+      "name": "truncation_4410",
+      "pass_": true,
+      "error": "truncated at 4410"
+    },
+    {
+      "name": "truncation_4586",
+      "pass_": true,
+      "error": "truncated at 4586"
+    },
+    {
+      "name": "truncation_4763",
+      "pass_": true,
+      "error": "truncated at 4762"
+    },
+    {
+      "name": "truncation_4939",
+      "pass_": true,
+      "error": "truncated at 4939"
+    },
+    {
+      "name": "truncation_5116",
+      "pass_": true,
+      "error": "truncated at 5116"
+    },
+    {
+      "name": "truncation_5292",
+      "pass_": true,
+      "error": "truncated at 5292"
+    },
+    {
+      "name": "truncation_5468",
+      "pass_": true,
+      "error": "truncated at 5468"
+    },
+    {
+      "name": "unsupported_nonindexed",
+      "pass_": true,
+      "error": "unsupported profile: requires FF indexed SPR"
+    },
+    {
+      "name": "palette_high_bit",
+      "pass_": true,
+      "error": "unsupported palette high bit"
+    },
+    {
+      "name": "frame_count_zero",
+      "pass_": true,
+      "error": "invalid frame count"
+    },
+    {
+      "name": "inverted_frame_extent",
+      "pass_": true,
+      "error": "invalid frame dimensions"
+    },
+    {
+      "name": "huge_frame_extent",
+      "pass_": true,
+      "error": "invalid frame dimensions"
+    },
+    {
+      "name": "invalid_tile_count",
+      "pass_": true,
+      "error": "invalid tile count"
+    },
+    {
+      "name": "unsupported_tile_order_key",
+      "pass_": true,
+      "error": "unsupported tile mode 255 at 531"
+    },
+    {
+      "name": "illegal_block_index",
+      "pass_": true,
+      "error": "illegal block index"
+    },
+    {
+      "name": "invalid_block_table_count",
+      "pass_": true,
+      "error": "invalid block table count"
+    },
+    {
+      "name": "invalid_offset",
+      "pass_": true,
+      "error": "invalid block offsets"
+    },
+    {
+      "name": "expanded_length_mismatch",
+      "pass_": true,
+      "error": "expanded length mismatch"
+    },
+    {
+      "name": "block_width_overflow",
+      "pass_": true,
+      "error": "invalid block dimensions"
+    },
+    {
+      "name": "block_height_overflow",
+      "pass_": true,
+      "error": "invalid block dimensions"
+    },
+    {
+      "name": "odd_skip",
+      "pass_": true,
+      "error": "odd byte skip unsupported"
+    },
+    {
+      "name": "run_overflow",
+      "pass_": true,
+      "error": "run outside block"
+    },
+    {
+      "name": "trailing_byte",
+      "pass_": true,
+      "error": "trailing bytes"
+    },
+    {
+      "name": "illegal_frame_-1",
+      "pass_": true
+    },
+    {
+      "name": "illegal_frame_4",
+      "pass_": true
+    },
+    {
+      "name": "illegal_frame_999",
+      "pass_": true
+    },
+    {
+      "name": "all_65536_signed_byte_coordinate_pairs_match_BIN",
+      "pass_": true
+    },
+    {
+      "name": "all_96_header_size_pngs_and_union_canvas_no_clipping",
+      "pass_": true,
+      "opaque_pixels": 65805,
+      "negative_tile_definitions": 659,
+      "opaque_black_pixels": 3622
+    },
+    {
+      "name": "16_metadata_sequences_no_sort_or_mirror",
+      "pass_": true
+    }
+  ],
+  "total": 63,
+  "synthetic_policy": "Only malformed mutations and exhaustive coordinate arithmetic are synthetic; all success PNGs derive from real resource payloads"
+}

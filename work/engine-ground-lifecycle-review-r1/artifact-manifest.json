@@ -1,0 +1,225 @@
+{
+  "schema": "independent-review-preparation-seal-v1",
+  "task": "ENGINE-GROUND-LIFECYCLE-REVIEW-PREP-R1",
+  "candidateReviewed": false,
+  "exclusions": [
+    ".dotnet",
+    ".nuget",
+    "__pycache__",
+    "assets",
+    "obj",
+    "tmp"
+  ],
+  "artifacts": [
+    {
+      "path": "HANDOFF.md",
+      "bytes": 3215,
+      "sha256": "5595d3ffe1446b26eb991c2ddd77207db52a2291dc6b4651617680fe95555315"
+    },
+    {
+      "path": "Inventory.cs.diff",
+      "bytes": 5091,
+      "sha256": "6fabe9a9c417d400d5b964ca2207404e355af42393cddd08c9f8ebdc7815cf1e"
+    },
+    {
+      "path": "WorldEntry.cs.diff",
+      "bytes": 1271,
+      "sha256": "73ce9f7c5a6d7d06c535b2f838b1bcb9709f0673dab7ddda154d634266e9ebde"
+    },
+    {
+      "path": "analyze.py",
+      "bytes": 5266,
+      "sha256": "9dd3395ef092814ee0406ed6d5ee86cbc4b2ecfb8f17677dfbfa832f41df0505"
+    },
+    {
+      "path": "baseline-binding.json",
+      "bytes": 94047,
+      "sha256": "34176de7b355a57b920c120ebcf814fd39f83e3b26050daae04c6dcfa03c74fc"
+    },
+    {
+      "path": "baseline-comparison.json",
+      "bytes": 11821,
+      "sha256": "c71577126fb971d5ccbaf60ac2c9a480d7190af0d84f22b982fe29b521019142"
+    },
+    {
+      "path": "baseline-probe.json",
+      "bytes": 66948,
+      "sha256": "6b71f471bf95c3a7cbd8ea496b84d99c376d5147c05a633b19600f7293033ddc"
+    },
+    {
+      "path": "build-baseline.log",
+      "bytes": 867,
+      "sha256": "cb16a9a8f6c70f7e0c060401ac13daffa2c217dce0e8fafc4e26b45db80f1054"
+    },
+    {
+      "path": "build-extended.log",
+      "bytes": 294,
+      "sha256": "68a946a9d1d5217f93baf311472416169d5486c8ba56266a20833bc826876376"
+    },
+    {
+      "path": "build-supplement.log",
+      "bytes": 294,
+      "sha256": "072aca099e72cbb02a7904069974018525e632db1103e67c09f8271a65e5b7db"
+    },
+    {
+      "path": "extended-probe.json",
+      "bytes": 140953,
+      "sha256": "c24ca011d3bd743b8b40ec67abab0fe4571251d900d078a5a2a9a53fe3fde5f7"
+    },
+    {
+      "path": "harness/Extended.cs",
+      "bytes": 13941,
+      "sha256": "7ece3b0c845948d2a689c1a376822955a0a3914f6fdd6ba1e86c8a40afd75847"
+    },
+    {
+      "path": "harness/Lifecycle.cs",
+      "bytes": 5351,
+      "sha256": "70e1dc0b9ee21db7df7ec2ee0caffb24d052c69bba37fba17cbad7aec94f2274"
+    },
+    {
+      "path": "harness/Program.cs",
+      "bytes": 13263,
+      "sha256": "4b790371a3d9642e9f78c4fe8ffce77b4225068a9fb0248bfcaf63ca397b6eb2"
+    },
+    {
+      "path": "harness/Review.csproj",
+      "bytes": 410,
+      "sha256": "6b8a520d3007553244fdd1a7259791ae8604703c5b2a5563d50beb8cad25295a"
+    },
+    {
+      "path": "harness/Supplement.cs",
+      "bytes": 2443,
+      "sha256": "5d2dae882e6bab57899fc9b08f8a69a50b0d36ad2d048cb68e429ae9b22f2b14"
+    },
+    {
+      "path": "helper/r32/Microsoft.Web.WebView2.Core.dll",
+      "bytes": 698208,
+      "sha256": "d60e6e94245078cb56e44ebd5f360dc04bf18e460136be93bfc4cfca43b98505"
+    },
+    {
+      "path": "helper/r32/Microsoft.Web.WebView2.Core.xml",
+      "bytes": 612031,
+      "sha256": "8684cd74000c77533e563785208308ada63808da85825206856cab11a9eeffce"
+    },
+    {
+      "path": "helper/r32/Microsoft.Web.WebView2.WinForms.dll",
+      "bytes": 39264,
+      "sha256": "84b5772260dbdfe95591197edc9315dcd2cc86ad610e4b14ddd5e4291e31a381"
+    },
+    {
+      "path": "helper/r32/Microsoft.Web.WebView2.WinForms.xml",
+      "bytes": 41869,
+      "sha256": "6a8ec199373824fdebceda7b3d780d0b31c82edceae04d92391027c971dea6c2"
+    },
+    {
+      "path": "helper/r32/P11.ClientEngine.dll",
+      "bytes": 2179072,
+      "sha256": "c64bf0069722e28fc174d70d261b7540da6e3f74ee422d4874cbffb77149364f"
+    },
+    {
+      "path": "helper/r32/P11.ClientEngine.pdb",
+      "bytes": 352032,
+      "sha256": "ce4dbd8381c11dd11d0e17f403266b2bc354ca0269b8a2ae920b40077038ca4e"
+    },
+    {
+      "path": "helper/r32/P24.Audio.dll",
+      "bytes": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    {
+      "path": "helper/r32/P24.Audio.pdb",
+      "bytes": 20720,
+      "sha256": "91ac164c2f1ac104fb774501cae1988d24bd3ee2113ba99ff95930e6866811ed"
+    },
+    {
+      "path": "helper/r32/PickupPreparation.deps.json",
+      "bytes": 1938,
+      "sha256": "d723e7327e2b19691b11e49c8478731060e82ad1852eecfea6f0dbb5c4c32a33"
+    },
+    {
+      "path": "helper/r32/PickupPreparation.dll",
+      "bytes": 146432,
+      "sha256": "f3b9b8195a86008747e32a62d64dac7fc263bd013e21c030354d2272b639c335"
+    },
+    {
+      "path": "helper/r32/PickupPreparation.exe",
+      "bytes": 162304,
+      "sha256": "79d51b3480cdd4110b532a62419e9426ac8ad4757777a4fec62e93e956b9ad8e"
+    },
+    {
+      "path": "helper/r32/PickupPreparation.pdb",
+      "bytes": 31404,
+      "sha256": "1e6cc74c1e1e75e72c0b68eff440d83ac1fff14d3ba370ec7903bddf3da16ccd"
+    },
+    {
+      "path": "helper/r32/PickupPreparation.runtimeconfig.json",
+      "bytes": 447,
+      "sha256": "039a0defb81019310fa2e8a17ef8d2ad086b1a37656149aa598f1f75893f2a22"
+    },
+    {
+      "path": "probe-baseline.log",
+      "bytes": 10,
+      "sha256": "df0560fa59687ee8e573dca80844e5a432e98c893ea1b0114927ac0fdc981681"
+    },
+    {
+      "path": "probe-extended.log",
+      "bytes": 10,
+      "sha256": "4ddbd13111a1b95dc5c6311fb232f54588a0a38b1dd888659c7385b5e03041cf"
+    },
+    {
+      "path": "probe-supplement.log",
+      "bytes": 9,
+      "sha256": "43a7efd4308e93b828c87bfbb61d587038302c2d09729e126c96bd4f6d7cd894"
+    },
+    {
+      "path": "result.json",
+      "bytes": 2670,
+      "sha256": "bc2718c9f8b0b04717b9915d9eb80125ca26b7e87250e1968dfd3928c416da87"
+    },
+    {
+      "path": "review-contract.md",
+      "bytes": 6547,
+      "sha256": "180f1a72e98c7375e366411fc3bdbf971eedf592bece90963528e3e88c8f7c41"
+    },
+    {
+      "path": "run.ps1",
+      "bytes": 1229,
+      "sha256": "610637169bcbe78eab0bed549cd6e615958599433229073cc1b9c6ea0a4f211a"
+    },
+    {
+      "path": "seal.py",
+      "bytes": 954,
+      "sha256": "deefcbd5bbe67f8c08b212c3a6fe55c774a4f647850ce115383c6500660c7da7"
+    },
+    {
+      "path": "sealed-material-binding.json",
+      "bytes": 766,
+      "sha256": "d8abec97117b04ae4bdc00af565f1133998499574af708239e093e3bba0e2f47"
+    },
+    {
+      "path": "setup.py",
+      "bytes": 5057,
+      "sha256": "d2d930bc47f3e412423a688f611bb6125a7f582d9b9ac1fb0ecc139609a2e112"
+    },
+    {
+      "path": "source-pins.json",
+      "bytes": 134066,
+      "sha256": "19c5f764b9f9d69fcc89e60dfca0f57b48787f4bea9750b0d94af40d4ae935d7"
+    },
+    {
+      "path": "supplement-probe.json",
+      "bytes": 7405,
+      "sha256": "189cc5d74e00b95fb1b0c6fcd836e91941173deac9593c2790a3c946eb818666"
+    },
+    {
+      "path": "testplan.md",
+      "bytes": 6037,
+      "sha256": "ede9258aa788b82f00a0fa60e299fec93912f2387b4abd6abef92a8a25cef54c"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 793,
+      "sha256": "e3b399df7e6e8414909df339917293f379b17915fbdf3280dd5944e1c5795c89"
+    }
+  ]
+}

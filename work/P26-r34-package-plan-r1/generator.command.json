@@ -1,0 +1,23 @@
+{
+  "argv": [
+    "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r2\\generate_package_plan.py",
+    "--canonical-plan",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-authority-rebind-r1\\canonical-plan.json",
+    "--canonical-plan-sha256",
+    "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761",
+    "--shared-receipt-sha256",
+    "0b96bf307f38e749143138d0930585b2bd7da6ef11d6b8a6d1ec1c66e4fc6e0c",
+    "--write-plan",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r1\\package-plan.json"
+  ],
+  "cwd": "D:\\lineage開發\\TW1608262200研究",
+  "exitCode": 0,
+  "stdoutSha256": "764c6657749851e1c9ce7b49f5ca20919dbfe7f8f92980152b5c35d0c37aa278",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "workflowFrozen": true,
+  "productCommandsExecuted": 0
+}

@@ -1,0 +1,103 @@
+{
+  "status": "offline-preparation-ready-for-supervisor-review",
+  "utc": "2026-10-25T19:57:42.228985+00:00",
+  "workerThread": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+  "supervisorThread": "01a1748a-d237-71a0-9323-60ad8462794c",
+  "goalStatus": "active",
+  "goalReceipt": {
+    "path": "reference/cache/continuation-r1/goal-final-observation.json",
+    "sha256": "541178b2f776f39874af6eb0d79db2d9b9a047ff6e98e0ac25573eb455c6d08e"
+  },
+  "productDllSha256": "83bffafa5bfcc4e1a752a5280c4329a3f7359d231b13539715adbbeb9b955fb1",
+  "productModified": false,
+  "protectedFilesVerified": 663,
+  "protectedMismatches": [],
+  "preparation": {
+    "path": "reference/cache/continuation-r1/ready-r4/preparation.json",
+    "sha256": "c7a3dd71e341820770fbb887cf502aafb4bec6552e878d17c0b7e9771e390a58",
+    "inputCount": 829
+  },
+  "negativeTests": {
+    "path": "reference/cache/continuation-r1/negative-tests-r4.json",
+    "sha256": "e2aceabd4ad5e735b8303e371610741a14cdaae57083ed7240f8db87d6078716",
+    "cases": 49,
+    "sideEffectsProhibitedDuringChecks": true
+  },
+  "scripts": [
+    {
+      "path": "continuation_gate.py",
+      "sha256": "ebe0de8b2644dd0297149867bd58ce6350a7f2e1d83ed2d03b1671b6eae6662b"
+    },
+    {
+      "path": "cache_continuation.py",
+      "sha256": "7c0105b920a6e40d2f4a1c234118e66e22073a098cb543574ce56d2dbe444bac"
+    },
+    {
+      "path": "continuation_preflight.py",
+      "sha256": "87f0d555577844f5e8d2ea4c51d40407506a7211312efe8df1ee85da05a998c7"
+    },
+    {
+      "path": "prepare_continuation.py",
+      "sha256": "de820a99f2d6840773cacfdd6d7366ae8b5c60db60ff81705ac89b21b7bbe387"
+    },
+    {
+      "path": "freeze_gate_r3.py",
+      "sha256": "6f75bfef44129498c3fab03a6a70bbd31f4607bc856bfc6b604138469c7b7db5"
+    },
+    {
+      "path": "freeze_p24_r3.py",
+      "sha256": "4caa8c59bae8c514ba92dbc682b30ef5b84a62256a3d58cb5a9eefbf6160f96a"
+    },
+    {
+      "path": "test_continuation.py",
+      "sha256": "f338c53e32026a6b6b2d1738136b6219a1095fc6a28c0d338dbc3f771ac98578"
+    }
+  ],
+  "formalGate": {
+    "offline27": "pass-existing-receipts",
+    "native102": "pass-file-verification",
+    "singleWriter": "pass",
+    "newLive": "reject-missing-approval",
+    "ready": false
+  },
+  "preparationSequence": [
+    "cli-prepare22",
+    "cli-round1",
+    "cli-round2",
+    "ui-round1",
+    "ui-round2"
+  ],
+  "pendingBefore": [
+    "cli-round1",
+    "cli-round2",
+    "ui-round2"
+  ],
+  "liveAuthorized": false,
+  "liveStarted": false,
+  "uiOpened": false,
+  "newUiTicketCreated": false,
+  "databaseAccess": false,
+  "serviceOperations": false,
+  "formalFreeze": false,
+  "originalVulnerabilityResearchContinued": false,
+  "stageComplete": false,
+  "liveRuntimeBranchesExecuted": false,
+  "requiresHuman": [
+    "User explicitly resumes UI availability",
+    "New UI round1 real start-button click and foreground",
+    "New UI round2 real start-button click and foreground"
+  ],
+  "requiresSupervisor": [
+    "Independent review of exact bundle/scripts/routes/before",
+    "Fresh exact external single-run release per operation",
+    "Same-build current-pump/raw/source-frame/Web review",
+    "Four live rounds plus separate preparation22, formal freeze approval with fresh actual Goal",
+    "Fresh reserved-role acceptance and explicit normal-cleanup handback"
+  ],
+  "report": "CONTINUATION-R1.md",
+  "replay": [
+    "python -B -X utf8 cache_continuation.py --bundle reference/cache/continuation-r1/ready-r4/preparation.json --check",
+    "python -B -X utf8 test_continuation.py --bundle reference/cache/continuation-r1/ready-r4/preparation.json --output reference/cache/continuation-r1/review-negative-tests-next.json",
+    "python -B -X utf8 freeze_p24_r3.py --check"
+  ]
+}

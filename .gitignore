@@ -1,0 +1,76 @@
+﻿# ===== 不進 git：封存、歷史、實驗室、大型素材 =====
+releases/
+!releases/SHA256SUMS.txt
+history/
+recovery/
+environments/
+evidence/
+P[0-9][0-9]-*/
+
+# work/ 與 主管/：只保留各子目錄第一層的 .md / .json（HANDOFF、result、architecture、matrix）
+work/*
+!work/*/
+work/*/*
+!work/*/*.md
+!work/*/*.json
+主管/*
+!主管/*/
+主管/*/*
+!主管/*/*.md
+!主管/*/*.json
+
+# ===== 引擎建置與工具快取 =====
+engine/build/
+engine/tmp/
+engine/.dotnet/
+engine/.nuget/
+engine/vendor/
+engine/assets
+engine/_integration/**/stage/
+engine/expected/
+**/bin/
+**/obj/
+**/.vs/
+*.user
+*.suo
+
+# ===== 暫存 =====
+scratch/
+tmp/
+*.log
+*.tmp
+__pycache__/
+*.pyc
+
+# ===== 巨型狀態檔（停用） =====
+工作佇列.json
+監製進度.json
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+
+# ===== 二進位／資料庫／封裝 =====
+*.pak
+*.idx
+*.spr
+*.til
+*.exe
+*.dll
+*.pdb
+*.jar
+*.vhdx
+*.ibd
+*.frm
+*.MYD
+*.MYI
+*.7z
+*.rar
+*.zst
+
+# ===== OS / IDE =====
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+.cursor/*
+!.cursor/rules/

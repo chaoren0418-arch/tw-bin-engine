@@ -1,0 +1,3412 @@
+{
+  "schema": "p25-completion-reconciliation-v1",
+  "phase": "P25",
+  "baseline": "r33",
+  "sourceDocuments": [
+    {
+      "path": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "size": 44813,
+      "sha256": "815ea14323936891a66eedc24e8e8b324d2a873934d9418832437097e48ccd55"
+    },
+    {
+      "path": "主管/完整引擎未完成項目.json",
+      "size": 13466,
+      "sha256": "4766aa7913f031055604999c5f5fa991372593ddd6d7558dfe545de3d60ef28d"
+    }
+  ],
+  "denominators": {
+    "oldMatrixRows": 32,
+    "oldMatrixRemaining": 7,
+    "oldMatrixDirectFixes": 1,
+    "unfinishedRemaining": 7,
+    "unfinishedDirectFixes": 1
+  },
+  "rows": [
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 0,
+      "id": "R01",
+      "original": {
+        "id": "R01",
+        "feature": "正常入口/登入/選角/移動/重登",
+        "classification": "已解決",
+        "r27Current": "r27 正常 CMD、原生登入/選角/移動、正常保存重登已實測。",
+        "historicalEvidence": [
+          "r22-final-live/g00-main-blank-entry-state.json",
+          "r22-final-live/g01-main-normal-walk.json",
+          "r22-final-live/fix-gift-normal-relogin.json",
+          "r22-full-flow/g01-main-normal-login.json",
+          "r22-full-flow/g01-peer-normal-login.json"
+        ],
+        "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+        "currentEvidence": [
+          "r27-targeted-live/current-status.json"
+        ],
+        "next": "保留 r27-targeted-live 證據；不重做登入接線。",
+        "wholeFeatureComplete": false,
+        "r28Current": "Normal CMD/manual login/character/world; eight native direction keys; normal close and new-process relogin restore position/items/equipment.",
+        "r28Evidence": [
+          "native-r28/normal-save-review.json"
+        ]
+      },
+      "moduleIds": [
+        "M01"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "r28 login/save/relogin is historical; r33 formal offline identity does not repeat it.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/ProductEntry.cs",
+          "line": 7,
+          "symbolOrText": "public static bool Normal",
+          "excerpt": "public static bool Normal(string[] args){if(args.Contains(\"--normal-product\")){if(args.Length!=1)throw new ArgumentException(\"正常入口不接受診斷或自動登入參數。\");return true;}return args.Length==0;}"
+        },
+        {
+          "path": "engine/source/LoginConnection.cs",
+          "line": 43,
+          "symbolOrText": "sendMovementGate=async",
+          "excerpt": "sendMovementGate=async (bytes,valid,admit)=>{await sendLock.WaitAsync(cts.Token);try{if(epoch!=generation||!valid())return false;admit();await stream.WriteAsync(LoginFrames.Wrap(outgoing!.Transform(bytes,true)),cts.Token);Sent(bytes);return true;}finally{sendLock.Release();}};"
+        },
+        {
+          "path": "engine/source/LoginConnection.cs",
+          "line": 62,
+          "symbolOrText": "ApplyWorldPacket",
+          "excerpt": "if(epoch!=generation)return;long reportsBefore=World.AttackReports;ApplyWorldPacket(plain,worldSelection!,sequence);ApplyCombatAcknowledgement(reportsBefore);AppliedPacketSequence=sequence;if(World.TradeCancelRequired)_=CancelChangedTrade();if(World.TeleportAckPending)_=AcknowledgeTeleport();"
+        },
+        {
+          "path": "engine/source/ClientLogin.cs",
+          "line": 37,
+          "symbolOrText": "BeforeLoginStart",
+          "excerpt": "loginControl=new(login,BeforeLoginStart,()=>{ClearInput(\"offline-preview\");World.ResetOfflinePreview();ReturnGameFocus();});"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "fixed entry, DLL and source pins agree",
+        "normal manual login/character/world/cancel/disconnect/relogin receipts on selected final release",
+        "no stale session may apply packets after cancellation"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 1,
+      "id": "R02",
+      "original": {
+        "id": "R02",
+        "feature": "匕首重登/原生鍵盤/圖示957",
+        "classification": "已解決",
+        "r27Current": "r27 正常 CMD、原生登入/選角/移動、正常保存重登已實測。",
+        "historicalEvidence": [
+          "r22-final-live/g02-dagger-native-keyboard-walk.json",
+          "r22-final-live/g02-dagger-normal-relogin.json",
+          "r22-final-live/fix-gift-icon-visible-state.json"
+        ],
+        "historicalR22Status": "r22直接實測",
+        "currentEvidence": [
+          "r27-targeted-live/current-status.json"
+        ],
+        "next": "保留 r27-targeted-live 證據；不重做登入接線。",
+        "wholeFeatureComplete": false,
+        "r28Current": "Dagger equip and new-process relogin persistence confirmed; native keyboard works. Icon visual acceptance remains unavailable.",
+        "r28Evidence": [
+          "native-r28/normal-save-review.json"
+        ]
+      },
+      "moduleIds": [
+        "M05"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "r28 dagger/equipment persistence retained; icon957 visual acceptance remains absent.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Inventory.cs",
+          "line": 111,
+          "symbolOrText": "UseSelectedItem",
+          "excerpt": "public async Task<bool> UseSelectedItem(){"
+        },
+        {
+          "path": "engine/source/Inventory.cs",
+          "line": 113,
+          "symbolOrText": "Slow",
+          "excerpt": "if(!ItemAvailable||ItemBusy||MovementBusy||sendMovementGate==null){World.ItemNotice=SlowActionsBlocked&&World.SelectedItem?.SupportedHastePotion!=true?SlowActionNotice:\"未送出：道具／速度未支援、忙碌或已耗盡\";return false;}"
+        },
+        {
+          "path": "engine/source/Equipment.cs",
+          "line": 36,
+          "symbolOrText": "ReceiveEquipment",
+          "excerpt": "bool ReceiveEquipment(byte opcode,LoginReader r,byte[] plain){"
+        },
+        {
+          "path": "engine/source/BasicSupplies.cs",
+          "line": 5,
+          "symbolOrText": "BasicSupply",
+          "excerpt": "InventoryItem? pendingBasicSupply;int basicSupplyEpoch;long basicSupplyAt;"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N02"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "selected item count and identity remain current at send",
+        "reply/save/relogin agree on same final version",
+        "no expansion of slow qualification from unrelated tests"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 2,
+      "id": "R03",
+      "original": {
+        "id": "R03",
+        "feature": "戰鬥/自然EXP與戰利品",
+        "classification": "僅驗收缺證",
+        "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+        "historicalEvidence": [
+          "r21-final-live/g02-combat-reward-reconciliation.json",
+          "r22-full-flow/g02-dwarf-light-arrow-kill.json",
+          "r22-full-flow/g02-zombie-live-melee.json",
+          "r22-full-flow/g02-postcombat-normal-home.json",
+          "r22-full-flow/g02-kill-loot-offline-db.json"
+        ],
+        "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+        "currentEvidence": [
+          "r27-scope-audit/root-service-source-review.json"
+        ],
+        "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+        "wholeFeatureComplete": false,
+        "r28Current": "Normal native offensive magic and melee killed floating eye2000004570; original corpse/target-clear and EXP+44 confirmed, actor survived. No loot observed; EXP save/relogin accepted. Natural EXP+44 persisted through normal close, offline DB and new-process relogin.",
+        "r28Evidence": [
+          "native-r28/cave-eye-combat-review.json",
+          "native-r28/cave-home-save-review.json"
+        ]
+      },
+      "moduleIds": [
+        "M04"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "r28 eye kill/EXP+44 persisted; no loot observed. r30/r31 cadence is offline only.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/ActionCadence.cs",
+          "line": 22,
+          "symbolOrText": "public static ActionCadence Capture",
+          "excerpt": "public static ActionCadence Capture(int gfx,int weapon,int action,byte speed,byte brave,int reuse=0,int margin=0){"
+        },
+        {
+          "path": "engine/source/ActionCadence.cs",
+          "line": 94,
+          "symbolOrText": "bool ActionAdmissionReady",
+          "excerpt": "bool ActionAdmissionReady=>!movementSending&&!itemSending&&!groundSending&&!GroundBusy&&!ItemBusy&&MovementClock()>=MovementReadyAt&&ActionClock()>=nextCombatAt&&ActionClock()>=nextMagicAt;"
+        },
+        {
+          "path": "engine/source/MagicSpells.cs",
+          "line": 8,
+          "symbolOrText": "new[]{1,3,4,8}",
+          "excerpt": "if(!rows.Keys.Order().SequenceEqual(new[]{1,3,4,8})||rows.Values.Any(s=>s.Action is not (18 or 19)||s.Wire is not (\"D\" or \"DHH\")||s.Mp<0||s.ReuseMs<0))throw new InvalidDataException(\"Unsupported casting profile\");"
+        },
+        {
+          "path": "engine/source/ActionCadence.cs",
+          "line": 72,
+          "symbolOrText": "pending.Epoch==WorldEpoch",
+          "excerpt": "if(!OwnDead&&pending.Epoch==WorldEpoch&&pending.Appearance==AppearanceRevision&&pending.Correction==Corrections&&pending.Animation.Action==action&&(target==null||target==pending.Target)&&pending.Animation.Timing?.Matches(own.Gfx,own.Weapon)==true)"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "server reply and saved result agree for bounded normal/haste/slow supported actions",
+        "admission/animation/reuse timing gates survive lifecycle changes",
+        "unsupported content is explicitly refused"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 3,
+      "id": "R04",
+      "original": {
+        "id": "R04",
+        "feature": "技能學習/施法",
+        "classification": "僅驗收缺證",
+        "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+        "historicalEvidence": [
+          "r20-final-live/g03-learn-heal-and-normal-home.json",
+          "r21-final-live/g03-postcombat-normal-recovery.json",
+          "r22-full-flow/g03-shield-quote.json",
+          "r22-full-flow/g03-shield-learned.json",
+          "r22-full-flow/g03-shield-cast-after-relogin.json",
+          "r22-full-flow/g03-learn-cast-offline-db.json"
+        ],
+        "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+        "currentEvidence": [
+          "r27-scope-audit/root-service-source-review.json"
+        ],
+        "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+        "wholeFeatureComplete": false,
+        "r28Current": "Heal and shield actual replies/AC change; native skill-card assignment toF4 and offensive light-arrow gfx167 reply/MP reduction confirmed. Skill learning remains untested in r28. Native holy-weapon skill8 self-cast and1200s buff reply confirmed; damage bonus not measured.",
+        "r28Evidence": [
+          "native-r28/cave-eye-combat-review.json",
+          "native-r28/holy-weapon-review.json"
+        ]
+      },
+      "moduleIds": [
+        "M04"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "r28 cast/buff results retained; learning not retested there. r30/r31 only skills1/3/4/8.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/ActionCadence.cs",
+          "line": 22,
+          "symbolOrText": "public static ActionCadence Capture",
+          "excerpt": "public static ActionCadence Capture(int gfx,int weapon,int action,byte speed,byte brave,int reuse=0,int margin=0){"
+        },
+        {
+          "path": "engine/source/ActionCadence.cs",
+          "line": 94,
+          "symbolOrText": "bool ActionAdmissionReady",
+          "excerpt": "bool ActionAdmissionReady=>!movementSending&&!itemSending&&!groundSending&&!GroundBusy&&!ItemBusy&&MovementClock()>=MovementReadyAt&&ActionClock()>=nextCombatAt&&ActionClock()>=nextMagicAt;"
+        },
+        {
+          "path": "engine/source/MagicSpells.cs",
+          "line": 8,
+          "symbolOrText": "new[]{1,3,4,8}",
+          "excerpt": "if(!rows.Keys.Order().SequenceEqual(new[]{1,3,4,8})||rows.Values.Any(s=>s.Action is not (18 or 19)||s.Wire is not (\"D\" or \"DHH\")||s.Mp<0||s.ReuseMs<0))throw new InvalidDataException(\"Unsupported casting profile\");"
+        },
+        {
+          "path": "engine/source/ActionCadence.cs",
+          "line": 72,
+          "symbolOrText": "pending.Epoch==WorldEpoch",
+          "excerpt": "if(!OwnDead&&pending.Epoch==WorldEpoch&&pending.Appearance==AppearanceRevision&&pending.Correction==Corrections&&pending.Animation.Action==action&&(target==null||target==pending.Target)&&pending.Animation.Timing?.Matches(own.Gfx,own.Weapon)==true)"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "server reply and saved result agree for bounded normal/haste/slow supported actions",
+        "admission/animation/reuse timing gates survive lifecycle changes",
+        "unsupported content is explicitly refused"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 4,
+      "id": "R05",
+      "original": {
+        "id": "R05",
+        "feature": "食物/藥水/裝備/地面拾取",
+        "classification": "僅驗收缺證",
+        "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+        "historicalEvidence": [
+          "r19-final-live/g04-food-use.json",
+          "r19-final-live/g04-native-p-pickup.json",
+          "r20-final-live/g04-haste-normal-use.json",
+          "r21-final-live/fix-dagger-normal-equipped.json",
+          "r22-full-flow/g04-main-food.json",
+          "r22-full-flow/g04-peer-green-used.json",
+          "r22-full-flow/g04-main-postcombat-recovery.json",
+          "r22-full-flow/g04-shield-off.json",
+          "r22-full-flow/g04-shield-on.json",
+          "r22-full-flow/g04-normal-meat-drop.json",
+          "r22-full-flow/g04-normal-meat-picked-up.json"
+        ],
+        "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+        "currentEvidence": [
+          "r27-scope-audit/root-service-source-review.json"
+        ],
+        "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+        "wholeFeatureComplete": false,
+        "r28Current": "Normal potions, food, equipment and save/relogin confirmed; native one-meat drop/P-pickup5->4->5 and offline save confirmed. Normal home scroll3->2, map1->map0 escape and persistence passed.",
+        "r28Evidence": [
+          "native-r28/ground-review.json",
+          "native-r28/cave-home-save-review.json"
+        ]
+      },
+      "moduleIds": [
+        "M06"
+      ],
+      "reconciliation": "offline_increment_native_pending",
+      "r33Assessment": "r28 food/equip/drop/P-pickup retained; r32 item exception and r33 lifecycle are offline increments; r34 presentation is stage only.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Ground.cs",
+          "line": 53,
+          "symbolOrText": "GroundClickGuardMs=900",
+          "excerpt": "public const int GroundClickGuardMs=900;"
+        },
+        {
+          "path": "engine/source/Ground.cs",
+          "line": 71,
+          "symbolOrText": "bool CurrentOwner()",
+          "excerpt": "bool CurrentOwner()=>epoch==generation&&we==World.WorldEpoch&&World.Actor?.ObjectId==actor!.ObjectId&&lease==groundLease;"
+        },
+        {
+          "path": "engine/source/Ground.cs",
+          "line": 32,
+          "symbolOrText": "TrackPickupRequest",
+          "excerpt": "internal void TrackPickupRequest(GroundItem item){if(Actor is {} a)pendingPickup=(a.X,a.Y,item.X,item.Y,a.Direction,WorldEpoch,Environment.TickCount64+3000);}"
+        },
+        {
+          "path": "engine/source/WorldEntry.cs",
+          "line": 46,
+          "symbolOrText": "ResetItemSend();ResetGroundSend();",
+          "excerpt": "try{World.Receive(plain,selected);if(itemWorld!=World.WorldEpoch||itemActor!=World.Actor?.ObjectId){ResetItemSend();ResetGroundSend();}}"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "I01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P26",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "P26 review resolves exact plan/stage/base identity and supervisor handover gate",
+        "canonical build/acceptance and release/entry separately proved before naming r34 formal",
+        "native and profile qualifications remain independent"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 5,
+      "id": "R06",
+      "original": {
+        "id": "R06",
+        "feature": "NPC購買",
+        "classification": "僅驗收缺證",
+        "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+        "historicalEvidence": [
+          "r21-final-live/fix-merchant-normal-supply-purchase.json",
+          "r22-full-flow/g05-pandora-normal-supplies-purchase.json",
+          "r22-full-flow/g05-pandora-purchase-normal-relogin.json",
+          "r22-full-flow/g07-ticket-offline-db.json"
+        ],
+        "historicalR22Status": "r22潘朵拉正常買補給1144、重登與離線DB已驗",
+        "currentEvidence": [
+          "r27-scope-audit/root-service-source-review.json"
+        ],
+        "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+        "wholeFeatureComplete": false
+      },
+      "moduleIds": [
+        "M07"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "r22 purchase/relogin remains r22; current service send path exists, no r33 native purchase claim.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/NpcInteraction.cs",
+          "line": 68,
+          "symbolOrText": "async Task<bool> InteractCore",
+          "excerpt": "async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){"
+        },
+        {
+          "path": "engine/source/Trade.cs",
+          "line": 63,
+          "symbolOrText": "public async Task<bool> Trade",
+          "excerpt": "public async Task<bool> Trade(string command,int revision,int epoch,int tradeGeneration,uint item=0,uint count=0){"
+        },
+        {
+          "path": "engine/source/PrivateShop.cs",
+          "line": 93,
+          "symbolOrText": "public async Task<PrivateShopResult> SendPrivateShop",
+          "excerpt": "public async Task<PrivateShopResult> SendPrivateShop(bool query,bool sell,int row,uint count,PrivateShopView stamp){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N03"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "request, original response and item/currency preservation reconciled on final version",
+        "missing conditions explicitly recorded",
+        "historical evidence never rewritten as a new version result"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 6,
+      "id": "R07",
+      "original": {
+        "id": "R07",
+        "feature": "NPC正向出售",
+        "classification": "來源或條件限制",
+        "r27Current": "客戶端出售接線存在；固定 SQL 與本次唯讀實驗 DB 1631 列收購價全 -1。沒有正向報價條件。",
+        "historicalEvidence": [
+          "r21-final-live/g05-merchant-sell-quote.json"
+        ],
+        "historicalR22Status": "固定SQL與live DB全部1631商店收購價為-1，正向成交條件不成立",
+        "currentEvidence": [
+          "r27-scope-audit/npc-sale-current-db-prices.json"
+        ],
+        "next": "不改商店資料、不虛構正向成交；若日後有合法正向報價再驗。",
+        "wholeFeatureComplete": false
+      },
+      "moduleIds": [
+        "M07"
+      ],
+      "reconciliation": "external_condition",
+      "r33Assessment": "historical negative shop prices are source report, not newly queried DB state; positive sale remains conditional.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/NpcInteraction.cs",
+          "line": 68,
+          "symbolOrText": "async Task<bool> InteractCore",
+          "excerpt": "async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){"
+        },
+        {
+          "path": "engine/source/Trade.cs",
+          "line": 63,
+          "symbolOrText": "public async Task<bool> Trade",
+          "excerpt": "public async Task<bool> Trade(string command,int revision,int epoch,int tradeGeneration,uint item=0,uint count=0){"
+        },
+        {
+          "path": "engine/source/PrivateShop.cs",
+          "line": 93,
+          "symbolOrText": "public async Task<PrivateShopResult> SendPrivateShop",
+          "excerpt": "public async Task<PrivateShopResult> SendPrivateShop(bool query,bool sell,int row,uint count,PrivateShopView stamp){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "C01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "request, original response and item/currency preservation reconciled on final version",
+        "missing conditions explicitly recorded",
+        "historical evidence never rewritten as a new version result"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 7,
+      "id": "R08",
+      "original": {
+        "id": "R08",
+        "feature": "玩家直接交易",
+        "classification": "僅驗收缺證",
+        "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+        "historicalEvidence": [
+          "r19-final-live/g06-direct-trade-resource-reconciliation.json",
+          "r20-final-live/g06-one-red-trade-completed.json",
+          "r22-full-flow/g06-trade-preconfirm.json",
+          "r22-full-flow/g06-trade-normal-relogin.json",
+          "r22-full-flow/g06-trade-offline-db.json"
+        ],
+        "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+        "currentEvidence": [
+          "r27-scope-audit/root-service-source-review.json"
+        ],
+        "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+        "wholeFeatureComplete": false
+      },
+      "moduleIds": [
+        "M07"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "r19/r20/r22 direct-trade evidence retained; same-version r33 trade/save native absent.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/NpcInteraction.cs",
+          "line": 68,
+          "symbolOrText": "async Task<bool> InteractCore",
+          "excerpt": "async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){"
+        },
+        {
+          "path": "engine/source/Trade.cs",
+          "line": 63,
+          "symbolOrText": "public async Task<bool> Trade",
+          "excerpt": "public async Task<bool> Trade(string command,int revision,int epoch,int tradeGeneration,uint item=0,uint count=0){"
+        },
+        {
+          "path": "engine/source/PrivateShop.cs",
+          "line": 93,
+          "symbolOrText": "public async Task<PrivateShopResult> SendPrivateShop",
+          "excerpt": "public async Task<PrivateShopResult> SendPrivateShop(bool query,bool sell,int row,uint count,PrivateShopView stamp){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N03"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "request, original response and item/currency preservation reconciled on final version",
+        "missing conditions explicitly recorded",
+        "historical evidence never rewritten as a new version result"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 8,
+      "id": "R09",
+      "original": {
+        "id": "R09",
+        "feature": "私商正向購買",
+        "classification": "僅驗收缺證",
+        "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+        "historicalEvidence": [
+          "r19-final-live/g06p-buy-one-sapphire.json",
+          "r20-final-live/fix-private-normal-recovery-list.json",
+          "r22-full-flow/g06p-ruby-purchase.json",
+          "r22-full-flow/g06p-ruby-stock-after.json",
+          "r22-full-flow/g06p-ruby-normal-relogin.json"
+        ],
+        "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+        "currentEvidence": [
+          "r27-scope-audit/root-service-source-review.json"
+        ],
+        "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+        "wholeFeatureComplete": false
+      },
+      "moduleIds": [
+        "M07"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "r19/r20/r22 private purchase evidence retained; r33 positive purchase native absent.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/NpcInteraction.cs",
+          "line": 68,
+          "symbolOrText": "async Task<bool> InteractCore",
+          "excerpt": "async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){"
+        },
+        {
+          "path": "engine/source/Trade.cs",
+          "line": 63,
+          "symbolOrText": "public async Task<bool> Trade",
+          "excerpt": "public async Task<bool> Trade(string command,int revision,int epoch,int tradeGeneration,uint item=0,uint count=0){"
+        },
+        {
+          "path": "engine/source/PrivateShop.cs",
+          "line": 93,
+          "symbolOrText": "public async Task<PrivateShopResult> SendPrivateShop",
+          "excerpt": "public async Task<PrivateShopResult> SendPrivateShop(bool query,bool sell,int row,uint count,PrivateShopView stamp){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N03"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "request, original response and item/currency preservation reconciled on final version",
+        "missing conditions explicitly recorded",
+        "historical evidence never rewritten as a new version result"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 9,
+      "id": "R10",
+      "original": {
+        "id": "R10",
+        "feature": "私商正向回購",
+        "classification": "來源或條件限制",
+        "r27Current": "正向回購未驗；固定 AI 18 種條目皆要求 +7 武器，現有兩已用角色沒有匹配物。",
+        "historicalEvidence": [
+          "r19-final-live/g06p-sell-current-owned-quote.json"
+        ],
+        "historicalR22Status": "AI收購要求+7武器；現有物品不符合，正向回購未驗",
+        "currentEvidence": [
+          "r27-scope-audit/root-service-source-review.json"
+        ],
+        "next": "先有正常取得且符合需求的物品/買家；不灌裝備或新增開攤功能。",
+        "wholeFeatureComplete": false
+      },
+      "moduleIds": [
+        "M07"
+      ],
+      "reconciliation": "external_condition",
+      "r33Assessment": "historical +7 requirement/resource mismatch retained; no new item/DB fabrication or current-state assertion.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/NpcInteraction.cs",
+          "line": 68,
+          "symbolOrText": "async Task<bool> InteractCore",
+          "excerpt": "async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){"
+        },
+        {
+          "path": "engine/source/Trade.cs",
+          "line": 63,
+          "symbolOrText": "public async Task<bool> Trade",
+          "excerpt": "public async Task<bool> Trade(string command,int revision,int epoch,int tradeGeneration,uint item=0,uint count=0){"
+        },
+        {
+          "path": "engine/source/PrivateShop.cs",
+          "line": 93,
+          "symbolOrText": "public async Task<PrivateShopResult> SendPrivateShop",
+          "excerpt": "public async Task<PrivateShopResult> SendPrivateShop(bool query,bool sell,int row,uint count,PrivateShopView stamp){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "C01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "request, original response and item/currency preservation reconciled on final version",
+        "missing conditions explicitly recorded",
+        "historical evidence never rewritten as a new version result"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 10,
+      "id": "R11",
+      "original": {
+        "id": "R11",
+        "feature": "倉庫存取",
+        "classification": "僅驗收缺證",
+        "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+        "historicalEvidence": [
+          "r20-final-live/g06-warehouse-relogin-ten-preserved.json",
+          "r20-final-live/g06-warehouse-withdraw-six.json"
+        ],
+        "historicalR22Status": "r20直接實測",
+        "currentEvidence": [
+          "r27-scope-audit/root-service-source-review.json"
+        ],
+        "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+        "wholeFeatureComplete": false
+      },
+      "moduleIds": [
+        "M07"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "r20 warehouse receipts retained as r20; no r33 warehouse native claim.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/NpcInteraction.cs",
+          "line": 68,
+          "symbolOrText": "async Task<bool> InteractCore",
+          "excerpt": "async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){"
+        },
+        {
+          "path": "engine/source/Trade.cs",
+          "line": 63,
+          "symbolOrText": "public async Task<bool> Trade",
+          "excerpt": "public async Task<bool> Trade(string command,int revision,int epoch,int tradeGeneration,uint item=0,uint count=0){"
+        },
+        {
+          "path": "engine/source/PrivateShop.cs",
+          "line": 93,
+          "symbolOrText": "public async Task<PrivateShopResult> SendPrivateShop",
+          "excerpt": "public async Task<PrivateShopResult> SendPrivateShop(bool query,bool sell,int row,uint count,PrivateShopView stamp){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N03"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "request, original response and item/currency preservation reconciled on final version",
+        "missing conditions explicitly recorded",
+        "historical evidence never rewritten as a new version result"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 11,
+      "id": "R12",
+      "original": {
+        "id": "R12",
+        "feature": "洞穴跨圖",
+        "classification": "僅驗收缺證",
+        "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+        "historicalEvidence": [
+          "r21-final-live/g02-dagger-cave-entry.json",
+          "r21-final-live/g09-dagger-normal-cave-exit.json",
+          "r22-full-flow/g09-main-normal-cave-entry.json",
+          "r22-full-flow/g09-main-cave-normal-relogin.json",
+          "r22-full-flow/g09-normal-cave-exit-before-town.json"
+        ],
+        "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+        "currentEvidence": [
+          "r27-scope-audit/root-service-source-review.json"
+        ],
+        "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+        "wholeFeatureComplete": false,
+        "r28Current": "Normal native map0->map1 entry and first map1 step independently reviewed:124+1steps,3map0 cache shifts,actual arrival32669,32802,HP686; further cave segments remain pending. Actual cave attempt stopped at map1step29 under pursuit; normal home-scroll escape alive. Further cave traversal not accepted. Caesar approach20steps/cache passed; configured spawn count0 and absent, no NPC transfer.",
+        "r28Evidence": [
+          "native-r28/cave-entry-review.json",
+          "native-r28/cave-home-save-review.json",
+          "native-r28/caesar-and-private-shop-review.json"
+        ]
+      },
+      "moduleIds": [
+        "M02"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "r28 cave entry/first step and home-scroll exit retained; pursuit-limited further traversal not accepted.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/WorldSession.cs",
+          "line": 24,
+          "symbolOrText": "public bool Renderable",
+          "excerpt": "public bool Renderable=>Ready&&!TeleportPending&&SupportedMap&&SupportedAppearance;"
+        },
+        {
+          "path": "engine/source/WorldSession.cs",
+          "line": 37,
+          "symbolOrText": "case 206:",
+          "excerpt": "case 206:Clear6016(SceneClock());var map=r.H();var water=r.C()!=0;r.Finish();ClearObjects();Actor=null;ResetSpeedStatus();ResetMovement();ResetCombat();ClearMagicEffects();MapId=map;Underwater=water;MapArrived();break;"
+        },
+        {
+          "path": "engine/source/WorldEntry.cs",
+          "line": 46,
+          "symbolOrText": "ResetItemSend();ResetGroundSend();",
+          "excerpt": "try{World.Receive(plain,selected);if(itemWorld!=World.WorldEpoch||itemActor!=World.Actor?.ObjectId){ResetItemSend();ResetGroundSend();}}"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 97,
+          "symbolOrText": "public void Shift",
+          "excerpt": "public void Shift(int d){if(d is <0 or >7)throw new ArgumentOutOfRangeException();int a=SourceA[d],b=SourceB[d],c=DestA[d],e=DestB[d];var before=new[]{OriginX,OriginY};int[] evicted=(d&1)!=0?[c,b,e]:[c,e];foreach(int s in evicted){Evicting?.Invoke(Slots[s]!);Events.Add(new{kind=\"evict\",slot=s,block=Slots[s]!.Name,generation=Slots[s]!.Generation});ClearRectangle(s);Slots[s]=null;}"
+        },
+        {
+          "path": "engine/source/Teleport.cs",
+          "line": 11,
+          "symbolOrText": "public bool ActionLocked",
+          "excerpt": "public bool ActionLocked=>BasicSupplyPending||ShipPending||TeleportPending||paralysis.Count>0||CacheEnabled&&MapResourceState!=\"ready\";"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N04"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "same-release supported map entry/move/return clears stale visuals/actions",
+        "retained blocks keep timing; evicted generations cannot dispatch late work",
+        "unsupported formats refuse with source identity"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 12,
+      "id": "R13",
+      "original": {
+        "id": "R13",
+        "feature": "往返船運",
+        "classification": "僅驗收缺證",
+        "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+        "historicalEvidence": [
+          "r20-final-live/g07-outbound-arrival-ready.json",
+          "r21-final-live/g07-return-natural-arrival-ready.json"
+        ],
+        "historicalR22Status": "r22已實際遇首領堵路並安全撤離，仍未完成同版船運",
+        "currentEvidence": [
+          "r27-scope-audit/root-service-source-review.json"
+        ],
+        "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+        "wholeFeatureComplete": false,
+        "r28Current": "Port approach failed at step30 due dynamic gfx3101 pursuit and death; normal save/relogin recovery confirmed. Fixed18-cell southern alternative is unreachable. No r28 boarding/map4/audio acceptance.",
+        "r28Evidence": [
+          "native-r28/port-attempt-review.json"
+        ]
+      },
+      "moduleIds": [
+        "M02"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "r20/r21 boat directions not combined into r33; r28 port failure/death retained; no repeat unsafe route.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/WorldSession.cs",
+          "line": 24,
+          "symbolOrText": "public bool Renderable",
+          "excerpt": "public bool Renderable=>Ready&&!TeleportPending&&SupportedMap&&SupportedAppearance;"
+        },
+        {
+          "path": "engine/source/WorldSession.cs",
+          "line": 37,
+          "symbolOrText": "case 206:",
+          "excerpt": "case 206:Clear6016(SceneClock());var map=r.H();var water=r.C()!=0;r.Finish();ClearObjects();Actor=null;ResetSpeedStatus();ResetMovement();ResetCombat();ClearMagicEffects();MapId=map;Underwater=water;MapArrived();break;"
+        },
+        {
+          "path": "engine/source/WorldEntry.cs",
+          "line": 46,
+          "symbolOrText": "ResetItemSend();ResetGroundSend();",
+          "excerpt": "try{World.Receive(plain,selected);if(itemWorld!=World.WorldEpoch||itemActor!=World.Actor?.ObjectId){ResetItemSend();ResetGroundSend();}}"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 97,
+          "symbolOrText": "public void Shift",
+          "excerpt": "public void Shift(int d){if(d is <0 or >7)throw new ArgumentOutOfRangeException();int a=SourceA[d],b=SourceB[d],c=DestA[d],e=DestB[d];var before=new[]{OriginX,OriginY};int[] evicted=(d&1)!=0?[c,b,e]:[c,e];foreach(int s in evicted){Evicting?.Invoke(Slots[s]!);Events.Add(new{kind=\"evict\",slot=s,block=Slots[s]!.Name,generation=Slots[s]!.Generation});ClearRectangle(s);Slots[s]=null;}"
+        },
+        {
+          "path": "engine/source/Teleport.cs",
+          "line": 11,
+          "symbolOrText": "public bool ActionLocked",
+          "excerpt": "public bool ActionLocked=>BasicSupplyPending||ShipPending||TeleportPending||paralysis.Count>0||CacheEnabled&&MapResourceState!=\"ready\";"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N04"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "same-release supported map entry/move/return clears stale visuals/actions",
+        "retained blocks keep timing; evicted generations cannot dispatch late work",
+        "unsupported formats refuse with source identity"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 13,
+      "id": "R14",
+      "original": {
+        "id": "R14",
+        "feature": "旅館房間/會議廳",
+        "classification": "僅驗收缺證",
+        "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+        "historicalEvidence": [
+          "r19-final-live/g10-hall-enter.json",
+          "r19-final-live/g10-room-enter-and-walk.json",
+          "r19-final-live/g10-room-relogin-outside.json",
+          "r22-full-flow/g08-room-key-purchase.json",
+          "r22-full-flow/g08-room-walk-state.json",
+          "r22-full-flow/g08-room-normal-relogin.json",
+          "r22-full-flow/g08-hall-key-purchase.json",
+          "r22-full-flow/player-ui-priority-offline-db.json"
+        ],
+        "historicalR22Status": "r22房間與會議廳正常租入已驗，會議廳步行/主動出口尚未驗",
+        "currentEvidence": [
+          "r27-scope-audit/root-service-source-review.json"
+        ],
+        "next": "固定 r27 正常流程補必要串接證據，非重跑全部歷史測試。",
+        "wholeFeatureComplete": false,
+        "r28Current": "100 gold room rental/key, map16384 entry, native room movement and normal portal exit to map0 confirmed. Conference hall not retested in r28.",
+        "r28Evidence": [
+          "native-r28/inn-room-review.json"
+        ]
+      },
+      "moduleIds": [
+        "M07"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "r28 room rental/entry/walk/exit retained; conference hall still not same-version accepted.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/NpcInteraction.cs",
+          "line": 68,
+          "symbolOrText": "async Task<bool> InteractCore",
+          "excerpt": "async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){"
+        },
+        {
+          "path": "engine/source/Trade.cs",
+          "line": 63,
+          "symbolOrText": "public async Task<bool> Trade",
+          "excerpt": "public async Task<bool> Trade(string command,int revision,int epoch,int tradeGeneration,uint item=0,uint count=0){"
+        },
+        {
+          "path": "engine/source/PrivateShop.cs",
+          "line": 93,
+          "symbolOrText": "public async Task<PrivateShopResult> SendPrivateShop",
+          "excerpt": "public async Task<PrivateShopResult> SendPrivateShop(bool query,bool sell,int row,uint count,PrivateShopView stamp){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N04"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "request, original response and item/currency preservation reconciled on final version",
+        "missing conditions explicitly recorded",
+        "historical evidence never rewritten as a new version result"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 14,
+      "id": "R15",
+      "original": {
+        "id": "R15",
+        "feature": "鑰匙歷史精確刪除",
+        "classification": "歷史缺證",
+        "r27Current": "原到期規則與前後快照相符，舊鑰匙精確刪除時刻沒有直接紀錄。",
+        "historicalEvidence": [
+          "inn-key-independent-review/result.json",
+          "r21-final-live/g10-inn-key-readonly-db.json"
+        ],
+        "historicalR22Status": "規則/時間相符，非直接證明",
+        "currentEvidence": [
+          "r27-scope-audit/root-service-source-review.json"
+        ],
+        "next": "保留不可回補的歷史限制，不重建舊時刻或補鑰匙。",
+        "wholeFeatureComplete": false
+      },
+      "moduleIds": [
+        "M07"
+      ],
+      "reconciliation": "historical_unrecoverable",
+      "r33Assessment": "exact old key deletion instant cannot be reconstructed; timing consistency is not direct evidence.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/NpcInteraction.cs",
+          "line": 68,
+          "symbolOrText": "async Task<bool> InteractCore",
+          "excerpt": "async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){"
+        },
+        {
+          "path": "engine/source/Trade.cs",
+          "line": 63,
+          "symbolOrText": "public async Task<bool> Trade",
+          "excerpt": "public async Task<bool> Trade(string command,int revision,int epoch,int tradeGeneration,uint item=0,uint count=0){"
+        },
+        {
+          "path": "engine/source/PrivateShop.cs",
+          "line": 93,
+          "symbolOrText": "public async Task<PrivateShopResult> SendPrivateShop",
+          "excerpt": "public async Task<PrivateShopResult> SendPrivateShop(bool query,bool sell,int row,uint count,PrivateShopView stamp){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "H01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "request, original response and item/currency preservation reconciled on final version",
+        "missing conditions explicitly recorded",
+        "historical evidence never rewritten as a new version result"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 15,
+      "id": "R16",
+      "original": {
+        "id": "R16",
+        "feature": "原生全視窗像素/滑鼠",
+        "classification": "僅待人工或工具恢復驗收",
+        "r27Current": "原生完整畫面/滑鼠未驗；既有支援恢復已失敗。",
+        "historicalEvidence": [
+          "r20-final-live/native-capture-retry-still-timeout.json"
+        ],
+        "historicalR22Status": "環境擷取逾時；未驗",
+        "currentEvidence": [
+          "r27-scope-audit/root-service-source-review.json"
+        ],
+        "next": "等可用擷取/座標輸入或人工實測；不得猜座標或重複無效恢復。",
+        "wholeFeatureComplete": false
+      },
+      "moduleIds": [
+        "M10"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "historical screenshot timeout explains missing evidence; P27 static checks cannot close full pixels/mouse.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 15,
+          "symbolOrText": "bool GameInputAllowed",
+          "excerpt": "bool GameInputAllowed=>gameFocus&&!PlayerChatFocused&&!(web?.ContainsFocus??false)&&ActiveForm==this;"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 74,
+          "symbolOrText": "raw.Length>32768",
+          "excerpt": "if(source!=LocalPage||raw.Length>32768)throw new FormatException(\"origin or size\");"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 133,
+          "symbolOrText": "async Task ClosePanel()",
+          "excerpt": "async Task ClosePanel(){WebLog(\"close-request\",new{initializing=initializing is {IsCompleted:false},epoch=webEpoch,formClosing=webClosing});++webEpoch;webReady=false;ClearInput(\"panel-close\");var old=web;"
+        },
+        {
+          "path": "engine/source/PlayerHudIntegration.cs",
+          "line": 44,
+          "symbolOrText": "PlayerHudActions.Activate",
+          "excerpt": "bool sent=await PlayerHudActions.Activate(login,stamp,binding,walking);"
+        },
+        {
+          "path": "engine/web/login.js",
+          "line": 31,
+          "symbolOrText": "function loginCommand",
+          "excerpt": "function loginCommand(command,fields={}){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N02"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P27",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "same-version real pointer/focus/chat/HUD/Web interactions have receipts",
+        "invalid/stale commands cannot mutate current world",
+        "bounded supported commands and lifecycle clearly documented"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 16,
+      "id": "R17",
+      "original": {
+        "id": "R17",
+        "feature": "能力點",
+        "classification": "r28-normal-strength-submit-save-relogin-passed",
+        "r27Current": "r27 接線保留；歷史實測保持原版本，未合算 r27 完整流程。",
+        "historicalEvidence": [
+          "r20-final-live/g08-bonus-normal-relogin.json"
+        ],
+        "historicalR22Status": "r17/r20直接實測",
+        "currentEvidence": [
+          "native-r28/bonus-strength-save-review.json"
+        ],
+        "next": "Other attribute choices and native pixel/mouse verification remain outside this one-point acceptance.",
+        "wholeFeatureComplete": false,
+        "r28Current": "Normal native one-point Strength20->21; original reply21, normal close/offline save and new normal CMD/manual login21; guarded current DB Str21. No pre-submit DB stat capture. See bonus-strength-save-review.json."
+      },
+      "moduleIds": [
+        "M05"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "one r28 Strength20→21 result preserved; no pre-submit DB snapshot and other attributes untested; no new DB work.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Inventory.cs",
+          "line": 111,
+          "symbolOrText": "UseSelectedItem",
+          "excerpt": "public async Task<bool> UseSelectedItem(){"
+        },
+        {
+          "path": "engine/source/Inventory.cs",
+          "line": 113,
+          "symbolOrText": "Slow",
+          "excerpt": "if(!ItemAvailable||ItemBusy||MovementBusy||sendMovementGate==null){World.ItemNotice=SlowActionsBlocked&&World.SelectedItem?.SupportedHastePotion!=true?SlowActionNotice:\"未送出：道具／速度未支援、忙碌或已耗盡\";return false;}"
+        },
+        {
+          "path": "engine/source/Equipment.cs",
+          "line": 36,
+          "symbolOrText": "ReceiveEquipment",
+          "excerpt": "bool ReceiveEquipment(byte opcode,LoginReader r,byte[] plain){"
+        },
+        {
+          "path": "engine/source/BasicSupplies.cs",
+          "line": 5,
+          "symbolOrText": "BasicSupply",
+          "excerpt": "InventoryItem? pendingBasicSupply;int basicSupplyEpoch;long basicSupplyAt;"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "selected item count and identity remain current at send",
+        "reply/save/relogin agree on same final version",
+        "no expansion of slow qualification from unrelated tests"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 17,
+      "id": "R18",
+      "original": {
+        "id": "R18",
+        "feature": "完整內容範圍/技能",
+        "classification": "來源或範圍決策限制",
+        "r27Current": "4 種施法、13 gfx/42 外觀、15 unavailable，物品/怪物仍有限；完整內容目標未達成。",
+        "historicalEvidence": [
+          "r22-final-live/result.json"
+        ],
+        "historicalR22Status": "仍有限，未支援內容不得外推",
+        "currentEvidence": [
+          "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-content-scope-audit-r1\\result.json"
+        ],
+        "next": "依原流程需要指定具體 skill/item/gfx 與充分來源，不批量擴充。",
+        "wholeFeatureComplete": false
+      },
+      "moduleIds": [
+        "M08"
+      ],
+      "reconciliation": "source_scope",
+      "r33Assessment": "limited skills/appearances/content remain limited; r29–r33 change timing/lifecycle, not whole-content coverage.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 32,
+          "symbolOrText": "Zero RGB555 is a valid black pixel",
+          "excerpt": "// Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel."
+        },
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 48,
+          "symbolOrText": "public static void Blit",
+          "excerpt": "public static void Blit(Draw c,Rectangle r,ushort[] colors,bool[] mask,int[]? owners,uint?[]? entityOwners=null,OpacityValue? opacity=null) {"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 49,
+          "symbolOrText": "Unresolved extended map effect field",
+          "excerpt": "if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException(\"Nonzero map-local effects require map provider: \"+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException(\"Unresolved extended map effect field: \"+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException(\"map effect outside owning block\");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}"
+        },
+        {
+          "path": "engine/source/PlayerProfiles.cs",
+          "line": 21,
+          "symbolOrText": "public static ObjectAppearance Load",
+          "excerpt": "public static ObjectAppearance Load(string root,PlayerProfile profile){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "S03"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "supported sources individually pinned and provenance known",
+        "unsupported formats remain explicit; no generic completion claim",
+        "same-version native composition acceptance separate from offline pixel evidence"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 18,
+      "id": "R19",
+      "original": {
+        "id": "R19",
+        "feature": "可重建固定交付",
+        "classification": "已解決",
+        "r27Current": "r27 15941 檔完整 SHA，最終 compiler source 與主管獨立重建一致、DLL一致，launcher 另獨立重建。",
+        "historicalEvidence": [
+          "r22-independent-review/result.json",
+          "r22-clean-delivery/rebuild-receipt.json"
+        ],
+        "historicalR22Status": "r22獨立重建通過",
+        "currentEvidence": [
+          "r27-package-root-review.json",
+          "r27-launcher-root-review.json"
+        ],
+        "next": "固定入口保留；不是完整 gameplay 驗收。",
+        "wholeFeatureComplete": false,
+        "r28Current": "Formal r28 sealed and independently rebuilt/reviewed; normal CMD started successfully.",
+        "r28Evidence": [
+          "formal-r28-review/root-review.json"
+        ]
+      },
+      "moduleIds": [
+        "M11"
+      ],
+      "reconciliation": "offline_accepted",
+      "r33Assessment": "r33 formal seal/source/runtime/entry accepted offline; historical r27/r28 packaging claims not whole gameplay.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/_integration/r33/rebuild.py",
+          "line": 22,
+          "symbolOrText": "def no_shared_write",
+          "excerpt": "def no_shared_write(p):"
+        },
+        {
+          "path": "engine/_integration/r33/launcher-source/Program.cs",
+          "line": 67,
+          "symbolOrText": "assetFilesCheckedForPresenceAndSize",
+          "excerpt": "return new{status=\"checked-only\",revision=\"r33\",executable=Resolve(root,Entry),workingDirectory=root,arguments,manifest,manifestSha256=ManifestHash,hashedRuntimeAndWebFiles=hashed,assetFilesCheckedForPresenceAndSize=assets,assetContentVerification=\"Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.\",runtime,webView2Version=browser,powerShellRequired=false,pathLookupUsed=false,autoLogin=false,uiStarted=false,networkStarted=false,servicesStarted=false};"
+        },
+        {
+          "path": "engine/_integration/r33/product-build.ps1",
+          "line": 4,
+          "symbolOrText": "Build only in canonical mutable engine.",
+          "excerpt": "if((Split-Path $productRoot -Leaf) -ne 'engine' -or -not (Test-Path -LiteralPath (Join-Path $productRoot '../project-manifest.json'))){throw 'Build only in canonical mutable engine.'}"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "I01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "source/build/release/entry identities reconcile",
+        "rebuild and seal independent acceptance under exact receipt",
+        "write boundaries and immutable original artifacts preserved"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 19,
+      "id": "R20",
+      "original": {
+        "id": "R20",
+        "feature": "玩家HUD/快捷槽/圖示背包與技能",
+        "classification": "僅驗收缺證",
+        "r27Current": "HUD/快捷/背包技能與正常服務窗已整合；鍵盤部分有 r25–r27 實測，全視窗/滑鼠仍未驗。",
+        "historicalEvidence": [
+          "player-ui-priority-20261027.json",
+          "player-facing-integration-contract.json"
+        ],
+        "historicalR22Status": "隔離模組實作中，尚未整合或實機通過",
+        "currentEvidence": [
+          "player-hud-root-review.json",
+          "r27-targeted-live/current-status.json"
+        ],
+        "next": "不重派已完成實作；按未驗的原生 UI/滑鼠範圍驗收。",
+        "wholeFeatureComplete": false,
+        "r28Current": "Native HUD/items/skills: F2 home-scroll assignment and F4 light-arrow assignment confirmed through Tab/Space, actual offensive spell replied. Pixel acceptance remains unavailable.",
+        "r28Evidence": [
+          "native-r28/current-status.json"
+        ]
+      },
+      "moduleIds": [
+        "M10"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "r28 F2/F4 keyboard assignment/cast retained; native pixels/mouse pending; no request to reimplement HUD.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 15,
+          "symbolOrText": "bool GameInputAllowed",
+          "excerpt": "bool GameInputAllowed=>gameFocus&&!PlayerChatFocused&&!(web?.ContainsFocus??false)&&ActiveForm==this;"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 74,
+          "symbolOrText": "raw.Length>32768",
+          "excerpt": "if(source!=LocalPage||raw.Length>32768)throw new FormatException(\"origin or size\");"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 133,
+          "symbolOrText": "async Task ClosePanel()",
+          "excerpt": "async Task ClosePanel(){WebLog(\"close-request\",new{initializing=initializing is {IsCompleted:false},epoch=webEpoch,formClosing=webClosing});++webEpoch;webReady=false;ClearInput(\"panel-close\");var old=web;"
+        },
+        {
+          "path": "engine/source/PlayerHudIntegration.cs",
+          "line": 44,
+          "symbolOrText": "PlayerHudActions.Activate",
+          "excerpt": "bool sent=await PlayerHudActions.Activate(login,stamp,binding,walking);"
+        },
+        {
+          "path": "engine/web/login.js",
+          "line": 31,
+          "symbolOrText": "function loginCommand",
+          "excerpt": "function loginCommand(command,fields={}){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N02"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P27",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "same-version real pointer/focus/chat/HUD/Web interactions have receipts",
+        "invalid/stale commands cannot mutate current world",
+        "bounded supported commands and lifecycle clearly documented"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 20,
+      "id": "R21",
+      "original": {
+        "id": "R21",
+        "feature": "原始玩家與NPC陰影",
+        "classification": "僅驗收缺證",
+        "r27Current": "原始透明與 13 gfx/42 外觀陰影已整合，原切片與離線 compositor 獨立核對，r27 真實場景已查看；全套原生畫面未驗。",
+        "historicalEvidence": [
+          "player-ui-priority-20261027.json",
+          "player-facing-integration-contract.json"
+        ],
+        "historicalR22Status": "隔離模組實作中，尚未整合或實機通過",
+        "currentEvidence": [
+          "shadow-original-slices-root-review.json",
+          "player-shadow-coverage-root-review.json",
+          "r27-targeted-live/g01-native-chat-movement-state.json"
+        ],
+        "next": "不重派已完成實作；按未驗的原生 UI/滑鼠範圍驗收。",
+        "wholeFeatureComplete": false
+      },
+      "moduleIds": [
+        "M08"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "historical shadow integration/compositor evidence retained; real scene/pixels at r33 pending.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 32,
+          "symbolOrText": "Zero RGB555 is a valid black pixel",
+          "excerpt": "// Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel."
+        },
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 48,
+          "symbolOrText": "public static void Blit",
+          "excerpt": "public static void Blit(Draw c,Rectangle r,ushort[] colors,bool[] mask,int[]? owners,uint?[]? entityOwners=null,OpacityValue? opacity=null) {"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 49,
+          "symbolOrText": "Unresolved extended map effect field",
+          "excerpt": "if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException(\"Nonzero map-local effects require map provider: \"+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException(\"Unresolved extended map effect field: \"+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException(\"map effect outside owning block\");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}"
+        },
+        {
+          "path": "engine/source/PlayerProfiles.cs",
+          "line": 21,
+          "symbolOrText": "public static ObjectAppearance Load",
+          "excerpt": "public static ObjectAppearance Load(string root,PlayerProfile profile){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N02"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "supported sources individually pinned and provenance known",
+        "unsupported formats remain explicit; no generic completion claim",
+        "same-version native composition acceptance separate from offline pixel evidence"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 21,
+      "id": "R22",
+      "original": {
+        "id": "R22",
+        "feature": "原生滑鼠點地移動/攻擊/交談",
+        "classification": "僅驗收缺證",
+        "r27Current": "點地路徑及選取/攻擊/交談/拾取已整合；滑鼠工具不可用，實機指標動作未驗。",
+        "historicalEvidence": [
+          "player-ui-priority-20261027.json",
+          "player-facing-integration-contract.json"
+        ],
+        "historicalR22Status": "隔離模組實作中，尚未整合或實機通過",
+        "currentEvidence": [
+          "player-pointer-root-review.json",
+          "r27-targeted-live/current-status.json"
+        ],
+        "next": "不重派已完成實作；按未驗的原生 UI/滑鼠範圍驗收。",
+        "wholeFeatureComplete": false
+      },
+      "moduleIds": [
+        "M03"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "bounded click path/target/attack/pickup wiring inspected; missing native pointer receipt is not a demonstrated defect.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/OnlineMovement.cs",
+          "line": 45,
+          "symbolOrText": "public bool MovementAvailable",
+          "excerpt": "public bool MovementAvailable=>State==LoginState.InWorld&&!World.ActionLocked&&!World.TradeBlocksActions&&World.Renderable&&!World.OwnDead&&World.Status?.Hp>0&&World.Actor is {} speedActor&&NormalSpeed.Supported(speedActor.Speed,speedActor.Brave);"
+        },
+        {
+          "path": "engine/source/OnlineMovement.cs",
+          "line": 26,
+          "symbolOrText": "無逐步 ACK",
+          "excerpt": "internal void Predict(int x,int y,int h,bool step){pendingAction=null;OwnCombat=null;Actor=Actor! with{X=(ushort)x,Y=(ushort)y,Direction=(byte)h};if(step){PredictedSteps++;UpdateOpacity();}else PredictedTurns++;MotionNotice=step?\"已送出步行；本地預測（無逐步 ACK）\":\"已送出轉向；本地預測\";}"
+        },
+        {
+          "path": "engine/source/PlayerPointer.cs",
+          "line": 5,
+          "symbolOrText": "public const int MaxDistance",
+          "excerpt": "public const int MaxDistance=64,MaxSteps=128,MaxExpanded=8192;"
+        },
+        {
+          "path": "engine/source/PlayerPointer.cs",
+          "line": 41,
+          "symbolOrText": "bool Current(Stamp s)",
+          "excerpt": "bool Current(Stamp s)=>focused()&&login.MovementAvailable&&s==Capture();"
+        },
+        {
+          "path": "engine/source/PlayerChatKeyboardFlow.cs",
+          "line": 25,
+          "symbolOrText": "ProcessPlayerChatKeyboard",
+          "excerpt": "bool ProcessPlayerChatKeyboard(ref Message msg,Keys keyData){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "I02"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P27",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "P27 findings carry exact base pins and reproducible trigger",
+        "native focus/chat/Web/HUD/keyboard/pointer routing verified on final version",
+        "no hidden input movement or stale route after cancellation"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 22,
+      "id": "R23",
+      "original": {
+        "id": "R23",
+        "feature": "原生一般聊天",
+        "classification": "已解決",
+        "r27Current": "Enter 開啟/輸入隔離/單次原服回傳/草稿保留/Escape/F10/重登清空已實測。",
+        "currentEvidence": [
+          "r27-targeted-live/current-status.json"
+        ],
+        "next": "滑鼠聊天按鈕仍隨原生滑鼠驗收；不重做聊天接線。"
+      },
+      "moduleIds": [
+        "M10"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "r27 chat Enter/Escape/F10/relogin evidence stays r27; pointer chat and r33 acceptance remain open.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 15,
+          "symbolOrText": "bool GameInputAllowed",
+          "excerpt": "bool GameInputAllowed=>gameFocus&&!PlayerChatFocused&&!(web?.ContainsFocus??false)&&ActiveForm==this;"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 74,
+          "symbolOrText": "raw.Length>32768",
+          "excerpt": "if(source!=LocalPage||raw.Length>32768)throw new FormatException(\"origin or size\");"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 133,
+          "symbolOrText": "async Task ClosePanel()",
+          "excerpt": "async Task ClosePanel(){WebLog(\"close-request\",new{initializing=initializing is {IsCompleted:false},epoch=webEpoch,formClosing=webClosing});++webEpoch;webReady=false;ClearInput(\"panel-close\");var old=web;"
+        },
+        {
+          "path": "engine/source/PlayerHudIntegration.cs",
+          "line": 44,
+          "symbolOrText": "PlayerHudActions.Activate",
+          "excerpt": "bool sent=await PlayerHudActions.Activate(login,stamp,binding,walking);"
+        },
+        {
+          "path": "engine/web/login.js",
+          "line": 31,
+          "symbolOrText": "function loginCommand",
+          "excerpt": "function loginCommand(command,fields={}){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N02"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P27",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "same-version real pointer/focus/chat/HUD/Web interactions have receipts",
+        "invalid/stale commands cannot mutate current world",
+        "bounded supported commands and lifecycle clearly documented"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 23,
+      "id": "MAP-F1",
+      "original": {
+        "id": "MAP-F1",
+        "feature": "非零 S32 L8 local resource loading/render",
+        "classification": "已解決（現有來源 profile）",
+        "r27Current": "L8 id/x/y/offset → MapEffectCatalog pinned SPR frames/metadata ticks → block.Effects → ComposeMapEffects → sorted commands/Blit。336 effects、4184 frames；非零不再一律拒絕。",
+        "limitation": "",
+        "next": "不派重做接線。",
+        "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json"
+      },
+      "moduleIds": [
+        "M08"
+      ],
+      "reconciliation": "supported_profile_implemented",
+      "r33Assessment": "nonzero S32 L8 loading/render exists for accepted profiles; unsupported profiles still refuse.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 32,
+          "symbolOrText": "Zero RGB555 is a valid black pixel",
+          "excerpt": "// Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel."
+        },
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 48,
+          "symbolOrText": "public static void Blit",
+          "excerpt": "public static void Blit(Draw c,Rectangle r,ushort[] colors,bool[] mask,int[]? owners,uint?[]? entityOwners=null,OpacityValue? opacity=null) {"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 49,
+          "symbolOrText": "Unresolved extended map effect field",
+          "excerpt": "if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException(\"Nonzero map-local effects require map provider: \"+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException(\"Unresolved extended map effect field: \"+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException(\"map effect outside owning block\");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}"
+        },
+        {
+          "path": "engine/source/PlayerProfiles.cs",
+          "line": 21,
+          "symbolOrText": "public static ObjectAppearance Load",
+          "excerpt": "public static ObjectAppearance Load(string root,PlayerProfile profile){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "S03"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "supported sources individually pinned and provenance known",
+        "unsupported formats remain explicit; no generic completion claim",
+        "same-version native composition acceptance separate from offline pixel evidence"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 24,
+      "id": "MAP-F2",
+      "original": {
+        "id": "MAP-F2",
+        "feature": "local resource 區塊保留／淘汰／換圖生命週期",
+        "classification": "已解決（自有產品接線）",
+        "r27Current": "EffectsAt 隨區塊保留、只初始化一次；slot 淘汰移除；新 block 新 generation；換圖/取消 ResetOpacity、ReleaseMap 清 visuals；async commit 也 ActivateEffects。",
+        "limitation": "",
+        "next": "固定整合版的實際換區/換圖驗收；不以此聲稱原 BIN 全生命週期已復原。",
+        "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json"
+      },
+      "moduleIds": [
+        "M02"
+      ],
+      "reconciliation": "supported_profile_implemented",
+      "r33Assessment": "retained block EffectsAt, generation/eviction and cross-map clear exist; original BIN equivalence unknown.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/WorldSession.cs",
+          "line": 24,
+          "symbolOrText": "public bool Renderable",
+          "excerpt": "public bool Renderable=>Ready&&!TeleportPending&&SupportedMap&&SupportedAppearance;"
+        },
+        {
+          "path": "engine/source/WorldSession.cs",
+          "line": 37,
+          "symbolOrText": "case 206:",
+          "excerpt": "case 206:Clear6016(SceneClock());var map=r.H();var water=r.C()!=0;r.Finish();ClearObjects();Actor=null;ResetSpeedStatus();ResetMovement();ResetCombat();ClearMagicEffects();MapId=map;Underwater=water;MapArrived();break;"
+        },
+        {
+          "path": "engine/source/WorldEntry.cs",
+          "line": 46,
+          "symbolOrText": "ResetItemSend();ResetGroundSend();",
+          "excerpt": "try{World.Receive(plain,selected);if(itemWorld!=World.WorldEpoch||itemActor!=World.Actor?.ObjectId){ResetItemSend();ResetGroundSend();}}"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 97,
+          "symbolOrText": "public void Shift",
+          "excerpt": "public void Shift(int d){if(d is <0 or >7)throw new ArgumentOutOfRangeException();int a=SourceA[d],b=SourceB[d],c=DestA[d],e=DestB[d];var before=new[]{OriginX,OriginY};int[] evicted=(d&1)!=0?[c,b,e]:[c,e];foreach(int s in evicted){Evicting?.Invoke(Slots[s]!);Events.Add(new{kind=\"evict\",slot=s,block=Slots[s]!.Name,generation=Slots[s]!.Generation});ClearRectangle(s);Slots[s]=null;}"
+        },
+        {
+          "path": "engine/source/Teleport.cs",
+          "line": 11,
+          "symbolOrText": "public bool ActionLocked",
+          "excerpt": "public bool ActionLocked=>BasicSupplyPending||ShipPending||TeleportPending||paralysis.Count>0||CacheEnabled&&MapResourceState!=\"ready\";"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N04"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "same-release supported map entry/move/return clears stale visuals/actions",
+        "retained blocks keep timing; evicted generations cannot dispatch late work",
+        "unsupported formats refuse with source identity"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 25,
+      "id": "MAP-F3",
+      "original": {
+        "id": "MAP-F3",
+        "feature": "一般 S32 tile group/trigger/render/fade",
+        "classification": "已解決（現有來源 profile）",
+        "r27Current": "Groups/Triggers → OpacityCatalog → Move/Advance/Rebind → SceneBackground 與 Blit 的 transition/weighted RGB555 已存在。",
+        "limitation": "",
+        "next": "不要因舊 local actor 敘述重做已接通的地圖屋頂/群組 fade。",
+        "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json"
+      },
+      "moduleIds": [
+        "M08"
+      ],
+      "reconciliation": "supported_profile_implemented",
+      "r33Assessment": "scene group/trigger opacity exists; do not reclassify entire fade system as missing due MAP-F4.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 32,
+          "symbolOrText": "Zero RGB555 is a valid black pixel",
+          "excerpt": "// Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel."
+        },
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 48,
+          "symbolOrText": "public static void Blit",
+          "excerpt": "public static void Blit(Draw c,Rectangle r,ushort[] colors,bool[] mask,int[]? owners,uint?[]? entityOwners=null,OpacityValue? opacity=null) {"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 49,
+          "symbolOrText": "Unresolved extended map effect field",
+          "excerpt": "if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException(\"Nonzero map-local effects require map provider: \"+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException(\"Unresolved extended map effect field: \"+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException(\"map effect outside owning block\");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}"
+        },
+        {
+          "path": "engine/source/PlayerProfiles.cs",
+          "line": 21,
+          "symbolOrText": "public static ObjectAppearance Load",
+          "excerpt": "public static ObjectAppearance Load(string root,PlayerProfile profile){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "S01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "supported sources individually pinned and provenance known",
+        "unsupported formats remain explicit; no generic completion claim",
+        "same-version native composition acceptance separate from offline pixel evidence"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 26,
+      "id": "MAP-F4",
+      "original": {
+        "id": "MAP-F4",
+        "feature": "map-local actor 的 associated group-id opacity/fade",
+        "classification": "確證實作缺項；來源關聯限制",
+        "r27Current": "MapLocalEffect 沒有 associatedGroupId；map-effect Draw.Group=-1；Publish 的 opacity nodes 只含 cache.Scene，沒有動態特效；Get 對它回傳 InitialFlags。故目前只有原始固定 blend，沒有 local-effect group fade。",
+        "limitation": "既有 P23 證據使用合成 associated objects，證實 numeric group-id 傳播但未證實真實非零 L8 record→actor association。不能把所有 map effects/server actors 綁到屋頂；也不能把 extension 當 group-id。未證明現行某張地圖應 fade 卻不 fade。",
+        "next": "本輪有限清單24760筆皆非extended；不推論全體不存在，不猜測補丁或擴研究。",
+        "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json",
+        "sourceContractRefinement": {
+          "id": "S1",
+          "classification": "來源限制；有限既有來源核對已完成",
+          "feature": "非零 map-local effect 與 group-id 的真實關聯",
+          "missing": "已有 extended L8→slot group→actor+612 鏈與合成 mode/alpha 證據；缺真實非零記錄的 group 關聯及最終 fade/render 對照。",
+          "next": "本輪有限清單24760筆皆非extended；不推論全體不存在，不猜測補丁或擴研究。",
+          "sourceReview": "r27-scope-audit/association-source-root-review.json"
+        }
+      },
+      "moduleIds": [
+        "M08"
+      ],
+      "reconciliation": "implementation_gap_source_blocked",
+      "r33Assessment": "actual local-effect associated group fade remains unimplemented; real nonzero association/render example missing.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 32,
+          "symbolOrText": "Zero RGB555 is a valid black pixel",
+          "excerpt": "// Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel."
+        },
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 48,
+          "symbolOrText": "public static void Blit",
+          "excerpt": "public static void Blit(Draw c,Rectangle r,ushort[] colors,bool[] mask,int[]? owners,uint?[]? entityOwners=null,OpacityValue? opacity=null) {"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 49,
+          "symbolOrText": "Unresolved extended map effect field",
+          "excerpt": "if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException(\"Nonzero map-local effects require map provider: \"+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException(\"Unresolved extended map effect field: \"+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException(\"map effect outside owning block\");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}"
+        },
+        {
+          "path": "engine/source/PlayerProfiles.cs",
+          "line": 21,
+          "symbolOrText": "public static ObjectAppearance Load",
+          "excerpt": "public static ObjectAppearance Load(string root,PlayerProfile profile){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "S01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "supported sources individually pinned and provenance known",
+        "unsupported formats remain explicit; no generic completion claim",
+        "same-version native composition acceptance separate from offline pixel evidence"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 27,
+      "id": "MAP-F5",
+      "original": {
+        "id": "MAP-F5",
+        "feature": "原地圖特效 animation event 的完整行為",
+        "classification": "6016正式整合已核定；正式世界音訊與其餘事件行為未完整驗收",
+        "r27Current": "137 個已封裝 effect 的137個 sequence步有非空token（^84、<45、[8）；Events被讀入，但 At/ComposeMapEffects只選frame，不消費token。舊HANDOFF明載聲音/子特效未執行。",
+        "limitation": "目前缺少事件語意、原資源引用與只觸發一次/循環/跨區淘汰的完整契約；token字元本身不能當作已證的聲音/子特效規格。",
+        "next": "由父監督指定新主管與新Goal後接續：6016來源/明示自有時鐘契約及音訊隔離候選已覆核，可派事件控制器實作並由唯一整合者串行整合；再做native音訊與固定同版完整流程驗證。舊主管已停止新派工；r27未整合音訊候選，整體未完成。",
+        "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json",
+        "sourceContractRefinement": {
+          "id": "S2",
+          "classification": "6016來源與自有政策已核定；事件控制器及候選整合未完成",
+          "feature": "137 個已封裝 effect 的非空事件 token",
+          "missing": "只對6016建立最小來源/設計契約並完成音訊候選。事件觸發控制器尚未實作或併入r27，native音訊未驗；其他token與原scheduler/highlight/loader等價未完成。",
+          "next": "由父監督指定新主管與新Goal後接續：6016來源/明示自有時鐘契約及音訊隔離候選已覆核，可派事件控制器實作並由唯一整合者串行整合；再做native音訊與固定同版完整流程驗證。舊主管已停止新派工；r27未整合音訊候選，整體未完成。",
+          "sourceContractReview": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-effect6016-minimal-contract-review\\root-review.json",
+          "audioCandidateReview": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-6016-audio-module-review\\root-review.json"
+        },
+        "r28Current": "6016 controller/audio/host integration sealed r28 and reviewed; standalone own-PID audio signal passed; formal world6016 native playback still pending; not all event tokens.",
+        "r28Evidence": [
+          "formal-r28-review/root-review.json"
+        ]
+      },
+      "moduleIds": [
+        "M09"
+      ],
+      "reconciliation": "stale_partial_state_superseded",
+      "r33Assessment": "6016 controller/audio/host already integrated r28 and retained r33; other tokens and formal native world audio remain open.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/ClientEffect6016.cs",
+          "line": 45,
+          "symbolOrText": "void Pump6016()",
+          "excerpt": "void Pump6016(){"
+        },
+        {
+          "path": "engine/source/WorldEffect6016.cs",
+          "line": 9,
+          "symbolOrText": "void Evict6016",
+          "excerpt": "void Evict6016(OriginalMapBlock block)=>Effects6016?.RetireLifetime(block,SceneClock());"
+        },
+        {
+          "path": "engine/audio/AudioCore.cs",
+          "line": 74,
+          "symbolOrText": "soundId is not (3332 or 1340)",
+          "excerpt": "if (soundId is not (3332 or 1340)) return Reply(false, \"IdNotAllowed\"); // full int; never narrowed to byte"
+        },
+        {
+          "path": "engine/audio/AudioCore.cs",
+          "line": 118,
+          "symbolOrText": "not proof of audible output",
+          "excerpt": "events.Add(new(\"PlaySubmitted\", ext, \"Native command accepted; not proof of audible output\"));"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N05",
+        "S02"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "fixed formal world triggers actual audible output with controls and retirement",
+        "device failure and close behavior recorded",
+        "no other event token promoted from6016 acceptance"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 28,
+      "id": "MAP-F6",
+      "original": {
+        "id": "MAP-F6",
+        "feature": "所有地圖／特效來源涵蓋",
+        "classification": "來源或版本決策限制",
+        "r27Current": "154未封裝：141無動畫metadata、6frame dimensions拒絕、3archive版本歧義、3stationary direction未解、1多幀無序列。既有inventory與r27block交集有350區塊引用它們。",
+        "limitation": "",
+        "next": "按指定ID解來源／版本，保留嚴格拒絕；不能從舊笼統未完成敘述派重做整套。",
+        "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json"
+      },
+      "moduleIds": [
+        "M08"
+      ],
+      "reconciliation": "source_scope",
+      "r33Assessment": "retain historical154 exclusions and350 block references as historical counts, not newly rescanned current inventory.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 32,
+          "symbolOrText": "Zero RGB555 is a valid black pixel",
+          "excerpt": "// Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel."
+        },
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 48,
+          "symbolOrText": "public static void Blit",
+          "excerpt": "public static void Blit(Draw c,Rectangle r,ushort[] colors,bool[] mask,int[]? owners,uint?[]? entityOwners=null,OpacityValue? opacity=null) {"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 49,
+          "symbolOrText": "Unresolved extended map effect field",
+          "excerpt": "if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException(\"Nonzero map-local effects require map provider: \"+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException(\"Unresolved extended map effect field: \"+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException(\"map effect outside owning block\");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}"
+        },
+        {
+          "path": "engine/source/PlayerProfiles.cs",
+          "line": 21,
+          "symbolOrText": "public static ObjectAppearance Load",
+          "excerpt": "public static ObjectAppearance Load(string root,PlayerProfile profile){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "S03"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "supported sources individually pinned and provenance known",
+        "unsupported formats remain explicit; no generic completion claim",
+        "same-version native composition acceptance separate from offline pixel evidence"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 29,
+      "id": "MAP-F7",
+      "original": {
+        "id": "MAP-F7",
+        "feature": "extended L8／SEG／完整地圖邊界",
+        "classification": "來源限制，非本輪確證可見回歸",
+        "r27Current": "非零extended欄仍拒絕；歷史已成功解析inventory與r27交集的23731筆使用均非extended，不能憑拒絕分支宣稱目前遇到故障。SEG現在已有map6/7fff8000唯一固定profile，不再是全部SEG未支援；另46個unsupportedBlocks、map4472尺寸矛盾、TIL4094缺檔仍存在。",
+        "limitation": "",
+        "next": "要擴充時先指定實際原檔及語意；不拿未知格式/extension=0通過推論非零欄已解。",
+        "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json"
+      },
+      "moduleIds": [
+        "M08"
+      ],
+      "reconciliation": "source_scope",
+      "r33Assessment": "specific SEG profile exists; nonzero extended field refused; historical46 blocks/map4472/TIL4094 gaps not blanket SEG failure.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 32,
+          "symbolOrText": "Zero RGB555 is a valid black pixel",
+          "excerpt": "// Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel."
+        },
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 48,
+          "symbolOrText": "public static void Blit",
+          "excerpt": "public static void Blit(Draw c,Rectangle r,ushort[] colors,bool[] mask,int[]? owners,uint?[]? entityOwners=null,OpacityValue? opacity=null) {"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 49,
+          "symbolOrText": "Unresolved extended map effect field",
+          "excerpt": "if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException(\"Nonzero map-local effects require map provider: \"+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException(\"Unresolved extended map effect field: \"+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException(\"map effect outside owning block\");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}"
+        },
+        {
+          "path": "engine/source/PlayerProfiles.cs",
+          "line": 21,
+          "symbolOrText": "public static ObjectAppearance Load",
+          "excerpt": "public static ObjectAppearance Load(string root,PlayerProfile profile){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "S03"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "supported sources individually pinned and provenance known",
+        "unsupported formats remain explicit; no generic completion claim",
+        "same-version native composition acceptance separate from offline pixel evidence"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 30,
+      "id": "MAP-F8",
+      "original": {
+        "id": "MAP-F8",
+        "feature": "曾缺 ground/36 的乾淨交付",
+        "classification": "已解決",
+        "r27Current": "主管 result-fixed 已獨立通過；r27 ground36 JSON/PNG存在，且同時匹配integrity與seal。原失敗不再是現版本缺陷。",
+        "limitation": "",
+        "next": "不派修。",
+        "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json"
+      },
+      "moduleIds": [
+        "M08"
+      ],
+      "reconciliation": "resolved_historical_defect",
+      "r33Assessment": "ground36 package omission historically fixed; no evidence to reopen; current ground36 JSON/PNG separately pinned.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 32,
+          "symbolOrText": "Zero RGB555 is a valid black pixel",
+          "excerpt": "// Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel."
+        },
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 48,
+          "symbolOrText": "public static void Blit",
+          "excerpt": "public static void Blit(Draw c,Rectangle r,ushort[] colors,bool[] mask,int[]? owners,uint?[]? entityOwners=null,OpacityValue? opacity=null) {"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 49,
+          "symbolOrText": "Unresolved extended map effect field",
+          "excerpt": "if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException(\"Nonzero map-local effects require map provider: \"+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException(\"Unresolved extended map effect field: \"+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException(\"map effect outside owning block\");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}"
+        },
+        {
+          "path": "engine/source/PlayerProfiles.cs",
+          "line": 21,
+          "symbolOrText": "public static ObjectAppearance Load",
+          "excerpt": "public static ObjectAppearance Load(string root,PlayerProfile profile){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "H01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "supported sources individually pinned and provenance known",
+        "unsupported formats remain explicit; no generic completion claim",
+        "same-version native composition acceptance separate from offline pixel evidence"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "rows",
+      "sourceIndex": 31,
+      "id": "MAP-F9",
+      "original": {
+        "id": "MAP-F9",
+        "feature": "已支援 nonzero effect 的實機顯示/切換/完整流程",
+        "classification": "僅驗收（已支援profile）；不能覆蓋F4–F7",
+        "r27Current": "歷史獨立乾淨build368 checks/4184像素frames/12圖為離線證據；MapEffects.cs與該審查來源SHA完全相同。r27整合記錄明載未重跑歷史套件及尚待主管native驗收。",
+        "limitation": "",
+        "next": "主管固定同版測map0船景、map4港口/倉庫可見特效、換區/返回清除；本輪不執行，不讓此驗收等待阻止F4/F5來源工作。",
+        "sourceAudit": "reference/development/r27-map-scope-audit-r1/result.json"
+      },
+      "moduleIds": [
+        "M08"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "offline pixel/frame proofs do not close actual map0/map4 switching/effects at r33, and cannot close F4–F7.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 32,
+          "symbolOrText": "Zero RGB555 is a valid black pixel",
+          "excerpt": "// Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel."
+        },
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 48,
+          "symbolOrText": "public static void Blit",
+          "excerpt": "public static void Blit(Draw c,Rectangle r,ushort[] colors,bool[] mask,int[]? owners,uint?[]? entityOwners=null,OpacityValue? opacity=null) {"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 49,
+          "symbolOrText": "Unresolved extended map effect field",
+          "excerpt": "if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException(\"Nonzero map-local effects require map provider: \"+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException(\"Unresolved extended map effect field: \"+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException(\"map effect outside owning block\");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}"
+        },
+        {
+          "path": "engine/source/PlayerProfiles.cs",
+          "line": 21,
+          "symbolOrText": "public static ObjectAppearance Load",
+          "excerpt": "public static ObjectAppearance Load(string root,PlayerProfile profile){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N04"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "supported sources individually pinned and provenance known",
+        "unsupported formats remain explicit; no generic completion claim",
+        "same-version native composition acceptance separate from offline pixel evidence"
+      ]
+    }
+  ],
+  "supplementalRows": [
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "remaining",
+      "sourceIndex": 0,
+      "id": "S1",
+      "original": {
+        "id": "S1",
+        "classification": "來源限制；有限既有來源核對已完成",
+        "feature": "非零 map-local effect 與 group-id 的真實關聯",
+        "missing": "已有 extended L8→slot group→actor+612 鏈與合成 mode/alpha 證據；缺真實非零記錄的 group 關聯及最終 fade/render 對照。",
+        "next": "本輪有限清單24760筆皆非extended；不推論全體不存在，不猜測補丁或擴研究。",
+        "sourceReview": "r27-scope-audit/association-source-root-review.json"
+      },
+      "moduleIds": [
+        "M08"
+      ],
+      "reconciliation": "implementation_gap_source_blocked",
+      "r33Assessment": "real nonzero effect/group association missing; bounded old search does not prove universal absence.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 32,
+          "symbolOrText": "Zero RGB555 is a valid black pixel",
+          "excerpt": "// Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel."
+        },
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 48,
+          "symbolOrText": "public static void Blit",
+          "excerpt": "public static void Blit(Draw c,Rectangle r,ushort[] colors,bool[] mask,int[]? owners,uint?[]? entityOwners=null,OpacityValue? opacity=null) {"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 49,
+          "symbolOrText": "Unresolved extended map effect field",
+          "excerpt": "if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException(\"Nonzero map-local effects require map provider: \"+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException(\"Unresolved extended map effect field: \"+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException(\"map effect outside owning block\");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}"
+        },
+        {
+          "path": "engine/source/PlayerProfiles.cs",
+          "line": 21,
+          "symbolOrText": "public static ObjectAppearance Load",
+          "excerpt": "public static ObjectAppearance Load(string root,PlayerProfile profile){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "S01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "supported sources individually pinned and provenance known",
+        "unsupported formats remain explicit; no generic completion claim",
+        "same-version native composition acceptance separate from offline pixel evidence"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "remaining",
+      "sourceIndex": 1,
+      "id": "S2",
+      "original": {
+        "id": "S2",
+        "classification": "6016來源與自有政策已核定；事件控制器及候選整合未完成",
+        "feature": "137 個已封裝 effect 的非空事件 token",
+        "missing": "6016控制器已實作且獨立19/280通過，音訊r2已修退役競態，r3修正異步錯誤處理中；尚未產品整合，其他token保持未完成。",
+        "next": "完成r3獨立覆核後串行整合r28並實測。",
+        "sourceContractReview": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-effect6016-minimal-contract-review\\root-review.json",
+        "audioCandidateReview": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-6016-audio-module-review\\root-review.json"
+      },
+      "moduleIds": [
+        "M09"
+      ],
+      "reconciliation": "stale_partial_state_superseded",
+      "r33Assessment": "not-integrated/controller-pending wording superseded by r28/current6016 and actual r33 sources; other tokens/native audio still open.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/ClientEffect6016.cs",
+          "line": 45,
+          "symbolOrText": "void Pump6016()",
+          "excerpt": "void Pump6016(){"
+        },
+        {
+          "path": "engine/source/WorldEffect6016.cs",
+          "line": 9,
+          "symbolOrText": "void Evict6016",
+          "excerpt": "void Evict6016(OriginalMapBlock block)=>Effects6016?.RetireLifetime(block,SceneClock());"
+        },
+        {
+          "path": "engine/audio/AudioCore.cs",
+          "line": 74,
+          "symbolOrText": "soundId is not (3332 or 1340)",
+          "excerpt": "if (soundId is not (3332 or 1340)) return Reply(false, \"IdNotAllowed\"); // full int; never narrowed to byte"
+        },
+        {
+          "path": "engine/audio/AudioCore.cs",
+          "line": 118,
+          "symbolOrText": "not proof of audible output",
+          "excerpt": "events.Add(new(\"PlaySubmitted\", ext, \"Native command accepted; not proof of audible output\"));"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N05",
+        "S02"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "fixed formal world triggers actual audible output with controls and retirement",
+        "device failure and close behavior recorded",
+        "no other event token promoted from6016 acceptance"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "remaining",
+      "sourceIndex": 2,
+      "id": "S3",
+      "original": {
+        "id": "S3",
+        "classification": "來源或範圍決策限制",
+        "feature": "未封裝地圖特效/格式、其他技能/外觀/物品/怪物",
+        "missing": "明確具體 ID 與同版原來源、完整動作/協定契約；不能以可解析數量推論全內容。",
+        "next": "由已授權正常流程實際必要性決定最小項，不依舊清單批量擴充。"
+      },
+      "moduleIds": [
+        "M08"
+      ],
+      "reconciliation": "source_scope",
+      "r33Assessment": "content/format extension requires exact ID and same-version sources; no automatic broad expansion.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 32,
+          "symbolOrText": "Zero RGB555 is a valid black pixel",
+          "excerpt": "// Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel."
+        },
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 48,
+          "symbolOrText": "public static void Blit",
+          "excerpt": "public static void Blit(Draw c,Rectangle r,ushort[] colors,bool[] mask,int[]? owners,uint?[]? entityOwners=null,OpacityValue? opacity=null) {"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 49,
+          "symbolOrText": "Unresolved extended map effect field",
+          "excerpt": "if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException(\"Nonzero map-local effects require map provider: \"+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException(\"Unresolved extended map effect field: \"+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException(\"map effect outside owning block\");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}"
+        },
+        {
+          "path": "engine/source/PlayerProfiles.cs",
+          "line": 21,
+          "symbolOrText": "public static ObjectAppearance Load",
+          "excerpt": "public static ObjectAppearance Load(string root,PlayerProfile profile){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "S03"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "supported sources individually pinned and provenance known",
+        "unsupported formats remain explicit; no generic completion claim",
+        "same-version native composition acceptance separate from offline pixel evidence"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "remaining",
+      "sourceIndex": 3,
+      "id": "A1",
+      "original": {
+        "id": "A1",
+        "classification": "同版整合驗收缺證，非功能未接線",
+        "feature": "r27 連續戰鬥/技能/物品/服務/跨圖與保存閉環",
+        "missing": "同一固定版本的完整連續遊戲及服務證據；歷史 r20–r22 不升格。",
+        "next": "主管持有唯一實機權；在已確認支援範圍內補必要串接，完整原生滑鼠段依工具/人工可用性完成。"
+      },
+      "moduleIds": [
+        "M01"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "retain old r27 wording as historical; current fixed r33 still lacks complete same-version continuity.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/ProductEntry.cs",
+          "line": 7,
+          "symbolOrText": "public static bool Normal",
+          "excerpt": "public static bool Normal(string[] args){if(args.Contains(\"--normal-product\")){if(args.Length!=1)throw new ArgumentException(\"正常入口不接受診斷或自動登入參數。\");return true;}return args.Length==0;}"
+        },
+        {
+          "path": "engine/source/LoginConnection.cs",
+          "line": 43,
+          "symbolOrText": "sendMovementGate=async",
+          "excerpt": "sendMovementGate=async (bytes,valid,admit)=>{await sendLock.WaitAsync(cts.Token);try{if(epoch!=generation||!valid())return false;admit();await stream.WriteAsync(LoginFrames.Wrap(outgoing!.Transform(bytes,true)),cts.Token);Sent(bytes);return true;}finally{sendLock.Release();}};"
+        },
+        {
+          "path": "engine/source/LoginConnection.cs",
+          "line": 62,
+          "symbolOrText": "ApplyWorldPacket",
+          "excerpt": "if(epoch!=generation)return;long reportsBefore=World.AttackReports;ApplyWorldPacket(plain,worldSelection!,sequence);ApplyCombatAcknowledgement(reportsBefore);AppliedPacketSequence=sequence;if(World.TradeCancelRequired)_=CancelChangedTrade();if(World.TeleportAckPending)_=AcknowledgeTeleport();"
+        },
+        {
+          "path": "engine/source/ClientLogin.cs",
+          "line": 37,
+          "symbolOrText": "BeforeLoginStart",
+          "excerpt": "loginControl=new(login,BeforeLoginStart,()=>{ClearInput(\"offline-preview\");World.ResetOfflinePreview();ReturnGameFocus();});"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "fixed entry, DLL and source pins agree",
+        "normal manual login/character/world/cancel/disconnect/relogin receipts on selected final release",
+        "no stale session may apply packets after cancellation"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "remaining",
+      "sourceIndex": 4,
+      "id": "A2",
+      "original": {
+        "id": "A2",
+        "classification": "僅待人工或工具恢復驗收",
+        "feature": "完整原生視窗、滑鼠/HUD 互動",
+        "missing": "2026-10-28 supported native get_window_state再次FrameArrived timeout；accessibility可讀、座標geometry仍不可用。",
+        "next": "保留精確失敗，不猜座標；整合後以有新證據的工具恢復繼續，未驗不勾完成。"
+      },
+      "moduleIds": [
+        "M10"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "native pixels/mouse evidence still missing; P27 reviews independently without claiming live completion.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 15,
+          "symbolOrText": "bool GameInputAllowed",
+          "excerpt": "bool GameInputAllowed=>gameFocus&&!PlayerChatFocused&&!(web?.ContainsFocus??false)&&ActiveForm==this;"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 74,
+          "symbolOrText": "raw.Length>32768",
+          "excerpt": "if(source!=LocalPage||raw.Length>32768)throw new FormatException(\"origin or size\");"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 133,
+          "symbolOrText": "async Task ClosePanel()",
+          "excerpt": "async Task ClosePanel(){WebLog(\"close-request\",new{initializing=initializing is {IsCompleted:false},epoch=webEpoch,formClosing=webClosing});++webEpoch;webReady=false;ClearInput(\"panel-close\");var old=web;"
+        },
+        {
+          "path": "engine/source/PlayerHudIntegration.cs",
+          "line": 44,
+          "symbolOrText": "PlayerHudActions.Activate",
+          "excerpt": "bool sent=await PlayerHudActions.Activate(login,stamp,binding,walking);"
+        },
+        {
+          "path": "engine/web/login.js",
+          "line": 31,
+          "symbolOrText": "function loginCommand",
+          "excerpt": "function loginCommand(command,fields={}){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N02"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P27",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "same-version real pointer/focus/chat/HUD/Web interactions have receipts",
+        "invalid/stale commands cannot mutate current world",
+        "bounded supported commands and lifecycle clearly documented"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "remaining",
+      "sourceIndex": 5,
+      "id": "C1",
+      "original": {
+        "id": "C1",
+        "classification": "原服/資源條件限制",
+        "feature": "NPC 正向出售、私商正向回購",
+        "missing": "目前 NPC 收購價全停用；現有資源無 +7 匹配物/已證買家。",
+        "next": "不改資料或授物來製造通過。"
+      },
+      "moduleIds": [
+        "M07"
+      ],
+      "reconciliation": "external_condition",
+      "r33Assessment": "historical service/resource condition reported only; no DB query in P25.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/NpcInteraction.cs",
+          "line": 68,
+          "symbolOrText": "async Task<bool> InteractCore",
+          "excerpt": "async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){"
+        },
+        {
+          "path": "engine/source/Trade.cs",
+          "line": 63,
+          "symbolOrText": "public async Task<bool> Trade",
+          "excerpt": "public async Task<bool> Trade(string command,int revision,int epoch,int tradeGeneration,uint item=0,uint count=0){"
+        },
+        {
+          "path": "engine/source/PrivateShop.cs",
+          "line": 93,
+          "symbolOrText": "public async Task<PrivateShopResult> SendPrivateShop",
+          "excerpt": "public async Task<PrivateShopResult> SendPrivateShop(bool query,bool sell,int row,uint count,PrivateShopView stamp){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "C01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "request, original response and item/currency preservation reconciled on final version",
+        "missing conditions explicitly recorded",
+        "historical evidence never rewritten as a new version result"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "remaining",
+      "sourceIndex": 6,
+      "id": "H1",
+      "original": {
+        "id": "H1",
+        "classification": "封存研究與歷史缺證",
+        "feature": "原 BIN 完整生命週期/真實可達性、舊鑰匙刪除時刻",
+        "missing": "既有研究/歷史證據界線。",
+        "next": "保留，不重啟封存漏洞研究，不補造歷史。"
+      },
+      "moduleIds": [
+        "M07"
+      ],
+      "reconciliation": "historical_unrecoverable",
+      "r33Assessment": "original full lifecycle/reachability and old expiry cannot be manufactured; preserve limit.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/NpcInteraction.cs",
+          "line": 68,
+          "symbolOrText": "async Task<bool> InteractCore",
+          "excerpt": "async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){"
+        },
+        {
+          "path": "engine/source/Trade.cs",
+          "line": 63,
+          "symbolOrText": "public async Task<bool> Trade",
+          "excerpt": "public async Task<bool> Trade(string command,int revision,int epoch,int tradeGeneration,uint item=0,uint count=0){"
+        },
+        {
+          "path": "engine/source/PrivateShop.cs",
+          "line": 93,
+          "symbolOrText": "public async Task<PrivateShopResult> SendPrivateShop",
+          "excerpt": "public async Task<PrivateShopResult> SendPrivateShop(bool query,bool sell,int row,uint count,PrivateShopView stamp){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "H01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "request, original response and item/currency preservation reconciled on final version",
+        "missing conditions explicitly recorded",
+        "historical evidence never rewritten as a new version result"
+      ]
+    },
+    {
+      "sourceDocument": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+      "sourceArray": "directProductFixesReadyToImplement",
+      "sourceIndex": 0,
+      "id": "P24-6016-event-integration",
+      "original": {
+        "id": "P24-6016-event-integration",
+        "status": "controller-audio-accepted-host-r2-controls-active",
+        "baseline": "r27",
+        "scope": "Only effect6016; step-entry single candidate, preserved duplicate slot, generation cursor and per-ID cooldown; integrate reviewed native audio transport/WAVs in isolated next candidate.",
+        "sourceContract": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-effect6016-minimal-contract-r1\\contract.json",
+          "size": 13591,
+          "sha256": "f4fdfa8f342f58afed926142a5763d75b286644e2be7d3d628ddb1f98efd70aa"
+        },
+        "audioCandidateResult": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-6016-audio-module-r1\\result.json",
+          "size": 13063,
+          "sha256": "50e19c866542392eb5fb3b005e6af9532aa9ec854108a9f6c55820d0f0981da3"
+        },
+        "sourceReview": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-effect6016-minimal-contract-review\\root-review.json",
+          "size": 2578,
+          "sha256": "7b79d2094906dc9a7b2ac444c32974dd86c718d958cf04f306fff86ebbe5c304"
+        },
+        "audioReview": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-6016-audio-module-review\\root-review.json",
+          "size": 2354,
+          "sha256": "7aac0cf4c31b5e29797a992f5356537c8163b5749c4031b62ca61a4d1d4ea156"
+        },
+        "limitations": [
+          "Original scheduler/highlight/loader not equivalent",
+          "Formal host integration and same-version native full-flow incomplete",
+          "Actual COM calls are not proof of audible signal"
+        ],
+        "authority": "Local supervisor user-authorized 2026-10-28"
+      },
+      "moduleIds": [
+        "M09"
+      ],
+      "reconciliation": "stale_implementation_todo_closed",
+      "r33Assessment": "6016 formal integration already accepted r28 and source retained r33; do not redispatch old r27 integration job.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/ClientEffect6016.cs",
+          "line": 45,
+          "symbolOrText": "void Pump6016()",
+          "excerpt": "void Pump6016(){"
+        },
+        {
+          "path": "engine/source/WorldEffect6016.cs",
+          "line": 9,
+          "symbolOrText": "void Evict6016",
+          "excerpt": "void Evict6016(OriginalMapBlock block)=>Effects6016?.RetireLifetime(block,SceneClock());"
+        },
+        {
+          "path": "engine/audio/AudioCore.cs",
+          "line": 74,
+          "symbolOrText": "soundId is not (3332 or 1340)",
+          "excerpt": "if (soundId is not (3332 or 1340)) return Reply(false, \"IdNotAllowed\"); // full int; never narrowed to byte"
+        },
+        {
+          "path": "engine/audio/AudioCore.cs",
+          "line": 118,
+          "symbolOrText": "not proof of audible output",
+          "excerpt": "events.Add(new(\"PlaySubmitted\", ext, \"Native command accepted; not proof of audible output\"));"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N05"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "fixed formal world triggers actual audible output with controls and retirement",
+        "device failure and close behavior recorded",
+        "no other event token promoted from6016 acceptance"
+      ]
+    },
+    {
+      "sourceDocument": "主管/完整引擎未完成項目.json",
+      "sourceArray": "remaining",
+      "sourceIndex": 0,
+      "id": "S1",
+      "original": {
+        "id": "S1",
+        "classification": "來源限制；有限既有來源核對已完成",
+        "feature": "非零 map-local effect 與 group-id 的真實關聯",
+        "missing": "已有 extended L8→slot group→actor+612 鏈與合成 mode/alpha 證據；缺真實非零記錄的 group 關聯及最終 fade/render 對照。",
+        "next": "本輪有限清單24760筆皆非extended；不推論全體不存在，不猜測補丁或擴研究。",
+        "sourceReview": "r27-scope-audit/association-source-root-review.json"
+      },
+      "moduleIds": [
+        "M08"
+      ],
+      "reconciliation": "implementation_gap_source_blocked",
+      "r33Assessment": "real nonzero effect/group association missing; bounded old search does not prove universal absence.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 32,
+          "symbolOrText": "Zero RGB555 is a valid black pixel",
+          "excerpt": "// Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel."
+        },
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 48,
+          "symbolOrText": "public static void Blit",
+          "excerpt": "public static void Blit(Draw c,Rectangle r,ushort[] colors,bool[] mask,int[]? owners,uint?[]? entityOwners=null,OpacityValue? opacity=null) {"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 49,
+          "symbolOrText": "Unresolved extended map effect field",
+          "excerpt": "if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException(\"Nonzero map-local effects require map provider: \"+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException(\"Unresolved extended map effect field: \"+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException(\"map effect outside owning block\");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}"
+        },
+        {
+          "path": "engine/source/PlayerProfiles.cs",
+          "line": 21,
+          "symbolOrText": "public static ObjectAppearance Load",
+          "excerpt": "public static ObjectAppearance Load(string root,PlayerProfile profile){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "S01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "supported sources individually pinned and provenance known",
+        "unsupported formats remain explicit; no generic completion claim",
+        "same-version native composition acceptance separate from offline pixel evidence"
+      ]
+    },
+    {
+      "sourceDocument": "主管/完整引擎未完成項目.json",
+      "sourceArray": "remaining",
+      "sourceIndex": 1,
+      "id": "S2",
+      "original": {
+        "id": "S2",
+        "classification": "6016來源與自有政策已核定；事件控制器及候選整合未完成",
+        "feature": "137 個已封裝 effect 的非空事件 token",
+        "missing": "6016控制器與音訊r3已接受；own PID原生訊號量測通過；host r1競態修正已驗，但web/native控制在r2補齊中，尚未正式整合與同版完整驗收；其他tokens保持未完成。",
+        "next": "6016控制器與音訊r3已獨立接受，原生PID訊號/增益/靜音/退役量測通過。host r1兩競態已修；r2補web/native控制並獨立覆核，封存接受後才授權唯一整合者r28，再完整同版正常入口實測。",
+        "sourceContractReview": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-effect6016-minimal-contract-review\\root-review.json",
+        "audioCandidateReview": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-6016-audio-module-review\\root-review.json"
+      },
+      "moduleIds": [
+        "M09"
+      ],
+      "reconciliation": "stale_partial_state_superseded",
+      "r33Assessment": "not-integrated/controller-pending wording superseded by r28/current6016 and actual r33 sources; other tokens/native audio still open.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/ClientEffect6016.cs",
+          "line": 45,
+          "symbolOrText": "void Pump6016()",
+          "excerpt": "void Pump6016(){"
+        },
+        {
+          "path": "engine/source/WorldEffect6016.cs",
+          "line": 9,
+          "symbolOrText": "void Evict6016",
+          "excerpt": "void Evict6016(OriginalMapBlock block)=>Effects6016?.RetireLifetime(block,SceneClock());"
+        },
+        {
+          "path": "engine/audio/AudioCore.cs",
+          "line": 74,
+          "symbolOrText": "soundId is not (3332 or 1340)",
+          "excerpt": "if (soundId is not (3332 or 1340)) return Reply(false, \"IdNotAllowed\"); // full int; never narrowed to byte"
+        },
+        {
+          "path": "engine/audio/AudioCore.cs",
+          "line": 118,
+          "symbolOrText": "not proof of audible output",
+          "excerpt": "events.Add(new(\"PlaySubmitted\", ext, \"Native command accepted; not proof of audible output\"));"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N05",
+        "S02"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "fixed formal world triggers actual audible output with controls and retirement",
+        "device failure and close behavior recorded",
+        "no other event token promoted from6016 acceptance"
+      ]
+    },
+    {
+      "sourceDocument": "主管/完整引擎未完成項目.json",
+      "sourceArray": "remaining",
+      "sourceIndex": 2,
+      "id": "S3",
+      "original": {
+        "id": "S3",
+        "classification": "來源或範圍決策限制",
+        "feature": "未封裝地圖特效/格式、其他技能/外觀/物品/怪物",
+        "missing": "明確具體 ID 與同版原來源、完整動作/協定契約；不能以可解析數量推論全內容。",
+        "next": "由已授權正常流程實際必要性決定最小項，不依舊清單批量擴充。"
+      },
+      "moduleIds": [
+        "M08"
+      ],
+      "reconciliation": "source_scope",
+      "r33Assessment": "content/format extension requires exact ID and same-version sources; no automatic broad expansion.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 32,
+          "symbolOrText": "Zero RGB555 is a valid black pixel",
+          "excerpt": "// Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel."
+        },
+        {
+          "path": "engine/source/Renderer.cs",
+          "line": 48,
+          "symbolOrText": "public static void Blit",
+          "excerpt": "public static void Blit(Draw c,Rectangle r,ushort[] colors,bool[] mask,int[]? owners,uint?[]? entityOwners=null,OpacityValue? opacity=null) {"
+        },
+        {
+          "path": "engine/source/OriginalMapCache.cs",
+          "line": 49,
+          "symbolOrText": "Unresolved extended map effect field",
+          "excerpt": "if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException(\"Nonzero map-local effects require map provider: \"+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException(\"Unresolved extended map effect field: \"+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException(\"map effect outside owning block\");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}"
+        },
+        {
+          "path": "engine/source/PlayerProfiles.cs",
+          "line": 21,
+          "symbolOrText": "public static ObjectAppearance Load",
+          "excerpt": "public static ObjectAppearance Load(string root,PlayerProfile profile){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "S03"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "supported sources individually pinned and provenance known",
+        "unsupported formats remain explicit; no generic completion claim",
+        "same-version native composition acceptance separate from offline pixel evidence"
+      ]
+    },
+    {
+      "sourceDocument": "主管/完整引擎未完成項目.json",
+      "sourceArray": "remaining",
+      "sourceIndex": 3,
+      "id": "A1",
+      "original": {
+        "id": "A1",
+        "classification": "同版整合驗收缺證，非功能未接線",
+        "feature": "r27 連續戰鬥/技能/物品/服務/跨圖與保存閉環",
+        "missing": "同一固定版本的完整連續遊戲及服務證據；歷史 r20–r22 不升格。",
+        "next": "主管持有唯一實機權；在已確認支援範圍內補必要串接，完整原生滑鼠段依工具/人工可用性完成。"
+      },
+      "moduleIds": [
+        "M01"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "retain old r27 wording as historical; current fixed r33 still lacks complete same-version continuity.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/ProductEntry.cs",
+          "line": 7,
+          "symbolOrText": "public static bool Normal",
+          "excerpt": "public static bool Normal(string[] args){if(args.Contains(\"--normal-product\")){if(args.Length!=1)throw new ArgumentException(\"正常入口不接受診斷或自動登入參數。\");return true;}return args.Length==0;}"
+        },
+        {
+          "path": "engine/source/LoginConnection.cs",
+          "line": 43,
+          "symbolOrText": "sendMovementGate=async",
+          "excerpt": "sendMovementGate=async (bytes,valid,admit)=>{await sendLock.WaitAsync(cts.Token);try{if(epoch!=generation||!valid())return false;admit();await stream.WriteAsync(LoginFrames.Wrap(outgoing!.Transform(bytes,true)),cts.Token);Sent(bytes);return true;}finally{sendLock.Release();}};"
+        },
+        {
+          "path": "engine/source/LoginConnection.cs",
+          "line": 62,
+          "symbolOrText": "ApplyWorldPacket",
+          "excerpt": "if(epoch!=generation)return;long reportsBefore=World.AttackReports;ApplyWorldPacket(plain,worldSelection!,sequence);ApplyCombatAcknowledgement(reportsBefore);AppliedPacketSequence=sequence;if(World.TradeCancelRequired)_=CancelChangedTrade();if(World.TeleportAckPending)_=AcknowledgeTeleport();"
+        },
+        {
+          "path": "engine/source/ClientLogin.cs",
+          "line": 37,
+          "symbolOrText": "BeforeLoginStart",
+          "excerpt": "loginControl=new(login,BeforeLoginStart,()=>{ClearInput(\"offline-preview\");World.ResetOfflinePreview();ReturnGameFocus();});"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "fixed entry, DLL and source pins agree",
+        "normal manual login/character/world/cancel/disconnect/relogin receipts on selected final release",
+        "no stale session may apply packets after cancellation"
+      ]
+    },
+    {
+      "sourceDocument": "主管/完整引擎未完成項目.json",
+      "sourceArray": "remaining",
+      "sourceIndex": 4,
+      "id": "A2",
+      "original": {
+        "id": "A2",
+        "classification": "僅待人工或工具恢復驗收",
+        "feature": "完整原生視窗、滑鼠/HUD 互動",
+        "missing": "2026-10-28 supported native get_window_state再次FrameArrived timeout；accessibility可讀、座標geometry仍不可用。",
+        "next": "保留精確失敗，不猜座標；整合後以有新證據的工具恢復繼續，未驗不勾完成。"
+      },
+      "moduleIds": [
+        "M10"
+      ],
+      "reconciliation": "native_acceptance",
+      "r33Assessment": "native pixels/mouse evidence still missing; P27 reviews independently without claiming live completion.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 15,
+          "symbolOrText": "bool GameInputAllowed",
+          "excerpt": "bool GameInputAllowed=>gameFocus&&!PlayerChatFocused&&!(web?.ContainsFocus??false)&&ActiveForm==this;"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 74,
+          "symbolOrText": "raw.Length>32768",
+          "excerpt": "if(source!=LocalPage||raw.Length>32768)throw new FormatException(\"origin or size\");"
+        },
+        {
+          "path": "engine/source/WebPanel.cs",
+          "line": 133,
+          "symbolOrText": "async Task ClosePanel()",
+          "excerpt": "async Task ClosePanel(){WebLog(\"close-request\",new{initializing=initializing is {IsCompleted:false},epoch=webEpoch,formClosing=webClosing});++webEpoch;webReady=false;ClearInput(\"panel-close\");var old=web;"
+        },
+        {
+          "path": "engine/source/PlayerHudIntegration.cs",
+          "line": 44,
+          "symbolOrText": "PlayerHudActions.Activate",
+          "excerpt": "bool sent=await PlayerHudActions.Activate(login,stamp,binding,walking);"
+        },
+        {
+          "path": "engine/web/login.js",
+          "line": 31,
+          "symbolOrText": "function loginCommand",
+          "excerpt": "function loginCommand(command,fields={}){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N02"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P27",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "same-version real pointer/focus/chat/HUD/Web interactions have receipts",
+        "invalid/stale commands cannot mutate current world",
+        "bounded supported commands and lifecycle clearly documented"
+      ]
+    },
+    {
+      "sourceDocument": "主管/完整引擎未完成項目.json",
+      "sourceArray": "remaining",
+      "sourceIndex": 5,
+      "id": "C1",
+      "original": {
+        "id": "C1",
+        "classification": "原服/資源條件限制",
+        "feature": "NPC 正向出售、私商正向回購",
+        "missing": "目前 NPC 收購價全停用；現有資源無 +7 匹配物/已證買家。",
+        "next": "不改資料或授物來製造通過。"
+      },
+      "moduleIds": [
+        "M07"
+      ],
+      "reconciliation": "external_condition",
+      "r33Assessment": "historical service/resource condition reported only; no DB query in P25.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/NpcInteraction.cs",
+          "line": 68,
+          "symbolOrText": "async Task<bool> InteractCore",
+          "excerpt": "async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){"
+        },
+        {
+          "path": "engine/source/Trade.cs",
+          "line": 63,
+          "symbolOrText": "public async Task<bool> Trade",
+          "excerpt": "public async Task<bool> Trade(string command,int revision,int epoch,int tradeGeneration,uint item=0,uint count=0){"
+        },
+        {
+          "path": "engine/source/PrivateShop.cs",
+          "line": 93,
+          "symbolOrText": "public async Task<PrivateShopResult> SendPrivateShop",
+          "excerpt": "public async Task<PrivateShopResult> SendPrivateShop(bool query,bool sell,int row,uint count,PrivateShopView stamp){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "C01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "request, original response and item/currency preservation reconciled on final version",
+        "missing conditions explicitly recorded",
+        "historical evidence never rewritten as a new version result"
+      ]
+    },
+    {
+      "sourceDocument": "主管/完整引擎未完成項目.json",
+      "sourceArray": "remaining",
+      "sourceIndex": 6,
+      "id": "H1",
+      "original": {
+        "id": "H1",
+        "classification": "封存研究與歷史缺證",
+        "feature": "原 BIN 完整生命週期/真實可達性、舊鑰匙刪除時刻",
+        "missing": "既有研究/歷史證據界線。",
+        "next": "保留，不重啟封存漏洞研究，不補造歷史。"
+      },
+      "moduleIds": [
+        "M07"
+      ],
+      "reconciliation": "historical_unrecoverable",
+      "r33Assessment": "original full lifecycle/reachability and old expiry cannot be manufactured; preserve limit.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/NpcInteraction.cs",
+          "line": 68,
+          "symbolOrText": "async Task<bool> InteractCore",
+          "excerpt": "async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){"
+        },
+        {
+          "path": "engine/source/Trade.cs",
+          "line": 63,
+          "symbolOrText": "public async Task<bool> Trade",
+          "excerpt": "public async Task<bool> Trade(string command,int revision,int epoch,int tradeGeneration,uint item=0,uint count=0){"
+        },
+        {
+          "path": "engine/source/PrivateShop.cs",
+          "line": 93,
+          "symbolOrText": "public async Task<PrivateShopResult> SendPrivateShop",
+          "excerpt": "public async Task<PrivateShopResult> SendPrivateShop(bool query,bool sell,int row,uint count,PrivateShopView stamp){"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "H01"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "request, original response and item/currency preservation reconciled on final version",
+        "missing conditions explicitly recorded",
+        "historical evidence never rewritten as a new version result"
+      ]
+    },
+    {
+      "sourceDocument": "主管/完整引擎未完成項目.json",
+      "sourceArray": "directProductFixesReadyToImplement",
+      "sourceIndex": 0,
+      "id": "P24-6016-event-integration",
+      "original": {
+        "id": "P24-6016-event-integration",
+        "status": "ready-for-successor-dispatch-not-started",
+        "baseline": "r27",
+        "scope": "Only effect6016; step-entry single candidate, preserved duplicate slot, generation cursor and per-ID cooldown; integrate reviewed native audio transport/WAVs in isolated next candidate.",
+        "sourceContract": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-effect6016-minimal-contract-r1\\contract.json",
+          "size": 13591,
+          "sha256": "f4fdfa8f342f58afed926142a5763d75b286644e2be7d3d628ddb1f98efd70aa"
+        },
+        "audioCandidateResult": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-6016-audio-module-r1\\result.json",
+          "size": 13063,
+          "sha256": "50e19c866542392eb5fb3b005e6af9532aa9ec854108a9f6c55820d0f0981da3"
+        },
+        "sourceReview": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-effect6016-minimal-contract-review\\root-review.json",
+          "size": 2578,
+          "sha256": "7b79d2094906dc9a7b2ac444c32974dd86c718d958cf04f306fff86ebbe5c304"
+        },
+        "audioReview": {
+          "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r27-6016-audio-module-review\\root-review.json",
+          "size": 2354,
+          "sha256": "7aac0cf4c31b5e29797a992f5356537c8163b5749c4031b62ca61a4d1d4ea156"
+        },
+        "limitations": [
+          "Original scheduler/highlight/loader internals not equivalent",
+          "Transport gain/master mute not implemented; host gating must be explicit",
+          "Native playback/device/overlap/close not tested"
+        ],
+        "authority": "No new round by retiring root; successor assigned by parent after handoff."
+      },
+      "moduleIds": [
+        "M09"
+      ],
+      "reconciliation": "stale_implementation_todo_closed",
+      "r33Assessment": "6016 formal integration already accepted r28 and source retained r33; do not redispatch old r27 integration job.",
+      "currentSourceEvidence": [
+        {
+          "path": "engine/source/ClientEffect6016.cs",
+          "line": 45,
+          "symbolOrText": "void Pump6016()",
+          "excerpt": "void Pump6016(){"
+        },
+        {
+          "path": "engine/source/WorldEffect6016.cs",
+          "line": 9,
+          "symbolOrText": "void Evict6016",
+          "excerpt": "void Evict6016(OriginalMapBlock block)=>Effects6016?.RetireLifetime(block,SceneClock());"
+        },
+        {
+          "path": "engine/audio/AudioCore.cs",
+          "line": 74,
+          "symbolOrText": "soundId is not (3332 or 1340)",
+          "excerpt": "if (soundId is not (3332 or 1340)) return Reply(false, \"IdNotAllowed\"); // full int; never narrowed to byte"
+        },
+        {
+          "path": "engine/audio/AudioCore.cs",
+          "line": 118,
+          "symbolOrText": "not proof of audible output",
+          "excerpt": "events.Add(new(\"PlaySubmitted\", ext, \"Native command accepted; not proof of audible output\"));"
+        }
+      ],
+      "nativeVersionPolicy": "all original version labels and claims retained; not promoted to r33",
+      "nativeR33Accepted": false,
+      "backlogIds": [
+        "N05"
+      ],
+      "owner": {
+        "artifactOwner": "01a185b7-ddd1-79f0-98fe-fa456008cbd3",
+        "sharedProductIntegrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+        "acceptanceOwner": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+        "reviewPhase": "P25",
+        "writeAuthority": "P25 documents only; shared changes require new exact supervisor receipt"
+      },
+      "completionCriteria": [
+        "fixed formal world triggers actual audible output with controls and retirement",
+        "device failure and close behavior recorded",
+        "no other event token promoted from6016 acceptance"
+      ]
+    }
+  ],
+  "releaseEvidence": [
+    {
+      "revision": "r29",
+      "scope": "Speed2/Brave0 walking and object rendering only; slowed non-walk actions remain refused",
+      "candidateAcceptance": "engine/_integration/r29/acceptance/r29-integration-acceptance.json",
+      "candidateDecision": "accepted-for-formal-r29-integration",
+      "candidateAuthorization": "isolated-r29-build-and-offline-acceptance",
+      "formalSupervisorAcceptance": "主管/P24-引擎開發恢復-20261029/r29-supervisor-acceptance.json",
+      "formalDecision": "accepted-offline-development-complete",
+      "productDllSha256": "8ccfa4e3b5d253206779a5d4b1e59682263ffbddf5dab43fe15b0aa1f86a7397",
+      "nativeAccepted": false,
+      "evidenceTier": "existing offline acceptance receipts, read/hash verified here; suites NOT rerun",
+      "sourceManifest": "engine/_integration/r29/acceptance/source-manifest.json",
+      "wholeProjectComplete": false
+    },
+    {
+      "revision": "r30",
+      "scope": "Speed2/Brave0 existing supported attacks and skills1/3/4/8 with captured actor timing and lifecycle fences",
+      "candidateAcceptance": "engine/_integration/r30/acceptance/r30-integration-acceptance.json",
+      "candidateDecision": "accepted-for-formal-r30-integration",
+      "candidateAuthorization": "isolated-r30-build-and-offline-acceptance",
+      "formalSupervisorAcceptance": "主管/P24-緩速攻擊施法接續-20261029/r30-supervisor-acceptance.json",
+      "formalDecision": "accepted-offline-release",
+      "productDllSha256": "1abc1eed02917d14fd775be60920fe74efb9b102bc53eea5874fc0128e5247ef",
+      "nativeAccepted": false,
+      "evidenceTier": "existing offline acceptance receipts, read/hash verified here; suites NOT rerun",
+      "sourceManifest": "engine/_integration/r30/acceptance/source-manifest.json",
+      "wholeProjectComplete": false
+    },
+    {
+      "revision": "r31",
+      "scope": "Speed1/Brave0 existing supported attacks and skills1/3/4/8 with per-frame rounding, captured timing and deadline highwater",
+      "candidateAcceptance": "engine/_integration/r31/acceptance/r31-integration-acceptance.json",
+      "candidateDecision": "accepted-for-formal-r31-integration",
+      "candidateAuthorization": "isolated-r31-build-and-offline-acceptance",
+      "formalSupervisorAcceptance": "主管/P24-加速攻擊施法接續-20261029/r31-supervisor-acceptance.json",
+      "formalDecision": "accepted-offline-integrated-release",
+      "productDllSha256": "12ad5bbfac696033ee1f8d807346f401216138f4ce51cb58da9438e0b4ba5ec1",
+      "nativeAccepted": false,
+      "evidenceTier": "existing offline acceptance receipts, read/hash verified here; suites NOT rerun",
+      "sourceManifest": "engine/_integration/r31/acceptance/source-manifest.json",
+      "wholeProjectComplete": false
+    },
+    {
+      "revision": "r32",
+      "scope": "Speed2/Brave0 exact ordinary haste potion single use; known item speed qualification and admission/completion ownership protections",
+      "candidateAcceptance": "engine/_integration/r32/acceptance/r32-integration-acceptance.json",
+      "candidateDecision": "accepted-for-formal-r32-integration",
+      "candidateAuthorization": "isolated-r32-build-and-offline-acceptance",
+      "formalSupervisorAcceptance": "主管/P24-緩速加速水例外-20261029/r32-supervisor-acceptance.json",
+      "formalDecision": "accepted-offline-development-complete",
+      "productDllSha256": "c64bf0069722e28fc174d70d261b7540da6e3f74ee422d4874cbffb77149364f",
+      "nativeAccepted": false,
+      "evidenceTier": "existing offline acceptance receipts, read/hash verified here; suites NOT rerun",
+      "sourceManifest": "engine/_integration/r32/acceptance/source-manifest.json",
+      "wholeProjectComplete": false
+    },
+    {
+      "revision": "r33",
+      "scope": "Existing normal pickup and shared manual drop sender lifecycle ownership; no new Slow opening or animation",
+      "candidateAcceptance": "engine/_integration/r33/acceptance/r33-integration-acceptance.json",
+      "candidateDecision": "accepted-for-formal-r33-integration",
+      "candidateAuthorization": "isolated-r33-build-and-offline-acceptance",
+      "formalSupervisorAcceptance": "主管/P24-拾取生命週期修復-20261029/r33-supervisor-acceptance.json",
+      "formalDecision": "accepted-offline-development-complete",
+      "productDllSha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2",
+      "nativeAccepted": false,
+      "evidenceTier": "existing offline acceptance receipts, read/hash verified here; suites NOT rerun",
+      "sourceManifest": "engine/_integration/r33/acceptance/source-manifest.json",
+      "wholeProjectComplete": false
+    }
+  ],
+  "r34Boundary": {
+    "formalRevisionAtObservation": "r33",
+    "stageAcceptance": "主管/P24-權威拾取動畫-20261029/r34-stage-root-acceptance.json",
+    "stageSealSha256": "9544f137a10914825b53080d4d390d17902cd40866467cebbf69578290240018",
+    "stageScope": "own authoritative pickup presentation limited base profile; no slow/native qualification",
+    "canonicalPlan": {
+      "path": "work/engine-r34-canonical-plan-r1/canonical-plan.json",
+      "size": 378638,
+      "sha256": "d25c306fae5abee9209e46c557453f7b6a0a96645e5c052fbda70555f11f15ff"
+    },
+    "canonicalExecutionAtTakeover": "not executed",
+    "canonicalReviewOwner": "P26",
+    "qualificationFlags": {
+      "nativeNeutral": false,
+      "nativeFIFO": false,
+      "nativeVariant": false,
+      "nativeRuntimeTiming": false,
+      "slowQualified": false,
+      "sameBinVersion": false
+    },
+    "stageAssertionsAreHistoricalNotP25Runs": true
+  },
+  "historicalEvidenceResolution": "historical-evidence-index.json",
+  "wholeProjectComplete": false,
+  "completionPercentage": null,
+  "policy": "Every original row retained byte-semantically as JSON value; no historical native claim promoted to r33. Conditions are historical reports, not newly queried DB state."
+}

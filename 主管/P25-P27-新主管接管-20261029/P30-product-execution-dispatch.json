@@ -1,0 +1,13 @@
+{
+  "utc": "2026-10-29T06:23:12.479944+00:00",
+  "dispatchId": "ENGINE-P30-PRODUCT-ONLY-EXECUTE-R1",
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "sendConfirmed": true,
+  "receipt": "P30-product-only-execution-acceptance.json",
+  "receiptSha256": "240ce19f1cd8f10bddff4a34366eacef31598d36b7bce0130a0cb83a431fe541",
+  "state": "dispatched-once-awaiting-real-execution-observation",
+  "productBuildLimit": 1,
+  "runtimeProbes": 0,
+  "formalEntry": "r33",
+  "newBlockers": []
+}

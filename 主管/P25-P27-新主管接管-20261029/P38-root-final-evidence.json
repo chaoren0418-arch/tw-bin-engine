@@ -1,0 +1,22 @@
+{
+  "schema": "p38-root-final-evidence-verification-v1",
+  "utc": "2026-10-29T10:25:13.076010+00:00",
+  "finalReviewSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-review-r1\\final\\artifact-seal.json",
+    "size": 591,
+    "sha256": "082634a6776fef393368020e0841eb357b6459703f6e84eda9e8a29266f4c2c1"
+  },
+  "reviewReceipt": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P38-delivery-review-r1\\final\\final-review-receipt.json",
+    "size": 2967,
+    "sha256": "933f6d6d0c96c34b3222543fe7bf7ebf65edbc665403695966540e23621655e6"
+  },
+  "rootVerifiedReviewMembers": 38,
+  "rootReconciledAssetResultRows": 13957,
+  "independentAssetHashPasses": 1,
+  "rootAssetBodyReads": 0,
+  "assetBytes": 2222723085,
+  "protectedPinsMatched": 33,
+  "status": "pass",
+  "readerReferenceIssue": "Incorrect expected reader SHA corrected against existing sealed P36 source/artifact records; failed attempt retained; no product mutation or rerun"
+}

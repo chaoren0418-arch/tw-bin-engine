@@ -1,0 +1,16 @@
+--- r28/_integration/common.py
++++ engine/_integration/common.py
+@@ -1,6 +1,12 @@
+ from pathlib import Path
+ import os,json,hashlib,shutil
+-A=Path(__file__).resolve().parent;OUT=A.parent;D=OUT.parent.parent;BASE=D/'release-integration-r11/delivery';CAND=D/'r28-6016-host-adapter-r3';SUP=D.parents[2]/'主管/P24-本機主管接管與完整整合-20261028'
++A=Path(__file__).resolve().parent;OUT=A.parent
++# The writable engine is a direct child of the canonical project root.
++# Historical integration references are explicit; rebuilding no longer assumes
++# the old deeply nested release-integration-r12/delivery directory depth.
++PROJECT_ROOT=next((p for p in OUT.parents if (p/'project-manifest.json').is_file()),OUT.parent)
++D=PROJECT_ROOT/'P24-原2x2地圖快取與跨區載入/reference/development'
++BASE=D/'release-integration-r11/delivery';CAND=D/'r28-6016-host-adapter-r3';SUP=PROJECT_ROOT/'主管/P24-本機主管接管與完整整合-20261028'
+ EXCLUDED={'bin','obj','__pycache__','.runtime','.dotnet','.nuget','.http-cache','.plugin-cache','tmp','temp','appdata'}
+ def sha(p):
+  with p.open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()

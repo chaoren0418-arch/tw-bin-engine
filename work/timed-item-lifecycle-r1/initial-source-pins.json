@@ -1,0 +1,114 @@
+{
+  "files": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+      "bytes": 6928681
+    },
+    {
+      "path": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javap.exe",
+      "sha256": "09a29817b39833f5cfed07a8267c7d7db5bfd2501513466f9c7525cdbb4caa0a",
+      "bytes": 24096
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTimeTable.java",
+      "sha256": "d7e16137305fcb744c9935dec5eede6c0a0f3bd56c3f9418f8dfa00f344161c0",
+      "bytes": 12016
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\CharItemsTimePersistenceService.java",
+      "sha256": "b17c03be760473bdfd8b819fe84cafaa433bccbd31002637d23746ce7103ff6b",
+      "bytes": 9863
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharItemsTable.java",
+      "sha256": "1d7c57c067fef60e555e42138b5feab951d5c7be33f7169e4c3d1b3766cb9074",
+      "bytes": 48814
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1PcInventory.java",
+      "sha256": "220b001573ec6766dcdd16370c4e1cbd522721367e00c127c90bc2d3779926e4",
+      "bytes": 161516
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\item\\CharacterItemPersistenceService.java",
+      "sha256": "4d13f420bdbbabf1285fc4b3ae213c28f2ac2cefac6e16d6941a546f2f46fcaf",
+      "bytes": 60303
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\timecontroller\\server\\ServerItemUserTimer.java",
+      "sha256": "80ec2aedf3d05968cb428a64c9a72f615e76da4736f409c7b790400141f1da3d",
+      "bytes": 7502
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1EquipmentTimer.java",
+      "sha256": "7f03f5819e2c392a7e49cc55d511687c01dff876f13642868761b6137c6e780b",
+      "bytes": 1444
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1ItemInstance.java",
+      "sha256": "0ba0e50cf7e47649a03c2f69b29a562d097ce5b54be4d8f2b55c848830f811b0",
+      "bytes": 89373
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_LoginToServer.java",
+      "sha256": "437bdd8fdb9ab6a855ac6cc7770024bf0dfc99bee836e5b36fe2e53322073d4a",
+      "bytes": 47096
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\ItemTimeTable.java",
+      "sha256": "ee21caab0edbcf738706ef7b902e2be5d101844af9e8b8c16c0470fc13b6e93c",
+      "bytes": 3213
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\NpcMakingTable.java",
+      "sha256": "e790658153fcbe811baafdf3b3c5c9577c55816c3d8b88d9836bce71df0d4c81",
+      "bytes": 10213
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\npc\\action\\NpcTeleportExecutor.java",
+      "sha256": "40f8be6b4c2f2226b5d4ba43392c2ee49b318a4513701aad4d0368bc29bceba6",
+      "bytes": 6549
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\GameServer.java",
+      "sha256": "7d1dba1568dc715800fa45ae384275d63d3c4186526a980505f0f356f8b865eb",
+      "bytes": 39987
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\clientpackets\\C_NPCAction.java",
+      "sha256": "370123f1324e73c5dbee7d71fc7b527b67e1f927d501e757e6399e0af5c66fa4",
+      "bytes": 204170
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\npc\\action\\NpcMakingExecutor.java",
+      "sha256": "69bac446647eed4701f16003c95b77e6dc1b75577327287825a25a6d93a85672",
+      "bytes": 14597
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\user\\CharacterTable.java",
+      "sha256": "246e56d7ee72461e45fab843d159ba800348dc4898bb2c149ea45fb48de3a0c5",
+      "bytes": 30716
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1Inventory.java",
+      "sha256": "42800d2291b7fb8d5527d79db129f1627eab887f872a91b547ac9485577726d2",
+      "bytes": 56583
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\serverpackets\\S_InvList.java",
+      "sha256": "cd3c0c20a7285b0ef32d9305e0559cf7ea02030c2ff0665363ffad91521f2820",
+      "bytes": 2440
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1ItemStatus.java",
+      "sha256": "f1a3278381b7e620961567d70e804d82dea05f9304505238983383e5bbe83dbd",
+      "bytes": 76538
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\ItemTable.java",
+      "sha256": "b4531d3451817374ec9307cc74bfb347f64572775c7b37c4f07f0196bf4fef81",
+      "bytes": 36835
+    }
+  ]
+}

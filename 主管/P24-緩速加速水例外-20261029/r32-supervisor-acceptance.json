@@ -1,0 +1,72 @@
+{
+  "schema": "p24-r32-supervisor-acceptance-v1",
+  "utc": "2026-10-28T23:19:41.620968+00:00",
+  "decision": "accepted-offline-development-complete",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "revision": "r32",
+  "scope": "Speed2/Brave0 exact ordinary haste potion single C164 plus item admission and completion ownership protections",
+  "release": "D:\\lineage開發\\TW1608262200研究\\releases\\r32",
+  "releaseSealSha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507",
+  "productDllSha256": "c64bf0069722e28fc174d70d261b7540da6e3f74ee422d4874cbffb77149364f",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productManifestSha256": "3bb6ee998c36084d420275e6b93d40346fe1fe0db5f285d3d22ad0789833b866",
+  "launcherDllSha256": "042cf23807582c0b599103ffec8e8261b92e9e689e8328878124631aab17d3bb",
+  "sourceFiles": 177,
+  "changedSources": [
+    "source/Inventory.cs",
+    "source/WorldEntry.cs"
+  ],
+  "rootFullReleaseShaFiles": 14342,
+  "rootIntegrationArtifacts": 68,
+  "rootRuntimeAndWebPins": 46,
+  "suiteCounts": [
+    151,
+    431,
+    1707,
+    1201,
+    112
+  ],
+  "totalAssertions": 3602,
+  "observationsSeparate": 12,
+  "author377AddedToTotal": false,
+  "utilityHelperWarnings": 1,
+  "productWarnings": 0,
+  "buildErrors": 0,
+  "canonicalBuilds": 1,
+  "sharedSuiteReruns": 0,
+  "candidateAndStageImmutable": true,
+  "rootEntry": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+  "rootEntrySha256": "d65f4d680e491d88f5ae73b652ed95d67a4646afd70714acd7f6f07dfb40a01f",
+  "projectManifestSha256": "c72b5a16e48123858145aea784eeb7d5870068cd4930db49f41f11167b7c4660",
+  "unresolvedFindingsInIncrement": [],
+  "nativeLiveAccepted": false,
+  "wholeP24Complete": false,
+  "goalActualStatus": "paused",
+  "databaseOperations": false,
+  "integratorStoppedWriting": true,
+  "integratorTurn": "01a184c7-14e6-7961-ab36-179d2a0763d7",
+  "integratorCursor": "06f62879-b242-49d3-a511-42891ee357b8:104",
+  "next": "r33 normal ground/pickup lifecycle fix already in isolated implementation and independent preparation",
+  "evidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-緩速加速水例外-20261029\\r32-stage-acceptance.json",
+      "sha256": "2898e684ca8756fba7c0e38973461fcb905f48a43932cf6fafea6403b64c5eb5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-緩速加速水例外-20261029\\r32-root-entry-and-source-checks.json",
+      "sha256": "7b4321f54abf4df08d7eaf745ccfd38889969644a98ba8277f5535f8a56c7ba7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-緩速加速水例外-20261029\\r32-root-full-release-verification.json",
+      "sha256": "c221c62bc34ea737d5e58ea5731e4ec855fb931afc5bd6e16b3a575c9b1ec9cc"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r32-integration-r1\\shared-integration-r1\\r32-integration-result.json",
+      "sha256": "8f230a7a750bba632925cd2977bd6b1e7ed05c6e7f46eb7cec0de673babdfcc8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r32-integration-r1\\shared-integration-r1\\integration-seal.json",
+      "sha256": "41ed1d21767f14b513e061716aa763af59f1446cf78ef910072519416a5ca0aa"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-28T22:40:55.015Z",
+  "command": "python -B -X utf8 releases/r31/_integration/r31/verify_release.py --seal-sha256 1d5b1c149495cb2b44f50daf2c3361eb15e8000ba27bf133d1029735f10cfd90",
+  "result": {
+    "status": "pass-full-release-sha256",
+    "revision": "r31",
+    "files": 14329,
+    "sealSha256": "1d5b1c149495cb2b44f50daf2c3361eb15e8000ba27bf133d1029735f10cfd90",
+    "productDllSha256": "12ad5bbfac696033ee1f8d807346f401216138f4ce51cb58da9438e0b4ba5ec1",
+    "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "allAssetBodiesHashed": true,
+    "writes": false,
+    "GUI": false,
+    "network": false
+  },
+  "exitCode": 0,
+  "rootEntryVerificationPending": true
+}

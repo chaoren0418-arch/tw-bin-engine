@@ -1,0 +1,116 @@
+{
+  "schema": "p24-audio-assets-v2",
+  "candidateOnly": true,
+  "ids": [
+    3332,
+    1340
+  ],
+  "loadOrder": [
+    "mp3",
+    "wav"
+  ],
+  "fallbackBasis": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\r27-effect6016-minimal-contract-r1\\batches\\06\\exports\\0xa05f70.c",
+    "sha256": "414a546cd4aba4483ecec6d94204e895893b3fbe5517c6bef3f38cce5225f8dc",
+    "va": "0x00A05F70",
+    "imageBase": "0x00400000",
+    "claim": "A053E0 MP3 load returns zero, then same int ID sound/%d.wav; no event trigger/probability/volume claim"
+  },
+  "assets": [
+    {
+      "id": 3332,
+      "extension": "mp3",
+      "relativePath": "sound/3332.mp3",
+      "available": false,
+      "size": null,
+      "sha256": null,
+      "reason": "Exact MP3 missing in both checked source Sound roots; loader permits same-ID WAV fallback."
+    },
+    {
+      "id": 3332,
+      "extension": "wav",
+      "relativePath": "sound/3332.wav",
+      "available": true,
+      "size": 24748,
+      "sha256": "973e0a3598edd23c2a24f6900643e43a9155fe36906b939d2d8e24374abeff2a",
+      "sourcePath": "D:\\lineage開發\\0-客戶端\\Sound\\3332.wav",
+      "sourceUnmodifiedAfterCopy": true,
+      "format": {
+        "container": "RIFF/WAVE",
+        "tag": 1,
+        "encoding": "PCM",
+        "channels": 1,
+        "sampleRate": 22050,
+        "byteRate": 44100,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 24704,
+        "sampleFrames": 12352,
+        "durationSeconds": 0.5601814058956917,
+        "durationMethod": "dataBytes / PCM byteRate; no decode/playback/device"
+      },
+      "chunks": [
+        {
+          "fourcc": "fmt ",
+          "offset": 12,
+          "size": 16
+        },
+        {
+          "fourcc": "data",
+          "offset": 36,
+          "size": 24704
+        }
+      ]
+    },
+    {
+      "id": 1340,
+      "extension": "mp3",
+      "relativePath": "sound/1340.mp3",
+      "available": false,
+      "size": null,
+      "sha256": null,
+      "reason": "Exact MP3 missing in both checked source Sound roots; loader permits same-ID WAV fallback."
+    },
+    {
+      "id": 1340,
+      "extension": "wav",
+      "relativePath": "sound/1340.wav",
+      "available": true,
+      "size": 14322,
+      "sha256": "30b4ce04d5ca914cdbfd80c7ee9b9cdbe3bf79487e609b2a9d32f6546a90f9c3",
+      "sourcePath": "D:\\lineage開發\\0-客戶端\\Sound\\1340.wav",
+      "sourceUnmodifiedAfterCopy": true,
+      "format": {
+        "container": "RIFF/WAVE",
+        "tag": 1,
+        "encoding": "PCM",
+        "channels": 1,
+        "sampleRate": 22050,
+        "byteRate": 44100,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 14208,
+        "sampleFrames": 7104,
+        "durationSeconds": 0.3221768707482993,
+        "durationMethod": "dataBytes / PCM byteRate; no decode/playback/device"
+      },
+      "chunks": [
+        {
+          "fourcc": "fmt ",
+          "offset": 12,
+          "size": 16
+        },
+        {
+          "fourcc": "data",
+          "offset": 36,
+          "size": 14208
+        },
+        {
+          "fourcc": "LIST",
+          "offset": 14252,
+          "size": 62
+        }
+      ]
+    }
+  ]
+}

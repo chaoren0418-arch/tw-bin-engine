@@ -1,0 +1,241 @@
+{
+  "schema": "r29-integration-work-receipt-seal-v1",
+  "files": [
+    {
+      "path": "r29-integration-result.json",
+      "size": 4134,
+      "sha256": "6cd83d6e23a15d4f3723726088d248113faa6947c97973b8a1df617df5436b81"
+    },
+    {
+      "path": "HANDOFF-r29.md",
+      "size": 5065,
+      "sha256": "9fc67df31fbc96456b71ea8eeba81371519514942f00571b871c14aa6f557510"
+    },
+    {
+      "path": "integrate_r29.py",
+      "size": 8495,
+      "sha256": "a802c88d980fe725f0f2c3ac96f0b9868454659b56b1fda7a79cbc35ef6b6d82"
+    },
+    {
+      "path": "publish_r29.py",
+      "size": 12389,
+      "sha256": "7add015d670e23af8164c23f1222437b5c7363c4a9bb574c6c77cc8aef4796f2"
+    },
+    {
+      "path": "preserve_r29.py",
+      "size": 2943,
+      "sha256": "5615266c7e8d36bb06dc33b5f826042f4330c19fb29052e0815ce0d952eb749b"
+    },
+    {
+      "path": "finalize_r29.py",
+      "size": 10769,
+      "sha256": "7bacafb00513ad847bbcaeba1588a9fabc95b5bfdc5133a300211ece8a6d3194"
+    },
+    {
+      "path": "run_final_slow_checks.py",
+      "size": 4829,
+      "sha256": "e683763275aeedfb4ee714e97da6a5117c3daa3d02cd3b7538668001ba277bc1"
+    },
+    {
+      "path": "r29_rebuild_template.py",
+      "size": 8267,
+      "sha256": "1d6f43c1611f477bc4629675e3727b78ef172ef9bbd994f4543341d5744416e0"
+    },
+    {
+      "path": "verify_release_template.py",
+      "size": 1723,
+      "sha256": "c3692f1214b36544eabe071063139201923b4f0395bde608873c73b41d3a70f2"
+    },
+    {
+      "path": "integration-r29/activation-result.json",
+      "size": 1830,
+      "sha256": "6cd3fc381de5c69759251829b55a5799139053f4837f13edbe11647991535755"
+    },
+    {
+      "path": "integration-r29/actual-commands.json",
+      "size": 18576,
+      "sha256": "bf4803b15bcef26f1b2fdc237109bccd83dff95b9be913f6e65af8deff73fc10"
+    },
+    {
+      "path": "integration-r29/before/engine/build-product.ps1",
+      "size": 1702,
+      "sha256": "275cde69cdb4ac9b5176f6215ea35d121af622812a618191c14983711036c55f"
+    },
+    {
+      "path": "integration-r29/before/engine/launch-product.ps1",
+      "size": 2756,
+      "sha256": "430060f2ae4d258fc6cf8a230180a34ae8c28471296659b2bee4173e1c2b03b3"
+    },
+    {
+      "path": "integration-r29/before/engine/launcher/P24.Launcher.deps.json",
+      "size": 430,
+      "sha256": "1cc0f476da7833ffe9258f8ac190eb56d167d517c1004acc98c2e054f168e90a"
+    },
+    {
+      "path": "integration-r29/before/engine/launcher/P24.Launcher.dll",
+      "size": 24064,
+      "sha256": "3ac812b20eb651925126d6fac8c255659927065251e84b8c739e21e818469e26"
+    },
+    {
+      "path": "integration-r29/before/engine/launcher/P24.Launcher.exe",
+      "size": 162304,
+      "sha256": "9ec5d1d644a2a4efddf083636c543f733dfc7a7a031ae6c3de48fb396aa98ada"
+    },
+    {
+      "path": "integration-r29/before/engine/launcher/P24.Launcher.runtimeconfig.json",
+      "size": 399,
+      "sha256": "3e965cd7cfd553c2ff4e842d8d8019aaae2da0a21d92ff85a87573dd8d1b95c6"
+    },
+    {
+      "path": "integration-r29/before/engine/README.md",
+      "size": 1414,
+      "sha256": "9074bfef7d6c564e3e3fbf8cabaf00c2d5498bf1ce1505a31bbe7c4d8462717c"
+    },
+    {
+      "path": "integration-r29/before/engine/source/Combat.cs",
+      "size": 10857,
+      "sha256": "c464d1d63fb9d1d77402e7442b9f3a8853166065a36d8d9fe3330c50fb63f272"
+    },
+    {
+      "path": "integration-r29/before/engine/source/Ground.cs",
+      "size": 8591,
+      "sha256": "2d3a1ab10d31bf5670d04c8cacf8d0b6159ea4da2f1969bf1e053b0d2060959c"
+    },
+    {
+      "path": "integration-r29/before/engine/source/Inventory.cs",
+      "size": 13314,
+      "sha256": "681faeb516e1054e257f90dc4bb378cf872007c95832c4482b7cbe74c9e1e0c4"
+    },
+    {
+      "path": "integration-r29/before/engine/source/Magic.cs",
+      "size": 9902,
+      "sha256": "772b3d2bb2e093b2f506f048ead737ea6ccc80c13320a768a3f4ebbd1114f4bd"
+    },
+    {
+      "path": "integration-r29/before/engine/source/NormalHaste.cs",
+      "size": 2291,
+      "sha256": "2d446f7e314a530f34fcc3359b789d433a3105cb44dea791bf5ffe9778aadf45"
+    },
+    {
+      "path": "integration-r29/before/engine/source/ObjectRendering.cs",
+      "size": 8786,
+      "sha256": "bfe0d3c89031714eaa586513eabf86e5ce890b7e6813dbebdd75825a4341ea23"
+    },
+    {
+      "path": "integration-r29/before/engine/source/OnlineMovement.cs",
+      "size": 9658,
+      "sha256": "0354a31c3cc522ea2230cb8f665255cf3ccc712c247344769de512d476233a1d"
+    },
+    {
+      "path": "integration-r29/before/engine/source/PlayerPointer.cs",
+      "size": 8895,
+      "sha256": "f032ed1dabc9fde2a7f581c32ae154dd1b205bc6fb3d1efb41e7b5aa8b4b6d45"
+    },
+    {
+      "path": "integration-r29/before/engine/source/WorldObjects.cs",
+      "size": 5403,
+      "sha256": "bd5efb8edce71a47b084a62bb5a6c9d41e44d4683e674feb4bd3a2f430cbe67b"
+    },
+    {
+      "path": "integration-r29/before/engine/新版客戶端使用說明.md",
+      "size": 7966,
+      "sha256": "6b920b89d9c3db6c36198d906f9f9ba17269db45accb188a733a57c3f0f82dfb"
+    },
+    {
+      "path": "integration-r29/before/project-manifest.json",
+      "size": 29237,
+      "sha256": "d575db28e4c7e9764d34236d1e42f87318901b167d2bc154cf2c2819fd8a7a8b"
+    },
+    {
+      "path": "integration-r29/before/啟動引擎.cmd",
+      "size": 158,
+      "sha256": "b2e3e122fc01b2052f27a0ecfc781b6c2cc5f19af5efd51f13674d4bafc1e1b2"
+    },
+    {
+      "path": "integration-r29/before-after-pins.json",
+      "size": 10047,
+      "sha256": "d8a9e1c4408b14136f554d463ba2ee39d39a9a7a0c03138a237bc2e4a6e09890"
+    },
+    {
+      "path": "integration-r29/dispatch.json",
+      "size": 609,
+      "sha256": "5f7b928ab66f6bef7a3bae428ce40d3ed1c2d4d29578e9da464d160f747d59e6"
+    },
+    {
+      "path": "integration-r29/install-result.json",
+      "size": 390,
+      "sha256": "b9e5d74c8d219a1a07b9355f63e7853eaa5a0fc9fe987501b06b6f2acf34d55a"
+    },
+    {
+      "path": "integration-r29/merge-before.json",
+      "size": 2633,
+      "sha256": "4fe24f4d2b5c1f1d5c4132c9f22153898b58e90114012474defbcfe1522cd248"
+    },
+    {
+      "path": "integration-r29/merge-result.json",
+      "size": 1633,
+      "sha256": "2000819319fe155b249910eddeda717b0f49e8f1457af2a0e1979ce6c0b83bae"
+    },
+    {
+      "path": "integration-r29/package-result.json",
+      "size": 1610,
+      "sha256": "1cda3a4fd73d1f647839bff1f1ae3eb57a4ce951103929831c48658c80f1f7cd"
+    },
+    {
+      "path": "integration-r29/preservation.json",
+      "size": 1336,
+      "sha256": "946387b71019e4bd3095438869ce494f859b005d54fb16a0138eb91d612163a3"
+    },
+    {
+      "path": "integration-r29/release-check-only.command.json",
+      "size": 233,
+      "sha256": "e5e7c271b9cf0e96c6218703d0a2fde80868328184d814377a6a6c278a8c6189"
+    },
+    {
+      "path": "integration-r29/release-check-only.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "integration-r29/release-check-only.stdout",
+      "size": 1285,
+      "sha256": "ca8fc68e89eaa04db66466782cafc16a05e28f71d41d262d1b5fd964295b4aab"
+    },
+    {
+      "path": "integration-r29/release-full-verify.command.json",
+      "size": 405,
+      "sha256": "950cf29e8a5effa03bfaab98736f4ec47d202c896699b365cab7e45cac08eafe"
+    },
+    {
+      "path": "integration-r29/release-full-verify.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "integration-r29/release-full-verify.stdout",
+      "size": 410,
+      "sha256": "e1a0d15c6376129619bd4e20aefa07ecc611e82a2b6c575010e9e8c514047fc9"
+    },
+    {
+      "path": "integration-r29/release-verification.json",
+      "size": 443,
+      "sha256": "df0a41826602397539acf0eafaaba1b5586901f2407ea9420366efc98cd1cd58"
+    },
+    {
+      "path": "integration-r29/root-entry-check-only.command.json",
+      "size": 209,
+      "sha256": "e4e4e022b2c7b362927e18b41da4b1c047284b56ae27b154f699570f69406203"
+    },
+    {
+      "path": "integration-r29/root-entry-check-only.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "integration-r29/root-entry-check-only.stdout",
+      "size": 1285,
+      "sha256": "ca8fc68e89eaa04db66466782cafc16a05e28f71d41d262d1b5fd964295b4aab"
+    }
+  ],
+  "releaseSealSha256": "d3ac187e7fc44745864640e4bcc72fefbaeeaa0b0e9d63de7c0c3cfa8e46273d"
+}

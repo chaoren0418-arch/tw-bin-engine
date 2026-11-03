@@ -1,0 +1,22 @@
+{
+  "schema": "p37-inventory-only-acceptance-v1",
+  "decision": "accepted-for-p37-inventory-only",
+  "utc": "2026-10-29T09:09:10.287619+00:00",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "planSha256": "f67fa56815fbc133c1710c450efe1305d58da7c75566e02a9d909a24ca6059bd",
+  "contractSha256": "f439915614397edb8a478196375706aec1af68b670bd06c310d1ba3e251e8c30",
+  "p36FinalAcceptanceSha256": "76145832e5865fad75741450f53500cfad455aa73507bb0a75709c35a86e1e17",
+  "toolSourceSealSha256": "ea73adff65e8887e1b3369147a8c8c22a980f32fc5a6f8cba5868e9b860ad172",
+  "authorArtifactSealSha256": "d72f2c75fc792df44a5e035651a82e5cb2244d944d42564e2231c7e15a1a30c7",
+  "fullReleaseAuthorized": false,
+  "entryActivationAuthorized": false,
+  "outputRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-execution-r1",
+  "maxInventoryInvocations": 1,
+  "tool": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\bound_inventory.py",
+  "toolSha256": "3bb2bc7a22c486dbfe81b0c8d08c04e18b80c5cda5473dc46b17e319af8e61a1",
+  "productBuildsAuthorized": 0,
+  "runtimeRunsAuthorized": 0,
+  "legacyCompletedContextProbeAuthorized": false,
+  "qualification": "Emit read-only inventory to new work output only. Verify four exact identities and 181 source closure; no package/release/launcher/root manifest writes. Independent final review still required."
+}

@@ -1,0 +1,12 @@
+{
+  "utc": "2026-10-28T22:20:01.715Z",
+  "raw": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"timedOut\":true,\"wake\":null,\"polls\":[{\"schemaVersion\":1,\"cursor\":\"06f62879-b242-49d3-a511-42891ee357b8:1\",\"revision\":1,\"changed\":true,\"thread\":{\"id\":\"01a17a22-17e4-70c0-9792-166ddb86ea42\",\"hostId\":\"local\",\"status\":{\"type\":\"active\",\"activeFlags\":[]}},\"latestTurn\":{\"id\":\"01a18499-296e-7192-b895-a81f7514e384\",\"status\":\"inProgress\",\"error\":null,\"startedAt\":1793225992,\"completedAt\":null,\"durationMs\":null},\"latestAssistantMessageId\":\"msg_0f6a4b4cf1af6591016ae2750cc968819183009db244a3a521\",\"latestAssistantMessage\":{\"id\":\"msg_0f6a4b4cf1af6591016ae2750cc968819183009db244a3a521\",\"turnId\":\"01a18499-296e-7192-b895-a81f7514e384\",\"phase\":\"commentary\",\"text\":\"我會先核對 Goal 與精確收據，再用封存入口建立指定的新隔離 stage。基礎 151 項通過後，依序驗證最終 DLL 的加速、versioned-slow 與 F1 套件；共享 engine 和 releases 保持唯讀。\"},\"latestToolMarkerId\":null,\"latestToolMarker\":null},{\"schemaVersion\":1,\"cursor\":\"1e47fa6f-0252-43ab-bc1b-299701dcebdc:7\",\"revision\":7,\"changed\":true,\"thread\":{\"id\":\"01a1749a-7e8d-7200-9fc8-8618ed2559ac\",\"hostId\":\"local\",\"status\":{\"type\":\"active\",\"activeFlags\":[]}},\"latestTurn\":{\"id\":\"01a18496-411f-7f41-8213-e61bbb4f96dc\",\"status\":\"inProgress\",\"error\":null,\"startedAt\":1793225802,\"completedAt\":null,\"durationMs\":null},\"latestAssistantMessageId\":null,\"latestAssistantMessage\":null,\"latestToolMarkerId\":\"exec-c2019027-51f5-4af3-82ec-365757a2189e\",\"latestToolMarker\":{\"id\":\"exec-c2019027-51f5-4af3-82ec-365757a2189e\",\"turnId\":\"01a18496-411f-7f41-8213-e61bbb4f96dc\",\"type\":\"commandExecution\",\"name\":\"commandExecution\",\"status\":\"completed\"}}]}"
+      }
+    ],
+    "isError": false
+  }
+}

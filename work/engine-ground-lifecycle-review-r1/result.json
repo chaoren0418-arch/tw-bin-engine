@@ -1,0 +1,81 @@
+{
+  "task": "ENGINE-GROUND-LIFECYCLE-REVIEW-PREP-R1",
+  "status": "preparation-complete-candidate-pending",
+  "candidateReviewed": false,
+  "productCandidate": false,
+  "finalBaselineBound": true,
+  "baseline": "accepted final r32, execution uses byte-identical immutable accepted stage DLL",
+  "finalReleaseSeal": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507",
+  "baselineFinalSha256": "0c645bf5c3a515fd5da88cf28c834a4b2967aed268946d45fb5a6ebe9f03fcb7",
+  "finalBaseBindingSha256": "26cc55267f04896344333a6eda50d058d432aa4df1d2655875b6e9772eedff5e",
+  "dllSha256": "c64bf0069722e28fc174d70d261b7540da6e3f74ee422d4874cbffb77149364f",
+  "sourceFilesEach": 177,
+  "r31Delta": [
+    "source/Inventory.cs",
+    "source/WorldEntry.cs"
+  ],
+  "externalPins": 563,
+  "counts": {
+    "baseline": {
+      "rows": 140,
+      "observations": 55,
+      "baselineAssertions": 61,
+      "baselineAssertionsPassed": 61,
+      "futureSafetyCases": 24,
+      "futureSafetyMet": 14,
+      "futureSafetyGaps": [
+        "queued-actor",
+        "queued-lease",
+        "queued-magicSending",
+        "queued-nextMagicAt",
+        "late-world-False",
+        "late-world-True",
+        "late-actor-False",
+        "late-actor-True",
+        "late-lease-False",
+        "late-lease-True"
+      ]
+    },
+    "extended": {
+      "rows": 195,
+      "observations": 26,
+      "baselineAssertions": 156,
+      "baselineAssertionsPassed": 156,
+      "futureSafetyCases": 13,
+      "futureSafetyMet": 9,
+      "futureSafetyGaps": [
+        "drop-final-actor",
+        "drop-final-lease",
+        "drop-final-magicSending",
+        "drop-final-nextMagicAt"
+      ]
+    },
+    "supplement": {
+      "rows": 17,
+      "observations": 0,
+      "baselineAssertions": 17,
+      "baselineAssertionsPassed": 17,
+      "futureSafetyCases": 0,
+      "futureSafetyMet": 0,
+      "futureSafetyGaps": []
+    }
+  },
+  "totalRows": 352,
+  "baselineAssertionsPassed": 234,
+  "futureSafetyMet": 23,
+  "futureSafetyGaps": 14,
+  "observations": 81,
+  "newOwnerCandidatePending": 24,
+  "old140Runs": 1,
+  "socketEvents": 0,
+  "buildWarnings": 0,
+  "buildErrors": 0,
+  "productSourceModified": false,
+  "authorUnsealedCandidateRead": false,
+  "full3602SuiteRun": false,
+  "fullRelease14342Revalidation": false,
+  "nativeClassMetadataRevalidation": false,
+  "databaseOrServiceOperations": false,
+  "originalNativeOrJarHandlersExecuted": false,
+  "nextGate": "Supervisor dispatch of exact sealed r33 candidate bound to final r32; review owner contract and smallest diff, never infer acceptance from this preparation."
+}

@@ -1,0 +1,21 @@
+{
+  "utc": "2026-10-28T19:37:48.587684+00:00",
+  "state": "accepted-independent-review-actually-started",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "send_count": 1,
+  "scope": "Exact sealed Speed2/Brave0 candidate independent review; acceptance then sole integration r29, otherwise correction",
+  "db_operations_authorized": false,
+  "organizer_dispatched_workers": false,
+  "parent_readonly_audit_time": "19:36 UTC as supplied by parent",
+  "updated_utc": "2026-10-28T19:39:24.704539+00:00",
+  "supervisor_turn": "01a18404-c44a-7332-94e5-d36053c67412",
+  "reviewer": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+  "reviewer_turn": "01a18405-6aee-7e03-8f8e-1d551f11a225",
+  "reviewer_commands_observed": true,
+  "observation": "D:\\lineage開發\\TW1608262200研究\\docs\\project-consolidation\\physical-migration\\slow-candidate-continuation-observed.json",
+  "supervisor_dispatch": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-引擎開發恢復-20261029\\candidate-review-dispatch.json",
+  "candidate_accepted": false,
+  "r29_integrated": false,
+  "scope_limit": "Speed2/Brave0 walking and object rendering only; other slow actions remain rejected",
+  "actual_integration_preparation": "work/engine-next-integration-r1"
+}

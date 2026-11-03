@@ -1,0 +1,264 @@
+{
+  "schema": "p38-delivery-plan-artifact-manifest-v1",
+  "excludedFiles": [
+    "artifact-manifest.json",
+    "artifact-seal.json"
+  ],
+  "files": [
+    {
+      "path": "ancestor-policies.json",
+      "size": 18,
+      "sha256": "6ac91cab38eae269a4e6457275b3b956f615a7df03de4b1ce88f44b8110efc30"
+    },
+    {
+      "path": "assemble.py",
+      "size": 6317,
+      "sha256": "46f6cc11ac1b512eec1dfbc69e88a7e60ec8e5c07979221ede52e43eb2aafba6"
+    },
+    {
+      "path": "asset-materialization.json",
+      "size": 7947156,
+      "sha256": "dda5ba5819ed0095b81b74facd2f1fad3e411aa7b30e57d6543de424cd825a62"
+    },
+    {
+      "path": "build-dependency-pins.json",
+      "size": 1126895,
+      "sha256": "58fd3d9a4de20417a2336c00f99494a7e4874352c470676cdbdfefa3763b116b"
+    },
+    {
+      "path": "commands/assemble/command.json",
+      "size": 765,
+      "sha256": "78c737f427ada6ef1161f7d93dc2819fae4788a975d9a56487f532d86c5fc56b"
+    },
+    {
+      "path": "commands/assemble/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/assemble/stdout",
+      "size": 429,
+      "sha256": "2b197ef537a0d57e6d639a656c8381c96cc01ab289e6f337ca9c82bf285582e7"
+    },
+    {
+      "path": "commands/finalize/command.json",
+      "size": 765,
+      "sha256": "ab2d92ed601c844ee22b733f6b8939357a7f4cb3bb787d4cd8aab2b607238511"
+    },
+    {
+      "path": "commands/finalize/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/finalize/stdout",
+      "size": 363,
+      "sha256": "2fac956e771282ccba1cbd7cc902649779b381b72cc219e048c4d97d5bb274c7"
+    },
+    {
+      "path": "commands/prepare/command.json",
+      "size": 762,
+      "sha256": "e6b619e3f4b61d6c3be0978ae026e95073928ef65ace7364a16c05e72498e447"
+    },
+    {
+      "path": "commands/prepare/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/prepare/stdout",
+      "size": 727,
+      "sha256": "4365fbbc3a8810870b67f175d9ce78cf40b67317c08347571b08880ce2c2b262"
+    },
+    {
+      "path": "commands/validate_plan/command.json",
+      "size": 780,
+      "sha256": "b61fb2ee5877e13bca136998cd8431da360670b595a34bba7c6abebd2aedfc26"
+    },
+    {
+      "path": "commands/validate_plan/stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/validate_plan/stdout",
+      "size": 593,
+      "sha256": "415c944dd760712fa82a2bb47f6bc5983e0daf237c4e128b9ec015b992e5925b"
+    },
+    {
+      "path": "common.py",
+      "size": 3832,
+      "sha256": "665b980d7746c40c7cc4b6e1cebcade7811673bac8ba3cf88128a4ba569de85b"
+    },
+    {
+      "path": "execution-contract.json",
+      "size": 11771,
+      "sha256": "0ceba81b82f80ccd601c12da36b10557a2a5b9bd2d867cc166923a4816b43b3e"
+    },
+    {
+      "path": "executor.py",
+      "size": 9270,
+      "sha256": "fc84ee9a669ce95b69d34f226d657aad093e4831b9b0ed7b47c1b897b80610fd"
+    },
+    {
+      "path": "finalize.py",
+      "size": 2464,
+      "sha256": "c6254d5d7e18741b1fb9f5b0c6e513df2fab5e8229b8b0fe2975ced41c36cbbd"
+    },
+    {
+      "path": "gate.py",
+      "size": 7635,
+      "sha256": "79d11d1a1c052b62441e0196be747be82b223fa223735e789a430cbfb476cbce"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 7185,
+      "sha256": "e995ab68f4066eac9d8ae7e1ec98e5767899741a1bcacb4e386e27e7e0fdc15f"
+    },
+    {
+      "path": "input-pins.json",
+      "size": 3181,
+      "sha256": "b2500eae6d8c0e38cda8fbf82394cb64181fa359e0545c1a47e4532f2ed9a6cb"
+    },
+    {
+      "path": "launcher-delta.json",
+      "size": 1803,
+      "sha256": "21d1c65b106f8cbb3096d463786a4f8c87462fb76b63844d3875a61328e1c851"
+    },
+    {
+      "path": "launcher.patch",
+      "size": 5624,
+      "sha256": "32e274c9dfda964f1c0797341b911f2be14ac2147bb6409ef681a8e635e52a19"
+    },
+    {
+      "path": "materialization.json",
+      "size": 110054,
+      "sha256": "1698c7313a6969e5eb7eb63bc2f31b26b846021062b49a15ee535f1301322cd8"
+    },
+    {
+      "path": "pending-acceptance.json",
+      "size": 1053,
+      "sha256": "93a2216513968cf91ae3c9ab57d6abadb48e4480d0f4adb817a0235c08dd3f8a"
+    },
+    {
+      "path": "plan.json",
+      "size": 3830,
+      "sha256": "d1649ed3104850b96b719a367583835c781aa0a1fd05fad52c27b6ce402cce92"
+    },
+    {
+      "path": "prepare.py",
+      "size": 10048,
+      "sha256": "355e351919091462415e048000f4643c5a13df2e703c52a041c691be150c0ffa"
+    },
+    {
+      "path": "prepared/build/product-p36-delivery-manifest.json",
+      "size": 7761,
+      "sha256": "eb7bd750b534ed3190cb1b332bd3f0356721b85fbbec08f179ec0d407bdc56d2"
+    },
+    {
+      "path": "prepared/DELIVERY.md",
+      "size": 3280,
+      "sha256": "28a3258171fbc6ad0c286a54d4bf99f133ab9118bc089219757a82866a91e2b4"
+    },
+    {
+      "path": "prepared/global.json",
+      "size": 56,
+      "sha256": "1c530f4c116bcf04e451cf0ca155fa18d73415c85145534a415f1eb4c39198b3"
+    },
+    {
+      "path": "prepared/launcher-source/Launcher.csproj",
+      "size": 412,
+      "sha256": "59a5f22c8ced415eb3d9a36d5f356b52766956a3ae66597e29214a53280e62ee"
+    },
+    {
+      "path": "prepared/launcher-source/Program.cs",
+      "size": 8556,
+      "sha256": "a1819226911548c627b1980f9de0b773af5ed6f3bae88bd11ea3131fb7f6b7ca"
+    },
+    {
+      "path": "prepared/NuGet.Config",
+      "size": 155,
+      "sha256": "337ed22a5dd2b3a69d86fac14c3a86a05cf3ffc3d1d65e400850c747010b4f19"
+    },
+    {
+      "path": "prepared/vendor/microsoft.web.webview2.1.0.4258.31.nupkg",
+      "size": 9801922,
+      "sha256": "56f7f4b8bf9aee4b8efefbbdd4f67d5f74ebd1b100ed0806da71bf76af481aa9"
+    },
+    {
+      "path": "preservation.json",
+      "size": 7770,
+      "sha256": "9db36550f78e4f0a212003c96046a7b051d823c11d8ed5bf37e7f5588eec15be"
+    },
+    {
+      "path": "progress.json",
+      "size": 217,
+      "sha256": "4b0bb28bcd4327db154787523af547d14df425f166266b89b192b8589cd5aa4e"
+    },
+    {
+      "path": "protected-pins.json",
+      "size": 7925,
+      "sha256": "2d69faddd4e2cd887f0b824e64d4e3d1a8d738dec36ab45fe6f6659f5f5ff448"
+    },
+    {
+      "path": "record.py",
+      "size": 895,
+      "sha256": "72c1fecacb33ad548e76a5d1461d8ecde7fdfce6585f11a4f91e1f03e9d97a8a"
+    },
+    {
+      "path": "reference/launcher-source/Launcher.csproj",
+      "size": 412,
+      "sha256": "59a5f22c8ced415eb3d9a36d5f356b52766956a3ae66597e29214a53280e62ee"
+    },
+    {
+      "path": "reference/launcher-source/Program.cs",
+      "size": 8488,
+      "sha256": "e93ade09f9d773dcec99c5637d162a5ab31ce6445363c76724cc4186857eeaef"
+    },
+    {
+      "path": "result.json",
+      "size": 2183,
+      "sha256": "e28e4bbec851870130b38ad03849cbce2dc34d7d0e2252b0ceb908b790eaa3db"
+    },
+    {
+      "path": "runtime-closure.json",
+      "size": 8499,
+      "sha256": "cd09a4b8cd6cade408777347a970cf9a805c121cf5a6ebe5a48b93fa5662d5f5"
+    },
+    {
+      "path": "seal_delivery.py",
+      "size": 1211,
+      "sha256": "c6308fd298360e0ed746c5e4b51d5e7399df91ad49aa4596c620df6c233bb917"
+    },
+    {
+      "path": "source-seal.json",
+      "size": 1358,
+      "sha256": "3d5f27eb648aa970fe970f00fc5121eda18ecd861c8bc0ae6e882b20ca199216"
+    },
+    {
+      "path": "validate_plan.py",
+      "size": 2266,
+      "sha256": "1c04344eb9b85e5ec6af10b6a68983e4dbfd2988e3eb68da5f5f3265ec55a9a9"
+    },
+    {
+      "path": "validation-result.json",
+      "size": 630,
+      "sha256": "e10b42c29620ae32d600a9fda306a9ca6f0fcc3aef5e5277da8d67494ed18121"
+    },
+    {
+      "path": "verify_delivery.py",
+      "size": 1193,
+      "sha256": "4c576ef4b763d86e78eddb4d42d3724624130560bedecbb5a9abd342c1010c36"
+    },
+    {
+      "path": "version-boundaries.json",
+      "size": 3243,
+      "sha256": "ab6b97ff485d8a7f15e9aef949f26cfc30580f1693046c17fadf8f043c4bdcfc"
+    },
+    {
+      "path": "win_process.py",
+      "size": 5934,
+      "sha256": "37f21ac740a11f780a937f085598bbb3dbbe928a65fa8d19d6c6d0f39e0ef0dc"
+    }
+  ]
+}

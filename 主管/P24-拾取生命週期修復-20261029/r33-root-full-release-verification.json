@@ -1,0 +1,19 @@
+{
+  "utc": "2026-10-29T00:32:22.141011+00:00",
+  "verified": true,
+  "result": {
+    "status": "pass-full-release-sha256",
+    "revision": "r33",
+    "files": 14653,
+    "sealSha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417",
+    "allAssetBodiesHashed": true,
+    "assetSamefileVerified": 13958,
+    "sourceFilesMatchedAcrossEngineAndRelease": 177,
+    "fourRuntimeIdentitiesMatchedToStage": true,
+    "seconds": 11.797,
+    "GUI": false,
+    "network": false,
+    "nativeLiveAccepted": false
+  },
+  "releaseWrites": false
+}

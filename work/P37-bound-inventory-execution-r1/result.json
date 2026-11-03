@@ -1,0 +1,50 @@
+{
+  "schema": "p37-bound-inventory-execution-delivery-v1",
+  "status": "successful-inventory-only-awaiting-independent-final-review",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "verification": {
+    "status": "pass",
+    "inventoryRows": 210,
+    "sourceRows": 181,
+    "buildOutputRows": 15,
+    "productManifestRows": 1,
+    "inheritedLauncherRows": 4,
+    "evidenceRows": 9,
+    "fourIdentities": {
+      "productDllSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+      "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+      "productManifestSha256": "d55389e048aee9eb2b64088ddfb0128de6166071e21969bd1dd57b9464d9ce75",
+      "launcherDllSha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8"
+    },
+    "protectedPinsUnchanged": 33,
+    "inventoryInvocations": 1,
+    "builds": 0,
+    "runtimeRuns": 0,
+    "sharedWrites": 0,
+    "formalEntry": "r33",
+    "qualification": "Inventory only; no complete release qualification, canonical8/4521 replay, or launcher rebuild."
+  },
+  "rawInventory": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-execution-r1\\inventory.stdout.json",
+    "size": 58242,
+    "sha256": "2bb58c3c48b576a213c05f5a9b2835e5f2ed4b717afe8fbbe8719009780bc778"
+  },
+  "command": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-execution-r1\\command.json",
+    "size": 1271,
+    "sha256": "6b90c34810d8740d211bd8c1974f940848135024b83c6cb3c32069d14d047646"
+  },
+  "inputPins": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-execution-r1\\input-pins.json",
+    "size": 10464,
+    "sha256": "d0d840e507c5838ef7297e0897ceb9d52d18419aa6b67b7dda7e45a50adecb5e"
+  },
+  "fullReleaseAuthorized": false,
+  "launcherUseAccepted": false,
+  "entryActivated": false,
+  "goalActualRead": null,
+  "goalCreatedOrModified": false,
+  "legacyCompletedContextExecuted": false,
+  "negativeCasesRerun": false
+}

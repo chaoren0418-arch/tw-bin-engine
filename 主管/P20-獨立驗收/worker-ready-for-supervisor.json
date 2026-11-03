@@ -1,0 +1,173 @@
+{
+  "status": "ready-frozen",
+  "utc": 1792917081.154317,
+  "goal": "active",
+  "supervisorThread": "01a171b6-48f6-75c0-b8fb-70ba36193dd9",
+  "server": {
+    "process": {
+      "ProcessId": 13012,
+      "ParentProcessId": 87848,
+      "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P20Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P20Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P20Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P20Lab-ClientEngine\\server\\Server_Game.jar",
+      "CreationDate": "/Date(1792915684144)/"
+    },
+    "listeners": [
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42045,
+        "OwningProcess": 13012
+      }
+    ]
+  },
+  "db": {
+    "values": [
+      "43320",
+      "D:\\P20Lab-ClientEngine\\db-data\\",
+      "052f6955-d047-11f1-99cf-4cedfb679789",
+      "127.0.0.1",
+      "8.0.40"
+    ],
+    "process": {
+      "process": {
+        "ProcessId": 86324,
+        "ParentProcessId": 66036,
+        "ExecutablePath": "D:\\P20Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P20Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P20Lab-ClientEngine\\mysql.ini --init-file=D:\\P20Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792913941321)/"
+      },
+      "listeners": [
+        {
+          "LocalAddress": "127.0.0.1",
+          "LocalPort": 43320,
+          "OwningProcess": 86324
+        }
+      ]
+    }
+  },
+  "clients": {
+    "items": []
+  },
+  "roles": [
+    {
+      "x": 32591,
+      "y": 32945,
+      "hp": 648,
+      "id": 1900200001,
+      "mp": 120,
+      "exp": 416461902,
+      "name": "裝備王子",
+      "level": 60,
+      "online": 0,
+      "heading": 7,
+      "accountOnline": 0
+    },
+    {
+      "x": 32591,
+      "y": 32945,
+      "hp": 600,
+      "id": 1900200002,
+      "mp": 120,
+      "exp": 416461902,
+      "name": "裝備王子乙",
+      "level": 60,
+      "online": 0,
+      "heading": 7,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900200003,
+      "mp": 120,
+      "exp": 416461882,
+      "name": "驗收王子",
+      "level": 60,
+      "online": 0,
+      "heading": 5,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900200004,
+      "mp": 120,
+      "exp": 416461882,
+      "name": "驗收王子乙",
+      "level": 60,
+      "online": 0,
+      "heading": 5,
+      "accountOnline": 0
+    },
+    {
+      "x": 32590,
+      "y": 32946,
+      "hp": 700,
+      "id": 1900200005,
+      "mp": 120,
+      "exp": 416461882,
+      "name": "裝備觀察甲",
+      "level": 60,
+      "online": 0,
+      "heading": 4,
+      "accountOnline": 0
+    },
+    {
+      "x": 32590,
+      "y": 32946,
+      "hp": 700,
+      "id": 1900200006,
+      "mp": 120,
+      "exp": 416461882,
+      "name": "裝備觀察乙",
+      "level": 60,
+      "online": 0,
+      "heading": 4,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900200007,
+      "mp": 120,
+      "exp": 416461882,
+      "name": "驗收觀察甲",
+      "level": 60,
+      "online": 0,
+      "heading": 5,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900200008,
+      "mp": 120,
+      "exp": 416461882,
+      "name": "驗收觀察乙",
+      "level": 60,
+      "online": 0,
+      "heading": 5,
+      "accountOnline": 0
+    }
+  ],
+  "source": "791c68b825a3157ed40341cbccf34422eb102d31cae1885084554b1a08b111cb",
+  "environment": "cdc434700f1984c7fecd0d718f44aaf3300b08d910f2497b1412fa42340f4397",
+  "privateCredentialsPath": "D:\\P20Lab-ClientEngine\\private-tests.json",
+  "workerEvidence": [
+    "equipment-worker-cli-r3",
+    "equipment-worker-ui-r4"
+  ],
+  "commands": [
+    "./build.ps1 -Clean",
+    "python -B -X utf8 equipment_integration.py cli supervisor",
+    "python -B -X utf8 equipment_integration.py ui supervisor",
+    "python -B -X utf8 verify_equipment.py evidence/equipment-supervisor-cli/result.json",
+    "python -B -X utf8 verify_equipment.py evidence/equipment-supervisor-ui/result.json",
+    "python -B -X utf8 verify_rewards.py evidence/equipment-supervisor-cli/result.json",
+    "python -B -X utf8 verify_rewards.py evidence/equipment-supervisor-ui/result.json"
+  ],
+  "notes": "No further worker source edits/login/restart/cleanup until explicit supervisor handback. Original respawn/rates remain active. Supervisor four roles fresh and reserved."
+}

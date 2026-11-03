@@ -1,0 +1,12 @@
+{
+  "utc": "2026-10-28T22:09:47.537Z",
+  "raw": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"timedOut\":true,\"wake\":null,\"polls\":[{\"schemaVersion\":1,\"cursor\":\"7d1d6419-2d65-4aa3-a69c-534fb7f98d8a:107\",\"revision\":107,\"changed\":true,\"thread\":{\"id\":\"01a17a21-8dec-7410-8a1b-80f7fa84d0a1\",\"hostId\":\"local\",\"status\":{\"type\":\"active\",\"activeFlags\":[]}},\"latestTurn\":{\"id\":\"01a18480-ba51-7461-8727-f7ed73dcab91\",\"status\":\"inProgress\",\"error\":null,\"startedAt\":1793224391,\"completedAt\":null,\"durationMs\":null},\"latestAssistantMessageId\":\"msg_03bad4afb6dfb9e5016ae271ed65e08191857482964dd8a543\",\"latestAssistantMessage\":{\"id\":\"msg_03bad4afb6dfb9e5016ae271ed65e08191857482964dd8a543\",\"turnId\":\"01a18480-ba51-7461-8727-f7ed73dcab91\",\"phase\":\"commentary\",\"text\":\"獨立準備已封存並唯讀驗證通過，manifest 為 1083f405…f12bae。修正時鐘後，r30 最終結果為 1,553 項：1,057 通過、496 個已知缺口；820 個未改預期仍全過。現在開始核對封存候選及其唯一產品差異。\"},\"latestToolMarkerId\":\"exec-ee8ed5d7-a3c5-4356-97d2-3f3e14874fad\",\"latestToolMarker\":{\"id\":\"exec-ee8ed5d7-a3c5-4356-97d2-3f3e14874fad\",\"turnId\":\"01a18480-ba51-7461-8727-f7ed73dcab91\",\"type\":\"commandExecution\",\"name\":\"commandExecution\",\"status\":\"completed\"}},{\"schemaVersion\":1,\"cursor\":\"fd544505-99d4-4743-96cd-cd467d1820dc:107\",\"revision\":107,\"changed\":true,\"thread\":{\"id\":\"01a1749a-7e8d-7200-9fc8-8618ed2559ac\",\"hostId\":\"local\",\"status\":{\"type\":\"active\",\"activeFlags\":[]}},\"latestTurn\":{\"id\":\"01a1848f-a263-7ad1-be7e-e1de4268b1ec\",\"status\":\"inProgress\",\"error\":null,\"startedAt\":1793225368,\"completedAt\":null,\"durationMs\":null},\"latestAssistantMessageId\":null,\"latestAssistantMessage\":null,\"latestToolMarkerId\":null,\"latestToolMarker\":null}]}"
+      }
+    ],
+    "isError": false
+  }
+}

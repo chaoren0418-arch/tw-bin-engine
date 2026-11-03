@@ -1,0 +1,332 @@
+[
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-拾取生命週期修復-20261029\\baseline.json",
+    "role": "baseline",
+    "size": 57611,
+    "sha256": "015da2542257d3c124346dcdeb3f34528902b56e1913b5878f3bc995597093ff"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r32-integration-r1\\r32-runs\\accepted-slow-haste-item-r1-01\\stage-seal.json",
+    "role": "stage-seal",
+    "size": 2461595,
+    "sha256": "121fd44082ab5f55c9d7c91ca78256276e1303e2734459210bc6c7e672d73734"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-緩速加速水例外-20261029\\r32-stage-acceptance.json",
+    "role": "stage-acceptance",
+    "size": 2397,
+    "sha256": "2898e684ca8756fba7c0e38973461fcb905f48a43932cf6fafea6403b64c5eb5"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r32-integration-r1\\r32-runs\\accepted-slow-haste-item-r1-01\\build\\client-product-r32\\P11.ClientEngine.dll",
+    "role": "baselineDll",
+    "size": 2179072,
+    "sha256": "c64bf0069722e28fc174d70d261b7540da6e3f74ee422d4874cbffb77149364f"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r32-integration-r1\\r32-runs\\accepted-slow-haste-item-r1-01\\build\\client-product-r32\\P24.Audio.dll",
+    "role": "baselineAudio",
+    "size": 53760,
+    "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-review-r1\\artifact-manifest.json",
+    "size": 8028,
+    "sha256": "29fb10cb6919a9ea07c13185af3ffc0eab2b8be4944c18093cbf84cb00326095",
+    "role": "independent sealed r31 review; not r32 execution"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-review-r1\\HANDOFF.md",
+    "size": 2407,
+    "sha256": "bcc690a23104a9dc37a46773e1c4cc9f6ced3bd0a1d66fb83423b7f439eebfae",
+    "role": "independent sealed r31 review; not r32 execution"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-review-r1\\review-contract.md",
+    "size": 11834,
+    "sha256": "8e54eceb3010ccafbd0a6591611340d1bbcb13c3d64744557360e3cc44bb1763",
+    "role": "independent sealed r31 review; not r32 execution"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-review-r1\\baseline-findings.md",
+    "size": 3772,
+    "sha256": "db6ebcf451f539e52e07af44b6bc1b99ad1c2c1cdec49378fa80d96a1f101620",
+    "role": "independent sealed r31 review; not r32 execution"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-pickup-review-r1\\baseline-probe.json",
+    "size": 66867,
+    "sha256": "017be829d85b140cd5172ecb34147169a053e48588c4993cecf3d5baee6ed3fa",
+    "role": "independent sealed r31 review; not r32 execution"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\integrity.json",
+    "size": 1729333,
+    "sha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\manifest.json",
+    "size": 16378,
+    "sha256": "e0493630f26b3d51625461809194e84eea1391d6987376d5a135485afc798d39",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\61-0.json",
+    "size": 4546593,
+    "sha256": "e73d987869d8f9cb5e7e081cd3781bc8214de9a3720b42073886ac9d8375cbbb",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\61-4.json",
+    "size": 5239532,
+    "sha256": "1410dae2f42d30dc11aba5a1c494479ef5039c8161ad13f145504f18a8ce61dc",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\61-20.json",
+    "size": 5566410,
+    "sha256": "466b5832edea83ae25c4021569eeaf6fdcd00c8f5e57e990ce1ae81c523ff51a",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\61-50.json",
+    "size": 5497941,
+    "sha256": "aaa9912a489b22a80b346e10adb07cc4ea51402a11136e80118cd527c694ab25",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\48-0.json",
+    "size": 4859717,
+    "sha256": "b5e509c8c3eb45cb58fa7cd67af0afe82995dd25a5379f608cd8cb774239fb3e",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\48-4.json",
+    "size": 5406208,
+    "sha256": "289cd07c274cffd439c3f87a4a016bc0d70f20161ad027247c227970baea863a",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\48-20.json",
+    "size": 5723012,
+    "sha256": "db514bbbcc80bafcf3aa58bce60e41bc101c3a26032fe5adad2ac93613952350",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\48-50.json",
+    "size": 5710122,
+    "sha256": "fdcd0b3246fe4e0678a034d69cc9590ad9204a55cefc98849c81039638efa74e",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\37-0.json",
+    "size": 3223579,
+    "sha256": "5f6555fff67d0343d998f2b2af8eff6731a0b51a6c974dfe239a3f3b646e058e",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\37-4.json",
+    "size": 3796901,
+    "sha256": "095d3b762d150ddc647a070ed24def9a669b76b2d7ff3749ee51d03d65304c52",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\37-20.json",
+    "size": 3782951,
+    "sha256": "a0a6d99a9e748563013ef41304aae009976c7d3f65b1c1795d7bc63423538d78",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\734-0.json",
+    "size": 6855726,
+    "sha256": "1a48881ab41af22a58e52102a3ef940e0b6f2a71473b0b2012a6ad0b1d3f0e3b",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\734-4.json",
+    "size": 7167350,
+    "sha256": "b9991d6bb1c0f3080dab7d3f1a4c2b368c0b3261295eff8bf7022d2b38d12a78",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\734-20.json",
+    "size": 7332367,
+    "sha256": "8da7161651f60edb3b371ac26994bc6c69f4af700bb1834e5ed15a31a6995026",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\1186-0.json",
+    "size": 4528403,
+    "sha256": "abf6504bb5cbb2048dd5de0041c989e9b202ede63aad564d81415c771e2d6ab3",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\1186-4.json",
+    "size": 5390200,
+    "sha256": "4e70056a708d433bccc70005be82be16379ce34d11669526064c7483e921d267",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\1186-20.json",
+    "size": 5781966,
+    "sha256": "ab6f2882e3f2972b4355f7c347958a9a456652b6fa348e79d88a4be2075ffa0b",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\2786-0.json",
+    "size": 4397341,
+    "sha256": "eac0b1e42e7154c39101e03ca2b628eba865e4f21ab59cc3f10992d536858949",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\2786-4.json",
+    "size": 5494490,
+    "sha256": "bb2c3627403703d487dd223d9c343b98f71860686aa676cd916e9f028d9b8804",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\2786-20.json",
+    "size": 5516796,
+    "sha256": "918594eb127cd161e1daf75390408142840eb22fd6f9608bc0f65371ca1ac631",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\2796-0.json",
+    "size": 4446223,
+    "sha256": "2c800eede680307d5bfa5441b47f8aa3af6091069a75ef65d57d8e0f5b01b3fa",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\2796-4.json",
+    "size": 5420155,
+    "sha256": "76c83633011598bebb4b6685e75eee384201a39751ec1232ca3f111fd0af0c4f",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\2796-20.json",
+    "size": 5446303,
+    "sha256": "5fd0e9d1850bc6bdcb8eb042892089ad0a58a6cc0a506931228992a8064b019c",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\objects\\0.json",
+    "size": 29014453,
+    "sha256": "27ab41e8a398eb180ce957d9215b2c9b5cf6bf5343b32f6c101757b8882efdf8",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\objects\\0-weapon-4.json",
+    "size": 33577483,
+    "sha256": "858444d08c367a9cab98bcbf6b4feda44c3cc72c68d1b676e0d296d5f692c771",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\objects\\0-weapon-20.json",
+    "size": 34748742,
+    "sha256": "6b9aaddeaf4b913ff0aa44237349e314ca57a69d99620f9408553d006f35183a",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\objects\\0-weapon-50.json",
+    "size": 35564219,
+    "sha256": "40ab20359c20303eccf39216619d5667b0bb932c927d85849b661a78c9b84f2f",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\1-0.json",
+    "size": 3309427,
+    "sha256": "2f4f0b0f80b38634a0063b4232c89458f6f7cf77aff1b48274c94748af438f15",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\1-4.json",
+    "size": 3577623,
+    "sha256": "c94980a1ccd20c5f083285aee734813d59f97ef5d61249819ba3128632f42d5f",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\1-20.json",
+    "size": 3926668,
+    "sha256": "651f5029da928825b2915b6a5ce1d826018ee3499c6a4948136bfd6c25f636dc",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\1-50.json",
+    "size": 3924709,
+    "sha256": "2ebf9dcdc13add5dc679e07e6d2326c4f93bb1177020cfd108799292ab64127d",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\6658-0.json",
+    "size": 5446662,
+    "sha256": "ebc49e51e554da826aff93d95ec0710ea21b2ccf0e13e8e2e85c6f00920f04c5",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\6658-4.json",
+    "size": 6242688,
+    "sha256": "d011c9ddf23f8f2488832d364cc64125fb7338778b51fbaf13589a1ed8977231",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\6658-50.json",
+    "size": 6302996,
+    "sha256": "157ab2c468081ec846d6f56b6814c0fe881a77f570a907672b899e174e1034be",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\6661-0.json",
+    "size": 4362406,
+    "sha256": "d75bb3324e06003f657c2b021f9da7c5a6b6972a8428b735c30149c21d31e051",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\6661-4.json",
+    "size": 4549616,
+    "sha256": "28ed1495de3fa77ef8e123c57874aaece9516b8600e2f6f39ee5344e937e7581",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\6661-50.json",
+    "size": 4902928,
+    "sha256": "b826579739920719bed6b636a055bd0edb1ae435c5a1936c02bb038ec5843076",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\6671-0.json",
+    "size": 4428685,
+    "sha256": "9ced25fb5c036d8b711edaddd345d700e1a52049dff77c68d3f4ecaba55b1d1b",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\6671-20.json",
+    "size": 5400895,
+    "sha256": "11b0a21a9644d60c7eb9bca0e120c600c32b8515ebcef9c902a6b42f9436fb27",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\6650-0.json",
+    "size": 4506214,
+    "sha256": "bbc201656a181fe210d2777ba39770e8a52f2936dd206552f87a8d3d4f097371",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\6650-20.json",
+    "size": 5089168,
+    "sha256": "18e1a3047949711ffaeddcc07d7a7242fc0cceb6b4e9d64d5bc256cf796cf440",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\players\\0-46.json",
+    "size": 5024539,
+    "sha256": "dca45494e33d824fe821a21faeff9cbb6439b5896ef11f48c0a8b3e505fc33e7",
+    "role": "limited existing player metadata; no pixel scan"
+  },
+  {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets\\magic\\catalog.json",
+    "size": 1626,
+    "sha256": "024576e3c96bedc33c63b889d77366f4204b99ceb40c78f3c743ff6e54a44ebf",
+    "role": "existing spell metadata for public mutual exclusion controls"
+  }
+]

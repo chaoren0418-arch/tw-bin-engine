@@ -1,0 +1,15 @@
+# Independent static review
+
+Decision: accepted for OWN-BASE-15-001-SUPERVISOR-R1 only. No blocking product defect or repair request identified. `coverage.json` records all24 original prep risks and precise evidence limits. `findings.json` distinguishes verified findings from qualification gaps.
+
+`source-diff.json` and both diffs were derived independently from177 finalr33 sources and180 candidate sources.167 remain byte-identical,10 modified,3 added. `semantic-review.diff` removes blank lines/newline-only noise for reading; hashes and `independent.diff` remain authoritative. The two new C# files and exact embedded resource were reviewed directly.
+
+The Ground receipt hook follows existing pending heading handling. Capture includes session/world/map/actor/revisions/profile/heading/position; own receipt binding is scoped by try/finally. Other actor receipts return before changing presentation. Latest receipt replacement and serial ownership are explicit engine policy. Guard/owner is checked again when advancing; one advancement per call, source-derived first deadline and recurrence, and cancelable584 terminal hold match the authorized finite policy.
+
+The existing own combat selector was factored without changing the double duration comparison, matching profile check, death retention or projectile-hit precedence. Pickup rechecks the same selector before replacing body/shadow. `ComposeProjectile(session,[],now)` resolves uncomposed impacts during receipt checks; actual S30 report/flight/hit and same-now idempotence assertions supplement static review. Existing projectile implementation remains unchanged.
+
+The resource is separate from ObjectAppearance.Frames and player assets. The loader authenticates size/hash before parsing and checks profile/order/directions/keys/pixels. Frame0 is exact base-profile data;24 additions are authenticated. Renderer removes own body/shadow only and reuses normal ordering plus exact-key shadow lookup. Pixel expectations use accepted PNGs and an independently written integer rasterizer, not Renderer.Blit.
+
+The Ground LoginConnection sender/completion suffix is byte-identical; Inventory.cs and InventoryTests.cs remain byte-identical. No new send, audio/effect dispatch or utility cadence change is present in new presentation code. Changes to prediction and authoritative receive paths cancel owned state only. Public World.Receive remains compatible for original receipt/counter/heading semantics; it intentionally lacks bound session identity for starting new presentation.
+
+Known limits: source static checks do not prove native runtime behavior. The sealed candidate is not rebuilt or patched. Resource corruption tests reject at authentication before deeper parser branches; actual missing resource is not injected into the assembly. Reflection and synthetic fixtures are disclosed in rows. Normal GUI/map cache/physical input/whole4337 suites were not run. These are outside this bounded contract, not unresolved nominal implementation blockers.

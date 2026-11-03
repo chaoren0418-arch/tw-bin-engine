@@ -1,0 +1,18 @@
+{
+  "status": "tool-unavailable-not-created",
+  "supervisor": "01a17da0-9245-7795-ad0d-231c0dedc002",
+  "requestedObjective": "逐階段完成依同版來源可運行、可重建的自主 BIN 客戶端與本機網頁引擎。現階段仍P24、正常產品r27；先完成6016事件控制器、音量/mute與音訊候選的獨立接受及唯一整合，繼續處理已授權正常流程所需且有直接證據的缺口；保留其他事件token、地圖/內容來源限制，禁止用r27冒充P27。固定下一交付版本後，完成正常登入/選角/進世界、移動/戰鬥/技能、物品/裝備/拾取、技能學習/商店/交易/倉庫、跨圖及連續遊戲保存重登的同版完整串接與乾淨重建。原生完整畫面/滑鼠/HUD、音訊裝置/可聽結果、未具正向條件交易均逐項留待實證，不把離線替身或跨版本證據算通過。候選須主管獨立覆核、版本封裝須可重建、正式交付須明示限制；有可自主開發時持續分工，不因人工未回覆停工。",
+  "discovery": {
+    "nameMatch": [],
+    "descriptionGoalMatch": [
+      "mcp__codex_app__complete_conversational_onboarding_task",
+      "mcp__codex_apps__linear_get_agent_context"
+    ],
+    "usableGoalTools": [],
+    "getGoalAttempted": false,
+    "createGoalAttempted": false,
+    "readBack": null,
+    "error": null
+  },
+  "note": "No actual Goal tool available; objective text is a pending specification, not a created Goal. Historical old supervisor goal:null does not establish this thread's state."
+}

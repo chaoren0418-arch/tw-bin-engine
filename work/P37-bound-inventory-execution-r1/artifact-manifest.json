@@ -1,0 +1,49 @@
+{
+  "schema": "p37-inventory-execution-artifact-manifest-v1",
+  "excludedFiles": [
+    "artifact-manifest.json",
+    "artifact-seal.json"
+  ],
+  "files": [
+    {
+      "path": "command.json",
+      "size": 1271,
+      "sha256": "6b90c34810d8740d211bd8c1974f940848135024b83c6cb3c32069d14d047646"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 3356,
+      "sha256": "eebca69077a0245252a8183d45113761e585b40a12c48c4356d5b8153c7fa894"
+    },
+    {
+      "path": "input-pins.json",
+      "size": 10464,
+      "sha256": "d0d840e507c5838ef7297e0897ceb9d52d18419aa6b67b7dda7e45a50adecb5e"
+    },
+    {
+      "path": "inventory.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "inventory.stdout.json",
+      "size": 58242,
+      "sha256": "2bb58c3c48b576a213c05f5a9b2835e5f2ed4b717afe8fbbe8719009780bc778"
+    },
+    {
+      "path": "result.json",
+      "size": 2108,
+      "sha256": "4f41ba15550bf19e673423df985e40f8bac56218e47a40205489d85cc0dcc84c"
+    },
+    {
+      "path": "started.json",
+      "size": 821,
+      "sha256": "dcf3edd9bb3a06aa54d01e1b2af4f803fca2dd6ee56563369063a0e6c740b558"
+    },
+    {
+      "path": "verify_delivery.py",
+      "size": 4711,
+      "sha256": "9e64ec9b4db33e9278be2e0916f1fec167d7add2ae63bac5fc09293d26bf33e1"
+    }
+  ]
+}

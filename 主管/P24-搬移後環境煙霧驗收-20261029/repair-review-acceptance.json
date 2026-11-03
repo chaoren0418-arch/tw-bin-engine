@@ -1,0 +1,33 @@
+{
+  "utc": "2026-10-28T19:03:24.208176+00:00",
+  "decision": "accepted-for-static-review-and-isolated-test-design-only",
+  "worker": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+  "cursor": "7d1d6419-2d65-4aa3-a69c-534fb7f98d8a:14",
+  "workerIdleObserved": true,
+  "artifactManifestSha256": "3a72a32d8d1842a4ddeb9c688f2ac503747c872b22667903135564bdef9d3fba",
+  "rootVerifiedSourcePins": 19,
+  "rootVerifiedArtifactPins": 10,
+  "reviewedFiles": [
+    "HANDOFF.md",
+    "OPTIONS.md",
+    "ISOLATED-TEST-DESIGN.md",
+    "review_gate_checks.py",
+    "evidence-review.json",
+    "result.json",
+    "verify.py"
+  ],
+  "correctionsReviewed": [
+    "stdout anchors corrected to238/243 and exact text/hash",
+    "LIMIT100 scope gap closed with full table aggregate"
+  ],
+  "syntheticPolicyCases": 18,
+  "runtimeReproductionAccepted": false,
+  "originalDataMutationAuthorized": false,
+  "currentOrphanRepairApplied": false,
+  "scopeLimits": [
+    "Pure-memory policy cases are not retained loader or MyISAM tests.",
+    "Future cleanup repair and existing orphan resolution are separate decisions.",
+    "MyISAM rollback cannot establish cross-table atomicity."
+  ],
+  "next": "Combine lifecycle report, then submit concrete bounded reproduction/repair decision package."
+}

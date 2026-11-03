@@ -1,0 +1,45 @@
+{
+  "utc": "2026-10-28T18:50:07.770630+00:00",
+  "scope": "Authorized pre-smoke prerequisite diagnosis only; no unrelated development, DB writes, shared JAR changes or client launch.",
+  "goalActualStatus": "paused",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "tasks": [
+    {
+      "id": "timed-item-lifecycle-r1",
+      "worker": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "writeRoot": "work/timed-item-lifecycle-r1",
+      "state": "independently-accepted-static-scope-worker-idle",
+      "receipt": "diagnostic-send-receipts.json",
+      "turnId": "01a183d9-6442-7bf1-834e-c36ab3498148",
+      "cursor": "fd544505-99d4-4743-96cd-cd467d1820dc:26",
+      "review": "diagnostic-review.json"
+    },
+    {
+      "id": "timed-item-repair-review-r1",
+      "worker": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "writeRoot": "work/timed-item-repair-review-r1",
+      "state": "independently-accepted-static-scope-worker-idle",
+      "receipt": "diagnostic-send-receipts.json",
+      "turnId": "01a183d9-a847-7b21-9e5b-0ec3b839429d",
+      "cursor": "7d1d6419-2d65-4aa3-a69c-534fb7f98d8a:14",
+      "review": "diagnostic-review.json"
+    }
+  ],
+  "dataChangeApproval": "Not granted; report reviewed concrete proposal to parent before any original-data change.",
+  "updatedUtc": "2026-10-28T19:05:11.496923+00:00",
+  "supervisorEvidence": [
+    {
+      "file": "key10326-timeline.json",
+      "sha256": "2c59e8f8d8afc4c3ca19e83918aa05b0b3b9502ee18743cf265d8670b49fe956"
+    },
+    {
+      "file": "timed-engines.json",
+      "sha256": "f12fb9eb5db92e084186410a7d5b3c57c324ca97434cb051eba38e8498203df7"
+    },
+    {
+      "file": "diagnosis-baseline.json",
+      "sha256": "35cdbce915b980f1ea11b5085c8550319cea4d149df7b805081b0bda3e42be31"
+    }
+  ],
+  "next": "Review the concrete isolated reproduction decision package; original data, shared JAR and failed startup guard remain unchanged."
+}

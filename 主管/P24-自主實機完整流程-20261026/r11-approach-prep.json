@@ -1,0 +1,121 @@
+{
+  "utc": "2026-10-26T16:43:08.044Z",
+  "main": {
+    "x": 32600,
+    "y": 32942,
+    "magic": {
+      "ac": -7,
+      "acNotice": "AC -7",
+      "available": true,
+      "buffs": "保護罩：剩餘 1799 秒",
+      "earth": 0,
+      "epoch": 3,
+      "fire": 0,
+      "hp": 700,
+      "maxHp": 700,
+      "maxMp": 120,
+      "message": "\\fW【奇岩競賽】比賽即將開始",
+      "mp": 24,
+      "notice": "收到原服技能特效；HP／MP與狀態以原回包為準",
+      "selectedId": 3,
+      "skills": [
+        {
+          "Id": 1,
+          "Name": "初級治癒術",
+          "NominalMp": 4,
+          "Supported": true,
+          "Target": "自己／指定對象"
+        },
+        {
+          "Id": 3,
+          "Name": "保護罩",
+          "NominalMp": 8,
+          "Supported": true,
+          "Target": "自己"
+        },
+        {
+          "Id": 4,
+          "Name": "光箭",
+          "NominalMp": 3,
+          "Supported": true,
+          "Target": "指定敵人"
+        }
+      ],
+      "targetId": 0,
+      "targetMode": "none",
+      "targetName": "自己（服務驗證）",
+      "targets": [
+        {
+          "id": 1900240006,
+          "name": "透明觀察乙"
+        },
+        {
+          "id": 2000035978,
+          "name": "杜賓狗"
+        },
+        {
+          "id": 2000036216,
+          "name": "牛"
+        },
+        {
+          "id": 2000038214,
+          "name": "狼人"
+        },
+        {
+          "id": 2000040897,
+          "name": "蛋黃哥（個人商店）"
+        }
+      ],
+      "water": 0,
+      "wind": 0
+    }
+  },
+  "peer": {
+    "x": 32600,
+    "y": 32943,
+    "magic": {
+      "ac": -1,
+      "acNotice": "AC -1",
+      "available": false,
+      "buffs": "",
+      "earth": 0,
+      "epoch": 3,
+      "fire": 0,
+      "hp": 528,
+      "maxHp": 700,
+      "maxMp": 120,
+      "message": "\\fW【奇岩競賽】比賽即將開始",
+      "mp": 120,
+      "notice": "收到原服技能特效；HP／MP與狀態以原回包為準",
+      "selectedId": null,
+      "skills": [],
+      "targetId": null,
+      "targetMode": "none",
+      "targetName": "尚未選擇技能",
+      "targets": [
+        {
+          "id": 1900249001,
+          "name": "服務驗證"
+        },
+        {
+          "id": 2000035978,
+          "name": "杜賓狗"
+        },
+        {
+          "id": 2000036216,
+          "name": "牛"
+        },
+        {
+          "id": 2000038214,
+          "name": "狼人"
+        },
+        {
+          "id": 2000040897,
+          "name": "蛋黃哥（個人商店）"
+        }
+      ],
+      "water": 0,
+      "wind": 0
+    }
+  }
+}

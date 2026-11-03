@@ -1,0 +1,314 @@
+{
+  "status": "pass",
+  "scope": "Supplement to worker environment freeze: actual MySQL runtime binaries match original copy manifest",
+  "files": [
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\abseil_dll-debug.dll",
+      "sha256": "1ec7218cce23946d17a38429bd400513e4544dac9886fd226fc2ef271d3e2d29"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\abseil_dll.dll",
+      "sha256": "2b3fab8feef0e56f8a098bdc8d33060c8534d44fd5bbee141ae64545bc63c5e3"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\comerr64.dll",
+      "sha256": "d2e8a53556f513932546c08985e8377ea422fc1f5f106ae2e3fd0afb3440c4cb"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\fido2.dll",
+      "sha256": "b58c4d6eae9f4bcd18072946918f049d03a3a835aeddd3ba7be696434d51a739"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\gssapi64.dll",
+      "sha256": "d16c2924e3eca3b0569351b5c1ca38500770d5c9460bce3a39754d9b1d1268ab"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\jemalloc.dll",
+      "sha256": "5c95e8b37115253f8ec1520f4f0ac63a74f111f650935ea11cd5658ebb3ccad4"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\k5sprt64.dll",
+      "sha256": "3f4a3f68edd63faea057554648b28e1058f4fb6625bf694d47f26939dbb75cdd"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\krb5_64.dll",
+      "sha256": "90aed66fa4e9abbc633f9366622835a69d9bb10b93364f8f896e9e42d652e100"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\krbcc64.dll",
+      "sha256": "e77246c2c09ed2dcce8130387e882e5f2fa6daeccaeb30ac10571b42ffb16bb7"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\libcrypto-3-x64.dll",
+      "sha256": "bc9b364cf43fbe33f14dd851717471594f2c257d70d4fc7d25eda8162f373a12"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\libmecab.dll",
+      "sha256": "3ecc6b360610758fd71d399e51acca6105da1ca1704584b45bae7dd2af76f21d"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\libprotobuf-debug.dll",
+      "sha256": "90f03a887addf3754629c898a5681d81af3cd07fda9f87a5765ebe178ed4bbd8"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\libprotobuf-lite-debug.dll",
+      "sha256": "c9d06b51cafda31b1875500c0343259f7851bb4e68bdd236785c8c0338b6668e"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\libprotobuf-lite.dll",
+      "sha256": "0bc234a2c79358d18c718f95845de15268ad450aa3a19b3950588033bebc6da1"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\libprotobuf.dll",
+      "sha256": "089e0f922b4db2091b3ddbf6e968906cb247e5de17035f5d78071d7f7f83fea8"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\libsasl.dll",
+      "sha256": "918437f29ca91028780157d9573e63ebcba2ddd88407f2c0f733c80ea70be2e8"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\libssl-3-x64.dll",
+      "sha256": "adbfd515c583d9d2de315fde870a8227660bcaa8a7a2657f9f8eeb4538022cb1"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\mysql.exe",
+      "sha256": "5231b429b025fabb90e7b09f40309011c7ff8194380c626d400b0e136ad498be"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\mysqladmin.exe",
+      "sha256": "ace000ff97eda219e5b1db2d548023e513e89bb04374912d45dfa97a5c288a9a"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+      "sha256": "10f4b9105857a5557b21e728f2b31206fcc6bbf336479e465793401327cb1d14"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\saslSCRAM.dll",
+      "sha256": "814f0c2253acd80ca470b5d3ec9752dc776cb20cf47c345ab7d1be51359a4ed9"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\bin\\xpprof64.dll",
+      "sha256": "a2309c0a76c70ea60350aefd6a5c2b8036e1b82387a9ecd3f86ea762f2cbce94"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\dictionary.txt",
+      "sha256": "d031a0f90d77595abe02112adf69a86560e3168ba379fd450176a8e070763077"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\install_rewriter.sql",
+      "sha256": "54e85384140a33a7412f26241e7cdc4ab9d3b7ba8138ac0525eb7b6f62478dec"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\messages_to_clients.txt",
+      "sha256": "eda0b42d132cb164e35d9b1c0fe7836fd57fb6d17f34fa683f600cdd1031ccd5"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\messages_to_error_log.txt",
+      "sha256": "bd94ccbcd62cf3ef8e52dbbc0fe45f8e5d0e18af3d5ec6b83eb43e9d65ade4ce"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\uninstall_rewriter.sql",
+      "sha256": "e70b2fcff8473d928bb981ebd26ee63a1310029a0c64c6e31ea5a42319b22bc9"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\bulgarian\\errmsg.sys",
+      "sha256": "4a83eff1e1ee8e0cb5aee58afaa4a77522d9d4f33109c12d65eb35720b2b978d"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\armscii8.xml",
+      "sha256": "cc950a4e20e4ea7872617998fd2e4b84ac2621cfc858a116e30d15c0ef96fe01"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\ascii.xml",
+      "sha256": "e69e77baf42575872759f4ea3fb917417e7eec713fe2ebac9629e5ff2ce73886"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\cp1250.xml",
+      "sha256": "266e0d10e5c6f7fd648f52ebc40c11f365a9cce7e97b28cadce93c3bc650e42c"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\cp1251.xml",
+      "sha256": "705fb5f8a471f566443c34bad6ca9a99fd1503205ad3a801944487e2c316ec32"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\cp1256.xml",
+      "sha256": "9cca5256e9873080a4033434bede2eea68492629de7a38da5cb2fb7cbdf30fdb"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\cp1257.xml",
+      "sha256": "c14c5981c339762ae356b25b7a07644fcafc617d36b50570d7ca64134f9295e0"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\cp850.xml",
+      "sha256": "015fe14c2bb867ce4ba7935c24eea07d18b0930b84ef6a94732db0414299f41f"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\cp852.xml",
+      "sha256": "eeb31fb7ba0d90dc3a62a5f182702338ead59ec29144cbb53d6a7a1ace0b8d9c"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\cp866.xml",
+      "sha256": "772a691ed737da8d1c7cd5fca09685dd9c0378857c3bbc24e3b5567fd24e2cc0"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\dec8.xml",
+      "sha256": "b32f97f56a3960d5400d0fa7192c4f351cbef270d9e393543280b0fcff2c44a6"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\geostd8.xml",
+      "sha256": "2e48b5d8c45da98fa0ec25ef3a135c4d30da4b42c55c7b84461e2a1370443d64"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\greek.xml",
+      "sha256": "9d339917eb427e497f823d49b130b91f2e414ca590845c84621528d6cde41843"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\hebrew.xml",
+      "sha256": "287d26cfedc3c6c78d34c2607e7c89d91c321f0b48f265a6e9ec165c2eafd26e"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\hp8.xml",
+      "sha256": "7ee13224173cf0fa52af6551630d1f451ef50d4c5012afb49f7826fabe8a4e0f"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\Index.xml",
+      "sha256": "83551523a5a33b33cda26207440f7c63421154526b78a96375a931840b6a32a2"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\keybcs2.xml",
+      "sha256": "d446a109d0a504b38947cbcb36d1abc9118fe4033032c229fbc8cf6fcbd79c96"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\koi8r.xml",
+      "sha256": "6550b306b04fc5f69a233ea2b0427954d2ab7741e02927da479e84e94edb0a2d"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\koi8u.xml",
+      "sha256": "d0a8cb1de11ef570e0521d010b34cfcb74638e66137b378114c186dd4b053a5f"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\latin1.xml",
+      "sha256": "8afb9f20b76373031ef84dc077425c4ba1297ff2b54aeb077bd3f93d3d56117c"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\latin2.xml",
+      "sha256": "1aa687e3d26e85ede104bb62983b49aa845f29e7263f6283b645299716140d7e"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\latin5.xml",
+      "sha256": "acb916bf820b088ce9e1a012e9a2fe5f19f52c4b66cbc425e08c1e79ab75a21b"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\latin7.xml",
+      "sha256": "64cf99567127b03faa171d928bbcacd2451f000e3729f64763c1dc67c65378e7"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\macce.xml",
+      "sha256": "f474df7e0e0845a88ba7aabb04562705a2ab00185d037a7b1e12070f0d61fff0"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\macroman.xml",
+      "sha256": "c9c87850ae02bbd426c977a3635329b144f604274d7f6c4f7ff76b38a204ec50"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\README",
+      "sha256": "0af62ce1ae651e980006f2e9d29bd2f24e1cd18c6a0b1914e9c437cc80e990ab"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\charsets\\swe7.xml",
+      "sha256": "a5ac2e1374340b7d636fde7a6a5139e3902e73d40588006e705142ede90c0711"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\czech\\errmsg.sys",
+      "sha256": "d22b12e4a59580f88a180ffc0f321f33d6af14b5379842eb9b6bb74aa91a81b7"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\danish\\errmsg.sys",
+      "sha256": "59d150150435ef82ecefaddeb55799534a559e6f1e0db9a790f86f5cd54e1df3"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\dutch\\errmsg.sys",
+      "sha256": "98736eae8be19ab1425b862a3a61fea44d24a55021c72614474df362f153b09d"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\english\\errmsg.sys",
+      "sha256": "8fbe8f6e27f3044c4a1fe049a65bc64b045d7d7697717b955a2db71fbb252e25"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\estonian\\errmsg.sys",
+      "sha256": "d9e70391a9ff62c3a4ce7e4f0a5175b09e6f1f242c9b86e89d7f66a40e49f404"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\french\\errmsg.sys",
+      "sha256": "829274f6006da5172d7bf0787032a5e9d5829038c57b011a2760d448807bd7b9"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\german\\errmsg.sys",
+      "sha256": "1ce731b4eb41c45cff109575f544611c04c7b559f628ea3e6ef4ef1f17f64d89"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\greek\\errmsg.sys",
+      "sha256": "55cd9aad6df6ce132a24eb00b9b10220c78614528c0d6fefcb1e17d8822efb5b"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\hungarian\\errmsg.sys",
+      "sha256": "4126b295fa9055283690e99eb4395960b3f8e68b0c2531e67b5625b53309bcf3"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\italian\\errmsg.sys",
+      "sha256": "ad850658a1a17ea19ca1a91eae9e6003a5c96fa5f79ac43f2452b897899b3cc1"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\japanese\\errmsg.sys",
+      "sha256": "8bee0715acb70025b9d507203ea10486a68fccbe468a84dd2c1baf1ef4d6da31"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\korean\\errmsg.sys",
+      "sha256": "6de7b62d0e7de67e409a27c4e3f1873dd9e801f1861eee74db29321d03c1294c"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\norwegian\\errmsg.sys",
+      "sha256": "8ffa336d4e123e0f0504b0ec6f74d76f8f2253e9396b4ff68c9ea53119385fc6"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\norwegian-ny\\errmsg.sys",
+      "sha256": "93a51f09cec9c5883513b877471c19acf98422fd18dc453e5ee4650b1b01d33c"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\polish\\errmsg.sys",
+      "sha256": "3a62a7274da9d9d320aab34fac338238d13d17d9ba0b90cb3e2a0a13055bd436"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\portuguese\\errmsg.sys",
+      "sha256": "40954dec0e7d5bedbe3e025a4ed7150644dd1d1f98ccfb0f8cb7bba18c07a98c"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\romanian\\errmsg.sys",
+      "sha256": "1ebfe3f1315b7174c30d3b76026cc4efa40a3e64183ec4fc15c314e854cc89fb"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\russian\\errmsg.sys",
+      "sha256": "32cf70997bf5ce254fb1d690cc90b141803302a1af62fbccb003729da6561acf"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\serbian\\errmsg.sys",
+      "sha256": "d402dd6e6ec8d4bfb99e4fe8585c16d4107f6b1fdff73c20e24e7508e027edbf"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\slovak\\errmsg.sys",
+      "sha256": "358085021621729b36cc70aaf4d28244da10384e9d1f0402e56ea73441ceb2d2"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\spanish\\errmsg.sys",
+      "sha256": "30293bef3f8375fedea70f32b703f7a2d9f2872a8c190a306896b4bd5ffd5e3b"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\swedish\\errmsg.sys",
+      "sha256": "d068665f1c3df048f5d36a8a94bcdbd59b7e63f062d85b49553456abe0a314c5"
+    },
+    {
+      "path": "D:\\P16Lab-ClientEngine\\mysql\\share\\ukrainian\\errmsg.sys",
+      "sha256": "cac20a5ba85b3cb38108d882ff04d03ae7552555a465fb39eb944bedccc1fa4a"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-28T22:05:20.187200+00:00",
+  "acceptedAs": "integration-preparation-only",
+  "preparationSha256": "1262f8d4e6bf52baa5e48aba28ff9e58a965d79a03c557ca3a20189ea8c1cf75",
+  "artifactSealSha256": "5ee366afa4f559a3ab34f4994117b2cb795687c535756c7f70708f158e207399",
+  "resultSha256": "5aa92117684fbacfe67a69bbcbfc99415b76974bbef0ec19047dafae297b03f6",
+  "artifactCounts": {
+    "preparation-seal.json": 32,
+    "artifact-seal.json": 35
+  },
+  "baselinePinsVerified": 203,
+  "sourceFiles": 177,
+  "checks": 8,
+  "candidateAccepted": false,
+  "sharedMergeAuthorized": false,
+  "workerTurn": "01a18480-bb4f-7593-8c70-8b37cceb0d43",
+  "cursor": "d0af65fb-9735-4df3-ad9d-148fd38221c5:120"
+}

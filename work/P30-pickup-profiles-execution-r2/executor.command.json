@@ -1,0 +1,42 @@
+{
+  "argv": [
+    "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\executor.py",
+    "execute",
+    "--contract-sha256",
+    "3f4bf1a3e6ec5f9db90ed8583f14d0f53869ad0c2e98ad3fc20ba6427d86b75d",
+    "--receipt",
+    "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-product-only-execution-acceptance-r2.json",
+    "--receipt-sha256",
+    "c6d74ab2020063d2ea432ca35efb3b5ebf42ce79c0296cc7bc050b363ecd2707"
+  ],
+  "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2",
+  "startedUtc": "2026-10-29T06:41:41.495149+00:00",
+  "invocations": 1,
+  "timeoutSeconds": 1000,
+  "exitCode": 0,
+  "completed": true,
+  "finishedUtc": "2026-10-29T06:42:13.481784+00:00",
+  "stdout": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\executor.stdout",
+    "size": 294,
+    "sha256": "4e2e50ff9f918871a578765d5fa5d3d757fdfc14fb10419b42e9f5b9364ed910",
+    "decoder": "utf-8-sig errors=replace",
+    "replacementCount": 0
+  },
+  "stderr": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\executor.stderr",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "decoder": "utf-8-sig errors=replace",
+    "replacementCount": 0
+  },
+  "stageResult": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\result.json",
+    "size": 2642,
+    "sha256": "f897e57008bf9a6690c92a99a8355e4616c9e2faed16000d7c5aaa54b3458f17"
+  }
+}

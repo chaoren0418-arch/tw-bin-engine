@@ -1,0 +1,202 @@
+{
+  "schema": "p36-serial-execution-contract-v1",
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "executionAuthorizedByPreparation": false,
+  "executionRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1",
+  "buildRoot": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1",
+  "productManifest": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-p36-r1-manifest.json",
+  "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "expectedAudioSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "maxBuildInvocations": 1,
+  "buildCommand": {
+    "argv": [
+      "C:\\Program Files\\dotnet\\dotnet.exe",
+      "build",
+      "D:\\lineage開發\\TW1608262200研究\\engine\\source\\OfflineClient.csproj",
+      "-o",
+      "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\build-inputs\\NuGet.Config",
+      "-p:DirectoryBuildPropsPath=D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\build-isolation.props",
+      "-p:DirectoryBuildTargetsPath=D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\build-isolation.targets",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "--nologo",
+      "-v:diag",
+      "-bl:D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\attempt\\build-01\\msbuild.binlog;ProjectImports=None"
+    ],
+    "cwd": "D:\\lineage開發\\TW1608262200研究\\engine",
+    "timeoutSeconds": 600,
+    "maxInvocations": 1
+  },
+  "environment": {
+    "inheritNames": [
+      "SYSTEMROOT",
+      "WINDIR",
+      "OS",
+      "PROCESSOR_ARCHITECTURE",
+      "NUMBER_OF_PROCESSORS",
+      "HOME",
+      "USERPROFILE",
+      "CODEX_HOME"
+    ],
+    "overrides": {
+      "TEMP": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\environment\\tmp",
+      "TMP": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\environment\\tmp",
+      "DOTNET_CLI_HOME": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\environment\\cli-home",
+      "NUGET_PACKAGES": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\environment\\nuget",
+      "NUGET_HTTP_CACHE_PATH": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\environment\\http-cache",
+      "NUGET_PLUGINS_CACHE_PATH": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\environment\\plugin-cache",
+      "NUGET_SCRATCH": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\environment\\scratch",
+      "APPDATA": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\environment\\appdata\\roaming",
+      "LOCALAPPDATA": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1\\environment\\appdata\\local",
+      "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false",
+      "DOTNET_ADD_GLOBAL_TOOLS_TO_PATH": "false",
+      "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+      "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "1",
+      "DOTNET_CLI_WORKLOAD_UPDATE_NOTIFY_DISABLE": "true",
+      "NUGET_CERT_REVOCATION_MODE": "offline",
+      "MSBUILDDISABLENODEREUSE": "1",
+      "DOTNET_CLI_USE_MSBUILD_SERVER": "0",
+      "DOTNET_CLI_UI_LANGUAGE": "en-US",
+      "DOTNET_ROOT": "C:\\Program Files\\dotnet",
+      "PROGRAMFILES(X86)": "C:\\Program Files (x86)"
+    },
+    "path": "C:\\Program Files\\dotnet;C:\\Windows\\System32;C:\\Windows",
+    "comspec": "C:\\Windows\\System32\\cmd.exe",
+    "pathext": ".COM;.EXE;.BAT;.CMD",
+    "preservedValuesNeverLogged": [
+      "HOME",
+      "USERPROFILE",
+      "CODEX_HOME"
+    ]
+  },
+  "scriptPins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\common.py",
+      "size": 3866,
+      "sha256": "4e5fbd6aad09885b5ab4092add93e4709489f4d0dd43d2eda805e8e8559b24ee"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\gate.py",
+      "size": 6969,
+      "sha256": "f633016e2407f3665a1f22bb139f9598c2f0701b1e14b0fc3d74e40a17fec830"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\executor.py",
+      "size": 8781,
+      "sha256": "1d6ef82af066d9fd4779bd6a8f5c9c75e9b5f9c09d6ac7c10009b619a38c0848"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\win_process.py",
+      "size": 5934,
+      "sha256": "37f21ac740a11f780a937f085598bbb3dbbe928a65fa8d19d6c6d0f39e0ef0dc"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\build-isolation.props",
+      "size": 484,
+      "sha256": "bf301d9ee9a5559ced8292b800520bf2d7796dbff4e11fd91ca5866060f29469"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\build-isolation.targets",
+      "size": 691,
+      "sha256": "054a8223b27d94bed31861dfacaeae640ebf03ac9389f7c683d855aa410833aa"
+    }
+  ],
+  "inputDocuments": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\source-ledger.json",
+      "size": 212187,
+      "sha256": "701f95113b60daa1268d51f9ccf223c0a4994307d5ffe4f3ecea75ccd911f39d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\copy-ledger.json",
+      "size": 187350,
+      "sha256": "29f5e87792342bb28d1505076cd5b7a735717c847769f027def8f05531fd4334"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\protected-pins.json",
+      "size": 7925,
+      "sha256": "2d69faddd4e2cd887f0b824e64d4e3d1a8d738dec36ab45fe6f6659f5f5ff448"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\input-pins.json",
+      "size": 2896,
+      "sha256": "96e5617491df6ac65c29d8b20d5cd806bdfbb9371604fbf1925e9fa86659063c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\ancestor-policies.json",
+      "size": 402,
+      "sha256": "1c9eca2f29fa9bd99b1e8ff96c5c634b282c4e0f82596a42ededf72eaf54f2c9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\expected-outputs.json",
+      "size": 6463,
+      "sha256": "c7431dc50fbfaed13965aa35c0599f1486c6506c96fe55df596cb27b61197b55"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\build-dependency-pins.json",
+      "size": 1126895,
+      "sha256": "58fd3d9a4de20417a2336c00f99494a7e4874352c470676cdbdfefa3763b116b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\build-inputs\\NuGet.Config",
+      "size": 155,
+      "sha256": "337ed22a5dd2b3a69d86fac14c3a86a05cf3ffc3d1d65e400850c747010b4f19"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\build-inputs\\global.json",
+      "size": 56,
+      "sha256": "1c530f4c116bcf04e451cf0ca155fa18d73415c85145534a415f1eb4c39198b3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\build-inputs\\vendor\\microsoft.web.webview2.1.0.4258.31.nupkg",
+      "size": 9801922,
+      "sha256": "56f7f4b8bf9aee4b8efefbbdd4f67d5f74ebd1b100ed0806da71bf76af481aa9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\tool-bundle\\source-seal.json",
+      "size": 2321,
+      "sha256": "856fd8d0e76df91dd90c2fc5e655be306f3e6cc6b8fb44ec8c467921fd5088e1"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r1\\tool-reference-pins.json",
+      "size": 3244,
+      "sha256": "5427eb6ed5c5976d86df08fb23902c83961115c4ad6df52efdc4bc94502584ae"
+    }
+  ],
+  "allowedSourceTargets": [
+    "D:\\lineage開發\\TW1608262200研究\\engine\\source\\ObjectAssets.cs",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\source\\OfflineClient.csproj",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\source\\PickupAssets.cs",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\source\\PickupPresentation.cs",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\source\\Resources\\pickup-own-base15-profile-extension.json"
+  ],
+  "allowedNewOutputRoots": [
+    "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-integration-execution-r1",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1"
+  ],
+  "allowedNewOutputFiles": [
+    "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-p36-r1-manifest.json"
+  ],
+  "forbidden": [
+    "all releases",
+    "root entry and project-manifest",
+    "engine/assets",
+    "engine/launcher",
+    "engine/build/client-product-r34",
+    "engine/build/product-r34-manifest.json",
+    "all other shared engine paths",
+    "DB/SQL/services/GUI/native/game/characters/socket/network/credentials/permanent deletion"
+  ],
+  "installation": "independent copy in execution incoming followed by same-volume os.replace; all target before pins and nlink1 required; no hardlink mutation",
+  "failurePolicy": "Stop after one attempt. Preserve raw logs, binlog and outputs. Restore four exact backups with independent atomic replacement and move added resource into execution preservation directory only if all current targets equal before/after pins. External drift refuses recovery. Never revise expected DLL hashes or retry an existing root.",
+  "receiptPath": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-execution-acceptance-r1.json",
+  "formalEntry": "r33",
+  "entryActivationAuthorized": false,
+  "runtimeProbesAuthorized": 0
+}

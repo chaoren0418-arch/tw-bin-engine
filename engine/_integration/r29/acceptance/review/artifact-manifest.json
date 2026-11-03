@@ -1,0 +1,415 @@
+{
+  "artifacts": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\HANDOFF.md",
+      "bytes": 4606,
+      "sha256": "08304ef5e05f10c739ccde24d77d97cda1e18fa544980e94cfd593e7241c7ac8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-0.stdout",
+      "bytes": 357,
+      "sha256": "c9d2293fa306040d4ca16ff1ccd9b3a7ebbc653bbb6734b0cc20576ee06a1a23"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-1.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-1.stdout",
+      "bytes": 20,
+      "sha256": "d3e3d9ed28ffef9f42bd54cbec01766820e572784deef2b16fc340156b0185e6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-r2.json",
+      "bytes": 8303,
+      "sha256": "2553f059501ab8a1237a6ff785b089643eca2c53c88820511cd81146a4dfe727"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\findings.json",
+      "bytes": 644,
+      "sha256": "8e8ec5c31b2153c0912bfe06fa2b5bf3b288bf843ba58dd54df4c0cf518d008a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\findings.md",
+      "bytes": 644,
+      "sha256": "679ed0445b50aa6ea5124f011b30677c35e0c017eb62b554397ed557951b1e7f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\focused-commands.json",
+      "bytes": 2291,
+      "sha256": "cc306b164ab072a4edf405b308cbede6e60feca2da357db9b92b8adfc977c753"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\identity.json",
+      "bytes": 769,
+      "sha256": "8fb57e64df4fbc4c642fe4d54f650741c730f7ab2e0f8a60fca72a0407826baa"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\jar-oracle.json",
+      "bytes": 5839,
+      "sha256": "1eb23d82aa36b47bd09a8944e5191f6d434a2128112fb3464798292edac8b78a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\native-oracle.json",
+      "bytes": 4890,
+      "sha256": "0b11690c96a93e3c1cc8cd935ad8d9c35b907d48fcb6c1d265d6710f398fbe4a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\preservation.json",
+      "bytes": 497,
+      "sha256": "9ce59104a99dd2fa269ccfa85c7c62ff8a0dc6113424aee3428bd02a777634e4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\r2-0.stderr",
+      "bytes": 499,
+      "sha256": "1654a1ccaae84d3a74dbfaeffc4e9abfab5a802456ae1c1bd1831e28ce3f93c3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\r2-0.stdout",
+      "bytes": 377,
+      "sha256": "b1902b25e67f6e64f9b1744a2cde0d5d7a84f1ea963ab1800180cd887f65fbed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\r2-1.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\r2-1.stdout",
+      "bytes": 143,
+      "sha256": "5902553b241de528236d01b467e702cb665fcaaa8234b1e54f29bdc4ab96bd7a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\r2-commands.json",
+      "bytes": 2435,
+      "sha256": "cf2e270f5523cff83c6cb725f13edbaee6ca7eb76bcad9b782e46a2811c7cfcf"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\r2-probe.json",
+      "bytes": 176097,
+      "sha256": "6536abce58b25a1ca7e25c47d31e1d2db0d62930f3a72b08162dd9ae519244ee"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-0.stdout",
+      "bytes": 372,
+      "sha256": "c4eea8ade67846962a635d3c8971f1e4eb187d98c2b98e8b06807d82860cd438"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-1.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-1.stdout",
+      "bytes": 94,
+      "sha256": "984e64facf5b633f6882b57b804bab35deb4b5061b8e04b03a6b9f5bd315a1eb"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-r2.json",
+      "bytes": 3975,
+      "sha256": "5f3150a0db11f63b6f5930d7c9875a9b7ff834f7cc011854be3d8c6a8dd02568"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\result.json",
+      "bytes": 2596,
+      "sha256": "97080e4a6e885b0f3f3b99b9650f59aa2f4701073b8ab1e957403cf267eeb3f6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\review-acceptance.json",
+      "bytes": 1611,
+      "sha256": "a3c09dbdaf9bd4061deeb3a4deb10ab5fabc8975f71aabf72c071888e39fc0d6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\run_focused.py",
+      "bytes": 1575,
+      "sha256": "98005b21ae9607fcf494d75324b77dda0c9242a2b760f08e377e13a8b02c9d7a"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\run_probe.py",
+      "bytes": 2506,
+      "sha256": "399cfb540c1848b9cabb48f3f3cbdda137aa51a5a266abac9bf92d66006d71e5"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\seal_review.py",
+      "bytes": 6422,
+      "sha256": "67f53d2940d0a8994f86505e2e8668313adbf757a389338e8457b12bff768dbe"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\setup.py",
+      "bytes": 3238,
+      "sha256": "a3aaeb780f3ea5e4f8bd6e4c5dad1b9d1c72d30e8f0b1b344d86456eeabde84e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\source-manifest.json",
+      "bytes": 115682,
+      "sha256": "16986b827d9dcac87856bd6a9de4e3e2df6b651ea17fd9fb8e5c6cb94accef3d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\verify.py",
+      "bytes": 1180,
+      "sha256": "30e717cfa2f958e1a1f51d3ae6fdc6c51bb8a231936205d0b050d715281ede67"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\assets\\integrity.json",
+      "bytes": 1729333,
+      "sha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\assets\\magic\\catalog.json",
+      "bytes": 1626,
+      "sha256": "024576e3c96bedc33c63b889d77366f4204b99ceb40c78f3c743ff6e54a44ebf"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\assets\\players\\manifest.json",
+      "bytes": 16378,
+      "sha256": "e0493630f26b3d51625461809194e84eea1391d6987376d5a135485afc798d39"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1\\F1.csproj",
+      "bytes": 369,
+      "sha256": "16dc16041b77162534b042ab01e149f27cff9380e11a573114b435ebd17cd6a7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1\\Program.cs",
+      "bytes": 6557,
+      "sha256": "c10539748c29e9cf9ed3869c83244fb9f57d763584b1e64e16f4062a4582888f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-build\\r2\\F1.deps.json",
+      "bytes": 1893,
+      "sha256": "8fd2d8ccd82ddb85f6af8cbb25e5e01a9cbb15a3241c69080c7461af5b2f1b99"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-build\\r2\\F1.dll",
+      "bytes": 19968,
+      "sha256": "f8162944ad90457ab7fc83c04ee849ba74081a83d8c49305aafea93187e9df39"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-build\\r2\\F1.exe",
+      "bytes": 162304,
+      "sha256": "e492eb9fc3c4ad443db73cc435c7d1118943f9a075fbfd8b2d8e418d276e42fa"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-build\\r2\\F1.pdb",
+      "bytes": 14480,
+      "sha256": "dc4db9227519fe522b74b278af2e42551c2480e8e00b972b67c5ea5d168e4c4b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-build\\r2\\F1.runtimeconfig.json",
+      "bytes": 519,
+      "sha256": "96bc2946dff8790400d652ec7f8de7bb043e954980d59470c112788b68a1fbd3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-build\\r2\\Microsoft.Web.WebView2.Core.dll",
+      "bytes": 698208,
+      "sha256": "d60e6e94245078cb56e44ebd5f360dc04bf18e460136be93bfc4cfca43b98505"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-build\\r2\\Microsoft.Web.WebView2.Core.xml",
+      "bytes": 612031,
+      "sha256": "8684cd74000c77533e563785208308ada63808da85825206856cab11a9eeffce"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-build\\r2\\Microsoft.Web.WebView2.WinForms.dll",
+      "bytes": 39264,
+      "sha256": "84b5772260dbdfe95591197edc9315dcd2cc86ad610e4b14ddd5e4291e31a381"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-build\\r2\\Microsoft.Web.WebView2.WinForms.xml",
+      "bytes": 41869,
+      "sha256": "6a8ec199373824fdebceda7b3d780d0b31c82edceae04d92391027c971dea6c2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-build\\r2\\P11.ClientEngine.dll",
+      "bytes": 2157056,
+      "sha256": "8ccfa4e3b5d253206779a5d4b1e59682263ffbddf5dab43fe15b0aa1f86a7397"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-build\\r2\\P11.ClientEngine.pdb",
+      "bytes": 347868,
+      "sha256": "38aed7c9e50f4060cab7ceb4515d8ff5c1a03e92834cda957d8d12938858f419"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-build\\r2\\P24.Audio.dll",
+      "bytes": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\f1-build\\r2\\P24.Audio.pdb",
+      "bytes": 20720,
+      "sha256": "91ac164c2f1ac104fb774501cae1988d24bd3ee2113ba99ff95930e6866811ed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\harness\\Extra.cs",
+      "bytes": 8354,
+      "sha256": "b28421f449e02840fc21deed7d5ec8c457aa8eee3b5f7902af96de2b27396a14"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\harness\\NuGet.Config",
+      "bytes": 74,
+      "sha256": "9508cae5f76364f56e80eb97cb16493977243cf38e5cca6284e3d74f83b20a2c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\harness\\Program.cs",
+      "bytes": 8080,
+      "sha256": "9005b27a43a00973215d4a04bb014b6423cca7435a95b15502c19aab869b8c5e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\harness\\Review.csproj",
+      "bytes": 408,
+      "sha256": "5c14f958e422f3a2d38442bc0e0b935ffe7085ba47c7cbe432f55871ffac6722"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\helper\\r2\\Microsoft.Web.WebView2.Core.dll",
+      "bytes": 698208,
+      "sha256": "d60e6e94245078cb56e44ebd5f360dc04bf18e460136be93bfc4cfca43b98505"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\helper\\r2\\Microsoft.Web.WebView2.Core.xml",
+      "bytes": 612031,
+      "sha256": "8684cd74000c77533e563785208308ada63808da85825206856cab11a9eeffce"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\helper\\r2\\Microsoft.Web.WebView2.WinForms.dll",
+      "bytes": 39264,
+      "sha256": "84b5772260dbdfe95591197edc9315dcd2cc86ad610e4b14ddd5e4291e31a381"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\helper\\r2\\Microsoft.Web.WebView2.WinForms.xml",
+      "bytes": 41869,
+      "sha256": "6a8ec199373824fdebceda7b3d780d0b31c82edceae04d92391027c971dea6c2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\helper\\r2\\P11.ClientEngine.dll",
+      "bytes": 2157056,
+      "sha256": "8ccfa4e3b5d253206779a5d4b1e59682263ffbddf5dab43fe15b0aa1f86a7397"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\helper\\r2\\P11.ClientEngine.pdb",
+      "bytes": 347868,
+      "sha256": "38aed7c9e50f4060cab7ceb4515d8ff5c1a03e92834cda957d8d12938858f419"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\helper\\r2\\P24.Audio.dll",
+      "bytes": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\helper\\r2\\P24.Audio.pdb",
+      "bytes": 20720,
+      "sha256": "91ac164c2f1ac104fb774501cae1988d24bd3ee2113ba99ff95930e6866811ed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\helper\\r2\\SlowReview.deps.json",
+      "bytes": 1917,
+      "sha256": "77890c64bc9a8d388c69ee9e039ab35965227289bc0042cd16dd1277b2af0dd7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\helper\\r2\\SlowReview.dll",
+      "bytes": 51200,
+      "sha256": "adf8fa1c56a931f9a968221e06398b60ba1829040cc788d0d464635eea764cc3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\helper\\r2\\SlowReview.exe",
+      "bytes": 162304,
+      "sha256": "7faf599ca37ac6161f01315ae0957efe38399e331132c974cc3fced4dbb62b48"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\helper\\r2\\SlowReview.pdb",
+      "bytes": 19304,
+      "sha256": "da4f21beaf4d3b7ef55fb19a3767430fc5ebe5f61a3a3696c58f760fdabe3c6b"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\helper\\r2\\SlowReview.runtimeconfig.json",
+      "bytes": 519,
+      "sha256": "96bc2946dff8790400d652ec7f8de7bb043e954980d59470c112788b68a1fbd3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro\\Program.cs",
+      "bytes": 3913,
+      "sha256": "7b2a9bf0e7069ab474d13b63ef4505524f4450504b6ed050f01de324b4fa2f6e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro\\Repro.csproj",
+      "bytes": 369,
+      "sha256": "16dc16041b77162534b042ab01e149f27cff9380e11a573114b435ebd17cd6a7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-build\\r2\\Microsoft.Web.WebView2.Core.dll",
+      "bytes": 698208,
+      "sha256": "d60e6e94245078cb56e44ebd5f360dc04bf18e460136be93bfc4cfca43b98505"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-build\\r2\\Microsoft.Web.WebView2.Core.xml",
+      "bytes": 612031,
+      "sha256": "8684cd74000c77533e563785208308ada63808da85825206856cab11a9eeffce"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-build\\r2\\Microsoft.Web.WebView2.WinForms.dll",
+      "bytes": 39264,
+      "sha256": "84b5772260dbdfe95591197edc9315dcd2cc86ad610e4b14ddd5e4291e31a381"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-build\\r2\\Microsoft.Web.WebView2.WinForms.xml",
+      "bytes": 41869,
+      "sha256": "6a8ec199373824fdebceda7b3d780d0b31c82edceae04d92391027c971dea6c2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-build\\r2\\P11.ClientEngine.dll",
+      "bytes": 2157056,
+      "sha256": "8ccfa4e3b5d253206779a5d4b1e59682263ffbddf5dab43fe15b0aa1f86a7397"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-build\\r2\\P11.ClientEngine.pdb",
+      "bytes": 347868,
+      "sha256": "38aed7c9e50f4060cab7ceb4515d8ff5c1a03e92834cda957d8d12938858f419"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-build\\r2\\P24.Audio.dll",
+      "bytes": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-build\\r2\\P24.Audio.pdb",
+      "bytes": 20720,
+      "sha256": "91ac164c2f1ac104fb774501cae1988d24bd3ee2113ba99ff95930e6866811ed"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-build\\r2\\Repro.deps.json",
+      "bytes": 1902,
+      "sha256": "8c71618e69a38831d5c3d669d69fe2a0d8ec3f28692be8ac5679b62940a5a653"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-build\\r2\\Repro.dll",
+      "bytes": 17920,
+      "sha256": "eded06f9752ceb9a5f8ec0a6a553c5802ce00ceec9435964e6f12f5bd90a5f81"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-build\\r2\\Repro.exe",
+      "bytes": 162304,
+      "sha256": "1a12cdd279ff89ddcfc7399c6ab5c8f09ed31b605e4c8f997b64ae1c9320485f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-build\\r2\\Repro.pdb",
+      "bytes": 13764,
+      "sha256": "98b8563cfecb5fd936bd59eb4d4039e9395ebb094c5b86c5bfe0782e807a2ad6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-review-r1\\candidate-review-r2\\repro-build\\r2\\Repro.runtimeconfig.json",
+      "bytes": 519,
+      "sha256": "96bc2946dff8790400d652ec7f8de7bb043e954980d59470c112788b68a1fbd3"
+    }
+  ],
+  "excluded": "Mutable SDK/NuGet/tmp/obj caches; manifest excludes its own hash."
+}

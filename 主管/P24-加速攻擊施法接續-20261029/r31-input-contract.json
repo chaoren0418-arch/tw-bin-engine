@@ -1,0 +1,26 @@
+{
+  "schema": "engine-r31-input-contract-v1",
+  "revision": "r31",
+  "candidateId": "ENGINE-HASTE-ACTIONS-IMPL-R1",
+  "candidateRoot": "work/engine-haste-actions-r1",
+  "preparationSha256": "1262f8d4e6bf52baa5e48aba28ff9e58a965d79a03c557ca3a20189ea8c1cf75",
+  "baseRevision": "r30",
+  "baseReleaseSealSha256": "199ce6fe81130138e9fedf98e688928ce44b0a45c2aebd1b92fdd9519b8225dc",
+  "basePinsSha256": "1329700b9fabf59e7406d62790ea8a32758ee9771963d0dcd49c7cde85708a66",
+  "sourceManifest": {
+    "path": "work/engine-haste-actions-r1/source-manifest.json",
+    "sha256": "b7d663225973833c6576b9400c32f9afd7161c4517d02f51877796630d08f98e"
+  },
+  "candidateSeal": {
+    "path": "work/engine-haste-actions-r1/delivery-manifest.json",
+    "sha256": "ecf4a8642d13238222fad3173890dc1063bcfc311fc7aabe101d6b07465831b4"
+  },
+  "candidateResult": {
+    "path": "work/engine-haste-actions-r1/result.json",
+    "sha256": "18725fb5f2d679a70b4d65b883385aa58206e91dbf0ef7c9487b76582edd88e9"
+  },
+  "independentReview": {
+    "path": "work/engine-haste-actions-review-r1/candidate-review-r1/review-acceptance.json",
+    "sha256": "bd5a64b10f67f1d9053026892a0e3a258c8e15c3be8cefedaaaf0479c2a69f18"
+  }
+}

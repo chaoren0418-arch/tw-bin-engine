@@ -1,0 +1,22 @@
+[
+  {
+    "build": "build-02",
+    "runnerSha256": "0a7dbe0687c33edb4bfe153c5737f040032deb8ea787a288e601f7c9b364c5f8",
+    "runnerMatchesCommandSnapshot": true,
+    "certificateFalse": true,
+    "toolsPathFalse": true,
+    "envPassedToSubprocess": true,
+    "stderrBytes": 0,
+    "limitation": "These two env values were not separately enumerated in command.environmentOverrides; source snapshot binds their assignment and env=env launch."
+  },
+  {
+    "build": "build-03",
+    "runnerSha256": "0a7dbe0687c33edb4bfe153c5737f040032deb8ea787a288e601f7c9b364c5f8",
+    "runnerMatchesCommandSnapshot": true,
+    "certificateFalse": true,
+    "toolsPathFalse": true,
+    "envPassedToSubprocess": true,
+    "stderrBytes": 0,
+    "limitation": "These two env values were not separately enumerated in command.environmentOverrides; source snapshot binds their assignment and env=env launch."
+  }
+]

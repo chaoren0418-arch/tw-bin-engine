@@ -1,0 +1,13 @@
+{
+  "pid": 83280,
+  "args": [
+    "powershell",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "D:\\lineage開發\\TW1608262200研究\\主管\\P24-scheduler-r2-clean-offline\\P24-原2x2地圖快取與跨區載入\\build.ps1",
+    "-Clean"
+  ],
+  "snapshotSha256": "34e6761d03df45f00cdcb4c45af61272fedf6936b26d150d2610dbfe286eda81"
+}

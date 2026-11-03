@@ -1,0 +1,118 @@
+{
+  "at": "2026-10-26T17:40:35.763Z",
+  "inventory": {
+    "available": false,
+    "busy": false,
+    "epoch": 17,
+    "items": [
+      {
+        "action": "單次使用",
+        "count": 70,
+        "droppable": false,
+        "equipped": null,
+        "icon": "https://p08.example/icons/80.png",
+        "id": 10322,
+        "name": "治癒藥水",
+        "selected": false,
+        "state": "可單次使用；滿血仍會消耗",
+        "usable": true
+      },
+      {
+        "action": "單次使用",
+        "count": 1,
+        "droppable": false,
+        "equipped": null,
+        "icon": "https://p08.example/icons/77.png",
+        "id": 10324,
+        "name": "綠色藥水",
+        "selected": false,
+        "state": "可單次使用；消耗一瓶，約 5 分鐘加速，以伺服器回報為準",
+        "usable": true
+      },
+      {
+        "action": "單次使用",
+        "count": 1,
+        "droppable": false,
+        "equipped": null,
+        "icon": "https://p08.example/icons/138.png",
+        "id": 10331,
+        "name": "往說話之島的船票",
+        "selected": false,
+        "state": "此道具的使用尚未支援",
+        "usable": false
+      },
+      {
+        "action": "單次使用",
+        "count": 89220,
+        "droppable": false,
+        "equipped": null,
+        "icon": "https://p08.example/icons/5.png",
+        "id": 1900249101,
+        "name": "金幣",
+        "selected": false,
+        "state": "此道具的使用尚未支援",
+        "usable": false
+      },
+      {
+        "action": "卸下",
+        "count": 1,
+        "droppable": false,
+        "equipped": true,
+        "icon": "https://p08.example/icons/2.png",
+        "id": 1900249103,
+        "name": "+0 長劍 (揮舞)",
+        "selected": false,
+        "state": "已裝備；可單次卸下",
+        "usable": true
+      },
+      {
+        "action": "卸下",
+        "count": 1,
+        "droppable": false,
+        "equipped": true,
+        "icon": "https://p08.example/icons/86.png",
+        "id": 1900249104,
+        "name": "+0 環甲 (使用中)",
+        "selected": false,
+        "state": "已裝備；可單次卸下",
+        "usable": true
+      }
+    ],
+    "message": "獲得$315 。",
+    "notice": "收到原服數量／狀態更新",
+    "revision": 52,
+    "selectedId": null
+  },
+  "interaction": {
+    "canTalk": true,
+    "model": {
+      "canSubmit": false,
+      "currency": 7,
+      "epoch": 17,
+      "feePerRow": false,
+      "hasResult": true,
+      "kind": "closed",
+      "notice": "獲得$315 。\n請核對背包與金額；再次操作請重新對話。",
+      "npcId": null,
+      "options": null,
+      "priceLabel": "單價",
+      "revision": 56,
+      "rows": [],
+      "selection": false,
+      "targetId": 2000039470,
+      "targetRevision": 4,
+      "text": null,
+      "title": "NPC 對話"
+    },
+    "notice": "獲得往說話之島的船票 。\n請核對背包與金額；再次操作請重新對話。",
+    "options": null,
+    "rows": [],
+    "targets": [
+      {
+        "id": 2000039470,
+        "name": "港口主人"
+      }
+    ],
+    "text": ""
+  }
+}

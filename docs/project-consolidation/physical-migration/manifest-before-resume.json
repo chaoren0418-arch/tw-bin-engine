@@ -1,0 +1,676 @@
+{
+  "schema": "bin-engine-project-index-v2",
+  "updated_utc": "2026-10-28T18:20:31.138849+00:00",
+  "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+  "stage": "P24",
+  "revision": "r28",
+  "whole_project_complete": false,
+  "organization_status": "physical-consolidation-verified-with-recoverable-quarantine",
+  "organization_scope": "16 specified external roots plus r28 and unique engine entry",
+  "development_resumed": false,
+  "entry": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+  "engine_root": "D:\\lineage開發\\TW1608262200研究\\engine",
+  "source_roots": [
+    "D:\\lineage開發\\TW1608262200研究\\engine\\source",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\audio",
+    "D:\\lineage開發\\TW1608262200研究\\engine\\web"
+  ],
+  "current_release": {
+    "root": "D:\\lineage開發\\TW1608262200研究\\releases\\r28",
+    "sealed": true,
+    "seal_sha256": "83770091f8051466d5dccb420210cd0567ffef5a1158e8f7ebf5c7667127bfcd",
+    "assets": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+    "entry": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd"
+  },
+  "current_lab": "D:\\lineage開發\\TW1608262200研究\\environments\\p24",
+  "runtime_ascii_alias": "D:\\BinEngine",
+  "mappings_file": "D:\\lineage開發\\TW1608262200研究\\docs\\project-consolidation\\path-map.json",
+  "mappings": [
+    {
+      "root": "D:\\P10Lab-TW13081901",
+      "files": 2509,
+      "logical_bytes": 497113008,
+      "latest_file_utc": "2026-10-24T22:32:19.482178+00:00",
+      "top_level_bytes": {
+        "db-data": 268251433,
+        "mysql": 111548957,
+        "server": 106787324,
+        "sql": 10508738,
+        "(root files)": 10681,
+        "db-logs": 5086,
+        "low-probe": 789
+      },
+      "hashed_files": 866,
+      "hashed_bytes": 228818891,
+      "unique_within_hashed_16_roots": 24,
+      "unique_bytes": 3118599,
+      "excluded_files": 1643,
+      "excluded_bytes": 268294117,
+      "role": "歷史隔離伺服器／DB／階段設定",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P10Lab-TW13081901",
+      "migration_state": "physically-moved-verified",
+      "batch": "B4",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P10Lab-TW13081901",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\P12Lab-ClientEngine",
+      "files": 1759,
+      "logical_bytes": 452173355,
+      "latest_file_utc": "2026-10-24T23:24:05.388590+00:00",
+      "top_level_bytes": {
+        "db-data": 226364034,
+        "mysql": 111548957,
+        "server": 103747837,
+        "sql": 10508738,
+        "db-logs": 2316,
+        "(root files)": 1473
+      },
+      "hashed_files": 854,
+      "hashed_bytes": 225762262,
+      "unique_within_hashed_16_roots": 13,
+      "unique_bytes": 65662,
+      "excluded_files": 905,
+      "excluded_bytes": 226411093,
+      "role": "歷史隔離伺服器／DB／階段設定",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P12Lab-ClientEngine",
+      "migration_state": "physically-moved-verified",
+      "batch": "B4",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P12Lab-ClientEngine",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\P13Lab-ClientEngine",
+      "files": 1759,
+      "logical_bytes": 452176519,
+      "latest_file_utc": "2026-10-24T23:56:37.834645+00:00",
+      "top_level_bytes": {
+        "db-data": 226363714,
+        "mysql": 111548957,
+        "server": 103751101,
+        "sql": 10508738,
+        "db-logs": 2316,
+        "(root files)": 1693
+      },
+      "hashed_files": 854,
+      "hashed_bytes": 225763806,
+      "unique_within_hashed_16_roots": 13,
+      "unique_bytes": 67206,
+      "excluded_files": 905,
+      "excluded_bytes": 226412713,
+      "role": "歷史隔離伺服器／DB／階段設定",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P13Lab-ClientEngine",
+      "migration_state": "physically-moved-verified",
+      "batch": "B4",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P13Lab-ClientEngine",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\P14Lab-ClientEngine",
+      "files": 1760,
+      "logical_bytes": 452174325,
+      "latest_file_utc": "2026-10-25T00:32:47.129650+00:00",
+      "top_level_bytes": {
+        "db-data": 226363537,
+        "mysql": 111548957,
+        "server": 103748672,
+        "sql": 10508738,
+        "db-logs": 2316,
+        "(root files)": 2105
+      },
+      "hashed_files": 854,
+      "hashed_bytes": 225762652,
+      "unique_within_hashed_16_roots": 13,
+      "unique_bytes": 66052,
+      "excluded_files": 906,
+      "excluded_bytes": 226411673,
+      "role": "歷史隔離伺服器／DB／階段設定",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P14Lab-ClientEngine",
+      "migration_state": "physically-moved-verified",
+      "batch": "B4",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P14Lab-ClientEngine",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\P15Lab-ClientEngine",
+      "files": 1761,
+      "logical_bytes": 452195383,
+      "latest_file_utc": "2026-10-25T01:36:06.837757+00:00",
+      "top_level_bytes": {
+        "db-data": 226364115,
+        "mysql": 111548957,
+        "server": 103768769,
+        "sql": 10508738,
+        "(root files)": 2488,
+        "db-logs": 2316
+      },
+      "hashed_files": 854,
+      "hashed_bytes": 225772332,
+      "unique_within_hashed_16_roots": 13,
+      "unique_bytes": 75732,
+      "excluded_files": 907,
+      "excluded_bytes": 226423051,
+      "role": "歷史隔離伺服器／DB／階段設定",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P15Lab-ClientEngine",
+      "migration_state": "physically-moved-verified",
+      "batch": "B4",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P15Lab-ClientEngine",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\P16Lab-ClientEngine",
+      "files": 1765,
+      "logical_bytes": 452197180,
+      "latest_file_utc": "2026-10-25T03:52:54.830763+00:00",
+      "top_level_bytes": {
+        "db-data": 226364560,
+        "mysql": 111548957,
+        "server": 103768990,
+        "sql": 10508738,
+        "(root files)": 3619,
+        "db-logs": 2316
+      },
+      "hashed_files": 854,
+      "hashed_bytes": 225772360,
+      "unique_within_hashed_16_roots": 13,
+      "unique_bytes": 75760,
+      "excluded_files": 911,
+      "excluded_bytes": 226424820,
+      "role": "歷史隔離伺服器／DB／階段設定",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P16Lab-ClientEngine",
+      "migration_state": "physically-moved-verified",
+      "batch": "B4",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P16Lab-ClientEngine",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\P17Lab-ClientEngine",
+      "files": 1758,
+      "logical_bytes": 451864083,
+      "latest_file_utc": "2026-10-25T04:58:53.582167+00:00",
+      "top_level_bytes": {
+        "db-data": 226055355,
+        "mysql": 111548957,
+        "server": 103745820,
+        "sql": 10508738,
+        "(root files)": 2896,
+        "db-logs": 2317
+      },
+      "hashed_files": 854,
+      "hashed_bytes": 225761292,
+      "unique_within_hashed_16_roots": 13,
+      "unique_bytes": 64692,
+      "excluded_files": 904,
+      "excluded_bytes": 226102791,
+      "role": "歷史隔離伺服器／DB／階段設定",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P17Lab-ClientEngine",
+      "migration_state": "physically-moved-verified",
+      "batch": "B4",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P17Lab-ClientEngine",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\P18Lab-ClientEngine",
+      "files": 1761,
+      "logical_bytes": 451874771,
+      "latest_file_utc": "2026-10-25T06:06:28.296471+00:00",
+      "top_level_bytes": {
+        "db-data": 226056563,
+        "mysql": 111548957,
+        "server": 103753657,
+        "sql": 10508738,
+        "(root files)": 4539,
+        "db-logs": 2317
+      },
+      "hashed_files": 854,
+      "hashed_bytes": 225765007,
+      "unique_within_hashed_16_roots": 13,
+      "unique_bytes": 68407,
+      "excluded_files": 907,
+      "excluded_bytes": 226109764,
+      "role": "歷史隔離伺服器／DB／階段設定",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P18Lab-ClientEngine",
+      "migration_state": "physically-moved-verified",
+      "batch": "B4",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P18Lab-ClientEngine",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\P19Lab-ClientEngine",
+      "files": 1759,
+      "logical_bytes": 451875691,
+      "latest_file_utc": "2026-10-25T07:26:51.964483+00:00",
+      "top_level_bytes": {
+        "db-data": 226060664,
+        "mysql": 111548957,
+        "server": 103751109,
+        "sql": 10508738,
+        "(root files)": 3906,
+        "db-logs": 2317
+      },
+      "hashed_files": 854,
+      "hashed_bytes": 225763799,
+      "unique_within_hashed_16_roots": 13,
+      "unique_bytes": 67199,
+      "excluded_files": 905,
+      "excluded_bytes": 226111892,
+      "role": "歷史隔離伺服器／DB／階段設定",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P19Lab-ClientEngine",
+      "migration_state": "physically-moved-verified",
+      "batch": "B4",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P19Lab-ClientEngine",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\P20Lab-ClientEngine",
+      "files": 1759,
+      "logical_bytes": 451876946,
+      "latest_file_utc": "2026-10-25T08:46:31.892147+00:00",
+      "top_level_bytes": {
+        "db-data": 226061759,
+        "mysql": 111548957,
+        "server": 103750355,
+        "sql": 10508738,
+        "(root files)": 4820,
+        "db-logs": 2317
+      },
+      "hashed_files": 854,
+      "hashed_bytes": 225763444,
+      "unique_within_hashed_16_roots": 13,
+      "unique_bytes": 66844,
+      "excluded_files": 905,
+      "excluded_bytes": 226113502,
+      "role": "歷史隔離伺服器／DB／階段設定",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P20Lab-ClientEngine",
+      "migration_state": "physically-moved-verified",
+      "batch": "B4",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P20Lab-ClientEngine",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\P21Lab-ClientEngine",
+      "files": 1903,
+      "logical_bytes": 711189150,
+      "latest_file_utc": "2026-10-25T10:09:35.202042+00:00",
+      "top_level_bytes": {
+        "ida": 259313120,
+        "db-data": 226062145,
+        "mysql": 111548957,
+        "server": 103748591,
+        "sql": 10508738,
+        "(root files)": 5282,
+        "db-logs": 2317
+      },
+      "hashed_files": 998,
+      "hashed_bytes": 485075726,
+      "unique_within_hashed_16_roots": 80,
+      "unique_bytes": 259273893,
+      "excluded_files": 905,
+      "excluded_bytes": 226113424,
+      "role": "歷史隔離伺服器／DB／獨有 IDA 分析",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P21Lab-ClientEngine",
+      "migration_state": "physically-moved-verified",
+      "batch": "B4",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P21Lab-ClientEngine",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\P22Lab-ClientEngine",
+      "files": 1926,
+      "logical_bytes": 711738172,
+      "latest_file_utc": "2026-10-25T14:08:14.577795+00:00",
+      "top_level_bytes": {
+        "ida": 259849337,
+        "db-data": 226064367,
+        "mysql": 111548957,
+        "server": 103759097,
+        "sql": 10508738,
+        "(root files)": 5359,
+        "db-logs": 2317
+      },
+      "hashed_files": 1021,
+      "hashed_bytes": 485616932,
+      "unique_within_hashed_16_roots": 93,
+      "unique_bytes": 259798913,
+      "excluded_files": 905,
+      "excluded_bytes": 226121240,
+      "role": "歷史隔離伺服器／DB／獨有 IDA 分析",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P22Lab-ClientEngine",
+      "migration_state": "physically-moved-verified",
+      "batch": "B4",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P22Lab-ClientEngine",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\P23Lab-ClientEngine",
+      "files": 1898,
+      "logical_bytes": 712621525,
+      "latest_file_utc": "2026-10-25T15:47:57.484174+00:00",
+      "top_level_bytes": {
+        "ida": 260761712,
+        "db-data": 226064217,
+        "mysql": 111548957,
+        "server": 103728432,
+        "sql": 10508738,
+        "(root files)": 7152,
+        "db-logs": 2317
+      },
+      "hashed_files": 990,
+      "hashed_bytes": 486504283,
+      "unique_within_hashed_16_roots": 84,
+      "unique_bytes": 260709389,
+      "excluded_files": 908,
+      "excluded_bytes": 226117242,
+      "role": "歷史隔離伺服器／DB／獨有 IDA 分析",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P23Lab-ClientEngine",
+      "migration_state": "physically-moved-verified",
+      "batch": "B4",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P23Lab-ClientEngine",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\P24Lab-ClientEngine",
+      "files": 1846,
+      "logical_bytes": 723189805,
+      "latest_file_utc": "2026-10-28T16:34:57.139189+00:00",
+      "top_level_bytes": {
+        "ida": 257914828,
+        "db-data": 239479523,
+        "mysql": 111548957,
+        "server": 103723829,
+        "sql": 10508738,
+        "(root files)": 12039,
+        "db-logs": 1891
+      },
+      "hashed_files": 917,
+      "hashed_bytes": 483657039,
+      "unique_within_hashed_16_roots": 48,
+      "unique_bytes": 257918619,
+      "excluded_files": 929,
+      "excluded_bytes": 239532766,
+      "role": "現用隔離伺服器／DB／IDA；保存狀態不可丟棄",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\environments\\p24",
+      "migration_state": "physically-moved-verified",
+      "batch": "B4",
+      "target": "D:\\lineage開發\\TW1608262200研究\\environments\\p24",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\P24Lab-6016-Export-r1",
+      "files": 161,
+      "logical_bytes": 256245805,
+      "latest_file_utc": "2026-10-27T13:25:33.910805+00:00",
+      "top_level_bytes": {
+        "(root files)": 255327372,
+        "minimal-contract-r1": 686228,
+        "exports": 210874,
+        "attempt1": 13604,
+        "user": 7727
+      },
+      "hashed_files": 161,
+      "hashed_bytes": 256245805,
+      "unique_within_hashed_16_roots": 123,
+      "unique_bytes": 256190057,
+      "excluded_files": 0,
+      "excluded_bytes": 0,
+      "role": "6016 IDA IDB、匯出與契約來源",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\research\\6016-export-r1",
+      "migration_state": "physically-moved-verified",
+      "batch": "B5",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\research\\6016-export-r1",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    },
+    {
+      "root": "D:\\TW1608262200_research",
+      "files": 845,
+      "logical_bytes": 2292409415,
+      "latest_file_utc": "2026-10-24T20:09:27.739485+00:00",
+      "top_level_bytes": {
+        "P02": 530780344,
+        "P01": 448563173,
+        "P07": 265142293,
+        "P04": 263811539,
+        "P02-supervisor-audit": 262595565,
+        "P05": 260940123,
+        "P06": 260576378
+      },
+      "hashed_files": 842,
+      "hashed_bytes": 2292409415,
+      "unique_within_hashed_16_roots": 555,
+      "unique_bytes": 2291911258,
+      "excluded_files": 3,
+      "excluded_bytes": 0,
+      "role": "早期 ASCII 研究／多份獨有 IDB 與輸出",
+      "canonical_root": "D:\\lineage開發\\TW1608262200研究",
+      "proposed_target": "D:\\lineage開發\\TW1608262200研究\\history\\research\\ascii",
+      "migration_state": "physically-moved-verified",
+      "batch": "B5",
+      "target": "D:\\lineage開發\\TW1608262200研究\\history\\research\\ascii",
+      "original_root_exists": false,
+      "pre_migration_root_type": "physical-directory",
+      "target_type": "physical-directory",
+      "preservation": "Full original file SHA verified; changed configs checked against original byte backup"
+    }
+  ],
+  "path_aliases": [
+    {
+      "old": "D:\\P10Lab-TW13081901",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P10Lab-TW13081901",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\P12Lab-ClientEngine",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P12Lab-ClientEngine",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\P13Lab-ClientEngine",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P13Lab-ClientEngine",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\P14Lab-ClientEngine",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P14Lab-ClientEngine",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\P15Lab-ClientEngine",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P15Lab-ClientEngine",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\P16Lab-ClientEngine",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P16Lab-ClientEngine",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\P17Lab-ClientEngine",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P17Lab-ClientEngine",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\P18Lab-ClientEngine",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P18Lab-ClientEngine",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\P19Lab-ClientEngine",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P19Lab-ClientEngine",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\P20Lab-ClientEngine",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P20Lab-ClientEngine",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\P21Lab-ClientEngine",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P21Lab-ClientEngine",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\P22Lab-ClientEngine",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P22Lab-ClientEngine",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\P23Lab-ClientEngine",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\labs\\P23Lab-ClientEngine",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\P24Lab-ClientEngine",
+      "new": "D:\\lineage開發\\TW1608262200研究\\environments\\p24",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\P24Lab-6016-Export-r1",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\research\\6016-export-r1",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\TW1608262200_research",
+      "new": "D:\\lineage開發\\TW1608262200研究\\history\\research\\ascii",
+      "type": "moved-no-old-root"
+    },
+    {
+      "old": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery",
+      "new": "D:\\lineage開發\\TW1608262200研究\\releases\\r28",
+      "type": "compatibility-junction"
+    },
+    {
+      "old": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\runs",
+      "new": "D:\\lineage開發\\TW1608262200研究\\evidence\\r28-runtime-before-consolidation\\runs",
+      "type": "archived-runtime-or-cache"
+    },
+    {
+      "old": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery\\runs",
+      "new": "D:\\lineage開發\\TW1608262200研究\\evidence\\r28-runtime-before-consolidation\\runs",
+      "type": "historical-runtime-or-cache"
+    },
+    {
+      "old": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\runtime",
+      "new": "D:\\lineage開發\\TW1608262200研究\\evidence\\r28-runtime-before-consolidation\\runtime",
+      "type": "archived-runtime-or-cache"
+    },
+    {
+      "old": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery\\runtime",
+      "new": "D:\\lineage開發\\TW1608262200研究\\evidence\\r28-runtime-before-consolidation\\runtime",
+      "type": "historical-runtime-or-cache"
+    },
+    {
+      "old": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\.nuget",
+      "new": "D:\\lineage開發\\TW1608262200研究\\recovery\\r28-build-cache\\.nuget",
+      "type": "archived-runtime-or-cache"
+    },
+    {
+      "old": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery\\.nuget",
+      "new": "D:\\lineage開發\\TW1608262200研究\\recovery\\r28-build-cache\\.nuget",
+      "type": "historical-runtime-or-cache"
+    },
+    {
+      "old": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\.dotnet",
+      "new": "D:\\lineage開發\\TW1608262200研究\\recovery\\r28-build-cache\\.dotnet",
+      "type": "archived-runtime-or-cache"
+    },
+    {
+      "old": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery\\.dotnet",
+      "new": "D:\\lineage開發\\TW1608262200研究\\recovery\\r28-build-cache\\.dotnet",
+      "type": "historical-runtime-or-cache"
+    },
+    {
+      "old": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\tmp",
+      "new": "D:\\lineage開發\\TW1608262200研究\\recovery\\r28-build-cache\\tmp",
+      "type": "archived-runtime-or-cache"
+    },
+    {
+      "old": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery\\tmp",
+      "new": "D:\\lineage開發\\TW1608262200研究\\recovery\\r28-build-cache\\tmp",
+      "type": "historical-runtime-or-cache"
+    }
+  ],
+  "ownership": {
+    "organizer_thread": "01a18377-e899-75f6-abc1-5d245b37f008",
+    "role": "sole migration integrator; handoff only; no new development Goal",
+    "development_supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+    "development_state": "paused; parent must confirm next sole supervisor and new scope before dispatch"
+  },
+  "external_sources": [
+    "D:\\lineage開發\\0-客戶端",
+    "D:\\lineage開發\\登入器bin資源\\TW1608262200.bin拆解\\TW1608262200.bin"
+  ],
+  "retained_history": "Existing P01-P24 and supervisor trees remain frozen at original in-root paths; do not resume development there",
+  "shared_immutable_files": "MySQL binaries, original JAR/maps/SQL are NTFS hardlinks; create independent version before any edit",
+  "recovery_root": "D:\\lineage開發\\TW1608262200研究\\recovery",
+  "evidence_root": "D:\\lineage開發\\TW1608262200研究\\evidence",
+  "reports": {
+    "html": "D:\\lineage開發\\TW1608262200研究\\docs\\project-consolidation\\index.html",
+    "progress": "D:\\lineage開發\\TW1608262200研究\\docs\\project-consolidation\\progress.md",
+    "migration": "D:\\lineage開發\\TW1608262200研究\\docs\\project-consolidation\\migration-plan.md",
+    "handoff": "D:\\lineage開發\\TW1608262200研究\\docs\\project-consolidation\\HANDOFF.md"
+  },
+  "proof": "D:\\lineage開發\\TW1608262200研究\\docs\\project-consolidation\\physical-migration\\final-verification.json",
+  "permanent_deletions": 0,
+  "disk_bytes_reclaimed_from_quarantine": 0,
+  "active_blockers": []
+}

@@ -1,0 +1,15 @@
+{
+  "utc": "2026-10-27T18:15:27.361614+00:00",
+  "candidate": "r28-6016-host-adapter-r3",
+  "manifestSha256": "f322c11e45d9b0fd64048c7fb0d464aa7fc76c1fc0c3b334efac6122b0928915",
+  "pins": 307,
+  "copiedVerifiedFiles": true,
+  "rootBuildScriptChange": "Only resolve original r27 read-only assets from supervisor copy",
+  "buildScriptBefore": "a25eccf36aff94dd367fa7dea0ad5b66a2543aba61711a5ed0b9c50e00e9d31f",
+  "buildScriptAfter": "e3c42613e8adb34a0606f61fd4aa9558461f275d957913da053c896c6624188b",
+  "buildExitCode": 0,
+  "productDllSha256": "7762951fba9a2d37d08e2d40a34dfa7f2a6f2219b93689a031a566a8fd8f8cb8",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productDllDeterministicMatch": true,
+  "audioDllDeterministicMatch": true
+}

@@ -1,0 +1,14 @@
+{
+  "utc": "2026-10-26T15:34:55.176Z",
+  "candidate": "ship-route-implementation-r1",
+  "readOnly": true,
+  "finding": "ShipTimeReceived calls Synchronize before duplicate-second filtering; same-minute Phase4/8 resets DockX/DockY and accumulator with each2s sample, potentially rewinding dock animation.",
+  "requiredReview": "Native phase-entry semantics, duplicate/time continuity test, source-backed animation time per step and phase endpoints.",
+  "status": "sent to sole worker; not yet live tested",
+  "followup": {
+    "utc": "2026-10-26T15:42:34.265Z",
+    "sourceChangeObserved": "Synchronize now captures previous phase and returns before dock/accumulator initialization when phase is unchanged.",
+    "sourceCompatibility": "Worker traced original one-game-minute phases4/8 and following phase endpoint assignment; native100ms motion cannot span the full distance under fixed server6x time.",
+    "status": "code correction observed; final tests and live review pending"
+  }
+}

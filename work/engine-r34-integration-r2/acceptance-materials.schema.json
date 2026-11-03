@@ -1,0 +1,698 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:engine:r34:acceptance-materials:v1",
+  "description": "R2 sealed-native compatibility. Shapes are not acceptance. Exact original material hashes, review seal/evidence and new supervisor receipt remain required.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/contract"
+    },
+    {
+      "$ref": "#/$defs/receipt"
+    },
+    {
+      "$ref": "#/$defs/sourceManifest"
+    },
+    {
+      "$ref": "#/$defs/candidateSeal"
+    },
+    {
+      "$ref": "#/$defs/independentReview"
+    },
+    {
+      "$ref": "#/$defs/candidateResult"
+    },
+    {
+      "$ref": "#/$defs/resourceManifest"
+    },
+    {
+      "$ref": "#/$defs/nativeProjection"
+    }
+  ],
+  "$defs": {
+    "contract": {
+      "type": "object",
+      "required": [
+        "schema",
+        "revision",
+        "candidateId",
+        "candidateRoot",
+        "preparationSha256",
+        "sourceManifest",
+        "candidateSeal",
+        "candidateResult",
+        "independentReview",
+        "baseRevision",
+        "baseReleaseSealSha256",
+        "basePinsSha256",
+        "resourceManifest",
+        "sourceDelta",
+        "implementationContractSha256",
+        "independentReviewRoot",
+        "independentReviewSeal"
+      ],
+      "properties": {
+        "schema": {
+          "const": "engine-r34-input-contract-v1"
+        },
+        "revision": {
+          "const": "r34"
+        },
+        "candidateId": {
+          "type": "string",
+          "pattern": "^ENGINE-PICKUP-PRESENTATION-IMPL-R[1-9][0-9]*$"
+        },
+        "candidateRoot": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+        },
+        "preparationSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sourceManifest": {
+          "type": "object",
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "candidateSeal": {
+          "type": "object",
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "candidateResult": {
+          "type": "object",
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "independentReview": {
+          "type": "object",
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "baseRevision": {
+          "const": "r33"
+        },
+        "baseReleaseSealSha256": {
+          "const": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417"
+        },
+        "basePinsSha256": {
+          "const": "2a946e965f1aed1f9a0358ceb560f52575ea5a3bf217fc9ccf36e9ce5823c40f"
+        },
+        "resourceManifest": {
+          "type": "object",
+          "required": [
+            "path",
+            "sha256",
+            "format"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "format": {
+              "enum": [
+                "native-projection",
+                "strict-manifest"
+              ]
+            }
+          },
+          "description": "Material reference to original sealed native resource-projection.json or explicit strict resource-manifest schema. The legacy contract field name does not require an author-created manifest."
+        },
+        "implementationContractSha256": {
+          "const": "8c60b1061c637bcb7f992d7f92c74fc80c0ad945c7f05d1c3a2d74507cffc6f2"
+        },
+        "sourceDelta": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "added",
+            "changed"
+          ],
+          "properties": {
+            "added": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            },
+            "changed": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "independentReviewRoot": {
+          "enum": [
+            "work/engine-pickup-presentation-candidate-review-r1"
+          ]
+        },
+        "independentReviewSeal": {
+          "type": "object",
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        }
+      }
+    },
+    "receipt": {
+      "type": "object",
+      "required": [
+        "schema",
+        "revision",
+        "decision",
+        "supervisor",
+        "dispatchId",
+        "authorization",
+        "candidateId",
+        "contractSha256",
+        "sourceManifestSha256",
+        "candidateSealSha256",
+        "candidateResultSha256",
+        "independentReviewSha256",
+        "productDllSha256",
+        "audioDllSha256",
+        "authorizedOutput",
+        "candidateTestsPassed",
+        "independentReviewPassed",
+        "unresolvedFindings",
+        "baseRevision",
+        "baseReleaseSealSha256",
+        "basePinsSha256"
+      ],
+      "properties": {
+        "schema": {
+          "const": "engine-integration-acceptance-v1"
+        },
+        "revision": {
+          "const": "r34"
+        },
+        "decision": {
+          "const": "accepted-for-formal-r34-integration"
+        },
+        "supervisor": {
+          "const": "01a17e6a-9270-7cc2-a338-0120ed68d0ec"
+        },
+        "dispatchId": {
+          "type": "string",
+          "pattern": "^ENGINE-R34-INTEGRATE-.+"
+        },
+        "authorization": {
+          "const": "isolated-r34-build-and-offline-acceptance"
+        },
+        "candidateId": {
+          "type": "string",
+          "pattern": "^ENGINE-PICKUP-PRESENTATION-IMPL-R[1-9][0-9]*$"
+        },
+        "contractSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sourceManifestSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "candidateSealSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "candidateResultSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "independentReviewSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "productDllSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "audioDllSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "authorizedOutput": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+        },
+        "candidateTestsPassed": {
+          "const": true
+        },
+        "independentReviewPassed": {
+          "const": true
+        },
+        "unresolvedFindings": {
+          "const": []
+        },
+        "baseRevision": {
+          "const": "r33"
+        },
+        "baseReleaseSealSha256": {
+          "const": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417"
+        },
+        "basePinsSha256": {
+          "const": "2a946e965f1aed1f9a0358ceb560f52575ea5a3bf217fc9ccf36e9ce5823c40f"
+        },
+        "resourceManifestSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "resourceProjectionSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "sourceManifest": {
+      "type": "object",
+      "required": [
+        "schema",
+        "candidateId",
+        "files"
+      ],
+      "properties": {
+        "schema": {
+          "const": "engine-r29-source-pins-v1"
+        },
+        "candidateId": {
+          "type": "string",
+          "pattern": "^ENGINE-PICKUP-PRESENTATION-IMPL-R[1-9][0-9]*$"
+        },
+        "files": {
+          "type": "array",
+          "minItems": 177,
+          "items": {
+            "type": "object",
+            "required": [
+              "path",
+              "size",
+              "sha256",
+              "source"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+              },
+              "size": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Canonical project-relative forward-slash path or absolute path strictly within canonical project; only canonical engine, exact bound original r33 stage source, or sealed candidate accepted. Runtime gate rejects traversal/reparse escapes."
+              }
+            }
+          }
+        },
+        "revision": {
+          "const": "r34"
+        }
+      }
+    },
+    "candidateSeal": {
+      "type": "object",
+      "required": [
+        "schema",
+        "candidateId",
+        "files"
+      ],
+      "properties": {
+        "schema": {
+          "const": "engine-candidate-seal-v1"
+        },
+        "candidateId": {
+          "type": "string",
+          "pattern": "^ENGINE-PICKUP-PRESENTATION-IMPL-R[1-9][0-9]*$"
+        },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "path",
+              "size",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Canonical forward-slash relative path; no traversal, absolute path, ADS, Windows reserved/ambiguous names, reparse escapes. Runtime gate is authoritative."
+              },
+              "size": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        },
+        "revision": {
+          "const": "r34"
+        }
+      }
+    },
+    "independentReview": {
+      "type": "object",
+      "required": [
+        "schema",
+        "reviewId",
+        "candidateId",
+        "status",
+        "decision",
+        "candidateSealSha256",
+        "sourceManifestSha256",
+        "candidateResultSha256",
+        "baselineFinalSha256",
+        "finalBaseBindingSha256",
+        "finalR33ReleaseSealSha256",
+        "contractSha256",
+        "policyId",
+        "productDllSha256",
+        "audioDllSha256",
+        "checks",
+        "assertions",
+        "observations",
+        "failedChecks",
+        "nativeRuntimeChecks",
+        "riskFamiliesReviewed",
+        "blockingFindings",
+        "repairRequired",
+        "qualificationFlags",
+        "evidence"
+      ],
+      "properties": {
+        "schema": {
+          "const": "engine-independent-review-v1"
+        },
+        "candidateId": {
+          "type": "string",
+          "pattern": "^ENGINE-PICKUP-PRESENTATION-IMPL-R[1-9][0-9]*$"
+        },
+        "candidateSealSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sourceManifestSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "candidateResultSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "productDllSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "audioDllSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "reviewId": {
+          "const": "ENGINE-PICKUP-PRESENTATION-CANDIDATE-REVIEW-R1"
+        },
+        "status": {
+          "const": "accepted"
+        },
+        "decision": {
+          "const": "accepted"
+        },
+        "checks": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "assertions": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "observations": {
+          "const": 0
+        },
+        "failedChecks": {
+          "const": 0
+        },
+        "nativeRuntimeChecks": {
+          "const": 0
+        },
+        "riskFamiliesReviewed": {
+          "const": 24
+        },
+        "blockingFindings": {
+          "const": 0
+        },
+        "repairRequired": {
+          "const": false
+        },
+        "qualificationFlags": {
+          "const": {
+            "nativeNeutral": false,
+            "nativeFIFO": false,
+            "nativeVariant": false,
+            "nativeRuntimeTiming": false,
+            "slowQualified": false,
+            "sameBinVersion": false
+          }
+        },
+        "evidence": {
+          "type": "object"
+        },
+        "baselineFinalSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "finalBaseBindingSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "finalR33ReleaseSealSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "contractSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "description": "Native sealed pickup review. No invented counts/unresolvedFindings/resourceManifestSha256 required. Runtime additionally verifies its exact review seal, runs, aggregate rows, execution snapshots, source pins, coverage, actual findings and base identities before deriving normalized fields."
+    },
+    "candidateResult": {
+      "type": "object",
+      "required": [
+        "schema",
+        "candidateId",
+        "checksPassed",
+        "checks",
+        "productDllSha256",
+        "audioDllSha256"
+      ],
+      "properties": {
+        "schema": {
+          "const": "engine-candidate-result-v1"
+        },
+        "candidateId": {
+          "type": "string",
+          "pattern": "^ENGINE-PICKUP-PRESENTATION-IMPL-R[1-9][0-9]*$"
+        },
+        "checksPassed": {
+          "const": true
+        },
+        "checks": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "productDllSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "audioDllSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "revision": {
+          "const": "r34"
+        }
+      }
+    },
+    "resourceManifest": {
+      "type": "object",
+      "required": [
+        "schema",
+        "candidateId",
+        "files"
+      ],
+      "properties": {
+        "schema": {
+          "const": "engine-r34-resource-manifest-v1"
+        },
+        "revision": {
+          "const": "r34"
+        },
+        "candidateId": {
+          "type": "string",
+          "pattern": "^ENGINE-PICKUP-PRESENTATION-IMPL-R[1-9][0-9]*$"
+        },
+        "files": {
+          "const": [
+            {
+              "path": "source/Resources/pickup-own-base15-gfx0-weapon0.json",
+              "size": 239766,
+              "sha256": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90",
+              "logicalName": "P06.Resources.PickupOwnBase15Gfx0Weapon0.json",
+              "project": "source/OfflineClient.csproj",
+              "newFrames": 24,
+              "reusedFrames": 8
+            }
+          ]
+        }
+      }
+    },
+    "nativeProjection": {
+      "type": "object",
+      "required": [
+        "resource",
+        "bytes",
+        "sha256",
+        "recipe",
+        "inputPins",
+        "identityCounts",
+        "nativeArchiveBinVersionEquivalent",
+        "sourcePixelsRedecoded",
+        "events",
+        "baseProfile",
+        "baseSha256",
+        "frames"
+      ],
+      "properties": {
+        "resource": {
+          "const": "candidate/source/Resources/pickup-own-base15-gfx0-weapon0.json"
+        },
+        "bytes": {
+          "const": 239766
+        },
+        "sha256": {
+          "const": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90"
+        },
+        "recipe": {
+          "const": "project_resource.py"
+        },
+        "frames": {
+          "type": "array",
+          "minItems": 32,
+          "maxItems": 32
+        },
+        "identityCounts": {
+          "const": {
+            "current-idx-and-bounded-slice-only": 24,
+            "historical-selected-payload-matched": 8
+          }
+        },
+        "nativeArchiveBinVersionEquivalent": {
+          "const": false
+        },
+        "sourcePixelsRedecoded": {
+          "const": false
+        },
+        "baseProfile": {
+          "const": "objects/0.json"
+        },
+        "baseSha256": {
+          "const": "27ab41e8a398eb180ce957d9215b2c9b5cf6bf5343b32f6c101757b8882efdf8"
+        },
+        "inputPins": {
+          "type": "array"
+        },
+        "events": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Explicit native projection branch. Runtime also checks exact qualified32 mapping,24 embedded canonical frame hashes,8 base references, source manifest and unconditional csproj logical name."
+    }
+  }
+}

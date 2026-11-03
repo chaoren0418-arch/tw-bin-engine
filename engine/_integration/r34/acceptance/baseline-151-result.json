@@ -1,0 +1,235 @@
+{
+  "status": "pass-r34-baseline-151-only",
+  "productDllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productManifestSha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d",
+  "launcherDllSha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8",
+  "assetCount": 13957,
+  "hostCases": 22,
+  "hostChecks": 77,
+  "audioSettingsCases": 7,
+  "audioSettingsChecks": 39,
+  "domChecks": 35,
+  "totalChecks": 151,
+  "warnings": 0,
+  "errors": 0,
+  "productBuilds": 1,
+  "historicalSuitesRerun": false,
+  "GUI": false,
+  "COM": false,
+  "playback": false,
+  "network": false,
+  "services": false,
+  "database": false,
+  "commands": [
+    {
+      "name": "sdk",
+      "command": [
+        "dotnet",
+        "--version"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01",
+      "exitCode": 0,
+      "decoder": "utf-8-sig; errors=replace; raw bytes retained",
+      "stdoutReplacementCount": 0,
+      "stderrReplacementCount": 0
+    },
+    {
+      "name": "product-build",
+      "command": [
+        "pwsh",
+        "-NoProfile",
+        "-File",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\build-product.ps1"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01",
+      "exitCode": 0,
+      "decoder": "utf-8-sig; errors=replace; raw bytes retained",
+      "stdoutReplacementCount": 16,
+      "stderrReplacementCount": 0
+    },
+    {
+      "name": "launcher-build",
+      "command": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\_integration\\launcher-source\\Launcher.csproj",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\_integration\\evidence\\build01\\launcher"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01",
+      "exitCode": 0,
+      "decoder": "utf-8-sig; errors=replace; raw bytes retained",
+      "stdoutReplacementCount": 0,
+      "stderrReplacementCount": 0
+    },
+    {
+      "name": "same-cmd-check-only",
+      "command": "\"C:\\WINDOWS\\System32\\cmd.exe\" /d /s /c \"\"D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\啟動新版客戶端.cmd\" --check-only\"",
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\_integration\\evidence\\build01",
+      "exitCode": 0,
+      "decoder": "utf-8-sig; errors=replace; raw bytes retained",
+      "stdoutReplacementCount": 0,
+      "stderrReplacementCount": 0
+    },
+    {
+      "name": "host-build",
+      "command": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\_integration\\evidence\\build01\\checks\\tests\\HostChecks.csproj",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-p:ProductDll=D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\build\\client-product-r34\\P11.ClientEngine.dll",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\build\\r34-stage-baseline-host"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01",
+      "exitCode": 0,
+      "decoder": "utf-8-sig; errors=replace; raw bytes retained",
+      "stdoutReplacementCount": 0,
+      "stderrReplacementCount": 0
+    },
+    {
+      "name": "host-checks",
+      "command": [
+        "dotnet",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\build\\r34-stage-baseline-host\\HostChecks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\_integration\\evidence\\build01\\checks",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\assets"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01",
+      "exitCode": 0,
+      "decoder": "utf-8-sig; errors=replace; raw bytes retained",
+      "stdoutReplacementCount": 0,
+      "stderrReplacementCount": 0
+    },
+    {
+      "name": "client-extract",
+      "command": [
+        "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\_integration\\evidence\\build01\\checks\\prepare_client_checks.py"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01",
+      "exitCode": 0,
+      "decoder": "utf-8-sig; errors=replace; raw bytes retained",
+      "stdoutReplacementCount": 0,
+      "stderrReplacementCount": 0
+    },
+    {
+      "name": "client-build",
+      "command": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\_integration\\evidence\\build01\\checks\\client-tests\\ClientChecks.csproj",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-p:ProductDll=D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\build\\client-product-r34\\P11.ClientEngine.dll",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\build\\r34-stage-baseline-client"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01",
+      "exitCode": 0,
+      "decoder": "utf-8-sig; errors=replace; raw bytes retained",
+      "stdoutReplacementCount": 0,
+      "stderrReplacementCount": 0
+    },
+    {
+      "name": "client-checks",
+      "command": [
+        "dotnet",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\build\\r34-stage-baseline-client\\ClientChecks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\_integration\\evidence\\build01\\checks"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01",
+      "exitCode": 0,
+      "decoder": "utf-8-sig; errors=replace; raw bytes retained",
+      "stdoutReplacementCount": 0,
+      "stderrReplacementCount": 0
+    },
+    {
+      "name": "audio-extract",
+      "command": [
+        "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\_integration\\evidence\\build01\\checks\\prepare_audio_checks.py"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01",
+      "exitCode": 0,
+      "decoder": "utf-8-sig; errors=replace; raw bytes retained",
+      "stdoutReplacementCount": 0,
+      "stderrReplacementCount": 0
+    },
+    {
+      "name": "audio-settings-build",
+      "command": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\_integration\\evidence\\build01\\checks\\audio-tests\\AudioSettingsChecks.csproj",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\NuGet.Config",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-p:ProductDll=D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\build\\client-product-r34\\P11.ClientEngine.dll",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\build\\r34-stage-baseline-audio-settings"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01",
+      "exitCode": 0,
+      "decoder": "utf-8-sig; errors=replace; raw bytes retained",
+      "stdoutReplacementCount": 0,
+      "stderrReplacementCount": 0
+    },
+    {
+      "name": "audio-settings-checks",
+      "command": [
+        "dotnet",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\build\\r34-stage-baseline-audio-settings\\AudioSettingsChecks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\_integration\\evidence\\build01\\checks"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01",
+      "exitCode": 0,
+      "decoder": "utf-8-sig; errors=replace; raw bytes retained",
+      "stdoutReplacementCount": 0,
+      "stderrReplacementCount": 0
+    },
+    {
+      "name": "web-checks",
+      "command": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\_integration\\evidence\\build01\\checks\\audio-tests\\web-checks.cjs",
+        "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\_integration\\evidence\\build01\\checks"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01",
+      "exitCode": 0,
+      "decoder": "utf-8-sig; errors=replace; raw bytes retained",
+      "stdoutReplacementCount": 0,
+      "stderrReplacementCount": 0
+    }
+  ]
+}

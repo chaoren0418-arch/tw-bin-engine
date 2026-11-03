@@ -1,0 +1,65 @@
+{
+  "utc": "2026-10-27T06:27:24.162Z",
+  "baseline": "r23 accepted sealed delivery; current visible r22 remains untouched",
+  "integrationOwner": "one integrator to be assigned by root after candidate review",
+  "sharedSourceFiles": [
+    "Program.cs",
+    "ProductEntry.cs",
+    "WebPanel.cs",
+    "Renderer.cs",
+    "ObjectRendering.cs"
+  ],
+  "rules": [
+    "Candidates only modify isolated source copies; no shared writes",
+    "HUD consumes original server state and existing guarded actions, never optimistic inventory/HP fabrication",
+    "Normal player view should default to scene+HUD; F9 retains diagnostics and F10 returns game focus; exact hook merged once",
+    "HUD must expose hit/scene bounds so pointer input never moves through a UI click",
+    "Mouse uses Camera.ToScene/current world epoch/actual terrain and existing movement send gates; stop on user cancel, world/focus change",
+    "Original shadows must not enlarge target hit ownership or change game collision; original composition/depth rules need explicit source evidence",
+    "No r24 or complete player UI claim until merged build and root real visible operation",
+    "SPR original transparency decoder/mask/alpha/output/composition and shadow work have one owner; never global black removal",
+    "User requires all known scoped implementation completed before full live acceptance; development checks remain allowed"
+  ],
+  "firstVisibleAcceptance": [
+    "Normal login enters scene with visible HP/MP and usable quick slots without scrolling diagnostic panel",
+    "Open icon inventory/equipment and skills, make one real use/cast and observe original replies",
+    "Click a reachable ground location and stop correctly on UI/focus/teleport changes; select real object and perform explicit mouse action",
+    "Observe original player and supported NPC shadow stationary/moving, with correct ground/occlusion and no target-picking shadow artifact",
+    "No unproven opaque background around original SPR; preserve genuinely black opaque pixels, transparent spans, original shadows and occlusion"
+  ],
+  "notInFirstCandidate": [
+    "Network chat and full classic menu coverage remain explicit gaps unless separately implemented and verified",
+    "All appearance/weapon combinations beyond evidence-backed supported subset"
+  ],
+  "observedCurrent": {
+    "window": "r22 normal-product P24 客戶端, current remaining PID27540/window10819430",
+    "normalModeDoesNotMeanFinishedPlayerUi": true,
+    "hpMp": "Program.cs:161 text status bar",
+    "panels": "ProductEntry.cs:15-28 WinForms tabs plus WebPanel; normalPanels hidden when Web present",
+    "mouse": "Program.cs:104 online left click calls PickObject only; ObjectRendering.cs:53 pixel target selection",
+    "shadows": "No explicit shadow draw path in inspected Renderer.cs/ComposeObjects; original SPR rule audit in progress",
+    "chat": "No actual chat input/send UI found in current source/web; Inventory.cs:71 only distinguishes chat from NPC reply",
+    "evidence": [
+      "r22-full-flow/ui-gap-current-r22-peer-webview.png",
+      "r22-full-flow/ui-gap-current-r22-peer-scene.png",
+      "r22-full-flow/ui-gap-native-accessibility.json",
+      "r22-full-flow/ui-gap-current-native-windows.json"
+    ]
+  },
+  "liveAcceptanceStart": "After full scoped implementation and single fixed merge, not while gaps are merely being audited",
+  "acceptedIsolatedModules": {
+    "hud": "player-hud-root-review.json",
+    "shadow": "player-shadow-root-review.json",
+    "pointer": "player-pointer-root-review.json",
+    "chat": "player-chat-implementation-r1/result.json"
+  },
+  "serialIntegrator": {
+    "thread": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+    "area": "reference/development/release-integration-r8",
+    "version": "r24",
+    "scope": "single fixed portable player HUD/input/shadow/transparency/chat build",
+    "liveAuthorizedForWorker": false
+  },
+  "remainingGate": "Inspect combined UI/input integration, rebuild independently from final sealed sources, then actual normal login/gameplay on that version; isolated tests do not close this gate.",
+  "updatedUtc": "2026-10-27T06:55:01.660709+00:00"
+}

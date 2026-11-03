@@ -1,0 +1,76 @@
+{
+  "methods": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupAssets.cs",
+      "line": 32,
+      "source": "static void Verify(byte[] bytes,int size,string sha){",
+      "sha256": "c3c27789794fd0579062d7e3328be605735cc148e1cbd829f3413ffe2dde7f03"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupAssets.cs",
+      "line": 35,
+      "source": "static Body ReadBody(JsonElement j){",
+      "sha256": "c3c27789794fd0579062d7e3328be605735cc148e1cbd829f3413ffe2dde7f03"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupAssets.cs",
+      "line": 55,
+      "source": "internal PickupAssets(byte[] bytes){",
+      "sha256": "c3c27789794fd0579062d7e3328be605735cc148e1cbd829f3413ffe2dde7f03"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupAssets.cs",
+      "line": 60,
+      "source": "internal PickupAssets(byte[] bytes,byte[] extension):this(bytes){",
+      "sha256": "c3c27789794fd0579062d7e3328be605735cc148e1cbd829f3413ffe2dde7f03"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupAssets.cs",
+      "line": 72,
+      "source": "internal static PickupAssets Load()=>new(Resource(ResourceName),Resource(ExtensionName));",
+      "sha256": "c3c27789794fd0579062d7e3328be605735cc148e1cbd829f3413ffe2dde7f03"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupAssets.cs",
+      "line": 73,
+      "source": "internal Frame[]? For(ObjectAppearance appearance,int direction,int weapon){",
+      "sha256": "c3c27789794fd0579062d7e3328be605735cc148e1cbd829f3413ffe2dde7f03"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\ObjectAssets.cs",
+      "line": 24,
+      "source": "internal Frame[]? PickupFrames(ObjectAppearance appearance,int direction,int weapon=0)=>",
+      "sha256": "b09a5849e71b2c282561df96f628f4bd5cca5e5ecb02ad8d61b06cf24e12cd3d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupPresentation.cs",
+      "line": 33,
+      "source": "PickupContext? PickupContextAt(long now,out string? reason){",
+      "sha256": "e4dfc947c163485d80813a9027599e904584f0db6426eb661284a39a5322deb6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupPresentation.cs",
+      "line": 48,
+      "source": "internal void ValidatePickupPresentation(long now){",
+      "sha256": "e4dfc947c163485d80813a9027599e904584f0db6426eb661284a39a5322deb6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupPresentation.cs",
+      "line": 55,
+      "source": "internal Frame? AdvancePickupPresentation(long serial,long now){",
+      "sha256": "e4dfc947c163485d80813a9027599e904584f0db6426eb661284a39a5322deb6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\PickupPresentation.cs",
+      "line": 80,
+      "source": "void BindPickupPresentation(World own,WorldSession session,ObjectAssets catalog){",
+      "sha256": "e4dfc947c163485d80813a9027599e904584f0db6426eb661284a39a5322deb6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\source\\ObjectRendering.cs",
+      "line": 5,
+      "source": "public Patch ComposeObjects(World own,WorldSession session,ObjectAssets catalog,out ObjectVisual[] visuals,out WorldObject[] missing,long? testTime=null,bool historicalUntriggeredReplay=false){",
+      "sha256": "6de015ce11c61e71aaa6de096d192abbb7d0c427f3f0bcedf762871d3a536613"
+    }
+  ]
+}

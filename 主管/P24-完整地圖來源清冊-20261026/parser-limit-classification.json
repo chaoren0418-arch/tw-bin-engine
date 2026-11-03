@@ -1,0 +1,5984 @@
+{
+  "scope": "Existing unmodified parser exception frame classification, not automatically accepting absent fields as valid; no original BIN analysis/UI/live.",
+  "parserSha256": "7db9f2426cdd6b7e6a4b3f0ff063dd7f4edc67bd22d01244645143552ab20e94",
+  "count": 473,
+  "summary": [
+    {
+      "section": "effects",
+      "remaining": 0,
+      "count": 473
+    }
+  ],
+  "rows": [
+    {
+      "path": "1/7ffe8001.s32",
+      "sha256": "63f932ca2163372e5906448e506cbf8a707196375de6445ecbbeafbb1880e5cb",
+      "size": 203629,
+      "offset": 203629,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 203629, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "10/7fff8000.s32",
+      "sha256": "b94e9d20e805c990ed307615cf7227233960c16abd34e5f8c952a455895f7099",
+      "size": 155457,
+      "offset": 155457,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 155457, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f39",
+          "x": 120,
+          "y": 4,
+          "target": 9,
+          "id": -262138
+        }
+      ]
+    },
+    {
+      "path": "11/7fff7fff.s32",
+      "sha256": "29d45bfc1bef036f8492184d481f3a7afd9036076eddde70d9848ed7529f278e",
+      "size": 193518,
+      "offset": 193518,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 193518, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "696e50303161",
+          "x": 118,
+          "y": 34,
+          "target": 11,
+          "id": -196598
+        },
+        {
+          "name_hex": "696e50303362",
+          "x": 62,
+          "y": 35,
+          "target": 11,
+          "id": 2424832
+        },
+        {
+          "name_hex": "746f3130",
+          "x": 50,
+          "y": 18,
+          "target": 10,
+          "id": -1966162
+        }
+      ]
+    },
+    {
+      "path": "11/7fff8000.s32",
+      "sha256": "c5339e731fd7053ee00a7ad6c993c5a49dd7342e0719103714e9519b3cfa03cb",
+      "size": 177271,
+      "offset": 177271,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 177271, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "696e50303261",
+          "x": 106,
+          "y": 37,
+          "target": 11,
+          "id": 2424786
+        },
+        {
+          "name_hex": "696e50303262",
+          "x": 82,
+          "y": 37,
+          "target": 11,
+          "id": 2424810
+        }
+      ]
+    },
+    {
+      "path": "11/80007fff.s32",
+      "sha256": "8a50b5da4f0fabd8bfb4fbea1d7993b5f958d057e9c5b7d66867c2e0447a7637",
+      "size": 177740,
+      "offset": 177740,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 177740, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "696e50303162",
+          "x": 8,
+          "y": 61,
+          "target": 11,
+          "id": -1900552
+        }
+      ]
+    },
+    {
+      "path": "11/80008000.s32",
+      "sha256": "314cad850978236472d99afbde5e9c7de281adcba7716b3ab805daed83b6f9b4",
+      "size": 170276,
+      "offset": 170276,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 170276, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f3132",
+          "x": 58,
+          "y": 42,
+          "target": 12,
+          "id": -2817974
+        },
+        {
+          "name_hex": "696e50303361",
+          "x": 0,
+          "y": 38,
+          "target": 11,
+          "id": -1835072
+        }
+      ]
+    },
+    {
+      "path": "12/7fff8000.s32",
+      "sha256": "ccf37aeb9e57539a84453e35db6c9f27bf4c45d0ecd9eafca906f1530722f7b7",
+      "size": 168029,
+      "offset": 168029,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 168029, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "696e50303161",
+          "x": 48,
+          "y": 0,
+          "target": 12,
+          "id": -851976
+        },
+        {
+          "name_hex": "696e50303262",
+          "x": 56,
+          "y": 34,
+          "target": 12,
+          "id": 1703998
+        }
+      ]
+    },
+    {
+      "path": "12/80008000.s32",
+      "sha256": "5cbcc33284b8a5e3c8e08aab7174bc6983d12a2089be5fed919029b5699a793a",
+      "size": 181233,
+      "offset": 181233,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 181233, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f3133",
+          "x": 4,
+          "y": 43,
+          "target": 13,
+          "id": -2752594
+        },
+        {
+          "name_hex": "696e50303261",
+          "x": 62,
+          "y": 27,
+          "target": 12,
+          "id": 2293690
+        }
+      ]
+    },
+    {
+      "path": "13/7fff7fff.s32",
+      "sha256": "fda5aff9b4e6983fa26b8f4b68615a392a79b659ecbc9e65a50794d362c5581b",
+      "size": 174050,
+      "offset": 174050,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 174050, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "696e50303262",
+          "x": 120,
+          "y": 62,
+          "target": 13,
+          "id": -1769448
+        },
+        {
+          "name_hex": "746f3132",
+          "x": 46,
+          "y": 20,
+          "target": 12,
+          "id": 2752516
+        }
+      ]
+    },
+    {
+      "path": "13/7fff8000.s32",
+      "sha256": "44b4d34c3a0167ecc66d12ee851f32c071e46f6d30752388ff624dd6ffc69c0f",
+      "size": 177866,
+      "offset": 177866,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 177866, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "16/7fff8000.s32",
+      "sha256": "b00bad118be822b21e7983ed6e88211d4610a6050fb34ebea820d869e02070e9",
+      "size": 85525,
+      "offset": 85525,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 85525, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "68617264696e4f5554",
+          "x": 80,
+          "y": 47,
+          "target": 4,
+          "id": -20380842
+        }
+      ]
+    },
+    {
+      "path": "17/7fff8000.s32",
+      "sha256": "b72b5fb92be622bb2e80cc346b9a416c87f676638ca9f5e42e88407fb6b62ebc",
+      "size": 89820,
+      "offset": 89820,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 89820, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "6e6572757061416f",
+          "x": 88,
+          "y": 41,
+          "target": 4,
+          "id": -28835270
+        },
+        {
+          "name_hex": "6e6572757061426f",
+          "x": 88,
+          "y": 40,
+          "target": 4,
+          "id": -28835268
+        }
+      ]
+    },
+    {
+      "path": "19/7fff8000.s32",
+      "sha256": "7ddf83910022ce1e8caad470abcb02f7e6141dd638e9b8e5a760d575681a8fce",
+      "size": 125668,
+      "offset": 125668,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 125668, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "696e50303261",
+          "x": 46,
+          "y": 29,
+          "target": 19,
+          "id": 1769528
+        }
+      ]
+    },
+    {
+      "path": "19/80007fff.s32",
+      "sha256": "a3a296e1f38861d015f740c0376c58181bbb9a3470de10c9af72f20d2e2859aa",
+      "size": 131021,
+      "offset": 131021,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 131021, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "696e50303161",
+          "x": 38,
+          "y": 54,
+          "target": 19,
+          "id": -2752600
+        },
+        {
+          "name_hex": "746f344546",
+          "x": 74,
+          "y": 19,
+          "target": 4,
+          "id": -31784620
+        }
+      ]
+    },
+    {
+      "path": "19/80008000.s32",
+      "sha256": "7c9fc3f93a8bc7b8a39886a70c33767e4582e5fedd62afe7d6f4f774b8f8e22c",
+      "size": 109801,
+      "offset": 109801,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 109801, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "696e50303262",
+          "x": 56,
+          "y": 28,
+          "target": 19,
+          "id": 1966000
+        },
+        {
+          "name_hex": "746f3230",
+          "x": 8,
+          "y": 15,
+          "target": 20,
+          "id": 1900540
+        }
+      ]
+    },
+    {
+      "path": "2/7ffe8001.s32",
+      "sha256": "c0b4b6cdc16366dd195be255f9ca1c8441e2cbac345c492f5df1a3bfbe719ddf",
+      "size": 170682,
+      "offset": 170682,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 170682, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "696e50303161",
+          "x": 78,
+          "y": 27,
+          "target": 2,
+          "id": 6356792
+        },
+        {
+          "name_hex": "696e50303162",
+          "x": 56,
+          "y": 33,
+          "target": 2,
+          "id": 6029136
+        },
+        {
+          "name_hex": "696e50303261",
+          "x": 48,
+          "y": 44,
+          "target": 2,
+          "id": 6881062
+        },
+        {
+          "name_hex": "696e50303262",
+          "x": 38,
+          "y": 41,
+          "target": 2,
+          "id": 7143218
+        }
+      ]
+    },
+    {
+      "path": "2/7fff8000.s32",
+      "sha256": "8bec6d6847213c6d41c787a32c702b678ed201223b4e3d90f629af700c252861",
+      "size": 182685,
+      "offset": 182685,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 182685, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "696e50303461",
+          "x": 108,
+          "y": 34,
+          "target": 2,
+          "id": 2228216
+        },
+        {
+          "name_hex": "696e50303462",
+          "x": 120,
+          "y": 34,
+          "target": 2,
+          "id": 2228204
+        }
+      ]
+    },
+    {
+      "path": "2/7fff8001.s32",
+      "sha256": "d7da83f1cc29d65045e8ba5972782cfccf2ffdd2d081ede020133f8388e923b9",
+      "size": 176879,
+      "offset": 176879,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 176879, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "20/7fff7fff.s32",
+      "sha256": "959396b968e7bed2121cf8fe7d470df314115981c6c4926699a7cff3a036a662",
+      "size": 127409,
+      "offset": 127409,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 127409, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "696e50303162",
+          "x": 118,
+          "y": 50,
+          "target": 20,
+          "id": 1507406
+        },
+        {
+          "name_hex": "746f3231",
+          "x": 52,
+          "y": 28,
+          "target": 21,
+          "id": -2031690
+        }
+      ]
+    },
+    {
+      "path": "20/7fff8000.s32",
+      "sha256": "369ec52307e1dd1ce615bc3213d62ff849b24e176e553a88d43c1e0242e00dc6",
+      "size": 123468,
+      "offset": 123468,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 123468, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f3139",
+          "x": 126,
+          "y": 27,
+          "target": 19,
+          "id": 917512
+        }
+      ]
+    },
+    {
+      "path": "20/80007fff.s32",
+      "sha256": "b7f9f1feee0be2ab7ab4c684d5d00e42ec9b414fce8bd8b4b318ca2590483c17",
+      "size": 126497,
+      "offset": 126497,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 126497, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "21/7fff8000.s32",
+      "sha256": "a1a1df14f5f3d12d86711f682ece4047ed3f81fc3d67b8be39cb4d240535acf1",
+      "size": 125456,
+      "offset": 125456,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 125456, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "696e50303262",
+          "x": 64,
+          "y": 31,
+          "target": 21,
+          "id": -262160
+        }
+      ]
+    },
+    {
+      "path": "22/7fff7fff.s32",
+      "sha256": "bf39717d8f79d1b86e3c0ac182d1a29852332123b8a1a9e82d1e7d993e72f0c8",
+      "size": 212722,
+      "offset": 212722,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 212722, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "22/80007fff.s32",
+      "sha256": "2e258b4acbe1d7f47a022ca92d7ce748ba940ce018f80283209b3f62ab0724f9",
+      "size": 209961,
+      "offset": 209961,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 209961, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f344747",
+          "x": 4,
+          "y": 63,
+          "target": 4,
+          "id": 38601446
+        }
+      ]
+    },
+    {
+      "path": "23/7fff7fff.s32",
+      "sha256": "b90a3916ad4efa4e4efc5d6825dd2af9e4e2035fa969c22cbeff597b7b2a86c2",
+      "size": 205873,
+      "offset": 205873,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 205873, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "23/7fff8000.s32",
+      "sha256": "12f5a136ec0399a761ddbde7aa895f8af8d85f65511a484e7efaa4decf8ec5a0",
+      "size": 201714,
+      "offset": 201714,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 201714, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f345742",
+          "x": 46,
+          "y": 46,
+          "target": 4,
+          "id": 48496344
+        }
+      ]
+    },
+    {
+      "path": "23/80008000.s32",
+      "sha256": "e9c01baf43450652143a70d1526e99ffd91cd5bc6c277b4f63114f0fddadedc0",
+      "size": 187682,
+      "offset": 187682,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 187682, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "24/7fff7fff.s32",
+      "sha256": "d730fca1b1d71e68cbcbcb119a2eb9914fb053250a418462ab8fa91765bda75c",
+      "size": 209265,
+      "offset": 209265,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 209265, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "24/7fff8000.s32",
+      "sha256": "e078baa99420bc3a63880f8243a80cfad5df5cba70a31d97a2e655d2f987ad0b",
+      "size": 211360,
+      "offset": 211360,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 211360, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "24/80007fff.s32",
+      "sha256": "4a61973102a690b3d6cddae69850a5268e032ae97f99977d5b82e131395eaa0e",
+      "size": 207470,
+      "offset": 207470,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 207470, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "25/7fff8000.s32",
+      "sha256": "5669d551498a77d3b42395d23f9425a9b73cdc4066763c1c516326fa56d22660",
+      "size": 138200,
+      "offset": 138200,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 138200, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f34747461",
+          "x": 68,
+          "y": 38,
+          "target": 4,
+          "id": 48169324
+        }
+      ]
+    },
+    {
+      "path": "25/80007fff.s32",
+      "sha256": "84e8c92c74a2aba59ba4199ab91e3b397e009e40ec3d31f940e1549f41b448c5",
+      "size": 140985,
+      "offset": 140985,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 140985, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "25/80008000.s32",
+      "sha256": "987c61bb3a468c9c956120b819e1c1757a6b08caa2d2c2c273b98174902cab88",
+      "size": 131747,
+      "offset": 131747,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 131747, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f347474",
+          "x": 82,
+          "y": 42,
+          "target": 4,
+          "id": 48759188
+        }
+      ]
+    },
+    {
+      "path": "26/7fff7fff.s32",
+      "sha256": "e44c16e08a7a533488cdeacabb406bff04dc82d4eff224dda3f1ba62f5527a5c",
+      "size": 146716,
+      "offset": 146716,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 146716, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "26/7fff8000.s32",
+      "sha256": "433855fc365ed6a9bb21a88e0f7caaebff6f35d3a56c0aaa1c75fd3441d42e35",
+      "size": 140878,
+      "offset": 140878,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 140878, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f34574461",
+          "x": 56,
+          "y": 46,
+          "target": 4,
+          "id": 48234780
+        }
+      ]
+    },
+    {
+      "path": "26/80007fff.s32",
+      "sha256": "2c38228636af762d8ea95d4daa51b2d278c0d32b6bd3a644cb17a8c2c04821df",
+      "size": 143146,
+      "offset": 143146,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 143146, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "26/80008000.s32",
+      "sha256": "f7a3d570d4f839cc92a0734de0777998799304008df0ab926f95c72f30f2e1a9",
+      "size": 127129,
+      "offset": 127129,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 127129, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f34574462",
+          "x": 68,
+          "y": 48,
+          "target": 4,
+          "id": 49021246
+        }
+      ]
+    },
+    {
+      "path": "27/7fff7fff.s32",
+      "sha256": "f52787aff7c5fa6573565a765ba2fcd32080f6ea64764df5465ef822c2f062a6",
+      "size": 149967,
+      "offset": 149967,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 149967, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f3238",
+          "x": 38,
+          "y": 38,
+          "target": 28,
+          "id": 1966142
+        }
+      ]
+    },
+    {
+      "path": "27/7fff8000.s32",
+      "sha256": "7bce7d8783417d05b63ecd72336cbeb95d8696fa7bb7b228f7689f791e7912b6",
+      "size": 143875,
+      "offset": 143875,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 143875, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "27/80008000.s32",
+      "sha256": "43bb0094a41fb67ac11f243db28feb07ab696e742f147d1c40f570953853ecc5",
+      "size": 135895,
+      "offset": 135895,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 135895, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f3457443266",
+          "x": 76,
+          "y": 46,
+          "target": 4,
+          "id": 48759008
+        }
+      ]
+    },
+    {
+      "path": "28/7fff7fff.s32",
+      "sha256": "cfcc7c35d7c57380b428848160811984b3573b3fa77693b40f3f7a78192159ad",
+      "size": 144855,
+      "offset": 144855,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 144855, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "28/80007fff.s32",
+      "sha256": "48dea8ba5123b5041bd04cb57853ad0d87c16f0b8b12f6aa90642d0c9cd11483",
+      "size": 138713,
+      "offset": 138713,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 138713, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "28/80008000.s32",
+      "sha256": "547359951cdb38ad7d562a565599e712f057c95186acdb58896d2390f2f14f06",
+      "size": 132987,
+      "offset": 132987,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 132987, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f3237",
+          "x": 62,
+          "y": 29,
+          "target": 27,
+          "id": -1704026
+        }
+      ]
+    },
+    {
+      "path": "30/7fff7fff.s32",
+      "sha256": "921b6fa812b750a5cb2a38e9dcbaf8c527c7b5fd595f14b9c1b3d0166ba3e22f",
+      "size": 161528,
+      "offset": 161528,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 161528, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f333162",
+          "x": 72,
+          "y": 57,
+          "target": 31,
+          "id": -1179660
+        },
+        {
+          "name_hex": "746f33316262",
+          "x": 74,
+          "y": 57,
+          "target": 31,
+          "id": -1179658
+        },
+        {
+          "name_hex": "746f333163",
+          "x": 126,
+          "y": 56,
+          "target": 31,
+          "id": -524218
+        },
+        {
+          "name_hex": "746f33316362",
+          "x": 126,
+          "y": 55,
+          "target": 31,
+          "id": -589754
+        },
+        {
+          "name_hex": "746f344456",
+          "x": 46,
+          "y": 21,
+          "target": 4,
+          "id": -27523960
+        }
+      ]
+    },
+    {
+      "path": "30/7fff8000.s32",
+      "sha256": "c658787c722002e2007dc8c5182097bdea6cbd5fca17f46e15a906fe4144b4da",
+      "size": 150824,
+      "offset": 150824,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150824, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f333161",
+          "x": 56,
+          "y": 45,
+          "target": 31,
+          "id": 917488
+        },
+        {
+          "name_hex": "746f33316162",
+          "x": 58,
+          "y": 45,
+          "target": 31,
+          "id": 917490
+        },
+        {
+          "name_hex": "746f34445664",
+          "x": 76,
+          "y": 8,
+          "target": 4,
+          "id": -25099078
+        }
+      ]
+    },
+    {
+      "path": "30/80008000.s32",
+      "sha256": "f4419f09b0f6ac3b79febdadb5816c275718424f9e65e6789d9a8203680c6748",
+      "size": 141742,
+      "offset": 141742,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 141742, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f333164",
+          "x": 8,
+          "y": 6,
+          "target": 31,
+          "id": 852008
+        },
+        {
+          "name_hex": "746f33316462",
+          "x": 8,
+          "y": 7,
+          "target": 31,
+          "id": 917544
+        },
+        {
+          "name_hex": "746f34445663",
+          "x": 86,
+          "y": 41,
+          "target": 4,
+          "id": -23329524
+        }
+      ]
+    },
+    {
+      "path": "31/7fff7fff.s32",
+      "sha256": "1ba776bd603c1846c67f34056ffc0b54d7cf13bb1477bd1b5f752f732f55ab49",
+      "size": 160407,
+      "offset": 160407,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 160407, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f333062",
+          "x": 116,
+          "y": 44,
+          "target": 30,
+          "id": -458808
+        },
+        {
+          "name_hex": "746f33306262",
+          "x": 118,
+          "y": 44,
+          "target": 30,
+          "id": -458806
+        }
+      ]
+    },
+    {
+      "path": "31/7fff8000.s32",
+      "sha256": "5252a72aae5a21b5a95b641ab9a04b0fdd7906961034be58ce3630a0eb1d312c",
+      "size": 144767,
+      "offset": 144767,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 144767, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f3332",
+          "x": 44,
+          "y": 41,
+          "target": 32,
+          "id": 3342216
+        },
+        {
+          "name_hex": "746f333061",
+          "x": 112,
+          "y": 12,
+          "target": 30,
+          "id": 2949048
+        },
+        {
+          "name_hex": "746f33306162",
+          "x": 114,
+          "y": 12,
+          "target": 30,
+          "id": 2949050
+        }
+      ]
+    },
+    {
+      "path": "31/80007fff.s32",
+      "sha256": "a1bb607dd88931781c0d5c60e13bfa1bb8803fd6152a3482a24155f158c2d967",
+      "size": 149380,
+      "offset": 149380,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 149380, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "6437",
+          "x": 72,
+          "y": 56,
+          "target": 30,
+          "id": -458754
+        },
+        {
+          "name_hex": "746f333262",
+          "x": 8,
+          "y": 43,
+          "target": 32,
+          "id": 3342218
+        }
+      ]
+    },
+    {
+      "path": "31/80008000.s32",
+      "sha256": "1e878de2107ce797f13f6b611c6feb645ee28d3ac13cadb3c4eb8225f1507156",
+      "size": 134435,
+      "offset": 134435,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 134435, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f333064",
+          "x": 42,
+          "y": 13,
+          "target": 30,
+          "id": 393226
+        },
+        {
+          "name_hex": "746f33306462",
+          "x": 42,
+          "y": 14,
+          "target": 30,
+          "id": 458762
+        }
+      ]
+    },
+    {
+      "path": "32/7ffe8000.s32",
+      "sha256": "d62a07ce534a52d24d3d1e477d363d1c231c61416118fa27f878936448498a08",
+      "size": 154812,
+      "offset": 154812,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 154812, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "32/7ffe8001.s32",
+      "sha256": "818ef186bf098bf24177ef1c0e7a4c42c31d275f4f71170cdf865df9272198ed",
+      "size": 147343,
+      "offset": 147343,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 147343, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f323161",
+          "x": 34,
+          "y": 39,
+          "target": 21,
+          "id": 1769488
+        }
+      ]
+    },
+    {
+      "path": "32/7fff8000.s32",
+      "sha256": "836036cb5e44566eda3702dde7b0c7a59fd462ffd9f86875c13cf8ae027f80c4",
+      "size": 143097,
+      "offset": 143097,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 143097, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f3331",
+          "x": 10,
+          "y": 49,
+          "target": 31,
+          "id": 2686892
+        },
+        {
+          "name_hex": "746f333162",
+          "x": 12,
+          "y": 49,
+          "target": 31,
+          "id": -1376246
+        }
+      ]
+    },
+    {
+      "path": "32/7fff8001.s32",
+      "sha256": "8215063b44d5656fffb5476d7fe77da6d1798bad3a0cb4745698c515f0f8bad4",
+      "size": 132689,
+      "offset": 132689,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 132689, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f333361",
+          "x": 86,
+          "y": 27,
+          "target": 33,
+          "id": 6618942
+        },
+        {
+          "name_hex": "746f333362",
+          "x": 84,
+          "y": 27,
+          "target": 33,
+          "id": 6618940
+        }
+      ]
+    },
+    {
+      "path": "33/7ffe8000.s32",
+      "sha256": "e20cea672a0aa0dbd0e751c12a50e38253cf337e4bbce3e11cbd4256895d8e88",
+      "size": 161617,
+      "offset": 161617,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 161617, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "33/7ffe8001.s32",
+      "sha256": "222af941fe487926b3620b936fe5bd5bf947de0251c7e99c086a6faf60746912",
+      "size": 152692,
+      "offset": 152692,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 152692, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f333261",
+          "x": 62,
+          "y": 35,
+          "target": 32,
+          "id": 5963734
+        },
+        {
+          "name_hex": "746f333262",
+          "x": 60,
+          "y": 35,
+          "target": 32,
+          "id": 5963732
+        }
+      ]
+    },
+    {
+      "path": "33/7fff8000.s32",
+      "sha256": "7016cd39a49f6dc4097cec616ee82a408c5aa85930d49a5ddd79c60d033ae7f2",
+      "size": 150551,
+      "offset": 150551,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150551, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f333561",
+          "x": 48,
+          "y": 57,
+          "target": 35,
+          "id": 2162644
+        },
+        {
+          "name_hex": "746f333562",
+          "x": 50,
+          "y": 57,
+          "target": 35,
+          "id": 2228180
+        }
+      ]
+    },
+    {
+      "path": "33/7fff8001.s32",
+      "sha256": "f30b1bfb1a8661c512429d3435f2b6113bf7ec1ea01922142a88b11abd7571e8",
+      "size": 144173,
+      "offset": 144173,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 144173, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "34/7fff7fff.s32",
+      "sha256": "f8dd462b9286d8f8bb1c15d13ce984865baf3591f8ba168d5fdd5a1885da9370",
+      "size": 54014,
+      "offset": 54014,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 54014, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "34/80007fff.s32",
+      "sha256": "7a955c79eb58d9df21af2732aad36ff25051cf80e1ef54d24ff6c602f26f6b43",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "34/80008000.s32",
+      "sha256": "5799422786d9b35bfc09d93c272df09bdcd1b7f8d92c9858fafb569d29565626",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "35/7ffe8000.s32",
+      "sha256": "f9d0adcc2e0bc50cd4a918c3c5a5783673fc40029e8e738380d8d5d7a3c44f87",
+      "size": 163259,
+      "offset": 163259,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 163259, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "35/7ffe8001.s32",
+      "sha256": "96413373b1e854dbc55b7ae49d2c3aa0db53ea3df966fa5e240d46bd5ff395ce",
+      "size": 151061,
+      "offset": 151061,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 151061, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f333661",
+          "x": 40,
+          "y": 6,
+          "target": 36,
+          "id": 5177136
+        },
+        {
+          "name_hex": "746f333662",
+          "x": 40,
+          "y": 7,
+          "target": 36,
+          "id": 5177138
+        }
+      ]
+    },
+    {
+      "path": "35/7fff8000.s32",
+      "sha256": "1142106b1a2566e85c5fb500f8d1e4ce5f3a83f1ecdab80937c40654c5e4a12f",
+      "size": 145543,
+      "offset": 145543,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 145543, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f333361",
+          "x": 86,
+          "y": 32,
+          "target": 33,
+          "id": 3735472
+        },
+        {
+          "name_hex": "746f333362",
+          "x": 86,
+          "y": 33,
+          "target": 33,
+          "id": 3735474
+        }
+      ]
+    },
+    {
+      "path": "35/7fff8001.s32",
+      "sha256": "3e465686827bbdda35731f468bc3d6e452b8b34e63e535b40d66732bb919fe82",
+      "size": 138360,
+      "offset": 138360,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 138360, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "36/7ffe8000.s32",
+      "sha256": "9e6e71d66c9736343ff3d1d13e21ac416635a65d285c86250283ea21526b0029",
+      "size": 165248,
+      "offset": 165248,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 165248, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "36/7ffe8001.s32",
+      "sha256": "c0eef6f9d7ebdd8fc825196d1bd07ee3ddc019961dc6c8c25e026d5748e74761",
+      "size": 156543,
+      "offset": 156543,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 156543, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f333561",
+          "x": 48,
+          "y": 13,
+          "target": 35,
+          "id": 4652842
+        },
+        {
+          "name_hex": "746f333562",
+          "x": 50,
+          "y": 13,
+          "target": 35,
+          "id": 4718378
+        }
+      ]
+    },
+    {
+      "path": "36/7fff8001.s32",
+      "sha256": "7bb7df5920fa82077d49836b4070d52f1f88b117c930bc2b934b75b50562f5dd",
+      "size": 148323,
+      "offset": 148323,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 148323, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/7ffc8002.s32",
+      "sha256": "d9011937100d931a045990a34518b0c59040e0e0096ac76677284186cbf448dd",
+      "size": 53463,
+      "offset": 53463,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 53463, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/7ffd8002.s32",
+      "sha256": "2684eef6231a12da3f91353174b77ae4877e19102683d521e0c7c7b65cccfa16",
+      "size": 116545,
+      "offset": 116545,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 116545, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/7ffd8003.s32",
+      "sha256": "9973e42d96bebef714cc15c45c82892c01a9d17cab873ab37a5e96875d40557e",
+      "size": 107459,
+      "offset": 107459,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 107459, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/7ffd800b.s32",
+      "sha256": "a6339814daaed61f76c9f5af7997a2ce40b6583d72b8730bebf222ffec57d697",
+      "size": 94399,
+      "offset": 94399,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 94399, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f32335742",
+          "x": 88,
+          "y": 34,
+          "target": 23,
+          "id": 3014574
+        }
+      ]
+    },
+    {
+      "path": "4/7ffe8002.s32",
+      "sha256": "5c003ffcce92a6ef0780698010eae97b4a21bd5c866fb0e4cc7f6ff9903cec8b",
+      "size": 136428,
+      "offset": 136428,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 136428, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/7ffe8003.s32",
+      "sha256": "e1169e0f69a132f7dfc396aff30a98da7e7ffa3f5be6afe2b6ca6ae4db494a73",
+      "size": 129688,
+      "offset": 129688,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 129688, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/7fff8002.s32",
+      "sha256": "fd01e47726701759e33ded649b8d3a50d762acf78821aac501a18f847d41e9f2",
+      "size": 138476,
+      "offset": 138476,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 138476, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f37",
+          "x": 48,
+          "y": 33,
+          "target": 7,
+          "id": -2883496
+        }
+      ]
+    },
+    {
+      "path": "4/7fff8003.s32",
+      "sha256": "fad35928f76b5f766e233b99af63b7555f486008987c02356a00d9e8cb478bd7",
+      "size": 160840,
+      "offset": 160840,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 160840, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/8001800b.s32",
+      "sha256": "9e64a961f35d5a113ee400cdec909699eecd76d51a9d16acebdd6222a8db3151",
+      "size": 80149,
+      "offset": 80149,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 80149, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f3237",
+          "x": 96,
+          "y": 39,
+          "target": 27,
+          "id": 2949198
+        }
+      ]
+    },
+    {
+      "path": "4/80047ffd.s32",
+      "sha256": "51befef7b733ab483a85163c71afc99edb9b7010e43bd30bbd081792f0583260",
+      "size": 150928,
+      "offset": 150928,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150928, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80057ffd.s32",
+      "sha256": "2025b702cd510d6127bee60e18c16127cf1d1a8c046d70204e99f2aa873530f6",
+      "size": 127236,
+      "offset": 127236,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 127236, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80057ffe.s32",
+      "sha256": "b706f2ac1fb1699aa1d65b4773889a1c1b57ddd21cbf27e417081afef31b3858",
+      "size": 152458,
+      "offset": 152458,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 152458, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80067ffc.s32",
+      "sha256": "2ace23abdceecd2f02936068d278376fd3232443f9fb49bbca8c48347f0d5d47",
+      "size": 154664,
+      "offset": 154664,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 154664, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80067ffd.s32",
+      "sha256": "d5afadee95451a9541e2c7c365040518611939fc87f5f660f17b2e661a89be37",
+      "size": 149810,
+      "offset": 149810,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 149810, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80067ffe.s32",
+      "sha256": "4181909abdee062ce3b85eb8a8181107eed93b985f7a46ea59652fccbc9c0137",
+      "size": 159879,
+      "offset": 159879,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 159879, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80068002.s32",
+      "sha256": "4288ede72c62a5cda59cb353b6d5d9b802a11c5a1718e16cb1ab5df43453b365",
+      "size": 152423,
+      "offset": 152423,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 152423, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80068003.s32",
+      "sha256": "c5e8f480cf6211b1c722fb5a9db643bfee4bc3fc471502f87ceca525b80f1801",
+      "size": 157186,
+      "offset": 157186,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 157186, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80068004.s32",
+      "sha256": "c538d35170a119b35aa1e771d435e773a2489ac647b93b59abb417e631785ee9",
+      "size": 115962,
+      "offset": 115962,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 115962, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/8006800b.s32",
+      "sha256": "21ce978681874032d8163614c9bbc08e2f109942f3bb91e708e29258912b19a2",
+      "size": 63753,
+      "offset": 63753,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 63753, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80077ffb.s32",
+      "sha256": "f3649d4c29b736c2fc28a9435b0457a57ced5f7d213bc25c1b6aeaa2c2b54f0f",
+      "size": 65232,
+      "offset": 65232,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 65232, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80077ffc.s32",
+      "sha256": "c8c310fd77a9c8801a4d353f42aca91ab15255a57a257556b323dab7d3535b45",
+      "size": 128711,
+      "offset": 128711,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 128711, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80077ffd.s32",
+      "sha256": "ffb8ce94aaece2abba7dc1285861ba0c08dbd13485aa295ae1b7ebf5d6350336",
+      "size": 129985,
+      "offset": 129985,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 129985, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80077ffe.s32",
+      "sha256": "89f1db5c042d52552aa60c3a6ab0fcd16d87e390adacce54eb5248849a6299c2",
+      "size": 136959,
+      "offset": 136959,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 136959, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80077fff.s32",
+      "sha256": "1f9d9d64f90efd2e419ef0bf33fb35f7b51d897cbc22791c3cc1b04c77277284",
+      "size": 119499,
+      "offset": 119499,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 119499, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80078000.s32",
+      "sha256": "a29176e91fe04969b7c79a93aba4402ad9060388eda5bc68782351985eb7a71d",
+      "size": 122997,
+      "offset": 122997,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 122997, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80078001.s32",
+      "sha256": "1a006b92f258015a4f9c262068e29d41dc60ddcbfd8c1a08366dbfb85f92a05d",
+      "size": 124564,
+      "offset": 124564,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 124564, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80078002.s32",
+      "sha256": "6f55fa49f629e0804d55dee81649368c400fa86c7e0d5330bdac8fa466627a5e",
+      "size": 124312,
+      "offset": 124312,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 124312, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80078003.s32",
+      "sha256": "37818fee12ff0ebea7a90fccad542594ee57cde48fc98b79d62d8a29c0aa5d84",
+      "size": 116697,
+      "offset": 116697,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 116697, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80078004.s32",
+      "sha256": "966bc2bf5ae03f419617d4b8375bceca75c5333cd656a60e2a25951845a94ca5",
+      "size": 110439,
+      "offset": 110439,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 110439, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80078007.s32",
+      "sha256": "d0456d1ab64716d95169dc49d50c199f6079f006c55a556c2d0176f8a2463f15",
+      "size": 73948,
+      "offset": 73948,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 73948, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/8007800b.s32",
+      "sha256": "94d29c4b1a464e848be808f010402696aa776ac639f36de78faf2832cc7a0d16",
+      "size": 49348,
+      "offset": 49348,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49348, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80087ff8.s32",
+      "sha256": "5ada6a8f3a97b2d52df1a685f9b7810858802e5308831d61af7fe3b98165f689",
+      "size": 92392,
+      "offset": 92392,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 92392, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80087ff9.s32",
+      "sha256": "457817ade4497bc0f951c4902d05f0a840f3ab3ee3f35894e18cda0539bcc603",
+      "size": 146227,
+      "offset": 146227,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 146227, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80087ffb.s32",
+      "sha256": "a21f2aef027f7006dd188633bf5b3bc7da4007aecdc4b9a50c85039801bb16db",
+      "size": 62566,
+      "offset": 62566,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 62566, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80087ffc.s32",
+      "sha256": "f228ce905a54f18431e87d19ef600238f17f7179de55912006855b474cc42199",
+      "size": 131636,
+      "offset": 131636,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 131636, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80087ffd.s32",
+      "sha256": "52ca517674f1fb00d76b10e3b2b1e940ab62dad4fc110a16b452ee84ddf484ed",
+      "size": 121598,
+      "offset": 121598,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 121598, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80088000.s32",
+      "sha256": "474955297c3390fc1d4f45bd5e4142524c64b866ab7ae9cbde0c94776017e718",
+      "size": 104329,
+      "offset": 104329,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 104329, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80088002.s32",
+      "sha256": "7d50706cd25fcf5a1088a60b9de4468a72153acb623c1fc137fc303ed9476207",
+      "size": 115119,
+      "offset": 115119,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 115119, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80088003.s32",
+      "sha256": "d6348a7a558e8e03b5bb0f425ca350415ea441c0fe48c1c33a4bcd31770f1757",
+      "size": 131144,
+      "offset": 131144,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 131144, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80088005.s32",
+      "sha256": "2c7586f5921bc3a0a5ebbbb5c294ef1199caf2a3a75a1f95124061ed90fcd86c",
+      "size": 116546,
+      "offset": 116546,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 116546, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80088007.s32",
+      "sha256": "c80e55724f378251d4f5ab291608817dc6ebb4a2803cac018a2953ee49e44c18",
+      "size": 106890,
+      "offset": 106890,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 106890, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80088008.s32",
+      "sha256": "e0cd9adeef7654afa219949e36558db8afe09bdb0cf278bb43b3516d458a4a5e",
+      "size": 118118,
+      "offset": 118118,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 118118, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80088009.s32",
+      "sha256": "71aef3dcd2093376bf487f226adde2b6e9414cf6e19a456c64be7a7c58cab655",
+      "size": 121560,
+      "offset": 121560,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 121560, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/8008800a.s32",
+      "sha256": "b17582c471a987fff462438d7c713ef5bc7d092177d05fd90b1389e739acb2bd",
+      "size": 76238,
+      "offset": 76238,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 76238, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/8008800b.s32",
+      "sha256": "a940670c0078f86f05cffcf2c1861ad74e47a808d5f52ba62b16527f4010baff",
+      "size": 49378,
+      "offset": 49378,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49378, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80097ffc.s32",
+      "sha256": "3888b64437d2631f1e16531ad52a12f0b5819c5dd75c6839a08b05a89175dc3c",
+      "size": 100814,
+      "offset": 100814,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 100814, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80097ffd.s32",
+      "sha256": "f72101148d84cacdf2615f98e6d5c731fef25b657c4c3c28ad152865221b1799",
+      "size": 109414,
+      "offset": 109414,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 109414, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80098002.s32",
+      "sha256": "cdebbc5737977eb06a47520460ce57c5cc0515a0593f935f319706737bf2d606",
+      "size": 90028,
+      "offset": 90028,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 90028, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80098003.s32",
+      "sha256": "496719905ef84a4486592a737266a9c6ea8e43844029cd66dc42359ea9e19bb4",
+      "size": 127605,
+      "offset": 127605,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 127605, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80098004.s32",
+      "sha256": "22c6382393bebd0c06562c11390c30c6a2147c8aad126e4f252017c431aed433",
+      "size": 124589,
+      "offset": 124589,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 124589, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80098005.s32",
+      "sha256": "f0c62b5fea6f7cf2a26847cfca65cd444abb9144f04dc282ddecc64f71686206",
+      "size": 111750,
+      "offset": 111750,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 111750, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80098007.s32",
+      "sha256": "b0f01249a01cdb6583338ee6c78b7cc13cd316660d100802acf605a5a26a6a0a",
+      "size": 162635,
+      "offset": 162635,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 162635, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80098008.s32",
+      "sha256": "79f3cc3696af30b9b16782524b2ccfe4dd7c38031783a5a566ff17cc8f912bab",
+      "size": 124852,
+      "offset": 124852,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 124852, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/80098009.s32",
+      "sha256": "9394ecd40ea9f636725e94321943ab9521703fbb5a95171b53d1e7aaf107f10c",
+      "size": 130780,
+      "offset": 130780,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 130780, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/8009800a.s32",
+      "sha256": "dc038b4160a9ea0852f5cec513cd0cd4abf632bcbe0fa4773f54e0b1f6109693",
+      "size": 136663,
+      "offset": 136663,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 136663, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/8009800b.s32",
+      "sha256": "353352b060521bf7593d77fea24289ec81a8dcc728436ea91b2e346800c3c7ad",
+      "size": 50596,
+      "offset": 50596,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 50596, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800a7ffd.s32",
+      "sha256": "a5817bef47299e49d4d58502e4bfd5028d440d9722be21cd30cb6fdddb0dbe48",
+      "size": 119253,
+      "offset": 119253,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 119253, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800a8002.s32",
+      "sha256": "f700b920e2e863561a207c9c4ed3c306d8883988ce6e5d99557ef1b206b53487",
+      "size": 88174,
+      "offset": 88174,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 88174, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800a8003.s32",
+      "sha256": "e9918c9299a24be6c1b236477af9da64e7949b919168f16f6dd49156aec4ab02",
+      "size": 119129,
+      "offset": 119129,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 119129, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800a8004.s32",
+      "sha256": "80d2d0acfc39da9b129905041eaed1bce8fda0c58699cd489b76ef939790d5c6",
+      "size": 124077,
+      "offset": 124077,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 124077, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800a8005.s32",
+      "sha256": "ebaf380e206fd1f69b5e7544fc7b41e92858becfa4208630239274b9bf2a0c8c",
+      "size": 172527,
+      "offset": 172527,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 172527, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800a8006.s32",
+      "sha256": "2510e8295ced65a0df3b4618ff78cb3fd64bffc57ecfd4729b106fa2fccf2f29",
+      "size": 131674,
+      "offset": 131674,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 131674, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800a8007.s32",
+      "sha256": "e0a40306745dbc70e1033f81270629c3dde47b7d7ef0c49d9cc86c77e13c64a7",
+      "size": 153389,
+      "offset": 153389,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 153389, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800a8008.s32",
+      "sha256": "4b782da20d0c451ba7672cc582acf798f031c17d570f67417d1a4a4f4fe1029f",
+      "size": 167482,
+      "offset": 167482,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 167482, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800a8009.s32",
+      "sha256": "0aec1b4421243908fc6f2cdbda81d520979a45a3ef8e881ca064753db3ef0479",
+      "size": 96565,
+      "offset": 96565,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 96565, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800a800a.s32",
+      "sha256": "2d60eece6351f170278cebeaec2d85adc899f76462f1bd5c20412cfbe7bfaa19",
+      "size": 119504,
+      "offset": 119504,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 119504, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800b8002.s32",
+      "sha256": "a6a5d98fd1b704a0bf4cadbcdab14c8c07ee94d1bd83fe77e90bb52e0ef6f43b",
+      "size": 94792,
+      "offset": 94792,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 94792, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800b8003.s32",
+      "sha256": "b57be9eb9ed4231e2298eb18c1bd6cd4f92375d86d1a9da4aea6a4c44ec25339",
+      "size": 109144,
+      "offset": 109144,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 109144, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800b8004.s32",
+      "sha256": "0921057ea7a9575efbbb5ec2884c6b8d08eec13673cb9719e538a931e8cab69b",
+      "size": 106173,
+      "offset": 106173,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 106173, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800b8005.s32",
+      "sha256": "623f34f7e28bdb11b7591c851eba3cb1944bac000f82d2a9e252fad0a6eae7cd",
+      "size": 146605,
+      "offset": 146605,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 146605, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800B8006.S32",
+      "sha256": "67aa6f69188ccc04460ac39e44d995236bac145f046697c0c71e0e4ee31f17bf",
+      "size": 156387,
+      "offset": 156387,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 156387, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800c7ffd.s32",
+      "sha256": "e2b4dcb5514fe33190a3d1a5a5ef286316c3dc050b66806ee5516624af4f9f72",
+      "size": 119238,
+      "offset": 119238,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 119238, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800c8000.s32",
+      "sha256": "e59df7dd74ae3040b771ba57cc66c4077b8da3b47e1a964b8c4fe2bada785de3",
+      "size": 100130,
+      "offset": 100130,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 100130, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800c8001.s32",
+      "sha256": "56bd9c2243ae648f95865da3acec5e787fc35ea953b4712060b476a6208d6eb8",
+      "size": 96817,
+      "offset": 96817,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 96817, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800c8002.s32",
+      "sha256": "8b8a84dc7294ad275870591bca3ebddbca5b25fd3342c32ae53e0e529eb65598",
+      "size": 89752,
+      "offset": 89752,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 89752, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800c8003.s32",
+      "sha256": "a3c03d7cdd66a762d16b5d29ae8f86c7a5cc95de6590ee03eb6e8150a32836ea",
+      "size": 109130,
+      "offset": 109130,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 109130, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800c8004.s32",
+      "sha256": "669ac734c55853f75fe2853bc56b16fea28593f6a9e76bfce2f551f3458750f5",
+      "size": 117842,
+      "offset": 117842,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117842, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800c8005.s32",
+      "sha256": "e0c3926a73bdc13a056462bae5d0f4dc37ca361cb638be45d176f3dc3dbf9903",
+      "size": 153933,
+      "offset": 153933,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 153933, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800d7ffd.s32",
+      "sha256": "b89052bf9a51b254119bee7cc73d753b7ce7e03e5d134a357f3c3bf15eafde30",
+      "size": 159730,
+      "offset": 159730,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 159730, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800d8000.s32",
+      "sha256": "2dc5f0f6bb8ad0f706ecc3e6cda916ef8a416b399723d03f81cb3e65796519eb",
+      "size": 85829,
+      "offset": 85829,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 85829, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800d8001.s32",
+      "sha256": "69f4f882198eadf35df5b6fd5572ac79cfa45794ca67a1ad968a16a2571c069c",
+      "size": 100627,
+      "offset": 100627,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 100627, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800d8002.s32",
+      "sha256": "f46655bbd4326e43dae6a12cc4f5eba592f93e624df27c0cc9652b6cd86b8903",
+      "size": 110442,
+      "offset": 110442,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 110442, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800d8003.s32",
+      "sha256": "135ef2c8c89e1add3068beed9fe5cbc194a6f69bdbc0840450f6e52d1330e6ae",
+      "size": 111797,
+      "offset": 111797,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 111797, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800d8004.s32",
+      "sha256": "bc79ea23c3ba0443f57f45bff55cce72390d9011c3db50b79c8c21359e143e11",
+      "size": 147158,
+      "offset": 147158,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 147158, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800d8005.s32",
+      "sha256": "15776fcccc194d834b0c4c4642e2fd15a72dd911d536b3d2b09145b3753836e2",
+      "size": 131383,
+      "offset": 131383,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 131383, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800E8009.S32",
+      "sha256": "1afbc175438fc2eabd406ba9188f50dc4475b4c4f696e779988eebe2e8e33696",
+      "size": 98837,
+      "offset": 98837,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 98837, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "4/800F7FF3E.s32",
+      "sha256": "bc79ea23c3ba0443f57f45bff55cce72390d9011c3db50b79c8c21359e143e11",
+      "size": 147158,
+      "offset": 147158,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 147158, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffc7fff.s32",
+      "sha256": "c79dd68dc74d359dd1af2bd8691d62e1d8a6f3c79919d6ba8655103276ba41f9",
+      "size": 67323,
+      "offset": 67323,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 67323, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffc8000.s32",
+      "sha256": "ffea8d1a2200c519f9478459d4293cca99b9527e137ed274bbc3e4743e7769ce",
+      "size": 103080,
+      "offset": 103080,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 103080, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffc8001.s32",
+      "sha256": "c26cb241fd8e8e1f4b310807707e250c8856f4a0997362bacdb0ed835d3f54e4",
+      "size": 82993,
+      "offset": 82993,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 82993, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffc8002.s32",
+      "sha256": "b229a3f117f0fe56a01d5cb57ed692feb3566ce5b698b239393bb8fef115fbac",
+      "size": 150678,
+      "offset": 150678,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150678, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffc8003.s32",
+      "sha256": "95785a11ec6940c7dbb0bf5824f041308d5ecb76a37a5c41a7aa66ed573f7fe0",
+      "size": 132052,
+      "offset": 132052,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 132052, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffd7fff.s32",
+      "sha256": "70a15b17ce566167ea6158eeaaa9da9dd42272b94ea29d5c38875b7f190d3618",
+      "size": 98465,
+      "offset": 98465,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 98465, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffd8000.s32",
+      "sha256": "85ee4b13622cbfbb536fd8aef80979074af6a0a4fad713f2c49f0cbf14baa2db",
+      "size": 131365,
+      "offset": 131365,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 131365, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffd8001.s32",
+      "sha256": "46288e17048461a8e55ebd766347d2fcf2619ca7e9eb384e4da9b5692b1574e7",
+      "size": 249456,
+      "offset": 249456,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 249456, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffd8002.s32",
+      "sha256": "ac4345ce1435b5e46b099ce900c360636b311228692fb3697848f2b1b0c079e6",
+      "size": 222600,
+      "offset": 222600,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 222600, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffd8003.s32",
+      "sha256": "ad5c305a6af8adc5a3e871123ffddec4798a5205b3643f9f44f71bbcb2bf2b69",
+      "size": 143629,
+      "offset": 143629,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 143629, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffe7fff.s32",
+      "sha256": "f2c3f0e84db883740dd66d64e8930f820edbbd6001684be111690e790eb62340",
+      "size": 123230,
+      "offset": 123230,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 123230, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffe8000.s32",
+      "sha256": "d04f8c0a6251c085a7bda28eb99a7d5e7e23b6dd8098d648140e8138ec39c8ee",
+      "size": 106231,
+      "offset": 106231,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 106231, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffe8001.s32",
+      "sha256": "0370ef2435e66ec9866774e98e2508dd5f6a19b7aa26671ab2958826cd6dccdc",
+      "size": 121177,
+      "offset": 121177,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 121177, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffe8002.s32",
+      "sha256": "9df39d19284100b2236ec6a4cf58e53da13812db2afcca868f2c39ba6196a687",
+      "size": 174352,
+      "offset": 174352,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 174352, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7ffe8003.s32",
+      "sha256": "dc44c0aa3d7e7ce98460b41839c6b5f943408034a7362c71140c33bfa71c6172",
+      "size": 88422,
+      "offset": 88422,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 88422, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7fff7fff.s32",
+      "sha256": "6d49d4736b15485cdf535e409aeb5b7a574b3b7ad149ce0d3c3b736f13369d65",
+      "size": 88237,
+      "offset": 88237,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 88237, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7fff8000.s32",
+      "sha256": "edaf24bb43abbd2148bc860a44099ddbaa5f16c1f13bf990bf9f044d7fb0bd06",
+      "size": 175175,
+      "offset": 175175,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 175175, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7fff8001.s32",
+      "sha256": "3d09c0a1d88808d9ad7963d5a23a34f6c2da25be4ecafa3d92a472f36e93976b",
+      "size": 78650,
+      "offset": 78650,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 78650, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7fff8002.s32",
+      "sha256": "e5c4aaf1f584433346357bf6394dc87c6127b5b02ca05d6ce658fa0d7cb83ac0",
+      "size": 106603,
+      "offset": 106603,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 106603, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/7fff8003.s32",
+      "sha256": "598fd1d9ab78172338e531220191636828975ef6c4582f2d966c4fe53943a7e9",
+      "size": 101439,
+      "offset": 101439,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 101439, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/80007fff.s32",
+      "sha256": "477f44af5f6a258faeb29ad552633980bead92d2de1f76ea2ba78f6614d3fc83",
+      "size": 64332,
+      "offset": 64332,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 64332, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/80008000.s32",
+      "sha256": "27a082e31bb29d7e7fef638b0c2879ed2425b50e54832a0960754d66248bea2c",
+      "size": 104242,
+      "offset": 104242,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 104242, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/80008001.s32",
+      "sha256": "effff1a09dee7d29c3a8581c25bddaed869c122b29b970eb39fdfa54d9d3339a",
+      "size": 61283,
+      "offset": 61283,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 61283, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/80008002.s32",
+      "sha256": "d0732dbd5da931b7856704b25c5b2d6ba64b68c9d541c1e8703980e324c995cd",
+      "size": 110114,
+      "offset": 110114,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 110114, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "42/80008003.s32",
+      "sha256": "2a879528b7177d91fbf27094366f54a93a380285016770a6be3cfa643bd09491",
+      "size": 58161,
+      "offset": 58161,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 58161, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "52/7ffe8000.s32",
+      "sha256": "edc434b35d2cc3834b49c9d530fb4b23793d82249fb8da3d3b28a638cf9dad28",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "52/7ffe8001.s32",
+      "sha256": "edc434b35d2cc3834b49c9d530fb4b23793d82249fb8da3d3b28a638cf9dad28",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "52/7fff8001.s32",
+      "sha256": "edc434b35d2cc3834b49c9d530fb4b23793d82249fb8da3d3b28a638cf9dad28",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "53/7fff8000.s32",
+      "sha256": "cf2543877de27d8f6e99877cdb4af6e45c9f61a0a30241cb4f35c71091d7a547",
+      "size": 166553,
+      "offset": 166553,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 166553, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f3534",
+          "x": 56,
+          "y": 19,
+          "target": 54,
+          "id": 1638484
+        }
+      ]
+    },
+    {
+      "path": "53/80007fff.s32",
+      "sha256": "33c64d78c4d4442236f9238a10152f87cc7d28ca7a1f8a617956cef991e71b43",
+      "size": 162932,
+      "offset": 162932,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 162932, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f34474461",
+          "x": 86,
+          "y": 26,
+          "target": 4,
+          "id": 19203136
+        },
+        {
+          "name_hex": "746f34474462",
+          "x": 86,
+          "y": 27,
+          "target": 4,
+          "id": 19268672
+        }
+      ]
+    },
+    {
+      "path": "53/80008000.s32",
+      "sha256": "90b000ae5b946c079644cb59b7b1989fcd3131d6ba71b6aa66968be9eff28be2",
+      "size": 153375,
+      "offset": 153375,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 153375, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "54/7fff7fff.s32",
+      "sha256": "b52caea32ab64c2c92dddf4bb7c62b7ef41627fb1c32aa13fd1705c55cbd3217",
+      "size": 165301,
+      "offset": 165301,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 165301, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "696e50303162",
+          "x": 62,
+          "y": 22,
+          "target": 54,
+          "id": 458716
+        }
+      ]
+    },
+    {
+      "path": "54/7fff8000.s32",
+      "sha256": "c8af2d3cf2cf746683e04f3fba46753bed3bc5c551a5e8a6016f3baeb3dfcc59",
+      "size": 154326,
+      "offset": 154326,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 154326, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "696e50303161",
+          "x": 92,
+          "y": 7,
+          "target": 54,
+          "id": -2687040
+        },
+        {
+          "name_hex": "746f3535",
+          "x": 48,
+          "y": 43,
+          "target": 55,
+          "id": -2555970
+        }
+      ]
+    },
+    {
+      "path": "54/80008000.s32",
+      "sha256": "389cc38d4de85f1fb247494d682fd208386d155170264a223bc3ab9658bbc460",
+      "size": 147997,
+      "offset": 147997,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 147997, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f353361",
+          "x": 86,
+          "y": 25,
+          "target": 53,
+          "id": 1245110
+        },
+        {
+          "name_hex": "746f353362",
+          "x": 86,
+          "y": 26,
+          "target": 53,
+          "id": 1245112
+        }
+      ]
+    },
+    {
+      "path": "55/7fff7fff.s32",
+      "sha256": "d171464460d0a5e51891f66e19c05bc8a71b6087f6d3ad66b91b97995b6291f7",
+      "size": 167641,
+      "offset": 167641,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 167641, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f353461",
+          "x": 62,
+          "y": 23,
+          "target": 54,
+          "id": 2817968
+        },
+        {
+          "name_hex": "746f353462",
+          "x": 64,
+          "y": 23,
+          "target": 54,
+          "id": 2817970
+        }
+      ]
+    },
+    {
+      "path": "55/7fff8000.s32",
+      "sha256": "26e9c5187b2c53afbc2a6de9677a521121db567fbb3fb8c39e6ff6b3da80ba3b",
+      "size": 164695,
+      "offset": 164695,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 164695, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "56/7fff7fff.s32",
+      "sha256": "97ee7749c8db274c2f49ca34200739b8b67c1960c6c853d30b1eac9f165753d8",
+      "size": 165127,
+      "offset": 165127,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 165127, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "56/7fff8000.s32",
+      "sha256": "b3b63d99c6d9683063504e1cb4ca0528dba7d8a2907ee54ff483e321f72cb2b3",
+      "size": 161550,
+      "offset": 161550,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 161550, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "56/80007fff.s32",
+      "sha256": "38d7e4cc990ceb9304311aef4daa2eafbd40624f4155b46e32de4be5fa4f5a4f",
+      "size": 161859,
+      "offset": 161859,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 161859, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f353561",
+          "x": 2,
+          "y": 25,
+          "target": 55,
+          "id": 5701568
+        },
+        {
+          "name_hex": "746f353562",
+          "x": 4,
+          "y": 25,
+          "target": 55,
+          "id": 5701570
+        }
+      ]
+    },
+    {
+      "path": "56/80008000.s32",
+      "sha256": "597b0fa17b1768deeee0d4cbfe920fc607fa2a36dd4b5c7efd785c6b3f7b64ec",
+      "size": 154904,
+      "offset": 154904,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 154904, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7ffd7ffc.s32",
+      "sha256": "f8f2823277bd63aeca6d3cdc432e5e1ef6d7b2de73dd3d7cc618bc6d76c1098f",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7ffd7ffd.s32",
+      "sha256": "c9dad108cc7243a876e613f3e6b2875a6c979678b0ceb7f4e64b275ec532913c",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7ffd7ffe.s32",
+      "sha256": "8793a1cea680ec67caccee5615b5fe57f692457bf79d34596815eab7f1d4916a",
+      "size": 49202,
+      "offset": 49202,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49202, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7ffd7fff.s32",
+      "sha256": "172917f9e6f1220370aff57065ab15e7d183614d55e063b4092ff35459b386a8",
+      "size": 49196,
+      "offset": 49196,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49196, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7ffd8000.s32",
+      "sha256": "afb66ccfb9ebf8f9193850f996eecb8022a581bcb68f298b03eab3c3f0d527c9",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7ffd8001.s32",
+      "sha256": "280ef09755aa4ace41244ab0ed78beb7633d29772287b035ce251b142c8f69a8",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7ffd8002.s32",
+      "sha256": "a0697b0c09b188a4fd2893cf2fd5f34a1f08056732eea548c8d991f832f7e890",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7ffe7ffc.s32",
+      "sha256": "bb81c0a1f7cf9723da3deeda9ef26204b7db997e697f1ca98ab36a7d4d4282ac",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7ffe7ffd.s32",
+      "sha256": "94a4b53ad13cc233311bcdd5befa38ef6726ae567d8cae1a1264cb8bfd90e646",
+      "size": 57960,
+      "offset": 57960,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 57960, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7ffe7ffe.s32",
+      "sha256": "696afce08241e88aace47ca88391fed4a1be4e1e8bc2b8c4807d9199ba75a2d3",
+      "size": 102569,
+      "offset": 102569,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 102569, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7ffe7fff.s32",
+      "sha256": "2d0a5fb8baa96280334a733e8b16e57c6c669f6149c0a98a7b666f11a862789f",
+      "size": 93613,
+      "offset": 93613,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 93613, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7ffe8000.s32",
+      "sha256": "78feb4ce301f396a12b7666dadf0661fc1f60700ca6fa8fc0a8b9d48525daacb",
+      "size": 63590,
+      "offset": 63590,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 63590, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7ffe8001.s32",
+      "sha256": "611eca2f01031a81d6485b593f2ec38ef0216c86bc6d7f9c8e233a02806f548a",
+      "size": 57081,
+      "offset": 57081,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 57081, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7ffe8002.s32",
+      "sha256": "50b250f7bed52292ccf920705ef50b96adb59828e00fa42ede38b71771badae5",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7fff7ffc.s32",
+      "sha256": "bb81c0a1f7cf9723da3deeda9ef26204b7db997e697f1ca98ab36a7d4d4282ac",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7fff7ffd.s32",
+      "sha256": "995002bc9a104ec0d20347dfc6e16d30ebbcf7feb3fd31f2a1539c0991916315",
+      "size": 56123,
+      "offset": 56123,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 56123, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7fff7ffe.s32",
+      "sha256": "fb8bcc06d79cec6a170cbe879ff4922ee82c5b30b6de830e07942b1942dd61f8",
+      "size": 103334,
+      "offset": 103334,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 103334, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7fff7fff.s32",
+      "sha256": "441cfa9efad10850c5146557588cea24e73e8e08b592bdbef9658b1ff6a1ac70",
+      "size": 100648,
+      "offset": 100648,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 100648, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7fff8000.s32",
+      "sha256": "a7d3a972e56253f39216c18bf3d6b6f7b35bc53f0e20c80ea8c19f063b3958d0",
+      "size": 62865,
+      "offset": 62865,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 62865, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7fff8001.s32",
+      "sha256": "a0bab1df84d17c433bb0184646fe36d28d86dd881f510ae88217684c38a6824c",
+      "size": 64553,
+      "offset": 64553,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 64553, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/7fff8002.s32",
+      "sha256": "d47cc2064380a60514680809acce60765947add7baae010a9b11ca87c2b3e80f",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80007ffc.s32",
+      "sha256": "bb81c0a1f7cf9723da3deeda9ef26204b7db997e697f1ca98ab36a7d4d4282ac",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80007ffd.s32",
+      "sha256": "28f02f3328a8ceb531ee11c2f885a3a2b5d43f49338ad9707ccb804cab9ff7cc",
+      "size": 77270,
+      "offset": 77270,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 77270, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80007ffe.s32",
+      "sha256": "287c057c25daba62ebe8dfa67d928371d099c190ad6f13053b91c97e37b16028",
+      "size": 120786,
+      "offset": 120786,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 120786, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80007fff.s32",
+      "sha256": "c45e79573b03ce8f96b6f215d7feb031635db4f20ee749b2029cf6ff615e3eaa",
+      "size": 125179,
+      "offset": 125179,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 125179, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80008001.s32",
+      "sha256": "4db01d1fbd99d802713d749811339c195ca1ef4ca63c3f3ff644057566b58a57",
+      "size": 86859,
+      "offset": 86859,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 86859, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80008002.s32",
+      "sha256": "7aaee33ab466f20f880121de856f4cfcce5e7ad9cdf4fca6db276a2a6f507472",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80017ffc.s32",
+      "sha256": "06c3abb747924293457c964f792dc6b8eb142fd7c8e3848241dc0ad9c7503c2a",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80017ffd.s32",
+      "sha256": "4fb185b3d2c99e0629a4e4e0a088afdbbd496398e84adb0d34938bfd4c300d35",
+      "size": 105914,
+      "offset": 105914,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 105914, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80017ffe.s32",
+      "sha256": "68f2552f8653f5a56d859ce9455de659cc00965c64c1bc8578322601e820e870",
+      "size": 103670,
+      "offset": 103670,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 103670, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80017fff.s32",
+      "sha256": "92ec2e9cf5fdac4ede6b4aca586c1cefedfbc6eb280759a711a238c849d622eb",
+      "size": 92538,
+      "offset": 92538,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 92538, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80018000.s32",
+      "sha256": "f63680897f091fe2ce3ce83ae6c8361a7d3ea35a503d4f4604ec003fac7f4385",
+      "size": 92555,
+      "offset": 92555,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 92555, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80018001.s32",
+      "sha256": "095fedec7a15812d4b38998b942cde880afd741a1e4beb50d4d7431af8058b8e",
+      "size": 77402,
+      "offset": 77402,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 77402, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80018002.s32",
+      "sha256": "a5a4abf9c2def920dd7ed5fb7eaabd43fb2d725d61f10e21921f51b2c98b149a",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80027ffc.s32",
+      "sha256": "8fb5174f27584716a9a858be2bc2cc04453f356894e3ffe4d1bbd4c1700b6587",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80027ffd.s32",
+      "sha256": "bc09d1780e03f1dc966784f1cd315aa63efb6d999c3c9b88205f20ff914a8eab",
+      "size": 90986,
+      "offset": 90986,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 90986, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80027ffe.s32",
+      "sha256": "e4d6a9ebd9d2f75af0f1084bacd1d6726f3981fb0d70761b205dd08908135ea3",
+      "size": 53634,
+      "offset": 53634,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 53634, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80027fff.s32",
+      "sha256": "2a573bbbacc27e700c98f70b8fb279f7117501756b2d01e020619ca7ba84df6f",
+      "size": 49216,
+      "offset": 49216,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49216, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80028000.s32",
+      "sha256": "460908e73cf722127cf8b9c67edc1d18034a10328589f6bbdb9a9e63bb21db3f",
+      "size": 56119,
+      "offset": 56119,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 56119, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80028001.s32",
+      "sha256": "1c292a6138836d3657c0c1306db1fdecccbf171cd5bdad70dd05a20a2cb60cd3",
+      "size": 75328,
+      "offset": 75328,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 75328, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80028002.s32",
+      "sha256": "5078a622739d38a58d24c6a9dc138a7980d5b530c978a188ff3db1996433c8f5",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80037ffc.s32",
+      "sha256": "442de08558c0932bdbb95b975c69cdfe96c2ec7a6fd95142de4199bedaaddc0e",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80037ffd.s32",
+      "sha256": "6ab33271b45b132353be5644d53a601eece65b32ae9371d8043ffd7be415e1e8",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80037ffe.s32",
+      "sha256": "e2ff89f0c0ce46311f95712e4daeae3f62825a02821559e0ad6befd7fc1922e7",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80037fff.s32",
+      "sha256": "7ffc0920070ed7c52d5e0f3919fc270559f6756b7ee6b78cbd319fd5ca70aa47",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80038000.s32",
+      "sha256": "1eb3de7d45173857356fde4192e25cedab1e94c69f41fc6c99584713fd5a1511",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80038001.s32",
+      "sha256": "6eb0904154db9f07cea509651a7e52b4f62c7a476ebdda6b0fa0005909a224fc",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "57/80038002.s32",
+      "sha256": "cfd46b1754aa03925a1934d465cdf31c6807bf8f6404ff13a1767027d4595ecc",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7ffd7ffc.s32",
+      "sha256": "f8f2823277bd63aeca6d3cdc432e5e1ef6d7b2de73dd3d7cc618bc6d76c1098f",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7ffd7ffd.s32",
+      "sha256": "c9dad108cc7243a876e613f3e6b2875a6c979678b0ceb7f4e64b275ec532913c",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7ffd7ffe.s32",
+      "sha256": "8793a1cea680ec67caccee5615b5fe57f692457bf79d34596815eab7f1d4916a",
+      "size": 49202,
+      "offset": 49202,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49202, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7ffd7fff.s32",
+      "sha256": "172917f9e6f1220370aff57065ab15e7d183614d55e063b4092ff35459b386a8",
+      "size": 49196,
+      "offset": 49196,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49196, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7ffd8000.s32",
+      "sha256": "afb66ccfb9ebf8f9193850f996eecb8022a581bcb68f298b03eab3c3f0d527c9",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7ffd8001.s32",
+      "sha256": "280ef09755aa4ace41244ab0ed78beb7633d29772287b035ce251b142c8f69a8",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7ffd8002.s32",
+      "sha256": "a0697b0c09b188a4fd2893cf2fd5f34a1f08056732eea548c8d991f832f7e890",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7ffe7ffc.s32",
+      "sha256": "bb81c0a1f7cf9723da3deeda9ef26204b7db997e697f1ca98ab36a7d4d4282ac",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7ffe7ffd.s32",
+      "sha256": "94a4b53ad13cc233311bcdd5befa38ef6726ae567d8cae1a1264cb8bfd90e646",
+      "size": 57960,
+      "offset": 57960,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 57960, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7ffe7ffe.s32",
+      "sha256": "696afce08241e88aace47ca88391fed4a1be4e1e8bc2b8c4807d9199ba75a2d3",
+      "size": 102569,
+      "offset": 102569,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 102569, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7ffe7fff.s32",
+      "sha256": "2d0a5fb8baa96280334a733e8b16e57c6c669f6149c0a98a7b666f11a862789f",
+      "size": 93613,
+      "offset": 93613,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 93613, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7ffe8000.s32",
+      "sha256": "78feb4ce301f396a12b7666dadf0661fc1f60700ca6fa8fc0a8b9d48525daacb",
+      "size": 63590,
+      "offset": 63590,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 63590, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7ffe8001.s32",
+      "sha256": "611eca2f01031a81d6485b593f2ec38ef0216c86bc6d7f9c8e233a02806f548a",
+      "size": 57081,
+      "offset": 57081,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 57081, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7ffe8002.s32",
+      "sha256": "50b250f7bed52292ccf920705ef50b96adb59828e00fa42ede38b71771badae5",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7fff7ffc.s32",
+      "sha256": "bb81c0a1f7cf9723da3deeda9ef26204b7db997e697f1ca98ab36a7d4d4282ac",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7fff7ffd.s32",
+      "sha256": "995002bc9a104ec0d20347dfc6e16d30ebbcf7feb3fd31f2a1539c0991916315",
+      "size": 56123,
+      "offset": 56123,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 56123, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7fff7ffe.s32",
+      "sha256": "fb8bcc06d79cec6a170cbe879ff4922ee82c5b30b6de830e07942b1942dd61f8",
+      "size": 103334,
+      "offset": 103334,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 103334, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7fff7fff.s32",
+      "sha256": "441cfa9efad10850c5146557588cea24e73e8e08b592bdbef9658b1ff6a1ac70",
+      "size": 100648,
+      "offset": 100648,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 100648, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7fff8000.s32",
+      "sha256": "a7d3a972e56253f39216c18bf3d6b6f7b35bc53f0e20c80ea8c19f063b3958d0",
+      "size": 62865,
+      "offset": 62865,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 62865, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7fff8001.s32",
+      "sha256": "a0bab1df84d17c433bb0184646fe36d28d86dd881f510ae88217684c38a6824c",
+      "size": 64553,
+      "offset": 64553,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 64553, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/7fff8002.s32",
+      "sha256": "d47cc2064380a60514680809acce60765947add7baae010a9b11ca87c2b3e80f",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80007ffc.s32",
+      "sha256": "bb81c0a1f7cf9723da3deeda9ef26204b7db997e697f1ca98ab36a7d4d4282ac",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80007ffd.s32",
+      "sha256": "28f02f3328a8ceb531ee11c2f885a3a2b5d43f49338ad9707ccb804cab9ff7cc",
+      "size": 77270,
+      "offset": 77270,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 77270, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80007ffe.s32",
+      "sha256": "287c057c25daba62ebe8dfa67d928371d099c190ad6f13053b91c97e37b16028",
+      "size": 120786,
+      "offset": 120786,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 120786, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80007fff.s32",
+      "sha256": "c45e79573b03ce8f96b6f215d7feb031635db4f20ee749b2029cf6ff615e3eaa",
+      "size": 125179,
+      "offset": 125179,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 125179, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80008001.s32",
+      "sha256": "4db01d1fbd99d802713d749811339c195ca1ef4ca63c3f3ff644057566b58a57",
+      "size": 86859,
+      "offset": 86859,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 86859, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80008002.s32",
+      "sha256": "7aaee33ab466f20f880121de856f4cfcce5e7ad9cdf4fca6db276a2a6f507472",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80017ffc.s32",
+      "sha256": "06c3abb747924293457c964f792dc6b8eb142fd7c8e3848241dc0ad9c7503c2a",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80017ffd.s32",
+      "sha256": "4fb185b3d2c99e0629a4e4e0a088afdbbd496398e84adb0d34938bfd4c300d35",
+      "size": 105914,
+      "offset": 105914,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 105914, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80017ffe.s32",
+      "sha256": "68f2552f8653f5a56d859ce9455de659cc00965c64c1bc8578322601e820e870",
+      "size": 103670,
+      "offset": 103670,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 103670, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80017fff.s32",
+      "sha256": "92ec2e9cf5fdac4ede6b4aca586c1cefedfbc6eb280759a711a238c849d622eb",
+      "size": 92538,
+      "offset": 92538,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 92538, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80018000.s32",
+      "sha256": "f63680897f091fe2ce3ce83ae6c8361a7d3ea35a503d4f4604ec003fac7f4385",
+      "size": 92555,
+      "offset": 92555,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 92555, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80018001.s32",
+      "sha256": "095fedec7a15812d4b38998b942cde880afd741a1e4beb50d4d7431af8058b8e",
+      "size": 77402,
+      "offset": 77402,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 77402, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80018002.s32",
+      "sha256": "a5a4abf9c2def920dd7ed5fb7eaabd43fb2d725d61f10e21921f51b2c98b149a",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80027ffc.s32",
+      "sha256": "8fb5174f27584716a9a858be2bc2cc04453f356894e3ffe4d1bbd4c1700b6587",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80027ffd.s32",
+      "sha256": "bc09d1780e03f1dc966784f1cd315aa63efb6d999c3c9b88205f20ff914a8eab",
+      "size": 90986,
+      "offset": 90986,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 90986, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80027ffe.s32",
+      "sha256": "e4d6a9ebd9d2f75af0f1084bacd1d6726f3981fb0d70761b205dd08908135ea3",
+      "size": 53634,
+      "offset": 53634,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 53634, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80027fff.s32",
+      "sha256": "2a573bbbacc27e700c98f70b8fb279f7117501756b2d01e020619ca7ba84df6f",
+      "size": 49216,
+      "offset": 49216,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49216, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80028000.s32",
+      "sha256": "460908e73cf722127cf8b9c67edc1d18034a10328589f6bbdb9a9e63bb21db3f",
+      "size": 56119,
+      "offset": 56119,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 56119, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80028001.s32",
+      "sha256": "1c292a6138836d3657c0c1306db1fdecccbf171cd5bdad70dd05a20a2cb60cd3",
+      "size": 75328,
+      "offset": 75328,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 75328, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80028002.s32",
+      "sha256": "5078a622739d38a58d24c6a9dc138a7980d5b530c978a188ff3db1996433c8f5",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80037ffc.s32",
+      "sha256": "442de08558c0932bdbb95b975c69cdfe96c2ec7a6fd95142de4199bedaaddc0e",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80037ffd.s32",
+      "sha256": "6ab33271b45b132353be5644d53a601eece65b32ae9371d8043ffd7be415e1e8",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80037ffe.s32",
+      "sha256": "e2ff89f0c0ce46311f95712e4daeae3f62825a02821559e0ad6befd7fc1922e7",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80037fff.s32",
+      "sha256": "7ffc0920070ed7c52d5e0f3919fc270559f6756b7ee6b78cbd319fd5ca70aa47",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80038000.s32",
+      "sha256": "1eb3de7d45173857356fde4192e25cedab1e94c69f41fc6c99584713fd5a1511",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80038001.s32",
+      "sha256": "6eb0904154db9f07cea509651a7e52b4f62c7a476ebdda6b0fa0005909a224fc",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5701/80038002.s32",
+      "sha256": "cfd46b1754aa03925a1934d465cdf31c6807bf8f6404ff13a1767027d4595ecc",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffc7fff.s32",
+      "sha256": "b04a1f53ff46320e60b6b0a63e232ac7f440873b96f907e917817d1b687ad083",
+      "size": 179915,
+      "offset": 179915,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 179915, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffc8000.s32",
+      "sha256": "e00832cb97dd643f44e692393c4a574b5359675b375399023212aa0d3fc8f39c",
+      "size": 136224,
+      "offset": 136224,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 136224, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffc8001.s32",
+      "sha256": "2a3e5e0c5cd10d8399b687467ed5eee8946deea28505863dcfde56b2080d5e51",
+      "size": 135718,
+      "offset": 135718,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 135718, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffc8002.s32",
+      "sha256": "29472a3f16daf5787d683a3756de9a193a2e39571a5ae5bc6577099040b7950c",
+      "size": 124439,
+      "offset": 124439,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 124439, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffc8003.s32",
+      "sha256": "7832654a05c6aeb964ce696f3c58b4178abd3bfc5dcf73ff8afc8766b18249ce",
+      "size": 101657,
+      "offset": 101657,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 101657, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffd7fff.s32",
+      "sha256": "617535cf8c30fb7cf90cf9578f7333c56c43a274e8881be13423ca12599d2b4d",
+      "size": 113719,
+      "offset": 113719,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 113719, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffd8000.s32",
+      "sha256": "0739b2fc0d8f59d80627717c7974bc54589470ea1a6ba7cef813834bd913ef4b",
+      "size": 105260,
+      "offset": 105260,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 105260, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffd8001.s32",
+      "sha256": "59f08f75180d9f3a5d80f13365917f3d5bf46f2a04bd7328e18af9e7df1cf7ca",
+      "size": 118531,
+      "offset": 118531,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 118531, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffd8002.s32",
+      "sha256": "9bdef0e90d3f4895295c33c993abca6840f1139110c40484da6ca6ba4dd2a71a",
+      "size": 100687,
+      "offset": 100687,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 100687, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffd8003.s32",
+      "sha256": "cdc00b1943887d08bdcd6c0471da77ba0cd5891fa006f6fb7567042c00f21a73",
+      "size": 117561,
+      "offset": 117561,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117561, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffe7fff.s32",
+      "sha256": "4f0b2ee10fe6157b14fdea3be1ed4fbed5a94df6e6e77eed427418827017d19b",
+      "size": 117243,
+      "offset": 117243,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117243, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffe8000.s32",
+      "sha256": "8d1a506b60e08ca596ecdacba7269d7c620d14bc0f9d40dcb9459f882c48e49a",
+      "size": 123084,
+      "offset": 123084,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 123084, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffe8001.s32",
+      "sha256": "0e15b2f27cf12c6e9481fba7f6604312233ae27b45bad3fda4386f577eedb0ed",
+      "size": 133245,
+      "offset": 133245,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 133245, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffe8002.s32",
+      "sha256": "284bc89ca369304f0a692221591c6be842bdde1b7d11148ad99bdc882d78738a",
+      "size": 133702,
+      "offset": 133702,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 133702, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7ffe8003.s32",
+      "sha256": "51303324223be8dcc60deba057bf2737474b7898389358da1e292ab9f4ef6e90",
+      "size": 129212,
+      "offset": 129212,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 129212, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7fff7fff.s32",
+      "sha256": "d78dab37daf73b4bd037fd9105f62d7514de52e33bb989d7ca3adda821f854ed",
+      "size": 117645,
+      "offset": 117645,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117645, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7fff8000.s32",
+      "sha256": "d8a6cfe72da6fb6c460f0c07ada760f99c14e3fb8619e633aa078d4cb03973d0",
+      "size": 99256,
+      "offset": 99256,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 99256, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7fff8001.s32",
+      "sha256": "1751ed11217ceca15298f0a318a14858c1ddfc65908d42db28d53da6272a7231",
+      "size": 154088,
+      "offset": 154088,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 154088, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/7fff8002.s32",
+      "sha256": "5218d7f46ed9106d569ce4fd3647e9559897089399a03a664ed966621de49ec0",
+      "size": 150551,
+      "offset": 150551,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150551, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/80007fff.s32",
+      "sha256": "5e16200218546450500a9240ce7149aabb8509fad1dfca0879186ce86efa9e69",
+      "size": 150234,
+      "offset": 150234,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150234, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/80008000.s32",
+      "sha256": "8a7ea4599e52f3a85e184294991eb83e0388bb1eecb5cf49751d09d30c57ff2e",
+      "size": 156620,
+      "offset": 156620,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 156620, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/80008001.s32",
+      "sha256": "869be5a325342e2b54f0d137abf1b4f96ded35d02b97691210be5e837ec8ac1e",
+      "size": 140275,
+      "offset": 140275,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 140275, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "58/80008002.s32",
+      "sha256": "108b0fbaadf3ef2c3504b8b150b10d0e50d0a0e6bc1a30536e848468ee9de91c",
+      "size": 156480,
+      "offset": 156480,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 156480, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7ffc7fff.s32",
+      "sha256": "b04a1f53ff46320e60b6b0a63e232ac7f440873b96f907e917817d1b687ad083",
+      "size": 179915,
+      "offset": 179915,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 179915, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7ffc8000.s32",
+      "sha256": "e00832cb97dd643f44e692393c4a574b5359675b375399023212aa0d3fc8f39c",
+      "size": 136224,
+      "offset": 136224,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 136224, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7ffc8001.s32",
+      "sha256": "2a3e5e0c5cd10d8399b687467ed5eee8946deea28505863dcfde56b2080d5e51",
+      "size": 135718,
+      "offset": 135718,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 135718, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7ffc8002.s32",
+      "sha256": "29472a3f16daf5787d683a3756de9a193a2e39571a5ae5bc6577099040b7950c",
+      "size": 124439,
+      "offset": 124439,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 124439, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7ffc8003.s32",
+      "sha256": "7832654a05c6aeb964ce696f3c58b4178abd3bfc5dcf73ff8afc8766b18249ce",
+      "size": 101657,
+      "offset": 101657,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 101657, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7ffd7fff.s32",
+      "sha256": "617535cf8c30fb7cf90cf9578f7333c56c43a274e8881be13423ca12599d2b4d",
+      "size": 113719,
+      "offset": 113719,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 113719, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7ffd8000.s32",
+      "sha256": "0739b2fc0d8f59d80627717c7974bc54589470ea1a6ba7cef813834bd913ef4b",
+      "size": 105260,
+      "offset": 105260,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 105260, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7ffd8001.s32",
+      "sha256": "59f08f75180d9f3a5d80f13365917f3d5bf46f2a04bd7328e18af9e7df1cf7ca",
+      "size": 118531,
+      "offset": 118531,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 118531, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7ffd8002.s32",
+      "sha256": "9bdef0e90d3f4895295c33c993abca6840f1139110c40484da6ca6ba4dd2a71a",
+      "size": 100687,
+      "offset": 100687,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 100687, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7ffd8003.s32",
+      "sha256": "cdc00b1943887d08bdcd6c0471da77ba0cd5891fa006f6fb7567042c00f21a73",
+      "size": 117561,
+      "offset": 117561,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117561, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7ffe7fff.s32",
+      "sha256": "4f0b2ee10fe6157b14fdea3be1ed4fbed5a94df6e6e77eed427418827017d19b",
+      "size": 117243,
+      "offset": 117243,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117243, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7ffe8000.s32",
+      "sha256": "8d1a506b60e08ca596ecdacba7269d7c620d14bc0f9d40dcb9459f882c48e49a",
+      "size": 123084,
+      "offset": 123084,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 123084, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7ffe8002.s32",
+      "sha256": "284bc89ca369304f0a692221591c6be842bdde1b7d11148ad99bdc882d78738a",
+      "size": 133702,
+      "offset": 133702,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 133702, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7ffe8003.s32",
+      "sha256": "51303324223be8dcc60deba057bf2737474b7898389358da1e292ab9f4ef6e90",
+      "size": 129212,
+      "offset": 129212,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 129212, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7fff7fff.s32",
+      "sha256": "d78dab37daf73b4bd037fd9105f62d7514de52e33bb989d7ca3adda821f854ed",
+      "size": 117645,
+      "offset": 117645,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117645, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7fff8000.s32",
+      "sha256": "d8a6cfe72da6fb6c460f0c07ada760f99c14e3fb8619e633aa078d4cb03973d0",
+      "size": 99256,
+      "offset": 99256,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 99256, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/7fff8002.s32",
+      "sha256": "5218d7f46ed9106d569ce4fd3647e9559897089399a03a664ed966621de49ec0",
+      "size": 150551,
+      "offset": 150551,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150551, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/80007fff.s32",
+      "sha256": "5e16200218546450500a9240ce7149aabb8509fad1dfca0879186ce86efa9e69",
+      "size": 150234,
+      "offset": 150234,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150234, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/80008000.s32",
+      "sha256": "8a7ea4599e52f3a85e184294991eb83e0388bb1eecb5cf49751d09d30c57ff2e",
+      "size": 156620,
+      "offset": 156620,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 156620, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/80008001.s32",
+      "sha256": "869be5a325342e2b54f0d137abf1b4f96ded35d02b97691210be5e837ec8ac1e",
+      "size": 140275,
+      "offset": 140275,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 140275, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5801/80008002.s32",
+      "sha256": "108b0fbaadf3ef2c3504b8b150b10d0e50d0a0e6bc1a30536e848468ee9de91c",
+      "size": 156480,
+      "offset": 156480,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 156480, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffc7fff.s32",
+      "sha256": "b04a1f53ff46320e60b6b0a63e232ac7f440873b96f907e917817d1b687ad083",
+      "size": 179915,
+      "offset": 179915,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 179915, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffc8000.s32",
+      "sha256": "e00832cb97dd643f44e692393c4a574b5359675b375399023212aa0d3fc8f39c",
+      "size": 136224,
+      "offset": 136224,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 136224, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffc8001.s32",
+      "sha256": "2a3e5e0c5cd10d8399b687467ed5eee8946deea28505863dcfde56b2080d5e51",
+      "size": 135718,
+      "offset": 135718,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 135718, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffc8002.s32",
+      "sha256": "29472a3f16daf5787d683a3756de9a193a2e39571a5ae5bc6577099040b7950c",
+      "size": 124439,
+      "offset": 124439,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 124439, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffc8003.s32",
+      "sha256": "7832654a05c6aeb964ce696f3c58b4178abd3bfc5dcf73ff8afc8766b18249ce",
+      "size": 101657,
+      "offset": 101657,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 101657, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffd7fff.s32",
+      "sha256": "617535cf8c30fb7cf90cf9578f7333c56c43a274e8881be13423ca12599d2b4d",
+      "size": 113719,
+      "offset": 113719,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 113719, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffd8000.s32",
+      "sha256": "0739b2fc0d8f59d80627717c7974bc54589470ea1a6ba7cef813834bd913ef4b",
+      "size": 105260,
+      "offset": 105260,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 105260, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffd8001.s32",
+      "sha256": "59f08f75180d9f3a5d80f13365917f3d5bf46f2a04bd7328e18af9e7df1cf7ca",
+      "size": 118531,
+      "offset": 118531,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 118531, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffd8002.s32",
+      "sha256": "9bdef0e90d3f4895295c33c993abca6840f1139110c40484da6ca6ba4dd2a71a",
+      "size": 100687,
+      "offset": 100687,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 100687, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffd8003.s32",
+      "sha256": "cdc00b1943887d08bdcd6c0471da77ba0cd5891fa006f6fb7567042c00f21a73",
+      "size": 117561,
+      "offset": 117561,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117561, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffe7fff.s32",
+      "sha256": "4f0b2ee10fe6157b14fdea3be1ed4fbed5a94df6e6e77eed427418827017d19b",
+      "size": 117243,
+      "offset": 117243,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117243, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffe8000.s32",
+      "sha256": "8d1a506b60e08ca596ecdacba7269d7c620d14bc0f9d40dcb9459f882c48e49a",
+      "size": 123084,
+      "offset": 123084,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 123084, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffe8001.s32",
+      "sha256": "0e15b2f27cf12c6e9481fba7f6604312233ae27b45bad3fda4386f577eedb0ed",
+      "size": 133245,
+      "offset": 133245,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 133245, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffe8002.s32",
+      "sha256": "284bc89ca369304f0a692221591c6be842bdde1b7d11148ad99bdc882d78738a",
+      "size": 133702,
+      "offset": 133702,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 133702, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7ffe8003.s32",
+      "sha256": "51303324223be8dcc60deba057bf2737474b7898389358da1e292ab9f4ef6e90",
+      "size": 129212,
+      "offset": 129212,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 129212, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7fff7fff.s32",
+      "sha256": "d78dab37daf73b4bd037fd9105f62d7514de52e33bb989d7ca3adda821f854ed",
+      "size": 117645,
+      "offset": 117645,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117645, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7fff8000.s32",
+      "sha256": "d8a6cfe72da6fb6c460f0c07ada760f99c14e3fb8619e633aa078d4cb03973d0",
+      "size": 99256,
+      "offset": 99256,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 99256, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7fff8001.s32",
+      "sha256": "1751ed11217ceca15298f0a318a14858c1ddfc65908d42db28d53da6272a7231",
+      "size": 154088,
+      "offset": 154088,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 154088, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/7fff8002.s32",
+      "sha256": "5218d7f46ed9106d569ce4fd3647e9559897089399a03a664ed966621de49ec0",
+      "size": 150551,
+      "offset": 150551,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150551, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/80007fff.s32",
+      "sha256": "5e16200218546450500a9240ce7149aabb8509fad1dfca0879186ce86efa9e69",
+      "size": 150234,
+      "offset": 150234,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150234, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/80008000.s32",
+      "sha256": "8a7ea4599e52f3a85e184294991eb83e0388bb1eecb5cf49751d09d30c57ff2e",
+      "size": 156620,
+      "offset": 156620,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 156620, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/80008001.s32",
+      "sha256": "869be5a325342e2b54f0d137abf1b4f96ded35d02b97691210be5e837ec8ac1e",
+      "size": 140275,
+      "offset": 140275,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 140275, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5802/80008002.s32",
+      "sha256": "108b0fbaadf3ef2c3504b8b150b10d0e50d0a0e6bc1a30536e848468ee9de91c",
+      "size": 156480,
+      "offset": 156480,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 156480, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffc7fff.s32",
+      "sha256": "b04a1f53ff46320e60b6b0a63e232ac7f440873b96f907e917817d1b687ad083",
+      "size": 179915,
+      "offset": 179915,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 179915, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffc8000.s32",
+      "sha256": "e00832cb97dd643f44e692393c4a574b5359675b375399023212aa0d3fc8f39c",
+      "size": 136224,
+      "offset": 136224,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 136224, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffc8001.s32",
+      "sha256": "2a3e5e0c5cd10d8399b687467ed5eee8946deea28505863dcfde56b2080d5e51",
+      "size": 135718,
+      "offset": 135718,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 135718, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffc8002.s32",
+      "sha256": "29472a3f16daf5787d683a3756de9a193a2e39571a5ae5bc6577099040b7950c",
+      "size": 124439,
+      "offset": 124439,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 124439, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffc8003.s32",
+      "sha256": "7832654a05c6aeb964ce696f3c58b4178abd3bfc5dcf73ff8afc8766b18249ce",
+      "size": 101657,
+      "offset": 101657,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 101657, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffd7fff.s32",
+      "sha256": "617535cf8c30fb7cf90cf9578f7333c56c43a274e8881be13423ca12599d2b4d",
+      "size": 113719,
+      "offset": 113719,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 113719, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffd8000.s32",
+      "sha256": "0739b2fc0d8f59d80627717c7974bc54589470ea1a6ba7cef813834bd913ef4b",
+      "size": 105260,
+      "offset": 105260,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 105260, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffd8001.s32",
+      "sha256": "59f08f75180d9f3a5d80f13365917f3d5bf46f2a04bd7328e18af9e7df1cf7ca",
+      "size": 118531,
+      "offset": 118531,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 118531, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffd8002.s32",
+      "sha256": "9bdef0e90d3f4895295c33c993abca6840f1139110c40484da6ca6ba4dd2a71a",
+      "size": 100687,
+      "offset": 100687,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 100687, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffd8003.s32",
+      "sha256": "cdc00b1943887d08bdcd6c0471da77ba0cd5891fa006f6fb7567042c00f21a73",
+      "size": 117561,
+      "offset": 117561,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117561, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffe7fff.s32",
+      "sha256": "4f0b2ee10fe6157b14fdea3be1ed4fbed5a94df6e6e77eed427418827017d19b",
+      "size": 117243,
+      "offset": 117243,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117243, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffe8000.s32",
+      "sha256": "8d1a506b60e08ca596ecdacba7269d7c620d14bc0f9d40dcb9459f882c48e49a",
+      "size": 123084,
+      "offset": 123084,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 123084, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffe8001.s32",
+      "sha256": "0e15b2f27cf12c6e9481fba7f6604312233ae27b45bad3fda4386f577eedb0ed",
+      "size": 133245,
+      "offset": 133245,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 133245, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffe8002.s32",
+      "sha256": "284bc89ca369304f0a692221591c6be842bdde1b7d11148ad99bdc882d78738a",
+      "size": 133702,
+      "offset": 133702,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 133702, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7ffe8003.s32",
+      "sha256": "51303324223be8dcc60deba057bf2737474b7898389358da1e292ab9f4ef6e90",
+      "size": 129212,
+      "offset": 129212,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 129212, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7fff7fff.s32",
+      "sha256": "d78dab37daf73b4bd037fd9105f62d7514de52e33bb989d7ca3adda821f854ed",
+      "size": 117645,
+      "offset": 117645,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117645, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7fff8000.s32",
+      "sha256": "d8a6cfe72da6fb6c460f0c07ada760f99c14e3fb8619e633aa078d4cb03973d0",
+      "size": 99256,
+      "offset": 99256,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 99256, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7fff8001.s32",
+      "sha256": "1751ed11217ceca15298f0a318a14858c1ddfc65908d42db28d53da6272a7231",
+      "size": 154088,
+      "offset": 154088,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 154088, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/7fff8002.s32",
+      "sha256": "5218d7f46ed9106d569ce4fd3647e9559897089399a03a664ed966621de49ec0",
+      "size": 150551,
+      "offset": 150551,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150551, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/80007fff.s32",
+      "sha256": "5e16200218546450500a9240ce7149aabb8509fad1dfca0879186ce86efa9e69",
+      "size": 150234,
+      "offset": 150234,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150234, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/80008000.s32",
+      "sha256": "8a7ea4599e52f3a85e184294991eb83e0388bb1eecb5cf49751d09d30c57ff2e",
+      "size": 156620,
+      "offset": 156620,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 156620, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/80008001.s32",
+      "sha256": "869be5a325342e2b54f0d137abf1b4f96ded35d02b97691210be5e837ec8ac1e",
+      "size": 140275,
+      "offset": 140275,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 140275, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5803/80008002.s32",
+      "sha256": "108b0fbaadf3ef2c3504b8b150b10d0e50d0a0e6bc1a30536e848468ee9de91c",
+      "size": 156480,
+      "offset": 156480,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 156480, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffc7fff.s32",
+      "sha256": "b04a1f53ff46320e60b6b0a63e232ac7f440873b96f907e917817d1b687ad083",
+      "size": 179915,
+      "offset": 179915,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 179915, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffc8000.s32",
+      "sha256": "e00832cb97dd643f44e692393c4a574b5359675b375399023212aa0d3fc8f39c",
+      "size": 136224,
+      "offset": 136224,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 136224, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffc8001.s32",
+      "sha256": "2a3e5e0c5cd10d8399b687467ed5eee8946deea28505863dcfde56b2080d5e51",
+      "size": 135718,
+      "offset": 135718,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 135718, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffc8002.s32",
+      "sha256": "29472a3f16daf5787d683a3756de9a193a2e39571a5ae5bc6577099040b7950c",
+      "size": 124439,
+      "offset": 124439,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 124439, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffc8003.s32",
+      "sha256": "7832654a05c6aeb964ce696f3c58b4178abd3bfc5dcf73ff8afc8766b18249ce",
+      "size": 101657,
+      "offset": 101657,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 101657, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffd7fff.s32",
+      "sha256": "617535cf8c30fb7cf90cf9578f7333c56c43a274e8881be13423ca12599d2b4d",
+      "size": 113719,
+      "offset": 113719,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 113719, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffd8000.s32",
+      "sha256": "0739b2fc0d8f59d80627717c7974bc54589470ea1a6ba7cef813834bd913ef4b",
+      "size": 105260,
+      "offset": 105260,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 105260, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffd8001.s32",
+      "sha256": "59f08f75180d9f3a5d80f13365917f3d5bf46f2a04bd7328e18af9e7df1cf7ca",
+      "size": 118531,
+      "offset": 118531,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 118531, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffd8002.s32",
+      "sha256": "9bdef0e90d3f4895295c33c993abca6840f1139110c40484da6ca6ba4dd2a71a",
+      "size": 100687,
+      "offset": 100687,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 100687, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffd8003.s32",
+      "sha256": "cdc00b1943887d08bdcd6c0471da77ba0cd5891fa006f6fb7567042c00f21a73",
+      "size": 117561,
+      "offset": 117561,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117561, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffe7fff.s32",
+      "sha256": "4f0b2ee10fe6157b14fdea3be1ed4fbed5a94df6e6e77eed427418827017d19b",
+      "size": 117243,
+      "offset": 117243,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117243, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffe8000.s32",
+      "sha256": "8d1a506b60e08ca596ecdacba7269d7c620d14bc0f9d40dcb9459f882c48e49a",
+      "size": 123084,
+      "offset": 123084,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 123084, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffe8001.s32",
+      "sha256": "0e15b2f27cf12c6e9481fba7f6604312233ae27b45bad3fda4386f577eedb0ed",
+      "size": 133245,
+      "offset": 133245,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 133245, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffe8002.s32",
+      "sha256": "284bc89ca369304f0a692221591c6be842bdde1b7d11148ad99bdc882d78738a",
+      "size": 133702,
+      "offset": 133702,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 133702, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7ffe8003.s32",
+      "sha256": "51303324223be8dcc60deba057bf2737474b7898389358da1e292ab9f4ef6e90",
+      "size": 129212,
+      "offset": 129212,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 129212, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7fff7fff.s32",
+      "sha256": "d78dab37daf73b4bd037fd9105f62d7514de52e33bb989d7ca3adda821f854ed",
+      "size": 117645,
+      "offset": 117645,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117645, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7fff8000.s32",
+      "sha256": "d8a6cfe72da6fb6c460f0c07ada760f99c14e3fb8619e633aa078d4cb03973d0",
+      "size": 99256,
+      "offset": 99256,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 99256, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7fff8001.s32",
+      "sha256": "1751ed11217ceca15298f0a318a14858c1ddfc65908d42db28d53da6272a7231",
+      "size": 154088,
+      "offset": 154088,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 154088, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/7fff8002.s32",
+      "sha256": "5218d7f46ed9106d569ce4fd3647e9559897089399a03a664ed966621de49ec0",
+      "size": 150551,
+      "offset": 150551,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150551, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/80007fff.s32",
+      "sha256": "5e16200218546450500a9240ce7149aabb8509fad1dfca0879186ce86efa9e69",
+      "size": 150234,
+      "offset": 150234,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150234, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/80008000.s32",
+      "sha256": "8a7ea4599e52f3a85e184294991eb83e0388bb1eecb5cf49751d09d30c57ff2e",
+      "size": 156620,
+      "offset": 156620,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 156620, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/80008001.s32",
+      "sha256": "869be5a325342e2b54f0d137abf1b4f96ded35d02b97691210be5e837ec8ac1e",
+      "size": 140275,
+      "offset": 140275,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 140275, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5804/80008002.s32",
+      "sha256": "108b0fbaadf3ef2c3504b8b150b10d0e50d0a0e6bc1a30536e848468ee9de91c",
+      "size": 156480,
+      "offset": 156480,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 156480, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffc7fff.s32",
+      "sha256": "b04a1f53ff46320e60b6b0a63e232ac7f440873b96f907e917817d1b687ad083",
+      "size": 179915,
+      "offset": 179915,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 179915, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffc8000.s32",
+      "sha256": "e00832cb97dd643f44e692393c4a574b5359675b375399023212aa0d3fc8f39c",
+      "size": 136224,
+      "offset": 136224,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 136224, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffc8001.s32",
+      "sha256": "2a3e5e0c5cd10d8399b687467ed5eee8946deea28505863dcfde56b2080d5e51",
+      "size": 135718,
+      "offset": 135718,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 135718, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffc8002.s32",
+      "sha256": "29472a3f16daf5787d683a3756de9a193a2e39571a5ae5bc6577099040b7950c",
+      "size": 124439,
+      "offset": 124439,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 124439, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffc8003.s32",
+      "sha256": "7832654a05c6aeb964ce696f3c58b4178abd3bfc5dcf73ff8afc8766b18249ce",
+      "size": 101657,
+      "offset": 101657,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 101657, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffd7fff.s32",
+      "sha256": "617535cf8c30fb7cf90cf9578f7333c56c43a274e8881be13423ca12599d2b4d",
+      "size": 113719,
+      "offset": 113719,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 113719, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffd8000.s32",
+      "sha256": "0739b2fc0d8f59d80627717c7974bc54589470ea1a6ba7cef813834bd913ef4b",
+      "size": 105260,
+      "offset": 105260,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 105260, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffd8001.s32",
+      "sha256": "59f08f75180d9f3a5d80f13365917f3d5bf46f2a04bd7328e18af9e7df1cf7ca",
+      "size": 118531,
+      "offset": 118531,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 118531, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffd8002.s32",
+      "sha256": "9bdef0e90d3f4895295c33c993abca6840f1139110c40484da6ca6ba4dd2a71a",
+      "size": 100687,
+      "offset": 100687,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 100687, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffd8003.s32",
+      "sha256": "cdc00b1943887d08bdcd6c0471da77ba0cd5891fa006f6fb7567042c00f21a73",
+      "size": 117561,
+      "offset": 117561,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117561, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffe7fff.s32",
+      "sha256": "4f0b2ee10fe6157b14fdea3be1ed4fbed5a94df6e6e77eed427418827017d19b",
+      "size": 117243,
+      "offset": 117243,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117243, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffe8000.s32",
+      "sha256": "8d1a506b60e08ca596ecdacba7269d7c620d14bc0f9d40dcb9459f882c48e49a",
+      "size": 123084,
+      "offset": 123084,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 123084, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffe8001.s32",
+      "sha256": "0e15b2f27cf12c6e9481fba7f6604312233ae27b45bad3fda4386f577eedb0ed",
+      "size": 133245,
+      "offset": 133245,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 133245, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffe8002.s32",
+      "sha256": "284bc89ca369304f0a692221591c6be842bdde1b7d11148ad99bdc882d78738a",
+      "size": 133702,
+      "offset": 133702,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 133702, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7ffe8003.s32",
+      "sha256": "51303324223be8dcc60deba057bf2737474b7898389358da1e292ab9f4ef6e90",
+      "size": 129212,
+      "offset": 129212,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 129212, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7fff7fff.s32",
+      "sha256": "d78dab37daf73b4bd037fd9105f62d7514de52e33bb989d7ca3adda821f854ed",
+      "size": 117645,
+      "offset": 117645,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 117645, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7fff8000.s32",
+      "sha256": "d8a6cfe72da6fb6c460f0c07ada760f99c14e3fb8619e633aa078d4cb03973d0",
+      "size": 99256,
+      "offset": 99256,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 99256, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7fff8001.s32",
+      "sha256": "1751ed11217ceca15298f0a318a14858c1ddfc65908d42db28d53da6272a7231",
+      "size": 154088,
+      "offset": 154088,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 154088, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/7fff8002.s32",
+      "sha256": "5218d7f46ed9106d569ce4fd3647e9559897089399a03a664ed966621de49ec0",
+      "size": 150551,
+      "offset": 150551,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150551, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/80007fff.s32",
+      "sha256": "5e16200218546450500a9240ce7149aabb8509fad1dfca0879186ce86efa9e69",
+      "size": 150234,
+      "offset": 150234,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 150234, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/80008000.s32",
+      "sha256": "8a7ea4599e52f3a85e184294991eb83e0388bb1eecb5cf49751d09d30c57ff2e",
+      "size": 156620,
+      "offset": 156620,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 156620, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/80008001.s32",
+      "sha256": "869be5a325342e2b54f0d137abf1b4f96ded35d02b97691210be5e837ec8ac1e",
+      "size": 140275,
+      "offset": 140275,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 140275, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "5805/80008002.s32",
+      "sha256": "108b0fbaadf3ef2c3504b8b150b10d0e50d0a0e6bc1a30536e848468ee9de91c",
+      "size": 156480,
+      "offset": 156480,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 156480, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "59/7ffe8000.s32",
+      "sha256": "4b749dea9c6499c50d2664a49f56a8c7c15bcc672680107f8652c94f217f4396",
+      "size": 235104,
+      "offset": 235104,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 235104, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "59/7ffe8001.s32",
+      "sha256": "9ed5683efbe1a6b1b46db4868c04ba385d7b0216f7d02cd32017042cebf7c85d",
+      "size": 214637,
+      "offset": 214637,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 214637, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f363061",
+          "x": 46,
+          "y": 35,
+          "target": 60,
+          "id": 5898194
+        }
+      ]
+    },
+    {
+      "path": "59/7fff8000.s32",
+      "sha256": "6e8892c7dfd3130a32af753d41e147147c78f96b4b7388af584ed15cb6d91c05",
+      "size": 241417,
+      "offset": 241417,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 241417, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f346865696e65",
+          "x": 10,
+          "y": 20,
+          "target": 4,
+          "id": 48170678
+        }
+      ]
+    },
+    {
+      "path": "59/7fff8001.s32",
+      "sha256": "a9dd7912c7dc22b93061c2a87d919e0ed5d6fdf12167ab98b5d0cec2d4f702fc",
+      "size": 200140,
+      "offset": 200140,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 200140, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f3632",
+          "x": 86,
+          "y": 19,
+          "target": 62,
+          "id": 4653008
+        }
+      ]
+    },
+    {
+      "path": "61/7ffe8000.s32",
+      "sha256": "b47842c806afee14bee2ee87281e740621ed201973c51eec75bfa9009dbd295e",
+      "size": 211133,
+      "offset": 211133,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 211133, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f3633",
+          "x": 110,
+          "y": 56,
+          "target": 63,
+          "id": 6553676
+        }
+      ]
+    },
+    {
+      "path": "61/7ffe8001.s32",
+      "sha256": "712ed229aad7f1801612fe405a77372104b8010df76edb53daacaafaadd75bcc",
+      "size": 183943,
+      "offset": 183943,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 183943, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "61/7fff8000.s32",
+      "sha256": "c7194bb505df47cbc0657054c6f37e2f2e9a8a8df35ee912c04972d9e58c2770",
+      "size": 196830,
+      "offset": 196830,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 196830, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f3630",
+          "x": 48,
+          "y": 38,
+          "target": 60,
+          "id": 2752386
+        }
+      ]
+    },
+    {
+      "path": "62/7ffe8000.s32",
+      "sha256": "6630889449fafc52f9adba85e6caf0fd62193478a50d861d08ae8858964ed203",
+      "size": 140162,
+      "offset": 140162,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 140162, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "62/7ffe8001.s32",
+      "sha256": "64169f9c1e7eb4d68aaaa45b2d31b7f784d7c364f35455d58e76d0ff742d9453",
+      "size": 119666,
+      "offset": 119666,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 119666, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "63/7ffd7ffe.s32",
+      "sha256": "69bd063b8015827ea7f2c68cbf5d484de0fad8f14ca515edaa8a115ae37b5d2a",
+      "size": 149051,
+      "offset": 149051,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 149051, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "63/7ffd8002.s32",
+      "sha256": "5b4202a740804ede7c7acb7ad3661b84e4e12b340e25361b5d6586a190e38722",
+      "size": 180284,
+      "offset": 180284,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 180284, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "63/7ffe7ffe.s32",
+      "sha256": "d3a2b6f67f43d36815618ae8d37057b9126f37721a652bc0468b980053912274",
+      "size": 153984,
+      "offset": 153984,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 153984, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "63/7ffe7fff.s32",
+      "sha256": "77646742749174efcce0034527751c743df3dd90780e5992f9c8a5b4a3e709cd",
+      "size": 133447,
+      "offset": 133447,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 133447, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "63/7ffe8000.s32",
+      "sha256": "54636510c2a73b8d97524041977283d3c4c271cd12cae686172fea6f6f108b27",
+      "size": 168517,
+      "offset": 168517,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 168517, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "63/7ffe8001.s32",
+      "sha256": "431c22c410cbb55f3a4e5f62f70b04c94d7255ad202c604275b2c3ca987d2de9",
+      "size": 139982,
+      "offset": 139982,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 139982, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "63/7fff7fff.s32",
+      "sha256": "0f747dd177fc5fe077c66b6cf1a658300b780c0bdfec2a5aa44214cd79518b48",
+      "size": 174059,
+      "offset": 174059,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 174059, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "63/7fff8000.s32",
+      "sha256": "290a1eaea806c0dff5e6cbb2965c029a4971d1b864e68cea5e3dfad513877b9c",
+      "size": 211397,
+      "offset": 211397,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 211397, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "63/7fff8001.s32",
+      "sha256": "90c6461e6f38b8bdc4a1dc41d7a995db843afd952058ff985df8ffe439a68601",
+      "size": 169158,
+      "offset": 169158,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 169158, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "63/80008000.s32",
+      "sha256": "3e04ca5a178ee0e545824b5cab73cdc7a18c5a604a3005fb1e65cb9a93e024dd",
+      "size": 181510,
+      "offset": 181510,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 181510, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "63/80017fff.s32",
+      "sha256": "4f63455e89bd36b5ee5dae1b2cec91f889f80e57694bbb83b5fd5ee8babcdbf2",
+      "size": 157456,
+      "offset": 157456,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 157456, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "63/80018000.s32",
+      "sha256": "1a5e06212e398f2ad3ad19adfadb723168b549d26152be4d080f3561b6067652",
+      "size": 166022,
+      "offset": 166022,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 166022, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "63/80018001.s32",
+      "sha256": "38c188eda2ad6cf35a15ee55d8cf1fafae3bb482a3090d2a5d021bab352134cb",
+      "size": 178822,
+      "offset": 178822,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 178822, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "63/80018002.s32",
+      "sha256": "003fd9fd8bb2093e80568a392cd929276160ea07a4e3d211e1b65b907a1f492e",
+      "size": 177850,
+      "offset": 177850,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 177850, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/7ffd7ffc.s32",
+      "sha256": "f8f2823277bd63aeca6d3cdc432e5e1ef6d7b2de73dd3d7cc618bc6d76c1098f",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/7ffd7ffd.s32",
+      "sha256": "c9dad108cc7243a876e613f3e6b2875a6c979678b0ceb7f4e64b275ec532913c",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/7ffd7ffe.s32",
+      "sha256": "8793a1cea680ec67caccee5615b5fe57f692457bf79d34596815eab7f1d4916a",
+      "size": 49202,
+      "offset": 49202,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49202, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/7ffd7fff.s32",
+      "sha256": "172917f9e6f1220370aff57065ab15e7d183614d55e063b4092ff35459b386a8",
+      "size": 49196,
+      "offset": 49196,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49196, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/7ffd8000.s32",
+      "sha256": "afb66ccfb9ebf8f9193850f996eecb8022a581bcb68f298b03eab3c3f0d527c9",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/7ffd8001.s32",
+      "sha256": "280ef09755aa4ace41244ab0ed78beb7633d29772287b035ce251b142c8f69a8",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/7ffd8002.s32",
+      "sha256": "a0697b0c09b188a4fd2893cf2fd5f34a1f08056732eea548c8d991f832f7e890",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/7ffe7ffc.s32",
+      "sha256": "bb81c0a1f7cf9723da3deeda9ef26204b7db997e697f1ca98ab36a7d4d4282ac",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/7ffe8002.s32",
+      "sha256": "50b250f7bed52292ccf920705ef50b96adb59828e00fa42ede38b71771badae5",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/7fff7ffc.s32",
+      "sha256": "bb81c0a1f7cf9723da3deeda9ef26204b7db997e697f1ca98ab36a7d4d4282ac",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/7fff8002.s32",
+      "sha256": "d47cc2064380a60514680809acce60765947add7baae010a9b11ca87c2b3e80f",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/80007ffc.s32",
+      "sha256": "bb81c0a1f7cf9723da3deeda9ef26204b7db997e697f1ca98ab36a7d4d4282ac",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/80008002.s32",
+      "sha256": "7aaee33ab466f20f880121de856f4cfcce5e7ad9cdf4fca6db276a2a6f507472",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/80027ffc.s32",
+      "sha256": "8fb5174f27584716a9a858be2bc2cc04453f356894e3ffe4d1bbd4c1700b6587",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/80037ffc.s32",
+      "sha256": "442de08558c0932bdbb95b975c69cdfe96c2ec7a6fd95142de4199bedaaddc0e",
+      "size": 49188,
+      "offset": 49188,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49188, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "68/80038002.s32",
+      "sha256": "cfd46b1754aa03925a1934d465cdf31c6807bf8f6404ff13a1767027d4595ecc",
+      "size": 49172,
+      "offset": 49172,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 49172, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "7/7fff7fff.s32",
+      "sha256": "41d3b4d9e8a12bd4282106089c9762ea48456590a4c9b8c1282e470d3ecccd34",
+      "size": 174359,
+      "offset": 174359,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 174359, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "7/7fff8000.s32",
+      "sha256": "fffd52227de97f3149ab36249d1e4aa66c73b6ddee80779173c365e0588aa787",
+      "size": 169290,
+      "offset": 169290,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 169290, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f38",
+          "x": 72,
+          "y": 39,
+          "target": 8,
+          "id": 2031580
+        }
+      ]
+    },
+    {
+      "path": "7/tempseg.s32",
+      "sha256": "fffd52227de97f3149ab36249d1e4aa66c73b6ddee80779173c365e0588aa787",
+      "size": 169290,
+      "offset": 169290,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 169290, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f38",
+          "x": 72,
+          "y": 39,
+          "target": 8,
+          "id": 2031580
+        }
+      ]
+    },
+    {
+      "path": "9/7fff7fff.s32",
+      "sha256": "07b72c5b482de854ec36cbc67c23ff4d21f1a0f004b404673b0d3dbb228be2f2",
+      "size": 178333,
+      "offset": 178333,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 178333, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "9/7fff8000.s32",
+      "sha256": "aab2c53be2101a56b99f24e0f326e28a5e971750659924fb02fecd67798b1734",
+      "size": 179936,
+      "offset": 179936,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 179936, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    },
+    {
+      "path": "9/80007fff.s32",
+      "sha256": "ec7c4d40558758e223855fdec6d6e6692c4eb3e7a6fa9ba1fad0259fb20ec10e",
+      "size": 176591,
+      "offset": 176591,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 176591, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": [
+        {
+          "name_hex": "746f3130",
+          "x": 6,
+          "y": 61,
+          "target": 10,
+          "id": 393208
+        },
+        {
+          "name_hex": "746f38",
+          "x": 68,
+          "y": 50,
+          "target": 8,
+          "id": -2621386
+        }
+      ]
+    },
+    {
+      "path": "9/80008000.s32",
+      "sha256": "1fe620f367bcf89504a50a053fc2fe3fc87694908da03f176214e430e333eb32",
+      "size": 166306,
+      "offset": 166306,
+      "remaining": 0,
+      "lastSection": "effects",
+      "error": "truncated at 166306, need 2",
+      "profileStatus": "unresolved-format-variant",
+      "portals": []
+    }
+  ]
+}

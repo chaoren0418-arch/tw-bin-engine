@@ -1,0 +1,292 @@
+{
+  "status": "pass",
+  "distinctCases": 11,
+  "sourcePinsUnchanged": 58,
+  "cases": [
+    {
+      "id": "early-partial-0-0-s0",
+      "passAll": true,
+      "checks": {
+        "initial counts": true,
+        "wire-0": true,
+        "assertions all true": true,
+        "admit pending only": true,
+        "authoritative quantity survives": true,
+        "early receipt clears pending with exact heading": true,
+        "completion preserves new presentation": true,
+        "one real admit and completion event": true,
+        "receipt precedes completion": true,
+        "finished after authoritative data": true
+      },
+      "eventCounts": {
+        "syntheticPackets": 10,
+        "gateCalled": 1,
+        "admitted": 1,
+        "GroundSent": 1,
+        "snapshots": 9
+      }
+    },
+    {
+      "id": "early-partial-2796-20-s0",
+      "passAll": true,
+      "checks": {
+        "initial counts": true,
+        "wire-0": true,
+        "assertions all true": true,
+        "admit pending only": true,
+        "authoritative quantity survives": true,
+        "early receipt clears pending with exact heading": true,
+        "completion preserves new presentation": true,
+        "one real admit and completion event": true,
+        "receipt precedes completion": true,
+        "finished after authoritative data": true,
+        "rapid repeat preserves lease": true
+      },
+      "eventCounts": {
+        "syntheticPackets": 10,
+        "gateCalled": 1,
+        "admitted": 1,
+        "GroundSent": 1,
+        "snapshots": 10
+      }
+    },
+    {
+      "id": "early-partial-2796-20-s1",
+      "passAll": true,
+      "checks": {
+        "initial counts": true,
+        "wire-0": true,
+        "assertions all true": true,
+        "admit pending only": true,
+        "authoritative quantity survives": true,
+        "early receipt clears pending with exact heading": true,
+        "completion preserves new presentation": true,
+        "one real admit and completion event": true,
+        "receipt precedes completion": true,
+        "finished after authoritative data": true
+      },
+      "eventCounts": {
+        "syntheticPackets": 10,
+        "gateCalled": 1,
+        "admitted": 1,
+        "GroundSent": 1,
+        "snapshots": 9
+      }
+    },
+    {
+      "id": "early-delete-add-6658-4-s1",
+      "passAll": true,
+      "checks": {
+        "initial counts": true,
+        "wire-0": true,
+        "assertions all true": true,
+        "admit pending only": true,
+        "authoritative quantity survives": true,
+        "early receipt clears pending with exact heading": true,
+        "completion preserves new presentation": true,
+        "one real admit and completion event": true,
+        "receipt precedes completion": true,
+        "finished after authoritative data": true
+      },
+      "eventCounts": {
+        "syntheticPackets": 10,
+        "gateCalled": 1,
+        "admitted": 1,
+        "GroundSent": 1,
+        "snapshots": 9
+      }
+    },
+    {
+      "id": "pre-admit-selection",
+      "passAll": true,
+      "checks": {
+        "initial counts": true,
+        "wire-0": true,
+        "assertions all true": true,
+        "refused validation": true,
+        "no admitted send": true,
+        "preserved quantities": true,
+        "new valid receipt": true
+      },
+      "eventCounts": {
+        "syntheticPackets": 9,
+        "gateCalled": 1,
+        "admitted": 0,
+        "GroundSent": 0,
+        "snapshots": 4
+      }
+    },
+    {
+      "id": "pre-admit-speed",
+      "passAll": true,
+      "checks": {
+        "initial counts": true,
+        "wire-0": true,
+        "assertions all true": true,
+        "refused validation": true,
+        "no admitted send": true,
+        "preserved quantities": true,
+        "new valid receipt": true
+      },
+      "eventCounts": {
+        "syntheticPackets": 10,
+        "gateCalled": 1,
+        "admitted": 0,
+        "GroundSent": 0,
+        "snapshots": 4
+      }
+    },
+    {
+      "id": "pre-admit-appearance",
+      "passAll": true,
+      "checks": {
+        "initial counts": true,
+        "wire-0": true,
+        "assertions all true": true,
+        "refused validation": true,
+        "no admitted send": true,
+        "preserved quantities": true,
+        "new valid receipt": true
+      },
+      "eventCounts": {
+        "syntheticPackets": 10,
+        "gateCalled": 1,
+        "admitted": 0,
+        "GroundSent": 0,
+        "snapshots": 4
+      }
+    },
+    {
+      "id": "post-admit-revisions",
+      "passAll": true,
+      "checks": {
+        "initial counts": true,
+        "wire-0": true,
+        "assertions all true": true,
+        "revision changed": true,
+        "owner-only completion": true,
+        "new profile and serial": true,
+        "quantity preserved": true
+      },
+      "eventCounts": {
+        "syntheticPackets": 13,
+        "gateCalled": 1,
+        "admitted": 1,
+        "GroundSent": 1,
+        "snapshots": 4
+      }
+    },
+    {
+      "id": "teleport-old-completion",
+      "passAll": true,
+      "checks": {
+        "initial counts": true,
+        "wire-0": true,
+        "assertions all true": true,
+        "teleport cancels": true,
+        "stale completion no GroundSent": true,
+        "new world preserved": true
+      },
+      "eventCounts": {
+        "syntheticPackets": 16,
+        "gateCalled": 1,
+        "admitted": 1,
+        "GroundSent": 0,
+        "snapshots": 5
+      }
+    },
+    {
+      "id": "real-deadline-recovery",
+      "passAll": true,
+      "checks": {
+        "initial counts": true,
+        "wire-0": true,
+        "wire-1": true,
+        "assertions all true": true,
+        "real900 with pending": true,
+        "real3000 retains pending Busy": true,
+        "independent clocks": true,
+        "no imaginary amounts": true,
+        "late own receipt clears": true,
+        "cancel clears state": true,
+        "only explicit second send": true
+      },
+      "eventCounts": {
+        "syntheticPackets": 10,
+        "gateCalled": 2,
+        "admitted": 2,
+        "GroundSent": 2,
+        "snapshots": 11
+      }
+    },
+    {
+      "id": "real-900-guard-without-pending",
+      "passAll": true,
+      "checks": {
+        "initial counts": true,
+        "wire-0": true,
+        "assertions all true": true,
+        "guard independently Busy": true,
+        "real900 naturally releases": true,
+        "no resend or prediction": true
+      },
+      "eventCounts": {
+        "syntheticPackets": 8,
+        "gateCalled": 1,
+        "admitted": 1,
+        "GroundSent": 1,
+        "snapshots": 4
+      }
+    }
+  ],
+  "commandReceipts": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1\\runs\\build-01\\command.json",
+      "sha256": "a6aacfcb44c579c89b601cc55c9d138270c56b91c491daadf6f6e8d5f007ab5c",
+      "exitCode": 0,
+      "mode": "build"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1\\runs\\build-02\\command.json",
+      "sha256": "3fea52441835eb4115d8f0ee094b3b9f5186280c70cf2befcb996c405cfb2020",
+      "exitCode": 0,
+      "mode": "build"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1\\runs\\build-03\\command.json",
+      "sha256": "3946aba9fe6af222b57f75c301d522c18afbdd62755904e666c77ba7b4c5a6c7",
+      "exitCode": 0,
+      "mode": "build"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1\\runs\\runtime-01\\command.json",
+      "sha256": "abd151358def6ca1ddc72effdac0a4be4c25ea9a702d64b88549871c04d0697d",
+      "exitCode": 0,
+      "mode": "runtime"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1\\runs\\runtime-02\\command.json",
+      "sha256": "1bc80ba8fc5f6efcb72e254f417b63a107f6de952d79ea50debebd19162cbeb4",
+      "exitCode": 0,
+      "mode": "runtime"
+    }
+  ],
+  "negativeControls": [
+    {
+      "kind": "authority-count",
+      "mutatedRawCopyRejected": true,
+      "productChanged": false
+    },
+    {
+      "kind": "GroundSent",
+      "mutatedRawCopyRejected": true,
+      "productChanged": false
+    },
+    {
+      "kind": "pending-timeout",
+      "mutatedRawCopyRejected": true,
+      "productChanged": false
+    }
+  ],
+  "negativeControlsNotProductCases": true
+}

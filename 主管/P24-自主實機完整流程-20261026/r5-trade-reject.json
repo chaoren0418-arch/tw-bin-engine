@@ -1,0 +1,94 @@
+{
+  "utc": "2026-10-26T11:00:12.390Z",
+  "main": {
+    "canInvite": true,
+    "facingName": "透明觀察乙",
+    "inventory": [
+      {
+        "count": 1,
+        "id": 10323,
+        "name": "在線禮包"
+      },
+      {
+        "count": 2,
+        "id": 1900241021,
+        "name": "白色藥水"
+      },
+      {
+        "count": 3,
+        "id": 1900241022,
+        "name": "金幣"
+      },
+      {
+        "count": 1,
+        "id": 1900241023,
+        "name": "鑑定卷軸"
+      },
+      {
+        "count": 8,
+        "id": 1900241024,
+        "name": "肉"
+      },
+      {
+        "count": 1,
+        "id": 1900241026,
+        "name": "+0 雙手劍"
+      },
+      {
+        "count": 1,
+        "id": 1900241029,
+        "name": "+0 弓"
+      },
+      {
+        "count": 79,
+        "id": 1900241030,
+        "name": "箭"
+      }
+    ],
+    "inventoryRevision": 15,
+    "model": {
+      "canAccept": false,
+      "canAdd": false,
+      "canCancel": false,
+      "canConfirm": false,
+      "canReject": false,
+      "challenge": 0,
+      "epoch": 3,
+      "generation": 4,
+      "notice": "原服回報對方拒絕交易。",
+      "offers": [],
+      "ownConfirmed": false,
+      "peer": "透明觀察乙",
+      "peerId": 1900240006,
+      "revision": 5,
+      "state": "cancelled"
+    },
+    "notice": "原服回報對方拒絕交易。",
+    "offers": []
+  },
+  "peer": {
+    "canInvite": true,
+    "facingName": "透明王子乙",
+    "inventory": [],
+    "inventoryRevision": 3,
+    "model": {
+      "canAccept": false,
+      "canAdd": false,
+      "canCancel": false,
+      "canConfirm": false,
+      "canReject": false,
+      "challenge": 2,
+      "epoch": 3,
+      "generation": 4,
+      "notice": "拒絕已送出；本次沒有開啟交易。原服不另回傳拒絕方狀態。",
+      "offers": [],
+      "ownConfirmed": false,
+      "peer": "透明王子乙",
+      "peerId": 1900240002,
+      "revision": 5,
+      "state": "cancelled"
+    },
+    "notice": "拒絕已送出；本次沒有開啟交易。原服不另回傳拒絕方狀態。",
+    "offers": []
+  }
+}

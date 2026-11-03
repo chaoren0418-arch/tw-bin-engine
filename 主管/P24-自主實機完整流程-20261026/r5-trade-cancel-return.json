@@ -1,0 +1,120 @@
+{
+  "utc": "2026-10-26T11:00:41.621Z",
+  "mainTrade": {
+    "canInvite": true,
+    "facingName": "透明觀察乙",
+    "inventory": [
+      {
+        "count": 1,
+        "id": 10323,
+        "name": "在線禮包"
+      },
+      {
+        "count": 2,
+        "id": 1900241021,
+        "name": "白色藥水"
+      },
+      {
+        "count": 3,
+        "id": 1900241022,
+        "name": "金幣"
+      },
+      {
+        "count": 1,
+        "id": 1900241023,
+        "name": "鑑定卷軸"
+      },
+      {
+        "count": 8,
+        "id": 1900241024,
+        "name": "肉"
+      },
+      {
+        "count": 1,
+        "id": 1900241026,
+        "name": "+0 雙手劍"
+      },
+      {
+        "count": 1,
+        "id": 1900241029,
+        "name": "+0 弓"
+      },
+      {
+        "count": 79,
+        "id": 1900241030,
+        "name": "箭"
+      }
+    ],
+    "inventoryRevision": 17,
+    "model": {
+      "canAccept": false,
+      "canAdd": false,
+      "canCancel": false,
+      "canConfirm": false,
+      "canReject": false,
+      "challenge": 0,
+      "epoch": 3,
+      "generation": 6,
+      "notice": "原服回報交易取消／拒絕；請核對返還的物品。",
+      "offers": [
+        {
+          "bless": 1,
+          "icon": 124,
+          "name": "$23",
+          "side": 0
+        }
+      ],
+      "ownConfirmed": false,
+      "peer": "透明觀察乙",
+      "peerId": 1900240006,
+      "revision": 12,
+      "state": "cancelled"
+    },
+    "notice": "原服回報交易取消／拒絕；請核對返還的物品。",
+    "offers": [
+      {
+        "name": "肉",
+        "side": 0
+      }
+    ]
+  },
+  "peerTrade": {
+    "canInvite": true,
+    "facingName": "透明王子乙",
+    "inventory": [],
+    "inventoryRevision": 3,
+    "model": {
+      "canAccept": false,
+      "canAdd": false,
+      "canCancel": false,
+      "canConfirm": false,
+      "canReject": false,
+      "challenge": 3,
+      "epoch": 3,
+      "generation": 6,
+      "notice": "原服回報交易取消／拒絕；請核對返還的物品。",
+      "offers": [
+        {
+          "bless": 1,
+          "icon": 124,
+          "name": "$23",
+          "side": 1
+        }
+      ],
+      "ownConfirmed": false,
+      "peer": "透明王子乙",
+      "peerId": 1900240002,
+      "revision": 11,
+      "state": "cancelled"
+    },
+    "notice": "原服回報交易取消／拒絕；請核對返還的物品。",
+    "offers": [
+      {
+        "name": "肉",
+        "side": 1
+      }
+    ]
+  },
+  "mainInventory": "缺圖\n在線禮包 × 1\n此道具的使用尚未支援\n白色藥水 × 2\n可單次使用；滿血仍會消耗\n金幣 × 3\n此道具的使用尚未支援\n鑑定卷軸 × 1\n此道具的使用尚未支援\n肉 × 8\n此道具的使用尚未支援\n+0 長劍 (揮舞) × 1\n已裝備；可單次卸下\n+0 雙手劍 × 1\n未裝備；可單次穿上\n+0 環甲 (使用中) × 1\n已裝備；可單次卸下\n+0 木盾 (使用中) × 1\n已裝備；可單次卸下\n+0 弓 × 1\n未裝備；可單次穿上\n箭 × 79\n有限箭矢；原服射擊消耗，數量以回包為準",
+  "peerInventory": ""
+}

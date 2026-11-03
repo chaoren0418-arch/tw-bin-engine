@@ -1,0 +1,50 @@
+{
+  "schema": "p36-final-review-source-seal-v1",
+  "files": [
+    {
+      "path": "audit_core-initial.py",
+      "size": 12738,
+      "sha256": "14e6ae8824171e0a41c2564eba823933df07d7c3006a4c3d11e0f002124981ce"
+    },
+    {
+      "path": "audit_core.py",
+      "size": 12827,
+      "sha256": "8105cde4f181001a176fbca9c382dd9a97ed3a90361ff4f72ffcb5ed401521eb"
+    },
+    {
+      "path": "final-pins.json",
+      "size": 927,
+      "sha256": "f220ef98bd5dff704e486a19194bcc84878cd064110b6440110981653936e455"
+    },
+    {
+      "path": "finalize_plan_review.py",
+      "size": 10427,
+      "sha256": "10aa0865b33c2b3c990c958f2d2776cea932ab9e48d2ccb733ad5284ce023a93"
+    },
+    {
+      "path": "read_binlog.ps1",
+      "size": 3293,
+      "sha256": "e7a22e7467be456a93af74fa02c329fd6d54ce8fa7d5908a12975ac797fb68b4"
+    },
+    {
+      "path": "read_core_binlog.py",
+      "size": 3465,
+      "sha256": "ddf34d6e9925b8cb7c68057c3af5dccf40a9aa2f243de9f0fe4348f589640819"
+    },
+    {
+      "path": "run_recorded.py",
+      "size": 1304,
+      "sha256": "2bc21a186fffb94200913d3451966990947a12ff5aa1f51580a7252344d2be57"
+    },
+    {
+      "path": "seal_review.py",
+      "size": 1241,
+      "sha256": "81f4dcb7bfd26aa63853b952d450f6a0c815aa4c756fc909c5c2b26870e293f6"
+    },
+    {
+      "path": "verify_delivery.py",
+      "size": 1474,
+      "sha256": "6652c0fbced9acd99d7adca52c8a3dc9fcdb4e4608e77a0486ec185b5a1f6a32"
+    }
+  ]
+}

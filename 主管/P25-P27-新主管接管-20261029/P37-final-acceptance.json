@@ -1,0 +1,93 @@
+{
+  "schema": "p37-root-final-inventory-acceptance-v1",
+  "utc": "2026-10-29T09:19:46.030567+00:00",
+  "decision": "accepted-p37-bound-inventory-only",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "P36Acceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-final-acceptance.json",
+    "size": 3382,
+    "sha256": "76145832e5865fad75741450f53500cfad455aa73507bb0a75709c35a86e1e17"
+  },
+  "executionAuthority": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P37-inventory-only-acceptance-r1.json",
+    "size": 1455,
+    "sha256": "4c0236f33250cf63c5789af0586e4e9992b960e7841cf483da86c6fa89d2377d"
+  },
+  "authorSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-execution-r1\\artifact-seal.json",
+    "size": 705,
+    "sha256": "5a6dee83c3ed2a0fdc856b40703f6db517f1920b4997ebe62e4f2812a2a466c0"
+  },
+  "rawInventory": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-execution-r1\\inventory.stdout.json",
+    "size": 58242,
+    "sha256": "2bb58c3c48b576a213c05f5a9b2835e5f2ed4b717afe8fbbe8719009780bc778"
+  },
+  "command": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-execution-r1\\command.json",
+    "size": 1271,
+    "sha256": "6b90c34810d8740d211bd8c1974f940848135024b83c6cb3c32069d14d047646"
+  },
+  "independentReview": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-review-r1\\result.json",
+    "size": 4065,
+    "sha256": "2a8ad4254cc81d7796e22a7621941883cff19f4cb243c470f9642ad7aca33be7"
+  },
+  "independentReviewSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-review-r1\\artifact-seal.json",
+    "size": 413,
+    "sha256": "a4113e830ec66b160a361969173a343cb4f027ac181f3ae0fa4107aca9c18d10"
+  },
+  "reviewFilesVerified": 18,
+  "rootPriorMaterialReview": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P37-root-preliminary-review.json",
+    "size": 743,
+    "sha256": "0adfce16fa8a625332e755f94011b3b7f9c47e60e8fa98ed7c4186a66c958d97"
+  },
+  "rows": 210,
+  "categories": {
+    "source": 181,
+    "build": 15,
+    "productManifest": 1,
+    "inheritedLauncher": 4,
+    "evidence": 9
+  },
+  "fourIdentities": {
+    "productDllSha256": {
+      "path": "build/client-product-p36-r1/P11.ClientEngine.dll",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1\\P11.ClientEngine.dll",
+      "size": 4925440,
+      "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+    },
+    "audioDllSha256": {
+      "path": "build/client-product-p36-r1/P24.Audio.dll",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1\\P24.Audio.dll",
+      "size": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    "productManifestSha256": {
+      "path": "build/product-p36-r1-manifest.json",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-p36-r1-manifest.json",
+      "size": 4715,
+      "sha256": "d55389e048aee9eb2b64088ddfb0128de6166071e21969bd1dd57b9464d9ce75"
+    },
+    "launcherDllSha256": {
+      "path": "launcher/P24.Launcher.dll",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\launcher\\P24.Launcher.dll",
+      "size": 24064,
+      "sha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8"
+    }
+  },
+  "protectedPinsUnchanged": 33,
+  "toolRepair": "P35 manifest inclusion retained; P37-F1 inputDocuments validation corrected in r2 and independently accepted",
+  "inventoryInvocations": 1,
+  "reviewerInventoryInvocations": 0,
+  "builds": 0,
+  "runtimeRuns": 0,
+  "fullReleaseAccepted": false,
+  "launcherUsabilityAccepted": false,
+  "nativeAccepted": false,
+  "formalEntry": "r33",
+  "entryActivated": false,
+  "wholeProjectComplete": false
+}

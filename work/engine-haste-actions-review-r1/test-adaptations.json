@@ -1,0 +1,658 @@
+{
+  "originalSuite": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-actions-review-r1\\candidate-review-r1\\candidate-probe.json",
+  "originalSuiteSha256": "9f3a825c6549ca77d55296f63d6ee48eb43efac906423fbc088366decb0d9e65",
+  "originalChecks": 976,
+  "oldProgramSha256": "238af387388ee88be843f8f0da781bf9111f32d7566cc1cf19decf6080625967",
+  "oldExtraSha256": "745b3d1c7bb7ae699b0477a5a4c185f29a27069d9fd4f6bad7588f465d77176d",
+  "retainedCheckNames": 976,
+  "changedExpectationCount": 156,
+  "unchangedExpectationCount": 820,
+  "changedExpectations": [
+    {
+      "assertion": "request-1-0-0",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-0-1",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-0-3",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-0-4",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-0-8",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-4-0",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-4-1",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-4-3",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-4-4",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-4-8",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-20-0",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-20-1",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-20-3",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-20-4",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-20-8",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-46-0",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-46-1",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-46-3",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-46-4",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-46-8",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-50-0",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-50-1",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-50-3",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-50-4",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "request-1-50-8",
+      "replacement": "Speed1 server minimum becomes trunc(base*0.755)+margin; add exact gate and endpoint tests in Haste.cs. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-61-0-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-61-0-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-61-0-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-61-4-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-61-4-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-61-4-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-61-20-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-61-20-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-61-20-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-61-50-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-61-50-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-61-50-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-48-0-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-48-0-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-48-0-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-48-4-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-48-4-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-48-4-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-48-20-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-48-20-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-48-20-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-48-50-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-48-50-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-48-50-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-37-0-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-37-0-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-37-0-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-37-4-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-37-4-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-37-4-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-37-20-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-37-20-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-37-20-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-734-0-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-734-0-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-734-0-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-734-4-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-734-4-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-734-4-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-734-20-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-734-20-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-734-20-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1186-0-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1186-0-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1186-0-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1186-4-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1186-4-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1186-4-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1186-20-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1186-20-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1186-20-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2786-0-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2786-0-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2786-0-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2786-4-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2786-4-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2786-4-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2786-20-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2786-20-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2786-20-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2796-0-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2796-0-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2796-0-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2796-4-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2796-4-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2796-4-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2796-20-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2796-20-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-2796-20-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-0-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-0-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-0-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-4-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-4-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-4-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-20-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-20-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-20-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-50-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-50-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-50-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1-0-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1-0-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1-0-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1-4-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1-4-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1-4-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1-20-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1-20-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1-20-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1-50-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1-50-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-1-50-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6658-0-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6658-0-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6658-0-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6658-4-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6658-4-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6658-4-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6658-50-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6658-50-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6658-50-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6661-0-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6661-0-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6661-0-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6661-4-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6661-4-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6661-4-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6661-50-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6661-50-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6661-50-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6671-0-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6671-0-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6671-0-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6671-20-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6671-20-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6671-20-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6650-0-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6650-0-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6650-0-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6650-20-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6650-20-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-6650-20-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-46-1-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-46-18-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "independent-metadata-0-46-19-1",
+      "replacement": "Speed1 animation=sum((3*frameMs)>>2); server=trunc(base*0.755); gate=max(server,animation,reuse)+margin. Speed0/2 unchanged."
+    },
+    {
+      "assertion": "transition-deadline-0-1-0",
+      "replacement": "Speed1->0->1 must preserve normal-rate high-water deadline; formerly 0/1 identical. Other existing transitions retained."
+    },
+    {
+      "assertion": "transition-deadline-1-1-0",
+      "replacement": "Speed1->0->1 must preserve normal-rate high-water deadline; formerly 0/1 identical. Other existing transitions retained."
+    },
+    {
+      "assertion": "transition-deadline-3-1-0",
+      "replacement": "Speed1->0->1 must preserve normal-rate high-water deadline; formerly 0/1 identical. Other existing transitions retained."
+    },
+    {
+      "assertion": "transition-deadline-4-1-0",
+      "replacement": "Speed1->0->1 must preserve normal-rate high-water deadline; formerly 0/1 identical. Other existing transitions retained."
+    },
+    {
+      "assertion": "transition-deadline-8-1-0",
+      "replacement": "Speed1->0->1 must preserve normal-rate high-water deadline; formerly 0/1 identical. Other existing transitions retained."
+    }
+  ],
+  "newCoverage": "Haste.cs adds exact gates, frame boundaries/zero frames, relative marker release, haste lifecycle and clean-cache first-render acknowledgements. No claim that original976 pass unchanged.",
+  "sourceBasis": [
+    "pinned native-action-oracle Speed1 rows",
+    "pinned fixed JAR ActionIntervalCalculator pure oracle",
+    "haste-metadata-vectors.json",
+    "CONTRACT.md"
+  ],
+  "newChecksExecuted": 577,
+  "totalExecutedOnR30": 1553,
+  "newHasteCompletionMatrix": "Same ten mutations x five actions x success/error and lease assertions duplicated at Speed1 (110 checks); original Speed2 matrix retained unchanged.",
+  "clockCorrection": {
+    "reason": "r30 Inventory/Ground final admit directly reads Environment.TickCount64; virtual future time is not a valid positive gate fixture.",
+    "change": "Replace 30 virtual +/-1/0 item/ground samples with 20 true-clock before/at-or-after checks; preserve actual busy and final sender validation. Movement/attack/spell retain45 deterministic boundary samples.",
+    "originalPreparationRun": {
+      "checks": 1563,
+      "failed": 506,
+      "superseded": true
+    },
+    "finalPreparationChecks": 1553,
+    "productEdited": false,
+    "observedTimes": "Each realtime assertion records true ticks, source expected endpoint, actual product action deadline and scheduler overshoot."
+  }
+}

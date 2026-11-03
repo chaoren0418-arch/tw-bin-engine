@@ -1,0 +1,73 @@
+{
+  "status": "independent-clean-build-and-npc-wiring-checks-pass",
+  "snapshotFiles": 145,
+  "assetInputs": 531,
+  "controllerChecks": 51,
+  "domDoubleChecks": 18,
+  "originalNpcPixelFrames": 221,
+  "workerDll": "495f6fa54f77b2be2b254fd7d59ee49f72c9983468efda02bbe5ec4ad238056d",
+  "cleanDll": "faa658e0a51a824a83ceb603d14f486ee55cea4c320a82a1a8933bb7bd148af2",
+  "processes": [
+    {
+      "name": "build-product",
+      "pid": 59636,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-NPC商店接線獨立審查-20261026\\source\\OfflineClient.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-NPC商店接線獨立審查-20261026\\build\\client",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-NPC商店接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 7.1276280879974365
+    },
+    {
+      "name": "build-harness",
+      "pid": 83944,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-NPC商店接線獨立審查-20261026\\reference\\development\\npc-commerce-r1\\harness\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-NPC商店接線獨立審查-20261026\\build\\checks",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-NPC商店接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 4.739045143127441
+    },
+    {
+      "name": "controller",
+      "pid": 53380,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-NPC商店接線獨立審查-20261026\\build\\checks\\P24.NpcChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 6.201369285583496
+    },
+    {
+      "name": "dom",
+      "pid": 14500,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-NPC商店接線獨立審查-20261026\\reference\\development\\npc-commerce-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 1.522456169128418
+    }
+  ],
+  "ui": false,
+  "live": false,
+  "fullP24Accepted": false,
+  "scope": "Actual rebuilt product + explicit synthetic model/sender/DOM; original NPC pixel comparisons and selectable pixels on packaged maps. No live transaction or UI claim."
+}

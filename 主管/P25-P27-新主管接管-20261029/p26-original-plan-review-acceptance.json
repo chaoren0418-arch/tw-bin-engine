@@ -1,0 +1,24 @@
+{
+  "taskId": "P26-REVIEW",
+  "reviewer": "supervisor",
+  "decision": "accepted-bounded-original-plan-review",
+  "utc": "2026-10-29T03:44:20.348Z",
+  "workerThread": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "workerTurn": "01a185b7-ebfd-7471-985c-8b66417b3700",
+  "workerState": "idle/completed",
+  "sealSha256": "833fe958e2ec9131f48626cfb0f01c826daa5beacdb399ee47f4d55655b581bb",
+  "evidence": [
+    "work/P26-pickup-integration-review-r1/review.json",
+    "work/P26-pickup-integration-review-r1/synthetic-tests.json",
+    "work/P26-pickup-integration-review-r1/policy-drift-proof.json"
+  ],
+  "findingsDisposition": {
+    "F1": "new authority/controller version required; repair running",
+    "F2": "documented stop-and-review on partial product-collect binding; no deleting bindings or replaying successful builds",
+    "F3": "timeout raw retention repair dispatched in new version; independent review required",
+    "F4": "historical policy exact byte reconstruction accepted; future extension contract rebind required; old full verifier remains failed"
+  },
+  "sharedIntegrationAuthorized": false,
+  "productComplete": false,
+  "next": "P26 reviewer waits for exact sealed authority version; do not retain stale running state"
+}

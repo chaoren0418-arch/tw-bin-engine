@@ -1,0 +1,30 @@
+{
+  "build": [
+    "dotnet",
+    "build",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-utility-review-r1\\harness\\Review.csproj",
+    "-p:EngineDll=D:\\lineage開發\\TW1608262200研究\\releases\\r30\\build\\client-product-r30\\P11.ClientEngine.dll",
+    "-p:UseSharedCompilation=false",
+    "-o",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-utility-review-r1\\helper\\r30"
+  ],
+  "probe": [
+    "dotnet",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-utility-review-r1\\helper\\r30\\UtilityReview.dll",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-utility-review-r1\\r30-probe.json"
+  ],
+  "buildExit": 0,
+  "probeExit": 0,
+  "environment": {
+    "DOTNET_CLI_HOME": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-utility-review-r1\\.dotnet",
+    "NUGET_PACKAGES": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-utility-review-r1\\.nuget",
+    "TEMP": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-utility-review-r1\\tmp",
+    "TMP": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-utility-review-r1\\tmp",
+    "DOTNET_CLI_TELEMETRY_OPTOUT": "1"
+  },
+  "assetJunction": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-utility-review-r1\\assets",
+    "target": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\assets",
+    "access": "read-only"
+  }
+}

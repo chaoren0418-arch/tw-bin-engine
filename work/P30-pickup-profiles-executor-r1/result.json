@@ -1,0 +1,86 @@
+{
+  "schema": "p30-product-executor-preparation-result-v1",
+  "status": "executor-prepared-validated-awaiting-independent-review-and-exact-product-only-receipt",
+  "dispatchId": "ENGINE-P30-PRODUCT-EXECUTOR-PREP-R1",
+  "utc": "2026-10-29T06:13:02.262174+00:00",
+  "contract": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\execution-contract.json",
+    "size": 9434,
+    "sha256": "37af732d7d30629d71cd3fb8e66bc18d77352bbef2ff3191de920743ced4a2d9"
+  },
+  "sources": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\executor.py",
+      "size": 9818,
+      "sha256": "4bd924cfa769d6ec4146ff0086e444d79f00e4dd3ed37b2b5a827ff457b8e6d0"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\gate.py",
+      "size": 9164,
+      "sha256": "f4b14f7cb136c629b93f90d7807bf61bc9c95fbcfe66bf206b7d92079e8326b9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\win_process.py",
+      "size": 5934,
+      "sha256": "37f21ac740a11f780a937f085598bbb3dbbe928a65fa8d19d6c6d0f39e0ef0dc"
+    }
+  ],
+  "materialization": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\product-materialization.json",
+    "size": 92977,
+    "sha256": "63290a5c650dd992172d605210ca882b8212e1622f98ec000310f68e590c4f33"
+  },
+  "dependencies": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\build-dependency-pins.json",
+    "size": 1126895,
+    "sha256": "58fd3d9a4de20417a2336c00f99494a7e4874352c470676cdbdfefa3763b116b"
+  },
+  "invocationSchema": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\invocation-schema.json",
+    "size": 3260,
+    "sha256": "45914acba14320056e31661cc557bf5912788afefc04b15915c8403902028391"
+  },
+  "validation": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\validation-result.json",
+    "size": 16647,
+    "sha256": "1a0d680d6fde959dea110e1cc9ed260a2167d0b45191e8eeeb17b7d39013b0a6"
+  },
+  "handoff": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r1\\HANDOFF.md",
+    "size": 8058,
+    "sha256": "139b7d11e9790dbf8128ee074a9df49e1e240fefdf8faaab69919fb156ad258f"
+  },
+  "planningSealUnchanged": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\artifact-seal.json",
+    "size": 108201,
+    "sha256": "3b5e84c46f48c01b80a129caad493b4218a8151bec8f0d9051b687501764637c"
+  },
+  "planningArtifactsReverified": 581,
+  "materializationFiles": 184,
+  "sourceFiles": 181,
+  "dependencyPins": 4350,
+  "checksPassed": 53,
+  "syntheticRootProcesses": 5,
+  "syntheticDescendants": 1,
+  "originalFailedSyntheticAttemptPreserved": true,
+  "productBuilds": 0,
+  "candidateRuntimeProbes": 0,
+  "futureStageCreated": false,
+  "acceptanceReceiptCreated": false,
+  "formalEntry": "r33",
+  "protectedPinsUnchanged": true,
+  "sharedWrites": false,
+  "releaseWrites": false,
+  "entryActivated": false,
+  "goal": {
+    "actualRead": null,
+    "created": false,
+    "modified": false
+  },
+  "limitations": [
+    "Actual MSBuild execution and deterministic candidate SHA equivalence not executed in this preparation",
+    "Independent review and new externally pinned receipt still required",
+    "Only minimal product/audio build; no later regression/general executor"
+  ],
+  "next": "Supervisor/P29 review sealed executor then issue exact product-only build receipt."
+}

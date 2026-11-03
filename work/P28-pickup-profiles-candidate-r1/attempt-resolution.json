@@ -1,0 +1,20 @@
+{
+  "failedAttempt": "profiles-01",
+  "failedExitCode": 1,
+  "failedAssertion": "body-namespace-collisions-covered",
+  "cause": "Helper counted terminal keys along with pickup keys: all-frame collisions80 vs pickup-only64. Candidate mapping/pixels did not fail.",
+  "rawFailure": {
+    "path": "evidence/profiles-01/failure.json",
+    "size": 10032763,
+    "sha256": "bcb96925c923db614b31b8b835c3f9aee19f38379b04b253d63d95bf49deb310"
+  },
+  "repair": "Only count metadataIndex != 0 for pickup collisions. Original failure/raw/helper source kept. Rebuild helper and run affected profiles suite as profiles-02; no product rebuild.",
+  "acceptedAttempt": "profiles-02",
+  "fullSetSupplement": "namespace-01 compares all 64 collision keys and complete gfx/sprite sets with sealed namespace-fixtures.json; also all-frame80 complete sprite sets against sealed body-fixtures.json",
+  "unchangedPassedSuitesNotRerun": [
+    "regression-01",
+    "boundaries-01",
+    "negative-01"
+  ],
+  "failedAttemptAssertionsExcludedFromAcceptedTotal": true
+}

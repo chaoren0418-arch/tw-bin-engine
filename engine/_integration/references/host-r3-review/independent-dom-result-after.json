@@ -1,0 +1,111 @@
+{
+  "status": "pass",
+  "cases": 10,
+  "assertions": 23,
+  "details": [
+    {
+      "name": "host-state-renders-without-feedback",
+      "assertions": 3,
+      "status": "pass"
+    },
+    {
+      "name": "user-changes-submit-complete-settings-only",
+      "assertions": 3,
+      "status": "pass"
+    },
+    {
+      "name": "pending-failed-closed-labels-and-disabled-controls",
+      "assertions": 3,
+      "status": "pass"
+    },
+    {
+      "name": "invalid-client-numbers-and-focus-do-not-send-gameplay",
+      "assertions": 2,
+      "status": "pass"
+    },
+    {
+      "name": "incoming-state-between-range-input-and-change",
+      "assertions": 1,
+      "status": "pass"
+    },
+    {
+      "name": "acknowledgement-then-external-native-update-remains-visible",
+      "assertions": 2,
+      "status": "pass"
+    },
+    {
+      "name": "older-acknowledgement-cannot-clobber-newer-committed-value",
+      "assertions": 2,
+      "status": "pass"
+    },
+    {
+      "name": "return-to-applied-value-with-no-new-host-state",
+      "assertions": 2,
+      "status": "pass"
+    },
+    {
+      "name": "delayed-matching-ack-cannot-reverse-newer-failed-state",
+      "assertions": 2,
+      "status": "pass"
+    },
+    {
+      "name": "newer-native-change-and-close-win-over-delayed-ack",
+      "assertions": 3,
+      "status": "pass"
+    }
+  ],
+  "race": {
+    "enteredValue": "80",
+    "incomingGain": 0.5,
+    "displayedBeforeChange": "80",
+    "commands": [
+      {
+        "v": 1,
+        "id": 2,
+        "cmd": "audioSettings",
+        "gain": 0.8,
+        "muted": false
+      }
+    ]
+  },
+  "rapid": {
+    "displayAfterOlderAck": "80",
+    "commands": [
+      {
+        "v": 1,
+        "id": 2,
+        "cmd": "audioSettings",
+        "gain": 0.6,
+        "muted": false
+      },
+      {
+        "v": 1,
+        "id": 3,
+        "cmd": "audioSettings",
+        "gain": 0.8,
+        "muted": false
+      },
+      {
+        "v": 1,
+        "id": 4,
+        "cmd": "audioSettings",
+        "gain": 0.8,
+        "muted": true
+      }
+    ]
+  },
+  "noop": {
+    "commands": [
+      {
+        "v": 1,
+        "id": 2,
+        "cmd": "audioSettings",
+        "gain": 0.5,
+        "muted": false
+      }
+    ],
+    "noticeAfterGenericReply": "音量已套用",
+    "genericReply": "#2 音量已套用"
+  },
+  "scope": "Actual complete panel.js in Node vm with explicit DOM/event substitute; no browser/layout/native GUI. Event interleaving is deterministic, not an actual mouse drag acceptance."
+}

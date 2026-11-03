@@ -1,0 +1,2726 @@
+{
+  "utc": "2026-10-26T12:09:17.924Z",
+  "reason": "HP protection",
+  "state": {
+    "busy": false,
+    "character": "透明王子乙",
+    "confirmed": 0,
+    "connection": "Disconnected",
+    "direction": 7,
+    "gameFocus": false,
+    "ground": {
+      "busy": true,
+      "epoch": 3,
+      "items": [],
+      "notice": "等待原服地面物品",
+      "selectedId": null
+    },
+    "interaction": {
+      "canTalk": false,
+      "model": {
+        "canSubmit": false,
+        "currency": 0,
+        "epoch": 3,
+        "feePerRow": false,
+        "hasResult": false,
+        "kind": "closed",
+        "notice": "世界已清除，舊對話已失效。",
+        "npcId": null,
+        "options": null,
+        "priceLabel": "單價",
+        "revision": 3,
+        "rows": [],
+        "selection": false,
+        "targetId": null,
+        "targetRevision": 0,
+        "text": null,
+        "title": "NPC 對話"
+      },
+      "notice": "世界已清除，舊對話已失效。",
+      "options": null,
+      "rows": [],
+      "targets": [],
+      "text": ""
+    },
+    "inventory": {
+      "available": false,
+      "busy": true,
+      "epoch": 3,
+      "items": [
+        {
+          "action": "單次使用",
+          "count": 1,
+          "droppable": false,
+          "equipped": null,
+          "icon": null,
+          "id": 10323,
+          "name": "在線禮包",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "單次使用",
+          "count": 1,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/81.png",
+          "id": 1900241021,
+          "name": "白色藥水",
+          "selected": false,
+          "state": "可單次使用；滿血仍會消耗",
+          "usable": true
+        },
+        {
+          "action": "單次使用",
+          "count": 2,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/5.png",
+          "id": 1900241022,
+          "name": "金幣",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "單次使用",
+          "count": 1,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/475.png",
+          "id": 1900241023,
+          "name": "鑑定卷軸",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "單次使用",
+          "count": 8,
+          "droppable": true,
+          "equipped": null,
+          "icon": "https://p08.example/icons/124.png",
+          "id": 1900241024,
+          "name": "肉",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "卸下",
+          "count": 1,
+          "droppable": false,
+          "equipped": true,
+          "icon": "https://p08.example/icons/2.png",
+          "id": 1900241025,
+          "name": "+0 長劍 (揮舞)",
+          "selected": false,
+          "state": "已裝備；可單次卸下",
+          "usable": true
+        },
+        {
+          "action": "穿上",
+          "count": 1,
+          "droppable": false,
+          "equipped": false,
+          "icon": "https://p08.example/icons/4.png",
+          "id": 1900241026,
+          "name": "+0 雙手劍",
+          "selected": false,
+          "state": "未裝備；可單次穿上",
+          "usable": true
+        },
+        {
+          "action": "卸下",
+          "count": 1,
+          "droppable": false,
+          "equipped": true,
+          "icon": "https://p08.example/icons/86.png",
+          "id": 1900241027,
+          "name": "+0 環甲 (使用中)",
+          "selected": false,
+          "state": "已裝備；可單次卸下",
+          "usable": true
+        },
+        {
+          "action": "卸下",
+          "count": 1,
+          "droppable": false,
+          "equipped": true,
+          "icon": "https://p08.example/icons/97.png",
+          "id": 1900241028,
+          "name": "+0 木盾 (使用中)",
+          "selected": false,
+          "state": "已裝備；可單次卸下",
+          "usable": true
+        },
+        {
+          "action": "穿上",
+          "count": 1,
+          "droppable": false,
+          "equipped": false,
+          "icon": "https://p08.example/icons/278.png",
+          "id": 1900241029,
+          "name": "+0 弓",
+          "selected": false,
+          "state": "未裝備；可單次穿上",
+          "usable": true
+        },
+        {
+          "action": "單次使用",
+          "count": 86,
+          "droppable": true,
+          "equipped": null,
+          "icon": "https://p08.example/icons/7.png",
+          "id": 1900241030,
+          "name": "箭",
+          "selected": false,
+          "state": "有限箭矢；原服射擊消耗，數量以回包為準",
+          "usable": false
+        }
+      ],
+      "message": null,
+      "notice": "原服背包已同步",
+      "revision": 10,
+      "selectedId": null
+    },
+    "kind": "state",
+    "login": {
+      "appliedPacketSequence": 381,
+      "characters": [
+        {
+          "Ac": -4,
+          "Charisma": 10,
+          "CheckCode": 57,
+          "Clan": "",
+          "Class": 0,
+          "Constitution": 16,
+          "CreateTime": 20261026,
+          "Dexterity": 13,
+          "Gm": 0,
+          "Hp": 246,
+          "Intelligence": 11,
+          "Lawful": 6,
+          "Level": 59,
+          "Mp": 75,
+          "Name": "透明王子乙",
+          "Sex": 0,
+          "Strength": 18,
+          "Wisdom": 12
+        }
+      ],
+      "decodeFailure": null,
+      "detail": "已送出步行；本地預測（無逐步 ACK）",
+      "entryFailure": null,
+      "expected": 1,
+      "news": "",
+      "profile": "p24-real-jar-d287-client2",
+      "revision": 480,
+      "scope": "P24 independent real JAR + MySQL world initialization",
+      "slots": 4,
+      "state": "InWorld",
+      "world": {
+        "actor": {
+          "Brave": 0,
+          "Clan": "",
+          "ClanId": 0,
+          "Direction": 7,
+          "Exp": 412855406,
+          "Flags": 4,
+          "Gfx": 0,
+          "HpPercent": 255,
+          "Lawful": 6,
+          "Level": 0,
+          "Light": 0,
+          "Name": "透明王子乙",
+          "ObjectId": 1900240002,
+          "Owner": "",
+          "Rank": 176,
+          "Speed": 0,
+          "Tail1": 255,
+          "Tail2": 255,
+          "Title": "",
+          "Unknown": 0,
+          "Weapon": 4,
+          "X": 32503,
+          "Y": 32879
+        },
+        "announcement": "",
+        "appearanceNotice": "角色外觀已載入",
+        "appearanceProfile": {
+          "CastReleaseMs": {
+            "spellDir": 916,
+            "spellNoDir": 916
+          },
+          "Gfx": 0,
+          "Path": "objects/0-weapon-4.json",
+          "ProjectileReleaseMs": null,
+          "ServerActionMs": {
+            "attack": 960,
+            "spellDir": 1320,
+            "spellNoDir": 1480,
+            "walk": 640
+          },
+          "Sha256": "858444d08c367a9cab98bcbf6b4feda44c3cc72c68d1b676e0d296d5f692c771",
+          "StepMs": 640,
+          "Weapon": 4
+        },
+        "appearanceRevision": 4,
+        "bonusStatsNotice": "原服提示有能力點待分配；此版本尚未支援能力點分配，未自動分配。",
+        "cache": {
+          "bounds": {
+            "Height": 512,
+            "MaxX": 32767,
+            "MaxY": 33279,
+            "MinX": 32256,
+            "MinY": 32768,
+            "Width": 512
+          },
+          "events": [
+            {
+              "block": "7ffd8003",
+              "generation": 1,
+              "kind": "load",
+              "slot": 3,
+              "source": "23ad0e1ef9001c6e331a3425e5a1faa410d3cf4a8e5d9425f38daa85c22e7e3a"
+            },
+            {
+              "block": "7ffc8003",
+              "generation": 2,
+              "kind": "load",
+              "slot": 2,
+              "source": "d1e2452dad58692deac72e6fd9709a2f3d8e51b078d83db1c88b0ab4b4be9000"
+            },
+            {
+              "block": "7ffd8002",
+              "generation": 3,
+              "kind": "load",
+              "slot": 1,
+              "source": "a7e3e584202ddb9221fe6cd5042190486651f4a71db7e056b5e161bf31b30239"
+            },
+            {
+              "block": "7ffc8002",
+              "generation": 4,
+              "kind": "load",
+              "slot": 0,
+              "source": "99f62dd9e510caa21cbe363536baed0b40580de91ceda82809b30713aa63a7d8"
+            },
+            {
+              "kind": "cold",
+              "order": [
+                3,
+                2,
+                1,
+                0
+              ],
+              "origin": [
+                32256,
+                32896
+              ],
+              "x": 32596,
+              "y": 32926
+            },
+            {
+              "block": "7ffc8003",
+              "generation": 2,
+              "kind": "evict",
+              "slot": 2
+            },
+            {
+              "block": "7ffd8003",
+              "generation": 1,
+              "kind": "evict",
+              "slot": 3
+            },
+            {
+              "block": "7ffc8001",
+              "generation": 5,
+              "kind": "load",
+              "slot": 0,
+              "source": "cb839ac3d6e64c9e2e3e00fc1d68c43235c9c42b68d1fe1ac712bd1a7c664ff9"
+            },
+            {
+              "block": "7ffd8001",
+              "generation": 6,
+              "kind": "load",
+              "slot": 1,
+              "source": "0b4556d4da851c5fb7021ea0a11bbe95b3a62098c6adbab5475f9ac07541d7bb"
+            },
+            {
+              "after": [
+                32256,
+                32832
+              ],
+              "before": [
+                32256,
+                32896
+              ],
+              "direction": 0,
+              "kind": "shift",
+              "revision": 2
+            },
+            {
+              "block": "7ffd8001",
+              "generation": 6,
+              "kind": "evict",
+              "slot": 1
+            },
+            {
+              "block": "7ffd8002",
+              "generation": 3,
+              "kind": "evict",
+              "slot": 3
+            },
+            {
+              "block": "7ffb8001",
+              "generation": 7,
+              "kind": "load",
+              "slot": 0,
+              "source": "c66daef38141ec5686c247463c5098d329b03d001abf7db6383d5b7044f5af48"
+            },
+            {
+              "block": "7ffb8002",
+              "generation": 8,
+              "kind": "load",
+              "slot": 2,
+              "source": "99590be9643763f5cb0b978f5036edf915f77611cb27b30a1f8a46b0a95221c0"
+            },
+            {
+              "after": [
+                32128,
+                32832
+              ],
+              "before": [
+                32256,
+                32832
+              ],
+              "direction": 6,
+              "kind": "shift",
+              "revision": 3
+            }
+          ],
+          "lastDirection": null,
+          "loads": 8,
+          "mapId": 0,
+          "nodes": 70841,
+          "origin": [
+            32128,
+            32832
+          ],
+          "revision": 3,
+          "slots": [
+            {
+              "block": "7ffb8001",
+              "effects": [],
+              "effectsAt": 355179812,
+              "generation": 7,
+              "sha256": "c66daef38141ec5686c247463c5098d329b03d001abf7db6383d5b7044f5af48",
+              "slot": 0
+            },
+            {
+              "block": "7ffc8001",
+              "effects": [],
+              "effectsAt": 355167703,
+              "generation": 5,
+              "sha256": "cb839ac3d6e64c9e2e3e00fc1d68c43235c9c42b68d1fe1ac712bd1a7c664ff9",
+              "slot": 1
+            },
+            {
+              "block": "7ffb8002",
+              "effects": [],
+              "effectsAt": 355179812,
+              "generation": 8,
+              "sha256": "99590be9643763f5cb0b978f5036edf915f77611cb27b30a1f8a46b0a95221c0",
+              "slot": 2
+            },
+            {
+              "block": "7ffc8002",
+              "effects": [],
+              "effectsAt": 355067468,
+              "generation": 4,
+              "sha256": "99f62dd9e510caa21cbe363536baed0b40580de91ceda82809b30713aa63a7d8",
+              "slot": 3
+            }
+          ],
+          "tileDecodes": 54573
+        },
+        "combat": {
+          "damageMeaning": "ClientLogin=2 original attack damage word, not independently established HP loss; zero does not distinguish miss from zero damage",
+          "lastAttack": {
+            "Action": 1,
+            "Attacker": 2000036045,
+            "DamageWord": 29,
+            "Flags": 0,
+            "Heading": 7,
+            "Number": 3,
+            "Target": 1900240002,
+            "X": 0,
+            "Y": 0
+          },
+          "lastProjectile": null,
+          "notice": "原服攻擊回報 #3：2000036045 → 1900240002，傷害欄 29（非 HP 扣除量）",
+          "ownAnimation": null,
+          "ownDead": false,
+          "projectiles": [],
+          "reports": 3
+        },
+        "coreComplete": true,
+        "entered": true,
+        "equipment": {
+          "listReceived": true,
+          "replyPending": false,
+          "revision": 28,
+          "slots": [
+            {
+              "ObjectId": 1900241025,
+              "Slot": 8
+            },
+            {
+              "ObjectId": 1900241027,
+              "Slot": 2
+            },
+            {
+              "ObjectId": 1900241028,
+              "Slot": 7
+            }
+          ]
+        },
+        "ground": {
+          "awaitingPickupAction": false,
+          "items": [],
+          "lastPickupActor": null,
+          "lastPickupHeading": null,
+          "notice": "等待原服地面物品",
+          "pickupActions": 0,
+          "pickupOutcomeTimedOut": false,
+          "revision": 3,
+          "selectedId": null,
+          "selectionRevision": 3
+        },
+        "inventory": {
+          "effectNumber": 0,
+          "emptyInventoryFromWorldSync": false,
+          "items": [
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 1,
+              "DescriptionId": 0,
+              "Equipped": null,
+              "Flags": 2,
+              "IconId": 957,
+              "Name": "在線禮包",
+              "ObjectId": 10323,
+              "StatusHex": "",
+              "SupportedArrow": false,
+              "SupportedEquipment": false,
+              "SupportedPotion": false,
+              "SupportedUse": false,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援",
+              "UseType": 0
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 1,
+              "DescriptionId": 130,
+              "Equipped": null,
+              "Flags": 1,
+              "IconId": 81,
+              "Name": "$238",
+              "ObjectId": 1900241021,
+              "StatusHex": "171305000000",
+              "SupportedArrow": false,
+              "SupportedEquipment": false,
+              "SupportedPotion": true,
+              "SupportedUse": true,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "單次使用",
+              "UseState": "可單次使用；滿血仍會消耗",
+              "UseType": 249
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 2,
+              "DescriptionId": 0,
+              "Equipped": null,
+              "Flags": 1,
+              "IconId": 5,
+              "Name": "$4 (2)",
+              "ObjectId": 1900241022,
+              "StatusHex": "170F00000000",
+              "SupportedArrow": false,
+              "SupportedEquipment": false,
+              "SupportedPotion": false,
+              "SupportedUse": false,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援",
+              "UseType": 255
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 1,
+              "DescriptionId": 1339,
+              "Equipped": null,
+              "Flags": 1,
+              "IconId": 475,
+              "Name": "$55",
+              "ObjectId": 1900241023,
+              "StatusHex": "170501000000",
+              "SupportedArrow": false,
+              "SupportedEquipment": false,
+              "SupportedPotion": false,
+              "SupportedUse": false,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援",
+              "UseType": 7
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 8,
+              "DescriptionId": 10,
+              "Equipped": null,
+              "Flags": 1,
+              "IconId": 124,
+              "Name": "$23 (8)",
+              "ObjectId": 1900241024,
+              "StatusHex": "1564000450000000",
+              "SupportedArrow": false,
+              "SupportedEquipment": false,
+              "SupportedPotion": false,
+              "SupportedUse": false,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援",
+              "UseType": 38
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 1,
+              "DescriptionId": 0,
+              "Equipped": true,
+              "Flags": 1,
+              "IconId": 2,
+              "Name": "+0 $0 ($9)",
+              "ObjectId": 1900241025,
+              "StatusHex": "01080C0B2800000027A677A977BDE83A203600073F27B8CBB3C6AB7EAFC53A20A440AFEB00",
+              "SupportedArrow": false,
+              "SupportedEquipment": true,
+              "SupportedPotion": false,
+              "SupportedUse": true,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "卸下",
+              "UseState": "已裝備；可單次卸下",
+              "UseType": 1
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 1,
+              "DescriptionId": 0,
+              "Equipped": false,
+              "Flags": 1,
+              "IconId": 4,
+              "Name": "+0 $3",
+              "ObjectId": 1900241026,
+              "StatusHex": "0111150B960000000427A677A977BDE83A203600072327B8CBB3C6AB7EAFC53A20A440AFEB00",
+              "SupportedArrow": false,
+              "SupportedEquipment": true,
+              "SupportedPotion": false,
+              "SupportedUse": true,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "穿上",
+              "UseState": "未裝備；可單次穿上",
+              "UseType": 1
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 1,
+              "DescriptionId": 0,
+              "Equipped": true,
+              "Flags": 1,
+              "IconId": 86,
+              "Name": "+0 $164 ($117)",
+              "ObjectId": 1900241027,
+              "StatusHex": "13030B27FA000000077F27A677A977BDE83A20340027B8CBB3C6AB7EAFC53A20A440AFEB00",
+              "SupportedArrow": false,
+              "SupportedEquipment": true,
+              "SupportedPotion": false,
+              "SupportedUse": true,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "卸下",
+              "UseState": "已裝備；可單次卸下",
+              "UseType": 2
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 1,
+              "DescriptionId": 0,
+              "Equipped": true,
+              "Flags": 1,
+              "IconId": 97,
+              "Name": "+0 $778 ($117)",
+              "ObjectId": 1900241028,
+              "StatusHex": "130108271E000000077F27A677A977BDE83A20340027B8CBB3C6AB7EAFC53A20A440AFEB00",
+              "SupportedArrow": false,
+              "SupportedEquipment": true,
+              "SupportedPotion": false,
+              "SupportedUse": true,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "卸下",
+              "UseState": "已裝備；可單次卸下",
+              "UseType": 25
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 1,
+              "DescriptionId": 0,
+              "Equipped": false,
+              "Flags": 1,
+              "IconId": 278,
+              "Name": "+0 $24",
+              "ObjectId": 1900241029,
+              "StatusHex": "010505081E0000000427A677A977BDE83A203600074F27B8CBB3C6AB7EAFC53A20A440AFEB00",
+              "SupportedArrow": false,
+              "SupportedEquipment": true,
+              "SupportedPotion": false,
+              "SupportedUse": true,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "穿上",
+              "UseState": "未裝備；可單次穿上",
+              "UseType": 1
+            },
+            {
+              "Bless": 1,
+              "Charges": 0,
+              "Count": 86,
+              "DescriptionId": 0,
+              "Equipped": null,
+              "Flags": 9,
+              "IconId": 7,
+              "Name": "$61 (86)",
+              "ObjectId": 1900241030,
+              "StatusHex": "0106050802000000",
+              "SupportedArrow": true,
+              "SupportedEquipment": false,
+              "SupportedPotion": false,
+              "SupportedUse": false,
+              "TailHex": "0A00000000000000000000",
+              "UseAction": "單次使用",
+              "UseState": "有限箭矢；原服射擊消耗，數量以回包為準",
+              "UseType": 254
+            }
+          ],
+          "lastEffect": null,
+          "loaded": true,
+          "notice": "原服背包已同步",
+          "revision": 10,
+          "selectedId": null,
+          "selectionRevision": 3,
+          "serverMessage": null,
+          "serverReply": null,
+          "unknownUpdates": 0
+        },
+        "keepalivesSent": 12,
+        "loadedRegion": {
+          "maxX": 32575,
+          "maxY": 32959,
+          "minX": 32448,
+          "minY": 32832,
+          "mode": "original moving 2x2 cache"
+        },
+        "magic": {
+          "ac": null,
+          "acNotice": "AC：等待伺服器完整更新",
+          "buffNotice": "",
+          "buffs": [],
+          "effectCount": 0,
+          "effectiveTargetSelf": false,
+          "effects": [],
+          "learned": [
+            {
+              "Id": 1,
+              "Name": "初級治癒術",
+              "NominalMp": 4,
+              "Supported": true,
+              "Target": "自己／指定對象"
+            },
+            {
+              "Id": 4,
+              "Name": "光箭",
+              "NominalMp": 3,
+              "Supported": true,
+              "Target": "指定敵人"
+            }
+          ],
+          "notice": "原服已學技能已更新",
+          "partialAcByte": 252,
+          "received": true,
+          "revision": 4,
+          "selectedId": null,
+          "targetName": "尚未選擇技能",
+          "targetSelf": true
+        },
+        "mapId": 0,
+        "mapResourceNotice": "地圖 0 已載入原始區塊。",
+        "mapResourceState": "ready",
+        "movement": {
+          "authoritativeActor": {
+            "Brave": 0,
+            "Clan": "",
+            "ClanId": 0,
+            "Direction": 6,
+            "Exp": 412855406,
+            "Flags": 4,
+            "Gfx": 0,
+            "HpPercent": 255,
+            "Lawful": 6,
+            "Level": 0,
+            "Light": 0,
+            "Name": "透明王子乙",
+            "ObjectId": 1900240002,
+            "Owner": "",
+            "Rank": 176,
+            "Speed": 0,
+            "Tail1": 255,
+            "Tail2": 255,
+            "Title": "",
+            "Unknown": 0,
+            "Weapon": 4,
+            "X": 32596,
+            "Y": 32926
+          },
+          "corrections": 0,
+          "notice": "已送出步行；本地預測（無逐步 ACK）",
+          "predictedSteps": 93,
+          "predictedTurns": 0,
+          "stepMs": 640,
+          "successAck": false
+        },
+        "objectRevision": 264,
+        "objects": [
+          {
+            "Action": 0,
+            "AppearancePending": false,
+            "Brave": 0,
+            "Clan": "",
+            "ClanId": 0,
+            "Classification": "non-PC flag",
+            "Combat": null,
+            "Dead": false,
+            "Direction": 7,
+            "Flags": 0,
+            "Gfx": 1206,
+            "HpByte": 255,
+            "HpPercent": null,
+            "Lawful": -7,
+            "Level": 14,
+            "Light": 0,
+            "MotionAt": 355233843,
+            "Name": "$1111",
+            "ObjectId": 2000035723,
+            "Owner": "",
+            "Rank": 0,
+            "ReceivedAction": null,
+            "ShopActive": false,
+            "ShopAt": 0,
+            "ShopText": "",
+            "SourceX": 32497,
+            "SourceY": 32880,
+            "Speed": 0,
+            "Tail1": 255,
+            "Tail2": 255,
+            "Title": "",
+            "Unknown": 0,
+            "UpdatedAt": 355233843,
+            "WireExp": 197,
+            "X": 32496,
+            "Y": 32879
+          },
+          {
+            "Action": 0,
+            "AppearancePending": false,
+            "Brave": 0,
+            "Clan": "",
+            "ClanId": 0,
+            "Classification": "non-PC flag",
+            "Combat": {
+              "Action": 1,
+              "At": 355236218,
+              "Predicted": false
+            },
+            "Dead": false,
+            "Direction": 7,
+            "Flags": 0,
+            "Gfx": 1108,
+            "HpByte": 255,
+            "HpPercent": null,
+            "Lawful": -18,
+            "Level": 17,
+            "Light": 0,
+            "MotionAt": 0,
+            "Name": "$990",
+            "ObjectId": 2000036045,
+            "Owner": "",
+            "Rank": 0,
+            "ReceivedAction": 1,
+            "ShopActive": false,
+            "ShopAt": 0,
+            "ShopText": "",
+            "SourceX": 32506,
+            "SourceY": 32882,
+            "Speed": 0,
+            "Tail1": 255,
+            "Tail2": 255,
+            "Title": "",
+            "Unknown": 0,
+            "UpdatedAt": 355236218,
+            "WireExp": 290,
+            "X": 32505,
+            "Y": 32881
+          }
+        ],
+        "opacity": {
+          "groups": [],
+          "position": [
+            32503,
+            32879
+          ],
+          "revision": 168,
+          "states": [
+            [
+              "objects",
+              58759,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58760,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58761,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58762,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58763,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58764,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58765,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58766,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58767,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58768,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58769,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58770,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58771,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58772,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55889,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55890,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58773,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55891,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58774,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55892,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58775,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58776,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58777,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55893,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55894,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55852,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58778,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55895,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55853,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58779,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55896,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58780,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58781,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58782,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55897,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55898,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55854,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55899,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55855,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58783,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55900,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55856,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58784,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              58785,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55901,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55857,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55858,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55859,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55860,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55861,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55862,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55863,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55864,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55865,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55866,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61534,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61535,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61536,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61537,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59155,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59156,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61538,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61539,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61540,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61541,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61542,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59157,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59158,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59159,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59160,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61543,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61544,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61545,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61546,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61547,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61548,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59161,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59162,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59163,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59164,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59165,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59166,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61549,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61550,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61551,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61552,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61553,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61554,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61555,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61556,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59167,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59168,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59169,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59170,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59171,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61557,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61558,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61559,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61560,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61561,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61562,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61563,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61564,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59172,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59173,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59174,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59175,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59176,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59177,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              60333,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61565,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61566,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61567,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61568,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61569,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61570,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61571,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61572,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59178,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59179,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59180,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              60334,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              60335,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              60336,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              60337,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61573,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61574,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61575,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61576,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61577,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61578,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61579,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61580,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59181,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              59182,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              60338,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              60339,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              60340,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              60341,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61581,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61582,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61583,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61584,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61585,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61586,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61587,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61588,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              60342,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              60343,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              60344,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              60345,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61589,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61590,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61591,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61592,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61593,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61594,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61595,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61596,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              61597,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55027,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55028,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55029,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55030,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55031,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55032,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55033,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55034,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55035,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55036,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55037,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55038,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55039,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55040,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55041,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55042,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55043,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55044,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55045,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55046,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55047,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55048,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55049,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55050,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55051,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55052,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55053,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55054,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55055,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55056,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55057,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55058,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55059,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55060,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55061,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55062,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55063,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55064,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55065,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55066,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55067,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55068,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55069,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55070,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55071,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55072,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55073,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55074,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55075,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55076,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55077,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55078,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55079,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55080,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55081,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55082,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55083,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55084,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55085,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55086,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55087,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55088,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55089,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55090,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55091,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55092,
+              257,
+              0,
+              0
+            ],
+            [
+              "objects",
+              55093,
+              257,
+              0,
+              0
+            ]
+          ],
+          "time": 355236406,
+          "timers": []
+        },
+        "ready": true,
+        "renderable": true,
+        "rewards": {
+          "experience": {
+            "Level": 59,
+            "LevelStart": 380396790,
+            "Limitation": "",
+            "NextLevel": 416461882,
+            "Percent": 90.00009205577516,
+            "Source": "S8",
+            "Total": 412855406,
+            "WireLow32": 412855406
+          },
+          "experienceChanges": 0,
+          "inventoryChanges": [],
+          "lastExperienceChange": null,
+          "notice": "原回包狀態差值；背包增加的來源需由實際戰鬥證據核對"
+        },
+        "serverTime": 343961724,
+        "status": {
+          "Ac": -4,
+          "Charisma": 10,
+          "Constitution": 16,
+          "Dexterity": 13,
+          "Earth": 0,
+          "Exp": 412855406,
+          "Fire": 0,
+          "Food": 40,
+          "Hp": 228,
+          "Intelligence": 11,
+          "Kills": 0,
+          "Lawful": 6,
+          "Level": 59,
+          "MaxHp": 689,
+          "MaxMp": 115,
+          "Mp": 82,
+          "ObjectId": 1900240002,
+          "Strength": 18,
+          "Time": 343960500,
+          "Water": 0,
+          "Weight": 0,
+          "Wind": 0,
+          "Wisdom": 12
+        },
+        "supportedAppearance": true,
+        "supportedMap": true,
+        "target": null,
+        "targetId": null,
+        "teleport": {
+          "actionLocked": false,
+          "generation": 3,
+          "marker": null,
+          "notice": "已收到原服角色位置並載入地圖。",
+          "paralysis": "",
+          "pending": false,
+          "portal": null,
+          "state": "arrived"
+        },
+        "timeReplies": 12,
+        "underwater": false,
+        "unhandled": {
+          "0x25": 6,
+          "0x28": 1,
+          "0x40": 18,
+          "0x73": 1,
+          "0x76": 22,
+          "0x9B": 1,
+          "0xD1": 3,
+          "0xF2": 1,
+          "0xFA": 10
+        },
+        "unknownObjectUpdates": 7,
+        "worldEpoch": 3
+      },
+      "worldEntry": {
+        "coreTimeoutMs": 12000,
+        "localTimeoutMs": 30000,
+        "pendingMap": null,
+        "probeAt": null,
+        "probeTimeoutMs": 8000,
+        "startedAt": null,
+        "totalTimeoutMs": 60000,
+        "transition": null
+      }
+    },
+    "loginControl": {
+      "canCancel": true,
+      "canEnter": false,
+      "canLogin": false,
+      "generation": 2,
+      "notice": "已要求進入世界，請查看連線狀態。",
+      "revision": 4,
+      "sessionRevision": 480
+    },
+    "magic": {
+      "ac": null,
+      "acNotice": "AC：等待伺服器完整更新",
+      "available": false,
+      "buffs": "",
+      "earth": 0,
+      "epoch": 3,
+      "fire": 0,
+      "hp": 228,
+      "maxHp": 689,
+      "maxMp": 115,
+      "message": null,
+      "mp": 82,
+      "notice": "原服已學技能已更新",
+      "selectedId": null,
+      "skills": [
+        {
+          "Id": 1,
+          "Name": "初級治癒術",
+          "NominalMp": 4,
+          "Supported": true,
+          "Target": "自己／指定對象"
+        },
+        {
+          "Id": 4,
+          "Name": "光箭",
+          "NominalMp": 3,
+          "Supported": true,
+          "Target": "指定敵人"
+        }
+      ],
+      "targetId": null,
+      "targetMode": "none",
+      "targetName": "尚未選擇技能",
+      "targets": [],
+      "water": 0,
+      "wind": 0
+    },
+    "networkMode": false,
+    "normalProduct": true,
+    "onlineMode": true,
+    "presence": {
+      "IncomingAttack": "上次對你攻擊 #3：萊肯 #2000036045 · 32505, 32881 · 目前無可見外觀 · 傷害欄 29（非 HP 扣除量）",
+      "Labels": [
+        {
+          "Detail": "外觀未顯示",
+          "Id": 2000035723,
+          "Missing": true,
+          "Name": "哈柏哥布林",
+          "X": 32496,
+          "Y": 32879
+        },
+        {
+          "Detail": "外觀未顯示",
+          "Id": 2000036045,
+          "Missing": true,
+          "Name": "萊肯",
+          "X": 32505,
+          "Y": 32881
+        }
+      ]
+    },
+    "revision": 635,
+    "steps": 92,
+    "targetName": null,
+    "trade": {
+      "canInvite": false,
+      "facingName": null,
+      "inventory": [
+        {
+          "count": 1,
+          "id": 10323,
+          "name": "在線禮包"
+        },
+        {
+          "count": 1,
+          "id": 1900241021,
+          "name": "白色藥水"
+        },
+        {
+          "count": 2,
+          "id": 1900241022,
+          "name": "金幣"
+        },
+        {
+          "count": 1,
+          "id": 1900241023,
+          "name": "鑑定卷軸"
+        },
+        {
+          "count": 8,
+          "id": 1900241024,
+          "name": "肉"
+        },
+        {
+          "count": 1,
+          "id": 1900241026,
+          "name": "+0 雙手劍"
+        },
+        {
+          "count": 1,
+          "id": 1900241029,
+          "name": "+0 弓"
+        },
+        {
+          "count": 86,
+          "id": 1900241030,
+          "name": "箭"
+        }
+      ],
+      "inventoryRevision": 10,
+      "model": {
+        "canAccept": false,
+        "canAdd": false,
+        "canCancel": false,
+        "canConfirm": false,
+        "canReject": false,
+        "challenge": 0,
+        "epoch": 3,
+        "generation": 3,
+        "notice": "世界已清除，舊交易已失效。",
+        "offers": [],
+        "ownConfirmed": false,
+        "peer": "",
+        "peerId": null,
+        "revision": 3,
+        "state": "idle"
+      },
+      "notice": "世界已清除，舊交易已失效。",
+      "offers": []
+    },
+    "v": 1,
+    "walking": true,
+    "x": 32503,
+    "y": 32879
+  }
+}

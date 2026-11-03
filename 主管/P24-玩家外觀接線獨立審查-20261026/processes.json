@@ -1,0 +1,236 @@
+[
+  {
+    "name": "build-product",
+    "pid": 84876,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\source\\OfflineClient.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\client",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 7.751075029373169
+  },
+  {
+    "name": "build-harness",
+    "pid": 81896,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\player-appearance-r1\\harness\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\harness",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 3.9538495540618896
+  },
+  {
+    "name": "build-effects-regression",
+    "pid": 87536,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\player-appearance-r1\\effects-regression\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\effects-regression",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 3.580204486846924
+  },
+  {
+    "name": "build-maps-regression",
+    "pid": 86620,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\player-appearance-r1\\maps-regression\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\maps-regression",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 3.5000391006469727
+  },
+  {
+    "name": "build-trade-regression",
+    "pid": 75524,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\player-appearance-r1\\trade-regression\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\trade-regression",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 3.500129461288452
+  },
+  {
+    "name": "build-service-regression",
+    "pid": 84076,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\player-appearance-r1\\service-regression\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\service-regression",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 3.852477788925171
+  },
+  {
+    "name": "build-casting-regression",
+    "pid": 81432,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\player-appearance-r1\\casting-regression\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\casting-regression",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 3.772490978240967
+  },
+  {
+    "name": "harness",
+    "pid": 73448,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\harness\\P24.PlayerAppearanceChecks.exe"
+    ],
+    "exitCode": 0,
+    "elapsed": 31.13016939163208
+  },
+  {
+    "name": "effects-regression",
+    "pid": 80956,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\effects-regression\\P24.MapEffectChecks.exe"
+    ],
+    "exitCode": 0,
+    "elapsed": 15.147657632827759
+  },
+  {
+    "name": "maps-regression",
+    "pid": 85612,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\maps-regression\\P24.EffectMapRegression.exe"
+    ],
+    "exitCode": 0,
+    "elapsed": 14.667746305465698
+  },
+  {
+    "name": "trade-regression",
+    "pid": 81876,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\trade-regression\\P24.EffectTradeRegression.exe"
+    ],
+    "exitCode": 0,
+    "elapsed": 0.33555173873901367
+  },
+  {
+    "name": "service-regression",
+    "pid": 72864,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\service-regression\\P24.EffectServiceRegression.exe"
+    ],
+    "exitCode": 0,
+    "elapsed": 9.121887445449829
+  },
+  {
+    "name": "casting-regression",
+    "pid": 12168,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\casting-regression\\P24.SkillCastingChecks.exe"
+    ],
+    "exitCode": 0,
+    "elapsed": 5.151718854904175
+  },
+  {
+    "name": "casting-dom",
+    "pid": 68328,
+    "args": [
+      "node",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\skill-casting-r1\\test_dom.cjs"
+    ],
+    "exitCode": 0,
+    "elapsed": 0.25905656814575195
+  },
+  {
+    "name": "map-panel",
+    "pid": 20512,
+    "args": [
+      "node",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\maps-r1\\test_panel.cjs"
+    ],
+    "exitCode": 0,
+    "elapsed": 0.09055161476135254
+  },
+  {
+    "name": "trade-dom",
+    "pid": 87008,
+    "args": [
+      "node",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\trade-r1\\test_dom.cjs"
+    ],
+    "exitCode": 0,
+    "elapsed": 0.07257342338562012
+  },
+  {
+    "name": "service-dom",
+    "pid": 10880,
+    "args": [
+      "node",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u73a9\u5bb6\u5916\u89c0\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\skill-warehouse-r1\\test_dom.cjs"
+    ],
+    "exitCode": 0,
+    "elapsed": 0.1306312084197998
+  }
+]

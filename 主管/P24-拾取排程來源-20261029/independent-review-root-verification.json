@@ -1,0 +1,21 @@
+{
+  "utc": "2026-10-29T00:17:13.537728+00:00",
+  "status": "accepted-bounded-static",
+  "finalSealSha256": "fe60ebb07bc282e194612a938f20ac04f59f0fd89281b1673f5c591861a2c6b0",
+  "finalResultSha256": "b54ff5205f8da0f9f691ef33daf8d9059f6b1b98d21081c3b06111b1cc9f83eb",
+  "correctionArtifacts": 8,
+  "preservedOriginalArtifacts": 34,
+  "externalWholeFilePins": 172,
+  "boundedBinaryReadPins": 20991,
+  "nativeChunks": 62,
+  "claims": 14,
+  "sourceRanges": 39,
+  "supplementalRanges": 2,
+  "vtables": 3,
+  "arithmeticRows": 3,
+  "runtimeChecks": 0,
+  "timingParity": false,
+  "slowQualified": false,
+  "neutralEligibilityQualified": false,
+  "correction": "Original seal failed import reporting count; preserved immutable; authoritative correction-r1 accepted. Incoming action8 deletion does not guarantee all-clear with null queue entries."
+}

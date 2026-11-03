@@ -1,0 +1,218 @@
+{
+  "schema": "p26-followup-contract-inputs-v1",
+  "status": "contract-inputs-only-not-implementation-authorization",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "integrator": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "authority": {
+    "currentPolicy": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+      "size": 11741,
+      "sha256": "0c8f214831a286bec4a6844ab1293b4f4798ff829ef0a3d6507dbf455eddc040"
+    },
+    "takeover": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\takeover.json",
+      "size": 4697,
+      "sha256": "d7f7d19b500238a3e9894ac8caae74d99d5d9e31ea0de1acc2cf100866ed3bb1"
+    },
+    "dispatch": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\dispatch-contracts.json",
+      "size": 8145,
+      "sha256": "5d0cc5dbd1d20a56bccfcd5cef0a11e74f26a7b8a079ef9fda3d40feb14097cc"
+    },
+    "historicalPolicyProof": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\policy-drift-proof.json",
+      "size": 675,
+      "sha256": "dc2fa0d642ad975ac93cf6365852268a581562bc724cc6aa001be248fe7ea1fd"
+    }
+  },
+  "canonicalCurrent": {
+    "revision": "r33",
+    "baselineLock": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\baseline-lock.json",
+      "size": 38506,
+      "sha256": "e0d00a412abdd2de672a5845ae10a160dd35f2b5a81fabf3f0e556c419e6d0fa"
+    },
+    "basePins": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\baseline-final.json",
+      "size": 29657,
+      "sha256": "2a946e965f1aed1f9a0358ceb560f52575ea5a3bf217fc9ccf36e9ce5823c40f"
+    },
+    "releaseSealSha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417",
+    "productDllSha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2",
+    "productManifestSha256": "7c4d23327c0588d1029e9721c806b2e868ee2839c6e2087fb2c516632a656bf0",
+    "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+    "launcherDllSha256": "8b0cfba16676c6d3d8294db217dfacc343813dd69bbc753574f3d32a23b3008b"
+  },
+  "acceptedStageOnly": {
+    "revision": "r34",
+    "sourceManifest": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\rebuild-overlay\\_integration\\r34\\acceptance\\source-manifest.json",
+      "size": 45249,
+      "sha256": "337afaa3607e49e0c50f2f388ab8cec8c42f7816e33ed2ee98df6bfb0a48b533"
+    },
+    "stageSeal": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\stage-seal.json",
+      "size": 2535568,
+      "sha256": "9544f137a10914825b53080d4d390d17902cd40866467cebbf69578290240018"
+    },
+    "result": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\stage-result.json",
+      "size": 4116,
+      "sha256": "54478aaf1ec0701f4daec9a4f5f6d654272aba1ad74f65efa4e36af57895a1a8"
+    },
+    "historicalAcceptance": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-權威拾取動畫-20261029\\r34-stage-root-acceptance.json",
+      "size": 1628,
+      "sha256": "d8923799b13660f4eab08ac52d45f27c183c3d0e01aed3d491a62b593e110308"
+    },
+    "identities": {
+      "productDllSha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed",
+      "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+      "productManifestSha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d",
+      "launcherDllSha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8"
+    },
+    "notYetCanonicalBase": true
+  },
+  "expansionSourcePlan": {
+    "artifact-manifest.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\artifact-manifest.json",
+      "size": 2113,
+      "sha256": "7e5605b111825be0e3d719bfea230743b11f7ed65e41b259eea23929e9616904"
+    },
+    "result.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\result.json",
+      "size": 1704,
+      "sha256": "6b0cd8221231b2cd4d01fef21322fa7248551f21896651a005ed64e8384e0a15"
+    },
+    "plan.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\plan.json",
+      "size": 1791,
+      "sha256": "572264093eccb1343cd8f44165f34d9d9a1c52fe0867400baad60c41e6337f36"
+    },
+    "profiles.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\profiles.json",
+      "size": 557981,
+      "sha256": "6b447c0ee2dd4677fb04b41c3384630a4b67d604a0201684b1f2cc193a39349f"
+    },
+    "body-groups.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\body-groups.json",
+      "size": 98677,
+      "sha256": "138eba9701712e0e0883cad42f03844eb3e3e3fa849a666684289eb6598d0082"
+    },
+    "source-pins.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\source-pins.json",
+      "size": 51974,
+      "sha256": "df14f3b7cd452e9c9b9d28696edca04d79a5fa95e598e9d6b40e9f3fe59d9297"
+    },
+    "candidate-tests.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\candidate-tests.json",
+      "size": 4454,
+      "sha256": "9731f0079dd9647e790a0583e834f4ef19d306346f60001e802f527d40a44315"
+    },
+    "plan.py": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-plan-r1\\plan.py",
+      "size": 15036,
+      "sha256": "e6efcffc054df10544908af51ffdbf3cbd1043625c9fa08c9a6c9a82c0c92e88"
+    }
+  },
+  "expansionReviewPrep": {
+    "artifact-manifest.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\artifact-manifest.json",
+      "size": 74745,
+      "sha256": "2f56ff408f7a2b96197d64313ec898f962ac1c53b49df8acc5b8a7b6cb316a66"
+    },
+    "result.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\result.json",
+      "size": 2287,
+      "sha256": "945760f87966ed206dd185cdf5f8f00ce44d039342b10de905ef1ab0df056189"
+    },
+    "fixture-manifest.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\fixture-manifest.json",
+      "size": 73204,
+      "sha256": "baf898adc1df0e48612ddbb25ed72dec2db439da99c3f32baaf396bd0e14befe"
+    },
+    "input-pins.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\input-pins.json",
+      "size": 83333,
+      "sha256": "b74969baf143b002b0034bb8804cbfccf4fc76d7572c804e3cdb2cef0416577e"
+    },
+    "planned-mapping.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\planned-mapping.json",
+      "size": 4345492,
+      "sha256": "335960335d176dd6d623934fc446ddaa35f8e9df2ff5f76f88da41b3816d7804"
+    },
+    "profile-inputs.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\profile-inputs.json",
+      "size": 14706,
+      "sha256": "d20d3fac02704a095c2c5ad2f506aae836cd9bf67b9a8271033532561818c5f2"
+    },
+    "body-fixtures.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\body-fixtures.json",
+      "size": 375903,
+      "sha256": "efa606697a17c321ab61faf151a53ecdf47ec38d50ea763283ab1c68dc1a58bb"
+    },
+    "test-families.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\test-families.json",
+      "size": 330483,
+      "sha256": "3f54abeeff484c21db97d47b2c33e57076a971bc05acaac163b8b91657fedab0"
+    },
+    "verify.py": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-own-profiles-review-prep-r1\\verify.py",
+      "size": 10778,
+      "sha256": "b0e0c42b4776f828d1fca89c4890fe5be13abb67387dbb706293e5495499b850"
+    }
+  },
+  "immutableAssets": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\engine\\assets",
+    "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+    "integritySha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98",
+    "writeForbidden": true,
+    "hardlinkInPlaceWritesForbidden": true
+  },
+  "resourceContract": {
+    "existingLogicalName": "P06.Resources.PickupOwnBase15Gfx0Weapon0.json",
+    "existingBytes": 239766,
+    "existingSha256": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90",
+    "existingResourceMustRemainByteIdentical": true,
+    "newLogicalName": "P06.Resources.PickupOwnBase15ProfileExtension.json",
+    "newBytes": 2473547,
+    "newSha256": "aff2e04d4f9395f7993baf5818eb16218730b7def0a29c7d07e86c314db513ba",
+    "newFrames": 288,
+    "newGroups": 12,
+    "serialization": "UTF8 no BOM/newline; sorted keys; compact comma/colon; ensure_ascii=False",
+    "payloadWrittenByThisReview": false
+  },
+  "futureRequiredBindings": [
+    "新authority/controller/plan exact SHA與獨立接受receipt",
+    "canonical r34實際完成的4 identities、完整source/base pins、8步attempt/result/raw evidence及主管接受；stage identities不能代替final base",
+    "候選version/id、專屬root、允許修改檔案、candidate source/resource/result/seal、獨立review pins",
+    "現行policy/takeover與歷史prep seal分別綁定；包含F4 byte逆向證明",
+    "新shared receipt由現任主管簽派，唯一整合者執行；release/入口啟用另授權"
+  ],
+  "constraints": [
+    "只准42個exact gfx/weapon pair（control 0/0＋其餘41），own、Speed0/1、Brave0；remote/Slow/Speed2/3與native eligibility不擴張。",
+    "按source sequence exact keys，不能用gfx0 sid/frame公式；gfx2796為48:1→48:2→48:3→8:0；六組terminal sid從8起；不鏡射方向。",
+    "字典按gfx/sprite namespace；64裸key跨sprite collisions；不能只因gfx已支持就接受任意weapon。",
+    "gfx0其他4武器共用已有24 pickup frames但profile hash/owner/combat timing仍獨立；base frame0取當前profile已驗hash，不跨profile借body。",
+    "312 pickup key無shadow；先移除idle shadow，terminal只恢復own exact-key shadow；104 terminal unique shadow hits；PNG為body-only，不當完整composite expected。",
+    "ActiveOwnCombat/WithProjectileHit/Timing.Matches保留；death無有限Duration，S87 weapon8循原base weapon0；projectile-hit即使OwnCombat=null仍優先，newer expired hit不得回退較舊attack。",
+    "captured ActionCadence normal/haste不變；有Timing採AnimationMs否則appearance.Duration double；damage 583.3333333333334於583可見584到期，不用StepMs截整。",
+    "owner/serial、S158/15逐筆、latest eligible replacement、terminal584、900/3000與權威數量沿final r34契約；切換weapon即使同body亦取消舊owner callbacks。",
+    "metadata events inert，沒有新增音效/effect dispatch；104 base屬historical-selected-payload-matched，312 pickup/新增288屬current-idx-and-bounded-slice-only，不提升BIN/native資格。",
+    "14 test families、2688 planned rows、7822重疊slots均不是執行數；產品runtime/build/native結果須另實跑、分項紀錄，不沿用本報告成功。"
+  ],
+  "dependencies": [
+    {
+      "id": "D1",
+      "owner": "original integrator via current supervisor",
+      "path": "work/P26-r34-authority-rebind-r1",
+      "exactSeal": null,
+      "status": "await-supervisor-exact-hash-for-separate-review"
+    },
+    {
+      "id": "D2",
+      "owner": "current supervisor / original integrator",
+      "status": "canonical r34 acceptance and final base not yet supplied; required before extension implementation"
+    }
+  ]
+}

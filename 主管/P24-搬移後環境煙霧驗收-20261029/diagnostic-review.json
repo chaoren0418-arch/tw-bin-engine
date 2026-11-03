@@ -1,0 +1,38 @@
+{
+  "utc": "2026-10-28T19:05:11.496923+00:00",
+  "passed": true,
+  "scope": "Independent supervisor acceptance of two bounded prerequisite diagnostic handbacks.",
+  "reviews": [
+    {
+      "task": "timed-item-lifecycle-r1",
+      "sourcePins": 52,
+      "artifactPins": 37,
+      "manifestSha256": "7ab57d40d99666b0d870a739f05d4fc05ad88786aeb328192eeec31e4235fd9b",
+      "acceptedScope": "Static diagnosis/design only; no original data repair or runtime reproduction."
+    },
+    {
+      "task": "timed-item-repair-review-r1",
+      "sourcePins": 19,
+      "artifactPins": 10,
+      "manifestSha256": "3a72a32d8d1842a4ddeb9c688f2ac503747c872b22667903135564bdef9d3fba",
+      "acceptedScope": "Static diagnosis/design only; no original data repair or runtime reproduction."
+    }
+  ],
+  "actualJarClassesChecked": 20,
+  "methodAnchorChecks": 32,
+  "controlFlowReview": "Reviewed three remainingTime conditional branches and separate main/time cleanup, retained load fail-closed path, absolute timer and offline branch distinctions.",
+  "supervisorSelectGroups": 8,
+  "supervisorSqlWrites": 0,
+  "originalDataMutationAuthorized": false,
+  "originalDataRepairApplied": false,
+  "liveFaultReproduction": false,
+  "environmentSmokePassed": false,
+  "wholeP24Complete": false,
+  "goalActualStatus": "paused",
+  "limits": [
+    "32 method anchors and reviewed control flow are not execution of those methods.",
+    "18 synthetic policy cases are not real Java/MyISAM tests.",
+    "Historical object-specific deletion path and remaining_time are not established.",
+    "Current source and actual JAR have identified differences; actual JAR is the baseline."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "utc": "2026-10-29T07:57:46.287540+00:00",
+  "workers": [
+    {
+      "phase": "P35-author",
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a186a4-8db4-79e2-9929-fc6b320d069e",
+      "state": "active-actual-source-read-and-candidate-created",
+      "root": "work/P35-release-generator-rg2-fix-r1"
+    },
+    {
+      "phase": "P35-review",
+      "threadId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "turnId": "01a186a4-9e46-7131-ab4e-27f2f3f63c82",
+      "state": "active-original-defect-and-one-row-delta-read",
+      "root": "work/P35-release-generator-rg2-review-r1"
+    }
+  ],
+  "existingThreadsReused": true,
+  "sharedWritesAuthorized": false
+}

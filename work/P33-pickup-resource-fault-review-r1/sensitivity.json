@@ -1,0 +1,125 @@
+{
+  "scope": "Offline comparison-only mutations of expected reason and recovery frame against frozen actual; no product rerun, no new cases",
+  "controls": [
+    {
+      "case": "chain-0-0-missing-base",
+      "mutation": "wrong reason",
+      "detected": true
+    },
+    {
+      "case": "chain-0-0-missing-base",
+      "mutation": "borrow unrelated profile start frame",
+      "detected": true
+    },
+    {
+      "case": "chain-0-0-missing-profile",
+      "mutation": "wrong reason",
+      "detected": true
+    },
+    {
+      "case": "chain-0-0-missing-profile",
+      "mutation": "borrow unrelated profile start frame",
+      "detected": true
+    },
+    {
+      "case": "chain-0-0-missing-group",
+      "mutation": "wrong reason",
+      "detected": true
+    },
+    {
+      "case": "chain-0-0-missing-group",
+      "mutation": "borrow unrelated profile start frame",
+      "detected": true
+    },
+    {
+      "case": "chain-0-0-missing-key",
+      "mutation": "wrong reason",
+      "detected": true
+    },
+    {
+      "case": "chain-0-0-missing-key",
+      "mutation": "borrow unrelated profile start frame",
+      "detected": true
+    },
+    {
+      "case": "chain-0-0-profile-path",
+      "mutation": "wrong reason",
+      "detected": true
+    },
+    {
+      "case": "chain-0-0-profile-path",
+      "mutation": "borrow unrelated profile start frame",
+      "detected": true
+    },
+    {
+      "case": "chain-0-0-profile-hash",
+      "mutation": "wrong reason",
+      "detected": true
+    },
+    {
+      "case": "chain-0-0-profile-hash",
+      "mutation": "borrow unrelated profile start frame",
+      "detected": true
+    },
+    {
+      "case": "chain-2796-20-missing-base",
+      "mutation": "wrong reason",
+      "detected": true
+    },
+    {
+      "case": "chain-2796-20-missing-base",
+      "mutation": "borrow unrelated profile start frame",
+      "detected": true
+    },
+    {
+      "case": "chain-2796-20-missing-profile",
+      "mutation": "wrong reason",
+      "detected": true
+    },
+    {
+      "case": "chain-2796-20-missing-profile",
+      "mutation": "borrow unrelated profile start frame",
+      "detected": true
+    },
+    {
+      "case": "chain-2796-20-missing-group",
+      "mutation": "wrong reason",
+      "detected": true
+    },
+    {
+      "case": "chain-2796-20-missing-group",
+      "mutation": "borrow unrelated profile start frame",
+      "detected": true
+    },
+    {
+      "case": "chain-2796-20-missing-key",
+      "mutation": "wrong reason",
+      "detected": true
+    },
+    {
+      "case": "chain-2796-20-missing-key",
+      "mutation": "borrow unrelated profile start frame",
+      "detected": true
+    },
+    {
+      "case": "chain-2796-20-profile-path",
+      "mutation": "wrong reason",
+      "detected": true
+    },
+    {
+      "case": "chain-2796-20-profile-path",
+      "mutation": "borrow unrelated profile start frame",
+      "detected": true
+    },
+    {
+      "case": "chain-2796-20-profile-hash",
+      "mutation": "wrong reason",
+      "detected": true
+    },
+    {
+      "case": "chain-2796-20-profile-hash",
+      "mutation": "borrow unrelated profile start frame",
+      "detected": true
+    }
+  ]
+}

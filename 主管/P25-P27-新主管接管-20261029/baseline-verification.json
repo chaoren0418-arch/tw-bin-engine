@@ -1,0 +1,30 @@
+{
+  "schema": "supervisor-readonly-verification-v1",
+  "utc": "2026-10-29T03:35:59.958Z",
+  "checks": 38,
+  "passed": 38,
+  "failed": 0,
+  "scope": [
+    "24 r34 canonical plan artifact seal entries",
+    "7 r33 acceptance evidence pins",
+    "5 current engine before-state pins",
+    "root entry SHA",
+    "project manifest SHA"
+  ],
+  "claims": [
+    "entry is r33",
+    "r33 historical offline acceptance receipts intact",
+    "r34 canonical plan intact; no canonical execution"
+  ],
+  "notPerformed": [
+    "full release rehash",
+    "product build/test",
+    "native/game/DB/services"
+  ],
+  "finding": {
+    "path": "work/engine-r34-integration-r2/acceptance_gate.py",
+    "line": 5,
+    "constant": "SUPERVISOR='01a17e6a-9270-7cc2-a338-0120ed68d0ec'",
+    "effect": "new supervisor receipt fails original serial_canonical.validate_plan; explicit new independent version required"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "utc": "2026-10-28T23:25:32.072676+00:00",
+  "decision": "sealed-candidate-precheck-passed-ready-for-independent-review",
+  "candidateSealSha256": "2ad5c438372732384dbb505936a94ce386d25933223194c39c2997de524073cf",
+  "sourceManifestSha256": "adf30cb60180285541857fac85b3e522d68855a1a63d0117dd4fb71cb1de0056",
+  "resultSha256": "359cb5a3111e0dc95e91000024d780098f842cff711c924e7f551212824cb207",
+  "artifactFiles": 344,
+  "sourceFiles": 177,
+  "changedSources": [
+    "source/Ground.cs",
+    "source/WorldEntry.cs"
+  ],
+  "candidateChecks": 339,
+  "distinctCheckIds": 338,
+  "baseline36NotAdded": true,
+  "productDllSha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2",
+  "finalBaseBindingVerified": true,
+  "rootStaticDiffReviewed": true,
+  "independentCandidateReviewPending": true,
+  "sharedMergeAuthorized": false
+}

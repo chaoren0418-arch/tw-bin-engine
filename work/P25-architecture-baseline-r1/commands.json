@@ -1,0 +1,11 @@
+{
+  "verify": "python -B -X utf8 \"D:\\lineage開發\\TW1608262200研究\\work\\P25-architecture-baseline-r1\\verify_baseline.py\"",
+  "regenerateDocuments": "python -B -X utf8 \"D:\\lineage開發\\TW1608262200研究\\work\\P25-architecture-baseline-r1\\build_baseline.py\"",
+  "limits": "regenerate writes only own P25 directory; verifier stdout only; no product test/build or native activity",
+  "sealDocuments": "python -B -X utf8 \"D:\\lineage開發\\TW1608262200研究\\work\\P25-architecture-baseline-r1\\finalize_baseline.py\"",
+  "regenerationOrder": [
+    "regenerateDocuments",
+    "sealDocuments",
+    "verify"
+  ]
+}

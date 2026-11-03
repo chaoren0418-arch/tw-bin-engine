@@ -1,0 +1,63 @@
+{
+  "schema": "p38-delivery-qualification-scope-v1",
+  "utc": "2026-10-29T09:55:18.950552+00:00",
+  "purpose": "Bounded offline delivery qualification requested by parent; not whole-engine completion",
+  "offlineAuthorized": [
+    {
+      "item": "Exact P36 runtime/source/web package closure",
+      "basis": "Accepted 181 source/audio/web,15 product outputs,30 web files; unchanged product DLL",
+      "stage": "plan-sealed-review-pending"
+    },
+    {
+      "item": "Fresh candidate normal-product manifest and rebound launcher",
+      "basis": "Mechanical literals only; no normal branch changes; one work-only launcher build",
+      "stage": "execution-pending"
+    },
+    {
+      "item": "Immutable asset materialization and content integrity",
+      "basis": "13957 asset bodies; author metadata identity, independent final content SHA once",
+      "stage": "execution-and-final-review-pending"
+    },
+    {
+      "item": "Local launcher preflight",
+      "basis": "One candidate check-only, one old-r34 refusal; .NET10/Desktop/WebView2 installed-version query; no UI/service/network",
+      "stage": "execution-pending"
+    }
+  ],
+  "notAuthorizedHere": [
+    "root entry/project-manifest switch",
+    "existing release mutation",
+    "normal/noargs product launch or game/character operation",
+    "DB/SQL/service inspection or mutation",
+    "certificate/security setting change"
+  ],
+  "notProvedByOfflineScope": [
+    "normal launcher-to-product GUI behavior",
+    "native pixels/mouse/6016 audio",
+    "fixed-version live login/combat/items/transactions/save/relogin",
+    "broader full regression beyond inherited same-DLL evidence",
+    "all map formats/event tokens/content"
+  ],
+  "resumeConditions": [
+    {
+      "scope": "Normal product/native acceptance",
+      "condition": "Explicit native-operation authority and fixed candidate identity; user-managed service readiness where needed; legitimate safe scenario. Entry switch is not inherently necessary for an isolated native test."
+    },
+    {
+      "scope": "Formal entry activation",
+      "condition": "Explicit user approval naming exact target version and exact persistent entry/manifest changes. Prior r34 request pending; not approval for P36/P38."
+    },
+    {
+      "scope": "Missing source-backed implementation",
+      "condition": "Exact authoritative real map effect-group-fade example or specified non6016 token/resource/lifecycle; source for unsupported map formats/shadow keys. No repeated research without new lead."
+    }
+  ],
+  "versionMeaning": {
+    "r33": "current formal entry",
+    "r34": "sealed baseline own-pickup animation; no extra41 profiles",
+    "P36": "accepted canonical extra41 exact own-pickup profiles,42 including control;speed0/1 Brave0",
+    "P38": "isolated delivery of unchanged P36 product with freshly bound launcher, not formal activation"
+  },
+  "fullReleaseAccepted": false,
+  "entryActivationAuthorized": false
+}

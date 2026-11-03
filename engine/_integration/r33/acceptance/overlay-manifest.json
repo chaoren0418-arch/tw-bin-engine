@@ -1,0 +1,80 @@
+{
+  "status": "prepared-after-baseline-only",
+  "groundLifecycleSuitePassed": false,
+  "mergeAuthorizedByThisArtifact": false,
+  "installationRequiresNewSupervisorDispatch": true,
+  "sourceCount": 177,
+  "candidateId": "ENGINE-GROUND-LIFECYCLE-IMPL-R1",
+  "files": [
+    {
+      "path": "_integration/r33/acceptance/baseline-151-result.json",
+      "size": 10015,
+      "sha256": "272acfecd8674028e57f2dc980a77eff83891ee27d160996911f362058289e83"
+    },
+    {
+      "path": "_integration/r33/acceptance/candidate-result.json",
+      "size": 2822,
+      "sha256": "359cb5a3111e0dc95e91000024d780098f842cff711c924e7f551212824cb207"
+    },
+    {
+      "path": "_integration/r33/acceptance/candidate-seal.json",
+      "size": 59650,
+      "sha256": "2ad5c438372732384dbb505936a94ce386d25933223194c39c2997de524073cf"
+    },
+    {
+      "path": "_integration/r33/acceptance/independent-review.json",
+      "size": 7178,
+      "sha256": "fd699ef75df6b3116c52e14511756ba331bc16c7b43acd2d92391ad1e8065649"
+    },
+    {
+      "path": "_integration/r33/acceptance/r33-input-contract.json",
+      "size": 1251,
+      "sha256": "048770f99ca923ab05227dbd8fc3049f1aeddf70260f3423c553aa0427744c50"
+    },
+    {
+      "path": "_integration/r33/acceptance/r33-integration-acceptance.json",
+      "size": 2307,
+      "sha256": "3676137771224079b0a3a26abf094165c34e2b8b68e203da8089f2f877fc4a28"
+    },
+    {
+      "path": "_integration/r33/acceptance/source-manifest.json",
+      "size": 43756,
+      "sha256": "adf30cb60180285541857fac85b3e522d68855a1a63d0117dd4fb71cb1de0056"
+    },
+    {
+      "path": "_integration/r33/launcher-source/Launcher.csproj",
+      "size": 412,
+      "sha256": "59a5f22c8ced415eb3d9a36d5f356b52766956a3ae66597e29214a53280e62ee"
+    },
+    {
+      "path": "_integration/r33/launcher-source/Program.cs",
+      "size": 8488,
+      "sha256": "105a4c5ab320b36222670b913d81eb131bbf6d382525c3b7bd2252c74a2da917"
+    },
+    {
+      "path": "_integration/r33/product-build.ps1",
+      "size": 2088,
+      "sha256": "9b69f5b3a20c8b260e331ca2b3c35290de534d8cdeda1a27acd3579552de6f51"
+    },
+    {
+      "path": "_integration/r33/rebuild-lock.json",
+      "size": 32209,
+      "sha256": "15cb88653a2b7aaf1bb7015e7db1231f8224b98ef4a4a75306ccf50694bb33eb"
+    },
+    {
+      "path": "_integration/r33/rebuild.py",
+      "size": 8685,
+      "sha256": "670124209cf02a11c2e4be2ce61abf18c4bc7f3f994c2c7c9c998970f079d48a"
+    },
+    {
+      "path": "build-product.ps1",
+      "size": 189,
+      "sha256": "e128ad26b7547a43eb4ba3de904aecef7b4417966410cd948ffa5453c1da6f62"
+    },
+    {
+      "path": "launch-product.ps1",
+      "size": 2781,
+      "sha256": "40f86aecf3d4d7469da8093dc50ceb9a56bb4f71ed8c1203f18bbb9594afa5db"
+    }
+  ]
+}

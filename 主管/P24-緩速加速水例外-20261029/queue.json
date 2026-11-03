@@ -1,0 +1,89 @@
+{
+  "status": "accepted-r32-offline-complete-continued-r33",
+  "targetRevision": "r32",
+  "baselinePhase": "supervisor-accepted-immutable-r31-stage",
+  "baselineSha256": "16ab9dbb534e20e03e622777ab530065e1bc97363c08d8b765e2cb880115bb87",
+  "finalR31ReleaseBindingPending": false,
+  "sharedMergeAuthorized": false,
+  "database": "user-owned-no-operations",
+  "wholeP24Complete": false,
+  "tasks": [
+    {
+      "id": "ENGINE-SLOW-HASTE-ITEM-IMPL-R1",
+      "owner": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "writeRoot": "work/engine-slow-haste-item-r1",
+      "status": "sealed-candidate-accepted",
+      "turnId": "01a184a9-e84e-75d3-9c84-cdf7e2381da7",
+      "cursor": "1e47fa6f-0252-43ab-bc1b-299701dcebdc:31",
+      "accepted": true,
+      "candidateSealSha256": "0976aa3ffe829a1b4f77c3b94241f113ed77ca0dab245b6c6e1dca1ac18f3369"
+    },
+    {
+      "id": "ENGINE-SLOW-HASTE-ITEM-REVIEW-PREP-R1",
+      "owner": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "writeRoot": "work/engine-slow-utility-review-r1/r31-baseline-r1",
+      "status": "sealed-independent-preparation-accepted-awaiting-candidate",
+      "turnId": "01a184a9-e92f-7bd1-a904-0950f5e4ac85",
+      "cursor": "8733f9b2-2e3c-4239-bb56-0b27e2dd2974:65",
+      "accepted": true,
+      "acceptanceScope": "preparation-only"
+    },
+    {
+      "id": "ENGINE-R32-INTEGRATION-PREP-R1",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "writeRoot": "work/engine-r32-integration-r1",
+      "status": "sealed-preparation-accepted-awaiting-candidate",
+      "activeReceipt": "three-workers-active-receipt.json",
+      "accepted": true,
+      "acceptanceScope": "preparation-only",
+      "turnId": "01a184b0-4d58-7723-a3dc-5099923dd0a0",
+      "cursor": "06f62879-b242-49d3-a511-42891ee357b8:70"
+    },
+    {
+      "id": "ENGINE-SLOW-HASTE-ITEM-CANDIDATE-REVIEW-R1",
+      "owner": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "writeRoot": "work/engine-slow-utility-review-r1/candidate-review-r1",
+      "status": "sealed-independent-review-accepted",
+      "activeReceipt": "candidate-r1-review-active-receipt.json",
+      "accepted": true,
+      "turnId": "01a184b5-cf67-7940-9e58-68bbb9d36603",
+      "cursor": "8733f9b2-2e3c-4239-bb56-0b27e2dd2974:74"
+    },
+    {
+      "id": "ENGINE-R32-INTEGRATE-R1",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "writeRoot": "work/engine-r32-integration-r1/r32-runs/accepted-slow-haste-item-r1-01",
+      "status": "sealed-isolated-stage-accepted",
+      "activeReceipt": "r32-isolated-active-receipt.json",
+      "accepted": true,
+      "turnId": "01a184bc-9150-7bc0-a7ba-674870a145c9",
+      "cursor": "06f62879-b242-49d3-a511-42891ee357b8:84",
+      "reportedAssertionsPassed": 3602,
+      "observationsSeparate": 12,
+      "stageSealSha256": "121fd44082ab5f55c9d7c91ca78256276e1303e2734459210bc6c7e672d73734"
+    },
+    {
+      "taskId": "ENGINE-R32-SHARED-INTEGRATE-R1",
+      "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a184c7-14e6-7961-ab36-179d2a0763d7",
+      "cursor": "06f62879-b242-49d3-a511-42891ee357b8:104",
+      "status": "accepted-offline-integrator-idle",
+      "utc": "2026-10-28T23:10:13.071Z",
+      "writeRoot": "work/engine-r32-integration-r1/shared-integration-r1",
+      "sharedMergeAuthorized": false,
+      "id": "ENGINE-R32-SHARED-INTEGRATE-R1",
+      "accepted": true
+    }
+  ],
+  "utc": "2026-10-28T22:38:22.043Z",
+  "finalBaseBinding": "final-base-binding.json",
+  "finalBasePinsSha256": "00e9d4664024119595faeead50ade5827258763e47dc3d7068ea9b78abf8c813",
+  "updatedUtc": "2026-10-28T23:19:41.620968+00:00",
+  "parallelNextSourceQualification": {
+    "taskId": "ENGINE-SLOW-PICKUP-SOURCE-R1",
+    "queue": "主管/P24-緩速拾取來源-20261029/queue.json",
+    "implementationAuthorized": false
+  },
+  "supervisorAcceptance": "r32-supervisor-acceptance.json",
+  "supervisorAcceptanceSha256": "5ecb6d4d9b09ce99febe4ba4a3e80c95fc57d740c01fbe25d3a7159fa35c6de9"
+}

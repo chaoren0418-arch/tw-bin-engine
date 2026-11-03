@@ -1,0 +1,29 @@
+{
+  "status": "isolated-W1-fix-complete-awaiting-supervisor-and-independent-review",
+  "baselineR1Dll": "8529b7da31512b96aa6f487cbfe2d8e86d8fde37c920df8038703d3fcb4715c5",
+  "productDllSha256": "70b873dfc2c71e11cfb125a3d073631bceb687b281c875fe095b2fe01d70e90a",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "deltaFiles": 8,
+  "existingHostCases": 22,
+  "existingHostAssertions": 77,
+  "newManagedCases": 6,
+  "newManagedAssertions": 34,
+  "newJavaScriptChecks": 23,
+  "totalAssertions": 134,
+  "buildWarnings": 0,
+  "buildErrors": 0,
+  "gui": false,
+  "com": false,
+  "playback": false,
+  "network": false,
+  "services": false,
+  "database": false,
+  "formalR28Published": false,
+  "wholeP24Complete": false,
+  "writingStoppedAfterSeal": true,
+  "limitations": [
+    "Managed UI/DOM substitutes; no native controls or WebView2 interaction",
+    "r2 is isolated candidate, not full normal-entry portable delivery",
+    "Supervisor and independent final review pending"
+  ]
+}

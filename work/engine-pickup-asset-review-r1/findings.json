@@ -1,0 +1,18 @@
+{
+  "blocking": [],
+  "boundedAcceptance": true,
+  "qualificationGaps": [
+    "All17 current whole PAK hashes remain uncomputed. Equal sizes do not prove whole archive identity.",
+    "Sprite04-11 current IDX/PAK sizes differ from historical pins; preserved first-abort evidence is historical author execution, not replayed by this review.",
+    "104 selected raw payloads have historical byte evidence (96 also match player source records); the other104 have only current IDX/record/offset/bounded-slice identity.",
+    "Main priority is existing product selection policy; this review does not prove native client archive lookup priority or BIN/resource same-release pairing.",
+    "Pixels qualify only selected normal RGB555 body pixels, written alpha255/unwritten alpha0 and original header/logical anchor. Runtime blend/effects/shadow or other display modes are outside scope.",
+    "The third tile byte and sort order are preserved; zero overlap makes ordering irrelevant for these416 frames and does not certify every runtime meaning of that byte.",
+    "Only160 frames across5 gfx were visually inspected; all416 received independent numeric decoding and fresh P04 union-canvas comparison.",
+    "Metadata token order/ticks/events are source data only. Renderer implementation, utility scheduler timing, native/live parity and Slow opening remain unqualified. No unsealed scheduler/eligibility conclusions were used."
+  ],
+  "reviewImplementationNotes": [
+    "Initial independent audit stopped because one product manifest row (gfx0/weapon46) omits optional sprite; final code derives alias from original metadata and checks actual profile.sprite, leaving source artifacts unchanged.",
+    "Author first extraction abort remains sealed and explicitly cited; historical SHA was never treated as current PAK proof."
+  ]
+}

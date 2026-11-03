@@ -1,0 +1,92 @@
+{
+  "schema": "p26-independent-release-contract-v1",
+  "originalController": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\package_release.py",
+    "size": 9394,
+    "sha256": "9324a77b90f3e64b85a6cc3678660de91dc5ba58edd7e2760236f0c17784af90"
+  },
+  "originalVerifier": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\prepared\\verify_release_r34.py",
+    "size": 1746,
+    "sha256": "a20f3dfcaae5d24d098b6c60bf0fd7699c289afdf5e5cb366ffe80599f7b1d9f"
+  },
+  "scope": "immutable original contract plus exact new tool revision; no live canonical completion judgment",
+  "rows": [
+    {
+      "id": "release-authority",
+      "requirement": "engine-r34-package-plan-v1 + engine-r34-release-acceptance-v1, current supervisor, fresh ENGINE-R34-RELEASE- dispatch and exact plan SHA; fixed new receipt path; shared receipt never substitutes",
+      "reviewStatus": "new release_authority pure predicates verified; actual receipt pending"
+    },
+    {
+      "id": "canonical-completion",
+      "requirement": "all eight product/baseline/ground/utility/haste/versioned-slow/f1/pickup completed records; exact selected attempt IDs/argv/cwd/exit/completed/product SHA; no failed/partial acceptance",
+      "reviewStatus": "new generator outer attempts independently tested; inner evidence closure RG1 pending"
+    },
+    {
+      "id": "completed-results",
+      "requirement": "result path exact under workflow; size/SHA and product identity; product all four identities; seven suites exact counts/observations/zero failed/pending/socket plus occurrencesMatched",
+      "reviewStatus": "generator static guards and independent predicate negatives verified; no real canonical acceptance claimed"
+    },
+    {
+      "id": "four-identities",
+      "requirement": "actual engine product/audio/manifest/launcher SHA must equal canonical plan/shared receipt/accepted stage/context; release plan and receipt four identities equal package entries",
+      "reviewStatus": "static and negative guards verified; exact future actual pins pending"
+    },
+    {
+      "id": "source-resource",
+      "requirement": "exact180 casefold-unique accepted sources in generator; every actual engine input pinned; resource239766 bytes SHA43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90 and PE embedded resource verified",
+      "reviewStatus": "old package schema only >177, not exact180; keep historical limit and rely on verified generator plus independent exact plan/source coverage"
+    },
+    {
+      "id": "runtime-rebuild",
+      "requirement": "all rebuild-lock and product-manifest dependencies except immutable assets/integrity; complete overlay; all4 launcher runtime files; canonical build directory and10 helper outputs",
+      "reviewStatus": "generator inventory and inherited controller coverage inspected; exact future inventory pending"
+    },
+    {
+      "id": "helper-identity",
+      "requirement": "10 unique r34-canonical helper dirs; DLL matches actual product, ../../assets resolves canonical assets",
+      "reviewStatus": "generator checks retained; real helper verification pending completed canonical"
+    },
+    {
+      "id": "evidence",
+      "requirement": "all accepted stage non-assets and seal; workflow all files except exact historical caches/before/bin/obj exclusions; native pickup referenced engine evidence; raw provenance pins revalidated before fresh inventory",
+      "reviewStatus": "coverage traversal present; RG1 innerEvidence/canonicalNestedCommands consistency gap must be fixed"
+    },
+    {
+      "id": "tool-archive",
+      "requirement": "14 exact source-seal entries + tool-source-seal copied independently, then source-archive.json; complete local import closure; source/archive mapping pinned by release binding",
+      "reviewStatus": "static selection15 files plus archive manifest; actual archive operation not run; original immutable verifier is pinned external dependency"
+    },
+    {
+      "id": "source-containment",
+      "requirement": "only canonical engine/workflow/accepted stage sources; absolute canonical paths, no symlink/junction; stage sources must be in stage seal; casefold target collisions rejected",
+      "reviewStatus": "original predicates/helpers and generator add inspected; unit negative coverage verified"
+    },
+    {
+      "id": "fresh-output-reserved",
+      "requirement": "fresh releases/r34; independent copies; generator fresh work/P26-r34-package-plan-rN/package-plan.json outside workflow; reserved release-generated filenames rejected before inventory",
+      "reviewStatus": "generator RESERVED includes asset-link-strategy/package-plan/release-acceptance/verify_release/release-seal; inherited controller alone can fail later on reserved collisions, so exact plan must use checked generator"
+    },
+    {
+      "id": "immutable-assets",
+      "requirement": "13957 integrity entries + integrity.json =13958 links from releases/r28/assets; assetroot integrity SHA and engine junction match; pin each body before os.link; samefile/device/inode evidence; no fallback/body/attribute write",
+      "reviewStatus": "metadata count/unique/paths/hash forms independently verified; zero real links and zero full body hashes this review"
+    },
+    {
+      "id": "failure",
+      "requirement": "link/copy/package failure retains partial output; no overwrite/retry; F2 product bindings gap and nested timeout limits still stop for supervisor",
+      "reviewStatus": "main unchanged except verifier root; static no-fallback/no-mutation audit, no package executed"
+    },
+    {
+      "id": "actual-release-verification",
+      "requirement": "after package exact release seal full file set/full SHA/no reparse verifier; independent supervisor acceptance; separate entry activation contract",
+      "reviewStatus": "not executed; tool acceptance or exact package-plan acceptance cannot substitute release result"
+    }
+  ],
+  "threeSeparateGates": [
+    "tool-source acceptance",
+    "exact package plan + actual completed evidence acceptance",
+    "actual packaged release full-seal/full-SHA acceptance"
+  ],
+  "nativeNotIncluded": true
+}

@@ -1,0 +1,17 @@
+{
+  "scope": "Manual sampled contact-sheet inspection plus exhaustive machine pixel comparisons",
+  "sampledGfx": [
+    0,
+    2796,
+    6650
+  ],
+  "allDirectionsViewedForSamples": true,
+  "observations": [
+    "Eight separately sourced directions, no mirrors; visible pickup pose progression.",
+    "Gfx2796 token1 starts at frame1 exactly as original metadata.",
+    "Logical origin retained, varying offsets not recentered; source alpha/black preserved.",
+    "Initial contact labels overlapped; contact-only formatting corrected to two lines/2x nearest, source PNGs unchanged."
+  ],
+  "all13VisuallyInspected": false,
+  "all416NumericallyVerified": true
+}

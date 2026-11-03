@@ -1,0 +1,12 @@
+{
+  "utc": "2026-10-28T22:20:43.279Z",
+  "raw": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"timedOut\":true,\"wake\":null,\"polls\":[{\"schemaVersion\":1,\"cursor\":\"8733f9b2-2e3c-4239-bb56-0b27e2dd2974:6\",\"revision\":6,\"changed\":true,\"thread\":{\"id\":\"01a17a21-8dec-7410-8a1b-80f7fa84d0a1\",\"hostId\":\"local\",\"status\":{\"type\":\"active\",\"activeFlags\":[]}},\"latestTurn\":{\"id\":\"01a18499-b163-7ee0-b7c2-34a75ad67289\",\"status\":\"inProgress\",\"error\":null,\"startedAt\":1793226027,\"completedAt\":null,\"durationMs\":null},\"latestAssistantMessageId\":\"msg_078f7973adfb547a016ae2752f19bc81919a4c1410fb2e9468\",\"latestAssistantMessage\":{\"id\":\"msg_078f7973adfb547a016ae2752f19bc81919a4c1410fb2e9468\",\"turnId\":\"01a18499-b163-7ee0-b7c2-34a75ad67289\",\"phase\":\"commentary\",\"text\":\"收到。我會以固定 r30 建立普通加速藥水的獨立來源契約，分開列出其他道具、穿脫、地面物品與交談的證據缺口，並用小型離線檢查驗證准入、回包與舊 callback；不讀取另一工作者未封存內容。\"},\"latestToolMarkerId\":\"exec-317c72ef-c19f-49a3-b568-e345d3099792\",\"latestToolMarker\":{\"id\":\"exec-317c72ef-c19f-49a3-b568-e345d3099792\",\"turnId\":\"01a18499-b163-7ee0-b7c2-34a75ad67289\",\"type\":\"commandExecution\",\"name\":\"commandExecution\",\"status\":\"completed\"}}]}"
+      }
+    ],
+    "isError": false
+  }
+}

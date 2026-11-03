@@ -1,0 +1,247 @@
+{
+  "status": "observed-failed-run-only",
+  "melee_packets": [
+    {
+      "sequence": 298,
+      "attacker": 1900120001,
+      "target": 2000038214,
+      "damage_word": 0
+    },
+    {
+      "sequence": 352,
+      "attacker": 1900120001,
+      "target": 2000038214,
+      "damage_word": 3
+    },
+    {
+      "sequence": 354,
+      "attacker": 2000038214,
+      "target": 1900120001,
+      "damage_word": 21
+    },
+    {
+      "sequence": 356,
+      "attacker": 1900120001,
+      "target": 2000038214,
+      "damage_word": 3
+    },
+    {
+      "sequence": 358,
+      "attacker": 2000038214,
+      "target": 1900120001,
+      "damage_word": 0
+    },
+    {
+      "sequence": 359,
+      "attacker": 1900120001,
+      "target": 2000038214,
+      "damage_word": 2
+    },
+    {
+      "sequence": 361,
+      "attacker": 2000038214,
+      "target": 1900120001,
+      "damage_word": 0
+    },
+    {
+      "sequence": 362,
+      "attacker": 2000038214,
+      "target": 1900120001,
+      "damage_word": 18
+    },
+    {
+      "sequence": 364,
+      "attacker": 1900120001,
+      "target": 2000038214,
+      "damage_word": 2
+    },
+    {
+      "sequence": 369,
+      "attacker": 2000038214,
+      "target": 1900120001,
+      "damage_word": 19
+    },
+    {
+      "sequence": 371,
+      "attacker": 1900120001,
+      "target": 2000038214,
+      "damage_word": 2
+    },
+    {
+      "sequence": 375,
+      "attacker": 2000038214,
+      "target": 1900120001,
+      "damage_word": 14
+    },
+    {
+      "sequence": 377,
+      "attacker": 1900120001,
+      "target": 2000038214,
+      "damage_word": 2
+    },
+    {
+      "sequence": 383,
+      "attacker": 2000038214,
+      "target": 1900120001,
+      "damage_word": 16
+    },
+    {
+      "sequence": 385,
+      "attacker": 1900120001,
+      "target": 2000038214,
+      "damage_word": 2
+    },
+    {
+      "sequence": 391,
+      "attacker": 2000038214,
+      "target": 1900120001,
+      "damage_word": 17
+    },
+    {
+      "sequence": 393,
+      "attacker": 1900120001,
+      "target": 2000038214,
+      "damage_word": 2
+    },
+    {
+      "sequence": 396,
+      "attacker": 2000038214,
+      "target": 1900120001,
+      "damage_word": 20
+    },
+    {
+      "sequence": 398,
+      "attacker": 1900120001,
+      "target": 2000038214,
+      "damage_word": 2
+    },
+    {
+      "sequence": 402,
+      "attacker": 2000038214,
+      "target": 1900120001,
+      "damage_word": 16
+    },
+    {
+      "sequence": 404,
+      "attacker": 1900120001,
+      "target": 2000038214,
+      "damage_word": 2
+    },
+    {
+      "sequence": 409,
+      "attacker": 2000038214,
+      "target": 1900120001,
+      "damage_word": 20
+    }
+  ],
+  "self_hp_updates": [
+    {
+      "sequence": 22,
+      "current": 160,
+      "max": 160
+    },
+    {
+      "sequence": 355,
+      "current": 139,
+      "max": 160
+    },
+    {
+      "sequence": 363,
+      "current": 121,
+      "max": 160
+    },
+    {
+      "sequence": 370,
+      "current": 102,
+      "max": 160
+    },
+    {
+      "sequence": 376,
+      "current": 88,
+      "max": 160
+    },
+    {
+      "sequence": 384,
+      "current": 72,
+      "max": 160
+    },
+    {
+      "sequence": 392,
+      "current": 55,
+      "max": 160
+    },
+    {
+      "sequence": 397,
+      "current": 35,
+      "max": 160
+    },
+    {
+      "sequence": 403,
+      "current": 19,
+      "max": 160
+    },
+    {
+      "sequence": 410,
+      "current": 0,
+      "max": 160
+    },
+    {
+      "sequence": 411,
+      "current": 0,
+      "max": 160
+    }
+  ],
+  "hp_meter": [
+    {
+      "sequence": 353,
+      "id": 2000038214,
+      "percent": 94
+    },
+    {
+      "sequence": 357,
+      "id": 2000038214,
+      "percent": 88
+    },
+    {
+      "sequence": 360,
+      "id": 2000038214,
+      "percent": 84
+    },
+    {
+      "sequence": 365,
+      "id": 2000038214,
+      "percent": 80
+    },
+    {
+      "sequence": 372,
+      "id": 2000038214,
+      "percent": 76
+    },
+    {
+      "sequence": 378,
+      "id": 2000038214,
+      "percent": 72
+    },
+    {
+      "sequence": 386,
+      "id": 2000038214,
+      "percent": 68
+    },
+    {
+      "sequence": 394,
+      "id": 2000038214,
+      "percent": 64
+    },
+    {
+      "sequence": 399,
+      "id": 2000038214,
+      "percent": 60
+    },
+    {
+      "sequence": 405,
+      "id": 2000038214,
+      "percent": 56
+    }
+  ],
+  "note": "Damage words are reported fields; separate HP and meter evidence, not assumed to be exact applied damage. Full kill not achieved."
+}

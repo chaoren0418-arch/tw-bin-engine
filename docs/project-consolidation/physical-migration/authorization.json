@@ -1,0 +1,22 @@
+{
+  "scope": "B1-B6 physical consolidation and recoverable deduplication",
+  "owner_thread": "01a18377-e899-75f6-abc1-5d245b37f008",
+  "parent_thread": "01a17821-bfc6-72b7-99cf-ef703f19203b",
+  "user_instruction": "先整理這16個資料夾做彙整資料分類及索引統一,且重複內容移除,整理完畢才做繼續開發的動作；並同意確認程序與停寫狀態，指定唯一整合者。集中 r28 至 releases/r28，建立 engine，分批遷入環境與研究、修正相依及驗證可回復，最後審核去重。",
+  "permanent_deletion": false,
+  "development_resume": false,
+  "new_goal": false,
+  "stop_unknown_process": false,
+  "initial_process_check": {
+    "utc": "2026-10-28T17:33:14.7291295Z",
+    "result": "escalated read approved and successful",
+    "project_java_or_game_processes": [],
+    "project_listening_ports": [],
+    "ports_checked": [42061,42062,42063,43324],
+    "remaining_mysql": "PID4208 belongs to MySQL service C:/Program Files/MySQL/MySQL Server 5.5; leave untouched",
+    "matched_powershell": "query process itself; not a project writer"
+  },
+  "free_bytes_before": 6782588211200,
+  "stopped_processes": [],
+  "thread_observation": "P24 supervisor notLoaded latest failed; three workers notLoaded latest completed; no new turns observed; unrelated LITO active and untouched"
+}

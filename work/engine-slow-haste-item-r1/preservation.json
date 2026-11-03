@@ -1,0 +1,25 @@
+{
+  "status": "pass",
+  "acceptedStageSourceFiles": 177,
+  "allStagePinsStillMatch": true,
+  "independentCandidateCopies": true,
+  "unchangedCandidateFiles": 175,
+  "changedFiles": [
+    "source/Inventory.cs",
+    "source/WorldEntry.cs"
+  ],
+  "sourceBase": "accepted immutable r31 stage; final release equivalence separately verified",
+  "finalReleaseSourceMatches": 177,
+  "finalReleaseFourIdentitiesMatch": true,
+  "inputPinsVerified": 18,
+  "sharedWrites": false,
+  "assets": "read-only consumer junction to releases/r28/assets; excluded from seal",
+  "goalActual": "blocked",
+  "goalModified": false,
+  "normalProductStarted": false,
+  "guiUsed": false,
+  "nativeExecuted": false,
+  "jarExecuted": false,
+  "dbOrServiceOperations": false,
+  "socketOperations": false
+}

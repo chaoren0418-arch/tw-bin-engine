@@ -1,0 +1,19 @@
+{
+  "utc": "2026-10-26T15:36:14.205Z",
+  "kind": "root visual inspection of worker offline Compose artifacts, not live gameplay",
+  "artifacts": [
+    "D:/lineage開發/TW1608262200研究/P24-原2x2地圖快取與跨區載入/reference/development/ship-route-implementation-r1/evidence/ship05/ship-map5.png",
+    "D:/lineage開發/TW1608262200研究/P24-原2x2地圖快取與跨區載入/reference/development/ship-route-implementation-r1/evidence/ship05/ship-map6.png"
+  ],
+  "observed": [
+    "Both original ship decks and sails visibly render",
+    "Sea covers scene outside hull without editor marker tiles",
+    "Actor rendered on deck; map5 includes visible pier at upper-left"
+  ],
+  "pending": [
+    "dock phase continuity issue",
+    "source/manifest final verification",
+    "actual ship boarding/arrival/warehouse gameplay"
+  ],
+  "acceptance": "partial offline visual check only"
+}

@@ -1,0 +1,24 @@
+{
+  "schema": "p38-required-future-acceptance-fields-v1",
+  "isReceipt": false,
+  "actualReceipt": null,
+  "expectedExecutionSchema": "p38-delivery-execution-acceptance-v1",
+  "expectedDecision": "accepted-for-p38-isolated-launcher-delivery",
+  "receiptPath": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P38-delivery-execution-acceptance-r1.json",
+  "knownBindings": {
+    "planSha256": "d1649ed3104850b96b719a367583835c781aa0a1fd05fad52c27b6ce402cce92",
+    "contractSha256": "0ceba81b82f80ccd601c12da36b10557a2a5b9bd2d867cc166923a4816b43b3e",
+    "sourceSealSha256": "3d5f27eb648aa970fe970f00fc5121eda18ecd861c8bc0ae6e882b20ca199216"
+  },
+  "authorArtifactSealSha256": null,
+  "independentReview": null,
+  "reviewSchema": "p38-delivery-plan-review-v1",
+  "reviewDecision": "accepted-for-p38-delivery-plan",
+  "maxLauncherBuilds": 1,
+  "maxCheckOnlyRuns": 2,
+  "productBuilds": 0,
+  "normalLaunchAuthorized": false,
+  "entryActivationAuthorized": false,
+  "launcherActualSHA": null,
+  "assetContentReview": null
+}

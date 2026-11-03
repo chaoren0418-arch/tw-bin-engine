@@ -1,0 +1,41 @@
+{
+  "utc": "2026-10-25T10:27:20.158158+00:00",
+  "jar_sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "classes": [
+    {
+      "name": "com/lineage/server/model/Instance/L1PcOriginal",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\Instance\\L1PcOriginal.java",
+      "source_sha256": "5741435ecbba28b3c07ac30ad9de7c284ec91a2db6cae0628ce578157421b5de",
+      "class_sha256": "f613cce582b1f5e65483335d6a75867dc00a47fe631980cdca2d29724177ad41",
+      "javap_sha256": "7e21fd935ea33c7ce04b72ae18a3e1dc25fe2bb1fd727653ea03f0b301ce3710"
+    },
+    {
+      "name": "com/lineage/server/timecontroller/pc/PcRegenExecutor",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\timecontroller\\pc\\PcRegenExecutor.java",
+      "source_sha256": "4b69d91e865630ce7218a8db7574989c7052cff84ea98738ce570017e606fdb1",
+      "class_sha256": "570fddf516c6e579efd289bec45d4820fc8bb73bdbc83353489527d35488dcc7",
+      "javap_sha256": "b6d1e0a5e5ccb8c650d9dd0b155f4a9da2dcf1cb481c8849bd90042ede7159a9"
+    },
+    {
+      "name": "com/lineage/server/timecontroller/pc/PcRegenTimer",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\timecontroller\\pc\\PcRegenTimer.java",
+      "source_sha256": "159799f3eb8367247c87953162e3e1f88c026deb3a550d9503d08348323ac871",
+      "class_sha256": "dc22019addfb3bf77ae25f5906311bd0f7d4ed6bd5aa1bcb3ca06cddda572ebd",
+      "javap_sha256": "8fae4fef341b107b23f5f870885e3d214ee93a6e4771025ada259a61e6f4ae06"
+    },
+    {
+      "name": "com/lineage/server/datatables/SprTable",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\datatables\\SprTable.java",
+      "source_sha256": "74103299beb8f21006df9b163a702542be3a1b8c7d3c8396bba527bd9410d690",
+      "class_sha256": "35f73c1922a6f57a9aa5d8115bd3a7ac7155efd149c45c69193b0923763e970f",
+      "javap_sha256": "eab7c2f5e63efdd4475416ed3617a13722055f42a258fd84eff54e56f408d3b2"
+    },
+    {
+      "name": "com/lineage/server/model/L1Character",
+      "source": "D:\\lineage開發\\1-伺服器\\src\\com\\lineage\\server\\model\\L1Character.java",
+      "source_sha256": "0ed1bacca8e5189cc171001df409d5fa0684eefd1047f54e60f23da4eed3a76f",
+      "class_sha256": "d852775c793731731b4d4bbab646c14eb8347fc5d26f667c81fb8ee07dde36fe",
+      "javap_sha256": "c1a8bfdac0c34e64533c293ab72cc4140c0e015d510817fe3c588eb060e2b5bf"
+    }
+  ]
+}

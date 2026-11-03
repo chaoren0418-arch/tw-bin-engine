@@ -1,0 +1,594 @@
+{
+  "rows": [
+    {
+      "slotId": "OWNER-0-0-to-4",
+      "oldProfile": [
+        0,
+        0
+      ],
+      "newProfile": [
+        0,
+        4
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-0-4-to-0",
+      "oldProfile": [
+        0,
+        4
+      ],
+      "newProfile": [
+        0,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-0-20-to-0",
+      "oldProfile": [
+        0,
+        20
+      ],
+      "newProfile": [
+        0,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-0-46-to-0",
+      "oldProfile": [
+        0,
+        46
+      ],
+      "newProfile": [
+        0,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-0-50-to-0",
+      "oldProfile": [
+        0,
+        50
+      ],
+      "newProfile": [
+        0,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-1-0-to-4",
+      "oldProfile": [
+        1,
+        0
+      ],
+      "newProfile": [
+        1,
+        4
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-1-4-to-0",
+      "oldProfile": [
+        1,
+        4
+      ],
+      "newProfile": [
+        1,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-1-20-to-0",
+      "oldProfile": [
+        1,
+        20
+      ],
+      "newProfile": [
+        1,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-1-50-to-0",
+      "oldProfile": [
+        1,
+        50
+      ],
+      "newProfile": [
+        1,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-37-0-to-4",
+      "oldProfile": [
+        37,
+        0
+      ],
+      "newProfile": [
+        37,
+        4
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-37-4-to-0",
+      "oldProfile": [
+        37,
+        4
+      ],
+      "newProfile": [
+        37,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-37-20-to-0",
+      "oldProfile": [
+        37,
+        20
+      ],
+      "newProfile": [
+        37,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-48-0-to-4",
+      "oldProfile": [
+        48,
+        0
+      ],
+      "newProfile": [
+        48,
+        4
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-48-4-to-0",
+      "oldProfile": [
+        48,
+        4
+      ],
+      "newProfile": [
+        48,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-48-20-to-0",
+      "oldProfile": [
+        48,
+        20
+      ],
+      "newProfile": [
+        48,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-48-50-to-0",
+      "oldProfile": [
+        48,
+        50
+      ],
+      "newProfile": [
+        48,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-61-0-to-4",
+      "oldProfile": [
+        61,
+        0
+      ],
+      "newProfile": [
+        61,
+        4
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-61-4-to-0",
+      "oldProfile": [
+        61,
+        4
+      ],
+      "newProfile": [
+        61,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-61-20-to-0",
+      "oldProfile": [
+        61,
+        20
+      ],
+      "newProfile": [
+        61,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-61-50-to-0",
+      "oldProfile": [
+        61,
+        50
+      ],
+      "newProfile": [
+        61,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-734-0-to-4",
+      "oldProfile": [
+        734,
+        0
+      ],
+      "newProfile": [
+        734,
+        4
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-734-4-to-0",
+      "oldProfile": [
+        734,
+        4
+      ],
+      "newProfile": [
+        734,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-734-20-to-0",
+      "oldProfile": [
+        734,
+        20
+      ],
+      "newProfile": [
+        734,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-1186-0-to-4",
+      "oldProfile": [
+        1186,
+        0
+      ],
+      "newProfile": [
+        1186,
+        4
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-1186-4-to-0",
+      "oldProfile": [
+        1186,
+        4
+      ],
+      "newProfile": [
+        1186,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-1186-20-to-0",
+      "oldProfile": [
+        1186,
+        20
+      ],
+      "newProfile": [
+        1186,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-2786-0-to-4",
+      "oldProfile": [
+        2786,
+        0
+      ],
+      "newProfile": [
+        2786,
+        4
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-2786-4-to-0",
+      "oldProfile": [
+        2786,
+        4
+      ],
+      "newProfile": [
+        2786,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-2786-20-to-0",
+      "oldProfile": [
+        2786,
+        20
+      ],
+      "newProfile": [
+        2786,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-2796-0-to-4",
+      "oldProfile": [
+        2796,
+        0
+      ],
+      "newProfile": [
+        2796,
+        4
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-2796-4-to-0",
+      "oldProfile": [
+        2796,
+        4
+      ],
+      "newProfile": [
+        2796,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-2796-20-to-0",
+      "oldProfile": [
+        2796,
+        20
+      ],
+      "newProfile": [
+        2796,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-6650-0-to-20",
+      "oldProfile": [
+        6650,
+        0
+      ],
+      "newProfile": [
+        6650,
+        20
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-6650-20-to-0",
+      "oldProfile": [
+        6650,
+        20
+      ],
+      "newProfile": [
+        6650,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-6658-0-to-4",
+      "oldProfile": [
+        6658,
+        0
+      ],
+      "newProfile": [
+        6658,
+        4
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-6658-4-to-0",
+      "oldProfile": [
+        6658,
+        4
+      ],
+      "newProfile": [
+        6658,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-6658-50-to-0",
+      "oldProfile": [
+        6658,
+        50
+      ],
+      "newProfile": [
+        6658,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-6661-0-to-4",
+      "oldProfile": [
+        6661,
+        0
+      ],
+      "newProfile": [
+        6661,
+        4
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-6661-4-to-0",
+      "oldProfile": [
+        6661,
+        4
+      ],
+      "newProfile": [
+        6661,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-6661-50-to-0",
+      "oldProfile": [
+        6661,
+        50
+      ],
+      "newProfile": [
+        6661,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-6671-0-to-20",
+      "oldProfile": [
+        6671,
+        0
+      ],
+      "newProfile": [
+        6671,
+        20
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    },
+    {
+      "slotId": "OWNER-6671-20-to-0",
+      "oldProfile": [
+        6671,
+        20
+      ],
+      "newProfile": [
+        6671,
+        0
+      ],
+      "sequence": "Start A; switch weapon via authoritative appearance update; start B; invoke captured callback A at far-late clock",
+      "expected": "A cancelled despite identical body, B has new serial/profile, A callback cannot draw/clear B",
+      "executed": false
+    }
+  ],
+  "executed": 0,
+  "note": "42 directed profile transitions, at least one from each profile; not exhaustive all ordered weapon pairs"
+}

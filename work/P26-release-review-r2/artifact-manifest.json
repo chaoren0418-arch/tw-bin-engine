@@ -1,0 +1,116 @@
+{
+  "schema": "p26-release-review-r2-manifest-v1",
+  "files": [
+    {
+      "path": "final-source-sha256.json",
+      "size": 175592,
+      "sha256": "c832ba82cf8701c37eb999163bffe183887af2262214621f5c828b72315d20ce"
+    },
+    {
+      "path": "final-verification.json",
+      "size": 3809,
+      "sha256": "9379eb093f2b8c5184e66c7a9f52814b8e54c11807521f77c05f281bd52e9a7e"
+    },
+    {
+      "path": "finalize_review.py",
+      "size": 6814,
+      "sha256": "4c95c6a499a4db02587d6ab5b9b4f1e61ba6ea13d6efb5a37d549b3214a5bed1"
+    },
+    {
+      "path": "generator-provisional.patch",
+      "size": 5356,
+      "sha256": "e1938d1cf5f0b2d0f753905e0f6da3f2e953218c4061c7f3c37df67bdba361d3"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 3490,
+      "sha256": "c1fcc1d028161583a9f02d957a09b6f62c8710e87d435154bbc89edd534e67bc"
+    },
+    {
+      "path": "progress.json",
+      "size": 457,
+      "sha256": "b7b69b69d45e16b78ceb8ce683b94e58f965f3a2b51bb6e076be307a19c85a04"
+    },
+    {
+      "path": "provisional-review.json",
+      "size": 27514,
+      "sha256": "0b9022624701d51b4e9860c5fb4dfc94037029affab7e125b31177b1a9b8912b"
+    },
+    {
+      "path": "result.json",
+      "size": 1622,
+      "sha256": "77f57be3e136cb216646040aede76c56e115dfbcff890cafd828e409ac21b50d"
+    },
+    {
+      "path": "review.json",
+      "size": 853,
+      "sha256": "af3a2f9108b7c8c21eb0a9b6bec31a829a1683fa4dedeb50b8b929600c99d19e"
+    },
+    {
+      "path": "run_independent.py",
+      "size": 13226,
+      "sha256": "4dbe2619b741bdef4b70e744e2be557d13de8c7266628df92c207332b34b7422"
+    },
+    {
+      "path": "snapshot-01/acceptance_gate.py",
+      "size": 21873,
+      "sha256": "b17c6e464b943959cff247cb057b11b92e673274f5aa2fc2de94cada25789a58"
+    },
+    {
+      "path": "snapshot-01/context.json",
+      "size": 1539,
+      "sha256": "efc346a2a43b57097894d044a60e469222561c4a647123cc9bdd900955224e02"
+    },
+    {
+      "path": "snapshot-01/generate_package_plan.py",
+      "size": 16094,
+      "sha256": "32e5cefcc739c7e432dfa9cf00488072c330445695a4b3761d0e43c8ae962578"
+    },
+    {
+      "path": "snapshot-01/package_release.py",
+      "size": 9229,
+      "sha256": "6f71f11590b72df554563f39dc510f3a9e115bd4a87dc585864cc0787f444605"
+    },
+    {
+      "path": "snapshot-01/pe_resource.py",
+      "size": 3519,
+      "sha256": "2aacf5ba096011f00ec7c77ff01f87746c0b892b5752c3f41e6b39f1e9048f37"
+    },
+    {
+      "path": "snapshot-01/release-authority-policy.json",
+      "size": 2523,
+      "sha256": "06dbd04f1ae38a1255e3ce0ec783bc896a5e0ea993fdaf0f298fe4bdbe0d7020"
+    },
+    {
+      "path": "snapshot-01/release_authority.py",
+      "size": 4531,
+      "sha256": "09115d5dfbfe4d14973f3ec23a6d48ad4135b10e76fcfae5052188208484f67b"
+    },
+    {
+      "path": "snapshot-01/release_checks.py",
+      "size": 691,
+      "sha256": "da3c4ebb17fc9de7c184cad911ac8b9cdc551b6b20a6598b90e33b6333912684"
+    },
+    {
+      "path": "snapshot-01/result_evidence.py",
+      "size": 7225,
+      "sha256": "baaac4a8f0fad1e9faaa7d1512658d268a506dba9f57d9c54477d6f5b96e6809"
+    },
+    {
+      "path": "snapshot-pins.json",
+      "size": 4844,
+      "sha256": "9637f1e5b1dca6ee4aae58e0662ad9d82937def03281fda2f50c6671f43f4ce8"
+    },
+    {
+      "path": "verify_delivery.py",
+      "size": 1014,
+      "sha256": "d43c8988c2f4b445bf48565b5b7855aaae664d9457f8285b29cd5d6b019cfbc7"
+    },
+    {
+      "path": "verify_final_pins.py",
+      "size": 6723,
+      "sha256": "17c2a7ab41fcd7943ffdd15975e5442f161bef5dd850742a50dbd32ed2154af7"
+    }
+  ],
+  "excluded": "synthetic-independent-* reproducible nonproduct unit work files"
+}

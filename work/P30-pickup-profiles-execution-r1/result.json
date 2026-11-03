@@ -1,0 +1,99 @@
+{
+  "schema": "p30-failed-build-assessment-v1",
+  "status": "stopped-after-authorized-single-failed-build",
+  "executorInvocations": 1,
+  "outerExitCode": 2,
+  "dotnetBuildInvocations": 1,
+  "dotnetExitCode": 1,
+  "successfulProductBuilds": 0,
+  "candidateRuntimeProbes": 0,
+  "newRuntimeAssertions": 0,
+  "finalWarnings": 0,
+  "finalErrors": 2,
+  "failurePhase": "Restore/_GetRestoreSettings before C# compilation",
+  "failureType": "NuGet.Configuration.ConfigurationDefaults TypeInitializationException",
+  "innerError": "ArgumentNullException: Value cannot be null. (Parameter 'path1')",
+  "observedStack": [
+    "System.IO.Path.Combine(String path1, String path2)",
+    "NuGet.Common.NuGetEnvironment.CalculateFolderPath",
+    "NuGet.Configuration.ConfigurationDefaults.InitializeInstance"
+  ],
+  "causeQualification": "Observed NuGet path initialization failure. Specific missing path/environment variable is not established by this run; no fix, environment modification or retry performed.",
+  "actualCscTaskBegins": 0,
+  "sourceFilesVerified": 181,
+  "independentCopiesVerified": 184,
+  "dependenciesRecheckedByExecutor": 4350,
+  "productDllProduced": false,
+  "audioDllProduced": false,
+  "identityComparison": "not-reached-no-product-or-audio-output",
+  "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "expectedAudioSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "expectedValuesChanged": false,
+  "outputDependencies": [],
+  "processTreeEnded": true,
+  "timeout": false,
+  "interruption": false,
+  "compilerSummary": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\final-msbuild-summary.txt",
+    "size": 1901,
+    "sha256": "2b30b39f3660fb354af6cd04e06a032c0cb9ae32f72efadbbfb41c92ec4297ca"
+  },
+  "binlog": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\msbuild.binlog",
+    "size": 61492,
+    "sha256": "90f866f0c82523d47e5a083789bfcac6e4bfc610cef5eb223152afff2ebaba5f"
+  },
+  "rawStdout": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\stdout",
+    "size": 1561330,
+    "sha256": "905c9bd7a1c08a0ddf2f35ee966b0304471feef076f5627118b2e78a4645b35f",
+    "decoder": "utf-8-sig errors=replace",
+    "replacementCount": 0
+  },
+  "rawStderr": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\stderr",
+    "size": 497,
+    "sha256": "7f0b85f13e01776dc0918e791ad9f34b4f435c0c709a31fa62b65b22233862a2",
+    "decoder": "utf-8-sig errors=replace",
+    "replacementCount": 0
+  },
+  "stageResult": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\result.json",
+    "size": 52450,
+    "sha256": "c5fab50f21132bfeacfc89677f0748e1a859fd36dbdd835711e496786bf19ebb"
+  },
+  "stageSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-files-seal.json",
+    "size": 33244,
+    "sha256": "174480157bdfcbdb26c76f5f1313c5dc3f296543bbf65f678411cdf58789807c"
+  },
+  "protectedPinsUnchanged": true,
+  "planning581ArtifactsUnchanged": true,
+  "executor62ArtifactsUnchanged": true,
+  "formalEntry": "r33",
+  "sharedWrites": false,
+  "releaseWrites": false,
+  "entryChanged": false,
+  "goal": {
+    "actualRead": null,
+    "created": false,
+    "modified": false
+  },
+  "action": "Preserved and stopped; hand off for supervisor independent failure verification. No automatic retry.",
+  "handoff": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\HANDOFF.md",
+    "size": 3065,
+    "sha256": "973717b8861e29619bfbea6ca99660ee33fad7f656d6e00e6f87572786b68a05"
+  },
+  "assessment": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\failure-assessment.json",
+    "size": 3752,
+    "sha256": "6662511ae3dff08ab2528632163290f91abda67c9c866032a8befd593d619eb4"
+  },
+  "outerCommand": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\executor.command.json",
+    "size": 1744,
+    "sha256": "fe9442c62a1ae194f59e8c4b7457d3c926f314ac6dffd843c54579fc57d0396a"
+  },
+  "finishedUtc": "2026-10-29T06:26:44.158557+00:00"
+}

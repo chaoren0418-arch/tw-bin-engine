@@ -1,0 +1,102 @@
+{
+  "diagnosis": "JSON has arrays; independent Python code used tuples for pair/boundary values. Original direct Python equality failed before comparing JSON semantics. No occurrence/order/value differences after JSON serialization.",
+  "comparison": "Full recursive structure and full canonical serialized bytes; canonical sorting applies only dictionary keys, never array order. Checks occurrence IDs and all evidence list orders remain exact.",
+  "files": [
+    {
+      "file": "checks.json",
+      "firstRawPythonDifference": {
+        "path": "$.checks[2].evidence.pairs[0]",
+        "storedType": "list",
+        "recomputedType": "tuple",
+        "storedValue": [
+          0,
+          0
+        ],
+        "recomputedValue": [
+          0,
+          0
+        ]
+      },
+      "canonicalEqual": true,
+      "storedCanonicalSha256": "a18f479021573146fc36fde49f6badca55495130654b0bae8efd413e1ba9745d",
+      "recomputedCanonicalSha256": "a18f479021573146fc36fde49f6badca55495130654b0bae8efd413e1ba9745d"
+    },
+    {
+      "file": "source-pins.json",
+      "firstRawPythonDifference": null,
+      "canonicalEqual": true,
+      "storedCanonicalSha256": "802883f7d45a1b0570fffb0c5a98eec4fc12af87e86d03722392eaf2516cc00d",
+      "recomputedCanonicalSha256": "802883f7d45a1b0570fffb0c5a98eec4fc12af87e86d03722392eaf2516cc00d"
+    },
+    {
+      "file": "profile-review.json",
+      "firstRawPythonDifference": {
+        "path": "$.exactAllowlist[0]",
+        "storedType": "list",
+        "recomputedType": "tuple",
+        "storedValue": [
+          0,
+          0
+        ],
+        "recomputedValue": [
+          0,
+          0
+        ]
+      },
+      "canonicalEqual": true,
+      "storedCanonicalSha256": "559ca0e0ebf0526d72a0388efe78bb559d264828f38e185b976fd4a41bd28df6",
+      "recomputedCanonicalSha256": "559ca0e0ebf0526d72a0388efe78bb559d264828f38e185b976fd4a41bd28df6"
+    },
+    {
+      "file": "frame-review.json",
+      "firstRawPythonDifference": null,
+      "canonicalEqual": true,
+      "storedCanonicalSha256": "2e5416c518475302727bdadba24563548577cf5a5605211e13fd9b69cc429336",
+      "recomputedCanonicalSha256": "2e5416c518475302727bdadba24563548577cf5a5605211e13fd9b69cc429336"
+    },
+    {
+      "file": "combat-review.json",
+      "firstRawPythonDifference": {
+        "path": "$.damageBoundaryTriples[0]",
+        "storedType": "list",
+        "recomputedType": "tuple",
+        "storedValue": [
+          457,
+          456,
+          457
+        ],
+        "recomputedValue": [
+          457,
+          456,
+          457
+        ]
+      },
+      "canonicalEqual": true,
+      "storedCanonicalSha256": "0ce1f8fb555afb52936e22033e945963e1ac04a8a92fe75a35554372eebcdc1e",
+      "recomputedCanonicalSha256": "0ce1f8fb555afb52936e22033e945963e1ac04a8a92fe75a35554372eebcdc1e"
+    },
+    {
+      "file": "namespace-review.json",
+      "firstRawPythonDifference": null,
+      "canonicalEqual": true,
+      "storedCanonicalSha256": "ea2ec71701421cfda3c7218611e89a2d3b69bad4d3ec6eda555275d2c3bf6100",
+      "recomputedCanonicalSha256": "ea2ec71701421cfda3c7218611e89a2d3b69bad4d3ec6eda555275d2c3bf6100"
+    },
+    {
+      "file": "projection-review.json",
+      "firstRawPythonDifference": null,
+      "canonicalEqual": true,
+      "storedCanonicalSha256": "dec0b42494b4c7ab22192d26fd7950d96e292de62a9fa91015d6ec4a9cd9113a",
+      "recomputedCanonicalSha256": "dec0b42494b4c7ab22192d26fd7950d96e292de62a9fa91015d6ec4a9cd9113a"
+    },
+    {
+      "file": "summary.json",
+      "firstRawPythonDifference": null,
+      "canonicalEqual": true,
+      "storedCanonicalSha256": "04a1a8c4b4af1811fe367e72fe5c441b0c59255d80ce736476c9215ed3648525",
+      "recomputedCanonicalSha256": "04a1a8c4b4af1811fe367e72fe5c441b0c59255d80ce736476c9215ed3648525"
+    }
+  ],
+  "setTraversalAudit": "Any serialized pair set is explicitly sorted; damage boundary triples sorted; collisions dictionary sorted. Source arrays retain their authenticated order. allBase/allNew sets are used only for cardinality, not occurrence/evidence traversal.",
+  "productOrPlanRepair": false
+}

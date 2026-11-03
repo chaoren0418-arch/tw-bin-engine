@@ -1,0 +1,31 @@
+{
+  "task": "encountered-appearance-r2",
+  "decision": "accepted_offline_candidate_live_pending",
+  "review": "appearance-independent-review02/result.json",
+  "visualReview": [
+    "shop-6661.png",
+    "shop-6650.png",
+    "shop-1186.png",
+    "r16-service-login-state.json-after.png"
+  ],
+  "reviewFailurePreserved": "appearance-independent-review/helper.stderr; reviewer runtime copied at wrong nesting for ../../assets. Corrected supervisor-only isolated layout, no candidate changes.",
+  "nextTask": {
+    "id": "inn-door-r1",
+    "threadId": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+    "writeRoot": "reference/development/inn-door-r1",
+    "baseline": "r16",
+    "normalMutation": false,
+    "live": false,
+    "scope": "Observed gfx2346 initial/update door state and original assets; no door interactions",
+    "status": "dispatched",
+    "receipt": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"threadId\":\"01a17a21-8dec-7410-8a1b-80f7fa84d0a1\"}"
+        }
+      ],
+      "isError": false
+    }
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "inheritedSteps": [
+    {
+      "id": "product",
+      "historicalAssertions": 0,
+      "historicalObservations": 0,
+      "operations": [
+        "product/archive-plan",
+        "product/rebuild",
+        "product/collect"
+      ],
+      "newExecutedAssertions": 0,
+      "status": "awaiting-reviewed-stage-execution",
+      "note": "Historical count is a continuity reference; changed contract cases require individually approved migration and fresh occurrence IDs. Never claim old count as new pass."
+    },
+    {
+      "id": "baseline",
+      "historicalAssertions": 151,
+      "historicalObservations": 0,
+      "operations": [
+        "baseline/setup",
+        "baseline/host-build",
+        "baseline/host-checks",
+        "baseline/client-extract",
+        "baseline/client-build",
+        "baseline/client-checks",
+        "baseline/audio-extract",
+        "baseline/audio-settings-build",
+        "baseline/audio-settings-checks",
+        "baseline/web-checks",
+        "baseline/collect"
+      ],
+      "newExecutedAssertions": 0,
+      "status": "awaiting-reviewed-stage-execution",
+      "note": "Historical count is a continuity reference; changed contract cases require individually approved migration and fresh occurrence IDs. Never claim old count as new pass."
+    },
+    {
+      "id": "ground",
+      "historicalAssertions": 735,
+      "historicalObservations": 81,
+      "operations": [
+        "ground/setup",
+        "ground/ground-build",
+        "ground/ground-baseline",
+        "ground/ground-extended",
+        "ground/ground-supplement",
+        "ground/ground-formal",
+        "ground/ground-checker",
+        "ground/collect"
+      ],
+      "newExecutedAssertions": 0,
+      "status": "awaiting-reviewed-stage-execution",
+      "note": "Historical count is a continuity reference; changed contract cases require individually approved migration and fresh occurrence IDs. Never claim old count as new pass."
+    },
+    {
+      "id": "utility",
+      "historicalAssertions": 431,
+      "historicalObservations": 12,
+      "operations": [
+        "utility/setup",
+        "utility/utility-build",
+        "utility/utility-probe",
+        "utility/collect"
+      ],
+      "newExecutedAssertions": 0,
+      "status": "awaiting-reviewed-stage-execution",
+      "note": "Historical count is a continuity reference; changed contract cases require individually approved migration and fresh occurrence IDs. Never claim old count as new pass."
+    },
+    {
+      "id": "haste",
+      "historicalAssertions": 1707,
+      "historicalObservations": 0,
+      "operations": [
+        "haste/setup",
+        "haste/haste-build",
+        "haste/haste-probe",
+        "haste/collect"
+      ],
+      "newExecutedAssertions": 0,
+      "status": "awaiting-reviewed-stage-execution",
+      "note": "Historical count is a continuity reference; changed contract cases require individually approved migration and fresh occurrence IDs. Never claim old count as new pass."
+    },
+    {
+      "id": "versioned-slow",
+      "historicalAssertions": 1201,
+      "historicalObservations": 0,
+      "operations": [
+        "versioned-slow/setup",
+        "versioned-slow/versioned-slow-build",
+        "versioned-slow/versioned-slow-probe",
+        "versioned-slow/collect"
+      ],
+      "newExecutedAssertions": 0,
+      "status": "awaiting-reviewed-stage-execution",
+      "note": "Historical count is a continuity reference; changed contract cases require individually approved migration and fresh occurrence IDs. Never claim old count as new pass."
+    },
+    {
+      "id": "f1",
+      "historicalAssertions": 112,
+      "historicalObservations": 0,
+      "operations": [
+        "f1/setup",
+        "f1/f1-build",
+        "f1/f1-probe",
+        "f1/collect"
+      ],
+      "newExecutedAssertions": 0,
+      "status": "awaiting-reviewed-stage-execution",
+      "note": "Historical count is a continuity reference; changed contract cases require individually approved migration and fresh occurrence IDs. Never claim old count as new pass."
+    },
+    {
+      "id": "pickup",
+      "historicalAssertions": 184,
+      "historicalObservations": 0,
+      "operations": [
+        "pickup/setup",
+        "pickup/pickup-main-174-build",
+        "pickup/pickup-main-174-probe",
+        "pickup/pickup-supplement-10-build",
+        "pickup/pickup-supplement-10-probe",
+        "pickup/collect"
+      ],
+      "newExecutedAssertions": 0,
+      "status": "awaiting-reviewed-stage-execution",
+      "note": "Historical count is a continuity reference; changed contract cases require individually approved migration and fresh occurrence IDs. Never claim old count as new pass."
+    }
+  ],
+  "historicalTotalAssertions": 4521,
+  "historicalObservations": 93,
+  "newExecutedAssertions": 0,
+  "profileSuites": [
+    {
+      "id": "regression-01",
+      "mode": "regression",
+      "historicalAssertions": 357,
+      "proposedArgv": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\p30-profiles\\Checks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\regression-01",
+        "regression",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "freshOutput": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\regression-01"
+    },
+    {
+      "id": "profiles-02",
+      "mode": "profiles",
+      "historicalAssertions": 15875,
+      "proposedArgv": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\p30-profiles\\Checks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\profiles-02",
+        "profiles",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "freshOutput": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\profiles-02"
+    },
+    {
+      "id": "boundaries-01",
+      "mode": "boundaries",
+      "historicalAssertions": 3823,
+      "proposedArgv": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\p30-profiles\\Checks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\boundaries-01",
+        "boundaries",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "freshOutput": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\boundaries-01"
+    },
+    {
+      "id": "negative-01",
+      "mode": "negative",
+      "historicalAssertions": 6751,
+      "proposedArgv": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\p30-profiles\\Checks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\negative-01",
+        "negative",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "freshOutput": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\negative-01"
+    },
+    {
+      "id": "namespace-01",
+      "mode": "namespace",
+      "historicalAssertions": 147,
+      "proposedArgv": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\build\\p30-profiles\\Checks.dll",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\namespace-01",
+        "namespace",
+        "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1"
+      ],
+      "cwd": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01",
+      "freshOutput": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\evidence\\namespace-01"
+    }
+  ],
+  "p29": {
+    "historicalUniqueAssertions": 5196,
+    "expectedDll": "actual newly built stage DLL",
+    "rebuildHelper": true,
+    "reference": "prepared/profile-helpers/p29/Review.csproj",
+    "newExecutedAssertions": 0
+  },
+  "baselineControl": {
+    "historicalAssertions": 225,
+    "separate": true,
+    "notAddedToCandidate": true
+  },
+  "allCountsRequireActualFreshReports": true
+}

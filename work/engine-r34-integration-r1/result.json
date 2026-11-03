@@ -1,0 +1,103 @@
+{
+  "schema": "engine-r34-integration-preparation-result-v1",
+  "task": "ENGINE-R34-INTEGRATION-PREP-R1",
+  "status": "preparation-complete-sealed-awaiting-candidate-review-and-new-supervisor-dispatch",
+  "utc": "2026-10-29T01:00:45.179699+00:00",
+  "preparationSealSha256": "51b626cd31218a906d06b1b6afd97e2695923ddc809f127f56989ebf95d1a446",
+  "preparationFiles": 186,
+  "baselineRevision": "r33",
+  "baselineReleaseSealSha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417",
+  "baseSourceCount": 177,
+  "supportPins": 28,
+  "futureSourceRule": "177 baseline + exact accepted declared additions; no upper count hardcode",
+  "resource": {
+    "path": "source/Resources/pickup-own-base15-gfx0-weapon0.json",
+    "size": 239766,
+    "sha256": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90",
+    "logicalName": "P06.Resources.PickupOwnBase15Gfx0Weapon0.json",
+    "payloadProduced": false
+  },
+  "smallUnitTests": {
+    "methodsPassed": 31,
+    "exitCode": 0,
+    "productAssertions": false,
+    "rawLogsSeparatelyCaptured": true,
+    "initialRunMethods": 30,
+    "finalEvidence": "evidence/final-small-tests/result.json"
+  },
+  "preservation": {
+    "status": "pass-readonly-preparation-verification",
+    "baseSourcePins": 177,
+    "baseSupportPins": 28,
+    "references": 130,
+    "immutablePins": 18,
+    "oldReleasePins": 1837,
+    "r33NonAssetAndIndexPins": 696,
+    "qualifiedSourcePins": 44,
+    "externalPins": 1,
+    "qualifiedAssetFilesOnly": [
+      "releases/r32/assets/players/manifest.json",
+      "releases/r32/assets/objects/0.json"
+    ],
+    "wholeAssetScan": false,
+    "syntaxFiles": 19,
+    "preparationSealedFiles": 186,
+    "unsealedCandidateRead": false,
+    "unsealedFormalReviewRead": false,
+    "productBuilds": 0,
+    "stageCreated": false,
+    "assetLinksCreated": 0,
+    "assetCopies": 0,
+    "productSuitesExecuted": 0,
+    "writes": false
+  },
+  "acceptedRegressionPlan": {
+    "assertions": 4337,
+    "observationsSeparate": 93,
+    "pickupAssertions": null,
+    "pickupObservations": null,
+    "executedThisRound": false
+  },
+  "futureMaterials": {
+    "status": "pending-delivery-not-build-success",
+    "candidateFamily": "ENGINE-PICKUP-PRESENTATION-IMPL-Rn",
+    "candidateRoot": "work/engine-pickup-presentation-r1",
+    "reviewRoot": "work/engine-pickup-presentation-review-r1",
+    "candidateSealSha256": null,
+    "sourceManifestSha256": null,
+    "resourceManifestSha256": null,
+    "independentReviewSha256": null,
+    "supervisorReceiptSha256": null,
+    "pickupAssertions": null,
+    "unsealedRootsRead": false,
+    "formalBuildAuthorized": false
+  },
+  "boundaries": {
+    "productBuilds": 0,
+    "SDKInvocations": 0,
+    "stageCreated": false,
+    "assetLinks": 0,
+    "assetCopies": 0,
+    "newJunctions": 0,
+    "formalSuites": 0,
+    "sharedWrites": 0,
+    "rootActivation": false,
+    "GoalCreated": false,
+    "GoalModified": false,
+    "newChats": 0,
+    "subagents": 0,
+    "GUI": false,
+    "game": false,
+    "socket": false,
+    "nativeExecution": false,
+    "JAR": false,
+    "DB": false,
+    "services": false
+  },
+  "limitations": [
+    "Future PE embedded-resource check and serial canonical/package controllers not executed against a candidate; AST/JSON and limited primitive tests only.",
+    "New independent pickup assertions and commands pending exact sealed review; no accepted sample manufactured.",
+    "Nominal finite own pickup presentation only; no Slow/FIFO/native runtime timing parity."
+  ],
+  "handoff": "HANDOFF.md"
+}

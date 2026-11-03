@@ -1,0 +1,484 @@
+{
+  "status": "ready-for-supervisor",
+  "utc": 1792942503.680684,
+  "revision": "p23-original-opacity-r3",
+  "goalStatus": "active",
+  "goalReceiptSha256": "bf656d3c25542dbe0bc432208959e3f3c8f6e1e1aeec649d5599af0ab69a364c",
+  "sourceManifestSha256": "75b77fea3a2d92d0374d70374d6a5564ebcc912c1d506c38b133127ba08cff56",
+  "environmentManifestSha256": "46a519ff136d414e87901235b5d4ff52782dc0f51ff236ff22471f0f0101869e",
+  "server": {
+    "process": {
+      "ProcessId": 75900,
+      "ParentProcessId": 81724,
+      "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P23Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P23Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P23Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P23Lab-ClientEngine\\server\\Server_Game.jar",
+      "CreationDate": "/Date(1792940284849)/"
+    },
+    "listeners": [
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42057,
+        "OwningProcess": 75900
+      }
+    ]
+  },
+  "db": {
+    "values": [
+      "43323",
+      "D:\\P23Lab-ClientEngine\\db-data\\",
+      "d399e000-d080-11f1-ae98-4cedfb679789",
+      "127.0.0.1",
+      "8.0.40"
+    ],
+    "process": {
+      "process": {
+        "ProcessId": 67280,
+        "ParentProcessId": 20048,
+        "ExecutablePath": "D:\\P23Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\P23Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P23Lab-ClientEngine\\mysql.ini --init-file=D:\\P23Lab-ClientEngine\\db-bootstrap.sql --console",
+        "CreationDate": "/Date(1792938761261)/"
+      },
+      "listeners": [
+        {
+          "LocalAddress": "127.0.0.1",
+          "LocalPort": 43323,
+          "OwningProcess": 67280
+        }
+      ]
+    }
+  },
+  "allRoles": [
+    {
+      "x": 32588,
+      "y": 32931,
+      "hp": 504,
+      "id": 1900230001,
+      "mp": 120,
+      "exp": 416461882,
+      "food": 40,
+      "online": 0,
+      "heading": 5
+    },
+    {
+      "x": 32590,
+      "y": 32928,
+      "hp": 504,
+      "id": 1900230002,
+      "mp": 120,
+      "exp": 416461882,
+      "food": 40,
+      "online": 0,
+      "heading": 4
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 500,
+      "id": 1900230003,
+      "mp": 120,
+      "exp": 416461882,
+      "food": 40,
+      "online": 0,
+      "heading": 5
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 500,
+      "id": 1900230004,
+      "mp": 120,
+      "exp": 416461882,
+      "food": 40,
+      "online": 0,
+      "heading": 5
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900230005,
+      "mp": 120,
+      "exp": 416461882,
+      "food": 40,
+      "online": 0,
+      "heading": 5
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900230006,
+      "mp": 120,
+      "exp": 416461882,
+      "food": 40,
+      "online": 0,
+      "heading": 5
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900230007,
+      "mp": 120,
+      "exp": 416461882,
+      "food": 40,
+      "online": 0,
+      "heading": 5
+    },
+    {
+      "x": 32588,
+      "y": 32930,
+      "hp": 700,
+      "id": 1900230008,
+      "mp": 120,
+      "exp": 416461882,
+      "food": 40,
+      "online": 0,
+      "heading": 5
+    }
+  ],
+  "allItems": [
+    {
+      "id": 1900231011,
+      "role": 1900230001,
+      "bless": 0,
+      "count": 6,
+      "equipped": 0,
+      "template": 40012
+    },
+    {
+      "id": 1900231012,
+      "role": 1900230001,
+      "bless": 0,
+      "count": 3,
+      "equipped": 0,
+      "template": 40308
+    },
+    {
+      "id": 1900231013,
+      "role": 1900230001,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 40126
+    },
+    {
+      "id": 1900231014,
+      "role": 1900230001,
+      "bless": 0,
+      "count": 8,
+      "equipped": 0,
+      "template": 40056
+    },
+    {
+      "id": 1900231015,
+      "role": 1900230001,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 31
+    },
+    {
+      "id": 1900231016,
+      "role": 1900230001,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 52
+    },
+    {
+      "id": 1900231017,
+      "role": 1900230001,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 20096
+    },
+    {
+      "id": 1900231018,
+      "role": 1900230001,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 20222
+    },
+    {
+      "id": 1900231019,
+      "role": 1900230001,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 172
+    },
+    {
+      "id": 1900231020,
+      "role": 1900230001,
+      "bless": 0,
+      "count": 80,
+      "equipped": 0,
+      "template": 40743
+    },
+    {
+      "id": 1900231021,
+      "role": 1900230002,
+      "bless": 0,
+      "count": 6,
+      "equipped": 0,
+      "template": 40012
+    },
+    {
+      "id": 1900231022,
+      "role": 1900230002,
+      "bless": 0,
+      "count": 3,
+      "equipped": 0,
+      "template": 40308
+    },
+    {
+      "id": 1900231023,
+      "role": 1900230002,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 40126
+    },
+    {
+      "id": 1900231024,
+      "role": 1900230002,
+      "bless": 0,
+      "count": 8,
+      "equipped": 0,
+      "template": 40056
+    },
+    {
+      "id": 1900231025,
+      "role": 1900230002,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 31
+    },
+    {
+      "id": 1900231026,
+      "role": 1900230002,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 52
+    },
+    {
+      "id": 1900231027,
+      "role": 1900230002,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 20096
+    },
+    {
+      "id": 1900231028,
+      "role": 1900230002,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 20222
+    },
+    {
+      "id": 1900231029,
+      "role": 1900230002,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 172
+    },
+    {
+      "id": 1900231030,
+      "role": 1900230002,
+      "bless": 0,
+      "count": 80,
+      "equipped": 0,
+      "template": 40743
+    },
+    {
+      "id": 1900231031,
+      "role": 1900230003,
+      "bless": 0,
+      "count": 6,
+      "equipped": 0,
+      "template": 40012
+    },
+    {
+      "id": 1900231032,
+      "role": 1900230003,
+      "bless": 0,
+      "count": 3,
+      "equipped": 0,
+      "template": 40308
+    },
+    {
+      "id": 1900231033,
+      "role": 1900230003,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 40126
+    },
+    {
+      "id": 1900231034,
+      "role": 1900230003,
+      "bless": 0,
+      "count": 8,
+      "equipped": 0,
+      "template": 40056
+    },
+    {
+      "id": 1900231035,
+      "role": 1900230003,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 31
+    },
+    {
+      "id": 1900231036,
+      "role": 1900230003,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 52
+    },
+    {
+      "id": 1900231037,
+      "role": 1900230003,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 20096
+    },
+    {
+      "id": 1900231038,
+      "role": 1900230003,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 20222
+    },
+    {
+      "id": 1900231039,
+      "role": 1900230003,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 172
+    },
+    {
+      "id": 1900231040,
+      "role": 1900230003,
+      "bless": 0,
+      "count": 80,
+      "equipped": 0,
+      "template": 40743
+    },
+    {
+      "id": 1900231041,
+      "role": 1900230004,
+      "bless": 0,
+      "count": 6,
+      "equipped": 0,
+      "template": 40012
+    },
+    {
+      "id": 1900231042,
+      "role": 1900230004,
+      "bless": 0,
+      "count": 3,
+      "equipped": 0,
+      "template": 40308
+    },
+    {
+      "id": 1900231043,
+      "role": 1900230004,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 40126
+    },
+    {
+      "id": 1900231044,
+      "role": 1900230004,
+      "bless": 0,
+      "count": 8,
+      "equipped": 0,
+      "template": 40056
+    },
+    {
+      "id": 1900231045,
+      "role": 1900230004,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 31
+    },
+    {
+      "id": 1900231046,
+      "role": 1900230004,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 52
+    },
+    {
+      "id": 1900231047,
+      "role": 1900230004,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 20096
+    },
+    {
+      "id": 1900231048,
+      "role": 1900230004,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 20222
+    },
+    {
+      "id": 1900231049,
+      "role": 1900230004,
+      "bless": 0,
+      "count": 1,
+      "equipped": 0,
+      "template": 172
+    },
+    {
+      "id": 1900231050,
+      "role": 1900230004,
+      "bless": 0,
+      "count": 80,
+      "equipped": 0,
+      "template": 40743
+    }
+  ],
+  "allSkills": [
+    "1900230001\t1\t0\t0",
+    "1900230001\t4\t0\t0",
+    "1900230002\t1\t0\t0",
+    "1900230002\t4\t0\t0",
+    "1900230003\t1\t0\t0",
+    "1900230003\t4\t0\t0",
+    "1900230004\t1\t0\t0",
+    "1900230004\t4\t0\t0"
+  ],
+  "supervisorRolesFresh": true,
+  "allRolesOffline": true,
+  "workerClients": [],
+  "workerEvidence": [
+    "D:\\lineage開發\\TW1608262200研究\\P23-原場景群組透明與遮擋\\evidence\\opacity-worker-cli-r3",
+    "D:\\lineage開發\\TW1608262200研究\\P23-原場景群組透明與遮擋\\evidence\\opacity-worker-ui-r2"
+  ],
+  "regressions": "D:\\lineage開發\\TW1608262200研究\\P23-原場景群組透明與遮擋\\evidence\\complete-regressions-r6-1792941388832464900",
+  "regressionCount": 22,
+  "normalJarStarts": 1,
+  "cleanupAuthorized": false,
+  "instructions": "Independent true copy clean build, original source oracle, reserved supervisor CLI/UI fresh42step route. Same first service. Worker no edits/login/restart/cleanup after this freeze. Need functional-acceptance-passed-handback-for-cleanup for normal shutdown."
+}

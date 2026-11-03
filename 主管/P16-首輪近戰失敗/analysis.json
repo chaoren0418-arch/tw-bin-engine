@@ -1,0 +1,108 @@
+{
+  "status": "failure-explained-not-accepted",
+  "capture_sha256": "83488737add557c0d9647d9d3c2f69a54112def785660d4b7aae8cd3704a6593",
+  "error": "System.Exception: explicit single attack not sent\r\n   at P06.CombatTests.Probe(String path) in D:\\lineage開發\\TW1608262200研究\\P16-基礎近戰與傷害回饋\\source\\CombatTests.cs:line 45",
+  "raw_evidence": [
+    {
+      "generation": 1,
+      "utc": "2026-10-25T01:52:36.0999302+00:00",
+      "packet": {
+        "kind": "server-packet",
+        "sequence": 409,
+        "plainHex": "1E0146293677C18741711400070000000000000000000000"
+      }
+    },
+    {
+      "generation": 1,
+      "utc": "2026-10-25T01:52:36.1051354+00:00",
+      "packet": {
+        "kind": "server-packet",
+        "sequence": 410,
+        "plainHex": "E100000000A000000000000000000000"
+      }
+    },
+    {
+      "generation": 1,
+      "utc": "2026-10-25T01:52:36.1057802+00:00",
+      "packet": {
+        "kind": "server-packet",
+        "sequence": 411,
+        "plainHex": "E100000000A000000000000000000000"
+      }
+    },
+    {
+      "generation": 1,
+      "utc": "2026-10-25T01:52:36.1094753+00:00",
+      "packet": {
+        "kind": "server-packet",
+        "sequence": 415,
+        "plainHex": "08C18741710A10270000120B0C0D100A00000000A00000001E0000001E0000000800000034247514E10085FF000000000000000000000000"
+      }
+    }
+  ],
+  "last_vitals": {
+    "ObjectId": 1900120001,
+    "Level": 10,
+    "Exp": 10000,
+    "Strength": 18,
+    "Intelligence": 11,
+    "Wisdom": 12,
+    "Dexterity": 13,
+    "Constitution": 16,
+    "Charisma": 10,
+    "Hp": 0,
+    "MaxHp": 160,
+    "Mp": 30,
+    "MaxMp": 30,
+    "Ac": 8,
+    "Time": 343221300,
+    "Food": 225,
+    "Weight": 0,
+    "Lawful": -123,
+    "Fire": 0,
+    "Water": 0,
+    "Wind": 0,
+    "Earth": 0,
+    "Kills": 0
+  },
+  "target": {
+    "X": 32599,
+    "Y": 32948,
+    "ObjectId": 2000038214,
+    "Gfx": 1110,
+    "Action": 0,
+    "Direction": 7,
+    "Light": 0,
+    "Speed": 0,
+    "WireExp": 82,
+    "Lawful": -9,
+    "Name": "$18",
+    "Title": "",
+    "Flags": 0,
+    "ClanId": 0,
+    "Clan": "",
+    "Owner": "",
+    "Rank": 0,
+    "HpByte": 56,
+    "Brave": 0,
+    "Level": 9,
+    "Unknown": 0,
+    "Tail1": 255,
+    "Tail2": 255,
+    "Combat": {
+      "Action": 1,
+      "At": 231829062,
+      "Predicted": false
+    },
+    "Dead": false,
+    "HpPercent": 56,
+    "Classification": "non-PC flag",
+    "SourceX": 32598,
+    "SourceY": 32948,
+    "MotionAt": 0,
+    "UpdatedAt": 231829062,
+    "ReceivedAction": 1,
+    "AppearancePending": false
+  },
+  "meaning": "Original werewolf retaliation reaches own HP0/max160; attack gate correctly rejects. Target remained HP ratio56. Own death action not observed in capture; not a generic cadence failure. No state reset authorized."
+}

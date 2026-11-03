@@ -1,0 +1,11 @@
+{
+  "task": "ENGINE-SLOW-IMPL-R1",
+  "writeRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-r1",
+  "baseline": "moved r28 engine",
+  "normalProductRun": false,
+  "network": false,
+  "database": false,
+  "goal": "existing blocked; no goal recreation",
+  "assets": "read-only r28",
+  "sourceCopy": "independent byte copies, not hardlinks"
+}

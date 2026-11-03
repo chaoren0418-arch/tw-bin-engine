@@ -1,0 +1,34 @@
+{
+  "utc": "2026-10-28T18:50:02.585976+00:00",
+  "state": "supervisor-accepted-and-two-independent-workers-active",
+  "recipient": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "send_count": 1,
+  "send_error": false,
+  "parent": "01a17821-bfc6-72b7-99cf-ef703f19203b",
+  "scope": "Read-only orphan timed-item lifecycle/source diagnosis and independent minimal repair proposal review; isolate reproduction test design",
+  "record_id": 10326,
+  "original_db_writes_authorized": false,
+  "shared_jar_changes_authorized": false,
+  "old_roots_recreation_authorized": false,
+  "organizer_dispatches_workers": false,
+  "updated_utc": "2026-10-28T18:51:24.235713+00:00",
+  "supervisor_turn": "01a183d8-d945-7b00-9209-1f58c03f1b97",
+  "worker_turns": [
+    {
+      "id": "01a1749a-7e8d-7200-9fc8-8618ed2559ac",
+      "turnId": "01a183d9-6442-7bf1-834e-c36ab3498148",
+      "status": "inProgress"
+    },
+    {
+      "id": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+      "turnId": "01a183d9-a847-7b21-9e5b-0ec3b839429d",
+      "status": "inProgress"
+    }
+  ],
+  "observation": "D:\\lineage開發\\TW1608262200研究\\docs\\project-consolidation\\physical-migration\\diagnostic-observed.json",
+  "supervisor_send_receipts": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-搬移後環境煙霧驗收-20261029\\diagnostic-send-receipts.json",
+  "actual_commands_observed": true,
+  "diagnosis_complete": false,
+  "original_data_change_approved": false,
+  "goal_limitation_unchanged": true
+}

@@ -1,0 +1,81 @@
+{
+  "rows": [
+    {
+      "helper": "suites/pickup-main-174/harness/Candidate.cs",
+      "oldCase": "guard-gfx61",
+      "newCase": "guard-gfx62",
+      "retiredReason": "old negative fixture now allowed by exact42-pair contract",
+      "originalPairNowPositive": [
+        61,
+        0
+      ],
+      "positiveCoverage": "P28 profiles mapping includes every exact allowed pair; must freshly execute planned suite on stage DLL",
+      "newExecuted": false
+    },
+    {
+      "helper": "suites/pickup-main-174/harness/Candidate.cs",
+      "oldCase": "guard-weapon4",
+      "newCase": "guard-weapon1",
+      "retiredReason": "old negative fixture now allowed by exact42-pair contract",
+      "originalPairNowPositive": [
+        0,
+        4
+      ],
+      "positiveCoverage": "P28 profiles mapping includes every exact allowed pair; must freshly execute planned suite on stage DLL",
+      "newExecuted": false
+    },
+    {
+      "helper": "suites/pickup-main-174/harness/Candidate.cs",
+      "oldCase": "guard-weapon46",
+      "newCase": "guard-weapon2",
+      "retiredReason": "old negative fixture now allowed by exact42-pair contract",
+      "originalPairNowPositive": [
+        0,
+        46
+      ],
+      "positiveCoverage": "P28 profiles mapping includes every exact allowed pair; must freshly execute planned suite on stage DLL",
+      "newExecuted": false
+    },
+    {
+      "helper": "suites/pickup-supplement-10/harness/Candidate.cs",
+      "oldCase": "guard-gfx61",
+      "newCase": "guard-gfx62",
+      "retiredReason": "old negative fixture now allowed by exact42-pair contract",
+      "originalPairNowPositive": [
+        61,
+        0
+      ],
+      "positiveCoverage": "P28 profiles mapping includes every exact allowed pair; must freshly execute planned suite on stage DLL",
+      "newExecuted": false
+    },
+    {
+      "helper": "suites/pickup-supplement-10/harness/Candidate.cs",
+      "oldCase": "guard-weapon4",
+      "newCase": "guard-weapon1",
+      "retiredReason": "old negative fixture now allowed by exact42-pair contract",
+      "originalPairNowPositive": [
+        0,
+        4
+      ],
+      "positiveCoverage": "P28 profiles mapping includes every exact allowed pair; must freshly execute planned suite on stage DLL",
+      "newExecuted": false
+    },
+    {
+      "helper": "suites/pickup-supplement-10/harness/Candidate.cs",
+      "oldCase": "guard-weapon46",
+      "newCase": "guard-weapon2",
+      "retiredReason": "old negative fixture now allowed by exact42-pair contract",
+      "originalPairNowPositive": [
+        0,
+        46
+      ],
+      "positiveCoverage": "P28 profiles mapping includes every exact allowed pair; must freshly execute planned suite on stage DLL",
+      "newExecuted": false
+    }
+  ],
+  "assertionBooleanBodiesChanged": false,
+  "cancellationMethodChanged": false,
+  "expectedDerivedFromObservedOutput": false,
+  "historical174Plus10RetainedAsHistoryOnly": true,
+  "newExecuted": 0
+}

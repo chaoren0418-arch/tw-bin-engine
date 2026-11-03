@@ -1,0 +1,49 @@
+{
+  "schema": "engine-r34-normalized-review-v1",
+  "candidateId": "ENGINE-PICKUP-PRESENTATION-IMPL-R1",
+  "decision": "accepted",
+  "counts": {
+    "assertionsPassed": 184,
+    "assertionsFailed": 0,
+    "observations": 0,
+    "pending": 0
+  },
+  "unresolvedFindings": [],
+  "derived": true,
+  "original": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\review-acceptance.json",
+    "sha256": "5ba17f25a978b146a282f14fce8f477a60307303451ded1b9bca916b56411d4d",
+    "sealPath": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1\\artifact-manifest.json",
+    "sealSha256": "715c95654af8a1c59853f15e41c3511d5b15c1b0749bf35c47e39fe918b99196",
+    "nativeFields": [
+      "checks",
+      "assertions",
+      "observations",
+      "failedChecks",
+      "blockingFindings",
+      "repairRequired"
+    ]
+  },
+  "mapping": {
+    "counts": "reconstructed from sealed accepted run rows in execution-accounting.json, compared with execution-rows.json and summary",
+    "unresolvedFindings": "findings.json blockingFindings[] and repairRequests[]; acceptance blockingFindings0/repairRequiredfalse",
+    "resourceIdentity": "derive from accepted sourceManifestSha256 + candidateSealSha256 and separately verified native projection; not an original review field"
+  },
+  "runs": [
+    {
+      "path": "runs/candidate-02/probe.json",
+      "assertions": 174,
+      "helperSha256": "5859a7b0eb8ed4846ca4a4c7854e9ec6fc93f4c633fe01f3ae2ae6b459e8cbba"
+    },
+    {
+      "path": "runs/supplement-01/probe.json",
+      "assertions": 10,
+      "helperSha256": "b232da5d874cecd4c6a8916c30d1efb759607a1a8ba3769c839df4264188df83"
+    }
+  ],
+  "riskFamilies": 24,
+  "reviewArtifacts": 414,
+  "reviewSourcePins": 847,
+  "externalPins": 0,
+  "resourceFieldPresentInOriginal": false
+}

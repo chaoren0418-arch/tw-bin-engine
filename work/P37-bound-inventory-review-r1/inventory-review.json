@@ -1,0 +1,48 @@
+{
+  "status": "pass-provisional-exact-inventory-awaiting-artifact-seal",
+  "rows": 210,
+  "categories": {
+    "source": 181,
+    "build": 15,
+    "productManifest": 1,
+    "inheritedLauncher": 4,
+    "evidence": 9
+  },
+  "allRowsSourceSizeShaAndTargetExact": true,
+  "targetsUniqueCasefold": true,
+  "fourIdentities": {
+    "productDllSha256": {
+      "path": "build/client-product-p36-r1/P11.ClientEngine.dll",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1\\P11.ClientEngine.dll",
+      "size": 4925440,
+      "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+    },
+    "audioDllSha256": {
+      "path": "build/client-product-p36-r1/P24.Audio.dll",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1\\P24.Audio.dll",
+      "size": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    "productManifestSha256": {
+      "path": "build/product-p36-r1-manifest.json",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-p36-r1-manifest.json",
+      "size": 4715,
+      "sha256": "d55389e048aee9eb2b64088ddfb0128de6166071e21969bd1dd57b9464d9ce75"
+    },
+    "launcherDllSha256": {
+      "path": "launcher/P24.Launcher.dll",
+      "source": "D:\\lineage開發\\TW1608262200研究\\engine\\launcher\\P24.Launcher.dll",
+      "size": 24064,
+      "sha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8"
+    }
+  },
+  "protectedPins": 33,
+  "cliInvocationsByReviewer": 0,
+  "productBuilds": 0,
+  "sharedWrites": false,
+  "launcherQualification": "Four inherited immutable launcher files; no launcher rebuild or package usability acceptance",
+  "fullReleaseAuthorized": false,
+  "nativeAccepted": false,
+  "entryActivated": false,
+  "inheritedMechanism": "P36/P37 r2 differential review; no old negative suite rerun"
+}

@@ -1,0 +1,101 @@
+{
+  "utc": "2026-10-28T18:32:36.498541+00:00",
+  "status": "smoke-failed-server-startup-preserved-orphan-timed-item",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "goalActualStatus": "paused",
+  "goalResumeToolUnavailable": true,
+  "wholeP24Complete": false,
+  "environmentSmokePassed": false,
+  "clientStarted": false,
+  "developmentDispatched": false,
+  "dbStartedNormally": true,
+  "dbUuid": "e3443e40-d090-11f1-8040-4cedfb679789",
+  "databaseBackupFilesMatched": 904,
+  "serverJarUnchanged": true,
+  "failedServerPid": 6316,
+  "serverProcessTerminal": true,
+  "runtime": {
+    "server": [],
+    "listeners": [
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 43324,
+        "OwningProcess": 19324
+      }
+    ]
+  },
+  "rolesCompared": 9,
+  "itemsCompared": 58,
+  "skillsCompared": 14,
+  "ledgerChanges": [
+    {
+      "id": 1900249001,
+      "onlineBefore": 1,
+      "onlineAfter": 0
+    }
+  ],
+  "timedItem": {
+    "kind": "timedItem",
+    "owner": null,
+    "expired": true,
+    "objectId": 10326,
+    "template": null,
+    "expiresAt": "2026-10-28 05:33:31.000000",
+    "serverNow": "2026-10-29 02:31:54.000000",
+    "itemPresent": false
+  },
+  "diagnosis": "Existing timed metadata references absent item10326. Retained JAR CharItemsTimeTable.load requires each metadata row to map to a valid loaded item and aborts otherwise. This is not a missing-path or authentication failure.",
+  "limitations": [
+    "Expired metadata does not independently prove the historical cause of item deletion.",
+    "No gameplay/database repair, grants, deletion, startup bypass, JAR modification or repeat launch.",
+    "DB remains running under this supervisor, parent20392/listener19324, only127.0.0.1:43324; unrelated mysqld untouched.",
+    "Platform goal still paused; available update_goal schema cannot resume."
+  ],
+  "next": "Resolve server timed-item consistency through an explicitly scoped, reviewed data-preserving repair path before any client smoke or development dispatch. Do not delete orphan row or skip startup guard just to proceed. User UI must resume existing Goal; do not create a replacement.",
+  "pins": [
+    {
+      "file": "reception.json",
+      "sha256": "69e9515c783d02b05f74ffdfeabeb9f6d88227926aa421fcc085989260f5ab69"
+    },
+    {
+      "file": "preflight.json",
+      "sha256": "39c8f312e18f72797a34e3832600a2a779cc00b1021f841c9d418065577c2b6f"
+    },
+    {
+      "file": "db-start.json",
+      "sha256": "66892b3648a35c406902124684e840c226019e04788634d6553486953b028ed7"
+    },
+    {
+      "file": "server-start.json",
+      "sha256": "d2b5ee8055c81f92d2dded320b8634308ed286ccb5f7757f7245c1430b17e9de"
+    },
+    {
+      "file": "server.stdout.log",
+      "sha256": "f0bb99dd4ccb95ee2609213974146a370409c5811c756b27dd5f4e7efb7aaba0"
+    },
+    {
+      "file": "server.stderr.log",
+      "sha256": "32a3e2ebeb177ae1a3f8d6ecf9ebaf24292a4b62b48275f44ed09c874a55bfff"
+    },
+    {
+      "file": "before-server.json",
+      "sha256": "d057f1cad35c40dfa4aec0e92128c901fa6a655113f6bcce90daf2fea9d048c9"
+    },
+    {
+      "file": "after-server-start-failure.json",
+      "sha256": "33b701fb389a4d0746234b9a4e0abe6956a1fbd601aced6ecb47d25d6aea3a83"
+    },
+    {
+      "file": "timed-schema.json",
+      "sha256": "294d41b8a3f87e71d350db357e808cb1061908f0de094b71523ea1761f8ed948"
+    },
+    {
+      "file": "timed-rows.json",
+      "sha256": "168bd7631eaf467b0c951726d790f5ffde96aff8ca3084ae1e19475cf789a865"
+    },
+    {
+      "file": "CharItemsTimeTable.javap.txt",
+      "sha256": "adbcfd8b6e87ff80147b5594fd70487a44a7346537ebd42eabee0c26597481e9"
+    }
+  ]
+}

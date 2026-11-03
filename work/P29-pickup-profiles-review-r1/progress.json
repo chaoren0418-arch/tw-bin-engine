@@ -1,0 +1,27 @@
+{
+  "phase": "sealed-harness-ready-candidate-runtime-pending",
+  "goal": "active",
+  "readDocuments": [
+    "AGENTS.md",
+    "takeover.json",
+    "r34-final-offline-baseline.json",
+    "followup-contract-inputs.json",
+    "sealed plan/review-prep manifests and fixtures",
+    "sealed r34 source APIs"
+  ],
+  "steps": [
+    "fixture parser passed; not repeated",
+    "initial compile-only pass preserved decoded-only",
+    "adapters extended, final compile-only pass raw bytes",
+    "5 gate/raw selftests passed",
+    "coverage gaps documented for all14 families"
+  ],
+  "dependencies": [
+    "supervisor dispatch exact path+SHA",
+    "candidate artifact/source manifests and product DLL exact seals",
+    "sealed P24.Audio.dll dependency"
+  ],
+  "candidateRuntimePassed": 0,
+  "native": 0,
+  "officialEntry": "r33-no-write"
+}

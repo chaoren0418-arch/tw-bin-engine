@@ -1,0 +1,55 @@
+{
+  "status": "worker-passed-ready-for-independent-supervisor",
+  "goal": "active",
+  "stage": "P17",
+  "scope": "Inventory and one original restoration use; not complete engine",
+  "fixedJarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "cli": {
+    "status": "pass",
+    "captures": 3,
+    "requests": 9,
+    "consumed": 6,
+    "snapshots": 28,
+    "fields": 869
+  },
+  "ui": {
+    "status": "functional-pass-with-disclosed-initial-seed-gap",
+    "requests": 7,
+    "consumed": 6,
+    "snapshots": 33,
+    "fields": 1012
+  },
+  "correctedUiReview": {
+    "status": "pass",
+    "useRequests": 0,
+    "initialSeed": true,
+    "visibleInventory": true
+  },
+  "regressions": [
+    "16 TCP",
+    "cipher and Netty",
+    "offline renderer and heading",
+    "WebView2",
+    "inventory gate",
+    "inventory icons 1779 pixels",
+    "original JAR serializers 165 fields",
+    "combat",
+    "objects",
+    "world",
+    "movement",
+    "final inventory layout"
+  ],
+  "supervisorReserved": [
+    1900170003,
+    1900170004
+  ],
+  "limits": [
+    "UI first seed missing in original worker full-use capture; never reconstructed",
+    "Corrected full-use UI validation pending supervisor fresh six-stack",
+    "Potion effect event decoded, animation not rendered",
+    "WinForms controllers and WebView2 DOM; no external native input"
+  ],
+  "serviceState": "same original JAR/DB running for supervisor",
+  "sourceManifestSha256": "aa367e6b044ac8ed0ce0e998f4561e3357ba306b0ef8c66cc611a89b12cb96b1",
+  "environmentManifestSha256": "045a1fa61fd9e21113dfbaad4bec92dfdfbd934903c1e0c4f24eb9339c8bc490"
+}

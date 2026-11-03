@@ -1,0 +1,22 @@
+{
+  "schema": "p35-finite-independent-review-scope-v1",
+  "baselineStatus": "verified-six-input-pins-and-exact-accepted-one-row-correction",
+  "provisionalSourceObservation": "Two additions only in package_inventory: add product manifest itself, then require four canonical runtime targets, source paths, hashes, and pin the underlying files.",
+  "candidateExecutionGate": "Supervisor-provided final exact source/artifact seals required; author seal alone does not satisfy this gate.",
+  "finalChecks": [
+    "Verify final source/artifact seals and unchanged dependencies",
+    "Confirm diff confined to package_inventory; authority, no_links, closure, collision and original guards retained",
+    "Small independent synthetic inventory cases for manifest membership and missing/wrong identities and collision",
+    "Original completed_context read-only validation followed by old/new package_inventory; exact 2289 unchanged plus one manifest, equal to accepted corrected plan files",
+    "Recheck protected original sources, accepted plan, prior review seal and formal entry/manifest"
+  ],
+  "excluded": ["RG1 56-case rerun", "canonical 4521 assertions", "game suites", "generate", "archive_tools", "package_release", "formal tool installation", "entry activation"],
+  "initialToolCommands": [
+    {"description":"Read required AGENTS and supervisor finding/acceptance", "exitCode":0, "outputLocation":"conversation tool output; no fabricated raw-log copy"},
+    {"description":"Probe not-yet-created review root with Get-ChildItem -ErrorAction SilentlyContinue", "exitCode":1, "output":""},
+    {"description":"Create own review root, list author root, read original generator", "exitCode":0, "outputLocation":"conversation tool output"},
+    {"description":"Read prior review result/HANDOFF, context and release_authority", "exitCode":0, "outputLocation":"conversation tool output"},
+    {"description":"Read scope and provisional generator.patch without executing candidate", "exitCode":0, "outputLocation":"conversation tool output"}
+  ],
+  "testCommandReceipts": "commands/<run>/receipt.json plus stdout and stderr"
+}

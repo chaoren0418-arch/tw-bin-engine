@@ -1,0 +1,39 @@
+{
+  "utc": "2026-10-26T18:45:51.161503+00:00",
+  "status": "r14-live-inn-core-pass-with-no-key-message-defect",
+  "normalProduct": {
+    "utc": "2026-10-26T18:39:07.516076+00:00",
+    "status": "pass",
+    "productFiles": 35,
+    "assets": 13923,
+    "sourceWebRows": 135,
+    "onlyChangedSource": [
+      "source/NpcInteraction.cs",
+      "source/NpcTemplates.cs"
+    ],
+    "assetDelta": [
+      "inventory/59.png"
+    ],
+    "manifest": "e72044617dae0b14e7f2b659d295c37a29a6b831133e67b90dad33fb4ab04775",
+    "dll": "8a4b9f2a04f72cf68baa02fd955d66f9b16efb5a61395bf139ca6a66689db174",
+    "r13DllManifestPreserved": true,
+    "live": false
+  },
+  "live": true,
+  "hallMap": 16896,
+  "roomMap": 16384,
+  "hallWalkSteps": 7,
+  "roomWalkSteps": 4,
+  "totalCost": 200,
+  "finalAdena": 89020,
+  "keysPreserved": true,
+  "normalReloginReturnsOutside": true,
+  "normalExits": true,
+  "hpUnchanged": 686,
+  "newDeaths": 0,
+  "noAdditionalGrantsOrReset": true,
+  "noKeyMessage": "not displayed; timed out; worker identified unhandled0xA1, isolated fix pending",
+  "returnAction": "fixed server logs unknown action; no success claimed; local timeout restores talk",
+  "nativeCapture": "WGC unavailable; actual WebView visible screenshot and renderer image evidence",
+  "offlineDb": "r14-inn-final-offline-db.json"
+}

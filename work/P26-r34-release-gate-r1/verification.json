@@ -1,0 +1,125 @@
+{
+  "schema": "p26-release-tool-verification-v1",
+  "status": "pass-static-and-synthetic-only",
+  "cases": [
+    {
+      "name": "new-supervisor-release-shape",
+      "synthetic": true,
+      "expectedAccepted": true,
+      "actualAccepted": true,
+      "reason": null
+    },
+    {
+      "name": "old-supervisor",
+      "synthetic": true,
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new exact current-supervisor release dispatch required"
+    },
+    {
+      "name": "wrong-plan",
+      "synthetic": true,
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new exact current-supervisor release dispatch required"
+    },
+    {
+      "name": "shared-receipt-not-release",
+      "synthetic": true,
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "release receipt required; shared receipt is not release approval"
+    },
+    {
+      "name": "wrong-decision",
+      "synthetic": true,
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new exact current-supervisor release dispatch required"
+    },
+    {
+      "name": "wrong-dispatch",
+      "synthetic": true,
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new exact current-supervisor release dispatch required"
+    },
+    {
+      "name": "completed-key-set-only",
+      "synthetic": true,
+      "expectedAccepted": true,
+      "actualAccepted": true,
+      "reason": null
+    },
+    {
+      "name": "missing-completed-step",
+      "synthetic": true,
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "every canonical step required"
+    },
+    {
+      "name": "declared-source-mapping-only",
+      "synthetic": true,
+      "expectedAccepted": true,
+      "actualAccepted": true,
+      "reason": null
+    },
+    {
+      "name": "missing-source",
+      "synthetic": true,
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "source omitted from package: source/SYNTHETIC.cs"
+    },
+    {
+      "name": "tampered-source-pin",
+      "synthetic": true,
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "source package pin mismatch"
+    },
+    {
+      "name": "evidence-member-only",
+      "synthetic": true,
+      "expectedAccepted": true,
+      "actualAccepted": true,
+      "reason": null
+    },
+    {
+      "name": "missing-stage-evidence",
+      "synthetic": true,
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "sealed stage evidence omitted"
+    },
+    {
+      "name": "missing-workflow-evidence",
+      "synthetic": true,
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "canonical evidence omitted"
+    }
+  ],
+  "syntheticCasesPassed": 14,
+  "originalSubstantivePackageGatesPreserved": true,
+  "assetHardlinksPlannedOnly": 13958,
+  "assetFallbackAllowed": false,
+  "canonicalFixturesCreated": false,
+  "receiptCreated": false,
+  "packagePlanCreated": false,
+  "releaseCreated": false,
+  "productBuilds": 0,
+  "productAssertions": 0,
+  "pendingCanonical": [
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\installed.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\product.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\baseline.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\ground.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\utility.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\haste.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\versioned-slow.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\f1.json",
+    "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\pickup.json"
+  ]
+}

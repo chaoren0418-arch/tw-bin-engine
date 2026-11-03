@@ -1,0 +1,89 @@
+{
+  "schema": "p30-product-only-execution-r2-result-v1",
+  "status": "pass-single-product-audio-build-exact-identities-awaiting-independent-acceptance",
+  "dispatchId": "ENGINE-P30-PRODUCT-ONLY-EXECUTE-R2",
+  "receipt": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-product-only-execution-acceptance-r2.json",
+    "size": 3002,
+    "sha256": "c6d74ab2020063d2ea432ca35efb3b5ebf42ce79c0296cc7bc050b363ecd2707"
+  },
+  "contract": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\execution-contract.json",
+    "size": 9492,
+    "sha256": "3f4bf1a3e6ec5f9db90ed8583f14d0f53869ad0c2e98ad3fc20ba6427d86b75d"
+  },
+  "outerCommand": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\executor.command.json",
+    "size": 1745,
+    "sha256": "2a3e0e875872106cae63e7931456ea9163e99e9e79f6d07e67e442a2c527ea7b"
+  },
+  "stageResult": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\result.json",
+    "size": 2642,
+    "sha256": "f897e57008bf9a6690c92a99a8355e4616c9e2faed16000d7c5aaa54b3458f17"
+  },
+  "stageSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\stage-files-seal.json",
+    "size": 65164,
+    "sha256": "45bf24321192718e090deca882ce1ce884113cb9bfae817b73ab92892d3f5514"
+  },
+  "identities": {
+    "product": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\build\\client-product-r34\\P11.ClientEngine.dll",
+      "size": 4925440,
+      "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+    },
+    "audio": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\build\\client-product-r34\\P24.Audio.dll",
+      "size": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+    "expectedAudioSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+  },
+  "buildInvocations": 1,
+  "successfulBuilds": 1,
+  "actualCscTasks": 2,
+  "sourceFilesVerified": 181,
+  "independentCopiesVerified": 184,
+  "dependencyPinsRecheckedByExecutor": 4350,
+  "outputFiles": 15,
+  "runtimeDllComparisons": 7,
+  "outputDependencies": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\output-dependencies.json",
+    "size": 21120,
+    "sha256": "a08518219bcded6c71917d5147ec34b661c7566e09d311fd85ecc99776281547"
+  },
+  "compilerProvenance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\compiler-provenance.json",
+    "size": 2244,
+    "sha256": "37de97fa9830a08c63b1d7d5ed608edca83298ea9db71cd9eae650773758022c"
+  },
+  "warnings": 0,
+  "errors": 0,
+  "runtimeProbes": 0,
+  "newRuntimeAssertions": 0,
+  "historicalAssertionsAdded": 0,
+  "processTreeEnded": true,
+  "timeout": false,
+  "interruption": false,
+  "priorFailedAttemptPreserved": true,
+  "priorPlanningAndExecutorsUnchanged": true,
+  "formalEntry": "r33",
+  "sharedWrites": false,
+  "releaseWrites": false,
+  "entryChanged": false,
+  "nativeAccepted": false,
+  "wholeProjectComplete": false,
+  "goal": {
+    "actualRead": null,
+    "created": false,
+    "modified": false
+  },
+  "handoff": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\HANDOFF.md",
+    "size": 2938,
+    "sha256": "0f5bc21e9612399f50e6ea9e6ae455311f0f1f003eeb23b1c1324baad3c67437"
+  },
+  "finishedUtc": "2026-10-29T06:45:02.888067+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "p27-baseline-verification-v1",
+  "utc": "2026-10-29T03:45:15.884430+00:00",
+  "status": "pass",
+  "identity": {
+    "release": "r33",
+    "basePinsSha256": "d716dcbe30b9aebfdc558f59addf4910fe94e026aec31ae7823572a40a1ffced",
+    "files": 171,
+    "releaseSeal": {
+      "path": "releases/r33/_integration/r33/release-seal.json",
+      "sha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417"
+    },
+    "productDll": {
+      "path": "engine/build/client-product-r33/P11.ClientEngine.dll",
+      "sha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2"
+    },
+    "nativeAcceptance": false
+  },
+  "currentSourceMatchesBaseline": true,
+  "all171MatchR33Seal": true,
+  "dllMatchesR33Seal": true
+}

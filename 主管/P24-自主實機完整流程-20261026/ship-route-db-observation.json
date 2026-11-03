@@ -1,0 +1,279 @@
+{
+  "pins": {
+    "utc": "2026-10-26T14:19:51.754277+00:00",
+    "db": [
+      43324,
+      "D:\\P24Lab-ClientEngine\\db-data\\",
+      "e3443e40-d090-11f1-8040-4cedfb679789",
+      "127.0.0.1",
+      "8.0.40"
+    ],
+    "dbOs": {
+      "processes": [
+        {
+          "ProcessId": 69176,
+          "ParentProcessId": 64892,
+          "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+          "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+          "CreationDate": "/Date(1792945658396)/"
+        },
+        {
+          "ProcessId": 59052,
+          "ParentProcessId": 69176,
+          "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+          "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+          "CreationDate": "/Date(1792945658443)/"
+        }
+      ],
+      "listeners": [
+        {
+          "LocalAddress": "127.0.0.1",
+          "LocalPort": 43324,
+          "OwningProcess": 59052
+        }
+      ]
+    },
+    "game": {
+      "process": {
+        "ProcessId": 88012,
+        "ParentProcessId": 58144,
+        "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+        "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P24Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P24Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P24Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P24Lab-ClientEngine\\server\\Server_Game.jar",
+        "CreationDate": "/Date(1793022465229)/"
+      },
+      "listeners": [
+        {
+          "LocalAddress": "0.0.0.0",
+          "LocalPort": 42061,
+          "OwningProcess": 88012
+        }
+      ]
+    },
+    "roles": [
+      {
+        "x": 32640,
+        "y": 33109,
+        "hp": 26,
+        "id": 1900240001,
+        "mp": 82,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p241db6e"
+      },
+      {
+        "x": 32477,
+        "y": 32853,
+        "hp": 103,
+        "id": 1900240002,
+        "mp": 84,
+        "map": 0,
+        "level": 59,
+        "online": 0,
+        "account": "p242db6e"
+      },
+      {
+        "x": 32588,
+        "y": 32981,
+        "hp": 500,
+        "id": 1900240003,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p243db6e"
+      },
+      {
+        "x": 32588,
+        "y": 32981,
+        "hp": 500,
+        "id": 1900240004,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p244db6e"
+      },
+      {
+        "x": 32648,
+        "y": 33068,
+        "hp": 163,
+        "id": 1900240005,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p245db6e"
+      },
+      {
+        "x": 32608,
+        "y": 32976,
+        "hp": 384,
+        "id": 1900240006,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p246db6e"
+      },
+      {
+        "x": 32587,
+        "y": 32998,
+        "hp": 700,
+        "id": 1900240007,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p247db6e"
+      },
+      {
+        "x": 32587,
+        "y": 32998,
+        "hp": 700,
+        "id": 1900240008,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p248db6e"
+      }
+    ]
+  },
+  "rows": {
+    "dungeon": [
+      {
+        "note": "說話之島>說話之島往古魯丁的船",
+        "new_x": 32733,
+        "new_y": 32797,
+        "src_x": 32630,
+        "src_y": 32983,
+        "new_mapid": 5,
+        "src_mapid": 0,
+        "new_heading": 4,
+        "require_item_id": 40299
+      },
+      {
+        "note": "說話之島>說話之島往古魯丁的船",
+        "new_x": 32733,
+        "new_y": 32797,
+        "src_x": 32631,
+        "src_y": 32983,
+        "new_mapid": 5,
+        "src_mapid": 0,
+        "new_heading": 4,
+        "require_item_id": 40299
+      },
+      {
+        "note": "說話之島>說話之島往古魯丁的船",
+        "new_x": 32733,
+        "new_y": 32797,
+        "src_x": 32632,
+        "src_y": 32983,
+        "new_mapid": 5,
+        "src_mapid": 0,
+        "new_heading": 4,
+        "require_item_id": 40299
+      },
+      {
+        "note": "說話之島往古魯丁的船>說話之島",
+        "new_x": 32631,
+        "new_y": 32982,
+        "src_x": 32733,
+        "src_y": 32796,
+        "new_mapid": 0,
+        "src_mapid": 5,
+        "new_heading": 0,
+        "require_item_id": 40299
+      },
+      {
+        "note": "說話之島往古魯丁的船>說話之島",
+        "new_x": 32631,
+        "new_y": 32982,
+        "src_x": 32734,
+        "src_y": 32796,
+        "new_mapid": 0,
+        "src_mapid": 5,
+        "new_heading": 0,
+        "require_item_id": 40299
+      },
+      {
+        "note": "亞丁大陸>亞丁大陸往說話之島的船",
+        "new_x": 32735,
+        "new_y": 32795,
+        "src_x": 32540,
+        "src_y": 32728,
+        "new_mapid": 6,
+        "src_mapid": 4,
+        "new_heading": 4,
+        "require_item_id": 40298
+      },
+      {
+        "note": "亞丁大陸>亞丁大陸往說話之島的船",
+        "new_x": 32735,
+        "new_y": 32795,
+        "src_x": 32542,
+        "src_y": 32728,
+        "new_mapid": 6,
+        "src_mapid": 4,
+        "new_heading": 4,
+        "require_item_id": 40298
+      },
+      {
+        "note": "亞丁大陸>亞丁大陸往說話之島的船",
+        "new_x": 32735,
+        "new_y": 32795,
+        "src_x": 32543,
+        "src_y": 32728,
+        "new_mapid": 6,
+        "src_mapid": 4,
+        "new_heading": 4,
+        "require_item_id": 40298
+      },
+      {
+        "note": "亞丁大陸>亞丁大陸往說話之島的船",
+        "new_x": 32735,
+        "new_y": 32795,
+        "src_x": 32544,
+        "src_y": 32728,
+        "new_mapid": 6,
+        "src_mapid": 4,
+        "new_heading": 4,
+        "require_item_id": 40298
+      },
+      {
+        "note": "亞丁大陸往說話之島的船>亞丁大陸",
+        "new_x": 32544,
+        "new_y": 32727,
+        "src_x": 32734,
+        "src_y": 32794,
+        "new_mapid": 4,
+        "src_mapid": 6,
+        "new_heading": 0,
+        "require_item_id": 40298
+      },
+      {
+        "note": "亞丁大陸往說話之島的船>亞丁大陸",
+        "new_x": 32544,
+        "new_y": 32727,
+        "src_x": 32735,
+        "src_y": 32794,
+        "new_mapid": 4,
+        "src_mapid": 6,
+        "new_heading": 0,
+        "require_item_id": 40298
+      },
+      {
+        "note": "亞丁大陸往說話之島的船>亞丁大陸",
+        "new_x": 32544,
+        "new_y": 32727,
+        "src_x": 32736,
+        "src_y": 32794,
+        "new_mapid": 4,
+        "src_mapid": 6,
+        "new_heading": 0,
+        "require_item_id": 40298
+      }
+    ]
+  }
+}

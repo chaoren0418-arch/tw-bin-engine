@@ -1,0 +1,22 @@
+{
+  "status": "needs-visible-combat-evidence",
+  "files": [
+    {
+      "name": "original-own-attack-screen.png",
+      "sha256": "8d198f754982e83a78bbb3fcebafacb3f5274261ac9996a67118c291121d6db1"
+    },
+    {
+      "name": "original-death-corpse-screen.png",
+      "sha256": "b0f8f6ba87c00a07f0f51fa10807a1d2e9f78d56e0973d09166d2cbf47c3a5b7"
+    },
+    {
+      "name": "result.json",
+      "sha256": "faf2b9a82add3cde8b60e45381e59ecf214ec98adfa395f4fd4da45b89345fde"
+    },
+    {
+      "name": "db-proof.json",
+      "sha256": "f39e01661fc0c1b5293cdfc74b9054257e89ebd9164ae6bb4308fd2c2b5981a2"
+    }
+  ],
+  "finding": "Own body and dying target mostly behind original roof. Model frame/action assertions pass, but visual combat demonstration insufficient. Preserve proper occlusion; normal movement/AI lure to open area required."
+}

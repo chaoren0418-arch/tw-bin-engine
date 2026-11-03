@@ -1,0 +1,35 @@
+{
+  "acceptedRuns": [
+    {
+      "path": "runs/candidate-02/probe.json",
+      "helper": "build/probe/Probe.dll",
+      "helperSha256": "5859a7b0eb8ed4846ca4a4c7854e9ec6fc93f4c633fe01f3ae2ae6b459e8cbba",
+      "assertions": 174,
+      "observations": 0,
+      "failures": 0
+    },
+    {
+      "path": "runs/supplement-01/probe.json",
+      "helper": "build/supplement/Probe.dll",
+      "helperSha256": "b232da5d874cecd4c6a8916c30d1efb759607a1a8ba3769c839df4264188df83",
+      "assertions": 10,
+      "observations": 0,
+      "failures": 0
+    }
+  ],
+  "excludedDevelopmentRun": {
+    "path": "runs/candidate-01/probe.json",
+    "rows": 71,
+    "helperExceptions": 3,
+    "causes": [
+      "Tuple-key dictionary serialization unsupported in helper fingerprint",
+      "Missing gfx61 shadow fixture interrupted two helper suites"
+    ],
+    "resolution": "Fingerprint changed to sorted array projection; exact pinned shadow fixture copied; no candidate change. Replaced by complete candidate-02 run, not counted."
+  },
+  "earlierCompileCorrection": "Helper GetValueOrDefault(100) corrected to unsigned100u. No product edit.",
+  "finalHelperBuild": "Managed helper build completed with0warnings/0errors; no full candidate product rebuild.",
+  "authorAssertionsAdded": 0,
+  "prepAssertionsAdded": 0,
+  "rerunOfFull4337": false
+}

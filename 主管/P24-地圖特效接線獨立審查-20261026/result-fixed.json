@@ -1,0 +1,139 @@
+{
+  "status": "independent-clean-build-with-pinned-asset-correction-pass",
+  "originalFailure": "result.json and harness.stderr retained unchanged",
+  "fixDeliverySha256": "68b9e1d2258b780cd23c05408949a6471d90b1e7211af6f2ea4b04a4d9e6ba17",
+  "assetInputs": 13836,
+  "cleanDll": "ff1395a15a817e7f40af214b7122f7f0c95af0eba86a4e93818e92a3d798a90b",
+  "checks": {
+    "harness": 368,
+    "maps-regression": 35,
+    "trade-regression": 58,
+    "service-regression": 73,
+    "map-panel": 10,
+    "trade-dom": 19,
+    "service-dom": 24
+  },
+  "pixelFrames": 4184,
+  "renderedScenes": [
+    {
+      "name": "map0-boat-t0.png",
+      "sha256": "e0770cd7f2fce73e65b0adbb72d532c19cfe9861008bf647ef0bb989b971655c"
+    },
+    {
+      "name": "map0-boat-t300.png",
+      "sha256": "7fac0f6b162568adbde06f92175ca7441812fd9b89bf2aae2be56c0527f9aa90"
+    },
+    {
+      "name": "map0-boat-south-t0.png",
+      "sha256": "7afe5e55fa1632fc8a4117bd1941e705869a102e303ecd6196d6c4a11f89298e"
+    },
+    {
+      "name": "map0-boat-south-t300.png",
+      "sha256": "5e118cab55661ae2b3e0ce3c9b0ecda8ad0a720d9131d572564eee6f450ebdaa"
+    },
+    {
+      "name": "map4-harbor-t0.png",
+      "sha256": "75ec61e12f2aee45e924732cac282f463783a941d3215c6639dea8bb70b0f8bf"
+    },
+    {
+      "name": "map4-harbor-t300.png",
+      "sha256": "75ec61e12f2aee45e924732cac282f463783a941d3215c6639dea8bb70b0f8bf"
+    },
+    {
+      "name": "map4-warehouse-t0.png",
+      "sha256": "b4826c45d0296c6d900cd31cffc48cafd5450bda4b04c0714df785e2fd64f2c7"
+    },
+    {
+      "name": "map4-warehouse-t300.png",
+      "sha256": "b4826c45d0296c6d900cd31cffc48cafd5450bda4b04c0714df785e2fd64f2c7"
+    },
+    {
+      "name": "map4-harbor-effect6016-t0.png",
+      "sha256": "2b6c364d1530de5f6fcf46711cde4b224d13d7ac1f98af0af26daea92529f609"
+    },
+    {
+      "name": "map4-harbor-effect6016-t300.png",
+      "sha256": "56d32a451fc08c52d927df2fd76ac3d8aca8112930824ac4274c9ed10b25cc70"
+    },
+    {
+      "name": "map4-warehouse-effect6016-t0.png",
+      "sha256": "21a84efa76e3d8e7b1740e95c847c83f2ac9b159f558e80978f646de6d2c678f"
+    },
+    {
+      "name": "map4-warehouse-effect6016-t300.png",
+      "sha256": "e7b0929c68dabc13e6d2a7c28296f05e539775491f7f1f78f668a01009b06a75"
+    }
+  ],
+  "processes": [
+    {
+      "name": "harness",
+      "pid": 82960,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-地圖特效接線獨立審查-20261026\\build\\harness\\P24.MapEffectChecks.exe"
+      ],
+      "exitCode": 0,
+      "seconds": 19.973811626434326
+    },
+    {
+      "name": "maps-regression",
+      "pid": 73720,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-地圖特效接線獨立審查-20261026\\build\\maps-regression\\P24.EffectMapRegression.exe"
+      ],
+      "exitCode": 0,
+      "seconds": 13.059298992156982
+    },
+    {
+      "name": "trade-regression",
+      "pid": 51388,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-地圖特效接線獨立審查-20261026\\build\\trade-regression\\P24.EffectTradeRegression.exe"
+      ],
+      "exitCode": 0,
+      "seconds": 0.3099949359893799
+    },
+    {
+      "name": "service-regression",
+      "pid": 14800,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-地圖特效接線獨立審查-20261026\\build\\service-regression\\P24.EffectServiceRegression.exe"
+      ],
+      "exitCode": 0,
+      "seconds": 8.032102584838867
+    },
+    {
+      "name": "map-panel",
+      "pid": 81876,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-地圖特效接線獨立審查-20261026\\reference\\development\\maps-r1\\test_panel.cjs"
+      ],
+      "exitCode": 0,
+      "seconds": 0.5786447525024414
+    },
+    {
+      "name": "trade-dom",
+      "pid": 87136,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-地圖特效接線獨立審查-20261026\\reference\\development\\trade-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "seconds": 0.08356380462646484
+    },
+    {
+      "name": "service-dom",
+      "pid": 66536,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-地圖特效接線獨立審查-20261026\\reference\\development\\skill-warehouse-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "seconds": 0.1748964786529541
+    }
+  ],
+  "ui": false,
+  "live": false,
+  "fullProductComplete": false,
+  "scope": "Same independently compiled immutable product; only source-audited ground36 asset overlay and integrity added. 12 fresh rendered PNGs match immutable worker output. Synthetic protocol/DOM checks, no native UI or real travel."
+}

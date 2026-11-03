@@ -1,0 +1,399 @@
+{
+  "status": "pass",
+  "scope": "Independent decoding of this captured worker/supervisor run only; not asset/UI or clean-build acceptance. Damage word kept separate from HP loss.",
+  "capture_sha256": "5c9cb027d20cc9b45679ea3a332af9f084dfc1e6e5efb6950ae4a3d0461f75b3",
+  "own": 1900160001,
+  "target": 2000041216,
+  "main_packets": 320,
+  "observer_packets": 267,
+  "own_attack_reports": [
+    {
+      "generation": 1,
+      "sequence": 129,
+      "utc": "2026-10-25T02:00:15.1320599+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 1900160001,
+      "target": 2000041216,
+      "word": 0,
+      "heading": 3
+    },
+    {
+      "generation": 1,
+      "sequence": 169,
+      "utc": "2026-10-25T02:00:21.4685092+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 1900160001,
+      "target": 2000041216,
+      "word": 7,
+      "heading": 3
+    },
+    {
+      "generation": 1,
+      "sequence": 178,
+      "utc": "2026-10-25T02:00:22.2822737+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 1900160001,
+      "target": 2000041216,
+      "word": 8,
+      "heading": 3
+    },
+    {
+      "generation": 1,
+      "sequence": 185,
+      "utc": "2026-10-25T02:00:23.1333918+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 1900160001,
+      "target": 2000041216,
+      "word": 7,
+      "heading": 3
+    },
+    {
+      "generation": 1,
+      "sequence": 193,
+      "utc": "2026-10-25T02:00:23.9997406+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 1900160001,
+      "target": 2000041216,
+      "word": 7,
+      "heading": 3
+    },
+    {
+      "generation": 1,
+      "sequence": 201,
+      "utc": "2026-10-25T02:00:24.8500459+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 1900160001,
+      "target": 2000041216,
+      "word": 7,
+      "heading": 3
+    },
+    {
+      "generation": 1,
+      "sequence": 214,
+      "utc": "2026-10-25T02:00:25.7001261+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 1900160001,
+      "target": 2000041216,
+      "word": 7,
+      "heading": 3
+    },
+    {
+      "generation": 1,
+      "sequence": 219,
+      "utc": "2026-10-25T02:00:26.5517764+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 1900160001,
+      "target": 2000041216,
+      "word": 7,
+      "heading": 3
+    },
+    {
+      "generation": 1,
+      "sequence": 227,
+      "utc": "2026-10-25T02:00:27.4155482+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 1900160001,
+      "target": 2000041216,
+      "word": 7,
+      "heading": 3
+    }
+  ],
+  "npc_positive_reports": [
+    {
+      "generation": 1,
+      "sequence": 171,
+      "utc": "2026-10-25T02:00:21.514493+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 2000041216,
+      "target": 1900160001,
+      "word": 17,
+      "heading": 7
+    },
+    {
+      "generation": 1,
+      "sequence": 180,
+      "utc": "2026-10-25T02:00:22.3656666+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 2000041216,
+      "target": 1900160001,
+      "word": 20,
+      "heading": 7
+    },
+    {
+      "generation": 1,
+      "sequence": 189,
+      "utc": "2026-10-25T02:00:23.2145166+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 2000041216,
+      "target": 1900160001,
+      "word": 27,
+      "heading": 7
+    },
+    {
+      "generation": 1,
+      "sequence": 195,
+      "utc": "2026-10-25T02:00:24.0655672+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 2000041216,
+      "target": 1900160001,
+      "word": 11,
+      "heading": 7
+    },
+    {
+      "generation": 1,
+      "sequence": 203,
+      "utc": "2026-10-25T02:00:24.915577+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 2000041216,
+      "target": 1900160001,
+      "word": 13,
+      "heading": 7
+    },
+    {
+      "generation": 1,
+      "sequence": 222,
+      "utc": "2026-10-25T02:00:26.6149395+00:00",
+      "opcode": 30,
+      "action": 1,
+      "attacker": 2000041216,
+      "target": 1900160001,
+      "word": 14,
+      "heading": 7
+    }
+  ],
+  "own_hp_updates": [
+    {
+      "generation": 1,
+      "sequence": 23,
+      "utc": "2026-10-25T02:00:08.6913155+00:00",
+      "opcode": 225,
+      "current": 580,
+      "maximum": 700
+    },
+    {
+      "generation": 1,
+      "sequence": 173,
+      "utc": "2026-10-25T02:00:21.5145181+00:00",
+      "opcode": 225,
+      "current": 563,
+      "maximum": 700
+    },
+    {
+      "generation": 1,
+      "sequence": 181,
+      "utc": "2026-10-25T02:00:22.3657304+00:00",
+      "opcode": 225,
+      "current": 543,
+      "maximum": 700
+    },
+    {
+      "generation": 1,
+      "sequence": 190,
+      "utc": "2026-10-25T02:00:23.2146176+00:00",
+      "opcode": 225,
+      "current": 516,
+      "maximum": 700
+    },
+    {
+      "generation": 1,
+      "sequence": 196,
+      "utc": "2026-10-25T02:00:24.0656257+00:00",
+      "opcode": 225,
+      "current": 505,
+      "maximum": 700
+    },
+    {
+      "generation": 1,
+      "sequence": 205,
+      "utc": "2026-10-25T02:00:24.9155938+00:00",
+      "opcode": 225,
+      "current": 492,
+      "maximum": 700
+    },
+    {
+      "generation": 1,
+      "sequence": 223,
+      "utc": "2026-10-25T02:00:26.6150162+00:00",
+      "opcode": 225,
+      "current": 478,
+      "maximum": 700
+    }
+  ],
+  "target_hp_meter": [
+    {
+      "generation": 1,
+      "sequence": 170,
+      "utc": "2026-10-25T02:00:21.4685323+00:00",
+      "opcode": 237,
+      "id": 2000041216,
+      "percent": 86
+    },
+    {
+      "generation": 1,
+      "sequence": 179,
+      "utc": "2026-10-25T02:00:22.2822892+00:00",
+      "opcode": 237,
+      "id": 2000041216,
+      "percent": 70
+    },
+    {
+      "generation": 1,
+      "sequence": 186,
+      "utc": "2026-10-25T02:00:23.1334231+00:00",
+      "opcode": 237,
+      "id": 2000041216,
+      "percent": 56
+    },
+    {
+      "generation": 1,
+      "sequence": 194,
+      "utc": "2026-10-25T02:00:23.9997746+00:00",
+      "opcode": 237,
+      "id": 2000041216,
+      "percent": 42
+    },
+    {
+      "generation": 1,
+      "sequence": 202,
+      "utc": "2026-10-25T02:00:24.8501393+00:00",
+      "opcode": 237,
+      "id": 2000041216,
+      "percent": 28
+    },
+    {
+      "generation": 1,
+      "sequence": 215,
+      "utc": "2026-10-25T02:00:25.7001396+00:00",
+      "opcode": 237,
+      "id": 2000041216,
+      "percent": 18
+    },
+    {
+      "generation": 1,
+      "sequence": 220,
+      "utc": "2026-10-25T02:00:26.5520409+00:00",
+      "opcode": 237,
+      "id": 2000041216,
+      "percent": 4
+    },
+    {
+      "generation": 1,
+      "sequence": 228,
+      "utc": "2026-10-25T02:00:27.4155675+00:00",
+      "opcode": 237,
+      "id": 2000041216,
+      "percent": 255
+    }
+  ],
+  "death": {
+    "generation": 1,
+    "sequence": 229,
+    "utc": "2026-10-25T02:00:27.4157522+00:00",
+    "opcode": 158,
+    "id": 2000041216,
+    "action": 8
+  },
+  "removal": {
+    "generation": 1,
+    "sequence": 238,
+    "utc": "2026-10-25T02:00:30.4999333+00:00",
+    "opcode": 120,
+    "id": 2000041216
+  },
+  "sends": [
+    {
+      "generation": 1,
+      "ms": 232288078,
+      "attack_ms": 800,
+      "target": 2000041216,
+      "x": 32596,
+      "y": 32948
+    },
+    {
+      "generation": 1,
+      "ms": 232294437,
+      "attack_ms": 800,
+      "target": 2000041216,
+      "x": 32599,
+      "y": 32948
+    },
+    {
+      "generation": 1,
+      "ms": 232295250,
+      "attack_ms": 800,
+      "target": 2000041216,
+      "x": 32599,
+      "y": 32948
+    },
+    {
+      "generation": 1,
+      "ms": 232296093,
+      "attack_ms": 800,
+      "target": 2000041216,
+      "x": 32599,
+      "y": 32948
+    },
+    {
+      "generation": 1,
+      "ms": 232296968,
+      "attack_ms": 800,
+      "target": 2000041216,
+      "x": 32599,
+      "y": 32948
+    },
+    {
+      "generation": 1,
+      "ms": 232297812,
+      "attack_ms": 800,
+      "target": 2000041216,
+      "x": 32599,
+      "y": 32948
+    },
+    {
+      "generation": 1,
+      "ms": 232298656,
+      "attack_ms": 800,
+      "target": 2000041216,
+      "x": 32599,
+      "y": 32948
+    },
+    {
+      "generation": 1,
+      "ms": 232299515,
+      "attack_ms": 800,
+      "target": 2000041216,
+      "x": 32599,
+      "y": 32948
+    },
+    {
+      "generation": 1,
+      "ms": 232300375,
+      "attack_ms": 800,
+      "target": 2000041216,
+      "x": 32599,
+      "y": 32948
+    }
+  ],
+  "min_send_interval_ms": 813,
+  "capture_boundary": {
+    "mainGeneration": 2,
+    "observerGeneration": 1,
+    "mainSequence": 79,
+    "observerSequence": 267
+  },
+  "reconnect_cleared": true
+}

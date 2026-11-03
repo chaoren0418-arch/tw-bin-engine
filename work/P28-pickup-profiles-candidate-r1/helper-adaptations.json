@@ -1,0 +1,14 @@
+{
+  "source": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-r1\\checks",
+  "changes": [
+    "copy-before-edit helper only",
+    "partial class for P28 tests",
+    "exact test profile seed",
+    "remove 41-pair exclusion expectation; new suite executes all",
+    "retain gfx/weapon owner cancellation; remove their obsolete admission suppression",
+    "read sealed assets directly via helper AppContext base override",
+    "explicit synthetic empty scene Assets, real profile/catalog/renderer",
+    "reflect new optional weapon argument explicitly"
+  ],
+  "native": false
+}

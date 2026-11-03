@@ -1,0 +1,285 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "real_count_92356",
+      "passed": true
+    },
+    {
+      "name": "all_real_find_and_swapped_case",
+      "passed": true
+    },
+    {
+      "name": "name_not_found",
+      "passed": true,
+      "error": "name not found: 5030335f6d697373696e672e737072",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "nul_query",
+      "passed": true,
+      "error": "query must be 1..19 bytes without NUL",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "long_query",
+      "passed": true,
+      "error": "query must be 1..19 bytes without NUL",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "negative_number",
+      "passed": true,
+      "error": "record number out of range",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "transformed_mode",
+      "passed": true,
+      "error": "unsupported mode: only plain28 without transform",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "seven_real_samples_direct_seek_byte_equal",
+      "passed": true
+    },
+    {
+      "name": "exclusive_output_no_overwrite",
+      "passed": true,
+      "error": "[Errno 17] File exists: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\主管\\\\P03-獨立測試\\\\samples\\\\record_000000.bin'",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "truncated_header_0",
+      "passed": true,
+      "error": "truncated header",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "truncated_header_1",
+      "passed": true,
+      "error": "truncated header",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "truncated_header_2",
+      "passed": true,
+      "error": "truncated header",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "truncated_header_3",
+      "passed": true,
+      "error": "truncated header",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "reject_idx32",
+      "passed": true,
+      "error": "unsupported _IDX/32-byte mode (including compression)",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "count_over_limit",
+      "passed": true,
+      "error": "unreasonable count: exceeds defensive limit",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "truncated_record",
+      "passed": true,
+      "error": "truncated record table/count inconsistent with file size",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "count_exceeds_table",
+      "passed": true,
+      "error": "truncated record table/count inconsistent with file size",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "trailing_record_bytes",
+      "passed": true,
+      "error": "unexpected trailing bytes/count inconsistent with file size",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "offset_plus_length_oob",
+      "passed": true,
+      "error": "offset+length out of PAK bounds in record 0",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "signed_offset",
+      "passed": true,
+      "error": "unsupported signed-32 range in record 0",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "missing_name_nul",
+      "passed": true,
+      "error": "nonterminated name in record 0",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "empty_name",
+      "passed": true,
+      "error": "empty name in record 0",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "unsorted_index",
+      "passed": true,
+      "error": "index not sorted by ASCII-fold comparator at 1",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "duplicate_name",
+      "passed": true,
+      "error": "unsupported ambiguous duplicate name at 1",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "casefold_duplicate",
+      "passed": true,
+      "error": "unsupported ambiguous duplicate name at 1",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "pak_changed_and_partial_removed",
+      "passed": true,
+      "error": "PAK size changed since index validation",
+      "evidence_kind": "negative fixture or error branch"
+    },
+    {
+      "name": "six_real_cli_commands_and_exit_codes",
+      "passed": true
+    }
+  ],
+  "cli": [
+    {
+      "label": "list",
+      "argv": [
+        "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "D:\\lineage開發\\TW1608262200研究\\P03-資源讀取器\\reader.py",
+        "--idx",
+        "D:\\lineage開發\\0-客戶端\\Sprite.idx",
+        "--pak",
+        "D:\\lineage開發\\0-客戶端\\Sprite.pak",
+        "--mode",
+        "plain28",
+        "list",
+        "--start",
+        "46178",
+        "--limit",
+        "1"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"number\": 46178, \"record_position\": 1292988, \"record_hex\": \"9e44a111333437342d39392e737072000000000000000000cb2d0000\", \"name_hex\": \"333437342d39392e737072\", \"name_field_hex\": \"333437342d39392e737072000000000000000000\", \"name\": \"3474-99.spr\", \"offset\": 295781534, \"size\": 11723}\n",
+      "stderr": ""
+    },
+    {
+      "label": "find",
+      "argv": [
+        "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "D:\\lineage開發\\TW1608262200研究\\P03-資源讀取器\\reader.py",
+        "--idx",
+        "D:\\lineage開發\\0-客戶端\\Sprite.idx",
+        "--pak",
+        "D:\\lineage開發\\0-客戶端\\Sprite.pak",
+        "--mode",
+        "plain28",
+        "find",
+        "--name",
+        "0-0.SPR"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"number\": 0, \"record_position\": 4, \"record_hex\": \"22c98d33302d302e73707200000000000000000000000000fe000000\", \"name_hex\": \"302d302e737072\", \"name_field_hex\": \"302d302e73707200000000000000000000000000\", \"name\": \"0-0.spr\", \"offset\": 864930082, \"size\": 254}\n",
+      "stderr": ""
+    },
+    {
+      "label": "missing",
+      "argv": [
+        "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "D:\\lineage開發\\TW1608262200研究\\P03-資源讀取器\\reader.py",
+        "--idx",
+        "D:\\lineage開發\\0-客戶端\\Sprite.idx",
+        "--pak",
+        "D:\\lineage開發\\0-客戶端\\Sprite.pak",
+        "--mode",
+        "plain28",
+        "find",
+        "--name",
+        "P03_missing.spr"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"error\": \"name not found: 5030335f6d697373696e672e737072\"}\n"
+    },
+    {
+      "label": "extract",
+      "argv": [
+        "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "D:\\lineage開發\\TW1608262200研究\\P03-資源讀取器\\reader.py",
+        "--idx",
+        "D:\\lineage開發\\0-客戶端\\Sprite.idx",
+        "--pak",
+        "D:\\lineage開發\\0-客戶端\\Sprite.pak",
+        "--mode",
+        "plain28",
+        "extract",
+        "--number",
+        "0",
+        "--output-root",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P03-獨立測試\\cli_extract"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"number\": 0, \"record_position\": 4, \"record_hex\": \"22c98d33302d302e73707200000000000000000000000000fe000000\", \"name_hex\": \"302d302e737072\", \"name_field_hex\": \"302d302e73707200000000000000000000000000\", \"name\": \"0-0.spr\", \"offset\": 864930082, \"size\": 254, \"output\": \"D:\\\\lineage\\u958b\\u767c\\\\TW1608262200\\u7814\\u7a76\\\\\\u4e3b\\u7ba1\\\\P03-\\u7368\\u7acb\\u6e2c\\u8a66\\\\cli_extract\\\\record_000000.bin\", \"sha256\": \"46b5cff15e3ea996950f483dc89c4671e5ce1cb4bfdb66d8ddd37ce6e353d858\", \"content_status\": \"opaque stored bytes; not decoded\"}\n",
+      "stderr": ""
+    },
+    {
+      "label": "bad_range",
+      "argv": [
+        "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "D:\\lineage開發\\TW1608262200研究\\P03-資源讀取器\\reader.py",
+        "--idx",
+        "D:\\lineage開發\\0-客戶端\\Sprite.idx",
+        "--pak",
+        "D:\\lineage開發\\0-客戶端\\Sprite.pak",
+        "--mode",
+        "plain28",
+        "list",
+        "--start",
+        "-1"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"error\": \"invalid list range\"}\n"
+    },
+    {
+      "label": "invalid_hex",
+      "argv": [
+        "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "D:\\lineage開發\\TW1608262200研究\\P03-資源讀取器\\reader.py",
+        "--idx",
+        "D:\\lineage開發\\0-客戶端\\Sprite.idx",
+        "--pak",
+        "D:\\lineage開發\\0-客戶端\\Sprite.pak",
+        "--mode",
+        "plain28",
+        "find",
+        "--name-hex",
+        "zz"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"error\": \"non-hexadecimal number found in fromhex() arg at position 0\"}\n"
+    }
+  ]
+}

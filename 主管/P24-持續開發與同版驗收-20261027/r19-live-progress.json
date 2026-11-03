@@ -1,0 +1,43 @@
+{
+  "utc": "2026-10-27T02:40:30.577Z",
+  "status": "closed-incomplete-r20-integration-active",
+  "version": "r19",
+  "liveRoot": "D:/lineage開發/TW1608262200研究/主管/P24-持續開發與同版驗收-20261027/r19-clean-delivery/delivery",
+  "completed": [
+    "normal blank login and invalid-format rejection",
+    "food/home-scroll/red/armor/native heal and pickup",
+    "direct trade accept/reject/cancel/one-confirm/transfer/reverse and persistence",
+    "no-key and zero-gold original-message labels",
+    "hall and room rental/walk/exits/room logout-relogin",
+    "private shop actual buy one sapphire14k, stock removal and offline persistence"
+  ],
+  "current": {
+    "main": "offline map0(32600,32942), HP686/MP117, gold54055/red33/green1/nohome",
+    "peer": "offline map0(32599,32931), HP400, gold10000/red20/green1/home1",
+    "clients": "both closed",
+    "latestDb": "r19-final-live/r19-after-exploration-offline.json"
+  },
+  "pending": [
+    "private buy normal relogin",
+    "combat natural loot",
+    "cave",
+    "ship both directions",
+    "warehouse",
+    "peer new skill learning",
+    "haste expiry",
+    "bonus/persistence and final resource audit",
+    "integrate accepted UX/actual icon fixes then targeted live regression"
+  ],
+  "fixes": {
+    "tradeNotice": "independently accepted candidate; not integrated",
+    "privateShopGuidance": "worker scoped",
+    "sapphireIcon245": "worker scoped"
+  },
+  "limitations": [
+    "Native pixel mouse capture remains unavailable",
+    "Private resale no matching owned +7 goods; no fabricated positive sale",
+    "No grants/reseed/reset; r19 sealed unchanged"
+  ],
+  "newDeaths": 0,
+  "reconciliation": "r19-final-live/closed-round-reconciliation.json"
+}

@@ -1,0 +1,17 @@
+{
+  "status": "accepted-p36-canonical-source-product-provenance",
+  "owner": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "goalActualStatus": "historical blocked I01; unchanged",
+  "executionReceiptSha256": "4d5a0d73650ddc9bd6d9f121feb3f55fb084b742e45eb26a96430cea540e4032",
+  "awaitingSupervisorFinalExecutionSeals": false,
+  "formalAcceptance": "independent provenance accepted; supervisor final receipt still required",
+  "actualCscTasks": 2,
+  "binlogEvents": 7269,
+  "sourceFiles": 181,
+  "independentBackups": 4,
+  "outputs": 15,
+  "provisionalEvidence": "core-review-result.json",
+  "productBuildsByReviewer": 0,
+  "sharedWrites": false
+}

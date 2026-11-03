@@ -1,0 +1,19 @@
+{
+  "status": "pass",
+  "capture": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\\u4E3B\u7BA1\\P15-\u7368\u7ACB\u9A57\u6536\\world-evidence\\objects-suite\\result.json",
+  "source": "replay of real JAR packet capture; mutated negatives explicitly synthetic",
+  "packets": 461,
+  "rejected": [
+    "truncated 0x08",
+    "truncated 0xCE",
+    "truncated 0x57",
+    "truncated 0x7B",
+    "truncated 0xE1",
+    "truncated 0x21"
+  ],
+  "wrongName": true,
+  "unsupportedGfxRejected": true,
+  "unsupportedMapRejected": true,
+  "generationDelayedFault": true,
+  "resetClears": true
+}

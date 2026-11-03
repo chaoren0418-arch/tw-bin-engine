@@ -1,0 +1,61 @@
+{
+  "schema": "engine-candidate-result-v1",
+  "candidateId": "ENGINE-HASTE-ACTIONS-IMPL-R1",
+  "revision": "r31",
+  "task": "ENGINE-HASTE-ACTIONS-IMPL-R1",
+  "status": "candidate-ready-for-independent-review",
+  "checksPassed": true,
+  "checks": 1407,
+  "productDllSha256": "12ad5bbfac696033ee1f8d807346f401216138f4ce51cb58da9438e0b4ba5ec1",
+  "candidateDllSha256": "12ad5bbfac696033ee1f8d807346f401216138f4ce51cb58da9438e0b4ba5ec1",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "sourceManifest": "source-manifest.json",
+  "sourceManifestFiles": 177,
+  "changedSourceFiles": 1,
+  "sourceBase": "r30 exact supervisor baseline 177 source/audio/web pins",
+  "tests": {
+    "candidate": {
+      "checks": 1407,
+      "passed": 1407,
+      "path": "evidence/candidate-result.json"
+    },
+    "baselineGap": {
+      "checks": 25,
+      "path": "evidence/baseline-result.json",
+      "includedInChecksTotal": false
+    },
+    "sourceReuse": {
+      "nativeSpeed1Rows": 90,
+      "jarResults": 108,
+      "nativeExecutionCount": 0,
+      "jarExecutionCount": 0,
+      "path": "source-evidence/source-verification.json",
+      "includedInChecksTotal": false
+    },
+    "profileTimingRows": {
+      "rows": 126,
+      "path": "source-evidence/profile-haste-timings.json",
+      "includedInChecksTotal": false
+    }
+  },
+  "build": {
+    "configuration": "Release",
+    "warnings": 0,
+    "errors": 0
+  },
+  "sealed": true,
+  "candidateAccepted": false,
+  "sharedEngineMerged": false,
+  "nativeLiveAcceptance": false,
+  "wholeProjectComplete": false,
+  "sourceContract": "SOURCE-CONTRACT.md",
+  "goal": "existing worker Goal read blocked; not modified",
+  "limitations": [
+    "Actual candidate DLL/admit/renderer with synthetic clocks/actors/sender; no normal product or native live acceptance.",
+    "Original native absolute release origin remains uncertified; retained r30 marker and temporal origin, Speed1 relative per-frame arithmetic only.",
+    "Brave0 does not prove extra buff flags neutral; no expanded Brave/fastAttackable/windShackle rules.",
+    "Only source read/hash validation and reused original oracle; no new native/JAR execution.",
+    "Unknown speed/nonzero Brave and slow item/equipment/ground/pointer talk reject as in r30.",
+    "Independent review and designated integration remain pending."
+  ]
+}

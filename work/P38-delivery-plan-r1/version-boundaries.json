@@ -1,0 +1,69 @@
+{
+  "schema": "p38-delivery-version-boundaries-v1",
+  "utc": "2026-10-29T09:35:13.512859+00:00",
+  "versions": [
+    {
+      "revision": "r33",
+      "product": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\build\\client-product-r33\\P11.ClientEngine.dll",
+        "size": 2179584,
+        "sha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2"
+      },
+      "scope": "Formal entry; existing ground operation lifecycle, without later r34/P36 pickup-presentation module.",
+      "basePickupSourcePresent": false,
+      "extensionResourcePresent": false
+    },
+    {
+      "revision": "r34",
+      "product": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\build\\client-product-r34\\P11.ClientEngine.dll",
+        "size": 2445312,
+        "sha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed"
+      },
+      "scope": "Sealed baseline own pickup gfx0/weapon0 base15,Speed0/1 Brave0; no41-profile extension.",
+      "basePickupSourcePresent": true,
+      "extensionResourcePresent": false
+    },
+    {
+      "revision": "P36",
+      "product": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-p36-r1\\P11.ClientEngine.dll",
+        "size": 4925440,
+        "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+      },
+      "scope": "Canonical accepted41 additional own-pickup profiles;42 withcontrol,Speed0/1 Brave0; not formal root entry.",
+      "basePickupSourcePresent": true,
+      "extensionResourcePresent": true
+    }
+  ],
+  "currentEntry": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+    "size": 158,
+    "sha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+  },
+  "projectManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+    "size": 31361,
+    "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+  },
+  "r34LauncherSource": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\engine\\_integration\\r34\\launcher-source\\Program.cs",
+    "size": 8488,
+    "sha256": "e93ade09f9d773dcec99c5637d162a5ab31ce6445363c76724cc4186857eeaef"
+  },
+  "P38Planned": "Isolated delivery candidate will reuse exact P36 product; distinct normal-product manifest and rebound launcher, no new game implementation and no activation.",
+  "approvalMeaning": "Approval of the previously proposed r34 entry switch would activate only old r34, NOT the additional41 profiles in canonical P36 or prospective P38.",
+  "offlineAuthorizedScope": [
+    "Isolated package materialization/source-runtime-web-assets closure",
+    "One isolated launcher rebuild bound to new candidate normal-product manifest",
+    "Candidate launcher check-only positive and one wrong-version rejection",
+    "Independent final artifact/content/provenance review"
+  ],
+  "stillExcluded": [
+    "Normal launcher/noargs branch or product GUI launch",
+    "Network/login/DB/services/characters",
+    "Root entry/project-manifest switch",
+    "Existing release mutation",
+    "Full native acceptance or fabricated regression replay"
+  ]
+}

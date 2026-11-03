@@ -1,0 +1,18 @@
+{
+  "source": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\stage-work\\run_suites.py",
+    "size": 13070,
+    "sha256": "2eadb03fa107ed8482824a829e174778f4473d54685005b87576cba450512b54"
+  },
+  "function": "collect",
+  "extraction": "exact source text from def collect(name) through before __main__",
+  "functionBodyChanged": true,
+  "contextBinding": "collector.py sets T=workflow/suites,S=canonicalEngine,DLL,commands,preflight; common.save allows only equal partial collection reuse",
+  "occurrenceSupportSource": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-runs\\accepted-pickup-presentation-r1-01\\stage-work\\assertion_occurrences.py",
+    "size": 891,
+    "sha256": "0d6e245d1262cadd3a626789b037f2f3726cdcf2229fd71646551ed87488cb07"
+  },
+  "assertionChecksChanged": false,
+  "ioGuardAdaptation": "Remove only ;assert not (root/'execution-result.json').exists(); common.save verifies semantic equality for all existing partial collection outputs"
+}

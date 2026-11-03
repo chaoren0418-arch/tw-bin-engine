@@ -1,0 +1,32 @@
+{
+  "utc": "2026-10-26T19:04:55.865765+00:00",
+  "status": "no-key-wire-fix-live-pass;337-localization-gap-pending",
+  "live": true,
+  "product": {
+    "utc": "2026-10-26T19:00:53.766939+00:00",
+    "status": "pass",
+    "productFiles": 35,
+    "unchangedSourceWebAssetFiles": 14059,
+    "onlyChangedSource": "source/Inventory.cs",
+    "manifest": "38fa0ab87a89c0cb6009824d635fc61de49633b074cd0a13043bb0f1260d29c3",
+    "dll": "1e18db7e61cb669bc4389d2a798354f084f6e12914f51f50d15ec6951ed25e79",
+    "r14DllManifestPreserved": true,
+    "live": false
+  },
+  "noKeyReply": "請先購買此旅館的房間或會議廳鑰匙。",
+  "observedMs": 292,
+  "retainedBeyond15s": true,
+  "noKeyInventoryEmpty": true,
+  "noKeyPositionUnchanged": true,
+  "unhandledA1": 0,
+  "peerHpBefore": 181,
+  "peerHpAfter": 197,
+  "peerHpNote": "HP rose during normal online time; no item or grant used. No claim of identical HP at all observation times.",
+  "insufficientGoldReceived": true,
+  "insufficientGoldText": "原服訊息 337：金幣 (100)\n舊操作已失效，請重新對話。",
+  "serviceRoomEntryExitRelogin": true,
+  "finalServiceGold": 89020,
+  "noAdditionalGrantsOrResets": true,
+  "newDeaths": 0,
+  "offlineDb": "r15-final-offline-db.json"
+}

@@ -1,0 +1,14 @@
+{
+  "taskId": "ENGINE-R34-SHARED-INTEGRATE-P26-R1",
+  "owner": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "receipt": "主管/P25-P27-新主管接管-20261029/r34-shared-acceptance.json",
+  "receiptSha256": "0b96bf307f38e749143138d0930585b2bd7da6ef11d6b8a6d1ec1c66e4fc6e0c",
+  "planSha256": "6a9d7d6d57b74e7de93bad32aeba82d6ccdf504efd641daad718a53cc7b14761",
+  "preflight": {
+    "status": "validated-only",
+    "exitCode": 0,
+    "writes": false
+  },
+  "state": "dispatching",
+  "releaseAuthorized": false
+}

@@ -1,0 +1,50 @@
+{
+  "schema": "engine-independent-review-v1",
+  "candidateId": "ENGINE-SLOW-ACTIONS-IMPL-R1",
+  "decision": "accepted",
+  "candidateSealSha256": "6f952b532750778320ef1b238051b4bc37bcbf92fe7d3e2391d207be11cea66f",
+  "candidateDllSha256": "1abc1eed02917d14fd775be60920fe74efb9b102bc53eea5874fc0128e5247ef",
+  "candidateReviewed": true,
+  "candidateAccepted": true,
+  "unresolvedFindings": [],
+  "reviewerThreadId": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+  "reviewResult": {
+    "path": "work/engine-slow-actions-review-r1/candidate-review-r1/result.json",
+    "sha256": "51dcd08151f2a03ea4d2dad01e1a319262fab6bc46391fdfbd79299e80f52242"
+  },
+  "evidence": [
+    {
+      "path": "work/engine-slow-actions-review-r1/candidate-review-r1/candidate-probe.json",
+      "sha256": "9f3a825c6549ca77d55296f63d6ee48eb43efac906423fbc088366decb0d9e65",
+      "kind": "independent-suite",
+      "passed": 976,
+      "failed": 0
+    },
+    {
+      "path": "work/engine-slow-actions-review-r1/candidate-review-r1/commands.json",
+      "sha256": "768c2b82e718e8371c4dd3d361948ab10610b709124fc03759d95348c3f3916d",
+      "kind": "execution-record"
+    },
+    {
+      "path": "work/engine-slow-actions-review-r1/candidate-review-r1/preservation.json",
+      "sha256": "6c8a5a5bfd83357c37afc4502b8025205a3acd1302e11c5c051d38c04c0f780e",
+      "kind": "read-only-identity-verification"
+    },
+    {
+      "path": "work/engine-slow-actions-review-r1/candidate-review-r1/source-manifest.json",
+      "sha256": "ebc70b08475b77aadb8ec0c7644d7594c59360ff1eb1706f0e9f43f1f8ece6b9",
+      "kind": "review-input-pins"
+    },
+    {
+      "path": "work/engine-slow-actions-review-r1/candidate-review-r1/test-adaptations.json",
+      "sha256": "e0148cefdb46d16c699024a8fbf61050b4124db07569e88d8e4833e3631c271e",
+      "kind": "predeclared-strategy-adaptation"
+    },
+    {
+      "path": "work/engine-slow-actions-review-r1/candidate-review-r1/findings.json",
+      "sha256": "c763745c46b4d6b2f4d1868d32ae0629d4fc6503b76417ca7433632a67c46c2b",
+      "kind": "review-findings"
+    }
+  ],
+  "scope": "Offline independent review of exact ENGINE-SLOW-ACTIONS-IMPL-R1 seal; not native live acceptance or acceptance of future integration seal."
+}

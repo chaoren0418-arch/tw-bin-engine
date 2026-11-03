@@ -1,0 +1,59 @@
+{
+  "status": "provisional-independent-clean-offline-pass",
+  "utc": "2026-10-25T19:06:17.706556+00:00",
+  "dllSha256": "a655d70fc3d974eaaeb093a98e9bf882ac4adebb67adae1356dd1e0f23d18006",
+  "workerDllSha256": "83bffafa5bfcc4e1a752a5280c4329a3f7359d231b13539715adbbeb9b955fb1",
+  "evidence": [
+    {
+      "path": "snapshot.json",
+      "sha256": "34e6761d03df45f00cdcb4c45af61272fedf6936b26d150d2610dbfe286eda81"
+    },
+    {
+      "path": "clean-build-result.json",
+      "sha256": "312d8072dd4dd40f589890ee13172cbc1fb035a41dbf80ac2e32db0e94e09a90"
+    },
+    {
+      "path": "supplemental-source-manifest.json",
+      "sha256": "4e901b1ee7de135320a66205ab8e0f34f6f6113ca482205b168c4db5b864a6c0"
+    },
+    {
+      "path": "offline-regressions/result.json",
+      "sha256": "401a4dc18aa8683ca9df3f00d977d8b80aaddbc009f0eddc0596054dffef726c"
+    },
+    {
+      "path": "native-scheduler-product-audit.json",
+      "sha256": "d75e991de614bebf6710841279f55a2c4133cfa9f53c7270796fa567a4788a7a"
+    },
+    {
+      "path": "independent-opacity/result.json",
+      "sha256": "d1ec1b7b324d283b60074098033dd57cc95c656696e210ba7c0b9b478a1e1f5c"
+    },
+    {
+      "path": "independent-cache/source-check.json",
+      "sha256": "1529c6b09126eef3a470b4b49cc23d717d117855857f6f61acf2666f309cfd11"
+    },
+    {
+      "path": "independent-cache/source-frames.json",
+      "sha256": "7f5bdd0292a9d7d7771323c537be1db9772059211b7904f44eec89673ceeae8a"
+    },
+    {
+      "path": "original-source-audit-first-failure.json",
+      "sha256": "1654f0b7df71362f0328e0c703d299739e9ef10aef0a0c4b4c094e7866bcce54"
+    },
+    {
+      "path": "original-source-audit-second-failure.json",
+      "sha256": "bcd8324a9c0ead61c335631b14ed42ff97dcb6374aecf6195f66506d30b621f6"
+    },
+    {
+      "path": "original-cache-audit-first-failure.json",
+      "sha256": "8d6dfb62192026dd711eecd749d63bc676dc3ca41bdc87077812e44cca9e7b6e"
+    }
+  ],
+  "scope": "Actual independent clean build, 27 regression commands, original215 scheduler checkpoints and opacity/cache source audits passed. Three audit preparation failures preserved and corrected without product or expected-vector changes. Reference-only native-bin supplement added after build; original build inputs remain unchanged. No new UI, login, service mutation, formal freeze or full acceptance.",
+  "remaining": [
+    "New revision live CLI/UI after user notification and concrete saved-state gate",
+    "Original eviction-owner cancellation mechanism",
+    "Formal freeze and independent fresh-role acceptance",
+    "Full engine remaining implementation"
+  ]
+}

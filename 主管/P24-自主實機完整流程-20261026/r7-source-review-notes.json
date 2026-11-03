@@ -1,0 +1,10 @@
+{
+  "utc": "2026-10-26T12:26:59.950Z",
+  "reviewed": [
+    "Program.RefreshSceneImage separates online-waiting from offline Compose and clears stale patches",
+    "World.ResetOfflinePreview resets online appearance/streaming and restores offline spawn",
+    "LoginControl.StartFailure records exception type/HResult/method frames without Message or credentials"
+  ],
+  "status": "source review, awaiting built candidate and actual UI regression",
+  "source1108": "48 original IDX/PAK entries checked separately"
+}

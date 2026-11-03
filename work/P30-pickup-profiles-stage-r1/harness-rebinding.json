@@ -1,0 +1,113 @@
+{
+  "status": "concrete-helper-diffs-prepared-awaiting-review",
+  "scan": [
+    {
+      "file": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\ground\\check-probes.py",
+        "size": 1555,
+        "sha256": "01c603158d3900f4a262577a0a8aa1b3fc22f19b5bd51339d91ff55597bfd412"
+      },
+      "hits": [
+        {
+          "line": 6,
+          "text": "assert all(p['candidateReviewed'] and p['assemblySha256']=='c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed' for p in parts.values())"
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\pickup-main-174\\harness\\Candidate.cs",
+        "size": 22701,
+        "sha256": "8bd1da9279ca977718ba6c5e2b5a57ba3215bf85ed90ad2ac45d6355c7dd9e19"
+      },
+      "hits": [
+        {
+          "line": 70,
+          "text": "  foreach(string kind in new[]{\"not-ready\",\"not-renderable\",\"status-owner\",\"gfx61\",\"weapon4\",\"weapon46\",\"speed2\",\"speed3\",\"brave1\",\"hp0\",\"death\",\"shop\",\"lock\",\"walking\",\"appearance\"}){"
+        },
+        {
+          "line": 71,
+          "text": "   using var s=new Scene();switch(kind){case \"not-ready\":Property(s.C.World,\"TimeReplies\",0);break;case \"not-renderable\":Property(s.C.World,\"MapId\",(ushort?)99);break;case \"status-owner\":Property(s.C.World,\"Status\",s.C.World.Status! with{ObjectId=777});break;case \"gfx61\":Feed(s.C,Actor(gfx:61));break;case \"weapon4\":Feed(s.C,Actor(weapon:4));break;case \"weapon46\":Feed(s.C,Actor(weapon:46));break;case \"speed2\":Feed(s.C,Speed(100,2));break;case \"speed3\":Feed(s.C,Speed(100,3));break;case \"brave1\":Feed(s.C,Speed(100,1,true));break;case \"hp0\":Feed(s.C,Hp(0));break;case \"death\":Feed(s.C,Action(100,8));break;case \"shop\":Feed(s.C,Action(100,70));break;case \"lock\":Feed(s.C,Lock(2));break;case \"walking\":s.W.NetworkStep(32590,32930,2,640);break;case \"appearance\":Feed(s.C,Poly());break;}"
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\pickup-supplement-10\\harness\\Candidate.cs",
+        "size": 22940,
+        "sha256": "e4540114c341374bc97e75107dd50af7c65661f9751ab85d8f7b45ba2002b7cf"
+      },
+      "hits": [
+        {
+          "line": 70,
+          "text": "  foreach(string kind in new[]{\"not-ready\",\"not-renderable\",\"status-owner\",\"gfx61\",\"weapon4\",\"weapon46\",\"speed2\",\"speed3\",\"brave1\",\"hp0\",\"death\",\"shop\",\"lock\",\"walking\",\"appearance\"}){"
+        },
+        {
+          "line": 71,
+          "text": "   using var s=new Scene();switch(kind){case \"not-ready\":Property(s.C.World,\"TimeReplies\",0);break;case \"not-renderable\":Property(s.C.World,\"MapId\",(ushort?)99);break;case \"status-owner\":Property(s.C.World,\"Status\",s.C.World.Status! with{ObjectId=777});break;case \"gfx61\":Feed(s.C,Actor(gfx:61));break;case \"weapon4\":Feed(s.C,Actor(weapon:4));break;case \"weapon46\":Feed(s.C,Actor(weapon:46));break;case \"speed2\":Feed(s.C,Speed(100,2));break;case \"speed3\":Feed(s.C,Speed(100,3));break;case \"brave1\":Feed(s.C,Speed(100,1,true));break;case \"hp0\":Feed(s.C,Hp(0));break;case \"death\":Feed(s.C,Action(100,8));break;case \"shop\":Feed(s.C,Action(100,70));break;case \"lock\":Feed(s.C,Lock(2));break;case \"walking\":s.W.NetworkStep(32590,32930,2,640);break;case \"appearance\":Feed(s.C,Poly());break;}"
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\versioned-slow\\harness\\Extra.cs",
+        "size": 9423,
+        "sha256": "13bb4068e75db80d908f9aafc2e2d8432505de7002febe6d38a894dbd2b9d621"
+      },
+      "hits": [
+        {
+          "line": 55,
+          "text": "     // Exact accepted gfx0/weapon46, Brave0, Speed2 attack or learned skill4 only."
+        },
+        {
+          "line": 58,
+          "text": "     Check(\"r30-qualified-slow-action-admission-\"+kind,sent&&sends==1&&end==100000+wait,new{sent,sends,end,wait,profile=\"gfx0/weapon46/Brave0/Speed2\"});"
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "ALLOWLIST",
+      "reason": "gfx61/weapon4/weapon46 now allowed; old suppression vectors cannot be replayed unchanged.",
+      "proposal": "Keep original case IDs in historical ledger. Replace negative fixture vectors by unsupported gfx62, gfx0/weapon1, gfx0/weapon2 with explicit new IDs; add separate positive migration cases for original gfx61/0, gfx0/4, gfx0/46 tied to the sealed42-pair matrix. Keep scheduler cancellation vectors for changed gfx/weapon: changing owner identity still cancels regardless of allowlist.",
+      "expectedSource": "accepted P28 exact pair contract, not observed stage outputs"
+    },
+    {
+      "id": "API",
+      "reason": "PickupAssets.For now includes weapon and ObjectAssets.PickupFor uses exact pair/catalog identity.",
+      "proposal": "Review reflection argument lists and fixture catalog construction against actual source signatures. Retain corruption constructor byte[] path; ensure extension-backed Load and real catalog instances when testing42 pairs. No silent catch or skip."
+    },
+    {
+      "id": "DLL",
+      "reason": "historical fixtures/metadata contain r34 identity and paths.",
+      "proposal": "Rebind project HintPath/EngineDll/AudioDll/ProductDll only to newly built stage product. Runtime must report loaded assembly Location + SHA; compare helper copied dependencies. Never copy historical result probes."
+    },
+    {
+      "id": "P29-H1",
+      "reason": "Private=false produced incomplete deps and launch failed before any product assertion.",
+      "proposal": "Use exact fixed Review.csproj with Private=true P11 and explicit P24.Audio; generated deps must include P11/Audio/WebView2 Core/WinForms; no hand-made deps."
+    },
+    {
+      "id": "P28-NAMESPACE",
+      "reason": "Original failed profiles-01 counted all-frame80 as pickup-only64.",
+      "proposal": "Use sealed successful checks/Profiles.cs with metadataIndex!=0 plus Namespace.cs; retain exact64 pickup/all80 namespace sets, not observed-value edits."
+    },
+    {
+      "id": "ASSETS",
+      "reason": "Inherited helper ../../assets resolution and copied fixture paths must remain valid.",
+      "proposal": "Future fresh stage assets may use accepted13958 immutable hardlinks with samefile proof, never junction/copy fallback/write; helper build destinations stay stage/build/name. P28 direct readonly sealed-assets override is explicitly helper-only."
+    },
+    {
+      "id": "PRODUCT",
+      "reason": "r34 rebuild/launcher contract asserts old source180 and DLL; cannot invoke against181.",
+      "proposal": "Use direct pinned product build recipe. Do not invoke inherited canonical rebuild.py or launcher/entry commands. Product identity manifest for offline stage is generated from actual build, not old release manifest. Launcher/entry are outside P30."
+    }
+  ],
+  "executionPrerequisites": [
+    "Approve exact helper diffs and occurrence-ID migration before building/running",
+    "Approve exact fresh stage plan SHA plus controller SHA and write root in new supervisor receipt"
+  ],
+  "preparedDiffs": "prepared-helper-manifest.json",
+  "occurrenceLedger": "occurrence-migration.json"
+}

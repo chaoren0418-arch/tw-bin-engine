@@ -1,0 +1,26 @@
+{
+  "status": "ready-for-supervisor",
+  "goalStatus": "active",
+  "revision": "r3-original-resident-dual-blocks",
+  "validation": {
+    "status": "pass-offline",
+    "dllSha256": "d4a1d9ee5d0b0a08cc031f2f4eb1473c70d022e912f5f38c4b5b007407cb45ab",
+    "complete18Run": "D:\\lineage開發\\TW1608262200研究\\P22-魔法清單與單次施法\\evidence\\complete-regressions-r3-1792931073792678500",
+    "resultSha256": "13a8ca0ee17064d6362439244f0465805516d64f484ea9825e2ead58207e6ada",
+    "correctionReceiptSha256": "11a178e1e7af304f22af7618ac46e55c907e5c8cda349ce648eeb4a4c0de8130",
+    "noLiveLogins": true,
+    "productRendererUnchanged": true
+  },
+  "priorR2Result": "history/r2/result.json",
+  "priorR1Result": "history/r1/result.json",
+  "functionalAcceptancePending": true,
+  "cleanupAuthorized": false,
+  "noRoleLoginDuringRepair": true,
+  "supervisorRolesFresh": false,
+  "scopeLimitations": "reference/dual-block/resident-scope.json",
+  "frozen": true,
+  "readySha256": "80fcb052c9a1c4fbce5965031a8106a5057024ddefbda55eca07fd417a959dac",
+  "sourceFreezeSha256": "1ef56516598b119f3ba8007f8191cc5bcdb5b5ad888b592f430dbfd2d5da0715",
+  "environmentFreezeSha256": "8b4c49ea0b3959a45908fc20429af94c9b0cefdc2c483b4486ebb8259bc3d41e",
+  "originalBinEvidenceFilesIncluded": 17
+}

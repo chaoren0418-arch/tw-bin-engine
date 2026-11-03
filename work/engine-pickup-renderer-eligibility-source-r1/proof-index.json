@@ -1,0 +1,718 @@
+{
+  "imageBase": "0x400000",
+  "nativeExecuted": false,
+  "proofs": [
+    {
+      "id": "V1",
+      "claim": "505880 singleton ->5057D0 allocation ->5055B0 vtable114F8F4 +4=5162C0 ->7BD7F0 backer vtable1172574 at manager+4.",
+      "native": [
+        {
+          "VA": "0x505880",
+          "RVA": "0x105880",
+          "fileOffset": "0x104c80",
+          "size": 32,
+          "sha256": "a0455fde73cee740d9e94778707ab7535489bb43aa650ccd3806d7288cf99344",
+          "artifact": "native/00505880.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x5057d0",
+          "RVA": "0x1057d0",
+          "fileOffset": "0x104bd0",
+          "size": 176,
+          "sha256": "42ff94162cc15e7a4522755424d20ba81640798966111002790ef216851750b6",
+          "artifact": "native/005057d0.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x5055b0",
+          "RVA": "0x1055b0",
+          "fileOffset": "0x1049b0",
+          "size": 96,
+          "sha256": "0f202734f2b5f5a5185b4060b1da64ae4e2621109ad5cb6af30886745663f1e1",
+          "artifact": "native/005055b0.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x114f8f4",
+          "RVA": "0xd4f8f4",
+          "fileOffset": "0xd4e4f4",
+          "size": 48,
+          "sha256": "57d94bce1f222fbe7a93c10f958ff54226db3e5c383c8ec75034900ba16e1aba",
+          "artifact": "native/0114f8f4.bin",
+          "kind": "data",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x5162c0",
+          "RVA": "0x1162c0",
+          "fileOffset": "0x1156c0",
+          "size": 128,
+          "sha256": "56f4efc12b55fc43c4114171b99a243fe0a687338b683ce1f8f2225ef1b4b818",
+          "artifact": "native/005162c0.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x7bd7f0",
+          "RVA": "0x3bd7f0",
+          "fileOffset": "0x3bcbf0",
+          "size": 112,
+          "sha256": "e554f0acf6d6d0dc98a8624947b9494db733047eda5d445a84a0c041b17d79ca",
+          "artifact": "native/007bd7f0.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        }
+      ],
+      "engine": [],
+      "limits": "Static constructor path, allocation success assumed. No claim of whole-program absence of later replacement."
+    },
+    {
+      "id": "V2",
+      "claim": "516290/+3C ->7BE780 existence search; 516180/+40 ->7BE570 last match variant ID; 5161B0/+44 ->7BE630 first match variant ID.",
+      "native": [
+        {
+          "VA": "0x516290",
+          "RVA": "0x116290",
+          "fileOffset": "0x115690",
+          "size": 48,
+          "sha256": "c609bfd16248e1114a6084b3e2278e505d70a5c17d3deba3fac2f6b4d989e974",
+          "artifact": "native/00516290.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x516180",
+          "RVA": "0x116180",
+          "fileOffset": "0x115580",
+          "size": 48,
+          "sha256": "fb6598dacee7038ba1f5464273717ea711994aadb7b4e2266a97061ae999f906",
+          "artifact": "native/00516180.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x5161b0",
+          "RVA": "0x1161b0",
+          "fileOffset": "0x1155b0",
+          "size": 48,
+          "sha256": "f73f35ae999b916bf0839bf42866a62957a4c183e6a9f9d12a970f6d3b78c81e",
+          "artifact": "native/005161b0.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x1172574",
+          "RVA": "0xd72574",
+          "fileOffset": "0xd71174",
+          "size": 80,
+          "sha256": "355f07e60659970eb6d8b65b0a650252235a4f5a4c36a6280903c06566a6f15d",
+          "artifact": "native/01172574.bin",
+          "kind": "data",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x7be780",
+          "RVA": "0x3be780",
+          "fileOffset": "0x3bdb80",
+          "size": 272,
+          "sha256": "ecf453f5297b5d56a325f6d72b723d1b44d4e32782c61399f2116cab7694b6b7",
+          "artifact": "native/007be780.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x7be570",
+          "RVA": "0x3be570",
+          "fileOffset": "0x3bd970",
+          "size": 192,
+          "sha256": "e1248c110a1ad4d2c58cfa818c4299eb8ed574fe9f0bad720dbede8b8f07184e",
+          "artifact": "native/007be570.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x7be630",
+          "RVA": "0x3be630",
+          "fileOffset": "0x3bda30",
+          "size": 176,
+          "sha256": "2fcba056fbb7fdf8b98a669e5920e87024ceabdc52802f50b7f255dd9640c179",
+          "artifact": "native/007be630.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x7be460",
+          "RVA": "0x3be460",
+          "fileOffset": "0x3bd860",
+          "size": 272,
+          "sha256": "c10ccab87d4df88d3985df78ba8a2ad019ae71b2fd89d5eb4e85025617cc0b00",
+          "artifact": "native/007be460.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x7be360",
+          "RVA": "0x3be360",
+          "fileOffset": "0x3bd760",
+          "size": 16,
+          "sha256": "8857d15e5bce580adb0e5dc96d1aba616e10aa72982c77604b0d7b40d9671936",
+          "artifact": "native/007be360.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x7be760",
+          "RVA": "0x3be760",
+          "fileOffset": "0x3bdb60",
+          "size": 32,
+          "sha256": "713de9b14317e4a08ca7110683cd4944ef677e994d209ebfb28600037b8cc44a",
+          "artifact": "native/007be760.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        }
+      ],
+      "engine": [],
+      "limits": "Container data populated at runtime; not proven empty for any selected gfx. No variant list reconstructed by executing the original."
+    },
+    {
+      "id": "V3",
+      "claim": "Variant helper object at actor+48: changing action resets helper+4 to-1; first matching ID is assigned; terminal advance increments ID then wraps to1 if greater than positive last ID.",
+      "native": [
+        {
+          "VA": "0x5058f0",
+          "RVA": "0x1058f0",
+          "fileOffset": "0x104cf0",
+          "size": 48,
+          "sha256": "49c0dabdfded8248158e2d4995265b735d84aebfc12b59be21427724769b5210",
+          "artifact": "native/005058f0.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x505740",
+          "RVA": "0x105740",
+          "fileOffset": "0x104b40",
+          "size": 96,
+          "sha256": "27e3b4c0b2434a4c0820f61618bf3db50ce506817f7afcf24a2e683a6b678f2f",
+          "artifact": "native/00505740.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x66d540",
+          "RVA": "0x26d540",
+          "fileOffset": "0x26c940",
+          "size": 48,
+          "sha256": "819a119983b3d02152a35c055502c760b86498e96812f5f15b96dbf9c69fc373",
+          "artifact": "native/0066d540.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x505920",
+          "RVA": "0x105920",
+          "fileOffset": "0x104d20",
+          "size": 32,
+          "sha256": "76242d31a89430b3f8bdf3adda118823953a5c5653a07a2ffa078226f3912807",
+          "artifact": "native/00505920.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x66d3b0",
+          "RVA": "0x26d3b0",
+          "fileOffset": "0x26c7b0",
+          "size": 48,
+          "sha256": "e8f1ccb5ce7e98de6ab5dc7ed2658ff2f30e24e7699bb7fdb9be17be5b425890",
+          "artifact": "native/0066d3b0.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x5058a0",
+          "RVA": "0x1058a0",
+          "fileOffset": "0x104ca0",
+          "size": 80,
+          "sha256": "c5b13507914f2817eee9f72daa0716c8615e4fa77f3aef439050cf18a965b3e2",
+          "artifact": "native/005058a0.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0xa43750",
+          "RVA": "0x643750",
+          "fileOffset": "0x642b50",
+          "size": 158,
+          "sha256": "d1b3c9b3dab87a6011a800b57ea65e86493d7d8a69984f7f354c56e787166c5b",
+          "artifact": "native/00a43750.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        }
+      ],
+      "engine": [],
+      "limits": "First/last are container iteration results, not a proved contiguous index set. One base metadata action15 does not disable this path."
+    },
+    {
+      "id": "V4",
+      "claim": "7BF580 searches gfx container for matching action/id pair via7BE8A0 and delegates to7BEC50 when absent; the actual container contents are not literal constants in these functions.",
+      "native": [
+        {
+          "VA": "0x7bf580",
+          "RVA": "0x3bf580",
+          "fileOffset": "0x3be980",
+          "size": 432,
+          "sha256": "09d1df1df27c73253f7e30968a53f9ea9204a18d6d01e47fb4af43e821a25cbd",
+          "artifact": "native/007bf580.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x7be8a0",
+          "RVA": "0x3be8a0",
+          "fileOffset": "0x3bdca0",
+          "size": 64,
+          "sha256": "cf6773887ea7ed7eee457b265e7dd125e0151e0cd532860d16c6dcdd6d31943b",
+          "artifact": "native/007be8a0.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x7be220",
+          "RVA": "0x3be220",
+          "fileOffset": "0x3bd620",
+          "size": 128,
+          "sha256": "6d88b2ef76b62703383e100f5d5ce8d07f2f20d14d3fed1cd3ea3d8ddb589c58",
+          "artifact": "native/007be220.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        }
+      ],
+      "engine": [],
+      "limits": "7BEC50 behavior not followed further; do not assert complete loader/insertion semantics. Bounded stop: runtime map completeness remains unknown; no full program call scan."
+    },
+    {
+      "id": "N1",
+      "claim": "501260 true only gfx6094 or6080; 8CA110 matches all13 selected gfx; A4ADD0 returns false for currentaction15.",
+      "native": [
+        {
+          "VA": "0x501260",
+          "RVA": "0x101260",
+          "fileOffset": "0x100660",
+          "size": 32,
+          "sha256": "e708222c1fe1d5b8d6feeae756cd1e8f685fc8a226ede8685a569cb7be56a37a",
+          "artifact": "native/00501260.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x8ca110",
+          "RVA": "0x4ca110",
+          "fileOffset": "0x4c9510",
+          "size": 144,
+          "sha256": "3fde2e9b324d6b09cdeddcea59cd94ab6d94640be5ccc2cb8f5f7df82396bb44",
+          "artifact": "native/008ca110.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0xa4add0",
+          "RVA": "0x64add0",
+          "fileOffset": "0x64a1d0",
+          "size": 224,
+          "sha256": "40751a032ec4aba349519ae1e180f45c1d53ecef647144edc9d5e1e2796707c7",
+          "artifact": "native/00a4add0.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        }
+      ],
+      "engine": [],
+      "limits": "Metadata/engine gfx identity conditional; no source archive/BIN version pairing proof."
+    },
+    {
+      "id": "N2",
+      "claim": "A467A0 class table13CD838==11 rejects action15 through terminal callback1; table13CD878==1 may rewrite weapon0/11. A44500 also has class/weapon/idle-metadata branches.",
+      "native": [
+        {
+          "VA": "0xa467f3",
+          "RVA": "0x6467f3",
+          "fileOffset": "0x645bf3",
+          "size": 392,
+          "sha256": "117cb47db4be97c7040c18652ab8b0d4b743edfe0f8083d4b867ebd0a7327536",
+          "artifact": "native/00a467f3.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0xa44500",
+          "RVA": "0x644500",
+          "fileOffset": "0x643900",
+          "size": 683,
+          "sha256": "82c8617b2c06e33cb4518fabca2b6afc29fb50b73e6b667f96999c50d7f6015f",
+          "artifact": "native/00a44500.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        }
+      ],
+      "engine": [],
+      "limits": "Text102.type(5) present for13 entries but mapping to runtime table13CD838 and13CD878 not established. Engine flags/classification do not supply these tables."
+    },
+    {
+      "id": "N3",
+      "claim": "+70 getters resolve actor+60; normal receivedaction15 handler clears+60 before busy/immediate decision. Delayed queued execution can still see later state.",
+      "native": [
+        {
+          "VA": "0x1150c24",
+          "RVA": "0xd50c24",
+          "fileOffset": "0xd4f824",
+          "size": 160,
+          "sha256": "17c10b0205e6349386c7c66ffd167ce552fee950a6d72cd86040069d844bebc8",
+          "artifact": "native/01150c24.bin",
+          "kind": "data",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x1150e8c",
+          "RVA": "0xd50e8c",
+          "fileOffset": "0xd4fa8c",
+          "size": 160,
+          "sha256": "baba0e0dd8cd4e93aa17ba7b281942b0f2f75126457273cea6ff1d92f34151fe",
+          "artifact": "native/01150e8c.bin",
+          "kind": "data",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x1150f7c",
+          "RVA": "0xd50f7c",
+          "fileOffset": "0xd4fb7c",
+          "size": 160,
+          "sha256": "289034b57db28d830253de7c34a8d7a2446161eb31fbe1e58cde9eb39bb5d864",
+          "artifact": "native/01150f7c.bin",
+          "kind": "data",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x521d10",
+          "RVA": "0x121d10",
+          "fileOffset": "0x121110",
+          "size": 32,
+          "sha256": "a9faef7b85b1bb9ce55acd7090396775c2af20e1b5beb115dae64019b3fedab2",
+          "artifact": "native/00521d10.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0xa42ff0",
+          "RVA": "0x642ff0",
+          "fileOffset": "0x6423f0",
+          "size": 32,
+          "sha256": "478023e36e1120f9394d50b3a8537425e7472c85f5a3c0cfed147e71ea21d7ef",
+          "artifact": "native/00a42ff0.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0x92ce8d",
+          "RVA": "0x52ce8d",
+          "fileOffset": "0x52c28d",
+          "size": 84,
+          "sha256": "5c085578d1bf892ef1cda43c2a0f86869baa338e8ccf911809973980f20272fc",
+          "artifact": "native/0092ce8d.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        }
+      ],
+      "engine": [],
+      "limits": "This removes the +70 override for the immediate unchanged path, not all future commands. Do not map PrivateShopPhase to native+5C/+60."
+    },
+    {
+      "id": "N4",
+      "claim": "A407D0 extra factors: fixed/FPS flags+258..25B, nonself queue count+19C, +218/action constraint, +21C/action set, +223, +268 bits, +220 and brave secondary+26C.",
+      "native": [
+        {
+          "VA": "0xa407d0",
+          "RVA": "0x6407d0",
+          "fileOffset": "0x63fbd0",
+          "size": 1644,
+          "sha256": "df99bc065dd5014d263cc0ea9b59a50e659504454294d558ad2c956718b223af",
+          "artifact": "native/00a407d0.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0xa41c30",
+          "RVA": "0x641c30",
+          "fileOffset": "0x641030",
+          "size": 32,
+          "sha256": "2d41558f52ce0abb36ede44b9fd0651630c4b54326c0623fdc6677c19b4c91ab",
+          "artifact": "native/00a41c30.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0xa41bf0",
+          "RVA": "0x641bf0",
+          "fileOffset": "0x640ff0",
+          "size": 32,
+          "sha256": "5796716dae9d8740d9fc4b1b82d516317a3852bf54d9d8cf6c021d811287574b",
+          "artifact": "native/00a41bf0.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        },
+        {
+          "VA": "0xa4add0",
+          "RVA": "0x64add0",
+          "fileOffset": "0x64a1d0",
+          "size": 224,
+          "sha256": "40751a032ec4aba349519ae1e180f45c1d53ecef647144edc9d5e1e2796707c7",
+          "artifact": "native/00a4add0.bin",
+          "kind": "code",
+          "scope": "bounded relevant callee/metadata table; function end reviewed separately",
+          "adopted": true
+        }
+      ],
+      "engine": [],
+      "limits": "A41C30/+268 and A41BF0/+26C are direct getters. No complete mapping from packets to these private fields was established."
+    },
+    {
+      "id": "E1",
+      "claim": "S158/action15 is parsed in ReceiveObjectDelta and only increments pickup counters/heading handling in ReceivePickupAction; no pickup animation instance or action FIFO exists here.",
+      "native": [],
+      "engine": [
+        {
+          "artifact": "engine/WorldObjects.cs",
+          "lines": [
+            50
+          ],
+          "anchor": "if(action==15){ReceivePickupAction(id);return true;}"
+        },
+        {
+          "artifact": "engine/Ground.cs",
+          "lines": [
+            32
+          ],
+          "anchor": "void ReceivePickupAction(uint id)"
+        },
+        {
+          "artifact": "engine/Ground.cs",
+          "lines": [
+            33
+          ],
+          "anchor": "PickupActions++;LastPickupActor=id;"
+        }
+      ],
+      "limits": "Do not use global count/last actor polling to reconstruct all receipts in a burst."
+    },
+    {
+      "id": "E2",
+      "claim": "OwnActor has Gfx/Weapon/Speed/Brave; WorldObject uses original pack Action as base weapon input for profile lookup, separate from ReceivedAction. Speed packet updates fields, but is not full native-state proof.",
+      "native": [],
+      "engine": [
+        {
+          "artifact": "engine/WorldSession.cs",
+          "lines": [
+            4
+          ],
+          "anchor": "public sealed record OwnActor"
+        },
+        {
+          "artifact": "engine/WorldObjects.cs",
+          "lines": [
+            3
+          ],
+          "anchor": "public sealed record WorldObject"
+        },
+        {
+          "artifact": "engine/WorldSession.cs",
+          "lines": [
+            43
+          ],
+          "anchor": "case 255:case 67:"
+        },
+        {
+          "artifact": "engine/NormalHaste.cs",
+          "lines": [
+            27
+          ],
+          "anchor": "Actor=opcode==255?"
+        },
+        {
+          "artifact": "engine/NormalHaste.cs",
+          "lines": [
+            32
+          ],
+          "anchor": "var updated=opcode==255?"
+        },
+        {
+          "artifact": "engine/ObjectRendering.cs",
+          "lines": [
+            20
+          ],
+          "anchor": "catalog.Get(o.Gfx,o.Action)"
+        },
+        {
+          "artifact": "engine/PlayerProfiles.cs",
+          "lines": [
+            18
+          ],
+          "anchor": "public static PlayerProfile? Get("
+        }
+      ],
+      "limits": "Remote PC flag does not prove class; use exact profile pair and presentation-only scope. Never use ReceivedAction15 as weapon15."
+    },
+    {
+      "id": "E3",
+      "claim": "final r32 excludes pickup from combat names and normal remote ReceivedAction whitelist. Existing ObjectAppearance.At uses sequence order/clamp or breath loop; it cannot provide required1,2,3,0 finite pickup by merely adding a name.",
+      "native": [],
+      "engine": [
+        {
+          "artifact": "engine/ActionCadence.cs",
+          "lines": [
+            18
+          ],
+          "anchor": "public static string Name("
+        },
+        {
+          "artifact": "engine/ObjectRendering.cs",
+          "lines": [
+            21
+          ],
+          "anchor": "o.ReceivedAction is not"
+        },
+        {
+          "artifact": "engine/ObjectAssets.cs",
+          "lines": [
+            20
+          ],
+          "anchor": "public Frame At("
+        }
+      ],
+      "limits": "Propose a separate finite pickup selector; no product changes performed."
+    },
+    {
+      "id": "E4",
+      "claim": "Lifecycle and invalidation fields exist: epoch/id/appearance/correction/speed revisions, death and pending appearance. OwnCombat may remain after visual duration; policy requires null rather than guessing idle.",
+      "native": [],
+      "engine": [
+        {
+          "artifact": "engine/LoginConnection.cs",
+          "lines": [
+            10
+          ],
+          "anchor": "public int SessionGeneration"
+        },
+        {
+          "artifact": "engine/OnlineMovement.cs",
+          "lines": [
+            20
+          ],
+          "anchor": "public int Corrections"
+        },
+        {
+          "artifact": "engine/WorldObjects.cs",
+          "lines": [
+            29
+          ],
+          "anchor": "public int WorldEpoch"
+        },
+        {
+          "artifact": "engine/WorldSession.cs",
+          "lines": [
+            19
+          ],
+          "anchor": "public int AppearanceRevision"
+        },
+        {
+          "artifact": "engine/NormalHaste.cs",
+          "lines": [
+            13
+          ],
+          "anchor": "public int SpeedRevision"
+        },
+        {
+          "artifact": "engine/Combat.cs",
+          "lines": [
+            27
+          ],
+          "anchor": "public bool OwnDead"
+        },
+        {
+          "artifact": "engine/WorldObjects.cs",
+          "lines": [
+            17
+          ],
+          "anchor": "public bool AppearancePending"
+        },
+        {
+          "artifact": "engine/WorldSession.cs",
+          "lines": [
+            18,
+            22,
+            23,
+            26,
+            42
+          ],
+          "anchor": "SelfAppearancePending"
+        },
+        {
+          "artifact": "engine/Ground.cs",
+          "lines": [
+            52
+          ],
+          "anchor": "GroundClickGuardMs=900"
+        },
+        {
+          "artifact": "engine/Ground.cs",
+          "lines": [
+            31
+          ],
+          "anchor": "Environment.TickCount64+3000"
+        }
+      ],
+      "limits": "Proposed presentation serial/receipt hook are new implementation needs, not existing native counterparts. r33 lifecycle candidate is not used."
+    }
+  ]
+}

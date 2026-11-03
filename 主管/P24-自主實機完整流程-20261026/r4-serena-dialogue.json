@@ -1,0 +1,93 @@
+{
+  "utc": "2026-10-26T10:40:43.199Z",
+  "ui": "NPC 對話與商店\n可見互動目標\n請選擇可見目標\n杜賓狗\n牧羊犬\n詹姆\n旅館租賃^瑟琳娜\n與選取目標對話關閉對話／取消未送出選擇\n\n〔缺少參數〕：\r\n\n歡迎光臨，我們盡最大的努力，提供客人隨時都可在此平安的休息。\r\n\n租房間\n\r\n租會議廳\n\r\n退租\n\r\n進入房間或會議廳\n\n租房間租會議廳退租進入房間或會議廳\n\n部分原始標記尚未支援；缺少輸入的選項已停用。",
+  "interaction": {
+    "canTalk": false,
+    "model": {
+      "canSubmit": false,
+      "currency": 0,
+      "epoch": 7,
+      "feePerRow": false,
+      "kind": "dialog",
+      "notice": "部分原始標記尚未支援；缺少輸入的選項已停用。",
+      "npcId": 2000039474,
+      "options": [
+        {
+          "enabled": true,
+          "id": 0,
+          "kind": "action",
+          "label": "租房間"
+        },
+        {
+          "enabled": true,
+          "id": 1,
+          "kind": "action",
+          "label": "租會議廳"
+        },
+        {
+          "enabled": true,
+          "id": 2,
+          "kind": "action",
+          "label": "退租"
+        },
+        {
+          "enabled": true,
+          "id": 3,
+          "kind": "action",
+          "label": "進入房間或會議廳"
+        }
+      ],
+      "priceLabel": "單價",
+      "revision": 10,
+      "rows": [],
+      "selection": false,
+      "targetId": 2000039474,
+      "targetRevision": 1,
+      "text": "〔缺少參數〕：\r\n\n歡迎光臨，我們盡最大的努力，提供客人隨時都可在此平安的休息。\r\n\n租房間\n\r\n租會議廳\n\r\n退租\n\r\n進入房間或會議廳",
+      "title": "NPC 對話"
+    },
+    "notice": "部分原始標記尚未支援；缺少輸入的選項已停用。",
+    "options": [
+      {
+        "enabled": true,
+        "id": 0,
+        "label": "租房間"
+      },
+      {
+        "enabled": true,
+        "id": 1,
+        "label": "租會議廳"
+      },
+      {
+        "enabled": true,
+        "id": 2,
+        "label": "退租"
+      },
+      {
+        "enabled": true,
+        "id": 3,
+        "label": "進入房間或會議廳"
+      }
+    ],
+    "rows": [],
+    "targets": [
+      {
+        "id": 2000035978,
+        "name": "杜賓狗"
+      },
+      {
+        "id": 2000036024,
+        "name": "牧羊犬"
+      },
+      {
+        "id": 2000039418,
+        "name": "詹姆"
+      },
+      {
+        "id": 2000039474,
+        "name": "旅館租賃^瑟琳娜"
+      }
+    ],
+    "text": "〔缺少參數〕：\r\n\n歡迎光臨，我們盡最大的努力，提供客人隨時都可在此平安的休息。\r\n\n租房間\n\r\n租會議廳\n\r\n退租\n\r\n進入房間或會議廳"
+  }
+}

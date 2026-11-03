@@ -1,0 +1,25 @@
+{
+  "initialScript": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-final-review-r1\\audit_core-initial.py",
+    "size": 12738,
+    "sha256": "14e6ae8824171e0a41c2564eba823933df07d7c3006a4c3d11e0f002124981ce"
+  },
+  "correctedScript": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-final-review-r1\\audit_core.py",
+    "size": 12827,
+    "sha256": "8105cde4f181001a176fbca9c382dd9a97ed3a90361ff4f72ffcb5ed401521eb"
+  },
+  "initialCommand": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-final-review-r1\\commands\\core-review-01\\receipt.json",
+    "size": 983,
+    "sha256": "31d99a3e25917156c173fe7cf57482edc8f23258c57a14a613617c21f0f4978e"
+  },
+  "successfulCommand": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-canonical-final-review-r1\\commands\\core-review-02\\receipt.json",
+    "size": 983,
+    "sha256": "0072074cbc9d37eebc90da2a88c6af14f2bb33480cb40f1ff3b67f69edf95bbf"
+  },
+  "reason": "Initial reviewer assertion required the literal PROGRAMFILES(X86) environment key in raw diagnostic output. MSBuild exposes MSBuildProgramFiles32 instead. The correction verifies the immutable environment spec plus its actual derived property. Certificate/global-tools/telemetry flags remain directly checked in raw stdout.",
+  "productFailure": false,
+  "productRebuilds": 0
+}

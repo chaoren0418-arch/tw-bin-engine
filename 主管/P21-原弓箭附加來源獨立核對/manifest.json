@@ -1,0 +1,30 @@
+{
+  "utc": "2026-10-25T09:09:33.980364+00:00",
+  "jar_sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "classes": [
+    {
+      "name": "com/lineage/echo/PacketHandler",
+      "class_sha256": "57e1e727935beb67d8a923c40c61656218ca8832ea13d04c98cdd18a878910e1",
+      "source_sha256": "001014e4f858abaef5734efe558d1759f97f85d4314d27bd44fefd72d4b3cd30",
+      "javap_sha256": "15a508c48f4870295aa8740894d6f7a8ba4fe92557381a5078b50dbf616a6cee"
+    },
+    {
+      "name": "com/lineage/server/datatables/ItemGreaterTierTable",
+      "class_sha256": "eb7c4e01b7978d1e03d934e859d0e8c2c9da30321ec935f114302f1e1d77c93b",
+      "source_sha256": "d00fac39c0ce7d3a8fc43b51520ca7b513bbd92fc61e8e57ed011a8c79586253",
+      "javap_sha256": "08280cc04553d55f51855d07b0b5d32e6edf5950922dda5d43acf3dc9d66f0d9"
+    },
+    {
+      "name": "com/lineage/server/datatables/ItemBlessStatsTable",
+      "class_sha256": "36cd0cf5dd7dbb308a6c06c6dfdeda74530fae81e38202901c59e5552e8312b3",
+      "source_sha256": "f711fb75f882a282a3887bfb904789eb07fca04723584808f110d07092fd87e2",
+      "javap_sha256": "0309b70354f87641b5264c53c7c1be8c6e40c226546856956dc664c1fe8f4db4"
+    },
+    {
+      "name": "com/lineage/server/datatables/ItemIdStatsTable",
+      "class_sha256": "e21672b576a8d105deb0ecf15d84e87df4709dce221723760aab24578e54e29b",
+      "source_sha256": "9eb822c38a675d7c7c985fd29510b38c12a2626dbaf86ef4300008ea0bde2c4a",
+      "javap_sha256": "28104923030a6bfcff49106e50f6241cd614ff5b85ba155823a01652b2d4396d"
+    }
+  ]
+}

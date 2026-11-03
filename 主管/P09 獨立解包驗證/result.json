@@ -1,0 +1,70 @@
+{
+  "schema": "p09-package-result-v1",
+  "status": "verified-package",
+  "scope": "standalone rebuildable demonstration, not original-game compatibility",
+  "tests": {
+    "p06": {
+      "status": "pass",
+      "checks": 226
+    },
+    "protocol": {
+      "status": "pass",
+      "checks": 959
+    },
+    "socket": {
+      "status": "pass",
+      "checks": 15
+    },
+    "python_reference": 43,
+    "network_ui": 56,
+    "web": {
+      "status": "pass",
+      "results": [
+        {
+          "scenario": "offline",
+          "checks": 19,
+          "status": "pass"
+        },
+        {
+          "scenario": "network",
+          "checks": 20,
+          "status": "pass"
+        },
+        {
+          "scenario": "runtime-missing",
+          "checks": 2,
+          "status": "pass"
+        },
+        {
+          "scenario": "init-failed",
+          "checks": 2,
+          "status": "pass"
+        },
+        {
+          "scenario": "page-failed",
+          "checks": 2,
+          "status": "pass"
+        },
+        {
+          "scenario": "close-init",
+          "checks": 3,
+          "status": "pass"
+        }
+      ],
+      "nativeExternalInput": false
+    }
+  },
+  "native_audit": "evidence/p09-native/audit.json",
+  "report_validation": "evidence/report-validation.json",
+  "source_audit": "evidence/source-audit.json",
+  "zip_and_unpack_receipt": "outside package: adjacent P09 result.json and evidence/unpack-validation; avoids recursive archive self-reference",
+  "commands": [
+    "pwsh -NoProfile -File build.ps1 -Clean",
+    "launch-offline.cmd",
+    "launch-test.cmd",
+    "python -B scripts/integrity.py"
+  ],
+  "original_program_started": false,
+  "global_install": false,
+  "deploy": false
+}

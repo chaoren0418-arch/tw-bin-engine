@@ -1,0 +1,669 @@
+{
+  "files": [
+    {
+      "target": "baseline/audio-tests/AudioClientExcerpt.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\baseline\\audio-tests\\AudioClientExcerpt.cs",
+        "size": 4168,
+        "sha256": "ac1219a477b1ffe5162b025296ac6885161dd1ed7045751dd43beaaa6ca6a889"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\baseline\\audio-tests\\AudioClientExcerpt.cs",
+        "size": 4168,
+        "sha256": "ac1219a477b1ffe5162b025296ac6885161dd1ed7045751dd43beaaa6ca6a889"
+      }
+    },
+    {
+      "target": "baseline/audio-tests/AudioSettingsChecks.csproj",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\baseline\\audio-tests\\AudioSettingsChecks.csproj",
+        "size": 366,
+        "sha256": "6f29ce11160a8adf737180c2d7711a6d7e890e88dbc6d41230026ae6fddc0832"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\baseline\\audio-tests\\AudioSettingsChecks.csproj",
+        "size": 366,
+        "sha256": "6f29ce11160a8adf737180c2d7711a6d7e890e88dbc6d41230026ae6fddc0832"
+      }
+    },
+    {
+      "target": "baseline/audio-tests/Program.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\baseline\\audio-tests\\Program.cs",
+        "size": 7794,
+        "sha256": "2eee0e370f190d9d5bd5e76047432f7f53ac5d9b5d86e7d4906edc28fe75a070"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\baseline\\audio-tests\\Program.cs",
+        "size": 7794,
+        "sha256": "2eee0e370f190d9d5bd5e76047432f7f53ac5d9b5d86e7d4906edc28fe75a070"
+      }
+    },
+    {
+      "target": "baseline/audio-tests/web-checks.cjs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\baseline\\audio-tests\\web-checks.cjs",
+        "size": 8492,
+        "sha256": "99f773aac4559d83f266e21f7f3973b8626ac02aa6cc74f722177c0a332eb322"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\baseline\\audio-tests\\web-checks.cjs",
+        "size": 8492,
+        "sha256": "99f773aac4559d83f266e21f7f3973b8626ac02aa6cc74f722177c0a332eb322"
+      }
+    },
+    {
+      "target": "baseline/client-tests/ClientChecks.csproj",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\baseline\\client-tests\\ClientChecks.csproj",
+        "size": 366,
+        "sha256": "6f29ce11160a8adf737180c2d7711a6d7e890e88dbc6d41230026ae6fddc0832"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\baseline\\client-tests\\ClientChecks.csproj",
+        "size": 366,
+        "sha256": "6f29ce11160a8adf737180c2d7711a6d7e890e88dbc6d41230026ae6fddc0832"
+      }
+    },
+    {
+      "target": "baseline/client-tests/ClientExcerpt.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\baseline\\client-tests\\ClientExcerpt.cs",
+        "size": 4448,
+        "sha256": "9c2135995b8250ea23cd96b0303f64267b4308fe41e3134d79a5d7084409d170"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\baseline\\client-tests\\ClientExcerpt.cs",
+        "size": 4448,
+        "sha256": "9c2135995b8250ea23cd96b0303f64267b4308fe41e3134d79a5d7084409d170"
+      }
+    },
+    {
+      "target": "baseline/client-tests/Program.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\baseline\\client-tests\\Program.cs",
+        "size": 5425,
+        "sha256": "5055ca5961a898c5d55acccaa5aa76e02a0cec3b0f0359dc19013fd41c47a182"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\baseline\\client-tests\\Program.cs",
+        "size": 5425,
+        "sha256": "5055ca5961a898c5d55acccaa5aa76e02a0cec3b0f0359dc19013fd41c47a182"
+      }
+    },
+    {
+      "target": "baseline/prepare_audio_checks.py",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\baseline\\prepare_audio_checks.py",
+        "size": 3240,
+        "sha256": "e332f215f7b14409892d617edf6beb077c95c192b064e5999a211b949591c7d3"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\baseline\\prepare_audio_checks.py",
+        "size": 3240,
+        "sha256": "e332f215f7b14409892d617edf6beb077c95c192b064e5999a211b949591c7d3"
+      }
+    },
+    {
+      "target": "baseline/prepare_client_checks.py",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\baseline\\prepare_client_checks.py",
+        "size": 3296,
+        "sha256": "57a38bc6fe17bb60d153e1d10c6b6068dde552f0e85dea55e7161567963716a7"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\baseline\\prepare_client_checks.py",
+        "size": 3296,
+        "sha256": "57a38bc6fe17bb60d153e1d10c6b6068dde552f0e85dea55e7161567963716a7"
+      }
+    },
+    {
+      "target": "baseline/source/ClientAudioSettings.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\baseline\\source\\ClientAudioSettings.cs",
+        "size": 1723,
+        "sha256": "7000c30e62f17cc58a1be9318cf53d8b793d8899d64016713114b5c709995bf7"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\baseline\\source\\ClientAudioSettings.cs",
+        "size": 1723,
+        "sha256": "7000c30e62f17cc58a1be9318cf53d8b793d8899d64016713114b5c709995bf7"
+      }
+    },
+    {
+      "target": "baseline/source/ClientEffect6016.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\baseline\\source\\ClientEffect6016.cs",
+        "size": 4853,
+        "sha256": "19be31bff33a4584e638d3314225648b1ccc72bb382dd4adf64e320e1aa08eeb"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\baseline\\source\\ClientEffect6016.cs",
+        "size": 4853,
+        "sha256": "19be31bff33a4584e638d3314225648b1ccc72bb382dd4adf64e320e1aa08eeb"
+      }
+    },
+    {
+      "target": "baseline/tests/HostChecks.csproj",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\baseline\\tests\\HostChecks.csproj",
+        "size": 366,
+        "sha256": "6f29ce11160a8adf737180c2d7711a6d7e890e88dbc6d41230026ae6fddc0832"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\baseline\\tests\\HostChecks.csproj",
+        "size": 366,
+        "sha256": "6f29ce11160a8adf737180c2d7711a6d7e890e88dbc6d41230026ae6fddc0832"
+      }
+    },
+    {
+      "target": "baseline/tests/Program.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\baseline\\tests\\Program.cs",
+        "size": 16454,
+        "sha256": "d64c19fcd25348663a37b0f8689caff5e977f1985b38a11af61459daa087736a"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\baseline\\tests\\Program.cs",
+        "size": 16454,
+        "sha256": "d64c19fcd25348663a37b0f8689caff5e977f1985b38a11af61459daa087736a"
+      }
+    },
+    {
+      "target": "baseline/web/panel.js",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\baseline\\web\\panel.js",
+        "size": 15490,
+        "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\baseline\\web\\panel.js",
+        "size": 15490,
+        "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab"
+      }
+    },
+    {
+      "target": "suites/f1/harness/F1.csproj",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\f1\\harness\\F1.csproj",
+        "size": 369,
+        "sha256": "16dc16041b77162534b042ab01e149f27cff9380e11a573114b435ebd17cd6a7"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\f1\\harness\\F1.csproj",
+        "size": 369,
+        "sha256": "16dc16041b77162534b042ab01e149f27cff9380e11a573114b435ebd17cd6a7"
+      }
+    },
+    {
+      "target": "suites/f1/harness/Program.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\f1\\harness\\Program.cs",
+        "size": 6557,
+        "sha256": "c10539748c29e9cf9ed3869c83244fb9f57d763584b1e64e16f4062a4582888f"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\f1\\harness\\Program.cs",
+        "size": 6557,
+        "sha256": "c10539748c29e9cf9ed3869c83244fb9f57d763584b1e64e16f4062a4582888f"
+      }
+    },
+    {
+      "target": "suites/ground/check-probes.py",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\ground\\check-probes.py",
+        "size": 1555,
+        "sha256": "01c603158d3900f4a262577a0a8aa1b3fc22f19b5bd51339d91ff55597bfd412"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\ground\\check-probes.py",
+        "size": 1555,
+        "sha256": "01c603158d3900f4a262577a0a8aa1b3fc22f19b5bd51339d91ff55597bfd412"
+      }
+    },
+    {
+      "target": "suites/ground/harness/Extended.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\ground\\harness\\Extended.cs",
+        "size": 13941,
+        "sha256": "7ece3b0c845948d2a689c1a376822955a0a3914f6fdd6ba1e86c8a40afd75847"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\ground\\harness\\Extended.cs",
+        "size": 13941,
+        "sha256": "7ece3b0c845948d2a689c1a376822955a0a3914f6fdd6ba1e86c8a40afd75847"
+      }
+    },
+    {
+      "target": "suites/ground/harness/Formal.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\ground\\harness\\Formal.cs",
+        "size": 13212,
+        "sha256": "b53974171516bc5cc250c649fc9240343138ad8aeaf5be17ddcc8990c8c547e2"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\ground\\harness\\Formal.cs",
+        "size": 13212,
+        "sha256": "b53974171516bc5cc250c649fc9240343138ad8aeaf5be17ddcc8990c8c547e2"
+      }
+    },
+    {
+      "target": "suites/ground/harness/Lifecycle.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\ground\\harness\\Lifecycle.cs",
+        "size": 5351,
+        "sha256": "70e1dc0b9ee21db7df7ec2ee0caffb24d052c69bba37fba17cbad7aec94f2274"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\ground\\harness\\Lifecycle.cs",
+        "size": 5351,
+        "sha256": "70e1dc0b9ee21db7df7ec2ee0caffb24d052c69bba37fba17cbad7aec94f2274"
+      }
+    },
+    {
+      "target": "suites/ground/harness/Program.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\ground\\harness\\Program.cs",
+        "size": 13338,
+        "sha256": "6c1fcbaf37e53c74947fdb0208345f6306d764990e72b286e2f6d25a40ee64a5"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\ground\\harness\\Program.cs",
+        "size": 13338,
+        "sha256": "6c1fcbaf37e53c74947fdb0208345f6306d764990e72b286e2f6d25a40ee64a5"
+      }
+    },
+    {
+      "target": "suites/ground/harness/Review.csproj",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\ground\\harness\\Review.csproj",
+        "size": 410,
+        "sha256": "6b8a520d3007553244fdd1a7259791ae8604703c5b2a5563d50beb8cad25295a"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\ground\\harness\\Review.csproj",
+        "size": 410,
+        "sha256": "6b8a520d3007553244fdd1a7259791ae8604703c5b2a5563d50beb8cad25295a"
+      }
+    },
+    {
+      "target": "suites/ground/harness/Supplement.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\ground\\harness\\Supplement.cs",
+        "size": 2443,
+        "sha256": "5d2dae882e6bab57899fc9b08f8a69a50b0d36ad2d048cb68e429ae9b22f2b14"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\ground\\harness\\Supplement.cs",
+        "size": 2443,
+        "sha256": "5d2dae882e6bab57899fc9b08f8a69a50b0d36ad2d048cb68e429ae9b22f2b14"
+      }
+    },
+    {
+      "target": "suites/haste/harness/Candidate.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\haste\\harness\\Candidate.cs",
+        "size": 6936,
+        "sha256": "d8ae35a9e24ea3fbddd1ced21d3dd637a2e9ca21e8fdc620044cd18f63684361"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\haste\\harness\\Candidate.cs",
+        "size": 6936,
+        "sha256": "d8ae35a9e24ea3fbddd1ced21d3dd637a2e9ca21e8fdc620044cd18f63684361"
+      }
+    },
+    {
+      "target": "suites/haste/harness/CandidateRelease.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\haste\\harness\\CandidateRelease.cs",
+        "size": 3118,
+        "sha256": "3a72d80ebb955f2ab6e8ca4d865287964edae1276561600a41bd54fb0be91938"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\haste\\harness\\CandidateRelease.cs",
+        "size": 3118,
+        "sha256": "3a72d80ebb955f2ab6e8ca4d865287964edae1276561600a41bd54fb0be91938"
+      }
+    },
+    {
+      "target": "suites/haste/harness/Extra.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\haste\\harness\\Extra.cs",
+        "size": 16831,
+        "sha256": "542876ff537a3f2f42ae33137cc80d9cf61603959f11c7baa5a8c81a78a19015"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\haste\\harness\\Extra.cs",
+        "size": 16831,
+        "sha256": "542876ff537a3f2f42ae33137cc80d9cf61603959f11c7baa5a8c81a78a19015"
+      }
+    },
+    {
+      "target": "suites/haste/harness/Haste.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\haste\\harness\\Haste.cs",
+        "size": 12064,
+        "sha256": "53b1f595469df19d2aee3d649158bd6f0bd594587061ee492663dd4735c47231"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\haste\\harness\\Haste.cs",
+        "size": 12064,
+        "sha256": "53b1f595469df19d2aee3d649158bd6f0bd594587061ee492663dd4735c47231"
+      }
+    },
+    {
+      "target": "suites/haste/harness/HasteCompletion.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\haste\\harness\\HasteCompletion.cs",
+        "size": 2239,
+        "sha256": "22b5130c1abb361f23787c2d7247618569706810cf1766cff6b7b5fce608307f"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\haste\\harness\\HasteCompletion.cs",
+        "size": 2239,
+        "sha256": "22b5130c1abb361f23787c2d7247618569706810cf1766cff6b7b5fce608307f"
+      }
+    },
+    {
+      "target": "suites/haste/harness/NuGet.Config",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\haste\\harness\\NuGet.Config",
+        "size": 112,
+        "sha256": "7d59a339f0f6022f0710d690fe52e2a0f868519847651f6c10f6c9ff1bd7213a"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\haste\\harness\\NuGet.Config",
+        "size": 112,
+        "sha256": "7d59a339f0f6022f0710d690fe52e2a0f868519847651f6c10f6c9ff1bd7213a"
+      }
+    },
+    {
+      "target": "suites/haste/harness/Program.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\haste\\harness\\Program.cs",
+        "size": 10063,
+        "sha256": "e634f37b8e26dd7f0af89376948514908b82a7a7601647a808d7c2f61697e5e7"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\haste\\harness\\Program.cs",
+        "size": 10063,
+        "sha256": "e634f37b8e26dd7f0af89376948514908b82a7a7601647a808d7c2f61697e5e7"
+      }
+    },
+    {
+      "target": "suites/haste/harness/Review.csproj",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\haste\\harness\\Review.csproj",
+        "size": 410,
+        "sha256": "ed2c8d122edb7ca3a1dc76e50296b5d0e9566212ac2c77286ba2556cc2655b0d"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\haste\\harness\\Review.csproj",
+        "size": 410,
+        "sha256": "ed2c8d122edb7ca3a1dc76e50296b5d0e9566212ac2c77286ba2556cc2655b0d"
+      }
+    },
+    {
+      "target": "suites/NuGet.Config",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\NuGet.Config",
+        "size": 112,
+        "sha256": "7d59a339f0f6022f0710d690fe52e2a0f868519847651f6c10f6c9ff1bd7213a"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\NuGet.Config",
+        "size": 112,
+        "sha256": "7d59a339f0f6022f0710d690fe52e2a0f868519847651f6c10f6c9ff1bd7213a"
+      }
+    },
+    {
+      "target": "suites/pickup-main-174/harness/Candidate.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\harness\\Candidate.cs",
+        "size": 22701,
+        "sha256": "8bd1da9279ca977718ba6c5e2b5a57ba3215bf85ed90ad2ac45d6355c7dd9e19"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\pickup-main-174\\harness\\Candidate.cs",
+        "size": 22701,
+        "sha256": "8bd1da9279ca977718ba6c5e2b5a57ba3215bf85ed90ad2ac45d6355c7dd9e19"
+      }
+    },
+    {
+      "target": "suites/pickup-main-174/harness/Fixture.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\harness\\Fixture.cs",
+        "size": 5725,
+        "sha256": "3647a52273cf75b10399eb357bc64035cd1695f38d0065f7d0624d757876e259"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\pickup-main-174\\harness\\Fixture.cs",
+        "size": 5725,
+        "sha256": "3647a52273cf75b10399eb357bc64035cd1695f38d0065f7d0624d757876e259"
+      }
+    },
+    {
+      "target": "suites/pickup-main-174/harness/Focused.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\harness\\Focused.cs",
+        "size": 8297,
+        "sha256": "77fbe15541d638c33892df21758f1f1b51397d2b60b9b5cf1e2eaf7f4bff6d9a"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\pickup-main-174\\harness\\Focused.cs",
+        "size": 8297,
+        "sha256": "77fbe15541d638c33892df21758f1f1b51397d2b60b9b5cf1e2eaf7f4bff6d9a"
+      }
+    },
+    {
+      "target": "suites/pickup-main-174/harness/Probe.csproj",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-main-174\\harness\\Probe.csproj",
+        "size": 481,
+        "sha256": "0e8a3289bfb464bacbeff02d74c8e520fd7612fcb4b6ae9b588e67038adebf1a"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\pickup-main-174\\harness\\Probe.csproj",
+        "size": 481,
+        "sha256": "0e8a3289bfb464bacbeff02d74c8e520fd7612fcb4b6ae9b588e67038adebf1a"
+      }
+    },
+    {
+      "target": "suites/pickup-supplement-10/harness/Candidate.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-supplement-10\\harness\\Candidate.cs",
+        "size": 22940,
+        "sha256": "e4540114c341374bc97e75107dd50af7c65661f9751ab85d8f7b45ba2002b7cf"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\pickup-supplement-10\\harness\\Candidate.cs",
+        "size": 22940,
+        "sha256": "e4540114c341374bc97e75107dd50af7c65661f9751ab85d8f7b45ba2002b7cf"
+      }
+    },
+    {
+      "target": "suites/pickup-supplement-10/harness/Fixture.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-supplement-10\\harness\\Fixture.cs",
+        "size": 5725,
+        "sha256": "3647a52273cf75b10399eb357bc64035cd1695f38d0065f7d0624d757876e259"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\pickup-supplement-10\\harness\\Fixture.cs",
+        "size": 5725,
+        "sha256": "3647a52273cf75b10399eb357bc64035cd1695f38d0065f7d0624d757876e259"
+      }
+    },
+    {
+      "target": "suites/pickup-supplement-10/harness/Focused.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-supplement-10\\harness\\Focused.cs",
+        "size": 8297,
+        "sha256": "77fbe15541d638c33892df21758f1f1b51397d2b60b9b5cf1e2eaf7f4bff6d9a"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\pickup-supplement-10\\harness\\Focused.cs",
+        "size": 8297,
+        "sha256": "77fbe15541d638c33892df21758f1f1b51397d2b60b9b5cf1e2eaf7f4bff6d9a"
+      }
+    },
+    {
+      "target": "suites/pickup-supplement-10/harness/Probe.csproj",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-supplement-10\\harness\\Probe.csproj",
+        "size": 481,
+        "sha256": "0e8a3289bfb464bacbeff02d74c8e520fd7612fcb4b6ae9b588e67038adebf1a"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\pickup-supplement-10\\harness\\Probe.csproj",
+        "size": 481,
+        "sha256": "0e8a3289bfb464bacbeff02d74c8e520fd7612fcb4b6ae9b588e67038adebf1a"
+      }
+    },
+    {
+      "target": "suites/pickup-supplement-10/harness/Supplement.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\pickup-supplement-10\\harness\\Supplement.cs",
+        "size": 4267,
+        "sha256": "9b057a798544b8dee00ae0a58f78f3f25b2a5df0dbc80fb11816cda66d9d1e59"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\pickup-supplement-10\\harness\\Supplement.cs",
+        "size": 4267,
+        "sha256": "9b057a798544b8dee00ae0a58f78f3f25b2a5df0dbc80fb11816cda66d9d1e59"
+      }
+    },
+    {
+      "target": "suites/utility/harness/Extra.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\utility\\harness\\Extra.cs",
+        "size": 12211,
+        "sha256": "aad80de8e94a61d2bee2aacdb9227badc5d0881107f20633908b6e50fd9abe26"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\utility\\harness\\Extra.cs",
+        "size": 12211,
+        "sha256": "aad80de8e94a61d2bee2aacdb9227badc5d0881107f20633908b6e50fd9abe26"
+      }
+    },
+    {
+      "target": "suites/utility/harness/Formal.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\utility\\harness\\Formal.cs",
+        "size": 11584,
+        "sha256": "3232e708c618658626abc81b618046d0fa77b465e0a832005487f1b810c49bd8"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\utility\\harness\\Formal.cs",
+        "size": 11584,
+        "sha256": "3232e708c618658626abc81b618046d0fa77b465e0a832005487f1b810c49bd8"
+      }
+    },
+    {
+      "target": "suites/utility/harness/Program.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\utility\\harness\\Program.cs",
+        "size": 13356,
+        "sha256": "e926858776057b71d6b70a3320f9a4fab4d207f4d47ab77adec7a4a5d9b23b06"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\utility\\harness\\Program.cs",
+        "size": 13356,
+        "sha256": "e926858776057b71d6b70a3320f9a4fab4d207f4d47ab77adec7a4a5d9b23b06"
+      }
+    },
+    {
+      "target": "suites/utility/harness/Review.csproj",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\utility\\harness\\Review.csproj",
+        "size": 408,
+        "sha256": "cd2ae1356d52e45d49d31df2445d458bced80facf36c02b906aeb3baefa244f7"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\utility\\harness\\Review.csproj",
+        "size": 408,
+        "sha256": "cd2ae1356d52e45d49d31df2445d458bced80facf36c02b906aeb3baefa244f7"
+      }
+    },
+    {
+      "target": "suites/versioned-slow/harness/Extra.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\versioned-slow\\harness\\Extra.cs",
+        "size": 9423,
+        "sha256": "13bb4068e75db80d908f9aafc2e2d8432505de7002febe6d38a894dbd2b9d621"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\versioned-slow\\harness\\Extra.cs",
+        "size": 9423,
+        "sha256": "13bb4068e75db80d908f9aafc2e2d8432505de7002febe6d38a894dbd2b9d621"
+      }
+    },
+    {
+      "target": "suites/versioned-slow/harness/NuGet.Config",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\versioned-slow\\harness\\NuGet.Config",
+        "size": 74,
+        "sha256": "9508cae5f76364f56e80eb97cb16493977243cf38e5cca6284e3d74f83b20a2c"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\versioned-slow\\harness\\NuGet.Config",
+        "size": 74,
+        "sha256": "9508cae5f76364f56e80eb97cb16493977243cf38e5cca6284e3d74f83b20a2c"
+      }
+    },
+    {
+      "target": "suites/versioned-slow/harness/Program.cs",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\versioned-slow\\harness\\Program.cs",
+        "size": 8080,
+        "sha256": "9005b27a43a00973215d4a04bb014b6423cca7435a95b15502c19aab869b8c5e"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\versioned-slow\\harness\\Program.cs",
+        "size": 8080,
+        "sha256": "9005b27a43a00973215d4a04bb014b6423cca7435a95b15502c19aab869b8c5e"
+      }
+    },
+    {
+      "target": "suites/versioned-slow/harness/Review.csproj",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\versioned-slow\\harness\\Review.csproj",
+        "size": 408,
+        "sha256": "5c14f958e422f3a2d38442bc0e0b935ffe7085ba47c7cbe432f55871ffac6722"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\versioned-slow\\harness\\Review.csproj",
+        "size": 408,
+        "sha256": "5c14f958e422f3a2d38442bc0e0b935ffe7085ba47c7cbe432f55871ffac6722"
+      }
+    },
+    {
+      "target": "suites/versioned-slow/jar-oracle.json",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\versioned-slow\\jar-oracle.json",
+        "size": 5839,
+        "sha256": "1eb23d82aa36b47bd09a8944e5191f6d434a2128112fb3464798292edac8b78a"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\versioned-slow\\jar-oracle.json",
+        "size": 5839,
+        "sha256": "1eb23d82aa36b47bd09a8944e5191f6d434a2128112fb3464798292edac8b78a"
+      }
+    },
+    {
+      "target": "suites/versioned-slow/native-oracle.json",
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\evidence\\canonical-workflow\\suites\\versioned-slow\\native-oracle.json",
+        "size": 4890,
+        "sha256": "0b11690c96a93e3c1cc8cd935ad8d9c35b907d48fcb6c1d265d6710f398fbe4a"
+      },
+      "prepared": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\reference\\inherited-helpers\\suites\\versioned-slow\\native-oracle.json",
+        "size": 4890,
+        "sha256": "0b11690c96a93e3c1cc8cd935ad8d9c35b907d48fcb6c1d265d6710f398fbe4a"
+      }
+    }
+  ],
+  "count": 51,
+  "status": "source-fixture-only-no-historical-probe-import"
+}

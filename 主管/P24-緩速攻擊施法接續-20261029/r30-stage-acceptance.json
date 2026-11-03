@@ -1,0 +1,33 @@
+{
+  "schema": "engine-r30-stage-acceptance-v1",
+  "utc": "2026-10-28T21:33:28.365997+00:00",
+  "supervisor": "01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+  "decision": "accepted-for-serial-shared-r30-integration",
+  "stageRoot": "work/engine-r30-integration-r1/r30-runs/accepted-actions-r1-01",
+  "stageSealSha256": "ce72859e492ca092cbf3de8854648aa7c171d625a22419e40545b84575180237",
+  "stageResultSha256": "d7556282499416e583c5d5ac86e4ba75ee14eea5331460133462bbd9d9317bb8",
+  "productDllSha256": "1abc1eed02917d14fd775be60920fe74efb9b102bc53eea5874fc0128e5247ef",
+  "audioDllSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "productManifestSha256": "4b0029286463050a4ed64de5a7c8485defd673a6e3d1bba185a9f9d4f157de69",
+  "launcherDllSha256": "f0145345af54961b59943b981e392ae3e268c42ef957a8eacdda64967641c050",
+  "sourceFiles": 177,
+  "suiteCounts": [
+    151,
+    976,
+    1201,
+    112
+  ],
+  "totalAssertions": 2440,
+  "rootSealedNonAssetAndIntegrityFilesHashed": 444,
+  "assetInventoryRowsMatchedToR29": 13958,
+  "integratorFullStageHashVerifiedFiles": 14401,
+  "rootRepeatedFullStageAssetBodyHash": false,
+  "testAdaptationPatchSha256": "894247ed2396428492c97aeb51f85ea6e93e2446f03cd92d58d1213f0966f699",
+  "testAdaptationReviewed": true,
+  "unresolvedFindings": [],
+  "nativeLiveAccepted": false,
+  "wholeP24Complete": false,
+  "sharedMergeAuthorized": true,
+  "dispatchId": "ENGINE-R30-SHARED-INTEGRATE-R1",
+  "integrator": "01a17a22-17e4-70c0-9792-166ddb86ea42"
+}

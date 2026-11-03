@@ -1,0 +1,28 @@
+{
+  "utc": "2026-10-27T04:59:41.740872+00:00",
+  "status": "targeted-normal-live-regression-passed",
+  "revision": "r22",
+  "review": "r22-independent-review/result.json",
+  "sealSha256": "bfec3d1ef07a2772fc001f5b5dcdec3e511849d4a50733dc50068b467f441144",
+  "lock": "r22-final-lock/version-lock.json",
+  "lockSha256": "70cb800326520bf285688db6065c3a1a25134059922a6b72397dcf2bb5d33de4",
+  "dllSha256": "4d33d6adfd026eed1162e1135b8003d1419f3f17c17773ef4d2e67f191f333d7",
+  "manifestSha256": "2375e9683ef48ffcfabe4cc81a7917c371f6e1bcf2ba18381431fc2de8dcf75b",
+  "delta": [
+    "assets/inventory/957.png",
+    "web/icons/957.png",
+    "assets/integrity.json"
+  ],
+  "sourceAndWebCodeUnchanged": true,
+  "rootBuildOutput": "r22-clean-delivery",
+  "livePlan": "r22-final-live/execution-plan.json",
+  "rolesOffline": true,
+  "servicesPreserved": true,
+  "newGrants": false,
+  "reset": false,
+  "wholeP24Complete": false,
+  "priorGameplayEvidence": "r21-final-live/services-ledger-reconciliation.json",
+  "pending": [],
+  "clientsClosed": true,
+  "liveResult": "r22-final-live/result.json"
+}

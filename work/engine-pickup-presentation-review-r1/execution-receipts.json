@@ -1,0 +1,39 @@
+{
+  "history": [
+    {
+      "run": "baseline-01",
+      "status": "helper-failed",
+      "reason": "damage Duration truncated to583 by helper; original renderer still displays damage at583. Fixed helper to ceil boundary, original DLL unchanged."
+    },
+    {
+      "run": "baseline-02",
+      "status": "helper-failed",
+      "reason": "Expected literal C112 contained one excess zero byte. Corrected independently grouped byte fields; product bytes were correct."
+    },
+    {
+      "run": "baseline-03",
+      "status": "completed-development-run",
+      "rows": 80,
+      "reason": "Superseded by added pending image and synthetic projectile-hit coverage; not counted again."
+    },
+    {
+      "run": "baseline-04",
+      "status": "fixture-failed",
+      "reason": "Ground36 fixture absent after adding pending image composition; added exact pinned original4379byte ground/36.json, no source modification."
+    },
+    {
+      "run": "baseline-05",
+      "status": "completed-accepted-preparation-run",
+      "rows": 84,
+      "assertedRows": 53,
+      "observations": 31
+    }
+  ],
+  "finalBuild": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "productRebuilt": false,
+  "candidateExecuted": false,
+  "helperOnlyBuilt": true
+}

@@ -1,0 +1,142 @@
+{
+  "schema": "p30-supervisor-final-bounded-acceptance-v1",
+  "utc": "2026-10-29T06:56:52.434220+00:00",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "status": "accepted-fresh-isolated-rebuild-identical-to-tested-candidate",
+  "scope": "Closes source-to-product fresh rebuild provenance only; does not accept full inherited regression, shared integration, entry activation or native behavior.",
+  "reviewArtifactsVerified": 32,
+  "executionArtifactsPreviouslyVerified": 41,
+  "stageFilesPreviouslyVerified": 347,
+  "sourceFiles": 181,
+  "independentCopies": 184,
+  "compilerTasks": 2,
+  "binlogEvents": 7250,
+  "compilerWarnings": 0,
+  "compilerErrors": 0,
+  "buildAttempts": 2,
+  "failedAttemptsPreserved": 1,
+  "successfulAttempts": 1,
+  "newRuntimeAssertions": 0,
+  "newNativeRuns": 0,
+  "product": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\build\\client-product-r34\\P11.ClientEngine.dll",
+    "size": 4925440,
+    "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+  },
+  "audio": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-02\\build\\client-product-r34\\P24.Audio.dll",
+    "size": 53760,
+    "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+  },
+  "evidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\P30-rebuild-review-r1\\r2-final-review-r1\\artifact-manifest.json",
+      "size": 5172,
+      "sha256": "3c6570129e79caf384883b5c1bec9501239f92301493d88b82dc80144d123ae8"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\P30-rebuild-review-r1\\r2-final-review-r1\\result.json",
+      "size": 2105,
+      "sha256": "de6db3f8342800758dcd632a4b5c46f0dfc4c209364403fce07308747e24bc82"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\P30-rebuild-review-r1\\r2-final-review-r1\\HANDOFF.md",
+      "size": 5363,
+      "sha256": "d32e881b325b16597cb70eb0253fb1374ff07c5864115d9addfd9b050b90d936"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\P30-rebuild-review-r1\\r2-final-review-r1\\remaining-scope.json",
+      "size": 1443,
+      "sha256": "4dc7d26d6a93bb7b0bde96838cf007de9d86c83543b81433f84a209436b7f6d9"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-r2-full-seal-root-verification.json",
+      "size": 831,
+      "sha256": "fffad716ffa4ccd63f32393527cb4f89cd16bc524364c14aa2bc41c50aac6b3d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-r2-actual-identity-check.json",
+      "size": 1340,
+      "sha256": "118a03db3c7045b554b1493480ec3d74ed070ce248299a959f2d0636f544f8bb"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P28-P29-candidate-root-acceptance.json",
+      "size": 2560,
+      "sha256": "2537af60910b67dd6803b1ec8f5252823288e65936cd06c57d6197c5f1e05dd3"
+    }
+  ],
+  "executionSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\artifact-seal.json",
+    "size": 7316,
+    "sha256": "2ceaf7801cc52d85a3abd7d9d331cd7298c2da754d72de9578c2eba4fc8490bd"
+  },
+  "stageSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r2\\stage-files-seal.json",
+    "size": 65164,
+    "sha256": "45bf24321192718e090deca882ce1ce884113cb9bfae817b73ab92892d3f5514"
+  },
+  "contract": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\execution-contract.json",
+    "size": 9492,
+    "sha256": "3f4bf1a3e6ec5f9db90ed8583f14d0f53869ad0c2e98ad3fc20ba6427d86b75d"
+  },
+  "functionScope": {
+    "addedExactGfxWeaponPairs": 41,
+    "totalWithControl": 42,
+    "ownOnly": true,
+    "speed": [
+      0,
+      1
+    ],
+    "brave": 0,
+    "extensionFrames": 288,
+    "extensionGroups": 12,
+    "sourceQualification": "104 base historical-selected-payload-matched; 312 pickup bounded-slice-only; no native equivalence"
+  },
+  "historicalRuntimeEvidence": {
+    "authorAssertions": 26953,
+    "independentRows": 5196,
+    "sameProductSha": true,
+    "notCountedAsNew": true
+  },
+  "environmentRepair": "Fixed PROGRAMFILES(X86)=C:\\Program Files (x86); source and expected DLL hashes unchanged.",
+  "reviewCorrection": "Preserved initial auditor; verified NuGet content hash separately from raw ZIP SHA-512 using pinned local reader. Signature trust not evaluated.",
+  "remaining": [
+    "Wider inherited regression suites on this fresh stage remain unexecuted; P28/P29 historical same-SHA evidence is retained without adding assertions.",
+    "full final composite buffer with shadow and opaque occluder oracle",
+    "three real S30 flight vectors rather than synthetic hit cache",
+    "all lifecycle dimensions and direction1-7 active-window cases",
+    "900/3000 controlled transport, authoritative quantities and early replies",
+    "audio/effect/send event counters and metadata inertness",
+    "resource fault injection: parser/hash/missing group/base key/extension fallback",
+    "native same-version acceptance: outside this offline dispatch"
+  ],
+  "genericReleaseGeneratorRG2": "Still requires product manifest inclusion fix before reuse; earlier concrete r34 package was separately corrected.",
+  "formalEntry": "r33",
+  "entryPins": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\啟動引擎.cmd",
+      "size": 158,
+      "sha256": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+      "size": 31361,
+      "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+    }
+  ],
+  "formalR34Activated": false,
+  "entrySwitch": {
+    "action": "send_message_to_thread: ENGINE-R34-ENTRY-ACTIVATE-P26-R1",
+    "target": "01a17a22-17e4-70c0-9792-166ddb86ea42; root 啟動引擎.cmd and project-manifest.json",
+    "state": "denied-not-executed; explicit user approval pending",
+    "reason": "Automatic approval review requires explicit authorization for persistent formal entry/manifest activation.",
+    "retried": false
+  },
+  "wholeProjectComplete": false,
+  "nativeAccepted": false,
+  "DBActions": 0,
+  "permanentDeletions": 0,
+  "goal": "Root Goal tools unavailable; no platform Goal fabricated.",
+  "next": "Review the finite remaining offline regression gaps against identical-DLL prior evidence and authorize only missing checks; entry approval is not a dependency for isolated work."
+}

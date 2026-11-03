@@ -1,0 +1,131 @@
+{
+  "status": "original-sentinel-misparsed",
+  "source": "D:\\lineage開發\\TW1608262200研究\\P16-基礎近戰與傷害回饋\\evidence\\history\\combat-suite-1792893602881295400\\result.json",
+  "capture_sha256": "63d5cf39e6c9cc01be86f0dfb817f7dcd0e48f1e721895fd482e43dcbf89c827",
+  "last": {
+    "state": "Faulted",
+    "detail": "ProtocolException: HP ratio",
+    "profile": "p16-real-jar-d287-client2",
+    "news": "",
+    "expected": 1,
+    "slots": 4,
+    "characters": [],
+    "revision": 339,
+    "appliedPacketSequence": 304,
+    "world": {
+      "ready": false,
+      "coreComplete": false,
+      "entered": false,
+      "mapId": null,
+      "underwater": false,
+      "status": null,
+      "actor": null,
+      "supportedMap": false,
+      "supportedAppearance": false,
+      "renderable": false,
+      "keepalivesSent": 0,
+      "timeReplies": 0,
+      "serverTime": null,
+      "unhandled": {},
+      "movement": {
+        "predictedSteps": 0,
+        "predictedTurns": 0,
+        "corrections": 0,
+        "authoritativeActor": null,
+        "notice": "等待世界",
+        "stepMs": 640,
+        "successAck": false
+      },
+      "combat": {
+        "reports": 0,
+        "lastAttack": null,
+        "ownAnimation": null,
+        "ownDead": false,
+        "notice": "選取可見目標後按 G：單次近戰",
+        "damageMeaning": "ClientLogin=2 original attack damage word, not independently established HP loss; zero does not distinguish miss from zero damage"
+      },
+      "objects": [],
+      "target": null,
+      "targetId": null,
+      "objectRevision": 218,
+      "worldEpoch": 4,
+      "unknownObjectUpdates": 0
+    },
+    "scope": "P16 independent real JAR + MySQL world initialization"
+  },
+  "tail": [
+    {
+      "generation": 1,
+      "utc": "2026-10-25T01:59:02.6808132+00:00",
+      "packet": {
+        "kind": "server-packet",
+        "sequence": 298,
+        "plainHex": "1E0101244271462936770700040000000000000000000000"
+      }
+    },
+    {
+      "generation": 1,
+      "utc": "2026-10-25T01:59:02.681099+00:00",
+      "packet": {
+        "kind": "server-packet",
+        "sequence": 299,
+        "plainHex": "ED46293677100000"
+      }
+    },
+    {
+      "generation": 1,
+      "utc": "2026-10-25T01:59:03.1430576+00:00",
+      "packet": {
+        "kind": "server-packet",
+        "sequence": 300,
+        "plainHex": "0A59213677557FBA8004800000000000"
+      }
+    },
+    {
+      "generation": 1,
+      "utc": "2026-10-25T01:59:03.1931695+00:00",
+      "packet": {
+        "kind": "server-packet",
+        "sequence": 301,
+        "plainHex": "0A8A203677537FAA8000800000000000"
+      }
+    },
+    {
+      "generation": 1,
+      "utc": "2026-10-25T01:59:03.2771457+00:00",
+      "packet": {
+        "kind": "server-packet",
+        "sequence": 302,
+        "plainHex": "1E0146293677012442711400000000000000000000000000"
+      }
+    },
+    {
+      "generation": 1,
+      "utc": "2026-10-25T01:59:03.277408+00:00",
+      "packet": {
+        "kind": "server-packet",
+        "sequence": 303,
+        "plainHex": "E144020000BC02000000000000000000"
+      }
+    },
+    {
+      "generation": 1,
+      "utc": "2026-10-25T01:59:03.5432947+00:00",
+      "packet": {
+        "kind": "server-packet",
+        "sequence": 304,
+        "plainHex": "1E0101244271462936770800040000000000000000000000"
+      }
+    },
+    {
+      "generation": 1,
+      "utc": "2026-10-25T01:59:03.5434095+00:00",
+      "packet": {
+        "kind": "server-packet",
+        "sequence": 305,
+        "plainHex": "ED46293677FF0000"
+      }
+    }
+  ],
+  "meaning": "0xED255 is original hideTrackedHpBars sentinel, not >100 percent protocol corruption or proof of death. Own lastHP580/700; preserve pending death/remove original evidence."
+}

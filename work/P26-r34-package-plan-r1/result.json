@@ -1,0 +1,134 @@
+{
+  "schema": "r34-package-plan-generation-result-v1",
+  "dispatchId": "ENGINE-R34-PACKAGE-PLAN-P26-R2",
+  "status": "generated-exact-plan-blocked-by-missing-product-manifest-target",
+  "plan": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r1\\package-plan.json",
+    "size": 1098050,
+    "sha256": "a831ca6dbbe13dee16bf544b6ff9f1ea3284ff7091915af23685ab8827d0d890"
+  },
+  "planFiles": 2289,
+  "generatorExitCode": 0,
+  "postGenerationVerificationExitCode": 1,
+  "generatorRuns": 1,
+  "generatorReplays": 0,
+  "completedSteps": {
+    "product": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\product.json",
+      "size": 1453,
+      "sha256": "54fa0be403b47c5e4a3d0684d6251d4f5cfe10d00814a64083393ab0ae123bf8"
+    },
+    "baseline": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\baseline.json",
+      "size": 4229,
+      "sha256": "de5c51eddfd641eb3869c338620bde3e167159480cdb41d245d4b324c458d793"
+    },
+    "ground": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\ground.json",
+      "size": 3169,
+      "sha256": "16e3b89fb12793196eca61c720be365112f261f27c6af17bbd9ab1f7378b89c1"
+    },
+    "utility": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\utility.json",
+      "size": 1798,
+      "sha256": "eddf467bda491a4b56c1cca5c8fc6cc191ed41d7541765ad5f150fb05cd7dbaf"
+    },
+    "haste": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\haste.json",
+      "size": 1786,
+      "sha256": "3b4b03301697e3db43373950b538c1e459871c0d8dd9e315382bc49f2c3960bb"
+    },
+    "versioned-slow": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\versioned-slow.json",
+      "size": 1840,
+      "sha256": "70c0994da3f492b4d69a31c7f82600599b7a3c5877ac6c0dcd0bff862571e454"
+    },
+    "f1": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\f1.json",
+      "size": 1768,
+      "sha256": "c74778415d0faeff93e83fbbb7af23183473ac3ebcaeb4a2ea9f01591cb09cee"
+    },
+    "pickup": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\completed\\pickup.json",
+      "size": 2481,
+      "sha256": "a685dc40c8b210c29eb1b1352ab105d8b8bc77b0798397e2e9457239bf15a122"
+    }
+  },
+  "fourIdentities": {
+    "productDllSha256": {
+      "actual": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P11.ClientEngine.dll",
+        "size": 2445312,
+        "sha256": "c11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed"
+      },
+      "inPackageInventory": true
+    },
+    "audioDllSha256": {
+      "actual": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-r34\\P24.Audio.dll",
+        "size": 53760,
+        "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+      },
+      "inPackageInventory": true
+    },
+    "productManifestSha256": {
+      "actual": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-r34-manifest.json",
+        "size": 7955,
+        "sha256": "3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d"
+      },
+      "inPackageInventory": false
+    },
+    "launcherDllSha256": {
+      "actual": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\engine\\launcher\\P24.Launcher.dll",
+        "size": 24064,
+        "sha256": "7270f9c8082473fdb9a10f379e9034552b43c16d4d5d4d91eb08f756d5ba7aa8"
+      },
+      "inPackageInventory": true
+    }
+  },
+  "sourceCoverage": {
+    "declared": 180,
+    "packaged": 180
+  },
+  "stageNonAssetFiles": 897,
+  "frozenWorkflowFiles": 808,
+  "toolArchive": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-r34-integration-r2\\r34-shared\\accepted-pickup-presentation-r1-01\\evidence\\release-tooling\\source-archive.json",
+    "size": 16858,
+    "sha256": "b05827cb28be1e0faf779a1b0ddae3229f14fb7bb98892f8d46e2523596cefa6"
+  },
+  "toolArchiveFiles": 41,
+  "historicalReferencePins": 690,
+  "newRequiredProvenanceFiles": 9,
+  "findings": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r1\\inventory-findings.json",
+    "size": 5965,
+    "sha256": "7f4c4007d896747a9818dc86ff512e1d1effa69fdb740522999490fae8374f40"
+  },
+  "failure": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r1\\inventory-verification-failure.json",
+    "size": 661,
+    "sha256": "74511db6cda46771f338f15f78f756b53516b617793eb52418d6152100f7d6b4"
+  },
+  "handoff": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r1\\HANDOFF.md",
+    "size": 2003,
+    "sha256": "40a39391022142a2fef1818a98a1124ecf485b2cf0508c695f5b58317eac473c"
+  },
+  "workflowFrozen": true,
+  "workflowWritesAfterGeneration": 0,
+  "sealedToolsModified": false,
+  "exactPlanModified": false,
+  "packageExecuted": false,
+  "releaseCreated": false,
+  "entryChanged": false,
+  "productCommandsExecuted": 0,
+  "goal": {
+    "value": null,
+    "created": false,
+    "modified": false
+  },
+  "next": "Stop and retain scene for supervisor exact correction dispatch; no delete/retry"
+}

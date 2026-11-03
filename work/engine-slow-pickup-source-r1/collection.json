@@ -1,0 +1,321 @@
+{
+  "classes": [
+    {
+      "entry": "com/lineage/server/clientpackets/C_PickUpItem.class",
+      "size": 9954,
+      "sha256": "721b3f27cd3be1bbe1ac9f5c1646946af7a53b6dcbff2d759ceb9081ff8c45a5",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.clientpackets.C_PickUpItem"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/utils/WorldInteractionGuard.class",
+      "size": 5315,
+      "sha256": "53c73aa47857d46a5c69a97cbb9e81ef350b91f7169ea5daf090b3803cf99f71",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.utils.WorldInteractionGuard"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/model/L1PcInventory.class",
+      "size": 116413,
+      "sha256": "a869c2760971d82898db4904562083ff6b5b61913efd55be2b5f6679e8b2209f",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.model.L1PcInventory"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/model/L1Inventory.class",
+      "size": 41917,
+      "sha256": "76a1748118bf6a1725cf8c12c14d73095ebb30ee943bedfedf0007c500dd7e11",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.model.L1Inventory"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/model/L1GroundInventory.class",
+      "size": 5929,
+      "sha256": "0ba9d90cd4eb14c40c9e517396e21e3a0f23b28652ce28c5b92a6eba0b14b6a7",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.model.L1GroundInventory"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/serverpackets/S_DoActionGFX.class",
+      "size": 1066,
+      "sha256": "dbaa27bdc71cf28e626a6062e537b5ede07d0fda76409777f2d3b3c62b34d11e",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.serverpackets.S_DoActionGFX"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/serverpackets/S_ChangeHeading.class",
+      "size": 1225,
+      "sha256": "11f7fe274cba2d1e87da37294f4a9bee99256610e9b8aa419e2abc8ffab86366",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.serverpackets.S_ChangeHeading"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/serverpackets/S_AddItem.class",
+      "size": 2709,
+      "sha256": "c034106136f63cf4ccc7979cc6f5ba0d1f8dc7f6aacb13c7043d3e82e5e28d95",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.serverpackets.S_AddItem"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/serverpackets/S_ItemStatus.class",
+      "size": 3433,
+      "sha256": "11b3ed7797141bd48a6a16af27962cf9e8720c0bbe4cd2c9233d12ca331b9c4a",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.serverpackets.S_ItemStatus"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/serverpackets/S_ItemAmount.class",
+      "size": 2084,
+      "sha256": "3545602b5903895561c3539209e4d1cfad21a981231cedf8ddab6a54b734908a",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.serverpackets.S_ItemAmount"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/serverpackets/S_DeleteInventoryItem.class",
+      "size": 1268,
+      "sha256": "57f802a1e9f879b0b6343ab43fd26bfe68cc8d699a5043cb79e6d5e450b11a95",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.serverpackets.S_DeleteInventoryItem"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/serverpackets/S_NPCPack_Item.class",
+      "size": 2883,
+      "sha256": "342a67c96513e6dad7b7254d3b13da8819aa441430efe1a4756ef7284ccc5714",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.serverpackets.S_NPCPack_Item"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/serverpackets/S_RemoveObject.class",
+      "size": 1078,
+      "sha256": "f957ace300bf2666a77aa7de284db481a8993360e1af7eeb6460183307f55dd8",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.serverpackets.S_RemoveObject"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/clientpackets/ClientPacketStructure.class",
+      "size": 6155,
+      "sha256": "f9235526701216be001bea37247f3a0bb55e868a1139c6db4c7e32e38fa85aa7",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.clientpackets.ClientPacketStructure"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/echo/OpcodesClient.class",
+      "size": 5144,
+      "sha256": "6d1b160c0b381a56d7897c678a1f8bb5029ebb13417b052401092058aba5be5c",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.echo.OpcodesClient"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/ActionCodes.class",
+      "size": 3698,
+      "sha256": "ce256e727eafc891cee87de9988b1312dde06f15f12f2d7ba91d9683b67cf69d",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "-constants",
+        "com.lineage.server.ActionCodes"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/model/PlayerActionLock.class",
+      "size": 3611,
+      "sha256": "dc702e360710ce0d56d48640c6c86efdc3a96274ca6095adff2f885fe500278c",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.model.PlayerActionLock"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "nativeChunks": [
+    {
+      "functionVA": "0xa467a0",
+      "VA": "0xa467a0",
+      "RVA": "0x6467a0",
+      "fileOffset": "0x645ba0",
+      "size": 5477,
+      "sha256": "0de7dc79cd1fe2c74e88bf26f0309c5195f4ea109d2d0fde7720e257aad79a3a"
+    },
+    {
+      "functionVA": "0xa467a0",
+      "VA": "0x10ac640",
+      "RVA": "0xcac640",
+      "fileOffset": "0xcaba40",
+      "size": 222,
+      "sha256": "2e0a08415ee85c7744a94f9cf4f30d344702e131e26ca24cd8200333abc6279a"
+    },
+    {
+      "functionVA": "0xa43560",
+      "VA": "0xa43560",
+      "RVA": "0x643560",
+      "fileOffset": "0x642960",
+      "size": 839,
+      "sha256": "5841695b55f6faa4abda547de6342f2433311d70573ab79724062cb5cef45181"
+    },
+    {
+      "functionVA": "0xa3ef40",
+      "VA": "0xa3ef40",
+      "RVA": "0x63ef40",
+      "fileOffset": "0x63e340",
+      "size": 3686,
+      "sha256": "64701a56874b973f27af05bc1629d1502901c992a373c820611264a79b0be771"
+    },
+    {
+      "functionVA": "0xa3ef40",
+      "VA": "0x10ac480",
+      "RVA": "0xcac480",
+      "fileOffset": "0xcab880",
+      "size": 151,
+      "sha256": "3da1bc83cd19d182613744cbd31ee3377e052ef4143d799adb6e79cf2dc7f7e0"
+    },
+    {
+      "functionVA": "0xa407d0",
+      "VA": "0xa407d0",
+      "RVA": "0x6407d0",
+      "fileOffset": "0x63fbd0",
+      "size": 1644,
+      "sha256": "df99bc065dd5014d263cc0ea9b59a50e659504454294d558ad2c956718b223af"
+    },
+    {
+      "functionVA": "0xa46240",
+      "VA": "0xa46240",
+      "RVA": "0x646240",
+      "fileOffset": "0x645640",
+      "size": 73,
+      "sha256": "1510e7221957759c2fa95fb35aab0975f47316a50f00b474fd629fa78276b258"
+    }
+  ],
+  "productChanged": false,
+  "candidateBuilt": false,
+  "nativeExecuted": false,
+  "jarHandlersExecuted": false,
+  "javapStaticOnly": true
+}

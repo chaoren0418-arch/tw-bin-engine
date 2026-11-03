@@ -1,0 +1,43 @@
+{
+  "schema": "r34-final-offline-development-baseline-v1",
+  "utc": "2026-10-29T04:48:28.228920+00:00",
+  "decision": "accepted-final-sealed-offline-development-base",
+  "releaseAcceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\r34-release-root-acceptance.json",
+    "size": 2434,
+    "sha256": "900ab8b7aadba88e2aa9fbd1161580098a381b5139441e0155c60f4a0cc2c4ba"
+  },
+  "releaseSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\release-seal.json",
+    "size": 2867987,
+    "sha256": "955ea88173cb36cecaefb6d5e9bbce7d76dfd7bf39ccd7830e56a269ab3155c3"
+  },
+  "sourceManifest": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\_integration\\r34\\acceptance\\source-manifest.json",
+    "size": 45249,
+    "sha256": "337afaa3607e49e0c50f2f388ab8cec8c42f7816e33ed2ee98df6bfb0a48b533"
+  },
+  "sourceRoot": "D:\\lineage開發\\TW1608262200研究\\engine",
+  "sealedRelease": "D:\\lineage開發\\TW1608262200研究\\releases\\r34",
+  "officialEntry": "r33",
+  "entryActivationDenied": true,
+  "entryActivationRequiredForIsolatedDevelopment": false,
+  "nativeAccepted": false,
+  "sourceFiles": 180,
+  "wholeProjectComplete": false,
+  "authority": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\takeover.json",
+    "size": 4697,
+    "sha256": "d7f7d19b500238a3e9894ac8caae74d99d5d9e31ea0de1acc2cf100866ed3bb1"
+  },
+  "currentPolicy": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+    "size": 11741,
+    "sha256": "0c8f214831a286bec4a6844ab1293b4f4798ff829ef0a3d6507dbf455eddc040"
+  },
+  "followupSourceContract": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\followup-contract-inputs.json",
+    "size": 12244,
+    "sha256": "6397fb11d21222d71e9b418c0653a1389fd73aaf8c706ec7962ee5f4d9604771"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "status": "syntax-pass-awaiting-real-new-live-capture",
+  "utc": "2026-10-25T20:02:12.649949+00:00",
+  "originalRawAuditSha256": "452899effedf7e102179fffe52efa5dc79790ef6480ebbf0c655e0b51a96cba7",
+  "files": [
+    {
+      "path": "audit_p24_continuation_saved_movement.py",
+      "sha256": "2bdcd57a959aa2651fb753593299584a38ac9f45c7fbecade87154f920921776"
+    },
+    {
+      "path": "p24_continuation_capture_binding.py",
+      "sha256": "65cb8fcd9e6de5861dea186a932ad36f12088b55cb22d65a7733324a418cfdcd"
+    },
+    {
+      "path": "audit_p24_scheduled_live_native_trace.py",
+      "sha256": "b7e20612d290b195f1118b16373a55cdd0091f0ff8cd03d7a5ea1fa06f02a82c"
+    }
+  ],
+  "scope": "Original raw movement/HP/sequence/save assertions preserved; future successful capture adds exact supervisor route/run/prior and nested runtime binding. No live approval or synthetic successful capture created."
+}

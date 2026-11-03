@@ -1,0 +1,160 @@
+{
+  "files": [
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\started.json",
+        "size": 361,
+        "sha256": "8d5a13618c3b3cddf411b0900d8c27209167762aea717f40fc9b1216ddeca223"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-evidence\\started.json",
+        "size": 361,
+        "sha256": "8d5a13618c3b3cddf411b0900d8c27209167762aea717f40fc9b1216ddeca223"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\execution-inputs.json",
+        "size": 13430,
+        "sha256": "cf26edc53f4f5dbc21ca3ee935844849c82258e6eee771f7869aa2e3ddfddd81"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-evidence\\execution-inputs.json",
+        "size": 13430,
+        "sha256": "cf26edc53f4f5dbc21ca3ee935844849c82258e6eee771f7869aa2e3ddfddd81"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\materialized.json",
+        "size": 108496,
+        "sha256": "520311abee834a3c3a9dddfa71c959bb5aa010130b957aed5b05df85a4e8ecbd"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-evidence\\materialized.json",
+        "size": 108496,
+        "sha256": "520311abee834a3c3a9dddfa71c959bb5aa010130b957aed5b05df85a4e8ecbd"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\result.json",
+        "size": 52450,
+        "sha256": "c5fab50f21132bfeacfc89677f0748e1a859fd36dbdd835711e496786bf19ebb"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-evidence\\result.json",
+        "size": 52450,
+        "sha256": "c5fab50f21132bfeacfc89677f0748e1a859fd36dbdd835711e496786bf19ebb"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\environment.json",
+        "size": 3938,
+        "sha256": "201aac5452a0cdeb1d2be24ef7b8879c706aaee6a2f7401d3106d225acf163b9"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-evidence\\attempts\\product\\build-01\\environment.json",
+        "size": 3938,
+        "sha256": "201aac5452a0cdeb1d2be24ef7b8879c706aaee6a2f7401d3106d225acf163b9"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\command-started.json",
+        "size": 1052,
+        "sha256": "2b04c8c9f9bea95309629d0219c4f70521a9ccf8b03a24d1030c1069806b15dc"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-evidence\\attempts\\product\\build-01\\command-started.json",
+        "size": 1052,
+        "sha256": "2b04c8c9f9bea95309629d0219c4f70521a9ccf8b03a24d1030c1069806b15dc"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\process-assigned.json",
+        "size": 62,
+        "sha256": "4c3f7cc9bc149e1c65406dcb5ffc6baf1ce9e0671684d1b3d428cbdc0900fa7b"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-evidence\\attempts\\product\\build-01\\process-assigned.json",
+        "size": 62,
+        "sha256": "4c3f7cc9bc149e1c65406dcb5ffc6baf1ce9e0671684d1b3d428cbdc0900fa7b"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\process-resumed.json",
+        "size": 61,
+        "sha256": "54684f1ddf2e48843fbc5693f425751e10dc0bd3075da544579b31b12a13ac93"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-evidence\\attempts\\product\\build-01\\process-resumed.json",
+        "size": 61,
+        "sha256": "54684f1ddf2e48843fbc5693f425751e10dc0bd3075da544579b31b12a13ac93"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\command.json",
+        "size": 2207,
+        "sha256": "aaf2ab8fdda9cd1865f7b64615f648440629a0b0f72c406d7108eb5b0bf85435"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-evidence\\attempts\\product\\build-01\\command.json",
+        "size": 2207,
+        "sha256": "aaf2ab8fdda9cd1865f7b64615f648440629a0b0f72c406d7108eb5b0bf85435"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\stdout",
+        "size": 1561330,
+        "sha256": "905c9bd7a1c08a0ddf2f35ee966b0304471feef076f5627118b2e78a4645b35f"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-evidence\\attempts\\product\\build-01\\stdout",
+        "size": 1561330,
+        "sha256": "905c9bd7a1c08a0ddf2f35ee966b0304471feef076f5627118b2e78a4645b35f"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\stderr",
+        "size": 497,
+        "sha256": "7f0b85f13e01776dc0918e791ad9f34b4f435c0c709a31fa62b65b22233862a2"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-evidence\\attempts\\product\\build-01\\stderr",
+        "size": 497,
+        "sha256": "7f0b85f13e01776dc0918e791ad9f34b4f435c0c709a31fa62b65b22233862a2"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\msbuild.binlog",
+        "size": 61492,
+        "sha256": "90f866f0c82523d47e5a083789bfcac6e4bfc610cef5eb223152afff2ebaba5f"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-evidence\\attempts\\product\\build-01\\msbuild.binlog",
+        "size": 61492,
+        "sha256": "90f866f0c82523d47e5a083789bfcac6e4bfc610cef5eb223152afff2ebaba5f"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\post-run-pins.json",
+        "size": 46140,
+        "sha256": "9928c17153cb6ecaa5f48ea4e9eae35a2e51c309e8315e119b0daa1605a256b2"
+      },
+      "copy": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-execution-r1\\stage-evidence\\attempts\\product\\build-01\\post-run-pins.json",
+        "size": 46140,
+        "sha256": "9928c17153cb6ecaa5f48ea4e9eae35a2e51c309e8315e119b0daa1605a256b2"
+      }
+    }
+  ]
+}

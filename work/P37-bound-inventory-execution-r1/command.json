@@ -1,0 +1,31 @@
+{
+  "argv": [
+    "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\bound_inventory.py",
+    "--plan-sha256",
+    "f67fa56815fbc133c1710c450efe1305d58da7c75566e02a9d909a24ca6059bd",
+    "--contract-sha256",
+    "f439915614397edb8a478196375706aec1af68b670bd06c310d1ba3e251e8c30",
+    "--p36-final-sha256",
+    "76145832e5865fad75741450f53500cfad455aa73507bb0a75709c35a86e1e17",
+    "--inventory-authority-sha256",
+    "4c0236f33250cf63c5789af0586e4e9992b960e7841cf483da86c6fa89d2377d"
+  ],
+  "cwd": "D:\\lineage開發\\TW1608262200研究",
+  "exitCode": 0,
+  "finishedUtc": "2026-10-29T09:11:11.231749+00:00",
+  "inventoryInvocations": 1,
+  "stdout": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-execution-r1\\inventory.stdout.json",
+    "size": 58242,
+    "sha256": "2bb58c3c48b576a213c05f5a9b2835e5f2ed4b717afe8fbbe8719009780bc778"
+  },
+  "stderr": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P37-bound-inventory-execution-r1\\inventory.stderr",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

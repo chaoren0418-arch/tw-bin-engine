@@ -1,0 +1,33 @@
+{
+  "utc": "2026-10-29T06:40:01.965539+00:00",
+  "decision": "accepted-minimal-r2-diff-for-one-isolated-attempt",
+  "seal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\artifact-seal.json",
+    "size": 6309,
+    "sha256": "030f92adce8b04fe01a864055cd28f90a3f95e12e3da83add167daec79c57ee3"
+  },
+  "artifactsVerified": 37,
+  "contract": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-executor-r2\\execution-contract.json",
+    "size": 9492,
+    "sha256": "3f4bf1a3e6ec5f9db90ed8583f14d0f53869ad0c2e98ad3fc20ba6427d86b75d"
+  },
+  "unchangedRuntimeSources": [
+    "executor.py",
+    "win_process.py"
+  ],
+  "unchangedToolchainPins": true,
+  "materializationDestinationOnlyMapping": true,
+  "onlySemanticChange": {
+    "PROGRAMFILES(X86)": "C:\\Program Files (x86)"
+  },
+  "gateSourceReview": "Reviewed exact gate patch: fresh02, current dispatch/receipt bindings, destination-only mapping and fixed environment addition; no product logic or expected DLL changes.",
+  "independentRootCause": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P30-environment-diagnosis-acceptance.json",
+    "size": 702,
+    "sha256": "fb2d85e5a0dd63c18f7a8daf051485a3d88fd7c0b87900c3038e9597ea290048"
+  },
+  "priorIndependentCoreReview": "4e9a0ec1b180788dbc1c08aef1bb5d9806d4b30c39568fa95d5965ad25ac443a",
+  "runtimeReruns": 0,
+  "nativeAccepted": false
+}

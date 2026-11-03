@@ -1,0 +1,461 @@
+{
+  "before": {
+    "main": [
+      {
+        "X": 32588,
+        "Y": 32930,
+        "Ac": 10,
+        "Hp": 160,
+        "Mp": 30,
+        "Exp": 10000,
+        "Gfx": 0,
+        "Name": "整合王子",
+        "Level": 10,
+        "MapId": 0,
+        "MaxHp": 160,
+        "MaxMp": 30,
+        "Lawful": -123,
+        "Wisdom": 12,
+        "Charisma": 10,
+        "ObjectId": 1900120001,
+        "Strength": 18,
+        "Dexterity": 13,
+        "Direction": 5,
+        "Constitution": 16,
+        "Intelligence": 11,
+        "OnlineStatus": 0
+      },
+      {
+        "X": 33087,
+        "Y": 33396,
+        "Ac": -22,
+        "Hp": 765,
+        "Mp": 876,
+        "Exp": 10000,
+        "Gfx": 1186,
+        "Name": "整合法師",
+        "Level": 10,
+        "MapId": 4,
+        "MaxHp": 800,
+        "MaxMp": 900,
+        "Lawful": 32767,
+        "Wisdom": 18,
+        "Charisma": 8,
+        "ObjectId": 1900120002,
+        "Strength": 12,
+        "Dexterity": 14,
+        "Direction": 3,
+        "Constitution": 16,
+        "Intelligence": 20,
+        "OnlineStatus": 0
+      }
+    ],
+    "observer": [
+      {
+        "X": 32586,
+        "Y": 32930,
+        "Ac": 0,
+        "Hp": 1000,
+        "Mp": 100,
+        "Exp": 0,
+        "Gfx": 0,
+        "Name": "觀察王子",
+        "Level": 1,
+        "MapId": 0,
+        "MaxHp": 1000,
+        "MaxMp": 100,
+        "Lawful": 0,
+        "Wisdom": 12,
+        "Charisma": 10,
+        "ObjectId": 1900140003,
+        "Strength": 18,
+        "Dexterity": 13,
+        "Direction": 2,
+        "Constitution": 16,
+        "Intelligence": 11,
+        "OnlineStatus": 0
+      }
+    ]
+  },
+  "after": {
+    "main": [
+      {
+        "X": 32597,
+        "Y": 32914,
+        "Ac": 8,
+        "Hp": 1,
+        "Mp": 30,
+        "Exp": 10000,
+        "Gfx": 0,
+        "Name": "整合王子",
+        "Level": 10,
+        "MapId": 0,
+        "MaxHp": 160,
+        "MaxMp": 30,
+        "Lawful": -123,
+        "Wisdom": 12,
+        "Charisma": 10,
+        "ObjectId": 1900120001,
+        "Strength": 18,
+        "Dexterity": 13,
+        "Direction": 3,
+        "Constitution": 16,
+        "Intelligence": 11,
+        "OnlineStatus": 0
+      },
+      {
+        "X": 33087,
+        "Y": 33396,
+        "Ac": -22,
+        "Hp": 765,
+        "Mp": 876,
+        "Exp": 10000,
+        "Gfx": 1186,
+        "Name": "整合法師",
+        "Level": 10,
+        "MapId": 4,
+        "MaxHp": 800,
+        "MaxMp": 900,
+        "Lawful": 32767,
+        "Wisdom": 18,
+        "Charisma": 8,
+        "ObjectId": 1900120002,
+        "Strength": 12,
+        "Dexterity": 14,
+        "Direction": 3,
+        "Constitution": 16,
+        "Intelligence": 20,
+        "OnlineStatus": 0
+      }
+    ],
+    "observer": [
+      {
+        "X": 32590,
+        "Y": 32946,
+        "Ac": 9,
+        "Hp": 1000,
+        "Mp": 100,
+        "Exp": 0,
+        "Gfx": 0,
+        "Name": "觀察王子",
+        "Level": 1,
+        "MapId": 0,
+        "MaxHp": 1000,
+        "MaxMp": 100,
+        "Lawful": 0,
+        "Wisdom": 12,
+        "Charisma": 10,
+        "ObjectId": 1900140003,
+        "Strength": 18,
+        "Dexterity": 13,
+        "Direction": 4,
+        "Constitution": 16,
+        "Intelligence": 11,
+        "OnlineStatus": 0
+      }
+    ]
+  },
+  "accounts": {
+    "main": [
+      {
+        "ip": "127.0.0.1",
+        "login": "p16m6e4c6f",
+        "server_no": 0,
+        "lastactive": "2026-10-25 09:51:56.000000",
+        "character_slot": 0
+      }
+    ],
+    "observer": [
+      {
+        "ip": "127.0.0.1",
+        "login": "p16o6e4c6f",
+        "server_no": 0,
+        "lastactive": "2026-10-25 09:51:57.000000",
+        "character_slot": 0
+      }
+    ]
+  },
+  "server_before": {
+    "process": {
+      "ProcessId": 87612,
+      "ParentProcessId": 80520,
+      "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+      "CreationDate": "/Date(1792893019850)/"
+    },
+    "listeners": [
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42035,
+        "OwningProcess": 87612
+      }
+    ]
+  },
+  "server_after": {
+    "process": {
+      "ProcessId": 87612,
+      "ParentProcessId": 80520,
+      "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+      "CreationDate": "/Date(1792893019850)/"
+    },
+    "listeners": [
+      {
+        "LocalAddress": "0.0.0.0",
+        "LocalPort": 42035,
+        "OwningProcess": 87612
+      }
+    ]
+  },
+  "samples": [
+    {
+      "utc": 1792893117.3774369,
+      "server": {
+        "process": {
+          "ProcessId": 87612,
+          "ParentProcessId": 80520,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792893019850)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42035,
+            "OwningProcess": 87612
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792893120.5765476,
+      "server": {
+        "process": {
+          "ProcessId": 87612,
+          "ParentProcessId": 80520,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792893019850)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42035,
+            "OwningProcess": 87612
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792893123.716521,
+      "server": {
+        "process": {
+          "ProcessId": 87612,
+          "ParentProcessId": 80520,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792893019850)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42035,
+            "OwningProcess": 87612
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792893126.906371,
+      "server": {
+        "process": {
+          "ProcessId": 87612,
+          "ParentProcessId": 80520,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792893019850)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42035,
+            "OwningProcess": 87612
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792893130.0786092,
+      "server": {
+        "process": {
+          "ProcessId": 87612,
+          "ParentProcessId": 80520,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792893019850)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42035,
+            "OwningProcess": 87612
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792893133.2170367,
+      "server": {
+        "process": {
+          "ProcessId": 87612,
+          "ParentProcessId": 80520,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792893019850)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42035,
+            "OwningProcess": 87612
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792893136.4356036,
+      "server": {
+        "process": {
+          "ProcessId": 87612,
+          "ParentProcessId": 80520,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792893019850)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42035,
+            "OwningProcess": 87612
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792893139.5209563,
+      "server": {
+        "process": {
+          "ProcessId": 87612,
+          "ParentProcessId": 80520,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792893019850)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42035,
+            "OwningProcess": 87612
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792893142.6075797,
+      "server": {
+        "process": {
+          "ProcessId": 87612,
+          "ParentProcessId": 80520,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792893019850)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42035,
+            "OwningProcess": 87612
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792893145.6826525,
+      "server": {
+        "process": {
+          "ProcessId": 87612,
+          "ParentProcessId": 80520,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792893019850)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42035,
+            "OwningProcess": 87612
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792893148.784511,
+      "server": {
+        "process": {
+          "ProcessId": 87612,
+          "ParentProcessId": 80520,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792893019850)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42035,
+            "OwningProcess": 87612
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792893151.906532,
+      "server": {
+        "process": {
+          "ProcessId": 87612,
+          "ParentProcessId": 80520,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792893019850)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42035,
+            "OwningProcess": 87612
+          }
+        ]
+      }
+    },
+    {
+      "utc": 1792893155.0165102,
+      "server": {
+        "process": {
+          "ProcessId": 87612,
+          "ParentProcessId": 80520,
+          "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+          "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P16Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P16Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P16Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P16Lab-ClientEngine\\server\\Server_Game.jar",
+          "CreationDate": "/Date(1792893019850)/"
+        },
+        "listeners": [
+          {
+            "LocalAddress": "0.0.0.0",
+            "LocalPort": 42035,
+            "OwningProcess": 87612
+          }
+        ]
+      }
+    }
+  ],
+  "client_pid": 87112,
+  "exit_code": 2
+}

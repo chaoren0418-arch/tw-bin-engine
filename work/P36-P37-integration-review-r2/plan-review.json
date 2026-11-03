@@ -1,0 +1,44 @@
+{
+  "schema": "p36-p37-plan-review-v1",
+  "decision": "accepted-for-p36-serial-source-build",
+  "utc": "2026-10-29T08:55:02.825440+00:00",
+  "reviewer": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "planSha256": "f67fa56815fbc133c1710c450efe1305d58da7c75566e02a9d909a24ca6059bd",
+  "contractSha256": "f439915614397edb8a478196375706aec1af68b670bd06c310d1ba3e251e8c30",
+  "authorArtifactSealSha256": "d72f2c75fc792df44a5e035651a82e5cb2244d944d42564e2231c7e15a1a30c7",
+  "toolSourceSealSha256": "ea73adff65e8887e1b3369147a8c8c22a980f32fc5a6f8cba5868e9b860ad172",
+  "scope": "Exact r2 P36 serial source/build preparation and repaired P37 inventory-only gate design; no shared execution authorized by this review",
+  "p36PlanAccepted": true,
+  "p37F1Closed": true,
+  "unresolvedPlanFindings": [],
+  "requiresSeparateSupervisorExecutionReceipt": true,
+  "sharedExecutionAuthorizedByThisReview": false,
+  "p36ExecutionAccepted": false,
+  "p37ActualInventoryAccepted": false,
+  "requiresTrueP36BuildAndFinalAcceptanceBeforeP37": true,
+  "fullReleaseAuthorized": false,
+  "entryActivationAuthorized": false,
+  "runtimeProbesAuthorized": 0,
+  "maxBuildInvocations": 1,
+  "expectedProductSha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "expectedAudioSha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "evidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-review-r2\\delta-review.json",
+      "size": 2889,
+      "sha256": "239a61446fcd02a790018d39fd9937c1e4e09c3cf72b231a9833b11592621ff0"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-review-r2\\independent-runtime.diff",
+      "size": 1666,
+      "sha256": "8b7aa7221a13e128bd28e3a70ce7cb7dda65c03cb3a6b96fc7520a06be86dde6"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-review-r1\\artifact-seal.json",
+      "size": 377,
+      "sha256": "9cf3aeeac98b4a16d01f0b1089fbf0e561ca705efb2e749a911a9a629e81503b"
+    }
+  ],
+  "qualification": "Two bounded repair checks, inherited unchanged P36 review. No product tests, install, build, rollback or successful P37 inventory executed."
+}

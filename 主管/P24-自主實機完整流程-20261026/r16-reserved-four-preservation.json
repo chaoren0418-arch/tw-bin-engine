@@ -1,0 +1,492 @@
+{
+  "status": "pass",
+  "pins": {
+    "utc": "2026-10-26T19:24:57.435995+00:00",
+    "db": [
+      43324,
+      "D:\\P24Lab-ClientEngine\\db-data\\",
+      "e3443e40-d090-11f1-8040-4cedfb679789",
+      "127.0.0.1",
+      "8.0.40"
+    ],
+    "dbOs": {
+      "processes": [
+        {
+          "ProcessId": 69176,
+          "ParentProcessId": 64892,
+          "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+          "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+          "CreationDate": "/Date(1792945658396)/"
+        },
+        {
+          "ProcessId": 59052,
+          "ParentProcessId": 69176,
+          "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+          "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+          "CreationDate": "/Date(1792945658443)/"
+        }
+      ],
+      "listeners": [
+        {
+          "LocalAddress": "127.0.0.1",
+          "LocalPort": 43324,
+          "OwningProcess": 59052
+        }
+      ]
+    },
+    "game": {
+      "process": {
+        "ProcessId": 88012,
+        "ParentProcessId": 58144,
+        "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+        "CommandLine": "\"C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe\" -Xms256m -Xmx1024m -XX:ActiveProcessorCount=2 -XX:-UsePerfData -Djava.security.manager=default -Djava.security.policy==file:///D:/P24Lab-ClientEngine/server/server.policy -Djava.io.tmpdir=D:\\P24Lab-ClientEngine\\server\\tmp -Duser.home=D:\\P24Lab-ClientEngine\\server\\home -Dio.netty.noUnsafe=true -Dio.netty.noPreferDirect=true -Dio.netty.transport.noNative=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dlog4j.configurationFile=./config/log4j2.xml -Dlog4j2.disableJmx=true -jar D:\\P24Lab-ClientEngine\\server\\Server_Game.jar",
+        "CreationDate": "/Date(1793022465229)/"
+      },
+      "listeners": [
+        {
+          "LocalAddress": "0.0.0.0",
+          "LocalPort": 42061,
+          "OwningProcess": 88012
+        }
+      ]
+    },
+    "roles": [
+      {
+        "x": 32640,
+        "y": 33109,
+        "hp": 26,
+        "id": 1900240001,
+        "mp": 82,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p241db6e"
+      },
+      {
+        "x": 32477,
+        "y": 32853,
+        "hp": 103,
+        "id": 1900240002,
+        "mp": 84,
+        "map": 0,
+        "level": 59,
+        "online": 0,
+        "account": "p242db6e"
+      },
+      {
+        "x": 32588,
+        "y": 32981,
+        "hp": 500,
+        "id": 1900240003,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p243db6e"
+      },
+      {
+        "x": 32588,
+        "y": 32981,
+        "hp": 500,
+        "id": 1900240004,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p244db6e"
+      },
+      {
+        "x": 32648,
+        "y": 33068,
+        "hp": 163,
+        "id": 1900240005,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p245db6e"
+      },
+      {
+        "x": 32595,
+        "y": 32931,
+        "hp": 204,
+        "id": 1900240006,
+        "mp": 116,
+        "map": 0,
+        "level": 59,
+        "online": 0,
+        "account": "p246db6e"
+      },
+      {
+        "x": 32587,
+        "y": 32998,
+        "hp": 700,
+        "id": 1900240007,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p247db6e"
+      },
+      {
+        "x": 32587,
+        "y": 32998,
+        "hp": 700,
+        "id": 1900240008,
+        "mp": 120,
+        "map": 0,
+        "level": 60,
+        "online": 0,
+        "account": "p248db6e"
+      }
+    ]
+  },
+  "roles": [
+    {
+      "x": 32588,
+      "y": 32981,
+      "hp": 500,
+      "id": 1900240003,
+      "mp": 120,
+      "con": 16,
+      "exp": 416461882,
+      "gfx": 0,
+      "map": 0,
+      "wis": 12,
+      "food": 40,
+      "type": 0,
+      "intel": 11,
+      "level": 60,
+      "maxHp": 700,
+      "maxMp": 120,
+      "access": 0,
+      "online": 0,
+      "heading": 5,
+      "originalInt": 11,
+      "originalWis": 12,
+      "accountOnline": 0
+    },
+    {
+      "x": 32588,
+      "y": 32981,
+      "hp": 500,
+      "id": 1900240004,
+      "mp": 120,
+      "con": 16,
+      "exp": 416461882,
+      "gfx": 0,
+      "map": 0,
+      "wis": 12,
+      "food": 40,
+      "type": 0,
+      "intel": 11,
+      "level": 60,
+      "maxHp": 700,
+      "maxMp": 120,
+      "access": 0,
+      "online": 0,
+      "heading": 5,
+      "originalInt": 11,
+      "originalWis": 12,
+      "accountOnline": 0
+    },
+    {
+      "x": 32587,
+      "y": 32998,
+      "hp": 700,
+      "id": 1900240007,
+      "mp": 120,
+      "con": 16,
+      "exp": 416461882,
+      "gfx": 0,
+      "map": 0,
+      "wis": 12,
+      "food": 40,
+      "type": 0,
+      "intel": 11,
+      "level": 60,
+      "maxHp": 700,
+      "maxMp": 120,
+      "access": 0,
+      "online": 0,
+      "heading": 5,
+      "originalInt": 11,
+      "originalWis": 12,
+      "accountOnline": 0
+    },
+    {
+      "x": 32587,
+      "y": 32998,
+      "hp": 700,
+      "id": 1900240008,
+      "mp": 120,
+      "con": 16,
+      "exp": 416461882,
+      "gfx": 0,
+      "map": 0,
+      "wis": 12,
+      "food": 40,
+      "type": 0,
+      "intel": 11,
+      "level": 60,
+      "maxHp": 700,
+      "maxMp": 120,
+      "access": 0,
+      "online": 0,
+      "heading": 5,
+      "originalInt": 11,
+      "originalWis": 12,
+      "accountOnline": 0
+    }
+  ],
+  "items": [
+    {
+      "id": 1900241031,
+      "bless": 0,
+      "count": 6,
+      "owner": 1900240003,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40012,
+      "identified": 1
+    },
+    {
+      "id": 1900241032,
+      "bless": 0,
+      "count": 3,
+      "owner": 1900240003,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40308,
+      "identified": 1
+    },
+    {
+      "id": 1900241033,
+      "bless": 0,
+      "count": 1,
+      "owner": 1900240003,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40126,
+      "identified": 1
+    },
+    {
+      "id": 1900241034,
+      "bless": 0,
+      "count": 8,
+      "owner": 1900240003,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40056,
+      "identified": 1
+    },
+    {
+      "id": 1900241035,
+      "bless": 0,
+      "count": 1,
+      "owner": 1900240003,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 31,
+      "identified": 1
+    },
+    {
+      "id": 1900241036,
+      "bless": 0,
+      "count": 1,
+      "owner": 1900240003,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 52,
+      "identified": 1
+    },
+    {
+      "id": 1900241037,
+      "bless": 0,
+      "count": 1,
+      "owner": 1900240003,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 20096,
+      "identified": 1
+    },
+    {
+      "id": 1900241038,
+      "bless": 0,
+      "count": 1,
+      "owner": 1900240003,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 20222,
+      "identified": 1
+    },
+    {
+      "id": 1900241039,
+      "bless": 0,
+      "count": 1,
+      "owner": 1900240003,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 172,
+      "identified": 1
+    },
+    {
+      "id": 1900241040,
+      "bless": 0,
+      "count": 80,
+      "owner": 1900240003,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40743,
+      "identified": 1
+    },
+    {
+      "id": 1900241041,
+      "bless": 0,
+      "count": 6,
+      "owner": 1900240004,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40012,
+      "identified": 1
+    },
+    {
+      "id": 1900241042,
+      "bless": 0,
+      "count": 3,
+      "owner": 1900240004,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40308,
+      "identified": 1
+    },
+    {
+      "id": 1900241043,
+      "bless": 0,
+      "count": 1,
+      "owner": 1900240004,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40126,
+      "identified": 1
+    },
+    {
+      "id": 1900241044,
+      "bless": 0,
+      "count": 8,
+      "owner": 1900240004,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40056,
+      "identified": 1
+    },
+    {
+      "id": 1900241045,
+      "bless": 0,
+      "count": 1,
+      "owner": 1900240004,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 31,
+      "identified": 1
+    },
+    {
+      "id": 1900241046,
+      "bless": 0,
+      "count": 1,
+      "owner": 1900240004,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 52,
+      "identified": 1
+    },
+    {
+      "id": 1900241047,
+      "bless": 0,
+      "count": 1,
+      "owner": 1900240004,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 20096,
+      "identified": 1
+    },
+    {
+      "id": 1900241048,
+      "bless": 0,
+      "count": 1,
+      "owner": 1900240004,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 20222,
+      "identified": 1
+    },
+    {
+      "id": 1900241049,
+      "bless": 0,
+      "count": 1,
+      "owner": 1900240004,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 172,
+      "identified": 1
+    },
+    {
+      "id": 1900241050,
+      "bless": 0,
+      "count": 80,
+      "owner": 1900240004,
+      "sealed": 0,
+      "enchant": 0,
+      "equipped": 0,
+      "template": 40743,
+      "identified": 1
+    }
+  ],
+  "skills": [
+    {
+      "time": 0,
+      "owner": 1900240003,
+      "skill": 1,
+      "active": 0
+    },
+    {
+      "time": 0,
+      "owner": 1900240003,
+      "skill": 4,
+      "active": 0
+    },
+    {
+      "time": 0,
+      "owner": 1900240004,
+      "skill": 1,
+      "active": 0
+    },
+    {
+      "time": 0,
+      "owner": 1900240004,
+      "skill": 4,
+      "active": 0
+    }
+  ],
+  "initialSha256": "c66bd0ae2753f39fb5a91252c6eeedb372c33a1561d7800f6149ef804edd318d",
+  "scope": "Reserved four match all initial sampled character/account/item/skill fields. Nonreserved normal gameplay and previous deaths remain preserved; no claim all8 match initial."
+}

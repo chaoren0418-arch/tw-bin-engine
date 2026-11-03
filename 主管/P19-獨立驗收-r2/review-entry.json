@@ -1,0 +1,13 @@
+{
+  "status": "revised-freeze-entry-verified",
+  "utc": "2026-10-25T07:22:39.665217+00:00",
+  "changed_existing_inputs": [
+    "source/Program.cs",
+    "source/RewardIntegration.cs",
+    "source/RewardTests.cs"
+  ],
+  "source_sha256": "fb2c6caaaafef6ecbbae1647fce55a127027ca7dbac43ce26821cd8c840e3488",
+  "environment_sha256": "44c218592b5d4f8af60ac2a3d68c034d92001b15f0bbd83ad20a7ab3debb9520",
+  "ready_sha256": "082b55229054fcacfa93159d0fd4b3c8c6af41ec5827d1bf08389fb8f3d3e1b8",
+  "scope": "Only reviewed test-control, replay-test and test-CLI dispatch changes permitted among prior build inputs. New reference files are verified separately. No gameplay acceptance yet."
+}

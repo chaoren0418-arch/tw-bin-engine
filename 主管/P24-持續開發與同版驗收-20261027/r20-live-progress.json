@@ -1,0 +1,260 @@
+{
+  "utc": "2026-10-27T03:56:35.819Z",
+  "revision": "r20",
+  "status": "live-exploration-fix-required",
+  "identity": "r20-final-lock/version-lock.json",
+  "verified": [
+    "normal login both roles",
+    "trade local validation persistence and actual one-red transfer",
+    "private shop timeout guidance fence and normal recovery",
+    "sapphire real icon",
+    "outbound normal boat boarding deck walk relogin reboard natural arrival ticket consumed",
+    "warehouse ten red deposited; normal relogin; withdrawal pending",
+    "warehouse red32->22 deposit10; relogin warehouse10; withdraw4/6 fees30+30; red32 gold53689; empty verified",
+    "peer normal Geren paid6000 learned heal1; relogin persists; actual self-cast HP561->565 MP116->113",
+    "main normal STR19->20; relogin; DB OriginalStr20 BonusStatus2 other5/elixir unchanged",
+    "normal cave map0->1; inside walk; normal relogin at saved cave location; exit1->0 verified"
+  ],
+  "newBlocker": "gfx0 weapon46 dagger appearance stops movement after normal relogin; evidence g04-dagger-relogin-unsupported-appearance.json; normal unequip recovers; isolated worker candidate underway",
+  "remaining": [
+    "r21 integrate dagger and merchant fixes with independent review",
+    "normal merchant supplies then return boat",
+    "combat kill/loot",
+    "same version regression and resource ledger"
+  ],
+  "main": {
+    "state": "InWorld",
+    "character": "服務驗證",
+    "x": 32607,
+    "y": 32785,
+    "worldReady": true,
+    "map": 4,
+    "hp": 686,
+    "mp": 117,
+    "food": 50,
+    "weight": 0,
+    "sustenance": "飽食 50/255 · 負重 0/240（原服刻度）",
+    "teleport": {
+      "actionLocked": false,
+      "generation": 65,
+      "marker": null,
+      "notice": "已收到原服角色位置並載入地圖。",
+      "paralysis": "",
+      "pending": false,
+      "portal": null,
+      "state": "arrived"
+    },
+    "basicSupplyNotice": "",
+    "inventory": {
+      "available": false,
+      "busy": false,
+      "epoch": 65,
+      "items": [
+        {
+          "action": "單次使用",
+          "count": 22,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/80.png",
+          "id": 10322,
+          "name": "治癒藥水",
+          "selected": false,
+          "state": "可單次使用；滿血仍會消耗",
+          "usable": true
+        },
+        {
+          "action": "穿上",
+          "count": 1,
+          "droppable": false,
+          "equipped": false,
+          "icon": "https://p08.example/icons/35.png",
+          "id": 10353,
+          "name": "+0 匕首",
+          "selected": false,
+          "state": "未裝備；可單次穿上",
+          "usable": true
+        },
+        {
+          "action": "卸下",
+          "count": 1,
+          "droppable": false,
+          "equipped": true,
+          "icon": "https://p08.example/icons/97.png",
+          "id": 10354,
+          "name": "+0 小盾牌 (使用中)",
+          "selected": false,
+          "state": "已裝備；可單次卸下",
+          "usable": true
+        },
+        {
+          "action": "單次使用",
+          "count": 6,
+          "droppable": true,
+          "equipped": null,
+          "icon": "https://p08.example/icons/124.png",
+          "id": 10355,
+          "name": "肉",
+          "selected": false,
+          "state": "吃一個肉；飽食高時仍會消耗，數量與飽食以原服回報為準",
+          "usable": true
+        },
+        {
+          "action": "單次使用",
+          "count": 1,
+          "droppable": false,
+          "equipped": null,
+          "icon": null,
+          "id": 10371,
+          "name": "在線禮包",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "單次使用",
+          "count": 1,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/59.png",
+          "id": 10373,
+          "name": "旅館會議廳鑰匙(說話之島)",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "單次使用",
+          "count": 1,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/59.png",
+          "id": 10376,
+          "name": "旅館房間鑰匙(說話之島)",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "單次使用",
+          "count": 1,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/245.png",
+          "id": 10377,
+          "name": "藍寶石",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "單次使用",
+          "count": 53749,
+          "droppable": false,
+          "equipped": null,
+          "icon": "https://p08.example/icons/5.png",
+          "id": 1900249101,
+          "name": "金幣",
+          "selected": false,
+          "state": "此道具的使用尚未支援",
+          "usable": false
+        },
+        {
+          "action": "卸下",
+          "count": 1,
+          "droppable": false,
+          "equipped": true,
+          "icon": "https://p08.example/icons/2.png",
+          "id": 1900249103,
+          "name": "+0 長劍 (揮舞)",
+          "selected": false,
+          "state": "已裝備；可單次卸下",
+          "usable": true
+        },
+        {
+          "action": "卸下",
+          "count": 1,
+          "droppable": false,
+          "equipped": true,
+          "icon": "https://p08.example/icons/86.png",
+          "id": 1900249104,
+          "name": "+0 環甲 (使用中)",
+          "selected": false,
+          "state": "已裝備；可單次卸下",
+          "usable": true
+        }
+      ],
+      "message": "正義滿還是有低機率噴裝，請小心",
+      "notice": "原服背包已同步",
+      "revision": 307,
+      "selectedId": null,
+      "selectionRevision": 61
+    },
+    "threats": []
+  },
+  "peer": {
+    "state": "Cancelled",
+    "character": null,
+    "x": null,
+    "y": null,
+    "worldReady": false,
+    "map": null,
+    "sustenance": "等待原服飽食／負重",
+    "teleport": {
+      "actionLocked": true,
+      "generation": 8,
+      "marker": null,
+      "notice": "",
+      "paralysis": "",
+      "pending": false,
+      "portal": null,
+      "state": "idle"
+    },
+    "basicSupplyNotice": "",
+    "inventory": {
+      "available": false,
+      "busy": false,
+      "epoch": 8,
+      "items": [],
+      "message": null,
+      "notice": "等待原服背包",
+      "revision": 214,
+      "selectedId": null,
+      "selectionRevision": 17
+    },
+    "threats": []
+  },
+  "noNewGrant": true,
+  "newBlockers": [
+    "gfx0 weapon46 dagger appearance stops movement after normal relogin; evidence g04-dagger-relogin-unsupported-appearance.json; normal unequip recovers; isolated worker candidate underway",
+    "Gludin merchant gfx234 present but absent selectable targets; worker encountered-gludin-merchant-r1 underway"
+  ],
+  "currentResources": {
+    "main": {
+      "gold": 53689,
+      "red": 32,
+      "green": 0,
+      "home": 0,
+      "str": 20,
+      "bonus": 2
+    },
+    "peer": {
+      "gold": 4000,
+      "red": 3,
+      "green": 0,
+      "home": 0,
+      "learnedSkills": [
+        1
+      ],
+      "hp": 659,
+      "mp": 69,
+      "location": {
+        "map": 0,
+        "x": 32477,
+        "y": 32853
+      }
+    }
+  },
+  "safeState": "Both normal offline pending development; game/DB services preserved",
+  "clientsClosed": true,
+  "latestDb": "r20-final-live/r20-after-cave-offline.json"
+}

@@ -1,0 +1,80 @@
+{
+  "status": "prepared-after-baseline-only",
+  "actionsSuitePassed": false,
+  "mergeAuthorizedByThisArtifact": false,
+  "installationRequiresNewSupervisorDispatch": true,
+  "sourceCount": 177,
+  "candidateId": "ENGINE-SLOW-ACTIONS-IMPL-R1",
+  "files": [
+    {
+      "path": "_integration/r30/acceptance/baseline-151-result.json",
+      "size": 9646,
+      "sha256": "a93fb177e5af7154c1db856896032712dab99f230f85c1b54949dddd6692eb57"
+    },
+    {
+      "path": "_integration/r30/acceptance/candidate-result.json",
+      "size": 2662,
+      "sha256": "088d79724a14be605aadcff8b67d27da37e03fdc04001b533474d17670717104"
+    },
+    {
+      "path": "_integration/r30/acceptance/candidate-seal.json",
+      "size": 48212,
+      "sha256": "6f952b532750778320ef1b238051b4bc37bcbf92fe7d3e2391d207be11cea66f"
+    },
+    {
+      "path": "_integration/r30/acceptance/independent-review.json",
+      "size": 2258,
+      "sha256": "2d150a8c224956ecf85c08f19eb0c952977877cc1d1f2af7fdf11a8acf55fa91"
+    },
+    {
+      "path": "_integration/r30/acceptance/r30-input-contract.json",
+      "size": 1204,
+      "sha256": "bfd2c3a850654e579db05d7bb849478e693396d2fb5b775beda0936d9a1faf1f"
+    },
+    {
+      "path": "_integration/r30/acceptance/r30-integration-acceptance.json",
+      "size": 1939,
+      "sha256": "b90bc049aebb14c5ba1cf7d228b902227f1da2589d394617b112b8e2bab1ac50"
+    },
+    {
+      "path": "_integration/r30/acceptance/source-manifest.json",
+      "size": 43022,
+      "sha256": "bfdf2b3d50822f9cd31aa84d26d1cba670386f1e26c749166bf5f465e9c197b2"
+    },
+    {
+      "path": "_integration/r30/launcher-source/Launcher.csproj",
+      "size": 412,
+      "sha256": "59a5f22c8ced415eb3d9a36d5f356b52766956a3ae66597e29214a53280e62ee"
+    },
+    {
+      "path": "_integration/r30/launcher-source/Program.cs",
+      "size": 8488,
+      "sha256": "53d9dfcff49951f784e27b1c528b9e36f699ec870b5fc42bcda794e1a44d8a46"
+    },
+    {
+      "path": "_integration/r30/product-build.ps1",
+      "size": 2088,
+      "sha256": "fa230b708b1f594c29549b376dc658109a6ed358f22fa657858f0c39a8ee33a8"
+    },
+    {
+      "path": "_integration/r30/rebuild-lock.json",
+      "size": 32204,
+      "sha256": "f340bb565470475f827ba61d61424712277cc4558eab2ade9a78d213523ac26a"
+    },
+    {
+      "path": "_integration/r30/rebuild.py",
+      "size": 8449,
+      "sha256": "5ae10cda9034c61b4b071a448dea6f8edb4ebb6708e86b5a1ddfb81657ffc532"
+    },
+    {
+      "path": "build-product.ps1",
+      "size": 189,
+      "sha256": "3795aa7cf22ca896675c6684ba880a21e675405e466fbc0c362e38e724a7d4a9"
+    },
+    {
+      "path": "launch-product.ps1",
+      "size": 2781,
+      "sha256": "fd1b964775200018c9b16b43cba3097235be08625caf1c6c5898f17f97dd39af"
+    }
+  ]
+}

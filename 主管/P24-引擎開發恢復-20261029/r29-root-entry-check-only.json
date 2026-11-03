@@ -1,0 +1,28 @@
+{
+  "status": "checked-only",
+  "revision": "r29",
+  "executable": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\releases\\r29\\build\\client-product-r29\\P11.ClientEngine.exe",
+  "workingDirectory": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\releases\\r29",
+  "arguments": [
+    "--normal-product"
+  ],
+  "manifest": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\releases\\r29\\build\\product-r29-manifest.json",
+  "manifestSha256": "01e5dfd1f8a310749c0e6daa60b7e6aa2df69b7e4c4009c3902ff6abd6861bb7",
+  "hashedRuntimeAndWebFiles": 46,
+  "assetFilesCheckedForPresenceAndSize": 13957,
+  "assetContentVerification": "Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.",
+  "runtime": {
+    "architecture": "x64",
+    "loadedCoreVersion": "10.0.8",
+    "loadedCoreDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\10.0.8\\",
+    "desktopVersion": "10.0.8",
+    "desktopDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.WindowsDesktop.App\\10.0.8"
+  },
+  "webView2Version": "156.0.4314.50",
+  "powerShellRequired": false,
+  "pathLookupUsed": false,
+  "autoLogin": false,
+  "uiStarted": false,
+  "networkStarted": false,
+  "servicesStarted": false
+}

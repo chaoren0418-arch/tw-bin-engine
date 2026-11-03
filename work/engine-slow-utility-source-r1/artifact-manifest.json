@@ -1,0 +1,474 @@
+{
+  "schema": "engine-source-qualification-seal-v1",
+  "task": "ENGINE-SLOW-UTILITY-SOURCE-R1",
+  "status": "sealed-source-report-not-product-candidate",
+  "files": [
+    {
+      "path": "HANDOFF.md",
+      "size": 6342,
+      "sha256": "5938e3ec83cc2b54c6e00356fffadefbdbc1e0da4042491b5a83707c7cb2e212"
+    },
+    {
+      "path": "NuGet.Config",
+      "size": 107,
+      "sha256": "08906007303c842313bc6ae638882cb53c4009a74bc83bb65b7f642b5fdd43b6"
+    },
+    {
+      "path": "collect.py",
+      "size": 3886,
+      "sha256": "fb82ad026a3aa2c499ae8f31e517f862d10c4acad44ab6c33881449eb33743da"
+    },
+    {
+      "path": "collection.json",
+      "size": 77158,
+      "sha256": "adc687e0907d7ba5fa3f73668c2440a49c4b8bf444283af0ef58563e9c9ad000"
+    },
+    {
+      "path": "extra_sources.py",
+      "size": 1754,
+      "sha256": "6cae3923a0b49f8eed66509885248c10dceb0f6e0d14dc3ffb575dc375c7e0e4"
+    },
+    {
+      "path": "package.py",
+      "size": 25378,
+      "sha256": "82c9815b2078e51f23cdf8929e95ce9617eb92b1ea993e1892063b9c73a3f13d"
+    },
+    {
+      "path": "probe_setup.py",
+      "size": 4958,
+      "sha256": "1639381d2440b59dd6872046c303f4b78c6a3c0d15a7a8f9890e22a2f63b8fa0"
+    },
+    {
+      "path": "proof-index.json",
+      "size": 13315,
+      "sha256": "30317385cfa28d49c55fe67a9ae60968fe814bfa6f5744d7e21c350b11360473"
+    },
+    {
+      "path": "result.json",
+      "size": 1033,
+      "sha256": "502e83abce8698baeaae8fd2c7a6141dc5588426e8304b35e0d302b49095e58a"
+    },
+    {
+      "path": "source-contract.json",
+      "size": 21240,
+      "sha256": "85385401cdf40ef31ad966577da8527ed30ad1dae37b19eea6c8267fc138e0fc"
+    },
+    {
+      "path": "source-pins.json",
+      "size": 83927,
+      "sha256": "98769adefc19e0dd9cfd543c18da40406ac6b425d52168cf4c4a8cfb3283fe99"
+    },
+    {
+      "path": "build/probe/Checks.deps.json",
+      "size": 1905,
+      "sha256": "a6d32469263b47a7bbe75dc1ea8ef4342581db6651526ce40f0f2852bcfc4c2e"
+    },
+    {
+      "path": "build/probe/Checks.dll",
+      "size": 21504,
+      "sha256": "adcca8c770bda6ff406ae7ca0adc92b9ecfaf73e4e2a72f2c30ec3af0b53557f"
+    },
+    {
+      "path": "build/probe/Checks.exe",
+      "size": 162304,
+      "sha256": "af39e5a684de87e4c37dab5bc0a35b82c10ca808890b6776d60abffe1ec9ed2f"
+    },
+    {
+      "path": "build/probe/Checks.pdb",
+      "size": 14936,
+      "sha256": "e39af5c1c61292e8559f5ecd868af027f60e497073a3923816e7159aaea79e40"
+    },
+    {
+      "path": "build/probe/Checks.runtimeconfig.json",
+      "size": 519,
+      "sha256": "96bc2946dff8790400d652ec7f8de7bb043e954980d59470c112788b68a1fbd3"
+    },
+    {
+      "path": "build/probe/Microsoft.Web.WebView2.Core.dll",
+      "size": 698208,
+      "sha256": "d60e6e94245078cb56e44ebd5f360dc04bf18e460136be93bfc4cfca43b98505"
+    },
+    {
+      "path": "build/probe/Microsoft.Web.WebView2.Core.xml",
+      "size": 612031,
+      "sha256": "8684cd74000c77533e563785208308ada63808da85825206856cab11a9eeffce"
+    },
+    {
+      "path": "build/probe/Microsoft.Web.WebView2.WinForms.dll",
+      "size": 39264,
+      "sha256": "84b5772260dbdfe95591197edc9315dcd2cc86ad610e4b14ddd5e4291e31a381"
+    },
+    {
+      "path": "build/probe/Microsoft.Web.WebView2.WinForms.xml",
+      "size": 41869,
+      "sha256": "6a8ec199373824fdebceda7b3d780d0b31c82edceae04d92391027c971dea6c2"
+    },
+    {
+      "path": "build/probe/P11.ClientEngine.dll",
+      "size": 2175488,
+      "sha256": "1abc1eed02917d14fd775be60920fe74efb9b102bc53eea5874fc0128e5247ef"
+    },
+    {
+      "path": "build/probe/P11.ClientEngine.pdb",
+      "size": 351340,
+      "sha256": "7fce91aa2c78fc1027395026dd72e61c7bfc256e2aee32c35e5ebb650f2e02f1"
+    },
+    {
+      "path": "build/probe/P24.Audio.dll",
+      "size": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    },
+    {
+      "path": "build/probe/P24.Audio.pdb",
+      "size": 20720,
+      "sha256": "91ac164c2f1ac104fb774501cae1988d24bd3ee2113ba99ff95930e6866811ed"
+    },
+    {
+      "path": "classes/ActionCodes.class",
+      "size": 3698,
+      "sha256": "ce256e727eafc891cee87de9988b1312dde06f15f12f2d7ba91d9683b67cf69d"
+    },
+    {
+      "path": "classes/ActionCodes.constants.txt",
+      "size": 4411,
+      "sha256": "673f896b76a7304529c6bcd07c1b22c348f9b19b94bba465469e6f8f075067b2"
+    },
+    {
+      "path": "classes/ActionCodes.javap.txt",
+      "size": 4299,
+      "sha256": "92ed65819abd99d2cee18108e35e9bfebd02aa3c18e24f102944f21a98d65991"
+    },
+    {
+      "path": "classes/C_DropItem.class",
+      "size": 6217,
+      "sha256": "5b097f52ad2f3b7f6836ceb4124208adc8d9f4c8ddf172c658456f5629225319"
+    },
+    {
+      "path": "classes/C_DropItem.javap.txt",
+      "size": 17729,
+      "sha256": "8c78438899529764d80de2bc5ddece305a2b3c5f04486b7b02ec999f18e36b78"
+    },
+    {
+      "path": "classes/C_ItemUSe.class",
+      "size": 28075,
+      "sha256": "32dea956650ff787697f465f52309ae4653b083281b279cfdb3dd5dcebf0fc6a"
+    },
+    {
+      "path": "classes/C_ItemUSe.javap.txt",
+      "size": 161778,
+      "sha256": "e9262db38e932e458ccdee33006720f3660640acf95cc944669fd41793b4ac19"
+    },
+    {
+      "path": "classes/C_NPCTalk.class",
+      "size": 5385,
+      "sha256": "1786ac226467151513e5a51ea8629bcfbb3f6c4c80c8c108384766231c94d4a4"
+    },
+    {
+      "path": "classes/C_NPCTalk.javap.txt",
+      "size": 11874,
+      "sha256": "91d47c52ac6fe22b9d358085abe68ff87fe42b8e604e227ce42a87521549d449"
+    },
+    {
+      "path": "classes/C_PickUpItem.class",
+      "size": 9954,
+      "sha256": "721b3f27cd3be1bbe1ac9f5c1646946af7a53b6dcbff2d759ceb9081ff8c45a5"
+    },
+    {
+      "path": "classes/C_PickUpItem.javap.txt",
+      "size": 33696,
+      "sha256": "5150be1fe5149636a91707fb823562b968c86a7ee1ec2655090a696b6455c0ba"
+    },
+    {
+      "path": "classes/ClientPacketStructure.class",
+      "size": 6155,
+      "sha256": "f9235526701216be001bea37247f3a0bb55e868a1139c6db4c7e32e38fa85aa7"
+    },
+    {
+      "path": "classes/ClientPacketStructure.javap.txt",
+      "size": 33847,
+      "sha256": "efe9b68b06db07a8e70d7e4840c5f8c9adf41a9b050667d4ad8e625bf3a40775"
+    },
+    {
+      "path": "classes/Food1.class",
+      "size": 1930,
+      "sha256": "c14ba7e33b66df901cf5894469753a45e3014bbbcdac23e1e535393ad4980a35"
+    },
+    {
+      "path": "classes/Food1.javap.txt",
+      "size": 4238,
+      "sha256": "d937dcc3aac3a40c8fc0020633f5e827a59ca4e8d5308d8c96c3a5b6431614c6"
+    },
+    {
+      "path": "classes/GoHome_Reel.class",
+      "size": 2245,
+      "sha256": "bab4e48e1c0f6321e7a3a655c4f135cfb0c93f35eb0385282cf439cdff273530"
+    },
+    {
+      "path": "classes/GoHome_Reel.javap.txt",
+      "size": 4697,
+      "sha256": "1bae50219b1e8b3d72229df3b11115a9b02c3c81a158bb8f7dbd5caa23b86227"
+    },
+    {
+      "path": "classes/ItemClass.class",
+      "size": 6264,
+      "sha256": "cf8b2defc7698d560a38e7c15d114c130daf67e4bf727c6b5f4b929ccad935b6"
+    },
+    {
+      "path": "classes/ItemClass.javap.txt",
+      "size": 17326,
+      "sha256": "0e3483c438b5fea75039fa1899317fb3f21821eea48b182af2c9e916ef79c8e8"
+    },
+    {
+      "path": "classes/L1BuffUtil.class",
+      "size": 6934,
+      "sha256": "a834b7ea528211de92c51672862057403ae4e8cb2c1fa2ad70a4b9854e477304"
+    },
+    {
+      "path": "classes/L1BuffUtil.javap.txt",
+      "size": 32246,
+      "sha256": "c1d1e773a4e8d67316b6e833a9b35a34e73c3fe52ca81bada2193e276760878a"
+    },
+    {
+      "path": "classes/L1EquipmentSlot.class",
+      "size": 18742,
+      "sha256": "021c7158809cbab680a63049828d46789a736d8871f9809787ec967872cae189"
+    },
+    {
+      "path": "classes/L1EquipmentSlot.javap.txt",
+      "size": 104456,
+      "sha256": "df0af58c8e2448b10ddfbea240c15132b54d06f1c5f6d53394ba699bdc8feca5"
+    },
+    {
+      "path": "classes/L1ItemDelay.class",
+      "size": 9556,
+      "sha256": "d76ee297cbf4308716886fbf791effdbdf1cd1593bf6e87dd6a85a8f4484de37"
+    },
+    {
+      "path": "classes/L1ItemDelay.javap.txt",
+      "size": 35298,
+      "sha256": "243cd3cb595895e49c20d0968cc51d86a1cc025c2f24ad0e9ce04ce259a7f0c0"
+    },
+    {
+      "path": "classes/L1PcInventory.class",
+      "size": 116413,
+      "sha256": "a869c2760971d82898db4904562083ff6b5b61913efd55be2b5f6679e8b2209f"
+    },
+    {
+      "path": "classes/L1PcInventory.javap.txt",
+      "size": 607567,
+      "sha256": "4475217809e1246d0caf820ceea0ffad797327b69efe5c992e53a8da4e732c8c"
+    },
+    {
+      "path": "classes/OpcodesClient.class",
+      "size": 5144,
+      "sha256": "6d1b160c0b381a56d7897c678a1f8bb5029ebb13417b052401092058aba5be5c"
+    },
+    {
+      "path": "classes/OpcodesClient.constants.txt",
+      "size": 5905,
+      "sha256": "9aa3989f564762590e8b2057ca8342f0b4743f4cabd30a782211629428900bbe"
+    },
+    {
+      "path": "classes/OpcodesClient.javap.txt",
+      "size": 7386,
+      "sha256": "ee69bc31dc4d6f1716bae3d8c27528d3a4bc23a1584dc1f7ea602e4713e87ca7"
+    },
+    {
+      "path": "classes/PlayerActionLock.class",
+      "size": 3611,
+      "sha256": "dc702e360710ce0d56d48640c6c86efdc3a96274ca6095adff2f885fe500278c"
+    },
+    {
+      "path": "classes/PlayerActionLock.javap.txt",
+      "size": 12157,
+      "sha256": "90f4a467d5ef1a34ac42bf70c78a731e25a31ea6b8d02e10fc9a7de7d7d302e0"
+    },
+    {
+      "path": "classes/S_SkillHaste.class",
+      "size": 1014,
+      "sha256": "65d33e67194b603f22f323782566475ca33b2534d4659fc54891de6a84df5003"
+    },
+    {
+      "path": "classes/S_SkillHaste.javap.txt",
+      "size": 1769,
+      "sha256": "90ddea96280d79d50d59a658159f1398048b59e8b3c214631d843f189de758e1"
+    },
+    {
+      "path": "classes/S_SkillSound.class",
+      "size": 1263,
+      "sha256": "58cbc861e1a6a29122d263cc0f7ffe4706a3f9d73baeb7fdd8b8c3db20e928d7"
+    },
+    {
+      "path": "classes/S_SkillSound.javap.txt",
+      "size": 2722,
+      "sha256": "988ff89ee680418dc2086976c433a684708cc4ab183309d5e960f548cf73b97d"
+    },
+    {
+      "path": "classes/StatusHaste.class",
+      "size": 5541,
+      "sha256": "41cba6e0aac35b49d1337eb03f8f55c86744d90c6185ae10c706051a46aab62f"
+    },
+    {
+      "path": "classes/StatusHaste.javap.txt",
+      "size": 17984,
+      "sha256": "9b51c8820c5aac6571af0b7cbe2381f9bbf8ee2dea23d17cc417994bea8858df"
+    },
+    {
+      "path": "classes/UserAddHp.class",
+      "size": 5191,
+      "sha256": "ddb86ef10d6ede395eb8a93165760d454888bf178ab5a76f1afa78b466167cf6"
+    },
+    {
+      "path": "classes/UserAddHp.javap.txt",
+      "size": 15747,
+      "sha256": "d2ba7dcdd1fd2bc29b9742c2543cefb94faf124bc4ca49317cb16f48de91bb2e"
+    },
+    {
+      "path": "classes/WorldInteractionGuard.class",
+      "size": 5315,
+      "sha256": "53c73aa47857d46a5c69a97cbb9e81ef350b91f7169ea5daf090b3803cf99f71"
+    },
+    {
+      "path": "classes/WorldInteractionGuard.javap.txt",
+      "size": 15573,
+      "sha256": "15f78717d7d3b5515e4f0d59a29e259a8615ddcfdcc4287ba66399d4018f3419"
+    },
+    {
+      "path": "engine-readback/ActionCadence.cs",
+      "size": 6520,
+      "sha256": "b9039d457c1e2d65825285f78b19bceadb880c33750576cb39c8219957fab183"
+    },
+    {
+      "path": "engine-readback/BasicSupplies.cs",
+      "size": 3547,
+      "sha256": "5311b9c03f0624f5425946f4f4615ebf1456141c82b73a5096e1d85794f2a201"
+    },
+    {
+      "path": "engine-readback/Combat.cs",
+      "size": 12144,
+      "sha256": "e72969b87dc4be034631b8fd6068798d6def15af87c2bcd6147650ebea44dd3a"
+    },
+    {
+      "path": "engine-readback/Equipment.cs",
+      "size": 5373,
+      "sha256": "54886622111435489a1bc1c36bcfafefa91278dd7b9ba3e2a352563cd8ab3c65"
+    },
+    {
+      "path": "engine-readback/Ground.cs",
+      "size": 8718,
+      "sha256": "d0a5e85ea18f2999b9e7d18cbe575019667170a68a48852f7f67766d7140da37"
+    },
+    {
+      "path": "engine-readback/Inventory.cs",
+      "size": 13441,
+      "sha256": "0870481a126087edc7f6e2d9b75259d7725cd719bf55c1c7b7d16eb70900abf6"
+    },
+    {
+      "path": "engine-readback/Magic.cs",
+      "size": 11027,
+      "sha256": "a5a3497d12ab516b30b705ba827cff3a9679976db1692f7ab137719c46426e58"
+    },
+    {
+      "path": "engine-readback/NormalHaste.cs",
+      "size": 3032,
+      "sha256": "9eb5d6bb5b63ef5a0bef2631c184420589bf30aa3149e146b08106f63e53a6ee"
+    },
+    {
+      "path": "engine-readback/NpcInteraction.cs",
+      "size": 12417,
+      "sha256": "482cd99aff9bc74be2a58dc6a14fe7d5de09b66cb08d06e25c6afa0891aa0505"
+    },
+    {
+      "path": "engine-readback/OnlineMovement.cs",
+      "size": 10477,
+      "sha256": "8b066e453caf0a85196797cb7a11b3f29019b126acc050b14816eba81abe33ba"
+    },
+    {
+      "path": "engine-readback/PlayerPointer.cs",
+      "size": 9105,
+      "sha256": "4214c71199b3db6a582e48049513028540b89fd7ad27e01b79c705590f8d07d8"
+    },
+    {
+      "path": "engine-readback/Teleport.cs",
+      "size": 4346,
+      "sha256": "be65b1ed0776e8fcef557115525945ea49c8b3080c74386f20044426f5344e37"
+    },
+    {
+      "path": "evidence/gate-probe.json",
+      "size": 1600,
+      "sha256": "b8650f3038224c7ef694e33d78a8f6573f1228c388f75f56790fb9da3b4597bf"
+    },
+    {
+      "path": "evidence/probe-build.command.json",
+      "size": 661,
+      "sha256": "1d34329a77fb6447a6c1ea820cd967ff2f1adc534221e4ca374544477caadc92"
+    },
+    {
+      "path": "evidence/probe-build.stderr.log",
+      "size": 499,
+      "sha256": "1654a1ccaae84d3a74dbfaeffc4e9abfab5a802456ae1c1bd1831e28ce3f93c3"
+    },
+    {
+      "path": "evidence/probe-build.stdout.log",
+      "size": 2382,
+      "sha256": "6a9e1904040dd0bacc33b2fb10cac650a295803bc2439293aed1dd1bf0add109"
+    },
+    {
+      "path": "evidence/probe.command.json",
+      "size": 274,
+      "sha256": "2f9baa542749f731f878bfd705ccffd01a2506d46338491a0de26c6794a24954"
+    },
+    {
+      "path": "evidence/probe.stderr.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/probe.stdout.log",
+      "size": 4,
+      "sha256": "0a6b5e02cbe592ef9285db1440db99874166326dff103608c6dfd5068ec714f5"
+    },
+    {
+      "path": "native/effects01.json",
+      "size": 359179,
+      "sha256": "63457730ec81398ef17790c55250c6f641485f5c4811bcfb81a53c57de75ec2e"
+    },
+    {
+      "path": "native/packet01.json",
+      "size": 3452643,
+      "sha256": "ed20e74fee45986bef320ea4beca1b1a8c4ff178adbcd026663c03104ed7d1a3"
+    },
+    {
+      "path": "native/speed01.json",
+      "size": 84748,
+      "sha256": "af3e82d6cf6df7f7823829e1ac3f8a95320109ef739082bcdbd97747d8ed3255"
+    },
+    {
+      "path": "probe/Checks.csproj",
+      "size": 364,
+      "sha256": "7026e4304eabab509113fc747e95bf9a071a2e5fc2a547414f90660933b9694e"
+    },
+    {
+      "path": "probe/Program.cs",
+      "size": 6344,
+      "sha256": "071a304c6d127f89a210ebc358cab3b7a6c76fdbb6ac72ee957d27ec18e2d021"
+    },
+    {
+      "path": "vendor/microsoft.web.webview2.1.0.4258.31.nupkg",
+      "size": 9801922,
+      "sha256": "56f7f4b8bf9aee4b8efefbbdd4f67d5f74ebd1b100ed0806da71bf76af481aa9"
+    }
+  ],
+  "excludedDirectories": [
+    "__pycache__",
+    "assets",
+    "bin",
+    "cli-home",
+    "nuget",
+    "obj",
+    "tmp"
+  ],
+  "excludedFiles": [
+    "artifact-manifest.json"
+  ]
+}

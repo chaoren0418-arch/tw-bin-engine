@@ -1,0 +1,30 @@
+{
+  "bytes": 2473547,
+  "sha256": "aff2e04d4f9395f7993baf5818eb16218730b7def0a29c7d07e86c314db513ba",
+  "counts": {
+    "profiles": 42,
+    "gfxGroups": 13,
+    "allProfileFrameReferences": 1344,
+    "additionalProfileFrameReferences": 1312,
+    "uniqueRequiredBodyFrames": 416,
+    "uniqueExistingBaseFrames": 104,
+    "uniquePickupFrames": 312,
+    "existingR34EmbeddedPickupFrames": 24,
+    "additionalEmbeddedPickupFrames": 288,
+    "newResourceGroups": 12
+  },
+  "structureSha256": "aff2e04d4f9395f7993baf5818eb16218730b7def0a29c7d07e86c314db513ba",
+  "written": false,
+  "recomputedFrom": "bounded text metadata + accepted decoded blocks + exact profile manifest",
+  "sourceIdentityCounts": {
+    "current-idx-and-bounded-slice-only": 312,
+    "historical-selected-payload-matched": 104
+  },
+  "shadowCoverage": {
+    "uniqueTerminalBaseHits": 104,
+    "uniquePickupBodyHits": 0,
+    "uniquePickupBodyMissing": 312,
+    "allProfileReferencesHits": 336,
+    "allProfileReferencesMissing": 1008
+  }
+}

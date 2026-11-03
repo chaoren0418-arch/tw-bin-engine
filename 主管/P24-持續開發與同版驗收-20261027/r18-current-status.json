@@ -1,0 +1,24 @@
+{
+  "status": "same-r18-live-in-progress-supply-and-peer-negative",
+  "revision": "r18",
+  "utc": "2026-10-27T01:01:55.130887+00:00",
+  "inputLock": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r18-final-lock\\version-lock.json",
+  "lockSha256": "6f9aa56e09eac3101ae5e368ac2b0f8ca3cbe23e37e3e8e214bd5d5e5dc430e7",
+  "manifestSha256": "52237810459172dd71d930c1ad91950a33d84741a1cbc24e267e1117ddf740e4",
+  "dllSha256": "5ca5b68cd683c6d54bc3d3f38ec1a4a1f4bac1d6c64c04c9da77790ad7f40f0c",
+  "supervisorAcceptance": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r18-independent-review\\acceptance.json",
+  "delivery": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r18-clean-delivery\\delivery",
+  "live": false,
+  "wholeP24Complete": false,
+  "liveProgress": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r18-live-progress.json",
+  "r18LiveProgress": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r18-live-progress.json",
+    "status": "r18-round-closed-incomplete-next-development",
+    "reconciliation": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r18-final-live\\closed-round-reconciliation.json",
+    "allRolesOffline": true,
+    "allClientsClosed": true,
+    "deathsAdded": 1,
+    "wholeP24Complete": false
+  },
+  "next": "Review basic-food-home-scroll-r1; then sole integration with accepted labels fix into isolated new version. Keep r18 separate; new version needs actual final flow. No repeat unsupported/high-risk attempts in r18."
+}

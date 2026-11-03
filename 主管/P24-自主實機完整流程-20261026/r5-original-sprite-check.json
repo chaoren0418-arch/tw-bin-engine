@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-26T10:45:12.834Z",
+  "method": "Independent original IDX record bytes and PAK entry SHA-256 reads, originals unmodified",
+  "sets": [
+    {
+      "file": "source-records.json",
+      "records": 64,
+      "bytes": 1395630,
+      "errors": []
+    },
+    {
+      "file": "monster-source-records.json",
+      "records": 107,
+      "bytes": 1257875,
+      "errors": []
+    }
+  ]
+}

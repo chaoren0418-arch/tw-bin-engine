@@ -1,0 +1,2267 @@
+{
+  "sdk": "10.0.300",
+  "targetFramework": "net10.0-windows",
+  "productAssembly": "P11.ClientEngine",
+  "projectReference": "../audio/P24.Audio.csproj",
+  "packageReference": "Microsoft.Web.WebView2/1.0.4258.31",
+  "files": [
+    {
+      "role": "configuration",
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\global.json",
+      "size": 56,
+      "sha256": "1c530f4c116bcf04e451cf0ca155fa18d73415c85145534a415f1eb4c39198b3"
+    },
+    {
+      "role": "configuration",
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\NuGet.Config",
+      "size": 155,
+      "sha256": "337ed22a5dd2b3a69d86fac14c3a86a05cf3ffc3d1d65e400850c747010b4f19"
+    },
+    {
+      "role": "offline-vendor",
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r34\\vendor\\microsoft.web.webview2.1.0.4258.31.nupkg",
+      "size": 9801922,
+      "sha256": "56f7f4b8bf9aee4b8efefbbdd4f67d5f74ebd1b100ed0806da71bf76af481aa9"
+    },
+    {
+      "role": "tool",
+      "path": "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "size": 104952,
+      "sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a"
+    },
+    {
+      "role": "tool",
+      "path": "C:\\Program Files\\dotnet\\dotnet.exe",
+      "size": 167208,
+      "sha256": "cbb1746f9b08dd9825129d451d99869e84e9024e62c804dede22c9fb61e0291d"
+    },
+    {
+      "role": "tool",
+      "path": "C:\\Program Files\\nodejs\\node.exe",
+      "size": 93381448,
+      "sha256": "5c976096e04e5c2c1f091938926234cc9fbebfe9787ddd149351b3b0ecc707b5"
+    },
+    {
+      "role": "sdk-compiler",
+      "path": "C:\\Program Files\\dotnet\\sdk\\10.0.300\\MSBuild.dll",
+      "size": 702288,
+      "sha256": "a480bd10b5a1308c147eb0b6330c4d1b78b1412aac65d9d16a8092207358f8d1"
+    },
+    {
+      "role": "sdk-compiler",
+      "path": "C:\\Program Files\\dotnet\\sdk\\10.0.300\\dotnet.dll",
+      "size": 3454760,
+      "sha256": "68a82092ec523d4da158e59679370e43ef474742fcdd53c18e8140d2971863f3"
+    },
+    {
+      "role": "sdk-compiler",
+      "path": "C:\\Program Files\\dotnet\\sdk\\10.0.300\\Roslyn\\bincore\\csc.dll",
+      "size": 145192,
+      "sha256": "5d03664b92a3c91bafb63466d1796d1aa863a5cbab3d6b79a30ba1b13d192cd2"
+    },
+    {
+      "role": "sdk-compiler",
+      "path": "C:\\Program Files\\dotnet\\sdk\\10.0.300\\Roslyn\\bincore\\Microsoft.CodeAnalysis.CSharp.dll",
+      "size": 19007272,
+      "sha256": "6a2c562412e0936082343c415ee72526303c4914cf8ae92750c6c561750a53ad"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\cs\\Microsoft.Interop.ComInterfaceGenerator.resources.dll",
+      "size": 79144,
+      "sha256": "5bb9c1b68ca121199a3f7afa3e673ec73e82cb57aa5af9d73b824ef1b7d758e0"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\cs\\Microsoft.Interop.LibraryImportGenerator.resources.dll",
+      "size": 79184,
+      "sha256": "241c5d69ee380d928e43c06af6f33e2dd4e0d91c7e74f2d492af196cc0b870ef"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\cs\\Microsoft.Interop.SourceGeneration.resources.dll",
+      "size": 79144,
+      "sha256": "56c97a3e980616e85db16b027ef68ea3bb114d40ee4accde6335f778ee240fa2"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\cs\\System.Text.Json.SourceGeneration.resources.dll",
+      "size": 21288,
+      "sha256": "3b5ec49eccbd6b7acb72a801ceb665b3b50304846f3378d5b16189303013f92f"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\cs\\System.Text.RegularExpressions.Generator.resources.dll",
+      "size": 21800,
+      "sha256": "9f188dabd73cc4eae3fc388719c9a172df1802eac0aa429497ad6771eef4713a"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\de\\Microsoft.Interop.ComInterfaceGenerator.resources.dll",
+      "size": 85328,
+      "sha256": "e1dbe7a1c60d694e796b7da0150f8b798133efe6576eb84e361c2cb63f962869"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\de\\Microsoft.Interop.LibraryImportGenerator.resources.dll",
+      "size": 85288,
+      "sha256": "0a234d8fba1a7d61bd9ca57b24e98dd422aeace5ea03ca816363f7d5674757ca"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\de\\Microsoft.Interop.SourceGeneration.resources.dll",
+      "size": 85288,
+      "sha256": "ef8f11a3ad1c006b1dc53af03a0adc3f57772b293452d172e7488115bc404579"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\de\\System.Text.Json.SourceGeneration.resources.dll",
+      "size": 21288,
+      "sha256": "71fe8a2d3aea735058548a2e66e3cdb6a5dd460a7f017950d17889d4ae24ef08"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\de\\System.Text.RegularExpressions.Generator.resources.dll",
+      "size": 21800,
+      "sha256": "fe3169e4c5c205cfda0b7c59eb6b2b8c70e414323979974269395dc5f3b039ab"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\es\\Microsoft.Interop.ComInterfaceGenerator.resources.dll",
+      "size": 82216,
+      "sha256": "e0ab8589b462adbd3d7fab249656ffba4104b7b19f63b930e081e5c959a7871a"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\es\\Microsoft.Interop.LibraryImportGenerator.resources.dll",
+      "size": 82256,
+      "sha256": "50ecc338e07be0f9ff5e16303b5858d12792be0436a549918751ad5e61218131"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\es\\Microsoft.Interop.SourceGeneration.resources.dll",
+      "size": 82216,
+      "sha256": "5edb8dd6dc0791032851ad78aeecad48e2ee590b1cd0e6a99464eccad6ed3290"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\es\\System.Text.Json.SourceGeneration.resources.dll",
+      "size": 21288,
+      "sha256": "f18e0939fffc80c18d1b601b6027e4ce69d64debac7785ec40457f4947ee9527"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\es\\System.Text.RegularExpressions.Generator.resources.dll",
+      "size": 21840,
+      "sha256": "20e027eab261a80cfc7d589fec530114a9ff6f0e2740a0cb5d58324dcb357dfb"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\fr\\Microsoft.Interop.ComInterfaceGenerator.resources.dll",
+      "size": 84264,
+      "sha256": "81d1f7f1feacb8f231d214c410893b53b5c64acb27853e8e4ce396e0ea80e13e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\fr\\Microsoft.Interop.LibraryImportGenerator.resources.dll",
+      "size": 84264,
+      "sha256": "0c5eab4c1d01bcbfea0a5aa12665716eca7c445afb05a6609180ba59424f8b92"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\fr\\Microsoft.Interop.SourceGeneration.resources.dll",
+      "size": 84264,
+      "sha256": "9b9e34e59c0f77581e47e0d706eba78261c2a47a77989942eb7e1aea5e16de54"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\fr\\System.Text.Json.SourceGeneration.resources.dll",
+      "size": 21800,
+      "sha256": "61659ccad4e35c57540300ee8a130a927426d78a82e397da72ba53e10343139d"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\fr\\System.Text.RegularExpressions.Generator.resources.dll",
+      "size": 22352,
+      "sha256": "c16e1323dc9b13ac4dd3114699f05559b66a6a16c28f2acbd9d9da11e45a61d7"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\it\\Microsoft.Interop.ComInterfaceGenerator.resources.dll",
+      "size": 81704,
+      "sha256": "83e0ad7743621b88e22c3793fe0a9de95a0ea20f3318cce94b288755db9dd827"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\it\\Microsoft.Interop.LibraryImportGenerator.resources.dll",
+      "size": 81704,
+      "sha256": "ab6f165ef375e69fe91513d7c40fa9be3c839c645afcb0d5d2edae70202e6011"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\it\\Microsoft.Interop.SourceGeneration.resources.dll",
+      "size": 81704,
+      "sha256": "a02d25da892b15bd9e8f054be5e10588d24dfdcec02f8c2700950a6c33381d26"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\it\\System.Text.Json.SourceGeneration.resources.dll",
+      "size": 21328,
+      "sha256": "9c4d81627900a7ca6f8c8bf1518816fbe09655d0ca0ef53a182d943bfb72a578"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\it\\System.Text.RegularExpressions.Generator.resources.dll",
+      "size": 21800,
+      "sha256": "18a0aa71a6dd424db098436f644be348f9d021f727f13e8ee52640d17b58b43b"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ja\\Microsoft.Interop.ComInterfaceGenerator.resources.dll",
+      "size": 91472,
+      "sha256": "5c31657d3ec137c1abbef4f1675a68a497753da84f771cd672540af9417a8528"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ja\\Microsoft.Interop.LibraryImportGenerator.resources.dll",
+      "size": 91432,
+      "sha256": "b2164b45da96130f7fa42dddbe48fb5efc9a7cf65a2a3f81076d832e8e16a38c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ja\\Microsoft.Interop.SourceGeneration.resources.dll",
+      "size": 91432,
+      "sha256": "497e2ac7300666d4bf2a9014bdf9b407f2086905302e0ad278f2cffff2dc48ec"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ja\\System.Text.Json.SourceGeneration.resources.dll",
+      "size": 22352,
+      "sha256": "c4e23e4dcb82c6a007eb31277e940f29b0000ecef0ece91ed36ccc58659d3292"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ja\\System.Text.RegularExpressions.Generator.resources.dll",
+      "size": 22824,
+      "sha256": "1a6905eed9d174a6cd77c41fbda7ef250e391cb7f1a29dad5ee3301fd078c15c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ko\\Microsoft.Interop.ComInterfaceGenerator.resources.dll",
+      "size": 83240,
+      "sha256": "54634552009234f35d06fbb35f2bcb7a080e197323bb0bd9cf904991a27b97e6"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ko\\Microsoft.Interop.LibraryImportGenerator.resources.dll",
+      "size": 83240,
+      "sha256": "29536d868aae6b1f6c1e282f67dbc9d694263d481ccb065500a4217c553b414a"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ko\\Microsoft.Interop.SourceGeneration.resources.dll",
+      "size": 83240,
+      "sha256": "95fd7a704bfae49626d89996ef30bde2b41726f681a8404da3d417d74565c886"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ko\\System.Text.Json.SourceGeneration.resources.dll",
+      "size": 21840,
+      "sha256": "22fb8e96c81e13b3bab82fcd9f1f2417d685da6065a8fc6ffe1846d1fc527066"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ko\\System.Text.RegularExpressions.Generator.resources.dll",
+      "size": 21800,
+      "sha256": "b830734d58b87d48d1edff76b2da48f99db17392f786965c3a3d750b4fdb0185"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\Microsoft.Interop.ComInterfaceGenerator.dll",
+      "size": 327976,
+      "sha256": "68a137ec4258cd6e8197c070463a0d2b20ede970c191c470398f24febe9198eb"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\Microsoft.Interop.JavaScript.JSImportGenerator.dll",
+      "size": 136528,
+      "sha256": "c15d55911c8fde88f55a681280b38007a25f74e8024967158b07d8c720d199e2"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\Microsoft.Interop.LibraryImportGenerator.dll",
+      "size": 261928,
+      "sha256": "d360a6970cd0ae30474c976bfef5230d2cbfc9782fcb44f3670205294f3742e6"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\Microsoft.Interop.SourceGeneration.dll",
+      "size": 462672,
+      "sha256": "e6c60e251d52fd182fa548d1174c35317d42c4eed4452490456503c711225132"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\pl\\Microsoft.Interop.ComInterfaceGenerator.resources.dll",
+      "size": 85288,
+      "sha256": "8e7ccf4637fe55238ca06e094106686e91cf16ed0ffe7bd6b0d6390d213c7d51"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\pl\\Microsoft.Interop.LibraryImportGenerator.resources.dll",
+      "size": 85288,
+      "sha256": "85647dfda73850c72cc3d9fc81b6acfbe3b5bf2736a34de20e8e1067a6496b1f"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\pl\\Microsoft.Interop.SourceGeneration.resources.dll",
+      "size": 85328,
+      "sha256": "91235432834ef039b9b18dddfd0a97d00b849f0f044d67790cfa908f9838201a"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\pl\\System.Text.Json.SourceGeneration.resources.dll",
+      "size": 21800,
+      "sha256": "f84b53b51352b44eac93e1f47d4af9aa0e22881aa883814b7c9b2343c5d8a1cd"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\pl\\System.Text.RegularExpressions.Generator.resources.dll",
+      "size": 21800,
+      "sha256": "f012afaa4e9d2e2c275aacd226bd7d29db9d05b9cc6c59a99bd66105ed05b5fb"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\pt-BR\\Microsoft.Interop.ComInterfaceGenerator.resources.dll",
+      "size": 80680,
+      "sha256": "d31799b390b778e1e8f250a9be8fb8fc22c0a7aef59ed699d8c3c27f051d0bca"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\pt-BR\\Microsoft.Interop.LibraryImportGenerator.resources.dll",
+      "size": 80720,
+      "sha256": "b015b6c64184fdfb9fea619f74c7ea6cb70c7cd5be1a892362a3c22ca8746cc1"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\pt-BR\\Microsoft.Interop.SourceGeneration.resources.dll",
+      "size": 80680,
+      "sha256": "f0521c405d8f49d3379b35426bf5a19acf3c4e925de1b660d2284dc8ab63b2aa"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\pt-BR\\System.Text.Json.SourceGeneration.resources.dll",
+      "size": 21288,
+      "sha256": "666a48a2476a9efd593e097876df416aa5b58552f700c17807dad763951a5315"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\pt-BR\\System.Text.RegularExpressions.Generator.resources.dll",
+      "size": 21840,
+      "sha256": "3a7b930a70a2a63ecb52c675a30040cd8804a2507c9290de8633d1aaaafa2093"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ru\\Microsoft.Interop.ComInterfaceGenerator.resources.dll",
+      "size": 104232,
+      "sha256": "33b044429791e9612e4ed428d0ad82a4db3ff679511e18cf73d5a411e44517c0"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ru\\Microsoft.Interop.LibraryImportGenerator.resources.dll",
+      "size": 104232,
+      "sha256": "f17789c55809ae336382a1a1259a5cd9d6c2d67329444fe5d139ca0c61c30b4b"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ru\\Microsoft.Interop.SourceGeneration.resources.dll",
+      "size": 104232,
+      "sha256": "55eea72c51e12b8ff0e5550d3e3f497490e8cc4e18a8aae1395ac103ae0a7385"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ru\\System.Text.Json.SourceGeneration.resources.dll",
+      "size": 23336,
+      "sha256": "4693ffaec61f5ee85eded8daf10c0f1201f0c1fb8deea55e4013ae27a28f15d5"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ru\\System.Text.RegularExpressions.Generator.resources.dll",
+      "size": 24400,
+      "sha256": "053182b3af2e70daa13eaebb7129133aff857937d5affe3a54ff16cf1a0f983d"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\System.Text.Json.SourceGeneration.dll",
+      "size": 203048,
+      "sha256": "c8da4f7e670545606d120a3d218f1d8acfd63664096f3405a6bb6b86dae5e726"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\System.Text.RegularExpressions.Generator.dll",
+      "size": 371536,
+      "sha256": "d53f37da08adc4a56591a7c940430c1eae2ad498799fdebd9fe40cad49dad0b5"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\tr\\Microsoft.Interop.ComInterfaceGenerator.resources.dll",
+      "size": 81192,
+      "sha256": "7131bae32f71d1c4d713b3a173e6c74f830d3f0110dd064762a3a98eb7bc61c6"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\tr\\Microsoft.Interop.LibraryImportGenerator.resources.dll",
+      "size": 81192,
+      "sha256": "1e42b2fe8bd956738114c6f969983aa2789639fb65ece76a1f7fe02cd647341b"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\tr\\Microsoft.Interop.SourceGeneration.resources.dll",
+      "size": 81232,
+      "sha256": "088631d8faa0e050d32c92ce9977f7af6f7ac993c79d65b30b44dc3025590d21"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\tr\\System.Text.Json.SourceGeneration.resources.dll",
+      "size": 21288,
+      "sha256": "53423041c4211b331a8878acca6d0985bb16475f7a82cfeba00c5a50a24cef8b"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\tr\\System.Text.RegularExpressions.Generator.resources.dll",
+      "size": 21800,
+      "sha256": "d2de9abdf841bf93fea596a5ba8c372d4c0c548437190f2a5b95751bcc7d05fb"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\zh-Hans\\Microsoft.Interop.ComInterfaceGenerator.resources.dll",
+      "size": 74024,
+      "sha256": "73cc06c007eb75a74768ff6aeacbc2a734b223d61fef5acd2a409dbf9341da19"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\zh-Hans\\Microsoft.Interop.LibraryImportGenerator.resources.dll",
+      "size": 74024,
+      "sha256": "8dbfc7b4f9cbaed32370ca60ef46faa7b97790fccc74e187f955a9bcf4281a4e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\zh-Hans\\Microsoft.Interop.SourceGeneration.resources.dll",
+      "size": 74024,
+      "sha256": "bb456101f75a1dc1b0729f5dfdaeec9ca840e857d17f15c7808fe54a7e6e1fff"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\zh-Hans\\System.Text.Json.SourceGeneration.resources.dll",
+      "size": 20816,
+      "sha256": "e9775b7531d3fff87d9d5484ef33dd3f4527c13448cf4c542563e32e93be9fe1"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\zh-Hans\\System.Text.RegularExpressions.Generator.resources.dll",
+      "size": 20776,
+      "sha256": "01d769418d02b82b8f4eb82a2e91216f876118be32a0750b41a9e598c68f5913"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\zh-Hant\\Microsoft.Interop.ComInterfaceGenerator.resources.dll",
+      "size": 73512,
+      "sha256": "0c8c6bc973e5bc05f8f3af5d7b0ca7369202a7602712fb323e038731f8a5e691"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\zh-Hant\\Microsoft.Interop.LibraryImportGenerator.resources.dll",
+      "size": 73512,
+      "sha256": "82a1d2cb74a95b135562536a92c94054e765fad5dfee06a1f47cad1119992fa0"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\zh-Hant\\Microsoft.Interop.SourceGeneration.resources.dll",
+      "size": 73512,
+      "sha256": "3046b4d71e159a031c3e515eecdfa43d519214b40d9a539759a64b0c90b13ec7"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\zh-Hant\\System.Text.Json.SourceGeneration.resources.dll",
+      "size": 20776,
+      "sha256": "86bf7a7b0b61eada416140867367400798931dccc9e2f2c5a6dc5b219594464a"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\zh-Hant\\System.Text.RegularExpressions.Generator.resources.dll",
+      "size": 20776,
+      "sha256": "46121b27090bc06d344e40eae2080e3144e30b29053c2d2d163c9302bdad9efe"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\data\\FrameworkList.xml",
+      "size": 36153,
+      "sha256": "3005d7c9f475c5e46e84779fe5c151f01d752642e73bdfd3734e2ff8dd45ff85"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\data\\PlatformManifest.txt",
+      "size": 29080,
+      "sha256": "dd7e1863daeb5bf93505520368280f5d460770092ee13175ab5ade5e2e80f196"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\Microsoft.CSharp.dll",
+      "size": 18216,
+      "sha256": "e9a6107348231690bdae72c4026de42d2647276a4f1ee9333fede917dd031555"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\Microsoft.VisualBasic.Core.dll",
+      "size": 59176,
+      "sha256": "82307c715d6c5f661087ca4315586f86aec7337bcf61e3f7590fc03d141a3978"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\Microsoft.VisualBasic.dll",
+      "size": 17192,
+      "sha256": "b9b07a4bed2a4c13d82ec2685b95efb39ed51ba1716a32e6a850118db20363b4"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\Microsoft.Win32.Primitives.dll",
+      "size": 16208,
+      "sha256": "3c741fd1026cbd9e115478c2df160a7855daca3a780515721ce8352cc0858822"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\Microsoft.Win32.Registry.dll",
+      "size": 21288,
+      "sha256": "15798c2abae91bfffa4ae5bd5a301853855d5badc64ca71bdfb19a19acea0606"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\mscorlib.dll",
+      "size": 55592,
+      "sha256": "aadcccb0fc4c483f00374304aa926d114dda13d48219fbee9f67b3c7c2f33e52"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\netstandard.dll",
+      "size": 100648,
+      "sha256": "787cd4eeb80fa35736ba5b81239a69394218ad1f18f7bb269a894e54627bb15e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.AppContext.dll",
+      "size": 15184,
+      "sha256": "3ff8cc89c242ebe9773b96a51d46f06effe36df50a8e7271c48d1e0bfeeafa7f"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Buffers.dll",
+      "size": 15144,
+      "sha256": "6ab53a88562813f9c91b9ae9a5a8cd118415d964283ee8c574a9c5332b58aa70"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Collections.Concurrent.dll",
+      "size": 27472,
+      "sha256": "4038a7ea11a5bc72cbe02a9c9816d3e85a87a1fe8bd6e55e9cbd7945216d3292"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Collections.dll",
+      "size": 55080,
+      "sha256": "75a70549f69ee82253591c0a4ff8b113cb6d2576c9b30d1967e3c2cd4c6768e1"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Collections.Immutable.dll",
+      "size": 75048,
+      "sha256": "a2c8ae8bbc000d5233890094c52ad9063b13dca74c53e242346baba65c2be6fe"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Collections.NonGeneric.dll",
+      "size": 22824,
+      "sha256": "e29f70ec7795dde0812f8ae030a8941cb61ef4cb478550b9355c366b175575bd"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Collections.Specialized.dll",
+      "size": 25936,
+      "sha256": "21818d56c7ccf021f4bc340b764e8130352bc487c44d79a76762a7fa3e142821"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.ComponentModel.Annotations.dll",
+      "size": 31528,
+      "sha256": "cf84e473d7a1558debda342494b26b12a56bdab7d23e82e97b6b8caa00e55416"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.ComponentModel.DataAnnotations.dll",
+      "size": 16720,
+      "sha256": "57ea524d2900837d1fb869a9a99a068b957c2a20f4800a3b5a2607736de0a999"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.ComponentModel.dll",
+      "size": 15656,
+      "sha256": "8c0d973489f3d8080fc4711abfce55e76691ef68e99ffeb1c9af99994f870d1c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.ComponentModel.EventBasedAsync.dll",
+      "size": 19240,
+      "sha256": "bb5f2b28593fe9a99f12852fe95f48768f02e21abe48ced48a2b5e2ada44f3f3"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.ComponentModel.Primitives.dll",
+      "size": 25936,
+      "sha256": "6bacb5addf088aa8cec0bdafc04c1a2e5a8805ed2e7cd3b1bafe5a08fa753b71"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.ComponentModel.TypeConverter.dll",
+      "size": 104744,
+      "sha256": "5ee97933068509e62335a74148985ca0326610e8c5843ce7cc91f6f4b49562a5"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Configuration.dll",
+      "size": 19240,
+      "sha256": "94939ce519e12e3dafd22b2bb0d4c4221fc15e4624ae2f298dcdd6e8122c5666"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Console.dll",
+      "size": 26408,
+      "sha256": "b4fe3cf096dd0853d245eb00942247f1469c9303e062aa84361128b9490d56f4"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Core.dll",
+      "size": 23336,
+      "sha256": "e234c673557467497aaa7ad8133b96b4e21ee9a284102bc8ec2909cbad873ccb"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Data.Common.dll",
+      "size": 154408,
+      "sha256": "48179d94a695d34f7c423c91087162613e429ff53a87e4fc3527c975bb1b93d4"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Data.DataSetExtensions.dll",
+      "size": 15656,
+      "sha256": "588674ddb3ee52eb6da7dffacfe68704cce4ba144ca87f3da45a8704fca2c1ec"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Data.dll",
+      "size": 23888,
+      "sha256": "6cf9961e80f70b23dd6948c4a752abccb62d6018829ad0bb78f630270ee4ce18"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Diagnostics.Contracts.dll",
+      "size": 19752,
+      "sha256": "967fb4dc9d9fc0326d212638924af10b0ff7a8fba3672bb57497317b5f5ba58c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Diagnostics.Debug.dll",
+      "size": 15696,
+      "sha256": "5b7d49214fe831d4f54c30937d223bf1a72c180f66ace8fab153f39e9f726bf3"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Diagnostics.DiagnosticSource.dll",
+      "size": 43304,
+      "sha256": "48c8fcef37310013be4e18ba605032a7bd737cbf23c9975b6078666a0f05ff3f"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Diagnostics.FileVersionInfo.dll",
+      "size": 16720,
+      "sha256": "a8ffa83b12a9c13b42091956d1b884e97b6ca834579e7d36c169424787600776"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Diagnostics.Process.dll",
+      "size": 31528,
+      "sha256": "05396e33873f67904ed6079440c387b1907c95f58b30292d790624f72123ba0c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Diagnostics.StackTrace.dll",
+      "size": 22864,
+      "sha256": "3ab44b7e20584c69e516fff8e7417f76b6736fa5abc1843f5b7f5d8434f6e620"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Diagnostics.TextWriterTraceListener.dll",
+      "size": 17704,
+      "sha256": "b7ea243115c57a2a2dfc2e3afb60f86b45f8a05ca53f500ef5b076228ba4e75b"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Diagnostics.Tools.dll",
+      "size": 15144,
+      "sha256": "03e8c75a562d1ce3d9bf264bb0928865130c3d9546a407fdb807c10471305c45"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Diagnostics.TraceSource.dll",
+      "size": 27944,
+      "sha256": "48febbb9bb3140362bf667666870d901466f9d63e25483ed7d37b90d87792b28"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Diagnostics.Tracing.dll",
+      "size": 28968,
+      "sha256": "0133239217eeb40e92a31a6b4546c6d94331ddf82be748b063faa5ba3707d5ff"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.dll",
+      "size": 49448,
+      "sha256": "54dcff0e9a5388b8b9174cb0d414f9740ef62fc47d0a18817d89e5d3e938cd2a"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Drawing.dll",
+      "size": 20264,
+      "sha256": "d15abf5d846d967fd99cdd7d1005acdb43948c2e6df3f8096ede99675fa16793"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Drawing.Primitives.dll",
+      "size": 35624,
+      "sha256": "640a4e6b99e243c3dd744b8b3cec3ab5e388066a92b335e25a641c287b07a66f"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Dynamic.Runtime.dll",
+      "size": 16168,
+      "sha256": "7be93822aa2e6883d2843dccff6efd1510106ec59b072f5f21a67963d24fd621"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Formats.Asn1.dll",
+      "size": 26408,
+      "sha256": "4d837c6cffcc303e0aeddb4a45e952eac403a884d7ab2fceb45b9177c0c1cbf0"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Formats.Tar.dll",
+      "size": 20304,
+      "sha256": "8ad94ed2db6cae152cccb8867144b2eb485ca72f3ed30bbc66dfb42168b1a261"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Globalization.Calendars.dll",
+      "size": 15656,
+      "sha256": "0641cb6b47c488c004055cc771f339e4e0330a815d8c1d84c3eafdec535526f0"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Globalization.dll",
+      "size": 15656,
+      "sha256": "f09c90fbd51e5f6978044c3dec9281dc79057251d748e2f7c0b6e6a3371f8308"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Globalization.Extensions.dll",
+      "size": 15144,
+      "sha256": "a6c7a0b50569c6e07c63b06840d6b8bbead11eabf98cf17038f8e3146c75633a"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.Compression.Brotli.dll",
+      "size": 18216,
+      "sha256": "0f007a9dd64af7099878194e3cac6878590be802b404d123772679e90721a8dd"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.Compression.dll",
+      "size": 21840,
+      "sha256": "7e844270ce8a525acf1d8c4fb55d2da8d30c21ff2c89b1ed84199ef1759c8ba9"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.Compression.FileSystem.dll",
+      "size": 15144,
+      "sha256": "f10a610d3f1e6f23711c63ae88b24f334d6fb0c960c45fd98eedf861a2807af6"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.Compression.ZipFile.dll",
+      "size": 18768,
+      "sha256": "5ebe2fe558a320be210100b89a0bc66666b94156a47c795b65fe27df90034fe8"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.dll",
+      "size": 15656,
+      "sha256": "010fe9ae5b7904e56b324fff5b0f6e2320eb92b6ce2b27c18a3ccc5309e06c44"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.FileSystem.AccessControl.dll",
+      "size": 20304,
+      "sha256": "dfba6695c0af57b8591200a15a7985fbc4f917f5c5c4fb3b9bb4b53fa0578f4b"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.FileSystem.dll",
+      "size": 15656,
+      "sha256": "18ea98a813d034756f08d64d8555561b4451bb9473269d7c85fbc7b89b57a0d2"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.FileSystem.DriveInfo.dll",
+      "size": 17192,
+      "sha256": "4ac6c09c8f3f3ef6a07eb0606b19b7468afecfbdcf54496129f299f328efe28c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.FileSystem.Primitives.dll",
+      "size": 15144,
+      "sha256": "8266261f5a2cca1f8d79d6d3457b9a7b7598ebe6336f1bfbeda1f37d8f9624dd"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.FileSystem.Watcher.dll",
+      "size": 20816,
+      "sha256": "c86fcb6ec60b401268d8616015ea242f70ef6eba5f7a0d0499531d09c8aeee48"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.IsolatedStorage.dll",
+      "size": 22312,
+      "sha256": "0860e0268da4db8cb4108115af707fd3ab7fb3feeebc3031a0e953cdad31f9db"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.MemoryMappedFiles.dll",
+      "size": 18256,
+      "sha256": "318513a58ae3435a8e0f4b72cf39482e33d92b2029bfd89faf125a42a89e8170"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.Pipelines.dll",
+      "size": 20304,
+      "sha256": "01d9baba81a62653114d2840c8242c92aff5b9e84ebca2cb86a500f1de679519"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.Pipes.AccessControl.dll",
+      "size": 18256,
+      "sha256": "2f7473ff09beff1c2f0f6e26f359eef906d3d7a7f9eefff96e7d99398749e2e1"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.Pipes.dll",
+      "size": 22312,
+      "sha256": "a5d3393efe4fb5d519056b2765eae4798cf7377914acc5eeddb4e8ff88da8806"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.UnmanagedMemoryStream.dll",
+      "size": 15696,
+      "sha256": "96be0dc8b69d59af8b606404a75d27a18fbaf18572d68ce714a300ba941b8471"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Linq.AsyncEnumerable.dll",
+      "size": 36136,
+      "sha256": "03e6a315ed0f47e3f74978fb7616dd8fc7089eb885b65f67e3872f218965105e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Linq.dll",
+      "size": 33616,
+      "sha256": "0b5d289a7c6b3f59a59c4c55653d5206cd16c0114739d790c5741cb378188e05"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Linq.Expressions.dll",
+      "size": 63272,
+      "sha256": "dacf0e4a50e28e54a6e07d7f79e7006458e0871b0315eb3361aab95c33cbb7c2"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Linq.Parallel.dll",
+      "size": 31016,
+      "sha256": "fa0aac1cac26a3407ef3871467deb2239afcd4a9755f2ece20d867c262f04d76"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Linq.Queryable.dll",
+      "size": 32040,
+      "sha256": "cdce54fd6d0f4370ccfc479052a3a5d07ac66c4087d5e297e3a99d6c86fab5f4"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Memory.dll",
+      "size": 57128,
+      "sha256": "c2e1f7fc21678c965da02e76345dcf1ca024151765802086f31015c6ec1ed343"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.dll",
+      "size": 17232,
+      "sha256": "3f7b6141619ed31caa7a27952aec6b77afd048e27a81c50bcc70a1b71557f287"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.Http.dll",
+      "size": 60200,
+      "sha256": "f5b49226f6541dd5475deb368fe7a888839f54bb5f252dbff781ef22781c6a5e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.Http.Json.dll",
+      "size": 23376,
+      "sha256": "87d1b10d5d4ccce867d6765ce164de79a5f7f1578e2ec0f05b95a0cf3f8129f9"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.HttpListener.dll",
+      "size": 25384,
+      "sha256": "8b0a742413c9da775f209f11676ef5ea3005e63c00dd89cf0a151b8665963beb"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.Mail.dll",
+      "size": 32080,
+      "sha256": "07535742647074948839792769ff8c9c4034fc8dcb54ba0582ca4874b75b0c22"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.NameResolution.dll",
+      "size": 17704,
+      "sha256": "b753ff3c838821764f583090a064e4508a091a117a1f5745b7ff21de1351eb7d"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.NetworkInformation.dll",
+      "size": 33616,
+      "sha256": "aa843922cb686df94e4a6fe84d13ad2167599bdeaf20e51d977a58f525ac98b0"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.Ping.dll",
+      "size": 20304,
+      "sha256": "f30ddb39558ce6c0322564c495116c949ea54cfed009b8a73cd57d89906fb65d"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.Primitives.dll",
+      "size": 37160,
+      "sha256": "04e9948bd63b972ee1179528b81c228779b11deb886abe02d01cc5dbfb8de173"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.Quic.dll",
+      "size": 23848,
+      "sha256": "d6eb4a4308fe57fecb2ce400af5bd93e9e6d032cf6cd8aa4042499e65d5b1f7e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.Requests.dll",
+      "size": 41256,
+      "sha256": "a49359af8eec1feed52437a278bdc232e79bd6bb676eec7e726532a05f4a6f08"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.Security.dll",
+      "size": 53544,
+      "sha256": "48f12d3a4822cbd5ddc58a2b6e6efd5b7558ee5eba2c02a8bd814e9d403bbedf"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.ServerSentEvents.dll",
+      "size": 17192,
+      "sha256": "4220a0f7d3479baa252a62955028f2be7f754f90cc202be3a1adc956045a3598"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.ServicePoint.dll",
+      "size": 15144,
+      "sha256": "deb634335d3be2a2dcb77e5631daf60e5fe5bcecfe712611ddfb55a74024112d"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.Sockets.dll",
+      "size": 47400,
+      "sha256": "f522419f109a8ee47f3141b98c2861775fa37f09b9372b0158ef4bd03ef0e1c4"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.WebClient.dll",
+      "size": 27944,
+      "sha256": "6387a27635797a384c435325e913072173abed6b576fee3749b946fce8769223"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.WebHeaderCollection.dll",
+      "size": 19240,
+      "sha256": "15d3dcd2bce899da069a52177abff41b9de2d6d29ea87b5235836f842a732ef3"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.WebProxy.dll",
+      "size": 18256,
+      "sha256": "6632d415e31c796644bd0c6cc8ca17b98cd2bf1a3de49c00a733700a556a1ad7"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.WebSockets.Client.dll",
+      "size": 19240,
+      "sha256": "ed996c93bed7d86f3aa35b25af23288bdcd928adeb3d57ba09dc8cf7602ac1b0"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Net.WebSockets.dll",
+      "size": 23848,
+      "sha256": "84ae6e33e33ce6ff95c3cf882e4d3eb27b8a9eb199e29fd45cd40c3e2b088e40"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Numerics.dll",
+      "size": 15144,
+      "sha256": "dd95775d3a76a45407689e21c756a276d251b0eb1b8a9c9d477ffc26fe723fee"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Numerics.Vectors.dll",
+      "size": 58152,
+      "sha256": "b9c45853cdd986e6519500b62f684b1b9ba76c8fb2d5f6a53f8552f0830bfe26"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.ObjectModel.dll",
+      "size": 23376,
+      "sha256": "5f3f1d2a732b89281f49ca218aba38d2cd8b1807691f752d66ea6f39b546c368"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Reflection.DispatchProxy.dll",
+      "size": 15656,
+      "sha256": "ca457cad544e4c808d8543e4309bde076bbd08152492e3457e64068875f22790"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Reflection.dll",
+      "size": 16168,
+      "sha256": "83ad6074070db2d7426eaa4f14c5e5d62107ebc516f0d81fdd00dd36315b2ad2"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Reflection.Emit.dll",
+      "size": 44368,
+      "sha256": "9832ef660a10f500bebbd3aea370babb89ae02dbea327488cb94df83dbb28bec"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Reflection.Emit.ILGeneration.dll",
+      "size": 20776,
+      "sha256": "f72cf0dd05d63b7209b05df208f9dfc241addfdd0a54a61065c42306bbc3050a"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Reflection.Emit.Lightweight.dll",
+      "size": 19240,
+      "sha256": "136cd04f7ce901de8f4093b88d167be0028cbd8965fc9ec0bbef522038b28bc8"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Reflection.Extensions.dll",
+      "size": 15144,
+      "sha256": "49b9b7e64da27d4055ed180ecdcf52998055db3fa9a204d14f6047b045642c4e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Reflection.Metadata.dll",
+      "size": 122152,
+      "sha256": "6977d4ae8b3ebddf2e58f81f8c1e9d11c8be75ec329ef680556261c6af8a2842"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Reflection.Primitives.dll",
+      "size": 21800,
+      "sha256": "52d1e6445452e86e6582dafa344d1528d254548a965b0911a6db21e5cbe05b07"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Reflection.TypeExtensions.dll",
+      "size": 19752,
+      "sha256": "c4a3009ef4281ef74e10c7be38e395926ebc02735632e3a1c30fabd10d2d3312"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Resources.Reader.dll",
+      "size": 15144,
+      "sha256": "756a7aa491a7383356801a2e5991b2609f189cb363407f6faf8481a700d3b6f7"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Resources.ResourceManager.dll",
+      "size": 15656,
+      "sha256": "d9131024eb39752f224169cc1be38c06d484d7449858816ffe4197da910dadac"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Resources.Writer.dll",
+      "size": 16168,
+      "sha256": "f0d7047a8b9a0e8841c30e4012bb73089273ea299c9a593eaa1fef4ad7a2a521"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.CompilerServices.Unsafe.dll",
+      "size": 15184,
+      "sha256": "2ef59e123a128f1d68112136ba99f01810d31687891ccf8e0cb3024f69486970"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.CompilerServices.VisualC.dll",
+      "size": 17232,
+      "sha256": "9cf17614de2a34cf8ebe97b8efa23dd18bc816be79598252b38d0f27c903900c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.dll",
+      "size": 862504,
+      "sha256": "e80034d0e2671af90f7581ca44fd147420d96514f8ee7eddb209c080c7d4bae4"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.Extensions.dll",
+      "size": 17704,
+      "sha256": "242fe2a65b3ea3fd42ff29106d54a8b7c5efafcd971e5b9b13f2f0c4f7d3567c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.Handles.dll",
+      "size": 15656,
+      "sha256": "e3a3a195342f3b90802b91c8655281918da48408fd4a89a6d6ed4525ecadecad"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.InteropServices.dll",
+      "size": 101160,
+      "sha256": "813657857e037166ae25d641355a823a730e2ae80f78dfcffee935c61781c244"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.InteropServices.JavaScript.dll",
+      "size": 25936,
+      "sha256": "6d5ec479bb48dab376035ee091e964ec031aaf4f4022c9f55974f203fe6b1875"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.InteropServices.RuntimeInformation.dll",
+      "size": 15184,
+      "sha256": "2fb3e66d5000ea87c36dcd4831b9be1fc82345bce313a239abd2cde57ba512ae"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.Intrinsics.dll",
+      "size": 466256,
+      "sha256": "b82d0cf9384a65866359d19df47c13dad012b57dcd20ca7602c711d1c3e1dae3"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.Loader.dll",
+      "size": 19792,
+      "sha256": "d24bdde838ee4a8ac203633cdb13c7cdd7c9faf5ac3c2732c8c66cd7feb01603"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.Numerics.dll",
+      "size": 36136,
+      "sha256": "70afc9c35a1a720060562084a07e403c1b0375370db2a54f97027928ddd7e7e4"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.Serialization.dll",
+      "size": 17232,
+      "sha256": "59374d3bf8edeac526b9fa19956391a9acc2e61c8a9effab8c0024c97b2e8a49"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.Serialization.Formatters.dll",
+      "size": 23336,
+      "sha256": "8d726c317c52c5c5df72b3eb595513b3d5e7a1e8b79867ceecedd71564176529"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.Serialization.Json.dll",
+      "size": 20816,
+      "sha256": "b4c0fb78852e3a75961e9cd95b50779df8047f47d003f11c67dc0f2d3c86d27b"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.Serialization.Primitives.dll",
+      "size": 19752,
+      "sha256": "5e28f8df1ef549bc4c1b2208fcb340ca5880659b67f8e677b4a9c551b0daef77"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Runtime.Serialization.Xml.dll",
+      "size": 39760,
+      "sha256": "41d3fe8b3b540d4533597f127bec8c5b96b50343b15b3e9f02bf3f26ee669990"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.AccessControl.dll",
+      "size": 37160,
+      "sha256": "54751818ab1d08c8eeca0a24b11d817652ec7759200b1f74e0d62262cce2fe8f"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Claims.dll",
+      "size": 32552,
+      "sha256": "cec85f3eea90eceb9a6fe4bfb826621a6843d8b3a401ed1ddb02149364ec42fb"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Cryptography.Algorithms.dll",
+      "size": 17192,
+      "sha256": "aa4470a3c322b207acfcc67cedc3f2799132b587e08d79a66fff7a9575538e51"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Cryptography.Cng.dll",
+      "size": 16168,
+      "sha256": "7e466d3afe576ee4834c4b554b34682b2b79f8b27eb45889c92a7b4a862292e4"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Cryptography.Csp.dll",
+      "size": 16208,
+      "sha256": "20dd1c9905a360d5146759eba9b65fcd46330d5d703ab516350b48a2f7bafc98"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Cryptography.dll",
+      "size": 163152,
+      "sha256": "c3d3cbf9eb89e180d2c63ca8b655d7deabb5fedb2c93e862df0f142c0a0182fb"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Cryptography.Encoding.dll",
+      "size": 15656,
+      "sha256": "fff47a0d9c1a59c797bebb2bd6e328a389131f61838e5947afc79e55f2208e1f"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Cryptography.OpenSsl.dll",
+      "size": 15656,
+      "sha256": "d370448b4c5318a8f1e4a643e70adc6102189ad0d77e11d63f7567f402c44d3d"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Cryptography.Primitives.dll",
+      "size": 15696,
+      "sha256": "41bf12d088600b4f9433e642e6fe87d2e79330516a28b2943ca63d898dfae75d"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Cryptography.X509Certificates.dll",
+      "size": 16680,
+      "sha256": "c9a94f2fd6a203fa19f3f453a030e37476ae73f518ae49d09248753e806f0083"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.dll",
+      "size": 18216,
+      "sha256": "375c79c5a4d758e61dcc84cf1a2cbcd628f3c053940d95497f57549ea402d3fb"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Principal.dll",
+      "size": 15144,
+      "sha256": "95cb372a714d317b9c170870fdb38ada0c9b4126264fa7ad6506fbf4b78b9dec"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Principal.Windows.dll",
+      "size": 26920,
+      "sha256": "ac0bc54d3f919e61db130f7d9ffd16b01017557eeafa8490ee3a52046a3aa3d8"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.SecureString.dll",
+      "size": 15656,
+      "sha256": "10755c7ad03a44591c3cd00b016d7770eb1899d804a1a865fe653bcec1c8a138"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.ServiceModel.Web.dll",
+      "size": 16680,
+      "sha256": "8c0e33d0b81424a63768554a63deda1822d18d609239857ea1ed59266c4844a8"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.ServiceProcess.dll",
+      "size": 15696,
+      "sha256": "803da54ad170d35b0fdec799193fa13868700f2cf7d8aa2d301eb573ddff76fc"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Text.Encoding.CodePages.dll",
+      "size": 15656,
+      "sha256": "4b2ffb51b37721f7ff0edb138bec58d3961dceb5c6e20e0f583c523760ff2162"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Text.Encoding.dll",
+      "size": 15656,
+      "sha256": "39d2a1aa6e9ad10f770d20db200396bab6d0724cedeac2cb9996476ca3b45f03"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Text.Encoding.Extensions.dll",
+      "size": 20776,
+      "sha256": "39eb57a4535fa3e852179239e6070b020105f632fb105fcb49c4e66ef3f1f58e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Text.Encodings.Web.dll",
+      "size": 26448,
+      "sha256": "fa9a44945f3984e0565c0d4097a85f8a626e193aac95dc61e8c11ff82652d97a"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Text.Json.dll",
+      "size": 82256,
+      "sha256": "3b1f9b1dea54c4700169de2d0488070642487b4a52494f5cc76d906609e70f96"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Text.RegularExpressions.dll",
+      "size": 36688,
+      "sha256": "c8c992e599c375c6ac7e6d73931e1c612823247c2d9426653be5a925716e8425"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Threading.AccessControl.dll",
+      "size": 20816,
+      "sha256": "07ef49d93a2dd15ab8ac611466bf47569a23b1e4d4ab9d169f17b828d341dc71"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Threading.Channels.dll",
+      "size": 19280,
+      "sha256": "43fbab7fcc06350c340ab151e88595ab99cb2c12269477bea7ad83f62e71788f"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Threading.dll",
+      "size": 33576,
+      "sha256": "95afea8aebd097fea3c012f6e783b57d3fff9ab4b73b09b74326bf797c278578"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Threading.Overlapped.dll",
+      "size": 18728,
+      "sha256": "6a308570b8acd44fe418e5da37cc7ede6dad5cfade09f97804e4d64ec8a085e8"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Threading.Tasks.Dataflow.dll",
+      "size": 32080,
+      "sha256": "b1b7a0051fb57af8f1e8a3b1f4eedd6d846b51bc254891765ff9108cc1cde43d"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Threading.Tasks.dll",
+      "size": 16720,
+      "sha256": "0ec10edafaa7a4d4260b2da4f5d6cde492381aa9077c68e378cdec474e5f73ff"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Threading.Tasks.Extensions.dll",
+      "size": 15656,
+      "sha256": "2bcef6baab4d83addd2fc71eab161346e1e3990fc15cda6cc70ce9ee03259ae3"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Threading.Tasks.Parallel.dll",
+      "size": 20264,
+      "sha256": "c37ee6de4d0565d4d1a2cc8ed4beddae6be4f72dbed501464d641544195d2eaa"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Threading.Thread.dll",
+      "size": 23888,
+      "sha256": "b4d6d7e3a38ead8c107b0e7344ec267ed3e845eee74fd45804b633c93596f318"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Threading.ThreadPool.dll",
+      "size": 18256,
+      "sha256": "dcccf01c64a1f954c57d659be2ae12349c38524f38875892d55026a21abd660c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Threading.Timer.dll",
+      "size": 15144,
+      "sha256": "5e606302d19f0730c51111e75f664bbed2891c7e437003f27ee35e6827c34fa9"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Transactions.dll",
+      "size": 16680,
+      "sha256": "de06dcede81f42346c130b9ba024ec6d52518a7dcf931213cac59bda08463f9a"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Transactions.Local.dll",
+      "size": 25896,
+      "sha256": "b0421cc81d979c6e726959829508701cc751a03ea6a76db450a1766102da8ec2"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.ValueTuple.dll",
+      "size": 15656,
+      "sha256": "214fbc2e88bb05407635f09d9eb14a8491526f15bfe78902502bab955f6ddfc2"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Web.dll",
+      "size": 15144,
+      "sha256": "5a6054bcbb52a7242d271645d296428215e7b34722791922631e7725dbc5890d"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Web.HttpUtility.dll",
+      "size": 17192,
+      "sha256": "8fdc0e0a6a2500c0f382505f1aae38f9fa092b453ad82ad2584b37822850acaf"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Windows.dll",
+      "size": 15656,
+      "sha256": "2cd2f9f88b8191168fcf91d5714dfad53cbe40db10385e652080f9da8dd949c4"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Xml.dll",
+      "size": 23336,
+      "sha256": "d8bb0eb7c4416886435249acd4c389bffecfd2706280b1db5de7c2c695cf980e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Xml.Linq.dll",
+      "size": 15656,
+      "sha256": "c635b16c5b6c499ebf466d992585f3af18df0b6fb26e6e6ad54d657524f29708"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Xml.ReaderWriter.dll",
+      "size": 116048,
+      "sha256": "d151fe334c493027495f4b3e09d54f4bf203b2290ad1e922eac0ced5b2b4a776"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Xml.Serialization.dll",
+      "size": 16168,
+      "sha256": "8c897ed7adbe0dd9a0247520fc8ec3d232ebd6d0149ebbff9eebba32e2e058ba"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Xml.XDocument.dll",
+      "size": 34088,
+      "sha256": "9cf6bf94efa9e296377c3800281ab19a39bded0d6f39f827d8a5fe58bafe9f7d"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Xml.XmlDocument.dll",
+      "size": 15656,
+      "sha256": "87661c1dec0f66ed1d950674b6d66324ff48622dde8630e81c34ad30701716e5"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Xml.XmlSerializer.dll",
+      "size": 50984,
+      "sha256": "49a28ff2e96f83254324df4206241fd84f8b98a82de76a6cb597009b5b510b11"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Xml.XPath.dll",
+      "size": 16680,
+      "sha256": "d584d0c87ba94f73124f093996f11cf7ef2237eef9b9ef2e2296700ea42a5176"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\System.Xml.XPath.XDocument.dll",
+      "size": 16168,
+      "sha256": "24ba5b28fc4bef31a432da1739218ed206920236c3e9ff359162eed9f8f8060f"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.NETCore.App.Ref\\10.0.8\\ref\\net10.0\\WindowsBase.dll",
+      "size": 16168,
+      "sha256": "29db373fed09aebe9ff23aa7fac7a2501a1ad32b2c7a9d270151406f7d804a7c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\cs\\System.Windows.Forms.Analyzers.CodeFixes.CSharp.resources.dll",
+      "size": 15144,
+      "sha256": "d3760d8f49dd00baebc31d33264d572d798624d839953c02a719752e2bb3580b"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\cs\\System.Windows.Forms.Analyzers.CSharp.resources.dll",
+      "size": 17744,
+      "sha256": "b8a3b5fddb154ecff51182cb475aeaa87d2492ef647a1c3c6a8cb1ceee316149"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\de\\System.Windows.Forms.Analyzers.CodeFixes.CSharp.resources.dll",
+      "size": 15144,
+      "sha256": "e4e4ef61f9fb8c7c34fed9c58e1f643b451369aea150175bea3b216492e7ef36"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\de\\System.Windows.Forms.Analyzers.CSharp.resources.dll",
+      "size": 18256,
+      "sha256": "c0e6b41dfd1de063c5150c7b25c20efd26fb362be4cb204b08c9a4a23e4dcec3"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\es\\System.Windows.Forms.Analyzers.CodeFixes.CSharp.resources.dll",
+      "size": 15144,
+      "sha256": "3ad05243b842159debaaaaa3a6907229ba9ae9cecef02dc4693d5030c95711f1"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\es\\System.Windows.Forms.Analyzers.CSharp.resources.dll",
+      "size": 17704,
+      "sha256": "816576d4805430f56048d2b091878216d63b1f8581c164ccce3d89df513d7af8"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\fr\\System.Windows.Forms.Analyzers.CodeFixes.CSharp.resources.dll",
+      "size": 15144,
+      "sha256": "7b187d1e23e1501b72bf368815501082e7eb06297426a3c02fde2fc103a5f08e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\fr\\System.Windows.Forms.Analyzers.CSharp.resources.dll",
+      "size": 18216,
+      "sha256": "fa69f12525cf0efd54322bd739dbc2def8c513c70672bdbee49f5911f235658e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\it\\System.Windows.Forms.Analyzers.CodeFixes.CSharp.resources.dll",
+      "size": 15144,
+      "sha256": "ccadd0f2ef77e672419e2c4f38236e3dfe1471f64162167f906ef9a5d7a12023"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\it\\System.Windows.Forms.Analyzers.CSharp.resources.dll",
+      "size": 17704,
+      "sha256": "1f993c6c24b64da815e1e38eb26ac25220bc899fec6a54d081ad9b8f576195ab"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ja\\System.Windows.Forms.Analyzers.CodeFixes.CSharp.resources.dll",
+      "size": 15144,
+      "sha256": "24e9fd3e3ce83b58c2fa10e8bdeb8ee596411072a3e75361aad95e1a2e712a6d"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ja\\System.Windows.Forms.Analyzers.CSharp.resources.dll",
+      "size": 18216,
+      "sha256": "dfd3ad998e138653b55a8ac1cfe4a2980c87c294178c346f5687182154f373ec"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ko\\System.Windows.Forms.Analyzers.CodeFixes.CSharp.resources.dll",
+      "size": 15144,
+      "sha256": "efe0b4372c6fab7df36850f480cb20d0fb129c2c3eef450c3a2b43fb926b2308"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ko\\System.Windows.Forms.Analyzers.CSharp.resources.dll",
+      "size": 18216,
+      "sha256": "698ba93bad7466fc72b48cb22f8d24734ae0f41c8b2b6515444ce81bd28730f8"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\pl\\System.Windows.Forms.Analyzers.CodeFixes.CSharp.resources.dll",
+      "size": 15184,
+      "sha256": "240b11507747634ad7171b78c9b5bcace44653c2b1c28f70fc1e3c8b00e0f1a1"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\pl\\System.Windows.Forms.Analyzers.CSharp.resources.dll",
+      "size": 18256,
+      "sha256": "8c22244bda0683f72d0c4775b9268cd59670594f8f0c3d6f5314b56e898e7f1d"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\pt-BR\\System.Windows.Forms.Analyzers.CodeFixes.CSharp.resources.dll",
+      "size": 15144,
+      "sha256": "889ebec2d7ed79b462d41d7f2d7e3a9bec56d2e11b219e7a88268711de25a784"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\pt-BR\\System.Windows.Forms.Analyzers.CSharp.resources.dll",
+      "size": 17744,
+      "sha256": "0451e9c99dd31572b6859fa80f1e3b820557ef565ca54c46dc5de9e225f474ae"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ru\\System.Windows.Forms.Analyzers.CodeFixes.CSharp.resources.dll",
+      "size": 15184,
+      "sha256": "41ddbb61a96f2e95858c5a9412738445dae5fa6cf5738bb171e20b2e9d02a45c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\ru\\System.Windows.Forms.Analyzers.CSharp.resources.dll",
+      "size": 18768,
+      "sha256": "6eb0847aab12767f85ec71b0baae33d1e325539de1e8098f582fa8ccbc0e9fad"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\System.Windows.Forms.Analyzers.CodeFixes.CSharp.dll",
+      "size": 25424,
+      "sha256": "ff3306c41af3571bf6308696a25bcc9f1e973c325f827f0e4c3c85b75ad94bff"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\System.Windows.Forms.Analyzers.CSharp.dll",
+      "size": 44880,
+      "sha256": "68da7d774872dbbb5c2d38e2ebf88da669146ee9d3612cb87105036c55428179"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\System.Windows.Forms.Analyzers.resources.dll",
+      "size": 15144,
+      "sha256": "1d49e265384c5090ba28bd1f88a2920683ea98114ebfbdb4bb762544c44c0c7c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\tr\\System.Windows.Forms.Analyzers.CodeFixes.CSharp.resources.dll",
+      "size": 15144,
+      "sha256": "fcfeb57d0c51c9228e57038b7d50247590542d82724f90d136516cedc686637e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\tr\\System.Windows.Forms.Analyzers.CSharp.resources.dll",
+      "size": 17704,
+      "sha256": "44d82204d26a7f6e01a97cd3578d29a3fd21197ffc25750c4aefd91dd011305e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\zh-Hans\\System.Windows.Forms.Analyzers.CodeFixes.CSharp.resources.dll",
+      "size": 15144,
+      "sha256": "2285d42eed8e73d7df115ed371ead5ab744dcd631acc30b8ec6ab1b8bf918667"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\zh-Hans\\System.Windows.Forms.Analyzers.CSharp.resources.dll",
+      "size": 17704,
+      "sha256": "49ad2445e1dd504e4c2720296ff4f1a16d8d5b638fa7ee7fd9f0d954354e033a"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\zh-Hant\\System.Windows.Forms.Analyzers.CodeFixes.CSharp.resources.dll",
+      "size": 15144,
+      "sha256": "bc43037b8998c20c81e77a70efcd6b313d2ed33c4d7b5f9db15018b2a5e65a34"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\cs\\zh-Hant\\System.Windows.Forms.Analyzers.CSharp.resources.dll",
+      "size": 17704,
+      "sha256": "ccb3e79b825b0f74692d19d57fd7d9c0814e92d270173a7f100f44dbd7d57f91"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\de\\System.Windows.Forms.Analyzers.resources.dll",
+      "size": 15144,
+      "sha256": "fbb99db8db6feeeaff1e90612a93acee6b0d3db859df0d7c5e35f15ed2c2d603"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\es\\System.Windows.Forms.Analyzers.resources.dll",
+      "size": 15144,
+      "sha256": "ad913ece4f0d151d56d5007cbfb0901d3befb68794516b73a3a9af2c946e4aa3"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\fr\\System.Windows.Forms.Analyzers.resources.dll",
+      "size": 15144,
+      "sha256": "dbf8098a4e0c56d12f1bedb992d1fd750d8eac61042adefe2db3eb952e8d7696"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\it\\System.Windows.Forms.Analyzers.resources.dll",
+      "size": 15144,
+      "sha256": "d0b0bac4a80a45a291145c2ec0f546f73441714ef17a53e53bde185886480de9"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\ja\\System.Windows.Forms.Analyzers.resources.dll",
+      "size": 15184,
+      "sha256": "3df4103fc042b70ff9bd8ac56fde3ec52f321fd7c51cc69c5758eb69be1c4912"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\ko\\System.Windows.Forms.Analyzers.resources.dll",
+      "size": 15144,
+      "sha256": "736bade9c059b28417b7acff73f2f8f2bf176b3ddb8f6592a2976644beab0dc5"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\pl\\System.Windows.Forms.Analyzers.resources.dll",
+      "size": 15184,
+      "sha256": "9176edc9e81cf44c59e51c5a8a54d5fa6ff11bc7a3435293386ae97e67f1c67d"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\pt-BR\\System.Windows.Forms.Analyzers.resources.dll",
+      "size": 15144,
+      "sha256": "b5b875906cd58dae511816b6fb6c088ae0e6ea2c4787e8c74d38c99a0c0b9df2"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\ru\\System.Windows.Forms.Analyzers.resources.dll",
+      "size": 15144,
+      "sha256": "291084ae47229ae98a2f62a0c22a497a5265fedca9b46c9e706622b4c3bd507f"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\System.Windows.Forms.Analyzers.dll",
+      "size": 33104,
+      "sha256": "9267d8216d2d654ff87de223684fc96735578e6275bd20725149baff89269df1"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\tr\\System.Windows.Forms.Analyzers.resources.dll",
+      "size": 15184,
+      "sha256": "39c5b31d3d564b15f1ee8565b08c1280ec3b637543e773105ba47e22aea3881e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\cs\\System.Windows.Forms.Analyzers.CodeFixes.VisualBasic.resources.dll",
+      "size": 15144,
+      "sha256": "e741cd2e10e530ff9801fea1128a2fd52ce0b6d7f1eb371abffb445ec72cbb17"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\cs\\System.Windows.Forms.Analyzers.VisualBasic.resources.dll",
+      "size": 16680,
+      "sha256": "243456af5c783bdf2d6c1992f03eb52937ac6d9d33d1de05ed9a80533983b3fd"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\de\\System.Windows.Forms.Analyzers.CodeFixes.VisualBasic.resources.dll",
+      "size": 15144,
+      "sha256": "159c9af62ec6f2cde346fb770144d489679801ecc38d9be870082a5feb88f6b8"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\de\\System.Windows.Forms.Analyzers.VisualBasic.resources.dll",
+      "size": 16680,
+      "sha256": "7493e2ca11219d6a0450769f4dc899c6e71abbceaed51d73c6510cad94f15608"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\es\\System.Windows.Forms.Analyzers.CodeFixes.VisualBasic.resources.dll",
+      "size": 15144,
+      "sha256": "626a13da569ff46c89a0bbcb52e040540cf25a320909edf6c1b46e5fe5415367"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\es\\System.Windows.Forms.Analyzers.VisualBasic.resources.dll",
+      "size": 16720,
+      "sha256": "95b1becce65820e69e90b045ce38c33752ce1b4db9a20d8b7854ce74a0fd7cf9"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\fr\\System.Windows.Forms.Analyzers.CodeFixes.VisualBasic.resources.dll",
+      "size": 15144,
+      "sha256": "346f1a7d836c84b19a3c724a8d5e148a59da052d61896c93e41e7922c5d691b0"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\fr\\System.Windows.Forms.Analyzers.VisualBasic.resources.dll",
+      "size": 16680,
+      "sha256": "b10f3916c6d2027ed0bb2f8821408b9ad11d37f38ebb1c756d91ab763325727f"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\it\\System.Windows.Forms.Analyzers.CodeFixes.VisualBasic.resources.dll",
+      "size": 15144,
+      "sha256": "c9ecad3791736a9f1c2012cf3f981c0795173afdc2a964d0cd9123ea736f0e2e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\it\\System.Windows.Forms.Analyzers.VisualBasic.resources.dll",
+      "size": 16680,
+      "sha256": "36e75029fb60e9170a02391030a5372edd9166ed2ae3ab08df11bde0944efe82"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\ja\\System.Windows.Forms.Analyzers.CodeFixes.VisualBasic.resources.dll",
+      "size": 15144,
+      "sha256": "98abc0ca80685afff2161518409a2b79a5157559705bc9a02d79a9a59762fe78"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\ja\\System.Windows.Forms.Analyzers.VisualBasic.resources.dll",
+      "size": 17192,
+      "sha256": "b5ab270cf466a76581269fcba2de11d6130a38d0a8e8a30a8e824b17ae11a0c8"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\ko\\System.Windows.Forms.Analyzers.CodeFixes.VisualBasic.resources.dll",
+      "size": 15144,
+      "sha256": "115d278ef98c3162fb40c03f22b4313e809ff20783145e818c396f197fb67413"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\ko\\System.Windows.Forms.Analyzers.VisualBasic.resources.dll",
+      "size": 16720,
+      "sha256": "82ccbd9c02615488caeb4953d34466cd56bf34302d0654c8581b90631c7b4daf"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\pl\\System.Windows.Forms.Analyzers.CodeFixes.VisualBasic.resources.dll",
+      "size": 15144,
+      "sha256": "667d524fb652741239c6837e2b6ccfcf62318249a5c7f22ba4a1b0234578ffa6"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\pl\\System.Windows.Forms.Analyzers.VisualBasic.resources.dll",
+      "size": 16720,
+      "sha256": "f8d89c6947d9644bb369932c526a2045e171e0fea76dd7ed5d264dd3b0a5ad16"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\pt-BR\\System.Windows.Forms.Analyzers.CodeFixes.VisualBasic.resources.dll",
+      "size": 15144,
+      "sha256": "c536f69eaf1cedf3f9ed099557702f8b9c6cc45b6cf4ec05146762a5fdcff4ac"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\pt-BR\\System.Windows.Forms.Analyzers.VisualBasic.resources.dll",
+      "size": 16680,
+      "sha256": "c03155097373f80e30c3bfebcf748e6497c6bf32676ec5050e4666686430e6a4"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\ru\\System.Windows.Forms.Analyzers.CodeFixes.VisualBasic.resources.dll",
+      "size": 15144,
+      "sha256": "b10d7d3482dcca7da861c5b685144c69add48dc1fe6a4030dc790d5238cdc0f2"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\ru\\System.Windows.Forms.Analyzers.VisualBasic.resources.dll",
+      "size": 17232,
+      "sha256": "998e6731203c0af9a539e5f7a704ca3fc5fc1bc4a9581f51d824d96b3b0b72f4"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\System.Windows.Forms.Analyzers.CodeFixes.VisualBasic.dll",
+      "size": 26408,
+      "sha256": "6c90b58154cb1d88f391b76003d6fd3962e93d8f737df9b43227917be62dd4a5"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\System.Windows.Forms.Analyzers.VisualBasic.dll",
+      "size": 28456,
+      "sha256": "731f049acd7bf4a5641d9d5c23a719946db55e83cf337055ed3fb698f2ba10fd"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\tr\\System.Windows.Forms.Analyzers.CodeFixes.VisualBasic.resources.dll",
+      "size": 15144,
+      "sha256": "f12da8f25965d20a9705a69724801585266b411c6175b8e8b4304b3b28a9906f"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\tr\\System.Windows.Forms.Analyzers.VisualBasic.resources.dll",
+      "size": 16720,
+      "sha256": "c5dfacde63faa17e1b5ca6a00ddc4d36f6443f6575b86eafababdabd88970563"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\zh-Hans\\System.Windows.Forms.Analyzers.CodeFixes.VisualBasic.resources.dll",
+      "size": 15184,
+      "sha256": "53119af6cfd48c3b9bd29506b448762533a84cb84f43d7540d2ff655b622b17e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\zh-Hans\\System.Windows.Forms.Analyzers.VisualBasic.resources.dll",
+      "size": 16208,
+      "sha256": "d241c49143a6c3cec169a8dc3021f9e346112d1ea04bf3aafde2415a94653afe"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\zh-Hant\\System.Windows.Forms.Analyzers.CodeFixes.VisualBasic.resources.dll",
+      "size": 15184,
+      "sha256": "1e1dd94e911ce8e173530033bf480f9a18f82051906ed65454a65bdfd8862b39"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\vb\\zh-Hant\\System.Windows.Forms.Analyzers.VisualBasic.resources.dll",
+      "size": 16208,
+      "sha256": "7d8d7b4e9f7cf4d07e03602781dbdcf0dce1c05a39c76865f4331e08b8fe4fff"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\zh-Hans\\System.Windows.Forms.Analyzers.resources.dll",
+      "size": 15184,
+      "sha256": "9b0b06704be9100cf1e91775dc154821ee43ebade1b2ce2ec088ca813ca9b428"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\analyzers\\dotnet\\zh-Hant\\System.Windows.Forms.Analyzers.resources.dll",
+      "size": 15144,
+      "sha256": "89fb643355746bccc8c27f678c6d2c4da4ffc923ee65ae76d5dd1bf6a31f800a"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\data\\FrameworkList.xml",
+      "size": 12890,
+      "sha256": "082873c570173ec2a0a02d86f84d48230587d177442dc57e7faf7d7412591161"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\data\\PlatformManifest.txt",
+      "size": 7083,
+      "sha256": "387c5ab831eec6b863707cc9fe8c93d56cea121ef8401ec5834157a6d089988b"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\Accessibility.dll",
+      "size": 20816,
+      "sha256": "d4f3ba0351e1e3436a7c79726df4dc63507140aaf242d2413d4e549d72cb15db"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\Microsoft.VisualBasic.dll",
+      "size": 18728,
+      "sha256": "fdae73fc8e595801f8387d7b31936f670c7dd835cfca18ab687733a591bdb220"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\Microsoft.VisualBasic.Forms.dll",
+      "size": 52048,
+      "sha256": "5b66b99b22ffd4c932fa7e35da76548c998f9d3b29521f1a08f3b9f1a90ab166"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\Microsoft.Win32.Registry.AccessControl.dll",
+      "size": 15696,
+      "sha256": "fd03da6086e78d329569ebb540631a72925d523cf8ab404dfcdb88c83bbf4f5c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\Microsoft.Win32.SystemEvents.dll",
+      "size": 20816,
+      "sha256": "6ed54f51caebc4ab5b2a0f76bfc6dc549d998335b4843d69fa2fcd7cbacbadcb"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\PresentationCore.dll",
+      "size": 546088,
+      "sha256": "a3c7f87642d74de453e3b958f1e6b5e3beb0ed9292ae5a369d2252820dfb6364"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\PresentationFramework.Aero.dll",
+      "size": 35624,
+      "sha256": "ee0bba770c3d737139d47963c2a90493cd0b8417ff4a648da8f09225f33cf0b4"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\PresentationFramework.Aero2.dll",
+      "size": 35664,
+      "sha256": "998caca7987257877cc1d05fbd3db4fb1685d05920b83ff9c6af92073378df2b"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\PresentationFramework.AeroLite.dll",
+      "size": 33576,
+      "sha256": "a24dc0f122b8edf86a7283622af317a34cb8297e2ac3dcbabce70321248e8443"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\PresentationFramework.Classic.dll",
+      "size": 34088,
+      "sha256": "4cc649da21fd3d1252c2c99a36749901f8d2370fb8a6412b47a55b0f3053104c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\PresentationFramework.dll",
+      "size": 535848,
+      "sha256": "0d4cf7aa4f141911bea92eaffdb28088ed11abcf85cc9076d72e5ebcc13827e7"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\PresentationFramework.Luna.dll",
+      "size": 35624,
+      "sha256": "6ba212a8a63e409fc29bd4f4cdb60072b94cf6bf5d9238550f61fa975398cbf2"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\PresentationFramework.Royale.dll",
+      "size": 35112,
+      "sha256": "637fd12d2e40e612bd506828c9c180def4e18b6cf1109b187c4dcaef2a997a35"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\PresentationUI.dll",
+      "size": 30504,
+      "sha256": "e4235234195be8b7151e98314d6c83b2e12687811713933b95ffb7be64c30bfd"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\ReachFramework.dll",
+      "size": 49960,
+      "sha256": "ba8a00247b7ba035ee0ad260e6b504b38cc53b4f4f24c3fa1fb768b7dd14593a"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.CodeDom.dll",
+      "size": 62760,
+      "sha256": "55e4625844a3fdd7042d4b7a6c64dc98569ed2b4404394e377448e303f862518"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Configuration.ConfigurationManager.dll",
+      "size": 89424,
+      "sha256": "7f1b0cddc13ea0f7c4cd349a6140eadf11727f6c1927a76902cebf29006ef1a7"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Design.dll",
+      "size": 23376,
+      "sha256": "4c1425ba2cbf090f52a4ef96b0309d920929d96f33e2a11b783595cbf8673bac"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Diagnostics.EventLog.dll",
+      "size": 36136,
+      "sha256": "416c5365ce183e22e0b6d0f77e8ea38ed8876b5d51e04d40e97fd71afb22f36e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Diagnostics.PerformanceCounter.dll",
+      "size": 26448,
+      "sha256": "1ce7d314935c8f973f6ec8efa1b923d18e1a6d502bf1d567680c255ac7ae5639"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.DirectoryServices.dll",
+      "size": 80168,
+      "sha256": "cb7a51600f8511058fbd9f8366167e3eba0e387ad3ac2e970c18101fbd1eb84a"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Drawing.Common.dll",
+      "size": 178512,
+      "sha256": "744f71d3f601c7e8a5c7da646c85eed6d3f35f36f4a006e0dbaee9fcea2e69f9"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Drawing.Design.dll",
+      "size": 15696,
+      "sha256": "b688e86c8abea8105618e2b331b4b4775a75f24f68bd04b6caf16f1a8a79d250"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Drawing.dll",
+      "size": 20776,
+      "sha256": "14602216baa4db023cbfe54f927a6ba3be7b84fc226bdb12e8f571daac6a6dda"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Formats.Nrbf.dll",
+      "size": 19240,
+      "sha256": "eecae6fb769220310edcbf1916b7e4ced69134db410ccd8433db389018b86d54"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.IO.Packaging.dll",
+      "size": 22824,
+      "sha256": "302113efcaec80df67d2acfaff4a7b0ccfd373259f0fcb344730fdc8cf8b27a6"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Printing.dll",
+      "size": 60200,
+      "sha256": "f734aa68475d3da83f5b4ca30399640c19d1e405b33ac992c13621edc378c93e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Private.Windows.Core.dll",
+      "size": 955728,
+      "sha256": "f822c907d791ac000a5aa66f4cd8b2d07c16600f5ee5a36458e3c70d757f23ed"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Private.Windows.GdiPlus.dll",
+      "size": 137040,
+      "sha256": "75e4e1afa68eb791f2a8be20079207921a3bf319dd47810dcff49edfd0b478b6"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Resources.Extensions.dll",
+      "size": 16680,
+      "sha256": "f8f3a473aae414f13b37292d219b09a081c67a32b43e3b114f38d9b3f864c4e5"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Cryptography.Pkcs.dll",
+      "size": 35624,
+      "sha256": "21caa0200be6d04def103b6a6487ab9b06cf13ec8ec8cb412ef5cb9ca894c84f"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Cryptography.ProtectedData.dll",
+      "size": 16168,
+      "sha256": "2114e17ae3ba4a8639962402ddf0f2dfdce99f616f821ec05a3e47d52f535875"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Cryptography.Xml.dll",
+      "size": 39760,
+      "sha256": "91b634b23a23bda65c378f27b57f819d010c8af481854d8d6facd0f15bd897f2"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Security.Permissions.dll",
+      "size": 75600,
+      "sha256": "1429d037594ff41ff2972c6525319472c71632a98dce8b9cffd5a45a17fb1ad0"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Windows.Controls.Ribbon.dll",
+      "size": 111440,
+      "sha256": "330aca9e115e78a388601f83d2ebeb4d90e693e769ec82853096a58cc1961794"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Windows.Extensions.dll",
+      "size": 19280,
+      "sha256": "9b664983f6f489db0ab8477825ddf883b384051f3e13d7452873e888a8354b5e"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Windows.Forms.Design.dll",
+      "size": 323408,
+      "sha256": "35a745ed0ba30b7be0c80c5af251f31d327faba47f0db305d467f34cf4473f69"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Windows.Forms.Design.Editors.dll",
+      "size": 16208,
+      "sha256": "7e2a55972f1b893c9f340bd404e794075d37759399652ed00dbb2fba6bda1c85"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Windows.Forms.dll",
+      "size": 1628496,
+      "sha256": "a1a3d0e763fe650f4e55438d0adc2a3fa78cf93ddc515558e96143f26a289cb8"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Windows.Forms.Primitives.dll",
+      "size": 973096,
+      "sha256": "64f3c9cdde7ab3d71db672e37891a3597b6777d5db7f7e4f3e2a3e9336b2b760"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Windows.Input.Manipulations.dll",
+      "size": 21288,
+      "sha256": "89f4ea8abd751e0454bbb12dc24761108b68c2be65ea90d31c3b2be2b680842b"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Windows.Presentation.dll",
+      "size": 31056,
+      "sha256": "0a6fb2d25556551a967a1dff660193054e04703a421aee8647af31a27fdc7fb1"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Windows.Primitives.dll",
+      "size": 30504,
+      "sha256": "550ed4fd0d1d2b89fea0afabafcbe5f4859aa997f01461d0f7c8fbdcf8ae7f0b"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\System.Xaml.dll",
+      "size": 69416,
+      "sha256": "23cb7fc6c94bbf06b35a494b8602dd06ae1d2b144201499799ae2befacf6291c"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\UIAutomationClient.dll",
+      "size": 36648,
+      "sha256": "ea19fbf20457ae73b46d24c936b28c44a20cd9c1ad1b8be656727ff8ae296e27"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\UIAutomationClientSideProviders.dll",
+      "size": 16208,
+      "sha256": "7a512b8b108a16af1606492b013bc7ffe36eb8e8674a4f3556f45b0e8aaa71da"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\UIAutomationProvider.dll",
+      "size": 21800,
+      "sha256": "a64b1a8d4916d73ae95f85fadf192dfd3d8e69b6167b2039c6ee876b191b791b"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\UIAutomationTypes.dll",
+      "size": 31568,
+      "sha256": "5ed9e7fe6f6a32dcdbc65dec35f131df11f367bb252c8f2425dfd0cfa97d630f"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\WindowsBase.dll",
+      "size": 106832,
+      "sha256": "12415fd7ba061519edc86369b8d801992f9549c263108f5059111e8110744521"
+    },
+    {
+      "role": "targeting-pack",
+      "path": "C:\\Program Files\\dotnet\\packs\\Microsoft.WindowsDesktop.App.Ref\\10.0.8\\ref\\net10.0\\WindowsFormsIntegration.dll",
+      "size": 42792,
+      "sha256": "5da614157e13e2569cf0f57829a6bd61d9a7bdf90ec554565c1086074f13c9a8"
+    },
+    {
+      "role": "historical-build-definition",
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\candidate\\source\\OfflineClient.csproj",
+      "size": 1327,
+      "sha256": "5a5ab7283e5477228bd0f0ef664571aae4218de3fb1372d28bf0ef457d31dbc3"
+    },
+    {
+      "role": "historical-build-definition",
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\candidate\\audio\\P24.Audio.csproj",
+      "size": 355,
+      "sha256": "30cb249a292c0b9e4df6d592e834896d9cf621cbae9a9d3a31dd3fbbff3d65db"
+    },
+    {
+      "role": "historical-build-definition",
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P28-pickup-profiles-candidate-r1\\evidence\\product-01\\product-build.command.json",
+      "size": 1845,
+      "sha256": "bc9a5daf7a549acba81eab57151b3fc4d914b27bfd164395e3b721dbf2e18dbc"
+    }
+  ],
+  "networkAllowed": false,
+  "configuration": "Release",
+  "pathMaps": {
+    "source": "/_/p24/source",
+    "audio": "/_/p24/audio"
+  },
+  "comparisonPolicy": "Exact P28 product SHA and unchanged audio SHA required. Deterministic + identical Release PathMap should eliminate source-root variation. If mismatch, stop; inspect compiler/SDK/refs/options/generated AssemblyInfo/PDB/MVID/resources before any separately reviewed identity decision; never replace expected SHA by observed SHA.",
+  "sdkExecuted": false
+}

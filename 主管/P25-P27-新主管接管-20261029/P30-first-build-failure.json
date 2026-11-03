@@ -1,0 +1,51 @@
+{
+  "utc": "2026-10-29T06:26:54.255983+00:00",
+  "status": "failed-preserved-no-retry",
+  "buildAttempts": 1,
+  "productCompileReached": false,
+  "productDllExists": false,
+  "actualProcessTreeEnded": true,
+  "exitCode": 1,
+  "error": "NuGet.Configuration.ConfigurationDefaults initializer: Value cannot be null (path1), Restore settings stage",
+  "missingCandidateEnvironmentVariables": [
+    "PROGRAMFILES",
+    "PROGRAMFILES(X86)",
+    "PROGRAMDATA"
+  ],
+  "rootCauseQualification": "hypothesis supported by official current NuGet source; installed exact DLL diagnosis assigned to P29",
+  "evidence": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\result.json",
+      "size": 52450,
+      "sha256": "c5fab50f21132bfeacfc89677f0748e1a859fd36dbdd835711e496786bf19ebb"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\command.json",
+      "size": 2207,
+      "sha256": "aaf2ab8fdda9cd1865f7b64615f648440629a0b0f72c406d7108eb5b0bf85435"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\stdout",
+      "size": 1561330,
+      "sha256": "905c9bd7a1c08a0ddf2f35ee966b0304471feef076f5627118b2e78a4645b35f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\stderr",
+      "size": 497,
+      "sha256": "7f0b85f13e01776dc0918e791ad9f34b4f435c0c709a31fa62b65b22233862a2"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\msbuild.binlog",
+      "size": 61492,
+      "sha256": "90f866f0c82523d47e5a083789bfcac6e4bfc610cef5eb223152afff2ebaba5f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P30-pickup-profiles-stage-r1\\future-stage-01\\attempts\\product\\build-01\\environment.json",
+      "size": 3938,
+      "sha256": "201aac5452a0cdeb1d2be24ef7b8879c706aaee6a2f7401d3106d225acf163b9"
+    }
+  ],
+  "next": "preserve failed stage; minimal environment diagnosis; exact new repair and fresh attempt only after review",
+  "formalEntry": "r33",
+  "entryApprovalPending": true
+}

@@ -1,0 +1,54 @@
+{
+  "at": "2026-10-26T18:15:02.545Z",
+  "login": "InWorld",
+  "map": 0,
+  "x": 32632,
+  "y": 32979,
+  "hp": 686,
+  "ship": {
+    "clockFresh": false,
+    "clockRevision": 461,
+    "notice": "已抵達說話之島，伺服器已確認位置。",
+    "passage": {
+      "ClockRevision": 461,
+      "Destination": 0,
+      "ServerSeconds": 344093406,
+      "Source": 6,
+      "SourceEpoch": 11,
+      "TicketObjectId": 10331,
+      "X": 32632,
+      "Y": 32979
+    },
+    "pending": false,
+    "serverSeconds": 344093406,
+    "state": "arrived",
+    "ticketConfirmed": false
+  },
+  "items": [
+    {
+      "id": 10322,
+      "name": "治癒藥水",
+      "count": 70
+    },
+    {
+      "id": 10324,
+      "name": "綠色藥水",
+      "count": 1
+    },
+    {
+      "id": 1900249101,
+      "name": "金幣",
+      "count": 89220
+    },
+    {
+      "id": 1900249103,
+      "name": "+0 長劍 (揮舞)",
+      "count": 1
+    },
+    {
+      "id": 1900249104,
+      "name": "+0 環甲 (使用中)",
+      "count": 1
+    }
+  ]
+}

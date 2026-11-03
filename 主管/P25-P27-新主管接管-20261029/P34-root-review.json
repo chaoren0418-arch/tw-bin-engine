@@ -1,0 +1,143 @@
+{
+  "phase": "P34",
+  "utc": "2026-10-29T07:43:59.402632+00:00",
+  "artifactSeal": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1\\artifact-manifest.json",
+    "size": 34498,
+    "sha256": "54d544f34db25c7b14564846a9bea83d2ae91cf36a38d1bae7e91a6b9b01bcd5"
+  },
+  "artifactFiles": 190,
+  "unsealedFiles": [],
+  "sourcePins": 54,
+  "originalSealMemberships": 35,
+  "commandReceipts": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1\\runs\\build-01\\command.json",
+      "size": 4512,
+      "sha256": "a6aacfcb44c579c89b601cc55c9d138270c56b91c491daadf6f6e8d5f007ab5c"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1\\runs\\build-02\\command.json",
+      "size": 4510,
+      "sha256": "3fea52441835eb4115d8f0ee094b3b9f5186280c70cf2befcb996c405cfb2020"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1\\runs\\build-03\\command.json",
+      "size": 4654,
+      "sha256": "3946aba9fe6af222b57f75c301d522c18afbdd62755904e666c77ba7b4c5a6c7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1\\runs\\runtime-01\\command.json",
+      "size": 3872,
+      "sha256": "abd151358def6ca1ddc72effdac0a4be4c25ea9a702d64b88549871c04d0697d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1\\runs\\runtime-02\\command.json",
+      "size": 4034,
+      "sha256": "1bc80ba8fc5f6efcb72e254f417b63a107f6de952d79ea50debebd19162cbeb4"
+    }
+  ],
+  "distinctCases": 11,
+  "productDllSha": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "audioSha": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "native": false,
+  "productBuilds": 0,
+  "productChanges": 0,
+  "method": "Root independently hashes sealed files and original memberships; evaluates saved actual observations; no product runtime rerun.",
+  "realDeadlineObservation": {
+    "elapsed": 3031,
+    "guardOvershoot": 37,
+    "pendingOvershoot": 31
+  },
+  "realGuardObservation": {
+    "overshoot": 37,
+    "unchangedAnimationClock": true
+  },
+  "status": "accepted-bounded",
+  "actualChains": [
+    {
+      "id": "early-partial-0-0-s0",
+      "assertions": 20,
+      "observations": 9,
+      "admitted": 1,
+      "GroundSent": 1
+    },
+    {
+      "id": "early-partial-2796-20-s0",
+      "assertions": 21,
+      "observations": 10,
+      "admitted": 1,
+      "GroundSent": 1
+    },
+    {
+      "id": "early-partial-2796-20-s1",
+      "assertions": 20,
+      "observations": 9,
+      "admitted": 1,
+      "GroundSent": 1
+    },
+    {
+      "id": "early-delete-add-6658-4-s1",
+      "assertions": 20,
+      "observations": 9,
+      "admitted": 1,
+      "GroundSent": 1
+    },
+    {
+      "id": "pre-admit-selection",
+      "assertions": 11,
+      "observations": 4,
+      "admitted": 0,
+      "GroundSent": 0
+    },
+    {
+      "id": "pre-admit-speed",
+      "assertions": 11,
+      "observations": 4,
+      "admitted": 0,
+      "GroundSent": 0
+    },
+    {
+      "id": "pre-admit-appearance",
+      "assertions": 11,
+      "observations": 4,
+      "admitted": 0,
+      "GroundSent": 0
+    },
+    {
+      "id": "post-admit-revisions",
+      "assertions": 10,
+      "observations": 4,
+      "admitted": 1,
+      "GroundSent": 1
+    },
+    {
+      "id": "teleport-old-completion",
+      "assertions": 10,
+      "observations": 5,
+      "admitted": 1,
+      "GroundSent": 0
+    },
+    {
+      "id": "real-deadline-recovery",
+      "assertions": 27,
+      "observations": 11,
+      "admitted": 2,
+      "GroundSent": 2
+    },
+    {
+      "id": "real-900-guard-without-pending",
+      "assertions": 12,
+      "observations": 4,
+      "admitted": 1,
+      "GroundSent": 1
+    }
+  ],
+  "rapidRepeatLeaseHypothesis": "refuted by MovementBusy dependency and actual same-lease observation",
+  "qualifications": [
+    "Synthetic packets and controlled in-memory transport gate; no socket/native.",
+    "Real TickCount64 deadlines; animation clock is injected and separately observed.",
+    "Audio/effect counters not instrumented; no all-event-inert claim.",
+    "S30 automatic transport acknowledgement not exercised."
+  ]
+}

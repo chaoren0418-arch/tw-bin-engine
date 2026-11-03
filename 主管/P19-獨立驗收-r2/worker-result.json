@@ -1,0 +1,58 @@
+{
+  "status": "worker-passed-ready-for-independent-supervisor",
+  "goal": "active",
+  "stage": "P19",
+  "fixedJarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "proofs": {
+    "reward-worker-cli-r5/independent-rewards.json": {
+      "sha256": "badc5f9756829c0848739b6af16e6a08b89efe9892b81b1e563a5c64e1823b0f",
+      "snapshots": 44,
+      "expGain": 20,
+      "goldGain": 36
+    },
+    "reward-worker-ui-r2/independent-rewards.json": {
+      "sha256": "133686851bab77e3e3c05f919d9936327fbb1893014df81c50d8da524f8b268e",
+      "snapshots": 58,
+      "expGain": 20,
+      "goldGain": 40
+    },
+    "reward-tests-final.json": {
+      "sha256": "d070f66ff5ace8227d0cf05b855d4d6e86b72291ed75295397348f9b15948b87",
+      "snapshots": null,
+      "expGain": null,
+      "goldGain": null
+    },
+    "web-regression/web-test-result.json": {
+      "sha256": "1d65093be67f1f63a0e676af559ec92bd93f6c85cce8237d4c94ff315eafc95f",
+      "snapshots": null,
+      "expGain": null,
+      "goldGain": null
+    },
+    "selection-race-regression.json": {
+      "sha256": "a4b6f3962c8dba4c89e2a7a5c3bd517b97315f73d635fe4ec2bf60adf54b1321",
+      "snapshots": null,
+      "expGain": null,
+      "goldGain": null
+    }
+  },
+  "supervisorReserved": [
+    1900190003,
+    1900190004,
+    1900190007,
+    1900190008
+  ],
+  "serviceState": "same original JAR/DB running",
+  "sourceManifestSha256": "fb2c6caaaafef6ecbbae1647fce55a127027ca7dbac43ce26821cd8c840e3488",
+  "environmentManifestSha256": "44c218592b5d4f8af60ac2a3d68c034d92001b15f0bbd83ad20a7ab3debb9520",
+  "limits": [
+    "Original AutoLoot2 natural inventory path; no natural ground pickup claim",
+    "Source-proven EXP/level interval only; unknown for unsupported or inconsistent wire range",
+    "Unknown loot retained with raw fields; no substitute graphics or unverified use",
+    "UI uses WinForms controller and WebView2 DOM, not external OS input",
+    "P18 original8 meat unresolved and pickup animation not rendered remain historical limitations",
+    "Not complete engine; no P20/equipment/magic/shop/automatic combat"
+  ],
+  "revision": "selection-race-v2",
+  "reservedStateProof": "evidence/freeze-v2-reserved-saved-baselines.json",
+  "selectionRaceRegression": "evidence/selection-race-regression.json"
+}

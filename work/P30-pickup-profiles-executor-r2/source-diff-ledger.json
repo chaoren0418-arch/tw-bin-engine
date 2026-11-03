@@ -1,0 +1,53 @@
+{
+  "changes": [
+    {
+      "kind": "mechanical-future-root",
+      "before": "FUTURE=PLANNING/'future-stage-01'",
+      "after": "FUTURE=PLANNING/'future-stage-02'"
+    },
+    {
+      "kind": "mechanical-dispatch",
+      "before": "DISPATCH=SUPERVISOR_ROOT/'P30-executor-preparation-dispatch.json'",
+      "after": "DISPATCH=SUPERVISOR_ROOT/'P30-executor-repair-r2-dispatch.json'"
+    },
+    {
+      "kind": "mechanical-dispatch-sha",
+      "before": "DISPATCH_SHA='4be1242a443975632a8f13ab23c528aec6eb2f536b144647e579175dcbb80568'",
+      "after": "DISPATCH_SHA='44751d44a1abff0aef270dce056082e8c37483fd2f08763f9358eb35d55dc30a'"
+    },
+    {
+      "kind": "mechanical-receipt",
+      "before": "RECEIPT=SUPERVISOR_ROOT/'P30-product-only-execution-acceptance.json'",
+      "after": "RECEIPT=SUPERVISOR_ROOT/'P30-product-only-execution-acceptance-r2.json'"
+    },
+    {
+      "kind": "mechanical-repair-dispatch-schema",
+      "before": " for row in [*d['pins'],d['rootVerification']]:pin(row)",
+      "after": " for row in [*d['immutableInputs'],*d['failurePins'],*d['diagnosticPins']]:pin(row)"
+    },
+    {
+      "kind": "mechanical-materialization-destination-only",
+      "before": "accepted=[r for r in read(original['materialization']['path'])['files'] if r['phase']=='product-only'];require(rows==accepted,'exact approved184 rows')",
+      "after": "accepted=[dict(r,destination=r['destination'].replace(str(PLANNING/'future-stage-01'),str(FUTURE))) for r in read(original['materialization']['path'])['files'] if r['phase']=='product-only'];require(rows==accepted,'exact approved184 rows with destination-only r2 mapping')"
+    },
+    {
+      "kind": "mechanical-build-argv-root",
+      "before": "require(cmd['argv']==base['argv']+expected_extra and cmd['cwd']==str(FUTURE),'only exact diagnostic argv additions')",
+      "after": "require(cmd['argv']==[a.replace(str(PLANNING/'future-stage-01'),str(FUTURE)) for a in base['argv']]+expected_extra and cmd['cwd']==str(FUTURE),'only exact r2 path mapping and diagnostic argv additions')"
+    },
+    {
+      "kind": "mechanical-environment-paths",
+      "before": " overrides=dict(base)",
+      "after": " overrides={k:v.replace(str(PLANNING/'future-stage-01'),str(FUTURE)) for k,v in base.items()}"
+    },
+    {
+      "kind": "semantic-fixed-programfiles-x86-only",
+      "before": "DOTNET_ROOT='C:\\\\Program Files\\\\dotnet')",
+      "after": "DOTNET_ROOT='C:\\\\Program Files\\\\dotnet')\n overrides['PROGRAMFILES(X86)']='C:\\\\Program Files (x86)'"
+    }
+  ],
+  "semanticChanges": 1,
+  "executorUnchanged": true,
+  "winProcessUnchanged": true,
+  "dependencyFileUnchanged": true
+}

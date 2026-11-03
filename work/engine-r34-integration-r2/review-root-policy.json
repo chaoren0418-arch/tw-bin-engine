@@ -1,0 +1,12 @@
+{
+  "schema": "engine-r34-review-root-policy-v1",
+  "authorizedRoots": [
+    "work/engine-pickup-presentation-candidate-review-r1"
+  ],
+  "source": "ENGINE-R34-INTEGRATION-PREP-COMPAT-R2 exact supervisor dispatch",
+  "reviewRootRead": true,
+  "reviewSealPending": false,
+  "sealSha256": "715c95654af8a1c59853f15e41c3511d5b15c1b0749bf35c47e39fe918b99196",
+  "acceptanceSha256": "5ba17f25a978b146a282f14fce8f477a60307303451ded1b9bca916b56411d4d",
+  "resultSha256": "81481f6fc05d19baea5af17a1338638c5d038708182961db47ef4864d063cb0e"
+}

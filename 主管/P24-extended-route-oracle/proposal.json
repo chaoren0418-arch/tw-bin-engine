@@ -1,0 +1,1372 @@
+{
+  "status": "requires-supervisor-pre-seed-revision",
+  "initial": [
+    32588,
+    32981
+  ],
+  "observer": [
+    32587,
+    32998
+  ],
+  "previouslyApprovedObserver": [
+    32587,
+    32992
+  ],
+  "rounds": [
+    {
+      "number": 1,
+      "points": [
+        [
+          32588,
+          32981
+        ],
+        [
+          32588,
+          33003
+        ],
+        [
+          32588,
+          32981
+        ]
+      ],
+      "steps": [
+        {
+          "source": [
+            32588,
+            32981
+          ],
+          "heading": 3,
+          "destination": [
+            32589,
+            32982
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32982
+          ],
+          "heading": 3,
+          "destination": [
+            32590,
+            32983
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32590,
+            32983
+          ],
+          "heading": 3,
+          "destination": [
+            32591,
+            32984
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32591,
+            32984
+          ],
+          "heading": 3,
+          "destination": [
+            32592,
+            32985
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32592,
+            32985
+          ],
+          "heading": 3,
+          "destination": [
+            32593,
+            32986
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32593,
+            32986
+          ],
+          "heading": 3,
+          "destination": [
+            32594,
+            32987
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32594,
+            32987
+          ],
+          "heading": 3,
+          "destination": [
+            32595,
+            32988
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32595,
+            32988
+          ],
+          "heading": 3,
+          "destination": [
+            32596,
+            32989
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32596,
+            32989
+          ],
+          "heading": 4,
+          "destination": [
+            32596,
+            32990
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32596,
+            32990
+          ],
+          "heading": 5,
+          "destination": [
+            32595,
+            32991
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32595,
+            32991
+          ],
+          "heading": 3,
+          "destination": [
+            32596,
+            32992
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32596,
+            32992
+          ],
+          "heading": 3,
+          "destination": [
+            32597,
+            32993
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32597,
+            32993
+          ],
+          "heading": 4,
+          "destination": [
+            32597,
+            32994
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32597,
+            32994
+          ],
+          "heading": 5,
+          "destination": [
+            32596,
+            32995
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32596,
+            32995
+          ],
+          "heading": 5,
+          "destination": [
+            32595,
+            32996
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32595,
+            32996
+          ],
+          "heading": 5,
+          "destination": [
+            32594,
+            32997
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32594,
+            32997
+          ],
+          "heading": 5,
+          "destination": [
+            32593,
+            32998
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32593,
+            32998
+          ],
+          "heading": 5,
+          "destination": [
+            32592,
+            32999
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32592,
+            32999
+          ],
+          "heading": 5,
+          "destination": [
+            32591,
+            33000
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32591,
+            33000
+          ],
+          "heading": 5,
+          "destination": [
+            32590,
+            33001
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32590,
+            33001
+          ],
+          "heading": 5,
+          "destination": [
+            32589,
+            33002
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            33002
+          ],
+          "heading": 5,
+          "destination": [
+            32588,
+            33003
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33003
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33002
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33002
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33001
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33001
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33000
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33000
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32999
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32999
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32998
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32998
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32997
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32997
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32996
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32996
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32995
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32995
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32994
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32994
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32993
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32993
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32992
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32992
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32991
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32991
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32990
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32990
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32989
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32989
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32988
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32988
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32987
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32987
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32986
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32986
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32985
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32985
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32984
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32984
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32983
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32983
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32982
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            32982
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            32981
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        }
+      ],
+      "moves": 44,
+      "shifts": [
+        {
+          "step": 22,
+          "direction": 4,
+          "origin": [
+            32256,
+            32960
+          ]
+        },
+        {
+          "step": 44,
+          "direction": 0,
+          "origin": [
+            32256,
+            32896
+          ]
+        }
+      ],
+      "reloginAfter": true,
+      "fresh": true,
+      "resume": "Use exact savedstate after first round; no grants/heal/reposition"
+    },
+    {
+      "number": 2,
+      "points": [
+        [
+          32588,
+          32981
+        ],
+        [
+          32588,
+          33015
+        ],
+        [
+          32588,
+          33003
+        ]
+      ],
+      "steps": [
+        {
+          "source": [
+            32588,
+            32981
+          ],
+          "heading": 3,
+          "destination": [
+            32589,
+            32982
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            32982
+          ],
+          "heading": 3,
+          "destination": [
+            32590,
+            32983
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32590,
+            32983
+          ],
+          "heading": 3,
+          "destination": [
+            32591,
+            32984
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32591,
+            32984
+          ],
+          "heading": 3,
+          "destination": [
+            32592,
+            32985
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32592,
+            32985
+          ],
+          "heading": 3,
+          "destination": [
+            32593,
+            32986
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32593,
+            32986
+          ],
+          "heading": 3,
+          "destination": [
+            32594,
+            32987
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32594,
+            32987
+          ],
+          "heading": 3,
+          "destination": [
+            32595,
+            32988
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32595,
+            32988
+          ],
+          "heading": 3,
+          "destination": [
+            32596,
+            32989
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32596,
+            32989
+          ],
+          "heading": 4,
+          "destination": [
+            32596,
+            32990
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32596,
+            32990
+          ],
+          "heading": 5,
+          "destination": [
+            32595,
+            32991
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32595,
+            32991
+          ],
+          "heading": 3,
+          "destination": [
+            32596,
+            32992
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32596,
+            32992
+          ],
+          "heading": 3,
+          "destination": [
+            32597,
+            32993
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32597,
+            32993
+          ],
+          "heading": 4,
+          "destination": [
+            32597,
+            32994
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32597,
+            32994
+          ],
+          "heading": 4,
+          "destination": [
+            32597,
+            32995
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32597,
+            32995
+          ],
+          "heading": 4,
+          "destination": [
+            32597,
+            32996
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32597,
+            32996
+          ],
+          "heading": 4,
+          "destination": [
+            32597,
+            32997
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32597,
+            32997
+          ],
+          "heading": 3,
+          "destination": [
+            32598,
+            32998
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32598,
+            32998
+          ],
+          "heading": 3,
+          "destination": [
+            32599,
+            32999
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32599,
+            32999
+          ],
+          "heading": 3,
+          "destination": [
+            32600,
+            33000
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32600,
+            33000
+          ],
+          "heading": 3,
+          "destination": [
+            32601,
+            33001
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32601,
+            33001
+          ],
+          "heading": 4,
+          "destination": [
+            32601,
+            33002
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32601,
+            33002
+          ],
+          "heading": 5,
+          "destination": [
+            32600,
+            33003
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32600,
+            33003
+          ],
+          "heading": 5,
+          "destination": [
+            32599,
+            33004
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32599,
+            33004
+          ],
+          "heading": 5,
+          "destination": [
+            32598,
+            33005
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32598,
+            33005
+          ],
+          "heading": 5,
+          "destination": [
+            32597,
+            33006
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32597,
+            33006
+          ],
+          "heading": 5,
+          "destination": [
+            32596,
+            33007
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32596,
+            33007
+          ],
+          "heading": 5,
+          "destination": [
+            32595,
+            33008
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32595,
+            33008
+          ],
+          "heading": 5,
+          "destination": [
+            32594,
+            33009
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32594,
+            33009
+          ],
+          "heading": 5,
+          "destination": [
+            32593,
+            33010
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32593,
+            33010
+          ],
+          "heading": 5,
+          "destination": [
+            32592,
+            33011
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32592,
+            33011
+          ],
+          "heading": 5,
+          "destination": [
+            32591,
+            33012
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32591,
+            33012
+          ],
+          "heading": 5,
+          "destination": [
+            32590,
+            33013
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32590,
+            33013
+          ],
+          "heading": 5,
+          "destination": [
+            32589,
+            33014
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32589,
+            33014
+          ],
+          "heading": 5,
+          "destination": [
+            32588,
+            33015
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33015
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33014
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33014
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33013
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33013
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33012
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33012
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33011
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33011
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33010
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33010
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33009
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33009
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33008
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33008
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33007
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33007
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33006
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33006
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33005
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33005
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33004
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        },
+        {
+          "source": [
+            32588,
+            33004
+          ],
+          "heading": 0,
+          "destination": [
+            32588,
+            33003
+          ],
+          "jarPassable": true,
+          "mutualScreenAtSource": true,
+          "mutualScreenAtDestination": true
+        }
+      ],
+      "moves": 46,
+      "shifts": [
+        {
+          "step": 22,
+          "direction": 4,
+          "origin": [
+            32256,
+            32960
+          ]
+        }
+      ],
+      "reloginAfter": true,
+      "fresh": false,
+      "resume": "Use exact savedstate after first round; no grants/heal/reposition"
+    }
+  ],
+  "limits": {
+    "maxMovesPerRound": 50,
+    "maxSecondsPerRound": 90,
+    "maxWaitMs": 2000
+  },
+  "sourcePixelEvidence": "../cache-pixel-goldens.json",
+  "visibleNewSource": {
+    "actor": [
+      32588,
+      33015
+    ],
+    "block": "7ffd8004",
+    "pixels": 14560,
+    "viewport": [
+      2848,
+      1832,
+      640,
+      400
+    ]
+  },
+  "currentServicesStarted": false
+}

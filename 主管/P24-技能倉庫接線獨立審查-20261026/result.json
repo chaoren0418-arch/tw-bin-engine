@@ -1,0 +1,73 @@
+{
+  "status": "independent-clean-build-and-skill-warehouse-wiring-checks-pass",
+  "snapshotFiles": 146,
+  "assetInputs": 534,
+  "controllerChecks": 73,
+  "domDoubleChecks": 24,
+  "originalNpcPixelFrames": 429,
+  "workerDll": "f861a6777cb740418d5b0dbbf0d26400414323c90fb172cc5de757aba759ac7e",
+  "cleanDll": "5e171fcf8b15c9daf41c61fc88da1ac65ef40e74bd91a48f56c204da5592b789",
+  "processes": [
+    {
+      "name": "build-product",
+      "pid": 82744,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能倉庫接線獨立審查-20261026\\source\\OfflineClient.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能倉庫接線獨立審查-20261026\\build\\client",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能倉庫接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 14.906232118606567
+    },
+    {
+      "name": "build-harness",
+      "pid": 81452,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能倉庫接線獨立審查-20261026\\reference\\development\\skill-warehouse-r1\\harness\\Checks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能倉庫接線獨立審查-20261026\\build\\checks",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能倉庫接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 4.43433952331543
+    },
+    {
+      "name": "controller",
+      "pid": 84152,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能倉庫接線獨立審查-20261026\\build\\checks\\P24.ServiceChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 7.429297208786011
+    },
+    {
+      "name": "dom",
+      "pid": 75824,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-技能倉庫接線獨立審查-20261026\\reference\\development\\skill-warehouse-r1\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.2262401580810547
+    }
+  ],
+  "ui": false,
+  "live": false,
+  "fullP24Accepted": false,
+  "scope": "Actual rebuilt product + explicit synthetic model/sender/DOM; original NPC pixel comparisons and selectable pixels on packaged maps. No live transaction or UI claim."
+}

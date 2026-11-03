@@ -1,0 +1,272 @@
+{
+  "schema": "p27-gap-evidence-v1",
+  "utc": "2026-10-29T03:45:15.884430+00:00",
+  "identity": {
+    "release": "r33",
+    "basePinsSha256": "d716dcbe30b9aebfdc558f59addf4910fe94e026aec31ae7823572a40a1ffced",
+    "files": 171,
+    "releaseSeal": {
+      "path": "releases/r33/_integration/r33/release-seal.json",
+      "sha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417"
+    },
+    "productDll": {
+      "path": "engine/build/client-product-r33/P11.ClientEngine.dll",
+      "sha256": "8ed92b8be9e532198e0f5bc88e404b47a3601f0e98e0962a0e1820571090d0c2"
+    },
+    "nativeAcceptance": false
+  },
+  "reviewConclusion": "bounded review: no implementation defect demonstrated in reviewed paths/tests; not proof of absence of defects",
+  "confirmedImplementationDefects": [],
+  "productChanges": [],
+  "candidatePatch": null,
+  "oldMatrixEvidence": {
+    "path": "主管/P24-本機主管接管與完整整合-20261028/completion-matrix.json",
+    "sha256": "815ea14323936891a66eedc24e8e8b324d2a873934d9418832437097e48ccd55",
+    "versionPolicy": "Existing r27Current and historicalEvidence fields retain their original version; no automatic promotion to r28 runtime acceptance."
+  },
+  "reconciledRows": [
+    {
+      "id": "R01",
+      "classification": "native-evidence-gap / retain historical version; not demonstrated implementation defect",
+      "historical": {
+        "id": "R01",
+        "feature": "正常入口/登入/選角/移動/重登",
+        "classification": "已解決",
+        "r27Current": "r27 正常 CMD、原生登入/選角/移動、正常保存重登已實測。",
+        "historicalEvidence": [
+          "r22-final-live/g00-main-blank-entry-state.json",
+          "r22-final-live/g01-main-normal-walk.json",
+          "r22-final-live/fix-gift-normal-relogin.json",
+          "r22-full-flow/g01-main-normal-login.json",
+          "r22-full-flow/g01-peer-normal-login.json"
+        ],
+        "historicalR22Status": "r22完整流程直接實測（有原服回覆與保存證據）",
+        "currentEvidence": [
+          "r27-targeted-live/current-status.json"
+        ],
+        "next": "保留 r27-targeted-live 證據；不重做登入接線。",
+        "wholeFeatureComplete": false,
+        "r28Current": "Normal CMD/manual login/character/world; eight native direction keys; normal close and new-process relogin restore position/items/equipment.",
+        "r28Evidence": [
+          "native-r28/normal-save-review.json"
+        ]
+      },
+      "currentR33": "Source exists and pinned; no r33 native run in this task",
+      "disposition": "Preserve historical native versions. Obtain authorized fixed-version evidence; do not reimplement solely because native evidence is absent."
+    },
+    {
+      "id": "R02",
+      "classification": "native-evidence-gap / retain historical version; not demonstrated implementation defect",
+      "historical": {
+        "id": "R02",
+        "feature": "匕首重登/原生鍵盤/圖示957",
+        "classification": "已解決",
+        "r27Current": "r27 正常 CMD、原生登入/選角/移動、正常保存重登已實測。",
+        "historicalEvidence": [
+          "r22-final-live/g02-dagger-native-keyboard-walk.json",
+          "r22-final-live/g02-dagger-normal-relogin.json",
+          "r22-final-live/fix-gift-icon-visible-state.json"
+        ],
+        "historicalR22Status": "r22直接實測",
+        "currentEvidence": [
+          "r27-targeted-live/current-status.json"
+        ],
+        "next": "保留 r27-targeted-live 證據；不重做登入接線。",
+        "wholeFeatureComplete": false,
+        "r28Current": "Dagger equip and new-process relogin persistence confirmed; native keyboard works. Icon visual acceptance remains unavailable.",
+        "r28Evidence": [
+          "native-r28/normal-save-review.json"
+        ]
+      },
+      "currentR33": "Source exists and pinned; no r33 native run in this task",
+      "disposition": "Preserve historical native versions. Obtain authorized fixed-version evidence; do not reimplement solely because native evidence is absent."
+    },
+    {
+      "id": "R16",
+      "classification": "native-evidence-gap / retain historical version; not demonstrated implementation defect",
+      "historical": {
+        "id": "R16",
+        "feature": "原生全視窗像素/滑鼠",
+        "classification": "僅待人工或工具恢復驗收",
+        "r27Current": "原生完整畫面/滑鼠未驗；既有支援恢復已失敗。",
+        "historicalEvidence": [
+          "r20-final-live/native-capture-retry-still-timeout.json"
+        ],
+        "historicalR22Status": "環境擷取逾時；未驗",
+        "currentEvidence": [
+          "r27-scope-audit/root-service-source-review.json"
+        ],
+        "next": "等可用擷取/座標輸入或人工實測；不得猜座標或重複無效恢復。",
+        "wholeFeatureComplete": false
+      },
+      "currentR33": "Source exists and pinned; no r33 native run in this task",
+      "disposition": "Preserve historical native versions. Obtain authorized fixed-version evidence; do not reimplement solely because native evidence is absent."
+    },
+    {
+      "id": "R20",
+      "classification": "native-evidence-gap / retain historical version; not demonstrated implementation defect",
+      "historical": {
+        "id": "R20",
+        "feature": "玩家HUD/快捷槽/圖示背包與技能",
+        "classification": "僅驗收缺證",
+        "r27Current": "HUD/快捷/背包技能與正常服務窗已整合；鍵盤部分有 r25–r27 實測，全視窗/滑鼠仍未驗。",
+        "historicalEvidence": [
+          "player-ui-priority-20261027.json",
+          "player-facing-integration-contract.json"
+        ],
+        "historicalR22Status": "隔離模組實作中，尚未整合或實機通過",
+        "currentEvidence": [
+          "player-hud-root-review.json",
+          "r27-targeted-live/current-status.json"
+        ],
+        "next": "不重派已完成實作；按未驗的原生 UI/滑鼠範圍驗收。",
+        "wholeFeatureComplete": false,
+        "r28Current": "Native HUD/items/skills: F2 home-scroll assignment and F4 light-arrow assignment confirmed through Tab/Space, actual offensive spell replied. Pixel acceptance remains unavailable.",
+        "r28Evidence": [
+          "native-r28/current-status.json"
+        ]
+      },
+      "currentR33": "Source exists and pinned; no r33 native run in this task",
+      "disposition": "Preserve historical native versions. Obtain authorized fixed-version evidence; do not reimplement solely because native evidence is absent."
+    },
+    {
+      "id": "R21",
+      "classification": "native-evidence-gap / retain historical version; not demonstrated implementation defect",
+      "historical": {
+        "id": "R21",
+        "feature": "原始玩家與NPC陰影",
+        "classification": "僅驗收缺證",
+        "r27Current": "原始透明與 13 gfx/42 外觀陰影已整合，原切片與離線 compositor 獨立核對，r27 真實場景已查看；全套原生畫面未驗。",
+        "historicalEvidence": [
+          "player-ui-priority-20261027.json",
+          "player-facing-integration-contract.json"
+        ],
+        "historicalR22Status": "隔離模組實作中，尚未整合或實機通過",
+        "currentEvidence": [
+          "shadow-original-slices-root-review.json",
+          "player-shadow-coverage-root-review.json",
+          "r27-targeted-live/g01-native-chat-movement-state.json"
+        ],
+        "next": "不重派已完成實作；按未驗的原生 UI/滑鼠範圍驗收。",
+        "wholeFeatureComplete": false
+      },
+      "currentR33": "Source exists and pinned; no r33 native run in this task",
+      "disposition": "Preserve historical native versions. Obtain authorized fixed-version evidence; do not reimplement solely because native evidence is absent."
+    },
+    {
+      "id": "R22",
+      "classification": "native-evidence-gap / retain historical version; not demonstrated implementation defect",
+      "historical": {
+        "id": "R22",
+        "feature": "原生滑鼠點地移動/攻擊/交談",
+        "classification": "僅驗收缺證",
+        "r27Current": "點地路徑及選取/攻擊/交談/拾取已整合；滑鼠工具不可用，實機指標動作未驗。",
+        "historicalEvidence": [
+          "player-ui-priority-20261027.json",
+          "player-facing-integration-contract.json"
+        ],
+        "historicalR22Status": "隔離模組實作中，尚未整合或實機通過",
+        "currentEvidence": [
+          "player-pointer-root-review.json",
+          "r27-targeted-live/current-status.json"
+        ],
+        "next": "不重派已完成實作；按未驗的原生 UI/滑鼠範圍驗收。",
+        "wholeFeatureComplete": false
+      },
+      "currentR33": "Source exists and pinned; no r33 native run in this task",
+      "disposition": "Preserve historical native versions. Obtain authorized fixed-version evidence; do not reimplement solely because native evidence is absent."
+    },
+    {
+      "id": "R23",
+      "classification": "native-evidence-gap / retain historical version; not demonstrated implementation defect",
+      "historical": {
+        "id": "R23",
+        "feature": "原生一般聊天",
+        "classification": "已解決",
+        "r27Current": "Enter 開啟/輸入隔離/單次原服回傳/草稿保留/Escape/F10/重登清空已實測。",
+        "currentEvidence": [
+          "r27-targeted-live/current-status.json"
+        ],
+        "next": "滑鼠聊天按鈕仍隨原生滑鼠驗收；不重做聊天接線。"
+      },
+      "currentR33": "Source exists and pinned; no r33 native run in this task",
+      "disposition": "Preserve historical native versions. Obtain authorized fixed-version evidence; do not reimplement solely because native evidence is absent."
+    }
+  ],
+  "remainingEvidence": [
+    {
+      "id": "A1",
+      "classification": "同版整合驗收缺證，非功能未接線",
+      "feature": "r27 連續戰鬥/技能/物品/服務/跨圖與保存閉環",
+      "missing": "同一固定版本的完整連續遊戲及服務證據；歷史 r20–r22 不升格。",
+      "next": "主管持有唯一實機權；在已確認支援範圍內補必要串接，完整原生滑鼠段依工具/人工可用性完成。"
+    },
+    {
+      "id": "A2",
+      "classification": "僅待人工或工具恢復驗收",
+      "feature": "完整原生視窗、滑鼠/HUD 互動",
+      "missing": "2026-10-28 supported native get_window_state再次FrameArrived timeout；accessibility可讀、座標geometry仍不可用。",
+      "next": "保留精確失敗，不猜座標；整合後以有新證據的工具恢復繼續，未驗不勾完成。"
+    },
+    {
+      "id": "C1",
+      "classification": "原服/資源條件限制",
+      "feature": "NPC 正向出售、私商正向回購",
+      "missing": "目前 NPC 收購價全停用；現有資源無 +7 匹配物/已證買家。",
+      "next": "不改資料或授物來製造通過。"
+    }
+  ],
+  "legacyTestBoundaries": [
+    {
+      "path": "engine/source/MovementUiTests.cs",
+      "evidence": {
+        "path": "engine/source/MovementUiTests.cs",
+        "line": 45,
+        "marker": "not external native input",
+        "sha256": "7021dbcfbf3427142de2d6890e0942c253374cbce798cd581d1687df19317051"
+      },
+      "notRunReason": "requires actual WinForms/WebView2 plus login/socket/server; forbidden in this task",
+      "meaning": "controller/DOM calls do not prove OS event delivery"
+    },
+    {
+      "path": "engine/source/InventoryLayoutTest.cs",
+      "evidence": {
+        "path": "engine/source/InventoryLayoutTest.cs",
+        "line": 20,
+        "marker": "explicit synthetic inventory",
+        "sha256": "ae7eeb059aa737d498a82ff2206d051b185b4d4c50a84c9a335a32b837ad6bb3"
+      },
+      "notRunReason": "constructs WinForms/WebView2 and captures UI; forbidden in this task",
+      "meaning": "explicit synthetic layout cannot establish native mouse or real item consumption"
+    }
+  ],
+  "uncertainties": [
+    "WinForms and WebView2 dispatch order, focus transitions and release delivery were not executed",
+    "No native mouse pixel ownership, actual layout/DPI or rendering test",
+    "No asynchronous sender admission/cancellation or server behavior tested here",
+    "General IME composition behavior needs native evidence, not inferred as broken",
+    "Bounded path samples do not prove original BIN pathfinder equivalence"
+  ],
+  "outOfScope": [
+    "Ground/WorldEntry/r34 pickup changes",
+    "new features/content",
+    "DB/services/network/native gameplay",
+    "audio/native effects"
+  ],
+  "offlineEvidence": [
+    {
+      "path": "evidence-csharp.json",
+      "sha256": "5cb7f93a446f52951a60edeb67f530be4f68e334e6081a9e634e4a9835007671",
+      "cases": 8,
+      "assertions": 182
+    },
+    {
+      "path": "evidence-web.json",
+      "sha256": "6dece7c1a8fce069cd480d502680830775897548f81e612181db73680ae47b4d",
+      "cases": 6,
+      "assertions": 55
+    }
+  ],
+  "historicalFocusEvidence": "historical-focus-evidence.json",
+  "movementEvidencePolicy": "Predicted positions or no corrections are not per-step server acknowledgements. Preserve successAck=false and require separately authorized normal save/relogin for persistent-position acceptance."
+}

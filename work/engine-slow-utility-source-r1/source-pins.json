@@ -1,0 +1,1888 @@
+{
+  "schema": "engine-source-qualification-pins-v1",
+  "files": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-加速攻擊施法接續-20261029\\baseline.json",
+      "size": 29672,
+      "sha256": "1329700b9fabf59e7406d62790ea8a32758ee9771963d0dcd49c7cde85708a66",
+      "role": "fixed r30 baseline"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\_integration\\r30\\release-seal.json",
+      "size": 2432967,
+      "sha256": "199ce6fe81130138e9fedf98e688928ce44b0a45c2aebd1b92fdd9519b8225dc",
+      "role": "r30 seal"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\OnlineMovement.cs",
+      "size": 10477,
+      "sha256": "8b066e453caf0a85196797cb7a11b3f29019b126acc050b14816eba81abe33ba",
+      "role": "r30 engine subset"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Inventory.cs",
+      "size": 13441,
+      "sha256": "0870481a126087edc7f6e2d9b75259d7725cd719bf55c1c7b7d16eb70900abf6",
+      "role": "r30 engine subset"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Ground.cs",
+      "size": 8718,
+      "sha256": "d0a5e85ea18f2999b9e7d18cbe575019667170a68a48852f7f67766d7140da37",
+      "role": "r30 engine subset"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\PlayerPointer.cs",
+      "size": 9105,
+      "sha256": "4214c71199b3db6a582e48049513028540b89fd7ad27e01b79c705590f8d07d8",
+      "role": "r30 engine subset"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\NpcInteraction.cs",
+      "size": 12417,
+      "sha256": "482cd99aff9bc74be2a58dc6a14fe7d5de09b66cb08d06e25c6afa0891aa0505",
+      "role": "r30 engine subset"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\BasicSupplies.cs",
+      "size": 3547,
+      "sha256": "5311b9c03f0624f5425946f4f4615ebf1456141c82b73a5096e1d85794f2a201",
+      "role": "r30 engine subset"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Equipment.cs",
+      "size": 5373,
+      "sha256": "54886622111435489a1bc1c36bcfafefa91278dd7b9ba3e2a352563cd8ab3c65",
+      "role": "r30 engine subset"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\NormalHaste.cs",
+      "size": 3032,
+      "sha256": "9eb5d6bb5b63ef5a0bef2631c184420589bf30aa3149e146b08106f63e53a6ee",
+      "role": "r30 engine subset"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\ActionCadence.cs",
+      "size": 6520,
+      "sha256": "b9039d457c1e2d65825285f78b19bceadb880c33750576cb39c8219957fab183",
+      "role": "r30 engine subset"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Teleport.cs",
+      "size": 4346,
+      "sha256": "be65b1ed0776e8fcef557115525945ea49c8b3080c74386f20044426f5344e37",
+      "role": "r30 engine subset"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Combat.cs",
+      "size": 12144,
+      "sha256": "e72969b87dc4be034631b8fd6068798d6def15af87c2bcd6147650ebea44dd3a",
+      "role": "r30 engine subset"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\source\\Magic.cs",
+      "size": 11027,
+      "sha256": "a5a3497d12ab516b30b705ba827cff3a9679976db1692f7ab137719c46426e58",
+      "role": "r30 engine subset"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+      "size": 6928681,
+      "sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+      "role": "fixed JAR"
+    },
+    {
+      "path": "D:\\lineage開發\\登入器bin資源\\TW1608262200.bin拆解\\TW1608262200.bin",
+      "size": 16810496,
+      "sha256": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2",
+      "role": "fixed BIN"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "size": 3452643,
+      "sha256": "ed20e74fee45986bef320ea4beca1b1a8c4ff178adbcd026663c03104ed7d1a3",
+      "role": "prior native disassembly"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\speed01\\functions.json",
+      "size": 84748,
+      "sha256": "af3e82d6cf6df7f7823829e1ac3f8a95320109ef739082bcdbd97747d8ed3255",
+      "role": "prior native disassembly"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+      "size": 359179,
+      "sha256": "63457730ec81398ef17790c55250c6f641485f5c4811bcfb81a53c57de75ec2e",
+      "role": "prior native disassembly"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\HANDOFF.md",
+      "size": 9977,
+      "sha256": "6593ca5718796ac48c6a8ec83de7c66d20151d5aaef072a63fbedc8b330a3367",
+      "role": "retained research; no SQL or DB checked"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-food-home-scroll-r1\\SOURCE-PROOF.md",
+      "size": 5936,
+      "sha256": "90c408a8b5a4a610b074e4869dbbb74b4b0284ee2f70e179d84d63a0f96a3912",
+      "role": "retained research; no SQL or DB checked"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\build\\client-product-r30\\P11.ClientEngine.dll",
+      "size": 2175488,
+      "sha256": "1abc1eed02917d14fd775be60920fe74efb9b102bc53eea5874fc0128e5247ef",
+      "role": "read-only offline gate probe dependency"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-actions-r1\\checks\\Program.cs",
+      "size": 22293,
+      "sha256": "c21fe2fc17b8cdc663123514964e130009838d478b8a0cda3be6bca17022cbc9",
+      "role": "read-only offline gate probe dependency"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-actions-r1\\checks\\Checks.csproj",
+      "size": 364,
+      "sha256": "7026e4304eabab509113fc747e95bf9a071a2e5fc2a547414f90660933b9694e",
+      "role": "read-only offline gate probe dependency"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-slow-actions-r1\\NuGet.Config",
+      "size": 107,
+      "sha256": "08906007303c842313bc6ae638882cb53c4009a74bc83bb65b7f642b5fdd43b6",
+      "role": "read-only offline gate probe dependency"
+    }
+  ],
+  "jarEntries": [
+    {
+      "entry": "com/lineage/server/clientpackets/C_ItemUSe.class",
+      "sha256": "32dea956650ff787697f465f52309ae4653b083281b279cfdb3dd5dcebf0fc6a",
+      "size": 28075,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.clientpackets.C_ItemUSe"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/model/L1ItemDelay.class",
+      "sha256": "d76ee297cbf4308716886fbf791effdbdf1cd1593bf6e87dd6a85a8f4484de37",
+      "size": 9556,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.model.L1ItemDelay"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/model/skill/L1BuffUtil.class",
+      "sha256": "a834b7ea528211de92c51672862057403ae4e8cb2c1fa2ad70a4b9854e477304",
+      "size": 6934,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.model.skill.L1BuffUtil"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/data/item_etcitem/brave/StatusHaste.class",
+      "sha256": "41cba6e0aac35b49d1337eb03f8f55c86744d90c6185ae10c706051a46aab62f",
+      "size": 5541,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.data.item_etcitem.brave.StatusHaste"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/data/item_etcitem/hp/UserAddHp.class",
+      "sha256": "ddb86ef10d6ede395eb8a93165760d454888bf178ab5a76f1afa78b466167cf6",
+      "size": 5191,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.data.item_etcitem.hp.UserAddHp"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/data/item_etcitem/Food1.class",
+      "sha256": "c14ba7e33b66df901cf5894469753a45e3014bbbcdac23e1e535393ad4980a35",
+      "size": 1930,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.data.item_etcitem.Food1"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/data/item_etcitem/teleport/GoHome_Reel.class",
+      "sha256": "bab4e48e1c0f6321e7a3a655c4f135cfb0c93f35eb0385282cf439cdff273530",
+      "size": 2245,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.data.item_etcitem.teleport.GoHome_Reel"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/data/ItemClass.class",
+      "sha256": "cf8b2defc7698d560a38e7c15d114c130daf67e4bf727c6b5f4b929ccad935b6",
+      "size": 6264,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.data.ItemClass"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/clientpackets/C_PickUpItem.class",
+      "sha256": "721b3f27cd3be1bbe1ac9f5c1646946af7a53b6dcbff2d759ceb9081ff8c45a5",
+      "size": 9954,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.clientpackets.C_PickUpItem"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/clientpackets/C_DropItem.class",
+      "sha256": "5b097f52ad2f3b7f6836ceb4124208adc8d9f4c8ddf172c658456f5629225319",
+      "size": 6217,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.clientpackets.C_DropItem"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/clientpackets/C_NPCTalk.class",
+      "sha256": "1786ac226467151513e5a51ea8629bcfbb3f6c4c80c8c108384766231c94d4a4",
+      "size": 5385,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.clientpackets.C_NPCTalk"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/model/L1PcInventory.class",
+      "sha256": "a869c2760971d82898db4904562083ff6b5b61913efd55be2b5f6679e8b2209f",
+      "size": 116413,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.model.L1PcInventory"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/model/L1EquipmentSlot.class",
+      "sha256": "021c7158809cbab680a63049828d46789a736d8871f9809787ec967872cae189",
+      "size": 18742,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.model.L1EquipmentSlot"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/clientpackets/ClientPacketStructure.class",
+      "sha256": "f9235526701216be001bea37247f3a0bb55e868a1139c6db4c7e32e38fa85aa7",
+      "size": 6155,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.clientpackets.ClientPacketStructure"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/echo/OpcodesClient.class",
+      "sha256": "6d1b160c0b381a56d7897c678a1f8bb5029ebb13417b052401092058aba5be5c",
+      "size": 5144,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.echo.OpcodesClient"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/model/PlayerActionLock.class",
+      "sha256": "dc702e360710ce0d56d48640c6c86efdc3a96274ca6095adff2f885fe500278c",
+      "size": 3611,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.model.PlayerActionLock"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/ActionCodes.class",
+      "sha256": "ce256e727eafc891cee87de9988b1312dde06f15f12f2d7ba91d9683b67cf69d",
+      "size": 3698,
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.ActionCodes"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/utils/WorldInteractionGuard.class",
+      "size": 5315,
+      "sha256": "53c73aa47857d46a5c69a97cbb9e81ef350b91f7169ea5daf090b3803cf99f71",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.utils.WorldInteractionGuard"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/serverpackets/S_SkillHaste.class",
+      "size": 1014,
+      "sha256": "65d33e67194b603f22f323782566475ca33b2534d4659fc54891de6a84df5003",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.serverpackets.S_SkillHaste"
+      ],
+      "exitCode": 0
+    },
+    {
+      "entry": "com/lineage/server/serverpackets/S_SkillSound.class",
+      "size": 1263,
+      "sha256": "58cbc861e1a6a29122d263cc0f7ffe4706a3f9d73baeb7fdd8b8c3db20e928d7",
+      "argv": [
+        "C:/Program Files/Microsoft/jdk-17.0.17.10-hotspot/bin/javap.exe",
+        "-classpath",
+        "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+        "-c",
+        "-p",
+        "com.lineage.server.serverpackets.S_SkillSound"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "nativeChunks": [
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92c820",
+      "VA": "0x92c820",
+      "RVA": "0x52c820",
+      "fileOffset": "0x52bc20",
+      "size": 213,
+      "sha256": "ebbb4f5b77eafea1fe5f2deabd76828767d08975109c02d18f07fe4ddd1ae40b"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92c900",
+      "VA": "0x92c900",
+      "RVA": "0x52c900",
+      "fileOffset": "0x52bd00",
+      "size": 230,
+      "sha256": "bfc02fd307dfd437e17f1ed6ed37b120f56f03b94e596d943a7cb7e95ab0c832"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92cb70",
+      "VA": "0x92cb70",
+      "RVA": "0x52cb70",
+      "fileOffset": "0x52bf70",
+      "size": 1997,
+      "sha256": "9dc1693ebeb8c82cc59f4ea3c566ff127858ce498b86b8111c6f9f082c2c85dd"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92cb70",
+      "VA": "0x109c460",
+      "RVA": "0xc9c460",
+      "fileOffset": "0xc9b860",
+      "size": 68,
+      "sha256": "26e4c41dbfeafae119701a6c2e6ae412488224058d45f9166f2f2f7e5d55f79e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92d360",
+      "VA": "0x92d360",
+      "RVA": "0x52d360",
+      "fileOffset": "0x52c760",
+      "size": 1359,
+      "sha256": "948b8ab5156a5f06dd9d407af25c79f04b39857b15b3233386f1f574485851e1"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92d360",
+      "VA": "0x109c4b0",
+      "RVA": "0xc9c4b0",
+      "fileOffset": "0xc9b8b0",
+      "size": 76,
+      "sha256": "4210c2efeda4565ba0da352554b1e399b45bb4fc3368ee3fbaee21648cd9f514"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92d8b0",
+      "VA": "0x92d8b0",
+      "RVA": "0x52d8b0",
+      "fileOffset": "0x52ccb0",
+      "size": 2731,
+      "sha256": "1da6281923f5d929769eb70e707efce8cb1c0450844696a0aae56e3b880cea53"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92d8b0",
+      "VA": "0x109c500",
+      "RVA": "0xc9c500",
+      "fileOffset": "0xc9b900",
+      "size": 148,
+      "sha256": "46febc2caba0afa869df846ca0531794a20f47d92cfb780e29a477c2cfd17df5"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92e360",
+      "VA": "0x92e360",
+      "RVA": "0x52e360",
+      "fileOffset": "0x52d760",
+      "size": 78,
+      "sha256": "98174c6beec7e776a2526f63ef273f47dd5f31e7ca12d1383c49823a9c35f58f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92e3b0",
+      "VA": "0x92e3b0",
+      "RVA": "0x52e3b0",
+      "fileOffset": "0x52d7b0",
+      "size": 404,
+      "sha256": "0b1b57f9d175b16ced448e06bb19344ae6c9f9247ad5a8e42d202bb96958ad8b"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92e3b0",
+      "VA": "0x109c5a0",
+      "RVA": "0xc9c5a0",
+      "fileOffset": "0xc9b9a0",
+      "size": 51,
+      "sha256": "960a28b8a2a03713c47adfb8dacc7b1a373efd1499cecac55eaa01f3709edaa9"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92e550",
+      "VA": "0x92e550",
+      "RVA": "0x52e550",
+      "fileOffset": "0x52d950",
+      "size": 444,
+      "sha256": "c5a0b6162c918a3a6311e72c3fec58ebefba9bebcae956107e55db0219ad89f9"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92e550",
+      "VA": "0x109c5e0",
+      "RVA": "0xc9c5e0",
+      "fileOffset": "0xc9b9e0",
+      "size": 56,
+      "sha256": "426b289f470785f7abf766c4327f59c8cd6da834d105fc167f58383f76e1ef5a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92e710",
+      "VA": "0x92e710",
+      "RVA": "0x52e710",
+      "fileOffset": "0x52db10",
+      "size": 116,
+      "sha256": "b64fc2762bc0302927bb98f2701d0556279461e16c6bcf6256b2ccff67c236d1"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92e8d0",
+      "VA": "0x92e8d0",
+      "RVA": "0x52e8d0",
+      "fileOffset": "0x52dcd0",
+      "size": 471,
+      "sha256": "189b7151817e99f877083c7d1816025376ca66830309816b9518d68c2368638b"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92e8d0",
+      "VA": "0x109c620",
+      "RVA": "0xc9c620",
+      "fileOffset": "0xc9ba20",
+      "size": 51,
+      "sha256": "c09e09d54bce5f8406aba5d8e36e8b5b9dce5b3ce24570cc846b98f3ee7f4e4e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92ead0",
+      "VA": "0x92ead0",
+      "RVA": "0x52ead0",
+      "fileOffset": "0x52ded0",
+      "size": 1590,
+      "sha256": "cc875e438de6a457002ee8837594b51f9306f2b6852cb1882c9999cf8c7a1441"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92ead0",
+      "VA": "0x109c660",
+      "RVA": "0xc9c660",
+      "fileOffset": "0xc9ba60",
+      "size": 65,
+      "sha256": "c269b4c40f0cc68833fb3a74898f5768eb84585f111a31474edf0e86707582bd"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92f2c0",
+      "VA": "0x92f2c0",
+      "RVA": "0x52f2c0",
+      "fileOffset": "0x52e6c0",
+      "size": 1040,
+      "sha256": "aabee0a9108c499f7cce1eebab01652586208e9b4523571b554aa4f6f27ffc04"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92f2c0",
+      "VA": "0x109c6e0",
+      "RVA": "0xc9c6e0",
+      "fileOffset": "0xc9bae0",
+      "size": 54,
+      "sha256": "079e9de0d1937e7363afd2e19e0da6daf550d9086c79351d9e63677f5917f399"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92fe40",
+      "VA": "0x92fe40",
+      "RVA": "0x52fe40",
+      "fileOffset": "0x52f240",
+      "size": 3040,
+      "sha256": "10920dced4ad5ddc12246959d555ada72a011ea630d72295c3d720eaef3b8e7a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x92fe40",
+      "VA": "0x109c7a0",
+      "RVA": "0xc9c7a0",
+      "fileOffset": "0xc9bba0",
+      "size": 152,
+      "sha256": "698212c0281ea3da709a53523001f55e811ff0429cb4b6f488226ed2134600cd"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x930a20",
+      "VA": "0x930a20",
+      "RVA": "0x530a20",
+      "fileOffset": "0x52fe20",
+      "size": 4231,
+      "sha256": "aa862629a78b98984ce34f708a3cade417141dbd9eb06b5ae6948f3abd20c4ac"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x930a20",
+      "VA": "0x109c840",
+      "RVA": "0xc9c840",
+      "fileOffset": "0xc9bc40",
+      "size": 194,
+      "sha256": "bfcca0bd14f2bda596254243412291043b844db4518e562e960ceb755ed92c23"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x931b60",
+      "VA": "0x931b60",
+      "RVA": "0x531b60",
+      "fileOffset": "0x530f60",
+      "size": 45,
+      "sha256": "9c8c4b193f48e739c90e702d889e352e58b3b91f6acefc65d16bc0c96151bcbe"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x931c50",
+      "VA": "0x931c50",
+      "RVA": "0x531c50",
+      "fileOffset": "0x531050",
+      "size": 66,
+      "sha256": "7ca40ec074a6593ddcb618e2c03e923b7a483924cd8f829aa18a13c35703975e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x931ca0",
+      "VA": "0x931ca0",
+      "RVA": "0x531ca0",
+      "fileOffset": "0x5310a0",
+      "size": 23,
+      "sha256": "0486d8837a9c07555a4a9d00045f6cdb4993c65d34f8383fc3ebcd7057c8d356"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x931cc0",
+      "VA": "0x931cc0",
+      "RVA": "0x531cc0",
+      "fileOffset": "0x5310c0",
+      "size": 153,
+      "sha256": "d99fb19f215dc2f2fc549206d4ec54d35333131a209e1d8b3013028aa262f2a1"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x931d60",
+      "VA": "0x931d60",
+      "RVA": "0x531d60",
+      "fileOffset": "0x531160",
+      "size": 511,
+      "sha256": "b639e21dd2983b2129e5481bf9e735a060bac39a1f397804b071032ca6667ac7"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x931d60",
+      "VA": "0x109c910",
+      "RVA": "0xc9c910",
+      "fileOffset": "0xc9bd10",
+      "size": 59,
+      "sha256": "02f6b2a1d2833185dfd5923545235d8b97b043d04f5eb87d1057a9c0ecf95b05"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x931f60",
+      "VA": "0x931f60",
+      "RVA": "0x531f60",
+      "fileOffset": "0x531360",
+      "size": 59,
+      "sha256": "bc6345b3f75370c536a39a5127528007bdeacf24927893aada20e2dd21e9e09f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x931fa0",
+      "VA": "0x931fa0",
+      "RVA": "0x531fa0",
+      "fileOffset": "0x5313a0",
+      "size": 75,
+      "sha256": "ff0363a9cbea68fab714996529ed0a99704ded749c3c0a73a75610966a185cff"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x931ff0",
+      "VA": "0x931ff0",
+      "RVA": "0x531ff0",
+      "fileOffset": "0x5313f0",
+      "size": 591,
+      "sha256": "a38596466e9c89689eff02d1a535ac262e866548ac162a01eccb04f9ba8f4070"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x931ff0",
+      "VA": "0x109c950",
+      "RVA": "0xc9c950",
+      "fileOffset": "0xc9bd50",
+      "size": 53,
+      "sha256": "4f84cbbfb1149975fd7424d6ebb55f3be4944d68c556e5b4ec1b9b821841da52"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9322c0",
+      "VA": "0x9322c0",
+      "RVA": "0x5322c0",
+      "fileOffset": "0x5316c0",
+      "size": 61,
+      "sha256": "9462ad5cee78b0821eed8152b9df5605cb512947c3a58252ec90a6479a21d018"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x932300",
+      "VA": "0x932300",
+      "RVA": "0x532300",
+      "fileOffset": "0x531700",
+      "size": 68,
+      "sha256": "1b4c25258cff639e3d4cec387b124258ceac22724d730bf150aa28a1cc4e9ccf"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x932350",
+      "VA": "0x932350",
+      "RVA": "0x532350",
+      "fileOffset": "0x531750",
+      "size": 276,
+      "sha256": "7d2d3c708a76951f29c984b3727e5bb5146c6897b5961051bf9bccd4be10cebe"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x932350",
+      "VA": "0x109c990",
+      "RVA": "0xc9c990",
+      "fileOffset": "0xc9bd90",
+      "size": 46,
+      "sha256": "75997c1cb8e57778745cd29ec7b5ab3c86501dbc76c398e267eccb1616b7894d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x932470",
+      "VA": "0x932470",
+      "RVA": "0x532470",
+      "fileOffset": "0x531870",
+      "size": 96,
+      "sha256": "c228dc0fd9e80ab4b6561e999e5d879d70e2061e68c0853730d7d4504169b4a3"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9324d0",
+      "VA": "0x9324d0",
+      "RVA": "0x5324d0",
+      "fileOffset": "0x5318d0",
+      "size": 58,
+      "sha256": "5c8d6686a845726d9b8cf1175d2c597882ad0b7fad329b5052517f66820962eb"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x932510",
+      "VA": "0x932510",
+      "RVA": "0x532510",
+      "fileOffset": "0x531910",
+      "size": 281,
+      "sha256": "c8567003c64cf379ae75986373da004b4430396eb1f6fea7d6adc242c815c320"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x932630",
+      "VA": "0x932630",
+      "RVA": "0x532630",
+      "fileOffset": "0x531a30",
+      "size": 210,
+      "sha256": "8cacd227a320ce7e3e6ebfcd7b96d0bdddeb5fd64df680e2dfa3fa30302ebb0a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x932710",
+      "VA": "0x932710",
+      "RVA": "0x532710",
+      "fileOffset": "0x531b10",
+      "size": 59,
+      "sha256": "ae0eabce985e4b858dce3cadf64d8870c758f16adc0eb0f6b0edff306ff61039"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x932750",
+      "VA": "0x932750",
+      "RVA": "0x532750",
+      "fileOffset": "0x531b50",
+      "size": 1446,
+      "sha256": "7cd31bb70fce3acdd7124d1f528801401a6d821d45eafeac8e8202938343c154"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x932750",
+      "VA": "0x109c9c0",
+      "RVA": "0xc9c9c0",
+      "fileOffset": "0xc9bdc0",
+      "size": 76,
+      "sha256": "dd11a30ee7e932ef069582579f11a3d15b998c91632ad8f5ff3e1dd443d8bb4d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x932d00",
+      "VA": "0x932d00",
+      "RVA": "0x532d00",
+      "fileOffset": "0x532100",
+      "size": 571,
+      "sha256": "62a78f85d783930efc879c02d8f391b6f48ef48866c372c91da1cb49fce16481"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x932d00",
+      "VA": "0x109ca10",
+      "RVA": "0xc9ca10",
+      "fileOffset": "0xc9be10",
+      "size": 76,
+      "sha256": "3b7a614336341352800468a570120f03403adb6521b477467001b563a8798932"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x932f40",
+      "VA": "0x932f40",
+      "RVA": "0x532f40",
+      "fileOffset": "0x532340",
+      "size": 96,
+      "sha256": "7d3f134216f96039c3a5b09043122f59c2e3c06da693a32987b62f0439ae6d98"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x932fa0",
+      "VA": "0x932fa0",
+      "RVA": "0x532fa0",
+      "fileOffset": "0x5323a0",
+      "size": 82,
+      "sha256": "e17936ce6ea02eddf4f5b974f47a04b846f792f9513aba6412ce8fe2b409dcb6"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x933000",
+      "VA": "0x933000",
+      "RVA": "0x533000",
+      "fileOffset": "0x532400",
+      "size": 55,
+      "sha256": "776a0122908299f41d04ae54b30a4e36dddbb662d7bcd757229fd18756d154e0"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x933040",
+      "VA": "0x933040",
+      "RVA": "0x533040",
+      "fileOffset": "0x532440",
+      "size": 1251,
+      "sha256": "7d48f58560fa733e6bcf3aac5616d36fb98febdeba18cb6baf2896dcf72c4083"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x933640",
+      "VA": "0x933640",
+      "RVA": "0x533640",
+      "fileOffset": "0x532a40",
+      "size": 285,
+      "sha256": "363e7fc095b5cf3f766ec8f419a219d65aaeb0e6eb8fd6604150002242aeab74"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x933760",
+      "VA": "0x933760",
+      "RVA": "0x533760",
+      "fileOffset": "0x532b60",
+      "size": 5,
+      "sha256": "7178bc05f1e5707e6c3dae3e068488f3df05d53b0e5eb728edd1abc56533f087"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x933d90",
+      "VA": "0x933d90",
+      "RVA": "0x533d90",
+      "fileOffset": "0x533190",
+      "size": 88,
+      "sha256": "1c31b7b0c736dd66aadeb776a6d283eec5ae7369293fd867e650d78832e7fcbf"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x933f50",
+      "VA": "0x933f50",
+      "RVA": "0x533f50",
+      "fileOffset": "0x533350",
+      "size": 349,
+      "sha256": "b58d3818c79b03de2fba0834d44f8aec134342f6e5adc1407dacdde7a52608f8"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9343c0",
+      "VA": "0x9343c0",
+      "RVA": "0x5343c0",
+      "fileOffset": "0x5337c0",
+      "size": 355,
+      "sha256": "7a0e8b57cf375a34083ada4f0a91ef8fe6ffd3ff6362ad6bd816e5f0fa1bbe2d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x934530",
+      "VA": "0x934530",
+      "RVA": "0x534530",
+      "fileOffset": "0x533930",
+      "size": 343,
+      "sha256": "8f3c5c3358bf682e21db4bf6f3f45819f65b99c0998fc63b6da6a4baa274446f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x934530",
+      "VA": "0x109caa0",
+      "RVA": "0xc9caa0",
+      "fileOffset": "0xc9bea0",
+      "size": 49,
+      "sha256": "b87e0693fc7c8326cbfd7047578b8876edfeb7f6299bcf22c4027f9c1b3d1e16"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x934690",
+      "VA": "0x934690",
+      "RVA": "0x534690",
+      "fileOffset": "0x533a90",
+      "size": 2959,
+      "sha256": "2cc0d5c1392621d64bebb79ddaae18836efce5e78e5936d2e651c985dca8df5d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x934690",
+      "VA": "0x109cae0",
+      "RVA": "0xc9cae0",
+      "fileOffset": "0xc9bee0",
+      "size": 121,
+      "sha256": "e5826c5f2a82789ea4e9b397bfcc842fe5322bcfca41cc006fbc7b1fbffb4fcd"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x935220",
+      "VA": "0x935220",
+      "RVA": "0x535220",
+      "fileOffset": "0x534620",
+      "size": 51,
+      "sha256": "12827d24553a23fa2624c8c4f989e2d2cefcc0b7c18259a7001738b90c596ce7"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x935260",
+      "VA": "0x935260",
+      "RVA": "0x535260",
+      "fileOffset": "0x534660",
+      "size": 785,
+      "sha256": "70e864a97304078d81af8647c62ff3648ccb5850d2a0bd99b751cc37066c76ad"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9357e0",
+      "VA": "0x9357e0",
+      "RVA": "0x5357e0",
+      "fileOffset": "0x534be0",
+      "size": 37937,
+      "sha256": "085c7516ad08d72bc6e6d2c26cd5677d120f03064ddf9064991d95361bb4d69b"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9357e0",
+      "VA": "0x109cb60",
+      "RVA": "0xc9cb60",
+      "fileOffset": "0xc9bf60",
+      "size": 511,
+      "sha256": "3c8950f1da8c8b60abcb30c2771056062092bc5abdb199727d5ad605a9a51367"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x93f200",
+      "VA": "0x93f200",
+      "RVA": "0x53f200",
+      "fileOffset": "0x53e600",
+      "size": 421,
+      "sha256": "1125a16f3b409f28c5dbbd00310036c3ecdfbe5b40d7ce6a860e430cdb7816f4"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x93f200",
+      "VA": "0x109cd60",
+      "RVA": "0xc9cd60",
+      "fileOffset": "0xc9c160",
+      "size": 53,
+      "sha256": "31c0231acef58cbac7e47c80ca5f74f1d8bfe28ee9a87faf45c0597e7f1630b1"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x93f3b0",
+      "VA": "0x93f3b0",
+      "RVA": "0x53f3b0",
+      "fileOffset": "0x53e7b0",
+      "size": 126,
+      "sha256": "9c514df6772c189fe54af48d8f140193a23317d1e461ee0ab26183910c71433f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x93f5e0",
+      "VA": "0x93f5e0",
+      "RVA": "0x53f5e0",
+      "fileOffset": "0x53e9e0",
+      "size": 234,
+      "sha256": "7a0f8f8b2c3bb5d756e79e7934b16c552431d1fc840eb60a3ef61d5f75ba6107"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x93f910",
+      "VA": "0x93f910",
+      "RVA": "0x53f910",
+      "fileOffset": "0x53ed10",
+      "size": 444,
+      "sha256": "e8935e91527aa2f95bb69773dc4b53cc8e4e4dd9dbec4217561a6ec35302759e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x93f910",
+      "VA": "0x109cde0",
+      "RVA": "0xc9cde0",
+      "fileOffset": "0xc9c1e0",
+      "size": 46,
+      "sha256": "a5cf649b5725475e41f27e8a2c51bb608ca488017b8133d14b20ab62cb1d7daf"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x93fad0",
+      "VA": "0x93fad0",
+      "RVA": "0x53fad0",
+      "fileOffset": "0x53eed0",
+      "size": 789,
+      "sha256": "936c3330b40e16848297e1bdf862189812a6cc89045d67955b2f6b571951ad2e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x93fad0",
+      "VA": "0x109ce10",
+      "RVA": "0xc9ce10",
+      "fileOffset": "0xc9c210",
+      "size": 84,
+      "sha256": "94f70bebb60746a7c0bd4230f12cc1f29d1e341ac54bb319192c94d762691b1c"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x93fdf0",
+      "VA": "0x93fdf0",
+      "RVA": "0x53fdf0",
+      "fileOffset": "0x53f1f0",
+      "size": 562,
+      "sha256": "700b70cc5a50371d68aef2e979f4d6f62f53e5398e3c23278c9b789afd2caa10"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x93fdf0",
+      "VA": "0x109ce70",
+      "RVA": "0xc9ce70",
+      "fileOffset": "0xc9c270",
+      "size": 51,
+      "sha256": "66446a5f0ac4a22bdf6e949265208a14fa091c9fcfd920f7fd2dbcfbfcb1ba8c"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x940030",
+      "VA": "0x940030",
+      "RVA": "0x540030",
+      "fileOffset": "0x53f430",
+      "size": 51,
+      "sha256": "422b5803314d9e8934a1e6aa1f9a79d16833e6b335b36d1230f83ab8fb67c25c"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x940070",
+      "VA": "0x940070",
+      "RVA": "0x540070",
+      "fileOffset": "0x53f470",
+      "size": 623,
+      "sha256": "7f326d8afe13ec1d39f1a484246becf1b095597b58490b241d7544bf214dc40f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x940070",
+      "VA": "0x109ceb0",
+      "RVA": "0xc9ceb0",
+      "fileOffset": "0xc9c2b0",
+      "size": 51,
+      "sha256": "51434381fddf669a648aff6b37eab019ff06b4eef638746f939d18b32679a49a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x940330",
+      "VA": "0x940330",
+      "RVA": "0x540330",
+      "fileOffset": "0x53f730",
+      "size": 963,
+      "sha256": "d674264c18a5abe8a6c6963eaa4852764df5977556f9d87f863792759b121e54"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x940750",
+      "VA": "0x940750",
+      "RVA": "0x540750",
+      "fileOffset": "0x53fb50",
+      "size": 526,
+      "sha256": "a5d13a3e11c5931587c33ee124e02b580bf1bc9ac939ccea2916df2d1911ae7a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x940750",
+      "VA": "0x109cef0",
+      "RVA": "0xc9cef0",
+      "fileOffset": "0xc9c2f0",
+      "size": 65,
+      "sha256": "1e1ec48bfde0c53245a5c1868c76f6f8432aab29f5f4004c8ae050d8904f11db"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x940960",
+      "VA": "0x940960",
+      "RVA": "0x540960",
+      "fileOffset": "0x53fd60",
+      "size": 528,
+      "sha256": "98de3512bd6ac3709351bebf8a539ca54ec5a3b06899c0daadf0bb94c3ee14d5"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x940c80",
+      "VA": "0x940c80",
+      "RVA": "0x540c80",
+      "fileOffset": "0x540080",
+      "size": 250,
+      "sha256": "7796d87147129646d5c6a3643ae3d2e8adf7863fe2fcceb9e1c443925c4be382"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x940d80",
+      "VA": "0x940d80",
+      "RVA": "0x540d80",
+      "fileOffset": "0x540180",
+      "size": 225,
+      "sha256": "eb7979cb74e4ea06a9408fa28815cf16e01c0dfae082f8c08c28348b056f4a28"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x940e70",
+      "VA": "0x940e70",
+      "RVA": "0x540e70",
+      "fileOffset": "0x540270",
+      "size": 285,
+      "sha256": "93528d1be4cd1d08f7fa1ebfe57cf6952b5c9d0bc8e089df226a3f35cdde5fac"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x940f90",
+      "VA": "0x940f90",
+      "RVA": "0x540f90",
+      "fileOffset": "0x540390",
+      "size": 98,
+      "sha256": "2745d109040a877a8a9bfa62222b54104a5e2767d464629eab2e8321b5557525"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x941000",
+      "VA": "0x941000",
+      "RVA": "0x541000",
+      "fileOffset": "0x540400",
+      "size": 3230,
+      "sha256": "7599cca5a43b5a7f0e68be63ef8b12de6fe221983bf300815db77b55d96e2085"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x941000",
+      "VA": "0x109cf40",
+      "RVA": "0xc9cf40",
+      "fileOffset": "0xc9c340",
+      "size": 82,
+      "sha256": "4d4dfa468b588ea20a01a1c6bea95b9cb8ee95c78bbab4540ba620011f8268b8"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x941ea0",
+      "VA": "0x941ea0",
+      "RVA": "0x541ea0",
+      "fileOffset": "0x5412a0",
+      "size": 400,
+      "sha256": "e121a409d2307765cced1d166908323161eed9d154abe6183d7c6d3a6be2fc61"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x941ea0",
+      "VA": "0x109cfa0",
+      "RVA": "0xc9cfa0",
+      "fileOffset": "0xc9c3a0",
+      "size": 46,
+      "sha256": "9e6aa2616e4b957467cd8c39759357e26a582115e0677831a62cf0b8e970a5a5"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x942030",
+      "VA": "0x942030",
+      "RVA": "0x542030",
+      "fileOffset": "0x541430",
+      "size": 534,
+      "sha256": "d9b598a40fa5a47d498a1d41cf28c9a9f88f736e99e856c0a6be9059aa5f3d8d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x942460",
+      "VA": "0x942460",
+      "RVA": "0x542460",
+      "fileOffset": "0x541860",
+      "size": 546,
+      "sha256": "c4c275b470dd13596efde1be0723101c110d98d58e78ebf32dff4e4ac8d83c27"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x942460",
+      "VA": "0x109cfd0",
+      "RVA": "0xc9cfd0",
+      "fileOffset": "0xc9c3d0",
+      "size": 51,
+      "sha256": "0e2323013df41224f103836418abc06bda0adb99936fc6580ccbc59880202d5f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x942690",
+      "VA": "0x942690",
+      "RVA": "0x542690",
+      "fileOffset": "0x541a90",
+      "size": 421,
+      "sha256": "4cc38344e2ca8d9768ef75fce5b125bfe8dd93c248d35a4b6f777b89408b1b3a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x942690",
+      "VA": "0x109d010",
+      "RVA": "0xc9d010",
+      "fileOffset": "0xc9c410",
+      "size": 51,
+      "sha256": "8e6817a304147014a0806550707ee79b398cf44073ffbd240cc4c8a248a9d1be"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x942840",
+      "VA": "0x942840",
+      "RVA": "0x542840",
+      "fileOffset": "0x541c40",
+      "size": 461,
+      "sha256": "92a68d665689ee696a37226e0254860c47e7976e3e7eb813a3df9485319af46d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x942840",
+      "VA": "0x109d050",
+      "RVA": "0xc9d050",
+      "fileOffset": "0xc9c450",
+      "size": 51,
+      "sha256": "94856ed4dce574ffb79e819ae85267207d164801e37d7c97c7d530ea8a3641c8"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x942b40",
+      "VA": "0x942b40",
+      "RVA": "0x542b40",
+      "fileOffset": "0x541f40",
+      "size": 9094,
+      "sha256": "6aded325f09cfc39e7c110635e1b63ea463225d5fcc646e94baf54399f22cc48"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x942b40",
+      "VA": "0x109d090",
+      "RVA": "0xc9d090",
+      "fileOffset": "0xc9c490",
+      "size": 178,
+      "sha256": "0c73f205996fcb89e57f0b3f44dc17e06409430b5722f6229f12b1186dccee58"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x944f50",
+      "VA": "0x944f50",
+      "RVA": "0x544f50",
+      "fileOffset": "0x544350",
+      "size": 1979,
+      "sha256": "95e2283673f439591819f1d203d9f860b8f69cd73a5c583222c95c6ccf81c575"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x944f50",
+      "VA": "0x109d150",
+      "RVA": "0xc9d150",
+      "fileOffset": "0xc9c550",
+      "size": 51,
+      "sha256": "88efa760f6f3e14ee9f7dc9afdc6c01840240d57f66dbbca2ae83f0f79f53986"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x945770",
+      "VA": "0x945770",
+      "RVA": "0x545770",
+      "fileOffset": "0x544b70",
+      "size": 227,
+      "sha256": "64c49153c7c494873a70ff5db356c583d5699fedac8cf81ab947c120824fd049"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x945860",
+      "VA": "0x945860",
+      "RVA": "0x545860",
+      "fileOffset": "0x544c60",
+      "size": 345,
+      "sha256": "ca9e6f182443fda68eb4309cf2849fadc3ab68c000f0e1951393a2003db81dc4"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x945860",
+      "VA": "0x109d190",
+      "RVA": "0xc9d190",
+      "fileOffset": "0xc9c590",
+      "size": 62,
+      "sha256": "8ba651f5034fcb5ca8cf47bb7ed744ae17f12b979e9c5bd4ce520e74c7c4c099"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9459c0",
+      "VA": "0x9459c0",
+      "RVA": "0x5459c0",
+      "fileOffset": "0x544dc0",
+      "size": 525,
+      "sha256": "1398019a050dcb346458ecbe6dbc166aa5cee4610d01777a69a8c7ed0a1c1185"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9459c0",
+      "VA": "0x109d1d0",
+      "RVA": "0xc9d1d0",
+      "fileOffset": "0xc9c5d0",
+      "size": 38,
+      "sha256": "acec2ffafd7b76b79489902b0339c6e6f6ce21aa6202addd71609c72812a1e7d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x945bd0",
+      "VA": "0x945bd0",
+      "RVA": "0x545bd0",
+      "fileOffset": "0x544fd0",
+      "size": 2152,
+      "sha256": "8ce3641b59d20b9673508d94acb3b0890f319302a7732c0269bd3ed6f1ac0d8f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9464d0",
+      "VA": "0x9464d0",
+      "RVA": "0x5464d0",
+      "fileOffset": "0x5458d0",
+      "size": 165,
+      "sha256": "69c6d901b908c05c7b568d7b80df3ab8b99f05cb608e5e04dbca0e39156a3004"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9465a0",
+      "VA": "0x9465a0",
+      "RVA": "0x5465a0",
+      "fileOffset": "0x5459a0",
+      "size": 462,
+      "sha256": "30295b701d5fb3f42f189239df2001755b36e9eeffd198a857c35b73a1fb9949"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x946770",
+      "VA": "0x946770",
+      "RVA": "0x546770",
+      "fileOffset": "0x545b70",
+      "size": 804,
+      "sha256": "3154becc0e7c5eac682849ab0be7e2d5a306b383acdceef15ffc1333efc0ace3"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x946b00",
+      "VA": "0x946b00",
+      "RVA": "0x546b00",
+      "fileOffset": "0x545f00",
+      "size": 300,
+      "sha256": "370ff2903bda730acd5d7a4ee9ee4f75d7763fa90c3280aa00b8a230252432ba"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x946cf0",
+      "VA": "0x946cf0",
+      "RVA": "0x546cf0",
+      "fileOffset": "0x5460f0",
+      "size": 1097,
+      "sha256": "8e1edff3ad8e1cc2ff1c03fd94ce5cc09ce136cdb96487dd0075f0a61a300b95"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x946cf0",
+      "VA": "0x109d200",
+      "RVA": "0xc9d200",
+      "fileOffset": "0xc9c600",
+      "size": 49,
+      "sha256": "e68ec8642d0172225731f6d7029c189bbb6e4a77206ee60f3b93f71cf52ba545"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x947140",
+      "VA": "0x947140",
+      "RVA": "0x547140",
+      "fileOffset": "0x546540",
+      "size": 1001,
+      "sha256": "bf801ebcbe985bf88e4a867504abb06250dab9b3d8c93d714e7c2530ce8d033d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x948a60",
+      "VA": "0x948a60",
+      "RVA": "0x548a60",
+      "fileOffset": "0x547e60",
+      "size": 1016,
+      "sha256": "0fe875536b38fe4e378124f32b6eb25b5f5bac23ac90cdc14558b33d5840b4a9"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x948a60",
+      "VA": "0x109d270",
+      "RVA": "0xc9d270",
+      "fileOffset": "0xc9c670",
+      "size": 106,
+      "sha256": "d504393cb89cdd66d747950e3f334d1328f9bd05140dca733d16bbdb81dab2ae"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x948e60",
+      "VA": "0x948e60",
+      "RVA": "0x548e60",
+      "fileOffset": "0x548260",
+      "size": 183,
+      "sha256": "c3e725daf7a9ef5a3ea820aea43e82235d6c8c939474e28a1d27fc500c78b930"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9490f0",
+      "VA": "0x9490f0",
+      "RVA": "0x5490f0",
+      "fileOffset": "0x5484f0",
+      "size": 704,
+      "sha256": "4944f8e23c3cc97e32592ac91612800cea48963730c9cf5ea5b749d23a167105"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9490f0",
+      "VA": "0x109d2e0",
+      "RVA": "0xc9d2e0",
+      "fileOffset": "0xc9c6e0",
+      "size": 76,
+      "sha256": "3562bcb85e94c5d6a96790971c725acbecf240fcc9ccff512b4e5a126176192f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9493b0",
+      "VA": "0x9493b0",
+      "RVA": "0x5493b0",
+      "fileOffset": "0x5487b0",
+      "size": 276,
+      "sha256": "450c83e1742f939e7a8e40cb7eac9218b18d4666a7127721de88d80e797420d1"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9494d0",
+      "VA": "0x9494d0",
+      "RVA": "0x5494d0",
+      "fileOffset": "0x5488d0",
+      "size": 62,
+      "sha256": "d1e6b69caeae67a0f5b6f8ed6067917c1e3bff6e6b997ec53ef5a65fe46cc6e9"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9496b0",
+      "VA": "0x9496b0",
+      "RVA": "0x5496b0",
+      "fileOffset": "0x548ab0",
+      "size": 627,
+      "sha256": "cbbde71b43bc2bb528c1873397b736e39bee64ca19dbaa4a9b37d91a166bd80f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x9496b0",
+      "VA": "0x109d330",
+      "RVA": "0xc9d330",
+      "fileOffset": "0xc9c730",
+      "size": 46,
+      "sha256": "a77535cef855ecb92f7491eb870149490b5b059964e5bf372c56bf573bdc6455"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x949930",
+      "VA": "0x949930",
+      "RVA": "0x549930",
+      "fileOffset": "0x548d30",
+      "size": 5160,
+      "sha256": "dec66524a9b3790efe49e735363f354f897d64b739ae7da4d7a57dd0b4f9a046"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x949930",
+      "VA": "0x109d360",
+      "RVA": "0xc9d360",
+      "fileOffset": "0xc9c760",
+      "size": 95,
+      "sha256": "0ccba77693abe4b13629593222668dc1c26ec2f7fb280ec1f49421fdc4e697d6"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94adb0",
+      "VA": "0x94adb0",
+      "RVA": "0x54adb0",
+      "fileOffset": "0x54a1b0",
+      "size": 332,
+      "sha256": "ec7317ffd7dbdb8d219b0c87bffbfbf4a9a9a90a9acbac6a8a215153bbb0996f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94af00",
+      "VA": "0x94af00",
+      "RVA": "0x54af00",
+      "fileOffset": "0x54a300",
+      "size": 1507,
+      "sha256": "742c5c6db1869f7b7da4f38c911762113628bbc5864047b7bd99198c5e3b7123"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94af00",
+      "VA": "0x109d3c0",
+      "RVA": "0xc9d3c0",
+      "fileOffset": "0xc9c7c0",
+      "size": 95,
+      "sha256": "f9567dbca6a0c59de5a8a3d4ebe5f412b8c776846f14ff686078760b9c7a3b59"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94b4f0",
+      "VA": "0x94b4f0",
+      "RVA": "0x54b4f0",
+      "fileOffset": "0x54a8f0",
+      "size": 1688,
+      "sha256": "a8b4ca7f70a9cb1cf1dbdafff2b331eb8b7bdf007ea3893892918181bc486744"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94b4f0",
+      "VA": "0x109d420",
+      "RVA": "0xc9d420",
+      "fileOffset": "0xc9c820",
+      "size": 73,
+      "sha256": "10804884eaf4a060122c68b6fd1da1ea6c428a95c000a18df598d65b161f41a0"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94bb90",
+      "VA": "0x94bb90",
+      "RVA": "0x54bb90",
+      "fileOffset": "0x54af90",
+      "size": 489,
+      "sha256": "860da3b67b2029a5d856c0a52a98d33033c30881f2c940b904817b0dcbc6b5e4"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94bd80",
+      "VA": "0x94bd80",
+      "RVA": "0x54bd80",
+      "fileOffset": "0x54b180",
+      "size": 75,
+      "sha256": "34e2a72962e3f0f70d9efa210eb2c14422d8746d359c40ac04d93e4188d45ffb"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94bfc0",
+      "VA": "0x94bfc0",
+      "RVA": "0x54bfc0",
+      "fileOffset": "0x54b3c0",
+      "size": 114,
+      "sha256": "f6b1ce80fbb40fb7d636968c5fd4f836a3395c644d44c3e599d1deb095513929"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94c0e0",
+      "VA": "0x94c0e0",
+      "RVA": "0x54c0e0",
+      "fileOffset": "0x54b4e0",
+      "size": 55,
+      "sha256": "b544a3eaab3e8f8454e41218fba4403b2755ba179df331a5b292424800e74ab4"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94c4c0",
+      "VA": "0x94c4c0",
+      "RVA": "0x54c4c0",
+      "fileOffset": "0x54b8c0",
+      "size": 109,
+      "sha256": "cebcec96d0250df3e8ea746c25a06e34a5b1f574e1e3935f221193477ac00907"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94c530",
+      "VA": "0x94c530",
+      "RVA": "0x54c530",
+      "fileOffset": "0x54b930",
+      "size": 325,
+      "sha256": "a498af93ac848b174aa58db724f7af6a43776352f21d0342a0064ebc6bedb18f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94d8e0",
+      "VA": "0x94d8e0",
+      "RVA": "0x54d8e0",
+      "fileOffset": "0x54cce0",
+      "size": 169,
+      "sha256": "3a6624d14e4b102c0311f7c296485e42433703376db85066831edeca7858c17f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94d990",
+      "VA": "0x94d990",
+      "RVA": "0x54d990",
+      "fileOffset": "0x54cd90",
+      "size": 248,
+      "sha256": "8046343ab6107801b7ddef36ac090a31f4c55509ea97dc810ae6a85c0c6f07dd"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94db20",
+      "VA": "0x94db20",
+      "RVA": "0x54db20",
+      "fileOffset": "0x54cf20",
+      "size": 129,
+      "sha256": "da0b61d2f65589745531cde6275ceaa7e9329ddcef4a30a2a8202199e4348f8a"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94dbb0",
+      "VA": "0x94dbb0",
+      "RVA": "0x54dbb0",
+      "fileOffset": "0x54cfb0",
+      "size": 1316,
+      "sha256": "dcf0fa65582d3205db74dfea2b28ee0c82d93c796ed97f3dd9e24f646243655c"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94e0e0",
+      "VA": "0x94e0e0",
+      "RVA": "0x54e0e0",
+      "fileOffset": "0x54d4e0",
+      "size": 3919,
+      "sha256": "4e9a5902d1619c22772733c6eb41e0aadd2fd2a9f6d7e98518218008215dbfb1"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94e0e0",
+      "VA": "0x109d590",
+      "RVA": "0xc9d590",
+      "fileOffset": "0xc9c990",
+      "size": 54,
+      "sha256": "0cd8d3e1d228ac545fe901993dcc3ff992cc6d35f79aba72f8b4620083baefb2"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94f100",
+      "VA": "0x94f100",
+      "RVA": "0x54f100",
+      "fileOffset": "0x54e500",
+      "size": 130,
+      "sha256": "b0695099ea5f98cbb5e63fb38009af0ee0081e26bd47bec40d1243942915ccc4"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94f190",
+      "VA": "0x94f190",
+      "RVA": "0x54f190",
+      "fileOffset": "0x54e590",
+      "size": 2410,
+      "sha256": "81a3a1f634e3717f508fae6118415069a2c9de3ac3e825d30ed174f339ec8ec5"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94f190",
+      "VA": "0x109d5d0",
+      "RVA": "0xc9d5d0",
+      "fileOffset": "0xc9c9d0",
+      "size": 117,
+      "sha256": "37672a66a86b9b2e0048db3a1d9a35d50b35a2b8dd63a93238c8e2cb827da9d5"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94fb00",
+      "VA": "0x94fb00",
+      "RVA": "0x54fb00",
+      "fileOffset": "0x54ef00",
+      "size": 528,
+      "sha256": "5c23ce4af1a8acea438f4b3821b23a6356f384c0136a37c8a2a8da70ba979c8e"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94fb00",
+      "VA": "0x109d650",
+      "RVA": "0xc9d650",
+      "fileOffset": "0xc9ca50",
+      "size": 51,
+      "sha256": "d67daecd1096f47300c5c07c21356185e2876a7a654fa1b64f626f8cd9622491"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94fd10",
+      "VA": "0x94fd10",
+      "RVA": "0x54fd10",
+      "fileOffset": "0x54f110",
+      "size": 280,
+      "sha256": "e6fdaeeb0fc5b82497874e1b0327f471812f555f1810dfd2b314ab69c0902b33"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94fe30",
+      "VA": "0x94fe30",
+      "RVA": "0x54fe30",
+      "fileOffset": "0x54f230",
+      "size": 235,
+      "sha256": "92b48aad67b586fbf4c144a6c479bab615704682d35892d6b9d655056583b91d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\packet01\\functions.json",
+      "functionVA": "0x94ff20",
+      "VA": "0x94ff20",
+      "RVA": "0x54ff20",
+      "fileOffset": "0x54f320",
+      "size": 345,
+      "sha256": "8c771bcf09f63774c473f03889e623647190bf37e39575ead150742259e49873"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\speed01\\functions.json",
+      "functionVA": "0xa407d0",
+      "VA": "0xa407d0",
+      "RVA": "0x6407d0",
+      "fileOffset": "0x63fbd0",
+      "size": 1644,
+      "sha256": "df99bc065dd5014d263cc0ea9b59a50e659504454294d558ad2c956718b223af"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\speed01\\functions.json",
+      "functionVA": "0x94c530",
+      "VA": "0x94c530",
+      "RVA": "0x54c530",
+      "fileOffset": "0x54b930",
+      "size": 325,
+      "sha256": "a498af93ac848b174aa58db724f7af6a43776352f21d0342a0064ebc6bedb18f"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\speed01\\functions.json",
+      "functionVA": "0x9e3260",
+      "VA": "0x9e3260",
+      "RVA": "0x5e3260",
+      "fileOffset": "0x5e2660",
+      "size": 137,
+      "sha256": "7d423538a33d50c7aa4e319bf0a4a61758c580ed3f09c8379740139ecce40989"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+      "functionVA": "0x934690",
+      "VA": "0x934690",
+      "RVA": "0x534690",
+      "fileOffset": "0x533a90",
+      "size": 2959,
+      "sha256": "2cc0d5c1392621d64bebb79ddaae18836efce5e78e5936d2e651c985dca8df5d"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+      "functionVA": "0x934690",
+      "VA": "0x109cae0",
+      "RVA": "0xc9cae0",
+      "fileOffset": "0xc9bee0",
+      "size": 121,
+      "sha256": "e5826c5f2a82789ea4e9b397bfcc842fe5322bcfca41cc006fbc7b1fbffb4fcd"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+      "functionVA": "0x8ab390",
+      "VA": "0x8ab390",
+      "RVA": "0x4ab390",
+      "fileOffset": "0x4aa790",
+      "size": 434,
+      "sha256": "5d274378f4b6c9684c250e4533fa2de679a2cbb0824c72c452caf8b00cb35e54"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+      "functionVA": "0x8ab390",
+      "VA": "0x1093b80",
+      "RVA": "0xc93b80",
+      "fileOffset": "0xc92f80",
+      "size": 46,
+      "sha256": "e8a411a5819855f9388b6e59bebf54694de7a9f88cb24a7a832f4eeac37b7966"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+      "functionVA": "0x8abc10",
+      "VA": "0x8abc10",
+      "RVA": "0x4abc10",
+      "fileOffset": "0x4ab010",
+      "size": 3358,
+      "sha256": "e948a50f2da5ebca5cf99e59197189055982e691b1fd0e1a1cc63695d22dea11"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+      "functionVA": "0x8abc10",
+      "VA": "0x1093d00",
+      "RVA": "0xc93d00",
+      "fileOffset": "0xc93100",
+      "size": 91,
+      "sha256": "9071a076955b96aa28196aab61d0101712c6923a26b61dd1e23782c00b5a56c8"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+      "functionVA": "0xa43560",
+      "VA": "0xa43560",
+      "RVA": "0x643560",
+      "fileOffset": "0x642960",
+      "size": 839,
+      "sha256": "5841695b55f6faa4abda547de6342f2433311d70573ab79724062cb5cef45181"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+      "functionVA": "0xa3ef40",
+      "VA": "0xa3ef40",
+      "RVA": "0x63ef40",
+      "fileOffset": "0x63e340",
+      "size": 3686,
+      "sha256": "64701a56874b973f27af05bc1629d1502901c992a373c820611264a79b0be771"
+    },
+    {
+      "source": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\basic-potion-haste-r1\\native\\effects01\\functions.json",
+      "functionVA": "0xa3ef40",
+      "VA": "0x10ac480",
+      "RVA": "0xcac480",
+      "fileOffset": "0xcab880",
+      "size": 151,
+      "sha256": "3da1bc83cd19d182613744cbd31ee3377e052ef4143d799adb6e79cf2dc7f7e0"
+    }
+  ]
+}

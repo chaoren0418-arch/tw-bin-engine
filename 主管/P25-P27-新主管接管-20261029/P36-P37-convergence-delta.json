@@ -1,0 +1,69 @@
+{
+  "schema": "p36-p37-convergence-delta-v1",
+  "utc": "2026-10-29T09:19:46.030567+00:00",
+  "priorSnapshot": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\remaining-convergence.json",
+    "size": 16633,
+    "sha256": "09bbad3fba33d13aed9666356f5f5be6512dc03d482da4e6388ee04724c702d2"
+  },
+  "P36Acceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-final-acceptance.json",
+    "size": 3382,
+    "sha256": "76145832e5865fad75741450f53500cfad455aa73507bb0a75709c35a86e1e17"
+  },
+  "P37Acceptance": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P37-final-acceptance.json",
+    "size": 4089,
+    "sha256": "1e6cc6f0296f85484402f5c9ab7cf345275342f345924c2fb54e60fc5d834336"
+  },
+  "gameChange": "P30 accepted41 extra own-pickup gfx/weapon profiles installed into canonical source,4 replacements+1resource,181 sources,one deterministic build/all15 outputs exact.",
+  "toolChange": "Manifest itself and four identities are included in version-bound210-row inventory. P37-F1 corrected; actual CLI+independent reconstruction accepted. Full release gates not waived.",
+  "nativeChange": "No native execution; no new game/runtime assertions.",
+  "mapResearchTriage": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\主管\\P25-P27-新主管接管-20261029\\P36-map-research-triage.json",
+    "size": 2680,
+    "sha256": "ee298d752d4d53cd6513c65fcf3dec0f0785149093fa2c2db0bf5f74241cea91"
+  },
+  "remaining": [
+    {
+      "id": "DELIVERY",
+      "state": "not-yet-qualified",
+      "function": "P36 product has no newly qualified full release package or launcher usability acceptance. P37 is inventory-only.",
+      "resume": "Separate exact finite delivery/launcher contract; do not reuse old180-source/8-step receipts or treat this as requiring entry activation."
+    },
+    {
+      "id": "ENTRY",
+      "state": "denied-pending-user-decision",
+      "function": "Formal root entry/project-manifest remain r33; prior proposed r34 activation not approved.",
+      "resume": "Explicit user authorization for that exact entry switch; do not equate it with activating P36."
+    },
+    {
+      "id": "N01-N05/C01",
+      "state": "implemented-native-validation-and-user-owned-conditions",
+      "function": "Fixed-version full gameplay, native rendering/mouse, safe map route, trading/save consistency and world6016 audio remain unverified.",
+      "resume": "User-owned services/legitimate conditions and explicit native-operation authority; no DB/service actions by supervisor."
+    },
+    {
+      "id": "S01-S02",
+      "state": "source-contract-blocked",
+      "function": "Real map-local effect group/fade/render association and non6016 event-token semantics remain source-limited.",
+      "resume": "Exact authoritative real record/resource/behavior evidence, not synthetic association extrapolation."
+    },
+    {
+      "id": "S03",
+      "state": "bounded-extension-integrated-broader-source-limits-remain",
+      "function": "Additional41 own-pickup profiles now canonical; 312 shadow keys and46 unsupported map blocks are not supplied or implemented by this work.",
+      "resume": "Specify supported IDs/formats and authoritative sources before additional implementation."
+    },
+    {
+      "id": "H01",
+      "state": "historical-evidence-limit",
+      "function": "Irrecoverable historical timing evidence stays qualified.",
+      "resume": "Do not fabricate or rerun unrelated accepted work."
+    }
+  ],
+  "wholeProjectComplete": false,
+  "completionPercentage": null,
+  "allRemainingBlockedOnUser": false,
+  "noNewTestStageSelected": true
+}

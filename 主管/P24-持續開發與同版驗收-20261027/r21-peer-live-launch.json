@@ -1,0 +1,37 @@
+{
+  "utc": "2026-10-27T04:15:10.6075775+00:00",
+  "pid": 59868,
+  "instance": "peer",
+  "revision": "r21",
+  "productRoot": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r21-clean-delivery\\delivery",
+  "executable": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r21-clean-delivery\\delivery\\build\\client-product-r21\\P11.ClientEngine.exe",
+  "arguments": [
+    "--normal-product"
+  ],
+  "dllSha256": "4d33d6adfd026eed1162e1135b8003d1419f3f17c17773ef4d2e67f191f333d7",
+  "manifestSha256": "e345aef94b83ad6b8573dfd0a2a408c89961e9947fde3c2dc2a9ad285cfa45fe",
+  "autoLogin": false,
+  "servicesStarted": false,
+  "remoteDebugging": "127.0.0.1:9427",
+  "mode": "Normal blank product UI; no state or bridge injection",
+  "normalEntryCheck": {
+    "status": "checked-only",
+    "executable": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r21-clean-delivery\\delivery\\build\\client-product-r21\\P11.ClientEngine.exe",
+    "workingDirectory": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r21-clean-delivery\\delivery",
+    "arguments": [
+      "--normal-product"
+    ],
+    "assets": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r21-clean-delivery\\delivery\\assets",
+    "web": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r21-clean-delivery\\delivery\\web",
+    "manifest": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-持續開發與同版驗收-20261027\\r21-clean-delivery\\delivery\\build\\product-r21-manifest.json",
+    "hashedRuntimeAndWebFiles": 40,
+    "assetFilesCheckedForPresenceAndSize": 13933,
+    "assetContentVerification": "Pinned integrity manifest; product verifies content when loaded.",
+    "profile": "p24-real-jar-d287-client2",
+    "port": 42061,
+    "autoLogin": false,
+    "uiStarted": false,
+    "networkStarted": false,
+    "servicesStarted": false
+  }
+}

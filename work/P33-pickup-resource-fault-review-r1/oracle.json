@@ -1,0 +1,65 @@
+{
+  "pairs": [
+    {
+      "gfx": 0,
+      "weapon": 0,
+      "frames": [
+        "0:0",
+        "88:0",
+        "88:1",
+        "88:2"
+      ]
+    },
+    {
+      "gfx": 2796,
+      "weapon": 20,
+      "frames": [
+        "8:0",
+        "48:1",
+        "48:2",
+        "48:3"
+      ]
+    }
+  ],
+  "constructor": {
+    "baseSize": 239766,
+    "baseSha": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90",
+    "extensionSize": 2473547,
+    "extensionSha": "aff2e04d4f9395f7993baf5818eb16218730b7def0a29c7d07e86c314db513ba",
+    "faultType": "System.IO.InvalidDataException",
+    "faultMessage": "Pickup resource integrity"
+  },
+  "faults": [
+    {
+      "kind": "missing-base",
+      "apiResult": "null",
+      "cancelReason": "renderer/assets-unavailable"
+    },
+    {
+      "kind": "missing-profile",
+      "apiResult": "null",
+      "cancelReason": "renderer/assets-unavailable"
+    },
+    {
+      "kind": "missing-group",
+      "apiResult": "System.Collections.Generic.KeyNotFoundException",
+      "cancelReason": "asset-integrity/key"
+    },
+    {
+      "kind": "missing-key",
+      "apiResult": "System.Collections.Generic.KeyNotFoundException",
+      "cancelReason": "asset-integrity/key"
+    },
+    {
+      "kind": "profile-path",
+      "apiResult": "null",
+      "cancelReason": "renderer/assets-unavailable"
+    },
+    {
+      "kind": "profile-hash",
+      "apiResult": "null",
+      "cancelReason": "renderer/assets-unavailable"
+    }
+  ],
+  "basis": "Frozen before runtime: accepted source contracts plus original sealed prep direction0 speed0 mappings."
+}

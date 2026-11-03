@@ -1,0 +1,26 @@
+{
+  "id": "RG1",
+  "status": "reproduced-independent-unit-boundary",
+  "source": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-release-gate-r1\\generate_package_plan.py",
+    "size": 15634,
+    "sha256": "615d16cabc865d896969c256bccaccbc32919758ab6fd72f1c13b88707f1b61d"
+  },
+  "completedContextHasInnerEvidenceValidation": false,
+  "completedContextHasNestedCommandValidation": false,
+  "unchangedReferencePin": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r1\\synthetic-new-tools-d4j_sxsa\\evidence-coverage-unit\\inner-stdout",
+    "size": 18,
+    "sha256": "c4e49803194b27e04520ab73d629df9c938438f24caadbbaa0ce94be9e7da4e7"
+  },
+  "inventoryPinAfterDrift": {
+    "path": "_integration/r34/evidence/canonical-workflow/inner-stdout",
+    "size": 17,
+    "sha256": "3d05ea2b2b63bb16f4a4e18ea07696def039fc0da9f3be6a062c2247dce8ec18",
+    "source": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r1\\synthetic-new-tools-d4j_sxsa\\evidence-coverage-unit\\inner-stdout"
+  },
+  "synthetic": true,
+  "realCanonicalInspected": false,
+  "consequence": "generator verifies selected outer attempts but does not chase result.innerEvidence rawAttempt/stdout/stderr/probes or product canonicalNestedCommands pins; workflow inventory freshly pins changed raw bytes instead of rejecting the historical evidence mismatch",
+  "minimumRepair": "Before archive_tools/generate, validate each innerEvidence rawAttempt/streams/probes and compare decoded attempt semantics to stored recipe/identity, plus product canonicalNestedCommands command/stdout/stderr pins; keep pure helper for independent fixtures. No need to rerun any build/probe."
+}

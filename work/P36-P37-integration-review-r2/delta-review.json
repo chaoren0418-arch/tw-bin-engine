@@ -1,0 +1,72 @@
+{
+  "status": "P37-F1-closed-plan-accepted",
+  "authorArtifactMembers": 862,
+  "runtimeMembers": 13,
+  "unchangedRuntimeFiles": [
+    "common.py",
+    "gate.py",
+    "executor.py",
+    "win_process.py",
+    "build-isolation.props",
+    "build-isolation.targets",
+    "tool-bundle/reference/acceptance_gate.py",
+    "tool-bundle/reference/generate_package_plan.py",
+    "tool-bundle/reference/pe_resource.py",
+    "tool-bundle/reference/release_authority.py",
+    "tool-bundle/reference/release_checks.py",
+    "tool-bundle/reference/result_evidence.py"
+  ],
+  "semanticChanges": 1,
+  "mechanicalDocuments": [
+    "source-ledger.json",
+    "copy-ledger.json",
+    "tool-reference-pins.json",
+    "tool-bundle/source-seal.json",
+    "execution-contract.json",
+    "plan.json",
+    "pending-receipt-requirements.json"
+  ],
+  "futureTargetsAndExecutionInvariantsUnchanged": true,
+  "checks": [
+    {
+      "name": "independent-protected-row-deletion",
+      "removedRow": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\project-manifest.json",
+        "size": 31361,
+        "sha256": "b61690a3a9269fd64b159ce32f1d686228fc26302f46bcec045e6aab551ceada"
+      },
+      "fixture": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-review-r2\\protected-row-deletion.json",
+        "size": 7906,
+        "sha256": "663b4b56ff0798f66028607965130039a0bb0d03ffc81c78ee0f97e33b0b092f"
+      },
+      "originalContractPin": {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-plan-r2\\protected-pins.json",
+        "size": 7925,
+        "sha256": "2d69faddd4e2cd887f0b824e64d4e3d1a8d738dec36ab45fe6f6659f5f5ff448"
+      },
+      "outcome": "pin drift: D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-review-r2\\protected-row-deletion.json",
+      "qualification": "Original inputDocuments loop with reviewer-owned path alias and unchanged expected pin; not a supervisor receipt"
+    },
+    {
+      "name": "actual-post-install-validate",
+      "call": "validate(plan_sha, contract_sha, initial=False, dependencies=False)",
+      "inputLoopBeforeConsumers": true,
+      "outcome": "exact canonical source set after",
+      "qualification": "Real unpatched gate validates metadata then refuses current before180 source set; no positive receipt fabricated"
+    }
+  ],
+  "newChecks": 2,
+  "inheritedR1Review": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P36-P37-integration-review-r1\\artifact-seal.json",
+    "size": 377,
+    "sha256": "9cf3aeeac98b4a16d01f0b1089fbf0e561ca705efb2e749a911a9a629e81503b"
+  },
+  "inheritedR1ReadonlyChecks": 7,
+  "originalAuthor16CasesRerun": false,
+  "productSuitesRerun": false,
+  "fullBaselineRepeated": false,
+  "sharedWrites": false,
+  "builds": 0,
+  "actualP37InventoryAccepted": false
+}

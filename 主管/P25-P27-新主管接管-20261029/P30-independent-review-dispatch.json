@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-29T05:55:01.624957+00:00",
+  "owner": "01a185fe-5350-74c3-bfe6-96842287e610",
+  "scope": "P30 fresh product/audio rebuild independent review; first read sealed P28 build/source and r34 web; final P30 pins pending",
+  "writeRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P29-pickup-profiles-review-r1\\P30-rebuild-review-r1",
+  "productBuildsAuthorized": 0,
+  "runtimeProbesAuthorized": 0,
+  "sharedWritesAuthorized": false,
+  "sendConfirmed": true,
+  "actualReadObserved": true,
+  "turnId": "01a18639-aebb-7163-b1e5-24607c37166f",
+  "actualReads": [
+    "sealed P28 product build argv/stdout/stderr",
+    "P28 source resource/vendor pins",
+    "AssemblyInfo and project.assets intermediates identified as unsealed"
+  ],
+  "status": "active-preparing-independent-rebuild-audit"
+}

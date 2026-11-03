@@ -1,0 +1,32 @@
+[
+  {
+    "args": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\javac.exe",
+      "-encoding",
+      "UTF-8",
+      "-cp",
+      "D:\\lineage開發\\1-伺服器\\Server_Game.jar;D:\\lineage開發\\1-伺服器\\jar\\*",
+      "-d",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P22-原雙區移動獨立核對\\classes",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P22-原雙區移動獨立核對\\DualMovementOracle.java"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "-XX:-UsePerfData",
+      "-Djava.io.tmpdir=D:\\lineage開發\\TW1608262200研究\\主管\\P22-原雙區移動獨立核對\\tmp",
+      "-Duser.home=D:\\lineage開發\\TW1608262200研究\\主管\\P22-原雙區移動獨立核對\\tmp",
+      "-cp",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P22-原雙區移動獨立核對\\classes;D:\\lineage開發\\1-伺服器\\Server_Game.jar;D:\\lineage開發\\1-伺服器\\jar\\*",
+      "DualMovementOracle",
+      "D:\\lineage開發\\TW1608262200研究\\主管\\P22-原雙區移動獨立核對"
+    ],
+    "exit_code": 0,
+    "stdout": "ERROR StatusConsoleListener Could not register mbeans\r\n java.security.AccessControlException: access denied (\"javax.management.MBeanTrustPermission\" \"register\")\r\n\tat java.base/java.security.AccessControlContext.checkPermission(AccessControlContext.java:485)\r\n\tat java.base/java.lang.SecurityManager.checkPermission(SecurityManager.java:453)\r\n\tat java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.checkMBeanTrustPermission(DefaultMBeanServerInterceptor.java:1815)\r\n\tat java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:318)\r\n\tat java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:523)\r\n\tat org.apache.logging.log4j.core.jmx.Server.register(Server.java:399)\r\n\tat org.apache.logging.log4j.core.jmx.Server.reregisterMBeansAfterReconfigure(Server.java:167)\r\n\tat org.apache.logging.log4j.core.jmx.Server.reregisterMBeansAfterReconfigure(Server.java:140)\r\n\tat org.apache.logging.log4j.core.LoggerContext.setConfiguration(LoggerContext.java:642)\r\n\tat org.apache.logging.log4j.core.LoggerContext.reconfigure(LoggerContext.java:713)\r\n\tat org.apache.logging.log4j.core.LoggerContext.reconfigure(LoggerContext.java:735)\r\n\tat org.apache.logging.log4j.core.LoggerContext.start(LoggerContext.java:260)\r\n\tat org.apache.logging.log4j.core.impl.Log4jContextFactory.getContext(Log4jContextFactory.java:154)\r\n\tat org.apache.logging.log4j.core.impl.Log4jContextFactory.getContext(Log4jContextFactory.java:46)\r\n\tat org.apache.logging.log4j.LogManager.getContext(LogManager.java:197)\r\n\tat org.apache.logging.log4j.LogManager.getLogger(LogManager.java:611)\r\n\tat com.lineage.server.model.map.L1V1Map.<clinit>(L1V1Map.java:20)\r\n\tat DualMovementOracle.main(DualMovementOracle.java:18)\r\nOriginal JAR executed 65536 static directional queries\r\n",
+    "stderr": "WARNING: A terminally deprecated method in java.lang.System has been called\nWARNING: System::setSecurityManager has been called by DualMovementOracle (file:/D:/lineage%e9%96%8b%e7%99%bc/TW1608262200%e7%a0%94%e7%a9%b6/%e4%b8%bb%e7%ae%a1/P22-%e5%8e%9f%e9%9b%99%e5%8d%80%e7%a7%bb%e5%8b%95%e7%8d%a8%e7%ab%8b%e6%a0%b8%e5%b0%8d/classes/)\nWARNING: Please consider reporting this to the maintainers of DualMovementOracle\nWARNING: System::setSecurityManager will be removed in a future release\n"
+  }
+]

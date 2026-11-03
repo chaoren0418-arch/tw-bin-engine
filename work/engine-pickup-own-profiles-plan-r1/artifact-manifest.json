@@ -1,0 +1,73 @@
+{
+  "schema": "bounded-plan-seal-v1",
+  "task": "ENGINE-PICKUP-OWN-PROFILES-PLAN-R1",
+  "files": [
+    {
+      "path": "body-groups.json",
+      "size": 98677,
+      "sha256": "138eba9701712e0e0883cad42f03844eb3e3e3fa849a666684289eb6598d0082"
+    },
+    {
+      "path": "candidate-tests.json",
+      "size": 4454,
+      "sha256": "9731f0079dd9647e790a0583e834f4ef19d306346f60001e802f527d40a44315"
+    },
+    {
+      "path": "finalize.py",
+      "size": 3297,
+      "sha256": "260ab9cdae68e7556cc62c1e6762b06aea8e0f6bf5ac204c8da356bf610ec4ef"
+    },
+    {
+      "path": "goal-read.json",
+      "size": 270,
+      "sha256": "766e1e210f3b6c1ad14ed2a3dbf24df0b49df26c1faa9d8e7d04447b9452da3d"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 5667,
+      "sha256": "67b08ff2b361f6967de092f8b4ee40ca552aa0ee021bd25285197cc25ef0e077"
+    },
+    {
+      "path": "mapping-checks.json",
+      "size": 170478,
+      "sha256": "727914504e428e15afdb952be68a1555f441c7bccfbe978645a20e3b53fd839f"
+    },
+    {
+      "path": "plan.json",
+      "size": 1791,
+      "sha256": "572264093eccb1343cd8f44165f34d9d9a1c52fe0867400baad60c41e6337f36"
+    },
+    {
+      "path": "plan.py",
+      "size": 15036,
+      "sha256": "e6efcffc054df10544908af51ffdbf3cbd1043625c9fa08c9a6c9a82c0c92e88"
+    },
+    {
+      "path": "profiles.json",
+      "size": 557981,
+      "sha256": "6b447c0ee2dd4677fb04b41c3384630a4b67d604a0201684b1f2cc193a39349f"
+    },
+    {
+      "path": "result.json",
+      "size": 1704,
+      "sha256": "6b0cd8221231b2cd4d01fef21322fa7248551f21896651a005ed64e8384e0a15"
+    },
+    {
+      "path": "source-pins.json",
+      "size": 51974,
+      "sha256": "df14f3b7cd452e9c9b9d28696edca04d79a5fa95e598e9d6b40e9f3fe59d9297"
+    },
+    {
+      "path": "verify.py",
+      "size": 1108,
+      "sha256": "7a8e731e22fcbf99fb3512dc92621253e8407583f3425bfdcc522c91d59c501a"
+    }
+  ],
+  "excludedFiles": [
+    "artifact-manifest.json"
+  ],
+  "productSourceChanged": false,
+  "productBuilds": 0,
+  "productRuntimeChecks": 0,
+  "nativeRuntimeChecks": 0
+}

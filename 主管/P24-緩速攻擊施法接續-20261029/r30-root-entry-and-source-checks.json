@@ -1,0 +1,38 @@
+{
+  "utc": "2026-10-28T21:51:29.576Z",
+  "source": {
+    "status": "accepted-r30-inputs",
+    "sourceFiles": 177,
+    "productDllSha256": "1abc1eed02917d14fd775be60920fe74efb9b102bc53eea5874fc0128e5247ef",
+    "writes": false
+  },
+  "entry": {
+    "status": "checked-only",
+    "revision": "r30",
+    "executable": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\build\\client-product-r30\\P11.ClientEngine.exe",
+    "workingDirectory": "D:\\lineage開發\\TW1608262200研究\\releases\\r30",
+    "arguments": [
+      "--normal-product"
+    ],
+    "manifest": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\build\\product-r30-manifest.json",
+    "manifestSha256": "4b0029286463050a4ed64de5a7c8485defd673a6e3d1bba185a9f9d4f157de69",
+    "hashedRuntimeAndWebFiles": 46,
+    "assetFilesCheckedForPresenceAndSize": 13957,
+    "assetContentVerification": "Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.",
+    "runtime": {
+      "architecture": "x64",
+      "loadedCoreVersion": "10.0.8",
+      "loadedCoreDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\10.0.8\\",
+      "desktopVersion": "10.0.8",
+      "desktopDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.WindowsDesktop.App\\10.0.8"
+    },
+    "webView2Version": "156.0.4314.50",
+    "powerShellRequired": false,
+    "pathLookupUsed": false,
+    "autoLogin": false,
+    "uiStarted": false,
+    "networkStarted": false,
+    "servicesStarted": false
+  },
+  "nativeLiveAccepted": false
+}

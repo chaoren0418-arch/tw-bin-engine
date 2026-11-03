@@ -1,0 +1,290 @@
+{
+  "schema": "engine-r34-pickup-fixture-plan-v1",
+  "status": "plan-only",
+  "sourceRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-presentation-candidate-review-r1",
+  "reviewSealSha256": "715c95654af8a1c59853f15e41c3511d5b15c1b0749bf35c47e39fe918b99196",
+  "files": [
+    {
+      "path": "baseline-pins.json",
+      "size": 61289,
+      "sha256": "07e6c5a6649eef932e8ff4205d382c5463e0548c9f54633e561e61e965952352"
+    },
+    {
+      "path": "expected/blocks/3225-0.json",
+      "size": 83476,
+      "sha256": "4f5c426596ce7a7ff5e2137a88381671e4aca5b578c20b8935e9aef7f109edeb"
+    },
+    {
+      "path": "expected/blocks/3225-1.json",
+      "size": 84280,
+      "sha256": "3868b0b4cae79977e6cd08c9e5fada6947580518dd849931c2b8e7b26a8941c2"
+    },
+    {
+      "path": "expected/blocks/3225-2.json",
+      "size": 82792,
+      "sha256": "1086132bbd5790effa6c3589d7dac3fae13786f6609cd08c48aee0c0276c3f49"
+    },
+    {
+      "path": "expected/blocks/3225-3.json",
+      "size": 76648,
+      "sha256": "b6bc0be7ff2cc6b6d8dfdd292fc0fa248f18d19ed3165a8a514099e8e76d1209"
+    },
+    {
+      "path": "expected/blocks/3225-4.json",
+      "size": 75269,
+      "sha256": "5cb2d0167097313a9043085ca5e5087dda07034e9ad157480c4035b4c0e5470b"
+    },
+    {
+      "path": "expected/blocks/3225-5.json",
+      "size": 75521,
+      "sha256": "086cac4dfd85f9c62ff6af55cfd13785b13bb9d9f96ca78507eb18ebdad98fc3"
+    },
+    {
+      "path": "expected/blocks/3225-6.json",
+      "size": 75830,
+      "sha256": "9f46f7f1576c703cee9595e1c86e010c80278bf78c7f70392931831937a7155b"
+    },
+    {
+      "path": "expected/blocks/3225-7.json",
+      "size": 76730,
+      "sha256": "c0edebb2f8578b0600298f3058b0b531ffed81178aa9e4bc4f957b425e0e3e3a"
+    },
+    {
+      "path": "expected/blocks/3225-88.json",
+      "size": 261720,
+      "sha256": "16b8a5dd94ee07644f656eabfe641b3fcfc059026bb35be8cd3466046beb84c1"
+    },
+    {
+      "path": "expected/blocks/3225-89.json",
+      "size": 211865,
+      "sha256": "b720a08966cea3661c0e3e9c63dd2d4e838552a5cde0e7096cfa8534ddb3c812"
+    },
+    {
+      "path": "expected/blocks/3225-90.json",
+      "size": 262884,
+      "sha256": "6a5fab688ed0fc022fd0f48fb64ebe3e8a96026cde4b5bbd544da61482554ed7"
+    },
+    {
+      "path": "expected/blocks/3225-91.json",
+      "size": 278383,
+      "sha256": "142000a2237e6120ab9bee0410c70368f41d782f30ac4ce3206d5934b8b373ff"
+    },
+    {
+      "path": "expected/blocks/3225-92.json",
+      "size": 236734,
+      "sha256": "d8d8a68adc364098d574ae1059bd85db02c88f2f21ba95103c51a1890de45697"
+    },
+    {
+      "path": "expected/blocks/3225-93.json",
+      "size": 167164,
+      "sha256": "acabcc4b44c4cb74099d5536fa1f1b97c03ac2c96d1f4d3fc392e90c49eef10f"
+    },
+    {
+      "path": "expected/blocks/3225-94.json",
+      "size": 220354,
+      "sha256": "0fe000f6ef832d19c074a6c13c2cbe3338e052fda51fa9375427683e05248d5f"
+    },
+    {
+      "path": "expected/blocks/3225-95.json",
+      "size": 265472,
+      "sha256": "093a65edbb0a8972738d30f171e10cf6e2cf88b83d629dd6405af421cc267fcf"
+    },
+    {
+      "path": "expected/frame-mapping.json",
+      "size": 134521,
+      "sha256": "62460cbb06489660694e37dbdf8ae5f490a199fa71a1c9acf2d4c70c2ed24834"
+    },
+    {
+      "path": "expected/nominal-resource-reference.json",
+      "size": 239766,
+      "sha256": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90"
+    },
+    {
+      "path": "expected/png/3225-0-0.png",
+      "size": 1827,
+      "sha256": "49f847c9fbaa368cd696c168e6a60688f0597bc78a29f0c5eb99e54966ce6d93"
+    },
+    {
+      "path": "expected/png/3225-1-0.png",
+      "size": 1768,
+      "sha256": "ae77d0eefc11e418e590b98ff9c55e0ddfe7678719a2b1fd56df7814dfc3cb78"
+    },
+    {
+      "path": "expected/png/3225-2-0.png",
+      "size": 1795,
+      "sha256": "9c85f32ec74bf8ad17d746555d6aee9da1f7a6a8ed7aa29f42e0ad4ca8277f01"
+    },
+    {
+      "path": "expected/png/3225-3-0.png",
+      "size": 1758,
+      "sha256": "052edeb61066dec21c73a6649ea42c41624bb45c1cb87f65e171b6af1ea4839b"
+    },
+    {
+      "path": "expected/png/3225-4-0.png",
+      "size": 1750,
+      "sha256": "67b9d07755ab2578690eaed8797f0841e6c31933ef0a1f00def4a3c784f97d2c"
+    },
+    {
+      "path": "expected/png/3225-5-0.png",
+      "size": 1831,
+      "sha256": "f4b78c9cd2b74fc8dff2bbfd6a28940d5906240245e2acf063f8efdc5fbd27c4"
+    },
+    {
+      "path": "expected/png/3225-6-0.png",
+      "size": 1909,
+      "sha256": "2a2aa324bb2014c7924d38e2bc46bc052fede1627d0997411691a29e6b3f8417"
+    },
+    {
+      "path": "expected/png/3225-7-0.png",
+      "size": 1817,
+      "sha256": "438c8ce861832f1fd8100de7a546d4adae6a9d41efbcc6c9dcf908be46a4d56b"
+    },
+    {
+      "path": "expected/png/3225-88-0.png",
+      "size": 2236,
+      "sha256": "804798db707bce933627fb90cc4555776102a9f97c8f1544abd3751847d902df"
+    },
+    {
+      "path": "expected/png/3225-88-1.png",
+      "size": 1943,
+      "sha256": "1efdb333faea617dbee5e46f094f6b0144b6cba7263cf67b21fc879033d76167"
+    },
+    {
+      "path": "expected/png/3225-88-2.png",
+      "size": 2000,
+      "sha256": "55204510b504e58b19f06b30892cc1a181d2e66cf6a376295b09cf5308f63c73"
+    },
+    {
+      "path": "expected/png/3225-89-0.png",
+      "size": 1544,
+      "sha256": "c51dd653b19d52b9e5e82eca19b3e1dcd33c4f1ea9c0e908482075dcfda5cc45"
+    },
+    {
+      "path": "expected/png/3225-89-1.png",
+      "size": 1337,
+      "sha256": "d5a85f5b75003f87025b27b5355ae11c8ae8e152792e5865827ea0b66e646331"
+    },
+    {
+      "path": "expected/png/3225-89-2.png",
+      "size": 1779,
+      "sha256": "8a7f78b4fe7a6a70c8376c96ad0d2ab9f7b0351159ab46c750901db2482c9104"
+    },
+    {
+      "path": "expected/png/3225-90-0.png",
+      "size": 2153,
+      "sha256": "80fe5117cc5bd819b14b5f92e5649c60cfc996a55e08b9d8718592e0694cb50a"
+    },
+    {
+      "path": "expected/png/3225-90-1.png",
+      "size": 1934,
+      "sha256": "7603b065641a03ee0e187fe8f386b9db4ae3fba108b07ce2ccf9c0456c6b3a7d"
+    },
+    {
+      "path": "expected/png/3225-90-2.png",
+      "size": 2108,
+      "sha256": "97ddb3dd52833b0248d90461d8d3870e352ff90b6d1cfb46e43e766885ca8213"
+    },
+    {
+      "path": "expected/png/3225-91-0.png",
+      "size": 2304,
+      "sha256": "b7eefc7987f5fc34cf1f0558db15ff54772668537a16dd5f64f5a5ecdc1735ae"
+    },
+    {
+      "path": "expected/png/3225-91-1.png",
+      "size": 2190,
+      "sha256": "38ca93049b94f95f9f411f876fb17c2779f51f00462a0aecca33356d00b4f3ca"
+    },
+    {
+      "path": "expected/png/3225-91-2.png",
+      "size": 1950,
+      "sha256": "bd06244110d797474c1e46c14951333310c6bac0009ce6dab55e48c6223aca43"
+    },
+    {
+      "path": "expected/png/3225-92-0.png",
+      "size": 1967,
+      "sha256": "f3e286018af096b22fc54774317f9144b8d1ce3e6dd84d0d0980a8033e3141a7"
+    },
+    {
+      "path": "expected/png/3225-92-1.png",
+      "size": 1959,
+      "sha256": "3d622d1e20582fc2d681bb508abbfc4c3b6cd089771121df231187f0f440fcc1"
+    },
+    {
+      "path": "expected/png/3225-92-2.png",
+      "size": 1777,
+      "sha256": "ff0e950883b49a9d6811de4b3e2b13a74f0aa87ec81cf29dfefd7f64a05770c0"
+    },
+    {
+      "path": "expected/png/3225-93-0.png",
+      "size": 1353,
+      "sha256": "8b565161c4b7af6643af1dd436c56e04c95bcc54201dd2b92a9f64f9d92cc572"
+    },
+    {
+      "path": "expected/png/3225-93-1.png",
+      "size": 1341,
+      "sha256": "b03e20aaa6cbd400ea1adea17b35d33f5690f783c8b22c7cc26ec3e5fa615b25"
+    },
+    {
+      "path": "expected/png/3225-93-2.png",
+      "size": 1505,
+      "sha256": "c940fc7394cbc45262e6b26e02070ce188a20a31dfe31e9d93e9e542930efda4"
+    },
+    {
+      "path": "expected/png/3225-94-0.png",
+      "size": 1882,
+      "sha256": "c410f53f706669ce31788315af8590c6a95fcfc610c192b8bc7ca3515459485c"
+    },
+    {
+      "path": "expected/png/3225-94-1.png",
+      "size": 1861,
+      "sha256": "97bd6b481d1754a4f7903c9585d559196d67f1364fb0fcdf9c65929e5790172b"
+    },
+    {
+      "path": "expected/png/3225-94-2.png",
+      "size": 1865,
+      "sha256": "60ecad61b26e7968a9eb64b9e1847ae1e3e1c0f81d1cb470c38e0644fc043017"
+    },
+    {
+      "path": "expected/png/3225-95-0.png",
+      "size": 2232,
+      "sha256": "a103b11881b917d6540965e7c6077f9eedf2bb94525f07111bc53867fb359f48"
+    },
+    {
+      "path": "expected/png/3225-95-1.png",
+      "size": 2154,
+      "sha256": "316abfec0f73241907081d571e586d5f4d75b54a381232e39ff0f62143bf4890"
+    },
+    {
+      "path": "expected/png/3225-95-2.png",
+      "size": 2018,
+      "sha256": "c3cd8e4722aa74525a3c71ff87d28df5609a7348e7281b8ebdf6c8fcfd972e96"
+    }
+  ],
+  "filesCopiedNow": 0,
+  "fixtureRoot": "Current owning product root (fresh stage or canonical engine)",
+  "assetRoot": "Root/assets existing full inventory; stage hardlinks / canonical existing junction. Do not create fixture/assets junction or copy whole assets.",
+  "output": "Fresh evidence child under the same product Root, as required by Candidate.cs Main",
+  "helperOutputs": {
+    "stage": [
+      "stage/build/r34-stage-pickup-main-174",
+      "stage/build/r34-stage-pickup-supplement-10"
+    ],
+    "canonical": [
+      "engine/build/r34-canonical-pickup-main-174",
+      "engine/build/r34-canonical-pickup-supplement-10"
+    ]
+  },
+  "sourceBodyPolicy": "No assertion changes. Keep Candidate.cs/Fixture.cs/Focused.cs from main snapshot and all supplement snapshot files including Supplement.cs; do not substitute final harness.",
+  "requiredDataWiring": [
+    "Probe.csproj HintPaths -> exact current built product/audio DLL; save diff and SHA",
+    "Root argument -> owning product root so Root/assets and AppContext ../../assets resolve consistently",
+    "Pinned expected/* and baseline-pins.json at Root; fresh paths or exact existing pins only; no overwrite",
+    "Output argument -> fresh under Root; metadata candidateDllSha256 already computed from actual loaded assembly; runner must compare actual built DLL",
+    "Keep ordinal174 then10; aggregate global occurrences1..184, same IDs; no author402/prep84/development71 included"
+  ],
+  "sourceLines": {
+    "CandidateMain": "Candidate.cs:100-107 in each snapshot",
+    "FixtureAssets": "Fixture.cs:29",
+    "ReplayRejected": "run_probe.ps1 binds original candidate and original review outputs; never execute as canonical runner"
+  }
+}

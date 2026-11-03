@@ -1,0 +1,12 @@
+{
+  "utc": "2026-10-29T08:01:29.983107+00:00",
+  "status": "provisional-source-reviewed-awaiting-final-seal-and-independent-review",
+  "originalSha256": "32e5cefcc739c7e432dfa9cf00488072c330445695a4b3761d0e43c8ae962578",
+  "candidateSha256": "4fbf32a4d1a5faa12e34631ad2c0e9ee02647ff51947128c69e1894690f13fa2",
+  "changedFunctions": [
+    "package_inventory"
+  ],
+  "fullGeneratorExecuted": false,
+  "productRuntimeExecuted": false,
+  "finding": "Add manifest itself through existing guarded add(), then enforce exact canonical hash/source/path for all four identity targets. Existing closure and authority functions unchanged."
+}

@@ -1,0 +1,66 @@
+{
+  "schema": "p38-isolated-delivery-preparation-dispatch-v1",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "scope": "One finite isolated package/launcher/check-only qualification; no root activation",
+  "authorPrompt": "唯一主管01a185b4-ecf6-705c-90e6-83b9eb1ba02f，根D:\\lineage開發\\TW1608262200研究。父最新任務要求明確界定並完成不改正式入口/project-manifest、不改封存release、不碰DB/服務的離線完整交付／launcher資格範圍。只用本既有兩工作對話，不另開階段/代理。讀AGENTS及主管/P25-P27-新主管接管-20261029/P36-final-acceptance.json(SHA76145832e5865fad75741450f53500cfad455aa73507bb0a75709c35a86e1e17)、P37-final-acceptance.json(SHA1e6cc6f0296f85484402f5c9ab7cf345275342f345924c2fb54e60fc5d834336)。Goal依既有工具實況，不改儲存或重建歷史blocked Goal。\n本輪P38僅隔離交付準備、候選封裝、候選launcher build及check-only資格；全共享engine/releases/原work封存唯讀，入口r33及project-manifest禁止寫入，DB/SQL/服務/socket/network/原生遊戲/角色/憑證/永久刪除均禁。所有可變檔先獨立copy；素材只讀immutable硬連結可依精確計畫在新work候選建立，禁止原地改資產。不得喚醒任何舊主管。\n已查現有engine/_integration/r34/launcher-source/Program.cs SHAe93ade09f9d773dcec99c5637d162a5ab31ce6445363c76724cc4186857eeaef，Launcher.csproj SHA59a5f22c8ced415eb3d9a36d5f356b52766956a3ae66597e29214a53280e62ee。Launcher綁死ManifestHash=3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d、ManifestPath build/product-r34-manifest.json、Entry build/client-product-r34/P11.ClientEngine.exe。其--check-only在Process.Start之前返回；Verify做manifest/runtime/web/assets presence+size、DesktopRuntime及WebView2版本查詢，沒有正常產品啟動或DB/service。新P36現有manifest是provenance schema，不能直接冒充launcher要求p24-normal-product-v1。舊r34不含source/Resources/pickup-own-base15-profile-extension.json，產品DLLc11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed；P36DLL6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3才含額外41 exact own-pickup profiles(含control42,speed0/1 Brave0)。既有r34音訊與P36同d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4。使用者未批准r34入口，未來批准舊r34也不等於啟用P36成果。\n原拒絕保留：ENGINE-R34-ENTRY-ACTIVATE-P26-R1 send_message_to_thread automatic approval review denied，未執行未重試，原文『此派工會持久修改正式入口與 project-manifest，將 r34 提升為現行產品版本，屬外部／正式承諾；使用者只授權引擎開發，未明確授權這次入口啟用，且政策不以先前助手派工替代該核准。』本任務禁止該操作，不改道。\n\n你仍唯一整合者。現在只准備 work/P38-delivery-plan-r1，未授實際launcher build/候選materialization/check-only執行，先精確計畫→獨立覆核→主管receipt。建立有限交付契約，未來候選root固定work/P38-delivery-candidate-r1、執行證據root work/P38-delivery-execution-r1；所有後續寫入限這些work根。不得再編譯產品或重跑既有遊戲/4521/16negative套件。沿用已接受P36的181sources、15原樣buildoutputs及原web/assets，封裝實際runtime所需閉合集合，附適當來源/證據與必要重建支援說明，不假稱繼承未通過的完整regression。舊r34原release不變，P38為開發候選不是r35正式啟用。\n設計新的正常產品manifest於候選內新命名路徑（如build/product-p36-delivery-manifest.json），精確15 P36輸出＋原web＋assets/integrity.json，維持既有profile/port/autoLogin=false/--normal-product契約，但本輪不啟動該branch。從r34 launcher source獨立copy，只機械重綁候選manifest hash/path、P36product paths、版本/訊息標籤，保留verify/拒絕/--check-only先返回機制；不得擴參數或降低保護。新launcher在work私有obj/cache/temp一次build，首次即CERTIFICATE=false/globaltoolsfalse/telemetryoff/offlineNuGet/auditfalse/sharedcompilationfalse/nr:false，不改HOME/USERPROFILE/CODEX_HOME。請精確列command/env/來源/輸出/未來實際hash欄位；未知hash不可捏造。\n候選assets物理immutable根先核對engine/assets junction→既有封存素材，只可新建硬連結/唯讀消費，不原地改，失敗保留partial。目錄不可放外部junction逃逸；單一可變copy需nlink1。完整素材內容SHA於候選獨立final review驗一次即可，作者可先核metadata/物理identity，避免雙方重複全14k hash；不要重做來源研究。精確packaging whitelist/集合/manifest/素材策略與recoverable failure/stop條件寫明。整合者將獨占本候選materialization。\n計畫最小實際驗證：1次新候選launcher --check-only --root [候選絕對根]，檢查回傳版本/manifest/entry/runtime/webview/noUI/noNetwork；1個版本隔離負向可讓新launcher check-only讀舊releases/r34，應在新manifest缺失/不符時拒絕且不進產品啟動。不得normal/noargs launch、不做UI操作、不新建testharness泛化矩陣。check-only的WebView2 loader查installed版本允許唯讀，但不啟動browser。如必要缺本機runtime只回報，不安裝。\n交付plan/contract、最小候選launcher source差異、materialization表、精確runtime閉合和既有source/rebuild資格界線；新manifest prepared可在plan內產生，預定candidate不先建立。四項identity新launcher unknown待build後記錄。附r33/r34/P36/P38區別與本輪仍不證明native/正常啟動的清單。封存後待獨立計畫覆核，避免冗長重複計畫/測試。",
+  "reviewPrompt": "唯一主管01a185b4-ecf6-705c-90e6-83b9eb1ba02f，根D:\\lineage開發\\TW1608262200研究。父最新任務要求明確界定並完成不改正式入口/project-manifest、不改封存release、不碰DB/服務的離線完整交付／launcher資格範圍。只用本既有兩工作對話，不另開階段/代理。讀AGENTS及主管/P25-P27-新主管接管-20261029/P36-final-acceptance.json(SHA76145832e5865fad75741450f53500cfad455aa73507bb0a75709c35a86e1e17)、P37-final-acceptance.json(SHA1e6cc6f0296f85484402f5c9ab7cf345275342f345924c2fb54e60fc5d834336)。Goal依既有工具實況，不改儲存或重建歷史blocked Goal。\n本輪P38僅隔離交付準備、候選封裝、候選launcher build及check-only資格；全共享engine/releases/原work封存唯讀，入口r33及project-manifest禁止寫入，DB/SQL/服務/socket/network/原生遊戲/角色/憑證/永久刪除均禁。所有可變檔先獨立copy；素材只讀immutable硬連結可依精確計畫在新work候選建立，禁止原地改資產。不得喚醒任何舊主管。\n已查現有engine/_integration/r34/launcher-source/Program.cs SHAe93ade09f9d773dcec99c5637d162a5ab31ce6445363c76724cc4186857eeaef，Launcher.csproj SHA59a5f22c8ced415eb3d9a36d5f356b52766956a3ae66597e29214a53280e62ee。Launcher綁死ManifestHash=3b3b5557372f325aeecbb30065ed389216e932478e34b5763a4beda031bf8c9d、ManifestPath build/product-r34-manifest.json、Entry build/client-product-r34/P11.ClientEngine.exe。其--check-only在Process.Start之前返回；Verify做manifest/runtime/web/assets presence+size、DesktopRuntime及WebView2版本查詢，沒有正常產品啟動或DB/service。新P36現有manifest是provenance schema，不能直接冒充launcher要求p24-normal-product-v1。舊r34不含source/Resources/pickup-own-base15-profile-extension.json，產品DLLc11678249221475fb749de41713f8ed75473980d8929d72a8cd04f2ca0b49aed；P36DLL6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3才含額外41 exact own-pickup profiles(含control42,speed0/1 Brave0)。既有r34音訊與P36同d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4。使用者未批准r34入口，未來批准舊r34也不等於啟用P36成果。\n原拒絕保留：ENGINE-R34-ENTRY-ACTIVATE-P26-R1 send_message_to_thread automatic approval review denied，未執行未重試，原文『此派工會持久修改正式入口與 project-manifest，將 r34 提升為現行產品版本，屬外部／正式承諾；使用者只授權引擎開發，未明確授權這次入口啟用，且政策不以先前助手派工替代該核准。』本任務禁止該操作，不改道。\n\n你獨立覆核，僅寫 work/P38-delivery-review-r1，分plan與final子目錄便於保留原封存。先唯讀確認launcher normal/check-only分支與runtime dependency、版本差異，與作者協作分工但不得修改作者/engine。作者在work/P38-delivery-plan-r1準備有限契約，等主管轉交精確seals後審核。不要再做P36/P37全套回歸或source研究。確認候選新manifest與launcher真綁P36，不沿用r34hash或舊180source/8step收據；P36 inventory-only manifest不能冒充normal schema。確認共享入口/manifest/releases全部唯讀、只work隔離build/materialize、immutable assets策略與部分失敗保留、private env及首次關閉憑證、單次launcherbuild且不重建產品。\n初步輸出可以短scope review，有明確source pin即可；不要另生重複龐大baseline。計畫接受後主管才核發執行。最終你將核候選閉合/全asset內容SHA一次/新launcher來源編譯provenance/正向check-only和一個舊版拒絕/33等保護pins不變；不自己build/正常launcher/noargs/native/DB/services。若完整full-release/native資格仍待後續，精確說明哪些已證明、哪些須原生環境，而不是用缺入口批准阻擋所有離線工作。",
+  "states": [
+    {
+      "threadId": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+      "turnId": "01a18702-03f2-7de3-9cf4-1a44839d9fc5",
+      "status": {
+        "type": "active",
+        "activeFlags": []
+      },
+      "turnStatus": "inProgress",
+      "recent": [
+        {
+          "type": "agentMessage",
+          "id": "msg_0f6a4b4cf1af6591016ae312f536688191b344d6e4d0e01934",
+          "text": "我會先核對 P36／P37 最終接受與現有 launcher 契約，再於指定 P38 plan 目錄準備封裝清單、最小 source 差異及單次 build／兩次 check-only 執行契約。本輪不建立候選目錄、不 build，也不執行 launcher。\n",
+          "phase": "commentary"
+        },
+        {
+          "type": "commandExecution",
+          "id": "exec-597f7cdf-39fa-4a57-81b7-9f4a8ec692b1",
+          "command": "\"C:\\\\Users\\\\CHAOREN\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\AGENTS.md' -Raw\nGet-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\主管\\\\P25-P27-新主管接管-20261029\\\\P37-final-acceptance.json' -Raw\nGet-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\engine\\\\_integration\\\\r34\\\\laun",
+          "commandTruncated": true,
+          "cwd": "D:\\lineage開發",
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 370
+        }
+      ]
+    },
+    {
+      "threadId": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+      "turnId": "01a18702-117a-71c3-b188-9e94c1d18281",
+      "status": {
+        "type": "active",
+        "activeFlags": []
+      },
+      "turnStatus": "inProgress",
+      "recent": [
+        {
+          "type": "agentMessage",
+          "id": "msg_0bdce0e796d4bfef016ae312fa57e08191977363f8a00304d8",
+          "text": "我先確認 launcher 的正常啟動／check-only 分支、manifest 契約與 P36 版本差異，將範圍核對保存在新的 review 根。等主管轉交作者計畫 seals 後，再審隔離封裝與單次 launcher build；本輪不執行正常 launcher 或產品。",
+          "phase": "commentary"
+        },
+        {
+          "type": "commandExecution",
+          "id": "exec-83c20b8e-ba4e-4198-bf21-81884677cef5",
+          "command": "\"C:\\\\Users\\\\CHAOREN\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\AGENTS.md' -TotalCount 50\nGet-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\engine\\\\_integration\\\\r34\\\\launcher-source\\\\Program.cs'\nGet-Content -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\engine\\\\_integration\\\\r34",
+          "commandTruncated": true,
+          "cwd": "D:\\lineage開發",
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 321
+        }
+      ]
+    }
+  ],
+  "executionAuthorized": false,
+  "sharedWritesAuthorized": false,
+  "entryActivationAuthorized": false
+}

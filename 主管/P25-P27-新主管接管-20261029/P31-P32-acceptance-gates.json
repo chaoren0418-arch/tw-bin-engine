@@ -1,0 +1,30 @@
+{
+  "schema": "p31-p32-supervisor-review-gates-v1",
+  "basis": "P30-r2-final-acceptance.json; direct reads of Renderer.cs, ObjectRendering.cs, PlayerShadows.cs and PickupPresentation.cs",
+  "status": "criteria-only; no new runtime accepted yet",
+  "common": [
+    "Actually loaded product SHA is 6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3; audio binding matches accepted baseline.",
+    "The helper invokes the accepted product behavior, not an independent replica substituted for actual behavior.",
+    "Inputs, oracle derivation, raw command/streams and distinct case outputs are sealed; historical checks are not counted again.",
+    "Failed attempts and sensitivity controls remain visible; a helper failure is not labeled a product defect.",
+    "No product/shared/entry/DB/native writes; exact used input files unchanged."
+  ],
+  "P31": [
+    "Compare actual final Patch Colors/Mask/Owners/EntityOwners against an independently derived finite pixel oracle, with declared fixture scene and no native-screen claim.",
+    "Expected actor and shadow frames come from independent sealed sources and exact current gfx/weapon/sprite/key; command list alone is insufficient pixel evidence.",
+    "Verify idle-to-pickup shadow removal and terminal current-profile restoration; missing pickup shadows remain an explicit source boundary.",
+    "Opaque occluder ordering, unaffected background and sparse transparent coverage have actual overlapping/non-overlapping witnesses; no vacuous all-hidden assertion.",
+    "EntityOwners/VisibleObjectIds reflect final pixels; own object id zero and shadow non-selectability are distinguished from other actors.",
+    "Oracle sensitivity controls must produce a nonzero mismatch for their intended changed condition."
+  ],
+  "P32": [
+    "Derive finite dimensions from PickupOwner fields and PickupGuard/events, not a target count of 22.",
+    "For each selected dimension show active old serial, real event or explicit seam, cancellation reason, stale callback result and valid new-receipt recovery.",
+    "Distinguish unsupported profile guard from ownership mismatch; stage order can otherwise mask the intended cancellation path.",
+    "At least directions 1-7 exercise actual start/due/terminal/end boundaries with the product clock; speed and double-duration metadata claims remain separate.",
+    "Terminal replacement and newer receipt serial must survive old callbacks; no catch-all null result counted as recovery.",
+    "Transport, authoritative quantities and event counters require real instrumentation; snapshot invariance alone does not complete these broader families."
+  ],
+  "nextIfDefect": "Preserve minimum repro and source-backed expected result; authorize a separate fresh minimal candidate, then independently rerun the failing case and affected behavior only. Shared integration remains sole-integrator and exact-receipt controlled.",
+  "entry": "r33 unchanged; previous activation dispatch denied and user approval pending"
+}

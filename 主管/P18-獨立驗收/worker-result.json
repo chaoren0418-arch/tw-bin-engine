@@ -1,0 +1,58 @@
+{
+  "status": "worker-passed-ready-for-independent-supervisor",
+  "goal": "active",
+  "stage": "P18",
+  "scope": "Verified original meat ground display, selection, single pickup and finite manual drop; not complete engine or supervisor acceptance",
+  "fixedJarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "proofs": {
+    "ground-worker-cli-r2/independent-ground.json": {
+      "sha256": "0abb11e69ba6f6156990ae8ed21b7832f3aa395547bbac0235df84eeeaf3fa58",
+      "snapshots": 40,
+      "fields": 1319
+    },
+    "ground-worker-ui-r5/independent-ground.json": {
+      "sha256": "0817d564fbbfc56686bcca2c2d040148976ff8932ff01df274a4d58e5fb33546",
+      "snapshots": 60,
+      "fields": 1991
+    },
+    "ground-layout-final/result.json": {
+      "sha256": "d87fd5be07f38ed2cc79a321644b2741282ba5bcfa89ac93f9e2223790a55df7",
+      "snapshots": null,
+      "fields": null
+    },
+    "ground-regressions-final/ground.json": {
+      "sha256": "239df460d82d135581d6c4c84de9fb04ab0854e5487c9db56c69198065dfd636",
+      "snapshots": null,
+      "fields": null
+    },
+    "ground-regressions-final/inventory.json": {
+      "sha256": "62495e659f8cdcf9817d311eaa30f2add803adbaba4467a9b1afce48c14adb91",
+      "snapshots": null,
+      "fields": null
+    },
+    "web-regression/web-test-result.json": {
+      "sha256": "1739669513b9c3d0286f3bae493dbd3076de3160c33d180c8581d34a3acd96a6",
+      "snapshots": null,
+      "fields": null
+    }
+  },
+  "finiteLedgerSha256": "bc6cdc6aab7ca13f11f45996c22111403f9850fa97fdd28aca5ada839aa506d2",
+  "supervisorReserved": [
+    1900180003,
+    1900180004,
+    1900180007,
+    1900180008
+  ],
+  "serviceState": "same original JAR/DB running",
+  "sourceManifestSha256": "59e155a418dabb5297c7d9d14b5963da2152ebc1b8d5d30fa42ebe1458c56c9c",
+  "environmentManifestSha256": "4f558bf6ce9f66e7853846fecf0aa6acf9d993e3f3dbbae85ca6b06246b918dd",
+  "limits": [
+    "original UI8 object1900181024 not seen again after normal relogin/wait/step; fate unproven, NOT global32 conservation;24 saved+8 unresolved",
+    "UI-r5 reused CLI original8 through finite-loan and returned through finite-return-r2, all failures retained",
+    "only source-verified meat ground/drop fingerprint",
+    "original pickup action15 recorded and confirmed heading applied, animation not rendered",
+    "no verified natural monster ground drop",
+    "WinForms controllers and real WebView2 DOM, not external native input",
+    "historical synthetic and real layout occlusion failures retained"
+  ]
+}

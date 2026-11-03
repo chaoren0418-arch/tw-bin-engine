@@ -1,0 +1,6 @@
+{
+  "status": "auditor-fixture-error-corrected",
+  "failure": "Cold vector loop reused one initialized cache; second request retained prior origin [32256,32896] while independent cold vector expected [32384,32960].",
+  "correction": "Instantiate fresh CameraNative per cold vector. Original full F09C70 now matches all five expected origins; unchanged initialized camera guard matches all24. No product/expected changes.",
+  "productDllSha256": "a655d70fc3d974eaaeb093a98e9bf882ac4adebb67adae1356dd1e0f23d18006"
+}

@@ -1,0 +1,46 @@
+{
+  "status": "worker-long-ui-evidence-verified",
+  "scope": "Independent raw sequence and time-response check; worker timers/paint/focus/DB reports retained; not supervisor clean build",
+  "capture_sha256": "07eda9f114559247d8160b70546d8c06aeb3dcc36445e95391bf70926eefc0c0",
+  "packet_count": 398,
+  "applied_sequence": 398,
+  "times": [
+    {
+      "sequence": 121,
+      "server_time": 343240839
+    },
+    {
+      "sequence": 169,
+      "server_time": 343240929
+    },
+    {
+      "sequence": 216,
+      "server_time": 343241022
+    },
+    {
+      "sequence": 262,
+      "server_time": 343241112
+    },
+    {
+      "sequence": 305,
+      "server_time": 343241202
+    },
+    {
+      "sequence": 346,
+      "server_time": 343241292
+    },
+    {
+      "sequence": 382,
+      "server_time": 343241385
+    }
+  ],
+  "long_run": {
+    "elapsedMs": 95031,
+    "ticks": 2977,
+    "paints": 3944,
+    "maxTimerGapMs": 78,
+    "focusRestored": true,
+    "keepalive": 7,
+    "timeReplies": 7
+  }
+}

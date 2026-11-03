@@ -1,0 +1,26 @@
+{
+  "utc": "2026-10-29T04:54:01.156984+00:00",
+  "formalEntry": "r33",
+  "formalR34Activated": false,
+  "r34Status": "accepted sealed offline development baseline only",
+  "entryActivationApproval": "pending; previous dispatch denied; no retry",
+  "independentBaseReason": [
+    "r34 source and runtime pins fixed by sealed full-hash delivery",
+    "P28 verified180 engine source files against sealed r34; copies confined to candidate root",
+    "P29 uses explicit candidate DLL/source/artifact paths and offline packet/renderer APIs, not root launcher"
+  ],
+  "workers": [
+    {
+      "thread": "01a185fd-fce6-77d2-961f-45a6d9accaa8",
+      "turn": "01a185fd-fe63-75f2-8551-633db36e9650",
+      "observed": "base verified; resource generated exact hash; implementation script executed; build preparation"
+    },
+    {
+      "thread": "01a185fe-5350-74c3-bfe6-96842287e610",
+      "turn": "01a185fe-54a9-72d3-88ac-7c9cb7c4532e",
+      "observed": "offline harness implementation and own build adaptation"
+    }
+  ],
+  "sharedWritesAuthorized": false,
+  "entryHash": "f189ee18ac2f3881f26246cb724772ac97ba11b977f40d74b0d9c1195795c27e"
+}

@@ -1,0 +1,31 @@
+{
+  "utc": "2026-10-29T04:51:29.998192+00:00",
+  "base": "r34-final-offline-baseline.json",
+  "tasks": [
+    {
+      "id": "P28-PROFILES-IMPLEMENT",
+      "owner": "01a185fd-fce6-77d2-961f-45a6d9accaa8",
+      "turnId": "01a185fd-fe63-75f2-8551-633db36e9650",
+      "state": "active-observed-source-reading",
+      "deliverables": "work/P28-pickup-profiles-candidate-r1",
+      "requires": [],
+      "next": "implement exact41profile extension and seal actual candidate"
+    },
+    {
+      "id": "P29-PROFILES-REVIEW",
+      "owner": "01a185fe-5350-74c3-bfe6-96842287e610",
+      "turnId": "01a185fe-54a9-72d3-88ac-7c9cb7c4532e",
+      "state": "active-observed-contract-and-fixture-reading",
+      "deliverables": "work/P29-pickup-profiles-review-r1",
+      "requires": [
+        "exact P28 candidate pins for runtime stage only"
+      ],
+      "next": "prepare independent harness now; actual candidate review after exact seal"
+    }
+  ],
+  "created": true,
+  "actualReadCommandsObserved": true,
+  "candidateImplemented": false,
+  "candidateRuntimeReviewed": false,
+  "formalEntryActivationNotDelegated": true
+}

@@ -1,0 +1,52 @@
+{
+  "utc": "2026-10-28T18:56:29.867598+00:00",
+  "readOnly": true,
+  "dbRuntime": {
+    "processes": [
+      {
+        "ProcessId": 4208,
+        "ParentProcessId": 1208,
+        "CreationDate": "/Date(1793206531925)/",
+        "ExecutablePath": null,
+        "CommandLine": null
+      },
+      {
+        "ProcessId": 20392,
+        "ParentProcessId": 7876,
+        "CreationDate": "/Date(1793212131511)/",
+        "ExecutablePath": "D:\\BinEngine\\environments\\p24\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "\"D:\\BinEngine\\environments\\p24\\mysql\\bin\\mysqld.exe\" --defaults-file=D:/BinEngine/environments/p24/mysql.ini --console"
+      },
+      {
+        "ProcessId": 19324,
+        "ParentProcessId": 20392,
+        "CreationDate": "/Date(1793212131915)/",
+        "ExecutablePath": "D:\\BinEngine\\environments\\p24\\mysql\\bin\\mysqld.exe",
+        "CommandLine": "D:\\BinEngine\\environments\\p24\\mysql\\bin\\mysqld.exe --defaults-file=D:/BinEngine/environments/p24/mysql.ini --console"
+      }
+    ],
+    "listeners": [
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 43324,
+        "OwningProcess": 19324
+      }
+    ]
+  },
+  "rows": [
+    {
+      "kind": "db",
+      "port": 43324,
+      "uuid": "e3443e40-d090-11f1-8040-4cedfb679789",
+      "datadir": "D:\\BinEngine\\environments\\p24\\db-data\\"
+    },
+    {
+      "kind": "timedCounts",
+      "total": 1,
+      "orphans": 1,
+      "nullTimes": 0,
+      "nonpositiveIds": 0,
+      "distinctObjectIds": 1
+    }
+  ]
+}

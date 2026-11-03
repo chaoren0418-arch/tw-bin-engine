@@ -1,0 +1,82 @@
+{
+  "stage": "P34",
+  "status": "bounded-offline-review-passed-awaiting-supervisor",
+  "supervisor": "01a185b4-ecf6-705c-90e6-83b9eb1ba02f",
+  "threadId": "01a1868f-050d-7802-8b13-d1d8984858b5",
+  "utc": "2026-10-29T07:42:38.784221+00:00",
+  "writeRoot": "D:\\lineage開發\\TW1608262200研究\\work\\P34-pickup-authoritative-flow-review-r1",
+  "baselineAcceptanceSha": "b37e5993a5a2fd5c0aed6f10e5c1c313da6dbcaf5899fcb729fffd6d08c03cf1",
+  "stageSealSha": "45bf24321192718e090deca882ce1ce884113cb9bfae817b73ab92892d3f5514",
+  "actualDLLsha": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+  "audioSha": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+  "distinctCases": 11,
+  "passed": 11,
+  "failed": 0,
+  "caseIds": [
+    "early-partial-0-0-s0",
+    "early-partial-2796-20-s0",
+    "early-partial-2796-20-s1",
+    "early-delete-add-6658-4-s1",
+    "pre-admit-selection",
+    "pre-admit-speed",
+    "pre-admit-appearance",
+    "post-admit-revisions",
+    "teleport-old-completion",
+    "real-deadline-recovery",
+    "real-900-guard-without-pending"
+  ],
+  "runtimeRuns": [
+    {
+      "label": "runtime-01",
+      "cases": 10,
+      "exitCode": 0
+    },
+    {
+      "label": "runtime-02",
+      "cases": 1,
+      "exitCode": 0,
+      "mode": "guard-only"
+    }
+  ],
+  "helperBuilds": 3,
+  "productBuilds": 0,
+  "productChanges": 0,
+  "confirmedProductDefects": 0,
+  "rawEventCounts": {
+    "syntheticPackets": 116,
+    "gateCalled": 12,
+    "admitted": 9,
+    "GroundSent": 8,
+    "snapshots": 73
+  },
+  "independentRawChecks": 92,
+  "sensitivityControls": 3,
+  "sourcePins": 58,
+  "rapidRepeatHypothesis": "not reproduced; MovementBusy includes GroundBusy and public repeat returns before lease change; original completion GroundSent preserved",
+  "trueTiming": {
+    "pendingElapsedMs": 3031,
+    "pendingOvershootMs": 31,
+    "pendingChainClickOvershootMs": 37,
+    "guardOnlyOvershootMs": 37,
+    "groundClock": "Environment.TickCount64",
+    "animationClock": "explicit separate helper clock",
+    "privateDeadlineSeam": false
+  },
+  "historicalCasesAdded": 0,
+  "nativeCases": 0,
+  "sharedWrites": 0,
+  "formalEntry": "r33",
+  "formalR34Activated": false,
+  "wholeProjectComplete": false,
+  "limitations": [
+    "synthetic authoritative packets and in-memory send gate, not socket/native",
+    "no teleport network-loop ACK",
+    "no all audio/effect counters",
+    "representative3 exact pairs, not all42",
+    "ground/36 asset verified against original seal after runtime01; included in subsequent gate",
+    "104base and312pickup source eligibility unchanged"
+  ],
+  "verificationSha256": "2308ce36fac3155ad5222fb1528b5d4ed155cc56c85a68ac0d8b3671e315010a",
+  "handoff": "HANDOFF.md",
+  "reproduce": "REPRODUCE.md"
+}

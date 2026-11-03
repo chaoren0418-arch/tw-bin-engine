@@ -1,0 +1,16 @@
+{
+  "status": "pass",
+  "r1ManifestSha256": "bf22ad09f0d2b2940dfb295680d363287b56a253249f128de393520b562dac61",
+  "r1SealedFilesVerified": 296,
+  "inputPinsRechecked": 170,
+  "sharedSourceAudioWebFiles": 176,
+  "sharedSourceAudioWebAllMatchBaseline": true,
+  "baselineLock": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\engine-next-integration-r1\\baseline-lock.json",
+    "sha256": "2f810caf6d3f64a857173637416ebbd6e0ed6a104f67ef985706de213cadb1f4"
+  },
+  "r1ToR2ChangedFiles": 1,
+  "sharedWrites": false,
+  "assetsJunction": "read-only consumer of releases/r28/assets; excluded from copying and seal",
+  "originalBinJarReexecuted": false
+}

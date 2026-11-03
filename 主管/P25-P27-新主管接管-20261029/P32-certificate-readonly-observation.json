@@ -1,0 +1,55 @@
+{
+  "schema": "p32-readonly-certificate-inspection-v1",
+  "observedUtc": "2026-10-29T07:23:37.7956719Z",
+  "buildStartedUtc": "2026-10-29T07:08:21.0000000Z",
+  "buildFinishedUtc": "2026-10-29T07:08:25.0000000Z",
+  "mode": "X509Store ReadOnly|OpenExistingOnly; only ASP.NET development or localhost-near-build public metadata retained",
+  "certificates": [],
+  "stores": [
+    {
+      "store": "CurrentUser\\My",
+      "openedReadOnly": true
+    },
+    {
+      "store": "CurrentUser\\Root",
+      "openedReadOnly": true
+    },
+    {
+      "store": "CurrentUser\\CA",
+      "openedReadOnly": true
+    },
+    {
+      "store": "CurrentUser\\TrustedPeople",
+      "openedReadOnly": true
+    },
+    {
+      "store": "CurrentUser\\Disallowed",
+      "openedReadOnly": true
+    },
+    {
+      "store": "LocalMachine\\My",
+      "openedReadOnly": true
+    },
+    {
+      "store": "LocalMachine\\Root",
+      "openedReadOnly": true
+    },
+    {
+      "store": "LocalMachine\\CA",
+      "openedReadOnly": true
+    },
+    {
+      "store": "LocalMachine\\TrustedPeople",
+      "openedReadOnly": true
+    },
+    {
+      "store": "LocalMachine\\Disallowed",
+      "openedReadOnly": true
+    }
+  ],
+  "beforeSnapshotAvailable": false,
+  "privateKeysExported": false,
+  "chainBuildOrNetworkPerformed": false,
+  "certificatesAddedRemovedOrTrusted": false,
+  "trustQualification": "Exact certificate membership in user/machine Root checked; no trust action or chain/network evaluation."
+}

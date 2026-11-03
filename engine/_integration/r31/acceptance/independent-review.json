@@ -1,0 +1,60 @@
+{
+  "schema": "engine-independent-review-v1",
+  "candidateId": "ENGINE-HASTE-ACTIONS-IMPL-R1",
+  "decision": "accepted",
+  "candidateSealSha256": "ecf4a8642d13238222fad3173890dc1063bcfc311fc7aabe101d6b07465831b4",
+  "candidateDllSha256": "12ad5bbfac696033ee1f8d807346f401216138f4ce51cb58da9438e0b4ba5ec1",
+  "candidateReviewed": true,
+  "candidateAccepted": true,
+  "unresolvedFindings": [],
+  "reviewerThreadId": "01a17a21-8dec-7410-8a1b-80f7fa84d0a1",
+  "reviewResult": {
+    "path": "work/engine-haste-actions-review-r1/candidate-review-r1/result.json",
+    "sha256": "e2876156d7caa08ce9b76390373c6939bd8afc99bf6c7e4b878ccd508867f74f"
+  },
+  "evidence": [
+    {
+      "path": "work/engine-haste-actions-review-r1/candidate-review-r1/candidate-probe.json",
+      "sha256": "55ee74d84eb0c544f0db34355df4a25de8add63680b6252b7dbc2a56b344a2c4",
+      "kind": "independent-suite",
+      "passed": 1707,
+      "failed": 0
+    },
+    {
+      "path": "work/engine-haste-actions-review-r1/candidate-review-r1/commands.json",
+      "sha256": "fa8b0cf89547f39995c92ff16ff548c481a35453061ca4fedd3afe698b3bb3d7",
+      "kind": "execution-record"
+    },
+    {
+      "path": "work/engine-haste-actions-review-r1/candidate-review-r1/coverage.json",
+      "sha256": "4851836bee2182f56f6582b85a2832fe979498df7755ba413cfc8d78484b4b28",
+      "kind": "coverage-and-clock-evidence"
+    },
+    {
+      "path": "work/engine-haste-actions-review-r1/candidate-review-r1/test-adaptations.json",
+      "sha256": "eba0243a797fe1c3a3271d95d57eec76b85f8232bc084b33d50d16d144631259",
+      "kind": "old976-to-source-backed-assertion-mapping"
+    },
+    {
+      "path": "work/engine-haste-actions-review-r1/candidate-review-r1/static-review.json",
+      "sha256": "a58a6e42ece0664c61b48a19ea7de0b3bbeebd7ea3fc3a7ed95da95c510f6a18",
+      "kind": "source-review"
+    },
+    {
+      "path": "work/engine-haste-actions-review-r1/candidate-review-r1/preservation.json",
+      "sha256": "f12b1fc6a62de5358c6ed5a765f73546524c10dc32af589e3440d12638005685",
+      "kind": "read-only-preservation"
+    },
+    {
+      "path": "work/engine-haste-actions-review-r1/candidate-review-r1/source-manifest.json",
+      "sha256": "9d9d138ca00f900f086652040935b8ac8e0989638c764a28e2f97393e9182fd3",
+      "kind": "review-input-pins"
+    },
+    {
+      "path": "work/engine-haste-actions-review-r1/candidate-review-r1/findings.json",
+      "sha256": "2eb50cc7739c6ce798e926485199d0998177c5550a8c6142693c2dbb1925f9b5",
+      "kind": "review-findings"
+    }
+  ],
+  "scope": "Accept exact ENGINE-HASTE-ACTIONS-IMPL-R1 candidate seal only; not native live or future integration/release acceptance."
+}

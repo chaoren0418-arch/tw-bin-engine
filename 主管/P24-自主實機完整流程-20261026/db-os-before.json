@@ -1,0 +1,25 @@
+{
+  "processes": [
+    {
+      "ProcessId": 69176,
+      "ParentProcessId": 64892,
+      "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+      "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+      "CreationDate": "/Date(1792945658396)/"
+    },
+    {
+      "ProcessId": 59052,
+      "ParentProcessId": 69176,
+      "ExecutablePath": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe",
+      "CommandLine": "D:\\P24Lab-ClientEngine\\mysql\\bin\\mysqld.exe --defaults-file=D:\\P24Lab-ClientEngine\\mysql.ini --init-file=D:\\P24Lab-ClientEngine\\db-bootstrap.sql --console",
+      "CreationDate": "/Date(1792945658443)/"
+    }
+  ],
+  "listeners": [
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 43324,
+      "OwningProcess": 59052
+    }
+  ]
+}

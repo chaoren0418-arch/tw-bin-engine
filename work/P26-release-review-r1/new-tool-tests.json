@@ -1,0 +1,268 @@
+{
+  "cases": [
+    {
+      "id": "current-release-shape-only",
+      "expectedAccepted": true,
+      "actualAccepted": true,
+      "reason": null,
+      "synthetic": true
+    },
+    {
+      "id": "release-reject-schema-engine-r34-shared-acceptance-v1",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "release receipt required; shared receipt is not release approval",
+      "synthetic": true
+    },
+    {
+      "id": "release-reject-supervisor-01a17e6a-9270-7cc2-a338-0120ed68d0ec",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new exact current-supervisor release dispatch required",
+      "synthetic": true
+    },
+    {
+      "id": "release-reject-supervisor-unknown",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new exact current-supervisor release dispatch required",
+      "synthetic": true
+    },
+    {
+      "id": "release-reject-decision-accepted-for-r34-serial-canonical",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new exact current-supervisor release dispatch required",
+      "synthetic": true
+    },
+    {
+      "id": "release-reject-dispatchId-ENGINE-R34-SHARED-INTEGRATE-EXAMPLE",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new exact current-supervisor release dispatch required",
+      "synthetic": true
+    },
+    {
+      "id": "release-reject-dispatchId-None",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new exact current-supervisor release dispatch required",
+      "synthetic": true
+    },
+    {
+      "id": "release-reject-planSha256-0000000000000000000000000000000000000000000000000000000000000000",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "new exact current-supervisor release dispatch required",
+      "synthetic": true
+    },
+    {
+      "id": "missing-step-product",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "every canonical step required",
+      "synthetic": true
+    },
+    {
+      "id": "missing-step-baseline",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "every canonical step required",
+      "synthetic": true
+    },
+    {
+      "id": "missing-step-ground",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "every canonical step required",
+      "synthetic": true
+    },
+    {
+      "id": "missing-step-utility",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "every canonical step required",
+      "synthetic": true
+    },
+    {
+      "id": "missing-step-haste",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "every canonical step required",
+      "synthetic": true
+    },
+    {
+      "id": "missing-step-versioned-slow",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "every canonical step required",
+      "synthetic": true
+    },
+    {
+      "id": "missing-step-f1",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "every canonical step required",
+      "synthetic": true
+    },
+    {
+      "id": "missing-step-pickup",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "every canonical step required",
+      "synthetic": true
+    },
+    {
+      "id": "source-absent",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "source omitted from package: source/example.cs",
+      "synthetic": true
+    },
+    {
+      "id": "source-drift",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "source package pin mismatch",
+      "synthetic": true
+    },
+    {
+      "id": "evidence-absent",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "missing synthetic evidence",
+      "synthetic": true
+    },
+    {
+      "id": "synthetic-outer-attempt-positive-control",
+      "expectedAccepted": true,
+      "actualAccepted": true,
+      "reason": null,
+      "synthetic": true
+    },
+    {
+      "id": "outer-failed-exit",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "canonical failed/partial attempt",
+      "synthetic": true
+    },
+    {
+      "id": "outer-partial",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "canonical failed/partial attempt",
+      "synthetic": true
+    },
+    {
+      "id": "outer-wrong-DLL",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "canonical failed/partial attempt",
+      "synthetic": true
+    },
+    {
+      "id": "outer-wrong-argv",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "canonical actual argv/cwd differs",
+      "synthetic": true
+    },
+    {
+      "id": "outer-wrong-cwd",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "canonical actual argv/cwd differs",
+      "synthetic": true
+    },
+    {
+      "id": "outer-missing-probe",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "exact outer probe set",
+      "synthetic": true
+    },
+    {
+      "id": "outer-raw-drift",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "canonical raw log pin",
+      "synthetic": true
+    },
+    {
+      "id": "outer-probe-outside-workflow",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "outer probe outside workflow",
+      "synthetic": true
+    },
+    {
+      "id": "outer-unexpected-extra-probe",
+      "expectedAccepted": false,
+      "actualAccepted": false,
+      "reason": "exact outer probe set",
+      "synthetic": true
+    },
+    {
+      "id": "suite-reject-assertionsFailed",
+      "type": "isolated-generator-predicate",
+      "sourceLine": 68,
+      "rejected": true,
+      "synthetic": true
+    },
+    {
+      "id": "suite-reject-pending",
+      "type": "isolated-generator-predicate",
+      "sourceLine": 68,
+      "rejected": true,
+      "synthetic": true
+    },
+    {
+      "id": "suite-reject-occurrencesMatched",
+      "type": "isolated-generator-predicate",
+      "sourceLine": 68,
+      "rejected": true,
+      "synthetic": true
+    },
+    {
+      "id": "suite-reject-socketEvents",
+      "type": "isolated-generator-predicate",
+      "sourceLine": 68,
+      "rejected": true,
+      "synthetic": true
+    },
+    {
+      "id": "suite-reject-assertionsPassed",
+      "type": "isolated-generator-predicate",
+      "sourceLine": 68,
+      "rejected": true,
+      "synthetic": true
+    },
+    {
+      "id": "installed-must-have180",
+      "type": "isolated-generator-predicate",
+      "sourceLine": 51,
+      "rejected": true,
+      "synthetic": true
+    },
+    {
+      "id": "manifest-must-have180",
+      "type": "isolated-generator-predicate",
+      "sourceLine": 81,
+      "rejected": true,
+      "synthetic": true
+    },
+    {
+      "id": "helpers-must-be10",
+      "type": "isolated-generator-predicate",
+      "sourceLine": 71,
+      "rejected": true,
+      "synthetic": true
+    }
+  ],
+  "scope": "pure release predicates, actual verify_attempt with private synthetic fixtures, selected completed predicates; no full generator/controller invocation",
+  "packageInvocations": 0,
+  "sharedWrites": 0,
+  "actualProcesses": 0,
+  "innerEvidenceGap": "RG1"
+}

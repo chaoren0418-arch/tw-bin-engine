@@ -1,0 +1,59 @@
+{
+  "sourcePinsUnchanged": 82,
+  "copiedDependencies": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\build\\helper01\\bin\\P11.ClientEngine.dll",
+      "size": 4925440,
+      "sha256": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\build\\helper01\\bin\\P24.Audio.dll",
+      "size": 53760,
+      "sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4"
+    }
+  ],
+  "loadedDll": {
+    "actualSha": "6cb2f6282b445f1550cc5e62447756e5ecebcaca0a1d4a7c45892f0f4db44fb3",
+    "loadedPath": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\build\\helper01\\bin\\P11.ClientEngine.dll",
+    "cases": 56,
+    "productBuilds": 0,
+    "gui": false,
+    "native": 0,
+    "network": false,
+    "fixture": "synthetic sparse ground/rear entity7001/opaque occluder, original body and shadow; exact product ComposeObjects"
+  },
+  "runtimeOracleArtifacts": [
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\cases.json",
+      "size": 843169,
+      "sha256": "98369cbd4fbf437dca9d4262cdd01045a0c97639ce8754d530f3dfc54e34eb50"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\prepare.py",
+      "size": 9872,
+      "sha256": "b2f07956a1d6058721647ba9fdff62d74c0a82ec225d510b31bd4ee91653f8fc"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\Probe.cs",
+      "size": 7711,
+      "sha256": "e1f39dffc0c060aa1f7ece377e11e5259fc805fd128d822ebcb60f4b5584556d"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\compare.py",
+      "size": 5126,
+      "sha256": "2cb8ba032d96bb050700ba9722e4bb927a97d6c0731a27113720831cb9ede75e"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\comparison.json",
+      "size": 47172,
+      "sha256": "e8c6c20635b180bc9e3d7b687552e20af72f58beb98c386ce8341277cfd8cd96"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\work\\P31-pickup-composite-review-r1\\sensitivity.json",
+      "size": 13272,
+      "sha256": "37a6ad45da70de806a9339e113ad236565de4e0c659563f034e41c36bec3d0f2"
+    }
+  ],
+  "note": "Post-run source identity audit and artifact pins; not claimed as a pre-run manifest timestamp",
+  "utc": "2026-10-29T07:12:36.978156+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema": "p38-exact-plan-review-dispatch-v1",
+  "utc": "2026-10-29T09:53:53.295832+00:00",
+  "authorThread": "01a17a22-17e4-70c0-9792-166ddb86ea42",
+  "authorTurn": "01a18702-03f2-7de3-9cf4-1a44839d9fc5",
+  "reviewerThread": "01a185b7-ea67-7053-9bfc-d9d90c1cff8f",
+  "reviewerTurn": "01a18714-30ba-76d3-a001-fef749e73911",
+  "rootVerifiedArtifactFiles": 51,
+  "authorArtifactSealSha256": "0b601bb1dd624b12e49cc4550dfca166304d318d4615aba65706a1de18732bf5",
+  "planSha256": "d1649ed3104850b96b719a367583835c781aa0a1fd05fad52c27b6ce402cce92",
+  "contractSha256": "0ceba81b82f80ccd601c12da36b10557a2a5b9bd2d867cc166923a4816b43b3e",
+  "executionAuthorized": false,
+  "sharedWrites": false,
+  "entryActivationAuthorized": false
+}

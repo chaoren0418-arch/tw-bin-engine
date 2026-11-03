@@ -1,0 +1,111 @@
+[
+  {
+    "name": "build-product",
+    "pid": 71152,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\source\\OfflineClient.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\client",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 8.867923259735107
+  },
+  {
+    "name": "build-harness",
+    "pid": 76176,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\map-effects-r1\\harness\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\harness",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 4.527727842330933
+  },
+  {
+    "name": "build-maps-regression",
+    "pid": 84484,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\map-effects-r1\\maps-regression\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\maps-regression",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 3.737882137298584
+  },
+  {
+    "name": "build-trade-regression",
+    "pid": 50864,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\map-effects-r1\\trade-regression\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\trade-regression",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 3.739819049835205
+  },
+  {
+    "name": "build-service-regression",
+    "pid": 61020,
+    "args": [
+      "dotnet",
+      "build",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\reference\\development\\map-effects-r1\\service-regression\\Checks.csproj",
+      "-o",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\service-regression",
+      "-c",
+      "Release",
+      "--configfile",
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\NuGet.Config",
+      "--nologo",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exitCode": 0,
+    "elapsed": 4.222537994384766
+  },
+  {
+    "name": "harness",
+    "pid": 45624,
+    "args": [
+      "D:\\lineage\u958b\u767c\\TW1608262200\u7814\u7a76\\\u4e3b\u7ba1\\P24-\u5730\u5716\u7279\u6548\u63a5\u7dda\u7368\u7acb\u5be9\u67e5-20261026\\build\\harness\\P24.MapEffectChecks.exe"
+    ],
+    "exitCode": 3762504530,
+    "elapsed": 13.797926187515259
+  }
+]

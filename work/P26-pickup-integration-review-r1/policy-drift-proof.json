@@ -1,0 +1,15 @@
+{
+  "method": "remove exact UTF-8 byte interval from new takeover heading up to next historical heading, in memory only; all remaining bytes and CRLF preserved",
+  "removedOffset": 37,
+  "removedBytes": 1683,
+  "removedSha256": "8678dc21946c55cb5bce81117d0608ce26bd565ebc6f776eb5250c7576f5dc7e",
+  "historicalSha256": "314e9a9e3aefb4be0ce5ef699fca86eca072298b8b07d365e6d74016c8303615",
+  "historicalSize": 10058,
+  "historicalPinMatches": true,
+  "currentPolicy": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\AGENTS.md",
+    "size": 11741,
+    "sha256": "0c8f214831a286bec4a6844ab1293b4f4798ff829ef0a3d6507dbf455eddc040"
+  },
+  "fileWritten": false
+}

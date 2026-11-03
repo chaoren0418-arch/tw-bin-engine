@@ -1,0 +1,85 @@
+{
+  "schema": "p25-artifact-seal-v1",
+  "phase": "P25",
+  "files": [
+    {
+      "path": "architecture.md",
+      "size": 9075,
+      "sha256": "b6c0566b07e8829e8bcd09aa0132ce17c399665d2bbe06d8a3436f4419a9594f"
+    },
+    {
+      "path": "build_baseline.py",
+      "size": 54770,
+      "sha256": "e47579ce159363be6b8a793819588cd50ced2f70534828c4f8535fe3280402bc"
+    },
+    {
+      "path": "commands.json",
+      "size": 639,
+      "sha256": "0f27eeec70e40d51579e4823f51faed723b30e14cf5fedf7c275b51b2733dcfb"
+    },
+    {
+      "path": "completion-matrix.json",
+      "size": 175343,
+      "sha256": "12caefd91015d04d95974f63e2d5355768e4b4fa08b87aef0c500e9a56c6035e"
+    },
+    {
+      "path": "finalize_baseline.py",
+      "size": 8286,
+      "sha256": "1fee2da5ba3329ff612eabbbd5b881f744ed8b42d8e0d8bafea09704d0931b42"
+    },
+    {
+      "path": "finite-backlog.json",
+      "size": 17328,
+      "sha256": "b1dd3fe9c0ba31203c1ad779bdb24f6c4f037743a65ae55b996b9f1201d491c9"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 3893,
+      "sha256": "1761680dbabe3b9f0053e6a26a00c32a45cf40a354539377fb2bcc3f6d16c0ab"
+    },
+    {
+      "path": "historical-evidence-index.json",
+      "size": 56714,
+      "sha256": "f8a43c57c3ca3cdc3db0fd1d101a992c77ab188679ceba1c47d165afb6d795a4"
+    },
+    {
+      "path": "module-map.json",
+      "size": 49796,
+      "sha256": "56e73ea1906d654fa26ea7318b15280940cb9ae2cd460da2ce93369317c9e8cc"
+    },
+    {
+      "path": "progress.json",
+      "size": 29362,
+      "sha256": "b2bef1981ab6cbbb526c026c135c2ea67fae9302431e19209c2bf9a0fc06c880"
+    },
+    {
+      "path": "result.json",
+      "size": 3802,
+      "sha256": "a4380f74b6497d1963ded933ba0e54bc8aec119e90562dc20df6c32e79d4cd69"
+    },
+    {
+      "path": "source-binding.json",
+      "size": 69724,
+      "sha256": "29610d509decdbac9d8f4663e78b16fcf909f5b7ce7ec3ff90e3da2fbaa6a028"
+    },
+    {
+      "path": "source-pins.json",
+      "size": 96940,
+      "sha256": "0dc08e96fb529baafa30eccc25f8fd26dd047df9d2509c1c114da5029e1df3ef"
+    },
+    {
+      "path": "verification-report.json",
+      "size": 598,
+      "sha256": "444fda57921c9a132dbb08406c25fe7e4f1b0c96620c26e22ca6685ed3bf32a1"
+    },
+    {
+      "path": "verify_baseline.py",
+      "size": 7380,
+      "sha256": "dade9ce4657e69fb478ff5ec3a207a5337e408a546dc6694946aabaee740509e"
+    }
+  ],
+  "excludes": [
+    "artifact-manifest.json (self hash reported externally)"
+  ],
+  "scope": "P25 documentary deliverables only"
+}

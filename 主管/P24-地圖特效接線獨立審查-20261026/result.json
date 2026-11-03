@@ -1,0 +1,12 @@
+{
+  "status": "delivery-defect-missing-runtime-asset",
+  "asset": "assets/ground/36.json",
+  "integrityInputsVerified": 13834,
+  "snapshotFilesVerified": 519,
+  "builds": "product and four harnesses pass",
+  "failedCheck": "harness: FileNotFoundException GroundAppearance for map4 ground meat",
+  "productDefect": "Required ground/36.json not included in integrity or immutable delivery chain; worker workspace retained it outside the pinned asset list.",
+  "next": "Worker must preserve immutable r1 and provide pinned corrected delivery. No unpinned asset copied to turn failure into pass.",
+  "ui": false,
+  "live": false
+}

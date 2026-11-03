@@ -1,0 +1,80 @@
+{
+  "task": "ENGINE-PICKUP-RENDERER-ELIGIBILITY-SOURCE-R1",
+  "status": "complete-bounded-source-and-presentation-contract",
+  "runtimeChecks": 0,
+  "productChanged": false,
+  "candidateBuilt": false,
+  "nativeExecuted": false,
+  "pixelDecoded": false,
+  "baseline": "final r32; no r33 candidate adopted",
+  "strictNativeNeutralEligibleRows": 0,
+  "policy": "OWN-BASE-15-001 own gfx0/weapon0 Speed0/1; concrete nominal finite presentation; no further private-flag research needed for this policy",
+  "verification": {
+    "status": "pass",
+    "readOnly": true,
+    "sourcePins": 44,
+    "nativeChunks": 49,
+    "adoptedNativeChunks": 48,
+    "rejectedNavigationChunks": 1,
+    "proofClaims": 12,
+    "profiles": 42,
+    "eligibilityRows": 84,
+    "conditions": 23,
+    "strictNativeEligibleRows": 0,
+    "nominalPolicyRows": 1,
+    "proposedTests": 36,
+    "executedProductTests": 0,
+    "requiredFrames": 32,
+    "newResourceFrames": 24,
+    "reusedFrames": 8,
+    "prospectiveResourceBytes": 239766,
+    "prospectiveResourceSha256": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90",
+    "manifestArtifacts": null,
+    "runtimeChecks": 0,
+    "productChanged": false,
+    "candidateBuilt": false,
+    "nativeExecuted": false,
+    "pixelDecoded": false
+  },
+  "sourceContractSha256": "9eacf7334f335cb5b077438dc97352a76c1cd290726edb3e23dde672fa67cb59",
+  "eligibilityTableSha256": "cf0d80b0c90d3b560f58346e84607912c819b103099e5e18f41193aa9e992128",
+  "assetDeliveryPlanSha256": "ebc81f7364b9114c3e18459ec8a16f5c7423f90647861edc31576eed5cde24ba",
+  "qualification": {
+    "metadata": "bounded accepted42 profiles13gfx",
+    "pixels": "accepted independent review retained; no rerun",
+    "variantTargets": "resolved selected singleton/backer constructor path",
+    "variantContents": "unknown for all profiles",
+    "fullNativeNeutral": false,
+    "nativeTimingParity": false,
+    "inputOrigin": false,
+    "liveNative": false,
+    "rendererImplemented": false
+  },
+  "goal": {
+    "observed": "blocked",
+    "modified": false
+  },
+  "assetReviewSeal": "b0f5dd9e1e0469c9c6ef3e0067d8b41e1fa9f2961ea86be25b46c2247d66805e",
+  "resource": {
+    "bytes": 239766,
+    "sha256": "43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90",
+    "newFrames": 24,
+    "reusedFrames": 8,
+    "payloadWritten": false,
+    "identity": "24new current-only;8reused historical-selected"
+  },
+  "nextStep": "Separately authorized isolated nominal-policy implementation plus36-case proposed matrix; actual baseline rebind required at dispatch, no shared writes now",
+  "writeRoot": "D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1",
+  "limitations": [
+    "Runtime metadata class and variant map content unproved; one base declaration/type5 not enough",
+    "Native private flags not covered by Brave0; no full neutral subset",
+    "Remote and41other own profiles deferred",
+    "Accepted body pixels only; exact-key existing shadow fallback, no new shadow generation",
+    "Prior scheduler integrity accepted, independent semantics pending; no native timing upgrade",
+    "Source archive/BIN version relationship and104/104tier distinction unchanged"
+  ],
+  "navigationNotes": [
+    "One0xA4371D slice began inside an instruction; kept rejected/adopted=false, replaced by0xA43750; never used in proof facts"
+  ],
+  "rerunCommand": "& 'C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe' -B -X utf8 'D:\\lineage開發\\TW1608262200研究\\work\\engine-pickup-renderer-eligibility-source-r1\\verify.py'"
+}

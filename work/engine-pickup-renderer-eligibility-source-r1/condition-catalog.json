@@ -1,0 +1,310 @@
+{
+  "conditions": [
+    {
+      "id": "C01",
+      "nativeCondition": "Current owner identity and authoritative accepted action15",
+      "engineFields": {
+        "own": "Actor.ObjectId; Status.ObjectId; WorldEpoch; LoginConnection session generation (via caller)",
+        "remote": "WorldObject.ObjectId; WorldEpoch; object removal/replacement tracking required"
+      },
+      "evidenceStatus": "engine-observable",
+      "proofIds": [
+        "E1",
+        "E4"
+      ],
+      "conservativeFallback": "Ignore unknown/stale id; no presentation from outgoingC112; preserve receipt accounting."
+    },
+    {
+      "id": "C02",
+      "nativeCondition": "Valid gfx/weapon/direction and explicit base15 metadata",
+      "engineFields": {
+        "own": "Actor.Gfx, Weapon, Direction; AppearanceProfile; !SelfAppearancePending",
+        "remote": "o.Gfx, o.Action, o.Direction; !o.AppearancePending; exact PlayerProfiles.Get"
+      },
+      "evidenceStatus": "bounded-data-qualified",
+      "proofIds": [
+        "E2"
+      ],
+      "conservativeFallback": "Unsupported pair/direction/pending appearance: preserve existing presentation."
+    },
+    {
+      "id": "C03",
+      "nativeCondition": "A467A0 runtime class13CD838[gfx] !=11",
+      "engineFields": {
+        "own": "No matching native class field; own actor identity does not prove table",
+        "remote": "Flags/Classification are expressly not class guarantee"
+      },
+      "evidenceStatus": "unknown-native",
+      "proofIds": [
+        "N2"
+      ],
+      "conservativeFallback": "Strict native eligibility false; nominal profile policy does not assert class equivalence."
+    },
+    {
+      "id": "C04",
+      "nativeCondition": "13CD878[gfx]!=1 or exact native weapon rewrite modeled",
+      "engineFields": {
+        "own": "No field; Actor.Weapon is wire base",
+        "remote": "No field; o.Action is wire base"
+      },
+      "evidenceStatus": "unknown-native",
+      "proofIds": [
+        "N2"
+      ],
+      "conservativeFallback": "No native idle weapon guarantee; use pinned policy profile only."
+    },
+    {
+      "id": "C05",
+      "nativeCondition": "Variant predicate false or matching variant state/list completely modeled",
+      "engineFields": {
+        "own": "No variant ID/list; base profile only",
+        "remote": "No variant ID/list; base profile only"
+      },
+      "evidenceStatus": "target-resolved-content-unknown",
+      "proofIds": [
+        "V1",
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "conservativeFallback": "Select accepted base action15 only under presentation policy; never mark no-variant parity true."
+    },
+    {
+      "id": "C06",
+      "nativeCondition": "Currentaction !=8 at start and valid actor remains alive",
+      "engineFields": {
+        "own": "!OwnDead; Status.Hp>0; Actor.Weapon!=8",
+        "remote": "!o.Dead; o.Action!=8; death receipt state"
+      },
+      "evidenceStatus": "observable-proxy",
+      "proofIds": [
+        "E1",
+        "E4"
+      ],
+      "conservativeFallback": "Drop presentation on death; do not change inventory/ground receipt outcome."
+    },
+    {
+      "id": "C07",
+      "nativeCondition": "No +70 override: actor+60=0 for normal immediate incoming15",
+      "engineFields": {
+        "own": "Handler clears field for immediate15; engine lacks own persistent ReceivedAction/ShopActive",
+        "remote": "Handler clears field; o.ShopActive observable but queued native state not represented"
+      },
+      "evidenceStatus": "static-immediate-only",
+      "proofIds": [
+        "N1",
+        "N3"
+      ],
+      "conservativeFallback": "No deferred native queue model; cancel presentation on newer incompatible receipt rather than replay stale instance."
+    },
+    {
+      "id": "C08",
+      "nativeCondition": "Fixed-duration branch !+258 OR (+25A AND !+259)",
+      "engineFields": {
+        "own": "No +258/+259/+25A/+25B fields",
+        "remote": "No +258/+259/+25A/+25B fields"
+      },
+      "evidenceStatus": "unknown-native",
+      "proofIds": [
+        "N4"
+      ],
+      "conservativeFallback": "Nominal policy uses source base duration; mark nativeTimingEquivalent=false."
+    },
+    {
+      "id": "C09",
+      "nativeCondition": "Effective native Speed in0/1 and Brave0, correct self/remote source",
+      "engineFields": {
+        "own": "Actor.Speed/Brave updated by S255/S67; native self encrypted values14EBF88/14EC00C relation not fully re-proved",
+        "remote": "o.Speed/Brave updated by S255/S67; native+0xC3/+0xC6 mapping inherited conditional"
+      },
+      "evidenceStatus": "engine-observable-native-conditional",
+      "proofIds": [
+        "E2",
+        "N4"
+      ],
+      "conservativeFallback": "Require exact Speed0/1 && Brave0; do not reuse Supported() which also permits2; not sufficient for full neutrality."
+    },
+    {
+      "id": "C10",
+      "nativeCondition": "No queue-depth acceleration when nonself",
+      "engineFields": {
+        "own": "Native own branch bypasses queue-depth duration factor",
+        "remote": "Native actor+19C queue count has no equivalent in model; Objects.Count is unrelated"
+      },
+      "evidenceStatus": "own-inapplicable-remote-unknown",
+      "proofIds": [
+        "N4",
+        "E1"
+      ],
+      "conservativeFallback": "First increment own only; defer remote duration equivalence, no fabricated queue count0."
+    },
+    {
+      "id": "C11",
+      "nativeCondition": "+218 halving applies only if weapon+2==15",
+      "engineFields": {
+        "own": "All42 wire profile weapons fail predicate; native weapon rewrite still C04",
+        "remote": "Same42 base profile result; C04 remains"
+      },
+      "evidenceStatus": "profile-static-exclusion",
+      "proofIds": [
+        "N4"
+      ],
+      "conservativeFallback": "Conditional base-weapon proof only; no universal private-state inference."
+    },
+    {
+      "id": "C12",
+      "nativeCondition": "+21C special divide applies only enumerated actions, not15",
+      "engineFields": {
+        "own": "Action15 receipt",
+        "remote": "Action15 receipt"
+      },
+      "evidenceStatus": "proved-action-exclusion",
+      "proofIds": [
+        "N4"
+      ],
+      "conservativeFallback": "No need expose+21C for this action; do not broaden action set."
+    },
+    {
+      "id": "C13",
+      "nativeCondition": "+223==0 and no +268 secondary speed effects",
+      "engineFields": {
+        "own": "No exact fields; ActionLocked is unrelated predicate",
+        "remote": "No exact fields; Speed/Brave do not cover these flags"
+      },
+      "evidenceStatus": "unknown-native",
+      "proofIds": [
+        "N4"
+      ],
+      "conservativeFallback": "Strict neutrality unknown; nominal policy explicitly approximate."
+    },
+    {
+      "id": "C14",
+      "nativeCondition": "+220==0 because A4ADD0(action15)==false",
+      "engineFields": {
+        "own": "No field",
+        "remote": "No field"
+      },
+      "evidenceStatus": "unknown-native",
+      "proofIds": [
+        "N1",
+        "N4"
+      ],
+      "conservativeFallback": "Unknown possible double duration retained; never call Brave0 all-neutral."
+    },
+    {
+      "id": "C15",
+      "nativeCondition": "If Brave0, +268 bit2 absent or resolved +26C gives no multiplier",
+      "engineFields": {
+        "own": "No native bitmask/value fields",
+        "remote": "No native bitmask/value fields"
+      },
+      "evidenceStatus": "unknown-native",
+      "proofIds": [
+        "N4"
+      ],
+      "conservativeFallback": "Require Brave0 only as policy input; no hidden multiplier claim."
+    },
+    {
+      "id": "C16",
+      "nativeCondition": "No remote1000ms scheduler deferral",
+      "engineFields": {
+        "own": "Own branch excluded when actor is native self; engine identity is source-conditional",
+        "remote": "No +C4/global frame-time/A42230 equivalent"
+      },
+      "evidenceStatus": "own-inapplicable-remote-unknown",
+      "proofIds": [],
+      "conservativeFallback": "Own-only first increment; remote remains deferred. Prior scheduler P12/source contract retained."
+    },
+    {
+      "id": "C17",
+      "nativeCondition": "Terminal duration override+0xD8 absent when relevant",
+      "engineFields": {
+        "own": "OwnDead can reject death; exact native+D8 lifecycle unknown",
+        "remote": "o.Dead proxy; exact native+D8 lifecycle unknown"
+      },
+      "evidenceStatus": "unknown-native",
+      "proofIds": [],
+      "conservativeFallback": "Policy terminal584 independent of passedD0; no queued consumer timing equivalence claim."
+    },
+    {
+      "id": "C18",
+      "nativeCondition": "Ordinary terminal weapon outside28..39, weapon+3<121 !=15, valid idle; not class11weapon32",
+      "engineFields": {
+        "own": "Actor.Weapon plus pinned base idle metadata",
+        "remote": "o.Action plus pinned base idle metadata"
+      },
+      "evidenceStatus": "profile-static-base-qualification",
+      "proofIds": [
+        "N2",
+        "E2"
+      ],
+      "conservativeFallback": "All42 base pairs pass; runtime class/variant rewrites remain C03-C05."
+    },
+    {
+      "id": "C19",
+      "nativeCondition": "Terminal+34 getter(actor+5C)==0",
+      "engineFields": {
+        "own": "No exact field; PrivateShopPhase describes interaction with another shop, not actor+5C",
+        "remote": "ShopActive is not proved equal to native+5C"
+      },
+      "evidenceStatus": "unknown-native",
+      "proofIds": [
+        "N2",
+        "N3"
+      ],
+      "conservativeFallback": "584 is nominal empty-branch policy only; never claim native terminal action always weapon+3."
+    },
+    {
+      "id": "C20",
+      "nativeCondition": "Self terminal guards permit idle and 8CB3F0(20) does not suppress enqueue",
+      "engineFields": {
+        "own": "No13CE3FD/14EBF94/+274/key-state mapping",
+        "remote": "Self-only guard bypassed for actual nonself"
+      },
+      "evidenceStatus": "own-unknown-remote-inapplicable",
+      "proofIds": [
+        "N2"
+      ],
+      "conservativeFallback": "No input cooldown inference; presentation timer never blocks requests."
+    },
+    {
+      "id": "C21",
+      "nativeCondition": "Native command queue empty and expected actor vtable dispatch applies",
+      "engineFields": {
+        "own": "No native command FIFO/class pointer; pendingAction and pendingPickup are not that queue",
+        "remote": "No native command FIFO/class pointer"
+      },
+      "evidenceStatus": "unknown-native",
+      "proofIds": [
+        "E1"
+      ],
+      "conservativeFallback": "Separate finite presentation; latest accepted own receipt replaces old instance by policy, not native FIFO parity."
+    },
+    {
+      "id": "C22",
+      "nativeCondition": "Assets load successfully and native metadata/archive correspond to selected data",
+      "engineFields": {
+        "own": "Accepted selected metadata/body pixels and profile hashes; source version pairing unresolved",
+        "remote": "Same accepted bounded data"
+      },
+      "evidenceStatus": "bounded-data-qualified-version-gap",
+      "proofIds": [],
+      "conservativeFallback": "Missing integrity/frame fails closed to existing presentation; retain104historical/104current-only caveat."
+    },
+    {
+      "id": "C23",
+      "nativeCondition": "Current rendering ownership/collision eligibility",
+      "engineFields": {
+        "own": "Ready/Renderable, MapId, !OwnDead, !SelfAppearancePending, OwnCombat==null, !ActionLocked, World.Walking=false; no instance active or replace policy",
+        "remote": "o.MotionAt, Combat, ShopActive, ReceivedAction, AppearancePending observable, native idle not proved"
+      },
+      "evidenceStatus": "engine-policy-only",
+      "proofIds": [
+        "E3",
+        "E4"
+      ],
+      "conservativeFallback": "Own policy rejects active movement/combat and cancels on conflicting authoritative receipt; remote disabled in first increment."
+    }
+  ],
+  "strictDecision": "Any unknown-native/conditional equivalence gap prevents nativeExactEligibility=true. Policy guards are separately named and do not convert unknown to false/zero."
+}

@@ -1,0 +1,1450 @@
+{
+  "sourceArtifacts": 148,
+  "sourceExternalPins": 24,
+  "externalWholeFilesVerified": 23,
+  "chunks": [
+    {
+      "VA": "0xa467a0",
+      "RVA": "0x6467a0",
+      "fileOffset": "0x645ba0",
+      "size": 5477,
+      "sha256": "0de7dc79cd1fe2c74e88bf26f0309c5195f4ea109d2d0fde7720e257aad79a3a",
+      "artifact": "prior/0xa467a0.json",
+      "scope": "prior chunk byte verified",
+      "independentFileOffset": 6577056
+    },
+    {
+      "VA": "0x10ac640",
+      "RVA": "0xcac640",
+      "fileOffset": "0xcaba40",
+      "size": 222,
+      "sha256": "2e0a08415ee85c7744a94f9cf4f30d344702e131e26ca24cd8200333abc6279a",
+      "artifact": "prior/0xa467a0.json",
+      "scope": "prior chunk byte verified",
+      "independentFileOffset": 13285952
+    },
+    {
+      "VA": "0xa43560",
+      "RVA": "0x643560",
+      "fileOffset": "0x642960",
+      "size": 839,
+      "sha256": "5841695b55f6faa4abda547de6342f2433311d70573ab79724062cb5cef45181",
+      "artifact": "prior/0xa43560.json",
+      "scope": "prior chunk byte verified",
+      "independentFileOffset": 6564192
+    },
+    {
+      "VA": "0xa3ef40",
+      "RVA": "0x63ef40",
+      "fileOffset": "0x63e340",
+      "size": 3686,
+      "sha256": "64701a56874b973f27af05bc1629d1502901c992a373c820611264a79b0be771",
+      "artifact": "prior/0xa3ef40.json",
+      "scope": "prior chunk byte verified",
+      "independentFileOffset": 6546240
+    },
+    {
+      "VA": "0x10ac480",
+      "RVA": "0xcac480",
+      "fileOffset": "0xcab880",
+      "size": 151,
+      "sha256": "3da1bc83cd19d182613744cbd31ee3377e052ef4143d799adb6e79cf2dc7f7e0",
+      "artifact": "prior/0xa3ef40.json",
+      "scope": "prior chunk byte verified",
+      "independentFileOffset": 13285504
+    },
+    {
+      "VA": "0xa407d0",
+      "RVA": "0x6407d0",
+      "fileOffset": "0x63fbd0",
+      "size": 1644,
+      "sha256": "df99bc065dd5014d263cc0ea9b59a50e659504454294d558ad2c956718b223af",
+      "artifact": "prior/0xa407d0.json",
+      "scope": "prior chunk byte verified",
+      "independentFileOffset": 6552528
+    },
+    {
+      "VA": "0xa44500",
+      "RVA": "0x644500",
+      "fileOffset": "0x643900",
+      "size": 688,
+      "sha256": "ae67b54523df6d0655c6dc63389285cba928e94415068b232d3dad13141e6ae1",
+      "artifact": "native/00a44500.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately",
+      "independentFileOffset": 6568192
+    },
+    {
+      "VA": "0xa44b60",
+      "RVA": "0x644b60",
+      "fileOffset": "0x643f60",
+      "size": 80,
+      "sha256": "734b2a1157fc1d32ad189b62761e056aa9125c702c40d5e86ba2bba594ae8421",
+      "artifact": "native/00a44b60.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately",
+      "independentFileOffset": 6569824
+    },
+    {
+      "VA": "0xa4bf00",
+      "RVA": "0x64bf00",
+      "fileOffset": "0x64b300",
+      "size": 880,
+      "sha256": "f683e83b3321eb752e99d45c4b061565d9bb811c4dbe6693a1290e23a02cd539",
+      "artifact": "native/00a4bf00.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately",
+      "independentFileOffset": 6599424
+    },
+    {
+      "VA": "0xa3c100",
+      "RVA": "0x63c100",
+      "fileOffset": "0x63b500",
+      "size": 64,
+      "sha256": "01a665e9c48fc0cdd0f2a68e9fea5ad4fd4c4a78fcc11efe3ec20c07707b4181",
+      "artifact": "native/00a3c100.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately",
+      "independentFileOffset": 6534400
+    },
+    {
+      "VA": "0xa228b0",
+      "RVA": "0x6228b0",
+      "fileOffset": "0x621cb0",
+      "size": 96,
+      "sha256": "ac6e00255fd8357e64accb3456027b8b085afa4f08d4623fe79fc3bfbc44f48c",
+      "artifact": "native/00a228b0.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately",
+      "independentFileOffset": 6429872
+    },
+    {
+      "VA": "0xa231c0",
+      "RVA": "0x6231c0",
+      "fileOffset": "0x6225c0",
+      "size": 160,
+      "sha256": "f3f4da7e5e162ccc182fdd71d1cc24dc1c57d61d07183da66c9a58ea5a13a927",
+      "artifact": "native/00a231c0.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately",
+      "independentFileOffset": 6432192
+    },
+    {
+      "VA": "0xa23260",
+      "RVA": "0x623260",
+      "fileOffset": "0x622660",
+      "size": 144,
+      "sha256": "cb28bc688f04ce8116aaaccd04439fe2409e74c246b489866e93270b0808c543",
+      "artifact": "native/00a23260.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately",
+      "independentFileOffset": 6432352
+    },
+    {
+      "VA": "0xa3ebf0",
+      "RVA": "0x63ebf0",
+      "fileOffset": "0x63dff0",
+      "size": 352,
+      "sha256": "e2e88d1f929c4d09bd91498d649a9e0e6eccd59709b7b120a22c291642f8c3dd",
+      "artifact": "native/00a3ebf0.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately",
+      "independentFileOffset": 6545392
+    },
+    {
+      "VA": "0xa3c4f0",
+      "RVA": "0x63c4f0",
+      "fileOffset": "0x63b8f0",
+      "size": 176,
+      "sha256": "a7e0cff74bf9300e7e77fe55a63cfc257c50211f3047df550c8ed041ca9b2385",
+      "artifact": "native/00a3c4f0.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately",
+      "independentFileOffset": 6535408
+    },
+    {
+      "VA": "0xa4b060",
+      "RVA": "0x64b060",
+      "fileOffset": "0x64a460",
+      "size": 2496,
+      "sha256": "7e23dc788a581acabdfabc393d657899057e48105e7836ac4d4c401cb5622b59",
+      "artifact": "native/00a4b060.bin",
+      "scope": "bounded static region to next prologue byte pattern; function boundaries checked from instructions separately",
+      "independentFileOffset": 6595680
+    },
+    {
+      "VA": "0xa40540",
+      "RVA": "0x640540",
+      "fileOffset": "0x63f940",
+      "size": 16,
+      "sha256": "0f78dad7639f67e6b5924af7c53d999bad85694c281a6d4a077d0382ff12ad6a",
+      "artifact": "native/00a40540.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 6551872
+    },
+    {
+      "VA": "0xa40530",
+      "RVA": "0x640530",
+      "fileOffset": "0x63f930",
+      "size": 16,
+      "sha256": "0f78dad7639f67e6b5924af7c53d999bad85694c281a6d4a077d0382ff12ad6a",
+      "artifact": "native/00a40530.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 6551856
+    },
+    {
+      "VA": "0xa42140",
+      "RVA": "0x642140",
+      "fileOffset": "0x641540",
+      "size": 240,
+      "sha256": "2bd45f6e13d970076f2524c49bb069fc1f288680f101cc55ce3557864189da27",
+      "artifact": "native/00a42140.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 6559040
+    },
+    {
+      "VA": "0xa41490",
+      "RVA": "0x641490",
+      "fileOffset": "0x640890",
+      "size": 32,
+      "sha256": "4819960437fe944ec7d9649ef9c19f88e77e4020f2b8373b2a6c2d0a8f3a2ef4",
+      "artifact": "native/00a41490.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 6555792
+    },
+    {
+      "VA": "0x51f3e0",
+      "RVA": "0x11f3e0",
+      "fileOffset": "0x11e7e0",
+      "size": 32,
+      "sha256": "4819960437fe944ec7d9649ef9c19f88e77e4020f2b8373b2a6c2d0a8f3a2ef4",
+      "artifact": "native/0051f3e0.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 1173472
+    },
+    {
+      "VA": "0x51e8e0",
+      "RVA": "0x11e8e0",
+      "fileOffset": "0x11dce0",
+      "size": 32,
+      "sha256": "fcca38d99c0b3f433c951c284a858e12168d5b5e6ad1da1b45d2fdb7fb02158c",
+      "artifact": "native/0051e8e0.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 1170656
+    },
+    {
+      "VA": "0x51e920",
+      "RVA": "0x11e920",
+      "fileOffset": "0x11dd20",
+      "size": 32,
+      "sha256": "49d01631654ead62a105a09c40e3022aeb31bc78ab1238984d5fe3b9dbe566ca",
+      "artifact": "native/0051e920.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 1170720
+    },
+    {
+      "VA": "0x521e20",
+      "RVA": "0x121e20",
+      "fileOffset": "0x121220",
+      "size": 176,
+      "sha256": "a46d70a8d96c001c7e7c39c66ea819bdbda654765594d05dd41818123c597ea2",
+      "artifact": "native/00521e20.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 1184288
+    },
+    {
+      "VA": "0x51e860",
+      "RVA": "0x11e860",
+      "fileOffset": "0x11dc60",
+      "size": 16,
+      "sha256": "7e31caca15f92bd7b3289cc2d8d2c2a4d7e636eb4c8b8edc4c12fc657f52e00c",
+      "artifact": "native/0051e860.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 1170528
+    },
+    {
+      "VA": "0xa40660",
+      "RVA": "0x640660",
+      "fileOffset": "0x63fa60",
+      "size": 48,
+      "sha256": "7cc8bec67f6e7f4d7d362c356984df70adabfcea32d52c9f16196e66d2980b0a",
+      "artifact": "native/00a40660.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 6552160
+    },
+    {
+      "VA": "0x92ad40",
+      "RVA": "0x52ad40",
+      "fileOffset": "0x52a140",
+      "size": 80,
+      "sha256": "1df7787416b89606e982422a6071f1f32f7ce3eb5e004d3112c26d999160865c",
+      "artifact": "native/0092ad40.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 5415232
+    },
+    {
+      "VA": "0xa23ac0",
+      "RVA": "0x623ac0",
+      "fileOffset": "0x622ec0",
+      "size": 112,
+      "sha256": "554af572006cd85edb2cfecaf9c3d45e176ea4e6bea92bf116884dec9854e4f8",
+      "artifact": "native/00a23ac0.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 6434496
+    },
+    {
+      "VA": "0xa22830",
+      "RVA": "0x622830",
+      "fileOffset": "0x621c30",
+      "size": 128,
+      "sha256": "99493c9e659d490f928ad76cb8e985659f22e7a141a234f8da2595585bbf365a",
+      "artifact": "native/00a22830.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 6429744
+    },
+    {
+      "VA": "0xa22910",
+      "RVA": "0x622910",
+      "fileOffset": "0x621d10",
+      "size": 128,
+      "sha256": "f44154607e03e70f47abcae9de9d1d9dec93b21f7e0f526b046dedd349c11f80",
+      "artifact": "native/00a22910.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 6429968
+    },
+    {
+      "VA": "0x4e7f50",
+      "RVA": "0xe7f50",
+      "fileOffset": "0xe7350",
+      "size": 48,
+      "sha256": "420353e7248a3102dd899ea07d97470309b82685fe1beecb0893adc5a2817086",
+      "artifact": "native/004e7f50.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 947024
+    },
+    {
+      "VA": "0x516290",
+      "RVA": "0x116290",
+      "fileOffset": "0x115690",
+      "size": 48,
+      "sha256": "c609bfd16248e1114a6084b3e2278e505d70a5c17d3deba3fac2f6b4d989e974",
+      "artifact": "native/00516290.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 1136272
+    },
+    {
+      "VA": "0x5161b0",
+      "RVA": "0x1161b0",
+      "fileOffset": "0x1155b0",
+      "size": 48,
+      "sha256": "f73f35ae999b916bf0839bf42866a62957a4c183e6a9f9d12a970f6d3b78c81e",
+      "artifact": "native/005161b0.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 1136048
+    },
+    {
+      "VA": "0x516180",
+      "RVA": "0x116180",
+      "fileOffset": "0x115580",
+      "size": 48,
+      "sha256": "fb6598dacee7038ba1f5464273717ea711994aadb7b4e2266a97061ae999f906",
+      "artifact": "native/00516180.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 1136000
+    },
+    {
+      "VA": "0x66d540",
+      "RVA": "0x26d540",
+      "fileOffset": "0x26c940",
+      "size": 48,
+      "sha256": "819a119983b3d02152a35c055502c760b86498e96812f5f15b96dbf9c69fc373",
+      "artifact": "native/0066d540.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 2541888
+    },
+    {
+      "VA": "0x66d3b0",
+      "RVA": "0x26d3b0",
+      "fileOffset": "0x26c7b0",
+      "size": 48,
+      "sha256": "e8f1ccb5ce7e98de6ab5dc7ed2658ff2f30e24e7699bb7fdb9be17be5b425890",
+      "artifact": "native/0066d3b0.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 2541488
+    },
+    {
+      "VA": "0xa43170",
+      "RVA": "0x643170",
+      "fileOffset": "0x642570",
+      "size": 480,
+      "sha256": "50a171f25dcebfbeae98703f47bdfa94195065788afb9afabcc6b1c3c3cb04fc",
+      "artifact": "native/00a43170.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 6563184
+    },
+    {
+      "VA": "0x103d750",
+      "RVA": "0xc3d750",
+      "fileOffset": "0xc3cb50",
+      "size": 64,
+      "sha256": "b6a171abe65a378eeac09fdafb0f0727964af2e63bcb2276bae020e98e234d08",
+      "artifact": "native/0103d750.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 12831568
+    },
+    {
+      "VA": "0x103d5e0",
+      "RVA": "0xc3d5e0",
+      "fileOffset": "0xc3c9e0",
+      "size": 192,
+      "sha256": "5584a24377705912d4084e3cac94c21edb48bf131ed46afbe924b40e48f95b0b",
+      "artifact": "native/0103d5e0.bin",
+      "scope": "bounded direct callee/static table; code",
+      "independentFileOffset": 12831200
+    },
+    {
+      "VA": "0x1150c24",
+      "RVA": "0xd50c24",
+      "fileOffset": "0xd4f824",
+      "size": 160,
+      "sha256": "17c10b0205e6349386c7c66ffd167ce552fee950a6d72cd86040069d844bebc8",
+      "artifact": "native/vtable-1150c24.bin",
+      "scope": "bounded direct callee/static table; data",
+      "independentFileOffset": 13957156
+    },
+    {
+      "VA": "0x1150e8c",
+      "RVA": "0xd50e8c",
+      "fileOffset": "0xd4fa8c",
+      "size": 160,
+      "sha256": "baba0e0dd8cd4e93aa17ba7b281942b0f2f75126457273cea6ff1d92f34151fe",
+      "artifact": "native/vtable-1150e8c.bin",
+      "scope": "bounded direct callee/static table; data",
+      "independentFileOffset": 13957772
+    },
+    {
+      "VA": "0x1150f7c",
+      "RVA": "0xd50f7c",
+      "fileOffset": "0xd4fb7c",
+      "size": 160,
+      "sha256": "289034b57db28d830253de7c34a8d7a2446161eb31fbe1e58cde9eb39bb5d864",
+      "artifact": "native/vtable-1150f7c.bin",
+      "scope": "bounded direct callee/static table; data",
+      "independentFileOffset": 13958012
+    },
+    {
+      "VA": "0xa4c150",
+      "RVA": "0x64c150",
+      "fileOffset": "0x64b550",
+      "size": 284,
+      "sha256": "d955dfa9fdf5b32c28faf03f07a542a9ed362f6dbedf4debce0937fcedd5cb39",
+      "artifact": "native/consumer-switch.bin",
+      "scope": "bounded direct callee/static table; data",
+      "independentFileOffset": 6600016
+    },
+    {
+      "VA": "0xa229b0",
+      "RVA": "0x6229b0",
+      "fileOffset": "0x621db0",
+      "size": 80,
+      "sha256": "0f4f0fd747535f2d4137ec680521bb9bb277087644284ad3b9f42fce0ff0c7d9",
+      "artifact": "native/00a229b0.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately",
+      "independentFileOffset": 6430128
+    },
+    {
+      "VA": "0xa44bb0",
+      "RVA": "0x644bb0",
+      "fileOffset": "0x643fb0",
+      "size": 144,
+      "sha256": "3f05e5c3317a75fcf8719d2398db4d6fa4d6673fdc296b81faf0904b7a77a3ab",
+      "artifact": "native/00a44bb0.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately",
+      "independentFileOffset": 6569904
+    },
+    {
+      "VA": "0xa447b0",
+      "RVA": "0x6447b0",
+      "fileOffset": "0x643bb0",
+      "size": 48,
+      "sha256": "ad0ce59c1780a1f58b0d3377f25c56e138c847f92fab54dfe90588b91789c8bd",
+      "artifact": "native/00a447b0.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately",
+      "independentFileOffset": 6568880
+    },
+    {
+      "VA": "0xa3c070",
+      "RVA": "0x63c070",
+      "fileOffset": "0x63b470",
+      "size": 144,
+      "sha256": "a4819e775204d3424babef0123b62ace2e9f5e4b5e272e381e243b5b88e502c9",
+      "artifact": "native/00a3c070.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately",
+      "independentFileOffset": 6534256
+    },
+    {
+      "VA": "0x920e70",
+      "RVA": "0x520e70",
+      "fileOffset": "0x520270",
+      "size": 32,
+      "sha256": "1df11a5b68834cf3322667dfbba698e84c43a7d733435dfcbc212a47857abc29",
+      "artifact": "native/00920e70.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately",
+      "independentFileOffset": 5374576
+    },
+    {
+      "VA": "0x66d320",
+      "RVA": "0x26d320",
+      "fileOffset": "0x26c720",
+      "size": 48,
+      "sha256": "325d14546fb35bc27529919875cddb84ceefcf186177184aef77001f8e37fe5e",
+      "artifact": "native/0066d320.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately",
+      "independentFileOffset": 2541344
+    },
+    {
+      "VA": "0x66d480",
+      "RVA": "0x26d480",
+      "fileOffset": "0x26c880",
+      "size": 64,
+      "sha256": "98a6c965a88659dd423807bf3293866d3785bedbe56b4fed5b0859dfc658b3f6",
+      "artifact": "native/0066d480.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately",
+      "independentFileOffset": 2541696
+    },
+    {
+      "VA": "0xa43560",
+      "RVA": "0x643560",
+      "fileOffset": "0x642960",
+      "size": 848,
+      "sha256": "840decef9d69246ab5953e91d16bfd66ff53357c3024ef3fbf43583b31b6cc01",
+      "artifact": "native/00a43560.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately",
+      "independentFileOffset": 6564192
+    },
+    {
+      "VA": "0x92cb70",
+      "RVA": "0x52cb70",
+      "fileOffset": "0x52bf70",
+      "size": 2000,
+      "sha256": "81d34316824d70fa25b782a344b20c920802c95a8cae3a2a00f7bc680778d4e4",
+      "artifact": "native/0092cb70.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately",
+      "independentFileOffset": 5422960
+    },
+    {
+      "VA": "0xa22000",
+      "RVA": "0x622000",
+      "fileOffset": "0x621400",
+      "size": 7424,
+      "sha256": "e858a51ccad3a2acb3a54a507d0cc9a27096a8427793865794385e4832272aa6",
+      "artifact": "native/scheduler-local-a22000-a23d00.bin",
+      "scope": "bounded static subsystem/direct callee; instruction boundaries reviewed separately",
+      "independentFileOffset": 6427648
+    },
+    {
+      "VA": "0x51e770",
+      "RVA": "0x11e770",
+      "fileOffset": "0x11db70",
+      "size": 78,
+      "sha256": "c3dc099c46a3826fbb072d0e7428bf1ad56e8b212d3cdc590cec963c5944924a",
+      "artifact": "native/vtable-ref-51e7aa.bin",
+      "scope": "direct function or previously pinned vtable reference; static only",
+      "independentFileOffset": 1170288
+    },
+    {
+      "VA": "0x51e7d0",
+      "RVA": "0x11e7d0",
+      "fileOffset": "0x11dbd0",
+      "size": 63,
+      "sha256": "f1fdbe758467c5865f9581edc265536bd058f2bafe98bad3c81047ae69ad21c5",
+      "artifact": "native/vtable-ref-51e7fb.bin",
+      "scope": "direct function or previously pinned vtable reference; static only",
+      "independentFileOffset": 1170384
+    },
+    {
+      "VA": "0x51f1c0",
+      "RVA": "0x11f1c0",
+      "fileOffset": "0x11e5c0",
+      "size": 96,
+      "sha256": "57b2c1e59151ad91d0ea4de53f796b33edd9bb6233bede82ffde2f79cb000c65",
+      "artifact": "native/vtable-ref-51f20c.bin",
+      "scope": "direct function or previously pinned vtable reference; static only",
+      "independentFileOffset": 1172928
+    },
+    {
+      "VA": "0x51f2a0",
+      "RVA": "0x11f2a0",
+      "fileOffset": "0x11e6a0",
+      "size": 63,
+      "sha256": "ad52bdafdfb85025f20819b1e3c38a72b47fcbed88ec8fbb832a28a705c66121",
+      "artifact": "native/vtable-ref-51f2cb.bin",
+      "scope": "direct function or previously pinned vtable reference; static only",
+      "independentFileOffset": 1173152
+    },
+    {
+      "VA": "0x520d80",
+      "RVA": "0x120d80",
+      "fileOffset": "0x120180",
+      "size": 78,
+      "sha256": "687f4e92a3d6a050b4e7134af0b99662cc6a024651ed3e5cf0fb5ca7c1eddad7",
+      "artifact": "native/vtable-ref-520dba.bin",
+      "scope": "direct function or previously pinned vtable reference; static only",
+      "independentFileOffset": 1180032
+    },
+    {
+      "VA": "0x520f30",
+      "RVA": "0x120f30",
+      "fileOffset": "0x120330",
+      "size": 65,
+      "sha256": "f6db9aabaa3dee36f206ed876ee36c255438bd40ae6649b5c8083d4e5504dae7",
+      "artifact": "native/vtable-ref-520f5d.bin",
+      "scope": "direct function or previously pinned vtable reference; static only",
+      "independentFileOffset": 1180464
+    },
+    {
+      "VA": "0xa23360",
+      "RVA": "0x623360",
+      "fileOffset": "0x622760",
+      "size": 128,
+      "sha256": "640d0cea570886dca2c3923ba61e204a7f559f83c49d95b86e9c3c57d54c044a",
+      "artifact": "native/00a23360.bin",
+      "scope": "direct function or previously pinned vtable reference; static only",
+      "independentFileOffset": 6432608
+    },
+    {
+      "VA": "0xa46620",
+      "RVA": "0x646620",
+      "fileOffset": "0x645a20",
+      "size": 384,
+      "sha256": "fcc71f9b41db1816754039bd26b5afeec9f8275ffac6df18d18d00f5a6e044a5",
+      "artifact": "native/00a46620.bin",
+      "scope": "direct function or previously pinned vtable reference; static only",
+      "independentFileOffset": 6576672
+    },
+    {
+      "VA": "0xa21cf0",
+      "RVA": "0x621cf0",
+      "fileOffset": "0x6210f0",
+      "size": 32,
+      "sha256": "80d6168b6887461c779ad4a5c20ae94b3931065f7c38d441bcc9ba60aeaeeed0",
+      "artifact": "native/00a21cf0.bin",
+      "scope": "direct function or previously pinned vtable reference; static only",
+      "independentFileOffset": 6426864
+    }
+  ],
+  "proofClaims": 14,
+  "proofRanges": [
+    {
+      "claim": "P01",
+      "VA": "0xa46baa",
+      "endExclusiveVA": "0xa46bcf",
+      "RVA": "0x646baa",
+      "fileOffset": "0x645faa",
+      "size": 37,
+      "sha256": "a6c2cd8d778c5bdb2680b1bdebb9b5d18d3a7d0b25d1192faf4e5b0051d22638",
+      "byteEvidence": "prior/0xa467a0.json",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P01",
+      "VA": "0xa46c5e",
+      "endExclusiveVA": "0xa46c93",
+      "RVA": "0x646c5e",
+      "fileOffset": "0x64605e",
+      "size": 53,
+      "sha256": "4405698ba27d1eabc18898ddd765e0d1487852a6174ec6023ebb0a58ff448e59",
+      "byteEvidence": "prior/0xa467a0.json",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P01",
+      "VA": "0xa46dd7",
+      "endExclusiveVA": "0xa46e97",
+      "RVA": "0x646dd7",
+      "fileOffset": "0x6461d7",
+      "size": 192,
+      "sha256": "407f2befaaeea6878f44b07a7ed7e14e531196075fe0f4e2366728201f85496b",
+      "byteEvidence": "prior/0xa467a0.json",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P01",
+      "VA": "0xa43560",
+      "endExclusiveVA": "0xa435d3",
+      "RVA": "0x643560",
+      "fileOffset": "0x642960",
+      "size": 115,
+      "sha256": "8c066608677a4a44144f9ebf7bf844628a2b578b96764b4a8b0d32aaa46927c6",
+      "byteEvidence": "prior/0xa43560.json",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P02",
+      "VA": "0xa435d3",
+      "endExclusiveVA": "0xa438a7",
+      "RVA": "0x6435d3",
+      "fileOffset": "0x6429d3",
+      "size": 724,
+      "sha256": "5dc016f04977536d6016557fdaa1021a20f8f024236edb2400bd46b18e8f78d5",
+      "byteEvidence": "prior/0xa43560.json",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P02",
+      "VA": "0xa3f41f",
+      "endExclusiveVA": "0xa3f49d",
+      "RVA": "0x63f41f",
+      "fileOffset": "0x63e81f",
+      "size": 126,
+      "sha256": "e0d78e0ec76ca563b982f966adb7761bee2ae0cad5fcde3e6b1dfbe5dfb4f598",
+      "byteEvidence": "prior/0xa3ef40.json",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P02",
+      "VA": "0xa3fd80",
+      "endExclusiveVA": "0xa3fda6",
+      "RVA": "0x63fd80",
+      "fileOffset": "0x63f180",
+      "size": 38,
+      "sha256": "dbc4630a7aa05528be5765aa853a49db4ea14e9ffd5bc1680f5ff9dac2780181",
+      "byteEvidence": "prior/0xa3ef40.json",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P03",
+      "VA": "0xa4b4b7",
+      "endExclusiveVA": "0xa4b4f3",
+      "RVA": "0x64b4b7",
+      "fileOffset": "0x64a8b7",
+      "size": 60,
+      "sha256": "342aeb84438ad4de2feacb82ee643fc90a36e6fc4b8dcfda2c10a2ed429280c6",
+      "byteEvidence": "native/00a4b060.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P03",
+      "VA": "0xa4b594",
+      "endExclusiveVA": "0xa4b5ca",
+      "RVA": "0x64b594",
+      "fileOffset": "0x64a994",
+      "size": 54,
+      "sha256": "f62f9483f94c344d30111facec8e93c4d2d64ff96b832a1662e10c54f9672758",
+      "byteEvidence": "native/00a4b060.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P04",
+      "VA": "0xa44500",
+      "endExclusiveVA": "0xa447ab",
+      "RVA": "0x644500",
+      "fileOffset": "0x643900",
+      "size": 683,
+      "sha256": "82c8617b2c06e33cb4518fabca2b6afc29fb50b73e6b667f96999c50d7f6015f",
+      "byteEvidence": "native/00a44500.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P05",
+      "VA": "0x1150c24",
+      "endExclusiveVA": "0x1150cc4",
+      "RVA": "0xd50c24",
+      "fileOffset": "0xd4f824",
+      "size": 160,
+      "sha256": "17c10b0205e6349386c7c66ffd167ce552fee950a6d72cd86040069d844bebc8",
+      "byteEvidence": "native/vtable-1150c24.bin",
+      "isData": true,
+      "instructionBoundariesVerified": false
+    },
+    {
+      "claim": "P05",
+      "VA": "0x1150e8c",
+      "endExclusiveVA": "0x1150f2c",
+      "RVA": "0xd50e8c",
+      "fileOffset": "0xd4fa8c",
+      "size": 160,
+      "sha256": "baba0e0dd8cd4e93aa17ba7b281942b0f2f75126457273cea6ff1d92f34151fe",
+      "byteEvidence": "native/vtable-1150e8c.bin",
+      "isData": true,
+      "instructionBoundariesVerified": false
+    },
+    {
+      "claim": "P05",
+      "VA": "0x1150f7c",
+      "endExclusiveVA": "0x115101c",
+      "RVA": "0xd50f7c",
+      "fileOffset": "0xd4fb7c",
+      "size": 160,
+      "sha256": "289034b57db28d830253de7c34a8d7a2446161eb31fbe1e58cde9eb39bb5d864",
+      "byteEvidence": "native/vtable-1150f7c.bin",
+      "isData": true,
+      "instructionBoundariesVerified": false
+    },
+    {
+      "claim": "P05",
+      "VA": "0x51e860",
+      "endExclusiveVA": "0x51e870",
+      "RVA": "0x11e860",
+      "fileOffset": "0x11dc60",
+      "size": 16,
+      "sha256": "7e31caca15f92bd7b3289cc2d8d2c2a4d7e636eb4c8b8edc4c12fc657f52e00c",
+      "byteEvidence": "native/0051e860.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P05",
+      "VA": "0x51e8e0",
+      "endExclusiveVA": "0x51e900",
+      "RVA": "0x11e8e0",
+      "fileOffset": "0x11dce0",
+      "size": 32,
+      "sha256": "fcca38d99c0b3f433c951c284a858e12168d5b5e6ad1da1b45d2fdb7fb02158c",
+      "byteEvidence": "native/0051e8e0.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P05",
+      "VA": "0x51e920",
+      "endExclusiveVA": "0x51e940",
+      "RVA": "0x11e920",
+      "fileOffset": "0x11dd20",
+      "size": 32,
+      "sha256": "49d01631654ead62a105a09c40e3022aeb31bc78ab1238984d5fe3b9dbe566ca",
+      "byteEvidence": "native/0051e920.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P05",
+      "VA": "0x521e20",
+      "endExclusiveVA": "0x521ecf",
+      "RVA": "0x121e20",
+      "fileOffset": "0x121220",
+      "size": 175,
+      "sha256": "3d5a7cc28c2e2d8cd71b518433c98e330d85bc86d75996f48cb53b821ea122c7",
+      "byteEvidence": "native/00521e20.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P06",
+      "VA": "0xa3c4f0",
+      "endExclusiveVA": "0xa3c5a0",
+      "RVA": "0x63c4f0",
+      "fileOffset": "0x63b8f0",
+      "size": 176,
+      "sha256": "a7e0cff74bf9300e7e77fe55a63cfc257c50211f3047df550c8ed041ca9b2385",
+      "byteEvidence": "native/00a3c4f0.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P06",
+      "VA": "0xa3c100",
+      "endExclusiveVA": "0xa3c140",
+      "RVA": "0x63c100",
+      "fileOffset": "0x63b500",
+      "size": 64,
+      "sha256": "01a665e9c48fc0cdd0f2a68e9fea5ad4fd4c4a78fcc11efe3ec20c07707b4181",
+      "byteEvidence": "native/00a3c100.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P07",
+      "VA": "0xa44b60",
+      "endExclusiveVA": "0xa44bb0",
+      "RVA": "0x644b60",
+      "fileOffset": "0x643f60",
+      "size": 80,
+      "sha256": "734b2a1157fc1d32ad189b62761e056aa9125c702c40d5e86ba2bba594ae8421",
+      "byteEvidence": "native/00a44b60.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P07",
+      "VA": "0xa4bf00",
+      "endExclusiveVA": "0xa4c14f",
+      "RVA": "0x64bf00",
+      "fileOffset": "0x64b300",
+      "size": 591,
+      "sha256": "9a2aec7116b582a9ca0d6770042e37e609afdfc60bec28016f7c7eb9522e4e09",
+      "byteEvidence": "native/00a4bf00.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P07",
+      "VA": "0xa4c150",
+      "endExclusiveVA": "0xa4c26c",
+      "RVA": "0x64c150",
+      "fileOffset": "0x64b550",
+      "size": 284,
+      "sha256": "d955dfa9fdf5b32c28faf03f07a542a9ed362f6dbedf4debce0937fcedd5cb39",
+      "byteEvidence": "native/00a4bf00.bin",
+      "isData": true,
+      "instructionBoundariesVerified": false
+    },
+    {
+      "claim": "P07",
+      "VA": "0x92ad40",
+      "endExclusiveVA": "0x92ad8e",
+      "RVA": "0x52ad40",
+      "fileOffset": "0x52a140",
+      "size": 78,
+      "sha256": "dc6abeb79a1db2a0a15e6b72ce68ffa8ac7726cff65d044a6ea71e11aa012026",
+      "byteEvidence": "native/0092ad40.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P08",
+      "VA": "0xa3ebf0",
+      "endExclusiveVA": "0xa3ed4e",
+      "RVA": "0x63ebf0",
+      "fileOffset": "0x63dff0",
+      "size": 350,
+      "sha256": "e0ff90d126bc7647bc1e80b45712cc36d8379e5a44fb34db9d577c41801a78d6",
+      "byteEvidence": "native/00a3ebf0.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P08",
+      "VA": "0xa23ac0",
+      "endExclusiveVA": "0xa23b21",
+      "RVA": "0x623ac0",
+      "fileOffset": "0x622ec0",
+      "size": 97,
+      "sha256": "41914183783137f20668b0b83fb60f9d1dc0c013f7f08152b2ab7fb06d29bbd2",
+      "byteEvidence": "native/00a23ac0.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P08",
+      "VA": "0xa229b0",
+      "endExclusiveVA": "0xa22a00",
+      "RVA": "0x6229b0",
+      "fileOffset": "0x621db0",
+      "size": 80,
+      "sha256": "0f4f0fd747535f2d4137ec680521bb9bb277087644284ad3b9f42fce0ff0c7d9",
+      "byteEvidence": "native/00a229b0.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P09",
+      "VA": "0x92cffe",
+      "endExclusiveVA": "0x92d042",
+      "RVA": "0x52cffe",
+      "fileOffset": "0x52c3fe",
+      "size": 68,
+      "sha256": "78f74f898fc44e093c2e8bcff4f7f8522a8f21371ec6b1da5a868d3637170a7e",
+      "byteEvidence": "native/0092cb70.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P09",
+      "VA": "0x92d188",
+      "endExclusiveVA": "0x92d32e",
+      "RVA": "0x52d188",
+      "fileOffset": "0x52c588",
+      "size": 422,
+      "sha256": "556400d604f8be5507d101f73583df319da33d5f96b5e40724aa264787bd42c0",
+      "byteEvidence": "native/0092cb70.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P09",
+      "VA": "0xa44bb0",
+      "endExclusiveVA": "0xa44c32",
+      "RVA": "0x644bb0",
+      "fileOffset": "0x643fb0",
+      "size": 130,
+      "sha256": "49705189c45e04cffb328962f51081fbd391d2c673c57226e5af43264a41d4a8",
+      "byteEvidence": "native/00a44bb0.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P10",
+      "VA": "0xa228b0",
+      "endExclusiveVA": "0xa2290c",
+      "RVA": "0x6228b0",
+      "fileOffset": "0x621cb0",
+      "size": 92,
+      "sha256": "24761ea2eab64c1600ebed51b718567ab9114ea100b130349a35bb7f2aa6e249",
+      "byteEvidence": "native/00a228b0.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P10",
+      "VA": "0x103d750",
+      "endExclusiveVA": "0x103d784",
+      "RVA": "0xc3d750",
+      "fileOffset": "0xc3cb50",
+      "size": 52,
+      "sha256": "3d0898d998acc8af3ea17032ff56fd1b963c685b072f669c52d4b8267f9d0a78",
+      "byteEvidence": "native/0103d750.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P10",
+      "VA": "0x103d5e0",
+      "endExclusiveVA": "0x103d68a",
+      "RVA": "0xc3d5e0",
+      "fileOffset": "0xc3c9e0",
+      "size": 170,
+      "sha256": "8964dcf0d769cb61dd4354feac00491ae8c1b34eb9627a4c5ec2d4350243d395",
+      "byteEvidence": "native/0103d5e0.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P11",
+      "VA": "0xa231c0",
+      "endExclusiveVA": "0xa2325b",
+      "RVA": "0x6231c0",
+      "fileOffset": "0x6225c0",
+      "size": 155,
+      "sha256": "be21dcebc5df85a254cb52d71cc80db60d2ba77311467a775a9fd34772ee83cd",
+      "byteEvidence": "native/00a231c0.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P11",
+      "VA": "0xa23260",
+      "endExclusiveVA": "0xa232f0",
+      "RVA": "0x623260",
+      "fileOffset": "0x622660",
+      "size": 144,
+      "sha256": "cb28bc688f04ce8116aaaccd04439fe2409e74c246b489866e93270b0808c543",
+      "byteEvidence": "native/00a23260.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P11",
+      "VA": "0xa22830",
+      "endExclusiveVA": "0xa228aa",
+      "RVA": "0x622830",
+      "fileOffset": "0x621c30",
+      "size": 122,
+      "sha256": "1bd83eb6547deebdfe605e8a49f105de8784bba1614703a0666d5c6c2cccc1d0",
+      "byteEvidence": "native/00a22830.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P12",
+      "VA": "0xa4b5ca",
+      "endExclusiveVA": "0xa4b63b",
+      "RVA": "0x64b5ca",
+      "fileOffset": "0x64a9ca",
+      "size": 113,
+      "sha256": "43dc290613d060b9e9905b6ea5a84ced6ec5b6c54aaa2d2bdcfb28b76244ca7a",
+      "byteEvidence": "native/00a4b060.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P12",
+      "VA": "0x4e7f50",
+      "endExclusiveVA": "0x4e7f80",
+      "RVA": "0xe7f50",
+      "fileOffset": "0xe7350",
+      "size": 48,
+      "sha256": "420353e7248a3102dd899ea07d97470309b82685fe1beecb0893adc5a2817086",
+      "byteEvidence": "native/004e7f50.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P13",
+      "VA": "0xa23360",
+      "endExclusiveVA": "0xa233de",
+      "RVA": "0x623360",
+      "fileOffset": "0x622760",
+      "size": 126,
+      "sha256": "582397fb8d9acf09386646c922ec955a54c7f24a19f7457373663f579dc23786",
+      "byteEvidence": "native/scheduler-local-a22000-a23d00.bin",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    },
+    {
+      "claim": "P14",
+      "VA": "0xa407d0",
+      "endExclusiveVA": "0xa40e3c",
+      "RVA": "0x6407d0",
+      "fileOffset": "0x63fbd0",
+      "size": 1644,
+      "sha256": "df99bc065dd5014d263cc0ea9b59a50e659504454294d558ad2c956718b223af",
+      "byteEvidence": "prior/0xa407d0.json",
+      "isData": false,
+      "instructionBoundariesVerified": true
+    }
+  ],
+  "vtables": {
+    "vtables": [
+      {
+        "baseVA": "0x1150c24",
+        "slots": {
+          "0x34": "0xa41490",
+          "0x48": "0x51e8e0",
+          "0x4c": "0x51e920",
+          "0x64": "0x51e860"
+        }
+      },
+      {
+        "baseVA": "0x1150e8c",
+        "slots": {
+          "0x34": "0x51f3e0",
+          "0x48": "0xa44500",
+          "0x4c": "0x521e20",
+          "0x64": "0xa3c4f0"
+        }
+      },
+      {
+        "baseVA": "0x1150f7c",
+        "slots": {
+          "0x34": "0x51f3e0",
+          "0x48": "0xa44500",
+          "0x4c": "0x521e20",
+          "0x64": "0xa3c4f0"
+        }
+      }
+    ],
+    "consumer226": {
+      "indexVA": "0xa4c259",
+      "index": 8,
+      "targetSlotVA": "0xa4c170",
+      "targetVA": "0xa4bfb9"
+    },
+    "consumerCodeEnd": "0xa4c14f exclusive; 0xa4c150 onward switch data, linear-disassembly text beyond RET is not code evidence"
+  },
+  "importsCompared": 918,
+  "namedImportsVerified": 851,
+  "ordinalImports": {
+    "0x114bc3c": {
+      "dll": "WS2_32.dll",
+      "ordinal": 13
+    },
+    "0x114bc40": {
+      "dll": "WS2_32.dll",
+      "ordinal": 12
+    },
+    "0x114bc44": {
+      "dll": "WS2_32.dll",
+      "ordinal": 1
+    },
+    "0x114bc48": {
+      "dll": "WS2_32.dll",
+      "ordinal": 151
+    },
+    "0x114bc4c": {
+      "dll": "WS2_32.dll",
+      "ordinal": 20
+    },
+    "0x114bc50": {
+      "dll": "WS2_32.dll",
+      "ordinal": 18
+    },
+    "0x114bc54": {
+      "dll": "WS2_32.dll",
+      "ordinal": 17
+    },
+    "0x114bc58": {
+      "dll": "WS2_32.dll",
+      "ordinal": 6
+    },
+    "0x114bc5c": {
+      "dll": "WS2_32.dll",
+      "ordinal": 3
+    },
+    "0x114bc60": {
+      "dll": "WS2_32.dll",
+      "ordinal": 21
+    },
+    "0x114bc64": {
+      "dll": "WS2_32.dll",
+      "ordinal": 103
+    },
+    "0x114bc68": {
+      "dll": "WS2_32.dll",
+      "ordinal": 101
+    },
+    "0x114bc6c": {
+      "dll": "WS2_32.dll",
+      "ordinal": 111
+    },
+    "0x114bc70": {
+      "dll": "WS2_32.dll",
+      "ordinal": 23
+    },
+    "0x114bc74": {
+      "dll": "WS2_32.dll",
+      "ordinal": 19
+    },
+    "0x114bc78": {
+      "dll": "WS2_32.dll",
+      "ordinal": 16
+    },
+    "0x114bc7c": {
+      "dll": "WS2_32.dll",
+      "ordinal": 11
+    },
+    "0x114bc80": {
+      "dll": "WS2_32.dll",
+      "ordinal": 9
+    },
+    "0x114bc84": {
+      "dll": "WS2_32.dll",
+      "ordinal": 4
+    },
+    "0x114bc88": {
+      "dll": "WS2_32.dll",
+      "ordinal": 2
+    },
+    "0x114bc8c": {
+      "dll": "WS2_32.dll",
+      "ordinal": 116
+    },
+    "0x114bc90": {
+      "dll": "WS2_32.dll",
+      "ordinal": 115
+    },
+    "0x114bc94": {
+      "dll": "WS2_32.dll",
+      "ordinal": 57
+    },
+    "0x114bc98": {
+      "dll": "WS2_32.dll",
+      "ordinal": 52
+    },
+    "0x114bc9c": {
+      "dll": "WS2_32.dll",
+      "ordinal": 10
+    },
+    "0x114bd8c": {
+      "dll": "libpng13.dll",
+      "ordinal": 298
+    },
+    "0x114bd90": {
+      "dll": "libpng13.dll",
+      "ordinal": 82
+    },
+    "0x114bd94": {
+      "dll": "libpng13.dll",
+      "ordinal": 97
+    },
+    "0x114bd98": {
+      "dll": "libpng13.dll",
+      "ordinal": 86
+    },
+    "0x114bd9c": {
+      "dll": "libpng13.dll",
+      "ordinal": 90
+    },
+    "0x114bda0": {
+      "dll": "libpng13.dll",
+      "ordinal": 120
+    },
+    "0x114bda4": {
+      "dll": "libpng13.dll",
+      "ordinal": 138
+    },
+    "0x114bda8": {
+      "dll": "libpng13.dll",
+      "ordinal": 21
+    },
+    "0x114bdac": {
+      "dll": "libpng13.dll",
+      "ordinal": 76
+    },
+    "0x114bdb0": {
+      "dll": "libpng13.dll",
+      "ordinal": 107
+    },
+    "0x114bdb4": {
+      "dll": "libpng13.dll",
+      "ordinal": 285
+    },
+    "0x114bdb8": {
+      "dll": "libpng13.dll",
+      "ordinal": 44
+    },
+    "0x114bdbc": {
+      "dll": "libpng13.dll",
+      "ordinal": 217
+    },
+    "0x114bdc0": {
+      "dll": "libpng13.dll",
+      "ordinal": 220
+    },
+    "0x114bdc4": {
+      "dll": "libpng13.dll",
+      "ordinal": 231
+    },
+    "0x114bdc8": {
+      "dll": "libpng13.dll",
+      "ordinal": 266
+    },
+    "0x114bdcc": {
+      "dll": "libpng13.dll",
+      "ordinal": 299
+    },
+    "0x114bdd0": {
+      "dll": "libpng13.dll",
+      "ordinal": 246
+    },
+    "0x114bdd4": {
+      "dll": "libpng13.dll",
+      "ordinal": 32
+    },
+    "0x114bdd8": {
+      "dll": "libpng13.dll",
+      "ordinal": 31
+    },
+    "0x114bddc": {
+      "dll": "libpng13.dll",
+      "ordinal": 221
+    },
+    "0x114bde0": {
+      "dll": "libpng13.dll",
+      "ordinal": 259
+    },
+    "0x114bde4": {
+      "dll": "libpng13.dll",
+      "ordinal": 268
+    },
+    "0x114b9bc": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 202
+    },
+    "0x114b9c0": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 201
+    },
+    "0x114b9c4": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 12
+    },
+    "0x114b9c8": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 200
+    },
+    "0x114b9cc": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 420
+    },
+    "0x114b9d0": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 162
+    },
+    "0x114b9d4": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 161
+    },
+    "0x114b9d8": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 277
+    },
+    "0x114b9dc": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 9
+    },
+    "0x114b9e0": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 24
+    },
+    "0x114b9e4": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 23
+    },
+    "0x114b9e8": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 15
+    },
+    "0x114b9ec": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 7
+    },
+    "0x114b9f0": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 4
+    },
+    "0x114b9f4": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 150
+    },
+    "0x114b9f8": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 149
+    },
+    "0x114b9fc": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 6
+    },
+    "0x114ba00": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 8
+    },
+    "0x114ba04": {
+      "dll": "OLEAUT32.dll",
+      "ordinal": 2
+    }
+  },
+  "ordinalNote": "Author pefile resolves44 ordinal labels from library tables. Raw PE has ordinal identities, not these names; only raw named imports are independently compared. QPC/GetTickCount are actual named imports.",
+  "PE": {
+    "imageBase": "0x400000",
+    "sections": [
+      {
+        "name": ".text",
+        "virtualAddress": 4096,
+        "virtualSize": 13932245,
+        "rawSize": 13932544,
+        "rawOffset": 1024
+      },
+      {
+        "name": ".rdata",
+        "virtualAddress": 13938688,
+        "virtualSize": 2165746,
+        "rawSize": 2165760,
+        "rawOffset": 13933568
+      },
+      {
+        "name": ".data",
+        "virtualAddress": 16105472,
+        "virtualSize": 3383940,
+        "rawSize": 277504,
+        "rawOffset": 16099328
+      },
+      {
+        "name": ".rsrc",
+        "virtualAddress": 19492864,
+        "virtualSize": 433440,
+        "rawSize": 433664,
+        "rawOffset": 16376832
+      }
+    ]
+  },
+  "fixedBin": {
+    "path": "D:\\lineage開發\\登入器bin資源\\TW1608262200.bin拆解\\TW1608262200.bin",
+    "size": 16810496,
+    "inheritedWholeSha256": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2",
+    "wholeHashRecomputed": false,
+    "identityScope": "Known fixed BIN path/size plus independently checked PE headers and all adopted bounded chunks; inherited whole SHA is not a new full-file measurement"
+  },
+  "runtimeChecks": 0
+}

@@ -1,0 +1,465 @@
+{
+  "status": "independent-clean-build-and-offline-wiring-checks-pass",
+  "verifiedDeliveryFiles": 362,
+  "copiedInputs": [
+    {
+      "path": "source/Assets.cs",
+      "sha256": "aa49a3bfa3a65d46817da8e1e26f9a2ab7635778afb0f7522f7ea5ecbec76df8"
+    },
+    {
+      "path": "source/CacheFrameEvidence.cs",
+      "sha256": "313ec8d28c59bebd97d05d734e082e7e5b04398e673b8d89e7f64973014dc5ea"
+    },
+    {
+      "path": "source/CacheTests.cs",
+      "sha256": "4584ba1a014e5378870bf1520427c10ff7ace1947ce350dc813ba5d772e5d521"
+    },
+    {
+      "path": "source/ClientLogin.cs",
+      "sha256": "397525f15b5810b77a3548323a54a8db85531d5e0ba9d853c0f368993baa9e98"
+    },
+    {
+      "path": "source/ClientNetwork.cs",
+      "sha256": "a0fb986760c8a2b215cd03d044e4aa3f303cc8c53d10acf75e283b5b7369e88c"
+    },
+    {
+      "path": "source/Combat.cs",
+      "sha256": "b6faedaa2fb4e0add027ebadaf5fa01d2b377ccdb83d9fe06614291f91310396"
+    },
+    {
+      "path": "source/CombatRegression.cs",
+      "sha256": "70e8f14db6bd3adfc6f92701e7a397a26ef38bc5985a9d84a8eb5e55e39cb554"
+    },
+    {
+      "path": "source/CombatTests.cs",
+      "sha256": "22bc5eb8fef2b060f679c1ea98d1c1de4977729c432592744cbb836f432b39b3"
+    },
+    {
+      "path": "source/CombatUiTests.cs",
+      "sha256": "60358fa7fc128420d9557f5acac448f54aa873176f8798992e9837466a76a97c"
+    },
+    {
+      "path": "source/CombatVisibilityPlan.cs",
+      "sha256": "4cb71ff1ef122dec7974554d443f0fae236bef48674979ffd5c0428610e696c1"
+    },
+    {
+      "path": "source/DualBlockTests.cs",
+      "sha256": "4d6990df06e302353b7eba857ba937b1b6f86ae570cad0f9c8e32601ce9c7546"
+    },
+    {
+      "path": "source/DuplicateRecoveryProbe.cs",
+      "sha256": "bd9fac40979690f34622fe5112cc4359f52e185b205c8279d78a86bc1880c2c7"
+    },
+    {
+      "path": "source/Equipment.cs",
+      "sha256": "94ae682d276c237a3e15092e14d7bb7760850b45d6ec6cfdc97deac02d5be635"
+    },
+    {
+      "path": "source/EquipmentGateTests.cs",
+      "sha256": "f0779f792543a6cdf19dd9780bda12144ceb3e180f7e3e07d1cada1a1199ce8a"
+    },
+    {
+      "path": "source/EquipmentIntegration.cs",
+      "sha256": "45cc77321d5ce7e044b549105b22f27a61b64a5445758d36b9090fd606a22d88"
+    },
+    {
+      "path": "source/EquipmentTests.cs",
+      "sha256": "9aea8c38ff99e5b3b134d305dc6fac5193cbcb80861b0c234e5a1e0333d1b063"
+    },
+    {
+      "path": "source/EquipmentUiTests.cs",
+      "sha256": "13d3ea5b8a34983b7a0c9ea83980e861705712e890c1209880a40d1c831e2b48"
+    },
+    {
+      "path": "source/EventJournal.cs",
+      "sha256": "4d0b1989f0ac6fb8ec76a0919c58538db0c3e8a7ff99e6916942818b151cd510"
+    },
+    {
+      "path": "source/Ground.cs",
+      "sha256": "a2412b94ee40d5659269bbbe88795fbcd15320a90fc85c02575f6e959b4fa4b8"
+    },
+    {
+      "path": "source/GroundIntegration.cs",
+      "sha256": "9adbb3b7ad67da62e76ed59c6fe13a0111459d215d0b6c2551cae9ed85818aca"
+    },
+    {
+      "path": "source/GroundLayoutTest.cs",
+      "sha256": "ee0034b15f7795dbfa89058259996f8b87dfeaf714e7a7fa0f26a416a7c8d996"
+    },
+    {
+      "path": "source/GroundRendering.cs",
+      "sha256": "00f471cd24a0f884eeb75b5cabf14f12d71bed5ff0be9474217f388a7d27fec1"
+    },
+    {
+      "path": "source/GroundTests.cs",
+      "sha256": "87777facedb0f6009b63e1e55768f33c6d89a0cfc74b5927a02d2713862d8cca"
+    },
+    {
+      "path": "source/GroundTransfer.cs",
+      "sha256": "60bd7b015b3dd6c9cd4f0a79008e58666422fea1153bf202ae23a65aba1459ee"
+    },
+    {
+      "path": "source/GroundUi.cs",
+      "sha256": "d1fc05f61dbeef2df739cc01d4b5bddf6e414e07997401f14332c659124f845d"
+    },
+    {
+      "path": "source/Inventory.cs",
+      "sha256": "f468ea09bf8df0364f36ebb389ca88a2c2e407b1030612637a83232894524693"
+    },
+    {
+      "path": "source/InventoryIntegration.cs",
+      "sha256": "d412953fe22db17434f23e3ae1d8311689ca6f6492b580de0dd82dae6a5255f1"
+    },
+    {
+      "path": "source/InventoryLayoutTest.cs",
+      "sha256": "ae7eeb059aa737d498a82ff2206d051b185b4d4c50a84c9a335a32b837ad6bb3"
+    },
+    {
+      "path": "source/InventoryTests.cs",
+      "sha256": "0ab9ce7721b8178b377ef43411d9f6aebdb06bca8b8efacb71f3d02579019997"
+    },
+    {
+      "path": "source/InventoryUi.cs",
+      "sha256": "c95db0534c000e2a69cf5aca8095c944d5336844f1656f5e18a9508d70a1b448"
+    },
+    {
+      "path": "source/JournalTests.cs",
+      "sha256": "860c983b8a7002c35c2f6f2f35de68036b8f76d400b17774b8b030bb1a0a24b8"
+    },
+    {
+      "path": "source/LoginConnection.cs",
+      "sha256": "54710bbeab8933cd01f1c7a0452a7df4bda227b2a883190a3a6ac95d0f1615ec"
+    },
+    {
+      "path": "source/LoginControl.cs",
+      "sha256": "aee8f7d60975b7d75866253b520b476045e8b7d0010aef4e01ee132671436632"
+    },
+    {
+      "path": "source/LoginProtocol.cs",
+      "sha256": "05426be3710ade291b8546f9deeace89abdbae70d76cbabaa8876649d142bd6d"
+    },
+    {
+      "path": "source/LoginTests.cs",
+      "sha256": "6ae6514eaa10cb8b3465230737db89dbc00f3895f50028e9282b17362b194cd3"
+    },
+    {
+      "path": "source/Magic.cs",
+      "sha256": "e2829a742991b30ff88f72195412e1d00a7d4511b1c17b94d1131ee27032ef34"
+    },
+    {
+      "path": "source/MagicIntegration.cs",
+      "sha256": "7831385e157937e560fc9445da3a28c0228be61fd9c3338ec3d10dff335c3ccc"
+    },
+    {
+      "path": "source/MagicRendering.cs",
+      "sha256": "e70a41b319462b41f70f1763c4135f75eab50bc51e1bb65c04c26fd19b7cd76e"
+    },
+    {
+      "path": "source/MagicRenderingTests.cs",
+      "sha256": "58ae873c2c0a31d5a460eb059148697ca95c80b85544f8e98d338440d30fa2e3"
+    },
+    {
+      "path": "source/MagicSelectionRegression.cs",
+      "sha256": "5fb664de0fa677308bb515148cc085670c8c0c32c0ba263c81fb08012ee5e110"
+    },
+    {
+      "path": "source/MagicTargetPreparation.cs",
+      "sha256": "70987fd3993bf663eb9731df11ec135a14ef0d2d03bdda51d9d2262d557b790a"
+    },
+    {
+      "path": "source/MagicTargetTests.cs",
+      "sha256": "b2f1a30941f61604c982267c70dd2c912f428b880d2ebab654991aa6723b1b18"
+    },
+    {
+      "path": "source/MagicTests.cs",
+      "sha256": "55cf1bbcd8643570ff0d8d954089c9d9d8877057e7ea84cb95124878de94dad9"
+    },
+    {
+      "path": "source/MagicUi.cs",
+      "sha256": "8673afdd94d66d7afe28a43e9b8401f7fb2adb25eceacbff6c9e3e1a8a98b88d"
+    },
+    {
+      "path": "source/MagicUiTests.cs",
+      "sha256": "cdb6bab4d853d13cc22a8c925b944702faaef7fea1dafdb618d3a0327ecbb8c5"
+    },
+    {
+      "path": "source/MovementRegression.cs",
+      "sha256": "bb6434e453e3be718606d02d61dd1b9c47c96709751f401a93f234ab13716def"
+    },
+    {
+      "path": "source/MovementTests.cs",
+      "sha256": "e71343ddef87fbfb998ca661eba9ff48e863486ba633f8f8006ba81999af70a1"
+    },
+    {
+      "path": "source/MovementUiTests.cs",
+      "sha256": "7021dbcfbf3427142de2d6890e0942c253374cbce798cd581d1687df19317051"
+    },
+    {
+      "path": "source/Network.cs",
+      "sha256": "023722c40298ab25dfd20963714e060704b0f51a0540ef7117c0e8e9d598eee8"
+    },
+    {
+      "path": "source/ObjectAssets.cs",
+      "sha256": "19764f86b6e14d58660516f612771b60919af314cc3d59a99da67924ed18b76c"
+    },
+    {
+      "path": "source/ObjectRegression.cs",
+      "sha256": "a564442accb3d14d31759f1e2c221b1cde7cdd5f5a07398dbef68f799b77be7e"
+    },
+    {
+      "path": "source/ObjectRendering.cs",
+      "sha256": "485c4fb421c0f0c180011abffa01d8a47e96ac78ad8cd70b54bf0358518442dd"
+    },
+    {
+      "path": "source/ObjectTests.cs",
+      "sha256": "ee59363cf3a72a711884c91568a429c5b9e34ed52101225e7e5c6ccf6f321db5"
+    },
+    {
+      "path": "source/ObjectUiTests.cs",
+      "sha256": "1c4b7c0f6ff16224a8894d0fb16c5ba6dc4c1b7199b22eb02f5527aeb9d3656a"
+    },
+    {
+      "path": "source/OfflineClient.csproj",
+      "sha256": "ade3fdbc3c4310dbc22f2e19728441752d5d210e60ff9850e9de00c55c3a2a7c"
+    },
+    {
+      "path": "source/OnlineInput.cs",
+      "sha256": "ccc6fc1c75bc1754f2d0644bd9217fc27838720afc6c7068718f5f48f9940f3d"
+    },
+    {
+      "path": "source/OnlineMovement.cs",
+      "sha256": "9aad05d124b2b75c21232dad0194af6edcf4906184b7b68bc441d0a377e24355"
+    },
+    {
+      "path": "source/OpacityHistoricalPumps.cs",
+      "sha256": "54a54a27f4ba685d7a9f43c163c62e04622e171ee21f11788ee0de9ba78bdc83"
+    },
+    {
+      "path": "source/OpacityIntegration.cs",
+      "sha256": "568d1a564d769cfd716c9dc55b035d05fd33b7cb8532181f06d511fbe79bd929"
+    },
+    {
+      "path": "source/OpacityPixelTests.cs",
+      "sha256": "14bfbfa68816b60d553c4e6e50a6707b9c259219c3e0d580fa2c0f11f5fdc382"
+    },
+    {
+      "path": "source/OpacityRendering.cs",
+      "sha256": "07bab88d2ee7bd58e018e96870d12370573c84196af425b57c17ce5a837bbbec"
+    },
+    {
+      "path": "source/OpacityReplayTests.cs",
+      "sha256": "c04a4076ec6bfb19e77d2dc04c2689a05db22ecceef8c55cb4634cd573edb6f1"
+    },
+    {
+      "path": "source/OpacitySchedulerTests.cs",
+      "sha256": "8b0ac7118c194438f23f4a0adeb0de3027fa271853ae3d6c05af12ff74352046"
+    },
+    {
+      "path": "source/OpacityTests.cs",
+      "sha256": "9141e8c187dca510dae15bc72d279729b5193fc9eb1a1c27df361a7d3d7cae0f"
+    },
+    {
+      "path": "source/OpacityUiTests.cs",
+      "sha256": "637feca43666c12f9df5ab4cfc96d4477a1d2cf5e9465a41561a9ff5cde69e13"
+    },
+    {
+      "path": "source/OpacityWeb.cs",
+      "sha256": "16e0c49adef8a095c23afdc16fdd15b6af54497915ee1de33bbb68219bfa8522"
+    },
+    {
+      "path": "source/OriginalExpTable.cs",
+      "sha256": "325384a1437d6959b6233cbf2b7c76c681a2c8c6c1a05b41b7b9373e5bc198b1"
+    },
+    {
+      "path": "source/OriginalMapCache.cs",
+      "sha256": "d8c2f1142425123a3d688500d1fe23241d4945850b556ec0a7b1c28138d0955f"
+    },
+    {
+      "path": "source/Program.cs",
+      "sha256": "d781f38418beb02e3c424697f44834b10e3aa6471345faf51370f353e9dd72c5"
+    },
+    {
+      "path": "source/ProjectileRendering.cs",
+      "sha256": "2ed5fdf5ef97f8db98fadc0a0a3e40b9182abaede066322a569ce704d414730f"
+    },
+    {
+      "path": "source/Protocol.cs",
+      "sha256": "9c51aad89c9bda86dcedcdaa46cf135b0f787bb8105aa3826c8d7759e176f3f8"
+    },
+    {
+      "path": "source/ProtocolTests.cs",
+      "sha256": "ea9a6964091f310477c60cdec3c1447fd2d89927397d9bfb409762b513287a7b"
+    },
+    {
+      "path": "source/Ranged.cs",
+      "sha256": "e05e3dd4004d9c20f444c3bddea3652be74d801f6091c855721f2218debdc436"
+    },
+    {
+      "path": "source/RangedGateTests.cs",
+      "sha256": "fffadae8d9d09f189ce574eef56238aaa2b536f6210fc2e12b400ff969d2aeb2"
+    },
+    {
+      "path": "source/RangedIntegration.cs",
+      "sha256": "b7401c07772fc7713e3fa52aa66a0dd53c7be2c71dc95f8480bb7c5045ae38ac"
+    },
+    {
+      "path": "source/RangedRenderingTests.cs",
+      "sha256": "f2f914622b7fa2d47e66d22b84ee6b1c4e9683ff84d1afa09fb45198e9cded94"
+    },
+    {
+      "path": "source/RangedTests.cs",
+      "sha256": "860e8978d2912b6431c7023d53558594fd2e844b2c76aa85bee02af06a247a0e"
+    },
+    {
+      "path": "source/RangedUiTests.cs",
+      "sha256": "127a458d342d598675ae57b4c6602b96768e9476f7e3cf3fd7c4f20cb797caae"
+    },
+    {
+      "path": "source/RealLoginTests.cs",
+      "sha256": "929d1bff1cf4405287ebec0920bcbb47ddb3325db4697c2871a70266f0ea28ce"
+    },
+    {
+      "path": "source/ReceiveLoadTests.cs",
+      "sha256": "7a7d74ac0bb854e3ef55f8e9df38ae3e94d2d261ae5fd86a884bbb43d6ce0eaa"
+    },
+    {
+      "path": "source/Renderer.cs",
+      "sha256": "2e5a6b2db6a331eaa0537c6993e9ab0bda42571fee05bc835fc073661410edbb"
+    },
+    {
+      "path": "source/RewardIntegration.cs",
+      "sha256": "a1fd17efcc8539fc0df8848634f14361dfe89b3320ffbe4ee56c3a355b86995f"
+    },
+    {
+      "path": "source/Rewards.cs",
+      "sha256": "9631821e5ff31b984a2851a7e57b0a64c36fbe78f290b9c5a59219922246deed"
+    },
+    {
+      "path": "source/RewardTests.cs",
+      "sha256": "6c55245e46c70208f807668dde060725a1d5d76d5364e2bed67d1e93bcb7bdeb"
+    },
+    {
+      "path": "source/SceneOpacity.cs",
+      "sha256": "7e0c4f1c27961e9ee227ff99ff41931061b7283ea8c2417d62cdbc50881ca6d4"
+    },
+    {
+      "path": "source/Tests.cs",
+      "sha256": "7c6c04dc6bf70a505d6ac518ebadc79c0832f72748959e0d8c73182a9aa7b612"
+    },
+    {
+      "path": "source/WebPanel.cs",
+      "sha256": "dcf688acd258b33f673f85e98404a77845ed370d1b08035cddb92a52c5cfbc9e"
+    },
+    {
+      "path": "source/WebTests.cs",
+      "sha256": "e442819277dbab19f31c1677469d55a22b3f06408e1d4d0b85f078354c2f3809"
+    },
+    {
+      "path": "source/World.cs",
+      "sha256": "9a9f249477d7355a3871ce9ebb0c10048a7137606b26d8db3957e4bed5e958b6"
+    },
+    {
+      "path": "source/WorldObjects.cs",
+      "sha256": "e209b10f05b263d18d4e61680640829b05861ccfdeb0de4f284603bfe8c1da15"
+    },
+    {
+      "path": "source/WorldRegression.cs",
+      "sha256": "35a52654aa262a0689f24148be63e558ac0e81c1b163c098c93d99056e243d3f"
+    },
+    {
+      "path": "source/WorldSession.cs",
+      "sha256": "60c601c6b765b32dfdbb35b2ff3bc47d298aa9c3eb7fdd34ef8ce2557d6465c3"
+    },
+    {
+      "path": "source/WorldTests.cs",
+      "sha256": "89840da776b378d7e0ea05a8178d02c436547f0fe62ed0ea2330ff7f923b9bc4"
+    },
+    {
+      "path": "web/index.html",
+      "sha256": "57cfcaf9364677309e861f01999a1f489f4981c70027256c2fdcec6dea92b458"
+    },
+    {
+      "path": "web/login.js",
+      "sha256": "d20750ac9776ef7be8eced274b757cae051b6f14e52d096bf85f718fd98b5289"
+    },
+    {
+      "path": "web/panel.css",
+      "sha256": "a9210ba095f8bfe5d2e876309d12aafb20a640473e12b22e28b41419d53cb602"
+    },
+    {
+      "path": "web/panel.js",
+      "sha256": "8f2d6cb1562870fbd8815cc26db3b3eea6d8c137742d391d2b2f4b1df2930dbf"
+    },
+    {
+      "path": "vendor/microsoft.web.webview2.1.0.4258.31.nupkg",
+      "sha256": "56f7f4b8bf9aee4b8efefbbdd4f67d5f74ebd1b100ed0806da71bf76af481aa9"
+    }
+  ],
+  "controllerChecks": 45,
+  "domDoubleChecks": 17,
+  "workerDll": "f9d58001ae430a3ff4159c9288b75a5fb4a3e07dc5e9c83e5a5a42d862149318",
+  "cleanDll": "c27fc0740bbc5317ef71240482dafd92a46e188948e4abdc4f888220f7960f55",
+  "processes": [
+    {
+      "name": "build-product",
+      "pid": 14044,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-Web登入接線獨立審查-20261026\\source\\OfflineClient.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-Web登入接線獨立審查-20261026\\build\\client",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-Web登入接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 7.040420770645142
+    },
+    {
+      "name": "build-harness",
+      "pid": 85584,
+      "args": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-Web登入接線獨立審查-20261026\\harness\\WebLoginChecks.csproj",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-Web登入接線獨立審查-20261026\\build\\checks",
+        "-c",
+        "Release",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-Web登入接線獨立審查-20261026\\NuGet.Config",
+        "--nologo",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "elapsed": 3.9520370960235596
+    },
+    {
+      "name": "controller",
+      "pid": 15836,
+      "args": [
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-Web登入接線獨立審查-20261026\\build\\checks\\P24.WebLoginChecks.exe"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.3450784683227539
+    },
+    {
+      "name": "dom",
+      "pid": 71820,
+      "args": [
+        "node",
+        "D:\\lineage開發\\TW1608262200研究\\主管\\P24-Web登入接線獨立審查-20261026\\test_dom.cjs"
+      ],
+      "exitCode": 0,
+      "elapsed": 0.09973430633544922
+    }
+  ],
+  "ui": false,
+  "live": false,
+  "fullP24Accepted": false,
+  "scope": "Actual clean product assembly parser/controller and actual JS handlers with explicit session/DOM doubles; does not establish real WebView or server behavior."
+}

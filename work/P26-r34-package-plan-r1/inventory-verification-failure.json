@@ -1,0 +1,20 @@
+{
+  "command": [
+    "python",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r1\\verify_plan_inventory.py",
+    "--report"
+  ],
+  "exitCode": 1,
+  "error": "KeyError: 'build/product-r34-manifest.json'",
+  "stage": "read-only post-generation four-identity package target membership",
+  "workflowWritten": false,
+  "tracebackRetainedInToolOutput": true,
+  "diagnostic": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-r34-package-plan-r1\\inventory-findings.json",
+    "size": 5965,
+    "sha256": "7f4c4007d896747a9818dc86ff512e1d1effa69fdb740522999490fae8374f40"
+  }
+}
