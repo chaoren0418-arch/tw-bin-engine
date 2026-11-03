@@ -9,6 +9,8 @@ jobs:
   dotnet:
     runs-on: windows-latest
     steps:
+      - name: Disable CRLF conversion (r35 lock pins exact bytes)
+        run: git config --global core.autocrlf false
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
