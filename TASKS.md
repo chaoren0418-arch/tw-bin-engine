@@ -44,11 +44,12 @@ T014 後重跑：r35 完整建置與 `engine\啟動新版客戶端.cmd --check-o
 N01 流程逐步核對表：每步要截圖什麼、看哪個 server 回包、預期值；附失敗時要收集的 log 路徑。
 驗收：使用者能照表獨立操作。
 
-### T011 | doing | dot（使用者授權，Issue #23） | `docs/native-baseline/r35.md`
+### T011 | done | dot（使用者授權，Issue #23） | `docs/native-baseline/r35.md`
 用 r35 建置跑完 N01：登入→選角→移動→攻擊→技能 1/3/4/8→道具／裝備→能力點→存檔→重登。伺服器用 P24Lab（MySQL 43324／port 42061，孤兒 10326 已修復）；畫面操作由 dot 以編譯的 .NET 工具執行（PowerShell 執行政策擋腳本，不繞過）。
 驗收：每步有截圖與結果；失敗項各開一個 T1xx bug 任務。
+結果（2026-11-05）：✅ 01/02/08/11/12；✅限定 13/14；⚠️ 03/04/05/07/09/10/15；❌ 06。第一份 r35 真機基線；補測任務待 T012 證據入庫後開。
 
-### T012 | blocked（等 T011） | codex-local | `work/P25-architecture-baseline-r1/completion-matrix.json`, `work/P25-architecture-baseline-r1/finite-backlog.json`
+### T012 | doing | codex-local（Issue #27） | `work/P25-architecture-baseline-r1/completion-matrix.json`, `work/P25-architecture-baseline-r1/finite-backlog.json`
 把 T011 結果回寫：通過的列加 `nativeR35Accepted: true`；I01、I02 改 done（P26/P27 已完成對應工作）。
 驗收：JSON 可解析；變更列數與 r35.md 一致。
 
