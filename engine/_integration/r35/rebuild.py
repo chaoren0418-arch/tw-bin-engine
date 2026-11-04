@@ -40,8 +40,11 @@ def read(p: Path):
 
 def resolve(rel: str) -> Path:
     require(not Path(rel).is_absolute() and '..' not in Path(rel).parts, 'input path escapes root: ' + rel)
-    p = ROOT / rel
-    require(p.resolve().is_relative_to(ROOT.resolve()), 'input path escapes root: ' + rel)
+    # Lexical containment only. engine/assets is a junction to releases/r28; Path.resolve()
+    # follows it out of ROOT and would refuse the legitimate pin of assets/integrity.json
+    # (Issue #7: REFUSED: input path escapes root: assets/integrity.json).
+    p = Path(os.path.normpath(ROOT / rel))
+    require(p.is_relative_to(ROOT), 'input path escapes root: ' + rel)
     return p
 
 
