@@ -10,7 +10,8 @@
 |---|---|
 | 正式入口 | `啟動引擎.cmd` → `releases/r33/launcher/P24.Launcher.exe`；`project-manifest.json` revision=r33 |
 | r34 | 已封裝（`releases/r34`），入口未切換；拾取呈現產品 |
-| canonical 來源 | `engine/source+audio+web` = **181 檔**（P36 更新），r33 lock 要 177、r34 lock 要 180 → 兩個 `rebuild.py` 的 pin 核驗目前都會拒絕 |
+| canonical 來源 | `engine/source+audio+web` = **181 檔**，r35 lock（`engine/_integration/r35/`）核驗 exit 0；`build-product.ps1` 指向 r35 |
+| 可重現建置 | **M0 達成**：CI 綠燈；使用者本機 r35 完整建置 + `engine\啟動新版客戶端.cmd --check-only` exit 0（Issue #13） |
 | 最新候選 | P38 隔離交付候選（`work/P38-delivery-candidate-r1`），launcher check-only exit 0，等獨立覆核；入口未啟用 |
 | 離線測試 | r33：4337 assertions + 93 observations；r34 review +184；P27：237 斷言；P31–P34 拾取覆核全過 |
 | **原生實機驗收** | **自 r29 起每一版都是 native=false**。最後的實機證據是 r22/r27/r28（登入、選角、移動、匕首、能力點、聊天、旅館、拾取、洞穴戰鬥、回城） |
@@ -22,13 +23,13 @@
 4. NPC 服務（買賣、技能學習、交易、倉庫、船運）、map4/6016 場景音訊、原生畫面／滑鼠 完全未驗。
 
 ## 里程碑
-### M0 可重現建置（本週）
+### M0 可重現建置 — ✅ 達成（2026-11-04）
 - GitHub Actions `dotnet build` 綠燈（CI 用 nuget.org，本機維持離線 vendor）。
 - 統一 canonical：以 181 檔為準，產生新的 lock（r35），`build-product.ps1` 與 `rebuild.py` 指向同一版；`engine/README.md`、`project-manifest.json` 同步。
 - 消除硬編路徑：腳本改用 `$PSScriptRoot` / 環境變數 `TW_ENGINE_ROOT`。
 - 驗收：乾淨 clone + `D:\lineage開發\0-客戶端` 資源 → 一條指令建出可 `--check-only` 通過的 launcher。
 
-### M1 真機基線（M0 之後，使用者操作）
+### M1 真機基線 — 進行中（T016 本機建置 → T011 使用者真機）
 - 用 M0 的建置跑 N01 流程：登入→移動→攻擊／技能 1/3/4/8→道具→能力點→存檔→重登。
 - 每一步截圖＋server 回包紀錄，寫進 `docs/native-baseline/r35.md`。
 - 失敗項直接變成 TASKS 的 bug 項；通過項把 completion-matrix 對應列的 nativeR35Accepted 設 true。

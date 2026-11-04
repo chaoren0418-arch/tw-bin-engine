@@ -15,9 +15,10 @@
 以 C#/.NET 重新實作天堂 3.81 舊客戶端（原 `LiTo.bin` / TW1608262200 BIN），**不再依賴舊式 bin**，讓遊戲能完整運作：登入、選角、世界移動、戰鬥、道具、魔法、地圖快取、UI、音效。評分重點：**可重現客戶端、遊戲完整運作**。
 
 ## 目前狀態（2026-11-04，詳見 `PLAN.md`）
-- 正式入口 **r33**（`releases/r33`）；r34 已封裝未切入口；canonical 來源已更新到 **181 檔**（P36），但 r33/r34 的 lock 分別要求 177/180 → 目前 `rebuild.py` 核驗會拒絕，T002 要建 r35 lock 解決。
+- 正式入口仍是 **r33**（`啟動引擎.cmd` → `releases/r33`）；**r35 是 canonical 建置**：181 檔 lock 在 `engine/_integration/r35/`，`engine/build-product.ps1` 指向 r35。
+- **M0 可重現建置已達成**（T001–T004、T013–T015）：CI 綠燈；使用者本機 r35 完整建置 0 警告、`engine\啟動新版客戶端.cmd --check-only` exit 0（revision r35，見 Issue #13 報告）。乾淨機器建置步驟見 `docs/BUILD.md`。
 - `work/` 做到 **P38**（隔離交付候選，等覆核）。P27 UI／輸入查核 237 斷言無缺陷。
-- **自 r29 起沒有任何版本做過原生實機驗收**；最後實機證據是 r22/r27/r28。M1 的第一件事是用可重現的建置跑一次真機流程。
+- **自 r29 起沒有任何版本做過原生實機驗收**；最後實機證據是 r22/r27/r28。M1（進行中）：先在主專案目錄建出 r35（T016），再由使用者照 `docs/native-baseline/CHECKLIST.md` 跑真機流程（T011）。
 - 未驗：NPC 服務、map4／6016 場景音訊、原生畫面／滑鼠、換圖連續性。
 - 歷史治理文件（主管／工作者對話 ID、Goal、pins、seal）**只供參考**，不再是流程的一部分。流程見「工作方式」與 `PLAN.md`／`TASKS.md`。
 
@@ -25,7 +26,7 @@
 - C# / .NET（SDK 版本見 `engine/global.json`），Windows x64。
 - 原始碼：`engine/source`（主專案 `OfflineClient.csproj`）、`engine/audio`、`engine/web`、`engine/launcher`。
 - 建置：`engine/build-product.ps1`；啟動：`啟動引擎.cmd`（`--check-only` 只檢查環境）。
-- 唯讀來源核驗：`python -B -X utf8 engine/_integration/r33/rebuild.py`（目前因 181 檔會拒絕；T002 後改用 r35）。注意 `engine/build-product.ps1` 目前指向 r34。
+- 唯讀來源核驗：`python -B -X utf8 engine/_integration/r35/rebuild.py`（exit 0 = 181 來源／190 pinned 全中）；完整建置加 `--build --write-receipt`。r33/r34 的 `rebuild.py` 已過時，不再使用。
 - CI：`.github/workflows/build.yml` 在 windows-latest 上 `dotnet build`，用 `.github/nuget.ci.config`（nuget.org）；本機 `engine/NuGet.Config` 仍是離線 `vendor`。
 - 素材：`engine/assets` 是指向 `releases/r28` 的唯讀 junction；遊戲資源一律引用 `D:\lineage開發\0-客戶端`，**不得複製 pak/map/sprite 進本專案**。
 - 資料庫（MySQL）由使用者管理；AI 不查詢、不更改、不啟停 DB 或服務。

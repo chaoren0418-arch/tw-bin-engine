@@ -17,20 +17,27 @@ GitHub Actions 在 windows-latest 上 `dotnet build engine/source/OfflineClient.
 去除硬編路徑：所有 `D:\lineage開發\TW1608262200研究` 改為 `$PSScriptRoot` 推導或環境變數 `TW_ENGINE_ROOT`（未設時預設為腳本所在 repo 根）；資源根改為 `TW_CLIENT_ROOT`（預設 `D:\lineage開發\0-客戶端`）。
 驗收：把 repo clone 到任意路徑（例如 `D:\tmp\twtest`）執行 `engine\build-product.ps1` 能建置；`啟動引擎.cmd --check-only` exit 0。
 
-### T004 | todo | Cursor | `docs/BUILD.md`（新建）
+### T004 | done | Cursor | `docs/BUILD.md`（新建）
 寫「乾淨機器從零建置」文件：需要的 SDK（.NET 10.0.300、Python 3.12、WebView2 runtime）、資源目錄、三條指令（restore／build／check-only）、常見錯誤。
 驗收：使用者照文件在另一台機器或乾淨目錄重現成功；Claude 審閱。
 
-### T005 | todo | Claude | `CLAUDE.md`, `AGENTS.md`, `.cursor/rules/project.mdc`
+### T005 | done | Claude | `CLAUDE.md`, `AGENTS.md`, `.cursor/rules/project.mdc`
 依 M0 結果更新狀態段，三份同步。
 
+### T013–T015 | done | codex-local／Cursor | Issue #7、#12、#13
+T013 本機 r35 完整建置發現 `engine/assets` junction 被核驗拒絕 → T014 改為字面路徑檢查（PR #14）→ T015 重跑完整建置與 check-only 皆 exit 0。
+
 ## M1 真機基線（使用者操作，Claude 準備）
+
+### T016 | doing | codex-local | Issue #19
+在本機**主專案目錄**（非 worktree）建出 r35 並 `--check-only`，作為 T011 真機驗收的版本。
+驗收：兩個指令 exit 0；報告 `docs/reports/issue-16.md` 列出真機要跑的確切路徑。
 
 ### T010 | done | Claude | `docs/native-baseline/CHECKLIST.md`（新建）
 N01 流程逐步核對表：每步要截圖什麼、看哪個 server 回包、預期值；附失敗時要收集的 log 路徑。
 驗收：使用者能照表獨立操作。
 
-### T011 | blocked(T002,T003,T010) | 使用者 | `docs/native-baseline/r35.md`
+### T011 | blocked(T016) | 使用者 | `docs/native-baseline/r35.md`
 用 r35 建置跑完 N01：登入→選角→移動→攻擊→技能 1/3/4/8→道具／裝備→能力點→存檔→重登。
 驗收：每步有截圖與結果；失敗項各開一個 T1xx bug 任務。
 
@@ -66,7 +73,7 @@ MAP-F4 map-local effect group fade（S01，source-blocked，需真實非零關�
 ### T033 | todo | — | `docs/ARCHITECTURE.md`, `packaging/`
 交作業版架構文件 + 含 runtime 的可攜安裝包。
 
-## 已知矛盾（T002/T003 要一起解掉）
+## 已知矛盾（待清理）
 - `engine/_integration/HANDOFF.md` 與 `result.json` 仍是 r28 內容。
 - `docs/project-consolidation/progress.md` 以 r28 為驗收基準。
 - completion-matrix 部分列說 6016 待整合，同檔 r28Current 已整合（P25 標 stale）。
