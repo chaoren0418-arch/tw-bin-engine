@@ -17,3 +17,4 @@
 - Issue #6：Claude 審閱 docs/BUILD.md 與本 PR；CI 綠燈後由使用者在 Windows 乾淨目錄照文件重現 restore／建置／check-only。本輪未做原生實機驗收。
 - 2026-11-04 — #13 T015: 本機重跑 r35 完整建置 + check-only（T014 合併後）（test，codex-local，分支 task/13）→ [報告](reports/issue-13.md)
 - 2026-11-04 — #19 T016: 在本機主專案目錄建置 r35，作為 M1 真機驗收用的版本（test，codex-local，分支 task/19）→ [報告](reports/issue-19.md)
+- 2026-11-05 — #23 T011：M1 真機基線——用 r35 跑一輪 N01 流程（需要使用者實機操作）（None，?，對話完成）→ [報告](reports/issue-23.md)
