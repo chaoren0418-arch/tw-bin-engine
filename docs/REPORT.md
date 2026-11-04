@@ -14,3 +14,4 @@
 - Issue #3：由調度器／Claude 審查 task/3 的報告並確認驗收；本輪未建置或做原生驗收，後續建置另行派工，實機測試由使用者執行。TASKS.md 的 NPC 服務 T020 與本 Issue 名稱重複，請以 Issue #3 範圍識別。
 - Issue #6：Claude 審閱 docs/BUILD.md 與本 PR；CI 綠燈後由使用者在 Windows 乾淨目錄照文件重現 restore／建置／check-only。本輪未做原生實機驗收。
 - 2026-11-04 — #13 T015: 本機重跑 r35 完整建置 + check-only（T014 合併後）（test，codex-local，分支 task/13）→ [報告](reports/issue-13.md)
+- 2026-11-04 — #19 T016: 在本機主專案目錄建置 r35，作為 M1 真機驗收用的版本（test，codex-local，分支 task/19）→ [報告](reports/issue-19.md)
