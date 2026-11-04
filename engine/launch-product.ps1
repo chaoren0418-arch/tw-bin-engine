@@ -1,10 +1,10 @@
 param([switch]$CheckOnly)
 $ErrorActionPreference='Stop'
 $productRoot=[IO.Path]::GetFullPath($PSScriptRoot)
-$manifestPath=Join-Path $productRoot 'build\product-r34-manifest.json'
+$manifestPath=Join-Path $productRoot 'build\product-r35-manifest.json'
 if(-not (Test-Path -LiteralPath $manifestPath)){throw '尚未建置新版。請先執行 build-product.ps1。'}
 $manifest=Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
-if($manifest.schema -ne 'p24-normal-product-v1' -or $manifest.entry -ne 'build/client-product-r34/P11.ClientEngine.exe' -or $manifest.profile -ne 'p24-real-jar-d287-client2' -or $manifest.port -ne 42061 -or $manifest.autoLogin -ne $false -or @($manifest.arguments).Count -ne 1 -or $manifest.arguments[0] -ne '--normal-product'){throw '新版啟動設定不一致，請重新建置。'}
+if($manifest.schema -ne 'p24-normal-product-v1' -or $manifest.entry -ne 'build/client-product-r35/P11.ClientEngine.exe' -or $manifest.profile -ne 'p24-real-jar-d287-client2' -or $manifest.port -ne 42061 -or $manifest.autoLogin -ne $false -or @($manifest.arguments).Count -ne 1 -or $manifest.arguments[0] -ne '--normal-product'){throw '新版啟動設定不一致，請重新建置。'}
 foreach($pin in $manifest.files){
     $target=[IO.Path]::GetFullPath((Join-Path $productRoot $pin.path))
     if(-not $target.StartsWith($productRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)){throw '新版檔案路徑不正確。'}

@@ -1,0 +1,164 @@
+"""r35 canonical source lock, build and verification.
+
+Modes
+  (default)   verify that every pinned input file (source/audio/web/build inputs) matches rebuild-lock.json
+  --build     verify pins, then build the product + launcher once (Windows, .NET SDK from engine/global.json)
+  --verify    verify pins and the existing build/client-product-r35 output against receipt.json
+  --write-receipt   after a successful --build, record DLL / manifest identities into receipt.json
+
+Differences from r33/r34
+  * No supervisor acceptance ceremony, no CANONICAL path check: the repo root is derived from this file.
+  * Product DLL identity is not pre-pinned in the lock; it is recorded by --write-receipt from a real build
+    (CI does this on windows-latest) and later builds are compared against that receipt.
+  * Works on any OS for pin verification; building requires Windows (WinForms / WebView2).
+"""
+from pathlib import Path
+import argparse, hashlib, json, os, platform, subprocess, sys, datetime
+
+A = Path(__file__).resolve().parent          # engine/_integration/r35
+ROOT = A.parents[1]                          # engine
+REPO = ROOT.parent                           # repo root
+LOCK = A / 'rebuild-lock.json'
+RECEIPT = A / 'receipt.json'
+PRODUCT = 'build/client-product-r35'
+MANIFEST = 'build/product-r35-manifest.json'
+
+
+def require(ok, msg):
+    if not ok:
+        raise RuntimeError(msg)
+
+
+def sha(p: Path) -> str:
+    with p.open('rb') as f:
+        return hashlib.file_digest(f, 'sha256').hexdigest()
+
+
+def read(p: Path):
+    return json.loads(p.read_text('utf-8-sig'))
+
+
+def resolve(rel: str) -> Path:
+    require(not Path(rel).is_absolute() and '..' not in Path(rel).parts, 'input path escapes root: ' + rel)
+    p = ROOT / rel
+    require(p.resolve().is_relative_to(ROOT.resolve()), 'input path escapes root: ' + rel)
+    return p
+
+
+def pin(p: Path, row):
+    require(p.is_file(), 'missing pinned file: ' + str(p))
+    require(p.stat().st_size == row['size'] and sha(p) == row['sha256'], 'pin drift: ' + str(p))
+
+
+def validate():
+    require(ROOT.name == 'engine' and (REPO / 'project-manifest.json').is_file(), 'run inside <repo>/engine/_integration/r35')
+    lock = read(LOCK)
+    require(lock['schema'] == 'r35-rebuild-lock-v1', 'unexpected lock schema')
+    for row in lock['files']:
+        pin(resolve(row['path']), row)
+    src = [r for r in lock['files'] if r['path'].split('/')[0] in ('source', 'audio', 'web')]
+    require(len(src) == lock['sourceCount'], f"sourceCount {lock['sourceCount']} != pinned source files {len(src)}")
+    return lock
+
+
+def run(name, argv, output: Path, env=None, cwd=None):
+    p = subprocess.run(argv, cwd=cwd or ROOT, env=env, capture_output=True, timeout=1800)
+    (output / (name + '.stdout')).write_bytes(p.stdout)
+    (output / (name + '.stderr')).write_bytes(p.stderr)
+    (output / (name + '.command.json')).write_text(json.dumps(dict(name=name, argv=[str(a) for a in argv], exitCode=p.returncode), ensure_ascii=False, indent=2), 'utf-8')
+    require(p.returncode == 0, f'{name} failed (exit {p.returncode}); see {output}')
+    print(name, p.returncode, flush=True)
+    return p.stdout.decode('utf-8-sig', errors='replace')
+
+
+def build_env(output: Path):
+    env = dict(os.environ)
+    for k, v in {'TEMP': 'tmp', 'TMP': 'tmp', 'DOTNET_CLI_HOME': '.dotnet', 'NUGET_SCRATCH': 'tmp/nuget'}.items():
+        q = output / v
+        q.mkdir(parents=True, exist_ok=True)
+        env[k] = str(q)
+    env.update(DOTNET_SKIP_FIRST_TIME_EXPERIENCE='1', DOTNET_CLI_TELEMETRY_OPTOUT='1',
+               DOTNET_GENERATE_ASPNET_CERTIFICATE='false', DOTNET_CLI_USE_MSBUILD_SERVER='0', MSBUILDDISABLENODEREUSE='1')
+    # NUGET_PACKAGES: honour the user's (D:\dev-cache\nuget\packages) if set, else engine/.nuget
+    env.setdefault('NUGET_PACKAGES', str(ROOT / '.nuget'))
+    return env
+
+
+def identities():
+    dll = ROOT / PRODUCT / 'P11.ClientEngine.dll'
+    audio = ROOT / PRODUCT / 'P24.Audio.dll'
+    manifest = ROOT / MANIFEST
+    launcher = ROOT / 'launcher' / 'P24.Launcher.dll'
+    for p in (dll, audio, manifest):
+        require(p.is_file(), 'missing build output: ' + str(p))
+    return dict(productDllSha256=sha(dll), audioDllSha256=sha(audio), productManifestSha256=sha(manifest),
+                launcherDllSha256=sha(launcher) if launcher.is_file() else None)
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    mode = ap.add_mutually_exclusive_group()
+    mode.add_argument('--build', action='store_true')
+    mode.add_argument('--verify', action='store_true')
+    ap.add_argument('--write-receipt', action='store_true')
+    ap.add_argument('--configfile', default=str(ROOT / 'NuGet.Config'), help='NuGet config for restore (CI passes .github/nuget.ci.config)')
+    ap.add_argument('--output', type=Path)
+    args = ap.parse_args()
+    args.configfile = str(Path(args.configfile).resolve())  # subprocesses run with cwd=engine; resolve relative to caller cwd
+
+    lock = validate()
+    if not args.build and not args.verify:
+        print(json.dumps(dict(status='r35-inputs-verified', sourceFiles=lock['sourceCount'], pinnedFiles=len(lock['files']), writes=False)))
+        return
+
+    output = (args.output or ROOT / '_integration/evidence' / ('r35-' + datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%S'))).resolve()
+    output.mkdir(parents=True, exist_ok=True)
+    env = build_env(output)
+
+    if args.build:
+        require(platform.system() == 'Windows', 'building the WinForms/WebView2 product requires Windows')
+        sdk = run('sdk', ['dotnet', '--version'], output, env).strip()
+        want = read(ROOT / 'global.json')['sdk']['version']
+        require(sdk == want, f'wrong SDK {sdk}, global.json pins {want}')
+        run('product-restore', ['dotnet', 'restore', str(ROOT / 'source/OfflineClient.csproj'), '--configfile', args.configfile], output, env)
+        run('product-build', ['dotnet', 'build', str(ROOT / 'source/OfflineClient.csproj'), '-c', 'Release', '--no-restore', '-o', str(ROOT / PRODUCT),
+                              '--nologo', '-p:NuGetAudit=false', '-p:UseSharedCompilation=false'], output, env)
+        # product manifest: every runtime file + web + assets/integrity.json with size/sha256
+        files = []
+        roots = [ROOT / PRODUCT, ROOT / 'web']
+        for base in roots:
+            for p in sorted(base.rglob('*')):
+                if p.is_file():
+                    files.append(dict(path=p.relative_to(ROOT).as_posix(), size=p.stat().st_size, sha256=sha(p)))
+        integ = ROOT / 'assets' / 'integrity.json'
+        if integ.is_file():
+            files.append(dict(path='assets/integrity.json', size=integ.stat().st_size, sha256=sha(integ)))
+        manifest = dict(schema='p24-normal-product-v1', entry=PRODUCT + '/P11.ClientEngine.exe', arguments=['--normal-product'],
+                        profile='p24-real-jar-d287-client2', port=42061, autoLogin=False, files=files)
+        (ROOT / MANIFEST).write_text(json.dumps(manifest, ensure_ascii=False, indent=2), 'utf-8')
+        run('launcher-restore', ['dotnet', 'restore', str(A / 'launcher-source/Launcher.csproj'), '--configfile', args.configfile], output, env)
+        run('launcher-build', ['dotnet', 'build', str(A / 'launcher-source/Launcher.csproj'), '-c', 'Release', '--no-restore', '--nologo',
+                               '-p:NuGetAudit=false', '-p:UseSharedCompilation=false', '-o', str(ROOT / 'launcher')], output, env)
+
+    ids = identities()
+    if args.write_receipt:
+        RECEIPT.write_text(json.dumps(dict(schema='r35-receipt-v1', builtAt=datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                                           sdk=read(ROOT / 'global.json')['sdk']['version'], **ids), indent=2), 'utf-8')
+        print('receipt written', RECEIPT)
+    elif RECEIPT.is_file():
+        rec = read(RECEIPT)
+        for k in ('productDllSha256', 'audioDllSha256'):
+            require(ids[k] == rec[k], f'{k} differs from receipt (deterministic build drift or source changed without re-lock)')
+    for row in read(ROOT / MANIFEST)['files']:
+        pin(resolve(row['path']), row)
+    result = dict(status='pass-r35-build' if args.build else 'pass-r35-verify', sourceFiles=lock['sourceCount'], GUI=False, network=False, database=False, **ids)
+    (output / 'result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), 'utf-8')
+    print('PASS r35', json.dumps(ids), flush=True)
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as ex:
+        print('REFUSED: ' + str(ex), file=sys.stderr)
+        sys.exit(2)

@@ -9,6 +9,8 @@ jobs:
   dotnet:
     runs-on: windows-latest
     steps:
+      - name: Disable CRLF conversion (r35 lock pins exact bytes)
+        run: git config --global core.autocrlf false
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
@@ -17,6 +19,17 @@ jobs:
         run: dotnet restore engine/source/OfflineClient.csproj --configfile .github/nuget.ci.config
       - name: Build (Release)
         run: dotnet build engine/source/OfflineClient.csproj -c Release --no-restore -warnaserror:false
+      - name: r35 canonical build + receipt
+        run: python -B -X utf8 engine/_integration/r35/rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output engine/_integration/evidence/ci
+      - name: Upload r35 receipt and evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r35-receipt
+          path: |
+            engine/_integration/r35/receipt.json
+            engine/_integration/evidence/ci/**
+          if-no-files-found: ignore
       - name: Upload build log on failure
         if: failure()
         uses: actions/upload-artifact@v4
