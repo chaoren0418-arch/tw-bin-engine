@@ -9,11 +9,11 @@ Cursor 接任務時只改「範圍」列出的路徑；PR 標題用 `ID: 摘要`
 GitHub Actions 在 windows-latest 上 `dotnet build engine/source/OfflineClient.csproj -c Release` 成功。
 驗收：main 分支 CI 綠燈。
 
-### T002 | todo | Cursor | `engine/_integration/r35/`（新建）, `engine/build-product.ps1`, `engine/README.md`, `project-manifest.json`
+### T002 | done | Claude | `engine/_integration/r35/`（新建）, `engine/build-product.ps1`, `engine/README.md`, `project-manifest.json`
 建立 r35 canonical lock：以目前 `engine/source`+`audio`+`web` 的 181 檔計算 SHA-256 清單，寫成 `engine/_integration/r35/rebuild-lock.json`（格式沿用 r34）；複製 r34 的 `rebuild.py`／`product-build.ps1` 為 r35 版並指向新 lock；`build-product.ps1` 改呼叫 r35；README 的「177 來源」改為 181 並說明 P36 新增檔；`project-manifest.json` 加 `canonical_revision: r35`（正式入口仍 r33，不改 `entry`）。
 驗收：`python -B -X utf8 engine/_integration/r35/rebuild.py --verify` 在本機 exit 0；r33/r34 目錄不動。
 
-### T003 | todo | Cursor | `engine/_integration/r35/*.py`, `engine/_integration/r35/*.ps1`, `engine/build-product.ps1`, `啟動引擎.cmd`
+### T003 | done | Claude | `engine/_integration/r35/*.py`, `engine/_integration/r35/*.ps1`, `engine/build-product.ps1`, `啟動引擎.cmd`
 去除硬編路徑：所有 `D:\lineage開發\TW1608262200研究` 改為 `$PSScriptRoot` 推導或環境變數 `TW_ENGINE_ROOT`（未設時預設為腳本所在 repo 根）；資源根改為 `TW_CLIENT_ROOT`（預設 `D:\lineage開發\0-客戶端`）。
 驗收：把 repo clone 到任意路徑（例如 `D:\tmp\twtest`）執行 `engine\build-product.ps1` 能建置；`啟動引擎.cmd --check-only` exit 0。
 
