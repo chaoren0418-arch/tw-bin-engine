@@ -24,12 +24,14 @@ GitHub Actions 在 windows-latest 上 `dotnet build engine/source/OfflineClient.
 ### T005 | done | Claude | `CLAUDE.md`, `AGENTS.md`, `.cursor/rules/project.mdc`
 依 M0 結果更新狀態段，三份同步。
 
-### T013–T015 | done | codex-local／Cursor | Issue #7、#12、#13
-T013 本機 r35 完整建置發現 `engine/assets` junction 被核驗拒絕 → T014 改為字面路徑檢查（PR #14）→ T015 重跑完整建置與 check-only 皆 exit 0。
+### T013 | done | codex-local | Issue #7
+本機 r35 完整建置：編譯 0 警告，但最終核驗拒絕經 `engine/assets` junction 的 `assets/integrity.json`（報告 `docs/reports/issue-7.md`）。
 
-### T006 | todo | Cursor | `engine/source/*.csproj`, `engine/audio/*.csproj`, `engine/launcher/*.csproj`, 新 lock r36
-位元可重現建置：設定 `Deterministic`、`ContinuousIntegrationBuild`／`PathMap`、`IncludeSourceRevisionInInformationalVersion=false`，讓不同目錄、不同 commit（engine 無差異時）建出相同 SHA-256。csproj 在 lock 內，需同時產生 r36 lock。
-驗收：本機兩個不同目錄各建一次，productDll／launcherDll SHA-256 相同。優先序低於 M1。
+### T014 | done | Cursor | `engine/_integration/r35/rebuild.py`（Issue #12，PR #14）
+`resolve()` 改為字面路徑容器檢查，允許 assets junction；`..`／絕對路徑仍拒絕。
+
+### T015 | done | codex-local | Issue #13
+T014 後重跑：r35 完整建置與 `engine\啟動新版客戶端.cmd --check-only` 皆 exit 0（報告 `docs/reports/issue-13.md`）。
 
 ## M1 真機基線（使用者操作，Claude 準備）
 
@@ -42,11 +44,11 @@ T013 本機 r35 完整建置發現 `engine/assets` junction 被核驗拒絕 → 
 N01 流程逐步核對表：每步要截圖什麼、看哪個 server 回包、預期值；附失敗時要收集的 log 路徑。
 驗收：使用者能照表獨立操作。
 
-### T011 | doing（Issue #23，needs:user） | 使用者 | `docs/native-baseline/r35.md`
-用 r35 建置跑完 N01：登入→選角→移動→攻擊→技能 1/3/4/8→道具／裝備→能力點→存檔→重登。
+### T011 | doing | dot（使用者授權，Issue #23） | `docs/native-baseline/r35.md`
+用 r35 建置跑完 N01：登入→選角→移動→攻擊→技能 1/3/4/8→道具／裝備→能力點→存檔→重登。伺服器用 P24Lab（MySQL 43324／port 42061，孤兒 10326 已修復）；畫面操作由 dot 以編譯的 .NET 工具執行（PowerShell 執行政策擋腳本，不繞過）。
 驗收：每步有截圖與結果；失敗項各開一個 T1xx bug 任務。
 
-### T012 | blocked(T011) | Cursor | `work/P25-architecture-baseline-r1/completion-matrix.json`, `work/P25-architecture-baseline-r1/finite-backlog.json`
+### T012 | blocked（等 T011） | codex-local | `work/P25-architecture-baseline-r1/completion-matrix.json`, `work/P25-architecture-baseline-r1/finite-backlog.json`
 把 T011 結果回寫：通過的列加 `nativeR35Accepted: true`；I01、I02 改 done（P26/P27 已完成對應工作）。
 驗收：JSON 可解析；變更列數與 r35.md 一致。
 
@@ -74,6 +76,10 @@ Slow 速度拾取／丟棄（目前不支援）。
 
 ### T032 | todo | — | M08 MapEffects, SceneOpacity
 MAP-F4 map-local effect group fade（S01，source-blocked，需真實非零關聯樣本）。
+
+### T006 | todo | Cursor | `engine/source/*.csproj`, `engine/audio/*.csproj`, `engine/launcher/*.csproj`, 新 lock r36
+位元可重現建置：設定 `Deterministic`、`ContinuousIntegrationBuild`／`PathMap`、`IncludeSourceRevisionInInformationalVersion=false`，讓不同目錄、不同 commit（engine 無差異時）建出相同 SHA-256。csproj 在 lock 內，需同時產生 r36 lock。
+驗收：本機兩個不同目錄各建一次，productDll／launcherDll SHA-256 相同。優先序低於 M1。
 
 ### T033 | todo | — | `docs/ARCHITECTURE.md`, `packaging/`
 交作業版架構文件 + 含 runtime 的可攜安裝包。
