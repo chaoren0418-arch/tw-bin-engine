@@ -1,6 +1,6 @@
 # Issue #13 — T015 本機重跑 r35 完整建置與 check-only
 
-階段：test；第 1 次嘗試；日期：2026-11-04；分支：`task/13`。
+階段：test；第 2 次嘗試（審查退回補件）；日期：2026-11-04；分支：`task/13`。
 
 ## 結論
 
@@ -9,8 +9,8 @@
 ## 做了什麼
 
 - 已讀根目錄 AGENTS.md、CLAUDE.md、TASKS.md、docs/REPORT.md 及 Issue #7、#12 報告。TASKS.md 尚無 T015，依本次 Issue #13 指派執行。
-- 保留既有 `task/13` worktree，未 checkout、建分支或 reset。`git fetch origin` 退出 0；HEAD 與 origin/main 相同，包含 T014 的 PR #14 合併。
-- 僅新增本報告供提交；不修改 `docs/REPORT.md`、引擎來源、lock 或入口。
+- 第 1 次嘗試保留既有 `task/13` worktree，未 checkout、建分支或 reset。當時 `git fetch origin` 退出 0；建置時 HEAD 與 origin/main 相同，包含 T014 的 PR #14 合併。
+- 第 1 次嘗試新增本報告；第 2 次依退回意見補齊 `docs/REPORT.md` 的 T015／Issue #13 結果、報告連結與下一步，並同步修正本報告的交付說明。引擎來源、lock 與入口均未修改。
 - worktree 原無 `engine/assets` 與 `engine/vendor`：在 worktree 新建 `engine/assets` junction，指向原專案的 `engine/assets`，供本次驗證唯讀存取。原專案既有 junction 與封存內容未修改；未複製 pak/map/sprite。
 - 將原專案的離線 `microsoft.web.webview2.1.0.4258.31.nupkg` 複製到 worktree 的 `engine/vendor/`。保留原 NuGet.Config；未改用線上套件來源，未安裝軟體。
 - 沙箱初始化回報 `helper_unknown_error: setup refresh had errors`，改用獲准的提升權限命令。PATH 在單次命令中加入既有 Python312；未修改全域環境。
@@ -22,6 +22,15 @@
 建置來源 commit：`e32fe7bcce38ddc03f7151fd7278190263078155`。
 
 建置開始：2026-11-04T18:31:03.378903+08:00；建置結束：2026-11-04T18:31:20.902733+08:00；check-only 完成：2026-11-04T18:32:04.092257+08:00。
+
+## 第 2 次補件核對
+
+本次退回原因為文件交付缺漏；前次審查已核對建置證據通過。本次沿用第 1 次嘗試的實際建置與 check-only 結果，未再次執行建置或 check-only；下列命令、時間、JSON 與產物清單皆屬第 1 次執行。
+
+- `git fetch origin` 退出 0；補件前 HEAD／origin/task/13 均為 `92d45b81e9b98f8efcb86aa6418cad1c36b26486`，origin/main 仍為建置來源 `e32fe7bcce38ddc03f7151fd7278190263078155`。兩者差異僅為本報告，建置輸入沒有變更。
+- 重新唯讀核對報告中的 27 筆大小／SHA-256 紀錄，全部吻合；check-only、receipt、result 三份 JSON 與本機原檔全文一致（僅統一換行及結尾空白）。頂層建置、check-only 與五個建置子命令的既有退出碼皆為 0。
+- 已補齊 `docs/REPORT.md` 的 T015 結果與報告連結，將 Issue #7 的 junction 阻塞／待重跑敘述更新為 T014 修正、T015 建置與 check-only 通過；保留根入口仍為 r33 與原生實機驗收待使用者執行的界線。
+- 本次只提交兩份文件；receipt 與二進位保留本機。未將 T014 PR #14 的 CI 結果算作 task/13 的 CI。
 
 ## 怎麼驗證／已驗證
 
@@ -198,7 +207,8 @@ Receipt 完整內容：
 
 ## 產出路徑
 
-- `docs/reports/issue-13.md`：本報告，唯一提交檔案；docs/REPORT.md 保持不變。
+- `docs/reports/issue-13.md`：完整建置證據與第 2 次補件紀錄，納入提交。
+- `docs/REPORT.md`：T015／Issue #13 結果索引、報告連結及更新後的下一步，納入提交。
 - `scratch/issue-13/build-command.json`、`build.stdout`、`build.stderr`：頂層建置命令、時間、退出碼與完整輸出。
 - `scratch/issue-13/check-only-command.json`、`check-only.stdout`、`check-only.stderr`：check-only 命令、退出碼及完整 JSON。
 - `scratch/issue-13/rebuild/`：SDK／restore／build 子命令 argv、退出碼、stdout／stderr 與 result.json。
@@ -207,4 +217,4 @@ Receipt 完整內容：
 
 ## 給下一棒的提示
 
-由調度器／Claude 審閱 `task/13` 的本報告並確認 T015 驗收；合併後由調度器更新 docs/REPORT.md 索引。本輪已通過完整建置與 r35 check-only，可接續安排 M1／T011 的原生實機驗收，由使用者依既有 N01 核對表執行；不要將本次 checked-only 當成登入、畫面或遊戲流程通過。測試產物仍在 task/13 worktree；合併報告不會搬移二進位產物或切換正式入口，且素材引用仍依賴原專案的本機 assets。
+由調度器／Claude 審閱 `task/13` 的本報告與已更新的 `docs/REPORT.md`，確認第 2 次補件符合 T015 驗收，再交使用者合併。本輪已通過完整建置與 r35 check-only，可接續安排 M1／T011 的原生實機驗收，由使用者依既有 N01 核對表執行；不要將本次 checked-only 當成登入、畫面或遊戲流程通過。測試產物仍在 task/13 worktree；合併報告不會搬移二進位產物或切換正式入口，且素材引用仍依賴原專案的本機 assets。
