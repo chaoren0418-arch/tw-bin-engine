@@ -29,6 +29,7 @@
 - CI：`.github/workflows/build.yml` 在 windows-latest 上 `dotnet build`，用 `.github/nuget.ci.config`（nuget.org）；本機 `engine/NuGet.Config` 仍是離線 `vendor`。
 - 素材：`engine/assets` 是指向 `releases/r28` 的唯讀 junction；遊戲資源一律引用 `D:\lineage開發\0-客戶端`，**不得複製 pak/map/sprite 進本專案**。
 - 資料庫（MySQL）由使用者管理；AI 不查詢、不更改、不啟停 DB 或服務。
+  - **例外（使用者 2026-11-05 授權，只限 `dot`）**：P24Lab 實驗環境（`D:\P24Lab-ClientEngine`、MySQL `127.0.0.1:43324`、伺服器 port `42061`）的啟停與維護由 `dot` 自行安排，包含為了開服清掉孤兒限時紀錄。改 DB 前必須先把目前狀態完整備份（放 P24Lab 自己的備份目錄），只做開服需要的最小修改，結果寫進 Issue 的 RESULT。其他 AI（Cursor、Codex 雲端、Claude）仍不可碰；正式伺服器（port 2000）與正式 MySQL（3306）任何人都不可碰。
 
 ## 目錄
 | 路徑 | 用途 | git |
