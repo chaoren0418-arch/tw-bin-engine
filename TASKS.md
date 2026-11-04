@@ -27,17 +27,22 @@ GitHub Actions 在 windows-latest 上 `dotnet build engine/source/OfflineClient.
 ### T013–T015 | done | codex-local／Cursor | Issue #7、#12、#13
 T013 本機 r35 完整建置發現 `engine/assets` junction 被核驗拒絕 → T014 改為字面路徑檢查（PR #14）→ T015 重跑完整建置與 check-only 皆 exit 0。
 
+### T006 | todo | Cursor | `engine/source/*.csproj`, `engine/audio/*.csproj`, `engine/launcher/*.csproj`, 新 lock r36
+位元可重現建置：設定 `Deterministic`、`ContinuousIntegrationBuild`／`PathMap`、`IncludeSourceRevisionInInformationalVersion=false`，讓不同目錄、不同 commit（engine 無差異時）建出相同 SHA-256。csproj 在 lock 內，需同時產生 r36 lock。
+驗收：本機兩個不同目錄各建一次，productDll／launcherDll SHA-256 相同。優先序低於 M1。
+
 ## M1 真機基線（使用者操作，Claude 準備）
 
-### T016 | doing | codex-local | Issue #19
+### T016 | done | codex-local | Issue #19
 在本機**主專案目錄**（非 worktree）建出 r35 並 `--check-only`，作為 T011 真機驗收的版本。
 驗收：兩個指令 exit 0；報告 `docs/reports/issue-16.md` 列出真機要跑的確切路徑。
+結果：通過（主專案已更新至 `20dedf6`）。產物 SHA-256 與 #13 不同，至少一部分原因是 AssemblyInformationalVersion 嵌入了 git commit → 見 T006。
 
 ### T010 | done | Claude | `docs/native-baseline/CHECKLIST.md`（新建）
 N01 流程逐步核對表：每步要截圖什麼、看哪個 server 回包、預期值；附失敗時要收集的 log 路徑。
 驗收：使用者能照表獨立操作。
 
-### T011 | blocked(T016) | 使用者 | `docs/native-baseline/r35.md`
+### T011 | doing（Issue #23，needs:user） | 使用者 | `docs/native-baseline/r35.md`
 用 r35 建置跑完 N01：登入→選角→移動→攻擊→技能 1/3/4/8→道具／裝備→能力點→存檔→重登。
 驗收：每步有截圖與結果；失敗項各開一個 T1xx bug 任務。
 
