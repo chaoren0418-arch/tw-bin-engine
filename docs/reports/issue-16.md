@@ -10,6 +10,17 @@
 
 ## 做了什麼／已驗證
 
+### 本次複查（2026-11-04 19:21，UTC+08:00）
+
+- 從既有報告提交 `b396e23128b65607d453f28a2c8f7089defac2b5` 續查；開始時 worktree 乾淨，分支與遠端均為 `task/19`，未 checkout 或建立分支。
+- 主目錄仍為 `task/7`、HEAD `fdf40cb94c79d27e2b9049da0c958756adca078e`。`git status --porcelain` 退出 0，仍只列出 `?? engine/_integration/r35/receipt.json`；另以 `--untracked-files=no` 複查，退出 0、stdout 空。
+- 重新讀取兩處 AGENTS.md、docs/REPORT.md、worktree TASKS.md 與 task-13 的報告；TASKS.md 沒有 T015／T016。主目錄 assets junction 目標、WebView2 nupkg 的存在及大小均與下列紀錄相同。
+- 重新計算下表四個既有檔案的大小與 SHA-256，全部與本報告相同；product／launcher DLL 仍與 #13 不一致。已重新讀取主目錄入口與舊 receipt，沒有執行入口。
+- 本次一般命令與 Node 工具仍遇到同一沙箱初始化故障；提升權限唯讀檢查獲准。已再次提出主目錄寫入範圍的確認問題，尚未收到允許；更新、建置及 check-only 仍未執行，沒有新增驗收 JSON。
+- `git ls-remote --heads origin refs/heads/task/19` 退出 0，複查前遠端為 `b396e23128b65607d453f28a2c8f7089defac2b5`。此次只更新既有兩份報告，不改 `docs/REPORT.md`。
+
+### 原檢查紀錄
+
 - 已讀取 worktree 及主目錄的 `AGENTS.md`、`docs/REPORT.md`。查詢 worktree `TASKS.md` 未找到 T015／T016，依本次指派範圍處理。
 - 主目錄：`D:\lineage開發\TW1608262200研究`；目前分支 `task/7`，HEAD `fdf40cb94c79d27e2b9049da0c958756adca078e`。
 - 報告 worktree：`D:\lineage開發\TW1608262200研究\scratch\wt\task-19`；開始時分支 `task/19`，HEAD `20dedf6b12f03128742b1366a14483bb7b36f146`，工作區乾淨。
