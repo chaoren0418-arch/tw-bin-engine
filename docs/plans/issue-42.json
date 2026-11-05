@@ -1,0 +1,58 @@
+[
+  {
+    "id": "sfx-native-contract",
+    "title": "資源：核定 sprite 音效事件的原生派送語義",
+    "stage": "resource",
+    "priority": "P1",
+    "text": "runner: codex-local；workdir: project。範圍：依 docs/design/sfx-and-ground-items.md 核對技能 1/3/4/8 的效果 11722/221/167/2165 與近戰 gfx/weapon/action 的原始事件；只讀原客戶端、engine/assets 與 repo/work 的合法靜態證據。驗收：交付來源 SHA、明確 File Offset/RVA/VA 與版本對映；證明 [、<、!、多候選選擇、首次進幀/重播/飛行/受擊的規則，建立可重現的 qualified binding 清單與 WAV pins；不能將全候選組一律播放。現有磁碟 BIN 有 Themida section，若既有靜態證據不足須回報缺件並阻擋依賴，不啟動/附加遊戲取得 dump。禁止改產品、連 DB/服務、播放或猜補未知數值。禁止修改正式 BIN、正式客戶端、封存 release、硬連結、唯讀 engine/assets junction、docs/REPORT.md 或既有封存 lock；不得複製 pak/map/sprite 入 repo；暫存只進 scratch，建置只用既定輸出目錄。",
+    "depends_on": []
+  },
+  {
+    "id": "ground-native-contract",
+    "title": "資源：核定 S87 地面物品分類與 gfx 資料契約",
+    "stage": "resource",
+    "priority": "P1",
+    "text": "runner: codex-local；workdir: project。範圍：只讀原客戶端、engine/assets、repo/work，追查 S87 gfx lookup、102.type 到原生分類表/object factory/拾取判斷，核對金幣 gfx 7 與 3247 及肉/箭/藥水原圖來源。驗收：以同身份靜態 BIN 或已封存於允許 work 的證據列 SHA 與 File Offset/RVA/VA；提供 type9 是否足夠及例外、alias/數量外觀規則、必要 sprite/frame/source pins；本輪 3247-0.spr 未在 17 個索引找到，必須核實而非借圖；判別可辨識/可顯示/可拾取各自條件。原生鏈未證實必須保留 unknown，禁止單靠名稱猜 species/type。禁止改產品、啟動/附加遊戲、接觸 DB/伺服器。禁止修改正式 BIN、正式客戶端、封存 release、硬連結、唯讀 engine/assets junction、docs/REPORT.md 或既有封存 lock；不得複製 pak/map/sprite 入 repo；暫存只進 scratch，建置只用既定輸出目錄。",
+    "depends_on": []
+  },
+  {
+    "id": "ground-server-contract",
+    "title": "資源：核對原服金幣與可疊加物品的靜態模板及封包格式",
+    "stage": "resource",
+    "priority": "P1",
+    "text": "runner: dot；workdir: project。本項是後續獨立任務，非授權 T045 讀取伺服器。範圍：使用合法的 P24Lab 既有靜態 JAR/來源/模板匯出及去識別證據，核對金幣、肉、箭、治癒/綠/白藥水、回家卷的 ground gfx、name token/數量後綴、inventory desc/icon/useType、stackable、可丟棄/裝備/綁定限制、count 上限與 C25/C112/S87/背包回覆格式。驗收：每個 adopted row 有來源 SHA、精確列/欄或 bytecode offset；辨別 template ID 與 wire ObjectId，金幣 7/3247 的採用以證據決定；提供可重播且明示來源的最小 fixture，含非物品/拒絕案例。不以合成 UI fixture 當原服資料；缺件回報 needs:local，不臆造數值。本項不啟停服務、不連任何 DB、不更改伺服器/角色/地圖，不讀 config/server.properties 或機密。禁止修改正式 BIN、正式客戶端、封存 release、硬連結、唯讀 engine/assets junction、docs/REPORT.md 或既有封存 lock；不得複製 pak/map/sprite 入 repo；暫存只進 scratch，建置只用既定輸出目錄。",
+    "depends_on": []
+  },
+  {
+    "id": "combat-sfx",
+    "title": "實作：技能與攻擊音效依原始事件派送",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: codex-local；workdir: project。前置 sfx-native-contract 必須 qualified；只實作其核定範圍，未解語義不套固定延遲或隨機猜值。範圍：engine/source 的 ObjectAssets、Magic/Combat 事件進度與音訊接線，engine/audio 的受 pin catalog 載入，必要的新 Resources manifest 與離線回歸；從原客戶端 Sound 唯讀載入，不改 assets junction。驗收：技能 1/3/4/8 及已核定外觀/武器 attack、目標 damage 的 ID/時機正確；重繪不重播、權威 action/effect 實例只消費一次、換圖/死亡/斷線/過期 owner 取消、靜音/音量/缺檔/hash mismatch/fallback/voice cleanup 有可觀測結果，Effect6016 回歸不變；光箭飛行與 impact 分開處理。明示離線測試非實機可聽證據；建置 dev 並附驗證報告。不改戰鬥傷害/命中/伺服器權威或 unrelated 動作時序，不啟動遊戲/服務/DB。禁止修改正式 BIN、正式客戶端、封存 release、硬連結、唯讀 engine/assets junction、docs/REPORT.md 或既有封存 lock；不得複製 pak/map/sprite 入 repo；暫存只進 scratch，建置只用既定輸出目錄。",
+    "depends_on": [
+      "sfx-native-contract"
+    ]
+  },
+  {
+    "id": "ground-items",
+    "title": "實作：資料表地面物品丟撿與金幣數量輸入",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: codex-local；workdir: project。前置 ground-native-contract 與 ground-server-contract 的採用列與來源須核定；資料不足不得直接放寬所有物件。範圍：engine/source Ground、GroundRendering、GroundUi、Inventory 身份、相關 hit-test/Web 接線與 engine/web 地面/數量 UI，新增可寫 Resources catalog 與必要來源資產讀取/產生；只採原資料，有完整身份與圖像證據才啟用該物品。驗收：從同一 catalog 推導 Droppable/IsGround/繪圖/選取；金幣與前置核定的其他 stackable 可手動輸入 1/N 數量，WinForms/Web 行為一致；零/負/小數/溢位/超額/過期選取/送出前數量改變拒絕；綁定/裝備/非物品同名或同 gfx 不誤收；C25/C112 wire 與權威 S87/背包更新一致、不預扣、不以拾取動畫當數量成功。保留900ms/3000ms、距離、交易/死亡及 owner lease 防護；肉/箭回歸、真實圖像缺件有明確結果。建置 dev、以來源 fixture 做離線回歸。禁止猜金幣 gfx、借肉圖、改封包追蹤洩漏 raw payload、啟動遊戲/服務/DB。禁止修改正式 BIN、正式客戶端、封存 release、硬連結、唯讀 engine/assets junction、docs/REPORT.md 或既有封存 lock；不得複製 pak/map/sprite 入 repo；暫存只進 scratch，建置只用既定輸出目錄。",
+    "depends_on": [
+      "ground-native-contract",
+      "ground-server-contract"
+    ]
+  },
+  {
+    "id": "native-retest",
+    "title": "補測：dot 驗收技能/攻擊聲音、金幣丟撿及固定目標 06",
+    "stage": "test",
+    "priority": "P1",
+    "text": "runner: dot；workdir: project。前置兩項 code 已審核整合並有可重現 dev 建置；先核對目前 source/build SHA 與 check-only，再依既有明確 P24Lab 授權操作實驗環境。本項只真機補測，不修改產品。驗收：06 使用不會移動、可穩定受擊的合法實驗目標，記錄身份/位置/距離與目標 HP 差或死亡，不拿 C229/S30 或 DamageWord 單獨當傷害證據；目標不具備便回報測試前置不足，禁止任意更改 NPC/正式角色。07 技能1/3/4/8逐一有施放/效果及正確聲音ID；10 金幣以起始持有量 B 驗 B→B-1→B、N數量、取消/超額阻擋及至少一種其他已核定疊加物，對照真實地面/背包；15 未靜音/靜音/取消靜音比較新增 host dispatch、Playback、聲音/峰值，PlaySubmitted 與實際可聽分開記錄。截圖與 trace 僅依既有隱私範圍（op/長度/時間）收證，禁止假圖或合成結果冒充實機。產出最新版 docs/reports 與證據 manifest，列已驗證/待驗證及本輪程序收尾。不得碰正式 port2000/3306 或機密設定；服務/DB維護僅限 dot 已有授權，沒有必要不改 DB，若需要修改須遵守先完整備份與最小修改規則。禁止修改正式 BIN、正式客戶端、封存 release、硬連結、唯讀 engine/assets junction、docs/REPORT.md 或既有封存 lock；不得複製 pak/map/sprite 入 repo；暫存只進 scratch，建置只用既定輸出目錄。",
+    "depends_on": [
+      "combat-sfx",
+      "ground-items"
+    ]
+  }
+]
