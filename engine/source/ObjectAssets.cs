@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 namespace P06;
-public sealed record AnimationStep(string Key,int Ticks,int? Milliseconds=null);
+public sealed record AnimationStep(string Key,int Ticks,int? Milliseconds=null,string Events="");
 public sealed class ObjectAppearance {
     public int Gfx {get;}
     public int Sprite {get;}
@@ -14,7 +14,7 @@ public sealed class ObjectAppearance {
         var j=Json.Read(path);int effectTileType=j.TryGetProperty("effectTileType",out var blend)?blend.GetInt32():2;if(effectTileType is not (2 or 6 or 18 or 34))throw new InvalidDataException("Unsupported effect blend");Gfx=j.I("gfx");Sprite=j.I("sprite");StepMs=j.I("stepMs");
         if(j.TryGetProperty("actionMs",out var durations))foreach(var a in durations.EnumerateObject())ActionMs[a.Name]=a.Value.GetDouble();
         foreach(var f in j.GetProperty("frames").EnumerateArray())Frames.Add(f.S("key"),new(f.S("key"),f.A("bounds"),f.GetProperty("blocks").EnumerateArray().Select(b=>new Block(b.I("a"),b.I("b"),b.I("z"),b.I("source_order"),new(effectTileType,b.GetProperty("pixels").EnumerateArray().Select(p=>{var v=p.EnumerateArray().Select(x=>x.GetInt32()).ToArray();return new Pixel(v[0],v[1],(ushort)v[2]);}).ToArray()))).ToArray()));
-        foreach(var s in j.GetProperty("sequences").EnumerateArray())Sequences.Add((s.S("action"),s.I("direction")),s.GetProperty("sequence").EnumerateArray().Select(t=>new AnimationStep(t.S("key"),t.I("ticks"),t.TryGetProperty("milliseconds",out var ms)?ms.GetInt32():null)).ToArray());
+        foreach(var s in j.GetProperty("sequences").EnumerateArray())Sequences.Add((s.S("action"),s.I("direction")),s.GetProperty("sequence").EnumerateArray().Select(t=>new AnimationStep(t.S("key"),t.I("ticks"),t.TryGetProperty("milliseconds",out var ms)?ms.GetInt32():null,t.TryGetProperty("events",out var events)?events.GetString()??"":"")).ToArray());
         if(StepMs<=0||Sequences.Count<8||Sequences.Count%8!=0||Sequences.Values.Any(s=>s.Length==0||s.Sum(t=>t.Ticks)<=0||s.Any(t=>t.Ticks<0||!Frames.ContainsKey(t.Key))))throw new InvalidDataException("object animation cache invalid");
     }
     public Frame At(string action,int direction,double elapsed){var seq=Sequences[(action,direction)];if(seq.All(s=>s.Milliseconds!=null)){double length=seq.Sum(s=>s.Milliseconds!.Value),age=action=="breath"?elapsed%length:Math.Clamp(elapsed,0,length-.00001);foreach(var s in seq){if(age<s.Milliseconds!.Value)return Frames[s.Key];age-=s.Milliseconds.Value;}return Frames[seq[^1].Key];}double total=seq.Sum(s=>s.Ticks);double t=action!="breath"?Math.Clamp(elapsed/Duration(action),0,.999999)*total:(elapsed/(1000d/24))%total;foreach(var s in seq){if(t<s.Ticks)return Frames[s.Key];t-=s.Ticks;}return Frames[seq[^1].Key];}

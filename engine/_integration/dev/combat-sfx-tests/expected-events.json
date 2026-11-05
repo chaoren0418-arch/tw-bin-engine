@@ -1,0 +1,877 @@
+{
+  "sourceCommit": "7cffcd245efe5f46105220b888c4cbe77ad48876",
+  "sourceEvidenceSha256": "64691858b688ec1f0e5b5589e5d0301fe66bf5699fc647f43dfd48568bb1c57b",
+  "sourceTxtSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+  "actions": [
+    {
+      "gfx": 0,
+      "weapon": 0,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[1539"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "weapon": 0,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1537[1538"
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "weapon": 4,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "rawEvents": "[248[703[701"
+        },
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "weapon": 4,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1537[1538"
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "weapon": 46,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[1513[1517"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "weapon": 46,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1537[1538"
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "weapon": 50,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[1540[1541"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "weapon": 50,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1537[1538"
+        }
+      ]
+    },
+    {
+      "gfx": 1,
+      "weapon": 0,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "[246"
+        },
+        {
+          "sequenceIndex": 6,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 1,
+      "weapon": 0,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1546[1547"
+        }
+      ]
+    },
+    {
+      "gfx": 1,
+      "weapon": 4,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "rawEvents": "[248[703[701"
+        },
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 1,
+      "weapon": 4,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1546[1547"
+        }
+      ]
+    },
+    {
+      "gfx": 1,
+      "weapon": 50,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[1540[1541"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 1,
+      "weapon": 50,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1546[1547"
+        }
+      ]
+    },
+    {
+      "gfx": 37,
+      "weapon": 0,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[1562"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 37,
+      "weapon": 0,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1560[1561"
+        }
+      ]
+    },
+    {
+      "gfx": 37,
+      "weapon": 4,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "[248[703[701"
+        },
+        {
+          "sequenceIndex": 6,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 37,
+      "weapon": 4,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1560[1561"
+        }
+      ]
+    },
+    {
+      "gfx": 48,
+      "weapon": 0,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[1575"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 48,
+      "weapon": 0,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1574[904"
+        }
+      ]
+    },
+    {
+      "gfx": 48,
+      "weapon": 4,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[248[703[701"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 48,
+      "weapon": 4,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1574[904"
+        }
+      ]
+    },
+    {
+      "gfx": 48,
+      "weapon": 50,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[1540[1541"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 48,
+      "weapon": 50,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1574[904"
+        }
+      ]
+    },
+    {
+      "gfx": 61,
+      "weapon": 0,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "rawEvents": "[1569"
+        },
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 61,
+      "weapon": 0,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1567[1568"
+        }
+      ]
+    },
+    {
+      "gfx": 61,
+      "weapon": 4,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[248[703[701"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 61,
+      "weapon": 4,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1567[1568"
+        }
+      ]
+    },
+    {
+      "gfx": 61,
+      "weapon": 50,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[1540[1541"
+        },
+        {
+          "sequenceIndex": 6,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 61,
+      "weapon": 50,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1567[1568"
+        }
+      ]
+    },
+    {
+      "gfx": 734,
+      "weapon": 0,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[1582"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 734,
+      "weapon": 0,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1580[1581"
+        }
+      ]
+    },
+    {
+      "gfx": 734,
+      "weapon": 4,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[248[703[701"
+        },
+        {
+          "sequenceIndex": 6,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 734,
+      "weapon": 4,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1580[1581"
+        }
+      ]
+    },
+    {
+      "gfx": 1186,
+      "weapon": 0,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[246"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 1186,
+      "weapon": 0,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[405[904"
+        }
+      ]
+    },
+    {
+      "gfx": 1186,
+      "weapon": 4,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "[248[703[701"
+        },
+        {
+          "sequenceIndex": 6,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 1186,
+      "weapon": 4,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[405[904"
+        }
+      ]
+    },
+    {
+      "gfx": 2786,
+      "weapon": 0,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[1520"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 2786,
+      "weapon": 0,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1521[904"
+        }
+      ]
+    },
+    {
+      "gfx": 2786,
+      "weapon": 4,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "rawEvents": "[248[701"
+        },
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 2786,
+      "weapon": 4,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1521[904"
+        }
+      ]
+    },
+    {
+      "gfx": 2796,
+      "weapon": 0,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "[1520"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 2796,
+      "weapon": 0,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1522[904"
+        }
+      ]
+    },
+    {
+      "gfx": 2796,
+      "weapon": 4,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "rawEvents": "[248[701"
+        },
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 2796,
+      "weapon": 4,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "[1522[904"
+        }
+      ]
+    },
+    {
+      "gfx": 6650,
+      "weapon": 0,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "rawEvents": "<4803"
+        },
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "<4804<4806<1340"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 6650,
+      "weapon": 0,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "<1759<1953<1771"
+        },
+        {
+          "sequenceIndex": 2,
+          "rawEvents": "<4807<4808"
+        }
+      ]
+    },
+    {
+      "gfx": 6658,
+      "weapon": 0,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 2,
+          "rawEvents": "<4774<4775<1340"
+        },
+        {
+          "sequenceIndex": 3,
+          "rawEvents": "<4773"
+        },
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 6658,
+      "weapon": 0,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "<1759<1953<1771"
+        },
+        {
+          "sequenceIndex": 2,
+          "rawEvents": "<4777<4778"
+        }
+      ]
+    },
+    {
+      "gfx": 6658,
+      "weapon": 4,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 2,
+          "rawEvents": "<1340<1340<4774"
+        },
+        {
+          "sequenceIndex": 3,
+          "rawEvents": "<1635<1649<4183"
+        },
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 6658,
+      "weapon": 4,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "<1759<1953<1771"
+        },
+        {
+          "sequenceIndex": 2,
+          "rawEvents": "<4777<4778"
+        }
+      ]
+    },
+    {
+      "gfx": 6658,
+      "weapon": 50,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 2,
+          "rawEvents": "<4774<1340<1340"
+        },
+        {
+          "sequenceIndex": 3,
+          "rawEvents": "<4799"
+        },
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 6658,
+      "weapon": 50,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "<1759<1953<1771"
+        },
+        {
+          "sequenceIndex": 2,
+          "rawEvents": "<4777<4778"
+        }
+      ]
+    },
+    {
+      "gfx": 6661,
+      "weapon": 0,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "rawEvents": "<4790<4792<1340"
+        },
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "<4789"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 6661,
+      "weapon": 0,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "<1759<1953<1771"
+        },
+        {
+          "sequenceIndex": 2,
+          "rawEvents": "<4794<4795"
+        }
+      ]
+    },
+    {
+      "gfx": 6661,
+      "weapon": 4,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "rawEvents": "<4790<1340<1340"
+        },
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "<1635<1649<4183"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 6661,
+      "weapon": 4,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "<1759<1953<1771"
+        },
+        {
+          "sequenceIndex": 2,
+          "rawEvents": "<4794<4795"
+        }
+      ]
+    },
+    {
+      "gfx": 6661,
+      "weapon": 50,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "rawEvents": "<4791<1340<1340"
+        },
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "<4799"
+        },
+        {
+          "sequenceIndex": 5,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 6661,
+      "weapon": 50,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "<1759<1953<1771"
+        },
+        {
+          "sequenceIndex": 2,
+          "rawEvents": "<4794<4795"
+        }
+      ]
+    },
+    {
+      "gfx": 6671,
+      "weapon": 0,
+      "label": "attack",
+      "events": [
+        {
+          "sequenceIndex": 2,
+          "rawEvents": "<4817<4818<1340"
+        },
+        {
+          "sequenceIndex": 3,
+          "rawEvents": "<4816"
+        },
+        {
+          "sequenceIndex": 4,
+          "rawEvents": "!"
+        }
+      ]
+    },
+    {
+      "gfx": 6671,
+      "weapon": 0,
+      "label": "damage",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "rawEvents": "<1759<1953<1771"
+        },
+        {
+          "sequenceIndex": 2,
+          "rawEvents": "<4821<4822"
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,10 @@
 using System.Buffers.Binary;
 namespace P06;
-public sealed record CombatAnimation(int Action,long At,bool Predicted){public ActionCadence? Timing{get;init;}}
+public sealed record CombatAnimation(int Action,long At,bool Predicted){
+    static long nextInstance;
+    public long Instance {get;}=Interlocked.Increment(ref nextInstance);
+    public ActionCadence? Timing{get;init;}
+}
 public sealed record AttackReport(long Number,uint Attacker,uint Target,int Action,ushort DamageWord,int Heading,ushort X,ushort Y,int Flags);
 public sealed record ProjectileReport(long Number,uint Attacker,uint Target,int Gfx,int Heading,ushort SourceX,ushort SourceY,ushort TargetX,ushort TargetY,long At,ushort DamageWord=0,ushort CasterGfx=0){public ActionCadence? Timing{get;init;}public long? ActionAt{get;init;}}
 public static class CombatRules {

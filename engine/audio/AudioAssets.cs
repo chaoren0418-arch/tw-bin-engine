@@ -6,6 +6,27 @@ namespace P24.Audio;
 internal sealed record AssetPin(int Id, string Extension, string RelativePath, long? Size, string? Sha256);
 internal sealed class AudioAssets(string root, IReadOnlyList<AssetPin> pins)
 {
+    internal bool Allows(int id) => pins.Any(p => p.Id == id);
+    internal string[] Formats(int id) => pins.Where(p => p.Id == id).Select(p => p.Extension).OrderBy(e => e == "mp3" ? 0 : 1).ToArray();
+    internal static AudioAssets LoadCombat(string clientRoot)
+    {
+        using var stream = typeof(AudioAssets).Assembly.GetManifestResourceStream("P24.Audio.CombatSfxPins.json")
+            ?? throw new InvalidDataException("Missing combat sound pins");
+        using var doc = JsonDocument.Parse(stream);
+        var pins = doc.RootElement.GetProperty("wavPins").EnumerateArray().Select(row =>
+        {
+            int id = row.GetProperty("id").GetInt32();
+            string path = row.GetProperty("path").GetString()!;
+            long size = row.GetProperty("size").GetInt64();
+            string sha = row.GetProperty("sha256").GetString()!;
+            if (id <= 0 || path != $"Sound/{id}.wav" || size <= 0 || sha.Length != 64 || !sha.All(Uri.IsHexDigit))
+                throw new InvalidDataException("Combat sound pin");
+            return new AssetPin(id, "wav", path, size, sha);
+        }).ToArray();
+        if (pins.Length != 33 || pins.Select(p => p.Id).Distinct().Count() != 33)
+            throw new InvalidDataException("Require all 33 issue-47 WAV pins");
+        return new(Path.GetFullPath(clientRoot), pins);
+    }
     internal static AudioAssets Load(string root, string manifestSha256)
     {
         root = Path.GetFullPath(root);
