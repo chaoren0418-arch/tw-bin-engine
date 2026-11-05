@@ -73,7 +73,11 @@ python -B -X utf8 engine/_integration/dev/rebuild.py --verify --output scratch/i
 - 由 #52 核對技能 1／3／4／8、不同武器 attack、不同目標 damage、光箭飛行與 impact 的實際可聽結果及時序。
 - 核對多候選隨機擇一、忽略非 `[` 尾綴這兩項產品政策，以及連續攻擊、聲音重疊、換圖、死亡、斷線、音量和靜音的體感。
 - 實際 DirectShow 裝置、音效輸出與原生 parity 待驗。本輪執行純離線程式與 fake driver，遊戲／服務／DB 執行次數為 0，實際音訊播放次數為 0。
-- 跨機器乾淨建置及 GitHub CI 交由 PR 審查接續。
+- 跨機器乾淨建置待驗。PR #65 的 GitHub CI 已確認受 #62 帳務／額度問題阻塞，詳見下節。
+
+## GitHub CI 阻塞
+
+PR #65 已建立。2026-11-05 的 run `42016590980`、job `127208539949` 在 commit `9bb181547b67c3b6681129ec86b95d8fafd3d62a` 回報 failure。GitHub API 顯示 `runner_id=0`、`runner_name` 為空、`steps=[]`。Annotation 明確指出近期帳款失敗或 spending limit 需要提高，須檢查 Billing & plans。這與既有 #62 的 runner 啟動阻塞一致，交調度器／Claude 接續處理。[失敗工作](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42016590980/job/127208539949)
 
 ## 產出路徑
 
