@@ -24,3 +24,4 @@
 - 2026-11-05 — #34 T041: 選用的客戶端封包追蹤（只記 opcode／長度／時間），供真機補測取證（code，codex-local，PR 已合併）→ [報告](reports/issue-34.md)
 - 2026-11-05 — #38 T043: 本機主專案同步 main 並建置 dev（T042 真機補測的前置）（test，codex-local，PR #40 已合併）→ [報告](reports/issue-38.md)
 - 2026-11-05 — #37 T042: 局部真機補測（04/05 移動、06 近戰、07 技能4、10 拾取、15 聲音），開封包追蹤（test，dot，對話完成）→ [報告](reports/issue-37.md)
+- 2026-11-05 — #42 T045: 設計——攻擊／技能音效與一般地面物品（金幣）所需的原客戶端資料（design，codex-local，PR #46 已合併）→ [報告](reports/issue-42.md)
