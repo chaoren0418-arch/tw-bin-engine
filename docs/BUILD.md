@@ -107,7 +107,7 @@ powershell -File engine/build-product.ps1
 engine\啟動新版客戶端.cmd --check-only
 ```
 
-預期 JSON 含 `status: checked-only`、`revision: dev`、`uiStarted: false`、`networkStarted: false`、`servicesStarted: false`（見 `docs/native-baseline/CHECKLIST.md`）。缺 `engine\launcher\P24.Launcher.exe` 時這支也是 exit 2。
+依 dev launcher 原始碼，預期 JSON 含 `status: checked-only`、`revision: dev`、`uiStarted: false`、`networkStarted: false`、`servicesStarted: false`。M1 的 `docs/native-baseline/CHECKLIST.md` 仍針對凍結的 r35。缺 `engine\launcher\P24.Launcher.exe` 時這支也是 exit 2。
 
 資料庫與遊戲伺服器由使用者自行管理；這三條指令都不會動它們。
 

@@ -23,16 +23,19 @@
 | 修改後 r35 lock 全部 190 個 pin 比對 | 唯一漂移為 `build-product.ps1`，其餘 189 個輸入一致 |
 | 禁止修改範圍的 `git diff --exit-code` | exit 0；r33/r34/r35、source/audio/web、releases、project-manifest.json、根入口、docs/REPORT.md 皆未改 |
 | `git diff --check` | 通過 |
+| Windows CI（實作提交 `17e069d`） | [run 41955951425](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/41955951425) 全部成功；Release build 與 dev canonical build 均通過 |
 
 dev lock SHA-256：`3d52ef60877d6a26cd1daa8d6e28cd613bd51c554b9ad4c5426395fbd8f761b2`。
+
+CI canonical 日誌記錄 `sdk 0`、`product-restore 0`、`product-build 0`、`launcher-restore 0`、`launcher-build 0` 與 `PASS dev`。產品 DLL SHA-256：`645aca6b11fba850f9503dffc8d81e290c6398b93a04e0970c5e0571a2c37dbd`；launcher DLL：`8fb2babb077789d753661d422c949648a03a5a2707b7513c3e6126ef7ebb34a5`。
 
 測試的最小 fake tree 僅用於建置流程測試，存於本 worktree 的 `scratch/issue-31-rebuild-paths/` 並由測試清理，不是遊戲功能證據。另以 `scratch/issue-31-verify.py` 核對真實 lock 的來源、路徑與漂移。
 
 ## 驗收矛盾與未驗證什麼
 
 1. **無法同時滿足「r35 不動」、「建置入口改 dev」及「本 PR tree 上 r35 核驗 exit 0」。** r35 lock 本來就釘住 `engine/build-product.ps1`（原 SHA-256 `ef5b0ee27b6ae43d1c050cd0171973b5eedbfb9184850ed27c78ebdfffbd2b3b`）。切換入口後，原封不動的 r35 腳本實際退出 2：`REFUSED: pin drift: .../engine/build-product.ps1`。沒有移除 pin、豁免核驗或改寫 r35；以修改前成功核驗、凍結目錄零差異、其餘 189 個 pin 一致證明基線未被修改。此項驗收條件需由 Claude 主控裁定修正。
-2. CI 執行結果待 PR 建立後補記。
-3. 依「其他步驟不動」限制，CI artifact 上傳仍讀 r35 receipt 與舊的 `evidence/ci/**`。dev receipt／ci-dev 證據不會由該步驟收集；建置成功仍可由 canonical 步驟日誌核對。建議主控另授權修正上傳路徑。
+2. [PR #32](https://github.com/chaoren0418-arch/tw-bin-engine/pull/32) 的實作提交已取得 CI 綠燈；後續補件僅更新文件與報告，建置輸入與 lock 未變。
+3. 依「其他步驟不動」限制，CI artifact 上傳仍讀 r35 receipt 與舊的 `evidence/ci/**`。該次 CI 實際印出 `No files were found with the provided path`；dev receipt／ci-dev 證據沒有被收集，建置成功由 canonical 步驟日誌核對。建議主控另授權修正上傳路徑。
 4. 未在本機執行完整 .NET 建置、launcher check-only 或原生遊戲流程；未操作 DB／服務，未讀寫機密設定、正式客戶端、封存或硬連結。原始專案目錄未寫入。
 
 ## 產出路徑
