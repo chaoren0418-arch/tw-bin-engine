@@ -29,3 +29,4 @@
 - 2026-11-05 — #48 ground-native-contract: 資源：核定 S87 地面物品分類與 gfx 資料契約（resource，codex-local，PR #59 已合併）→ [報告](reports/issue-48.md)
 - 2026-11-06 — #47 sfx-native-contract: 資源：核定 sprite 音效事件的原生派送語義（resource，dot，PR #61 已合併）→ [報告](reports/issue-47.md)
 - 2026-11-06 — #49 ground-server-contract: 資源：核對原服金幣與可疊加物品的靜態模板及封包格式（resource，dot，PR #64 已合併）→ [報告](reports/issue-49.md)
+- 2026-11-06 — #50 combat-sfx: 實作：技能與攻擊音效依原始事件派送（code，codex-local，PR #65 已合併）→ [報告](reports/issue-50.md)
