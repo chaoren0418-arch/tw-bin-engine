@@ -77,5 +77,17 @@
     "gameStarted": false,
     "network": false
   },
-  "totalAssertions": 722
+  "totalAssertions": 722,
+  "ci": {
+    "commit": "0a21d95e88b25305862c2d6a4538c6d92fcceb71",
+    "runId": 42019716859,
+    "jobId": 127219133592,
+    "status": "completed",
+    "conclusion": "failure",
+    "steps": [],
+    "logHttpStatus": 404,
+    "logError": "BlobNotFound",
+    "cause": "unknown; same observed symptoms as issue #62",
+    "handoffIssue": 62
+  }
 }

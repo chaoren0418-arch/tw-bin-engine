@@ -70,6 +70,10 @@ dotnet run --project engine/_integration/dev/packet-trace-tests/PacketTraceCheck
 
 ## 待真機（#52）
 
+已推送實作 commit `0a21d95` 並建立 [PR #66](https://github.com/chaoren0418-arch/tw-bin-engine/pull/66)。GitHub 顯示可合併、沒有內容衝突；尚未合併。
+
+**CI 待調度器處理**：[run 42019716859](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42019716859) 的 `dotnet` job `127219133592` 回報 failure，API 的 steps 為空陣列，job log 下載回 `404 BlobNotFound`；沒有可判讀的編譯／測試步驟結果。這與 [#62](https://github.com/chaoren0418-arch/tw-bin-engine/issues/62) 記錄的現象一致，但本次工具未提供 runner／帳務註記，**無法獨立確認付款或額度是原因**。不能把本機通過寫成 CI 綠燈，也不修改帳務、CI 或合併政策；交由 #62 的調度器接手。
+
 沒有啟動／附加既有遊戲、啟動服務或 DB，沒有連正式服務；沒有修改主專案 #50、正式 BIN／客戶端、封存 release／lock、機密設定或 `docs/REPORT.md`。WinForms／WebView2 的實際畫面、滑鼠體感與真實伺服器接受情況尚未驗證。
 
 給下一棒的提示：Claude／調度器先審查 catalog 交集、保守政策與離線結果，合併由使用者裁定。#52 由使用者執行真機驗收：
