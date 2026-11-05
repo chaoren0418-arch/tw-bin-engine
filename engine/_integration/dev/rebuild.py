@@ -3,15 +3,16 @@
 Modes
   (default)   verify that every pinned input file (source/audio/web/build inputs) matches rebuild-lock.json
   --update-lock    rescan inputs, write a deterministic dev lock, then verify it
-  --build     verify pins, then build the product + launcher once (Windows, .NET SDK from engine/global.json)
+  --build     verify pins, then build the Windows product + launcher once (.NET SDK from engine/global.json)
   --verify    verify pins and the existing build/client-product-dev output against receipt.json
   --write-receipt   after a successful --build, record DLL / manifest identities into receipt.json
 
 Differences from r33/r34
   * No supervisor acceptance ceremony, no CANONICAL path check: the repo root is derived from this file.
   * Product DLL identity is not pre-pinned in the lock; it is recorded by --write-receipt from a real build
-    (CI does this on windows-latest) and later builds are compared against that receipt.
-  * Works on any OS for pin verification; building requires Windows (WinForms / WebView2).
+    (CI cross-builds on ubuntu-latest) and later builds are compared against that receipt.
+  * Works on any OS for pin verification; non-Windows builds target win-x64 explicitly.
+    Running the product still requires Windows (WinForms / WebView2); --build never runs it.
 """
 from pathlib import Path
 import argparse, hashlib, json, os, platform, subprocess, sys, datetime
@@ -168,8 +169,8 @@ def main():
     if args.update_lock:
         update_lock()
     lock = validate()
+    print(json.dumps(dict(status='dev-inputs-verified', sourceFiles=lock['sourceCount'], pinnedFiles=len(lock['files']), writes=args.update_lock)), flush=True)
     if not args.build and not args.verify:
-        print(json.dumps(dict(status='dev-inputs-verified', sourceFiles=lock['sourceCount'], pinnedFiles=len(lock['files']), writes=args.update_lock)))
         return
 
     output = (args.output or ROOT / '_integration/evidence' / ('dev-' + datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%S'))).resolve()
@@ -177,13 +178,19 @@ def main():
     env = build_env(output)
 
     if args.build:
-        require(platform.system() == 'Windows', 'building the WinForms/WebView2 product requires Windows')
+        target_args = []
+        if platform.system() != 'Windows':
+            # EnableWindowsTargeting downloads Windows reference packs; the RID also
+            # selects Windows .exe apphosts instead of native Linux/macOS executables.
+            target_args = ['-p:EnableWindowsTargeting=true', '-r', 'win-x64', '-p:SelfContained=false']
+            print('Cross-building Windows target win-x64 (framework-dependent)', flush=True)
+            print('SKIP: Windows apphost execution and WinForms/WebView2 runtime checks require Windows; build verification only.', flush=True)
         sdk = run('sdk', ['dotnet', '--version'], output, env).strip()
         want = read(ROOT / 'global.json')['sdk']['version']
         require(sdk == want, f'wrong SDK {sdk}, global.json pins {want}')
-        run('product-restore', ['dotnet', 'restore', str(ROOT / 'source/OfflineClient.csproj'), '--configfile', args.configfile], output, env)
+        run('product-restore', ['dotnet', 'restore', str(ROOT / 'source/OfflineClient.csproj'), '--configfile', args.configfile] + target_args, output, env)
         run('product-build', ['dotnet', 'build', str(ROOT / 'source/OfflineClient.csproj'), '-c', 'Release', '--no-restore', '-o', str(ROOT / PRODUCT),
-                              '--nologo', '-p:NuGetAudit=false', '-p:UseSharedCompilation=false'], output, env)
+                              '--nologo', '-p:NuGetAudit=false', '-p:UseSharedCompilation=false'] + target_args, output, env)
         # product manifest: every runtime file + web + assets/integrity.json with size/sha256
         files = []
         roots = [ROOT / PRODUCT, ROOT / 'web']
@@ -197,9 +204,13 @@ def main():
         manifest = dict(schema='p24-normal-product-v1', entry=PRODUCT + '/P11.ClientEngine.exe', arguments=['--normal-product'],
                         profile='p24-real-jar-d287-client2', port=42061, autoLogin=False, files=files)
         (ROOT / MANIFEST).write_text(json.dumps(manifest, ensure_ascii=False, indent=2), 'utf-8')
-        run('launcher-restore', ['dotnet', 'restore', str(A / 'launcher-source/Launcher.csproj'), '--configfile', args.configfile], output, env)
+        run('launcher-restore', ['dotnet', 'restore', str(A / 'launcher-source/Launcher.csproj'), '--configfile', args.configfile] + target_args, output, env)
         run('launcher-build', ['dotnet', 'build', str(A / 'launcher-source/Launcher.csproj'), '-c', 'Release', '--no-restore', '--nologo',
-                               '-p:NuGetAudit=false', '-p:UseSharedCompilation=false', '-o', str(ROOT / 'launcher')], output, env)
+                               '-p:NuGetAudit=false', '-p:UseSharedCompilation=false', '-o', str(ROOT / 'launcher')] + target_args, output, env)
+        if target_args:
+            for exe in (ROOT / PRODUCT / 'P11.ClientEngine.exe', ROOT / 'launcher' / 'P24.Launcher.exe'):
+                require(exe.is_file(), 'missing Windows apphost: ' + str(exe))
+            print('Windows target win-x64 build succeeded (product + launcher; not executed)', flush=True)
 
     ids = identities()
     if args.write_receipt:
