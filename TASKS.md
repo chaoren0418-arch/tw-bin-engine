@@ -10,18 +10,22 @@
 
 ---
 
-## M0 可重現建置 — 主線 12 項，封頂（✅ 全部完成）
+## M0 可重現建置 — 主線 13 項，封頂（11 完成、2 待辦：T005、T017）
 
 **驗收：使用者打開會看到什麼（凍結）**：
 - **前置條件**：Windows 機器上有原客戶端資源目錄（`TW_CLIENT_ROOT`，預設 `D:\lineage開發\0-客戶端`），並且依 `docs/BUILD.md` 接好 `engine/assets` junction，安裝 SDK 10.0.300 與 Python 3.12。
 - 在這個前提下，從**新建的 clone 或 worktree** 照 `docs/BUILD.md`／`docs/demo/RUN.md` 執行一條建置指令，會輸出 `PASS dev {…}`；`engine\啟動新版客戶端.cmd --check-only` 輸出的 JSON 是 `revision: dev`、`uiStarted: false`；GitHub Actions 綠燈。
-- 證據：#13（在新建的 worktree `scratch/wt/task-13` 接好 junction 後，完整建置加 check-only 都 exit 0）、#38、#70（主專案目錄 dev 建置加 check-only）、CI（#67）。
+- **已驗證**（附出處）：
+  - 新建 worktree 的 **r35** 建置加 check-only：#13（`scratch/wt/task-13`，`PASS r35`、`revision: r35`，exit 0）。
+  - 主專案目錄的 **dev** 建置加 check-only：#38、#70（`revision: dev`、`uiStarted: false`，exit 0）。
+  - GitHub Actions：ubuntu-latest 交叉建置 Windows 目標綠燈（#67／PR #72）。CI 只證明可編譯，不算 Windows 原生驗收。
+- **待驗證**：從**新建的 clone 或 worktree** 跑 **dev** 建置加 check-only（同一來源版本、記錄指令、退出碼、JSON 與前置資源）。由 T017 補上；補齊前 M0 不算完成。
 
 ### T001 | done | Claude | CI：GitHub Actions dotnet build
 ### T002 | done | Claude | r35 canonical lock（181 檔）
 ### T003 | done | Claude | 去除硬編路徑（TW_ENGINE_ROOT／TW_CLIENT_ROOT）
 ### T004 | done | codex-local | `docs/BUILD.md` 乾淨機器建置文件（#6）
-### T005 | done | Claude | CLAUDE／AGENTS／cursor 規則與狀態同步
+### T005 | todo | codex-local | CLAUDE／AGENTS／cursor 規則與狀態同步：build-product 指向 dev、CI 改 ubuntu、真機由 dot 執行（出處：#23 使用者決定、commit `91a0d5c`）。另開 Issue，不在 #76 範圍
 ### T013 | done | codex-local | 本機 r35 完整建置（#7）
 ### T014 | done | codex-local | rebuild.py 允許 assets junction（#12）
 ### T015 | done | codex-local | 本機 r35 建置加 check-only 通過（#13）
@@ -29,6 +33,7 @@
 ### T040 | done | codex-local | 滾動式 dev lock（#31）
 ### T041 | done | codex-local | 選用封包追蹤，只記 op／len（#34）
 ### T050 | done | codex-local | CI 改在 Linux 交叉建置 Windows 目標（#67／PR #72）
+### T017 | todo | codex-local | 新建 worktree 的 dev 建置加 check-only（補 M0 待驗證條件；做法同 #13，改用 dev lock）
 
 ---
 
