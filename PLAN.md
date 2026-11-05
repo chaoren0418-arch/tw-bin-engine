@@ -1,55 +1,78 @@
 # PLAN — tw-bin-engine
 
-更新：2026-11-04。本檔由 Claude 維護；任務細目在 `TASKS.md`。
+更新：2026-11-06（#76 範圍凍結）。本檔由 Claude 維護；任務細目在 `TASKS.md`。
 
 ## 一句話目標
-用 C#/.NET 重現天堂 3.81 客戶端，**不依賴 LiTo.bin**，在使用者的機器上從入口啟動、登入正式伺服器、完整玩一輪（移動／戰鬥／道具／魔法／NPC／換圖／音效）並能存檔重登。評分重點是「可重現 + 完整運作」，沒有日期壓力。
+用 C#/.NET 重現天堂 3.81 客戶端，**不依賴 LiTo.bin**，在使用者的機器上從入口啟動、登入、完整玩一輪（移動／戰鬥／道具／魔法／NPC／換圖／音效）並能存檔重登。評分重點是「可重現 + 完整運作」。
 
-## 現況（事實）
+## 現況（2026-11-06）
 | 項目 | 狀態 |
 |---|---|
-| 正式入口 | `啟動引擎.cmd` → `releases/r33/launcher/P24.Launcher.exe`；`project-manifest.json` revision=r33 |
-| r34 | 已封裝（`releases/r34`），入口未切換；拾取呈現產品 |
-| canonical 來源 | `engine/source+audio+web` = **181 檔**，r35 lock（`engine/_integration/r35/`）核驗 exit 0；`build-product.ps1` 指向 r35 |
-| 可重現建置 | **M0 達成**：CI 綠燈；使用者本機 r35 完整建置 + `engine\啟動新版客戶端.cmd --check-only` exit 0（Issue #13） |
-| 最新候選 | P38 隔離交付候選（`work/P38-delivery-candidate-r1`），launcher check-only exit 0，等獨立覆核；入口未啟用 |
-| 離線測試 | r33：4337 assertions + 93 observations；r34 review +184；P27：237 斷言；P31–P34 拾取覆核全過 |
-| **原生實機驗收** | **自 r29 起每一版都是 native=false**。最後的實機證據是 r22/r27/r28（登入、選角、移動、匕首、能力點、聊天、旅館、拾取、洞穴戰鬥、回城） |
+| 可重現建置 | **M0 達成**：dev 滾動 lock、CI 綠燈（改為 Linux 交叉建置 Windows 目標：T050／PR #72），本機 dev 建置加 check-only 皆 exit 0 |
+| 真機基線 | r35 基線（#23，`docs/native-baseline/r35.md`）＋ dev 局部補測（#37，`docs/native-baseline/dev-retest.md`） |
+| M1 期間新增功能 | 封包追蹤（T041）、攻擊／技能音效（T047）、金幣等地面物品（T048），都已合併到 main |
+| Demo | `docs/demo/README.md` 骨架已上 main（T060）。DEMO-2（T061）真機截圖已完成，待推送；結果是部分通過，金幣丟撿未通過 |
+| 實驗環境 | P24Lab（`environments/p24`，經 `D:\BinEngine` junction），由 dot 啟停 |
 
-## 真正的缺口（決定里程碑的依據）
-1. **沒有人跑過最新版的真機流程。** 30 多個離線階段堆在一個從未被實機驗證的基礎上。
-2. 來源 pin 與建置腳本互相矛盾（r33/r34/181 檔），**在乾淨機器上無法一鍵重建**——這直接牴觸「可重現」的評分重點。
-3. 所有腳本硬編 `D:\lineage開發\TW1608262200研究` 絕對路徑。
-4. NPC 服務（買賣、技能學習、交易、倉庫、船運）、map4/6016 場景音訊、原生畫面／滑鼠 完全未驗。
+## 盤點：已知範圍（#76 步驟 0）
+
+### 盤點來源
+本 repo 內可讀的全部研究與狀態紀錄：
+- `work/P25-architecture-baseline-r1/completion-matrix.json`：32 列（R01–R23、MAP-F1–F9），加上 8 個補充列（S1–S3、A1–A2、C1、H1、6016）。P25 已把 `主管/` 下 P24 以前的歷史矩陣全數彙整進來。
+- `work/P25-architecture-baseline-r1/finite-backlog.json`：12 項（I01–I02、S01–S03、N01–N05、C01、H01）。
+- `work/P26`–`P38` 與 `work/engine-*` 各階段的 HANDOFF 與 result。
+- `docs/native-baseline/`（r35.md、dev-retest.md）、`docs/design/sfx-and-ground-items.md`、`docs/reports/issue-*.md`（#3–#71）。
+- Issue #1–#76 的全部結果。
+
+**無法盤點的來源**：`P01–P24-*/`、`history/`、`evidence/` 是本機資料夾，沒有進 git，雲端讀不到。它們的結論已由 P24／P25 彙整進上面的 completion-matrix，所以**不另估任務**（見不確定項 U5）。
+
+### 已知事項對應到里程碑
+| 盤點項 | 現況 | 歸屬 |
+|---|---|---|
+| R01 入口／登入／選角／移動／重登 | 真機 ✅（#23） | M1 demo 截圖（T061） |
+| R02 匕首、原生鍵盤 | 真機 ✅ | M1（T061） |
+| R05 食物／藥水／裝備／拾取 | 吃肉 ✅；金幣丟撿 ❌（DEMO-2） | M1（T062 修正加補測） |
+| R17 能力點 | 真機 ✅ | M1（T061 截面板） |
+| R23 一般聊天 | r35 ✅；DEMO-2 送出被本機核准擋下 | M1（T062 補測） |
+| 移動座標精確、近戰 EXP、光箭、治癒、卸裝、音效峰值 | DEMO-2 待補驗 | M1（T062） |
+| R03 戰鬥自然 EXP、戰利品；A1 閉環 | 缺同版真機證據 | M2（T072） |
+| R04 技能學習 | 缺證 | M2（T072） |
+| R06 NPC 購買、R08 直接交易、R09 私商購買、R11 倉庫；N03 | 缺證 | M2（T070） |
+| R12 洞穴、R13 船運、R14 旅館、MAP-F9 地圖特效實機；N04 | 缺證 | M2（T071） |
+| R16 像素／滑鼠、R20 HUD、R21 陰影、R22 滑鼠點地／攻擊／交談、A2；N02（P27 的 12 組計畫） | 實作已完成，缺真機證據 | M2（T073） |
+| MAP-F5、S2、N05：6016 正式世界音效 | 控制器已核定，缺正式世界驗收 | M2（T074） |
+| R19 可重建交付；I01 r34 封裝 | dev 已可重建；r34 封裝由 dev 交付取代 | M3（T033），I01 移到 Backlog（B08） |
+| 位元可重現 | 未做 | M3（T006） |
+| 交作業版架構文件 | 未做 | M3（T080） |
+| MAP-F1／F2／F3／F8 | 已解決 | 不列 |
+| R07、R10、C01：NPC 正向出售、私商回購 | 外部條件限制 | Backlog B05 |
+| R18、S3、S03：內容與技能擴充 | 需要逐項來源 | Backlog B01 |
+| MAP-F4、S1、S01；MAP-F6、F7；S02 | 來源受阻 | Backlog B03、B04 |
+| R15、H1、H01：歷史限制 | 不可回補 | Backlog B10 |
+| I02：P27 審查修正 | 沒有確認的缺陷 | Backlog B09 |
+| 3 種停用的地面物品；原生語義 unknown | 缺 pin，或 Themida 限制 | Backlog B06、B07 |
+
+### 不確定項（會讓分母變動的唯一來源）
+| 編號 | 內容 | 估計 |
+|---|---|---|
+| U1 | M1 的 T062：DEMO-2 報告中金幣丟撿失敗的根因，以及補測時新發現的產品缺陷。若修正量超過一張任務的範圍 | 最多 +2 張 |
+| U2 | M2 的 T070–T074 真機驗收各自可能發現缺陷。原則上在同一張任務內修，修正量大到需要另開時才增列 | 合計最多 +5 張 |
+| U3 | T070 直接交易需要**第二個測試角色或帳號**。P24Lab 若沒有，需要一張資源任務建立 | +1 張 |
+| U4 | T074 若 map4 的 6016 播放還需要額外的音訊資源 pin | +1 張 |
+| U5 | 本機未入 git 的 P01–P24 研究若含 completion-matrix 沒列的範圍 | 0 張（已由 P25 彙整；若發現，一律先進 Backlog） |
+
+**主線封頂**：M0 12 項（已全部完成）；M1 13 項（11 完成、1 進行中、1 待辦）；M2 5 項；M3 3 項；合計 **33 項**。最多可因 U1–U4 增加 9 項，上限 **42 項**。
 
 ## 里程碑
-### M0 可重現建置 — ✅ 達成（2026-11-04）
-- GitHub Actions `dotnet build` 綠燈（CI 用 nuget.org，本機維持離線 vendor）。
-- 統一 canonical：以 181 檔為準，產生新的 lock（r35），`build-product.ps1` 與 `rebuild.py` 指向同一版；`engine/README.md`、`project-manifest.json` 同步。
-- 消除硬編路徑：腳本改用 `$PSScriptRoot` / 環境變數 `TW_ENGINE_ROOT`。
-- 驗收：乾淨 clone + `D:\lineage開發\0-客戶端` 資源 → 一條指令建出可 `--check-only` 通過的 launcher。
+- **M0 可重現建置** — ✅ 完成。
+- **M1 打開就看得到的 Demo** — 進行中。驗收見 TASKS.md（凍結）。
+- **M2 完整遊戲循環** — 待 M1 完成。驗收見 TASKS.md（凍結）。
+- **M3 可攜交付** — 可以跟 M2 平行進行（T006、T080 不依賴真機）。
 
-### M1 真機基線 — 基線已取得（2026-11-05，`docs/native-baseline/r35.md`）；補測進行中（T040→T041→T042）
-- 用 M0 的建置跑 N01 流程：登入→移動→攻擊／技能 1/3/4/8→道具→能力點→存檔→重登。
-- 每一步截圖＋server 回包紀錄，寫進 `docs/native-baseline/r35.md`。
-- 失敗項直接變成 TASKS 的 bug 項；通過項把 completion-matrix 對應列的 nativeR35Accepted 設 true。
-- 這是 **第一次把 30 階段的離線工作接回現實**，優先於任何新功能。
-
-### M2 完整遊戲循環
-- NPC 服務：商店買賣、技能學習、倉庫、直接交易、私商（N03、C01）。
-- 換圖連續性：快取換區、旅館、船運（N04）。
-- 6016 音訊在正式世界的 dispatch／退役（N05）。
-- 原生畫面：滑鼠點地／攻擊／交談／拾取、HUD、陰影、聊天焦點（N02，用 P27 的 12 組計畫）。
-
-### M3 內容擴充與交付
-- 技能從 1/3/4/8 擴到職業基本技能；Slow 速度拾取／丟棄；MAP-F4 fade（S01–S03，需來源資料）。
-- 可攜交付：含 runtime 的安裝包、安裝說明、架構文件（`docs/ARCHITECTURE.md` 重寫為交作業版本）。
+依賴鏈：`T061 → T062 →（M1 完成）→ T070、T071、T072、T073、T074 平行進行`；M3 的 `T006 → T033`，`T080` 獨立。
 
 ## 分工
-- Claude：維護本檔／TASKS、審 PR、CI、架構決定、寫測試步驟。
-- Cursor：實作 TASKS 指定項，`feat/<ID>-<name>` 分支開 PR。
-- ChatGPT：交叉驗證架構方案、產生測試案例。
-- 使用者：真機測試（M1 起每個里程碑一次）、合併 PR、資料庫。
-
-## 停用的舊流程
-主管／工作者對話、Goal、pins、seal、每輪時間戳 JSON、`工作佇列.json`。`work/` 與 `主管/` 保留為歷史，不再新增。
+- 雲端 Claude（主控）：維護本檔與 TASKS、審查、架構裁定、開單。
+- codex-local：本機建置、程式、資源整理。
+- dot：P24Lab 啟停與真機驗收（使用者授權，完全存取模式）。
+- 使用者：驗收 demo 頁；做不可逆的決定。
