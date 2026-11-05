@@ -26,3 +26,4 @@
 - 2026-11-05 — #37 T042: 局部真機補測（04/05 移動、06 近戰、07 技能4、10 拾取、15 聲音），開封包追蹤（test，dot，對話完成）→ [報告](reports/issue-37.md)
 - 2026-11-05 — #42 T045: 設計——攻擊／技能音效與一般地面物品（金幣）所需的原客戶端資料（design，codex-local，PR #46 已合併）→ [報告](reports/issue-42.md)
 - 2026-11-05 — #47 sfx-native-contract: 資源：核定 sprite 音效事件的原生派送語義（resource，dot，對話完成）→ [報告](reports/issue-47.md)
+- 2026-11-05 — #48 ground-native-contract: 資源：核定 S87 地面物品分類與 gfx 資料契約（resource，codex-local，PR #59 已合併）→ [報告](reports/issue-48.md)
