@@ -7,7 +7,7 @@ on:
 
 jobs:
   dotnet:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Disable CRLF conversion (r35 lock pins exact bytes)
         run: git config --global core.autocrlf false
@@ -15,14 +15,29 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: engine/global.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - name: Restore
-        run: dotnet restore engine/source/OfflineClient.csproj --configfile .github/nuget.ci.config
-      - name: Build (Release)
-        run: dotnet build engine/source/OfflineClient.csproj -c Release --no-restore -warnaserror:false
+        working-directory: engine
+        run: dotnet restore source/OfflineClient.csproj --configfile ../.github/nuget.ci.config -p:EnableWindowsTargeting=true -r win-x64 -p:SelfContained=false
+      - name: Build Windows target (Release, win-x64)
+        working-directory: engine
+        run: dotnet build source/OfflineClient.csproj -c Release --no-restore -warnaserror:false -p:EnableWindowsTargeting=true -r win-x64 -p:SelfContained=false
       - name: dev canonical build + receipt
         run: python -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output engine/_integration/evidence/ci-dev
+      - name: Restore packet trace checks (native Linux target)
+        working-directory: engine
+        run: dotnet restore _integration/dev/packet-trace-tests/PacketTraceChecks.csproj --configfile ../.github/nuget.ci.config
       - name: Packet trace checks (no game or network)
-        run: dotnet run --project engine/_integration/dev/packet-trace-tests/PacketTraceChecks.csproj -c Release
+        working-directory: engine
+        run: dotnet run --project _integration/dev/packet-trace-tests/PacketTraceChecks.csproj -c Release --no-restore
+      - name: Report Windows-only validation skipped on Linux
+        if: always() && runner.os == 'Linux'
+        run: |
+          echo "SKIP: Windows apphost execution, WinForms/WebView2 runtime, native UI/input/audio and game/login checks require Windows; cross-build success is not runtime acceptance."
+          echo "SKIP: PacketTraceChecks uses a Linux symbolic link; Windows NTFS junction behavior still requires local Windows checks."
+          echo "Follow-up: local Windows executor for automated checks; user/dot for authorized native acceptance."
       - name: Upload dev receipt and evidence
         if: always()
         uses: actions/upload-artifact@v4
