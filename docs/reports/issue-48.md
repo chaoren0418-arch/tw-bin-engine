@@ -1,18 +1,22 @@
 # Issue #48：S87 地面物品分類與 gfx 靜態資源契約
 
 日期：2026-11-05。分支：`task/48`。隔離工作目錄：`scratch/wt/task-48`。
-基底：`89888870e52cf3c19e046c7b0c040619c117c644`。本輪只有本報告進版控。
+第 2 次嘗試接續前次 commit：`e263e1766fb614f32d53d3f23f81a2600e7773e6`；維持既有 `task/48`，沒有 checkout／新建分支。本次只有本報告進版控。
+
+版本說明：以下保留前次資源表與產品條件；「第 2 次補證」明列本次實際重驗與新增結論。前次執行環境、runner 與限制只屬歷史，不代表本次設定。
 
 ## 結論
 
 **部分資源已驗證，完整原生契約仍阻塞；不可把 #51 的 native 分類閘門視為通過。**
+
+第 2 次新增：重驗三組 native audit 共212個片段，定位缺失的 dispatcher tables／分類指標儲存 bytes，並證明當前 LiTo 的 PE 映射不能套用歷史 BIN 位址。報告內兩段 Python 重現皆退出0，`git diff --check` 通過。
 
 1. 更正 #42 的缺圖結論：同 SHA 的主索引實際存在 **`3247-0.SPR`**（大寫副檔名）。小寫 byte-exact 查找會漏掉；本輪線性 ASCII-fold 查找與既有 `Archive.find(b'3247-0.spr')` 二分查找獨立一致，均為 record 43801。不是檔案更新、不是借圖。
 2. 7、3247、肉 36、箭 66，以及 20/41/43/45 藥水標籤候選的 8 個原始 SPR payload 均可定向讀取並由既有 Python decoder 在記憶體解析，共 10 幀；提供原始 SHA、File Offset、幀與 RGBA pin。未交付或複製 SPR／PAK／PNG，未修改資產。
 3. `102.type(9)` **尚不足以授權泛用地面辨識／拾取**：本輪證明的是文字欄位，未證明 S87 → gfx lookup → type table loader → object factory → 滑鼠／C112 准入全鏈；也沒有證明 type9 是原生充分條件或必要條件。
 4. gfx 7 與 3247 皆有獨立文字定義和原圖，但它們之間沒有本輪可證明的 alias、數量切換門檻、伺服器選用規則。不可因圖大小不同就猜單枚／多枚；金幣真實 gfx／count envelope 留待 #49 的證據及後續核對。
 
-## 做了什麼與範圍
+## 第 1 次執行範圍（歷史記錄）
 
 - 先核對 Issue #48：YAML、標籤及調度器留言皆為 `runner:dot`；本文殘留 `runner:codex-local` 不是最新改派。開始時無 RESULT、無 task/48 遠端分支及相關 PR。
 - 已讀本機 AGENTS.md 與 TASKS.md，隔離目錄 AGENTS.md SHA 與主目錄相同。保留其他分支、worktree、未追蹤截圖與 runtime 資料。
@@ -142,7 +146,7 @@ record 43801（0-based），IDX File Offset `0x12b6c0`，原始 28 bytes：
 
 數量外觀：兩個 gold block 不含 count 門檻或相互 alias；兩個資源各僅一幀也不排除外部 native/server 邏輯按數量換 gfx。故 count→gfx/frame、7↔3247 的關係一律 unknown；禁止使用「缺圖 fallback 7」或借肉／箭圖。
 
-## 怎麼驗證、未驗證什麼
+## 第 1 次驗證記錄（資源 pins 已於第 2 次重驗）
 
 - 一次性唯讀腳本 `scratch/issue-48/inspect_static.py`，輸出 `scratch/issue-48/findings.json`；此報告保留必要 pin，scratch 不是審查依賴。
 - 本輪實測結果：8 個 TXT entry、17 個 IDX 完整結構與範圍檢查、8 個 bounded SPR／10 幀 decode、2 個既存 native slice hash 均通過；3247 的線性／二分查找同 record。沒有執行遊戲功能測試。
@@ -173,7 +177,7 @@ assert hashlib.sha256(payload).hexdigest() == '52420e660d6a0997067a75cdf7855bcfd
 print(matches)
 ```
 
-## 相關來源 SHA-256
+## 第 1 次相關來源 SHA-256（非全部於第 2 次重讀）
 
 下表為本輪讀檔 pin，包含既存的研究文件與產品碼；不代表它們記載的所有歷史主張都重新驗證。四份產品碼及 #42 設計文件與本輪 origin/main 對照沒有差異。
 
@@ -190,11 +194,151 @@ print(matches)
 | `work/engine-pickup-renderer-eligibility-source-r1/native-byte-audit.json` | 19036 | `5a05426afe5b363d0393c86a4e760c8057be5ca5fe500ccdc86ff7837d7dbb71` |
 | `work/engine-pickup-renderer-eligibility-source-r1/proof-index.json` | 26634 | `9c0237939231af614f00fce203c0099082924a3f4a8e13ce3ba17830ff0a9a18` |
 
+## 第 2 次補證：做了什麼／怎麼驗證
+
+本次已讀 worktree 根 `AGENTS.md`、`TASKS.md`；因 sparse checkout 沒有實體 `docs/REPORT.md`，改唯讀原專案同路徑的索引。GitHub #48 已核對為 `runner:codex-local`、`attempts:2`，不是前次的 dot 派工。未修改任何規則、索引、產品、封存、lock 或原始資源。
+
+執行環境的 sandbox process 初始化失敗（`helper_unknown_error: setup refresh had errors`），明確限定命令經自動審查放行後才執行。Git ownership 差異只用每次命令的 `-c safe.directory=...` 處理，沒有修改家目錄或全域 Git 設定。這是工具啟動問題，**本次沒有自動審查拒絕造成的證據存取阻塞**。
+
+### 資源重新核驗
+
+- Python 3.12.10，Capstone 5.0.6；檢閱既有 decoder 後，只 import `decode(payload)`，未執行其匯出 CLI。
+- 17 個 IDX，共 **261,461 records**：整檔 SHA 與上表一致，長度 `4+28*N`、名稱 NUL 結尾、每筆 offset+size 不超相應 PAK 全部通過。
+- 8 個 bounded payload／10 幀：payload 與 RGBA SHA 全與上表一致；8 個 TXT block 的原始 File Offset、block SHA 亦重驗一致。
+- `3247-0.SPR` 再次命中主索引 record 43801、File Offset `0x12b6c0`；payload 89 bytes、SHA `52420e660d6a0997067a75cdf7855bcfddcf7f2a9b7f9142c304896a1ed7b26c`。前次「缺圖」原因仍是大小寫精確比較，不是資源換版。本次沒有重跑前次 reference 二分查找；採獨立線性 ASCII-fold 掃描。
+- 只保留文字與雜湊，不寫出 SPR、PAK、map、PNG 或其他遊戲資源。
+
+### 原生身份隔離：已驗證
+
+本次唯讀 `D:\lineage開發\0-客戶端\LiTo.bin`：1,941,568 bytes，SHA `ce6ee68ada8fd37e6c096b1a27e46cb6888f1179f85defb5007ac60287360292`，與 #42 一致。PE ImageBase VA=`0x00400000`；entry RVA=`0x0043B014`、VA=`0x0083B014`、File Offset=`0x0009C014`，落於 `Themida ` section。
+
+| section | RVA | VirtualSize | raw File Offset | raw size |
+|---|---|---|---|---|
+| 第一節（名稱 bytes `2020200020202020`） | `0x1000` | `0x436000` | `0x1000` | `0x98000` |
+| `.rsrc` | `0x437000` | `0x28c8` | `0x99000` | `0x2000` |
+| `.idata  ` | `0x43a000` | `0x1000` | `0x9b000` | `0x1000` |
+| `Themida ` | `0x43b000` | `0x289000` | `0x9c000` | `0x13e000` |
+
+例如歷史 selector 的 RVA `0x6467A0` 在這份 LiTo 會落入 Themida 的虛擬範圍，卻超出該節 raw bytes；不能套用歷史 File Offset `0x645BA0`，更不能以虛擬補零當作函式。歷史表指標 VA `0x013CD838`／`0x013CD878` 的 RVA 也不在上述 sections 內。這些是 **PE 映射與身份不相容的實證**，不是已完成解殼或已證明兩者執行語義不同。
+
+歷史 `e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2`（16,810,496 bytes）的身份仍取自允許 work 的 source pins。本次未另讀 `D:\lineage開發\登入器bin資源\TW1608262200.bin拆解\TW1608262200.bin`；該路徑是補證候選，沒有把它默認擴入本輪列明的原客戶端／assets／repo-work 範圍。
+
+### 擴大既存 native 證據查核：已驗證
+
+原專案 `work/` 唯讀；只執行本 worktree `scratch/issue-48/` 的新查核腳本，沒有執行會寫封存檔的既有 collect／finalize 腳本。先搜尋 `engine-*` 頂層與 `native`／`prior` 的文字線索，再針對下列三份 audit 列出的原始 bytes 重新驗 SHA、長度、VA/RVA 關係及重疊一致性。
+
+| `work/` 下來源 | audit bytes | audit SHA-256 | chunk 數 |
+|---|---:|---|---:|
+| `engine-slow-pickup-source-r1/native-byte-audit.json` | 88552 | `8f7621cbd98c70541140231ee6f6d9df87c641258f12190993cd7a5418afc878` | 101 |
+| `engine-pickup-scheduler-source-r1/native-byte-audit.json` | 20323 | `c240da5b9255f4ce7f2ab96ac42df2519cb90c5edd626268cbf2a9d56792e557` | 62 |
+| `engine-pickup-renderer-eligibility-source-r1/native-byte-audit.json` | 19036 | `5a05426afe5b363d0393c86a4e760c8057be5ca5fe500ccdc86ff7837d7dbb71` | 49 |
+
+**212 個 archival chunks 的 bytes 核驗通過**，包含重複與不同長度切片；175 個不同 `(VA,end)` 範圍，聯集 **108,221 bytes**，重疊衝突 0。這不是 212 個不同函式，也不是完整 BIN 覆蓋率或 212 項語義通過。其中 `native/00a4371d.bin` 原 audit 明列 `adopted:false`（從指令中間開始），本次只驗其檔案身份，仍不採用其反組譯；另外三個 `excludedExploration` vtable 導航檔沒有列入這 212 個 audit chunks。
+
+新增關鍵 bytes pins（以下 File Offset 都是歷史 audit 記錄，不是 LiTo 的 offset）：
+
+| `work/engine-slow-pickup-source-r1/` artifact | VA | RVA | 歷史 BIN File Offset | bytes | slice SHA-256 |
+|---|---|---|---|---:|---|
+| `native/0x947530.json` 的第一 chunk | `0x947530` | `0x547530` | `0x546930` | 2957 | `8bd1ff1f11b1761065f5639805527b3a75d7fa48564c323bef59049929a28d4a` |
+| `native/0xa467a0.json` 的第一 chunk | `0xa467a0` | `0x6467a0` | `0x645ba0` | 5477 | `0de7dc79cd1fe2c74e88bf26f0309c5195f4ea109d2d0fde7720e257aad79a3a` |
+| `native/handler-92cb70.bin` | `0x92cb70` | `0x52cb70` | `0x52bf70` | 2000 | `81d34316824d70fa25b782a344b20c920802c95a8cae3a2a00f7bc680778d4e4` |
+
+對 212 chunks 搜尋兩個指標的 little-endian 直接 operand，去重後只有四處；再由含指令起點的 chunk 以 Capstone 核對：
+
+| 指令 VA | RVA | 歷史 BIN File Offset | bytes | 指令 |
+|---|---|---|---|---|
+| `0xA4453B` | `0x64453B` | `0x64393B` | `8b1538d83c01` | `mov edx, dword ptr [0x13cd838]` |
+| `0xA467FA` | `0x6467FA` | `0x645BFA` | `a138d83c01` | `mov eax, dword ptr [0x13cd838]` |
+| `0xA4694A` | `0x64694A` | `0x645D4A` | `8b1578d83c01` | `mov edx, dword ptr [0x13cd878]` |
+| `0xA46EE3` | `0x646EE3` | `0x6462E3` | `8b0d38d83c01` | `mov ecx, dword ptr [0x13cd838]` |
+
+新增的 `0xA46EE3` 分支由 actor+`0x0A` signed word 索引讀 byte，存入 `[ebp-0x13]`；後續條件分支在 VA `0xA46F36` 比較 10（`83f80a`），不是 type9 准入。四處皆為讀指標，**本語料沒有直接 operand 形式的指標寫入證據**。這不排除 register-indirect loader、其他函式或未封存區域，也不能用「沒找到寫入」證明不存在 loader。
+
+### S87 入口缺口已定位，未宣稱核定
+
+dispatcher 的原始指令已重驗：
+
+```text
+VA 00947616  0fb6828c829400  movzx eax, byte ptr [edx + 0x94828c]
+VA 0094761D  ff2485c0809400  jmp dword ptr [eax*4 + 0x9480c0]
+```
+
+兩個指令的 RVA／歷史 File Offset 分別為 `0x547616`／`0x546A16`、`0x54761D`／`0x546A1D`。但 **`0x94828C` 起 255 bytes 的 index table，以及 `0x9480C0` 的第一個 4-byte target slot，在本次三組 audit 聯集皆覆蓋 0 bytes**。不能靠已封存 pseudocode 的 case 標籤替代缺失的 table bytes。
+
+前期 `source-contract.json` 與 pseudocode 將 action receiver `0x92CB70` 關聯到內部 opcode226；現行產品 S158 是另一 wire 編號。這屬歷史語義證據，本次重驗了 handler bytes，**未從缺失的 dispatch table 重新證明 opcode226 對應**。同理，直接把 wire S87=87 套入歷史 switch，或把送出 C112=112 當成接收 switch 的 case112，都不成立；需先取得同身份封包翻譯／語義對應。
+
+### 核定表：可辨識、可顯示、可拾取分開
+
+| 待決問題 | 本次裁定 | 實作可用範圍／尚缺證據 |
+|---|---|---|
+| type9 是充分條件？ | **unknown，不能核定** | 已知文字欄位；缺 loader→table→factory→input 的資料流。不能降格為「type9 即可拾取」 |
+| type9 是必要條件？ | **unknown，不能核定** | 尚無完整 factory 分支／alias 繼承／例外集合；不能聲稱所有非9都不是物品 |
+| type9 例外 | **資料層已知，native 物種例外 unknown** | 256／258／2884 的 alias 與 66 fly、2884 open/close 保留；名稱不是 species 證據 |
+| 可辨識 | **有限產品 envelope；泛用 native unknown** | 原圖存在／能 decode 不能判定物件種類；保留既有36／66完整 envelope 邊界 |
+| 可顯示 | **資源可解碼；原生 frame 選擇 unknown** | 7／3247及藥水具獨立原圖；必須綁 source、sid/frame、bounds、透明與 anchor，不能把建議 `0:0` 當 native 已證 default |
+| 可提出拾取 | **既有產品 gate；native input unknown** | 類別、物件生命週期、可選取性、位置／數量與輸入限制要分別有證據；圖片不是拾取許可 |
+| 可宣稱拾取完成 | **權威回包條件不變** | 以地面／背包更新判定；動畫完成、sender 成功或 S158 單獨均不足 |
+| 7↔3247 alias | **unknown** | 兩個文字 block 無相互 alias，只能排除「這兩個 header 明寫 alias」；未排除外部 remap |
+| count→gfx/frame | **unknown** | 不能由5×4與15×11推斷金幣堆數；待 #49 server envelope 與同身份 client 分支補證 |
+
+### 最小重現：三組 native audit
+
+此片段只讀允許 `work/`，不執行其中的工具、不啟動 BIN、不讀原完整歷史 BIN；可貼入 worktree `scratch/` 的 Python 腳本，以 `python -B -X utf8` 執行。
+
+```python
+from pathlib import Path
+import hashlib, json
+root = Path(r'D:\lineage開發\TW1608262200研究\work')
+folders = ['engine-slow-pickup-source-r1',
+           'engine-pickup-scheduler-source-r1',
+           'engine-pickup-renderer-eligibility-source-r1']
+checks, memory, intervals = 0, {}, set()
+for folder in folders:
+    base = root / folder
+    audit = json.loads((base/'native-byte-audit.json').read_text('utf-8'))
+    for row in audit['chunks']:
+        path = base / row['artifact']
+        va = int(row['VA'], 16)
+        if path.suffix == '.json':
+            saved = json.loads(path.read_text('utf-8'))
+            chunk = next(c for c in saved['chunks'] if int(c['va'],16) == va)
+            raw = bytes.fromhex(chunk['bytes'])
+        else:
+            assert path.suffix == '.bin'
+            raw = path.read_bytes()
+        assert len(raw) == row['size']
+        assert hashlib.sha256(raw).hexdigest() == row['sha256']
+        assert va - int(row['RVA'],16) == 0x400000
+        intervals.add((va, va + len(raw)))
+        for i, byte in enumerate(raw):
+            assert memory.get(va+i, byte) == byte
+            memory[va+i] = byte
+        checks += 1
+assert (checks, len(intervals), len(memory)) == (212, 175, 108221)
+for va, count in [(0x94828c,255), (0x9480c0,4),
+                  (0x13cd838,4), (0x13cd878,4)]:
+    assert not any(va+i in memory for i in range(count))
+print('212 chunks; 175 ranges; 108221 unique bytes; no overlap conflict')
+```
+
+注意：此片段驗證歷史 audit 與現存 bytes 的自洽性，完整歷史 BIN 的 SHA／PE mapping 仍沿用來源 pins；`adopted:false` 仍不能拿來做語義反組譯。重跑時也須先比對上表三份 audit SHA。
+
+## 未驗證什麼
+
+- **完整原生分類契約未完成**；本次擴大查核並縮小缺口，沒有把資源成功誤報為原生分類／拾取通過。
+- 歷史完整 BIN 未重驗；當前 LiTo 只有磁碟身份與 PE mapping 核驗，沒有執行、解殼或附加。
+- 102.type loader、table 的完整內容／初始化、S87 同身份入口、object factory、地面 hit-test／mouse／C112 predicate、7/3247數量外觀規則皆 unknown。
+- PAK 整檔 SHA、第二個獨立像素 decoder、原生渲染／拾取真機、伺服器模板與實際封包皆未重驗。沒有接觸 DB、伺服器、機密設定、既有遊戲程序、封存 release 或 assets junction；沒有建置。
+
 ## 產出與給下一棒的提示
 
-產出：`docs/reports/issue-48.md`；分支 `task/48`。原始資源沒有進 git，無產品／lock／封存變更。
+正式產出仍為 `docs/reports/issue-48.md`；分支 `task/48`。一次性腳本及非資源結果在 worktree `scratch/issue-48/`：`search_static.py`、`search.json`、`bins.json`、`verify_static.py`、`verified.json`、`inspect_edges.py`。scratch 不作合併後的審查依賴；必要 pins 與最小重現已留在本報告。只更新本報告，沒有建立 plan/design 拆工 JSON。
 
-1. Claude／調度器先審查本報告並更正 #42「3247 無圖」的下游認知；大小寫查找須遵守已核定的索引比較規則。
-2. #49 的既有執行者負責 server 模板／gfx／count/name envelope；本輪未接手、修改或干擾 #49。取得後再核對7/3247實際選用，不能只靠本報告的英文標籤。
-3. dot／來源研究者需在另行確認可使用的同身份靜態證據中補齊 S87→102.type loader→table→factory→拾取 predicate；本輪安全範圍的既存 slices 不足。禁止把需正式 BIN／新增存取授權的動作包在後續 code 中偷偷執行。
-4. #51 可使用這份索引／payload／frame pin 進行受控資料設計，但完整泛用 native 分類與拾取仍不可標通過。未證實欄位須以 unknown／不支援呈現；不得讓缺口變成寬鬆放行。
+1. **Claude／調度器**：更正 #42「3247缺圖」；#51 的泛用 native 分類與拾取閘門維持未通過。資源 decode 可獨立審查通過，但不要以此關閉完整 native 驗收。
+2. **來源研究者／本機 resource 任務**：下一次先補「同身份 bytes」，不是再派同樣的索引掃描。選擇其一：明確納入歷史 SHA `e12949...641a2` 靜態 BIN 的唯讀研究範圍，或在允許 work 中提供同 SHA 來源的下列補件並附 source SHA／PE sections／File Offset／RVA／VA：
+   - dispatcher `0x947530` 使用的 index table `0x94828C` 及 target table `0x9480C0`，再據完整欄位序列核對 S87 同義 handler；不要只比數字87。
+   - `0x013CD838`／`0x013CD878` 指標的初始化 caller、所指 table 的 loader／內容與102 parser寫入資料流。**這兩個是 pointer VA，不是已知資料表起點；其 File Offset 本次 unknown**。
+   - factory 的 type／alias 分支、地面物件 virtual target、hit-test／pickup predicate 與count/gfx/frame remap。函式 VA 尚未知的部分保持未知，不憑名稱命名。
+   - 若決定改以當前 LiTo 身份為唯一目標，另行取得該身份既存且可用的靜態原生證據；不得混接 e129 位址。這不是授權啟動、附加或擷取遊戲。
+3. **#49 既有執行者**：提供 server template→gfx/count/name envelope、金幣7或3247選用及數量邊界；本次不接手、不修改、不干擾該任務，也不接觸 DB。
+4. **#51 code 執行者**：可採上表原圖 pins 與大小寫更正；unknown 欄位必須保持 unknown／不支援，禁止依 type9、英文名稱、圖尺寸或成功解碼自動放寬分類與拾取。真正功能與畫面驗收最後由使用者進行。
