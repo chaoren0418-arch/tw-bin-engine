@@ -1,13 +1,15 @@
 # Issue #48：S87 地面物品分類與 gfx 靜態資源契約
 
 日期：2026-11-05。分支：`task/48`。隔離工作目錄：`scratch/wt/task-48`。
-第 2 次嘗試接續前次 commit：`e263e1766fb614f32d53d3f23f81a2600e7773e6`；維持既有 `task/48`，沒有 checkout／新建分支。本次只有本報告進版控。
+第 3 次嘗試接續受審 commit `9eabbcb1bc1b6dd01dcc8d3f15f1db027970906e`。沿用既有 `task/48`，本次只有本報告進版控。
 
-版本說明：以下保留前次資源表與產品條件；「第 2 次補證」明列本次實際重驗與新增結論。前次執行環境、runner 與限制只屬歷史，不代表本次設定。
+以下保留前兩次資源表與產品條件，本輪結果集中於「第 3 次補證與來源阻塞」。歷史執行記錄按各次標題區分。
 
 ## 結論
 
 **部分資源已驗證，完整原生契約仍阻塞；不可把 #51 的 native 分類閘門視為通過。**
+
+第 3 次裁定為 `qualified=false / needs:claude`。重新核對 #49 提交及允許 work 的 S87 class，補上 gfx getter、count 寫包的精確位址，另定位 dispatcher 的第二、第三組缺表。尚需 Claude／調度器先提供同身份來源或明確調整驗收範圍，才具備完整契約的送審條件。
 
 第 2 次新增：重驗三組 native audit 共212個片段，定位缺失的 dispatcher tables／分類指標儲存 bytes，並證明當前 LiTo 的 PE 映射不能套用歷史 BIN 位址。報告內兩段 Python 重現皆退出0，`git diff --check` 通過。
 
@@ -322,6 +324,103 @@ print('212 chunks; 175 ranges; 108221 unique bytes; no overlap conflict')
 ```
 
 注意：此片段驗證歷史 audit 與現存 bytes 的自洽性，完整歷史 BIN 的 SHA／PE mapping 仍沿用來源 pins；`adopted:false` 仍不能拿來做語義反組譯。重跑時也須先比對上表三份 audit SHA。
+
+## 第 3 次補證與來源阻塞
+
+### 做了什麼與查核邊界
+
+本輪先讀 worktree `AGENTS.md`、`TASKS.md`，以及原專案的 `docs/REPORT.md`。worktree 是 sparse checkout，報告索引未實體化，原專案只作唯讀來源。Git ownership 仍以每次命令的 `-c safe.directory=.../task-48` 處理。隔離執行 helper 初始化失敗後，明列命令經自動審查放行執行。
+
+擴查原專案 `work/` 的可讀目錄，盤點 121,655 個檔案名稱與大小。略過 16 個 reparse point，JSON 內容查核限單檔不超過 4,000,000 bytes。找到 20 份 JSON 中 30 個帶 `va/bytes/sha256` 的原始切片，各自 hash 相符。此數字含先前已讀切片及重複範圍。與既有三份 audit 的 212 個切片分別查核，均未提供下表缺失的 table bytes。只有已具歷史 audit 的 dispatcher 被採作新增語義分析來源。
+
+遇到 11 個目錄的 Windows ACL 拒絕，未改 ACL 或進入其內容，故盤點有覆蓋缺口。被拒目錄依 work-relative 路徑列於下方。
+
+```text
+P26-authority-rebind-review-r1/synthetic-independent-fgjl3e7f
+P26-pickup-integration-review-r1/synthetic-hecff5h6
+P26-pickup-integration-review-r1/synthetic-tj11g_rj
+P26-pickup-integration-review-r1/synthetic-zhurl291
+P26-release-review-r1/synthetic-contract-fmak1edg
+P26-release-review-r1/synthetic-new-tools-d4j_sxsa
+P26-release-review-r1/synthetic-new-tools-w7ao7rf2
+P26-release-review-r1/synthetic-new-tools-_uw75d3y
+P26-release-review-r2/synthetic-independent-gifbyfat
+P26-release-review-r2/synthetic-independent-q1wqqc0p
+P35-release-generator-rg2-review-r1/synthetic-wi9s08by
+```
+
+初次盤點遇到 JSON 的 `bytes` 為整數的另一種 schema 而中止，修正型別檢查後重跑成功。曾用 Windows PowerShell 讀取結果，遇到 `.Config`／`.config` 大小寫鍵衝突，後續以 Python 解析。驗證結論取自修正後成功執行的結果。名稱／大小盤點、JSON 切片掃描有上述邊界，其他編碼、未讀大檔與被拒內容仍待驗證。
+
+### S87 入口補查與仍缺的三組 dispatch tables
+
+來源 `work/engine-slow-pickup-source-r1/native/0x947530.json` 為 91,107 bytes，檔案 SHA-256 `133b46d40caff24d5a08680a4325107ec39df66da36452ded2967e2a95635905`。採用其中第一個 raw chunk，VA `0x947530`、RVA `0x547530`、歷史 BIN File Offset `0x546930`、2,957 bytes，slice SHA-256 `8bd1ff1f11b1761065f5639805527b3a75d7fa48564c323bef59049929a28d4a`。完整 BIN 身份沿用上述 e129 pins，LiTo 身份獨立處理。
+
+由已驗 raw bytes 自函式起點重新反組譯，補得下列指令。
+
+| 指令 VA | RVA | 歷史 BIN File Offset | bytes | 意義 |
+|---|---|---|---|---|
+| `0x947E9F` | `0x547E9F` | `0x54729F` | `83e906` | 第二條路徑先減 6 |
+| `0x947EA5` | `0x547EA5` | `0x5472A5` | `817df0ef000000` | 比較無號索引上限 `0xef` |
+| `0x947EB5` | `0x547EB5` | `0x5472B5` | `0fb682d4839400` | 讀 index table `0x9483D4` |
+| `0x947EBC` | `0x547EBC` | `0x5472BC` | `ff24858c839400` | 經 target table `0x94838C` 跳轉 |
+| `0x948056` | `0x548056` | `0x547456` | `2d3b010000` | 第三條路徑先減 `0x13b` |
+| `0x94805E` | `0x54805E` | `0x54745E` | `817decea000000` | 比較無號索引上限 `0xea` |
+| `0x94806A` | `0x54806A` | `0x54746A` | `0fb691cc849400` | 讀 index table `0x9484CC` |
+| `0x948071` | `0x548071` | `0x547471` | `ff2495c4849400` | 經 target table `0x9484C4` 跳轉 |
+
+三組 index table 所需長度由各路徑的上限加一取得。下表的 target 只檢查第一個 slot，完整長度須依取得的 index bytes 最大值決定。
+
+| 缺件 | VA／RVA | 本次檢查長度 | 原始 bytes 覆蓋 | File Offset |
+|---|---|---:|---|---|
+| 第一組 index | `0x94828C`／`0x54828C` | 255 | 0 | 待完整來源 PE 驗證 |
+| 第一組 target 首 slot | `0x9480C0`／`0x5480C0` | 4 | 0 | 待完整來源 PE 驗證 |
+| 第二組 index | `0x9483D4`／`0x5483D4` | 240 | 0 | 待完整來源 PE 驗證 |
+| 第二組 target 首 slot | `0x94838C`／`0x54838C` | 4 | 0 | 待完整來源 PE 驗證 |
+| 第三組 index | `0x9484CC`／`0x5484CC` | 235 | 0 | 待完整來源 PE 驗證 |
+| 第三組 target 首 slot | `0x9484C4`／`0x5484C4` | 4 | 0 | 待完整來源 PE 驗證 |
+| 分類指標儲存位置 | `0x13CD838`／`0xFCD838` | 4 | 0 | unknown |
+| 另一分類指標儲存位置 | `0x13CD878`／`0xFCD878` | 4 | 0 | unknown |
+
+S87 的同身份語義入口仍 unknown。還需 dispatcher 狀態分支、其 caller 的封包轉換／解碼、完整欄位序列與 handler bytes，才能確立 wire87 的落點。新增指令只擴充補件清單。分類指標初始化、102 parser 寫入、所指表、factory、hit-test／pickup 皆仍缺可追溯資料流。
+
+### 與 #49 server envelope 的實際交叉核對
+
+核對 #49 commit `2345fe7c662eb084424172d909cf1646fec33e4f` 的 `work/issue-49/contract.json`，Git blob 原始 bytes 的 SHA-256 為 `f0cda063bcf0b698d0c82ace67b63ce7673cdbf49057a5463d79dda13c317dc4`。`qualified=false`、`adoptedTemplateRows=[]`，七類 `templateGaps` 的 `groundGfx` 均為 null，金幣 7／3247 尚未裁定。#49 於 2026-11-05 07:00:41 UTC 的審查也要求補齊模板與可重播 fixture。[#49 審查留言](https://github.com/chaoren0418-arch/tw-bin-engine/issues/49#issuecomment-6651885173)
+
+本輪另讀允許 work 的 `engine-slow-pickup-source-r1/classes/S_NPCPack_Item.class`，SHA-256 `342a67c96513e6dad7b7254d3b13da8819aa441430efe1a4756ef7284ccc5714`。以 `javap -c -p` 重建，逐行移除首尾空白並略過空白行後，與既存 `S_NPCPack_Item.javap.txt` 完全一致。文字檔 SHA-256 為 `e08834dc4c897530e998b85fc570a45ea4b68ec3cb39a3c2b9b87caebf7f382b`。
+
+解析 class 常數池及 Code attribute，`buildPacket(L1ItemInstance)` 的 code 起始 **class File Offset `0x80C`**，長度 376 bytes，code SHA-256 `43fb59c6d442d9f1c3260ca83a3e252636d9a1e0137f97a362a75a6c823c49f5`。Java 方法使用 bytecode offset，RVA／VA 不適用。
+
+| 已驗寫包步驟 | 方法內 bytecode offset | class File Offset，含該段指令 bytes | javap 行號 |
+|---|---|---|---|
+| 寫入 opcode87 | 0–5 | `0x80C–0x811` | 21–23 |
+| instance `getId()` → `writeD` | 22–29 | `0x822–0x829` | 32–35 |
+| `getItem().getGroundGfxId()` → `writeH` | 30–40 | `0x82A–0x834` | 36–40 |
+| `getCount()` → `Math.min(count, 2000000000)` → `writeD` | 78–92 | `0x85A–0x868` | 60–66 |
+| count 與 1 比較後進入名稱組合分支 | 101–129 | `0x871–0x88D` | 72–85 |
+
+此方法在 offset30–40 直接傳遞 template getter 的 gfx，後面的 count／名稱分支處理另兩個欄位。就這個寫包區段而言，可核定「gfx 取自 getter、數量另寫欄位」，其直接指令沒有 count→gfx 選擇。getter 實作、模板建立／更新、其他 producer、同身份 client 的 remap 仍需獨立證明。因而 7↔3247 alias、金幣 count→gfx/frame 的全鏈結論仍為 unknown。#49 的缺件狀態與本輪觀察一致。
+
+### 驗收逐項裁定與怎麼驗證
+
+| 驗收項目 | 第 3 次結果 | 待補來源 |
+|---|---|---|
+| 同身份 S87→gfx→102 loader/table→factory→hit-test/pickup | 未完成 | 三組 dispatch tables、封包語義連結、初始化與完整 downstream bytes |
+| type9 充分性／必要性／原生例外 | unknown | 上述完整資料流及各分支例外 |
+| 原生可辨識／可顯示／可提出拾取 | 各自 unknown | factory 種類、frame resolver／alias、選取與拾取 predicate 分別補證 |
+| 7／3247 alias 與 count 外觀 | 部分補證，整體 unknown | 已驗 server 寫包 getter；尚缺模板與同身份 client 分支 |
+| 8 個 payload／10 幀 source pins | 重驗通過 | native 地面 frame／alias 選擇仍待驗證 |
+| #51 分類與拾取閘門 | 未通過 | 由 Claude／調度器處理來源缺口後再裁定 |
+
+本輪成功執行 `py -3 -B -X utf8 scratch/issue-48/verify_static.py` 與 `repro-1.py`，結果為 17 IDX／261,461 records、8 payload／10 frames、212 native chunks／175 ranges／108,221 unique bytes，重疊衝突 0，LiTo SHA 與 PE sections 符合前次 pin。`attempt3.py` 修正後及 `verify_server.py` 均退出 0。新增 scratch 輸出為 `attempt3.json`，腳本另有 `summarize3.py`。資產以記憶體解碼，產出僅含文字／JSON，必要 pin 已留在本報告。
+
+提交前 `check_attempt3.py` 針對本次新增表格通過 8 處指令 bytes／VA／RVA／File Offset 核對、兩組語料的 8 個缺件範圍檢查與 S87 Code pin 檢查，`git diff --check` 通過。此輪為靜態資源查核，建置、CI 與原生實機測試未執行。
+
+### 給下一棒的提示與恢復條件
+
+請 **Claude／調度器先接手來源判定**，在 Issue 明確指定可讀的同 SHA 完整靜態 BIN，或由合法來源整理者把上述缺件及來源 PE sections／SHA／File Offset／RVA／VA 放入允許 work。收到資料後再指派本機 resource 沿 handler、loader、factory、input 的實際引用順序研究。若無法提供，請由 Claude 明確拆分資源 pins 與完整 native 契約的驗收範圍。本輪不具備完整契約的送審條件。
+
+#49 執行者需先補 template→getter 的採用列及具來源的 fixture，再與本 Issue 的 client 證據對接。保留 8 個 payload／10 幀 pins 與既有 unknown，#51 等待原生分類及拾取閘門通過。此次為 resource 階段，只更新本報告。完整契約阻塞需由調度器承接，本輪沒有另建任務或更動 Issue 標籤。
 
 ## 未驗證什麼
 
