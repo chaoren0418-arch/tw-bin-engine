@@ -31,6 +31,54 @@ class Checks {
     }
     static void Sender(LoginConnection c,Func<byte[],Func<bool>,Action,Task<bool>> sender)=>Set(c,"sendMovementGate",sender);
     static Task<bool> Send(LoginConnection c,bool pickup,string count,GroundQuantitySelection? selection=null)=>c.SendGroundQuantity(pickup,count,selection??c.World.GroundQuantity(pickup));
+    static async Task RejectedDrop(GroundDefinition gold){
+        // #49's unchanged static S15, plus a source-derived S71/125 response.
+        // Neither is a live capture, and the sender never executes Java/network code.
+        foreach(bool beforeCompletion in new[]{false,true}){
+            using var c=Seed(gold);Feed(c,Fixture("gold-s15"));
+            uint id=BinaryPrimitives.ReadUInt32LittleEndian(Fixture("gold-s15").AsSpan(1));
+            c.World.SelectItem(id);var selection=c.World.GroundQuantity(false)!;
+            var item=c.World.SelectedItem;string ground=JsonSerializer.Serialize(c.World.Ground);int sends=0;
+            var completion=new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+            Sender(c,(b,v,a)=>{if(!v())return Task.FromResult(false);a();sends++;
+                Check(b[0]==25&&BinaryPrimitives.ReadUInt32LittleEndian(b.AsSpan(5))==id,"drop uses owned ObjectId");
+                Check(BinaryPrimitives.ReadUInt32LittleEndian(b.AsSpan(9))==(sends==1?1u:10u),"retry count is explicit");
+                return beforeCompletion&&sends==1?completion.Task:Task.FromResult(true);});
+            var first=Send(c,false,"1",selection);if(!beforeCompletion)Check(await first,"first drop completed");
+            int revision=c.World.InventoryRevision;
+            Feed(c,LoginPackets.Pad([71,125,0,0]));
+            Check(c.World.LastServerReply?.Id==125,"server rejection decoded");
+            Check(c.World.InventoryRevision>revision,"message still refreshes UI");
+            Check(c.World.CurrentGroundQuantity(false,selection),"rejection preserves unchanged quantity snapshot");
+            Check(c.World.LastServerReply is {Recognized:true,Text:"你不能夠放棄此樣物品。"},"source-proven 125 text");
+            Check(c.World.SelectedItem==item&&JsonSerializer.Serialize(c.World.Ground)==ground,"rejection does not settle items/ground");
+            Check(!c.World.AwaitingPickupAction,"drop has no pickup pending");
+            if(beforeCompletion){completion.SetResult(true);Check(await first,"rejection before completion keeps owner");}
+            Check(!await Send(c,false,"10",selection)&&sends==1,"rejection does not bypass 900ms guard");
+            await Task.Delay(LoginConnection.GroundClickGuardMs+50);
+            Check(!c.GroundBusy,"transport lease and click guard released");
+            Check(await Send(c,false,"10",selection)&&sends==2,"explicit second drop after rejection");
+            Check(c.World.SelectedItem==item,"second request has no predicted deduction");
+            foreach(string invalid in new[]{"0","251"}){
+                Check(!await Send(c,false,invalid,selection)&&sends==2,"invalid retry does not send");
+                Check(c.World.GroundNotice.Contains("數量不合法")&&!c.World.GroundNotice.Contains("重新選取"),"quantity-only message");
+            }
+            Item(c,gold,249,id);Item(c,gold,250,id);Feed(c,LoginPackets.Pad([71,125,0,0]));
+            Check(!await Send(c,false,"1",selection)&&sends==2,"real item ABA remains stale after rejection");
+            Check(c.World.GroundNotice.Contains("選取已過期")&&!c.World.GroundNotice.Contains("數量不合法"),"selection-only message");
+            Check(!await Send(c,false,"0",selection)&&c.World.GroundNotice.Contains("數量不合法")&&!c.World.GroundNotice.Contains("重新選取"),"invalid quantity takes precedence even when stale");
+            c.World.SelectItem(id);var fresh=c.World.GroundQuantity(false)!;
+            await Task.Delay(LoginConnection.GroundClickGuardMs+50);
+            Check(await Send(c,false,"10",fresh)&&sends==3,"explicit reselect restores real stale item");
+        }
+        using(var c=Seed(gold)){
+            var selection=c.World.GroundQuantity(false);int sends=0;
+            Sender(c,(b,v,a)=>{Feed(c,LoginPackets.Pad([71,125,0,0]));if(!v())return Task.FromResult(false);a();sends++;return Task.FromResult(true);});
+            Check(await Send(c,false,"1",selection)&&sends==1,"message before final admission does not expire item content");
+        }
+        Check(!ServerMessageText.Decode(125,["unexpected"]).Recognized,"unexpected 125 argument stays unknown");
+        cases.Add("#77 S71/125 拒絕→恢復→再次手動 C25；送出前／完成前／完成後、900ms、數量訊息、ABA 保護");
+    }
     static async Task<int> Main(string[] args){
         try{await Run(args);return 0;}catch(Exception ex){Console.Error.WriteLine(ex);return 1;}
     }
@@ -48,6 +96,7 @@ class Checks {
         }
         cases.Add("七筆模板交集：四筆啟用、三筆缺 pin 關閉");
         var gold=GroundCatalog.Rows.Single(r=>r.Id=="gold");
+        await RejectedDrop(gold);
         foreach(string name in new[]{"gold","meat"}){
             using var c=new LoginConnection();Feed(c,Fixture(name+"-s87"));Feed(c,Fixture(name+"-s15"));var row=GroundCatalog.Rows.Single(r=>r.Id==name);uint n=name=="gold"?250u:3u;
             Check(c.World.Ground.Single().Count==n&&c.World.Ground.Single().Gfx==row.GroundGfx,"source S87 "+name);Check(GroundRules.Droppable(c.World.Inventory.Single()),"source S15 "+name);

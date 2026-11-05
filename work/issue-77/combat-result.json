@@ -1,0 +1,43 @@
+{
+  "status": "pass",
+  "checks": 8780,
+  "cases": [
+    {
+      "name": "issue47-all-62-melee-actions-and-four-skills",
+      "checks": 8669,
+      "status": "pass"
+    },
+    {
+      "name": "seed-and-action-cadence",
+      "checks": 28,
+      "status": "pass"
+    },
+    {
+      "name": "authority-melee-appearance-flight-owner-cancellation",
+      "checks": 15,
+      "status": "pass"
+    },
+    {
+      "name": "controller-dedup-cancel-and-delayed-register",
+      "checks": 10,
+      "status": "pass"
+    },
+    {
+      "name": "authoritative-death-map-and-local-disconnect-events",
+      "checks": 3,
+      "status": "pass"
+    },
+    {
+      "name": "33-wav-pins-controls-missing-integrity-cleanup-and-6016-fallback",
+      "checks": 47,
+      "status": "pass"
+    },
+    {
+      "name": "audio-player-owner-and-mute-fence",
+      "checks": 8,
+      "status": "pass"
+    }
+  ],
+  "productSha256": "0a34f0bb136bd530f5f603c3a60a0b1e8965882d9986ef31d126ff570aa4635e",
+  "scope": "\u5DF2\u9A57\u8B49\uFF08\u96E2\u7DDA\uFF09\uFF0C\u771F\u5BE6 metadata/WAV \u552F\u8B80\u9A57\u8B49\uFF0Cmanaged fake driver \u7121\u5BE6\u969B\u64AD\u653E\uFF0C\u5F85 #52 \u771F\u6A5F\u807D\u97F3"
+}

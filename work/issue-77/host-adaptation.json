@@ -1,0 +1,10 @@
+{
+  "source": "engine\\_integration\\dev\\combat-sfx-tests\\Program.cs",
+  "sha256": "ef2b6eb05f5e0222c1df79f41ddf384efb25a6b3fff1c332f788737248809b86",
+  "adaptedSha256": "09eca34939dacc181c16339e71bf52e1d43e6789baaedd62a0396911cca4ea10",
+  "changes": [
+    "assets reads original engine/assets",
+    "AppContext base points to original engine/build/offline-checks"
+  ],
+  "assertionsChanged": false
+}

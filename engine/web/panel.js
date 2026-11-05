@@ -69,12 +69,12 @@ const quantitySelections={};
 function rememberQuantity(key,s){
  if(!s)return;const old=quantitySelections[key],item=s.items.find(i=>i.id===s.selectedId);
  if(!old||old.epoch!==s.epoch||old.itemId!==s.selectedId||old.selectionRevision!==s.selectionRevision)
-  quantitySelections[key]=item?{itemId:s.selectedId,epoch:s.epoch,selectionRevision:s.selectionRevision,revision:s.revision,available:item.count}:null;
+  quantitySelections[key]=item?{itemId:s.selectedId,epoch:s.epoch,selectionRevision:s.selectionRevision,revision:s.quantityRevision??s.revision,available:item.count}:null;
 }
 function countCommand(cmd,key,input){
  const s=quantitySelections[key],text=document.querySelector(input).value;
  if(s&&/^[0-9]+$/.test(text)&&Number.isSafeInteger(Number(text))&&Number(text)>0&&Number(text)<=Math.min(s.available,2147483647))send(cmd,{...s,count:text});
- else document.querySelector(key==='ground'?'#groundNotice':'#inventoryNotice').textContent='未送出：請輸入 1 到持有量的整數；選取變更後請重新選取';
+ else document.querySelector(key==='ground'?'#groundNotice':'#inventoryNotice').textContent=s?'未送出：數量不合法，請輸入 1 到持有量（最多 2147483647）的整數':'未送出：請先選取物品';
 }
 document.querySelector('#dropItem').onclick=()=>countCommand('drop','inventory','#dropCount');
 document.querySelector('#pickup').onclick=()=>countCommand('pickup','ground','#pickupCount');

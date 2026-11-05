@@ -34,13 +34,17 @@ public sealed partial class WorldSession {
     public bool CanDropGroundItem(InventoryItem item)=>GroundRules.Droppable(item)&&!EquipmentSlots.Any(s=>s.ObjectId==item.ObjectId)&&ItemEquipped(item)!=true;
     public GroundQuantitySelection? GroundQuantity(bool pickup)=>pickup
         ?SelectedGround is {} g?new(WorldEpoch,g.ObjectId,GroundSelectionRevision,GroundRevision,g.Count):null
-        :SelectedItem is {} i?new(WorldEpoch,i.ObjectId,ItemSelectionRevision,InventoryRevision,i.Count):null;
+        :SelectedItem is {} i?new(WorldEpoch,i.ObjectId,ItemSelectionRevision,InventoryContentRevision,i.Count):null;
     public bool CurrentGroundQuantity(bool pickup,GroundQuantitySelection? selection)=>selection!=null&&selection==GroundQuantity(pickup);
 }
 public sealed partial class LoginConnection {
     public Task<bool> SendGroundQuantity(bool pickup,string text,GroundQuantitySelection? selection){
-        if(!World.CurrentGroundQuantity(pickup,selection)||!GroundCatalog.TryCount(text,selection!.Available,out uint count)){
-            World.GroundNotice="未送出：請輸入 1 到持有量的整數；數量或選取變更後請重新選取";return Task.FromResult(false);
+        if(selection==null){World.GroundNotice="未送出：請先選取物品";return Task.FromResult(false);}
+        if(!GroundCatalog.TryCount(text,selection.Available,out uint count)){
+            World.GroundNotice="未送出：數量不合法，請輸入 1 到持有量（最多 2147483647）的整數";return Task.FromResult(false);
+        }
+        if(!World.CurrentGroundQuantity(pickup,selection)){
+            World.GroundNotice="未送出：選取已過期，請重新選取物品";return Task.FromResult(false);
         }
         return SendGround(pickup,count,()=>World.CurrentGroundQuantity(pickup,selection));
     }
