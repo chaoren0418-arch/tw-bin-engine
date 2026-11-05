@@ -2,9 +2,25 @@
 
 日期：2026-11-05。分支：`task/47`。隔離基線：`89888870e52cf3c19e046c7b0c040619c117c644`。
 
+## 驗收調整
+
+依 [2026-11-05 雲端主控裁定](https://github.com/chaoren0418-arch/tw-bin-engine/issues/47#issuecomment-6652566161)與 Issue #47 更新後規格，本輪只收尾：交付既有靜態事件、WAV pins 與明列的 unknown，不再把完整原生派送語義證明列為本張驗收條件。既有 commit `705171687b11dfb70f215b289715cc0f8c3ba560` 的 evidence.json 與 REPRODUCE.md 保持原樣，本次僅更新報告。
+
+**靜態事件與 WAV pins 已整理；原生派送語義 unknown（Themida 執行期）；產品語義依主控裁定。** Themida 執行期限制是主控採納的停止研究理由，本輪未重新分析正式 BIN，也不把「所有靜態方法均不可能」當成新增的實驗證明。以下產品規則標為「**推測，待 #52 真機補測聽音核對**」，不冒充已證明的原生行為：
+
+- 取各幀 `[N` 尾綴，動畫第一次進入該幀時播放；重繪不重播，循環動畫每輪進入時播一次。
+- 同幀多候選隨機擇一；#50 的測試可注入亂數來源。不能全候選一律播放。
+- `<`、`!` 及其他非 `[` 尾綴不作音效。
+- 受擊音取目標 appearance 的 damage 事件；光箭飛行與 impact 各用自身 gfx 事件。
+- 只採用原客戶端 `Sound/` 中有 SHA pin 的 WAV；缺檔或雜湊不符明確不播並記錄。
+
+原 evidence.json 的 `status=blocked-native-contract`、`qualifiedBindings=[]` 與候選 disabled 旗標是原生證據資格，仍如實保留；不代表新驗收中的文件交付失敗，也不阻止主控另行採納上述產品政策。#50 須引用本節與明確 pin，不能把歷史 unknown 改寫成已驗證。
+
+推送前已依使用者選擇 B 將唯一指定儲存庫 `chaoren0418-arch/tw-bin-engine` 改為 private；GitHub API 及連接器再次確認 private，管理帳號仍有 admin/pull/push，Git 遠端唯讀存取通過。本輪沒有公開推送，也沒有變更其他儲存庫。
+
 ## 結論
 
-**部分靜態取證完成；原生音效契約仍 blocked，qualified binding = 0。** 本輪新增可重現的 50 組文字事件候選、33 個 WAV 身分，以及兩個歷史 native JSON 的機器碼核驗。找到 native 結構的「最多五候選，選一筆」分支；不能把全候選組一律播放。但 `[`／`<`／`!` 的 parser 欄位對映、版本配對與各動作派送生命週期仍不足，不能將本輪候選提升為產品可播放白名單。
+**靜態事件與 WAV pins 已整理；原生派送語義 unknown（Themida 執行期）；產品語義依主控裁定。** 原輪已核驗可重現的 50 組文字事件候選、33 個 WAV 身分及兩個歷史 native JSON 的機器碼。native 結構的「最多五候選，選一筆」分支有有限證據；完整 `[`／`<`／`!` parser 欄位對映、版本配對與動作生命週期仍不足，原生 qualified binding = 0。後續產品採用須依上節明示政策，不宣稱 native parity。
 
 已核對 Issue 最新 YAML 與標籤均為 `runner:dot`，正文殘留 `runner:codex-local` 不當成改派；起始只有派工留言，沒有 RESULT。本機與遠端沒有既存 `task/47`。使用 `scratch/wt/task-47` 稀疏 worktree；原工作目錄仍保留其他工作。未讀 `docs/REPORT.md`，依上層明確限制優先於派工範本要求。
 
@@ -51,7 +67,43 @@
 | 127 | 84854 | `6ca44e9ea605d14e6d582a3ca6071b0b0f0d1d395df2f24651fcdb1b2061d364` |
 | 804 | 335476 | `a1ccf06439dd3fdf721016b85bb08563a07f16e69ce9ad8d18c2ac07e4d36117` |
 
-全部 33 個完整 pin 及 RIFF offsets 見 `work/issue-47/evidence.json.wavPins`，不另複製音檔。
+全部 33 個完整 pin 及 RIFF offsets 見 `work/issue-47/evidence.json.wavPins`，不另複製音檔。以下清單直接由該已核驗資料產生，供 #50 按主控產品政策查核；來源根目錄固定為 `D:\lineage開發\0-客戶端`，不得把技能 ID／gfx 當成 WAV ID。所列 33 檔均有來源 pin；未列的事件或檔案保持 unknown。
+
+| 檔名 | 來源相對位置 | SHA-256 | 用途 |
+|---|---|---|---|
+| 97.wav | Sound/97.wav | 2e8661cc26238e422b3233509ba24ae11b3440d8c1d74666cb5c842e7de6f1a7 | 技能4／gfx167 |
+| 109.wav | Sound/109.wav | 664c8d8b353e2a03cbc337df7a7d36ce009d0213d33064e43779f4c76471b4d1 | 技能1／gfx11722 |
+| 127.wav | Sound/127.wav | 6ca44e9ea605d14e6d582a3ca6071b0b0f0d1d395df2f24651fcdb1b2061d364 | 技能3／gfx221 |
+| 246.wav | Sound/246.wav | 0df58a6bc641edbdb283f797c1ed7b416f8d4c20a5d95095f079ebda4773cfcc | 已列近戰 attack／damage 候選 |
+| 248.wav | Sound/248.wav | d2696d07692ba610371d301e3027c2153c6075eb8446476ff4fbcd1f1e101bb5 | 已列近戰 attack／damage 候選 |
+| 405.wav | Sound/405.wav | e65d498bab6bc5a26bebb6c31929b7e4c4291d705c5e8b9ec721993679df2e2f | 已列近戰 attack／damage 候選 |
+| 701.wav | Sound/701.wav | 6003c0c805fd9dc6b4988be7e31fdd9782f31543ca96955b0816a03698da39f2 | 已列近戰 attack／damage 候選 |
+| 703.wav | Sound/703.wav | 30bac3007049ab0c15a7ccf315445da0a0b9cb990f49a772af0f138b4f127f09 | 已列近戰 attack／damage 候選 |
+| 804.wav | Sound/804.wav | a1ccf06439dd3fdf721016b85bb08563a07f16e69ce9ad8d18c2ac07e4d36117 | 技能8／gfx2165 |
+| 904.wav | Sound/904.wav | 013e31cbeee8c3472ccf881cdafc0e6ae5117805234a58117071a0eae1a85600 | 已列近戰 attack／damage 候選 |
+| 1513.wav | Sound/1513.wav | ae4145e4c94b514e65b91fcfa4487f149fad01e6251e689c8cc276ce6fcafb3a | 已列近戰 attack／damage 候選 |
+| 1517.wav | Sound/1517.wav | 7ecf324c4485fc4c43afe531b0e85d9db85dffaaf8cedef9264534ec8e198945 | 已列近戰 attack／damage 候選 |
+| 1520.wav | Sound/1520.wav | db73647b7fc6a0e4919123201d27df537a65603389a0cc52eef2d87f95150dcc | 已列近戰 attack／damage 候選 |
+| 1521.wav | Sound/1521.wav | 31a44b4544cc7559bbd96fb9c7e397293c8c6a2a425edb337da9add8475a9450 | 已列近戰 attack／damage 候選 |
+| 1522.wav | Sound/1522.wav | 085b30d151c203f4fe81629ab2aed3dc170c4b68a0c80bddbde2040cc13b0ad2 | 已列近戰 attack／damage 候選 |
+| 1537.wav | Sound/1537.wav | 1921c2d75c763d51a18efec28a9e59ae1799b9f1d91e3954e0a76656be64039c | 已列近戰 attack／damage 候選 |
+| 1538.wav | Sound/1538.wav | b792497547fdd91fc057575ac37150aa8137cf0aca592f387008dbc6244c7bb6 | 已列近戰 attack／damage 候選 |
+| 1539.wav | Sound/1539.wav | 4bdb0af502bff04b83598e1c865365031b960360fe3160cf8a8849b29de8ed4b | 已列近戰 attack／damage 候選 |
+| 1540.wav | Sound/1540.wav | 254955a92b7f9f8688487debeb9193bb2d4401bb5424835e3abd7436c1c071c3 | 已列近戰 attack／damage 候選 |
+| 1541.wav | Sound/1541.wav | 6f7153674f59f30fa6836856cb5ba1595a1df449fe4b46704993a5806b11b7c1 | 已列近戰 attack／damage 候選 |
+| 1546.wav | Sound/1546.wav | 973829519ec59b59ab1dc78562c3b38bff96954ae99645e8e0911ca40bf860d1 | 已列近戰 attack／damage 候選 |
+| 1547.wav | Sound/1547.wav | f56c71a583b1ec3dca6a0caeb165f6461add48cc7581c142a91ea06d3dd5f5e3 | 已列近戰 attack／damage 候選 |
+| 1560.wav | Sound/1560.wav | e9232162f71a1703edcdbcdfb84d43f03dac6967424448683258a0ae78d94e54 | 已列近戰 attack／damage 候選 |
+| 1561.wav | Sound/1561.wav | 90a7fa901924853dce97c761f545f20708566967d4e34bd645f5e4cb88570f2a | 已列近戰 attack／damage 候選 |
+| 1562.wav | Sound/1562.wav | 99abfa6c6b93a3585763fb518272abdce6a6afd17c2ebebe59be045c779c6c7f | 已列近戰 attack／damage 候選 |
+| 1567.wav | Sound/1567.wav | 78e5f3038f974d9e4a8527b31324a1e0cd33ff23d0ed03c031f33d77856a9ae1 | 已列近戰 attack／damage 候選 |
+| 1568.wav | Sound/1568.wav | 2068f34cd7e7ee3cb937740bb744f1b6c282586d2999557d5fdb87ba832d818d | 已列近戰 attack／damage 候選 |
+| 1569.wav | Sound/1569.wav | 219b8e3dd0f0cfc4d9fd77be6a062bebe1cbc432c6bfadc6169fd6f157290335 | 已列近戰 attack／damage 候選 |
+| 1574.wav | Sound/1574.wav | b30b32f1ea23070e3803c3c49f410b211958d9e6b801baaeec79e66ade4d5b6e | 已列近戰 attack／damage 候選 |
+| 1575.wav | Sound/1575.wav | 053523a61c462ffd2eb8589e3b2969e882a2e4e1731503b75708b42d6a40df1b | 已列近戰 attack／damage 候選 |
+| 1580.wav | Sound/1580.wav | e2e760868de230cd778093ae41f9732ebc92517a5fe4704536bad61bff515e49 | 已列近戰 attack／damage 候選 |
+| 1581.wav | Sound/1581.wav | 3c10c90cb1ee08584d39c25cd885a287bc9ef9c2e9ecdbe7c7e58e4c080062d0 | 已列近戰 attack／damage 候選 |
+| 1582.wav | Sound/1582.wav | 24486b338807cb118bded3a04fda6d6e2d8883e86a755d8f2df62a84f64d3128 | 已列近戰 attack／damage 候選 |
 
 ### 已驗證：歷史 native 片段內部一致性及條件式分支
 
@@ -110,6 +162,6 @@
 
 ## 給下一棒的提示
 
-由 Claude 審查本輪條件式結論及證據等級；調度器保持 sfx-dispatch 依賴阻擋。**不得因本 Issue 交出報告或 RESULT 就把 native resource gate 視為通過。** 上述50列候選與33音檔只供來源查核，零列允許實作播放。
+由 Claude 依更新後驗收審查文件交付，並決定何時解除 #50 的依賴；本輪不直接修改 #50 或其他 Issue。上述50列候選與33音檔可供 #50 依「驗收調整」所列產品政策使用，但零列取得完整原生語義資格。**交付完成不等於 native resource gate 已通過，更不等於音效產品或可聽驗收完成。**
 
-解除阻塞的最小交付是：經使用者既有授權範圍內合法取得、可版本對映的 parser/loader 與 event consumer 靜態片段，含來源整檔 SHA、ImageBase/section 映射、VA/RVA/File Offset/bytes SHA、符號→欄位→caller→播放介面完整鏈；補上首次／terminal／重播／飛行／受擊規則。優先搜尋已授權的現有靜態研究，不能為補件啟動／附加／dump、碰正式 BIN 或連服務。這是證據阻塞，並非要求使用者放寬本輪權限。
+若未來另行要求證明原生語義，所缺仍是合法且可版本對映的 parser/loader 與 event consumer 靜態片段，包括來源 SHA、ImageBase/section 映射、VA/RVA/File Offset/bytes SHA 及完整 caller chain。這些是保留的 unknown，**不再是本張更新後的交付驗收條件**；本輪不繼續補件，不啟動／附加／dump、不碰正式 BIN 或連服務。後續 #50 實作及 #52 真機聽音驗證依主控新規格辦理。
