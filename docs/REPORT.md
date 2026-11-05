@@ -31,3 +31,4 @@
 - 2026-11-06 — #49 ground-server-contract: 資源：核對原服金幣與可疊加物品的靜態模板及封包格式（resource，dot，PR #64 已合併）→ [報告](reports/issue-49.md)
 - 2026-11-06 — #50 combat-sfx: 實作：技能與攻擊音效依原始事件派送（code，codex-local，PR #65 已合併）→ [報告](reports/issue-50.md)
 - 2026-11-06 — #51 ground-items: 實作：資料表地面物品丟撿與金幣數量輸入（code，codex-local，PR #66 已合併）→ [報告](reports/issue-51.md)
+- 2026-11-06 — #70 DEMO-1：主專案同步 main、建置 dev，並建立「打開就看得到」的 docs/demo/ 骨架（test，codex-local，PR #75 已合併）→ [報告](reports/issue-70.md)
