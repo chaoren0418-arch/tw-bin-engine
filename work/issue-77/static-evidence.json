@@ -1,0 +1,178 @@
+{
+  "jarPath": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+  "jarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "offsetKind": "JVM method bytecode offsets; not file offsets/RVA/VA",
+  "command": [
+    "javap",
+    "-J-Dfile.encoding=UTF-8",
+    "-c",
+    "-p",
+    "-classpath",
+    "<jar>",
+    "<class>"
+  ],
+  "classes": {
+    "C_DropItem": {
+      "classPath": "com/lineage/server/clientpackets/C_DropItem.class",
+      "classSha256": "5b097f52ad2f3b7f6836ceb4124208adc8d9f4c8ddf172c658456f5629225319",
+      "javapSha256": "8c78438899529764d80de2bc5ddece305a2b3c5f04486b7b02ec999f18e36b78",
+      "excerpts": [
+        {
+          "method": "public void start(byte[], com.lineage.echo.ClientExecutor);",
+          "bytecodeOffsets": [
+            0,
+            158
+          ],
+          "text": "       0: aload_0\n       1: aload_1\n       2: invokevirtual #7                  // Method read:([B)V\n       5: aload_0\n       6: invokevirtual #13                 // Method readH:()I\n       9: istore_3\n      10: aload_0\n      11: invokevirtual #13                 // Method readH:()I\n      14: istore        4\n      16: aload_0\n      17: invokevirtual #17                 // Method readD:()I\n      20: istore        5\n      22: aload_0\n      23: invokevirtual #17                 // Method readD:()I\n      26: istore        6\n      28: iload         6\n      30: ldc           #22                 // int 2147483647\n      32: if_icmple     39\n      35: ldc           #22                 // int 2147483647\n      37: istore        6\n      39: iconst_0\n      40: iload         6\n      42: invokestatic  #23                 // Method java/lang/Math.max:(II)I\n      45: istore        6\n      47: iload         6\n      49: ifgt          57\n      52: aload_0\n      53: invokevirtual #29                 // Method over:()V\n      56: return\n      57: aload_2\n      58: invokevirtual #32                 // Method com/lineage/echo/ClientExecutor.getActiveChar:()Lcom/lineage/server/model/Instance/L1PcInstance;\n      61: astore        7\n      63: aload         7\n      65: invokevirtual #38                 // Method com/lineage/server/model/Instance/L1PcInstance.isGhost:()Z\n      68: ifeq          76\n      71: aload_0\n      72: invokevirtual #29                 // Method over:()V\n      75: return\n      76: aload         7\n      78: invokevirtual #44                 // Method com/lineage/server/model/Instance/L1PcInstance.getInventory:()Lcom/lineage/server/model/L1PcInventory;\n      81: iload         5\n      83: invokevirtual #48                 // Method com/lineage/server/model/L1PcInventory.getItem:(I)Lcom/lineage/server/model/Instance/L1ItemInstance;\n      86: astore        8\n      88: aload         8\n      90: ifnull        103\n      93: aload         8\n      95: invokevirtual #54                 // Method com/lineage/server/model/Instance/L1ItemInstance.getCount:()J\n      98: lconst_0\n      99: lcmp\n     100: ifgt          108\n     103: aload_0\n     104: invokevirtual #29                 // Method over:()V\n     107: return\n     108: aload         7\n     110: invokevirtual #60                 // Method com/lineage/server/model/Instance/L1PcInstance.isGm:()Z\n     113: ifne          234\n     116: invokestatic  #63                 // Method com/lineage/server/datatables/ItemDropTable.get:()Lcom/lineage/server/datatables/ItemDropTable;\n     119: aload         8\n     121: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItemId:()I\n     124: invokevirtual #72                 // Method com/lineage/server/datatables/ItemDropTable.isDroppable:(I)Z\n     127: istore        9\n     129: getstatic     #76                 // Field com/lineage/config/ConfigAlt.DORP_ITEM:Z\n     132: ifne          159\n     135: iload         9\n     137: ifne          159\n     140: aload         7\n     142: new           #82                 // class com/lineage/server/serverpackets/S_ServerMessage\n     145: dup\n     146: bipush        125\n     148: invokespecial #84                 // Method com/lineage/server/serverpackets/S_ServerMessage.\"<init>\":(I)V\n     151: invokevirtual #87                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V\n     154: aload_0\n     155: invokevirtual #29                 // Method over:()V\n     158: return\n"
+        },
+        {
+          "method": "public void start(byte[], com.lineage.echo.ClientExecutor);",
+          "bytecodeOffsets": [
+            372,
+            398
+          ],
+          "text": "     372: aload         8\n     374: invokevirtual #138                // Method com/lineage/server/model/Instance/L1ItemInstance.isEquipped:()Z\n     377: ifeq          399\n     380: aload         7\n     382: new           #82                 // class com/lineage/server/serverpackets/S_ServerMessage\n     385: dup\n     386: bipush        125\n     388: invokespecial #84                 // Method com/lineage/server/serverpackets/S_ServerMessage.\"<init>\":(I)V\n     391: invokevirtual #87                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V\n     394: aload_0\n     395: invokevirtual #29                 // Method over:()V\n     398: return\n"
+        },
+        {
+          "method": "public void start(byte[], com.lineage.echo.ClientExecutor);",
+          "bytecodeOffsets": [
+            435,
+            458
+          ],
+          "text": "     435: iload         6\n     437: istore        10\n     439: aload         7\n     441: aload         7\n     443: aload         8\n     445: iload         10\n     447: iload_3\n     448: iload         4\n     450: invokedynamic #144,  0            // InvokeDynamic #0:get:(Lcom/lineage/server/model/Instance/L1PcInstance;Lcom/lineage/server/model/Instance/L1ItemInstance;III)Ljava/util/function/Supplier;\n     455: invokestatic  #147                // Method com/lineage/server/model/PlayerActionLock.call:(Lcom/lineage/server/model/Instance/L1PcInstance;Ljava/util/function/Supplier;)Ljava/lang/Object;\n     458: checkcast     #55                 // class com/lineage/server/model/Instance/L1ItemInstance\n"
+        },
+        {
+          "method": "private static com.lineage.server.model.Instance.L1ItemInstance lambda$start$0(com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.Instance.L1ItemInstance, int, int, int);",
+          "bytecodeOffsets": [
+            0,
+            26
+          ],
+          "text": "       0: aload_0\n       1: invokevirtual #44                 // Method com/lineage/server/model/Instance/L1PcInstance.getInventory:()Lcom/lineage/server/model/L1PcInventory;\n       4: aload_1\n       5: iload_2\n       6: aload_0\n       7: invokevirtual #195                // Method com/lineage/server/model/Instance/L1PcInstance.get_showId:()I\n      10: invokestatic  #198                // Method com/lineage/server/world/World.get:()Lcom/lineage/server/world/World;\n      13: iload_3\n      14: iload         4\n      16: aload_0\n      17: invokevirtual #203                // Method com/lineage/server/model/Instance/L1PcInstance.getMapId:()S\n      20: invokevirtual #207                // Method com/lineage/server/world/World.getInventory:(IIS)Lcom/lineage/server/model/L1GroundInventory;\n      23: invokevirtual #210                // Method com/lineage/server/model/L1PcInventory.tradeItem:(Lcom/lineage/server/model/Instance/L1ItemInstance;IILcom/lineage/server/model/L1GroundInventory;)Lcom/lineage/server/model/Instance/L1ItemInstance;\n      26: areturn\n"
+        }
+      ]
+    },
+    "ItemDropTable": {
+      "classPath": "com/lineage/server/datatables/ItemDropTable.class",
+      "classSha256": "c05cf45d13022b1f5dd5be89b58c48dfbf6ab0f4f23c0443360cb9da2ed0f536",
+      "javapSha256": "a70e9bc39ec544af9b6fad49542160b6ed18b017c9a9592571c66518ae840251",
+      "excerpts": [
+        {
+          "method": "private void load();",
+          "bytecodeOffsets": [
+            8,
+            108
+          ],
+          "text": "       8: aload_0\n       9: getfield      #16                 // Field _whiteList:Ljava/util/Set;\n      12: invokeinterface #26,  1           // InterfaceMethod java/util/Set.clear:()V\n      17: invokestatic  #31                 // Method com/lineage/DatabaseFactory.get:()Lcom/lineage/DatabaseFactory;\n      20: invokevirtual #37                 // Method com/lineage/DatabaseFactory.getConnection:()Ljava/sql/Connection;\n      23: astore_2\n      24: aload_2\n      25: ldc           #41                 // String SELECT `itemid` FROM `道具_物品強制丟棄`\n      27: invokeinterface #43,  2           // InterfaceMethod java/sql/Connection.prepareStatement:(Ljava/lang/String;)Ljava/sql/PreparedStatement;\n      32: astore_3\n      33: aload_3\n      34: invokeinterface #49,  1           // InterfaceMethod java/sql/PreparedStatement.executeQuery:()Ljava/sql/ResultSet;\n      39: astore        4\n      41: aload         4\n      43: invokeinterface #55,  1           // InterfaceMethod java/sql/ResultSet.next:()Z\n      48: ifeq          137\n      51: iconst_m1\n      52: istore        5\n      54: aload         4\n      56: ldc           #61                 // String itemid\n      58: invokeinterface #63,  2           // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n      63: istore        5\n      65: invokestatic  #67                 // Method com/lineage/server/datatables/ItemTable.get:()Lcom/lineage/server/datatables/ItemTable;\n      68: iload         5\n      70: invokevirtual #72                 // Method com/lineage/server/datatables/ItemTable.getTemplate:(I)Lcom/lineage/server/templates/L1Item;\n      73: ifnonnull     94\n      76: getstatic     #76                 // Field _log:Lorg/apache/logging/log4j/Logger;\n      79: ldc           #80                 // String 道具_物品強制丟棄資料錯誤: ItemTable 中找不到編號: {}\n      81: iload         5\n      83: invokestatic  #82                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;\n      86: invokeinterface #88,  3           // InterfaceMethod org/apache/logging/log4j/Logger.error:(Ljava/lang/String;Ljava/lang/Object;)V\n      91: goto          41\n      94: aload_0\n      95: getfield      #16                 // Field _whiteList:Ljava/util/Set;\n      98: iload         5\n     100: invokestatic  #82                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;\n     103: invokeinterface #94,  2           // InterfaceMethod java/util/Set.add:(Ljava/lang/Object;)Z\n     108: pop\n"
+        },
+        {
+          "method": "public boolean isDroppable(int);",
+          "bytecodeOffsets": [
+            0,
+            13
+          ],
+          "text": "       0: aload_0\n       1: getfield      #16                 // Field _whiteList:Ljava/util/Set;\n       4: iload_1\n       5: invokestatic  #82                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;\n       8: invokeinterface #140,  2          // InterfaceMethod java/util/Set.contains:(Ljava/lang/Object;)Z\n      13: ireturn\n"
+        }
+      ]
+    },
+    "ClientBasePacket": {
+      "classPath": "com/lineage/server/clientpackets/ClientBasePacket.class",
+      "classSha256": "0e955e54fae4d19bab197b95c02b4d003da5a03b6ea438b72c223599b661b451",
+      "javapSha256": "1641062110b6bd77f3f2beb52778725f86eae1a5369d747364226c0eb9568813",
+      "excerpts": [
+        {
+          "method": "protected void read(byte[]);",
+          "bytecodeOffsets": [
+            0,
+            25
+          ],
+          "text": "       0: aload_0\n       1: aload_1\n       2: putfield      #7                  // Field decrypt:[B\n       5: aload_0\n       6: iconst_0\n       7: putfield      #13                 // Field offset:I\n      10: aload_0\n      11: aconst_null\n      12: putfield      #17                 // Field failure:Lcom/lineage/server/clientpackets/PacketFormatException;\n      15: aload_0\n      16: iconst_1\n      17: invokevirtual #21                 // Method requireBytes:(I)V\n      20: aload_0\n      21: iconst_1\n      22: putfield      #13                 // Field offset:I\n      25: return\n"
+        },
+        {
+          "method": "protected int readH();",
+          "bytecodeOffsets": [
+            0,
+            10
+          ],
+          "text": "       0: aload_0\n       1: iconst_2\n       2: invokevirtual #21                 // Method requireBytes:(I)V\n       5: aload_0\n       6: iconst_2\n       7: invokevirtual #42                 // Method readUnsigned:(I)I\n      10: ireturn\n"
+        },
+        {
+          "method": "protected int readD();",
+          "bytecodeOffsets": [
+            0,
+            10
+          ],
+          "text": "       0: aload_0\n       1: iconst_4\n       2: invokevirtual #21                 // Method requireBytes:(I)V\n       5: aload_0\n       6: iconst_4\n       7: invokevirtual #42                 // Method readUnsigned:(I)I\n      10: ireturn\n"
+        },
+        {
+          "method": "private int readUnsigned(int);",
+          "bytecodeOffsets": [
+            0,
+            44
+          ],
+          "text": "       0: iconst_0\n       1: istore_2\n       2: iconst_0\n       3: istore_3\n       4: iload_3\n       5: iload_1\n       6: if_icmpge     43\n       9: iload_2\n      10: aload_0\n      11: getfield      #7                  // Field decrypt:[B\n      14: aload_0\n      15: dup\n      16: getfield      #13                 // Field offset:I\n      19: dup_x1\n      20: iconst_1\n      21: iadd\n      22: putfield      #13                 // Field offset:I\n      25: baload\n      26: sipush        255\n      29: iand\n      30: bipush        8\n      32: iload_3\n      33: imul\n      34: ishl\n      35: ior\n      36: istore_2\n      37: iinc          3, 1\n      40: goto          4\n      43: iload_2\n      44: ireturn\n"
+        }
+      ]
+    },
+    "S_ServerMessage": {
+      "classPath": "com/lineage/server/serverpackets/S_ServerMessage.class",
+      "classSha256": "c4312bebc53f5539fd3c9f04bc28f1e2cf45aafd55d8f6d303ba272629d09d01",
+      "javapSha256": "0060db24e8a44ade57808de1e8289db9829f233cddba5230777d9def04b8fc07",
+      "excerpts": [
+        {
+          "method": "public com.lineage.server.serverpackets.S_ServerMessage(int);",
+          "bytecodeOffsets": [
+            9,
+            29
+          ],
+          "text": "       9: aload_0\n      10: bipush        71\n      12: invokevirtual #15                 // Method writeC:(I)V\n      15: aload_0\n      16: iload_1\n      17: invokevirtual #29                 // Method writeH:(I)V\n      20: aload_0\n      21: iconst_0\n      22: invokevirtual #15                 // Method writeC:(I)V\n      25: aload_0\n      26: invokevirtual #26                 // Method debugPacket:()V\n      29: return\n"
+        }
+      ]
+    },
+    "PacketHandler": {
+      "classPath": "com/lineage/echo/PacketHandler.class",
+      "classSha256": "57e1e727935beb67d8a923c40c61656218ca8832ea13d04c98cdd18a878910e1",
+      "javapSha256": "15a508c48f4870295aa8740894d6f7a8ba4fe92557381a5078b50dbf616a6cee",
+      "excerpts": [
+        {
+          "method": "public void handlePacket(byte[]) throws java.lang.Exception;",
+          "bytecodeOffsets": [
+            1137,
+            1158
+          ],
+          "text": "    1137: iload_2\n    1138: bipush        25\n    1140: if_icmpne     1161\n    1143: new           #254                // class com/lineage/server/clientpackets/C_DropItem\n    1146: dup\n    1147: invokespecial #256                // Method com/lineage/server/clientpackets/C_DropItem.\"<init>\":()V\n    1150: aload_1\n    1151: aload_0\n    1152: getfield      #13                 // Field _client:Lcom/lineage/echo/ClientExecutor;\n    1155: invokevirtual #257                // Method com/lineage/server/clientpackets/C_DropItem.start:([BLcom/lineage/echo/ClientExecutor;)V\n    1158: goto          2476\n"
+        }
+      ]
+    }
+  },
+  "matchedIssue49": true,
+  "serverReplyFixture": {
+    "derivation": "static; not live capture",
+    "payloadHex": "477D0000",
+    "paddedHex": "477D000000000000",
+    "meaning": "C71 H125 C0; no item/count acknowledgement"
+  },
+  "textDecoderSources": [
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Text.pak",
+      "size": 26267704,
+      "sha256": "9516a372c43b269cf1af7adc0ac00abd4163e1235dcd846e34294849616a37ff"
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Text.idx",
+      "size": 1049948,
+      "sha256": "43a342ad3929b541096630165c04794192c48359ecbf116b538eaffc49741f6f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P04-角色動畫\\reference\\bin\\Lin.Helper.Core.dll",
+      "size": 181248,
+      "sha256": "8f31aea698513d8606432784db6047eedbc9431355a1e0797dc4c4006d03de6f"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\P04-角色動畫\\reference\\source\\Pak\\PakTools.cs",
+      "size": 14448,
+      "sha256": "b4bd734b42fafb751000a7e944790bdd794dfe6f07cdbc3e9a4c9dc7f731874a"
+    }
+  ],
+  "textProbeSourceSha256": "fd36b0aab1eb47664aa4fb36dfb5c0e7c7ac54d9c9d5b234cb51a8a2eaac4b97",
+  "textProbeMethod": "PakTools.Decode(Text.idx,4), record with name string-c.tbl, bounded Text.pak slice, Decode(slice,0), CP950, CRLF header then zero-based id 125; all payloads in memory"
+}

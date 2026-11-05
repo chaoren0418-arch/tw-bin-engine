@@ -1,0 +1,10 @@
+{
+  "status": "expected-failure",
+  "baselineDllSha256": "4b1e5ac8841edaf7963f45154a97bec2611a678bbffc66b5192c635f1176d0e5",
+  "source": "DEMO-1 #70 / DEMO-2 #71 product DLL (read-only)",
+  "testSourceSha256": "f485cbf540f23fe519b2d079f2ae6ef3faf92de84bd05564f670597ece5fb36d",
+  "exitCode": 1,
+  "failure": "rejection preserves unchanged quantity snapshot",
+  "stderr": "System.Exception: rejection preserves unchanged quantity snapshot\n   at Checks.Check(Boolean ok, String label) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-77\\engine\\_integration\\dev\\ground-tests\\Program.cs:line 13\n   at Checks.RejectedDrop(GroundDefinition gold) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-77\\engine\\_integration\\dev\\ground-tests\\Program.cs:line 52\n   at Checks.Run(String[] args) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-77\\engine\\_integration\\dev\\ground-tests\\Program.cs:line 99\n   at Checks.Main(String[] args) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-77\\engine\\_integration\\dev\\ground-tests\\Program.cs:line 83\n",
+  "scope": "offline product assembly; application entry point not invoked"
+}

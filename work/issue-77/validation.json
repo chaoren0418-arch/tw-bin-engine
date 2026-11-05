@@ -1,0 +1,58 @@
+{
+  "status": "pass-offline",
+  "baseCommit": "bb27a49c9987958d8af20d60bda59478cf7275d3",
+  "scope": "靜態來源與離線產品測試；未啟動遊戲、Java 服務或 DB，未做第 2 輪真機",
+  "build": {
+    "status": "pass-dev-build",
+    "sourceFiles": 190,
+    "GUI": false,
+    "network": false,
+    "database": false,
+    "productDllSha256": "0a34f0bb136bd530f5f603c3a60a0b1e8965882d9986ef31d126ff570aa4635e",
+    "audioDllSha256": "0d53921c26cd4ef804f53304ec63241cc90176ad3c5735692df965bf86bc054a",
+    "productManifestSha256": "41e9e873bd983ffc8de4bb2372b75fe07c2a0cee136137428533127752b2016f",
+    "launcherDllSha256": "59f93c3f112cac77df870332884754c46c1959848d5caaa2691650764a693817"
+  },
+  "devLockSha256": "855863f1fc073b1bbc9a9adcc5ddde342e27bedbd04dd9d2715e71f985e9f802",
+  "sourceFiles": 190,
+  "pinnedFiles": 199,
+  "productBuildWarnings": 0,
+  "productBuildErrors": 0,
+  "launcherBuildWarnings": 0,
+  "launcherBuildErrors": 0,
+  "groundChecks": 361,
+  "webChecks": 72,
+  "legacyChecks": [
+    {
+      "mode": "candidate",
+      "checks": 252,
+      "status": "pass",
+      "productSha256": "0a34f0bb136bd530f5f603c3a60a0b1e8965882d9986ef31d126ff570aa4635e",
+      "resultSha256": "8281f39cf14f93623ae73d16562bf76e1dc540d388bdb211f4ea32d81b0e49d3"
+    },
+    {
+      "mode": "extra",
+      "checks": 87,
+      "status": "pass",
+      "productSha256": "0a34f0bb136bd530f5f603c3a60a0b1e8965882d9986ef31d126ff570aa4635e",
+      "resultSha256": "b6acdaaf098bb9a5705932716207813a2dab01ca250981c61aa08b08a9dd1e99"
+    }
+  ],
+  "packetTraceChecks": 36,
+  "combatChecks": 8780,
+  "existingGroundChecks": 722,
+  "additionalGroundChecks": 86,
+  "groundTotal": 808,
+  "grandTotal": 9588,
+  "verify": "pass; no receipt present/created",
+  "legacyTestSourceSha256": "f3ac34a5b40a9d50ecc55cca6bc57163b2e21f7d32e3ba591f97a19b631beb84",
+  "artifacts": {
+    "baseline-result.json": "e90cc94524530bbbc5514cea38a28afb114f0464f89cf8cba984bca9601dd7dd",
+    "combat-result.json": "1ab56a6bda509ddb414044e5c45bc6e92fa403f9d7a0679c26468e7f156d933e",
+    "ground-result.json": "4b4c7099f5e819a3a4607314fb061384885d6ed65662bc8b2ee5025d11a6e42d",
+    "host-adaptation.json": "5063619bb019112980a69c482afc87802325ffa82c559d6b9e89d37f5e5c94c3",
+    "static-evidence.json": "abb3dfcfc89477ee8e8f9c03c100dd2051a9ea3dace84271fad737bc78f0990f",
+    "text-source.json": "3ccde038024eeb58cbdbc4ce991f40918e6738bdd2f772711b39823cc3e46ae2",
+    "web-result.json": "c5b526db7d0b96e0c19ca31e782d7ac400f25b02d098f777c2b477fe61db1257"
+  }
+}
