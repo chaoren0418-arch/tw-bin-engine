@@ -1,0 +1,36 @@
+{
+  "kind": "靜態來源摘錄重播；不是真實封包擷取或 handler 執行",
+  "cases": [
+    {
+      "id": "reject-count-nonpositive",
+      "row": "C112-fields",
+      "expect": "readD 有號值 <=0 返回"
+    },
+    {
+      "id": "reject-nonitem",
+      "row": "C112-nonitem",
+      "expect": "instanceof L1ItemInstance 失敗返回"
+    },
+    {
+      "id": "reject-drop-equipped-sealed",
+      "row": "C25-equipped-sealed",
+      "expect": "裝備或 sealed 返回"
+    },
+    {
+      "id": "reject-pickup-owner-or-count",
+      "row": "C112-source-owner",
+      "expect": "超量或其他 owner 拒絕"
+    },
+    {
+      "id": "reply-count-clamp",
+      "row": "S87-header",
+      "expect": "顯示 count 上限 2000000000；非 storage 上限"
+    },
+    {
+      "id": "remove-opcode",
+      "row": "S120",
+      "expect": "120；不採用舊摘要9"
+    }
+  ],
+  "liveCapturedFixtures": []
+}
