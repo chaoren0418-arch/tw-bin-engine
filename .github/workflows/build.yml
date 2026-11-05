@@ -21,14 +21,16 @@ jobs:
         run: dotnet build engine/source/OfflineClient.csproj -c Release --no-restore -warnaserror:false
       - name: dev canonical build + receipt
         run: python -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output engine/_integration/evidence/ci-dev
-      - name: Upload r35 receipt and evidence
+      - name: Packet trace checks (no game or network)
+        run: dotnet run --project engine/_integration/dev/packet-trace-tests/PacketTraceChecks.csproj -c Release
+      - name: Upload dev receipt and evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: r35-receipt
+          name: dev-receipt
           path: |
-            engine/_integration/r35/receipt.json
-            engine/_integration/evidence/ci/**
+            engine/_integration/dev/receipt.json
+            engine/_integration/evidence/ci-dev/**
           if-no-files-found: ignore
       - name: Upload build log on failure
         if: failure()

@@ -167,7 +167,7 @@ lock 以路徑固定排序、UTF-8 無 BOM、LF 換行儲存，不含時間戳�
 python -B -X utf8 engine/_integration/r35/rebuild.py
 ```
 
-這條指令需在對應的 M1 基線 tree 上執行：r35 lock 也釘住 `engine/build-product.ps1`，而本次已依裁定將該入口轉向 dev，所以它在本 PR 的 tree 上會以該檔 `pin drift` 退出 2；這不代表 `engine/_integration/r35/` 被修改。不能同時保持 r35 lock 不變、切換被它釘住的入口，又要求 r35 在新 tree 上退出 0。後續來源修改也不再保證符合 r35 lock。
+M1 真機基線使用的 tree 是 main 的 **`20dedf6`**（Issue #19 在主專案建置，Issue #23 真機驗收使用）。r35 核驗必須在該 commit 的 worktree 執行。r35 lock 也釘住 `engine/build-product.ps1`，現行入口已轉向 dev，因此在現行 tree 執行會因 `pin drift` 退出 2；這不代表 `engine/_integration/r35/` 被修改。後續來源修改也不再保證符合 r35 lock。
 
 ---
 
@@ -183,7 +183,8 @@ python -B -X utf8 engine/_integration/r35/rebuild.py
 4. `dotnet restore engine/source/OfflineClient.csproj --configfile .github/nuget.ci.config`
 5. `dotnet build engine/source/OfflineClient.csproj -c Release --no-restore -warnaserror:false`
 6. `python -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output engine/_integration/evidence/ci-dev`
-7. artifact 上傳步驟依 Issue #31「其他步驟不動」限制仍指向 `engine/_integration/r35/receipt.json` 與 `engine/_integration/evidence/ci/**`，尚未上傳 dev receipt／ci-dev 證據；dev canonical 建置結果可從步驟日誌確認。失敗時另傳 `engine/source/obj/**/*.log`。
+7. `dotnet run --project engine/_integration/dev/packet-trace-tests/PacketTraceChecks.csproj -c Release` — 封包追蹤的獨立 console 斷言測試，不啟動遊戲或網路。
+8. artifact `dev-receipt` 上傳 `engine/_integration/dev/receipt.json` 與 `engine/_integration/evidence/ci-dev/**`。失敗時另傳 `engine/source/obj/**/*.log`。
 
 **NuGet 兩套設定，不要混：**
 
