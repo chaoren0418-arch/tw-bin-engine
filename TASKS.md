@@ -56,10 +56,10 @@ N01 流程逐步核對表：每步要截圖什麼、看哪個 server 回包、�
 ### T040 | done | codex-local（Issue #31，PR #32） | `engine/_integration/dev/`, `engine/build-product.ps1`, `.github/workflows/build.yml`, `docs/BUILD.md`
 滾動式 dev lock：r35 凍結為 M1 基線版本；改程式的 PR 以 `dev/rebuild.py --update-lock` 同步更新 lock。所有後續程式任務的前置。
 
-### T041 | doing | codex-local（Issue #34） | `engine/source/LoginConnection.cs` 等
+### T041 | done | codex-local（Issue #34，PR #35） | `engine/source/LoginConnection.cs` 等
 選用的客戶端封包追蹤（環境變數開啟，只記方向／opcode／長度／時間，不記內容），讓真機補測有移動／戰鬥／拾取的封包證據。依賴 T040。
 
-### T042 | todo | dot | P24Lab 真機
+### T042 | doing | dot（Issue #37） | P24Lab 真機
 局部補測（不整輪重跑）：04／05 移動封包、06 近戰、07 技能 4、10 拾取、15 實際聲音（需有發聲事件）。依賴 T041。
 
 ## M2 完整遊戲循環（待 M1 結果排序）
