@@ -1,0 +1,303 @@
+{
+  "schema": "ground-catalog-v1",
+  "indexSha256": "327c06372d87f6cf6d5176da51da5ef1f94dbf388d1588b735c5965b96b6a52b",
+  "rows": [
+    {
+      "id": "healing",
+      "templateId": 40010,
+      "name": "治癒藥水",
+      "nameToken": "$26",
+      "groundGfx": 45,
+      "inventoryIcon": 80,
+      "inventoryDesc": 1342,
+      "templateUseType": -7,
+      "wireUseType": 249,
+      "stackable": true,
+      "tradable": true,
+      "cantDelete": false,
+      "templateBless": 0,
+      "packetBless": 1,
+      "droppable": "unknown",
+      "equippable": "unknown",
+      "bindingRestrictions": "unknown",
+      "storageCountMax": "unknown",
+      "source": {
+        "commit": "ddc2267",
+        "path": "work/issue-49/contract.json",
+        "contractSha256": "dcdd5a3e6883e4405a6b1b297fa5f6efab25596321605b87cf14a700cad3bfdd",
+        "location": "db:p24_world.etcitem",
+        "rowSha256": "2a936ddfac0110c12da4b8606a55e0b768c441cefdee2f99b1cc279e40c197e9"
+      },
+      "sprite": {
+        "entry": "45-0.spr",
+        "indexRecord": 62818,
+        "offset": 969626822,
+        "size": 174,
+        "payloadSha256": "89ccae52b20c83ea26bdb9906f7c2c0bb1dde411bf3e59fd140fd39a01d69ca9",
+        "frame": 0,
+        "headerOffset": 31,
+        "bounds": [
+          20,
+          4,
+          28,
+          14
+        ],
+        "rgbaSha256": "157926b43d9e7083c5e446df64a4d248fbf498de87935c97cced7d44bbdefc17",
+        "source": "docs/reports/issue-48.md",
+        "offsetKind": "PAK File Offset",
+        "headerOffsetKind": "SPR payload File Offset"
+      },
+      "disabledReason": null,
+      "inventoryBlesses": [
+        1
+      ]
+    },
+    {
+      "id": "white",
+      "templateId": 40012,
+      "name": "終極治癒藥水",
+      "nameToken": "$238",
+      "groundGfx": 46,
+      "inventoryIcon": 81,
+      "inventoryDesc": 130,
+      "templateUseType": -7,
+      "wireUseType": 249,
+      "stackable": true,
+      "tradable": true,
+      "cantDelete": false,
+      "templateBless": 0,
+      "packetBless": 1,
+      "droppable": "unknown",
+      "equippable": "unknown",
+      "bindingRestrictions": "unknown",
+      "storageCountMax": "unknown",
+      "source": {
+        "commit": "ddc2267",
+        "path": "work/issue-49/contract.json",
+        "contractSha256": "dcdd5a3e6883e4405a6b1b297fa5f6efab25596321605b87cf14a700cad3bfdd",
+        "location": "db:p24_world.etcitem",
+        "rowSha256": "4e86c40129e9c30d9eaea9dd1085c1cc82862968fd271440b2fa26fdd88c786c"
+      },
+      "sprite": null,
+      "disabledReason": "#48 未核定 gfx=46 的 sprite pin",
+      "inventoryBlesses": [
+        1
+      ]
+    },
+    {
+      "id": "green",
+      "templateId": 40013,
+      "name": "自我加速藥水",
+      "nameToken": "$234",
+      "groundGfx": 42,
+      "inventoryIcon": 77,
+      "inventoryDesc": 17,
+      "templateUseType": -10,
+      "wireUseType": 246,
+      "stackable": true,
+      "tradable": true,
+      "cantDelete": false,
+      "templateBless": 0,
+      "packetBless": 1,
+      "droppable": "unknown",
+      "equippable": "unknown",
+      "bindingRestrictions": "unknown",
+      "storageCountMax": "unknown",
+      "source": {
+        "commit": "ddc2267",
+        "path": "work/issue-49/contract.json",
+        "contractSha256": "dcdd5a3e6883e4405a6b1b297fa5f6efab25596321605b87cf14a700cad3bfdd",
+        "location": "db:p24_world.etcitem",
+        "rowSha256": "db98da0340fcb6d9e6472983a0adc0c4c92582ef3c898cb53365b8f73af9646f"
+      },
+      "sprite": null,
+      "disabledReason": "#48 未核定 gfx=42 的 sprite pin",
+      "inventoryBlesses": [
+        1
+      ]
+    },
+    {
+      "id": "meat",
+      "templateId": 40056,
+      "name": "肉",
+      "nameToken": "$23",
+      "groundGfx": 36,
+      "inventoryIcon": 124,
+      "inventoryDesc": 10,
+      "templateUseType": 38,
+      "wireUseType": 38,
+      "stackable": true,
+      "tradable": true,
+      "cantDelete": false,
+      "templateBless": 0,
+      "packetBless": 1,
+      "droppable": "unknown",
+      "equippable": "unknown",
+      "bindingRestrictions": "unknown",
+      "storageCountMax": "unknown",
+      "source": {
+        "commit": "ddc2267",
+        "path": "work/issue-49/contract.json",
+        "contractSha256": "dcdd5a3e6883e4405a6b1b297fa5f6efab25596321605b87cf14a700cad3bfdd",
+        "location": "db:p24_world.etcitem",
+        "rowSha256": "1a2e2945d4b9a6c019acfc32d86d129414d9280159bd64a43a22f983e1fb29eb"
+      },
+      "sprite": {
+        "entry": "36-0.spr",
+        "indexRecord": 48732,
+        "offset": 971303715,
+        "size": 244,
+        "payloadSha256": "1734424f17adb848324f8e6c2aba6ad4bafeb687f990aa59b62426d448899ee8",
+        "frame": 0,
+        "headerOffset": 89,
+        "bounds": [
+          18,
+          5,
+          29,
+          14
+        ],
+        "rgbaSha256": "edcb31e9aca0869a8371a0aceb3fbf38b8dcecd221163a7178253d99587506c9",
+        "source": "docs/reports/issue-48.md",
+        "offsetKind": "PAK File Offset",
+        "headerOffsetKind": "SPR payload File Offset"
+      },
+      "disabledReason": null,
+      "inventoryBlesses": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "home",
+      "templateId": 40079,
+      "name": "傳送回家的卷軸",
+      "nameToken": "$505",
+      "groundGfx": 22,
+      "inventoryIcon": 474,
+      "inventoryDesc": 1338,
+      "templateUseType": 9,
+      "wireUseType": 9,
+      "stackable": true,
+      "tradable": true,
+      "cantDelete": false,
+      "templateBless": 0,
+      "packetBless": 1,
+      "droppable": "unknown",
+      "equippable": "unknown",
+      "bindingRestrictions": "unknown",
+      "storageCountMax": "unknown",
+      "source": {
+        "commit": "ddc2267",
+        "path": "work/issue-49/contract.json",
+        "contractSha256": "dcdd5a3e6883e4405a6b1b297fa5f6efab25596321605b87cf14a700cad3bfdd",
+        "location": "db:p24_world.etcitem",
+        "rowSha256": "d546c3d63babe0d0bffc1366a4a085f03a80930357571dd722ca35b54bebc968"
+      },
+      "sprite": null,
+      "disabledReason": "#48 未核定 gfx=22 的 sprite pin",
+      "inventoryBlesses": [
+        1
+      ]
+    },
+    {
+      "id": "gold",
+      "templateId": 40308,
+      "name": "金幣",
+      "nameToken": "$4",
+      "groundGfx": 7,
+      "inventoryIcon": 5,
+      "inventoryDesc": 0,
+      "templateUseType": -1,
+      "wireUseType": 255,
+      "stackable": true,
+      "tradable": true,
+      "cantDelete": false,
+      "templateBless": 0,
+      "packetBless": 1,
+      "droppable": "unknown",
+      "equippable": "unknown",
+      "bindingRestrictions": "unknown",
+      "storageCountMax": "unknown",
+      "source": {
+        "commit": "ddc2267",
+        "path": "work/issue-49/contract.json",
+        "contractSha256": "dcdd5a3e6883e4405a6b1b297fa5f6efab25596321605b87cf14a700cad3bfdd",
+        "location": "db:p24_world.etcitem",
+        "rowSha256": "356517084c5c44576d323fcc87a6f3da5c767343db56aa37403020a7da58547b"
+      },
+      "sprite": {
+        "entry": "7-0.spr",
+        "indexRecord": 86493,
+        "offset": 962388973,
+        "size": 307,
+        "payloadSha256": "65b754770b1915eb070e488ccb010ee2662741a09346f1d1be36fc3faadf2ce2",
+        "frame": 0,
+        "headerOffset": 129,
+        "bounds": [
+          18,
+          5,
+          32,
+          15
+        ],
+        "rgbaSha256": "6eb4782f2c6c01d4e5c6b76494bf830e356175f026c64a627b423302e949786a",
+        "source": "docs/reports/issue-48.md",
+        "offsetKind": "PAK File Offset",
+        "headerOffsetKind": "SPR payload File Offset"
+      },
+      "disabledReason": null,
+      "inventoryBlesses": [
+        1
+      ]
+    },
+    {
+      "id": "arrow",
+      "templateId": 40743,
+      "name": "箭",
+      "nameToken": "$61",
+      "groundGfx": 66,
+      "inventoryIcon": 7,
+      "inventoryDesc": 0,
+      "templateUseType": -2,
+      "wireUseType": 254,
+      "stackable": true,
+      "tradable": true,
+      "cantDelete": false,
+      "templateBless": 0,
+      "packetBless": 1,
+      "droppable": "unknown",
+      "equippable": "unknown",
+      "bindingRestrictions": "unknown",
+      "storageCountMax": "unknown",
+      "source": {
+        "commit": "ddc2267",
+        "path": "work/issue-49/contract.json",
+        "contractSha256": "dcdd5a3e6883e4405a6b1b297fa5f6efab25596321605b87cf14a700cad3bfdd",
+        "location": "db:p24_world.etcitem",
+        "rowSha256": "5298db3bc18f2bea2a3f81f5751fc4fb907ab02b94965ade170eb594808255af"
+      },
+      "sprite": {
+        "entry": "66-0.spr",
+        "indexRecord": 85892,
+        "offset": 962888499,
+        "size": 1056,
+        "payloadSha256": "4795b0d2150d7d075d753efc378799b8d471e52d32cdce47eec77fa502bb758c",
+        "frame": 0,
+        "headerOffset": 197,
+        "bounds": [
+          3,
+          -41,
+          39,
+          8
+        ],
+        "rgbaSha256": "9d2fabf6b13d9f0a3b8b062c3edf1e7edba6ba3b1cd023cc8fe7946ff1b6d9c6",
+        "source": "docs/reports/issue-48.md",
+        "offsetKind": "PAK File Offset",
+        "headerOffsetKind": "SPR payload File Offset"
+      },
+      "disabledReason": null,
+      "inventoryBlesses": [
+        1
+      ]
+    }
+  ]
+}

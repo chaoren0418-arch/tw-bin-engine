@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 187,
+ "sourceCount": 190,
  "files": [
   {
    "path": "NuGet.Config",
@@ -241,13 +241,18 @@
   },
   {
    "path": "source/Ground.cs",
-   "size": 9418,
-   "sha256": "6df52d49787795c432309ed0b02deaacc2a582f4927f98b9b186f89fda06a599"
+   "size": 9450,
+   "sha256": "2c671a58a743621082002b5f3f272be611fb19e6449103c038f39f5ba24e3277"
+  },
+  {
+   "path": "source/GroundCatalog.cs",
+   "size": 4169,
+   "sha256": "13221808cef3b6f06cf5bc00e1b6ad9e9f475ac40a8326236e5b1cece99df465"
   },
   {
    "path": "source/GroundIntegration.cs",
-   "size": 14794,
-   "sha256": "9adbb3b7ad67da62e76ed59c6fe13a0111459d215d0b6c2551cae9ed85818aca"
+   "size": 14912,
+   "sha256": "848ab681f874ea6962428f6e95ac4aec2c83a1bc20dcdff53096a500111a89c1"
   },
   {
    "path": "source/GroundLayoutTest.cs",
@@ -256,8 +261,13 @@
   },
   {
    "path": "source/GroundRendering.cs",
-   "size": 1566,
-   "sha256": "a0a13e18ec6702cdb8f0deb6011586b20667c598c5010b46016b8844ce141e54"
+   "size": 1778,
+   "sha256": "8eef4260c68637abe91ee453f3ef368df84f39dd24b43d683a541c001f2724a0"
+  },
+  {
+   "path": "source/GroundSpriteReader.cs",
+   "size": 5373,
+   "sha256": "a5d570ff8225fa1c02183bb050bc03fe43f5477f669ef9f4f5a86768b61e35da"
   },
   {
    "path": "source/GroundTests.cs",
@@ -271,8 +281,8 @@
   },
   {
    "path": "source/GroundUi.cs",
-   "size": 3799,
-   "sha256": "d1fc05f61dbeef2df739cc01d4b5bddf6e414e07997401f14332c659124f845d"
+   "size": 4893,
+   "sha256": "f00ad844845fdabc20ec0e22833e10018b75538c0f8e697f7d7332d9c97920ba"
   },
   {
    "path": "source/Inventory.cs",
@@ -296,8 +306,8 @@
   },
   {
    "path": "source/InventoryUi.cs",
-   "size": 4450,
-   "sha256": "24327c9e640d09b9813f3778c3c76543ff8880b553c1983cb83e9f806e50a153"
+   "size": 4487,
+   "sha256": "3d57e3615ce4a8f567aaa96a8f4173ec7e9eedf2fdc16d7144e6f76f166d7bef"
   },
   {
    "path": "source/JournalTests.cs",
@@ -481,13 +491,13 @@
   },
   {
    "path": "source/OfflineClient.csproj",
-   "size": 1327,
-   "sha256": "5a5ab7283e5477228bd0f0ef664571aae4218de3fb1372d28bf0ef457d31dbc3"
+   "size": 1461,
+   "sha256": "a335def218f3f3c171a2d4a7a8a206aac819a78a5350bff5d2dde4df9cfb3b8d"
   },
   {
    "path": "source/OnlineInput.cs",
-   "size": 1663,
-   "sha256": "be57d6afe82f1aa263d286649a13242a0b9b002e3fd11e2fd4945068bad735f3"
+   "size": 1644,
+   "sha256": "95cc98d91f699c5792822693843aba708778c3f1a66dd9bd230ccf7f5dac74e0"
   },
   {
    "path": "source/OnlineMovement.cs",
@@ -691,8 +701,8 @@
   },
   {
    "path": "source/RangedUiTests.cs",
-   "size": 11175,
-   "sha256": "127a458d342d598675ae57b4c6602b96768e9476f7e3cf3fd7c4f20cb797caae"
+   "size": 11293,
+   "sha256": "22e5913d68fd62d3ec2c494cecfe77525974eb8f31c78568645eab07b35a51c4"
   },
   {
    "path": "source/RealLoginTests.cs",
@@ -708,6 +718,11 @@
    "path": "source/Renderer.cs",
    "size": 7142,
    "sha256": "889b6587ebc5b6d85cb914284efc800c2c18c1c2c4713226d7b1d3e60a1f74e5"
+  },
+  {
+   "path": "source/Resources/ground-catalog.json",
+   "size": 9406,
+   "sha256": "ee5446856a00eeced52fecc296a8da139650ecaa8f69a47c725ba9d93c71f4d8"
   },
   {
    "path": "source/Resources/pickup-own-base15-gfx0-weapon0.json",
@@ -786,8 +801,8 @@
   },
   {
    "path": "source/WebPanel.cs",
-   "size": 19443,
-   "sha256": "cec433daf5daafa485eb612f3bffca16bf2334a1f6be0dd19bec71afaa0e6467"
+   "size": 20463,
+   "sha256": "30f20e7f1c9f3d4dbeb5b5396d174115b7c24788b5a1e58ea9b1d444b7b71d35"
   },
   {
    "path": "source/WebTests.cs",
@@ -966,8 +981,8 @@
   },
   {
    "path": "web/panel.js",
-   "size": 15490,
-   "sha256": "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab"
+   "size": 16194,
+   "sha256": "26ce74be0474e47017ba91ab220c03ea5520acb335a24c60f274406e2839ec7f"
   },
   {
    "path": "web/private-shop.js",

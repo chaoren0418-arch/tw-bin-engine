@@ -65,8 +65,8 @@ public sealed partial class ClientForm {
                 string selector=pickup?"data-ground-id":"data-item-id";uint id=pickup?login.World.SelectedGroundId!.Value:login.World.SelectedItemId!.Value;
                 await web!.ExecuteScriptAsync($"document.querySelector('[{selector}=\"{id}\"]').click()");await Task.Delay(80);
                 string input=pickup?"pickupCount":"dropCount",button=pickup?"pickup":"dropItem";await web.ExecuteScriptAsync($"document.getElementById('{input}').value='{count}';document.getElementById('{button}').click();document.getElementById('{button}').click()");
-            }else if(pickup){pickupCount.Value=count;ReturnGameFocus();OnKeyDown(new KeyEventArgs(Keys.P));OnKeyDown(new KeyEventArgs(Keys.P));await Task.Delay(40);OnKeyUp(new KeyEventArgs(Keys.P));}
-            else {dropCount.Value=count;dropButton.PerformClick();dropButton.PerformClick();}
+            }else if(pickup){pickupCount.Text=count.ToString(System.Globalization.CultureInfo.InvariantCulture);ReturnGameFocus();OnKeyDown(new KeyEventArgs(Keys.P));OnKeyDown(new KeyEventArgs(Keys.P));await Task.Delay(40);OnKeyUp(new KeyEventArgs(Keys.P));}
+            else {dropCount.Text=count.ToString(System.Globalization.CultureInfo.InvariantCulture);dropButton.PerformClick();dropButton.PerformClick();}
             await Until(()=>sent==1,4000);await Task.Delay(100);if(sent!=1)throw new Exception("ground held/repeated action sent twice");return true;
         }finally{login.GroundSent-=Sent;}}
         async Task FocusNegative(){int sent=0;void Sent(object p)=>sent++;login.GroundSent+=Sent;try{await FocusWebInput();OnKeyDown(new KeyEventArgs(Keys.P));OnKeyUp(new KeyEventArgs(Keys.P));await Task.Delay(100);if(sent!=0)throw new Exception("P typing sent pickup");log.Check("web-input-P-isolated");ReturnGameFocus();}finally{login.GroundSent-=Sent;}}

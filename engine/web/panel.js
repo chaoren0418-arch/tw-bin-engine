@@ -48,6 +48,7 @@ document.querySelector("#attack").onclick=()=>send("attack");
 
 let inventorySignature='';
 function renderInventory(inv){
+ rememberQuantity('inventory',inv);
  if(!inv)return;const signature=JSON.stringify(inv);if(signature===inventorySignature)return;inventorySignature=signature;
  const host=document.querySelector('#inventoryItems');host.replaceChildren();
  for(const i of inv.items){const b=document.createElement('button');b.className='inventoryItem'+(i.selected?' selected':'');b.dataset.itemId=i.id;
@@ -59,11 +60,22 @@ document.querySelector('#useItem').onclick=()=>{const inv=window.lastState?.inve
 
 let groundSignature='';
 function renderGround(g){if(!g)return;const sig=JSON.stringify(g);if(sig===groundSignature)return;groundSignature=sig;
+ rememberQuantity('ground',g);
  const host=document.querySelector('#groundItems');host.replaceChildren();
  for(const i of g.items){const b=document.createElement('button');b.className='inventoryItem'+(i.selected?' selected':'');b.dataset.groundId=i.id;if(i.image){const img=document.createElement('img');img.src=i.image;img.alt='原地面外觀';b.append(img);}const t=document.createElement('span');t.textContent=i.name;b.append(t);b.onclick=()=>send('selectGround',{itemId:i.id,epoch:g.epoch});host.append(b);}
  const selected=g.items.find(i=>i.id===g.selectedId);document.querySelector('#pickup').disabled=!selected||g.busy;document.querySelector('#pickupCount').max=selected?.count||1;document.querySelector('#groundNotice').textContent=g.notice;
 }
-function countCommand(cmd,key,input){const s=window.lastState?.[key],n=Number(document.querySelector(input).value);if(s?.selectedId&&Number.isSafeInteger(n)&&n>0&&n<=2147483647)send(cmd,{itemId:s.selectedId,epoch:s.epoch,count:n});}
+const quantitySelections={};
+function rememberQuantity(key,s){
+ if(!s)return;const old=quantitySelections[key],item=s.items.find(i=>i.id===s.selectedId);
+ if(!old||old.epoch!==s.epoch||old.itemId!==s.selectedId||old.selectionRevision!==s.selectionRevision)
+  quantitySelections[key]=item?{itemId:s.selectedId,epoch:s.epoch,selectionRevision:s.selectionRevision,revision:s.revision,available:item.count}:null;
+}
+function countCommand(cmd,key,input){
+ const s=quantitySelections[key],text=document.querySelector(input).value;
+ if(s&&/^[0-9]+$/.test(text)&&Number.isSafeInteger(Number(text))&&Number(text)>0&&Number(text)<=Math.min(s.available,2147483647))send(cmd,{...s,count:text});
+ else document.querySelector(key==='ground'?'#groundNotice':'#inventoryNotice').textContent='未送出：請輸入 1 到持有量的整數；選取變更後請重新選取';
+}
 document.querySelector('#dropItem').onclick=()=>countCommand('drop','inventory','#dropCount');
 document.querySelector('#pickup').onclick=()=>countCommand('pickup','ground','#pickupCount');
 for(const id of ['dropCount','pickupCount'])document.getElementById(id).addEventListener('focus',()=>send('stop'));

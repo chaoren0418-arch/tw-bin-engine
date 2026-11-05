@@ -5,7 +5,7 @@ public sealed partial class ClientForm {
         if(key==Keys.Space){ClearInput("stop");return;}
         if(key==Keys.M){bool first=!Input.Held.Contains(key);if(first){ClearInput("single-magic");Input.Down(key);if(!World.Walking)_=login.CastSelectedMagic();}return;}
         if(key==Keys.U){bool first=!Input.Held.Contains(key);if(first){ClearInput("single-item");Input.Down(key);if(!World.Walking)_=login.UseSelectedItem();}return;}
-        if(key==Keys.P){bool first=!Input.Held.Contains(key);if(first){ClearInput("single-pickup");Input.Down(key);if(!World.Walking)_=login.PickupSelected((uint)pickupCount.Value);}return;}
+        if(key==Keys.P){bool first=!Input.Held.Contains(key);if(first){ClearInput("single-pickup");Input.Down(key);if(!World.Walking)_=NativeGroundQuantity(true);}return;}
         if(key==Keys.G){bool first=!Input.Held.Contains(key);if(first){ClearInput("single-attack");Input.Down(key);_=login.Attack();}return;}
         if(login.CombatBusy)return;
         if(!login.MovementAvailable)return;

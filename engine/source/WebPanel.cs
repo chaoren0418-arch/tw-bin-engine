@@ -66,7 +66,12 @@ public sealed partial class ClientForm {
     void ResourceRequested(object? s,CoreWebView2WebResourceRequestedEventArgs e){
         var allowed=new[]{LocalPage,"https://p08.example/panel.css","https://p08.example/panel.js","https://p08.example/login.js","https://p08.example/interaction.js","https://p08.example/trade.js","https://p08.example/bonus-stats.js","https://p08.example/private-shop.js"};
         bool icon=Uri.TryCreate(e.Request.Uri,UriKind.Absolute,out var uri)&&uri.Scheme=="https"&&uri.Host=="p08.example"&&uri.Query==""&&ushort.TryParse(Path.GetFileNameWithoutExtension(uri.AbsolutePath),out var iconId)&&uri.AbsolutePath=="/icons/"+iconId+".png"&&ItemIcon(iconId)!=null;
-        if(!allowed.Contains(e.Request.Uri)&&!icon&&e.Request.Uri!="https://p08.example/ground/36.png"&&e.Request.Uri!="https://p08.example/ground/66.png"){e.Response=webEnvironment!.CreateWebResourceResponse(null,403,"Forbidden","Content-Type: text/plain");WebLog("resource-blocked",new{e.Request.Uri});}
+        if(uri!=null&&uri.Scheme=="https"&&uri.Host=="p08.example"&&uri.Query==""&&ushort.TryParse(Path.GetFileNameWithoutExtension(uri.AbsolutePath),out ushort gfx)&&uri.AbsolutePath=="/ground/"+gfx+".png"&&GroundCatalog.Find(gfx) is {} groundRow){
+            try{using var bitmap=GroundSpriteReader.Image(GroundSpriteReader.Read(groundRow));var stream=new MemoryStream();bitmap.Save(stream,System.Drawing.Imaging.ImageFormat.Png);stream.Position=0;e.Response=webEnvironment!.CreateWebResourceResponse(stream,200,"OK","Content-Type: image/png");}
+            catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException){e.Response=webEnvironment!.CreateWebResourceResponse(null,404,"Missing verified ground image","Content-Type: text/plain");}
+            return;
+        }
+        if(!allowed.Contains(e.Request.Uri)&&!icon){e.Response=webEnvironment!.CreateWebResourceResponse(null,403,"Forbidden","Content-Type: text/plain");WebLog("resource-blocked",new{e.Request.Uri});}
     }
     void WebMessage(object? sender,CoreWebView2WebMessageReceivedEventArgs e)=>DispatchWeb(e.Source,e.WebMessageAsJson);
     void DispatchWeb(string source,string raw){
@@ -87,7 +92,7 @@ public sealed partial class ClientForm {
                 // Do not log raw JSON, credentials, the command object, or parser exception text.
                 WebLog("login-command",new{id,cmd});_ = DispatchLoginCommand(command,id);return;
             }
-            var expected=cmd is "selectMagic" or "castMagic"?new[]{"v","id","cmd","skillId","epoch"}:cmd=="selectMagicTarget"?new[]{"v","id","cmd","targetId","epoch"}:cmd is "pickup" or "drop"?new[]{"v","id","cmd","itemId","epoch","count"}:cmd=="selectGround"?new[]{"v","id","cmd","itemId","epoch"}:cmd=="useItem"?new[]{"v","id","cmd","itemId","epoch","selectionRevision"}:cmd=="selectItem"?new[]{"v","id","cmd","itemId","epoch"}:cmd is "face" or "move"?new[]{"v","id","cmd","direction"}:new[]{"v","id","cmd"};
+            var expected=cmd is "selectMagic" or "castMagic"?new[]{"v","id","cmd","skillId","epoch"}:cmd=="selectMagicTarget"?new[]{"v","id","cmd","targetId","epoch"}:cmd is "pickup" or "drop"?new[]{"v","id","cmd","itemId","epoch","count","selectionRevision","revision","available"}:cmd=="selectGround"?new[]{"v","id","cmd","itemId","epoch"}:cmd=="useItem"?new[]{"v","id","cmd","itemId","epoch","selectionRevision"}:cmd=="selectItem"?new[]{"v","id","cmd","itemId","epoch"}:cmd is "face" or "move"?new[]{"v","id","cmd","direction"}:new[]{"v","id","cmd"};
             if(!names.Order().SequenceEqual(expected.Order()))throw new FormatException("fields");
             if(cmd is not ("selectMagic" or "castMagic" or "selectMagicTarget" or "ready" or "face" or "move" or "attack" or "stop" or "focusGame" or "selectItem" or "useItem" or "selectGround" or "pickup" or "drop"))throw new FormatException("unknown command");
             int d=0;if(cmd is "face" or "move"&&(!o.GetProperty("direction").TryGetInt32(out d)||d<0||d>7))throw new FormatException("direction");
@@ -104,9 +109,11 @@ public sealed partial class ClientForm {
                 if(login.State!=LoginState.InWorld||groundEpoch!=login.World.WorldEpoch){Reply(id,"世界已過期，未送出");return;}
                 ClearInput("web-ground");
                 if(cmd=="selectGround"){Reply(id,login.World.SelectGround(groundId)?"已選取地面物品":"地面物品已不存在");PublishWebState();return;}
-                if(!o.GetProperty("count").TryGetUInt32(out uint count)||count==0||count>int.MaxValue)throw new FormatException("ground count");
+                if(o.GetProperty("count").ValueKind!=JsonValueKind.String)throw new FormatException("ground count");
+                string count=o.GetProperty("count").GetString()!;
+                var quantitySelection=new GroundQuantitySelection(groundEpoch,groundId,o.GetProperty("selectionRevision").GetInt32(),o.GetProperty("revision").GetInt32(),o.GetProperty("available").GetUInt32());
                 if((cmd=="drop"?login.World.SelectedItemId:login.World.SelectedGroundId)!=groundId){Reply(id,"選取已改變，未送出");return;}
-                _=WebGround(id,cmd=="pickup",count);return;
+                _=WebGround(id,cmd=="pickup",count,quantitySelection);return;
             }
             if(cmd is "selectItem" or "useItem"){
                 if(!o.GetProperty("itemId").TryGetUInt32(out uint itemId)||!o.GetProperty("epoch").TryGetInt32(out int itemEpoch))throw new FormatException("item identity");
