@@ -2,7 +2,7 @@
 
 ## 結論
 
-已完成程式與 workflow 修改，分支 `task/67`。本機 Windows 建置、交叉建置參數分支檢查、receipt 核驗與 PacketTraceChecks 通過。**尚未取得 ubuntu-latest CI 全綠證據，因此驗收仍待 CI 實跑**；任務已告知私有儲存庫 Actions 額度耗盡，須由使用者處理額度後再驗。
+已完成程式與 workflow 修改，分支 `task/67`、[PR #72](https://github.com/chaoren0418-arch/tw-bin-engine/pull/72)。**Ubuntu PR CI 全綠，符合本任務驗收**：Windows 目標建置、`dev-inputs-verified`、Linux PacketTraceChecks 與證據上傳均成功。本機 Windows 建置及核驗也通過。任務原先提示 Actions 額度耗盡，但本次已實際取得 runner 並完成；本任務未修改額度或儲存庫可見性。
 
 ## 做了什麼
 
@@ -18,7 +18,15 @@
 
 ## 怎麼驗證（已驗證）
 
-環境：Windows、.NET SDK 10.0.300、Python 3.12；實際輸入複製至本 worktree 的 `scratch/issue-67/fixture/`，保留原始位元組與鎖定檔。原始專案目錄未寫入。
+本機環境：Windows、.NET SDK 10.0.300、Python 3.12；實際輸入複製至本 worktree 的 `scratch/issue-67/fixture/`，保留原始位元組與鎖定檔。未寫入原始專案來源或資源；提交與推送僅更新 worktree 必要的共用 Git metadata。
+
+CI 證據：[build #63](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42089684389)、[dotnet job](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42089684389/job/127464148414)。執行時間為 2026-11-06 03:00–03:01（Asia/Taipei），PR head `d749a4a608d48d9dd96b6261593bd535cf8e62f6`，實際 checkout 的 PR merge ref 為 `91f6c2fb1637593e576e9558a9ea6fcde0bde3fa`。runner 為 Ubuntu 24.04.5（`ubuntu-latest`），SDK 10.0.300、Python 3.12.16。
+
+- job／workflow 結果成功；log 有 `dev-inputs-verified`（190／199）、`Windows target win-x64 build succeeded (product + launcher; not executed)` 與 `PASS dev`。
+- 初次產品 build 與 canonical 產品／launcher build 均 0 警告、0 錯誤。
+- Linux PacketTraceChecks 實際通過 7 個案例、35 個斷言；`gameStarted: false`、`network: false`。Windows 專屬項目的 `SKIP` 原因確實出現在 log。
+- 已下載 [dev-receipt artifact](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42089684389/artifacts/13444168069) 並核對 ZIP SHA-256：`74d389ee43d8644a430b62dac3d2586a7023a16972ec47c0aee40acf5a4c8d15`。其中 `result.json` 為 `pass-dev-build`，四個產物雜湊與 `receipt.json` 一致，`GUI/network/database` 均為 false。
+- CI 產品 DLL SHA-256：`47d2e1d716285e526af1c61d45dfbfff49a65c31608b55d38add49970b13ad52`；audio：`899c312e5f8081d8b7b1cfc975ef466bb16cbc71dc903c4756b1e89fd503eba6`；launcher：`be8cd360ed93fb197630fabc22c98aff72445950521df4a6010ada98c72cd040`。
 
 | 檢查 | 結果 |
 | --- | --- |
@@ -43,9 +51,9 @@
 
 ## 未驗證什麼／與原 windows-latest 的差異
 
-- 本機沒有可用 Linux／WSL，尚未驗證 Ubuntu 上的還原、跨平台 SDK 行為、大小寫敏感路徑、Linux PacketTraceChecks 及 Actions artifact 上傳。上述相容性預期仍需 CI 證實。
+- 本機沒有可用 Linux／WSL；Linux 驗證證據來自上述真實 Ubuntu CI，已包含還原、跨平台建置、來源核驗、PacketTraceChecks 及 artifact 上傳。
 - 原 workflow 也只建置產品與 launcher，沒有執行 WinForms／WebView2 或登入遊戲；本次明確揭露這項限制，不能將 CI 綠燈視為實機驗收。
-- 原 Windows runner 執行 PacketTraceChecks 時建立 NTFS junction；Linux 執行既有符號連結分支，會少驗 Windows junction／Windows 檔案系統語義。Linux 該案例預期少一個 junction 建立斷言（35 對 Windows 36），不是刪除測試。
+- 原 Windows runner 執行 PacketTraceChecks 時建立 NTFS junction；Linux 執行既有符號連結分支，會少驗 Windows junction／Windows 檔案系統語義。Linux 該案例少一個 junction 建立斷言（實測 35 對 Windows 36），不是刪除測試。
 - Windows 啟動檔可執行性、WinForms／WebView2 執行期、原生畫面／輸入／音訊、遊戲登入與操作，交由本機 Windows 檢查及使用者／具既有授權的 dot 真機驗收。本任務未做這些操作。
 - 不保證 Linux 與 Windows 建置的 DLL／receipt 位元組相同；receipt 代表當次實際目標建置，未變更 lock 或歷史 release。
 
@@ -54,11 +62,10 @@
 - 交付：`.github/workflows/build.yml`、`engine/_integration/dev/rebuild.py`、本報告 `docs/reports/issue-67.md`。
 - 本機暫存驗證腳本：`scratch/check_issue67.py`（不入 git）。
 - 本機證據：`scratch/issue-67/native/`、`scratch/issue-67/cross-branch/`、`scratch/issue-67/verify/`，以及 `scratch/issue-67/packet-checks.stdout`（不入 git）。
-- CI 預定證據：artifact `dev-receipt`，包含 `engine/_integration/dev/receipt.json` 與 `engine/_integration/evidence/ci-dev/`。
+- CI 證據：上述 artifact `dev-receipt`，包含 `dev/receipt.json` 與 `evidence/ci-dev/`（共同根目錄為 `engine/_integration/`）。本機保存 `scratch/issue-67/ubuntu-job.log` 與 `scratch/issue-67/ubuntu-dev-receipt.zip`（不入 git）。
 
 ## 給下一棒的提示
 
-1. 調度器／Claude 審查本 PR；由使用者處理 Actions 額度或儲存庫可見性決策，本任務不改費用或公開設定。
-2. 額度解除後由調度器重跑 PR 的 `build / dotnet`，確認 runner 為 `ubuntu-latest`，log 有 `dev-inputs-verified`、`Windows target win-x64 build succeeded`、`PASS dev`、PacketTraceChecks `status: pass` 及明確的 `SKIP` 理由；檢查 artifact 內 `result.json` 為 `pass-dev-build`。
-3. 若失敗，依實際 stdout／stderr 修正；不得以本次 Windows 分支檢查代替 Ubuntu 全綠驗收。
-4. 本機執行器維持 Windows 自動檢查；使用者／具既有授權的 dot 接手真機驗收。Claude 審查、CI 通過後由使用者合併，本任務不合併。
+1. 調度器／Claude 審查 PR #72；本次 Ubuntu CI 已成功，無須以「額度尚未解除」阻擋本輪驗收。若後續重跑又受額度影響，再由使用者處理費用或可見性決策。
+2. 報告補件僅修改本文件，workflow 與建置程式維持上述通過版本；合併前確認 PR 最新 commit 的 `build / dotnet` 狀態。
+3. 本機執行器維持 Windows 自動檢查；使用者／具既有授權的 dot 接手真機驗收。Claude 審查、CI 通過後由使用者合併，本任務不合併。
