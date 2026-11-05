@@ -86,7 +86,8 @@ def check_supplemental(contract, source_root):
     require(len(rows) == len(evidence['rows']), 'duplicate supplemental evidence')
     for row in rows.values():
         require(sha(row['text'].encode('utf-8')) == row['excerptSha256'], row['id'] + ': SHA')
-        offsets = [int(n) for n in re.findall(r'^\s+(\d+):', row['text'], re.M)]
+        # switch 的 case 值不是方法內指令 offset。
+        offsets = [int(n) for n in re.findall(r'^\s+(\d+):\s+[a-z][a-z0-9_]*\b', row['text'], re.M)]
         require([min(offsets), max(offsets)] == row['bytecodeOffset'], row['id'] + ': offsets')
     checks = 0
     if source_root:
@@ -103,14 +104,17 @@ def check_supplemental(contract, source_root):
 
 
 def template_fields(raw):
-    use_types = {'none': -1, 'normal': 0, 'food': 38, 'arrow': -2}
+    use_types = {'none': -1, 'normal': 0, 'food': 38, 'arrow': -2,
+                 'hpr': -7, 'power': -10, 'home': 9}
     require(raw['use_type'] in use_types, 'unverified use_type')
-    require(raw['item_id'] not in range(80027, 80031) and raw['itemdesc_id'] != 0,
+    require(raw['item_id'] not in range(80027, 80031),
             'packet desc requires a different conversion branch')
     use_type = use_types[raw['use_type']]
+    catalysts = {40318: 166, 40319: 569, 40321: 837, 49156: 3606, 49157: 3605, 49158: 3674}
+    desc = raw['itemdesc_id'] or catalysts.get(raw['item_id'], 0)
     return {'templateId': raw['item_id'], 'name': raw['name'], 'nameToken': raw['name_id'],
             'groundGfx': raw['grdgfx'], 'inventoryIcon': raw['invgfx'],
-            'inventoryDesc': raw['itemdesc_id'], 'templateUseType': use_type,
+            'inventoryDesc': desc, 'templateUseType': use_type,
             'wireUseType': use_type & 255, 'stackable': raw['stackable'] == 1,
             'tradable': raw['trade'] == 0, 'cantDelete': raw['cant_delete'] == 1,
             'templateBless': raw['bless'],
@@ -132,12 +136,16 @@ def check_templates(contract, evidence):
     for q in queries.values():
         require(q['sql'].lstrip().upper().startswith('SELECT '), 'non-SELECT evidence')
         require(canonical_sha(q['rows']) == q['resultSha256'], 'query result SHA')
+        require(q['sql'] == db['templateQuerySql'], 'unexpected template query')
     result = {}
     for row in templates:
         require(row['id'] not in result, 'duplicate template')
         source = row['source']
         query = queries[source['queryId']]
         raw = row['rawColumns']
+        require(row['id'] in {'gold','meat','arrow','healing','green','white','home'}, 'unscoped template')
+        require(raw['item_id'] == {'gold':40308,'meat':40056,'arrow':40743,'healing':40010,
+                                   'green':40013,'white':40012,'home':40079}[row['id']], 'template identity')
         require(raw in query['rows'], row['id'] + ': not in query result')
         require(source['sql'] == query['sql'], row['id'] + ': SQL provenance')
         require(source['location'] == 'db:' + db['schema'] + '.etcitem', 'template table')
@@ -206,6 +214,11 @@ def check_packet_fixtures(fixtures, templates, evidence):
     for case in cases:
         require(case['derivation'] == 'static', 'fixture is not marked static')
         require(case['preconditions'], 'missing static preconditions')
+        required_encoding = ({'clientpackets.ClientBasePacket.readH','clientpackets.ClientBasePacket.readD',
+                              'clientpackets.ClientBasePacket.readUnsigned'} if case['packet']=='C112' else
+                             {'serverpackets.ServerBasePacket.writeC','serverpackets.ServerBasePacket.writeH',
+                              'serverpackets.ServerBasePacket.writeD','serverpackets.ServerBasePacket.writeS'})
+        require(required_encoding <= set(case['rows']), 'missing encoding evidence')
         for ref in case['rows']:
             require(ref in evidence and case['evidenceSha256'][ref] == evidence[ref]['excerptSha256'],
                     case['id'] + ': evidence pin')

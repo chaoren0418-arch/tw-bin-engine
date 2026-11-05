@@ -1,8 +1,8 @@
 {
   "issue": 49,
-  "qualified": false,
-  "status": "blocked:credential-use-authorization",
-  "scope": "P24Lab 指定模板補件；本輪已補 JAR 來源與靜態拒絕 payload，模板 SELECT 尚未執行。",
+  "qualified": true,
+  "status": "qualified-static",
+  "scope": "七筆普通模板與金幣／肉條件式靜態 payload 契約；不代表真機或當前 Java 服務已執行",
   "historicalJarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
   "jarRehashedThisRun": true,
   "sources": {
@@ -423,112 +423,1527 @@
     "text": "BootstrapMethods:\r\n  0: #134 REF_invokeStatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;\r\n    Method arguments:\r\n      #140 \\u0001 (\\u0001)\r\n  1: #134 REF_invokeStatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;\r\n    Method arguments:\r\n      #142 \\u0001 [\\u0001]\r\n  2: #134 REF_invokeStatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;\r\n    Method arguments:\r\n      #144 \\u0001 ($10)\r\n",
     "recipe": "nameId + \" (\" + actualCount + \")\""
   },
-  "adoptedTemplateRows": [],
+  "adoptedTemplateRows": [
+    {
+      "id": "healing",
+      "label": "治癒藥水",
+      "variant": "此主鍵對應模板；不外推祝福、受詛咒或自訂變體",
+      "rawColumns": {
+        "name": "治癒藥水",
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 45,
+        "invgfx": 80,
+        "weight": 3900,
+        "item_id": 40010,
+        "name_id": "$26",
+        "material": "glass",
+        "use_type": "hpr",
+        "classname": "hp.UserAddHp 10 20 189 true 0 0",
+        "item_type": "potion",
+        "stackable": 1,
+        "cant_delete": 0,
+        "itemdesc_id": 1342,
+        "limit_class": 127,
+        "max_charge_count": 0
+      },
+      "fields": {
+        "templateId": 40010,
+        "name": "治癒藥水",
+        "nameToken": "$26",
+        "groundGfx": 45,
+        "inventoryIcon": 80,
+        "inventoryDesc": 1342,
+        "templateUseType": -7,
+        "wireUseType": 249,
+        "stackable": true,
+        "tradable": true,
+        "cantDelete": false,
+        "templateBless": 0,
+        "packetBless": 1,
+        "droppable": "unknown",
+        "equippable": "unknown",
+        "bindingRestrictions": "unknown",
+        "storageCountMax": "unknown"
+      },
+      "source": {
+        "location": "db:p24_world.etcitem",
+        "primaryKey": {
+          "item_id": 40010
+        },
+        "queryId": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "columns": [
+          "name",
+          "bless",
+          "trade",
+          "grdgfx",
+          "invgfx",
+          "weight",
+          "item_id",
+          "name_id",
+          "material",
+          "use_type",
+          "classname",
+          "item_type",
+          "stackable",
+          "cant_delete",
+          "itemdesc_id",
+          "limit_class",
+          "max_charge_count"
+        ],
+        "rowSha256": "2a936ddfac0110c12da4b8606a55e0b768c441cefdee2f99b1cc279e40c197e9"
+      },
+      "fieldEvidence": {
+        "templateId": {
+          "rows": [
+            "etc-template-id"
+          ],
+          "sha256": {
+            "etc-template-id": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+          }
+        },
+        "nameToken": {
+          "rows": [
+            "etc-name-token",
+            "templates.L1Item.setNameId",
+            "templates.L1Item.getNameId",
+            "S87-name"
+          ],
+          "sha256": {
+            "etc-name-token": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9",
+            "templates.L1Item.setNameId": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b",
+            "templates.L1Item.getNameId": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21",
+            "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+          }
+        },
+        "groundGfx": {
+          "rows": [
+            "etc-ground-gfx",
+            "templates.L1Item.setGroundGfxId",
+            "templates.L1Item.getGroundGfxId",
+            "S87-header"
+          ],
+          "sha256": {
+            "etc-ground-gfx": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62",
+            "templates.L1Item.setGroundGfxId": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35",
+            "templates.L1Item.getGroundGfxId": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b",
+            "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+          }
+        },
+        "inventoryIcon": {
+          "rows": [
+            "etc-inventory-icon",
+            "templates.L1Item.setGfxId",
+            "templates.L1Item.getGfxId",
+            "instance-icon",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-inventory-icon": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d",
+            "templates.L1Item.setGfxId": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057",
+            "templates.L1Item.getGfxId": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d",
+            "instance-icon": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "inventoryDesc": {
+          "rows": [
+            "etc-item-desc",
+            "templates.L1Item.setItemDescId",
+            "templates.L1Item.getItemDescId",
+            "templates.L1Item.getPacketItemDescId",
+            "templates.L1Item.getMagicCatalystType",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-item-desc": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed",
+            "templates.L1Item.setItemDescId": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c",
+            "templates.L1Item.getItemDescId": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce",
+            "templates.L1Item.getPacketItemDescId": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7",
+            "templates.L1Item.getMagicCatalystType": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "wireUseType": {
+          "rows": [
+            "etc-use-type",
+            "templates.L1Item.setUseType",
+            "templates.L1Item.getUseType",
+            "templates.L1Item.getPacketUseType",
+            "S15-header",
+            "use-type-hpr"
+          ],
+          "sha256": {
+            "etc-use-type": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb",
+            "templates.L1Item.setUseType": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1",
+            "templates.L1Item.getUseType": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274",
+            "templates.L1Item.getPacketUseType": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+            "use-type-hpr": "2b91b745da81e68955a4bfe5b1007f04b39de7d89b49c2ac5bbdfa802b752ca1"
+          }
+        },
+        "stackable": {
+          "rows": [
+            "etc-stackable",
+            "templates.L1EtcItem.set_stackable",
+            "templates.L1EtcItem.isStackable"
+          ],
+          "sha256": {
+            "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4",
+            "templates.L1EtcItem.set_stackable": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9",
+            "templates.L1EtcItem.isStackable": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+          }
+        },
+        "tradable": {
+          "rows": [
+            "etc-trade",
+            "templates.L1Item.isTradable",
+            "C25-template-policy"
+          ],
+          "sha256": {
+            "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+            "templates.L1Item.isTradable": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6",
+            "C25-template-policy": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+          }
+        },
+        "cantDelete": {
+          "rows": [
+            "etc-cant-delete",
+            "templates.L1Item.isCantDelete",
+            "S15-flags"
+          ],
+          "sha256": {
+            "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+            "templates.L1Item.isCantDelete": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f",
+            "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+          }
+        },
+        "packetBless": {
+          "rows": [
+            "templates.L1Item.toPacketBless",
+            "S15-header"
+          ],
+          "sha256": {
+            "templates.L1Item.toPacketBless": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        }
+      }
+    },
+    {
+      "id": "white",
+      "label": "白藥水",
+      "variant": "此主鍵對應模板；不外推祝福、受詛咒或自訂變體",
+      "rawColumns": {
+        "name": "終極治癒藥水",
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 46,
+        "invgfx": 81,
+        "weight": 5850,
+        "item_id": 40012,
+        "name_id": "$238",
+        "material": "glass",
+        "use_type": "hpr",
+        "classname": "hp.UserAddHp 60 80 197 true",
+        "item_type": "potion",
+        "stackable": 1,
+        "cant_delete": 0,
+        "itemdesc_id": 130,
+        "limit_class": 127,
+        "max_charge_count": 0
+      },
+      "fields": {
+        "templateId": 40012,
+        "name": "終極治癒藥水",
+        "nameToken": "$238",
+        "groundGfx": 46,
+        "inventoryIcon": 81,
+        "inventoryDesc": 130,
+        "templateUseType": -7,
+        "wireUseType": 249,
+        "stackable": true,
+        "tradable": true,
+        "cantDelete": false,
+        "templateBless": 0,
+        "packetBless": 1,
+        "droppable": "unknown",
+        "equippable": "unknown",
+        "bindingRestrictions": "unknown",
+        "storageCountMax": "unknown"
+      },
+      "source": {
+        "location": "db:p24_world.etcitem",
+        "primaryKey": {
+          "item_id": 40012
+        },
+        "queryId": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "columns": [
+          "name",
+          "bless",
+          "trade",
+          "grdgfx",
+          "invgfx",
+          "weight",
+          "item_id",
+          "name_id",
+          "material",
+          "use_type",
+          "classname",
+          "item_type",
+          "stackable",
+          "cant_delete",
+          "itemdesc_id",
+          "limit_class",
+          "max_charge_count"
+        ],
+        "rowSha256": "4e86c40129e9c30d9eaea9dd1085c1cc82862968fd271440b2fa26fdd88c786c"
+      },
+      "fieldEvidence": {
+        "templateId": {
+          "rows": [
+            "etc-template-id"
+          ],
+          "sha256": {
+            "etc-template-id": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+          }
+        },
+        "nameToken": {
+          "rows": [
+            "etc-name-token",
+            "templates.L1Item.setNameId",
+            "templates.L1Item.getNameId",
+            "S87-name"
+          ],
+          "sha256": {
+            "etc-name-token": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9",
+            "templates.L1Item.setNameId": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b",
+            "templates.L1Item.getNameId": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21",
+            "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+          }
+        },
+        "groundGfx": {
+          "rows": [
+            "etc-ground-gfx",
+            "templates.L1Item.setGroundGfxId",
+            "templates.L1Item.getGroundGfxId",
+            "S87-header"
+          ],
+          "sha256": {
+            "etc-ground-gfx": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62",
+            "templates.L1Item.setGroundGfxId": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35",
+            "templates.L1Item.getGroundGfxId": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b",
+            "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+          }
+        },
+        "inventoryIcon": {
+          "rows": [
+            "etc-inventory-icon",
+            "templates.L1Item.setGfxId",
+            "templates.L1Item.getGfxId",
+            "instance-icon",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-inventory-icon": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d",
+            "templates.L1Item.setGfxId": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057",
+            "templates.L1Item.getGfxId": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d",
+            "instance-icon": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "inventoryDesc": {
+          "rows": [
+            "etc-item-desc",
+            "templates.L1Item.setItemDescId",
+            "templates.L1Item.getItemDescId",
+            "templates.L1Item.getPacketItemDescId",
+            "templates.L1Item.getMagicCatalystType",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-item-desc": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed",
+            "templates.L1Item.setItemDescId": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c",
+            "templates.L1Item.getItemDescId": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce",
+            "templates.L1Item.getPacketItemDescId": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7",
+            "templates.L1Item.getMagicCatalystType": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "wireUseType": {
+          "rows": [
+            "etc-use-type",
+            "templates.L1Item.setUseType",
+            "templates.L1Item.getUseType",
+            "templates.L1Item.getPacketUseType",
+            "S15-header",
+            "use-type-hpr"
+          ],
+          "sha256": {
+            "etc-use-type": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb",
+            "templates.L1Item.setUseType": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1",
+            "templates.L1Item.getUseType": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274",
+            "templates.L1Item.getPacketUseType": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+            "use-type-hpr": "2b91b745da81e68955a4bfe5b1007f04b39de7d89b49c2ac5bbdfa802b752ca1"
+          }
+        },
+        "stackable": {
+          "rows": [
+            "etc-stackable",
+            "templates.L1EtcItem.set_stackable",
+            "templates.L1EtcItem.isStackable"
+          ],
+          "sha256": {
+            "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4",
+            "templates.L1EtcItem.set_stackable": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9",
+            "templates.L1EtcItem.isStackable": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+          }
+        },
+        "tradable": {
+          "rows": [
+            "etc-trade",
+            "templates.L1Item.isTradable",
+            "C25-template-policy"
+          ],
+          "sha256": {
+            "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+            "templates.L1Item.isTradable": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6",
+            "C25-template-policy": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+          }
+        },
+        "cantDelete": {
+          "rows": [
+            "etc-cant-delete",
+            "templates.L1Item.isCantDelete",
+            "S15-flags"
+          ],
+          "sha256": {
+            "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+            "templates.L1Item.isCantDelete": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f",
+            "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+          }
+        },
+        "packetBless": {
+          "rows": [
+            "templates.L1Item.toPacketBless",
+            "S15-header"
+          ],
+          "sha256": {
+            "templates.L1Item.toPacketBless": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        }
+      }
+    },
+    {
+      "id": "green",
+      "label": "綠藥水",
+      "variant": "此主鍵對應模板；不外推祝福、受詛咒或自訂變體",
+      "rawColumns": {
+        "name": "自我加速藥水",
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 42,
+        "invgfx": 77,
+        "weight": 3900,
+        "item_id": 40013,
+        "name_id": "$234",
+        "material": "glass",
+        "use_type": "power",
+        "classname": "brave.StatusHaste 300 191 true 40308 10",
+        "item_type": "potion",
+        "stackable": 1,
+        "cant_delete": 0,
+        "itemdesc_id": 17,
+        "limit_class": 127,
+        "max_charge_count": 0
+      },
+      "fields": {
+        "templateId": 40013,
+        "name": "自我加速藥水",
+        "nameToken": "$234",
+        "groundGfx": 42,
+        "inventoryIcon": 77,
+        "inventoryDesc": 17,
+        "templateUseType": -10,
+        "wireUseType": 246,
+        "stackable": true,
+        "tradable": true,
+        "cantDelete": false,
+        "templateBless": 0,
+        "packetBless": 1,
+        "droppable": "unknown",
+        "equippable": "unknown",
+        "bindingRestrictions": "unknown",
+        "storageCountMax": "unknown"
+      },
+      "source": {
+        "location": "db:p24_world.etcitem",
+        "primaryKey": {
+          "item_id": 40013
+        },
+        "queryId": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "columns": [
+          "name",
+          "bless",
+          "trade",
+          "grdgfx",
+          "invgfx",
+          "weight",
+          "item_id",
+          "name_id",
+          "material",
+          "use_type",
+          "classname",
+          "item_type",
+          "stackable",
+          "cant_delete",
+          "itemdesc_id",
+          "limit_class",
+          "max_charge_count"
+        ],
+        "rowSha256": "db98da0340fcb6d9e6472983a0adc0c4c92582ef3c898cb53365b8f73af9646f"
+      },
+      "fieldEvidence": {
+        "templateId": {
+          "rows": [
+            "etc-template-id"
+          ],
+          "sha256": {
+            "etc-template-id": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+          }
+        },
+        "nameToken": {
+          "rows": [
+            "etc-name-token",
+            "templates.L1Item.setNameId",
+            "templates.L1Item.getNameId",
+            "S87-name"
+          ],
+          "sha256": {
+            "etc-name-token": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9",
+            "templates.L1Item.setNameId": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b",
+            "templates.L1Item.getNameId": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21",
+            "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+          }
+        },
+        "groundGfx": {
+          "rows": [
+            "etc-ground-gfx",
+            "templates.L1Item.setGroundGfxId",
+            "templates.L1Item.getGroundGfxId",
+            "S87-header"
+          ],
+          "sha256": {
+            "etc-ground-gfx": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62",
+            "templates.L1Item.setGroundGfxId": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35",
+            "templates.L1Item.getGroundGfxId": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b",
+            "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+          }
+        },
+        "inventoryIcon": {
+          "rows": [
+            "etc-inventory-icon",
+            "templates.L1Item.setGfxId",
+            "templates.L1Item.getGfxId",
+            "instance-icon",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-inventory-icon": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d",
+            "templates.L1Item.setGfxId": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057",
+            "templates.L1Item.getGfxId": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d",
+            "instance-icon": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "inventoryDesc": {
+          "rows": [
+            "etc-item-desc",
+            "templates.L1Item.setItemDescId",
+            "templates.L1Item.getItemDescId",
+            "templates.L1Item.getPacketItemDescId",
+            "templates.L1Item.getMagicCatalystType",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-item-desc": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed",
+            "templates.L1Item.setItemDescId": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c",
+            "templates.L1Item.getItemDescId": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce",
+            "templates.L1Item.getPacketItemDescId": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7",
+            "templates.L1Item.getMagicCatalystType": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "wireUseType": {
+          "rows": [
+            "etc-use-type",
+            "templates.L1Item.setUseType",
+            "templates.L1Item.getUseType",
+            "templates.L1Item.getPacketUseType",
+            "S15-header",
+            "use-type-power"
+          ],
+          "sha256": {
+            "etc-use-type": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb",
+            "templates.L1Item.setUseType": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1",
+            "templates.L1Item.getUseType": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274",
+            "templates.L1Item.getPacketUseType": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+            "use-type-power": "67ae5d821c7ea70ed81e97292fefa1318b7d785d91954a2cbe01225b5a179b26"
+          }
+        },
+        "stackable": {
+          "rows": [
+            "etc-stackable",
+            "templates.L1EtcItem.set_stackable",
+            "templates.L1EtcItem.isStackable"
+          ],
+          "sha256": {
+            "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4",
+            "templates.L1EtcItem.set_stackable": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9",
+            "templates.L1EtcItem.isStackable": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+          }
+        },
+        "tradable": {
+          "rows": [
+            "etc-trade",
+            "templates.L1Item.isTradable",
+            "C25-template-policy"
+          ],
+          "sha256": {
+            "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+            "templates.L1Item.isTradable": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6",
+            "C25-template-policy": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+          }
+        },
+        "cantDelete": {
+          "rows": [
+            "etc-cant-delete",
+            "templates.L1Item.isCantDelete",
+            "S15-flags"
+          ],
+          "sha256": {
+            "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+            "templates.L1Item.isCantDelete": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f",
+            "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+          }
+        },
+        "packetBless": {
+          "rows": [
+            "templates.L1Item.toPacketBless",
+            "S15-header"
+          ],
+          "sha256": {
+            "templates.L1Item.toPacketBless": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        }
+      }
+    },
+    {
+      "id": "meat",
+      "label": "肉",
+      "variant": "此主鍵對應模板；不外推祝福、受詛咒或自訂變體",
+      "rawColumns": {
+        "name": "肉",
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 36,
+        "invgfx": 124,
+        "weight": 10000,
+        "item_id": 40056,
+        "name_id": "$23",
+        "material": "animalmatter",
+        "use_type": "food",
+        "classname": "Food1",
+        "item_type": "food",
+        "stackable": 1,
+        "cant_delete": 0,
+        "itemdesc_id": 10,
+        "limit_class": 127,
+        "max_charge_count": 0
+      },
+      "fields": {
+        "templateId": 40056,
+        "name": "肉",
+        "nameToken": "$23",
+        "groundGfx": 36,
+        "inventoryIcon": 124,
+        "inventoryDesc": 10,
+        "templateUseType": 38,
+        "wireUseType": 38,
+        "stackable": true,
+        "tradable": true,
+        "cantDelete": false,
+        "templateBless": 0,
+        "packetBless": 1,
+        "droppable": "unknown",
+        "equippable": "unknown",
+        "bindingRestrictions": "unknown",
+        "storageCountMax": "unknown"
+      },
+      "source": {
+        "location": "db:p24_world.etcitem",
+        "primaryKey": {
+          "item_id": 40056
+        },
+        "queryId": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "columns": [
+          "name",
+          "bless",
+          "trade",
+          "grdgfx",
+          "invgfx",
+          "weight",
+          "item_id",
+          "name_id",
+          "material",
+          "use_type",
+          "classname",
+          "item_type",
+          "stackable",
+          "cant_delete",
+          "itemdesc_id",
+          "limit_class",
+          "max_charge_count"
+        ],
+        "rowSha256": "1a2e2945d4b9a6c019acfc32d86d129414d9280159bd64a43a22f983e1fb29eb"
+      },
+      "fieldEvidence": {
+        "templateId": {
+          "rows": [
+            "etc-template-id"
+          ],
+          "sha256": {
+            "etc-template-id": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+          }
+        },
+        "nameToken": {
+          "rows": [
+            "etc-name-token",
+            "templates.L1Item.setNameId",
+            "templates.L1Item.getNameId",
+            "S87-name"
+          ],
+          "sha256": {
+            "etc-name-token": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9",
+            "templates.L1Item.setNameId": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b",
+            "templates.L1Item.getNameId": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21",
+            "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+          }
+        },
+        "groundGfx": {
+          "rows": [
+            "etc-ground-gfx",
+            "templates.L1Item.setGroundGfxId",
+            "templates.L1Item.getGroundGfxId",
+            "S87-header"
+          ],
+          "sha256": {
+            "etc-ground-gfx": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62",
+            "templates.L1Item.setGroundGfxId": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35",
+            "templates.L1Item.getGroundGfxId": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b",
+            "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+          }
+        },
+        "inventoryIcon": {
+          "rows": [
+            "etc-inventory-icon",
+            "templates.L1Item.setGfxId",
+            "templates.L1Item.getGfxId",
+            "instance-icon",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-inventory-icon": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d",
+            "templates.L1Item.setGfxId": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057",
+            "templates.L1Item.getGfxId": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d",
+            "instance-icon": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "inventoryDesc": {
+          "rows": [
+            "etc-item-desc",
+            "templates.L1Item.setItemDescId",
+            "templates.L1Item.getItemDescId",
+            "templates.L1Item.getPacketItemDescId",
+            "templates.L1Item.getMagicCatalystType",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-item-desc": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed",
+            "templates.L1Item.setItemDescId": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c",
+            "templates.L1Item.getItemDescId": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce",
+            "templates.L1Item.getPacketItemDescId": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7",
+            "templates.L1Item.getMagicCatalystType": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "wireUseType": {
+          "rows": [
+            "etc-use-type",
+            "templates.L1Item.setUseType",
+            "templates.L1Item.getUseType",
+            "templates.L1Item.getPacketUseType",
+            "S15-header",
+            "use-type-food"
+          ],
+          "sha256": {
+            "etc-use-type": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb",
+            "templates.L1Item.setUseType": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1",
+            "templates.L1Item.getUseType": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274",
+            "templates.L1Item.getPacketUseType": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+            "use-type-food": "1d20089893a63574c12143d509bfbc86fcf35ea69aabefdaa95b6bca2f05d04e"
+          }
+        },
+        "stackable": {
+          "rows": [
+            "etc-stackable",
+            "templates.L1EtcItem.set_stackable",
+            "templates.L1EtcItem.isStackable"
+          ],
+          "sha256": {
+            "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4",
+            "templates.L1EtcItem.set_stackable": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9",
+            "templates.L1EtcItem.isStackable": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+          }
+        },
+        "tradable": {
+          "rows": [
+            "etc-trade",
+            "templates.L1Item.isTradable",
+            "C25-template-policy"
+          ],
+          "sha256": {
+            "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+            "templates.L1Item.isTradable": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6",
+            "C25-template-policy": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+          }
+        },
+        "cantDelete": {
+          "rows": [
+            "etc-cant-delete",
+            "templates.L1Item.isCantDelete",
+            "S15-flags"
+          ],
+          "sha256": {
+            "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+            "templates.L1Item.isCantDelete": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f",
+            "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+          }
+        },
+        "packetBless": {
+          "rows": [
+            "templates.L1Item.toPacketBless",
+            "S15-header"
+          ],
+          "sha256": {
+            "templates.L1Item.toPacketBless": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        }
+      }
+    },
+    {
+      "id": "home",
+      "label": "回家卷",
+      "variant": "此主鍵對應模板；不外推祝福、受詛咒或自訂變體",
+      "rawColumns": {
+        "name": "傳送回家的卷軸",
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 22,
+        "invgfx": 474,
+        "weight": 630,
+        "item_id": 40079,
+        "name_id": "$505",
+        "material": "paper",
+        "use_type": "home",
+        "classname": "teleport.GoHome_Reel",
+        "item_type": "scroll",
+        "stackable": 1,
+        "cant_delete": 0,
+        "itemdesc_id": 1338,
+        "limit_class": 127,
+        "max_charge_count": 0
+      },
+      "fields": {
+        "templateId": 40079,
+        "name": "傳送回家的卷軸",
+        "nameToken": "$505",
+        "groundGfx": 22,
+        "inventoryIcon": 474,
+        "inventoryDesc": 1338,
+        "templateUseType": 9,
+        "wireUseType": 9,
+        "stackable": true,
+        "tradable": true,
+        "cantDelete": false,
+        "templateBless": 0,
+        "packetBless": 1,
+        "droppable": "unknown",
+        "equippable": "unknown",
+        "bindingRestrictions": "unknown",
+        "storageCountMax": "unknown"
+      },
+      "source": {
+        "location": "db:p24_world.etcitem",
+        "primaryKey": {
+          "item_id": 40079
+        },
+        "queryId": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "columns": [
+          "name",
+          "bless",
+          "trade",
+          "grdgfx",
+          "invgfx",
+          "weight",
+          "item_id",
+          "name_id",
+          "material",
+          "use_type",
+          "classname",
+          "item_type",
+          "stackable",
+          "cant_delete",
+          "itemdesc_id",
+          "limit_class",
+          "max_charge_count"
+        ],
+        "rowSha256": "d546c3d63babe0d0bffc1366a4a085f03a80930357571dd722ca35b54bebc968"
+      },
+      "fieldEvidence": {
+        "templateId": {
+          "rows": [
+            "etc-template-id"
+          ],
+          "sha256": {
+            "etc-template-id": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+          }
+        },
+        "nameToken": {
+          "rows": [
+            "etc-name-token",
+            "templates.L1Item.setNameId",
+            "templates.L1Item.getNameId",
+            "S87-name"
+          ],
+          "sha256": {
+            "etc-name-token": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9",
+            "templates.L1Item.setNameId": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b",
+            "templates.L1Item.getNameId": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21",
+            "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+          }
+        },
+        "groundGfx": {
+          "rows": [
+            "etc-ground-gfx",
+            "templates.L1Item.setGroundGfxId",
+            "templates.L1Item.getGroundGfxId",
+            "S87-header"
+          ],
+          "sha256": {
+            "etc-ground-gfx": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62",
+            "templates.L1Item.setGroundGfxId": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35",
+            "templates.L1Item.getGroundGfxId": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b",
+            "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+          }
+        },
+        "inventoryIcon": {
+          "rows": [
+            "etc-inventory-icon",
+            "templates.L1Item.setGfxId",
+            "templates.L1Item.getGfxId",
+            "instance-icon",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-inventory-icon": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d",
+            "templates.L1Item.setGfxId": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057",
+            "templates.L1Item.getGfxId": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d",
+            "instance-icon": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "inventoryDesc": {
+          "rows": [
+            "etc-item-desc",
+            "templates.L1Item.setItemDescId",
+            "templates.L1Item.getItemDescId",
+            "templates.L1Item.getPacketItemDescId",
+            "templates.L1Item.getMagicCatalystType",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-item-desc": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed",
+            "templates.L1Item.setItemDescId": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c",
+            "templates.L1Item.getItemDescId": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce",
+            "templates.L1Item.getPacketItemDescId": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7",
+            "templates.L1Item.getMagicCatalystType": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "wireUseType": {
+          "rows": [
+            "etc-use-type",
+            "templates.L1Item.setUseType",
+            "templates.L1Item.getUseType",
+            "templates.L1Item.getPacketUseType",
+            "S15-header",
+            "use-type-home"
+          ],
+          "sha256": {
+            "etc-use-type": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb",
+            "templates.L1Item.setUseType": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1",
+            "templates.L1Item.getUseType": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274",
+            "templates.L1Item.getPacketUseType": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+            "use-type-home": "0cd56126bf01a797c626e691595450598761845708dc013aaaef2873c2364925"
+          }
+        },
+        "stackable": {
+          "rows": [
+            "etc-stackable",
+            "templates.L1EtcItem.set_stackable",
+            "templates.L1EtcItem.isStackable"
+          ],
+          "sha256": {
+            "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4",
+            "templates.L1EtcItem.set_stackable": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9",
+            "templates.L1EtcItem.isStackable": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+          }
+        },
+        "tradable": {
+          "rows": [
+            "etc-trade",
+            "templates.L1Item.isTradable",
+            "C25-template-policy"
+          ],
+          "sha256": {
+            "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+            "templates.L1Item.isTradable": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6",
+            "C25-template-policy": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+          }
+        },
+        "cantDelete": {
+          "rows": [
+            "etc-cant-delete",
+            "templates.L1Item.isCantDelete",
+            "S15-flags"
+          ],
+          "sha256": {
+            "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+            "templates.L1Item.isCantDelete": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f",
+            "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+          }
+        },
+        "packetBless": {
+          "rows": [
+            "templates.L1Item.toPacketBless",
+            "S15-header"
+          ],
+          "sha256": {
+            "templates.L1Item.toPacketBless": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        }
+      }
+    },
+    {
+      "id": "gold",
+      "label": "金幣",
+      "variant": "此主鍵對應模板；不外推祝福、受詛咒或自訂變體",
+      "rawColumns": {
+        "name": "金幣",
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 7,
+        "invgfx": 5,
+        "weight": 0,
+        "item_id": 40308,
+        "name_id": "$4",
+        "material": "gold",
+        "use_type": "none",
+        "classname": "0",
+        "item_type": "other",
+        "stackable": 1,
+        "cant_delete": 0,
+        "itemdesc_id": 0,
+        "limit_class": 127,
+        "max_charge_count": 0
+      },
+      "fields": {
+        "templateId": 40308,
+        "name": "金幣",
+        "nameToken": "$4",
+        "groundGfx": 7,
+        "inventoryIcon": 5,
+        "inventoryDesc": 0,
+        "templateUseType": -1,
+        "wireUseType": 255,
+        "stackable": true,
+        "tradable": true,
+        "cantDelete": false,
+        "templateBless": 0,
+        "packetBless": 1,
+        "droppable": "unknown",
+        "equippable": "unknown",
+        "bindingRestrictions": "unknown",
+        "storageCountMax": "unknown"
+      },
+      "source": {
+        "location": "db:p24_world.etcitem",
+        "primaryKey": {
+          "item_id": 40308
+        },
+        "queryId": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "columns": [
+          "name",
+          "bless",
+          "trade",
+          "grdgfx",
+          "invgfx",
+          "weight",
+          "item_id",
+          "name_id",
+          "material",
+          "use_type",
+          "classname",
+          "item_type",
+          "stackable",
+          "cant_delete",
+          "itemdesc_id",
+          "limit_class",
+          "max_charge_count"
+        ],
+        "rowSha256": "356517084c5c44576d323fcc87a6f3da5c767343db56aa37403020a7da58547b"
+      },
+      "fieldEvidence": {
+        "templateId": {
+          "rows": [
+            "etc-template-id"
+          ],
+          "sha256": {
+            "etc-template-id": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+          }
+        },
+        "nameToken": {
+          "rows": [
+            "etc-name-token",
+            "templates.L1Item.setNameId",
+            "templates.L1Item.getNameId",
+            "S87-name"
+          ],
+          "sha256": {
+            "etc-name-token": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9",
+            "templates.L1Item.setNameId": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b",
+            "templates.L1Item.getNameId": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21",
+            "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+          }
+        },
+        "groundGfx": {
+          "rows": [
+            "etc-ground-gfx",
+            "templates.L1Item.setGroundGfxId",
+            "templates.L1Item.getGroundGfxId",
+            "S87-header"
+          ],
+          "sha256": {
+            "etc-ground-gfx": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62",
+            "templates.L1Item.setGroundGfxId": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35",
+            "templates.L1Item.getGroundGfxId": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b",
+            "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+          }
+        },
+        "inventoryIcon": {
+          "rows": [
+            "etc-inventory-icon",
+            "templates.L1Item.setGfxId",
+            "templates.L1Item.getGfxId",
+            "instance-icon",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-inventory-icon": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d",
+            "templates.L1Item.setGfxId": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057",
+            "templates.L1Item.getGfxId": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d",
+            "instance-icon": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "inventoryDesc": {
+          "rows": [
+            "etc-item-desc",
+            "templates.L1Item.setItemDescId",
+            "templates.L1Item.getItemDescId",
+            "templates.L1Item.getPacketItemDescId",
+            "templates.L1Item.getMagicCatalystType",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-item-desc": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed",
+            "templates.L1Item.setItemDescId": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c",
+            "templates.L1Item.getItemDescId": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce",
+            "templates.L1Item.getPacketItemDescId": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7",
+            "templates.L1Item.getMagicCatalystType": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "wireUseType": {
+          "rows": [
+            "etc-use-type",
+            "templates.L1Item.setUseType",
+            "templates.L1Item.getUseType",
+            "templates.L1Item.getPacketUseType",
+            "S15-header",
+            "use-type-none"
+          ],
+          "sha256": {
+            "etc-use-type": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb",
+            "templates.L1Item.setUseType": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1",
+            "templates.L1Item.getUseType": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274",
+            "templates.L1Item.getPacketUseType": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+            "use-type-none": "906ca18faae065c35fe2e1cffffb711f959b48752475b7df8386d7e41a559c5f"
+          }
+        },
+        "stackable": {
+          "rows": [
+            "etc-stackable",
+            "templates.L1EtcItem.set_stackable",
+            "templates.L1EtcItem.isStackable"
+          ],
+          "sha256": {
+            "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4",
+            "templates.L1EtcItem.set_stackable": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9",
+            "templates.L1EtcItem.isStackable": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+          }
+        },
+        "tradable": {
+          "rows": [
+            "etc-trade",
+            "templates.L1Item.isTradable",
+            "C25-template-policy"
+          ],
+          "sha256": {
+            "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+            "templates.L1Item.isTradable": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6",
+            "C25-template-policy": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+          }
+        },
+        "cantDelete": {
+          "rows": [
+            "etc-cant-delete",
+            "templates.L1Item.isCantDelete",
+            "S15-flags"
+          ],
+          "sha256": {
+            "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+            "templates.L1Item.isCantDelete": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f",
+            "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+          }
+        },
+        "packetBless": {
+          "rows": [
+            "templates.L1Item.toPacketBless",
+            "S15-header"
+          ],
+          "sha256": {
+            "templates.L1Item.toPacketBless": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        }
+      }
+    },
+    {
+      "id": "arrow",
+      "label": "箭",
+      "variant": "此主鍵對應模板；不外推祝福、受詛咒或自訂變體",
+      "rawColumns": {
+        "name": "箭",
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 66,
+        "invgfx": 7,
+        "weight": 30,
+        "item_id": 40743,
+        "name_id": "$61",
+        "material": "wood",
+        "use_type": "arrow",
+        "classname": "0",
+        "item_type": "arrow",
+        "stackable": 1,
+        "cant_delete": 0,
+        "itemdesc_id": 0,
+        "limit_class": 127,
+        "max_charge_count": 0
+      },
+      "fields": {
+        "templateId": 40743,
+        "name": "箭",
+        "nameToken": "$61",
+        "groundGfx": 66,
+        "inventoryIcon": 7,
+        "inventoryDesc": 0,
+        "templateUseType": -2,
+        "wireUseType": 254,
+        "stackable": true,
+        "tradable": true,
+        "cantDelete": false,
+        "templateBless": 0,
+        "packetBless": 1,
+        "droppable": "unknown",
+        "equippable": "unknown",
+        "bindingRestrictions": "unknown",
+        "storageCountMax": "unknown"
+      },
+      "source": {
+        "location": "db:p24_world.etcitem",
+        "primaryKey": {
+          "item_id": 40743
+        },
+        "queryId": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "columns": [
+          "name",
+          "bless",
+          "trade",
+          "grdgfx",
+          "invgfx",
+          "weight",
+          "item_id",
+          "name_id",
+          "material",
+          "use_type",
+          "classname",
+          "item_type",
+          "stackable",
+          "cant_delete",
+          "itemdesc_id",
+          "limit_class",
+          "max_charge_count"
+        ],
+        "rowSha256": "5298db3bc18f2bea2a3f81f5751fc4fb907ab02b94965ade170eb594808255af"
+      },
+      "fieldEvidence": {
+        "templateId": {
+          "rows": [
+            "etc-template-id"
+          ],
+          "sha256": {
+            "etc-template-id": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+          }
+        },
+        "nameToken": {
+          "rows": [
+            "etc-name-token",
+            "templates.L1Item.setNameId",
+            "templates.L1Item.getNameId",
+            "S87-name"
+          ],
+          "sha256": {
+            "etc-name-token": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9",
+            "templates.L1Item.setNameId": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b",
+            "templates.L1Item.getNameId": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21",
+            "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+          }
+        },
+        "groundGfx": {
+          "rows": [
+            "etc-ground-gfx",
+            "templates.L1Item.setGroundGfxId",
+            "templates.L1Item.getGroundGfxId",
+            "S87-header"
+          ],
+          "sha256": {
+            "etc-ground-gfx": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62",
+            "templates.L1Item.setGroundGfxId": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35",
+            "templates.L1Item.getGroundGfxId": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b",
+            "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+          }
+        },
+        "inventoryIcon": {
+          "rows": [
+            "etc-inventory-icon",
+            "templates.L1Item.setGfxId",
+            "templates.L1Item.getGfxId",
+            "instance-icon",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-inventory-icon": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d",
+            "templates.L1Item.setGfxId": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057",
+            "templates.L1Item.getGfxId": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d",
+            "instance-icon": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "inventoryDesc": {
+          "rows": [
+            "etc-item-desc",
+            "templates.L1Item.setItemDescId",
+            "templates.L1Item.getItemDescId",
+            "templates.L1Item.getPacketItemDescId",
+            "templates.L1Item.getMagicCatalystType",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-item-desc": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed",
+            "templates.L1Item.setItemDescId": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c",
+            "templates.L1Item.getItemDescId": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce",
+            "templates.L1Item.getPacketItemDescId": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7",
+            "templates.L1Item.getMagicCatalystType": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "wireUseType": {
+          "rows": [
+            "etc-use-type",
+            "templates.L1Item.setUseType",
+            "templates.L1Item.getUseType",
+            "templates.L1Item.getPacketUseType",
+            "S15-header",
+            "use-type-arrow"
+          ],
+          "sha256": {
+            "etc-use-type": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb",
+            "templates.L1Item.setUseType": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1",
+            "templates.L1Item.getUseType": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274",
+            "templates.L1Item.getPacketUseType": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+            "use-type-arrow": "38d024c173c4d08cec9105edbce2c398759d6059f9afae428b5fdc2805ea732e"
+          }
+        },
+        "stackable": {
+          "rows": [
+            "etc-stackable",
+            "templates.L1EtcItem.set_stackable",
+            "templates.L1EtcItem.isStackable"
+          ],
+          "sha256": {
+            "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4",
+            "templates.L1EtcItem.set_stackable": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9",
+            "templates.L1EtcItem.isStackable": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+          }
+        },
+        "tradable": {
+          "rows": [
+            "etc-trade",
+            "templates.L1Item.isTradable",
+            "C25-template-policy"
+          ],
+          "sha256": {
+            "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+            "templates.L1Item.isTradable": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6",
+            "C25-template-policy": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+          }
+        },
+        "cantDelete": {
+          "rows": [
+            "etc-cant-delete",
+            "templates.L1Item.isCantDelete",
+            "S15-flags"
+          ],
+          "sha256": {
+            "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+            "templates.L1Item.isCantDelete": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f",
+            "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+          }
+        },
+        "packetBless": {
+          "rows": [
+            "templates.L1Item.toPacketBless",
+            "S15-header"
+          ],
+          "sha256": {
+            "templates.L1Item.toPacketBless": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        }
+      }
+    }
+  ],
   "templateGaps": [
     {
       "label": "金幣",
-      "templateId": null,
-      "groundGfx": null,
-      "nameToken": null,
-      "inventoryDesc": null,
-      "inventoryIcon": null,
-      "wireUseType": null,
-      "stackable": null,
-      "droppable": null,
-      "equippable": null,
-      "bindingRestrictions": null,
-      "storageCountMax": null,
-      "qualified": false
+      "unknown": [
+        "droppable",
+        "equippable",
+        "bindingRestrictions",
+        "storageCountMax"
+      ],
+      "reason": "模板可交易不是完整丟棄允許；instance 狀態、ItemDropTable／配置及更深 storage 限制未全驗。"
     },
     {
       "label": "肉",
-      "templateId": null,
-      "groundGfx": null,
-      "nameToken": null,
-      "inventoryDesc": null,
-      "inventoryIcon": null,
-      "wireUseType": null,
-      "stackable": null,
-      "droppable": null,
-      "equippable": null,
-      "bindingRestrictions": null,
-      "storageCountMax": null,
-      "qualified": false
+      "unknown": [
+        "droppable",
+        "equippable",
+        "bindingRestrictions",
+        "storageCountMax"
+      ],
+      "reason": "模板可交易不是完整丟棄允許；instance 狀態、ItemDropTable／配置及更深 storage 限制未全驗。"
     },
     {
       "label": "箭",
-      "templateId": null,
-      "groundGfx": null,
-      "nameToken": null,
-      "inventoryDesc": null,
-      "inventoryIcon": null,
-      "wireUseType": null,
-      "stackable": null,
-      "droppable": null,
-      "equippable": null,
-      "bindingRestrictions": null,
-      "storageCountMax": null,
-      "qualified": false
+      "unknown": [
+        "droppable",
+        "equippable",
+        "bindingRestrictions",
+        "storageCountMax"
+      ],
+      "reason": "模板可交易不是完整丟棄允許；instance 狀態、ItemDropTable／配置及更深 storage 限制未全驗。"
     },
     {
       "label": "治癒藥水",
-      "templateId": null,
-      "groundGfx": null,
-      "nameToken": null,
-      "inventoryDesc": null,
-      "inventoryIcon": null,
-      "wireUseType": null,
-      "stackable": null,
-      "droppable": null,
-      "equippable": null,
-      "bindingRestrictions": null,
-      "storageCountMax": null,
-      "qualified": false
+      "unknown": [
+        "droppable",
+        "equippable",
+        "bindingRestrictions",
+        "storageCountMax"
+      ],
+      "reason": "模板可交易不是完整丟棄允許；instance 狀態、ItemDropTable／配置及更深 storage 限制未全驗。"
     },
     {
       "label": "綠藥水",
-      "templateId": null,
-      "groundGfx": null,
-      "nameToken": null,
-      "inventoryDesc": null,
-      "inventoryIcon": null,
-      "wireUseType": null,
-      "stackable": null,
-      "droppable": null,
-      "equippable": null,
-      "bindingRestrictions": null,
-      "storageCountMax": null,
-      "qualified": false
+      "unknown": [
+        "droppable",
+        "equippable",
+        "bindingRestrictions",
+        "storageCountMax"
+      ],
+      "reason": "模板可交易不是完整丟棄允許；instance 狀態、ItemDropTable／配置及更深 storage 限制未全驗。"
     },
     {
       "label": "白藥水",
-      "templateId": null,
-      "groundGfx": null,
-      "nameToken": null,
-      "inventoryDesc": null,
-      "inventoryIcon": null,
-      "wireUseType": null,
-      "stackable": null,
-      "droppable": null,
-      "equippable": null,
-      "bindingRestrictions": null,
-      "storageCountMax": null,
-      "qualified": false
+      "unknown": [
+        "droppable",
+        "equippable",
+        "bindingRestrictions",
+        "storageCountMax"
+      ],
+      "reason": "模板可交易不是完整丟棄允許；instance 狀態、ItemDropTable／配置及更深 storage 限制未全驗。"
     },
     {
       "label": "回家卷",
-      "templateId": null,
-      "groundGfx": null,
-      "nameToken": null,
-      "inventoryDesc": null,
-      "inventoryIcon": null,
-      "wireUseType": null,
-      "stackable": null,
-      "droppable": null,
-      "equippable": null,
-      "bindingRestrictions": null,
-      "storageCountMax": null,
-      "qualified": false
+      "unknown": [
+        "droppable",
+        "equippable",
+        "bindingRestrictions",
+        "storageCountMax"
+      ],
+      "reason": "模板可交易不是完整丟棄允許；instance 狀態、ItemDropTable／配置及更深 storage 限制未全驗。"
     }
   ],
   "mappingSources": {
@@ -724,10 +2139,9 @@
     }
   ],
   "remainingEvidence": [
-    "P24Lab 憑證使用方式尚待確認；無密碼 root 連線遭 ERROR 1045 拒絕。尚未取得線上身分或七類模板。",
-    "金幣／肉 S87 與 S15 fixture 須待真實模板列，不能臆造值。",
-    "P24Lab MySQL 本輪已啟動，尚待授權登入後執行 SHUTDOWN 並核對 43324 無監聽。",
-    "storageCountMax、完整丟棄／裝備／綁定政策與 runtime charset/filter 未驗證。"
+    "完整執行期丟棄／綁定與儲存上限仍 unknown",
+    "字串編碼／過濾有明示前提；非實際 socket 擷取",
+    "未驗證原生圖像或端到端移轉"
   ],
   "supplementalJarEvidence": {
     "path": "environments/p24/server/Server_Game.jar",
@@ -971,7 +2385,7 @@
         "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
         "bytecodeOffset": [
           0,
-          80030
+          99
         ],
         "text": "  public int getPacketItemDescId();\n    Code:\n       0: aload_0\n       1: invokevirtual #221                // Method getItemId:()I\n       4: tableswitch   { // 80027 to 80030\n                 80027: 36\n                 80028: 48\n                 80029: 60\n                 80030: 72\n               default: 84\n          }\n      36: aload_0\n      37: aload_0\n      38: invokevirtual #225                // Method getItemDescId:()I\n      41: sipush        6258\n      44: invokevirtual #228                // Method normalizeSmithDesc:(II)I\n      47: ireturn\n      48: aload_0\n      49: aload_0\n      50: invokevirtual #225                // Method getItemDescId:()I\n      53: sipush        5212\n      56: invokevirtual #228                // Method normalizeSmithDesc:(II)I\n      59: ireturn\n      60: aload_0\n      61: aload_0\n      62: invokevirtual #225                // Method getItemDescId:()I\n      65: sipush        5210\n      68: invokevirtual #228                // Method normalizeSmithDesc:(II)I\n      71: ireturn\n      72: aload_0\n      73: aload_0\n      74: invokevirtual #225                // Method getItemDescId:()I\n      77: sipush        6259\n      80: invokevirtual #228                // Method normalizeSmithDesc:(II)I\n      83: ireturn\n      84: aload_0\n      85: invokevirtual #225                // Method getItemDescId:()I\n      88: istore_1\n      89: iload_1\n      90: ifeq          95\n      93: iload_1\n      94: ireturn\n      95: aload_0\n      96: invokevirtual #232                // Method getMagicCatalystType:()I\n      99: ireturn\n",
         "excerptSha256": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7"
@@ -1195,7 +2609,7 @@
         "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
         "bytecodeOffset": [
           0,
-          40002
+          581
         ],
         "text": "  static java.lang.String getNumberedViewName(com.lineage.server.model.Instance.L1ItemInstance, long);\n    Code:\n       0: new           #504                // class java/lang/StringBuilder\n       3: dup\n       4: aload_0\n       5: lload_1\n       6: iconst_1\n       7: invokestatic  #492                // Method getNumberedName:(Lcom/lineage/server/model/Instance/L1ItemInstance;JZ)Ljava/lang/String;\n      10: invokespecial #506                // Method java/lang/StringBuilder.\"<init>\":(Ljava/lang/String;)V\n      13: astore_3\n      14: aload_0\n      15: invokevirtual #21                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n      18: astore        4\n      20: aload         4\n      22: invokevirtual #157                // Method com/lineage/server/templates/L1Item.getUseType:()I\n      25: tableswitch   { // -12 to 70\n                   -12: 415\n                   -11: 372\n                   -10: 372\n                    -9: 372\n                    -8: 372\n                    -7: 372\n                    -6: 372\n                    -5: 372\n                    -4: 433\n                    -3: 372\n                    -2: 372\n                    -1: 372\n                     0: 372\n                     1: 478\n                     2: 562\n                     3: 372\n                     4: 372\n                     5: 372\n                     6: 372\n                     7: 372\n                     8: 372\n                     9: 372\n                    10: 496\n                    11: 372\n                    12: 372\n                    13: 372\n                    14: 372\n                    15: 372\n                    16: 372\n                    17: 372\n                    18: 562\n                    19: 562\n                    20: 562\n                    21: 562\n                    22: 562\n                    23: 562\n                    24: 562\n                    25: 562\n                    26: 372\n                    27: 372\n                    28: 372\n                    29: 372\n                    30: 372\n                    31: 372\n                    32: 372\n                    33: 372\n                    34: 372\n                    35: 372\n                    36: 372\n                    37: 562\n                    38: 372\n                    39: 372\n                    40: 562\n                    41: 372\n                    42: 372\n                    43: 562\n                    44: 562\n                    45: 562\n                    46: 372\n                    47: 562\n                    48: 562\n                    49: 562\n                    50: 562\n                    51: 562\n                    52: 562\n                    53: 562\n                    54: 562\n                    55: 372\n                    56: 372\n                    57: 372\n                    58: 372\n                    59: 372\n                    60: 372\n                    61: 372\n                    62: 372\n                    63: 372\n                    64: 372\n                    65: 372\n                    66: 372\n                    67: 372\n                    68: 372\n                    69: 372\n                    70: 562\n               default: 372\n          }\n     372: aload_0\n     373: invokevirtual #508                // Method com/lineage/server/model/Instance/L1ItemInstance.isEquippedTemp:()Z\n     376: ifeq          387\n     379: aload_3\n     380: ldc_w         #511                // String  ($117)\n     383: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     386: pop\n     387: invokestatic  #372                // Method com/lineage/server/datatables/ItemVIPTable.get:()Lcom/lineage/server/datatables/ItemVIPTable;\n     390: aload_0\n     391: invokevirtual #377                // Method com/lineage/server/datatables/ItemVIPTable.isVipItem:(Lcom/lineage/server/model/Instance/L1ItemInstance;)Z\n     394: ifeq          577\n     397: aload_0\n     398: invokevirtual #517                // Method com/lineage/server/model/Instance/L1ItemInstance.isEquipped:()Z\n     401: ifeq          577\n     404: aload_3\n     405: ldc_w         #511                // String  ($117)\n     408: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     411: pop\n     412: goto          577\n     415: aload_0\n     416: invokevirtual #517                // Method com/lineage/server/model/Instance/L1ItemInstance.isEquipped:()Z\n     419: ifeq          577\n     422: aload_3\n     423: ldc_w         #511                // String  ($117)\n     426: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     429: pop\n     430: goto          577\n     433: invokestatic  #520                // Method com/lineage/server/datatables/user/PetTable.get:()Lcom/lineage/server/datatables/user/PetTable;\n     436: aload_0\n     437: invokevirtual #525                // Method com/lineage/server/model/Instance/L1ItemInstance.getId:()I\n     440: invokevirtual #528                // Method com/lineage/server/datatables/user/PetTable.getTemplate:(I)Lcom/lineage/server/templates/L1Pet;\n     443: astore        5\n     445: aload         5\n     447: ifnull        577\n     450: aload_3\n     451: aload         5\n     453: invokevirtual #531                // Method com/lineage/server/templates/L1Pet.get_level:()I\n     456: aload         5\n     458: invokevirtual #536                // Method com/lineage/server/templates/L1Pet.get_name:()Ljava/lang/String;\n     461: aload         5\n     463: invokevirtual #539                // Method com/lineage/server/templates/L1Pet.get_hp:()I\n     466: invokedynamic #542,  0            // InvokeDynamic #5:makeConcatWithConstants:(ILjava/lang/String;I)Ljava/lang/String;\n     471: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     474: pop\n     475: goto          577\n     478: aload_0\n     479: invokevirtual #517                // Method com/lineage/server/model/Instance/L1ItemInstance.isEquipped:()Z\n     482: ifeq          577\n     485: aload_3\n     486: ldc_w         #545                // String  ($9)\n     489: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     492: pop\n     493: goto          577\n     496: aload_0\n     497: invokevirtual #547                // Method com/lineage/server/model/Instance/L1ItemInstance.isNowLighting:()Z\n     500: ifeq          511\n     503: aload_3\n     504: ldc_w         #550                // String  ($10)\n     507: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     510: pop\n     511: aload         4\n     513: invokevirtual #135                // Method com/lineage/server/templates/L1Item.getItemId:()I\n     516: lookupswitch  { // 2\n                 40001: 544\n                 40002: 544\n               default: 559\n          }\n     544: aload_0\n     545: invokevirtual #552                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I\n     548: ifgt          559\n     551: aload_3\n     552: ldc_w         #555                // String  ($11)\n     555: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     558: pop\n     559: goto          577\n     562: aload_0\n     563: invokevirtual #517                // Method com/lineage/server/model/Instance/L1ItemInstance.isEquipped:()Z\n     566: ifeq          577\n     569: aload_3\n     570: ldc_w         #511                // String  ($117)\n     573: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     576: pop\n     577: aload_3\n     578: invokevirtual #557                // Method java/lang/StringBuilder.toString:()Ljava/lang/String;\n     581: areturn\n",
         "excerptSha256": "249dd1b71e4fb01e3cbc898c1e323f30492edaafeaac20d589a33d85a60a0ded"
@@ -1211,7 +2625,7 @@
         "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
         "bytecodeOffset": [
           0,
-          20383
+          769
         ],
         "text": "  static java.lang.String getNumberedName(com.lineage.server.model.Instance.L1ItemInstance, long, boolean);\n    Code:\n       0: new           #504                // class java/lang/StringBuilder\n       3: dup\n       4: invokespecial #560                // Method java/lang/StringBuilder.\"<init>\":()V\n       7: astore        4\n       9: aload_0\n      10: invokevirtual #21                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n      13: astore        5\n      15: aload_0\n      16: invokevirtual #561                // Method com/lineage/server/model/Instance/L1ItemInstance.isIdentified:()Z\n      19: ifeq          444\n      22: aload         5\n      24: invokevirtual #157                // Method com/lineage/server/templates/L1Item.getUseType:()I\n      27: tableswitch   { // 1 to 70\n                     1: 320\n                     2: 394\n                     3: 444\n                     4: 444\n                     5: 444\n                     6: 444\n                     7: 444\n                     8: 444\n                     9: 444\n                    10: 444\n                    11: 444\n                    12: 444\n                    13: 444\n                    14: 444\n                    15: 444\n                    16: 444\n                    17: 444\n                    18: 394\n                    19: 394\n                    20: 394\n                    21: 394\n                    22: 394\n                    23: 394\n                    24: 394\n                    25: 394\n                    26: 444\n                    27: 444\n                    28: 444\n                    29: 444\n                    30: 444\n                    31: 444\n                    32: 444\n                    33: 444\n                    34: 444\n                    35: 444\n                    36: 444\n                    37: 394\n                    38: 444\n                    39: 444\n                    40: 394\n                    41: 444\n                    42: 444\n                    43: 394\n                    44: 394\n                    45: 394\n                    46: 444\n                    47: 394\n                    48: 394\n                    49: 394\n                    50: 394\n                    51: 394\n                    52: 394\n                    53: 394\n                    54: 394\n                    55: 444\n                    56: 444\n                    57: 444\n                    58: 444\n                    59: 444\n                    60: 444\n                    61: 444\n                    62: 444\n                    63: 444\n                    64: 444\n                    65: 444\n                    66: 444\n                    67: 444\n                    68: 444\n                    69: 444\n                    70: 394\n               default: 444\n          }\n     320: aload_0\n     321: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     324: iflt          345\n     327: aload         4\n     329: aload_0\n     330: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     333: invokedynamic #564,  0            // InvokeDynamic #6:makeConcatWithConstants:(I)Ljava/lang/String;\n     338: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     341: pop\n     342: goto          370\n     345: aload_0\n     346: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     349: ifge          370\n     352: aload         4\n     354: aload_0\n     355: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     358: invokestatic  #565                // Method java/lang/String.valueOf:(I)Ljava/lang/String;\n     361: invokedynamic #568,  0            // InvokeDynamic #7:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;\n     366: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     369: pop\n     370: aload_0\n     371: invokevirtual #569                // Method com/lineage/server/model/Instance/L1ItemInstance.getAttrEnchantLevel:()I\n     374: istore        6\n     376: iload         6\n     378: ifle          444\n     381: aload         4\n     383: aload_0\n     384: invokestatic  #572                // Method formatAttrEnchantLevel:(Lcom/lineage/server/model/Instance/L1ItemInstance;)Ljava/lang/String;\n     387: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     390: pop\n     391: goto          444\n     394: aload_0\n     395: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     398: iflt          419\n     401: aload         4\n     403: aload_0\n     404: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     407: invokedynamic #564,  0            // InvokeDynamic #6:makeConcatWithConstants:(I)Ljava/lang/String;\n     412: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     415: pop\n     416: goto          444\n     419: aload_0\n     420: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     423: ifge          444\n     426: aload         4\n     428: aload_0\n     429: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     432: invokestatic  #565                // Method java/lang/String.valueOf:(I)Ljava/lang/String;\n     435: invokedynamic #568,  0            // InvokeDynamic #7:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;\n     440: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     443: pop\n     444: iload_3\n     445: ifeq          462\n     448: aload         4\n     450: aload         5\n     452: invokevirtual #576                // Method com/lineage/server/templates/L1Item.getNameId:()Ljava/lang/String;\n     455: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     458: pop\n     459: goto          473\n     462: aload         4\n     464: aload         5\n     466: invokevirtual #579                // Method com/lineage/server/templates/L1Item.getName:()Ljava/lang/String;\n     469: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     472: pop\n     473: aload_0\n     474: invokevirtual #582                // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantSaveMode:()I\n     477: ifgt          487\n     480: aload_0\n     481: invokevirtual #585                // Method com/lineage/server/model/Instance/L1ItemInstance.getUpdateSaveMode:()I\n     484: ifle          496\n     487: aload         4\n     489: ldc_w         #588                // String  保護中\n     492: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     495: pop\n     496: aload         5\n     498: invokevirtual #157                // Method com/lineage/server/templates/L1Item.getUseType:()I\n     501: bipush        -5\n     503: if_icmpne     532\n     506: aload         5\n     508: invokevirtual #135                // Method com/lineage/server/templates/L1Item.getItemId:()I\n     511: ldc_w         #592                // int 44044\n     514: if_icmpeq     532\n     517: aload         4\n     519: aload_0\n     520: invokevirtual #593                // Method com/lineage/server/model/Instance/L1ItemInstance.getGamNo:()Ljava/lang/String;\n     523: invokedynamic #596,  0            // InvokeDynamic #8:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;\n     528: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     531: pop\n     532: aload         5\n     534: invokevirtual #135                // Method com/lineage/server/templates/L1Item.getItemId:()I\n     537: ldc_w         #592                // int 44044\n     540: if_icmpne     572\n     543: aload_0\n     544: invokevirtual #597                // Method com/lineage/server/model/Instance/L1ItemInstance.getLotto:()Ljava/lang/String;\n     547: aload_0\n     548: invokevirtual #593                // Method com/lineage/server/model/Instance/L1ItemInstance.getGamNo:()Ljava/lang/String;\n     551: invokestatic  #600                // Method com/lineage/data/event/lotto/LottoManager.formatLottoTicketNameSuffix:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;\n     554: astore        6\n     556: aload         6\n     558: invokevirtual #213                // Method java/lang/String.isEmpty:()Z\n     561: ifne          572\n     564: aload         4\n     566: aload         6\n     568: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     571: pop\n     572: aload_0\n     573: invokevirtual #561                // Method com/lineage/server/model/Instance/L1ItemInstance.isIdentified:()Z\n     576: ifeq          717\n     579: aload         5\n     581: invokevirtual #604                // Method com/lineage/server/templates/L1Item.getMaxChargeCount:()I\n     584: ifle          605\n     587: aload         4\n     589: aload_0\n     590: invokevirtual #607                // Method com/lineage/server/model/Instance/L1ItemInstance.getChargeCount:()I\n     593: invokedynamic #610,  0            // InvokeDynamic #9:makeConcatWithConstants:(I)Ljava/lang/String;\n     598: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     601: pop\n     602: goto          646\n     605: aload         5\n     607: invokevirtual #135                // Method com/lineage/server/templates/L1Item.getItemId:()I\n     610: lookupswitch  { // 1\n                 20383: 628\n               default: 646\n          }\n     628: aload         4\n     630: aload_0\n     631: invokevirtual #607                // Method com/lineage/server/model/Instance/L1ItemInstance.getChargeCount:()I\n     634: invokedynamic #610,  0            // InvokeDynamic #9:makeConcatWithConstants:(I)Ljava/lang/String;\n     639: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     642: pop\n     643: goto          646\n     646: aload_0\n     647: invokevirtual #205                // Method com/lineage/server/model/Instance/L1ItemInstance.get_time:()Ljava/sql/Timestamp;\n     650: ifnonnull     717\n     653: aload         5\n     655: invokevirtual #611                // Method com/lineage/server/templates/L1Item.getMaxUseTime:()I\n     658: ifle          687\n     661: aload         5\n     663: invokevirtual #124                // Method com/lineage/server/templates/L1Item.getType2:()I\n     666: ifeq          687\n     669: aload         4\n     671: aload_0\n     672: invokevirtual #552                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I\n     675: invokedynamic #610,  0            // InvokeDynamic #9:makeConcatWithConstants:(I)Ljava/lang/String;\n     680: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     683: pop\n     684: goto          717\n     687: aload         5\n     689: invokevirtual #124                // Method com/lineage/server/templates/L1Item.getType2:()I\n     692: ifne          717\n     695: aload_0\n     696: invokevirtual #552                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I\n     699: ifle          717\n     702: aload         4\n     704: aload_0\n     705: invokevirtual #552                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I\n     708: invokedynamic #610,  0            // InvokeDynamic #9:makeConcatWithConstants:(I)Ljava/lang/String;\n     713: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     716: pop\n     717: lload_1\n     718: lconst_1\n     719: lcmp\n     720: ifle          764\n     723: lload_1\n     724: ldc2_w        #614                // long 1000000000l\n     727: lcmp\n     728: ifge          746\n     731: aload         4\n     733: lload_1\n     734: invokedynamic #616,  0            // InvokeDynamic #9:makeConcatWithConstants:(J)Ljava/lang/String;\n     739: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     742: pop\n     743: goto          764\n     746: aload         4\n     748: lload_1\n     749: invokestatic  #619                // Method com/lineage/server/utils/RangeLong.scount:(J)Ljava/lang/StringBuilder;\n     752: invokestatic  #625                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;\n     755: invokedynamic #628,  0            // InvokeDynamic #9:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;\n     760: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     763: pop\n     764: aload         4\n     766: invokevirtual #557                // Method java/lang/StringBuilder.toString:()Ljava/lang/String;\n     769: areturn\n",
         "excerptSha256": "62d9dde3af933403d825cf3f166a08b67629e36dba264de46951d5a11887afa2"
@@ -1279,6 +2693,70 @@
         ],
         "text": "    1210: getstatic     #151                // Field _useTypes:Ljava/util/Map;\n    1213: ldc_w         #1095               // String food\n    1216: bipush        38\n    1218: invokestatic  #272                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;\n    1221: invokeinterface #276,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;\n    1226: pop\n",
         "excerptSha256": "1d20089893a63574c12143d509bfbc86fcf35ea69aabefdaa95b6bca2f05d04e"
+      },
+      {
+        "id": "templates.L1Item.getMagicCatalystType",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public int getMagicCatalystType();",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          104
+        ],
+        "text": "  public int getMagicCatalystType();\n    Code:\n       0: iconst_0\n       1: istore_1\n       2: aload_0\n       3: invokevirtual #221                // Method getItemId:()I\n       6: lookupswitch  { // 6\n\n                 40318: 64\n\n                 40319: 71\n\n                 40321: 78\n\n                 49156: 99\n\n                 49157: 92\n\n                 49158: 85\n               default: 103\n          }\n      64: sipush        166\n      67: istore_1\n      68: goto          103\n      71: sipush        569\n      74: istore_1\n      75: goto          103\n      78: sipush        837\n      81: istore_1\n      82: goto          103\n      85: sipush        3674\n      88: istore_1\n      89: goto          103\n      92: sipush        3605\n      95: istore_1\n      96: goto          103\n      99: sipush        3606\n     102: istore_1\n     103: iload_1\n     104: ireturn\n",
+        "excerptSha256": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb"
+      },
+      {
+        "id": "use-type-power",
+        "className": "com.lineage.server.datatables.ItemTable",
+        "method": "static {};",
+        "jarEntry": "com/lineage/server/datatables/ItemTable.class",
+        "classSha256": "959b49dccda1ec12326284ebcc2e1eddf32eaa7f80aacf600b0f260d4a5c63a5",
+        "javapSha256": "81931bdb469527bc2abc4d67719d67f80fdf5a5bdeb271892788b75be4b12cce",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          384,
+          400
+        ],
+        "text": "     384: getstatic     #151                // Field _useTypes:Ljava/util/Map;\n     387: ldc_w         #1113               // String power\n     390: bipush        -10\n     392: invokestatic  #272                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;\n     395: invokeinterface #276,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;\n     400: pop\n",
+        "excerptSha256": "67ae5d821c7ea70ed81e97292fefa1318b7d785d91954a2cbe01225b5a179b26"
+      },
+      {
+        "id": "use-type-hpr",
+        "className": "com.lineage.server.datatables.ItemTable",
+        "method": "static {};",
+        "jarEntry": "com/lineage/server/datatables/ItemTable.class",
+        "classSha256": "959b49dccda1ec12326284ebcc2e1eddf32eaa7f80aacf600b0f260d4a5c63a5",
+        "javapSha256": "81931bdb469527bc2abc4d67719d67f80fdf5a5bdeb271892788b75be4b12cce",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          435,
+          451
+        ],
+        "text": "     435: getstatic     #151                // Field _useTypes:Ljava/util/Map;\n     438: ldc_w         #1119               // String hpr\n     441: bipush        -7\n     443: invokestatic  #272                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;\n     446: invokeinterface #276,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;\n     451: pop\n",
+        "excerptSha256": "2b91b745da81e68955a4bfe5b1007f04b39de7d89b49c2ac5bbdfa802b752ca1"
+      },
+      {
+        "id": "use-type-home",
+        "className": "com.lineage.server.datatables.ItemTable",
+        "method": "static {};",
+        "jarEntry": "com/lineage/server/datatables/ItemTable.class",
+        "classSha256": "959b49dccda1ec12326284ebcc2e1eddf32eaa7f80aacf600b0f260d4a5c63a5",
+        "javapSha256": "81931bdb469527bc2abc4d67719d67f80fdf5a5bdeb271892788b75be4b12cce",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          700,
+          716
+        ],
+        "text": "     700: getstatic     #151                // Field _useTypes:Ljava/util/Map;\n     703: ldc_w         #1147               // String home\n     706: bipush        9\n     708: invokestatic  #272                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;\n     711: invokeinterface #276,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;\n     716: pop\n",
+        "excerptSha256": "0cd56126bf01a797c626e691595450598761845708dc013aaaef2873c2364925"
       }
     ]
   },
@@ -1292,16 +2770,169 @@
     "excerptSha256": "6d274a597a7d30dc550ab7a09c7e78d0bc1495d1659475966cb8580502c0e5d5"
   },
   "dbLifecycle": {
-    "startedAtUtc": "2026-11-05T07:56:00Z",
-    "port": 43324,
-    "mysqldPid": 23540,
-    "startProcessPid": 12136,
-    "preStartPorts43324And42061Free": true,
-    "connectionAttempt": "mysql.exe --no-defaults --host=127.0.0.1 --port=43324 --protocol=TCP --user=root --connect-timeout=5 --batch --raw --execute=\"SELECT @@server_uuid, @@port, @@datadir;\"",
-    "result": "ERROR 1045 (28000): Access denied (using password: NO)",
-    "identityVerified": false,
-    "templateQueriesExecuted": 0,
-    "shutdownVerified": false,
-    "credentialFilesRead": false
+    "identityVerified": true,
+    "templateQueriesExecuted": 1,
+    "schemaQueriesExecuted": 1,
+    "shutdownVerified": true,
+    "labPortsNotListening": true,
+    "credentialContentsRead": false,
+    "note": "兩次短暫啟動各自三重核身；各次 finally 正常 SHUTDOWN，最後兩埠無監聽。"
+  },
+  "dbEvidence": {
+    "schema": "p24_world",
+    "identity": {
+      "server_uuid": "e3443e40-d090-11f1-8040-4cedfb679789",
+      "port": 43324,
+      "datadir": "D:\\BinEngine\\environments\\p24\\db-data\\"
+    },
+    "identityVerifiedAtUtc": "2026-11-05T09:48:38.1834933Z",
+    "identitySql": "SELECT @@port,@@datadir,@@server_uuid;",
+    "templateQuerySql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+    "queries": [
+      {
+        "id": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "rows": [
+          {
+            "name": "治癒藥水",
+            "bless": 0,
+            "trade": 0,
+            "grdgfx": 45,
+            "invgfx": 80,
+            "weight": 3900,
+            "item_id": 40010,
+            "name_id": "$26",
+            "material": "glass",
+            "use_type": "hpr",
+            "classname": "hp.UserAddHp 10 20 189 true 0 0",
+            "item_type": "potion",
+            "stackable": 1,
+            "cant_delete": 0,
+            "itemdesc_id": 1342,
+            "limit_class": 127,
+            "max_charge_count": 0
+          },
+          {
+            "name": "終極治癒藥水",
+            "bless": 0,
+            "trade": 0,
+            "grdgfx": 46,
+            "invgfx": 81,
+            "weight": 5850,
+            "item_id": 40012,
+            "name_id": "$238",
+            "material": "glass",
+            "use_type": "hpr",
+            "classname": "hp.UserAddHp 60 80 197 true",
+            "item_type": "potion",
+            "stackable": 1,
+            "cant_delete": 0,
+            "itemdesc_id": 130,
+            "limit_class": 127,
+            "max_charge_count": 0
+          },
+          {
+            "name": "自我加速藥水",
+            "bless": 0,
+            "trade": 0,
+            "grdgfx": 42,
+            "invgfx": 77,
+            "weight": 3900,
+            "item_id": 40013,
+            "name_id": "$234",
+            "material": "glass",
+            "use_type": "power",
+            "classname": "brave.StatusHaste 300 191 true 40308 10",
+            "item_type": "potion",
+            "stackable": 1,
+            "cant_delete": 0,
+            "itemdesc_id": 17,
+            "limit_class": 127,
+            "max_charge_count": 0
+          },
+          {
+            "name": "肉",
+            "bless": 0,
+            "trade": 0,
+            "grdgfx": 36,
+            "invgfx": 124,
+            "weight": 10000,
+            "item_id": 40056,
+            "name_id": "$23",
+            "material": "animalmatter",
+            "use_type": "food",
+            "classname": "Food1",
+            "item_type": "food",
+            "stackable": 1,
+            "cant_delete": 0,
+            "itemdesc_id": 10,
+            "limit_class": 127,
+            "max_charge_count": 0
+          },
+          {
+            "name": "傳送回家的卷軸",
+            "bless": 0,
+            "trade": 0,
+            "grdgfx": 22,
+            "invgfx": 474,
+            "weight": 630,
+            "item_id": 40079,
+            "name_id": "$505",
+            "material": "paper",
+            "use_type": "home",
+            "classname": "teleport.GoHome_Reel",
+            "item_type": "scroll",
+            "stackable": 1,
+            "cant_delete": 0,
+            "itemdesc_id": 1338,
+            "limit_class": 127,
+            "max_charge_count": 0
+          },
+          {
+            "name": "金幣",
+            "bless": 0,
+            "trade": 0,
+            "grdgfx": 7,
+            "invgfx": 5,
+            "weight": 0,
+            "item_id": 40308,
+            "name_id": "$4",
+            "material": "gold",
+            "use_type": "none",
+            "classname": "0",
+            "item_type": "other",
+            "stackable": 1,
+            "cant_delete": 0,
+            "itemdesc_id": 0,
+            "limit_class": 127,
+            "max_charge_count": 0
+          },
+          {
+            "name": "箭",
+            "bless": 0,
+            "trade": 0,
+            "grdgfx": 66,
+            "invgfx": 7,
+            "weight": 30,
+            "item_id": 40743,
+            "name_id": "$61",
+            "material": "wood",
+            "use_type": "arrow",
+            "classname": "0",
+            "item_type": "arrow",
+            "stackable": 1,
+            "cant_delete": 0,
+            "itemdesc_id": 0,
+            "limit_class": 127,
+            "max_charge_count": 0
+          }
+        ],
+        "resultSha256": "a83f8ca2cd7d61fa18e506494b3fe9cc45e546b7b6cef1239304f96bcf8e2c72"
+      }
+    ],
+    "shutdownVerified": true,
+    "shutdownVerifiedAtUtc": "2026-11-05T09:48:38.4121260Z",
+    "credentialContentDisclosed": false,
+    "queryScope": "指定七個普通物品模板鍵；不含帳號、角色或個人資料；僅 SELECT"
   }
 }

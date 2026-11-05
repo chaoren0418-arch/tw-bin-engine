@@ -686,6 +686,548 @@
           "offset": 376
         }
       }
+    },
+    {
+      "id": "gold-s87",
+      "packet": "S87",
+      "derivation": "static",
+      "templateRow": "gold",
+      "templateRowSha256": "356517084c5c44576d323fcc87a6f3da5c767343db56aa37403020a7da58547b",
+      "rows": [
+        "S87-header",
+        "S87-name",
+        "S87-tail",
+        "serverpackets.ServerBasePacket.writeC",
+        "serverpackets.ServerBasePacket.writeH",
+        "serverpackets.ServerBasePacket.writeD",
+        "serverpackets.ServerBasePacket.writeS"
+      ],
+      "evidenceSha256": {
+        "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c",
+        "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7",
+        "S87-tail": "a5744455e49304ff3ebfbf8dc8879ab44c2ce322e855c2dac78603bd1e835a06",
+        "serverpackets.ServerBasePacket.writeC": "8511d40e8b978f0c72765277b3f59c051a1df3b9b8a2d7f399bff5c47dc26bd4",
+        "serverpackets.ServerBasePacket.writeH": "2416752071f55bacb32d5babc18998378be15bcc0096aad9ad1d71e8fd24d74a",
+        "serverpackets.ServerBasePacket.writeD": "f84b5b6edea8eff8ff6b4df1a07486186fd31a73359cfb40f0fd69d08ab15460",
+        "serverpackets.ServerBasePacket.writeS": "50e65ecd4230c126a69cd083b25738b6110c1fbbf4342b94b03b8d89f4c5dd54"
+      },
+      "preconditions": [
+        "模板數值來自指定 SELECT；ObjectId、座標、count、instance flags 是明示的測試輸入，不是原服擷取或角色資料。",
+        "僅未點亮／未辨識／未封印等明列分支；ASCII 相容 charset 且不命中文字過濾；不含 transport framing、加密或 padding。"
+      ],
+      "input": {
+        "count": 250,
+        "objectId": 900101,
+        "x": 32768,
+        "y": 32768,
+        "lighting": false
+      },
+      "payloadHex": "570080008005bc0d00070000000000fa0000000000243420283235302900000000000000000000ff000000ffff",
+      "expect": {
+        "calls": [
+          [
+            "C",
+            87
+          ],
+          [
+            "H",
+            32768
+          ],
+          [
+            "H",
+            32768
+          ],
+          [
+            "D",
+            900101
+          ],
+          [
+            "H",
+            7
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "D",
+            250
+          ],
+          [
+            "H",
+            0
+          ],
+          [
+            "S",
+            "$4 (250)"
+          ],
+          [
+            "S",
+            null
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "D",
+            0
+          ],
+          [
+            "S",
+            null
+          ],
+          [
+            "S",
+            null
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            255
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            255
+          ],
+          [
+            "C",
+            255
+          ]
+        ],
+        "decoded": {
+          "opcode": 87,
+          "x": 32768,
+          "y": 32768,
+          "objectId": 900101,
+          "groundGfx": 7,
+          "count": 250,
+          "name": "$4 (250)"
+        }
+      }
+    },
+    {
+      "id": "gold-s15",
+      "packet": "S15",
+      "derivation": "static",
+      "templateRow": "gold",
+      "templateRowSha256": "356517084c5c44576d323fcc87a6f3da5c767343db56aa37403020a7da58547b",
+      "rows": [
+        "S15-header",
+        "S15-flags",
+        "S15-tail",
+        "model.Instance.L1ItemInstance.getViewName",
+        "model.Instance.L1ItemStatus.getViewName",
+        "model.Instance.L1ItemStatus.getNumberedViewName",
+        "model.Instance.L1ItemStatus.getNumberedName",
+        "serverpackets.ServerBasePacket.writeC",
+        "serverpackets.ServerBasePacket.writeH",
+        "serverpackets.ServerBasePacket.writeD",
+        "serverpackets.ServerBasePacket.writeS"
+      ],
+      "evidenceSha256": {
+        "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+        "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b",
+        "S15-tail": "493159554efab90b6fa1b541c7bc52ad1f6c004fae20b59f7d22a13fbba70351",
+        "model.Instance.L1ItemInstance.getViewName": "0edfd4807e2f3d93496b7d1fd60521bc4d4c85f200d0351626f81aef5df6ba5b",
+        "model.Instance.L1ItemStatus.getViewName": "05d342ce9bf999ad8722c2453f3e58cbf060582a1c670a096a5e16c1a62def0e",
+        "model.Instance.L1ItemStatus.getNumberedViewName": "249dd1b71e4fb01e3cbc898c1e323f30492edaafeaac20d589a33d85a60a0ded",
+        "model.Instance.L1ItemStatus.getNumberedName": "62d9dde3af933403d825cf3f166a08b67629e36dba264de46951d5a11887afa2",
+        "serverpackets.ServerBasePacket.writeC": "8511d40e8b978f0c72765277b3f59c051a1df3b9b8a2d7f399bff5c47dc26bd4",
+        "serverpackets.ServerBasePacket.writeH": "2416752071f55bacb32d5babc18998378be15bcc0096aad9ad1d71e8fd24d74a",
+        "serverpackets.ServerBasePacket.writeD": "f84b5b6edea8eff8ff6b4df1a07486186fd31a73359cfb40f0fd69d08ab15460",
+        "serverpackets.ServerBasePacket.writeS": "50e65ecd4230c126a69cd083b25738b6110c1fbbf4342b94b03b8d89f4c5dd54"
+      },
+      "preconditions": [
+        "模板數值來自指定 SELECT；ObjectId、座標、count、instance flags 是明示的測試輸入，不是原服擷取或角色資料。",
+        "僅未點亮／未辨識／未封印等明列分支；ASCII 相容 charset 且不命中文字過濾；不含 transport framing、加密或 padding。"
+      ],
+      "input": {
+        "count": 250,
+        "objectId": 900101,
+        "identified": false,
+        "sealed": false,
+        "equipped": false,
+        "equippedTemp": false,
+        "protected": false,
+        "chargeCount": 0,
+        "safeEnchant": 0
+      },
+      "payloadHex": "0f05bc0d000000ff00050001fa00000000243420283235302900000a00000000000000000000",
+      "expect": {
+        "calls": [
+          [
+            "C",
+            15
+          ],
+          [
+            "D",
+            900101
+          ],
+          [
+            "H",
+            0
+          ],
+          [
+            "C",
+            255
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "H",
+            5
+          ],
+          [
+            "C",
+            1
+          ],
+          [
+            "D",
+            250
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "S",
+            "$4 (250)"
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            10
+          ],
+          [
+            "H",
+            0
+          ],
+          [
+            "D",
+            0
+          ],
+          [
+            "D",
+            0
+          ]
+        ],
+        "decoded": {
+          "opcode": 15,
+          "objectId": 900101,
+          "desc": 0,
+          "useType": 255,
+          "charge": 0,
+          "icon": 5,
+          "bless": 1,
+          "count": 250,
+          "flags": 0,
+          "name": "$4 (250)"
+        }
+      }
+    },
+    {
+      "id": "meat-s87",
+      "packet": "S87",
+      "derivation": "static",
+      "templateRow": "meat",
+      "templateRowSha256": "1a2e2945d4b9a6c019acfc32d86d129414d9280159bd64a43a22f983e1fb29eb",
+      "rows": [
+        "S87-header",
+        "S87-name",
+        "S87-tail",
+        "serverpackets.ServerBasePacket.writeC",
+        "serverpackets.ServerBasePacket.writeH",
+        "serverpackets.ServerBasePacket.writeD",
+        "serverpackets.ServerBasePacket.writeS"
+      ],
+      "evidenceSha256": {
+        "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c",
+        "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7",
+        "S87-tail": "a5744455e49304ff3ebfbf8dc8879ab44c2ce322e855c2dac78603bd1e835a06",
+        "serverpackets.ServerBasePacket.writeC": "8511d40e8b978f0c72765277b3f59c051a1df3b9b8a2d7f399bff5c47dc26bd4",
+        "serverpackets.ServerBasePacket.writeH": "2416752071f55bacb32d5babc18998378be15bcc0096aad9ad1d71e8fd24d74a",
+        "serverpackets.ServerBasePacket.writeD": "f84b5b6edea8eff8ff6b4df1a07486186fd31a73359cfb40f0fd69d08ab15460",
+        "serverpackets.ServerBasePacket.writeS": "50e65ecd4230c126a69cd083b25738b6110c1fbbf4342b94b03b8d89f4c5dd54"
+      },
+      "preconditions": [
+        "模板數值來自指定 SELECT；ObjectId、座標、count、instance flags 是明示的測試輸入，不是原服擷取或角色資料。",
+        "僅未點亮／未辨識／未封印等明列分支；ASCII 相容 charset 且不命中文字過濾；不含 transport framing、加密或 padding。"
+      ],
+      "input": {
+        "count": 3,
+        "objectId": 900102,
+        "x": 32768,
+        "y": 32768,
+        "lighting": false
+      },
+      "payloadHex": "570080008006bc0d002400000000000300000000002432332028332900000000000000000000ff000000ffff",
+      "expect": {
+        "calls": [
+          [
+            "C",
+            87
+          ],
+          [
+            "H",
+            32768
+          ],
+          [
+            "H",
+            32768
+          ],
+          [
+            "D",
+            900102
+          ],
+          [
+            "H",
+            36
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "D",
+            3
+          ],
+          [
+            "H",
+            0
+          ],
+          [
+            "S",
+            "$23 (3)"
+          ],
+          [
+            "S",
+            null
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "D",
+            0
+          ],
+          [
+            "S",
+            null
+          ],
+          [
+            "S",
+            null
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            255
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            255
+          ],
+          [
+            "C",
+            255
+          ]
+        ],
+        "decoded": {
+          "opcode": 87,
+          "x": 32768,
+          "y": 32768,
+          "objectId": 900102,
+          "groundGfx": 36,
+          "count": 3,
+          "name": "$23 (3)"
+        }
+      }
+    },
+    {
+      "id": "meat-s15",
+      "packet": "S15",
+      "derivation": "static",
+      "templateRow": "meat",
+      "templateRowSha256": "1a2e2945d4b9a6c019acfc32d86d129414d9280159bd64a43a22f983e1fb29eb",
+      "rows": [
+        "S15-header",
+        "S15-flags",
+        "S15-tail",
+        "model.Instance.L1ItemInstance.getViewName",
+        "model.Instance.L1ItemStatus.getViewName",
+        "model.Instance.L1ItemStatus.getNumberedViewName",
+        "model.Instance.L1ItemStatus.getNumberedName",
+        "serverpackets.ServerBasePacket.writeC",
+        "serverpackets.ServerBasePacket.writeH",
+        "serverpackets.ServerBasePacket.writeD",
+        "serverpackets.ServerBasePacket.writeS"
+      ],
+      "evidenceSha256": {
+        "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+        "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b",
+        "S15-tail": "493159554efab90b6fa1b541c7bc52ad1f6c004fae20b59f7d22a13fbba70351",
+        "model.Instance.L1ItemInstance.getViewName": "0edfd4807e2f3d93496b7d1fd60521bc4d4c85f200d0351626f81aef5df6ba5b",
+        "model.Instance.L1ItemStatus.getViewName": "05d342ce9bf999ad8722c2453f3e58cbf060582a1c670a096a5e16c1a62def0e",
+        "model.Instance.L1ItemStatus.getNumberedViewName": "249dd1b71e4fb01e3cbc898c1e323f30492edaafeaac20d589a33d85a60a0ded",
+        "model.Instance.L1ItemStatus.getNumberedName": "62d9dde3af933403d825cf3f166a08b67629e36dba264de46951d5a11887afa2",
+        "serverpackets.ServerBasePacket.writeC": "8511d40e8b978f0c72765277b3f59c051a1df3b9b8a2d7f399bff5c47dc26bd4",
+        "serverpackets.ServerBasePacket.writeH": "2416752071f55bacb32d5babc18998378be15bcc0096aad9ad1d71e8fd24d74a",
+        "serverpackets.ServerBasePacket.writeD": "f84b5b6edea8eff8ff6b4df1a07486186fd31a73359cfb40f0fd69d08ab15460",
+        "serverpackets.ServerBasePacket.writeS": "50e65ecd4230c126a69cd083b25738b6110c1fbbf4342b94b03b8d89f4c5dd54"
+      },
+      "preconditions": [
+        "模板數值來自指定 SELECT；ObjectId、座標、count、instance flags 是明示的測試輸入，不是原服擷取或角色資料。",
+        "僅未點亮／未辨識／未封印等明列分支；ASCII 相容 charset 且不命中文字過濾；不含 transport framing、加密或 padding。"
+      ],
+      "input": {
+        "count": 3,
+        "objectId": 900102,
+        "identified": false,
+        "sealed": false,
+        "equipped": false,
+        "equippedTemp": false,
+        "protected": false,
+        "chargeCount": 0,
+        "safeEnchant": 0
+      },
+      "payloadHex": "0f06bc0d000a0026007c000103000000002432332028332900000a00000000000000000000",
+      "expect": {
+        "calls": [
+          [
+            "C",
+            15
+          ],
+          [
+            "D",
+            900102
+          ],
+          [
+            "H",
+            10
+          ],
+          [
+            "C",
+            38
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "H",
+            124
+          ],
+          [
+            "C",
+            1
+          ],
+          [
+            "D",
+            3
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "S",
+            "$23 (3)"
+          ],
+          [
+            "C",
+            0
+          ],
+          [
+            "C",
+            10
+          ],
+          [
+            "H",
+            0
+          ],
+          [
+            "D",
+            0
+          ],
+          [
+            "D",
+            0
+          ]
+        ],
+        "decoded": {
+          "opcode": 15,
+          "objectId": 900102,
+          "desc": 10,
+          "useType": 38,
+          "charge": 0,
+          "icon": 124,
+          "bless": 1,
+          "count": 3,
+          "flags": 0,
+          "name": "$23 (3)"
+        }
+      }
     }
   ],
   "liveCapturedFixtures": []
