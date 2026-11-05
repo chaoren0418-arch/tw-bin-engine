@@ -59,8 +59,17 @@ N01 流程逐步核對表：每步要截圖什麼、看哪個 server 回包、�
 ### T041 | done | codex-local（Issue #34，PR #35） | `engine/source/LoginConnection.cs` 等
 選用的客戶端封包追蹤（環境變數開啟，只記方向／opcode／長度／時間，不記內容），讓真機補測有移動／戰鬥／拾取的封包證據。依賴 T040。
 
-### T042 | doing | dot（Issue #37） | P24Lab 真機
+### T042 | done | dot（Issue #37） | P24Lab 真機
 局部補測（不整輪重跑）：04／05 移動封包、06 近戰、07 技能 4、10 拾取、15 實際聲音（需有發聲事件）。依賴 T041。
+結果（2026-11-05）：✅ 04、05、07；⚠️ 06（目標離開，測試條件）、15（Magic／Combat 無音效派送）；❌ 10（金幣 `droppable=false`，GroundRules 只允許肉／箭）。
+
+### T043 | done | codex-local（Issue #38，PR #40） | 本機主專案同步 main 並建置 dev（T042 前置；dot 沙箱離線）
+
+### T044 | doing | codex-local（Issue #41） | `docs/native-baseline/dev-retest/`, `docs/reports/issue-37.md`
+提交 T042 證據與 dev-retest.md。
+
+### T045 | doing | codex-local（Issue #42） | `docs/design/sfx-and-ground-items.md`, `docs/plans/issue-42.json`
+設計：攻擊／技能音效與一般地面物品（金幣）所需的原客戶端資料；拆出程式與補測任務。
 
 ## M2 完整遊戲循環（待 M1 結果排序）
 
