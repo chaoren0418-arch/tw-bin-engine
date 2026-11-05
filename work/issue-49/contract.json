@@ -530,5 +530,209 @@
       "storageCountMax": null,
       "qualified": false
     }
-  ]
+  ],
+  "mappingSources": {
+    "ItemTable": {
+      "kind": "historical-javap-only",
+      "path": "work/timed-item-lifecycle-r1/datatables.ItemTable.javap.txt",
+      "sha256": "4319d84178159307827e07b20cc996ebc701f578969705fa5354712303e456de",
+      "className": "com.lineage.server.datatables.ItemTable",
+      "historicalClassSha256": "959b49dccda1ec12326284ebcc2e1eddf32eaa7f80aacf600b0f260d4a5c63a5",
+      "indexPath": "work/timed-item-lifecycle-r1/class-evidence.json",
+      "indexSha256": "e82520d90942027a1918d0e141cc91c3da3234ba74ec6dc176d545facc1e4aff",
+      "jarPinPath": "work/timed-item-lifecycle-r1/initial-source-pins.json",
+      "jarPinSha256": "0012774b8fbc90d918b8cbe4fac9b0837c26dd64e7ddd918de9686453338ac23",
+      "classRehashedThisRun": false,
+      "javapReproducedThisRun": false,
+      "limitation": "只核對既有 javap 及歷史索引；未讀 JAR、原伺服器來源或設定。"
+    },
+    "L1ItemInstance": {
+      "kind": "historical-javap-only",
+      "path": "work/timed-item-lifecycle-r1/model.Instance.L1ItemInstance.javap.txt",
+      "sha256": "ea13fda5cca763610b7c7f90643ce4d4ead65333a6c833224ea9c98b234b66de",
+      "className": "com.lineage.server.model.Instance.L1ItemInstance",
+      "historicalClassSha256": "1f2b8050c0c60b7846596529faecd6d66a41bbdb5412888ed9e1970d16a657f2",
+      "indexPath": "work/timed-item-lifecycle-r1/class-evidence.json",
+      "indexSha256": "e82520d90942027a1918d0e141cc91c3da3234ba74ec6dc176d545facc1e4aff",
+      "jarPinPath": "work/timed-item-lifecycle-r1/initial-source-pins.json",
+      "jarPinSha256": "0012774b8fbc90d918b8cbe4fac9b0837c26dd64e7ddd918de9686453338ac23",
+      "classRehashedThisRun": false,
+      "javapReproducedThisRun": false,
+      "limitation": "只核對既有 javap 及歷史索引；未讀 JAR、原伺服器來源或設定。"
+    }
+  },
+  "adoptedMappingRows": [
+    {
+      "id": "etc-template-id",
+      "source": "ItemTable",
+      "claim": "item_id 經 getInt/setItemId 載入模板鍵，不是 wire instance ObjectId。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        45,
+        69
+      ],
+      "sourceLine": [
+        194,
+        204
+      ],
+      "text": "      45: aload         4\n      47: ldc           #103                // String item_id\n      49: invokeinterface #105,  2          // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n      54: istore        5\n      56: new           #109                // class com/lineage/server/templates/L1EtcItem\n      59: dup\n      60: invokespecial #111                // Method com/lineage/server/templates/L1EtcItem.\"<init>\":()V\n      63: astore        6\n      65: aload         6\n      67: iload         5\n      69: invokevirtual #112                // Method com/lineage/server/templates/L1EtcItem.setItemId:(I)V\n",
+      "excerptSha256": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+    },
+    {
+      "id": "etc-name-token",
+      "source": "ItemTable",
+      "claim": "name_id 經 getString/setNameId 載入；S87 使用 getNameId。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        104,
+        115
+      ],
+      "sourceLine": [
+        217,
+        221
+      ],
+      "text": "     104: aload         6\n     106: aload         4\n     108: ldc           #130                // String name_id\n     110: invokeinterface #118,  2          // InterfaceMethod java/sql/ResultSet.getString:(Ljava/lang/String;)Ljava/lang/String;\n     115: invokevirtual #132                // Method com/lineage/server/templates/L1EtcItem.setNameId:(Ljava/lang/String;)V\n",
+      "excerptSha256": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9"
+    },
+    {
+      "id": "etc-use-type",
+      "source": "ItemTable",
+      "claim": "use_type 字串先經 _useTypes map，再 setUseType；不能直接當 packet useType。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        146,
+        171
+      ],
+      "sourceLine": [
+        231,
+        239
+      ],
+      "text": "     146: aload         6\n     148: getstatic     #151                // Field _useTypes:Ljava/util/Map;\n     151: aload         4\n     153: ldc           #154                // String use_type\n     155: invokeinterface #118,  2          // InterfaceMethod java/sql/ResultSet.getString:(Ljava/lang/String;)Ljava/lang/String;\n     160: invokeinterface #140,  2          // InterfaceMethod java/util/Map.get:(Ljava/lang/Object;)Ljava/lang/Object;\n     165: checkcast     #143                // class java/lang/Integer\n     168: invokevirtual #145                // Method java/lang/Integer.intValue:()I\n     171: invokevirtual #156                // Method com/lineage/server/templates/L1EtcItem.setUseType:(I)V\n",
+      "excerptSha256": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb"
+    },
+    {
+      "id": "etc-inventory-icon",
+      "source": "ItemTable",
+      "claim": "invgfx 經 getInt/setGfxId 載入。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        222,
+        233
+      ],
+      "sourceLine": [
+        257,
+        261
+      ],
+      "text": "     222: aload         6\n     224: aload         4\n     226: ldc           #175                // String invgfx\n     228: invokeinterface #105,  2          // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n     233: invokevirtual #177                // Method com/lineage/server/templates/L1EtcItem.setGfxId:(I)V\n",
+      "excerptSha256": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d"
+    },
+    {
+      "id": "etc-ground-gfx",
+      "source": "ItemTable",
+      "claim": "grdgfx 經 getInt/setGroundGfxId 載入；S87 呼叫 getGroundGfxId。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        236,
+        247
+      ],
+      "sourceLine": [
+        262,
+        266
+      ],
+      "text": "     236: aload         6\n     238: aload         4\n     240: ldc           #180                // String grdgfx\n     242: invokeinterface #105,  2          // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n     247: invokevirtual #182                // Method com/lineage/server/templates/L1EtcItem.setGroundGfxId:(I)V\n",
+      "excerptSha256": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62"
+    },
+    {
+      "id": "etc-item-desc",
+      "source": "ItemTable",
+      "claim": "itemdesc_id 經 getInt/setItemDescId 載入；仍缺 getPacketItemDescId 轉換實作。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        250,
+        261
+      ],
+      "sourceLine": [
+        267,
+        271
+      ],
+      "text": "     250: aload         6\n     252: aload         4\n     254: ldc           #185                // String itemdesc_id\n     256: invokeinterface #105,  2          // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n     261: invokevirtual #187                // Method com/lineage/server/templates/L1EtcItem.setItemDescId:(I)V\n",
+      "excerptSha256": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed"
+    },
+    {
+      "id": "etc-trade",
+      "source": "ItemTable",
+      "claim": "trade == 0 才 setTradable(true)；不能把 trade=1 當可交易，也不等於可丟棄。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        306,
+        325
+      ],
+      "sourceLine": [
+        287,
+        295
+      ],
+      "text": "     306: aload         6\n     308: aload         4\n     310: ldc           #205                // String trade\n     312: invokeinterface #105,  2          // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n     317: ifne          324\n     320: iconst_1\n     321: goto          325\n     324: iconst_0\n     325: invokevirtual #207                // Method com/lineage/server/templates/L1EtcItem.setTradable:(Z)V\n",
+      "excerptSha256": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac"
+    },
+    {
+      "id": "etc-cant-delete",
+      "source": "ItemTable",
+      "claim": "cant_delete == 1 才 setCantDelete(true)。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        328,
+        348
+      ],
+      "sourceLine": [
+        296,
+        305
+      ],
+      "text": "     328: aload         6\n     330: aload         4\n     332: ldc           #211                // String cant_delete\n     334: invokeinterface #105,  2          // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n     339: iconst_1\n     340: if_icmpne     347\n     343: iconst_1\n     344: goto          348\n     347: iconst_0\n     348: invokevirtual #213                // Method com/lineage/server/templates/L1EtcItem.setCantDelete:(Z)V\n",
+      "excerptSha256": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7"
+    },
+    {
+      "id": "etc-stackable",
+      "source": "ItemTable",
+      "claim": "stackable == 1 才 set_stackable(true)。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        351,
+        371
+      ],
+      "sourceLine": [
+        306,
+        315
+      ],
+      "text": "     351: aload         6\n     353: aload         4\n     355: ldc           #216                // String stackable\n     357: invokeinterface #105,  2          // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n     362: iconst_1\n     363: if_icmpne     370\n     366: iconst_1\n     367: goto          371\n     370: iconst_0\n     371: invokevirtual #218                // Method com/lineage/server/templates/L1EtcItem.set_stackable:(Z)V\n",
+      "excerptSha256": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4"
+    },
+    {
+      "id": "instance-icon",
+      "source": "L1ItemInstance",
+      "claim": "get_gfxid 直接回傳 template.getGfxId；S15 寫入 H icon。可對照 invgfx 載入端，但模板 setter/getter 本體仍缺。",
+      "method": "public int get_gfxid();",
+      "bytecodeOffset": [
+        0,
+        9
+      ],
+      "sourceLine": [
+        3409,
+        3414
+      ],
+      "text": "       0: aload_0\n       1: getfield      #270                // Field _item:Lcom/lineage/server/templates/L1Item;\n       4: invokevirtual #918                // Method com/lineage/server/templates/L1Item.getGfxId:()I\n       7: istore_1\n       8: iload_1\n       9: ireturn\n",
+      "excerptSha256": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e"
+    }
+  ],
+  "remainingEvidence": [
+    "七類精確 variant 的既有去機密模板列與欄名、列號、SHA；金幣 ground gfx 7/3247 仍未裁定。",
+    "L1Item 的 getPacketItemDescId/getPacketUseType/toPacketBless 及必要模板 getter/setter 實作與版本 pin。",
+    "storageCountMax 與丟棄/裝備/綁定政策依據；request/display 上限不能替代 storage 上限。",
+    "ClientBasePacket read/readH/readD、ServerBasePacket writeC/H/D/S 的編碼來源，以及最小 packet bytes fixture。"
+  ],
+  "attempt3": {
+    "status": "needs:local",
+    "qualified": false,
+    "sourceDiscovery": "P24Lab 根目錄不可見；work 定向檔名盤點找到 timed-item-lifecycle-r1 既有反組譯；未找到模板列或 BasePacket。盤點有 11 個既有 synthetic 目錄拒絕存取，未重試或更改 ACL。",
+    "packetFixtureStatus": "blocked: 缺 byte 編碼來源，僅新增明示輸入的靜態分支推導，不冒充封包重播。"
+  }
 }

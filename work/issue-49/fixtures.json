@@ -1,36 +1,575 @@
 {
-  "kind": "靜態來源摘錄重播；不是真實封包擷取或 handler 執行",
+  "kind": "static-semantic-vectors-only",
+  "provenance": "輸入是本任務選定的邊界值與虛構 ObjectId，不是原服資料、實際擷取、UI fixture 或模板採用列。來源只支持明列分支的推導。",
+  "byteEncoding": null,
+  "byteEncodingGap": "未取得 ClientBasePacket/ServerBasePacket 編碼實作，不猜 endian、字串編碼、null terminator、framing 或 encryption。",
   "cases": [
     {
-      "id": "reject-count-nonpositive",
-      "row": "C112-fields",
-      "expect": "readD 有號值 <=0 返回"
+      "id": "C25-negative",
+      "kind": "static-semantic-vector",
+      "operation": "request-count",
+      "rows": [
+        "C25-fields"
+      ],
+      "evidenceSha256": {
+        "C25-fields": "1f854f3f10d87cb3332a6d776f1c6903835a9a2dfc4a96b16dec830ebd90ed3f"
+      },
+      "input": {
+        "readD": -2147483648
+      },
+      "expect": {
+        "normalizedCount": 0,
+        "result": "return"
+      },
+      "preconditions": "已到達 count 讀取區間；輸入是 readD 回傳的 Java int，沒有 bytes 解碼。"
     },
     {
-      "id": "reject-nonitem",
-      "row": "C112-nonitem",
-      "expect": "instanceof L1ItemInstance 失敗返回"
+      "id": "C25-zero",
+      "kind": "static-semantic-vector",
+      "operation": "request-count",
+      "rows": [
+        "C25-fields"
+      ],
+      "evidenceSha256": {
+        "C25-fields": "1f854f3f10d87cb3332a6d776f1c6903835a9a2dfc4a96b16dec830ebd90ed3f"
+      },
+      "input": {
+        "readD": 0
+      },
+      "expect": {
+        "normalizedCount": 0,
+        "result": "return"
+      },
+      "preconditions": "已到達 count 讀取區間；輸入是 readD 回傳的 Java int，沒有 bytes 解碼。"
     },
     {
-      "id": "reject-drop-equipped-sealed",
-      "row": "C25-equipped-sealed",
-      "expect": "裝備或 sealed 返回"
+      "id": "C25-one",
+      "kind": "static-semantic-vector",
+      "operation": "request-count",
+      "rows": [
+        "C25-fields"
+      ],
+      "evidenceSha256": {
+        "C25-fields": "1f854f3f10d87cb3332a6d776f1c6903835a9a2dfc4a96b16dec830ebd90ed3f"
+      },
+      "input": {
+        "readD": 1
+      },
+      "expect": {
+        "normalizedCount": 1,
+        "result": "continue"
+      },
+      "preconditions": "已到達 count 讀取區間；輸入是 readD 回傳的 Java int，沒有 bytes 解碼。"
     },
     {
-      "id": "reject-pickup-owner-or-count",
-      "row": "C112-source-owner",
-      "expect": "超量或其他 owner 拒絕"
+      "id": "C25-max",
+      "kind": "static-semantic-vector",
+      "operation": "request-count",
+      "rows": [
+        "C25-fields"
+      ],
+      "evidenceSha256": {
+        "C25-fields": "1f854f3f10d87cb3332a6d776f1c6903835a9a2dfc4a96b16dec830ebd90ed3f"
+      },
+      "input": {
+        "readD": 2147483647
+      },
+      "expect": {
+        "normalizedCount": 2147483647,
+        "result": "continue"
+      },
+      "preconditions": "已到達 count 讀取區間；輸入是 readD 回傳的 Java int，沒有 bytes 解碼。"
     },
     {
-      "id": "reply-count-clamp",
-      "row": "S87-header",
-      "expect": "顯示 count 上限 2000000000；非 storage 上限"
+      "id": "C112-negative",
+      "kind": "static-semantic-vector",
+      "operation": "request-count",
+      "rows": [
+        "C112-fields"
+      ],
+      "evidenceSha256": {
+        "C112-fields": "e946ffecb81cecb35635956ef356ae17593d294eed6df62a10618dbcf9e456ba"
+      },
+      "input": {
+        "readD": -2147483648
+      },
+      "expect": {
+        "normalizedCount": 0,
+        "result": "return"
+      },
+      "preconditions": "已到達 count 讀取區間；輸入是 readD 回傳的 Java int，沒有 bytes 解碼。"
     },
     {
-      "id": "remove-opcode",
-      "row": "S120",
-      "expect": "120；不採用舊摘要9"
+      "id": "C112-zero",
+      "kind": "static-semantic-vector",
+      "operation": "request-count",
+      "rows": [
+        "C112-fields"
+      ],
+      "evidenceSha256": {
+        "C112-fields": "e946ffecb81cecb35635956ef356ae17593d294eed6df62a10618dbcf9e456ba"
+      },
+      "input": {
+        "readD": 0
+      },
+      "expect": {
+        "normalizedCount": 0,
+        "result": "return"
+      },
+      "preconditions": "已到達 count 讀取區間；輸入是 readD 回傳的 Java int，沒有 bytes 解碼。"
+    },
+    {
+      "id": "C112-one",
+      "kind": "static-semantic-vector",
+      "operation": "request-count",
+      "rows": [
+        "C112-fields"
+      ],
+      "evidenceSha256": {
+        "C112-fields": "e946ffecb81cecb35635956ef356ae17593d294eed6df62a10618dbcf9e456ba"
+      },
+      "input": {
+        "readD": 1
+      },
+      "expect": {
+        "normalizedCount": 1,
+        "result": "continue"
+      },
+      "preconditions": "已到達 count 讀取區間；輸入是 readD 回傳的 Java int，沒有 bytes 解碼。"
+    },
+    {
+      "id": "C112-max",
+      "kind": "static-semantic-vector",
+      "operation": "request-count",
+      "rows": [
+        "C112-fields"
+      ],
+      "evidenceSha256": {
+        "C112-fields": "e946ffecb81cecb35635956ef356ae17593d294eed6df62a10618dbcf9e456ba"
+      },
+      "input": {
+        "readD": 2147483647
+      },
+      "expect": {
+        "normalizedCount": 2147483647,
+        "result": "continue"
+      },
+      "preconditions": "已到達 count 讀取區間；輸入是 readD 回傳的 Java int，沒有 bytes 解碼。"
+    },
+    {
+      "id": "pickup-nonitem",
+      "kind": "static-semantic-vector",
+      "operation": "pickup-kind",
+      "rows": [
+        "C112-nonitem"
+      ],
+      "evidenceSha256": {
+        "C112-nonitem": "d03910e269b957fad59929b46e18bbaa0bc56e772b9619d83f826df8216475bf"
+      },
+      "input": {
+        "isL1ItemInstance": false
+      },
+      "expect": {
+        "result": "return"
+      },
+      "preconditions": "僅評估 start offset 216–221 的 instanceof 分支；continue 仍需座標/距離/來源/owner/負重等檢查。"
+    },
+    {
+      "id": "pickup-item",
+      "kind": "static-semantic-vector",
+      "operation": "pickup-kind",
+      "rows": [
+        "C112-nonitem"
+      ],
+      "evidenceSha256": {
+        "C112-nonitem": "d03910e269b957fad59929b46e18bbaa0bc56e772b9619d83f826df8216475bf"
+      },
+      "input": {
+        "isL1ItemInstance": true
+      },
+      "expect": {
+        "result": "continue"
+      },
+      "preconditions": "僅評估 start offset 216–221 的 instanceof 分支；continue 仍需座標/距離/來源/owner/負重等檢查。"
+    },
+    {
+      "id": "pickup-empty",
+      "kind": "static-semantic-vector",
+      "operation": "pickup-count-owner",
+      "rows": [
+        "C112-source-owner"
+      ],
+      "evidenceSha256": {
+        "C112-source-owner": "228290d68b8a4b68e82adaacb5ea86dabe581211757cfe3e10d25e0f701a50e1"
+      },
+      "input": {
+        "available": 0,
+        "requested": 1,
+        "ownerId": 0,
+        "actorId": 9001
+      },
+      "expect": {
+        "result": "return",
+        "offset": 353
+      },
+      "preconditions": "已通過 start 0–338：角色可操作、同座標/距離、World/ground inventory 是同一物件且角色存活；僅評估 339–415。9001/9002 是虛構 instance ID。"
+    },
+    {
+      "id": "pickup-over-count",
+      "kind": "static-semantic-vector",
+      "operation": "pickup-count-owner",
+      "rows": [
+        "C112-source-owner"
+      ],
+      "evidenceSha256": {
+        "C112-source-owner": "228290d68b8a4b68e82adaacb5ea86dabe581211757cfe3e10d25e0f701a50e1"
+      },
+      "input": {
+        "available": 1,
+        "requested": 2,
+        "ownerId": 0,
+        "actorId": 9001
+      },
+      "expect": {
+        "result": "return",
+        "offset": 376
+      },
+      "preconditions": "已通過 start 0–338：角色可操作、同座標/距離、World/ground inventory 是同一物件且角色存活；僅評估 339–415。9001/9002 是虛構 instance ID。"
+    },
+    {
+      "id": "pickup-other-owner",
+      "kind": "static-semantic-vector",
+      "operation": "pickup-count-owner",
+      "rows": [
+        "C112-source-owner"
+      ],
+      "evidenceSha256": {
+        "C112-source-owner": "228290d68b8a4b68e82adaacb5ea86dabe581211757cfe3e10d25e0f701a50e1"
+      },
+      "input": {
+        "available": 2,
+        "requested": 1,
+        "ownerId": 9002,
+        "actorId": 9001
+      },
+      "expect": {
+        "result": "return",
+        "offset": 415,
+        "messageId": 623
+      },
+      "preconditions": "已通過 start 0–338：角色可操作、同座標/距離、World/ground inventory 是同一物件且角色存活；僅評估 339–415。9001/9002 是虛構 instance ID。"
+    },
+    {
+      "id": "pickup-unowned",
+      "kind": "static-semantic-vector",
+      "operation": "pickup-count-owner",
+      "rows": [
+        "C112-source-owner"
+      ],
+      "evidenceSha256": {
+        "C112-source-owner": "228290d68b8a4b68e82adaacb5ea86dabe581211757cfe3e10d25e0f701a50e1"
+      },
+      "input": {
+        "available": 2,
+        "requested": 1,
+        "ownerId": 0,
+        "actorId": 9001
+      },
+      "expect": {
+        "result": "continue",
+        "offset": 416
+      },
+      "preconditions": "已通過 start 0–338：角色可操作、同座標/距離、World/ground inventory 是同一物件且角色存活；僅評估 339–415。9001/9002 是虛構 instance ID。"
+    },
+    {
+      "id": "pickup-own",
+      "kind": "static-semantic-vector",
+      "operation": "pickup-count-owner",
+      "rows": [
+        "C112-source-owner"
+      ],
+      "evidenceSha256": {
+        "C112-source-owner": "228290d68b8a4b68e82adaacb5ea86dabe581211757cfe3e10d25e0f701a50e1"
+      },
+      "input": {
+        "available": 2,
+        "requested": 1,
+        "ownerId": 9001,
+        "actorId": 9001
+      },
+      "expect": {
+        "result": "continue",
+        "offset": 416
+      },
+      "preconditions": "已通過 start 0–338：角色可操作、同座標/距離、World/ground inventory 是同一物件且角色存活；僅評估 339–415。9001/9002 是虛構 instance ID。"
+    },
+    {
+      "id": "drop-equipped",
+      "kind": "static-semantic-vector",
+      "operation": "drop-equipped-sealed",
+      "rows": [
+        "C25-equipped-sealed"
+      ],
+      "evidenceSha256": {
+        "C25-equipped-sealed": "ae382264e9ca636d0748af86b0ffaf9dc1f0fa8502cdd259d8ef48c43f5dd785"
+      },
+      "input": {
+        "equipped": true,
+        "sealed": false
+      },
+      "expect": {
+        "result": "return",
+        "offset": 398,
+        "messageId": 125
+      },
+      "preconditions": "已通過 start 0–371 的背包/政策/寵物等前置條件；僅評估 372–434，不裁定每種模板可丟棄。"
+    },
+    {
+      "id": "drop-sealed",
+      "kind": "static-semantic-vector",
+      "operation": "drop-equipped-sealed",
+      "rows": [
+        "C25-equipped-sealed"
+      ],
+      "evidenceSha256": {
+        "C25-equipped-sealed": "ae382264e9ca636d0748af86b0ffaf9dc1f0fa8502cdd259d8ef48c43f5dd785"
+      },
+      "input": {
+        "equipped": false,
+        "sealed": true
+      },
+      "expect": {
+        "result": "return",
+        "offset": 434,
+        "messageId": 210
+      },
+      "preconditions": "已通過 start 0–371 的背包/政策/寵物等前置條件；僅評估 372–434，不裁定每種模板可丟棄。"
+    },
+    {
+      "id": "drop-neither",
+      "kind": "static-semantic-vector",
+      "operation": "drop-equipped-sealed",
+      "rows": [
+        "C25-equipped-sealed"
+      ],
+      "evidenceSha256": {
+        "C25-equipped-sealed": "ae382264e9ca636d0748af86b0ffaf9dc1f0fa8502cdd259d8ef48c43f5dd785"
+      },
+      "input": {
+        "equipped": false,
+        "sealed": false
+      },
+      "expect": {
+        "result": "continue",
+        "offset": 435
+      },
+      "preconditions": "已通過 start 0–371 的背包/政策/寵物等前置條件；僅評估 372–434，不裁定每種模板可丟棄。"
+    },
+    {
+      "id": "display-one",
+      "kind": "static-semantic-vector",
+      "operation": "display-count",
+      "rows": [
+        "S87-header",
+        "S15-header",
+        "S24"
+      ],
+      "evidenceSha256": {
+        "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c",
+        "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+        "S24": "6c40683ac3158f3a45c99be4b55e6b1368bf3d408e388db2901b667d6aadd12e"
+      },
+      "input": {
+        "count": 1
+      },
+      "expect": {
+        "writeD": 1
+      },
+      "preconditions": "只推導 Math.min 後的 writeD 參數；數值是邊界測試值，未證實模板可儲存此數量，不編碼成 bytes。"
+    },
+    {
+      "id": "display-limit",
+      "kind": "static-semantic-vector",
+      "operation": "display-count",
+      "rows": [
+        "S87-header",
+        "S15-header",
+        "S24"
+      ],
+      "evidenceSha256": {
+        "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c",
+        "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+        "S24": "6c40683ac3158f3a45c99be4b55e6b1368bf3d408e388db2901b667d6aadd12e"
+      },
+      "input": {
+        "count": 2000000000
+      },
+      "expect": {
+        "writeD": 2000000000
+      },
+      "preconditions": "只推導 Math.min 後的 writeD 參數；數值是邊界測試值，未證實模板可儲存此數量，不編碼成 bytes。"
+    },
+    {
+      "id": "display-above-limit",
+      "kind": "static-semantic-vector",
+      "operation": "display-count",
+      "rows": [
+        "S87-header",
+        "S15-header",
+        "S24"
+      ],
+      "evidenceSha256": {
+        "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c",
+        "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+        "S24": "6c40683ac3158f3a45c99be4b55e6b1368bf3d408e388db2901b667d6aadd12e"
+      },
+      "input": {
+        "count": 2000000001
+      },
+      "expect": {
+        "writeD": 2000000000
+      },
+      "preconditions": "只推導 Math.min 後的 writeD 參數；數值是邊界測試值，未證實模板可儲存此數量，不編碼成 bytes。"
+    },
+    {
+      "id": "remove-ground",
+      "kind": "static-semantic-vector",
+      "operation": "remove-fields",
+      "rows": [
+        "S120",
+        "S57"
+      ],
+      "evidenceSha256": {
+        "S120": "464a359fcdcc7a186ba6bcfbacadc4a17466c099dba00f8d2ae6f0ca46316bac",
+        "S57": "9dedf47f74693e98988d8c974819fc1715e2c77a1b2897697fd299a941fd423b"
+      },
+      "input": {
+        "kind": "ground",
+        "objectId": 16909060
+      },
+      "expect": {
+        "calls": [
+          [
+            "C",
+            120
+          ],
+          [
+            "D",
+            16909060
+          ]
+        ]
+      },
+      "preconditions": "虛構 instance ObjectId 0x01020304；只驗證 write 呼叫順序/參數，非 byte order。"
+    },
+    {
+      "id": "remove-inventory",
+      "kind": "static-semantic-vector",
+      "operation": "remove-fields",
+      "rows": [
+        "S120",
+        "S57"
+      ],
+      "evidenceSha256": {
+        "S120": "464a359fcdcc7a186ba6bcfbacadc4a17466c099dba00f8d2ae6f0ca46316bac",
+        "S57": "9dedf47f74693e98988d8c974819fc1715e2c77a1b2897697fd299a941fd423b"
+      },
+      "input": {
+        "kind": "inventory",
+        "objectId": 16909060
+      },
+      "expect": {
+        "calls": [
+          [
+            "C",
+            57
+          ],
+          [
+            "D",
+            16909060
+          ]
+        ]
+      },
+      "preconditions": "虛構 instance ObjectId 0x01020304；只驗證 write 呼叫順序/參數，非 byte order。"
+    },
+    {
+      "id": "template-flags-zero",
+      "kind": "static-semantic-vector",
+      "operation": "template-booleans",
+      "rows": [
+        "etc-trade",
+        "etc-cant-delete",
+        "etc-stackable"
+      ],
+      "evidenceSha256": {
+        "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+        "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+        "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4"
+      },
+      "input": {
+        "trade": 0,
+        "cant_delete": 0,
+        "stackable": 0
+      },
+      "expect": {
+        "tradable": true,
+        "cantDelete": false,
+        "stackable": false
+      },
+      "preconditions": "三個輸入是虛構 ResultSet.getInt 回傳值；僅驗證 allEtcItem 的 boolean 轉換，不是資料庫模板列。"
+    },
+    {
+      "id": "template-flags-one",
+      "kind": "static-semantic-vector",
+      "operation": "template-booleans",
+      "rows": [
+        "etc-trade",
+        "etc-cant-delete",
+        "etc-stackable"
+      ],
+      "evidenceSha256": {
+        "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+        "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+        "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4"
+      },
+      "input": {
+        "trade": 1,
+        "cant_delete": 1,
+        "stackable": 1
+      },
+      "expect": {
+        "tradable": false,
+        "cantDelete": true,
+        "stackable": true
+      },
+      "preconditions": "三個輸入是虛構 ResultSet.getInt 回傳值；僅驗證 allEtcItem 的 boolean 轉換，不是資料庫模板列。"
+    },
+    {
+      "id": "template-flags-two",
+      "kind": "static-semantic-vector",
+      "operation": "template-booleans",
+      "rows": [
+        "etc-trade",
+        "etc-cant-delete",
+        "etc-stackable"
+      ],
+      "evidenceSha256": {
+        "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+        "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+        "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4"
+      },
+      "input": {
+        "trade": 2,
+        "cant_delete": 2,
+        "stackable": 2
+      },
+      "expect": {
+        "tradable": false,
+        "cantDelete": false,
+        "stackable": false
+      },
+      "preconditions": "三個輸入是虛構 ResultSet.getInt 回傳值；僅驗證 allEtcItem 的 boolean 轉換，不是資料庫模板列。"
     }
   ],
+  "packetFixtures": [],
   "liveCapturedFixtures": []
 }
