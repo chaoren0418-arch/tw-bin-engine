@@ -29,7 +29,7 @@
 - 消除硬編路徑：腳本改用 `$PSScriptRoot` / 環境變數 `TW_ENGINE_ROOT`。
 - 驗收：乾淨 clone + `D:\lineage開發\0-客戶端` 資源 → 一條指令建出可 `--check-only` 通過的 launcher。
 
-### M1 真機基線 — 進行中（T016 本機建置 → T011 使用者真機）
+### M1 真機基線 — 基線已取得（2026-11-05，`docs/native-baseline/r35.md`）；補測進行中（T040→T041→T042）
 - 用 M0 的建置跑 N01 流程：登入→移動→攻擊／技能 1/3/4/8→道具→能力點→存檔→重登。
 - 每一步截圖＋server 回包紀錄，寫進 `docs/native-baseline/r35.md`。
 - 失敗項直接變成 TASKS 的 bug 項；通過項把 completion-matrix 對應列的 nativeR35Accepted 設 true。
