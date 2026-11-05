@@ -27,6 +27,8 @@
       "sourceArray": "rows",
       "sourceIndex": 0,
       "id": "R01",
+      "nativeR35Accepted": true,
+      "nativeR35Evidence": "docs/native-baseline/r35.md#01",
       "original": {
         "id": "R01",
         "feature": "正常入口/登入/選角/移動/重登",
@@ -104,6 +106,8 @@
       "sourceArray": "rows",
       "sourceIndex": 1,
       "id": "R02",
+      "nativeR35Accepted": true,
+      "nativeR35Evidence": "docs/native-baseline/r35.md#14",
       "original": {
         "id": "R02",
         "feature": "匕首重登/原生鍵盤/圖示957",
@@ -336,6 +340,8 @@
       "sourceArray": "rows",
       "sourceIndex": 4,
       "id": "R05",
+      "nativeR35Accepted": true,
+      "nativeR35Evidence": "docs/native-baseline/r35.md#08",
       "original": {
         "id": "R05",
         "feature": "食物/藥水/裝備/地面拾取",
@@ -1188,6 +1194,8 @@
       "sourceArray": "rows",
       "sourceIndex": 16,
       "id": "R17",
+      "nativeR35Accepted": true,
+      "nativeR35Evidence": "docs/native-baseline/r35.md#11",
       "original": {
         "id": "R17",
         "feature": "能力點",
@@ -1626,6 +1634,8 @@
       "sourceArray": "rows",
       "sourceIndex": 22,
       "id": "R23",
+      "nativeR35Accepted": true,
+      "nativeR35Evidence": "docs/native-baseline/r35.md#12",
       "original": {
         "id": "R23",
         "feature": "原生一般聊天",
