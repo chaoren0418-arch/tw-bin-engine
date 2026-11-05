@@ -65,7 +65,7 @@ N01 流程逐步核對表：每步要截圖什麼、看哪個 server 回包、�
 
 ### T043 | done | codex-local（Issue #38，PR #40） | 本機主專案同步 main 並建置 dev（T042 前置；dot 沙箱離線）
 
-### T044 | doing | codex-local（Issue #41） | `docs/native-baseline/dev-retest/`, `docs/reports/issue-37.md`
+### T044 | done | codex-local（Issue #41，PR #43） | `docs/native-baseline/dev-retest/`, `docs/reports/issue-37.md`
 提交 T042 證據與 dev-retest.md。
 
 ### T045 | doing | codex-local（Issue #42） | `docs/design/sfx-and-ground-items.md`, `docs/plans/issue-42.json`
