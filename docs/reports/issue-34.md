@@ -37,7 +37,7 @@ SHA-256：
 - dev lock：`e533ff6178d0a10e68101afa2f7a77f5b65e4d8cd4595f329ac34a891a665d4a`
 - 本機產品 DLL：`913fcbb39ef9eea4feeea4071a3a445f5ed379128c30d880209611b03ce2c72a`
 
-CI 與 artifact（實作提交 `3dbfd30`）：[PR #35](https://github.com/chaoren0418-arch/tw-bin-engine/pull/35) 的 [run 41958359753](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/41958359753) 全綠，Release build、dev canonical build、封包追蹤測試及上傳均成功。已實際下載 `dev-receipt`（artifact ID `13383848208`，19 檔、4730 bytes），確認含 `dev/receipt.json`（schema `dev-receipt-v1`、SDK `10.0.300`）與 `evidence/ci-dev/result.json`（`pass-dev-build`、182 來源）。receipt 與 result 的 CI 產品 DLL SHA-256 同為 `369e0f25bb1ea66c0d418f6a272647fc7fa7aad211b6ac7a370830987fc373f5`；本機與 CI 的 receipt 分別記錄各自建置，不宣稱跨機器 DLL 完全相同。後續補件僅更新本報告，程式、測試與 lock 均未變。
+CI 與 artifact（實作提交 `3dbfd30`）：[PR #35](https://github.com/chaoren0418-arch/tw-bin-engine/pull/35) 的 [run 41958359753](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/41958359753) 全綠，Release build、dev canonical build、封包追蹤測試及上傳均成功。已實際下載 `dev-receipt`（artifact ID `13383848208`，17 檔、4730 bytes），確認含 `dev/receipt.json`（schema `dev-receipt-v1`、SDK `10.0.300`）與 `evidence/ci-dev/result.json`（`pass-dev-build`、182 來源）。receipt 與 result 的 CI 產品 DLL SHA-256 同為 `369e0f25bb1ea66c0d418f6a272647fc7fa7aad211b6ac7a370830987fc373f5`；本機與 CI 的 receipt 分別記錄各自建置，不宣稱跨機器 DLL 完全相同。後續補件僅更新本報告，程式、測試與 lock 均未變。
 
 ## 未驗證什麼
 
