@@ -1,0 +1,6677 @@
+{
+  "schema": "issue-47-static-evidence-v1",
+  "sourceVersionPaired": false,
+  "status": "blocked-native-contract",
+  "scopeMeleeProfiles": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      0,
+      46
+    ],
+    [
+      0,
+      50
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      1,
+      50
+    ],
+    [
+      37,
+      0
+    ],
+    [
+      37,
+      4
+    ],
+    [
+      48,
+      0
+    ],
+    [
+      48,
+      4
+    ],
+    [
+      48,
+      50
+    ],
+    [
+      61,
+      0
+    ],
+    [
+      61,
+      4
+    ],
+    [
+      61,
+      50
+    ],
+    [
+      734,
+      0
+    ],
+    [
+      734,
+      4
+    ],
+    [
+      1186,
+      0
+    ],
+    [
+      1186,
+      4
+    ],
+    [
+      2786,
+      0
+    ],
+    [
+      2786,
+      4
+    ],
+    [
+      2796,
+      0
+    ],
+    [
+      2796,
+      4
+    ],
+    [
+      6650,
+      0
+    ],
+    [
+      6658,
+      0
+    ],
+    [
+      6658,
+      4
+    ],
+    [
+      6658,
+      50
+    ],
+    [
+      6661,
+      0
+    ],
+    [
+      6661,
+      4
+    ],
+    [
+      6661,
+      50
+    ],
+    [
+      6671,
+      0
+    ]
+  ],
+  "entries": [
+    {
+      "gfx": 0,
+      "header": "#0\t312=3225\tprince",
+      "sprite": 3225,
+      "fileOffset": "0xf",
+      "size": 3674,
+      "rawSha256": "cbf5b6ba6b2eb33f853d457f1973237390aee8ed8501bab2c53a3a546f31104e",
+      "normalizedSha256": "cbf5b6ba6b2eb33f853d457f1973237390aee8ed8501bab2c53a3a546f31104e",
+      "linkedEffects": [],
+      "historicalEntrySha256": "c0e63870fee5e86ea3ac68ef66b05198672d7a70e0ed1f19bc4a3ad3f4b0c14c",
+      "historicalEntryExactMatch": false
+    },
+    {
+      "gfx": 1,
+      "header": "#1 312=3227\tprincess",
+      "sprite": 3227,
+      "fileOffset": "0xe69",
+      "size": 3860,
+      "rawSha256": "71274f23b7401f1b04af95c2740098c5c0bd73b60ee26e82069dfd4120780f83",
+      "normalizedSha256": "71274f23b7401f1b04af95c2740098c5c0bd73b60ee26e82069dfd4120780f83",
+      "linkedEffects": [],
+      "historicalEntrySha256": "1ee693881e95e7be7b0efc9e59d9d80806abe5ffc4d57bdbebb8ab9182e235d0",
+      "historicalEntryExactMatch": false
+    },
+    {
+      "gfx": 37,
+      "header": "#37 272=3474    elf female",
+      "sprite": 3474,
+      "fileOffset": "0x2af9",
+      "size": 3402,
+      "rawSha256": "b4c6e327d1f977c4a00dcaadb7ecfab4578660e5588105cc9ae52a4a8b466575",
+      "normalizedSha256": "b4c6e327d1f977c4a00dcaadb7ecfab4578660e5588105cc9ae52a4a8b466575",
+      "linkedEffects": [],
+      "historicalEntrySha256": "b4c6e327d1f977c4a00dcaadb7ecfab4578660e5588105cc9ae52a4a8b466575",
+      "historicalEntryExactMatch": true
+    },
+    {
+      "gfx": 48,
+      "header": "#48   320=3215     knight female",
+      "sprite": 3215,
+      "fileOffset": "0x3ad5",
+      "size": 4515,
+      "rawSha256": "6a3a69aef8c8600395ff30e29a4b0562a0ed917f5ff741b61ceb5bb66c8ad5f4",
+      "normalizedSha256": "6a3a69aef8c8600395ff30e29a4b0562a0ed917f5ff741b61ceb5bb66c8ad5f4",
+      "linkedEffects": [],
+      "historicalEntrySha256": "5de7c8fbd730817061736ea11c44d35d6b527de7dbe07b3930f407f84a693760",
+      "historicalEntryExactMatch": false
+    },
+    {
+      "gfx": 61,
+      "header": "#61\t320=3213\tknight",
+      "sprite": 3213,
+      "fileOffset": "0x5a9b",
+      "size": 4295,
+      "rawSha256": "5afb78f5d4d6bc1cc81a0161f8bc20af2dd9a8bac2c83664850d941c52d43cbc",
+      "normalizedSha256": "5afb78f5d4d6bc1cc81a0161f8bc20af2dd9a8bac2c83664850d941c52d43cbc",
+      "linkedEffects": [],
+      "historicalEntrySha256": "e275f0cc42bc4828f005a954218a78afe51908b20745ab1b4af110ca7dbbd2ce",
+      "historicalEntryExactMatch": false
+    },
+    {
+      "gfx": 167,
+      "header": "#167  4       energy bolt",
+      "sprite": 167,
+      "fileOffset": "0xac9b",
+      "size": 101,
+      "rawSha256": "91cc8f81e2d3d90638c5f46d49ecef73a6cf08711a674e6a9b31897a7f4d3985",
+      "normalizedSha256": "91cc8f81e2d3d90638c5f46d49ecef73a6cf08711a674e6a9b31897a7f4d3985",
+      "linkedEffects": [
+        "109.effect(4 219)"
+      ]
+    },
+    {
+      "gfx": 219,
+      "header": "#219  1       take water",
+      "sprite": 219,
+      "fileOffset": "0xcf19",
+      "size": 121,
+      "rawSha256": "88276f24ed798aa24bccdf8062f56cac2e666a401de9e6b665f22e8b02a8560a",
+      "normalizedSha256": "88276f24ed798aa24bccdf8062f56cac2e666a401de9e6b665f22e8b02a8560a",
+      "linkedEffects": []
+    },
+    {
+      "gfx": 221,
+      "header": "#221  1       shield",
+      "sprite": 221,
+      "fileOffset": "0xcfe0",
+      "size": 84,
+      "rawSha256": "87cfaffae7757832c9ae2d51061667a18bdfce2263860cefff3045b993f8f7ab",
+      "normalizedSha256": "87cfaffae7757832c9ae2d51061667a18bdfce2263860cefff3045b993f8f7ab",
+      "linkedEffects": []
+    },
+    {
+      "gfx": 734,
+      "header": "#734 312=3476 wizard pc male",
+      "sprite": 3476,
+      "fileOffset": "0x188bb",
+      "size": 3608,
+      "rawSha256": "4ec414aff64d1b88c014655a31d6f049ac2ff27de2defde7b4b21c745b20a738",
+      "normalizedSha256": "4ec414aff64d1b88c014655a31d6f049ac2ff27de2defde7b4b21c745b20a738",
+      "linkedEffects": [],
+      "historicalEntrySha256": "75df19393fc800700c532c85d4896b5f40d02c097fce55fcd05d8092bc6bbda8",
+      "historicalEntryExactMatch": false
+    },
+    {
+      "gfx": 1186,
+      "header": "#1186  312=3221\tsorceress",
+      "sprite": 3221,
+      "fileOffset": "0x2b83b",
+      "size": 3486,
+      "rawSha256": "d04d71a478d9466cde570e748904042a88ac511fb36a8e3ca1277121cee5dc5b",
+      "normalizedSha256": "d04d71a478d9466cde570e748904042a88ac511fb36a8e3ca1277121cee5dc5b",
+      "linkedEffects": [],
+      "historicalEntrySha256": "f903152e27db7596e3956da0d42a478d9dd33f754c85afe94cac7a4a063516ac",
+      "historicalEntryExactMatch": false
+    },
+    {
+      "gfx": 2165,
+      "header": "#2165 1   holy weapon e",
+      "sprite": 2165,
+      "fileOffset": "0x5444a",
+      "size": 158,
+      "rawSha256": "23ce6b7bbdba25f29f39c5d9da8022982b1c8f3e702bdd0173394cc4c444f0f1",
+      "normalizedSha256": "23ce6b7bbdba25f29f39c5d9da8022982b1c8f3e702bdd0173394cc4c444f0f1",
+      "linkedEffects": []
+    },
+    {
+      "gfx": 2786,
+      "header": "#2786\t394\tdarkelf pc male",
+      "sprite": 2786,
+      "fileOffset": "0x7e3f3",
+      "size": 3639,
+      "rawSha256": "20b04af4d91362e3aa33c7bc401f57e61083b047621c51ebe4aba19e5751069d",
+      "normalizedSha256": "20b04af4d91362e3aa33c7bc401f57e61083b047621c51ebe4aba19e5751069d",
+      "linkedEffects": [],
+      "historicalEntrySha256": "20b04af4d91362e3aa33c7bc401f57e61083b047621c51ebe4aba19e5751069d",
+      "historicalEntryExactMatch": true
+    },
+    {
+      "gfx": 2796,
+      "header": "#2796\t384\tdarkelf pc female",
+      "sprite": 2796,
+      "fileOffset": "0x7fb80",
+      "size": 3935,
+      "rawSha256": "fa9c08ca862782d7f6ddc7c3e4571265bbd283147775109a25798427be4fee88",
+      "normalizedSha256": "fa9c08ca862782d7f6ddc7c3e4571265bbd283147775109a25798427be4fee88",
+      "linkedEffects": [],
+      "historicalEntrySha256": "3a9919715c8c9e17edc3f3d7185ea5f277013a3db652b35ac828e3d171967039",
+      "historicalEntryExactMatch": false
+    },
+    {
+      "gfx": 6650,
+      "header": "#6650 248 illusionist female",
+      "sprite": 6650,
+      "fileOffset": "0x1e1647",
+      "size": 3132,
+      "rawSha256": "033ce51c44769f9b1d1f1566ea7f3d0d3a32eadf3d92f99a8d939a83af6b905b",
+      "normalizedSha256": "033ce51c44769f9b1d1f1566ea7f3d0d3a32eadf3d92f99a8d939a83af6b905b",
+      "linkedEffects": [],
+      "historicalEntrySha256": "033ce51c44769f9b1d1f1566ea7f3d0d3a32eadf3d92f99a8d939a83af6b905b",
+      "historicalEntryExactMatch": true
+    },
+    {
+      "gfx": 6658,
+      "header": "#6658 288 Dragon knight male",
+      "sprite": 6658,
+      "fileOffset": "0x1e27f9",
+      "size": 3944,
+      "rawSha256": "6d05415f3fbb5ec100c186ac9801c7d7b649ef62289930ec894798467a9aa8ec",
+      "normalizedSha256": "6d05415f3fbb5ec100c186ac9801c7d7b649ef62289930ec894798467a9aa8ec",
+      "linkedEffects": [],
+      "historicalEntrySha256": "d4fc07b33fd49d382e4d55b38a57884628e2c04f8d3c30fc930b70264d7864a8",
+      "historicalEntryExactMatch": false
+    },
+    {
+      "gfx": 6661,
+      "header": "#6661 288 Dragon knight female",
+      "sprite": 6661,
+      "fileOffset": "0x1e37c7",
+      "size": 3744,
+      "rawSha256": "936c49537ccb6b5bb451ff53d44bf14560078c959f58b874a1b813b039853b10",
+      "normalizedSha256": "936c49537ccb6b5bb451ff53d44bf14560078c959f58b874a1b813b039853b10",
+      "linkedEffects": [],
+      "historicalEntrySha256": "b457ed8f1fd845be1c2da6c4edb6fe719dd73a3edb17c55e8f68c6bb73c9761f",
+      "historicalEntryExactMatch": false
+    },
+    {
+      "gfx": 6671,
+      "header": "#6671 248 Illusionist male",
+      "sprite": 6671,
+      "fileOffset": "0x1e4e35",
+      "size": 2991,
+      "rawSha256": "bc6992d5247a1cb201a7983bad2772f64e3ca563420f20b40dea4232217db50b",
+      "normalizedSha256": "bc6992d5247a1cb201a7983bad2772f64e3ca563420f20b40dea4232217db50b",
+      "linkedEffects": [],
+      "historicalEntrySha256": "99acfc8fefc8478072c7975996983e61b15c3a69e5caa4ae895b604d3d2d97ea",
+      "historicalEntryExactMatch": false
+    },
+    {
+      "gfx": 11722,
+      "header": "#11722 1 renewal heal eff sc",
+      "sprite": 11722,
+      "fileOffset": "0x46ab14",
+      "size": 202,
+      "rawSha256": "9cc35d88f4d3bd7d591c1b51d6cb9c8508acc89c8c74ea321492e9fe5852bc26",
+      "normalizedSha256": "9cc35d88f4d3bd7d591c1b51d6cb9c8508acc89c8c74ea321492e9fe5852bc26",
+      "linkedEffects": []
+    }
+  ],
+  "actions": [
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "label": "attack",
+      "directional": 1,
+      "tokenCount": 7,
+      "lineFileOffset": "0x51",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "16:3",
+          "ticks": 5,
+          "rawToken": "16.3:5[1539",
+          "rawEvents": "[1539",
+          "fileOffset": "0x7a",
+          "bracketCandidates": [
+            1539
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "16:4",
+          "ticks": 2,
+          "rawToken": "16.4:2!",
+          "rawEvents": "!",
+          "fileOffset": "0x86",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "label": "damage",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x97",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "24:0",
+          "ticks": 6,
+          "rawToken": "24.0:6[1537[1538",
+          "rawEvents": "[1537[1538",
+          "fileOffset": "0xab",
+          "bracketCandidates": [
+            1537,
+            1538
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "label": "attack onehandsword",
+      "directional": 1,
+      "tokenCount": 6,
+      "lineFileOffset": "0x148",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "frameKey": "120:2",
+          "ticks": 3,
+          "rawToken": "120.2:3[248[703[701",
+          "rawEvents": "[248[703[701",
+          "fileOffset": "0x17b",
+          "bracketCandidates": [
+            248,
+            703,
+            701
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 4,
+          "frameKey": "120:3",
+          "ticks": 4,
+          "rawToken": "120.3:4!",
+          "rawEvents": "!",
+          "fileOffset": "0x18f",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "label": "damage onehandsword",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x1a2",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "128:0",
+          "ticks": 6,
+          "rawToken": "128.0:6[1537[1538",
+          "rawEvents": "[1537[1538",
+          "fileOffset": "0x1c5",
+          "bracketCandidates": [
+            1537,
+            1538
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 46,
+      "skill": null,
+      "action": 47,
+      "label": "attack dagger",
+      "directional": 1,
+      "tokenCount": 7,
+      "lineFileOffset": "0x916",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "152:3",
+          "ticks": 4,
+          "rawToken": "152.3:4[1513[1517",
+          "rawEvents": "[1513[1517",
+          "fileOffset": "0x94c",
+          "bracketCandidates": [
+            1513,
+            1517
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "152:4",
+          "ticks": 4,
+          "rawToken": "152.4:4!",
+          "rawEvents": "!",
+          "fileOffset": "0x95e",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 46,
+      "skill": null,
+      "action": 48,
+      "label": "damage dagger",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x971",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "160:0",
+          "ticks": 6,
+          "rawToken": "160.0:6[1537[1538",
+          "rawEvents": "[1537[1538",
+          "fileOffset": "0x98f",
+          "bracketCandidates": [
+            1537,
+            1538
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 50,
+      "skill": null,
+      "action": 51,
+      "label": "attack largesword",
+      "directional": 1,
+      "tokenCount": 8,
+      "lineFileOffset": "0xa5f",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "280:3",
+          "ticks": 5,
+          "rawToken": "280.3:5[1540[1541",
+          "rawEvents": "[1540[1541",
+          "fileOffset": "0xa99",
+          "bracketCandidates": [
+            1540,
+            1541
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "280:4",
+          "ticks": 2,
+          "rawToken": "280.4:2!",
+          "rawEvents": "!",
+          "fileOffset": "0xaab",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 50,
+      "skill": null,
+      "action": 52,
+      "label": "damage largesword",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0xac6",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "288:0",
+          "ticks": 6,
+          "rawToken": "288.0:6[1537[1538",
+          "rawEvents": "[1537[1538",
+          "fileOffset": "0xae8",
+          "bracketCandidates": [
+            1537,
+            1538
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 0,
+      "skill": null,
+      "action": 0,
+      "label": "walk",
+      "directional": 1,
+      "tokenCount": 4,
+      "lineFileOffset": "0x23",
+      "events": [
+        {
+          "sequenceIndex": 0,
+          "frameKey": "0:0",
+          "ticks": 4,
+          "rawToken": "0.0:4<479",
+          "rawEvents": "<479",
+          "fileOffset": "0x2f",
+          "bracketCandidates": [],
+          "angleValues": [
+            479
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 2,
+          "frameKey": "0:2",
+          "ticks": 4,
+          "rawToken": "0.2:4<478",
+          "rawEvents": "<478",
+          "fileOffset": "0x3f",
+          "bracketCandidates": [],
+          "angleValues": [
+            478
+          ],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 0,
+      "skill": null,
+      "action": 15,
+      "label": "get",
+      "directional": 1,
+      "tokenCount": 4,
+      "lineFileOffset": "0x3f2",
+      "events": [
+        {
+          "sequenceIndex": 2,
+          "frameKey": "88:1",
+          "ticks": 4,
+          "rawToken": "88.1:4<206",
+          "rawEvents": "<206",
+          "fileOffset": "0x40b",
+          "bracketCandidates": [],
+          "angleValues": [
+            206
+          ],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 1,
+      "sprite": 3227,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "label": "attack",
+      "directional": 1,
+      "tokenCount": 8,
+      "lineFileOffset": "0xead",
+      "events": [
+        {
+          "sequenceIndex": 5,
+          "frameKey": "16:4",
+          "ticks": 2,
+          "rawToken": "16.4:2[246",
+          "rawEvents": "[246",
+          "fileOffset": "0xedd",
+          "bracketCandidates": [
+            246
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 6,
+          "frameKey": "16:5",
+          "ticks": 2,
+          "rawToken": "16.5:2!",
+          "rawEvents": "!",
+          "fileOffset": "0xee8",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 1,
+      "sprite": 3227,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "label": "damage",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0xef9",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "24:0",
+          "ticks": 6,
+          "rawToken": "24.0:6[1546[1547",
+          "rawEvents": "[1546[1547",
+          "fileOffset": "0xf0d",
+          "bracketCandidates": [
+            1546,
+            1547
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 1,
+      "sprite": 3227,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "label": "attack onehandsword",
+      "directional": 1,
+      "tokenCount": 6,
+      "lineFileOffset": "0xfc5",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "frameKey": "120:2",
+          "ticks": 3,
+          "rawToken": "120.2:3[248[703[701",
+          "rawEvents": "[248[703[701",
+          "fileOffset": "0xff8",
+          "bracketCandidates": [
+            248,
+            703,
+            701
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 4,
+          "frameKey": "120:3",
+          "ticks": 4,
+          "rawToken": "120.3:4!",
+          "rawEvents": "!",
+          "fileOffset": "0x100c",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 1,
+      "sprite": 3227,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "label": "damage onehandsword",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x101f",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "128:0",
+          "ticks": 6,
+          "rawToken": "128.0:6[1546[1547",
+          "rawEvents": "[1546[1547",
+          "fileOffset": "0x1042",
+          "bracketCandidates": [
+            1546,
+            1547
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 1,
+      "sprite": 3227,
+      "weapon": 50,
+      "skill": null,
+      "action": 51,
+      "label": "attack largesword",
+      "directional": 1,
+      "tokenCount": 8,
+      "lineFileOffset": "0x192b",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "256:3",
+          "ticks": 1,
+          "rawToken": "256.3:1[1540[1541",
+          "rawEvents": "[1540[1541",
+          "fileOffset": "0x1965",
+          "bracketCandidates": [
+            1540,
+            1541
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "256:4",
+          "ticks": 2,
+          "rawToken": "256.4:2!",
+          "rawEvents": "!",
+          "fileOffset": "0x1977",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 1,
+      "sprite": 3227,
+      "weapon": 50,
+      "skill": null,
+      "action": 52,
+      "label": "damage largesword",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x1992",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "264:0",
+          "ticks": 6,
+          "rawToken": "264.0:6[1546[1547",
+          "rawEvents": "[1546[1547",
+          "fileOffset": "0x19b4",
+          "bracketCandidates": [
+            1546,
+            1547
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 37,
+      "sprite": 3474,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "label": "attack",
+      "directional": 1,
+      "tokenCount": 9,
+      "lineFileOffset": "0x2b43",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "16:3",
+          "ticks": 1,
+          "rawToken": "16.3:1[1562",
+          "rawEvents": "[1562",
+          "fileOffset": "0x2b6c",
+          "bracketCandidates": [
+            1562
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "16:4",
+          "ticks": 5,
+          "rawToken": "16.4:5!",
+          "rawEvents": "!",
+          "fileOffset": "0x2b78",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 37,
+      "sprite": 3474,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "label": "damage",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x2b97",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "88:0",
+          "ticks": 4,
+          "rawToken": "88.0:4[1560[1561",
+          "rawEvents": "[1560[1561",
+          "fileOffset": "0x2bab",
+          "bracketCandidates": [
+            1560,
+            1561
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 37,
+      "sprite": 3474,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "label": "attack onehandsword",
+      "directional": 1,
+      "tokenCount": 9,
+      "lineFileOffset": "0x2c48",
+      "events": [
+        {
+          "sequenceIndex": 5,
+          "frameKey": "184:4",
+          "ticks": 1,
+          "rawToken": "184.4:1[248[703[701",
+          "rawEvents": "[248[703[701",
+          "fileOffset": "0x2c8b",
+          "bracketCandidates": [
+            248,
+            703,
+            701
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 6,
+          "frameKey": "184:5",
+          "ticks": 4,
+          "rawToken": "184.5:4!",
+          "rawEvents": "!",
+          "fileOffset": "0x2c9f",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 37,
+      "sprite": 3474,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "label": "damage onehandsword",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x2cba",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "192:0",
+          "ticks": 4,
+          "rawToken": "192.0:4[1560[1561",
+          "rawEvents": "[1560[1561",
+          "fileOffset": "0x2cdd",
+          "bracketCandidates": [
+            1560,
+            1561
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 48,
+      "sprite": 3215,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "label": "attack",
+      "directional": 1,
+      "tokenCount": 8,
+      "lineFileOffset": "0x3b25",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "16:3",
+          "ticks": 1,
+          "rawToken": "16.3:1[1575",
+          "rawEvents": "[1575",
+          "fileOffset": "0x3b4e",
+          "bracketCandidates": [
+            1575
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "16:4",
+          "ticks": 6,
+          "rawToken": "16.4:6!",
+          "rawEvents": "!",
+          "fileOffset": "0x3b5a",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 48,
+      "sprite": 3215,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "label": "damage",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x3b72",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "56:0",
+          "ticks": 6,
+          "rawToken": "56.0:6[1574[904",
+          "rawEvents": "[1574[904",
+          "fileOffset": "0x3b86",
+          "bracketCandidates": [
+            1574,
+            904
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 48,
+      "sprite": 3215,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "label": "attack onehandsword",
+      "directional": 1,
+      "tokenCount": 7,
+      "lineFileOffset": "0x3c44",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "192:3",
+          "ticks": 1,
+          "rawToken": "192.3:1[248[703[701",
+          "rawEvents": "[248[703[701",
+          "fileOffset": "0x3c7f",
+          "bracketCandidates": [
+            248,
+            703,
+            701
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "192:4",
+          "ticks": 4,
+          "rawToken": "192.4:4!",
+          "rawEvents": "!",
+          "fileOffset": "0x3c93",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 48,
+      "sprite": 3215,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "label": "damage onehandsword",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x3ca6",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "208:0",
+          "ticks": 4,
+          "rawToken": "208.0:4[1574[904",
+          "rawEvents": "[1574[904",
+          "fileOffset": "0x3cc9",
+          "bracketCandidates": [
+            1574,
+            904
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 48,
+      "sprite": 3215,
+      "weapon": 50,
+      "skill": null,
+      "action": 51,
+      "label": "attack largesword",
+      "directional": 1,
+      "tokenCount": 10,
+      "lineFileOffset": "0x469f",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "120:3",
+          "ticks": 1,
+          "rawToken": "120.3:1[1540[1541",
+          "rawEvents": "[1540[1541",
+          "fileOffset": "0x46da",
+          "bracketCandidates": [
+            1540,
+            1541
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "120:4",
+          "ticks": 5,
+          "rawToken": "120.4:5!",
+          "rawEvents": "!",
+          "fileOffset": "0x46ec",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 48,
+      "sprite": 3215,
+      "weapon": 50,
+      "skill": null,
+      "action": 52,
+      "label": "damage largesword",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x4717",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "136:0",
+          "ticks": 6,
+          "rawToken": "136.0:6[1574[904",
+          "rawEvents": "[1574[904",
+          "fileOffset": "0x4739",
+          "bracketCandidates": [
+            1574,
+            904
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 61,
+      "sprite": 3213,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "label": "attack",
+      "directional": 1,
+      "tokenCount": 6,
+      "lineFileOffset": "0x5ade",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "frameKey": "16:2",
+          "ticks": 4,
+          "rawToken": "16.2:4[1569",
+          "rawEvents": "[1569",
+          "fileOffset": "0x5b00",
+          "bracketCandidates": [
+            1569
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 4,
+          "frameKey": "16:3",
+          "ticks": 6,
+          "rawToken": "16.3:6!",
+          "rawEvents": "!",
+          "fileOffset": "0x5b0c",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 61,
+      "sprite": 3213,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "label": "damage",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x5b1d",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "56:0",
+          "ticks": 4,
+          "rawToken": "56.0:4[1567[1568",
+          "rawEvents": "[1567[1568",
+          "fileOffset": "0x5b31",
+          "bracketCandidates": [
+            1567,
+            1568
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 61,
+      "sprite": 3213,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "label": "attack onehandsword",
+      "directional": 1,
+      "tokenCount": 7,
+      "lineFileOffset": "0x5bf0",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "184:3",
+          "ticks": 1,
+          "rawToken": "184.3:1[248[703[701",
+          "rawEvents": "[248[703[701",
+          "fileOffset": "0x5c2b",
+          "bracketCandidates": [
+            248,
+            703,
+            701
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "184:4",
+          "ticks": 4,
+          "rawToken": "184.4:4!",
+          "rawEvents": "!",
+          "fileOffset": "0x5c3f",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 61,
+      "sprite": 3213,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "label": "damage onehandsword",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x5c52",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "192:0",
+          "ticks": 6,
+          "rawToken": "192.0:6[1567[1568",
+          "rawEvents": "[1567[1568",
+          "fileOffset": "0x5c75",
+          "bracketCandidates": [
+            1567,
+            1568
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 61,
+      "sprite": 3213,
+      "weapon": 50,
+      "skill": null,
+      "action": 51,
+      "label": "attack largesword",
+      "directional": 1,
+      "tokenCount": 8,
+      "lineFileOffset": "0x65b2",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "120:3",
+          "ticks": 3,
+          "rawToken": "120.3:3[1540[1541",
+          "rawEvents": "[1540[1541",
+          "fileOffset": "0x65ec",
+          "bracketCandidates": [
+            1540,
+            1541
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 6,
+          "frameKey": "120:5",
+          "ticks": 6,
+          "rawToken": "120.5:6!",
+          "rawEvents": "!",
+          "fileOffset": "0x6606",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 61,
+      "sprite": 3213,
+      "weapon": 50,
+      "skill": null,
+      "action": 52,
+      "label": "damage largesword",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x6619",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "128:0",
+          "ticks": 6,
+          "rawToken": "128.0:6[1567[1568",
+          "rawEvents": "[1567[1568",
+          "fileOffset": "0x663b",
+          "bracketCandidates": [
+            1567,
+            1568
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 167,
+      "sprite": 167,
+      "weapon": null,
+      "skill": 4,
+      "action": 0,
+      "label": "fly",
+      "directional": 1,
+      "tokenCount": 4,
+      "lineFileOffset": "0xacb6",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "0:0",
+          "ticks": 2,
+          "rawToken": "0.0:2[97",
+          "rawEvents": "[97",
+          "fileOffset": "0xacc7",
+          "bracketCandidates": [
+            97
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 219,
+      "sprite": 219,
+      "weapon": null,
+      "skill": null,
+      "action": 0,
+      "label": "fire",
+      "directional": 0,
+      "tokenCount": 11,
+      "lineFileOffset": "0xcf33",
+      "events": []
+    },
+    {
+      "gfx": 221,
+      "sprite": 221,
+      "weapon": null,
+      "skill": 3,
+      "action": 0,
+      "label": "fire",
+      "directional": 0,
+      "tokenCount": 5,
+      "lineFileOffset": "0xcff6",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "0:1",
+          "ticks": 2,
+          "rawToken": "0.1:2[127",
+          "rawEvents": "[127",
+          "fileOffset": "0xd008",
+          "bracketCandidates": [
+            127
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 734,
+      "sprite": 3476,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "label": "attack",
+      "directional": 1,
+      "tokenCount": 8,
+      "lineFileOffset": "0x18908",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "16:3",
+          "ticks": 3,
+          "rawToken": "16.3:3[1582",
+          "rawEvents": "[1582",
+          "fileOffset": "0x18931",
+          "bracketCandidates": [
+            1582
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "16:4",
+          "ticks": 2,
+          "rawToken": "16.4:2!",
+          "rawEvents": "!",
+          "fileOffset": "0x1893d",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 734,
+      "sprite": 3476,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "label": "damage",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x18955",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "32:0",
+          "ticks": 4,
+          "rawToken": "32.0:4[1580[1581",
+          "rawEvents": "[1580[1581",
+          "fileOffset": "0x18969",
+          "bracketCandidates": [
+            1580,
+            1581
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 734,
+      "sprite": 3476,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "label": "attack onehandsword",
+      "directional": 1,
+      "tokenCount": 8,
+      "lineFileOffset": "0x18a0d",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "120:3",
+          "ticks": 3,
+          "rawToken": "120.3:3[248[703[701",
+          "rawEvents": "[248[703[701",
+          "fileOffset": "0x18a48",
+          "bracketCandidates": [
+            248,
+            703,
+            701
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 6,
+          "frameKey": "120:5",
+          "ticks": 4,
+          "rawToken": "120.5:4!",
+          "rawEvents": "!",
+          "fileOffset": "0x18a64",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 734,
+      "sprite": 3476,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "label": "damage onehandsword",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x18a77",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "128:0",
+          "ticks": 4,
+          "rawToken": "128.0:4[1580[1581",
+          "rawEvents": "[1580[1581",
+          "fileOffset": "0x18a9a",
+          "bracketCandidates": [
+            1580,
+            1581
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 1186,
+      "sprite": 3221,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "label": "attack",
+      "directional": 1,
+      "tokenCount": 7,
+      "lineFileOffset": "0x2b884",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "16:3",
+          "ticks": 1,
+          "rawToken": "16.3:1[246",
+          "rawEvents": "[246",
+          "fileOffset": "0x2b8ad",
+          "bracketCandidates": [
+            246
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "16:4",
+          "ticks": 5,
+          "rawToken": "16.4:5!",
+          "rawEvents": "!",
+          "fileOffset": "0x2b8b8",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 1186,
+      "sprite": 3221,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "label": "damage",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x2b8c9",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "24:0",
+          "ticks": 4,
+          "rawToken": "24.0:4[405[904",
+          "rawEvents": "[405[904",
+          "fileOffset": "0x2b8dd",
+          "bracketCandidates": [
+            405,
+            904
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 1186,
+      "sprite": 3221,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "label": "attack onehandsword",
+      "directional": 1,
+      "tokenCount": 8,
+      "lineFileOffset": "0x2b978",
+      "events": [
+        {
+          "sequenceIndex": 5,
+          "frameKey": "184:4",
+          "ticks": 4,
+          "rawToken": "184.4:4[248[703[701",
+          "rawEvents": "[248[703[701",
+          "fileOffset": "0x2b9bb",
+          "bracketCandidates": [
+            248,
+            703,
+            701
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 6,
+          "frameKey": "184:5",
+          "ticks": 4,
+          "rawToken": "184.5:4!",
+          "rawEvents": "!",
+          "fileOffset": "0x2b9cf",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 1186,
+      "sprite": 3221,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "label": "damage onehandsword",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x2b9e2",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "192:0",
+          "ticks": 6,
+          "rawToken": "192.0:6[405[904",
+          "rawEvents": "[405[904",
+          "fileOffset": "0x2ba05",
+          "bracketCandidates": [
+            405,
+            904
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 2165,
+      "sprite": 2165,
+      "weapon": null,
+      "skill": 8,
+      "action": 0,
+      "label": "animation",
+      "directional": 0,
+      "tokenCount": 13,
+      "lineFileOffset": "0x54463",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "0:0",
+          "ticks": 4,
+          "rawToken": "0.0:4[804",
+          "rawEvents": "[804",
+          "fileOffset": "0x5447c",
+          "bracketCandidates": [
+            804
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 2786,
+      "sprite": 2786,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "label": "attack",
+      "directional": 1,
+      "tokenCount": 8,
+      "lineFileOffset": "0x7e43c",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "16:3",
+          "ticks": 2,
+          "rawToken": "16.3:2[1520",
+          "rawEvents": "[1520",
+          "fileOffset": "0x7e465",
+          "bracketCandidates": [
+            1520
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "16:4",
+          "ticks": 2,
+          "rawToken": "16.4:2!",
+          "rawEvents": "!",
+          "fileOffset": "0x7e471",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 2786,
+      "sprite": 2786,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "label": "damage",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x7e489",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "32:0",
+          "ticks": 5,
+          "rawToken": "32.0:5[1521[904",
+          "rawEvents": "[1521[904",
+          "fileOffset": "0x7e49d",
+          "bracketCandidates": [
+            1521,
+            904
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 2786,
+      "sprite": 2786,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "label": "attack sword",
+      "directional": 1,
+      "tokenCount": 6,
+      "lineFileOffset": "0x7e54d",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "frameKey": "136:2",
+          "ticks": 3,
+          "rawToken": "136.2:3[248[701",
+          "rawEvents": "[248[701",
+          "fileOffset": "0x7e579",
+          "bracketCandidates": [
+            248,
+            701
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 4,
+          "frameKey": "136:3",
+          "ticks": 4,
+          "rawToken": "136.3:4!",
+          "rawEvents": "!",
+          "fileOffset": "0x7e589",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 2786,
+      "sprite": 2786,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "label": "damage sword",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x7e59c",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "144:0",
+          "ticks": 5,
+          "rawToken": "144.0:5[1521[904",
+          "rawEvents": "[1521[904",
+          "fileOffset": "0x7e5b8",
+          "bracketCandidates": [
+            1521,
+            904
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 2796,
+      "sprite": 2796,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "label": "attack",
+      "directional": 1,
+      "tokenCount": 8,
+      "lineFileOffset": "0x7fbd3",
+      "events": [
+        {
+          "sequenceIndex": 4,
+          "frameKey": "32:3",
+          "ticks": 2,
+          "rawToken": "32.3:2[1520",
+          "rawEvents": "[1520",
+          "fileOffset": "0x7fbfe",
+          "bracketCandidates": [
+            1520
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "32:4",
+          "ticks": 4,
+          "rawToken": "32.4:4!",
+          "rawEvents": "!",
+          "fileOffset": "0x7fc0a",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 2796,
+      "sprite": 2796,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "label": "damage",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x7fc22",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "40:0",
+          "ticks": 5,
+          "rawToken": "40.0:5[1522[904",
+          "rawEvents": "[1522[904",
+          "fileOffset": "0x7fc36",
+          "bracketCandidates": [
+            1522,
+            904
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 2796,
+      "sprite": 2796,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "label": "attack sword",
+      "directional": 1,
+      "tokenCount": 6,
+      "lineFileOffset": "0x7fce6",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "frameKey": "136:2",
+          "ticks": 4,
+          "rawToken": "136.2:4[248[701",
+          "rawEvents": "[248[701",
+          "fileOffset": "0x7fd12",
+          "bracketCandidates": [
+            248,
+            701
+          ],
+          "angleValues": [],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 4,
+          "frameKey": "136:3",
+          "ticks": 3,
+          "rawToken": "136.3:3!",
+          "rawEvents": "!",
+          "fileOffset": "0x7fd22",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 2796,
+      "sprite": 2796,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "label": "damage sword",
+      "directional": 1,
+      "tokenCount": 3,
+      "lineFileOffset": "0x7fd35",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "144:0",
+          "ticks": 5,
+          "rawToken": "144.0:5[1522[904",
+          "rawEvents": "[1522[904",
+          "fileOffset": "0x7fd51",
+          "bracketCandidates": [
+            1522,
+            904
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 6650,
+      "sprite": 6650,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "label": "attack",
+      "directional": 1,
+      "tokenCount": 7,
+      "lineFileOffset": "0x1e1693",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "frameKey": "16:2",
+          "ticks": 4,
+          "rawToken": "16.2:4<4803",
+          "rawEvents": "<4803",
+          "fileOffset": "0x1e16b5",
+          "bracketCandidates": [],
+          "angleValues": [
+            4803
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 4,
+          "frameKey": "16:3",
+          "ticks": 3,
+          "rawToken": "16.3:3<4804<4806<1340",
+          "rawEvents": "<4804<4806<1340",
+          "fileOffset": "0x1e16c1",
+          "bracketCandidates": [],
+          "angleValues": [
+            4804,
+            4806,
+            1340
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "16:4",
+          "ticks": 3,
+          "rawToken": "16.4:3!",
+          "rawEvents": "!",
+          "fileOffset": "0x1e16d7",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 6650,
+      "sprite": 6650,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "label": "damage",
+      "directional": 1,
+      "tokenCount": 4,
+      "lineFileOffset": "0x1e16e8",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "56:0",
+          "ticks": 0,
+          "rawToken": "56.0:0<1759<1953<1771",
+          "rawEvents": "<1759<1953<1771",
+          "fileOffset": "0x1e16fc",
+          "bracketCandidates": [],
+          "angleValues": [
+            1759,
+            1953,
+            1771
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 2,
+          "frameKey": "56:0",
+          "ticks": 6,
+          "rawToken": "56.0:6<4807<4808",
+          "rawEvents": "<4807<4808",
+          "fileOffset": "0x1e1712",
+          "bracketCandidates": [],
+          "angleValues": [
+            4807,
+            4808
+          ],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 6658,
+      "sprite": 6658,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "label": "attack",
+      "directional": 1,
+      "tokenCount": 7,
+      "lineFileOffset": "0x1e2845",
+      "events": [
+        {
+          "sequenceIndex": 2,
+          "frameKey": "24:1",
+          "ticks": 3,
+          "rawToken": "24.1:3<4774<4775<1340",
+          "rawEvents": "<4774<4775<1340",
+          "fileOffset": "0x1e2860",
+          "bracketCandidates": [],
+          "angleValues": [
+            4774,
+            4775,
+            1340
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 3,
+          "frameKey": "24:2",
+          "ticks": 4,
+          "rawToken": "24.2:4<4773",
+          "rawEvents": "<4773",
+          "fileOffset": "0x1e2876",
+          "bracketCandidates": [],
+          "angleValues": [
+            4773
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 4,
+          "frameKey": "24:3",
+          "ticks": 2,
+          "rawToken": "24.3:2!",
+          "rawEvents": "!",
+          "fileOffset": "0x1e2882",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 6658,
+      "sprite": 6658,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "label": "damage",
+      "directional": 1,
+      "tokenCount": 4,
+      "lineFileOffset": "0x1e289a",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "16:0",
+          "ticks": 0,
+          "rawToken": "16.0:0<1759<1953<1771",
+          "rawEvents": "<1759<1953<1771",
+          "fileOffset": "0x1e28ae",
+          "bracketCandidates": [],
+          "angleValues": [
+            1759,
+            1953,
+            1771
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 2,
+          "frameKey": "16:0",
+          "ticks": 6,
+          "rawToken": "16.0:6<4777<4778",
+          "rawEvents": "<4777<4778",
+          "fileOffset": "0x1e28c4",
+          "bracketCandidates": [],
+          "angleValues": [
+            4777,
+            4778
+          ],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 6658,
+      "sprite": 6658,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "label": "attack onehandsword",
+      "directional": 1,
+      "tokenCount": 9,
+      "lineFileOffset": "0x1e2b51",
+      "events": [
+        {
+          "sequenceIndex": 2,
+          "frameKey": "128:1",
+          "ticks": 3,
+          "rawToken": "128.1:3<1340<1340<4774",
+          "rawEvents": "<1340<1340<4774",
+          "fileOffset": "0x1e2b7c",
+          "bracketCandidates": [],
+          "angleValues": [
+            1340,
+            1340,
+            4774
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 3,
+          "frameKey": "128:2",
+          "ticks": 4,
+          "rawToken": "128.2:4<1635<1649<4183",
+          "rawEvents": "<1635<1649<4183",
+          "fileOffset": "0x1e2b93",
+          "bracketCandidates": [],
+          "angleValues": [
+            1635,
+            1649,
+            4183
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 4,
+          "frameKey": "128:3",
+          "ticks": 1,
+          "rawToken": "128.3:1!",
+          "rawEvents": "!",
+          "fileOffset": "0x1e2baa",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 6658,
+      "sprite": 6658,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "label": "damage onehandsword",
+      "directional": 1,
+      "tokenCount": 4,
+      "lineFileOffset": "0x1e2bd5",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "136:0",
+          "ticks": 0,
+          "rawToken": "136.0:0<1759<1953<1771",
+          "rawEvents": "<1759<1953<1771",
+          "fileOffset": "0x1e2bf8",
+          "bracketCandidates": [],
+          "angleValues": [
+            1759,
+            1953,
+            1771
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 2,
+          "frameKey": "136:0",
+          "ticks": 6,
+          "rawToken": "136.0:6<4777<4778",
+          "rawEvents": "<4777<4778",
+          "fileOffset": "0x1e2c0f",
+          "bracketCandidates": [],
+          "angleValues": [
+            4777,
+            4778
+          ],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 6658,
+      "sprite": 6658,
+      "weapon": 50,
+      "skill": null,
+      "action": 51,
+      "label": "attack largesword",
+      "directional": 1,
+      "tokenCount": 8,
+      "lineFileOffset": "0x1e308b",
+      "events": [
+        {
+          "sequenceIndex": 2,
+          "frameKey": "160:1",
+          "ticks": 4,
+          "rawToken": "160.1:4<4774<1340<1340",
+          "rawEvents": "<4774<1340<1340",
+          "fileOffset": "0x1e30b5",
+          "bracketCandidates": [],
+          "angleValues": [
+            4774,
+            1340,
+            1340
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 3,
+          "frameKey": "160:2",
+          "ticks": 4,
+          "rawToken": "160.2:4<4799",
+          "rawEvents": "<4799",
+          "fileOffset": "0x1e30cc",
+          "bracketCandidates": [],
+          "angleValues": [
+            4799
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 4,
+          "frameKey": "160:3",
+          "ticks": 1,
+          "rawToken": "160.3:1!",
+          "rawEvents": "!",
+          "fileOffset": "0x1e30d9",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 6658,
+      "sprite": 6658,
+      "weapon": 50,
+      "skill": null,
+      "action": 52,
+      "label": "damage largesword",
+      "directional": 1,
+      "tokenCount": 4,
+      "lineFileOffset": "0x1e30fc",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "176:0",
+          "ticks": 0,
+          "rawToken": "176.0:0<1759<1953<1771",
+          "rawEvents": "<1759<1953<1771",
+          "fileOffset": "0x1e311e",
+          "bracketCandidates": [],
+          "angleValues": [
+            1759,
+            1953,
+            1771
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 2,
+          "frameKey": "176:0",
+          "ticks": 6,
+          "rawToken": "176.0:6<4777<4778",
+          "rawEvents": "<4777<4778",
+          "fileOffset": "0x1e3135",
+          "bracketCandidates": [],
+          "angleValues": [
+            4777,
+            4778
+          ],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 6661,
+      "sprite": 6661,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "label": "attack",
+      "directional": 1,
+      "tokenCount": 8,
+      "lineFileOffset": "0x1e3815",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "frameKey": "16:2",
+          "ticks": 4,
+          "rawToken": "16.2:4<4790<4792<1340",
+          "rawEvents": "<4790<4792<1340",
+          "fileOffset": "0x1e3837",
+          "bracketCandidates": [],
+          "angleValues": [
+            4790,
+            4792,
+            1340
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 4,
+          "frameKey": "16:3",
+          "ticks": 4,
+          "rawToken": "16.3:4<4789",
+          "rawEvents": "<4789",
+          "fileOffset": "0x1e384d",
+          "bracketCandidates": [],
+          "angleValues": [
+            4789
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "16:4",
+          "ticks": 3,
+          "rawToken": "16.4:3!",
+          "rawEvents": "!",
+          "fileOffset": "0x1e3859",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 6661,
+      "sprite": 6661,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "label": "damage",
+      "directional": 1,
+      "tokenCount": 4,
+      "lineFileOffset": "0x1e3871",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "56:0",
+          "ticks": 0,
+          "rawToken": "56.0:0<1759<1953<1771",
+          "rawEvents": "<1759<1953<1771",
+          "fileOffset": "0x1e3885",
+          "bracketCandidates": [],
+          "angleValues": [
+            1759,
+            1953,
+            1771
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 2,
+          "frameKey": "56:0",
+          "ticks": 6,
+          "rawToken": "56.0:6<4794<4795",
+          "rawEvents": "<4794<4795",
+          "fileOffset": "0x1e389b",
+          "bracketCandidates": [],
+          "angleValues": [
+            4794,
+            4795
+          ],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 6661,
+      "sprite": 6661,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "label": "attack onehandsword",
+      "directional": 1,
+      "tokenCount": 7,
+      "lineFileOffset": "0x1e3b10",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "frameKey": "168:2",
+          "ticks": 5,
+          "rawToken": "168.2:5<4790<1340<1340",
+          "rawEvents": "<4790<1340<1340",
+          "fileOffset": "0x1e3b43",
+          "bracketCandidates": [],
+          "angleValues": [
+            4790,
+            1340,
+            1340
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 4,
+          "frameKey": "168:3",
+          "ticks": 2,
+          "rawToken": "168.3:2<1635<1649<4183",
+          "rawEvents": "<1635<1649<4183",
+          "fileOffset": "0x1e3b5a",
+          "bracketCandidates": [],
+          "angleValues": [
+            1635,
+            1649,
+            4183
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "168:4",
+          "ticks": 5,
+          "rawToken": "168.4:5!",
+          "rawEvents": "!",
+          "fileOffset": "0x1e3b71",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 6661,
+      "sprite": 6661,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "label": "damage onehandsword",
+      "directional": 1,
+      "tokenCount": 4,
+      "lineFileOffset": "0x1e3b84",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "176:0",
+          "ticks": 0,
+          "rawToken": "176.0:0<1759<1953<1771",
+          "rawEvents": "<1759<1953<1771",
+          "fileOffset": "0x1e3ba7",
+          "bracketCandidates": [],
+          "angleValues": [
+            1759,
+            1953,
+            1771
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 2,
+          "frameKey": "176:0",
+          "ticks": 6,
+          "rawToken": "176.0:6<4794<4795",
+          "rawEvents": "<4794<4795",
+          "fileOffset": "0x1e3bbe",
+          "bracketCandidates": [],
+          "angleValues": [
+            4794,
+            4795
+          ],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 6661,
+      "sprite": 6661,
+      "weapon": 50,
+      "skill": null,
+      "action": 51,
+      "label": "attack largesword",
+      "directional": 1,
+      "tokenCount": 9,
+      "lineFileOffset": "0x1e4010",
+      "events": [
+        {
+          "sequenceIndex": 3,
+          "frameKey": "128:2",
+          "ticks": 4,
+          "rawToken": "128.2:4<4791<1340<1340",
+          "rawEvents": "<4791<1340<1340",
+          "fileOffset": "0x1e4042",
+          "bracketCandidates": [],
+          "angleValues": [
+            4791,
+            1340,
+            1340
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 4,
+          "frameKey": "128:3",
+          "ticks": 2,
+          "rawToken": "128.3:2<4799",
+          "rawEvents": "<4799",
+          "fileOffset": "0x1e4059",
+          "bracketCandidates": [],
+          "angleValues": [
+            4799
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 5,
+          "frameKey": "128:4",
+          "ticks": 4,
+          "rawToken": "128.4:4!",
+          "rawEvents": "!",
+          "fileOffset": "0x1e4066",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 6661,
+      "sprite": 6661,
+      "weapon": 50,
+      "skill": null,
+      "action": 52,
+      "label": "damage largesword",
+      "directional": 1,
+      "tokenCount": 4,
+      "lineFileOffset": "0x1e4089",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "144:0",
+          "ticks": 0,
+          "rawToken": "144.0:0<1759<1953<1771",
+          "rawEvents": "<1759<1953<1771",
+          "fileOffset": "0x1e40ab",
+          "bracketCandidates": [],
+          "angleValues": [
+            1759,
+            1953,
+            1771
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 2,
+          "frameKey": "144:0",
+          "ticks": 6,
+          "rawToken": "144.0:6<4794<4795",
+          "rawEvents": "<4794<4795",
+          "fileOffset": "0x1e40c2",
+          "bracketCandidates": [],
+          "angleValues": [
+            4794,
+            4795
+          ],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 6671,
+      "sprite": 6671,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "label": "attack",
+      "directional": 1,
+      "tokenCount": 7,
+      "lineFileOffset": "0x1e4e7f",
+      "events": [
+        {
+          "sequenceIndex": 2,
+          "frameKey": "16:1",
+          "ticks": 4,
+          "rawToken": "16.1:4<4817<4818<1340",
+          "rawEvents": "<4817<4818<1340",
+          "fileOffset": "0x1e4e9a",
+          "bracketCandidates": [],
+          "angleValues": [
+            4817,
+            4818,
+            1340
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 3,
+          "frameKey": "16:2",
+          "ticks": 4,
+          "rawToken": "16.2:4<4816",
+          "rawEvents": "<4816",
+          "fileOffset": "0x1e4eb0",
+          "bracketCandidates": [],
+          "angleValues": [
+            4816
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 4,
+          "frameKey": "16:3",
+          "ticks": 3,
+          "rawToken": "16.3:3!",
+          "rawEvents": "!",
+          "fileOffset": "0x1e4ebc",
+          "bracketCandidates": [],
+          "angleValues": [],
+          "exclamation": true
+        }
+      ]
+    },
+    {
+      "gfx": 6671,
+      "sprite": 6671,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "label": "damage",
+      "directional": 1,
+      "tokenCount": 4,
+      "lineFileOffset": "0x1e4ed4",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "56:0",
+          "ticks": 0,
+          "rawToken": "56.0:0<1759<1953<1771",
+          "rawEvents": "<1759<1953<1771",
+          "fileOffset": "0x1e4ee8",
+          "bracketCandidates": [],
+          "angleValues": [
+            1759,
+            1953,
+            1771
+          ],
+          "exclamation": false
+        },
+        {
+          "sequenceIndex": 2,
+          "frameKey": "56:0",
+          "ticks": 6,
+          "rawToken": "56.0:6<4821<4822",
+          "rawEvents": "<4821<4822",
+          "fileOffset": "0x1e4efe",
+          "bracketCandidates": [],
+          "angleValues": [
+            4821,
+            4822
+          ],
+          "exclamation": false
+        }
+      ]
+    },
+    {
+      "gfx": 11722,
+      "sprite": 11722,
+      "weapon": null,
+      "skill": 1,
+      "action": 0,
+      "label": "effect",
+      "directional": 0,
+      "tokenCount": 21,
+      "lineFileOffset": "0x46ab32",
+      "events": [
+        {
+          "sequenceIndex": 1,
+          "frameKey": "0:0",
+          "ticks": 3,
+          "rawToken": "0.0:3[109",
+          "rawEvents": "[109",
+          "fileOffset": "0x46ab48",
+          "bracketCandidates": [
+            109
+          ],
+          "angleValues": [],
+          "exclamation": false
+        }
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "sequenceIndex": 4,
+      "frameKey": "16:3",
+      "ticks": 5,
+      "rawToken": "16.3:5[1539",
+      "rawEvents": "[1539",
+      "fileOffset": "0x7a",
+      "bracketCandidates": [
+        1539
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "sequenceIndex": 1,
+      "frameKey": "24:0",
+      "ticks": 6,
+      "rawToken": "24.0:6[1537[1538",
+      "rawEvents": "[1537[1538",
+      "fileOffset": "0xab",
+      "bracketCandidates": [
+        1537,
+        1538
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "sequenceIndex": 3,
+      "frameKey": "120:2",
+      "ticks": 3,
+      "rawToken": "120.2:3[248[703[701",
+      "rawEvents": "[248[703[701",
+      "fileOffset": "0x17b",
+      "bracketCandidates": [
+        248,
+        703,
+        701
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "sequenceIndex": 1,
+      "frameKey": "128:0",
+      "ticks": 6,
+      "rawToken": "128.0:6[1537[1538",
+      "rawEvents": "[1537[1538",
+      "fileOffset": "0x1c5",
+      "bracketCandidates": [
+        1537,
+        1538
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 46,
+      "skill": null,
+      "action": 47,
+      "sequenceIndex": 4,
+      "frameKey": "152:3",
+      "ticks": 4,
+      "rawToken": "152.3:4[1513[1517",
+      "rawEvents": "[1513[1517",
+      "fileOffset": "0x94c",
+      "bracketCandidates": [
+        1513,
+        1517
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 46,
+      "skill": null,
+      "action": 48,
+      "sequenceIndex": 1,
+      "frameKey": "160:0",
+      "ticks": 6,
+      "rawToken": "160.0:6[1537[1538",
+      "rawEvents": "[1537[1538",
+      "fileOffset": "0x98f",
+      "bracketCandidates": [
+        1537,
+        1538
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 50,
+      "skill": null,
+      "action": 51,
+      "sequenceIndex": 4,
+      "frameKey": "280:3",
+      "ticks": 5,
+      "rawToken": "280.3:5[1540[1541",
+      "rawEvents": "[1540[1541",
+      "fileOffset": "0xa99",
+      "bracketCandidates": [
+        1540,
+        1541
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 0,
+      "sprite": 3225,
+      "weapon": 50,
+      "skill": null,
+      "action": 52,
+      "sequenceIndex": 1,
+      "frameKey": "288:0",
+      "ticks": 6,
+      "rawToken": "288.0:6[1537[1538",
+      "rawEvents": "[1537[1538",
+      "fileOffset": "0xae8",
+      "bracketCandidates": [
+        1537,
+        1538
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 1,
+      "sprite": 3227,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "sequenceIndex": 5,
+      "frameKey": "16:4",
+      "ticks": 2,
+      "rawToken": "16.4:2[246",
+      "rawEvents": "[246",
+      "fileOffset": "0xedd",
+      "bracketCandidates": [
+        246
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 1,
+      "sprite": 3227,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "sequenceIndex": 1,
+      "frameKey": "24:0",
+      "ticks": 6,
+      "rawToken": "24.0:6[1546[1547",
+      "rawEvents": "[1546[1547",
+      "fileOffset": "0xf0d",
+      "bracketCandidates": [
+        1546,
+        1547
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 1,
+      "sprite": 3227,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "sequenceIndex": 3,
+      "frameKey": "120:2",
+      "ticks": 3,
+      "rawToken": "120.2:3[248[703[701",
+      "rawEvents": "[248[703[701",
+      "fileOffset": "0xff8",
+      "bracketCandidates": [
+        248,
+        703,
+        701
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 1,
+      "sprite": 3227,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "sequenceIndex": 1,
+      "frameKey": "128:0",
+      "ticks": 6,
+      "rawToken": "128.0:6[1546[1547",
+      "rawEvents": "[1546[1547",
+      "fileOffset": "0x1042",
+      "bracketCandidates": [
+        1546,
+        1547
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 1,
+      "sprite": 3227,
+      "weapon": 50,
+      "skill": null,
+      "action": 51,
+      "sequenceIndex": 4,
+      "frameKey": "256:3",
+      "ticks": 1,
+      "rawToken": "256.3:1[1540[1541",
+      "rawEvents": "[1540[1541",
+      "fileOffset": "0x1965",
+      "bracketCandidates": [
+        1540,
+        1541
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 1,
+      "sprite": 3227,
+      "weapon": 50,
+      "skill": null,
+      "action": 52,
+      "sequenceIndex": 1,
+      "frameKey": "264:0",
+      "ticks": 6,
+      "rawToken": "264.0:6[1546[1547",
+      "rawEvents": "[1546[1547",
+      "fileOffset": "0x19b4",
+      "bracketCandidates": [
+        1546,
+        1547
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 37,
+      "sprite": 3474,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "sequenceIndex": 4,
+      "frameKey": "16:3",
+      "ticks": 1,
+      "rawToken": "16.3:1[1562",
+      "rawEvents": "[1562",
+      "fileOffset": "0x2b6c",
+      "bracketCandidates": [
+        1562
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 37,
+      "sprite": 3474,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "sequenceIndex": 1,
+      "frameKey": "88:0",
+      "ticks": 4,
+      "rawToken": "88.0:4[1560[1561",
+      "rawEvents": "[1560[1561",
+      "fileOffset": "0x2bab",
+      "bracketCandidates": [
+        1560,
+        1561
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 37,
+      "sprite": 3474,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "sequenceIndex": 5,
+      "frameKey": "184:4",
+      "ticks": 1,
+      "rawToken": "184.4:1[248[703[701",
+      "rawEvents": "[248[703[701",
+      "fileOffset": "0x2c8b",
+      "bracketCandidates": [
+        248,
+        703,
+        701
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 37,
+      "sprite": 3474,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "sequenceIndex": 1,
+      "frameKey": "192:0",
+      "ticks": 4,
+      "rawToken": "192.0:4[1560[1561",
+      "rawEvents": "[1560[1561",
+      "fileOffset": "0x2cdd",
+      "bracketCandidates": [
+        1560,
+        1561
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 48,
+      "sprite": 3215,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "sequenceIndex": 4,
+      "frameKey": "16:3",
+      "ticks": 1,
+      "rawToken": "16.3:1[1575",
+      "rawEvents": "[1575",
+      "fileOffset": "0x3b4e",
+      "bracketCandidates": [
+        1575
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 48,
+      "sprite": 3215,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "sequenceIndex": 1,
+      "frameKey": "56:0",
+      "ticks": 6,
+      "rawToken": "56.0:6[1574[904",
+      "rawEvents": "[1574[904",
+      "fileOffset": "0x3b86",
+      "bracketCandidates": [
+        1574,
+        904
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 48,
+      "sprite": 3215,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "sequenceIndex": 4,
+      "frameKey": "192:3",
+      "ticks": 1,
+      "rawToken": "192.3:1[248[703[701",
+      "rawEvents": "[248[703[701",
+      "fileOffset": "0x3c7f",
+      "bracketCandidates": [
+        248,
+        703,
+        701
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 48,
+      "sprite": 3215,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "sequenceIndex": 1,
+      "frameKey": "208:0",
+      "ticks": 4,
+      "rawToken": "208.0:4[1574[904",
+      "rawEvents": "[1574[904",
+      "fileOffset": "0x3cc9",
+      "bracketCandidates": [
+        1574,
+        904
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 48,
+      "sprite": 3215,
+      "weapon": 50,
+      "skill": null,
+      "action": 51,
+      "sequenceIndex": 4,
+      "frameKey": "120:3",
+      "ticks": 1,
+      "rawToken": "120.3:1[1540[1541",
+      "rawEvents": "[1540[1541",
+      "fileOffset": "0x46da",
+      "bracketCandidates": [
+        1540,
+        1541
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 48,
+      "sprite": 3215,
+      "weapon": 50,
+      "skill": null,
+      "action": 52,
+      "sequenceIndex": 1,
+      "frameKey": "136:0",
+      "ticks": 6,
+      "rawToken": "136.0:6[1574[904",
+      "rawEvents": "[1574[904",
+      "fileOffset": "0x4739",
+      "bracketCandidates": [
+        1574,
+        904
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 61,
+      "sprite": 3213,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "sequenceIndex": 3,
+      "frameKey": "16:2",
+      "ticks": 4,
+      "rawToken": "16.2:4[1569",
+      "rawEvents": "[1569",
+      "fileOffset": "0x5b00",
+      "bracketCandidates": [
+        1569
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 61,
+      "sprite": 3213,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "sequenceIndex": 1,
+      "frameKey": "56:0",
+      "ticks": 4,
+      "rawToken": "56.0:4[1567[1568",
+      "rawEvents": "[1567[1568",
+      "fileOffset": "0x5b31",
+      "bracketCandidates": [
+        1567,
+        1568
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 61,
+      "sprite": 3213,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "sequenceIndex": 4,
+      "frameKey": "184:3",
+      "ticks": 1,
+      "rawToken": "184.3:1[248[703[701",
+      "rawEvents": "[248[703[701",
+      "fileOffset": "0x5c2b",
+      "bracketCandidates": [
+        248,
+        703,
+        701
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 61,
+      "sprite": 3213,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "sequenceIndex": 1,
+      "frameKey": "192:0",
+      "ticks": 6,
+      "rawToken": "192.0:6[1567[1568",
+      "rawEvents": "[1567[1568",
+      "fileOffset": "0x5c75",
+      "bracketCandidates": [
+        1567,
+        1568
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 61,
+      "sprite": 3213,
+      "weapon": 50,
+      "skill": null,
+      "action": 51,
+      "sequenceIndex": 4,
+      "frameKey": "120:3",
+      "ticks": 3,
+      "rawToken": "120.3:3[1540[1541",
+      "rawEvents": "[1540[1541",
+      "fileOffset": "0x65ec",
+      "bracketCandidates": [
+        1540,
+        1541
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 61,
+      "sprite": 3213,
+      "weapon": 50,
+      "skill": null,
+      "action": 52,
+      "sequenceIndex": 1,
+      "frameKey": "128:0",
+      "ticks": 6,
+      "rawToken": "128.0:6[1567[1568",
+      "rawEvents": "[1567[1568",
+      "fileOffset": "0x663b",
+      "bracketCandidates": [
+        1567,
+        1568
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 167,
+      "sprite": 167,
+      "weapon": null,
+      "skill": 4,
+      "action": 0,
+      "sequenceIndex": 1,
+      "frameKey": "0:0",
+      "ticks": 2,
+      "rawToken": "0.0:2[97",
+      "rawEvents": "[97",
+      "fileOffset": "0xacc7",
+      "bracketCandidates": [
+        97
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 221,
+      "sprite": 221,
+      "weapon": null,
+      "skill": 3,
+      "action": 0,
+      "sequenceIndex": 1,
+      "frameKey": "0:1",
+      "ticks": 2,
+      "rawToken": "0.1:2[127",
+      "rawEvents": "[127",
+      "fileOffset": "0xd008",
+      "bracketCandidates": [
+        127
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 734,
+      "sprite": 3476,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "sequenceIndex": 4,
+      "frameKey": "16:3",
+      "ticks": 3,
+      "rawToken": "16.3:3[1582",
+      "rawEvents": "[1582",
+      "fileOffset": "0x18931",
+      "bracketCandidates": [
+        1582
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 734,
+      "sprite": 3476,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "sequenceIndex": 1,
+      "frameKey": "32:0",
+      "ticks": 4,
+      "rawToken": "32.0:4[1580[1581",
+      "rawEvents": "[1580[1581",
+      "fileOffset": "0x18969",
+      "bracketCandidates": [
+        1580,
+        1581
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 734,
+      "sprite": 3476,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "sequenceIndex": 4,
+      "frameKey": "120:3",
+      "ticks": 3,
+      "rawToken": "120.3:3[248[703[701",
+      "rawEvents": "[248[703[701",
+      "fileOffset": "0x18a48",
+      "bracketCandidates": [
+        248,
+        703,
+        701
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 734,
+      "sprite": 3476,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "sequenceIndex": 1,
+      "frameKey": "128:0",
+      "ticks": 4,
+      "rawToken": "128.0:4[1580[1581",
+      "rawEvents": "[1580[1581",
+      "fileOffset": "0x18a9a",
+      "bracketCandidates": [
+        1580,
+        1581
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 1186,
+      "sprite": 3221,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "sequenceIndex": 4,
+      "frameKey": "16:3",
+      "ticks": 1,
+      "rawToken": "16.3:1[246",
+      "rawEvents": "[246",
+      "fileOffset": "0x2b8ad",
+      "bracketCandidates": [
+        246
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 1186,
+      "sprite": 3221,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "sequenceIndex": 1,
+      "frameKey": "24:0",
+      "ticks": 4,
+      "rawToken": "24.0:4[405[904",
+      "rawEvents": "[405[904",
+      "fileOffset": "0x2b8dd",
+      "bracketCandidates": [
+        405,
+        904
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 1186,
+      "sprite": 3221,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "sequenceIndex": 5,
+      "frameKey": "184:4",
+      "ticks": 4,
+      "rawToken": "184.4:4[248[703[701",
+      "rawEvents": "[248[703[701",
+      "fileOffset": "0x2b9bb",
+      "bracketCandidates": [
+        248,
+        703,
+        701
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 1186,
+      "sprite": 3221,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "sequenceIndex": 1,
+      "frameKey": "192:0",
+      "ticks": 6,
+      "rawToken": "192.0:6[405[904",
+      "rawEvents": "[405[904",
+      "fileOffset": "0x2ba05",
+      "bracketCandidates": [
+        405,
+        904
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 2165,
+      "sprite": 2165,
+      "weapon": null,
+      "skill": 8,
+      "action": 0,
+      "sequenceIndex": 1,
+      "frameKey": "0:0",
+      "ticks": 4,
+      "rawToken": "0.0:4[804",
+      "rawEvents": "[804",
+      "fileOffset": "0x5447c",
+      "bracketCandidates": [
+        804
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 2786,
+      "sprite": 2786,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "sequenceIndex": 4,
+      "frameKey": "16:3",
+      "ticks": 2,
+      "rawToken": "16.3:2[1520",
+      "rawEvents": "[1520",
+      "fileOffset": "0x7e465",
+      "bracketCandidates": [
+        1520
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 2786,
+      "sprite": 2786,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "sequenceIndex": 1,
+      "frameKey": "32:0",
+      "ticks": 5,
+      "rawToken": "32.0:5[1521[904",
+      "rawEvents": "[1521[904",
+      "fileOffset": "0x7e49d",
+      "bracketCandidates": [
+        1521,
+        904
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 2786,
+      "sprite": 2786,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "sequenceIndex": 3,
+      "frameKey": "136:2",
+      "ticks": 3,
+      "rawToken": "136.2:3[248[701",
+      "rawEvents": "[248[701",
+      "fileOffset": "0x7e579",
+      "bracketCandidates": [
+        248,
+        701
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 2786,
+      "sprite": 2786,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "sequenceIndex": 1,
+      "frameKey": "144:0",
+      "ticks": 5,
+      "rawToken": "144.0:5[1521[904",
+      "rawEvents": "[1521[904",
+      "fileOffset": "0x7e5b8",
+      "bracketCandidates": [
+        1521,
+        904
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 2796,
+      "sprite": 2796,
+      "weapon": 0,
+      "skill": null,
+      "action": 1,
+      "sequenceIndex": 4,
+      "frameKey": "32:3",
+      "ticks": 2,
+      "rawToken": "32.3:2[1520",
+      "rawEvents": "[1520",
+      "fileOffset": "0x7fbfe",
+      "bracketCandidates": [
+        1520
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 2796,
+      "sprite": 2796,
+      "weapon": 0,
+      "skill": null,
+      "action": 2,
+      "sequenceIndex": 1,
+      "frameKey": "40:0",
+      "ticks": 5,
+      "rawToken": "40.0:5[1522[904",
+      "rawEvents": "[1522[904",
+      "fileOffset": "0x7fc36",
+      "bracketCandidates": [
+        1522,
+        904
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 2796,
+      "sprite": 2796,
+      "weapon": 4,
+      "skill": null,
+      "action": 5,
+      "sequenceIndex": 3,
+      "frameKey": "136:2",
+      "ticks": 4,
+      "rawToken": "136.2:4[248[701",
+      "rawEvents": "[248[701",
+      "fileOffset": "0x7fd12",
+      "bracketCandidates": [
+        248,
+        701
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 2796,
+      "sprite": 2796,
+      "weapon": 4,
+      "skill": null,
+      "action": 6,
+      "sequenceIndex": 1,
+      "frameKey": "144:0",
+      "ticks": 5,
+      "rawToken": "144.0:5[1522[904",
+      "rawEvents": "[1522[904",
+      "fileOffset": "0x7fd51",
+      "bracketCandidates": [
+        1522,
+        904
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    },
+    {
+      "gfx": 11722,
+      "sprite": 11722,
+      "weapon": null,
+      "skill": 1,
+      "action": 0,
+      "sequenceIndex": 1,
+      "frameKey": "0:0",
+      "ticks": 3,
+      "rawToken": "0.0:3[109",
+      "rawEvents": "[109",
+      "fileOffset": "0x46ab48",
+      "bracketCandidates": [
+        109
+      ],
+      "angleValues": [],
+      "exclamation": false,
+      "sourceSha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+      "qualified": false,
+      "enabled": false,
+      "dispatchPolicy": null,
+      "blockers": [
+        "文字符號至 native 欄位映射未證明",
+        "TXT 與 native BIN 版本配對未證明",
+        "該動作事件呼叫與生命週期未完整證明"
+      ]
+    }
+  ],
+  "qualifiedBindings": [],
+  "wavPins": [
+    {
+      "id": 97,
+      "path": "Sound/97.wav",
+      "exists": true,
+      "size": 47408,
+      "sha256": "2e8661cc26238e422b3233509ba24ae11b3440d8c1d74666cb5c842e7de6f1a7",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 23645,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 47290
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0xb8e6",
+          "payloadFileOffset": "0xb8ee",
+          "size": 66
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 109,
+      "path": "Sound/109.wav",
+      "exists": true,
+      "size": 61046,
+      "sha256": "664c8d8b353e2a03cbc337df7a7d36ce009d0213d33064e43779f4c76471b4d1",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 30464,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 60928
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0xee2c",
+          "payloadFileOffset": "0xee34",
+          "size": 66
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 127,
+      "path": "Sound/127.wav",
+      "exists": true,
+      "size": 84854,
+      "sha256": "6ca44e9ea605d14e6d582a3ca6071b0b0f0d1d395df2f24651fcdb1b2061d364",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 42368,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 84736
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x14b2c",
+          "payloadFileOffset": "0x14b34",
+          "size": 66
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 246,
+      "path": "Sound/246.wav",
+      "exists": true,
+      "size": 14356,
+      "sha256": "0df58a6bc641edbdb283f797c1ed7b416f8d4c20a5d95095f079ebda4773cfcc",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 7120,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 14240
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x37cc",
+          "payloadFileOffset": "0x37d4",
+          "size": 64
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 248,
+      "path": "Sound/248.wav",
+      "exists": true,
+      "size": 8356,
+      "sha256": "d2696d07692ba610371d301e3027c2153c6075eb8446476ff4fbcd1f1e101bb5",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 4120,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 8240
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x205c",
+          "payloadFileOffset": "0x2064",
+          "size": 64
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 405,
+      "path": "Sound/405.wav",
+      "exists": true,
+      "size": 13640,
+      "sha256": "e65d498bab6bc5a26bebb6c31929b7e4c4291d705c5e8b9ec721993679df2e2f",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6760,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 13520
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x34fc",
+          "payloadFileOffset": "0x3504",
+          "size": 68
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 701,
+      "path": "Sound/701.wav",
+      "exists": true,
+      "size": 17592,
+      "sha256": "6003c0c805fd9dc6b4988be7e31fdd9782f31543ca96955b0816a03698da39f2",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 8736,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 17472
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x446c",
+          "payloadFileOffset": "0x4474",
+          "size": 68
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 703,
+      "path": "Sound/703.wav",
+      "exists": true,
+      "size": 13686,
+      "sha256": "30bac3007049ab0c15a7ccf315445da0a0b9cb990f49a772af0f138b4f127f09",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6783,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 13566
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x352a",
+          "payloadFileOffset": "0x3532",
+          "size": 68
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 804,
+      "path": "Sound/804.wav",
+      "exists": true,
+      "size": 335476,
+      "sha256": "a1ccf06439dd3fdf721016b85bb08563a07f16e69ce9ad8d18c2ac07e4d36117",
+      "format": {
+        "channels": 2,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 83839,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 335356
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x51e28",
+          "payloadFileOffset": "0x51e30",
+          "size": 68
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 904,
+      "path": "Sound/904.wav",
+      "exists": true,
+      "size": 13272,
+      "sha256": "013e31cbeee8c3472ccf881cdafc0e6ae5117805234a58117071a0eae1a85600",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6576,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 13152
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x338c",
+          "payloadFileOffset": "0x3394",
+          "size": 68
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1513,
+      "path": "Sound/1513.wav",
+      "exists": true,
+      "size": 10932,
+      "sha256": "ae4145e4c94b514e65b91fcfa4487f149fad01e6251e689c8cc276ce6fcafb3a",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 5407,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 10814
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x2a6a",
+          "payloadFileOffset": "0x2a72",
+          "size": 66
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1517,
+      "path": "Sound/1517.wav",
+      "exists": true,
+      "size": 13702,
+      "sha256": "7ecf324c4485fc4c43afe531b0e85d9db85dffaaf8cedef9264534ec8e198945",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6792,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 13584
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x353c",
+          "payloadFileOffset": "0x3544",
+          "size": 66
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1520,
+      "path": "Sound/1520.wav",
+      "exists": true,
+      "size": 22488,
+      "sha256": "db73647b7fc6a0e4919123201d27df537a65603389a0cc52eef2d87f95150dcc",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 11184,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 22368
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x578c",
+          "payloadFileOffset": "0x5794",
+          "size": 68
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1521,
+      "path": "Sound/1521.wav",
+      "exists": true,
+      "size": 17942,
+      "sha256": "31a44b4544cc7559bbd96fb9c7e397293c8c6a2a425edb337da9add8475a9450",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 8912,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 17824
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x45cc",
+          "payloadFileOffset": "0x45d4",
+          "size": 66
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1522,
+      "path": "Sound/1522.wav",
+      "exists": true,
+      "size": 12982,
+      "sha256": "085b30d151c203f4fe81629ab2aed3dc170c4b68a0c80bddbde2040cc13b0ad2",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6432,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 12864
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x326c",
+          "payloadFileOffset": "0x3274",
+          "size": 66
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1537,
+      "path": "Sound/1537.wav",
+      "exists": true,
+      "size": 13278,
+      "sha256": "1921c2d75c763d51a18efec28a9e59ae1799b9f1d91e3954e0a76656be64039c",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6576,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 13152
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x338e",
+          "payloadFileOffset": "0x3396",
+          "size": 72
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1538,
+      "path": "Sound/1538.wav",
+      "exists": true,
+      "size": 13278,
+      "sha256": "b792497547fdd91fc057575ac37150aa8137cf0aca592f387008dbc6244c7bb6",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6576,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 13152
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x338e",
+          "payloadFileOffset": "0x3396",
+          "size": 72
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1539,
+      "path": "Sound/1539.wav",
+      "exists": true,
+      "size": 20134,
+      "sha256": "4bdb0af502bff04b83598e1c865365031b960360fe3160cf8a8849b29de8ed4b",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 9456,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 18912
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x4a0c",
+          "payloadFileOffset": "0x4a14",
+          "size": 74
+        },
+        {
+          "tag": "JUNQ",
+          "headerFileOffset": "0x4a5e",
+          "payloadFileOffset": "0x4a66",
+          "size": 1088
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1540,
+      "path": "Sound/1540.wav",
+      "exists": true,
+      "size": 15616,
+      "sha256": "254955a92b7f9f8688487debeb9193bb2d4401bb5424835e3abd7436c1c071c3",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 7744,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 15488
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x3cae",
+          "payloadFileOffset": "0x3cb6",
+          "size": 74
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1541,
+      "path": "Sound/1541.wav",
+      "exists": true,
+      "size": 23448,
+      "sha256": "6f7153674f59f30fa6836856cb5ba1595a1df449fe4b46704993a5806b11b7c1",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 11648,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 23296
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x5b2e",
+          "payloadFileOffset": "0x5b36",
+          "size": 98
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1546,
+      "path": "Sound/1546.wav",
+      "exists": true,
+      "size": 13278,
+      "sha256": "973829519ec59b59ab1dc78562c3b38bff96954ae99645e8e0911ca40bf860d1",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6576,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 13152
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x338e",
+          "payloadFileOffset": "0x3396",
+          "size": 72
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1547,
+      "path": "Sound/1547.wav",
+      "exists": true,
+      "size": 13278,
+      "sha256": "f56c71a583b1ec3dca6a0caeb165f6461add48cc7581c142a91ea06d3dd5f5e3",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6576,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 13152
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x338e",
+          "payloadFileOffset": "0x3396",
+          "size": 72
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1560,
+      "path": "Sound/1560.wav",
+      "exists": true,
+      "size": 13278,
+      "sha256": "e9232162f71a1703edcdbcdfb84d43f03dac6967424448683258a0ae78d94e54",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6576,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 13152
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x338e",
+          "payloadFileOffset": "0x3396",
+          "size": 72
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1561,
+      "path": "Sound/1561.wav",
+      "exists": true,
+      "size": 13278,
+      "sha256": "90a7fa901924853dce97c761f545f20708566967d4e34bd645f5e4cb88570f2a",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6576,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 13152
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x338e",
+          "payloadFileOffset": "0x3396",
+          "size": 72
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1562,
+      "path": "Sound/1562.wav",
+      "exists": true,
+      "size": 11454,
+      "sha256": "99abfa6c6b93a3585763fb518272abdce6a6afd17c2ebebe59be045c779c6c7f",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 5664,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 11328
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x2c6e",
+          "payloadFileOffset": "0x2c76",
+          "size": 72
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1567,
+      "path": "Sound/1567.wav",
+      "exists": true,
+      "size": 13268,
+      "sha256": "78e5f3038f974d9e4a8527b31324a1e0cd33ff23d0ed03c031f33d77856a9ae1",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6576,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 13152
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x338e",
+          "payloadFileOffset": "0x3396",
+          "size": 62
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1568,
+      "path": "Sound/1568.wav",
+      "exists": true,
+      "size": 13268,
+      "sha256": "2068f34cd7e7ee3cb937740bb744f1b6c282586d2999557d5fdb87ba832d818d",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6576,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 13152
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x338e",
+          "payloadFileOffset": "0x3396",
+          "size": 62
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1569,
+      "path": "Sound/1569.wav",
+      "exists": true,
+      "size": 20702,
+      "sha256": "219b8e3dd0f0cfc4d9fd77be6a062bebe1cbc432c6bfadc6169fd6f157290335",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 10288,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 20576
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x508c",
+          "payloadFileOffset": "0x5094",
+          "size": 74
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1574,
+      "path": "Sound/1574.wav",
+      "exists": true,
+      "size": 13278,
+      "sha256": "b30b32f1ea23070e3803c3c49f410b211958d9e6b801baaeec79e66ade4d5b6e",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6576,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 13152
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x338e",
+          "payloadFileOffset": "0x3396",
+          "size": 72
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1575,
+      "path": "Sound/1575.wav",
+      "exists": true,
+      "size": 16768,
+      "sha256": "053523a61c462ffd2eb8589e3b2969e882a2e4e1731503b75708b42d6a40df1b",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 8320,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 16640
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x412e",
+          "payloadFileOffset": "0x4136",
+          "size": 74
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1580,
+      "path": "Sound/1580.wav",
+      "exists": true,
+      "size": 13278,
+      "sha256": "e2e760868de230cd778093ae41f9732ebc92517a5fe4704536bad61bff515e49",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6576,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 13152
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x338e",
+          "payloadFileOffset": "0x3396",
+          "size": 72
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1581,
+      "path": "Sound/1581.wav",
+      "exists": true,
+      "size": 13278,
+      "sha256": "3c10c90cb1ee08584d39c25cd885a287bc9ef9c2e9ecdbe7c7e58e4c080062d0",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 6576,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 18
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x26",
+          "payloadFileOffset": "0x2e",
+          "size": 13152
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x338e",
+          "payloadFileOffset": "0x3396",
+          "size": 72
+        }
+      ],
+      "playbackVerified": false
+    },
+    {
+      "id": 1582,
+      "path": "Sound/1582.wav",
+      "exists": true,
+      "size": 19264,
+      "sha256": "24486b338807cb118bded3a04fda6d6e2d8883e86a755d8f2df62a84f64d3128",
+      "format": {
+        "channels": 1,
+        "sampleRate": 22050,
+        "bits": 16,
+        "frameCount": 9568,
+        "compression": "NONE"
+      },
+      "chunks": [
+        {
+          "tag": "fmt ",
+          "headerFileOffset": "0xc",
+          "payloadFileOffset": "0x14",
+          "size": 16
+        },
+        {
+          "tag": "data",
+          "headerFileOffset": "0x24",
+          "payloadFileOffset": "0x2c",
+          "size": 19136
+        },
+        {
+          "tag": "LIST",
+          "headerFileOffset": "0x4aec",
+          "payloadFileOffset": "0x4af4",
+          "size": 76
+        }
+      ],
+      "playbackVerified": false
+    }
+  ],
+  "nativeEvidence": [
+    {
+      "artifact": "work/engine-slow-pickup-source-r1/native/0xa3ef40.json",
+      "artifactSha256": "b43377adab4fadd67838d8efec44cb97bbe320a672d0e99e03cc0bcdd0ec456f",
+      "claimedBinSha256": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2",
+      "originalBinReverified": false,
+      "chunk": {
+        "VA": "0xa3ef40",
+        "RVA": "0x63ef40",
+        "fileOffset": "0x63e340",
+        "size": 3686,
+        "sha256": "64701a56874b973f27af05bc1629d1502901c992a373c820611264a79b0be771"
+      },
+      "excerpts": [
+        {
+          "VA": "0xa3f9cc",
+          "endVAExclusive": "0xa3fa7e",
+          "RVA": "0x63f9cc",
+          "fileOffset": "0x63edcc",
+          "sha256": "9d6039280baa1301f96b670d9544190771a96af05d3e32623d14ecd3f13a4808",
+          "instructions": [
+            {
+              "VA": "0xa3f9cc",
+              "bytes": "0fb64d08",
+              "instruction": "movzx ecx, byte ptr [ebp + 8]"
+            },
+            {
+              "VA": "0xa3f9d0",
+              "bytes": "85c9",
+              "instruction": "test ecx, ecx"
+            },
+            {
+              "VA": "0xa3f9d2",
+              "bytes": "0f84e6020000",
+              "instruction": "je 0xa3fcbe"
+            },
+            {
+              "VA": "0xa3f9d8",
+              "bytes": "833d60ce530100",
+              "instruction": "cmp dword ptr [0x153ce60], 0"
+            },
+            {
+              "VA": "0xa3f9df",
+              "bytes": "0f84d9020000",
+              "instruction": "je 0xa3fcbe"
+            },
+            {
+              "VA": "0xa3f9e5",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3f9e8",
+              "bytes": "e863d9c2ff",
+              "instruction": "call 0x66d350"
+            },
+            {
+              "VA": "0xa3f9ed",
+              "bytes": "50",
+              "instruction": "push eax"
+            },
+            {
+              "VA": "0xa3f9ee",
+              "bytes": "8b55ec",
+              "instruction": "mov edx, dword ptr [ebp - 0x14]"
+            },
+            {
+              "VA": "0xa3f9f1",
+              "bytes": "52",
+              "instruction": "push edx"
+            },
+            {
+              "VA": "0xa3f9f2",
+              "bytes": "8b45f0",
+              "instruction": "mov eax, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3f9f5",
+              "bytes": "0fbf480a",
+              "instruction": "movsx ecx, word ptr [eax + 0xa]"
+            },
+            {
+              "VA": "0xa3f9f9",
+              "bytes": "51",
+              "instruction": "push ecx"
+            },
+            {
+              "VA": "0xa3f9fa",
+              "bytes": "e81168acff",
+              "instruction": "call 0x506210"
+            },
+            {
+              "VA": "0xa3f9ff",
+              "bytes": "83c40c",
+              "instruction": "add esp, 0xc"
+            },
+            {
+              "VA": "0xa3fa02",
+              "bytes": "8b55f0",
+              "instruction": "mov edx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fa05",
+              "bytes": "0fbe4a0c",
+              "instruction": "movsx ecx, byte ptr [edx + 0xc]"
+            },
+            {
+              "VA": "0xa3fa09",
+              "bytes": "6bc924",
+              "instruction": "imul ecx, ecx, 0x24"
+            },
+            {
+              "VA": "0xa3fa0c",
+              "bytes": "0fb754080c",
+              "instruction": "movzx edx, word ptr [eax + ecx + 0xc]"
+            },
+            {
+              "VA": "0xa3fa11",
+              "bytes": "8955e0",
+              "instruction": "mov dword ptr [ebp - 0x20], edx"
+            },
+            {
+              "VA": "0xa3fa14",
+              "bytes": "837de000",
+              "instruction": "cmp dword ptr [ebp - 0x20], 0"
+            },
+            {
+              "VA": "0xa3fa18",
+              "bytes": "0f86a0020000",
+              "instruction": "jbe 0xa3fcbe"
+            },
+            {
+              "VA": "0xa3fa1e",
+              "bytes": "837de005",
+              "instruction": "cmp dword ptr [ebp - 0x20], 5"
+            },
+            {
+              "VA": "0xa3fa22",
+              "bytes": "0f8796020000",
+              "instruction": "ja 0xa3fcbe"
+            },
+            {
+              "VA": "0xa3fa28",
+              "bytes": "837de001",
+              "instruction": "cmp dword ptr [ebp - 0x20], 1"
+            },
+            {
+              "VA": "0xa3fa2c",
+              "bytes": "7509",
+              "instruction": "jne 0xa3fa37"
+            },
+            {
+              "VA": "0xa3fa2e",
+              "bytes": "c745e000000000",
+              "instruction": "mov dword ptr [ebp - 0x20], 0"
+            },
+            {
+              "VA": "0xa3fa35",
+              "bytes": "eb0e",
+              "instruction": "jmp 0xa3fa45"
+            },
+            {
+              "VA": "0xa3fa37",
+              "bytes": "ff1568b61401",
+              "instruction": "call dword ptr [0x114b668]"
+            },
+            {
+              "VA": "0xa3fa3d",
+              "bytes": "33d2",
+              "instruction": "xor edx, edx"
+            },
+            {
+              "VA": "0xa3fa3f",
+              "bytes": "f775e0",
+              "instruction": "div dword ptr [ebp - 0x20]"
+            },
+            {
+              "VA": "0xa3fa42",
+              "bytes": "8955e0",
+              "instruction": "mov dword ptr [ebp - 0x20], edx"
+            },
+            {
+              "VA": "0xa3fa45",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fa48",
+              "bytes": "e803d9c2ff",
+              "instruction": "call 0x66d350"
+            },
+            {
+              "VA": "0xa3fa4d",
+              "bytes": "50",
+              "instruction": "push eax"
+            },
+            {
+              "VA": "0xa3fa4e",
+              "bytes": "8b45ec",
+              "instruction": "mov eax, dword ptr [ebp - 0x14]"
+            },
+            {
+              "VA": "0xa3fa51",
+              "bytes": "50",
+              "instruction": "push eax"
+            },
+            {
+              "VA": "0xa3fa52",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fa55",
+              "bytes": "0fbf510a",
+              "instruction": "movsx edx, word ptr [ecx + 0xa]"
+            },
+            {
+              "VA": "0xa3fa59",
+              "bytes": "52",
+              "instruction": "push edx"
+            },
+            {
+              "VA": "0xa3fa5a",
+              "bytes": "e8b167acff",
+              "instruction": "call 0x506210"
+            },
+            {
+              "VA": "0xa3fa5f",
+              "bytes": "83c40c",
+              "instruction": "add esp, 0xc"
+            },
+            {
+              "VA": "0xa3fa62",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fa65",
+              "bytes": "0fbe510c",
+              "instruction": "movsx edx, byte ptr [ecx + 0xc]"
+            },
+            {
+              "VA": "0xa3fa69",
+              "bytes": "6bd224",
+              "instruction": "imul edx, edx, 0x24"
+            },
+            {
+              "VA": "0xa3fa6c",
+              "bytes": "03c2",
+              "instruction": "add eax, edx"
+            },
+            {
+              "VA": "0xa3fa6e",
+              "bytes": "8b4de0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x20]"
+            },
+            {
+              "VA": "0xa3fa71",
+              "bytes": "0fbf544802",
+              "instruction": "movsx edx, word ptr [eax + ecx*2 + 2]"
+            },
+            {
+              "VA": "0xa3fa76",
+              "bytes": "85d2",
+              "instruction": "test edx, edx"
+            },
+            {
+              "VA": "0xa3fa78",
+              "bytes": "0f8440020000",
+              "instruction": "je 0xa3fcbe"
+            }
+          ]
+        },
+        {
+          "VA": "0xa3fb91",
+          "endVAExclusive": "0xa3fcbe",
+          "RVA": "0x63fb91",
+          "fileOffset": "0x63ef91",
+          "sha256": "b1021439ca3fdc74f4ecea7e29e948f132718c0e1f79c19b9dad73578d09001e",
+          "instructions": [
+            {
+              "VA": "0xa3fb91",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fb94",
+              "bytes": "e8b7d7c2ff",
+              "instruction": "call 0x66d350"
+            },
+            {
+              "VA": "0xa3fb99",
+              "bytes": "50",
+              "instruction": "push eax"
+            },
+            {
+              "VA": "0xa3fb9a",
+              "bytes": "8b45ec",
+              "instruction": "mov eax, dword ptr [ebp - 0x14]"
+            },
+            {
+              "VA": "0xa3fb9d",
+              "bytes": "50",
+              "instruction": "push eax"
+            },
+            {
+              "VA": "0xa3fb9e",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fba1",
+              "bytes": "0fbf510a",
+              "instruction": "movsx edx, word ptr [ecx + 0xa]"
+            },
+            {
+              "VA": "0xa3fba5",
+              "bytes": "52",
+              "instruction": "push edx"
+            },
+            {
+              "VA": "0xa3fba6",
+              "bytes": "e86566acff",
+              "instruction": "call 0x506210"
+            },
+            {
+              "VA": "0xa3fbab",
+              "bytes": "83c40c",
+              "instruction": "add esp, 0xc"
+            },
+            {
+              "VA": "0xa3fbae",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fbb1",
+              "bytes": "0fbe510c",
+              "instruction": "movsx edx, byte ptr [ecx + 0xc]"
+            },
+            {
+              "VA": "0xa3fbb5",
+              "bytes": "6bd224",
+              "instruction": "imul edx, edx, 0x24"
+            },
+            {
+              "VA": "0xa3fbb8",
+              "bytes": "0fbe441014",
+              "instruction": "movsx eax, byte ptr [eax + edx + 0x14]"
+            },
+            {
+              "VA": "0xa3fbbd",
+              "bytes": "83f801",
+              "instruction": "cmp eax, 1"
+            },
+            {
+              "VA": "0xa3fbc0",
+              "bytes": "7545",
+              "instruction": "jne 0xa3fc07"
+            },
+            {
+              "VA": "0xa3fbc2",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fbc5",
+              "bytes": "e886d7c2ff",
+              "instruction": "call 0x66d350"
+            },
+            {
+              "VA": "0xa3fbca",
+              "bytes": "50",
+              "instruction": "push eax"
+            },
+            {
+              "VA": "0xa3fbcb",
+              "bytes": "8b4dec",
+              "instruction": "mov ecx, dword ptr [ebp - 0x14]"
+            },
+            {
+              "VA": "0xa3fbce",
+              "bytes": "51",
+              "instruction": "push ecx"
+            },
+            {
+              "VA": "0xa3fbcf",
+              "bytes": "8b55f0",
+              "instruction": "mov edx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fbd2",
+              "bytes": "0fbf420a",
+              "instruction": "movsx eax, word ptr [edx + 0xa]"
+            },
+            {
+              "VA": "0xa3fbd6",
+              "bytes": "50",
+              "instruction": "push eax"
+            },
+            {
+              "VA": "0xa3fbd7",
+              "bytes": "e83466acff",
+              "instruction": "call 0x506210"
+            },
+            {
+              "VA": "0xa3fbdc",
+              "bytes": "83c40c",
+              "instruction": "add esp, 0xc"
+            },
+            {
+              "VA": "0xa3fbdf",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fbe2",
+              "bytes": "0fbe510c",
+              "instruction": "movsx edx, byte ptr [ecx + 0xc]"
+            },
+            {
+              "VA": "0xa3fbe6",
+              "bytes": "6bd224",
+              "instruction": "imul edx, edx, 0x24"
+            },
+            {
+              "VA": "0xa3fbe9",
+              "bytes": "03c2",
+              "instruction": "add eax, edx"
+            },
+            {
+              "VA": "0xa3fbeb",
+              "bytes": "8b4de0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x20]"
+            },
+            {
+              "VA": "0xa3fbee",
+              "bytes": "0fbf544802",
+              "instruction": "movsx edx, word ptr [eax + ecx*2 + 2]"
+            },
+            {
+              "VA": "0xa3fbf3",
+              "bytes": "52",
+              "instruction": "push edx"
+            },
+            {
+              "VA": "0xa3fbf4",
+              "bytes": "8b45f0",
+              "instruction": "mov eax, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fbf7",
+              "bytes": "8b8878020000",
+              "instruction": "mov ecx, dword ptr [eax + 0x278]"
+            },
+            {
+              "VA": "0xa3fbfd",
+              "bytes": "e8ee64fcff",
+              "instruction": "call 0xa060f0"
+            },
+            {
+              "VA": "0xa3fc02",
+              "bytes": "e9b7000000",
+              "instruction": "jmp 0xa3fcbe"
+            },
+            {
+              "VA": "0xa3fc07",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fc0a",
+              "bytes": "e841d7c2ff",
+              "instruction": "call 0x66d350"
+            },
+            {
+              "VA": "0xa3fc0f",
+              "bytes": "50",
+              "instruction": "push eax"
+            },
+            {
+              "VA": "0xa3fc10",
+              "bytes": "8b4dec",
+              "instruction": "mov ecx, dword ptr [ebp - 0x14]"
+            },
+            {
+              "VA": "0xa3fc13",
+              "bytes": "51",
+              "instruction": "push ecx"
+            },
+            {
+              "VA": "0xa3fc14",
+              "bytes": "8b55f0",
+              "instruction": "mov edx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fc17",
+              "bytes": "0fbf420a",
+              "instruction": "movsx eax, word ptr [edx + 0xa]"
+            },
+            {
+              "VA": "0xa3fc1b",
+              "bytes": "50",
+              "instruction": "push eax"
+            },
+            {
+              "VA": "0xa3fc1c",
+              "bytes": "e8ef65acff",
+              "instruction": "call 0x506210"
+            },
+            {
+              "VA": "0xa3fc21",
+              "bytes": "83c40c",
+              "instruction": "add esp, 0xc"
+            },
+            {
+              "VA": "0xa3fc24",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fc27",
+              "bytes": "0fbe510c",
+              "instruction": "movsx edx, byte ptr [ecx + 0xc]"
+            },
+            {
+              "VA": "0xa3fc2b",
+              "bytes": "6bd224",
+              "instruction": "imul edx, edx, 0x24"
+            },
+            {
+              "VA": "0xa3fc2e",
+              "bytes": "0fbe441014",
+              "instruction": "movsx eax, byte ptr [eax + edx + 0x14]"
+            },
+            {
+              "VA": "0xa3fc33",
+              "bytes": "83f802",
+              "instruction": "cmp eax, 2"
+            },
+            {
+              "VA": "0xa3fc36",
+              "bytes": "7546",
+              "instruction": "jne 0xa3fc7e"
+            },
+            {
+              "VA": "0xa3fc38",
+              "bytes": "8b4d9c",
+              "instruction": "mov ecx, dword ptr [ebp - 0x64]"
+            },
+            {
+              "VA": "0xa3fc3b",
+              "bytes": "51",
+              "instruction": "push ecx"
+            },
+            {
+              "VA": "0xa3fc3c",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fc3f",
+              "bytes": "e80cd7c2ff",
+              "instruction": "call 0x66d350"
+            },
+            {
+              "VA": "0xa3fc44",
+              "bytes": "50",
+              "instruction": "push eax"
+            },
+            {
+              "VA": "0xa3fc45",
+              "bytes": "8b55ec",
+              "instruction": "mov edx, dword ptr [ebp - 0x14]"
+            },
+            {
+              "VA": "0xa3fc48",
+              "bytes": "52",
+              "instruction": "push edx"
+            },
+            {
+              "VA": "0xa3fc49",
+              "bytes": "8b45f0",
+              "instruction": "mov eax, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fc4c",
+              "bytes": "0fbf480a",
+              "instruction": "movsx ecx, word ptr [eax + 0xa]"
+            },
+            {
+              "VA": "0xa3fc50",
+              "bytes": "51",
+              "instruction": "push ecx"
+            },
+            {
+              "VA": "0xa3fc51",
+              "bytes": "e8ba65acff",
+              "instruction": "call 0x506210"
+            },
+            {
+              "VA": "0xa3fc56",
+              "bytes": "83c40c",
+              "instruction": "add esp, 0xc"
+            },
+            {
+              "VA": "0xa3fc59",
+              "bytes": "8b55f0",
+              "instruction": "mov edx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fc5c",
+              "bytes": "0fbe4a0c",
+              "instruction": "movsx ecx, byte ptr [edx + 0xc]"
+            },
+            {
+              "VA": "0xa3fc60",
+              "bytes": "6bc924",
+              "instruction": "imul ecx, ecx, 0x24"
+            },
+            {
+              "VA": "0xa3fc63",
+              "bytes": "03c1",
+              "instruction": "add eax, ecx"
+            },
+            {
+              "VA": "0xa3fc65",
+              "bytes": "8b55e0",
+              "instruction": "mov edx, dword ptr [ebp - 0x20]"
+            },
+            {
+              "VA": "0xa3fc68",
+              "bytes": "0fbf445002",
+              "instruction": "movsx eax, word ptr [eax + edx*2 + 2]"
+            },
+            {
+              "VA": "0xa3fc6d",
+              "bytes": "50",
+              "instruction": "push eax"
+            },
+            {
+              "VA": "0xa3fc6e",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fc71",
+              "bytes": "8b8978020000",
+              "instruction": "mov ecx, dword ptr [ecx + 0x278]"
+            },
+            {
+              "VA": "0xa3fc77",
+              "bytes": "e89465fcff",
+              "instruction": "call 0xa06210"
+            },
+            {
+              "VA": "0xa3fc7c",
+              "bytes": "eb40",
+              "instruction": "jmp 0xa3fcbe"
+            },
+            {
+              "VA": "0xa3fc7e",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fc81",
+              "bytes": "e8cad6c2ff",
+              "instruction": "call 0x66d350"
+            },
+            {
+              "VA": "0xa3fc86",
+              "bytes": "50",
+              "instruction": "push eax"
+            },
+            {
+              "VA": "0xa3fc87",
+              "bytes": "8b55ec",
+              "instruction": "mov edx, dword ptr [ebp - 0x14]"
+            },
+            {
+              "VA": "0xa3fc8a",
+              "bytes": "52",
+              "instruction": "push edx"
+            },
+            {
+              "VA": "0xa3fc8b",
+              "bytes": "8b45f0",
+              "instruction": "mov eax, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fc8e",
+              "bytes": "0fbf480a",
+              "instruction": "movsx ecx, word ptr [eax + 0xa]"
+            },
+            {
+              "VA": "0xa3fc92",
+              "bytes": "51",
+              "instruction": "push ecx"
+            },
+            {
+              "VA": "0xa3fc93",
+              "bytes": "e87865acff",
+              "instruction": "call 0x506210"
+            },
+            {
+              "VA": "0xa3fc98",
+              "bytes": "83c40c",
+              "instruction": "add esp, 0xc"
+            },
+            {
+              "VA": "0xa3fc9b",
+              "bytes": "8b55f0",
+              "instruction": "mov edx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fc9e",
+              "bytes": "0fbe4a0c",
+              "instruction": "movsx ecx, byte ptr [edx + 0xc]"
+            },
+            {
+              "VA": "0xa3fca2",
+              "bytes": "6bc924",
+              "instruction": "imul ecx, ecx, 0x24"
+            },
+            {
+              "VA": "0xa3fca5",
+              "bytes": "03c1",
+              "instruction": "add eax, ecx"
+            },
+            {
+              "VA": "0xa3fca7",
+              "bytes": "8b55e0",
+              "instruction": "mov edx, dword ptr [ebp - 0x20]"
+            },
+            {
+              "VA": "0xa3fcaa",
+              "bytes": "0fbf445002",
+              "instruction": "movsx eax, word ptr [eax + edx*2 + 2]"
+            },
+            {
+              "VA": "0xa3fcaf",
+              "bytes": "50",
+              "instruction": "push eax"
+            },
+            {
+              "VA": "0xa3fcb0",
+              "bytes": "8b4df0",
+              "instruction": "mov ecx, dword ptr [ebp - 0x10]"
+            },
+            {
+              "VA": "0xa3fcb3",
+              "bytes": "8b8978020000",
+              "instruction": "mov ecx, dword ptr [ecx + 0x278]"
+            },
+            {
+              "VA": "0xa3fcb9",
+              "bytes": "e83264fcff",
+              "instruction": "call 0xa060f0"
+            }
+          ]
+        }
+      ],
+      "importedNames": [
+        {
+          "va": "0xa3fa37",
+          "line": "call    ds:rand"
+        }
+      ]
+    },
+    {
+      "artifact": "work/engine-slow-pickup-source-r1/native/0xa43560.json",
+      "artifactSha256": "591608eba014bbe515d61b2b811b8c20fa2e01ea6b54d90ea9163293cc2488fe",
+      "claimedBinSha256": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2",
+      "originalBinReverified": false,
+      "chunk": {
+        "VA": "0xa43560",
+        "RVA": "0x643560",
+        "fileOffset": "0x642960",
+        "size": 839,
+        "sha256": "5841695b55f6faa4abda547de6342f2433311d70573ab79724062cb5cef45181"
+      },
+      "excerpts": [
+        {
+          "VA": "0xa4358c",
+          "endVAExclusive": "0xa435a2",
+          "RVA": "0x64358c",
+          "fileOffset": "0x64298c",
+          "sha256": "f1f163dc99f3274de95c0d982413ff93195988aa11154851ee309589bb75c3c5",
+          "instructions": [
+            {
+              "VA": "0xa4358c",
+              "bytes": "8b45fc",
+              "instruction": "mov eax, dword ptr [ebp - 4]"
+            },
+            {
+              "VA": "0xa4358f",
+              "bytes": "8a480c",
+              "instruction": "mov cl, byte ptr [eax + 0xc]"
+            },
+            {
+              "VA": "0xa43592",
+              "bytes": "80c101",
+              "instruction": "add cl, 1"
+            },
+            {
+              "VA": "0xa43595",
+              "bytes": "8b55fc",
+              "instruction": "mov edx, dword ptr [ebp - 4]"
+            },
+            {
+              "VA": "0xa43598",
+              "bytes": "884a0c",
+              "instruction": "mov byte ptr [edx + 0xc], cl"
+            },
+            {
+              "VA": "0xa4359b",
+              "bytes": "8b45fc",
+              "instruction": "mov eax, dword ptr [ebp - 4]"
+            },
+            {
+              "VA": "0xa4359e",
+              "bytes": "0fbe700c",
+              "instruction": "movsx esi, byte ptr [eax + 0xc]"
+            }
+          ]
+        },
+        {
+          "VA": "0xa437d8",
+          "endVAExclusive": "0xa43826",
+          "RVA": "0x6437d8",
+          "fileOffset": "0x642bd8",
+          "sha256": "6293a940f31ce1907b6ec74d9ab2b1703c0552fe74203ffca624aa40e941430d",
+          "instructions": [
+            {
+              "VA": "0xa437d8",
+              "bytes": "8b4dfc",
+              "instruction": "mov ecx, dword ptr [ebp - 4]"
+            },
+            {
+              "VA": "0xa437db",
+              "bytes": "c6410c00",
+              "instruction": "mov byte ptr [ecx + 0xc], 0"
+            },
+            {
+              "VA": "0xa437df",
+              "bytes": "6a01",
+              "instruction": "push 1"
+            },
+            {
+              "VA": "0xa437e1",
+              "bytes": "8b4dfc",
+              "instruction": "mov ecx, dword ptr [ebp - 4]"
+            },
+            {
+              "VA": "0xa437e4",
+              "bytes": "e857b7ffff",
+              "instruction": "call 0xa3ef40"
+            },
+            {
+              "VA": "0xa437e9",
+              "bytes": "8b5508",
+              "instruction": "mov edx, dword ptr [ebp + 8]"
+            },
+            {
+              "VA": "0xa437ec",
+              "bytes": "8902",
+              "instruction": "mov dword ptr [edx], eax"
+            },
+            {
+              "VA": "0xa437ee",
+              "bytes": "8b45fc",
+              "instruction": "mov eax, dword ptr [ebp - 4]"
+            },
+            {
+              "VA": "0xa437f1",
+              "bytes": "0fb68818020000",
+              "instruction": "movzx ecx, byte ptr [eax + 0x218]"
+            },
+            {
+              "VA": "0xa437f8",
+              "bytes": "85c9",
+              "instruction": "test ecx, ecx"
+            },
+            {
+              "VA": "0xa437fa",
+              "bytes": "7426",
+              "instruction": "je 0xa43822"
+            },
+            {
+              "VA": "0xa437fc",
+              "bytes": "8b55fc",
+              "instruction": "mov edx, dword ptr [ebp - 4]"
+            },
+            {
+              "VA": "0xa437ff",
+              "bytes": "0fbeb2c2000000",
+              "instruction": "movsx esi, byte ptr [edx + 0xc2]"
+            },
+            {
+              "VA": "0xa43806",
+              "bytes": "83c602",
+              "instruction": "add esi, 2"
+            },
+            {
+              "VA": "0xa43809",
+              "bytes": "8b4dfc",
+              "instruction": "mov ecx, dword ptr [ebp - 4]"
+            },
+            {
+              "VA": "0xa4380c",
+              "bytes": "e80f9bc2ff",
+              "instruction": "call 0x66d320"
+            },
+            {
+              "VA": "0xa43811",
+              "bytes": "0fbec0",
+              "instruction": "movsx eax, al"
+            },
+            {
+              "VA": "0xa43814",
+              "bytes": "3bf0",
+              "instruction": "cmp esi, eax"
+            },
+            {
+              "VA": "0xa43816",
+              "bytes": "750a",
+              "instruction": "jne 0xa43822"
+            },
+            {
+              "VA": "0xa43818",
+              "bytes": "8b4dfc",
+              "instruction": "mov ecx, dword ptr [ebp - 4]"
+            },
+            {
+              "VA": "0xa4381b",
+              "bytes": "c6811802000000",
+              "instruction": "mov byte ptr [ecx + 0x218], 0"
+            },
+            {
+              "VA": "0xa43822",
+              "bytes": "32c0",
+              "instruction": "xor al, al"
+            },
+            {
+              "VA": "0xa43824",
+              "bytes": "eb7a",
+              "instruction": "jmp 0xa438a0"
+            }
+          ]
+        },
+        {
+          "VA": "0xa4388f",
+          "endVAExclusive": "0xa438a7",
+          "RVA": "0x64388f",
+          "fileOffset": "0x642c8f",
+          "sha256": "d3653b536643f9ce0a9a3a9b2fca7e55942fdcfaf073dd2d5d1e1144f4bdec83",
+          "instructions": [
+            {
+              "VA": "0xa4388f",
+              "bytes": "6a01",
+              "instruction": "push 1"
+            },
+            {
+              "VA": "0xa43891",
+              "bytes": "8b4dfc",
+              "instruction": "mov ecx, dword ptr [ebp - 4]"
+            },
+            {
+              "VA": "0xa43894",
+              "bytes": "e8a7b6ffff",
+              "instruction": "call 0xa3ef40"
+            },
+            {
+              "VA": "0xa43899",
+              "bytes": "8b5508",
+              "instruction": "mov edx, dword ptr [ebp + 8]"
+            },
+            {
+              "VA": "0xa4389c",
+              "bytes": "8902",
+              "instruction": "mov dword ptr [edx], eax"
+            },
+            {
+              "VA": "0xa4389e",
+              "bytes": "b001",
+              "instruction": "mov al, 1"
+            },
+            {
+              "VA": "0xa438a0",
+              "bytes": "5e",
+              "instruction": "pop esi"
+            },
+            {
+              "VA": "0xa438a1",
+              "bytes": "8be5",
+              "instruction": "mov esp, ebp"
+            },
+            {
+              "VA": "0xa438a3",
+              "bytes": "5d",
+              "instruction": "pop ebp"
+            },
+            {
+              "VA": "0xa438a4",
+              "bytes": "c20400",
+              "instruction": "ret 4"
+            }
+          ]
+        }
+      ],
+      "importedNames": []
+    }
+  ],
+  "historicalRandImport": {
+    "dll": "MSVCR110.dll",
+    "name": "rand",
+    "iatVA": "0x114b668"
+  },
+  "sourcePins": [
+    {
+      "root": "client",
+      "path": "TW13081901.txt",
+      "size": 5990880,
+      "sha256": "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8"
+    },
+    {
+      "root": "repo",
+      "path": "work/engine-pickup-asset-source-r1/profile-qualification.json",
+      "size": 26552,
+      "sha256": "dffcfc88bf57ee61ffebec7bee18b7b2b405f8f343feacb185ac46fd050aef04"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-pickup-asset-source-r1/metadata/entry-0.txt",
+      "size": 3675,
+      "sha256": "c0e63870fee5e86ea3ac68ef66b05198672d7a70e0ed1f19bc4a3ad3f4b0c14c"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-pickup-asset-source-r1/metadata/entry-1.txt",
+      "size": 3861,
+      "sha256": "1ee693881e95e7be7b0efc9e59d9d80806abe5ffc4d57bdbebb8ab9182e235d0"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-pickup-asset-source-r1/metadata/entry-37.txt",
+      "size": 3402,
+      "sha256": "b4c6e327d1f977c4a00dcaadb7ecfab4578660e5588105cc9ae52a4a8b466575"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-pickup-asset-source-r1/metadata/entry-48.txt",
+      "size": 4523,
+      "sha256": "5de7c8fbd730817061736ea11c44d35d6b527de7dbe07b3930f407f84a693760"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-pickup-asset-source-r1/metadata/entry-61.txt",
+      "size": 4298,
+      "sha256": "e275f0cc42bc4828f005a954218a78afe51908b20745ab1b4af110ca7dbbd2ce"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-pickup-asset-source-r1/metadata/entry-734.txt",
+      "size": 3614,
+      "sha256": "75df19393fc800700c532c85d4896b5f40d02c097fce55fcd05d8092bc6bbda8"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-pickup-asset-source-r1/metadata/entry-1186.txt",
+      "size": 3487,
+      "sha256": "f903152e27db7596e3956da0d42a478d9dd33f754c85afe94cac7a4a063516ac"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-pickup-asset-source-r1/metadata/entry-2786.txt",
+      "size": 3639,
+      "sha256": "20b04af4d91362e3aa33c7bc401f57e61083b047621c51ebe4aba19e5751069d"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-pickup-asset-source-r1/metadata/entry-2796.txt",
+      "size": 3936,
+      "sha256": "3a9919715c8c9e17edc3f3d7185ea5f277013a3db652b35ac828e3d171967039"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-pickup-asset-source-r1/metadata/entry-6650.txt",
+      "size": 3132,
+      "sha256": "033ce51c44769f9b1d1f1566ea7f3d0d3a32eadf3d92f99a8d939a83af6b905b"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-pickup-asset-source-r1/metadata/entry-6658.txt",
+      "size": 3946,
+      "sha256": "d4fc07b33fd49d382e4d55b38a57884628e2c04f8d3c30fc930b70264d7864a8"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-pickup-asset-source-r1/metadata/entry-6661.txt",
+      "size": 3774,
+      "sha256": "b457ed8f1fd845be1c2da6c4edb6fe719dd73a3edb17c55e8f68c6bb73c9761f"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-pickup-asset-source-r1/metadata/entry-6671.txt",
+      "size": 2993,
+      "sha256": "99acfc8fefc8478072c7975996983e61b15c3a69e5caa4ae895b604d3d2d97ea"
+    },
+    {
+      "root": "client",
+      "path": "Sound/97.wav",
+      "size": 47408,
+      "sha256": "2e8661cc26238e422b3233509ba24ae11b3440d8c1d74666cb5c842e7de6f1a7"
+    },
+    {
+      "root": "client",
+      "path": "Sound/109.wav",
+      "size": 61046,
+      "sha256": "664c8d8b353e2a03cbc337df7a7d36ce009d0213d33064e43779f4c76471b4d1"
+    },
+    {
+      "root": "client",
+      "path": "Sound/127.wav",
+      "size": 84854,
+      "sha256": "6ca44e9ea605d14e6d582a3ca6071b0b0f0d1d395df2f24651fcdb1b2061d364"
+    },
+    {
+      "root": "client",
+      "path": "Sound/246.wav",
+      "size": 14356,
+      "sha256": "0df58a6bc641edbdb283f797c1ed7b416f8d4c20a5d95095f079ebda4773cfcc"
+    },
+    {
+      "root": "client",
+      "path": "Sound/248.wav",
+      "size": 8356,
+      "sha256": "d2696d07692ba610371d301e3027c2153c6075eb8446476ff4fbcd1f1e101bb5"
+    },
+    {
+      "root": "client",
+      "path": "Sound/405.wav",
+      "size": 13640,
+      "sha256": "e65d498bab6bc5a26bebb6c31929b7e4c4291d705c5e8b9ec721993679df2e2f"
+    },
+    {
+      "root": "client",
+      "path": "Sound/701.wav",
+      "size": 17592,
+      "sha256": "6003c0c805fd9dc6b4988be7e31fdd9782f31543ca96955b0816a03698da39f2"
+    },
+    {
+      "root": "client",
+      "path": "Sound/703.wav",
+      "size": 13686,
+      "sha256": "30bac3007049ab0c15a7ccf315445da0a0b9cb990f49a772af0f138b4f127f09"
+    },
+    {
+      "root": "client",
+      "path": "Sound/804.wav",
+      "size": 335476,
+      "sha256": "a1ccf06439dd3fdf721016b85bb08563a07f16e69ce9ad8d18c2ac07e4d36117"
+    },
+    {
+      "root": "client",
+      "path": "Sound/904.wav",
+      "size": 13272,
+      "sha256": "013e31cbeee8c3472ccf881cdafc0e6ae5117805234a58117071a0eae1a85600"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1513.wav",
+      "size": 10932,
+      "sha256": "ae4145e4c94b514e65b91fcfa4487f149fad01e6251e689c8cc276ce6fcafb3a"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1517.wav",
+      "size": 13702,
+      "sha256": "7ecf324c4485fc4c43afe531b0e85d9db85dffaaf8cedef9264534ec8e198945"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1520.wav",
+      "size": 22488,
+      "sha256": "db73647b7fc6a0e4919123201d27df537a65603389a0cc52eef2d87f95150dcc"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1521.wav",
+      "size": 17942,
+      "sha256": "31a44b4544cc7559bbd96fb9c7e397293c8c6a2a425edb337da9add8475a9450"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1522.wav",
+      "size": 12982,
+      "sha256": "085b30d151c203f4fe81629ab2aed3dc170c4b68a0c80bddbde2040cc13b0ad2"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1537.wav",
+      "size": 13278,
+      "sha256": "1921c2d75c763d51a18efec28a9e59ae1799b9f1d91e3954e0a76656be64039c"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1538.wav",
+      "size": 13278,
+      "sha256": "b792497547fdd91fc057575ac37150aa8137cf0aca592f387008dbc6244c7bb6"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1539.wav",
+      "size": 20134,
+      "sha256": "4bdb0af502bff04b83598e1c865365031b960360fe3160cf8a8849b29de8ed4b"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1540.wav",
+      "size": 15616,
+      "sha256": "254955a92b7f9f8688487debeb9193bb2d4401bb5424835e3abd7436c1c071c3"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1541.wav",
+      "size": 23448,
+      "sha256": "6f7153674f59f30fa6836856cb5ba1595a1df449fe4b46704993a5806b11b7c1"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1546.wav",
+      "size": 13278,
+      "sha256": "973829519ec59b59ab1dc78562c3b38bff96954ae99645e8e0911ca40bf860d1"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1547.wav",
+      "size": 13278,
+      "sha256": "f56c71a583b1ec3dca6a0caeb165f6461add48cc7581c142a91ea06d3dd5f5e3"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1560.wav",
+      "size": 13278,
+      "sha256": "e9232162f71a1703edcdbcdfb84d43f03dac6967424448683258a0ae78d94e54"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1561.wav",
+      "size": 13278,
+      "sha256": "90a7fa901924853dce97c761f545f20708566967d4e34bd645f5e4cb88570f2a"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1562.wav",
+      "size": 11454,
+      "sha256": "99abfa6c6b93a3585763fb518272abdce6a6afd17c2ebebe59be045c779c6c7f"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1567.wav",
+      "size": 13268,
+      "sha256": "78e5f3038f974d9e4a8527b31324a1e0cd33ff23d0ed03c031f33d77856a9ae1"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1568.wav",
+      "size": 13268,
+      "sha256": "2068f34cd7e7ee3cb937740bb744f1b6c282586d2999557d5fdb87ba832d818d"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1569.wav",
+      "size": 20702,
+      "sha256": "219b8e3dd0f0cfc4d9fd77be6a062bebe1cbc432c6bfadc6169fd6f157290335"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1574.wav",
+      "size": 13278,
+      "sha256": "b30b32f1ea23070e3803c3c49f410b211958d9e6b801baaeec79e66ade4d5b6e"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1575.wav",
+      "size": 16768,
+      "sha256": "053523a61c462ffd2eb8589e3b2969e882a2e4e1731503b75708b42d6a40df1b"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1580.wav",
+      "size": 13278,
+      "sha256": "e2e760868de230cd778093ae41f9732ebc92517a5fe4704536bad61bff515e49"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1581.wav",
+      "size": 13278,
+      "sha256": "3c10c90cb1ee08584d39c25cd885a287bc9ef9c2e9ecdbe7c7e58e4c080062d0"
+    },
+    {
+      "root": "client",
+      "path": "Sound/1582.wav",
+      "size": 19264,
+      "sha256": "24486b338807cb118bded3a04fda6d6e2d8883e86a755d8f2df62a84f64d3128"
+    },
+    {
+      "root": "repo",
+      "path": "work/engine-pickup-scheduler-source-r1/native-byte-audit.json",
+      "size": 20323,
+      "sha256": "c240da5b9255f4ce7f2ab96ac42df2519cb90c5edd626268cbf2a9d56792e557"
+    },
+    {
+      "root": "repo",
+      "path": "work/engine-pickup-scheduler-source-r1/imports.json",
+      "size": 94169,
+      "sha256": "963a4c0698da528687121cb5f691af4f465467bc60363f2d99bac84585467d8f"
+    },
+    {
+      "root": "repo",
+      "path": "work/engine-pickup-scheduler-source-r1/source-pins.json",
+      "size": 6659,
+      "sha256": "e7c581edbd44cb43a84f2bb4a3409e5f99ffd04abe4d82e604e21aab2036ecd2"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-slow-pickup-source-r1/native/0xa3ef40.json",
+      "size": 108545,
+      "sha256": "b43377adab4fadd67838d8efec44cb97bbe320a672d0e99e03cc0bcdd0ec456f"
+    },
+    {
+      "root": "prior",
+      "path": "work/engine-slow-pickup-source-r1/native/0xa43560.json",
+      "size": 26964,
+      "sha256": "591608eba014bbe515d61b2b811b8c20fa2e01ea6b54d90ea9163293cc2488fe"
+    }
+  ],
+  "limitations": [
+    "完整存取未驗證；未讀正式 BIN、封存、assets junction、機密設定或 REPORT.md",
+    "native 證據為既有 JSON 的 bytes 自洽與歷史 hash 核對，不是本輪原 BIN 重驗",
+    "未播放、未操作程序、未連 DB／服務；零 runtime checks"
+  ]
+}
