@@ -143,3 +143,146 @@ combat 沿用 #51 的測試宿主調整：只將 `assets` 讀取指向原專案 
 4. 更新 `docs/demo/README.md` 的 15 步與截圖；每列 ✅，或 ❌／⚠️ 附 Backlog 原因。依本 Issue 金幣替代條款，替代物品完整丟撿與事件音量仍必須真機 ✅；不得用本輪 9,588 項離線通過代替。新版 TASKS 編號由主控提供後對齊，不沿用舊頁錯配編號。
 
 未驗證：修正後 WinForms／Web 實際點擊與畫面、伺服器當時白名單／配置值、治癒藥水的真機丟撿、所有第 2 輪補測及 M1 驗收。未進行本輪真機截圖或遊戲連線。
+
+## 第 2a 輪：主專案同步與 dev 建置（2026-11-06）
+
+### 做了什麼／已驗證
+
+本輪在主專案 `D:\lineage開發\TW1608262200研究` 完成同步、dev 完整建置與 check-only，提供 dot 第 2b 輪使用。建置與入口檢查均退出 **0**；主程式與 launcher 各 **0 警告、0 錯誤**。check-only 的 `revision: dev`、`uiStarted: false`、`networkStarted: false`、`servicesStarted: false` 均已斷言確認。**第 2a 輪完成不代表 M1 或第 2b 輪完成。**
+
+已讀根目錄 AGENTS.md、docs/REPORT.md、既有 #77 報告與入口實作。初始分支為 `task/81`，`git status --porcelain --untracked-files=no` 無輸出；fetch 後將本機 main 從 `71ebe7eddf2613f20b86b1f009745ccf7c27ea8a` 快轉到下列建置來源：
+
+- HEAD、main 與本輪 fetch 的 origin/main：`0b747de4e230c72906c830be821de322894acbf2`，即 PR #80 合併提交。
+- `git merge-base --is-ancestor 0b747de HEAD` 退出 0。
+- `engine/source/Inventory.cs:32` 宣告 `InventoryContentRevision`；第 99 行僅在指定物品更新 opcode 遞增，已用 Select-String 確認符號存在。
+- dev 原有 lock 核驗 **190 source／199 pins** 通過；未執行 `--update-lock`。
+- receipt 建置時間：`2026-11-05T21:12:21.590569+00:00`（UTC），SDK `10.0.300`。
+- DLL 實檔 SHA-256 與本輪 result／receipt 完全一致；manifest 實檔 SHA-256 與 check-only／receipt 一致。
+
+依本輪具體步驟沿用分支，未使用通用前言的 `checkout -B` 重設分支。原 `task/77` 位於 `scratch/wt/task-77`；先確認該 worktree 追蹤檔乾淨、`task/77` 是 origin/main 祖先，再於該 worktree 執行 `git checkout --detach`，保留原 HEAD `f6d70b649087a79a2f0f84331d691b37340d878d` 與全部檔案。主目錄接著 `git checkout task/77`、`git merge --ff-only origin/main`，均成功。最終主目錄留在 `task/77`，本輪唯一追蹤檔變更是本報告；產品輸入等於上述 main。
+
+### 指令、退出碼與環境處理
+
+| 指令／檢查 | 退出碼／結果 |
+|---|---|
+| `git status --porcelain --untracked-files=no` | 0；同步前與建置後皆無輸出 |
+| `git fetch origin` | 0 |
+| `git checkout main` | 0 |
+| `git merge --ff-only origin/main` | 0；快轉至 PR #80 |
+| `git merge-base --is-ancestor 0b747de HEAD` | 0 |
+| `Select-String -LiteralPath engine/source/Inventory.cs -Pattern InventoryContentRevision` | 命中第 32、99 行 |
+| `python -B -X utf8 engine/_integration/dev/rebuild.py --build --write-receipt --output scratch/issue-77/rebuild-2a` | 0 |
+| sdk／product-restore／product-build／launcher-restore／launcher-build | 各 0 |
+| `engine\啟動新版客戶端.cmd --check-only`（經 `cmd.exe /d /c`） | 0 |
+| check-only 欄位與 receipt／result／實檔雜湊比對 | PASS |
+| `git merge-base --is-ancestor task/77 origin/main` | 0 |
+| `git -C scratch/wt/task-77 checkout --detach` | 0；保留原提交與檔案 |
+| 主目錄 `git checkout task/77`、`git merge --ff-only origin/main` | 各 0 |
+
+一般命令工具在程序建立前發生 `helper_unknown_error: setup refresh had errors`，改用執行器核准的本機模式後成功。`rg` 不在 PATH，改用 `git ls-files` 與 PowerShell 查找。第一次呼叫 `python` 時 PATH 未包含它，建置尚未執行；以 `py -0p` 找到既有 Python 3.12，僅補入本次程序 PATH 後執行指定指令，未安裝工具或更改系統設定。
+
+`NUGET_PACKAGES` 限 `engine/.nuget`；暫存限 `scratch/issue-77`，rebuild 自行將 TEMP／TMP／DOTNET_CLI_HOME／NUGET_SCRATCH 限於 `rebuild-2a` 證據樹。建置前檢查既定產品目錄、launcher、manifest、receipt，沒有 symlink／junction 或多重硬連結；assets 沿用既有唯讀 junction。沒有改產品程式、lock、機密設定或 docs/REPORT.md；沒有 reset、stash、刪檔、啟動遊戲、P24Lab、DB 或正式服務。
+
+### 本輪建置結果 JSON
+
+```json
+{
+  "status": "pass-dev-build",
+  "sourceFiles": 190,
+  "GUI": false,
+  "network": false,
+  "database": false,
+  "productDllSha256": "44eb5843f25833f2da1cdf7081eabeb7b8cd6e27562423e2d06b150ac787d477",
+  "audioDllSha256": "2cdc6e2fc4df4f276ff7cbda04098ee1eea5e0fe2b9307aba5e8315076aa54c5",
+  "productManifestSha256": "2963b5224dbe9f3b95966778839e3f572767e8bd8a326632fdae0a2b751e9cc3",
+  "launcherDllSha256": "d4f30315da7046a0f11a386ff066608baaf63ea17f156da0e5633964bb8725eb"
+}
+```
+
+### 本輪 check-only JSON
+
+以下為實際 JSON 解析後以 UTF-8 重新排版；欄位與值不變。`arguments` 描述產品入口參數，不表示本輪有啟動產品。
+
+```json
+{
+  "status": "checked-only",
+  "revision": "dev",
+  "executable": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\client-product-dev\\P11.ClientEngine.exe",
+  "workingDirectory": "D:\\lineage開發\\TW1608262200研究\\engine",
+  "arguments": [
+    "--normal-product"
+  ],
+  "manifest": "D:\\lineage開發\\TW1608262200研究\\engine\\build\\product-dev-manifest.json",
+  "manifestSha256": "2963b5224dbe9f3b95966778839e3f572767e8bd8a326632fdae0a2b751e9cc3",
+  "hashedRuntimeAndWebFiles": 46,
+  "assetFilesCheckedForPresenceAndSize": 13957,
+  "assetContentVerification": "Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.",
+  "runtime": {
+    "architecture": "x64",
+    "loadedCoreVersion": "10.0.8",
+    "loadedCoreDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\10.0.8\\",
+    "desktopVersion": "10.0.8",
+    "desktopDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.WindowsDesktop.App\\10.0.8"
+  },
+  "webView2Version": "156.0.4314.58",
+  "powerShellRequired": false,
+  "pathLookupUsed": false,
+  "autoLogin": false,
+  "uiStarted": false,
+  "networkStarted": false,
+  "servicesStarted": false
+}
+```
+
+### 本輪檔案身分（SHA-256）
+
+```json
+[
+  {
+    "path": "engine/build/client-product-dev/P11.ClientEngine.dll",
+    "size": 4994560,
+    "sha256": "44eb5843f25833f2da1cdf7081eabeb7b8cd6e27562423e2d06b150ac787d477"
+  },
+  {
+    "path": "engine/_integration/dev/receipt.json",
+    "size": 474,
+    "sha256": "5265090d505c86b4716db2dff8e1bfb67dfc62902126d63131fed170d5b50302"
+  },
+  {
+    "path": "engine/_integration/dev/rebuild-lock.json",
+    "size": 28757,
+    "sha256": "855863f1fc073b1bbc9a9adcc5ddde342e27bedbd04dd9d2715e71f985e9f802"
+  },
+  {
+    "path": "engine/build/product-dev-manifest.json",
+    "size": 7953,
+    "sha256": "2963b5224dbe9f3b95966778839e3f572767e8bd8a326632fdae0a2b751e9cc3"
+  },
+  {
+    "path": "engine/launcher/P24.Launcher.dll",
+    "size": 24064,
+    "sha256": "d4f30315da7046a0f11a386ff066608baaf63ea17f156da0e5633964bb8725eb"
+  }
+]
+```
+
+### 產出路徑
+
+- 唯一提交文件：`docs/reports/issue-77.md`，保留第 1 輪證據並新增本節。
+- 主程式：`engine/build/client-product-dev/P11.ClientEngine.dll`；manifest：`engine/build/product-dev-manifest.json`。
+- 既定啟動器：`engine/launcher/`；receipt：`engine/_integration/dev/receipt.json`。
+- 本機證據：`scratch/issue-77/build-2a.stdout`、`build-2a.stderr`、`build-2a.command.json`；`rebuild-2a/` 下的子命令、stdout／stderr、`result.json`。
+- 入口證據：`scratch/issue-77/check-only-2a.json`、`check-only-2a.stderr`、`check-only-2a.command.json`；雜湊：`identities-2a.json`。
+- 一次性腳本：`scratch/issue-77/build-2a.py`、`check-2a.py`、`report-2a.py`；scratch 與建置產物均不提交，主要證據已內嵌本報告。
+
+### 未驗證什麼／推測界線
+
+未做第 2b 輪任何登入、遊戲畫面、丟撿、近戰／光箭、HP／EXP、卸裝、八方向、聊天或音效真機測試，未新增截圖，也未修改 demo 頁。check-only 只核驗入口環境、46 筆 runtime／web／索引雜湊，以及 13,957 筆素材存在與大小；未逐一核對所有素材內容 hash。未重跑第 1 輪離線測試，未宣稱其結果為本輪新增驗證。無推測性的遊戲功能通過結論。
+
+### 給下一棒的提示（以本輪派工為準）
+
+1. 雲端主控／Claude 審查本報告並完成既定合併流程，再將同一 Issue #77 改 runner 為 **dot**、重排第 2b 輪；本輪不關閉 Issue 或宣告 M1 完成。
+2. dot 使用主專案既有 dev 產物，先比對本節 DLL／receipt 身分；本輪文件提交不改產品輸入，無須為文件重新建置。若另行建置，需記錄新的 receipt 與雜湊。
+3. 金幣丟棄被 125 拒絕列 Backlog，引用本報告第 1 輪 JAR 證據，不改 DB／配置。依派工先試治癒藥水 40010：丟 1／10 後各撿回，0／超額應拒；若同被 125 拒絕，改試肉丟 1 後撿回。每次權威更新後先重新選取。
+4. 依第 2b 輪要求補齊有效目標近戰／光箭（最多 30 次、減血／死亡＋EXP）、受傷後治癒／藥水 HP 差、卸裝、八方向 16 筆 C29、獲放行後聊天，以及攻擊／施法峰值與靜音 = 0。
+5. 更新 `docs/demo/README.md` 各列為 ✅ 或 ❌／⚠️ 加 Backlog 原因。本次 main 的 TASKS.md 查無 T062，故未自行改任務表；第 2b 輪由主控對齊新版 M1 T062、M2 T070–T074、Backlog B01–B11。真機結果由 dot 記錄，不用本輪建置通過代替。
