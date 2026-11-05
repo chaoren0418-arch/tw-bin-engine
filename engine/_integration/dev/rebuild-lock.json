@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 182,
+ "sourceCount": 187,
  "files": [
   {
    "path": "NuGet.Config",
@@ -31,18 +31,18 @@
   },
   {
    "path": "audio/AudioAssets.cs",
-   "size": 3553,
-   "sha256": "a35890d65e2f3cfc7922aafea59f500d333a445d6ce8aaeb50960b031e272bb9"
+   "size": 4897,
+   "sha256": "e695a37f7d3bcc1f90f6da6dfac9af4875361980fea3265326546cffb8a03095"
   },
   {
    "path": "audio/AudioCore.cs",
-   "size": 10244,
-   "sha256": "53d4aa73be42ee674daceb08751c7c494ebf3c257dd1178257a4caaf94e316c4"
+   "size": 10318,
+   "sha256": "c3d5281c252e064321162c8c2676dd6f8ae8b3c6508d6a5d02d9c28d41dd02ed"
   },
   {
    "path": "audio/AudioPlayer.cs",
-   "size": 9556,
-   "sha256": "bad9ab78a2d9a2eeb334d2e8313e6bdcf97406efca730c36676a06ebc33c3745"
+   "size": 9877,
+   "sha256": "b1d87eea120503076a369a2230d7c66a1502dfc58dddfd47dffd892f3e3f3000"
   },
   {
    "path": "audio/DirectShowDriver.cs",
@@ -55,9 +55,19 @@
    "sha256": "174492eaaeeee9dbaf8d29d1ee9e2caa8d3c9a947a4d2f16109dd882f62976ba"
   },
   {
+   "path": "audio/IAudioPlayback.cs",
+   "size": 465,
+   "sha256": "2f55533ba8859ef26b86463f759d29c8cbafa7ba0e5e1e417f13212405f4030b"
+  },
+  {
    "path": "audio/P24.Audio.csproj",
-   "size": 355,
-   "sha256": "30cb249a292c0b9e4df6d592e834896d9cf621cbae9a9d3a31dd3fbbff3d65db"
+   "size": 546,
+   "sha256": "9624c727cfdc17212850ae097067c86a0f85e5cb460f1174c6db97d90b18a4f0"
+  },
+  {
+   "path": "audio/Resources/combat-sfx-pins.json",
+   "size": 9441,
+   "sha256": "78d35293bc8b5a8ad1a74452c485b12fc17f738e1fc759c79ffd027946dee0e8"
   },
   {
    "path": "build-product.ps1",
@@ -116,8 +126,13 @@
   },
   {
    "path": "source/ClientAudioSettings.cs",
-   "size": 1723,
-   "sha256": "7000c30e62f17cc58a1be9318cf53d8b793d8899d64016713114b5c709995bf7"
+   "size": 1739,
+   "sha256": "57875a68aaabbd6c50b6087dffc76329d44003b0d35a5c68db48b09804e161b0"
+  },
+  {
+   "path": "source/ClientCombatSfx.cs",
+   "size": 2626,
+   "sha256": "dfd1a65c9bc579d6ab7759e078466d8f28ce630966992c26af834b00bf3fc1ff"
   },
   {
    "path": "source/ClientEffect6016.cs",
@@ -136,13 +151,23 @@
   },
   {
    "path": "source/Combat.cs",
-   "size": 12231,
-   "sha256": "e5ff8fc5da264568e0250050a226563e67a6fe21a7e525a0c695913b409167e0"
+   "size": 12344,
+   "sha256": "1d30a374608f16163171c8a489393e80696b8d6632e20b9fe029044e30f218e2"
   },
   {
    "path": "source/CombatRegression.cs",
    "size": 8083,
    "sha256": "70e8f14db6bd3adfc6f92701e7a397a26ef38bc5985a9d84a8eb5e55e39cb554"
+  },
+  {
+   "path": "source/CombatSfx.cs",
+   "size": 8329,
+   "sha256": "04bb9e986f9ca48ca345faad098b02581184086e45ce9771a8bde60c538553d4"
+  },
+  {
+   "path": "source/CombatSfxScene.cs",
+   "size": 5965,
+   "sha256": "8aa03513a57fdf7a65c10e8117c34a275f929551a22849fa6cf032801767893a"
   },
   {
    "path": "source/CombatTests.cs",
@@ -306,8 +331,8 @@
   },
   {
    "path": "source/Magic.cs",
-   "size": 11027,
-   "sha256": "a5a3497d12ab516b30b705ba827cff3a9679976db1692f7ab137719c46426e58"
+   "size": 11305,
+   "sha256": "0537fb469b12ece28b30aec28faf9461d2f13e5687d1c7e7cdf7dce782743ebd"
   },
   {
    "path": "source/MagicIntegration.cs",
@@ -426,8 +451,8 @@
   },
   {
    "path": "source/ObjectAssets.cs",
-   "size": 7169,
-   "sha256": "b09a5849e71b2c282561df96f628f4bd5cca5e5ecb02ad8d61b06cf24e12cd3d"
+   "size": 7254,
+   "sha256": "50f875d2d295d7bc7a179b2bda3ee740e84d2c1c44c2bda0d3d1ffa96045b21a"
   },
   {
    "path": "source/ObjectPresence.cs",
@@ -621,8 +646,8 @@
   },
   {
    "path": "source/Program.cs",
-   "size": 25045,
-   "sha256": "f055f64ddc4d05b8ca75571690769839ea12fc3f15261057dda858b8eeffbee8"
+   "size": 25077,
+   "sha256": "15ae3b55f67e39e47afe64a388695903c2b3f578f8f390cecead2fab6217696c"
   },
   {
    "path": "source/ProjectileRendering.cs",
@@ -761,8 +786,8 @@
   },
   {
    "path": "source/WebPanel.cs",
-   "size": 19383,
-   "sha256": "0eaa1f5ef53b3834070b7cde37351efae2c3d54cbe7cace30379d55728f9ca4e"
+   "size": 19443,
+   "sha256": "cec433daf5daafa485eb612f3bffca16bf2334a1f6be0dd19bec71afaa0e6467"
   },
   {
    "path": "source/WebTests.cs",
@@ -796,8 +821,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9172,
-   "sha256": "e83cc40f5aa17190f841d69956870d104bc41638e9645bf7c308131a35533696"
+   "size": 9257,
+   "sha256": "92bf845b68138cdcb1d85e675cd7697579815cea83d173a97ca913cc7f9baf0a"
   },
   {
    "path": "source/WorldTests.cs",

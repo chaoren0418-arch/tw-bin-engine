@@ -2,8 +2,8 @@ using System.Collections.Concurrent;
 
 namespace P24.Audio;
 
-/// <summary>Two-ID transport with self-owned gain/mute policy; no original Miles distance/pan equivalence.</summary>
-public sealed class AudioPlayer : IAsyncDisposable
+/// <summary>受 pin catalog 約束的播放層，套用產品音量與靜音政策。</summary>
+public sealed class AudioPlayer : IAsyncDisposable, IAudioPlayback
 {
     readonly AudioCore core;
     readonly BlockingCollection<Action> queue = new();
@@ -44,6 +44,11 @@ public sealed class AudioPlayer : IAsyncDisposable
         { error = ex.Message; return false; }
     }
     internal static AudioPlayer ForTests(AudioCore core) => new(core);
+    public static AudioPlayer CreateCombat(string clientRoot, int capacity = 32)
+    {
+        if (capacity is < 1 or > 1024) throw new ArgumentOutOfRangeException(nameof(capacity));
+        return new(new AudioCore(AudioAssets.LoadCombat(clientRoot), new DirectShowDriver(() => new WindowsPlaybackGraph()), capacity));
+    }
     Task<AudioReply> Enqueue(Func<AudioReply> action)
     {
         lock (gate)

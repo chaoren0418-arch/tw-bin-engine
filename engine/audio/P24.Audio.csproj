@@ -5,4 +5,8 @@
     <Deterministic>true</Deterministic>
     <PathMap Condition="'$(Configuration)' == 'Release'">$(MSBuildProjectDirectory)=/_/p24/audio</PathMap>
   </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/combat-sfx-pins.json" LogicalName="P24.Audio.CombatSfxPins.json" />
+    <InternalsVisibleTo Include="CombatSfxChecks" />
+  </ItemGroup>
 </Project>

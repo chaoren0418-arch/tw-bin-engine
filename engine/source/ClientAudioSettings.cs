@@ -6,7 +6,7 @@ public sealed partial class ClientForm {
     PlayerAudioState AudioSettingsWeb()=>audioSettings.Snapshot(login.World.Effects6016,webClosing||Disposing||IsDisposed);
     void SetAudioSettings(double gain,bool muted){
         if(!audioSettings.Change(gain,muted,AudioSettingsWeb().editable))return;
-        Apply6016Controls();SyncAudioViews();PublishWebState();
+        Apply6016Controls();PumpCombatSfx();SyncAudioViews();PublishWebState();
     }
     void SyncAudioViews(){
         audioSettings.Render(login.World.Effects6016,webClosing||Disposing||IsDisposed,state=>{

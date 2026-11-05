@@ -71,14 +71,15 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
     internal AudioReply Play(int soundId, AudioOwner owner, Func<bool>? stillAllowed = null)
     {
         if (Closing) return Reply(false, "Disposed");
-        if (soundId is not (3332 or 1340)) return Reply(false, "IdNotAllowed"); // full int; never narrowed to byte
+        if (!assets.Allows(soundId)) return Reply(false, "IdNotAllowed"); // full int; never narrowed to byte
         if (!Current(owner)) return Reply(false, "StaleOrUnknownOwner");
         if (!controls.CanDispatch || stillAllowed?.Invoke() == false) return Reply(false, "DispatchSuppressed");
         if (controlsFault) return Reply(false, "ControlsFailed");
         if (voices.Count >= capacity) return Reply(false, "VoiceCapacityReached"); // no stealing/restart/coalescing
         if (voices.Values.Any(v => v.Closing)) return Reply(false, "CleanupPending");
         var events = new List<AudioEvent>();
-        foreach (string ext in new[] { "mp3", "wav" })
+        string[] formats = assets.Formats(soundId);
+        foreach (string ext in formats)
         {
             if (stillAllowed?.Invoke() == false) return Reply(false, "DispatchSuppressed", events);
             var acquired = assets.Acquire(soundId, ext);
@@ -116,7 +117,7 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
             if (played.Ok)
             {
                 events.Add(new("PlaySubmitted", ext, "Native command accepted; not proof of audible output"));
-                return Reply(true, ext == "wav" ? "StartedWavFallback" : "StartedMp3", events, id);
+                return Reply(true, ext == "wav" ? (formats.Contains("mp3") ? "StartedWavFallback" : "StartedWav") : "StartedMp3", events, id);
             }
             events.Add(Native(played.InvalidFile ? "DecodeFormatFailed" : "PlayFailed", ext, played));
             Release(voice, events);

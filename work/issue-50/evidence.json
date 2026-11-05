@@ -1,0 +1,345 @@
+{
+    "schema":  "issue-50-offline-results-v1",
+    "status":  "pass-offline",
+    "nativeListening":  "pending-issue-52",
+    "policy":  "產品政策，推測，待 #52 真機聽音核對",
+    "sourceCommit":  "7cffcd245efe5f46105220b888c4cbe77ad48876",
+    "sourceEvidenceSha256":  "64691858b688ec1f0e5b5589e5d0301fe66bf5699fc647f43dfd48568bb1c57b",
+    "sourceTxtSha256":  "28c4fc600833fb8c609ab195a67ff926e8ffa571100d8d4b389a23be8c2c8db8",
+    "pinsManifestSha256":  "78d35293bc8b5a8ad1a74452c485b12fc17f738e1fc759c79ffd027946dee0e8",
+    "devLockSha256":  "72975be74546266c4ff5939934244df7b39f24f5ffff7c689bc73c71bde0bb3e",
+    "build":  {
+                  "status":  "pass-dev-build",
+                  "sourceFiles":  187,
+                  "GUI":  false,
+                  "network":  false,
+                  "database":  false,
+                  "productDllSha256":  "d6c2884c83e7d5a9f08a74e658391e3c1654492d9de059905432f224689e7121",
+                  "audioDllSha256":  "ca64c3b8638330fcf50be43dd0318f8607691584af5fb1ee5179b9e9b09ae309",
+                  "productManifestSha256":  "d24a541f9213fe65349f16e5d18439bc5bc451236ccdd27bd31b8eb725805aaa",
+                  "launcherDllSha256":  "34c6aa28bcfa0206f9464ae88cb649288552a07f9e3d7f1310f24f860f3479c2"
+              },
+    "verify":  {
+                   "status":  "pass-dev-verify",
+                   "sourceFiles":  187,
+                   "GUI":  false,
+                   "network":  false,
+                   "database":  false,
+                   "productDllSha256":  "d6c2884c83e7d5a9f08a74e658391e3c1654492d9de059905432f224689e7121",
+                   "audioDllSha256":  "ca64c3b8638330fcf50be43dd0318f8607691584af5fb1ee5179b9e9b09ae309",
+                   "productManifestSha256":  "d24a541f9213fe65349f16e5d18439bc5bc451236ccdd27bd31b8eb725805aaa",
+                   "launcherDllSha256":  "34c6aa28bcfa0206f9464ae88cb649288552a07f9e3d7f1310f24f860f3479c2"
+               },
+    "combat":  {
+                   "status":  "pass",
+                   "checks":  8780,
+                   "cases":  [
+                                 {
+                                     "name":  "issue47-all-62-melee-actions-and-four-skills",
+                                     "checks":  8669,
+                                     "status":  "pass"
+                                 },
+                                 {
+                                     "name":  "seed-and-action-cadence",
+                                     "checks":  28,
+                                     "status":  "pass"
+                                 },
+                                 {
+                                     "name":  "authority-melee-appearance-flight-owner-cancellation",
+                                     "checks":  15,
+                                     "status":  "pass"
+                                 },
+                                 {
+                                     "name":  "controller-dedup-cancel-and-delayed-register",
+                                     "checks":  10,
+                                     "status":  "pass"
+                                 },
+                                 {
+                                     "name":  "authoritative-death-map-and-local-disconnect-events",
+                                     "checks":  3,
+                                     "status":  "pass"
+                                 },
+                                 {
+                                     "name":  "33-wav-pins-controls-missing-integrity-cleanup-and-6016-fallback",
+                                     "checks":  47,
+                                     "status":  "pass"
+                                 },
+                                 {
+                                     "name":  "audio-player-owner-and-mute-fence",
+                                     "checks":  8,
+                                     "status":  "pass"
+                                 }
+                             ],
+                   "productSha256":  "d6c2884c83e7d5a9f08a74e658391e3c1654492d9de059905432f224689e7121",
+                   "scope":  "已驗證（離線），真實 metadata/WAV 唯讀驗證，managed fake driver 無實際播放，待 #52 真機聽音"
+               },
+    "effect6016":  {
+                       "status":  "pass",
+                       "cases":  18,
+                       "assertions":  56,
+                       "details":  [
+                                       {
+                                           "name":  "original-ordinal-before-filter-and-retained-reference",
+                                           "checks":  5,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "retire-before-new-register-and-old-lifetime-fence",
+                                           "checks":  5,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "late-register-marshals-to-lane-and-same-step-only",
+                                           "checks":  4,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "stale-register-after-time-boundary-without-next-pump",
+                                           "checks":  1,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "late-register-after-clear-and-reload",
+                                           "checks":  2,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "mute-unmute-and-missing-consume-no-backfill",
+                                           "checks":  3,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "configure-register-play-failures-observed-without-retry",
+                                           "checks":  4,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "invalid-gain-and-off-lane-rejected",
+                                           "checks":  2,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "bounded-shutdown-keeps-late-reply-observable",
+                                           "checks":  4,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "real-cache-original-record-and-renderer-phase",
+                                           "checks":  5,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "real-map-commit-rejects-stale-load-before-register",
+                                           "checks":  3,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "real-reset-opacity-and-map-packet-clear",
+                                           "checks":  2,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "real-eviction-fence-before-load-and-failed-shift-clear",
+                                           "checks":  2,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "candidate-no-native-transport-loaded",
+                                           "checks":  1,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "configure-completion-order-and-unavailable-event-consumption",
+                                           "checks":  4,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "retire-cleanup-failure-and-synchronous-play-throw-observed",
+                                           "checks":  3,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "other-effect-clock-unchanged-and-long-stall-no-replay-backlog",
+                                           "checks":  3,
+                                           "status":  "pass"
+                                       },
+                                       {
+                                           "name":  "accepted-r3-default-factory-bound-without-creating-player",
+                                           "checks":  3,
+                                           "status":  "pass"
+                                       }
+                                   ],
+                       "productDllSha256":  "d6c2884c83e7d5a9f08a74e658391e3c1654492d9de059905432f224689e7121",
+                       "gui":  false,
+                       "com":  false,
+                       "audioPlayback":  false,
+                       "sockets":  false,
+                       "services":  false,
+                       "database":  false,
+                       "scope":  "Actual isolated product DLL with explicit fake IEffectAudio; real map parser/lifecycle calls; no native acceptance"
+                   },
+    "clientLifecycle":  {
+                            "status":  "pass",
+                            "cases":  4,
+                            "assertions":  21,
+                            "details":  [
+                                            {
+                                                "name":  "F1-close-await-cannot-recreate-host",
+                                                "assertions":  5,
+                                                "status":  "pass"
+                                            },
+                                            {
+                                                "name":  "F1-dispose-guard-and-normal-relogin-positive",
+                                                "assertions":  4,
+                                                "status":  "pass"
+                                            },
+                                            {
+                                                "name":  "F2-unrenderable-before-register-completion-zero-play",
+                                                "assertions":  6,
+                                                "status":  "pass"
+                                            },
+                                            {
+                                                "name":  "F2-normal-register-positive",
+                                                "assertions":  6,
+                                                "status":  "pass"
+                                            }
+                                        ],
+                            "productDllSha256":  "d6c2884c83e7d5a9f08a74e658391e3c1654492d9de059905432f224689e7121",
+                            "scope":  "Actual product host/controller + verbatim client methods with explicit fake UI/world/transport; no Form/COM/audio/network/service/DB"
+                        },
+    "audioSettings":  {
+                          "status":  "pass",
+                          "cases":  7,
+                          "assertions":  39,
+                          "details":  [
+                                          {
+                                              "name":  "strict-command-schema-and-value-rejection",
+                                              "assertions":  16,
+                                              "status":  "pass"
+                                          },
+                                          {
+                                              "name":  "web-to-native-immediate-gate-and-no-recursive-events",
+                                              "assertions":  5,
+                                              "status":  "pass"
+                                          },
+                                          {
+                                              "name":  "native-to-web-same-model-and-async-signature",
+                                              "assertions":  4,
+                                              "status":  "pass"
+                                          },
+                                          {
+                                              "name":  "failed-and-out-of-order-replies-do-not-falsely-apply",
+                                              "assertions":  4,
+                                              "status":  "pass"
+                                          },
+                                          {
+                                              "name":  "closed-or-closing-host-panel-cannot-revive-and-relogin-preserves-preference",
+                                              "assertions":  3,
+                                              "status":  "pass"
+                                          },
+                                          {
+                                              "name":  "unavailable-and-render-exception-restores-guard",
+                                              "assertions":  2,
+                                              "status":  "pass"
+                                          },
+                                          {
+                                              "name":  "exact-request-acknowledgements-and-noop-without-state-change",
+                                              "assertions":  5,
+                                              "status":  "pass"
+                                          }
+                                      ],
+                          "productDllSha256":  "d6c2884c83e7d5a9f08a74e658391e3c1654492d9de059905432f224689e7121",
+                          "scope":  "Actual product model/parser/host and verbatim client methods with managed control/bridge/world fakes; no GUI/COM/playback"
+                      },
+    "webControls":  {
+                        "status":  "pass",
+                        "checks":  35,
+                        "sourceSha256":  "7cda1eedc10db448323ef9db3ba9c28cf7ffb7e2d38cc38487904f8d9bf5b4ab",
+                        "snippetSha256":  "8691398b5064eae3642849a6dc7d4608cf5ce516845d3e7bf970b08a3655402c",
+                        "scope":  "Actual panel.js audio functions evaluated in Node VM with explicit DOM/bridge fakes; no browser/GUI"
+                    },
+    "packetTrace":  {
+                        "status":  "pass",
+                        "assertions":  36,
+                        "cases":  [
+                                      {
+                                          "name":  "unset-no-file",
+                                          "assertions":  2,
+                                          "status":  "pass"
+                                      },
+                                      {
+                                          "name":  "metadata-only-out-in-and-secret",
+                                          "assertions":  15,
+                                          "status":  "pass"
+                                      },
+                                      {
+                                          "name":  "outside-traversal-prefix-and-invalid-paths",
+                                          "assertions":  1,
+                                          "status":  "pass"
+                                      },
+                                      {
+                                          "name":  "existing-file-and-io-failure-disable-silently",
+                                          "assertions":  2,
+                                          "status":  "pass"
+                                      },
+                                      {
+                                          "name":  "junction-outside-scratch-rejected",
+                                          "assertions":  2,
+                                          "status":  "pass"
+                                      },
+                                      {
+                                          "name":  "concurrent-records",
+                                          "assertions":  2,
+                                          "status":  "pass"
+                                      },
+                                      {
+                                          "name":  "process-exit-flush-and-product-root-resolution",
+                                          "assertions":  12,
+                                          "status":  "pass"
+                                      }
+                                  ],
+                        "gameStarted":  false,
+                        "network":  false
+                    },
+    "pathRegressions":  {
+                            "dev":  {
+                                        "tests":  7,
+                                        "status":  "pass"
+                                    },
+                            "r35":  {
+                                        "tests":  4,
+                                        "status":  "pass"
+                                    }
+                        },
+    "baselineHarnessAdaptations":  [
+                                       "scratch 副本依目前 ClientEffect6016.cs 與 ClientAudioSettings.cs 重產 method excerpt",
+                                       "HostChecks 的 DLL 路徑與 expected SHA 改為本次 dev 產物，manifest 指向唯讀 engine/assets",
+                                       "AudioSettings excerpt 以明示空接點隔離 PumpCombatSfx，combat 另由8780項回歸驗證"
+                                   ],
+    "runtime":  {
+                    "gameStarted":  false,
+                    "audioPlayback":  false,
+                    "network":  false,
+                    "database":  false
+                },
+    "limitations":  [
+                        "原生語義 unknown",
+                        "實際 DirectShow 裝置可聽結果待 #52",
+                        "跨機器乾淨建置待驗",
+                        "PR #65 CI 受 #62 帳務／spending limit 阻塞，runner_id=0、steps=[]"
+                    ],
+    "ci":  {
+               "pr":  65,
+               "runId":  42016590980,
+               "jobId":  127208539949,
+               "headCommit":  "9bb181547b67c3b6681129ec86b95d8fafd3d62a",
+               "conclusion":  "failure",
+               "runnerId":  0,
+               "runnerName":  "",
+               "steps":  [
+
+                         ],
+               "annotation":  "The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the Billing \u0026 plans section in your settings",
+               "handoff":  "調度器／Claude 接續 #62"
+           }
+}

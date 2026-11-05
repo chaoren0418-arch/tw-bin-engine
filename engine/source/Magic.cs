@@ -1,7 +1,7 @@
 using System.Buffers.Binary;
 namespace P06;
 public sealed record LearnedMagic(int Id,string Name,bool Supported,string Target,int NominalMp);
-public sealed record MagicEffect(long Number,uint Caster,uint Target,int Gfx,int Action,ushort DamageWord,int Heading,ushort SourceX,ushort SourceY,ushort TargetX,ushort TargetY,long At,uint ServerSequence=0,ushort CasterGfx=0){public ActionCadence? Timing{get;init;}public long? ActionAt{get;init;}}
+public sealed record MagicEffect(long Number,uint Caster,uint Target,int Gfx,int Action,ushort DamageWord,int Heading,ushort SourceX,ushort SourceY,ushort TargetX,ushort TargetY,long At,uint ServerSequence=0,ushort CasterGfx=0){public ActionCadence? Timing{get;init;}public long? ActionAt{get;init;}public int? CasterWeapon{get;init;}}
 public static class MagicRules {
     public static LearnedMagic Describe(int id)=>MagicSpells.Get(id) is { } s?new(id,s.Name,true,s.Target=="none"?"自己":s.Target=="attack"?"指定敵人":"自己／指定對象",s.Mp):new(id,$"原服技能 {id}",false,"尚未支援",0);
     // Original spr_action gfx0 rows18/19, SprTable: framecount*40*24/framerate.
@@ -30,7 +30,11 @@ public sealed partial class WorldSession {
     public bool SelectMagic(int? id){if(id!=null&&!learnedMagic.Contains(id.Value))return false;SelectedMagicId=id;MagicSelectionRevision++;MagicRevision++;return true;}
     void ResetMagic(){learnedMagic.Clear();magicEffects.Clear();magicBuffs.Clear();PartialAcByte=null;SelectedMagicId=null;MagicTargetSelf=true;MagicListReceived=false;MagicEffectCount=0;MagicRevision++;MagicSelectionRevision++;MagicNotice="等待原服已學技能清單";}
     void ClearMagicEffects(){magicEffects.Clear();MagicSelectionRevision++;}
-    void AddMagicEffect(MagicEffect e){magicEffects.Add(e);magicEffects.RemoveAll(x=>e.At-x.At>15000);MagicRevision++;}
+    void AddMagicEffect(MagicEffect e){
+        var caster=Objects.FirstOrDefault(o=>o.ObjectId==e.Caster);
+        e=e with{CasterGfx=Actor?.ObjectId==e.Caster?Actor.Gfx:caster?.Gfx??e.CasterGfx,CasterWeapon=Actor?.ObjectId==e.Caster?Actor.Weapon:caster?.Action};
+        magicEffects.Add(e);magicEffects.RemoveAll(x=>e.At-x.At>15000);MagicRevision++;
+    }
     bool ReceiveMagic(byte opcode,LoginReader r,byte[] plain){
         if(ReceiveMagicStatus(opcode,r,plain))return true;
         if(opcode is 164 or 160){
