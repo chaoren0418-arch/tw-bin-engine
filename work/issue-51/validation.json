@@ -1,0 +1,81 @@
+{
+  "status": "pass",
+  "build": {
+    "status": "pass-dev-build",
+    "sourceFiles": 185,
+    "GUI": false,
+    "network": false,
+    "database": false,
+    "productDllSha256": "ffdf4d913640979684c7bb88eb48092923a1ec20b1fdefc1348b368d1221c47a",
+    "audioDllSha256": "200d6702b01d6f6c5634190fb053db096f35826cf769737e469ef6e904364ee8",
+    "productManifestSha256": "b27dd087319f7293a459a968adc306033bd7396286a5350ba75f4b507ce8d81f",
+    "launcherDllSha256": "7baf68e116bbf624fabb5df92e79c65545181d2f219589a211a930821754cad7"
+  },
+  "groundAssertions": 309,
+  "web": {
+    "status": "pass",
+    "checks": 38,
+    "scope": "實際 panel.js＋明示 DOM 替身；無瀏覽器／遊戲／網路；宿主拒絕舊快照由 GroundChecks 驗證"
+  },
+  "legacy": [
+    {
+      "mode": "candidate",
+      "status": "pass",
+      "checks": 252,
+      "passed": 252,
+      "productSha256": "ffdf4d913640979684c7bb88eb48092923a1ec20b1fdefc1348b368d1221c47a"
+    },
+    {
+      "mode": "extra",
+      "status": "pass",
+      "checks": 87,
+      "passed": 87,
+      "productSha256": "ffdf4d913640979684c7bb88eb48092923a1ec20b1fdefc1348b368d1221c47a"
+    }
+  ],
+  "legacySourceSha256": "f3ac34a5b40a9d50ecc55cca6bc57163b2e21f7d32e3ba591f97a19b631beb84",
+  "packetTrace": {
+    "status": "pass",
+    "assertions": 36,
+    "cases": [
+      {
+        "name": "unset-no-file",
+        "assertions": 2,
+        "status": "pass"
+      },
+      {
+        "name": "metadata-only-out-in-and-secret",
+        "assertions": 15,
+        "status": "pass"
+      },
+      {
+        "name": "outside-traversal-prefix-and-invalid-paths",
+        "assertions": 1,
+        "status": "pass"
+      },
+      {
+        "name": "existing-file-and-io-failure-disable-silently",
+        "assertions": 2,
+        "status": "pass"
+      },
+      {
+        "name": "junction-outside-scratch-rejected",
+        "assertions": 2,
+        "status": "pass"
+      },
+      {
+        "name": "concurrent-records",
+        "assertions": 2,
+        "status": "pass"
+      },
+      {
+        "name": "process-exit-flush-and-product-root-resolution",
+        "assertions": 12,
+        "status": "pass"
+      }
+    ],
+    "gameStarted": false,
+    "network": false
+  },
+  "totalAssertions": 722
+}

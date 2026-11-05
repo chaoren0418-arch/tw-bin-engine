@@ -1,11 +1,11 @@
 using System.Buffers.Binary;
 namespace P06;
-// S87 has no item template/type discriminator. Only the source-verified meat envelope is supported.
+// S87 has no item template/type discriminator. Only catalog envelopes with template and sprite evidence are supported.
 public sealed record GroundItem(uint ObjectId,ushort X,ushort Y,ushort Gfx,uint Count,string Name,WorldObject Envelope);
 public static class GroundRules {
     public static byte PickupHeading(ushort x,ushort y,ushort tx,ushort ty,byte old){float dx=Math.Abs(x-tx),dy=Math.Abs(y-ty),distance=Math.Max(dx,dy);if(distance==0)return old;int ax=(int)Math.Floor(dx/distance+0.59f),ay=(int)Math.Floor(dy/distance+0.59f);int sx=ax==0?0:Math.Sign(tx-x),sy=ay==0?0:Math.Sign(ty-y);return (byte)Enumerable.Range(0,8).Single(i=>MovementRules.Dx[i]==sx&&MovementRules.Dy[i]==sy);}
-    public static bool Droppable(InventoryItem i)=>i.SupportedArrow||(i.DescriptionId==10&&i.IconId==124&&i.UseType==38&&i.Charges==0&&i.Bless<128&&(i.Flags&32)==0&&(i.Name=="$23"||i.Name=="$23 ("+i.Count+")"));
-    public static bool IsGround(WorldObject o){string? name=o.Gfx switch{36=>"$23",66=>"$61",_=>null};return name!=null&&o.Action==0&&o.Direction==0&&o.Light==0&&o.Speed==0&&o.WireExp<=2000000000&&o.Lawful==0&&o.Name==(o.WireExp>1?name+" ("+o.WireExp+")":name)&&o.Title==""&&o.Flags==0&&o.ClanId==0&&o.Clan==""&&o.Owner==""&&o.Rank==0&&o.HpByte==255&&o.Brave==0&&o.Level==0&&o.Unknown==0&&o.Tail1==255&&o.Tail2==255;}
+    public static bool Droppable(InventoryItem i)=>GroundCatalog.CanDrop(i);
+    public static bool IsGround(WorldObject o){var row=GroundCatalog.Find(o.Gfx);return row!=null&&o.ObjectId!=0&&o.Action==0&&o.Direction==0&&o.Light==0&&o.Speed==0&&o.WireExp<=2000000000&&(row.Stackable||o.WireExp<=1)&&o.Lawful==0&&o.Name==row.CountName(o.WireExp)&&o.Title==""&&o.Flags==0&&o.ClanId==0&&o.Clan==""&&o.Owner==""&&o.Rank==0&&o.HpByte==255&&o.Brave==0&&o.Level==0&&o.Unknown==0&&o.Tail1==255&&o.Tail2==255;}
     public static byte[] Request(byte opcode,ushort x,ushort y,uint id,uint count){
         if(opcode is not (25 or 112)||id==0||count==0||count>int.MaxValue)throw new ArgumentOutOfRangeException(nameof(count));
         byte[] b=new byte[16];b[0]=opcode;BinaryPrimitives.WriteUInt16LittleEndian(b.AsSpan(1),x);BinaryPrimitives.WriteUInt16LittleEndian(b.AsSpan(3),y);BinaryPrimitives.WriteUInt32LittleEndian(b.AsSpan(5),id);BinaryPrimitives.WriteUInt32LittleEndian(b.AsSpan(9),count);return b;
@@ -62,17 +62,17 @@ public sealed partial class LoginConnection {
     async Task<bool> SendGround(bool pickup,uint count,Func<bool>? pointerCurrent=null){
         if(pointerCurrent?.Invoke()==false)return false;
         var item=World.SelectedItem;var g=World.SelectedGround;var actor=World.Actor;
-        bool ValidItem()=>pickup?g!=null&&World.SelectedGround==g&&World.SelectedGroundId==g.ObjectId&&count<=g.Count:item!=null&&GroundRules.Droppable(item)&&World.SelectedItem==item&&World.SelectedItemId==item.ObjectId&&count<=item.Count;
+        bool ValidItem()=>pickup?g!=null&&World.SelectedGround==g&&World.SelectedGroundId==g.ObjectId&&count<=g.Count:item!=null&&World.CanDropGroundItem(item)&&World.SelectedItem==item&&World.SelectedItemId==item.ObjectId&&count<=item.Count;
         if(!GroundAvailable||MovementBusy||sendMovementGate==null||count==0||count>int.MaxValue||!ValidItem()){World.GroundNotice=SlowActionsBlocked?SlowActionNotice:"未送出：選取／數量不符、此物品不可丟棄或忙碌";return false;}
         if(pickup&&Math.Max(Math.Abs(actor!.X-g!.X),Math.Abs(actor.Y-g.Y))>3){World.GroundNotice="未送出：距離超過 3 格，請自行靠近";return false;}
-        int epoch=generation,we=World.WorldEpoch,input=inputVersion,speedRevision=World.SpeedRevision,selection=pickup?World.GroundSelectionRevision:World.ItemSelectionRevision,lease=++groundLease,correction=World.Corrections,appearance=World.AppearanceRevision;
+        int epoch=generation,we=World.WorldEpoch,input=inputVersion,speedRevision=World.SpeedRevision,selection=pickup?World.GroundSelectionRevision:World.ItemSelectionRevision,contentRevision=pickup?World.GroundRevision:World.InventoryRevision,lease=++groundLease,correction=World.Corrections,appearance=World.AppearanceRevision;
         var sender=sendMovementGate;byte[] bytes=GroundRules.Request(pickup?(byte)112:(byte)25,pickup?g!.X:actor!.X,pickup?g!.Y:actor!.Y,pickup?g!.ObjectId:item!.ObjectId,count);groundSending=true;
         // Replies may change selection, counts, speed or appearance before send completion.
         // Only operation ownership remains a completion requirement after admission.
         bool CurrentOwner()=>epoch==generation&&we==World.WorldEpoch&&World.Actor?.ObjectId==actor!.ObjectId&&lease==groundLease;
         bool OtherActionsReady()=>!movementSending&&!combatSending&&!magicSending&&!ItemBusy&&!CombatBusy&&!MagicBusy&&!World.AwaitingPickupAction&&Environment.TickCount64>=MovementReadyAt&&Environment.TickCount64>=nextGroundAt;
         try{
-            bool sent=await sender(bytes,()=>CurrentOwner()&&(pointerCurrent?.Invoke()??true)&&input==inputVersion&&speedRevision==World.SpeedRevision&&selection==(pickup?World.GroundSelectionRevision:World.ItemSelectionRevision)&&correction==World.Corrections&&appearance==World.AppearanceRevision&&GroundAvailable&&ValidItem()&&World.Actor?.X==actor!.X&&World.Actor.Y==actor.Y&&World.Actor.Gfx==actor.Gfx&&World.Actor.Weapon==actor.Weapon&&OtherActionsReady(),()=>{nextGroundAt=Environment.TickCount64+GroundClickGuardMs;if(pickup)World.TrackPickupRequest(g!);World.GroundNotice=(pickup?"單次拾取":"手動丟棄")+"已送出；等待原服地面與背包回報";Set(State,World.GroundNotice);});
+            bool sent=await sender(bytes,()=>CurrentOwner()&&(pointerCurrent?.Invoke()??true)&&input==inputVersion&&speedRevision==World.SpeedRevision&&selection==(pickup?World.GroundSelectionRevision:World.ItemSelectionRevision)&&contentRevision==(pickup?World.GroundRevision:World.InventoryRevision)&&correction==World.Corrections&&appearance==World.AppearanceRevision&&GroundAvailable&&ValidItem()&&World.Actor?.X==actor!.X&&World.Actor.Y==actor.Y&&World.Actor.Gfx==actor.Gfx&&World.Actor.Weapon==actor.Weapon&&OtherActionsReady(),()=>{nextGroundAt=Environment.TickCount64+GroundClickGuardMs;if(pickup)World.TrackPickupRequest(g!);World.GroundNotice=(pickup?"單次拾取":"手動丟棄")+"已送出；等待原服地面與背包回報";Set(State,World.GroundNotice);});
             if(!CurrentOwner()||!sent)return false;GroundSent?.Invoke(new{utc=DateTimeOffset.UtcNow,plainHex=Convert.ToHexString(bytes),pickup,count,worldEpoch=we,localClickGuardMs=GroundClickGuardMs});return true;
         }catch(Exception ex){if(CurrentOwner()){Cancel();Set(LoginState.Faulted,"地面操作失敗："+ex.Message);}return false;}
         finally{if(CurrentOwner())groundSending=false;}
