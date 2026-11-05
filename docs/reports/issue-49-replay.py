@@ -20,7 +20,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-root', type=Path, help='保存既有 work 證據的專案根目錄；僅讀明列檔案')
     args = parser.parse_args()
-    root = Path(__file__).resolve().parent
+    root = Path(__file__).resolve().parents[2] / 'work' / 'issue-49'
     contract = json.loads((root / 'contract.json').read_text(encoding='utf-8'))
     fixtures = json.loads((root / 'fixtures.json').read_text(encoding='utf-8'))
     assert contract['qualified'] is False

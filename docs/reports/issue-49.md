@@ -2,11 +2,17 @@
 
 2026-11-05；resource；分支 `task/49`；基線 `89888870e52cf3c19e046c7b0c040619c117c644`。
 
+## 第 2 次嘗試：修正合併前閘門
+
+本次沿用既有 `task/49` worktree，未切換或建立分支；已讀工作樹根目錄 `AGENTS.md` 與 `docs/REPORT.md`，後者未修改。以下靜態採集與缺件判定沿用第 1 次交付；本次只修正重播工具的追蹤位置與文件，未重新反組譯或搜尋模板。
+
+將被 `.gitignore` 排除的 `work/issue-49/replay.py` 搬至 `docs/reports/issue-49-replay.py`；工具依自身位置定位根目錄的 `work/issue-49/contract.json` 與 `fixtures.json`，不依賴啟動時的工作目錄。保留原 ignore 規則，不再強制加入被忽略檔。重播指令與產出清單同步更新。
+
 ## 結論
 
 **部分完成，整體 `qualified=false`／`needs:local`。** 已核對 12 份既有 class、採用 18 項靜態封包／限制契約，附 6 個靜態來源重播案例。七類物品的完整模板採用列為 **0**；實際封包擷取 fixture 為 **0**。不可用本交付解除一般物品 catalog 的來源閘門，也不能據此決定金幣使用 gfx 7 或 3247。
 
-## 做了什麼與證據範圍
+## 第 1 次交付做了什麼與證據範圍
 
 - 開工核對 Issue 最新 body、全部留言：runner 為 dot、`task:running`，僅有派工留言，沒有 RESULT；本機及遠端都沒有 `task/49`。讀取 AGENTS.md、TASKS.md；父任務明確禁止接觸 `docs/REPORT.md`，因此未讀該檔，優先於派工留言的通用讀取要求。
 - 在 `scratch/wt/task-49` 從最新 origin/main 建立隔離工作樹；主工作樹 `task/42` 與使用者未追蹤圖檔未改動。
@@ -51,22 +57,24 @@ C25/C112 的 opcode 常數可由已 pin 的 OpcodesClient.class 以 `javap -cons
 在 task/49 工作樹根目錄：
 
 ```powershell
-py -3.12 -B -X utf8 work/issue-49/replay.py
-py -3.12 -B -X utf8 work/issue-49/replay.py --source-root 'D:\lineage開發\TW1608262200研究'
+py -3.12 -B -X utf8 docs/reports/issue-49-replay.py
+py -3.12 -B -X utf8 docs/reports/issue-49-replay.py --source-root 'D:\lineage開發\TW1608262200研究'
 ```
 
 第一條驗證交付的摘錄完整性與 6 個來源分支案例；第二條另外核對既有 12 份來源文字、12 份 class、12 次 collection pin（共 36 次 hash 檢查，含重複 collection）及 18 段原行文字。腳本唯讀、無網路、不載入 handler、不寫測試檔。
 
-兩條命令本輪均 exit 0：18 段協定摘錄、6 個靜態案例通過；帶來源根目錄時 36 次 hash 檢查通過。`git diff --cached --check` 通過，暫存區僅本任務 4 個新檔；replay.py 因 work 下腳本預設忽略，僅對該明確交付檔使用 `git add -f`。
+第 1 次交付的兩種重播均 exit 0：18 段協定摘錄、6 個靜態案例通過；帶來源根目錄時 36 次 hash 檢查通過。該次曾強制加入被忽略的腳本，導致合併前閘門退回；第 2 次已搬移至正常追蹤路徑，驗證結果見下方。
+
+第 2 次實際執行上述兩條新路徑命令，皆 exit 0：`protocolRows=18`、`replayedCases=6`，來源核對模式 `sourceHashChecks=36`；兩者仍為 `adoptedTemplateRows=0`、`liveCapturedFixtures=0`、`qualified=false`。`git diff --check` 通過；以 `git check-ignore --no-index` 檢查本報告、新腳本與兩個 JSON，無匹配規則（exit 1），確認四個交付路徑皆可正常追蹤。`contract.json` 與 `fixtures.json` 內容未修改。
 
 `fixtures.json` 明示類型為靜態來源摘錄重播；含非物品、非正數、超量／owner、裝備／sealed 拒絕與回覆限制。**這些不是原服封包錄製、不是 UI fixture、不是實際 handler 測試。** 原任務要求的去識別實際最小封包 fixture 仍未交付，沒有用合成 bytes 充數。
 
 本輪 Python launcher 在一般沙箱找不到安裝；經核准的擴權 shell 才能啟動已安裝 Python 3.12。Git 一般沙箱無法連線；只讀 refs 與 fetch 在核准擴權 shell 成功。這不等於全檔案存取權驗證。javap 舊文字部分為 CP950，依原 bytes 計 SHA，解碼後比較；沒有改寫原證據。
 
-## 未驗證什麼與下一棒
+## 未驗證什麼／給下一棒的提示
 
 需由本機資源整理者／Claude 主控提供或指明**既有合法、去機密的模板匯出**及對應來源版本：七類物品的精確 variant、欄名、列號、SHA，包含模板與 packet getter 轉換依據、stack/drop/bind 規則所需的非機密設定摘要；另提供去識別的成功／非物品／拒絕封包樣本及擷取來源。不能為了補件查 DB、開服或讀 server.properties；若沒有既有匯出，保持 needs:local，由主控另定授權範圍。
 
-沒有 DB 操作、服務啟停、遊戲程序操作、正式 BIN／客戶端／封存／assets junction／lock 修改；未讀 config/server.properties 或 docs/REPORT.md。沒有產品程式碼修改、建置或原生驗收。工作樹重建 Git 追蹤檔只用於隔離交付，不主動讀取上述禁讀檔。
+兩次交付均沒有 DB 操作、服務啟停、遊戲程序操作、正式 BIN／客戶端／封存／assets junction／lock 修改；未讀 config/server.properties。第 1 次未讀 docs/REPORT.md，第 2 次依本次指示讀取但未修改。沒有產品程式碼修改、建置或原生驗收。
 
-產出：本報告、`work/issue-49/contract.json`、`fixtures.json`、`replay.py`。一次性採集腳本及 verbose javap 留在根專案 `scratch/issue-49/`，不提交；所有原資料保留。Claude 審查可先採用有 pin 的歷史協定結論；模板與實際 fixture 補齊前不得將 Issue #49 視為完整通過。
+產出：本報告、`work/issue-49/contract.json`、`work/issue-49/fixtures.json`、`docs/reports/issue-49-replay.py`。第 1 次的一次性採集腳本及 verbose javap 留在根專案 `scratch/issue-49/`，不提交；第 2 次未在根專案寫檔。所有原資料保留。Claude 審查可先採用有 pin 的歷史協定結論；模板與實際 fixture 補齊前不得將 Issue #49 視為完整通過，仍需 `needs:local` 補件。
