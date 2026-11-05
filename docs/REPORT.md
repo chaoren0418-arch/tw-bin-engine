@@ -22,3 +22,4 @@
 - 2026-11-05 — #27 T012: 提交 M1 真機基線證據並寫 docs/native-baseline/r35.md（#23 結果）（resource，codex-local，PR #29 已合併）→ [報告](reports/issue-27.md)
 - 2026-11-05 — #31 T040: 滾動式 dev lock——讓程式修改不再被 r35 pin 擋住（code，codex-local，PR #32 已合併）→ [報告](reports/issue-31.md)
 - 2026-11-05 — #34 T041: 選用的客戶端封包追蹤（只記 opcode／長度／時間），供真機補測取證（code，codex-local，PR 已合併）→ [報告](reports/issue-34.md)
+- 2026-11-05 — #38 T043: 本機主專案同步 main 並建置 dev（T042 真機補測的前置）（test，codex-local，PR #40 已合併）→ [報告](reports/issue-38.md)
