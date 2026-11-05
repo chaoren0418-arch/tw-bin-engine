@@ -20,3 +20,4 @@
 - 2026-11-05 — #23 T011：M1 真機基線——用 r35 跑一輪 N01 流程（需要使用者實機操作）（None，?，對話完成）→ [報告](reports/issue-23.md)
 - 2026-11-05 — #23 T011：M1 真機基線——用 r35 跑一輪 N01 流程（需要使用者實機操作）（test，?，對話完成）→ [報告](reports/issue-23.md)
 - 2026-11-05 — #27 T012: 提交 M1 真機基線證據並寫 docs/native-baseline/r35.md（#23 結果）（resource，codex-local，PR #29 已合併）→ [報告](reports/issue-27.md)
+- 2026-11-05 — #31 T040: 滾動式 dev lock——讓程式修改不再被 r35 pin 擋住（code，codex-local，PR #32 已合併）→ [報告](reports/issue-31.md)
