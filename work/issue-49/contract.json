@@ -1,0 +1,2938 @@
+{
+  "issue": 49,
+  "qualified": true,
+  "status": "qualified-static",
+  "scope": "七筆普通模板與金幣／肉條件式靜態 payload 契約；不代表真機或當前 Java 服務已執行",
+  "historicalJarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+  "jarRehashedThisRun": true,
+  "sources": {
+    "C_PickUpItem": {
+      "path": "work/engine-slow-pickup-source-r1/classes/C_PickUpItem.javap.txt",
+      "sha256": "5150be1fe5149636a91707fb823562b968c86a7ee1ec2655090a696b6455c0ba",
+      "classPath": "work/engine-slow-pickup-source-r1/classes/C_PickUpItem.class",
+      "classSha256": "721b3f27cd3be1bbe1ac9f5c1646946af7a53b6dcbff2d759ceb9081ff8c45a5",
+      "collectionPath": "work/engine-slow-pickup-source-r1/collection.json",
+      "collectionSha256": "9d29e40fc6d5579ed50f616a6cb629855d5d50f66b927b8ff73d3cf22504789a",
+      "classMatchedHistoricalCollection": true,
+      "javapReproduced": true
+    },
+    "ClientPacketStructure": {
+      "path": "work/engine-slow-pickup-source-r1/classes/ClientPacketStructure.javap.txt",
+      "sha256": "efe9b68b06db07a8e70d7e4840c5f8c9adf41a9b050667d4ad8e625bf3a40775",
+      "classPath": "work/engine-slow-pickup-source-r1/classes/ClientPacketStructure.class",
+      "classSha256": "f9235526701216be001bea37247f3a0bb55e868a1139c6db4c7e32e38fa85aa7",
+      "collectionPath": "work/engine-slow-pickup-source-r1/collection.json",
+      "collectionSha256": "9d29e40fc6d5579ed50f616a6cb629855d5d50f66b927b8ff73d3cf22504789a",
+      "classMatchedHistoricalCollection": true,
+      "javapReproduced": true
+    },
+    "S_NPCPack_Item": {
+      "path": "work/engine-slow-pickup-source-r1/classes/S_NPCPack_Item.javap.txt",
+      "sha256": "e08834dc4c897530e998b85fc570a45ea4b68ec3cb39a3c2b9b87caebf7f382b",
+      "classPath": "work/engine-slow-pickup-source-r1/classes/S_NPCPack_Item.class",
+      "classSha256": "342a67c96513e6dad7b7254d3b13da8819aa441430efe1a4756ef7284ccc5714",
+      "collectionPath": "work/engine-slow-pickup-source-r1/collection.json",
+      "collectionSha256": "9d29e40fc6d5579ed50f616a6cb629855d5d50f66b927b8ff73d3cf22504789a",
+      "classMatchedHistoricalCollection": true,
+      "javapReproduced": true
+    },
+    "S_AddItem": {
+      "path": "work/engine-slow-pickup-source-r1/classes/S_AddItem.javap.txt",
+      "sha256": "b85933bf39640b12fae7e78b4b4d6406360442f4b4c3d963416e3e1eeffbd150",
+      "classPath": "work/engine-slow-pickup-source-r1/classes/S_AddItem.class",
+      "classSha256": "c034106136f63cf4ccc7979cc6f5ba0d1f8dc7f6aacb13c7043d3e82e5e28d95",
+      "collectionPath": "work/engine-slow-pickup-source-r1/collection.json",
+      "collectionSha256": "9d29e40fc6d5579ed50f616a6cb629855d5d50f66b927b8ff73d3cf22504789a",
+      "classMatchedHistoricalCollection": true,
+      "javapReproduced": true
+    },
+    "S_ItemAmount": {
+      "path": "work/engine-slow-pickup-source-r1/classes/S_ItemAmount.javap.txt",
+      "sha256": "3491b0bb7f15db03bd03cce01d25b5bcd5f60ce9bb0976807494a35a93f6fb86",
+      "classPath": "work/engine-slow-pickup-source-r1/classes/S_ItemAmount.class",
+      "classSha256": "3545602b5903895561c3539209e4d1cfad21a981231cedf8ddab6a54b734908a",
+      "collectionPath": "work/engine-slow-pickup-source-r1/collection.json",
+      "collectionSha256": "9d29e40fc6d5579ed50f616a6cb629855d5d50f66b927b8ff73d3cf22504789a",
+      "classMatchedHistoricalCollection": true,
+      "javapReproduced": true
+    },
+    "S_ItemStatus": {
+      "path": "work/engine-slow-pickup-source-r1/classes/S_ItemStatus.javap.txt",
+      "sha256": "9e93a8fd2c3eec202ed4156059d39c71a4a04f9b32912895eeb5d522f43b8eac",
+      "classPath": "work/engine-slow-pickup-source-r1/classes/S_ItemStatus.class",
+      "classSha256": "11b3ed7797141bd48a6a16af27962cf9e8720c0bbe4cd2c9233d12ca331b9c4a",
+      "collectionPath": "work/engine-slow-pickup-source-r1/collection.json",
+      "collectionSha256": "9d29e40fc6d5579ed50f616a6cb629855d5d50f66b927b8ff73d3cf22504789a",
+      "classMatchedHistoricalCollection": true,
+      "javapReproduced": true
+    },
+    "S_RemoveObject": {
+      "path": "work/engine-slow-pickup-source-r1/classes/S_RemoveObject.javap.txt",
+      "sha256": "49c6452707aadbd191b79b7bae6d3b31d4b2d56083730237ac9351c4b020a79f",
+      "classPath": "work/engine-slow-pickup-source-r1/classes/S_RemoveObject.class",
+      "classSha256": "f957ace300bf2666a77aa7de284db481a8993360e1af7eeb6460183307f55dd8",
+      "collectionPath": "work/engine-slow-pickup-source-r1/collection.json",
+      "collectionSha256": "9d29e40fc6d5579ed50f616a6cb629855d5d50f66b927b8ff73d3cf22504789a",
+      "classMatchedHistoricalCollection": true,
+      "javapReproduced": true
+    },
+    "S_DeleteInventoryItem": {
+      "path": "work/engine-slow-pickup-source-r1/classes/S_DeleteInventoryItem.javap.txt",
+      "sha256": "05b17ae1b40d2952340522a2ad9d96efc4cb8ef9578db619ac59464f8e529288",
+      "classPath": "work/engine-slow-pickup-source-r1/classes/S_DeleteInventoryItem.class",
+      "classSha256": "57f802a1e9f879b0b6343ab43fd26bfe68cc8d699a5043cb79e6d5e450b11a95",
+      "collectionPath": "work/engine-slow-pickup-source-r1/collection.json",
+      "collectionSha256": "9d29e40fc6d5579ed50f616a6cb629855d5d50f66b927b8ff73d3cf22504789a",
+      "classMatchedHistoricalCollection": true,
+      "javapReproduced": true
+    },
+    "L1GroundInventory": {
+      "path": "work/engine-slow-pickup-source-r1/classes/L1GroundInventory.javap.txt",
+      "sha256": "6a4c2b4793634314d0d3c857035bdc71354d08cbf178ed904fd58d9449bad78f",
+      "classPath": "work/engine-slow-pickup-source-r1/classes/L1GroundInventory.class",
+      "classSha256": "0ba9d90cd4eb14c40c9e517396e21e3a0f23b28652ce28c5b92a6eba0b14b6a7",
+      "collectionPath": "work/engine-slow-pickup-source-r1/collection.json",
+      "collectionSha256": "9d29e40fc6d5579ed50f616a6cb629855d5d50f66b927b8ff73d3cf22504789a",
+      "classMatchedHistoricalCollection": true,
+      "javapReproduced": true
+    },
+    "L1Inventory": {
+      "path": "work/engine-slow-pickup-source-r1/classes/L1Inventory.javap.txt",
+      "sha256": "ca67611519883e84c053ccb1cb524378caf69fc36a3470ba3a21ef9dde1a0fb8",
+      "classPath": "work/engine-slow-pickup-source-r1/classes/L1Inventory.class",
+      "classSha256": "76a1748118bf6a1725cf8c12c14d73095ebb30ee943bedfedf0007c500dd7e11",
+      "collectionPath": "work/engine-slow-pickup-source-r1/collection.json",
+      "collectionSha256": "9d29e40fc6d5579ed50f616a6cb629855d5d50f66b927b8ff73d3cf22504789a",
+      "classMatchedHistoricalCollection": true,
+      "javapReproduced": true
+    },
+    "C_DropItem": {
+      "path": "work/engine-slow-utility-source-r1/classes/C_DropItem.javap.txt",
+      "sha256": "8c78438899529764d80de2bc5ddece305a2b3c5f04486b7b02ec999f18e36b78",
+      "classPath": "work/engine-slow-utility-source-r1/classes/C_DropItem.class",
+      "classSha256": "5b097f52ad2f3b7f6836ceb4124208adc8d9f4c8ddf172c658456f5629225319",
+      "collectionPath": "work/engine-slow-utility-source-r1/collection.json",
+      "collectionSha256": "adc687e0907d7ba5fa3f73668c2440a49c4b8bf444283af0ef58563e9c9ad000",
+      "classMatchedHistoricalCollection": true,
+      "javapReproduced": true
+    },
+    "OpcodesClient": {
+      "path": "work/engine-slow-utility-source-r1/classes/OpcodesClient.javap.txt",
+      "sha256": "ee69bc31dc4d6f1716bae3d8c27528d3a4bc23a1584dc1f7ea602e4713e87ca7",
+      "classPath": "work/engine-slow-utility-source-r1/classes/OpcodesClient.class",
+      "classSha256": "6d1b160c0b381a56d7897c678a1f8bb5029ebb13417b052401092058aba5be5c",
+      "collectionPath": "work/engine-slow-utility-source-r1/collection.json",
+      "collectionSha256": "adc687e0907d7ba5fa3f73668c2440a49c4b8bf444283af0ef58563e9c9ad000",
+      "classMatchedHistoricalCollection": true,
+      "javapReproduced": true
+    }
+  },
+  "adoptedProtocolRows": [
+    {
+      "id": "C25-fields",
+      "source": "C_DropItem",
+      "claim": "H x、H y、D 背包 ObjectId、D 有號 count；非正數拒絕。",
+      "method": "public void start(byte[], com.lineage.echo.ClientExecutor);",
+      "bytecodeOffset": [
+        0,
+        56
+      ],
+      "sourceLine": [
+        13,
+        41
+      ],
+      "text": "       0: aload_0\n       1: aload_1\n       2: invokevirtual #7                  // Method read:([B)V\n       5: aload_0\n       6: invokevirtual #13                 // Method readH:()I\n       9: istore_3\n      10: aload_0\n      11: invokevirtual #13                 // Method readH:()I\n      14: istore        4\n      16: aload_0\n      17: invokevirtual #17                 // Method readD:()I\n      20: istore        5\n      22: aload_0\n      23: invokevirtual #17                 // Method readD:()I\n      26: istore        6\n      28: iload         6\n      30: ldc           #22                 // int 2147483647\n      32: if_icmple     39\n      35: ldc           #22                 // int 2147483647\n      37: istore        6\n      39: iconst_0\n      40: iload         6\n      42: invokestatic  #23                 // Method java/lang/Math.max:(II)I\n      45: istore        6\n      47: iload         6\n      49: ifgt          57\n      52: aload_0\n      53: invokevirtual #29                 // Method over:()V\n      56: return\n",
+      "excerptSha256": "1f854f3f10d87cb3332a6d776f1c6903835a9a2dfc4a96b16dec830ebd90ed3f"
+    },
+    {
+      "id": "C25-ownership",
+      "source": "C_DropItem",
+      "claim": "由角色背包 getItem(ObjectId) 查找；空物件或非正現存量拒絕。",
+      "method": "public void start(byte[], com.lineage.echo.ClientExecutor);",
+      "bytecodeOffset": [
+        76,
+        107
+      ],
+      "sourceLine": [
+        51,
+        65
+      ],
+      "text": "      76: aload         7\n      78: invokevirtual #44                 // Method com/lineage/server/model/Instance/L1PcInstance.getInventory:()Lcom/lineage/server/model/L1PcInventory;\n      81: iload         5\n      83: invokevirtual #48                 // Method com/lineage/server/model/L1PcInventory.getItem:(I)Lcom/lineage/server/model/Instance/L1ItemInstance;\n      86: astore        8\n      88: aload         8\n      90: ifnull        103\n      93: aload         8\n      95: invokevirtual #54                 // Method com/lineage/server/model/Instance/L1ItemInstance.getCount:()J\n      98: lconst_0\n      99: lcmp\n     100: ifgt          108\n     103: aload_0\n     104: invokevirtual #29                 // Method over:()V\n     107: return\n",
+      "excerptSha256": "5d51bbf05160851832d65c23a47ab9664152294baf7fd5c19123cfcc43e61ee9"
+    },
+    {
+      "id": "C25-template-policy",
+      "source": "C_DropItem",
+      "claim": "非 GM 受 DORP_ITEM／ItemDropTable、tradable、限時狀態限制；本輪未知配置值。",
+      "method": "public void start(byte[], com.lineage.echo.ClientExecutor);",
+      "bytecodeOffset": [
+        108,
+        233
+      ],
+      "sourceLine": [
+        66,
+        117
+      ],
+      "text": "     108: aload         7\n     110: invokevirtual #60                 // Method com/lineage/server/model/Instance/L1PcInstance.isGm:()Z\n     113: ifne          234\n     116: invokestatic  #63                 // Method com/lineage/server/datatables/ItemDropTable.get:()Lcom/lineage/server/datatables/ItemDropTable;\n     119: aload         8\n     121: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItemId:()I\n     124: invokevirtual #72                 // Method com/lineage/server/datatables/ItemDropTable.isDroppable:(I)Z\n     127: istore        9\n     129: getstatic     #76                 // Field com/lineage/config/ConfigAlt.DORP_ITEM:Z\n     132: ifne          159\n     135: iload         9\n     137: ifne          159\n     140: aload         7\n     142: new           #82                 // class com/lineage/server/serverpackets/S_ServerMessage\n     145: dup\n     146: bipush        125\n     148: invokespecial #84                 // Method com/lineage/server/serverpackets/S_ServerMessage.\"<init>\":(I)V\n     151: invokevirtual #87                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V\n     154: aload_0\n     155: invokevirtual #29                 // Method over:()V\n     158: return\n     159: aload         8\n     161: invokevirtual #91                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n     164: invokevirtual #94                 // Method com/lineage/server/templates/L1Item.isTradable:()Z\n     167: ifne          198\n     170: aload         7\n     172: new           #82                 // class com/lineage/server/serverpackets/S_ServerMessage\n     175: dup\n     176: sipush        210\n     179: aload         8\n     181: invokevirtual #91                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n     184: invokevirtual #99                 // Method com/lineage/server/templates/L1Item.getNameId:()Ljava/lang/String;\n     187: invokespecial #103                // Method com/lineage/server/serverpackets/S_ServerMessage.\"<init>\":(ILjava/lang/String;)V\n     190: invokevirtual #87                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V\n     193: aload_0\n     194: invokevirtual #29                 // Method over:()V\n     197: return\n     198: aload         8\n     200: invokevirtual #106                // Method com/lineage/server/model/Instance/L1ItemInstance.get_time:()Ljava/sql/Timestamp;\n     203: ifnull        234\n     206: aload         7\n     208: new           #82                 // class com/lineage/server/serverpackets/S_ServerMessage\n     211: dup\n     212: sipush        210\n     215: aload         8\n     217: invokevirtual #91                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n     220: invokevirtual #99                 // Method com/lineage/server/templates/L1Item.getNameId:()Ljava/lang/String;\n     223: invokespecial #103                // Method com/lineage/server/serverpackets/S_ServerMessage.\"<init>\":(ILjava/lang/String;)V\n     226: invokevirtual #87                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V\n     229: aload_0\n     230: invokevirtual #29                 // Method over:()V\n     233: return\n",
+      "excerptSha256": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+    },
+    {
+      "id": "C25-equipped-sealed",
+      "source": "C_DropItem",
+      "claim": "已裝備或 sealed 拒絕；不能把背包可見等同可丟。",
+      "method": "public void start(byte[], com.lineage.echo.ClientExecutor);",
+      "bytecodeOffset": [
+        372,
+        434
+      ],
+      "sourceLine": [
+        176,
+        202
+      ],
+      "text": "     372: aload         8\n     374: invokevirtual #138                // Method com/lineage/server/model/Instance/L1ItemInstance.isEquipped:()Z\n     377: ifeq          399\n     380: aload         7\n     382: new           #82                 // class com/lineage/server/serverpackets/S_ServerMessage\n     385: dup\n     386: bipush        125\n     388: invokespecial #84                 // Method com/lineage/server/serverpackets/S_ServerMessage.\"<init>\":(I)V\n     391: invokevirtual #87                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V\n     394: aload_0\n     395: invokevirtual #29                 // Method over:()V\n     398: return\n     399: aload         8\n     401: invokevirtual #141                // Method com/lineage/server/model/Instance/L1ItemInstance.isSealed:()Z\n     404: ifeq          435\n     407: aload         7\n     409: new           #82                 // class com/lineage/server/serverpackets/S_ServerMessage\n     412: dup\n     413: sipush        210\n     416: aload         8\n     418: invokevirtual #91                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n     421: invokevirtual #99                 // Method com/lineage/server/templates/L1Item.getNameId:()Ljava/lang/String;\n     424: invokespecial #103                // Method com/lineage/server/serverpackets/S_ServerMessage.\"<init>\":(ILjava/lang/String;)V\n     427: invokevirtual #87                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V\n     430: aload_0\n     431: invokevirtual #29                 // Method over:()V\n     434: return\n",
+      "excerptSha256": "ae382264e9ca636d0748af86b0ffaf9dc1f0fa8502cdd259d8ef48c43f5dd785"
+    },
+    {
+      "id": "C112-fields",
+      "source": "C_PickUpItem",
+      "claim": "H x、H y、D 地面 ObjectId、D count；有號 readD 轉 long，非正數拒絕。",
+      "method": "public void start(byte[], com.lineage.echo.ClientExecutor);",
+      "bytecodeOffset": [
+        147,
+        205
+      ],
+      "sourceLine": [
+        88,
+        117
+      ],
+      "text": "     147: aload_0\n     148: invokevirtual #70                 // Method readH:()I\n     151: istore        9\n     153: aload_0\n     154: invokevirtual #70                 // Method readH:()I\n     157: istore        10\n     159: aload_0\n     160: invokevirtual #74                 // Method readD:()I\n     163: istore        11\n     165: aload_0\n     166: invokevirtual #74                 // Method readD:()I\n     169: i2l\n     170: lstore        12\n     172: lload         12\n     174: ldc2_w        #79                 // long 2147483647l\n     177: lcmp\n     178: ifle          186\n     181: ldc2_w        #79                 // long 2147483647l\n     184: lstore        12\n     186: lconst_0\n     187: lload         12\n     189: invokestatic  #81                 // Method java/lang/Math.max:(JJ)J\n     192: lstore        12\n     194: lload         12\n     196: lconst_0\n     197: lcmp\n     198: ifgt          206\n     201: aload_0\n     202: invokevirtual #7                  // Method over:()V\n     205: return\n",
+      "excerptSha256": "e946ffecb81cecb35635956ef356ae17593d294eed6df62a10618dbcf9e456ba"
+    },
+    {
+      "id": "C112-nonitem",
+      "source": "C_PickUpItem",
+      "claim": "World.findObject 後要求 L1ItemInstance；非物品、座標不符或距離不符返回。",
+      "method": "public void start(byte[], com.lineage.echo.ClientExecutor);",
+      "bytecodeOffset": [
+        206,
+        265
+      ],
+      "sourceLine": [
+        118,
+        143
+      ],
+      "text": "     206: invokestatic  #87                 // Method com/lineage/server/world/World.get:()Lcom/lineage/server/world/World;\n     209: iload         11\n     211: invokevirtual #93                 // Method com/lineage/server/world/World.findObject:(I)Lcom/lineage/server/model/L1Object;\n     214: astore        14\n     216: aload         14\n     218: instanceof    #97                 // class com/lineage/server/model/Instance/L1ItemInstance\n     221: ifeq          261\n     224: aload         14\n     226: checkcast     #97                 // class com/lineage/server/model/Instance/L1ItemInstance\n     229: astore        15\n     231: aload         15\n     233: invokevirtual #99                 // Method com/lineage/server/model/Instance/L1ItemInstance.getX:()I\n     236: iload         9\n     238: if_icmpne     261\n     241: aload         15\n     243: invokevirtual #102                // Method com/lineage/server/model/Instance/L1ItemInstance.getY:()I\n     246: iload         10\n     248: if_icmpne     261\n     251: aload_3\n     252: aload         15\n     254: iconst_3\n     255: invokestatic  #105                // Method com/lineage/server/utils/WorldInteractionGuard.withinDistance:(Lcom/lineage/server/model/Instance/L1PcInstance;Lcom/lineage/server/model/L1Object;I)Z\n     258: ifne          266\n     261: aload_0\n     262: invokevirtual #7                  // Method over:()V\n     265: return\n",
+      "excerptSha256": "d03910e269b957fad59929b46e18bbaa0bc56e772b9619d83f826df8216475bf"
+    },
+    {
+      "id": "C112-source-owner",
+      "source": "C_PickUpItem",
+      "claim": "同一地面 inventory 物件引用、現存量、請求量及 owner 限制。",
+      "method": "public void start(byte[], com.lineage.echo.ClientExecutor);",
+      "bytecodeOffset": [
+        266,
+        415
+      ],
+      "sourceLine": [
+        144,
+        211
+      ],
+      "text": "     266: invokestatic  #87                 // Method com/lineage/server/world/World.get:()Lcom/lineage/server/world/World;\n     269: aload         15\n     271: invokevirtual #99                 // Method com/lineage/server/model/Instance/L1ItemInstance.getX:()I\n     274: aload         15\n     276: invokevirtual #102                // Method com/lineage/server/model/Instance/L1ItemInstance.getY:()I\n     279: aload         15\n     281: invokevirtual #109                // Method com/lineage/server/model/Instance/L1ItemInstance.getMapId:()S\n     284: invokevirtual #113                // Method com/lineage/server/world/World.getInventory:(IIS)Lcom/lineage/server/model/L1GroundInventory;\n     287: astore        16\n     289: aload         16\n     291: ifnull        306\n     294: aload         16\n     296: iload         11\n     298: invokevirtual #117                // Method com/lineage/server/model/L1Inventory.getItem:(I)Lcom/lineage/server/model/Instance/L1ItemInstance;\n     301: aload         15\n     303: if_acmpeq     311\n     306: aload_0\n     307: invokevirtual #7                  // Method over:()V\n     310: return\n     311: aload         16\n     313: iload         11\n     315: invokevirtual #117                // Method com/lineage/server/model/L1Inventory.getItem:(I)Lcom/lineage/server/model/Instance/L1ItemInstance;\n     318: astore        17\n     320: aload         17\n     322: ifnull        517\n     325: aload_3\n     326: invokevirtual #55                 // Method com/lineage/server/model/Instance/L1PcInstance.isDead:()Z\n     329: ifne          517\n     332: aload         17\n     334: checkcast     #97                 // class com/lineage/server/model/Instance/L1ItemInstance\n     337: astore        18\n     339: aload         18\n     341: invokevirtual #123                // Method com/lineage/server/model/Instance/L1ItemInstance.getCount:()J\n     344: lconst_0\n     345: lcmp\n     346: ifgt          354\n     349: aload_0\n     350: invokevirtual #7                  // Method over:()V\n     353: return\n     354: lload         12\n     356: lconst_0\n     357: lcmp\n     358: ifle          372\n     361: lload         12\n     363: aload         18\n     365: invokevirtual #123                // Method com/lineage/server/model/Instance/L1ItemInstance.getCount:()J\n     368: lcmp\n     369: ifle          377\n     372: aload_0\n     373: invokevirtual #7                  // Method over:()V\n     376: return\n     377: aload         18\n     379: invokevirtual #126                // Method com/lineage/server/model/Instance/L1ItemInstance.getItemOwnerId:()I\n     382: ifeq          416\n     385: aload_3\n     386: invokevirtual #129                // Method com/lineage/server/model/Instance/L1PcInstance.getId:()I\n     389: aload         18\n     391: invokevirtual #126                // Method com/lineage/server/model/Instance/L1ItemInstance.getItemOwnerId:()I\n     394: if_icmpeq     416\n     397: aload_3\n     398: new           #132                // class com/lineage/server/serverpackets/S_ServerMessage\n     401: dup\n     402: sipush        623\n     405: invokespecial #134                // Method com/lineage/server/serverpackets/S_ServerMessage.\"<init>\":(I)V\n     408: invokevirtual #137                // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V\n     411: aload_0\n     412: invokevirtual #7                  // Method over:()V\n     415: return\n",
+      "excerptSha256": "228290d68b8a4b68e82adaacb5ea86dabe581211757cfe3e10d25e0f701a50e1"
+    },
+    {
+      "id": "S87-header",
+      "source": "S_NPCPack_Item",
+      "claim": "C87 Hx Hy D instanceId H template.groundGfx C0 C0 Clight C0 D min(count,2e9) H0。",
+      "method": "private void buildPacket(com.lineage.server.model.Instance.L1ItemInstance);",
+      "bytecodeOffset": [
+        0,
+        97
+      ],
+      "sourceLine": [
+        21,
+        69
+      ],
+      "text": "       0: aload_0\n       1: bipush        87\n       3: invokevirtual #22                 // Method writeC:(I)V\n       6: aload_0\n       7: aload_1\n       8: invokevirtual #26                 // Method com/lineage/server/model/Instance/L1ItemInstance.getX:()I\n      11: invokevirtual #32                 // Method writeH:(I)V\n      14: aload_0\n      15: aload_1\n      16: invokevirtual #35                 // Method com/lineage/server/model/Instance/L1ItemInstance.getY:()I\n      19: invokevirtual #32                 // Method writeH:(I)V\n      22: aload_0\n      23: aload_1\n      24: invokevirtual #38                 // Method com/lineage/server/model/Instance/L1ItemInstance.getId:()I\n      27: invokevirtual #41                 // Method writeD:(I)V\n      30: aload_0\n      31: aload_1\n      32: invokevirtual #44                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n      35: invokevirtual #48                 // Method com/lineage/server/templates/L1Item.getGroundGfxId:()I\n      38: invokevirtual #32                 // Method writeH:(I)V\n      41: aload_0\n      42: iconst_0\n      43: invokevirtual #22                 // Method writeC:(I)V\n      46: aload_0\n      47: iconst_0\n      48: invokevirtual #22                 // Method writeC:(I)V\n      51: aload_0\n      52: aload_1\n      53: invokevirtual #53                 // Method com/lineage/server/model/Instance/L1ItemInstance.isNowLighting:()Z\n      56: ifeq          69\n      59: aload_1\n      60: invokevirtual #44                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n      63: invokevirtual #57                 // Method com/lineage/server/templates/L1Item.getLightRange:()I\n      66: goto          70\n      69: iconst_0\n      70: invokevirtual #22                 // Method writeC:(I)V\n      73: aload_0\n      74: iconst_0\n      75: invokevirtual #22                 // Method writeC:(I)V\n      78: aload_0\n      79: aload_1\n      80: invokevirtual #60                 // Method com/lineage/server/model/Instance/L1ItemInstance.getCount:()J\n      83: ldc2_w        #64                 // long 2000000000l\n      86: invokestatic  #66                 // Method java/lang/Math.min:(JJ)J\n      89: l2i\n      90: invokevirtual #41                 // Method writeD:(I)V\n      93: aload_0\n      94: iconst_0\n      95: invokevirtual #32                 // Method writeH:(I)V\n",
+      "excerptSha256": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+    },
+    {
+      "id": "S87-name",
+      "source": "S_NPCPack_Item",
+      "claim": "count>1 取模板 nameId 與實際 long count；concat recipe 另由 class BootstrapMethods 核驗。",
+      "method": "private void buildPacket(com.lineage.server.model.Instance.L1ItemInstance);",
+      "bytecodeOffset": [
+        98,
+        127
+      ],
+      "sourceLine": [
+        70,
+        84
+      ],
+      "text": "      98: ldc           #72                 // String\n     100: astore_2\n     101: aload_1\n     102: invokevirtual #60                 // Method com/lineage/server/model/Instance/L1ItemInstance.getCount:()J\n     105: lconst_1\n     106: lcmp\n     107: ifle          130\n     110: aload_1\n     111: invokevirtual #44                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n     114: invokevirtual #74                 // Method com/lineage/server/templates/L1Item.getNameId:()Ljava/lang/String;\n     117: aload_1\n     118: invokevirtual #60                 // Method com/lineage/server/model/Instance/L1ItemInstance.getCount:()J\n     121: invokedynamic #78,  0             // InvokeDynamic #0:makeConcatWithConstants:(Ljava/lang/String;J)Ljava/lang/String;\n     126: astore_2\n     127: goto          304\n",
+      "excerptSha256": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+    },
+    {
+      "id": "S87-tail",
+      "source": "S_NPCPack_Item",
+      "claim": "普通單件取 nameId；名稱後的空字串與常數 envelope 見逐指令摘錄。",
+      "method": "private void buildPacket(com.lineage.server.model.Instance.L1ItemInstance);",
+      "bytecodeOffset": [
+        296,
+        375
+      ],
+      "sourceLine": [
+        140,
+        183
+      ],
+      "text": "     296: aload_1\n     297: invokevirtual #44                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n     300: invokevirtual #74                 // Method com/lineage/server/templates/L1Item.getNameId:()Ljava/lang/String;\n     303: astore_2\n     304: aload_0\n     305: aload_2\n     306: invokevirtual #98                 // Method writeS:(Ljava/lang/String;)V\n     309: aload_0\n     310: aconst_null\n     311: invokevirtual #98                 // Method writeS:(Ljava/lang/String;)V\n     314: aload_0\n     315: iconst_0\n     316: invokevirtual #22                 // Method writeC:(I)V\n     319: aload_0\n     320: iconst_0\n     321: invokevirtual #41                 // Method writeD:(I)V\n     324: aload_0\n     325: aconst_null\n     326: invokevirtual #98                 // Method writeS:(Ljava/lang/String;)V\n     329: aload_0\n     330: aconst_null\n     331: invokevirtual #98                 // Method writeS:(Ljava/lang/String;)V\n     334: aload_0\n     335: iconst_0\n     336: invokevirtual #22                 // Method writeC:(I)V\n     339: aload_0\n     340: sipush        255\n     343: invokevirtual #22                 // Method writeC:(I)V\n     346: aload_0\n     347: iconst_0\n     348: invokevirtual #22                 // Method writeC:(I)V\n     351: aload_0\n     352: iconst_0\n     353: invokevirtual #22                 // Method writeC:(I)V\n     356: aload_0\n     357: iconst_0\n     358: invokevirtual #22                 // Method writeC:(I)V\n     361: aload_0\n     362: sipush        255\n     365: invokevirtual #22                 // Method writeC:(I)V\n     368: aload_0\n     369: sipush        255\n     372: invokevirtual #22                 // Method writeC:(I)V\n     375: return\n",
+      "excerptSha256": "a5744455e49304ff3ebfbf8dc8879ab44c2ce322e855c2dac78603bd1e835a06"
+    },
+    {
+      "id": "S15-header",
+      "source": "S_AddItem",
+      "claim": "C15 D instanceId H packetItemDescId C packetUseType C charge H instance.gfx C bless/sealed D min(count,2e9)。",
+      "method": "public com.lineage.server.serverpackets.S_AddItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "bytecodeOffset": [
+        9,
+        120
+      ],
+      "sourceLine": [
+        12,
+        64
+      ],
+      "text": "       9: aload_0\n      10: bipush        15\n      12: invokevirtual #15                 // Method writeC:(I)V\n      15: aload_0\n      16: aload_1\n      17: invokevirtual #19                 // Method com/lineage/server/model/Instance/L1ItemInstance.getId:()I\n      20: invokevirtual #25                 // Method writeD:(I)V\n      23: aload_0\n      24: aload_1\n      25: invokevirtual #28                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n      28: invokevirtual #32                 // Method com/lineage/server/templates/L1Item.getPacketItemDescId:()I\n      31: invokevirtual #37                 // Method writeH:(I)V\n      34: aload_0\n      35: aload_1\n      36: invokevirtual #28                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n      39: invokevirtual #40                 // Method com/lineage/server/templates/L1Item.getPacketUseType:()I\n      42: invokevirtual #15                 // Method writeC:(I)V\n      45: aload_1\n      46: invokevirtual #43                 // Method com/lineage/server/model/Instance/L1ItemInstance.getChargeCount:()I\n      49: ifle          63\n      52: aload_0\n      53: aload_1\n      54: invokevirtual #43                 // Method com/lineage/server/model/Instance/L1ItemInstance.getChargeCount:()I\n      57: invokevirtual #15                 // Method writeC:(I)V\n      60: goto          68\n      63: aload_0\n      64: iconst_0\n      65: invokevirtual #15                 // Method writeC:(I)V\n      68: aload_0\n      69: aload_1\n      70: invokevirtual #46                 // Method com/lineage/server/model/Instance/L1ItemInstance.get_gfxid:()I\n      73: invokevirtual #37                 // Method writeH:(I)V\n      76: aload_0\n      77: aload_1\n      78: invokevirtual #49                 // Method com/lineage/server/model/Instance/L1ItemInstance.isSealed:()Z\n      81: ifeq          98\n      84: aload_1\n      85: invokevirtual #53                 // Method com/lineage/server/model/Instance/L1ItemInstance.getBless:()I\n      88: invokestatic  #56                 // Method com/lineage/server/templates/L1Item.toPacketBless:(I)I\n      91: sipush        128\n      94: iadd\n      95: goto          105\n      98: aload_1\n      99: invokevirtual #53                 // Method com/lineage/server/model/Instance/L1ItemInstance.getBless:()I\n     102: invokestatic  #56                 // Method com/lineage/server/templates/L1Item.toPacketBless:(I)I\n     105: invokevirtual #15                 // Method writeC:(I)V\n     108: aload_0\n     109: aload_1\n     110: invokevirtual #60                 // Method com/lineage/server/model/Instance/L1ItemInstance.getCount:()J\n     113: ldc2_w        #64                 // long 2000000000l\n     116: invokestatic  #66                 // Method java/lang/Math.min:(JJ)J\n     119: l2i\n     120: invokevirtual #25                 // Method writeD:(I)V\n",
+      "excerptSha256": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+    },
+    {
+      "id": "S15-flags",
+      "source": "S_AddItem",
+      "claim": "flags 與 identified/tradable/cantDelete/safeenchant/useType/sealed 有關；名稱由 instance.getViewName。",
+      "method": "public com.lineage.server.serverpackets.S_AddItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "bytecodeOffset": [
+        123,
+        263
+      ],
+      "sourceLine": [
+        65,
+        151
+      ],
+      "text": "     123: iconst_0\n     124: istore_2\n     125: aload_1\n     126: invokevirtual #72                 // Method com/lineage/server/model/Instance/L1ItemInstance.isIdentified:()Z\n     129: ifeq          136\n     132: iload_2\n     133: iconst_1\n     134: ior\n     135: istore_2\n     136: aload_1\n     137: invokevirtual #28                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n     140: invokevirtual #75                 // Method com/lineage/server/templates/L1Item.isTradable:()Z\n     143: ifne          150\n     146: iload_2\n     147: iconst_2\n     148: ior\n     149: istore_2\n     150: aload_1\n     151: invokevirtual #28                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n     154: invokevirtual #78                 // Method com/lineage/server/templates/L1Item.isCantDelete:()Z\n     157: ifeq          164\n     160: iload_2\n     161: iconst_4\n     162: ior\n     163: istore_2\n     164: aload_1\n     165: invokevirtual #28                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n     168: invokevirtual #81                 // Method com/lineage/server/templates/L1Item.get_safeenchant:()I\n     171: iflt          198\n     174: aload_1\n     175: invokevirtual #28                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n     178: invokevirtual #84                 // Method com/lineage/server/templates/L1Item.getUseType:()I\n     181: bipush        -3\n     183: if_icmpeq     198\n     186: aload_1\n     187: invokevirtual #28                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n     190: invokevirtual #84                 // Method com/lineage/server/templates/L1Item.getUseType:()I\n     193: bipush        -2\n     195: if_icmpne     203\n     198: iload_2\n     199: bipush        8\n     201: ior\n     202: istore_2\n     203: aload_1\n     204: invokevirtual #49                 // Method com/lineage/server/model/Instance/L1ItemInstance.isSealed:()Z\n     207: ifeq          253\n     210: bipush        32\n     212: istore_2\n     213: aload_1\n     214: invokevirtual #72                 // Method com/lineage/server/model/Instance/L1ItemInstance.isIdentified:()Z\n     217: ifeq          240\n     220: iload_2\n     221: iconst_1\n     222: ior\n     223: istore_2\n     224: iload_2\n     225: iconst_2\n     226: ior\n     227: istore_2\n     228: iload_2\n     229: iconst_4\n     230: ior\n     231: istore_2\n     232: iload_2\n     233: bipush        8\n     235: ior\n     236: istore_2\n     237: goto          253\n     240: iload_2\n     241: iconst_2\n     242: ior\n     243: istore_2\n     244: iload_2\n     245: iconst_4\n     246: ior\n     247: istore_2\n     248: iload_2\n     249: bipush        8\n     251: ior\n     252: istore_2\n     253: aload_0\n     254: iload_2\n     255: invokevirtual #15                 // Method writeC:(I)V\n     258: aload_0\n     259: aload_1\n     260: invokevirtual #87                 // Method com/lineage/server/model/Instance/L1ItemInstance.getViewName:()Ljava/lang/String;\n     263: invokevirtual #91                 // Method writeS:(Ljava/lang/String;)V\n",
+      "excerptSha256": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+    },
+    {
+      "id": "S15-tail",
+      "source": "S_AddItem",
+      "claim": "短 status 長度 C，長 status 路徑此處 0；尾 C10 H0 D0 D0。",
+      "method": "public com.lineage.server.serverpackets.S_AddItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "bytecodeOffset": [
+        266,
+        363
+      ],
+      "sourceLine": [
+        152,
+        203
+      ],
+      "text": "     266: aload_1\n     267: invokevirtual #72                 // Method com/lineage/server/model/Instance/L1ItemInstance.isIdentified:()Z\n     270: ifne          281\n     273: aload_0\n     274: iconst_0\n     275: invokevirtual #15                 // Method writeC:(I)V\n     278: goto          343\n     281: aload_1\n     282: invokestatic  #95                 // Method com/lineage/server/serverpackets/S_ItemStatus.shouldUseLongStatus:(Lcom/lineage/server/model/Instance/L1ItemInstance;)Z\n     285: ifeq          296\n     288: aload_0\n     289: iconst_0\n     290: invokevirtual #15                 // Method writeC:(I)V\n     293: goto          343\n     296: aload_1\n     297: invokestatic  #101                // Method com/lineage/server/serverpackets/ItemStatusPacketSupport.legacyInlineStatus:(Lcom/lineage/server/model/Instance/L1ItemInstance;)[B\n     300: astore_3\n     301: aload_0\n     302: aload_3\n     303: arraylength\n     304: invokevirtual #15                 // Method writeC:(I)V\n     307: aload_3\n     308: dup\n     309: astore        4\n     311: arraylength\n     312: istore        5\n     314: iconst_0\n     315: istore        6\n     317: iload         6\n     319: iload         5\n     321: if_icmpge     343\n     324: aload         4\n     326: iload         6\n     328: baload\n     329: istore        7\n     331: aload_0\n     332: iload         7\n     334: invokevirtual #15                 // Method writeC:(I)V\n     337: iinc          6, 1\n     340: goto          317\n     343: aload_0\n     344: bipush        10\n     346: invokevirtual #15                 // Method writeC:(I)V\n     349: aload_0\n     350: iconst_0\n     351: invokevirtual #37                 // Method writeH:(I)V\n     354: aload_0\n     355: iconst_0\n     356: invokevirtual #25                 // Method writeD:(I)V\n     359: aload_0\n     360: iconst_0\n     361: invokevirtual #25                 // Method writeD:(I)V\n",
+      "excerptSha256": "493159554efab90b6fa1b541c7bc52ad1f6c004fae20b59f7d22a13fbba70351"
+    },
+    {
+      "id": "S24",
+      "source": "S_ItemAmount",
+      "claim": "C24 D instanceId S viewName D min(count,2e9) C statusLength statusBytes。",
+      "method": "private void buildPacket(com.lineage.server.model.Instance.L1ItemInstance);",
+      "bytecodeOffset": [
+        0,
+        102
+      ],
+      "sourceLine": [
+        31,
+        84
+      ],
+      "text": "       0: aload_0\n       1: bipush        24\n       3: invokevirtual #35                 // Method writeC:(I)V\n       6: aload_0\n       7: aload_1\n       8: invokevirtual #39                 // Method com/lineage/server/model/Instance/L1ItemInstance.getId:()I\n      11: invokevirtual #45                 // Method writeD:(I)V\n      14: aload_0\n      15: aload_1\n      16: invokevirtual #48                 // Method com/lineage/server/model/Instance/L1ItemInstance.getViewName:()Ljava/lang/String;\n      19: invokevirtual #52                 // Method writeS:(Ljava/lang/String;)V\n      22: aload_1\n      23: invokevirtual #55                 // Method com/lineage/server/model/Instance/L1ItemInstance.getCount:()J\n      26: ldc2_w        #59                 // long 2000000000l\n      29: invokestatic  #61                 // Method java/lang/Math.min:(JJ)J\n      32: l2i\n      33: istore_2\n      34: aload_0\n      35: iload_2\n      36: invokevirtual #45                 // Method writeD:(I)V\n      39: aload_1\n      40: invokevirtual #67                 // Method com/lineage/server/model/Instance/L1ItemInstance.isIdentified:()Z\n      43: ifne          54\n      46: aload_0\n      47: iconst_0\n      48: invokevirtual #35                 // Method writeC:(I)V\n      51: goto          102\n      54: aload_1\n      55: invokestatic  #71                 // Method com/lineage/server/serverpackets/ItemStatusPacketSupport.legacyInlineStatus:(Lcom/lineage/server/model/Instance/L1ItemInstance;)[B\n      58: astore_3\n      59: aload_0\n      60: aload_3\n      61: arraylength\n      62: invokevirtual #35                 // Method writeC:(I)V\n      65: aload_3\n      66: astore        4\n      68: aload         4\n      70: arraylength\n      71: istore        5\n      73: iconst_0\n      74: istore        6\n      76: iload         6\n      78: iload         5\n      80: if_icmpge     102\n      83: aload         4\n      85: iload         6\n      87: baload\n      88: istore        7\n      90: aload_0\n      91: iload         7\n      93: invokevirtual #35                 // Method writeC:(I)V\n      96: iinc          6, 1\n      99: goto          76\n     102: return\n",
+      "excerptSha256": "6c40683ac3158f3a45c99be4b55e6b1368bf3d408e388db2901b667d6aadd12e"
+    },
+    {
+      "id": "S242-gate",
+      "source": "S_ItemStatus",
+      "claim": "RO client 且已辨識，status 長度 256..65535 才選 long；配置值本輪未知。",
+      "method": "private static boolean shouldUseLongStatus(com.lineage.server.model.Instance.L1ItemInstance, byte[]);",
+      "bytecodeOffset": [
+        0,
+        41
+      ],
+      "sourceLine": [
+        214,
+        234
+      ],
+      "text": "       0: invokestatic  #93                 // Method com/lineage/config/ConfigClient.isROClient:()Z\n       3: ifeq          40\n       6: aload_0\n       7: ifnull        40\n      10: aload_0\n      11: invokevirtual #33                 // Method com/lineage/server/model/Instance/L1ItemInstance.isIdentified:()Z\n      14: ifeq          40\n      17: aload_1\n      18: ifnull        40\n      21: aload_1\n      22: arraylength\n      23: sipush        255\n      26: if_icmple     40\n      29: aload_1\n      30: arraylength\n      31: ldc           #98                 // int 65535\n      33: if_icmpgt     40\n      36: iconst_1\n      37: goto          41\n      40: iconst_0\n      41: ireturn\n",
+      "excerptSha256": "5948b85b40f67e16975b792a0195721dc9062004bf652d016dff1060cf284450"
+    },
+    {
+      "id": "S242",
+      "source": "S_ItemStatus",
+      "claim": "C242 C1 D instanceId S viewName D count H statusLength statusBytes。",
+      "method": "private void writeLongStatus(com.lineage.server.model.Instance.L1ItemInstance, java.lang.String, int, byte[]);",
+      "bytecodeOffset": [
+        0,
+        75
+      ],
+      "sourceLine": [
+        238,
+        277
+      ],
+      "text": "       0: aload_0\n       1: sipush        242\n       4: invokevirtual #75                 // Method writeC:(I)V\n       7: aload_0\n       8: iconst_1\n       9: invokevirtual #75                 // Method writeC:(I)V\n      12: aload_0\n      13: aload_1\n      14: invokevirtual #79                 // Method com/lineage/server/model/Instance/L1ItemInstance.getId:()I\n      17: invokevirtual #83                 // Method writeD:(I)V\n      20: aload_0\n      21: aload_2\n      22: invokevirtual #86                 // Method writeS:(Ljava/lang/String;)V\n      25: aload_0\n      26: iload_3\n      27: invokevirtual #83                 // Method writeD:(I)V\n      30: aload_0\n      31: aload         4\n      33: arraylength\n      34: invokevirtual #99                 // Method writeH:(I)V\n      37: aload         4\n      39: astore        5\n      41: aload         5\n      43: arraylength\n      44: istore        6\n      46: iconst_0\n      47: istore        7\n      49: iload         7\n      51: iload         6\n      53: if_icmpge     75\n      56: aload         5\n      58: iload         7\n      60: baload\n      61: istore        8\n      63: aload_0\n      64: iload         8\n      66: invokevirtual #75                 // Method writeC:(I)V\n      69: iinc          7, 1\n      72: goto          49\n      75: return\n",
+      "excerptSha256": "0f86d6525c683e06db74d3450b3c5c3a7f12a67a35bbc21892689639c4c1a58e"
+    },
+    {
+      "id": "S120",
+      "source": "S_RemoveObject",
+      "claim": "地面移除 C120 D objectId；舊 CONTRACT.md 的 C9 與 class 不符。",
+      "method": "public com.lineage.server.serverpackets.S_RemoveObject(com.lineage.server.model.L1Object);",
+      "bytecodeOffset": [
+        9,
+        20
+      ],
+      "sourceLine": [
+        12,
+        18
+      ],
+      "text": "       9: aload_0\n      10: bipush        120\n      12: invokevirtual #15                 // Method writeC:(I)V\n      15: aload_0\n      16: aload_1\n      17: invokevirtual #19                 // Method com/lineage/server/model/L1Object.getId:()I\n      20: invokevirtual #25                 // Method writeD:(I)V\n",
+      "excerptSha256": "464a359fcdcc7a186ba6bcfbacadc4a17466c099dba00f8d2ae6f0ca46316bac"
+    },
+    {
+      "id": "S57",
+      "source": "S_DeleteInventoryItem",
+      "claim": "背包移除 C57 D instanceId。",
+      "method": "public com.lineage.server.serverpackets.S_DeleteInventoryItem(com.lineage.server.model.Instance.L1ItemInstance);",
+      "bytecodeOffset": [
+        9,
+        20
+      ],
+      "sourceLine": [
+        12,
+        18
+      ],
+      "text": "       9: aload_0\n      10: bipush        57\n      12: invokevirtual #15                 // Method writeC:(I)V\n      15: aload_0\n      16: aload_1\n      17: invokevirtual #19                 // Method com/lineage/server/model/Instance/L1ItemInstance.getId:()I\n      20: invokevirtual #25                 // Method writeD:(I)V\n",
+      "excerptSha256": "9dedf47f74693e98988d8c974819fc1715e2c77a1b2897697fd299a941fd423b"
+    }
+  ],
+  "bootstrap": {
+    "source": "S_NPCPack_Item",
+    "constantPoolIndex": 140,
+    "text": "BootstrapMethods:\r\n  0: #134 REF_invokeStatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;\r\n    Method arguments:\r\n      #140 \\u0001 (\\u0001)\r\n  1: #134 REF_invokeStatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;\r\n    Method arguments:\r\n      #142 \\u0001 [\\u0001]\r\n  2: #134 REF_invokeStatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;\r\n    Method arguments:\r\n      #144 \\u0001 ($10)\r\n",
+    "recipe": "nameId + \" (\" + actualCount + \")\""
+  },
+  "adoptedTemplateRows": [
+    {
+      "id": "healing",
+      "label": "治癒藥水",
+      "variant": "此主鍵對應模板；不外推祝福、受詛咒或自訂變體",
+      "rawColumns": {
+        "name": "治癒藥水",
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 45,
+        "invgfx": 80,
+        "weight": 3900,
+        "item_id": 40010,
+        "name_id": "$26",
+        "material": "glass",
+        "use_type": "hpr",
+        "classname": "hp.UserAddHp 10 20 189 true 0 0",
+        "item_type": "potion",
+        "stackable": 1,
+        "cant_delete": 0,
+        "itemdesc_id": 1342,
+        "limit_class": 127,
+        "max_charge_count": 0
+      },
+      "fields": {
+        "templateId": 40010,
+        "name": "治癒藥水",
+        "nameToken": "$26",
+        "groundGfx": 45,
+        "inventoryIcon": 80,
+        "inventoryDesc": 1342,
+        "templateUseType": -7,
+        "wireUseType": 249,
+        "stackable": true,
+        "tradable": true,
+        "cantDelete": false,
+        "templateBless": 0,
+        "packetBless": 1,
+        "droppable": "unknown",
+        "equippable": "unknown",
+        "bindingRestrictions": "unknown",
+        "storageCountMax": "unknown"
+      },
+      "source": {
+        "location": "db:p24_world.etcitem",
+        "primaryKey": {
+          "item_id": 40010
+        },
+        "queryId": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "columns": [
+          "name",
+          "bless",
+          "trade",
+          "grdgfx",
+          "invgfx",
+          "weight",
+          "item_id",
+          "name_id",
+          "material",
+          "use_type",
+          "classname",
+          "item_type",
+          "stackable",
+          "cant_delete",
+          "itemdesc_id",
+          "limit_class",
+          "max_charge_count"
+        ],
+        "rowSha256": "2a936ddfac0110c12da4b8606a55e0b768c441cefdee2f99b1cc279e40c197e9"
+      },
+      "fieldEvidence": {
+        "templateId": {
+          "rows": [
+            "etc-template-id"
+          ],
+          "sha256": {
+            "etc-template-id": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+          }
+        },
+        "nameToken": {
+          "rows": [
+            "etc-name-token",
+            "templates.L1Item.setNameId",
+            "templates.L1Item.getNameId",
+            "S87-name"
+          ],
+          "sha256": {
+            "etc-name-token": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9",
+            "templates.L1Item.setNameId": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b",
+            "templates.L1Item.getNameId": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21",
+            "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+          }
+        },
+        "groundGfx": {
+          "rows": [
+            "etc-ground-gfx",
+            "templates.L1Item.setGroundGfxId",
+            "templates.L1Item.getGroundGfxId",
+            "S87-header"
+          ],
+          "sha256": {
+            "etc-ground-gfx": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62",
+            "templates.L1Item.setGroundGfxId": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35",
+            "templates.L1Item.getGroundGfxId": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b",
+            "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+          }
+        },
+        "inventoryIcon": {
+          "rows": [
+            "etc-inventory-icon",
+            "templates.L1Item.setGfxId",
+            "templates.L1Item.getGfxId",
+            "instance-icon",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-inventory-icon": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d",
+            "templates.L1Item.setGfxId": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057",
+            "templates.L1Item.getGfxId": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d",
+            "instance-icon": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "inventoryDesc": {
+          "rows": [
+            "etc-item-desc",
+            "templates.L1Item.setItemDescId",
+            "templates.L1Item.getItemDescId",
+            "templates.L1Item.getPacketItemDescId",
+            "templates.L1Item.getMagicCatalystType",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-item-desc": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed",
+            "templates.L1Item.setItemDescId": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c",
+            "templates.L1Item.getItemDescId": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce",
+            "templates.L1Item.getPacketItemDescId": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7",
+            "templates.L1Item.getMagicCatalystType": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "wireUseType": {
+          "rows": [
+            "etc-use-type",
+            "templates.L1Item.setUseType",
+            "templates.L1Item.getUseType",
+            "templates.L1Item.getPacketUseType",
+            "S15-header",
+            "use-type-hpr"
+          ],
+          "sha256": {
+            "etc-use-type": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb",
+            "templates.L1Item.setUseType": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1",
+            "templates.L1Item.getUseType": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274",
+            "templates.L1Item.getPacketUseType": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+            "use-type-hpr": "2b91b745da81e68955a4bfe5b1007f04b39de7d89b49c2ac5bbdfa802b752ca1"
+          }
+        },
+        "stackable": {
+          "rows": [
+            "etc-stackable",
+            "templates.L1EtcItem.set_stackable",
+            "templates.L1EtcItem.isStackable"
+          ],
+          "sha256": {
+            "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4",
+            "templates.L1EtcItem.set_stackable": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9",
+            "templates.L1EtcItem.isStackable": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+          }
+        },
+        "tradable": {
+          "rows": [
+            "etc-trade",
+            "templates.L1Item.isTradable",
+            "C25-template-policy"
+          ],
+          "sha256": {
+            "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+            "templates.L1Item.isTradable": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6",
+            "C25-template-policy": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+          }
+        },
+        "cantDelete": {
+          "rows": [
+            "etc-cant-delete",
+            "templates.L1Item.isCantDelete",
+            "S15-flags"
+          ],
+          "sha256": {
+            "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+            "templates.L1Item.isCantDelete": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f",
+            "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+          }
+        },
+        "packetBless": {
+          "rows": [
+            "templates.L1Item.toPacketBless",
+            "S15-header"
+          ],
+          "sha256": {
+            "templates.L1Item.toPacketBless": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        }
+      }
+    },
+    {
+      "id": "white",
+      "label": "白藥水",
+      "variant": "此主鍵對應模板；不外推祝福、受詛咒或自訂變體",
+      "rawColumns": {
+        "name": "終極治癒藥水",
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 46,
+        "invgfx": 81,
+        "weight": 5850,
+        "item_id": 40012,
+        "name_id": "$238",
+        "material": "glass",
+        "use_type": "hpr",
+        "classname": "hp.UserAddHp 60 80 197 true",
+        "item_type": "potion",
+        "stackable": 1,
+        "cant_delete": 0,
+        "itemdesc_id": 130,
+        "limit_class": 127,
+        "max_charge_count": 0
+      },
+      "fields": {
+        "templateId": 40012,
+        "name": "終極治癒藥水",
+        "nameToken": "$238",
+        "groundGfx": 46,
+        "inventoryIcon": 81,
+        "inventoryDesc": 130,
+        "templateUseType": -7,
+        "wireUseType": 249,
+        "stackable": true,
+        "tradable": true,
+        "cantDelete": false,
+        "templateBless": 0,
+        "packetBless": 1,
+        "droppable": "unknown",
+        "equippable": "unknown",
+        "bindingRestrictions": "unknown",
+        "storageCountMax": "unknown"
+      },
+      "source": {
+        "location": "db:p24_world.etcitem",
+        "primaryKey": {
+          "item_id": 40012
+        },
+        "queryId": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "columns": [
+          "name",
+          "bless",
+          "trade",
+          "grdgfx",
+          "invgfx",
+          "weight",
+          "item_id",
+          "name_id",
+          "material",
+          "use_type",
+          "classname",
+          "item_type",
+          "stackable",
+          "cant_delete",
+          "itemdesc_id",
+          "limit_class",
+          "max_charge_count"
+        ],
+        "rowSha256": "4e86c40129e9c30d9eaea9dd1085c1cc82862968fd271440b2fa26fdd88c786c"
+      },
+      "fieldEvidence": {
+        "templateId": {
+          "rows": [
+            "etc-template-id"
+          ],
+          "sha256": {
+            "etc-template-id": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+          }
+        },
+        "nameToken": {
+          "rows": [
+            "etc-name-token",
+            "templates.L1Item.setNameId",
+            "templates.L1Item.getNameId",
+            "S87-name"
+          ],
+          "sha256": {
+            "etc-name-token": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9",
+            "templates.L1Item.setNameId": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b",
+            "templates.L1Item.getNameId": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21",
+            "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+          }
+        },
+        "groundGfx": {
+          "rows": [
+            "etc-ground-gfx",
+            "templates.L1Item.setGroundGfxId",
+            "templates.L1Item.getGroundGfxId",
+            "S87-header"
+          ],
+          "sha256": {
+            "etc-ground-gfx": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62",
+            "templates.L1Item.setGroundGfxId": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35",
+            "templates.L1Item.getGroundGfxId": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b",
+            "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+          }
+        },
+        "inventoryIcon": {
+          "rows": [
+            "etc-inventory-icon",
+            "templates.L1Item.setGfxId",
+            "templates.L1Item.getGfxId",
+            "instance-icon",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-inventory-icon": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d",
+            "templates.L1Item.setGfxId": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057",
+            "templates.L1Item.getGfxId": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d",
+            "instance-icon": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "inventoryDesc": {
+          "rows": [
+            "etc-item-desc",
+            "templates.L1Item.setItemDescId",
+            "templates.L1Item.getItemDescId",
+            "templates.L1Item.getPacketItemDescId",
+            "templates.L1Item.getMagicCatalystType",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-item-desc": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed",
+            "templates.L1Item.setItemDescId": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c",
+            "templates.L1Item.getItemDescId": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce",
+            "templates.L1Item.getPacketItemDescId": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7",
+            "templates.L1Item.getMagicCatalystType": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "wireUseType": {
+          "rows": [
+            "etc-use-type",
+            "templates.L1Item.setUseType",
+            "templates.L1Item.getUseType",
+            "templates.L1Item.getPacketUseType",
+            "S15-header",
+            "use-type-hpr"
+          ],
+          "sha256": {
+            "etc-use-type": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb",
+            "templates.L1Item.setUseType": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1",
+            "templates.L1Item.getUseType": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274",
+            "templates.L1Item.getPacketUseType": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+            "use-type-hpr": "2b91b745da81e68955a4bfe5b1007f04b39de7d89b49c2ac5bbdfa802b752ca1"
+          }
+        },
+        "stackable": {
+          "rows": [
+            "etc-stackable",
+            "templates.L1EtcItem.set_stackable",
+            "templates.L1EtcItem.isStackable"
+          ],
+          "sha256": {
+            "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4",
+            "templates.L1EtcItem.set_stackable": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9",
+            "templates.L1EtcItem.isStackable": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+          }
+        },
+        "tradable": {
+          "rows": [
+            "etc-trade",
+            "templates.L1Item.isTradable",
+            "C25-template-policy"
+          ],
+          "sha256": {
+            "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+            "templates.L1Item.isTradable": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6",
+            "C25-template-policy": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+          }
+        },
+        "cantDelete": {
+          "rows": [
+            "etc-cant-delete",
+            "templates.L1Item.isCantDelete",
+            "S15-flags"
+          ],
+          "sha256": {
+            "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+            "templates.L1Item.isCantDelete": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f",
+            "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+          }
+        },
+        "packetBless": {
+          "rows": [
+            "templates.L1Item.toPacketBless",
+            "S15-header"
+          ],
+          "sha256": {
+            "templates.L1Item.toPacketBless": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        }
+      }
+    },
+    {
+      "id": "green",
+      "label": "綠藥水",
+      "variant": "此主鍵對應模板；不外推祝福、受詛咒或自訂變體",
+      "rawColumns": {
+        "name": "自我加速藥水",
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 42,
+        "invgfx": 77,
+        "weight": 3900,
+        "item_id": 40013,
+        "name_id": "$234",
+        "material": "glass",
+        "use_type": "power",
+        "classname": "brave.StatusHaste 300 191 true 40308 10",
+        "item_type": "potion",
+        "stackable": 1,
+        "cant_delete": 0,
+        "itemdesc_id": 17,
+        "limit_class": 127,
+        "max_charge_count": 0
+      },
+      "fields": {
+        "templateId": 40013,
+        "name": "自我加速藥水",
+        "nameToken": "$234",
+        "groundGfx": 42,
+        "inventoryIcon": 77,
+        "inventoryDesc": 17,
+        "templateUseType": -10,
+        "wireUseType": 246,
+        "stackable": true,
+        "tradable": true,
+        "cantDelete": false,
+        "templateBless": 0,
+        "packetBless": 1,
+        "droppable": "unknown",
+        "equippable": "unknown",
+        "bindingRestrictions": "unknown",
+        "storageCountMax": "unknown"
+      },
+      "source": {
+        "location": "db:p24_world.etcitem",
+        "primaryKey": {
+          "item_id": 40013
+        },
+        "queryId": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "columns": [
+          "name",
+          "bless",
+          "trade",
+          "grdgfx",
+          "invgfx",
+          "weight",
+          "item_id",
+          "name_id",
+          "material",
+          "use_type",
+          "classname",
+          "item_type",
+          "stackable",
+          "cant_delete",
+          "itemdesc_id",
+          "limit_class",
+          "max_charge_count"
+        ],
+        "rowSha256": "db98da0340fcb6d9e6472983a0adc0c4c92582ef3c898cb53365b8f73af9646f"
+      },
+      "fieldEvidence": {
+        "templateId": {
+          "rows": [
+            "etc-template-id"
+          ],
+          "sha256": {
+            "etc-template-id": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+          }
+        },
+        "nameToken": {
+          "rows": [
+            "etc-name-token",
+            "templates.L1Item.setNameId",
+            "templates.L1Item.getNameId",
+            "S87-name"
+          ],
+          "sha256": {
+            "etc-name-token": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9",
+            "templates.L1Item.setNameId": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b",
+            "templates.L1Item.getNameId": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21",
+            "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+          }
+        },
+        "groundGfx": {
+          "rows": [
+            "etc-ground-gfx",
+            "templates.L1Item.setGroundGfxId",
+            "templates.L1Item.getGroundGfxId",
+            "S87-header"
+          ],
+          "sha256": {
+            "etc-ground-gfx": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62",
+            "templates.L1Item.setGroundGfxId": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35",
+            "templates.L1Item.getGroundGfxId": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b",
+            "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+          }
+        },
+        "inventoryIcon": {
+          "rows": [
+            "etc-inventory-icon",
+            "templates.L1Item.setGfxId",
+            "templates.L1Item.getGfxId",
+            "instance-icon",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-inventory-icon": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d",
+            "templates.L1Item.setGfxId": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057",
+            "templates.L1Item.getGfxId": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d",
+            "instance-icon": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "inventoryDesc": {
+          "rows": [
+            "etc-item-desc",
+            "templates.L1Item.setItemDescId",
+            "templates.L1Item.getItemDescId",
+            "templates.L1Item.getPacketItemDescId",
+            "templates.L1Item.getMagicCatalystType",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-item-desc": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed",
+            "templates.L1Item.setItemDescId": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c",
+            "templates.L1Item.getItemDescId": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce",
+            "templates.L1Item.getPacketItemDescId": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7",
+            "templates.L1Item.getMagicCatalystType": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "wireUseType": {
+          "rows": [
+            "etc-use-type",
+            "templates.L1Item.setUseType",
+            "templates.L1Item.getUseType",
+            "templates.L1Item.getPacketUseType",
+            "S15-header",
+            "use-type-power"
+          ],
+          "sha256": {
+            "etc-use-type": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb",
+            "templates.L1Item.setUseType": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1",
+            "templates.L1Item.getUseType": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274",
+            "templates.L1Item.getPacketUseType": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+            "use-type-power": "67ae5d821c7ea70ed81e97292fefa1318b7d785d91954a2cbe01225b5a179b26"
+          }
+        },
+        "stackable": {
+          "rows": [
+            "etc-stackable",
+            "templates.L1EtcItem.set_stackable",
+            "templates.L1EtcItem.isStackable"
+          ],
+          "sha256": {
+            "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4",
+            "templates.L1EtcItem.set_stackable": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9",
+            "templates.L1EtcItem.isStackable": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+          }
+        },
+        "tradable": {
+          "rows": [
+            "etc-trade",
+            "templates.L1Item.isTradable",
+            "C25-template-policy"
+          ],
+          "sha256": {
+            "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+            "templates.L1Item.isTradable": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6",
+            "C25-template-policy": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+          }
+        },
+        "cantDelete": {
+          "rows": [
+            "etc-cant-delete",
+            "templates.L1Item.isCantDelete",
+            "S15-flags"
+          ],
+          "sha256": {
+            "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+            "templates.L1Item.isCantDelete": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f",
+            "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+          }
+        },
+        "packetBless": {
+          "rows": [
+            "templates.L1Item.toPacketBless",
+            "S15-header"
+          ],
+          "sha256": {
+            "templates.L1Item.toPacketBless": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        }
+      }
+    },
+    {
+      "id": "meat",
+      "label": "肉",
+      "variant": "此主鍵對應模板；不外推祝福、受詛咒或自訂變體",
+      "rawColumns": {
+        "name": "肉",
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 36,
+        "invgfx": 124,
+        "weight": 10000,
+        "item_id": 40056,
+        "name_id": "$23",
+        "material": "animalmatter",
+        "use_type": "food",
+        "classname": "Food1",
+        "item_type": "food",
+        "stackable": 1,
+        "cant_delete": 0,
+        "itemdesc_id": 10,
+        "limit_class": 127,
+        "max_charge_count": 0
+      },
+      "fields": {
+        "templateId": 40056,
+        "name": "肉",
+        "nameToken": "$23",
+        "groundGfx": 36,
+        "inventoryIcon": 124,
+        "inventoryDesc": 10,
+        "templateUseType": 38,
+        "wireUseType": 38,
+        "stackable": true,
+        "tradable": true,
+        "cantDelete": false,
+        "templateBless": 0,
+        "packetBless": 1,
+        "droppable": "unknown",
+        "equippable": "unknown",
+        "bindingRestrictions": "unknown",
+        "storageCountMax": "unknown"
+      },
+      "source": {
+        "location": "db:p24_world.etcitem",
+        "primaryKey": {
+          "item_id": 40056
+        },
+        "queryId": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "columns": [
+          "name",
+          "bless",
+          "trade",
+          "grdgfx",
+          "invgfx",
+          "weight",
+          "item_id",
+          "name_id",
+          "material",
+          "use_type",
+          "classname",
+          "item_type",
+          "stackable",
+          "cant_delete",
+          "itemdesc_id",
+          "limit_class",
+          "max_charge_count"
+        ],
+        "rowSha256": "1a2e2945d4b9a6c019acfc32d86d129414d9280159bd64a43a22f983e1fb29eb"
+      },
+      "fieldEvidence": {
+        "templateId": {
+          "rows": [
+            "etc-template-id"
+          ],
+          "sha256": {
+            "etc-template-id": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+          }
+        },
+        "nameToken": {
+          "rows": [
+            "etc-name-token",
+            "templates.L1Item.setNameId",
+            "templates.L1Item.getNameId",
+            "S87-name"
+          ],
+          "sha256": {
+            "etc-name-token": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9",
+            "templates.L1Item.setNameId": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b",
+            "templates.L1Item.getNameId": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21",
+            "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+          }
+        },
+        "groundGfx": {
+          "rows": [
+            "etc-ground-gfx",
+            "templates.L1Item.setGroundGfxId",
+            "templates.L1Item.getGroundGfxId",
+            "S87-header"
+          ],
+          "sha256": {
+            "etc-ground-gfx": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62",
+            "templates.L1Item.setGroundGfxId": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35",
+            "templates.L1Item.getGroundGfxId": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b",
+            "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+          }
+        },
+        "inventoryIcon": {
+          "rows": [
+            "etc-inventory-icon",
+            "templates.L1Item.setGfxId",
+            "templates.L1Item.getGfxId",
+            "instance-icon",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-inventory-icon": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d",
+            "templates.L1Item.setGfxId": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057",
+            "templates.L1Item.getGfxId": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d",
+            "instance-icon": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "inventoryDesc": {
+          "rows": [
+            "etc-item-desc",
+            "templates.L1Item.setItemDescId",
+            "templates.L1Item.getItemDescId",
+            "templates.L1Item.getPacketItemDescId",
+            "templates.L1Item.getMagicCatalystType",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-item-desc": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed",
+            "templates.L1Item.setItemDescId": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c",
+            "templates.L1Item.getItemDescId": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce",
+            "templates.L1Item.getPacketItemDescId": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7",
+            "templates.L1Item.getMagicCatalystType": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "wireUseType": {
+          "rows": [
+            "etc-use-type",
+            "templates.L1Item.setUseType",
+            "templates.L1Item.getUseType",
+            "templates.L1Item.getPacketUseType",
+            "S15-header",
+            "use-type-food"
+          ],
+          "sha256": {
+            "etc-use-type": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb",
+            "templates.L1Item.setUseType": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1",
+            "templates.L1Item.getUseType": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274",
+            "templates.L1Item.getPacketUseType": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+            "use-type-food": "1d20089893a63574c12143d509bfbc86fcf35ea69aabefdaa95b6bca2f05d04e"
+          }
+        },
+        "stackable": {
+          "rows": [
+            "etc-stackable",
+            "templates.L1EtcItem.set_stackable",
+            "templates.L1EtcItem.isStackable"
+          ],
+          "sha256": {
+            "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4",
+            "templates.L1EtcItem.set_stackable": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9",
+            "templates.L1EtcItem.isStackable": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+          }
+        },
+        "tradable": {
+          "rows": [
+            "etc-trade",
+            "templates.L1Item.isTradable",
+            "C25-template-policy"
+          ],
+          "sha256": {
+            "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+            "templates.L1Item.isTradable": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6",
+            "C25-template-policy": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+          }
+        },
+        "cantDelete": {
+          "rows": [
+            "etc-cant-delete",
+            "templates.L1Item.isCantDelete",
+            "S15-flags"
+          ],
+          "sha256": {
+            "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+            "templates.L1Item.isCantDelete": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f",
+            "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+          }
+        },
+        "packetBless": {
+          "rows": [
+            "templates.L1Item.toPacketBless",
+            "S15-header"
+          ],
+          "sha256": {
+            "templates.L1Item.toPacketBless": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        }
+      }
+    },
+    {
+      "id": "home",
+      "label": "回家卷",
+      "variant": "此主鍵對應模板；不外推祝福、受詛咒或自訂變體",
+      "rawColumns": {
+        "name": "傳送回家的卷軸",
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 22,
+        "invgfx": 474,
+        "weight": 630,
+        "item_id": 40079,
+        "name_id": "$505",
+        "material": "paper",
+        "use_type": "home",
+        "classname": "teleport.GoHome_Reel",
+        "item_type": "scroll",
+        "stackable": 1,
+        "cant_delete": 0,
+        "itemdesc_id": 1338,
+        "limit_class": 127,
+        "max_charge_count": 0
+      },
+      "fields": {
+        "templateId": 40079,
+        "name": "傳送回家的卷軸",
+        "nameToken": "$505",
+        "groundGfx": 22,
+        "inventoryIcon": 474,
+        "inventoryDesc": 1338,
+        "templateUseType": 9,
+        "wireUseType": 9,
+        "stackable": true,
+        "tradable": true,
+        "cantDelete": false,
+        "templateBless": 0,
+        "packetBless": 1,
+        "droppable": "unknown",
+        "equippable": "unknown",
+        "bindingRestrictions": "unknown",
+        "storageCountMax": "unknown"
+      },
+      "source": {
+        "location": "db:p24_world.etcitem",
+        "primaryKey": {
+          "item_id": 40079
+        },
+        "queryId": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "columns": [
+          "name",
+          "bless",
+          "trade",
+          "grdgfx",
+          "invgfx",
+          "weight",
+          "item_id",
+          "name_id",
+          "material",
+          "use_type",
+          "classname",
+          "item_type",
+          "stackable",
+          "cant_delete",
+          "itemdesc_id",
+          "limit_class",
+          "max_charge_count"
+        ],
+        "rowSha256": "d546c3d63babe0d0bffc1366a4a085f03a80930357571dd722ca35b54bebc968"
+      },
+      "fieldEvidence": {
+        "templateId": {
+          "rows": [
+            "etc-template-id"
+          ],
+          "sha256": {
+            "etc-template-id": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+          }
+        },
+        "nameToken": {
+          "rows": [
+            "etc-name-token",
+            "templates.L1Item.setNameId",
+            "templates.L1Item.getNameId",
+            "S87-name"
+          ],
+          "sha256": {
+            "etc-name-token": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9",
+            "templates.L1Item.setNameId": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b",
+            "templates.L1Item.getNameId": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21",
+            "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+          }
+        },
+        "groundGfx": {
+          "rows": [
+            "etc-ground-gfx",
+            "templates.L1Item.setGroundGfxId",
+            "templates.L1Item.getGroundGfxId",
+            "S87-header"
+          ],
+          "sha256": {
+            "etc-ground-gfx": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62",
+            "templates.L1Item.setGroundGfxId": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35",
+            "templates.L1Item.getGroundGfxId": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b",
+            "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+          }
+        },
+        "inventoryIcon": {
+          "rows": [
+            "etc-inventory-icon",
+            "templates.L1Item.setGfxId",
+            "templates.L1Item.getGfxId",
+            "instance-icon",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-inventory-icon": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d",
+            "templates.L1Item.setGfxId": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057",
+            "templates.L1Item.getGfxId": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d",
+            "instance-icon": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "inventoryDesc": {
+          "rows": [
+            "etc-item-desc",
+            "templates.L1Item.setItemDescId",
+            "templates.L1Item.getItemDescId",
+            "templates.L1Item.getPacketItemDescId",
+            "templates.L1Item.getMagicCatalystType",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-item-desc": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed",
+            "templates.L1Item.setItemDescId": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c",
+            "templates.L1Item.getItemDescId": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce",
+            "templates.L1Item.getPacketItemDescId": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7",
+            "templates.L1Item.getMagicCatalystType": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "wireUseType": {
+          "rows": [
+            "etc-use-type",
+            "templates.L1Item.setUseType",
+            "templates.L1Item.getUseType",
+            "templates.L1Item.getPacketUseType",
+            "S15-header",
+            "use-type-home"
+          ],
+          "sha256": {
+            "etc-use-type": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb",
+            "templates.L1Item.setUseType": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1",
+            "templates.L1Item.getUseType": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274",
+            "templates.L1Item.getPacketUseType": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+            "use-type-home": "0cd56126bf01a797c626e691595450598761845708dc013aaaef2873c2364925"
+          }
+        },
+        "stackable": {
+          "rows": [
+            "etc-stackable",
+            "templates.L1EtcItem.set_stackable",
+            "templates.L1EtcItem.isStackable"
+          ],
+          "sha256": {
+            "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4",
+            "templates.L1EtcItem.set_stackable": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9",
+            "templates.L1EtcItem.isStackable": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+          }
+        },
+        "tradable": {
+          "rows": [
+            "etc-trade",
+            "templates.L1Item.isTradable",
+            "C25-template-policy"
+          ],
+          "sha256": {
+            "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+            "templates.L1Item.isTradable": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6",
+            "C25-template-policy": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+          }
+        },
+        "cantDelete": {
+          "rows": [
+            "etc-cant-delete",
+            "templates.L1Item.isCantDelete",
+            "S15-flags"
+          ],
+          "sha256": {
+            "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+            "templates.L1Item.isCantDelete": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f",
+            "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+          }
+        },
+        "packetBless": {
+          "rows": [
+            "templates.L1Item.toPacketBless",
+            "S15-header"
+          ],
+          "sha256": {
+            "templates.L1Item.toPacketBless": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        }
+      }
+    },
+    {
+      "id": "gold",
+      "label": "金幣",
+      "variant": "此主鍵對應模板；不外推祝福、受詛咒或自訂變體",
+      "rawColumns": {
+        "name": "金幣",
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 7,
+        "invgfx": 5,
+        "weight": 0,
+        "item_id": 40308,
+        "name_id": "$4",
+        "material": "gold",
+        "use_type": "none",
+        "classname": "0",
+        "item_type": "other",
+        "stackable": 1,
+        "cant_delete": 0,
+        "itemdesc_id": 0,
+        "limit_class": 127,
+        "max_charge_count": 0
+      },
+      "fields": {
+        "templateId": 40308,
+        "name": "金幣",
+        "nameToken": "$4",
+        "groundGfx": 7,
+        "inventoryIcon": 5,
+        "inventoryDesc": 0,
+        "templateUseType": -1,
+        "wireUseType": 255,
+        "stackable": true,
+        "tradable": true,
+        "cantDelete": false,
+        "templateBless": 0,
+        "packetBless": 1,
+        "droppable": "unknown",
+        "equippable": "unknown",
+        "bindingRestrictions": "unknown",
+        "storageCountMax": "unknown"
+      },
+      "source": {
+        "location": "db:p24_world.etcitem",
+        "primaryKey": {
+          "item_id": 40308
+        },
+        "queryId": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "columns": [
+          "name",
+          "bless",
+          "trade",
+          "grdgfx",
+          "invgfx",
+          "weight",
+          "item_id",
+          "name_id",
+          "material",
+          "use_type",
+          "classname",
+          "item_type",
+          "stackable",
+          "cant_delete",
+          "itemdesc_id",
+          "limit_class",
+          "max_charge_count"
+        ],
+        "rowSha256": "356517084c5c44576d323fcc87a6f3da5c767343db56aa37403020a7da58547b"
+      },
+      "fieldEvidence": {
+        "templateId": {
+          "rows": [
+            "etc-template-id"
+          ],
+          "sha256": {
+            "etc-template-id": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+          }
+        },
+        "nameToken": {
+          "rows": [
+            "etc-name-token",
+            "templates.L1Item.setNameId",
+            "templates.L1Item.getNameId",
+            "S87-name"
+          ],
+          "sha256": {
+            "etc-name-token": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9",
+            "templates.L1Item.setNameId": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b",
+            "templates.L1Item.getNameId": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21",
+            "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+          }
+        },
+        "groundGfx": {
+          "rows": [
+            "etc-ground-gfx",
+            "templates.L1Item.setGroundGfxId",
+            "templates.L1Item.getGroundGfxId",
+            "S87-header"
+          ],
+          "sha256": {
+            "etc-ground-gfx": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62",
+            "templates.L1Item.setGroundGfxId": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35",
+            "templates.L1Item.getGroundGfxId": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b",
+            "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+          }
+        },
+        "inventoryIcon": {
+          "rows": [
+            "etc-inventory-icon",
+            "templates.L1Item.setGfxId",
+            "templates.L1Item.getGfxId",
+            "instance-icon",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-inventory-icon": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d",
+            "templates.L1Item.setGfxId": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057",
+            "templates.L1Item.getGfxId": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d",
+            "instance-icon": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "inventoryDesc": {
+          "rows": [
+            "etc-item-desc",
+            "templates.L1Item.setItemDescId",
+            "templates.L1Item.getItemDescId",
+            "templates.L1Item.getPacketItemDescId",
+            "templates.L1Item.getMagicCatalystType",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-item-desc": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed",
+            "templates.L1Item.setItemDescId": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c",
+            "templates.L1Item.getItemDescId": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce",
+            "templates.L1Item.getPacketItemDescId": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7",
+            "templates.L1Item.getMagicCatalystType": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "wireUseType": {
+          "rows": [
+            "etc-use-type",
+            "templates.L1Item.setUseType",
+            "templates.L1Item.getUseType",
+            "templates.L1Item.getPacketUseType",
+            "S15-header",
+            "use-type-none"
+          ],
+          "sha256": {
+            "etc-use-type": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb",
+            "templates.L1Item.setUseType": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1",
+            "templates.L1Item.getUseType": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274",
+            "templates.L1Item.getPacketUseType": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+            "use-type-none": "906ca18faae065c35fe2e1cffffb711f959b48752475b7df8386d7e41a559c5f"
+          }
+        },
+        "stackable": {
+          "rows": [
+            "etc-stackable",
+            "templates.L1EtcItem.set_stackable",
+            "templates.L1EtcItem.isStackable"
+          ],
+          "sha256": {
+            "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4",
+            "templates.L1EtcItem.set_stackable": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9",
+            "templates.L1EtcItem.isStackable": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+          }
+        },
+        "tradable": {
+          "rows": [
+            "etc-trade",
+            "templates.L1Item.isTradable",
+            "C25-template-policy"
+          ],
+          "sha256": {
+            "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+            "templates.L1Item.isTradable": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6",
+            "C25-template-policy": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+          }
+        },
+        "cantDelete": {
+          "rows": [
+            "etc-cant-delete",
+            "templates.L1Item.isCantDelete",
+            "S15-flags"
+          ],
+          "sha256": {
+            "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+            "templates.L1Item.isCantDelete": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f",
+            "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+          }
+        },
+        "packetBless": {
+          "rows": [
+            "templates.L1Item.toPacketBless",
+            "S15-header"
+          ],
+          "sha256": {
+            "templates.L1Item.toPacketBless": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        }
+      }
+    },
+    {
+      "id": "arrow",
+      "label": "箭",
+      "variant": "此主鍵對應模板；不外推祝福、受詛咒或自訂變體",
+      "rawColumns": {
+        "name": "箭",
+        "bless": 0,
+        "trade": 0,
+        "grdgfx": 66,
+        "invgfx": 7,
+        "weight": 30,
+        "item_id": 40743,
+        "name_id": "$61",
+        "material": "wood",
+        "use_type": "arrow",
+        "classname": "0",
+        "item_type": "arrow",
+        "stackable": 1,
+        "cant_delete": 0,
+        "itemdesc_id": 0,
+        "limit_class": 127,
+        "max_charge_count": 0
+      },
+      "fields": {
+        "templateId": 40743,
+        "name": "箭",
+        "nameToken": "$61",
+        "groundGfx": 66,
+        "inventoryIcon": 7,
+        "inventoryDesc": 0,
+        "templateUseType": -2,
+        "wireUseType": 254,
+        "stackable": true,
+        "tradable": true,
+        "cantDelete": false,
+        "templateBless": 0,
+        "packetBless": 1,
+        "droppable": "unknown",
+        "equippable": "unknown",
+        "bindingRestrictions": "unknown",
+        "storageCountMax": "unknown"
+      },
+      "source": {
+        "location": "db:p24_world.etcitem",
+        "primaryKey": {
+          "item_id": 40743
+        },
+        "queryId": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "columns": [
+          "name",
+          "bless",
+          "trade",
+          "grdgfx",
+          "invgfx",
+          "weight",
+          "item_id",
+          "name_id",
+          "material",
+          "use_type",
+          "classname",
+          "item_type",
+          "stackable",
+          "cant_delete",
+          "itemdesc_id",
+          "limit_class",
+          "max_charge_count"
+        ],
+        "rowSha256": "5298db3bc18f2bea2a3f81f5751fc4fb907ab02b94965ade170eb594808255af"
+      },
+      "fieldEvidence": {
+        "templateId": {
+          "rows": [
+            "etc-template-id"
+          ],
+          "sha256": {
+            "etc-template-id": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+          }
+        },
+        "nameToken": {
+          "rows": [
+            "etc-name-token",
+            "templates.L1Item.setNameId",
+            "templates.L1Item.getNameId",
+            "S87-name"
+          ],
+          "sha256": {
+            "etc-name-token": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9",
+            "templates.L1Item.setNameId": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b",
+            "templates.L1Item.getNameId": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21",
+            "S87-name": "ed3b20df3db60bf38c180b531c99fbd6f7c670bc7470a546ecfae0fd35ac4ad7"
+          }
+        },
+        "groundGfx": {
+          "rows": [
+            "etc-ground-gfx",
+            "templates.L1Item.setGroundGfxId",
+            "templates.L1Item.getGroundGfxId",
+            "S87-header"
+          ],
+          "sha256": {
+            "etc-ground-gfx": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62",
+            "templates.L1Item.setGroundGfxId": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35",
+            "templates.L1Item.getGroundGfxId": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b",
+            "S87-header": "90325d34fbe6a4cdf183de6c84028d9553cc8e7fd5295859716f9f715d9bcc2c"
+          }
+        },
+        "inventoryIcon": {
+          "rows": [
+            "etc-inventory-icon",
+            "templates.L1Item.setGfxId",
+            "templates.L1Item.getGfxId",
+            "instance-icon",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-inventory-icon": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d",
+            "templates.L1Item.setGfxId": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057",
+            "templates.L1Item.getGfxId": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d",
+            "instance-icon": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "inventoryDesc": {
+          "rows": [
+            "etc-item-desc",
+            "templates.L1Item.setItemDescId",
+            "templates.L1Item.getItemDescId",
+            "templates.L1Item.getPacketItemDescId",
+            "templates.L1Item.getMagicCatalystType",
+            "S15-header"
+          ],
+          "sha256": {
+            "etc-item-desc": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed",
+            "templates.L1Item.setItemDescId": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c",
+            "templates.L1Item.getItemDescId": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce",
+            "templates.L1Item.getPacketItemDescId": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7",
+            "templates.L1Item.getMagicCatalystType": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        },
+        "wireUseType": {
+          "rows": [
+            "etc-use-type",
+            "templates.L1Item.setUseType",
+            "templates.L1Item.getUseType",
+            "templates.L1Item.getPacketUseType",
+            "S15-header",
+            "use-type-arrow"
+          ],
+          "sha256": {
+            "etc-use-type": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb",
+            "templates.L1Item.setUseType": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1",
+            "templates.L1Item.getUseType": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274",
+            "templates.L1Item.getPacketUseType": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd",
+            "use-type-arrow": "38d024c173c4d08cec9105edbce2c398759d6059f9afae428b5fdc2805ea732e"
+          }
+        },
+        "stackable": {
+          "rows": [
+            "etc-stackable",
+            "templates.L1EtcItem.set_stackable",
+            "templates.L1EtcItem.isStackable"
+          ],
+          "sha256": {
+            "etc-stackable": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4",
+            "templates.L1EtcItem.set_stackable": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9",
+            "templates.L1EtcItem.isStackable": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+          }
+        },
+        "tradable": {
+          "rows": [
+            "etc-trade",
+            "templates.L1Item.isTradable",
+            "C25-template-policy"
+          ],
+          "sha256": {
+            "etc-trade": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac",
+            "templates.L1Item.isTradable": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6",
+            "C25-template-policy": "0afbdb3ae65d2bd199f99194cd4d0aecc09b64f38f0b7b94481c04b3275f708d"
+          }
+        },
+        "cantDelete": {
+          "rows": [
+            "etc-cant-delete",
+            "templates.L1Item.isCantDelete",
+            "S15-flags"
+          ],
+          "sha256": {
+            "etc-cant-delete": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7",
+            "templates.L1Item.isCantDelete": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f",
+            "S15-flags": "f86d39af536dd4a060b0196fb47978d80ff483cd613bc750b0680decd80b420b"
+          }
+        },
+        "packetBless": {
+          "rows": [
+            "templates.L1Item.toPacketBless",
+            "S15-header"
+          ],
+          "sha256": {
+            "templates.L1Item.toPacketBless": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397",
+            "S15-header": "5bb2d4803821b39b28394791bb3e9a63e6e218ce5f769618555a8f8028864fcd"
+          }
+        }
+      }
+    }
+  ],
+  "templateGaps": [
+    {
+      "label": "金幣",
+      "unknown": [
+        "droppable",
+        "equippable",
+        "bindingRestrictions",
+        "storageCountMax"
+      ],
+      "reason": "模板可交易不是完整丟棄允許；instance 狀態、ItemDropTable／配置及更深 storage 限制未全驗。"
+    },
+    {
+      "label": "肉",
+      "unknown": [
+        "droppable",
+        "equippable",
+        "bindingRestrictions",
+        "storageCountMax"
+      ],
+      "reason": "模板可交易不是完整丟棄允許；instance 狀態、ItemDropTable／配置及更深 storage 限制未全驗。"
+    },
+    {
+      "label": "箭",
+      "unknown": [
+        "droppable",
+        "equippable",
+        "bindingRestrictions",
+        "storageCountMax"
+      ],
+      "reason": "模板可交易不是完整丟棄允許；instance 狀態、ItemDropTable／配置及更深 storage 限制未全驗。"
+    },
+    {
+      "label": "治癒藥水",
+      "unknown": [
+        "droppable",
+        "equippable",
+        "bindingRestrictions",
+        "storageCountMax"
+      ],
+      "reason": "模板可交易不是完整丟棄允許；instance 狀態、ItemDropTable／配置及更深 storage 限制未全驗。"
+    },
+    {
+      "label": "綠藥水",
+      "unknown": [
+        "droppable",
+        "equippable",
+        "bindingRestrictions",
+        "storageCountMax"
+      ],
+      "reason": "模板可交易不是完整丟棄允許；instance 狀態、ItemDropTable／配置及更深 storage 限制未全驗。"
+    },
+    {
+      "label": "白藥水",
+      "unknown": [
+        "droppable",
+        "equippable",
+        "bindingRestrictions",
+        "storageCountMax"
+      ],
+      "reason": "模板可交易不是完整丟棄允許；instance 狀態、ItemDropTable／配置及更深 storage 限制未全驗。"
+    },
+    {
+      "label": "回家卷",
+      "unknown": [
+        "droppable",
+        "equippable",
+        "bindingRestrictions",
+        "storageCountMax"
+      ],
+      "reason": "模板可交易不是完整丟棄允許；instance 狀態、ItemDropTable／配置及更深 storage 限制未全驗。"
+    }
+  ],
+  "mappingSources": {
+    "ItemTable": {
+      "kind": "historical-javap-only",
+      "path": "work/timed-item-lifecycle-r1/datatables.ItemTable.javap.txt",
+      "sha256": "4319d84178159307827e07b20cc996ebc701f578969705fa5354712303e456de",
+      "className": "com.lineage.server.datatables.ItemTable",
+      "historicalClassSha256": "959b49dccda1ec12326284ebcc2e1eddf32eaa7f80aacf600b0f260d4a5c63a5",
+      "indexPath": "work/timed-item-lifecycle-r1/class-evidence.json",
+      "indexSha256": "e82520d90942027a1918d0e141cc91c3da3234ba74ec6dc176d545facc1e4aff",
+      "jarPinPath": "work/timed-item-lifecycle-r1/initial-source-pins.json",
+      "jarPinSha256": "0012774b8fbc90d918b8cbe4fac9b0837c26dd64e7ddd918de9686453338ac23",
+      "classRehashedThisRun": false,
+      "javapReproducedThisRun": false,
+      "limitation": "只核對既有 javap 及歷史索引；未讀 JAR、原伺服器來源或設定。"
+    },
+    "L1ItemInstance": {
+      "kind": "historical-javap-only",
+      "path": "work/timed-item-lifecycle-r1/model.Instance.L1ItemInstance.javap.txt",
+      "sha256": "ea13fda5cca763610b7c7f90643ce4d4ead65333a6c833224ea9c98b234b66de",
+      "className": "com.lineage.server.model.Instance.L1ItemInstance",
+      "historicalClassSha256": "1f2b8050c0c60b7846596529faecd6d66a41bbdb5412888ed9e1970d16a657f2",
+      "indexPath": "work/timed-item-lifecycle-r1/class-evidence.json",
+      "indexSha256": "e82520d90942027a1918d0e141cc91c3da3234ba74ec6dc176d545facc1e4aff",
+      "jarPinPath": "work/timed-item-lifecycle-r1/initial-source-pins.json",
+      "jarPinSha256": "0012774b8fbc90d918b8cbe4fac9b0837c26dd64e7ddd918de9686453338ac23",
+      "classRehashedThisRun": false,
+      "javapReproducedThisRun": false,
+      "limitation": "只核對既有 javap 及歷史索引；未讀 JAR、原伺服器來源或設定。"
+    }
+  },
+  "adoptedMappingRows": [
+    {
+      "id": "etc-template-id",
+      "source": "ItemTable",
+      "claim": "item_id 經 getInt/setItemId 載入模板鍵，不是 wire instance ObjectId。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        45,
+        69
+      ],
+      "sourceLine": [
+        194,
+        204
+      ],
+      "text": "      45: aload         4\n      47: ldc           #103                // String item_id\n      49: invokeinterface #105,  2          // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n      54: istore        5\n      56: new           #109                // class com/lineage/server/templates/L1EtcItem\n      59: dup\n      60: invokespecial #111                // Method com/lineage/server/templates/L1EtcItem.\"<init>\":()V\n      63: astore        6\n      65: aload         6\n      67: iload         5\n      69: invokevirtual #112                // Method com/lineage/server/templates/L1EtcItem.setItemId:(I)V\n",
+      "excerptSha256": "a984e416ed2105d962a59e8c42711d628532c38e4ff59ecb551510dcaa0c563f"
+    },
+    {
+      "id": "etc-name-token",
+      "source": "ItemTable",
+      "claim": "name_id 經 getString/setNameId 載入；S87 使用 getNameId。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        104,
+        115
+      ],
+      "sourceLine": [
+        217,
+        221
+      ],
+      "text": "     104: aload         6\n     106: aload         4\n     108: ldc           #130                // String name_id\n     110: invokeinterface #118,  2          // InterfaceMethod java/sql/ResultSet.getString:(Ljava/lang/String;)Ljava/lang/String;\n     115: invokevirtual #132                // Method com/lineage/server/templates/L1EtcItem.setNameId:(Ljava/lang/String;)V\n",
+      "excerptSha256": "04cb66b6876549fab0a4398655cd1c865c6464bc0fe364d65cd06e85f09468b9"
+    },
+    {
+      "id": "etc-use-type",
+      "source": "ItemTable",
+      "claim": "use_type 字串先經 _useTypes map，再 setUseType；不能直接當 packet useType。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        146,
+        171
+      ],
+      "sourceLine": [
+        231,
+        239
+      ],
+      "text": "     146: aload         6\n     148: getstatic     #151                // Field _useTypes:Ljava/util/Map;\n     151: aload         4\n     153: ldc           #154                // String use_type\n     155: invokeinterface #118,  2          // InterfaceMethod java/sql/ResultSet.getString:(Ljava/lang/String;)Ljava/lang/String;\n     160: invokeinterface #140,  2          // InterfaceMethod java/util/Map.get:(Ljava/lang/Object;)Ljava/lang/Object;\n     165: checkcast     #143                // class java/lang/Integer\n     168: invokevirtual #145                // Method java/lang/Integer.intValue:()I\n     171: invokevirtual #156                // Method com/lineage/server/templates/L1EtcItem.setUseType:(I)V\n",
+      "excerptSha256": "af7c3b1a1f18def58dc381b46a158f91af8eb39aa83e7e782f4d5751210596eb"
+    },
+    {
+      "id": "etc-inventory-icon",
+      "source": "ItemTable",
+      "claim": "invgfx 經 getInt/setGfxId 載入。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        222,
+        233
+      ],
+      "sourceLine": [
+        257,
+        261
+      ],
+      "text": "     222: aload         6\n     224: aload         4\n     226: ldc           #175                // String invgfx\n     228: invokeinterface #105,  2          // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n     233: invokevirtual #177                // Method com/lineage/server/templates/L1EtcItem.setGfxId:(I)V\n",
+      "excerptSha256": "43a520b802ab8830700f68f63d3b5cd525e82f0afb143e3bbf30998087f2c35d"
+    },
+    {
+      "id": "etc-ground-gfx",
+      "source": "ItemTable",
+      "claim": "grdgfx 經 getInt/setGroundGfxId 載入；S87 呼叫 getGroundGfxId。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        236,
+        247
+      ],
+      "sourceLine": [
+        262,
+        266
+      ],
+      "text": "     236: aload         6\n     238: aload         4\n     240: ldc           #180                // String grdgfx\n     242: invokeinterface #105,  2          // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n     247: invokevirtual #182                // Method com/lineage/server/templates/L1EtcItem.setGroundGfxId:(I)V\n",
+      "excerptSha256": "93aecda214634ab2774b41b02077e31e4fbc32427d07ce0e3a12843bf5c14a62"
+    },
+    {
+      "id": "etc-item-desc",
+      "source": "ItemTable",
+      "claim": "itemdesc_id 經 getInt/setItemDescId 載入；仍缺 getPacketItemDescId 轉換實作。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        250,
+        261
+      ],
+      "sourceLine": [
+        267,
+        271
+      ],
+      "text": "     250: aload         6\n     252: aload         4\n     254: ldc           #185                // String itemdesc_id\n     256: invokeinterface #105,  2          // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n     261: invokevirtual #187                // Method com/lineage/server/templates/L1EtcItem.setItemDescId:(I)V\n",
+      "excerptSha256": "b375b08fcc832f941b6771f0a9c9c2c900bee3d2da6b40e1f9f559d4afd305ed"
+    },
+    {
+      "id": "etc-trade",
+      "source": "ItemTable",
+      "claim": "trade == 0 才 setTradable(true)；不能把 trade=1 當可交易，也不等於可丟棄。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        306,
+        325
+      ],
+      "sourceLine": [
+        287,
+        295
+      ],
+      "text": "     306: aload         6\n     308: aload         4\n     310: ldc           #205                // String trade\n     312: invokeinterface #105,  2          // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n     317: ifne          324\n     320: iconst_1\n     321: goto          325\n     324: iconst_0\n     325: invokevirtual #207                // Method com/lineage/server/templates/L1EtcItem.setTradable:(Z)V\n",
+      "excerptSha256": "ba552a69c765ee4785d7cf031160c19b1aa29719090919290abf0f3ed10866ac"
+    },
+    {
+      "id": "etc-cant-delete",
+      "source": "ItemTable",
+      "claim": "cant_delete == 1 才 setCantDelete(true)。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        328,
+        348
+      ],
+      "sourceLine": [
+        296,
+        305
+      ],
+      "text": "     328: aload         6\n     330: aload         4\n     332: ldc           #211                // String cant_delete\n     334: invokeinterface #105,  2          // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n     339: iconst_1\n     340: if_icmpne     347\n     343: iconst_1\n     344: goto          348\n     347: iconst_0\n     348: invokevirtual #213                // Method com/lineage/server/templates/L1EtcItem.setCantDelete:(Z)V\n",
+      "excerptSha256": "a6da1b71442dcbe4cbe8354f6d9a2c53f1005b92fb3df0ef8b1c1dea30e3b2f7"
+    },
+    {
+      "id": "etc-stackable",
+      "source": "ItemTable",
+      "claim": "stackable == 1 才 set_stackable(true)。",
+      "method": "private java.util.Map<java.lang.Integer, com.lineage.server.templates.L1EtcItem> allEtcItem();",
+      "bytecodeOffset": [
+        351,
+        371
+      ],
+      "sourceLine": [
+        306,
+        315
+      ],
+      "text": "     351: aload         6\n     353: aload         4\n     355: ldc           #216                // String stackable\n     357: invokeinterface #105,  2          // InterfaceMethod java/sql/ResultSet.getInt:(Ljava/lang/String;)I\n     362: iconst_1\n     363: if_icmpne     370\n     366: iconst_1\n     367: goto          371\n     370: iconst_0\n     371: invokevirtual #218                // Method com/lineage/server/templates/L1EtcItem.set_stackable:(Z)V\n",
+      "excerptSha256": "df4049aa9637087f577420640f79716939d7ba6d73f6ca954878e41ada5930b4"
+    },
+    {
+      "id": "instance-icon",
+      "source": "L1ItemInstance",
+      "claim": "get_gfxid 直接回傳 template.getGfxId；S15 寫入 H icon。可對照 invgfx 載入端，但模板 setter/getter 本體仍缺。",
+      "method": "public int get_gfxid();",
+      "bytecodeOffset": [
+        0,
+        9
+      ],
+      "sourceLine": [
+        3409,
+        3414
+      ],
+      "text": "       0: aload_0\n       1: getfield      #270                // Field _item:Lcom/lineage/server/templates/L1Item;\n       4: invokevirtual #918                // Method com/lineage/server/templates/L1Item.getGfxId:()I\n       7: istore_1\n       8: iload_1\n       9: ireturn\n",
+      "excerptSha256": "157d27470a84a4e3940a60eed905534f63985a903c67101ae139aa9e28a5f13e"
+    }
+  ],
+  "remainingEvidence": [
+    "完整執行期丟棄／綁定與儲存上限仍 unknown",
+    "字串編碼／過濾有明示前提；非實際 socket 擷取",
+    "未驗證原生圖像或端到端移轉"
+  ],
+  "supplementalJarEvidence": {
+    "path": "environments/p24/server/Server_Game.jar",
+    "sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+    "rehashedThisRun": true,
+    "command": "javap -c -p -classpath <P24Lab Server_Game.jar> <className>",
+    "offsetKind": "method-local JVM bytecode offset (not File Offset/RVA/VA)",
+    "rows": [
+      {
+        "id": "templates.L1Item.getNameId",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public java.lang.String getNameId();",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          4
+        ],
+        "text": "  public java.lang.String getNameId();\n    Code:\n       0: aload_0\n       1: getfield      #140                // Field _nameId:Ljava/lang/String;\n       4: areturn\n",
+        "excerptSha256": "7a651697fded2c6b5a57540244b16668da0381e43d66406b89ddd3551e4f1c21"
+      },
+      {
+        "id": "templates.L1Item.setNameId",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public void setNameId(java.lang.String);",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          5
+        ],
+        "text": "  public void setNameId(java.lang.String);\n    Code:\n       0: aload_0\n       1: aload_1\n       2: putfield      #140                // Field _nameId:Ljava/lang/String;\n       5: return\n",
+        "excerptSha256": "2d29331d69200ba827b59f6bc7ec0cfd41ddc7191ae750752f555a1568b7824b"
+      },
+      {
+        "id": "templates.L1Item.getGfxId",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public int getGfxId();",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          4
+        ],
+        "text": "  public int getGfxId();\n    Code:\n       0: aload_0\n       1: getfield      #155                // Field _gfxId:I\n       4: ireturn\n",
+        "excerptSha256": "db73adbba94ee7a4a97de24a91edabbdc382d9a68aaf64339773ccf9f8b7336d"
+      },
+      {
+        "id": "templates.L1Item.setGfxId",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public void setGfxId(int);",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          5
+        ],
+        "text": "  public void setGfxId(int);\n    Code:\n       0: aload_0\n       1: iload_1\n       2: putfield      #155                // Field _gfxId:I\n       5: return\n",
+        "excerptSha256": "5e76204f928c85f67267b5494a4eecbc9fa23d5748d995a489d70f054dbd9057"
+      },
+      {
+        "id": "templates.L1Item.getGroundGfxId",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public int getGroundGfxId();",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          4
+        ],
+        "text": "  public int getGroundGfxId();\n    Code:\n       0: aload_0\n       1: getfield      #158                // Field _groundGfxId:I\n       4: ireturn\n",
+        "excerptSha256": "e88afde3a261c8cdb6f03226085c48ca7c3d04672917c50ba2034dd22dab5a6b"
+      },
+      {
+        "id": "templates.L1Item.setGroundGfxId",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public void setGroundGfxId(int);",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          5
+        ],
+        "text": "  public void setGroundGfxId(int);\n    Code:\n       0: aload_0\n       1: iload_1\n       2: putfield      #158                // Field _groundGfxId:I\n       5: return\n",
+        "excerptSha256": "a01da800ddc2526f98dc925d88f2af68a866eacaf05a38b072ed9d0fbb224c35"
+      },
+      {
+        "id": "templates.L1Item.getItemDescId",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public int getItemDescId();",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          4
+        ],
+        "text": "  public int getItemDescId();\n    Code:\n       0: aload_0\n       1: getfield      #161                // Field _itemDescId:I\n       4: ireturn\n",
+        "excerptSha256": "5537f98001235ce8946d0dfc451b87d0e9d2c56e799f1c3693184740ab927bce"
+      },
+      {
+        "id": "templates.L1Item.setItemDescId",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public void setItemDescId(int);",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          5
+        ],
+        "text": "  public void setItemDescId(int);\n    Code:\n       0: aload_0\n       1: iload_1\n       2: putfield      #161                // Field _itemDescId:I\n       5: return\n",
+        "excerptSha256": "47b579d5aea9acb751022c1e759bd482ecbfb4a449222ceb12111ca5591bc23c"
+      },
+      {
+        "id": "templates.L1Item.toPacketBless",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public static int toPacketBless(int);",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          14
+        ],
+        "text": "  public static int toPacketBless(int);\n    Code:\n       0: iload_0\n       1: ifne          6\n       4: iconst_1\n       5: ireturn\n       6: iload_0\n       7: iconst_1\n       8: if_icmpne     13\n      11: iconst_0\n      12: ireturn\n      13: iload_0\n      14: ireturn\n",
+        "excerptSha256": "11857a6770a2ea8f319291af8fb9c7172fb39424a20ee5eefb296f4dc8944397"
+      },
+      {
+        "id": "templates.L1Item.isTradable",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public boolean isTradable();",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          4
+        ],
+        "text": "  public boolean isTradable();\n    Code:\n       0: aload_0\n       1: getfield      #173                // Field _tradable:Z\n       4: ireturn\n",
+        "excerptSha256": "b6e80c1a5b4de10e8b5074207d1f3798eb5cc849b446f8200b49f727fd0211f6"
+      },
+      {
+        "id": "templates.L1Item.isCantDelete",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public boolean isCantDelete();",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          4
+        ],
+        "text": "  public boolean isCantDelete();\n    Code:\n       0: aload_0\n       1: getfield      #176                // Field _cantDelete:Z\n       4: ireturn\n",
+        "excerptSha256": "622d09a91d7ea970d7f5d8e5edc1f33f8de69e50a90bf3f5eec3f3d3ae684f0f"
+      },
+      {
+        "id": "templates.L1Item.getUseType",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public int getUseType();",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          4
+        ],
+        "text": "  public int getUseType();\n    Code:\n       0: aload_0\n       1: getfield      #185                // Field _useType:I\n       4: ireturn\n",
+        "excerptSha256": "18bac6e5322e803396b423c1264e9950d3b0cb47c4e9bb77058f47f81810b274"
+      },
+      {
+        "id": "templates.L1Item.setUseType",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public void setUseType(int);",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          5
+        ],
+        "text": "  public void setUseType(int);\n    Code:\n       0: aload_0\n       1: iload_1\n       2: putfield      #185                // Field _useType:I\n       5: return\n",
+        "excerptSha256": "109be3844e0dd7cefe2626b9a37473521408fea55595dab88e73878c43879ea1"
+      },
+      {
+        "id": "templates.L1Item.get_safeenchant",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public int get_safeenchant();",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          4
+        ],
+        "text": "  public int get_safeenchant();\n    Code:\n       0: aload_0\n       1: getfield      #26                 // Field _safeEnchant:I\n       4: ireturn\n",
+        "excerptSha256": "e23f99b24ea7a0493ebcd56713308ae6379079aeafcb7d747a749237a0b32656"
+      },
+      {
+        "id": "templates.L1Item.getPacketItemDescId",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public int getPacketItemDescId();",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          99
+        ],
+        "text": "  public int getPacketItemDescId();\n    Code:\n       0: aload_0\n       1: invokevirtual #221                // Method getItemId:()I\n       4: tableswitch   { // 80027 to 80030\n                 80027: 36\n                 80028: 48\n                 80029: 60\n                 80030: 72\n               default: 84\n          }\n      36: aload_0\n      37: aload_0\n      38: invokevirtual #225                // Method getItemDescId:()I\n      41: sipush        6258\n      44: invokevirtual #228                // Method normalizeSmithDesc:(II)I\n      47: ireturn\n      48: aload_0\n      49: aload_0\n      50: invokevirtual #225                // Method getItemDescId:()I\n      53: sipush        5212\n      56: invokevirtual #228                // Method normalizeSmithDesc:(II)I\n      59: ireturn\n      60: aload_0\n      61: aload_0\n      62: invokevirtual #225                // Method getItemDescId:()I\n      65: sipush        5210\n      68: invokevirtual #228                // Method normalizeSmithDesc:(II)I\n      71: ireturn\n      72: aload_0\n      73: aload_0\n      74: invokevirtual #225                // Method getItemDescId:()I\n      77: sipush        6259\n      80: invokevirtual #228                // Method normalizeSmithDesc:(II)I\n      83: ireturn\n      84: aload_0\n      85: invokevirtual #225                // Method getItemDescId:()I\n      88: istore_1\n      89: iload_1\n      90: ifeq          95\n      93: iload_1\n      94: ireturn\n      95: aload_0\n      96: invokevirtual #232                // Method getMagicCatalystType:()I\n      99: ireturn\n",
+        "excerptSha256": "d3397fb03deaf79c3924bc7f14fba7ad3eae175a277872382ab23d62756955a7"
+      },
+      {
+        "id": "templates.L1Item.getPacketUseType",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public int getPacketUseType();",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          40
+        ],
+        "text": "  public int getPacketUseType();\n    Code:\n       0: aload_0\n       1: invokevirtual #235                // Method getUseType:()I\n       4: istore_1\n       5: iload_1\n       6: bipush        96\n       8: if_icmpeq     17\n      11: iload_1\n      12: bipush        98\n      14: if_icmplt     20\n      17: bipush        26\n      19: ireturn\n      20: iload_1\n      21: bipush        97\n      23: if_icmpne     29\n      26: bipush        27\n      28: ireturn\n      29: iload_1\n      30: ifge          39\n      33: iload_1\n      34: sipush        255\n      37: iand\n      38: ireturn\n      39: iload_1\n      40: ireturn\n",
+        "excerptSha256": "7b57717f7e26403ac070ce149b871b7d8e68fc0d00007950cfb22b2634391076"
+      },
+      {
+        "id": "templates.L1EtcItem.isStackable",
+        "className": "com.lineage.server.templates.L1EtcItem",
+        "method": "public boolean isStackable();",
+        "jarEntry": "com/lineage/server/templates/L1EtcItem.class",
+        "classSha256": "f681f4fe5c746d2392ec572f5871b07b268d4f8506bdf6b942332cc3ac8eb2bc",
+        "javapSha256": "c2afbbd5e53ad215d5cd2528d205ce1b4cb4ce6a7716a423bb00979eca954ef9",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          4
+        ],
+        "text": "  public boolean isStackable();\n    Code:\n       0: aload_0\n       1: getfield      #17                 // Field _stackable:Z\n       4: ireturn\n",
+        "excerptSha256": "32ca0523a587a400f5b3a2b7ce129489abc7703cb1fff6da34b67e7d0063e703"
+      },
+      {
+        "id": "templates.L1EtcItem.set_stackable",
+        "className": "com.lineage.server.templates.L1EtcItem",
+        "method": "public void set_stackable(boolean);",
+        "jarEntry": "com/lineage/server/templates/L1EtcItem.class",
+        "classSha256": "f681f4fe5c746d2392ec572f5871b07b268d4f8506bdf6b942332cc3ac8eb2bc",
+        "javapSha256": "c2afbbd5e53ad215d5cd2528d205ce1b4cb4ce6a7716a423bb00979eca954ef9",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          5
+        ],
+        "text": "  public void set_stackable(boolean);\n    Code:\n       0: aload_0\n       1: iload_1\n       2: putfield      #17                 // Field _stackable:Z\n       5: return\n",
+        "excerptSha256": "929d128773eac817abc6b39020d473bdd5882ad5fc32eafa2d9ac4e03cc276d9"
+      },
+      {
+        "id": "serverpackets.ServerBasePacket.writeD",
+        "className": "com.lineage.server.serverpackets.ServerBasePacket",
+        "method": "protected final synchronized void writeD(int);",
+        "jarEntry": "com/lineage/server/serverpackets/ServerBasePacket.class",
+        "classSha256": "cbfbc11d757d8a96edf432fdfd852aaf7b19e380535ab2d494d5e1a66a44833b",
+        "javapSha256": "be8c314edd5624bdac4845162dc801af8930d481b9fde29ae45f20fde674fcf4",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          61
+        ],
+        "text": "  protected final synchronized void writeD(int);\n    Code:\n       0: aload_0\n       1: invokevirtual #139                // Method assertPayloadMutable:()V\n       4: aload_0\n       5: getfield      #10                 // Field _bao:Ljava/io/ByteArrayOutputStream;\n       8: iload_1\n       9: sipush        255\n      12: iand\n      13: invokevirtual #142                // Method java/io/ByteArrayOutputStream.write:(I)V\n      16: aload_0\n      17: getfield      #10                 // Field _bao:Ljava/io/ByteArrayOutputStream;\n      20: iload_1\n      21: bipush        8\n      23: ishr\n      24: sipush        255\n      27: iand\n      28: invokevirtual #142                // Method java/io/ByteArrayOutputStream.write:(I)V\n      31: aload_0\n      32: getfield      #10                 // Field _bao:Ljava/io/ByteArrayOutputStream;\n      35: iload_1\n      36: bipush        16\n      38: ishr\n      39: sipush        255\n      42: iand\n      43: invokevirtual #142                // Method java/io/ByteArrayOutputStream.write:(I)V\n      46: aload_0\n      47: getfield      #10                 // Field _bao:Ljava/io/ByteArrayOutputStream;\n      50: iload_1\n      51: bipush        24\n      53: ishr\n      54: sipush        255\n      57: iand\n      58: invokevirtual #142                // Method java/io/ByteArrayOutputStream.write:(I)V\n      61: return\n",
+        "excerptSha256": "f84b5b6edea8eff8ff6b4df1a07486186fd31a73359cfb40f0fd69d08ab15460"
+      },
+      {
+        "id": "serverpackets.ServerBasePacket.writeH",
+        "className": "com.lineage.server.serverpackets.ServerBasePacket",
+        "method": "protected final synchronized void writeH(int);",
+        "jarEntry": "com/lineage/server/serverpackets/ServerBasePacket.class",
+        "classSha256": "cbfbc11d757d8a96edf432fdfd852aaf7b19e380535ab2d494d5e1a66a44833b",
+        "javapSha256": "be8c314edd5624bdac4845162dc801af8930d481b9fde29ae45f20fde674fcf4",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          31
+        ],
+        "text": "  protected final synchronized void writeH(int);\n    Code:\n       0: aload_0\n       1: invokevirtual #139                // Method assertPayloadMutable:()V\n       4: aload_0\n       5: getfield      #10                 // Field _bao:Ljava/io/ByteArrayOutputStream;\n       8: iload_1\n       9: sipush        255\n      12: iand\n      13: invokevirtual #142                // Method java/io/ByteArrayOutputStream.write:(I)V\n      16: aload_0\n      17: getfield      #10                 // Field _bao:Ljava/io/ByteArrayOutputStream;\n      20: iload_1\n      21: bipush        8\n      23: ishr\n      24: sipush        255\n      27: iand\n      28: invokevirtual #142                // Method java/io/ByteArrayOutputStream.write:(I)V\n      31: return\n",
+        "excerptSha256": "2416752071f55bacb32d5babc18998378be15bcc0096aad9ad1d71e8fd24d74a"
+      },
+      {
+        "id": "serverpackets.ServerBasePacket.writeC",
+        "className": "com.lineage.server.serverpackets.ServerBasePacket",
+        "method": "protected final synchronized void writeC(int);",
+        "jarEntry": "com/lineage/server/serverpackets/ServerBasePacket.class",
+        "classSha256": "cbfbc11d757d8a96edf432fdfd852aaf7b19e380535ab2d494d5e1a66a44833b",
+        "javapSha256": "be8c314edd5624bdac4845162dc801af8930d481b9fde29ae45f20fde674fcf4",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          16
+        ],
+        "text": "  protected final synchronized void writeC(int);\n    Code:\n       0: aload_0\n       1: invokevirtual #139                // Method assertPayloadMutable:()V\n       4: aload_0\n       5: getfield      #10                 // Field _bao:Ljava/io/ByteArrayOutputStream;\n       8: iload_1\n       9: sipush        255\n      12: iand\n      13: invokevirtual #142                // Method java/io/ByteArrayOutputStream.write:(I)V\n      16: return\n",
+        "excerptSha256": "8511d40e8b978f0c72765277b3f59c051a1df3b9b8a2d7f399bff5c47dc26bd4"
+      },
+      {
+        "id": "serverpackets.ServerBasePacket.writeS",
+        "className": "com.lineage.server.serverpackets.ServerBasePacket",
+        "method": "protected final synchronized void writeS(java.lang.String);",
+        "jarEntry": "com/lineage/server/serverpackets/ServerBasePacket.class",
+        "classSha256": "cbfbc11d757d8a96edf432fdfd852aaf7b19e380535ab2d494d5e1a66a44833b",
+        "javapSha256": "be8c314edd5624bdac4845162dc801af8930d481b9fde29ae45f20fde674fcf4",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          124
+        ],
+        "text": "  protected final synchronized void writeS(java.lang.String);\n    Code:\n       0: aload_0\n       1: invokevirtual #139                // Method assertPayloadMutable:()V\n       4: aload_1\n       5: ifnull        99\n       8: new           #154                // class java/lang/StringBuilder\n      11: dup\n      12: aload_1\n      13: invokespecial #156                // Method java/lang/StringBuilder.\"<init>\":(Ljava/lang/String;)V\n      16: astore_2\n      17: getstatic     #157                // Field com/lineage/config/ConfigBad.BAD_TEXT_LIST:Ljava/util/ArrayList;\n      20: invokevirtual #163                // Method java/util/ArrayList.iterator:()Ljava/util/Iterator;\n      23: astore_3\n      24: aload_3\n      25: invokeinterface #43,  1           // InterfaceMethod java/util/Iterator.hasNext:()Z\n      30: ifeq          82\n      33: aload_3\n      34: invokeinterface #49,  1           // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;\n      39: checkcast     #166                // class java/lang/String\n      42: astore        4\n      44: aload_2\n      45: aload         4\n      47: invokevirtual #168                // Method java/lang/StringBuilder.indexOf:(Ljava/lang/String;)I\n      50: dup\n      51: istore        5\n      53: iconst_m1\n      54: if_icmpeq     79\n      57: iload         5\n      59: aload         4\n      61: invokevirtual #172                // Method java/lang/String.length:()I\n      64: iadd\n      65: istore        6\n      67: aload_2\n      68: iload         5\n      70: iload         6\n      72: invokevirtual #176                // Method java/lang/StringBuilder.delete:(II)Ljava/lang/StringBuilder;\n      75: pop\n      76: goto          44\n      79: goto          24\n      82: aload_0\n      83: getfield      #10                 // Field _bao:Ljava/io/ByteArrayOutputStream;\n      86: aload_2\n      87: invokevirtual #180                // Method java/lang/StringBuilder.toString:()Ljava/lang/String;\n      90: getstatic     #183                // Field CLIENT_LANGUAGE_CODE:Ljava/lang/String;\n      93: invokevirtual #187                // Method java/lang/String.getBytes:(Ljava/lang/String;)[B\n      96: invokevirtual #191                // Method java/io/ByteArrayOutputStream.write:([B)V\n      99: goto          116\n     102: astore_2\n     103: getstatic     #80                 // Field _log:Lorg/apache/logging/log4j/Logger;\n     106: aload_2\n     107: invokevirtual #194                // Method java/lang/Exception.getLocalizedMessage:()Ljava/lang/String;\n     110: aload_2\n     111: invokeinterface #197,  3          // InterfaceMethod org/apache/logging/log4j/Logger.error:(Ljava/lang/String;Ljava/lang/Throwable;)V\n     116: aload_0\n     117: getfield      #10                 // Field _bao:Ljava/io/ByteArrayOutputStream;\n     120: iconst_0\n     121: invokevirtual #142                // Method java/io/ByteArrayOutputStream.write:(I)V\n     124: return\n    Exception table:\n       from    to  target type\n           4    99   102   Class java/lang/Exception\n",
+        "excerptSha256": "50e65ecd4230c126a69cd083b25738b6110c1fbbf4342b94b03b8d89f4c5dd54"
+      },
+      {
+        "id": "clientpackets.ClientBasePacket.read",
+        "className": "com.lineage.server.clientpackets.ClientBasePacket",
+        "method": "protected void read(byte[]);",
+        "jarEntry": "com/lineage/server/clientpackets/ClientBasePacket.class",
+        "classSha256": "0e955e54fae4d19bab197b95c02b4d003da5a03b6ea438b72c223599b661b451",
+        "javapSha256": "1641062110b6bd77f3f2beb52778725f86eae1a5369d747364226c0eb9568813",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          25
+        ],
+        "text": "  protected void read(byte[]);\n    Code:\n       0: aload_0\n       1: aload_1\n       2: putfield      #7                  // Field decrypt:[B\n       5: aload_0\n       6: iconst_0\n       7: putfield      #13                 // Field offset:I\n      10: aload_0\n      11: aconst_null\n      12: putfield      #17                 // Field failure:Lcom/lineage/server/clientpackets/PacketFormatException;\n      15: aload_0\n      16: iconst_1\n      17: invokevirtual #21                 // Method requireBytes:(I)V\n      20: aload_0\n      21: iconst_1\n      22: putfield      #13                 // Field offset:I\n      25: return\n",
+        "excerptSha256": "afd487983dcc0acd3ef6ac5a5336364390c78d3dcdc4016dc4c302ee93701a52"
+      },
+      {
+        "id": "clientpackets.ClientBasePacket.readH",
+        "className": "com.lineage.server.clientpackets.ClientBasePacket",
+        "method": "protected int readH();",
+        "jarEntry": "com/lineage/server/clientpackets/ClientBasePacket.class",
+        "classSha256": "0e955e54fae4d19bab197b95c02b4d003da5a03b6ea438b72c223599b661b451",
+        "javapSha256": "1641062110b6bd77f3f2beb52778725f86eae1a5369d747364226c0eb9568813",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          10
+        ],
+        "text": "  protected int readH();\n    Code:\n       0: aload_0\n       1: iconst_2\n       2: invokevirtual #21                 // Method requireBytes:(I)V\n       5: aload_0\n       6: iconst_2\n       7: invokevirtual #42                 // Method readUnsigned:(I)I\n      10: ireturn\n",
+        "excerptSha256": "ff8f7e53b05e52cb9c77b78d5ff5a2065c580bd067507c77227f005dc01148ad"
+      },
+      {
+        "id": "clientpackets.ClientBasePacket.readD",
+        "className": "com.lineage.server.clientpackets.ClientBasePacket",
+        "method": "protected int readD();",
+        "jarEntry": "com/lineage/server/clientpackets/ClientBasePacket.class",
+        "classSha256": "0e955e54fae4d19bab197b95c02b4d003da5a03b6ea438b72c223599b661b451",
+        "javapSha256": "1641062110b6bd77f3f2beb52778725f86eae1a5369d747364226c0eb9568813",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          10
+        ],
+        "text": "  protected int readD();\n    Code:\n       0: aload_0\n       1: iconst_4\n       2: invokevirtual #21                 // Method requireBytes:(I)V\n       5: aload_0\n       6: iconst_4\n       7: invokevirtual #42                 // Method readUnsigned:(I)I\n      10: ireturn\n",
+        "excerptSha256": "54026d38f0fd31c66f18127289c6bf4b261a9c515824ff3418176bd37604f57a"
+      },
+      {
+        "id": "clientpackets.ClientBasePacket.readUnsigned",
+        "className": "com.lineage.server.clientpackets.ClientBasePacket",
+        "method": "private int readUnsigned(int);",
+        "jarEntry": "com/lineage/server/clientpackets/ClientBasePacket.class",
+        "classSha256": "0e955e54fae4d19bab197b95c02b4d003da5a03b6ea438b72c223599b661b451",
+        "javapSha256": "1641062110b6bd77f3f2beb52778725f86eae1a5369d747364226c0eb9568813",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          44
+        ],
+        "text": "  private int readUnsigned(int);\n    Code:\n       0: iconst_0\n       1: istore_2\n       2: iconst_0\n       3: istore_3\n       4: iload_3\n       5: iload_1\n       6: if_icmpge     43\n       9: iload_2\n      10: aload_0\n      11: getfield      #7                  // Field decrypt:[B\n      14: aload_0\n      15: dup\n      16: getfield      #13                 // Field offset:I\n      19: dup_x1\n      20: iconst_1\n      21: iadd\n      22: putfield      #13                 // Field offset:I\n      25: baload\n      26: sipush        255\n      29: iand\n      30: bipush        8\n      32: iload_3\n      33: imul\n      34: ishl\n      35: ior\n      36: istore_2\n      37: iinc          3, 1\n      40: goto          4\n      43: iload_2\n      44: ireturn\n",
+        "excerptSha256": "fea0b6a0dd1d352821840c8fc610edf84158d8078009bd518ba1dfefaf1b6ccb"
+      },
+      {
+        "id": "model.Instance.L1ItemInstance.getViewName",
+        "className": "com.lineage.server.model.Instance.L1ItemInstance",
+        "method": "public java.lang.String getViewName();",
+        "jarEntry": "com/lineage/server/model/Instance/L1ItemInstance.class",
+        "classSha256": "1f2b8050c0c60b7846596529faecd6d66a41bbdb5412888ed9e1970d16a657f2",
+        "javapSha256": "a5d73be8c794ef5c5656a5aaace31db8ffe8eb0886ed10d35f9d93bec13d16ac",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          4
+        ],
+        "text": "  public java.lang.String getViewName();\n    Code:\n       0: aload_0\n       1: invokestatic  #1338               // Method com/lineage/server/model/Instance/L1ItemStatus.getViewName:(Lcom/lineage/server/model/Instance/L1ItemInstance;)Ljava/lang/String;\n       4: areturn\n",
+        "excerptSha256": "0edfd4807e2f3d93496b7d1fd60521bc4d4c85f200d0351626f81aef5df6ba5b"
+      },
+      {
+        "id": "model.Instance.L1ItemStatus.getViewName",
+        "className": "com.lineage.server.model.Instance.L1ItemStatus",
+        "method": "public static java.lang.String getViewName(com.lineage.server.model.Instance.L1ItemInstance);",
+        "jarEntry": "com/lineage/server/model/Instance/L1ItemStatus.class",
+        "classSha256": "ac1be43e6280dd9d76d1b640daadceccac6e77f91b7cc2abf5e0f605c2796248",
+        "javapSha256": "9163528dcc7539b2371b2a180b88c2d22e4cc071fdd2c423665a5d5f195cec69",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          8
+        ],
+        "text": "  public static java.lang.String getViewName(com.lineage.server.model.Instance.L1ItemInstance);\n    Code:\n       0: aload_0\n       1: aload_0\n       2: invokevirtual #496                // Method com/lineage/server/model/Instance/L1ItemInstance.getCount:()J\n       5: invokestatic  #500                // Method getNumberedViewName:(Lcom/lineage/server/model/Instance/L1ItemInstance;J)Ljava/lang/String;\n       8: areturn\n",
+        "excerptSha256": "05d342ce9bf999ad8722c2453f3e58cbf060582a1c670a096a5e16c1a62def0e"
+      },
+      {
+        "id": "model.Instance.L1ItemStatus.getNumberedViewName",
+        "className": "com.lineage.server.model.Instance.L1ItemStatus",
+        "method": "static java.lang.String getNumberedViewName(com.lineage.server.model.Instance.L1ItemInstance, long);",
+        "jarEntry": "com/lineage/server/model/Instance/L1ItemStatus.class",
+        "classSha256": "ac1be43e6280dd9d76d1b640daadceccac6e77f91b7cc2abf5e0f605c2796248",
+        "javapSha256": "9163528dcc7539b2371b2a180b88c2d22e4cc071fdd2c423665a5d5f195cec69",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          581
+        ],
+        "text": "  static java.lang.String getNumberedViewName(com.lineage.server.model.Instance.L1ItemInstance, long);\n    Code:\n       0: new           #504                // class java/lang/StringBuilder\n       3: dup\n       4: aload_0\n       5: lload_1\n       6: iconst_1\n       7: invokestatic  #492                // Method getNumberedName:(Lcom/lineage/server/model/Instance/L1ItemInstance;JZ)Ljava/lang/String;\n      10: invokespecial #506                // Method java/lang/StringBuilder.\"<init>\":(Ljava/lang/String;)V\n      13: astore_3\n      14: aload_0\n      15: invokevirtual #21                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n      18: astore        4\n      20: aload         4\n      22: invokevirtual #157                // Method com/lineage/server/templates/L1Item.getUseType:()I\n      25: tableswitch   { // -12 to 70\n                   -12: 415\n                   -11: 372\n                   -10: 372\n                    -9: 372\n                    -8: 372\n                    -7: 372\n                    -6: 372\n                    -5: 372\n                    -4: 433\n                    -3: 372\n                    -2: 372\n                    -1: 372\n                     0: 372\n                     1: 478\n                     2: 562\n                     3: 372\n                     4: 372\n                     5: 372\n                     6: 372\n                     7: 372\n                     8: 372\n                     9: 372\n                    10: 496\n                    11: 372\n                    12: 372\n                    13: 372\n                    14: 372\n                    15: 372\n                    16: 372\n                    17: 372\n                    18: 562\n                    19: 562\n                    20: 562\n                    21: 562\n                    22: 562\n                    23: 562\n                    24: 562\n                    25: 562\n                    26: 372\n                    27: 372\n                    28: 372\n                    29: 372\n                    30: 372\n                    31: 372\n                    32: 372\n                    33: 372\n                    34: 372\n                    35: 372\n                    36: 372\n                    37: 562\n                    38: 372\n                    39: 372\n                    40: 562\n                    41: 372\n                    42: 372\n                    43: 562\n                    44: 562\n                    45: 562\n                    46: 372\n                    47: 562\n                    48: 562\n                    49: 562\n                    50: 562\n                    51: 562\n                    52: 562\n                    53: 562\n                    54: 562\n                    55: 372\n                    56: 372\n                    57: 372\n                    58: 372\n                    59: 372\n                    60: 372\n                    61: 372\n                    62: 372\n                    63: 372\n                    64: 372\n                    65: 372\n                    66: 372\n                    67: 372\n                    68: 372\n                    69: 372\n                    70: 562\n               default: 372\n          }\n     372: aload_0\n     373: invokevirtual #508                // Method com/lineage/server/model/Instance/L1ItemInstance.isEquippedTemp:()Z\n     376: ifeq          387\n     379: aload_3\n     380: ldc_w         #511                // String  ($117)\n     383: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     386: pop\n     387: invokestatic  #372                // Method com/lineage/server/datatables/ItemVIPTable.get:()Lcom/lineage/server/datatables/ItemVIPTable;\n     390: aload_0\n     391: invokevirtual #377                // Method com/lineage/server/datatables/ItemVIPTable.isVipItem:(Lcom/lineage/server/model/Instance/L1ItemInstance;)Z\n     394: ifeq          577\n     397: aload_0\n     398: invokevirtual #517                // Method com/lineage/server/model/Instance/L1ItemInstance.isEquipped:()Z\n     401: ifeq          577\n     404: aload_3\n     405: ldc_w         #511                // String  ($117)\n     408: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     411: pop\n     412: goto          577\n     415: aload_0\n     416: invokevirtual #517                // Method com/lineage/server/model/Instance/L1ItemInstance.isEquipped:()Z\n     419: ifeq          577\n     422: aload_3\n     423: ldc_w         #511                // String  ($117)\n     426: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     429: pop\n     430: goto          577\n     433: invokestatic  #520                // Method com/lineage/server/datatables/user/PetTable.get:()Lcom/lineage/server/datatables/user/PetTable;\n     436: aload_0\n     437: invokevirtual #525                // Method com/lineage/server/model/Instance/L1ItemInstance.getId:()I\n     440: invokevirtual #528                // Method com/lineage/server/datatables/user/PetTable.getTemplate:(I)Lcom/lineage/server/templates/L1Pet;\n     443: astore        5\n     445: aload         5\n     447: ifnull        577\n     450: aload_3\n     451: aload         5\n     453: invokevirtual #531                // Method com/lineage/server/templates/L1Pet.get_level:()I\n     456: aload         5\n     458: invokevirtual #536                // Method com/lineage/server/templates/L1Pet.get_name:()Ljava/lang/String;\n     461: aload         5\n     463: invokevirtual #539                // Method com/lineage/server/templates/L1Pet.get_hp:()I\n     466: invokedynamic #542,  0            // InvokeDynamic #5:makeConcatWithConstants:(ILjava/lang/String;I)Ljava/lang/String;\n     471: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     474: pop\n     475: goto          577\n     478: aload_0\n     479: invokevirtual #517                // Method com/lineage/server/model/Instance/L1ItemInstance.isEquipped:()Z\n     482: ifeq          577\n     485: aload_3\n     486: ldc_w         #545                // String  ($9)\n     489: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     492: pop\n     493: goto          577\n     496: aload_0\n     497: invokevirtual #547                // Method com/lineage/server/model/Instance/L1ItemInstance.isNowLighting:()Z\n     500: ifeq          511\n     503: aload_3\n     504: ldc_w         #550                // String  ($10)\n     507: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     510: pop\n     511: aload         4\n     513: invokevirtual #135                // Method com/lineage/server/templates/L1Item.getItemId:()I\n     516: lookupswitch  { // 2\n                 40001: 544\n                 40002: 544\n               default: 559\n          }\n     544: aload_0\n     545: invokevirtual #552                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I\n     548: ifgt          559\n     551: aload_3\n     552: ldc_w         #555                // String  ($11)\n     555: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     558: pop\n     559: goto          577\n     562: aload_0\n     563: invokevirtual #517                // Method com/lineage/server/model/Instance/L1ItemInstance.isEquipped:()Z\n     566: ifeq          577\n     569: aload_3\n     570: ldc_w         #511                // String  ($117)\n     573: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     576: pop\n     577: aload_3\n     578: invokevirtual #557                // Method java/lang/StringBuilder.toString:()Ljava/lang/String;\n     581: areturn\n",
+        "excerptSha256": "249dd1b71e4fb01e3cbc898c1e323f30492edaafeaac20d589a33d85a60a0ded"
+      },
+      {
+        "id": "model.Instance.L1ItemStatus.getNumberedName",
+        "className": "com.lineage.server.model.Instance.L1ItemStatus",
+        "method": "static java.lang.String getNumberedName(com.lineage.server.model.Instance.L1ItemInstance, long, boolean);",
+        "jarEntry": "com/lineage/server/model/Instance/L1ItemStatus.class",
+        "classSha256": "ac1be43e6280dd9d76d1b640daadceccac6e77f91b7cc2abf5e0f605c2796248",
+        "javapSha256": "9163528dcc7539b2371b2a180b88c2d22e4cc071fdd2c423665a5d5f195cec69",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          769
+        ],
+        "text": "  static java.lang.String getNumberedName(com.lineage.server.model.Instance.L1ItemInstance, long, boolean);\n    Code:\n       0: new           #504                // class java/lang/StringBuilder\n       3: dup\n       4: invokespecial #560                // Method java/lang/StringBuilder.\"<init>\":()V\n       7: astore        4\n       9: aload_0\n      10: invokevirtual #21                 // Method com/lineage/server/model/Instance/L1ItemInstance.getItem:()Lcom/lineage/server/templates/L1Item;\n      13: astore        5\n      15: aload_0\n      16: invokevirtual #561                // Method com/lineage/server/model/Instance/L1ItemInstance.isIdentified:()Z\n      19: ifeq          444\n      22: aload         5\n      24: invokevirtual #157                // Method com/lineage/server/templates/L1Item.getUseType:()I\n      27: tableswitch   { // 1 to 70\n                     1: 320\n                     2: 394\n                     3: 444\n                     4: 444\n                     5: 444\n                     6: 444\n                     7: 444\n                     8: 444\n                     9: 444\n                    10: 444\n                    11: 444\n                    12: 444\n                    13: 444\n                    14: 444\n                    15: 444\n                    16: 444\n                    17: 444\n                    18: 394\n                    19: 394\n                    20: 394\n                    21: 394\n                    22: 394\n                    23: 394\n                    24: 394\n                    25: 394\n                    26: 444\n                    27: 444\n                    28: 444\n                    29: 444\n                    30: 444\n                    31: 444\n                    32: 444\n                    33: 444\n                    34: 444\n                    35: 444\n                    36: 444\n                    37: 394\n                    38: 444\n                    39: 444\n                    40: 394\n                    41: 444\n                    42: 444\n                    43: 394\n                    44: 394\n                    45: 394\n                    46: 444\n                    47: 394\n                    48: 394\n                    49: 394\n                    50: 394\n                    51: 394\n                    52: 394\n                    53: 394\n                    54: 394\n                    55: 444\n                    56: 444\n                    57: 444\n                    58: 444\n                    59: 444\n                    60: 444\n                    61: 444\n                    62: 444\n                    63: 444\n                    64: 444\n                    65: 444\n                    66: 444\n                    67: 444\n                    68: 444\n                    69: 444\n                    70: 394\n               default: 444\n          }\n     320: aload_0\n     321: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     324: iflt          345\n     327: aload         4\n     329: aload_0\n     330: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     333: invokedynamic #564,  0            // InvokeDynamic #6:makeConcatWithConstants:(I)Ljava/lang/String;\n     338: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     341: pop\n     342: goto          370\n     345: aload_0\n     346: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     349: ifge          370\n     352: aload         4\n     354: aload_0\n     355: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     358: invokestatic  #565                // Method java/lang/String.valueOf:(I)Ljava/lang/String;\n     361: invokedynamic #568,  0            // InvokeDynamic #7:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;\n     366: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     369: pop\n     370: aload_0\n     371: invokevirtual #569                // Method com/lineage/server/model/Instance/L1ItemInstance.getAttrEnchantLevel:()I\n     374: istore        6\n     376: iload         6\n     378: ifle          444\n     381: aload         4\n     383: aload_0\n     384: invokestatic  #572                // Method formatAttrEnchantLevel:(Lcom/lineage/server/model/Instance/L1ItemInstance;)Ljava/lang/String;\n     387: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     390: pop\n     391: goto          444\n     394: aload_0\n     395: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     398: iflt          419\n     401: aload         4\n     403: aload_0\n     404: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     407: invokedynamic #564,  0            // InvokeDynamic #6:makeConcatWithConstants:(I)Ljava/lang/String;\n     412: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     415: pop\n     416: goto          444\n     419: aload_0\n     420: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     423: ifge          444\n     426: aload         4\n     428: aload_0\n     429: invokevirtual #69                 // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantLevel:()I\n     432: invokestatic  #565                // Method java/lang/String.valueOf:(I)Ljava/lang/String;\n     435: invokedynamic #568,  0            // InvokeDynamic #7:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;\n     440: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     443: pop\n     444: iload_3\n     445: ifeq          462\n     448: aload         4\n     450: aload         5\n     452: invokevirtual #576                // Method com/lineage/server/templates/L1Item.getNameId:()Ljava/lang/String;\n     455: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     458: pop\n     459: goto          473\n     462: aload         4\n     464: aload         5\n     466: invokevirtual #579                // Method com/lineage/server/templates/L1Item.getName:()Ljava/lang/String;\n     469: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     472: pop\n     473: aload_0\n     474: invokevirtual #582                // Method com/lineage/server/model/Instance/L1ItemInstance.getEnchantSaveMode:()I\n     477: ifgt          487\n     480: aload_0\n     481: invokevirtual #585                // Method com/lineage/server/model/Instance/L1ItemInstance.getUpdateSaveMode:()I\n     484: ifle          496\n     487: aload         4\n     489: ldc_w         #588                // String  保護中\n     492: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     495: pop\n     496: aload         5\n     498: invokevirtual #157                // Method com/lineage/server/templates/L1Item.getUseType:()I\n     501: bipush        -5\n     503: if_icmpne     532\n     506: aload         5\n     508: invokevirtual #135                // Method com/lineage/server/templates/L1Item.getItemId:()I\n     511: ldc_w         #592                // int 44044\n     514: if_icmpeq     532\n     517: aload         4\n     519: aload_0\n     520: invokevirtual #593                // Method com/lineage/server/model/Instance/L1ItemInstance.getGamNo:()Ljava/lang/String;\n     523: invokedynamic #596,  0            // InvokeDynamic #8:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;\n     528: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     531: pop\n     532: aload         5\n     534: invokevirtual #135                // Method com/lineage/server/templates/L1Item.getItemId:()I\n     537: ldc_w         #592                // int 44044\n     540: if_icmpne     572\n     543: aload_0\n     544: invokevirtual #597                // Method com/lineage/server/model/Instance/L1ItemInstance.getLotto:()Ljava/lang/String;\n     547: aload_0\n     548: invokevirtual #593                // Method com/lineage/server/model/Instance/L1ItemInstance.getGamNo:()Ljava/lang/String;\n     551: invokestatic  #600                // Method com/lineage/data/event/lotto/LottoManager.formatLottoTicketNameSuffix:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;\n     554: astore        6\n     556: aload         6\n     558: invokevirtual #213                // Method java/lang/String.isEmpty:()Z\n     561: ifne          572\n     564: aload         4\n     566: aload         6\n     568: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     571: pop\n     572: aload_0\n     573: invokevirtual #561                // Method com/lineage/server/model/Instance/L1ItemInstance.isIdentified:()Z\n     576: ifeq          717\n     579: aload         5\n     581: invokevirtual #604                // Method com/lineage/server/templates/L1Item.getMaxChargeCount:()I\n     584: ifle          605\n     587: aload         4\n     589: aload_0\n     590: invokevirtual #607                // Method com/lineage/server/model/Instance/L1ItemInstance.getChargeCount:()I\n     593: invokedynamic #610,  0            // InvokeDynamic #9:makeConcatWithConstants:(I)Ljava/lang/String;\n     598: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     601: pop\n     602: goto          646\n     605: aload         5\n     607: invokevirtual #135                // Method com/lineage/server/templates/L1Item.getItemId:()I\n     610: lookupswitch  { // 1\n                 20383: 628\n               default: 646\n          }\n     628: aload         4\n     630: aload_0\n     631: invokevirtual #607                // Method com/lineage/server/model/Instance/L1ItemInstance.getChargeCount:()I\n     634: invokedynamic #610,  0            // InvokeDynamic #9:makeConcatWithConstants:(I)Ljava/lang/String;\n     639: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     642: pop\n     643: goto          646\n     646: aload_0\n     647: invokevirtual #205                // Method com/lineage/server/model/Instance/L1ItemInstance.get_time:()Ljava/sql/Timestamp;\n     650: ifnonnull     717\n     653: aload         5\n     655: invokevirtual #611                // Method com/lineage/server/templates/L1Item.getMaxUseTime:()I\n     658: ifle          687\n     661: aload         5\n     663: invokevirtual #124                // Method com/lineage/server/templates/L1Item.getType2:()I\n     666: ifeq          687\n     669: aload         4\n     671: aload_0\n     672: invokevirtual #552                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I\n     675: invokedynamic #610,  0            // InvokeDynamic #9:makeConcatWithConstants:(I)Ljava/lang/String;\n     680: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     683: pop\n     684: goto          717\n     687: aload         5\n     689: invokevirtual #124                // Method com/lineage/server/templates/L1Item.getType2:()I\n     692: ifne          717\n     695: aload_0\n     696: invokevirtual #552                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I\n     699: ifle          717\n     702: aload         4\n     704: aload_0\n     705: invokevirtual #552                // Method com/lineage/server/model/Instance/L1ItemInstance.getRemainingTime:()I\n     708: invokedynamic #610,  0            // InvokeDynamic #9:makeConcatWithConstants:(I)Ljava/lang/String;\n     713: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     716: pop\n     717: lload_1\n     718: lconst_1\n     719: lcmp\n     720: ifle          764\n     723: lload_1\n     724: ldc2_w        #614                // long 1000000000l\n     727: lcmp\n     728: ifge          746\n     731: aload         4\n     733: lload_1\n     734: invokedynamic #616,  0            // InvokeDynamic #9:makeConcatWithConstants:(J)Ljava/lang/String;\n     739: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     742: pop\n     743: goto          764\n     746: aload         4\n     748: lload_1\n     749: invokestatic  #619                // Method com/lineage/server/utils/RangeLong.scount:(J)Ljava/lang/StringBuilder;\n     752: invokestatic  #625                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;\n     755: invokedynamic #628,  0            // InvokeDynamic #9:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;\n     760: invokevirtual #513                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;\n     763: pop\n     764: aload         4\n     766: invokevirtual #557                // Method java/lang/StringBuilder.toString:()Ljava/lang/String;\n     769: areturn\n",
+        "excerptSha256": "62d9dde3af933403d825cf3f166a08b67629e36dba264de46951d5a11887afa2"
+      },
+      {
+        "id": "use-type-arrow",
+        "className": "com.lineage.server.datatables.ItemTable",
+        "method": "static {};",
+        "jarEntry": "com/lineage/server/datatables/ItemTable.class",
+        "classSha256": "959b49dccda1ec12326284ebcc2e1eddf32eaa7f80aacf600b0f260d4a5c63a5",
+        "javapSha256": "81931bdb469527bc2abc4d67719d67f80fdf5a5bdeb271892788b75be4b12cce",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF",
+        "bytecodeOffset": [
+          520,
+          536
+        ],
+        "text": "     520: getstatic     #151                // Field _useTypes:Ljava/util/Map;\n     523: ldc_w         #1081               // String arrow\n     526: bipush        -2\n     528: invokestatic  #272                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;\n     531: invokeinterface #276,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;\n     536: pop\n",
+        "excerptSha256": "38d024c173c4d08cec9105edbce2c398759d6059f9afae428b5fdc2805ea732e"
+      },
+      {
+        "id": "use-type-none",
+        "className": "com.lineage.server.datatables.ItemTable",
+        "method": "static {};",
+        "jarEntry": "com/lineage/server/datatables/ItemTable.class",
+        "classSha256": "959b49dccda1ec12326284ebcc2e1eddf32eaa7f80aacf600b0f260d4a5c63a5",
+        "javapSha256": "81931bdb469527bc2abc4d67719d67f80fdf5a5bdeb271892788b75be4b12cce",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF",
+        "bytecodeOffset": [
+          537,
+          552
+        ],
+        "text": "     537: getstatic     #151                // Field _useTypes:Ljava/util/Map;\n     540: ldc_w         #1127               // String none\n     543: iconst_m1\n     544: invokestatic  #272                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;\n     547: invokeinterface #276,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;\n     552: pop\n",
+        "excerptSha256": "906ca18faae065c35fe2e1cffffb711f959b48752475b7df8386d7e41a559c5f"
+      },
+      {
+        "id": "use-type-normal",
+        "className": "com.lineage.server.datatables.ItemTable",
+        "method": "static {};",
+        "jarEntry": "com/lineage/server/datatables/ItemTable.class",
+        "classSha256": "959b49dccda1ec12326284ebcc2e1eddf32eaa7f80aacf600b0f260d4a5c63a5",
+        "javapSha256": "81931bdb469527bc2abc4d67719d67f80fdf5a5bdeb271892788b75be4b12cce",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF",
+        "bytecodeOffset": [
+          553,
+          568
+        ],
+        "text": "     553: getstatic     #151                // Field _useTypes:Ljava/util/Map;\n     556: ldc_w         #1129               // String normal\n     559: iconst_0\n     560: invokestatic  #272                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;\n     563: invokeinterface #276,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;\n     568: pop\n",
+        "excerptSha256": "8ff31f8751c6b6c850df50162b572bfb73fadd927b1b33f96aa2eb9aba87dd23"
+      },
+      {
+        "id": "use-type-food",
+        "className": "com.lineage.server.datatables.ItemTable",
+        "method": "static {};",
+        "jarEntry": "com/lineage/server/datatables/ItemTable.class",
+        "classSha256": "959b49dccda1ec12326284ebcc2e1eddf32eaa7f80aacf600b0f260d4a5c63a5",
+        "javapSha256": "81931bdb469527bc2abc4d67719d67f80fdf5a5bdeb271892788b75be4b12cce",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF",
+        "bytecodeOffset": [
+          1210,
+          1226
+        ],
+        "text": "    1210: getstatic     #151                // Field _useTypes:Ljava/util/Map;\n    1213: ldc_w         #1095               // String food\n    1216: bipush        38\n    1218: invokestatic  #272                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;\n    1221: invokeinterface #276,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;\n    1226: pop\n",
+        "excerptSha256": "1d20089893a63574c12143d509bfbc86fcf35ea69aabefdaa95b6bca2f05d04e"
+      },
+      {
+        "id": "templates.L1Item.getMagicCatalystType",
+        "className": "com.lineage.server.templates.L1Item",
+        "method": "public int getMagicCatalystType();",
+        "jarEntry": "com/lineage/server/templates/L1Item.class",
+        "classSha256": "ab70ac871272894b6e037c142a396785eee0bc98126f8ee7d6e24582fd44c076",
+        "javapSha256": "0f63a921d92af58e099be7f53ccef27aeec295759384026b983aed11def6876d",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          0,
+          104
+        ],
+        "text": "  public int getMagicCatalystType();\n    Code:\n       0: iconst_0\n       1: istore_1\n       2: aload_0\n       3: invokevirtual #221                // Method getItemId:()I\n       6: lookupswitch  { // 6\n\n                 40318: 64\n\n                 40319: 71\n\n                 40321: 78\n\n                 49156: 99\n\n                 49157: 92\n\n                 49158: 85\n               default: 103\n          }\n      64: sipush        166\n      67: istore_1\n      68: goto          103\n      71: sipush        569\n      74: istore_1\n      75: goto          103\n      78: sipush        837\n      81: istore_1\n      82: goto          103\n      85: sipush        3674\n      88: istore_1\n      89: goto          103\n      92: sipush        3605\n      95: istore_1\n      96: goto          103\n      99: sipush        3606\n     102: istore_1\n     103: iload_1\n     104: ireturn\n",
+        "excerptSha256": "f66d18d47457237fb3bb6ec38012603a41ff0131f82dd0250b6e8a523d5929eb"
+      },
+      {
+        "id": "use-type-power",
+        "className": "com.lineage.server.datatables.ItemTable",
+        "method": "static {};",
+        "jarEntry": "com/lineage/server/datatables/ItemTable.class",
+        "classSha256": "959b49dccda1ec12326284ebcc2e1eddf32eaa7f80aacf600b0f260d4a5c63a5",
+        "javapSha256": "81931bdb469527bc2abc4d67719d67f80fdf5a5bdeb271892788b75be4b12cce",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          384,
+          400
+        ],
+        "text": "     384: getstatic     #151                // Field _useTypes:Ljava/util/Map;\n     387: ldc_w         #1113               // String power\n     390: bipush        -10\n     392: invokestatic  #272                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;\n     395: invokeinterface #276,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;\n     400: pop\n",
+        "excerptSha256": "67ae5d821c7ea70ed81e97292fefa1318b7d785d91954a2cbe01225b5a179b26"
+      },
+      {
+        "id": "use-type-hpr",
+        "className": "com.lineage.server.datatables.ItemTable",
+        "method": "static {};",
+        "jarEntry": "com/lineage/server/datatables/ItemTable.class",
+        "classSha256": "959b49dccda1ec12326284ebcc2e1eddf32eaa7f80aacf600b0f260d4a5c63a5",
+        "javapSha256": "81931bdb469527bc2abc4d67719d67f80fdf5a5bdeb271892788b75be4b12cce",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          435,
+          451
+        ],
+        "text": "     435: getstatic     #151                // Field _useTypes:Ljava/util/Map;\n     438: ldc_w         #1119               // String hpr\n     441: bipush        -7\n     443: invokestatic  #272                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;\n     446: invokeinterface #276,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;\n     451: pop\n",
+        "excerptSha256": "2b91b745da81e68955a4bfe5b1007f04b39de7d89b49c2ac5bbdfa802b752ca1"
+      },
+      {
+        "id": "use-type-home",
+        "className": "com.lineage.server.datatables.ItemTable",
+        "method": "static {};",
+        "jarEntry": "com/lineage/server/datatables/ItemTable.class",
+        "classSha256": "959b49dccda1ec12326284ebcc2e1eddf32eaa7f80aacf600b0f260d4a5c63a5",
+        "javapSha256": "81931bdb469527bc2abc4d67719d67f80fdf5a5bdeb271892788b75be4b12cce",
+        "javapEncoding": "cp950",
+        "textNormalization": "CRCRLF/CRLF to LF; trim trailing whitespace then LF",
+        "bytecodeOffset": [
+          700,
+          716
+        ],
+        "text": "     700: getstatic     #151                // Field _useTypes:Ljava/util/Map;\n     703: ldc_w         #1147               // String home\n     706: bipush        9\n     708: invokestatic  #272                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;\n     711: invokeinterface #276,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;\n     716: pop\n",
+        "excerptSha256": "0cd56126bf01a797c626e691595450598761845708dc013aaaef2873c2364925"
+      }
+    ]
+  },
+  "inventoryNameBootstrap": {
+    "className": "com.lineage.server.model.Instance.L1ItemStatus",
+    "classSha256": "ac1be43e6280dd9d76d1b640daadceccac6e77f91b7cc2abf5e0f605c2796248",
+    "bootstrapIndex": 9,
+    "text": "  9: #1203 REF_invokeStatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;\n    Method arguments:\n      #1227  (\\u0001)\n",
+    "recipe": " (count)",
+    "javapVerboseSha256": "0fb6144bffbb536bf2acacf74a0c9a7aea3fbed8544bc1fc5ec86f587fca7dcd",
+    "excerptSha256": "6d274a597a7d30dc550ab7a09c7e78d0bc1495d1659475966cb8580502c0e5d5"
+  },
+  "dbLifecycle": {
+    "identityVerified": true,
+    "templateQueriesExecuted": 1,
+    "schemaQueriesExecuted": 1,
+    "shutdownVerified": true,
+    "labPortsNotListening": true,
+    "credentialContentsRead": false,
+    "note": "兩次短暫啟動各自三重核身；各次 finally 正常 SHUTDOWN，最後兩埠無監聽。"
+  },
+  "dbEvidence": {
+    "schema": "p24_world",
+    "identity": {
+      "server_uuid": "e3443e40-d090-11f1-8040-4cedfb679789",
+      "port": 43324,
+      "datadir": "D:\\BinEngine\\environments\\p24\\db-data\\"
+    },
+    "identityVerifiedAtUtc": "2026-11-05T09:48:38.1834933Z",
+    "identitySql": "SELECT @@port,@@datadir,@@server_uuid;",
+    "templateQuerySql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+    "queries": [
+      {
+        "id": "seven-ordinary-templates",
+        "sql": "SELECT HEX(CONVERT(JSON_OBJECT('item_id',item_id,'name',name,'classname',classname,'name_id',name_id,'item_type',item_type,'use_type',use_type,'material',material,'weight',weight,'invgfx',invgfx,'grdgfx',grdgfx,'itemdesc_id',itemdesc_id,'stackable',stackable,'max_charge_count',max_charge_count,'bless',bless,'trade',trade,'cant_delete',cant_delete,'limit_class',limit_class) USING utf8mb4)) FROM p24_world.etcitem WHERE item_id IN (40308,40056,40743,40010,40013,40012,40079) ORDER BY item_id;",
+        "rows": [
+          {
+            "name": "治癒藥水",
+            "bless": 0,
+            "trade": 0,
+            "grdgfx": 45,
+            "invgfx": 80,
+            "weight": 3900,
+            "item_id": 40010,
+            "name_id": "$26",
+            "material": "glass",
+            "use_type": "hpr",
+            "classname": "hp.UserAddHp 10 20 189 true 0 0",
+            "item_type": "potion",
+            "stackable": 1,
+            "cant_delete": 0,
+            "itemdesc_id": 1342,
+            "limit_class": 127,
+            "max_charge_count": 0
+          },
+          {
+            "name": "終極治癒藥水",
+            "bless": 0,
+            "trade": 0,
+            "grdgfx": 46,
+            "invgfx": 81,
+            "weight": 5850,
+            "item_id": 40012,
+            "name_id": "$238",
+            "material": "glass",
+            "use_type": "hpr",
+            "classname": "hp.UserAddHp 60 80 197 true",
+            "item_type": "potion",
+            "stackable": 1,
+            "cant_delete": 0,
+            "itemdesc_id": 130,
+            "limit_class": 127,
+            "max_charge_count": 0
+          },
+          {
+            "name": "自我加速藥水",
+            "bless": 0,
+            "trade": 0,
+            "grdgfx": 42,
+            "invgfx": 77,
+            "weight": 3900,
+            "item_id": 40013,
+            "name_id": "$234",
+            "material": "glass",
+            "use_type": "power",
+            "classname": "brave.StatusHaste 300 191 true 40308 10",
+            "item_type": "potion",
+            "stackable": 1,
+            "cant_delete": 0,
+            "itemdesc_id": 17,
+            "limit_class": 127,
+            "max_charge_count": 0
+          },
+          {
+            "name": "肉",
+            "bless": 0,
+            "trade": 0,
+            "grdgfx": 36,
+            "invgfx": 124,
+            "weight": 10000,
+            "item_id": 40056,
+            "name_id": "$23",
+            "material": "animalmatter",
+            "use_type": "food",
+            "classname": "Food1",
+            "item_type": "food",
+            "stackable": 1,
+            "cant_delete": 0,
+            "itemdesc_id": 10,
+            "limit_class": 127,
+            "max_charge_count": 0
+          },
+          {
+            "name": "傳送回家的卷軸",
+            "bless": 0,
+            "trade": 0,
+            "grdgfx": 22,
+            "invgfx": 474,
+            "weight": 630,
+            "item_id": 40079,
+            "name_id": "$505",
+            "material": "paper",
+            "use_type": "home",
+            "classname": "teleport.GoHome_Reel",
+            "item_type": "scroll",
+            "stackable": 1,
+            "cant_delete": 0,
+            "itemdesc_id": 1338,
+            "limit_class": 127,
+            "max_charge_count": 0
+          },
+          {
+            "name": "金幣",
+            "bless": 0,
+            "trade": 0,
+            "grdgfx": 7,
+            "invgfx": 5,
+            "weight": 0,
+            "item_id": 40308,
+            "name_id": "$4",
+            "material": "gold",
+            "use_type": "none",
+            "classname": "0",
+            "item_type": "other",
+            "stackable": 1,
+            "cant_delete": 0,
+            "itemdesc_id": 0,
+            "limit_class": 127,
+            "max_charge_count": 0
+          },
+          {
+            "name": "箭",
+            "bless": 0,
+            "trade": 0,
+            "grdgfx": 66,
+            "invgfx": 7,
+            "weight": 30,
+            "item_id": 40743,
+            "name_id": "$61",
+            "material": "wood",
+            "use_type": "arrow",
+            "classname": "0",
+            "item_type": "arrow",
+            "stackable": 1,
+            "cant_delete": 0,
+            "itemdesc_id": 0,
+            "limit_class": 127,
+            "max_charge_count": 0
+          }
+        ],
+        "resultSha256": "a83f8ca2cd7d61fa18e506494b3fe9cc45e546b7b6cef1239304f96bcf8e2c72"
+      }
+    ],
+    "shutdownVerified": true,
+    "shutdownVerifiedAtUtc": "2026-11-05T09:48:38.4121260Z",
+    "credentialContentDisclosed": false,
+    "queryScope": "指定七個普通物品模板鍵；不含帳號、角色或個人資料；僅 SELECT"
+  }
+}
