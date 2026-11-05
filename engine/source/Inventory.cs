@@ -27,6 +27,9 @@ public sealed partial class WorldSession {
     public uint? SelectedItemId {get;private set;}
     public InventoryItem? SelectedItem=>SelectedItemId is uint id&&inventory.TryGetValue(id,out var i)?i:null;
     public int InventoryRevision {get;private set;}
+    // Quantity snapshots track item packets, not unrelated server text/effects.
+    // Keep InventoryRevision for UI refresh and existing non-ground consumers.
+    public int InventoryContentRevision {get;private set;}
     public int ItemSelectionRevision {get;private set;}
     public int UnknownItemUpdates {get;private set;}
     public bool InventoryLoaded {get;private set;}
@@ -92,7 +95,9 @@ public sealed partial class WorldSession {
             // Range/target/world guards still invalidate stale pending contexts.
             if(statusOnly){CheckInteraction();CheckTrade();}
             else{EquipmentMessageReceived();InteractionMessage();if(opcode==243)TradeServerMessage();}
-        }else InteractionInventoryUpdate(opcode);PrivateShopInventoryChanged(opcode);if(record)RecordInventoryChanges(opcode,before);InventoryRevision++;return true;
+        }else InteractionInventoryUpdate(opcode);PrivateShopInventoryChanged(opcode);if(record)RecordInventoryChanges(opcode,before);
+        if(opcode is 5 or 15 or 24 or 242 or 57 or 100 or 240)InventoryContentRevision++;
+        InventoryRevision++;return true;
     }
     public object InventorySnapshot()=>new{loaded=InventoryLoaded,emptyInventoryFromWorldSync=EmptyInventoryFromWorldSync,revision=InventoryRevision,items=Inventory,selectedId=SelectedItemId,selectionRevision=ItemSelectionRevision,unknownUpdates=UnknownItemUpdates,notice=ItemNotice,effectNumber=ItemEffectNumber,lastEffect=LastItemEffect,serverMessage=LastServerMessage,serverReply=LastServerReply};
 }
