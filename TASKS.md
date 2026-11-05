@@ -12,7 +12,10 @@
 
 ## M0 可重現建置 — 主線 12 項，封頂（✅ 全部完成）
 
-**驗收：使用者打開會看到什麼（凍結）**：在乾淨的 clone 裡，照 `docs/BUILD.md`／`docs/demo/RUN.md` 執行一條建置指令，輸出 `PASS dev {…}`；`engine\啟動新版客戶端.cmd --check-only` 輸出 JSON，其中 `revision: dev`、`uiStarted: false`；GitHub Actions 綠燈。
+**驗收：使用者打開會看到什麼（凍結）**：
+- **前置條件**：Windows 機器上有原客戶端資源目錄（`TW_CLIENT_ROOT`，預設 `D:\lineage開發\0-客戶端`），並且依 `docs/BUILD.md` 接好 `engine/assets` junction，安裝 SDK 10.0.300 與 Python 3.12。
+- 在這個前提下，從**新建的 clone 或 worktree** 照 `docs/BUILD.md`／`docs/demo/RUN.md` 執行一條建置指令，會輸出 `PASS dev {…}`；`engine\啟動新版客戶端.cmd --check-only` 輸出的 JSON 是 `revision: dev`、`uiStarted: false`；GitHub Actions 綠燈。
+- 證據：#13（在新建的 worktree `scratch/wt/task-13` 接好 junction 後，完整建置加 check-only 都 exit 0）、#38、#70（主專案目錄 dev 建置加 check-only）、CI（#67）。
 
 ### T001 | done | Claude | CI：GitHub Actions dotnet build
 ### T002 | done | Claude | r35 canonical lock（181 檔）
@@ -31,7 +34,7 @@
 
 ## M1 打開就看得到的 Demo — 主線 13 項，封頂
 
-**驗收：使用者打開會看到什麼（凍結）**：打開 repo 的 `docs/demo/README.md`，看到 N01 流程 15 步的表格：登入、選角、進世界、鍵盤移動、點地移動、近戰、技能 1／3／4／8、喝水、裝備、金幣丟撿、能力值、聊天、登出、重登保存、音效。**每一列**都有一張真機截圖連結與 ✅；或是 ❌／⚠️ 加一句原因，而且原因已列在 Backlog。其中**金幣丟 1 枚再撿回**、**攻擊／施法時音量峰值 > 0、靜音時 = 0** 必須是 ✅（附截圖與數值）。頁面頂端寫明 dev 版本 HEAD 與 DLL SHA-256。
+**驗收：使用者打開會看到什麼（凍結）**：打開 repo 的 `docs/demo/README.md`，看到 N01 流程 15 步的表格：登入、選角、進世界、鍵盤移動、點地移動、近戰、技能 1／3／4／8、喝水、裝備、金幣丟撿、能力值、聊天、登出、重登保存、音效。**每一列**都有一張真機截圖連結與 ✅；或是 ❌／⚠️ 加一句原因，而且原因已列在 Backlog。其中**金幣丟 1 枚再撿回**、**攻擊／施法時音量峰值 > 0、靜音時 = 0** 必須是 ✅（附截圖與數值）。**唯一例外**：如果伺服器 JAR 的證據證明這個伺服器規則上不允許丟金幣，就改用另一個已啟用的可疊加物品（例如治癒藥水）證明丟 1 → 撿回的循環，並把「金幣不可丟」列入 Backlog。頁面頂端寫明 dev 版本 HEAD 與 DLL SHA-256。
 
 ### T010 | done | Claude | N01 真機核對表（`docs/native-baseline/CHECKLIST.md`）
 ### T011 | done | dot | r35 真機基線 N01（#23）
@@ -76,12 +79,13 @@
 ## M3 可攜交付 — 主線 3 項，封頂
 
 **驗收：使用者打開會看到什麼（凍結）**：
-- 從 GitHub Release 下載一個 zip，在一台**沒有開發環境**的 Windows 上解壓，執行裡面的啟動檔，就出現登入畫面。
+- GitHub Release 有一個 zip，**只含**引擎與 launcher 的執行檔、web 頁面、說明文件，**不含任何遊戲資源**（pak／map／sprite／sound，以及由它們衍生的 `engine/assets`）。
+- **前置條件**：使用者自己有原客戶端資源目錄。在一台沒有開發環境的 Windows（只裝 .NET 10 Desktop Runtime 與 WebView2）上解壓 zip，照 zip 內的 `README` 指定資源目錄，執行啟動檔，就出現登入畫面。
 - `docs/ARCHITECTURE.md` 一頁說明模組與資料流。
 - 在兩個不同目錄各建置一次，`productDll` 的 SHA-256 相同。
 
 ### T006 | todo | codex-local | 位元可重現建置（Deterministic／PathMap；不同目錄產出相同 SHA）
-### T033 | todo | codex-local | 含 runtime 的可攜安裝包加 GitHub Release
+### T033 | todo | codex-local | 可攜 zip（不含遊戲資源）加 GitHub Release；資源由使用者的客戶端目錄提供
 ### T080 | todo | codex-local | 交作業版 `docs/ARCHITECTURE.md`
 
 ---

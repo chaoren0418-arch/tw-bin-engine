@@ -6,14 +6,14 @@
 
 新增 [基線文件](../native-baseline/r35.md)，列出環境、P24Lab 43324／42061、JAR SHA-256、r35 check-only 歷史結果、10326 既有修復、遊戲內資料變化、備份路徑與 SHA-256、待補測。原始 PNG 未縮圖、改寫或重新裁切。
 
-在 `task/27` 提交 31 張 PNG，共 23,870,809 bytes（第 2 次補件：`server.stderr.log` 149 bytes 因 `.gitignore` `*.log` 改為保留本機，見 MANIFEST）。全部候選 80 檔合計 65,963,294 bytes，全部單檔不超過 2,000,000 bytes；選取必要前後對照及每步代表畫面，以符合 25,000,000 bytes 總量上限。[MANIFEST](../native-baseline/r35/MANIFEST.md) 列出全部原件大小、SHA-256、掃描與處置；連同清單仍低於上限。
+在 `task/27` 提交 31 張 PNG 與 `server.stderr.log`，共 32 份原始證據、23,870,958 bytes。全部候選 80 檔合計 65,963,294 bytes，全部單檔不超過 2,000,000 bytes；選取必要前後對照及每步代表畫面，以符合 25,000,000 bytes 總量上限。[MANIFEST](../native-baseline/r35/MANIFEST.md) 列出全部原件大小、SHA-256、掃描與處置；連同清單仍低於上限。
 
 ## 機密掃描與圖片核對
 
 - 已從既有 private 測試資料讀取帳號／密碼，僅留在程序記憶體比對。沒有將其值寫入檔案、log、命令文字、報告或提交；沒有讀取 cnf 或伺服器機密設定。
 - 掃描 `server.log`、`server.stderr.log` 的內容與全部 PNG 檔名：測試帳號／密碼、`password`、`passwd`、`pwd=` 均無命中。
 - 掃描 IPv4／IPv6：只有 `server.log` 命中，含允許的 loopback 與非允許的主機位址。已核對非允許命中是第 295 行主機位址，不是版本字串；因此整檔不提交，不公開 IP 值、不修改原件。
-- `server.stderr.log` 沒有帳密、上述關鍵字或 IP，僅有 Java Security Manager 警告；因 `.gitignore` 排除 `*.log`，保留本機。
+- `server.stderr.log` 沒有帳密、上述關鍵字或 IP，僅有 Java Security Manager 警告，可提交。
 - 全部 78 張 PNG 已逐張檢視原圖，未見密碼欄明文。登入與診斷頁帳密欄為空；圖片結論來自目視，不將檔名掃描當作 OCR。
 - 新增文件與 matrix 新增欄位另做同一帳密值的記憶體比對。未提交 private 資料、備份、`environments/`、`scratch/` 或既有執行期輸出。
 
@@ -98,12 +98,12 @@
 
 本任務只整理既有證據，沒有啟動遊戲、伺服器或 MySQL，沒有查詢 DB、操作正式服務、建置或重跑 check-only；未變更產品程式、lock、`docs/REPORT.md`、封存 release 或硬連結。check-only exit 0 與原生結果屬 #23 既有記錄。
 
-近戰、技能4、成功拾取、實際聲音、04／05移動封包、14 AC畫面、13第二次關窗延遲仍待調查；03首次世界狀態與09裝備外觀／屬性也有證據缺口。公開截圖與本機 stderr 無法獨立取代完整程序記錄、資料快照或封包；相關事實引用 #23 指定留言。
+近戰、技能4、成功拾取、實際聲音、04／05移動封包、14 AC畫面、13第二次關窗延遲仍待調查；03首次世界狀態與09裝備外觀／屬性也有證據缺口。公開截圖與 stderr 無法獨立取代完整程序記錄、資料快照或封包；相關事實引用 #23 指定留言。
 
 ## 產出路徑
 
 - `docs/native-baseline/r35.md`
-- `docs/native-baseline/r35/MANIFEST.md` 與31張通過掃描且在容量內的 PNG
+- `docs/native-baseline/r35/MANIFEST.md` 與32份通過掃描且在容量內的證據
 - `work/P25-architecture-baseline-r1/completion-matrix.json`
 - `docs/reports/issue-27.md`
 
