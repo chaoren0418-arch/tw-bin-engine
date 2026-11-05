@@ -286,3 +286,63 @@ combat 沿用 #51 的測試宿主調整：只將 `assets` 讀取指向原專案 
 3. 金幣丟棄被 125 拒絕列 Backlog，引用本報告第 1 輪 JAR 證據，不改 DB／配置。依派工先試治癒藥水 40010：丟 1／10 後各撿回，0／超額應拒；若同被 125 拒絕，改試肉丟 1 後撿回。每次權威更新後先重新選取。
 4. 依第 2b 輪要求補齊有效目標近戰／光箭（最多 30 次、減血／死亡＋EXP）、受傷後治癒／藥水 HP 差、卸裝、八方向 16 筆 C29、獲放行後聊天，以及攻擊／施法峰值與靜音 = 0。
 5. 更新 `docs/demo/README.md` 各列為 ✅ 或 ❌／⚠️ 加 Backlog 原因。本次 main 的 TASKS.md 查無 T062，故未自行改任務表；第 2b 輪由主控對齊新版 M1 T062、M2 T070–T074、Backlog B01–B11。真機結果由 dot 記錄，不用本輪建置通過代替。
+
+## 第 2b 輪：前置查核完成，原生補測 blocked（2026-11-06）
+
+### 結論與驗證範圍
+
+本輪狀態為 **blocked／未完成**，不是驗收通過。最新派工是 [issuecomment-6669870333](https://github.com/chaoren0418-arch/tw-bin-engine/issues/77#issuecomment-6669870333)。已確認前置版本、P24Lab 身分、啟停與清理；啟動客戶端遭自動安全審查拒絕，未執行原生補測，未登入、未新增截圖或聊天訊息。第 1 輪與第 2a 輪沒有重做。
+
+### 去重與版本查核（已驗證）
+
+- 已讀根目錄 AGENTS.md、CLAUDE.md、docs/REPORT.md（唯讀）、#77 Issue 與全部 11 則留言、第 1／2a 輪報告、#71 報告及既有 native-ui／啟停腳本。查找專案及父層 `.agents/skills`，未找到相關目錄。
+- 查核當時最新 RESULT 仍是第 2a 輪 `e21241d`。本機 #77 調度 log 僅第 1／2a 輪，scratch/issue-77 僅 2a 產物；Codex 對話清單未發現另一個正在執行的第 2b 輪。未發現已完成或執行中的同輪工作。
+- 主目錄最初為 `task/81@289b454`；reflog 顯示 2a 完成後被 #81 切換。#81 `.last.md` 已回報完成及推送，追蹤檔乾淨，故切回既有 task/77，未重設分支或覆蓋檔案。原 worktree `scratch/wt/task-77` 仍 detached 於 `f6d70b6`，沒有改動。
+- 本輪起始 HEAD：`e21241d7b69a43c01ad74c6cd07a5ca0b6b69ce2`；`0b747de4e230c72906c830be821de322894acbf2` 為祖先，核驗退出 0。
+- `engine/啟動新版客戶端.cmd --check-only` 成功，回傳 `status=checked-only`、`revision=dev`、`uiStarted=false`、`networkStarted=false`、`servicesStarted=false`。核對 46 個 runtime/web 檔與 13,957 個素材存在／大小；未把它當成真機成功。
+- DLL SHA-256：`44eb5843f25833f2da1cdf7081eabeb7b8cd6e27562423e2d06b150ac787d477`；manifest SHA-256：`2963b5224dbe9f3b95966778839e3f572767e8bd8a326632fdae0a2b751e9cc3`，與第 2a 輪相符。未 fetch、重建、修改產品或 lock。
+
+### P24Lab 身分及啟停（已驗證）
+
+舊 `D:\P24Lab-ClientEngine` 路徑不存在。`D:\BinEngine` 是指向本專案的 junction；#71 報告有搬遷與相同實例的既有證據。啟動前讀取 auto.cnf 的 UUID，並只篩選 mysql.ini 的 basedir/datadir/port/bind-address；未讀 private-root.cnf 內容或 config/server.properties，未輸出密碼。
+
+啟動前在既定 `environments/p24/backups/issue-77-round2b-before-demo/db-data` 建立冷備份，893 個檔案逐一 SHA-256 比對相符。最初一般模式建立目錄遭 Windows Access denied，未啟動 DB；確認沒有部分啟動並核對使用者常設授權後，經 require_escalated 的安全核准完成同一路徑操作，未換路徑繞過。
+
+MySQL 啟動後唯讀身分查詢符合三項：UUID `e3443e40-d090-11f1-8040-4cedfb679789`、port `43324`、datadir `D:\BinEngine\environments\p24\db-data\`。本輪 mysqld 父／子 PID 10736／16488。JAR 與隔離 policy SHA 符合 #71 既有腳本，啟動 Java PID14908，僅本輪實驗 server 42061。啟動 log 有 component_reference_cache／ICU 資料缺失警告，但 MySQL 已 ready、身分查詢成功，server 亦啟動完成；未修配置或資料來繞過警告。
+
+沒有執行資料修改 SQL、測試角色查詢或遊戲操作。只有身分 SELECT 與正常 SHUTDOWN；伺服器啟動自身可能產生正常實驗資料寫入，本報告不宣稱實驗 DB 位元組完全未變。
+
+### 具體阻塞／安全審查
+
+動作：執行 `scratch/issue-77/round2b/launch.ps1`，以既有 launcher 啟動 `engine/build/client-product-dev/P11.ClientEngine.exe`，預定只連 P24Lab 42061 並記錄 demo3 trace。
+
+狀態：**denied，確定未執行**。自動安全審查原文：
+
+> 雖然 P24Lab 啟停獲授權，但 AGENTS.md 明確規定原生實機測試（啟動遊戲、登入、畫面）只能由使用者執行；此命令會啟動遊戲客戶端並連線測試伺服器。
+
+拒絕後以 user_message_read 核對最新使用者歷史，沒有新的直接原生驗收授權；未重試、未改權限或改用 CUA／間接執行。`client-01.json` 不存在，P11.ClientEngine／P24.Launcher 均未運行。Issue／主控派工沒有被視為新增權限。聊天另因之前的安全拒絕保持 blocked，本輪沒有送出或重試「Issue77 r35 測試」。
+
+### 本輪驗收結果
+
+| 項目 | 本輪狀態與缺口 |
+|---|---|
+| 金幣 | Backlog；引用第 1 輪 JAR 證據，原服 125 拒絕，未改 DB／配置 |
+| 治癒藥水／肉丟撿 | 未驗證；1／10 丟撿、0／超額拒絕均未執行 |
+| 近戰、光箭 | 未驗證；無本輪減血／死亡、EXP、特效、MP 證據 |
+| 非滿血治癒／藥水 | 未驗證；無 HP 前後差或藥水數量差 |
+| 卸裝裝回、八方向、點地 | 未驗證；無本輪截圖、16 筆 C29 或終點證據 |
+| 攻擊與施法音效 | 未驗證；未取得各事件有聲／靜音／恢復峰值 |
+| 進世界 | 未驗證；沒有本輪畫面與座標核對 |
+| 聊天 | blocked；既有拒絕，未重試 |
+
+### 清理與產出
+
+Java PID14908 於 `2026-11-05T21:35:23.4065807Z` 經 PID／路徑／啟動時間與獨立 console 身分確認後正常關閉。接著重新核對 MySQL 三項身分，SHUTDOWN 退出 0；`2026-11-05T21:35:43.8811081Z` 驗證 43324／42061 無監聽，三個本輪程序 14908／10736／16488 均不存在。沒有啟動客戶端，因此沒有客戶端待清理；不操作既有正式程序或另案 task/83 的 3307。
+
+- 交付：本報告與 `docs/demo/README.md`；沒有新增 PNG，既有 37 張 DEMO-2 截圖未改動，沒有以舊圖冒充本輪證據。
+- 本機證據：`scratch/issue-77/round2b/backup.json`、`mysql-start.json`、`mysql-identity.json`、`server-start.json`、`server-close.json`、`mysql-close.json`；啟停腳本與 log 同目錄，不提交 DB、原始 log 或私人資料。
+- M1 T062 未完成；M2 T070–T074 未執行。Backlog B01–B11 的逐項對應須由主控提供，本機 TASKS.md 尚未含這些編號，不自行編造映射。
+
+### 給下一棒的提示
+
+請主控先取得使用者對 **#77 第 2b 輪由 dot 操作 P24Lab 測試角色進行原生啟動、登入與驗收** 的直接授權，明確處理 AGENTS.md 的使用者限定條款，再續作未驗項目；聊天仍需要獨立且直接的新授權。不要重跑第 1／2a 輪，不需重建產品。不能將本輪前置核驗、服務啟停或文件交付標成 DEMO-3／M1 通過。
