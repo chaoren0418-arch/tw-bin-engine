@@ -39,8 +39,8 @@ public sealed partial class LoginConnection:IDisposable,ILoginSession {
             var sendLock=new SemaphoreSlim(1,1);
             long sentSequence=0;
             void Sent(byte[] bytes)=>WorldPacketSent?.Invoke(new{sequence=++sentSequence,utc=DateTimeOffset.UtcNow,monotonicMs=Environment.TickCount64,plainHex=Convert.ToHexString(bytes)});
-            sendWorld=async bytes=>{await sendLock.WaitAsync(cts.Token);try{if(epoch!=generation)throw new OperationCanceledException();await stream.WriteAsync(LoginFrames.Wrap(outgoing!.Transform(bytes,true)),cts.Token);Sent(bytes);}finally{sendLock.Release();}};
-            sendMovementGate=async (bytes,valid,admit)=>{await sendLock.WaitAsync(cts.Token);try{if(epoch!=generation||!valid())return false;admit();await stream.WriteAsync(LoginFrames.Wrap(outgoing!.Transform(bytes,true)),cts.Token);Sent(bytes);return true;}finally{sendLock.Release();}};
+            sendWorld=async bytes=>{await sendLock.WaitAsync(cts.Token);try{if(epoch!=generation)throw new OperationCanceledException();PacketTrace.Out(bytes);await stream.WriteAsync(LoginFrames.Wrap(outgoing!.Transform(bytes,true)),cts.Token);Sent(bytes);}finally{sendLock.Release();}};
+            sendMovementGate=async (bytes,valid,admit)=>{await sendLock.WaitAsync(cts.Token);try{if(epoch!=generation||!valid())return false;admit();PacketTrace.Out(bytes);await stream.WriteAsync(LoginFrames.Wrap(outgoing!.Transform(bytes,true)),cts.Token);Sent(bytes);return true;}finally{sendLock.Release();}};
             var heartbeat=WorldHeartbeat(epoch,cts.Token);
             byte[] buffer=new byte[4096];
             // A whole phase has a deadline; partial byte trickles cannot keep it alive forever.
@@ -54,19 +54,19 @@ public sealed partial class LoginConnection:IDisposable,ILoginSession {
                 foreach(byte[] body in frames.Feed(buffer.AsSpan(0,n).ToArray())){
                     if(uiContext&&(slicePackets>=8||Environment.TickCount64-sliceAt>=16)){await Task.Delay(1,cts.Token);slicePackets=0;sliceAt=Environment.TickCount64;}slicePackets++;
                     if(epoch!=generation)return;
-                    if(State==LoginState.AwaitSeed){PacketReceived?.Invoke(new{kind="seed",bodyHex=Convert.ToHexString(body)});uint seed=LoginPackets.Seed(body);outgoing=new(seed);incoming=new(seed);Set(LoginState.Authenticating,"首包已解析；等待登入結果");await stream.WriteAsync(LoginFrames.Wrap(outgoing.Transform(login,true)),cts.Token);Array.Clear(login);deadline=Environment.TickCount64+timeoutMs;continue;}
+                    if(State==LoginState.AwaitSeed){PacketReceived?.Invoke(new{kind="seed",bodyHex=Convert.ToHexString(body)});uint seed=LoginPackets.Seed(body);outgoing=new(seed);incoming=new(seed);Set(LoginState.Authenticating,"首包已解析；等待登入結果");PacketTrace.Out(login);await stream.WriteAsync(LoginFrames.Wrap(outgoing.Transform(login,true)),cts.Token);Array.Clear(login);deadline=Environment.TickCount64+timeoutMs;continue;}
                     if(incoming==null)throw new ProtocolException("packet before seed");byte[] plain=incoming.Transform(body,false);long sequence=++receivedPacketSequence;
                     if(State is LoginState.EnteringWorld or LoginState.InWorld){
                         lock(worldCaptureGate){
-                            if(epoch!=generation)return;PacketReceived?.Invoke(new{kind="server-packet",sequence,plainHex=Convert.ToHexString(plain)});
+                            if(epoch!=generation)return;PacketTrace.In(plain,sequence);PacketReceived?.Invoke(new{kind="server-packet",sequence,plainHex=Convert.ToHexString(plain)});
                             if(epoch!=generation)return;long reportsBefore=World.AttackReports;ApplyWorldPacket(plain,worldSelection!,sequence);ApplyCombatAcknowledgement(reportsBefore);AppliedPacketSequence=sequence;if(World.TradeCancelRequired)_=CancelChangedTrade();if(World.TeleportAckPending)_=AcknowledgeTeleport();
                             StartPendingMapLoad(epoch,cts.Token);PublishWorldProgress();
                         }continue;
                     }
-                    PacketReceived?.Invoke(new{kind="server-packet",sequence,plainHex=Convert.ToHexString(plain)});
+                    PacketTrace.In(plain,sequence);PacketReceived?.Invoke(new{kind="server-packet",sequence,plainHex=Convert.ToHexString(plain)});
                     var r=new LoginReader(plain);byte opcode=r.C();
                     if(State==LoginState.Authenticating&&opcode==233){ushort reason=r.H();r.D();r.D();r.D();r.Finish();if(reason!=0){Set(LoginState.Rejected,$"伺服器拒絕：0x{reason:X4}");return;}Set(LoginState.AwaitList,"登入結果成功；等待角色數量");deadline=Environment.TickCount64+timeoutMs;}
-                    else if(State==LoginState.AwaitList&&opcode==48&&!newsSeen){News=r.S();r.Finish();newsSeen=true;Set(State,"已解析公告；自動確認（本機測試政策）");await stream.WriteAsync(LoginFrames.Wrap(outgoing!.Transform(LoginPackets.Pad([16]),true)),cts.Token);}
+                    else if(State==LoginState.AwaitList&&opcode==48&&!newsSeen){News=r.S();r.Finish();newsSeen=true;Set(State,"已解析公告；自動確認（本機測試政策）");byte[] acknowledgement=LoginPackets.Pad([16]);PacketTrace.Out(acknowledgement);await stream.WriteAsync(LoginFrames.Wrap(outgoing!.Transform(acknowledgement,true)),cts.Token);}
                     else if(State==LoginState.AwaitList&&opcode==178){Expected=r.C();Slots=r.C();r.Finish();if(Expected>Slots)throw new ProtocolException("character count exceeds slots");Set(Expected==0?LoginState.CharacterList:LoginState.ReadingCharacters,$"收到角色數量 {Expected}/{Slots}");deadline=Environment.TickCount64+timeoutMs;}
                     else if(State==LoginState.ReadingCharacters&&opcode==93){var item=LoginPackets.Character(r,profile);if(characters.Any(c=>c.Name==item.Name))throw new ProtocolException("duplicate character name");characters.Add(item);Set(characters.Count==Expected?LoginState.CharacterList:State,$"已解析角色 {characters.Count}/{Expected}");}
                     else throw new ProtocolException($"unexpected opcode 0x{opcode:X2} in {State}");

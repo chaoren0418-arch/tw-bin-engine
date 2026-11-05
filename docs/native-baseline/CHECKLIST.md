@@ -32,6 +32,7 @@
 | 15 | 音效：開啟音量 50%、靜音、取消靜音 | 有聲音變化（6016 只驗「有聲」，不驗場景正確） | 設定畫面 | ☐ |
 
 ## 失敗時要收集
+- T042 補測時，在啟動含 T041 的 dev 建置前設定 `TW_PACKET_TRACE=scratch\packet-trace\<步驟>.jsonl`（PowerShell：`$env:TW_PACKET_TRACE='scratch\packet-trace\04.jsonl'`）；相對路徑以執行產品所在 repo 根解析，每次使用尚不存在的檔名。正常退出後收集 JSONL，只含時間、方向、opcode、明文長度與入站序號；`seq` 無值為 null。追蹤預設關閉，路徑不在 repo 的 `scratch/`、經過 junction／symlink、檔案已存在或寫入失敗均靜默停用；補測結束清除變數。凍結 r35 不含此功能。
 - 當步截圖、`server.log` 對應時間段、客戶端 console／log（`engine\logs` 或視窗內錯誤訊息全文）。
 - 如果是閃退：事件檢視器 → Windows 記錄 → 應用程式，找 `P11.ClientEngine` 的錯誤事件，截圖。
 
