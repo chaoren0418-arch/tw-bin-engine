@@ -25,7 +25,7 @@
 ### T016 | done | codex-local | 主專案目錄 r35 建置（#19）
 ### T040 | done | codex-local | 滾動式 dev lock（#31）
 ### T041 | done | codex-local | 選用封包追蹤，只記 op／len（#34）
-### T050 | review | codex-local | CI 改在 Linux 交叉建置 Windows 目標（#67／PR #72，已 review:pass，待合併）
+### T050 | done | codex-local | CI 改在 Linux 交叉建置 Windows 目標（#67／PR #72）
 
 ---
 
