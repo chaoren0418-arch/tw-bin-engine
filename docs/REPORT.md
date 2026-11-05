@@ -35,3 +35,4 @@
 - 2026-11-06 — #67 T050: CI 改在 Linux 交叉建置（ubuntu-latest＋EnableWindowsTargeting）（code，codex-local，PR 已合併）→ [報告](reports/issue-67.md)
 - 2026-11-06 — #71 DEMO-2：dot 真機跑完 N01 全程（含音效／金幣／近戰補測），逐步截圖並完成 docs/demo/README.md（test，dot，PR #78 已合併）→ [報告](reports/issue-71.md)
 - 2026-11-06 — #77 T062 DEMO-3：修金幣丟撿＋補測未通過列，完成 M1 demo 頁（一張任務、兩輪）（test，codex-local，PR #80 已合併）→ [報告](reports/issue-77.md)
+- 2026-11-06 — #81 盤點 P01–P24 本機研究資料夾（#76 步驟 0 補件）（resource，codex-local，PR #84 已合併）→ [報告](reports/issue-81.md)
