@@ -34,12 +34,13 @@ UI 保留當時的世界／物件／選取 revision／資料 revision／持有�
 
 | 檢查 | 最終結果 |
 |---|---|
-| dev lock | 185 個 source 檔、194 個 pins 通過；只更新 dev lock |
+| dev lock | 合併 main 後 190 個 source 檔、199 個 pins 通過；只更新 dev lock |
 | dev 完整建置 | SDK 10.0.300；主程式與 launcher 各 0 警告、0 錯誤 |
 | 新增 GroundChecks | 309 斷言／9 組通過 |
 | 既有肉／箭生命週期 | candidate 252、extra 87 項通過 |
 | 實際 `panel.js` | 38 項通過，使用明示 DOM 替身 |
 | T041 PacketTraceChecks | 36 項通過；追蹤實作未修改，不記 payload |
+| #50 CombatSfxChecks | 合併後重跑 7 組、8,780 項通過 |
 | 來源交叉比對 | 7 個模板列、4 筆 pins、3 筆禁用理由及 #49 fixture 原始 bytes 全符合 |
 | 差異檢查 | `git -c core.whitespace=cr-at-eol diff --check` 通過，保留既有 CRLF |
 
@@ -70,9 +71,9 @@ dotnet run --project engine/_integration/dev/packet-trace-tests/PacketTraceCheck
 
 ## 待真機（#52）
 
-已推送實作 commit `0a21d95` 並建立 [PR #66](https://github.com/chaoren0418-arch/tw-bin-engine/pull/66)。GitHub 顯示可合併、沒有內容衝突；尚未合併。
+原實作 commit `0a21d95` 已建立 [PR #66](https://github.com/chaoren0418-arch/tw-bin-engine/pull/66)。#50 先合併造成的分支衝突已於本輪整合處理，見下方「rebase 紀錄」；PR 尚未合併。
 
-**CI 待調度器處理**：[run 42019716859](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42019716859) 的 `dotnet` job `127219133592` 回報 failure，API 的 steps 為空陣列，job log 下載回 `404 BlobNotFound`；沒有可判讀的編譯／測試步驟結果。這與 [#62](https://github.com/chaoren0418-arch/tw-bin-engine/issues/62) 記錄的現象一致，但本次工具未提供 runner／帳務註記，**無法獨立確認付款或額度是原因**。不能把本機通過寫成 CI 綠燈，也不修改帳務、CI 或合併政策；交由 #62 的調度器接手。
+**原實作 CI 紀錄，待調度器處理**：[run 42019716859](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42019716859) 的 `dotnet` job `127219133592` 回報 failure，API 的 steps 為空陣列，job log 下載回 `404 BlobNotFound`；沒有可判讀的編譯／測試步驟結果。這與 [#62](https://github.com/chaoren0418-arch/tw-bin-engine/issues/62) 記錄的現象一致，但當次工具未提供 runner／帳務註記，**無法獨立確認付款或額度是原因**。此為 `0a21d95` 的歷史紀錄，不代表本輪 merge 的 CI 結果；不能把本機通過寫成 CI 綠燈，也不修改帳務、CI 或合併政策；交由 #62 的調度器接手。
 
 沒有啟動／附加既有遊戲、啟動服務或 DB，沒有連正式服務；沒有修改主專案 #50、正式 BIN／客戶端、封存 release／lock、機密設定或 `docs/REPORT.md`。WinForms／WebView2 的實際畫面、滑鼠體感與真實伺服器接受情況尚未驗證。
 
@@ -82,3 +83,36 @@ dotnet run --project engine/_integration/dev/packet-trace-tests/PacketTraceCheck
 2. 測零、負、小數、超額；選取後等待數量更新再送出應拒絕，再點選後可重新操作。核對裝備／綁定拒絕、距離／交易／死亡、連點 900ms 與超過 3000ms 未確認情形。
 3. 回歸肉、箭與治癒藥水，核對地面重疊時的可見像素選取。gfx 46／42／22 維持未啟用；若要擴充，另由資源任務核定對應 pin，不借圖。
 4. T041 只保留 opcode／長度／時間；不得為真機驗收開啟 payload 記錄。原生分類與 alias unknown 不另派禁止的執行期 dump。
+
+## rebase 紀錄
+
+2026-11-06，依主控允許的替代方式，實際採 **merge**，沒有 rebase、切換分支或重寫既有提交。全程在 `scratch/wt/task-51` 的既有 `task/51` 操作。
+
+- 整合前 task/51：`fe484a5633c5f62977182b3b8598f2d87f067abc`。
+- fetch 後 main：`ac0e9efa8768ccfa88f5d5b28f652d884395e98f`，包含 #50／PR #65、#49／PR #64 與 #47。
+- 執行 `git merge --no-commit --no-ff origin/main`。雙方實際重疊檔案是 `WebPanel.cs` 與 dev lock；只有 dev lock 產生內容衝突。
+- dev lock 先執行 `git restore --source=origin/main --staged --worktree -- engine/_integration/dev/rebuild-lock.json`，再以 `rebuild.py --update-lock` 重建，沒有手動拼接 lock。
+- 核對 `WebPanel.cs` 同時保留 combat 關閉等待、catalog 原圖路由及嚴格數量快照；`Program.cs` 的初始化與計時派送、`WorldSession.cs` 的權威封包後音效事件與 main 完全一致。其餘雙方各自修改的程式／資源／測試檔，經 Git clean filter 的 blob 雜湊逐檔比對，均保留原分支內容。本輪沒有額外功能或行為修改。
+- `docs/REPORT.md` 只承接 main 原有索引，與 main blob 完全相同，沒有自行編輯；原專案工作檔與 task/50 分支未變動。Git 的共用 worktree 中繼資料僅由 fetch／merge／commit／push 正常更新。
+
+### 本輪離線重驗
+
+dev 完整建置與 `--verify` 通過，主程式／launcher 各 0 警告、0 錯誤，190 個來源檔／199 個 pins。`--verify` 核對來源、建置 manifest 與檔案身分；本 worktree 沒有 receipt，本輪沒有生成或聲稱驗證 receipt。
+
+| 檢查 | 通過數 |
+|---|---:|
+| GroundChecks | 309 |
+| 既有肉／箭 candidate、extra | 252 + 87 |
+| 實際 panel.js | 38 |
+| T041 PacketTraceChecks | 36 |
+| #51 小計 | **722** |
+| #50 CombatSfxChecks | **8,780（7 組）** |
+| 合計 | **9,502** |
+
+另重跑 `verify-sources.py`，7 筆模板、4 筆 sprite pins、3 筆禁用理由及 #49 fixture bytes 交叉核對通過。兩套地面回歸與 combat 回歸的產品 DLL SHA-256 均為 `e25a933b1534c4af029a51f25fd13bbfdca15c11d7b48b8c21359800178e2a69`；音訊 DLL 為 `131148c1f05bf5dbb6c020796c1505def45ab9da303b466db7000c73b63bf680`。完整建置身分與 merge 父節點記在 `work/issue-51/validation.json`。
+
+Combat 測試使用 `engine/_integration/dev/combat-sfx-tests/Program.cs` 的 scratch 副本，僅將 `assets` 指向原專案 `engine/assets`，並像 GroundChecks 一樣設定測試宿主 AppContext 為原專案 `engine/build/offline-checks`，讓 `../../assets` 維持唯讀。專案引用指向本 worktree 新建的 DLL，fixture 與 WAV pins 仍讀本 worktree；所有斷言不變。沒有建立 junction、複製遊戲素材或修改原測試。原始／調整後測試 SHA 與調整項記在 validation 的 `combatSfx.hostAdaptation`。
+
+重現時先執行上方既有 #51 命令。combat 的本機輔助腳本為 `scratch/issue-51/run-combat.py`，建置至 `engine/build/issue-51-combat-tests`；若 scratch 已清除，可依前段兩項宿主路徑調整重新產生副本，沿用 #50 的建置／執行命令。測試結果固定保留在 `work/issue-51/combat-sfx-result.json`；本輪更新既有 `result.json`、`validation.json`，不新增時間戳歷史報告。
+
+給下一棒的提示：Claude／調度器覆核本輪 merge、重新確認 PR #66 的可合併狀態與 CI；使用者決定合併。#52 的 WinForms／Web 真機操作與 combat 聽音仍待驗收。本輪未啟動遊戲、服務或 DB，未連線正式服務，未實際播放音效。

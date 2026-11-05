@@ -24,7 +24,7 @@ public sealed partial class ClientForm {
         webToggle.Click+=async(_,_)=>await TogglePanel();gameButton.Click+=(_,_)=>ReturnGameFocus();
         Deactivate+=(_,_)=>LeaveGameFocus("deactivate");
         Shown+=async(_,_)=>{if(normalProduct&&scenario==null)return;var open=OpenPanel();if(scenario!="close-init")await open;if(scenario!=null)await WebDemo(scenario);};
-        FormClosing+=async(_,e)=>{if(finalClose)return;e.Cancel=true;if(webClosing)return;webClosing=true;var audioShutdown=await Shutdown6016();Record6016(new("form-closing",audioShutdown));await ClosePanel();finalClose=true;Close();};
+        FormClosing+=async(_,e)=>{if(finalClose)return;e.Cancel=true;if(webClosing)return;webClosing=true;var combatShutdown=ShutdownCombatSfx();var audioShutdown=await Shutdown6016();Record6016(new("form-closing",audioShutdown));await combatShutdown;await ClosePanel();finalClose=true;Close();};
     }
     void LeaveGameFocus(string why){gameFocus=false;ClearInput("web-"+why);PublishWebState();WebLog("focus-left-game",new{why,held=Input.Held.Count,model=World.Snapshot()});}
     void ReturnGameFocus(){ActiveControl=null;Focus();gameFocus=true;ClearInput("return-game");PublishWebState();WebLog("focus-game",new{held=Input.Held.Count,model=World.Snapshot()});}

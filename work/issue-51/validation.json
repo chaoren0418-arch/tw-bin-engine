@@ -2,14 +2,14 @@
   "status": "pass",
   "build": {
     "status": "pass-dev-build",
-    "sourceFiles": 185,
+    "sourceFiles": 190,
     "GUI": false,
     "network": false,
     "database": false,
-    "productDllSha256": "ffdf4d913640979684c7bb88eb48092923a1ec20b1fdefc1348b368d1221c47a",
-    "audioDllSha256": "200d6702b01d6f6c5634190fb053db096f35826cf769737e469ef6e904364ee8",
-    "productManifestSha256": "b27dd087319f7293a459a968adc306033bd7396286a5350ba75f4b507ce8d81f",
-    "launcherDllSha256": "7baf68e116bbf624fabb5df92e79c65545181d2f219589a211a930821754cad7"
+    "productDllSha256": "e25a933b1534c4af029a51f25fd13bbfdca15c11d7b48b8c21359800178e2a69",
+    "audioDllSha256": "131148c1f05bf5dbb6c020796c1505def45ab9da303b466db7000c73b63bf680",
+    "productManifestSha256": "b10216426d14abb075c768e0a1bebc685701b49e12c3f82ee6924459227df0f1",
+    "launcherDllSha256": "915b43f575f4922fd48929955af5ef967798a77fed7ea689fdeae0f2a7424d29"
   },
   "groundAssertions": 309,
   "web": {
@@ -23,14 +23,14 @@
       "status": "pass",
       "checks": 252,
       "passed": 252,
-      "productSha256": "ffdf4d913640979684c7bb88eb48092923a1ec20b1fdefc1348b368d1221c47a"
+      "productSha256": "e25a933b1534c4af029a51f25fd13bbfdca15c11d7b48b8c21359800178e2a69"
     },
     {
       "mode": "extra",
       "status": "pass",
       "checks": 87,
       "passed": 87,
-      "productSha256": "ffdf4d913640979684c7bb88eb48092923a1ec20b1fdefc1348b368d1221c47a"
+      "productSha256": "e25a933b1534c4af029a51f25fd13bbfdca15c11d7b48b8c21359800178e2a69"
     }
   ],
   "legacySourceSha256": "f3ac34a5b40a9d50ecc55cca6bc57163b2e21f7d32e3ba591f97a19b631beb84",
@@ -88,6 +88,54 @@
     "logHttpStatus": 404,
     "logError": "BlobNotFound",
     "cause": "unknown; same observed symptoms as issue #62",
-    "handoffIssue": 62
+    "handoffIssue": 62,
+    "scope": "previous implementation commit only; not evidence for this merge"
+  },
+  "verify": {
+    "status": "pass-dev-verify",
+    "sourceFiles": 190,
+    "GUI": false,
+    "network": false,
+    "database": false,
+    "productDllSha256": "e25a933b1534c4af029a51f25fd13bbfdca15c11d7b48b8c21359800178e2a69",
+    "audioDllSha256": "131148c1f05bf5dbb6c020796c1505def45ab9da303b466db7000c73b63bf680",
+    "productManifestSha256": "b10216426d14abb075c768e0a1bebc685701b49e12c3f82ee6924459227df0f1",
+    "launcherDllSha256": "915b43f575f4922fd48929955af5ef967798a77fed7ea689fdeae0f2a7424d29"
+  },
+  "combatSfx": {
+    "status": "pass",
+    "checks": 8780,
+    "groups": 7,
+    "productSha256": "e25a933b1534c4af029a51f25fd13bbfdca15c11d7b48b8c21359800178e2a69",
+    "evidence": "work/issue-51/combat-sfx-result.json",
+    "hostAdaptation": {
+      "sourceSha256": "ef2b6eb05f5e0222c1df79f41ddf384efb25a6b3fff1c332f788737248809b86",
+      "adaptedSourceSha256": "54d9c18e40ea3d1b79305bab2f08ab5c026cf06f27d3a6c01de542f8d5178422",
+      "changes": [
+        "assets root reads original engine/assets",
+        "AppContext base reads original engine/assets through ../../assets",
+        "project references merged worktree product DLLs"
+      ],
+      "assertionChanges": false
+    }
+  },
+  "totalAssertionsIncludingCombatSfx": 9502,
+  "integration": {
+    "method": "merge --no-commit --no-ff origin/main",
+    "previousHead": "fe484a5633c5f62977182b3b8598f2d87f067abc",
+    "main": "ac0e9efa8768ccfa88f5d5b28f652d884395e98f",
+    "mergeBase": "df7b5f40ec12513fca4e62c4c5a23e9ad28fafb0",
+    "overlappingFiles": [
+      "engine/_integration/dev/rebuild-lock.json",
+      "engine/source/WebPanel.cs"
+    ],
+    "conflictedFiles": [
+      "engine/_integration/dev/rebuild-lock.json"
+    ],
+    "lockPolicy": "restore origin/main lock then rebuild.py --update-lock",
+    "sourceFiles": 190,
+    "pinnedFiles": 199,
+    "nonOverlappingFilesPreserved": true,
+    "reportIndexEqualsMain": true
   }
 }
