@@ -44,8 +44,8 @@
 ### T047 | done | codex-local | 攻擊／技能音效依原始幀事件派送（#50／PR #65）
 ### T048 | done | codex-local | 地面物品 catalog、金幣丟撿與數量輸入（#51／PR #66）
 ### T060 | done | codex-local | DEMO-1：主專案同步、dev 建置、demo 頁骨架與 `RUN.md`（#70）
-### T061 | doing | dot | DEMO-2：真機跑完 N01、37 張截圖、填 demo 頁（#71；本機 commit `c09cc75` 待推送）
-### T062 | todo | codex-local → dot | DEMO-3：**一張**修正加補測任務，依 DEMO-2 報告處理：
+### T061 | done | dot | DEMO-2：真機跑完 N01、37 張截圖、填 demo 頁（#71；部分通過，缺口交 T062）
+### T062 | doing | codex-local → dot | DEMO-3（#77）：**一張**修正加補測任務，依 DEMO-2 報告處理：
 1. codex-local 修**金幣丟撿未通過**的產品原因，以及 DEMO-2 報告中其他屬於產品的缺陷，附離線回歸測試。
 2. dot 補驗 DEMO-2 尚未通過的列：移動座標、近戰 EXP（固定目標）、光箭、非滿血治癒、卸裝截圖、金幣丟撿、聊天、各事件音效峰值。
 3. 更新 `docs/demo/README.md`，直到符合本里程碑驗收。
