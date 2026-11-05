@@ -53,10 +53,10 @@ N01 流程逐步核對表：每步要截圖什麼、看哪個 server 回包、�
 把 T011 結果回寫：通過的列加 `nativeR35Accepted: true`；I01、I02 改 done（P26/P27 已完成對應工作）。
 驗收：JSON 可解析；變更列數與 r35.md 一致。
 
-### T040 | doing | Cursor（Issue #31） | `engine/_integration/dev/`, `engine/build-product.ps1`, `.github/workflows/build.yml`, `docs/BUILD.md`
+### T040 | done | codex-local（Issue #31，PR #32） | `engine/_integration/dev/`, `engine/build-product.ps1`, `.github/workflows/build.yml`, `docs/BUILD.md`
 滾動式 dev lock：r35 凍結為 M1 基線版本；改程式的 PR 以 `dev/rebuild.py --update-lock` 同步更新 lock。所有後續程式任務的前置。
 
-### T041 | todo | Cursor | `engine/source/LoginConnection.cs` 等
+### T041 | doing | codex-local（Issue #34） | `engine/source/LoginConnection.cs` 等
 選用的客戶端封包追蹤（環境變數開啟，只記方向／opcode／長度／時間，不記內容），讓真機補測有移動／戰鬥／拾取的封包證據。依賴 T040。
 
 ### T042 | todo | dot | P24Lab 真機
