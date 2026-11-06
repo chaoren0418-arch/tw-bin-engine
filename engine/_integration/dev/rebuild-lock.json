@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 172,
+ "sourceCount": 173,
  "files": [
   {
    "path": "NuGet.Config",
@@ -100,6 +100,11 @@
    "sha256": "7338b577e307dbf11a7d4699a11eeb0ce472186b77c82fdf0807bef4ef729b6a"
   },
   {
+   "path": "source/AttackSkillPackets.cs",
+   "size": 6132,
+   "sha256": "eff3b8aa903a2305899b044a0a786f9a918f9f6e32149cb61d1eeb2d9d181b2f"
+  },
+  {
    "path": "source/AudioApiTransport.cs",
    "size": 1616,
    "sha256": "b1a18d9fc09bfba275e9c17230c57cc398dba06ccd30631f44333a17b9e42c7b"
@@ -156,8 +161,8 @@
   },
   {
    "path": "source/Combat.cs",
-   "size": 13885,
-   "sha256": "8f26c5dda4b164c64438cabe568a0b9ce152c53fd659e8b15c5860391b705f02"
+   "size": 13793,
+   "sha256": "736177e557bd5cf534c37bdfeb6e3913a5ac2e4d45ffe7abca40c23a944e3d7d"
   },
   {
    "path": "source/CombatRegression.cs",
@@ -346,8 +351,8 @@
   },
   {
    "path": "source/Magic.cs",
-   "size": 11938,
-   "sha256": "e5317e1747f238a42b40a8b02a9ea4d422fbd5b6b136f206c0a7f4171e171d1b"
+   "size": 11074,
+   "sha256": "e56b28b8d36ee8936b05aaf2f07f392c7a53ad19ae07ea578d7113aacf6efe22"
   },
   {
    "path": "source/MagicIntegration.cs",

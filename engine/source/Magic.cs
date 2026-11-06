@@ -49,14 +49,12 @@ public sealed partial class WorldSession {
             MagicListReceived=true;MagicRevision++;MagicNotice=opcode==164?"原服已學技能已更新":"原服移除技能已更新";InteractionSkillsUpdated();return true;
         }
         if(opcode==55&&plain.Length==8&&MagicSpells.AttachedEffect(BinaryPrimitives.ReadUInt16LittleEndian(plain.AsSpan(5)))){uint target=r.D();ushort gfx=r.H();r.Finish();if(gfx is 189 or 191 or 197){LastItemEffect=new{number=++ItemEffectNumber,actor=target,effect=gfx};InventoryRevision++;}var a=Actor;var o=Objects.FirstOrDefault(v=>v.ObjectId==target);if(a?.ObjectId!=target&&o==null){MagicNotice="收到原服特效，對象目前不在可見世界";return true;}ushort x=a?.ObjectId==target?a.X:o!.X,y=a?.ObjectId==target?a.Y:o!.Y;AddMagicEffect(new(++MagicEffectCount,target,target,gfx,19,0,0,x,y,x,y,Environment.TickCount64));MagicNotice="收到原服技能特效；HP／MP與狀態以原回包為準";return true;}
-        if(opcode==30&&plain.Length>1&&plain[1]==18){
-            if(plain.Length!=40)throw new ProtocolException("truncated magic envelope");
-            int action=r.C();uint caster=r.D(),target=r.D();ushort word=r.H();int heading=r.C();uint number=r.D();ushort gfx=r.H();byte flight=r.C();ushort sx=r.H(),sy=r.H(),tx=r.H(),ty=r.H();uint reserved=r.D();byte tail=r.C();r.Finish();
-            if(heading>7||reserved!=0||tail!=0)throw new ProtocolException("invalid magic envelope");
-            if(gfx!=167||flight!=0){Unhandled(opcode);MagicNotice="收到未支援魔法特效；保留原封包";return true;}
-            if(Actor?.ObjectId==caster)Actor=Actor with{Direction=(byte)heading};else UpdateObject(caster,o=>o with{Direction=(byte)heading});
-            ushort casterGfx=Actor?.ObjectId==caster?Actor.Gfx:Objects.FirstOrDefault(o=>o.ObjectId==caster)?.Gfx??ushort.MaxValue;
-            AnimateCombat(caster,18,target:target);var castAnimation=ActionFor(caster);AddMagicEffect(new(++MagicEffectCount,caster,target,gfx,action,word,heading,sx,sy,tx,ty,ActionClock(),number,casterGfx){Timing=castAnimation?.Timing,ActionAt=castAnimation?.At});MagicNotice=$"原服光箭回報；傷害欄 {word}（非獨立證明的HP差值）";return true;
+        if(opcode==42){ReceiveRangeMagic(AttackSkillPackets.DecodeRange(plain));return true;}
+        // S30 layout, not action/gfx/sequence, selects the receiver. Leave arrows to Combat.
+        if(opcode==30&&plain.Length!=24){
+            var packet=AttackSkillPackets.DecodeAttack(plain);
+            if(packet.IsArrow)return false;
+            ReceiveAttackMagic(packet);return true;
         }
         return false;
     }

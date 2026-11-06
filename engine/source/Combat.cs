@@ -43,24 +43,27 @@ public sealed partial class WorldSession {
     }
     bool ReceiveCombat(byte opcode,LoginReader r,byte[] plain){
         if(opcode==30){
-            if(plain.Length>=17&&BinaryPrimitives.ReadUInt32LittleEndian(plain.AsSpan(13))==338){
-                if(plain.Length!=40)throw new ProtocolException("truncated arrow envelope");
-                int arrowAction=r.C();uint arrowAttacker=r.D(),arrowTarget=r.D();ushort damage=r.H();int arrowHeading=r.C();uint marker=r.D();ushort gfx=r.H();byte flight=r.C();ushort sx=r.H(),sy=r.H(),tx=r.H(),ty=r.H();uint reserved=r.D();byte end=r.C();r.Finish();
-                if(arrowHeading>7||flight!=127||reserved!=0||end!=0)throw new ProtocolException("invalid arrow envelope");
-                if(gfx!=66||arrowAction!=1){Unhandled(opcode);CombatNotice="收到未支援投射物；保留原封包";return true;}
+            if(plain.Length!=24){
+                var packet=AttackSkillPackets.DecodeAttack(plain);
+                if(!packet.IsArrow){ReceiveAttackMagic(packet);return true;}
+                int arrowAction=packet.Action,arrowHeading=packet.Heading;
+                uint arrowAttacker=packet.Caster,arrowTarget=packet.Target;
+                ushort damage=packet.DamageWord,gfx=packet.Gfx,sx=packet.SourceX,sy=packet.SourceY,tx=packet.TargetX,ty=packet.TargetY;
+                byte flight=packet.Flight;
                 LastAttack=new(++AttackReports,arrowAttacker,arrowTarget,arrowAction,damage,arrowHeading,tx,ty,flight);
                 if(arrowTarget==Actor?.ObjectId)LastIncomingAttack=LastAttack;
                 ushort casterGfx=Actor?.ObjectId==arrowAttacker?Actor.Gfx:Objects.FirstOrDefault(o=>o.ObjectId==arrowAttacker)?.Gfx??ushort.MaxValue;
-                AnimateCombat(arrowAttacker,arrowAction,target:arrowTarget);var arrowAnimation=ActionFor(arrowAttacker);
+                ApplySkillCaster(arrowAttacker,arrowAction,(byte)arrowHeading,arrowTarget);var arrowAnimation=ActionFor(arrowAttacker);
                 LastProjectile=new(AttackReports,arrowAttacker,arrowTarget,gfx,arrowHeading,sx,sy,tx,ty,ActionClock(),damage,casterGfx){Timing=arrowAnimation?.Timing,ActionAt=arrowAnimation?.At};
-                projectileReports[LastProjectile.Number]=LastProjectile;
+                // The current renderer has only projectile-66. Keep the decoded report,
+                // but never display another gfx using the arrow-66 pixels/motion contract.
+                if(gfx==66)projectileReports[LastProjectile.Number]=LastProjectile;
                 foreach(var old in projectileReports.Values.Where(p=>LastProjectile.At-p.At>10000))projectileReports.TryRemove(old.Number,out _);
-                if(Actor?.ObjectId==arrowAttacker)Actor=Actor with{Direction=(byte)arrowHeading};
-                else UpdateObject(arrowAttacker,o=>o with{Direction=(byte)arrowHeading});
                 // Actor timing was captured before constructing the projectile report.
                 // Original BIN7C3AB0 -> 759B30 -> 758050 -> A49520 applies hurt at arrival.
                 // The compositor schedules that visual; HP/death still follow original server packets immediately.
                 CombatNotice=$"原服遠程回報 #{AttackReports}：箭矢 {gfx}，傷害欄 {damage}；箭數依原背包回包更新";
+                if(gfx!=66)CombatNotice+="；此投射物的原始繪製資源尚未支援";
                 return true;
             }
             if(plain.Length<24)throw new ProtocolException("truncated attack envelope");
