@@ -66,3 +66,4 @@
 - 2026-11-07 — #170 規則檔：寫入「封存 r28／r33 素材還原」的一次性例外（#156 裁定 A）（code，codex-local，PR 已合併）→ [報告](reports/issue-170.md)
 - 2026-11-07 — #157 還原封存：從 r29 逐檔複製回 releases/r28/assets，r33 重建 hardlink（依 #156 裁定 A）（resource，codex-local，PR #159 已合併）→ [報告](reports/issue-157.md)
 - 2026-11-07 — #164 T091＋T092：M4 smoke——GM 準備測試條件，以一般玩家方式重跑 M2 的 ⚠️ 列（test，dot，PR #174 已合併）→ [報告](reports/issue-164.md)
+- 2026-11-07 — #177 主控：M4 結案、建立 M5（近戰與施法修正、測試條件準備、M5 smoke）（plan，claude-chat，PR #178 已合併）→ [報告](reports/issue-177.md)
