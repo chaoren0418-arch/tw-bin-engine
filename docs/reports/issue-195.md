@@ -2,7 +2,7 @@
 
 ## 做了什麼
 
-- 第 2 次嘗試依 #195 調度器指示，合併 `origin/main`（`9767ee1`）。唯一衝突為 dev lock，已以 `--update-lock` 重新生成；`docs/REPORT.md` 與主線完全相同，角色管理功能未另行修改。沿用已審查的 PR #219。
+- 第 3 次嘗試僅做同步：先快轉至遠端 `task/195`（`10d5493`）保留調度器既有同步提交，再合併 `origin/main`（`a1ecadf`）。唯一衝突為 dev lock，已以 `--update-lock` 重新生成；`docs/REPORT.md` 與主線完全相同，角色管理功能未另行修改。沿用 PR #219。
 - 原生選角列加入建立與刪除；建立視窗提供七職業、兩性別、名稱及六能力分配，依 #132 與唯讀伺服器來源檢查 Big5 名稱、75 點總和與職業下限。刪除必須確認，預設選「否」，並可取消七日刪除排程。
 - `CharacterManagement.cs` 實作 C84／S98／S127、C162／S6＋C16 清單刷新、C7／S250-42／S178／S93。只有收到權威回包才更新清單；切角保留原連線、cipher 與 session，清除舊世界及動作 lease，之後可直接 C137 選另一角色。
 - 世界畫面右上角有獨立「切換角色」入口，避免正常 HUD 隱藏登入列後無法操作。等待期間禁止重複與過期操作；15 秒逾時關閉並要求重新登入確認結果，不自動重送破壞性請求。
@@ -10,11 +10,12 @@
 
 ## 怎麼驗證（已驗證）
 
-- SDK 10.0.300：合併後先 `rebuild.py --update-lock`，再 `--build --configfile .github/nuget.ci.config --write-receipt --output scratch/issue-195/build`。175 來源／184 pins，產品與 launcher 建置通過；產品僅既有 `MagicUi.cs` CS8600／CS8602 兩警告，launcher 零警告。218 項模組測試已對合併後重新建置的產品重跑通過。
+- SDK 10.0.300：合併後先 `rebuild.py --update-lock`，再 `--build --configfile .github/nuget.ci.config --write-receipt --output scratch/issue-195/build`。176 來源／185 pins，產品與 launcher 建置通過；產品僅既有 `MagicUi.cs` CS8600／CS8602 兩警告，launcher 零警告。218 項模組測試已對合併後重新建置的產品重跑通過。本輪使用本機 Python 3.12 執行檔完整路徑，因 shell 未提供可用的 `python` 命令。
 - `CharacterManagementChecks` 218 項通過：七職業／兩性別的封包欄位、Big5 邊界、能力限制、拒絕及成功回包、16／32-bit HP/MP、立即／七日刪除、取消刪除、空清單、截斷／非零 padding／重名／錯序、同 session 切角後 C137，以及排隊取消、同步回呼取消、傳送失敗、逾時與舊 deadline。
 - 測試以產品 DLL、合成封包及記憶體 sender 執行；SocketGuard 禁止網路事件。不執行遊戲入口、不顯示遊戲視窗、不連伺服器或 DB，沒有帳密資料。
-- `check-no-game-assets.py` 通過：3,245 個追蹤檔、4 個 embedded resource declarations、0 錯誤。來源檔保留既有換行格式，`git -c core.whitespace=cr-at-eol diff --cached --check` 通過。PR CI 最終結果見交付摘要及 GitHub checks。
-- 本機產品 DLL SHA-256：`807e3f79d2ce0f40a6240c2c0bcb3e9705be6492c79ee2ee30c121f69f8eeb71`。
+- `check-no-game-assets.py` 通過：3,268 個追蹤檔、4 個 embedded resource declarations、0 錯誤。來源檔保留既有換行格式，`git -c core.whitespace=cr-at-eol diff --cached --check` 通過。PR CI 最終結果見交付摘要及 GitHub checks。
+- 主線帶入的 `LoginChecks` 離線登入回歸通過：396,589 項斷言，涵蓋全部 65,536 個 UTF-16 值；不記錄帳密。
+- 本機產品 DLL SHA-256：`2264e0ed4f00065f56371d1fa9c19384f779d330140ba5cb98a2e0b78d3c74c3`。
 
 本機測試重跑方式（先完成上述產品建置；NuGet／TEMP／DOTNET_CLI_HOME 指向 worktree 內）：
 
