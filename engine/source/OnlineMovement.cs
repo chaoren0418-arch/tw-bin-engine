@@ -98,6 +98,7 @@ public sealed partial class LoginConnection {
                 Set(State,World.MotionNotice);
             });
             if(epoch!=generation)return new(false,"本次移動流程所屬連線已變更；不沿用舊送出結果。");
+            if(world!=World.WorldEpoch)return new(false,"本次移動流程所屬世界已變更；不沿用舊送出結果。");
             if(!sent){
                 // Rejection must not discard spacing already extended by a speed report.
                 string reason=input!=inputVersion?"未送出：本次移動輸入已取消。":world!=World.WorldEpoch||corrections!=World.Corrections||appearanceRevision!=World.AppearanceRevision||speedRevision!=World.SpeedRevision?"未送出：世界、位置、外觀或速度已變更，舊移動請求已取消。":"未送出：送出前狀態已變更，移動請求未通過驗證。";

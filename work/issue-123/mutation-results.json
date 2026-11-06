@@ -1,0 +1,337 @@
+[
+  {
+    "name": "pre-T064-keyboard",
+    "group": "keyboard",
+    "detected": true,
+    "expectedFailure": "HUD reason",
+    "commands": [
+      {
+        "argv": [
+          "python",
+          "-B",
+          "-X",
+          "utf8",
+          "engine/_integration/dev/rebuild.py",
+          "--update-lock"
+        ],
+        "exitCode": 0,
+        "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": true}\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "python",
+          "-B",
+          "-X",
+          "utf8",
+          "engine/_integration/dev/rebuild.py",
+          "--build",
+          "--write-receipt"
+        ],
+        "exitCode": 0,
+        "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": false}\nsdk 0\nproduct-restore 0\nproduct-build 0\nlauncher-restore 0\nlauncher-build 0\nreceipt written D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\receipt.json\nPASS dev {\"productDllSha256\": \"c33a35b084802f84abb7d4c0c0d71cbb1bd341363ef210dc33973b708dd080a9\", \"audioDllSha256\": \"f135b5080fb5acab27905d243e3a03fa06bfb7fc941bcf313f8839535abcd63d\", \"productManifestSha256\": \"ff882d7ddb2cec019daa0d30250b5783a2ac1632b01d51d0aedc90adb96275e1\", \"launcherDllSha256\": \"222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d\"}\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "dotnet",
+          "build",
+          "engine/_integration/dev/demo-tests/DemoChecks.csproj",
+          "-c",
+          "Release",
+          "-o",
+          "engine/build/issue-123-demo",
+          "--configfile",
+          "engine/NuGet.Config"
+        ],
+        "exitCode": 0,
+        "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  DemoChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-demo\\DemoChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.96\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "dotnet",
+          "engine/build/issue-123-demo/DemoChecks.dll",
+          ".",
+          "scratch/issue-123/mutation-pre-T064-keyboard.json",
+          "keyboard"
+        ],
+        "exitCode": 1,
+        "stdout": "",
+        "stderr": "System.Exception: OnlineDown 0 HUD reason 地形\n   at Checks.Check(Boolean value, String label) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 12\n   at Checks.CheckKeyboardRefusal(ClientForm form, String reason, String label) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 189\n   at Checks.KeyboardMovement123() in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 215\n   at Checks.Main(String[] args) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 281\n"
+      }
+    ],
+    "source": "engine/source/OnlineInput.cs",
+    "mutationDiff": "--- fixed/engine/source/OnlineInput.cs\n+++ mutated/engine/source/OnlineInput.cs\n@@ -1,49 +1,35 @@\n-namespace P06;\n-public sealed partial class ClientForm {\n-    void OnlineDown(Keys key){\n-        if(key==Keys.F12&&evidence!=null){CaptureEvidence(\"manual\");return;}\n-        if(key==Keys.Space){ClearInput(\"stop\");return;}\n-        if(key==Keys.M){bool first=!Input.Held.Contains(key);if(first){ClearInput(\"single-magic\");Input.Down(key);if(!World.Walking)_=CastFromInput();}return;}\n-        if(key==Keys.U){bool first=!Input.Held.Contains(key);if(first){ClearInput(\"single-item\");Input.Down(key);if(!World.Walking)_=login.UseSelectedItem();}return;}\n-        if(key==Keys.P){bool first=!Input.Held.Contains(key);if(first){ClearInput(\"single-pickup\");Input.Down(key);if(!World.Walking)_=NativeGroundQuantity(true);}return;}\n-        if(key==Keys.G){bool first=!Input.Held.Contains(key);if(first){ClearInput(\"single-attack\");Input.Down(key);_=AttackFromInput();}return;}\n-        if(login.CombatBusy||!login.MovementAvailable){RejectKeyboardMovement(login.MovementBlockReason);return;}\n-        bool fresh=!Input.Held.Contains(key);Input.Down(key);\n-        if(key>=Keys.D1&&key<=Keys.D8){if(fresh&&!World.Walking)_=login.Turn(key-Keys.D1);return;}\n-        OnlineTick();\n-    }\n-    void SetSingleActionNotice(string notice){\n-        // ClearInput already cancelled the pointer; do not let that older notice hide this result.\n-        lastPlayerPointerHudNotice=PlayerPointerNotice;\n-        playerHudNotice=notice;playerHudNoticeUntil=Environment.TickCount64+6000;\n-    }\n-    async Task AttackFromInput(){\n-        int epoch=login.World.WorldEpoch,selection=login.World.TargetRevision;await login.Attack();\n-        if(epoch!=login.World.WorldEpoch||selection!=login.World.TargetRevision)return;\n-        SetSingleActionNotice(login.World.CombatNotice);\n-        SyncPlayerHud();PublishWebState();\n-    }\n-    async Task CastFromInput(){\n-        int epoch=login.World.WorldEpoch,selection=login.World.TargetRevision,skill=login.World.MagicSelectionRevision;await login.CastSelectedMagic();\n-        if(epoch!=login.World.WorldEpoch||selection!=login.World.TargetRevision||skill!=login.World.MagicSelectionRevision)return;\n-        SetSingleActionNotice(login.World.MagicNotice);\n-        SyncPlayerHud();PublishWebState();\n-    }\n-    void RejectKeyboardMovement(string notice){\n-        Input.Clear();SetSingleActionNotice(notice);SyncPlayerHud();PublishWebState();\n-    }\n-    void OnlineTick(){\n-        if(Input.Direction is not int direction)return;\n-        if(!login.MovementAvailable||login.CombatBusy||login.MagicBusy||login.GroundBusy||login.ItemBusy){\n-            RejectKeyboardMovement(login.MovementBlockReason);return;\n-        }\n-        if(World.Walking||login.MovementBusy)return;\n-        _=MoveFromKeyboard(direction);\n-    }\n-    async Task MoveFromKeyboard(int direction){\n-        int epoch=login.World.WorldEpoch;var result=await login.RequestMovement(direction,true,World.Walking);\n-        if(epoch!=login.World.WorldEpoch||result.Sent)return;\n-        RejectKeyboardMovement(result.Notice);\n-    }\n-    async Task OnlineWeb(int id,string cmd,int d){if(cmd==\"attack\"){bool attacked=await login.Attack();Reply(id,attacked?\"單次攻擊已送出，等待原服回報\":login.World.CombatNotice);PublishWebState();return;}var result=await login.RequestMovement(d,cmd==\"move\",World.Walking);Reply(id,result.Notice);PublishWebState();}\n-}\n+namespace P06;\r\n+public sealed partial class ClientForm {\r\n+    void OnlineDown(Keys key){\r\n+        if(key==Keys.F12&&evidence!=null){CaptureEvidence(\"manual\");return;}\r\n+        if(key==Keys.Space){ClearInput(\"stop\");return;}\r\n+        if(key==Keys.M){bool first=!Input.Held.Contains(key);if(first){ClearInput(\"single-magic\");Input.Down(key);if(!World.Walking)_=CastFromInput();}return;}\r\n+        if(key==Keys.U){bool first=!Input.Held.Contains(key);if(first){ClearInput(\"single-item\");Input.Down(key);if(!World.Walking)_=login.UseSelectedItem();}return;}\r\n+        if(key==Keys.P){bool first=!Input.Held.Contains(key);if(first){ClearInput(\"single-pickup\");Input.Down(key);if(!World.Walking)_=NativeGroundQuantity(true);}return;}\r\n+        if(key==Keys.G){bool first=!Input.Held.Contains(key);if(first){ClearInput(\"single-attack\");Input.Down(key);_=AttackFromInput();}return;}\r\n+        if(login.CombatBusy)return;\r\n+        if(!login.MovementAvailable)return;\r\n+        bool fresh=!Input.Held.Contains(key);Input.Down(key);\r\n+        if(key>=Keys.D1&&key<=Keys.D8){if(fresh&&!World.Walking)_=login.Turn(key-Keys.D1);return;}\r\n+        OnlineTick();\r\n+    }\r\n+    void SetSingleActionNotice(string notice){\r\n+        // ClearInput already cancelled the pointer; do not let that older notice hide this result.\r\n+        lastPlayerPointerHudNotice=PlayerPointerNotice;\r\n+        playerHudNotice=notice;playerHudNoticeUntil=Environment.TickCount64+6000;\r\n+    }\r\n+    async Task AttackFromInput(){\r\n+        int epoch=login.World.WorldEpoch,selection=login.World.TargetRevision;await login.Attack();\r\n+        if(epoch!=login.World.WorldEpoch||selection!=login.World.TargetRevision)return;\r\n+        SetSingleActionNotice(login.World.CombatNotice);\r\n+        SyncPlayerHud();PublishWebState();\r\n+    }\r\n+    async Task CastFromInput(){\r\n+        int epoch=login.World.WorldEpoch,selection=login.World.TargetRevision,skill=login.World.MagicSelectionRevision;await login.CastSelectedMagic();\r\n+        if(epoch!=login.World.WorldEpoch||selection!=login.World.TargetRevision||skill!=login.World.MagicSelectionRevision)return;\r\n+        SetSingleActionNotice(login.World.MagicNotice);\r\n+        SyncPlayerHud();PublishWebState();\r\n+    }\r\n+    void OnlineTick(){if(!login.MovementAvailable||World.Walking||login.MovementBusy)return;if(Input.Direction is int d)_=login.Move(d);}\r\n+    async Task OnlineWeb(int id,string cmd,int d){if(cmd==\"attack\"){bool attacked=await login.Attack();Reply(id,attacked?\"單次攻擊已送出，等待原服回報\":login.World.CombatNotice);PublishWebState();return;}var result=await login.RequestMovement(d,cmd==\"move\",World.Walking);Reply(id,result.Notice);PublishWebState();}\r\n+}\r\n",
+    "fixedSourceSha256": "d43a0881f0fd1cac00170b322093a76cb42289f601b61cb3226c197d6e62c595",
+    "mutatedSourceSha256": "473abf9099e833effb7884515cb29d82f452a6b7b6152b57ca40b66130097249"
+  },
+  {
+    "name": "remove-held-clear",
+    "group": "keyboard",
+    "detected": true,
+    "expectedFailure": "clears held input",
+    "commands": [
+      {
+        "argv": [
+          "python",
+          "-B",
+          "-X",
+          "utf8",
+          "engine/_integration/dev/rebuild.py",
+          "--update-lock"
+        ],
+        "exitCode": 0,
+        "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": true}\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "python",
+          "-B",
+          "-X",
+          "utf8",
+          "engine/_integration/dev/rebuild.py",
+          "--build",
+          "--write-receipt"
+        ],
+        "exitCode": 0,
+        "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": false}\nsdk 0\nproduct-restore 0\nproduct-build 0\nlauncher-restore 0\nlauncher-build 0\nreceipt written D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\receipt.json\nPASS dev {\"productDllSha256\": \"1fecbd312c46bd51ce3bc08495e904d7282989206ee5bd2c31f1e78e4ab31459\", \"audioDllSha256\": \"f135b5080fb5acab27905d243e3a03fa06bfb7fc941bcf313f8839535abcd63d\", \"productManifestSha256\": \"8a1e07a0cec72c1ca540204a146740f9032807bb1d8bfe188138ea9543df3d27\", \"launcherDllSha256\": \"222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d\"}\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "dotnet",
+          "build",
+          "engine/_integration/dev/demo-tests/DemoChecks.csproj",
+          "-c",
+          "Release",
+          "-o",
+          "engine/build/issue-123-demo",
+          "--configfile",
+          "engine/NuGet.Config"
+        ],
+        "exitCode": 0,
+        "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  DemoChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-demo\\DemoChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.82\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "dotnet",
+          "engine/build/issue-123-demo/DemoChecks.dll",
+          ".",
+          "scratch/issue-123/mutation-remove-held-clear.json",
+          "keyboard"
+        ],
+        "exitCode": 1,
+        "stdout": "",
+        "stderr": "System.Exception: OnlineDown 0 clears held input\n   at Checks.Check(Boolean value, String label) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 12\n   at Checks.CheckKeyboardRefusal(ClientForm form, String reason, String label) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 191\n   at Checks.KeyboardMovement123() in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 215\n   at Checks.Main(String[] args) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 281\n"
+      }
+    ],
+    "source": "engine/source/OnlineInput.cs",
+    "mutationDiff": "--- fixed/engine/source/OnlineInput.cs\n+++ mutated/engine/source/OnlineInput.cs\n@@ -30,7 +30,7 @@\n         SyncPlayerHud();PublishWebState();\n     }\n     void RejectKeyboardMovement(string notice){\n-        Input.Clear();SetSingleActionNotice(notice);SyncPlayerHud();PublishWebState();\n+        SetSingleActionNotice(notice);SyncPlayerHud();PublishWebState();\n     }\n     void OnlineTick(){\n         if(Input.Direction is not int direction)return;\n",
+    "fixedSourceSha256": "d43a0881f0fd1cac00170b322093a76cb42289f601b61cb3226c197d6e62c595",
+    "mutatedSourceSha256": "20e753dbe8f8dbd1e40c4ed282e0c12b0dcb8ff7479e1822a2e24484bbc082cc"
+  },
+  {
+    "name": "remove-busy-feedback",
+    "group": "busy",
+    "detected": true,
+    "expectedFailure": "HUD reason",
+    "commands": [
+      {
+        "argv": [
+          "python",
+          "-B",
+          "-X",
+          "utf8",
+          "engine/_integration/dev/rebuild.py",
+          "--update-lock"
+        ],
+        "exitCode": 0,
+        "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": true}\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "python",
+          "-B",
+          "-X",
+          "utf8",
+          "engine/_integration/dev/rebuild.py",
+          "--build",
+          "--write-receipt"
+        ],
+        "exitCode": 0,
+        "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": false}\nsdk 0\nproduct-restore 0\nproduct-build 0\nlauncher-restore 0\nlauncher-build 0\nreceipt written D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\receipt.json\nPASS dev {\"productDllSha256\": \"df59e919e4cb1a5036db338bfb5315c090556f96754d96eed466fff69e47afec\", \"audioDllSha256\": \"f135b5080fb5acab27905d243e3a03fa06bfb7fc941bcf313f8839535abcd63d\", \"productManifestSha256\": \"d0fa0882ba3c89eab40fd80b8fb81d82b972f400281b87eccb7dba1756eddbff\", \"launcherDllSha256\": \"222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d\"}\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "dotnet",
+          "build",
+          "engine/_integration/dev/demo-tests/DemoChecks.csproj",
+          "-c",
+          "Release",
+          "-o",
+          "engine/build/issue-123-demo",
+          "--configfile",
+          "engine/NuGet.Config"
+        ],
+        "exitCode": 0,
+        "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  DemoChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-demo\\DemoChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.57\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "dotnet",
+          "engine/build/issue-123-demo/DemoChecks.dll",
+          ".",
+          "scratch/issue-123/mutation-remove-busy-feedback.json",
+          "busy"
+        ],
+        "exitCode": 1,
+        "stdout": "",
+        "stderr": "System.Exception: OnlineDown busy combatSending HUD reason 攻擊\n   at Checks.Check(Boolean value, String label) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 12\n   at Checks.CheckKeyboardRefusal(ClientForm form, String reason, String label) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 189\n   at Checks.KeyboardBusy123() in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 241\n   at Checks.Main(String[] args) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 282\n"
+      }
+    ],
+    "source": "engine/source/OnlineInput.cs",
+    "mutationDiff": "--- fixed/engine/source/OnlineInput.cs\n+++ mutated/engine/source/OnlineInput.cs\n@@ -7,7 +7,7 @@\n         if(key==Keys.U){bool first=!Input.Held.Contains(key);if(first){ClearInput(\"single-item\");Input.Down(key);if(!World.Walking)_=login.UseSelectedItem();}return;}\n         if(key==Keys.P){bool first=!Input.Held.Contains(key);if(first){ClearInput(\"single-pickup\");Input.Down(key);if(!World.Walking)_=NativeGroundQuantity(true);}return;}\n         if(key==Keys.G){bool first=!Input.Held.Contains(key);if(first){ClearInput(\"single-attack\");Input.Down(key);_=AttackFromInput();}return;}\n-        if(login.CombatBusy||!login.MovementAvailable){RejectKeyboardMovement(login.MovementBlockReason);return;}\n+        if(login.CombatBusy||!login.MovementAvailable){Input.Clear();return;}\n         bool fresh=!Input.Held.Contains(key);Input.Down(key);\n         if(key>=Keys.D1&&key<=Keys.D8){if(fresh&&!World.Walking)_=login.Turn(key-Keys.D1);return;}\n         OnlineTick();\n@@ -35,7 +35,7 @@\n     void OnlineTick(){\n         if(Input.Direction is not int direction)return;\n         if(!login.MovementAvailable||login.CombatBusy||login.MagicBusy||login.GroundBusy||login.ItemBusy){\n-            RejectKeyboardMovement(login.MovementBlockReason);return;\n+            Input.Clear();return;\n         }\n         if(World.Walking||login.MovementBusy)return;\n         _=MoveFromKeyboard(direction);\n",
+    "fixedSourceSha256": "d43a0881f0fd1cac00170b322093a76cb42289f601b61cb3226c197d6e62c595",
+    "mutatedSourceSha256": "ff771c636fb47080de07c542eae2607c31f7f96e51ebace5c041ce2389484af7"
+  },
+  {
+    "name": "remove-keyboard-world-guard",
+    "group": "world",
+    "detected": true,
+    "expectedFailure": "overwrite new world HUD",
+    "commands": [
+      {
+        "argv": [
+          "python",
+          "-B",
+          "-X",
+          "utf8",
+          "engine/_integration/dev/rebuild.py",
+          "--update-lock"
+        ],
+        "exitCode": 0,
+        "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": true}\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "python",
+          "-B",
+          "-X",
+          "utf8",
+          "engine/_integration/dev/rebuild.py",
+          "--build",
+          "--write-receipt"
+        ],
+        "exitCode": 0,
+        "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": false}\nsdk 0\nproduct-restore 0\nproduct-build 0\nlauncher-restore 0\nlauncher-build 0\nreceipt written D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\receipt.json\nPASS dev {\"productDllSha256\": \"3216345cb93a65090be3bda0c158e4e12b8eb1e62ace18b5553be63694b22e4d\", \"audioDllSha256\": \"f135b5080fb5acab27905d243e3a03fa06bfb7fc941bcf313f8839535abcd63d\", \"productManifestSha256\": \"44c585a7b1b461a2f255b0d7962b639419bfcfa86e1c6de13ae51308b24caf53\", \"launcherDllSha256\": \"222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d\"}\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "dotnet",
+          "build",
+          "engine/_integration/dev/demo-tests/DemoChecks.csproj",
+          "-c",
+          "Release",
+          "-o",
+          "engine/build/issue-123-demo",
+          "--configfile",
+          "engine/NuGet.Config"
+        ],
+        "exitCode": 0,
+        "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  DemoChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-demo\\DemoChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.57\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "dotnet",
+          "engine/build/issue-123-demo/DemoChecks.dll",
+          ".",
+          "scratch/issue-123/mutation-remove-keyboard-world-guard.json",
+          "world"
+        ],
+        "exitCode": 1,
+        "stdout": "",
+        "stderr": "System.Exception: old keyboard result cannot overwrite new world HUD\n   at Checks.Check(Boolean value, String label) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 12\n   at Checks.KeyboardWorld123() in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 271\n   at Checks.Main(String[] args) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 283\n"
+      }
+    ],
+    "source": "engine/source/OnlineInput.cs",
+    "mutationDiff": "--- fixed/engine/source/OnlineInput.cs\n+++ mutated/engine/source/OnlineInput.cs\n@@ -42,7 +42,7 @@\n     }\n     async Task MoveFromKeyboard(int direction){\n         int epoch=login.World.WorldEpoch;var result=await login.RequestMovement(direction,true,World.Walking);\n-        if(epoch!=login.World.WorldEpoch||result.Sent)return;\n+        if(result.Sent)return;\n         RejectKeyboardMovement(result.Notice);\n     }\n     async Task OnlineWeb(int id,string cmd,int d){if(cmd==\"attack\"){bool attacked=await login.Attack();Reply(id,attacked?\"單次攻擊已送出，等待原服回報\":login.World.CombatNotice);PublishWebState();return;}var result=await login.RequestMovement(d,cmd==\"move\",World.Walking);Reply(id,result.Notice);PublishWebState();}\n",
+    "fixedSourceSha256": "d43a0881f0fd1cac00170b322093a76cb42289f601b61cb3226c197d6e62c595",
+    "mutatedSourceSha256": "6a02a24ee11744b6704a9d6cf10f40d85dc6a1404eb68e4d0b4f69b91ffa975c"
+  },
+  {
+    "name": "remove-sender-world-guard",
+    "group": "world",
+    "detected": true,
+    "expectedFailure": "overwrite new world motion notice",
+    "commands": [
+      {
+        "argv": [
+          "python",
+          "-B",
+          "-X",
+          "utf8",
+          "engine/_integration/dev/rebuild.py",
+          "--update-lock"
+        ],
+        "exitCode": 0,
+        "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": true}\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "python",
+          "-B",
+          "-X",
+          "utf8",
+          "engine/_integration/dev/rebuild.py",
+          "--build",
+          "--write-receipt"
+        ],
+        "exitCode": 0,
+        "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": false}\nsdk 0\nproduct-restore 0\nproduct-build 0\nlauncher-restore 0\nlauncher-build 0\nreceipt written D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\receipt.json\nPASS dev {\"productDllSha256\": \"357fc4dab29ab68c3ab9120b3bcb07305ca4f76bfbf8a43a1130e7b4a61a3892\", \"audioDllSha256\": \"f135b5080fb5acab27905d243e3a03fa06bfb7fc941bcf313f8839535abcd63d\", \"productManifestSha256\": \"b73ca0c8e88db41e2de809d378126b0fa58e6fc0996393be87409e779ffb87b8\", \"launcherDllSha256\": \"222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d\"}\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "dotnet",
+          "build",
+          "engine/_integration/dev/demo-tests/DemoChecks.csproj",
+          "-c",
+          "Release",
+          "-o",
+          "engine/build/issue-123-demo",
+          "--configfile",
+          "engine/NuGet.Config"
+        ],
+        "exitCode": 0,
+        "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  DemoChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-demo\\DemoChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.52\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "dotnet",
+          "engine/build/issue-123-demo/DemoChecks.dll",
+          ".",
+          "scratch/issue-123/mutation-remove-sender-world-guard.json",
+          "world"
+        ],
+        "exitCode": 1,
+        "stdout": "",
+        "stderr": "System.Exception: old sender rejection cannot overwrite new world motion notice\n   at Checks.Check(Boolean value, String label) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 12\n   at Checks.KeyboardWorld123() in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 273\n   at Checks.Main(String[] args) in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\demo-tests\\Program.cs:line 283\n"
+      }
+    ],
+    "source": "engine/source/OnlineMovement.cs",
+    "mutationDiff": "--- fixed/engine/source/OnlineMovement.cs\n+++ mutated/engine/source/OnlineMovement.cs\n@@ -98,7 +98,6 @@\n                 Set(State,World.MotionNotice);\n             });\n             if(epoch!=generation)return new(false,\"本次移動流程所屬連線已變更；不沿用舊送出結果。\");\n-            if(world!=World.WorldEpoch)return new(false,\"本次移動流程所屬世界已變更；不沿用舊送出結果。\");\n             if(!sent){\n                 // Rejection must not discard spacing already extended by a speed report.\n                 string reason=input!=inputVersion?\"未送出：本次移動輸入已取消。\":world!=World.WorldEpoch||corrections!=World.Corrections||appearanceRevision!=World.AppearanceRevision||speedRevision!=World.SpeedRevision?\"未送出：世界、位置、外觀或速度已變更，舊移動請求已取消。\":\"未送出：送出前狀態已變更，移動請求未通過驗證。\";\n",
+    "fixedSourceSha256": "9539bef0b743895eecd7daefa7b912a47b38b25593c6f42a1fb8e4cc665ef502",
+    "mutatedSourceSha256": "5f1138de79a671bbc41198762a975616ddbde96635f7ba41e8bbb5cbc09736ff"
+  }
+]

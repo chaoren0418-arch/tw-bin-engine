@@ -9,7 +9,7 @@
       "--check-only"
     ],
     "exitCode": 0,
-    "stdout": "{\n  \"status\": \"checked-only\",\n  \"revision\": \"dev\",\n  \"executable\": \"D:\\\\lineage\\u958B\\u767C\\\\TW1608262200\\u7814\\u7A76\\\\scratch\\\\wt\\\\task-123\\\\engine\\\\build\\\\client-product-dev\\\\P11.ClientEngine.exe\",\n  \"workingDirectory\": \"D:\\\\lineage\\u958B\\u767C\\\\TW1608262200\\u7814\\u7A76\\\\scratch\\\\wt\\\\task-123\\\\engine\",\n  \"arguments\": [\n    \"--normal-product\"\n  ],\n  \"manifest\": \"D:\\\\lineage\\u958B\\u767C\\\\TW1608262200\\u7814\\u7A76\\\\scratch\\\\wt\\\\task-123\\\\engine\\\\build\\\\product-dev-manifest.json\",\n  \"manifestSha256\": \"3afa45385cdedd7f666760b388f0640e561508b49788af9df0937c77250ec03d\",\n  \"hashedRuntimeAndWebFiles\": 24,\n  \"assetFilesCheckedForPresenceAndSize\": 13957,\n  \"assetContentVerification\": \"Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.\",\n  \"runtime\": {\n    \"architecture\": \"x64\",\n    \"loadedCoreVersion\": \"10.0.8\",\n    \"loadedCoreDirectory\": \"C:\\\\Program Files\\\\dotnet\\\\shared\\\\Microsoft.NETCore.App\\\\10.0.8\\\\\",\n    \"desktopVersion\": \"10.0.8\",\n    \"desktopDirectory\": \"C:\\\\Program Files\\\\dotnet\\\\shared\\\\Microsoft.WindowsDesktop.App\\\\10.0.8\"\n  },\n  \"webView2Version\": \"156.0.4314.58\",\n  \"powerShellRequired\": false,\n  \"pathLookupUsed\": false,\n  \"autoLogin\": false,\n  \"uiStarted\": false,\n  \"networkStarted\": false,\n  \"servicesStarted\": false\n}\n",
+    "stdout": "{\n  \"status\": \"checked-only\",\n  \"revision\": \"dev\",\n  \"executable\": \"D:\\\\lineage\\u958B\\u767C\\\\TW1608262200\\u7814\\u7A76\\\\scratch\\\\wt\\\\task-123\\\\engine\\\\build\\\\client-product-dev\\\\P11.ClientEngine.exe\",\n  \"workingDirectory\": \"D:\\\\lineage\\u958B\\u767C\\\\TW1608262200\\u7814\\u7A76\\\\scratch\\\\wt\\\\task-123\\\\engine\",\n  \"arguments\": [\n    \"--normal-product\"\n  ],\n  \"manifest\": \"D:\\\\lineage\\u958B\\u767C\\\\TW1608262200\\u7814\\u7A76\\\\scratch\\\\wt\\\\task-123\\\\engine\\\\build\\\\product-dev-manifest.json\",\n  \"manifestSha256\": \"162c9b5b42dac2e44a9591dd7a560a76be870d8f0e5c88e974cc2d8ec5cae5d9\",\n  \"hashedRuntimeAndWebFiles\": 24,\n  \"assetFilesCheckedForPresenceAndSize\": 13957,\n  \"assetContentVerification\": \"Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.\",\n  \"runtime\": {\n    \"architecture\": \"x64\",\n    \"loadedCoreVersion\": \"10.0.8\",\n    \"loadedCoreDirectory\": \"C:\\\\Program Files\\\\dotnet\\\\shared\\\\Microsoft.NETCore.App\\\\10.0.8\\\\\",\n    \"desktopVersion\": \"10.0.8\",\n    \"desktopDirectory\": \"C:\\\\Program Files\\\\dotnet\\\\shared\\\\Microsoft.WindowsDesktop.App\\\\10.0.8\"\n  },\n  \"webView2Version\": \"156.0.4314.58\",\n  \"powerShellRequired\": false,\n  \"pathLookupUsed\": false,\n  \"autoLogin\": false,\n  \"uiStarted\": false,\n  \"networkStarted\": false,\n  \"servicesStarted\": false\n}\n",
     "stderr": ""
   },
   {
@@ -26,7 +26,7 @@
       "engine/NuGet.Config"
     ],
     "exitCode": 0,
-    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  DemoChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-demo\\DemoChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.49\n",
+    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  DemoChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-demo\\DemoChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.70\n",
     "stderr": ""
   },
   {
@@ -43,7 +43,7 @@
       "engine/NuGet.Config"
     ],
     "exitCode": 0,
-    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  GroundChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-ground\\GroundChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.70\n",
+    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  GroundChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-ground\\GroundChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.91\n",
     "stderr": ""
   },
   {
@@ -60,7 +60,7 @@
       "engine/NuGet.Config"
     ],
     "exitCode": 0,
-    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  CombatSfxChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-combat\\CombatSfxChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.86\n",
+    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  CombatSfxChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-combat\\CombatSfxChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.91\n",
     "stderr": ""
   },
   {
@@ -77,7 +77,7 @@
       "engine/NuGet.Config"
     ],
     "exitCode": 0,
-    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  WebResourceChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-web-resource\\WebResourceChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.48\n",
+    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  WebResourceChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-web-resource\\WebResourceChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.69\n",
     "stderr": ""
   },
   {
@@ -94,7 +94,7 @@
       "engine/NuGet.Config"
     ],
     "exitCode": 0,
-    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  PacketTraceChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-packet\\PacketTraceChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.04\n",
+    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  PacketTraceChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-packet\\PacketTraceChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.51\n",
     "stderr": ""
   },
   {
@@ -106,7 +106,7 @@
       "work/issue-123/demo-result.json"
     ],
     "exitCode": 0,
-    "stdout": "PASS 157 DEMO checks\n",
+    "stdout": "PASS 373 DEMO checks\n",
     "stderr": ""
   },
   {
@@ -178,10 +178,12 @@
       "-X",
       "utf8",
       "engine/_integration/dev/rebuild.py",
-      "--verify"
+      "--verify",
+      "--output",
+      "engine/build/issue-123-validation"
     ],
     "exitCode": 0,
-    "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": false}\nPASS dev {\"productDllSha256\": \"9123df2a105424af14b53d94bb47f06dbd454dfba7e06537b31b9c6be96f7baa\", \"audioDllSha256\": \"f135b5080fb5acab27905d243e3a03fa06bfb7fc941bcf313f8839535abcd63d\", \"productManifestSha256\": \"3afa45385cdedd7f666760b388f0640e561508b49788af9df0937c77250ec03d\", \"launcherDllSha256\": \"222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d\"}\n",
+    "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": false}\nPASS dev {\"productDllSha256\": \"5747ffb6f5b31f0686645b8ed15e2b3f43be1317cb7fced55d1936ccbc86a9e9\", \"audioDllSha256\": \"f135b5080fb5acab27905d243e3a03fa06bfb7fc941bcf313f8839535abcd63d\", \"productManifestSha256\": \"162c9b5b42dac2e44a9591dd7a560a76be870d8f0e5c88e974cc2d8ec5cae5d9\", \"launcherDllSha256\": \"222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d\"}\n",
     "stderr": ""
   },
   {
@@ -194,7 +196,7 @@
       "engine/tools/check-no-game-assets.py"
     ],
     "exitCode": 0,
-    "stdout": "{\"status\": \"pass\", \"trackedFiles\": 3062, \"errors\": 0, \"embeddedResourceDeclarations\": 4}\n",
+    "stdout": "{\"status\": \"pass\", \"trackedFiles\": 3083, \"errors\": 0, \"embeddedResourceDeclarations\": 4}\n",
     "stderr": ""
   },
   {

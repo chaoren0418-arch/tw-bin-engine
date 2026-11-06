@@ -64,7 +64,7 @@ public sealed class CombatSfxScene(string assetsRoot)
                 cancelled.Add(effect.Number);
                 continue;
             }
-            int gfx = effect.Gfx, direction = 0;
+            int gfx = effect.Gfx;
             long start = effect.At, end;
             string action;
             SoundSchedule schedule;
