@@ -98,6 +98,52 @@ partial class Checks {
             Sender(c,(_,_,_)=>Task.FromResult(false));
             Check(!await c.SendBookmark(c.BookmarkSnapshot(),deleteId:one.Id)&&c.World.Bookmarks.Revision==revision&&c.World.Bookmarks.TryGet(one.Id)==one,"rejected transport does not mark delete");
         }
+        foreach(string lifecycle in new[]{"reset","cancel","offline","send-failure","same-character","other-character"}){
+            using var c=Seed();var store=c.World.Bookmarks;
+            var listPacket=BookmarkList(one,two);listPacket[132]=60;Feed(c,listPacket);
+            Sender(c,(_,valid,admit)=>{if(!valid())return Task.FromResult(false);admit();return Task.FromResult(true);});
+            Check(await c.SendBookmark(c.BookmarkSnapshot(),deleteId:one.Id),"seed pending delete before "+lifecycle);
+            Check(store.Items.Any(b=>b.DeletePending)&&store.TryGet(two.Id)==two&&store.Capacity==60,"seed real model before "+lifecycle);
+            var stale=c.BookmarkSnapshot();
+            if(lifecycle=="reset")c.World.Reset();
+            else if(lifecycle=="cancel")c.Cancel();
+            else if(lifecycle=="offline")c.Cancel(offline:true);
+            else if(lifecycle=="send-failure"){
+                Sender(c,(_,_,_)=>throw new IOException("synthetic disconnected transport"));
+                Check(!await c.SendBookmark(c.BookmarkSnapshot(),"disconnect")&&c.State==LoginState.Faulted,"transport failure cancels session");
+            }else{
+                string selected=lifecycle=="same-character"?"offline":"other";
+                var characters=(List<LoginCharacter>)typeof(LoginConnection).GetField("characters",F)!.GetValue(c)!;
+                characters.Add(new(selected,"",0,0,0,100,100,0,1,10,10,10,10,10,10,0,0,0));
+                Set(c,"State",LoginState.CharacterList);
+                Set(c,"sendWorld",(Func<byte[],Task>)(bytes=>{
+                    Check(bytes.SequenceEqual(LoginPackets.Pad([137,..LoginPackets.TextEncoding.GetBytes(selected),0])),"real character selection sends C137 "+lifecycle);
+                    Check(store.Items.Length==0&&store.TryGet(two.Id)==null,"selection clears bookmarks before sending "+lifecycle);
+                    return Task.CompletedTask;
+                }));
+                await c.SelectCharacter(selected);
+                Check(c.State==LoginState.EnteringWorld,"selection enters new world "+lifecycle);
+            }
+            Check(ReferenceEquals(store,c.World.Bookmarks)&&store.Items.Length==0,"same model clears entries and pending deletions "+lifecycle);
+            Check(store.TryGet(one.Id)==null&&!store.TryGet(two.Id,out var removed)&&removed==null,"old IDs invalid before fresh list "+lifecycle);
+            Check(store.Revision>stale.Revision&&store.Capacity==50&&store.Notice=="等待伺服器書籤清單。","reset revision capacity notice "+lifecycle);
+            var cleared=c.BookmarkSnapshot();
+            Check(cleared.Items.Length==0&&!cleared.CanEdit&&cleared.ActorId==0,"UI snapshot empty before new list "+lifecycle);
+            Check(!await c.SendBookmark(stale,deleteId:two.Id),"old view cannot send after "+lifecycle);
+            if(lifecycle is "same-character" or "other-character"){
+                var fresh=lifecycle=="same-character"?one:two with{Id=99,Name="other home"};
+                Feed(c,BookmarkList(fresh));
+                Check(store.Items.SequenceEqual(new[]{fresh})&&store.TryGet(fresh.Id)==fresh&&!store.Items.Any(b=>b.DeletePending),"fresh login list has no old deletion state "+lifecycle);
+                Check(store.TryGet(lifecycle=="same-character"?two.Id:one.Id)==null,"fresh list excludes previous IDs "+lifecycle);
+            }
+        }
+        using(var c=Seed()){
+            Feed(c,BookmarkList(one,two));Sender(c,(_,valid,admit)=>{if(!valid())return Task.FromResult(false);admit();return Task.FromResult(true);});
+            Check(await c.SendBookmark(c.BookmarkSnapshot(),deleteId:one.Id),"seed pending deletion before map change");
+            var before=c.BookmarkSnapshot();Feed(c,LoginPackets.Pad([206,4,0,0]));Feed(c,Pack(123));
+            Check(c.World.Bookmarks.Items.SequenceEqual(before.Items)&&c.World.Bookmarks.Revision==before.Revision,"cross-map preserves live and pending entries");
+            Check(c.World.Bookmarks.TryGet(two.Id)==two&&c.World.Bookmarks.TryGet(one.Id)==null,"cross-map keeps lookup deletion policy");
+        }
         // Native controls only, no ClientForm construction, game startup, window or network.
         Exception? uiError=null;var thread=new Thread(()=>{try{
             using var panel=new BookmarkPanel();var view=new BookmarkView(1,2,3,123,true,50,"test",[one,two]);panel.UpdateView(view);
@@ -106,7 +152,9 @@ partial class Checks {
             var del=panel.Controls.OfType<Button>().Single(b=>b.Text.Contains("刪除"));Check(del.Enabled,"UI delete enabled for active row");
             panel.UpdateView(view with{Revision=4,Items=[one with{DeletePending=true},two]});
             Check(!del.Enabled&&panel.Controls.OfType<Label>().Any(l=>l.Text.Contains("待重新登入")),"UI pending delete disabled and labeled");
-            panel.UpdateView(view with{Session=2,ActorId=456,Items=[]});Check(list.Items.Count==0&&list.SelectedItem==null,"UI clears old actor selection");
+            using var c=Seed();Feed(c,BookmarkList(one,two));panel.UpdateView(c.BookmarkSnapshot());list.SelectedIndex=0;
+            c.Cancel();panel.UpdateView(c.BookmarkSnapshot());
+            Check(list.Items.Count==0&&list.SelectedItem==null&&!del.Enabled,"UI clears real cancelled model and selection");
         }catch(Exception ex){uiError=ex;}});thread.SetApartmentState(ApartmentState.STA);thread.Start();thread.Join();if(uiError!=null)throw uiError;
     }
 }
