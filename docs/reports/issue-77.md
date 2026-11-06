@@ -526,3 +526,65 @@ python -B -X utf8 engine/_integration/dev/rebuild.py --verify --output scratch/i
 - **dot：**只補尚未通過列，依 [RUN.md](../demo/RUN.md) 及 [#115「給 dot 第2c輪的操作步驟」](issue-115.md)。普通肉 40056 須向 NPC 合法購足至少 11 個；買不到就記取得受阻，不補 DB、不改白名單、不吃肉。拾取數量錯誤改正後直接送出，不重新選取；舊錯誤文案殘留時依 trace 判定是否送出。
 - 補齊近戰 EXP、光箭 MP／效果、非滿血治癒與藥水、數量錯誤、1／10 丟撿循環、原服權威座標、攻擊與施法音量、T035 圖示／地面／音訊。demo 頁的 HEAD／DLL SHA 及成功標記留待 dot 依真機證據更新；原有第 2b 輪證據不能當成此 DLL 的真機結果。
 - 本節為可追蹤交付報告；scratch 是本機原始紀錄，必要的 JSON、退出碼與 SHA 已內嵌本節，交付結論不依賴 scratch 永久保留。
+
+
+## 第 2c-b 輪：跨專案排他未確認，blocked（2026-11-06）
+
+**結論：blocked／待主控裁定，不是M1完成，也不是產品驗收失敗。** 本輪只完成安全前置與文件交付，沒有啟動P24Lab／客戶端、登入、操作、量音效或新增截圖。直接使用者授權已核實且適用，不缺原生／聊天授權；未重做第2c-a或第2b已通過列。
+
+### 派工、去重與讀取範圍
+
+- 對應正式派工 [6676517566](https://github.com/chaoren0418-arch/tw-bin-engine/issues/77#issuecomment-6676517566)；查核#77為open／runner:dot／task:running，42則留言無本輪實測RESULT。04:06的舊審查RESULT針對第2c-a，不是第2c-b產出；04:07主控已清除review:fail。
+- 沿用既有驗收會話 `01a1ad9e-a818-7549-8ee2-00fb5aa5e038`，它是清單中唯一active的本機#77；#83、launcher與modern既有會話idle，沒有新建重複會話。本機無demo3c截圖／trace。
+- 已讀適用AGENTS.md、CLAUDE.md、docs/demo/RUN.md、docs/reports/issue-115.md及本任務最新派工；**本輪未讀改docs/REPORT.md**。專案與父層未找到相關.agents/skills。
+- 主目錄一開始即 `task/77@9a685a04fa40065ce8c16ee474c76e270faa3d66`，追蹤檔乾淨；lito-launcher-server與lito-modern主目錄均main。未fetch、checkout、reset、stash、重建或改產品／lock。
+
+### 候選前置（已驗證）
+
+| 檢查 | 結果 |
+|---|---|
+| `git merge-base --is-ancestor 9a685a0 HEAD` | exit0 |
+| `engine/啟動新版客戶端.cmd --check-only` | exit0；status=checked-only、revision=dev、uiStarted/networkStarted/servicesStarted=false |
+| 產品DLL SHA-256 | `37cd8201f6ad631f70915a8314d19d0ec4ca0cb28dbd524169937d5d23930174`，符合第2c-a |
+| manifest SHA-256（check-only） | `44164613584da833a0e53e721ce3a1957315701b94616a6d43067afc46d78a3a` |
+| 入口核對 | 24個runtime/web檔、13,957個素材存在／大小；不是素材實機顯示證明 |
+| T035前置 | engine/assets/inventory存在；未複製、生成或改動素材 |
+| Lab靜態身分 | D:/BinEngine是本專案junction；auto.cnf UUID=e3443e40-d090-11f1-8040-4cedfb679789；mysql.ini僅篩選port43324、datadir=D:/BinEngine/environments/p24/db-data、bind=127.0.0.1及basedir |
+
+沒有啟動DB，所以本輪沒有live SELECT身分確認；靜態相符不冒充已建立連線的實例驗證。沒有讀config/server.properties、private設定或#83秘密內容。
+
+### 跨專案排他：具體缺口
+
+04:18–04:20 UTC查核三repo GitHub與本機調度面板：tw-bin只有#77為dot/running；launcher #225仍dot/queued，#138是code/queued；modern無dot/running，另有code佇列。既有#83會話已完成文件修正、idle，本輪未接手或重跑setup。
+
+1. `D:/dev-orchestrator/orchestrator/main.py:492` 已有同repo、workdir:project、其他running任務即等待的判斷。因此不再沿用第2b「主目錄互斥尚未上線」說法；但該判斷明確限制同repo，不能排除另一repo啟停共用lab。
+2. `runners.py:177` 的autonomous human-started分支只貼派工／狀態，不取得lab資源租約。`router.py` 的max_parallel依running_count；本機state.sqlite以mode=ro查到running空、沒有lease／lock／p24／owner相關kv鍵；`http://127.0.0.1:8787/api/state`亦為running=[]，tasks仍顯示#77 running、#225 queued。故不能把runner槽位當本輪跨專案鎖。
+3. 調度器原始碼與既有文件未找到P24Lab跨repo租約／持有機制；P24Lab根目錄亦未找到lock／lease／owner紀錄。本輪沒有自行新增不被其他runner遵守的假鎖、改調度器配置或搶占程序。
+4. #225本文要求tw-bin正在使用時暫停，但queued狀態、會話idle、目前埠閒置只是當時觀測，沒有本輪明確持有者及阻止並行派工的可核實紀錄。既有巡查會話亦回報同一缺口。
+
+**未執行的動作／目標：啟動P24Lab MySQL43324、server42061與P24客戶端。理由：本輪明確要求先核定跨專案排他，現有證據不足。狀態pending；沒有工具denied或執行結果uncertain，也沒有setup refresh錯誤。** 已完成去重、候選、靜態身分、程序／埠與調度機制查核；不反覆要求使用者重授已涵蓋的權限。
+
+### 本輪每列結果
+
+| 列 | 狀態 | 尚缺證據／對照 |
+|---|---|---|
+| 近戰 | 未驗證、未執行 | C229、傷害／死亡＋EXP；T062／T072 |
+| 光箭 | 未驗證、未執行 | 有效敵方清單、C6、效果＋MP；T062 |
+| 非滿血治癒／藥水 | 未驗證、未執行 | HP差與藥水−1；T062 |
+| 數量0／超額 | 未驗證、未執行 | 本機明確文案、C25不增、舊125消失；T062 |
+| 普通肉購買及1／10丟撿 | 未驗證、未執行 | NPC實際供應與既有遊戲幣購足11、數量循環；不宣稱商店有貨／缺貨，不改DB；T062／B14替代 |
+| 拾取錯誤後更正 | 未驗證、未執行 | 0／超額無C112，同一選取改1後單筆C112與權威更新；T062 |
+| 進世界、八方向、點地權威座標 | 未驗證、未執行 | 各段獨立S87／S10權威值；T062／T073 |
+| 攻擊／光箭事件音效 | 未驗證、未執行 | 各三階段六組峰值；本輪無數值；T062 |
+| T035圖示／地面／音訊 | 前置目錄存在；實機未驗證 | 無新圖或聲音證據；T035／B15 |
+| 第2b卸裝裝回／聊天 | 歷史通過、本輪不重做 | 不作本候選DLL新證據 |
+
+各未執行列共同前置對應B11調度協調缺口，不以B11豁免驗收。README已直接依目前TASKS.md列出B01–B15：B01技能擴充、B02慢速丟撿、B03–B04地圖效果、B05交易前提、B06地面圖pin、B07原生音效語義、B08封裝、B09 P27、B10歷史來源、B11調度器、B12舊EXE基準、B13其他伺服器協議、B14金幣規則、B15可攜assets與9個例外。沒有編造新Backlog或修改TASKS。
+
+### 服務狀態、產出與下一棒
+
+04:20:06 UTC查核42061／43324無LISTENING；沒有P11.ClientEngine、P24.Launcher或Java，本輪未啟動任何程序，故沒有本輪待清理client/server/MySQL。觀察到既有mysqld PID4188，不屬本輪，未連線、未停止或變更。正式2000／3306、另案3307、#83資料與秘密均未操作。
+
+交付只更新docs/demo/README.md與本報告；沒有新截圖。保留六張未追蹤第2b圖及native-baseline副本原狀，不stage、不刪。README已更新候選HEAD／DLL、增加T035待驗列、B01–B15對照，刪除舊task/102編號來源與「主目錄互斥尚待建立」描述，清楚區分新候選與歷史圖。
+
+**下一棒：專案主控／調度器（needs:orchestrator），先提供跨repo P24Lab排他持有紀錄／有效租約與釋放條件，並核定#225等待本輪釋放；再讓同一#77會話續作。** 不是needs:user授權缺口，不需重做第2c-a、#83或已通過第2b列；不要以舊第2c-a審查退回反覆重測。交付前重新核對標籤，要求本輪全新審查；不合併、不關Issue。
