@@ -63,3 +63,4 @@
 - 2026-11-07 — #162 主控：M2 結案、建立 M4（M2 未過列的修復與補驗）（plan，claude-chat，PR #165 已合併）→ [報告](reports/issue-162.md)
 - 2026-11-07 — #163 規則檔：寫入 P24Lab 測試角色暫時 GM 的授權（#160 裁定 A）（code，codex-local，PR 已合併）→ [報告](reports/issue-163.md)
 - 2026-11-07 — #161 T090：F9 面板停在「WebView2 初始化中」、內容空白（code，codex-local，PR #168 已合併）→ [報告](reports/issue-161.md)
+- 2026-11-07 — #170 規則檔：寫入「封存 r28／r33 素材還原」的一次性例外（#156 裁定 A）（code，codex-local，PR 已合併）→ [報告](reports/issue-170.md)
