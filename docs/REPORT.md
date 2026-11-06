@@ -60,3 +60,5 @@
 - 2026-11-07 — #153 緊急：releases/r28/assets/integrity.json 消失——唯讀盤點受損範圍與原因（不修復封存）（resource，codex-local，PR 已合併）→ [報告](reports/issue-153.md)
 - 2026-11-07 — #155 恢復可用狀態：engine/assets 改指 releases/r29/assets、還原 engine/vendor 的 WebView2 nupkg（resource，codex-local，PR #158 已合併）→ [報告](reports/issue-155.md)
 - 2026-11-07 — #151 T075：M2 里程碑 smoke——真機跑一次 M2 驗收清單（含 M1 移入的列）（test，dot，PR #152 已合併）→ [報告](reports/issue-151.md)
+- 2026-11-07 — #162 主控：M2 結案、建立 M4（M2 未過列的修復與補驗）（plan，claude-chat，PR #165 已合併）→ [報告](reports/issue-162.md)
+- 2026-11-07 — #163 規則檔：寫入 P24Lab 測試角色暫時 GM 的授權（#160 裁定 A）（code，codex-local，PR 已合併）→ [報告](reports/issue-163.md)
