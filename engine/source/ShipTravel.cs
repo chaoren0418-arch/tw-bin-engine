@@ -57,12 +57,13 @@ public sealed partial class WorldSession {
         if(ShipPending&&ShipPassage is {} p){
             shipDestinationMapReceived=MapId==p.Destination;
             if(!shipDestinationMapReceived){ShipState="interrupted";shipOutcome="伺服器切換至其他地圖，本次航程已中止。";}
-        }else if(ShipState!="interrupted"&&ShipRules.Supported(MapId)){ShipPassage=null;ShipState="idle";shipOutcome="";}
+        }else if(ShipRules.Supported(MapId)){ShipPassage=null;ShipState="idle";shipOutcome="";}
     }
     void ShipOwnReceived(){
         if(!ShipPending||!shipDestinationMapReceived||ShipPassage is not {} p||Actor is not {} a)return;
-        if(MapId==p.Destination&&a.X==p.X&&a.Y==p.Y){ShipState="arrived";shipOutcome=$"已抵達{ShipRules.DestinationName(p.Source)}，伺服器已確認位置。";}
-        else {ShipState="unconfirmed";shipOutcome="已收到伺服器位置，但與本次到港落點不同；不會重送，可取消連線。";}
+        // preparePcLanding may repair the requested tile. The destination map plus own pack
+        // is authoritative; requiring our random proposal would lock a successful landing.
+        if(MapId==p.Destination){ShipState="arrived";shipOutcome=$"已抵達{ShipRules.DestinationName(p.Source)}，伺服器已確認位置。"+(a.X!=p.X||a.Y!=p.Y?"落點已由伺服器校正。":"");}
     }
     internal void CheckShipTimeout(){if(ShipPending&&ShipClock()-shipSentAt>=15000){ShipState="unconfirmed";shipOutcome="到港資料尚未完整；不會重送，可取消連線後重新登入確認。";}}
     public string ShipNotice {

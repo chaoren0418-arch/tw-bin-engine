@@ -52,7 +52,10 @@ public sealed partial class WorldSession {
             if(tradeOwnConfirmed){TradeState="attention";TradeCancelRequired=true;TradeNotice="確認後收到新的物品清單，原核對已失效；正在要求取消，最終結果以原服回報為準。";}
             else if(side==0&&TradeState=="adding"){TradeState="open";TradeNotice="原服已列入你的物品；請核對雙方清單。";}return true;
         }
-        if(opcode==112){byte status=r.C();r.Finish();if(status>1)throw new ProtocolException("trade status");if(!TradeBlocksActions||tradeEpoch!=WorldEpoch)return true;TradeRevision++;TradeCancelRequired=false;tradeOwnConfirmed=false;TradeState=status==0?"completed":"cancelled";TradeNotice=status==0?"原服回報交易完成；請核對實際背包與金額。":"原服回報交易取消／拒絕；請核對返還的物品。";return true;}
+        if(opcode==112){byte status=r.C();r.Finish();if(status>1)throw new ProtocolException("trade status");if(!TradeBlocksActions||tradeEpoch!=WorldEpoch)return true;
+            // Success is meaningful only after this trade opened and our confirmation was admitted.
+            if(status==0&&(!tradeOpened||!tradeOwnConfirmed))return true;
+            TradeRevision++;TradeCancelRequired=false;tradeOwnConfirmed=false;TradeState=status==0?"completed":"cancelled";TradeNotice=status==0?"原服回報交易完成；請核對實際背包與金額。":"原服回報交易取消／拒絕；請核對返還的物品。";return true;}
         return false;
     }
     public object TradeSnapshot()=>new{revision=TradeRevision,generation=TradeGeneration,epoch=WorldEpoch,state=TradeState,notice=TradeNotice,peer=TradePeerName,peerId=TradePeerId,challenge=TradeChallenge,offers=TradeOffers.Select(o=>new{side=o.Side,icon=o.Icon,name=o.Name,bless=o.Bless}),canAccept=TradeState=="invited"&&TradePeerPresent,canReject=TradeState=="invited",canAdd=TradeCanAdd,canConfirm=TradeCanConfirm,canCancel=TradeCanCancel,ownConfirmed=tradeOwnConfirmed};
