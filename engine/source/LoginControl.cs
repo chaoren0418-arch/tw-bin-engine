@@ -38,8 +38,7 @@ public sealed class LoginControl(ILoginSession session,Action beforeStart,Action
         if(!Current(generation)||revision!=session.Revision)return Report(false,"登入狀態已更新，請依目前狀態重試。");
         if(!CanLogin)return Report(false,"目前已有連線或登入作業，請先取消／斷線。");
         if(!ValidEndpoint(profile,port))return Report(false,"請選擇相符的本機連線設定與連接埠。");
-        if(account.Length is <1 or >12||account.Any(c=>!char.IsAsciiLetterOrDigit(c))||password.Length is <1 or >13||password.Any(c=>c<33||c>126))
-            return Report(false,"帳號需為1–12位英數字；密碼需為1–13位不含空白的ASCII字元。");
+        if(LoginPackets.LoginValidationError(account,password) is {} validationError)return Report(false,validationError);
         int current=++operation;running=true;StartFailure=null;string phase="before-start";
         try {beforeStart();phase="start-session";var task=session.Run(port,profile,account,password);phase="publish-status";var result=Report(true,"登入請求已送出，請查看連線狀態。");_ = Observe(task,current);return result;}
         catch(Exception error) {running=false;RecordStartFailure(phase,error);return Report(false,phase=="before-start"?"登入前的畫面準備失敗；可切回離線預覽後重試。":"無法開始登入，請查看連線狀態後重試。");}
