@@ -8,6 +8,10 @@ public sealed record CombatAnimation(int Action,long At,bool Predicted){
 public sealed record AttackReport(long Number,uint Attacker,uint Target,int Action,ushort DamageWord,int Heading,ushort X,ushort Y,int Flags);
 public sealed record ProjectileReport(long Number,uint Attacker,uint Target,int Gfx,int Heading,ushort SourceX,ushort SourceY,ushort TargetX,ushort TargetY,long At,ushort DamageWord=0,ushort CasterGfx=0){public ActionCadence? Timing{get;init;}public long? ActionAt{get;init;}}
 public static class CombatRules {
+    // L1AttackPc.calcHit uses Chebyshev distance and weapon range + 1.
+    // Supported melee poses (unarmed, sword, dagger, axe) use range 1.
+    public static int TileDistance(int x,int y,int targetX,int targetY)=>Math.Max(Math.Abs(targetX-x),Math.Abs(targetY-y));
+    public static bool InRange(int x,int y,int targetX,int targetY,int weapon)=>weapon==20||TileDistance(x,y,targetX,targetY)<=2;
     // Filled from the original spr_action row and SprTable.calcActionSpeed; verified by asset preparation.
     static readonly Lazy<int> attackMs=new(()=>Json.Read(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../assets/objects/0.json"))).GetProperty("actionMs").GetProperty("attack").GetInt32());
     public static int AttackMs=>attackMs.Value;
@@ -91,11 +95,15 @@ public sealed partial class LoginConnection {
         if(World.Target is not {Dead:false,AppearancePending:false}){World.CombatNotice="未送出：未選取有效目標；請點中敵人的可見圖像，確認黃色選取圈後按 G。";return false;}
         if(!CombatAvailable||MovementBusy||sendMovementGate==null){World.CombatNotice="未送出：動作冷卻／忙碌，或目前速度／外觀不支援；請停下並等待可操作後再按 G。";return false;}
         var target=World.Target!;var actor=World.Actor!;int epoch=generation,worldEpoch=World.WorldEpoch,selection=World.TargetRevision,input=inputVersion,correction=World.Corrections,appearanceRevision=World.AppearanceRevision,speedRevision=World.SpeedRevision,lease=++combatLease;
+        if(!CombatRules.InRange(actor.X,actor.Y,target.X,target.Y,actor.Weapon)){
+            World.CombatNotice=$"未送出：目標距離 {CombatRules.TileDistance(actor.X,actor.Y,target.X,target.Y)} 格，近戰需在 2 格內；請走近、停下後再攻擊。";
+            return false;
+        }
         var timing=ActionCadence.Capture(actor.Gfx,actor.Weapon,1,actor.Speed,actor.Brave,margin:CombatRules.ClockMargin(actor.Weapon));int duration=timing.ServerIntervalMs,guard=timing.MarginMs;if(duration<=0)throw new InvalidDataException("missing attack cadence");
         var sender=sendMovementGate;byte[] bytes=CombatRules.Attack(target,actor.Weapon);combatSending=true;
         bool CompletionCurrent()=>epoch==generation&&lease==combatLease&&worldEpoch==World.WorldEpoch&&input==inputVersion&&selection==World.TargetRevision&&World.TargetId==target.ObjectId&&World.Target is {Dead:false,AppearancePending:false}&&correction==World.Corrections&&appearanceRevision==World.AppearanceRevision&&!World.SelfAppearancePending&&!World.OwnDead&&World.Status is {Hp:>0}&&World.Actor?.ObjectId==actor.ObjectId&&World.Actor?.Gfx==actor.Gfx&&World.Actor?.Weapon==actor.Weapon;
         try {
-            bool sent=await sender(bytes,()=>CompletionCurrent()&&(pointerCurrent?.Invoke()??true)&&epoch==generation&&worldEpoch==World.WorldEpoch&&selection==World.TargetRevision&&input==inputVersion&&correction==World.Corrections&&appearanceRevision==World.AppearanceRevision&&speedRevision==World.SpeedRevision&&CombatAvailable&&World.Actor?.Gfx==actor.Gfx&&World.Actor?.Weapon==actor.Weapon&&World.TargetId==target.ObjectId&&World.Target?.X==target.X&&World.Target?.Y==target.Y&&!magicSending&&ActionAdmissionReady,()=>{
+            bool sent=await sender(bytes,()=>CompletionCurrent()&&(pointerCurrent?.Invoke()??true)&&epoch==generation&&worldEpoch==World.WorldEpoch&&selection==World.TargetRevision&&input==inputVersion&&correction==World.Corrections&&appearanceRevision==World.AppearanceRevision&&speedRevision==World.SpeedRevision&&CombatAvailable&&World.Actor?.X==actor.X&&World.Actor?.Y==actor.Y&&World.Actor?.Gfx==actor.Gfx&&World.Actor?.Weapon==actor.Weapon&&World.TargetId==target.ObjectId&&World.Target?.X==target.X&&World.Target?.Y==target.Y&&!magicSending&&ActionAdmissionReady,()=>{
                 lastCombatTiming=timing;lastCombatAdmission=ActionClock();combatTimingEpoch=World.WorldEpoch;nextCombatAt=lastCombatAdmission+timing.WaitMs;
                 int dx=Math.Sign(target.X-actor.X),dy=Math.Sign(target.Y-actor.Y);
                 int h=Enumerable.Range(0,8).FirstOrDefault(i=>MovementRules.Dx[i]==dx&&MovementRules.Dy[i]==dy,actor.Direction);

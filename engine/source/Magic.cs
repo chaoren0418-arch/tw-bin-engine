@@ -3,6 +3,8 @@ namespace P06;
 public sealed record LearnedMagic(int Id,string Name,bool Supported,string Target,int NominalMp);
 public sealed record MagicEffect(long Number,uint Caster,uint Target,int Gfx,int Action,ushort DamageWord,int Heading,ushort SourceX,ushort SourceY,ushort TargetX,ushort TargetY,long At,uint ServerSequence=0,ushort CasterGfx=0){public ActionCadence? Timing{get;init;}public long? ActionAt{get;init;}public int? CasterWeapon{get;init;}}
 public static class MagicRules {
+    // Verified skill 4 template, ranged=10. Other supported skills keep their targeting rules.
+    public static bool InRange(int skill,int x,int y,int targetX,int targetY)=>skill!=4||CombatRules.TileDistance(x,y,targetX,targetY)<=10;
     public static LearnedMagic Describe(int id)=>MagicSpells.Get(id) is { } s?new(id,s.Name,true,s.Target=="none"?"自己":s.Target=="attack"?"指定敵人":"自己／指定對象",s.Mp):new(id,$"原服技能 {id}",false,"尚未支援",0);
     // Original spr_action gfx0 rows18/19, SprTable: framecount*40*24/framerate.
     static readonly Lazy<int> release=new(()=>Json.Read(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../assets/objects/0.json"))).GetProperty("castReleaseMs").GetProperty("spellDir").GetInt32());
@@ -69,6 +71,10 @@ public sealed partial class LoginConnection {
     public async Task<bool> CastSelectedMagic(){
         if(!MagicAvailable||MovementBusy||sendMovementGate==null){World.MagicNotice="未送出：請選已學且支援的魔法、有效目標，並等待動作完成";return false;}
         int id=World.SelectedMagicId!.Value;var a=World.Actor!;var t=World.Target;bool self=World.MagicTargetsOwn(id);uint target=self?a.ObjectId:t!.ObjectId;ushort x=self?a.X:t!.X,y=self?a.Y:t!.Y;
+        if(!MagicRules.InRange(id,a.X,a.Y,x,y)){
+            World.MagicNotice=$"未送出：目標距離 {CombatRules.TileDistance(a.X,a.Y,x,y)} 格，光箭需在 10 格內；請走近、停下後再施法。";
+            return false;
+        }
         var spell=MagicSpells.Get(id)!;var timing=ActionCadence.Capture(a.Gfx,a.Weapon,spell.Action,a.Speed,a.Brave,spell.ReuseMs,100);int castMs=timing.WaitMs;int epoch=generation,we=World.WorldEpoch,sel=World.MagicSelectionRevision,ts=World.TargetRevision,input=inputVersion,correction=World.Corrections,appearanceRevision=World.AppearanceRevision,speedRevision=World.SpeedRevision,lease=++magicLease;var sender=sendMovementGate;byte[] bytes=MagicRules.Request(id,target,x,y);magicSending=true;
         bool CompletionCurrent()=>epoch==generation&&lease==magicLease&&we==World.WorldEpoch&&input==inputVersion&&(self||ts==World.TargetRevision&&World.TargetId==target&&World.Target is {Dead:false,AppearancePending:false})&&correction==World.Corrections&&appearanceRevision==World.AppearanceRevision&&!World.SelfAppearancePending&&!World.OwnDead&&World.Status is {Hp:>0}&&World.Actor?.ObjectId==a.ObjectId&&World.Actor?.Gfx==a.Gfx&&World.Actor?.Weapon==a.Weapon;
         try {

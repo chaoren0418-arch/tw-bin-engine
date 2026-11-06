@@ -68,3 +68,77 @@
 | `server/model/L1Character.java` | `efde278d67f29468b2581188c6966a6d6ee9e7f6a87cc2d5650b624700410fa3` |
 | `server/model/L1PcInventory.java` | `c8644b41c37fb818f60b20ea386eea158b13d75ed42f7b451e668256e6882505` |
 | `server/model/drop/DropShare.java` | `a648a8f4abe1e4b90c3b9ba29c3b80251c9fc4b4ec63ce1f6974f751b2c9b8b3` |
+
+## T093／#173 攻擊准入與靜默分支
+
+2026-11-07 唯讀核對本機伺服器來源。以下行號為 Java 原始碼行號，offset 為解密 payload byte offset。來源身分沿用上表，新增依據列在本節末尾。
+
+### 格式、距離及面向
+
+- C229 的 offset 1 是目標世界 object ID（u32），offset 5／7 是目標 x／y（u16）。有效欄位共 9 bytes，客戶端補零成 16 bytes。C_Attack.start 第 98–117 行依序讀 D、H、H，允許尾隨 byte，拒絕任一零座標。CombatRules.Attack 的編碼符合此順序。
+- C6 光箭的 offset 1／2 是 row=0、column=3，技能 ID 為 4，offset 3 是 object ID，offset 7／9 是目標 x／y，補零成 16 bytes。C_UseSkill.start 第 290–332 行讀 D、H、H，設 isAttack／checkLoc。MagicRules.Request 與之吻合。
+- 近戰判定採伺服器當下角色／目標位置。L1AttackPc.calcHit 第 223–242 行用 Chebyshev 距離 `max(abs(dx),abs(dy))`，超過 `weaponRange+1` 判 miss。空手預設 range=1，普通近戰武器由模板取得 range。弓採 isInScreen，另檢查彈藥。客戶端本次對目前支援的近戰姿勢採 2 格上限。
+- 光箭靜態模板 `db/380_db.sql` 第 48029 行的 ranged=10。L1SkillUse.makeTargetList 第 1703–1717 行超距離直接留下空目標集合。現有 MagicSpells 四項 catalog 沒有通用射程欄位，本次只為光箭加入 10 格門檻。
+- C229、C6 都沒有 heading 欄位。L1AttackPc.action 第 1548 行、S_UseAttackSkill.buildPacket 由目標座標計算並設定面向。攻擊前的舊面向不構成這兩個處理器的拒絕條件。
+- `PlayerTargetPositionFence.isAuthorized` 額外要求角色位置同步，玩家目標也須同步，同圖、同 showId，且在要求畫面可見時同時符合 known-set 與伺服器可見幾何。客戶端未收到逐步位置回包是既有協定行為，僅憑 HUD 顯示本地預測，無法判定這個伺服器同步旗標失敗。
+
+### 靜默拒絕、miss 與無 S30 的條件
+
+| 路徑 | 條件及結果 |
+|---|---|
+| C_Attack.start／performAttack | 幽靈、死亡、傳送、私商、AI／Follow、隱身／延遲、麻痺，格式不足／零座標、跨圖、潛地／飛行隱藏目標，鎖內目標已被替換、位置 fence 失敗，動作時長不存在、共用 timeline 或 accelerator 拒絕，均可提前返回。過重另回訊息 110。 |
+| C_Attack 空擊 | 目標不存在或已死，通過動作准入後可送 target=0、damage=0 的 S30。有效活目標交 onAction，NPC 子類決定後續處理。 |
+| L1AttackPc.calcHit／actionX2 | 超近戰距離通常送目標 S30、damage=0。glanceCheck 地形阻擋會送空擊 S30。命中機率、目標保護與傷害減免仍由伺服器決定。 |
+| C_UseSkill.start／performSkill | 死亡、傳送、私商、技能 CD、非法／缺失技能模板、未學技能、目標不存在、位置 fence／鎖內身分失效可提前返回。過重、禁用地圖、麻痺／沉默／變身限制、AI／Follow 攻擊限制另有訊息。 |
+| L1SkillUse | 目標類型／安全區等限制、射程與 LOS 在 isTarget／makeTargetList 處理，HP／MP／材料不足、技能 reuse 與共用動作 timeline 也可拒絕。isTarget 第 1466–1474 行拒絕攻擊技能 LOS 失敗。 |
+| 光箭空目標集合 | PC 的空集合可通過 checkUseSkill，後續仍消耗資源。sendGrfx 第 2335–2350 行只播 S158 施法動作，隨即返回。此路徑可出現「C6、MP 下降、S158、無 S30」。 |
+
+### 引擎修正與證據界線
+
+Combat.cs 在正常 Attack／滑鼠入口、取得 sender 前檢查距離，超距離顯示目前格數與走近提示。Magic.cs 對光箭做同樣檢查。排隊期間自身／目標座標異動會取消舊請求，近戰補齊自身座標重核。拒絕不占冷卻、不播預測動作，走近後可明確重試。位置以目前 Actor 的正常移動預測計算，伺服器保留最終幾何及 LOS 裁定。
+
+已確認的產品缺口為「把任意可選取目標當成可攻擊距離」以及近戰排隊缺少自身位置重核。#164 的舊 trace 近戰時窗有 C229×52、S30×18、S158×19。光箭量測窗有 C6×1、S158×1、S33×1、S30×0。舊資料沒有 object ID／傷害／攻擊者，無法證明 18 筆 S30 對應同一隻牛，也無法唯一還原每次伺服器拒絕條件。超距離／LOS 的空目標路徑與光箭觀測相符，歸因仍屬推測。距離修正已由離線測試驗證，歷史事件與實際擊殺仍待真機。
+
+### 選用戰鬥追蹤
+
+在啟動客戶端的同一個環境設定以下兩項。檔名必須尚未存在。
+
+```powershell
+$env:TW_PACKET_TRACE = 'scratch/packet-trace/m5-combat.jsonl'
+$env:TW_PACKET_TRACE_COMBAT = '1'
+```
+
+原有 utc／dir／op／len／seq 保留。額外只允許下列數字，queue 保存純量，完成擷取後不持有封包 buffer。
+
+| 封包 | 額外 JSON 欄位 |
+|---|---|
+| out C229，16 bytes | `target`，讀 offset 1 的 u32 |
+| out C6，已支援的技能 1／3／4／8 | `target`，讀 offset 3 的 u32。D 形式允許 8／16 bytes，光箭 DHH 要求 16 bytes。 |
+| in S30，24／40 bytes | `target`，讀 offset 6 的 u32，以及 `damage`，讀 offset 10 的 u16 |
+
+其他 opcode、反方向、截斷封包及名稱／文字型 C6 使用原本五欄。只有環境值精確等於 `1` 才開啟擴充，未設定時維持五欄。未設定 TW_PACKET_TRACE 時沒有追蹤檔。
+
+`damage` 是 wire 傷害欄，RO 模式通常是傷害低 16 位，公版近戰命中可固定為 10。0 可表示 miss 或零傷害。target=0 也可能是空擊／地形／目標受擊動畫抑制。因本次只記允許的兩個數字，仍須搭配單一目標的操作時窗、HP／EXP 與死亡回包判讀。
+
+### 離線驗證
+
+`engine/_integration/dev/demo-tests/CombatAdmissionChecks.cs` 以本次產品 DLL、合成的純 timing metadata、記憶體 sender 與禁止 socket 的 guard 執行。212 項檢查涵蓋 1／2／3 格近戰、四種近戰姿勢、滑鼠入口、10／11 格光箭、獨立 wire 解碼與條件對照、排隊位置／選取／死亡／換圖／斷線、冷卻與既有擊殺／EXP／學技／箭矢接收回歸。條件對照模型僅涵蓋格式、目標與幾何，實際服務、隨機命中、LOS 與 DB 留待真機。
+
+`PacketTraceChecks` 的 3,468 項檢查涵蓋預設關閉、擴充啟用、數字 offset／零值／u32 與 u16 最大值、所有 256 opcode 雙方向白名單、文字型 C6、截斷與機密假字串、併發／離開 flush、路徑與 junction 拒絕。測試保留 scratch 證據，沒有遞迴刪除。
+
+### 新增唯讀來源簽章
+
+下列 Java 路徑相對 `D:\lineage開發\1-伺服器\src\com\lineage`。SQL 路徑相對伺服器根，僅查技能／武器／牛 NPC 靜態模板。C_Attack、C_UseSkill、Opcodes、S_AttackPacketPc 與 ServerBasePacket 的 SHA 與上表相同。
+
+| 來源檔 | SHA-256 |
+|---|---|
+| `server/model/L1AttackMode.java` | `f29c4d0bcc85ca3e6399497fa45b97b14047d4161e32a02525940e14290ae2c2` |
+| `server/model/L1AttackPc.java` | `3fdc94cedc6c3ec803e731be238093bd7fe55c432cf84be6822a079a1627ddfc` |
+| `server/model/skill/L1SkillUse.java` | `2fad1a69076c29704c8ea9a41361aff357f22b0e895223a6bb7b943a4879015d` |
+| `server/types/Point.java` | `a8b342463e57e684f3382da9d0b5b51766c9ebe893c491024ef7babeb5ad801c` |
+| `server/utils/PlayerTargetPositionFence.java` | `5aff67e033227d155772049aac9348c197a13ccb7cdead11c9992c2cedbd7618` |
+| `server/utils/PcPositionSync.java` | `6c1ff6ec2bf53900520dc4aacd05c5513becc19a875392294957a3a17811f8d5` |
+| `server/model/ClientActionTimeline.java` | `9e888bd225bb24636068aa9b411ca46b8cbd8f21caae132ef86c07260c022c3b` |
+| `server/model/combat/PcPhysicalAttackFlow.java` | `00584ca2c3e108ae05448d3e09d16e68d486b48b1017c331e7fe8397046a2136` |
+| `server/serverpackets/S_UseAttackSkill.java` | `83e00ecf1da363510643ae259d8da3c43d99508fef9edb36fa9dacf74403dcfe` |
+| `db/380_db.sql` | `2afbc066fa7dbde391169050deeed206a20a39afbc0390378ddf2800cd3328b5` |
