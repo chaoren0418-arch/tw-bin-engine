@@ -8,6 +8,14 @@
 
 ## 做了什麼
 
+### 第 3 次嘗試：僅同步主線
+
+- 先快轉至遠端 `task/192` 的 `efebdb8`，再合併 `origin/main` 的 `626b398`。唯一衝突為 dev lock，使用 `rebuild.py --update-lock` 重產，核驗 175 個來源檔／184 個鎖定檔通過；未修改功能程式。`docs/REPORT.md` 完整沿用 main。
+- 重跑既有 canonical build 通過，產品 DLL SHA-256：`0abe5cd3f1a424dcfb422d45d07af6883ebb5655190856fa91b47a3fa3d8d8e6`。產品仍有既有兩項 nullable 與 NU1900 警告，0 錯誤；launcher 0 警告、0 錯誤。
+- 重跑音效模組 148 項與 map-continuity 128 項檢查全部通過；`check-no-game-assets.py` 核對 3264 個追蹤檔，0 errors；whitespace 檢查通過。
+- 產出覆寫既有 `scratch/issue-192/checks.json`、`map-checks.json`、`build/`；CI 以 PR #214 新 HEAD checks 為準，同步結果於 PR 留言交接。
+- 未驗證項維持下述真機限制。下一棒由 Claude／調度器審查同步結果；合併後交 dot 執行 M6 smoke。
+
 - `SoundPackets.cs` 解碼 S22 與 S55／S106，保留 unsigned ID、repeat、H(time)，嚴格驗證長度／padding。S22 時長取既有核定 PCM WAV，沿用音訊核心白名單。
 - `MapEffects.cs` 管理座標／附著圖像、逐幀顯示、跟隨目標、期限、缺資源診斷與換圖退役。`MagicSpells.AttachedEffect` 增加 appearance 動作選擇。佇列各最多 256 筆。
 - 依 [主控核准](https://github.com/chaoren0418-arch/tw-bin-engine/issues/192#issuecomment-6697166058)，`WorldSession.ReceiveCore` 在舊接收鏈前增加三個只呼叫模組的 case；`ClientCombatSfx.cs` 只在既有 Pump 引數增加一個 `WithPacketSounds` 呼叫，未更動戰鬥音效邏輯或 `engine/audio`。
