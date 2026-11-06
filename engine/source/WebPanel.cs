@@ -65,13 +65,18 @@ public sealed partial class ClientForm {
     void ProcessFailed(object? s,CoreWebView2ProcessFailedEventArgs e){webReady=false;webNotice.Text="網頁程序停止；可關閉後重開面板。";webNotice.BringToFront();LeaveGameFocus("process-failed");WebLog("process-failed",new{kind=e.ProcessFailedKind.ToString()});}
     void ResourceRequested(object? s,CoreWebView2WebResourceRequestedEventArgs e){
         var allowed=new[]{LocalPage,"https://p08.example/panel.css","https://p08.example/panel.js","https://p08.example/login.js","https://p08.example/interaction.js","https://p08.example/trade.js","https://p08.example/bonus-stats.js","https://p08.example/private-shop.js"};
-        bool icon=Uri.TryCreate(e.Request.Uri,UriKind.Absolute,out var uri)&&uri.Scheme=="https"&&uri.Host=="p08.example"&&uri.Query==""&&ushort.TryParse(Path.GetFileNameWithoutExtension(uri.AbsolutePath),out var iconId)&&uri.AbsolutePath=="/icons/"+iconId+".png"&&ItemIcon(iconId)!=null;
+        if(WebIconResource.TryId(e.Request.Uri,out _)){
+            var icon=WebIconResource.Read(Path.Combine(stageRoot,"assets"),e.Request.Uri);
+            e.Response=webEnvironment!.CreateWebResourceResponse(icon.Body is {} bytes?new MemoryStream(bytes,false):null,icon.Status,icon.Status==200?"OK":icon.Status==403?"Forbidden":"Missing local icon",icon.Status==200?"Content-Type: image/png":"Content-Type: text/plain");
+            return;
+        }
+        Uri.TryCreate(e.Request.Uri,UriKind.Absolute,out var uri);
         if(uri!=null&&uri.Scheme=="https"&&uri.Host=="p08.example"&&uri.Query==""&&ushort.TryParse(Path.GetFileNameWithoutExtension(uri.AbsolutePath),out ushort gfx)&&uri.AbsolutePath=="/ground/"+gfx+".png"&&GroundCatalog.Find(gfx) is {} groundRow){
             try{using var bitmap=GroundSpriteReader.Image(GroundSpriteReader.Read(groundRow));var stream=new MemoryStream();bitmap.Save(stream,System.Drawing.Imaging.ImageFormat.Png);stream.Position=0;e.Response=webEnvironment!.CreateWebResourceResponse(stream,200,"OK","Content-Type: image/png");}
             catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException){e.Response=webEnvironment!.CreateWebResourceResponse(null,404,"Missing verified ground image","Content-Type: text/plain");}
             return;
         }
-        if(!allowed.Contains(e.Request.Uri)&&!icon){e.Response=webEnvironment!.CreateWebResourceResponse(null,403,"Forbidden","Content-Type: text/plain");WebLog("resource-blocked",new{e.Request.Uri});}
+        if(!allowed.Contains(e.Request.Uri)){e.Response=webEnvironment!.CreateWebResourceResponse(null,403,"Forbidden","Content-Type: text/plain");WebLog("resource-blocked",new{e.Request.Uri});}
     }
     void WebMessage(object? sender,CoreWebView2WebMessageReceivedEventArgs e)=>DispatchWeb(e.Source,e.WebMessageAsJson);
     void DispatchWeb(string source,string raw){

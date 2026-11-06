@@ -2,8 +2,9 @@ using P06;
 using P24.MapEffectEvents;
 using System.Text.Json;
 using System.Security.Cryptography;
+byte[]? localMetadata=LocalFixture.Load(args);if(localMetadata is null)return;
 string root=args[0];int assertions=0;var cases=new List<object>();
-var definition=Effect6016Definition.FromR27Metadata(File.ReadAllBytes(Path.Combine(root,"fixtures/6016.json")),"825673b11feb6b28c6d34663cd53266d0ca2209230b1b1cfa4c0a80125263383");
+var definition=Effect6016Definition.FromR27Metadata(localMetadata,"825673b11feb6b28c6d34663cd53266d0ca2209230b1b1cfa4c0a80125263383");
 void Check(bool yes,string why){assertions++;if(!yes)throw new Exception(why);}
 void Case(string name,Action body){int start=assertions;body();cases.Add(new{name,assertions=assertions-start,status="pass"});}
 void CompleteRegister(Effect6016Host host,FakeAudio fake){long count=host.ObservedReplies;fake.RegisterCompletion.SetResult(FakeAudio.Ok);Check(SpinWait.SpinUntil(()=>host.ObservedReplies>count,2000),"register callback queued");}

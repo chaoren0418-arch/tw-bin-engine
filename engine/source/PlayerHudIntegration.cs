@@ -65,7 +65,7 @@ public sealed partial class ClientForm {
         var skills=w.LearnedMagic.Select(skill=>new PlayerHudEntry(new(PlayerHudKind.Magic,(uint)skill.Id),skill.Name,skill.Supported?$"MP {skill.NominalMp} · {skill.Target}":"已學會 · 尚未支援施放",null,false,skill.Supported)).ToArray();
         string state=$"{w.AcNotice} · {(w.OwnDead?"死亡":busy?"動作冷卻／忙碌":"可操作")} · {w.SustenanceText}";
         string notice=playerHudNotice.Length>0&&Environment.TickCount64<playerHudNoticeUntil?playerHudNotice:(playerHudLastAction==PlayerHudKind.Magic?w.MagicNotice:w.ItemNotice)+(w.LastServerMessage is {} message?" · "+ResolveNpcText(message):"");
-        var snapshot=new PlayerHudSnapshot(PlayerHudActions.Stamp(login),w.Actor?.Name??"等待角色資料",$"Lv.{status?.Level} · {w.MagicBuffNotice}",status?.Hp??0,status?.MaxHp??0,status?.Mp??0,status?.MaxMp??0,state,notice,busy,w.MagicTargetName,w.MagicTargetSelf,items,skills);
+        var snapshot=new PlayerHudSnapshot(PlayerHudActions.Stamp(login),w.Actor?.Name??"等待角色資料",$"Lv.{status?.Level} · {w.MagicBuffNotice} · {w.AuthoritativePositionText}",status?.Hp??0,status?.MaxHp??0,status?.Mp??0,status?.MaxMp??0,state,notice,busy,w.MagicTargetName,w.MagicTargetSelf,items,skills);
         playerHud.UpdateState(snapshot,ItemIcon);playerHud.UpdateChat(login.PlayerChatSnapshot());
         int height=PlayerHudGeometry.BaseHeight+(playerHud.DrawerOpen?PlayerHudGeometry.DrawerHeight:0);
         playerHud.SetBounds(0,Math.Max(0,ClientSize.Height-height),Math.Max(1,ClientSize.Width-(webHost.Visible?webHost.Width:0)),height);playerHud.BringToFront();

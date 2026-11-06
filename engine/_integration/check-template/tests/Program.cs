@@ -5,8 +5,9 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text.Json;
 
-string root=args[0],assets=args[1];int checks=0;var cases=new List<object>();
-byte[] metadata=File.ReadAllBytes(Path.Combine(root,"fixtures/6016.json"));
+byte[]? localMetadata=LocalFixture.Load(args);if(localMetadata is null)return;
+string root=args[0],assets=args[2];int checks=0;var cases=new List<object>();
+byte[] metadata=localMetadata;
 var definition=Effect6016Definition.FromR27Metadata(metadata,"825673b11feb6b28c6d34663cd53266d0ca2209230b1b1cfa4c0a80125263383");
 var appearance=new MapEffectAppearance(metadata);
 void Check(bool ok,string why){checks++;if(!ok)throw new Exception(why);}
@@ -115,9 +116,16 @@ Case("other-effect-clock-unchanged-and-long-stall-no-replay-backlog",()=>{
 Case("accepted-r3-default-factory-bound-without-creating-player",()=>{
     var factory=ClientForm.Accepted6016TransportFactory;
     Check(factory!=null&&factory.Method.DeclaringType?.FullName=="P24.HostAudio.AudioApiTransport","normal host factory is accepted r3 bridge, not unavailable stub");
-    var expected=JsonDocument.Parse(File.ReadAllText(Path.Combine(root,"scope-update-r3.json"))).RootElement.GetProperty("acceptedAudioDll").GetString();
-    Check(Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Path.Combine(root,"build/host/P24.Audio.dll")))).ToLowerInvariant()==expected,"rebuilt r3 module exactly accepted DLL");
-    Check(Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Path.Combine(root,"assets/audio-manifest.json")))).ToLowerInvariant()=="87c6cd6867e0d81bdc627c1cac0a922891d650018211b58525de9226926ad9fe","trusted manifest copied intact");
+    if(args.Length==5){
+        using var receipt=JsonDocument.Parse(File.ReadAllText(args[4]));
+        Check(receipt.RootElement.GetProperty("schema").GetString()=="dev-receipt-v1","explicit dev build receipt");
+        Check(Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(typeof(WorldSession).Assembly.Location))).ToLowerInvariant()==receipt.RootElement.GetProperty("productDllSha256").GetString(),"tested product matches dev receipt");
+        Check(Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory,"P24.Audio.dll")))).ToLowerInvariant()==receipt.RootElement.GetProperty("audioDllSha256").GetString(),"tested audio module matches dev receipt");
+    }else{
+        var expected=JsonDocument.Parse(File.ReadAllText(Path.Combine(root,"scope-update-r3.json"))).RootElement.GetProperty("acceptedAudioDll").GetString();
+        Check(Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Path.Combine(root,"build/host/P24.Audio.dll")))).ToLowerInvariant()==expected,"rebuilt r3 module exactly accepted DLL");
+    }
+    Check(Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Path.Combine(assets,"audio-manifest.json")))).ToLowerInvariant()=="87c6cd6867e0d81bdc627c1cac0a922891d650018211b58525de9226926ad9fe","local trusted manifest intact");
 });
 var result=new{status="pass",cases=cases.Count,assertions=checks,details=cases,productDllSha256=Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(typeof(WorldSession).Assembly.Location))).ToLowerInvariant(),gui=false,com=false,audioPlayback=false,sockets=false,services=false,database=false,scope="Actual isolated product DLL with explicit fake IEffectAudio; real map parser/lifecycle calls; no native acceptance"};
 File.WriteAllText(Path.Combine(root,"evidence/host-result.json"),JsonSerializer.Serialize(result,new JsonSerializerOptions{WriteIndented=true}));Console.WriteLine($"PASS {cases.Count} cases / {checks} checks");

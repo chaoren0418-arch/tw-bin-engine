@@ -19,7 +19,7 @@ public sealed partial class ClientForm {
         groundList.MouseClick+=(_,_)=>{if(groundList.SelectedItem is GroundRow r){ClearInput("ground-reselect");login.World.SelectGround(r.Item.ObjectId);SyncQuantitySelection(true);PublishWebState();}};
         inventoryList.MouseClick+=(_,_)=>{if(inventoryList.SelectedItem is InventoryItem i){ClearInput("drop-reselect");login.World.SelectItem(i.ObjectId);SyncQuantitySelection(false);PublishWebState();}};
         pickupButton.Click+=async(_,_)=>{ClearInput("ground-pickup");await NativeGroundQuantity(true);SyncGround();PublishWebState();};
-        dropButton.Click+=async(_,_)=>{ClearInput("ground-drop");await NativeGroundQuantity(false);SyncGround();PublishWebState();};
+        dropButton.Click+=async(_,_)=>{ClearInput("ground-drop");await NativeGroundQuantity(false);SyncInventory();SyncGround();PublishWebState();};
     }
     void SyncGround(){
         groundPanel.Visible=login.State==LoginState.InWorld;

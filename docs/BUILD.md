@@ -89,7 +89,7 @@ powershell -File engine/build-product.ps1
 - `engine/build/product-dev-manifest.json`
 - `engine/launcher/P24.Launcher.exe`
 
-這一步**需要 Windows** 與 SDK 10.0.300。加 `--write-receipt` 才會寫 `engine/_integration/dev/receipt.json`（CI 會加）。
+這一步需要 SDK 10.0.300；`rebuild.py --build` 在非 Windows 也可執行，會自動加入 `-p:EnableWindowsTargeting=true -r win-x64 -p:SelfContained=false`，交叉建置 Windows 產品與 launcher，不執行它們。執行產品與 check-only 仍需要 Windows。加 `--write-receipt` 才會寫 `engine/_integration/dev/receipt.json`（CI 會加）。
 
 ### 3. check-only（不開 GUI、不登入、不開 socket）
 
@@ -173,18 +173,21 @@ M1 真機基線使用的 tree 是 main 的 **`20dedf6`**（Issue #19 在主專�
 
 ## CI 怎麼跑
 
-工作流程：`.github/workflows/build.yml`。觸發：`push` 到 `main`，以及所有 `pull_request`。跑在 `windows-latest`。
+工作流程：`.github/workflows/build.yml`。觸發：`push` 到 `main`，以及所有 `pull_request`。跑在 `ubuntu-latest`，交叉建置 Windows `win-x64` 目標（#67／PR #72）。
 
-順序（與 YAML 一致）：
+順序（與 YAML 一致；第 5、6、8、9 步的工作目錄是 `engine/`）：
 
 1. `git config --global core.autocrlf false` — lock 釘的是精確位元組；CRLF 轉換會造成 `pin drift`。repo 另有 `.gitattributes`：`* -text`。
 2. `actions/checkout@v4`
 3. `actions/setup-dotnet@v4`，`global-json-file: engine/global.json`（即 SDK 10.0.300）
-4. `dotnet restore engine/source/OfflineClient.csproj --configfile .github/nuget.ci.config`
-5. `dotnet build engine/source/OfflineClient.csproj -c Release --no-restore -warnaserror:false`
-6. `python -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output engine/_integration/evidence/ci-dev`
-7. `dotnet run --project engine/_integration/dev/packet-trace-tests/PacketTraceChecks.csproj -c Release` — 封包追蹤的獨立 console 斷言測試，不啟動遊戲或網路。
-8. artifact `dev-receipt` 上傳 `engine/_integration/dev/receipt.json` 與 `engine/_integration/evidence/ci-dev/**`。失敗時另傳 `engine/source/obj/**/*.log`。
+4. `actions/setup-python@v5`，`python-version: '3.12'`
+5. `dotnet restore source/OfflineClient.csproj --configfile ../.github/nuget.ci.config -p:EnableWindowsTargeting=true -r win-x64 -p:SelfContained=false`
+6. `dotnet build source/OfflineClient.csproj -c Release --no-restore -warnaserror:false -p:EnableWindowsTargeting=true -r win-x64 -p:SelfContained=false`
+7. `python -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output engine/_integration/evidence/ci-dev`
+8. `dotnet restore _integration/dev/packet-trace-tests/PacketTraceChecks.csproj --configfile ../.github/nuget.ci.config`
+9. `dotnet run --project _integration/dev/packet-trace-tests/PacketTraceChecks.csproj -c Release --no-restore` — 封包追蹤的獨立 console 斷言測試，使用 Linux 原生目標，不啟動遊戲或網路。
+10. Linux 上以 `always()` 輸出 `SKIP`：Windows 啟動檔執行、WinForms／WebView2 runtime、原生畫面／輸入／音訊與登入仍需 Windows；PacketTraceChecks 的 Linux symbolic link 不代表驗過 Windows NTFS junction。
+11. 以 `always()` 上傳 artifact `dev-receipt`，內容為 `engine/_integration/dev/receipt.json` 與 `engine/_integration/evidence/ci-dev/**`；失敗時另傳 `engine/source/obj/**/*.log`。這些是執行時產物，非 main 追蹤來源檔。
 
 **NuGet 兩套設定，不要混：**
 
@@ -194,7 +197,7 @@ M1 真機基線使用的 tree 是 main 的 **`20dedf6`**（Issue #19 在主專�
 | 來源 | `<clear/>` 後只留 `vendor`（離線） | `<clear/>` 後只留 nuget.org |
 | 套件目錄 | `rebuild.py` 預設 `NUGET_PACKAGES` = `engine/.nuget`（若環境未設） | 同樣邏輯，但 restore 走 nuget.org |
 
-CI **沒有**跑 `啟動引擎.cmd --check-only`，也沒有 `engine/assets`（gitignore）。`--build` 在沒有 `assets/integrity.json` 時仍可完成編譯；那不代表 launcher check-only 會過。
+CI **沒有** `engine/assets`（gitignore），也**不跑 check-only**。`--build` 在沒有 `assets/integrity.json` 時仍可完成編譯；那不代表 launcher check-only 會過。CI 證明 Windows 目標可編譯並通過上述獨立檢查，不算原生實機驗收。
 
 ---
 

@@ -6,6 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- Keep identical source inputs reproducible across checkout paths and Git commits. -->
+    <EnableSourceLink>false</EnableSourceLink>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <Deterministic>true</Deterministic>
     <PathMap Condition="'$(Configuration)' == 'Release'">$(MSBuildProjectDirectory)=/_/p24/source</PathMap>
     <AssemblyName>P11.ClientEngine</AssemblyName>

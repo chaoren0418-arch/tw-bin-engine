@@ -3,6 +3,9 @@
     <OutputType>Exe</OutputType><TargetFramework>net10.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
     <AssemblyName>P24.Launcher</AssemblyName><UseAppHost>true</UseAppHost>
+    <!-- Keep identical source inputs reproducible across checkout paths and Git commits. -->
+    <EnableSourceLink>false</EnableSourceLink>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <Deterministic>true</Deterministic><PathMap>$(MSBuildProjectDirectory)=/_/p24/launcher</PathMap>
   </PropertyGroup>
 </Project>

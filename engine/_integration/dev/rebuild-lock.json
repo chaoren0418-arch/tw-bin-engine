@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 190,
+ "sourceCount": 169,
  "files": [
   {
    "path": "NuGet.Config",
@@ -11,8 +11,8 @@
   },
   {
    "path": "_integration/dev/launcher-source/Launcher.csproj",
-   "size": 412,
-   "sha256": "59a5f22c8ced415eb3d9a36d5f356b52766956a3ae66597e29214a53280e62ee"
+   "size": 654,
+   "sha256": "469ed87525ba93f37c3d7c73224949bd3fed08ae8c74010ca23946d5bab15a9d"
   },
   {
    "path": "_integration/dev/launcher-source/Program.cs",
@@ -61,8 +61,8 @@
   },
   {
    "path": "audio/P24.Audio.csproj",
-   "size": 546,
-   "sha256": "9624c727cfdc17212850ae097067c86a0f85e5cb460f1174c6db97d90b18a4f0"
+   "size": 788,
+   "sha256": "9243964ff1e313750139de023f82ce512c4c8193db0bb56435a2eba6679102c1"
   },
   {
    "path": "audio/Resources/combat-sfx-pins.json",
@@ -151,8 +151,8 @@
   },
   {
    "path": "source/Combat.cs",
-   "size": 12344,
-   "sha256": "1d30a374608f16163171c8a489393e80696b8d6632e20b9fe029044e30f218e2"
+   "size": 12827,
+   "sha256": "fc640aaae1bef14cfa852ae5d286699194ebd1479b4c4f7b51f695ca8c5f3110"
   },
   {
    "path": "source/CombatRegression.cs",
@@ -246,8 +246,8 @@
   },
   {
    "path": "source/GroundCatalog.cs",
-   "size": 4424,
-   "sha256": "89bed0d3164140d5ed6515a048c7bd4cd254804d54dd4b82e3324291633c135d"
+   "size": 4770,
+   "sha256": "7dcac9e71b016005efc48d637417e17e960fef45cbbda90974465271f6794ec0"
   },
   {
    "path": "source/GroundIntegration.cs",
@@ -281,8 +281,8 @@
   },
   {
    "path": "source/GroundUi.cs",
-   "size": 4893,
-   "sha256": "f00ad844845fdabc20ec0e22833e10018b75538c0f8e697f7d7332d9c97920ba"
+   "size": 4909,
+   "sha256": "ca12ff6588adc3ae14ed330e6a06debeeaef0ed4d78eacc7e0b9ea4288a626aa"
   },
   {
    "path": "source/Inventory.cs",
@@ -341,8 +341,8 @@
   },
   {
    "path": "source/Magic.cs",
-   "size": 11305,
-   "sha256": "0537fb469b12ece28b30aec28faf9461d2f13e5687d1c7e7cdf7dce782743ebd"
+   "size": 11447,
+   "sha256": "cbe84b5d6c7f9515412c8702025fa8730be88b2935631d93580a29935e09b689"
   },
   {
    "path": "source/MagicIntegration.cs",
@@ -391,8 +391,8 @@
   },
   {
    "path": "source/MagicUi.cs",
-   "size": 4913,
-   "sha256": "bfc95fe67b281d8c2ab9beeb95a07cd607dbb91b52a04f9837460423c6ac4c92"
+   "size": 6761,
+   "sha256": "380e595f62533f3ac1ae18cf2152e31a5199e0327abc80fd84e7b96d5d0e4fe5"
   },
   {
    "path": "source/MagicUiTests.cs",
@@ -491,18 +491,18 @@
   },
   {
    "path": "source/OfflineClient.csproj",
-   "size": 1461,
-   "sha256": "a335def218f3f3c171a2d4a7a8a206aac819a78a5350bff5d2dde4df9cfb3b8d"
+   "size": 1706,
+   "sha256": "c10793d57577235e4103a144a59cec2d337863fdbaa3fe6d1651ccc60a989015"
   },
   {
    "path": "source/OnlineInput.cs",
-   "size": 1644,
-   "sha256": "95cc98d91f699c5792822693843aba708778c3f1a66dd9bd230ccf7f5dac74e0"
+   "size": 2677,
+   "sha256": "473abf9099e833effb7884515cb29d82f452a6b7b6152b57ca40b66130097249"
   },
   {
    "path": "source/OnlineMovement.cs",
-   "size": 10655,
-   "sha256": "c88269dc968e03da158ab8e4d0757b964fab396828cba6d71c7c5cb20287b8f4"
+   "size": 11969,
+   "sha256": "06dcdf10187a401a3d189c8f57808f1622cb15096ae26736c4c7352144b01fd0"
   },
   {
    "path": "source/OpacityHistoricalPumps.cs",
@@ -596,8 +596,8 @@
   },
   {
    "path": "source/PlayerHudIntegration.cs",
-   "size": 6631,
-   "sha256": "c1b8d5f44489b0e1878f2db412485449dc043b9e255b972c4c3b406bb663648e"
+   "size": 6664,
+   "sha256": "64aeaa1010b011c949f86e961a4ae626268953e0b8604aa129f9831106a64622"
   },
   {
    "path": "source/PlayerHudModel.cs",
@@ -611,13 +611,13 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 14880,
-   "sha256": "aa8396e96b2cbff56313c148289c460ed2e37c8f07c2810ea70ca2f19d1aa271"
+   "size": 15160,
+   "sha256": "dca7d6bfdc87704308b744bf2f485598080ed7d6ad18d3f7199fb1758a9dc42f"
   },
   {
    "path": "source/PlayerPointer.cs",
-   "size": 9105,
-   "sha256": "4214c71199b3db6a582e48049513028540b89fd7ad27e01b79c705590f8d07d8"
+   "size": 9257,
+   "sha256": "7daab25992d61d875c1689abc8416e3649ac5b087320d589a07e741f256877a5"
   },
   {
    "path": "source/PlayerPointerHud.cs",
@@ -800,9 +800,14 @@
    "sha256": "007b0f58d5e0e41f035abf044673430645aff0e199930b58c91047bd77c3d544"
   },
   {
+   "path": "source/WebIconResource.cs",
+   "size": 1925,
+   "sha256": "38f7f0d0031f3b8ad9d541f913d493684cced65301f610495c05e456e8fc28ae"
+  },
+  {
    "path": "source/WebPanel.cs",
-   "size": 20463,
-   "sha256": "30f20e7f1c9f3d4dbeb5b5396d174115b7c24788b5a1e58ea9b1d444b7b71d35"
+   "size": 20689,
+   "sha256": "baffe3822fac730e0f54ead63a0a31a87958a9a35b3d9cc98d2ce0e03eb5b38c"
   },
   {
    "path": "source/WebTests.cs",
@@ -826,8 +831,8 @@
   },
   {
    "path": "source/WorldObjects.cs",
-   "size": 5869,
-   "sha256": "d86aa50b81d36a9353b1d0910cccdbf18affca56e555b3080cb8499cfb22e680"
+   "size": 6122,
+   "sha256": "e7ac742ee12a2ecae1944186af43b1eaf4e1530c90658fc7d5dd6a97a8d07baa"
   },
   {
    "path": "source/WorldRegression.cs",
@@ -848,116 +853,6 @@
    "path": "web/bonus-stats.js",
    "size": 2361,
    "sha256": "eaaddd0f2c2524f931c11518f24d9bb3da14b3658c2d70aad4fd5da5c801c0f0"
-  },
-  {
-   "path": "web/ground/36.png",
-   "size": 289,
-   "sha256": "8d72431ab657dc156297aa3007b0843c01e75f20dfe5379b27d5cd8d5b9f29f5"
-  },
-  {
-   "path": "web/ground/66.png",
-   "size": 465,
-   "sha256": "3ecde86e10281647ddc1f66ddb42a44a83a98c86baa4ae317ddb8859b3e4fe34"
-  },
-  {
-   "path": "web/icons/124.png",
-   "size": 844,
-   "sha256": "7a989ea2e4f676a42d82e612ca9ff6a1d25e27005acf0cc312ffd270cef62919"
-  },
-  {
-   "path": "web/icons/138.png",
-   "size": 858,
-   "sha256": "335162b3786bced49563cfe86aa14fc4114867c9aa8237821023704a08ee0b98"
-  },
-  {
-   "path": "web/icons/2.png",
-   "size": 495,
-   "sha256": "0f609374be13892e61096e39fbd126cc7258a179a108dcfd80ad2e9e34d430a0"
-  },
-  {
-   "path": "web/icons/242.png",
-   "size": 996,
-   "sha256": "5ee66ffca19d9d3395318df30ee32aaf94c36753dadf8a9bb9935b564b07dccd"
-  },
-  {
-   "path": "web/icons/245.png",
-   "size": 1036,
-   "sha256": "ea4ac1c311981c4380e17779b4b15f1ef2a2a71d2b1962a2591f203522e9b001"
-  },
-  {
-   "path": "web/icons/278.png",
-   "size": 401,
-   "sha256": "c7a17e518c4e3978a83446e66c4cf7ae5cd54caeb04184556442a48b9f75f220"
-  },
-  {
-   "path": "web/icons/318.png",
-   "size": 1499,
-   "sha256": "ec7b23a61616e87b992ae01fd95ddfa83430300141aa85f4ded444af31c46a26"
-  },
-  {
-   "path": "web/icons/35.png",
-   "size": 460,
-   "sha256": "9ded6e008b2f981978dab2874f924b72b8d5f96ea6c4c856c4ebe60884a00073"
-  },
-  {
-   "path": "web/icons/4.png",
-   "size": 510,
-   "sha256": "75ab427d9ee5b9051b6cc4103b43eaadfd7cadd75d73d29bae9caf28ce3ac93e"
-  },
-  {
-   "path": "web/icons/474.png",
-   "size": 1352,
-   "sha256": "569b75068a19f536d78b12a6b75d8bf6e61655b9c1a7f282b0096b9043ecfa1d"
-  },
-  {
-   "path": "web/icons/475.png",
-   "size": 1365,
-   "sha256": "af4f6debaadb18732f040901c0ecf166156782a25e26da6b6867445d3c325846"
-  },
-  {
-   "path": "web/icons/5.png",
-   "size": 907,
-   "sha256": "9e35714d6b77ab794679b0a32f295cea5a78b773fbb745f46ce00366a4b06ff7"
-  },
-  {
-   "path": "web/icons/59.png",
-   "size": 499,
-   "sha256": "cb4045a12f6d28c81bbb25e12173741b184f8bc2fc90b42d9063d0ee076a669e"
-  },
-  {
-   "path": "web/icons/7.png",
-   "size": 359,
-   "sha256": "90f23210260582bfcc8c9e8b7a00cb727840e73082e3c7ca33c1e1fbc8b3143a"
-  },
-  {
-   "path": "web/icons/77.png",
-   "size": 743,
-   "sha256": "19f5dd065bc709dbd1c0fe59bad01e0a8acfad39593ff90621f069a709c9a727"
-  },
-  {
-   "path": "web/icons/80.png",
-   "size": 724,
-   "sha256": "0a6b703b2b6b0709ce4c7364f36ed99ef4cc907712d7d0059aea90c0ed9f4f37"
-  },
-  {
-   "path": "web/icons/81.png",
-   "size": 696,
-   "sha256": "eda21f8685278d50e150fa50ea4975756ea5cede2161fc86f1726199615ab988"
-  },
-  {
-   "path": "web/icons/86.png",
-   "size": 1306,
-   "sha256": "f1a70fcdcee29ea66ff20f204157927e07468cfb50da545adcc2c93831b389a9"
-  },
-  {
-   "path": "web/icons/957.png",
-   "size": 1192,
-   "sha256": "9b1df82afe88dc2183d9f3e69e8218d4126330e1f8f4179bf861ae305aec3a31"
-  },
-  {
-   "path": "web/icons/97.png",
-   "size": 776,
-   "sha256": "a630764b5725c0fc3629a4b86cc60d309695e9673179cb35d73b406d2769ec1d"
   },
   {
    "path": "web/index.html",
@@ -981,8 +876,8 @@
   },
   {
    "path": "web/panel.js",
-   "size": 16257,
-   "sha256": "ca89817e9b66c0adcb1aa6bc0ae7083b92d4306902792ffbd01d9b89e2335198"
+   "size": 16939,
+   "sha256": "c090bca7ae1c9db3fb568236c5da52853ae062908f57f6fd5be5e8dce546fb3c"
   },
   {
    "path": "web/private-shop.js",

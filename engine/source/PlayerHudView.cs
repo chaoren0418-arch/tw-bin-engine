@@ -144,6 +144,7 @@ public sealed class PlayerHudView:Panel {
         use.Text=entry?.Binding.Kind==PlayerHudKind.Magic?"施放一次":entry?.Equipped==true?"卸下一次":entry?.Detail.Contains("裝備")==true?"裝備一次":"使用一次";
         use.AccessibleName=use.Text+"："+entry?.Name;use.Enabled=entry is {Supported:true}&&snapshot?.Busy==false;
         assign.Enabled=entry is {Supported:true};self.Visible=drawer=="skills";self.Text=entry?.Detail.Contains("自己／")==true?(snapshot?.Self==true?"目標：自己":"目標：場景選取"):"依技能目標";self.AccessibleName=self.Text;self.Enabled=entry?.Detail.Contains("自己／")==true;
+        if(entry?.Binding.Kind==PlayerHudKind.Magic&&entry.Detail.Contains("指定敵人")){selectedText.Text+=" · 請先點場景敵人，確認黃圈，再按 M／施放一次。";selectedText.AccessibleName=selectedText.Text;tips.SetToolTip(selectedText,selectedText.Text);}
         foreach(var b in slots)if(assigning||clearing)b.Enabled=true;
     }
     void SlotClick(int index){
