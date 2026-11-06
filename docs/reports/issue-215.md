@@ -13,7 +13,7 @@
 - 本模組 **36 個斷言通過**：初始空清單、一般／重複／0／65535 gfx、512 上限、513 拒收、截斷／padding／額外尾段、錯誤原子性、完整替換、空清單、未知 subtype、物件外觀更新、跨實例隔離、近戰與 S158、保留施法／死亡／HP／targetId／傷害，以及 sub1 回歸。
 - CI 同一入口 `combat-admission` **248 個斷言通過**；`map-continuity` **128 個斷言通過**。
 - `check-no-game-assets.py` 通過；`git -c core.whitespace=cr-at-eol diff --check` 通過；dev lock 為 174 個來源／183 個 pinned 輸入。
-- GitHub CI：推送後核對 PR Checks，結果另以 PR 留言記錄，不以本機驗證代替 CI。
+- GitHub CI：產品與測試提交 `5955c72` 的 [build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42304845475)（`dotnet`、`map-continuity`）與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42304845227) 全部通過；[草稿 PR #241](https://github.com/chaoren0418-arch/tw-bin-engine/pull/241)。本次僅補記 CI 證據，不變更產品或測試。
 
 本次產品 DLL SHA-256：`62015881927aa80663d1708a1486c5ae55528387439dbe8bae7117bfb0effc14`。程式來源 SHA-256 見同提交的 dev lock。
 
