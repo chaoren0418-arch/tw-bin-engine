@@ -1,3 +1,4 @@
+using System.Buffers.Binary;
 using System.Globalization;
 using System.Text;
 using System.Text.Json;
@@ -16,11 +17,13 @@ internal sealed class PacketTrace : IDisposable
         AllowSynchronousContinuations = false
     });
     readonly Task worker;
+    readonly bool combatFields;
     int stopped;
-    readonly record struct Entry(DateTime Utc, bool Incoming, byte Op, int Length, long? Sequence);
+    readonly record struct Entry(DateTime Utc, bool Incoming, byte Op, int Length, long? Sequence, uint? Target, ushort? Damage);
 
-    PacketTrace(string path, string? repoRoot)
+    PacketTrace(string path, string? repoRoot, bool combatFields)
     {
+        this.combatFields = combatFields;
         // Path discovery, validation, directory creation and all I/O stay off the caller.
         worker = Task.Run(() => WriteAsync(path, repoRoot));
     }
@@ -30,7 +33,8 @@ internal sealed class PacketTrace : IDisposable
         try
         {
             string? path = Environment.GetEnvironmentVariable("TW_PACKET_TRACE");
-            return string.IsNullOrWhiteSpace(path) ? null : new PacketTrace(path, repoRoot);
+            return string.IsNullOrWhiteSpace(path) ? null : new PacketTrace(path, repoRoot,
+                Environment.GetEnvironmentVariable("TW_PACKET_TRACE_COMBAT") == "1");
         }
         catch { return null; }
     }
@@ -55,7 +59,27 @@ internal sealed class PacketTrace : IDisposable
         if (Volatile.Read(ref stopped) != 0 || packet.IsEmpty) return;
         try
         {
-            if (!queue.Writer.TryWrite(new Entry(DateTime.UtcNow, incoming, packet[0], packet.Length, incoming ? sequence : null)))
+            uint? target = null;
+            ushort? damage = null;
+            if (combatFields)
+            {
+                // Direction and complete envelope whitelist. No other payload crosses the queue.
+                if (incoming && packet[0] == 30 && packet.Length is 24 or 40)
+                {
+                    target = BinaryPrimitives.ReadUInt32LittleEndian(packet[6..]);
+                    damage = BinaryPrimitives.ReadUInt16LittleEndian(packet[10..]);
+                }
+                else if (!incoming && packet[0] == 229 && packet.Length == 16)
+                    target = BinaryPrimitives.ReadUInt32LittleEndian(packet[1..]);
+                else if (!incoming && packet[0] == 6 && packet.Length is 8 or 16
+                    && packet[1] == 0 && packet[2] is 0 or 2 or 3 or 7
+                    && (packet[2] != 3 || packet.Length >= 16))
+                    // Only the four supported D/DHH skills have a target DWORD here.
+                    // Other C6 variants can contain names/text instead.
+                    target = BinaryPrimitives.ReadUInt32LittleEndian(packet[3..]);
+            }
+            if (!queue.Writer.TryWrite(new Entry(DateTime.UtcNow, incoming, packet[0], packet.Length,
+                incoming ? sequence : null, target, damage)))
                 Stop(); // A saturated trace must never wait on the network/game thread.
         }
         catch { Stop(); }
@@ -114,11 +138,15 @@ internal sealed class PacketTrace : IDisposable
             {
                 for (int i = 0; i < 128 && queue.Reader.TryRead(out var row); i++)
                 {
-                    string line = JsonSerializer.Serialize(new
+                    var fields = new Dictionary<string, object?>
                     {
-                        utc = row.Utc.ToString("yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture),
-                        dir = row.Incoming ? "in" : "out", op = (int)row.Op, len = row.Length, seq = row.Sequence
-                    });
+                        ["utc"] = row.Utc.ToString("yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture),
+                        ["dir"] = row.Incoming ? "in" : "out", ["op"] = (int)row.Op,
+                        ["len"] = row.Length, ["seq"] = row.Sequence
+                    };
+                    if (row.Target.HasValue) fields["target"] = row.Target.Value;
+                    if (row.Damage.HasValue) fields["damage"] = row.Damage.Value;
+                    string line = JsonSerializer.Serialize(fields);
                     await writer.WriteLineAsync(line).ConfigureAwait(false);
                 }
                 await writer.FlushAsync().ConfigureAwait(false);
