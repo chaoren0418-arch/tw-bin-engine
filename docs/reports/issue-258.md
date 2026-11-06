@@ -2,7 +2,7 @@
 
 ## 結論
 
-書籤封包、模型、UI 與離線測試已實作並通過本機建置，但**任務尚未完成，不可合併**：`WorldSession.Reset()` 尚未加入 `ResetBookmarks()`。原任務明確限制 `WorldSession.cs` 只新增 S92 case 與 S64 子型別分派；已在本次對話提出放寬一行的範圍確認，尚未收到答覆。將以草稿 PR 交付可審查成果。
+書籤封包、模型、UI 與離線測試已實作並通過本機建置，但**任務尚未完成，不可合併**：`WorldSession.Reset()` 尚未加入 `ResetBookmarks()`。原任務明確限制 `WorldSession.cs` 只新增 S92 case 與 S64 子型別分派；已在本次對話提出放寬一行的範圍確認，尚未收到答覆。已提交、推送分支 `task/258`，並建立[草稿 PR #271](https://github.com/chaoren0418-arch/tw-bin-engine/pull/271)。
 
 ## 做了什麼
 
@@ -21,9 +21,9 @@
 | `rebuild.py --build --configfile scratch/issue-258/NuGet.Config --output scratch/issue-258/build` | 產品、audio、launcher 編譯通過；未執行遊戲 |
 | demo-tests `bookmarks` | 391 項通過，合成封包／記憶體 sender／獨立控制項 |
 | demo-tests `map-continuity` | 519 項通過，包含書籤測試 |
-| `engine/tools/check-no-game-assets.py` | 通過，0 errors（提交前會再核對新增檔案） |
+| `engine/tools/check-no-game-assets.py` | 提交後通過，3251 tracked files、0 errors |
 | `git -c core.whitespace=cr-at-eol diff --check` | 通過；保留既有 CRLF |
-| GitHub CI | 待 PR 建立後檢查 |
+| GitHub CI（程式提交 `a406d0c`） | [build #315](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42310217325) 的 dotnet／map-continuity，以及 [npc-offline #184](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42310217468) 全部成功 |
 
 環境：Windows x64、SDK 10.0.300、Python 3.12.10。PATH 無可用 `python`，實際使用 `C:/Users/CHAOREN/AppData/Local/Programs/Python/Python312/python.exe`。NuGet 線上還原遭本機 TLS 認證錯誤，改以 scratch 中的設定唯讀引用原專案 `engine/vendor`；套件快取與暫存均落在本 worktree。
 
@@ -36,7 +36,7 @@
 - **已知缺口**：`ResetBookmarks()` 目前只有定義，尚未從 `WorldSession.Reset()` 呼叫。斷線／重登／換角色可能保留舊書籤，不能以現有測試綠燈宣稱功能完整；本 PR 應維持草稿。
 - 未啟動遊戲、伺服器或 DB；未做登入後顯示、實機新增／刪除、重新登入持久化驗收。
 - 未驗證技能 5／69 施放；此張不負責技能串接。
-- 本機 GitHub CLI 登入 token 無效（401）；Git HTTPS 讀取使用單次 `http.sslBackend=openssl` 成功，PR 將使用對應 repo 擁有者的 GitHub connector。
+- 本機 GitHub CLI 登入 token 無效（401）；Git 使用單次 `http.sslBackend=openssl` 推送成功，PR 已使用對應 repo 擁有者的 GitHub connector 建立。
 
 ## 產出路徑
 
