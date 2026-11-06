@@ -15,7 +15,7 @@
 - `check-no-game-assets.py` 通過，0 errors。
 - 既有 `DemoChecks` 的 `combat-admission` 212 項與 `map-continuity` 128 項皆通過，證據分別位於 `scratch/issue-197/combat-checks.json` 與 `scratch/issue-197/map-checks.json`。
 - 最終本機產品 DLL SHA-256 為 `12d96751e1220d30bac8010eedd8540cec333ea2518102f63de9422401091e6b`。
-- CI 狀態於 PR 建立後補記。
+- 已提交程式 commit `ec54710` 並推送 `task/197`，開立 [PR #223](https://github.com/chaoren0418-arch/tw-bin-engine/pull/223)。GitHub 回報合併衝突且 checks 為空，CI 尚未觸發，綠燈驗收待調度器同步輪完成。
 
 本機重跑測試指令如下，先完成產品建置。
 
@@ -32,6 +32,7 @@ dotnet run --project engine/_integration/dev/item-use-tests/ItemUseChecks.csproj
 - 傳送書籤採手動 ID 輸入，料理與空白卷軸採數字編號輸入，信件提供代碼、收件人、主旨與本文欄位。書籤名稱列表與料理回包選單尚待相關 UI 模組接續。
 - 建置有既存 `MagicUi.cs` 的兩項 nullable 警告。
 - 新測試專案由上述指令獨立執行，現有 CI workflow 的涵蓋範圍以 PR checks 為準。
+- 唯讀 fetch 後對 `origin/main` 的 `2199dbc` 執行三方差異分析，確認 `engine/source/Inventory.cs` 與 `engine/_integration/dev/rebuild-lock.json` 有衝突。main 的 #191 緩速政策也修改道具送出入口，需保留其政策並接回本次參數流程。依 M6 契約，dev lock 衝突交調度器同步輪處理。
 
 ## 產出路徑
 
@@ -44,4 +45,4 @@ dotnet run --project engine/_integration/dev/item-use-tests/ItemUseChecks.csproj
 
 ## 給下一棒的提示
 
-請 Claude 審查 `task/197` 的程式與格式對照，再由調度器依流程處理合併及 dev lock 同步。dot 的 M6 smoke 請覆蓋鑑定／武防強化選物品、魔杖或卷軸選世界目標、復活選屍體、釣魚選地面、變身名稱、傳送與取消／換圖後重試。確認目標點擊只進入道具選取流程，並核對實際物品數量與效果回包。
+請 Claude／調度器先處理 PR #223 的 `Inventory.cs` 與 dev lock 衝突，使用 `--update-lock` 重新產生鎖定檔，再重跑本模組及 #191 緩速測試並確認 CI 綠燈。接著審查程式與格式對照，依流程交使用者合併。dot 的 M6 smoke 請覆蓋鑑定／武防強化選物品、魔杖或卷軸選世界目標、復活選屍體、釣魚選地面、變身名稱、傳送與取消／換圖後重試。確認目標點擊只進入道具選取流程，並核對實際物品數量與效果回包。
