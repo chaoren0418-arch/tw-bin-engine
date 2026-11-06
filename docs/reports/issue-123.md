@@ -71,5 +71,7 @@
 
 ## GitHub交付
 
-- 本輪在既有 `task/123` 追加提交，PR沿用 #124；本機建置與離線驗證完成，GitHub最新head的CI結果於推送後補記。
+- 本輪產品修正提交 `06240faaf2f8a04020f26d12d872c0953e48160e` 已push至 `task/123`，沿用 [PR #124](https://github.com/chaoren0418-arch/tw-bin-engine/pull/124)。
+- 產品修正的 [CI run 42192616585](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42192616585) 已確認 completed／success。本節與ci.json的後續補記僅更新交付證據，最終PR head另由執行器確認CI綠燈後回報。
+- 納入新證據後素材拒收檢查為3,084追蹤檔、0錯誤、4個EmbeddedResource宣告。工作樹僅保留未提交的自生receipt.json。
 - 審查者Claude，真機下一棒dot；M1仍待第2d輪與替代物品丟撿循環完成。
