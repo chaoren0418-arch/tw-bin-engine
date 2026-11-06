@@ -1,6 +1,6 @@
 # TASKS — tw-bin-engine
 
-更新：2026-11-06（#76 範圍凍結；#99、#110 調整 M3；#128 依使用者節流指示改寫驗證方式與 M2；#162 M2 結案、新增 M4；#177 M4 結案、新增 M5；#186 新增 M6 內容擴充）。格式：`### ID | 狀態 | 負責 | 範圍`。狀態只用 todo／doing／review／done／blocked。
+更新：2026-11-06（#76 範圍凍結；#99、#110 調整 M3；#128 依使用者節流指示改寫驗證方式與 M2；#162 M2 結案、新增 M4；#177 M4 結案、新增 M5；#186 新增 M6 內容擴充；#238 M6 補列 T113–T123）。格式：`### ID | 狀態 | 負責 | 範圍`。狀態只用 todo／doing／review／done／blocked。
 
 **計算規則（凍結）**：
 - 調度台的進度條**只算 `## M*` 區段**；`## Backlog` 只顯示數量，不算進度。
@@ -125,7 +125,7 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 
 ---
 
-## M6 內容擴充（Backlog 升級，使用者 #186 要求）— 主線 13 項，封頂（加上 U8 各職業技能）
+## M6 內容擴充（Backlog 升級，使用者 #186 要求）— 主線 24 項，封頂（#238：U8 兌現 +7、#132 差異補列 +4）
 
 **驗收：使用者打開會看到什麼**：`docs/demo/README.md` 新增「M6 內容擴充」一節。在 M6 smoke（T112）中，下列每一項都有真機截圖，或是 ⚠️ 附原因：
 - 已學的非 1／3／4／8 技能可以施放；範圍法術與其他箭矢有畫面；
@@ -142,19 +142,30 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 
 **做法**：依 `docs/design/m6-contract.md`，各任務只動自己模組的檔案，互不依賴，可以平行派工。佇列中隨時保持至少 5 張可派的 code 任務（使用者 #186）。
 
-### T100 | todo | codex-local | 技能施放通用化（#132 差異 3；B01 的基礎）
-### T101 | todo | codex-local | 法術與箭矢回包分派：S42 範圍法術、S30 多種 action、其他箭矢 gfx（#132 差異 4、5）
-### T102 | todo | codex-local | NPC 出售與私商回購（B05）
-### T103 | todo | codex-local | 地面物品通用化，以及三種停用物品的地面圖（#132 差異 9；B06）
-### T104 | todo | codex-local | 緩速時的道具、地面與交談政策（#132 差異 18；B02）
-### T105 | todo | codex-local | S22 音效、S106 座標特效、S55 變體（#132 差異 13、14；B04 的一部分）
-### T106 | todo | codex-local | 多頻道聊天：喊話、密語、血盟、隊伍（#132 差異 11）
-### T107 | todo | codex-local | 角色建立、刪除、同連線切角（#132 差異 10）
-### T108 | todo | codex-local | buff／狀態圖示（#132 差異 15）
-### T109 | todo | codex-local | 通用道具 use_type 尾段（#132 差異 8）
-### T110 | todo | codex-local | 傳送 recovery wrapper（N+8 bytes）相容（#132 差異 1）
-### T111 | todo | codex-local | 登入密碼字元規則對齊（#132 差異 6）
-### T112 | todo | codex-local → dot | **M6 smoke**：上述合併後，真機跑一次 M6 驗收清單，**連同 M5 剩下的 M2 列**（#206）
+### T100 | done | codex-local | 技能施放通用化（#132 差異 3；B01 的基礎）
+### T101 | doing | codex-local | 法術與箭矢回包分派：S42 範圍法術、S30 多種 action、其他箭矢 gfx（#132 差異 4、5）
+### T102 | review | codex-local | NPC 出售與私商回購（B05）
+### T103 | review | codex-local | 地面物品通用化，以及三種停用物品的地面圖（#132 差異 9；B06）
+### T104 | done | codex-local | 緩速時的道具、地面與交談政策（#132 差異 18；B02）
+### T105 | doing | codex-local | S22 音效、S106 座標特效、S55 變體（#132 差異 13、14；B04 的一部分）
+### T106 | review | codex-local | 多頻道聊天：喊話、密語、血盟、隊伍（#132 差異 11）
+### T107 | review | codex-local | 角色建立、刪除、同連線切角（#132 差異 10）
+### T108 | review | codex-local | buff／狀態圖示（#132 差異 15）
+### T109 | review | codex-local | 通用道具 use_type 尾段（#132 差異 8）
+### T110 | doing | codex-local | 傳送 recovery wrapper（N+8 bytes）相容（#132 差異 1）
+### T111 | review | codex-local | 登入密碼字元規則對齊（#132 差異 6）
+### T113 | todo | codex-local | 王族基本技能（U8；#227）
+### T114 | todo | codex-local | 騎士基本技能（U8；#228）
+### T115 | todo | codex-local | 妖精基本技能（U8；#229）
+### T116 | todo | codex-local | 法師基本技能（U8；#230）
+### T117 | todo | codex-local | 黑暗妖精基本技能（U8；#231）
+### T118 | todo | codex-local | 龍騎士基本技能（U8；#232）
+### T119 | todo | codex-local | 幻術師基本技能（U8；#233）
+### T120 | doing | codex-local | S242 sub2 受擊反應抑制清單（#132 差異 12；#215）
+### T121 | doing | codex-local | 物品 status blob 語義化、權威裝備槽位（#132 差異 17；#216）
+### T122 | todo | codex-local | S206 單參數 overload 變體（#132 差異 16；#217）
+### T123 | todo | codex-local | 本機伺服器原始碼與 P24Lab d287 JAR 的封包類別對照（#132 差異 19；#226）
+### T112 | todo | codex-local → dot | **M6 smoke**：上述合併後，真機跑一次 M6 驗收清單，**連同 M5 剩下的 M2 列**（#206）；T113–T123 也要合併後才開
 
 ---
 
