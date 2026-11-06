@@ -157,6 +157,13 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
         foreach (var v in voices.Values.Where(v => v.Owner == owner).ToArray()) Release(v, events);
         return Reply(!voices.Values.Any(v => v.Owner == owner), "OwnerRetired", events);
     }
+    internal AudioReply Finish(AudioOwner owner)
+    {
+        if (!Current(owner)) return Reply(false, "StaleOrUnknownOwner");
+        // Natural animation completion closes dispatch, but lets submitted WAVs reach EC_COMPLETE.
+        owners[owner.Key] = (owner.Generation, false);
+        return Reply(true, "OwnerDraining");
+    }
     internal AudioReply Poll()
     {
         var events = new List<AudioEvent>();

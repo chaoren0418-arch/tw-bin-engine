@@ -149,9 +149,32 @@ class Checks {
         Check((string)typeof(ClientForm).GetField("playerHudNotice",F)!.GetValue(form)! =="單次施法已送出","pointer cancellation cannot overwrite cast result");
         GC.SuppressFinalize(form);
     }
+    static async Task Movement123(){
+        var keys=new[]{Keys.Home,Keys.Up,Keys.PageUp,Keys.Right,Keys.PageDown,Keys.Down,Keys.End,Keys.Left};
+        var owns=typeof(ClientForm).GetMethod("OwnsGameKeyboardKey",BindingFlags.Static|BindingFlags.NonPublic,null,new[]{typeof(Keys),typeof(bool),typeof(bool)},null)!;
+        for(int h=0;h<8;h++){
+            var input=new InputState();input.Down(keys[h]);Check(input.Direction==h,"eight-key heading "+keys[h]);
+            Check((bool)owns.Invoke(null,new object[]{keys[h],true,true})!,"form owns "+keys[h]);
+            Check(!(bool)owns.Invoke(null,new object[]{keys[h],true,false})! && !(bool)owns.Invoke(null,new object[]{keys[h],false,true})!,"focus protected "+keys[h]);
+            using var c=Seed();int sends=0;byte[]? packet=null;
+            Sender(c,(b,v,a)=>{if(!v())return Task.FromResult(false);sends++;packet=b;a();return Task.FromResult(true);});
+            (int X,int Y)? open=null,blocked=null;
+            for(int y=32920;y<32960 && (open==null||blocked==null);y++)for(int x=32565;x<32610;x++){
+                if(!Coordinates.Inside(x,y))continue;
+                if(MovementRules.Passable(x,y,h))open??=(x,y);else blocked??=(x,y);
+            }
+            Check(open!=null&&blocked!=null,"terrain fixture has open and blocked "+keys[h]);
+            Feed(c,Pack(123,(ushort)blocked!.Value.X,(ushort)blocked.Value.Y));
+            var denied=await c.RequestMovement(h,true,false);
+            Check(!denied.Sent&&sends==0&&denied.Notice.Contains("地形"),"blocked terrain sends no C29 "+keys[h]+" / "+denied.Notice);
+            Feed(c,Pack(123,(ushort)open!.Value.X,(ushort)open.Value.Y));
+            var sent=await c.RequestMovement(input.Direction!.Value,true,false);
+            Check(sent.Sent&&sends==1&&packet![0]==29&&packet[5]==h,"open terrain sends exact C29 heading "+keys[h]);
+        }
+    }
     static async Task<int> Main(string[] args){try{
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY",Path.Combine(Path.GetFullPath(args[0]),"engine","build","offline-checks")+Path.DirectorySeparatorChar);
-        using var guard=new SocketGuard();NativeTargetUi();await Combat();await Magic();await Quantity();await PickupCorrection();Position();
+        using var guard=new SocketGuard();NativeTargetUi();await Movement123();await Combat();await Magic();await Quantity();await PickupCorrection();Position();
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status="pass",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));Console.WriteLine($"PASS {checks} DEMO checks");return 0;
     }catch(Exception ex){Console.Error.WriteLine(ex);return 1;}}
     sealed class SocketGuard:EventListener {protected override void OnEventSourceCreated(EventSource source){if(source.Name=="System.Net.Sockets")EnableEvents(source,EventLevel.LogAlways);}protected override void OnEventWritten(EventWrittenEventArgs e)=>throw new Exception("Network not allowed in offline regression");}

@@ -1,0 +1,33 @@
+[
+  {
+    "name": "lock",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "engine/_integration/dev/rebuild.py",
+      "--update-lock"
+    ],
+    "exitCode": 0,
+    "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": true}\n",
+    "stderr": ""
+  },
+  {
+    "name": "build",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "engine/_integration/dev/rebuild.py",
+      "--build",
+      "--write-receipt",
+      "--output",
+      "scratch/issue-123/rebuild"
+    ],
+    "exitCode": 0,
+    "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": false}\nsdk 0\nproduct-restore 0\nproduct-build 0\nlauncher-restore 0\nlauncher-build 0\nreceipt written D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\receipt.json\nPASS dev {\"productDllSha256\": \"9123df2a105424af14b53d94bb47f06dbd454dfba7e06537b31b9c6be96f7baa\", \"audioDllSha256\": \"f135b5080fb5acab27905d243e3a03fa06bfb7fc941bcf313f8839535abcd63d\", \"productManifestSha256\": \"3afa45385cdedd7f666760b388f0640e561508b49788af9df0937c77250ec03d\", \"launcherDllSha256\": \"222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d\"}\n",
+    "stderr": ""
+  }
+]

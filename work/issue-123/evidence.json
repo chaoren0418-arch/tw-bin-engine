@@ -1,0 +1,240 @@
+{
+  "baseline": "4b8ee9f86285c4797c8638287051b02c2236483d",
+  "historicalAudioLog": {
+    "path": "engine/runs/interactive-24768/audio/combat-sfx.jsonl",
+    "sha256": "f0eab4aeb4090f623cdffd59aa60090e8ced831347a32f5d7e02f4ec3ed08f22",
+    "selectedMagicEvents": [
+      {
+        "utc": "2026-11-06T06:47:05.4085625+00:00",
+        "item": {
+          "Stage": "register",
+          "Key": "magic/1/fly",
+          "SoundId": null,
+          "Frame": null,
+          "Cycle": null,
+          "Reply": {
+            "Success": true,
+            "Status": "Registered",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        }
+      },
+      {
+        "utc": "2026-11-06T06:47:05.5714563+00:00",
+        "item": {
+          "Stage": "play",
+          "Key": "magic/1/fly",
+          "SoundId": 97,
+          "Frame": 1,
+          "Cycle": 0,
+          "Reply": {
+            "Success": true,
+            "Status": "StartedWav",
+            "Playback": "24975e3b-c1de-4f27-a224-9b7685c62161",
+            "RemainingVoices": 1,
+            "Events": [
+              {
+                "Stage": "PlaySubmitted",
+                "Format": "wav",
+                "Detail": "Native command accepted; not proof of audible output",
+                "NativeCode": 0,
+                "NativeEvent": null
+              }
+            ]
+          }
+        }
+      },
+      {
+        "utc": "2026-11-06T06:47:05.6973357+00:00",
+        "item": {
+          "Stage": "retire",
+          "Key": "magic/1/fly",
+          "SoundId": null,
+          "Frame": null,
+          "Cycle": null,
+          "Reply": {
+            "Success": true,
+            "Status": "OwnerRetired",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        }
+      },
+      {
+        "utc": "2026-11-06T06:47:05.6975175+00:00",
+        "item": {
+          "Stage": "register",
+          "Key": "magic/1/impact",
+          "SoundId": null,
+          "Frame": null,
+          "Cycle": null,
+          "Reply": {
+            "Success": true,
+            "Status": "Registered",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        }
+      },
+      {
+        "utc": "2026-11-06T06:47:06.1174233+00:00",
+        "item": {
+          "Stage": "retire",
+          "Key": "magic/1/impact",
+          "SoundId": null,
+          "Frame": null,
+          "Cycle": null,
+          "Reply": {
+            "Success": true,
+            "Status": "OwnerRetired",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        }
+      },
+      {
+        "utc": "2026-11-06T06:50:08.1869059+00:00",
+        "item": {
+          "Stage": "register",
+          "Key": "magic/2/fly",
+          "SoundId": null,
+          "Frame": null,
+          "Cycle": null,
+          "Reply": {
+            "Success": true,
+            "Status": "Registered",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        }
+      },
+      {
+        "utc": "2026-11-06T06:50:08.1873087+00:00",
+        "item": {
+          "Stage": "play",
+          "Key": "magic/2/fly",
+          "SoundId": 97,
+          "Frame": 1,
+          "Cycle": 0,
+          "Reply": {
+            "Success": false,
+            "Status": "DispatchSuppressed",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        }
+      },
+      {
+        "utc": "2026-11-06T06:50:08.3639892+00:00",
+        "item": {
+          "Stage": "retire",
+          "Key": "magic/2/fly",
+          "SoundId": null,
+          "Frame": null,
+          "Cycle": null,
+          "Reply": {
+            "Success": true,
+            "Status": "OwnerRetired",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        }
+      },
+      {
+        "utc": "2026-11-06T06:50:08.3641894+00:00",
+        "item": {
+          "Stage": "register",
+          "Key": "magic/2/impact",
+          "SoundId": null,
+          "Frame": null,
+          "Cycle": null,
+          "Reply": {
+            "Success": true,
+            "Status": "Registered",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        }
+      },
+      {
+        "utc": "2026-11-06T06:50:08.9385881+00:00",
+        "item": {
+          "Stage": "retire",
+          "Key": "magic/2/impact",
+          "SoundId": null,
+          "Frame": null,
+          "Cycle": null,
+          "Reply": {
+            "Success": true,
+            "Status": "OwnerRetired",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        }
+      },
+      {
+        "utc": "2026-11-06T06:57:31.8062994+00:00",
+        "item": {
+          "Stage": "register",
+          "Key": "magic/3/impact",
+          "SoundId": null,
+          "Frame": null,
+          "Cycle": null,
+          "Reply": {
+            "Success": true,
+            "Status": "Registered",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        }
+      },
+      {
+        "utc": "2026-11-06T06:57:32.3666817+00:00",
+        "item": {
+          "Stage": "retire",
+          "Key": "magic/3/impact",
+          "SoundId": null,
+          "Frame": null,
+          "Cycle": null,
+          "Reply": {
+            "Success": true,
+            "Status": "OwnerRetired",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        }
+      }
+    ]
+  },
+  "wav97": {
+    "sha256": "2e8661cc26238e422b3233509ba24ae11b3440d8c1d74666cb5c842e7de6f1a7",
+    "rate": 22050,
+    "frames": 23645,
+    "seconds": 1.0723356009070295
+  },
+  "sourceSha256": {
+    "engine/source/WebPanel.cs": "ec93c8db571965781a6a1ce27bcf84bee346f36e948bc439fad5f1a08a3df1f7",
+    "engine/source/WebIconResource.cs": "f490c7f61da5cb33e870fd6219a70ae4ad2640ed0e2558386e4621ddf4dfe822",
+    "engine/source/WebLocalResource.cs": "26ce00c976d7a7b9337608cd6e0d825724b0c25c0317c0c166417fcb46942a76",
+    "engine/source/CombatSfxScene.cs": "9d2ad989bfb66d36d34a0a85a1c7529e6f3c470f0b344a4e0228b8b58e0cb333",
+    "engine/source/CombatSfx.cs": "a597b6c82d7ec490544de272ade5d498af1bce5b94494f6aad10678c18ee646b",
+    "engine/source/OnlineInput.cs": "9d1add3b53178d67d97c49179960aab50c2da543325ff3fda843d3f873836c6d",
+    "engine/source/OnlineMovement.cs": "06dcdf10187a401a3d189c8f57808f1622cb15096ae26736c4c7352144b01fd0",
+    "engine/source/KeyboardNavigation.cs": "a14571c5746777373cda58022e1374b256ba8f342c00b45d578181e7a4ea8a99",
+    "engine/audio/AudioCore.cs": "f40f35b352e9ae8c9215115f669fdbbc53845ff3432c353a70f9e302078a630d",
+    "engine/audio/AudioPlayer.cs": "42e98e2d5d3ea3f97494ff801ebbab3c70c1fe63301538e780a8c468d4959611",
+    "engine/audio/SilentAudioSession.cs": "f8f7c0703d4b169008bdcf88e7da64657ab096b57b25367c8b37ce6d23c0a761"
+  }
+}

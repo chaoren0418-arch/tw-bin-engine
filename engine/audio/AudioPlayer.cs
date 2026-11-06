@@ -6,6 +6,7 @@ namespace P24.Audio;
 public sealed class AudioPlayer : IAsyncDisposable, IAudioPlayback
 {
     readonly AudioCore core;
+    readonly IAudioSessionLifetime? session;
     readonly BlockingCollection<Action> queue = new();
     readonly object gate = new();
     readonly TaskCompletionSource released = new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -22,9 +23,9 @@ public sealed class AudioPlayer : IAsyncDisposable, IAudioPlayback
     public AudioReply LastMaintenance => Volatile.Read(ref maintenance);
     public Task WhenReleased => released.Task;
 
-    AudioPlayer(AudioCore core)
+    AudioPlayer(AudioCore core, IAudioSessionLifetime? session = null)
     {
-        this.core = core;
+        this.core = core;this.session=session;
         var thread = new Thread(Work) { IsBackground = true, Name = "P24 audio transport" };
         thread.SetApartmentState(ApartmentState.MTA);
         thread.Start(); // No device/DLL access until an approved Play reaches native open.
@@ -43,11 +44,11 @@ public sealed class AudioPlayer : IAsyncDisposable, IAudioPlayback
         catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or FormatException or System.Text.Json.JsonException or InvalidOperationException or KeyNotFoundException)
         { error = ex.Message; return false; }
     }
-    internal static AudioPlayer ForTests(AudioCore core) => new(core);
+    internal static AudioPlayer ForTests(AudioCore core, IAudioSessionLifetime? session=null) => new(core,session);
     public static AudioPlayer CreateCombat(string clientRoot, int capacity = 32)
     {
         if (capacity is < 1 or > 1024) throw new ArgumentOutOfRangeException(nameof(capacity));
-        return new(new AudioCore(AudioAssets.LoadCombat(clientRoot), new DirectShowDriver(() => new WindowsPlaybackGraph()), capacity));
+        return new(new AudioCore(AudioAssets.LoadCombat(clientRoot), new DirectShowDriver(() => new WindowsPlaybackGraph()), capacity),new SilentAudioSession());
     }
     Task<AudioReply> Enqueue(Func<AudioReply> action)
     {
@@ -99,7 +100,12 @@ public sealed class AudioPlayer : IAsyncDisposable, IAudioPlayback
             if (!AudioGain.Valid(normalizedGain)) return Task.FromResult(new AudioReply(false, "InvalidGain", null, LastMaintenance.RemainingVoices, []));
             var next = new DispatchState(new(normalizedGain, masterMuted, dispatchEnabled), dispatch.Revision + 1);
             Volatile.Write(ref dispatch, next); // Immediately invalidate queued/in-flight not-yet-run plays, even across mute -> unmute.
-            return Queue(() => core.Configure(next.Controls));
+            return Queue(() => {
+                var reply=core.Configure(next.Controls);
+                // Lifetime is independent of mute/gain and individual voice reclamation.
+                if(next.Controls.DispatchEnabled && session!=null && !session.IsOpen)session.Start();
+                return reply;
+            });
         }
     }
     public Task<AudioReply> PlayAsync(int fullSoundId, AudioOwner owner)
@@ -113,6 +119,17 @@ public sealed class AudioPlayer : IAsyncDisposable, IAudioPlayback
                 return Rejected("StaleOrUnknownOwner");
             return Queue(() => core.Play(fullSoundId, owner, () =>
                 ReferenceEquals(Volatile.Read(ref dispatch), requested) && OwnerStillCurrent(owner.Key, ownerFence)));
+        }
+    }
+    public Task<AudioReply> FinishAsync(AudioOwner owner)
+    {
+        lock(gate)
+        {
+            if(!accepting)return Rejected("Disposed");
+            if(owner.Key==null||!ownerFences.TryGetValue(owner.Key,out var fence)||!fence.Active||fence.Generation!=owner.Generation)
+                return Rejected("StaleOrUnknownOwner");
+            ownerFences[owner.Key]=new(owner.Generation,false);
+            return Queue(()=>core.Finish(owner));
         }
     }
     public Task<AudioReply> StopAsync(AudioOwner owner, Guid playback) => Enqueue(() => core.Stop(owner, playback));
@@ -147,7 +164,11 @@ public sealed class AudioPlayer : IAsyncDisposable, IAudioPlayback
         while (true)
         {
             if (queue.TryTake(out var action, (int)Math.Clamp(next - Environment.TickCount64, 0, 1000))) action();
-            if (core.Closing && core.Count == 0) break;
+            if (core.Closing) {
+                try { session?.Stop(); }
+                catch(Exception ex) { Volatile.Write(ref maintenance,new(false,"SessionCleanupPending",null,core.Count,[new("SessionStop","pcm",ex.Message)])); }
+                if(core.Count==0 && !(session?.IsOpen??false))break;
+            }
             if (Environment.TickCount64 >= next)
             {
                 try { Volatile.Write(ref maintenance, core.Poll()); }

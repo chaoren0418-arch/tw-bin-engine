@@ -81,17 +81,24 @@ public sealed class CombatSfxScene(string assetsRoot)
                     flight = (MagicMotion.At(effect, x, y, release, release).Direction, release, impact);
                     flights[effect.Number] = flight;
                 }
-                if (now < flight.Impact)
-                {
-                    action = "fly"; direction = flight.Direction; start = flight.Release; end = flight.Impact;
-                    schedule = Schedule(Magic(167), action, direction, flight: true);
-                }
-                else
-                {
-                    gfx = 219; action = "impact"; start = flight.Impact;
-                    schedule = Schedule(Magic(219), action, 0, pure: true);
-                    end = start + (long)Math.Ceiling(schedule.Duration);
-                }
+                // Retain the launch schedule through the impact window. A near target may
+                // arrive on the very first step, or a UI tick may miss the whole flight.
+                var flying=Schedule(Magic(167),"fly",flight.Direction,flight:true);
+                var impactSchedule=Schedule(Magic(219),"impact",0,pure:true);
+                long windowEnd=flight.Impact+(long)Math.Ceiling(impactSchedule.Duration);
+                var frames=new List<SoundFrame>();
+                double flightMs=Math.Max(1,flight.Impact-flight.Release);
+                for(double cycle=0;cycle<flightMs;cycle+=flying.Duration)
+                    foreach(var frame in flying.Frames)
+                        if(cycle+frame.At<flightMs)frames.Add(frame with {At=cycle+frame.At});
+                int worldEpoch=session.WorldEpoch;
+                bool Valid()=>session.WorldEpoch==worldEpoch && Owner(session,effect.Caster)==owner &&
+                    (effect.Target==0 || Owner(session,effect.Target)!=null);
+                result.Add(new($"magic/{effect.Number}/fly",effect.Number,effect.Caster,
+                    owner.Value.Gfx,owner.Value.Weapon,flight.Release,windowEnd,
+                    new(frames.ToArray(),flightMs,false)){DrainOnEnd=true,StillValid=Valid});
+                if(now<flight.Impact)continue;
+                gfx=219;action="impact";start=flight.Impact;schedule=impactSchedule;end=windowEnd;
             }
             else
             {
