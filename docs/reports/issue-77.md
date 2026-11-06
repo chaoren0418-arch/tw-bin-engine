@@ -418,3 +418,111 @@ Java PID14908 於 `2026-11-05T21:35:23.4065807Z` 經 PID／路徑／啟動時間
 | [demo3-10-meat-ground.png](../demo/demo3-10-meat-ground.png) | 451253 | `ec52ef8f05020f20663988c1b5c824a8f45d52fa7cccd464255e1bdee3c90b6d` |
 | [demo3-10-meat-ground-list.png](../demo/demo3-10-meat-ground-list.png) | 443733 | `0eb5353cafce43d48d1e1a7001dcfa0da9944f0181028d336a3790f4a9e840bc` |
 | [demo3-12-chat.png](../demo/demo3-12-chat.png) | 439994 | `67ea1d6b7144c74857f9d0b89d684d94bb4e904058d8e2a99e29c3f76e52ef39` |
+
+## 第 2c-a 輪：主專案同步與 dev 建置（2026-11-06）
+
+**已驗證：本輪完成，可交主控重排 dot 第 2c-b 輪；M1 真機驗收仍未完成。** 在主專案 `D:\lineage開發\TW1608262200研究` 同步含 T063／T035 的 main，完整建置 dev、寫入 receipt，入口只執行 `--check-only`。本輪只新增本節；前輪 demo 頁、截圖及報告原樣保留。
+
+### 來源與分支交接
+
+- 初始分支 `task/102`；`git status --porcelain --untracked-files=no` 退出 0、無輸出。
+- `git fetch origin` → `git checkout main` → `git merge --ff-only origin/main` 均退出 0。建置 HEAD：`4b8ee9f86285c4797c8638287051b02c2236483d`。
+- HEAD 包含 PR #118：`f54113430bd8f10b11d421463044838a8744f6c7`；PR #116：`08f32708bc58146f32a47592ce13a67fd6e53c11`。合併後以 `git merge-base --is-ancestor <commit> HEAD` 核對，兩項均退出 0。
+- 依本輪詳細要求保留 `task/77@2a76acc870d0c5f066faeed207e205c8639a4c31`，沒有使用通用前言的 `checkout -B` 重設前輪歷史。
+- 該分支原掛在 `scratch/wt/task-77-resumed2b`；確認追蹤檔乾淨後，執行 `git -C scratch/wt/task-77-resumed2b checkout --detach HEAD`（0），留在原 commit，未刪除 worktree。
+- 首次 `git checkout task/77` 退出 1：主目錄有 15 張同名未追蹤 `demo3-*.png`。逐張比對 `git hash-object` 與 `task/77:<path>`，全部相同；將原檔移存 `scratch/issue-77/preexisting-demo/`，SHA-256／blob 清單保存在該目錄 `evidence.json`。沒有刪檔、reset 或 stash。
+- 再次 `git checkout task/77`、`git merge --no-edit origin/main` 均退出 0，無衝突；merge commit：`ac06bfdcfa350088c83e26b88f02a2a572d8416c`。為避免分支切換覆蓋報告，在 merge 完成後才追加本節。
+- `git diff --exit-code origin/main -- engine docs/REPORT.md` 退出 0。分支相對 main 只保留 #77 的報告、demo 頁與前輪截圖，產品與 lock 完全相同；未自行修改 `docs/REPORT.md`。
+
+### 指令、退出碼與產物
+
+一般命令執行環境最初初始化失敗，改用已授權的本機執行環境。首次呼叫 `python` 時 PATH 找不到命令，Python 尚未執行，不能把該次 shell 的 0 當成建置成功。以 `py -0p`（0）找到既有 Python 3.12，僅調整本次程序 PATH；沒有安裝工具或更改全域設定。
+
+```powershell
+$ErrorActionPreference = 'Stop'
+$env:PATH = 'C:\Users\CHAOREN\AppData\Local\Programs\Python\Python312;' + $env:PATH
+$env:NUGET_PACKAGES = Join-Path (Get-Location) 'engine/.nuget'
+python -B -X utf8 engine/_integration/dev/rebuild.py --build --write-receipt --output scratch/issue-77/rebuild-2c
+& '.\engine\啟動新版客戶端.cmd' --check-only
+# 分支 merge 後再核對來源、manifest 與 receipt：
+python -B -X utf8 engine/_integration/dev/rebuild.py --verify --output scratch/issue-77/rebuild-2c/verify-after-merge
+```
+
+| 檢查 | 退出碼／結果 |
+|---|---|
+| dev 建置命令 | 0；169 個來源／178 個 pins，writes=false，PASS dev |
+| sdk／product-restore／product-build／launcher-restore／launcher-build | 各 0；SDK 10.0.300 |
+| 主程式建置 | 2 警告、0 錯誤；`MagicUi.cs(20,62)` 的 CS8600、CS8602；本輪未修產品程式 |
+| launcher 建置 | 0 警告、0 錯誤 |
+| engine 入口 --check-only | 0；revision=dev，uiStarted/networkStarted/servicesStarted=false |
+| merge 後 --verify | 0；PASS dev，DLL 身分不變 |
+| `Test-Path -LiteralPath engine/assets/inventory -PathType Container` | True；T035 的本機圖示目錄存在，尚不代表實際圖示顯示已驗收 |
+
+產物身分（SHA-256）：
+
+| 路徑 | SHA-256 |
+|---|---|
+| `engine/build/client-product-dev/P11.ClientEngine.dll` | `37cd8201f6ad631f70915a8314d19d0ec4ca0cb28dbd524169937d5d23930174` |
+| `engine/build/client-product-dev/P24.Audio.dll` | `c64a38a8165f5651a331c19cf580e64d0e59541d060aeebb69c71941bb04b52d` |
+| `engine/build/product-dev-manifest.json` | `44164613584da833a0e53e721ce3a1957315701b94616a6d43067afc46d78a3a` |
+| `engine/launcher/P24.Launcher.dll` | `222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d` |
+
+以上與 #115 第 3 次嘗試記錄的產品 DLL／manifest 相同。Receipt 寫入 `engine/_integration/dev/receipt.json`，builtAt 為 `2026-11-06T03:54:41.818026+00:00`。主程式留既定 `engine/build/client-product-dev/`，launcher 留既定 `engine/launcher/`，中間產物留各專案 `obj/`／`bin/`。命令紀錄、stdout／stderr、result.json、退出碼及環境暫存留 `scratch/issue-77/rebuild-2c/`，未搬移遊戲資源。
+
+入口完整 JSON（原始輸出保存在 `scratch/issue-77/rebuild-2c/check-only.json`）：
+
+```json
+{
+  "status": "checked-only",
+  "revision": "dev",
+  "executable": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\engine\\build\\client-product-dev\\P11.ClientEngine.exe",
+  "workingDirectory": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\engine",
+  "arguments": [
+    "--normal-product"
+  ],
+  "manifest": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\engine\\build\\product-dev-manifest.json",
+  "manifestSha256": "44164613584da833a0e53e721ce3a1957315701b94616a6d43067afc46d78a3a",
+  "hashedRuntimeAndWebFiles": 24,
+  "assetFilesCheckedForPresenceAndSize": 13957,
+  "assetContentVerification": "Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.",
+  "runtime": {
+    "architecture": "x64",
+    "loadedCoreVersion": "10.0.8",
+    "loadedCoreDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\10.0.8\\",
+    "desktopVersion": "10.0.8",
+    "desktopDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.WindowsDesktop.App\\10.0.8"
+  },
+  "webView2Version": "156.0.4314.58",
+  "powerShellRequired": false,
+  "pathLookupUsed": false,
+  "autoLogin": false,
+  "uiStarted": false,
+  "networkStarted": false,
+  "servicesStarted": false
+}
+```
+
+建置結果 JSON：
+
+```json
+{
+  "status": "pass-dev-build",
+  "sourceFiles": 169,
+  "GUI": false,
+  "network": false,
+  "database": false,
+  "productDllSha256": "37cd8201f6ad631f70915a8314d19d0ec4ca0cb28dbd524169937d5d23930174",
+  "audioDllSha256": "c64a38a8165f5651a331c19cf580e64d0e59541d060aeebb69c71941bb04b52d",
+  "productManifestSha256": "44164613584da833a0e53e721ce3a1957315701b94616a6d43067afc46d78a3a",
+  "launcherDllSha256": "222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d"
+}
+```
+
+### 未驗證與給下一棒的提示
+
+- 本輪沒有執行原生遊戲、P24Lab、MySQL、伺服器或任何 DB 操作；未連正式服務，未操作機密設定、封存、素材 junction 或原 BIN。沒有新增真機截圖、音量或遊戲功能通過結論。
+- 兩個 nullable 警告是本次實際編譯輸出，需如實保留；建置成功與 check-only 不等於 M1 完成。本輪不重跑 #115 已交付的離線功能斷言。
+- **下一棒為主控／調度器：**審查本報告後，將 #77 runner 改為 dot，重排第 2c-b 輪；繼續維持主目錄 checkout／commit／建置互斥。主目錄交付停在 `task/77`，使用本節的建置 HEAD 與 DLL SHA 辨識產物。
+- **dot：**只補尚未通過列，依 [RUN.md](../demo/RUN.md) 及 [#115「給 dot 第2c輪的操作步驟」](issue-115.md)。普通肉 40056 須向 NPC 合法購足至少 11 個；買不到就記取得受阻，不補 DB、不改白名單、不吃肉。拾取數量錯誤改正後直接送出，不重新選取；舊錯誤文案殘留時依 trace 判定是否送出。
+- 補齊近戰 EXP、光箭 MP／效果、非滿血治癒與藥水、數量錯誤、1／10 丟撿循環、原服權威座標、攻擊與施法音量、T035 圖示／地面／音訊。demo 頁的 HEAD／DLL SHA 及成功標記留待 dot 依真機證據更新；原有第 2b 輪證據不能當成此 DLL 的真機結果。
+- 本節為可追蹤交付報告；scratch 是本機原始紀錄，必要的 JSON、退出碼與 SHA 已內嵌本節，交付結論不依賴 scratch 永久保留。
