@@ -1,0 +1,110 @@
+{
+  "status": "pass",
+  "scope": "\u552F\u8B80\u6B63\u5F0F OriginalMapCache\uFF1B\u672A\u958B\u555F\u904A\u6232\uFF0FUI\uFF0F\u7DB2\u8DEF",
+  "steps": 57,
+  "shifts": 0,
+  "pandoraBuyOption": true,
+  "end": [
+    32644,
+    32951
+  ],
+  "cache": {
+    "mapId": 0,
+    "bounds": {
+      "MinX": 32256,
+      "MinY": 32768,
+      "MaxX": 32767,
+      "MaxY": 33279,
+      "Width": 512,
+      "Height": 512
+    },
+    "origin": [
+      32384,
+      32896
+    ],
+    "revision": 1,
+    "lastDirection": null,
+    "slots": [
+      {
+        "slot": 0,
+        "block": "7ffd8002",
+        "sha256": "a7e3e584202ddb9221fe6cd5042190486651f4a71db7e056b5e161bf31b30239",
+        "generation": 4,
+        "effects": [],
+        "effectsAt": -1
+      },
+      {
+        "slot": 1,
+        "block": "7ffe8002",
+        "sha256": "b15c05883cfe65a1e2c11f6b2af18e51f086b8d6dfcc185c93c655c3490eed1d",
+        "generation": 3,
+        "effects": [],
+        "effectsAt": -1
+      },
+      {
+        "slot": 2,
+        "block": "7ffd8003",
+        "sha256": "23ad0e1ef9001c6e331a3425e5a1faa410d3cf4a8e5d9425f38daa85c22e7e3a",
+        "generation": 2,
+        "effects": [],
+        "effectsAt": -1
+      },
+      {
+        "slot": 3,
+        "block": "7ffe8003",
+        "sha256": "325c1c59b36be74fec48bb69703f09ef26a68ebe7226f720aa3be6db32abb289",
+        "generation": 1,
+        "effects": [],
+        "effectsAt": -1
+      }
+    ],
+    "nodes": 45837,
+    "loads": 4,
+    "tileDecodes": 18214,
+    "events": [
+      {
+        "kind": "load",
+        "slot": 3,
+        "block": "7ffe8003",
+        "source": "325c1c59b36be74fec48bb69703f09ef26a68ebe7226f720aa3be6db32abb289",
+        "generation": 1
+      },
+      {
+        "kind": "load",
+        "slot": 2,
+        "block": "7ffd8003",
+        "source": "23ad0e1ef9001c6e331a3425e5a1faa410d3cf4a8e5d9425f38daa85c22e7e3a",
+        "generation": 2
+      },
+      {
+        "kind": "load",
+        "slot": 1,
+        "block": "7ffe8002",
+        "source": "b15c05883cfe65a1e2c11f6b2af18e51f086b8d6dfcc185c93c655c3490eed1d",
+        "generation": 3
+      },
+      {
+        "kind": "load",
+        "slot": 0,
+        "block": "7ffd8002",
+        "source": "a7e3e584202ddb9221fe6cd5042190486651f4a71db7e056b5e161bf31b30239",
+        "generation": 4
+      },
+      {
+        "kind": "cold",
+        "x": 32600,
+        "y": 32940,
+        "origin": [
+          32384,
+          32896
+        ],
+        "order": [
+          3,
+          2,
+          1,
+          0
+        ]
+      }
+    ]
+  }
+}
