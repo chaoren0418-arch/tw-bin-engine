@@ -35,7 +35,7 @@ U 的多數是歷史工作紀錄及 JSON；本輪完整列舉、hash 與結構�
 | 新增路徑 | 分類 | 用途 |
 |---|---|---|
 | `docs/reports/issue-102.md` | M：本輪工程查核報告 | 完整逐路徑帳冊與後續規格；不重刊像素、音訊、封包 hex 或秘密值。不列本檔自身 SHA，避免自我雜湊循環；交付 commit 識別其版本。 |
-| `scratch/issue-102/audit.py` | C：必要唯讀驗證腳本 | 依本任務允許的 scratch 腳本交付範圍，單檔明確加入 Git；其餘 scratch 產出／worktree 一律不提交。SHA-256 `b459c0de25d97ee0e1af81abddbac923156398c2bf8c09b8fcb85314ee940d1c`。 |
+| `scratch/issue-102/audit.py` | C：必要唯讀驗證腳本 | 本機 scratch，未提交。第 2 次修正依審查要求移出 Git 並保留本機檔案，修正後交付樹僅新增本報告；前述新增兩檔為首次交付狀態。SHA-256 `b459c0de25d97ee0e1af81abddbac923156398c2bf8c09b8fcb85314ee940d1c`。 |
 
 本機重現命令（來源 worktree 固定在上述 commit；先查看腳本，不執行研究工具）：
 
