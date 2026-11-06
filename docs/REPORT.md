@@ -79,3 +79,4 @@
 - 2026-11-07 — #199 T111：登入密碼字元規則對齊伺服器（code，codex-local，PR 已合併）→ [報告](reports/issue-199.md)
 - 2026-11-07 — #189 T102：NPC 出售與私商回購（code，codex-local，PR 已合併）→ [報告](reports/issue-189.md)
 - 2026-11-07 — #228 T114：騎士基本技能（code，codex-local，PR #250 已合併）→ [報告](reports/issue-228.md)
+- 2026-11-07 — #227 T113：王族基本技能（code，codex-local，PR #249 已合併）→ [報告](reports/issue-227.md)
