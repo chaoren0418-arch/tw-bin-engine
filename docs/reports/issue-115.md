@@ -4,7 +4,7 @@
 
 ## 已驗證
 
-四項產品修正完成，最終 Windows dev 建置、check-only 與 **9,334 項離線斷言**通過。真機第2c輪仍待dot；第5項即時白名單／販售庫存受禁止讀DB限制，僅交付唯讀JAR條件、已有成功證據的普通肉候選及排除清單。
+四項產品修正完成，最終 Windows dev 建置、check-only 與 **9,336 項離線斷言**通過。真機第2c輪仍待dot；第5項即時白名單／販售庫存受禁止讀DB限制，僅交付唯讀JAR條件、已有成功證據的普通肉候選及排除清單。
 
 1. `OnlineInput.cs:9`：G 是攻擊鍵；`Program.cs:98`、`KeyboardNavigation.cs:6` 要求表單焦點。`PlayerPointerUi.cs:15–26` 依實際不透明像素命中選取，未命中會走地面。`Combat.cs:87–108` 不限制本地攻擊距離，但要求有效目標、存活、速度外觀可用、動作閘門與目標座標一致；目標移動於排隊期間會拒絕且未更新提示。`OnlineInput.cs:9` 不把攻擊結果帶入玩家 HUD。#77 截圖沒有已選取黃圈，不能只靠 opcode trace 判定當時是哪個 guard。修正方向：具體拒絕訊息與 HUD 回饋、選取成功提示；保留既有閘門，不盲目追擊。
 2. `MagicTargetPreparation.cs:20` 明示 test controller only，與正式 UI 無關。`Magic.cs:22–25,65–77` 光箭自動要求敵方目標；`MagicUi.cs:18` 原生下拉僅切自己／目前對象，沒有可見敵人清單。`PlayerHudView.cs:146` 光箭的目標模式按鈕停用，未清楚指示先點場景目標。web 已有可見像素清單，但每次 HP／MP 變動會重建下拉。修正方向：原生可見目標下拉、明確目標提示、web 下拉只在選項變動時重建。
@@ -24,7 +24,7 @@
 
 | 項目 | 修正與證據 | 離線回歸 |
 |---|---|---|
-| 近戰 | `Combat.cs:87` 起維持原有 `AttackCore` 閘門，明確區分未選取、忙碌與排隊期間目標移動。`OnlineInput.cs` 的 G 將結果顯示到 HUD；`PlayerPointer.cs` 選取後顯示 ID 與操作方式，滑鼠拒絕也有訊息。G／web「單次攻擊」／雙擊或 Ctrl＋左鍵皆是單次攻擊；沒有自動追擊。程式沒有本地距離上限，是否命中仍由原服判斷，測試請先走近至相鄰格。 | 真正產品 DLL 的 Attack／PointerAttack 經記憶體 sender 產生 C229，目標 ID 正確；目標在最終送出檢查前移動時不送並顯示原因，再手動按一次使用新座標；冷卻、死亡／移除等保護不放寬。 |
+| 近戰 | `Combat.cs:87` 起維持原有 `AttackCore` 閘門，明確區分未選取、忙碌與排隊期間目標移動。`OnlineInput.cs` 的 G 將結果顯示到 HUD（先消化ClearInput產生的舊滑鼠取消提示，避免覆蓋本次結果；目標改選後不寫回舊結果）；`PlayerPointer.cs` 選取後顯示 ID 與操作方式，滑鼠拒絕也有訊息。G／web「單次攻擊」／雙擊或 Ctrl＋左鍵皆是單次攻擊；沒有自動追擊。程式沒有本地距離上限，是否命中仍由原服判斷，測試請先走近至相鄰格。 | 真正產品 DLL 的 Attack／PointerAttack 經記憶體 sender 產生 C229，目標 ID 正確；目標在最終送出檢查前移動時不送並顯示原因，再手動按一次使用新座標；冷卻、死亡／移除等保護不放寬。 |
 | 光箭 | `Magic.cs` 的技能4本來就用目前目標，不是點「自己」模式切換。`MagicUi.cs:9` 起新增「可見施法目標」清單，和 web 使用相同實際像素可見性及存活／外觀檢查；清單開啟時不重建。`PlayerHudView.cs` 顯示先點場景敵人的說明；web 清單不再因 HP／MP／訊息變化重建選項。`MagicTargetPreparation.cs` 沒有修改，因為它是測試準備器。 | 真正 CastSelectedMagic 送 C6、skill4 編碼與敵方 ID／座標；移動時拒絕有訊息、手動重試成功、MP不預扣。另以實際 ComboBox 呼叫產品 `SyncMagicEnemies`，測空清單、可見目標、選項保留與死亡排除；未建構／顯示遊戲表單。 |
 | 數量 | `GroundCatalog.cs` 新增共用拒絕回饋，清除 `LastServerMessage`／`LastServerReply`，丟棄錯誤同步寫入 `ItemNotice`；`GroundUi.cs` 丟棄後刷新背包。內容版本不變，錯誤不會讓物品快照失效。web 本機錯誤保留至重新選取或有效提交，不被忙碌狀態重繪覆蓋。 | 先餵 S71/125，再送0／超額／負數／溢位／空字串：0筆C25，舊125清空、背包及地面錯誤一致、物品數量／內容版本不變；實際 panel.js 重繪測試另驗畫面文字。 |
 | 權威座標 | `OnlineMovement.cs:19` 起新增獨立 map／x／y、回包opcode、遞增序號與「移動後尚無位置回包」標記。只在自身S87／S10更新；S10使用該回包的來源格加方向推導伺服器目的格，不使用Actor預測座標。換圖／登出清空。`panel.js` 的頂部座標與世界區塊分開顯示原服座標和畫面預測；HUD標題也附權威字串，窄視窗以診斷面板完整字串為準。 | S87、自己S10八方向、其他角色S10、本地Predict、換圖、重登／重置；web狀態事件中故意讓預測999／999與權威32600／32940不同，畫面採權威值。 |
@@ -92,19 +92,19 @@
 | dev --update-lock／--build／--verify | 全部exit0，190來源／199 pins，PASS dev |
 | 主程式／launcher／四個離線宿主建置 | 全部0警告、0錯誤 |
 | engine\啟動新版客戶端.cmd --check-only | exit0，revision=dev，uiStarted/networkStarted/servicesStarted=false |
-| DemoChecks | 69 項（含實際ComboBox方法） |
+| DemoChecks | 71 項（含實際ComboBox方法） |
 | DEMO panel.js | 16 項 |
 | 原 GroundChecks／ground web | 361／72 項 |
 | 原 CombatSfxChecks | 8,780 項／7組，不播放音效 |
 | 原 PacketTraceChecks | 36 項 |
-| 總計 | **9,334** 項 |
+| 總計 | **9,336** 項 |
 | git diff --check（cr-at-eol） | 通過 |
 
 完整命令、exit code、stdout/stderr及check-only JSON見 [validation.json](../../work/issue-115/validation.json)；個別斷言結果同目錄。最終身分：
 
-- `engine/build/client-product-dev/P11.ClientEngine.dll` SHA-256 `0d973cb69ffa2eff63a9918fc795e11b644f83d8e12200d7021065879745280f`。
-- `engine/build/product-dev-manifest.json` SHA-256 `833d5d08a3bea0415ce7a724e193dadb2db405e04d4c373c6f2508a7e7d514d5`。
-- `engine/_integration/dev/rebuild-lock.json` SHA-256 `31b89a2e375dbb29ee960cc58096704194b2ec2963d3a0e0b833bc8143dbd577`。
+- `engine/build/client-product-dev/P11.ClientEngine.dll` SHA-256 `5953dae58a5f0aad5b8c912d1bf663024380dcc8f9447003d0c62187187b663e`。
+- `engine/build/product-dev-manifest.json` SHA-256 `6b6d463f87a064cb7dbb7cd7397bd25ab5be5a6fc04b3eeaed9b56629e3a1c5e`。
+- `engine/_integration/dev/rebuild-lock.json` SHA-256 `aa987a6ba50df785bd54d221c1944128e6b0cefb15d99ed3cc75b68c4b7b1ecd`。
 
 重現時在本任務工作樹根目錄，沿用本機SDK10.0.300、Python3.12、Node。先將TEMP／TMP、DOTNET_CLI_HOME、NUGET_PACKAGES、NUGET_HTTP_CACHE_PATH、NUGET_SCRATCH設到該工作樹scratch子目錄，停用telemetry與首次certificate生成。素材／vendor使用工作樹的唯讀引用；不搬素材、不建置主目錄。以下每一步非0就停止：
 

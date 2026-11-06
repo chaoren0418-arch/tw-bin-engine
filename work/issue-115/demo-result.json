@@ -1,12 +1,14 @@
 {
   "status": "pass",
-  "checks": 69,
+  "checks": 71,
   "scope": "\u672C\u6B21\u7522\u54C1 DLL\uFF1B\u5408\u6210\u5C01\u5305\u8207\u8A18\u61B6\u9AD4 sender\uFF1B\u975E\u771F\u6A5F",
   "labels": [
     "native empty target list initializes safely",
     "native list selects visible enemy object id",
     "native unchanged list preserves options",
     "native dead target filtered",
+    "pointer cancellation cannot overwrite attack result",
+    "pointer cancellation cannot overwrite cast result",
     "pointer selection feedback False",
     "selected target attack admitted False",
     "one C229 target id False",

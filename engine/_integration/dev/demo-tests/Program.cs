@@ -102,6 +102,11 @@ class Checks {
         Call(form,"SyncMagicEnemies");Check(list.Items.Count==2&&list.SelectedIndex==1,"native list selects visible enemy object id");
         object option=list.Items[1]!;Call(form,"SyncMagicEnemies");Check(ReferenceEquals(option,list.Items[1]),"native unchanged list preserves options");
         Feed(c,Pack(456,32601,32940,8));Call(form,"SyncMagicEnemies");Check(list.Items.Count==1,"native dead target filtered");
+        var pointer=new PlayerPointerController(c,()=>true,()=>false,_=>true);Set(form,"playerPointer",pointer);
+        pointer.Cancel("single-attack");Call(form,"SetSingleActionNotice","未送出：未選取有效目標");Call(form,"SyncPlayerPointerHud");
+        Check((string)typeof(ClientForm).GetField("playerHudNotice",F)!.GetValue(form)! =="未送出：未選取有效目標","pointer cancellation cannot overwrite attack result");
+        pointer.Cancel("single-magic");Call(form,"SetSingleActionNotice","單次施法已送出");Call(form,"SyncPlayerPointerHud");
+        Check((string)typeof(ClientForm).GetField("playerHudNotice",F)!.GetValue(form)! =="單次施法已送出","pointer cancellation cannot overwrite cast result");
         GC.SuppressFinalize(form);
     }
     static async Task<int> Main(string[] args){try{

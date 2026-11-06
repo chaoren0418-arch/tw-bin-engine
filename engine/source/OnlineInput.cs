@@ -13,16 +13,21 @@ public sealed partial class ClientForm {
         if(key>=Keys.D1&&key<=Keys.D8){if(fresh&&!World.Walking)_=login.Turn(key-Keys.D1);return;}
         OnlineTick();
     }
+    void SetSingleActionNotice(string notice){
+        // ClearInput already cancelled the pointer; do not let that older notice hide this result.
+        lastPlayerPointerHudNotice=PlayerPointerNotice;
+        playerHudNotice=notice;playerHudNoticeUntil=Environment.TickCount64+6000;
+    }
     async Task AttackFromInput(){
-        int epoch=login.World.WorldEpoch;await login.Attack();
-        if(epoch!=login.World.WorldEpoch)return;
-        playerHudNotice=login.World.CombatNotice;playerHudNoticeUntil=Environment.TickCount64+6000;
+        int epoch=login.World.WorldEpoch,selection=login.World.TargetRevision;await login.Attack();
+        if(epoch!=login.World.WorldEpoch||selection!=login.World.TargetRevision)return;
+        SetSingleActionNotice(login.World.CombatNotice);
         SyncPlayerHud();PublishWebState();
     }
     async Task CastFromInput(){
-        int epoch=login.World.WorldEpoch;await login.CastSelectedMagic();
-        if(epoch!=login.World.WorldEpoch)return;
-        playerHudNotice=login.World.MagicNotice;playerHudNoticeUntil=Environment.TickCount64+6000;
+        int epoch=login.World.WorldEpoch,selection=login.World.TargetRevision,skill=login.World.MagicSelectionRevision;await login.CastSelectedMagic();
+        if(epoch!=login.World.WorldEpoch||selection!=login.World.TargetRevision||skill!=login.World.MagicSelectionRevision)return;
+        SetSingleActionNotice(login.World.MagicNotice);
         SyncPlayerHud();PublishWebState();
     }
     void OnlineTick(){if(!login.MovementAvailable||World.Walking||login.MovementBusy)return;if(Input.Direction is int d)_=login.Move(d);}
