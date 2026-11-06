@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 172,
+ "sourceCount": 173,
  "files": [
   {
    "path": "NuGet.Config",
@@ -246,8 +246,8 @@
   },
   {
    "path": "source/Ground.cs",
-   "size": 9464,
-   "sha256": "fd811e6c79571f01cbdd0081dbb8afe211c672a5e582e32663d850373484e30d"
+   "size": 9407,
+   "sha256": "26dc7687853a04bffc3e61b2e59a55f6879f65be1821c22f0c2a8b7a538d4a95"
   },
   {
    "path": "source/GroundCatalog.cs",
@@ -291,8 +291,8 @@
   },
   {
    "path": "source/Inventory.cs",
-   "size": 14555,
-   "sha256": "0a01800bfa778ae5c1c8ec983ee2c2b307bf8b25a590cc08fd629fa427202015"
+   "size": 14421,
+   "sha256": "ee4ac857251bdfb4c82be44d40f3723eefd0a4e96d84236416c36c6b773fdd54"
   },
   {
    "path": "source/InventoryIntegration.cs",
@@ -346,8 +346,8 @@
   },
   {
    "path": "source/Magic.cs",
-   "size": 11938,
-   "sha256": "e5317e1747f238a42b40a8b02a9ea4d422fbd5b6b136f206c0a7f4171e171d1b"
+   "size": 11776,
+   "sha256": "9b68462c03aef5377a78e1c56a083b674d7f80073c75f3e625178b41aeb9f14f"
   },
   {
    "path": "source/MagicIntegration.cs",
@@ -371,8 +371,8 @@
   },
   {
    "path": "source/MagicSpells.cs",
-   "size": 1129,
-   "sha256": "20cc278da9390e90757349fb27080a258b412928ff1bd0e9a3bbabc232822de0"
+   "size": 1660,
+   "sha256": "00072fb58bcee3cc6b43f4144da6e47c6e7e30d303ab83e93181173f19ea408c"
   },
   {
    "path": "source/MagicStatus.cs",
@@ -506,8 +506,8 @@
   },
   {
    "path": "source/OnlineMovement.cs",
-   "size": 12566,
-   "sha256": "7f2f7fad2886805f9c5ac94d7b31964f0d57ff252b97811e477bb6062a5e9c89"
+   "size": 12469,
+   "sha256": "fd3fca75309cc75d303a9cf7eb8209150d93b534b764b720a532bd851b8a8a6c"
   },
   {
    "path": "source/OpacityHistoricalPumps.cs",
@@ -586,8 +586,8 @@
   },
   {
    "path": "source/PlayerChat.cs",
-   "size": 4117,
-   "sha256": "39d47921f20315167b2dc095d5475cd033ae5f5338fcfbc66d10b1b2526343d8"
+   "size": 7992,
+   "sha256": "b3ff2b6e96b7ab8873da8fc1991f42eae2c7bddfa711c6e80f5456915af3a99e"
   },
   {
    "path": "source/PlayerChatKeyboardFlow.cs",
@@ -596,8 +596,8 @@
   },
   {
    "path": "source/PlayerHudChat.cs",
-   "size": 4390,
-   "sha256": "a737ee8f3ba7a9b502f7871d06c335cef921665507aa30e790ff96cfe29e3847"
+   "size": 5484,
+   "sha256": "4a4c1661761b04a6573d7ce367710b4fe79da5191b0841ebf02f08ab0efdd53d"
   },
   {
    "path": "source/PlayerHudIntegration.cs",
@@ -621,8 +621,8 @@
   },
   {
    "path": "source/PlayerPointer.cs",
-   "size": 9257,
-   "sha256": "7daab25992d61d875c1689abc8416e3649ac5b087320d589a07e741f256877a5"
+   "size": 9047,
+   "sha256": "b2c1f6e85945133b90c0127584d7f032959af248590563b7e019f2e89401126d"
   },
   {
    "path": "source/PlayerPointerHud.cs",
@@ -783,6 +783,11 @@
    "path": "source/ShipTravel.cs",
    "size": 9639,
    "sha256": "3af9ee407a1d1c43f4da11c6ab3e1e9832ea387a84519bcbcaac0e9b7f39d1c6"
+  },
+  {
+   "path": "source/SkillCast.cs",
+   "size": 5725,
+   "sha256": "46c38d4dbdb7c2d4e96ee67abcf7d38ce449a4c681e1fd5f9610fb11fce50676"
   },
   {
    "path": "source/SystemAnnouncements.cs",

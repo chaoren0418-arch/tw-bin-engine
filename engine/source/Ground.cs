@@ -53,7 +53,7 @@ public sealed partial class LoginConnection {
     // Local click guard; not a change to the original server's item/animation rules.
     public const int GroundClickGuardMs=900;
     public bool GroundBusy=>groundSending||World.AwaitingPickupAction||Environment.TickCount64<nextGroundAt;
-    public bool GroundAvailable=>State==LoginState.InWorld&&!SlowActionsBlocked&&!World.ActionLocked&&!World.TradeBlocksActions&&World.Ready&&!World.OwnDead&&World.Status?.Hp>0&&World.Actor!=null;
+    public bool GroundAvailable=>State==LoginState.InWorld&&!World.ActionLocked&&!World.TradeBlocksActions&&World.Ready&&!World.OwnDead&&World.Status?.Hp>0&&World.Actor!=null;
     public event Action<object>? GroundSent;
     void ResetGroundSend(){groundLease++;groundSending=false;nextGroundAt=0;World.InvalidatePickupRequest();}
     public Task<bool> PickupSelected(uint count)=>SendGround(true,count);
@@ -63,7 +63,7 @@ public sealed partial class LoginConnection {
         if(pointerCurrent?.Invoke()==false)return false;
         var item=World.SelectedItem;var g=World.SelectedGround;var actor=World.Actor;
         bool ValidItem()=>pickup?g!=null&&World.SelectedGround==g&&World.SelectedGroundId==g.ObjectId&&count<=g.Count:item!=null&&World.CanDropGroundItem(item)&&World.SelectedItem==item&&World.SelectedItemId==item.ObjectId&&count<=item.Count;
-        if(!GroundAvailable||MovementBusy||sendMovementGate==null||count==0||count>int.MaxValue||!ValidItem()){World.GroundNotice=SlowActionsBlocked?SlowActionNotice:"未送出：選取／數量不符、此物品不可丟棄或忙碌";return false;}
+        if(!GroundAvailable||MovementBusy||sendMovementGate==null||count==0||count>int.MaxValue||!ValidItem()){World.GroundNotice="未送出：選取／數量不符、此物品不可丟棄或忙碌";return false;}
         if(pickup&&Math.Max(Math.Abs(actor!.X-g!.X),Math.Abs(actor.Y-g.Y))>3){World.GroundNotice="未送出：距離超過 3 格，請自行靠近";return false;}
         int epoch=generation,we=World.WorldEpoch,input=inputVersion,speedRevision=World.SpeedRevision,selection=pickup?World.GroundSelectionRevision:World.ItemSelectionRevision,contentRevision=pickup?World.GroundRevision:World.InventoryContentRevision,lease=++groundLease,correction=World.Corrections,appearance=World.AppearanceRevision;
         var sender=sendMovementGate;byte[] bytes=GroundRules.Request(pickup?(byte)112:(byte)25,pickup?g!.X:actor!.X,pickup?g!.Y:actor!.Y,pickup?g!.ObjectId:item!.ObjectId,count);groundSending=true;
