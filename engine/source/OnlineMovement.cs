@@ -21,17 +21,20 @@ public sealed partial class WorldSession {
     public long AuthoritativePositionRevision {get;private set;}
     public byte? AuthoritativePositionOpcode {get;private set;}
     public bool PositionPredictedSinceAuthority {get;private set;}
+    public string PositionDisplayText=>Actor is {} a&&MapId is {} map
+        ?$"目前位置 map {map} / x {a.X} / y {a.Y}"+(PositionPredictedSinceAuthority?"（本地預測，非原服確認）":"（原服回報）")+" · "+AuthoritativePositionText
+        :"目前位置：等待角色資料";
     void RecordAuthoritativePosition(OwnActor a,byte opcode){AuthoritativeActor=a;AuthoritativeMapId=MapId;AuthoritativePositionOpcode=opcode;AuthoritativePositionRevision++;PositionPredictedSinceAuthority=false;}
     public string AuthoritativePositionText=>AuthoritativeActor is {} a&&AuthoritativeMapId is {} map
         ?$"原服座標 map {map} / x {a.X} / y {a.Y} · S{AuthoritativePositionOpcode} #{AuthoritativePositionRevision}"+(PositionPredictedSinceAuthority?" · 移動後尚無位置回包":"")
         :"原服座標：等待位置回包";
-    public object AuthoritativePositionSnapshot()=>new{map=AuthoritativeMapId,x=(ushort?)AuthoritativeActor?.X,y=(ushort?)AuthoritativeActor?.Y,opcode=AuthoritativePositionOpcode,revision=AuthoritativePositionRevision,predictedSince=PositionPredictedSinceAuthority,text=AuthoritativePositionText};
+    public object AuthoritativePositionSnapshot()=>new{map=AuthoritativeMapId,x=(ushort?)AuthoritativeActor?.X,y=(ushort?)AuthoritativeActor?.Y,opcode=AuthoritativePositionOpcode,revision=AuthoritativePositionRevision,predictedSince=PositionPredictedSinceAuthority,text=AuthoritativePositionText,displayText=PositionDisplayText};
     public int Corrections {get;private set;}
     public int PredictedSteps {get;private set;}
     public int PredictedTurns {get;private set;}
     public string MotionNotice {get;internal set;}="等待世界";
     void ResetMovement(){AuthoritativeActor=null;AuthoritativeMapId=null;AuthoritativePositionOpcode=null;PositionPredictedSinceAuthority=false;Corrections=PredictedSteps=PredictedTurns=0;MotionNotice="等待世界";}
-    void ApplyAuthoritative(OwnActor a){CancelPickupPresentation("authoritative-pack");pickupShop=a.Weapon==70;pickupRemoved=false;AppearanceRevision++;if(Actor!=null){Corrections++;MotionNotice="伺服器位置更新／校正；輸入已停止";}else MotionNotice="已初始化；移動使用本地預測";RecordAuthoritativePosition(a,87);Actor=a;OwnDead=a.Weapon==8;OwnCombat=OwnDead?new(8,Environment.TickCount64,false):null;UpdateOpacity();}
+    void ApplyAuthoritative(OwnActor a){CancelPickupPresentation("authoritative-pack");pickupShop=a.Weapon==70;pickupRemoved=false;AppearanceRevision++;if(Actor!=null){Corrections++;MotionNotice="伺服器位置更新／校正；輸入已停止";}else MotionNotice="已初始化；移動使用本地預測";RecordAuthoritativePosition(a,87);Actor=a;OwnDead=OwnDead||a.Weapon==8;if(!OwnDead)ResetRecovery();else{pendingAction=null;SelectTarget(null);CloseInteraction();}OwnCombat=OwnDead?(OwnCombat?.Action==8?OwnCombat:new(8,Environment.TickCount64,false)):null;UpdateOpacity();}
     internal void Predict(int x,int y,int h,bool step){CancelPickupPresentation("movement/turn");pendingAction=null;OwnCombat=null;Actor=Actor! with{X=(ushort)x,Y=(ushort)y,Direction=(byte)h};if(step){PositionPredictedSinceAuthority=true;PredictedSteps++;UpdateOpacity();}else PredictedTurns++;MotionNotice=step?"已送出步行；本地預測（無逐步 ACK）":"已送出轉向；本地預測";}
     public object MovementSnapshot()=>new{predictedSteps=PredictedSteps,predictedTurns=PredictedTurns,corrections=Corrections,authoritativeActor=AuthoritativeActor,authoritativePosition=AuthoritativePositionSnapshot(),notice=MotionNotice,stepMs=MovementIntervalMs,animationMs=MovementAnimationMs,speedRevision=SpeedRevision,speedNotice=SpeedNotice,successAck=false};
 }

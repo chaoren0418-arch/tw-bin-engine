@@ -6,7 +6,7 @@ using System.Diagnostics.Tracing;
 
 // Synthetic packets and memory-only transport, executing the built product DLL.
 // Never calls the game entry point, creates a connection or shows a window.
-class Checks {
+partial class Checks {
     const BindingFlags F=BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic;
     static int checks;static List<string> labels=[];
     static void Check(bool value,string label){if(!value)throw new Exception(label);checks++;labels.Add(label);}
@@ -278,6 +278,7 @@ class Checks {
         using var guard=new SocketGuard();
         if(args.Length>2){
             switch(args[2]){
+                case "combat-loop":await CombatLoop();break;
                 case "keyboard":await KeyboardMovement123();break;
                 case "busy":KeyboardBusy123();break;
                 case "world":await KeyboardWorld123();break;
@@ -285,7 +286,7 @@ class Checks {
             }
         }else{
             NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
-            await Combat();await Magic();await Quantity();await PickupCorrection();Position();
+            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();
         }
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status="pass",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));Console.WriteLine($"PASS {checks} DEMO checks");return 0;
     }catch(Exception ex){Console.Error.WriteLine(ex);return 1;}}

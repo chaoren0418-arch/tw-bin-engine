@@ -62,3 +62,5 @@ Claude 審查 PR；使用者合併後，由本機執行器在 T070–T074 合併
 普通肉：map0 潘朵拉 70014 `(32645,32951)`；由 `(32600,32940)` 經 `(32600,32946)` → `(32622,32946)` → `(32622,32951)` → `(32631,32951)` → `(32631,32952)` → `(32644,32952)` → `(32644,32951)`。對應 PageDown6、PageUp22、PageDown5、PageUp9、PageDown1、PageUp13、Home1；以座標核對，勿長按越站。完整限制與可重跑命令見協議文件。
 
 買普通肉10個，確認扣款與入袋，再完成丟1／撿1、丟10／撿10；每步保存前後數量與回包。倉庫需等級≥5與取物費；私商需合法擺攤測試賣家；直接交易需兩個測試角色相鄰且相向。以上條件由調度器／dot 準備，不能改 DB 製造通過。
+
+- 合併 main（#141，f91176d）後重驗結果：NpcInteraction.cs 自動合併並核對保留雙方防護，dev lock 已重生；build PASS（0 error、2 個既有 nullable warnings），NPC 83／世界 UI 124／DEMO 437／Web 18 項及 WebView2、遊戲資源拒收全部 PASS；本機 r28/assets 缺 integrity.json，僅將本 worktree 的 assets junction 改指既有 r33/assets 唯讀完成測試（未改封存）；證據在 scratch/build-evidence、scratch/npc-tests.json、scratch/issue-130，產品 DLL SHA-256 eeb16416ac558da91830ec7973b6ce993ef31fd45475088c83c48193a05e67b6；新 HEAD CI 以 PR #142 checks 為準，未執行真機驗收。

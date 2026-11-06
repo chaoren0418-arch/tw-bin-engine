@@ -36,7 +36,7 @@ public sealed partial class WorldSession {
     bool ReceiveEquipment(byte opcode,LoginReader r,byte[] plain){
         if(opcode==119){
             uint id=r.D();byte weapon=r.C();r.Finish();
-            if(Actor?.ObjectId==id){Actor=Actor with{Weapon=weapon};AppearanceRevision++;}
+            if(Actor?.ObjectId==id){Actor=Actor with{Weapon=weapon};AppearanceRevision++;CompleteRecoveryAppearance();}
             else UpdateObject(id,o=>o with{Action=weapon,DoorAction=o.Gfx==2346?null:o.DoorAction,ShopActive=!o.Dead&&weapon==70,ShopAt=weapon==70?(o.ShopActive?o.ShopAt:Environment.TickCount64):0,ShopText=weapon==70?o.ShopText:"",ReceivedAction=o.ReceivedAction==70&&weapon!=70?null:o.ReceivedAction,Combat=weapon==70?null:o.Combat});
             EquipmentRevision++;return true;
         }

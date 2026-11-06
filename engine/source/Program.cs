@@ -108,7 +108,7 @@ public sealed partial class ClientForm:Form {
         MouseWheel+=(_,e)=>{if(PlayerChatFocused)return;Camera.Scale(e.Delta>0?1.15f:1/1.15f,e.Location);Invalidate();};
         timer.Tick+=(_,_)=>{double now=clock.Elapsed.TotalMilliseconds;World.Advance(now-last);last=now;if(OnlineMode){SyncWorld();OnlineTick();PlayerPointerTick();}Pump6016();PumpCombatSfx();RefreshScene();};
         Shown+=async(_,_)=>{last=clock.Elapsed.TotalMilliseconds;timer.Start();events.Add(new{kind="shown",pid=Environment.ProcessId});if(demo!=null)await Demo();};
-        InitNetwork(port,networkDemo);InitWeb(webDemo,webFault);InitLogin(loginPort,loginDemo);InitInventory();InitGround();InitRewards();InitMagic();InitInteraction();InitTrade();InitBonusStats();InitPrivateShop();InitNormalPanels();Init6016();InitCombatSfx();
+        InitNetwork(port,networkDemo);InitWeb(webDemo,webFault);InitLogin(loginPort,loginDemo);InitInventory();InitGround();InitRewards();InitRecovery();InitMagic();InitInteraction();InitTrade();InitBonusStats();InitPrivateShop();InitNormalPanels();Init6016();InitCombatSfx();
         FormClosed+=(_,_)=>{StopPlayerPointer("視窗關閉");modeEpoch++;timer.Stop();network.Dispose();wireLog.Add("form-closed",new{timerEnabled=timer.Enabled});wireLog.Dispose();timer.Dispose();Input.Clear();World.SetIntent(null);patch?.Dispose();renderer.Dispose();events.Add(new{kind="closed",timerEnabled=false,pid=Environment.ProcessId,model=World.Snapshot()});if(evidence!=null)Json.Save(Path.Combine(evidence,"window-events.json"),events);};
     }
     static bool GameKey(Keys k)=>k is Keys.Escape or Keys.M or Keys.P or Keys.U or Keys.G or Keys.F9 or Keys.F6 or Keys.F7 or Keys.F8 or Keys.Up or Keys.Down or Keys.Left or Keys.Right or Keys.Home or Keys.End or Keys.PageUp or Keys.PageDown or Keys.W or Keys.A or Keys.S or Keys.D or Keys.F or Keys.R or Keys.Space or Keys.F1 or Keys.F2 or Keys.F3 or Keys.F4 or Keys.F12 || (k>=Keys.D1&&k<=Keys.D8) || (k>=Keys.NumPad1&&k<=Keys.NumPad9);
@@ -140,7 +140,9 @@ public sealed partial class ClientForm:Form {
         World.SetIntent(Input.Direction);RefreshScene();
     }
     public void HandleUp(Keys key) {playerHudHeld.Remove(key);if(OnlineMode){Input.Up(key);login.CancelMovementInput();return;}Input.Up(key);World.SetIntent(Input.Direction);events.Add(new{kind="keyup",key=key.ToString(),utc=DateTimeOffset.UtcNow});}
-    void ClearInput(string reason){StopPlayerPointer(reason);login.CancelMovementInput();Input.Clear();World.SetIntent(null);drag=null;Capture=false;events.Add(new{kind="clear-input",reason,model=World.Snapshot()});}
+    // Shared by focus/stop paths; independent of a native handle for offline regression.
+    void ClearHeldInput(string reason){playerHudHeld.Clear();StopPlayerPointer(reason);login.CancelMovementInput();Input.Clear();World.SetIntent(null);}
+    void ClearInput(string reason){ClearHeldInput(reason);drag=null;Capture=false;events.Add(new{kind="clear-input",reason,model=World.Snapshot()});}
     internal void RefreshSceneImage(){
         // Waiting/cancelled online state has no resident offline scene. Its last coordinates
         // may be on another cache/map; never compose them against the offline canvas.

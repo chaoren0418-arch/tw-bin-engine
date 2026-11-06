@@ -66,11 +66,10 @@ public static class RangedScenario {
             log.Check("original-finite-safe-shot-"+drainShots,new{countBefore=count,countAfter=Arrows(c)});
             if(count is 1 or 2||drainShots==1)await shot("ranged-finite-"+count);
         }
-        await ObjectTests.Wait(()=>!c.MovementBusy);await selectTarget(o.World.Actor!.ObjectId);long before=c.World.AttackReports,otherBefore=o.World.AttackReports,at=Environment.TickCount64;
-        log.Check("before-original-noammo");if(!await attack("web-noammo"))throw new Exception("noammo must reach original server");
-        await ObjectTests.Wait(()=>c.World.OwnCombat is {Action:1,Predicted:false} a&&a.At>=at,5000);await ObjectTests.Wait(()=>!c.MovementBusy);
+        await ObjectTests.Wait(()=>!c.MovementBusy);await selectTarget(o.World.Actor!.ObjectId);long before=c.World.AttackReports,otherBefore=o.World.AttackReports;
+        log.Check("before-local-noammo");if(await attack("web-noammo"))throw new Exception("empty ammunition must be rejected locally");
         if(c.World.AttackReports!=before||o.World.AttackReports!=otherBefore||Arrows(c)!=0)throw new Exception("original noammo changed projectile/count");
-        log.Check("original-noammo-action-without-projectile",new{finite,combatShots=shots,drainShots});await shot("ranged-no-ammo-action");
+        log.Check("local-noammo-no-request",new{finite,combatShots=shots,drainShots});await shot("ranged-no-ammo-action");
         await ObjectTests.Wait(()=>!c.MovementBusy);var saved=c.World.Inventory;var actor=c.World.Actor!;var exp=c.World.Experience!;var hp=c.World.Status!;
         log.Check("before-normal-save-disconnect",new{hp});c.Cancel();o.Cancel();await Task.Delay(3000);
         await ObjectTests.Enter(c,s.Account,s.Password,s.Character);await ObjectTests.Enter(o,s.ObserverAccount,s.Password,s.ObserverCharacter);await ObjectTests.Wait(()=>c.World.InventoryLoaded&&o.World.InventoryLoaded);

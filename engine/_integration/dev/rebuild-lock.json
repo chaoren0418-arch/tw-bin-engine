@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 171,
+ "sourceCount": 172,
  "files": [
   {
    "path": "NuGet.Config",
@@ -146,8 +146,8 @@
   },
   {
    "path": "source/ClientLogin.cs",
-   "size": 11588,
-   "sha256": "a00779bb20bc2bb97aac8fb520788f0f8cd674bfeb7f4ce35279b3713e4003d7"
+   "size": 11603,
+   "sha256": "fa4e8a997c98f587fc8d5bed88fed5389679be970c0a4e950c18e4a83e80e25e"
   },
   {
    "path": "source/ClientNetwork.cs",
@@ -156,8 +156,8 @@
   },
   {
    "path": "source/Combat.cs",
-   "size": 12827,
-   "sha256": "fc640aaae1bef14cfa852ae5d286699194ebd1479b4c4f7b51f695ca8c5f3110"
+   "size": 13125,
+   "sha256": "84e88c158a3320d666f2342e8847ca49f434ad257fe4cc5d4615ed5ae1080d1b"
   },
   {
    "path": "source/CombatRegression.cs",
@@ -216,8 +216,8 @@
   },
   {
    "path": "source/Equipment.cs",
-   "size": 5373,
-   "sha256": "54886622111435489a1bc1c36bcfafefa91278dd7b9ba3e2a352563cd8ab3c65"
+   "size": 5402,
+   "sha256": "944066694c07e1fb3886d5f5410e582482b90fa2b96932536deff14865ec5ade"
   },
   {
    "path": "source/EquipmentGateTests.cs",
@@ -326,8 +326,8 @@
   },
   {
    "path": "source/LoginConnection.cs",
-   "size": 10487,
-   "sha256": "2239e0918b0c2ae94a29debcd0ca5428a44d1f95d128f469c9c1053616dd9cfe"
+   "size": 10508,
+   "sha256": "33bed58be0c42e38ba213c91690e8fd3f237acc135e6e60ba7433ccee81c7390"
   },
   {
    "path": "source/LoginControl.cs",
@@ -446,8 +446,8 @@
   },
   {
    "path": "source/NpcInteraction.cs",
-   "size": 12558,
-   "sha256": "cafff7acb6422c082f91db40fd8414e0c11e33807cd33294c5543d46bc4a89dc"
+   "size": 12676,
+   "sha256": "c2011c49b579e05bd5b5df3097833d285887070dfd208c1f38285bb67dfa4201"
   },
   {
    "path": "source/NpcServices.cs",
@@ -506,8 +506,8 @@
   },
   {
    "path": "source/OnlineMovement.cs",
-   "size": 12100,
-   "sha256": "9539bef0b743895eecd7daefa7b912a47b38b25593c6f42a1fb8e4cc665ef502"
+   "size": 12566,
+   "sha256": "7f2f7fad2886805f9c5ac94d7b31964f0d57ff252b97811e477bb6062a5e9c89"
   },
   {
    "path": "source/OpacityHistoricalPumps.cs",
@@ -601,8 +601,8 @@
   },
   {
    "path": "source/PlayerHudIntegration.cs",
-   "size": 6664,
-   "sha256": "64aeaa1010b011c949f86e961a4ae626268953e0b8604aa129f9831106a64622"
+   "size": 6658,
+   "sha256": "07509e4d8289ad2a650369977a478657837345fe06a342f8e2de69d215ca083e"
   },
   {
    "path": "source/PlayerHudModel.cs",
@@ -661,8 +661,8 @@
   },
   {
    "path": "source/Program.cs",
-   "size": 25077,
-   "sha256": "15ae3b55f67e39e47afe64a388695903c2b3f578f8f390cecead2fab6217696c"
+   "size": 25268,
+   "sha256": "2b108ca20a65d035908bb732f1d75a258768e8864ea665bd16f030f52612b62a"
   },
   {
    "path": "source/ProjectileRendering.cs",
@@ -681,8 +681,8 @@
   },
   {
    "path": "source/Ranged.cs",
-   "size": 752,
-   "sha256": "0ca871255023fe2b0405cbaa09e54b9982e3e93eda820a3491376aa9acaf9074"
+   "size": 970,
+   "sha256": "9097911eb0baa151e6d687c923a638561f63eda8e4c8abf94e3c69cb856374e2"
   },
   {
    "path": "source/RangedGateTests.cs",
@@ -691,8 +691,8 @@
   },
   {
    "path": "source/RangedIntegration.cs",
-   "size": 11751,
-   "sha256": "b7401c07772fc7713e3fa52aa66a0dd53c7be2c71dc95f8480bb7c5045ae38ac"
+   "size": 11563,
+   "sha256": "d826054212e857cd4096b052d602804c991bf9662f2073f05016a2ef2a7756ef"
   },
   {
    "path": "source/RangedRenderingTests.cs",
@@ -718,6 +718,11 @@
    "path": "source/ReceiveLoadTests.cs",
    "size": 4517,
    "sha256": "7a7d74ac0bb854e3ef55f8e9df38ae3e94d2d261ae5fd86a884bbb43d6ce0eaa"
+  },
+  {
+   "path": "source/Recovery.cs",
+   "size": 3692,
+   "sha256": "7c8cedba4c00f4292a893919bd9dcc36f6aebb50ede2a90ba658905f55bfa067"
   },
   {
    "path": "source/Renderer.cs",
@@ -841,8 +846,8 @@
   },
   {
    "path": "source/WorldObjects.cs",
-   "size": 6122,
-   "sha256": "e7ac742ee12a2ecae1944186af43b1eaf4e1530c90658fc7d5dd6a97a8d07baa"
+   "size": 6373,
+   "sha256": "2aa63a2e44b3d0a01b0eb17182de9433cf0a6db7772370233927293594048d66"
   },
   {
    "path": "source/WorldRegression.cs",
@@ -851,8 +856,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9257,
-   "sha256": "92bf845b68138cdcb1d85e675cd7697579815cea83d173a97ca913cc7f9baf0a"
+   "size": 9284,
+   "sha256": "8d7131003951d3a751735c9781200299aad26b181a4831afcfca62bcb6f36965"
   },
   {
    "path": "source/WorldTests.cs",
@@ -886,8 +891,8 @@
   },
   {
    "path": "web/panel.js",
-   "size": 16939,
-   "sha256": "c090bca7ae1c9db3fb568236c5da52853ae062908f57f6fd5be5e8dce546fb3c"
+   "size": 17036,
+   "sha256": "51d08072ed38e014cf37458a8a3ee4921e8e0a201029db9bca4c5212baff108b"
   },
   {
    "path": "web/private-shop.js",
