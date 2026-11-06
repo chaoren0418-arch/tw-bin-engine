@@ -30,7 +30,9 @@
 
 產品 DLL SHA-256：`8165466213125f258d869212c14d1f2298bf933cac938420f0ef030cedfb5539`。來源 SHA-256 見同提交的 dev lock，僅由 `--update-lock` 生成。
 
-GitHub CI：推送後核對 [PR #241](https://github.com/chaoren0418-arch/tw-bin-engine/pull/241) 本輪 head 的 `dotnet`、`map-continuity`、`npc-offline`；舊 head 綠燈不作本輪證據。
+GitHub CI 尚未通過本輪驗收：修正提交 `46ca90edafa691446e8b7a4000aa25995327d80a` 已推送 [PR #241](https://github.com/chaoren0418-arch/tw-bin-engine/pull/241)，GitHub 回報 `mergeable=CONFLICTING`、`mergeStateStatus=DIRTY`、新 head 的 checks 為空，Actions 清單沒有本輪執行。舊 head 綠燈不作本輪證據。
+
+唯讀 `git merge-tree --write-tree --name-only HEAD origin/main` 核對主線 `25bc0f4`：唯一衝突為 `engine/_integration/dev/rebuild-lock.json`；`WorldSession.cs` 可自動合併。未執行實際 merge 或改動工作檔。依 `docs/design/m6-contract.md` 第 4 點「dev lock 衝突交給調度器的同步輪處理」，本輪不手動拼接 hash，交調度器同步、重新生成 lock 後推送並重跑 CI。
 
 本機 Python 3.12.10、SDK 10.0.300；NuGet config／vendor 唯讀引用原專案，cache、暫存與產物留在此 worktree。重跑方式（先把 TEMP、TMP、DOTNET_CLI_HOME、NuGet cache 指向 worktree）：
 
@@ -47,6 +49,8 @@ python -B -X utf8 engine/_integration/dev/rebuild.py
 
 ## 未驗證什麼
 
+本輪新 head 的 CI 因 dev lock 合併衝突尚未排程，故未達 CI 綠燈驗收；本機編譯與離線測試結果如上。
+
 未啟動遊戲、伺服器或 DB。未驗證現行 JAR 實際發送、玩家變身、真機動畫／傷害數字畫面與音效；由 dot 在 M6 smoke 核對。離線測試使用合成封包，不代表真機功能驗收。
 
 ## 產出路徑
@@ -59,4 +63,4 @@ python -B -X utf8 engine/_integration/dev/rebuild.py
 
 ## 給下一棒的提示
 
-Claude／調度器審查 PR #241 的新 head 與 CI，再由使用者合併；dot 接 M6 smoke。兩個原退回缺口已修正，無須再次裁定範圍。跨圖不可清空抑制清單；dev lock 如與主線衝突，交同步輪重新生成，不手動拼接 hash。worktree 保留給調度器清理。
+調度器先依同步輪整合最新 main、重新生成 dev lock，重跑建置／離線測試並推送 PR #241，確認新 head 的 `dotnet`、`map-continuity`、`npc-offline` 全綠後交 Claude 審查與使用者合併；dot 接 M6 smoke。兩個原退回缺口已修正，無須再次裁定範圍。跨圖不可清空抑制清單，不手動拼接 lock hash。worktree 保留給調度器清理。
