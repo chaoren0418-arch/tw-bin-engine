@@ -32,4 +32,7 @@ run("for(const name of ['renderBonusStats','renderPrivateShop','renderLogin','re
 const state={v:1,kind:'state',onlineMode:true,login:{state:'InWorld',characters:[],world:{ready:true,actor:{Name:'offline',ObjectId:123,X:999,Y:999},status:{},movement:{authoritativePosition:{text:'原服座標 map 0 / x 32600 / y 32940 · S87 #1 · 移動後尚無位置回包'}}}}};
 listeners[0]({data:state});check(get('#position').textContent.includes('32600')&&!get('#position').textContent.includes('999'),'server coordinates independent from prediction');
 check(get('#worldResult').textContent.includes('畫面預測')&&get('#worldResult').textContent.includes('尚無位置回包'),'world state labels prediction separately');
+state.login.world.movement.authoritativePosition.displayText='目前位置 map 0 / x 32603 / y 32940（本地預測，非原服確認） · 原服座標 map 0 / x 32600 / y 32940';
+listeners[0]({data:state});check(get('#position').textContent.includes('32603')&&get('#position').textContent.includes('32600')&&get('#position').textContent.includes('非原服確認'),'current prediction and last authority are both visible');
+check(get('#worldResult').textContent.includes('32603')&&get('#worldResult').textContent.includes('32600'),'F9 details use same position display');
 fs.writeFileSync(process.argv[3],JSON.stringify({status:'pass',checks,scope:'實際 panel.js；DOM 替身，非瀏覽器真機'},null,2)+'\n');console.log(`PASS ${checks} DEMO Web checks`);

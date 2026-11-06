@@ -140,7 +140,9 @@ public sealed partial class ClientForm:Form {
         World.SetIntent(Input.Direction);RefreshScene();
     }
     public void HandleUp(Keys key) {playerHudHeld.Remove(key);if(OnlineMode){Input.Up(key);login.CancelMovementInput();return;}Input.Up(key);World.SetIntent(Input.Direction);events.Add(new{kind="keyup",key=key.ToString(),utc=DateTimeOffset.UtcNow});}
-    void ClearInput(string reason){StopPlayerPointer(reason);login.CancelMovementInput();Input.Clear();World.SetIntent(null);drag=null;Capture=false;events.Add(new{kind="clear-input",reason,model=World.Snapshot()});}
+    // Shared by focus/stop paths; independent of a native handle for offline regression.
+    void ClearHeldInput(string reason){playerHudHeld.Clear();StopPlayerPointer(reason);login.CancelMovementInput();Input.Clear();World.SetIntent(null);}
+    void ClearInput(string reason){ClearHeldInput(reason);drag=null;Capture=false;events.Add(new{kind="clear-input",reason,model=World.Snapshot()});}
     internal void RefreshSceneImage(){
         // Waiting/cancelled online state has no resident offline scene. Its last coordinates
         // may be on another cache/map; never compose them against the offline canvas.
