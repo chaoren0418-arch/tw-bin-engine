@@ -13,9 +13,9 @@
 - 本機 NuGet 網路還原遇到 TLS 認證錯誤；以 `scratch/issue-273/NuGet.Config` 指向原專案唯讀 `engine/vendor` 完成還原，套件快取及所有建置／暫存輸出均在 worktree。未複製遊戲資源。
 - 離線合成封包與記憶體 sender：**73 項通過**。C138／C45 完整 bytes 與 padding、數量界限、確認取消／重複、裝備限制、2 格距離、背包／選取／目標／世界／連線失效、傳輸鎖內重驗、權威回包早於 sender 完成、S24／S57／S71、失敗 token 不可再用、舊連線完成隔離、傳輸失敗不重送。測試入口有 socket guard，未啟動遊戲。
 - 測試命令：`dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-273/item-transfer.json item-transfer`。
-- `check-no-game-assets.py` 通過：3265 個追蹤檔、0 錯誤、4 個核准 EmbeddedResource。`git diff --cached --check` 通過。
-- 產品 DLL SHA-256：`d67b24010d717ed673ac5123a30745e2385bd99127a05b368d30d0b2f49f8c24`。
-- GitHub CI 於 PR 建立後檢查；結果另附 PR 留言與最終 RESULT。
+- `check-no-game-assets.py` 通過：同步主線後 3272 個追蹤檔、0 錯誤、4 個核准 EmbeddedResource。`git diff --cached --check` 通過。
+- 同步主線後產品 DLL SHA-256：`576a60ed88cdba8dc3082e3eee58361fba72032051b87fb1a7e7f60e38e93cc7`。
+- [PR #294](https://github.com/chaoren0418-arch/tw-bin-engine/pull/294) 首輪 Windows CI（含本模組、地圖、戰鬥、WebView2）通過；Linux 編譯成功，但主線同期新增來源造成自動合併後 lock 計數為 175、實際 176 而核驗失敗。已正常合併 `origin/main`，以 `--update-lock` 重新產生 176 個來源／185 個鎖定檔（無手動拼 hash），完整建置及 73 項離線測試再次通過。最新 CI 結果另附 PR 與最終 RESULT。
 
 ## 未驗證什麼
 
