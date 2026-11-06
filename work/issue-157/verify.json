@@ -1,21 +1,242 @@
 {
+  "restore_log": {
+    "path": "scratch/issue-157/restore-log.jsonl",
+    "sha256": "59e7bd68d397cd347578bb492a65a7b6dab2a2555e3dbd1b0b2b3d5825fc6016",
+    "verified_entries": 27916
+  },
   "schema": "issue-157-verification-v1",
-  "status": "blocked-precondition",
-  "generated_utc": "2026-11-06T16:48:02.286572+00:00",
-  "base_commit": "1a1cabfd9c6991767fd5560c868f1030ad99a452",
-  "prerequisite_155": {
-    "pr": 158,
-    "state": "MERGED",
-    "merged_at": "2026-11-06T16:44:33Z",
-    "merged_head": "ebfa97181588a66b4b78af4fff4754fbfa86afea"
+  "status": "passed",
+  "base_commit": "420d97e613388b2e07868b5e6690e919397ca8ed",
+  "pins": {
+    "r28_pins_git_sha256": "a0c4bba47d9a44a9c5a2df50c05ed0bf8ee0a157ad0aea2cfb1187bf08a1bed7",
+    "reference_pins_git_sha256": "72371c8bbdfb9f15f534a20881ee1dd322ae4b15540934642e97e25106b80a0f",
+    "missing_list_git_sha256": "50643729aca01262c41ab313a254e7bf38b2cd8d3e8590e34c040990da8d7328"
   },
-  "engine_assets": {
-    "link_type": "Junction",
-    "resolved_target": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets",
-    "modified": false
+  "before": {
+    "started_utc": "2026-11-06T18:43:55.110430+00:00",
+    "finished_utc": "2026-11-06T18:48:44.453731+00:00",
+    "releases": [
+      {
+        "release": "r28",
+        "expected": 14365,
+        "ok": 407,
+        "missing": 13958,
+        "mismatch": 0,
+        "seal": "releases/r28/_integration/candidate-seal-manifest.json",
+        "seal_sha256": "83770091f8051466d5dccb420210cd0567ffef5a1158e8f7ebf5c7667127bfcd"
+      },
+      {
+        "release": "r29",
+        "expected": 14287,
+        "ok": 14287,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r29/_integration/r29/release-seal.json",
+        "seal_sha256": "d3ac187e7fc44745864640e4bcc72fefbaeeaa0b0e9d63de7c0c3cfa8e46273d"
+      },
+      {
+        "release": "r30",
+        "expected": 14297,
+        "ok": 14297,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r30/_integration/r30/release-seal.json",
+        "seal_sha256": "199ce6fe81130138e9fedf98e688928ce44b0a45c2aebd1b92fdd9519b8225dc"
+      },
+      {
+        "release": "r31",
+        "expected": 14330,
+        "ok": 14330,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r31/_integration/r31/release-seal.json",
+        "seal_sha256": "1d5b1c149495cb2b44f50daf2c3361eb15e8000ba27bf133d1029735f10cfd90"
+      },
+      {
+        "release": "r32",
+        "expected": 14343,
+        "ok": 14343,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r32/_integration/r32/release-seal.json",
+        "seal_sha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507"
+      },
+      {
+        "release": "r33",
+        "expected": 14654,
+        "ok": 696,
+        "missing": 13958,
+        "mismatch": 0,
+        "seal": "releases/r33/_integration/r33/release-seal.json",
+        "seal_sha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417"
+      }
+    ]
   },
-  "junction_scan": {
-    "directoriesScanned": 92128,
+  "after": {
+    "started_utc": "2026-11-06T19:02:03.627473+00:00",
+    "finished_utc": "2026-11-06T19:03:21.626496+00:00",
+    "releases": [
+      {
+        "release": "r28",
+        "expected": 14365,
+        "ok": 14365,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r28/_integration/candidate-seal-manifest.json",
+        "seal_sha256": "83770091f8051466d5dccb420210cd0567ffef5a1158e8f7ebf5c7667127bfcd"
+      },
+      {
+        "release": "r29",
+        "expected": 14287,
+        "ok": 14287,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r29/_integration/r29/release-seal.json",
+        "seal_sha256": "d3ac187e7fc44745864640e4bcc72fefbaeeaa0b0e9d63de7c0c3cfa8e46273d"
+      },
+      {
+        "release": "r30",
+        "expected": 14297,
+        "ok": 14297,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r30/_integration/r30/release-seal.json",
+        "seal_sha256": "199ce6fe81130138e9fedf98e688928ce44b0a45c2aebd1b92fdd9519b8225dc"
+      },
+      {
+        "release": "r31",
+        "expected": 14330,
+        "ok": 14330,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r31/_integration/r31/release-seal.json",
+        "seal_sha256": "1d5b1c149495cb2b44f50daf2c3361eb15e8000ba27bf133d1029735f10cfd90"
+      },
+      {
+        "release": "r32",
+        "expected": 14343,
+        "ok": 14343,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r32/_integration/r32/release-seal.json",
+        "seal_sha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507"
+      },
+      {
+        "release": "r33",
+        "expected": 14654,
+        "ok": 14654,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r33/_integration/r33/release-seal.json",
+        "seal_sha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417"
+      }
+    ]
+  },
+  "restored": {
+    "r28_copied": 13958,
+    "r33_hardlinks": 13958
+  },
+  "unchanged_r29_r32": {
+    "r29": 14287,
+    "r30": 14297,
+    "r31": 14330,
+    "r32": 14343
+  },
+  "junction_precondition": {
+    "checked_utc": "2026-11-06T18:49:05.727686+00:00",
+    "blocking_errors": [],
+    "historical_release_links": [
+      {
+        "path": "work\\engine-slow-utility-source-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-utility-review-r1\\r31-baseline-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-utility-review-r1\\candidate-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-review-r1\\candidate-review-r1\\suite-scratch\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-r2\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-pickup-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-haste-item-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-haste-actions-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-haste-actions-review-r1\\candidate-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-haste-actions-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-ground-lifecycle-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-ground-lifecycle-review-r1\\candidate-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28"
+      }
+    ],
+    "orchestrator": {
+      "ts": 1793990943.9903903,
+      "running": [
+        {
+          "key": "chaoren0418-arch/tw-bin-engine#157",
+          "repo": "chaoren0418-arch/tw-bin-engine",
+          "issue": 157,
+          "runner": "codex-local",
+          "pid": 23268,
+          "started": 1793990412.3986917,
+          "log_path": "D:\\dev-orchestrator\\data\\logs\\chaoren0418-arch_tw-bin-engine-157-1793990412.log",
+          "last_file": "D:\\dev-orchestrator\\data\\logs\\chaoren0418-arch_tw-bin-engine-157-1793990412.last.md",
+          "kind": "cli"
+        }
+      ],
+      "active_code_tasks": [],
+      "other_running_project_tasks": [],
+      "stale": false
+    },
+    "directoriesScanned": 93149,
     "links": [
       {
         "path": "主管\\P24-死亡復活接線獨立審查-20261026-r2\\assets",
@@ -146,6 +367,16 @@
         "path": "scratch\\wt\\task-88\\engine\\assets",
         "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\engine\\assets",
         "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets"
+      },
+      {
+        "path": "scratch\\wt\\task-161\\engine\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets"
+      },
+      {
+        "path": "scratch\\wt\\task-161\\engine\\vendor",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\engine\\vendor",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\engine\\vendor"
       },
       {
         "path": "scratch\\wt\\task-13\\engine\\assets",
@@ -484,123 +715,16 @@
         "error": "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-authority-rebind-review-r1\\\\synthetic-independent-fgjl3e7f'"
       }
     ],
-    "blocked": [
-      {
-        "path": "work\\engine-slow-utility-source-r1\\assets",
-        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
-        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
-      },
-      {
-        "path": "work\\engine-slow-utility-review-r1\\r31-baseline-r1\\assets",
-        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
-        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
-      },
-      {
-        "path": "work\\engine-slow-utility-review-r1\\candidate-review-r1\\assets",
-        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
-        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
-      },
-      {
-        "path": "work\\engine-slow-review-r1\\candidate-review-r1\\suite-scratch\\assets",
-        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
-        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
-      },
-      {
-        "path": "work\\engine-slow-r2\\assets",
-        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
-        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
-      },
-      {
-        "path": "work\\engine-slow-r1\\assets",
-        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
-        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
-      },
-      {
-        "path": "work\\engine-slow-pickup-review-r1\\assets",
-        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
-        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
-      },
-      {
-        "path": "work\\engine-slow-haste-item-r1\\assets",
-        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
-        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
-      },
-      {
-        "path": "work\\engine-haste-actions-review-r1\\assets",
-        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
-        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
-      },
-      {
-        "path": "work\\engine-haste-actions-review-r1\\candidate-review-r1\\assets",
-        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
-        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
-      },
-      {
-        "path": "work\\engine-haste-actions-r1\\assets",
-        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
-        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
-      },
-      {
-        "path": "work\\engine-ground-lifecycle-review-r1\\assets",
-        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
-        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
-      },
-      {
-        "path": "work\\engine-ground-lifecycle-review-r1\\candidate-review-r1\\assets",
-        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
-        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
-      },
-      {
-        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery",
-        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28",
-        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28"
-      }
-    ],
+    "blocked": [],
     "scope": "D:\\lineage開發\\TW1608262200研究"
   },
-  "scan_json_sha256": "2f07f7366f88fc6097104b8385053377c6730aa64cbad48282f38f0201c0f89e",
   "scripts": {
-    "restore.ps1": {
-      "sha256": "ef4ad9903fdabc2abfc64bb65453aa7bdfd2f352c02e0049db376dbdd8eff9e0",
-      "execution": "not-executed"
-    },
-    "scan-junctions.py": {
-      "sha256": "6c854fdbacd18fbb717dde6ed20841061422b284943b7b211bb367a198136eea",
-      "execution": "completed-read-only"
-    },
-    "verify-seals.py": {
-      "sha256": "234497f31f653db49885032c6830e3307efd4d5301139081b42bcc3454565e79",
-      "execution": "prepare-exit-1-at-junction-gate"
-    },
-    "write-blocked-evidence.py": {
-      "sha256": "af79b640df4c78457d175c4c7421eb9095e83145fce42f1fce2154ddf2dfe540",
-      "execution": "completed-write-evidence"
-    }
-  },
-  "missing_list_recheck": {
-    "expected_by_release": {
-      "r28": 13958,
-      "r33": 13958
-    },
-    "still_missing": 27916,
-    "now_existing": []
-  },
-  "restoration": {
-    "r28_copied": 0,
-    "r33_hardlinks_created": 0,
-    "deleted": 0,
-    "overwritten": 0,
-    "junctions_modified": 0
-  },
-  "seal_verification": {
-    "seal_files_git_pin_check": "passed-for-r28-through-r33-before-junction-gate",
-    "full_content_audit": "not-run",
-    "r29_r32_post_restore_audit": "not-run-no-restoration"
+    "scan-junctions.py": "cc2ae883ab6e166f1ab19e75d379788adc1ecea0735998f1a28a028b0b830b5f",
+    "verify-seals.py": "e3b3614ef2072337648f0d28fa6d48f7954544e27d5e3ff07b9a6d2b5793887c",
+    "restore.ps1": "3f0a306fe27d922c717887b279df07c5659f4263c67d7375c43d9b3f548d32c4"
   },
   "limits": [
-    "掃描僅限專案實體目錄樹，不跟隨 reparse point；連結目標以 resolve 判讀。",
-    "11 個目錄存取被拒，不能宣稱已完整排除其他 junction。",
-    "尚未還原或全量核驗，不能宣稱封存逐 byte 驗收完成。"
-  ],
-  "next_owner": "調度器／Claude 主控先處理 14 個 junction 與 11 處讀取權限，再由 codex-local 重跑。"
+    "seal 排除檔案的歷史正確性待取得相應基準。",
+    "本輪範圍為封存檔案還原及核驗，建置、check-only 與真機驗收另案執行。"
+  ]
 }
