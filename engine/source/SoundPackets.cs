@@ -107,6 +107,11 @@ public sealed record PacketSound(long Number, int Epoch, ServerSound Packet, lon
 
 public sealed partial class WorldSession
 {
+    // S22 has no actor/event identity. Keep combat schedules intact; match only a
+    // singleton frame sound within +/-100 ms, one frame to one S22 first play.
+    public const int PacketSoundMatchMs = 100;
+    readonly Dictionary<(string Key,long Instance,int Frame,long Cycle), (int Id,double At,bool Used)> packetSoundFrames = [];
+    readonly Dictionary<long,bool> packetSoundMatches = [];
     readonly List<PacketSound> packetSounds = [];
     long packetSoundNumber;
     int packetMediaEpoch = -1;
@@ -129,6 +134,7 @@ public sealed partial class WorldSession
         if (packetMediaEpoch != WorldEpoch)
         {
             packetSounds.Clear(); packetEffects.Clear(); PacketMediaNotice = "";
+            packetSoundFrames.Clear(); packetSoundMatches.Clear();
             packetMediaEpoch = WorldEpoch;
         }
         long now = PacketMediaClock();
@@ -160,10 +166,53 @@ public sealed partial class WorldSession
                 continue;
             }
             var schedule = SoundPackets.Schedule(item.Packet, ms.Value);
-            long end = item.At + (long)Math.Ceiling(schedule.Duration);
+            long start = item.At + PacketSoundMatchMs;
+            long end = start + (long)Math.Ceiling(schedule.Duration);
             if (now >= end) { packetSounds.Remove(item); continue; }
-            result.Add(new($"s22/{item.Number}", item.Number, 0, 0, 0, item.At, end, schedule)
+            result.Add(new($"s22/{item.Number}", item.Number, 0, 0, 0, start, end, schedule)
             { DrainOnEnd = true, StillValid = () => WorldEpoch == item.Epoch });
+        }
+        return result.ToArray();
+    }
+
+    public CombatSoundInstance[] ComposePacketSounds(IEnumerable<CombatSoundInstance> existing, long now, Func<int,double?> duration)
+    {
+        var actions = existing.ToArray();
+        var sounds = PacketSoundSnapshot(now,duration); // Also clears history at epoch boundaries.
+        foreach(var key in packetSoundFrames.Where(p=>p.Value.At<now-2*PacketSoundMatchMs).Select(p=>p.Key).ToArray())
+            packetSoundFrames.Remove(key);
+        foreach(var key in packetSoundMatches.Keys.Where(n=>!sounds.Any(s=>s.Instance==n)).ToArray())
+            packetSoundMatches.Remove(key);
+        foreach(var action in actions)
+        {
+            var schedule=action.Schedule;
+            if(now<action.StartedAt||now>=action.EndsAt||schedule.Duration<=0)continue;
+            long cycle=schedule.Loop?(long)((now-action.StartedAt)/schedule.Duration):0;
+            // Retain recent due frame events even if their action disappears next pump.
+            for(long c=Math.Max(0,cycle-1);c<=cycle;c++)foreach(var frame in schedule.Frames)
+            {
+                double at=action.StartedAt+c*schedule.Duration+frame.At;
+                if(frame.Candidates.Length!=1||at>now||at<now-2*PacketSoundMatchMs)continue;
+                var key=(action.Key,action.Instance,frame.Index,c);
+                if(packetSoundFrames.Count<1024)packetSoundFrames.TryAdd(key,(frame.Candidates[0],at,false));
+            }
+        }
+        var result=new List<CombatSoundInstance>(actions);
+        foreach(var sound in sounds)
+        {
+            if(now<sound.StartedAt)continue; // Wait for either packet arrival order.
+            if(!packetSoundMatches.TryGetValue(sound.Instance,out bool matched))
+            {
+                int id=sound.Schedule.Frames[0].Candidates[0];
+                double receivedAt=sound.StartedAt-PacketSoundMatchMs;
+                var match=packetSoundFrames.Where(p=>!p.Value.Used&&p.Value.Id==id&&Math.Abs(p.Value.At-receivedAt)<=PacketSoundMatchMs)
+                    .OrderBy(p=>Math.Abs(p.Value.At-receivedAt)).Take(1).ToArray();
+                matched=match.Length!=0;
+                if(matched){var row=match[0];packetSoundFrames[row.Key]=row.Value with{Used=true};}
+                packetSoundMatches[sound.Instance]=matched;
+            }
+            result.Add(matched?sound with{Schedule=sound.Schedule with{Frames=sound.Schedule.Frames
+                .Select((f,i)=>i==0?f with{Candidates=[]}:f).ToArray()}}:sound);
         }
         return result.ToArray();
     }
@@ -175,6 +224,6 @@ public sealed partial class ClientForm
     IEnumerable<CombatSoundInstance> WithPacketSounds(IEnumerable<CombatSoundInstance> existing, long now)
     {
         packetSoundAssets ??= new(Environment.GetEnvironmentVariable("TW_CLIENT_ROOT") ?? @"D:\lineage開發\0-客戶端");
-        return existing.Concat(login.World.PacketSoundSnapshot(now, packetSoundAssets.Duration));
+        return login.World.ComposePacketSounds(existing, now, packetSoundAssets.Duration);
     }
 }

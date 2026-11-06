@@ -106,6 +106,12 @@ public sealed partial class WorldSession
 
     internal void ReceiveEffectPacket(byte[] plain)
     {
+        ReceiveEffectPacketCore(plain);
+        BasicSupplyReply(plain[0],plain);
+    }
+
+    void ReceiveEffectPacketCore(byte[] plain)
+    {
         var packet=SoundPackets.Effect(plain);
         EnsurePacketMedia();
         // Preserve the established S55 item notifications, renderer and sprite sound events.

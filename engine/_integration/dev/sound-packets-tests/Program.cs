@@ -11,6 +11,7 @@ static class Checks
     const BindingFlags F=BindingFlags.Instance|BindingFlags.NonPublic|BindingFlags.Public;
     static readonly List<string> labels=[];
     static long now=10000;
+    static string fixture="";
     static void Check(bool ok,string label){if(!ok)throw new Exception(label);labels.Add(label);}
     static void Reject(Action action,string label){try{action();}catch(ProtocolException){Check(true,label);return;}throw new Exception("accepted malformed "+label);}
     static byte[] Packet(Action<BinaryWriter> write){using var s=new MemoryStream();using var b=new BinaryWriter(s);write(b);return LoginPackets.Pad(s.ToArray());}
@@ -18,13 +19,53 @@ static class Checks
     static byte[] Effect(byte op=106,ushort gfx=1036,ushort? time=null,uint target=123)=>Packet(b=>{
         b.Write(op);if(op==55)b.Write(target);else{b.Write((ushort)32600);b.Write((ushort)32940);}b.Write(gfx);if(time!=null)b.Write(time.Value);
     });
-    static void Set(object o,string name,object? value)=>o.GetType().GetProperty(name,F)!.SetValue(o,value);
+    static void Set(object o,string name,object? value){var p=o.GetType().GetProperty(name,F);if(p!=null)p.SetValue(o,value);else o.GetType().GetField(name,F)!.SetValue(o,value);}
     static WorldSession Session(){var s=new WorldSession();Set(s,"PacketMediaClock",(Func<long>)(()=>now));return s;}
-    static void Feed(WorldSession s,byte[] packet)
+    static void Feed(WorldSession s,byte[] packet)=>s.Receive(packet,"offline");
+    static void Fixtures()
     {
-        string method=packet[0]==22?"ReceiveSoundPacket":"ReceiveEffectPacket";
-        try{typeof(WorldSession).GetMethod(method,F)!.Invoke(s,[packet]);}
-        catch(TargetInvocationException ex) when(ex.InnerException!=null){System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex.InnerException).Throw();}
+        // Test output is built under scratch/issue-192/tests/bin, never engine/assets.
+        fixture=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../assets"));
+        if(!fixture.Contains(Path.DirectorySeparatorChar+"scratch"+Path.DirectorySeparatorChar))
+            throw new InvalidOperationException("Build these checks under scratch/<task>/tests/bin before running");
+        Directory.CreateDirectory(Path.Combine(fixture,"players"));Directory.CreateDirectory(Path.Combine(fixture,"objects"));
+        var pins=new List<object>();
+        void Save(string relative,object value)
+        {
+            var bytes=JsonSerializer.SerializeToUtf8Bytes(value);string path=Path.Combine(fixture,relative);
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);File.WriteAllBytes(path,bytes);
+            pins.Add(new{path=relative,size=bytes.Length,sha256=Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(bytes))});
+        }
+        Save("players/manifest.json",new{schema="p24-player-profiles-v1",profiles=new[]{new{gfx=0,weapon=0,path="players/test-only.json",sha256=new string('0',64),stepMs=640,serverActionMs=new{walk=640,attack=640,spellDir=640,spellNoDir=640},castReleaseMs=new{spellDir=320}}}});
+        Save("objects/manifest.json",new{gfx=Array.Empty<int>()});Save("objects/names.json",Array.Empty<string>());
+        foreach(var (path,schema) in new[]{("shops/manifest.json","p24-original-shop-appearance-v1"),("encountered-monsters.json","p24-original-encountered-monsters-v1"),("world-appearances.json","p24-original-world-appearances-v1"),("doors/manifest.json","p24-original-inn-door-v1")})
+            Save(path,new{schema,profiles=Array.Empty<object>()});
+        File.WriteAllBytes(Path.Combine(fixture,"integrity.json"),JsonSerializer.SerializeToUtf8Bytes(new{files=pins}));
+    }
+    static void Routing()
+    {
+        var s=Session();int notifications=0;s.CombatSoundStateChanged+=()=>notifications++;
+        var actor=JsonSerializer.Deserialize<OwnActor>("{\"ObjectId\":123,\"X\":32600,\"Y\":32940,\"Name\":\"offline\"}")!;
+        Set(s,"Actor",actor);
+        foreach(ushort gfx in new ushort[]{11722,221,2165,189,191,197})
+        {
+            long magic=s.MagicEffectCount,item=s.ItemEffectNumber;int inventory=s.InventoryRevision;
+            Feed(s,Effect(55,gfx));
+            Check(s.MagicEffectCount==magic+1&&s.PacketEffects.Length==0&&s.PacketSounds.Length==0,$"legacy S55 {gfx} has exactly one visual/audio path");
+            Check(s.ItemEffectNumber==item+(gfx is 189 or 191 or 197?1:0)&&s.InventoryRevision==inventory+(gfx is 189 or 191 or 197?1:0),$"legacy S55 {gfx} item notification preserved once");
+        }
+        long count=s.MagicEffectCount;
+        Feed(s,Effect(55,221,2));Feed(s,Effect(55,65535));Feed(s,Effect());Feed(s,Sound());
+        Check(s.PacketEffects.Length==3&&s.PacketSounds.Length==1&&s.MagicEffectCount==count,"timed S55 precedes legacy parser; S22/S106 use production routing");
+        Check(notifications==10,"Receive notifies audio pump once per packet");
+        using var snapshot=JsonDocument.Parse(JsonSerializer.Serialize(s.Snapshot()));
+        Check(!snapshot.RootElement.GetProperty("unhandled").EnumerateObject().Any(),"all media opcodes handled at shared receive entry");
+        foreach(var bytes in new[]{Effect(),Effect(55),Effect(55,221,2)})
+        {
+            bytes[^1]=1;int effects=s.PacketEffects.Length;long items=s.ItemEffectNumber;
+            Reject(()=>Feed(s,bytes),"malformed effect rejected by real receive");
+            Check(s.PacketEffects.Length==effects&&s.ItemEffectNumber==items,"malformed effect leaves presentation unchanged");
+        }
     }
     static void Decode()
     {
@@ -106,7 +147,7 @@ static class Checks
 
         var s=Session();Feed(s,Sound(2));var audio=new FakeAudio();var controller=new CombatSfxController(audio,new Random(1),_=>{});
         controller.SetControls(1,false,true);
-        void Pump(long time,bool enabled=true)=>controller.Pump(s.WorldEpoch,s.PacketSoundSnapshot(time,_=>500),time,enabled);
+        void Pump(long time,bool enabled=true){time+=WorldSession.PacketSoundMatchMs;controller.Pump(s.WorldEpoch,s.ComposePacketSounds([],time,_=>500),time,enabled);}
         Pump(now);Pump(now);Check(audio.Plays.SequenceEqual(new[]{97}),"S22 uses existing dispatcher exactly once");
         Pump(now+500);Check(audio.Plays.Count==2,"repeat uses WAV interval");
         s.Receive(LoginPackets.Pad([206,4,0,0]),"offline");Pump(now+600);
@@ -119,9 +160,65 @@ static class Checks
         await controller.Shutdown();
 
         var delayed=new FakeAudio{Delay=true};var late=new CombatSfxController(delayed,new Random(1),_=>{});
-        late.SetControls(1,false,true);Feed(s,Sound());late.Pump(s.WorldEpoch,s.PacketSoundSnapshot(now,_=>500),now,true);
+        late.SetControls(1,false,true);Feed(s,Sound());late.Pump(s.WorldEpoch,s.ComposePacketSounds([],now+100,_=>500),now+100,true);
         s.Reset();late.Pump(s.WorldEpoch,[],now+1,true);delayed.Pending.SetResult(FakeAudio.Ok);
         await Task.Delay(30);Check(delayed.Plays.Count==0,"late registration completion cannot play after reset");await late.Shutdown();
+    }
+    static async Task Dedup()
+    {
+        CombatSoundInstance Action(long at,int[] ids)=>new("actor/123",1,123,0,0,at,at+1000,new([new(0,0,ids)],1000,false));
+        foreach(bool packetFirst in new[]{false,true})
+        {
+            var s=Session();var audio=new FakeAudio();var controller=new CombatSfxController(audio,new Random(1),_=>{});
+            controller.SetControls(1,false,true);
+            void Pump(long at,params CombatSoundInstance[] actions)=>controller.Pump(s.WorldEpoch,s.ComposePacketSounds(actions,at,_=>500),at,true);
+            var action=Action(now+(packetFirst?50:-50),[97]);
+            if(packetFirst){Feed(s,Sound(1));Pump(now);Pump(now+50,action);}
+            else{Pump(now-50,action);Feed(s,Sound(1));}
+            Pump(now+100);Pump(now+100);
+            Check(audio.Plays.Count==1,$"same frame/S22 first play suppressed for arrival order {packetFirst}");
+            Pump(now+600);Check(audio.Plays.Count==2,"explicit repeat survives cross-source first-play dedup");
+            await controller.Shutdown();
+        }
+        foreach(var ids in new[]{new[]{98},new[]{97,98}})
+        {
+            var s=Session();Feed(s,Sound());var result=s.ComposePacketSounds([Action(now,ids)],now+100,_=>500);
+            Check(result.Last().Schedule.Frames[0].Candidates.SequenceEqual(new[]{97}),"different or ambiguous frame candidates do not suppress S22");
+        }
+        {
+            var s=Session();Feed(s,Sound());Feed(s,Sound());
+            var result=s.ComposePacketSounds([Action(now,[97])],now+100,_=>500);
+            Check(result.Skip(1).Count(i=>i.Schedule.Frames[0].Candidates.Length==0)==1,"one frame matches only one S22; independent same-ID packets survive");
+            s.Reset();Feed(s,Sound());
+            Check(s.ComposePacketSounds([],now+100,_=>500).Single().Schedule.Frames[0].Candidates.Length==1,"epoch reset clears dedup history");
+        }
+        {
+            var s=Session();Feed(s,Sound());
+            Check(s.ComposePacketSounds([Action(now-101,[97])],now+100,_=>500).Last().Schedule.Frames[0].Candidates.Length==1,"outside match window not suppressed");
+        }
+    }
+    static async Task ClientHook()
+    {
+        // Bypass the Form constructor: no window, renderer assets, audio device or login.
+        var form=(ClientForm)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(ClientForm));
+        GC.SuppressFinalize(form);
+        using var login=new LoginConnection();var s=login.World;
+        Set(login,"State",LoginState.InWorld);Set(s,"Entered",true);Set(s,"MapId",(ushort)0);Set(s,"TimeReplies",1);Set(s,"CacheEnabled",false);
+        Set(s,"Status",JsonSerializer.Deserialize<OwnStatus>("{\"ObjectId\":123,\"Hp\":100,\"MaxHp\":100}"));
+        Set(s,"Actor",JsonSerializer.Deserialize<OwnActor>("{\"ObjectId\":123,\"X\":32600,\"Y\":32940,\"Name\":\"offline\"}"));
+        Set(s,"PacketMediaClock",(Func<long>)(()=>Environment.TickCount64-150));
+        var audio=new FakeAudio();var controller=new CombatSfxController(audio,new Random(1),_=>{});
+        var assets=new PacketSoundAssets("unused-offline");
+        ((Dictionary<int,double?>)typeof(PacketSoundAssets).GetField("durations",F)!.GetValue(assets)!)[97]=10000;
+        Set(form,"login",login);Set(form,"combatSfx",controller);Set(form,"combatSfxScene",new CombatSfxScene(fixture));
+        Set(form,"packetSoundAssets",assets);Set(form,"audioSettings",new PlayerAudioSettings());
+        var pump=typeof(ClientForm).GetMethod("PumpCombatSfx",F)!;
+        Feed(s,Sound());pump.Invoke(form,null);pump.Invoke(form,null);
+        Check(audio.Plays.SequenceEqual(new[]{97}),"real ClientForm PumpCombatSfx hook dispatches received S22 exactly once");
+        s.Reset();pump.Invoke(form,null);
+        Check(audio.Retired.Count==1,"real client hook retires packet audio on reset");
+        await controller.Shutdown();
+        GC.SuppressFinalize(form);
     }
     static void Wav()
     {
@@ -137,7 +234,7 @@ static class Checks
     {
         try
         {
-            using var guard=new SocketGuard();Decode();Effects();await Audio();Wav();
+            using var guard=new SocketGuard();Fixtures();Decode();Routing();Effects();await Audio();await Dedup();await ClientHook();Wav();
             File.WriteAllText(args[0],JsonSerializer.Serialize(new{status="pass",checks=labels.Count,scope="合成封包／素材及記憶體音訊；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));
             Console.WriteLine($"PASS {labels.Count} sound packet checks");return 0;
         }
