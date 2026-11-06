@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 174,
+ "sourceCount": 176,
  "files": [
   {
    "path": "NuGet.Config",
@@ -405,6 +405,16 @@
    "sha256": "cdb6bab4d853d13cc22a8c925b944702faaef7fea1dafdb618d3a0327ecbb8c5"
   },
   {
+   "path": "source/Mail.cs",
+   "size": 10190,
+   "sha256": "136200b761e2a784b43c8d6309d6de885d08b08e970fcbd3c7e80126fd3bb1fd"
+  },
+  {
+   "path": "source/MailUi.cs",
+   "size": 10062,
+   "sha256": "051a5bd56f1ee1656975a3b2af2973cb03971b85b1697321c62d7fabf714bbb1"
+  },
+  {
    "path": "source/MapEffects.cs",
    "size": 4465,
    "sha256": "151017e2a085c66427959f9d6164f3cec08a455ea3866fd7e1f411f38261debd"
@@ -616,8 +626,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15394,
-   "sha256": "f7583e75ba3a88ada62b0612e5ef36e3f36f3a2df3e37a6147853ceabf141c74"
+   "size": 15429,
+   "sha256": "ddfaf7f5e0b2da0fe6cad7a9643b5198ec32791b00fd491ce2c906124081fac9"
   },
   {
    "path": "source/PlayerPointer.cs",
@@ -866,8 +876,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9260,
-   "sha256": "0a2ba14de9311915f21eeaaf6ae500dbadc3d9ad8b83e9c77ef18e64ec7a9255"
+   "size": 9304,
+   "sha256": "bf25724f39844700eb78accdfa1c0f1d61e52f76b06dae0de700bbb347ba9251"
   },
   {
    "path": "source/WorldTests.cs",
