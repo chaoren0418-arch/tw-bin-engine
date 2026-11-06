@@ -1,0 +1,78 @@
+# Issue #151 — T075 建置交接與 dot 前置查核
+
+## 結論
+
+⚠️ dev 建置通過，入口 `--check-only` 退出 1。第 a 段受素材索引缺件阻塞，須先排除再交 dot 執行第 b 段。
+
+**2026-11-06 dot 實查：同一缺件仍存在，未進入第 b 段。** Junction 指向正確且目標目錄存在，目標的 `integrity.json` 缺失；保全清單與保全目錄沒有該索引或 assets。以下保留前段建置紀錄，最新查核及未測清單見文末。本次交付只包含本報告與 Demo 的 M2 未測清單，原始診斷留本機。
+
+## 做了什麼
+
+- 已讀根目錄 `AGENTS.md`、`docs/REPORT.md` 與 `TASKS.md` 的 M2／T075。
+- 接手時為 detached HEAD `1cb4d024fee785a983f8bdd6c930ecd8d06f1d2c`，有 147 個既有未追蹤檔案。為滿足乾淨目錄前置，將它們保全至 `scratch/issue-151/preexisting-untracked/`，保留相對路徑，搬移前確認都是單一連結的普通檔案，搬移後逐檔核對 SHA-256。還原清單為 `scratch/issue-151/preexisting-untracked.json`。
+- 確認 `git status --porcelain` 為空後，依序 fetch、切 main、fast-forward 至 origin/main，再建立 `task/151`。主目錄停在此分支。
+- 建置來源 HEAD 為 `41d978ee001554c23b0372589bb79c4893dbd17c`。
+- 以已安裝的 Python 3.12 補入本次命令 PATH，並指定套件快取 `engine/.nuget`，執行派工建置命令。
+
+## 怎麼驗證
+
+```text
+python -B -X utf8 engine/_integration/dev/rebuild.py --build --write-receipt --output scratch/issue-151/rebuild
+engine\啟動新版客戶端.cmd --check-only
+```
+
+- 已驗證建置退出 0，`PASS dev`，SDK `10.0.300`，172 個來源檔與 181 個鎖定檔核驗通過。主程式 0 錯誤、2 個警告，位於 `MagicUi.cs:20` 的 CS8600／CS8602。Launcher 0 錯誤、0 警告。
+- `engine/build/client-product-dev/P11.ClientEngine.dll` 的 SHA-256 為 `7fa85547ec50caf0049d503db114da5f519b235c8173ea45cfda26788946fe08`。
+- `engine/_integration/dev/rebuild-lock.json` 的 SHA-256 為 `038366ef8a532466fbd742642435f70174ec154986f388ceaa8dfa6138a5c4b8`。
+- 已驗證 check-only 退出 1，錯誤為「manifest 缺少必要入口或素材索引。」因此尚未取得要求的 `revision: dev` 成功回傳。
+- 已驗證 `engine/assets` junction 指向 `releases/r28/assets`，目標目錄存在，但 `engine/assets/integrity.json` 與目標下的 `integrity.json` 均不存在。建置腳本只有在該檔存在時才納入 manifest，launcher 則要求它存在，與 `docs/BUILD.md` 的前置說明一致。
+- 唯讀核實調度器 `leases` 的 holder 為 `chaoren0418-arch/tw-bin-engine#151`，exp 為 `1793979710.0998135`，對應派工的 `2026-11-06T15:41:50Z`。
+- 收尾時唯讀檢查 42061／43324，兩埠均無 TCP 監聽。
+
+## 未驗證什麼
+
+- M2 與 M1 移入列的遊戲畫面、登入、戰鬥、NPC、跨圖及音效均待第 b 段真機驗收，demo 頁的實測結果待 dot 填寫。
+- Runtime／WebView2 完整入口核驗仍待素材索引問題排除後確認。
+- 本輪遊戲與服務操作、DB 查詢均為零，產品來源與 lock 的 Git diff 為空。
+
+## 產出路徑
+
+- 本報告 `docs/reports/issue-151.md`。
+- 建置結果與各步驟日誌 `scratch/issue-151/rebuild/`。
+- 入口退出碼與輸出 `scratch/issue-151/check-only.json`、`check-only.stdout`、`check-only.stderr`。
+- 監聽狀態 `scratch/issue-151/listeners.json`。
+- 本機 receipt `engine/_integration/dev/receipt.json`，供後續核對，屬未追蹤建置產物。
+- 既有檔案保全目錄與清單如上，僅存本機 scratch，交接前應保留。
+
+## 給下一棒的提示
+
+1. 主控先安排本機 resource 處理缺失的素材索引，確認合法且完整的既有素材來源。本輪依禁止事項保留封存內容與 junction，未以替代索引繞過檢查。
+2. 素材前置排除後，由 codex-local 補完含素材索引的正式建置與入口 check-only，記錄成功的 dev 回傳及最新雜湊，再由主控改 runner 重排 dot。當前版本尚未達到第 b 段交接門檻。
+3. dot 接手須重新核實有效 p24lab lease，沿用 #77 主控 06:03 安全裁定，依 #129、#130、#133、#140、#145 報告與 `docs/protocol/npc.md` 執行一次 M2 smoke，每項最多三次，填 demo 頁 ✅ 附截圖或 ⚠️ 加原因。普通肉需驗丟 1／撿 1、丟 10／撿 10；無第二測試角色時，直接交易照實註記 PLAN U3。
+4. M2 smoke 完成後交主控結案，未過列由主控排下一里程碑 code 任務。
+
+## dot 前置查核
+
+查核時間：2026-11-06 16:02–16:04 UTC。
+
+### 已驗證：做了什麼與結果
+
+- 讀取當前規範、本報告、TASKS 的 M2 節及 #151 派工 `6688994301`／技術補充 `6689014238`。根目錄 AGENTS.md 與 CLAUDE.md 雜湊相同；沒有讀取 docs/REPORT.md，未重查 #77 歷史或調度器實作。
+- 主目錄為 `task/151@ba32381599b24f82edacc0108a1b49595d37d032`，查核前追蹤檔乾淨。現有主程式 DLL SHA-256 為 `7fa85547ec50caf0049d503db114da5f519b235c8173ea45cfda26788946fe08`，符合派工；未同步、切分支、重建或修改產品／lock。
+- `engine/assets` 為 Junction，指向本專案 `releases/r28/assets`；目標是存在的目錄。`engine/assets/integrity.json` 與目標的 `integrity.json` 均不存在。沒有修改連結、封存、來源素材或任何連結目標。
+- `scratch/issue-151/preexisting-untracked.json` 共147筆，沒有 assets 路徑或 integrity.json；實際保全目錄亦未找到 assets 目錄或 integrity.json。未移回、移走或刪除任何既有檔案。
+- 只執行一次已知入口 `--check-only`，16:03:28 UTC 退出1；stderr為「啟動檢查失敗：manifest 缺少必要入口或素材索引。」沒有成功 JSON，不能填造 `revision: dev` 或 `uiStarted: false` 回傳。入口另有通用 Runtime 提示，不能以此推論 Runtime 缺失。
+- 本次沒有啟動客戶端、Java 或 MySQL，沒有連接DB、遊戲操作或截圖。16:03:47 UTC 的實驗端口檢查為零監聽；沒有自有測試服務需要關閉，也沒有停止其他程序或變更租約。
+
+### 推測與未驗證
+
+直接阻塞已確認為素材索引缺件；索引何時、為何缺失仍未知。保全清單及目錄未找到該物件，不支持「本次147筆保全把 assets 搬走」的說法，也不證明其他歷史變更原因。未搜尋其他封存版本補件、建立替代索引或以重建繞過入口檢查。
+
+因來源索引本身不存在，依本次指示不進真機。所有第 b 段列均為 **⚠️ 未執行（前置缺件）**：戰鬥閉環、光箭靜音／恢復、非滿血治癒、原生操作／HUD／視野／移動終點／F9、NPC服務、普通肉1／10循環、洞穴／船運／旅館及6016場景音效。逐列見 [Demo：M2 遊戲循環](../demo/README.md#m2-遊戲循環)。沒有核實第二測試角色是否存在，不能把直接交易寫成「無第二角色」；也不能把本次未測當產品功能失敗。
+
+### 產出與交接
+
+- 交付文件：本報告及 `docs/demo/README.md` 的 M2 區；沒有新截圖或新增通過列，既有 #77 證據保留。
+- 本機原始證據：`scratch/issue-151/dot-preflight/diagnosis.json`、`check-only.json`、`check-only.stdout`、`check-only.stderr`；JSON 是命令退出紀錄，並非成功的 launcher JSON。
+- 狀態 **blocked**：真機前置不成立；沒有工具拒絕或等待中的操作。交付沿用上述已完成診斷，未重跑檢查或真機；只提交兩份必要文件，不提交原有未追蹤檔或私人原始證據。
+- 請專案主控安排合法完整的既有素材索引來源與前置修復責任，再決定後續測試排程；本次不自行修改 releases、junction 或 manifest，不要求重授已涵蓋的測試權限。
