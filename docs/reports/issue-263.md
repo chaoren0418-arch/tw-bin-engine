@@ -12,13 +12,14 @@
 
 ## 怎麼驗證（已驗證）
 
-- .NET SDK 10.0.300，`rebuild.py --update-lock`：174 個來源、183 個鎖定輸入。
+- .NET SDK 10.0.300，`rebuild.py --update-lock`：同步 main 後 175 個來源、184 個鎖定輸入。
 - `rebuild.py --build --configfile scratch/issue-263/NuGet.Config --output scratch/issue-263/build`：產品與 launcher 建置通過；產品有既有 `MagicUi.cs:20` CS8600／CS8602 兩個警告、零錯誤，launcher 零警告／零錯誤。
 - 首次 nuget.org restore 因 Windows TLS 認證錯誤失敗；改用 scratch 內設定唯讀指向原專案 `engine/vendor`。套件快取、暫存與建置輸出皆留在本 worktree，沒有修改原專案資源。
 - `DemoChecks ... polymorph-cadence`：123 項檢查通過，含 90 項基本變身檢查與 33 項合成動作節奏檢查。直接執行建出的產品 DLL 收包路徑；涵蓋所有 S76 serializer 格式、錯誤包不改狀態、S230、速度與物件生命週期，以及實際 S30／S158 路徑採用新 gfx／武器節奏。
 - 既有群組回歸：`map-continuity` 218 項、`combat-admission` 302 項通過（各包含基本變身 90 項）。
-- `check-no-game-assets.py`：3,253 個追蹤檔、4 個 EmbeddedResource 宣告，零錯誤；`git diff --check` 按既有 CRLF 格式檢查通過。
-- 遠端 CI：開 PR 後確認 Linux `dotnet` 與 Windows `map-continuity`（含本次變身步驟）；最終結果見 PR Checks。
+- `check-no-game-assets.py`：3,261 個追蹤檔、4 個 EmbeddedResource 宣告，零錯誤；`git diff --check` 按既有 CRLF 格式檢查通過。
+- 第一輪遠端 CI 的 Windows 變身／地圖／戰鬥檢查通過；Linux 編譯成功後，因 main 新增 `StatusIcons.cs` 與本分支的 dev lock 自動合併留下 sourceCount=174（實際 175），來源核驗失敗。已無衝突同步 `origin/main`（272667d），由 `--update-lock` 完整重產，未手拼 hash；重新建置及上述三組測試、素材檢查均通過。
+- 遠端最終結果見 [PR #278 Checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/278/checks)。
 
 ## 未驗證什麼
 

@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 174,
+ "sourceCount": 175,
  "files": [
   {
    "path": "NuGet.Config",
@@ -246,13 +246,13 @@
   },
   {
    "path": "source/Ground.cs",
-   "size": 9407,
-   "sha256": "26dc7687853a04bffc3e61b2e59a55f6879f65be1821c22f0c2a8b7a538d4a95"
+   "size": 9502,
+   "sha256": "a7686ee7ed54f9655f1231c9a205c1e157ed7ede85d1a97a5d02ea2ce661bc82"
   },
   {
    "path": "source/GroundCatalog.cs",
-   "size": 4770,
-   "sha256": "7dcac9e71b016005efc48d637417e17e960fef45cbbda90974465271f6794ec0"
+   "size": 4979,
+   "sha256": "70d16fdcb9508ab5ba30fc088c67216e04b4948026ddbe2e8353a0eff37ab39d"
   },
   {
    "path": "source/GroundIntegration.cs",
@@ -271,8 +271,8 @@
   },
   {
    "path": "source/GroundSpriteReader.cs",
-   "size": 5373,
-   "sha256": "a5d570ff8225fa1c02183bb050bc03fe43f5477f669ef9f4f5a86768b61e35da"
+   "size": 12816,
+   "sha256": "2488add0256808c1469542e539cb00deb4d4bc4fbeb9b7ab7dcfa47088bce32d"
   },
   {
    "path": "source/GroundTests.cs",
@@ -286,8 +286,8 @@
   },
   {
    "path": "source/GroundUi.cs",
-   "size": 4909,
-   "sha256": "ca12ff6588adc3ae14ed330e6a06debeeaef0ed4d78eacc7e0b9ea4288a626aa"
+   "size": 4990,
+   "sha256": "cf6984782fadd2c24d8cbf42cc671277e597a869670e68c3f70dbbd2bf8e7d93"
   },
   {
    "path": "source/Inventory.cs",
@@ -376,8 +376,8 @@
   },
   {
    "path": "source/MagicStatus.cs",
-   "size": 3337,
-   "sha256": "5b8d0eeec6a7a45457f430ab587d833d8eea387e3ac94d2e3717c2e3f805a8ce"
+   "size": 8230,
+   "sha256": "4ee0df2c149b2e630094a2dddf2751f84cd6c24b4183ce376ded75aa2f01f1f6"
   },
   {
    "path": "source/MagicTargetPreparation.cs",
@@ -616,8 +616,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15160,
-   "sha256": "dca7d6bfdc87704308b744bf2f485598080ed7d6ad18d3f7199fb1758a9dc42f"
+   "size": 15394,
+   "sha256": "f7583e75ba3a88ada62b0612e5ef36e3f36f3a2df3e37a6147853ceabf141c74"
   },
   {
    "path": "source/PlayerPointer.cs",
@@ -793,6 +793,11 @@
    "path": "source/SkillCast.cs",
    "size": 5725,
    "sha256": "46c38d4dbdb7c2d4e96ee67abcf7d38ce449a4c681e1fd5f9610fb11fce50676"
+  },
+  {
+   "path": "source/StatusIcons.cs",
+   "size": 3707,
+   "sha256": "fa35e3802da2fe380487c516cefefe2150884f5b56326b73b00dced0a0695107"
   },
   {
    "path": "source/SystemAnnouncements.cs",
