@@ -18,7 +18,8 @@ ${xp.Percent==null?xp.Limitation:'本級 '+xp.Percent.toFixed(6)+'% · 下一級
  const target=w?.target;document.querySelector("#targetResult").textContent=target?`${s.targetName||target.Name} / ${target.Name}\nobject ${target.ObjectId} · gfx ${target.Gfx}\n${target.X}, ${target.Y} · D${target.Direction}\nHP ${target.HpPercent==null?"未提供":target.HpPercent+"%"} · 類型未確定\n旗標 ${target.Flags} / 原始等級欄 ${target.Level}`:"未選取";
  document.querySelector("#assetLabel").textContent=s.onlineMode?(w?.ready?`伺服器 GFX ${w.actor.Gfx}`:"等待伺服器外觀"):"離線素材 GFX 0 → SPRITE 3225";
  document.querySelector('#worldResult').textContent=w?.ready?`${w.actor.Name} / object ${w.actor.ObjectId}
-map ${w.mapId} · ${w.actor.X}, ${w.actor.Y} · D${w.actor.Direction}
+${w.movement?.authoritativePosition?.text||"原服座標：等待位置回包"}
+畫面預測 map ${w.mapId} · ${w.actor.X}, ${w.actor.Y} · D${w.actor.Direction}
 已載入範圍 ${w.loadedRegion?.minX}–${w.loadedRegion?.maxX} / ${w.loadedRegion?.minY}–${w.loadedRegion?.maxY}
 gfx ${w.actor.Gfx} · 武器型態 ${w.actor.Weapon} / ${w.appearanceNotice??(w.renderable?'素材匹配':'素材未支援')}
 Lv.${w.status.Level} HP ${w.status.Hp}/${w.status.MaxHp} MP ${w.status.Mp}/${w.status.MaxMp}
@@ -33,7 +34,7 @@ ${l.news||''}
 `+l.characters.map(c=>`${c.Name} / ${c.Clan}
 Lv.${c.Level}  HP ${c.Hp}  MP ${c.Mp}  AC ${c.Ac}
 職業 ${c.Class} / 性別 ${c.Sex} / 正義 ${c.Lawful}
-力 ${c.Strength} 敏 ${c.Dexterity} 體 ${c.Constitution} 智 ${c.Intelligence} 精 ${c.Wisdom} 魅 ${c.Charisma}`).join('\n\n');}document.querySelector('#position').textContent=s.onlineMode?(w?.ready?`${w.actor.X}, ${w.actor.Y}`:'等待真實座標'):`${s.x}, ${s.y}`;document.querySelector('#direction').textContent=s.onlineMode?(w?.ready?`方向 D${w.actor.Direction} · 預測／伺服器校正`:'等待真實角色資料'):`方向 D${s.direction} · ${s.walking?'行走':'站立'} · 步數 ${s.steps}`;
+力 ${c.Strength} 敏 ${c.Dexterity} 體 ${c.Constitution} 智 ${c.Intelligence} 精 ${c.Wisdom} 魅 ${c.Charisma}`).join('\n\n');}document.querySelector('#position').textContent=s.onlineMode?(w?.movement?.authoritativePosition?.text||'原服座標：等待位置回包'):`${s.x}, ${s.y}`;document.querySelector('#direction').textContent=s.onlineMode?(w?.ready?`方向 D${w.actor.Direction} · 預測／伺服器校正`:'等待真實角色資料'):`方向 D${s.direction} · ${s.walking?'行走':'站立'} · 步數 ${s.steps}`;
  document.querySelector('#mode').textContent=s.onlineMode?'真實連線 · '+s.login.state:s.networkMode?'測試通訊 · 回覆後套用':'離線模式';document.querySelector('#mapResource').textContent=s.onlineMode?[w?.basicSupplyNotice,w?.announcement,w?.bonusStatsNotice,w?.ship?.notice,w?.movement?.speedNotice,w?.teleport?.notice,w?.mapResourceNotice].filter(Boolean).join('\n'):'';document.querySelector('#connection').textContent=`${s.onlineMode?s.login.state:s.connection} / ${s.busy?'等待有效回覆':s.gameFocus?'遊戲控制':'面板／其他焦點'}`;
  document.querySelector('#revision').textContent=`狀態版本 ${s.revision} · 已確認 ${s.confirmed}`;document.querySelectorAll('.directions button').forEach(b=>b.disabled=(s.onlineMode&&(!s.movementControl?.available||s.movementControl.busy||!w?.renderable||w?.teleport?.actionLocked||w?.combat?.ownDead||w?.status?.Hp===0))||s.busy||s.walking||(s.networkMode&&s.connection!=='Ready'));
  }else if(s.kind==='reply'){if(s.audio&&!handleAudioSettingsReply(s))return;window.lastReply=s;handleBonusStatsReply(s);handlePrivateShopReply(s);handleLoginReply(s);handleNpcReply(s);handleTradeReply(s);document.querySelector('#reply').textContent=`#${s.id} ${s.status}`;}});
@@ -46,6 +47,7 @@ window.addEventListener('blur',()=>send('stop'));
 
 document.querySelector("#attack").onclick=()=>send("attack");
 
+const quantityErrors={};
 let inventorySignature='';
 function renderInventory(inv){
  rememberQuantity('inventory',inv);
@@ -54,7 +56,7 @@ function renderInventory(inv){
  for(const i of inv.items){const b=document.createElement('button');b.className='inventoryItem'+(i.selected?' selected':'');b.dataset.itemId=i.id;
  if(i.icon){const img=document.createElement('img');img.src=i.icon;img.alt='原道具圖示';b.append(img);}else{const span=document.createElement('span');span.textContent='缺圖';b.append(span);}
  const text=document.createElement('span');text.textContent=`${i.name} × ${i.count}\n${i.state}`;b.append(text);b.onclick=()=>send('selectItem',{itemId:i.id,epoch:inv.epoch});host.append(b);}
- const selected=inv.items.find(i=>i.id===inv.selectedId);document.querySelector('#useItem').textContent=selected?.action||'單次使用';document.querySelector('#dropItem').disabled=!selected?.droppable||inv.busy;document.querySelector('#dropCount').max=selected?.count||1;document.querySelector('#useItem').disabled=!selected?.usable||inv.busy||inv.available===false;document.querySelector('#inventoryNotice').textContent=inv.notice+(inv.message?'\n'+inv.message:'');
+ const selected=inv.items.find(i=>i.id===inv.selectedId);document.querySelector('#useItem').textContent=selected?.action||'單次使用';document.querySelector('#dropItem').disabled=!selected?.droppable||inv.busy;document.querySelector('#dropCount').max=selected?.count||1;document.querySelector('#useItem').disabled=!selected?.usable||inv.busy||inv.available===false;document.querySelector('#inventoryNotice').textContent=quantityErrors.inventory||inv.notice+(inv.message?'\n'+inv.message:'');
 }
 document.querySelector('#useItem').onclick=()=>{const inv=window.lastState?.inventory;if(inv?.selectedId)send('useItem',{itemId:inv.selectedId,epoch:inv.epoch,selectionRevision:inv.selectionRevision});};
 
@@ -63,27 +65,27 @@ function renderGround(g){if(!g)return;const sig=JSON.stringify(g);if(sig===groun
  rememberQuantity('ground',g);
  const host=document.querySelector('#groundItems');host.replaceChildren();
  for(const i of g.items){const b=document.createElement('button');b.className='inventoryItem'+(i.selected?' selected':'');b.dataset.groundId=i.id;if(i.image){const img=document.createElement('img');img.src=i.image;img.alt='原地面外觀';b.append(img);}const t=document.createElement('span');t.textContent=i.name;b.append(t);b.onclick=()=>send('selectGround',{itemId:i.id,epoch:g.epoch});host.append(b);}
- const selected=g.items.find(i=>i.id===g.selectedId);document.querySelector('#pickup').disabled=!selected||g.busy;document.querySelector('#pickupCount').max=selected?.count||1;document.querySelector('#groundNotice').textContent=g.notice;
+ const selected=g.items.find(i=>i.id===g.selectedId);document.querySelector('#pickup').disabled=!selected||g.busy;document.querySelector('#pickupCount').max=selected?.count||1;document.querySelector('#groundNotice').textContent=quantityErrors.ground||g.notice;
 }
 const quantitySelections={};
 function rememberQuantity(key,s){
  if(!s)return;const old=quantitySelections[key],item=s.items.find(i=>i.id===s.selectedId);
  if(!old||old.epoch!==s.epoch||old.itemId!==s.selectedId||old.selectionRevision!==s.selectionRevision)
-  quantitySelections[key]=item?{itemId:s.selectedId,epoch:s.epoch,selectionRevision:s.selectionRevision,revision:s.quantityRevision??s.revision,available:item.count}:null;
+  {delete quantityErrors[key];quantitySelections[key]=item?{itemId:s.selectedId,epoch:s.epoch,selectionRevision:s.selectionRevision,revision:s.quantityRevision??s.revision,available:item.count}:null;}
 }
 function countCommand(cmd,key,input){
  const s=quantitySelections[key],text=document.querySelector(input).value;
- if(s&&/^[0-9]+$/.test(text)&&Number.isSafeInteger(Number(text))&&Number(text)>0&&Number(text)<=Math.min(s.available,2147483647))send(cmd,{...s,count:text});
- else document.querySelector(key==='ground'?'#groundNotice':'#inventoryNotice').textContent=s?'未送出：數量不合法，請輸入 1 到持有量（最多 2147483647）的整數':'未送出：請先選取物品';
+ if(s&&/^[0-9]+$/.test(text)&&Number.isSafeInteger(Number(text))&&Number(text)>0&&Number(text)<=Math.min(s.available,2147483647)){delete quantityErrors[key];document.querySelector(key==='ground'?'#groundNotice':'#inventoryNotice').textContent='數量請求已提交，等待處理';inventorySignature=groundSignature='';send(cmd,{...s,count:text});}
+ else document.querySelector(key==='ground'?'#groundNotice':'#inventoryNotice').textContent=quantityErrors[key]=s?'未送出：數量不合法，請輸入 1 到持有量（最多 2147483647）的整數':'未送出：請先選取物品';
 }
 document.querySelector('#dropItem').onclick=()=>countCommand('drop','inventory','#dropCount');
 document.querySelector('#pickup').onclick=()=>countCommand('pickup','ground','#pickupCount');
 for(const id of ['dropCount','pickupCount'])document.getElementById(id).addEventListener('focus',()=>send('stop'));
 
-let magicSignature='';
+let magicSignature='',magicSkillsSignature='',magicTargetsSignature='';
 function renderMagic(m){if(!m)return;const sig=JSON.stringify(m);if(sig===magicSignature)return;magicSignature=sig;
-const skills=document.getElementById('magicSkills');skills.replaceChildren(new Option('請選擇已學魔法',''));for(const x of m.skills){const op=new Option(`${x.Name} · ${x.Target} · 原模板MP${x.NominalMp}`,x.Id);op.disabled=!x.Supported;skills.add(op);}skills.value=m.selectedId||'';
-const targets=document.getElementById('magicTargets');targets.replaceChildren(new Option(m.targetMode==='attack'?'選擇可見敵人':'自己',m.targetMode==='attack'?'':'0'));targets.disabled=m.targetMode==='none';for(const x of m.targets)targets.add(new Option(x.name+' #'+x.id,x.id));targets.value=m.targetId==null?'':String(m.targetId);
+const skills=document.getElementById('magicSkills');const sk=JSON.stringify(m.skills);if(sk!==magicSkillsSignature){magicSkillsSignature=sk;skills.replaceChildren(new Option('請選擇已學魔法',''));for(const x of m.skills){const op=new Option(`${x.Name} · ${x.Target} · 原模板MP${x.NominalMp}`,x.Id);op.disabled=!x.Supported;skills.add(op);}}skills.value=m.selectedId||'';
+const targets=document.getElementById('magicTargets');const tk=JSON.stringify([m.epoch,m.targetMode,m.targets]);if(tk!==magicTargetsSignature){magicTargetsSignature=tk;targets.replaceChildren(new Option(m.targetMode==='attack'?'選擇可見敵人':'自己',m.targetMode==='attack'?'':'0'));for(const x of m.targets)targets.add(new Option(x.name+' #'+x.id,x.id));}targets.disabled=m.targetMode==='none';targets.value=m.targetId==null?'':String(m.targetId);
 document.getElementById('magicVitals').textContent=m.hp==null?'等待原服 HP／MP':`HP ${m.hp}/${m.maxHp} · MP ${m.mp}/${m.maxMp}`;document.getElementById('castMagic').disabled=!m.available;document.getElementById('magicNotice').textContent=(m.targetName?'對象：'+m.targetName+'\n':'')+(m.acNotice||m.ac!=null?(m.acNotice||'AC '+m.ac)+' · '+([m.fire,m.water,m.wind,m.earth].every(v=>v!=null)?'抗性 火'+m.fire+' 水'+m.water+' 風'+m.wind+' 地'+m.earth:'抗性：等待原服資料')+'\n':'')+(m.buffs?m.buffs+'\n':'')+m.notice+'\n'+(m.message||'');}
 document.getElementById('magicSkills').onchange=e=>{const m=window.lastState?.magic;if(m&&e.target.value)send('selectMagic',{skillId:Number(e.target.value),epoch:m.epoch});};
 document.getElementById('magicTargets').onchange=e=>{const m=window.lastState?.magic;if(m&&e.target.value)send('selectMagicTarget',{targetId:Number(e.target.value),epoch:m.epoch});};

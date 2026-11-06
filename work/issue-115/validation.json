@@ -1,0 +1,284 @@
+{
+  "status": "pass",
+  "commands": [
+    {
+      "name": "lock",
+      "argv": [
+        "python",
+        "-B",
+        "-X",
+        "utf8",
+        "engine/_integration/dev/rebuild.py",
+        "--update-lock"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 169, \"pinnedFiles\": 178, \"writes\": true}\r\n",
+      "stderr": ""
+    },
+    {
+      "name": "build",
+      "argv": [
+        "python",
+        "-B",
+        "-X",
+        "utf8",
+        "engine/_integration/dev/rebuild.py",
+        "--build",
+        "--write-receipt",
+        "--output",
+        "scratch/issue-115/rebuild"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 169, \"pinnedFiles\": 178, \"writes\": false}\r\nsdk 0\r\nproduct-restore 0\r\nproduct-build 0\r\nlauncher-restore 0\r\nlauncher-build 0\r\nreceipt written D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-115\\engine\\_integration\\dev\\receipt.json\r\nPASS dev {\"productDllSha256\": \"37cd8201f6ad631f70915a8314d19d0ec4ca0cb28dbd524169937d5d23930174\", \"audioDllSha256\": \"c64a38a8165f5651a331c19cf580e64d0e59541d060aeebb69c71941bb04b52d\", \"productManifestSha256\": \"44164613584da833a0e53e721ce3a1957315701b94616a6d43067afc46d78a3a\", \"launcherDllSha256\": \"222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "name": "check-only",
+      "argv": [
+        "cmd.exe",
+        "/d",
+        "/c",
+        "engine\\啟動新版客戶端.cmd",
+        "--check-only"
+      ],
+      "exitCode": 0,
+      "stdout": "{\r\n  \"status\": \"checked-only\",\r\n  \"revision\": \"dev\",\r\n  \"executable\": \"D:\\\\lineage\\u958B\\u767C\\\\TW1608262200\\u7814\\u7A76\\\\scratch\\\\wt\\\\task-115\\\\engine\\\\build\\\\client-product-dev\\\\P11.ClientEngine.exe\",\r\n  \"workingDirectory\": \"D:\\\\lineage\\u958B\\u767C\\\\TW1608262200\\u7814\\u7A76\\\\scratch\\\\wt\\\\task-115\\\\engine\",\r\n  \"arguments\": [\r\n    \"--normal-product\"\r\n  ],\r\n  \"manifest\": \"D:\\\\lineage\\u958B\\u767C\\\\TW1608262200\\u7814\\u7A76\\\\scratch\\\\wt\\\\task-115\\\\engine\\\\build\\\\product-dev-manifest.json\",\r\n  \"manifestSha256\": \"44164613584da833a0e53e721ce3a1957315701b94616a6d43067afc46d78a3a\",\r\n  \"hashedRuntimeAndWebFiles\": 24,\r\n  \"assetFilesCheckedForPresenceAndSize\": 13957,\r\n  \"assetContentVerification\": \"Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.\",\r\n  \"runtime\": {\r\n    \"architecture\": \"x64\",\r\n    \"loadedCoreVersion\": \"10.0.8\",\r\n    \"loadedCoreDirectory\": \"C:\\\\Program Files\\\\dotnet\\\\shared\\\\Microsoft.NETCore.App\\\\10.0.8\\\\\",\r\n    \"desktopVersion\": \"10.0.8\",\r\n    \"desktopDirectory\": \"C:\\\\Program Files\\\\dotnet\\\\shared\\\\Microsoft.WindowsDesktop.App\\\\10.0.8\"\r\n  },\r\n  \"webView2Version\": \"156.0.4314.58\",\r\n  \"powerShellRequired\": false,\r\n  \"pathLookupUsed\": false,\r\n  \"autoLogin\": false,\r\n  \"uiStarted\": false,\r\n  \"networkStarted\": false,\r\n  \"servicesStarted\": false\r\n}\r\n",
+      "stderr": ""
+    },
+    {
+      "name": "demo-build",
+      "argv": [
+        "dotnet",
+        "build",
+        "engine/_integration/dev/demo-tests/DemoChecks.csproj",
+        "-c",
+        "Release",
+        "-o",
+        "engine/build/issue-115-demo",
+        "--configfile",
+        "engine/NuGet.Config"
+      ],
+      "exitCode": 0,
+      "stdout": "  正在判斷要還原的專案...\r\n  所有專案都在最新狀態，可進行還原。\r\n  DemoChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-115\\engine\\build\\issue-115-demo\\DemoChecks.dll\r\n\r\n建置成功。\r\n    0 個警告\r\n    0 個錯誤\r\n\r\n經過時間 00:00:01.55\r\n",
+      "stderr": ""
+    },
+    {
+      "name": "ground-build",
+      "argv": [
+        "dotnet",
+        "build",
+        "engine/_integration/dev/ground-tests/GroundChecks.csproj",
+        "-c",
+        "Release",
+        "-o",
+        "engine/build/issue-115-ground",
+        "--configfile",
+        "engine/NuGet.Config"
+      ],
+      "exitCode": 0,
+      "stdout": "  正在判斷要還原的專案...\r\n  所有專案都在最新狀態，可進行還原。\r\n  GroundChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-115\\engine\\build\\issue-115-ground\\GroundChecks.dll\r\n\r\n建置成功。\r\n    0 個警告\r\n    0 個錯誤\r\n\r\n經過時間 00:00:01.75\r\n",
+      "stderr": ""
+    },
+    {
+      "name": "combat-build",
+      "argv": [
+        "dotnet",
+        "build",
+        "engine/_integration/dev/combat-sfx-tests/CombatSfxChecks.csproj",
+        "-c",
+        "Release",
+        "-o",
+        "engine/build/issue-115-combat",
+        "--configfile",
+        "engine/NuGet.Config"
+      ],
+      "exitCode": 0,
+      "stdout": "  正在判斷要還原的專案...\r\n  所有專案都在最新狀態，可進行還原。\r\n  CombatSfxChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-115\\engine\\build\\issue-115-combat\\CombatSfxChecks.dll\r\n\r\n建置成功。\r\n    0 個警告\r\n    0 個錯誤\r\n\r\n經過時間 00:00:01.76\r\n",
+      "stderr": ""
+    },
+    {
+      "name": "packet-build",
+      "argv": [
+        "dotnet",
+        "build",
+        "engine/_integration/dev/packet-trace-tests/PacketTraceChecks.csproj",
+        "-c",
+        "Release",
+        "-o",
+        "engine/build/issue-115-packet",
+        "--configfile",
+        "engine/NuGet.Config"
+      ],
+      "exitCode": 0,
+      "stdout": "  正在判斷要還原的專案...\r\n  所有專案都在最新狀態，可進行還原。\r\n  PacketTraceChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-115\\engine\\build\\issue-115-packet\\PacketTraceChecks.dll\r\n\r\n建置成功。\r\n    0 個警告\r\n    0 個錯誤\r\n\r\n經過時間 00:00:01.25\r\n",
+      "stderr": ""
+    },
+    {
+      "name": "demo",
+      "argv": [
+        "dotnet",
+        "engine/build/issue-115-demo/DemoChecks.dll",
+        ".",
+        "work/issue-115/demo-result.json"
+      ],
+      "exitCode": 0,
+      "stdout": "PASS 109 DEMO checks\r\n",
+      "stderr": ""
+    },
+    {
+      "name": "ground",
+      "argv": [
+        "dotnet",
+        "engine/build/issue-115-ground/GroundChecks.dll",
+        ".",
+        "work/issue-115/ground-result.json",
+        "D:\\lineage開發\\0-客戶端",
+        "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-115\\engine"
+      ],
+      "exitCode": 0,
+      "stdout": "PASS 361 assertions / 10 groups\r\n",
+      "stderr": ""
+    },
+    {
+      "name": "combat",
+      "argv": [
+        "dotnet",
+        "engine/build/issue-115-combat/CombatSfxChecks.dll",
+        ".",
+        "D:\\lineage開發\\0-客戶端",
+        "work/issue-115/combat-result.json"
+      ],
+      "exitCode": 0,
+      "stdout": "PASS 7 cases / 8780 checks\r\n",
+      "stderr": ""
+    },
+    {
+      "name": "packet",
+      "argv": [
+        "dotnet",
+        "engine/build/issue-115-packet/PacketTraceChecks.dll"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\":\"pass\",\"assertions\":36,\"cases\":[{\"name\":\"unset-no-file\",\"assertions\":2,\"status\":\"pass\"},{\"name\":\"metadata-only-out-in-and-secret\",\"assertions\":15,\"status\":\"pass\"},{\"name\":\"outside-traversal-prefix-and-invalid-paths\",\"assertions\":1,\"status\":\"pass\"},{\"name\":\"existing-file-and-io-failure-disable-silently\",\"assertions\":2,\"status\":\"pass\"},{\"name\":\"junction-outside-scratch-rejected\",\"assertions\":2,\"status\":\"pass\"},{\"name\":\"concurrent-records\",\"assertions\":2,\"status\":\"pass\"},{\"name\":\"process-exit-flush-and-product-root-resolution\",\"assertions\":12,\"status\":\"pass\"}],\"gameStarted\":false,\"network\":false}\r\n",
+      "stderr": ""
+    },
+    {
+      "name": "web",
+      "argv": [
+        "node",
+        "engine/_integration/dev/demo-tests/web-checks.cjs",
+        ".",
+        "work/issue-115/web-result.json"
+      ],
+      "exitCode": 0,
+      "stdout": "PASS 16 DEMO Web checks\n",
+      "stderr": ""
+    },
+    {
+      "name": "ground-web",
+      "argv": [
+        "node",
+        "engine/_integration/dev/ground-tests/web-checks.cjs",
+        ".",
+        "work/issue-115/ground-web-result.json"
+      ],
+      "exitCode": 0,
+      "stdout": "PASS 72 Web checks\n",
+      "stderr": ""
+    },
+    {
+      "name": "verify",
+      "argv": [
+        "python",
+        "-B",
+        "-X",
+        "utf8",
+        "engine/_integration/dev/rebuild.py",
+        "--verify"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 169, \"pinnedFiles\": 178, \"writes\": false}\r\nPASS dev {\"productDllSha256\": \"37cd8201f6ad631f70915a8314d19d0ec4ca0cb28dbd524169937d5d23930174\", \"audioDllSha256\": \"c64a38a8165f5651a331c19cf580e64d0e59541d060aeebb69c71941bb04b52d\", \"productManifestSha256\": \"44164613584da833a0e53e721ce3a1957315701b94616a6d43067afc46d78a3a\", \"launcherDllSha256\": \"222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "name": "no-game-assets",
+      "argv": [
+        "python",
+        "-B",
+        "-X",
+        "utf8",
+        "engine/tools/check-no-game-assets.py"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"pass\", \"trackedFiles\": 3062, \"errors\": 0, \"embeddedResourceDeclarations\": 4}\r\n",
+      "stderr": ""
+    }
+  ],
+  "checkOnly": {
+    "status": "checked-only",
+    "revision": "dev",
+    "executable": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-115\\engine\\build\\client-product-dev\\P11.ClientEngine.exe",
+    "workingDirectory": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-115\\engine",
+    "arguments": [
+      "--normal-product"
+    ],
+    "manifest": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-115\\engine\\build\\product-dev-manifest.json",
+    "manifestSha256": "44164613584da833a0e53e721ce3a1957315701b94616a6d43067afc46d78a3a",
+    "hashedRuntimeAndWebFiles": 24,
+    "assetFilesCheckedForPresenceAndSize": 13957,
+    "assetContentVerification": "Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.",
+    "runtime": {
+      "architecture": "x64",
+      "loadedCoreVersion": "10.0.8",
+      "loadedCoreDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\10.0.8\\",
+      "desktopVersion": "10.0.8",
+      "desktopDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.WindowsDesktop.App\\10.0.8"
+    },
+    "webView2Version": "156.0.4314.58",
+    "powerShellRequired": false,
+    "pathLookupUsed": false,
+    "autoLogin": false,
+    "uiStarted": false,
+    "networkStarted": false,
+    "servicesStarted": false
+  },
+  "hashes": {
+    "engine/build/client-product-dev/P11.ClientEngine.dll": "37cd8201f6ad631f70915a8314d19d0ec4ca0cb28dbd524169937d5d23930174",
+    "engine/build/product-dev-manifest.json": "44164613584da833a0e53e721ce3a1957315701b94616a6d43067afc46d78a3a",
+    "engine/_integration/dev/rebuild-lock.json": "b56b2299bb87b940145121b91b3e851c7ac6daa34184240251e23a0922ce2277"
+  },
+  "sourceSha256": {
+    "engine/_integration/dev/demo-tests/DemoChecks.csproj": "1571571e087bcaf0479725183ab467465ba6ab16930d0b9ed6a213f27fb51cb5",
+    "engine/_integration/dev/demo-tests/Program.cs": "90b6f4171192bc9fcd9fc7c64d2b0d2ad195b3ce3e7842c8cada8f34e9ad35b5",
+    "engine/_integration/dev/demo-tests/web-checks.cjs": "dd8b7d8aca2ab3870c4925b486760ee323907e6b0ec483c624d20a296f8eba47",
+    "engine/_integration/dev/rebuild-lock.json": "b56b2299bb87b940145121b91b3e851c7ac6daa34184240251e23a0922ce2277",
+    "engine/source/Combat.cs": "fc640aaae1bef14cfa852ae5d286699194ebd1479b4c4f7b51f695ca8c5f3110",
+    "engine/source/GroundCatalog.cs": "7dcac9e71b016005efc48d637417e17e960fef45cbbda90974465271f6794ec0",
+    "engine/source/GroundUi.cs": "ca12ff6588adc3ae14ed330e6a06debeeaef0ed4d78eacc7e0b9ea4288a626aa",
+    "engine/source/Magic.cs": "cbe84b5d6c7f9515412c8702025fa8730be88b2935631d93580a29935e09b689",
+    "engine/source/MagicUi.cs": "380e595f62533f3ac1ae18cf2152e31a5199e0327abc80fd84e7b96d5d0e4fe5",
+    "engine/source/OnlineInput.cs": "473abf9099e833effb7884515cb29d82f452a6b7b6152b57ca40b66130097249",
+    "engine/source/OnlineMovement.cs": "06dcdf10187a401a3d189c8f57808f1622cb15096ae26736c4c7352144b01fd0",
+    "engine/source/PlayerHudIntegration.cs": "64aeaa1010b011c949f86e961a4ae626268953e0b8604aa129f9831106a64622",
+    "engine/source/PlayerHudView.cs": "dca7d6bfdc87704308b744bf2f485598080ed7d6ad18d3f7199fb1758a9dc42f",
+    "engine/source/PlayerPointer.cs": "7daab25992d61d875c1689abc8416e3649ac5b087320d589a07e741f256877a5",
+    "engine/source/WorldObjects.cs": "e7ac742ee12a2ecae1944186af43b1eaf4e1530c90658fc7d5dd6a97a8d07baa",
+    "engine/web/panel.js": "c090bca7ae1c9db3fb568236c5da52853ae062908f57f6fd5be5e8dce546fb3c"
+  },
+  "reviewRegression": {
+    "baselineCommit": "c0cf9a93bb29eb917b17452b008d92c7b0b28b52",
+    "baselineProductSha256": "5953dae58a5f0aad5b8c912d1bf663024380dcc8f9447003d0c62187187b663e",
+    "exitCodeBeforeFix": 1,
+    "failureBeforeFix": "System.Exception: corrected pickup succeeds without reselection True0",
+    "checksAdded": 38,
+    "checksAfterFix": 109,
+    "totalAssertionsAfterFix": 9374,
+    "scope": "先以修正前產品 DLL 重現；最終產品 DLL 全部通過。合成封包／記憶體 sender，未啟動遊戲。"
+  },
+  "mergeValidation": {
+    "previousHead": "ca157a00c8d8a99a48a9a16e5760c73ad3312dee",
+    "mergedMain": "310ec9c98cedad58fd0311f69058ae7916c05489",
+    "assertions": 9374,
+    "scope": "第3次嘗試：合併 main（含 #116）後全套重驗；未另改產品修正。"
+  }
+}

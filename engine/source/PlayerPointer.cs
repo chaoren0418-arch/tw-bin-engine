@@ -70,7 +70,7 @@ public sealed class PlayerPointerController {
         }finally{sending=false;}
     }
     bool TargetVisible(uint id)=>visible(id)&&login.World.Objects.Any(o=>o.ObjectId==id&&!o.Dead&&!o.AppearancePending);
-    public bool Select(uint id){Cancel("選取目標");if(!focused()||!login.World.Renderable||!TargetVisible(id))return false;login.World.SelectTarget(id);return login.World.TargetId==id;}
+    public bool Select(uint id){Cancel("選取目標");if(!focused()||!login.World.Renderable||!TargetVisible(id))return false;login.World.SelectTarget(id);Notice=$"已選取 {login.World.Target?.Name} #{id}；G 攻擊，選技能後 M 施放。";return login.World.TargetId==id;}
     public async Task<bool> PickupAsync(uint id,uint count=1){
         Cancel("單次拾取");
         if(login.SlowActionsBlocked){Notice="緩速狀態尚未支援滑鼠拾取。";return false;}
@@ -84,13 +84,13 @@ public sealed class PlayerPointerController {
     public async Task<bool> ActAsync(uint id,bool talk){
         Cancel(talk?"單次交談":"單次攻擊");
         if(talk&&login.SlowActionsBlocked){Notice="緩速狀態尚未支援滑鼠交談。";return false;}
-        if(sending||!focused()||!login.MovementAvailable||walking()||login.MovementBusy||!TargetVisible(id))return false;
+        if(sending||!focused()||!login.MovementAvailable||walking()||login.MovementBusy||!TargetVisible(id)){Notice="未送出：請確認目標仍可見，停下並等待可操作後再點擊。";return false;}
         login.World.SelectTarget(id);if(login.World.TargetId!=id)return false;
         int ticket=version,selection=login.World.TargetRevision;var s=Capture();var from=Position;sending=true;
         bool Valid()=>ticket==version&&Current(s)&&!walking()&&Position==from&&login.World.TargetRevision==selection&&login.World.TargetId==id&&TargetVisible(id);
         try{
             bool sent=talk?await login.PointerTalk(Valid):await login.PointerAttack(Valid);
-            if(ticket==version)Notice=sent?(talk?"單次交談已送出，等待伺服器回覆。":"單次攻擊已送出，等待伺服器回覆。"):(talk?"目前無法交談；請走近後再點擊。":"目前無法攻擊；不會自動追擊或重送。");
+            if(ticket==version)Notice=sent?(talk?"單次交談已送出，等待伺服器回覆。":"單次攻擊已送出，等待伺服器回覆。"):(talk?"目前無法交談；請走近後再點擊。":login.World.CombatNotice);
             return sent&&ticket==version;
         }finally{sending=false;}
     }
