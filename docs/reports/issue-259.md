@@ -12,14 +12,16 @@
 
 - 先只改測試為實際 Receive，舊產品在第一個 S250/105 隊員斷言失敗（空名單），證明測試能抓到前次缺漏。
 - 先執行 `rebuild.py --update-lock`，再執行 `rebuild.py --build --configfile scratch/issue-259/NuGet.Config --output scratch/issue-259/build`：SDK 10.0.300，產品及 launcher 建置通過；產品只有原有 `MagicUi.cs:20` 的 CS8600／CS8602 兩個警告，launcher 無警告。
-- `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-259/party-checks.json party`：**79 項通過**。包含本模組所有 C／S 格式、錯誤封包原子性、多隊員與隊長更新、HP、接受／拒絕、踢除／離隊回覆、舊快照拒送、逾時、取消並行傳送、同角色完整接收重登流程與原有共用分派。測試使用合成封包、記憶體 sender 與 SocketGuard，未連線。
-- 同一測試入口 `combat-admission`：**291 項通過**；`map-continuity`：**207 項通過**，兩者各含上述 79 項組隊檢查，不能視為互不重複的總數。
-- `check-no-game-assets.py`：通過，trackedFiles=3250、errors=0；`git -c core.whitespace=cr-at-eol diff --check` 通過。
-- dev 來源核驗：175 個來源／184 個鎖定檔；只更新 dev lock，未更動封存 lock。
-- 最終本機產品 DLL SHA-256：`b04f302d4782abc7f642a6189e72335426e83c66342deb0af0e57bbaca52f630`。
+- `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-259/party-checks.json party`：**80 項通過**。包含本模組所有 C／S 格式、錯誤封包原子性、多隊員與隊長更新、HP、接受／拒絕、踢除／離隊回覆、舊快照拒送、逾時、取消並行傳送、同角色完整接收重登流程與原有共用分派。測試使用合成封包、記憶體 sender 與 SocketGuard，未連線。
+- 同一測試入口 `combat-admission`：**292 項通過**；`map-continuity`：**208 項通過**，兩者各含上述 80 項組隊檢查，不能視為互不重複的總數。
+- `check-no-game-assets.py`：通過，trackedFiles=3279、errors=0；`git -c core.whitespace=cr-at-eol diff --check` 通過。
+- dev 來源核驗：177 個來源／186 個鎖定檔；只更新 dev lock，未更動封存 lock。
+- 最終本機產品 DLL SHA-256：`3341a5bbfb34c5f3543d368185a20a1325d37fd81ecd421ef800edefbc94ca36`。
 - CI：推送補正後另行核對 PR #269 最新 head 的檢查結果，再補記於本報告。
 
 本機 Python 使用 `C:/Users/CHAOREN/AppData/Local/Programs/Python/Python312/python.exe`。NuGet 暫存 config 唯讀引用原專案 `engine/vendor`；套件、建置與暫存均在本 worktree。沙箱無法覆寫前次 obj 且 GitHub 認證失敗，改於沙箱外執行已授權的建置／測試與 GitHub 操作；未更動任何認證設定。
+
+同步補充：首度推送後 PR 因主線前進回報 DIRTY、未啟動 CI，已合併 origin/main（25bc0f4）。僅 WorldSession 與 dev lock 衝突；保留雙方接收掛接，lock 以 --update-lock 重產，未手動拼接 hash。重新建置及執行上述全部回歸，另執行既有 sound-packets-tests：148 項通過。相對 main 仍只有原任務 10 個差異檔，docs/REPORT.md 與 main 相同。
 
 ## 未驗證什麼
 
@@ -29,6 +31,6 @@
 ## 產出路徑／給下一棒的提示
 
 - 本輪追蹤產出：`engine/source/WorldSession.cs`、`engine/source/Party.cs`、`engine/_integration/dev/party-tests/PartyChecks.cs`、`engine/_integration/dev/rebuild-lock.json`、`docs/protocol/party.md`、本報告。
-- 本機證據：`scratch/issue-259/build/`、`scratch/issue-259/party-checks.json`、`scratch/issue-259/combat-checks.json`、`scratch/issue-259/map-checks.json`（不追蹤）；測試原始碼已提交，不以 scratch 輸出代替測試交付。
+- 本機證據：`scratch/issue-259/build/`、`scratch/issue-259/party-checks.json`、`scratch/issue-259/combat-checks.json`、`scratch/issue-259/map-checks.json`、`scratch/issue-259/sound-checks.json`（不追蹤）；測試原始碼已提交，不以 scratch 輸出代替測試交付。
 - 分支維持 `task/259`；沿用開啟中的 [PR #269](https://github.com/chaoren0418-arch/tw-bin-engine/pull/269)。本輪查得遠端 `isDraft=false`，更正前次報告所述草稿狀態。
-- 請 Claude／codex-review 審查這次一行掛接及 79 項接收鏈測試，CI 綠燈後由使用者合併。dot 於 M6 smoke 核對邀請接受、隊員 HP、離隊／踢除、同角色重登；本輪沒有要求使用者操作真機或 DB。
+- 請 Claude／codex-review 審查這次一行掛接及 80 項接收鏈測試，CI 綠燈後由使用者合併。dot 於 M6 smoke 核對邀請接受、隊員 HP、離隊／踢除、同角色重登；本輪沒有要求使用者操作真機或 DB。

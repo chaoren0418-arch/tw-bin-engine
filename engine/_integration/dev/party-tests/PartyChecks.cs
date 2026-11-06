@@ -49,6 +49,8 @@ partial class Checks {
             Feed(c,LoginPackets.Pad([250,99]));
             var unhandled=(System.Collections.Concurrent.ConcurrentDictionary<byte,int>)typeof(WorldSession).GetField("unhandled",F)!.GetValue(c.World)!;
             Check(unhandled.GetValueOrDefault((byte)250)==1,"party unrelated S250 retains unhandled dispatch");
+            Feed(c,LoginPackets.Pad([250,34,60,0]));
+            Check(c.World.MagicBuffs.Any(b=>b.Source=="packetbox34"&&b.Seconds==60),"party unrelated S250 retains magic status dispatch");
             Call(c.World,"BeginTalk");
             Feed(c,Packet(b=>{b.Write((byte)39);b.Write(456u);Text(b,"test-party-fallback");b.Write((ushort)0);b.Write((ushort)0);}));
             Check(c.World.InteractionKind=="dialog"&&c.World.InteractionPage!=null,"party unrelated S39 retains NPC dialog dispatch");

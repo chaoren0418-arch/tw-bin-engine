@@ -43,6 +43,7 @@ public sealed class PlayerHudVitals:Control {
 }
 public sealed class PlayerHudView:Panel {
     readonly PlayerHudVitals vitals=new();
+    readonly StatusIcons statusIcons=new();
     readonly FlowLayoutPanel shortcuts=new(){WrapContents=false,AccessibleName="快捷列 F1 至 F4"};
     readonly FlowLayoutPanel menu=new(){WrapContents=false,AccessibleName="玩家功能"};
     readonly FlowLayoutPanel grid=new(){AutoScroll=true,WrapContents=true,AccessibleName="圖示背包及技能清單"};
@@ -83,6 +84,7 @@ public sealed class PlayerHudView:Panel {
         chatButton=MakeButton("聊天",()=>ChatOpenRequested?.Invoke(),58,false);
         menu.Controls.AddRange([MakeButton("背包",()=>ToggleDrawer("items"),58),MakeButton("裝備",()=>ToggleDrawer("equipment"),58),MakeButton("技能",()=>ToggleDrawer("skills"),58),chatButton,MakeButton("服務",()=>MoreRequested?.Invoke(),62),MakeButton("診斷 F9",()=>DiagnosticsRequested?.Invoke(),80,false),MakeButton("登出",()=>LogoutRequested?.Invoke(),58,false)]);
         Controls.AddRange([vitals,shortcuts,menu,notice,grid,selectedText,actions,chat]);
+        Controls.Add(statusIcons);
         chat.Enter+=(_,_)=>ChatEntered?.Invoke();chat.SubmitRequested+=async(text,view)=>ChatSubmitRequested!=null&&await ChatSubmitRequested(text,view);
         Resize+=(_,_)=>Arrange();
         PartyUi.Mount(this,menu,()=>ToggleDrawer("party"),()=>drawer=="party");
@@ -105,12 +107,14 @@ public sealed class PlayerHudView:Panel {
         vitals.SetBounds(0,d,Width,64);shortcuts.SetBounds(4,d+64,Math.Max(1,Width-8),72);
         foreach(var b in slots)b.Width=Math.Max(90,(shortcuts.Width-32)/4);
         menu.SetBounds(4,d+138,Math.Max(1,Width-8),34);notice.SetBounds(10,d+174,Math.Max(1,Width-20),23);
+        statusIcons.ArrangeBeside(notice,notice.Bounds);
     }
     public void UpdateState(PlayerHudSnapshot state,Func<ushort,Bitmap?> icon){
         bool identity=lastStamp.Generation!=state.Stamp.Generation||lastStamp.Actor!=state.Stamp.Actor;
         if(identity){selected=null;assigning=clearing=false;gridKey="";}
         else if(lastStamp.WorldEpoch!=state.Stamp.WorldEpoch){selected=null;assigning=clearing=false;gridKey="";}
         lastStamp=state.Stamp;snapshot=state;iconLookup=icon;bindings.Observe(state.Stamp);
+        statusIcons.UpdateState((FindForm() as ClientForm)?.ReadStatusIcons()??[]);Arrange();
         // Populate explicit visible defaults once data arrives; later user choices are never overwritten.
         bindings.PopulateDefaults(state);
         vitals.UpdateState(state);tips.SetToolTip(vitals,state.Character+"\n"+state.State);
