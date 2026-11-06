@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 173,
+ "sourceCount": 174,
  "files": [
   {
    "path": "NuGet.Config",
@@ -645,6 +645,11 @@
    "sha256": "c44d4c21bdf4764a891e8e366b3211f80898336b8fab651e18874ceaee86bca2"
   },
   {
+   "path": "source/Polymorph.cs",
+   "size": 2382,
+   "sha256": "2427821e0ba3b625cb0d3545004a880061eff9f2db40b4a1eff79522a6e32c6c"
+  },
+  {
    "path": "source/PrivateShop.cs",
    "size": 15874,
    "sha256": "d5f7c543fa7d516a0bc6d7acaed37726d15e3c17aca47383dcf2c18dade9b9f2"
@@ -851,8 +856,8 @@
   },
   {
    "path": "source/WorldObjects.cs",
-   "size": 6373,
-   "sha256": "2aa63a2e44b3d0a01b0eb17182de9433cf0a6db7772370233927293594048d66"
+   "size": 6002,
+   "sha256": "889abe946a9f5a64377feb4195b16454e6f6f442f0a4b2f72f5a41e333d8ba0a"
   },
   {
    "path": "source/WorldRegression.cs",
@@ -861,8 +866,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9260,
-   "sha256": "0a2ba14de9311915f21eeaaf6ae500dbadc3d9ad8b83e9c77ef18e64ec7a9255"
+   "size": 9308,
+   "sha256": "a42cbf225057a91edaaa6d2f71a6d093e3203f5227776e55ba89e2e485f8c483"
   },
   {
    "path": "source/WorldTests.cs",
