@@ -1,5 +1,18 @@
 # Issue #197／T109 通用道具 use_type 尾段
 
+## 第 3 次嘗試：僅同步與重驗
+
+- 先快轉至遠端 `task/197` 的 `a80c539`，再合併 `origin/main` 的 `a1ecadf`，同步提交 `e4e27f5`，無衝突；未新增功能或修改產品程式。
+- 原 CI 的 `dotnet` 工作失敗原因為 `sourceCount 174 != pinned source files 175`。執行 `rebuild.py --update-lock` 後只修正來源計數為 175，184 個 pinned 輸入核驗通過，沒有手動拼接 hash。
+- 重跑 canonical build，產品與 launcher 通過；產品仍有既存 `MagicUi.cs` 兩項 nullable 警告。產品 DLL SHA-256：`ee8282998627259654df8d5f4dd63fc9c48da86ad47d3241f5dbc42ac8a73b89`。
+- 既有離線測試通過：`ItemUseChecks` 426 項、`slow-actions` 364 項、`combat-admission` 212 項、`map-continuity` 128 項；證據覆寫於 `scratch/issue-197/` 既有檔案。
+- `check-no-game-assets.py` 通過（3265 個追蹤檔案、0 errors）；`git diff --check` 通過。
+- 本輪產出為 dev lock、本報告及既有 PR #223；`docs/REPORT.md` 只有主線合併內容。本輪最終提交與 CI 結果見 PR 驗收留言。
+- 未驗證：原生遊戲操作與效果，留給 dot 的 M6 smoke；本輪未啟動遊戲、伺服器或 DB。
+- 給下一棒：Claude／調度器確認 PR #223 最新 head 的 CI 後續審，再依既定流程交使用者合併。
+
+以下保留前輪功能範圍與測試說明；前輪提交及 DLL 雜湊不是本輪產物。
+
 ## 做了什麼
 
 - 新增 `ItemUseArguments.cs`，依伺服器背包回報的 use_type 編碼 C164 條件尾段，涵蓋 #132 列出的全部尾段類型。補給品與裝備持續經由原有使用入口。
