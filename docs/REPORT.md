@@ -57,3 +57,4 @@
 - 2026-11-06 — #133 T070：NPC 服務——購買、倉庫存取、私商購買、直接交易（含 M1 移入的普通肉購買與丟撿循環）（code，codex-local，PR 已合併）→ [報告](reports/issue-133.md)
 - 2026-11-06 — #140 T071：跨圖連續性——洞穴進出、船運往返、旅館入住、地圖特效（code，codex-local，PR 已合併）→ [報告](reports/issue-140.md)
 - 2026-11-06 — #145 T074：正式世界 6016 場景音效——map4 港口有聲、離開後停止、重疊與退役（code，codex-local，PR 已合併）→ [報告](reports/issue-145.md)
+- 2026-11-07 — #153 緊急：releases/r28/assets/integrity.json 消失——唯讀盤點受損範圍與原因（不修復封存）（resource，codex-local，PR 已合併）→ [報告](reports/issue-153.md)
