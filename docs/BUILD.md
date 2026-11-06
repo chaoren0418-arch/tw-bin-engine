@@ -33,7 +33,9 @@ dotnet --version
 兩層資源，不要混：
 
 1. **原客戶端檔**（pak／map／sprite 等）一律引用 `D:\lineage開發\0-客戶端`。`project-manifest.json` 的 `external_sources` 與 `AGENTS.md` 都寫這個路徑。**不得複製進本專案。**
-2. **引擎素材** `engine/assets` 是指向 `releases/r28` 的**唯讀 junction**（`engine/README.md`、`AGENTS.md`）。`.gitignore` 排除 `engine/assets` 與 `releases/`（只留 `releases/SHA256SUMS.txt`），乾淨 `git clone` **不會**帶出這兩處。
+2. **引擎素材** `engine/assets` 是指向 `releases/r29/assets` 的**唯讀 junction**。`.gitignore` 排除 `engine/assets` 與 `releases/`（只留 `releases/SHA256SUMS.txt`），乾淨 `git clone` **不會**帶出這兩處。
+
+因 #153 確認 r28 與 r33 的素材缺失，#155 將主目錄 junction 改接已核驗的 r29 獨立副本。
 
 建置與 check-only 怎麼依賴它們：
 
@@ -215,7 +217,7 @@ CI **沒有** `engine/assets`（gitignore），也**不跑 check-only**。`--bui
 | `Missing launcher\P24.Launcher.exe` | `engine/啟動新版客戶端.cmd` | 尚未建置，或建置輸出不在 `engine/launcher/`。先跑 `engine/build-product.ps1`。 |
 | `找不到 .NET 10 Windows Desktop Runtime` | dev launcher | 已裝 SDK 或一般 Runtime 不夠。加裝 x64 **Desktop** Runtime 10。 |
 | `找不到可用 WebView2 Runtime` | dev launcher | 機器沒有可用的 WebView2 Runtime。NuGet 的 `WebView2Loader.dll` 不能代替 Runtime。 |
-| `缺少 dev 產品 manifest`／`缺少或大小不符的素材` | dev launcher | 沒跑過 `--build`，或 `engine/assets` junction 沒指到完整 r28 素材。不要為了補齊而去複製 pak／map／sprite。 |
+| `缺少 dev 產品 manifest`／`缺少或大小不符的素材` | dev launcher | 沒跑過 `--build`，或 `engine/assets` junction 沒指到完整 r29 素材。不要為了補齊而去複製 pak／map／sprite。 |
 | `r33`／`r34` 的 `rebuild.py` 拒絕 | 舊 lock 要 177／180 檔 | 現行來源用 `engine/_integration/dev/rebuild.py`。 |
 | `productDllSha256 differs from receipt` | `rebuild.py --verify` | 產物與 `receipt.json` 不一致。改過程式後應重新 `--build --write-receipt`（這是 CI 的做法），不要手改 receipt。 |
 
