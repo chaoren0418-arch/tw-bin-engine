@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 172,
+ "sourceCount": 173,
  "files": [
   {
    "path": "NuGet.Config",
@@ -346,8 +346,8 @@
   },
   {
    "path": "source/Magic.cs",
-   "size": 11938,
-   "sha256": "e5317e1747f238a42b40a8b02a9ea4d422fbd5b6b136f206c0a7f4171e171d1b"
+   "size": 11776,
+   "sha256": "9b68462c03aef5377a78e1c56a083b674d7f80073c75f3e625178b41aeb9f14f"
   },
   {
    "path": "source/MagicIntegration.cs",
@@ -371,8 +371,8 @@
   },
   {
    "path": "source/MagicSpells.cs",
-   "size": 1129,
-   "sha256": "20cc278da9390e90757349fb27080a258b412928ff1bd0e9a3bbabc232822de0"
+   "size": 1660,
+   "sha256": "00072fb58bcee3cc6b43f4144da6e47c6e7e30d303ab83e93181173f19ea408c"
   },
   {
    "path": "source/MagicStatus.cs",
@@ -783,6 +783,11 @@
    "path": "source/ShipTravel.cs",
    "size": 9639,
    "sha256": "3af9ee407a1d1c43f4da11c6ab3e1e9832ea387a84519bcbcaac0e9b7f39d1c6"
+  },
+  {
+   "path": "source/SkillCast.cs",
+   "size": 5725,
+   "sha256": "46c38d4dbdb7c2d4e96ee67abcf7d38ce449a4c681e1fd5f9610fb11fce50676"
   },
   {
    "path": "source/SystemAnnouncements.cs",
