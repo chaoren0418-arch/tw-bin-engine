@@ -10,7 +10,7 @@ public sealed partial class ClientForm {
     GroundQuantitySelection? pickupSelection,dropSelection;
     int groundUiRevision=-1;bool syncingGround;
     sealed record GroundRow(GroundItem Item,string Label);
-    string GroundName(GroundItem i)=>(objectAssets??=new(World.Assets.Root)).Name(i.Name);
+    string GroundName(GroundItem i)=>string.IsNullOrEmpty(i.Name)?$"地面物品（gfx {i.Gfx}，數量 {i.Count}）":(objectAssets??=new(World.Assets.Root)).Name(i.Name);
     void InitGround(){
         inventoryPanel.Height=282;inventoryPanel.Controls.Add(dropButton);inventoryPanel.Controls.Add(dropCount);
         groundPanel.Controls.AddRange([groundList,groundNoticeLabel,pickupCount,pickupButton,new Label{Text="地面物品",Dock=DockStyle.Top,Height=25,ForeColor=Color.White}]);Controls.Add(groundPanel);groundPanel.BringToFront();
