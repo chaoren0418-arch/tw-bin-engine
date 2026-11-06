@@ -73,7 +73,6 @@ public sealed class PlayerPointerController {
     public bool Select(uint id){Cancel("選取目標");if(!focused()||!login.World.Renderable||!TargetVisible(id))return false;login.World.SelectTarget(id);Notice=$"已選取 {login.World.Target?.Name} #{id}；G 攻擊，選技能後 M 施放。";return login.World.TargetId==id;}
     public async Task<bool> PickupAsync(uint id,uint count=1){
         Cancel("單次拾取");
-        if(login.SlowActionsBlocked){Notice="緩速狀態尚未支援滑鼠拾取。";return false;}
         if(sending||!focused()||!login.MovementAvailable||walking()||login.MovementBusy||!visible(id)||!login.World.Ground.Any(g=>g.ObjectId==id))return false;
         if(!login.World.SelectGround(id))return false;
         int ticket=version,selection=login.World.GroundSelectionRevision;var s=Capture();var from=Position;sending=true;
@@ -83,7 +82,6 @@ public sealed class PlayerPointerController {
     }
     public async Task<bool> ActAsync(uint id,bool talk){
         Cancel(talk?"單次交談":"單次攻擊");
-        if(talk&&login.SlowActionsBlocked){Notice="緩速狀態尚未支援滑鼠交談。";return false;}
         if(sending||!focused()||!login.MovementAvailable||walking()||login.MovementBusy||!TargetVisible(id)){Notice="未送出：請確認目標仍可見，停下並等待可操作後再點擊。";return false;}
         login.World.SelectTarget(id);if(login.World.TargetId!=id)return false;
         int ticket=version,selection=login.World.TargetRevision;var s=Capture();var from=Position;sending=true;

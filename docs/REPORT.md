@@ -71,3 +71,6 @@
 - 2026-11-07 — #181 規則檔：codex-local 的 P24Lab 測試準備寫入例外（#175 使用者裁定 A）；engine/assets 指向改為 r29（code，codex-local，PR 已合併）→ [報告](reports/issue-181.md)
 - 2026-11-07 — #175 M5 smoke 測試條件準備：P24Lab 測試角色暫設 GM、第二角色、弓箭／肉／藥水（先備份）（resource，dot，PR #185 已合併）→ [報告](reports/issue-175.md)
 - 2026-11-07 — #186 主控：M5 開發批次——佇列必須隨時有 ≥5 張可派 code 任務（契約先行、模組平行）（plan，claude-chat，PR #194 已合併）→ [報告](reports/issue-186.md)
+- 2026-11-07 — #184 T095：M5 smoke——用已準備好的測試條件，以一般玩家方式重跑 M4 的 ⚠️ 列（test，dot，PR #208 已合併）→ [報告](reports/issue-184.md)
+- 2026-11-07 — #191 T104：緩速時的道具、地面與交談政策（code，codex-local，PR 已合併）→ [報告](reports/issue-191.md)
+- 2026-11-07 — #206 主控：M5 結案，剩下的 M2 列併入 M6 smoke（T112）（plan，claude-chat，PR #211 已合併）→ [報告](reports/issue-206.md)
