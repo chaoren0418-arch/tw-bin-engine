@@ -59,3 +59,4 @@
 - 2026-11-06 — #145 T074：正式世界 6016 場景音效——map4 港口有聲、離開後停止、重疊與退役（code，codex-local，PR 已合併）→ [報告](reports/issue-145.md)
 - 2026-11-07 — #153 緊急：releases/r28/assets/integrity.json 消失——唯讀盤點受損範圍與原因（不修復封存）（resource，codex-local，PR 已合併）→ [報告](reports/issue-153.md)
 - 2026-11-07 — #155 恢復可用狀態：engine/assets 改指 releases/r29/assets、還原 engine/vendor 的 WebView2 nupkg（resource，codex-local，PR #158 已合併）→ [報告](reports/issue-155.md)
+- 2026-11-07 — #151 T075：M2 里程碑 smoke——真機跑一次 M2 驗收清單（含 M1 移入的列）（test，dot，PR #152 已合併）→ [報告](reports/issue-151.md)
