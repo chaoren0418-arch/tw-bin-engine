@@ -50,3 +50,4 @@
 - 2026-11-06 — #123 T064：DEMO-3 第 2c-b 輪發現的產品問題——F9 圖示破圖、光箭無音效、靜音時音訊 session 消失、三個方向鍵無移動封包（code，codex-local，PR #124 已合併）→ [報告](reports/issue-123.md)
 - 2026-11-06 — #128 主控：依使用者節流指示改寫工作方式，M1 收尾規則與 M2 任務重排（plan，claude-chat，PR #131 已合併）→ [報告](reports/issue-128.md)
 - 2026-11-06 — #77 T062 DEMO-3：修金幣丟撿＋補測未通過列，完成 M1 demo 頁（一張任務、兩輪）（test，dot，PR #134 已合併）→ [報告](reports/issue-77.md)
+- 2026-11-06 — #135 主控：M1 結案（T062 完成），未過列移入 M2 的對照（plan，claude-chat，PR #136 已合併）→ [報告](reports/issue-135.md)
