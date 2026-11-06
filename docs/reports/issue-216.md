@@ -12,8 +12,15 @@
 1. `rebuild.py --update-lock` 及來源核驗：173 個來源／182 個 pin 通過，只更新 dev lock。
 2. `rebuild.py --build --configfile scratch/issue-216/NuGet.Config --output scratch/issue-216/build`：產品與 launcher 編譯成功；產品 0 錯誤，既有 `MagicUi.cs:20` 兩個 nullable 警告。初次 nuget.org restore 因本機 TLS 認證失敗，改為唯讀使用主專案 `engine/vendor` 的現存 WebView2 nupkg；NuGet 快取、暫存與產物均留在 worktree。
 3. `DemoChecks ... item-status`：**82 項通過**。涵蓋 signed C/H、複合欄位、0x13 內嵌 0x27／FF 標記、MR 與六種耐性、四元素抗性、Big5 重複說明、未知／截斷 tag、空 blob、S24／S242 更新、旗標、名稱偽造、槽位先到、全清單替換、絕對穿卸、reset、外層截斷不部分修改，以及 tooltip 文字。
-4. `check-no-game-assets.py`：通過，0 errors；`git diff --check` 通過。
-5. GitHub CI：PR 建立後核對，結果記錄於 PR 檢查。
+4. 既有離線回歸：map-continuity 128 項、combat-admission 212 項通過。
+5. `check-no-game-assets.py`：提交後 3230 個追蹤檔、0 errors；`git diff --check` 通過。
+6. [PR #242](https://github.com/chaoren0418-arch/tw-bin-engine/pull/242) 的程式提交 `a1e704c`：[Windows CI](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42304858601/job/128191513839) 全部成功，包含本次 item-status、地圖、戰鬥與 WebView2；[NPC 離線 CI](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42304858585) 成功。
+
+## 未完成條件：整體 CI 尚未綠燈
+
+[Linux CI](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42304858601/job/128191513298) 的 Windows 目標編譯與資源拒收成功，但 canonical 核驗失敗：`REFUSED: sourceCount 173 != pinned source files 174`。GitHub 測試的是 merge commit `590e619`（本分支 `a1e704c` 合入當時 main `e67198f`），不是本機已通過的分支來源。並行 main 已納入 `SkillCast.cs` 等變更，合併後 lock 的來源項增加、計數未同步；比較 API 已確認該新增檔案來自 main。
+
+依 [M6 契約](../design/m6-contract.md) 第 4 條「dev lock 衝突交給調度器的同步輪處理，**不要手動拼接 hash**」，本任務不修改其他模組或手拼合併版 lock。請調度器同步目前 main，在完整合併來源執行 `rebuild.py --update-lock`、建置與 CI。**本次僅實作及本模組驗證完成，不宣稱整體驗收完成。**
 
 本機產品 DLL SHA-256：`b228e5bfce92652046bad717437edf9869c354c658a0cb958ec8b3849791aeb7`。
 
@@ -33,4 +40,4 @@
 
 ## 給下一棒的提示
 
-由 Claude 審查 PR、使用者合併；dev lock 如有並行衝突由調度器同步輪重新產生。dot 的 M6 smoke 核對背包 tooltip 的強化、損傷、抗性與說明，以及穿上／卸下／重新登入後的槽位顯示。`Equipped` 現為即時權威查詢；需要歷史快照的呼叫端應保存 bool? 值。歷史依名稱推算的測試與不在本任務範圍的 HUD／Web 額外 tooltip，可在後續統一整理。
+先由調度器同步輪處理上述 dev lock 整合問題並取得 CI 綠燈，再由 Claude 審查、使用者合併。dot 的 M6 smoke 核對背包 tooltip 的強化、損傷、抗性與說明，以及穿上／卸下／重新登入後的槽位顯示。`Equipped` 現為即時權威查詢；需要歷史快照的呼叫端應保存 bool? 值。歷史依名稱推算的測試與不在本任務範圍的 HUD／Web 額外 tooltip，可在後續統一整理。
