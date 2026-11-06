@@ -1,0 +1,29 @@
+[
+  {
+    "id": "portable-source-closure",
+    "title": "T033 前置查核：原客戶端單一來源與素材生成缺口",
+    "stage": "test",
+    "priority": "P1",
+    "text": "runner: codex-local；workdir: project；預算 2 小時。依 docs/design/portable-delivery.md，在 scratch/wt 的獨立工作樹進行，主目錄留給既有任務。範圍為唯讀查核及一次性離線驗證腳本，追查本機 Text.idx/pak 與歷史 pins 差異，僅解碼相關 entry 並記 File Offset、SHA；核對 client S32/SEG 是否能提供產品 terrain/bounds，以及 metadata 是否能提供 skills/冷卻等價資料；補 names.json、skills.json、audio-manifest 的生成鏈及 Text 解碼器 Map1.bin至Map5.bin 的來源。只能讀已授權客戶端、研究紀錄及產品來源，不讀 SQL/JAR/機密設定或 DB。驗收須逐項列出已證實的 client-only 對應或 blocked 的缺欄／來源／理由，不能用自產 hash 或全可走地形證明等價。產出 docs/reports/當次issue.md，含 recipe 輸入、工具 SHA、pass/blocked 與完整移植估算。兩小時內來源未閉合便交精確阻塞證據，禁止假稱可重建所有素材。禁止執行會改研究、封存或啟服務的舊 prepare 腳本，禁止啟動遊戲、連線、改產品/lock/releases/docs/REPORT.md。暫存只進 scratch，不提交任何原始／派生遊戲內容。此任務完成不代表 T033 完成。",
+    "depends_on": []
+  },
+  {
+    "id": "portable-resource-audit",
+    "title": "T033 發布查核：追蹤資源與 embedded resources 白名單",
+    "stage": "test",
+    "priority": "P1",
+    "text": "runner: codex-local；workdir: project；預算 2 小時。依 docs/design/portable-delivery.md，在獨立 worktree 唯讀檢查全部 git ls-files、csproj EmbeddedResource 與封裝腳本，分類自主程式、非內容性 metadata、原始或派生遊戲資料、待判定證據。逐項追溯 engine/web 的20個 icons PNG與2個ground PNG，列出 runtime consumers 及本機生成替代接線。驗收為每個追蹤路徑都有分類與判定依據，未能確認者明列 unknown 並阻擋發布；提出可執行的 zip 白名單／內容拒收檢查規格，涵蓋改副檔名、JSON/Base64、assembly embedded resources、junction，以及新生成資料的 Git 排除方式。先清楚界定交付 commit 與舊 Git 歷史／Demo 證據的範圍，歷史清理交 Claude／使用者裁定，不自行重寫。只交 docs/reports/當次issue.md 與必要 scratch 驗證腳本，不刪資源、不改產品、lock、releases、docs/REPORT.md，不建置、不建 Release、不碰遊戲或服務。報告提出後續需要修改的精確檔案及兩小時拆分。此任務完成不代表零資源發布已通過。",
+    "depends_on": []
+  },
+  {
+    "id": "portable-preparer-core",
+    "title": "T033 核心試作：C# 本機準備器與 TBT 圖示垂直切片",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: codex-local；workdir: project；預算 2 小時。前兩張報告經 Claude 審查後，僅採已證實的 Sprite TBT 輸入與純程式算法，建立 engine/tools/build-assets 的 C# 準備器核心與一個指定 icon 的本機生成切片。範圍限新工具原始碼／必要專案檔與該工具離線驗證，不接正常 launcher、不改既有遊戲行為。輸入為明確 TW_CLIENT_ROOT 與可寫輸出根，唯讀查 idx/pak、驗 input/slice SHA 及 bounds，使用 Runtime 可執行的程式碼生成 PNG；不得需 Python、SDK或研究 DLL於使用者端。驗收涵蓋兩個目錄相同 decoded RGBA/offset、缺檔/錯pin/截斷拒絕、staging未完成不發布、同時writer拒絕、中斷重試、junction/越界拒絕，原客戶端前後指紋一致。採版本化 partial 收據，完整19類recipe尚未通過前不輸出產品ready。不把舊PNG或素材表內嵌程式，不提交任何測試生成圖。建置只進新工具 bin/obj 或 engine/build，離線驗證產物只進 scratch；不運行遊戲/服務、不連DB、不改封存、硬連結、lock或docs/REPORT.md。若前置查核判定素材來源未閉合，報告仍保留整體blocked，僅此已閉合切片可實作。交付 docs/reports/當次issue.md，附驗證與剩餘完整轉換／接線／測試的拆分，交Claude重新排程。",
+    "depends_on": [
+      "portable-source-closure",
+      "portable-resource-audit"
+    ]
+  }
+]
