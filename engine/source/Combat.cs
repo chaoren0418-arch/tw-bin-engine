@@ -87,7 +87,8 @@ public sealed partial class LoginConnection {
     public Task<bool> Attack()=>AttackCore(null);
     async Task<bool> AttackCore(Func<bool>? pointerCurrent){
         if(pointerCurrent?.Invoke()==false)return false;
-        if(!CombatAvailable||MovementBusy||sendMovementGate==null){World.CombatNotice="未送出：無有效目標、忙碌或目前速度／外觀不支援";return false;}
+        if(World.Target is not {Dead:false,AppearancePending:false}){World.CombatNotice="未送出：未選取有效目標；請點中敵人的可見圖像，確認黃色選取圈後按 G。";return false;}
+        if(!CombatAvailable||MovementBusy||sendMovementGate==null){World.CombatNotice="未送出：動作冷卻／忙碌，或目前速度／外觀不支援；請停下並等待可操作後再按 G。";return false;}
         var target=World.Target!;var actor=World.Actor!;int epoch=generation,worldEpoch=World.WorldEpoch,selection=World.TargetRevision,input=inputVersion,correction=World.Corrections,appearanceRevision=World.AppearanceRevision,speedRevision=World.SpeedRevision,lease=++combatLease;
         var timing=ActionCadence.Capture(actor.Gfx,actor.Weapon,1,actor.Speed,actor.Brave,margin:CombatRules.ClockMargin(actor.Weapon));int duration=timing.ServerIntervalMs,guard=timing.MarginMs;if(duration<=0)throw new InvalidDataException("missing attack cadence");
         var sender=sendMovementGate;byte[] bytes=CombatRules.Attack(target,actor.Weapon);combatSending=true;
@@ -100,7 +101,7 @@ public sealed partial class LoginConnection {
                 World.PredictAction(1,h,target.ObjectId,timing);World.CombatNotice="單次攻擊已送出；動畫為預測，等待原服回報";Set(State,World.CombatNotice);
             });
             if(!CompletionCurrent())return false;
-            if(!sent)return false;
+            if(!sent){World.CombatNotice=World.Target?.X!=target.X||World.Target?.Y!=target.Y?"未送出：目標已移動；請走近、停下後再按 G，不會自動追擊。":"未送出：動作狀態已改變，請等待可操作後再按 G。";return false;}
             nextCombatAt=Math.Max(nextCombatAt,ActionClock()+timing.WaitMs);
             CombatSent?.Invoke(new{utc=DateTimeOffset.UtcNow,monotonicMs=Environment.TickCount64,plainHex=Convert.ToHexString(bytes),worldEpoch,target=target.ObjectId,attackMs=duration,localClockMarginMs=guard});return true;
         }catch(Exception ex){if(CompletionCurrent()){Cancel();Set(LoginState.Faulted,"攻擊傳送失敗："+ex.Message);}return false;}
