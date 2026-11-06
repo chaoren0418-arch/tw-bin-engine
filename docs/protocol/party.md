@@ -37,3 +37,9 @@
 | serverpackets/S_HPMeter.java | a60d3bf921345e1835b9ead6c71549e0042252a2757c09dba2e67c1ef3b6143f |
 | serverpackets/S_Party.java | 0b63e4624368e487d5ef5a77fc0804cd2bf996150ff435454727177309946cb3 |
 | model/L1Party.java | 944bf78213b8c3330ab8d52b289cb89727df1c25598da54c3a72d1de8683ac9e |
+
+## 第 2 次補正：產品接收鏈與登入生命週期
+
+`WorldSession.ReceiveCore` 在既有模組鏈之前呼叫 `ReceiveParty(opcode,plain)`，由模組以自己的 reader 辨識 S250/104/105/106/110、S39/party 與 S219/953。非隊伍封包回傳 false，既有 reader 不移位；S71/414–426 更新隊伍後仍回傳 false，繼續既有伺服器訊息處理。S237 保留原先的隊伍觀察 case，隨後仍交給戰鬥模組更新角色／目標 HP。
+
+前置觀察也會在 S223 EnterGame 設定 `Entered=true` 之前執行 `CheckParty`。因此相同 WorldSession、相同角色 ID 在 Reset 後重登，即使期間沒有讀取 HUD 快照，舊名單、隊長與邀請仍會清除；切圖不會清除名單，只會使舊邀請失效。本模組的所有接收測試均經 `Feed` → `WorldSession.Receive`，不再直接呼叫隊伍解析器。

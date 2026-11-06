@@ -31,7 +31,7 @@ public sealed partial class WorldSession {
         var r=new LoginReader(plain);byte opcode=r.C();
         // Observe party HP before Combat consumes S237; retain its existing actor/target HP update.
         switch(opcode){case 237:ReceivePartyHp(plain);break;}
-        if(opcode==219&&ReceiveParty(opcode,plain))return;
+        if(ReceiveParty(opcode,plain))return;
         if(ReceiveRecovery(opcode,r)||ReceivePlayerChat(opcode,r,plain)||ReceiveSustenance(opcode,r,plain)||ReceiveBonusStats(opcode,r,plain)||ReceivePrivateShop(opcode,r,plain)||ReceiveTeleport(opcode,r)||ReceiveTrade(opcode,r)||ReceiveInteraction(opcode,r)||ReceiveMagic(opcode,r,plain)||ReceiveEquipment(opcode,r,plain)||ReceiveInventory(opcode,r,plain)||ReceiveExperience(opcode,r)||ReceiveCombat(opcode,r,plain)||ReceiveObjectDelta(opcode,r)){BasicSupplyReply(opcode,plain);return;}
         switch(opcode){
         case 223:

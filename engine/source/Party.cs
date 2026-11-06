@@ -52,6 +52,8 @@ public sealed partial class WorldSession {
     }
     // Uses its own reader: an unrelated shared opcode must reach the original module untouched.
     internal bool ReceiveParty(byte opcode,byte[] plain){
+        // Observe every packet before dispatch, including EnterGame while Entered is still false.
+        // This clears a prior login even if no HUD snapshot was read between Reset and re-entry.
         CheckParty();
         if(opcode is not (250 or 219 or 39 or 71))return false;
         var r=new LoginReader(plain);r.C();
