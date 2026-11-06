@@ -125,7 +125,7 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 
 ---
 
-## M6 內容擴充（Backlog 升級，使用者 #186 要求）— 主線 24 項，封頂（#238：U8 兌現 +7、#132 差異補列 +4）
+## M6 內容擴充（Backlog 升級，使用者 #186 要求）— 主線 30 項，封頂（#238：U8 兌現 +7、#132 差異補列 +4、協議表未實作模組 +6）
 
 **驗收：使用者打開會看到什麼**：`docs/demo/README.md` 新增「M6 內容擴充」一節。在 M6 smoke（T112）中，下列每一項都有真機截圖，或是 ⚠️ 附原因：
 - 已學的非 1／3／4／8 技能可以施放；範圍法術與其他箭矢有畫面；
@@ -144,7 +144,7 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 
 ### T100 | done | codex-local | 技能施放通用化（#132 差異 3；B01 的基礎）
 ### T101 | doing | codex-local | 法術與箭矢回包分派：S42 範圍法術、S30 多種 action、其他箭矢 gfx（#132 差異 4、5）
-### T102 | review | codex-local | NPC 出售與私商回購（B05）
+### T102 | done | codex-local | NPC 出售與私商回購（B05）
 ### T103 | review | codex-local | 地面物品通用化，以及三種停用物品的地面圖（#132 差異 9；B06）
 ### T104 | done | codex-local | 緩速時的道具、地面與交談政策（#132 差異 18；B02）
 ### T105 | doing | codex-local | S22 音效、S106 座標特效、S55 變體（#132 差異 13、14；B04 的一部分）
@@ -153,9 +153,9 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 ### T108 | review | codex-local | buff／狀態圖示（#132 差異 15）
 ### T109 | review | codex-local | 通用道具 use_type 尾段（#132 差異 8）
 ### T110 | doing | codex-local | 傳送 recovery wrapper（N+8 bytes）相容（#132 差異 1）
-### T111 | review | codex-local | 登入密碼字元規則對齊（#132 差異 6）
+### T111 | done | codex-local | 登入密碼字元規則對齊（#132 差異 6）
 ### T113 | todo | codex-local | 王族基本技能（U8；#227）
-### T114 | todo | codex-local | 騎士基本技能（U8；#228）
+### T114 | done | codex-local | 騎士基本技能（U8；#228）
 ### T115 | todo | codex-local | 妖精基本技能（U8；#229）
 ### T116 | todo | codex-local | 法師基本技能（U8；#230）
 ### T117 | todo | codex-local | 黑暗妖精基本技能（U8；#231）
@@ -165,7 +165,13 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 ### T121 | doing | codex-local | 物品 status blob 語義化、權威裝備槽位（#132 差異 17；#216）
 ### T122 | todo | codex-local | S206 單參數 overload 變體（#132 差異 16；#217）
 ### T123 | todo | codex-local | 本機伺服器原始碼與 P24Lab d287 JAR 的封包類別對照（#132 差異 19；#226）
-### T112 | todo | codex-local → dot | **M6 smoke**：上述合併後，真機跑一次 M6 驗收清單，**連同 M5 剩下的 M2 列**（#206）；T113–T123 也要合併後才開
+### T124 | todo | codex-local | 記憶座標（書籤）列表、新增、刪除（#258）
+### T125 | todo | codex-local | 組隊與隊員 HP 條（#259）
+### T126 | todo | codex-local | 好友與封鎖名單（#260）
+### T127 | todo | codex-local | 寵物與召喚物控制（#261）
+### T128 | todo | codex-local | 血盟建立、加入、退出、盟徽（#262）
+### T129 | todo | codex-local | 變身 S_ChangeShape（#263）
+### T112 | todo | codex-local → dot | **M6 smoke**：上述合併後，真機跑一次 M6 驗收清單，**連同 M5 剩下的 M2 列**（#206）；T113–T129 也要合併後才開；T124–T129 在 smoke 清單中列為附加列，不改上方凍結的驗收
 
 ---
 
