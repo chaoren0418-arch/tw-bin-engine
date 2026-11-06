@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 173,
+ "sourceCount": 174,
  "files": [
   {
    "path": "NuGet.Config",
@@ -156,8 +156,8 @@
   },
   {
    "path": "source/Combat.cs",
-   "size": 13885,
-   "sha256": "8f26c5dda4b164c64438cabe568a0b9ce152c53fd659e8b15c5860391b705f02"
+   "size": 13944,
+   "sha256": "8b8360390be7d77e27aae04206a89004b1df878cab7554e4d858357b4618eb6d"
   },
   {
    "path": "source/CombatRegression.cs",
@@ -290,9 +290,14 @@
    "sha256": "ca12ff6588adc3ae14ed330e6a06debeeaef0ed4d78eacc7e0b9ea4288a626aa"
   },
   {
+   "path": "source/HitReactionSuppress.cs",
+   "size": 1117,
+   "sha256": "1326c6154ecaecd0db328021d31fd5ce24f45fa02a0aa1520b31e387fe0a910f"
+  },
+  {
    "path": "source/Inventory.cs",
-   "size": 14421,
-   "sha256": "ee4ac857251bdfb4c82be44d40f3723eefd0a4e96d84236416c36c6b773fdd54"
+   "size": 14503,
+   "sha256": "100f7aae3f6030cb1c3e8ff708d553ac150c88f2d7e6a7031d3ee844385a76ce"
   },
   {
    "path": "source/InventoryIntegration.cs",
