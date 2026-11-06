@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 190,
+ "sourceCount": 169,
  "files": [
   {
    "path": "NuGet.Config",
@@ -800,9 +800,14 @@
    "sha256": "007b0f58d5e0e41f035abf044673430645aff0e199930b58c91047bd77c3d544"
   },
   {
+   "path": "source/WebIconResource.cs",
+   "size": 1925,
+   "sha256": "38f7f0d0031f3b8ad9d541f913d493684cced65301f610495c05e456e8fc28ae"
+  },
+  {
    "path": "source/WebPanel.cs",
-   "size": 20463,
-   "sha256": "30f20e7f1c9f3d4dbeb5b5396d174115b7c24788b5a1e58ea9b1d444b7b71d35"
+   "size": 20689,
+   "sha256": "baffe3822fac730e0f54ead63a0a31a87958a9a35b3d9cc98d2ce0e03eb5b38c"
   },
   {
    "path": "source/WebTests.cs",
@@ -848,116 +853,6 @@
    "path": "web/bonus-stats.js",
    "size": 2361,
    "sha256": "eaaddd0f2c2524f931c11518f24d9bb3da14b3658c2d70aad4fd5da5c801c0f0"
-  },
-  {
-   "path": "web/ground/36.png",
-   "size": 289,
-   "sha256": "8d72431ab657dc156297aa3007b0843c01e75f20dfe5379b27d5cd8d5b9f29f5"
-  },
-  {
-   "path": "web/ground/66.png",
-   "size": 465,
-   "sha256": "3ecde86e10281647ddc1f66ddb42a44a83a98c86baa4ae317ddb8859b3e4fe34"
-  },
-  {
-   "path": "web/icons/124.png",
-   "size": 844,
-   "sha256": "7a989ea2e4f676a42d82e612ca9ff6a1d25e27005acf0cc312ffd270cef62919"
-  },
-  {
-   "path": "web/icons/138.png",
-   "size": 858,
-   "sha256": "335162b3786bced49563cfe86aa14fc4114867c9aa8237821023704a08ee0b98"
-  },
-  {
-   "path": "web/icons/2.png",
-   "size": 495,
-   "sha256": "0f609374be13892e61096e39fbd126cc7258a179a108dcfd80ad2e9e34d430a0"
-  },
-  {
-   "path": "web/icons/242.png",
-   "size": 996,
-   "sha256": "5ee66ffca19d9d3395318df30ee32aaf94c36753dadf8a9bb9935b564b07dccd"
-  },
-  {
-   "path": "web/icons/245.png",
-   "size": 1036,
-   "sha256": "ea4ac1c311981c4380e17779b4b15f1ef2a2a71d2b1962a2591f203522e9b001"
-  },
-  {
-   "path": "web/icons/278.png",
-   "size": 401,
-   "sha256": "c7a17e518c4e3978a83446e66c4cf7ae5cd54caeb04184556442a48b9f75f220"
-  },
-  {
-   "path": "web/icons/318.png",
-   "size": 1499,
-   "sha256": "ec7b23a61616e87b992ae01fd95ddfa83430300141aa85f4ded444af31c46a26"
-  },
-  {
-   "path": "web/icons/35.png",
-   "size": 460,
-   "sha256": "9ded6e008b2f981978dab2874f924b72b8d5f96ea6c4c856c4ebe60884a00073"
-  },
-  {
-   "path": "web/icons/4.png",
-   "size": 510,
-   "sha256": "75ab427d9ee5b9051b6cc4103b43eaadfd7cadd75d73d29bae9caf28ce3ac93e"
-  },
-  {
-   "path": "web/icons/474.png",
-   "size": 1352,
-   "sha256": "569b75068a19f536d78b12a6b75d8bf6e61655b9c1a7f282b0096b9043ecfa1d"
-  },
-  {
-   "path": "web/icons/475.png",
-   "size": 1365,
-   "sha256": "af4f6debaadb18732f040901c0ecf166156782a25e26da6b6867445d3c325846"
-  },
-  {
-   "path": "web/icons/5.png",
-   "size": 907,
-   "sha256": "9e35714d6b77ab794679b0a32f295cea5a78b773fbb745f46ce00366a4b06ff7"
-  },
-  {
-   "path": "web/icons/59.png",
-   "size": 499,
-   "sha256": "cb4045a12f6d28c81bbb25e12173741b184f8bc2fc90b42d9063d0ee076a669e"
-  },
-  {
-   "path": "web/icons/7.png",
-   "size": 359,
-   "sha256": "90f23210260582bfcc8c9e8b7a00cb727840e73082e3c7ca33c1e1fbc8b3143a"
-  },
-  {
-   "path": "web/icons/77.png",
-   "size": 743,
-   "sha256": "19f5dd065bc709dbd1c0fe59bad01e0a8acfad39593ff90621f069a709c9a727"
-  },
-  {
-   "path": "web/icons/80.png",
-   "size": 724,
-   "sha256": "0a6b703b2b6b0709ce4c7364f36ed99ef4cc907712d7d0059aea90c0ed9f4f37"
-  },
-  {
-   "path": "web/icons/81.png",
-   "size": 696,
-   "sha256": "eda21f8685278d50e150fa50ea4975756ea5cede2161fc86f1726199615ab988"
-  },
-  {
-   "path": "web/icons/86.png",
-   "size": 1306,
-   "sha256": "f1a70fcdcee29ea66ff20f204157927e07468cfb50da545adcc2c93831b389a9"
-  },
-  {
-   "path": "web/icons/957.png",
-   "size": 1192,
-   "sha256": "9b1df82afe88dc2183d9f3e69e8218d4126330e1f8f4179bf861ae305aec3a31"
-  },
-  {
-   "path": "web/icons/97.png",
-   "size": 776,
-   "sha256": "a630764b5725c0fc3629a4b86cc60d309695e9673179cb35d73b406d2769ec1d"
   },
   {
    "path": "web/index.html",
