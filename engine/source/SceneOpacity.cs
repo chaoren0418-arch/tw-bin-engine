@@ -111,7 +111,11 @@ public sealed partial class WorldSession {
         try{
             long now=SceneClock();sceneOpacity?.Advance(now);
             if(CacheEnabled){
-                if(MapCache==null||MapCache.MapId!=map){if(AsyncMapLoading){RequestMapLoad(a,map);return;}MapResourceState="loading";MapResourceNotice=$"載入地圖 {map}…";var fresh=new OriginalMapCache(MapAssetsRoot,a.X,a.Y,map);MapCache=fresh;sceneOpacity=new(fresh.Catalog);}
+                // A distant authoritative correction cannot be satisfied by one adjacent 2x2 shift.
+                if(MapCache==null||MapCache.MapId!=map||!MapCache.Contains(a.X,a.Y)){
+                    if(MapCache!=null)ResetOpacity();
+                    if(AsyncMapLoading){RequestMapLoad(a,map);return;}MapResourceState="loading";MapResourceNotice=$"載入地圖 {map}…";var fresh=new OriginalMapCache(MapAssetsRoot,a.X,a.Y,map);MapCache=fresh;sceneOpacity=new(fresh.Catalog);
+                }
                 else if(MapCache.Move(a.X,a.Y))sceneOpacity!.Rebind(MapCache.Catalog);
                 MapCache.ActivateEffects(now);Sync6016(now);
             }else if(map!=0||!Coordinates.Inside(a.X,a.Y)){ResetOpacity();MapResourceState="unavailable";MapResourceNotice="此預覽設定未啟用地圖供應。";return;}

@@ -6,6 +6,35 @@ on:
   pull_request:
 
 jobs:
+  map-continuity:
+    runs-on: windows-latest
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: engine/global.json
+      - name: Build product for offline map checks
+        working-directory: engine
+        run: |
+          dotnet restore source/OfflineClient.csproj --configfile ../.github/nuget.ci.config
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          dotnet build source/OfflineClient.csproj -c Release --no-restore -o build/client-product-dev
+      - name: Synthetic cave, ship, inn and map effect checks (no game or network)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-140 | Out-Null
+          dotnet restore engine/_integration/dev/demo-tests/DemoChecks.csproj --configfile .github/nuget.ci.config
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-140/map-checks.json map-continuity
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: map-continuity-checks
+          path: scratch/issue-140/map-checks.json
+          if-no-files-found: ignore
   dotnet:
     runs-on: ubuntu-latest
     steps:
