@@ -6,7 +6,7 @@ using System.Buffers.Binary;
 
 // Runs production packet decoders/state machines with synthetic packets and an in-memory sender.
 // No game entry point, socket, UI, server, DB or game resources.
-class Checks {
+partial class Checks {
     const BindingFlags F=BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic;
     static readonly List<string> passed=[];
     static void Check(bool ok,string label){if(!ok)throw new Exception(label);passed.Add(label);}
@@ -132,6 +132,6 @@ class Checks {
             Check(!await Npc(c,"talk"),"target removed at final send gate rejected");
         }
     }
-    static async Task<int> Main(string[] args){try{using var guard=new SocketGuard();if(args.Length>0&&args[0]=="--route"){RouteChecks.Run(args[1],args[2],args[3]);return 0;}await Purchase();await Warehouse();await Private();await DirectTrade();await MeatCycle();await Regression();await NegativeCases();Console.WriteLine($"PASS {passed.Count} NPC checks (synthetic, no network/UI/resources)");if(args.Length>0)File.WriteAllText(args[0],JsonSerializer.Serialize(new{status="pass",checks=passed.Count,scope="合成封包，正式產品 DLL；未執行遊戲／網路／DB",passed},new JsonSerializerOptions{WriteIndented=true}));return 0;}catch(Exception ex){Console.Error.WriteLine($"after {passed.Count} assertions: {ex}");return 1;}}
+    static async Task<int> Main(string[] args){try{using var guard=new SocketGuard();if(args.Length>0&&args[0]=="--route"){RouteChecks.Run(args[1],args[2],args[3]);return 0;}await Purchase();await Warehouse();await Private();await DirectTrade();await MeatCycle();await Regression();await NegativeCases();await SellTests();Console.WriteLine($"PASS {passed.Count} NPC checks (synthetic, no network/UI/resources)");if(args.Length>0)File.WriteAllText(args[0],JsonSerializer.Serialize(new{status="pass",checks=passed.Count,scope="合成封包，正式產品 DLL；未執行遊戲／網路／DB",passed},new JsonSerializerOptions{WriteIndented=true}));return 0;}catch(Exception ex){Console.Error.WriteLine($"after {passed.Count} assertions: {ex}");return 1;}}
     sealed class SocketGuard:EventListener {protected override void OnEventSourceCreated(EventSource s){if(s.Name=="System.Net.Sockets")EnableEvents(s,EventLevel.LogAlways);}protected override void OnEventWritten(EventWrittenEventArgs e)=>throw new Exception("Network forbidden in offline checks");}
 }

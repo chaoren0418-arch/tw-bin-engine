@@ -22,7 +22,7 @@ jobs:
           dotnet restore engine/_integration/dev/npc-tests/NpcChecks.csproj --configfile .github/nuget.ci.config
       - name: Build production DLL (no game assets required)
         run: dotnet build engine/source/OfflineClient.csproj -c Release --no-restore -o engine/build/client-product-dev
-      - name: NPC, warehouse, private shop, trade and meat packet cycles
+      - name: NPC buy/sell, private buy/buyback, warehouse, trade and meat packet cycles
         run: dotnet run --project engine/_integration/dev/npc-tests/NpcChecks.csproj -c Release --no-restore -- engine/build/npc-checks.json
       - uses: actions/upload-artifact@v4
         if: always()
