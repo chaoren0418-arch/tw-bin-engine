@@ -47,3 +47,4 @@
 - 2026-11-06 — #110 主控：依 T034 結果收斂 M3 驗收（7 個需生成器的檔案列為 B15 已知例外）（plan，claude-chat，PR #117 已合併）→ [報告](reports/issue-110.md)
 - 2026-11-06 — #109 T035：把 25 個已有本機等價檔的遊戲資源移出 main，改接本機來源，加 CI 拒收檢查（code，codex-local，PR #116 已合併）→ [報告](reports/issue-109.md)
 - 2026-11-06 — #115 T063：DEMO-3 補測發現的產品缺陷——近戰／光箭選目標、數量錯誤文案、自身座標顯示、可丟物品查證（code，codex-local，PR #118 已合併）→ [報告](reports/issue-115.md)
+- 2026-11-06 — #123 T064：DEMO-3 第 2c-b 輪發現的產品問題——F9 圖示破圖、光箭無音效、靜音時音訊 session 消失、三個方向鍵無移動封包（code，codex-local，PR #124 已合併）→ [報告](reports/issue-123.md)
