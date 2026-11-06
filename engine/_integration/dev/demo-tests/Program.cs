@@ -76,6 +76,46 @@ class Checks {
             Check(c.World.InventoryContentRevision==revision&&c.World.CurrentGroundQuantity(false,selection),"error preserves item snapshot "+text);
         }
     }
+    static void GroundPacket(LoginConnection c,uint count=10)=>Feed(c,Packet(b=>{
+        var row=GroundCatalog.Rows.Single(r=>r.Id=="meat");
+        b.Write((byte)87);b.Write((ushort)32600);b.Write((ushort)32940);b.Write(900102u);b.Write(row.GroundGfx);b.Write(new byte[4]);b.Write(count);b.Write((ushort)0);
+        Text(b,row.CountName(count));Text(b,"");b.Write((byte)0);b.Write(0u);Text(b,"");Text(b,"");b.Write((byte)0);b.Write((byte)255);b.Write(new byte[3]);b.Write((byte)255);b.Write((byte)255);
+    }));
+    static async Task PickupCorrection(){
+        foreach(bool pickupError in new[]{true,false})foreach(string invalid in new[]{"0","11"}){
+            using var c=Seed();GroundPacket(c);Check(c.World.SelectGround(900102),"select ground before correction "+pickupError+invalid);
+            var form=(ClientForm)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(ClientForm));GC.SuppressFinalize(form);Set(form,"login",c);
+            Call(form,"SyncQuantitySelection",true);
+            var snapshot=(GroundQuantitySelection)typeof(ClientForm).GetField("pickupSelection",F)!.GetValue(form)!;
+            if(!pickupError){
+                var row=GroundCatalog.Rows.Single(r=>r.Id=="meat");
+                Feed(c,Packet(b=>{b.Write((byte)15);b.Write(900101u);b.Write(row.InventoryDesc);b.Write(row.WireUseType);b.Write((byte)0);b.Write(row.InventoryIcon);b.Write((byte)1);b.Write(10u);b.Write((byte)0);Text(b,row.CountName(10));b.Write((byte)0);b.Write(new byte[11]);}));
+                c.World.SelectItem(900101);
+            }
+            var errorSelection=c.World.GroundQuantity(pickupError);
+            int sends=0;byte[]? sent=null;
+            Sender(c,(b,v,a)=>{if(!v())return Task.FromResult(false);sends++;sent=b;a();return Task.FromResult(true);});
+            Feed(c,LoginPackets.Pad([71,125,0,0]));
+            Check(!await c.SendGroundQuantity(pickupError,invalid,errorSelection)&&sends==0,"invalid quantity sends no packet "+pickupError+invalid);
+            Check(c.World.GroundNotice.Contains("數量不合法")&&c.World.LastServerMessage==null&&c.World.LastServerReply==null,"quantity notice replaces old 125 "+pickupError+invalid);
+            Call(form,"SyncQuantitySelection",true);
+            var retained=(GroundQuantitySelection)typeof(ClientForm).GetField("pickupSelection",F)!.GetValue(form)!;
+            Check(ReferenceEquals(snapshot,retained),"native UI retains displayed selection "+pickupError+invalid);
+            Check(await c.SendGroundQuantity(true,"1",retained),"corrected pickup succeeds without reselection "+pickupError+invalid);
+            Check(sends==1&&sent![0]==112&&BinaryPrimitives.ReadUInt32LittleEndian(sent.AsSpan(5))==900102&&BinaryPrimitives.ReadUInt32LittleEndian(sent.AsSpan(9))==1,"exactly one C112 with selected id and corrected count "+pickupError+invalid);
+            Check(c.World.SelectedGround!.Count==10,"pickup waits for server count "+pickupError+invalid);
+        }
+        foreach(string change in new[]{"count","aba","remove","reselect","queued"}){
+            using var c=Seed();GroundPacket(c);c.World.SelectGround(900102);var snapshot=c.World.GroundQuantity(true);int sends=0;
+            Check(!await c.SendGroundQuantity(true,"0",snapshot),"seed quantity error before real change "+change);
+            if(change=="count"||change=="aba")GroundPacket(c,9);
+            if(change=="aba")GroundPacket(c,10);
+            if(change=="remove")Feed(c,Packet(b=>{b.Write((byte)120);b.Write(900102u);}));
+            if(change=="reselect")c.World.SelectGround(900102);
+            Sender(c,(b,v,a)=>{if(change=="queued")GroundPacket(c,9);if(!v())return Task.FromResult(false);sends++;a();return Task.FromResult(true);});
+            Check(!await c.SendGroundQuantity(true,"1",snapshot)&&sends==0,"real ground change still rejects stale pickup "+change);
+        }
+    }
     static void Position(){
         using var c=Seed();var w=c.World;long serial=w.AuthoritativePositionRevision;
         Check(w.AuthoritativeMapId==0&&w.AuthoritativeActor!.X==32600&&w.AuthoritativePositionOpcode==87,"S87 server position");
@@ -111,7 +151,7 @@ class Checks {
     }
     static async Task<int> Main(string[] args){try{
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY",Path.Combine(Path.GetFullPath(args[0]),"engine","build","offline-checks")+Path.DirectorySeparatorChar);
-        using var guard=new SocketGuard();NativeTargetUi();await Combat();await Magic();await Quantity();Position();
+        using var guard=new SocketGuard();NativeTargetUi();await Combat();await Magic();await Quantity();await PickupCorrection();Position();
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status="pass",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));Console.WriteLine($"PASS {checks} DEMO checks");return 0;
     }catch(Exception ex){Console.Error.WriteLine(ex);return 1;}}
     sealed class SocketGuard:EventListener {protected override void OnEventSourceCreated(EventSource source){if(source.Name=="System.Net.Sockets")EnableEvents(source,EventLevel.LogAlways);}protected override void OnEventWritten(EventWrittenEventArgs e)=>throw new Exception("Network not allowed in offline regression");}

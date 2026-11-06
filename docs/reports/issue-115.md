@@ -4,7 +4,7 @@
 
 ## 已驗證
 
-四項產品修正完成，最終 Windows dev 建置、check-only 與 **9,336 項離線斷言**通過。真機第2c輪仍待dot；第5項即時白名單／販售庫存受禁止讀DB限制，僅交付唯讀JAR條件、已有成功證據的普通肉候選及排除清單。
+四項產品修正完成，最終 Windows dev 建置、check-only 與 **9,374 項離線斷言**通過。真機第2c輪仍待dot；第5項即時白名單／販售庫存受禁止讀DB限制，僅交付唯讀JAR條件、已有成功證據的普通肉候選及排除清單。
 
 1. `OnlineInput.cs:9`：G 是攻擊鍵；`Program.cs:98`、`KeyboardNavigation.cs:6` 要求表單焦點。`PlayerPointerUi.cs:15–26` 依實際不透明像素命中選取，未命中會走地面。`Combat.cs:87–108` 不限制本地攻擊距離，但要求有效目標、存活、速度外觀可用、動作閘門與目標座標一致；目標移動於排隊期間會拒絕且未更新提示。`OnlineInput.cs:9` 不把攻擊結果帶入玩家 HUD。#77 截圖沒有已選取黃圈，不能只靠 opcode trace 判定當時是哪個 guard。修正方向：具體拒絕訊息與 HUD 回饋、選取成功提示；保留既有閘門，不盲目追擊。
 2. `MagicTargetPreparation.cs:20` 明示 test controller only，與正式 UI 無關。`Magic.cs:22–25,65–77` 光箭自動要求敵方目標；`MagicUi.cs:18` 原生下拉僅切自己／目前對象，沒有可見敵人清單。`PlayerHudView.cs:146` 光箭的目標模式按鈕停用，未清楚指示先點場景目標。web 已有可見像素清單，但每次 HP／MP 變動會重建下拉。修正方向：原生可見目標下拉、明確目標提示、web 下拉只在選項變動時重建。
@@ -92,19 +92,19 @@
 | dev --update-lock／--build／--verify | 全部exit0，190來源／199 pins，PASS dev |
 | 主程式／launcher／四個離線宿主建置 | 全部0警告、0錯誤 |
 | engine\啟動新版客戶端.cmd --check-only | exit0，revision=dev，uiStarted/networkStarted/servicesStarted=false |
-| DemoChecks | 71 項（含實際ComboBox方法） |
+| DemoChecks | 109 項（含實際ComboBox方法） |
 | DEMO panel.js | 16 項 |
 | 原 GroundChecks／ground web | 361／72 項 |
 | 原 CombatSfxChecks | 8,780 項／7組，不播放音效 |
 | 原 PacketTraceChecks | 36 項 |
-| 總計 | **9,336** 項 |
+| 總計 | **9,374** 項 |
 | git diff --check（cr-at-eol） | 通過 |
 
 完整命令、exit code、stdout/stderr及check-only JSON見 [validation.json](../../work/issue-115/validation.json)；個別斷言結果同目錄。最終身分：
 
-- `engine/build/client-product-dev/P11.ClientEngine.dll` SHA-256 `5953dae58a5f0aad5b8c912d1bf663024380dcc8f9447003d0c62187187b663e`。
-- `engine/build/product-dev-manifest.json` SHA-256 `6b6d463f87a064cb7dbb7cd7397bd25ab5be5a6fc04b3eeaed9b56629e3a1c5e`。
-- `engine/_integration/dev/rebuild-lock.json` SHA-256 `aa987a6ba50df785bd54d221c1944128e6b0cefb15d99ed3cc75b68c4b7b1ecd`。
+- `engine/build/client-product-dev/P11.ClientEngine.dll` SHA-256 `ff60a7facc7dd5fa6d227811dc46e00099d2348da631f4fc9edfbf3c8eaffc2f`。
+- `engine/build/product-dev-manifest.json` SHA-256 `dab3590f974075fdaa7c389b6f4b42045a53782879b35afa4e93e8876e52e753`。
+- `engine/_integration/dev/rebuild-lock.json` SHA-256 `49eb0eef7a1e726d8227eb50c9d73b70ec3c2b23f5a5b76545d21147dad7df14`。
 
 重現時在本任務工作樹根目錄，沿用本機SDK10.0.300、Python3.12、Node。先將TEMP／TMP、DOTNET_CLI_HOME、NUGET_PACKAGES、NUGET_HTTP_CACHE_PATH、NUGET_SCRATCH設到該工作樹scratch子目錄，停用telemetry與首次certificate生成。素材／vendor使用工作樹的唯讀引用；不搬素材、不建置主目錄。以下每一步非0就停止：
 
@@ -119,3 +119,24 @@ python -B -X utf8 engine/_integration/dev/rebuild.py --verify
 ```
 
 其餘既有回歸命令完整保存在validation.json，所用DLL皆為本次最終建置；未以舊結果冒充。CI結果於PR完成後補記，Linux交叉建置不等於真機驗收。
+
+## 第 2 次嘗試：審查退回根因（修正前記錄）
+
+- `GroundCatalog.cs:34–36` 的 `RejectGroundQuantity` 僅更新提示與清除舊伺服器訊息，卻無條件增加 `GroundRevision`。`GroundCatalog.cs:39–42` 把該版號納入拾取快照相等檢查。
+- `GroundUi.cs:31–33` 的 `SyncQuantitySelection` 只在 epoch／ID／selection 改變時更新快照；故同一物品輸入 0 後改為 1，仍持有舊 revision，被 `SendGroundQuantity` 拒絕。丟棄輸入錯誤也會誤使既有拾取快照過期。
+- 修正方式：提示更新不增加地面內容版號；保留 `InventoryRevision` 的 UI 刷新及舊125清除。實際 S87 更新、移除、重新選取仍沿用原有版號保護，不自動換新快照繞過檢查。
+- 新回歸先在 `c0cf9a9` 的產品 DLL（SHA-256 `5953dae58a5f0aad5b8c912d1bf663024380dcc8f9447003d0c62187187b663e`）重現失敗：`corrected pickup succeeds without reselection True0`，退出碼1。修正後同一路徑通過；新增38項斷言，DemoChecks共109項、全套共9,374項。
+
+### 本次已驗證
+
+- `GroundCatalog.cs:36–37` 僅移除錯誤提示對地面 revision 的遞增；UI 仍直接讀取 `GroundStatus`，舊125仍清除。
+- `demo-tests/Program.cs:79–118`：實際呼叫原生 `SyncQuantitySelection`，先輸入0／超額，再用同一選取直接改成1；每例只送一次C112，核對ObjectId與數量且不預扣地面數量。另驗丟棄錯誤不影響已選地面物品。
+- 數量改變、數量改回原值（ABA）、物品移除、重新選取與排隊期間S87更新，仍拒絕舊快照且0筆C112。
+- 本次重跑四個離線宿主與兩組web檢查、dev lock／build／verify及check-only，全數通過。最新完整命令、身分SHA及結果已覆寫同一份 `work/issue-115/validation.json`；既有JAR唯讀證據未變更，本次未重新讀JAR。
+- 沿用前次已隔離的 `scratch/wt/task-115`／`task/115`，fetch確認後保留既有修正提交；沒有切換主目錄或重設分支。原生實機未啟動；DB、設定、封存與#109範圍皆未變更。
+
+### 推測／待真機驗證／給下一棒的提示
+
+- 歷史真機問題及可購買肉的限制沿用上文，沒有新增真機結論。
+- dot第2c輪追加：選一堆普通肉，在原生地面頁輸入0並按拾取，確認本機錯誤且0筆C112；**不要重新點物品**，直接改成1再按拾取，應有1筆C112。另以超額數量重做，並核對伺服器地面／背包回包；若測試期間物品被清除或數量改變，舊選取被拒絕是預期保護，須重新選取後再測。
+- 交Claude重新審查既有PR #118；CI結果以該PR新提交的檢查與回覆為準，再由使用者合併、dot補測。

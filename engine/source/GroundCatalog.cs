@@ -33,7 +33,8 @@ public sealed record GroundQuantitySelection(int Epoch,uint Id,int Selection,int
 public sealed partial class WorldSession {
     internal void RejectGroundQuantity(bool pickup,string notice){
         GroundNotice=notice;LastServerMessage=null;LastServerReply=null;
-        if(!pickup)ItemNotice=notice;InventoryRevision++;GroundRevision++;
+        // Notices do not change ground contents or invalidate the displayed pickup snapshot.
+        if(!pickup)ItemNotice=notice;InventoryRevision++;
     }
     public bool CanDropGroundItem(InventoryItem item)=>GroundRules.Droppable(item)&&!EquipmentSlots.Any(s=>s.ObjectId==item.ObjectId)&&ItemEquipped(item)!=true;
     public GroundQuantitySelection? GroundQuantity(bool pickup)=>pickup
