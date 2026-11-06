@@ -40,3 +40,4 @@
 - 2026-11-06 — #88 T017：新建 worktree 的 dev 建置加 check-only（補 M0 待驗證條件）（test，codex-local，PR #90 已合併）→ [報告](reports/issue-88.md)
 - 2026-11-06 — #91 T006：位元可重現建置（兩個不同目錄建出相同 productDll SHA）（code，codex-local，PR #92 已合併）→ [報告](reports/issue-91.md)
 - 2026-11-06 — #94 T080：交作業版 docs/ARCHITECTURE.md（模組與資料流一頁說明）（design，codex-local，PR 已合併）→ [報告](reports/issue-94.md)
+- 2026-11-06 — #97 T033（設計）：可攜 zip 不含遊戲資源——engine/assets 怎麼在使用者電腦上產生（design，codex-local，PR #100 已合併）→ [報告](reports/issue-97.md)
