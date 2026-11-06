@@ -1,31 +1,39 @@
-# Issue #102：T033 追蹤資源與 EmbeddedResource 發布查核
+# Issue #102：T034 追蹤資源與 EmbeddedResource 發布查核
 
-日期：2026-11-06。階段：test，第 1 次嘗試。**結論：查核與阻塞清單已交付；零遊戲資源發布不通過（BLOCKED）。** 本次沒有修正產品、刪除資源、修改 lock、建置或建立 Release。
+日期：2026-11-06。階段：test，第 3 次嘗試（保留首次查核，依審查追加報告修正）。**結論：查核與阻塞清單已交付；零遊戲資源發布不通過（BLOCKED）。** 本次沒有修正產品、刪除資源、修改 lock、建置或建立 Release。
+
+本張對應 **T034**（#97 plan 的 `portable-resource-audit`）；Issue 舊標題的 T033 已依 #99 移至 **Backlog B15**（可攜 zip／使用者本機生成素材）。**T035** 是依本查核移出 main 的遊戲資料、改接既有本機來源及加入 CI 拒收檢查。本張不執行移除，也不代表 T035、B15 或零資源發布通過。
 
 ## 交付範圍先決定義
 
-- 查核來源固定為 fetch 後的 `origin/main` commit **`29110d53b110bdab93d9655b14910047d74bf39c`**，不是會移動的 main。主目錄依指示執行 `git checkout -B task/102 origin/main`，唯讀檢查在 `scratch/issue-102/audit-tree` 的 detached worktree 進行。開始時主目錄已有未追蹤截圖、receipt、runtime/runs，本次保留，沒有當成本輪證據或加入 commit。
-- **交付 commit 的樹**：原有 3,061 路徑加本報告及必要查核腳本兩路徑。附錄逐一列出原有路徑、Git blob bytes、SHA-256、分類與依據；新增兩檔在下節列明。所有來源內容掃描只針對固定樹；不能把本報告合併解讀為已清除資源。
+- 查核來源固定為 fetch 後的 `origin/main` commit **`29110d53b110bdab93d9655b14910047d74bf39c`**，不是會移動的 main。首輪依指示執行 `git checkout -B task/102 origin/main`；本輪 fetch 後依退回要求切回既有 `task/102`，在 `4e965dc31f76c44768314ca4505fa8a49de2b2bf` 後追加 commit，不重設或改寫前兩次歷史。唯讀檢查在 `scratch/issue-102/audit-tree` 的 detached worktree 進行。開始時主目錄已有未追蹤截圖、receipt、runtime/runs，本次保留，沒有當成本輪證據或加入 commit。
+- **交付 commit 的樹**：原有 3,061 路徑加本報告一檔，合計 3,062 路徑。附錄逐一列出原有路徑、Git blob bytes、SHA-256、分類與依據；scratch 腳本未提交。所有來源內容掃描只針對固定樹；不能把本報告合併解讀為已清除資源。
 - **可攜 zip**：是未來由白名單產生的獨立產品，不得直接壓整個 repo、`git archive HEAD`、engine 或工作目錄。zip 合格也不代表 repo 的交付樹合格。
-- **Demo／驗收證據**：目前 HEAD 的 `docs/demo`、`docs/native-baseline` PNG 仍是追蹤檔，因此納入本次帳冊；不能因為叫證據便排除。107 PNG 中 22 是 web 素材、85 是 Demo／原生截圖。截圖包含遊戲呈現，全部拒收入產品 zip；少數只有局部 UI 的圖亦不逕行豁免。若要保留獨立教學／Demo 發布範圍，須由 Claude／使用者另裁定，不能宣稱整個交付 commit 零資源。
+- **Demo／驗收證據**：107 個追蹤 PNG 中 22 個是 web 素材（D），85 個是 Demo／原生驗收截圖（E：證據）。依 [主控最終裁定](https://github.com/chaoren0418-arch/tw-bin-engine/issues/102#issuecomment-6674909166)，37 張 demo 與 48 張 baseline **保留於 main，不列入移除，全部不得進產品 zip**。這是明確的證據例外，不是把截圖當成自主素材或全目錄自動豁免；逐檔身份與 baseline 目視結果見下節及附錄。
 - **舊 Git 歷史**：本次未掃描所有 ancestor blobs、tags、已發布附件或重寫歷史。從 HEAD 移除檔案不會消除歷史；clone／GitHub source archive／Release 附件是不同交付面。歷史清理、分拆證據 repo、重新建立乾淨發布 repo 的選擇交 Claude／使用者；不得自行 filter-repo、force-push、刪 tag 或刪 Demo。
-- 不讀機密設定（如 `config/server.properties`）、不碰 DB／服務／遊戲、不打開原 BIN、不讀寫封存 release 或硬連結。本次只讀主目錄 `engine/assets` 的 reparse 屬性確認為 junction，不跟隨目標；不掃描 2 GB assets。歷史研究 Python／指定生成收據是唯讀參考，沒有執行它們，也沒有複製客戶端原檔或派生資源。
+- 不讀機密設定（如 `config/server.properties`）、不碰 DB／服務／遊戲、不打開原 BIN、不修改封存 release 或硬連結。首輪只檢查 `engine/assets` junction 屬性；第 3 次依補充要求**經該唯讀入口**核對指定 inventory／ground／sound／6016 檔及 integrity 索引，另讀原客戶端 `Sound/1340.wav`、`Sound/3332.wav` 計算 SHA。沒有遞迴掃描或複製整份 assets，也沒有執行研究產生器。此限定讀取不構成允許封裝器跟隨 junction。
+
+本輪 fetch 的 `origin/main` 為 `1b718bc2a672b9f875acd902c773aa3795855a64`；相對查核基準僅變更 `PLAN.md`、`TASKS.md`、`docs/REPORT.md`、新增 `docs/reports/issue-99.md`。本輪讀取其任務定義，**不把新增文件自動納入原 3,061 列已查核集合**；合併後全樹閘門必須重新涵蓋當時 HEAD。
 
 ## 做了什麼、怎麼驗證
 
-1. 讀根目錄 AGENTS.md、docs/REPORT.md、TASKS 的 T033 及 `docs/design/portable-delivery.md`。Windows sandbox 初始化發生 `helper_unknown_error`，改經核准的本機執行模式；未因此變更查核範圍。`rg` 不在 PATH，改用 Git 清單、Git grep 與 Python；Python 由 `py -3` 執行。
+第 1–7 點為首次查核且已由審查核對的紀錄；第 8 點是本次追加驗證。
+
+1. 讀根目錄 AGENTS.md、docs/REPORT.md、TASKS 的原 T033 及 `docs/design/portable-delivery.md`。Windows sandbox 初始化發生 `helper_unknown_error`，改經核准的本機執行模式；未因此變更查核範圍。`rg` 不在 PATH，改用 Git 清單、Git grep 與 Python；Python 由 `py -3` 執行。
 2. `git ls-files --stage -z` 列出 3,061 個 stage 0／100644 檔；用 `git cat-file --batch` 讀每一個 blob，計算 SHA-256，再與隔離 checkout bytes 比對。**3,061 個 hash 全相符，沒有 symlink/submodule mode 或追蹤路徑的 reparse ancestor**。沒有掃入主目錄未追蹤檔。
 3. 全檔內容識別包含 PNG、RIFF/WAVE、gzip、ZIP、UTF-8、JSON/JSONL，JSON 即使改為 `.cs` 也解析；檢查 pixels、可還原 hex、Base64 候選、長常數；所有未識別、資料來源未證實或無法完整解碼者保守 unknown。18 gzip 中 17 可解壓，另 1 EOFError；1 ZIP 的 11 members 均讀取、未落地解壓，但文件內容仍未核准。
 4. 解析 19 個 csproj：4 個明示 EmbeddedResource，僅分布於現行 source/audio 兩專案；其餘 17 個明示項目為零。追蹤樹未見 `.resx`、`.props`、`.targets`。這是靜態檢查，不是 MSBuild 評估或已編譯 assembly 枚舉。
 5. 讀取選定 P24 產生器原始碼及生成收據，將 19 個 icon PNG 和 ground/36.png 的追蹤 SHA 與生成紀錄核對相等。icon124 的完整版本重播與 ground66 的 PNG 最終重播證據仍欠缺；沒有重新解碼 Sprite 或跑產生器。
 6. 執行 7 個明示合成的盤點器探針：改名 PNG、改名 WAV、改成 `.cs` 的 pixels JSON、Base64 PNG、截斷 gzip、未知 JSON 均分類 D/U；單純 pins 結構為 M。**這是盤點器分類測試，不是遊戲功能、真素材重建或正式 zip 閘門驗收**。metadata 結構分類不驗 pin 值是否真的能匹配原檔。
-7. 隔離 worktree `git status --porcelain` 空白；提交前檢查主目錄變更僅本報告與必要腳本。既有 docs/REPORT.md、產品、lock、releases 未修改。
+7. 隔離 worktree `git status --porcelain` 空白；首輪曾提交必要腳本，第 2 次已移出 Git。本輪提交範圍僅本報告。既有 docs/REPORT.md、產品、lock、releases 未修改。
+8. 重新讀取 #102 審查與主控裁定；逐張檢視隔離樹 48 張 baseline 原圖；逐檔查 Git log 確認 85 張截圖引入 commit。重跑 20 icons 的 SHA-256 與 byte equality，加驗 2 ground、2 WAV、6016 fixture，共 **25/25 相同、缺檔 0、差異 0**。其餘 7 個 D 檔在 `engine/assets/integrity.json` 無同 SHA 或同名列；這不等於證明無其他語義等價來源，故明列 B15 blocker。
 
 | 類別 | 數量 | 判定含義及發布處置 |
 |---|---:|---|
 | C | 296 | 自主工程程式／UI／建置設定的候選；掃描未見持久化長編碼 payload。不是法律來源證明，也不是整目錄 zip 許可。 |
 | M | 146 | 非內容性工程 metadata／pins／路徑大小雜湊清冊或已核讀工程文件。只可在必要、精確路徑及 schema 核准後加入 zip。 |
-| D | 117 | 已知原始或派生遊戲資料／含遊戲呈現的截圖；零資源交付樹與 zip 均拒收。 |
+| D | 32 | 已知原始或派生遊戲資料；main 清理候選及產品 zip 拒收。逐檔替代來源／blocker 見下文；不是立即刪檔指令。 |
+| E（證據） | 85 | 主控核定的 demo 37 張、r35 31 張、dev-retest 17 張；保留 main，不列入移除，產品 zip 一律拒收。 |
 | U（unknown） | 2,502 | 尚無逐欄／逐段來源證據、可還原測試 payload 真假來源未定、敏感欄位候選、未識別或損毀容器。**全部阻擋發布，不能因 scanner 沒找到 magic 就放行。** |
 
 U 的多數是歷史工作紀錄及 JSON；本輪完整列舉、hash 與結構掃描不等於完成其人工語義審核。每列保留 unknown 原因，沒有將檔名叫 manifest、fixture、report 的內容一律視為 M。對少量 SQL/JAR/DB 名稱或來源 hash 的引用，不表示本輪讀過或使用了相應外部資料。歷史 JSON 命中帳密類欄位名稱時只記「敏感欄位名稱」，不在報告重刊值；也沒有查驗其有效性。
@@ -35,7 +43,7 @@ U 的多數是歷史工作紀錄及 JSON；本輪完整列舉、hash 與結構�
 | 新增路徑 | 分類 | 用途 |
 |---|---|---|
 | `docs/reports/issue-102.md` | M：本輪工程查核報告 | 完整逐路徑帳冊與後續規格；不重刊像素、音訊、封包 hex 或秘密值。不列本檔自身 SHA，避免自我雜湊循環；交付 commit 識別其版本。 |
-| `scratch/issue-102/audit.py` | C：必要唯讀驗證腳本 | 本機 scratch，未提交。第 2 次修正依審查要求移出 Git 並保留本機檔案，修正後交付樹僅新增本報告；前述新增兩檔為首次交付狀態。SHA-256 `b459c0de25d97ee0e1af81abddbac923156398c2bf8c09b8fcb85314ee940d1c`。 |
+| `scratch/issue-102/audit.py` | C：必要唯讀驗證腳本 | 本機 scratch，未提交。第 2 次修正依審查要求移出 Git 並保留本機檔案，修正後交付樹僅新增本報告。SHA-256 `b459c0de25d97ee0e1af81abddbac923156398c2bf8c09b8fcb85314ee940d1c`。 |
 
 本機重現命令（來源 worktree 固定在上述 commit；先查看腳本，不執行研究工具）：
 
@@ -43,14 +51,14 @@ U 的多數是歷史工作紀錄及 JSON；本輪完整列舉、hash 與結構�
 py -3 -B -X utf8 scratch/issue-102/audit.py --tree scratch/issue-102/audit-tree --out scratch/issue-102/results
 ```
 
-本機 `results/inventory.json` 的 SHA-256 為 `e99f195eaf481c2d6bb02f7e2f67949cbff0e0f4963aff2bc2a231f9da83de49`；只是暫存，永久逐檔資料在本報告附錄。換機可先在 scratch 建立該 commit 的 detached worktree；腳本不需要原客戶端、junction 或套件安裝。輸出非正式發布 manifest。
+本機 `results/inventory.json` 的 SHA-256 為 `e99f195eaf481c2d6bb02f7e2f67949cbff0e0f4963aff2bc2a231f9da83de49`；只是暫存，永久逐檔資料在本報告附錄。換機可先在 scratch 建立該 commit 的 detached worktree；腳本不需要原客戶端、junction 或套件安裝。輸出非正式發布 manifest。此 `audit.py` 與 inventory.json 是首輪原始掃描版本，仍會把 85 張圖列成 D；**本報告依主控逐檔裁定覆寫為 E**，不可把舊腳本的自動分類當成此次最終處置。後續正式 policy 須吸收本文 E 的精確 path/SHA 例外。
 
 ## 已驗證的發布阻塞
 
 | 項目 | 本次證據 | 必須處理的原因 |
 |---|---|---|
 | web 的 20 icons＋2 ground PNG | 下節逐圖追溯與附錄 SHA | 原 TBT／SPR 派生，改名或移進 ZIP 不改變性質。 |
-| 85 個 Demo／原生 PNG | PNG magic＋目前 tracked paths | 資源內容不只在 engine；證據保留須另定範圍。 |
+| 85 個 Demo／原生 PNG（E，僅產品 zip 拒收） | 主控核定證據例外＋逐檔 SHA；baseline 48 張本輪逐張檢視 | 保留 main、不列入 T035 移除；產品 zip 必須拒收。不是 main 資料清理 blocker。 |
 | `engine/_integration/delta/assets/sound/1340.wav`、`3332.wav` | RIFF/WAVE；歷史 `finalize.py:40–42` 明記原音訊沿用 | 兩檔 14,322／24,748 bytes。SHA 分別 `30b4ce04d5ca914cdbfd80c7ee9b9cdbe3bf79487e609b2a9d32f6546a90f9c3`／`973e0a3598edd23c2a24f6900643e43a9155fe36906b939d2d8e24374abeff2a`。目前仍在 HEAD。 |
 | pickup 兩份 JSON | 共 2,713,313 bytes、312 frames、200,628 個 RGB555 pixel triples；`PickupAssets.cs:35–40,71–72` 直接讀 embedded resources | 確實是圖像本文，不能以 JSON 為理由放行。 |
 | `engine/_integration/check-template/fixtures/6016.json` | `frames[].blocks[].pixels`、69,454 bytes | 測試 fixture 亦攜帶 6016 圖像。 |
@@ -60,6 +68,73 @@ py -3 -B -X utf8 scratch/issue-102/audit.py --tree scratch/issue-102/audit-tree 
 | 壓縮證據及其他 U | `docs/project-consolidation/physical-migration/before-r28-interrupted-partial.jsonl.gz` 完整解壓 EOFError；`phase1-documents.zip` 含 11 份文件 | partial／壓縮／unknown 必須 fail closed。不能因副檔名非素材就准入。 |
 
 對 `work/P31-pickup-composite-review-r1/cases.json`、`work/engine-pickup-presentation-candidate-review-r1/execution-rows.json` 的 pixels，以及 work/issue-49、51、77 的封包 hex，本輪只證實可以還原內容，未把未核對來源的測試資料冒認原始素材，故為 U14。後續須證明純人工 fixture 或改為本機生成，仍不得直接發行。
+
+## Demo 與 baseline 證據專節（E，不列入移除）
+
+依 [#102 審查](https://github.com/chaoren0418-arch/tw-bin-engine/issues/102#issuecomment-6674892483) 與 [主控最終裁定](https://github.com/chaoren0418-arch/tw-bin-engine/issues/102#issuecomment-6674909166)，三組都是 P24Lab 測試角色真機驗收證據。#71 的原公開授權涵蓋 demo；baseline 的保留由本次主控明確裁定，不再要求另外授權，也不把它們列入 D 或 T035 移除清單。
+
+| 組別 | 張數 | 來源 Issue／既有證據 | PNG 引入 commit（逐檔 Git log 核對） |
+|---|---:|---|---|
+| `docs/demo/` | 37 | [#71](https://github.com/chaoren0418-arch/tw-bin-engine/issues/71)，DEMO-2，`docs/demo/README.md` | `c09cc75231248750eea9976d66ca7bb7dda35559` |
+| `docs/native-baseline/r35/` | 31 | [#27](https://github.com/chaoren0418-arch/tw-bin-engine/issues/27) 整理 #23；`r35/MANIFEST.md` | `5047fe71bb138237b9a41f06d1bf8675a3c32345` |
+| `docs/native-baseline/dev-retest/` | 17 | [#41](https://github.com/chaoren0418-arch/tw-bin-engine/issues/41) 整理 #37；`dev-retest/MANIFEST.md` | `6417765ffcc71dca976e7f053f273daf28ac95d6` |
+
+本輪以 `git ls-files -z docs/native-baseline` 限定已追蹤的 48 張，在隔離 worktree 逐張開啟原尺寸圖片目視；不使用未追蹤的其他 r35 截圖、不以檔名搜尋替代看圖。檢查登入欄、聊天／診斷／側欄與可見視窗邊緣：**48/48 未見帳密值、角色以外個資、非 127.0.0.1 的伺服器位址；待主控裁定 0 張**。角色名稱、個人商店名稱、遊戲座標／物件 ID 按裁定不算角色以外個資。僅就圖中可見內容判讀，不推測畫面外或被遮住內容。
+
+若後續發現上述三種敏感內容，只把該張標「待主控裁定」並附位置／原因；不重刊敏感值、不自行刪除或改圖。本輪 demo 沿用 #71 授權與既有驗收紀錄、核對 37 個引入 commit／帳冊分類，**不宣稱另做 demo 37 張敏感內容複驗**。85 張全數保留 main、不得進產品 zip；完整 SHA 在附錄逐檔帳冊。
+
+下表路徑相對 `docs/native-baseline/`；「未見」表示本輪逐張目視結果，非自動 OCR 或帳密有效性測試。
+
+| 圖片 | 帳密值 | 角色以外個資 | 非 loopback 伺服器位址 | 觀察／處置 |
+|---|---|---|---|---|
+| `dev-retest/04-after.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `dev-retest/04-before.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `dev-retest/04-start-diagnostics.png` | 未見 | 未見 | 未見 | 診斷／聲音面板；可見登入帳密欄空白；E，保留 main，zip 拒收 |
+| `dev-retest/05-after.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `dev-retest/05-before.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `dev-retest/06-approach.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `dev-retest/06-before.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `dev-retest/06-diagnostics.png` | 未見 | 未見 | 未見 | 戰鬥診斷／聲音面板；可見登入帳密欄空白；E，保留 main，zip 拒收 |
+| `dev-retest/07-before.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `dev-retest/07-effect.png` | 未見 | 未見 | 未見 | 技能效果及側欄；可見登入帳密欄空白；E，保留 main，zip 拒收 |
+| `dev-retest/10-gold-selected.png` | 未見 | 未見 | 未見 | 地面／背包物品及數量；E，保留 main，zip 拒收 |
+| `dev-retest/15-audible.png` | 未見 | 未見 | 未見 | 聲音／背包與側欄；可見登入帳密欄空白；E，保留 main，zip 拒收 |
+| `dev-retest/15-closing.png` | 未見 | 未見 | 未見 | 聲音／背包與側欄；可見登入帳密欄空白；E，保留 main，zip 拒收 |
+| `dev-retest/15-controls.png` | 未見 | 未見 | 未見 | 聲音／背包與側欄；可見登入帳密欄空白；E，保留 main，zip 拒收 |
+| `dev-retest/15-muted.png` | 未見 | 未見 | 未見 | 聲音／背包與側欄；可見登入帳密欄空白；E，保留 main，zip 拒收 |
+| `dev-retest/15-unmuted.png` | 未見 | 未見 | 未見 | 聲音／背包與側欄；可見登入帳密欄空白；E，保留 main，zip 拒收 |
+| `dev-retest/15-volume50.png` | 未見 | 未見 | 未見 | 聲音／背包與側欄；可見登入帳密欄空白；E，保留 main，zip 拒收 |
+| `r35/01-登入畫面.png` | 未見 | 未見 | 未見 | 登入列只有帳號／密碼提示文字，未填值；E，保留 main，zip 拒收 |
+| `r35/02-選角局部.png` | 未見 | 未見 | 未見 | 既有局部圖；僅選角下拉與進世界按鈕；E，保留 main，zip 拒收 |
+| `r35/03-世界完整畫面.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `r35/04-接手後-上2.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `r35/04-接手後-左下2.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `r35/05-點地移動結果.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `r35/06-重試攻擊結果.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `r35/07-技能1初級治癒術.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `r35/07-技能3保護罩.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `r35/07-技能4無目標嘗試.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `r35/07-技能8神聖武器.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `r35/08-吃肉後.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `r35/08-背包操作前.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `r35/09-匕首選取.png` | 未見 | 未見 | 未見 | 裝備操作及角色狀態；E，保留 main，zip 拒收 |
+| `r35/09-卸下確認.png` | 未見 | 未見 | 未見 | 裝備操作及角色狀態；E，保留 main，zip 拒收 |
+| `r35/09-重新裝備匕首.png` | 未見 | 未見 | 未見 | 裝備操作及角色狀態；E，保留 main，zip 拒收 |
+| `r35/10-丟棄一個肉.png` | 未見 | 未見 | 未見 | 地面／背包物品及數量；E，保留 main，zip 拒收 |
+| `r35/10-地面肉.png` | 未見 | 未見 | 未見 | 地面／背包物品及數量；E，保留 main，zip 拒收 |
+| `r35/10-接手目前.png` | 未見 | 未見 | 未見 | 地面／背包物品及數量；E，保留 main，zip 拒收 |
+| `r35/10-連續操作檢視.png` | 未見 | 未見 | 未見 | 地面／背包物品及數量；E，保留 main，zip 拒收 |
+| `r35/11-力量加一結果.png` | 未見 | 未見 | 未見 | 能力值面板及角色狀態；E，保留 main，zip 拒收 |
+| `r35/11-加點前.png` | 未見 | 未見 | 未見 | 能力值面板及角色狀態；E，保留 main，zip 拒收 |
+| `r35/12-聊天回傳.png` | 未見 | 未見 | 未見 | 聊天僅測試角色與 Issue23 r35 測試文字；E，保留 main，zip 拒收 |
+| `r35/13-第二次關閉檢查局部.png` | 未見 | 未見 | 未見 | 既有局部圖；選角列空白、按鈕停用；E，保留 main，zip 拒收 |
+| `r35/13-退出前診斷.png` | 未見 | 未見 | 未見 | 診斷側欄；帳密欄空白、角色選擇提示；E，保留 main，zip 拒收 |
+| `r35/14-力量保存.png` | 未見 | 未見 | 未見 | 能力值面板及角色狀態；E，保留 main，zip 拒收 |
+| `r35/14-重登穩定畫面.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `r35/14-重登背包裝備.png` | 未見 | 未見 | 未見 | 遊戲畫面／角色狀態及操作結果；E，保留 main，zip 拒收 |
+| `r35/15-取消靜音.png` | 未見 | 未見 | 未見 | 聲音設定與遊戲畫面；E，保留 main，zip 拒收 |
+| `r35/15-聲音設定前.png` | 未見 | 未見 | 未見 | 聲音設定與遊戲畫面；E，保留 main，zip 拒收 |
+| `r35/15-靜音.png` | 未見 | 未見 | 未見 | 聲音設定與遊戲畫面；E，保留 main，zip 拒收 |
 
 ## EmbeddedResource 白名單裁定
 
@@ -103,32 +178,83 @@ py -3 -B -X utf8 scratch/issue-102/audit.py --tree scratch/issue-102/audit-tree 
 
 | 追蹤路徑 | 來源／PAK File Offset | 生成收據與目前 SHA-256 | consumer／替代 |
 |---|---|---|---|
-| `engine/web/ground/36.png` | L：`36-0.spr`／971303715 | 相符；`8d72431ab657dc156297aa3007b0843c01e75f20dfe5379b27d5cd8d5b9f29f5` | G → 原SPR provider／本機 ground/36.json |
-| `engine/web/ground/66.png` | N：`66-0.spr` key 0:0；現行 catalog pin File Offset 962888499 | 產生器已定位；最終PNG重播 unknown；`3ecde86e10281647ddc1f66ddb42a44a83a98c86baa4ae317ddb8859b3e4fe34` | G → 原SPR provider／本機 ground/66.json |
-| `engine/web/icons/124.png` | L:33：預期 `124.tbt`／unknown | 精確版本生成鏈 unknown；`7a989ea2e4f676a42d82e612ca9ff6a1d25e27005acf0cc312ffd270cef62919` | I → 本機 assets/inventory/124.png |
-| `engine/web/icons/138.png` | F：`138.tbt`／903311181 | 相符；`335162b3786bced49563cfe86aa14fc4114867c9aa8237821023704a08ee0b98` | I → 本機 assets/inventory/138.png |
-| `engine/web/icons/2.png` | A：`2.tbt`／903258114 | 相符；`0f609374be13892e61096e39fbd126cc7258a179a108dcfd80ad2e9e34d430a0` | I → 本機 assets/inventory/2.png |
-| `engine/web/icons/242.png` | H242：`242.tbt`／903201880 | 相符；`5ee66ffca19d9d3395318df30ee32aaf94c36753dadf8a9bb9935b564b07dccd` | I → 本機 assets/inventory/242.png |
-| `engine/web/icons/245.png` | J：`245.tbt`／903199205 | 相符；`ea4ac1c311981c4380e17779b4b15f1ef2a2a71d2b1962a2591f203522e9b001` | I → 本機 assets/inventory/245.png |
-| `engine/web/icons/278.png` | B：`278.tbt`／903882717 | 相符；`c7a17e518c4e3978a83446e66c4cf7ae5cd54caeb04184556442a48b9f75f220` | I → 本機 assets/inventory/278.png |
-| `engine/web/icons/318.png` | H318：`318.tbt`／903848526 | 相符；`ec7b23a61616e87b992ae01fd95ddfa83430300141aa85f4ded444af31c46a26` | I → 本機 assets/inventory/318.png |
-| `engine/web/icons/35.png` | C：`35.tbt`／903805861 | 相符；`9ded6e008b2f981978dab2874f924b72b8d5f96ea6c4c856c4ebe60884a00073` | I → 本機 assets/inventory/35.png |
-| `engine/web/icons/4.png` | A：`4.tbt`／903706169 | 相符；`75ab427d9ee5b9051b6cc4103b43eaadfd7cadd75d73d29bae9caf28ce3ac93e` | I → 本機 assets/inventory/4.png |
-| `engine/web/icons/474.png` | C：`474.tbt`／903594700 | 相符；`569b75068a19f536d78b12a6b75d8bf6e61655b9c1a7f282b0096b9043ecfa1d` | I → 本機 assets/inventory/474.png |
-| `engine/web/icons/475.png` | A：`475.tbt`／903593506 | 相符；`af4f6debaadb18732f040901c0ecf166156782a25e26da6b6867445d3c325846` | I → 本機 assets/inventory/475.png |
-| `engine/web/icons/5.png` | A：`5.tbt`／903564600 | 相符；`9e35714d6b77ab794679b0a32f295cea5a78b773fbb745f46ce00366a4b06ff7` | I → 本機 assets/inventory/5.png |
-| `engine/web/icons/59.png` | E：`59.tbt`／903368573 | 相符；`cb4045a12f6d28c81bbb25e12173741b184f8bc2fc90b42d9063d0ee076a669e` | I → 本機 assets/inventory/59.png |
-| `engine/web/icons/7.png` | B：`7.tbt`／903356012 | 相符；`90f23210260582bfcc8c9e8b7a00cb727840e73082e3c7ca33c1e1fbc8b3143a` | I → 本機 assets/inventory/7.png |
-| `engine/web/icons/77.png` | D：`77.tbt`／903350892 | 相符；`19f5dd065bc709dbd1c0fe59bad01e0a8acfad39593ff90621f069a709c9a727` | I → 本機 assets/inventory/77.png |
-| `engine/web/icons/80.png` | D：`80.tbt`／903348748 | 相符；`0a6b703b2b6b0709ce4c7364f36ed99ef4cc907712d7d0059aea90c0ed9f4f37` | I → 本機 assets/inventory/80.png |
-| `engine/web/icons/81.png` | D：`81.tbt`／903348154 | 相符；`eda21f8685278d50e150fa50ea4975756ea5cede2161fc86f1726199615ab988` | I → 本機 assets/inventory/81.png |
-| `engine/web/icons/86.png` | A：`86.tbt`／903344823 | 相符；`f1a70fcdcee29ea66ff20f204157927e07468cfb50da545adcc2c93831b389a9` | I → 本機 assets/inventory/86.png |
-| `engine/web/icons/957.png` | K：`957.tbt`／656527524 | 相符；`9b1df82afe88dc2183d9f3e69e8218d4126330e1f8f4179bf861ae305aec3a31` | I → 本機 assets/inventory/957.png |
-| `engine/web/icons/97.png` | A：`97.tbt`／903337895 | 相符；`a630764b5725c0fc3629a4b86cc60d309695e9673179cb35d73b406d2769ec1d` | I → 本機 assets/inventory/97.png |
+| `engine/web/ground/36.png` | L：`36-0.spr`／971303715 | 相符；`8d72431ab657dc156297aa3007b0843c01e75f20dfe5379b27d5cd8d5b9f29f5` | G → `TW_CLIENT_ROOT/Sprite.idx`＋`Sprite.pak` 的 `36-0.spr`，frame 0；本機 `engine/assets/ground/36.png` SHA／逐 byte 相同，可立即做 T035 |
+| `engine/web/ground/66.png` | N：`66-0.spr` key 0:0；現行 catalog pin File Offset 962888499 | 產生器已定位；最終PNG重播 unknown；`3ecde86e10281647ddc1f66ddb42a44a83a98c86baa4ae317ddb8859b3e4fe34` | G → `TW_CLIENT_ROOT/Sprite.idx`＋`Sprite.pak` 的 `66-0.spr`，frame 0；本機 `engine/assets/ground/66.png` SHA／逐 byte 相同，可立即做 T035 |
+| `engine/web/icons/124.png` | L:33：預期 `124.tbt`／unknown | 精確版本生成鏈 unknown；`7a989ea2e4f676a42d82e612ca9ff6a1d25e27005acf0cc312ffd270cef62919` | I → 本機 assets/inventory/124.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/138.png` | F：`138.tbt`／903311181 | 相符；`335162b3786bced49563cfe86aa14fc4114867c9aa8237821023704a08ee0b98` | I → 本機 assets/inventory/138.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/2.png` | A：`2.tbt`／903258114 | 相符；`0f609374be13892e61096e39fbd126cc7258a179a108dcfd80ad2e9e34d430a0` | I → 本機 assets/inventory/2.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/242.png` | H242：`242.tbt`／903201880 | 相符；`5ee66ffca19d9d3395318df30ee32aaf94c36753dadf8a9bb9935b564b07dccd` | I → 本機 assets/inventory/242.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/245.png` | J：`245.tbt`／903199205 | 相符；`ea4ac1c311981c4380e17779b4b15f1ef2a2a71d2b1962a2591f203522e9b001` | I → 本機 assets/inventory/245.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/278.png` | B：`278.tbt`／903882717 | 相符；`c7a17e518c4e3978a83446e66c4cf7ae5cd54caeb04184556442a48b9f75f220` | I → 本機 assets/inventory/278.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/318.png` | H318：`318.tbt`／903848526 | 相符；`ec7b23a61616e87b992ae01fd95ddfa83430300141aa85f4ded444af31c46a26` | I → 本機 assets/inventory/318.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/35.png` | C：`35.tbt`／903805861 | 相符；`9ded6e008b2f981978dab2874f924b72b8d5f96ea6c4c856c4ebe60884a00073` | I → 本機 assets/inventory/35.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/4.png` | A：`4.tbt`／903706169 | 相符；`75ab427d9ee5b9051b6cc4103b43eaadfd7cadd75d73d29bae9caf28ce3ac93e` | I → 本機 assets/inventory/4.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/474.png` | C：`474.tbt`／903594700 | 相符；`569b75068a19f536d78b12a6b75d8bf6e61655b9c1a7f282b0096b9043ecfa1d` | I → 本機 assets/inventory/474.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/475.png` | A：`475.tbt`／903593506 | 相符；`af4f6debaadb18732f040901c0ecf166156782a25e26da6b6867445d3c325846` | I → 本機 assets/inventory/475.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/5.png` | A：`5.tbt`／903564600 | 相符；`9e35714d6b77ab794679b0a32f295cea5a78b773fbb745f46ce00366a4b06ff7` | I → 本機 assets/inventory/5.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/59.png` | E：`59.tbt`／903368573 | 相符；`cb4045a12f6d28c81bbb25e12173741b184f8bc2fc90b42d9063d0ee076a669e` | I → 本機 assets/inventory/59.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/7.png` | B：`7.tbt`／903356012 | 相符；`90f23210260582bfcc8c9e8b7a00cb727840e73082e3c7ca33c1e1fbc8b3143a` | I → 本機 assets/inventory/7.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/77.png` | D：`77.tbt`／903350892 | 相符；`19f5dd065bc709dbd1c0fe59bad01e0a8acfad39593ff90621f069a709c9a727` | I → 本機 assets/inventory/77.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/80.png` | D：`80.tbt`／903348748 | 相符；`0a6b703b2b6b0709ce4c7364f36ed99ef4cc907712d7d0059aea90c0ed9f4f37` | I → 本機 assets/inventory/80.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/81.png` | D：`81.tbt`／903348154 | 相符；`eda21f8685278d50e150fa50ea4975756ea5cede2161fc86f1726199615ab988` | I → 本機 assets/inventory/81.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/86.png` | A：`86.tbt`／903344823 | 相符；`f1a70fcdcee29ea66ff20f204157927e07468cfb50da545adcc2c93831b389a9` | I → 本機 assets/inventory/86.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/957.png` | K：`957.tbt`／656527524 | 相符；`9b1df82afe88dc2183d9f3e69e8218d4126330e1f8f4179bf861ae305aec3a31` | I → 本機 assets/inventory/957.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
+| `engine/web/icons/97.png` | A：`97.tbt`／903337895 | 相符；`a630764b5725c0fc3629a4b86cc60d309695e9673179cb35d73b406d2769ec1d` | I → 本機 assets/inventory/97.png；第 3 次 SHA／逐 byte 相同，可立即做 T035（生成器仍屬 B15） |
 
 icon124：`ground_assets.py:33` 的替換目標是 `for icon in [81,5,475]:`，但現存 inventory_assets.py:9 是 `[81,5,475,2,4,86,97]`，所以這段原樣重跑不會加入 124；目前 inventory manifest 也只有那 7 圖。原 TBT 出處由設計及舊流程指向 124.tbt，但本輪未找到能匹配目前版本的獨立生成收據，**精確生成鏈 unknown**。後續應直接以核定 TBT recipe 產生 124、比較 decoded RGBA，不執行整支含過期替換的研究腳本。
 
-ground66：已定位 SPR → projectile JSON → key 0:0 → PNG 的原始碼鏈，但本輪未重播或核對獨立最終 PNG 收據；保持 **最終重播 unknown**。ground36 收據 SHA 與追蹤檔相符。任何一圖仍有 unknown 都不能核准新的素材準備流程。
+ground66：已定位 SPR → projectile JSON → key 0:0 → PNG 的原始碼鏈，但本輪未重播或核對獨立最終 PNG 收據；保持 **最終重播 unknown**。ground36 收據 SHA 與追蹤檔相符。任何一圖仍有 unknown 都不能核准新的素材準備流程。**本輪已證明 124、66 的既有本機副本逐 byte 等價；T035 改讀既有本機檔不受上述「重新生成」缺口阻擋，B15 重建的缺口仍在。**
+
+## D 檔執行期／測試來源對照（32 檔完整覆蓋）
+
+上節的 20 icons＋2 ground 與下表 10 檔合計 **32 個 D 路徑，沒有留白**。T035 的「可立即做」只表示有已核對本機等價檔或現行 reader，可另案改接及移出追蹤；不是本輪已改產品或已驗遊戲。其餘「需要生成器（B15）」仍是 blocker，主控決定 Backlog 範圍前不可先刪檔後用 stub／無資料成功取代。
+
+### 本輪實測與可重現命令
+
+20 icons 逐一比較隔離樹 `engine/web/icons/<id>.png` 與主目錄 `engine/assets/inventory/<id>.png`：**20/20 SHA-256 相同且 bytes 完全相同；缺檔 0、差異 0**，每張對應 SHA 已在上表。另驗 ground 2 張、WAV 2 檔與 6016 1 檔，亦全部相同。這是現有本機資料的等價性證據，不是生成器重播；沒有複製任何素材。
+
+```powershell
+py -3 -B -X utf8 scratch/issue-102/supplement-checks.py
+```
+
+補件腳本與輸出僅存本機 scratch，未提交。腳本 SHA-256 `e7a9b0097f1c027fd7f5378590948f53d311de2937fc73de174f18dd862f8ea2`；輸出 `scratch/issue-102/supplement-comparison.json` SHA-256 `6c27499b254ed01835025172c51ab3e217db054765b05e3b1b5d0244f763bf5e`。輸出 `matched 25 missing 0 mismatch 0`。換機沒有 scratch 腳本時，可在專案根目錄以以下 Python 標準函式庫程式重現 20 icons 對照；先把程式存入自己的 scratch 腳本，再用 `py -3 -B -X utf8 <script>` 執行（只讀檔）：
+
+```python
+from pathlib import Path
+from hashlib import sha256
+root = Path.cwd()
+source = root / 'scratch/issue-102/audit-tree/engine/web/icons'
+files = sorted(source.glob('*.png'))
+assert len(files) == 20
+for p in files:
+    q = root / 'engine/assets/inventory' / p.name
+    assert q.is_file(), str(q)
+    a, b = p.read_bytes(), q.read_bytes()
+    assert sha256(a).digest() == sha256(b).digest() and a == b, p.name
+    print(p.name, sha256(a).hexdigest(), 'byte-identical')
+print('20 matched; 0 missing; 0 mismatch')
+```
+
+Ground 的現行供圖不是讀 web 靜態 PNG：`WebPanel.cs:69–72` → `GroundSpriteReader.Read/Image` → **`TW_CLIENT_ROOT/Sprite.idx`／`Sprite.pak`**。36 使用 `36-0.spr`（index record 48732、PAK File Offset 971303715、size 244、SPR payload File Offset 89、frame 0）；66 使用 `66-0.spr`（index record 85892、PAK File Offset 962888499、size 1056、SPR payload File Offset 197、frame 0）。reader 驗 idx SHA、entry／range、payload SHA 與 RGBA SHA；這些 pins 目前由 GroundCatalog embedded JSON 提供，**GroundCatalog 的獨立 blocker 不因兩張 PNG 可移除而解除**。`engine/assets/ground/36.png`、`66.png` 同 SHA 只證明既有圖等價；不要求 T035 新增靜態 fallback。本輪未重新執行 SPR reader。
+
+### 其餘 10 個 D 檔（逐檔替代與缺口）
+
+「擬定」路徑是後續 provider／生成器輸出契約，**本輪未建立，不能視為已存在等價檔**。7 個 unresolved D 在本機 integrity 索引均無同名或同 SHA 項；僅查索引不聲稱已掃遍所有未索引檔。
+
+| 追蹤路徑 | 本機替代來源／容器與入口 | 消費端與精確接線 | T035／B15 判定及 CI 規則 |
+|---|---|---|---|
+| `engine/_integration/delta/assets/sound/1340.wav` | 已有 `engine/assets/sound/1340.wav`；原檔 `TW_CLIENT_ROOT/Sound/1340.wav`，兩者與追蹤檔 SHA 均為 `30b4ce04d5ca914cdbfd80c7ee9b9cdbe3bf79487e609b2a9d32f6546a90f9c3` | `AudioPlayer.cs:39` → `AudioAssets.Load/Acquire` 已讀 assets root＋`audio-manifest.json`；delta 是歷史封裝副本，不是正常 runtime 路徑。T035 保留既有本機讀取，核對 `_integration/setup.py:32`／`run_stage.py`／`audit_assets.py`／`audit_delivery.py` 的歷史引用，不重跑封裝。若轉直讀 client，另改 AudioAssets.Load 的 root／pin 契約。 | **可立即做（本機已有等價檔）**；CI 拒收追蹤 WAV／改名 RIFF、delta 資源，不改原封存。完整新音訊準備生命週期屬 B15。 |
+| `engine/_integration/delta/assets/sound/3332.wav` | 已有 `engine/assets/sound/3332.wav`；原檔 `TW_CLIENT_ROOT/Sound/3332.wav`，SHA `973e0a3598edd23c2a24f6900643e43a9155fe36906b939d2d8e24374abeff2a`，三方相符 | 同上，id=3332；保留 MP3 unavailable／WAV fallback、缺檔及 pin mismatch 行為，不縮窄 sound ID。 | **可立即做（本機已有等價檔）**；CI 同上。 |
+| `engine/_integration/check-template/fixtures/6016.json` | 已有 `engine/assets/maps/effects/6016.json`，SHA `825673b11feb6b28c6d34663cd53266d0ca2209230b1b1cfa4c0a80125263383`，逐 byte 相同 | 正常 `ClientEffect6016.cs:20` 已讀 `World.Assets.Root/maps/effects/6016.json`；改 `check-template/tests/Program.cs:9`、`client-tests/Program.cs:6`、`audio-tests/Program.cs:3` 為明確本機 assets 參數，保留 SHA；準備測試腳本須同步參數，不把真像素帶進 CI。 | **可立即做（本機已有等價檔）**；CI 拒收 fixture pixels，雲端採自主合成測試；真素材測試缺本機輸入須明列 blocked／未執行，不能顯示通過。client-only 重建則屬 B15。 |
+| `engine/source/Resources/pickup-own-base15-gfx0-weapon0.json` | **blocker**：本機 integrity 無等價獨立檔；擬生成 `engine/assets/pickup/pickup-own-base15-gfx0-weapon0.json`。現有 `engine/assets/objects/0.json` 只提供 base profile，不能替代 24 個追加 frames。候選輸入為 Text.idx/pak 的 list.spr/list.spz 動作 metadata 與 Sprite 中 sprite3225 相關 SPR；逐 entry／版本解碼仍需閉合。 | `PickupAssets.cs:71–72` 的 Resource／Load 改為已驗 assets provider；`OfflineClient.csproj:19` 移除該 EmbeddedResource 前須保持 gfx0／weapon0、SHA、8 方向與步序契約。不可直接把 tracked JSON 拷至 assets 冒充生成器。 | **需要生成器（B15）**；CI 檢查此 logical name 不再出現在 assembly、拒 pixels JSON／改名／C# 常數。未閉合仍阻擋發布。 |
+| `engine/source/Resources/pickup-own-base15-profile-extension.json` | **blocker**：本機 integrity 無等價獨立檔；擬生成 `engine/assets/pickup/pickup-own-base15-profile-extension.json`。`profiles[].baseProfilePath` 對應 `engine/assets/players/*.json` 與 objects 武器 profile，但不含整份 12 groups／288 追加 frames；Text／Sprite 各 group 的實際 container／entry pin 尚未完整核定，不能假定同名主包可替代。 | `PickupAssets.cs` 的 ExtensionName／Load／For、`OfflineClient.csproj:20`；與上一檔共驗 42 profiles、312 frames／200,628 pixels、方向及合成順序。 | **需要生成器（B15）**；CI 拒第二個 pickup logical name 及其圖像本文。 |
+| `engine/source/OriginalExpTable.cs` | **blocker**：原來源是固定 SQL 的 EXP 表，未確認 `TW_CLIENT_ROOT` 的等價容器／entry，也未在 assets 索引找到等價表。擬定 `engine/assets/rules/exp-thresholds.json` 只是未完成契約；不可讀 DB 或原樣移常數當作來源閉合。 | `Rewards.cs:13` 的 `OriginalExpTable.Thresholds` 改成已驗表 provider，保留低 32 位、level 範圍及 unknown 行為；provider 原始規則需主控審定。 | **需要生成器／來源研究（B15）**；CI 拒 generated SQL rows、C# 陣列、FieldRVA／長字串藏表；未有等價來源前不可聲稱可立即移除。 |
+| `engine/source/Resources/ground-catalog.json` | **blocker**：assets 無同名／同 SHA catalog。SPR 圖像已可讀 `TW_CLIENT_ROOT/Sprite.idx/pak`（7-0、36-0、45-0、66-0.spr）；但 7 筆 template/nameToken／封包匹配規則來自 #49 原服模板，不能從這 4 個 SPR 推導完整 rows。擬定 `engine/assets/rules/ground-catalog.json`，文字／模板的 client-only 來源仍 unknown。 | `GroundCatalog.cs:15–24` manifest stream 改 provider；`OfflineClient.csproj:21`、`GroundSpriteReader.cs` 的 IndexSha256/pins 消費與 `dev/ground-tests/verify-sources.py:8` 同步接線。維持 Match／CanDrop 的完整封包條件。 | **需要生成器／來源研究（B15）**；CI 拒 embedded GroundCatalog、template／name 表回流；content-free SPR pins 須拆出嚴格 schema 才可獨立核准。 |
+| `engine/action-metadata-vectors.json` | 無正常遊戲 runtime consumer（現有追蹤程式未找到讀此檔）；是歷史測試 oracle。`rows[].profilePath` 指向 `engine/assets/players/<gfx>-<weapon>.json` 或 objects profile，可讀 metadata；42 profiles、126 action rows 仍需獨立算法重建。擬輸出 `engine/runtime/test-data/action-metadata-vectors.json`。 | 歷史 `work/engine-slow-actions-review-r1/CONTRACT.md`／`HANDOFF.md` 為用途證據；後續新增 `engine/tools/generate-test-vectors.py`，由新測試入口明確傳入本機輸出，不修改封存 harness、不重用 tracked 內容作自證 oracle。 | **需要生成器（B15）**；CI 拒 tracked 動作／時序向量，僅核定人工規則測試可入 Git。原 client-only server 時序亦仍缺來源。 |
+| `engine/haste-metadata-vectors.json` | 無正常遊戲 runtime consumer；由 `rows[].profilePath/profileSha256` 讀本機 assets，另含固定 BIN Speed1 分支與 JAR 0.755 oracle 的推導。擬輸出 `engine/runtime/test-data/haste-metadata-vectors.json`；獨立生成器未移植、純客戶端替代未證實。 | `work/engine-haste-actions-review-r1/CONTRACT.md`／`HANDOFF.md` 記錄用途；同一新 generate-test-vectors.py 分 haste recipe，逐幀整數／marker prefix 驗證，不能只縮放總時長。 | **需要生成器（B15）**；CI 拒 timing 表及 disguised payload；不執行 BIN／JAR 或封存腳本。 |
+| `engine/_integration/dev/combat-sfx-tests/expected-events.json` | 測試用途；正常遊戲讀 `engine/assets/objects`／`players` 的動作 events。檔內只有 #47 txt/evidence SHA 與 62 actions，assets 無同檔。擬輸出 `engine/runtime/test-data/combat-sfx-expected-events.json`；獨立 oracle 生成器及 Text.idx/pak list.spr/list.spz 精確版本接合尚未閉合。 | `dev/combat-sfx-tests/Program.cs:24` 改接受本機 oracle 路徑；新 `engine/tools/generate-test-vectors.py` 需從已驗來源獨立推導，不能以被測 SoundSchedule 輸出當 expected。 | **需要生成器（B15）**；CI 拒 events 表回流，另保留不含真資料的排程／選擇規則測試。 |
+
+兩份 pickup 的追加幀與既有 baseProfile 不可混淆：base 檔是 sprite3225 的 `88:*` 至 `95:*`；extension 有 sprite3227、3474、3215、3213、3476、3221、2786、2796、6650、6658、6661、6671 等 group。這些是目前 JSON 的身份線索，**不是已核定可從任一 Sprite 包重建的輸入清單**。B15 必須補 container 身份、entry、payload SHA 及 312 幀完整比對。
 
 ## 現行封裝／Git 排除的缺口
 
@@ -151,7 +277,7 @@ py -3 -B -X utf8 engine/tools/audit-portable.py staging --root engine/build/port
 py -3 -B -X utf8 engine/tools/audit-portable.py zip --file engine/build/portable/tw-client.zip --policy engine/tools/portable-content-policy.json
 ```
 
-退出碼：0＝該範圍全部核准且無 unknown；2＝內容／路徑拒收；3＝unknown、policy 不完整、解碼／assembly 解析失敗；4＝輸入 commit、hash、bytes 或清單不符。source、staging、zip 及組件掃描收據須同時存在、指向同一來源／輸出 SHA，才能宣告 T033 查核通過。所有暫存封裝只寫 engine/build；不寫 TEMP 或使用者目錄。
+退出碼：0＝該範圍全部核准且無 unknown；2＝內容／路徑拒收；3＝unknown、policy 不完整、解碼／assembly 解析失敗；4＝輸入 commit、hash、bytes 或清單不符。source、staging、zip 及組件掃描收據須同時存在、指向同一來源／輸出 SHA，才能宣告 T034 後續發布閘門查核通過（B15 的 zip 驗收仍須另做）。所有暫存封裝只寫 engine/build；不寫 TEMP 或使用者目錄。
 
 ### 精確允許面
 
@@ -168,7 +294,7 @@ py -3 -B -X utf8 engine/tools/audit-portable.py zip --file engine/build/portable
 
 ### 檢查順序與繞過案例
 
-1. **來源樹與政策集合相等**：source 模式列所有追蹤路徑；精確 path＋SHA＋類別＋證據必須覆蓋，D/U 立即失敗。混合 Demo repo 若需例外須另立可辨識的交付樹／範圍與審查，不可只略過某目錄後仍稱全 repo 零資源。政策自己也要有審查身份；禁止在打包時自動把所有新檔 hash 加入 allowlist。
+1. **來源樹與政策集合相等**：source 模式列所有追蹤路徑；精確 path＋SHA＋類別＋證據必須覆蓋，D/U 立即失敗。E 僅限本報告 85 個精確 path＋SHA 與主控裁定，source 模式可保留；staging／zip 模式一律拒收 E。新增或改圖須重新檢視，不可豁免整個 docs 目錄；報告須明稱「main 不含遊戲執行資料、保留核定驗收證據」這個範圍。政策自己也要有審查身份；禁止在打包時自動把所有新檔 hash 加入 allowlist。
 2. **路徑先於讀取**：枚舉不跟隨 symlink/junction。檢查 staging root、每一祖先及每個檔的 ReparsePoint、NTFS link count/file identity，拒絕 junction、symlink、hardlink（包含允許路徑下指向外部的連結）。不得只用 Path.resolve 後再證明「在專案內」而默許繞進 releases；檢查與開檔之間的替換也要防護，複製後再驗 bytes/hash。生成 writer 的來源 TW_CLIENT_ROOT 永遠唯讀，輸出 active/staging 祖先若為 reparse 必須拒寫。
 3. **ZIP 正規化**：拒絕絕對路徑、drive/UNC、`..`、反斜線歧義、ADS 冒號、NUL、Windows 裝置名、尾端空白／點、大小寫或 Unicode 正規化碰撞、重複 entries、symlink 外部屬性、加密成員。members 集合必須等於 allowlist；不要先解壓再驗。限制單檔／總解壓大小、壓縮比與巢狀深度；達上限／CRC 失敗／不支援格式一律 unknown。
 4. **以 bytes 辨識，不靠副檔名**：PNG/JPEG/GIF/WebP、WAV/MP3/Ogg、ZIP/gzip/7z、PE、客戶端 idx/pak/spr/tbt/til/s32/seg 等由 magic／結構與已知來源 digest 判定。無通用 magic 的容器仍不能當純文字放行；未知 binary 失敗。允許程式 exe/dll 必須通過下一步，改名、重壓縮、截斷都不構成新來源。
@@ -179,6 +305,13 @@ py -3 -B -X utf8 engine/tools/audit-portable.py zip --file engine/build/portable
 
 必要驗收矩陣：合法空資料 pins 通過；改 `.png`→`.json/.cs`、音訊改副檔名、PNG Base64/hex/數值陣列／JSON escape、gzip 包 JSON、分塊字串、ZIP nested media、CRC 錯、未知欄位、未知檔、大小寫碰撞、`../`、ADS、junction/祖先junction、hardlink、assembly 同名 resource 換 bytes、額外 resource、FieldRVA 素材陣列、bundle 未支援、ignore 後已追蹤素材、scan 後 zip 換檔，都要拒收／unknown。Windows NTFS 連結案例和 assembly 案例未在本輪實測；不得拿 7 個分類探針代替這個矩陣。
 
+## 本次修正的提交前核對
+
+- 程式核對前次與本次帳冊：3,061 個 path 集合、bytes、SHA 全部不變；僅 85 列由 D 改 E。分類合計 C 296／M 146／D 32／E 85／U 2,502＝3,061。
+- 48 個 baseline 逐張結果無重複或漏列；20 icons 每列均有本機替代路徑及 byte equality；32 個 D 每個都在來源／接線表出現。新增報告本身列為 M，不納入原樹數量。
+- `git diff --check` 通過；追蹤變更只含 `docs/reports/issue-102.md`，`docs/REPORT.md` 無差異。隔離 audit-tree 工作樹乾淨；scratch 補件腳本／結果受 ignore 排除，未加入 Git。
+- 這些是文件與來源對照核對，沒有建置、執行遊戲測試或驗證新發布閘門；零資源發布仍為 BLOCKED。
+
 ## 未驗證什麼
 
 - 未建置、未 MSBuild evaluate、未讀取或執行既有產品 DLL、未跑遊戲、登入、畫面或聲音；未建立 zip／Release。
@@ -187,23 +320,28 @@ py -3 -B -X utf8 engine/tools/audit-portable.py zip --file engine/build/portable
 - 2,502 個 U 仍待來源裁定；C 是工程候選分類，不是對每行程式或第三方來源的法律保證；M 是內容分類，不是任意 zip 允許。
 - 未掃歷史所有 commits、遠端附件、Git LFS 外部內容或第三方 NuGet 包；未清理歷史、Demo、原始資料。
 
-## 給下一棒的提示：精確檔案與每批兩小時拆分
+## 給下一棒的提示：T035 清單與 B15、每批兩小時拆分
 
-本任務是 test，故不產出 plan/design 專用 `docs/plans/issue-102.json`。以下供 Claude／調度器轉成後續工作；每批 120 分鐘是上限內的查核／可審交付切片，**不保證一批即完成所有移植**。若來源不足即交付具體 blocker，不能補常數表、假畫面或放寬閘門。
+本任務是 test，不產出 plan/design 專用 `docs/plans/issue-102.json`。以下是 **T035 的候選修改清單及 B15 blocker 分流**，最終切分交 Claude 主控；每列 120 分鐘為一個可審查切片，不保證完成整條轉換鏈。證據保留已裁定，不再把「是否刪 demo/baseline」列為待決策；歷史重寫仍須主控／使用者另行裁定。
 
-| 批次／接手者 | 精確檔案範圍與時間 | 可驗交付與依賴 |
+「可立即做（本機已有等價檔）」專指本輪核對的素材；B/C/H 的工程閘門不需要等價素材，不虛稱它們已有替代檔。所有欄位是後續任務規格，本輪僅改報告。
+
+| 批次／歸屬與狀態 | 精確檔案與接線點 | 120 分鐘拆分、驗收與 CI 拒收規則 |
 |---|---|---|
-| A／Claude＋使用者裁定 | 本報告附錄、`docs/demo/README.md`、`docs/native-baseline/r35.md`、`docs/design/portable-delivery.md`；30 分確認交付樹／歷史界線，60 分按 U 原因群組裁定責任，30 分派工 | 決定 Demo 證據保留位置及交付樹清理的授權範圍；歷史重寫另授權。未裁定前不刪追蹤資源。 |
-| B／code 本機執行器 | 新增 `engine/tools/portable-content-policy.json`、`engine/tools/audit-portable.py`；20 分 schema、70 分 source/ZIP fail-closed、30 分拒收測試 | 先讓當前樹明確失敗，記錄 D/U；不得產「現況通過」白名單。測試落 scratch/build。 |
-| C／code 本機執行器 | 新增 `engine/tools/PortableResourceAudit/PortableResourceAudit.csproj`、`Program.cs`，接 B 的 audit-portable.py；20 分格式範圍、70 分 CLR/PE 靜態解析、30 分 assembly 反例 | 不執行待掃 assembly；不支援格式標 unknown。測試建置須另案授權，產物只進 bin/obj/build。 |
-| D／resource 本機執行器 | 新增 `engine/source/InventoryIconRecipe.cs` 的規格／後續實作；先查 P24 inventory_assets.py、ground_assets.py、arrow_assets.py、arrow_ground_asset.py 與上述 DEV 產生器 | 30 分釐清124／66來源版本，60 分定20 TBT＋2 SPR recipe及RGBA oracle，30 分交付 pins與blocker；不重跑含 DB／安裝／複製的研究腳本。 |
-| E／code 本機執行器 | `engine/source/InventoryUi.cs`、`WebPanel.cs`、`GroundSpriteReader.cs`、`GroundUi.cs`，必要新 `InventoryIconRecipe.cs`；20 分契約、70 分本機供圖、30 分 URI/cache 測試 | 依 D 閉合來源，icons 不再依賴 web 副本；ground 保留現有原SPR行為。產品變更另授權並做後續實機驗收。 |
-| F／resource→code | `engine/source/Resources/pickup-own-base15-gfx0-weapon0.json`、`pickup-own-base15-profile-extension.json`、`PickupAssets.cs`、`OfflineClient.csproj`；30 分來源/pins、60 分 provider 介面與本機生成方案、30 分等價 oracle | 全312 frames／200,628 pixels＋方向步序與42 profiles要有比對；未閉合不可刪 embedded 後以stub代替。後續另批實作。 |
-| G／resource→Claude | `engine/source/Resources/ground-catalog.json`、`GroundCatalog.cs`、`OriginalExpTable.cs`、`engine/action-metadata-vectors.json`、`engine/haste-metadata-vectors.json`、`engine/_integration/dev/combat-sfx-tests/expected-events.json`；40 分拆pins/資料、50 分來源替代、30 分裁定缺口 | 原服資料不能悄移到C#；原客戶端不足時回報U並交Claude。fixture6016及附錄U14另逐項裁定真資料／合成。 |
-| H／code 本機執行器 | `.gitignore`、新增 `engine/tools/package-portable.ps1`、`.github/workflows/build.yml`；30 分 Git防回流、60 分精確封裝／閘門、30 分反例 | 依A授權才從交付樹移除已追蹤資料；保留原檔與封存。政策依B/C；不遞迴copy engine。 |
-| I／code→test | `engine/_integration/dev/launcher-source/Program.cs`、`engine/_integration/dev/rebuild.py`、`engine/build-product.ps1`、`engine/launch-product.ps1`、`engine/source/ProductEntry.cs`、`啟動引擎.cmd`；30 分準備生命週期、60 分接線、30 分錯誤流程 | 等來源閉合任務完成，分離程式manifest與本機assets receipt；lock更新由相應建置任務處理，不能改舊lock冒充相同輸入。再另派T033全樹/assembly/zip驗收，最後由使用者做原生流程。 |
+| A／T035 主控；**可立即做**（證據範圍已裁定） | 本報告、`docs/design/portable-delivery.md`、`docs/demo/README.md`、`docs/native-baseline/r35.md`、`docs/native-baseline/dev-retest.md`；將 85 個 E 的 exact path/SHA 審查依據交給 B，不變更圖片 | 30 分確認已裁定範圍、60 分 U 原因分工、30 分派工。CI source 允許核定 E，zip 拒全部 E；新增／改圖重審。D32／U2502 未處理不得標 main 清理完成；不重寫歷史。 |
+| B／T035；**可立即做**（工程閘門） | 新增 `engine/tools/portable-content-policy.json`、`engine/tools/audit-portable.py`；source 模式接全 `git ls-files`，區分 E 與 D/U；staging/zip 介面留給 B15 | 20 分 schema、70 分 source fail-closed／內容辨識、30 分反例。CI 拒改副檔名、JSON/Base64/hex 藏素材、未知檔／未知欄位；當前樹應明確失敗，不製造現況通過 policy。 |
+| C／T035 防回流，完整 bundle 範圍供 B15；**可立即做**（工程閘門） | 新增 `engine/tools/PortableResourceAudit/PortableResourceAudit.csproj`、`Program.cs`，由 B 的 audit-portable.py 呼叫；對編譯輸出靜態枚舉 ManifestResource／PE，不載入執行組件 | 20 分格式界線、70 分 parser、30 分 assembly 反例；未支援格式 unknown。CI 拒三個 D embedded logical names、額外 resource、同名換內容及 FieldRVA 素材；後續建置只進 bin/obj/build。本張沒有建置。 |
+| D／B15；**需要生成器（B15）** | 新增 `engine/source/InventoryIconRecipe.cs`；核對表列 P24/DEV 工具、20 TBT＋2 SPR recipe；讀取 `TW_CLIENT_ROOT`，輸出普通本機 assets/staging | 30 分補 124／66 重播版本、60 分 recipe/RGBA oracle、30 分 pins 與 blocker。CI 拒 PNG、pixels 或解碼查表混入 recipe；這批不是 E 的 T035 前置，因本機 22 檔已等價。 |
+| E／T035；**可立即做（本機已有等價檔）** | `engine/source/WebPanel.cs` 的 `/icons/` request 直接回 `engine/assets/inventory/<id>.png`；`InventoryUi.cs` 維持檔案入口／處理 cache；`GroundUi.cs`、`GroundSpriteReader.cs` 保留原 SPR 接線。移出 Git 的精確集合為上表 `engine/web/icons/` 20 個 PNG、`engine/web/ground/36.png`、`66.png` | 20 分 URI 契約、70 分 provider 接線、30 分 URI／cache／缺件測試。CI 拒這 22 個追蹤路徑及改名 PNG；ground 維持失敗 404。native／web 回歸另驗，ground catalog 的 G blocker 仍存在。 |
+| F／B15；**需要生成器（B15）** | `engine/source/Resources/pickup-own-base15-gfx0-weapon0.json`、`pickup-own-base15-profile-extension.json`、`PickupAssets.cs`、`OfflineClient.csproj`；擬新增 `engine/source/PickupAssetProvider.cs`、本機 `engine/assets/pickup/` 生成契約 | 30 分來源/pins、60 分 provider／recipe、30 分等價 oracle；先閉合再移除兩個 embedded，另批實作。CI 拒 pixels／Base64／C# 陣列與兩 logical names；312 frames／42 profiles 未等價即 blocked。 |
+| G1／T035；**可立即做（本機已有等價檔）** | 移出追蹤候選：`engine/_integration/delta/assets/sound/1340.wav`、`3332.wav`、`engine/_integration/check-template/fixtures/6016.json`；接線：`check-template/tests/Program.cs`、`client-tests/Program.cs`、`audio-tests/Program.cs`、`prepare_client_checks.py`、`prepare_audio_checks.py` 明確帶 assets root；核對現行 `engine/audio/AudioAssets.cs`、`AudioPlayer.cs`、`engine/source/ClientEffect6016.cs` | 30 分歷史引用／參數查核、60 分測試路徑切換、30 分缺件／SHA 檢查。CI 拒 RIFF/fixture pixels；真素材測試限本機且缺件不得報 pass。不要改／重跑舊封存的 setup／run_stage；如果其歷史核驗因此失效，記錄受影響的舊入口及範圍。 |
+| G2／B15；**需要生成器／來源研究（B15）** | `engine/source/Resources/ground-catalog.json`、`GroundCatalog.cs`、`GroundSpriteReader.cs`、`OfflineClient.csproj`、`engine/source/OriginalExpTable.cs`、`Rewards.cs`、`engine/action-metadata-vectors.json`、`engine/haste-metadata-vectors.json`、`engine/_integration/dev/combat-sfx-tests/expected-events.json`、該目錄 `Program.cs`、`engine/_integration/dev/ground-tests/verify-sources.py`；新增 `engine/tools/generate-test-vectors.py` 與 rules provider 契約 | 每次 120 分只選一個來源：40 分拆 pins/本文、50 分替代來源、30 分 blocker。CI 拒 SQL 衍生表、時序／events 表與 embedded GroundCatalog 回流；本機輸出進 assets/rules 或 runtime/test-data 並 ignore。無 client-only 來源不能捏造。 |
+| H／T035 的 ignore／CI **可立即做**；zip 屬 **B15** | `.gitignore` 加 `/engine/runtime/`、`/engine/runs/`、`/engine/web/icons/`、`/engine/web/ground/`，沿用 `/engine/assets`；`.github/workflows/build.yml` 接 B/C。另批新增 `engine/tools/package-portable.ps1` 接精確 allowlist | T035：30 分 ignore、60 分 source／assembly CI、30 分強加被 ignore 檔反例。CI 對 tracked 生成路徑直接拒收，不用 `git add -f`；E85 保留、產品 zip 拒收。B15 zip 另用 120 分實作與重驗，拒 junction／hardlink／未知成員；不遞迴 copy engine。 |
+| I／B15；**需要生成器（B15）** | `engine/_integration/dev/launcher-source/Program.cs`、`engine/_integration/dev/rebuild.py`、`engine/build-product.ps1`、`engine/launch-product.ps1`、`engine/source/ProductEntry.cs`、`啟動引擎.cmd`；準備器完成後才接啟動，區分程式 manifest 與本機素材 receipt | 30 分生命週期、60 分接線、30 分錯誤流程；來源不足不可 ready。CI 拒 source/staging/zip/assembly 任一 unknown、junction writer、缺 receipt。lock 由另案更新，不能改舊 lock 冒充相同輸入；最後另派 T034 後續全樹／assembly 查核與 B15 zip 驗收、使用者原生驗收。 |
 
-依賴順序：A先定範圍；B/C可先建立拒收能力；D/F/G先閉合來源再做E/I；H於範圍核准及政策具體後完成；最後重新掃當時的完整交付commit，而不是沿用本次3061檔數。每輪只有所有 D 已移出正式交付面、U 歸零且動態功能另驗，才能討論發布通過。
+原 A–I 的 G 批僅在本表拆為 G1／G2，沒有遺漏：**可立即接線／移出追蹤候選共 25 個 D（22 PNG＋2 WAV＋6016）**，**仍受阻共 7 個 D（2 pickup＋EXP＋ground catalog＋3 vectors）**。E85 不在移除清單。B/C/H 可先建拒收能力；T035 實際移除前仍須由主控按此清單派工，且產品／測試缺件不能偽裝成功。
+
+T035 若只完成 25 項而其餘 7 項列 B15，報告仍須顯示殘留 D 與 source 閘門失敗，不得改標零資源完成。只有當時完整 HEAD 的 D 已處理、U 已裁定、E 例外逐檔核定且產品 zip 全拒 E，才可分別討論 main 清理與 B15 發布通過。歷史清理不在這些可立即批次內。
 
 ## 補充：本輪讀取的研究程式／生成收據身份
 
@@ -240,7 +378,7 @@ py -3 -B -X utf8 engine/tools/audit-portable.py zip --file engine/build/portable
 
 ## 附錄：全部追蹤路徑逐項帳冊
 
-SHA-256 為 Git blob 原始 bytes（避免 CRLF checkout 差異）；C/M/D/U 定義見正文。每列只分類該路徑，不遞迴允許所在目錄。
+SHA-256 為 Git blob 原始 bytes（避免 CRLF checkout 差異）；C/M/D/E/U 定義見正文。每列只分類該路徑，不遞迴允許所在目錄。
 
 | 路徑 | bytes | SHA-256 | 分類與依據 |
 |---|---:|---|---|
@@ -258,43 +396,43 @@ SHA-256 為 Git blob 原始 bytes（避免 CRLF checkout 差異）；C/M/D/U 定
 | `docs/ARCHITECTURE.md` | 16761 | `2ce5c63966fff9e490d607d04b8a4085e1079fb69a9edc8ff3e6eee5955526c9` | U — U11：文件／日誌／差異證據；尚無逐段內容豁免，unknown |
 | `docs/BUILD.md` | 13987 | `6412d61043ef087d85db88fcb403e4120294ce50547c8acc0a69d73679ffcb5d` | U — U11：文件／日誌／差異證據；尚無逐段內容豁免，unknown |
 | `docs/REPORT.md` | 7057 | `0d25057c5eab208224ae4cf34b0eb28b8d09b9739feb9db86cf9f25ba9e5e7d5` | M — M03：已核讀工程規則／設計／索引，不含素材本文 |
-| `docs/demo/01-login.png` | 642854 | `3cffc2af04caf858a8e765eda4d8078a48b43bc893c5f390a4edcac23422179e` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/02-character-list.png` | 2588 | `4a6e4e3d1bf80ea103dd3423737f08530eeb3a6a48269c762e6534f2e6080ef9` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/03-world.png` | 711125 | `53e85ae9a11044ef14b64546d1d9b5d60b9ddb1ddf657c689e0d21419f82ce05` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/04-eight-directions.png` | 709648 | `e1d64a20978c67fb1c2a4ea1daa7d4de8880f0e86cfb3e86a36d4cf8ceb5bfeb` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/04-up-two.png` | 711405 | `f30ec0828e7505e03eac112eaaaef36adb5ff10e479dad981b4b07d2b8b3b408` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/05-click-move.png` | 701078 | `eec5e94bdebda188b2142342b2d32b54d86f395cd9d7f9502f2d1ead547da5b6` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/06-attack-first.png` | 705840 | `960597667c0f25e47b36ab8628cc6632538c6a38770e2c9a1946cf11b3a4a333` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/06-attack-second.png` | 708343 | `30a75760d513bdaf7c1a1f5482a78f6a66634a8309ee458da8ba629350611bbe` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/06-exp-before.png` | 454969 | `57a5ab8564155242738290cbdfb80d8fc1c57118199b219aaed2f9e2e3fec4ff` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/06-target-search.png` | 703516 | `2ebdee37022ebc24697db3e45aee067ca17666fe9bf6528958bd1e5aab8eb10b` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/07-arrow.png` | 451822 | `06f2a78c36110c2db9a8e5a1d24da777ac894907a23606b001b6bead82ff2569` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/07-holy-weapon.png` | 449810 | `986cba9122b180c34c0f5bdd76c9d5df7de72307736ae9c8d29b3c579e91369d` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/07-shield.png` | 451573 | `a7a319859f1bd0cca3378bec56522963b9ee40e43808aee0d0902b154127f08e` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/07-skill1.png` | 450257 | `c33a4340b25b4d65433cdd44dd74d098051ab2752631e8005a6bc99b7183add6` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/07-skills.png` | 449120 | `c2144453428dea8b8236395e50b1e70f5bb5e7cebb5ae573b31b19b1ca924309` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/08-potion.png` | 454731 | `affde941d37158ea84f4da3cb8fca8be53a16fc954628123a980ee1ef3a98168` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/09-equipment-before.png` | 451350 | `7e03c249c22342f7b74cf9a47e196e7483daf98f00233f920f3cd2e555a8889d` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/09-equipped.png` | 450789 | `531b0cf71e0f3cd055d25174108c0c6e7b37cc855d794e0d8184161948419ace` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/09-unequipped.png` | 443553 | `3ad89b03f9ade72f2854b4d08d72b8f31b4ee49005aae93ac52491b96f741d10` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/10-drop1.png` | 472275 | `0dc2bec44e760ebc0cc14a044fd020a141dfaa8496a43b603648e3c5a16133f1` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/10-drop10.png` | 473138 | `e7bce3be0b9ec425c4b10faadec260b0ee55fe67174a743863353fd199bb0d5f` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/10-gold-before.png` | 472646 | `29a7d9035f72dfd9d41b16ecd9881482cd13d622bdd52413b05118ccbfbceeb0` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/10-ground1.png` | 454793 | `b34019f190080352bbc4e03d0adaf8950be49db5cd292588207eb1f456bb7d0b` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/10-over-message.png` | 457226 | `68b9296c68ee97f7267a46d2e4d986c764e61bc7392772befdee4951236400d0` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/10-over-rejected.png` | 472696 | `44a17c1af2db183fc30d8fdd57feb355de07825e854c0d99487d11851a2215d9` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/10-panel.png` | 466284 | `07c3f1ac55205405a948be16c0f34f3d616f87b4ee4cd8013a4e6a3f533c9627` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/10-zero-rejected.png` | 472694 | `55688fd7f698d3ade5ae69b17bca253f9518bf22f68034d92b2e070a1941f1bb` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/11-stats.png` | 452458 | `aba2ae20a3e714a5ac659aeac3d38924bd18b2327b70e19057386968613b2554` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/12-chat-before.png` | 444006 | `f4dd058765e898c367077ce94f32e6a712bd1d4e92d7c591ce5cf35ca02e1329` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/13-before-logout.png` | 710287 | `7ddd5f0a28397dc2fb3d7a361737b0046cad0ad087bf4a8a8fefc6899d10fd6a` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/14-relogin.png` | 708182 | `427900c1db7dcfbc8e2984a164c8e4c46139af0a8599d626000044ae5176240d` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/15-audible-cast.png` | 713084 | `2c3a5e3012fbca0198f773ca818d8593dcbdef50e987105be670b9c332e80c12` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/15-muted-cast.png` | 713150 | `565f1c808390927b5ee7baf49251dcb50b2c43f2ce0e133a331d6b265f2ef822` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/15-muted-controls.png` | 454144 | `df35407804621453e6deb5dca13ac6e99f6a58ac7f548d51e73f0ccdcace31a8` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/15-sound-controls.png` | 452818 | `0b8881373231c709fc479fe52735702af0aafae993c66ca832370ea358427faa` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/15-unmuted-cast.png` | 713848 | `6abcc49767135e7f96edb725c73d69e216702302275c42db6b7e64f65db52207` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/demo/15-unmuted-controls.png` | 453788 | `2e4d1fed84c994c74d0d31ac3f2aec9e7a243cd69bac6d3e68479f25fdf220d0` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
+| `docs/demo/01-login.png` | 642854 | `3cffc2af04caf858a8e765eda4d8078a48b43bc893c5f390a4edcac23422179e` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/02-character-list.png` | 2588 | `4a6e4e3d1bf80ea103dd3423737f08530eeb3a6a48269c762e6534f2e6080ef9` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/03-world.png` | 711125 | `53e85ae9a11044ef14b64546d1d9b5d60b9ddb1ddf657c689e0d21419f82ce05` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/04-eight-directions.png` | 709648 | `e1d64a20978c67fb1c2a4ea1daa7d4de8880f0e86cfb3e86a36d4cf8ceb5bfeb` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/04-up-two.png` | 711405 | `f30ec0828e7505e03eac112eaaaef36adb5ff10e479dad981b4b07d2b8b3b408` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/05-click-move.png` | 701078 | `eec5e94bdebda188b2142342b2d32b54d86f395cd9d7f9502f2d1ead547da5b6` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/06-attack-first.png` | 705840 | `960597667c0f25e47b36ab8628cc6632538c6a38770e2c9a1946cf11b3a4a333` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/06-attack-second.png` | 708343 | `30a75760d513bdaf7c1a1f5482a78f6a66634a8309ee458da8ba629350611bbe` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/06-exp-before.png` | 454969 | `57a5ab8564155242738290cbdfb80d8fc1c57118199b219aaed2f9e2e3fec4ff` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/06-target-search.png` | 703516 | `2ebdee37022ebc24697db3e45aee067ca17666fe9bf6528958bd1e5aab8eb10b` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/07-arrow.png` | 451822 | `06f2a78c36110c2db9a8e5a1d24da777ac894907a23606b001b6bead82ff2569` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/07-holy-weapon.png` | 449810 | `986cba9122b180c34c0f5bdd76c9d5df7de72307736ae9c8d29b3c579e91369d` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/07-shield.png` | 451573 | `a7a319859f1bd0cca3378bec56522963b9ee40e43808aee0d0902b154127f08e` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/07-skill1.png` | 450257 | `c33a4340b25b4d65433cdd44dd74d098051ab2752631e8005a6bc99b7183add6` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/07-skills.png` | 449120 | `c2144453428dea8b8236395e50b1e70f5bb5e7cebb5ae573b31b19b1ca924309` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/08-potion.png` | 454731 | `affde941d37158ea84f4da3cb8fca8be53a16fc954628123a980ee1ef3a98168` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/09-equipment-before.png` | 451350 | `7e03c249c22342f7b74cf9a47e196e7483daf98f00233f920f3cd2e555a8889d` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/09-equipped.png` | 450789 | `531b0cf71e0f3cd055d25174108c0c6e7b37cc855d794e0d8184161948419ace` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/09-unequipped.png` | 443553 | `3ad89b03f9ade72f2854b4d08d72b8f31b4ee49005aae93ac52491b96f741d10` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/10-drop1.png` | 472275 | `0dc2bec44e760ebc0cc14a044fd020a141dfaa8496a43b603648e3c5a16133f1` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/10-drop10.png` | 473138 | `e7bce3be0b9ec425c4b10faadec260b0ee55fe67174a743863353fd199bb0d5f` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/10-gold-before.png` | 472646 | `29a7d9035f72dfd9d41b16ecd9881482cd13d622bdd52413b05118ccbfbceeb0` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/10-ground1.png` | 454793 | `b34019f190080352bbc4e03d0adaf8950be49db5cd292588207eb1f456bb7d0b` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/10-over-message.png` | 457226 | `68b9296c68ee97f7267a46d2e4d986c764e61bc7392772befdee4951236400d0` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/10-over-rejected.png` | 472696 | `44a17c1af2db183fc30d8fdd57feb355de07825e854c0d99487d11851a2215d9` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/10-panel.png` | 466284 | `07c3f1ac55205405a948be16c0f34f3d616f87b4ee4cd8013a4e6a3f533c9627` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/10-zero-rejected.png` | 472694 | `55688fd7f698d3ade5ae69b17bca253f9518bf22f68034d92b2e070a1941f1bb` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/11-stats.png` | 452458 | `aba2ae20a3e714a5ac659aeac3d38924bd18b2327b70e19057386968613b2554` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/12-chat-before.png` | 444006 | `f4dd058765e898c367077ce94f32e6a712bd1d4e92d7c591ce5cf35ca02e1329` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/13-before-logout.png` | 710287 | `7ddd5f0a28397dc2fb3d7a361737b0046cad0ad087bf4a8a8fefc6899d10fd6a` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/14-relogin.png` | 708182 | `427900c1db7dcfbc8e2984a164c8e4c46139af0a8599d626000044ae5176240d` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/15-audible-cast.png` | 713084 | `2c3a5e3012fbca0198f773ca818d8593dcbdef50e987105be670b9c332e80c12` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/15-muted-cast.png` | 713150 | `565f1c808390927b5ee7baf49251dcb50b2c43f2ce0e133a331d6b265f2ef822` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/15-muted-controls.png` | 454144 | `df35407804621453e6deb5dca13ac6e99f6a58ac7f548d51e73f0ccdcace31a8` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/15-sound-controls.png` | 452818 | `0b8881373231c709fc479fe52735702af0aafae993c66ca832370ea358427faa` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/15-unmuted-cast.png` | 713848 | `6abcc49767135e7f96edb725c73d69e216702302275c42db6b7e64f65db52207` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/demo/15-unmuted-controls.png` | 453788 | `2e4d1fed84c994c74d0d31ac3f2aec9e7a243cd69bac6d3e68479f25fdf220d0` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
 | `docs/demo/README.md` | 6643 | `4a3067c5f3b240eacb6cbe5c56a96a3aecb638d0d55b6a25a402b2f7511b70e6` | U — U11：文件／日誌／差異證據；尚無逐段內容豁免，unknown |
 | `docs/demo/RUN.md` | 3600 | `951fefcf8fe06fc35f3a5edd8146150755d3564c0b68f5397230ab5fdaee6379` | U — U11：文件／日誌／差異證據；尚無逐段內容豁免，unknown |
 | `docs/design/portable-delivery.md` | 45680 | `68a9f42e64ea1d09a63d72d79c0ececd49f80d78ccc8781dc8eaf3a78e270e77` | M — M03：已核讀工程規則／設計／索引，不含素材本文 |
@@ -302,23 +440,23 @@ SHA-256 為 Git blob 原始 bytes（避免 CRLF checkout 差異）；C/M/D/U 定
 | `docs/inventory/p01-p24.md` | 61582 | `70fe089a0ce9e582ee8b7f88266f48e55c78fd3f0968e5c6be148c35cbd4497f` | U — U11：文件／日誌／差異證據；尚無逐段內容豁免，unknown |
 | `docs/native-baseline/CHECKLIST.md` | 4291 | `ab14ae3b5cc0bba98c59caef4a8dacf537ed4e87b640dd57033c1ca45cb68854` | U — U11：文件／日誌／差異證據；尚無逐段內容豁免，unknown |
 | `docs/native-baseline/dev-retest.md` | 7224 | `c3a82ee8dfd220ff456b2456b1531bcc264bff23ecb95d66d9219fc112ca6c62` | U — U11：文件／日誌／差異證據；尚無逐段內容豁免，unknown |
-| `docs/native-baseline/dev-retest/04-after.png` | 708384 | `5019f4f039c8f0048a3af99b8e77ab7d3c18d707c3667a78df441488fc043e4b` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/04-before.png` | 706293 | `8222e7fd1df6c6f534411be17f8992a203f64e5a8b6442e4e3ca8bfaf37259bf` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/04-start-diagnostics.png` | 530747 | `7bde3bb31522c9452482e6ca8b71cc3e5c7199200af2d66f5670504bf33f2568` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/05-after.png` | 712183 | `21763cfdb9c83358704e699d82fe924e91fc8d38f0645b5989860d6a5bc120cd` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/05-before.png` | 705796 | `e5db3ec14129f0a49c9b269e3ec2e2c0409aae3023df944be848f4a01ef2b0a8` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/06-approach.png` | 704681 | `3422bef3dd39556485f8cfde6b317edbbce66459103858d4595639cf07b4bd7e` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/06-before.png` | 711939 | `dd8774af535b974f2fd11eafc35f2a24b60d418eaef0720572cae48329fa9b3b` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/06-diagnostics.png` | 531384 | `b7fe669617d6ae3e2af7ed7ac89deb81706b000b5db3a4b7ab00ee3d7a6e112d` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/07-before.png` | 706208 | `681e5d7854e78d3d133ece9bfb50fc51e60d5bb1f4376def7beaf051634f7290` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/07-effect.png` | 531025 | `dc5bcf99445fbd3904327461082df6607555a521ff2fe9917a490baeacbdcd45` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/10-gold-selected.png` | 271240 | `320514dc23c23206fa31c918314edd509cd3720339215bea72a8b70263d10793` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/15-audible.png` | 255522 | `d9e2189754a738e6e595a528d0e302e1420390bdd838844c78238e4f16e94d63` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/15-closing.png` | 255319 | `7d743010698cc6789a33be4f42859055c9c858d4da990ca3b4f0d6e0e2bd7d8d` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/15-controls.png` | 249701 | `9ae902bbc792d32930a702cfa92a11106be44f90f644a9eb5054f85e54539099` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/15-muted.png` | 255990 | `1a78bb4ac1a8e751f807f4be2e128c079ff27893373790e3b4c566e614b6f930` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/15-unmuted.png` | 256103 | `6898e99c2d1d05c2e0eb22fc8fd439ae8dc1841ac1d1223c8e2d4d8764a4d179` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/dev-retest/15-volume50.png` | 264434 | `8ffd1c6db7e6fc37f5eb132bb7aafc1dad8347fe20f800e27eca015a66974c2c` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
+| `docs/native-baseline/dev-retest/04-after.png` | 708384 | `5019f4f039c8f0048a3af99b8e77ab7d3c18d707c3667a78df441488fc043e4b` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/04-before.png` | 706293 | `8222e7fd1df6c6f534411be17f8992a203f64e5a8b6442e4e3ca8bfaf37259bf` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/04-start-diagnostics.png` | 530747 | `7bde3bb31522c9452482e6ca8b71cc3e5c7199200af2d66f5670504bf33f2568` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/05-after.png` | 712183 | `21763cfdb9c83358704e699d82fe924e91fc8d38f0645b5989860d6a5bc120cd` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/05-before.png` | 705796 | `e5db3ec14129f0a49c9b269e3ec2e2c0409aae3023df944be848f4a01ef2b0a8` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/06-approach.png` | 704681 | `3422bef3dd39556485f8cfde6b317edbbce66459103858d4595639cf07b4bd7e` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/06-before.png` | 711939 | `dd8774af535b974f2fd11eafc35f2a24b60d418eaef0720572cae48329fa9b3b` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/06-diagnostics.png` | 531384 | `b7fe669617d6ae3e2af7ed7ac89deb81706b000b5db3a4b7ab00ee3d7a6e112d` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/07-before.png` | 706208 | `681e5d7854e78d3d133ece9bfb50fc51e60d5bb1f4376def7beaf051634f7290` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/07-effect.png` | 531025 | `dc5bcf99445fbd3904327461082df6607555a521ff2fe9917a490baeacbdcd45` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/10-gold-selected.png` | 271240 | `320514dc23c23206fa31c918314edd509cd3720339215bea72a8b70263d10793` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/15-audible.png` | 255522 | `d9e2189754a738e6e595a528d0e302e1420390bdd838844c78238e4f16e94d63` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/15-closing.png` | 255319 | `7d743010698cc6789a33be4f42859055c9c858d4da990ca3b4f0d6e0e2bd7d8d` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/15-controls.png` | 249701 | `9ae902bbc792d32930a702cfa92a11106be44f90f644a9eb5054f85e54539099` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/15-muted.png` | 255990 | `1a78bb4ac1a8e751f807f4be2e128c079ff27893373790e3b4c566e614b6f930` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/15-unmuted.png` | 256103 | `6898e99c2d1d05c2e0eb22fc8fd439ae8dc1841ac1d1223c8e2d4d8764a4d179` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/dev-retest/15-volume50.png` | 264434 | `8ffd1c6db7e6fc37f5eb132bb7aafc1dad8347fe20f800e27eca015a66974c2c` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
 | `docs/native-baseline/dev-retest/MANIFEST.md` | 6228 | `285693b66ead510ee2f0c99c90829d2d49766b8ad2e48ed209de085d3c998627` | U — U11：文件／日誌／差異證據；尚無逐段內容豁免，unknown |
 | `docs/native-baseline/dev-retest/trace/04.jsonl` | 85643 | `2a09c3aad72ea42d6214093e70b5f5e22db235e5b992ad15cb9e8df81cb73e2c` | U — U09：JSON 證據缺逐欄來源裁定；unknown；list(1156);keys=utc,dir,op,len,seq |
 | `docs/native-baseline/dev-retest/trace/05.jsonl` | 70846 | `a7a09a3092a42a0d22e53b0de4dd7de5c749e34c6b9091839fb6ac7df29c899b` | U — U09：JSON 證據缺逐欄來源裁定；unknown；list(958);keys=utc,dir,op,len,seq |
@@ -328,37 +466,37 @@ SHA-256 為 Git blob 原始 bytes（避免 CRLF checkout 差異）；C/M/D/U 定
 | `docs/native-baseline/dev-retest/trace/15.jsonl` | 38983 | `750356442f0bf6cf33a952c80f4dff1db366827f50cb65433ae2ab7dfab6fb5a` | U — U09：JSON 證據缺逐欄來源裁定；unknown；list(528);keys=utc,dir,op,len,seq |
 | `docs/native-baseline/dev-retest/trace/trace-summary.json` | 29362 | `12dcb860bc33f5c3cfa58fe0af9281c2ef4c0ffc8ad8aee35f82b08a86e5a5ce` | U — U09：JSON 證據缺逐欄來源裁定；unknown；list(6);keys=window,scope,in,step,counts,fullSessionCounts |
 | `docs/native-baseline/r35.md` | 10616 | `b8a5555e93c07bd8f4da1d100ea845db2c86cce3349f19025f16241fc1fed309` | U — U11：文件／日誌／差異證據；尚無逐段內容豁免，unknown |
-| `docs/native-baseline/r35/01-登入畫面.png` | 659169 | `b7bb6f0ac916051f485d0045bcf622ef30b620195f421fceade5602b5ae5c798` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/02-選角局部.png` | 4960 | `b39862815604fd7b2c0cddac51fc04913aaabf71b4f2f91b4c7a65f08fb5f22f` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/03-世界完整畫面.png` | 582668 | `3e82fbe4c20c515c61d9e8dd16ce10fe1d53ebfca0802f536963891e4b12f808` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/04-接手後-上2.png` | 1069708 | `8a951858c30f8801c4b4a1ae0971a5dcae6f99125a66a88e77f4ca4d36927318` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/04-接手後-左下2.png` | 1071491 | `b02d88b10e0bbb8c7f8ca3e7e179c7f5cbfc75b400312146576245208f0a5a6e` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/05-點地移動結果.png` | 1079478 | `9342e535c1a2dd87fd14f53015a583f139d27abfe74e155e6a86908b686a6f84` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/06-重試攻擊結果.png` | 1082860 | `82391bbe576e44eca4b6f2f1c5b3b5627ea268c3d599a98d0cb39944a7a4b4fb` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/07-技能1初級治癒術.png` | 1077341 | `97e7085ae79929598e8ed5f77dd3959d0cd19d0f963d45f4a981819611dcc086` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/07-技能3保護罩.png` | 1079723 | `9ec620cc1065188a343071f61217d3159eedf6d3ff386c39b5acbf537ff15745` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/07-技能4無目標嘗試.png` | 821092 | `89d247097a6338d130b9b72b0b78daee7c625c58735b735fe307488ec8cf0855` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/07-技能8神聖武器.png` | 822190 | `2cf5798a65dba3e13d89bd6f2aafa6a585286fe16fd4d19df57f21a11549678d` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/08-吃肉後.png` | 845500 | `6437dd288ecea4ed4b67a28a7272ff861d18f73056997a3e0318072ca2f481bc` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/08-背包操作前.png` | 844286 | `69a2f393727e1b96881596cce180696159cc34ffb0a753b0b8456983903a3d1b` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/09-匕首選取.png` | 822522 | `af38e276b49787181198c894fca56a35ca8598762d5885888e135212696bc4bd` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/09-卸下確認.png` | 818564 | `3278fc982d7656f3b230ab325c5ca3e33d154ce6e749f17256c1610f86b140c6` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/09-重新裝備匕首.png` | 821876 | `d91f3fbbb5ec5a06b265929dd0055bd5ce4fa6839e3d589b175ad3037d106ef1` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/10-丟棄一個肉.png` | 797047 | `8fae94c759a944e402103acc01b5d13584e113b63766c0ed02af8f0f8abac4e9` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/10-地面肉.png` | 771591 | `e529ad42758de0f9dda9ac663af61ebd6e10bc8e496f043df9f99c062ba59982` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/10-接手目前.png` | 795549 | `cddbca75e1aee88d8b0193d1b380c49c1886ff477fa83274b7c68784605b869b` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/10-連續操作檢視.png` | 769245 | `1c4aa064832a76386a31ab4f569a4c9fb7031c6e3b108bcb2fafee1c16d1df9d` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/11-力量加一結果.png` | 783740 | `07ed19aec1607f4579f95a0218a71517200bc7d0aa53e8ed4f54d52bb73299a1` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/11-加點前.png` | 781905 | `b182ea5a7c1625dd89fa534d62032ffc85f4bc89117b7446e0e30f574d7245c0` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/12-聊天回傳.png` | 818402 | `af38559cce5e2d38e0044b51a5616555622e1fe8da25bf1b2f759a63798953ea` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/13-第二次關閉檢查局部.png` | 4354 | `ba8311540682316adb9e6ed7c89fea29e1f62109144cddad5bb9ef1aa38bb21e` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/13-退出前診斷.png` | 874318 | `0698aa1f6d09dcd8cae3590393c6b06ec7d16211f58a0ffa719bed00521c9187` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/14-力量保存.png` | 461136 | `0f8e233e62c32c8b2a6d16b56f296e4f23cee3ce956584bfcf3d8947a146cda9` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/14-重登穩定畫面.png` | 701543 | `3b1f7d1c6b191ce9aa3f1c1d40a11b19a10e0662e8efbd871c50696633808130` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/14-重登背包裝備.png` | 467299 | `30461b833efd86c629bceea65032016086e81a382d754d8cd261f1b8f7cf20a0` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/15-取消靜音.png` | 780018 | `54f3a3a80e52846e8960cdce036a70ec1e388e9a21a39d1e91af20b44df3152d` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/15-聲音設定前.png` | 781111 | `7cb25d26039c4b69e4fa1e439f9185306cdcf2cfc2ac5af96738a3747ec32209` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
-| `docs/native-baseline/r35/15-靜音.png` | 780123 | `a9170b60c3854a13c4730c8fe8dfe6742efdd1f078b28a670670db40d5234127` | D — D02：PNG magic；Demo／原生畫面證據，含遊戲呈現，發布拒收 |
+| `docs/native-baseline/r35/01-登入畫面.png` | 659169 | `b7bb6f0ac916051f485d0045bcf622ef30b620195f421fceade5602b5ae5c798` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/02-選角局部.png` | 4960 | `b39862815604fd7b2c0cddac51fc04913aaabf71b4f2f91b4c7a65f08fb5f22f` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/03-世界完整畫面.png` | 582668 | `3e82fbe4c20c515c61d9e8dd16ce10fe1d53ebfca0802f536963891e4b12f808` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/04-接手後-上2.png` | 1069708 | `8a951858c30f8801c4b4a1ae0971a5dcae6f99125a66a88e77f4ca4d36927318` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/04-接手後-左下2.png` | 1071491 | `b02d88b10e0bbb8c7f8ca3e7e179c7f5cbfc75b400312146576245208f0a5a6e` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/05-點地移動結果.png` | 1079478 | `9342e535c1a2dd87fd14f53015a583f139d27abfe74e155e6a86908b686a6f84` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/06-重試攻擊結果.png` | 1082860 | `82391bbe576e44eca4b6f2f1c5b3b5627ea268c3d599a98d0cb39944a7a4b4fb` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/07-技能1初級治癒術.png` | 1077341 | `97e7085ae79929598e8ed5f77dd3959d0cd19d0f963d45f4a981819611dcc086` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/07-技能3保護罩.png` | 1079723 | `9ec620cc1065188a343071f61217d3159eedf6d3ff386c39b5acbf537ff15745` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/07-技能4無目標嘗試.png` | 821092 | `89d247097a6338d130b9b72b0b78daee7c625c58735b735fe307488ec8cf0855` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/07-技能8神聖武器.png` | 822190 | `2cf5798a65dba3e13d89bd6f2aafa6a585286fe16fd4d19df57f21a11549678d` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/08-吃肉後.png` | 845500 | `6437dd288ecea4ed4b67a28a7272ff861d18f73056997a3e0318072ca2f481bc` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/08-背包操作前.png` | 844286 | `69a2f393727e1b96881596cce180696159cc34ffb0a753b0b8456983903a3d1b` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/09-匕首選取.png` | 822522 | `af38e276b49787181198c894fca56a35ca8598762d5885888e135212696bc4bd` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/09-卸下確認.png` | 818564 | `3278fc982d7656f3b230ab325c5ca3e33d154ce6e749f17256c1610f86b140c6` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/09-重新裝備匕首.png` | 821876 | `d91f3fbbb5ec5a06b265929dd0055bd5ce4fa6839e3d589b175ad3037d106ef1` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/10-丟棄一個肉.png` | 797047 | `8fae94c759a944e402103acc01b5d13584e113b63766c0ed02af8f0f8abac4e9` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/10-地面肉.png` | 771591 | `e529ad42758de0f9dda9ac663af61ebd6e10bc8e496f043df9f99c062ba59982` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/10-接手目前.png` | 795549 | `cddbca75e1aee88d8b0193d1b380c49c1886ff477fa83274b7c68784605b869b` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/10-連續操作檢視.png` | 769245 | `1c4aa064832a76386a31ab4f569a4c9fb7031c6e3b108bcb2fafee1c16d1df9d` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/11-力量加一結果.png` | 783740 | `07ed19aec1607f4579f95a0218a71517200bc7d0aa53e8ed4f54d52bb73299a1` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/11-加點前.png` | 781905 | `b182ea5a7c1625dd89fa534d62032ffc85f4bc89117b7446e0e30f574d7245c0` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/12-聊天回傳.png` | 818402 | `af38559cce5e2d38e0044b51a5616555622e1fe8da25bf1b2f759a63798953ea` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/13-第二次關閉檢查局部.png` | 4354 | `ba8311540682316adb9e6ed7c89fea29e1f62109144cddad5bb9ef1aa38bb21e` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/13-退出前診斷.png` | 874318 | `0698aa1f6d09dcd8cae3590393c6b06ec7d16211f58a0ffa719bed00521c9187` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/14-力量保存.png` | 461136 | `0f8e233e62c32c8b2a6d16b56f296e4f23cee3ce956584bfcf3d8947a146cda9` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/14-重登穩定畫面.png` | 701543 | `3b1f7d1c6b191ce9aa3f1c1d40a11b19a10e0662e8efbd871c50696633808130` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/14-重登背包裝備.png` | 467299 | `30461b833efd86c629bceea65032016086e81a382d754d8cd261f1b8f7cf20a0` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/15-取消靜音.png` | 780018 | `54f3a3a80e52846e8960cdce036a70ec1e388e9a21a39d1e91af20b44df3152d` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/15-聲音設定前.png` | 781111 | `7cb25d26039c4b69e4fa1e439f9185306cdcf2cfc2ac5af96738a3747ec32209` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
+| `docs/native-baseline/r35/15-靜音.png` | 780123 | `a9170b60c3854a13c4730c8fe8dfe6742efdd1f078b28a670670db40d5234127` | E — E01：PNG magic；#102 主控核定真機驗收證據，保留 main、不列入移除；產品 zip 拒收 |
 | `docs/native-baseline/r35/MANIFEST.md` | 16331 | `134c3c4534a056964963d817ebb63b96ce48d9e903894bf7a7604c0682e200f7` | U — U11：文件／日誌／差異證據；尚無逐段內容豁免，unknown |
 | `docs/plans/issue-42.json` | 8282 | `864825091305da2d0bf335c24f40f22c8b2bb085128fbde9e4e5b25003d2697e` | U — U09：JSON 證據缺逐欄來源裁定；unknown；list(6);keys=id,title,stage,priority,text,depends_on |
 | `docs/plans/issue-97.json` | 4406 | `54ffbd092bf6539e7bd15c8879480d4eaed66400540ac8a5cf9280c69511f478` | U — U09：JSON 證據缺逐欄來源裁定；unknown；list(3);keys=id,title,stage,priority,text,depends_on |
