@@ -22,7 +22,8 @@ public sealed partial class WorldSession {
     public NpcPage? InteractionPage {get;private set;}
     public ShopRow[] ShopRows {get;private set;}=[];
     string[] dialogArguments=[];string dialogNpcName="";ushort shopCurrency;
-    public bool NearbyTarget=>Ready&&!OwnDead&&Status?.Hp>0&&Actor is {} a&&Target is {Dead:false} t&&Math.Abs(a.X-t.X)<=3&&Math.Abs(a.Y-t.Y)<=3;
+    // WorldInteractionGuard.npcTalk/npcAction: same visible world, Chebyshev distance <= 5.
+    public bool NearbyTarget=>Ready&&!OwnDead&&Status?.Hp>0&&Actor is {} a&&Target is {Dead:false,AppearancePending:false} t&&Math.Abs(a.X-t.X)<=5&&Math.Abs(a.Y-t.Y)<=5;
     public bool InteractionValid=>InteractionNpc!=null&&interactionEpoch==WorldEpoch&&interactionTargetRevision==TargetRevision&&TargetId==InteractionNpc&&NearbyTarget;
     public void CloseInteraction(string notice="對話已關閉。"){ClearNpcService();interactionWaitStarted=null;InteractionHasResult=false;InteractionRevision++;InteractionNpc=null;InteractionKind="closed";InteractionPage=null;ShopRows=[];dialogArguments=[];InteractionNotice=notice;}
     public void CheckInteraction(){
