@@ -17,8 +17,9 @@
 1. 使用 SDK 10.0.300；先 `rebuild.py --update-lock` 再 `rebuild.py --build --configfile scratch/issue-259/NuGet.Config --output scratch/issue-259/build`，產品與 launcher 建置通過。僅有 `MagicUi.cs:20` 原有的 CS8600／CS8602 兩個警告。
 2. 本機 Python 使用 `C:/Users/CHAOREN/AppData/Local/Programs/Python/Python312/python.exe`；PATH 無 python，py launcher 未列出安裝。NuGet HTTPS 在沙箱回報 SSL 認證失敗；暫存 config 唯讀指向原專案 `engine/vendor`，`NUGET_PACKAGES` 指向本 worktree `engine/.nuget`，沒有寫入原專案。
 3. `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-259/party-checks.json party`：53 項檢查通過。S237／S219 走產品 `WorldSession.Receive`；S250／S39／S71 尚以反射直接呼叫模組解析器，未冒充接收鏈已完成。包含每個本模組 C／S 格式、Big5 名稱、零 HP／255、錯誤長度／padding／重複／超額名單、未知 ID、異世界名單、接受／拒絕／離隊／踢除、逾時、切圖、重播、並行送出與斷線取消排隊。
-4. `check-no-game-assets.py` 通過；CRLF 來源依既有位元格式保留，以 `git -c core.whitespace=cr-at-eol diff --check` 檢查空白。
-5. GitHub CI 狀態以 PR checks 為準；報告初稿時尚待推送後執行。
+4. `combat-admission` 回歸入口通過，共 265 項（含上述 53 項組隊檢查）。`check-no-game-assets.py` 通過，trackedFiles=3250、errors=0；CRLF 來源依既有位元格式保留，以 `git -c core.whitespace=cr-at-eol diff --check` 檢查空白。
+5. 來源 commit `a6e53be4819927d6cb53e2479beeb964e03853d4` 的 GitHub CI 全綠：[build #308](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42310019827)（Linux dotnet、Windows map-continuity）及 [npc-offline #177](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42310019826)。Windows 的組隊／地圖／戰鬥／WebView2 檢查均成功；這不改變接收掛接尚未完成的結論。
+6. 已 commit 並 `git push -u origin task/259`，草稿 PR：[#269](https://github.com/chaoren0418-arch/tw-bin-engine/pull/269)。
 
 ## 未驗證什麼
 
