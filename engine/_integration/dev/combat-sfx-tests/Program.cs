@@ -8,6 +8,8 @@ using System.Text.Json;
 
 string repo = Path.GetFullPath(args[0]), client = args[1], output = args[2];
 string assets = Path.Combine(repo, "engine/assets");
+if(args.Length>3 && args[3]=="--session") { NativeSessionChecks.Run(client,output);return; }
+if(args.Length>3 && args[3]=="--native-bolt") { NativeBoltChecks.Run(assets,client,output);return; }
 int checks = 0;
 var cases = new List<object>();
 void Check(bool ok, string name) { checks++; if (!ok) throw new Exception(name); }
@@ -19,6 +21,46 @@ void Set(object value, string name, object data)
     else value.GetType().GetProperty(name)!.SetValue(value, data);
 }
 var objects = new ObjectAssets(assets);
+Case("issue123-near-flight-drain-and-session-lifetime", () =>
+{
+    var session=new WorldSession();
+    var actor=new OwnActor(32590,32930,1,0,4,0,0,0,0,0,"test","",0,0,"","",0,100,0,1,0,0,0);
+    Set(session,"Actor",actor);
+    var target=new WorldObject(32590,32930,2,1,0,0,0,0,0,0,"target","",0,0,"","",0,100,0,1,0,0,0);
+    var objects=(ConcurrentDictionary<uint,WorldObject>)typeof(WorldSession).GetField("objects",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(session)!;
+    objects[2]=target;
+    byte[] packet=new byte[40];packet[0]=30;packet[1]=18;
+    BinaryPrimitives.WriteUInt32LittleEndian(packet.AsSpan(2),1);BinaryPrimitives.WriteUInt32LittleEndian(packet.AsSpan(6),2);
+    BinaryPrimitives.WriteUInt16LittleEndian(packet.AsSpan(17),167);
+    for(int i=20;i<=26;i+=2)BinaryPrimitives.WriteUInt16LittleEndian(packet.AsSpan(i),(ushort)(i%4==0?32590:32930));
+    Set(session,"ActionClock",(Func<long>)(()=>1000));session.Receive(packet,"test");
+    var effect=session.MagicEffects.Single();long release=effect.ActionAt!.Value+effect.Timing!.ReleaseMs!.Value;
+    var scene=new CombatSfxScene(assets);var fake=new FakeAudio();var controller=new CombatSfxController(fake,new Random(123),_=>{});controller.SetControls(1,false,true);
+    Check(!scene.Snapshot(session,release-1).Any(x=>x.Key.EndsWith("/fly")),"S30 flight awaits release");
+    var snapshot=scene.Snapshot(session,release+20);var flight=snapshot.Single(x=>x.Key.EndsWith("/fly"));
+    Check(flight.Schedule.Frames.SelectMany(f=>f.Candidates).SequenceEqual(new[]{97}),"zero-distance first frame97 retained exactly once");
+    controller.Pump(0,snapshot,release+20,true);controller.Pump(0,snapshot,release+30,true);
+    Check(fake.Plays.SequenceEqual(new[]{97}),"missed release tick still dispatches once");
+    controller.Pump(0,scene.Snapshot(session,flight.EndsAt),flight.EndsAt,true);
+    Check(fake.Finished.Count==1&&!fake.Retired.Contains(fake.Finished[0]),"natural finish drains instead of stop");
+    objects[2]=target with {Dead=true};controller.Pump(0,scene.Snapshot(session,flight.EndsAt+1),flight.EndsAt+1,true);
+    Check(fake.Retired.Contains(fake.Finished[0]),"death cancels draining voice immediately");controller.Shutdown().GetAwaiter().GetResult();
+    var driver=new FakeDriver();var core=new AudioCore(AudioAssets.LoadCombat(client),driver,32);var owner=new AudioOwner("tail",1);
+    core.Register(owner);core.Configure(new(1,false,true));core.Play(97,owner);core.Finish(owner);
+    Check(core.Count==1&&core.Poll().RemainingVoices==1,"draining voice stays until native completion");
+    driver.Completed=true;Check(core.Poll().RemainingVoices==0,"native completion releases draining voice");
+    driver.Completed=false;owner=new("tail",2);core.Register(owner);core.Play(97,owner);core.Finish(owner);core.Configure(new(1,true,true));Check(core.Count==0,"mute still stops real voices");core.Shutdown();
+    var lifetime=new FakeSession();var player=AudioPlayer.ForTests(new(AudioAssets.LoadCombat(client),new FakeDriver(),32),lifetime);
+    player.ConfigureAsync(.5,false,false).GetAwaiter().GetResult();Check(lifetime.Starts==0,"no device before world enabled");
+    foreach(var muted in new[]{false,true,false,true})player.ConfigureAsync(.5,muted,true).GetAwaiter().GetResult();
+    Check(lifetime.Starts==1&&lifetime.Stops==0&&lifetime.IsOpen,"mute and restore preserve stream without reopen");
+    var asyncOwner=new AudioOwner("finish-fence",1);
+    player.ConfigureAsync(.5,false,true).GetAwaiter().GetResult();player.RegisterAsync(asyncOwner).GetAwaiter().GetResult();player.PlayAsync(97,asyncOwner).GetAwaiter().GetResult();
+    Check(player.FinishAsync(asyncOwner).GetAwaiter().GetResult().Success,"async natural completion admitted");
+    Check(player.PlayAsync(97,asyncOwner).GetAwaiter().GetResult().Status=="StaleOrUnknownOwner","finished owner cannot dispatch again");
+    Check(player.RetireAsync(asyncOwner).GetAwaiter().GetResult().RemainingVoices==0,"finished owner can still cancel tail");
+    Check(player.ShutdownWithinAsync(TimeSpan.FromSeconds(2)).GetAwaiter().GetResult().Success&&!lifetime.IsOpen&&lifetime.Stops==1,"shutdown releases stream");
+});
 Case("issue47-all-62-melee-actions-and-four-skills", () =>
 {
     using var fixture = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(repo, "engine/_integration/dev/combat-sfx-tests/expected-events.json")));
@@ -250,9 +292,10 @@ Console.WriteLine($"PASS {cases.Count} cases / {checks} checks");
 sealed class FakeAudio : IAudioPlayback
 {
     public static AudioReply Ok = new(true, "FakeSuccess", null, 0, []);
-    public List<int> Plays = []; public List<AudioOwner> Retired = []; public int Shutdowns; public bool Delay;
+    public List<int> Plays = []; public List<AudioOwner> Retired = []; public List<AudioOwner> Finished = []; public int Shutdowns; public bool Delay;
     public TaskCompletionSource<AudioReply> Pending = new(TaskCreationOptions.RunContinuationsAsynchronously);
     public Task<AudioReply> RegisterAsync(AudioOwner owner) => Delay ? Pending.Task : Task.FromResult(Ok);
+    public Task<AudioReply> FinishAsync(AudioOwner owner) { Finished.Add(owner);return Task.FromResult(Ok); }
     public Task<AudioReply> RetireAsync(AudioOwner owner) { Retired.Add(owner); return Task.FromResult(Ok); }
     public Task<AudioReply> PlayAsync(int id, AudioOwner owner) { Plays.Add(id); return Task.FromResult(Ok); }
     public Task<AudioReply> ConfigureAsync(double gain, bool muted, bool enabled) => Task.FromResult(Ok);
@@ -274,4 +317,9 @@ sealed class FakeDriver : IAudioDriver
     public NativeReply Status(string voice) => new(0, Completed ? "stopped" : "playing");
     public NativeReply Stop(string voice) => new(0, "stopped");
     public NativeReply Close(string voice) => FailClose ? new(1, "explicit fake close failure") : new(0, "closed");
+}
+
+sealed class FakeSession : IAudioSessionLifetime {
+    public int Starts,Stops;public bool IsOpen{get;private set;}
+    public void Start(){Starts++;IsOpen=true;}public void Stop(){if(IsOpen){Stops++;IsOpen=false;}}
 }

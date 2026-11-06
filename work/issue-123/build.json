@@ -1,0 +1,51 @@
+[
+  {
+    "name": "lock",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "engine/_integration/dev/rebuild.py",
+      "--update-lock"
+    ],
+    "exitCode": 0,
+    "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": true}\n",
+    "stderr": ""
+  },
+  {
+    "name": "build",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "engine/_integration/dev/rebuild.py",
+      "--build",
+      "--write-receipt",
+      "--output",
+      "engine/build/issue-123-validation"
+    ],
+    "exitCode": 0,
+    "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": false}\nsdk 0\nproduct-restore 0\nproduct-build 0\nlauncher-restore 0\nlauncher-build 0\nreceipt written D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\_integration\\dev\\receipt.json\nPASS dev {\"productDllSha256\": \"5747ffb6f5b31f0686645b8ed15e2b3f43be1317cb7fced55d1936ccbc86a9e9\", \"audioDllSha256\": \"f135b5080fb5acab27905d243e3a03fa06bfb7fc941bcf313f8839535abcd63d\", \"productManifestSha256\": \"162c9b5b42dac2e44a9591dd7a560a76be870d8f0e5c88e974cc2d8ec5cae5d9\", \"launcherDllSha256\": \"222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d\"}\n",
+    "stderr": "",
+    "buildLogs": {
+      "product-build": "  P24.Audio -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\client-product-dev\\P24.Audio.dll\nD:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\source\\MagicUi.cs(20,62): warning CS8600: 正在將 Null 常值或可能的 Null 值轉換為不可為 Null 的型別。 [D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\source\\OfflineClient.csproj]\nD:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\source\\MagicUi.cs(20,62): warning CS8602: 可能 null 參考的取值 (dereference)。 [D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\source\\OfflineClient.csproj]\n  OfflineClient -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\client-product-dev\\P11.ClientEngine.dll\n\n建置成功。\n\nD:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\source\\MagicUi.cs(20,62): warning CS8600: 正在將 Null 常值或可能的 Null 值轉換為不可為 Null 的型別。 [D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\source\\OfflineClient.csproj]\nD:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\source\\MagicUi.cs(20,62): warning CS8602: 可能 null 參考的取值 (dereference)。 [D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\source\\OfflineClient.csproj]\n    2 個警告\n    0 個錯誤\n\n經過時間 00:00:08.43\n",
+      "launcher-build": "  Launcher -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\launcher\\P24.Launcher.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:00.77\n"
+    },
+    "productWarnings": [
+      {
+        "file": "engine/source/MagicUi.cs",
+        "line": 20,
+        "column": 62,
+        "code": "CS8600"
+      },
+      {
+        "file": "engine/source/MagicUi.cs",
+        "line": 20,
+        "column": 62,
+        "code": "CS8602"
+      }
+    ]
+  }
+]

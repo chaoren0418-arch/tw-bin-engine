@@ -1,0 +1,242 @@
+[
+  {
+    "name": "check-only",
+    "argv": [
+      "cmd.exe",
+      "/d",
+      "/c",
+      "engine\\啟動新版客戶端.cmd",
+      "--check-only"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"status\": \"checked-only\",\n  \"revision\": \"dev\",\n  \"executable\": \"D:\\\\lineage\\u958B\\u767C\\\\TW1608262200\\u7814\\u7A76\\\\scratch\\\\wt\\\\task-123\\\\engine\\\\build\\\\client-product-dev\\\\P11.ClientEngine.exe\",\n  \"workingDirectory\": \"D:\\\\lineage\\u958B\\u767C\\\\TW1608262200\\u7814\\u7A76\\\\scratch\\\\wt\\\\task-123\\\\engine\",\n  \"arguments\": [\n    \"--normal-product\"\n  ],\n  \"manifest\": \"D:\\\\lineage\\u958B\\u767C\\\\TW1608262200\\u7814\\u7A76\\\\scratch\\\\wt\\\\task-123\\\\engine\\\\build\\\\product-dev-manifest.json\",\n  \"manifestSha256\": \"162c9b5b42dac2e44a9591dd7a560a76be870d8f0e5c88e974cc2d8ec5cae5d9\",\n  \"hashedRuntimeAndWebFiles\": 24,\n  \"assetFilesCheckedForPresenceAndSize\": 13957,\n  \"assetContentVerification\": \"Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.\",\n  \"runtime\": {\n    \"architecture\": \"x64\",\n    \"loadedCoreVersion\": \"10.0.8\",\n    \"loadedCoreDirectory\": \"C:\\\\Program Files\\\\dotnet\\\\shared\\\\Microsoft.NETCore.App\\\\10.0.8\\\\\",\n    \"desktopVersion\": \"10.0.8\",\n    \"desktopDirectory\": \"C:\\\\Program Files\\\\dotnet\\\\shared\\\\Microsoft.WindowsDesktop.App\\\\10.0.8\"\n  },\n  \"webView2Version\": \"156.0.4314.58\",\n  \"powerShellRequired\": false,\n  \"pathLookupUsed\": false,\n  \"autoLogin\": false,\n  \"uiStarted\": false,\n  \"networkStarted\": false,\n  \"servicesStarted\": false\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "demo-build",
+    "argv": [
+      "dotnet",
+      "build",
+      "engine/_integration/dev/demo-tests/DemoChecks.csproj",
+      "-c",
+      "Release",
+      "-o",
+      "engine/build/issue-123-demo",
+      "--configfile",
+      "engine/NuGet.Config"
+    ],
+    "exitCode": 0,
+    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  DemoChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-demo\\DemoChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.70\n",
+    "stderr": ""
+  },
+  {
+    "name": "ground-build",
+    "argv": [
+      "dotnet",
+      "build",
+      "engine/_integration/dev/ground-tests/GroundChecks.csproj",
+      "-c",
+      "Release",
+      "-o",
+      "engine/build/issue-123-ground",
+      "--configfile",
+      "engine/NuGet.Config"
+    ],
+    "exitCode": 0,
+    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  GroundChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-ground\\GroundChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.91\n",
+    "stderr": ""
+  },
+  {
+    "name": "combat-build",
+    "argv": [
+      "dotnet",
+      "build",
+      "engine/_integration/dev/combat-sfx-tests/CombatSfxChecks.csproj",
+      "-c",
+      "Release",
+      "-o",
+      "engine/build/issue-123-combat",
+      "--configfile",
+      "engine/NuGet.Config"
+    ],
+    "exitCode": 0,
+    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  CombatSfxChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-combat\\CombatSfxChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.91\n",
+    "stderr": ""
+  },
+  {
+    "name": "web-resource-build",
+    "argv": [
+      "dotnet",
+      "build",
+      "engine/_integration/dev/web-resource-tests/WebResourceChecks.csproj",
+      "-c",
+      "Release",
+      "-o",
+      "engine/build/issue-123-web-resource",
+      "--configfile",
+      "engine/NuGet.Config"
+    ],
+    "exitCode": 0,
+    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  WebResourceChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-web-resource\\WebResourceChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.69\n",
+    "stderr": ""
+  },
+  {
+    "name": "packet-build",
+    "argv": [
+      "dotnet",
+      "build",
+      "engine/_integration/dev/packet-trace-tests/PacketTraceChecks.csproj",
+      "-c",
+      "Release",
+      "-o",
+      "engine/build/issue-123-packet",
+      "--configfile",
+      "engine/NuGet.Config"
+    ],
+    "exitCode": 0,
+    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  PacketTraceChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-packet\\PacketTraceChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.51\n",
+    "stderr": ""
+  },
+  {
+    "name": "demo",
+    "argv": [
+      "dotnet",
+      "engine/build/issue-123-demo/DemoChecks.dll",
+      ".",
+      "work/issue-123/demo-result.json"
+    ],
+    "exitCode": 0,
+    "stdout": "PASS 373 DEMO checks\n",
+    "stderr": ""
+  },
+  {
+    "name": "ground",
+    "argv": [
+      "dotnet",
+      "engine/build/issue-123-ground/GroundChecks.dll",
+      ".",
+      "work/issue-123/ground-result.json",
+      "D:\\lineage開發\\0-客戶端",
+      "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine"
+    ],
+    "exitCode": 0,
+    "stdout": "PASS 361 assertions / 10 groups\n",
+    "stderr": ""
+  },
+  {
+    "name": "combat",
+    "argv": [
+      "dotnet",
+      "engine/build/issue-123-combat/CombatSfxChecks.dll",
+      ".",
+      "D:\\lineage開發\\0-客戶端",
+      "work/issue-123/combat-result.json"
+    ],
+    "exitCode": 0,
+    "stdout": "PASS 8 cases / 8794 checks\n",
+    "stderr": ""
+  },
+  {
+    "name": "packet",
+    "argv": [
+      "dotnet",
+      "engine/build/issue-123-packet/PacketTraceChecks.dll"
+    ],
+    "exitCode": 0,
+    "stdout": "{\"status\":\"pass\",\"assertions\":36,\"cases\":[{\"name\":\"unset-no-file\",\"assertions\":2,\"status\":\"pass\"},{\"name\":\"metadata-only-out-in-and-secret\",\"assertions\":15,\"status\":\"pass\"},{\"name\":\"outside-traversal-prefix-and-invalid-paths\",\"assertions\":1,\"status\":\"pass\"},{\"name\":\"existing-file-and-io-failure-disable-silently\",\"assertions\":2,\"status\":\"pass\"},{\"name\":\"junction-outside-scratch-rejected\",\"assertions\":2,\"status\":\"pass\"},{\"name\":\"concurrent-records\",\"assertions\":2,\"status\":\"pass\"},{\"name\":\"process-exit-flush-and-product-root-resolution\",\"assertions\":12,\"status\":\"pass\"}],\"gameStarted\":false,\"network\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "web",
+    "argv": [
+      "node",
+      "engine/_integration/dev/demo-tests/web-checks.cjs",
+      ".",
+      "work/issue-123/web-result.json"
+    ],
+    "exitCode": 0,
+    "stdout": "PASS 16 DEMO Web checks\n",
+    "stderr": ""
+  },
+  {
+    "name": "ground-web",
+    "argv": [
+      "node",
+      "engine/_integration/dev/ground-tests/web-checks.cjs",
+      ".",
+      "work/issue-123/ground-web-result.json"
+    ],
+    "exitCode": 0,
+    "stdout": "PASS 72 Web checks\n",
+    "stderr": ""
+  },
+  {
+    "name": "verify",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "engine/_integration/dev/rebuild.py",
+      "--verify",
+      "--output",
+      "engine/build/issue-123-validation"
+    ],
+    "exitCode": 0,
+    "stdout": "{\"status\": \"dev-inputs-verified\", \"sourceFiles\": 171, \"pinnedFiles\": 180, \"writes\": false}\nPASS dev {\"productDllSha256\": \"5747ffb6f5b31f0686645b8ed15e2b3f43be1317cb7fced55d1936ccbc86a9e9\", \"audioDllSha256\": \"f135b5080fb5acab27905d243e3a03fa06bfb7fc941bcf313f8839535abcd63d\", \"productManifestSha256\": \"162c9b5b42dac2e44a9591dd7a560a76be870d8f0e5c88e974cc2d8ec5cae5d9\", \"launcherDllSha256\": \"222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d\"}\n",
+    "stderr": ""
+  },
+  {
+    "name": "no-game-assets",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "engine/tools/check-no-game-assets.py"
+    ],
+    "exitCode": 0,
+    "stdout": "{\"status\": \"pass\", \"trackedFiles\": 3083, \"errors\": 0, \"embeddedResourceDeclarations\": 4}\n",
+    "stderr": ""
+  },
+  {
+    "name": "web-resource",
+    "argv": [
+      "dotnet",
+      "engine/build/issue-123-web-resource/WebResourceChecks.dll",
+      "scratch/issue-123/web",
+      "work/issue-123/web-resource-result.json"
+    ],
+    "exitCode": 0,
+    "stdout": "PASS WebView2 PNG bytes/MIME/decode/404/cache\n",
+    "stderr": ""
+  },
+  {
+    "name": "native-session",
+    "argv": [
+      "dotnet",
+      "engine/build/issue-123-combat/CombatSfxChecks.dll",
+      ".",
+      "D:/lineage開發/0-客戶端",
+      "work/issue-123/native-session-result.json",
+      "--session"
+    ],
+    "exitCode": 0,
+    "stdout": "PASS native session: 60 readings, present and zero; identity unchanged across mute/restore\n",
+    "stderr": ""
+  },
+  {
+    "name": "native-bolt",
+    "argv": [
+      "dotnet",
+      "engine/build/issue-123-combat/CombatSfxChecks.dll",
+      ".",
+      "D:/lineage開發/0-客戶端",
+      "work/issue-123/native-bolt-result.json",
+      "--native-bolt"
+    ],
+    "exitCode": 0,
+    "stdout": "PASS native bolt: audible >0, mute =0, restored >0; all own-session samples present\n",
+    "stderr": ""
+  }
+]

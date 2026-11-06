@@ -149,9 +149,144 @@ class Checks {
         Check((string)typeof(ClientForm).GetField("playerHudNotice",F)!.GetValue(form)! =="單次施法已送出","pointer cancellation cannot overwrite cast result");
         GC.SuppressFinalize(form);
     }
+    static async Task Movement123(){
+        var keys=new[]{Keys.Home,Keys.Up,Keys.PageUp,Keys.Right,Keys.PageDown,Keys.Down,Keys.End,Keys.Left};
+        var owns=typeof(ClientForm).GetMethod("OwnsGameKeyboardKey",BindingFlags.Static|BindingFlags.NonPublic,null,new[]{typeof(Keys),typeof(bool),typeof(bool)},null)!;
+        for(int h=0;h<8;h++){
+            var input=new InputState();input.Down(keys[h]);Check(input.Direction==h,"eight-key heading "+keys[h]);
+            Check((bool)owns.Invoke(null,new object[]{keys[h],true,true})!,"form owns "+keys[h]);
+            Check(!(bool)owns.Invoke(null,new object[]{keys[h],true,false})! && !(bool)owns.Invoke(null,new object[]{keys[h],false,true})!,"focus protected "+keys[h]);
+            using var c=Seed();int sends=0;byte[]? packet=null;
+            Sender(c,(b,v,a)=>{if(!v())return Task.FromResult(false);sends++;packet=b;a();return Task.FromResult(true);});
+            (int X,int Y)? open=null,blocked=null;
+            for(int y=32920;y<32960 && (open==null||blocked==null);y++)for(int x=32565;x<32610;x++){
+                if(!Coordinates.Inside(x,y))continue;
+                if(MovementRules.Passable(x,y,h))open??=(x,y);else blocked??=(x,y);
+            }
+            Check(open!=null&&blocked!=null,"terrain fixture has open and blocked "+keys[h]);
+            Feed(c,Pack(123,(ushort)blocked!.Value.X,(ushort)blocked.Value.Y));
+            var denied=await c.RequestMovement(h,true,false);
+            Check(!denied.Sent&&sends==0&&denied.Notice.Contains("地形"),"blocked terrain sends no C29 "+keys[h]+" / "+denied.Notice);
+            Feed(c,Pack(123,(ushort)open!.Value.X,(ushort)open.Value.Y));
+            var sent=await c.RequestMovement(input.Direction!.Value,true,false);
+            Check(sent.Sent&&sends==1&&packet![0]==29&&packet[5]==h,"open terrain sends exact C29 heading "+keys[h]);
+        }
+    }
+    // Constructor-free ClientForm fixture follows NativeTargetUi: no game entry,
+    // Form constructor, window, device, or transport. Exercise product handlers directly.
+    static ClientForm KeyboardForm(LoginConnection connection){
+        var form=(ClientForm)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(ClientForm));
+        GC.SuppressFinalize(form);
+        Set(form,"login",connection);
+        Set(form,"<Input>k__BackingField",new InputState());
+        Set(form,"<World>k__BackingField",System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(World)));
+        Set(form,"playerHudNotice","");
+        Set(form,"lastPlayerPointerHudNotice","");
+        return form;
+    }
+    static string HudNotice(ClientForm form)=>(string)typeof(ClientForm).GetField("playerHudNotice",F)!.GetValue(form)!;
+    static void CheckKeyboardRefusal(ClientForm form,string reason,string label){
+        Check(HudNotice(form).Contains(reason),label+" HUD reason "+reason);
+        Check((long)typeof(ClientForm).GetField("playerHudNoticeUntil",F)!.GetValue(form)!>Environment.TickCount64,label+" HUD notice visible interval");
+        Check(form.Input.Held.Count==0,label+" clears held input");
+        Call(form,"SyncPlayerPointerHud");
+        Check(HudNotice(form).Contains(reason),label+" pointer HUD preserves rejection");
+    }
+    static (ushort X,ushort Y,int Open) KeyboardTerrain(int blockedHeading){
+        for(int y=32920;y<32960;y++)for(int x=Coordinates.MinX;x<32610;x++){
+            if(MovementRules.Passable(x,y,blockedHeading))continue;
+            for(int open=0;open<8;open++)if(MovementRules.Passable(x,y,open))return ((ushort)x,(ushort)y,open);
+        }
+        throw new Exception("No blocked/open terrain fixture for "+blockedHeading);
+    }
+    static readonly Keys[] DirectionKeys=[Keys.Home,Keys.Up,Keys.PageUp,Keys.Right,Keys.PageDown,Keys.Down,Keys.End,Keys.Left];
+    static async Task KeyboardMovement123(){
+        for(int heading=0;heading<8;heading++){
+            using var connection=Seed();var form=KeyboardForm(connection);
+            var fixture=KeyboardTerrain(heading);Feed(connection,Pack(123,fixture.X,fixture.Y));
+            var packets=new List<byte[]>();long now=10000;
+            Set(connection,"MovementClock",(Func<long>)(()=>now));
+            Sender(connection,(bytes,current,admitted)=>{
+                if(!current())return Task.FromResult(false);
+                packets.Add(bytes);admitted();return Task.FromResult(true);
+            });
+            Call(form,"OnlineDown",DirectionKeys[heading]);
+            Check(packets.Count==0,"OnlineDown blocked sends zero C29 "+heading);
+            CheckKeyboardRefusal(form,"地形","OnlineDown "+heading);
+            Call(form,"OnlineTick");
+            Check(packets.Count==0&&form.Input.Held.Count==0,"rejected held does not retry on tick "+heading);
+            form.Input.Down(DirectionKeys[heading]);Call(form,"OnlineTick");
+            Check(packets.Count==0,"OnlineTick blocked sends zero C29 "+heading);
+            CheckKeyboardRefusal(form,"地形","OnlineTick "+heading);
+            form.Input.Down(DirectionKeys[heading]);
+            await (Task)typeof(ClientForm).GetMethod("MoveFromKeyboard",F)!.Invoke(form,[heading])!;
+            CheckKeyboardRefusal(form,"地形","MoveFromKeyboard "+heading);
+            Call(form,"OnlineDown",DirectionKeys[fixture.Open]);
+            Check(packets.Count==1&&packets[0][0]==29&&packets[0][5]==fixture.Open,"next open key sends exact C29 "+heading);
+            Check(form.Input.Direction==fixture.Open,"new key is not combined with stale held "+heading);
+            Call(form,"OnlineTick");Check(packets.Count==1,"movement cooldown waits without extra packet "+heading);
+            Check(form.Input.Direction==fixture.Open,"movement cooldown retains held intent "+heading);
+            now+=10000;Set(form.World,"Walking",true);Call(form,"OnlineTick");
+            Check(packets.Count==1&&form.Input.Direction==fixture.Open,"walking animation retains held intent "+heading);
+        }
+    }
+    static void KeyboardBusy123(){
+        foreach(string entry in new[]{"OnlineDown","OnlineTick"})foreach(string field in new[]{"combatSending","magicSending","groundSending","itemSending"}){
+            using var connection=Seed();var form=KeyboardForm(connection);int sends=0;
+            Sender(connection,(_,_,_)=>{sends++;return Task.FromResult(false);});
+            Set(connection,field,true);form.Input.Down(Keys.Left);
+            if(entry=="OnlineDown")Call(form,entry,Keys.Up);else Call(form,entry);
+            string reason=field switch{"combatSending"=>"攻擊","magicSending"=>"施法","groundSending"=>"拾取／丟棄",_=>"道具"};
+            Check(sends==0,entry+" busy zero packets "+field);
+            CheckKeyboardRefusal(form,reason,entry+" busy "+field);
+        }
+        foreach(string entry in new[]{"OnlineDown","OnlineTick"}){
+            using var connection=Seed();var form=KeyboardForm(connection);int sends=0;
+            Sender(connection,(_,_,_)=>{sends++;return Task.FromResult(false);});
+            Set(connection.World,"OwnDead",true);form.Input.Down(Keys.Left);
+            if(entry=="OnlineDown")Call(form,entry,Keys.Up);else Call(form,entry);
+            Check(sends==0,entry+" unavailable zero packets");CheckKeyboardRefusal(form,"死亡",entry+" unavailable");
+        }
+    }
+    static async Task KeyboardWorld123(){
+        using var connection=Seed();var form=KeyboardForm(connection);var fixture=KeyboardTerrain(0);
+        Feed(connection,Pack(123,fixture.X,fixture.Y));
+        var release=new TaskCompletionSource<bool>();int sends=0;bool entered=false;
+        Sender(connection,async(bytes,current,admitted)=>{
+            entered=true;await release.Task;
+            if(!current())return false;
+            sends++;admitted();return true;
+        });
+        form.Input.Down(DirectionKeys[fixture.Open]);
+        var pending=(Task)typeof(ClientForm).GetMethod("MoveFromKeyboard",F)!.Invoke(form,[fixture.Open])!;
+        Check(entered&&!pending.IsCompleted,"keyboard move is waiting inside real sender gate");
+        int oldEpoch=connection.World.WorldEpoch;
+        Feed(connection,LoginPackets.Pad([206,4,0,0]));Feed(connection,Pack(123,fixture.X,fixture.Y));
+        Check(connection.World.WorldEpoch!=oldEpoch,"synthetic map packet changes world epoch");
+        form.Input.Clear();form.Input.Down(Keys.Down);
+        Call(form,"SetSingleActionNotice","新世界目前的提示");
+        string motion=connection.World.MotionNotice;
+        release.SetResult(true);await pending;
+        Check(sends==0,"old world queued movement sends zero C29");
+        Check(HudNotice(form)=="新世界目前的提示","old keyboard result cannot overwrite new world HUD");
+        Check(form.Input.Direction==5,"old keyboard result cannot clear new world held input");
+        Check(connection.World.MotionNotice==motion,"old sender rejection cannot overwrite new world motion notice");
+    }
+
     static async Task<int> Main(string[] args){try{
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY",Path.Combine(Path.GetFullPath(args[0]),"engine","build","offline-checks")+Path.DirectorySeparatorChar);
-        using var guard=new SocketGuard();NativeTargetUi();await Combat();await Magic();await Quantity();await PickupCorrection();Position();
+        using var guard=new SocketGuard();
+        if(args.Length>2){
+            switch(args[2]){
+                case "keyboard":await KeyboardMovement123();break;
+                case "busy":KeyboardBusy123();break;
+                case "world":await KeyboardWorld123();break;
+                default:throw new ArgumentException("Unknown regression group");
+            }
+        }else{
+            NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
+            await Combat();await Magic();await Quantity();await PickupCorrection();Position();
+        }
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status="pass",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));Console.WriteLine($"PASS {checks} DEMO checks");return 0;
     }catch(Exception ex){Console.Error.WriteLine(ex);return 1;}}
     sealed class SocketGuard:EventListener {protected override void OnEventSourceCreated(EventSource source){if(source.Name=="System.Net.Sockets")EnableEvents(source,EventLevel.LogAlways);}protected override void OnEventWritten(EventWrittenEventArgs e)=>throw new Exception("Network not allowed in offline regression");}
