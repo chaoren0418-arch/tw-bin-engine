@@ -45,3 +45,4 @@
 - 2026-11-06 — #102 portable-resource-audit: T033 發布查核：追蹤資源與 embedded resources 白名單（test，codex-local，PR #111 已合併）→ [報告](reports/issue-102.md)
 - 2026-11-06 — #107 T005：規則檔與 BUILD.md 狀態同步（dev 建置、ubuntu CI、dot 真機驗收授權）（code，codex-local，PR #113 已合併）→ [報告](reports/issue-107.md)
 - 2026-11-06 — #110 主控：依 T034 結果收斂 M3 驗收（7 個需生成器的檔案列為 B15 已知例外）（plan，claude-chat，PR #117 已合併）→ [報告](reports/issue-110.md)
+- 2026-11-06 — #109 T035：把 25 個已有本機等價檔的遊戲資源移出 main，改接本機來源，加 CI 拒收檢查（code，codex-local，PR #116 已合併）→ [報告](reports/issue-109.md)
