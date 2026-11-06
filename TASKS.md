@@ -1,6 +1,6 @@
 # TASKS — tw-bin-engine
 
-更新：2026-11-06（#76 範圍凍結；#99 調整 M3）。格式：`### ID | 狀態 | 負責 | 範圍`。狀態只用 todo／doing／review／done／blocked。
+更新：2026-11-06（#76 範圍凍結；#99、#110 調整 M3）。格式：`### ID | 狀態 | 負責 | 範圍`。狀態只用 todo／doing／review／done／blocked。
 
 **計算規則（凍結）**：
 - 調度台的進度條**只算 `## M*` 區段**；`## Backlog` 只顯示數量，不算進度。
@@ -83,11 +83,14 @@
 
 ## M3 可重現交付與文件 — 主線 4 項，封頂（3 完成、1 待辦：T035）
 
-**驗收：使用者打開會看到什麼（凍結；#99 依使用者「AI 能決定的不要問我」由調度器對話裁定 1-B、2-X 後修訂）**：
+**驗收：使用者打開會看到什麼（凍結；#99 依使用者「AI 能決定的不要問我」由調度器對話裁定 1-B、2-X 後修訂；#110 依 T034 結果收斂）**：
 - 在兩個不同目錄各建置一次，`productDll` 的 SHA-256 相同（#91）。
 - `docs/ARCHITECTURE.md` 一頁說明模組與資料流（#94）。
-- **repo 的 main 不含遊戲資源檔**：發布查核（T034，`docs/reports/issue-102.md`）已列出全部 3,061 個追蹤檔的分類。其中 **25 個有本機等價檔的 D 類資源**（20 張 icons、2 張 ground PNG、2 個 WAV、`6016.json` fixture）都已從 main 移除，改成執行期從使用者本機的 `engine/assets` 或 `TW_CLIENT_ROOT` 讀取，功能不退化（離線測試加 check-only 通過）。CI 有拒收檢查，能擋下改了副檔名的圖片與音訊，以及 pixels JSON。
-- **已知例外（#110 裁定）**：7 個需要生成器才能移出的衍生資料檔（2 個 pickup 像素 JSON、`OriginalExpTable.cs`、`ground-catalog.json`、2 個 metadata vectors、combat-sfx `expected-events.json`）暫時留在 main，列入 B15。CI 以**精確路徑加 SHA** 鎖定，不能增加，也不能改內容。T034 報告中 2,502 個 unknown 主要是 `work/`、`docs/` 的歷史工作紀錄，不列入 M3。git 歷史不改寫。`docs/demo/` 的真機截圖是使用者已授權公開的驗收證據（#71），不算遊戲資源檔；只含 ID、SHA、大小等非內容性 metadata 的 JSON 也不算，但要列入分類表。
+- **repo 的 main 不含遊戲資源檔（已知例外見下）**：發布查核（T034，`docs/reports/issue-102.md`）已列出全部 3,061 個追蹤檔的分類。其中 **25 個有本機等價檔的 D 類資源**（20 張 icons、2 張 ground PNG、2 個 WAV、`6016.json` fixture）都已從 main 移除，改成執行期從使用者本機的 `engine/assets` 或 `TW_CLIENT_ROOT` 讀取，功能不退化（離線測試加 check-only 通過）。CI 有拒收檢查，能擋下改了副檔名的圖片與音訊，以及 pixels JSON；EmbeddedResource 只允許現有的 4 個 logical name。
+- **已知例外（#110 裁定，共 9 個）**：暫時留在 main，列入 B15。CI 以**精確路徑加 SHA** 鎖定，不能增加，也不能改內容。
+  - 7 個需要生成器才能移出的衍生資料檔：2 個 pickup 像素 JSON、`OriginalExpTable.cs`、`ground-catalog.json`、2 個 metadata vectors、combat-sfx `expected-events.json`。
+  - 2 個帶 `pixels` 陣列的歷史審查證據（#102 的 U14）：`work/P31-pickup-composite-review-r1/cases.json`、`work/engine-pickup-presentation-candidate-review-r1/execution-rows.json`。屬於歷史證據，不刪除。
+  - T034 報告中其餘 unknown（主要是 `work/`、`docs/` 的歷史工作紀錄）不列入 M3 的移除範圍，但仍受 CI 拒收規則檢查：CI 一旦發現圖像或音訊本文，就交主控裁定，不能自動放行。git 歷史不改寫。`docs/demo/` 的真機截圖是使用者已授權公開的驗收證據（#71），不算遊戲資源檔；只含 ID、SHA、大小等非內容性 metadata 的 JSON 也不算，但要列入分類表。
 - 原本的「可攜 zip、使用者本機產生素材」移到 Backlog B15（見 #97 設計）。
 
 ### T006 | done | codex-local | 位元可重現建置（#91／PR #92：停用 Source Link 與版本字串的 git revision）
@@ -115,4 +118,4 @@
 | B12 | 舊 EXE 原版 11 步全流程基準 | #81 H02（P10） | 本專案目標是**不依賴舊 BIN** 的自主引擎，舊 EXE 不作為驗收 |
 | B13 | TW1608262200 原 BIN 完整協議相容（d287 JAR 以外的伺服器） | #81 H03（P07、P11、P12） | 引擎只對齊目前的 P24Lab d287 JAR 伺服器；擴充到其他伺服器版本另行決策 |
 | B14 | 金幣在本伺服器不可丟棄 | #77 | 伺服器規則（`DORP_ITEM`／白名單）；不改 DB 或配置，demo 改用替代物品 |
-| B15 | 可攜 zip 加使用者本機產生 `engine/assets`（原 T033），以及移除 7 個需生成器的衍生資料檔（#102、#110） | #97、#99、#102 | 轉換鏈依賴伺服器 SQL／地圖、研究工具，估 20–36 小時，且只靠客戶端能否重建未證實；設計見 `docs/design/portable-delivery.md`，缺口逐檔見 `docs/reports/issue-102.md` |
+| B15 | 可攜 zip 加使用者本機產生 `engine/assets`（原 T033），以及移除 9 個已知例外（7 個需生成器的衍生資料檔加 2 個歷史證據，#102、#110） | #97、#99、#102 | 轉換鏈依賴伺服器 SQL／地圖、研究工具，估 20–36 小時，且只靠客戶端能否重建未證實；設計見 `docs/design/portable-delivery.md`，缺口逐檔見 `docs/reports/issue-102.md` |
