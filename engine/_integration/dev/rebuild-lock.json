@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 173,
+ "sourceCount": 175,
  "files": [
   {
    "path": "NuGet.Config",
@@ -118,6 +118,16 @@
    "path": "source/BonusStatsUi.cs",
    "size": 4738,
    "sha256": "072a214367754da457a0aee4ebcc457d441955cdf17caf30df31cbb1e91649c9"
+  },
+  {
+   "path": "source/Buddies.cs",
+   "size": 8343,
+   "sha256": "adf112fea62dd30b11ee8c71b9198784340a0aa0fbc448dbc0bbd567485ae186"
+  },
+  {
+   "path": "source/BuddyUi.cs",
+   "size": 5057,
+   "sha256": "bd29d9848d52dd8d36d68de448bcba66ec353e755596c448b658c6db2aaeabd1"
   },
   {
    "path": "source/CacheFrameEvidence.cs",
@@ -586,8 +596,8 @@
   },
   {
    "path": "source/PlayerChat.cs",
-   "size": 7992,
-   "sha256": "b3ff2b6e96b7ab8873da8fc1991f42eae2c7bddfa711c6e80f5456915af3a99e"
+   "size": 8039,
+   "sha256": "c7b29e2b774e7f202cd2ecb525eaf4c5b496faa602466368e7124d1714e15dce"
   },
   {
    "path": "source/PlayerChatKeyboardFlow.cs",
@@ -861,8 +871,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9260,
-   "sha256": "0a2ba14de9311915f21eeaaf6ae500dbadc3d9ad8b83e9c77ef18e64ec7a9255"
+   "size": 9320,
+   "sha256": "6c7381ceb3fa2ff1e39761749e770e66c8235e1750a2f111937d8da8fdb774d2"
   },
   {
    "path": "source/WorldTests.cs",
