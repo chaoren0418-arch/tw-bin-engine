@@ -81,18 +81,19 @@
 
 ---
 
-## M3 可重現交付與文件 — 主線 4 項，封頂
+## M3 可重現交付與文件 — 主線 4 項，封頂（3 完成、1 待辦：T035）
 
 **驗收：使用者打開會看到什麼（凍結；#99 依使用者「AI 能決定的不要問我」由調度器對話裁定 1-B、2-X 後修訂）**：
 - 在兩個不同目錄各建置一次，`productDll` 的 SHA-256 相同（#91）。
 - `docs/ARCHITECTURE.md` 一頁說明模組與資料流（#94）。
-- **repo 的 main 不含任何遊戲資源**：一份發布查核報告列出所有追蹤檔與 embedded resources 的分類，被判定為原始或衍生遊戲資料的檔案（包含 `engine/web/icons/*.png` 20 張、`engine/web/ground/*.png` 2 張）都已從 main 移除，改成執行期從使用者本機的 `engine/assets` 或 `TW_CLIENT_ROOT` 讀取，功能不退化（離線測試加 check-only 通過）。git 歷史不改寫。`docs/demo/` 的真機截圖是使用者已授權公開的驗收證據（#71），不算遊戲資源檔；只含 ID、SHA、大小等非內容性 metadata 的 JSON 也不算，但要列入分類表。
+- **repo 的 main 不含遊戲資源檔**：發布查核（T034，`docs/reports/issue-102.md`）已列出全部 3,061 個追蹤檔的分類。其中 **25 個有本機等價檔的 D 類資源**（20 張 icons、2 張 ground PNG、2 個 WAV、`6016.json` fixture）都已從 main 移除，改成執行期從使用者本機的 `engine/assets` 或 `TW_CLIENT_ROOT` 讀取，功能不退化（離線測試加 check-only 通過）。CI 有拒收檢查，能擋下改了副檔名的圖片與音訊，以及 pixels JSON。
+- **已知例外（#110 裁定）**：7 個需要生成器才能移出的衍生資料檔（2 個 pickup 像素 JSON、`OriginalExpTable.cs`、`ground-catalog.json`、2 個 metadata vectors、combat-sfx `expected-events.json`）暫時留在 main，列入 B15。CI 以**精確路徑加 SHA** 鎖定，不能增加，也不能改內容。T034 報告中 2,502 個 unknown 主要是 `work/`、`docs/` 的歷史工作紀錄，不列入 M3。git 歷史不改寫。`docs/demo/` 的真機截圖是使用者已授權公開的驗收證據（#71），不算遊戲資源檔；只含 ID、SHA、大小等非內容性 metadata 的 JSON 也不算，但要列入分類表。
 - 原本的「可攜 zip、使用者本機產生素材」移到 Backlog B15（見 #97 設計）。
 
 ### T006 | done | codex-local | 位元可重現建置（#91／PR #92：停用 Source Link 與版本字串的 git revision）
 ### T080 | done | codex-local | 交作業版 `docs/ARCHITECTURE.md`（#94／PR #95）
-### T034 | todo | codex-local | 發布查核：全部追蹤檔與 embedded resources 的內容分類、遊戲資源清單、拒收檢查規格（沿用 #97 plan 的 `portable-resource-audit`）
-### T035 | todo | codex-local | 依 T034 結果，把衍生遊戲資源移出 main，改由執行期從本機 `engine/assets`／`TW_CLIENT_ROOT` 讀取；加入 CI 拒收檢查（依賴 T034）
+### T034 | done | codex-local | 發布查核（#102）：3,061 檔分類，D 32（25 可立即移除、7 需生成器）、證據 85、unknown 2,502
+### T035 | todo | codex-local | 移除 25 個有本機等價檔的資源、改接本機來源、`.gitignore`、CI 拒收檢查（#109）
 
 ---
 
@@ -114,4 +115,4 @@
 | B12 | 舊 EXE 原版 11 步全流程基準 | #81 H02（P10） | 本專案目標是**不依賴舊 BIN** 的自主引擎，舊 EXE 不作為驗收 |
 | B13 | TW1608262200 原 BIN 完整協議相容（d287 JAR 以外的伺服器） | #81 H03（P07、P11、P12） | 引擎只對齊目前的 P24Lab d287 JAR 伺服器；擴充到其他伺服器版本另行決策 |
 | B14 | 金幣在本伺服器不可丟棄 | #77 | 伺服器規則（`DORP_ITEM`／白名單）；不改 DB 或配置，demo 改用替代物品 |
-| B15 | 可攜 zip 加使用者本機產生 `engine/assets`（原 T033） | #97、#99 | 轉換鏈依賴伺服器 SQL／地圖、研究工具，估 20–36 小時，且只靠客戶端能否重建未證實；設計見 `docs/design/portable-delivery.md` |
+| B15 | 可攜 zip 加使用者本機產生 `engine/assets`（原 T033），以及移除 7 個需生成器的衍生資料檔（#102、#110） | #97、#99、#102 | 轉換鏈依賴伺服器 SQL／地圖、研究工具，估 20–36 小時，且只靠客戶端能否重建未證實；設計見 `docs/design/portable-delivery.md`，缺口逐檔見 `docs/reports/issue-102.md` |
