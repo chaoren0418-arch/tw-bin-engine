@@ -15,13 +15,14 @@
 - `check-no-game-assets.py`：通過，0 errors；最終提交前另以 staged index 重跑，包含本輪新增文件及測試。
 - `git -c core.whitespace=cr-at-eol diff --check`：通過（既有來源為 CRLF，保留原換行）。
 - 產品 DLL SHA-256：`98b3482ff45e5f937630249f70d4ebc156e0b3e1251bea061338e959160bdb36`。
+- 實作提交 `4bb8cb0` 的 [build／dotnet／map-continuity](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42300631596) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42300631604) 全部通過；[PR #205](https://github.com/chaoren0418-arch/tw-bin-engine/pull/205) 已建立，分支 `task/187` 已推送。
 
 ## 未驗證什麼
 
 - 沒有啟動遊戲、伺服器、DB，也沒有網路登入、真機技能效果或消耗驗收；來源與 P24Lab 部署 JAR 的對應未證明。
 - 技能特定動畫／冷卻／MP／目標資格仍依外部 metadata 與伺服器。缺 metadata 時可送格式正確的請求，不代表每個技能對任何選定目標都能生效；未知欄位 0 不是實際零成本證據。
 - 名字／書籤／召喚／直接點地／屍體的 UI 尚未新增；本次提供可送出的有型別介面，既有 UI 的職業專屬操作由後續任務接上。
-- CI 結果於 PR 建立後核對；GitHub 既有 CI 交叉編譯 Windows 產品，本模組完整測試為本機 Windows 離線檢查，不冒稱 Linux 已跑原生測試。
+- GitHub 既有 CI 的 Linux 工作交叉編譯 Windows 產品，Windows 工作跑既有離線回歸；本模組 785 項由本機 Windows 執行，不冒稱 CI 已自動執行此新增測試專案。
 
 ## 產出路徑
 
