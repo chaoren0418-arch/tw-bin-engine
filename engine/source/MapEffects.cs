@@ -158,6 +158,7 @@ public sealed partial class Renderer
     public PacketEffectVisual[] PacketEffectVisuals {get;private set;}=[];
     void ComposePacketEffects(WorldSession session,List<Draw> draws,long now)
     {
+        if(session.PacketEffects.Length==0){PacketEffectVisuals=[];return;}
         packetEffectAssets??=new(assets.Root);
         int serial=2500000;
         PacketEffectVisuals=session.PacketEffectFrames(now,packetEffectAssets.Get,(frame,x,y)=>

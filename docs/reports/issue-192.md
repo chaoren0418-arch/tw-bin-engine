@@ -16,6 +16,7 @@
 - Python 3.12／.NET SDK 10.0.300：先 `rebuild.py --update-lock`，再 `rebuild.py --build --configfile .github/nuget.ci.config --output scratch/issue-192/build`，產品及 launcher 建置通過。既有 `MagicUi.cs` 兩項 nullable 警告，沒有新增編譯錯誤。
 - `SoundPacketChecks.csproj`：**116 項通過**，執行本次產品 DLL；合成封包涵蓋欄位邊界、所有截斷長度、padding、S55 8／16-byte 變體、time=0、逐幀／期限／跟隨／缺資源、Reset／S149／S206、佇列上限、repeat 排程、不重播、退役與延遲音訊 registration fence。
 - 測試 `Feed` 目前直接呼叫模組接收方法，**未驗證共用 WorldSession 接線**；音訊使用記憶體 transport，不是實際聽音。
+- 既有 `DemoChecks ... map-continuity`：128 項通過。首輪 Windows CI 揭露空佇列也初始化素材、使最小 renderer 發生空參考；已改為有封包特效才載入，重建後模組 116 項及 map-continuity 128 項均通過。
 - `check-no-game-assets.py`：最終索引 3219 個追蹤檔案，pass，0 errors。
 - 已提交並推送 `task/192`，開立 [草稿 PR #214](https://github.com/chaoren0418-arch/tw-bin-engine/pull/214)；CI 狀態以 PR checks 為準。草稿不可視為接線已完成。
 
