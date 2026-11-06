@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 173,
+ "sourceCount": 175,
  "files": [
   {
    "path": "NuGet.Config",
@@ -118,6 +118,16 @@
    "path": "source/BonusStatsUi.cs",
    "size": 4738,
    "sha256": "072a214367754da457a0aee4ebcc457d441955cdf17caf30df31cbb1e91649c9"
+  },
+  {
+   "path": "source/BookmarkUi.cs",
+   "size": 4310,
+   "sha256": "9726cd1bfa92927e28164faf9b53abc1cdbc3b3d2689a8ca74b20db426403f5a"
+  },
+  {
+   "path": "source/Bookmarks.cs",
+   "size": 7247,
+   "sha256": "4be01094b2f98d45d1d706e3b348b45faf2c62f39c3545ba47a5d9814db707af"
   },
   {
    "path": "source/CacheFrameEvidence.cs",
@@ -861,8 +871,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9260,
-   "sha256": "0a2ba14de9311915f21eeaaf6ae500dbadc3d9ad8b83e9c77ef18e64ec7a9255"
+   "size": 9340,
+   "sha256": "c89e4cd52e6677c8cb3917910499cbc6d7bf1d0b8c754c5f75606129f91ea509"
   },
   {
    "path": "source/WorldTests.cs",

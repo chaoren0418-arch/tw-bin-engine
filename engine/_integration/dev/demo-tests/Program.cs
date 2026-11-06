@@ -278,7 +278,8 @@ partial class Checks {
         using var guard=new SocketGuard();
         if(args.Length>2){
             switch(args[2]){
-                case "map-continuity":await MapContinuity();break;
+                case "map-continuity":await MapContinuity();await BookmarkChecks();break;
+                case "bookmarks":await BookmarkChecks();break;
                 case "combat-loop":await CombatLoop();break;
                 case "combat-admission":await CombatAdmission();break;
                 case "slow-actions":await SlowActions();break;
@@ -288,6 +289,7 @@ partial class Checks {
                 default:throw new ArgumentException("Unknown regression group");
             }
         }else{
+            await BookmarkChecks();
             NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
             await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();
         }
