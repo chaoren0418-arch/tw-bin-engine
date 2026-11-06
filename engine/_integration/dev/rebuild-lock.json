@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 174,
+ "sourceCount": 176,
  "files": [
   {
    "path": "NuGet.Config",
@@ -461,8 +461,8 @@
   },
   {
    "path": "source/NpcUi.cs",
-   "size": 7579,
-   "sha256": "783fa44f18ea915ad79bb9eb2aaaa62bb87dcdc2a8c958bde4d6d671e950afbf"
+   "size": 7614,
+   "sha256": "1997a9e4cd358dc244b71ac38d75f6790a0354704c7a987afbfca29bd7bccae5"
   },
   {
    "path": "source/ObjectAssets.cs",
@@ -820,6 +820,16 @@
    "sha256": "007b0f58d5e0e41f035abf044673430645aff0e199930b58c91047bd77c3d544"
   },
   {
+   "path": "source/WeaponRepair.cs",
+   "size": 9242,
+   "sha256": "d41aac768346d1e601886c492af4a8073b9da4fd4d3ab689e846466aef1334a2"
+  },
+  {
+   "path": "source/WeaponRepairUi.cs",
+   "size": 3175,
+   "sha256": "03a40e13f6c4596aae1290c2ffea0f332fb325c3d3372aed7f74790da2d604f3"
+  },
+  {
    "path": "source/WebIconResource.cs",
    "size": 2008,
    "sha256": "f490c7f61da5cb33e870fd6219a70ae4ad2640ed0e2558386e4621ddf4dfe822"
@@ -866,8 +876,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9260,
-   "sha256": "0a2ba14de9311915f21eeaaf6ae500dbadc3d9ad8b83e9c77ef18e64ec7a9255"
+   "size": 9351,
+   "sha256": "3f2566f5fb32c9d88c5b672441687d50638f427a25c441daf81034f351bf438e"
   },
   {
    "path": "source/WorldTests.cs",
