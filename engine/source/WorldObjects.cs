@@ -28,7 +28,7 @@ public sealed partial class WorldSession {
     public int ObjectRevision {get;private set;}
     public int WorldEpoch {get;private set;}
     public int UnknownObjectUpdates {get;private set;}
-    public void SelectTarget(uint? id){CloseInteraction("目標已改變，請重新對話。");TargetId=id is uint v&&objects.TryGetValue(v,out var selected)&&!selected.Dead?v:null;ObjectRevision++;TargetRevision++;}
+    public void SelectTarget(uint? id){CloseInteraction("目標已改變，請重新對話。");TargetId=id is uint v&&objects.TryGetValue(v,out var selected)&&!selected.Dead&&!selected.AppearancePending?v:null;ObjectRevision++;TargetRevision++;}
     void ClearObjects(){ResetPickupPresentation();InvalidateBonusStats();ResetTrade("世界已清除，舊交易已失效。");CloseInteraction("世界已清除，舊對話已失效。");ResetOpacity();ResetGround();objects.Clear();TargetId=null;ObjectRevision++;WorldEpoch++;UnknownObjectUpdates=0;}
     void UpdateObject(uint id,Func<WorldObject,WorldObject> update){
         if(objects.TryGetValue(id,out var o)){objects[id]=update(o) with{UpdatedAt=Environment.TickCount64};ObjectRevision++;}
@@ -37,7 +37,9 @@ public sealed partial class WorldSession {
     void ReceiveObject(LoginReader r,ushort x,ushort y,uint id){
         var o=new WorldObject(x,y,id,r.H(),r.C(),r.C(),r.C(),r.C(),r.D(),unchecked((short)r.H()),r.S(),r.S(),r.C(),r.D(),r.S(),r.S(),r.C(),r.C(),r.C(),r.C(),r.C(),r.C(),r.C());r.Finish();
         if(o.Direction>7||id==0)throw new ProtocolException("invalid world object identity/heading");
-        if(ReceiveGround(o))return;objects.TryGetValue(id,out var previous);bool dead=o.Action==8||previous?.Dead==true;
+        // A full pack replaces the old incarnation, including death/appearance/motion state.
+        if(ReceiveGround(o))return;objects.TryGetValue(id,out var previous);bool dead=o.Action==8;
+        if(TargetId==id){TargetRevision++;CloseInteraction("目標完整資料已更新，請重新對話。");}
         if(dead){o=o with{Dead=true,Combat=previous?.Combat?.Action==8?previous.Combat:new(8,Environment.TickCount64,false),ReceivedAction=8};if(TargetId==id)SelectTarget(null);}
         if(!dead&&o.Action==70)o=o with{ShopActive=true,ShopAt=Environment.TickCount64};
         objects[id]=o;ObjectRevision++;
@@ -49,7 +51,7 @@ public sealed partial class WorldSession {
         case 120:{uint id=r.D();r.Finish();if(Actor?.ObjectId==id){pickupRemoved=true;CancelPickupPresentation("actor-removed");}RemoveGround(id);objects.TryRemove(id,out _);if(TargetId==id)SelectTarget(null);ObjectRevision++;return true;}
         case 158:{uint id=r.D();byte action=r.C();string shopText=action==70?r.S():"";if(action==71){r.H();r.H();}r.Finish();if(objects.TryGetValue(id,out var door)&&door.Gfx==2346){UpdateObject(id,o=>o with{DoorAction=!o.Dead&&action is 28 or 29?action:null,ReceivedAction=action,MotionAt=0,Combat=null,ShopActive=false,ShopText="",ShopAt=0});return true;}if(action==15){ReceivePickupAction(id);return true;}if(Actor?.ObjectId==id){pickupShop=action==70;CancelPickupPresentation("authoritative-action");}if(action is 1 or 2 or 8 or 18 or 19)AnimateCombat(id,action);else UpdateObject(id,o=>o with{ReceivedAction=action,MotionAt=0,ShopActive=!o.Dead&&action==70,ShopText=shopText,ShopAt=action==70?Environment.TickCount64:0,Combat=action==70?null:o.Combat});return true;}
         // POLY has incompatible constructors on this JAR. Invalidate the old image, retain raw wire, wait for a full pack.
-        case 76:{uint id=r.D();r.H();r.H();UpdateObject(id,o=>o with{AppearancePending=true,MotionAt=0});if(Actor?.ObjectId==id){SelfAppearancePending=true;AppearanceRevision++;}Unhandled(opcode);return true;}
+        case 76:{uint id=r.D();r.H();r.H();UpdateObject(id,o=>o with{AppearancePending=true,MotionAt=0});if(TargetId==id)SelectTarget(null);if(Actor?.ObjectId==id){SelfAppearancePending=true;AppearanceRevision++;}Unhandled(opcode);return true;}
         default:return false;
         }
     }

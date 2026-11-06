@@ -18,7 +18,7 @@ ${xp.Percent==null?xp.Limitation:'本級 '+xp.Percent.toFixed(6)+'% · 下一級
  const target=w?.target;document.querySelector("#targetResult").textContent=target?`${s.targetName||target.Name} / ${target.Name}\nobject ${target.ObjectId} · gfx ${target.Gfx}\n${target.X}, ${target.Y} · D${target.Direction}\nHP ${target.HpPercent==null?"未提供":target.HpPercent+"%"} · 類型未確定\n旗標 ${target.Flags} / 原始等級欄 ${target.Level}`:"未選取";
  document.querySelector("#assetLabel").textContent=s.onlineMode?(w?.ready?`伺服器 GFX ${w.actor.Gfx}`:"等待伺服器外觀"):"離線素材 GFX 0 → SPRITE 3225";
  document.querySelector('#worldResult').textContent=w?.ready?`${w.actor.Name} / object ${w.actor.ObjectId}
-${w.movement?.authoritativePosition?.text||"原服座標：等待位置回包"}
+${w.movement?.authoritativePosition?.displayText||w.movement?.authoritativePosition?.text||"原服座標：等待位置回包"}
 畫面預測 map ${w.mapId} · ${w.actor.X}, ${w.actor.Y} · D${w.actor.Direction}
 已載入範圍 ${w.loadedRegion?.minX}–${w.loadedRegion?.maxX} / ${w.loadedRegion?.minY}–${w.loadedRegion?.maxY}
 gfx ${w.actor.Gfx} · 武器型態 ${w.actor.Weapon} / ${w.appearanceNotice??(w.renderable?'素材匹配':'素材未支援')}
@@ -34,7 +34,7 @@ ${l.news||''}
 `+l.characters.map(c=>`${c.Name} / ${c.Clan}
 Lv.${c.Level}  HP ${c.Hp}  MP ${c.Mp}  AC ${c.Ac}
 職業 ${c.Class} / 性別 ${c.Sex} / 正義 ${c.Lawful}
-力 ${c.Strength} 敏 ${c.Dexterity} 體 ${c.Constitution} 智 ${c.Intelligence} 精 ${c.Wisdom} 魅 ${c.Charisma}`).join('\n\n');}document.querySelector('#position').textContent=s.onlineMode?(w?.movement?.authoritativePosition?.text||'原服座標：等待位置回包'):`${s.x}, ${s.y}`;document.querySelector('#direction').textContent=s.onlineMode?(w?.ready?`方向 D${w.actor.Direction} · 預測／伺服器校正`:'等待真實角色資料'):`方向 D${s.direction} · ${s.walking?'行走':'站立'} · 步數 ${s.steps}`;
+力 ${c.Strength} 敏 ${c.Dexterity} 體 ${c.Constitution} 智 ${c.Intelligence} 精 ${c.Wisdom} 魅 ${c.Charisma}`).join('\n\n');}document.querySelector('#position').textContent=s.onlineMode?(w?.movement?.authoritativePosition?.displayText||w?.movement?.authoritativePosition?.text||'原服座標：等待位置回包'):`${s.x}, ${s.y}`;document.querySelector('#direction').textContent=s.onlineMode?(w?.ready?`方向 D${w.actor.Direction} · 預測／伺服器校正`:'等待真實角色資料'):`方向 D${s.direction} · ${s.walking?'行走':'站立'} · 步數 ${s.steps}`;
  document.querySelector('#mode').textContent=s.onlineMode?'真實連線 · '+s.login.state:s.networkMode?'測試通訊 · 回覆後套用':'離線模式';document.querySelector('#mapResource').textContent=s.onlineMode?[w?.basicSupplyNotice,w?.announcement,w?.bonusStatsNotice,w?.ship?.notice,w?.movement?.speedNotice,w?.teleport?.notice,w?.mapResourceNotice].filter(Boolean).join('\n'):'';document.querySelector('#connection').textContent=`${s.onlineMode?s.login.state:s.connection} / ${s.busy?'等待有效回覆':s.gameFocus?'遊戲控制':'面板／其他焦點'}`;
  document.querySelector('#revision').textContent=`狀態版本 ${s.revision} · 已確認 ${s.confirmed}`;document.querySelectorAll('.directions button').forEach(b=>b.disabled=(s.onlineMode&&(!s.movementControl?.available||s.movementControl.busy||!w?.renderable||w?.teleport?.actionLocked||w?.combat?.ownDead||w?.status?.Hp===0))||s.busy||s.walking||(s.networkMode&&s.connection!=='Ready'));
  }else if(s.kind==='reply'){if(s.audio&&!handleAudioSettingsReply(s))return;window.lastReply=s;handleBonusStatsReply(s);handlePrivateShopReply(s);handleLoginReply(s);handleNpcReply(s);handleTradeReply(s);document.querySelector('#reply').textContent=`#${s.id} ${s.status}`;}});
