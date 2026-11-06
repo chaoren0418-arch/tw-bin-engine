@@ -1,0 +1,32 @@
+[
+  {
+    "name": "build",
+    "argv": [
+      "dotnet",
+      "build",
+      "engine/_integration/dev/local-resource-tests/LocalResourceChecks.csproj",
+      "-c",
+      "Release",
+      "-o",
+      "engine/build/issue-123-local-resource",
+      "--configfile",
+      "engine/NuGet.Config"
+    ],
+    "exitCode": 0,
+    "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n  LocalResourceChecks -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\engine\\build\\issue-123-local-resource\\LocalResourceChecks.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:01.46\n",
+    "stderr": ""
+  },
+  {
+    "name": "security",
+    "argv": [
+      "dotnet",
+      "engine/build/issue-123-local-resource/LocalResourceChecks.dll",
+      "scratch\\issue-123\\icon-security\\assets",
+      "scratch\\issue-123\\icon-security\\pins.json",
+      "scratch\\issue-123\\icon-security"
+    ],
+    "exitCode": 0,
+    "stdout": "{\"status\":\"pass\",\"icons\":1,\"checks\":23,\"webViewStarted\":false}\n",
+    "stderr": ""
+  }
+]

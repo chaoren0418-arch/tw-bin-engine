@@ -18,7 +18,7 @@ public static class WebIconResource
 
     public static (int Status, byte[]? Body) Read(string assetsRoot, string request)
     {
-        if (!TryId(request, out ushort id)) return (403, null);
+        if (!TryId(request, out ushort id)) return (request.StartsWith("https://p08.example/icons/", StringComparison.Ordinal) ? 404 : 403, null);
         try
         {
             var root = new DirectoryInfo(assetsRoot);

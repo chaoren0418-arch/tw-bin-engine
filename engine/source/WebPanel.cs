@@ -49,11 +49,11 @@ public sealed partial class ClientForm {
             if(epoch!=webEpoch){view.Dispose();WebLog("initialization-cancelled",new{epoch,phase="controller"});return;}
             view.ZoomFactor=96d/DeviceDpi;
             var core=view.CoreWebView2;core.Settings.AreHostObjectsAllowed=false;core.Settings.AreDevToolsEnabled=false;core.Settings.AreDefaultContextMenusEnabled=false;core.Settings.AreBrowserAcceleratorKeysEnabled=false;core.Settings.IsStatusBarEnabled=false;core.Settings.IsPasswordAutosaveEnabled=false;core.Settings.IsGeneralAutofillEnabled=false;
-            core.SetVirtualHostNameToFolderMapping("p08.example",Path.Combine(stageRoot,"web"),CoreWebView2HostResourceAccessKind.Deny);
-            
+            // All local requests use ResourceRequested; a virtual-host mapping bypasses it.
+
             core.NavigationStarting+=NavigationStarting;core.NavigationCompleted+=NavigationCompleted;core.WebMessageReceived+=WebMessage;
             core.NewWindowRequested+=NewWindow;core.PermissionRequested+=Permission;core.DownloadStarting+=Download;core.ProcessFailed+=ProcessFailed;
-            core.AddWebResourceRequestedFilter("*",CoreWebView2WebResourceContext.All);core.WebResourceRequested+=ResourceRequested;
+            WebLocalResource.Install(core,ResourceRequested);
             core.Navigate(webFault=="page-failed"?"https://p08.example/missing.html":LocalPage);
         }catch(Exception ex){if(epoch==webEpoch){webReady=false;webNotice.Text="面板無法啟動；離線遊戲仍可使用。\n"+ex.GetType().Name;webNotice.BringToFront();}WebLog("initialization-error",new{epoch,type=ex.GetType().Name,error=ex.Message});}
     }
@@ -64,10 +64,9 @@ public sealed partial class ClientForm {
     void Download(object? s,CoreWebView2DownloadStartingEventArgs e){e.Cancel=true;WebLog("download-blocked");}
     void ProcessFailed(object? s,CoreWebView2ProcessFailedEventArgs e){webReady=false;webNotice.Text="網頁程序停止；可關閉後重開面板。";webNotice.BringToFront();LeaveGameFocus("process-failed");WebLog("process-failed",new{kind=e.ProcessFailedKind.ToString()});}
     void ResourceRequested(object? s,CoreWebView2WebResourceRequestedEventArgs e){
-        var allowed=new[]{LocalPage,"https://p08.example/panel.css","https://p08.example/panel.js","https://p08.example/login.js","https://p08.example/interaction.js","https://p08.example/trade.js","https://p08.example/bonus-stats.js","https://p08.example/private-shop.js"};
-        if(WebIconResource.TryId(e.Request.Uri,out _)){
-            var icon=WebIconResource.Read(Path.Combine(stageRoot,"assets"),e.Request.Uri);
-            e.Response=webEnvironment!.CreateWebResourceResponse(icon.Body is {} bytes?new MemoryStream(bytes,false):null,icon.Status,icon.Status==200?"OK":icon.Status==403?"Forbidden":"Missing local icon",icon.Status==200?"Content-Type: image/png":"Content-Type: text/plain");
+        var local=WebLocalResource.Read(stageRoot,e.Request.Uri);
+        if(local.Status!=403){
+            e.Response=webEnvironment!.CreateWebResourceResponse(local.Body is {} bytes?new MemoryStream(bytes,false):null,local.Status,local.Status==200?"OK":"Not Found",local.Headers);
             return;
         }
         Uri.TryCreate(e.Request.Uri,UriKind.Absolute,out var uri);
@@ -76,7 +75,7 @@ public sealed partial class ClientForm {
             catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException){e.Response=webEnvironment!.CreateWebResourceResponse(null,404,"Missing verified ground image","Content-Type: text/plain");}
             return;
         }
-        if(!allowed.Contains(e.Request.Uri)){e.Response=webEnvironment!.CreateWebResourceResponse(null,403,"Forbidden","Content-Type: text/plain");WebLog("resource-blocked",new{e.Request.Uri});}
+        e.Response=webEnvironment!.CreateWebResourceResponse(null,403,"Forbidden","Content-Type: text/plain\r\nCache-Control: no-store");WebLog("resource-blocked",new{e.Request.Uri});
     }
     void WebMessage(object? sender,CoreWebView2WebMessageReceivedEventArgs e)=>DispatchWeb(e.Source,e.WebMessageAsJson);
     void DispatchWeb(string source,string raw){

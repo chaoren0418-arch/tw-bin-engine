@@ -55,7 +55,11 @@ public sealed class SoundCursor(SoundSchedule schedule, Random random)
 }
 
 public sealed record CombatSoundInstance(string Key, long Instance, uint Actor, int Gfx, int Weapon,
-    long StartedAt, long EndsAt, SoundSchedule Schedule);
+    long StartedAt, long EndsAt, SoundSchedule Schedule)
+{
+    public bool DrainOnEnd { get; init; }
+    public Func<bool>? StillValid { get; init; }
+}
 public sealed record CombatSoundObservation(string Stage, string Key, int? SoundId, int? Frame, long? Cycle, AudioReply Reply);
 
 // 主執行緒推進。非同步完成只讀 lease/control fence，音訊執行緒另有 owner fence。
@@ -68,8 +72,10 @@ public sealed class CombatSfxController(IAudioPlayback audio, Random random, Act
         internal readonly SoundCursor Cursor = cursor;
         internal Task<AudioReply> Registration = null!;
         internal volatile bool Active = true;
+        internal readonly List<Task> Pending = [];
     }
     readonly Dictionary<string, Lease> active = [];
+    readonly List<(Lease Lease, long Expires)> draining = [];
     readonly Dictionary<string, (long Instance, long Expires)> consumed = [];
     readonly Stack<string> ownerSlots = [];
     int nextSlot;
@@ -94,6 +100,17 @@ public sealed class CombatSfxController(IAudioPlayback audio, Random random, Act
         active.Remove(key);
         _ = Observe("retire", key, audio.RetireAsync(lease.Owner));
         ownerSlots.Push(lease.Owner.Key);
+    }
+    async Task Finish(Lease lease)
+    {
+        await Task.WhenAll(lease.Pending).ConfigureAwait(false);
+        if (lease.Active) await Observe("finish",lease.Instance.Key,audio.FinishAsync(lease.Owner)).ConfigureAwait(false);
+    }
+    void CancelDraining((Lease Lease,long Expires) tail)
+    {
+        tail.Lease.Active=false;
+        _=Observe("retire",tail.Lease.Instance.Key,audio.RetireAsync(tail.Lease.Owner));
+        ownerSlots.Push(tail.Lease.Owner.Key);draining.Remove(tail);
     }
     async Task Play(Lease lease, int id, int frame, long cycle)
     {
@@ -129,14 +146,22 @@ public sealed class CombatSfxController(IAudioPlayback audio, Random random, Act
         if (epoch != worldEpoch)
         {
             foreach (string key in active.Keys.ToArray()) Retire(key);
+            foreach(var tail in draining.ToArray())CancelDraining(tail);
             consumed.Clear();
             epoch = worldEpoch;
         }
+        foreach(var tail in draining.ToArray())
+            if(!enabled||now>=tail.Expires||tail.Lease.Instance.StillValid?.Invoke()==false)CancelDraining(tail);
         var current = instances.ToDictionary(i => i.Key);
         foreach (string key in active.Keys.ToArray())
         {
             var old = active[key].Instance;
-            if (!enabled || !current.TryGetValue(key, out var value) || value.Instance != old.Instance ||
+            if(enabled && old.DrainOnEnd && now>=old.EndsAt && old.StillValid?.Invoke()!=false)
+            {
+                var finished=active[key];active.Remove(key);draining.Add((finished,now+15000));
+                _=Finish(finished); // Owner slot retained until cancellation/cleanup; no reuse cuts off its tail.
+            }
+            else if (!enabled || !current.TryGetValue(key, out var value) || value.Instance != old.Instance ||
                 value.Gfx != old.Gfx || value.Weapon != old.Weapon || now >= old.EndsAt) Retire(key);
         }
         foreach (string key in consumed.Keys.Where(k => !current.ContainsKey(k) && now > consumed[k].Expires).ToArray()) consumed.Remove(key);
@@ -154,7 +179,7 @@ public sealed class CombatSfxController(IAudioPlayback audio, Random random, Act
                 lease.Registration = audio.RegisterAsync(lease.Owner);
                 _ = Observe("register", instance.Key, lease.Registration);
             }
-            lease.Cursor.Advance(now - instance.StartedAt, (id, frame, cycle) => _ = Play(lease, id, frame, cycle));
+            lease.Cursor.Advance(now - instance.StartedAt, (id, frame, cycle) => lease.Pending.Add(Play(lease, id, frame, cycle)));
         }
         if (audio.LastMaintenance != maintenance)
         {
@@ -168,6 +193,7 @@ public sealed class CombatSfxController(IAudioPlayback audio, Random random, Act
         closed = true;
         Interlocked.Increment(ref controlsRevision);
         foreach (string key in active.Keys.ToArray()) Retire(key);
+        foreach(var tail in draining.ToArray())CancelDraining(tail);
         return Observe("shutdown", "", audio.ShutdownWithinAsync(TimeSpan.FromMilliseconds(750)));
     }
 }
