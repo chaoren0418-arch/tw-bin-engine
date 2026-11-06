@@ -2,6 +2,9 @@
   <PropertyGroup>
     <TargetFramework>net10.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
+    <!-- Keep identical source inputs reproducible across checkout paths and Git commits. -->
+    <EnableSourceLink>false</EnableSourceLink>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <Deterministic>true</Deterministic>
     <PathMap Condition="'$(Configuration)' == 'Release'">$(MSBuildProjectDirectory)=/_/p24/audio</PathMap>
   </PropertyGroup>
