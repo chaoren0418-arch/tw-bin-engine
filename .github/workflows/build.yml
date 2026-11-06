@@ -35,6 +35,12 @@ jobs:
           New-Item -ItemType Directory -Force scratch/issue-173 | Out-Null
           dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-173/combat-checks.json combat-admission
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Item status and authoritative equipment contracts (no game or network)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-216 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-216/item-status-checks.json item-status
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Real WebView2 product page and local resource regression
         shell: pwsh
         run: |

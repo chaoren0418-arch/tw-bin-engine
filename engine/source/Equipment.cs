@@ -12,6 +12,9 @@ public sealed partial class WorldSession {
     public bool EquipmentListReceived {get;private set;}
     public int EquipmentRevision {get;private set;}
     public EquipmentSlot[] EquipmentSlots=>equipmentSlots.OrderBy(x=>x.Key).Select(x=>new EquipmentSlot(x.Key,x.Value)).ToArray();
+    // Unknown until a full list or an absolute update for this object arrives.
+    public bool? AuthoritativeItemEquipped(uint id,byte useType)=>!EquipmentRules.IsEquipment(useType)?null:equipmentStates.TryGetValue(id,out bool equipped)?equipped:EquipmentListReceived?false:null;
+    public ushort? ItemEquipmentSlot(uint id)=>equipmentSlots.TryGetValue(id,out ushort slot)?slot:null;
     public bool? ItemEquipped(InventoryItem item)=>!EquipmentRules.IsEquipment(item.UseType)?null:equipmentStates.TryGetValue(item.ObjectId,out bool equipped)?equipped:EquipmentListReceived?false:item.Equipped;
     public string ItemUseAction(InventoryItem item)=>item.SupportedEquipment?(ItemEquipped(item)==true?"卸下":"穿上"):item.UseAction;
     public string ItemUseState(InventoryItem item)=>item.SupportedEquipment?(ItemEquipped(item)==true?"已裝備；可單次卸下":"未裝備；可單次穿上"):item.UseState;

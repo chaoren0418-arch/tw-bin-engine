@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 172,
+ "sourceCount": 173,
  "files": [
   {
    "path": "NuGet.Config",
@@ -216,8 +216,8 @@
   },
   {
    "path": "source/Equipment.cs",
-   "size": 5402,
-   "sha256": "944066694c07e1fb3886d5f5410e582482b90fa2b96932536deff14865ec5ade"
+   "size": 5788,
+   "sha256": "844bf5ef9e0dcef910a191a787b343dace30027b1477546f7a4c27d2b475a307"
   },
   {
    "path": "source/EquipmentGateTests.cs",
@@ -291,8 +291,8 @@
   },
   {
    "path": "source/Inventory.cs",
-   "size": 14421,
-   "sha256": "ee4ac857251bdfb4c82be44d40f3723eefd0a4e96d84236416c36c6b773fdd54"
+   "size": 14847,
+   "sha256": "3c919e7ad63c96b11af94a74f1f36425ccd633c7b3271d2887da5398a14a0ede"
   },
   {
    "path": "source/InventoryIntegration.cs",
@@ -311,8 +311,13 @@
   },
   {
    "path": "source/InventoryUi.cs",
-   "size": 4541,
-   "sha256": "8c08340ec9b8ac5670ceb26e9f210f067334d678626c674693bb7bf5f0c9b472"
+   "size": 5508,
+   "sha256": "193c8abf453a0ba8a733e00524336d3fbab7da75ab2185a85d3cba0e66485e9c"
+  },
+  {
+   "path": "source/ItemStatus.cs",
+   "size": 7337,
+   "sha256": "38e86bc77f464053b7d9f834bb662dae501a5a6ea0195ff77f44c1ac19f312bc"
   },
   {
    "path": "source/JournalTests.cs",

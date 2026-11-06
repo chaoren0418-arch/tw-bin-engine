@@ -282,12 +282,14 @@ partial class Checks {
                 case "combat-loop":await CombatLoop();break;
                 case "combat-admission":await CombatAdmission();break;
                 case "slow-actions":await SlowActions();break;
+                case "item-status":ItemStatusChecks();break;
                 case "keyboard":await KeyboardMovement123();break;
                 case "busy":KeyboardBusy123();break;
                 case "world":await KeyboardWorld123();break;
                 default:throw new ArgumentException("Unknown regression group");
             }
         }else{
+            ItemStatusChecks();
             NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
             await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();
         }
