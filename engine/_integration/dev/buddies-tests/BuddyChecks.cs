@@ -24,6 +24,13 @@ partial class Checks {
         Check(BuddyPackets.TryBuddy(BuddyReply(all:"Alice alice  中文 ",online:"中文 中文 "),out parsed)&&parsed!.Entries.Length==2&&parsed.Entries[1].Online,"deduplicate names and online variants");
         Check(!BuddyPackets.TryBuddy(Packet(b=>{b.Write((byte)39);b.Write(123u);Text(b,"RaiseAttr");}),out _),"other S39 remains unclaimed");
         Check(!BuddyPackets.TryExclude(LoginPackets.Pad([250,154]),out _),"unrelated PacketBox remains unclaimed");
+        foreach(byte kind in new byte[]{17,18,19}){
+            Check(BuddyPackets.TryExclude(ExcludeReply(kind,"中文"),out var block)&&block!.Kind==kind&&block.Names.SequenceEqual(new[]{"中文"}),"S250 valid Big5 response "+kind);
+        }
+        Check(BuddyPackets.TryExclude(ExcludeReply(17),out var empty)&&empty!.Names.Length==0,"S250 empty snapshot codec");
+        var fullNames=Enumerable.Range(0,16).Select(i=>"n"+i).ToArray();
+        Check(BuddyPackets.TryExclude(ExcludeReply(17,fullNames),out var full)&&full!.Names.SequenceEqual(fullNames),"S250 accepts server limit of 16");
+        Check(BuddyPackets.TryExclude(ExcludeReply(17,"Alice","ALICE"),out var duplicate)&&duplicate!.Names.SequenceEqual(new[]{"Alice"}),"S250 snapshot deduplicates names");
         BuddyBad(()=>BuddyPackets.TryBuddy(BuddyReply(flag:1),out _),"reject wrong buddy flag");
         BuddyBad(()=>BuddyPackets.TryBuddy(BuddyReply(count:1),out _),"reject wrong buddy count");
         BuddyBad(()=>BuddyPackets.TryBuddy(BuddyReply(owner:0),out _),"reject zero owner");
@@ -44,6 +51,9 @@ partial class Checks {
             BuddyBad(()=>Feed(c,BuddyReply(owner:999)),"foreign owner rejected");Check(c.World.BuddyRevision==rev,"bad owner leaves state unchanged");
             Feed(c,ExcludeReply(17,"Alice","中文"));Check(c.World.IsExcluded("aLiCe")&&c.World.ExcludedNames.Length==2,"S250/17 snapshot and case-insensitive lookup");
             Feed(c,ExcludeReply(18,"ALICE"));Check(c.World.ExcludedNames.Length==2,"duplicate S250/18 idempotent");
+            int beforeBad=c.World.BuddyRevision;
+            BuddyBad(()=>Feed(c,ExcludeReply(17,"Bob","").Concat(new byte[8]).ToArray()),"bad snapshot rejected atomically");
+            Check(c.World.BuddyRevision==beforeBad&&c.World.IsExcluded("Alice")&&!c.World.IsExcluded("Bob"),"malformed snapshot preserves prior state");
             Feed(c,NormalChat("Alice: hidden"));Feed(c,NormalChat("ALICE: invisible",0));Feed(c,Whisper("alice","hidden"));
             Check(c.World.PlayerChatLines.Length==0,"blocked normal visible/invisible and whisper absent");
             Feed(c,NormalChat("Alice2: visible"));Feed(c,Whisper("Bob","Alice: this is only message text"));Feed(c,NormalChat("Bob: Alice: quoted"));
@@ -73,10 +83,18 @@ partial class Checks {
             await c.SendBuddy(BuddyAction.ToggleExclude,"Alice",c.BuddySnapshot());
             Feed(c,Packet(b=>{b.Write((byte)71);b.Write((ushort)472);b.Write((byte)0);}));
             Check(c.BuddySnapshot().CanToggle&&c.World.IsExcluded("Alice")&&c.World.LastServerReply?.Id==472,"S71/472 refusal preserves list and normal message dispatch");
+            await c.SendBuddy(BuddyAction.ToggleExclude,"Bob",c.BuddySnapshot());
+            Feed(c,Packet(b=>{b.Write((byte)71);b.Write((ushort)109);b.Write((byte)0);}));
+            Check(!c.BuddySnapshot().CanToggle&&c.World.LastServerReply?.Id==109&&c.World.BuddyNotice.Contains("沒有這個角色"),"S71/109 remains visible and cannot acknowledge an exclude toggle");
+            var malformed=Packet(b=>{b.Write((byte)71);b.Write((ushort)472);b.Write((byte)0);});malformed[^1]=1;
+            BuddyBad(()=>Feed(c,malformed),"malformed refusal rejected");
+            Check(c.World.ExcludePending,"malformed refusal cannot release pending toggle");
+            Feed(c,ExcludeReply(17,"Alice"));Check(c.BuddySnapshot().CanToggle,"authoritative snapshot releases pending toggle");
             Feed(c,BuddyReply());Check(!c.World.BuddyStale,"query response confirms new snapshot");
             using var panel=new BuddyPanel(c);Check(panel.AccessibleName=="好友與封鎖名單"&&panel.Controls.Count>0,"native buddy panel binds without network or window");
         }
         using(var c=Seed()){
+            Feed(c,BuddyReply());Feed(c,ExcludeReply(18,"Alice"));
             var release=new TaskCompletionSource<bool>();int sends=0;
             Sender(c,async(_,valid,admitted)=>{await release.Task;if(!valid())return false;sends++;admitted();return true;});
             var pending=c.SendBuddy(BuddyAction.Add,"Alice",c.BuddySnapshot());

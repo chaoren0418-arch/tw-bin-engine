@@ -2,9 +2,19 @@
 
 ## 結論
 
-**尚未完成驗收，PR 僅供草稿審查。** 四種 C 封包、S39 buddy 與 S250/17–19 解碼器、清單模型、傳送入口及原生服務 UI 已實作。既有檔案依原任務限制只增加 S39 分支與聊天封鎖查詢點；**S250／S71 觀察及角色重置尚未掛入，封鎖功能目前不能交付使用**。
+**第 2 次嘗試仍未完成驗收，PR #275 請勿合併。** 四種 C 封包、S39 buddy 與 S250/17–19 解碼器、清單模型、傳送入口及原生服務 UI 已實作。既有檔案依原任務限制只增加 S39 分支與聊天封鎖查詢點；**S250／S71 觀察及角色重置尚未掛入，封鎖功能目前不能交付使用**。GitHub 的 PR 狀態已非 draft，但不代表驗收通過。
 
 阻塞來自本 Issue 的明確範圍：「`WorldSession.cs` 在 S39 既有分派只加一個 S_Buddy 分支」。實際 S39 的 NPC 解碼在 `NpcInteraction.cs`，本次已在 `WorldSession` 的接收鏈前截取 buddy，沒有修改 NPC 檔。封鎖回覆實際是 S250，還必須在角色重置時清空名單。已在對話提出範圍確認，尚未取得答覆，未擅自擴張。
+
+## 第 2 次嘗試的核對與補件（2026-11-07）
+
+- 已讀根目錄 `AGENTS.md`、`docs/REPORT.md`、M6 契約及協定／規則參考，維持 `task/260`，沒有切換或建立分支。
+- 查得前次 [build run 42310617554](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42310617554)：Linux `dotnet` 成功；Windows `map-continuity` 失敗步驟是 `Buddy and exclude contracts (no game or network)`。完整日誌下載 API 回 403，故以工作／步驟狀態與本機重現核對，不宣稱已讀完整 CI 日誌。
+- 本機完整 `buddies` 測試重現 `S250/17 snapshot and case-insensitive lookup` 失敗。未移除、略過或改弱該斷言。
+- 新增 S250 三種回包的中文解碼、空快照、16 人邊界及去重測試；`buddies-codec` 現為 **115 項通過**。
+- 增補完整測試的錯誤快照原子性、S71/109 保留原訊息且不能解除封鎖等待、錯誤 S71/472 不能解除等待、快照解除等待；斷線測試先建立非空好友與封鎖清單。這些後段斷言因前面的實際路由失敗，**尚未執行到，不宣稱通過**。
+- 重跑 `--update-lock`（lock 無差異）與 canonical `--build --write-receipt` 成功；地圖回歸 **128 項**、戰鬥 admission 回歸 **212 項**、`check-no-game-assets.py`（3251 tracked files、0 errors）及 `git diff --check` 通過。
+- 本輪已再次提出文末兩處具體掛接的範圍確認，尚未收到答覆；不能將「要求 CI 綠燈」自行當作取消同一份任務明列的修改限制。
 
 ## 做了什麼
 
@@ -19,7 +29,7 @@
 ## 已驗證
 
 - .NET SDK 10.0.300；先執行 `rebuild.py --update-lock`，再執行 canonical `--build --write-receipt`：product、audio、launcher 建置成功。產品有既存 `MagicUi.cs` 的兩個 nullable 警告，本模組沒有新增編譯警告。
-- `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -p:UseSharedCompilation=false -- . scratch/issue-260/buddies-codec.json buddies-codec`：**109 項通過**，涵蓋四種 C 格式、Big5、空／重複名單、S39／S250 回覆格式、錯誤 header、數量、截斷、尾端多餘 bytes、錯誤輸入。
+- `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -p:UseSharedCompilation=false -- . scratch/issue-260/buddies-codec.json buddies-codec`：**115 項通過**，涵蓋四種 C 格式、Big5、空／重複名單、S39／S250 回覆格式、錯誤 header、數量、截斷、尾端多餘 bytes、錯誤輸入。
 - 完整 `buddies` 入口已執行：S39 路由與 owner 防護通過，**停在 `S250/17 snapshot and case-insensitive lookup`**，符合尚未允許掛入 S250 的已知限制；不宣稱完整模組綠燈。
 - `check-no-game-assets.py`：pass，0 errors，4 個 EmbeddedResource declarations。
 - 沒有啟動遊戲、伺服器、DB 或連正式服務；沒有複製遊戲資源／伺服器程式，沒有修改封存、硬連結、原始專案或 `docs/REPORT.md`，沒有遞迴刪除。
@@ -47,4 +57,4 @@
 1. `WorldSession.Reset()` 加 `ResetBuddies()`，避免同一連線切角／重連殘留。
 2. 將本次新增的 `if(opcode==39&&ReceiveBuddies(opcode,plain))return;` 改為 `if(ReceiveBuddies(opcode,plain))return;`。模組只消費 S39 buddy 與 S250/17–19；S71/109、472 只觀察，仍回 false 交既有訊息分派。
 
-取得範圍確認後，由 codex-local 套入兩處、更新 dev lock、重新建置，執行完整 `buddies` 測試並修正其餘實際失敗，再確認最新 PR head 的 CI 綠燈，更新本報告並解除草稿。當前草稿不得作為 T126 完成證據。
+取得範圍確認後，由 codex-local 套入兩處、更新 dev lock、重新建置，執行完整 `buddies` 測試並修正其餘實際失敗，再確認最新 PR head 的 CI 綠燈，更新本報告及同一 PR #275。目前 PR 不得作為 T126 完成證據；請主控先明確修訂允許範圍，避免第 3 次派工仍帶相同限制。
