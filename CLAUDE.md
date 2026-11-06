@@ -14,22 +14,21 @@
 ## 目標
 以 C#/.NET 重新實作天堂 3.81 舊客戶端（原 `LiTo.bin` / TW1608262200 BIN），**不再依賴舊式 bin**，讓遊戲能完整運作：登入、選角、世界移動、戰鬥、道具、魔法、地圖快取、UI、音效。評分重點：**可重現客戶端、遊戲完整運作**。
 
-## 目前狀態（2026-11-04，詳見 `PLAN.md`）
-- 正式入口 **r33**（`releases/r33`）；r34 已封裝未切入口；canonical 來源已更新到 **181 檔**（P36），但 r33/r34 的 lock 分別要求 177/180 → 目前 `rebuild.py` 核驗會拒絕，T002 要建 r35 lock 解決。
-- `work/` 做到 **P38**（隔離交付候選，等覆核）。P27 UI／輸入查核 237 斷言無缺陷。
-- **自 r29 起沒有任何版本做過原生實機驗收**；最後實機證據是 r22/r27/r28。M1 的第一件事是用可重現的建置跑一次真機流程。
-- 未驗：NPC 服務、map4／6016 場景音訊、原生畫面／滑鼠、換圖連續性。
-- 歷史治理文件（主管／工作者對話 ID、Goal、pins、seal）**只供參考**，不再是流程的一部分。流程見「工作方式」與 `PLAN.md`／`TASKS.md`。
+## 目前狀態
+- 開發用建置是 **dev 滾動 lock**（`engine/_integration/dev/rebuild-lock.json`），正式入口仍是 **r33**。
+- 進度與里程碑以 `PLAN.md`／`TASKS.md` 為準；近期真機證據見 #23（r35）、#37、#71（dev）。
 
 ## 技術棧與建置
 - C# / .NET（SDK 版本見 `engine/global.json`），Windows x64。
 - 原始碼：`engine/source`（主專案 `OfflineClient.csproj`）、`engine/audio`、`engine/web`、`engine/launcher`。
-- 建置：`engine/build-product.ps1`；啟動：`啟動引擎.cmd`（`--check-only` 只檢查環境）。
-- 唯讀來源核驗：`python -B -X utf8 engine/_integration/r33/rebuild.py`（目前因 181 檔會拒絕；T002 後改用 r35）。注意 `engine/build-product.ps1` 目前指向 r34。
-- CI：`.github/workflows/build.yml` 在 windows-latest 上 `dotnet build`，用 `.github/nuget.ci.config`（nuget.org）；本機 `engine/NuGet.Config` 仍是離線 `vendor`。
+- 建置：`engine/build-product.ps1` → `engine/_integration/dev/product-build.ps1` → `python -B -X utf8 engine/_integration/dev/rebuild.py --build`；啟動：`啟動引擎.cmd`（`--check-only` 只檢查環境）。
+- 唯讀來源核驗：`python -B -X utf8 engine/_integration/dev/rebuild.py`；r33／r34 核驗腳本只供歷史參考。
+- CI：`.github/workflows/build.yml` 在 **ubuntu-latest** 以 `-p:EnableWindowsTargeting=true`、`-r win-x64`、`-p:SelfContained=false` 交叉建置 Windows 目標（#67／PR #72），使用 `.github/nuget.ci.config`（nuget.org）；本機 `engine/NuGet.Config` 仍是離線 `vendor`。CI 編譯成功不算原生驗收。
+- 位元可重現：相同來源與 SDK 在兩個目錄建出的 product、audio、launcher DLL SHA-256 相同（#91）。
 - 素材：`engine/assets` 是指向 `releases/r28` 的唯讀 junction；遊戲資源一律引用 `D:\lineage開發\0-客戶端`，**不得複製 pak/map/sprite 進本專案**。
 - 資料庫（MySQL）由使用者管理；AI 不查詢、不更改、不啟停 DB 或服務。
   - **例外（使用者 2026-11-05 授權，只限 `dot`）**：P24Lab 實驗環境（`D:\P24Lab-ClientEngine`、MySQL `127.0.0.1:43324`、伺服器 port `42061`）的啟停與維護由 `dot` 自行安排，包含為了開服清掉孤兒限時紀錄。改 DB 前必須先把目前狀態完整備份（放 P24Lab 自己的備份目錄），只做開服需要的最小修改，結果寫進 Issue 的 RESULT。其他 AI（Cursor、Codex 雲端、Claude）仍不可碰；正式伺服器（port 2000）與正式 MySQL（3306）任何人都不可碰。
+  - **例外（使用者 2026-11-06 在 dot 對話親自授權，只限 `dot`）**：「本人授權：1. 在 P24Lab（42061／43324、測試角色）執行 tw-bin 原生實機驗收：啟動客戶端、登入、操作、截圖、量音效、送測試聊天；不碰正式 2000／3306、不改 DB 或配置、不用主要角色。適用 #77 與之後所有 test 任務。」出處：本機調度器對話轉述（#77 留言，2026-11-06 02:18 UTC），dot 已確認收到。
 
 ## 目錄
 | 路徑 | 用途 | git |
@@ -56,5 +55,5 @@
 - `PLAN.md`：里程碑與目前狀態（Claude 維護）。`TASKS.md`：任務清單，每項含範圍、驗收條件、狀態。
 - 分支：`main` 永遠可建置；工作在 `feat/<任務編號>-<短名>`，完成開 PR，Claude 審查、使用者合併。
 - Cursor 執行任務時：先讀本檔與 `TASKS.md` 指定項，只改任務列出的檔案範圍，完成後在 PR 描述寫「做了什麼／怎麼驗證／未驗證什麼」。
-- 原生實機測試（啟動遊戲、登入、畫面）只由使用者執行；AI 提供測試步驟與核對清單。
+- 原生實機測試（啟動遊戲、登入、畫面）由使用者執行，或由 `dot` 依上方 2026-11-06 授權在 P24Lab 測試角色執行；其他 AI 只提供測試步驟與核對清單。
 - Commit 訊息：`<範圍>: <做了什麼>`，中英皆可。
