@@ -24,7 +24,7 @@
 | F9圖示 | 移除同host的資料夾映射，`WebLocalResource.Install`與`Read`統一路由；靜態頁面只允許原白名單，圖片維持assets/inventory與子路徑reparse限制，合法PNG回image/png，非法／不存在ID回404；no-store避免舊破圖快取。地面圖片保留既有已驗證生成路徑。 | 真正WebView2載入合成HTML／2×2 PNG；實際fetch bytes完全相同、MIME／cache／decode／404通過。另T035 URI與junction安全回歸23項通過（合成PNG，未用真素材）。 |
 | 光箭 | `CombatSfxScene`保留飛行事件至impact視窗，零距離也保留第一次[N97]；飛行期重複幀仍依既有序列，impact219不新增假音效。`CombatSfxController`區分自然結束與取消；`AudioPlayer.FinishAsync`關閉該owner新派送，`AudioCore`讓已提交聲音至原生EC_COMPLETE再清理。尾音owner不立即重用；死亡、外觀失效、換圖、關閉仍取消，保留15秒最長清理界線。 | 實際產品S30解析、近距離略過release tick仍派送一次97、重繪不重播、自然完成不Stop、原生完成清理、死亡取消尾音、mute清理、新派送fence；原8,780項CombatSfx全部保留。另獨立原生宿主走合成S30→scene/controller→實際pin97 WAV→own-session量測，三階段通過。 |
 | session | `SilentAudioSession`在combat transport啟用後建立真正的零PCM循環stream，靜音／恢復及聲音自然結束不重建，關窗shutdown釋放。既有遊戲事件靜音仍立即Gain(0)並取消，不在解除靜音時重播舊事件。零PCM不算事件音效。 | fake lifetime確認未啟用前不開裝置、四次切換只Start一次／shutdown一次；實際Windows own-session 60筆（有聲設定、靜音、恢復各20）全部存在且峰值0，instance ID完全一致。新增stream僅本程序；不調系統或別的程序音量。 |
-| 三方向 | 八鍵映射、焦點保護與碰撞閘門不變。`OnlineInput`把拒絕結果送到HUD，地形阻擋後清除held輸入，避免每tick無聲重試；再次按鍵可重試。忙碌／不可移動也顯示既有具體原因。 | 八鍵逐一通過InputState、表單／非表單焦點、實際地形可走／不可走、記憶體sender核對C29 opcode及heading，共48項；沒有繞過碰撞或往伺服器送測試封包。歷史三鍵的唯一根因仍未確定，沒有「已證實非產品缺陷」的裁定。 |
+| 三方向 | 八鍵映射、焦點保護與碰撞閘門不變。`OnlineInput`把拒絕結果送到HUD，地形阻擋後清除held輸入，避免每tick無聲重試；再次按鍵可重試。攻擊忙碌／角色不可移動也顯示既有具體原因；步行動畫與移動冷卻期間仍等候既有閘門。 | 八鍵逐一通過InputState、表單／非表單焦點、實際地形可走／不可走、記憶體sender核對C29 opcode及heading，共48項；沒有繞過碰撞或往伺服器送測試封包。歷史三鍵的唯一根因仍未確定，沒有「已證實非產品缺陷」的裁定。 |
 
 全部建置0警告／0錯誤。最終dev `--update-lock`、`--build --write-receipt`、`--verify`皆exit0，171來源／180 pins；`engine\啟動新版客戶端.cmd --check-only`為revision=dev，uiStarted/networkStarted/servicesStarted=false。素材拒收檢查通過。
 
@@ -63,4 +63,9 @@
 
 ## GitHub交付
 
-分支task/123；CI與PR連結於建立後記錄。審查者Claude，真機下一棒dot；使用者僅需原本的合併／驗收流程。
+- 分支 `task/123`，產品修正提交 `cb32b4c12e81b5679e84bf9e65393f8ed58810dd`，已push。
+- [PR #124](https://github.com/chaoren0418-arch/tw-bin-engine/pull/124) 已建立，未合併、未關閉Issue。
+- 產品修正提交的 [CI run 42184918842](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42184918842) 已確認 completed／success；Ubuntu交叉建置不等於原生遊戲驗收。本節補件只改文件，不改上述已驗證產品來源。
+- 納入本張新檔後再跑素材拒收檢查：3,082追蹤檔、0錯誤、4個EmbeddedResource宣告。
+- 主專案仍是 `task/77`、追蹤檔乾淨；本工作樹僅有未提交的自生 `engine/_integration/dev/receipt.json`，刻意不stage。
+- 審查者Claude，真機下一棒dot；使用者僅需原本的合併／驗收流程。
