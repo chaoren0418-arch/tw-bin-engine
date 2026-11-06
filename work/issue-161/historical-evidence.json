@@ -1,0 +1,270 @@
+{
+  "scope": "唯讀既有 #151 證據與來源／套件比對",
+  "log": {
+    "path": "engine\\runs\\interactive-18948\\web-events.json",
+    "sha256": "8ae67d56c9802b97e1071c20e58968ee18d0190a7d67b24dc8e3365da73132db",
+    "modifiedUtc": "2026-11-06T17:48:51.412338+00:00"
+  },
+  "screenshots": [
+    {
+      "path": "docs\\demo\\demo151-f9.png",
+      "sha256": "a8e2e1443efa2f8ba26e13eb4bc18f9900babf0b8271a7e51fd293c4767a3b98",
+      "modifiedUtc": "2026-11-06T17:13:25.289682+00:00"
+    },
+    {
+      "path": "docs\\demo\\demo151-f9-final.png",
+      "sha256": "8e11ed4393855220925e5034ec3b36566d0ff3f33dda3abe14d61da9ef6e4c95",
+      "modifiedUtc": "2026-11-06T17:30:17.771636+00:00"
+    }
+  ],
+  "events": [
+    {
+      "kind": "initialization-start",
+      "data": {
+        "epoch": 1,
+        "udf": "D:\\lineage開發\\TW1608262200研究\\engine\\runtime\\session-18948",
+        "runtime": null,
+        "fault": null
+      },
+      "utc": "2026-11-06T17:13:21.8138097+00:00",
+      "monotonic": 2766757616,
+      "pid": 18948
+    },
+    {
+      "kind": "browser-created",
+      "data": {
+        "epoch": 1,
+        "browserPid": 22996,
+        "version": "156.0.4314.58",
+        "udf": "D:\\lineage開發\\TW1608262200研究\\engine\\runtime\\session-18948"
+      },
+      "utc": "2026-11-06T17:13:22.8592339+00:00",
+      "monotonic": 2777211858,
+      "pid": 18948
+    },
+    {
+      "kind": "navigation-start",
+      "data": {
+        "Uri": "https://p08.example/index.html"
+      },
+      "utc": "2026-11-06T17:13:22.8767525+00:00",
+      "monotonic": 2777387048,
+      "pid": 18948
+    },
+    {
+      "kind": "bridge-command",
+      "utc": "2026-11-06T17:13:26.2573583+00:00",
+      "data": {
+        "cmd": "ready"
+      }
+    },
+    {
+      "kind": "navigation-completed",
+      "data": {
+        "IsSuccess": true,
+        "status": 200,
+        "error": "Unknown"
+      },
+      "utc": "2026-11-06T17:13:26.4127452+00:00",
+      "monotonic": 2812746976,
+      "pid": 18948
+    },
+    {
+      "kind": "resource-blocked",
+      "data": {
+        "Uri": "https://p08.example/favicon.ico"
+      },
+      "utc": "2026-11-06T17:13:26.4152377+00:00",
+      "monotonic": 2812771898,
+      "pid": 18948
+    },
+    {
+      "kind": "close-request",
+      "data": {
+        "initializing": false,
+        "epoch": 1,
+        "formClosing": false
+      },
+      "utc": "2026-11-06T17:13:50.9312495+00:00",
+      "monotonic": 3057932011,
+      "pid": 18948
+    },
+    {
+      "kind": "panel-disposed",
+      "data": {
+        "held": 0
+      },
+      "utc": "2026-11-06T17:13:50.9718423+00:00",
+      "monotonic": 3058337936,
+      "pid": 18948
+    },
+    {
+      "kind": "initialization-start",
+      "data": {
+        "epoch": 3,
+        "udf": "D:\\lineage開發\\TW1608262200研究\\engine\\runtime\\session-18948",
+        "runtime": null,
+        "fault": null
+      },
+      "utc": "2026-11-06T17:30:02.9186643+00:00",
+      "monotonic": 12777806158,
+      "pid": 18948
+    },
+    {
+      "kind": "browser-created",
+      "data": {
+        "epoch": 3,
+        "browserPid": 12056,
+        "version": "156.0.4314.58",
+        "udf": "D:\\lineage開發\\TW1608262200研究\\engine\\runtime\\session-18948"
+      },
+      "utc": "2026-11-06T17:30:03.2149188+00:00",
+      "monotonic": 12780768704,
+      "pid": 18948
+    },
+    {
+      "kind": "navigation-start",
+      "data": {
+        "Uri": "https://p08.example/index.html"
+      },
+      "utc": "2026-11-06T17:30:03.2205168+00:00",
+      "monotonic": 12780824683,
+      "pid": 18948
+    },
+    {
+      "kind": "bridge-command",
+      "utc": "2026-11-06T17:30:03.4905366+00:00",
+      "data": {
+        "cmd": "ready"
+      }
+    },
+    {
+      "kind": "navigation-completed",
+      "data": {
+        "IsSuccess": true,
+        "status": 200,
+        "error": "Unknown"
+      },
+      "utc": "2026-11-06T17:30:03.5028879+00:00",
+      "monotonic": 12783648397,
+      "pid": 18948
+    },
+    {
+      "kind": "resource-blocked",
+      "data": {
+        "Uri": "https://p08.example/favicon.ico"
+      },
+      "utc": "2026-11-06T17:30:03.6042028+00:00",
+      "monotonic": 12784661545,
+      "pid": 18948
+    },
+    {
+      "kind": "close-request",
+      "data": {
+        "initializing": false,
+        "epoch": 3,
+        "formClosing": false
+      },
+      "utc": "2026-11-06T17:30:36.3283569+00:00",
+      "monotonic": 13111903083,
+      "pid": 18948
+    },
+    {
+      "kind": "panel-disposed",
+      "data": {
+        "held": 0
+      },
+      "utc": "2026-11-06T17:30:36.3405042+00:00",
+      "monotonic": 13112024557,
+      "pid": 18948
+    },
+    {
+      "kind": "close-request",
+      "data": {
+        "initializing": false,
+        "epoch": 4,
+        "formClosing": true
+      },
+      "utc": "2026-11-06T17:48:51.2420491+00:00",
+      "monotonic": 24061040005,
+      "pid": 18948
+    },
+    {
+      "kind": "panel-disposed",
+      "data": {
+        "held": 0
+      },
+      "utc": "2026-11-06T17:48:51.2420833+00:00",
+      "monotonic": 24061040345,
+      "pid": 18948
+    }
+  ],
+  "package": {
+    "path": "engine\\vendor\\microsoft.web.webview2.1.0.4258.31.nupkg",
+    "sha256": "56f7f4b8bf9aee4b8efefbbdd4f67d5f74ebd1b100ed0806da71bf76af481aa9",
+    "modifiedUtc": "2026-11-06T16:36:41.435787+00:00"
+  },
+  "packageX64LoaderSha256": "3426dcc55fdfb8b5e7ac623cf33b4ccf283fbf68a0c5a65bddfdb4d749a8abee",
+  "comparison": [
+    {
+      "path": "engine/source/WebPanel.cs",
+      "originalSha256": "ec93c8db571965781a6a1ce27bcf84bee346f36e948bc439fad5f1a08a3df1f7",
+      "worktreeSha256": "ec93c8db571965781a6a1ce27bcf84bee346f36e948bc439fad5f1a08a3df1f7"
+    },
+    {
+      "path": "engine/source/WebLocalResource.cs",
+      "originalSha256": "26ce00c976d7a7b9337608cd6e0d825724b0c25c0317c0c166417fcb46942a76",
+      "worktreeSha256": "26ce00c976d7a7b9337608cd6e0d825724b0c25c0317c0c166417fcb46942a76"
+    },
+    {
+      "path": "engine/build/client-product-dev/P11.ClientEngine.dll",
+      "originalSha256": "7fa85547ec50caf0049d503db114da5f519b235c8173ea45cfda26788946fe08",
+      "worktreeSha256": "7fa85547ec50caf0049d503db114da5f519b235c8173ea45cfda26788946fe08"
+    },
+    {
+      "path": "engine/build/client-product-dev/runtimes/win-x64/native/WebView2Loader.dll",
+      "originalSha256": "3426dcc55fdfb8b5e7ac623cf33b4ccf283fbf68a0c5a65bddfdb4d749a8abee",
+      "worktreeSha256": "3426dcc55fdfb8b5e7ac623cf33b4ccf283fbf68a0c5a65bddfdb4d749a8abee"
+    },
+    {
+      "path": "engine/web/bonus-stats.js",
+      "originalSha256": "eaaddd0f2c2524f931c11518f24d9bb3da14b3658c2d70aad4fd5da5c801c0f0",
+      "worktreeSha256": "eaaddd0f2c2524f931c11518f24d9bb3da14b3658c2d70aad4fd5da5c801c0f0"
+    },
+    {
+      "path": "engine/web/index.html",
+      "originalSha256": "27795cafd5b135781629df09c083ad290e8ce4527f4a51d498e367d5d3204b38",
+      "worktreeSha256": "27795cafd5b135781629df09c083ad290e8ce4527f4a51d498e367d5d3204b38"
+    },
+    {
+      "path": "engine/web/interaction.js",
+      "originalSha256": "b007e3ce0a2a4f2ef13dcf72db66adc26640379ad4eebedb357dc8e026132aae",
+      "worktreeSha256": "b007e3ce0a2a4f2ef13dcf72db66adc26640379ad4eebedb357dc8e026132aae"
+    },
+    {
+      "path": "engine/web/login.js",
+      "originalSha256": "482384344ac719449c81c8e7c2212370dfd422dda52f8d4dbff8c9b3405c5a51",
+      "worktreeSha256": "482384344ac719449c81c8e7c2212370dfd422dda52f8d4dbff8c9b3405c5a51"
+    },
+    {
+      "path": "engine/web/panel.css",
+      "originalSha256": "66310ea6a1cdeda68bf1a817c24127830a0baacff0cbef88a7ed6dfd4f0b4a91",
+      "worktreeSha256": "66310ea6a1cdeda68bf1a817c24127830a0baacff0cbef88a7ed6dfd4f0b4a91"
+    },
+    {
+      "path": "engine/web/panel.js",
+      "originalSha256": "51d08072ed38e014cf37458a8a3ee4921e8e0a201029db9bca4c5212baff108b",
+      "worktreeSha256": "51d08072ed38e014cf37458a8a3ee4921e8e0a201029db9bca4c5212baff108b"
+    },
+    {
+      "path": "engine/web/private-shop.js",
+      "originalSha256": "f9afcb14c0c1f3ef5a69556203d25348035a6fcb888084e59a50da1f53a140a4",
+      "worktreeSha256": "f9afcb14c0c1f3ef5a69556203d25348035a6fcb888084e59a50da1f53a140a4"
+    },
+    {
+      "path": "engine/web/trade.js",
+      "originalSha256": "5b677e40462c5ec933fc5fa014b94fa70b3b1f2e53bc860cec9f9ba66e4f42f9",
+      "worktreeSha256": "5b677e40462c5ec933fc5fa014b94fa70b3b1f2e53bc860cec9f9ba66e4f42f9"
+    }
+  ]
+}

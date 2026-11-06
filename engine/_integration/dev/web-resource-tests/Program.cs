@@ -5,6 +5,8 @@ using System.Text.Json;
 using System.Security.Cryptography;
 class Checks {
     [STAThread] static int Main(string[] args){
+        if(args.Length>=4&&args[2]=="--product-page")
+            return ProductPageChecks.Run(args[0],args[1],args[3],args.Length>4?ushort.Parse(args[4]):null);
         string root=Path.GetFullPath(args[0]),output=Path.GetFullPath(args[1]);Directory.CreateDirectory(root);
         string stage=Path.Combine(root,"stage");Directory.CreateDirectory(Path.Combine(stage,"assets/inventory"));Directory.CreateDirectory(Path.Combine(stage,"web"));
         using(var png=new Bitmap(2,2)){png.SetPixel(0,0,Color.Red);png.SetPixel(1,1,Color.Blue);png.Save(Path.Combine(stage,"assets/inventory/42.png"),System.Drawing.Imaging.ImageFormat.Png);}
