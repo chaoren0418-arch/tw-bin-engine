@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 173,
+ "sourceCount": 174,
  "files": [
   {
    "path": "NuGet.Config",
@@ -408,6 +408,11 @@
    "path": "source/MapEffects.cs",
    "size": 4465,
    "sha256": "151017e2a085c66427959f9d6164f3cec08a455ea3866fd7e1f411f38261debd"
+  },
+  {
+   "path": "source/MapIdPacket.cs",
+   "size": 925,
+   "sha256": "262192887eef4b295534680709346f71f216f73adee0c335b0dd5d2c23a88ef1"
   },
   {
    "path": "source/MapResources.cs",
@@ -861,8 +866,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9260,
-   "sha256": "0a2ba14de9311915f21eeaaf6ae500dbadc3d9ad8b83e9c77ef18e64ec7a9255"
+   "size": 9097,
+   "sha256": "8fb06feaf8ebb120ef9ea6094f34c812aa238b7198fd98199c3576bb77b8cfa8"
   },
   {
    "path": "source/WorldTests.cs",
