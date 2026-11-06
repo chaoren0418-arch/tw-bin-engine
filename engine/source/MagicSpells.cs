@@ -20,4 +20,6 @@ public static class MagicSpells {
         return new(id,$"原服技能 {id}",0,wire is "DHH" or "DHHS"?18:19,0,0,target,wire);
     }
     public static bool AttachedEffect(int gfx)=>gfx is 11722 or 221 or 2165 or 189 or 191 or 197;
+    public static string? AttachedEffect(ObjectAppearance appearance)=>new[]{"effect","heal","impact","breath"}
+        .FirstOrDefault(action=>appearance.Supports(action,0));
 }
