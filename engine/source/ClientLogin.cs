@@ -16,7 +16,7 @@ public sealed partial class ClientForm {
         if(OnlineMode&&login.World.LoadedMapBounds is {} bounds){World.StreamingBounds=bounds;World.AllowStreaming=true;}
         if(!OnlineMode)World.ResetOfflinePreview();
         if(login.World.Renderable&&login.World.Actor is {} appearanceActor){var selectedAppearance=(objectAssets??=new(World.Assets.Root)).Get(appearanceActor.Gfx,appearanceActor.Weapon);if(!ReferenceEquals(World.OnlineAppearance,selectedAppearance)){ClearInput("appearance-change");World.SetOnlineAppearance(selectedAppearance);}}
-        SyncInventory();SyncGround();SyncRewards();SyncMagic();SyncInteraction();SyncPrivateShop();SyncTrade();SyncBonusStats();SyncNormalPanels();
+        SyncRecovery();SyncInventory();SyncGround();SyncRewards();SyncMagic();SyncInteraction();SyncPrivateShop();SyncTrade();SyncBonusStats();SyncNormalPanels();
         if(OnlineMode&&login.State!=LoginState.InWorld){ClearInput("online-transition");if(World.Walking)World.Stop();}
         if(login.State==LoginState.InWorld&&!login.MovementAvailable)ClearInput("unsupported-movement-state");
         if(lastCorrection!=login.World.Corrections){lastCorrection=login.World.Corrections;ClearInput("server-correction");if(login.World.Renderable&&login.World.Actor is {} corrected)World.Teleport(corrected.X,corrected.Y);}
