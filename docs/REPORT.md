@@ -65,3 +65,7 @@
 - 2026-11-07 — #161 T090：F9 面板停在「WebView2 初始化中」、內容空白（code，codex-local，PR #168 已合併）→ [報告](reports/issue-161.md)
 - 2026-11-07 — #170 規則檔：寫入「封存 r28／r33 素材還原」的一次性例外（#156 裁定 A）（code，codex-local，PR 已合併）→ [報告](reports/issue-170.md)
 - 2026-11-07 — #157 還原封存：從 r29 逐檔複製回 releases/r28/assets，r33 重建 hardlink（依 #156 裁定 A）（resource，codex-local，PR #159 已合併）→ [報告](reports/issue-157.md)
+- 2026-11-07 — #164 T091＋T092：M4 smoke——GM 準備測試條件，以一般玩家方式重跑 M2 的 ⚠️ 列（test，dot，PR #174 已合併）→ [報告](reports/issue-164.md)
+- 2026-11-07 — #177 主控：M4 結案、建立 M5（近戰與施法修正、測試條件準備、M5 smoke）（plan，claude-chat，PR #178 已合併）→ [報告](reports/issue-177.md)
+- 2026-11-07 — #173 T093：近戰 52 次未擊殺、光箭有 C6 無 S30——比對伺服器攻擊處理器，修正並加入可判讀的追蹤（code，codex-local，PR #179 已合併）→ [報告](reports/issue-173.md)
+- 2026-11-07 — #181 規則檔：codex-local 的 P24Lab 測試準備寫入例外（#175 使用者裁定 A）；engine/assets 指向改為 r29（code，codex-local，PR 已合併）→ [報告](reports/issue-181.md)
