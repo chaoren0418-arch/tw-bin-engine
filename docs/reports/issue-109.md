@@ -260,6 +260,23 @@ REFUSED: Unexpected/linked resource: P11.ClientEngine.dll/Unexpected.Resource
 
 初次探針揭露 `InvalidDataException` 未捕捉，已補處理並重驗正常／拒收兩路徑；探針及 probe build 只在 scratch，沒有提交。
 
+### 遠端 CI 實際結果
+
+Draft PR：[#116](https://github.com/chaoren0418-arch/tw-bin-engine/pull/116)。已驗證的產品來源提交 `b1cee285604ab4bb5938619f0c36533f4c0931ed`。
+
+[Actions run 42152699076](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42152699076)，job `127679446718`，2026-11-06 02:49 UTC：**failure**，失敗步驟 `Reject tracked game assets`。實際 log：
+
+```text
+REFUSED: work/P31-pickup-composite-review-r1/cases.json: pixels array
+REFUSED: work/engine-pickup-presentation-candidate-review-r1/execution-rows.json: pixels array
+{"status": "blocked", "trackedFiles": 3050, "errors": 2, "embeddedResourceDeclarations": 4}
+Process completed with exit code 1.
+```
+
+`Report local resource checks` 步驟成功執行；icons／host／client／audio-settings 四列均 `status: skipped`、`reason: Local assets unavailable`、`testsExecuted: false`。後續 build／組件／packet-trace 步驟因前置閘門失敗被跳過，沒有宣稱遠端建置通過。
+
+工作期間 main 前進至 `0b963fcccb54cccc764d0f0b6a0f35f76c411866`，僅規則／文件變更（#102、#107）；已唯讀核對新版 AGENTS.md。CI 合併測試樹因此多兩份報告，追蹤檔為 3050，本機提交樹為 3048；兩者均只有上述兩個拒收項。
+
 ## 未驗證什麼
 
 - **CI 尚非綠燈**：本機嚴格掃描已證實兩個既有 JSON 阻塞。不得跳過閘門或新增未授權 JSON 例外以取得綠燈。
