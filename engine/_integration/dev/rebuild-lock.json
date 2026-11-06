@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 173,
+ "sourceCount": 174,
  "files": [
   {
    "path": "NuGet.Config",
@@ -346,8 +346,8 @@
   },
   {
    "path": "source/Magic.cs",
-   "size": 11938,
-   "sha256": "e5317e1747f238a42b40a8b02a9ea4d422fbd5b6b136f206c0a7f4171e171d1b"
+   "size": 11776,
+   "sha256": "9b68462c03aef5377a78e1c56a083b674d7f80073c75f3e625178b41aeb9f14f"
   },
   {
    "path": "source/MagicIntegration.cs",
@@ -371,8 +371,8 @@
   },
   {
    "path": "source/MagicSpells.cs",
-   "size": 1307,
-   "sha256": "2422dad72693b0777e1aec0d777ede78ca50e1c86d8356cede56d248b0f5f23c"
+   "size": 1838,
+   "sha256": "a4d9c4e71f13dd18e30925d270d4c4837deb2db4695579e06436acd153d3c301"
   },
   {
    "path": "source/MagicStatus.cs",
@@ -783,6 +783,11 @@
    "path": "source/ShipTravel.cs",
    "size": 9639,
    "sha256": "3af9ee407a1d1c43f4da11c6ab3e1e9832ea387a84519bcbcaac0e9b7f39d1c6"
+  },
+  {
+   "path": "source/SkillCast.cs",
+   "size": 5725,
+   "sha256": "46c38d4dbdb7c2d4e96ee67abcf7d38ce449a4c681e1fd5f9610fb11fce50676"
   },
   {
    "path": "source/SoundPackets.cs",
