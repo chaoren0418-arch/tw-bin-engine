@@ -37,7 +37,7 @@ for name,folder,project,assembly in [('host','tests','HostChecks.csproj','HostCh
  dest=output/'helpers'/name
  run(name+'-build',['dotnet','build',str(check/folder/project),*options,'-p:ProductDll='+str(dll),'-o',str(dest)])
  assert sha(dest/'P11.ClientEngine.dll')==identity
- extra=[str(OUT/'assets')] if name=='host' else []
+ extra=['--assets-root',str(OUT/'assets')]
  run(name+'-checks',['dotnet',str(dest/assembly),str(check),*extra])
 run('web-checks',['node',str(check/'audio-tests/web-checks.cjs'),str(check)])
 for name,cases,checks in [('host-result.json',18,56),('client-regression-result.json',4,21),('audio-settings-result.json',7,39)]:

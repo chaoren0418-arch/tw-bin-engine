@@ -18,6 +18,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Reject tracked game assets
+        run: python -B -X utf8 engine/tools/check-no-game-assets.py
       - name: Restore
         working-directory: engine
         run: dotnet restore source/OfflineClient.csproj --configfile ../.github/nuget.ci.config -p:EnableWindowsTargeting=true -r win-x64 -p:SelfContained=false
@@ -26,6 +28,14 @@ jobs:
         run: dotnet build source/OfflineClient.csproj -c Release --no-restore -warnaserror:false -p:EnableWindowsTargeting=true -r win-x64 -p:SelfContained=false
       - name: dev canonical build + receipt
         run: python -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output engine/_integration/evidence/ci-dev
+      - name: Check compiled EmbeddedResource names (metadata only)
+        working-directory: engine
+        run: |
+          dotnet restore tools/ResourceChecks/ResourceChecks.csproj --configfile ../.github/nuget.ci.config
+          dotnet run --project tools/ResourceChecks/ResourceChecks.csproj -c Release --no-restore -- build/client-product-dev
+      - name: Report local resource checks
+        if: always()
+        run: python -B -X utf8 engine/tools/check-local-resources.py --assets-root engine/assets
       - name: Restore packet trace checks (native Linux target)
         working-directory: engine
         run: dotnet restore _integration/dev/packet-trace-tests/PacketTraceChecks.csproj --configfile ../.github/nuget.ci.config

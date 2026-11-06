@@ -140,3 +140,16 @@ python -B -X utf8 engine/_integration/dev/rebuild.py --verify
 - 歷史真機問題及可購買肉的限制沿用上文，沒有新增真機結論。
 - dot第2c輪追加：選一堆普通肉，在原生地面頁輸入0並按拾取，確認本機錯誤且0筆C112；**不要重新點物品**，直接改成1再按拾取，應有1筆C112。另以超額數量重做，並核對伺服器地面／背包回包；若測試期間物品被清除或數量改變，舊選取被拒絕是預期保護，須重新選取後再測。
 - 交Claude重新審查既有PR #118；CI結果以該PR新提交的檢查與回覆為準，再由使用者合併、dot補測。
+
+
+## 第 3 次嘗試：合併 main（#116）後重驗
+
+- **已驗證：**在既有隔離工作樹，以 merge 整合 `origin/main@310ec9c98cedad58fd0311f69058ae7916c05489`（含 PR #116）；無衝突、無 rebase／force push，原有產品修正及測試來源 SHA-256 不變。`docs/REPORT.md`、#109 素材刪除與 CI 腳本僅接收 main 原樣，沒有另行編輯。
+- 重新執行 `--update-lock`，結果為 **169 個來源／178 個 pins**，與自動合併的 lock 一致，未手動拼接 hash。`--build --write-receipt`、`--verify` 全部 PASS；`--check-only` 為 `revision: dev`，UI／網路／服務皆未啟動。
+- 全套重新建置及執行：Demo **109**、demo web **16**、Ground **361**、ground web **72**、CombatSfx **8,780**、PacketTrace **36**，共 **9,374 項**通過。`python -B -X utf8 engine/tools/check-no-game-assets.py` 通過：3,062 個追蹤檔、0 錯誤、4 個核准 EmbeddedResource 宣告。
+- 原始命令與 stdout／stderr、check-only JSON、最新產物 SHA 均更新於同一份 `work/issue-115/validation.json`；相關結果覆寫同目錄既有檔案。前文產物 SHA 屬第 2 次結果，本輪最新身分如下：
+  - `engine/build/client-product-dev/P11.ClientEngine.dll`：`37cd8201f6ad631f70915a8314d19d0ec4ca0cb28dbd524169937d5d23930174`。
+  - `engine/build/product-dev-manifest.json`：`44164613584da833a0e53e721ce3a1957315701b94616a6d43067afc46d78a3a`。
+  - `engine/_integration/dev/rebuild-lock.json`：`b56b2299bb87b940145121b91b3e851c7ac6daa34184240251e23a0922ce2277`。
+- **推測／待真機驗證：**沒有新增真機結論；JAR 證據未變，本輪未重讀 JAR。普通肉供應、即時白名單與第 2c 輪仍待 dot。
+- **給下一棒：**確認 PR #118 新 HEAD 的 CI 綠燈後交 Claude 重審、使用者合併，再由 dot 依上文執行第 2c 輪；本輪沒有啟動遊戲、P24Lab、MySQL 或伺服器，沒有操作主目錄 checkout／建置。CI 連結與最終提交身分另附於 PR／Issue 本輪回覆。
