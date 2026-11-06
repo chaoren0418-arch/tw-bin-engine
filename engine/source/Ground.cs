@@ -1,11 +1,14 @@
 using System.Buffers.Binary;
 namespace P06;
-// S87 has no item template/type discriminator. Only catalog envelopes with template and sprite evidence are supported.
+// S87 has no item template/type discriminator. This is the server S_NPCPack_Item
+// envelope policy, not a claim about the protected native client's classifier.
 public sealed record GroundItem(uint ObjectId,ushort X,ushort Y,ushort Gfx,uint Count,string Name,WorldObject Envelope);
 public static class GroundRules {
     public static byte PickupHeading(ushort x,ushort y,ushort tx,ushort ty,byte old){float dx=Math.Abs(x-tx),dy=Math.Abs(y-ty),distance=Math.Max(dx,dy);if(distance==0)return old;int ax=(int)Math.Floor(dx/distance+0.59f),ay=(int)Math.Floor(dy/distance+0.59f);int sx=ax==0?0:Math.Sign(tx-x),sy=ay==0?0:Math.Sign(ty-y);return (byte)Enumerable.Range(0,8).Single(i=>MovementRules.Dx[i]==sx&&MovementRules.Dy[i]==sy);}
     public static bool Droppable(InventoryItem i)=>GroundCatalog.CanDrop(i);
-    public static bool IsGround(WorldObject o){var row=GroundCatalog.Find(o.Gfx);return row!=null&&o.ObjectId!=0&&o.Action==0&&o.Direction==0&&o.Light==0&&o.Speed==0&&o.WireExp<=2000000000&&(row.Stackable||o.WireExp<=1)&&o.Lawful==0&&o.Name==row.CountName(o.WireExp)&&o.Title==""&&o.Flags==0&&o.ClanId==0&&o.Clan==""&&o.Owner==""&&o.Rank==0&&o.HpByte==255&&o.Brave==0&&o.Level==0&&o.Unknown==0&&o.Tail1==255&&o.Tail2==255;}
+    // Light and name are variable (lit items, charges, unidentified wands, capped counts).
+    // Neither the inventory catalog nor availability of local artwork governs pickup.
+    public static bool IsGround(WorldObject o)=>o.ObjectId!=0&&o.Action==0&&o.Direction==0&&o.Speed==0&&o.WireExp<=2000000000&&o.Lawful==0&&o.Title==""&&o.Flags==0&&o.ClanId==0&&o.Clan==""&&o.Owner==""&&o.Rank==0&&o.HpByte==255&&o.Brave==0&&o.Level==0&&o.Unknown==0&&o.Tail1==255&&o.Tail2==255;
     public static byte[] Request(byte opcode,ushort x,ushort y,uint id,uint count){
         if(opcode is not (25 or 112)||id==0||count==0||count>int.MaxValue)throw new ArgumentOutOfRangeException(nameof(count));
         byte[] b=new byte[16];b[0]=opcode;BinaryPrimitives.WriteUInt16LittleEndian(b.AsSpan(1),x);BinaryPrimitives.WriteUInt16LittleEndian(b.AsSpan(3),y);BinaryPrimitives.WriteUInt32LittleEndian(b.AsSpan(5),id);BinaryPrimitives.WriteUInt32LittleEndian(b.AsSpan(9),count);return b;
