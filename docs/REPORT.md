@@ -69,3 +69,4 @@
 - 2026-11-07 — #177 主控：M4 結案、建立 M5（近戰與施法修正、測試條件準備、M5 smoke）（plan，claude-chat，PR #178 已合併）→ [報告](reports/issue-177.md)
 - 2026-11-07 — #173 T093：近戰 52 次未擊殺、光箭有 C6 無 S30——比對伺服器攻擊處理器，修正並加入可判讀的追蹤（code，codex-local，PR #179 已合併）→ [報告](reports/issue-173.md)
 - 2026-11-07 — #181 規則檔：codex-local 的 P24Lab 測試準備寫入例外（#175 使用者裁定 A）；engine/assets 指向改為 r29（code，codex-local，PR 已合併）→ [報告](reports/issue-181.md)
+- 2026-11-07 — #175 M5 smoke 測試條件準備：P24Lab 測試角色暫設 GM、第二角色、弓箭／肉／藥水（先備份）（resource，dot，PR #185 已合併）→ [報告](reports/issue-175.md)
