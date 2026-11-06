@@ -346,3 +346,75 @@ Java PID14908 於 `2026-11-05T21:35:23.4065807Z` 經 PID／路徑／啟動時間
 ### 給下一棒的提示
 
 請主控先取得使用者對 **#77 第 2b 輪由 dot 操作 P24Lab 測試角色進行原生啟動、登入與驗收** 的直接授權，明確處理 AGENTS.md 的使用者限定條款，再續作未驗項目；聊天仍需要獨立且直接的新授權。不要重跑第 1／2a 輪，不需重建產品。不能將本輪前置核驗、服務啟停或文件交付標成 DEMO-3／M1 通過。
+
+
+## 第 2b 輪：新直接授權後續測（2026-11-06）
+
+**結論：部分通過，DEMO-3／M1 T062 未完成。** 本節取代前節「未啟動／聊天 blocked」作為目前狀態；保留前節是為了記錄先前拒絕，不是本次又遭拒絕。新授權後已登入、操作並取證，沒有新的自動安全審查拒絕。
+
+### 授權、去重與環境
+
+- 已透過使用者訊息歷史核對 2026-11-06 02:09:01 UTC 本人對 P24Lab 原生啟動、登入、操作、截圖、音量與測試聊天的直接授權；未修改權限或專案規則。先前確定未執行的啟動在新證據下重試一次成功。
+- 啟動前核對最新 Issue／RESULT、既有 task/77、scratch、對話與程序，沒有另一份新授權續測結果或執行中的 #77。收尾再查 28 則留言，最新派工為 [6675144919](https://github.com/chaoren0418-arch/tw-bin-engine/issues/77#issuecomment-6675144919)，無新授權後同輪 RESULT，故只交付一次。本輪不重做第 1／2a 輪。
+- 起始 `task/77@50d09756722961827411d2cca5d7900a1cf75f3b`；`0b747de4e230c72906c830be821de322894acbf2` 祖先檢查退出 0，`--check-only` 為 `revision: dev`，退出 0。
+- DLL SHA-256：`44eb5843f25833f2da1cdf7081eabeb7b8cd6e27562423e2d06b150ac787d477`；manifest：`2963b5224dbe9f3b95966778839e3f572767e8bd8a326632fdae0a2b751e9cc3`。收尾 DLL hash 仍相同；沒有 fetch、重建、改產品或 lock。
+- 核實 D:\BinEngine junction 與既有搬遷紀錄；MySQL UUID `e3443e40-d090-11f1-8040-4cedfb679789`、port `43324`、datadir `D:\BinEngine\environments\p24\db-data\` 全符。冷備份 `environments/p24/backups/issue-77-resumed2b-before-demo/db-data` 的 893 檔逐一 SHA 相符。只對指定測試角色做必要唯讀查詢；未修改 DB／配置、讀取機密設定內容或輸出帳密。
+- 本輪客戶端 PID20908（10:14:02 +08 啟動）、Java PID18784、mysqld 父／子 PID19284／19696。每次輸入均由既有 native-ui 核對 PID、路徑、標題及前景；未用 CUA。一次前景不符被工具 guard 擋住、未輸入，後續前景核對恢復才繼續，未繞過 guard。
+- 啟動前已設 `TW_PACKET_TRACE`；本機 trace 為 `scratch/packet-trace/demo3-01.jsonl`。不提交完整 trace、帳密、DB、私有設定或遊戲資源。
+
+### 實際結果
+
+| 項目 | 結果與證據 | 尚缺條件／追蹤 |
+|---|---|---|
+| 進世界 | ⚠️ [新畫面](../demo/demo3-03-world.png)顯示地圖、測試角色及 HUD；初始 DB map0、32562/32956、HP686/686、MP117/117 | 未命名物件仍有占位；沒有玩家 UI 精確座標與 DB 的獨立核對，不能以物件座標冒充玩家座標。T062／T073 |
+| 卸裝裝回 | ✅ 等權威更新後分別截[未裝備](../demo/demo3-09-unequipped.png)與[已裝備](../demo/demo3-09-equipped.png)，登出後匕首 is_equipped=1 | 此列通過 |
+| 聊天 | ✅ 只送一次指定字串，取得[「服務驗證: Issue77 r35 測試」回顯](../demo/demo3-12-chat.png) | 此列通過；先前授權阻塞解除 |
+| 金幣 | ❌ 本服規則不可丟 → **B14**；沿用本報告第 1 輪 JAR 證據，本次不重送 | 不改 DB／配置繞過 |
+| 藥水丟 1／10 | ❌ [前41](../demo/demo3-10-potion-before.png)→[丟1被拒](../demo/demo3-10-potion-drop1.png)→[丟10被拒](../demo/demo3-10-potion-drop10.png)，均「你不能夠放棄此樣物品。」、背包41 | 兩次都有 C25，證實拒絕後可再次送出；無地面物品／拾取，不等於完整循環。T062（B14 替代驗收） |
+| 數量 0／超額42 | ⚠️ [0](../demo/demo3-10-zero.png)、[42](../demo/demo3-10-over.png)未增加 C25，背包仍41 | 截圖仍是舊125訊息，沒有清楚的獨立數量錯誤文案；不宣稱訊息驗收通過。T062 |
+| 肉替代 | ❌ 丟1後背包肉消失，[地上有肉](../demo/demo3-10-meat-ground.png)；切地面頁時已[原服移除、清單空](../demo/demo3-10-meat-ground-list.png)，未送拾取 | **肉由1→0，未撿回**；未吃肉、Food仍60，未補物品或改DB。消失原因 uncertain，不能斷言清理或怪物拾取。只有1塊，未做10循環。T062 |
+| 八方向 | ⚠️ 八方向各2鍵，共16筆 C29，逐鍵各1筆；[新截圖](../demo/demo3-04-eight-directions.png) | 玩家精確終點沒有獨立證據，不能只憑16筆宣告全列通過。T062／T073 |
+| 點地 | ⚠️ 點3–5格外，動作窗至下一步前5筆 C29；[停下畫面](../demo/demo3-05-click-arrived.png) | 線上 DB 座標尚未保存；之後選怪未命中又造成移動，最終登出座標不能獨立驗證此步。T062／T073 |
+| 近戰 | ⚠️ 兩次重新選取附近移動牛並按G；[第一次結果](../demo/demo3-06-attack1.png) | 0筆 C229／C123，沒有有效近戰、減血、死亡；EXP未增。未持續盲打至30次。T062／T072 |
+| 技能4光箭 | ⚠️ [技能清單](../demo/demo3-07-skills.png)可見；選技能後仍未建立有效敵方目標 | 未施放，沒有 MP 減少或效果證據。T062 |
+| 非滿血治癒／藥水 | ⚠️ 未執行；角色始終HP686/686，藥水41 | 未取得弱怪傷害，不以滿血施放冒充回血驗收。T062 |
+| 攻擊／施法各三階段音量 | ⚠️ 未執行，沒有本輪峰值 | 缺有效攻擊／光箭事件，不能用背景聲或舊輪量值代替。T062；B07 是既有語義來源限制，不免除本列 |
+
+藥水 C25 時間為 02:24:28.442Z（1）、02:25:07.401Z（10）；肉 C25 為 02:27:32.787Z（1）。八方向輸入從 02:29:52.981Z 開始，依序上、下、左、右、Home、PgDn、PgUp、End 各兩次，16個動作窗各有1筆C29。trace 僅記錄時間／方向／opcode／長度／序號，不含解密 payload，不能由它倒推出精確座標、目標或傷害。
+
+### 保存差異、執行限制與清理
+
+登出後唯讀核對：位置由 map0 32562/32956 → map0 32570/32956；HP686、MP117、EXP412855581、Str22、BonusStatus4、Food60 均未變。藥水41、金幣33400，匕首已裝備；肉1→0。其他正常服務物品變動不作為本案驗收證據。沒有刷怪、加點、吃肉、改NPC、補DB或使用主要角色。
+
+收尾發現主目錄已為 `task/102@a084ea262547e792cb3c9ccf0b28f61c9cd8410b`。reflog 顯示本輪切回 task/77 後，10:12:03 +08 又被切到 task/102，10:26:55 有另一任務提交。故不能宣稱整段測試工作目錄一直是 task/77。產品 DLL 前後相同，但未對全部 runtime 檔做持續監控；此限制必須保留。發現後不追加遊戲操作，正常收尾，未切回或重設他人主目錄。文件在新隔離 worktree `scratch/wt/task-77-resumed2b` 的既有 task/77 上提交，不重建遊戲、不另起重複驗收。
+
+本輪客戶端先按登出，再 CloseMainWindow 回報 requested=true、exited=true；Java 核對擁有權與獨立 console 後正常退出（02:40:30.327Z）；MySQL 再核對三項身分後 SHUTDOWN 退出0。**02:40:45.367Z 確認 42061／43324 無 LISTENING**；後續查 PID20908／18784／19284／19696 全不存在。不碰正式2000／3306、其他遊戲、另案3307或 task/83。
+
+本機證據留在 `scratch/issue-77/resumed2b/`：backup、mysql-identity、client/server-start、03-before／10-after／99-after-logout 指定角色快照、04-inputs／summary、05-inputs、06-attempt1/2、09-off/on-ui、10-*、12-chat-ui、server-close、mysql-close。這些不是公開附件；公開只含整理後報告與以下15張真實PNG。所有圖逐張檢視、未合成／補繪，無帳密或無關桌面；每張小於2 MB。較早37張DEMO-2圖未改。
+
+### 給下一棒的提示
+
+1. 主控先處理共享主目錄的 runner 互斥，續測前再次確認產品與工作目錄身分，避免再次切分支競爭；不要重跑第1／2a輪。
+2. T062仍缺替代物品完整丟撿、數量錯誤文案、近戰＋EXP、光箭、非滿血回血、各事件三階段音量及精確座標。肉已不在背包；先判斷合法可用的既有測試物品，不擅自還原備份／補DB／改白名單。
+3. M2對照採本機 `task/102@a084ea2:TASKS.md` 唯讀版本：T070 NPC、T071跨圖、T072戰鬥閉環、T073原生畫面／滑鼠／HUD／AOI、T074場景6016音訊；B01–B11保持原定義，金幣是新增既有B14。未把M1缺口硬塞進無關Backlog，亦未修改TASKS.md。
+4. 本次沒有待處理的安全拒絕（denied）；未完成驗收為 pending，肉消失原因及獨立移動終點為 uncertain。不要再以聊天缺授權標 needs:user；也不能以本次部分通過關閉#77或宣稱M1完成。
+
+### 本輪公開截圖校驗
+
+| 檔案 | bytes | SHA-256 |
+|---|---:|---|
+| [demo3-03-world.png](../demo/demo3-03-world.png) | 697372 | `26dd54b70f341f9729cadca606ffb26848e9b1c3d64f04c0f2744f7479f2ad40` |
+| [demo3-04-eight-directions.png](../demo/demo3-04-eight-directions.png) | 697827 | `5af312f8ea7e3be0651dff9e77bb182a542fdb46f2e05c525527a6bd3d19e5d9` |
+| [demo3-05-click-arrived.png](../demo/demo3-05-click-arrived.png) | 699958 | `0897ac4a2beed23bce819dd0a2e36b5cf7e33bf473c94c1e0e9859393ee97a99` |
+| [demo3-06-attack1.png](../demo/demo3-06-attack1.png) | 697199 | `eb96ea7ac14390c9275ef22498c6742402842d611d1492121d9e38bd89097337` |
+| [demo3-07-skills.png](../demo/demo3-07-skills.png) | 433483 | `a97b647695d039d87cf3869b7bd3ce5d599dfa372ea3fb15bfab8c72d6ded670` |
+| [demo3-09-unequipped.png](../demo/demo3-09-unequipped.png) | 441290 | `ee4d9a72528ddfdcf20422df9c02ff0f8ca86152cb917357dfdc4b58c20b80ad` |
+| [demo3-09-equipped.png](../demo/demo3-09-equipped.png) | 442261 | `1cae315e31861dcc9bc4f5c985adde86a18792d7115d210d783009111422d392` |
+| [demo3-10-potion-before.png](../demo/demo3-10-potion-before.png) | 464960 | `d98bdb8d96aa0527c595f92fabe58ab8282a1acfce1cac263e8d4ad27563eec5` |
+| [demo3-10-potion-drop1.png](../demo/demo3-10-potion-drop1.png) | 464329 | `56d069e16870ba0d8ca0c9fa5b051008ff178a1dee6cc86ad022b8962b841624` |
+| [demo3-10-potion-drop10.png](../demo/demo3-10-potion-drop10.png) | 464054 | `8e4ab10842ac479b71b2a4e21e18465372dab75aa64d8f63785976c31457e256` |
+| [demo3-10-zero.png](../demo/demo3-10-zero.png) | 464265 | `e59e7fffcb9bdf35c0d5a9cc3038b15905edb16fec4de10dd90144cee3733345` |
+| [demo3-10-over.png](../demo/demo3-10-over.png) | 464100 | `9c85c49d468e16a5881267c9f134cf137e45fd7af13dacdb27bb15a7adda74e3` |
+| [demo3-10-meat-ground.png](../demo/demo3-10-meat-ground.png) | 451253 | `ec52ef8f05020f20663988c1b5c824a8f45d52fa7cccd464255e1bdee3c90b6d` |
+| [demo3-10-meat-ground-list.png](../demo/demo3-10-meat-ground-list.png) | 443733 | `0eb5353cafce43d48d1e1a7001dcfa0da9944f0181028d336a3790f4a9e840bc` |
+| [demo3-12-chat.png](../demo/demo3-12-chat.png) | 439994 | `67ea1d6b7144c74857f9d0b89d684d94bb4e904058d8e2a99e29c3f76e52ef39` |
