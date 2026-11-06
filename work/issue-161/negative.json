@@ -1,0 +1,95 @@
+{
+  "status": "fail",
+  "scope": "\u7368\u7ACB\u771F\u5BE6 WebView2 \u8F09\u5165 engine/web\uFF0C\u672A\u555F\u52D5\u904A\u6232\u6216\u9023\u63A5\u670D\u52D9",
+  "iconSource": "\u5408\u6210 2x2 PNG",
+  "iconUrl": "https://p08.example/icons/42.png",
+  "iconSha256": "5FCF65A3CA511002C39B8B5595DA4CF8E1462D6E7A40EF980FD959F8E927AFCF",
+  "runtime": "156.0.4314.58",
+  "productDllSha256": "7FA85547EC50CAF0049D503DB114DA5F519B235C8173EA45CFDA26788946FE08",
+  "sources": [
+    {
+      "name": "bonus-stats.js",
+      "sha256": "EAADDD0F2C2524F931C11518F24D9BB3DA14B3658C2D70AAD4FD5DA5C801C0F0"
+    },
+    {
+      "name": "index.html",
+      "sha256": "27795CAFD5B135781629DF09C083AD290E8CE4527F4A51D498E367D5D3204B38"
+    },
+    {
+      "name": "interaction.js",
+      "sha256": "B007E3CE0A2A4F2EF13DCF72DB66ADC26640379AD4EEBEDB357DC8E026132AAE"
+    },
+    {
+      "name": "login.js",
+      "sha256": "482384344AC719449C81C8E7C2212370DFD422DDA52F8D4DBFF8C9B3405C5A51"
+    },
+    {
+      "name": "panel.css",
+      "sha256": "66310EA6A1CDEDA68BF1A817C24127830A0BAACFF0CBEF88A7ED6DFD4F0B4A91"
+    },
+    {
+      "name": "panel.js",
+      "sha256": "355D4E5E9C262CCAAB28DF2DF5299ABC9E5234935193C24F47F115456FD10BDE"
+    },
+    {
+      "name": "private-shop.js",
+      "sha256": "F9AFCB14C0C1F3EF5A69556203D25348035A6FCB888084E59A50DA1F53A140A4"
+    },
+    {
+      "name": "trade.js",
+      "sha256": "5B677E40462C5EC933FC5FA014B94FA70B3B1F2E53BC860CEC9F9BA66E4F42F9"
+    }
+  ],
+  "cycles": [
+    {
+      "error": "System.TimeoutException: The operation has timed out.\r\n   at ProductPageChecks.\u003C\u003Ec__DisplayClass2_0.\u003C\u003CRun\u003Eb__0\u003Ed.MoveNext() in D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\scratch\\wt\\task-161\\engine\\_integration\\dev\\web-resource-tests\\ProductPageChecks.cs:line 120"
+    }
+  ],
+  "requests": [
+    {
+      "cycle": 0,
+      "uri": "https://p08.example/index.html",
+      "Status": 200
+    },
+    {
+      "cycle": 0,
+      "uri": "https://p08.example/panel.css",
+      "Status": 200
+    },
+    {
+      "cycle": 0,
+      "uri": "https://p08.example/login.js",
+      "Status": 200
+    },
+    {
+      "cycle": 0,
+      "uri": "https://p08.example/interaction.js",
+      "Status": 200
+    },
+    {
+      "cycle": 0,
+      "uri": "https://p08.example/trade.js",
+      "Status": 200
+    },
+    {
+      "cycle": 0,
+      "uri": "https://p08.example/bonus-stats.js",
+      "Status": 200
+    },
+    {
+      "cycle": 0,
+      "uri": "https://p08.example/private-shop.js",
+      "Status": 200
+    },
+    {
+      "cycle": 0,
+      "uri": "https://p08.example/panel.js",
+      "Status": 200
+    },
+    {
+      "cycle": 0,
+      "uri": "https://p08.example/favicon.ico",
+      "Status": 403
+    }
+  ]
+}
