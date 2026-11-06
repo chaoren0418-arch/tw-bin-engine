@@ -112,8 +112,11 @@ static class Checks {
             (6, new ItemUseArguments.Teleport(0, 0)), (248, new ItemUseArguments.Cooking(1, 7)),
             (28, new ItemUseArguments.Spell(0)), (12, new ItemUseArguments.Letter(0, "測試", "主旨", "本文"))
         ];
+        foreach (byte speed in new byte[] { 0, 1, 2 })
         foreach (var test in cases) {
             using var connection = Seed(test.Type);
+            Feed(connection, Packet(writer => { writer.Write((byte)255); writer.Write(123u); writer.Write(speed); writer.Write((ushort)60); }));
+            Check(connection.World.Actor!.Speed == speed && connection.ItemAvailable, "各速度可進入參數流程 " + speed + "/" + test.Type);
             int sends = 0;
             Sender(connection, (bytes, valid, admit) => {
                 if (!valid()) return Task.FromResult(false);
@@ -143,7 +146,7 @@ static class Checks {
     }
     static async Task Races() {
         foreach (bool queued in new[] { false, true })
-        foreach (string change in new[] { "selection", "source", "target", "map", "death", "disconnect", "cancel", "move", "input" }) {
+        foreach (string change in new[] { "selection", "source", "target", "map", "death", "disconnect", "cancel", "move", "input", "unsupported-speed" }) {
             using var connection = Seed();
             int sends = 0;
             var gate = new TaskCompletionSource<bool>();
@@ -164,6 +167,7 @@ static class Checks {
                 case "disconnect": connection.Cancel(); break;
                 case "cancel": connection.CancelItemUse(); break;
                 case "move": Set(connection.World, "Actor", connection.World.Actor! with { X = 32602 }); break;
+                case "unsupported-speed": Feed(connection, Packet(writer => { writer.Write((byte)255); writer.Write(123u); writer.Write((byte)3); writer.Write((ushort)60); })); break;
                 case "input":
                     connection.CancelMovementInput();
                     // Dialog focus/target clicks may clear input before submission. Only queued sends capture it.

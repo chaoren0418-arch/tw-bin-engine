@@ -109,14 +109,14 @@ public sealed partial class LoginConnection {
     long nextItemAt;bool itemSending;int itemLease;
     public bool ItemBusy=>itemSending||Environment.TickCount64<nextItemAt;
     public event Action<object>? ItemSent;
-    public bool ItemAvailable=>State==LoginState.InWorld&&!World.ActionLocked&&!World.TradeBlocksActions&&World.Ready&&!World.OwnDead&&World.Status?.Hp>0&&World.Actor is {} actor&&NormalSpeed.Supported(actor.Speed,actor.Brave)&&World.SelectedItem is {Count:>0,SupportedUse:true} item&&(actor.Speed!=2||item.SupportedHastePotion);
+    public bool ItemAvailable=>State==LoginState.InWorld&&!World.ActionLocked&&!World.TradeBlocksActions&&World.Ready&&!World.OwnDead&&World.Status?.Hp>0&&World.Actor is {} actor&&NormalSpeed.Supported(actor.Speed,actor.Brave)&&World.SelectedItem is {Count:>0,SupportedUse:true};
     void ResetItemSend(){CancelItemUse();itemLease++;itemSending=false;nextItemAt=0;}
     // Explicit original-server negative test only; absent from UI/web commands.
     internal Task ProbeOriginalItemDelay(uint id)=>sendWorld!(LoginPackets.Pad([164,..BitConverter.GetBytes(id)]));
     public Task<bool> UseSelectedItem()=>UseSelectedItemCore(null,null);
     async Task<bool> UseSelectedItemCore(ItemUseRequest? request,ItemUseArguments? arguments){
         if(World.BasicSupplyPending){World.ItemNotice=World.BasicSupplyNotice;return false;}
-        if(!ItemAvailable||ItemBusy||MovementBusy||sendMovementGate==null){World.ItemNotice=SlowActionsBlocked&&World.SelectedItem?.SupportedHastePotion!=true?SlowActionNotice:"未送出：道具／速度未支援、忙碌或已耗盡";return false;}
+        if(!ItemAvailable||ItemBusy||MovementBusy||sendMovementGate==null){World.ItemNotice="未送出：道具／速度未支援、忙碌或已耗盡";return false;}
         var item=World.SelectedItem!;
         if(request==null&&RequestItemArguments(item))return false;
         if(!TryItemArguments(item,request,arguments,out byte[] bytes,out var currentTarget))return false;
