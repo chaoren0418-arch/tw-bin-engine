@@ -55,3 +55,4 @@
 - 2026-11-06 — #129 T072：戰鬥閉環——擊殺得 EXP 與戰利品、技能學習、弓箭彈藥、自身死亡與恢復（code，codex-local，PR 已合併）→ [報告](reports/issue-129.md)
 - 2026-11-06 — #130 T073：原生畫面與操作——滑鼠點地／點怪／點 NPC、HUD、陰影、聊天焦點、物件生命週期（code，codex-local，PR 已合併）→ [報告](reports/issue-130.md)
 - 2026-11-06 — #133 T070：NPC 服務——購買、倉庫存取、私商購買、直接交易（含 M1 移入的普通肉購買與丟撿循環）（code，codex-local，PR 已合併）→ [報告](reports/issue-133.md)
+- 2026-11-06 — #140 T071：跨圖連續性——洞穴進出、船運往返、旅館入住、地圖特效（code，codex-local，PR 已合併）→ [報告](reports/issue-140.md)
