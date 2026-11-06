@@ -588,3 +588,137 @@ python -B -X utf8 engine/_integration/dev/rebuild.py --verify --output scratch/i
 交付只更新docs/demo/README.md與本報告；沒有新截圖。保留六張未追蹤第2b圖及native-baseline副本原狀，不stage、不刪。README已更新候選HEAD／DLL、增加T035待驗列、B01–B15對照，刪除舊task/102編號來源與「主目錄互斥尚待建立」描述，清楚區分新候選與歷史圖。
 
 **下一棒：專案主控／調度器（needs:orchestrator），先提供跨repo P24Lab排他持有紀錄／有效租約與釋放條件，並核定#225等待本輪釋放；再讓同一#77會話續作。** 不是needs:user授權缺口，不需重做第2c-a、#83或已通過第2b列；不要以舊第2c-a審查退回反覆重測。交付前重新核對標籤，要求本輪全新審查；不合併、不關Issue。
+
+
+## 第 2c-b 輪：租約核實後續測（2026-11-06）
+
+**本次實測及清理完成，M1 T062未完成。** 本節對應重新派工 [6678372228](https://github.com/chaoren0418-arch/tw-bin-engine/issues/77#issuecomment-6678372228)，取代上一節blocked作為目前狀態，但保留歷史事實。沿用同一本機會話與task/77；去重確認沒有本次RESULT或其他驗收接手，未重做第1輪、第2c-a及第2b卸裝／聊天。所有時間均UTC。
+
+### 前置、權限與產品身分
+
+- 已讀適用AGENTS.md、CLAUDE.md、RUN.md與issue-115；沒有讀改docs/REPORT.md，未找到相關.agents/skills。直接原生授權及公開推送授權已涵蓋本輪，沒有透過Issue留言擴權。
+- 有效會話限制為workspace-write／auto_review；無法宣稱never／danger-full-access。需要的own-PID原生操作與正常關閉經現有工具安全審查允許，未改安全設定、未使用CUA。
+- 先前全系統Win32_Process查詢因Windows 0x80041003遭拒，本輪沒有重試或換API繞過。既有非監聽程序狀態維持unknown；採唯一lease、空埠、前輪正常清理紀錄與新啟動衝突／身分核對。前輪清理時間分開：第一次第2b為11月5日21:35，直接授權後第2b為11月6日02:40，本次為07:18–07:19。
+- 啟動前API與SQLite mode=ro核實唯一lease:p24lab：holder=`chaoren0418-arch/tw-bin-engine#77`，06:09:11.234735取得、07:39:11.234735到期；#225等待。三repo與既有會話查核無其他本輪驗收，主目錄無其他checkout／commit／建置，追蹤檔乾淨。操作前持續核lease與HEAD，沒有自行續租。
+- 實測HEAD `b416e8e0677738ad098d3c684ba8eed3aa1ff8d4`；`git merge-base --is-ancestor 9a685a0 HEAD` exit0。保留先前blocked報告，不reset／stash／fetch／切別支。未改產品／lock、未同步或重建。
+- 入口check-only exit0、revision=dev，uiStarted/networkStarted/servicesStarted=false，24個runtime/web檔、13,957個素材存在／大小核對；inventory目錄存在。
+- DLL SHA-256 `37cd8201f6ad631f70915a8314d19d0ec4ca0cb28dbd524169937d5d23930174`；清理後相同。manifest SHA-256 `44164613584da833a0e53e721ce3a1957315701b94616a6d43067afc46d78a3a`，均符合第2c-a。
+- D:/BinEngine為專案junction。啟動前空埠；MySQL啟動後06:23:02 live核對UUID `e3443e40-d090-11f1-8040-4cedfb679789`、port43324、datadir `D:/BinEngine/environments/p24/db-data/`一致；Java成功綁42061。未讀秘密config/server.properties或#83設定。
+- DB啟動前冷備份1407檔逐SHA相符，保存在lab自己的 `environments/p24/backups/issue-77-resumed2c-before-demo`，備份紀錄06:22:52。沒有資料修改SQL、配置或白名單變更；僅身分確認與正常SHUTDOWN，遊戲正常行為由原服存檔。
+- 本輪只啟動一次客戶端，預設trace `scratch/packet-trace/demo3c-01.jsonl`；MySQL parent20308／listener20328、Java14300、client24768。每次輸入核對own PID、路徑、標題／前景及租約；僅測試角色。未碰正式2000／3306、另案3307、原BIN、正式client、封存或遊戲資源。
+
+### 每列結論與證據
+
+| 驗收列 | 結論 | 實際觀測／限制 |
+|---|---|---|
+| 初始進世界 | 通過此子項 | [世界與HUD](../demo/demo3c-30-world-focus.png)，原服map0 x32570 y32956 S87#1；HP686/686、MP117/117、Lv59。未命名物件／部分外觀仍占位，不稱整個場景完成 |
+| 數量0／超額 | 通過此子項 | 紅藥持有41；原生[0](../demo/demo3c-13-zero-client.png)／[42](../demo/demo3c-14-over-client.png)及F9 [0](../demo/demo3c-59-web-zero.png)／[42](../demo/demo3c-60-web-over.png)各按丟棄一次，顯示「未送出：數量不合法，請輸入1到持有量（最多2147483647）的整數」。全輪C25=0、C112=0，藥水41不變。未先製造125，因此舊125清除路徑未驗證 |
+| 光箭 | 部分已驗證，整列未通過 | 技能4、[有效牛目標](../demo/demo3c-20-arrow-selected.png) #2000036217，3筆C6均有S30、MP117→115。傷害欄13／15／15；[首次](../demo/demo3c-21-arrow-first.png)、[靜音](../demo/demo3c-24-arrow-muted-1.png)、[恢復](../demo/demo3c-27-arrow-unmuted-2.png)可見施法／回報。未清楚辨識飛行光箭，不能冒稱效果完整；本地模板MP3，實際扣2依原服回包 |
+| 近戰／EXP | 驗收失敗，根因未確定 | 共3次G，2筆C229；首次[傷害欄0](../demo/demo3c-61-web-target.png)、target HP未提供。EXP [前](../demo/demo3c-41-exp-before.png)／[後](../demo/demo3c-76-exp-after.png)均412855581，無死亡／EXP增加證據 |
+| 非滿血治癒／喝水 | 未執行／未驗證 | HP全程686，未建立弱怪自然受傷前提；未施放治癒、未喝藥，紅藥仍41。不能推論功能失效 |
+| 普通肉取得、丟1／撿1、丟10／撿10 | 未執行／未驗證 | 未建立一般NPC可購普通肉40056前提；未取得肉、未丟撿、未吃肉。金幣33400未購買，未改DB／NPC／白名單 |
+| 地面拾取錯誤改正後直接送出 | 未執行／未驗證 | 缺合法地面肉；沒有C112，不以背包防呆通過代替拾取循環 |
+| 八方向與點地權威終點 | 未驗證 | 各停點仍為S87#1初始值，提示移動後尚無位置回包；下表分列C29與終點，不以預測或其他物件封包代替 |
+| 事件音效 | 六組驗收未通過 | 首次近戰事件後峰值0.45367342；其他組有零、缺session或缺事件，詳下表；null不是0 |
+| T035背包圖示 | 原生通過；F9失敗 | 原生數量圖有紅藥、匕首、盾、袋、寶石等實際圖示；F9數量圖為broken image及「原道具」替代字，文字／數量正常 |
+| T035地面物品圖／音訊 | 未驗證／音訊未通過 | 無合法肉地面圖；音訊不能以assets目錄存在或背景聲替代 |
+
+近戰操作限制：首次單擊移動牛身體實際落在地面，沒有有效選取，所以當時沒有按G。後來改由可見敵方清單選牛再F10／G，**未完整符合派工要求的「走近、單擊身體、已選取提示」流程**；不能據此判定身體點選已通過。第二次先兩步Left接近、停下再G，有C229／S30但沒有獨立HP或EXP變化證據；[畫面](../demo/demo3c-73-attack-muted.png)僅預測／待回報，不能擅稱第二次傷害也是0。第三次[目標失效、本機未送出](../demo/demo3c-75-attack-unmuted.png)，沒有第三筆C229。未無限重試、未達30次上限，更未刷怪。
+
+普通肉前提限制：[NPC頁](../demo/demo3c-70-npc-stable.png)只完成可見目標觀測，包含動物與私商；沒有取得一般NPC商品清單，也沒有交易／購買請求。不能寫「所有商店沒有賣肉」或以私商面板冒充一般NPC供貨查證。此列是本次測試前提尚未建立，交主控安排可重現合法供貨路徑；B05不豁免B14替代驗收。在線禮包29→30→31為原服計時更新，沒有主動開啟，不能當EXP或戰利品。
+
+### 封包時間與權威座標
+
+Trace無payload，opcode／長度僅搭配UI判讀，不單憑opcode推論目標減血或自身座標。SHA-256：`98bbf2e95ccccbe0a7a91ff562cf0459c3e9dd1c1018b5fd54f9620d56ac9f94`。out計數：C119=1、C137=1、C95=164、C6=3、C29=17、C229=2；C25=0、C112=0。
+
+| 事件 | C請求UTC | S30回報UTC／seq／len |
+|---|---|---|
+| 光箭首次 | 06:47:04.386 | 06:47:04.650／2400／40 |
+| 光箭靜音 | 06:50:07.259 | 06:50:07.314／3074／40 |
+| 光箭恢復 | 06:57:30.880 | 06:57:30.909／4705／40 |
+| 近戰首次 | 06:58:36.180 | 06:58:36.264／4941／24 |
+| 近戰靜音 | 07:15:15.830 | 07:15:15.845／8576／24 |
+
+每方向兩次單步輸入，以下停止畫面皆仍為原服map0／32570／32956、S87#1及「移動後尚無位置回包」，**不代表與預期終點相符**。
+
+| 方向 | 停止證據UTC | C29筆數 | 原始截圖 |
+|---|---|---|---|
+| Home | 06:52:15.978 | 2 | [Home](../demo/demo3c-31-home2.png) |
+| Up | 06:52:47.415 | 0 | [Up](../demo/demo3c-32-up2.png) |
+| PageUp | 06:52:51.160 | 2 | [PageUp](../demo/demo3c-32-pageup2.png) |
+| Right | 06:52:56.449 | 2 | [Right](../demo/demo3c-32-right2.png) |
+| PageDown | 06:53:00.511 | 2 | [PageDown](../demo/demo3c-32-pagedown2.png) |
+| Down | 06:53:05.045 | 2 | [Down](../demo/demo3c-32-down2.png) |
+| End | 06:53:07.943 | 0 | [End](../demo/demo3c-32-end2.png) |
+| Left | 06:53:10.996 | 0 | [Left](../demo/demo3c-32-left2.png) |
+
+八方向共10筆C29，Up／End／Left各0；是否碰撞或其他狀態限制沒有唯一根因證據。有限點地4筆C29，[停下圖](../demo/demo3c-34-point-ground.png)仍無新權威終點。其餘1筆為點牛落空、2筆為近戰前接近，總計17。沒有各段重登取獨立S87，不能用單一末端位置回填前面各段。[F9權威／預測分列](../demo/demo3c-63-web-npc-area.png)可見原服32570／32956與預測32571／32958不同；此圖檔名沿用拍攝當時名稱，內容是座標證據。其他物件的S10／S87不作自身ACK。
+
+### 六組事件音訊（僅本輪PID24768）
+
+使用既有default-render endpoint程序session peak量測，每100ms取樣、每組300筆（實際約32秒）。匹配session缺失時記null，不能轉成靜音0；不查其他程序音訊，不宣稱覆蓋所有裝置／音軌。有聲／靜音／恢復控制圖：[光箭有聲](../demo/demo3c-22-sound-before.png)、[靜音](../demo/demo3c-23-muted.png)、[恢復](../demo/demo3c-25-unmuted.png)；[近戰靜音](../demo/demo3c-71-attack-muted-setting.png)、[恢復](../demo/demo3c-74-attack-unmuted-setting.png)。
+
+| 事件／階段 | 量測起訖UTC | session匹配／300 | 整窗peak | C事件後2秒匹配／樣本；peak |
+|---|---|---|---|---|
+| 光箭／有聲 | 06:46:56.749–06:47:29.511 | 218/300 | 0.0 | 7/19；0.0 |
+| 光箭／靜音 | 06:49:58.528–06:50:31.078 | 66/300 | 0.0 | 0/18；null |
+| 光箭／恢復 | 06:57:21.431–06:57:53.999 | 0/300 | null | 0/19；null |
+| 近戰／有聲 | 06:58:27.863–06:59:00.548 | 218/300 | 0.45367342233657837 | 13/18；0.45367342 |
+| 近戰／靜音 | 07:15:03.295–07:15:35.835 | 0/300 | null | 0/18；null |
+| 近戰／恢復 | 07:16:21.127–07:16:53.680 | 0/300 | null | 沒有C229；事件前提不成立 |
+
+光箭靜音整窗雖是0，事件後2秒卻完全無匹配session，不能算有效靜音事件證據。近戰恢復階段目標失效，既沒有C229也沒有session，更不能宣稱恢復無聲是產品故障。首次近戰事件窗有正峰值，但單組不滿足攻擊／施法各三階段驗收，且不是獨立音軌語義鑑定。
+
+### 清理、工具限制與交付
+
+客戶端先登出、正常關窗，`client-close.json`為requested=true／exited=true。Java14300於07:18:10.529正常退出（IdentityVerified／GracefulSignal／Exited=true）；MySQL身分核對後07:18:54.792正常SHUTDOWN，ShutdownExit=0。07:19:18.463再次核對如下，早於07:29停止補測界線及07:39:11租約到期；未續租、未停別人的程序，之後僅做文件交付。
+
+```json
+{"OwnedPids":[24768,14300,20308,20328],"OwnedProcessesRemaining":0,"LabListeners":0,"Utc":"2026-11-06T07:19:18.4633590Z","NonListeningPreexistingProcesses":"unknown; denied query not retried"}
+```
+
+本機原始紀錄在 `scratch/issue-77/resumed2c/`：preflight、backup、mysql-identity、各項UI JSON、六組samples／summary、analysis、client/server/mysql-close與cleanup；trace在 `scratch/packet-trace/demo3c-01.jsonl`。關鍵數值、UTC、SHA與清理結果已內嵌本報告，不依賴scratch永久保留。有效權限沒有改變，沒有新的auto-review拒絕或setup refresh失敗。
+
+觀測限制：一般shell初期看不到own-window title，經現有原生工具才取得；不把這段觀測盲區說成產品啟動耗時。WebView UIA兩次ElementNotAvailableException後用可見原生截圖／捲動繼續；一次前景guard發現ChatGPT而拒送輸入，重新核對own window後才聚焦續作。截圖helper曾有DrawingCommon編譯錯誤，僅修scratch helper；沒有產品改動或繞過安全拒絕。
+
+公開交付31張已逐張檢視的真實客戶區PNG，全部≤2,000,000 bytes；無帳密、私人聊天、無關桌面或合成畫面。測試場景公開店名不另行抄錄。最初含窗框／桌面或大於限制的試拍、未採用連拍留本機不stage；六張第2b舊未追蹤圖與native-baseline副本完全不stage。提交範圍僅README、本報告及下列新圖，不提交trace／工具／遊戲資源。
+
+| 新圖 | bytes | SHA-256 |
+|---|---:|---|
+| [demo3c-13-zero-client.png](../demo/demo3c-13-zero-client.png) | 470597 | `c208fdc8dca5f9b3cc6738fe5d42785248abd629f438bbb5437eb29a93a2f777` |
+| [demo3c-14-over-client.png](../demo/demo3c-14-over-client.png) | 467050 | `1ba3be952a88cdca89e5c08547e010997953ff8e9cb36189e27a0d1fb0999431` |
+| [demo3c-20-arrow-selected.png](../demo/demo3c-20-arrow-selected.png) | 457388 | `f2698463246442583a8fbdf5b69c14c486f6dace75e82eb53c27adea451f1ba4` |
+| [demo3c-21-arrow-first.png](../demo/demo3c-21-arrow-first.png) | 458474 | `667eb5bdcb2a9a94b534b3595521cc4d8f227ec4f01d7464b26655c4f59809f9` |
+| [demo3c-22-sound-before.png](../demo/demo3c-22-sound-before.png) | 449109 | `948e19188454353f0fee23f6e8553abd12a986df036ca79865b3f822c6e9d67a` |
+| [demo3c-23-muted.png](../demo/demo3c-23-muted.png) | 449227 | `ccc23713ec400fc94081f296797e1b2d8e26b71017f4c827a530ade51269d945` |
+| [demo3c-24-arrow-muted-1.png](../demo/demo3c-24-arrow-muted-1.png) | 460083 | `72e7f7ef1e615e06a43799044111fcd5f0d47587ad31a3089cd92b4a183a9253` |
+| [demo3c-25-unmuted.png](../demo/demo3c-25-unmuted.png) | 449209 | `a6beec9d847db7fb150c436a6f72b338ae5ddc921610a5142a9c52ad607d401b` |
+| [demo3c-27-arrow-unmuted-2.png](../demo/demo3c-27-arrow-unmuted-2.png) | 470520 | `87181634750e42f42f689367e3a1644084fdf793901cf5013dffb0daec0f74ff` |
+| [demo3c-30-world-focus.png](../demo/demo3c-30-world-focus.png) | 714476 | `838b7c007148323e42a4078c8a89a21f2749ca8bf3749e1b4af8ce6c8dc482a9` |
+| [demo3c-31-home2.png](../demo/demo3c-31-home2.png) | 715475 | `4b46a239073013a290aca8af4537083358eaee51b197996bb85d9e47d549e484` |
+| [demo3c-32-up2.png](../demo/demo3c-32-up2.png) | 716489 | `e6d079d7de1ff6e910176c4a0781b0756a177f8353ef95bb59fe80aa8421c7c1` |
+| [demo3c-32-pageup2.png](../demo/demo3c-32-pageup2.png) | 712577 | `305971b35aefbbd936d5677bc3bd220ac1d3cf2bded255cc2c5cf0e7004a355d` |
+| [demo3c-32-right2.png](../demo/demo3c-32-right2.png) | 712147 | `5f34aec48857a6c96a4ab4c2db8ff122e145b3708bd508847fdabda25b4ad330` |
+| [demo3c-32-pagedown2.png](../demo/demo3c-32-pagedown2.png) | 713239 | `240a856aa77de8ed5d3b19eeff76ee4459c1000efaa90589c4c23ac033c5ff4e` |
+| [demo3c-32-down2.png](../demo/demo3c-32-down2.png) | 717324 | `441ccabde1f5b6f459f3c93484c92b5a1c739cafdc8c1e925878cb62529b927b` |
+| [demo3c-32-end2.png](../demo/demo3c-32-end2.png) | 717770 | `7527c6cbfa8bc428249bd2ef1c452be59d784e0d55e29e357ab1f1ff95dbca70` |
+| [demo3c-32-left2.png](../demo/demo3c-32-left2.png) | 716809 | `ac6d1241de0faa946fcecf8d9ab410f2bae4c92db7a8ac63bb2b5a7b4b14fb00` |
+| [demo3c-34-point-ground.png](../demo/demo3c-34-point-ground.png) | 704677 | `f4234c1e970bfb987446e546bdb256f1a5c969aae9768d84762028cd180214af` |
+| [demo3c-41-exp-before.png](../demo/demo3c-41-exp-before.png) | 462064 | `5ad2a7d7f6468b98f1e3dac1b84f6eafd60a698fe4273cac8c2c7da5d73312e9` |
+| [demo3c-42-attack-first.png](../demo/demo3c-42-attack-first.png) | 712821 | `29283c22cc35f727f2f606c3fbfbac66359625b4eab72c0540320574753e3355` |
+| [demo3c-59-web-zero.png](../demo/demo3c-59-web-zero.png) | 552828 | `2fe6ce99fd934a9c2ae88e5b29a4820cb3d32889611798677bd6085f238e10cf` |
+| [demo3c-60-web-over.png](../demo/demo3c-60-web-over.png) | 553507 | `f6ca86232d89f9d8292c9f0092f7e7a8a75c5e8ed02f70a4ba833a1dc962a311` |
+| [demo3c-61-web-target.png](../demo/demo3c-61-web-target.png) | 559019 | `07f887d7f2f3154382fa51a7a2f9e5f7941bf5f005c156aee974c0da8f9645fd` |
+| [demo3c-63-web-npc-area.png](../demo/demo3c-63-web-npc-area.png) | 560397 | `48b2aa77e1c6f7c5d6d8e7360b66ca1d7c005e56d93b85cd86ec794cac54db69` |
+| [demo3c-70-npc-stable.png](../demo/demo3c-70-npc-stable.png) | 292203 | `6497415887617400ed034c39b71a4da846f6beb1d98a58d0e99ae5ff6db5fc6b` |
+| [demo3c-71-attack-muted-setting.png](../demo/demo3c-71-attack-muted-setting.png) | 460646 | `f7065f5363f02b982695f9224b7c2a88fcd8c619fcbe503f6f2b220110f0d6bf` |
+| [demo3c-73-attack-muted.png](../demo/demo3c-73-attack-muted.png) | 721573 | `ee30e13d6bf61428cb3d601a38f5e0c25c92ad299962831c6fb0b0e7c92d0f03` |
+| [demo3c-74-attack-unmuted-setting.png](../demo/demo3c-74-attack-unmuted-setting.png) | 447117 | `8a38bdb795a09e68e6cc82ae8d7d314c690df4a258e5028a82da82ffb53da2e9` |
+| [demo3c-75-attack-unmuted.png](../demo/demo3c-75-attack-unmuted.png) | 722604 | `dfeb1bfb5e1547e490aa89c07930a213437b57a4a42df40b1f4a3a10523bf612` |
+| [demo3c-76-exp-after.png](../demo/demo3c-76-exp-after.png) | 453425 | `84ed792f54da516e4bbcaf71e52e3e2193dc53a409d22cefd04d48bd87b631ac` |
+
+### Backlog對照與下一棒
+
+README保留當前TASKS的完整B01–B15對照：B01技能擴充、B02慢速丟撿、B03–B04地圖效果、B05交易前提、B06地面pin、B07原生音效語義、B08封裝、B09 P27、B10歷史來源、B11調度器、B12舊EXE基準、B13其他伺服器、B14金幣規則、B15可攜assets及9個例外。本次B11排他前置已解決；B14金幣拒絕仍屬Backlog，不重丟金幣、不改DB繞過。其他Backlog不能豁免T062近戰、技能4、普通肉循環、座標或T035已有圖示／音訊。
+
+請專案主控對本次實測做**全新審查**，不要套用第2c-a舊review。優先裁定F9圖示破圖、移動後自身權威回包缺失，以及可重現的有效近戰選取／傷害／EXP流程；安排合法一般NPC購肉、非滿血情境與穩定own-session音訊量測後再派未通過列。此次操作偏差與前提缺失不直接等同產品根因。M1不可標完成；不合併、不關Issue，不再啟動本輪服務。
