@@ -281,6 +281,7 @@ partial class Checks {
                 case "map-continuity":await MapContinuity();break;
                 case "combat-loop":await CombatLoop();break;
                 case "combat-admission":await CombatAdmission();break;
+                case "slow-actions":await SlowActions();break;
                 case "keyboard":await KeyboardMovement123();break;
                 case "busy":KeyboardBusy123();break;
                 case "world":await KeyboardWorld123();break;
