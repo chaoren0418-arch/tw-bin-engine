@@ -1,0 +1,730 @@
+{
+  "restore_log": {
+    "path": "scratch/issue-157/restore-log.jsonl",
+    "sha256": "59e7bd68d397cd347578bb492a65a7b6dab2a2555e3dbd1b0b2b3d5825fc6016",
+    "verified_entries": 27916
+  },
+  "schema": "issue-157-verification-v1",
+  "status": "passed",
+  "base_commit": "420d97e613388b2e07868b5e6690e919397ca8ed",
+  "pins": {
+    "r28_pins_git_sha256": "a0c4bba47d9a44a9c5a2df50c05ed0bf8ee0a157ad0aea2cfb1187bf08a1bed7",
+    "reference_pins_git_sha256": "72371c8bbdfb9f15f534a20881ee1dd322ae4b15540934642e97e25106b80a0f",
+    "missing_list_git_sha256": "50643729aca01262c41ab313a254e7bf38b2cd8d3e8590e34c040990da8d7328"
+  },
+  "before": {
+    "started_utc": "2026-11-06T18:43:55.110430+00:00",
+    "finished_utc": "2026-11-06T18:48:44.453731+00:00",
+    "releases": [
+      {
+        "release": "r28",
+        "expected": 14365,
+        "ok": 407,
+        "missing": 13958,
+        "mismatch": 0,
+        "seal": "releases/r28/_integration/candidate-seal-manifest.json",
+        "seal_sha256": "83770091f8051466d5dccb420210cd0567ffef5a1158e8f7ebf5c7667127bfcd"
+      },
+      {
+        "release": "r29",
+        "expected": 14287,
+        "ok": 14287,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r29/_integration/r29/release-seal.json",
+        "seal_sha256": "d3ac187e7fc44745864640e4bcc72fefbaeeaa0b0e9d63de7c0c3cfa8e46273d"
+      },
+      {
+        "release": "r30",
+        "expected": 14297,
+        "ok": 14297,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r30/_integration/r30/release-seal.json",
+        "seal_sha256": "199ce6fe81130138e9fedf98e688928ce44b0a45c2aebd1b92fdd9519b8225dc"
+      },
+      {
+        "release": "r31",
+        "expected": 14330,
+        "ok": 14330,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r31/_integration/r31/release-seal.json",
+        "seal_sha256": "1d5b1c149495cb2b44f50daf2c3361eb15e8000ba27bf133d1029735f10cfd90"
+      },
+      {
+        "release": "r32",
+        "expected": 14343,
+        "ok": 14343,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r32/_integration/r32/release-seal.json",
+        "seal_sha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507"
+      },
+      {
+        "release": "r33",
+        "expected": 14654,
+        "ok": 696,
+        "missing": 13958,
+        "mismatch": 0,
+        "seal": "releases/r33/_integration/r33/release-seal.json",
+        "seal_sha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417"
+      }
+    ]
+  },
+  "after": {
+    "started_utc": "2026-11-06T19:02:03.627473+00:00",
+    "finished_utc": "2026-11-06T19:03:21.626496+00:00",
+    "releases": [
+      {
+        "release": "r28",
+        "expected": 14365,
+        "ok": 14365,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r28/_integration/candidate-seal-manifest.json",
+        "seal_sha256": "83770091f8051466d5dccb420210cd0567ffef5a1158e8f7ebf5c7667127bfcd"
+      },
+      {
+        "release": "r29",
+        "expected": 14287,
+        "ok": 14287,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r29/_integration/r29/release-seal.json",
+        "seal_sha256": "d3ac187e7fc44745864640e4bcc72fefbaeeaa0b0e9d63de7c0c3cfa8e46273d"
+      },
+      {
+        "release": "r30",
+        "expected": 14297,
+        "ok": 14297,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r30/_integration/r30/release-seal.json",
+        "seal_sha256": "199ce6fe81130138e9fedf98e688928ce44b0a45c2aebd1b92fdd9519b8225dc"
+      },
+      {
+        "release": "r31",
+        "expected": 14330,
+        "ok": 14330,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r31/_integration/r31/release-seal.json",
+        "seal_sha256": "1d5b1c149495cb2b44f50daf2c3361eb15e8000ba27bf133d1029735f10cfd90"
+      },
+      {
+        "release": "r32",
+        "expected": 14343,
+        "ok": 14343,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r32/_integration/r32/release-seal.json",
+        "seal_sha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507"
+      },
+      {
+        "release": "r33",
+        "expected": 14654,
+        "ok": 14654,
+        "missing": 0,
+        "mismatch": 0,
+        "seal": "releases/r33/_integration/r33/release-seal.json",
+        "seal_sha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417"
+      }
+    ]
+  },
+  "restored": {
+    "r28_copied": 13958,
+    "r33_hardlinks": 13958
+  },
+  "unchanged_r29_r32": {
+    "r29": 14287,
+    "r30": 14297,
+    "r31": 14330,
+    "r32": 14343
+  },
+  "junction_precondition": {
+    "checked_utc": "2026-11-06T18:49:05.727686+00:00",
+    "blocking_errors": [],
+    "historical_release_links": [
+      {
+        "path": "work\\engine-slow-utility-source-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-utility-review-r1\\r31-baseline-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-utility-review-r1\\candidate-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-review-r1\\candidate-review-r1\\suite-scratch\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-r2\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-pickup-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-haste-item-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-haste-actions-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-haste-actions-review-r1\\candidate-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-haste-actions-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-ground-lifecycle-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-ground-lifecycle-review-r1\\candidate-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28"
+      }
+    ],
+    "orchestrator": {
+      "ts": 1793990943.9903903,
+      "running": [
+        {
+          "key": "chaoren0418-arch/tw-bin-engine#157",
+          "repo": "chaoren0418-arch/tw-bin-engine",
+          "issue": 157,
+          "runner": "codex-local",
+          "pid": 23268,
+          "started": 1793990412.3986917,
+          "log_path": "D:\\dev-orchestrator\\data\\logs\\chaoren0418-arch_tw-bin-engine-157-1793990412.log",
+          "last_file": "D:\\dev-orchestrator\\data\\logs\\chaoren0418-arch_tw-bin-engine-157-1793990412.last.md",
+          "kind": "cli"
+        }
+      ],
+      "active_code_tasks": [],
+      "other_running_project_tasks": [],
+      "stale": false
+    },
+    "directoriesScanned": 93149,
+    "links": [
+      {
+        "path": "主管\\P24-死亡復活接線獨立審查-20261026-r2\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\assets"
+      },
+      {
+        "path": "主管\\P24-死亡復活接線獨立審查-20261026-r2\\reference\\development\\player-death-fix-r1\\casting-fixtures\\sprite-source",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\skill-casting-r1\\sprite-source",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\skill-casting-r1\\sprite-source"
+      },
+      {
+        "path": "主管\\P24-死亡復活接線獨立審查-20261026-r2\\reference\\development\\player-appearance-r1\\sprite-source",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\player-appearance-r1\\sprite-source",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\player-appearance-r1\\sprite-source"
+      },
+      {
+        "path": "主管\\P24-死亡復活接線獨立審查-20261026\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\assets"
+      },
+      {
+        "path": "主管\\P24-死亡復活接線獨立審查-20261026\\reference\\development\\player-death-fix-r1\\casting-fixtures\\sprite-source",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\skill-casting-r1\\sprite-source",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\skill-casting-r1\\sprite-source"
+      },
+      {
+        "path": "主管\\P24-死亡復活接線獨立審查-20261026\\reference\\development\\player-appearance-r1\\sprite-source",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\player-appearance-r1\\sprite-source",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\reference\\development\\player-appearance-r1\\sprite-source"
+      },
+      {
+        "path": "主管\\P24-正常產品入口獨立審查-20261026-r2\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\主管\\P24-一般裝備接線獨立審查-20261026\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\assets"
+      },
+      {
+        "path": "主管\\P24-一般裝備接線獨立審查-20261026\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\主管\\P24-玩家外觀接線獨立審查-20261026\\assets"
+      },
+      {
+        "path": "work\\engine-slow-utility-source-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-utility-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r30\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\assets"
+      },
+      {
+        "path": "work\\engine-slow-utility-review-r1\\r31-baseline-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-utility-review-r1\\candidate-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-review-r1\\candidate-review-r1\\suite-scratch\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-r2\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-pickup-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-haste-item-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-slow-actions-review-r1\\candidate-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets"
+      },
+      {
+        "path": "work\\engine-slow-actions-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets"
+      },
+      {
+        "path": "work\\engine-haste-actions-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-haste-actions-review-r1\\candidate-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-haste-actions-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-ground-lifecycle-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "work\\engine-ground-lifecycle-review-r1\\candidate-review-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28\\assets"
+      },
+      {
+        "path": "scratch\\wt\\task-91\\engine\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\engine\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets"
+      },
+      {
+        "path": "scratch\\wt\\task-88\\engine\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\engine\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets"
+      },
+      {
+        "path": "scratch\\wt\\task-161\\engine\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets"
+      },
+      {
+        "path": "scratch\\wt\\task-161\\engine\\vendor",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\engine\\vendor",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\engine\\vendor"
+      },
+      {
+        "path": "scratch\\wt\\task-13\\engine\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\engine\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets"
+      },
+      {
+        "path": "scratch\\wt\\task-123\\scratch\\issue-123\\icon-security\\file-link\\inventory\\2.png",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\scratch\\issue-123\\icon-security\\assets\\inventory",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\scratch\\issue-123\\icon-security\\assets\\inventory"
+      },
+      {
+        "path": "scratch\\wt\\task-123\\scratch\\issue-123\\icon-security\\directory-link\\inventory",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\scratch\\issue-123\\icon-security\\assets\\inventory",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-123\\scratch\\issue-123\\icon-security\\assets\\inventory"
+      },
+      {
+        "path": "scratch\\wt\\task-123\\engine\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\engine\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets"
+      },
+      {
+        "path": "scratch\\wt\\task-123\\engine\\vendor",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\engine\\vendor",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\engine\\vendor"
+      },
+      {
+        "path": "scratch\\wt\\task-115\\engine\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\engine\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets"
+      },
+      {
+        "path": "scratch\\wt\\task-115\\engine\\vendor",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\engine\\vendor",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\engine\\vendor"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\shop-result-fix-r1\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\assets"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r28",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r28"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-root-review-r1\\assets\\cache",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\cache",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\cache"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-root-review-r1\\assets\\character",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\character",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\character"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-root-review-r1\\assets\\dialogs",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\dialogs",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\dialogs"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-root-review-r1\\assets\\doors",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\doors",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\doors"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-root-review-r1\\assets\\ground",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\ground",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\ground"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-root-review-r1\\assets\\inventory",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\inventory",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\inventory"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-root-review-r1\\assets\\magic",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\magic",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\magic"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-root-review-r1\\assets\\maps",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\maps",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\maps"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-root-review-r1\\assets\\objects",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\objects",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\objects"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-root-review-r1\\assets\\players",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\players",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\players"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-root-review-r1\\assets\\scene",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\scene",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\scene"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-root-review-r1\\assets\\shops",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\shops",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\shops"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-implementation-r1\\assets\\cache",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\cache",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\cache"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-implementation-r1\\assets\\character",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\character",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\character"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-implementation-r1\\assets\\dialogs",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\dialogs",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\dialogs"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-implementation-r1\\assets\\doors",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\doors",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\doors"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-implementation-r1\\assets\\ground",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\ground",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\ground"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-implementation-r1\\assets\\inventory",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\inventory",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\inventory"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-implementation-r1\\assets\\magic",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\magic",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\magic"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-implementation-r1\\assets\\maps",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\maps",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\maps"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-implementation-r1\\assets\\objects",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\objects",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\objects"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-implementation-r1\\assets\\players",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\players",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\players"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-implementation-r1\\assets\\scene",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\scene",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\scene"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-implementation-r1\\assets\\shops",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\shops",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r7\\delivery\\assets\\shops"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-root-review-r2\\assets\\cache",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\cache",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\cache"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-root-review-r2\\assets\\character",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\character",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\character"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-root-review-r2\\assets\\dialogs",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\dialogs",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\dialogs"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-root-review-r2\\assets\\doors",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\doors",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\doors"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-root-review-r2\\assets\\ground",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\ground",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\ground"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-root-review-r2\\assets\\inventory",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\inventory",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\inventory"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-root-review-r2\\assets\\magic",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\magic",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\magic"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-root-review-r2\\assets\\maps",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\maps",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\maps"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-root-review-r2\\assets\\objects",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\objects",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\objects"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-root-review-r2\\assets\\players",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\players",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\players"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-root-review-r2\\assets\\scene",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\scene",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\scene"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-root-review-r2\\assets\\shops",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\shops",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\shops"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-r2\\assets\\cache",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\cache",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\cache"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-r2\\assets\\character",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\character",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\character"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-r2\\assets\\dialogs",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\dialogs",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\dialogs"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-r2\\assets\\doors",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\doors",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\doors"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-r2\\assets\\ground",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\ground",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\ground"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-r2\\assets\\inventory",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\inventory",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\inventory"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-r2\\assets\\magic",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\magic",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\magic"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-r2\\assets\\maps",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\maps",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\maps"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-r2\\assets\\objects",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\objects",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\objects"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-r2\\assets\\players",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\players",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\players"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-r2\\assets\\scene",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\scene",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\scene"
+      },
+      {
+        "path": "P24-原2x2地圖快取與跨區載入\\reference\\development\\player-shadow-coverage-r2\\assets\\shops",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\shops",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r10\\delivery\\assets\\shops"
+      },
+      {
+        "path": "engine\\assets",
+        "target": "\\\\?\\D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets",
+        "resolved": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets"
+      }
+    ],
+    "errors": [
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P35-release-generator-rg2-review-r1\\synthetic-wi9s08by",
+        "error": "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P35-release-generator-rg2-review-r1\\\\synthetic-wi9s08by'"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-q1wqqc0p",
+        "error": "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r2\\\\synthetic-independent-q1wqqc0p'"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r2\\synthetic-independent-gifbyfat",
+        "error": "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r2\\\\synthetic-independent-gifbyfat'"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r1\\synthetic-new-tools-_uw75d3y",
+        "error": "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-new-tools-_uw75d3y'"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r1\\synthetic-new-tools-w7ao7rf2",
+        "error": "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-new-tools-w7ao7rf2'"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r1\\synthetic-new-tools-d4j_sxsa",
+        "error": "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-new-tools-d4j_sxsa'"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-release-review-r1\\synthetic-contract-fmak1edg",
+        "error": "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-contract-fmak1edg'"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\synthetic-zhurl291",
+        "error": "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-pickup-integration-review-r1\\\\synthetic-zhurl291'"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\synthetic-tj11g_rj",
+        "error": "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-pickup-integration-review-r1\\\\synthetic-tj11g_rj'"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-pickup-integration-review-r1\\synthetic-hecff5h6",
+        "error": "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-pickup-integration-review-r1\\\\synthetic-hecff5h6'"
+      },
+      {
+        "path": "D:\\lineage開發\\TW1608262200研究\\work\\P26-authority-rebind-review-r1\\synthetic-independent-fgjl3e7f",
+        "error": "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-authority-rebind-review-r1\\\\synthetic-independent-fgjl3e7f'"
+      }
+    ],
+    "blocked": [],
+    "scope": "D:\\lineage開發\\TW1608262200研究"
+  },
+  "scripts": {
+    "scan-junctions.py": "cc2ae883ab6e166f1ab19e75d379788adc1ecea0735998f1a28a028b0b830b5f",
+    "verify-seals.py": "e3b3614ef2072337648f0d28fa6d48f7954544e27d5e3ff07b9a6d2b5793887c",
+    "restore.ps1": "3f0a306fe27d922c717887b279df07c5659f4263c67d7375c43d9b3f548d32c4"
+  },
+  "limits": [
+    "seal 排除檔案的歷史正確性待取得相應基準。",
+    "本輪範圍為封存檔案還原及核驗，建置、check-only 與真機驗收另案執行。"
+  ]
+}
