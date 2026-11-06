@@ -56,3 +56,4 @@
 - 2026-11-06 — #130 T073：原生畫面與操作——滑鼠點地／點怪／點 NPC、HUD、陰影、聊天焦點、物件生命週期（code，codex-local，PR 已合併）→ [報告](reports/issue-130.md)
 - 2026-11-06 — #133 T070：NPC 服務——購買、倉庫存取、私商購買、直接交易（含 M1 移入的普通肉購買與丟撿循環）（code，codex-local，PR 已合併）→ [報告](reports/issue-133.md)
 - 2026-11-06 — #140 T071：跨圖連續性——洞穴進出、船運往返、旅館入住、地圖特效（code，codex-local，PR 已合併）→ [報告](reports/issue-140.md)
+- 2026-11-06 — #145 T074：正式世界 6016 場景音效——map4 港口有聲、離開後停止、重疊與退役（code，codex-local，PR 已合併）→ [報告](reports/issue-145.md)
