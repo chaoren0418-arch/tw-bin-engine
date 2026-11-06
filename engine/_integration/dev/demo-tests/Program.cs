@@ -276,8 +276,10 @@ partial class Checks {
     static async Task<int> Main(string[] args){try{
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY",Path.Combine(Path.GetFullPath(args[0]),"engine","build","offline-checks")+Path.DirectorySeparatorChar);
         using var guard=new SocketGuard();
+        await Pets();
         if(args.Length>2){
             switch(args[2]){
+                case "pets":break;
                 case "map-continuity":await MapContinuity();break;
                 case "combat-loop":await CombatLoop();break;
                 case "combat-admission":await CombatAdmission();break;
