@@ -83,3 +83,9 @@ docs/project-consolidation/size-breakdown.json
 docs/project-consolidation/file-metadata.jsonl.gz
 docs/project-consolidation/physical-migration/dedupe-journal.jsonl
 docs/project-consolidation/physical-migration/dedupe-plan.json
+
+# Local runtime and game images (T035)
+/engine/runtime/
+/engine/runs/
+/engine/web/icons/
+/engine/web/ground/
