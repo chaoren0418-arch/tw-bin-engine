@@ -17,7 +17,7 @@ public sealed partial class ClientForm {
     readonly Label privateShopTotal=new(){Dock=DockStyle.Bottom,Height=44,ForeColor=Color.White,Padding=new(5)};
     readonly NumericUpDown privateShopQuantity=new(){Dock=DockStyle.Bottom,Height=30,Minimum=0,Maximum=0,Value=0};
     readonly Button privateShopBuy=new(){Text="查詢可買入商品",Width=150,Height=30};
-    readonly Button privateShopSell=new(){Text="查詢可售出商品",Width=150,Height=30};
+    readonly Button privateShopSell=new(){Text="向店主出售（查詢回購）",Width=190,Height=30};
     readonly Button privateShopClose=new(){Text="關閉舊清單",Width=130,Height=30};
     readonly Button privateShopSubmit=new(){Dock=DockStyle.Bottom,Height=34,Text="確認一次",Enabled=false};
     PrivateShopView? displayedPrivateShop;string privateUiSignature="",privateQuantityKey="";bool privateSyncing;
@@ -29,7 +29,7 @@ public sealed partial class ClientForm {
     void InitPrivateShop(){privateShopActions.Controls.AddRange([privateShopBuy,privateShopSell,privateShopClose]);privateShopPanel.Controls.AddRange([privateShopChoices,privateShopNotice,privateShopSubmit,privateShopTotal,privateShopQuantity,privateShopActions]);privateShopPanel.Enter+=(_,_)=>LeaveGameFocus("private-shop");
         privateShopBuy.Click+=async(_,_)=>{if(displayedPrivateShop is {} v)await RunPrivateShop(PrivateCommand(v,"privateQuery"));};privateShopSell.Click+=async(_,_)=>{if(displayedPrivateShop is {} v)await RunPrivateShop(PrivateCommand(v,"privateQuery",sell:true));};privateShopClose.Click+=async(_,_)=>{if(displayedPrivateShop is {} v)await RunPrivateShop(PrivateCommand(v,"privateClose"));};
         privateShopSubmit.Click+=async(_,_)=>{if(displayedPrivateShop is {SelectedRow:not null} v)await RunPrivateShop(PrivateCommand(v,"privateSubmit",v.SelectedRow.Value,(uint)privateShopQuantity.Value,v.Sell));};privateShopQuantity.ValueChanged+=(_,_)=>{if(!privateSyncing)UpdatePrivateQuantity();};}
-    void UpdatePrivateQuantity(){var v=displayedPrivateShop;var row=v?.Rows.FirstOrDefault(r=>r.Id==v.SelectedRow);uint count=(uint)privateShopQuantity.Value;privateShopSubmit.Enabled=v?.CanSubmit==true&&row!=null&&count>0&&count<=row.Maximum;privateShopTotal.Text=row==null?"選一筆商品，再輸入數量。":$"數量 {count:N0} · 合計 {(long)row.Price*count:N0}\n貨幣種類：原服未提供";}
+    void UpdatePrivateQuantity(){var v=displayedPrivateShop;var row=v?.Rows.FirstOrDefault(r=>r.Id==v.SelectedRow);uint count=(uint)privateShopQuantity.Value;privateShopSubmit.Enabled=v?.CanSubmit==true&&row!=null&&count>0&&count<=row.Maximum;privateShopSubmit.Text=v?.Sell==true?"確認出售一次":"確認購買一次";privateShopTotal.Text=row==null?"選一筆商品，再輸入數量。":$"數量 {count:N0} · {(v!.Sell?"預估收入":"預估支出")} {(long)row.Price*count:N0}\n貨幣種類：原服未提供";}
     async Task<PrivateShopResult> RunPrivateShop(PrivateShopCommand c){
         ClearInput("private-shop");var v=login.PrivateShopSnapshot();bool valid=c.Generation==v.Generation&&c.Epoch==v.Epoch&&c.Revision==v.Revision&&c.TargetRevision==v.TargetRevision&&c.ActorId==v.ActorId&&login.State==LoginState.InWorld;PrivateShopResult result=PrivateShopResult.NotSent;
         if(valid&&!World.Walking){
@@ -44,6 +44,6 @@ public sealed partial class ClientForm {
         var selected=v.Rows.FirstOrDefault(r=>r.Id==v.SelectedRow);string key=$"{v.Generation}/{v.Epoch}/{v.OwnerId}/{v.Sell}/{v.SelectedRow}";privateSyncing=true;if(key!=privateQuantityKey||selected==null){privateShopQuantity.Value=0;privateQuantityKey=key;}privateShopQuantity.Maximum=selected?.Maximum??0;privateShopQuantity.Enabled=v.CanSubmit;privateSyncing=false;UpdatePrivateQuantity();
         var owners=VisiblePrivateOwners();string signature=JsonSerializer.Serialize(new{v,owners=owners.Select(o=>new{o.ObjectId,o.Name,o.X,o.Y})});if(signature==privateUiSignature)return;privateUiSignature=signature;foreach(Control old in privateShopChoices.Controls.Cast<Control>().ToArray())old.Dispose();privateShopChoices.Controls.Clear();
         privateShopChoices.Controls.Add(new Label{Text="店主："+v.OwnerName,ForeColor=Color.White,AutoSize=true});foreach(var owner in owners){var command=PrivateCommand(v,"privateOwner",owner:owner.ObjectId);var button=new Button{Width=370,Height=30,Text=$"選取 {ResolveNpcText(owner.Name)} ({owner.X}, {owner.Y})"};button.Click+=async(_,_)=>await RunPrivateShop(command);privateShopChoices.Controls.Add(button);}
-        foreach(var row in v.Rows){var command=PrivateCommand(v,"privateChoose",row.Id);var button=new Button{Width=370,Height=62,Text=$"{(v.SelectedRow==row.Id?"已選：":"選擇：")}{row.Name}\n單價 {row.Price:N0} · 清單數量 {row.ListedCount:N0} · 本次最多 {row.Maximum:N0}",Enabled=v.CanChoose&&row.Maximum>0};button.Click+=async(_,_)=>await RunPrivateShop(command);privateShopChoices.Controls.Add(button);}
+        foreach(var row in v.Rows){var command=PrivateCommand(v,"privateChoose",row.Id);var button=new Button{Width=370,Height=62,Text=$"{(v.SelectedRow==row.Id?"已選：":"選擇：")}{row.Name}\n單價 {row.Price:N0} · {(v.Sell?"原訂收購量":"清單數量")} {row.ListedCount:N0} · 本次最多 {row.Maximum:N0}",Enabled=v.CanChoose&&row.Maximum>0};button.Click+=async(_,_)=>await RunPrivateShop(command);privateShopChoices.Controls.Add(button);}
     }
 }
