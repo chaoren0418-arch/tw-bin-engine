@@ -1,6 +1,6 @@
 # TASKS — tw-bin-engine
 
-更新：2026-11-06（#76 範圍凍結）。格式：`### ID | 狀態 | 負責 | 範圍`。狀態只用 todo／doing／review／done／blocked。
+更新：2026-11-06（#76 範圍凍結；#99 調整 M3）。格式：`### ID | 狀態 | 負責 | 範圍`。狀態只用 todo／doing／review／done／blocked。
 
 **計算規則（凍結）**：
 - 調度台的進度條**只算 `## M*` 區段**；`## Backlog` 只顯示數量，不算進度。
@@ -10,7 +10,7 @@
 
 ---
 
-## M0 可重現建置 — 主線 13 項，封頂（11 完成、2 待辦：T005、T017）
+## M0 可重現建置 — 主線 13 項，封頂（12 完成、1 待辦：T005）
 
 **驗收：使用者打開會看到什麼（凍結）**：
 - **前置條件**：Windows 機器上有原客戶端資源目錄（`TW_CLIENT_ROOT`，預設 `D:\lineage開發\0-客戶端`），並且依 `docs/BUILD.md` 接好 `engine/assets` junction，安裝 SDK 10.0.300 與 Python 3.12。
@@ -19,13 +19,13 @@
   - 新建 worktree 的 **r35** 建置加 check-only：#13（`scratch/wt/task-13`，`PASS r35`、`revision: r35`，exit 0）。
   - 主專案目錄的 **dev** 建置加 check-only：#38、#70（`revision: dev`、`uiStarted: false`，exit 0）。
   - GitHub Actions：ubuntu-latest 交叉建置 Windows 目標綠燈（#67／PR #72）。CI 只證明可編譯，不算 Windows 原生驗收。
-- **待驗證**：從**新建的 clone 或 worktree** 跑 **dev** 建置加 check-only（同一來源版本、記錄指令、退出碼、JSON 與前置資源）。由 T017 補上；補齊前 M0 不算完成。
+  - 新建 worktree 的 **dev** 建置加 check-only：#88（T017，`scratch/wt/task-88`，來源 `4021caf`，`PASS dev`、`revision: dev`，exit 0）。
 
 ### T001 | done | Claude | CI：GitHub Actions dotnet build
 ### T002 | done | Claude | r35 canonical lock（181 檔）
 ### T003 | done | Claude | 去除硬編路徑（TW_ENGINE_ROOT／TW_CLIENT_ROOT）
 ### T004 | done | codex-local | `docs/BUILD.md` 乾淨機器建置文件（#6）
-### T005 | todo | codex-local | CLAUDE／AGENTS／cursor 規則與狀態同步：build-product 指向 dev、CI 改 ubuntu、真機由 dot 執行（出處：#23 使用者決定、commit `91a0d5c`）。另開 Issue，不在 #76 範圍
+### T005 | todo | codex-local | CLAUDE／AGENTS／cursor 規則與 `docs/BUILD.md` 狀態同步：build-product 指向 dev、CI 改 ubuntu（#94 審查指出 BUILD.md 的 CI 段落過時）、dot 真機授權（等使用者在 dot 對話授權後，連同出處寫入）
 ### T013 | done | codex-local | 本機 r35 完整建置（#7）
 ### T014 | done | codex-local | rebuild.py 允許 assets junction（#12）
 ### T015 | done | codex-local | 本機 r35 建置加 check-only 通過（#13）
@@ -33,7 +33,7 @@
 ### T040 | done | codex-local | 滾動式 dev lock（#31）
 ### T041 | done | codex-local | 選用封包追蹤，只記 op／len（#34）
 ### T050 | done | codex-local | CI 改在 Linux 交叉建置 Windows 目標（#67／PR #72）
-### T017 | todo | codex-local | 新建 worktree 的 dev 建置加 check-only（補 M0 待驗證條件；做法同 #13，改用 dev lock）
+### T017 | done | codex-local | 新建 worktree 的 dev 建置加 check-only（#88／PR #90）
 
 ---
 
@@ -81,17 +81,18 @@
 
 ---
 
-## M3 可攜交付 — 主線 3 項，封頂
+## M3 可重現交付與文件 — 主線 4 項，封頂
 
-**驗收：使用者打開會看到什麼（凍結）**：
-- GitHub Release 有一個 zip，**只含**引擎與 launcher 的執行檔、web 頁面、說明文件，**不含任何遊戲資源**（pak／map／sprite／sound，以及由它們衍生的 `engine/assets`）。
-- **前置條件**：使用者自己有原客戶端資源目錄。在一台沒有開發環境的 Windows（只裝 .NET 10 Desktop Runtime 與 WebView2）上解壓 zip，照 zip 內的 `README` 指定資源目錄，執行啟動檔，就出現登入畫面。
-- `docs/ARCHITECTURE.md` 一頁說明模組與資料流。
-- 在兩個不同目錄各建置一次，`productDll` 的 SHA-256 相同。
+**驗收：使用者打開會看到什麼（凍結；#99 依使用者「AI 能決定的不要問我」由調度器對話裁定 1-B、2-X 後修訂）**：
+- 在兩個不同目錄各建置一次，`productDll` 的 SHA-256 相同（#91）。
+- `docs/ARCHITECTURE.md` 一頁說明模組與資料流（#94）。
+- **repo 的 main 不含任何遊戲資源**：一份發布查核報告列出所有追蹤檔與 embedded resources 的分類，被判定為原始或衍生遊戲資料的檔案（包含 `engine/web/icons/*.png` 20 張、`engine/web/ground/*.png` 2 張）都已從 main 移除，改成執行期從使用者本機的 `engine/assets` 或 `TW_CLIENT_ROOT` 讀取，功能不退化（離線測試加 check-only 通過）。git 歷史不改寫。`docs/demo/` 的真機截圖是使用者已授權公開的驗收證據（#71），不算遊戲資源檔；只含 ID、SHA、大小等非內容性 metadata 的 JSON 也不算，但要列入分類表。
+- 原本的「可攜 zip、使用者本機產生素材」移到 Backlog B15（見 #97 設計）。
 
-### T006 | todo | codex-local | 位元可重現建置（Deterministic／PathMap；不同目錄產出相同 SHA）
-### T033 | todo | codex-local | 可攜 zip（不含遊戲資源）加 GitHub Release；資源由使用者的客戶端目錄提供
-### T080 | todo | codex-local | 交作業版 `docs/ARCHITECTURE.md`
+### T006 | done | codex-local | 位元可重現建置（#91／PR #92：停用 Source Link 與版本字串的 git revision）
+### T080 | done | codex-local | 交作業版 `docs/ARCHITECTURE.md`（#94／PR #95）
+### T034 | todo | codex-local | 發布查核：全部追蹤檔與 embedded resources 的內容分類、遊戲資源清單、拒收檢查規格（沿用 #97 plan 的 `portable-resource-audit`）
+### T035 | todo | codex-local | 依 T034 結果，把衍生遊戲資源移出 main，改由執行期從本機 `engine/assets`／`TW_CLIENT_ROOT` 讀取；加入 CI 拒收檢查（依賴 T034）
 
 ---
 
@@ -113,3 +114,4 @@
 | B12 | 舊 EXE 原版 11 步全流程基準 | #81 H02（P10） | 本專案目標是**不依賴舊 BIN** 的自主引擎，舊 EXE 不作為驗收 |
 | B13 | TW1608262200 原 BIN 完整協議相容（d287 JAR 以外的伺服器） | #81 H03（P07、P11、P12） | 引擎只對齊目前的 P24Lab d287 JAR 伺服器；擴充到其他伺服器版本另行決策 |
 | B14 | 金幣在本伺服器不可丟棄 | #77 | 伺服器規則（`DORP_ITEM`／白名單）；不改 DB 或配置，demo 改用替代物品 |
+| B15 | 可攜 zip 加使用者本機產生 `engine/assets`（原 T033） | #97、#99 | 轉換鏈依賴伺服器 SQL／地圖、研究工具，估 20–36 小時，且只靠客戶端能否重建未證實；設計見 `docs/design/portable-delivery.md` |
