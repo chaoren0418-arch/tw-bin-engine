@@ -1,0 +1,1255 @@
+{
+  "schema": "issue-153-readonly-audit-v1",
+  "generated_utc": "2026-11-06T16:26:10.490360+00:00",
+  "base_commit": "7ebab5696bc7f9d11e60bb284cebf110b0bb59a4",
+  "requested_baseline": {
+    "path": "releases/SHA256SUMS.txt",
+    "disk_exists": false,
+    "tracked_in_origin_main": false,
+    "found_in_local_all_ref_history": false,
+    "shallow_repository": false
+  },
+  "method": "各版本完整 seal 的 SHA 先與 Git 追蹤 pins 核對，再以其逐檔 SHA 驗證。r29–r32 素材每個路徑均獨立讀取全檔 SHA，非素材以完整 seal 補核，seal 本身另行核對。",
+  "read_window": {
+    "started_utc": "2026-11-06T16:18:51.343850+00:00",
+    "ended_utc": "2026-11-06T16:24:11.639293+00:00"
+  },
+  "releases": [
+    {
+      "release": "r28",
+      "seal": "releases/r28/_integration/candidate-seal-manifest.json",
+      "seal_sha256": "83770091f8051466d5dccb420210cd0567ffef5a1158e8f7ebf5c7667127bfcd",
+      "git_pin_file": "docs/project-consolidation/r28-pins.json",
+      "pin_records": [
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\P24-原2x2地圖快取與跨區載入\\reference\\development\\release-integration-r12\\delivery\\_integration\\candidate-seal-manifest.json",
+          "bytes": 2444544,
+          "sha256": "83770091f8051466d5dccb420210cd0567ffef5a1158e8f7ebf5c7667127bfcd"
+        }
+      ],
+      "seal_file_count": 14364,
+      "verified_seal_self": true,
+      "non_asset_status_counts": {
+        "ok": 407
+      },
+      "asset_expected_count": 13958,
+      "actual_file_count": 536,
+      "outside_seal_count": 129,
+      "skipped_reparse_points": [],
+      "asset_directory_mtime_utc": "2026-11-06T13:39:07.706511+00:00",
+      "asset_status_counts": {
+        "missing": 13958
+      },
+      "total_expected_including_seal": 14365,
+      "missing_files": 13958,
+      "sha256_mismatches": 0
+    },
+    {
+      "release": "r29",
+      "seal": "releases/r29/_integration/r29/release-seal.json",
+      "seal_sha256": "d3ac187e7fc44745864640e4bcc72fefbaeeaa0b0e9d63de7c0c3cfa8e46273d",
+      "git_pin_file": "work/engine-r34-integration-r2/reference-pins.json",
+      "pin_records": [
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\_integration\\r29\\release-seal.json",
+          "size": 2429455,
+          "sha256": "d3ac187e7fc44745864640e4bcc72fefbaeeaa0b0e9d63de7c0c3cfa8e46273d"
+        }
+      ],
+      "seal_file_count": 14286,
+      "verified_seal_self": true,
+      "non_asset_status_counts": {
+        "ok": 329
+      },
+      "asset_expected_count": 13958,
+      "actual_file_count": 14287,
+      "outside_seal_count": 0,
+      "skipped_reparse_points": [],
+      "asset_directory_mtime_utc": "2026-10-28T20:09:28.299912+00:00",
+      "asset_status_counts": {
+        "ok": 13958
+      },
+      "total_expected_including_seal": 14287,
+      "missing_files": 0,
+      "sha256_mismatches": 0
+    },
+    {
+      "release": "r30",
+      "seal": "releases/r30/_integration/r30/release-seal.json",
+      "seal_sha256": "199ce6fe81130138e9fedf98e688928ce44b0a45c2aebd1b92fdd9519b8225dc",
+      "git_pin_file": "work/engine-r34-integration-r2/reference-pins.json",
+      "pin_records": [
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r30\\_integration\\r30\\release-seal.json",
+          "size": 2432967,
+          "sha256": "199ce6fe81130138e9fedf98e688928ce44b0a45c2aebd1b92fdd9519b8225dc"
+        }
+      ],
+      "seal_file_count": 14296,
+      "verified_seal_self": true,
+      "non_asset_status_counts": {
+        "ok": 339
+      },
+      "asset_expected_count": 13958,
+      "actual_file_count": 14297,
+      "outside_seal_count": 0,
+      "skipped_reparse_points": [],
+      "asset_directory_mtime_utc": "2026-10-28T21:40:35.254771+00:00",
+      "asset_status_counts": {
+        "ok": 13958
+      },
+      "total_expected_including_seal": 14297,
+      "missing_files": 0,
+      "sha256_mismatches": 0
+    },
+    {
+      "release": "r31",
+      "seal": "releases/r31/_integration/r31/release-seal.json",
+      "seal_sha256": "1d5b1c149495cb2b44f50daf2c3361eb15e8000ba27bf133d1029735f10cfd90",
+      "git_pin_file": "work/engine-r34-integration-r2/reference-pins.json",
+      "pin_records": [
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r31\\_integration\\r31\\release-seal.json",
+          "size": 2440176,
+          "sha256": "1d5b1c149495cb2b44f50daf2c3361eb15e8000ba27bf133d1029735f10cfd90"
+        }
+      ],
+      "seal_file_count": 14329,
+      "verified_seal_self": true,
+      "non_asset_status_counts": {
+        "ok": 372
+      },
+      "asset_expected_count": 13958,
+      "actual_file_count": 14330,
+      "outside_seal_count": 0,
+      "skipped_reparse_points": [],
+      "asset_directory_mtime_utc": "2026-10-28T22:38:21.436047+00:00",
+      "asset_status_counts": {
+        "ok": 13958
+      },
+      "total_expected_including_seal": 14330,
+      "missing_files": 0,
+      "sha256_mismatches": 0
+    },
+    {
+      "release": "r32",
+      "seal": "releases/r32/_integration/r32/release-seal.json",
+      "seal_sha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507",
+      "git_pin_file": "work/engine-r34-integration-r2/reference-pins.json",
+      "pin_records": [
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r32\\_integration\\r32\\release-seal.json",
+          "size": 2442883,
+          "sha256": "46e9249224e768a1ac09fe99c08a9edf387833295022147aa046c206769fa507"
+        }
+      ],
+      "seal_file_count": 14342,
+      "verified_seal_self": true,
+      "non_asset_status_counts": {
+        "ok": 385
+      },
+      "asset_expected_count": 13958,
+      "actual_file_count": 14343,
+      "outside_seal_count": 0,
+      "skipped_reparse_points": [],
+      "asset_directory_mtime_utc": "2026-10-28T23:13:42.526972+00:00",
+      "asset_status_counts": {
+        "ok": 13958
+      },
+      "total_expected_including_seal": 14343,
+      "missing_files": 0,
+      "sha256_mismatches": 0
+    },
+    {
+      "release": "r33",
+      "seal": "releases/r33/_integration/r33/release-seal.json",
+      "seal_sha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417",
+      "git_pin_file": "work/engine-r34-integration-r2/reference-pins.json",
+      "pin_records": [
+        {
+          "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\_integration\\r33\\release-seal.json",
+          "size": 2511647,
+          "sha256": "846302448dc4a1421a2689b96632978353b6e39b1c9f8a9331bdd23b7760a417"
+        }
+      ],
+      "seal_file_count": 14653,
+      "verified_seal_self": true,
+      "non_asset_status_counts": {
+        "ok": 696
+      },
+      "asset_expected_count": 13958,
+      "actual_file_count": 696,
+      "outside_seal_count": 0,
+      "skipped_reparse_points": [],
+      "asset_directory_mtime_utc": "2026-11-06T13:54:45.940000+00:00",
+      "asset_status_counts": {
+        "missing": 13958
+      },
+      "total_expected_including_seal": 14654,
+      "missing_files": 13958,
+      "sha256_mismatches": 0
+    }
+  ],
+  "missing_files": {
+    "path": "work/issue-153/missing-files.json",
+    "rows": 27916,
+    "sha256": "50643729aca01262c41ab313a254e7bf38b2cd8d3e8590e34c040990da8d7328",
+    "verified_copy_releases_meaning": "將 path 中版本替換為所列版本，該檔存在且實讀 SHA 與 expected_sha256 相同。"
+  },
+  "sha256_mismatches": [],
+  "outside_seal_files": [
+    {
+      "path": "releases/r28/audio/obj/P24.Audio.csproj.nuget.dgspec.json",
+      "size": 22301,
+      "actual_sha256": "2fc875bd81dc03a358264f60281163149fe5ffb5e31aa46b8cf914161d0b8405",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/P24.Audio.csproj.nuget.g.props",
+      "size": 1448,
+      "actual_sha256": "b6c7ae6697920ae6d1b036986012fb41eaa464c215b9a2c34752e51180faba1d",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/P24.Audio.csproj.nuget.g.targets",
+      "size": 150,
+      "actual_sha256": "971cc9b535384849b5c661d776cd7a80833a416265e32e8968e06c367368b8b5",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/project.assets.json",
+      "size": 21585,
+      "actual_sha256": "296f5640cd03742a76cc45de9620fd12e3c6e3d863f16c7e975dc268817847f3",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/project.nuget.cache",
+      "size": 305,
+      "actual_sha256": "366bafb7a4dee5953c4af269a7a535e9fba5ebbb7ed35f406838bae8186ec0de",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/Release/net10.0-windows/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "size": 200,
+      "actual_sha256": "93d67476196ebfc80d1d7d8844b91146cfd678d105f5ce635eb900ca40610c9b",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/Release/net10.0-windows/P24.Audio.AssemblyInfo.cs",
+      "size": 1121,
+      "actual_sha256": "81d6a8255fd6c296af334c9670cffd0d21c0b308b829725515f98d8a82127dcf",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/Release/net10.0-windows/P24.Audio.AssemblyInfoInputs.cache",
+      "size": 66,
+      "actual_sha256": "6db770e40d9232c77416b7d3b3b4094b9775d4617c2533d6701680042c254c7e",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/Release/net10.0-windows/P24.Audio.assets.cache",
+      "size": 257,
+      "actual_sha256": "7bf645f20eb679afe9822d7683185b2126d13591a6824b5160833e44aa2da1b7",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/Release/net10.0-windows/P24.Audio.csproj.CoreCompileInputs.cache",
+      "size": 66,
+      "actual_sha256": "851ed27b8765384389b57f48826db1e966e693453323872db907553e33350b4c",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/Release/net10.0-windows/P24.Audio.csproj.FileListAbsolute.txt",
+      "size": 2046,
+      "actual_sha256": "c2dfa0651e30b04a45ab1fc4ad831eb377158c69c71ad21f5dab2591ed08d373",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/Release/net10.0-windows/P24.Audio.dll",
+      "size": 53760,
+      "actual_sha256": "d390e22cdfd83249a72405e67f86d0dbbb0ea2cbd3111917af44aca97b92b9f4",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/Release/net10.0-windows/P24.Audio.GeneratedMSBuildEditorConfig.editorconfig",
+      "size": 988,
+      "actual_sha256": "ab04cc0e77d51720f66a47c8e511654bec0132815f894ee070fcfe27e76d7601",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/Release/net10.0-windows/P24.Audio.GlobalUsings.g.cs",
+      "size": 239,
+      "actual_sha256": "a3c6048bb4d922b1799a9977f84362a3787b68810cac67aa86ac3aa23295f227",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/Release/net10.0-windows/P24.Audio.pdb",
+      "size": 20720,
+      "actual_sha256": "91ac164c2f1ac104fb774501cae1988d24bd3ee2113ba99ff95930e6866811ed",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/Release/net10.0-windows/ref/P24.Audio.dll",
+      "size": 19968,
+      "actual_sha256": "83f328398513f1fe0437d018eea42d3c789575a1b4e6473cf9dc2d625ae6b29d",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/audio/obj/Release/net10.0-windows/refint/P24.Audio.dll",
+      "size": 19968,
+      "actual_sha256": "83f328398513f1fe0437d018eea42d3c789575a1b4e6473cf9dc2d625ae6b29d",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/OfflineClient.csproj.nuget.dgspec.json",
+      "size": 46094,
+      "actual_sha256": "48f085fc698b83cb069fed9e05a2ae41ea3ba8e6f251f0792d0eda5cdb436832",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/OfflineClient.csproj.nuget.g.props",
+      "size": 1827,
+      "actual_sha256": "5ee54f5ee9c7ff3b9b2882ee7b62d0a5bd57249457112ac1403130c0b7c70625",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/OfflineClient.csproj.nuget.g.targets",
+      "size": 505,
+      "actual_sha256": "f3ca7549eb06b49c72546efedcbf306ef4cc0e41806657dfd46268bef7883770",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/project.assets.json",
+      "size": 29556,
+      "actual_sha256": "ac837f4d0729fdc18ae55a3e88c58a35d52da93f130ad5bd793a5f9f441eac21",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/project.nuget.cache",
+      "size": 551,
+      "actual_sha256": "7d84dc4fdd89eb006b305963346a8dbe2e661a8d4d6b28263b7da9ee831269f9",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "size": 200,
+      "actual_sha256": "93d67476196ebfc80d1d7d8844b91146cfd678d105f5ce635eb900ca40610c9b",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/apphost.exe",
+      "size": 162304,
+      "actual_sha256": "73e816f7a6e6079443a3e4079d5ec2de46072b1d0869231586e4794301c9563f",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/OfflineC.CE4B76B9.Up2Date",
+      "size": 0,
+      "actual_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/OfflineClient.AssemblyInfo.cs",
+      "size": 1142,
+      "actual_sha256": "b6b36858c51e75002872214efada015307abd6a54462bfd7c128fd95eeca533e",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/OfflineClient.AssemblyInfoInputs.cache",
+      "size": 66,
+      "actual_sha256": "a8b9c5f09a714b3cd7423ec610c1edc4f5ff97a36fb9eb86f1aeba314903443d",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/OfflineClient.assets.cache",
+      "size": 1986,
+      "actual_sha256": "1dce4e802b0654bbcb6ed7401dbd2e9cb69328dcb95db611cb760497a52f4ed4",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/OfflineClient.csproj.AssemblyReference.cache",
+      "size": 3805,
+      "actual_sha256": "93aa14e2b1ae948c52a0837b9fcb63566421ec9faaaf4ce661259efacb7a9a00",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/OfflineClient.csproj.CoreCompileInputs.cache",
+      "size": 66,
+      "actual_sha256": "7bf48c0e96ebd522e546ba3908c9a5b9ffe1f1d883f9f3d7f7f12221ddda6527",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/OfflineClient.csproj.FileListAbsolute.txt",
+      "size": 3685,
+      "actual_sha256": "86b1f15af6734486344a635d9c9a2c1446acb554fa4974db804946883b568490",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/OfflineClient.GeneratedMSBuildEditorConfig.editorconfig",
+      "size": 1249,
+      "actual_sha256": "c458b3b373940105a511dc0158bd70fa1446a29fbbc8e66452be0575f97310f4",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/OfflineClient.genruntimeconfig.cache",
+      "size": 66,
+      "actual_sha256": "2c11f93134c9a68f562c1b7e9bbf255559cee67c2cce55b022ffdf50794a9387",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/OfflineClient.GlobalUsings.g.cs",
+      "size": 305,
+      "actual_sha256": "c95ea51a9e8c77e5367f652ede0c8871e7d6413090add59e1b8dd6805ac37e70",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/P11.ClientEngine.dll",
+      "size": 2155008,
+      "actual_sha256": "7762951fba9a2d37d08e2d40a34dfa7f2a6f2219b93689a031a566a8fd8f8cb8",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/P11.ClientEngine.pdb",
+      "size": 347524,
+      "actual_sha256": "b2396b5bd094bdce91b037abf353d45806c772e53d00dbe42354a520a621e8af",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/ref/P11.ClientEngine.dll",
+      "size": 273920,
+      "actual_sha256": "7dbd09763d0acd37d839621a872cd8bff53c32e574bffa79610860fd789dfc23",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/source/obj/Release/net10.0-windows/refint/P11.ClientEngine.dll",
+      "size": 273920,
+      "actual_sha256": "7dbd09763d0acd37d839621a872cd8bff53c32e574bffa79610860fd789dfc23",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/.dotnet/.dotnet/.workloadAdvertisingManifestSentinel10.0.300",
+      "size": 0,
+      "actual_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/.dotnet/.dotnet/10.0.300.dotnetFirstUseSentinel",
+      "size": 0,
+      "actual_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/.dotnet/.dotnet/10.0.300.toolpath.sentinel",
+      "size": 0,
+      "actual_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/appdata/roaming/NuGet/NuGet.Config",
+      "size": 210,
+      "actual_sha256": "3bdb050540ecdd6fe717cbb9028c0ff9e2af5e1544afa71b6bade80140c7a236",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/AudioSettingsChecks.csproj.nuget.dgspec.json",
+      "size": 23732,
+      "actual_sha256": "b23c6ab6fae8a3aa78f60ca227a4f9796463de5d2f7db1e411f1b4c3eeb4c597",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/AudioSettingsChecks.csproj.nuget.g.props",
+      "size": 1538,
+      "actual_sha256": "ff86c50be906b73335a79e8aa8dfb3c1f3cd3c024135037a8b3fe56b3ec290f3",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/AudioSettingsChecks.csproj.nuget.g.targets",
+      "size": 150,
+      "actual_sha256": "971cc9b535384849b5c661d776cd7a80833a416265e32e8968e06c367368b8b5",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/project.assets.json",
+      "size": 22897,
+      "actual_sha256": "8005b4167b9f96f0205fb0ab7b56dde0df947388b901217c8e77fcbd56a8fe3f",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/project.nuget.cache",
+      "size": 362,
+      "actual_sha256": "e9ce0656899a784c29e2be401df70956a577f1b427c2a747b463f473fafd4295",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "size": 200,
+      "actual_sha256": "93d67476196ebfc80d1d7d8844b91146cfd678d105f5ce635eb900ca40610c9b",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/apphost.exe",
+      "size": 162304,
+      "actual_sha256": "e34a36126f0e61e86ff2bbf1b33c7d5c205bc21358f133a98c50ce90f086482d",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/AudioSet.05B252B0.Up2Date",
+      "size": 0,
+      "actual_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/AudioSettingsChecks.AssemblyInfo.cs",
+      "size": 1151,
+      "actual_sha256": "17ce143f2c560dd67b46870c2ce913d06a2222e340fac4dc9a6879ecebfdc38f",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/AudioSettingsChecks.AssemblyInfoInputs.cache",
+      "size": 66,
+      "actual_sha256": "ed404f60ffe67e2ec1222c692b1996ec4bdbb9810e5b2976b980a932ec8d5d93",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/AudioSettingsChecks.assets.cache",
+      "size": 287,
+      "actual_sha256": "0d23a9120f352f6e32c63a45975658942ee6c11ee02e77d081d6fb2648e6f015",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/AudioSettingsChecks.csproj.AssemblyReference.cache",
+      "size": 5968,
+      "actual_sha256": "ef50530c8ad53d4b86b88517eb8621b8d2c02d2d0591e53e68c270b4f0652556",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/AudioSettingsChecks.csproj.CoreCompileInputs.cache",
+      "size": 66,
+      "actual_sha256": "4ce03468a8a6d3dabcb8a6eeeb38e0fbb87ce37853b85d6bec10e9e7a85b6065",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/AudioSettingsChecks.csproj.FileListAbsolute.txt",
+      "size": 3754,
+      "actual_sha256": "8b79f5f8e9948e87182470fd0820049615bf570fffe21bccc720483a32afac83",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/AudioSettingsChecks.dll",
+      "size": 26112,
+      "actual_sha256": "549f601f080c48b095b755237b68247058797d957e2da148573332758f3a2b51",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/AudioSettingsChecks.GeneratedMSBuildEditorConfig.editorconfig",
+      "size": 1297,
+      "actual_sha256": "b7198dafd64474d8144cef7308eee541e25e1ee5d10bcc153b4ca65d4f49112e",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/AudioSettingsChecks.genruntimeconfig.cache",
+      "size": 66,
+      "actual_sha256": "40725731c031117ae97316dbd680408f58a53731c951225a9778720f8e1c6079",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/AudioSettingsChecks.GlobalUsings.g.cs",
+      "size": 305,
+      "actual_sha256": "c95ea51a9e8c77e5367f652ede0c8871e7d6413090add59e1b8dd6805ac37e70",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/AudioSettingsChecks.pdb",
+      "size": 15888,
+      "actual_sha256": "1a186baa8ba6cad48cf53b046500071e51b2863712fd03d890c2335ffb3e94e8",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/ref/AudioSettingsChecks.dll",
+      "size": 8192,
+      "actual_sha256": "3e0a36a1873b9fd15b395083b3808648994d91c957cf61241f986b513a64116b",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/audio-tests/obj/Release/net10.0-windows/refint/AudioSettingsChecks.dll",
+      "size": 8192,
+      "actual_sha256": "3e0a36a1873b9fd15b395083b3808648994d91c957cf61241f986b513a64116b",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/ClientChecks.csproj.nuget.dgspec.json",
+      "size": 23702,
+      "actual_sha256": "4ca72fff230c3d0a3604d8d3cc5db71d69542d8046ee00021ce939ecc8acaa7c",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/ClientChecks.csproj.nuget.g.props",
+      "size": 1538,
+      "actual_sha256": "ff86c50be906b73335a79e8aa8dfb3c1f3cd3c024135037a8b3fe56b3ec290f3",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/ClientChecks.csproj.nuget.g.targets",
+      "size": 150,
+      "actual_sha256": "971cc9b535384849b5c661d776cd7a80833a416265e32e8968e06c367368b8b5",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/project.assets.json",
+      "size": 22879,
+      "actual_sha256": "414e19556f393c9d3c2aa25b99c3b072e11fe3e4faecaacb9a2eb1a03dd1779e",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/project.nuget.cache",
+      "size": 356,
+      "actual_sha256": "044b7a3670e95e91be6e61b970ba3361a7d3fb43a30abcb14239bea01bcbea06",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "size": 200,
+      "actual_sha256": "93d67476196ebfc80d1d7d8844b91146cfd678d105f5ce635eb900ca40610c9b",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/apphost.exe",
+      "size": 162304,
+      "actual_sha256": "7ea4fe53cb9e68801d7991dbbaad9ec4424da7297cb6b800b30a0a6678702faf",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/ClientCh.433DA958.Up2Date",
+      "size": 0,
+      "actual_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/ClientChecks.AssemblyInfo.cs",
+      "size": 1130,
+      "actual_sha256": "7adedfbbcc149efdba698f0ee3ed2e4e9cd7aa64a23c4fbae6b087dfa978465c",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/ClientChecks.AssemblyInfoInputs.cache",
+      "size": 66,
+      "actual_sha256": "989f82004e40c6328943acdc4c8a210664f2a0ef2f72600a2c97368e2db7a526",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/ClientChecks.assets.cache",
+      "size": 287,
+      "actual_sha256": "013d50eac2234bfc74ecaa583e5e8f4e20943a1b632a712fa15072c5cd91f306",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/ClientChecks.csproj.AssemblyReference.cache",
+      "size": 5968,
+      "actual_sha256": "ef50530c8ad53d4b86b88517eb8621b8d2c02d2d0591e53e68c270b4f0652556",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/ClientChecks.csproj.CoreCompileInputs.cache",
+      "size": 66,
+      "actual_sha256": "3478596dd3b9a47a261a2f651953b86388dfe131fb7b157ebd713f4fe8f9fdd2",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/ClientChecks.csproj.FileListAbsolute.txt",
+      "size": 3620,
+      "actual_sha256": "8e82afb890a944acffa5ad629ad77c8169466231680f7c673be724d97de9a1ae",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/ClientChecks.dll",
+      "size": 25600,
+      "actual_sha256": "461e61661099a31430f13f6c6292712ed347c81fe7035950dd327b582030b43a",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/ClientChecks.GeneratedMSBuildEditorConfig.editorconfig",
+      "size": 1291,
+      "actual_sha256": "f78b8c5cee7718fdb4c21d222168a3176c4b6e834af8601fed65f69e461ae7c1",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/ClientChecks.genruntimeconfig.cache",
+      "size": 66,
+      "actual_sha256": "f718289a413d2b687a8881e8a2bb49e5aba309e7b0f9c4e01eba339374008c85",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/ClientChecks.GlobalUsings.g.cs",
+      "size": 305,
+      "actual_sha256": "c95ea51a9e8c77e5367f652ede0c8871e7d6413090add59e1b8dd6805ac37e70",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/ClientChecks.pdb",
+      "size": 15656,
+      "actual_sha256": "f334f81627b494ea6950bc2296492e9af208480fee293ca52a7e09534a3bc7e1",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/ref/ClientChecks.dll",
+      "size": 12288,
+      "actual_sha256": "66e089ddc7f11237c98baa852956575b9ea64ab48fbc6288253b2043124064e0",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/client-tests/obj/Release/net10.0-windows/refint/ClientChecks.dll",
+      "size": 12288,
+      "actual_sha256": "66e089ddc7f11237c98baa852956575b9ea64ab48fbc6288253b2043124064e0",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/HostChecks.csproj.nuget.dgspec.json",
+      "size": 23657,
+      "actual_sha256": "2c7c60a5af7832de3d175ddc0aec5509c2a3d28635b75398a12b0ed3af593b31",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/HostChecks.csproj.nuget.g.props",
+      "size": 1538,
+      "actual_sha256": "ff86c50be906b73335a79e8aa8dfb3c1f3cd3c024135037a8b3fe56b3ec290f3",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/HostChecks.csproj.nuget.g.targets",
+      "size": 150,
+      "actual_sha256": "971cc9b535384849b5c661d776cd7a80833a416265e32e8968e06c367368b8b5",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/project.assets.json",
+      "size": 22852,
+      "actual_sha256": "e6a3335fbbc960e1048daaeea56494199a142e671ec153c956bb6c6251a57f97",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/project.nuget.cache",
+      "size": 347,
+      "actual_sha256": "64e3e25fa8d53ad844d4382031819379c9468037a32a109f8df86208f3ca980d",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "size": 200,
+      "actual_sha256": "93d67476196ebfc80d1d7d8844b91146cfd678d105f5ce635eb900ca40610c9b",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/apphost.exe",
+      "size": 162304,
+      "actual_sha256": "ffed06353b84de03337bd5b62b86730bc214adf8ce81407079888d849acc9697",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/HostChecks.AssemblyInfo.cs",
+      "size": 1124,
+      "actual_sha256": "04b367f2ab748236b3dc77e5046941f5139acdf27a6b66acf6b220236628dc0e",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/HostChecks.AssemblyInfoInputs.cache",
+      "size": 66,
+      "actual_sha256": "f77ddb2ad71c8c465e35e5f5d1057fc1fffad0f1daedd6c4aff718ceec49ebb0",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/HostChecks.assets.cache",
+      "size": 287,
+      "actual_sha256": "06cee0f74d593bccad67d4b29859078827d62ecad3170b9977e21fc6ffa132ca",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/HostChecks.csproj.AssemblyReference.cache",
+      "size": 5968,
+      "actual_sha256": "ef50530c8ad53d4b86b88517eb8621b8d2c02d2d0591e53e68c270b4f0652556",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/HostChecks.csproj.CoreCompileInputs.cache",
+      "size": 66,
+      "actual_sha256": "8bd24c0b4d0524295ff3c4ea2271086975e81fcf4eecd1f9dc5f7db1e01fceae",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/HostChecks.csproj.FileListAbsolute.txt",
+      "size": 3503,
+      "actual_sha256": "c2020ca4ed3b6c63576c80a5f39e0372cf35ca9bf730bcd2ef338f6de1530f18",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/HostChecks.csproj.Up2Date",
+      "size": 0,
+      "actual_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/HostChecks.dll",
+      "size": 42496,
+      "actual_sha256": "109f0351d776b457e2b6260efae24e12c210198cf6dca18cc6d63b1e413f1638",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/HostChecks.GeneratedMSBuildEditorConfig.editorconfig",
+      "size": 1282,
+      "actual_sha256": "a37cdece89454045e983723a059faa2515285ae229df2d0264250f1cc9314fdc",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/HostChecks.genruntimeconfig.cache",
+      "size": 66,
+      "actual_sha256": "16114610c8f53deb887b876e97922faebf91f9ec052c0d1d1e9c2585470ab653",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/HostChecks.GlobalUsings.g.cs",
+      "size": 305,
+      "actual_sha256": "c95ea51a9e8c77e5367f652ede0c8871e7d6413090add59e1b8dd6805ac37e70",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/HostChecks.pdb",
+      "size": 17252,
+      "actual_sha256": "dacad87ffdf22f16cdde11b0a45da828c6170e0c08cd3e8d59296caa3ab8a97e",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/ref/HostChecks.dll",
+      "size": 12800,
+      "actual_sha256": "8de1a084b9cd792ef4e5c44242d9047cb2ea29aec130f17b8539b1644c11e10a",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/checks/tests/obj/Release/net10.0-windows/refint/HostChecks.dll",
+      "size": 12800,
+      "actual_sha256": "8de1a084b9cd792ef4e5c44242d9047cb2ea29aec130f17b8539b1644c11e10a",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/tmp/Microsoft.NET.Workload_79856_20261028_022358_944.log",
+      "size": 1660,
+      "actual_sha256": "1306846fa887d1af26ae4e6b8ea154cce0b7d16d3b72dabf73c1247e2630c4be",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/tmp/Microsoft.NET.Workload_81820_20261028_022349_947.log",
+      "size": 1649,
+      "actual_sha256": "44fc47160f19bd1f26d7740898f254eff32c330344e5ee04ffc94f38e8dc78b1",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/tmp/Microsoft.NET.Workload_82432_20261028_022402_778.log",
+      "size": 1674,
+      "actual_sha256": "70e1b073426937c8674e08511179d1efd6895450a186af3d58067977801b9b96",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/tmp/Microsoft.NET.Workload_83480_20261028_022345_595.log",
+      "size": 1439,
+      "actual_sha256": "8cbb759a596c33bda33a082ee3237da73d0c479b938179360da7589962eb1012",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/evidence/build01/tmp/Microsoft.NET.Workload_83480_20261028_022345_656.log",
+      "size": 1440,
+      "actual_sha256": "5688b699a2241795ab939ed982d4afd0f1421fb5ec98506947a8bff21d228b8e",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Launcher.csproj.nuget.dgspec.json",
+      "size": 22453,
+      "actual_sha256": "a70e9bc39d9a6bbeddd78ec3e0b2225d49698e5d77963b2b07fb30b5032c201c",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Launcher.csproj.nuget.g.props",
+      "size": 1538,
+      "actual_sha256": "ff86c50be906b73335a79e8aa8dfb3c1f3cd3c024135037a8b3fe56b3ec290f3",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Launcher.csproj.nuget.g.targets",
+      "size": 150,
+      "actual_sha256": "971cc9b535384849b5c661d776cd7a80833a416265e32e8968e06c367368b8b5",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/project.assets.json",
+      "size": 21724,
+      "actual_sha256": "1cf5c2c98b28e1c9a690ed8baf02db27536d9849d7d63fad31fe7cd44729ae5d",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/project.nuget.cache",
+      "size": 328,
+      "actual_sha256": "133c99545644de8c6985c90e66cd86d9521c47e9174ec696c61cf1ae5117d9ee",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Release/net10.0-windows/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "size": 200,
+      "actual_sha256": "93d67476196ebfc80d1d7d8844b91146cfd678d105f5ce635eb900ca40610c9b",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Release/net10.0-windows/apphost.exe",
+      "size": 162304,
+      "actual_sha256": "9ec5d1d644a2a4efddf083636c543f733dfc7a7a031ae6c3de48fb396aa98ada",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Release/net10.0-windows/Launcher.AssemblyInfo.cs",
+      "size": 1130,
+      "actual_sha256": "abe228a9dad5ef0f39ea61a008d4a47add1333de1aaf5cc9a1b71533e7d59685",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Release/net10.0-windows/Launcher.AssemblyInfoInputs.cache",
+      "size": 66,
+      "actual_sha256": "fd89a5019cfbb2d4ee8218ae23302505beecc19777cf96bf5ff8fde5ddf3e40c",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Release/net10.0-windows/Launcher.assets.cache",
+      "size": 287,
+      "actual_sha256": "f769269b1ef79cb6960ccc3d400eff6cb9f0300ebfece7609e6f8e45f206c37d",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Release/net10.0-windows/Launcher.csproj.CoreCompileInputs.cache",
+      "size": 66,
+      "actual_sha256": "d63b9dc4f0d8e5c55c57288f9388ac8be645e83fc5f057496ceeba74f34e65bf",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Release/net10.0-windows/Launcher.csproj.FileListAbsolute.txt",
+      "size": 2895,
+      "actual_sha256": "b402ac918e44518bed8586113a52ecbf1e4d9639f5c292432c060c94d115e9e7",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Release/net10.0-windows/Launcher.GeneratedMSBuildEditorConfig.editorconfig",
+      "size": 1010,
+      "actual_sha256": "791a5eb6090b1747cec8b24ca4eb37e446e4274ab1e19226bd06f560b5f2e1e6",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Release/net10.0-windows/Launcher.genruntimeconfig.cache",
+      "size": 66,
+      "actual_sha256": "e648de970f48c00fa1f7771c9c36955eb3f4c36676da5ef1c61c753016f94be0",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Release/net10.0-windows/Launcher.GlobalUsings.g.cs",
+      "size": 239,
+      "actual_sha256": "a3c6048bb4d922b1799a9977f84362a3787b68810cac67aa86ac3aa23295f227",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Release/net10.0-windows/P24.Launcher.dll",
+      "size": 24064,
+      "actual_sha256": "3ac812b20eb651925126d6fac8c255659927065251e84b8c739e21e818469e26",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Release/net10.0-windows/P24.Launcher.pdb",
+      "size": 12564,
+      "actual_sha256": "0b7ff14dd6d71f0ad93f52056f78665908290aa5a77b6ec6bbbf97701f1739e0",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Release/net10.0-windows/ref/P24.Launcher.dll",
+      "size": 6656,
+      "actual_sha256": "113b9fc8268d90d3417e1e6642a7f2de55a8f43f451198595a70c7df0508ce25",
+      "status": "outside-seal"
+    },
+    {
+      "path": "releases/r28/_integration/launcher-source/obj/Release/net10.0-windows/refint/P24.Launcher.dll",
+      "size": 6656,
+      "actual_sha256": "113b9fc8268d90d3417e1e6642a7f2de55a8f43f451198595a70c7df0508ce25",
+      "status": "outside-seal"
+    }
+  ],
+  "hardlinks": {
+    "observed_utc": "2026-11-06T16:24:06.728627+00:00",
+    "releases": [
+      {
+        "release": "r29",
+        "file_count": 13958,
+        "link_count_distribution": {
+          "1": 13958
+        }
+      },
+      {
+        "release": "r30",
+        "file_count": 13958,
+        "link_count_distribution": {
+          "9": 13957,
+          "8": 1
+        }
+      },
+      {
+        "release": "r31",
+        "file_count": 13958,
+        "link_count_distribution": {
+          "9": 13957,
+          "8": 1
+        }
+      },
+      {
+        "release": "r32",
+        "file_count": 13958,
+        "link_count_distribution": {
+          "9": 13957,
+          "8": 1
+        }
+      }
+    ],
+    "shared_file_ids_between_versions": 13958,
+    "sample_integrity": [
+      {
+        "path": "releases/r29/assets/integrity.json",
+        "file_id": 562949957374622,
+        "nlink": 1
+      },
+      {
+        "path": "releases/r30/assets/integrity.json",
+        "file_id": 562949957265389,
+        "nlink": 8
+      },
+      {
+        "path": "releases/r31/assets/integrity.json",
+        "file_id": 562949957265389,
+        "nlink": 8
+      },
+      {
+        "path": "releases/r32/assets/integrity.json",
+        "file_id": 562949957265389,
+        "nlink": 8
+      }
+    ]
+  },
+  "log_sources": [
+    {
+      "path": "D:\\dev-orchestrator\\data\\logs\\chaoren0418-arch_tw-bin-engine-129-1793969296.log",
+      "sha256": "1ffab42b8497fa6b9c890c2fbf31e9758d5d8be89eb584b5af94f4973af0b400",
+      "size": 462459,
+      "mtime_utc": "2026-11-06T13:08:05.394706+00:00",
+      "lines": 5783,
+      "session_id": "session id: 01a1b0e7-1781-7981-9101-fe1c98a872f6"
+    },
+    {
+      "path": "D:\\dev-orchestrator\\data\\logs\\chaoren0418-arch_tw-bin-engine-130-1793970522.log",
+      "sha256": "81d6ed100a0ae3b9f6ae5a120eacb5a996b0c3b19273f3fea05588863e5e1d5e",
+      "size": 594880,
+      "mtime_utc": "2026-11-06T13:32:04.929142+00:00",
+      "lines": 7762,
+      "session_id": "session id: 01a1b0f9-ce33-7d33-9b18-5df2d1f67c81"
+    },
+    {
+      "path": "D:\\dev-orchestrator\\data\\logs\\chaoren0418-arch_tw-bin-engine-133-1793970528.log",
+      "sha256": "31b5d500ffb2505942ae3ef58478975645900c4fa0d2f1307bec7be11df4637d",
+      "size": 630991,
+      "mtime_utc": "2026-11-06T13:31:30.897079+00:00",
+      "lines": 8214,
+      "session_id": "session id: 01a1b0f9-e119-7c60-bbe4-41fa286595f5"
+    },
+    {
+      "path": "D:\\dev-orchestrator\\data\\logs\\chaoren0418-arch_tw-bin-engine-133-1793972360.log",
+      "sha256": "609b72901c696edc17f3189761b1049e1850c7fa476d06347c8461bd4f98b791",
+      "size": 143889,
+      "mtime_utc": "2026-11-06T13:47:02.896064+00:00",
+      "lines": 1717,
+      "session_id": "session id: 01a1b115-e207-7b52-aa73-ace74004c7f0"
+    },
+    {
+      "path": "D:\\dev-orchestrator\\data\\logs\\chaoren0418-arch_tw-bin-engine-140-1793971630.log",
+      "sha256": "86f73dbf1514a16c368d00a9c9789fdf01f8f1cdad05f59520af9a6455f19b85",
+      "size": 844983,
+      "mtime_utc": "2026-11-06T13:46:14.156767+00:00",
+      "lines": 9221,
+      "session_id": "session id: 01a1b10a-e9a4-76d3-8d8d-c8b4ae186ef5"
+    },
+    {
+      "path": "D:\\dev-orchestrator\\data\\logs\\chaoren0418-arch_tw-bin-engine-145-1793972445.log",
+      "sha256": "7cc2aa587d2739640a0abbbc5dd2670f801d5b39a446070aead2cd887c018899",
+      "size": 782155,
+      "mtime_utc": "2026-11-06T13:56:42.447256+00:00",
+      "lines": 11987,
+      "session_id": "session id: 01a1b117-560e-7413-8022-c28454b7b060"
+    }
+  ],
+  "orchestrator_events": [
+    {
+      "utc": "2026-11-06T13:14:22.056788+00:00",
+      "level": "info",
+      "repo": "chaoren0418-arch/tw-bin-engine",
+      "issue": 129,
+      "msg": "closed externally → task:done",
+      "rule": ""
+    },
+    {
+      "utc": "2026-11-06T13:39:08.356297+00:00",
+      "level": "info",
+      "repo": "chaoren0418-arch/tw-bin-engine",
+      "issue": 130,
+      "msg": "closed externally → task:done",
+      "rule": ""
+    },
+    {
+      "utc": "2026-11-06T13:54:46.369368+00:00",
+      "level": "info",
+      "repo": "chaoren0418-arch/tw-bin-engine",
+      "issue": 133,
+      "msg": "closed externally → task:done",
+      "rule": ""
+    },
+    {
+      "utc": "2026-11-06T13:58:57.970882+00:00",
+      "level": "info",
+      "repo": "chaoren0418-arch/tw-bin-engine",
+      "issue": 140,
+      "msg": "closed externally → task:done",
+      "rule": ""
+    },
+    {
+      "utc": "2026-11-06T14:05:39.808249+00:00",
+      "level": "info",
+      "repo": "chaoren0418-arch/tw-bin-engine",
+      "issue": 145,
+      "msg": "closed externally → task:done",
+      "rule": ""
+    },
+    {
+      "utc": "2026-11-06T16:16:16.444081+00:00",
+      "level": "info",
+      "repo": "",
+      "issue": null,
+      "msg": "self-updated to c730a94 worktree 清理前先以非遞迴方式拆掉所有 junction／symlink；派工前言禁止執行者遞迴刪除或自行移除 worktree（tw-bin #153：releases/r28 素材疑似沿 junction 被刪） (1 files); restarting",
+      "rule": ""
+    }
+  ],
+  "log_excerpts": [
+    {
+      "log": "chaoren0418-arch_tw-bin-engine-130-1793970522.log",
+      "lines": [
+        6207,
+        6209
+      ],
+      "text": "exec\n\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"New-Item -ItemType Junction -Path 'D:\\\\lineage開發\\\\TW1608262200研究\\\\scratch\\\\wt\\\\task-130\\\\engine\\\\assets' -Target 'D:\\\\lineage開發\\\\TW1608262200研究\\\\releases\\\\r28\\\\assets'; New-Item -ItemType Junction -Path 'D:\\\\lineage開發\\\\TW1608262200研究\\\\scratch\\\\wt\\\\task-130\\\\engine\\\\vendor' -Target 'D:\\\\lineage開發\\\\TW1608262200研究\\\\engine\\\\vendor'\" in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-130\n succeeded in 133ms:"
+    },
+    {
+      "log": "chaoren0418-arch_tw-bin-engine-130-1793970522.log",
+      "lines": [
+        6217,
+        6218
+      ],
+      "text": "d----l         2026/11/6  下午 09:15                assets                                                               \nd----l         2026/11/6  下午 09:15                vendor                                                               "
+    },
+    {
+      "log": "chaoren0418-arch_tw-bin-engine-130-1793970522.log",
+      "lines": [
+        7668,
+        7668
+      ],
+      "text": "PASS 124 world/UI checks"
+    },
+    {
+      "log": "chaoren0418-arch_tw-bin-engine-133-1793972360.log",
+      "lines": [
+        1122,
+        1123
+      ],
+      "text": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"New-Item -ItemType Junction -Path 'D:\\\\lineage開發\\\\TW1608262200研究\\\\scratch\\\\wt\\\\task-133\\\\engine\\\\assets' -Target 'D:\\\\lineage開發\\\\TW1608262200研究\\\\releases\\\\r28\\\\assets' | Select-Object FullName,LinkType,Target; New-Item -ItemType Junction -Path 'D:\\\\lineage開發\\\\TW1608262200研究\\\\scratch\\\\wt\\\\task-133\\\\engine\\\\vendor' -Target 'D:\\\\lineage開發\\\\TW1608262200研究\\\\engine\\\\vendor' | Select-Object FullName,LinkType,Target\" in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-133\n succeeded in 80ms:"
+    },
+    {
+      "log": "chaoren0418-arch_tw-bin-engine-133-1793972360.log",
+      "lines": [
+        1164,
+        1165
+      ],
+      "text": "System.IO.FileNotFoundException: Could not find file 'D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-133\\engine\\assets\\integrity.json'.\nFile name: 'D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-133\\engine\\assets\\integrity.json'"
+    },
+    {
+      "log": "chaoren0418-arch_tw-bin-engine-133-1793972360.log",
+      "lines": [
+        1185,
+        1186
+      ],
+      "text": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$OutputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new(); Get-Item -LiteralPath '\"'D:\\\\lineage開發\\\\TW1608262200研究\\\\scratch\\\\wt\\\\task-133\\\\engine\\\\assets','D:\\\\lineage開發\\\\TW1608262200研究\\\\releases\\\\r28\\\\assets','D:\\\\lineage開發\\\\TW1608262200研究\\\\engine\\\\assets' | Format-List FullName,Attributes,LinkType,Target; Test-Path -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\releases\\\\r28\\\\assets\\\\integrity.json'; Test-Path -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\engine\\\\assets\\\\integrity.json'; Get-ChildItem -LiteralPath 'D:\\\\lineage開發\\\\TW1608262200研究\\\\scratch\\\\wt\\\\task-133\\\\engine\\\\assets' -Force | Select-Object -First 5 Name\" in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-133\n succeeded in 87ms:"
+    },
+    {
+      "log": "chaoren0418-arch_tw-bin-engine-133-1793972360.log",
+      "lines": [
+        1206,
+        1207
+      ],
+      "text": "False\nFalse"
+    },
+    {
+      "log": "chaoren0418-arch_tw-bin-engine-133-1793972360.log",
+      "lines": [
+        1496,
+        1496
+      ],
+      "text": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$assetLink = '\"'D:\\\\lineage開發\\\\TW1608262200研究\\\\scratch\\\\wt\\\\task-133\\\\engine\\\\assets'; \"'$assetInfo = Get-Item -LiteralPath $assetLink; if ($assetInfo.FullName -ne $assetLink -or $assetInfo.LinkType -ne '\"'Junction') { throw 'Unexpected asset link' }; [IO.Directory]::Delete(\"'$assetLink); New-Item -ItemType Junction -Path $assetLink -Target '\"'D:\\\\lineage開發\\\\TW1608262200研究\\\\releases\\\\r33\\\\assets' | Select-Object FullName,LinkType,Target; powershell -NoProfile -ExecutionPolicy Bypass -File engine/_integration/dev/world-ui-tests/run.ps1; exit \"'$LASTEXITCODE' in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-133"
+    },
+    {
+      "log": "chaoren0418-arch_tw-bin-engine-133-1793972360.log",
+      "lines": [
+        1594,
+        1594
+      ],
+      "text": "PASS 124 world/UI checks"
+    },
+    {
+      "log": "chaoren0418-arch_tw-bin-engine-129-1793969296.log",
+      "lines": [
+        5134,
+        5134
+      ],
+      "text": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; Copy-Item -LiteralPath engine/_integration/dev/receipt.json -Destination scratch/issue-129/previous-dev-receipt.json; $env:NUGET_PACKAGES=\"$PWD'\"\\\\engine\\\\.nuget\\\"; py -3.12 -B -X utf8 engine/_integration/dev/rebuild.py --update-lock; py -3.12 -B -X utf8 engine/_integration/dev/rebuild.py --build --write-receipt --output engine/build/issue-129\" in D:\\lineage開發\\TW1608262200研究"
+    },
+    {
+      "log": "chaoren0418-arch_tw-bin-engine-145-1793972445.log",
+      "lines": [
+        11934,
+        11935
+      ],
+      "text": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command 'Remove-Item -LiteralPath engine/_integration/dev/receipt.json; git status --short' in D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\n succeeded in 94ms:"
+    }
+  ],
+  "historical_orchestrator": {
+    "git_commit": "78648355201a9763ffa6156028a17814fd344750",
+    "runners_file_sha256": "171c40c529050153af91245a9953ef85e9dea6790b2c4718e2d996f28dbb21c3",
+    "remove_worktree_lines": [
+      87,
+      90
+    ],
+    "argv_template": [
+      "git",
+      "-C",
+      "D:\\lineage開發\\TW1608262200研究",
+      "worktree",
+      "remove",
+      "--force",
+      "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-N"
+    ],
+    "time_precision": "closed externally 事件是函式返回後的時間。原實作未保存 subprocess 起訖、退出碼或 stdout/stderr。"
+  },
+  "vendor_observation": {
+    "path": "engine/vendor",
+    "immediate_child_count": 0,
+    "scope": "附帶觀察，未核定完整缺檔基準。",
+    "directory_mtime_utc": "2026-11-06T13:39:07.7939140Z"
+  },
+  "limits": [
+    "磁碟與本機可見 Git refs 均無 SHA256SUMS.txt，使用 Git pins 鎖定之完整 seal。",
+    "r28 的 129 個 seal 排除檔僅記錄現況 SHA，無封存預期 SHA。",
+    "缺乏當時逐檔刪除系統呼叫紀錄，因果由歷史程式、事件、junction 目標、目錄 mtime 與前後測試交叉推定。",
+    "未重現刪除、未操作連結、未修復封存。"
+  ]
+}
