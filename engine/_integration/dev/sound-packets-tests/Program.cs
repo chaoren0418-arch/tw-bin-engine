@@ -1,0 +1,164 @@
+using P06;
+using P24.Audio;
+using System.Reflection;
+using System.Text.Json;
+using System.Diagnostics.Tracing;
+
+// Executes product code with synthetic packets/assets and an in-memory audio transport.
+// No game entry point, GUI, network, database, native audio, or game assets.
+static class Checks
+{
+    const BindingFlags F=BindingFlags.Instance|BindingFlags.NonPublic|BindingFlags.Public;
+    static readonly List<string> labels=[];
+    static long now=10000;
+    static void Check(bool ok,string label){if(!ok)throw new Exception(label);labels.Add(label);}
+    static void Reject(Action action,string label){try{action();}catch(ProtocolException){Check(true,label);return;}throw new Exception("accepted malformed "+label);}
+    static byte[] Packet(Action<BinaryWriter> write){using var s=new MemoryStream();using var b=new BinaryWriter(s);write(b);return LoginPackets.Pad(s.ToArray());}
+    static byte[] Sound(byte repeat=0,ushort id=97)=>Packet(b=>{b.Write((byte)22);b.Write(repeat);b.Write(id);});
+    static byte[] Effect(byte op=106,ushort gfx=1036,ushort? time=null,uint target=123)=>Packet(b=>{
+        b.Write(op);if(op==55)b.Write(target);else{b.Write((ushort)32600);b.Write((ushort)32940);}b.Write(gfx);if(time!=null)b.Write(time.Value);
+    });
+    static void Set(object o,string name,object? value)=>o.GetType().GetProperty(name,F)!.SetValue(o,value);
+    static WorldSession Session(){var s=new WorldSession();Set(s,"PacketMediaClock",(Func<long>)(()=>now));return s;}
+    static void Feed(WorldSession s,byte[] packet)
+    {
+        string method=packet[0]==22?"ReceiveSoundPacket":"ReceiveEffectPacket";
+        try{typeof(WorldSession).GetMethod(method,F)!.Invoke(s,[packet]);}
+        catch(TargetInvocationException ex) when(ex.InnerException!=null){System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex.InnerException).Throw();}
+    }
+    static void Decode()
+    {
+        foreach(byte repeat in new byte[]{0,1,255})foreach(ushort id in new ushort[]{0,97,65535})
+            Check(SoundPackets.Sound(Sound(repeat,id))==new ServerSound(repeat,id),$"S22 unsigned fields {repeat}/{id}");
+        foreach(ushort gfx in new ushort[]{0,221,65535})
+        {
+            var location=SoundPackets.Effect(Effect(gfx:gfx));
+            Check(location==new ServerEffect(null,32600,32940,gfx,null),$"S106 coordinate fields {gfx}");
+            foreach(ushort? time in new ushort?[]{null,0,1,65535})
+            {
+                var bytes=Effect(55,gfx,time,uint.MaxValue);
+                Check(bytes.Length==(time==null?8:16),$"S55 variant length {gfx}/{time}");
+                Check(SoundPackets.Effect(bytes)==new ServerEffect(uint.MaxValue,0,0,gfx,time),$"S55 unsigned fields {gfx}/{time}");
+            }
+        }
+        foreach(var bytes in new[]{Sound(),Effect(),Effect(55),Effect(55,time:1)})
+        {
+            Action<byte[]> parse=b=>{if(bytes[0]==22)SoundPackets.Sound(b);else SoundPackets.Effect(b);};
+            for(int n=0;n<bytes.Length;n++)
+            {
+                // A timed S55 truncated to 8 bytes is indistinguishable from a valid short S55
+                // only when its eighth byte is zero. Use time=1 to make the truncation invalid.
+                int length=n;Reject(()=>parse(bytes[..length]),$"truncation {bytes[0]}/{bytes.Length}/{n}");
+            }
+            var dirty=(byte[])bytes.Clone();dirty[^1]=1;Reject(()=>parse(dirty),$"nonzero padding {bytes[0]}/{bytes.Length}");
+            if(bytes[0]==55&&bytes.Length==8)
+                Check(SoundPackets.Effect([..bytes,..new byte[8]]).Time==0,"zero extension is legal timed S55");
+            else Reject(()=>parse([..bytes,..new byte[8]]),$"extra block {bytes[0]}/{bytes.Length}");
+        }
+        Reject(()=>SoundPackets.Sound(Effect()),"wrong sound opcode");
+        Reject(()=>SoundPackets.Effect(Sound()),"wrong effect opcode");
+    }
+    static PacketEffectAppearance Appearance()=>new(new MapEffectAppearance(JsonSerializer.SerializeToUtf8Bytes(new{
+        id=1036,flags=0,tickRate=24,
+        sequence=new[]{new{frame=0,ticks=12,events="[97"},new{frame=1,ticks=12,events=""}},
+        frames=new[]{new{index=0,bounds=new[]{0,0,0,0},blocks=new[]{new{a=0,b=0,z=0,order=0,pixels=new[]{new[]{0,0,32767}}}}},new{index=1,bounds=new[]{0,0,0,0},blocks=new[]{new{a=0,b=0,z=0,order=0,pixels=new[]{new[]{0,0,31}}}}}}
+    })));
+    static void Effects()
+    {
+        var s=Session();var appearance=Appearance();Feed(s,Effect());
+        Check(s.PacketEffects.Length==1&&s.PacketSounds.Length==0,"S106 stores gfx only, no direct sound");
+        int draws=0;var first=s.PacketEffectFrames(now,_=>appearance,(_,x,y)=>{draws++;Check(x==32600&&y==32940,"coordinate draw position");});
+        Check(first.Single().Frame=="0"&&draws==1,"first frame drawn once");
+        Check(s.PacketEffectFrames(now+500,_=>appearance).Single().Frame=="1","advance animation frame");
+        Check(s.PacketEffectFrames(now+1000,_=>appearance).Length==0&&s.PacketEffects.Length==0,"one-shot retires at real sequence end");
+
+        var actor=JsonSerializer.Deserialize<OwnActor>("{\"ObjectId\":123,\"X\":32600,\"Y\":32940,\"Name\":\"offline\"}")!;
+        Set(s,"Actor",actor);Feed(s,Effect(55,time:2));
+        Check(s.PacketEffectFrames(now+1500,_=>appearance).Single().Frame=="1","timed effect loops until policy deadline");
+        Set(s,"Actor",actor with{X=32601,Y=32941});
+        Check(s.PacketEffectFrames(now+1600,_=>appearance).Single() is {X:32601,Y:32941},"S55 follows current target position");
+        Check(s.PacketEffectFrames(now+2000,_=>appearance).Length==0,"timed effect retires exactly at deadline");
+        Feed(s,Effect(55,time:0));Check(s.PacketEffectFrames(now+1000,_=>appearance).Length==0,"time zero is one sequence");
+        Feed(s,Effect(55,time:2));Set(s,"Actor",null);
+        Check(s.PacketEffects.Length==0,"missing target retires attached effect");
+        Feed(s,Effect(55,time:2));Check(s.PacketEffects.Length==0,"unknown target never leaves orphan effect");
+        Feed(s,Effect(gfx:65535));Check(s.PacketEffectFrames(now,_=>null).Length==0&&s.PacketMediaNotice.Contains("缺少"),"missing gfx has explicit notice and no placeholder");
+        Feed(s,Effect());Feed(s,Sound());s.Reset();
+        Check(s.PacketEffects.Length==0&&s.PacketSounds.Length==0,"reset retires media");
+        Feed(s,Effect());Feed(s,Sound());s.Receive(LoginPackets.Pad([206,4,0,0]),"offline");
+        Check(s.PacketEffects.Length==0&&s.PacketSounds.Length==0,"S206 map boundary retires media");
+        Feed(s,Effect());Feed(s,Sound());s.Receive(LoginPackets.Pad([149,0xeb,0xa7,1,0,0,0]),"offline");
+        Check(s.PacketEffects.Length==0&&s.PacketSounds.Length==0,"S149 teleport retires media");
+        for(int i=0;i<300;i++){Feed(s,Effect());Feed(s,Sound());}
+        Check(s.PacketEffects.Length==256&&s.PacketSounds.Length==256,"pending queues bounded under burst");
+        int count=s.PacketSounds.Length;var invalid=Sound();invalid[^1]=1;
+        Reject(()=>Feed(s,invalid),"invalid receive rejected");Check(s.PacketSounds.Length==count,"invalid receive does not mutate queue");
+    }
+    static async Task Audio()
+    {
+        var schedule=SoundPackets.Schedule(new(2,65535),500);
+        var sent=new List<int>();var cursor=new SoundCursor(schedule,new Random(1));
+        cursor.Advance(0,(id,_,_)=>sent.Add(id));cursor.Advance(499,(id,_,_)=>sent.Add(id));
+        Check(sent.SequenceEqual(new[]{65535}),"soundId not gfx, first play once");
+        cursor.Advance(500,(id,_,_)=>sent.Add(id));cursor.Advance(5000,(id,_,_)=>sent.Add(id));cursor.Advance(5000,(id,_,_)=>sent.Add(id));
+        Check(sent.Count==3,"repeat=2 means three scheduled plays, no duplicate pump replay");
+        Check(SoundPackets.Schedule(new(255,97),1).Frames.Length==256,"repeat byte maximum bounded");
+
+        var s=Session();Feed(s,Sound(2));var audio=new FakeAudio();var controller=new CombatSfxController(audio,new Random(1),_=>{});
+        controller.SetControls(1,false,true);
+        void Pump(long time,bool enabled=true)=>controller.Pump(s.WorldEpoch,s.PacketSoundSnapshot(time,_=>500),time,enabled);
+        Pump(now);Pump(now);Check(audio.Plays.SequenceEqual(new[]{97}),"S22 uses existing dispatcher exactly once");
+        Pump(now+500);Check(audio.Plays.Count==2,"repeat uses WAV interval");
+        s.Receive(LoginPackets.Pad([206,4,0,0]),"offline");Pump(now+600);
+        Check(audio.Retired.Count==1&&audio.Plays.Count==2,"map change retires audio owner and cancels remaining repeat");
+        Feed(s,Sound());Pump(now);controller.SetControls(1,true,false);Pump(now+1,false);
+        Check(audio.Retired.Count==2,"disabled dispatch retires packet owner");
+        controller.SetControls(1,false,true);Pump(now+2);Check(audio.Plays.Count==3,"reenable does not replay consumed packet");
+        Feed(s,Sound(id:65535));s.PacketSoundSnapshot(now,_=>null);
+        Check(s.PacketSounds.Length==0&&s.PacketMediaNotice.Contains("未播放"),"unapproved sound explicit, never mapped to another id");
+        await controller.Shutdown();
+
+        var delayed=new FakeAudio{Delay=true};var late=new CombatSfxController(delayed,new Random(1),_=>{});
+        late.SetControls(1,false,true);Feed(s,Sound());late.Pump(s.WorldEpoch,s.PacketSoundSnapshot(now,_=>500),now,true);
+        s.Reset();late.Pump(s.WorldEpoch,[],now+1,true);delayed.Pending.SetResult(FakeAudio.Ok);
+        await Task.Delay(30);Check(delayed.Plays.Count==0,"late registration completion cannot play after reset");await late.Shutdown();
+    }
+    static void Wav()
+    {
+        using var stream=new MemoryStream();using var b=new BinaryWriter(stream,System.Text.Encoding.ASCII,true);
+        b.Write(0x46464952u);b.Write(836u);b.Write(0x45564157u);b.Write(0x20746d66u);b.Write(16u);
+        b.Write((ushort)1);b.Write((ushort)1);b.Write(8000u);b.Write(8000u);b.Write((ushort)1);b.Write((ushort)8);
+        b.Write(0x61746164u);b.Write(800u);b.Write(new byte[800]);stream.Position=0;
+        Check(PacketSoundAssets.WaveDuration(stream)==100,"PCM RIFF duration with synthetic bytes");
+        stream.Position=0;b.Write(0u);stream.Position=0;
+        try{PacketSoundAssets.WaveDuration(stream);throw new Exception("bad RIFF accepted");}catch(InvalidDataException){Check(true,"bad WAV rejected");}
+    }
+    static async Task<int> Main(string[] args)
+    {
+        try
+        {
+            using var guard=new SocketGuard();Decode();Effects();await Audio();Wav();
+            File.WriteAllText(args[0],JsonSerializer.Serialize(new{status="pass",checks=labels.Count,scope="合成封包／素材及記憶體音訊；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));
+            Console.WriteLine($"PASS {labels.Count} sound packet checks");return 0;
+        }
+        catch(Exception ex){Console.Error.WriteLine(ex);return 1;}
+    }
+    sealed class SocketGuard:EventListener
+    {
+        protected override void OnEventSourceCreated(EventSource source){if(source.Name=="System.Net.Sockets")EnableEvents(source,EventLevel.LogAlways);}
+        protected override void OnEventWritten(EventWrittenEventArgs e)=>throw new Exception("Network forbidden in offline checks");
+    }
+}
+sealed class FakeAudio:IAudioPlayback
+{
+    public static readonly AudioReply Ok=new(true,"MemoryOnly",null,0,[]);
+    public readonly List<int> Plays=[];public readonly List<AudioOwner> Retired=[];public bool Delay;
+    public readonly TaskCompletionSource<AudioReply> Pending=new(TaskCreationOptions.RunContinuationsAsynchronously);
+    public Task<AudioReply> RegisterAsync(AudioOwner owner)=>Delay?Pending.Task:Task.FromResult(Ok);
+    public Task<AudioReply> RetireAsync(AudioOwner owner){Retired.Add(owner);return Task.FromResult(Ok);}
+    public Task<AudioReply> PlayAsync(int id,AudioOwner owner){Plays.Add(id);return Task.FromResult(Ok);}
+    public Task<AudioReply> ConfigureAsync(double gain,bool muted,bool enabled)=>Task.FromResult(Ok);
+    public Task<AudioReply> ShutdownWithinAsync(TimeSpan budget)=>Task.FromResult(Ok);
+    public Task WhenReleased=>Task.CompletedTask;
+    public AudioReply LastMaintenance=>Ok;
+}

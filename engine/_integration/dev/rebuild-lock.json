@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 172,
+ "sourceCount": 173,
  "files": [
   {
    "path": "NuGet.Config",
@@ -371,8 +371,8 @@
   },
   {
    "path": "source/MagicSpells.cs",
-   "size": 1129,
-   "sha256": "20cc278da9390e90757349fb27080a258b412928ff1bd0e9a3bbabc232822de0"
+   "size": 1307,
+   "sha256": "2422dad72693b0777e1aec0d777ede78ca50e1c86d8356cede56d248b0f5f23c"
   },
   {
    "path": "source/MagicStatus.cs",
@@ -406,8 +406,8 @@
   },
   {
    "path": "source/MapEffects.cs",
-   "size": 4465,
-   "sha256": "151017e2a085c66427959f9d6164f3cec08a455ea3866fd7e1f411f38261debd"
+   "size": 10833,
+   "sha256": "d8d9a4d9739fb7e4678883c5385353a1bcd2bced220837f24ac2beeb7a386d6e"
   },
   {
    "path": "source/MapResources.cs",
@@ -783,6 +783,11 @@
    "path": "source/ShipTravel.cs",
    "size": 9639,
    "sha256": "3af9ee407a1d1c43f4da11c6ab3e1e9832ea387a84519bcbcaac0e9b7f39d1c6"
+  },
+  {
+   "path": "source/SoundPackets.cs",
+   "size": 7594,
+   "sha256": "52b8cde77f93d91a0c4723e233811dd4a4b7ee33d90aad4b55e49b269b4c8bb8"
   },
   {
    "path": "source/SystemAnnouncements.cs",

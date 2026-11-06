@@ -10,4 +10,6 @@ public static class MagicSpells {
     });
     public static MagicSpell? Get(int id)=>spells.Value.GetValueOrDefault(id);
     public static bool AttachedEffect(int gfx)=>gfx is 11722 or 221 or 2165 or 189 or 191 or 197;
+    public static string? AttachedEffect(ObjectAppearance appearance)=>new[]{"effect","heal","impact","breath"}
+        .FirstOrDefault(action=>appearance.Supports(action,0));
 }
