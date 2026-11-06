@@ -44,9 +44,8 @@ public sealed partial class LoginConnection {
     internal Func<long> MovementClock=()=>Environment.TickCount64;
     // Record every authoritative slowdown, even if it reverts before the next UI poll.
     void ExtendMovementCooldown(){if(lastMovementAt>=0&&World.MovementIntervalMs is int interval)nextMovementAt=Math.Max(nextMovementAt,lastMovementAt+interval);}
-    // This increment only enables walking. Other slowed actions remain explicitly unsupported.
-    public bool SlowActionsBlocked=>World.Actor?.Speed==2;
-    const string SlowActionNotice="未送出：緩速狀態尚未支援道具、地面物品或交談操作。";
+    // Slow changes movement/action timing, not item, ground or NPC permission.
+    // Those requests retain their own admission guards; server replies decide the outcome.
     long lastMovementAt=-1;
     internal long MovementReadyAt=>Math.Max(nextMovementAt,lastMovementAt>=0&&World.MovementIntervalMs is int interval?lastMovementAt+interval:0);
     long nextMovementAt;bool movementSending;int movementLease,inputVersion;
