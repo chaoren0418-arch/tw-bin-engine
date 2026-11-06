@@ -72,6 +72,10 @@ partial class Checks {
         using var c=MapSeed();var sent=new List<byte[]>();
         Sender(c,(b,v,a)=>{if(!v())return Task.FromResult(false);sent.Add(b);a();return Task.FromResult(true);});
         foreach(ushort ship in new ushort[]{5,6}){
+            foreach(int r1 in new[]{0,32767})foreach(int r2 in new[]{0,32767}){
+                var edge=ShipRules.Landing(ship,r1,r2);var cache=new OriginalMapCache(mapFixture,edge.X,edge.Y,ShipRules.Destination(ship));
+                Check(cache.Contains(edge.X,edge.Y),$"ship landing endpoint cache {ship}/{r1}/{r2}");
+            }
             Arrive(c,ship,32733,32797);Feed(c,TicketPacket(ship,(uint)(900300+ship)));
             uint arrival=ship==5?10800u:16200u;mapNow+=10000;Feed(c,TimePacket(arrival));
             int count=sent.Count;await (Task)Invoke(c,"AdvanceShip")!;
@@ -169,7 +173,8 @@ partial class Checks {
         string effectsHash=Save("effects/manifest.json",JsonSerializer.SerializeToUtf8Bytes(new{schema="p24-map-effects-v1",effects=new[]{new{id=6016,sha256=effectHash}}}));
         string terrainHash=Save("terrain/test.bin",Enumerable.Repeat((byte)3,1024*1024).ToArray());
         var positions=new[]{(32600,32940),(32477,32853),(32669,32802),(32585,32929),(32744,32809),(32733,32797),(32564,32723),(32631,32972),(32745,32803),(32599,32931),(33000,33000)};
-        var blockCoords=new HashSet<(int,int)>();foreach(var (x,y) in positions){var (ox,oy)=OriginalMapCache.ColdOrigin(x,y);for(int by=0;by<2;by++)for(int bx=0;bx<3;bx++)blockCoords.Add((ox/128+32512+bx,oy/64+32256+by));}
+        // Include one extra row/column: randomized ship landings can cross a cold-origin edge.
+        var blockCoords=new HashSet<(int,int)>();foreach(var (x,y) in positions){var (ox,oy)=OriginalMapCache.ColdOrigin(x,y);for(int by=0;by<3;by++)for(int bx=0;bx<3;bx++)blockCoords.Add((ox/128+32512+bx,oy/64+32256+by));}
         var blocks=new List<object>();var maps=new List<object>();
         foreach(int map in new[]{0,1,4,5,6,16384}){
             foreach(var (bx,by) in blockCoords){string name=$"{bx:x4}{by:x4}",path=$"test/{map}/{name}.s32";

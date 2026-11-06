@@ -13,7 +13,7 @@
 - SDK `10.0.300`；`rebuild.py --update-lock` 核驗 172 個來源／181 個 pins，只更新 dev 滾動 lock。
 - `rebuild.py --build --configfile scratch/issue-140/NuGet.Config --write-receipt --output engine/build/issue-140`：產品與 launcher 成功。產品為既有 `MagicUi.cs:20` 兩個 nullable 警告、0 錯誤。
 - nuget.org 在此機的 Schannel 還原失敗；改由 scratch 內 NuGet 設定唯讀引用原專案 `engine/vendor` 的 WebView2 nupkg，套件解壓與全部建置輸出留在 worktree。未改專案 NuGet.Config。
-- `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-140/map-checks.json map-continuity`：**120 個檢查全部通過**。測試呼叫實際產品 DLL、記憶體 sender、socket guard；不呼叫遊戲入口、不顯示視窗、不連伺服器。
+- `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-140/map-checks.json map-continuity`：**128 個檢查全部通過**。測試呼叫實際產品 DLL、記憶體 sender、socket guard；不呼叫遊戲入口、不顯示視窗、不連伺服器。
 - 覆蓋洞口 C29、ACK 去重、洞穴進出／同圖重建／abort 恢復、排隊舊世界輸入；船運 5→4、6→0、舊自身包、校正落點、票移除、缺票／過期時間、中斷重登船與排程邊界；旅館租房／進入／離開、無預測扣款或鑰匙；過期非同步成功／失敗、A→B→A、遠距同步／非同步冷載入、缺圖、重設；S206 截斷／padding 原子性、效果合成／離圖／回圖／區塊退役。
 - `check-no-game-assets.py`：PASS，0 errors；`git -c core.whitespace=cr-at-eol diff --check`：通過。CI 結果以 PR 上同一 commit 的 checks 為準。
 - 產品 DLL SHA-256：`ceacc2b919d66c35fa7ca54f11200ef0cf75194094a9f86ae3f3d5f659afc1ef`。
