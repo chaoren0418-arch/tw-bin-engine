@@ -280,7 +280,8 @@ partial class Checks {
             switch(args[2]){
                 case "map-continuity":await MapContinuity();break;
                 case "combat-loop":await CombatLoop();break;
-                case "combat-admission":await CombatAdmission();break;
+                case "combat-admission":await CombatAdmission();await DuelChecks();break;
+                case "duel":CombatAdmissionFixture();await DuelChecks();break;
                 case "slow-actions":await SlowActions();break;
                 case "keyboard":await KeyboardMovement123();break;
                 case "busy":KeyboardBusy123();break;
