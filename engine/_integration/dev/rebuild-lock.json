@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 173,
+ "sourceCount": 174,
  "files": [
   {
    "path": "NuGet.Config",
@@ -101,8 +101,8 @@
   },
   {
    "path": "source/AttackSkillPackets.cs",
-   "size": 6635,
-   "sha256": "0b78eea7dff35608ba13bd5a10cab7142dab8c02ae26cba93b9ea8cec4eee314"
+   "size": 6506,
+   "sha256": "b7405a39c01b80275daf702c8595c3845e646dbb2e00430338b0ae14384b1c5e"
   },
   {
    "path": "source/AudioApiTransport.cs",
@@ -351,8 +351,8 @@
   },
   {
    "path": "source/Magic.cs",
-   "size": 11107,
-   "sha256": "34b8c66cf6b720b0773c5251e9d5b9e23fd57cf0420c1c3d51e61f5a8bcba641"
+   "size": 10945,
+   "sha256": "5413fde4ba807aa6d9fd2771595413a3779a6e049b3fd3e7622ba82225562523"
   },
   {
    "path": "source/MagicIntegration.cs",
@@ -376,8 +376,8 @@
   },
   {
    "path": "source/MagicSpells.cs",
-   "size": 1129,
-   "sha256": "20cc278da9390e90757349fb27080a258b412928ff1bd0e9a3bbabc232822de0"
+   "size": 1660,
+   "sha256": "00072fb58bcee3cc6b43f4144da6e47c6e7e30d303ab83e93181173f19ea408c"
   },
   {
    "path": "source/MagicStatus.cs",
@@ -591,8 +591,8 @@
   },
   {
    "path": "source/PlayerChat.cs",
-   "size": 4117,
-   "sha256": "39d47921f20315167b2dc095d5475cd033ae5f5338fcfbc66d10b1b2526343d8"
+   "size": 7992,
+   "sha256": "b3ff2b6e96b7ab8873da8fc1991f42eae2c7bddfa711c6e80f5456915af3a99e"
   },
   {
    "path": "source/PlayerChatKeyboardFlow.cs",
@@ -601,8 +601,8 @@
   },
   {
    "path": "source/PlayerHudChat.cs",
-   "size": 4390,
-   "sha256": "a737ee8f3ba7a9b502f7871d06c335cef921665507aa30e790ff96cfe29e3847"
+   "size": 5484,
+   "sha256": "4a4c1661761b04a6573d7ce367710b4fe79da5191b0841ebf02f08ab0efdd53d"
   },
   {
    "path": "source/PlayerHudIntegration.cs",
@@ -788,6 +788,11 @@
    "path": "source/ShipTravel.cs",
    "size": 9639,
    "sha256": "3af9ee407a1d1c43f4da11c6ab3e1e9832ea387a84519bcbcaac0e9b7f39d1c6"
+  },
+  {
+   "path": "source/SkillCast.cs",
+   "size": 5725,
+   "sha256": "46c38d4dbdb7c2d4e96ee67abcf7d38ce449a4c681e1fd5f9610fb11fce50676"
   },
   {
    "path": "source/SystemAnnouncements.cs",
