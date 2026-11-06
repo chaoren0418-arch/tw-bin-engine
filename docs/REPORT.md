@@ -74,3 +74,8 @@
 - 2026-11-07 — #184 T095：M5 smoke——用已準備好的測試條件，以一般玩家方式重跑 M4 的 ⚠️ 列（test，dot，PR #208 已合併）→ [報告](reports/issue-184.md)
 - 2026-11-07 — #191 T104：緩速時的道具、地面與交談政策（code，codex-local，PR 已合併）→ [報告](reports/issue-191.md)
 - 2026-11-07 — #206 主控：M5 結案，剩下的 M2 列併入 M6 smoke（T112）（plan，claude-chat，PR #211 已合併）→ [報告](reports/issue-206.md)
+- 2026-11-07 — #187 T100：技能施放通用化（已學技能都能送出正確的施法封包）（code，codex-local，PR 已合併）→ [報告](reports/issue-187.md)
+- 2026-11-07 — #193 T106：多頻道聊天（喊話、密語、血盟、隊伍）（code，codex-local，PR 已合併）→ [報告](reports/issue-193.md)
+- 2026-11-07 — #199 T111：登入密碼字元規則對齊伺服器（code，codex-local，PR 已合併）→ [報告](reports/issue-199.md)
+- 2026-11-07 — #189 T102：NPC 出售與私商回購（code，codex-local，PR 已合併）→ [報告](reports/issue-189.md)
+- 2026-11-07 — #228 T114：騎士基本技能（code，codex-local，PR #250 已合併）→ [報告](reports/issue-228.md)
