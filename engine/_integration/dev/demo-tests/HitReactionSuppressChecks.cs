@@ -66,6 +66,73 @@ partial class Checks {
         Check(w.LastAttack?.Target==0&&w.Target!.Combat==null,"legacy zero target preserved without synthesized target");
         using(var isolated=Seed())Check(!isolated.World.IsHitReactionSuppressed(456),"separate sessions do not share snapshot");
         SuppressInventoryRegression(c);
+        SuppressLifecycleRegression();
+        SuppressProjectileRegression();
+    }
+    static void SuppressProjectileRegression(){
+        foreach(bool listed in new[]{false,true}){
+            using var c=Seed();var w=c.World;long now=1000;
+            Set(w,"ActionClock",(Func<long>)(()=>now));
+            Feed(c,Pack(123,action:20));
+            Feed(c,SuppressList(listed?(ushort)1110:(ushort)1111));
+            Feed(c,SuppressAction(456,18));var cast=w.Target!.Combat;var hp=w.Status;
+            now+=100;
+            Feed(c,Packet(b=>{
+                b.Write((byte)30);b.Write((byte)1);b.Write(123u);b.Write(456u);b.Write((ushort)10);
+                b.Write((byte)2);b.Write(338u);b.Write((ushort)66);b.Write((byte)127);
+                b.Write((ushort)32600);b.Write((ushort)32940);b.Write((ushort)32601);b.Write((ushort)32940);
+                b.Write(0u);b.Write((byte)0);
+            }));
+            var p=w.LastProjectile!;
+            Check(p is {Target:456,DamageWord:10}&&w.LastAttack is {Target:456,DamageWord:10}&&w.AttackReports==1&&w.OwnCombat?.Action==1,"arrow report and attacker animation retained "+listed);
+            // Constructor-free compositor: no window, pixels, game assets or renderer constructor.
+            var renderer=(Renderer)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(Renderer));
+            GC.SuppressFinalize(renderer);
+            var flights=typeof(Renderer).GetField("projectileFlights",F)!;
+            flights.SetValue(renderer,Activator.CreateInstance(flights.FieldType));
+            var hits=new Dictionary<uint,CombatAnimation>();Set(renderer,"projectileHits",hits);Set(renderer,"projectileEpoch",-1);
+            var draws=new List<Draw>();
+            long release=p.ActionAt!.Value+p.Timing!.ReleaseMs!.Value;
+            Call(renderer,"ComposeProjectile",w,draws,release-1);
+            Check(hits.Count==0,"arrow does not hurt before release "+listed);
+            // After impact ProjectileMotion returns null, so composition needs no sprite pixels.
+            now=release+1000;Call(renderer,"ComposeProjectile",w,draws,now);
+            Check(listed?!hits.ContainsKey(456):hits.TryGetValue(456,out var hit)&&hit.Action==2,"arrow impact respects current suppression membership "+listed);
+            var visual=typeof(Renderer).GetMethod("WithProjectileHit",F)!.Invoke(renderer,[456u,cast,now,false]);
+            Check(listed?ReferenceEquals(visual,cast):visual is CombatAnimation {Action:2},"arrow visual preserves listed target casting and animates unlisted target "+listed);
+            Check(ReferenceEquals(w.Target!.Combat,cast)&&w.Status==hp&&ReferenceEquals(w.LastProjectile,p)&&w.Projectiles.Length==1,"arrow suppression leaves combat state, HP and projectile report intact "+listed);
+            Feed(c,Packet(b=>{b.Write((byte)237);b.Write(456u);b.Write((byte)42);}));
+            Check(w.Target!.HpPercent==42,"arrow target HP packet still applies "+listed);
+            Feed(c,SuppressAction(456,8));
+            var dead=w.Objects.Single(o=>o.ObjectId==456);
+            Check(dead.Dead&&dead.Combat?.Action==8&&ReferenceEquals(typeof(Renderer).GetMethod("WithProjectileHit",F)!.Invoke(renderer,[456u,dead.Combat,now,true]),dead.Combat),"arrow hit never overrides authoritative death "+listed);
+        }
+    }
+    static void SuppressLifecycleRegression(){
+        foreach(string reset in new[]{"session","cancel","select-character"}){
+        using var c=Seed();var w=c.World;var status=w.Status;
+        Feed(c,SuppressList(0,1110));int epoch=w.WorldEpoch;
+        Feed(c,LoginPackets.Pad([206,4,0,0]));
+        Feed(c,Pack(123));Feed(c,Pack(456));w.SelectTarget(456);
+        Check(w.WorldEpoch!=epoch&&w.MapId==4&&w.IsHitReactionSuppressed(123)&&w.IsHitReactionSuppressed(456),"S206 cross-map transition preserves login suppression snapshot");
+        Feed(c,SuppressAction(456,2));Check(w.Target!.Combat==null,"suppression still applies after cross-map object reconstruction");
+        if(reset=="cancel")c.Cancel();
+        else if(reset=="select-character"){
+            Set(c,"State",LoginState.CharacterList);
+            Set(c,"sendWorld",(Func<byte[],Task>)(packet=>{
+                Check(packet[0]==137,"same-connection character selection uses memory sender");
+                return Task.CompletedTask;
+            }));
+            ((Task)typeof(LoginConnection).GetMethod("SelectForProbe",F)!.Invoke(c,["offline"])!).GetAwaiter().GetResult();
+        }
+        else w.Reset();
+        // Recreate the same object/GFX without sub2: empty objects alone cannot prove clearing.
+        Set(w,"Status",status);Feed(c,Pack(123));Feed(c,Pack(456));w.SelectTarget(456);
+        Check(!w.IsHitReactionSuppressed(123)&&!w.IsHitReactionSuppressed(456),"Reset clears snapshot before another character/login without sub2 "+reset);
+        Feed(c,SuppressAction(456,2));Check(w.Target!.Combat?.Action==2,"post-Reset login without sub2 animates hurt normally "+reset);
+        Feed(c,SuppressList(1110));
+        Check(w.IsHitReactionSuppressed(456)&&!w.IsHitReactionSuppressed(123),"post-Reset login accepts its own new snapshot "+reset);
+        }
     }
     static void SuppressInventoryRegression(LoginConnection c){
         var row=GroundCatalog.Rows.Single(r=>r.Id=="meat");

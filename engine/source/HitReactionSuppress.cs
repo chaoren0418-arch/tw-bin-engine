@@ -4,6 +4,8 @@ public sealed partial class WorldSession {
     // S242/sub2 is a complete login-time GFX snapshot, not an inventory update.
     // Publish only after the entire packet (including padding) has been validated.
     HashSet<ushort> hitReactionSuppressGfx=[];
+    // Session reset only: S206 also resets combat, but must retain this snapshot.
+    void ResetHitReactionSuppress()=>hitReactionSuppressGfx.Clear();
     bool ReceiveHitReactionSuppress(LoginReader r){
         r.C(); // sub2; the shared dispatcher has already checked it.
         int count=r.H();

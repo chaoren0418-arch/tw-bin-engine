@@ -29,10 +29,12 @@
 - `Inventory.cs` 的 sub2 提前返回，避免背包 revision、道具狀態或交易確認等副作用；sub1 路徑不變。
 - `Combat.cs/AnimateCombat` 僅對 action=2 查詢並返回，涵蓋近戰 S30 與 S158 的共同動畫路徑。攻擊者動畫、targetId、傷害欄、HP 與死亡依原流程處理。
 
-## 原任務檔案範圍的缺口
+## 箭矢與 session 生命週期（第 3 輪裁定後補齊）
 
-箭矢命中在 `ProjectileRendering.cs/ComposeProjectile` 直接建立 action=2，繞過 `AnimateCombat`；`WorldSession.Reset` 也沒有清單清理掛接點。這兩個檔案不在 #215 指定範圍，已提出各一處最小掛接的範圍確認，未取得確認前不修改。
+依主控第 3 輪擴充範圍，`ProjectileRendering.cs/ComposeProjectile` 在箭矢命中建立 action=2 的條件只增加一次 `IsHitReactionSuppressed(p.Target)` 查詢，與 `Combat.cs` 共用同一函式。列入清單的目標不建立命中受擊動畫，未列入者維持原流程；飛行、傷害報告／數字資料及 HP／死亡更新不變。
 
-因此目前清單隨每次合法 sub2（含空清單）更新且各 WorldSession 獨立，但同一 WorldSession 的登出／切角 Reset 不清空欄位；若後續登入沒有送新清單，舊值可能沿用。跨圖應保留清單；不得無條件接到也會在 S206 執行的 ResetCombat。
+`WorldSession.Reset` 呼叫 `ResetHitReactionSuppress`，由模組執行集合 `Clear()`。既有取消／登出、斷線／連線失敗、重新登入前及同連線選角的路徑都經過此 Reset，因此新登入即使未送 sub2 也不沿用舊清單。S206 跨圖只會呼叫 `ResetCombat` 等地圖重置，不清空此清單；同一 session 每次合法 sub2 仍完整替換它。
 
-上述兩項是已確認的實作限制，不能以合成測試通過視為完整受擊路徑或連線生命週期已完成。現行 JAR 的實際發送、玩家變身語義與畫面效果仍交 M6 smoke 核對。
+離線回歸直接執行產品 DLL：箭矢列入／未列入各一例，檢查命中動畫、施法保留、傷害欄與 HP／死亡；session Reset、Cancel 及記憶體 sender 的同連線選角後，重建相同 objectId／gfx 且不送 sub2，確認清單已清空；S206 後重建物件則確認抑制仍有效。測試已接入既有 `DemoChecks` 與 CI 的 `combat-admission` 入口。
+
+現行 JAR 的實際發送、玩家變身語義與畫面效果仍交 M6 smoke 核對，離線合成測試不代表真機驗收。
