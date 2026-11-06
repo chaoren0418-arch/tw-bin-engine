@@ -80,3 +80,4 @@
 - 2026-11-07 — #189 T102：NPC 出售與私商回購（code，codex-local，PR 已合併）→ [報告](reports/issue-189.md)
 - 2026-11-07 — #228 T114：騎士基本技能（code，codex-local，PR #250 已合併）→ [報告](reports/issue-228.md)
 - 2026-11-07 — #227 T113：王族基本技能（code，codex-local，PR #249 已合併）→ [報告](reports/issue-227.md)
+- 2026-11-07 — #229 T115：妖精基本技能（code，codex-local，PR #253 已合併）→ [報告](reports/issue-229.md)
