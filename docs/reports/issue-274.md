@@ -16,6 +16,7 @@
 - 離線測試直接載入產品 DLL，使用合成封包、記憶體 sender 與拒絕 socket 的 guard；驗證每個 C／S 格式、空／單／多列、損壞度邊界、重複／零 ID、截斷／過長／非零 padding、寵物與未知子型別隔離、庫存權威更新、重複提交、逾時、傳送失敗與排隊期間失效。
 - 本機 NuGet 網路還原遇到沙箱 TLS 認證錯誤，改用 scratch 下的 NuGet 設定唯讀引用主專案 `engine/vendor`。套件展開、暫存、編譯輸出均留在 worktree。CI 仍用既有 nuget.org 設定。
 - 已驗證：98 項本模組離線檢查全部通過；`check-no-game-assets.py` 回報 pass、0 errors；`git diff --check` 通過。
+- PR 建立時主線已新增 T105 音效接線；已合入 `origin/main`，保留其接線、重新產生 dev lock（177 來源／186 鎖定檔），重建成功並重跑 98 項測試全數通過。沒有手動修改主線帶入的 `docs/REPORT.md`。
 - CI：待 PR 建立後檢查，結果補記於 PR。
 
 ## 未驗證什麼
