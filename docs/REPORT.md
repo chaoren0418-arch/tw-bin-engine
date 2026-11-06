@@ -42,3 +42,6 @@
 - 2026-11-06 — #94 T080：交作業版 docs/ARCHITECTURE.md（模組與資料流一頁說明）（design，codex-local，PR 已合併）→ [報告](reports/issue-94.md)
 - 2026-11-06 — #97 T033（設計）：可攜 zip 不含遊戲資源——engine/assets 怎麼在使用者電腦上產生（design，codex-local，PR #100 已合併）→ [報告](reports/issue-97.md)
 - 2026-11-06 — #99 需要使用者決定：M3「可攜 zip」超出估算 3–5 倍，要擴大主線還是移到 Backlog？（plan，?，PR #105 已合併）→ [報告](reports/issue-99.md)
+- 2026-11-06 — #102 portable-resource-audit: T033 發布查核：追蹤資源與 embedded resources 白名單（test，codex-local，PR #111 已合併）→ [報告](reports/issue-102.md)
+- 2026-11-06 — #107 T005：規則檔與 BUILD.md 狀態同步（dev 建置、ubuntu CI、dot 真機驗收授權）（code，codex-local，PR #113 已合併）→ [報告](reports/issue-107.md)
+- 2026-11-06 — #110 主控：依 T034 結果收斂 M3 驗收（7 個需生成器的檔案列為 B15 已知例外）（plan，claude-chat，PR #117 已合併）→ [報告](reports/issue-110.md)
