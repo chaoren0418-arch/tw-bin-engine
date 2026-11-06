@@ -109,13 +109,13 @@ public sealed partial class LoginConnection {
     long nextItemAt;bool itemSending;int itemLease;
     public bool ItemBusy=>itemSending||Environment.TickCount64<nextItemAt;
     public event Action<object>? ItemSent;
-    public bool ItemAvailable=>State==LoginState.InWorld&&!World.ActionLocked&&!World.TradeBlocksActions&&World.Ready&&!World.OwnDead&&World.Status?.Hp>0&&World.Actor is {} actor&&NormalSpeed.Supported(actor.Speed,actor.Brave)&&World.SelectedItem is {Count:>0,SupportedUse:true} item&&(actor.Speed!=2||item.SupportedHastePotion);
+    public bool ItemAvailable=>State==LoginState.InWorld&&!World.ActionLocked&&!World.TradeBlocksActions&&World.Ready&&!World.OwnDead&&World.Status?.Hp>0&&World.Actor is {} actor&&NormalSpeed.Supported(actor.Speed,actor.Brave)&&World.SelectedItem is {Count:>0,SupportedUse:true};
     void ResetItemSend(){itemLease++;itemSending=false;nextItemAt=0;}
     // Explicit original-server negative test only; absent from UI/web commands.
     internal Task ProbeOriginalItemDelay(uint id)=>sendWorld!(LoginPackets.Pad([164,..BitConverter.GetBytes(id)]));
     public async Task<bool> UseSelectedItem(){
         if(World.BasicSupplyPending){World.ItemNotice=World.BasicSupplyNotice;return false;}
-        if(!ItemAvailable||ItemBusy||MovementBusy||sendMovementGate==null){World.ItemNotice=SlowActionsBlocked&&World.SelectedItem?.SupportedHastePotion!=true?SlowActionNotice:"未送出：道具／速度未支援、忙碌或已耗盡";return false;}
+        if(!ItemAvailable||ItemBusy||MovementBusy||sendMovementGate==null){World.ItemNotice="未送出：道具／速度未支援、忙碌或已耗盡";return false;}
         var item=World.SelectedItem!;var actor=World.Actor!;int delayMs=item.UseDelayMs;int epoch=generation,worldEpoch=World.WorldEpoch,selection=World.ItemSelectionRevision,input=inputVersion,speedRevision=World.SpeedRevision,equipmentRevision=World.EquipmentRevision,appearance=World.AppearanceRevision,correction=World.Corrections,lease=++itemLease;var sender=sendMovementGate;
         byte[] bytes=new byte[8];bytes[0]=164;BinaryPrimitives.WriteUInt32LittleEndian(bytes.AsSpan(1),item.ObjectId);itemSending=true;
         // Authoritative speed/count/selection replies may precede transport completion.
