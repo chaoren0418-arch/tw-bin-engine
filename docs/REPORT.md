@@ -85,3 +85,5 @@
 - 2026-11-07 — #233 T119：幻術師基本技能（code，codex-local，PR #265 已合併）→ [報告](reports/issue-233.md)
 - 2026-11-07 — #196 T108：buff 與狀態圖示（code，codex-local，PR 已合併）→ [報告](reports/issue-196.md)
 - 2026-11-07 — #190 T103：地面物品通用化，以及三種停用物品的地面圖（code，codex-local，PR #207 已合併）→ [報告](reports/issue-190.md)
+- 2026-11-07 — #198 T110：傳送 recovery wrapper（N+8 bytes）相容（code，codex-local，PR 已合併）→ [報告](reports/issue-198.md)
+- 2026-11-07 — #231 T117：黑暗妖精基本技能（code，codex-local，PR #255 已合併）→ [報告](reports/issue-231.md)
