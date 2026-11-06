@@ -2,7 +2,7 @@
 
 ## 做了什麼
 
-- 在 `scratch/wt/task-130`、分支 `task/130`，以 `origin/main` 的 `1cb4d024` 建立獨立工作樹；未修改主工作樹、`docs/REPORT.md` 或封存 lock。
+- 在 `scratch/wt/task-130`、分支 `task/130`，以 `origin/main` 的 `1cb4d024` 建立獨立工作樹，並同步已合併 #129 的 `e2e1a927`（只需重生 dev lock 解衝突）；未修改主工作樹、`docs/REPORT.md` 或封存 lock。
 - 唯讀查閱主伺服器移動、AOI、NPC handlers；結論與 14 個來源 SHA-256 見 [world.md](../protocol/world.md)。一般成功步行不回送自身 S10，所以保留真實回包座標，新增清楚標示的目前預測位置，HUD／F9 同步呈現。
 - S87 完整物件更新不再繼承舊死亡狀態，且使舊排隊操作／對話失效；S76 待補外觀清除選取並禁止重選。S120／S206／重連沿用既有清理，新增回歸保護。
 - NPC 一般對話／操作距離對齊來源的 5 格；焦點／停止路徑同時清除方向與 F1–F4 held 狀態。沿用左鍵選取、雙擊／Ctrl＋左鍵攻擊、右鍵交談。
@@ -11,9 +11,9 @@
 ## 怎麼驗證（已驗證）
 
 - `py -3.12 -B -X utf8 engine/_integration/dev/rebuild.py --update-lock` 與 `--build --output scratch/build-130`：PASS，SDK 10.0.300；產品 0 錯誤、2 個既有 `MagicUi.cs:20` nullable 警告；launcher 0 錯誤／0 警告。
-- `powershell -NoProfile -ExecutionPolicy Bypass -File engine/_integration/dev/world-ui-tests/run.ps1`：世界／UI **124** 項、既有 DEMO **373** 項、Web **18** 項全部 PASS，實際 WebView2 合成 PNG 的 HTTP/MIME/解碼/404/cache 亦 PASS。測試不呼叫遊戲入口或連線，使用合成封包及記憶體 sender。
+- `powershell -NoProfile -ExecutionPolicy Bypass -File engine/_integration/dev/world-ui-tests/run.ps1`：世界／UI **124** 項、既有 DEMO **437** 項、Web **18** 項全部 PASS，實際 WebView2 合成 PNG 的 HTTP/MIME/解碼/404/cache 亦 PASS。測試不呼叫遊戲入口或連線，使用合成封包及記憶體 sender。
 - `check-no-game-assets.py` 以包含新增檔的 git index 再核驗；CI 由 PR 的當前 head build check 確認。CI 跨平台編譯與本機 Windows 離線測試分開解讀。
-- 產品 DLL SHA-256：`c931dee1b5ce30643bc8a3017772e3f1bac701248354266ef8307c0fd415f88f`。
+- 產品 DLL SHA-256：`05e3167521124fd890e241ee62218b3b86e1b6c6a1676a0000f282e607df52b4`。
 - 本機證據：本 worktree 的 `scratch/build-130/`、`scratch/issue-130/`；建置檔在既定 `engine/build`、`engine/launcher`、各專案 `bin/obj`，暫存／WebView2 profile 在 `scratch`。不提交產物或合成圖片。
 
 ## 未驗證什麼
