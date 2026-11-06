@@ -278,7 +278,8 @@ partial class Checks {
         using var guard=new SocketGuard();
         if(args.Length>2){
             switch(args[2]){
-                case "map-continuity":await MapContinuity();break;
+                case "map-continuity":await MapContinuity();await ClanChecks();break;
+                case "clan":await ClanChecks();break;
                 case "combat-loop":await CombatLoop();break;
                 case "combat-admission":await CombatAdmission();break;
                 case "slow-actions":await SlowActions();break;
