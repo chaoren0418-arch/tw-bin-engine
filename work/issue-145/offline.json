@@ -1,0 +1,2398 @@
+{
+  "status": "pass",
+  "checks": 81,
+  "cases": [
+    {
+      "name": "enter-retain-leave-reenter-and-map206",
+      "checks": 11,
+      "status": "pass"
+    },
+    {
+      "name": "shared-cooldown-different-id-overlap-and-no-paint-events",
+      "checks": 5,
+      "status": "pass"
+    },
+    {
+      "name": "delayed-registration-retire-mute-and-shutdown-fences",
+      "checks": 5,
+      "status": "pass"
+    },
+    {
+      "name": "pending-configuration-and-stale-step-no-backfill",
+      "checks": 4,
+      "status": "pass"
+    }
+  ],
+  "map": {
+    "scope": "\u552F\u8B80 r33 \u7D20\u6750\uFF0B\u76EE\u524D\u7522\u54C1\u89E3\u6790/\u5FEB\u53D6\uFF0C\u672A\u555F\u52D5\u904A\u6232\uFF1B\u8DEF\u7DDA\u53EA\u6709\u5FEB\u53D6\u8207\u5730\u5F62\u8A08\u7B97",
+    "blocks": [
+      {
+        "Name": "7ffd7fff",
+        "Sha256": "9e03bfb2e9b547f82d7f293dbc7233ae503f98f632d1c03c77dacb41ebf00468"
+      },
+      {
+        "Name": "7ffe7fff",
+        "Sha256": "074e5f143e62d9ac4d73eaf7e73a3a8b73a4afffb5e2b7e45ed62b17c0aca61e"
+      },
+      {
+        "Name": "7ffd8000",
+        "Sha256": "763662559ef9a5f181cb0f80a0a805fa909a41b44d25172e4a5f38bd6f2136d3"
+      },
+      {
+        "Name": "7ffe8000",
+        "Sha256": "03263705bcbab450044e044f0431472617097d28bd58a2f55707ca99aa29ebcf"
+      }
+    ],
+    "placements": [
+      {
+        "Owner": {
+          "ControllerId": "d63a9cce-61bd-44b3-8640-23c676090936",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "7ffd8000",
+            "RecordOrdinal": 1
+          },
+          "Generation": 1,
+          "TransportIdentity": "6016/d63a9cce61bd44b3864023c676090936/4/N2ZmZDgwMDA=/1"
+        },
+        "X": 32635,
+        "Y": 32782,
+        "StartedAtMs": 0,
+        "AbsoluteStep": 0,
+        "LoopOrdinal": 0,
+        "SequenceIndex": 0,
+        "Frame": 11
+      }
+    ],
+    "standing": [
+      {
+        "x": 32635,
+        "y": 32782
+      },
+      {
+        "x": 32634,
+        "y": 32782
+      },
+      {
+        "x": 32635,
+        "y": 32781
+      },
+      {
+        "x": 32635,
+        "y": 32783
+      },
+      {
+        "x": 32636,
+        "y": 32782
+      }
+    ],
+    "westCacheTransitions": [
+      {
+        "x": 32596,
+        "y": 32782,
+        "OriginX": 32256,
+        "OriginY": 32704,
+        "owners": 1
+      },
+      {
+        "x": 32532,
+        "y": 32782,
+        "OriginX": 32128,
+        "OriginY": 32704,
+        "owners": 0
+      }
+    ]
+  },
+  "native": {
+    "scope": "\u5408\u6210 PCM\uFF0F\u5408\u6210\u5340\u584A\uFF0C\u5BE6\u969B\u7522\u54C1 host\u2192AudioApiTransport\u2192DirectShow\uFF1BT064 \u96F6PCM\u4FDD\u6D3B\uFF1B\u975E\u6B63\u5F0F\u4E16\u754C\u9A57\u6536",
+    "stages": [
+      {
+        "name": "enter",
+        "peak": 0.18249255,
+        "samples": [
+          {
+            "utc": "2026-11-06T13:50:39.0720606Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:39.1729115Z",
+            "sessions": 1,
+            "peak": 0.18249132,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:39.2742484Z",
+            "sessions": 1,
+            "peak": 0.18249255,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:39.3754161Z",
+            "sessions": 1,
+            "peak": 0.18249255,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:39.4763500Z",
+            "sessions": 1,
+            "peak": 0.18249255,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:39.5772955Z",
+            "sessions": 1,
+            "peak": 0.18249255,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:39.6783912Z",
+            "sessions": 1,
+            "peak": 0.18249255,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:39.7793142Z",
+            "sessions": 1,
+            "peak": 0.18249255,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:39.8799420Z",
+            "sessions": 1,
+            "peak": 0.18249255,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:39.9811094Z",
+            "sessions": 1,
+            "peak": 0.18249255,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "overlap",
+        "peak": 0.23417848,
+        "samples": [
+          {
+            "utc": "2026-11-06T13:50:40.1099603Z",
+            "sessions": 1,
+            "peak": 0.18249255,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:40.2117489Z",
+            "sessions": 1,
+            "peak": 0.23417845,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:40.3124727Z",
+            "sessions": 1,
+            "peak": 0.23417845,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:40.4134270Z",
+            "sessions": 1,
+            "peak": 0.23417845,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:40.5141349Z",
+            "sessions": 1,
+            "peak": 0.23417847,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:40.6164393Z",
+            "sessions": 1,
+            "peak": 0.23417845,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:40.7176335Z",
+            "sessions": 1,
+            "peak": 0.23417848,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:40.8188085Z",
+            "sessions": 1,
+            "peak": 0.23417845,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:40.9198929Z",
+            "sessions": 1,
+            "peak": 0.23417847,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:41.0205843Z",
+            "sessions": 1,
+            "peak": 0.23417847,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "other-owner-retained",
+        "peak": 0.23848544,
+        "samples": [
+          {
+            "utc": "2026-11-06T13:50:41.2062574Z",
+            "sessions": 1,
+            "peak": 0.23848544,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:41.3069408Z",
+            "sessions": 1,
+            "peak": 0.2383876,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:41.4077103Z",
+            "sessions": 1,
+            "peak": 0.14588854,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:41.5086010Z",
+            "sessions": 1,
+            "peak": 0.14588852,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:41.6099242Z",
+            "sessions": 1,
+            "peak": 0.1458885,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:41.7117319Z",
+            "sessions": 1,
+            "peak": 0.1458885,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:41.8128357Z",
+            "sessions": 1,
+            "peak": 0.1458885,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:41.9139346Z",
+            "sessions": 1,
+            "peak": 0.1458885,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:42.0150191Z",
+            "sessions": 1,
+            "peak": 0.14588849,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:42.1157624Z",
+            "sessions": 1,
+            "peak": 0.14588849,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "leave",
+        "peak": 0,
+        "samples": [
+          {
+            "utc": "2026-11-06T13:50:42.5492409Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:42.6556870Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:42.7651136Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:42.8729490Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:42.9814323Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:43.0900590Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:43.1978055Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:43.3058068Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:43.4143686Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:43.5245461Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "reenter",
+        "peak": 0.17705746,
+        "samples": [
+          {
+            "utc": "2026-11-06T13:50:43.6829262Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:43.7835605Z",
+            "sessions": 1,
+            "peak": 0.17705746,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:43.8843218Z",
+            "sessions": 1,
+            "peak": 0.17693162,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:43.9852824Z",
+            "sessions": 1,
+            "peak": 0.1769316,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:44.0858196Z",
+            "sessions": 1,
+            "peak": 0.17693162,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:44.1868058Z",
+            "sessions": 1,
+            "peak": 0.1769316,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:44.2874656Z",
+            "sessions": 1,
+            "peak": 0.17693162,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:44.3881071Z",
+            "sessions": 1,
+            "peak": 0.1769316,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:44.4887299Z",
+            "sessions": 1,
+            "peak": 0.17693162,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:44.5894594Z",
+            "sessions": 1,
+            "peak": 0.1769316,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "muted",
+        "peak": 0,
+        "samples": [
+          {
+            "utc": "2026-11-06T13:50:45.0080081Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:45.1158472Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:45.2227765Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:45.3299886Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:45.4399496Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:45.5481324Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:45.6568744Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:45.7650916Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:45.8741524Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:45.9837752Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "restored-before-fresh-event",
+        "peak": 0,
+        "samples": [
+          {
+            "utc": "2026-11-06T13:50:46.1068889Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:46.2129480Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:46.3227365Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:46.4302720Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:46.5383332Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:46.6459788Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:46.7552649Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:46.8622555Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:46.9702467Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:47.0776182Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "restored-fresh-event",
+        "peak": 0.17705746,
+        "samples": [
+          {
+            "utc": "2026-11-06T13:50:47.2319468Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:47.3328958Z",
+            "sessions": 1,
+            "peak": 0.17705746,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:47.4335147Z",
+            "sessions": 1,
+            "peak": 0.17693162,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:47.5348199Z",
+            "sessions": 1,
+            "peak": 0.1769316,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:47.6354729Z",
+            "sessions": 1,
+            "peak": 0.17693162,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:47.7364504Z",
+            "sessions": 1,
+            "peak": 0.1769316,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:47.8369239Z",
+            "sessions": 1,
+            "peak": 0.17693162,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:47.9382382Z",
+            "sessions": 1,
+            "peak": 0.1769316,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:48.0390755Z",
+            "sessions": 1,
+            "peak": 0.17693162,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:48.1403994Z",
+            "sessions": 1,
+            "peak": 0.1769316,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "map206",
+        "peak": 0,
+        "samples": [
+          {
+            "utc": "2026-11-06T13:50:48.5623652Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:48.6703688Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:48.7802404Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:48.8887655Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:48.9996885Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:49.1086578Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:49.2171657Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:49.3281457Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:49.4373230Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:49.5461961Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "before-live-shutdown",
+        "peak": 0.17705746,
+        "samples": [
+          {
+            "utc": "2026-11-06T13:50:49.7034378Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:49.8045153Z",
+            "sessions": 1,
+            "peak": 0.17705746,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:49.9058977Z",
+            "sessions": 1,
+            "peak": 0.17693162,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:50.0069301Z",
+            "sessions": 1,
+            "peak": 0.1769316,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:50.1078211Z",
+            "sessions": 1,
+            "peak": 0.17693162,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:50.2089990Z",
+            "sessions": 1,
+            "peak": 0.1769316,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:50.3096734Z",
+            "sessions": 1,
+            "peak": 0.17693162,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:50.4110660Z",
+            "sessions": 1,
+            "peak": 0.1769316,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:50.5125006Z",
+            "sessions": 1,
+            "peak": 0.17693162,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:50.6132250Z",
+            "sessions": 1,
+            "peak": 0.1769316,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "scene-shutdown-keepalive",
+        "peak": 0,
+        "samples": [
+          {
+            "utc": "2026-11-06T13:50:51.0384114Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:51.1445616Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:51.2530819Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:51.3622856Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:51.4721243Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:51.5812515Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:51.6901436Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:51.7984108Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:51.9092660Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          },
+          {
+            "utc": "2026-11-06T13:50:52.0195585Z",
+            "sessions": 1,
+            "peak": 0,
+            "instances": [
+              "{0.0.0.00000000}.{58f57fcb-2cc3-4d2c-b652-1ade79ee19d5}|\\Device\\HarddiskVolume10\\Program Files\\dotnet\\dotnet.exe%b{00000000-0000-0000-0000-000000000000}|1%b13092"
+            ]
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "Operation": "configure",
+        "Reply": {
+          "Success": true,
+          "Status": "ControlsApplied",
+          "Detail": {
+            "Success": true,
+            "Status": "ControlsApplied",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        },
+        "Owner": null,
+        "Candidate": null
+      },
+      {
+        "Operation": "register",
+        "Reply": {
+          "Success": true,
+          "Status": "Registered",
+          "Detail": {
+            "Success": true,
+            "Status": "Registered",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 1,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": null
+      },
+      {
+        "Operation": "register",
+        "Reply": {
+          "Success": true,
+          "Status": "Registered",
+          "Detail": {
+            "Success": true,
+            "Status": "Registered",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 2,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": null
+      },
+      {
+        "Operation": "dispatch",
+        "Reply": {
+          "Success": true,
+          "Status": "Submitted",
+          "Detail": null
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 1,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "a",
+              "RecordOrdinal": 0
+            },
+            "Generation": 1,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 1,
+          "LoopOrdinal": 0,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 0,
+          "SoundId": 3332
+        }
+      },
+      {
+        "Operation": "dispatch",
+        "Reply": {
+          "Success": true,
+          "Status": "Submitted",
+          "Detail": null
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 2,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "b",
+              "RecordOrdinal": 0
+            },
+            "Generation": 2,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 1,
+          "LoopOrdinal": 0,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 1,
+          "SoundId": 1340
+        }
+      },
+      {
+        "Operation": "play",
+        "Reply": {
+          "Success": true,
+          "Status": "StartedWavFallback",
+          "Detail": {
+            "Success": true,
+            "Status": "StartedWavFallback",
+            "Playback": "249e42f9-25a8-4f77-ad7e-fdb8d93a422f",
+            "RemainingVoices": 1,
+            "Events": [
+              {
+                "Stage": "SourceUnavailable",
+                "Format": "mp3",
+                "Detail": "No approved source bytes packaged",
+                "NativeCode": 0,
+                "NativeEvent": null
+              },
+              {
+                "Stage": "PlaySubmitted",
+                "Format": "wav",
+                "Detail": "Native command accepted; not proof of audible output",
+                "NativeCode": 0,
+                "NativeEvent": null
+              }
+            ]
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 1,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "a",
+              "RecordOrdinal": 0
+            },
+            "Generation": 1,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 1,
+          "LoopOrdinal": 0,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 0,
+          "SoundId": 3332
+        }
+      },
+      {
+        "Operation": "play",
+        "Reply": {
+          "Success": true,
+          "Status": "StartedWavFallback",
+          "Detail": {
+            "Success": true,
+            "Status": "StartedWavFallback",
+            "Playback": "08cff787-a4b3-4244-a844-00a5fb24b78f",
+            "RemainingVoices": 2,
+            "Events": [
+              {
+                "Stage": "SourceUnavailable",
+                "Format": "mp3",
+                "Detail": "No approved source bytes packaged",
+                "NativeCode": 0,
+                "NativeEvent": null
+              },
+              {
+                "Stage": "PlaySubmitted",
+                "Format": "wav",
+                "Detail": "Native command accepted; not proof of audible output",
+                "NativeCode": 0,
+                "NativeEvent": null
+              }
+            ]
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 2,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "b",
+              "RecordOrdinal": 0
+            },
+            "Generation": 2,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 1,
+          "LoopOrdinal": 0,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 1,
+          "SoundId": 1340
+        }
+      },
+      {
+        "Operation": "dispatch",
+        "Reply": {
+          "Success": true,
+          "Status": "Submitted",
+          "Detail": null
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 1,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "a",
+              "RecordOrdinal": 0
+            },
+            "Generation": 1,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 13,
+          "LoopOrdinal": 1,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 0,
+          "SoundId": 3332
+        }
+      },
+      {
+        "Operation": "dispatch",
+        "Reply": {
+          "Success": true,
+          "Status": "Submitted",
+          "Detail": null
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 2,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "b",
+              "RecordOrdinal": 0
+            },
+            "Generation": 2,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 13,
+          "LoopOrdinal": 1,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 1,
+          "SoundId": 1340
+        }
+      },
+      {
+        "Operation": "play",
+        "Reply": {
+          "Success": true,
+          "Status": "StartedWavFallback",
+          "Detail": {
+            "Success": true,
+            "Status": "StartedWavFallback",
+            "Playback": "f5842442-d1e2-416d-83e1-ec3f6c952cea",
+            "RemainingVoices": 3,
+            "Events": [
+              {
+                "Stage": "SourceUnavailable",
+                "Format": "mp3",
+                "Detail": "No approved source bytes packaged",
+                "NativeCode": 0,
+                "NativeEvent": null
+              },
+              {
+                "Stage": "PlaySubmitted",
+                "Format": "wav",
+                "Detail": "Native command accepted; not proof of audible output",
+                "NativeCode": 0,
+                "NativeEvent": null
+              }
+            ]
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 1,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "a",
+              "RecordOrdinal": 0
+            },
+            "Generation": 1,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 13,
+          "LoopOrdinal": 1,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 0,
+          "SoundId": 3332
+        }
+      },
+      {
+        "Operation": "play",
+        "Reply": {
+          "Success": true,
+          "Status": "StartedWavFallback",
+          "Detail": {
+            "Success": true,
+            "Status": "StartedWavFallback",
+            "Playback": "b595087a-794b-4759-ac7c-24f152b6b3cd",
+            "RemainingVoices": 4,
+            "Events": [
+              {
+                "Stage": "SourceUnavailable",
+                "Format": "mp3",
+                "Detail": "No approved source bytes packaged",
+                "NativeCode": 0,
+                "NativeEvent": null
+              },
+              {
+                "Stage": "PlaySubmitted",
+                "Format": "wav",
+                "Detail": "Native command accepted; not proof of audible output",
+                "NativeCode": 0,
+                "NativeEvent": null
+              }
+            ]
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 2,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "b",
+              "RecordOrdinal": 0
+            },
+            "Generation": 2,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 13,
+          "LoopOrdinal": 1,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 1,
+          "SoundId": 1340
+        }
+      },
+      {
+        "Operation": "retire",
+        "Reply": {
+          "Success": true,
+          "Status": "OwnerRetired",
+          "Detail": {
+            "Success": true,
+            "Status": "OwnerRetired",
+            "Playback": null,
+            "RemainingVoices": 2,
+            "Events": []
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 1,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": null
+      },
+      {
+        "Operation": "retire",
+        "Reply": {
+          "Success": true,
+          "Status": "OwnerRetired",
+          "Detail": {
+            "Success": true,
+            "Status": "OwnerRetired",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 2,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": null
+      },
+      {
+        "Operation": "register",
+        "Reply": {
+          "Success": true,
+          "Status": "Registered",
+          "Detail": {
+            "Success": true,
+            "Status": "Registered",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 3,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": null
+      },
+      {
+        "Operation": "register",
+        "Reply": {
+          "Success": true,
+          "Status": "Registered",
+          "Detail": {
+            "Success": true,
+            "Status": "Registered",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 4,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": null
+      },
+      {
+        "Operation": "dispatch",
+        "Reply": {
+          "Success": true,
+          "Status": "Submitted",
+          "Detail": null
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 3,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "a",
+              "RecordOrdinal": 0
+            },
+            "Generation": 3,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 1,
+          "LoopOrdinal": 0,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 0,
+          "SoundId": 3332
+        }
+      },
+      {
+        "Operation": "dispatch",
+        "Reply": {
+          "Success": true,
+          "Status": "Submitted",
+          "Detail": null
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 4,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "b",
+              "RecordOrdinal": 0
+            },
+            "Generation": 4,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 1,
+          "LoopOrdinal": 0,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 1,
+          "SoundId": 1340
+        }
+      },
+      {
+        "Operation": "play",
+        "Reply": {
+          "Success": true,
+          "Status": "StartedWavFallback",
+          "Detail": {
+            "Success": true,
+            "Status": "StartedWavFallback",
+            "Playback": "973ba236-4f72-4d0d-b8e8-0f858d2b3fd4",
+            "RemainingVoices": 1,
+            "Events": [
+              {
+                "Stage": "SourceUnavailable",
+                "Format": "mp3",
+                "Detail": "No approved source bytes packaged",
+                "NativeCode": 0,
+                "NativeEvent": null
+              },
+              {
+                "Stage": "PlaySubmitted",
+                "Format": "wav",
+                "Detail": "Native command accepted; not proof of audible output",
+                "NativeCode": 0,
+                "NativeEvent": null
+              }
+            ]
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 3,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "a",
+              "RecordOrdinal": 0
+            },
+            "Generation": 3,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 1,
+          "LoopOrdinal": 0,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 0,
+          "SoundId": 3332
+        }
+      },
+      {
+        "Operation": "play",
+        "Reply": {
+          "Success": true,
+          "Status": "StartedWavFallback",
+          "Detail": {
+            "Success": true,
+            "Status": "StartedWavFallback",
+            "Playback": "7573d61d-f73b-42c9-a3cf-52c9dbf47008",
+            "RemainingVoices": 2,
+            "Events": [
+              {
+                "Stage": "SourceUnavailable",
+                "Format": "mp3",
+                "Detail": "No approved source bytes packaged",
+                "NativeCode": 0,
+                "NativeEvent": null
+              },
+              {
+                "Stage": "PlaySubmitted",
+                "Format": "wav",
+                "Detail": "Native command accepted; not proof of audible output",
+                "NativeCode": 0,
+                "NativeEvent": null
+              }
+            ]
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 4,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "b",
+              "RecordOrdinal": 0
+            },
+            "Generation": 4,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 1,
+          "LoopOrdinal": 0,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 1,
+          "SoundId": 1340
+        }
+      },
+      {
+        "Operation": "configure",
+        "Reply": {
+          "Success": true,
+          "Status": "DispatchSuppressed",
+          "Detail": {
+            "Success": true,
+            "Status": "DispatchSuppressed",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        },
+        "Owner": null,
+        "Candidate": null
+      },
+      {
+        "Operation": "configure",
+        "Reply": {
+          "Success": true,
+          "Status": "ControlsApplied",
+          "Detail": {
+            "Success": true,
+            "Status": "ControlsApplied",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        },
+        "Owner": null,
+        "Candidate": null
+      },
+      {
+        "Operation": "dispatch",
+        "Reply": {
+          "Success": true,
+          "Status": "Submitted",
+          "Detail": null
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 3,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "a",
+              "RecordOrdinal": 0
+            },
+            "Generation": 3,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 25,
+          "LoopOrdinal": 2,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 0,
+          "SoundId": 3332
+        }
+      },
+      {
+        "Operation": "dispatch",
+        "Reply": {
+          "Success": true,
+          "Status": "Submitted",
+          "Detail": null
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 4,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "b",
+              "RecordOrdinal": 0
+            },
+            "Generation": 4,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 25,
+          "LoopOrdinal": 2,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 1,
+          "SoundId": 1340
+        }
+      },
+      {
+        "Operation": "play",
+        "Reply": {
+          "Success": true,
+          "Status": "StartedWavFallback",
+          "Detail": {
+            "Success": true,
+            "Status": "StartedWavFallback",
+            "Playback": "dd53c170-fd66-4197-b60d-c8e4a344f290",
+            "RemainingVoices": 1,
+            "Events": [
+              {
+                "Stage": "SourceUnavailable",
+                "Format": "mp3",
+                "Detail": "No approved source bytes packaged",
+                "NativeCode": 0,
+                "NativeEvent": null
+              },
+              {
+                "Stage": "PlaySubmitted",
+                "Format": "wav",
+                "Detail": "Native command accepted; not proof of audible output",
+                "NativeCode": 0,
+                "NativeEvent": null
+              }
+            ]
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 3,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "a",
+              "RecordOrdinal": 0
+            },
+            "Generation": 3,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 25,
+          "LoopOrdinal": 2,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 0,
+          "SoundId": 3332
+        }
+      },
+      {
+        "Operation": "play",
+        "Reply": {
+          "Success": true,
+          "Status": "StartedWavFallback",
+          "Detail": {
+            "Success": true,
+            "Status": "StartedWavFallback",
+            "Playback": "a4d6c6ab-0add-41dd-b562-7d5127b65a22",
+            "RemainingVoices": 2,
+            "Events": [
+              {
+                "Stage": "SourceUnavailable",
+                "Format": "mp3",
+                "Detail": "No approved source bytes packaged",
+                "NativeCode": 0,
+                "NativeEvent": null
+              },
+              {
+                "Stage": "PlaySubmitted",
+                "Format": "wav",
+                "Detail": "Native command accepted; not proof of audible output",
+                "NativeCode": 0,
+                "NativeEvent": null
+              }
+            ]
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 4,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "b",
+              "RecordOrdinal": 0
+            },
+            "Generation": 4,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 25,
+          "LoopOrdinal": 2,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 1,
+          "SoundId": 1340
+        }
+      },
+      {
+        "Operation": "retire",
+        "Reply": {
+          "Success": true,
+          "Status": "OwnerRetired",
+          "Detail": {
+            "Success": true,
+            "Status": "OwnerRetired",
+            "Playback": null,
+            "RemainingVoices": 1,
+            "Events": []
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 4,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": null
+      },
+      {
+        "Operation": "retire",
+        "Reply": {
+          "Success": true,
+          "Status": "OwnerRetired",
+          "Detail": {
+            "Success": true,
+            "Status": "OwnerRetired",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 3,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": null
+      },
+      {
+        "Operation": "register",
+        "Reply": {
+          "Success": true,
+          "Status": "Registered",
+          "Detail": {
+            "Success": true,
+            "Status": "Registered",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 5,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": null
+      },
+      {
+        "Operation": "register",
+        "Reply": {
+          "Success": true,
+          "Status": "Registered",
+          "Detail": {
+            "Success": true,
+            "Status": "Registered",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 6,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": null
+      },
+      {
+        "Operation": "dispatch",
+        "Reply": {
+          "Success": true,
+          "Status": "Submitted",
+          "Detail": null
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 5,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "a",
+              "RecordOrdinal": 0
+            },
+            "Generation": 5,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 1,
+          "LoopOrdinal": 0,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 0,
+          "SoundId": 3332
+        }
+      },
+      {
+        "Operation": "dispatch",
+        "Reply": {
+          "Success": true,
+          "Status": "Submitted",
+          "Detail": null
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 6,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "b",
+              "RecordOrdinal": 0
+            },
+            "Generation": 6,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 1,
+          "LoopOrdinal": 0,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 1,
+          "SoundId": 1340
+        }
+      },
+      {
+        "Operation": "play",
+        "Reply": {
+          "Success": true,
+          "Status": "StartedWavFallback",
+          "Detail": {
+            "Success": true,
+            "Status": "StartedWavFallback",
+            "Playback": "f58475eb-f201-48ad-9b2b-2604ee397716",
+            "RemainingVoices": 1,
+            "Events": [
+              {
+                "Stage": "SourceUnavailable",
+                "Format": "mp3",
+                "Detail": "No approved source bytes packaged",
+                "NativeCode": 0,
+                "NativeEvent": null
+              },
+              {
+                "Stage": "PlaySubmitted",
+                "Format": "wav",
+                "Detail": "Native command accepted; not proof of audible output",
+                "NativeCode": 0,
+                "NativeEvent": null
+              }
+            ]
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 5,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "a",
+              "RecordOrdinal": 0
+            },
+            "Generation": 5,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 1,
+          "LoopOrdinal": 0,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 0,
+          "SoundId": 3332
+        }
+      },
+      {
+        "Operation": "play",
+        "Reply": {
+          "Success": true,
+          "Status": "StartedWavFallback",
+          "Detail": {
+            "Success": true,
+            "Status": "StartedWavFallback",
+            "Playback": "164dc2ec-fbb3-438b-a0a3-f4788f73c12d",
+            "RemainingVoices": 2,
+            "Events": [
+              {
+                "Stage": "SourceUnavailable",
+                "Format": "mp3",
+                "Detail": "No approved source bytes packaged",
+                "NativeCode": 0,
+                "NativeEvent": null
+              },
+              {
+                "Stage": "PlaySubmitted",
+                "Format": "wav",
+                "Detail": "Native command accepted; not proof of audible output",
+                "NativeCode": 0,
+                "NativeEvent": null
+              }
+            ]
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 6,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": {
+          "Owner": {
+            "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+            "Key": {
+              "MapId": 4,
+              "BlockKey": "b",
+              "RecordOrdinal": 0
+            },
+            "Generation": 6,
+            "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+          },
+          "X": 32635,
+          "Y": 32782,
+          "AbsoluteStep": 1,
+          "LoopOrdinal": 0,
+          "SequenceIndex": 1,
+          "Frame": 0,
+          "CandidateSlot": 1,
+          "SoundId": 1340
+        }
+      },
+      {
+        "Operation": "retire",
+        "Reply": {
+          "Success": true,
+          "Status": "OwnerRetired",
+          "Detail": {
+            "Success": true,
+            "Status": "OwnerRetired",
+            "Playback": null,
+            "RemainingVoices": 1,
+            "Events": []
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "b",
+            "RecordOrdinal": 0
+          },
+          "Generation": 6,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/Yg==/0"
+        },
+        "Candidate": null
+      },
+      {
+        "Operation": "retire",
+        "Reply": {
+          "Success": true,
+          "Status": "OwnerRetired",
+          "Detail": {
+            "Success": true,
+            "Status": "OwnerRetired",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        },
+        "Owner": {
+          "ControllerId": "89f4c6f8-5cce-4f00-96af-e5757f3c575a",
+          "Key": {
+            "MapId": 4,
+            "BlockKey": "a",
+            "RecordOrdinal": 0
+          },
+          "Generation": 5,
+          "TransportIdentity": "6016/89f4c6f85cce4f0096afe5757f3c575a/4/YQ==/0"
+        },
+        "Candidate": null
+      },
+      {
+        "Operation": "shutdown-transport",
+        "Reply": {
+          "Success": true,
+          "Status": "Released",
+          "Detail": {
+            "Success": true,
+            "Status": "Released",
+            "Playback": null,
+            "RemainingVoices": 0,
+            "Events": []
+          }
+        },
+        "Owner": null,
+        "Candidate": null
+      }
+    ]
+  },
+  "productSha256": "4d4e1da8bbcae633f8cb4e84947b2964f5f53693310bdeddbda66150c1477297",
+  "audioSha256": "f135b5080fb5acab27905d243e3a03fa06bfb7fc941bcf313f8839535abcd63d",
+  "gameStarted": false,
+  "network": false,
+  "database": false
+}

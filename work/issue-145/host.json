@@ -1,0 +1,105 @@
+{
+  "status": "pass",
+  "cases": 18,
+  "assertions": 58,
+  "details": [
+    {
+      "name": "original-ordinal-before-filter-and-retained-reference",
+      "checks": 5,
+      "status": "pass"
+    },
+    {
+      "name": "retire-before-new-register-and-old-lifetime-fence",
+      "checks": 5,
+      "status": "pass"
+    },
+    {
+      "name": "late-register-marshals-to-lane-and-same-step-only",
+      "checks": 4,
+      "status": "pass"
+    },
+    {
+      "name": "stale-register-after-time-boundary-without-next-pump",
+      "checks": 1,
+      "status": "pass"
+    },
+    {
+      "name": "late-register-after-clear-and-reload",
+      "checks": 2,
+      "status": "pass"
+    },
+    {
+      "name": "mute-unmute-and-missing-consume-no-backfill",
+      "checks": 3,
+      "status": "pass"
+    },
+    {
+      "name": "configure-register-play-failures-observed-without-retry",
+      "checks": 4,
+      "status": "pass"
+    },
+    {
+      "name": "invalid-gain-and-off-lane-rejected",
+      "checks": 2,
+      "status": "pass"
+    },
+    {
+      "name": "bounded-shutdown-keeps-late-reply-observable",
+      "checks": 4,
+      "status": "pass"
+    },
+    {
+      "name": "real-cache-original-record-and-renderer-phase",
+      "checks": 5,
+      "status": "pass"
+    },
+    {
+      "name": "real-map-commit-rejects-stale-load-before-register",
+      "checks": 3,
+      "status": "pass"
+    },
+    {
+      "name": "real-reset-opacity-and-map-packet-clear",
+      "checks": 2,
+      "status": "pass"
+    },
+    {
+      "name": "real-eviction-fence-before-load-and-failed-shift-clear",
+      "checks": 2,
+      "status": "pass"
+    },
+    {
+      "name": "candidate-no-native-transport-loaded",
+      "checks": 1,
+      "status": "pass"
+    },
+    {
+      "name": "configure-completion-order-and-unavailable-event-consumption",
+      "checks": 4,
+      "status": "pass"
+    },
+    {
+      "name": "retire-cleanup-failure-and-synchronous-play-throw-observed",
+      "checks": 3,
+      "status": "pass"
+    },
+    {
+      "name": "other-effect-clock-unchanged-and-long-stall-no-replay-backlog",
+      "checks": 3,
+      "status": "pass"
+    },
+    {
+      "name": "accepted-r3-default-factory-bound-without-creating-player",
+      "checks": 5,
+      "status": "pass"
+    }
+  ],
+  "productDllSha256": "4d4e1da8bbcae633f8cb4e84947b2964f5f53693310bdeddbda66150c1477297",
+  "gui": false,
+  "com": false,
+  "audioPlayback": false,
+  "sockets": false,
+  "services": false,
+  "database": false,
+  "scope": "Actual isolated product DLL with explicit fake IEffectAudio; real map parser/lifecycle calls; no native acceptance"
+}

@@ -1,0 +1,187 @@
+{
+  "status": "pass",
+  "baseCommit": "f91176d9de09279d0ecd2e885d05b64eacd03ec9",
+  "build": [
+    {
+      "name": "launcher-build",
+      "argv": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\_integration\\dev\\launcher-source\\Launcher.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\launcher"
+      ],
+      "exitCode": 0,
+      "stdout": "  Launcher -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\launcher\\P24.Launcher.dll\n\n建置成功。\n    0 個警告\n    0 個錯誤\n\n經過時間 00:00:00.75\n",
+      "stderr": ""
+    },
+    {
+      "name": "launcher-restore",
+      "argv": [
+        "dotnet",
+        "restore",
+        "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\_integration\\dev\\launcher-source\\Launcher.csproj",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\scratch\\nuget.config"
+      ],
+      "exitCode": 0,
+      "stdout": "  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n",
+      "stderr": ""
+    },
+    {
+      "name": "product-build",
+      "argv": [
+        "dotnet",
+        "build",
+        "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\source\\OfflineClient.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-o",
+        "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\build\\client-product-dev",
+        "--nologo",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "stdout": "  P24.Audio -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\build\\client-product-dev\\P24.Audio.dll\nD:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\source\\MagicUi.cs(20,62): warning CS8600: 正在將 Null 常值或可能的 Null 值轉換為不可為 Null 的型別。 [D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\source\\OfflineClient.csproj]\nD:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\source\\MagicUi.cs(20,62): warning CS8602: 可能 null 參考的取值 (dereference)。 [D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\source\\OfflineClient.csproj]\n  OfflineClient -> D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\build\\client-product-dev\\P11.ClientEngine.dll\n\n建置成功。\n\nD:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\source\\MagicUi.cs(20,62): warning CS8600: 正在將 Null 常值或可能的 Null 值轉換為不可為 Null 的型別。 [D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\source\\OfflineClient.csproj]\nD:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\source\\MagicUi.cs(20,62): warning CS8602: 可能 null 參考的取值 (dereference)。 [D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\source\\OfflineClient.csproj]\n    2 個警告\n    0 個錯誤\n\n經過時間 00:00:05.88\n",
+      "stderr": ""
+    },
+    {
+      "name": "product-restore",
+      "argv": [
+        "dotnet",
+        "restore",
+        "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\engine\\source\\OfflineClient.csproj",
+        "--configfile",
+        "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\scratch\\nuget.config"
+      ],
+      "exitCode": 0,
+      "stdout": "無法將 'D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-145\\scratch\\build-final\\.dotnet\\.dotnet\\tools' 新增到 PATH 環境變數。請將此目錄新增到您的 PATH，以使用由 'dotnet tool install' 所安裝的工具。\n  正在判斷要還原的專案...\n  所有專案都在最新狀態，可進行還原。\n",
+      "stderr": "\n歡迎使用 .NET 10.0!\n---------------------\nSDK 版本: 10.0.300\n\n----------------\n編寫您的第一個應用程式: https://aka.ms/dotnet-hello-world\n了解新功能: https://aka.ms/dotnet-whats-new\n探索文件: https://aka.ms/dotnet-docs\n在 GitHub 上報告問題和尋找來源: https://github.com/dotnet/core\n使用 'dotnet --help' 查看可用的命令或瀏覽: https://aka.ms/dotnet-cli\n--------------------------------------------------------------------------------------\n"
+    },
+    {
+      "name": "sdk",
+      "argv": [
+        "dotnet",
+        "--version"
+      ],
+      "exitCode": 0,
+      "stdout": "10.0.300\n",
+      "stderr": ""
+    }
+  ],
+  "receipt": {
+    "schema": "dev-receipt-v1",
+    "builtAt": "2026-11-06T13:47:48.185279+00:00",
+    "sdk": "10.0.300",
+    "productDllSha256": "4d4e1da8bbcae633f8cb4e84947b2964f5f53693310bdeddbda66150c1477297",
+    "audioDllSha256": "f135b5080fb5acab27905d243e3a03fa06bfb7fc941bcf313f8839535abcd63d",
+    "productManifestSha256": "93a3f48f99ebabbb581b997aa3a5891c3653d78da5bc5304949d6a1af2e615a5",
+    "launcherDllSha256": "222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d"
+  },
+  "verify": {
+    "status": "pass-dev-verify",
+    "sourceFiles": 172,
+    "GUI": false,
+    "network": false,
+    "database": false,
+    "productDllSha256": "4d4e1da8bbcae633f8cb4e84947b2964f5f53693310bdeddbda66150c1477297",
+    "audioDllSha256": "f135b5080fb5acab27905d243e3a03fa06bfb7fc941bcf313f8839535abcd63d",
+    "productManifestSha256": "93a3f48f99ebabbb581b997aa3a5891c3653d78da5bc5304949d6a1af2e615a5",
+    "launcherDllSha256": "222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d"
+  },
+  "inputs": [
+    {
+      "path": "engine\\source\\ClientEffect6016.cs",
+      "sha256": "19be31bff33a4584e638d3314225648b1ccc72bb382dd4adf64e320e1aa08eeb",
+      "size": 4853
+    },
+    {
+      "path": "engine\\source\\Effect6016Controller.cs",
+      "sha256": "5c24d747277a6428a9faf83b96682c33fb40f039989137c438c6555f5a1cae66",
+      "size": 12999
+    },
+    {
+      "path": "engine\\source\\Effect6016Host.cs",
+      "sha256": "d8214e2973b033126f1bf865546a6fac64666808ece64a0a3f9da8db54a11891",
+      "size": 8406
+    },
+    {
+      "path": "engine\\source\\WorldEffect6016.cs",
+      "sha256": "e631a0aea5c79e4f7d70eebe9bdaf4696a9d95c746199e0f0c72b04ce65dd8cb",
+      "size": 1574
+    },
+    {
+      "path": "engine\\source\\AudioApiTransport.cs",
+      "sha256": "b1a18d9fc09bfba275e9c17230c57cc398dba06ccd30631f44333a17b9e42c7b",
+      "size": 1616
+    },
+    {
+      "path": "engine\\source\\SceneOpacity.cs",
+      "sha256": "c6dc450181b1f19d3778738512b5a3dee5b95f7bdb27442241081f9acb0200b1",
+      "size": 10283
+    },
+    {
+      "path": "engine\\source\\OriginalMapCache.cs",
+      "sha256": "8c7009fd8483196beda9108a07a01f54b1e02d4447ba6cb3c6b88fb78b15d084",
+      "size": 20268
+    },
+    {
+      "path": "engine\\audio\\AudioAssets.cs",
+      "sha256": "e695a37f7d3bcc1f90f6da6dfac9af4875361980fea3265326546cffb8a03095",
+      "size": 4897
+    },
+    {
+      "path": "engine\\audio\\AudioCore.cs",
+      "sha256": "f40f35b352e9ae8c9215115f669fdbbc53845ff3432c353a70f9e302078a630d",
+      "size": 10652
+    },
+    {
+      "path": "engine\\audio\\AudioPlayer.cs",
+      "sha256": "42e98e2d5d3ea3f97494ff801ebbab3c70c1fe63301538e780a8c468d4959611",
+      "size": 11047
+    },
+    {
+      "path": "engine\\audio\\DirectShowDriver.cs",
+      "sha256": "914c9e9b62a55d1e752539eb05990389e3e8b654e276b51c1edf9831683d2772",
+      "size": 9770
+    },
+    {
+      "path": "engine\\audio\\SilentAudioSession.cs",
+      "sha256": "f8f7c0703d4b169008bdcf88e7da64657ab096b57b25367c8b37ce6d23c0a761",
+      "size": 2865
+    },
+    {
+      "path": "engine\\_integration\\dev\\rebuild-lock.json",
+      "sha256": "d8dd6ba3ef236caf51e6e79420d676ece77eb2cf9448d74ab8ef7a2286b653c2",
+      "size": 26333
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\audio-manifest.json",
+      "sha256": "87c6cd6867e0d81bdc627c1cac0a922891d650018211b58525de9226926ad9fe",
+      "size": 3346
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\releases\\r33\\assets\\maps\\effects\\6016.json",
+      "sha256": "825673b11feb6b28c6d34663cd53266d0ca2209230b1b1cfa4c0a80125263383",
+      "size": 69454
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sound\\1340.wav",
+      "sha256": "30b4ce04d5ca914cdbfd80c7ee9b9cdbe3bf79487e609b2a9d32f6546a90f9c3",
+      "size": 14322
+    },
+    {
+      "path": "D:\\lineage開發\\0-客戶端\\Sound\\3332.wav",
+      "sha256": "973e0a3598edd23c2a24f6900643e43a9155fe36906b939d2d8e24374abeff2a",
+      "size": 24748
+    }
+  ]
+}
