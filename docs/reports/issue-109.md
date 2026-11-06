@@ -1,19 +1,34 @@
 # Issue #109／T035：25 個本機等價資源接線與 CI 拒收
 
-日期：2026-11-06；code，第 1 次嘗試；分支 `task/109`。
+日期：2026-11-06；code，第 2 次嘗試；分支 `task/109`。第 1 輪建置與離線測試證據保留，本輪不重做。
 
 ## 結論
 
-**部分實作已驗證；整張任務 BLOCKED，不得合併或宣告 CI 綠燈。** 指定 25 檔已從分支移除，dev 建置、check-only、icons 與三組 6016 離線測試通過；缺素材明列 skipped、錯誤 SHA 與新增資源探針明確拒收。嚴格追蹤內容閘門仍拒絕兩個範圍外歷史 JSON。本次保留它們，沒有把它們冒列為第 8／9 個 B15 例外；需要主控裁定移出追蹤的範圍後才能讓 CI 綠燈。
+**本機閘門已通過，前次兩個歷史 JSON 阻塞已依主控裁定解除；本輪遠端 CI 待確認。** 指定 25 檔移除與改接、dev 建置、check-only、179 項離線測試、缺素材 skipped 與負向探針沿用第 1 輪已驗證結果。這輪只補齊精確路徑／SHA 允許清單與報告，沒有修改那 9 個例外本體或放寬 detector。
 
-| 阻塞路徑 | 精確原因 | SHA-256 |
-|---|---|---|
-| `work/P31-pickup-composite-review-r1/cases.json` | `scenarios[].scene[].pixels` 等陣列，合計 68,935 筆；#102 列 U14 | `98369cbd4fbf437dca9d4262cdd01045a0c97639ce8754d530f3dfc54e34eb50` |
-| `work/engine-pickup-presentation-candidate-review-r1/execution-rows.json` | `rows[175].actual.evidence.cover.Tile.Pixels` 陣列，1 筆；#102 列 U14。其他 `pixels: true` 不是陣列，不會誤擋。 | `a10c83bd5820680144211e6cb85854033e61d89d81f6e4544ffe1f2052856585` |
+依 [#109 主控裁定](https://github.com/chaoren0418-arch/tw-bin-engine/issues/109#issuecomment-6675542616)，`b15Exceptions` 為 9 個（7 個生成器待辦及 2 個歷史 pixels 證據），`binaryExceptions` 為 19 個非遊戲的遷移盤點／文件壓縮檔，分開計數。前次待裁定事項已解決；WebView2 實際圖示、ground 與音訊仍由 dot 在下一次真機確認。
 
-這兩檔不在指定 25 檔或 7 個 B15 例外內；沒有修改、刪除或放寬 detector。已於工作期間提出範圍澄清；未收到允許前保留現狀。PR 以 draft 交付，CI 拒收為預期且尚未解除的阻塞。
+## 第 2 輪追加驗證
 
-## 做了什麼
+- 從前次 `b626750` 在獨立 `scratch/wt/task-109` 接續 `task/109`，fetch 後合併 `origin/main@1f5975b` 的最新規則／文件，未切主目錄分支，未重寫歷史。`docs/REPORT.md` 僅隨 main 合入既有索引，沒有本任務編輯。
+- 新增兩項 SHA 與主控留言及 `git show origin/main:<path>` 原始 bytes 完全相符。其餘 26 項保持原值；28 個例外本體均未修改。只需修改允許清單，產品來源、測試程式及 dev lock 不變。
+- 本輪不重新建置、接素材或執行第 1 輪 179 項離線測試；下方第 1 輪結果是既有證據，不冒稱本輪執行。
+- 最新 main 加本 PR 的合併樹執行內容閘門（exit 0）：
+
+```text
+python -B -X utf8 engine/tools/check-no-game-assets.py
+{"status": "pass", "trackedFiles": 3051, "errors": 0, "embeddedResourceDeclarations": 4}
+```
+
+- `scratch/issue-109/check-pins.py` 直接呼叫正式 detector：28 項原 bytes 通過、28 項記憶體追加一 byte 均因 SHA 不符拒收；兩個新增 JSON 換成未允許的路徑仍因 pixels 拒收。未修改任何例外本體，探針不提交（exit 0）：
+
+```json
+{"status": "pass", "b15Exceptions": 9, "binaryExceptions": 19, "assertions": 58, "modifiedTrackedFiles": false}
+```
+
+`main` 尚未合併本 PR；此處的通過是以最新 main 為基底加上本 PR 的候選合併樹，不宣稱已修改遠端 main。最終合併由使用者執行。
+
+## 第 1 輪已完成內容
 
 - 先讀主專案 AGENTS.md、docs/REPORT.md，再讀 #102／#88 報告、TASKS 及接線程式。#102 報告尚未在 `origin/main`，本次唯讀主目錄 `task/102` 的最新版。一般執行工具與 Node 工具均在 sandbox 初始化失敗；核准的提升執行模式才可讀寫。沒有自動審查拒絕，也沒有要求使用者變更設定。
 - fetch 後從 `origin/main@1b718bc2a672b9f875acd902c773aa3795855a64` 建立 `scratch/wt/task-109`／`task/109`。主目錄 `task/102@a084ea2` 保持原狀，既有未追蹤截圖、runs、runtime 皆未動。
@@ -77,7 +92,7 @@
 
 證據目錄依本 Issue 明示允許 `docs/demo/**`、`docs/native-baseline/**` 的 binary magic；JSON pixels 檢查仍適用。沒有刪改這些證據。其餘例外都列在 `engine/tools/game-assets-allowlist.json`，採精確 path + SHA；內容改變即使不再命中 detector 仍會失敗，新增檔案不會自動進清單。
 
-### 七個 B15 已知例外（未修改）
+### 九個 B15 已知例外（本體未修改）
 
 | 路徑 | SHA-256 |
 |---|---|
@@ -88,32 +103,36 @@
 | `engine/action-metadata-vectors.json` | `6afd114d3c53be54dfc2a0116cb71358c45a0df51ac64546e13d2de64f4afc9e` |
 | `engine/haste-metadata-vectors.json` | `4e6cb81ecfe9197fbf2d8b4d4496ec258355ee723367549a701de79f4320939a` |
 | `engine/_integration/dev/combat-sfx-tests/expected-events.json` | `6a9b35c807273a284bbca2a14e648653678ddc6984d98532c2682d060efa58f7` |
+| `work/P31-pickup-composite-review-r1/cases.json` | `98369cbd4fbf437dca9d4262cdd01045a0c97639ce8754d530f3dfc54e34eb50` |
+| `work/engine-pickup-presentation-candidate-review-r1/execution-rows.json` | `a10c83bd5820680144211e6cb85854033e61d89d81f6e4544ffe1f2052856585` |
 
-### 19 個其他既有二進位例外
+兩個 `work/` 檔原為 #102 U14；分別含 68,935 筆及 1 筆 pixels 陣列，依 #110／#109 裁定保留為 B15 歷史審查證據。`pixels: true` 非陣列，不會誤擋。
 
-依本 Issue「如果發現還有其他既有的二進位檔，就把它們精確列入允許清單，並在報告中逐一說明」保留。**#102 對這 19 個都是 U，不是 C/M，也未裁定為可攜產品內容**。這裡只把既有歷史壓縮紀錄釘住，沒有重新核准其內文來源；未增加額外 C/M 二進位例外。主控若解讀「允許清單只有 C/M」優先而不允許這 19 個，須另裁定移出範圍，不能把它們標成已審非遊戲資料。
+### 19 個歷史遷移二進位例外（不計入 9 個 B15）
+
+依 [#109 主控裁定](https://github.com/chaoren0418-arch/tw-bin-engine/issues/109#issuecomment-6675542616)，這 18 個 gzip 與 1 個 ZIP 是遷移前路徑／大小／hash 盤點與專案文件，非遊戲資源本文，可保留在 `binaryExceptions`。沿用原精確 path＋SHA，不新增其他二進位例外，也不更動 #102 的原始分類報告。這是 repo 拒收閘門的裁定，不代表可攜發布認證。
 
 | 精確路徑 | SHA-256 | 保留原因／限制 |
 |---|---|---|
-| `docs/project-consolidation/physical-migration/before-P10Lab-TW13081901.jsonl.gz` | `de8e79cd99212e03d917165ceb83b32f4e59a1057e0f51e83c17d8567653fade` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-P12Lab-ClientEngine.jsonl.gz` | `2f597848ef52de69524dd1c5106d0b2f387d1e7cbd75be776f283d55bd2c046f` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-P13Lab-ClientEngine.jsonl.gz` | `d142cd7c1fc62d118c9a1e8ece4466399067e914e8fa6bfbc70118620f6c0aae` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-P14Lab-ClientEngine.jsonl.gz` | `f6f9d6f2887334d97be433ef70e31ac6bb8c0add02f755592785e1c849743478` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-P15Lab-ClientEngine.jsonl.gz` | `aec6d8effbb2b27377201679bdc48a2d3a28f761093a675c3b3bef9caaae2b76` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-P16Lab-ClientEngine.jsonl.gz` | `e686e24ca5ea63f2b812e86ee21a1a41e1a64081abfa3efa8248264ba07b8613` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-P17Lab-ClientEngine.jsonl.gz` | `636889f4add8f2f392610d4ec21ce12a597ca663624fccc8379c40711f738177` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-P18Lab-ClientEngine.jsonl.gz` | `3951da9909e2b890a917c9d485dd486e1233c78c632398c37a4c46a6729cdc2d` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-P19Lab-ClientEngine.jsonl.gz` | `aab6fd53ae97882694209eb17c5cbc20df9e69bd75e25ae943cab4cb3ef2e399` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-P20Lab-ClientEngine.jsonl.gz` | `e89ef1c4bc4c83b27e34f634100a47a79e067ed962f8c31d12058731f20eae36` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-P21Lab-ClientEngine.jsonl.gz` | `ad4773aa07455d09f16230d10fd037be2c0cc09d71646e06771cdac7716724aa` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-P22Lab-ClientEngine.jsonl.gz` | `f458f8331f5cf937c8266606e86ba0d21f79d58fb858c09289338581a99f514f` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-P23Lab-ClientEngine.jsonl.gz` | `4d8718249eeaff43068649326db21462e00d24709874267b75f4d15cef5097b0` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-P24Lab-6016-Export-r1.jsonl.gz` | `a0b15c4f478ec17b5f571d19ffad4182709bb3caaed71102f1cd9293970eb6de` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-P24Lab-ClientEngine.jsonl.gz` | `2ded39c79d7d4a169893f5fd3cdfdbf46e7f1da1884b89f33112826213f957d4` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-TW1608262200_research.jsonl.gz` | `ea30a0be7b5822eb88ac3e9e3fcbb7254c695ba5ac489cb7986e53c2fd936a2b` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/before-r28-interrupted-partial.jsonl.gz` | `521b06bbe7662c5ec023ba2e7b26ccb31f2f91c46cda1e780761e824f3d4cdc2` | 中斷的 r28 遷移盤點；#102 U03，gzip EOFError；僅釘住原件，不稱完整可解壓 |
-| `docs/project-consolidation/physical-migration/before-r28.jsonl.gz` | `53cac9fc545e622f2e37c6ee62e836724e9e71431f1820ecf40cc4c1cab30c3c` | 既有實體遷移前路徑／大小／hash 壓縮盤點；#102 U02，JSONL schema 未核准 |
-| `docs/project-consolidation/physical-migration/phase1-documents.zip` | `286d1bcd4d20eeb4984d0c76e4ba606cec68a63770c19cb9f6e16a25c6725e00` | 既有第一階段文件封裝 11 members；#102 U04，語義未全數核准；不解壓／發行 |
+| `docs/project-consolidation/physical-migration/before-P10Lab-TW13081901.jsonl.gz` | `de8e79cd99212e03d917165ceb83b32f4e59a1057e0f51e83c17d8567653fade` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-P12Lab-ClientEngine.jsonl.gz` | `2f597848ef52de69524dd1c5106d0b2f387d1e7cbd75be776f283d55bd2c046f` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-P13Lab-ClientEngine.jsonl.gz` | `d142cd7c1fc62d118c9a1e8ece4466399067e914e8fa6bfbc70118620f6c0aae` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-P14Lab-ClientEngine.jsonl.gz` | `f6f9d6f2887334d97be433ef70e31ac6bb8c0add02f755592785e1c849743478` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-P15Lab-ClientEngine.jsonl.gz` | `aec6d8effbb2b27377201679bdc48a2d3a28f761093a675c3b3bef9caaae2b76` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-P16Lab-ClientEngine.jsonl.gz` | `e686e24ca5ea63f2b812e86ee21a1a41e1a64081abfa3efa8248264ba07b8613` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-P17Lab-ClientEngine.jsonl.gz` | `636889f4add8f2f392610d4ec21ce12a597ca663624fccc8379c40711f738177` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-P18Lab-ClientEngine.jsonl.gz` | `3951da9909e2b890a917c9d485dd486e1233c78c632398c37a4c46a6729cdc2d` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-P19Lab-ClientEngine.jsonl.gz` | `aab6fd53ae97882694209eb17c5cbc20df9e69bd75e25ae943cab4cb3ef2e399` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-P20Lab-ClientEngine.jsonl.gz` | `e89ef1c4bc4c83b27e34f634100a47a79e067ed962f8c31d12058731f20eae36` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-P21Lab-ClientEngine.jsonl.gz` | `ad4773aa07455d09f16230d10fd037be2c0cc09d71646e06771cdac7716724aa` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-P22Lab-ClientEngine.jsonl.gz` | `f458f8331f5cf937c8266606e86ba0d21f79d58fb858c09289338581a99f514f` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-P23Lab-ClientEngine.jsonl.gz` | `4d8718249eeaff43068649326db21462e00d24709874267b75f4d15cef5097b0` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-P24Lab-6016-Export-r1.jsonl.gz` | `a0b15c4f478ec17b5f571d19ffad4182709bb3caaed71102f1cd9293970eb6de` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-P24Lab-ClientEngine.jsonl.gz` | `2ded39c79d7d4a169893f5fd3cdfdbf46e7f1da1884b89f33112826213f957d4` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-TW1608262200_research.jsonl.gz` | `ea30a0be7b5822eb88ac3e9e3fcbb7254c695ba5ac489cb7986e53c2fd936a2b` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/before-r28-interrupted-partial.jsonl.gz` | `521b06bbe7662c5ec023ba2e7b26ccb31f2f91c46cda1e780761e824f3d4cdc2` | 中斷的 r28 遷移盤點；gzip EOFError，僅以 SHA 釘住原件，未完整解壓 |
+| `docs/project-consolidation/physical-migration/before-r28.jsonl.gz` | `53cac9fc545e622f2e37c6ee62e836724e9e71431f1820ecf40cc4c1cab30c3c` | 遷移前路徑／大小／hash 壓縮盤點；#109 裁定為非遊戲歷史紀錄 |
+| `docs/project-consolidation/physical-migration/phase1-documents.zip` | `286d1bcd4d20eeb4984d0c76e4ba606cec68a63770c19cb9f6e16a25c6725e00` | 第一階段專案文件封裝 11 members；#109 裁定非遊戲文件，本輪未解壓／發行 |
 
 ### EmbeddedResource
 
@@ -124,7 +143,7 @@
 - `P06.Resources.GroundCatalog.json`
 - `P24.Audio.CombatSfxPins.json`
 
-## 怎麼驗證／實際輸出
+## 第 1 輪驗證／實際輸出（保留證據，本輪未重跑）
 
 建置時 TEMP/TMP、NuGet／dotnet cache 全部指向本 worktree 的 scratch；建置產物使用既定 engine/build、engine/launcher、各 csproj 的 bin/obj。一般 sandbox 無法啟動不是測試通過證據。
 
@@ -236,7 +255,7 @@ scratch 建立僅含 `{}` 的故意錯誤 6016 測試輸入，三套 managed sui
 
 ### 拒收與負向探針
 
-內容閘門目前 exit 1、兩個阻塞，見本文開頭。scratch 的 `renamed-image.cs` 只有合成 PNG signature／說明文字，並非真遊戲圖；使用 `--probe` 執行同一 detector，結果 exit 1 並額外列出 PNG 命中：
+第 1 輪內容閘門 exit 1、兩個阻塞；第 2 輪已按裁定解除，見本文開頭。scratch 的 `renamed-image.cs` 只有合成 PNG signature／說明文字，並非真遊戲圖；使用 `--probe` 執行同一 detector，結果 exit 1 並額外列出 PNG 命中：
 
 ```text
 REFUSED: work/P31-pickup-composite-review-r1/cases.json: pixels array
@@ -260,7 +279,7 @@ REFUSED: Unexpected/linked resource: P11.ClientEngine.dll/Unexpected.Resource
 
 初次探針揭露 `InvalidDataException` 未捕捉，已補處理並重驗正常／拒收兩路徑；探針及 probe build 只在 scratch，沒有提交。
 
-### 遠端 CI 實際結果
+### 第 1 輪遠端 CI 歷史結果
 
 Draft PR：[#116](https://github.com/chaoren0418-arch/tw-bin-engine/pull/116)。已驗證的產品來源提交 `b1cee285604ab4bb5938619f0c36533f4c0931ed`。
 
@@ -279,9 +298,9 @@ Process completed with exit code 1.
 
 ## 未驗證什麼
 
-- **CI 尚非綠燈**：本機嚴格掃描已證實兩個既有 JSON 阻塞。不得跳過閘門或新增未授權 JSON 例外以取得綠燈。
+- 第 2 輪遠端 CI 待推送後確認；本機閘門已通過，沒有跳過閘門。
 - 未啟動遊戲、WebView2 面板、播放聲音、登入或連網／DB／服務；未執行 ground SPR 解碼新一輪測試。上述真機行為沒有用單元測試冒充。
-- 未全面鑑識壓縮歷史證據；不宣稱 repo／portable ZIP 零遊戲資料，7 個 B15 檔仍明確保留。
+- 未全面鑑識壓縮歷史證據；不宣稱 repo／portable ZIP 零遊戲資料，9 個 B15 檔仍明確保留。
 - 未重跑歷史 r28 封裝／seal 流程；未修改 docs/REPORT.md、原 BIN、正式客戶端、releases、r33/r34/r35 lock 或硬連結。
 
 ## 產出路徑與給下一棒的提示
@@ -289,5 +308,5 @@ Process completed with exit code 1.
 - 永久報告：`docs/reports/issue-109.md`；來源／測試／CI／dev lock 變更見同一 PR。完整允許清單：`engine/tools/game-assets-allowlist.json`。
 - 可重現命令：先 dev/rebuild.py `--build --write-receipt`，再 `engine/tools/check-local-resources.py --assets-root engine/assets`；CI scanner 與 ResourceChecks 命令見上文。
 - scratch 原始 logs／探針不提交；移除 worktree 前只保存必要文字證據至主專案 `scratch/issue-109/`，不保留任何素材複本。刪 worktree 前移除本次建立的 junction entry，避免跟隨目標。
-- **主控／Claude**：先裁定兩個範圍外 U14 JSON 的移除範圍與 19 個歷史 binary 精確例外，再指派本機執行器完成嚴格閘門 exit 0／CI 綠燈；本 PR 暫勿合併。
+- **主控／Claude**：裁定已套用；審查本輪 9／19 分類、SHA 核驗與 CI 證據後交使用者合併。B15 生成器與歷史證據後續處置另案進行。
 - **dot 下一次經授權真機核對**：開啟 WebView2 背包、交易／商店等會顯示 icons 的面板，核對 20 個既有圖示正常顯示且沒有 404；核對金幣／肉地面圖仍由 SPR 顯示；在原測試流程確認 6016 效果與 1340／3332 音訊未退化。不要把本次 check-only 當成已驗。
