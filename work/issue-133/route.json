@@ -1,0 +1,92 @@
+{
+  "status": "static-pass",
+  "npc": 70014,
+  "map": 0,
+  "start": [
+    32600,
+    32940
+  ],
+  "goal": [
+    32644,
+    32951
+  ],
+  "steps": 57,
+  "legs": [
+    {
+      "heading": 4,
+      "count": 6,
+      "end": [
+        32600,
+        32946
+      ]
+    },
+    {
+      "heading": 2,
+      "count": 22,
+      "end": [
+        32622,
+        32946
+      ]
+    },
+    {
+      "heading": 4,
+      "count": 5,
+      "end": [
+        32622,
+        32951
+      ]
+    },
+    {
+      "heading": 2,
+      "count": 9,
+      "end": [
+        32631,
+        32951
+      ]
+    },
+    {
+      "heading": 4,
+      "count": 1,
+      "end": [
+        32631,
+        32952
+      ]
+    },
+    {
+      "heading": 2,
+      "count": 13,
+      "end": [
+        32644,
+        32952
+      ]
+    },
+    {
+      "heading": 0,
+      "count": 1,
+      "end": [
+        32644,
+        32951
+      ]
+    }
+  ],
+  "basePrice": 1,
+  "packCount": 1,
+  "sources": [
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\db\\380_db.sql",
+      "sha256": "2afbc066fa7dbde391169050deeed206a20a39afbc0390378ddf2800cd3328b5"
+    },
+    {
+      "path": "D:\\lineage開發\\1-伺服器\\maps\\0.txt",
+      "sha256": "ece432f3af3cc20bcbf2722dea31a379a9e6ee2b05d7db8940f35ca52ec6bc44"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\engine\\assets\\maps\\manifest.json",
+      "sha256": "0fe3a61444180c90abdca0cc94c1cfb9ea19adc67812a43f624d806b51f96ee7"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\engine\\assets\\maps\\terrain\\0.bin",
+      "sha256": "917fdb1dc5709713479c34e64221fd19c688a00842644a5062578efd8c6eb275"
+    }
+  ]
+}
