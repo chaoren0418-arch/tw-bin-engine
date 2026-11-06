@@ -55,15 +55,12 @@ public sealed partial class WorldSession {
                 ushort casterGfx=Actor?.ObjectId==arrowAttacker?Actor.Gfx:Objects.FirstOrDefault(o=>o.ObjectId==arrowAttacker)?.Gfx??ushort.MaxValue;
                 ApplySkillCaster(arrowAttacker,arrowAction,(byte)arrowHeading,arrowTarget);var arrowAnimation=ActionFor(arrowAttacker);
                 LastProjectile=new(AttackReports,arrowAttacker,arrowTarget,gfx,arrowHeading,sx,sy,tx,ty,ActionClock(),damage,casterGfx){Timing=arrowAnimation?.Timing,ActionAt=arrowAnimation?.At};
-                // The current renderer has only projectile-66. Keep the decoded report,
-                // but never display another gfx using the arrow-66 pixels/motion contract.
-                if(gfx==66)projectileReports[LastProjectile.Number]=LastProjectile;
+                projectileReports[LastProjectile.Number]=LastProjectile;
                 foreach(var old in projectileReports.Values.Where(p=>LastProjectile.At-p.At>10000))projectileReports.TryRemove(old.Number,out _);
                 // Actor timing was captured before constructing the projectile report.
                 // Original BIN7C3AB0 -> 759B30 -> 758050 -> A49520 applies hurt at arrival.
                 // The compositor schedules that visual; HP/death still follow original server packets immediately.
                 CombatNotice=$"原服遠程回報 #{AttackReports}：箭矢 {gfx}，傷害欄 {damage}；箭數依原背包回包更新";
-                if(gfx!=66)CombatNotice+="；此投射物的原始繪製資源尚未支援";
                 return true;
             }
             if(plain.Length<24)throw new ProtocolException("truncated attack envelope");

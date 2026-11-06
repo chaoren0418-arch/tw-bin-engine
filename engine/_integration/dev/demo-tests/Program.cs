@@ -280,7 +280,9 @@ partial class Checks {
             switch(args[2]){
                 case "map-continuity":await MapContinuity();break;
                 case "combat-loop":await CombatLoop();break;
-                case "combat-admission":await CombatAdmission();break;
+                case "combat-admission":await CombatAdmission();AttackSkillChecks.Run(args[1],Check);break;
+                case "attack-skills":AttackSkillChecks.Run(args[1],Check);break;
+                case "attack-skill-resources":AttackSkillChecks.NativeResources(args[3],args[4],Check);break;
                 case "slow-actions":await SlowActions();break;
                 case "keyboard":await KeyboardMovement123();break;
                 case "busy":KeyboardBusy123();break;

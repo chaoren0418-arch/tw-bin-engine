@@ -102,12 +102,16 @@ public sealed partial class WorldSession
             if (own || other != null)
             {
                 ushort x = own ? Actor!.X : other!.X, y = own ? Actor!.Y : other!.Y;
-                AddMagicEffect(new(++MagicEffectCount, p.Caster, target.ObjectId, p.Gfx, p.Action,
+                if(p.Type==0)AddMagicEffect(new(++MagicEffectCount, p.Caster, target.ObjectId, p.Gfx, p.Action,
                     target.HitFlag, p.Heading, p.X, p.Y, x, y, at, p.Sequence)
-                    { Timing = animation?.Timing, ActionAt = animation?.At });
+                    { Timing = animation?.Timing, ActionAt = animation?.At, RangeType=p.Type });
                 if (target.HitFlag != 0) AnimateCombat(target.ObjectId, 2);
             }
         }
+        // Directional range sprites originate at the caster. Empty lists still carry an effect.
+        if(p.Type==8||p.Targets.Count==0)
+            AddMagicEffect(new(++MagicEffectCount,p.Caster,0,p.Gfx,p.Action,0,p.Heading,p.X,p.Y,p.X,p.Y,at,p.Sequence)
+                {Timing=animation?.Timing,ActionAt=animation?.At,RangeType=p.Type});
         lastRangeSkill = p; rangeSkillEpoch = WorldEpoch;
         MagicRevision++;
         MagicNotice = $"原服範圍法術：特效 {p.Gfx}、動作 {p.Action}、目標 {p.Targets.Count}；HP 依原服回包更新";

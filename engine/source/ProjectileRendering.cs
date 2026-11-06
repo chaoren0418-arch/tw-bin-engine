@@ -17,7 +17,7 @@ public static class ProjectileMotion {
         }
         int heading=Direction(p.SourceX,p.SourceY,tx,ty,p.Heading);
         // +12 is preset0/1/2 then A43560 increments it; metadata indices1/2 map to frame0/1.
-        return new(p.Number,66,heading,step,remaining,(ix+32768)/2,iy,$"{heading}:{(remaining==1?1:0)}",release);
+        return new(p.Number,p.Gfx,heading,step,remaining,(ix+32768)/2,iy,$"{heading}:{(remaining==1?1:0)}",release);
     }
 }
 public sealed partial class Renderer {
@@ -34,10 +34,10 @@ public sealed partial class Renderer {
         var visuals=new List<ProjectileVisual>();
         if(projectileEpoch!=session.WorldEpoch){projectileFlights.Clear();projectileHits.Clear();projectileEpoch=session.WorldEpoch;}
         foreach(var p in session.Projectiles){
-        int? delay=p.Timing?.ReleaseMs??RangedRules.ReleaseFor(p.CasterGfx);if(delay==null)continue;long projectileRelease=(p.ActionAt??p.At)+delay.Value;
+        int delay=p.Timing?.ReleaseMs??RangedRules.ReleaseFor(p.CasterGfx)??0;long projectileRelease=(p.ActionAt??p.At)+delay;
         bool own=p.Attacker==session.Actor?.ObjectId;
         var other=session.Objects.FirstOrDefault(o=>o.ObjectId==p.Attacker);
-        if(!projectileFlights.ContainsKey(p.Number)&&(own?session.OwnDead||session.SelfAppearancePending||p.Timing is {} ownTiming&&!ownTiming.Matches(session.Actor!.Gfx,session.Actor.Weapon):other==null||other.Dead||other.AppearancePending||p.Timing is {} otherTiming&&!otherTiming.Matches(other.Gfx,other.Action)))continue;
+        if(!projectileFlights.ContainsKey(p.Number)&&(own?session.OwnDead||session.SelfAppearancePending||p.Timing is {} ownTiming&&!ownTiming.Matches(session.Actor!.Gfx,session.Actor.Weapon):other!=null&&(other.Dead||other.AppearancePending||p.Timing is {} otherTiming&&!otherTiming.Matches(other.Gfx,other.Action))))continue;
         if(now<projectileRelease||now-projectileRelease>2000)continue;
         if(!projectileFlights.TryGetValue(p.Number,out var flight)){
             // Original7C3950 resolves a still-known target once at release. A miss(target0)
@@ -48,7 +48,19 @@ public sealed partial class Renderer {
             flight=new(tx,ty,projectileRelease,impact);projectileFlights[p.Number]=flight;
         }
         if(p.DamageWord>0&&p.Target!=0&&now>=flight.Impact&&(!projectileHits.TryGetValue(p.Target,out var hit)||hit.At<flight.Impact))projectileHits[p.Target]=new(2,flight.Impact,false);
-        var v=ProjectileMotion.At(p,flight.X,flight.Y,flight.Release,now);if(v==null||!session.SceneContains(v.X,v.Y))continue;
+        var v=ProjectileMotion.At(p,flight.X,flight.Y,flight.Release,now);
+        if(p.Gfx!=66){
+            var effect=NativeEffect(p.Gfx);if(effect==null)continue;
+            if(v==null){
+                if(now>=flight.Impact&&effect.Impact>=0)DrawNativeEffect(effect.Impact,p.Heading,flight.X,flight.Y,now-flight.Impact,session,draws,"projectile");
+                continue;
+            }
+            // Arrow class 3 uses the original fly sequence, including one-frame arrows.
+            int? step=effect.Kind==3&&effect.Steps.Length==3?(v.Remaining==1?2:1):null;
+            var native=DrawNativeEffect(p.Gfx,v.Direction,v.X,v.Y,now-flight.Release,session,draws,"projectile",true,step);
+            if(native!=null){v=v with{Frame=native.Key};CurrentProjectileVisual=v;visuals.Add(v);}continue;
+        }
+        if(v==null||!session.SceneContains(v.X,v.Y))continue;
         if(projectileFrames.Count==0){
             var j=Json.Read(Path.Combine(assets.Root,"objects/projectile-66.json"));
             foreach(var f in j.GetProperty("frames").EnumerateArray())projectileFrames.Add(f.S("key"),new(f.S("key"),f.A("bounds"),f.GetProperty("blocks").EnumerateArray().Select(b=>new Block(b.I("a"),b.I("b"),b.I("z"),b.I("source_order"),new(2,b.GetProperty("pixels").EnumerateArray().Select(pix=>{var n=pix.EnumerateArray().Select(x=>x.GetInt32()).ToArray();return new Pixel(n[0],n[1],(ushort)n[2]);}).ToArray()))).ToArray()));
