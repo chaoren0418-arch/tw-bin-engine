@@ -29,11 +29,11 @@ public sealed partial class WorldSession {
     public ProjectileReport[] Projectiles=>projectileReports.Values.OrderBy(p=>p.Number).ToArray();
     public string CombatNotice {get;internal set;}="選取可見目標後按 G：依原武器單次攻擊";
     public bool OwnDead {get;private set;}
-    void ResetCombat(){pendingAction=null;OwnCombat=null;LastAttack=null;LastIncomingAttack=null;LastProjectile=null;projectileReports.Clear();AttackReports=0;OwnDead=false;CombatNotice="選取可見目標後按 G：依原武器單次攻擊";}
+    void ResetCombat(){ResetRecovery();pendingAction=null;OwnCombat=null;LastAttack=null;LastIncomingAttack=null;LastProjectile=null;projectileReports.Clear();AttackReports=0;OwnDead=false;CombatNotice="選取可見目標後按 G：依原武器單次攻擊";}
     internal void PredictAttack(int heading){if(Actor==null)return;CancelPickupPresentation("predicted-attack");Actor=Actor with{Direction=(byte)heading};OwnCombat=new(1,Environment.TickCount64,true);CombatNotice="單次攻擊已送出；動畫為預測，等待原服回報";}
     void AnimateCombat(uint id,int action,bool predicted=false,uint? target=null){
         var animation=CaptureCombat(id,action,predicted,target);
-        if(Actor?.ObjectId==id){CancelPickupPresentation("combat-action");if(OwnDead&&action!=8)return;if(OwnDead&&OwnCombat?.Action==8)return;OwnCombat=animation;if(action==8){OwnDead=true;pendingAction=null;}}
+        if(Actor?.ObjectId==id){CancelPickupPresentation("combat-action");if(OwnDead&&action!=8)return;if(OwnDead&&OwnCombat?.Action==8)return;OwnCombat=animation;if(action==8){OwnDead=true;pendingAction=null;AppearanceRevision++;SelectTarget(null);CloseInteraction();}}
         else UpdateObject(id,o=>o.Dead?o:o with{Combat=animation,ReceivedAction=action,MotionAt=0,Dead=action==8,ShopActive=false});
         if(action==8&&TargetId==id)SelectTarget(null);
     }
@@ -75,18 +75,19 @@ public sealed partial class WorldSession {
         if(opcode==237){uint id=r.D();byte percent=r.C();r.Finish();if(Actor?.ObjectId==id)Actor=Actor with{HpPercent=percent};else UpdateObject(id,o=>o with{HpByte=percent});return true;}
         return false;
     }
-    public object CombatSnapshot()=>new{reports=AttackReports,lastAttack=LastAttack,lastProjectile=LastProjectile,projectiles=Projectiles,ownAnimation=OwnCombat,ownDead=OwnDead,notice=CombatNotice,damageMeaning="ClientLogin=2 original attack damage word, not independently established HP loss; zero does not distinguish miss from zero damage"};
+    public object CombatSnapshot()=>new{reports=AttackReports,lastAttack=LastAttack,lastProjectile=LastProjectile,projectiles=Projectiles,ownAnimation=OwnCombat,ownDead=OwnDead,restartRequested=RestartRequested,arrowCount=ArrowCount,notice=CombatNotice,damageMeaning="ClientLogin=2 original attack damage word, not independently established HP loss; zero does not distinguish miss from zero damage"};
 }
 public sealed partial class LoginConnection {
     long nextCombatAt;bool combatSending;int combatLease;
     public event Action<object>? CombatSent;
     public bool CombatBusy=>combatSending||ActionClock()<nextCombatAt;
-    public bool CombatAvailable=>MovementAvailable&&!World.OwnDead&&World.Target is {Dead:false,AppearancePending:false};
+    public bool CombatAvailable=>MovementAvailable&&!World.OwnDead&&World.HasAttackAmmunition&&World.Target is {Dead:false,AppearancePending:false};
     void ApplyCombatAcknowledgement(long reportsBefore){if(!World.OwnDead&&World.AttackReports>reportsBefore&&World.LastAttack?.Attacker==World.Actor?.ObjectId&&World.Actor is {} actor&&World.AppearanceProfile!=null)nextCombatAt=Math.Max(nextCombatAt,ActionClock()+(World.OwnCombat?.Timing?.WaitMs??(CombatRules.DurationFor(actor.Gfx,actor.Weapon)+CombatRules.ClockMargin(actor.Weapon))));}
     void ResetCombatSend(){combatLease++;combatSending=false;nextCombatAt=0;lastCombatTiming=null;lastCombatAdmission=-1;}
     public Task<bool> Attack()=>AttackCore(null);
     async Task<bool> AttackCore(Func<bool>? pointerCurrent){
         if(pointerCurrent?.Invoke()==false)return false;
+        if(!World.HasAttackAmmunition){World.CombatNotice="未送出：沒有可用箭矢；請補充箭矢後再射擊。";return false;}
         if(World.Target is not {Dead:false,AppearancePending:false}){World.CombatNotice="未送出：未選取有效目標；請點中敵人的可見圖像，確認黃色選取圈後按 G。";return false;}
         if(!CombatAvailable||MovementBusy||sendMovementGate==null){World.CombatNotice="未送出：動作冷卻／忙碌，或目前速度／外觀不支援；請停下並等待可操作後再按 G。";return false;}
         var target=World.Target!;var actor=World.Actor!;int epoch=generation,worldEpoch=World.WorldEpoch,selection=World.TargetRevision,input=inputVersion,correction=World.Corrections,appearanceRevision=World.AppearanceRevision,speedRevision=World.SpeedRevision,lease=++combatLease;
