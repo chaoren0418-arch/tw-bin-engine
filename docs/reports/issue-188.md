@@ -1,4 +1,4 @@
-﻿# Issue #188／T101：法術與箭矢回包（第2次）
+# Issue #188／T101：法術與箭矢回包（第3次：同步輪）
 
 ## 做了什麼
 
@@ -28,3 +28,13 @@
 - 持久化測試：engine/_integration/dev/demo-tests/{AttackSkillChecks,AttackSkillRenderingChecks,Program}.cs；格式／來源SHA及呈現政策：[attack-skill.md](../protocol/attack-skill.md)。
 - 本機證據：scratch/issue-188/{combined-checks.json,resource-checks.json,build/,receipt.json}。重跑前先建產品與restore DemoChecks；合成測試不依賴本機遊戲素材。
 - Claude審查 PR #202；合併後由 dot 依既有授權做 M6 smoke，檢查其他箭矢（2349／2989）、不同法術、S42多目標／方向、受擊抑制target0與權威HP。不要把 hitFlag 當HP差值。
+## 第 3 次：僅同步與重建 lock（2026-11-07）
+
+- 做了什麼：依退回指示合入 `origin/main`（`a1ecadf`）及遠端 `task/188` 的同步歷史，保留原有實作；沒有新增功能或修改功能程式碼。未手動修改 `docs/REPORT.md`，其變動僅來自上游合併。
+- 已確認原因：PR #202 的失敗 run `42311211646` 在 dev canonical build 回報 `sourceCount 174 != pinned source files 175`。重新執行 `py -3 -B -X utf8 engine/_integration/dev/rebuild.py --update-lock`，唯一 lock 差異為 `sourceCount` 174 → 175；核驗 175 來源／184 pins 通過。
+- 已驗證：`rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output scratch/issue-188/build` 成功；產品 0 錯誤、僅既有 MagicUi.cs CS8600／CS8602，launcher 0 警告／0 錯誤。
+- 已驗證：既有 DemoChecks `combat-admission` **953 項通過**（含本模組 741 項）；`map-continuity` **128 項通過**。`check-no-game-assets.py` pass（3265 個追蹤檔、0 errors）；`git -c core.whitespace=cr-at-eol diff --check` 通過。
+- 產品 DLL SHA-256：`ffbef42b0df779a3f855ee55c5852b471efa98dfab97a8d4861ad9f492e15486`。
+- 產出路徑：本報告、`engine/_integration/dev/rebuild-lock.json`；本機證據覆寫既有 `scratch/issue-188/build/`、`scratch/issue-188/combined-checks.json`，地圖證據 `scratch/issue-188/map-checks.json`；receipt 位於 `engine/_integration/dev/receipt.json`（不提交）。
+- 未驗證：本輪未重跑原素材 929 項檢查，未執行真機／登入／音效驗收；未啟動遊戲、伺服器或 DB。推送後 CI 結果以 [PR #202 checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/202/checks) 與本輪結果留言為準。
+- 給下一棒的提示：Claude／調度器確認 PR #202 最新提交 CI 後交使用者合併；dot 接 M6 smoke，沿用上方多目標、不同 gfx、S42 與權威 HP 核對清單。本輪僅修正同步後的 lock 計數。
