@@ -722,3 +722,83 @@ Trace無payload，opcode／長度僅搭配UI判讀，不單憑opcode推論目標
 README保留當前TASKS的完整B01–B15對照：B01技能擴充、B02慢速丟撿、B03–B04地圖效果、B05交易前提、B06地面pin、B07原生音效語義、B08封裝、B09 P27、B10歷史來源、B11調度器、B12舊EXE基準、B13其他伺服器、B14金幣規則、B15可攜assets及9個例外。本次B11排他前置已解決；B14金幣拒絕仍屬Backlog，不重丟金幣、不改DB繞過。其他Backlog不能豁免T062近戰、技能4、普通肉循環、座標或T035已有圖示／音訊。
 
 請專案主控對本次實測做**全新審查**，不要套用第2c-a舊review。優先裁定F9圖示破圖、移動後自身權威回包缺失，以及可重現的有效近戰選取／傷害／EXP流程；安排合法一般NPC購肉、非滿血情境與穩定own-session音訊量測後再派未通過列。此次操作偏差與前提缺失不直接等同產品根因。M1不可標完成；不合併、不關Issue，不再啟動本輪服務。
+
+## 第 2d-a 輪：主專案同步與 dev 建置（2026-11-06，codex-local）
+
+### 做了什麼／已驗證
+
+本輪完成第 2d-b 輪的建置前置，未進行原生實機驗收，M1 尚未宣告完成。工作目錄為 `D:\lineage開發\TW1608262200研究`；先讀根目錄 `AGENTS.md` 與 `docs/REPORT.md`。起始分支 `task/77`、HEAD `0ab8f93a1ff8bb5f029932b9d799f13ba027c8ce`，`git status --porcelain --untracked-files=no` 無輸出。保留全部既有未追蹤檔，未 reset、stash 或刪檔。
+
+2026-11-06T09:33:23Z 以 `curl.exe --noproxy "*" --max-time 15 http://127.0.0.1:8787/api/state` 唯讀核實：唯一 `p24lab` lease 的 holder 為 `chaoren0418-arch/tw-bin-engine#77`，exp `1793962928.734436`（2026-11-06T11:02:08.734Z），與派工指定的秒級到期時間一致且未到期。
+
+依本輪具體步驟執行 `git fetch origin` → `git checkout main` → `git merge --ff-only origin/main`，均退出 0。建置 HEAD 為 `5708965656e33f12a16b05698e3f7e0552a8e59f`，包含 PR #124 合併 commit `38e2e50dbacaadddb9ab58fe434f00db7c15fda6`；`git merge-base --is-ancestor <PR124合併SHA> HEAD` 退出 0。
+
+建置與 check-only 後追蹤檔仍乾淨。為保留 task/77 尚未進 main 的第 2a～2c-b 輪報告，先 `git checkout task/77`、`git merge origin/main -m 'task #77: merge origin/main for round 2d-a'`（均退出 0），再追加本節；merge commit 為 `c7e8cda9aab4fd3d21149e3cd9120897df6d6637`，未 rebase、未重設分支。`git diff origin/main -- engine` 無差異，因此分支切換後產品來源與本次建置完全相同。
+
+### 指令與退出碼
+
+| 指令／檢查 | 退出碼／結果 |
+|---|---|
+| `python -B -X utf8 engine/_integration/dev/rebuild.py --build --write-receipt --output scratch/issue-77/rebuild-2d` | 0；`pass-dev-build` |
+| dev 來源核驗 | 171 個 source、180 個 pins；`writes: false`，未更新 lock |
+| SDK／product restore／product build／launcher restore／launcher build | 全部 0；SDK 10.0.300 |
+| product build | 2 警告、0 錯誤：`MagicUi.cs(20,62)` 的 CS8600、CS8602；本輪未修改產品來源 |
+| launcher build | 0 警告、0 錯誤 |
+| `engine\啟動新版客戶端.cmd --check-only` | 0；`revision: dev`、`uiStarted: false` |
+
+執行器的一般沙箱啟動最初出現 `setup refresh had errors`，改用核准的非沙箱執行後正常。第一次建置呼叫因 PATH 未含 Python 而未啟動（PowerShell 命令解析失敗，外層退出 1）；以 `py -0p` 找到既有 Python 3.12，只在本次程序 PATH 加入 `C:\Users\CHAOREN\AppData\Local\Programs\Python\Python312` 後原指令成功。未安裝工具或修改系統 PATH。
+
+為符合專案寫入限制，程序 `NUGET_PACKAGES` 指向 `engine/.nuget`，`TEMP`／`TMP` 指向 `scratch/issue-77/rebuild-2d/tmp`；rebuild 自行將 `DOTNET_CLI_HOME`、NuGet scratch 放入本輪 scratch。輸出沿用既定 `engine/build/client-product-dev`、`engine/launcher` 與專案 `obj`，未複製遊戲資源。
+
+### check-only 完整 JSON
+
+```json
+{
+  "status": "checked-only",
+  "revision": "dev",
+  "executable": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\engine\\build\\client-product-dev\\P11.ClientEngine.exe",
+  "workingDirectory": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\engine",
+  "arguments": [
+    "--normal-product"
+  ],
+  "manifest": "D:\\lineage\u958B\u767C\\TW1608262200\u7814\u7A76\\engine\\build\\product-dev-manifest.json",
+  "manifestSha256": "162c9b5b42dac2e44a9591dd7a560a76be870d8f0e5c88e974cc2d8ec5cae5d9",
+  "hashedRuntimeAndWebFiles": 24,
+  "assetFilesCheckedForPresenceAndSize": 13957,
+  "assetContentVerification": "Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.",
+  "runtime": {
+    "architecture": "x64",
+    "loadedCoreVersion": "10.0.8",
+    "loadedCoreDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\10.0.8\\",
+    "desktopVersion": "10.0.8",
+    "desktopDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.WindowsDesktop.App\\10.0.8"
+  },
+  "webView2Version": "156.0.4314.58",
+  "powerShellRequired": false,
+  "pathLookupUsed": false,
+  "autoLogin": false,
+  "uiStarted": false,
+  "networkStarted": false,
+  "servicesStarted": false
+}
+```
+
+### 產物身分與產出路徑
+
+Receipt 建置時間為 `2026-11-06T09:35:08.504575+00:00`；下列 DLL 均以 `Get-FileHash -Algorithm SHA256` 再次核對，與 `result.json`／receipt 一致。
+
+| 產物 | SHA-256 |
+|---|---|
+| `engine/build/client-product-dev/P11.ClientEngine.dll` | `5747ffb6f5b31f0686645b8ed15e2b3f43be1317cb7fced55d1936ccbc86a9e9` |
+| `engine/build/client-product-dev/P24.Audio.dll` | `f135b5080fb5acab27905d243e3a03fa06bfb7fc941bcf313f8839535abcd63d` |
+| `engine/build/product-dev-manifest.json` | `162c9b5b42dac2e44a9591dd7a560a76be870d8f0e5c88e974cc2d8ec5cae5d9` |
+| `engine/launcher/P24.Launcher.dll` | `222e8a0d03c657a980c2d1c0ab24e46c2026e41b1ea17866b73029cf7452e63d` |
+
+本輪交付僅追加本報告 `docs/reports/issue-77.md`。本機證據保存在 `scratch/issue-77/rebuild-2d/`：`result.json`、`build-console.log`、`build-exit.txt`、各建置步驟 `.command.json`／`.stdout`／`.stderr`、`check-only.json`、`check-only-exit.txt`；lease 回應在 `scratch/issue-77/lease-state-2d.json`。Receipt 為 `engine/_integration/dev/receipt.json`（既定忽略檔，不提交）。關鍵 JSON、SHA 與結果已內嵌本節，不依賴 scratch 永久保存。
+
+### 未驗證什麼／給下一棒的提示
+
+- 未啟動遊戲 UI、P24Lab、MySQL；未登入、查詢 DB、連正式服務或操作既有遊戲程序。未修改產品程式、lock、機密配置、封存內容或硬連結；`docs/REPORT.md` 僅隨 main 同步取得既有索引，沒有本輪編輯。
+- 本輪只證明指定來源可建置且入口唯讀檢查通過；不把 PR #124 的離線結果或本輪 check-only 當作 F9、光箭尾音、靜音 session、移動提示已通過真機驗收。
+- 交由主控審查本節後改 runner 為 dot，重排第 2d-b 輪。主目錄停在 `task/77`。dot 先確認 HEAD 含本節的報告 commit、check-only 為 dev 且兩個 DLL SHA 與上表一致；本輪後不得另行同步或重建再沿用這份身分。
+- dot 依第 2d-b 派工重新核實有效唯一 lease、兩埠未監聽與服務身分。M1 必須完成普通肉 40056 的 1／10 丟撿循環，以及近戰／光箭各自有聲、靜音、恢復的有效事件音量；靜音 session 必須存在、null 不算 0，量測窗至少 4 秒。其他列依主控裁定標示原因與 Backlog／M2；本輪不關 Issue、不宣告 M1 完成。
