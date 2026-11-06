@@ -125,7 +125,7 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 
 ---
 
-## M6 內容擴充（Backlog 升級，使用者 #186 要求）— 主線 30 項，封頂（#238：U8 兌現 +7、#132 差異補列 +4、協議表未實作模組 +6）
+## M6 內容擴充（Backlog 升級，使用者 #186 要求）— 主線 32 項，封頂（#238：U8 兌現 +7、#132 差異補列 +4、協議表未實作模組 +8）
 
 **驗收：使用者打開會看到什麼**：`docs/demo/README.md` 新增「M6 內容擴充」一節。在 M6 smoke（T112）中，下列每一項都有真機截圖，或是 ⚠️ 附原因：
 - 已學的非 1／3／4／8 技能可以施放；範圍法術與其他箭矢有畫面；
@@ -154,9 +154,9 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 ### T109 | review | codex-local | 通用道具 use_type 尾段（#132 差異 8）
 ### T110 | doing | codex-local | 傳送 recovery wrapper（N+8 bytes）相容（#132 差異 1）
 ### T111 | done | codex-local | 登入密碼字元規則對齊（#132 差異 6）
-### T113 | todo | codex-local | 王族基本技能（U8；#227）
+### T113 | done | codex-local | 王族基本技能（U8；#227）
 ### T114 | done | codex-local | 騎士基本技能（U8；#228）
-### T115 | todo | codex-local | 妖精基本技能（U8；#229）
+### T115 | done | codex-local | 妖精基本技能（U8；#229）
 ### T116 | todo | codex-local | 法師基本技能（U8；#230）
 ### T117 | todo | codex-local | 黑暗妖精基本技能（U8；#231）
 ### T118 | todo | codex-local | 龍騎士基本技能（U8；#232）
@@ -171,7 +171,9 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 ### T127 | todo | codex-local | 寵物與召喚物控制（#261）
 ### T128 | todo | codex-local | 血盟建立、加入、退出、盟徽（#262）
 ### T129 | todo | codex-local | 變身 S_ChangeShape（#263）
-### T112 | todo | codex-local → dot | **M6 smoke**：上述合併後，真機跑一次 M6 驗收清單，**連同 M5 剩下的 M2 列**（#206）；T113–T129 也要合併後才開；T124–T129 在 smoke 清單中列為附加列，不改上方凍結的驗收
+### T130 | todo | codex-local | 公告板（#266）
+### T131 | todo | codex-local | 信件（#267）
+### T112 | todo | codex-local → dot | **M6 smoke**：上述合併後，真機跑一次 M6 驗收清單，**連同 M5 剩下的 M2 列**（#206）；T113–T131 也要合併後才開；T124–T131 在 smoke 清單中列為附加列，不改上方凍結的驗收
 
 ---
 
