@@ -25,11 +25,12 @@
 - 唯讀來源核驗：`python -B -X utf8 engine/_integration/dev/rebuild.py`；r33／r34 核驗腳本只供歷史參考。
 - CI：`.github/workflows/build.yml` 在 **ubuntu-latest** 以 `-p:EnableWindowsTargeting=true`、`-r win-x64`、`-p:SelfContained=false` 交叉建置 Windows 目標（#67／PR #72），使用 `.github/nuget.ci.config`（nuget.org）；本機 `engine/NuGet.Config` 仍是離線 `vendor`。CI 編譯成功不算原生驗收。
 - 位元可重現：相同來源與 SDK 在兩個目錄建出的 product、audio、launcher DLL SHA-256 相同（#91）。
-- 素材：`engine/assets` 是指向 `releases/r28` 的唯讀 junction；遊戲資源一律引用 `D:\lineage開發\0-客戶端`，**不得複製 pak/map/sprite 進本專案**。
+- 素材：`engine/assets` 是指向 `releases/r29/assets`（#155） 的唯讀 junction；遊戲資源一律引用 `D:\lineage開發\0-客戶端`，**不得複製 pak/map/sprite 進本專案**。
 - 資料庫（MySQL）由使用者管理；AI 不查詢、不更改、不啟停 DB 或服務。
   - **例外（使用者 2026-11-05 授權，只限 `dot`）**：P24Lab 實驗環境（`D:\P24Lab-ClientEngine`、MySQL `127.0.0.1:43324`、伺服器 port `42061`）的啟停與維護由 `dot` 自行安排，包含為了開服清掉孤兒限時紀錄。改 DB 前必須先把目前狀態完整備份（放 P24Lab 自己的備份目錄），只做開服需要的最小修改，結果寫進 Issue 的 RESULT。其他 AI（Cursor、Codex 雲端、Claude）仍不可碰；正式伺服器（port 2000）與正式 MySQL（3306）任何人都不可碰。
   - **例外（使用者 2026-11-06 在 dot 對話親自授權，只限 `dot`）**：「本人授權：1. 在 P24Lab（42061／43324、測試角色）執行 tw-bin 原生實機驗收：啟動客戶端、登入、操作、截圖、量音效、送測試聊天；不碰正式 2000／3306、不改 DB 或配置、不用主要角色。適用 #77 與之後所有 test 任務。」（原文『…』之後的條款未取得）出處：本機調度器對話轉述（#77 留言，2026-11-06 02:18 UTC），dot 已確認收到。
   - **例外（2026-11-06，#160 裁定 A；依使用者常設授權：P24Lab 由 dot 自行安排、改 DB 前先備份，2026-11-06 11:45／11:47，本機調度器對話轉述）**：真機 smoke 時，dot 可以在 P24Lab 測試庫把測試角色**暫時設為 GM**，**只用來準備測試條件**（瞬移、發給弓與箭、建立第二個測試角色）；實際驗收操作仍照一般玩家方式。改之前先完整備份 DB，smoke 結束後改回原值。正式 2000／3306 一律不碰。
+  - **例外（2026-11-07 04:40 台北時間，使用者本人裁定 A，本機調度器對話轉述，見 #175）**：`codex-local` 可以對 P24Lab 實驗環境（MySQL `127.0.0.1:43324`）做**測試準備寫入**：設定或改回測試角色 GM、建立測試角色、發給測試物品。條件：寫入前先完整備份（冷備份或實驗環境專用的備份方式），不刪除既有資料，記錄前後對照，並提供還原 SQL。正式伺服器（port 2000）與正式 MySQL（3306）任何人都不可碰。
 
 ## 目錄
 | 路徑 | 用途 | git |
