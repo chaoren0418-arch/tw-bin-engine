@@ -20,7 +20,10 @@ public sealed class EffectHostLane {
     public void Post(Action action)=>queue.Enqueue(action);
     public void Drain(){Verify();while(queue.TryDequeue(out var action))action();}
 }
-public sealed record EffectAudioObservation(string Operation,EffectAudioReply Reply);
+// Keep the world owner/event alongside async replies so native acceptance can distinguish
+// scene audio from combat/keepalive, and match a retiring generation to its live voices.
+public sealed record EffectAudioObservation(string Operation,EffectAudioReply Reply,
+    EffectOwner? Owner=null,EffectCandidate? Candidate=null);
 public sealed class Effect6016Host {
     sealed class Registration {public bool? Ready;public EventRequest? Pending;}
     readonly Effect6016Controller controller;readonly IEffectAudio? audio;readonly Func<long> clock;
@@ -43,18 +46,19 @@ public sealed class Effect6016Host {
     public Effect6016Host(Effect6016Controller controller,IEffectAudio? audio,EffectHostLane lane,Func<long> clock,Func<EffectCandidate,bool>? audible=null,Action<EffectAudioObservation>? observer=null){
         this.controller=controller;this.audio=audio;Lane=lane;this.clock=clock;this.audible=audible??(_=>true);this.observer=observer;lane.Verify();
     }
-    void Record(string operation,EffectAudioReply reply){
-        var item=new EffectAudioObservation(operation,reply);observations.Enqueue(item);Interlocked.Increment(ref observed);
+    void Record(string operation,EffectAudioReply reply,EffectOwner? owner=null,EffectCandidate? candidate=null){
+        var item=new EffectAudioObservation(operation,reply,owner,candidate);observations.Enqueue(item);Interlocked.Increment(ref observed);
         while(observations.Count>256)observations.TryDequeue(out _);
         // Diagnostics sink must be thread-safe; a diagnostic failure cannot break gameplay.
         try{observer?.Invoke(item);}catch{}
     }
-    Task<EffectAudioReply> Invoke(string operation,Func<Task<EffectAudioReply>> call,Action<EffectAudioReply>? onLane=null){
+    Task<EffectAudioReply> Invoke(string operation,Func<Task<EffectAudioReply>> call,Action<EffectAudioReply>? onLane=null,
+        EffectOwner? owner=null,EffectCandidate? candidate=null){
         Task<EffectAudioReply> task;try{task=call();}catch(Exception ex){task=Task.FromResult(new EffectAudioReply(false,"HostCallFailed",ex.ToString()));}
         return Observe();
         async Task<EffectAudioReply> Observe(){
             EffectAudioReply reply;try{reply=await task.ConfigureAwait(false);}catch(Exception ex){reply=new(false,"TaskFailed",ex.ToString());}
-            if(onLane!=null)Lane.Post(()=>onLane(reply));Record(operation,reply);return reply;
+            if(onLane!=null)Lane.Post(()=>onLane(reply));Record(operation,reply,owner,candidate);return reply;
         }
     }
     EventGate Gate(EffectCandidate candidate)=>new(!closed&&allowed&&!muted,audio!=null&&configured,audible(candidate));
@@ -72,7 +76,7 @@ public sealed class Effect6016Host {
     public void RetireLifetime(object lifetime,long now){Lane.Verify();if(committedMap is not int map)return;Synchronize(map,committedBlocks.Where(b=>!ReferenceEquals(b.Lifetime,lifetime)).ToArray(),now);}
     public void Clear(long now){Lane.Verify();committedMap=null;committedBlocks=[];Apply(controller.Clear(now));}
     void Apply(LifecycleDelta delta){
-        foreach(var owner in delta.Retired){owners.Remove(owner);if(audio!=null)_=Invoke("retire",()=>audio.RetireAsync(owner));}
+        foreach(var owner in delta.Retired){owners.Remove(owner);if(audio!=null)_=Invoke("retire",()=>audio.RetireAsync(owner),owner:owner);}
         foreach(var owner in delta.Created){
             var state=new Registration();owners.Add(owner,state);
             if(audio==null){state.Ready=false;continue;}
@@ -80,7 +84,7 @@ public sealed class Effect6016Host {
                 if(closed||!controller.IsCurrent(owner)||!owners.TryGetValue(owner,out var current)||!ReferenceEquals(current,state))return;
                 state.Ready=reply.Success;var pending=state.Pending;state.Pending=null;
                 if(reply.Success&&pending!=null)Dispatch(pending);
-            });
+            },owner:owner);
         }
     }
     public IReadOnlyList<EffectFrameState> Frames(){Lane.Verify();return controller.Frames();}
@@ -93,8 +97,8 @@ public sealed class Effect6016Host {
         }
     }
     void Dispatch(EventRequest request){
-        var reply=controller.TryDispatch(request,clock(),Gate,candidate=>{_=Invoke("play",()=>audio!.PlayAsync(candidate.SoundId,candidate.Owner));});
-        Record("dispatch",new(reply.Status==DispatchStatus.Submitted,reply.Status.ToString(),reply.Error));
+        var reply=controller.TryDispatch(request,clock(),Gate,candidate=>{_=Invoke("play",()=>audio!.PlayAsync(candidate.SoundId,candidate.Owner),owner:candidate.Owner,candidate:candidate);});
+        Record("dispatch",new(reply.Status==DispatchStatus.Submitted,reply.Status.ToString(),reply.Error),request.Candidate.Owner,request.Candidate);
     }
     public Task<EffectAudioReply> ShutdownAsync(TimeSpan budget){
         Lane.Verify();if(budget<=TimeSpan.Zero||budget.TotalMilliseconds>int.MaxValue)throw new ArgumentOutOfRangeException(nameof(budget));

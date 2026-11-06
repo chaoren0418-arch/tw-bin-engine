@@ -62,6 +62,11 @@ jobs:
         run: |
           dotnet restore tools/ResourceChecks/ResourceChecks.csproj --configfile ../.github/nuget.ci.config
           dotnet run --project tools/ResourceChecks/ResourceChecks.csproj -c Release --no-restore -- build/client-product-dev
+      - name: Compile 6016 offline/native checks (Windows target only)
+        working-directory: engine
+        run: |
+          dotnet restore _integration/dev/effect6016-tests/Effect6016Checks.csproj --configfile ../.github/nuget.ci.config -p:EnableWindowsTargeting=true
+          dotnet build _integration/dev/effect6016-tests/Effect6016Checks.csproj -c Release --no-restore -p:EnableWindowsTargeting=true
       - name: Report local resource checks
         if: always()
         run: python -B -X utf8 engine/tools/check-local-resources.py --assets-root engine/assets
