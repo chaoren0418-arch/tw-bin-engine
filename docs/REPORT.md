@@ -54,3 +54,4 @@
 - 2026-11-06 — #132 參考主伺服器原始碼：整理封包與規則對照表（之後封包任務一律查表）（resource，codex-local，PR 已合併）→ [報告](reports/issue-132.md)
 - 2026-11-06 — #129 T072：戰鬥閉環——擊殺得 EXP 與戰利品、技能學習、弓箭彈藥、自身死亡與恢復（code，codex-local，PR 已合併）→ [報告](reports/issue-129.md)
 - 2026-11-06 — #130 T073：原生畫面與操作——滑鼠點地／點怪／點 NPC、HUD、陰影、聊天焦點、物件生命週期（code，codex-local，PR 已合併）→ [報告](reports/issue-130.md)
+- 2026-11-06 — #133 T070：NPC 服務——購買、倉庫存取、私商購買、直接交易（含 M1 移入的普通肉購買與丟撿循環）（code，codex-local，PR 已合併）→ [報告](reports/issue-133.md)
