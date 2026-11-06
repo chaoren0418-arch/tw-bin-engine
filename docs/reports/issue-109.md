@@ -4,7 +4,7 @@
 
 ## 結論
 
-**本機閘門已通過，前次兩個歷史 JSON 阻塞已依主控裁定解除；本輪遠端 CI 待確認。** 指定 25 檔移除與改接、dev 建置、check-only、179 項離線測試、缺素材 skipped 與負向探針沿用第 1 輪已驗證結果。這輪只補齊精確路徑／SHA 允許清單與報告，沒有修改那 9 個例外本體或放寬 detector。
+**通過：本機閘門 exit 0，遠端 CI 綠燈，前次歷史 JSON 阻塞已解除；PR #116 已 ready。** 指定 25 檔移除與改接、dev 建置、check-only、179 項離線測試、缺素材 skipped 與負向探針沿用第 1 輪已驗證結果。這輪只補齊精確路徑／SHA 允許清單與報告，沒有修改那 9 個例外本體或放寬 detector。
 
 依 [#109 主控裁定](https://github.com/chaoren0418-arch/tw-bin-engine/issues/109#issuecomment-6675542616)，`b15Exceptions` 為 9 個（7 個生成器待辦及 2 個歷史 pixels 證據），`binaryExceptions` 為 19 個非遊戲的遷移盤點／文件壓縮檔，分開計數。前次待裁定事項已解決；WebView2 實際圖示、ground 與音訊仍由 dot 在下一次真機確認。
 
@@ -27,6 +27,37 @@ python -B -X utf8 engine/tools/check-no-game-assets.py
 ```
 
 `main` 尚未合併本 PR；此處的通過是以最新 main 為基底加上本 PR 的候選合併樹，不宣稱已修改遠端 main。最終合併由使用者執行。
+
+### 第 2 輪遠端 CI（通過）
+
+來源提交 `7ad36b2f2c419d0504f6c296b976e42f02cd13d5`，PR 合併測試 SHA `76b73e39802473f1667039010d66814cd466bd07`。
+[Actions run 42156176848](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42156176848)，job `127690757748`，2026-11-06 03:22–03:23 UTC：**success**。
+
+| 驗證 | 結果 |
+|---|---|
+| Reject tracked game assets | pass，3,051 檔、errors=0、4 個宣告 |
+| Windows target Release win-x64 | 編譯成功，0 warnings／0 errors |
+| dev canonical build + receipt | PASS dev；169 sourceFiles／178 pinnedFiles；product／launcher 均 build 0 |
+| Compiled EmbeddedResource names | pass，2 assemblies／4 resources，assemblyCodeExecuted=false |
+| Packet trace checks | pass，35 assertions，gameStarted=false、network=false |
+| Local resource checks | 4 組均 skipped，testsExecuted=false；這是缺素材報告成功，不是測試通過 |
+
+遠端實際關鍵輸出：
+
+```text
+{"status": "pass", "trackedFiles": 3051, "errors": 0, "embeddedResourceDeclarations": 4}
+{"status": "dev-inputs-verified", "sourceFiles": 169, "pinnedFiles": 178, "writes": false}
+Windows target win-x64 build succeeded (product + launcher; not executed)
+{"status":"pass","assemblies":2,"embeddedResources":4,"assemblyCodeExecuted":false}
+{"suite": "icons", "status": "skipped", "reason": "Local assets unavailable", "testsExecuted": false}
+{"suite": "host", "status": "skipped", "reason": "Local assets unavailable", "testsExecuted": false}
+{"suite": "client", "status": "skipped", "reason": "Local assets unavailable", "testsExecuted": false}
+{"suite": "audio-settings", "status": "skipped", "reason": "Local assets unavailable", "testsExecuted": false}
+```
+
+[dev receipt artifact](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42156176848/artifacts/13474238732) 已上傳，ZIP SHA-256 `5fd6c58eb6d49b8e2658a825620f27c49559f5d1970b7743f33da5ea1ab94714`。Linux CI 明列原生 Windows UI／input／audio 未驗，不能替代 dot 真機。
+
+PR 狀態讀回為 `draft: false`、`mergeable: true`，已符合 ready，無須重複轉換。後續報告提交只記錄上述結果，未再改程式或允許清單。
 
 ## 第 1 輪已完成內容
 
@@ -298,7 +329,6 @@ Process completed with exit code 1.
 
 ## 未驗證什麼
 
-- 第 2 輪遠端 CI 待推送後確認；本機閘門已通過，沒有跳過閘門。
 - 未啟動遊戲、WebView2 面板、播放聲音、登入或連網／DB／服務；未執行 ground SPR 解碼新一輪測試。上述真機行為沒有用單元測試冒充。
 - 未全面鑑識壓縮歷史證據；不宣稱 repo／portable ZIP 零遊戲資料，9 個 B15 檔仍明確保留。
 - 未重跑歷史 r28 封裝／seal 流程；未修改 docs/REPORT.md、原 BIN、正式客戶端、releases、r33/r34/r35 lock 或硬連結。
