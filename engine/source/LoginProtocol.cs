@@ -67,8 +67,17 @@ public static class LoginPackets {
     static LoginPackets(){Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);TextEncoding=Encoding.GetEncoding(950,EncoderFallback.ExceptionFallback,DecoderFallback.ExceptionFallback);}
     public static uint Seed(byte[] body){if(body.Length!=16||body[0]!=150||!body.AsSpan(5).SequenceEqual(Convert.FromHexString("9DD1D67AF462E7A06602FA")))throw new ProtocolException("unrecognized seed/profile packet");return BinaryPrimitives.ReadUInt32LittleEndian(body.AsSpan(1));}
     public static byte[] Login(string account,string password){
-        if(account.Length is <1 or >12||password.Length is <1 or >13||account.Any(c=>!char.IsAsciiLetterOrDigit(c))||password.Any(c=>c<33||c>126))throw new ArgumentException("Use a test account of 1..12 ASCII letters/digits and password of 1..13 printable ASCII characters.");
+        if(LoginValidationError(account,password) is {} error)throw new ArgumentException(error);
         return Pad([119,..Encoding.ASCII.GetBytes(account.ToLowerInvariant()),0,..Encoding.ASCII.GetBytes(password),0]);
+    }
+    // C_AuthLogin.start/checkLogin (server-rules R03); shared by UI and packet encoding.
+    // Messages describe the rule only, never the supplied credentials or offending character.
+    public static string? LoginValidationError(string? account,string? password){
+        if(string.IsNullOrEmpty(account)||account.Length>12)return "帳號長度需為 1–12 位。";
+        if(account.Any(c=>!char.IsAsciiLetterOrDigit(c)))return "帳號只能使用 ASCII 英文字母與數字。";
+        if(string.IsNullOrEmpty(password)||password.Length>13)return "密碼長度需為 1–13 位。";
+        if(password.Any(c=>!char.IsAsciiLetterOrDigit(c)&&!"!_=+-?.#".Contains(c)))return "密碼只能使用 ASCII 英文字母、數字與符號 !_=+-?.#。";
+        return null;
     }
     // Explicit client policy: zero-pad to 8; server structure validator reads required fields and allows trailing bytes.
     public static byte[] Pad(byte[] bytes){Array.Resize(ref bytes,(bytes.Length+7)&~7);return bytes;}

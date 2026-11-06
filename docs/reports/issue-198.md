@@ -1,5 +1,13 @@
 # Issue #198／T110：傳送 recovery wrapper 相容
 
+## 第 2 次嘗試：只同步 main
+
+- 合併 `origin/main`（`89f5adf04111f2385191369d76108e991f14bc57`）；唯一衝突為 dev lock，執行 `rebuild.py --update-lock` 重新生成，核驗 173 個來源／182 個 pinned 輸入通過。`docs/REPORT.md` 與 main 完全一致。
+- `LoginProtocol.cs` 自動合併，保留 main 登入規則與本任務 recovery 判斷；沒有新增產品或測試邏輯。
+- 完整 dev 建置通過（產品仍只有既有 `MagicUi.cs` 兩項警告，launcher 無警告）；既有 `TeleportChecks` 4,369 項與 main 的 `LoginChecks` 396,589 項全數通過。`check-no-game-assets.py` 通過（3,249 個追蹤檔、0 錯誤），`git diff --check` 通過。
+- 同步後產品 DLL SHA-256：`bfc5e593af64f78c3a46798333e80ccd7344dbe2afa6ed985de04aa322a7d33d`。建置與傳送測試證據覆寫原 `scratch/issue-198/` 路徑；以下首次實作紀錄保留供比對。
+- 沿用 PR #236，推送後的 CI 結果記於 PR 留言。未執行真機測試；下一棒由 Claude／調度器審查同步結果，合併後由 dot 接 M6 smoke。
+
 ## 做了什麼
 
 - 在 `Teleport.cs` 定義 recovery 格式白名單；`LoginReader.Finish` 只增加明確 N+8 判斷，保留原 N-byte 邊界與逐 byte 零 padding 檢查。
