@@ -311,8 +311,8 @@
   },
   {
    "path": "source/Equipment.cs",
-   "size": 5402,
-   "sha256": "944066694c07e1fb3886d5f5410e582482b90fa2b96932536deff14865ec5ade"
+   "size": 5788,
+   "sha256": "844bf5ef9e0dcef910a191a787b343dace30027b1477546f7a4c27d2b475a307"
   },
   {
    "path": "source/EquipmentGateTests.cs",
@@ -401,8 +401,8 @@
   },
   {
    "path": "source/Inventory.cs",
-   "size": 15204,
-   "sha256": "3122cb17e53648d47bab3a6dcaa5275ccf77a4576b778eb76ebccfaf4a44577d"
+   "size": 15630,
+   "sha256": "1417bb25fc59c451671a329bb8a8b43304edfcee8dc5875f24177e6f7c4c65c8"
   },
   {
    "path": "source/InventoryIntegration.cs",
@@ -421,13 +421,18 @@
   },
   {
    "path": "source/InventoryUi.cs",
-   "size": 12534,
-   "sha256": "be339fb8b6ca024be20a6b2c57db6536479bec9cec4bd8ef2053f905593991b9"
+   "size": 13501,
+   "sha256": "6046de403be87c382a0c603ec11f870b1614b0993d7003ce5cecfc87a0d3a26f"
   },
   {
    "path": "source/Invisibility.cs",
    "size": 1401,
    "sha256": "432a1fc024f43e8d866912cd7fae136162bd4c257d4cb8731eefa20c41087681"
+  },
+  {
+   "path": "source/ItemStatus.cs",
+   "size": 7337,
+   "sha256": "38e86bc77f464053b7d9f834bb662dae501a5a6ea0195ff77f44c1ac19f312bc"
   },
   {
    "path": "source/ItemTransfer.cs",
