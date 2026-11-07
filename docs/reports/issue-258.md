@@ -89,6 +89,14 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
   - 時機實測：`scratch/issue-258/layout-probe`（空白 Form，`Application.Run` 顯示，與遊戲無關），一般顯示與建構子提早建立 handle 兩種情況順序都是 `OnLoad > OnLayout > Shown`，初始化各只執行一次；`Shown` 內 `RecreateHandle` 不重複觸發。
 - 本機驗證：`rebuild.py --update-lock`（220 source／229 pinned）、`--build` PASS（產品 DLL `dbe974e0c46817dde147f2e7e244f57505695f85085a2fef730c79e7cd551add`）；DemoChecks `bookmarks` 723、`title-emote` 704、`map-continuity` 23218、`combat-admission` 1837、`item-status` 358、`afflictions` 428、`polymorph-cadence` 309、`buddies` 445、`item-transfer` 349、`doors` 597 全部 PASS；`check-no-game-assets.py` pass（3463 檔、0 錯誤）。
 - 同步 head `3484741ea9005d14f7f4e4c21e8cc5f6bdbc5f32` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42372762014) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42372761954) 均 completed／success（只有既有 `MagicUi.cs:20` 警告）。本行以後續純文件提交補記。
+
+### 2026-11-07 同步輪（clan-war）
+
+- `git merge origin/main`（main `e8e7889e`，落後 26 個提交，含 clan-war 模組）。文字衝突兩處：`demo-tests/Program.cs` 的 `map-continuity` 群組同時保留 `BookmarkChecks()` 與 `ClanWarChecks()`（預設路徑自動合併，兩者都在）；`rebuild-lock.json` 取 main 版本後 `--update-lock` 重產。`DemoChecks.csproj`、`WorldSession.cs` 自動合併，S92 書籤 case 保留。`docs/REPORT.md` 用 main 版本。
+- **語意衝突（同上輪性質，只改本模組檔案）**：main 的 `ClanWar.cs:165` 也覆寫 `ClientForm.OnLayout`，合併後 CS0111。`BookmarkUi.cs` 掛接點改為 `OnResize`（全專案無人覆寫；`ClientForm` 建構子 `Program.cs:95` 設定 `ClientSize`，所以 `Resize` 必在 `Shown` 之前觸發），仍只訂閱一次 `Shown`、面板在 `Shown` 才建立；面板內容與行為未改。`ClanWar.cs` 未動。
+  - 時機實測：`scratch/issue-258/layout-probe` 改為 `OnResize` 並在建構子設 `ClientSize`（空白 Form，與遊戲無關）：一般顯示與提早建立 handle 兩種情況，`OnResize` 都在建構子內觸發、早於 `OnLoad`／`Shown`，初始化各只執行一次（提早 handle 時的第二次 `OnResize` 被旗標擋下）。
+- 本機驗證：`rebuild.py --update-lock`（221 source／230 pinned）、`--build` PASS（產品 DLL `0ba61034f66c875169288573d0ed8fe236df90d00ddd94e7987d3318fedbb668`）；DemoChecks `bookmarks` 723、`clan-war` 479、`title-emote` 704、`map-continuity` 23421、`item-status` 358、`combat-admission` 1837、`buddies` 445、`doors` 597 全部 PASS；`check-no-game-assets.py` pass（3519 檔、0 錯誤）。
+- 同步 head 的 CI 結果：見後續補記。
 ## 未驗證什麼
 
 - **換掛接點後，「記憶座標」分頁實際出現在真實 `ClientForm`，目前沒有任何自動測試覆蓋**：離線測試不經過 `ClientForm` 生命週期，上述只驗到空白 Form 的框架順序與靜態閱讀。需由 dot smoke 確認。
@@ -100,6 +108,7 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 
 ## 產出路徑
 
+- 2026-11-07 同步輪（clan-war）修改：`demo-tests/Program.cs`（解衝突）、`engine/source/BookmarkUi.cs`（掛接點 `OnLayout`→`OnResize`）、`rebuild-lock.json`（重產）、本報告。
 - 2026-11-07 同步輪（title-emote）修改：`demo-tests/DemoChecks.csproj`（解衝突）、`engine/source/BookmarkUi.cs`（掛接點 `SetVisibleCore`→`OnLayout`）、`rebuild-lock.json`（重產）、本報告。
 - 2026-11-07 同步輪（item-status）修改：`demo-tests/Program.cs`（解衝突）、`rebuild-lock.json`（重產）、本報告。
 - 2026-11-07 同步輪（timed-buffs）修改：`demo-tests/DemoChecks.csproj`、`demo-tests/Program.cs`（解衝突）、`rebuild-lock.json`（重產）、本報告。
@@ -112,7 +121,7 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 ## 給下一棒的提示
 
 1. Claude／codex-review 審查 PR #271 本輪同步，重點是上述兩處修改，並裁定 S64 判定：接受現行的靜默略過，或改 `CharResetChecks.cs` 以保留嚴格拒絕。之後依流程交使用者合併；worktree 由調度器清理。
-2. main 合併頻繁，上輪追了四次、本輪又落後 44 個提交；建議本 PR 審查通過後盡快合併。`ClientForm` 的生命週期方法已幾乎被各模組占滿（`OnLoad`、`OnCreateControl`、`OnHandleCreated`、`OnShown`、`OnActivated`、`OnVisibleChanged`、`SetVisibleCore`（已被 title-emote 占用，書籤因此改用 `OnLayout`）），下一個模組會再撞 CS0111。建議開任務把掛接集中到單一入口。
+2. main 合併頻繁，上輪追了四次、本輪又落後 44 個提交；建議本 PR 審查通過後盡快合併。`ClientForm` 的生命週期方法已幾乎被各模組占滿（`OnLoad`、`OnCreateControl`、`OnHandleCreated`、`OnShown`、`OnActivated`、`OnVisibleChanged`、`SetVisibleCore`（title-emote）、`OnLayout`（clan-war），書籤現用 `OnResize`），已連續兩輪撞 CS0111，下一個模組還會再撞。建議開任務把掛接集中到單一入口。
 3. `docs/protocol/char-reset.md` 的「本次基底尚無書籤 case」在本 PR 合併後會過時；屬其他模組文件，本輪未改。
 4. 法師技能任務用 `World.Bookmarks.TryGet(id)` 查詢，null 表示不存在或刪除待確認。依既有協定報告，伺服器 `BookmarkService.getBookMark(pc, i)` 將技能參數拆成 X/Y；應核對 C6 消費端，不能直接把清單 ID 當傳送參數。
 5. dot 集中 smoke 覆蓋「更多」→「記憶座標」（確認分頁確實存在）、登入後書籤清單確實載入（確認 S64 標頭判定）、Big5 名稱、重名／容量／不可標記地點、刪除待確認、重登清單、切角隔離與跨圖保留。
