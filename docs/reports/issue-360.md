@@ -17,6 +17,17 @@
 - 產品 DLL SHA-256：`798e4c596418420c0587c13ee497d8fc0640f4f7546f7dd2181bdc5bc7c2cae8`。
 - CI 在本報告提交後由 PR 觸發，最終結果以 PR checks 與任務完成回報為準。
 
+以上數字與 DLL SHA-256 是同步前（`9eab8d1`）的結果，目前狀態以下一節為準。
+
+## 同步輪（2026-11-07，基準 origin/main `76ac0fb`）
+
+- 兩次 `git merge origin/main`（`82d3a45`，合併期間 main 前進後再併 `76ac0fb`）。衝突只有 `DemoChecks.csproj`、`Program.cs`、`rebuild-lock.json`：測試入口兩邊都保留，lock 取 main 版本後用 `--update-lock` 重產。沒有改幽靈功能；相對 main 的差異仍是同樣 10 個檔案，產品程式只有 `GhostMode.cs`、S87 一個呼叫、HUD 一個掛載點。
+- 已查 main 新增的 `Invisibility.cs`（S171）：它會直接改自身 `Actor.Flags`，但只動 bit 2，保留 `0x80`，不影響幽靈判定。
+- `rebuild.py` 核驗 200 個來源／209 個鎖定輸入；`--build --write-receipt` 成功。產品 DLL SHA-256：`2287a00aa8fca4e00afff5ead4b88e6d325e6c58ef7fa4679924bf22b182a451`。
+- `check-no-game-assets.py` 通過（3366 檔、0 錯誤）。
+- DemoChecks 各群組全部通過：`ghost-mode` 552、`map-continuity` 21759、`combat-admission` 1326、`buddies` 362、`item-transfer` 266、`polymorph-cadence` 226、`pets` 193、`fishing` 232。這些數字都含 main 在 `Main` 開頭加的共用檢查，所以比同步前大；同步到 `82d3a45` 時已核對標籤，幽靈檢查本身仍是 359 項。
+- **預設入口（不帶群組參數）未跑完**：worktree 沒有 `engine/assets`，改用暫時的唯讀 junction 提供素材後，程序卡住不結束（超過 7 分鐘，CPU 約 3 秒）。暫時拿掉 `GhostModeChecks` 重建再跑，150 秒後同樣卡住，所以不是幽靈測試造成的。原因未查，也沒有在純 main 上重現；CI 不走這個入口。因此幽靈測試在預設入口的這個位置實際上沒有執行到。實驗用的 junction 已用 `rmdir` 拆除，`Program.cs` 已還原。
+
 ## 未驗證什麼
 
 未啟動遊戲、伺服器或 DB；未驗證原生 HUD 排版、競技場 NPC／對話資料是否實際可用、觀戰入場／金幣扣款／各動作拒絕／離開回原地。合成封包只驗證產品邏輯，不冒充原生實機證據。
@@ -32,6 +43,6 @@ S87 沒有完整可行動作 mask，也沒有伺服器內部 `ghostCanTalk` 欄�
 
 ## 給下一棒的提示
 
-Claude／調度器審查本 PR 與 CI 後交使用者合併；dev lock 若與其他分支衝突，由同步輪重新產生。dot 接 M6 smoke：透過原服觀戰 NPC 入場，確認 HUD／外觀及移動、攻擊、NPC 對話的原服裁定；點離開一次，確認回原位且 S87 清除 `0x80`，再確認普通死亡不顯示幽靈。未提供上述 NPC／UB 資料時應記為測試條件不足，不自行修改正式資料。
+DemoChecks 預設入口會卡住（見「同步輪」），建議另開任務查明，並先在純 main 上確認是否重現。Claude／調度器審查本 PR 與 CI 後交使用者合併；dev lock 若與其他分支衝突，由同步輪重新產生。dot 接 M6 smoke：透過原服觀戰 NPC 入場，確認 HUD／外觀及移動、攻擊、NPC 對話的原服裁定；點離開一次，確認回原位且 S87 清除 `0x80`，再確認普通死亡不顯示幽靈。未提供上述 NPC／UB 資料時應記為測試條件不足，不自行修改正式資料。
 
 分支 `task/360`；未改 `docs/REPORT.md`、正式配置、封存或原始專案，沒有遞迴刪除或拆除 worktree。
