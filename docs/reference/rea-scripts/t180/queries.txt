@@ -1,0 +1,26 @@
+# T180 (#482) reproduction queries. Run from repo root (worktree root):
+#   powershell -NoProfile -File docs\reference\rea-scripts\t180\run.ps1 -Script <script> -Out <dir> -Arg "<arg>" [-Drive K:]
+# run.ps1 copies ..\t160\*.py (common.py, decomp.py, disasm.py, sends_full.py, rtti.py) plus this folder.
+# Prepare once: copy P01 ida/03-ascii-isolated/TW1608262200.idb to scratch\rea\ida\tw16.idb (SHA 3a0bf206...7e82f).
+# Output: scratch\rea\out\<dir>\. Check `subst` first; pass another -Drive if K: is busy.
+
+# 1. Receive handlers: S_ATTACK 5, S_ATTACK_MANY 137, S_ATTACK_ALL 240, S_EFFECT 86, S_EFFECT_LOC 219, S_ACTION 226
+caseops.py   cases  "5,137,240,86,219,226,91"
+# 2. Caster queue / heading / pending-hit, effect constructors, '!' release
+decomp.py    q1     "E24FD0,E23160,A3D050,A3C5A0,A3DC10,A3C710,A3D8F0,A3C6C0,A4DF10,8AB390,8AB900,7C36C0,820F90,83C9A0,81C340,81C490,8AB710,83CB50,8ABC10,81C7C0,A550E0,926B80,926C70"
+# 3. Spell send paths (opcode 216) and RTTI of LineageSpell classes
+sends_full.py sf    ""
+rtti.py      rtti   "LineageSpell"
+decomp.py    q2     "DF8A50,DF8BA0,E2A9C0,E2AAE0,E26A30,E26C00,E253C0,E25570,E216A0,E21890,E2B6C0,E26170,E2B1F0,E2AEB0,E259A0,E25840,E21B60,E21A90,E246E0,E24870,E24660,E22890,E223F0,E22110,E23E80,E218F0,E2A930,E2A900,DF8A30,DF89A0"
+# 4. Actor start-action / next-frame / launch, action duration, hit reaction
+dispuse.py   disp   "1AC,1A8,13C"
+decomp.py    q3     "A4B060,A46240,A49520,A4A4F0,A3BC30,E172D0,E16D10,759B30,759B60,A55260,A43560,A3EBF0,A231C0"
+# 5. Effect/projectile class vtables (slot 6 = start) and per-step ticks
+vtdump.py    vt     "??_7Effect@@6B@,117EBBC,11727FC,1179C34,117C62C,1179844,??_7Eruption@@6B@"
+decomp.py    q4     "7C3AB0,821360,83CE90,81C9D0,8ACB20,A44450,F1A190,F1A340"
+decomp.py    q5     "758050,E2AB60,E26D00,9E3260"
+# 6. Index-0 quirk in the Effect '!' hit loop (imul eax, 0 at 0x8AC26E / 0x8AC28B)
+disasm.py    d4     "8AC1FE,8AC2B0"
+
+# Offline (no IDA): list.spr field 109 kinds from the client's Text.pak (read-only; JSON goes to scratch)
+#   py -3 -I docs\reference\rea-scripts\t180\listspr_109.py "D:\lineage開發\0-客戶端" scratch\rea\out\listspr109.json 66 2349 2989 167 219
