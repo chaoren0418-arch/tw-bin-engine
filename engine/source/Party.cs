@@ -82,6 +82,7 @@ public sealed partial class WorldSession {
             ushort header=r.H();uint challenge=r.D();ushort message=r.H();
             if(message!=953){if(partyInvitation!=null){partyInvitation=null;partyRevision++;partyNotice="原服已改送其他確認對話，舊組隊邀請失效。";}return false;}
             string name=PartyName(r);r.Finish();if(header!=0)throw new ProtocolException("party invitation envelope");
+            ReceiveMarriageYesNo(message,challenge,r); // Returning true skips Trade, the usual route that expires an older proposal.
             if(Ready&&!OwnDead){
                 if(TradeState=="invited")ResetTrade("收到組隊確認對話，舊交易邀請已失效。");
                 if(clanInvitation!=null)ClearClanInvitation("收到組隊確認對話，舊入盟申請已失效。");

@@ -43,6 +43,12 @@ partial class Checks {
             Feed(c,PartyMessage(420,"隊員"));Check(c.PartySnapshot().Members.Length==0&&c.World.LastServerReply?.Id==420,"party departure + existing message dispatch");
             foreach(ushort code in new ushort[]{418,419,425}){Feed(c,PartyRowPacket(105));Feed(c,PartyMessage(code));Check(c.PartySnapshot().Members.Length==0&&c.PartySnapshot().Leader=="","party clear message "+code);}
         }
+        using(var c=MarriageSeed()){
+            // S219 is one server-side slot: neither prompt may stay answerable after the other arrives.
+            Feed(c,MarriageInvite());Check(c.MarriageSnapshot() is {Phase:"invited",CanAnswer:true},"party shared Yes-No marriage invited");
+            Feed(c,PartyYesNo());Check(c.PartySnapshot().Invitation!=null&&c.MarriageSnapshot() is {Phase:"expired",CanAnswer:false},"party S219/953 expires older marriage invitation");
+            Feed(c,MarriageInvite());Check(c.PartySnapshot().Invitation==null&&c.MarriageSnapshot().Phase=="invited","party S219/654 expires older party invitation");
+        }
         using(var c=Seed()){
             // Shared opcodes must still reach their original consumers with an untouched reader.
             Feed(c,PartyRowPacket(105));string before=JsonSerializer.Serialize(c.PartySnapshot());

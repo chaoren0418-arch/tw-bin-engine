@@ -2,26 +2,32 @@
 
 ## 最新同步結果（2026-11-07，第五次同步，本輪只做同步）
 
-依調度器要求，在既有 `task/259` 合併 `origin/main`（`3630dcf`，開工時落後 18 個提交，帶入信件 #267）。未新增或修改功能。
+依調度器要求，在既有 `task/259` 合併 `origin/main`。開工時落後 18 個提交（`3630dcf`，帶入信件 #267）；工作期間主線又進了求婚 #358（`52695e2`），也一併合入。除下面這 1 處防退步調整外，未新增或修改功能。
 
-- 衝突只有 `rebuild-lock.json`：取 main 版後以 `--update-lock` 重產，未手動拼 hash。`WorldSession.cs`、`PlayerHudView.cs` 自動合併，保留 `case 186` 信件分派與 `MailUi.Attach`、`PartyUi.Mount` 兩個掛載點。
-- 語意檢查：S186 與組隊的 S237／S250／S39／S71／S219 不重疊。信件與隊伍兩顆按鈕同在不換行的 `menu`，基本 7 顆加這兩顆約 602px，以程式碼推算放得下 900 寬；再加釣魚、鬼魂模式的按鈕時是否超出，沒有實測。
-- `docs/REPORT.md` 與 main 的 blob 相同；相對 main 仍只有原任務的差異檔。
+**超出純文字合併的產品調整（1 處，請審查）**：`Party.cs` 收到 S219/953 時呼叫既有的 `ReceiveMarriageYesNo`，作廢舊求婚邀請。main 上 953 會經 `ReceiveTrade` 走到這個函式；本分支的 Party 先攔下 953，不補的話舊求婚在逾時前都還能回答，而這個 Yes-No 在伺服器是共用的 TempID。同時在 `PartyChecks.cs` 補上 3 項雙向檢查（953 作廢舊求婚、654 作廢舊組隊邀請）。先只加測試，未修產品時停在 `party S219/953 expires older marriage invitation`，修正後通過。這項調整超出「不要改其他內容」的字面，但不修等於合併帶進退步，因此修在任務可改的檔案內。
 
-已驗證：
+- 衝突：`rebuild-lock.json`（兩次）取 main 版後以 `--update-lock` 重產，未手動拼 hash；`DemoChecks.csproj` 保留組隊與求婚兩個測試來源。`WorldSession.cs`、`PlayerHudView.cs`、`demo-tests/Program.cs` 自動合併。
+- 語意檢查：S186（信件）與組隊的 S237／S250／S39／S71／S219 不重疊；求婚的 S71（655–661、790）與組隊的 414–426 不重疊。信件與隊伍兩顆按鈕同在不換行的 `menu`，基本 7 顆加這兩顆約 602px，以程式碼推算放得下 900 寬；再加釣魚、鬼魂模式的按鈕時是否超出，沒有實測。
+- `docs/REPORT.md` 與 main（`52695e2`）的 blob 相同；相對 main 仍只有原任務的 10 個差異檔。
 
-- 來源核驗：**208 個來源／217 個鎖定檔通過**。
-- `rebuild.py --build --configfile scratch/issue-259/NuGet.Config --output scratch/issue-259/build` 通過。產品 DLL SHA-256：`f84ec4d81664ca446e08075b007b30f763120077c544ea7f88f7adce756d64ed`。
-- demo-tests 入口全部通過：`party`／`pets` **273**、`duel` **387**、`clan` **392**、`polymorph-cadence` **306**、`buddies` **442**、`item-transfer` **346**、`doors` **594**、`combat-admission` **1406**、`map-continuity` **22058**。每組都先跑共同檢查（273 項），各組數字不可加總。
+已驗證（皆在最終合併內容上執行）：
+
+- 來源核驗：**209 個來源／218 個鎖定檔通過**。
+- `rebuild.py --build --configfile scratch/issue-259/NuGet.Config --output scratch/issue-259/build` 通過。產品 DLL SHA-256：`90d3aad90276241e4764e2161febb47a385521b00fc091e693d1cc3971a1d107`。
+- demo-tests 入口全部通過：`party`／`pets` **276**、`duel` **390**、`clan` **395**、`marriage` **412**、`polymorph-cadence` **309**、`buddies` **445**、`item-transfer` **349**、`doors` **597**、`combat-admission` **1409**、`map-continuity` **22197**。每組都先跑共同檢查（276 項），各組數字不可加總。
 - 獨立測試專案：`MailChecks` **119**、`CharacterManagementChecks` **218**、`NpcChecks` **165**、`SoundPacketChecks` **148**、`WeaponRepairChecks` **98**、`PacketTraceChecks` **3468** 項斷言通過。
-- `SoundPacketChecks` 第一次因執行腳本漏傳輸出路徑而退出 1（`args[0]` 越界，非產品問題），傳參重跑後通過。
 - 更正：下方第四次報告的 `WeaponRepairChecks` **99** 是筆誤，當次原始 log 為 98 項，測試數量沒有減少。
-- `check-no-game-assets.py` 通過（3394 個追蹤檔、0 錯誤）；demo-tests 與 `engine/source` 的 `git -c core.whitespace=cr-at-eol diff --check` 通過。
+- `check-no-game-assets.py` 通過（3398 個追蹤檔、0 錯誤）；demo-tests 與 `engine/source` 的 `git -c core.whitespace=cr-at-eol diff --check` 通過。
 - 本機未跑 CI 中的 web-resource、ResourceChecks、Effect6016；以 PR #269 最新 head 的 CI 為準。測試證據在 `scratch/issue-259/sync5/`（不追蹤）。
 
-未驗證：未啟動遊戲、伺服器或 DB，未做原生畫面或雙角色連線 smoke。第四次報告列出的 2 處 S219 調整仍沒有提交進 repo 的測試守住。
+未驗證：未啟動遊戲、伺服器或 DB，未做原生畫面或雙角色連線 smoke。S219 的取代行為只以合成封包驗證。第四次報告列出的組隊／決鬥／血盟交叉仍沒有提交進 repo 的測試；本輪只補了組隊／求婚這一對。
 
-給下一棒：調度器核對 PR #269 的 CI 後接續合併；dot 於 M6 smoke 驗收雙角色組隊、HP、離隊／踢除與重登，順便看 HUD 選單在小視窗是否完整。第四次報告的兩項建議（補 S219 交叉測試、決鬥 S219/630 缺口）仍待處理。
+給下一棒：
+
+- 調度器核對 PR #269 的 CI 後接續合併；dot 於 M6 smoke 驗收雙角色組隊、HP、離隊／踢除與重登，順便看 HUD 選單在小視窗是否完整。
+- 建議另開小任務，把組隊／決鬥／血盟的 S219 交叉檢查補進 `party-tests`。
+- main 既有缺口（不屬本任務）：`ReceiveDuel` 收到 S219/630 時 `return true`，到不了 `Trade.cs`，所以舊入盟申請、舊交易邀請，以及本輪新增的舊求婚邀請，都不會被決鬥邀請作廢。建議由決鬥模組的負責任務處理。
+- 本機多個 worktree 共用 refs，`origin/main` 可能在工作中途被推進；核對差異時請用 `MERGE_HEAD` 或固定 hash。
 
 ## 前次同步結果（2026-11-07，第四次同步，本輪只做同步）
 
