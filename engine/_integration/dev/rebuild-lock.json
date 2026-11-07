@@ -176,8 +176,8 @@
   },
   {
    "path": "source/Combat.cs",
-   "size": 13885,
-   "sha256": "8f26c5dda4b164c64438cabe568a0b9ce152c53fd659e8b15c5860391b705f02"
+   "size": 13944,
+   "sha256": "8b8360390be7d77e27aae04206a89004b1df878cab7554e4d858357b4618eb6d"
   },
   {
    "path": "source/CombatRegression.cs",
@@ -310,9 +310,14 @@
    "sha256": "cf6984782fadd2c24d8cbf42cc671277e597a869670e68c3f70dbbd2bf8e7d93"
   },
   {
+   "path": "source/HitReactionSuppress.cs",
+   "size": 1269,
+   "sha256": "2cc8a81451794b9d670ee8cf7fa5bd345ca214b0483e38f0ed54aee601774cbd"
+  },
+  {
    "path": "source/Inventory.cs",
-   "size": 14421,
-   "sha256": "ee4ac857251bdfb4c82be44d40f3723eefd0a4e96d84236416c36c6b773fdd54"
+   "size": 15204,
+   "sha256": "3122cb17e53648d47bab3a6dcaa5275ccf77a4576b778eb76ebccfaf4a44577d"
   },
   {
    "path": "source/InventoryIntegration.cs",
@@ -331,13 +336,18 @@
   },
   {
    "path": "source/InventoryUi.cs",
-   "size": 4569,
-   "sha256": "928f173a5dd1cbdd80ca99854014a7173e2658d93c9d2882c9fd45fb414872ca"
+   "size": 12534,
+   "sha256": "be339fb8b6ca024be20a6b2c57db6536479bec9cec4bd8ef2053f905593991b9"
   },
   {
    "path": "source/ItemTransfer.cs",
    "size": 9708,
    "sha256": "1798a14d638b98120a222293e02fd060c92751f51d11c05a9cc1e652f9f999f7"
+  },
+  {
+   "path": "source/ItemUseArguments.cs",
+   "size": 9400,
+   "sha256": "ba0048694ee53c77b0b0db1eed577f78b6d5c8f4acab2799649556f109b81a3a"
   },
   {
    "path": "source/JournalTests.cs",
@@ -691,8 +701,8 @@
   },
   {
    "path": "source/ProjectileRendering.cs",
-   "size": 5561,
-   "sha256": "917625f6c00b430195311f34e5c7fdabf56b0d5d28f7a53b8abc1053368ff466"
+   "size": 5605,
+   "sha256": "05d1588ce0fe814462f9175e208f081854e735a8daa4c6dcfa655586a9afbea9"
   },
   {
    "path": "source/Protocol.cs",
@@ -896,8 +906,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9541,
-   "sha256": "7a87c3a48b86b54354e3042946255c9ef71eb5012dbffd460f23cd7866e7a1a0"
+   "size": 9568,
+   "sha256": "586458c6e4f3c54bf39eb39cff522a74451ad86a440f956d46e57c2ca436d002"
   },
   {
    "path": "source/WorldTests.cs",
