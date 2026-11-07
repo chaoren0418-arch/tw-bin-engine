@@ -59,6 +59,9 @@ public sealed record CombatSoundInstance(string Key, long Instance, uint Actor, 
 {
     public bool DrainOnEnd { get; init; }
     public Func<bool>? StillValid { get; init; }
+    // T173：交給 SoundGate 的音量類別；S22 環境音循環只在第一輪套用冷卻（原版是原生循環，只啟動一次）。
+    public SoundCategory Category { get; init; } = SoundCategory.Sound;
+    public bool CooldownFirstCycleOnly { get; init; }
 }
 public sealed record CombatSoundObservation(string Stage, string Key, int? SoundId, int? Frame, long? Cycle, AudioReply Reply);
 
@@ -85,6 +88,9 @@ public sealed class CombatSfxController(IAudioPlayback audio, Random random, Act
     AudioReply? maintenance;
     bool closed;
     public Task WhenReleased => audio.WhenReleased;
+    // T173：設定後，每次派送先經共用規則（類別音量、距離衰減、全域 200ms 冷卻）判定。
+    public SoundGate? Gate { get; init; }
+    public Func<uint, (int Dx, int Dy)?>? Offset { get; init; }
 
     async Task Observe(string stage, string key, Task<AudioReply> operation, int? id = null, int? frame = null, long? cycle = null)
     {
@@ -112,7 +118,24 @@ public sealed class CombatSfxController(IAudioPlayback audio, Random random, Act
         _=Observe("retire",tail.Lease.Instance.Key,audio.RetireAsync(tail.Lease.Owner));
         ownerSlots.Push(tail.Lease.Owner.Key);draining.Remove(tail);
     }
-    async Task Play(Lease lease, int id, int frame, long cycle)
+    void Dispatch(Lease lease, int id, int frame, long cycle)
+    {
+        double scale = 1;
+        if (Gate is { } gate)
+        {
+            var instance = lease.Instance;
+            var admission = gate.Admit(new(id, instance.Category, Offset?.Invoke(instance.Actor),
+                Cooldown: !instance.CooldownFirstCycleOnly || cycle == 0));
+            if (!admission.Dispatch)
+            {
+                observe(new("gate", instance.Key, id, frame, cycle, new(false, admission.Status, null, 0, [])));
+                return;
+            }
+            scale = admission.Scale;
+        }
+        lease.Pending.Add(Play(lease, id, frame, cycle, scale));
+    }
+    async Task Play(Lease lease, int id, int frame, long cycle, double scale)
     {
         long revision = Interlocked.Read(ref controlsRevision);
         AudioReply registered;
@@ -129,7 +152,7 @@ public sealed class CombatSfxController(IAudioPlayback audio, Random random, Act
                 new(false, "CancelledBeforeDispatch", null, 0, [])));
             return;
         }
-        await Observe("play", lease.Instance.Key, audio.PlayAsync(id, lease.Owner), id, frame, cycle).ConfigureAwait(false);
+        await Observe("play", lease.Instance.Key, audio.PlayAsync(id, lease.Owner, scale), id, frame, cycle).ConfigureAwait(false);
     }
     public void SetControls(double gain, bool muted, bool enabled)
     {
@@ -179,7 +202,7 @@ public sealed class CombatSfxController(IAudioPlayback audio, Random random, Act
                 lease.Registration = audio.RegisterAsync(lease.Owner);
                 _ = Observe("register", instance.Key, lease.Registration);
             }
-            lease.Cursor.Advance(now - instance.StartedAt, (id, frame, cycle) => lease.Pending.Add(Play(lease, id, frame, cycle)));
+            lease.Cursor.Advance(now - instance.StartedAt, (id, frame, cycle) => Dispatch(lease, id, frame, cycle));
         }
         if (audio.LastMaintenance != maintenance)
         {

@@ -17,8 +17,9 @@ public sealed record AudioControls(double Gain, bool MasterMuted, bool DispatchE
 // Accessed only on AudioPlayer's one command thread. Tests use the same core with an explicit command double.
 internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int capacity)
 {
-    sealed class Voice(Guid id, AudioOwner owner, string alias, string format, FileStream lease)
+    sealed class Voice(Guid id, AudioOwner owner, string alias, string format, FileStream lease, double scale = 1)
     {
+        internal readonly double Scale = scale; // T173 per-voice rule volume, fixed at dispatch.
         internal readonly Guid Id = id;
         internal readonly AudioOwner Owner = owner;
         internal readonly string Alias = alias, Format = format;
@@ -59,7 +60,7 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
         foreach (var voice in voices.Values.ToArray())
         {
             if (voice.Closing) { Release(voice, events); continue; }
-            var gain = driver.Gain(voice.Alias, next.CanDispatch ? next.Gain : 0);
+            var gain = driver.Gain(voice.Alias, next.CanDispatch ? next.Gain * voice.Scale : 0);
             if (!gain.Ok) { failed = true; events.Add(Native("GainFailed", voice.Format, gain)); }
             if (!next.CanDispatch || !gain.Ok) Release(voice, events);
         }
@@ -68,9 +69,10 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
         return Reply(!controlsFault && events.Count == 0, controlsFault ? "ControlsFailed" : next.CanDispatch ? "ControlsApplied" : "DispatchSuppressed", events);
     }
 
-    internal AudioReply Play(int soundId, AudioOwner owner, Func<bool>? stillAllowed = null)
+    internal AudioReply Play(int soundId, AudioOwner owner, Func<bool>? stillAllowed = null, double scale = 1)
     {
         if (Closing) return Reply(false, "Disposed");
+        if (!AudioGain.Valid(scale) || scale == 0) return Reply(false, "InvalidVoiceScale");
         if (!assets.Allows(soundId)) return Reply(false, "IdNotAllowed"); // full int; never narrowed to byte
         if (!Current(owner)) return Reply(false, "StaleOrUnknownOwner");
         if (!controls.CanDispatch || stillAllowed?.Invoke() == false) return Reply(false, "DispatchSuppressed");
@@ -92,7 +94,7 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
             var id = Guid.NewGuid();
             if (stillAllowed?.Invoke() == false)
             { acquired.Lease!.Dispose(); return Reply(false, "DispatchSuppressed", events); }
-            var voice = new Voice(id, owner, "p24a" + id.ToString("N"), ext, acquired.Lease!);
+            var voice = new Voice(id, owner, "p24a" + id.ToString("N"), ext, acquired.Lease!, scale);
             NativeReply opened = driver.Open(acquired.Path, ext, voice.Alias);
             if (opened.Ok || opened.ResourceOwned) voices.Add(id, voice);
             if (!opened.Ok)
@@ -106,7 +108,7 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
             }
             // Apply volume before Run. Failure never permits an uncontrolled/full-volume start.
             if (stillAllowed?.Invoke() == false) { Release(voice, events); return Reply(false, "DispatchSuppressed", events); }
-            NativeReply gain = driver.Gain(voice.Alias, controls.Gain);
+            NativeReply gain = driver.Gain(voice.Alias, controls.Gain * voice.Scale);
             if (!gain.Ok)
             {
                 events.Add(Native("GainFailed", ext, gain)); Release(voice, events);

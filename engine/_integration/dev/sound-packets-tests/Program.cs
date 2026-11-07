@@ -15,7 +15,7 @@ static class Checks
     static void Check(bool ok,string label){if(!ok)throw new Exception(label);labels.Add(label);}
     static void Reject(Action action,string label){try{action();}catch(ProtocolException){Check(true,label);return;}throw new Exception("accepted malformed "+label);}
     static byte[] Packet(Action<BinaryWriter> write){using var s=new MemoryStream();using var b=new BinaryWriter(s);write(b);return LoginPackets.Pad(s.ToArray());}
-    static byte[] Sound(byte repeat=0,ushort id=97)=>Packet(b=>{b.Write((byte)22);b.Write(repeat);b.Write(id);});
+    static byte[] Sound(byte mode=0,ushort id=97)=>Packet(b=>{b.Write((byte)22);b.Write(mode);b.Write(id);});
     static byte[] Effect(byte op=106,ushort gfx=1036,ushort? time=null,uint target=123)=>Packet(b=>{
         b.Write(op);if(op==55)b.Write(target);else{b.Write((ushort)32600);b.Write((ushort)32940);}b.Write(gfx);if(time!=null)b.Write(time.Value);
     });
@@ -69,8 +69,8 @@ static class Checks
     }
     static void Decode()
     {
-        foreach(byte repeat in new byte[]{0,1,255})foreach(ushort id in new ushort[]{0,97,65535})
-            Check(SoundPackets.Sound(Sound(repeat,id))==new ServerSound(repeat,id),$"S22 unsigned fields {repeat}/{id}");
+        foreach(byte mode in new byte[]{0,1,255})foreach(ushort id in new ushort[]{0,97,65535})
+            Check(SoundPackets.Sound(Sound(mode,id))==new ServerSound(mode,id),$"S22 unsigned fields {mode}/{id}");
         foreach(ushort gfx in new ushort[]{0,221,65535})
         {
             var location=SoundPackets.Effect(Effect(gfx:gfx));
@@ -137,21 +137,22 @@ static class Checks
     }
     static async Task Audio()
     {
-        var schedule=SoundPackets.Schedule(new(2,65535),500);
+        // T173: the first byte is a mode (0 once, 1 ambience loop, 2 stop), not a repeat count.
+        var schedule=SoundPackets.Schedule(new(0,65535),500);
         var sent=new List<int>();var cursor=new SoundCursor(schedule,new Random(1));
         cursor.Advance(0,(id,_,_)=>sent.Add(id));cursor.Advance(499,(id,_,_)=>sent.Add(id));
         Check(sent.SequenceEqual(new[]{65535}),"soundId not gfx, first play once");
         cursor.Advance(500,(id,_,_)=>sent.Add(id));cursor.Advance(5000,(id,_,_)=>sent.Add(id));cursor.Advance(5000,(id,_,_)=>sent.Add(id));
-        Check(sent.Count==3,"repeat=2 means three scheduled plays, no duplicate pump replay");
-        Check(SoundPackets.Schedule(new(255,97),1).Frames.Length==256,"repeat byte maximum bounded");
+        Check(sent.Count==1,"mode 0 is a single play, no duplicate pump replay");
+        Check(SoundPackets.Schedule(new(1,97),1).Loop,"mode 1 loops");
 
-        var s=Session();Feed(s,Sound(2));var audio=new FakeAudio();var controller=new CombatSfxController(audio,new Random(1),_=>{});
+        var s=Session();Feed(s,Sound(1));var audio=new FakeAudio();var controller=new CombatSfxController(audio,new Random(1),_=>{});
         controller.SetControls(1,false,true);
         void Pump(long time,bool enabled=true){time+=WorldSession.PacketSoundMatchMs;controller.Pump(s.WorldEpoch,s.ComposePacketSounds([],time,_=>500),time,enabled);}
         Pump(now);Pump(now);Check(audio.Plays.SequenceEqual(new[]{97}),"S22 uses existing dispatcher exactly once");
-        Pump(now+500);Check(audio.Plays.Count==2,"repeat uses WAV interval");
+        Pump(now+500);Check(audio.Plays.Count==2,"ambience loop uses WAV interval");
         s.Receive(LoginPackets.Pad([206,4,0,0]),"offline");Pump(now+600);
-        Check(audio.Retired.Count==1&&audio.Plays.Count==2,"map change retires audio owner and cancels remaining repeat");
+        Check(audio.Retired.Count==1&&audio.Plays.Count==2,"map change retires audio owner and cancels the loop");
         Feed(s,Sound());Pump(now);controller.SetControls(1,true,false);Pump(now+1,false);
         Check(audio.Retired.Count==2,"disabled dispatch retires packet owner");
         controller.SetControls(1,false,true);Pump(now+2);Check(audio.Plays.Count==3,"reenable does not replay consumed packet");
@@ -173,11 +174,11 @@ static class Checks
             controller.SetControls(1,false,true);
             void Pump(long at,params CombatSoundInstance[] actions)=>controller.Pump(s.WorldEpoch,s.ComposePacketSounds(actions,at,_=>500),at,true);
             var action=Action(now+(packetFirst?50:-50),[97]);
-            if(packetFirst){Feed(s,Sound(1));Pump(now);Pump(now+50,action);}
-            else{Pump(now-50,action);Feed(s,Sound(1));}
+            if(packetFirst){Feed(s,Sound());Pump(now);Pump(now+50,action);}
+            else{Pump(now-50,action);Feed(s,Sound());}
             Pump(now+100);Pump(now+100);
             Check(audio.Plays.Count==1,$"same frame/S22 first play suppressed for arrival order {packetFirst}");
-            Pump(now+600);Check(audio.Plays.Count==2,"explicit repeat survives cross-source first-play dedup");
+            Pump(now+600);Check(audio.Plays.Count==1,"suppressed mode-0 S22 does not play later");
             await controller.Shutdown();
         }
         foreach(var ids in new[]{new[]{98},new[]{97,98}})
@@ -188,7 +189,7 @@ static class Checks
         {
             var s=Session();Feed(s,Sound());Feed(s,Sound());
             var result=s.ComposePacketSounds([Action(now,[97])],now+100,_=>500);
-            Check(result.Skip(1).Count(i=>i.Schedule.Frames[0].Candidates.Length==0)==1,"one frame matches only one S22; independent same-ID packets survive");
+            Check(result.Length==2&&result[1].Schedule.Frames[0].Candidates.Length==0,"one frame matches one S22; same-ID mode-0 replay while playing is dropped (A05EA0)");
             s.Reset();Feed(s,Sound());
             Check(s.ComposePacketSounds([],now+100,_=>500).Single().Schedule.Frames[0].Candidates.Length==1,"epoch reset clears dedup history");
         }
