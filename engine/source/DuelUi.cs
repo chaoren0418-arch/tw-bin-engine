@@ -8,8 +8,8 @@ public sealed partial class ClientForm {
     DuelView? displayedDuel;
 
     // Form lifecycle keeps this module self-contained; no constructor or HUD dispatch edits.
-    protected override void OnLoad(EventArgs e){
-        base.OnLoad(e);
+    protected override void OnShown(EventArgs e){
+        base.OnShown(e);
         var page=new TabPage("決鬥"){BackColor=Color.FromArgb(23,38,41)};
         var buttons=new FlowLayoutPanel{Dock=DockStyle.Top,Height=80,AutoScroll=true};
         buttons.Controls.AddRange([duelInvite,duelAccept,duelReject]);page.Controls.AddRange([duelNotice,buttons]);
