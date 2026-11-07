@@ -1,0 +1,245 @@
+﻿{
+    "q16":  {
+                "decompile":  [
+                                  "0x7dd700"
+                              ]
+            },
+    "q14":  {
+                "decompile":  [
+                                  "0xb3d390"
+                              ],
+                "xrefs":  [
+                              "0x137b3b0",
+                              "0x137b3a0",
+                              "0x137b390",
+                              "0x137b380"
+                          ]
+            },
+    "q3":  {
+               "decompile":  [
+                                 "0xa9fa30"
+                             ]
+           },
+    "q18":  {
+                "decompile":  [
+                                  "0x6c6c60"
+                              ]
+            },
+    "q11":  {
+                "xrefs":  [
+                              "0x119c818",
+                              "0x119c82c",
+                              "0x119ce60",
+                              "0x119ce1c"
+                          ],
+                "strings":  [
+                                "CENTER_WINDOW",
+                                "RIGHT_WINDOW",
+                                "EX_MACRO_WINDOW",
+                                "ShowCharacterHPMP",
+                                "HPMPBarThick"
+                            ]
+            },
+    "q15":  {
+                "imm_scan":  {
+                                 "values":  [
+                                                33,
+                                                34,
+                                                35,
+                                                36,
+                                                38,
+                                                64
+                                            ],
+                                 "min":  5,
+                                 "decompile":  12
+                             }
+            },
+    "q2":  {
+               "decompile":  [
+                                 "0xb3d710",
+                                 "0xb3cd40",
+                                 "0xb3d770"
+                             ]
+           },
+    "q19":  {
+                "decompile":  [
+                                  "0x6c6010",
+                                  "0x6c6100",
+                                  "0x6ca420",
+                                  "0x6c9ba0"
+                              ]
+            },
+    "q8":  {
+               "decompile":  [
+                                 "0x6bdaf0",
+                                 "0x6bd820",
+                                 "0x6bdb50",
+                                 "0x6bdb00",
+                                 "0x6bdeb0",
+                                 "0x6bdaa0",
+                                 "0x6bd9b0",
+                                 "0x6bd7d0",
+                                 "0x6bda50",
+                                 "0x6bda00",
+                                 "0x6bd780",
+                                 "0x6bde40",
+                                 "0x6bdba0",
+                                 "0x6bddf0",
+                                 "0x6bd720",
+                                 "0x6bd680",
+                                 "0x6be470",
+                                 "0x6bcc20",
+                                 "0x6bcc70",
+                                 "0x6bcc30",
+                                 "0x6bcb10",
+                                 "0x6bcac0"
+                             ],
+               "xrefs":  [
+                             "0x1165c84",
+                             "0x1165c94",
+                             "0x1165ca4",
+                             "0x1165cb4",
+                             "0x1165cc4",
+                             "0x1165cd4",
+                             "0x1165ce4",
+                             "0x1165cf4",
+                             "0x1165d04",
+                             "0x1165d14",
+                             "0x1165d24",
+                             "0x1165d34",
+                             "0x1165d44",
+                             "0x1165d54",
+                             "0x1165d64",
+                             "0x1165d74"
+                         ]
+           },
+    "q6":  {
+               "decompile":  [
+                                 "0x6be820",
+                                 "0x6be250",
+                                 "0x6bea50",
+                                 "0x6be8e0",
+                                 "0x6bed30",
+                                 "0x6be760",
+                                 "0x6be050",
+                                 "0x6be6a0",
+                                 "0x6be5e0",
+                                 "0x6bdf90",
+                                 "0x6bebc0",
+                                 "0x6bcfd0"
+                             ]
+           },
+    "q10":  {
+                "xrefs":  [
+                              "0x1369d70"
+                          ],
+                "decompile":  [
+                                  "0x6bc550"
+                              ]
+            },
+    "q1":  {
+               "strings":  [
+                               "X?xm"
+                           ],
+               "decompile_string_users":  true,
+               "xrefs":  [
+                             "0x1152ba8",
+                             "0x1156100",
+                             "0x1167608",
+                             "0x11922e4",
+                             "0x1192328"
+                         ]
+           },
+    "q9":  {
+               "xrefs":  [
+                             "0x1369d70",
+                             "0x6bc320",
+                             "0x6bc280",
+                             "0x6bc360",
+                             "0x6bc340",
+                             "0x6bc3e0",
+                             "0x6bc300",
+                             "0x6bc2a0",
+                             "0x6bc260",
+                             "0x6bc2e0",
+                             "0x6bc2c0",
+                             "0x6bc240",
+                             "0x6bc3c0",
+                             "0x6bc380",
+                             "0x6bc3a0",
+                             "0x6bc210",
+                             "0x6bc1f0"
+                         ],
+               "decompile":  [
+                                 "0x7dc850"
+                             ]
+           },
+    "q7":  {
+               "xrefs":  [
+                             "0x6be820",
+                             "0x6be250",
+                             "0x6bea50",
+                             "0x6be8e0",
+                             "0x6bed30",
+                             "0x6be760",
+                             "0x6be050",
+                             "0x6be6a0",
+                             "0x6be5e0",
+                             "0x6bdf90",
+                             "0x6bebc0"
+                         ]
+           },
+    "q5":  {
+               "xrefs":  [
+                             "0x1165bfc",
+                             "0x1165c08",
+                             "0x1165c14",
+                             "0x1165c20",
+                             "0x1165c28",
+                             "0x1165c30",
+                             "0x1165c48",
+                             "0x1165c50",
+                             "0x1165c5c",
+                             "0x1165c64",
+                             "0x1165c6c",
+                             "0x1165bf8",
+                             "0x1165b80"
+                         ]
+           },
+    "q4":  {
+               "decompile":  [
+                                 "0x4d5eb0",
+                                 "0x4d8fb0"
+                             ]
+           },
+    "q13":  {
+                "xrefs":  [
+                              "0x119c884",
+                              "0x119c8d0",
+                              "0x119c894",
+                              "0x11a5f34",
+                              "0x119c8c4"
+                          ]
+            },
+    "q17":  {
+                "decompile":  [
+                                  "0x7f2320"
+                              ]
+            },
+    "q20":  {
+                "decompile":  [
+                                  "0xa14a60"
+                              ]
+            },
+    "q12":  {
+                "xrefs":  [
+                              "0x119dc84",
+                              "0x11a7334",
+                              "0x119dc94",
+                              "0x119dcd0"
+                          ],
+                "decompile":  [
+                                  "0xa9ad80"
+                              ]
+            }
+}
