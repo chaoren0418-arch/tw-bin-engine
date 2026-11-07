@@ -14,12 +14,14 @@
 - `title-emote`：416 項通過，涵蓋每個 C／S 格式、CP950、容量邊界、錯誤與截斷原子性、未知物件、S158 商店原分派、移動／死亡／換圖／移除重建、sender admission、失敗斷線、SPR 合成解碼、字型標籤像素與選取 owner。
 - `title-emote-assets`：160 項通過；四動作八方向 gfx0，加上現有另外 12 個角色 gfx 的方向 0 四動作。查驗原索引及各需要的封裝 SHA，素材只讀。
 - `title-emote-compose`：13 項通過；實際原圖自身四動作替換／像素輸出，以及其他角色的表情 visual 與可選取 owner。只測函式，沒有啟動遊戲。
-- 測試已提交於 `engine/_integration/dev/title-emote-tests/`，接入 DemoChecks 預設入口及現有 CI 的 `combat-admission` 群組。CI 以 PR 的最新 commit checks 為準。
+- 測試已提交於 `engine/_integration/dev/title-emote-tests/`，接入 DemoChecks 預設入口及現有 CI 的 `combat-admission` 群組。
 - `check-no-game-assets.py`、`git -c core.whitespace=cr-at-eol diff --check` 通過。
 
 本機線上 NuGet 遇到 TLS 認證錯誤，改用 `scratch/issue-323/NuGet.Config` 唯讀指向原專案 `engine/vendor`；所有還原快取、暫存、輸出均在 worktree。GitHub CLI 的既有 token 無效，改用已連接的 GitHub 帳號建立 PR／查 CI；Git 傳輸使用單次 `http.sslBackend=openssl` 且保留憑證驗證。
 
 ## 未驗證什麼／限制
+
+**CI 驗收未完成**：[PR #356](https://github.com/chaoren0418-arch/tw-bin-engine/pull/356) 已建立並推送。最新 main `0380ae6062804b976fe32e5ac2a20b0b611e42ac` 與本分支的唯讀 `git merge-tree --write-tree --name-only HEAD origin/main` 檢查只列出 `engine/_integration/dev/rebuild-lock.json` 衝突；GitHub 回報不可合併、尚無 workflow run。依 M6 合約第 4 點，交調度器同步輪重產 dev lock，不能把本機通過當成 CI 綠燈。本次沒有把 merge 寫入分支、沒有手動拼接 hash。
 
 未做真機登入、角色權限與拒絕訊息、雙角色視野廣播、實際 UI 操作或音效驗收。未窮舉所有變身外觀；原圖缺件會顯示提示，沒有替代假圖。第一次使用封裝同步 SHA 核驗可能造成載入停頓；後續使用記憶體快取。表情音效與缺少的原生陰影不在此任務範圍。離線合成不是原生遊戲畫面驗收。
 
@@ -27,5 +29,5 @@
 
 - 產品：`engine/source/TitleAndEmote.cs`；最小掛接：`WorldSession.cs`、`ObjectRendering.cs`；dev lock 已由腳本重產。
 - 契約：[title-emote.md](../protocol/title-emote.md)；測試：[README](../../engine/_integration/dev/title-emote-tests/README.md)。本機結果與建置紀錄：`scratch/issue-323/`。
-- 分支 `task/323`。由 Claude／調度器審查 PR 與最新 CI，使用者合併；dev lock 有同期衝突時依契約由同步輪重產，不拼接 SHA。
+- 分支 `task/323`，PR #356。下一棒為調度器同步輪：同步 main、以 `--update-lock` 重產唯一衝突的 dev lock、重跑建置與 `title-emote`，推送後確認兩個 CI job 綠燈；其後 Claude 審查、使用者合併。
 - dot 於 M6 smoke：開「更多 → 稱號／表情」，分別核對有權／無權稱號、自身與其他測試角色名稱上方的稱號更新、四種表情、移動／換圖中止，以及首次原圖核驗停頓。依既有 P24Lab 授權執行，不連正式服務。
