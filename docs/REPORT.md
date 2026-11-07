@@ -94,3 +94,4 @@
 - 2026-11-07 — #266 T130：公告板（code，codex-local，PR 已合併）→ [報告](reports/issue-266.md)
 - 2026-11-07 — #215 T120：S242/sub2 受擊反應抑制清單（code，codex-local，PR 已合併）→ [報告](reports/issue-215.md)
 - 2026-11-07 — #197 T109：通用道具 use_type 尾段（code，codex-local，PR 已合併）→ [報告](reports/issue-197.md)
+- 2026-11-07 — #195 T107：角色建立、刪除、同連線切角（code，codex-local，PR 已合併）→ [報告](reports/issue-195.md)
