@@ -1,6 +1,6 @@
 # Issue #274／T134：武器修理與 PK 查詢
 
-分支：`task/274`。本輪只在指定 worktree 寫檔，主專案僅讀取現有 NuGet 套件；沒有啟動遊戲、伺服器或 DB，沒有複製遊戲資源、伺服器原始碼或改封存。
+分支：`task/274`。工作檔只在指定 worktree 寫入，主專案僅讀取現有 NuGet 套件；Git 同步及提交另會更新 worktree 共用的 Git 中繼資料。沒有啟動遊戲、伺服器或 DB，沒有複製遊戲資源、伺服器原始碼或改封存。
 
 ## 做了什麼
 
@@ -27,6 +27,14 @@
 - 同步後重新執行既有 canonical build：產品與 launcher 成功、0 錯誤；產品仍只有既有 `MagicUi.cs:20` 的 CS8600／CS8602，launcher 0 警告。產品 DLL SHA-256：`a9f7cebad8292f825ff1ce16987bc2b2c8a47aafa464dacb6ed9bd6ab2c65687`。
 - 同步後重新執行 `dotnet run --project engine/_integration/dev/weapon-repair-tests/WeaponRepairChecks.csproj -c Release --no-restore`：98 項全數通過；`check-no-game-assets.py`：pass、3296 個追蹤檔、0 errors。既有證據路徑已更新為這次結果。
 - `git -c core.whitespace=cr-at-eol diff --cached --check` 通過（main 帶入的 C# 檔使用 CRLF，依原始位元組保留）；未解決衝突清單及 `git ls-files -ci --exclude-standard` 均為空。相對此次 main 仍只涉及原先核准的 10 個檔案。
+
+## 審查後最新主線同步（2026-11-07）
+
+- 前次審查的 head `b430d55ed2ed19c2db90b2f87e82b90e55e01e59` 已通過，但 PR #297 隨後呈現 `CONFLICTING`。本次從該 head 合併最新 `origin/main`：`5fece0032aef4ed8b772671f4a425c0f1d4044e8`（含 T109／#197），不重做已審查功能。
+- 唯一衝突是 dev lock，執行 `rebuild.py --update-lock` 重新產生後，182 個來源／191 個鎖定檔核驗通過。`WeaponRepair.cs`、`WeaponRepairUi.cs`、本模組測試及兩個共用接線相對前次 head 均無差異；`docs/REPORT.md` 完整沿用 main，未加入本任務索引。
+- 重新執行上述 canonical build 及本模組離線測試：產品／launcher 編譯成功，98 項檢查全部通過。產品仍為既有 CS8600／CS8602 兩個警告，launcher 0 警告；產品 DLL SHA-256：`49b6a7394ae7ad111e10c31ce46ad745e851befe4a0936ac2c2ad35dc3ba67ba`。既有 `scratch/issue-274/build/`、`tests.txt` 已更新為本次證據。
+- 本次 `check-no-game-assets.py`：pass、3297 個追蹤檔、0 errors；`git diff --check` 通過，`git ls-files -ci --exclude-standard` 為空。相對最新 main 仍只有原核准的 10 個檔案。
+- 推送後的新 head 與 CI 結果另記於 PR #297 的本次驗證留言；先前 head 的成功紀錄不當作本次 CI 證據。調度器合併前仍須核對即時 main 與可合併狀態。
 
 ## 未驗證什麼
 
