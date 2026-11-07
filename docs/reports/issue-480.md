@@ -2,7 +2,7 @@
 
 依據：`docs/reference/ambience-and-map-events.md`（AM）§2；分組見 `docs/reference/m6-native-diff.md` §3 G6。
 
-G6 改的是與 G5（#479／PR #491）同一個 `Ambience.cs`，「雨雪 −1」與「先畫天氣再一起變暗」都要用到 G5 的明暗等級 L 與係數表。**PR #491 已合併進 main；2026-11-08 本分支已與 `origin/main`（`8815978c`）同步**，現在 PR 差異只剩 G6。
+G6 改的是與 G5（#479／PR #491）同一個 `Ambience.cs`，「雨雪 −1」與「先畫天氣再一起變暗」都要用到 G5 的明暗等級 L 與係數表。**PR #491 已合併進 main；2026-11-08 本分支已再次與 `origin/main`（`562f6851`，含 #437 T167 雨圖來源）同步**，現在 PR 差異只剩 G6。
 
 ## 做了什麼
 
@@ -16,7 +16,7 @@ G6 改的是與 G5（#479／PR #491）同一個 `Ambience.cs`，「雨雪 −1�
 | (c) 雨：512 顆的池；每 256 顆分 4 層；24 ms 一個 tick；層 3／2／1／0 分別每 4／3／2／1 個 tick 移 1 px；落點；`sin(t·π/144)·8` 擺動；x 模 800、y 模 485；鏡頭補償 | `WeatherParticles`（`Step`／`Active`／`Reset`），亂數用 MSVC `rand()` LCG，固定 seed 可重現；每幀時間差上限 500 ms | 已驗證 |
 | (d) 雪：192 顆的池；大小與週期表；每幀 `x -= rand%(3n)`（x≤0 回到 800）、`y += 5n`；落地後 y 歸 0，新落點 `(4−大小)*64 + (505−(4−大小)*64)*rand/0x7FFF` | `WeatherParticles.Step` | 已驗證 |
 | (b) 先畫雨雪，再一起變暗 | `AmbiencePainter.Draw`：先 `DrawWeather`，再用 G5 的係數表變暗 | 已驗證（用合成 sprite 測試） |
-| 粒子圖 | **不畫**。舊的程序直線雨與圓點雪（替代圖）已移除；新增 `WeatherSprite` 委派，`Draw(..., particles, sprite)` 只有在有 sprite 來源時才畫 | 等 T167 |
+| 粒子圖 | **不畫**（#437 已找到雨圖 Sprite.pak `924..927.img`，但載入器不在本任務檔案範圍）。舊的程序直線雨與圓點雪（替代圖）已移除；新增 `WeatherSprite` 委派，`Draw(..., particles, sprite)` 只有在有 sprite 來源時才畫 | 等 T167 |
 
 ### 對文件的解讀（文件沒寫死的細節，請下一棒留意）
 
@@ -31,16 +31,16 @@ G6 改的是與 G5（#479／PR #491）同一個 `Ambience.cs`，「雨雪 −1�
 
 - 地圖設定 `sub_926DA0()->[4]` 停用天氣：欄位意義待驗證。
 - 地圖腳本的 `Rain`／`Snow` 指令：引擎沒有地圖腳本。
-- 程序圖樣（雨層 2／3 的十字與 4×4 圖樣、`sub_9755E0` 雪花）與 Surf −100..−97：依任務規定，沒有原圖就不畫，也不用替代圖。`WeatherParticle` 已提供 `Layer`、`Stage`、`Landing`，sprite 實作要的資料都有（例如 alpha `16/階段`）。
+- 程序圖樣（雨層 2／3 的十字與 4×4 圖樣、`sub_9755E0` 雪花）與雨圖 Surf 924..927（#437 更正原先的 −100..−97）：依任務規定，沒有原圖就不畫，也不用替代圖。`WeatherParticle` 已提供 `Layer`、`Stage`、`Landing`，sprite 實作要的資料都有（例如 alpha `16/階段`）。
 - 畫面掛接：`Renderer.PaintAmbience` 目前沒有呼叫端（T147 起就是如此）。逐幀的 `Ambience.Particles.Step(...)` 要在畫面掛接時一起加上。
 
 ## 怎麼驗證
 
-（以下為與 main 同步後重跑的結果，2026-11-08）
-- `py -3 -B -X utf8 engine/_integration/dev/rebuild.py --update-lock`，再加 `--build`：PASS（product DLL `5c10255c…4603`）。
+（以下為第二次與 main 同步後重跑的結果，2026-11-08）
+- `py -3 -B -X utf8 engine/_integration/dev/rebuild.py --update-lock`，再加 `--build`：PASS（product DLL `96c496cc…f28a`）。
 - `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -p:UseSharedCompilation=false -- . scratch/ambience.json ambience`：**PASS 9881**。
-- 同一個指令改跑 `map-continuity` 群組（CI 會跑，裡面包含 AmbienceChecks）：**PASS 32436**。
-- `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：pass（3667 files，0 errors）。
+- 同一個指令改跑 `map-continuity` 群組（CI 會跑，裡面包含 AmbienceChecks）：**PASS 32472**。
+- `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：pass（3683 files，0 errors）。
 - 測試在 `engine/_integration/dev/ambience-tests/AmbienceChecks.cs`（新增 `WeatherParticleChecks`），已經接在既有的 `ambience`、`map-continuity` 與預設群組。涵蓋：
   - S115 全部 256 碼。
   - 每包減 L 的時機：中午、黃昏 L=13、夜晚不減、清除與 n>3 不減。
@@ -69,6 +69,6 @@ G6 改的是與 G5（#479／PR #491）同一個 `Ambience.cs`，「雨雪 −1�
 ## 給下一棒的提示
 
 1. #491（G5）已合併，本 PR 可直接審。之後與 main 同步時，`rebuild-lock.json` 一律用 `rebuild.py --update-lock` 重產。
-2. T167 找到雨雪的圖以後：實作一個 `WeatherSprite`，依 `particle.Kind`／`Layer`／`Stage` 選 Surf −100..−97 或程序圖樣，傳給 `AmbiencePainter.Draw(..., Ambience.Particles, sprite)`。
+2. T167（#437）已找到雨圖，雪是程序繪製、沒有圖檔。建議另開一張任務：實作一個 `WeatherSprite`，依 `particle.Kind`／`Layer`／`Stage` 選雨圖 Surf 924／925（層 0）、926／927（層 1，序號奇偶交替；格式見 AM§3.1：8 byte 標頭＋RGB555）或程序圖樣，傳給 `AmbiencePainter.Draw(..., Ambience.Particles, sprite)`。
 3. 畫面掛接時：每幀先呼叫 `Ambience.Particles.Step(frame, 這幀的毫秒數, 鏡頭 x 位移換算成 800 寬的像素)`，再呼叫 Draw。
 4. 待查：雪公式的 n 是強度還是大小；鏡頭補償的正負號；`sub_926DA0()->[4]`。

@@ -203,9 +203,10 @@ public static class AmbienceWeather {
 /// Snow: Layer is the flake size 0–3 and Stage is unused. Landing is the row where the particle stops or respawns.</summary>
 public readonly record struct WeatherParticle(WeatherKind Kind, int Index, int Layer, float X, float Y, int Stage, int Landing);
 
-/// <summary>Draws one particle at a viewport position. TW16 uses Surf −100..−97 for rain layers 0/1 and
-/// procedural patterns for rain layers 2/3 and snow; none of that art is available yet (T167), so the painter
-/// draws nothing unless a source is supplied.</summary>
+/// <summary>Draws one particle at a viewport position. TW16 uses Surf 924/925 (layer 0) and 926/927
+/// (layer 1) from Sprite.pak for rain (T167/#437; the old −100..−97 was a decompiler char-type misread) and
+/// procedural patterns for rain layers 2/3 and snow. No loader is wired up yet, so the painter draws nothing
+/// unless a source is supplied.</summary>
 public delegate void WeatherSprite(Graphics graphics, WeatherParticle particle, PointF position);
 
 /// <summary>TW16 rain (512, sub_F0E290) and snow (192, sub_F0E0D0) particle pools in 800×480 coordinates.

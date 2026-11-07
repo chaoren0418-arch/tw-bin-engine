@@ -26,9 +26,12 @@ public sealed record MapAmbientCue(int Mode,int[] Candidates)
     }
 }
 
-public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random)
+// T173（#447）：距離音量與 200ms 冷卻改走 SoundRules／SoundCooldown 共用層。產品傳 SoundCooldown.Shared
+// （與戰鬥音效、S22 同一份、同一時鐘 Environment.TickCount64）；未指定時用獨立表，供離線測試隔離。
+public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundCooldown? cooldownTable=null)
 {
-    public const int SourcesPerSound=5,CooldownMs=200,Reach=14;
+    public const int SourcesPerSound=5,CooldownMs=SoundRules.CooldownMs,Reach=SoundRules.MaxManhattan;
+    readonly SoundCooldown cooldown=cooldownTable??new();
     sealed class Emitter(MapAmbientSource source)
     {
         public readonly MapAmbientSource Source=source;
@@ -37,7 +40,6 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random)
     }
     readonly Dictionary<string,Emitter> emitters=new(StringComparer.Ordinal);
     readonly SortedDictionary<int,List<(MapAmbientVoice Voice,int D2)>> slots=[];
-    readonly Dictionary<int,long> cooldown=[];
     static readonly ConditionalWeakTable<MapEffectAppearance,MapAmbientCue[]> cues=new();
     long voiceNumber;
 
@@ -45,12 +47,7 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random)
     public MapAmbientSlot[] Slots=>slots.Select(s=>new MapAmbientSlot(s.Key,s.Value.Select(v=>v.Voice).ToArray(),s.Value.Select(v=>v.D2).ToArray())).ToArray();
 
     // A091C0 前的計算：曼哈頓 > 14 夾成 (14,0)；整數除法；負值夾 0。`127−7·round(√d²)` 是死碼，不使用。
-    public static int Volume(int dx,int dy)
-    {
-        long nx=Math.Abs((long)dx),ny=Math.Abs((long)dy);
-        if(nx+ny>Reach){nx=Reach;ny=0;}
-        return (int)Math.Max(0,100-14*(nx*nx+ny*ny)/20);
-    }
+    public static int Volume(int dx,int dy)=>SoundRules.DistanceVolume(dx,dy);
     // 只用來排序槽內音源（A06210 第 3 參數）。單位：格（引擎座標已是原版 x>>1 的尺度）。
     public static int DistanceSquared(int dx,int dy)=>(int)Math.Min(int.MaxValue,(long)dx*dx+(long)dy*dy);
     public static MapAmbientCue[] Cues(MapEffectAppearance appearance)=>cues.GetValue(appearance,a=>a.Sequence.Select(s=>MapAmbientCue.Parse(s.Events)).ToArray());
@@ -123,8 +120,7 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random)
         if(slot.Count>=SourcesPerSound&&d2>=slot[^1].D2)return; // 已滿：只有更近的才換入。
         if(emitter.Voices.ContainsKey(id))return; // 同一物件同 id 已在循環，不重播。
         if(!audible)return; // A06020 類別音量檢查。
-        if(cooldown.TryGetValue(id,out long until)&&now<until)return; // 每個 id 全域 200ms。
-        cooldown[id]=now+CooldownMs;
+        if(!cooldown.TryAcquire(id,now))return; // 每個 id 全域 200ms（SoundCooldown）。
         var voice=new MapAmbientVoice(++voiceNumber,id,emitter.Source.Key);
         if(!audio.Start(voice,emitter.Volume))return; // 啟動失敗不動槽表。
         if(slot.Count>=SourcesPerSound)
@@ -158,7 +154,7 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random)
         if(!sessions.TryGetValue(session,out var model))
         {
             if(Backend is not {} backend)return;
-            model=new(backend,Random.Shared);sessions.Add(session,model);
+            model=new(backend,Random.Shared,SoundCooldown.Shared);sessions.Add(session,model);
         }
         var sources=Sources(session,now);
         model.Update(sources,session.Actor is {} actor?(actor.X,actor.Y):null,now,sources.Length>0&&Audible(session));
