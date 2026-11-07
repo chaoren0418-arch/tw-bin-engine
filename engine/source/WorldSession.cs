@@ -29,18 +29,29 @@ public sealed partial class WorldSession {
     public void Receive(byte[] plain,string selected){try{ReceiveCore(plain,selected);}finally{ValidatePickupPresentation(ActionClock());CombatSoundStateChanged?.Invoke();}}
     void ReceiveCore(byte[] plain,string selected){
         var r=new LoginReader(plain);byte opcode=r.C();
+        if(ReceiveDuel(opcode,plain))return;
         if(opcode==39&&ReceiveBuddies(opcode,plain))return;
         switch(opcode){
+        case 115:ReceiveWeather(r);return;
+        case 40:ReceiveLight(r);return;
+        case 171:ReceiveInvisibility(r);return;
+        case 250 when plain.Length>1&&plain[1]==111:ReceiveLocationShare(plain);return;
+        case 71 when LocationShareProtocol.IsReply(plain):ReceiveLocationShare(plain);return;
+        case 250 when plain.Length>1&&plain[1]==41:ReceiveCharacterConfig(plain);return;
         case 250 when plain.Length>=2&&plain[1] is 17 or 18 or 19:ReceiveBuddies(opcode,plain);return;
         case 71 when plain.Length>=3&&BinaryPrimitives.ReadUInt16LittleEndian(plain.AsSpan(1)) is 109 or 472:
             ReceiveBuddies(opcode,plain);break; // Continue through the existing server-message dispatch.
-        case 71:case 119:case 158:ObserveFishing(plain);break;
+        case 39:if(ReceivePlayerQueryHtml(plain))return;break;
+        case 71:ObserveFishing(plain);if(ReceivePlayerQueryMessage(plain))return;break;
+        case 119:case 158:ObserveFishing(plain);break;
         case 22:ReceiveSoundPacket(plain);return;
         case 55:ReceiveEffectPacket(plain);return;
         case 106:ReceiveEffectPacket(plain);return;
         }
         if(ReceiveRecovery(opcode,r)||ReceivePlayerChat(opcode,r,plain)||ReceiveSustenance(opcode,r,plain)||ReceiveBonusStats(opcode,r,plain)||ReceivePrivateShop(opcode,r,plain)||ReceiveTeleport(opcode,r)||ReceiveTrade(opcode,r)||ReceiveInteraction(opcode,r)||ReceiveMagic(opcode,r,plain)||ReceiveEquipment(opcode,r,plain)||ReceiveInventory(opcode,r,plain)||ReceiveExperience(opcode,r)||ReceiveCombat(opcode,r,plain)||ReceiveObjectDelta(opcode,r)){BasicSupplyReply(opcode,plain);return;}
         switch(opcode){
+        case 83 when WeaponRepairPackets.IsRepairList(plain):ReceiveWeaponRepair(r);break;
+        case 76:ReceivePolymorph(plain);break;
         case 68:ReceiveBoardList(r);break;
         case 148:ReceiveBoardRead(r);break;
         case 223:
@@ -48,7 +59,7 @@ public sealed partial class WorldSession {
         case 8:
             var v=new OwnStatus(r.D(),r.C(),r.D(),r.C(),r.C(),r.C(),r.C(),r.C(),r.C(),r.D(),r.D(),r.D(),r.D(),unchecked((int)r.D()),r.D(),r.C(),r.C(),unchecked((short)r.H()),unchecked((short)r.H()),unchecked((short)r.H()),unchecked((short)r.H()),unchecked((short)r.H()),r.D());r.Finish();
             if(Status!=null&&Status.ObjectId!=v.ObjectId)throw new ProtocolException("self status identity changed");Status=v;PartialAcByte=null;ApplyExperience(v.Level,v.Exp,opcode);break;
-        case 206:var map=r.H();var water=r.C()!=0;r.Finish();ClearObjects();Actor=null;ResetSpeedStatus();ResetMovement();ResetCombat();ClearMagicEffects();MapId=map;Underwater=water;MapArrived();break;
+        case 206:ReceiveMapId(r);break;
         case 87:
             ushort x=r.H(),y=r.H();uint id=r.D();
             if(Status==null||id!=Status.ObjectId){ReceiveObject(r,x,y,id);break;}
@@ -56,7 +67,8 @@ public sealed partial class WorldSession {
             if(a.Name!=selected||a.Direction>7)throw new ProtocolException("self actor name/heading mismatch");SelfAppearancePending=false;objects.TryRemove(id,out _);ResetSpeedStatus();ApplyAuthoritative(a);OwnArrived();break;
         case 255:case 67:
             uint speedId=r.D();byte mode=r.C();ushort duration=r.H();r.Finish();ReceiveSpeed(opcode,speedId,mode,duration);break;
-        case 123:ServerTime=r.D();r.Finish();ShipTimeReceived(ServerTime.Value);if(CoreComplete&&ProbeSent){TimeReplies++;CompleteInitialInventory();}break;
+        case 123:ServerTime=r.D();r.Finish();ShipTimeReceived(ServerTime.Value);if(CoreComplete&&ProbeSent){TimeReplies++;CompleteInitialInventory();}
+            Ambience.TimeReceived(ServerTime.Value,SceneClock());break;
         case 225:case 33:
             uint current=r.D(),maximum=r.D();r.Finish();if(Status==null)throw new ProtocolException("vitals before own status");Status=opcode==225?Status with{Hp=current,MaxHp=maximum}:Status with{Mp=current,MaxMp=maximum};break;
         case 227:throw new ProtocolException("server disconnect packet");

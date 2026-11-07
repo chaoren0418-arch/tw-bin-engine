@@ -116,6 +116,7 @@ public sealed class PlayerHudView:Panel {
         statusIcons.UpdateState((FindForm() as ClientForm)?.ReadStatusIcons()??[]);Arrange();
         // Populate explicit visible defaults once data arrives; later user choices are never overwritten.
         bindings.PopulateDefaults(state);
+        (FindForm() as ClientForm)?.SyncCharacterConfig(state,bindings);
         vitals.UpdateState(state);tips.SetToolTip(vitals,state.Character+"\n"+state.State);
         notice.Text=state.Notice;notice.AccessibleName="玩家訊息："+state.Notice;tips.SetToolTip(notice,state.Notice);
         for(int i=0;i<4;i++){
