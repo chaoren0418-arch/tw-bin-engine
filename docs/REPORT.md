@@ -145,3 +145,4 @@
 - 2026-11-08 — #440 T168：名稱、稱號、盟徽與名稱顏色對齊原版（code，claude-local，PR 已合併）→ [報告](reports/issue-440.md)
 - 2026-11-08 — #483 T181：查證原版——視窗類功能（G10b）（resource，claude-local，PR 已合併）→ [報告](reports/issue-483.md)
 - 2026-11-08 — #460 ui-verify-bar-behavior: V5 查證：底列行為（巨集 8 格座標、F1–F4 與 Map 快捷鍵、世界畫面範圍、小地圖內容、485 槽位切換）（resource，claude-local，PR #492 已合併）→ [報告](reports/issue-460.md)
+- 2026-11-08 — #484 T182：查證原版——世界物件類功能（G10c）（resource，claude-local，PR #493 已合併）→ [報告](reports/issue-484.md)
