@@ -24,9 +24,9 @@
 
 ## 未驗證什麼／限制
 
-**同步輪（第 3 輪，2026-11-07）**：已依調度器指示 merge `origin/main`（落後 99 個 commit），前述同步阻塞解除。解衝突只做聯集：`DemoChecks.csproj` 保留 title-emote 與 main 的 character-config／polymorph／buddies 引用；`Program.cs` 預設入口保留 `CharacterConfigChecks` 與 `TitleAndEmoteChecks`；`WorldSession.cs` 保留 S183／S158 與 main 的 S250／S71 分派；`rebuild-lock.json` 以 main 為底跑 `--update-lock` 重產，未手動拼 hash；`docs/REPORT.md` 與 main 相同。未改其他程式內容。
+**同步輪（第 3 輪，2026-11-07）**：已依調度器指示 merge `origin/main` 兩次（先落後 99 個 commit；推送時 main 又前進 7 個，再同步一次），前述同步阻塞解除。解衝突只做聯集：`DemoChecks.csproj` 保留 title-emote 與 main 的 player-query／character-config／polymorph／buddies 引用；`Program.cs` 預設入口保留 `CharacterConfigChecks`、`TitleAndEmoteChecks` 與 `PlayerQueryChecks`；`WorldSession.cs` 保留 S183／S158 與 main 的 S250／S71 分派；`rebuild-lock.json` 以 main 為底跑 `--update-lock` 重產，未手動拼 hash；`docs/REPORT.md` 與 main 相同。未改其他程式內容。
 
-同步後本機結果：`--update-lock`、`--build`、`--verify` 通過（188 個來源／197 個 pin），產品 DLL SHA-256 `1e28aaa89676d163cfc60bc63ea768a420da4684e1dda2511cbb92a00fcb0da1`；DemoChecks 建置 0 warning／0 error。群組全過：`title-emote` 506、`title-emote-assets` 250、`title-emote-compose` 103、`combat-admission` 784、`map-continuity` 20032、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163；`character-management` 218；`check-no-game-assets.py` 通過（3328 個追蹤檔、0 錯誤）。title-emote 三組各比前輪多 90 項，是 main 在 `Main` 開頭加入、每個群組都會跑的 `PolymorphChecks()`，本模組測試本身未變。
+同步後本機結果：`--update-lock`、`--build`、`--verify` 通過（189 個來源／198 個 pin），產品 DLL SHA-256 `fdc0bcd4891a1bd3cd926098e9ff9442b4d99d187673090e09aa7717c2f9dcb7`；DemoChecks 建置 0 warning／0 error。群組全過：`title-emote` 506、`title-emote-assets` 250、`title-emote-compose` 103、`combat-admission` 784、`map-continuity` 20733、`player-query` 791、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163；`character-management` 218；`check-no-game-assets.py` 通過（3331 個追蹤檔、0 錯誤）。title-emote 三組各比前輪多 90 項，是 main 在 `Main` 開頭加入、每個群組都會跑的 `PolymorphChecks()`，本模組測試本身未變。
 
 **未通過／未驗證**：DemoChecks 無群組的預設全量入口在本 worktree 退出 1，停在 `Movement123` 讀 `engine/assets/terrain0.bin`（worktree 沒有 assets junction），不是斷言失敗；因此 `Movement123` 之後的預設項目本輪沒有跑。改指向原專案根目錄會讓測試寫入其 `scratch/`，違反「原專案只讀」，故未這樣做。CI 不跑此入口。CI 結果以 PR #356 為準，本機通過不能替代 CI 綠燈。
 

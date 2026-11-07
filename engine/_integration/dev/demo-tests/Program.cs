@@ -279,7 +279,8 @@ partial class Checks {
         PolymorphChecks();
         if(args.Length>2){
             switch(args[2]){
-                case "map-continuity":await MapContinuity();await BoardChecks();await CharacterConfigChecks();break;
+                case "map-continuity":await MapContinuity();await BoardChecks();await PlayerQueryChecks();await CharacterConfigChecks();break;
+                case "player-query":await PlayerQueryChecks();break;
                 case "character-config":await CharacterConfigChecks();break;
                 case "polymorph":break;
                 case "polymorph-cadence":PolymorphCadenceChecks(args[0]);break;
@@ -301,7 +302,7 @@ partial class Checks {
             }
         }else{
             await CharacterConfigChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
-            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();await BoardChecks();HitReactionSuppression();await TitleAndEmoteChecks();
+            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();await BoardChecks();HitReactionSuppression();await TitleAndEmoteChecks();await PlayerQueryChecks();
         }
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status="pass",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));Console.WriteLine($"PASS {checks} DEMO checks");return 0;
     }catch(Exception ex){Console.Error.WriteLine(ex);return 1;}}
