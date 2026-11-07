@@ -42,7 +42,7 @@ public sealed partial class ClientForm
         if (combatSfx == null) return;
         combatSfx.SetControls(masterGain, masterMute, enabled);
         long now = Environment.TickCount64;
-        try { combatSfx.Pump(login.World.WorldEpoch, combatSfxScene!.Snapshot(login.World, now), now, enabled); }
+        try { combatSfx.Pump(login.World.WorldEpoch, WithPacketSounds(combatSfxScene!.Snapshot(login.World, now), now), now, enabled); }
         catch (Exception ex)
         {
             combatSfx.SetControls(masterGain, masterMute, false);

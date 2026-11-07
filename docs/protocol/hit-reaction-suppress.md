@@ -38,3 +38,7 @@
 離線回歸直接執行產品 DLL：箭矢列入／未列入各一例，檢查命中動畫、施法保留、傷害欄與 HP／死亡；session Reset、Cancel 及記憶體 sender 的同連線選角後，重建相同 objectId／gfx 且不送 sub2，確認清單已清空；S206 後重建物件則確認抑制仍有效。測試已接入既有 `DemoChecks` 與 CI 的 `combat-admission` 入口。
 
 現行 JAR 的實際發送、玩家變身語義與畫面效果仍交 M6 smoke 核對，離線合成測試不代表真機驗收。
+
+## 同步輪驗證（2026-11-07）
+
+合併 main bbaac76 後，既有抑制語義與 session／跨圖邊界維持原樣；測試入口同時保留主線佈告欄回歸及本模組回歸。本機重新建置產品 DLL 後，hit-reaction-suppress 66、combat-admission 278、map-continuity 358 個斷言通過。dev lock 由腳本重新掃描生成，CI 證據見任務報告。

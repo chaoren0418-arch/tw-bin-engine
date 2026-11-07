@@ -2,7 +2,7 @@
 
 ## 做了什麼
 
-依主控第 3 輪裁定，補齊箭矢命中與 session 清理兩個退回缺口，沿用既有 `task/215` worktree 與 PR #241。
+依主控第 3 輪裁定，既有提交已補齊箭矢命中與 session 清理。本次依退回回饋執行同步輪：合併 main `bbaac76b815c9b08c51188e63a5cc627724ce646`，以 `--update-lock` 重新生成 dev lock；測試入口衝突保留 main 的 BoardChecks 與本任務的 HitReactionSuppression。產品邏輯未追加修改，沿用 `task/215` worktree 與 PR #241。
 
 - `HitReactionSuppress.cs` 保存完整 gfx 清單：U16 little-endian、最多 512 筆、去重、整包驗證後替換、空清單清空；畸形封包保留前次有效清單。
 - `Inventory.cs` 的 S242 只加 sub2 分派；`Combat.cs` 在共同 action=2 動畫路徑只查詢一次，涵蓋近戰 S30 與 S158。
@@ -16,25 +16,23 @@
 
 | 檢查 | 本輪結果 |
 |---|---|
-| `rebuild.py --update-lock` 後完整 `--build` | product／audio／launcher 成功；0 錯誤，既有 `MagicUi.cs:20` CS8600／CS8602 共 2 個警告 |
+| `rebuild.py --update-lock` 後完整 `--build` | product／audio／launcher 成功；0 錯誤，既有 `MagicUi.cs:20` CS8600／CS8602，加上套件弱點資料服務無法連線的 NU1900，共 3 個警告 |
 | `hit-reaction-suppress` | 66 個斷言通過 |
 | CI 相同入口 `combat-admission` | 278 個斷言通過 |
-| `map-continuity` | 128 個斷言通過 |
-| `check-no-game-assets.py` | 3236 個 tracked files，0 errors |
-| dev lock 唯讀核驗 | 174 個來源、183 個 pinned 輸入通過 |
+| `map-continuity` | 358 個斷言通過（含 main 新增的佈告欄回歸） |
+| `check-no-game-assets.py` | 3284 個 tracked files，0 errors |
+| dev lock 唯讀核驗 | 179 個來源、188 個 pinned 輸入通過 |
 | `git -c core.whitespace=cr-at-eol diff --check` | 通過 |
 
 測試直接載入本輪產品 DLL，使用合成封包與時序 metadata、記憶體 sender 及 SocketGuard。箭矢測試不呼叫 renderer 建構子、不開視窗、不讀 sprite；驗證命中前後 action=2、施法保留、攻擊／傷害欄、HP 與死亡行為。
 
 生命週期測試涵蓋直接 Reset、Cancel、同連線選角；清理後重建相同 objectId／gfx 且不送 sub2，確認正常受擊，再確認新清單可以生效。跨圖測試送 S206 並重建物件，確認舊清單仍抑制受擊。既有解碼邊界、錯誤原子性、sub1 背包與近戰／S158 回歸均保留。
 
-產品 DLL SHA-256：`8165466213125f258d869212c14d1f2298bf933cac938420f0ef030cedfb5539`。來源 SHA-256 見同提交的 dev lock，僅由 `--update-lock` 生成。
+產品 DLL SHA-256：`619732f5adf2d00d76ba59846df644e31bee99d6dcf2a027a8a1134d518f29af`。來源 SHA-256 見同提交的 dev lock，僅由 `--update-lock` 生成。
 
-GitHub CI 尚未通過本輪驗收：修正提交 `46ca90edafa691446e8b7a4000aa25995327d80a` 已推送 [PR #241](https://github.com/chaoren0418-arch/tw-bin-engine/pull/241)，GitHub 回報 `mergeable=CONFLICTING`、`mergeStateStatus=DIRTY`、新 head 的 checks 為空，Actions 清單沒有本輪執行。舊 head 綠燈不作本輪證據。
+本輪已解決 dev lock 與測試入口合併衝突，完整建置與離線回歸通過；待推送同步提交後核對新 head 的三項 CI，結果補記於此。
 
-唯讀 `git merge-tree --write-tree --name-only HEAD origin/main` 核對主線 `25bc0f4`：唯一衝突為 `engine/_integration/dev/rebuild-lock.json`；`WorldSession.cs` 可自動合併。未執行實際 merge 或改動工作檔。依 `docs/design/m6-contract.md` 第 4 點「dev lock 衝突交給調度器的同步輪處理」，本輪不手動拼接 hash，交調度器同步、重新生成 lock 後推送並重跑 CI。
-
-本機 Python 3.12.10、SDK 10.0.300；NuGet config／vendor 唯讀引用原專案，cache、暫存與產物留在此 worktree。重跑方式（先把 TEMP、TMP、DOTNET_CLI_HOME、NuGet cache 指向 worktree）：
+本機 Python 3.12.10、SDK 10.0.300；本輪 NuGet 使用 repo 的 `.github/nuget.ci.config` 與 worktree 內既有快取，cache、暫存與產物留在此 worktree。重跑方式（先把 TEMP、TMP、DOTNET_CLI_HOME、NuGet cache 指向 worktree）：
 
 ```powershell
 python -B -X utf8 engine/_integration/dev/rebuild.py --update-lock
@@ -49,7 +47,7 @@ python -B -X utf8 engine/_integration/dev/rebuild.py
 
 ## 未驗證什麼
 
-本輪新 head 的 CI 因 dev lock 合併衝突尚未排程，故未達 CI 綠燈驗收；本機編譯與離線測試結果如上。
+本輪新 head 的 CI 待推送後核對；本機編譯與離線測試結果如上。
 
 未啟動遊戲、伺服器或 DB。未驗證現行 JAR 實際發送、玩家變身、真機動畫／傷害數字畫面與音效；由 dot 在 M6 smoke 核對。離線測試使用合成封包，不代表真機功能驗收。
 
@@ -63,4 +61,4 @@ python -B -X utf8 engine/_integration/dev/rebuild.py
 
 ## 給下一棒的提示
 
-調度器先依同步輪整合最新 main、重新生成 dev lock，重跑建置／離線測試並推送 PR #241，確認新 head 的 `dotnet`、`map-continuity`、`npc-offline` 全綠後交 Claude 審查與使用者合併；dot 接 M6 smoke。兩個原退回缺口已修正，無須再次裁定範圍。跨圖不可清空抑制清單，不手動拼接 lock hash。worktree 保留給調度器清理。
+同步輪與本機驗證已完成。確認新 head 的 `dotnet`、`map-continuity`、`npc-offline` 全綠後交 Claude 審查與使用者合併；dot 接 M6 smoke。兩個原退回缺口已修正，無須再次裁定範圍。跨圖不可清空抑制清單，不手動拼接 lock hash。worktree 保留給調度器清理。
