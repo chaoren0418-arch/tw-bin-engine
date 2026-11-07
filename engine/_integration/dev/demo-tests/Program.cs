@@ -284,6 +284,7 @@ partial class Checks {
             switch(args[2]){
                 case "timed-buffs":TimedBuffChecks();break;
                 case "afflictions":await AfflictionChecks();break;
+                case "resurrection":await ResurrectionChecks();break;
                 case "char-reset":await CharResetChecks();break;
                 case "clan":await ClanChecks();break;
                 case "clan-war":await ClanWarChecks();break;

@@ -6,6 +6,7 @@
     <Compile Include="../minimap-tests/MinimapChecks.cs" Link="MinimapChecks.cs" />
     <Compile Include="../afflictions-tests/AfflictionChecks.cs" Link="AfflictionChecks.cs" />
     <Compile Include="../party-tests/PartyChecks.cs" Link="PartyChecks.cs" />
+    <Compile Include="../resurrection-tests/ResurrectionChecks.cs" Link="ResurrectionChecks.cs" />
     <Compile Include="../display-notices-tests/DisplayNoticeChecks.cs" Link="DisplayNoticeChecks.cs" />
     <Compile Include="../char-reset-tests/CharResetChecks.cs" Link="CharResetChecks.cs" />
     <Compile Include="../marriage-tests/MarriageChecks.cs" Link="MarriageChecks.cs" />
