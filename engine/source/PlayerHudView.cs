@@ -85,6 +85,7 @@ public sealed class PlayerHudView:Panel {
         menu.Controls.AddRange([MakeButton("背包",()=>ToggleDrawer("items"),58),MakeButton("裝備",()=>ToggleDrawer("equipment"),58),MakeButton("技能",()=>ToggleDrawer("skills"),58),chatButton,MakeButton("服務",()=>MoreRequested?.Invoke(),62),MakeButton("診斷 F9",()=>DiagnosticsRequested?.Invoke(),80,false),MakeButton("登出",()=>LogoutRequested?.Invoke(),58,false)]);
         Controls.AddRange([vitals,shortcuts,menu,notice,grid,selectedText,actions,chat]);
         Controls.Add(statusIcons);
+        MailUi.Attach(this,menu);
         chat.Enter+=(_,_)=>ChatEntered?.Invoke();chat.SubmitRequested+=async(text,view)=>ChatSubmitRequested!=null&&await ChatSubmitRequested(text,view);
         Resize+=(_,_)=>Arrange();
         PartyUi.Mount(this,menu,()=>ToggleDrawer("party"),()=>drawer=="party");
