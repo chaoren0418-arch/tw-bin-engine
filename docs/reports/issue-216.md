@@ -1,4 +1,4 @@
-﻿# Issue #216：T121 物品 status blob 語義化
+# Issue #216：T121 物品 status blob 語義化
 
 ## 做了什麼
 
