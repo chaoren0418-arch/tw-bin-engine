@@ -123,3 +123,4 @@
 - 2026-11-07 — #417 盤點本機逆向資源：登入器bin資源、tools/rea-investigation，用 rea-main 拆解可用項目交主控（resource，claude-local，PR 已合併）→ [報告](reports/issue-417.md)
 - 2026-11-07 — #390 T150：小地圖（code，claude-local，PR 已合併）→ [報告](reports/issue-390.md)
 - 2026-11-07 — #415 T152：鑑定說明、紅字訊息、名稱狀態（code，claude-local，PR 已合併）→ [報告](reports/issue-415.md)
+- 2026-11-07 — #416 T153：暫時能力、酒醉、水中呼吸、刪除技能（code，claude-local，PR 已合併）→ [報告](reports/issue-416.md)
