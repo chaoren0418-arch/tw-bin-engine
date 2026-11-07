@@ -57,3 +57,5 @@
 - 新增 S219 模組時，留意 `ReceiveClanWarYesNo` 必須維持在 `ReceiveTrade` 的第一個分支；若新模組在 Trade 之前就消耗 S219，要比照 Party／Duel 讓 `CheckClanWar` 觀察得到。
 
 第二次同步 origin/main（4a962f3，含顯示通知 `DisplayNoticeChecks`）：`Program.cs` 測試入口衝突以「兩邊都保留」解決（`display-notices` case 與 `ClanWarChecks` 並存），`rebuild-lock.json` 取 main 版後 `--update-lock` 重產（216 個來源、225 個鎖定輸入）；`--build` 通過，`clan-war` 479 項、`display-notices` 334 項、`map-continuity` 22690 項通過，`check-no-game-assets.py` 0 錯誤。
+
+第三次同步 origin/main（98bf2b7，含暫時能力 #416 `TimedBuffChecks`）：`Program.cs` 的 `map-continuity` 與預設入口衝突以「兩邊都保留」解決（`ClanWarChecks` 與 `TimedBuffChecks` 並存），`rebuild-lock.json` 取 main 版後 `--update-lock` 重產（217 個來源、226 個鎖定輸入）；`--build` 通過，`clan-war` 479 項、`timed-buffs` 560 項、`map-continuity` 22974 項通過，`check-no-game-assets.py` 0 錯誤。

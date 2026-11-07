@@ -34,6 +34,7 @@ public sealed partial class WorldSession {
     public bool SelectMagic(int? id){if(id!=null&&!learnedMagic.Contains(id.Value))return false;SelectedMagicId=id;MagicSelectionRevision++;MagicRevision++;return true;}
     void ResetMagic(){learnedMagic.Clear();magicEffects.Clear();magicBuffs.Clear();PartialAcByte=null;SelectedMagicId=null;MagicTargetSelf=true;MagicListReceived=false;MagicEffectCount=0;MagicRevision++;MagicSelectionRevision++;MagicNotice="等待原服已學技能清單";}
     void ClearMagicEffects(){magicEffects.Clear();MagicSelectionRevision++;}
+    internal void RemoveLearnedMagic(IEnumerable<int> ids){foreach(int id in ids)learnedMagic.Remove(id);if(SelectedMagicId is int selected&&!learnedMagic.Contains(selected))SelectMagic(null);MagicListReceived=true;MagicRevision++;MagicNotice="原服移除技能已更新";InteractionSkillsUpdated();}
     void AddMagicEffect(MagicEffect e){
         var caster=Objects.FirstOrDefault(o=>o.ObjectId==e.Caster);
         e=e with{CasterGfx=Actor?.ObjectId==e.Caster?Actor.Gfx:caster?.Gfx??e.CasterGfx,CasterWeapon=Actor?.ObjectId==e.Caster?Actor.Weapon:caster?.Action};
