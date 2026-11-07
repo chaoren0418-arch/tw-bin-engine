@@ -2,7 +2,7 @@
 
 ## 結論
 
-**模組與離線驗證已完成，實際畫面接線尚未完成，不可視為 T147 功能驗收通過。** 分支 `task/387`，未切換分支或建立其他 worktree。
+**模組與離線驗證已完成，實際畫面接線尚未完成，不可視為 T147 功能驗收通過。** 分支 `task/387`，已推送並建立[草稿 PR #400](https://github.com/chaoren0418-arch/tw-bin-engine/pull/400)，未切換分支或建立其他 worktree。
 
 ## 做了什麼
 
@@ -20,6 +20,9 @@
 4. `DemoChecks ... map-continuity`：**714 項通過**，包含原有跨圖／船運／旅館／地圖效果／公告板及環境測試。
 5. `check-no-game-assets.py`：通過，0 errors。
 6. `git -c core.whitespace=cr-at-eol diff --check`：通過；既有 Renderer／WorldSession 的 CRLF 位元組格式保留。
+7. 程式提交 `983bde6c0ff04c8323e1f0e221cc7ab263f6d28d` 的 CI 全綠：[build #532](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42329561655)（Linux dotnet、Windows map-continuity）與 [npc-offline #401](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42329561372)。包含本模組實際執行及既有 WebView2 回歸。
+
+本機產品 DLL SHA-256：`b66b009a299253e52eca95c06401b988ccdf0f7146480a07cbfd6625d1784c4a`。後續報告提交只補驗證連結，不改程式／測試／lock。
 
 離線輸出：`scratch/issue-387/ambience.json`、`map-continuity.json`、`build/result.json`。測試程式已入 repo；上述一次性結果留 scratch，不冒充真機證據。
 
@@ -27,7 +30,6 @@
 
 - **實際畫面掛載點不在允許檔案內**：`Program.cs` 的 `ClientForm.OnPaint` 直接畫 Background／patch，船上另走 SceneView 並提早 return；`OpacityRendering.cs` 只有 SceneView。`Renderer.cs` 沒有最終畫面繪製呼叫點。只新增入口不會讓環境效果出現在遊戲畫面。
 - 已在本次對話請求允許 `Program.cs` 增加單一環境層掛載點；尚未取得答覆，沒有越過明列的檔案範圍。需要在兩條世界畫面路徑完成後，以 `Ambience.At(SceneClock())`、`AmbienceLights(Camera.ToView, Camera.Zoom, renderer.OwnCombatVisual, objectVisuals)` 呼叫 `renderer.PaintAmbience`，並保護 HUD clip。
-- CI：待 PR 建立後確認；不把本機結果稱為 CI 綠燈。
 - 未啟動遊戲、伺服器或 DB，未做真機畫面／效能驗收。
 - 雨雪代碼的兩份伺服器註解相反；目前依 `S_Weather` 類別，需 smoke 核對。光圈像素比例、日夜漸層與粒子造型為引擎政策，不宣稱逐像素重現原 BIN。
 
