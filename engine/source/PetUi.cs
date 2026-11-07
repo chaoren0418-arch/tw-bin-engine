@@ -37,6 +37,7 @@ public sealed partial class ClientForm {
         Label(view.Notice);
         if(view.Info is {} info)Label($"{(info.Kind=="pet"?"寵物":"召喚物")} · 等級 {info.Level} · HP {info.Hp}/{info.MaxHp} · MP {info.Mp}/{info.MaxMp}\n{ResolveNpcText(info.Mode)}");
         bool can=view.CanSend&&!World.Walking;
+        Button("查詢／重新整理寵物與召喚物資訊",can,()=>_ = RunPet(view.Stamp,"info"));
         string[] labels=["攻擊態勢","防禦態勢","停留／休息","散開","警戒","解散"];
         for(int i=0;i<labels.Length;i++){string command=PetPackets.Commands[i];Button(labels[i],can,()=>_ = RunPet(view.Stamp,command));}
         Button("查詢／重新整理寵物背包",can,()=>_ = RunPet(view.Stamp,"refresh"));

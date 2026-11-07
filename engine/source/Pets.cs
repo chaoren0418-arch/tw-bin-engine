@@ -12,6 +12,7 @@ public sealed record PetView(PetStamp Stamp, string Name, int? HpPercent, PetInf
 
 public static class PetPackets {
     public static readonly string[] Commands = ["aggressive", "defensive", "stay", "extend", "alert", "dismiss"];
+    public static byte[] Information(uint pet) { if(pet==0)throw new ArgumentException("pet identity");return NpcPackets.Talk(pet); }
     public static byte[] Menu(uint pet) { if(pet==0)throw new ArgumentException("pet identity");return LoginPackets.Pad([103,..BitConverter.GetBytes(pet)]); }
     public static byte[] UseItem(uint pet, byte data, int index) {
         if(pet==0 || data is not (2 or 0x16) || index is <0 or >255)throw new ArgumentException("pet item");
@@ -94,7 +95,12 @@ public sealed partial class WorldSession {
     internal void PetSubmitted(uint id,string command) {
         CheckPets();petRevision++;
         if(command=="item"||command=="refresh")petBags.Remove(id);
-        petNotice=command=="refresh"?"已查詢寵物背包，等待原服回覆。":"已送出一次；請核對原服結果。裝備操作後請重新查詢背包。";
+        if(command=="info"||command=="item")petInfo.Remove(id);
+        petNotice=command switch {
+            "info"=>"已查詢寵物／召喚物資訊，等待原服回覆；沒有回覆不代表數值為零。",
+            "refresh"=>"已查詢寵物背包，等待原服回覆。",
+            _=>"已送出一次；請核對原服結果。裝備操作後請重新查詢背包。"
+        };
     }
 }
 
@@ -109,7 +115,8 @@ public sealed partial class LoginConnection {
     public async Task<bool> SendPet(PetStamp stamp,string command,int itemIndex=-1,uint itemId=0) {
         if(petSendingGeneration==SessionGeneration||!PetCurrent(stamp)||sendMovementGate==null)return false;
         byte[] bytes;
-        if(command=="refresh")bytes=PetPackets.Menu(stamp.PetId);
+        if(command=="info")bytes=PetPackets.Information(stamp.PetId);
+        else if(command=="refresh")bytes=PetPackets.Menu(stamp.PetId);
         else if(command=="item"){
             var bag=World.PetInventory(stamp.PetId);
             if(bag==null||itemIndex<0||itemIndex>255||itemIndex>=bag.Items.Length||bag.Items[itemIndex] is not {Usable:true} item||item.ItemId!=itemId)return false;

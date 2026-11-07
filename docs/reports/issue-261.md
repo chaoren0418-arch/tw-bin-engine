@@ -1,44 +1,44 @@
-# Issue #261：T127 寵物與召喚物
+# Issue #261：T127 寵物與召喚物（第二次執行）
 
 ## 結論
 
-**部分完成，待調度器／Claude 裁定擴充 S39 分流範圍；不可合併為功能完成。** 本機建置與離線測試已通過。原任務把 C103 寫為控制指令，但來源顯示 C103 是背包查詢，控制走 C125；C104 成功後的 S39 回覆不相容於現有 NPC 解析器。
+**阻塞，未完成驗收，不可合併。** 本次已準備 C34 詳細資訊查詢與真正的接收流程回歸，建置成功，但新測試重現 S39 被 NPC 解析器拒絕的既有缺陷。原任務仍明列 `WorldSession.cs` 僅允許 S83／S176；Issue 全部留言與 PR 留言中未找到調度器／Claude 的擴充裁定，已在本次對話提出單一 S39 分流確認，尚未取得答覆。未把重新排入佇列當作擴充範圍同意。
 
 ## 做了什麼
 
-- 新增 `Pets.cs`：S83 項圈清單、S176 寵物背包與有號 AC，保留倉庫分流；C103 背包查詢、C104 依原服索引切換裝備、C125 六種控制指令。資料先完整驗證才發布，限制外部修改背包順序。
-- 沿用 S87 世界物件與 S237 HP；不改世界渲染，不把無主人 FollowerPack 當成可控制夥伴。
-- 送出時核對 session、世界世代、角色、物件版本與背包版本；失效操作不送出、不預扣物品、不自動重送。裝備操作後須重新查詢背包。
-- `PetUi.cs` 透過表單 OnLoad 加入既有玩家服務視窗的「寵物」分頁；包含控制、背包、項圈資訊。`NpcUi.cs` 未修改。
-- `WorldSession.cs` 僅新增 S83、S176 各一個分支，置於既有 NPC 處理前以避免 S176 先被倉庫解析消耗。
-- 提交模組測試並接入既有 DemoChecks／Windows CI 入口；dev lock 用 `--update-lock` 產生。
+- 保留前次 S83 項圈、S176 寵物背包與倉庫分流、C103 背包查詢、C104 裝備索引、C125 控制，以及 S87／S237 世界物件與 HP 共用實作。
+- 唯讀核對原服 C34 → 寵物／召喚物 `onTalkAction` → S39 詳細資訊的路徑，來源 SHA-256 補入 `docs/protocol/pets.md`。
+- `Pets.cs` 新增 `Information` 編碼及 `SendPet(...,"info")`，沿用送出前的 session／世界／物件／背包版本檢查。查詢或裝備操作清除舊詳細資訊，不預填數值。
+- `PetUi.cs` 增加明確的寵物／召喚物資訊查詢按鈕。回覆分派未接通前，這仍不是可驗收功能。
+- repo 測試路徑新增 C34 byte 格式、查詢入口、S39 真正 Receive、無效回覆原子性、C104 成功回覆、NPC／RaiseAttr 相容案例；保留既有測試入口，不以純解析測試替代接收驗證。
+- 本輪沒有修改 `WorldSession.cs`、`NpcUi.cs`、`docs/REPORT.md`、機密設定、封存、原專案或遊戲資源。
 
-## 怎麼驗證（已驗證）
+## 怎麼驗證
 
-- `rebuild.py --update-lock`：175 個來源檔、184 個鎖定輸入核驗成功。
-- `rebuild.py --build --configfile scratch/pets-nuget.config --output scratch/pets-build`：產品、audio、launcher 編譯成功；僅既有 `MagicUi.cs` 兩則 nullable 警告。
-- `DemoChecks ... pets`：52 項通過，使用產品 DLL、合成封包與記憶體 sender。
-- `DemoChecks ... map-continuity`：180 項通過，含上述寵物測試。
-- `check-no-game-assets.py`：通過。
-- 本機 NuGet HTTPS 發生 TLS 錯誤，改以 scratch 設定唯讀引用原專案 `engine/vendor`；套件快取、TEMP、CLI HOME 均指定 worktree 內，未複製遊戲資源。
-- 本機 `gh` API 回 HTTP 401；改用已連線 GitHub 工具處理 PR 與 CI 查詢。
+已驗證：
 
-## 未驗證／未完成
+- `rebuild.py --update-lock`：175 個來源檔、184 個鎖定輸入通過。
+- `rebuild.py --build --configfile scratch/pets-nuget.config --output scratch/pets-build`：產品、audio、launcher 建置成功；產品僅既有 `MagicUi.cs` 兩則 nullable 警告。
+- DemoChecks 建置成功；執行 `pets` 時，在首個 anicom 真實接收路徑拋出 `P06.ProtocolException: dialog arguments`（`NpcInteraction.cs:56`，由 `WorldSession.ReceiveCore` 呼叫）。退出碼 1，**不是通過**。
+- `check-no-game-assets.py`：pass，3252 個追蹤檔案，0 錯誤。
+- 候選一行分流 patch 已通過 `git apply --ignore-space-change --check`，未套用。
+- 建置使用 scratch NuGet 設定唯讀引用原專案 `engine/vendor`；快取、TEMP 與 CLI HOME 均在 worktree。
 
-- S39 純解析器已完成，但尚未掛入 `ReceiveCore`。擴充超出明列可改的 S83／S176，已提出範圍確認，尚未取得回覆。
-- **C104 成功回覆鏈仍有已知錯誤**：原服會送 `S_PetMenuPacket`，現有 NPC 解析會拒絕其 C旗標格式。寵物詳細資訊也尚無已接通的查詢入口。
-- 未啟動遊戲、伺服器、DB，未執行原生 UI／實機驗收。沒有把合成測試當真機證據。
-- CI 結果以 PR checks 為準；本段會於提交後查核。
+待驗證：
+
+- S39 分流套用後的全套 pets／map-continuity 回歸；目前測試在已知缺口中斷，後續案例沒有宣稱通過。
+- 本次 head 的 CI；前次 head `7cde33a` 的 CI 成功不能代表本次變更通過。新增回歸未修復前，Windows 測試預期失敗。
+- 未啟動遊戲、伺服器、DB，未驗證原生 UI、部署 JAR 與實機。
 
 ## 產出路徑
 
 - `engine/source/Pets.cs`、`engine/source/PetUi.cs`
-- `engine/source/WorldSession.cs`
-- `engine/_integration/dev/pets-tests/`、`engine/_integration/dev/demo-tests/`
+- `engine/_integration/dev/pets-tests/PetChecks.cs`、`README.md`
 - `engine/_integration/dev/rebuild-lock.json`
 - `docs/protocol/pets.md`、本報告
-- 不追蹤本機證據：`scratch/pets-build/`、`scratch/pets-checks.json`、`scratch/pets-map-checks.json`
+- 不追蹤本機證據：`scratch/pets-build/`、`scratch/pets-checks.json`（本次 blocked，已覆蓋舊 pass 狀態）
+- 不追蹤候選差異：`scratch/pets-s39-proposed.patch`
 
 ## 給下一棒的提示
 
-調度器／Claude 先裁定允許新增 S39 寵物專用分流，接著由本機執行器掛接已備妥的 `ReceivePetDialog`（非寵物 S39 保留 NPC 路徑），增加查詢資訊入口及真正透過 `Receive` 的 anicom／moncom／一般 NPC／RaiseAttr 回歸，再重跑 lock、建置與 CI。完成前 PR 維持草稿，不關閉 #261。原生驗收集中交給 dot 的 M6 smoke。
+調度器／Claude 必須先明確裁定允許 `WorldSession.ReceiveCore` 加 `case 39:if(ReceivePetDialog(plain))return;break;`。這只攔截 anicom／moncom；其他模板回傳 false 並保留原 reader 與 NPC／RaiseAttr 路徑，`NpcUi.cs` 不動。取得裁定後由本機執行器套用、重新更新 dev lock、建置、跑完新增回歸、更新報告與 PR／CI。不要跳過紅燈測試，也不要再次以「部分完成」結案。PR #276 應保持草稿並阻擋合併，#261 保持開啟；實機集中交 dot 的 M6 smoke。

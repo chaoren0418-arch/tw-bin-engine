@@ -18,14 +18,21 @@ partial class Checks {
         for(int i=0;i<ids.Length;i++){b.Write(ids[i]);b.Write((byte)(i==0?0x16:i==1?2:0));b.Write((ushort)(40+i));b.Write((byte)1);b.Write(2u);b.Write((byte)(i==1?3:0));Text(b,i==0?"鋼牙":i==1?"寵物盔甲":"肉");}
         if(type==11)b.Write(unchecked((byte)-12));else b.Write(30u);
     });
-    static byte[] PetMenuPacket(string html="anicom",uint pet=456)=>Packet(b=>{
-        b.Write((byte)39);b.Write(pet);Text(b,html);b.Write((byte)0);b.Write((ushort)(html=="anicom"?10:6));
-        foreach(string s in new[]{"$470","70","100","10","20","12"})Text(b,s);
+    static byte[] PetMenuPacket(string html="anicom",uint pet=456,string hp="70",string mp="10",string level="12",byte flag=0,ushort? count=null)=>Packet(b=>{
+        b.Write((byte)39);b.Write(pet);Text(b,html);b.Write(flag);b.Write(count??(ushort)(html=="anicom"?10:6));
+        foreach(string s in new[]{"$470",hp,"100",mp,"20",level})Text(b,s);
         if(html=="anicom")foreach(string s in new[]{"夥伴","$611","30","0"})Text(b,s);
+    });
+    static byte[] PetNpcDialog(string html,uint npc=456,params string[] args)=>Packet(b=>{
+        b.Write((byte)39);b.Write(npc);Text(b,html);
+        if(html=="RaiseAttr")return; // No flag/count in the original self-attribute offer.
+        b.Write((ushort)(args.Length==0?0:1));b.Write((ushort)args.Length);
+        foreach(string arg in args)Text(b,arg);
     });
     static void PetReject(Action action,string label){bool threw=false;try{action();}catch(ProtocolException){threw=true;}Check(threw,label);}
     static LoginReader PetReader(byte[] bytes){var r=new LoginReader(bytes);r.C();return r;}
     static async Task Pets(){
+        Check(Convert.ToHexString(PetPackets.Information(0x12345678))=="2278563412000000","C34 D information query and padding");
         Check(Convert.ToHexString(PetPackets.Menu(0x12345678))=="6778563412000000","C103 D little endian and padding");
         Check(Convert.ToHexString(PetPackets.UseItem(0x12345678,0x16,255))=="681678563412FF00","C104 CDC and byte index boundary");
         foreach(string cmd in PetPackets.Commands){var r=PetReader(PetPackets.Command(456,cmd));Check(r.D()==456&&r.S()==cmd,"C125 command "+cmd);r.Finish();}
@@ -60,11 +67,35 @@ partial class Checks {
         Sender(c,(bytes,valid,admit)=>{if(!valid())return Task.FromResult(false);sent=bytes;sends++;admit();return Task.FromResult(true);});
         foreach(string cmd in PetPackets.Commands){var stamp=c.PetSnapshot(456).Stamp;Check(await c.SendPet(stamp,cmd),"admit "+cmd);Check(!await c.SendPet(stamp,cmd),"old command cannot repeat "+cmd);}
         Check(sends==6,"six explicit commands only");
+        foreach(string html in new[]{"anicom","moncom"}){
+            var query=c.PetSnapshot(456).Stamp;
+            Check(await c.SendPet(query,"info")&&sent!.SequenceEqual(PetPackets.Information(456)),"C34 guarded information query "+html);
+            Check(c.PetSnapshot(456).Info==null&&!await c.SendPet(query,"info"),"query clears stale details and invalidates old click "+html);
+            int beforeReply=c.World.PetRevision,npcRevision=c.World.InteractionRevision;
+            Feed(c,PetMenuPacket(html));var info=c.PetSnapshot(456).Info;
+            Check(info is {Hp:70,MaxHp:100,Mp:10,MaxMp:20,Level:12}&&info.Kind==(html=="anicom"?"pet":"summon"),"WorldSession.Receive S39 details "+html);
+            Check(c.World.PetRevision>beforeReply&&c.World.InteractionRevision==npcRevision,"S39 updates pet UI revision without entering NPC parser "+html);
+            Feed(c,PetMenuPacket(html,hp:"60",mp:"5",level:"13"));
+            Check(c.PetSnapshot(456).Info is {Hp:60,Mp:5,Level:13},"S39 reply refreshes existing details "+html);
+        }
+        var savedInfo=c.World.PetInformation(456);revision=c.World.PetRevision;
+        foreach(var invalid in new[]{PetMenuPacket()[..16],PetMenuPacket(flag:1),PetMenuPacket(count:6),PetMenuPacket("moncom",count:10),PetMenuPacket(hp:"101"),PetMenuPacket(mp:"21"),PetMenuPacket(level:"256"),PetMenuPacket(hp:"bad"),PetMenuPacket(pet:0)})
+            PetReject(()=>Feed(c,invalid),"S39 invalid envelope/vitals rejected through Receive");
+        Check(c.World.PetRevision==revision&&c.World.PetInformation(456)==savedInfo,"invalid S39 leaves previously published information intact");
+        Feed(c,PetMenuPacket(pet:457));Feed(c,PetMenuPacket("moncom",458));Feed(c,PetMenuPacket(pet:999));
+        Check(c.World.PetInformation(457)==null&&c.World.PetInformation(458)==null&&c.World.PetInformation(999)==null,"foreign/ownerless/missing S39 cannot publish pet information");
         Check(await c.SendPet(c.PetSnapshot(456).Stamp,"refresh")&&sent![0]==103,"C103 uses guarded transport");
         Feed(c,PetBagPacket());var before=c.PetSnapshot(456).Stamp;
         Check(!await c.SendPet(before,"item",0,999)&&!await c.SendPet(before,"item",2,2003),"wrong item ID and non-equipment rejected");
         Check(await c.SendPet(before,"item",1,2002)&&sent![0]==104&&sent[1]==2&&sent[6]==1,"C104 exact server row index");
         Check(c.World.PetInventory(456)==null&&!await c.SendPet(before,"item",1,2002),"used bag invalidated until explicit refresh reply");
+        // Original C104 success emits S250/37 equipment notice followed by S39.
+        Feed(c,LoginPackets.Pad([250,37,2,..BitConverter.GetBytes(456u),1,unchecked((byte)-12)]));
+        Feed(c,PetMenuPacket(hp:"65",mp:"7"));
+        Check(c.State==LoginState.InWorld&&c.PetSnapshot(456).Info is {Hp:65,Mp:7},"C104 success reply reaches S39 pet information without NPC format error");
+        Check(c.World.PetInventory(456)==null,"C104 S39 does not fabricate refreshed bag contents");
+        Check(await c.SendPet(c.PetSnapshot(456).Stamp,"refresh"),"explicit bag refresh after C104 reply");
+        Feed(c,PetBagPacket());Check(c.PetSnapshot(456).Bag is {Ac:-12},"S176 repopulates equipment after C104 refresh");
         Feed(c,PetBagPacket());var queued=c.PetSnapshot(456).Stamp;
         Sender(c,(bytes,valid,admit)=>{Feed(c,PetBagPacket(ids:[2002,2001]));if(valid())throw new Exception("stale bag admitted");return Task.FromResult(false);});
         Check(!await c.SendPet(queued,"item",0,2001),"bag reorder at sender gate rejected");
@@ -72,9 +103,24 @@ partial class Checks {
         Sender(c,(bytes,valid,admit)=>{Feed(c,LoginPackets.Pad([120,..BitConverter.GetBytes(456u)]));Feed(c,Companion());Check(!valid(),"removed/recreated object invalidates stamp");return Task.FromResult(false);});
         Check(!await c.SendPet(queued,"stay"),"queued object incarnation cannot send");
         var old=c.PetSnapshot(456).Stamp;Feed(c,PetList());Feed(c,PetBagPacket());
-        Feed(c,LoginPackets.Pad([206,4,0,0]));Check(c.World.PetCollars.Length==0&&c.World.PetInventory(456)==null&&!await c.SendPet(old,"stay"),"map invalidates all pet state and old commands");
+        Feed(c,LoginPackets.Pad([206,4,0,0]));Check(c.World.PetCollars.Length==0&&c.World.PetInventory(456)==null&&c.World.PetInformation(456)==null&&!await c.SendPet(old,"stay"),"map invalidates all pet state and old commands");
+        Feed(c,PetMenuPacket());Check(c.World.PetInformation(456)==null,"late S39 after map change ignored");
         c.World.Reset();Check(c.World.PetCompanions.Length==0&&c.World.PetCollars.Length==0,"reset clears pet state");
         using var other=Seed();Feed(other,Companion());var stale=other.PetSnapshot(456).Stamp;other.Cancel();
         Check(!await other.SendPet(stale,"stay"),"disconnect generation rejected");
+        Check(!await other.SendPet(stale,"info"),"disconnect rejects old information query");
+        using var npc=Seed();
+        Sender(npc,(bytes,valid,admit)=>{if(!valid())return Task.FromResult(false);admit();return Task.FromResult(true);});
+        Check(await npc.Interact("talk",npc.World.InteractionRevision,npc.World.WorldEpoch,npc.World.TargetRevision),"open ordinary NPC dialogue via existing request");
+        int petRevision=npc.World.PetRevision;
+        foreach(var packet in new[]{PetNpcDialog("ordinary"),PetNpcDialog("ordinary",456,"one","two")}){
+            int prior=npc.World.InteractionRevision;Feed(npc,packet);
+            Check(npc.World.InteractionKind=="dialog"&&npc.World.InteractionRevision>prior&&npc.World.PetRevision==petRevision,"non-pet S39 retains ordinary H-flag NPC route");
+        }
+        Feed(npc,PetNpcDialog(""));Check(npc.World.InteractionKind=="closed","empty S39 retains NPC close route");
+        Set(npc.World,"Status",npc.World.Status! with{Level=51});
+        Feed(npc,PetNpcDialog("RaiseAttr",123));
+        Check(npc.World.BonusStatsOffered&&npc.World.BonusStatsPhase=="offered"&&npc.World.PetRevision==petRevision,"RaiseAttr retains self-stat route without generic or pet envelope");
+        PetReject(()=>Feed(npc,PetNpcDialog("RaiseAttr",456)),"RaiseAttr foreign identity still rejected");
     }
 }

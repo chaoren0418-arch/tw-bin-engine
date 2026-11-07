@@ -32,3 +32,19 @@
 | `serverpackets/S_PetList.java` | `cd7e0f26c3809c98edae28887d545c19327c2a8ca1dcd3d82bd302e94c2e5528` |
 | `serverpackets/S_PetInventory.java` | `ddc6e6f9bb6023ae58b38c3f28aac0890e610ab89642fdab9b9e5147660d67dd` |
 | `serverpackets/S_PetMenuPacket.java` | `448af0d27a545bafc6978549304d5a9f87d8c1c9a2e4d5bf35d0b3ad89200d40` |
+
+## 第二次執行：詳細資訊查詢來源核對
+
+C34 `C_NPCTalk` 格式為 C34 D夥伴ID（其餘為既有封包補齊）。處理器確認目前玩家、存活、非傳送、非私商及附近 NPC 後，進入物件的 `onTalkAction`。`L1PetInstance.onTalkAction` 與 `L1SummonInstance.onTalkAction` 都檢查主人，再送 S39 `S_PetMenuPacket`；分別使用 `anicom` 與 `moncom`。
+
+`Pets.cs` 已增加 C34 編碼及受 session／世界／物件版本檢查的 `info` 操作；`PetUi.cs` 有明確查詢按鈕。查詢時清除舊詳細資訊，等待原服回覆，不預填 HP／MP／等級。**S39 分派範圍尚待裁定，因此目前不能使用此入口作正式驗收。**
+
+新增測試經 `WorldSession.Receive` 注入上述回覆，已重現既有 NPC 解析器的 `dialog arguments` 例外；同一測試已備妥 C104 回覆及一般 NPC／RaiseAttr 相容案例，但後者尚未跑到。提案是在 `ReceiveCore` 現有第一個 switch 加 `case 39:if(ReceivePetDialog(plain))return;break;`。`ReceivePetDialog` 使用獨立 reader，非寵物模板回傳 false，不消耗原 NPC reader；`NpcUi.cs` 不需修改。提案仍未套用。
+
+本次唯讀查閱來源（同上來源根目錄）：
+
+| 相對路徑 | SHA-256 |
+|---|---|
+| `clientpackets/C_NPCTalk.java` | `7a324af75ce43054f87a500d6a16600ddf01209ee5c5d5d4d2f4cf1377457027` |
+| `model/Instance/L1PetInstance.java` | `4b9ac51377e68f078d02d9e70c1598149dc21e6a73795820dd442b199207a609` |
+| `model/Instance/L1SummonInstance.java` | `4da5511db9841b26ff0d957700bf1f25117e355f24ae2186da3e04db7a4c3b34` |
