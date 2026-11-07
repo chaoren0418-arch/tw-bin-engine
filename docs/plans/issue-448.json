@@ -1,0 +1,162 @@
+[
+  {
+    "id": "ui-verify-hpmp",
+    "title": "V1 查證：原版 HP／MP 浮動窗與頭上條的座標、尺寸、圖與顏色",
+    "stage": "resource",
+    "priority": "P1",
+    "text": "runner: claude-local。依 docs/design/native-ui.md 第 6 節 V1。沿用 T161 方法（IDA 7.7 開 P01 IDB 在 scratch/ 的副本，唯讀分析未加殼 TW1608262200.bin）。從 Lineage.ClientConfig.FloatingHPMP、showCharacterHPMP、HPMPBarThick、HPMPBarRecovery、HPMPBarPercent 與解析者 sub_919F30（VA 0x919F30）往繪製端追，取得浮動窗與頭上條的 800×600 座標、尺寸、surf 編號、顏色、預設開關。產出併入 docs/reference/ui-layout.md 第 2 節（附 VA／File Offset），報告 docs/reports/當次issue.md。不改產品程式，不把遊戲資源放進 git，不啟動遊戲。",
+    "depends_on": []
+  },
+  {
+    "id": "ui-verify-red-notice",
+    "title": "V2 查證：原版紅字（畫面中央系統訊息）的位置、字色、時長與行數",
+    "stage": "resource",
+    "priority": "P2",
+    "text": "runner: claude-local。依 docs/design/native-ui.md 第 6 節 V2。唯讀靜態分析 TW1608262200.bin，找出畫面中央系統訊息（紅字）的繪製位置、字型、顏色（調色盤索引）、顯示時長、最多行數，以及觸發它的封包類型。產出併入 docs/reference/ui-layout.md（附 VA／File Offset），報告 docs/reports/當次issue.md。不改產品程式，不啟動遊戲。",
+    "depends_on": []
+  },
+  {
+    "id": "ui-verify-buff-icons",
+    "title": "V3 查證：舊封包狀態圖示的 surf 對照、畫面位置與排序",
+    "stage": "resource",
+    "priority": "P1",
+    "text": "runner: claude-local。依 docs/design/native-ui.md 第 6 節 V3。d287 不送 SC_SPELL_BUFF_NOTI，所以要查 3.81 舊封包（S_SKILLHASTE、S_SKILLBRAVE、STATUS_EFFECT_* 等，除錯字串 VA 0x1183E1C–0x1184C34）對應的圖示 surf、畫面座標、排列順序與剩餘時間顯示。嘗試解析 Sprite.pak 的 SpellIcon.idx（只輸出到 scratch/）。產出一張「效果→surf→位置／排序」對照表，併入 docs/reference/ui-layout.md 第 4 節。不改產品程式，不把遊戲資源放進 git。",
+    "depends_on": []
+  },
+  {
+    "id": "ui-verify-runtime",
+    "title": "V4 查證：UI 框架層細節（.img 旗標與透明、按鈕狀態順序、XML 編碼、-c 退回、Sprite 重名優先序、字型）",
+    "stage": "resource",
+    "priority": "P2",
+    "text": "runner: claude-local。依 docs/design/native-ui.md 第 6 節 V4，逐項查證：(a) .img 標頭 u16 旗標的意義與透明色規則；(b) surfNumber 範圍 a~b 代表的按鈕狀態順序；(c) BIN 解碼 UI XML 用的編碼；(d) sub_B3D390 缺 -c 檔時是否改讀無後綴檔；(e) Sprite.pak 與 SpriteNN.pak 同名 .img（53 個，46 個內容不同，都小於 1500）時用哪一份；(f) UI 文字的字型與大小。每項標已驗證／推測，附 VA／File Offset，併入 docs/reference/ui-layout.md 第 1 節。不改產品程式。",
+    "depends_on": []
+  },
+  {
+    "id": "ui-verify-bar-behavior",
+    "title": "V5 查證：底列行為（巨集 8 格座標、F1–F4 與 Map 快捷鍵、世界畫面範圍、小地圖內容、485 槽位切換）",
+    "stage": "resource",
+    "priority": "P1",
+    "text": "runner: claude-local。依 docs/design/native-ui.md 第 6 節 V5，逐項查證：(a) RIGHT_WINDOW 巨集 8 格各自的座標與格距（XML 只給第一格 (14,21)）；(b) F1–F4 的原版用途、Map 與其他 UI 快捷鍵；(c) 世界畫面是畫滿 800×600 被底列覆蓋，還是只畫 800×470；(d) MINI_MAP_WINDOW 地圖區是即時縮圖還是 png（MINI_MAP_BASE 字串 VA 0x119C818 的 xref）；(e) MINI_MAP／EX_MACRO／PARTY_PET_RT 三者共用 (485,475) 時的切換觸發。併入 docs/reference/ui-layout.md 第 2 節與第 5 節，附 VA／File Offset。不改產品程式。",
+    "depends_on": []
+  },
+  {
+    "id": "ui-core-resources",
+    "title": "C1 原生 UI 資源層：Tile.pak UI XML 解密與 Sprite .img 執行期讀取",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: codex-local。依 docs/design/native-ui.md 第 2 節。在 engine/source/NativeUi/ 新增 ClientArchive.cs（共用 idx/pak 讀取；既有 GroundSpriteReader 不改）、UiXmlSource（AES-128-CBC 逐塊解密＋尾段 XOR、-c 優先並退回無後綴檔、宣告編碼或 CP950）、UiLayout/UiNode、SurfCatalog（SurfList.xml 對照、Sprite.idx＋Sprite00–15 聯合索引、同名且內容不同就拒絕、.img RGB555 解碼成 32bpp PArgb、記憶體 LRU 32 MiB）、Tile/Sprite pin 表。離線測試放 engine/_integration/dev/native-ui-tests/ResourceChecks.cs，全部用程式合成的加密 XML 與 idx/pak（含尾段不足 16 byte、截斷、越界、重名、pin 不符）。有 TW_CLIENT_ROOT 時做選用檢查：65 個 XML 都能解析，3168／3176／3279 的尺寸符合 docs/reference/ui-layout.md；輸出只放 scratch/。禁止把 XML、.img 或像素放進 git、embedded resource 或 engine/assets。完成後執行 rebuild.py --update-lock 與 --build。報告 docs/reports/當次issue.md。",
+    "depends_on": []
+  },
+  {
+    "id": "ui-dev-window",
+    "title": "C3 開發工具改為獨立視窗：網頁面板、服務分頁、狀態列移出遊戲畫面，開發快捷鍵讓出 F1–F12",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: codex-local。依 docs/design/native-ui.md 第 4 節。新增 DevToolsForm（非模態、Owner=ClientForm），內含現有 webHost（WebView2）、normalPanels 分頁與 bar 狀態文字；開發快捷鍵改為 Ctrl+Shift+F9／F10／F11／F12，診斷模式的 F2／F3／F6／F7／F8 也改成 Ctrl+Shift；PlayerSceneBounds 不再扣 webHost.Width；CaptureEvidence 改為另存邏輯畫面。WebView2 的安全設定原樣保留，焦點在兩個視窗間切換時呼叫既有的 LeaveGameFocus／ReturnGameFocus。可改：WebPanel.cs、ProductEntry.cs、Program.cs（快捷鍵與 bar）、新檔 DevToolsForm.cs、相關測試。驗收：開關開發工具時，主視窗場景矩形不變；normalProduct 中 F1–F12 不再觸發開發功能；web-resource-tests、world-ui-tests 與其他 demo-tests 全過；rebuild.py --update-lock 與 --build 成功。報告要寫明：登入、背包等功能暫時在開發工具中操作，這是過渡措施，不是原版行為。",
+    "depends_on": []
+  },
+  {
+    "id": "ui-core-canvas",
+    "title": "C2 原生 UI 畫布：800×600 邏輯畫布、整數倍置中縮放、輸入對映、IUiPanel 契約與 nativeUi 開關",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: codex-local。依 docs/design/native-ui.md 第 3 節與第 5.1 節。在 engine/source/NativeUi/ 新增 UiRoot、UiCanvas、UiPresenter（s=max(1,floor(min(W/800,H/600)))、置中黑邊、最近鄰；選用的等比填滿）、UiInput（邏輯座標換算、黑邊不傳遞、命中測試由浮動層往下、拖曳限制在畫布內）、UiContracts（IUiPanel、IUiGameState、IUiCommands、UiLayer）、UiPanelRegistry、UiSlotGroup（BAR_485）、UiText；世界層改用 UiRoot.WorldRect（先設 800×600）。nativeUi 設定或 --native-ui 預設關閉；pin 不符時退回舊 HUD 並顯示錯誤。Program.cs／PlayerHudIntegration.cs 只加開關分支。驗收：800×600／1600×1200／1920×1080 的倍率與偏移正確；開關關閉時，既有測試與舊 HUD 行為不變；離線測試放 native-ui-tests/CanvasChecks.cs。rebuild.py --update-lock 與 --build 成功。",
+    "depends_on": ["ui-core-resources", "ui-dev-window"]
+  },
+  {
+    "id": "ui-left-status",
+    "title": "原生 UI 模組：左狀態框 LEFT_WINDOW（等級／EXP、AC、MR、陣營、SP、負重、飽食、金幣）",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: codex-local。依 docs/design/native-ui.md 第 5.3 節 ui-left-status。只新增 NativeUi/LeftStatusPanel.cs、NativeUi/State/LeftStatusState.cs、native-ui-tests/LeftStatusChecks.cs，並在 UiPanelRegistry 與 demo-tests 各加一行。版面從 uistatus86-c.xml 的 LEFT_WINDOW 執行期讀取。先盤點既有模型已有的欄位，伺服器沒送的值顯示空白，不推算。驗收：各子元件座標＝XML 座標＋(0,475)；三種陣營、三段負重切換正確；null surf 不畫；本機渲染 PNG 只放 scratch/ 並在報告中比對；git 不新增任何遊戲資源。",
+    "depends_on": ["ui-core-canvas"]
+  },
+  {
+    "id": "ui-hpmp",
+    "title": "原生 UI 模組：HP／MP 浮動窗與頭上條",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: codex-local。依 docs/design/native-ui.md 第 5.3 節 ui-hpmp，以及 V1 查證結果。只新增 NativeUi/HpMpPanel.cs、NativeUi/State/HpMpState.cs、native-ui-tests/HpMpChecks.cs，並在註冊表加一行。座標、尺寸、顏色與設定行為都照 V1 的報告；HP／MP 只用伺服器值。驗收照第 5.2 節共通驗收。",
+    "depends_on": ["ui-core-canvas", "ui-verify-hpmp"]
+  },
+  {
+    "id": "ui-macro-bar",
+    "title": "原生 UI 模組：巨集框 F5–F12 共 8 格、3 個分頁、鎖定，以及擴充巨集",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: codex-local。依 docs/design/native-ui.md 第 5.3 節 ui-macro-bar，以及 V5 查證結果（格距、F1–F4 用途）。只新增 NativeUi/MacroPanel.cs、ExMacroPanel.cs、State/MacroState.cs、native-ui-tests/MacroChecks.cs，並在註冊表加一行。RIGHT_WINDOW (643,476) 底圖 3176，8 格 × 3 分頁（action 10–12），選取框與 MACRO_LOCK；EX_MACRO_WINDOW 放在 BAR_485 槽位。原生模式下 F5–F12 觸發格子，透過既有 PlayerHudActions.Activate。存檔沿用 CharacterConfig；原版 protobuf 格式的差異列在報告中，不在本任務實作。驗收：用合成 Item／Magic 驗證綁定與觸發，並寫出舊 F1–F4 綁定的移轉規則。",
+    "depends_on": ["ui-core-canvas", "ui-verify-bar-behavior"]
+  },
+  {
+    "id": "ui-menu-buttons",
+    "title": "原生 UI 模組：巨集框選單按鈕 Map／Mail／Status／Spell／Item／Pledge／Option／Quit",
+    "stage": "code",
+    "priority": "P2",
+    "text": "runner: codex-local。依 docs/design/native-ui.md 第 5.3 節 ui-menu-buttons。只新增 NativeUi/MenuButtonsPanel.cs 與 native-ui-tests/MenuButtonsChecks.cs，並在註冊表加一行。RIGHT_WINDOW 的 8 個按鈕在 y=91、x=2／21／40／59／78／97／116／135，action 13、1–7。按鈕狀態圖在 V4 完成前只用 surf 範圍的第 0 張。每個 action 都對應到 IUiCommands 的既有功能；還沒有原生視窗的，打開開發工具中對應的分頁，並在報告寫明這是過渡。Quit 走既有登出確認。",
+    "depends_on": ["ui-core-canvas"]
+  },
+  {
+    "id": "ui-chat-window",
+    "title": "原生 UI 模組：聊天窗 CENTER_WINDOW（36 px 伸縮、頻道分頁、過濾、輸入列、左右分割）",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: codex-local。依 docs/design/native-ui.md 第 5.3 節 ui-chat-window。只新增 NativeUi/ChatPanel.cs、State/ChatState.cs、native-ui-tests/ChatWindowChecks.cs，並在註冊表加一行。CENTER_WINDOW (129,470)：底圖 3279 底部錨定 y=600，高度 130–240、每階 36 px；上下鈕 (345,115)；輸入列 2273 (10,114)；8 個頻道分頁位於 x=8、y=10–115、間距 15；過濾圖示 y=5；LCHAT 3288／RCHAT 3290。輸入焦點沿用 PlayerChatKeyboardFlow。驗收：每一階的高度與錨定、分頁與過濾、捲動與行數上限。",
+    "depends_on": ["ui-core-canvas"]
+  },
+  {
+    "id": "ui-chat-format",
+    "title": "聊天行格式與原版調色盤顏色（新舊 UI 共用）",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: codex-local。依 docs/design/native-ui.md 第 5.3 節 ui-chat-format，以及 docs/reference/ui-layout.md 第 3 節表格（已驗證部分）。修改 PlayerChat.cs、PlayerHudChat.cs，新增 NativeUi/ChatPalette.cs（RGB555 索引色，只放 T161 表列出的索引與色值）。各類型照原版格式：name: msg、(name)、-> (target)、[name]、{name}、{{name}}；補上類型 12／13／14／15／17 的顯示；* 開頭的黃字與全體 CP950 * 紅字。前綴→頻道對照仍是推測，不在本任務範圍。驗收：player-chat-tests 逐類型比對格式字串與色值；不需要等 C2。",
+    "depends_on": []
+  },
+  {
+    "id": "ui-minimap",
+    "title": "原生 UI 模組：底列小地圖與 Field_Map 小窗（Map 按鈕開關，讓出 F5）",
+    "stage": "code",
+    "priority": "P2",
+    "text": "runner: codex-local。依 docs/design/native-ui.md 第 5.3 節 ui-minimap，以及 V5 查證結果（地圖區內容、切換觸發）。只新增 NativeUi/MiniMapPanel.cs、FieldMapPanel.cs、State/MapState.cs、native-ui-tests/MiniMapChecks.cs，並在註冊表加一行。MINI_MAP_WINDOW (485,475) 框 3275＋底 3274（地圖區 135×101 位於 +12,+20），放在 BAR_485 槽位；Field_Map (5,250) 161×121，使用 MapSystem-c.xml 的 ratio／baseLoc／basePixel 換算、8 方向箭頭 2818–2825、隊友點 2826、關閉與縮放鈕。png 地圖在執行期從客戶端讀取，不進 git。原生模式下 F5 不再開關小地圖。驗收：座標換算用合成資料驗證；箭頭選圖；槽位互斥。",
+    "depends_on": ["ui-core-canvas", "ui-verify-bar-behavior"]
+  },
+  {
+    "id": "ui-party",
+    "title": "原生 UI 模組：隊伍底板 PARTY_INTERFACE 與右側隊伍／寵物窗",
+    "stage": "code",
+    "priority": "P2",
+    "text": "runner: codex-local。依 docs/design/native-ui.md 第 5.3 節 ui-party。只新增 NativeUi/PartyPanel.cs、PartyRtPanel.cs、State/PartyState.cs、native-ui-tests/PartyPanelChecks.cs，並在註冊表加一行。隊伍底板 3204 (0,493) 蓋在左狀態框上；分頁鈕 y=481（3205／3208／3298）；隊員量表 3211 與紅色 3212（58 px）；離開／踢除／委任位於 y=574、x=70／90／109；PARTY_PET_RT_WINDOW 3220 放在 BAR_485 槽位。資料來自既有 Party 模型，按鈕呼叫既有 Party 動作。驗收：HP 比例對應到量表寬度、分頁切換、上下層次正確。",
+    "depends_on": ["ui-core-canvas"]
+  },
+  {
+    "id": "ui-bookmark",
+    "title": "原生 UI 模組：書籤視窗 BookmarkUI（263×420 可拖曳）",
+    "stage": "code",
+    "priority": "P3",
+    "text": "runner: codex-local。依 docs/design/native-ui.md 第 5.3 節 ui-bookmark，以及 docs/reference/ui-layout.md 第 6 節。T124（#258）合併後才開工。只新增 NativeUi/BookmarkPanel.cs、State/BookmarkState.cs、native-ui-tests/BookmarkPanelChecks.cs，並在註冊表加一行。內容：快速移動清單、記憶座標清單＋捲軸、區域下拉、隨機傳送與排序、13 色調色盤、確認／取消。新增與刪除走 T124 的既有邏輯。驗收：清單捲動與選取、拖曳限制在畫布內。",
+    "depends_on": ["ui-core-canvas"]
+  },
+  {
+    "id": "ui-buff-icons",
+    "title": "原生 UI 模組：狀態圖示（依舊封包對照）",
+    "stage": "code",
+    "priority": "P2",
+    "text": "runner: codex-local。依 docs/design/native-ui.md 第 5.3 節 ui-buff-icons，以及 V3 查證結果。只新增 NativeUi/BuffIconsPanel.cs、State/BuffState.cs、native-ui-tests/BuffIconsChecks.cs，並在註冊表加一行。圖示 surf、位置、排序與剩餘時間顯示都照 V3 的對照表；沒有對照的效果不畫，並記錄下來（不畫替代菱形）。驗收照第 5.2 節共通驗收。",
+    "depends_on": ["ui-core-canvas", "ui-verify-buff-icons"]
+  },
+  {
+    "id": "ui-red-notice",
+    "title": "原生 UI 模組：紅字（畫面中央系統訊息）",
+    "stage": "code",
+    "priority": "P3",
+    "text": "runner: codex-local。依 docs/design/native-ui.md 第 5.3 節 ui-red-notice，以及 V2 查證結果。只新增 NativeUi/RedNoticePanel.cs 與 native-ui-tests/RedNoticeChecks.cs，並在註冊表加一行。位置、字色、時長、行數照 V2；佇列沿用 DisplayNotices。驗收照第 5.2 節共通驗收。",
+    "depends_on": ["ui-core-canvas", "ui-verify-red-notice"]
+  },
+  {
+    "id": "ui-native-smoke",
+    "title": "原生 UI 真機 smoke：P24Lab 測試角色開 nativeUi 跑一輪",
+    "stage": "test",
+    "priority": "P2",
+    "text": "runner: dot（依 2026-11-06 授權，只限 P24Lab 42061／43324 的測試角色；不碰正式 2000／3306）。依 docs/design/native-ui.md 第 5.3 節收尾。用 nativeUi 開啟的 dev 建置，真機檢查：底列、聊天伸縮與格式、巨集 F5–F12、選單按鈕、小地圖與 Field_Map、隊伍、書籤、狀態圖示、紅字、縮放 1× 與 2×；截取邏輯畫布並與原版版面對照。結果寫進 docs/reports/當次issue.md，分已驗證／推測／待驗證。是否把 nativeUi 設為預設由主控決定。",
+    "depends_on": ["ui-left-status", "ui-hpmp", "ui-macro-bar", "ui-menu-buttons", "ui-chat-window", "ui-chat-format", "ui-minimap", "ui-party", "ui-bookmark", "ui-buff-icons", "ui-red-notice"]
+  }
+]

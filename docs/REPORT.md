@@ -131,3 +131,8 @@
 - 2026-11-07 — #378 T146：血盟戰爭（code，claude-local，PR 已合併）→ [報告](reports/issue-378.md)
 - 2026-11-07 — #428 T160：查證原版——動作、表情與名稱繪製（resource，claude-local，PR 已合併）→ [報告](reports/issue-428.md)
 - 2026-11-07 — #431 T163：查證原版——音效播放策略（resource，claude-local，PR 已合併）→ [報告](reports/issue-431.md)
+- 2026-11-07 — #429 T161：查證原版——UI 版面與圖示（resource，claude-local，PR 已合併）→ [報告](reports/issue-429.md)
+- 2026-11-07 — #433 T165：戰鬥音效補播 `<` 模式（code，claude-local，PR 已合併）→ [報告](reports/issue-433.md)
+- 2026-11-07 — #448 T174：原版 800×600 UI 框架設計（契約先行）（design，claude-local，PR 已合併）→ [報告](reports/issue-448.md)
+- 2026-11-07 — #432 T164：已完成 M6 功能的原版對照修正清單（resource，claude-local，PR 已合併）→ [報告](reports/issue-432.md)
+- 2026-11-07 — #485 T-plan：同步 TASKS——T167–T182、原版 UI 計畫任務，狀態更新（plan，claude-chat，PR 已合併）→ [報告](reports/issue-485.md)
