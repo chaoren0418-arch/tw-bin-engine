@@ -109,6 +109,7 @@ public sealed class PlayerHudView:Panel {
         statusIcons.ArrangeBeside(notice,notice.Bounds);
     }
     public void UpdateState(PlayerHudSnapshot state,Func<ushort,Bitmap?> icon){
+        state=GhostModeHud.Update(this,menu,state);
         bool identity=lastStamp.Generation!=state.Stamp.Generation||lastStamp.Actor!=state.Stamp.Actor;
         if(identity){selected=null;assigning=clearing=false;gridKey="";}
         else if(lastStamp.WorldEpoch!=state.Stamp.WorldEpoch){selected=null;assigning=clearing=false;gridKey="";}

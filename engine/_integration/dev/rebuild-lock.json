@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 182,
+ "sourceCount": 183,
  "files": [
   {
    "path": "NuGet.Config",
@@ -263,6 +263,11 @@
    "path": "source/EventJournal.cs",
    "size": 1474,
    "sha256": "4d0b1989f0ac6fb8ec76a0919c58538db0c3e8a7ff99e6916942818b151cd510"
+  },
+  {
+   "path": "source/GhostMode.cs",
+   "size": 4756,
+   "sha256": "68f205e865739c044125e446dd8615df12d6ab4539f9a4aebdf78f21e0833d6e"
   },
   {
    "path": "source/Ground.cs",
@@ -651,8 +656,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15394,
-   "sha256": "f7583e75ba3a88ada62b0612e5ef36e3f36f3a2df3e37a6147853ceabf141c74"
+   "size": 15447,
+   "sha256": "660cd8bc49d3e581fd57f47ff102ba6cc8110632162aeca2f8f4e05917e832be"
   },
   {
    "path": "source/PlayerPointer.cs",
@@ -906,8 +911,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9568,
-   "sha256": "586458c6e4f3c54bf39eb39cff522a74451ad86a440f956d46e57c2ca436d002"
+   "size": 9589,
+   "sha256": "64e0595785fcacac6c2dc5ce5257edfa474f6e2e8bf71676ddb680b74b46a228"
   },
   {
    "path": "source/WorldTests.cs",
