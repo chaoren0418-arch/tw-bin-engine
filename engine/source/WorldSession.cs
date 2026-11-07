@@ -53,6 +53,7 @@ public sealed partial class WorldSession {
         }
         if(ReceiveRecovery(opcode,r)||ReceivePlayerChat(opcode,r,plain)||ReceiveSustenance(opcode,r,plain)||ReceiveBonusStats(opcode,r,plain)||ReceivePrivateShop(opcode,r,plain)||ReceiveTeleport(opcode,r)||ReceiveTrade(opcode,r)||ReceiveInteraction(opcode,r)||ReceiveMagic(opcode,r,plain)||ReceiveEquipment(opcode,r,plain)||ReceiveInventory(opcode,r,plain)||ReceiveExperience(opcode,r)||ReceiveCombat(opcode,r,plain)||ReceiveObjectDelta(opcode,r)){BasicSupplyReply(opcode,plain);return;}
         switch(opcode){
+        case 186:ReceiveMail(plain);break;
         case 72:ReceiveClanUpdate(plain);break;
         case 118:ReceiveClanEmblem(plain);break;
         case 200:ReceiveClanAttention(plain);break;

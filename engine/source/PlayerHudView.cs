@@ -86,6 +86,7 @@ public sealed class PlayerHudView:Panel {
         Controls.AddRange([vitals,shortcuts,menu,notice,grid,selectedText,actions,chat]);
         Controls.Add(statusIcons);
         MinimapUi.Attach(this,menu);
+        MailUi.Attach(this,menu);
         chat.Enter+=(_,_)=>ChatEntered?.Invoke();chat.SubmitRequested+=async(text,view)=>ChatSubmitRequested!=null&&await ChatSubmitRequested(text,view);
         Resize+=(_,_)=>Arrange();
     }
