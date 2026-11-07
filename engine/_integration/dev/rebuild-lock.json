@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 178,
+ "sourceCount": 179,
  "files": [
   {
    "path": "NuGet.Config",
@@ -166,8 +166,8 @@
   },
   {
    "path": "source/Combat.cs",
-   "size": 13885,
-   "sha256": "8f26c5dda4b164c64438cabe568a0b9ce152c53fd659e8b15c5860391b705f02"
+   "size": 13944,
+   "sha256": "8b8360390be7d77e27aae04206a89004b1df878cab7554e4d858357b4618eb6d"
   },
   {
    "path": "source/CombatRegression.cs",
@@ -300,9 +300,14 @@
    "sha256": "cf6984782fadd2c24d8cbf42cc671277e597a869670e68c3f70dbbd2bf8e7d93"
   },
   {
+   "path": "source/HitReactionSuppress.cs",
+   "size": 1269,
+   "sha256": "2cc8a81451794b9d670ee8cf7fa5bd345ca214b0483e38f0ed54aee601774cbd"
+  },
+  {
    "path": "source/Inventory.cs",
-   "size": 14421,
-   "sha256": "ee4ac857251bdfb4c82be44d40f3723eefd0a4e96d84236416c36c6b773fdd54"
+   "size": 14503,
+   "sha256": "100f7aae3f6030cb1c3e8ff708d553ac150c88f2d7e6a7031d3ee844385a76ce"
   },
   {
    "path": "source/InventoryIntegration.cs",
@@ -681,8 +686,8 @@
   },
   {
    "path": "source/ProjectileRendering.cs",
-   "size": 5561,
-   "sha256": "917625f6c00b430195311f34e5c7fdabf56b0d5d28f7a53b8abc1053368ff466"
+   "size": 5605,
+   "sha256": "05d1588ce0fe814462f9175e208f081854e735a8daa4c6dcfa655586a9afbea9"
   },
   {
    "path": "source/Protocol.cs",
@@ -886,8 +891,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9541,
-   "sha256": "7a87c3a48b86b54354e3042946255c9ef71eb5012dbffd460f23cd7866e7a1a0"
+   "size": 9568,
+   "sha256": "586458c6e4f3c54bf39eb39cff522a74451ad86a440f956d46e57c2ca436d002"
   },
   {
    "path": "source/WorldTests.cs",
