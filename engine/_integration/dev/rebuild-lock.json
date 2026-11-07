@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 215,
+ "sourceCount": 216,
  "files": [
   {
    "path": "NuGet.Config",
@@ -471,8 +471,8 @@
   },
   {
    "path": "source/Magic.cs",
-   "size": 10945,
-   "sha256": "5413fde4ba807aa6d9fd2771595413a3779a6e049b3fd3e7622ba82225562523"
+   "size": 11248,
+   "sha256": "9377f05f1a67a4c3de692619ae77c1be516400da537423343db5952f902c8111"
   },
   {
    "path": "source/MagicIntegration.cs",
@@ -916,8 +916,8 @@
   },
   {
    "path": "source/Renderer.cs",
-   "size": 7322,
-   "sha256": "71c8e0b2bbd866e5d49db10f5731c3eba5b2d51809cb1f54ac7b784a8285a5a4"
+   "size": 7536,
+   "sha256": "c9b154f6fbccd27257f8f0d5d4eb65e117eaae81b487b426bd22c61e3d33d0b7"
   },
   {
    "path": "source/Resources/ground-catalog.json",
@@ -1005,6 +1005,11 @@
    "sha256": "7c6c04dc6bf70a505d6ac518ebadc79c0832f72748959e0d8c73182a9aa7b612"
   },
   {
+   "path": "source/TimedBuffs.cs",
+   "size": 4134,
+   "sha256": "59d7edc24323504c063483ac3cb73c3efb9731cfc019687b0595e46e6a567129"
+  },
+  {
    "path": "source/Trade.cs",
    "size": 11704,
    "sha256": "0a33d6c3c02565acc35a7e3473e5fc70ad5ddf8c00dcda9de3bce217228ba965"
@@ -1071,8 +1076,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 12329,
-   "sha256": "0a7a4b3d4af44bd040bd0717b57110369a05b7a74e6e9b207e5cf4a98e2af133"
+   "size": 12581,
+   "sha256": "effde08751bfd825e728221e01c380c656d72ae1df9c5e3a201566d33e85d8ab"
   },
   {
    "path": "source/WorldTests.cs",
