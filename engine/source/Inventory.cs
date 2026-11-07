@@ -1,8 +1,17 @@
 namespace P06;
 // Template IDs are not carried by these packets. Description/icon/use type remain distinct.
 public sealed record InventoryItem(uint ObjectId,ushort DescriptionId,byte UseType,byte Charges,ushort IconId,byte Bless,uint Count,byte Flags,string Name,string StatusHex,string TailHex) {
-    // Original L1ItemStatus.getNumberedViewName offsets 478..493 and 562..576.
-    public bool? Equipped=>UseType==1?Name.EndsWith(" ($9)",StringComparison.Ordinal):EquipmentRules.IsArmor(UseType)?Name.EndsWith(" ($117)",StringComparison.Ordinal):null;
+    // The session supplies live S64 slot evidence; a name is never equipment evidence.
+    internal Func<uint,byte,bool?>? EquipmentLookup {private get;init;}
+    public bool? Equipped=>EquipmentLookup?.Invoke(ObjectId,UseType);
+    private string statusHex=StatusHex;
+    private ItemStatus status=ItemStatus.Parse(StatusHex);
+    public string StatusHex {get=>statusHex;init{statusHex=value;status=ItemStatus.Parse(value);}}
+    public ItemStatus Status=>status;
+    public bool Identified=>(Flags&1)!=0;
+    public bool Tradable=>(Flags&2)==0;
+    public bool Deletable=>(Flags&4)==0;
+    public bool Sealed=>(Flags&32)!=0||(Bless&128)!=0;
     bool NormalPotionName(string name)=>ObjectId!=0&&Count>0&&Charges==0&&Bless==1&&(Flags&0xE0)==0&&Name==(Count==1?name:name+" ("+Count.ToString(System.Globalization.CultureInfo.InvariantCulture)+")");
     public bool SupportedHealingPotion=>DescriptionId==1342&&IconId==80&&UseType==249&&NormalPotionName("$26");
     public bool SupportedHastePotion=>DescriptionId==17&&IconId==77&&UseType==246&&NormalPotionName("$234");
@@ -44,10 +53,10 @@ public sealed partial class WorldSession {
     void CompleteInitialInventory(){if(!InventoryLoaded&&inventory.IsEmpty){InventoryLoaded=true;EmptyInventoryFromWorldSync=true;InventoryRevision++;ItemNotice="原服世界已同步；目前背包空白（原服省略空清單）";}}
     public bool SelectItem(uint? id){if(id!=null&&!inventory.ContainsKey(id.Value))return false;SelectedItemId=id;ItemSelectionRevision++;InventoryRevision++;return true;}
     static string Bytes(LoginReader r,int n)=>Convert.ToHexString(Enumerable.Range(0,n).Select(_=>r.C()).ToArray());
-    static InventoryItem ReadItem(LoginReader r){
+    InventoryItem ReadItem(LoginReader r){
         uint id=r.D();ushort desc=r.H();byte use=r.C(),charge=r.C();ushort icon=r.H();byte bless=r.C();uint count=r.D();byte flags=r.C();string name=r.S(),status=Bytes(r,r.C()),tail=Bytes(r,11);
         if(id==0||count>2000000000)throw new ProtocolException("invalid inventory identity/count");
-        return new(id,desc,use,charge,icon,bless,count,flags,name,status,tail);
+        return new(id,desc,use,charge,icon,bless,count,flags,name,status,tail){EquipmentLookup=AuthoritativeItemEquipped};
     }
     void RemoveItem(uint id){inventory.TryRemove(id,out _);if(SelectedItemId==id)SelectItem(null);}
     void UpdateItem(uint id,Func<InventoryItem,InventoryItem> change){if(inventory.TryGetValue(id,out var old)){var item=change(old);if(item.Count>2000000000)throw new ProtocolException("invalid item count");if(item.Count==0)RemoveItem(id);else inventory[id]=item;}else UnknownItemUpdates++;}

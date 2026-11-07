@@ -124,3 +124,6 @@
 - 2026-11-07 — #390 T150：小地圖（code，claude-local，PR 已合併）→ [報告](reports/issue-390.md)
 - 2026-11-07 — #415 T152：鑑定說明、紅字訊息、名稱狀態（code，claude-local，PR 已合併）→ [報告](reports/issue-415.md)
 - 2026-11-07 — #416 T153：暫時能力、酒醉、水中呼吸、刪除技能（code，claude-local，PR 已合併）→ [報告](reports/issue-416.md)
+- 2026-11-07 — #216 T121：物品 status blob 語義化（code，claude-local，PR 已合併）→ [報告](reports/issue-216.md)
+- 2026-11-07 — #323 T137：稱號與表情動作（code，claude-local，PR 已合併）→ [報告](reports/issue-323.md)
+- 2026-11-07 — #427 主控：補第四層證據——客戶端原生行為查證（IDA）先於開發；M6 todo 先查證再派（plan，claude-chat，PR 已合併）→ [報告](reports/issue-427.md)
