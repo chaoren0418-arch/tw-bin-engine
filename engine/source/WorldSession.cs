@@ -29,6 +29,7 @@ public sealed partial class WorldSession {
     public void Receive(byte[] plain,string selected){try{ReceiveCore(plain,selected);}finally{ValidatePickupPresentation(ActionClock());CombatSoundStateChanged?.Invoke();}}
     void ReceiveCore(byte[] plain,string selected){
         var r=new LoginReader(plain);byte opcode=r.C();
+        if(ReceiveDuel(opcode,plain))return;
         if(ReceiveRecovery(opcode,r)||ReceivePlayerChat(opcode,r,plain)||ReceiveSustenance(opcode,r,plain)||ReceiveBonusStats(opcode,r,plain)||ReceivePrivateShop(opcode,r,plain)||ReceiveTeleport(opcode,r)||ReceiveTrade(opcode,r)||ReceiveInteraction(opcode,r)||ReceiveMagic(opcode,r,plain)||ReceiveEquipment(opcode,r,plain)||ReceiveInventory(opcode,r,plain)||ReceiveExperience(opcode,r)||ReceiveCombat(opcode,r,plain)||ReceiveObjectDelta(opcode,r)){BasicSupplyReply(opcode,plain);return;}
         switch(opcode){
         case 223:
