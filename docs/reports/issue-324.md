@@ -10,13 +10,19 @@
 
 ## 怎麼驗證（已驗證）
 
-1. `rebuild.py --update-lock`：181 個來源、190 個鎖定輸入通過；只更新 dev lock。
+1. `rebuild.py --update-lock`：同步 main 後 185 個來源、194 個鎖定輸入通過；只更新 dev lock。
 2. `rebuild.py --build --configfile scratch/issue-324/NuGet.Config --output scratch/issue-324/build`：產品、audio、launcher 建置成功。主產品 0 錯誤，既有 `MagicUi.cs:20` 兩個 nullable 警告；launcher 0 警告／0 錯誤。
 3. `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -p:UseSharedCompilation=false -- . scratch/issue-324/checks.json character-config`：93 項檢查通過。測試執行產品 DLL，使用合成封包及記憶體 sender；SocketGuard 禁止網路。涵蓋 C／S 實際布局、八種補齊餘數、空／未知設定、畸形長度／尾段、frame 極限、資料複本隔離、其他 S250 子碼、HUD 還原／指派／清除、取消與新設定抵達時的排隊失效。
-4. `check-no-game-assets.py`：通過，3,293 個追蹤檔案、0 errors、4 個 embedded resource 宣告。`git -c core.whitespace=cr-at-eol diff --cached --check` 通過（保留既有 CRLF 檔案格式）。
+4. `check-no-game-assets.py`：同步後通過，3,314 個追蹤檔案、0 errors、4 個 embedded resource 宣告。`git -c core.whitespace=cr-at-eol diff --cached --check` 通過（保留既有 CRLF 檔案格式）。
 5. PR CI 結果於推送後核對；Windows `map-continuity` 入口會實際執行本模組測試。
 
 本機工具用 Python 3.12 的絕對路徑呼叫（PATH 沒有 python）；NuGet 網路來源因本機 TLS 認證失敗，改用 scratch 中的設定唯讀引用主專案 `engine/vendor`，套件解壓與所有產物留在 worktree。測試編譯停用共用 compiler server，避開既有 server 的輸出路徑存取失敗。
+
+## 合併前同步（2026-11-07）
+
+依 Issue 調度器的同步指示，將 `origin/main`（`9f62553`）合併至既有 `task/324`，沿用 PR #352。解決 `WorldSession.cs`、DemoChecks 專案及入口、dev lock 四處衝突：保留角色設定與好友模組的個別分派和測試入口，lock 由 `--update-lock` 重新產生，未手動拼接 hash。`docs/REPORT.md` 完全沿用 main，沒有新增或改寫索引。
+
+同步後重跑完整建置、93 項 `character-config`、451 項 `map-continuity`（含角色設定與公告欄）、115 項 `buddies-codec` 與資源檢查，全部通過。暫存證據另含 `scratch/issue-324/map-checks.json`、`scratch/issue-324/buddies-checks.json`。本輪不改已審查的角色設定功能；推送後核對新提交的 CI 與 PR 可合併狀態。
 
 ## 未驗證什麼
 
