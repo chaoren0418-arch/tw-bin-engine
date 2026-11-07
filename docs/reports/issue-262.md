@@ -4,7 +4,7 @@
 
 ## 做了什麼
 
-- 本次再合併 `origin/main`（`0380ae6062804b976fe32e5ac2a20b0b611e42ac`），保留公告欄、道具轉移、角色管理及其他既有分派／測試；唯一衝突是 dev lock，取 main 後由 `--update-lock` 重建。既有血盟實作已符合第三輪範圍，本次沒有額外修改產品程式。
+- 本次再合併 `origin/main`（`9f62553cf8e1b1f3c8d26cb0c48e0dfd551d19ba`），保留好友、公告欄、道具轉移、角色管理及其他既有分派／測試。測試專案與 Program 入口衝突保留雙方群組；dev lock 取 main 後由 `--update-lock` 重建。既有血盟實作已符合第三輪範圍，本次沒有額外修改產品程式。另併入遠端 task/262 的 main 同步提交，保留遠端歷史。
 - 保留建立、申請加入、退出／解散、驅逐、成員查詢及已有伺服器盟徽顯示。S200 僅為關注血盟。
 - `Trade.cs` 只加一個 message=97 轉交分支。`ClanUi` 收到邀請會開啟血盟視窗，提供接受／拒絕；C121 固定使用 d287 的 H(0)、D(0)、H(97)、C(1/0)，不使用 requestId／raw confirmation。
 - 邀請以本地 revision 防止重複回答及排隊期間被新邀請取代。對方移除／離線、五分鐘逾時、拒絕、取消相關伺服器訊息、換盟、切圖、斷線或其他對話／確認操作會清除或失效；不預先修改伺服器血盟狀態。
@@ -14,15 +14,15 @@
 
 ## 已驗證／怎麼驗證
 
-- `rebuild.py --update-lock`：184 個來源、193 個鎖定輸入通過。
+- `rebuild.py --update-lock`：186 個來源、195 個鎖定輸入通過。
 - `rebuild.py --build --configfile scratch/clan-nuget.config --write-receipt --output scratch/clan-build`：Windows product／audio／launcher 全部通過，0 錯誤；產品保留既有 MagicUi.cs 兩個 nullable 警告。
 - 正式 `demo-tests/DemoChecks.csproj` 的 `clan` 群組 **119 項通過**；CI 使用的 `map-continuity` 群組 **477 項通過**，包含血盟及合併後既有測試。預設無群組入口也接入血盟測試。
-- 本次測試首次編譯遇到共享編譯器無法寫入 `DemoChecks.dll`；加入 `-p:UseSharedCompilation=false` 後重新編譯及執行成功，沒有略過失敗測試。
+- 測試以 `-p:UseSharedCompilation=false` 編譯，本次全部直接通過；另跑 main 新增的 `buddies` 群組 **169 項通過**，確認共用接收掛接保留。
 - 測試透過實際產品 DLL 的 Receive 與記憶體 sender 執行，SocketGuard 禁止 socket；涵蓋全部本模組 C／S 格式、接受與拒絕的精確 C121 bytes、九種失效／取代情境、重複提交、錯誤／截斷封包不破壞成員快照、既有 message252 交易及 S250 狀態處理。
-- `check-no-game-assets.py` 通過：3303 個追蹤檔、0 錯誤、4 個核准 EmbeddedResource。最新 head 的 GitHub CI 結果記錄於 PR checks 及本輪 RESULT；離線測試不代表真機驗收。
+- `check-no-game-assets.py` 通過，0 錯誤、4 個核准 EmbeddedResource。最新 head 的 GitHub CI 結果記錄於 PR checks 及本輪 RESULT；離線測試不代表真機驗收。
 - 本機 Python 使用已安裝的 Python312 絕對路徑；NuGet 從原專案 vendor 唯讀還原，快取、暫存與建置輸出皆在本 worktree。沒有複製遊戲資源。
 
-產品 DLL SHA-256：`59bcd71526cea8a4bb07e7bfa867df77f4663202a057defbbd5edae102b9dc97`。
+產品 DLL SHA-256：`5fa24b9139415c29c74e9afa81661f0485cbb88391b9eafc437685a86cc1e53d`。
 固定 JAR SHA-256：`d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf`。第三輪實作時已唯讀核對 JAR 身分及 UiOperationContext 的五分鐘 TTL；本次 main 同步沿用該協定證據。
 
 ## 未驗證什麼
@@ -37,7 +37,7 @@
 - `engine/source/Clan.cs`、`ClanUi.cs`；`Trade.cs`、`WorldSession.cs` 最小分派；原有 `ObjectRendering.cs` 單一繪製掛載。
 - `engine/_integration/dev/clan-tests/ClanChecks.cs`、`README.md`；既有 `demo-tests/DemoChecks.csproj`、`Program.cs`。
 - `engine/_integration/dev/rebuild-lock.json`、`docs/protocol/clan.md`、本報告。
-- 未追蹤證據：`scratch/clan-checks.json`、`scratch/clan-map-checks.json`、`scratch/clan-build/`；產品在 `engine/build/client-product-dev/`。
+- 未追蹤證據：`scratch/clan-checks.json`、`scratch/clan-map-checks.json`、`scratch/clan-buddy-checks.json`、`scratch/clan-build/`；產品在 `engine/build/client-product-dev/`。
 
 ## 給下一棒的提示
 
