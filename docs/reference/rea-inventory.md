@@ -1,6 +1,6 @@
 # 本機逆向資源盤點與二度分析（Issue #417）
 
-盤點日期：2026-11-07（Asia/Taipei）。來源全部唯讀；沒有啟動遊戲、伺服器或 DB。可重跑腳本與小型結果在 [`work/issue-417/`](../../work/issue-417/)。
+盤點日期：2026-11-07（Asia/Taipei）。來源全部唯讀；沒有啟動遊戲、伺服器或 DB。可重跑腳本在 [`docs/reference/rea-scripts/`](rea-scripts/)，小型結果在 [`work/issue-417/`](../../work/issue-417/)。
 
 ## 結論
 
@@ -9,17 +9,50 @@
 3. **B03 建議結案。** 原生鏈完整存在，但全量掃描本機 7,807 個 `.s32`，26,116 筆地圖特效**延伸記錄 0 筆**。這個功能在目前客戶端資料上不會被觸發。
 4. **產品有一項已確認的差異：** `CombatSfx.cs` 只取 `[`，略過 `<`；但 `<` 是聲音，連 `#0` 的腳步聲都是 `<`。
 
-### 與任務指示的偏差：沒有用 rea-main
+5. **REA 補上版本與血緣事實。** 四個樣本的版本資源是 `16,08,26,2200`、`13,08,19,1`、`15,05,26,301`、`22,11,23,1701`；`Lin.bin` 有 142／143 筆資源與 TW16 逐 byte 相同。資源表沒有音效或地圖資料，**對 B03／B04／B07 沒有新增內容**。
 
-任務要求用 `rea-main` 拆解，本輪**實際上跑不起來**，改用 pefile／Capstone 與 P01 既有的 IDA 資料庫（Hex-Rays）。
+### rea-main 的使用範圍
 
-| 阻礙 | 實測 |
+`rea-main` 6.8.0 **只用了內建靜態檢查**；函式層級的拆解仍靠 pefile／Capstone 與 P01 既有的 IDA 資料庫（Hex-Rays）。上方 B03／B04／B07 的地址與語義都不是 REA 產出。
+
+| 項目 | 實測 |
 |---|---|
-| 未建置 | `node scripts/rea.mjs --version` 回 `REA's compiled runtime is missing`；工具目錄沒有 `node_modules`、`dist`。建置要在工具目錄跑 `npm ci`，違反「不改動工具目錄」 |
-| Node 版本 | 本機 v24.20.0，`package.json` 要求 `^24.22.1 \|\| ^22.23.4 \|\| >=26.12.1`，且 `.npmrc` 設 `engine-strict=true` |
-| 沒有 native provider | 32-bit PE 需要 Ghidra、IDA、Hopper 或 Kuna。查過 PATH 與常見安裝位置（非全磁碟）沒有 Ghidra／Hopper／Kuna；REA 的 Windows Ghidra 路徑要 Ghidra ≥12.1 與 JDK 21（本機 `JAVA_HOME` 是 JDK 17）。IDA 7.7 存在，但 REA 要透過 ida-pro-mcp，文件未列 7.7 為已驗證版本 |
+| 工具目錄 | 未建置，沒有 `node_modules`、`dist`。**本輪未改動**，改在 `scratch/rea/rea-copy/` 的副本建置（排除 `website/`） |
+| Node 版本 | 本機 v24.20.0，要求 `^22.23.4 \|\| ^24.22.1 \|\| >=26.12.1`，且 `.npmrc` 設 `engine-strict=true`。副本以 `--engine-strict=false` 放寬，**屬未支援的版本組合**；本輪用到的命令除下方列出的兩項檔案結構錯誤外都正常輸出 |
+| 建置 | `npm ci --ignore-scripts` 成功。`npm run build:cached` 失敗（`rc=1`；輸出中唯一的錯誤訊息是缺 `native/windows/build/manifest.json`，未確認是否為直接原因），改跑 `npm run compile` 成功。`--version` 回 `6.8.0`。Windows native 控制元件未建置，依賴它的功能未測 |
+| 函式層級拆解 | 需要 Ghidra、IDA、Hopper 或 Kuna。查過 PATH 與常見安裝位置（非全磁碟）沒有 Ghidra／Hopper／Kuna；REA 的 Windows Ghidra 路徑要 Ghidra ≥12.1 與 JDK 21（本機 `JAVA_HOME` 是 JDK 17）。IDA 7.7 存在，但 REA 要透過 ida-pro-mcp，文件未列 7.7 為已驗證版本，**本輪未嘗試** |
 
-要真正用上 REA，需要使用者決定：升級 Node、安裝 Ghidra 12.x＋JDK 21，並同意在工具目錄或其副本建置。**本輪結論不依賴 REA，少了它不影響下面的地址與語義。**
+要讓 REA 做函式層級拆解，需要使用者決定：升級 Node、安裝 Ghidra 12.x＋JDK 21。
+
+## REA 靜態檢查結果
+
+重跑方式：在 `scratch/` 的副本建好 REA 後執行 `py -3 -I docs/reference/rea-scripts/run_rea.py <rea-copy> scratch/rea/rea-out`，再用 `rea_summary.py`、`rea_compare.py` 摘要（`rea_compare.py` 要用 `py -3 -B`，它會匯入同目錄的 `run_rea.py`）。輸出在 `scratch/rea/rea-out/`，摘要見 [`work/issue-417/rea-results.md`](../../work/issue-417/rea-results.md)。
+
+使用的命令：`inspect-pe-imports`、`inspect-pe-resources`、`inspect-pe-load-config`、`inspect-pe-certificates`、`inspect-native-exports`、`inspect-binary-hardening`、`inspect-byte-entropy`。
+
+| 樣本 | 版本資源 | imports（DLL／函式） | 資源筆數 | 與 TW16 相同的資源 | TLS | 整檔熵 |
+|---|---|---:|---:|---:|---|---:|
+| `TW1608262200.bin` | `16,08,26,2200` | 21／918 | 143 | — | 無 | 6.19 |
+| `TW13081901.unpacked.exe` | `13,08,19,1` | 37／1,088 | 119 | 69／114 | 無 | 5.55 |
+| `LiTo.unpacked-oep-current.exe` | 無版本資源 | 2／0（partial） | 37 | 33／36 | 無 | 5.66 |
+| `LiTo.bin` | 資源解析失敗 | 2／3 | 失敗 | — | 無 | 7.86 |
+| `Lin.bin` | `15,05,26,301` | 1／2 | 143 | **142／143** | 無 | 7.03 |
+| `LinR.bin` | `22,11,23,1701` | 425／1,394 | 12 | 1／3 | 有 | 5.90 |
+
+「與 TW16 相同」的分母是雙方都有的 type／name／language 鍵，比對 payload SHA-256。
+
+**已驗證：**
+- **六個樣本都沒有啟用 `dynamic_base`**，所以 ImageBase 固定，VA 可以直接引用。
+- **Miles：** TW16 從 `mss32midi.dll` 匯入 `_AIL_quick_play@8`，TW13 從 `mss32.dll` 匯入，LinR 同樣有此匯入。`@8` 表示兩個 stdcall 參數，與 B07 的 `AIL_quick_play(handle, 次數)` 相符，但**不能證明 `^` 是循環**。
+- **資源內容：** 只有 cursor、group cursor、icon、group icon、dialog、version、manifest，沒有 WAVE 或自訂資料。B03／B04／B07 不必再往 PE 資源找。
+- **`Lin.bin`：** 唯一不同的資源是版本。憑證鏈含 Tencent Technology(Shenzhen) 的程式碼簽章憑證（2013-01-17～2016-02-16）。REA 只讀身份欄位，**未驗證簽章有效性**。
+- **LiTo 快照：** imports 為 partial，2 個 descriptor、0 筆函式，3 筆 `name_unreadable`，位址是 `0x759933a0` 這類非檔案映射的值。這佐證 import 表尚未重建。兩個對話框與 TW16 逐 byte 相同。
+- **TW13081901 重建版：** 同名 DLL 出現兩組 descriptor（共 37 個），是重建後的 import 表形狀，取用時要注意重複。
+- **LinR：** 依賴 `libcocos2d.dll`、`libcef.dll`、`libcrypto-1_1-x86.dll`、`GfeSDK.dll`、`Libncdiag.dll`、`d3d11.dll`；匯出 5 個 cocos2d／std 符號。
+
+**推測：** `Lin.bin` 與 TW16 屬同一資源世代，且可能是騰訊發行線，但這只來自資源與憑證，未比對程式碼。
+
+**REA 失敗項：** `LiTo.bin` 的 `inspect-pe-resources` 回 `Resource range is not entirely file-backed in one section`，`LinR.bin` 的 `inspect-pe-certificates` 回 `WIN_CERTIFICATE dwLength exceeds the certificate table`。兩者是檔案本身的結構問題，未再處理。
 
 ## 證據基準
 
@@ -197,7 +230,7 @@
 | `LinR.bin拆解/LinR.bin` | 235,703,808 | 重建 PE32，WinLicense 殘留 | 2022 新版客戶端（cocos2d） | 重建版 | 無 |
 | `LinR.bin拆解/LinR_static_analysis_20260805/` | 2.05 GB／53 檔 | IDA＋報告 | 91,635 函式、RTTI、字串 | 重建版 | 無 |
 | `LinR.zip` | 22,878,507 | ZIP | LinR.bin 副本（同上，未比對） | 重建版 | 重複 |
-| `Lin.bin` | 11,365,984 | VMProtect（`.vmp0`），2015-05-26 | 舊版客戶端 | — | 無；靜態價值低 |
+| `Lin.bin` | 11,365,984 | VMProtect（`.vmp0`），版本 `15,05,26,301`，有 Authenticode 憑證鏈 | 2015 客戶端；資源 142／143 與 TW16 相同 | TW BIN（版本血緣） | 無；程式碼被保護，靜態只能取資源與憑證 |
 | `V3_Master_Report_20260604_100659.md` | 261,165 | AI 報告 | gpt-4o 審查 128 個 AOB 目標 | 登入器 | 無；未驗證，僅供線索 |
 | `server.py` | 36,797 | MCP | reverse-32-mcp 副本 | 工具 | `tools/reverse-32-mcp` |
 | `hook_capture.py` | 10,681 | 活程序 hook | 在 `0x4E94B0` 裝 hook | 登入器 | **不得執行（規則 7）** |
@@ -267,6 +300,7 @@
 | LiTo 重建版 | 用同一 parser 規格解 sprite 資料，取代逐項猜測 | 本文 B07；LiTo 快照 File Offset `0x3E85C` 一帶 |
 | LiTo 重建版 | 把同一批函式在 LiTo 快照上定位，做版本差異表 | `LiTo.unpacked-oep-current.exe`；`docs/reference/rea-scripts/xver.py` |
 | LiTo 重建版 | 評估用 TW13081901 的 IAT 重建流程補 LiTo 的 import 缺口（`pe-audit.json` 記載尚未重建；重擷取需另行授權） | `TW13081901bin拆解/tools/` |
+| LiTo 重建版 | 以 REA 的 `inspect-pe-imports` 當 LiTo import 重建的驗收檢查（目前 partial、0 筆函式） | `docs/reference/rea-scripts/run_rea.py` |
 | LiTo 重建版 | 以 LinR 的 RTTI 與封包處理類別名稱作為現代架構參考 | `LinR_static_analysis_20260805/05_ida/rtti_vftable_names.csv`、`network_packet_candidates.md` |
 
 ## 限制
@@ -274,4 +308,5 @@
 - `<`、`[`、`^` 的語義在 TW1608262200 是函式層級驗證。TW13081901 比對的是 parser 全部常數與 selector 的結構特徵。LiTo 快照只驗證 parser 窗口（三個 xor 與符號比較都在），**消費端未確認**，也未對應到 `LiTo.bin` 本身。
 - 全程靜態，沒有聽音或實機觀察；所有行為都要由 dot／使用者真機確認。
 - 掃描 `.text` 用的是位元組樣式與 `imul 0x24` 啟發式，「沒找到」不等於不存在。
+- REA 只跑內建靜態檢查，且在未支援的 Node 版本上執行；它的 native provider 路徑未測。
 - `.zip` 只比對內含檔大小，未解壓雜湊；`Lin.bin` 與 `LinR` 只做分診與指紋，沒有深入分析。

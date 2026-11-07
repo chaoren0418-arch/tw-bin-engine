@@ -8,14 +8,15 @@
 - **B04：** `<`、`[`、`^` 語義已取得。`^` 占地圖事件大宗（111 個 id、8,003 筆），產品未實作。
 - **B03：** 原生鏈完整，但本機全部 `.s32` 的延伸記錄為 0 筆，建議結案。
 - **產品差異：** `CombatSfx.cs` 略過 `<`，腳步聲等無聲。
+- **REA：** 補上版本與血緣事實（`Lin.bin` 資源 142／143 與 TW16 相同）。PE 資源沒有音效或地圖資料，對 B03／B04／B07 沒有新增內容。
 
 ## 與任務指示的偏差
 
-**沒有使用 rea-main。** 實測跑不起來：未建置、Node v24.20.0 不符 `^24.22.1`（`engine-strict=true`）、沒有可用的 native provider。工具目錄禁止改動，所以沒有建置。改用 pefile、Capstone，以及 P01 IDB 副本的 Hex-Rays。
+**rea-main 只用了內建靜態檢查，函式層級拆解不是它做的。** 工具目錄未建置，所以在 `scratch/rea/rea-copy/` 的副本建置，工具目錄沒有改動。本機 Node v24.20.0 低於要求，副本以 `--engine-strict=false` 放寬，屬未支援的組合；`build:cached` 失敗，改跑 `npm run compile` 成功。native provider 路徑未測，函式層級仍靠 pefile、Capstone 與 P01 IDB 副本的 Hex-Rays。
 
-**讀取範圍超出兩個來源資料夾，全部唯讀：** P01 的 IDB、`0-客戶端/map`、`0-客戶端/TW13081901.txt`、`lito登入器/舊版分析與驗收/runtime/LiTo.unpacked-oep-current.exe`、`lito脫殼資源/`。
+**讀取範圍超出兩個來源資料夾，全部唯讀：** P01 的 IDB、`0-客戶端/map`、`0-客戶端/TW13081901.txt`、`3-lito開發/lito登入器/舊版分析與驗收/runtime/LiTo.unpacked-oep-current.exe`、`lito脫殼資源/`。
 
-**任務未要求而新增：** `work/issue-417/`。`scratch/` 會隨 worktree 清除，所以把腳本與小型結果放這裡，供重跑核對。內容不含 BIN、dump 或大段反組譯。
+**任務未要求而新增：** `docs/reference/rea-scripts/`（腳本）與 `work/issue-417/`（小型結果）。`scratch/` 會隨 worktree 清除，所以放這裡供重跑核對。`work/*/*` 被 `.gitignore` 排除（`.md` 例外），腳本才放在 `docs/`。內容不含 BIN、dump 或大段反組譯。
 
 ## 做了什麼
 
@@ -32,6 +33,8 @@
 - `TW13081901.unpacked.exe` 的 parser 常數完全一致（`0x1951`、`0x2B`、`0x1812`、模式 0/1/2、旗標 1/2/4/8/0x10）。
 - `LiTo.unpacked-oep-current.exe` 在 File Offset `0x3E85C` 一帶有相同的 xor 與符號比較。
 - `#6016` 的 token `<3332<1340<1340` 與 #145 的 ID 相符，佐證 `<` 是聲音。
+- REA 回報的 `TW1608262200.bin` SHA 與基準相同；照文件指令完整重跑一次，失敗項相同（僅 `LinR.bin` 憑證、`LiTo.bin` 資源）。
+- 同步 main 後 `rebuild.py` 唯讀核驗回 `dev-inputs-verified`（211 個來源檔、`writes: false`）。本輪只改文件與腳本，**未執行完整建置**。
 - 結束時重算 `TW1608262200.bin` SHA 相同；兩個來源資料夾與 `rea-main` 最新修改時間都早於本輪。
 
 過程中修正的錯誤：第一版 xref 分類把 `8b 0d` 切開解成假指令，已改用 opcode 判斷；第一版 frame 掃描被資料區截斷，已改 skipdata 重掃；coverage 搜尋兩度回空不可信（大括號 glob 失效；Grep 遵守 `.gitignore`，跳過未追蹤的 `P*/`），改用 `Select-String` 重查後多找到 P10 一筆引用。之後要查 `P*/`，不要用 Grep 工具。
@@ -43,14 +46,14 @@
 - `!`、`]` 的語義是推測；`>`、`{`、`}` 未找到消費者，但掃描樣式有限。
 - 地圖 actor 走 `A43560 → A3EF40` 是推測。
 - `A4E5D0` 第 7 參數語義未解。
-- `.zip` 未解壓比對；`Lin.bin`、`LinR` 只做分診與指紋。
+- `.zip` 未解壓比對；`Lin.bin`、`LinR` 只做分診、指紋與 REA 靜態檢查，未比對程式碼。
 
 ## 產出路徑
 
 - `docs/reference/rea-inventory.md`
 - `docs/reports/issue-417.md`
-- `work/issue-417/`（腳本與小型結果）
-- `scratch/rea/`（偽碼與 IDB 副本，不進 git，隨 worktree 清除）
+- `docs/reference/rea-scripts/`（重跑腳本）
+- `scratch/rea/`（偽碼、IDB 副本、REA 副本與輸出，不進 git，隨 worktree 清除）
 
 ## 給下一棒的提示
 
@@ -58,4 +61,4 @@
 - 重跑反編譯：把 P01 IDB 複製成 `scratch/rea/ida/tw16.idb`，建立 `scratch/rea/ida/env/{user,appdata,local,temp}`，用 `docs/reference/rea-scripts/run_ida.ps1`。腳本要放在 `scratch/rea/scripts/`。IDA 在中文路徑會失敗，腳本用 `subst R:` 映射。**不要用 `Select-Object -First` 截斷它的輸出**，否則 `finally` 跑不到，`R:` 會殘留。
 - `TASKS.md`、`PLAN.md`、`docs/demo/README.md` 的 B03／B07 受阻理由本輪沒改，由主控決定。
 - `hook_capture.py`、`gree_path_probe.py`、`scan_broadcast.py` 會碰活程序，不得執行。
-- 要用 REA 需使用者決定：升級 Node、安裝 Ghidra 12.x＋JDK 21、同意建置。
+- 要讓 REA 做函式層級拆解，需使用者決定：升級 Node、安裝 Ghidra 12.x＋JDK 21。內建靜態檢查現在就能用，建置步驟見 `rea-inventory.md`。
