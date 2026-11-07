@@ -276,10 +276,13 @@ partial class Checks {
     static async Task<int> Main(string[] args){try{
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY",Path.Combine(Path.GetFullPath(args[0]),"engine","build","offline-checks")+Path.DirectorySeparatorChar);
         using var guard=new SocketGuard();
+        PolymorphChecks();
         if(args.Length>2){
             switch(args[2]){
                 case "map-continuity":await MapContinuity();await BoardChecks();await PlayerQueryChecks();break;
                 case "player-query":await PlayerQueryChecks();break;
+                case "polymorph":break;
+                case "polymorph-cadence":PolymorphCadenceChecks(args[0]);break;
                 case "buddies":await BuddyChecks();break;
                 case "buddies-codec":await BuddyChecks(true);break;
                 case "board":await BoardChecks();break;

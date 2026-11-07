@@ -24,12 +24,12 @@
 
 ## 怎麼驗證（已驗證）
 
-- .NET SDK 10.0.300；`rebuild.py --update-lock`、`--build` 通過，185 個來源檔、194 個鎖定檔。
-- 產品 DLL SHA-256：`c090031d347435714d26be6bbd346581189a116fdea419b4d02163333c8c8d00`；變異測試還原後重建得到相同值。
-- `player-query` 701 項通過：每個 C／S 位元組向量、截斷、padding、實際分派、選取提示時序、逾時、目標變更、session 重設、節流、六種失效守衛×三個指令。
-- CI 群組：`map-continuity` 1059、`combat-admission` 278、`buddies` 169、`item-transfer` 73，全部通過。`player-chat` 107 項通過。
+- .NET SDK 10.0.300；`rebuild.py --update-lock`、`--build` 通過，187 個來源檔、196 個鎖定檔（併入 main 至 89e80f9 後）。
+- 產品 DLL SHA-256：`6d6f8d7e619fa26e9cb66be102d2a634b829dba1011aac9789064ce0be67606b`。變異測試在併入最新 main 之前做，當時還原後重建的 SHA 與變異前相同。
+- `player-query` 791 項通過（含 main 新增、每個群組都會跑的共用檢查）：每個 C／S 位元組向量、截斷、padding、實際分派、選取提示時序、逾時、目標變更、session 重設、節流、六種失效守衛×三個指令。
+- CI 群組：`map-continuity` 20640、`combat-admission` 368、`buddies` 259、`item-transfer` 163，全部通過。`player-chat` 107 項通過。
 - 變異測試 4 項全部被抓到：166 全部當玩家資訊、移除 `/check` 的逾時判斷、宣戰選項當名次、`/rank` 改送 C63。第一輪全部假性通過，原因是 `dotnet run --no-build` 沒有換 DLL；修正後重跑並以 DLL hash 確認。
-- `check-no-game-assets.py` 通過（3315 個追蹤檔，0 錯誤）。
+- `check-no-game-assets.py` 通過（3316 個追蹤檔，0 錯誤）。
 - 協定以 `javap` 與 class 常數比對 d287 JAR，SHA-256 見協定文件。
 - CI 狀態以 PR checks 為準。
 
