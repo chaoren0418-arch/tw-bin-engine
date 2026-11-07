@@ -137,3 +137,4 @@
 - 2026-11-07 — #432 T164：已完成 M6 功能的原版對照修正清單（resource，claude-local，PR 已合併）→ [報告](reports/issue-432.md)
 - 2026-11-07 — #485 T-plan：同步 TASKS——T167–T182、原版 UI 計畫任務，狀態更新（plan，claude-chat，PR 已合併）→ [報告](reports/issue-485.md)
 - 2026-11-07 — #441 T169：表情對齊原版（code，claude-local，PR 已合併）→ [報告](reports/issue-441.md)
+- 2026-11-07 — #458 ui-verify-buff-icons: V3 查證：舊封包狀態圖示的 surf 對照、畫面位置與排序（resource，claude-local，PR #488 已合併）→ [報告](reports/issue-458.md)
