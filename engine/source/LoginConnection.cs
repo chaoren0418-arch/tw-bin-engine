@@ -2,7 +2,7 @@ using System.Net;
 using System.Net.Sockets;
 namespace P06;
 
-public enum LoginState { Offline,Connecting,AwaitSeed,Authenticating,AwaitList,ReadingCharacters,CharacterList,EnteringWorld,InWorld,Rejected,Disconnected,Cancelled,Faulted }
+public enum LoginState { Offline,Connecting,AwaitSeed,Authenticating,AwaitList,ReadingCharacters,CharacterList,EnteringWorld,InWorld,ManagingCharacters,SwitchingCharacter,Rejected,Disconnected,Cancelled,Faulted }
 public sealed partial class LoginConnection:IDisposable,ILoginSession {
     readonly object worldCaptureGate=new();long receivedPacketSequence;public long AppliedPacketSequence {get;private set;}
     public T CaptureWorld<T>(Func<T> capture){lock(worldCaptureGate)return capture();}
@@ -22,7 +22,7 @@ public sealed partial class LoginConnection:IDisposable,ILoginSession {
     public event Action? Changed;
     public object Snapshot()=>new {state=State.ToString(),detail=Detail,profile=ProfileId,news=News,expected=Expected,slots=Slots,characters=Characters,revision=Revision,appliedPacketSequence=AppliedPacketSequence,world=World.Snapshot(),worldEntry=EntrySnapshot(),decodeFailure=LastWorldDecodeFailure,entryFailure=LastWorldEntryFailure,scope=ProfileId=="p24-real-jar-d287-client2"?"P24 independent real JAR + MySQL world initialization":"loopback reference / offline"};
     void Set(LoginState state,string detail){State=state;Detail=detail;Revision++;Changed?.Invoke();}
-    public void Cancel(bool offline=false){restartSending=false;ResetPlayerChatSend();generation++;ResetPrivateShopSend();ResetBonusStatsSend();ResetWorldEntry();ResetTeleportSend();ResetShipSend();tradeSendLease++;tradeSending=false;interactionSending=false;ResetMovementSend();ResetCombatSend();ResetMagicSend();ResetItemSend();ResetGroundSend();World.Reset();worldSelection=null;sendWorld=null;sendMovementGate=null;var previous=cancellation;cancellation=null;previous?.Cancel();socket?.Dispose();socket=null;characters.Clear();Expected=Slots=0;News="";Set(offline?LoginState.Offline:LoginState.Cancelled,offline?"離線資產預覽":"使用者取消；連線已關閉");}
+    public void Cancel(bool offline=false){ResetCharacterManagement();restartSending=false;ResetPlayerChatSend();generation++;ResetPrivateShopSend();ResetBonusStatsSend();ResetWorldEntry();ResetTeleportSend();ResetShipSend();tradeSendLease++;tradeSending=false;interactionSending=false;ResetMovementSend();ResetCombatSend();ResetMagicSend();ResetItemSend();ResetGroundSend();World.Reset();worldSelection=null;sendWorld=null;sendMovementGate=null;var previous=cancellation;cancellation=null;previous?.Cancel();socket?.Dispose();socket=null;characters.Clear();Expected=Slots=0;News="";Set(offline?LoginState.Offline:LoginState.Cancelled,offline?"離線資產預覽":"使用者取消；連線已關閉");}
     public async Task Run(int port,string profileId,string account,string password,int timeoutMs=5000,CancellationToken token=default){
         Cancel();LastWorldDecodeFailure=null;LastWorldEntryFailure=null;receivedPacketSequence=AppliedPacketSequence=0;int epoch=++generation;using var cts=CancellationTokenSource.CreateLinkedTokenSource(token);cancellation=cts;
         using var client=new TcpClient(AddressFamily.InterNetwork);socket=client;
@@ -47,15 +47,16 @@ public sealed partial class LoginConnection:IDisposable,ILoginSession {
             long deadline=Environment.TickCount64+timeoutMs;bool uiContext=SynchronizationContext.Current is WindowsFormsSynchronizationContext;int slicePackets=0;long sliceAt=Environment.TickCount64;
             while(!cts.IsCancellationRequested){
                 int n;
-                if(State is LoginState.CharacterList or LoginState.EnteringWorld or LoginState.InWorld)n=await stream.ReadAsync(buffer,cts.Token);
+                if(CharacterManagementRead||State is LoginState.CharacterList or LoginState.EnteringWorld or LoginState.InWorld)n=await stream.ReadAsync(buffer,cts.Token);
                 else {long left=deadline-Environment.TickCount64;if(left<=0)throw new TimeoutException("login phase timeout");n=await stream.ReadAsync(buffer,cts.Token).AsTask().WaitAsync(TimeSpan.FromMilliseconds(left),cts.Token);}
                 if(epoch!=generation)return;
-                if(n==0){frames.End();if(State is not (LoginState.CharacterList or LoginState.EnteringWorld or LoginState.InWorld))throw new ProtocolException("disconnected before complete character list");World.Reset();characters.Clear();Set(LoginState.Disconnected,"對端已斷線；已清除本次資料");return;}
+                if(n==0){frames.End();if(!CharacterManagementRead&&State is not (LoginState.CharacterList or LoginState.EnteringWorld or LoginState.InWorld))throw new ProtocolException("disconnected before complete character list");World.Reset();characters.Clear();Set(LoginState.Disconnected,"對端已斷線；已清除本次資料");return;}
                 foreach(byte[] body in frames.Feed(buffer.AsSpan(0,n).ToArray())){
                     if(uiContext&&(slicePackets>=8||Environment.TickCount64-sliceAt>=16)){await Task.Delay(1,cts.Token);slicePackets=0;sliceAt=Environment.TickCount64;}slicePackets++;
                     if(epoch!=generation)return;
                     if(State==LoginState.AwaitSeed){PacketReceived?.Invoke(new{kind="seed",bodyHex=Convert.ToHexString(body)});uint seed=LoginPackets.Seed(body);outgoing=new(seed);incoming=new(seed);Set(LoginState.Authenticating,"首包已解析；等待登入結果");PacketTrace.Out(login);await stream.WriteAsync(LoginFrames.Wrap(outgoing.Transform(login,true)),cts.Token);Array.Clear(login);deadline=Environment.TickCount64+timeoutMs;continue;}
                     if(incoming==null)throw new ProtocolException("packet before seed");byte[] plain=incoming.Transform(body,false);long sequence=++receivedPacketSequence;
+                    if(await ReceiveCharacterManagement(plain,profile,sequence))continue;
                     if(State is LoginState.EnteringWorld or LoginState.InWorld){
                         lock(worldCaptureGate){
                             if(epoch!=generation)return;PacketTrace.In(plain,sequence);PacketReceived?.Invoke(new{kind="server-packet",sequence,plainHex=Convert.ToHexString(plain)});
@@ -77,7 +78,7 @@ public sealed partial class LoginConnection:IDisposable,ILoginSession {
             }
         }catch(OperationCanceledException) when(cts.IsCancellationRequested){if(epoch==generation){World.Reset();characters.Clear();Expected=Slots=0;News="";Set(LoginState.Cancelled,"連線已取消");}}
         catch(Exception ex){if(epoch==generation){World.Reset();characters.Clear();Set(LoginState.Faulted,ex.GetType().Name+": "+ex.Message);}}
-        finally {cts.Cancel();if(epoch==generation){socket=null;cancellation=null;sendWorld=null;sendMovementGate=null;}client.Dispose();}
+        finally {cts.Cancel();if(epoch==generation){ResetCharacterManagement();socket=null;cancellation=null;sendWorld=null;sendMovementGate=null;}client.Dispose();}
     }
     public void Dispose(){Cancel();cancellation=null;}
 }
