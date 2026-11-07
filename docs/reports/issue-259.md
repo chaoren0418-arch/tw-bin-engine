@@ -1,6 +1,33 @@
 # Issue #259 — T125 組隊（code，第 2 次補正）
 
-## 最新同步結果（2026-11-07，第三次同步，本輪只做同步）
+## 最新同步結果（2026-11-07，第四次同步，本輪只做同步）
+
+依調度器要求，在既有 `task/259` 合併 `origin/main`。開工時落後 84 個提交，期間主線又前進兩次（血盟 #262 與索引提交），都已合入。未新增組隊功能，但有 **2 處超出純文字合併的產品調整**，都是為了不讓合併造成行為退步，請審查：
+
+1. `WorldSession.cs`：`ReceiveParty` 與 `ReceiveDuel` 都先跑完再判斷是否已處理，不是串成兩行短路。S219 是共用的 Yes-No 通道，兩者都靠看到對方的邀請來作廢自己的舊邀請；短路時不論誰在前，都有一邊會留下還能回答的舊邀請。兩者認領的封包不重疊（S250：5 對 104／105／106／110；S71：91／93／631／633／634 對 414–426）。
+2. `Party.cs`：收到 S219/953 時一併作廢舊入盟申請。main 上 953 會走到 `Trade.cs` 的 `Unhandled(219)`，血盟靠它判定申請被取代；本分支的 Party 先攔下 953，不補的話舊申請最長可回答 5 分鐘。
+
+其他衝突：`DemoChecks.csproj`、`demo-tests/Program.cs` 保留雙方測試來源與 case（含 `petsFailure` 結構），`rebuild-lock.json` 取 main 版後以 `--update-lock` 重產，未手動拼 hash。`docs/REPORT.md` 與 main 的 blob 相同；相對 main 仍只有原任務的 10 個差異檔。
+
+已驗證（最後一次功能性合併 `2899a69`；其後只合入改 `docs/REPORT.md` 的索引提交）：
+
+- 來源核驗：**206 個來源／215 個鎖定檔通過**。
+- `rebuild.py --build --configfile scratch/issue-259/NuGet.Config --output scratch/issue-259/build` 通過（產品與 launcher 退出 0）。產品 DLL SHA-256：`b5217fbe40f96886caffd4a9584862b2a961946c7a5e701addad04e8235e6284`。
+- demo-tests 入口全部通過：`party`／`pets` **273**、`duel` **387**、`clan` **392**、`polymorph-cadence` **306**、`buddies` **442**、`item-transfer` **346**、`doors` **594**、`combat-admission` **1406**、`map-continuity` **22058**。每組都先跑共同檢查（273 項），各組數字不可加總。
+- 獨立測試專案：`CharacterManagementChecks` **218**、`NpcChecks` **165**、`SoundPacketChecks` **148**、`WeaponRepairChecks` **99**（0 失敗）、`PacketTraceChecks` 退出 0。
+- S219 三方交叉（組隊／決鬥／血盟，雙向）：**12 項暫時檢查通過**。回饋要求不改其他內容，所以這些檢查**沒有提交**，跑完已還原；repo 目前沒有測試守住這兩處調整。
+- `check-no-game-assets.py` 通過（3386 個追蹤檔、0 錯誤）；demo-tests 與 `engine/source` 的 `git -c core.whitespace=cr-at-eol diff --check` 通過。
+- 本機未跑 CI 中的 web-resource、ResourceChecks、Effect6016；以 PR #269 最新 head 的 CI 為準。測試證據在 `scratch/issue-259/`（不追蹤）。
+
+未驗證：未啟動遊戲、伺服器或 DB，未做原生畫面或雙角色連線 smoke。S219 的取代行為只以合成封包驗證，未確認真實伺服器是否會在同一時間送出兩種邀請。
+
+給下一棒：
+
+- 調度器核對 PR #269 的 CI 後接續合併；dot 於 M6 smoke 驗收雙角色組隊、HP、離隊／踢除與重登。
+- 建議另開小任務，把 S219 三方交叉檢查正式提交進 `party-tests`（測試內容見上方說明，共 4 個情境）。
+- main 既有缺口（本輪未改，不屬本任務）：`ReceiveDuel` 收到 S219/630 時同樣 `return true`，到不了 `Trade.cs`，所以舊入盟申請與舊交易邀請不會被決鬥邀請作廢。建議由決鬥或血盟模組的負責任務處理。
+
+## 前次同步結果（2026-11-07，第三次同步，本輪只做同步）
 
 依調度器要求，在既有 `task/259` 合併 `origin/main`（`d604050`，隨後再合入只改 `docs/REPORT.md` 的索引提交 `1fd46dc`）。未新增或修改功能。
 
