@@ -2,7 +2,7 @@
 
 ## 結論
 
-已依 2026-11-07 主控擴充裁定接通 S39，指定離線回歸全部通過，未跳過。已合併 `origin/main`（`bbaac76b815c9b08c51188e63a5cc627724ce646`）；PR #276 維持非草稿。本輪新 head 的 CI 結果於推送後由 PR checks 核對，不引用前輪成功狀態。
+已依 2026-11-07 主控擴充裁定接通 S39，指定離線回歸全部通過，未跳過。再次同步 `origin/main`（`5fece0032aef4ed8b772671f4a425c0f1d4044e8`），保留 main 的道具使用與命中反應修正，重新建置與驗證；PR #276 維持非草稿。本輪新 head 的 CI 結果於推送後由 PR checks 核對並更新 PR 描述，不引用前輪成功狀態。
 
 ## 做了什麼
 
@@ -18,18 +18,18 @@
 
 | 檢查 | 結果 |
 |---|---|
-| `rebuild.py --update-lock` 與唯讀核驗 | 180 來源／189 鎖定輸入通過 |
+| `rebuild.py --update-lock` 與唯讀核驗 | 182 來源／191 鎖定輸入通過 |
 | `rebuild.py --build --configfile scratch/pets-nuget.config --output scratch/pets-build` | 產品、audio、launcher 成功；產品僅既有 MagicUi.cs 兩則 nullable 警告 |
 | DemoChecks `pets` | 98 項通過 |
 | DemoChecks `map-continuity` | 456 項通過，包含 pets／map／board |
-| DemoChecks `combat-admission` | 310 項通過，包含 pets |
+| DemoChecks `combat-admission` | 376 項通過，包含 pets 與 main 的命中反應回歸 |
 | DemoChecks `item-transfer` | 171 項通過，包含 pets |
-| Pets 失敗仍執行後續群組 | fixture 修正前的實際失敗仍跑完 map／board；JSON 為 fail、退出碼 1 |
-| `check-no-game-assets.py` | pass，3294 追蹤檔案、0 錯誤 |
+| Pets 失敗仍執行後續群組 | 第三輪先前留下的 fixture 修正前證據：實際失敗仍跑完 map／board；JSON 為 fail、退出碼 1；此次合併確認保留相同例外處理 |
+| `check-no-game-assets.py` | pass，3295 追蹤檔案、0 錯誤 |
 
 入口：`dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -p:UseSharedCompilation=false -- . scratch/pets-checks.json pets`；其他群組替換末尾參數及 JSON 路徑。SocketGuard 禁止建立網路連線。
 
-來源 SHA-256 由 dev lock 鎖定；產品 DLL SHA-256：`b781630c4bb743f49c93fd408f671eda9b90ac14a6f6e1fbc13e59b41c4b3db2`。
+來源 SHA-256 由 dev lock 鎖定；產品 DLL SHA-256：`562135eb72bec5bd17489338f06bcb70fc63a47079e9dd18217bb2cd079264ee`。
 
 ## 未驗證與已知限制
 
@@ -43,7 +43,7 @@
 - `engine/_integration/dev/demo-tests/Program.cs`、`DemoChecks.csproj`
 - `engine/_integration/dev/rebuild-lock.json`
 - `docs/protocol/pets.md`、本報告
-- 不追蹤本機證據：`scratch/pets-build/`、`scratch/pets-checks.json`、`scratch/pets-map-continuity.json`、`scratch/pets-combat-admission.json`、`scratch/pets-item-transfer.json`、`scratch/pets-failure-continuation.json`
+- 不追蹤本機證據：`scratch/pets-build/`、`scratch/pets-pets.json`、`scratch/pets-map-continuity.json`、`scratch/pets-combat-admission.json`、`scratch/pets-item-transfer.json`、`scratch/pets-failure-continuation.json`
 
 ## 給下一棒的提示
 
