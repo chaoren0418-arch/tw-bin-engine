@@ -220,7 +220,7 @@ public sealed partial class Renderer {
         // Refresh scenery for an emote extending beyond the previous pose, preserving tile depth/ownership.
         var scenery=ActiveScene.ToHashSet();commands=commands.Where(d=>!scenery.Contains(d)).Concat(ActiveScene.Where(d=>d.Px<area.Right&&d.Px+24>area.Left&&d.Py<area.Bottom&&d.Py+24>area.Top)).OrderBy(d=>d,DrawComparer.Instance).ThenBy(d=>d.ObjectId).ToList();
         var colors=new ushort[area.Width*area.Height];var mask=new bool[colors.Length];var owners=Enumerable.Repeat(-1,colors.Length).ToArray();var entities=new uint?[colors.Length];FillShipBackdrop(area,colors,mask);
-        foreach(var d in commands)Blit(d,area,colors,mask,owners,entities,session.Opacity?.Get(d));
+        foreach(var d in commands)Blit(d,area,colors,mask,owners,entities,session.InvisibilityOpacity(d,session.Opacity?.Get(d)));
         using var overlay=new Bitmap(area.Width,area.Height);using(var g=Graphics.FromImage(overlay)){
             g.TextRenderingHint=System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
             foreach(var label in text){var box=label.Bounds;box.Offset(-area.X,-area.Y);g.DrawString(label.Value,font,Brushes.LightYellow,box);}
@@ -238,7 +238,9 @@ static class EmoteCache {
 }
 
 public sealed partial class ClientForm {
-    protected override void OnShown(EventArgs e){
+    // OnLoad, OnShown, OnVisibleChanged and OnActivated belong to other modules; this one fires once after construction.
+    protected override void OnCreateControl(){
+        base.OnCreateControl();
         if(normalPanels!=null){
             var page=new TabPage("稱號／表情"){AutoScroll=true};var layout=new FlowLayoutPanel{Dock=DockStyle.Fill,FlowDirection=FlowDirection.TopDown,WrapContents=false,AutoScroll=true};page.Controls.Add(layout);
             var name=new TextBox{Width=260,AccessibleName="授予稱號的角色名稱",MaxLength=10232};var title=new TextBox{Width=260,AccessibleName="稱號",MaxLength=10232};
@@ -253,6 +255,5 @@ public sealed partial class ClientForm {
             timer.Tick+=(_,_)=>{if(lastEpoch!=login.World.WorldEpoch||lastGeneration!=login.SessionGeneration){lastEpoch=login.World.WorldEpoch;lastGeneration=login.SessionGeneration;stamp=null;name.Clear();title.Clear();notice.Text="請重新選取稱號／表情頁面。";}if(login.World.EmoteAssetNotice.Length>0)notice.Text=login.World.EmoteAssetNotice;};
             normalPanels.TabPages.Add(page);
         }
-        base.OnShown(e);
     }
 }

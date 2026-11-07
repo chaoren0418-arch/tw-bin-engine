@@ -52,6 +52,11 @@ partial class Checks {
             Feed(c,LoginPackets.Pad([206,0,0,0]));Check(c.World.ActiveEmotes(1000).Length==0,"map epoch clears emotes");
         }
         using(var c=TitleEmoteSeed()){
+            // S158 is shared: emote actions 66-69 stop at the emote branch, action 71 still reaches fishing.
+            Feed(c,EmoteUpdate(123,68));Check(c.World.ActiveEmotes(1000).Single().Action==68&&!c.ReadFishing().Active,"S158 emote does not start fishing");
+            Feed(c,FishingStart());Check(c.ReadFishing().Active&&c.ReadFishing().Notice.Contains("32602, 32940"),"S158 fishing start reaches observer beside emote branch");
+        }
+        using(var c=TitleEmoteSeed()){
             int sends=0;byte[]? sent=null;Sender(c,(bytes,current,admit)=>{if(!current())return Task.FromResult(false);sends++;sent=bytes;admit();return Task.FromResult(true);});
             var stamp=c.CaptureTitleEmote();Check(await c.SendTitle(stamp,"offline","稱號")&&sends==1&&sent![0]==90,"C90 memory sender");Check(c.World.Actor!.Title=="","title never predicted before S183");
             foreach(int action in Enumerable.Range(66,4)){Check(await c.SendEmote(stamp,action)&&sent![0]==120&&sent[1]==action,"C120 memory sender "+action);Check(c.World.ActiveEmotes(1000).Single().Action==action,"self predicts only admitted emote "+action);}
@@ -95,6 +100,9 @@ partial class Checks {
         }
         Check(colored>20,"product renders title and name glyphs above actor");
         int actor=(draw.Py-result.Bounds.Y)*result.Bounds.Width+draw.Px-result.Bounds.X;Check(result.Colors[actor]==0x7c00,"title overlay preserves actor pixel");
+        // The compositor re-blits every draw, so a title must not restore an invisible actor to full opacity.
+        Feed(c,InvisPacket(123,1));var hidden=(Patch)typeof(Renderer).GetMethod("ComposeTitlesAndEmotes",F)!.Invoke(renderer,[own,c.World,catalog,original,new List<ObjectVisual>(),1000L])!;
+        Check(hidden.Colors[(draw.Py-hidden.Bounds.Y)*hidden.Bounds.Width+draw.Px-hidden.Bounds.X]==0x3c00,"title overlay keeps invisible actor half blend");
     }
     static void TitleEmoteOriginalAssets(){
         using var reader=new EmoteSprites();foreach(int gfx in new[]{0,1,37,48,61,734,1186,2786,2796,6650,6658,6661,6671})foreach(int action in Enumerable.Range(66,4))foreach(int direction in Enumerable.Range(0,gfx==0?8:1)){
