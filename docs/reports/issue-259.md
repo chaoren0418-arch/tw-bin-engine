@@ -1,5 +1,21 @@
 # Issue #259 — T125 組隊（code，第 2 次補正）
 
+## 最新同步結果（2026-11-07）
+
+前次組隊實作已於 `c3778bb` 通過 codex-review。本次重新派工原因是 PR #269 與前進後的 main 衝突；已合併 `origin/main`（`6024daf`），不改動已審查的組隊產品邏輯。
+
+- 解決 `DemoChecks.csproj` 與 `Program.cs` 的衝突：同時保留組隊與主線 #273 物品移轉測試入口。
+- dev lock 以 `rebuild.py --update-lock` 重新產生，178 個來源／187 個鎖定檔核驗通過，沒有手動拼接 hash。
+- `docs/REPORT.md` 完全沿用 main，沒有加入或編輯索引；本次相對 main 仍只有原任務 10 個差異檔。
+- 重跑 `rebuild.py --build --configfile scratch/issue-259/NuGet.Config --output scratch/issue-259/build`：產品及 launcher 成功；產品仍僅有原有 `MagicUi.cs:20` 的 CS8600／CS8602，launcher 無警告。最新產品 DLL SHA-256：`773173123b9a13788a911751e20091f621e67bf49a8727238c9dde8a1f9e36ca`。
+- 同一 demo-tests 入口依序重跑 `party`、`item-transfer`、`combat-admission`、`map-continuity`，分別 **80／153／292／208 項通過**。後三組均含組隊 80 項，不加總為互不重複的檢查。
+- `check-no-game-assets.py` 通過（trackedFiles=3285、errors=0），`git -c core.whitespace=cr-at-eol diff --check` 通過。
+- 本次測試與建置均在沙箱內完成；GitHub 連接工具不可用，沙箱內 `gh` 認證回覆 401，已使用獲准的沙箱外 `gh`／git 完成遠端核對與同步，未變更認證設定。
+- 最新證據仍覆寫本報告下列 `scratch/issue-259/` 路徑，另有 `item-transfer-checks.json`。未重新跑音效 148 項；下方音效結果屬前次補正。
+- 本次同步提交的 CI 以 [PR #269 的最新 checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/269/checks) 為準；下方 `c0c91ad` 的成功紀錄僅代表前次補正。
+
+給下一棒：本次是合併衝突補正，請調度器核對最新 HEAD 的 CI 與合併狀態，再交既有審查／合併流程。雙角色真機流程仍由 dot 在 M6 smoke 驗收；未啟動遊戲、伺服器或 DB。
+
 ## 結論／做了什麼
 
 已補上前次審查指出的產品接收整合缺漏。本輪依退回補正要求，將 `WorldSession.ReceiveCore` 的既有 `opcode==219` 限制移除，透過同一個前置呼叫接收隊伍 S250/104/105/106/110、S39/party、S71/414–426；未重排其他模組或新增其他共用分支。S237 的原有戰鬥 HP 分派、非隊伍 NPC 對話、Yes-No 與伺服器訊息均保留。
