@@ -2,9 +2,14 @@
   <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWindowsForms>true</UseWindowsForms><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
   <ItemGroup>
     <Compile Include="../char-reset-tests/CharResetChecks.cs" Link="CharResetChecks.cs" />
+    <Compile Include="../invisibility-tests/InvisibilityChecks.cs" Link="InvisibilityChecks.cs" />
+    <Compile Include="../player-query-tests/PlayerQueryChecks.cs" Link="PlayerQueryChecks.cs" />
+    <Compile Include="../character-config-tests/CharacterConfigChecks.cs" Link="CharacterConfigChecks.cs" />
+    <Compile Include="../polymorph-tests/PolymorphChecks.cs" Link="PolymorphChecks.cs" />
     <Compile Include="../buddies-tests/BuddyChecks.cs" Link="BuddyChecks.cs" />
     <Compile Include="../board-tests/BoardChecks.cs" Link="BoardChecks.cs" />
     <Compile Include="../item-transfer-tests/ItemTransferChecks.cs" Link="ItemTransferChecks.cs" />
+    <Compile Include="../location-share-tests/LocationShareChecks.cs" Link="LocationShareChecks.cs" />
     <Reference Include="P11.ClientEngine"><HintPath>../../../build/client-product-dev/P11.ClientEngine.dll</HintPath></Reference>
     <Reference Include="P24.Audio"><HintPath>../../../build/client-product-dev/P24.Audio.dll</HintPath></Reference>
   </ItemGroup>

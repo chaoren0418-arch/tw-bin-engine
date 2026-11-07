@@ -42,8 +42,34 @@
 
 由 dot 依既有授權在 P24Lab 測試角色驗收原生重置：確認部署採原生方案、NPC 傳送後視窗仍可操作，測 50→51 等級邊界、十級提升、無萬能藥／有萬能藥、關閉重登入，以及完成後的能力、蠟燭與保存結果。若是自訂 HTML 方案，另立任務，不混用 C98。
 
-## ????2026-11-07?
+## 同步紀錄
 
-???????? `origin/main`?`9f62553`???? WorldSession?DemoChecks ?????? dev lock ????? main ?????????????????????????`docs/REPORT.md` ??? main ???dev lock ? `--update-lock` ?????186 ?????195 ?????????
+上一輪同步紀錄原文寫入時編碼損毀（中文變成 `?`），以下依 Issue #359 留言重寫，原文無法逐字還原。
 
-??????????launcher ????? 161 ?????? 519 ???? 169 ?????????? runner ?????????????????3315 ????????????????? MagicUi ?? nullable ????? DLL SHA ???????????? PR #369??? CI ?????? Actions ????????????????
+### 第 1 輪（2026-11-07，同步到 `9f62553`，commit `100ba30`）
+
+完整建置通過；重置 161 項、整合 519 項、好友 169 項測試與資源檢查通過。PR #369 三項 CI 全綠。
+
+### 第 2 輪（2026-11-07，同步到 `119439e`，落後 main 123 個 commit）
+
+只做同步，沒有改 T142 功能。
+
+- 衝突四處，都是兩邊各自新增的掛接，全部保留：
+  - `WorldSession.cs`：S64/01–04 的 case 與 main 的隱身、位置分享、角色設定分派並存。全程式只有這一個 `case 64`。
+  - `DemoChecks.csproj`：兩邊的測試檔都保留。
+  - `demo-tests/Program.cs`：採 main 的 case 組，加回 `char-reset` 入口；`CharResetChecks` 掛回 `map-continuity` 與預設組；兩邊重複的 `buddies` case 去重。
+  - `rebuild-lock.json`：取 main 版後以 `--update-lock` 重產（193 來源檔、202 pinned），沒有手拼。
+- `docs/REPORT.md` 自動合入 main 版，沒有另外修改。
+
+已驗證（合成封包、記憶體 sender，非真機）：
+
+1. `rebuild.py --build`：產品與 launcher 通過，產品 DLL SHA-256 `074651743f6dd81105827a6fc513567c3d3b276fabd229baae328a6f47ea7c7c`（取代上方本機 DLL 值）。
+2. DemoChecks 各組全數通過（數字含每次都先跑的 `PolymorphChecks`）：`char-reset` 251、`map-continuity` 21063、`combat-admission` 1109、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163、`invisibility` 160、`location-share` 189、`player-query` 791、`character-config` 183。
+3. `check-no-game-assets.py`：通過（3348 個追蹤檔、0 錯誤）。
+
+未驗證：
+
+- DemoChecks 無參數的預設組**失敗、沒有跑完**：`Movement123` 讀 `engine/assets/terrain0.bin` 時找不到路徑，因為本 worktree 沒有 assets junction，CI 也不跑這組。為避免寫到原始專案或封存，沒有把 `args[0]` 指向原始專案，也沒有建 junction。`CharResetChecks` 已由上述兩組涵蓋，但預設組中其他需要真實資源的測試本輪沒有執行。
+- 原生畫面、蠟燭消耗與保存結果仍未驗證，見上方「未驗證什麼」。
+
+給下一棒的補充：部分 DemoChecks 會寫到 `<args[0]>/scratch/`（例如 `CombatAdmissionChecks`），在 worktree 跑預設組時不要把 `args[0]` 指向原始專案。
