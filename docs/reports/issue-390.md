@@ -1,0 +1,127 @@
+# Issue #390 — T150：小地圖
+
+分支：`task/390`。基底：`9f62553cf8e1b1f3c8d26cb0c48e0dfd551d19ba`。階段：code。
+
+## 做了什麼
+
+- 新增 `engine/source/Minimap.cs`：唯讀擷取既有 `OriginalMapCache.Scene`，從 RGB555 像素與既有繪圖順序產生等角縮圖，最長邊上限 512 像素；不建立全解析度地圖副本、不額外載入區塊、不寫入影像或遊戲資源。
+- 新增 `engine/source/MinimapUi.cs`：場景右上角小地圖、HUD 按鈕及 F5 開關、按鈕／滾輪 1×／2×／4× 縮放，放大後跟隨自己的位置；以白點標自己、青點標隊友、金點標 NPC／非玩家物件。每 200 ms 讀取鎖定的世界快照，只有快取實例、revision、epoch 或地圖改變才重建影像。
+- `PlayerHudView.cs` 僅新增一行掛載；`KeyboardNavigation.cs` 僅新增一行 F5 分派。F5 受遊戲輸入、焦點與修飾鍵限制，長按不重複開關。
+- 同圖重設、傳送等待、資源失敗、登出、關閉或控制項釋放時清掉縮圖及標記。沒有新的網路分派、C 封包或伺服器操作。
+- 新增可追蹤的 `engine/_integration/dev/minimap-tests/`，接到既有 DemoChecks 的 `minimap`、`map-continuity` 與預設入口；現有 Windows CI 會執行。以工具更新 dev lock，未改封存 lock。
+
+## 格式依據與限制
+
+已查閱 `docs/design/m6-contract.md`、`docs/reference/server-protocol.md` 常用封包表及 `server-rules.md` R09–R11、R26、R34–R35。
+
+- 使用既有 S87 自身／物件狀態；S10 為來源座標加 heading，沿用解析後終點。S120 物件移除、S206（含同圖）及 S149 傳送依既有世界生命週期清除。S122 面向、S158 死亡亦納入測試；S76 依 #263 合併後的語意是原地換外觀，NPC 標記保留在原位。未新增封包格式，所以沒有新增 C 格式需要編碼測試。
+- 隊友：第 6 輪起依 `Party` 介面標示，見下方「同步輪（第 6 輪）」；第 1～5 輪 main 尚無 `Party`，所以這些輪次的紀錄寫「不標隊友」。不從姓名或 gfx 猜隊友。
+- S87 沒有 NPC 模板或種族欄位。金點依非 PC 旗標的已知物件顯示，包含怪物及場景物件，不能宣稱是友善 NPC 的精確分類；帶 PC 旗標的變形 NPC 不會被猜成一般 NPC。地面物品已由既有 Ground 分流，另排除死亡及快取範圍外物件；`AppearancePending` 判斷沿用全專案慣例保留，但 #263 後已沒有封包路徑會把物件設為待更新。
+- 快取是移動式 2×2 區塊，不包含整張地圖。介面明示「已載入區域」，不補造未載入地形；不累積舊圖或已離開視野的 NPC。自身位置沿用場景 Actor（可含既有移動預測），並接受 S87／S10 校正。
+- 縮圖使用靜態快取像素；沒有複製完整場景的透明度動畫、船底圖或動態特效。船圖的透明地面不補造像素。
+
+## 怎麼驗證（已驗證）
+
+1. `rebuild.py --update-lock`：186 個來源、195 個鎖定檔核驗通過。
+2. `rebuild.py --build --configfile scratch/issue-390/nuget.config --output scratch/issue-390/build --write-receipt`：主程式、audio 與 launcher 成功；只唯讀使用原專案 vendor 的 WebView2 套件，NuGet 與暫存輸出隔離在本 worktree。主程式 0 錯誤，有 `MagicUi.cs:20` 既有 CS8600／CS8602 兩項警告。
+3. DemoChecks `minimap`：**51 項通過**；合成封包、快取更新／失效、縮放、逐像素取樣、快捷鍵焦點與真實控制項離屏繪製。沒有啟動產品入口或顯示視窗。
+4. DemoChecks `map-continuity`：**409 項通過**，包含既有跨圖／公告板與新增小地圖檢查。
+5. `check-no-game-assets.py`：通過，0 錯誤，4 個核准的 EmbeddedResource 宣告。
+6. `git -c core.whitespace=cr-at-eol diff --check`：通過；保留原檔的換行格式。
+
+產品 DLL SHA-256：`7b9c38a5ef538e18a2847eeca53ef9f11e2ca301707655d635de13c6a670ab1d`。
+
+來源 SHA-256：
+
+| 檔案 | SHA-256 |
+|---|---|
+| `engine/source/Minimap.cs` | `ccf546f43aec96f4d0fffa11fbfabdd524eba1509a7a58889e5bfa3b8915ede7` |
+| `engine/source/MinimapUi.cs` | `72ae3d2581351108fc5e6a0bb86d569e64a257e814ff3633f22961677c241dbb` |
+
+## 同步輪（第 2 輪，claude-local）
+
+依調度器指示合併 `origin/main`（落後 47 筆；同步期間 main 又前進，合到 `065e81e`，含 #324 角色快捷設定）。上方第 1～6 項與產品 DLL SHA 是第 1 輪紀錄，以本節為最新結果。
+
+- 衝突在 `DemoChecks.csproj`（兩邊各加測試連結，全部保留）、`Program.cs`（`map-continuity` 用 main 的新位置並接上 `MinimapChecks()`，保留 `minimap` 群組，預設入口保留兩邊的呼叫）與 `rebuild-lock.json`。lock 以 `--update-lock` 重產（189 個來源、198 個鎖定檔），未手動拼接。
+- F5 與 #324 不衝突：快捷欄用 F1～F4，`engine/source` 沒有其他 F5 綁定。
+- **測試語意調整**：#263 把 S76 改成權威變身封包後，第 1 輪的「S76 待更新會隱藏 NPC 標記」不再成立，合併後這項失敗。遠端物件收到 S76 只換 gfx、物件仍在，標記應保留，所以測試改為驗證同一標記留在原位且 gfx 已更新。產品程式碼未改，`Minimap.cs`／`MinimapUi.cs` 與第 1 輪相同。
+- 建置：`rebuild.py --build` 退出 0。產品 DLL SHA-256：`f93ecee4370458c9cc476016d7eb1a964e5b0997fe16514905c20d8e8143a26a`。
+- DemoChecks 全部通過：`minimap` 141、`map-continuity` 20083、`character-config` 183、`combat-admission` 368、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163。項數比第 1 輪多，是因為 main 新增的 POLY 檢查在群組分派前就會執行，`map-continuity` 另有 main 新增的群組內檢查，不代表小地圖測試變多。
+- `check-no-game-assets.py` 通過（3320 個追蹤檔、0 錯誤）。
+- **預設入口未通過（本機環境限制）**：在合併 #324 之前實測，不帶群組的 DemoChecks 跑完 `MinimapChecks` 後，在 `Movement123` 讀取 `engine/assets/terrain0.bin` 時失敗，因為本 worktree 沒有 `engine/assets` junction。與小地圖無關，CI 也不跑預設入口；本輪未建立 junction，所以預設入口其餘項目未驗證。
+
+## 同步輪（第 3 輪，claude-local）
+
+依調度器指示合併 `origin/main`（落後 130 筆，合到 `76ac0fb`）。第 2 輪的數字由本節取代。
+
+- 衝突在 `DemoChecks.csproj`、`Program.cs`（兩邊全部保留，`MinimapChecks()` 接回 `map-continuity`、`minimap` 與預設入口）與 `rebuild-lock.json`。lock 以 `--update-lock` 重產（201 個來源、210 個鎖定檔），未手動拼接。
+- T125（#259）仍未合併，main 沒有 `Party`，維持不標隊友。
+- **測試夾具調整（超出「只做同步」）**：合併後 `minimap` 群組失敗，`MinimapChecks.cs` 的自身 S10 檢查拿到 null。呼叫堆疊顯示：main 的 `Ambience.cs:37` 在建構時訂閱 `OpacityObserved`，`ObserveOpacity` 因此每次都會求值 `OriginalMapCache.Snapshot()`；合成快取由 `GetUninitializedObject` 建立，沒有 `Slots`／`Events`，丟出的 `ArgumentNullException` 進了 `MapFailed` 並清掉快取。實際建構的快取一定有這兩個欄位，所以不是產品問題；夾具補上這兩個欄位，檢查內容未放寬。產品碼未改，`Minimap.cs`／`MinimapUi.cs` 與第 1 輪相同。
+- 建置：`rebuild.py --build` 退出 0。產品 DLL SHA-256：`2108adec6cf8c58abdbed7add4ab0e99935b84774a06a632ca87e8f971215f4e`。唯讀來源核驗 `dev-inputs-verified`。
+- DemoChecks 全部通過：`minimap` 244、`map-continuity` 21451、`character-config` 286、`combat-admission` 1326、`polymorph-cadence` 226、`buddies` 362、`item-transfer` 266；`WeaponRepairChecks` 98。項數包含群組分派前就會執行的 Pets、POLY 檢查，不代表小地圖測試變多。
+- `check-no-game-assets.py` 通過。
+- **預設入口未驗證**：本 worktree 沒有 `engine/assets` junction，本輪未建立也未執行；CI 同樣不跑預設入口。
+
+## 同步輪（第 4 輪，claude-local）
+
+依調度器指示合併 `origin/main`（落後 47 筆，合到 `d384334`；CI 全綠後 main 又前進 17 筆，再合到 `5813dd2`，含 #267 信件）。第 3 輪的數字由本節取代，以下是第二次合併後的結果。本輪只做同步，`Minimap.cs`、`MinimapUi.cs` 與 `minimap-tests` 都沒改。
+
+- 衝突在 `DemoChecks.csproj`、`Program.cs`（兩邊全部保留，`MinimapChecks()` 接回 `map-continuity` 與預設入口，`ghost-mode`、`ClanChecks`、`PortalChecks` 依 main）、`PlayerHudView.cs`（`MinimapUi.Attach` 與 `MailUi.Attach` 兩行都保留）與 `rebuild-lock.json`。lock 以 `--update-lock` 重產（208 個來源、217 個鎖定檔），未手動拼接。
+- 信件按鈕與小地圖按鈕掛在同一個 `menu`：HUD 是全視窗寬，正式入口最小 900 像素，按鈕含釣魚約 740 像素，靜態計算放得下；信件沒有占用 F5。WebView 面板開啟時可用寬度會變小，這點未量測。
+- T125（#259）仍未合併，main 沒有 `Party`，維持不標隊友。
+- 建置：`rebuild.py --build` 退出 0。產品 DLL SHA-256：`458023f939400bf530a762ebb4fedb75e7bc3beb00fc7f35cfdefc12e546db0e`。
+- DemoChecks 全部通過：`minimap` 244、`map-continuity` 22029、`combat-admission` 1326、`polymorph-cadence` 226、`buddies` 362、`item-transfer` 266、`doors` 514、`character-config` 286；`WeaponRepairChecks` 98。項數包含群組分派前就會執行的共用檢查，不代表小地圖測試變多。
+- `check-no-game-assets.py` 通過。
+- **預設入口未驗證**：本 worktree 沒有 `engine/assets` junction，本輪未建立也未執行；CI 同樣不跑預設入口。
+
+## 同步輪（第 5 輪，claude-local）
+
+PR #413 與 main 衝突（落後 19 筆），依調度器指示合併 `origin/main`（`5555e4a`，含 #358 結婚、#359 角色重置）。第 4 輪的數字由本節取代。本輪只做同步，`Minimap.cs`、`MinimapUi.cs`、`minimap-tests` 及兩個單行掛接都沒改；產品碼相對 main 的差異仍只有這四個檔案。
+
+- 衝突在 `DemoChecks.csproj`、`Program.cs`（兩邊全部保留，`MinimapChecks()` 接回 `map-continuity` 與預設入口，`marriage`、`char-reset` 依 main）與 `rebuild-lock.json`。lock 以 `--update-lock` 重產（211 個來源、220 個鎖定檔），未手動拼接；唯讀核驗 `dev-inputs-verified`。
+- 新併入的模組沒有新增 HUD 選單按鈕，也沒有占用 F5，第 4 輪的按鈕寬度結論不變。
+- T125 的 `Party` 仍不在 main，維持不標隊友。
+- 建置：`rebuild.py --build` 退出 0。產品 DLL SHA-256：`db50c3abd45fab8bd4b1fa56eb7af1a526bbdc7ccd1cf151cb73f7e7994f6ced`。
+- DemoChecks 全部通過：`minimap` 244、`map-continuity` 22326、`marriage` 329、`char-reset` 354、`combat-admission` 1326、`polymorph-cadence` 226、`buddies` 362、`item-transfer` 266、`doors` 514、`character-config` 286；`MailChecks` 119、`WeaponRepairChecks` 98。項數包含群組分派前就會執行的共用檢查，不代表小地圖測試變多。
+- `check-no-game-assets.py` 通過（3409 個追蹤檔、0 錯誤）。
+- **預設入口未驗證**：本 worktree 沒有 `engine/assets` junction，本輪未建立也未執行；CI 同樣不跑預設入口。
+
+## 同步輪（第 6 輪，claude-local）
+
+PR #413 與 main 衝突（落後 30 筆），合併 `origin/main`（`9cc953b`，含 #259 T125 隊伍）。T125 已合併，所以本輪除了同步，也**補上任務原本要求的隊友標記**，改動了 `Minimap.cs`、`MinimapUi.cs` 與 `minimap-tests`；兩個單行掛接沒動。第 5 輪的數字由本節取代。
+
+- 衝突在 `DemoChecks.csproj`（兩邊都保留）與 `rebuild-lock.json`。lock 以 `--update-lock` 重產（213 個來源、222 個鎖定檔），未手動拼接。
+- **隊友標記**：成員只來自 `WorldSession.PartySnapshot` 的名單。隊友在視野內用即時物件座標；不在視野內才用 S250/104、105、110 回報的座標，且 map 要等於目前快取、座標要在快取內。青點，比 NPC 大、比自己小，畫在 NPC 上方、自己下方。
+- 伺服器 `PartyTimer` 每 5 秒送一次 S250/110（唯讀查閱），所以視野外的隊友最多落後約 5 秒；隊友剛走出視野時，標記可能退回上一次回報的位置。介面提示已註明更新頻率。
+- 判斷：死亡的隊友仍標示（還在隊伍裡）。S39 只給名字、沒有 ID 的成員，只有場上恰好一個同名 PC 時才對應，同名多人就不標。沒有 PC 旗標但在名單裡的物件只畫隊友點，不重複畫金點。
+- 沒有新增封包格式；`Party.cs` 未改。
+- 測試過程中兩次失敗都是測試夾具問題，已修夾具，未放寬檢查：`Seed()` 已有物件 456，改用 900／901 才測得到視野外路徑；合成影像只有 48×36，繪製測試的隊友位置改到影像內。
+- 建置：`rebuild.py --build` 退出 0，唯讀核驗 `dev-inputs-verified`。產品 DLL SHA-256：`e96f8b7d7c26a0b0738fb7623d20e3449c74468ecdf62347cefcc6f0a37fd94b`。
+- DemoChecks 全部通過：`minimap` 347、`map-continuity` 22429、`party` 276、`marriage` 412、`char-reset` 437、`combat-admission` 1409、`polymorph-cadence` 309、`buddies` 445、`item-transfer` 349、`doors` 597、`character-config` 369。項數包含群組分派前就會執行的共用檢查。除 `minimap`、`map-continuity` 外的群組，是在最後一次測試夾具修正前跑的；該修正只改 `MinimapChecks.cs` 的繪製測試，這些群組不呼叫它。
+- `check-no-game-assets.py` 通過（3412 個追蹤檔、0 錯誤）。
+- HUD 按鈕列：`menu` 是不換行的 FlowLayoutPanel。依第 4 輪約 740 像素，加上隊伍按鈕 64 像素約 804 像素，最小視窗 900 像素放得下（靜態計算，未量測）。幽靈模式退出鈕出現或 WebView 面板開啟時可能更擠。
+- **預設入口未驗證**：本 worktree 沒有 `engine/assets` junction，本輪未建立也未執行；CI 同樣不跑預設入口。
+
+本輪等 CI 時 main 又前進 14 筆（`dd640a7`，含 #388 異常狀態），再合併一次。衝突同樣在 `DemoChecks.csproj` 與 `rebuild-lock.json`，處理方式相同。以下數字取代上面的 lock、建置與 DemoChecks 紀錄：
+
+- lock：214 個來源、223 個鎖定檔，以 `--update-lock` 重產；唯讀核驗 `dev-inputs-verified`。
+- 建置：`rebuild.py --build` 退出 0。產品 DLL SHA-256：`f0ee9607233be4bfefc9527e83bf6a393874206662afb110005cc0f337a76df6`。
+- DemoChecks 全部以最終程式重跑並通過：`minimap` 347、`map-continuity` 22429、`party` 276、`afflictions` 428、`marriage` 412、`char-reset` 437、`combat-admission` 1409、`polymorph-cadence` 309、`buddies` 445、`item-transfer` 349、`doors` 597、`character-config` 369。
+- `check-no-game-assets.py` 通過（3416 個追蹤檔、0 錯誤）。
+
+## 未驗證什麼
+
+未啟動遊戲、伺服器、DB；未做真實地圖畫面、不同 DPI／視窗大小、實際鍵鼠焦點及長時間換區效能的實機驗收。合成快取與離屏繪製不是原生實機證據。CI 執行結果以本 PR 的 checks 為準。
+
+## 產出路徑
+
+- 產品：`engine/source/Minimap.cs`、`MinimapUi.cs` 與兩個單行掛接。
+- 測試：`engine/_integration/dev/minimap-tests/MinimapChecks.cs`、`README.md`，以及 `demo-tests` 的編譯連結／入口。
+- 本報告：`docs/reports/issue-390.md`。
+- 本機證據（不追蹤）：`scratch/issue-390/minimap.json`、`map-continuity.json`、`build/result.json` 與建置日誌。未新增遊戲資源。
+
+## 給下一棒的提示
+
+閘門與 CI 通過後由調度器合併；dev lock 衝突依常設授權用 `--update-lock` 重產，不手動拼接 hash。M6 smoke 由 dot 在已授權的 P24Lab 測試角色驗證：F5 開關與長按、聊天輸入不觸發、三段縮放、走出快取區、NPC 移動／消失、同圖傳送／跨圖／登出清除，以及 HUD／服務面板交疊。隊友標記也要在真機看：隊友走出視野後的位置、跨圖與離隊。
+
+另一件不屬於本任務、未處理也未量測的事：`Ambience.cs:37` 的常駐訂閱讓 `ObserveOpacity` 在產品中每次都建立完整的 `OriginalMapCache.Snapshot()`（含 `Events.ToArray()`），原本只有診斷時才會做。建議由 Ambience 的負責任務評估是否改用較輕的掛接點。之後新增以 `GetUninitializedObject` 建快取的測試，也要記得補 `Slots`／`Events`。
