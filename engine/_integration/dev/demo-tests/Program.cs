@@ -282,9 +282,10 @@ partial class Checks {
         if(args.Length>2){
             switch(args[2]){
                 case "clan":await ClanChecks();break;
+                case "portals":await PortalChecks();break;
                 case "doors":await DoorChecks();break;
                 case "pets":break;
-                case "map-continuity":await MapContinuity();await BoardChecks();await ClanChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();break;
+                case "map-continuity":await MapContinuity();await BoardChecks();await ClanChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();await PortalChecks();break;
                 case "ghost-mode":await GhostModeChecks();break;
                 case "fishing":await FishingChecks();break;
                 case "location-share":await LocationShareChecks();break;

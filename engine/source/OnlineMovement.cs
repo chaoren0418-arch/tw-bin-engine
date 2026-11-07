@@ -109,7 +109,9 @@ public sealed partial class LoginConnection {
                 return RefuseMovement(reason);
             }
             lastMovementAt=MovementClock();nextMovementAt=Math.Max(nextMovementAt,lastMovementAt+Math.Max(stepMs,World.MovementIntervalMs??stepMs));
-            MovementSent?.Invoke(new{utc=DateTimeOffset.UtcNow,monotonicMs=Environment.TickCount64,plainHex=Convert.ToHexString(bytes),step,drift,from=a,predicted=World.Actor});return new(true,"請求已送出；本地預測，伺服器校正優先（無逐步 ACK）。");
+            MovementSent?.Invoke(new{utc=DateTimeOffset.UtcNow,monotonicMs=Environment.TickCount64,plainHex=Convert.ToHexString(bytes),step,drift,from=a,predicted=World.Actor});
+            if(step&&!drift)await EnterPortalAtArrival(nx,ny,epoch,world,corrections);
+            return new(true,"請求已送出；本地預測，伺服器校正優先（無逐步 ACK）。");
         }
         catch(Exception ex){if(epoch==generation){Cancel();Set(LoginState.Faulted,"移動傳送失敗："+ex.Message);}return new(false,"本次移動傳送失敗或已取消；未確認送出結果。");}
         finally{if(epoch==generation&&lease==movementLease)movementSending=false;}
