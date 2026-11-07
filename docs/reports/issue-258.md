@@ -2,7 +2,7 @@
 
 ## 做了什麼
 
-本輪為同步輪，不新增功能。`task/258`（同步前 `1f2ed29aac29bc8fc6f57d3179f437181e1f6a92`）合併 `origin/main`，同步期間 main 持續前進，共合併八次（`cb74af4`、`82d3a45`、`20b4a0a`、`76ac0fb`、`2c561c3`、`f6e8f4a`、#360 合併點、`ef1f762`）。程式與 lock 的同步 head 為 `ea84d98d158871112ced061943528c0e925b849c`，沿用 [PR #271](https://github.com/chaoren0418-arch/tw-bin-engine/pull/271)，未強制推送。
+本輪為同步輪，不新增功能。`task/258`（同步前 `1f2ed29aac29bc8fc6f57d3179f437181e1f6a92`）合併 `origin/main`，同步期間 main 持續前進，共合併十次（最後基準 `17e3dec`，涵蓋 #274、#261、#325、#322、#360、#377 等）。程式與 lock 的同步 head 為 `91473fd985bd0d275cbda77b3308f72553763ae5`，沿用 [PR #271](https://github.com/chaoren0418-arch/tw-bin-engine/pull/271)，未強制推送。
 
 - 衝突僅在共用分派點與 lock：`WorldSession.cs`（`Reset()` 同時保留 `ResetBookmarks()` 與 `ResetBuddies()`；S92 與 S76、武器修理的 `case 83 when` 都保留）、`demo-tests/DemoChecks.csproj`、`demo-tests/Program.cs`（書籤與 main 的測試入口都保留，`map-continuity` 與預設全跑仍執行 `BookmarkChecks`）。
 - `engine/_integration/dev/rebuild-lock.json` 每次都先取 main 版本，再執行 `--update-lock`，未手動拼接 hash。
@@ -12,31 +12,31 @@
 
 ## 怎麼驗證（已驗證）
 
-下表在合併 #360 後的 `8fca436` 上執行；`ea84d98` 只再合併 main 的一行 `docs/REPORT.md` 索引，程式與 lock 相同，並重跑唯讀核驗通過。
+下表在合併 #377 後的 `55ca99f` 上執行；`91473fd` 只再合併 main 的一行 `docs/REPORT.md` 索引，程式與 lock 相同，並重跑唯讀核驗通過。
 
 | 檢查 | 結果 |
 |---|---|
-| `rebuild.py --update-lock` | 通過，203 個 source／212 個 pinned inputs |
+| `rebuild.py --update-lock` | 通過，204 個 source／213 個 pinned inputs |
 | `rebuild.py --build --configfile scratch/issue-258/NuGet.Config --output scratch/issue-258/build` | 產品、audio、launcher 建置通過，未執行遊戲 |
 | `rebuild.py`（唯讀核驗） | 通過 |
 | demo-tests `bookmarks` | 640 項通過 |
-| demo-tests `map-continuity` | 22206 項通過 |
+| demo-tests `map-continuity` | 22306 項通過 |
 | demo-tests `combat-admission`／`item-transfer` | 1326／266 項通過 |
 | demo-tests `buddies`／`board`／`location-share` | 362／423／292 項通過 |
 | demo-tests `player-query`／`character-config` | 894／286 項通過 |
 | demo-tests `polymorph`／`polymorph-cadence` | 193／226 項通過 |
 | demo-tests `ambience`／`invisibility`／`duel` | 549／263／307 項通過 |
-| demo-tests `pets`／`fishing`／`doors`／`ghost-mode` | 193／232／514／552 項通過 |
+| demo-tests `pets`／`fishing`／`doors`／`ghost-mode`／`portals` | 193／232／514／552／293 項通過 |
 | `item-use-tests`／`character-management-tests`／`weapon-repair-tests` | 426／218／98 項通過 |
-| `engine/tools/check-no-game-assets.py` | 通過，3383 tracked files、0 errors |
+| `engine/tools/check-no-game-assets.py` | 通過，3385 tracked files、0 errors |
 
 demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所以不等於該模組自己的項數。
 
-`ea84d98` 的 CI 全綠：[build #606](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42339172196)（dotnet／map-continuity）與 [npc-offline #475](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42339172149) 均 completed／success；當時 PR 為 CLEAN／MERGEABLE、落後 main 0 個提交。本報告以後續純文件提交補記，最終 head 與 CI 另記於 PR 留言，避免自我引用。
+`91473fd` 的 CI 全綠：[build #612](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42339669307)（dotnet／map-continuity）與 [npc-offline #481](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42339669403) 均 completed／success；當時 PR 為 CLEAN／MERGEABLE、落後 main 0 個提交。本報告以後續純文件提交補記，最終 head 與 CI 另記於 PR 留言，避免自我引用。
 
 `OnCreateControl` 的時機用 `scratch/issue-258/lifecycle-probe`（空白 Form，與遊戲無關）實測，順序為 `OnLoad > OnCreateControl > OnShown`；`RecreateHandle` 會再觸發一次 `OnCreateControl`，既有的 `bookmarkPanel!=null` 判斷會擋掉重複初始化。`normalPanels` 與 `timer` 由建構子完成，觸發時已就緒。
 
-環境：Windows x64、SDK 10.0.300、Python 3.12。產品 DLL SHA-256：`52e76a0f039e2b27eec1c5b14008da62b24b4c1a445a5974af5e851d37a470b1`。產品有兩個既有 `MagicUi.cs:20` nullable 警告（CS8600／CS8602）、0 錯誤；未修改該檔。
+環境：Windows x64、SDK 10.0.300、Python 3.12。產品 DLL SHA-256：`f8d071891bc4d79c19490772569f1b146ab35f065d0952e15d26656edc0876e5`。產品有兩個既有 `MagicUi.cs:20` nullable 警告（CS8600／CS8602）、0 錯誤；未修改該檔。
 
 ## 未驗證什麼
 
@@ -56,6 +56,6 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 ## 給下一棒的提示
 
 1. Claude／codex-review 審查 PR #271 本輪同步（重點：`BookmarkUi.cs` 的 `OnCreateControl`）與 CI，再依流程交使用者合併；worktree 由調度器清理。
-2. main 合併頻繁，本輪就追了八次；建議本 PR 審查通過後盡快合併。之後再有模組覆寫 `ClientForm` 的生命週期方法會再撞 CS0111，新模組請先查已被占用的 `On*`，或把掛接集中到單一入口。
+2. main 合併頻繁，本輪就追了十次；建議本 PR 審查通過後盡快合併。之後再有模組覆寫 `ClientForm` 的生命週期方法會再撞 CS0111，新模組請先查已被占用的 `On*`，或把掛接集中到單一入口。
 3. 法師技能任務用 `World.Bookmarks.TryGet(id)` 查詢，null 表示不存在或刪除待確認。依既有協定報告，伺服器 `BookmarkService.getBookMark(pc, i)` 將技能參數拆成 X/Y；應核對 C6 消費端，不能直接把清單 ID 當傳送參數。
 4. dot 集中 smoke 覆蓋「更多」→「記憶座標」（確認分頁確實存在）、Big5 名稱、重名／容量／不可標記地點、刪除待確認、重登清單、切角隔離與跨圖保留。
