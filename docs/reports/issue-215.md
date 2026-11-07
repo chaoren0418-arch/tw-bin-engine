@@ -30,7 +30,9 @@
 
 產品 DLL SHA-256：`619732f5adf2d00d76ba59846df644e31bee99d6dcf2a027a8a1134d518f29af`。來源 SHA-256 見同提交的 dev lock，僅由 `--update-lock` 生成。
 
-本輪已解決 dev lock 與測試入口合併衝突，完整建置與離線回歸通過；待推送同步提交後核對新 head 的三項 CI，結果補記於此。
+本輪同步提交 `ccad2b000ec7ba660904c0ee37942a7bc3b5f0ae` 已推送，三項 CI 全數成功：[`dotnet`](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42318739358/job/128237805634)、[`map-continuity`](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42318739358/job/128237805897)、[`npc-offline`](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42318739402/job/128237805896)。先前 dev lock 衝突與 CI 未排程的阻塞已解除。
+
+本報告的證據補件會產生另一個文件提交；交付前仍須確認該最終 head 的三項 CI 全綠，不以以上同步提交代替。最終 head SHA 與逐項 CI 連結記錄在 [PR #241 的本輪 RESULT 留言](https://github.com/chaoren0418-arch/tw-bin-engine/pull/241#issuecomment-6699657462)，並可在 [PR Checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/241/checks) 核對，避免文件寫入自身 commit SHA 的循環。
 
 本機 Python 3.12.10、SDK 10.0.300；本輪 NuGet 使用 repo 的 `.github/nuget.ci.config` 與 worktree 內既有快取，cache、暫存與產物留在此 worktree。重跑方式（先把 TEMP、TMP、DOTNET_CLI_HOME、NuGet cache 指向 worktree）：
 
@@ -61,4 +63,4 @@ python -B -X utf8 engine/_integration/dev/rebuild.py
 
 ## 給下一棒的提示
 
-同步輪與本機驗證已完成。確認新 head 的 `dotnet`、`map-continuity`、`npc-offline` 全綠後交 Claude 審查與使用者合併；dot 接 M6 smoke。兩個原退回缺口已修正，無須再次裁定範圍。跨圖不可清空抑制清單，不手動拼接 lock hash。worktree 保留給調度器清理。
+同步輪、本機驗證及同步提交的三項 CI 已完成。交付前核對文件補件的最終 head CI，並於 PR 留下 RESULT；Claude 可依該 head 重新審查，再交使用者合併，dot 接 M6 smoke。兩個原退回缺口已修正，無須再次裁定範圍。跨圖不可清空抑制清單，不手動拼接 lock hash。worktree 保留給調度器清理。
