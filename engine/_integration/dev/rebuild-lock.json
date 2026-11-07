@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 205,
+ "sourceCount": 208,
  "files": [
   {
    "path": "NuGet.Config",
@@ -515,6 +515,16 @@
    "sha256": "cdb6bab4d853d13cc22a8c925b944702faaef7fea1dafdb618d3a0327ecbb8c5"
   },
   {
+   "path": "source/Mail.cs",
+   "size": 10190,
+   "sha256": "136200b761e2a784b43c8d6309d6de885d08b08e970fcbd3c7e80126fd3bb1fd"
+  },
+  {
+   "path": "source/MailUi.cs",
+   "size": 10062,
+   "sha256": "051a5bd56f1ee1656975a3b2af2973cb03971b85b1697321c62d7fabf714bbb1"
+  },
+  {
    "path": "source/MapEffects.cs",
    "size": 11051,
    "sha256": "befb109385251d5455e0bb5418995f072568e324424415e1f39e1c5c616e7f47"
@@ -528,6 +538,11 @@
    "path": "source/MapResources.cs",
    "size": 1187,
    "sha256": "8e3e1663a58345ab42bee1fe2c07777a74ece63da7fd6500323efd5b8daa016b"
+  },
+  {
+   "path": "source/Marriage.cs",
+   "size": 11267,
+   "sha256": "5b8373ca4b1308e564fd0019a5391205a6934dd513541f11db09e5e7bc593b0e"
   },
   {
    "path": "source/MovementRegression.cs",
@@ -741,8 +756,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15586,
-   "sha256": "46f54742a4112c5c318fbf08591b3c84bfcff8e992e4d1e657cb8c4cfa82ac46"
+   "size": 15621,
+   "sha256": "975cbd8cf4cadff44b16d44fc06a8e45c6cadba58a7ac1fc617e1f9b8bef4f18"
   },
   {
    "path": "source/PlayerPointer.cs",
@@ -956,8 +971,8 @@
   },
   {
    "path": "source/Trade.cs",
-   "size": 11633,
-   "sha256": "f0e18f0446620d0ead2e1ec316739d8b7c77b35d3003912d928b5f9c7a298612"
+   "size": 11704,
+   "sha256": "0a33d6c3c02565acc35a7e3473e5fc70ad5ddf8c00dcda9de3bce217228ba965"
   },
   {
    "path": "source/TradeUi.cs",
@@ -1021,8 +1036,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 11413,
-   "sha256": "582e0e3df5f77b15c57ef49f4d1320b3c520ccf34574518908f6e873b16debf6"
+   "size": 11488,
+   "sha256": "51f39b424c8ec6b56448f3cf012d9bd32c11212313d07147e2f246140558a5a2"
   },
   {
    "path": "source/WorldTests.cs",

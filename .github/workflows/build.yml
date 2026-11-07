@@ -41,6 +41,13 @@ jobs:
           New-Item -ItemType Directory -Force scratch/issue-216 | Out-Null
           dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-216/item-status-checks.json item-status
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Mail packet and lifecycle checks (no game or network)
+        shell: pwsh
+        run: |
+          dotnet restore engine/_integration/dev/mail-tests/MailChecks.csproj --configfile .github/nuget.ci.config
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          dotnet run --project engine/_integration/dev/mail-tests/MailChecks.csproj -c Release --no-restore
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Weapon repair and PK checks (no game or network)
         shell: pwsh
         run: |
