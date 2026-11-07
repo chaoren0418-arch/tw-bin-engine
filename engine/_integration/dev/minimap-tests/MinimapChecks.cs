@@ -46,8 +46,8 @@ partial class Checks {
             Feed(connection,Packet(b=>{b.Write((byte)158);b.Write(456u);b.Write((byte)8);}));Update();
             Check(model.Snapshot!.Markers.All(m=>m.Id!=456),"S158 death removes live NPC marker");
             Feed(connection,MinimapPack(456));Update();Check(model.Snapshot!.Markers.Any(m=>m.Id==456),"S87 respawn restores NPC marker");
-            Feed(connection,Packet(b=>{b.Write((byte)76);b.Write(456u);b.Write((ushort)99);b.Write((ushort)0);}));Update();
-            Check(model.Snapshot!.Markers.All(m=>m.Id!=456),"S76 pending appearance hides stale NPC marker");
+            before=model.Snapshot!.Markers.Single(m=>m.Id==456);Feed(connection,Poly(456,99,0));Update();
+            Check(before==model.Snapshot!.Markers.Single(m=>m.Id==456)&&world.Objects.Single(o=>o.ObjectId==456).Gfx==99,"S76 polymorph keeps the same NPC marker in place");
             Feed(connection,MinimapPack(456));Feed(connection,Packet(b=>{b.Write((byte)120);b.Write(456u);}));Update();
             Check(model.Snapshot!.Markers.All(m=>m.Id!=456),"S120 removal clears NPC marker");
             Set(cache,"Revision",2);Update();Check(!ReferenceEquals(original,model.Image),"cache shift revision rebuilds thumbnail");
