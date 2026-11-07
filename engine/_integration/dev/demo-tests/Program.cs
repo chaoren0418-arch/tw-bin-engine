@@ -281,6 +281,7 @@ partial class Checks {
         PolymorphChecks();
         if(args.Length>2){
             switch(args[2]){
+                case "doors":await DoorChecks();break;
                 case "pets":break;
                 case "map-continuity":await MapContinuity();await BoardChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();break;
                 case "ghost-mode":await GhostModeChecks();break;
