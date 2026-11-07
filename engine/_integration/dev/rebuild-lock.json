@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 197,
+ "sourceCount": 200,
  "files": [
   {
    "path": "NuGet.Config",
@@ -298,6 +298,11 @@
    "path": "source/EventJournal.cs",
    "size": 1474,
    "sha256": "4d0b1989f0ac6fb8ec76a0919c58538db0c3e8a7ff99e6916942818b151cd510"
+  },
+  {
+   "path": "source/Fishing.cs",
+   "size": 6109,
+   "sha256": "87f5ad594cb94708f283fab2902cc4b37c836ddea90cf9eee2dbbb9b5572159e"
   },
   {
    "path": "source/GhostMode.cs",
@@ -660,6 +665,16 @@
    "sha256": "1172b568b9702a0db588cbb5818cc85988bece0e0fd6586af58db6f9469e86d2"
   },
   {
+   "path": "source/PetUi.cs",
+   "size": 4124,
+   "sha256": "f0979c21a3c7c52ee95adba29a754397574222c59abe38a75d54a67ed7645ba5"
+  },
+  {
+   "path": "source/Pets.cs",
+   "size": 9572,
+   "sha256": "253ca5ee0c35535e1331c93be935def3ef5011452fc37ae417a3544d117cb24f"
+  },
+  {
    "path": "source/PickupAssets.cs",
    "size": 6448,
    "sha256": "c3c27789794fd0579062d7e3328be605735cc148e1cbd829f3413ffe2dde7f03"
@@ -706,8 +721,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15521,
-   "sha256": "4e010549206a0a982825779d9d142241284defdd04e5ca4b9cd0e03f72309c05"
+   "size": 15586,
+   "sha256": "46f54742a4112c5c318fbf08591b3c84bfcff8e992e4d1e657cb8c4cfa82ac46"
   },
   {
    "path": "source/PlayerPointer.cs",
@@ -981,8 +996,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 10616,
-   "sha256": "26e4b78cd3ed0f93d1d093b98f5b49c24ac07702e7304b3932d9d6cae72e7eae"
+   "size": 10863,
+   "sha256": "3660e98e341b3e9a139c5123c90033a3979bc54c56eacc64289ff9266e99e6cd"
   },
   {
    "path": "source/WorldTests.cs",
