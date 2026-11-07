@@ -48,3 +48,9 @@ C34 `C_NPCTalk` 格式為 C34 D夥伴ID（其餘為既有封包補齊）。處�
 | `clientpackets/C_NPCTalk.java` | `7a324af75ce43054f87a500d6a16600ddf01209ee5c5d5d4d2f4cf1377457027` |
 | `model/Instance/L1PetInstance.java` | `4b9ac51377e68f078d02d9e70c1598149dc21e6a73795820dd442b199207a609` |
 | `model/Instance/L1SummonInstance.java` | `4da5511db9841b26ff0d957700bf1f25117e355f24ae2186da3e04db7a4c3b34` |
+
+## 第三輪裁定與完成狀態（取代上方待裁定敘述）
+
+2026-11-07 主控明確授權單一 S39 分流。已在 `WorldSession.ReceiveCore` 第一個 switch 加入 `case 39:if(ReceivePetDialog(plain))return;break;`，先辨識 anicom／moncom，再解析寵物 C旗標格式；其他模板使用未被消耗的原 reader，繼續 NPC／RaiseAttr 路徑。C34 查詢與 C104 成功後的 S39 回覆現已接通，`NpcUi.cs` 不變。
+
+離線合成封包測試通過詳細資訊更新、錯誤資料原子性、防具／武器 C104 → S250/37 → S39 → C103 → S176，以及一般 NPC、相似模板名稱、既有 NPC 頁面與 RaiseAttr 回歸。這是產品 DLL 的離線驗證，仍非部署 JAR／原生實機驗收。main 的地面分類對 owner 空白、HP255、朝向0及其餘可變欄位全零的 follower 存在格式重疊，本張不改共用分類；詳見報告。

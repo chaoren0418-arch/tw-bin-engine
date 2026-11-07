@@ -4,9 +4,9 @@ using System.Text.Json;
 
 // Linked into DemoChecks: runs the actual built product, no entry point, window or socket.
 partial class Checks {
-    static byte[] Companion(uint id=456,string owner="offline",byte hp=70)=>Packet(b=>{
+    static byte[] Companion(uint id=456,string owner="offline",byte hp=70,byte heading=0)=>Packet(b=>{
         b.Write((byte)87);b.Write((ushort)32601);b.Write((ushort)32940);b.Write(id);b.Write((ushort)1110);
-        b.Write(new byte[4]);b.Write(0u);b.Write((ushort)0);Text(b,"夥伴");Text(b,"");b.Write((byte)0);b.Write(0u);
+        b.Write((byte)0);b.Write(heading);b.Write(new byte[2]);b.Write(0u);b.Write((ushort)0);Text(b,"夥伴");Text(b,"");b.Write((byte)0);b.Write(0u);
         Text(b,"");Text(b,owner);b.Write((byte)0);b.Write(hp);b.Write(new byte[3]);b.Write((byte)255);b.Write((byte)255);
     });
     static byte[] PetList(uint price=70,uint[]? ids=null)=>Packet(b=>{
@@ -53,7 +53,8 @@ partial class Checks {
         Feed(c,PetBagPacket(999));Check(c.World.PetInventory(999)==null,"foreign pet inventory ignored");
         Feed(c,PetBagPacket(type:3));Check(c.World.PetInventory(456)!.Ac==-12,"warehouse still uses existing S176 parser");
         Feed(c,PetBagPacket(ids:[]));Check(c.World.PetInventory(456)!.Items.Length==0,"S176 empty bag AC");
-        Feed(c,Companion(457,"someone else"));Feed(c,Companion(458,"",255));
+        // A nonzero heading avoids the existing shared ground classifier's ambiguous zero-count envelope.
+        Feed(c,Companion(457,"someone else"));Feed(c,Companion(458,"",255,3));
         Check(c.World.PetCompanions.Select(o=>o.ObjectId).SequenceEqual(new[]{456u}),"foreign pet and ownerless S_FollowerPack not controllable");
         Check(c.World.Objects.Any(o=>o.ObjectId==458&&o.HpPercent==null),"S_FollowerPack retains existing rendering object and hidden HP");
         Feed(c,LoginPackets.Pad([237,..BitConverter.GetBytes(456u),40]));
@@ -87,15 +88,20 @@ partial class Checks {
         Check(await c.SendPet(c.PetSnapshot(456).Stamp,"refresh")&&sent![0]==103,"C103 uses guarded transport");
         Feed(c,PetBagPacket());var before=c.PetSnapshot(456).Stamp;
         Check(!await c.SendPet(before,"item",0,999)&&!await c.SendPet(before,"item",2,2003),"wrong item ID and non-equipment rejected");
-        Check(await c.SendPet(before,"item",1,2002)&&sent![0]==104&&sent[1]==2&&sent[6]==1,"C104 exact server row index");
-        Check(c.World.PetInventory(456)==null&&!await c.SendPet(before,"item",1,2002),"used bag invalidated until explicit refresh reply");
-        // Original C104 success emits S250/37 equipment notice followed by S39.
-        Feed(c,LoginPackets.Pad([250,37,2,..BitConverter.GetBytes(456u),1,unchecked((byte)-12)]));
-        Feed(c,PetMenuPacket(hp:"65",mp:"7"));
-        Check(c.State==LoginState.InWorld&&c.PetSnapshot(456).Info is {Hp:65,Mp:7},"C104 success reply reaches S39 pet information without NPC format error");
-        Check(c.World.PetInventory(456)==null,"C104 S39 does not fabricate refreshed bag contents");
-        Check(await c.SendPet(c.PetSnapshot(456).Stamp,"refresh"),"explicit bag refresh after C104 reply");
-        Feed(c,PetBagPacket());Check(c.PetSnapshot(456).Bag is {Ac:-12},"S176 repopulates equipment after C104 refresh");
+        foreach(var (index,type,item) in new[]{(1,(byte)2,2002u),(0,(byte)0x16,2001u)}){
+            before=c.PetSnapshot(456).Stamp;
+            Check(await c.SendPet(before,"item",index,item)&&sent!.SequenceEqual(PetPackets.UseItem(456,type,index)),"C104 exact server row index and type "+type);
+            Check(c.World.PetInventory(456)==null&&c.World.PetInformation(456)==null&&!await c.SendPet(before,"item",index,item),"used bag and details invalidated until explicit reply "+type);
+            // Original C104 success emits S250/37 equipment notice followed by S39.
+            Feed(c,LoginPackets.Pad([250,37,type,..BitConverter.GetBytes(456u),(byte)index,unchecked((byte)-12)]));
+            Check(c.World.PetInformation(456)==null,"equipment notice alone does not fabricate details "+type);
+            int priorNpc=c.World.InteractionRevision;
+            Feed(c,PetMenuPacket(hp:"65",mp:"7"));
+            Check(c.State==LoginState.InWorld&&c.PetSnapshot(456).Info is {Hp:65,Mp:7}&&c.World.InteractionRevision==priorNpc,"C104 success reply reaches S39 pet information without NPC format error "+type);
+            Check(c.World.PetInventory(456)==null,"C104 S39 does not fabricate refreshed bag contents "+type);
+            Check(await c.SendPet(c.PetSnapshot(456).Stamp,"refresh"),"explicit bag refresh after C104 reply "+type);
+            Feed(c,PetBagPacket());Check(c.PetSnapshot(456).Bag is {Ac:-12},"S176 repopulates equipment after C104 refresh "+type);
+        }
         Feed(c,PetBagPacket());var queued=c.PetSnapshot(456).Stamp;
         Sender(c,(bytes,valid,admit)=>{Feed(c,PetBagPacket(ids:[2002,2001]));if(valid())throw new Exception("stale bag admitted");return Task.FromResult(false);});
         Check(!await c.SendPet(queued,"item",0,2001),"bag reorder at sender gate rejected");
@@ -113,10 +119,17 @@ partial class Checks {
         Sender(npc,(bytes,valid,admit)=>{if(!valid())return Task.FromResult(false);admit();return Task.FromResult(true);});
         Check(await npc.Interact("talk",npc.World.InteractionRevision,npc.World.WorldEpoch,npc.World.TargetRevision),"open ordinary NPC dialogue via existing request");
         int petRevision=npc.World.PetRevision;
-        foreach(var packet in new[]{PetNpcDialog("ordinary"),PetNpcDialog("ordinary",456,"one","two")}){
+        foreach(var packet in new[]{PetNpcDialog("ordinary"),PetNpcDialog("ordinary",456,"one","two"),PetNpcDialog("anicom-extra"),PetNpcDialog("moncom-extra")}){
             int prior=npc.World.InteractionRevision;Feed(npc,packet);
             Check(npc.World.InteractionKind=="dialog"&&npc.World.InteractionRevision>prior&&npc.World.PetRevision==petRevision,"non-pet S39 retains ordinary H-flag NPC route");
         }
+        Feed(npc,Companion(789));
+        var npcPage=npc.World.InteractionPage;int openNpcRevision=npc.World.InteractionRevision;
+        foreach(string html in new[]{"anicom","moncom"}){
+            Feed(npc,PetMenuPacket(html,789));
+            Check(npc.World.PetInformation(789)?.Kind==(html=="anicom"?"pet":"summon")&&npc.World.InteractionKind=="dialog"&&npc.World.InteractionNpc==456&&npc.World.InteractionRevision==openNpcRevision&&npc.World.InteractionPage==npcPage,"pet S39 preserves an open unrelated NPC page "+html);
+        }
+        petRevision=npc.World.PetRevision;
         Feed(npc,PetNpcDialog(""));Check(npc.World.InteractionKind=="closed","empty S39 retains NPC close route");
         Set(npc.World,"Status",npc.World.Status! with{Level=51});
         Feed(npc,PetNpcDialog("RaiseAttr",123));
