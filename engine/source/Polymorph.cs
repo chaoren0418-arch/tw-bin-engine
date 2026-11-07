@@ -20,7 +20,43 @@ public sealed record PolymorphPacket(uint ObjectId,ushort Gfx,bool WeaponTakeoff
     }
 }
 
+// docs/reference/actions-and-names.md 3.1: legal +194 stance values from sub_A4ADD0 (FO 0x64A1D0).
+public static class PolymorphStances {
+    static readonly HashSet<int> legal=[0,4,11,20,24,40,46,50,54,58,62,83];
+    public static bool Legal(int stance)=>legal.Contains(stance);
+}
+
+// docs/reference/actions-and-names.md 3.2 step 2/4 and 3.5. Only verified constants and transitions.
+public static class SpecialShapes {
+    public const int HorseHelmA=6080,HorseHelmB=6094,HorseEffect=6099;
+    public static bool HorseHelm(int gfx)=>gfx is HorseHelmA or HorseHelmB;
+    // listSprField113 is list.spr field 113 (0x13CD870[gfx]); no verified list.spr mapping exists yet,
+    // so product callers pass 0 and only the 6080/6094 constant rule is active.
+    public static int[] AttachedEffects(int gfx,int listSprField113=0){
+        var result=new List<int>();
+        if(HorseHelm(gfx))result.Add(HorseEffect);
+        if(listSprField113!=0&&!result.Contains(listSprField113))result.Add(listSprField113);
+        return result.ToArray();
+    }
+    // sub_A43560 (FO 0x642960): at each action-loop end 6080/6094 swap stance 0<->20 and 24<->62.
+    public static int LoopEndStance(int gfx,int stance)=>!HorseHelm(gfx)?stance:stance switch{0=>20,20=>0,24=>62,62=>24,_=>stance};
+    public static int DisplayStance(int gfx,int stance,long completedLoops)=>completedLoops%2==0?stance:LoopEndStance(gfx,stance);
+    // list.spr field 108 (0x13CD850[gfx]) == 2: action 44 end -> stance 4 (or 11 if field 111), +199=2;
+    // action 45 end -> stance 0, +199=1. Returns null when the rule does not apply.
+    public static (int Stance,int Flag199)? ActionEnd(int listSprField108,int listSprField111,int action)=>
+        listSprField108!=2?null:action switch{44=>(listSprField111!=0?11:4,2),45=>(0,1),_=>null};
+}
+
+public sealed record SpecialShapeAnchor(uint ObjectId,int Gfx,int EffectGfx,int X,int Y);
+
 public sealed partial class WorldSession {
+    // Visible owners of attached special-shape effects; renderer resolves verified assets only.
+    public SpecialShapeAnchor[] SpecialShapeAnchors(){
+        var result=new List<SpecialShapeAnchor>();
+        if(Actor is {} a&&!SelfAppearancePending)foreach(int e in SpecialShapes.AttachedEffects(a.Gfx))result.Add(new(a.ObjectId,a.Gfx,e,a.X,a.Y));
+        foreach(var o in Objects)if(!o.AppearancePending)foreach(int e in SpecialShapes.AttachedEffects(o.Gfx))result.Add(new(o.ObjectId,o.Gfx,e,o.X,o.Y));
+        return result.ToArray();
+    }
     void ReceivePolymorph(byte[] plain){
         var shape=PolymorphPacket.Parse(plain);
         if(Actor is {} actor&&actor.ObjectId==shape.ObjectId){
@@ -39,5 +75,21 @@ public sealed partial class WorldSession {
         });
         // Keep the same target identity, but invalidate queued actions against its old appearance.
         if(TargetId==shape.ObjectId){TargetRevision++;CloseInteraction("目標外觀已更新，請重新對話。");}
+    }
+}
+
+public sealed record SpecialShapeEffectVisual(uint ObjectId,int EffectGfx,int X,int Y,string Frame);
+public sealed partial class Renderer {
+    public SpecialShapeEffectVisual[] SpecialShapeEffectVisuals {get;private set;}=[];
+    // Attachment point for 3.2/3.5 effects (6099 on 6080/6094). Missing verified assets draw nothing.
+    void ComposeSpecialShapeEffects(WorldSession session,List<Draw> draws,long now){
+        var anchors=session.SpecialShapeAnchors();if(anchors.Length==0){SpecialShapeEffectVisuals=[];return;}
+        packetEffectAssets??=new(assets.Root);var visuals=new List<SpecialShapeEffectVisual>();int serial=2700000;
+        foreach(var anchor in anchors){
+            if(!session.SceneContains(anchor.X,anchor.Y)||packetEffectAssets.Get(anchor.EffectGfx) is not {} appearance)continue;
+            var frame=appearance.At(now);visuals.Add(new(anchor.ObjectId,anchor.EffectGfx,anchor.X,anchor.Y,frame.Key));
+            foreach(var b in frame.Blocks)draws.Add(new(2*(anchor.X-Coordinates.MinX)+b.A,anchor.Y-Coordinates.MinY+b.B,b.Z,serial++,"special-shape-effect",b.Order,-1,-1,b.Tile));
+        }
+        SpecialShapeEffectVisuals=visuals.ToArray();
     }
 }

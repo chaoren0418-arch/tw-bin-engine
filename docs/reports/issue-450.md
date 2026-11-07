@@ -23,6 +23,7 @@
 | `DemoChecks … map-continuity`（CI 步驟） | PASS 23052 checks |
 | `check-no-game-assets.py` | pass，errors 0 |
 | CI（PR #487） | dotnet、map-continuity、npc-offline 全部 pass |
+| 同步 main（落後 36 個 commit）後重驗 | 解 `demo-tests/Program.cs` 衝突（保留 main 的 `MapAmbientChecks` 並加回 `HotbarChecks`）；`--update-lock` → 220 個來源檔／229 個鎖定檔；`--build` PASS（productDll `26e4c22d…`）；`hotbar` PASS 569 checks；`map-continuity` PASS 23148 checks；`check-no-game-assets.py` pass |
 
 封包都用合成資料：C244 編碼（8 格與舊 4 格重寫）、S250／41（直接尾長與回送補齊尾長），以及截斷、子碼錯誤、溢位、非零尾段、超限、count 與長度不符。
 
