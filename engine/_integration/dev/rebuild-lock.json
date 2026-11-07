@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 181,
+ "sourceCount": 183,
  "files": [
   {
    "path": "NuGet.Config",
@@ -140,6 +140,16 @@
    "sha256": "4584ba1a014e5378870bf1520427c10ff7ace1947ce350dc813ba5d772e5d521"
   },
   {
+   "path": "source/CharacterManagement.cs",
+   "size": 13145,
+   "sha256": "26257b76afc4a05ff185abc0922cbd4694443d23ecbb12e46621713578c16ca6"
+  },
+  {
+   "path": "source/CharacterManagementUi.cs",
+   "size": 7435,
+   "sha256": "582febb574d3594747546030455e690002d68725764f042a2b06861b3173634e"
+  },
+  {
    "path": "source/ClientAudioSettings.cs",
    "size": 1739,
    "sha256": "57875a68aaabbd6c50b6087dffc76329d44003b0d35a5c68db48b09804e161b0"
@@ -156,8 +166,8 @@
   },
   {
    "path": "source/ClientLogin.cs",
-   "size": 11603,
-   "sha256": "fa4e8a997c98f587fc8d5bed88fed5389679be970c0a4e950c18e4a83e80e25e"
+   "size": 11970,
+   "sha256": "8fd29181b6707bff48af44a3ff365c21f68aa2fbdb8dd4be71f101137c654fa4"
   },
   {
    "path": "source/ClientNetwork.cs",
@@ -351,8 +361,8 @@
   },
   {
    "path": "source/LoginConnection.cs",
-   "size": 10508,
-   "sha256": "33bed58be0c42e38ba213c91690e8fd3f237acc135e6e60ba7433ccee81c7390"
+   "size": 10741,
+   "sha256": "16e34f82376fd4319fe44e9699d36502443322e59285a6a12c0d796ddbdf6a74"
   },
   {
    "path": "source/LoginControl.cs",

@@ -55,8 +55,8 @@
 
 ## 給下一棒的提示
 
-本輪先快轉至遠端 `task/263` 的 `e2d8b683a1b1080cc5aa5539f5f8fc130777742f`，再執行 `git merge origin/main`，確認已包含 main `5fece0032aef4ed8b772671f4a425c0f1d4044e8`。遠端失敗日誌明確為 `sourceCount 180 != pinned source files 181`；以 `--update-lock` 重產為 181 個來源、190 個鎖定輸入，唯一 lock 差異是來源數 180 → 181。未追加功能修改，`docs/REPORT.md` 與 main 完全一致。
+本輪從已審查的 `b9a169937097bc1cf995c4f0052c8462d7d4688d` 接續；確認 PR #278 的三項 CI 均成功，但 main 合入角色管理後已出現合併衝突。合併 `origin/main`（`0380ae6062804b976fe32e5ac2a20b0b611e42ac`），唯一衝突是 dev lock，以 `rebuild.py --update-lock` 完整重產為 183 個來源、192 個鎖定輸入。未追加功能修改，沒有手拼 hash；`docs/REPORT.md` 完全沿用 main，未另行編輯。
 
-本輪產品、launcher、DemoChecks 建置通過。離線回歸全綠：`polymorph-cadence` 123 項、`map-continuity` 448 項、`combat-admission` 368 項、`item-transfer` 163 項、`board` 320 項、`hit-reaction-suppress` 156 項（各組含基本變身檢查）；另執行 main 新增的 `item-use-tests`，426 項通過。證據沿用 `scratch/issue-263/build/` 與群組同名 JSON，新增結果為 `scratch/issue-263/item-use.json`；素材拒收、差異空白檢查及最終提交 CI 結果記於 PR #278 本輪 RESULT 留言。未啟動遊戲、伺服器或 DB，原生驗收仍待 M6 smoke。
+本輪產品、launcher、DemoChecks 建置通過。重新執行離線回歸全綠：`polymorph-cadence` 123 項、`map-continuity` 448 項、`combat-admission` 368 項、`item-transfer` 163 項、`board` 320 項、`hit-reaction-suppress` 156 項（各組含基本變身檢查）；新增合入的 `character-management` 218 項亦通過。證據沿用 `scratch/issue-263/build/` 與群組同名 JSON；`item-use.json` 的 426 項是前輪證據，本輪未重跑。產品 DLL SHA-256：`b8c58c22df22e50f9b77888694889690d52f5b1150b479b65165aae60f3ba747`。素材拒收、差異空白檢查及最終提交 CI 結果記於 PR #278 本輪 RESULT 留言。未啟動遊戲、伺服器或 DB，原生驗收仍待 M6 smoke。
 
 Claude 審查 PR；合併由使用者處理。調度器同步輪若遇 dev lock 衝突，依契約重新產生，不手拼 hash。M6 smoke 由 dot 依既有授權測試：自身／其他角色變身、保留／卸下武器、攻擊與行走、S119 更新、解除、同圖重設；若指定 gfx 缺素材，另開 resource 任務取得經驗證 profile，不以假圖補足。本次未改 `docs/REPORT.md`。
