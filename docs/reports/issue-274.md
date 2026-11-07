@@ -36,6 +36,15 @@
 - 本次 `check-no-game-assets.py`：pass、3297 個追蹤檔、0 errors；`git diff --check` 通過，`git ls-files -ci --exclude-standard` 為空。相對最新 main 仍只有原核准的 10 個檔案。
 - 推送後的新 head 與 CI 結果另記於 PR #297 的本次驗證留言；先前 head 的成功紀錄不當作本次 CI 證據。調度器合併前仍須核對即時 main 與可合併狀態。
 
+## CI 退回同步修正（2026-11-07）
+
+- 依本輪「只做同步」要求，先 `git fetch origin`，將本機分支快轉到遠端 `ce4493adfc587803127f4ab33cc396fb42214fba`，再執行 `git merge origin/main`（已包含 `0380ae6062804b976fe32e5ac2a20b0b611e42ac`，回報 Already up to date）。
+- 已驗證 CI 失敗原因：[build 42325417265](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42325417265) 的 canonical build 回報 `sourceCount 182 != pinned source files 184`。執行既有 `rebuild.py --update-lock` 後只改來源數 182 → 184，193 個鎖定檔全部通過；未改產品程式、測試、CI 或封包文件，`docs/REPORT.md` 與 main 相同。
+- 以 Python 3.12 明確路徑執行既有 canonical build，參數為 `--build --configfile scratch/issue-274/NuGet.Config --output scratch/issue-274/build`；唯讀使用主專案 vendor，套件及暫存均留在 worktree。產品與 launcher 成功，產品仍只有既有 `MagicUi.cs:20` 的 CS8600／CS8602；launcher 0 警告，兩者 0 錯誤。
+- 重跑 `dotnet run --project engine/_integration/dev/weapon-repair-tests/WeaponRepairChecks.csproj -c Release --no-restore`：98 項全部通過。`check-no-game-assets.py`：pass、3301 個追蹤檔、0 errors；`git diff --check` 通過，未解決衝突及已追蹤但遭忽略的檔案清單均為空。
+- 本輪產品 DLL SHA-256：`403988cc2b2008b80ecc922aced2e61b195ccd226bc840c4ccd339b49dddc214`。本機證據沿用 `scratch/issue-274/build/`、`scratch/issue-274/tests.txt`；推送後精確 head 與新 CI 結果另留於 PR #297，不沿用舊 head 的結果。
+- 下一棒：Claude／調度器核對本輪 head 的 CI 與可合併狀態，依既定流程交由使用者合併；原生修理與 PK 驗收仍由 dot 的 M6 smoke 接手。
+
 ## 未驗證什麼
 
 - 未驗證原生視窗排版、實際 NPC 修理扣款／耐久變更、PK 真實次數與正式客戶端操作；合成封包測試不代表實機驗收。
