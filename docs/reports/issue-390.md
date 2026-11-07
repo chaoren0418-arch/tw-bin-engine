@@ -40,14 +40,15 @@
 
 ## 同步輪（第 2 輪，claude-local）
 
-依調度器指示合併 `origin/main`（落後 47 筆）。上方第 1～6 項與產品 DLL SHA 是第 1 輪紀錄，以本節為最新結果。
+依調度器指示合併 `origin/main`（落後 47 筆；同步期間 main 又前進，合到 `065e81e`，含 #324 角色快捷設定）。上方第 1～6 項與產品 DLL SHA 是第 1 輪紀錄，以本節為最新結果。
 
-- 衝突只有 `DemoChecks.csproj`：兩邊各加一行測試連結，兩行都保留。`rebuild-lock.json` 以 `--update-lock` 重產（188 個來源、197 個鎖定檔），未手動拼接。
+- 衝突在 `DemoChecks.csproj`（兩邊各加測試連結，全部保留）、`Program.cs`（`map-continuity` 用 main 的新位置並接上 `MinimapChecks()`，保留 `minimap` 群組，預設入口保留兩邊的呼叫）與 `rebuild-lock.json`。lock 以 `--update-lock` 重產（189 個來源、198 個鎖定檔），未手動拼接。
+- F5 與 #324 不衝突：快捷欄用 F1～F4，`engine/source` 沒有其他 F5 綁定。
 - **測試語意調整**：#263 把 S76 改成權威變身封包後，第 1 輪的「S76 待更新會隱藏 NPC 標記」不再成立，合併後這項失敗。遠端物件收到 S76 只換 gfx、物件仍在，標記應保留，所以測試改為驗證同一標記留在原位且 gfx 已更新。產品程式碼未改，`Minimap.cs`／`MinimapUi.cs` 與第 1 輪相同。
-- 建置：`rebuild.py --build` 退出 0。產品 DLL SHA-256：`e165dcba2e6522febf87a926a34deb0eceec1c302b9eacf58bfe39727e659bc0`。
-- DemoChecks 全部通過：`minimap` 141、`map-continuity` 19990、`combat-admission` 368、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163。項數比第 1 輪多，是因為 main 新增的 POLY 等檢查在群組分派前就會執行，不代表小地圖測試變多。
-- `check-no-game-assets.py` 通過（3316 個追蹤檔、0 錯誤）。
-- **預設入口未通過（本機環境限制）**：不帶群組的 DemoChecks 跑完 `MinimapChecks` 後，在 `Movement123` 讀取 `engine/assets/terrain0.bin` 時失敗，因為本 worktree 沒有 `engine/assets` junction。與小地圖無關，CI 也不跑預設入口；本輪未建立 junction，所以預設入口其餘項目未驗證。
+- 建置：`rebuild.py --build` 退出 0。產品 DLL SHA-256：`f93ecee4370458c9cc476016d7eb1a964e5b0997fe16514905c20d8e8143a26a`。
+- DemoChecks 全部通過：`minimap` 141、`map-continuity` 20083、`character-config` 183、`combat-admission` 368、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163。項數比第 1 輪多，是因為 main 新增的 POLY 檢查在群組分派前就會執行，`map-continuity` 另有 main 新增的群組內檢查，不代表小地圖測試變多。
+- `check-no-game-assets.py` 通過（3320 個追蹤檔、0 錯誤）。
+- **預設入口未通過（本機環境限制）**：在合併 #324 之前實測，不帶群組的 DemoChecks 跑完 `MinimapChecks` 後，在 `Movement123` 讀取 `engine/assets/terrain0.bin` 時失敗，因為本 worktree 沒有 `engine/assets` junction。與小地圖無關，CI 也不跑預設入口；本輪未建立 junction，所以預設入口其餘項目未驗證。
 
 ## 未驗證什麼
 
