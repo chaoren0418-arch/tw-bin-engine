@@ -42,6 +42,12 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           dotnet run --project engine/_integration/dev/mail-tests/MailChecks.csproj -c Release --no-restore
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Polymorph packet and cadence contracts (no game or network)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-263 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-263/polymorph-checks.json polymorph-cadence
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Buddy and exclude contracts (no game or network)
         shell: pwsh
         run: |
