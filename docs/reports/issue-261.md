@@ -2,7 +2,7 @@
 
 ## 結論
 
-已依 2026-11-07 主控擴充裁定接通 S39，指定離線回歸全部通過，未跳過。再次同步 `origin/main`（`5fece0032aef4ed8b772671f4a425c0f1d4044e8`），保留 main 的道具使用與命中反應修正，重新建置與驗證；PR #276 維持非草稿。本輪新 head 的 CI 結果於推送後由 PR checks 核對並更新 PR 描述，不引用前輪成功狀態。
+已依 2026-11-07 主控擴充裁定接通 S39，指定離線回歸全部通過，未跳過。再次同步 `origin/main`（`0380ae6062804b976fe32e5ac2a20b0b611e42ac`），保留 main 的角色管理、道具使用與命中反應修正，重新建置與驗證；另合併遠端 `task/261` 的 `482b358` 紀錄，未覆寫遠端提交。PR #276 維持非草稿。本輪新 head 的 CI 結果於推送後由 PR checks 核對並更新 PR 描述，不引用前輪成功狀態。
 
 ## 做了什麼
 
@@ -10,7 +10,7 @@
 - 接通 C34 詳細資訊查詢與 C104 成功後 S39 回覆。沿用寵物控制面板、背包、世界物件與 HP；依原服格式，C103 是背包查詢、控制指令走 C125。
 - `PetChecks.cs` 經真正 `WorldSession.Receive` 驗證 anicom／moncom、數值更新、無效封包原子性、防具與武器 C104 → S250/37 → S39 → C103 → S176，以及一般 NPC、相似模板名稱、開啟中的 NPC 頁面、空模板關閉與 RaiseAttr。
 - `Program.cs` 捕捉 Pets 例外後仍執行後續群組；最後寫 fail、退出 1，保留錯誤，不誤報 pass。
-- merge 保留 main 的音效／特效、board／item-transfer 分派與測試。dev lock 取 main 後以 `--update-lock` 重新產生；`docs/REPORT.md` 僅隨 main 合併，本任務未編輯索引。
+- merge 保留 main 的音效／特效、board／item-transfer 分派與測試。本次合併無衝突，dev lock 以 `--update-lock` 重新產生；修正遠端舊 head 的 CI 錯誤 `sourceCount 182 != pinned source files 184`，未手動拼接 hash。`docs/REPORT.md` 僅隨 main 合併，本任務未編輯索引。
 
 ## 怎麼驗證（已驗證）
 
@@ -18,18 +18,18 @@
 
 | 檢查 | 結果 |
 |---|---|
-| `rebuild.py --update-lock` 與唯讀核驗 | 182 來源／191 鎖定輸入通過 |
+| `rebuild.py --update-lock` 與唯讀核驗 | 184 來源／193 鎖定輸入通過 |
 | `rebuild.py --build --configfile scratch/pets-nuget.config --output scratch/pets-build` | 產品、audio、launcher 成功；產品僅既有 MagicUi.cs 兩則 nullable 警告 |
 | DemoChecks `pets` | 98 項通過 |
 | DemoChecks `map-continuity` | 456 項通過，包含 pets／map／board |
 | DemoChecks `combat-admission` | 376 項通過，包含 pets 與 main 的命中反應回歸 |
 | DemoChecks `item-transfer` | 171 項通過，包含 pets |
 | Pets 失敗仍執行後續群組 | 第三輪先前留下的 fixture 修正前證據：實際失敗仍跑完 map／board；JSON 為 fail、退出碼 1；此次合併確認保留相同例外處理 |
-| `check-no-game-assets.py` | pass，3295 追蹤檔案、0 錯誤 |
+| `check-no-game-assets.py` | pass，3301 追蹤檔案、0 錯誤 |
 
 入口：`dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -p:UseSharedCompilation=false -- . scratch/pets-checks.json pets`；其他群組替換末尾參數及 JSON 路徑。SocketGuard 禁止建立網路連線。
 
-來源 SHA-256 由 dev lock 鎖定；產品 DLL SHA-256：`562135eb72bec5bd17489338f06bcb70fc63a47079e9dd18217bb2cd079264ee`。
+來源 SHA-256 由 dev lock 鎖定；產品 DLL SHA-256：`40955f6f0dad6beb97425ae0b00a91308e3ccb832b53947ec87226c23c5faafe`。
 
 ## 未驗證與已知限制
 
