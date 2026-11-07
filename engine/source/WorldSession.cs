@@ -31,9 +31,13 @@ public sealed partial class WorldSession {
         var r=new LoginReader(plain);byte opcode=r.C();
         // Observe party HP before Combat consumes S237; retain its existing actor/target HP update.
         switch(opcode){case 237:ReceivePartyHp(plain);break;}
-        if(ReceiveParty(opcode,plain))return;
+        // Run both: S219 is one shared Yes-No slot, so each module must see the other's invitation to expire its own.
+        bool partyHandled=ReceiveParty(opcode,plain),duelHandled=ReceiveDuel(opcode,plain);
+        if(partyHandled||duelHandled)return;
         if(opcode==39&&ReceiveBuddies(opcode,plain))return;
         switch(opcode){
+        case 83 when !WeaponRepairPackets.IsRepairList(plain):ReceivePetList(r);return;
+        case 176:ReceivePetInventory(r,plain);return;
         case 115:ReceiveWeather(r);return;
         case 40:ReceiveLight(r);return;
         case 171:ReceiveInvisibility(r);return;
@@ -43,17 +47,21 @@ public sealed partial class WorldSession {
         case 250 when plain.Length>=2&&plain[1] is 17 or 18 or 19:ReceiveBuddies(opcode,plain);return;
         case 71 when plain.Length>=3&&BinaryPrimitives.ReadUInt16LittleEndian(plain.AsSpan(1)) is 109 or 472:
             ReceiveBuddies(opcode,plain);break; // Continue through the existing server-message dispatch.
-        case 39:if(ReceivePlayerQueryHtml(plain))return;break;
-        case 71:if(ReceivePlayerQueryMessage(plain))return;break;
+        case 39:if(ReceivePetDialog(plain)||ReceivePlayerQueryHtml(plain))return;break;
+        case 71:ObserveFishing(plain);if(ReceivePlayerQueryMessage(plain))return;break;
+        case 119:ObserveFishing(plain);break;
+        case 158:ObserveFishing(plain);if(ReceiveDoorAction(plain))return;break;
         case 22:ReceiveSoundPacket(plain);return;
         case 55:ReceiveEffectPacket(plain);return;
         case 106:ReceiveEffectPacket(plain);return;
         }
         if(ReceiveRecovery(opcode,r)||ReceivePlayerChat(opcode,r,plain)||ReceiveSustenance(opcode,r,plain)||ReceiveBonusStats(opcode,r,plain)||ReceivePrivateShop(opcode,r,plain)||ReceiveTeleport(opcode,r)||ReceiveTrade(opcode,r)||ReceiveInteraction(opcode,r)||ReceiveMagic(opcode,r,plain)||ReceiveEquipment(opcode,r,plain)||ReceiveInventory(opcode,r,plain)||ReceiveExperience(opcode,r)||ReceiveCombat(opcode,r,plain)||ReceiveObjectDelta(opcode,r)){BasicSupplyReply(opcode,plain);return;}
         switch(opcode){
+        case 83 when WeaponRepairPackets.IsRepairList(plain):ReceiveWeaponRepair(r);break;
         case 76:ReceivePolymorph(plain);break;
         case 68:ReceiveBoardList(r);break;
         case 148:ReceiveBoardRead(r);break;
+        case 209:ReceiveDoorAttribute(r);break;
         case 223:
             if(!plain.AsSpan(1).SequenceEqual(Convert.FromHexString("03158B7B94F02F")))throw new ProtocolException("unexpected EnterGame payload");Entered=true;break;
         case 8:
@@ -62,9 +70,10 @@ public sealed partial class WorldSession {
         case 206:ReceiveMapId(r);break;
         case 87:
             ushort x=r.H(),y=r.H();uint id=r.D();
+            if(id!=Status?.ObjectId&&ReceiveDoorPack(plain,r,x,y,id))break;
             if(Status==null||id!=Status.ObjectId){ReceiveObject(r,x,y,id);break;}
             var a=new OwnActor(x,y,id,r.H(),r.C(),r.C(),r.C(),r.C(),r.D(),unchecked((short)r.H()),r.S(),r.S(),r.C(),r.D(),r.S(),r.S(),r.C(),r.C(),r.C(),r.C(),r.C(),r.C(),r.C());r.Finish();
-            if(a.Name!=selected||a.Direction>7)throw new ProtocolException("self actor name/heading mismatch");SelfAppearancePending=false;objects.TryRemove(id,out _);ResetSpeedStatus();ApplyAuthoritative(a);OwnArrived();break;
+            if(a.Name!=selected||a.Direction>7)throw new ProtocolException("self actor name/heading mismatch");SelfAppearancePending=false;objects.TryRemove(id,out _);ResetSpeedStatus();ReceiveGhostState(a);ApplyAuthoritative(a);OwnArrived();break;
         case 255:case 67:
             uint speedId=r.D();byte mode=r.C();ushort duration=r.H();r.Finish();ReceiveSpeed(opcode,speedId,mode,duration);break;
         case 123:ServerTime=r.D();r.Finish();ShipTimeReceived(ServerTime.Value);if(CoreComplete&&ProbeSent){TimeReplies++;CompleteInitialInventory();}

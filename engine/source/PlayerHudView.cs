@@ -110,6 +110,7 @@ public sealed class PlayerHudView:Panel {
         statusIcons.ArrangeBeside(notice,notice.Bounds);
     }
     public void UpdateState(PlayerHudSnapshot state,Func<ushort,Bitmap?> icon){
+        state=GhostModeHud.Update(this,menu,state);
         bool identity=lastStamp.Generation!=state.Stamp.Generation||lastStamp.Actor!=state.Stamp.Actor;
         if(identity){selected=null;assigning=clearing=false;gridKey="";}
         else if(lastStamp.WorldEpoch!=state.Stamp.WorldEpoch){selected=null;assigning=clearing=false;gridKey="";}
@@ -125,6 +126,7 @@ public sealed class PlayerHudView:Panel {
             string detail=entry==null?(bindings.Bindings[i]==null?"選擇項目後設為快捷":"已移除／不可用"):(state.Busy?"動作冷卻／忙碌 · ":"")+entry.Detail;
             b.Describe($"F{i+1}  {entry?.Name??"空槽"}",detail);tips.SetToolTip(b,b.AccessibleName);b.Enabled=assigning||clearing||entry is {Supported:true}&&!state.Busy;
         }
+        FishingHud.Update(menu,notice,FindForm() as ClientForm);
         RefreshGrid();UpdateDetails();
     }
     Func<ushort,Bitmap?> iconLookup=_=>null;
