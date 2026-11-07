@@ -26,9 +26,9 @@
 
 ## 怎麼驗證
 
-- `rebuild.py --update-lock`，再跑 `rebuild.py --build --configfile .github/nuget.ci.config`：**PASS**（2026-11-08 再次合併 origin/main，含 #433、#434）。product DLL `0e3fbb50…`，audio DLL `9967d288…`。
-- 前一次 push 的 CI `dotnet` job 失敗在 `rebuild.py --build`（exit 2）：分支落後 main 33 個 commit，lock 與來源不符。合併 main 並重產 lock 後本機 PASS。
-- `sound-rules-tests`：**PASS，130 項**。全部是合成封包和合成位元組，接上產品 DLL 執行，有 socket 守衛。涵蓋：
+- `rebuild.py --update-lock`，再跑 `rebuild.py --build`：**PASS**（2026-11-08 第三次合併 origin/main，含 #433、#434、#440、#460、#483、#484；來源 222 檔）。product DLL `0e6bdab0…`，audio DLL `9967d288…`。
+- 前幾次 push 的 CI `dotnet` job 都失敗在 `rebuild.py --build`（`REFUSED: sourceCount 221 != pinned source files 222`）：main 在 push 之後又前進（#440 新增 `ClanEmblem.cs`），lock 跟來源對不上。這次合併 main 並重產 lock 後，本機 PASS。
+- `sound-rules-tests`：**PASS，130 項**（本輪重跑）。全部是合成封包和合成位元組，接上產品 DLL 執行，有 socket 守衛。涵蓋：
   - `^` 環境音與 `SoundGate` 共用冷卻（S22／影格音效擋 `^`，`^` 也擋 gate）；`MapAmbientSound.Volume` 與共用公式窮舉一致。
   - 距離換算表逐點比對，加上 −30..30 窮舉。
   - 冷卻跨角色、跨管線都生效（影格音效擋 S22，S22 也擋影格音效）。
@@ -36,10 +36,10 @@
   - 4 類音量。
   - 控制器送出的倍率。
   - `AudioCore` 的「主音量 × 倍率」，以及改主音量後倍率仍保留。
-- `sound-packets-tests`：**PASS，148 項**（改成模式語義後）。
+- `sound-packets-tests`：**PASS，148 項**（改成模式語義後，本輪重跑）。
 - `combat-sfx-tests --selection`（#433 接上 CI 的模式）：**PASS，4 cases／46 checks**（上一輪）。`demo-tests` 的 `map-ambient` 群組（T166）：**PASS，372 項**（本輪，含 `MapAmbientSound` 改動）。
 - 與 #433 的整合：#433 在 `CombatSfxController` 內加了一份每個控制器各自的 200ms 冷卻。合併後，**有設 `Gate` 時只用全域的 `SoundCooldown`**，沒設時保留 #433 的行為，兩份冷卻不會疊加（有測試）。`sound-packets-tests` 有一段時間會倒退，碰到 #433 的冷卻就失敗；已把那段的時鐘改成單調遞增。
-- `check-no-game-assets.py`：**pass**（errors 0）。
+- `check-no-game-assets.py`：**pass**（3614 個追蹤檔，errors 0，本輪重跑）。
 - CI：PR 開出後由 GitHub Actions 執行，結果看 PR 頁面。
 
 ## 沒驗證什麼
