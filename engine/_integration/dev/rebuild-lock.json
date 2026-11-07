@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 179,
+ "sourceCount": 181,
  "files": [
   {
    "path": "NuGet.Config",
@@ -171,8 +171,8 @@
   },
   {
    "path": "source/Combat.cs",
-   "size": 13505,
-   "sha256": "ba0875529bddf29f0a1c837a732b08c3cd132c009a64fc0cf39d4a3c1f507dd0"
+   "size": 13564,
+   "sha256": "b41b61b9f0a78575dcc817cbe9492706d5e73ea0e575a218802923d82a65fa68"
   },
   {
    "path": "source/CombatRegression.cs",
@@ -305,9 +305,14 @@
    "sha256": "cf6984782fadd2c24d8cbf42cc671277e597a869670e68c3f70dbbd2bf8e7d93"
   },
   {
+   "path": "source/HitReactionSuppress.cs",
+   "size": 1269,
+   "sha256": "2cc8a81451794b9d670ee8cf7fa5bd345ca214b0483e38f0ed54aee601774cbd"
+  },
+  {
    "path": "source/Inventory.cs",
-   "size": 14421,
-   "sha256": "ee4ac857251bdfb4c82be44d40f3723eefd0a4e96d84236416c36c6b773fdd54"
+   "size": 15204,
+   "sha256": "3122cb17e53648d47bab3a6dcaa5275ccf77a4576b778eb76ebccfaf4a44577d"
   },
   {
    "path": "source/InventoryIntegration.cs",
@@ -326,13 +331,18 @@
   },
   {
    "path": "source/InventoryUi.cs",
-   "size": 4569,
-   "sha256": "928f173a5dd1cbdd80ca99854014a7173e2658d93c9d2882c9fd45fb414872ca"
+   "size": 12534,
+   "sha256": "be339fb8b6ca024be20a6b2c57db6536479bec9cec4bd8ef2053f905593991b9"
   },
   {
    "path": "source/ItemTransfer.cs",
    "size": 9708,
    "sha256": "1798a14d638b98120a222293e02fd060c92751f51d11c05a9cc1e652f9f999f7"
+  },
+  {
+   "path": "source/ItemUseArguments.cs",
+   "size": 9400,
+   "sha256": "ba0048694ee53c77b0b0db1eed577f78b6d5c8f4acab2799649556f109b81a3a"
   },
   {
    "path": "source/JournalTests.cs",
@@ -686,8 +696,8 @@
   },
   {
    "path": "source/ProjectileRendering.cs",
-   "size": 6297,
-   "sha256": "9ac48876e433145e2ddee1496b5b87a4c19ea5ed84db27cdd7396dcec3d1eb78"
+   "size": 6341,
+   "sha256": "ccaba7f632758e17c3d0ca1c67dcea4f4d51ae3f75476b1ee8eaa02101a6d07c"
   },
   {
    "path": "source/Protocol.cs",
@@ -891,8 +901,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9541,
-   "sha256": "7a87c3a48b86b54354e3042946255c9ef71eb5012dbffd460f23cd7866e7a1a0"
+   "size": 9568,
+   "sha256": "586458c6e4f3c54bf39eb39cff522a74451ad86a440f956d46e57c2ca436d002"
   },
   {
    "path": "source/WorldTests.cs",

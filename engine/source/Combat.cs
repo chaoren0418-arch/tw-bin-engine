@@ -36,6 +36,7 @@ public sealed partial class WorldSession {
     void ResetCombat(){ResetRecovery();pendingAction=null;OwnCombat=null;LastAttack=null;LastIncomingAttack=null;LastProjectile=null;projectileReports.Clear();AttackReports=0;OwnDead=false;CombatNotice="選取可見目標後按 G：依原武器單次攻擊";}
     internal void PredictAttack(int heading){if(Actor==null)return;CancelPickupPresentation("predicted-attack");Actor=Actor with{Direction=(byte)heading};OwnCombat=new(1,Environment.TickCount64,true);CombatNotice="單次攻擊已送出；動畫為預測，等待原服回報";}
     void AnimateCombat(uint id,int action,bool predicted=false,uint? target=null){
+        if(action==2&&IsHitReactionSuppressed(id))return;
         var animation=CaptureCombat(id,action,predicted,target);
         if(Actor?.ObjectId==id){CancelPickupPresentation("combat-action");if(OwnDead&&action!=8)return;if(OwnDead&&OwnCombat?.Action==8)return;OwnCombat=animation;if(action==8){OwnDead=true;pendingAction=null;AppearanceRevision++;SelectTarget(null);CloseInteraction();}}
         else UpdateObject(id,o=>o.Dead?o:o with{Combat=animation,ReceivedAction=action,MotionAt=0,Dead=action==8,ShopActive=false});

@@ -47,7 +47,7 @@ public sealed partial class Renderer {
             while(impact<projectileRelease+2000&&ProjectileMotion.At(p,tx,ty,projectileRelease,impact)!=null)impact+=30;
             flight=new(tx,ty,projectileRelease,impact);projectileFlights[p.Number]=flight;
         }
-        if(p.DamageWord>0&&p.Target!=0&&now>=flight.Impact&&(!projectileHits.TryGetValue(p.Target,out var hit)||hit.At<flight.Impact))projectileHits[p.Target]=new(2,flight.Impact,false);
+        if(p.DamageWord>0&&p.Target!=0&&now>=flight.Impact&&!session.IsHitReactionSuppressed(p.Target)&&(!projectileHits.TryGetValue(p.Target,out var hit)||hit.At<flight.Impact))projectileHits[p.Target]=new(2,flight.Impact,false);
         var v=ProjectileMotion.At(p,flight.X,flight.Y,flight.Release,now);
         if(p.Gfx!=66){
             var effect=NativeEffect(p.Gfx);if(effect==null)continue;
