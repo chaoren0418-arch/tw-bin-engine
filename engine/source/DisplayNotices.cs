@@ -8,7 +8,9 @@ public sealed record RedNotice(ushort Id,string[] Arguments,string Text,bool Rec
 public sealed record TrueTargetMark(uint TargetId,uint ObjectId,string Message,ushort Gfx);
 public static class DisplayNoticeText {
     public const int RedNoticeMs=5000,IdentifyNoticeMs=8000;
-    public static readonly Color PinkName=Color.HotPink;
+    // S60 seconds value 127 never schedules the clear timer (sub_A452C0, docs/reference/actions-and-names.md 2.5).
+    public const byte PermanentPinkSeconds=127;
+    public static readonly Color PinkName=NameColors.ToColor(NameColors.Pink);
     static readonly Regex Control=new(@"\\f.",RegexOptions.Singleline|RegexOptions.CultureInvariant),Argument=new(@"%(\d)",RegexOptions.CultureInvariant);
     // Templates come from the server's comments on these IDs, without the leading \f1 color code.
     static string? Template(ushort id,int count)=>(id,count) switch{
@@ -28,8 +30,37 @@ public static class DisplayNoticeText {
     // Color codes are presentation: S_ChangeName(pc,true) and the GM form must not change object identity text.
     public static string PlainName(string raw)=>Control.Replace(raw,"");
 }
+// Name colour (object +204, RGB555). Constants and formula: docs/reference/actions-and-names.md 2.4.
+public static class NameColors {
+    public const ushort Outline=0x0000,White=0x7FFF,Red=0x7C00,Pink=0x767D;
+    public const ushort RedNameGfx=2715;
+    // sub_A406C0: L>=500 bluer with justice, 0..499 white, L<0 redder with evil.
+    public static ushort Lawful(int lawful){
+        if(lawful>=500){int v=Math.Min(31,((lawful-500)>>8)+1);return Rgb(31-v,31-v,31);}
+        if(lawful>=0)return White;
+        int e=Math.Min(31,((-lawful)>>6)+1);return Rgb(31,31-e,31-e);
+    }
+    public static ushort Rgb(int r,int g,int b)=>(ushort)((r&31)<<10|(g&31)<<5|(b&31));
+    public static Color ToColor(ushort c)=>Color.FromArgb(((c>>10)&31)*255/31,((c>>5)&31)*255/31,(c&31)*255/31);
+}
 public sealed partial class WorldSession {
     readonly ConcurrentDictionary<uint,(long Until,int Epoch)> pinkNames=new();
+    // Pink overrides lawful colour; gfx 2715 is red outside war mode; otherwise S87/S8/S34 lawful decides.
+    public ushort NameColor555(uint id,long? now=null){
+        bool self=Actor?.ObjectId==id;WorldObject? o=null;if(!self)objects.TryGetValue(id,out o);
+        int gfx=self?Actor!.Gfx:o?.Gfx??0;
+        if(gfx==NameColors.RedNameGfx&&!ClanWarMode)return NameColors.Red;
+        if(IsPinkName(id,now))return NameColors.Pink;
+        return NameColors.Lawful(self?Status?.Lawful??Actor!.Lawful:o?.Lawful??0);
+    }
+    void ReceiveLawful(LoginReader r){
+        // S_Lawful(pc): D objId, H lawful. The unused S_Lawful(objid) form appends two more H(-32768).
+        uint id=r.D();short lawful=unchecked((short)r.H());
+        if(r.Remaining>=4){var extra=(r.H(),r.H());if(extra!=(0x8000,0x8000))throw new ProtocolException("lawful trailer");}
+        r.Finish();
+        if(Actor?.ObjectId==id){Actor=Actor with{Lawful=lawful};if(Status is {} s&&s.ObjectId==id)Status=s with{Lawful=lawful};ObjectRevision++;}
+        else UpdateObject(id,o=>o with{Lawful=lawful});
+    }
     readonly ConcurrentDictionary<uint,(TrueTargetMark Mark,int Epoch)> trueTargets=new();
     volatile RedNotice? redNotice;volatile IdentifyDescNotice? identifyDesc;
     public IdentifyDescNotice? LastIdentifyDesc=>identifyDesc;
@@ -69,7 +100,8 @@ public sealed partial class WorldSession {
     void ReceivePinkName(LoginReader r){
         uint id=r.D();byte seconds=r.C();r.Finish();long now=Environment.TickCount64;
         foreach(var old in pinkNames)if(old.Value.Epoch!=WorldEpoch||now>=old.Value.Until)pinkNames.TryRemove(old.Key,out _);
-        if(seconds==0)pinkNames.TryRemove(id,out _);else pinkNames[id]=(now+seconds*1000L,WorldEpoch);
+        // 0 fires the clear immediately; 127 has no timer and stays pink until another S60 or a world change.
+        if(seconds==0)pinkNames.TryRemove(id,out _);else pinkNames[id]=(seconds==DisplayNoticeText.PermanentPinkSeconds?long.MaxValue:now+seconds*1000L,WorldEpoch);
         ObjectRevision++;
     }
     void ReceiveTrueTarget(LoginReader r){
@@ -85,9 +117,9 @@ public sealed partial class ClientForm {
     void PaintDisplayNotices(Graphics g){
         var w=login.World;var viewport=new RectangleF(Camera.ViewOffset,Camera.View);
         foreach(var v in renderer.OwnCombatVisual is {} own?objectVisuals.Append(own):objectVisuals){
-            var mark=w.TrueTarget(v.ObjectId);var color=w.NameColor(v.ObjectId,Color.Empty);if(mark==null&&color.IsEmpty)continue;
+            // Pink names recolour the name label itself (NameColor555); no separate pink caption.
+            var mark=w.TrueTarget(v.ObjectId);if(mark==null)continue;
             var head=Camera.ToView(new PointF(v.Foot.X,v.Bounds.IsEmpty?v.Foot.Y-64:v.Bounds.Top));
-            if(!color.IsEmpty)PaintNoticeText(g,v.Name,color,new PointF(head.X,head.Y-18),viewport);
             if(mark!=null){g.FillPolygon(Brushes.OrangeRed,new PointF[]{new(head.X-7,head.Y-34),new(head.X+7,head.Y-34),new(head.X,head.Y-22)});if(mark.Message.Length>0)PaintNoticeText(g,mark.Message,Color.OrangeRed,new PointF(head.X,head.Y-52),viewport);}
         }
         if(ServerStatusMessages.CenterNotice(w) is {} red)PaintNoticeText(g,ResolveNpcText(red),Color.Red,new PointF(viewport.Left+viewport.Width/2,viewport.Top+viewport.Height/3),viewport);

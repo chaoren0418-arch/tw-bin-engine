@@ -1,0 +1,2 @@
+for v in (0xECEC20,0xECEA70,0xECF5A0,0xECF540,0xECF890,0xED0610,0xED8A30,0xECF860,0xED0590,0xED8A20):
+    t = dec(v); P(hex(v), (t or "").count("\n"), "callers", sorted({hex(b) for a,b,tt in xr(v) if b})[:12])

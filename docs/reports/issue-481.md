@@ -33,12 +33,12 @@
 
 ## 怎麼驗證
 
-1. `py -3 -B -X utf8 engine/_integration/dev/rebuild.py --update-lock`，再 `--build`：PASS（product DLL `706e5ffc…a4f`）。
+1. `py -3 -B -X utf8 engine/_integration/dev/rebuild.py --update-lock`，再 `--build`：PASS（合併 main 後 product DLL `06098f57…11fd`）。
 2. 離線測試（產品 DLL、合成封包、手寫 RGB555 像素；不連網、不開遊戲）：
    - `afflictions`：PASS 580。包含中毒 24 個相位的綠色加量表、峰谷與 1.2 秒週期、G 飽和；灰的白／黑／紅向量；`c*f/31` 向量；盲目係數與光圈衰減；S165 綠＋灰、綠 7、灰 255、綠 8／9／255 整包忽略、ID 0、S47 值 3／255／256／65535 都不丟例外；合成時盲目 1／2 的未照亮、光圈、照到別人，深度與點選不變；別人隱身在合成裡沒有像素也不能點選。
    - `invisibility`：PASS 397（自己半透明、別人隱藏、影子跟隨擁有者、轉場中的別人也隱藏）。
    - `timed-buffs`：PASS 645（相位 50 ms／200 循環、18 筆位移表、振幅 3／7／10、垂直週期 100 行、相位 200 回原點、逐行移位與邊界、`WarpLiquorFrame` 對 Bitmap 的實際移位）。
-   - 會受影響的其他群組：`title-emote` PASS 830（只把中毒比對改成固定時鐘）、`combat-admission` PASS 1963、`map-continuity` PASS 23059。
+   - 合併 main 後，CI 的全部群組都跑過：`map-continuity` 23272、`combat-admission` 1686、`item-status` 409、`polymorph-cadence` 380、`buddies` 496、`item-transfer` 400、`doors` 648，另跑 `title-emote` 553，全部 PASS。
 3. `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：pass，errors 0。
 4. CI：見 PR。
 
@@ -52,7 +52,7 @@
 ## 產出路徑
 
 - 程式：`engine/source/Afflictions.cs`、`engine/source/TimedBuffs.cs`、`engine/source/Invisibility.cs`、`engine/_integration/dev/rebuild-lock.json`
-- 測試：`engine/_integration/dev/afflictions-tests/AfflictionChecks.cs`、`invisibility-tests/InvisibilityChecks.cs`、`timed-buffs-tests/TimedBuffChecks.cs`、`title-emote-tests/TitleAndEmoteChecks.cs`（一行）
+- 測試：`engine/_integration/dev/afflictions-tests/AfflictionChecks.cs`、`invisibility-tests/InvisibilityChecks.cs`、`timed-buffs-tests/TimedBuffChecks.cs`
 - 文件：`docs/protocol/afflictions.md`、`invisibility.md`、`timed-buffs.md`（附加段落）、本報告
 - 分支：`task/481`
 

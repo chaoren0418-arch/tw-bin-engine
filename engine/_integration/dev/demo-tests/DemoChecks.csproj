@@ -17,15 +17,18 @@
     <Compile Include="../pets-tests/PetChecks.cs" Link="PetChecks.cs" />
     <Compile Include="../duel-tests/DuelChecks.cs" Link="DuelChecks.cs" />
     <Compile Include="../ambience-tests/AmbienceChecks.cs" Link="AmbienceChecks.cs" />
+    <Compile Include="../map-ambient-tests/MapAmbientChecks.cs" Link="MapAmbientChecks.cs" />
     <Compile Include="../invisibility-tests/InvisibilityChecks.cs" Link="InvisibilityChecks.cs" />
     <Compile Include="../player-query-tests/PlayerQueryChecks.cs" Link="PlayerQueryChecks.cs" />
     <Compile Include="../character-config-tests/CharacterConfigChecks.cs" Link="CharacterConfigChecks.cs" />
+    <Compile Include="../hotbar-tests/HotbarChecks.cs" Link="HotbarChecks.cs" />
     <Compile Include="../polymorph-tests/PolymorphChecks.cs" Link="PolymorphChecks.cs" />
     <Compile Include="../buddies-tests/BuddyChecks.cs" Link="BuddyChecks.cs" />
     <Compile Include="../board-tests/BoardChecks.cs" Link="BoardChecks.cs" />
     <Compile Include="../portals-tests/PortalChecks.cs" Link="PortalChecks.cs" />
     <Compile Include="../item-transfer-tests/ItemTransferChecks.cs" Link="ItemTransferChecks.cs" />
     <Compile Include="../location-share-tests/LocationShareChecks.cs" Link="LocationShareChecks.cs" />
+    <Compile Include="../name-display-tests/NameDisplayChecks.cs" Link="NameDisplayChecks.cs" />
     <Reference Include="P11.ClientEngine"><HintPath>../../../build/client-product-dev/P11.ClientEngine.dll</HintPath></Reference>
     <Reference Include="P24.Audio"><HintPath>../../../build/client-product-dev/P24.Audio.dll</HintPath></Reference>
   </ItemGroup>

@@ -1,0 +1,157 @@
+{
+    "q1":  {
+               "decompile":  [
+                                 "0x948a60",
+                                 "0x92cb70",
+                                 "0x92ead0",
+                                 "0x9496b0",
+                                 "0x9357e0",
+                                 "0x981490",
+                                 "0x932470",
+                                 "0xF112F0",
+                                 "0x5001C0",
+                                 "0xA41D10",
+                                 "0x942b40"
+                             ]
+           },
+    "q2":  {
+               "decompile":  [
+                                 "0x4FC710",
+                                 "0x4FD2F0",
+                                 "0x500E40",
+                                 "0x4F8D40",
+                                 "0x4F8DC0",
+                                 "0xF12490",
+                                 "0xA40EC0",
+                                 "0x9E4680",
+                                 "0xA42C30",
+                                 "0x4F97A0",
+                                 "0x503BE0",
+                                 "0x9262D0",
+                                 "0x8DC9B0",
+                                 "0x9E3320",
+                                 "0x9E33D0",
+                                 "0x9E3460",
+                                 "0xA9ED5F",
+                                 "0xC0BB29",
+                                 "0x500610"
+                             ],
+               "xrefs":  [
+                             "0x13CE3FD",
+                             "0x135C1E4",
+                             "0x139FBA8",
+                             "0x153CE6C"
+                         ],
+               "strings":  [
+                               "Door",
+                               "door",
+                               "Ghost",
+                               "ghost",
+                               "ccshdd\u0000",
+                               "ccshhhd\u0000",
+                               "cshdd\u0000",
+                               "shdd\u0000"
+                           ]
+           },
+    "q3":  {
+               "decompile":  [
+                                 "0x4FCA30",
+                                 "0xAC9560",
+                                 "0xAC98E0",
+                                 "0x500A00",
+                                 "0x8D4A90",
+                                 "0x8D43B0",
+                                 "0xA51840",
+                                 "0xA51920",
+                                 "0x8C4EE0",
+                                 "0x8C7C80",
+                                 "0x4F7450",
+                                 "0x4FD6F0"
+                             ]
+           },
+    "q4":  {
+               "decompile":  [
+                                 "0xAC9410",
+                                 "0x8B7C50",
+                                 "0xEFE780",
+                                 "0xEFE730",
+                                 "0x8F3B90",
+                                 "0xA59AF0",
+                                 "0x8D3380",
+                                 "0x8D3FE0",
+                                 "0x8DCCB1",
+                                 "0xA4B5C3",
+                                 "0x4EAFF0",
+                                 "0xA58380",
+                                 "0x93CC40",
+                                 "0x8D2DD0"
+                             ]
+           },
+    "q5":  {
+               "decompile":  [
+                                 "0xA50100",
+                                 "0xA45480",
+                                 "0xAC9600",
+                                 "0xAC79E0"
+                             ],
+               "xrefs":  [
+                             "0x1540880",
+                             "0x13CE3F4"
+                         ]
+           },
+    "q6":  {
+               "decompile":  [
+                                 "0xC0A1B0",
+                                 "0xC0AC90",
+                                 "0xC0ACE0"
+                             ],
+               "decompile_writers":  true,
+               "addrs":  [
+                             "0x13CE3F4",
+                             "0x13CE51E",
+                             "0x1540880"
+                         ]
+           },
+    "q7":  {
+               "decompile":  [
+                                 "0x582C20",
+                                 "0x583450",
+                                 "0x500640",
+                                 "0x582E30"
+                             ]
+           },
+    "q8":  {
+               "decompile":  [
+                                 "0xBB5180"
+                             ]
+           },
+    "q9":  {
+               "decompile":  [
+                                 "0x98f330",
+                                 "0x9a6fb0",
+                                 "0x9a78a0",
+                                 "0x9ab960",
+                                 "0x9f32a0",
+                                 "0xa3d520",
+                                 "0xa43b50",
+                                 "0xa5b9c0",
+                                 "0xada840",
+                                 "0xe99750",
+                                 "0xedfd70",
+                                 "0xedfe70",
+                                 "0xf40d50",
+                                 "0x88f070",
+                                 "0x8ba150"
+                             ]
+           },
+    "q10":  {
+                "decompile":  [
+                                  "0xA3DE30"
+                              ]
+            },
+    "q11":  {
+                "decompile":  [
+                                  "0x8DC876"
+                              ]
+            }
+}

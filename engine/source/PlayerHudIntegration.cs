@@ -47,8 +47,17 @@ public sealed partial class ClientForm {
         }finally{playerHudSending=false;if(!IsDisposed){SyncPlayerHud();PublishWebState();}}
     }
     bool TryPlayerHudKey(Keys key){
-        if(!PlayerHudActive||key<Keys.F1||key>Keys.F4)return false;
-        if(playerHudHeld.Add(key))playerHud?.ActivateSlot(key-Keys.F1);
+        if(!PlayerHudActive)return false;
+        // The former F1–F4 shortcuts stay inert in the world instead of falling through to movement.
+        if(key is >=Keys.F1 and <=Keys.F4)return true;
+        int slot=PlayerHudKeys.Slot(key);if(slot<0)return false;
+        if(playerHudHeld.Add(key))playerHud?.ActivateSlot(slot);
+        return true;
+    }
+    // Runs before the F9/F10/F11 tool keys: with game focus in the world, F5–F12 belong to the macro slots.
+    bool ProcessPlayerHudKeyboard(ref Message msg,Keys keyData){
+        if(!PlayerHudKeys.Allowed(keyData,PlayerHudActive,GameInputAllowed,Focused))return false;
+        if(((long)msg.LParam&(1L<<30))==0)playerHud?.ActivateSlot(PlayerHudKeys.Slot(keyData));
         return true;
     }
     void SyncPlayerHud(){
