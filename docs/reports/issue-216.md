@@ -1,21 +1,21 @@
-# Issue #216：T121 物品 status blob 語義化
+﻿# Issue #216：T121 物品 status blob 語義化
 
 ## 做了什麼
 
 - `ItemStatus.cs` 解碼武器／防具／一般物品、強化、損傷度、能力、元素與狀態抗性、Big5 說明；未知或截斷 tag 保留原始 hex、未解析尾段與錯誤位置。可交易／刪除／封印狀態使用背包旗標。
 - S5／S15／S24／S242 更新同步解析屬性；`InventoryItem.Equipped` 改讀 S64 權威裝備槽位。背包 tooltip 顯示解析結果及槽位／待同步狀態。
 - 依 2026-11-07 主控裁定，`ItemTransferChecks.cs` 只改裝備前置：S15 名稱改成一般「劍」，再送 `S64/66 D(itemId) C(slot=9) C(equipped=1)`。裝備中不可刪除／給予兩個斷言不變；未改 `ItemTransfer.cs`、`SupportedUse`。這項修改在先前的提交已完成，本輪確認後沒有再動。
-- 本輪把 `task/216` 同步到最新 `origin/main`（`dd640a7`，含組隊、異常狀態等）。衝突只有 dev lock 與 `build.yml`：`build.yml` 兩邊各自新增的測試步驟全部保留，並補回第一個步驟被衝突區塊吃掉的 `$LASTEXITCODE` 檢查；lock 取 main 版本後用 `--update-lock` 重產，未手工拼接 hash。
+- 本輪再把 `task/216` 同步到最新 `origin/main`（`4518ebc`，含 #390 小地圖、#417）。`Program.cs` 衝突只在預設入口：`ItemStatusChecks()` 與 main 新增的 `MinimapChecks()` 都保留；dev lock 取 main 版本後用 `--update-lock` 重產。前一輪同步 `dd640a7`（含組隊、異常狀態等）時，衝突只有 dev lock 與 `build.yml`：`build.yml` 兩邊各自新增的測試步驟全部保留，並補回第一個步驟被衝突區塊吃掉的 `$LASTEXITCODE` 檢查；lock 取 main 版本後用 `--update-lock` 重產，未手工拼接 hash。
 - 沿用 [PR #242](https://github.com/chaoren0418-arch/tw-bin-engine/pull/242)。本模組測試已提交並掛入 DemoChecks 與 Windows CI。
 
 ## 怎麼驗證（已驗證）
 
-下列數字都在程式 head `9d65e1a`（已含 main `dd640a7`）實跑。報告本身的提交不動程式。
+下列數字都在程式 head `ee03bfd`（已含 main `4518ebc`）實跑。報告本身的提交不動程式。
 
-- `rebuild.py --update-lock` 與唯讀核驗：213 個來源／222 個 pin 通過。
-- `rebuild.py --build` 通過。產品 DLL SHA-256：`08dc20dda03ae7635d62b2b4561caf9624be015cafff420faea92eb8d3e06b96`。
-- `check-no-game-assets.py`：3411 個追蹤檔、0 errors。
-- DemoChecks 32 個群組全部通過（`Program.cs` 列出的群組，只有需要額外參數的 `attack-skill-resources` 未跑）：item-status 358、item-transfer 349、afflictions 428、char-reset 437、clan 395、portals 376、doors 597、party 276、pets 276、map-continuity 22358、marriage 412、ghost-mode 635、fishing 315、location-share 375、player-query 977、character-config 369、polymorph 276、polymorph-cadence 309、buddies 445、buddies-codec 391、ambience 632、invisibility 346、board 506、combat-loop 340、combat-admission 1409、duel 390、attack-skills 1017、hit-reaction-suppress 342、slow-actions 640、keyboard 436、busy 326、world 282。每個群組的計數都含 DemoChecks 共用檢查，不能相加，也不是該模組的獨立案例數。
+- `rebuild.py --update-lock` 與唯讀核驗：215 個來源／224 個 pin 通過。
+- `rebuild.py --build` 通過。產品 DLL SHA-256：`7a279a685ce88707792660e68364ed9023b4b31cdcff94c45ddd41b28ee0efc8`。
+- `check-no-game-assets.py`：3441 個追蹤檔、0 errors。
+- DemoChecks 33 個群組全部通過（`Program.cs` 列出的群組，只有需要額外參數的 `attack-skill-resources` 未跑）：item-status 358、minimap 347、item-transfer 349、afflictions 428、char-reset 437、clan 395、portals 376、doors 597、party 276、pets 276、map-continuity 22358、marriage 412、ghost-mode 635、fishing 315、location-share 375、player-query 977、character-config 369、polymorph 276、polymorph-cadence 309、buddies 445、buddies-codec 391、ambience 632、invisibility 346、board 506、combat-loop 340、combat-admission 1409、duel 390、attack-skills 1017、hit-reaction-suppress 342、slow-actions 640、keyboard 436、busy 326、world 282。每個群組的計數都含 DemoChecks 共用檢查，不能相加，也不是該模組的獨立案例數。
 - 獨立測試專案通過：NPC 165、packet-trace 3468、login 396589、skill-cast 785、teleport 4369、status-icons 626、player-chat 107、effect6016 25、weapon-repair 98、mail 119、item-use 426、character-management 218、ground 596、sound-packets 148、combat-sfx 8794，以及 ResourceChecks、WebView2 產品頁與 legacy 頁。ground、combat-sfx 唯讀載入本機資源，沒有真機操作。
 - **失敗 1 項：`world-ui`**，見下方第 2 項。本分支未改 `Polymorph.cs` 與 `world-ui-tests`。
 - 掃描程式與測試：除本任務的負向測試和下述兩個舊 CLI 自測外，沒有其他地方用 `($9)`／`($117)` 名稱後綴模擬裝備。
@@ -49,3 +49,4 @@
 - 調度器：建議另開三張維護任務：修 `demo-all` 卡死（上述第 1 項，影響所有之後的完整回歸）；更新 `world-ui` 過時斷言（第 2 項）；更新或退役 `EquipmentTests`／`EquipmentGateTests`（第 3 項）。
 - dot：M6 smoke 核對 tooltip、穿卸、重新登入的槽位同步，以及登入初期 S64 到達前的空窗。
 - `Equipped` 是即時權威查詢，需要歷史快照的呼叫端應保存 bool? 值。worktree 與 assets junction 保留交調度器清理，禁止遞迴刪除。
+
