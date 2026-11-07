@@ -16,8 +16,17 @@
 - 離線測試直接載入產品 DLL，使用合成封包、記憶體 sender 與拒絕 socket 的 guard；驗證每個 C／S 格式、空／單／多列、損壞度邊界、重複／零 ID、截斷／過長／非零 padding、寵物與未知子型別隔離、庫存權威更新、重複提交、逾時、傳送失敗與排隊期間失效。
 - 本機 NuGet 網路還原遇到沙箱 TLS 認證錯誤，改用 scratch 下的 NuGet 設定唯讀引用主專案 `engine/vendor`。套件展開、暫存、編譯輸出均留在 worktree。CI 仍用既有 nuget.org 設定。
 - 已驗證：98 項本模組離線檢查全部通過；`check-no-game-assets.py` 回報 pass、0 errors；`git diff --check` 通過。
-- PR 建立時主線已新增 T105 音效接線；已合入 `origin/main`，保留其接線、重新產生 dev lock（177 來源／186 鎖定檔），重建成功並重跑 98 項測試全數通過。沒有手動修改主線帶入的 `docs/REPORT.md`。
-- CI：待 PR 建立後檢查，結果補記於 PR。
+- 前次 T105 同步（`43ab7202e49d1f8998673b4a49f836125cec4dc1`）：保留主線音效接線、重新產生 dev lock（177 來源／186 鎖定檔），重建成功並重跑 98 項測試全數通過。這是前次結果，不代表本次退回要求已完成。
+- CI：各次 head 的結果分開記錄於 [PR #297](https://github.com/chaoren0418-arch/tw-bin-engine/pull/297)，本次推送後另補精確 head、無衝突狀態與 CI 執行連結，不沿用前次綠燈。
+
+## 第 2 次嘗試：主線同步補交（2026-11-07）
+
+- 本次僅執行審查要求的同步，從既有 `43ab720` 合併 `origin/main` 的 `ccaa3e02caf1c0cc2c0696683e243c1c7577df4e`，不擴充功能。`WeaponRepair.cs`、`WeaponRepairUi.cs` 與 98 項測試內容均未修改。
+- `WorldSession.cs` 衝突保留 main 的公告板 S68／S148 與原有音效接線，再保留本模組唯一的 S83／D200 分支；CI 衝突保留 main 的物品轉移測試與本模組測試。
+- `docs/REPORT.md` 完全採 main，差異為零；dev lock 衝突以 `rebuild.py --update-lock` 重新產生，181 個來源／190 個鎖定檔全部核驗通過，沒有手工拼接 hash。
+- 同步後重新執行既有 canonical build：產品與 launcher 成功、0 錯誤；產品仍只有既有 `MagicUi.cs:20` 的 CS8600／CS8602，launcher 0 警告。產品 DLL SHA-256：`a9f7cebad8292f825ff1ce16987bc2b2c8a47aafa464dacb6ed9bd6ab2c65687`。
+- 同步後重新執行 `dotnet run --project engine/_integration/dev/weapon-repair-tests/WeaponRepairChecks.csproj -c Release --no-restore`：98 項全數通過；`check-no-game-assets.py`：pass、3296 個追蹤檔、0 errors。既有證據路徑已更新為這次結果。
+- `git -c core.whitespace=cr-at-eol diff --cached --check` 通過（main 帶入的 C# 檔使用 CRLF，依原始位元組保留）；未解決衝突清單及 `git ls-files -ci --exclude-standard` 均為空。相對此次 main 仍只涉及原先核准的 10 個檔案。
 
 ## 未驗證什麼
 

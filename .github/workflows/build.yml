@@ -42,6 +42,12 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           dotnet run --project engine/_integration/dev/weapon-repair-tests/WeaponRepairChecks.csproj -c Release --no-restore
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Item transfer contracts (no game or network)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-273 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-273/item-transfer.json item-transfer
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Real WebView2 product page and local resource regression
         shell: pwsh
         run: |
