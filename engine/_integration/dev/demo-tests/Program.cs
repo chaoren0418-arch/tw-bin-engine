@@ -281,6 +281,8 @@ partial class Checks {
             switch(args[2]){
                 case "polymorph":break;
                 case "polymorph-cadence":PolymorphCadenceChecks(args[0]);break;
+                case "buddies":await BuddyChecks();break;
+                case "buddies-codec":await BuddyChecks(true);break;
                 case "map-continuity":await MapContinuity();await BoardChecks();break;
                 case "board":await BoardChecks();break;
                 case "item-transfer":await ItemTransferChecks();break;

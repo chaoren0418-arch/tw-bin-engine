@@ -55,8 +55,12 @@
 
 ## 給下一棒的提示
 
-本輪從已審查的 `b9a169937097bc1cf995c4f0052c8462d7d4688d` 接續；確認 PR #278 的三項 CI 均成功，但 main 合入角色管理後已出現合併衝突。合併 `origin/main`（`0380ae6062804b976fe32e5ac2a20b0b611e42ac`），唯一衝突是 dev lock，以 `rebuild.py --update-lock` 完整重產為 183 個來源、192 個鎖定輸入。未追加功能修改，沒有手拼 hash；`docs/REPORT.md` 完全沿用 main，未另行編輯。
+本輪僅同步：從已審查的 `3950a8303d89cf8fd46fb7f4d62e5f9b08ec0be4` 合併 `origin/main`（`9f62553cf8e1b1f3c8d26cb0c48e0dfd551d19ba`，相差 22 筆提交）。解決 `build.yml`、`DemoChecks.csproj`、`Program.cs` 的測試入口衝突，保留變身與好友模組兩邊的既有掛接；dev lock 以 `rebuild.py --update-lock` 完整重產，185 個來源、194 個鎖定輸入。未追加功能修改、未手拼 hash；`docs/REPORT.md` 與 main 完全一致，沒有另行編輯。
 
-本輪產品、launcher、DemoChecks 建置通過。重新執行離線回歸全綠：`polymorph-cadence` 123 項、`map-continuity` 448 項、`combat-admission` 368 項、`item-transfer` 163 項、`board` 320 項、`hit-reaction-suppress` 156 項（各組含基本變身檢查）；新增合入的 `character-management` 218 項亦通過。證據沿用 `scratch/issue-263/build/` 與群組同名 JSON；`item-use.json` 的 426 項是前輪證據，本輪未重跑。產品 DLL SHA-256：`b8c58c22df22e50f9b77888694889690d52f5b1150b479b65165aae60f3ba747`。素材拒收、差異空白檢查及最終提交 CI 結果記於 PR #278 本輪 RESULT 留言。未啟動遊戲、伺服器或 DB，原生驗收仍待 M6 smoke。
+產品、launcher、DemoChecks、CharacterManagementChecks 建置通過。產品僅有既有 `MagicUi.cs:20` CS8600／CS8602 兩個警告，其餘零警告、零錯誤。角色管理測試首次使用共用編譯器遇到輸出檔寫入拒絕，改用既有產品建置同樣的 `-p:UseSharedCompilation=false` 後建置及測試通過，沒有修改測試程式。
 
-Claude 審查 PR；合併由使用者處理。調度器同步輪若遇 dev lock 衝突，依契約重新產生，不手拼 hash。M6 smoke 由 dot 依既有授權測試：自身／其他角色變身、保留／卸下武器、攻擊與行走、S119 更新、解除、同圖重設；若指定 gfx 缺素材，另開 resource 任務取得經驗證 profile，不以假圖補足。本次未改 `docs/REPORT.md`。
+本輪離線回歸全綠：`polymorph-cadence` 123 項、`map-continuity` 448 項、`combat-admission` 368 項、`item-transfer` 163 項、`board` 320 項、`hit-reaction-suppress` 156 項、`buddies` 259 項（上述各組包含基本變身檢查）；`character-management` 218 項。`check-no-game-assets.py` 通過：3,307 個追蹤檔、4 個 EmbeddedResource 宣告、零錯誤。`git -c core.whitespace=cr-at-eol diff --check` 與 staged 差異檢查通過。
+
+證據沿用 `scratch/issue-263/build/` 與上述群組同名 JSON；原有 `item-use.json` 非本輪重跑。產品 DLL SHA-256：`2f9de6846dde4959863141c6a42bde1dc3ae7156fe7954308fdc641745dc2b81`。本輪 Python 使用本機 Python 3.12 的絕對路徑；NuGet 設定唯讀指向原專案 vendor，套件快取與暫存都留在 worktree。最終提交的 CI 結果記於 [PR #278](https://github.com/chaoren0418-arch/tw-bin-engine/pull/278) 本輪 RESULT 留言。
+
+未驗證原生外觀、音效與實際素材節奏；未啟動遊戲、伺服器或 DB。下一棒由 Claude／調度器確認本輪同步與 CI，合併由使用者處理。M6 smoke 由 dot 依既有授權測試自身／其他角色變身、武器姿勢、攻擊與行走、S119 更新、解除及同圖重設；素材缺漏另開 resource 任務，不以假圖補足。

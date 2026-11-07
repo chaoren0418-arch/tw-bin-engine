@@ -41,6 +41,12 @@ jobs:
           New-Item -ItemType Directory -Force scratch/issue-263 | Out-Null
           dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-263/polymorph-checks.json polymorph-cadence
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Buddy and exclude contracts (no game or network)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-260 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-260/buddies.json buddies
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Item transfer contracts (no game or network)
         shell: pwsh
         run: |
