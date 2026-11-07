@@ -49,8 +49,9 @@ public sealed class BookmarkPanel:UserControl {
 public sealed partial class ClientForm {
     BookmarkPanel? bookmarkPanel;
     // Form lifecycle provides a local hook without changing shared HUD or MagicUi dispatch.
-    protected override void OnLoad(EventArgs e){
-        base.OnLoad(e);
+    // OnLoad belongs to BuddyUi and OnShown to LocationShare; Form raises OnLoad from inside this override.
+    protected override void OnCreateControl(){
+        base.OnCreateControl();
         if(!normalProduct||normalPanels==null||bookmarkPanel!=null)return;
         bookmarkPanel=new BookmarkPanel();var page=new TabPage("記憶座標");page.Controls.Add(bookmarkPanel);normalPanels.TabPages.Add(page);
         bookmarkPanel.Enter+=(_,_)=>LeaveGameFocus("bookmarks");
