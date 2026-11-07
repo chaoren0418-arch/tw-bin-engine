@@ -67,6 +67,10 @@
 
 本輪驗證（基準 main `98bf2b7`）：`--update-lock`、`--build` 通過（217 個來源／226 個 pin），產品 DLL SHA-256 `0de88ecb3ba34d32371834608ba1afed93c3eb9703d8c23d149b5ac7c1510698`；DemoChecks 0 warning／0 error。群組全過：`title-emote` 704、`title-emote-assets` 436、`title-emote-compose` 290（以原專案根目錄唯讀定位 assets）、`timed-buffs` 560、`display-notices` 334、`map-continuity` 22771、`combat-admission` 1837、`afflictions` 428、`doors` 597。本模組三組與第 8 輪相同。`check-no-game-assets.py` 通過（3451 個追蹤檔、0 錯誤）。其他群組本輪未重跑，以 CI 為準。結果在 `scratch/issue-323/sync10/`。
 
+**同步輪（第 10 輪，2026-11-07）**：遠端 `task/323` 被 GitHub 的「Update branch」合入 main（`8f7ff01`，帶進道具狀態 #216 的 `ItemStatus.cs`），但沒有重產 dev lock，CI `dotnet` job 以 `REFUSED: sourceCount 217 != pinned source files 218` 失敗。本輪先快轉到 `8f7ff01`，確認 `Program.cs` 自動合併保留 `await TitleAndEmoteChecks();` 與 main 的 `ItemStatusChecks();`，再跑 `--update-lock` 重產 lock。沒有其他改動。
+
+本輪驗證（基準 main `2aa41de`）：`--update-lock`、`--build` 通過（218 個來源／227 個 pin），產品 DLL SHA-256 `14684f7e423c03e9b069340a3ec9e58fe2e5176e25e31f4ac340123fb511d4b5`。群組全過：`title-emote` 704、`combat-admission` 1837（CI 用的群組）、`item-status` 358。`check-no-game-assets.py` 通過（3455 個追蹤檔、0 錯誤）。`title-emote-assets`／`title-emote-compose` 本輪未重跑（本模組來源未變）。結果在 `scratch/issue-323/`。
+
 **未通過／未驗證**：`combat-loop` 群組與 DemoChecks 無群組的預設全量入口需要 `engine/assets`，本 worktree 沒有 junction，沒有跑。`combat-loop` 退出 1，停在讀 `integrity.json`，不是斷言失敗；預設入口第 3 輪停在 `Movement123` 讀 `terrain0.bin`，本輪未重跑。測試碼有檔案寫入路徑，指向原專案會違反「原專案只讀」，故未這樣做。CI 不跑這兩個入口。CI 結果以 PR #356 為準，本機通過不能替代 CI 綠燈。
 
 未做真機登入、角色權限與拒絕訊息、雙角色視野廣播、實際 UI 操作或音效驗收。未窮舉所有變身外觀；原圖缺件會顯示提示，沒有替代假圖。第一次使用封裝同步 SHA 核驗可能造成載入停頓；後續使用記憶體快取。表情音效與缺少的原生陰影不在此任務範圍。離線合成不是原生遊戲畫面驗收。
