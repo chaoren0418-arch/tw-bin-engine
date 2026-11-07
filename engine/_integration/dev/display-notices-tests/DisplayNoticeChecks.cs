@@ -56,6 +56,9 @@ partial class Checks {
             Check(c.World.NameColor(789,Color.Gold)==Color.Gold,"notice S60 other object keeps color");
             Feed(c,PinkPacket(456,255));Check(c.World.IsPinkName(456,before+254000),"notice S60 byte is unsigned");
             Feed(c,PinkPacket(456,0));Check(!c.World.IsPinkName(456)&&c.World.NameColor(456,Color.Gold)==Color.Gold,"notice S60 zero clears");
+            Feed(c,PinkPacket(456,127));Check(c.World.IsPinkName(456,long.MaxValue-1),"notice S60 127 is permanent (no timer)");
+            Check(c.World.NameColor555(456)==NameColors.Pink&&DisplayNoticeText.PinkName==NameColors.ToColor(0x767D),"notice S60 pink is name colour 0x767D");
+            Feed(c,PinkPacket(456,0));Check(!c.World.IsPinkName(456),"notice S60 zero clears permanent pink");
             Feed(c,PinkPacket(123,180));Check(c.World.IsPinkName(123),"notice S60 own object");Feed(c,PinkPacket(123,0));
 
             // S11: both S_TrueTarget forms.
