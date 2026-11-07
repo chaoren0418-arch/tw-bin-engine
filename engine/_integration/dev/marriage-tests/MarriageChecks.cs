@@ -74,6 +74,11 @@ partial class Checks {
             Feed(c,MarriageMessage(125));Check(c.World.LastServerMessage!=null,"marriage keeps unrelated S71 dispatch");
         }
         using(var c=MarriageSeed()){
+            // Duel confirmations use FightId, so they leave the server's marriage TempID intact.
+            Feed(c,MarriageInvite());Feed(c,MarriageInvite("決鬥者",0,630));
+            Check(c.MarriageSnapshot().CanAnswer&&c.World.DuelSnapshot.Phase=="invited","marriage invitation survives S219/630 duel prompt");
+        }
+        using(var c=MarriageSeed()){
             foreach(var packet in new[]{MarriageInvite(),MarriageMessage(655,"伴侶"),MarriageMessage(656,"伴侶"),MarriageMessage(657),MarriageMessage(658),MarriageMessage(661),MarriageMessage(790)}){
                 for(int length=0;length<packet.Length;length++){
                     var cut=packet[..length];MarriageReject(()=>Feed(c,cut),"marriage truncation "+packet[0]+"/"+length);

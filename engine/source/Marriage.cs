@@ -110,8 +110,12 @@ public sealed partial class LoginConnection {
 
 // Self-contained native entry point; no changes to the shared HUD or web dispatcher.
 public sealed partial class ClientForm {
-    protected override void OnLoad(EventArgs e){
-        base.OnLoad(e);
+    bool marriageUiReady;
+    // OnLoad, OnShown and OnVisibleChanged belong to BuddyUi, LocationShare and DuelUi.
+    protected override void OnCreateControl(){
+        base.OnCreateControl();
+        if(marriageUiReady)return;
+        marriageUiReady=true;
         var button=new Button{Text="求婚／伴侶",AutoSize=true,Anchor=AnchorStyles.Top|AnchorStyles.Right,Location=new(ClientSize.Width-130,8)};
         Controls.Add(button);button.BringToFront();
         void Open(){
