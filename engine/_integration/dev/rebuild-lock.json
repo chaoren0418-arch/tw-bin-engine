@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 182,
+ "sourceCount": 183,
  "files": [
   {
    "path": "NuGet.Config",
@@ -541,8 +541,8 @@
   },
   {
    "path": "source/OnlineMovement.cs",
-   "size": 12469,
-   "sha256": "fd3fca75309cc75d303a9cf7eb8209150d93b534b764b720a532bd851b8a8a6c"
+   "size": 12571,
+   "sha256": "fcc1fafaba39c83b98279710bcb9857bfde06b8a7dd8657a53233c0d148707de"
   },
   {
    "path": "source/OpacityHistoricalPumps.cs",
@@ -678,6 +678,11 @@
    "path": "source/PlayerShadows.cs",
    "size": 3677,
    "sha256": "c44d4c21bdf4764a891e8e366b3211f80898336b8fab651e18874ceaee86bca2"
+  },
+  {
+   "path": "source/Portals.cs",
+   "size": 6506,
+   "sha256": "4125505adbc319487e30e00f70f2c40c78c07c47d42197f059640c942e2a9afc"
   },
   {
    "path": "source/PrivateShop.cs",
