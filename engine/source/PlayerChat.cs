@@ -95,7 +95,7 @@ public sealed partial class LoginConnection {
     public async Task<bool> SendPlayerChat(string text,int session,int world,uint actor){
         if(!PlayerChatAccess||!PlayerChatStamp(session,world,actor)||playerChatSending||WorldClock()<playerChatNextAt||sendMovementGate==null)return false;
         byte[] packet;
-        try{packet=PlayerChatProtocol.Encode(text);}
+        try{packet=PlayerQueryPacket(text,session,world,actor)??PlayerChatProtocol.Encode(text);}
         catch(ArgumentException ex){playerChatNotice=ex.Message;Changed?.Invoke();return false;}
         var sender=sendMovementGate;int lease=++playerChatLease;playerChatSending=true;
         try{
