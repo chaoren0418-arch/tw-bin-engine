@@ -2,7 +2,7 @@
 
 ## 結論與做了什麼
 
-**程式及本機檢查完成；CI 受合併衝突阻塞，尚未符合全部驗收。** 已完成 C254 座標發送、S250 接收、聊天座標點擊與畫面標示。新檔透過 `ClientForm.OnShown` 及公開控制項集合掛接 UI，產品修改維持原定三個檔案，不需要擴充 `PlayerHudChat.cs` 的修改範圍。已提交並推送 `task/361`，PR：[#394](https://github.com/chaoren0418-arch/tw-bin-engine/pull/394)。
+**程式及本機檢查完成；已同步 main 並解除合併衝突，CI 綠燈（見下方「同步輪」）。** 已完成 C254 座標發送、S250 接收、聊天座標點擊與畫面標示。新檔透過 `ClientForm.OnShown` 及公開控制項集合掛接 UI，產品修改維持原定三個檔案，不需要擴充 `PlayerHudChat.cs` 的修改範圍。已提交並推送 `task/361`，PR：[#394](https://github.com/chaoren0418-arch/tw-bin-engine/pull/394)。
 
 - 唯讀查證 `C_Windows`、結構檢查及回包 serializer；正確格式是 C254/sub11，傳給指定角色，並非公開頻道廣播。完整欄位、來源 SHA-256、zone 的證據限制見 [協定](../protocol/location-share.md)。
 - 聊天框輸入 `/loc 角色名稱`，透過 `SendLocation` 發送目前角色 map/x/y；不接受任意座標。角色移動後的目前位置可能是既有引擎的本地預測，並非新取得的伺服器 ACK。
@@ -10,6 +10,27 @@
 - 聊天座標加底線並可點擊：同圖標記實際投影位置，視野外顯示邊緣指示，跨圖只顯示目的地文字。換圖／換角／reset 清除標記。點擊不送出封包或改變角色／鏡頭；普通文字無法偽造連結。
 - 共用聊天 sender gate、傳送中鎖及節流；排隊期間換圖、換角、死亡、動作鎖或位置改變皆拒送。其他 S250 與 S71 保持原分派。
 - 測試提交至 repo，接入既有 `DemoChecks` 的 `location-share`、預設組及 CI 已執行的 `map-continuity` 組；未修改 workflow。
+
+## 同步輪（2026-11-07，只做同步）
+
+合併 `origin/main`（commit `beae9f0`），沒有改任何座標功能。對 main 的產品差異維持原範圍：`LocationShare.cs` 新檔、`PlayerChat.cs`、`WorldSession.cs` 兩個分派 case。
+
+- `WorldSession.cs`：保留雙方分支。座標的 `case 250 when sub111`、`case 71 when 1782/1783` 排在 main 不帶條件的 `case 71:` 之前，所以 1782／1783 不會落到 `ReceivePlayerQueryMessage`。
+- `demo-tests/Program.cs`：`map-continuity` 與預設組取聯集，並保留 main 新增的測試入口及 `location-share`。
+- `rebuild-lock.json`：取 main 版後以 `--update-lock` 重產（189 個來源檔／198 個鎖定輸入），未手動拼 hash。
+
+| 同步後檢查 | 結果 |
+|---|---|
+| `rebuild.py --build` | 通過 |
+| `location-share-tests/run.ps1` | **189 項通過**＝座標 99 項＋main 帶入、在 switch 前固定執行的 `PolymorphChecks` 90 項 |
+| `player-chat-tests/run.ps1` | 107 項通過 |
+| `DemoChecks` 的 CI 組 | `map-continuity` 20832、`combat-admission` 368、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163 項通過 |
+| `DemoChecks` 的共用分派組 | `player-query` 791、`character-config` 183 項通過 |
+| `check-no-game-assets.py` | 通過，0 errors |
+| `DemoChecks` 無參數預設組 | **失敗，未跑完**：`Movement123` 讀不到 `engine/assets/terrain0.bin`，因為本 worktree 沒有 `engine/assets` junction。失敗點在 `LocationShareChecks` 之前，此組的後續項目未執行；CI 不跑此組，座標項目已由上面的分組涵蓋 |
+| CI（`beae9f0`） | **綠燈**：`dotnet`、`map-continuity`、`npc-offline` 全部通過，PR 為 MERGEABLE／CLEAN |
+
+下方「已驗證」表是首輪（同步前）的紀錄，數字以本段為準。
 
 ## 已驗證
 
@@ -38,7 +59,7 @@ python -B -X utf8 engine/tools/check-no-game-assets.py
 
 ## 未驗證／未完成
 
-- **CI 未通過。** 開 PR 期間 main 合入好友模組；唯讀 `git merge-tree` 確認 `WorldSession.cs`、`demo-tests/Program.cs` 與 dev `rebuild-lock.json` 有實際衝突。未執行 merge/rebase，依 m6 契約交調度器同步輪處理。
+- `DemoChecks` 無參數預設組在本 worktree 未跑完（缺 `engine/assets`，見「同步輪」）。
 - 未啟動客戶端、遊戲、伺服器或 DB，未連任何遊戲服務。未驗證跨客戶端實際投遞與原生 UI 操作。
 - zone 僅證明為透明轉送欄位；送出 0 的原客戶端顯示效果待 smoke，不能推斷為地圖分流或安全區。
 
@@ -53,6 +74,6 @@ python -B -X utf8 engine/tools/check-no-game-assets.py
 
 ## 給下一棒的提示
 
-1. 調度器／Claude 同步最新 main，保留好友模組與座標模組各自的 WorldSession case、測試入口；透過 `rebuild.py --update-lock` 重建 dev lock，不手動拼接 hash。此分支沒有更動或重新建立 worktree，也未改 `docs/REPORT.md`。
-2. 同步後重跑本模組、既有聊天及 CI `map-continuity` 組，確認 CI 綠燈再轉正式 PR／安排合併；目前草稿不關閉 #361。好友模組使用 `OnLoad`、本模組使用 `OnShown`，生命週期擴充可共存。
+1. 之後若再同步 main：`WorldSession.cs` 的座標 `when` 分支必須留在不帶條件的 `case 71:` 之前；dev lock 一律用 `rebuild.py --update-lock` 重產。
+2. 好友模組使用 `OnLoad`、本模組使用 `OnShown`，生命週期擴充可共存。
 3. 原生雙角色投遞與 zone 互通由 dot 依既有 P24Lab 授權於後續 smoke 驗證。
