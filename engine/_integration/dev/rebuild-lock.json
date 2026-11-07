@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 176,
+ "sourceCount": 179,
  "files": [
   {
    "path": "NuGet.Config",
@@ -108,6 +108,16 @@
    "path": "source/BasicSupplies.cs",
    "size": 3547,
    "sha256": "5311b9c03f0624f5425946f4f4615ebf1456141c82b73a5096e1d85794f2a201"
+  },
+  {
+   "path": "source/Board.cs",
+   "size": 9802,
+   "sha256": "11b51fcaec63414b09e7d5dcdd706e9c0de26aba895734cfc347eb0ac07e31b2"
+  },
+  {
+   "path": "source/BoardUi.cs",
+   "size": 6175,
+   "sha256": "e241a4a54d90c1ccc54f58421f93bb7c43d9876ef1da52858ceaa0eb62520a9e"
   },
   {
    "path": "source/BonusStats.cs",
@@ -311,8 +321,13 @@
   },
   {
    "path": "source/InventoryUi.cs",
-   "size": 4541,
-   "sha256": "8c08340ec9b8ac5670ceb26e9f210f067334d678626c674693bb7bf5f0c9b472"
+   "size": 4569,
+   "sha256": "928f173a5dd1cbdd80ca99854014a7173e2658d93c9d2882c9fd45fb414872ca"
+  },
+  {
+   "path": "source/ItemTransfer.cs",
+   "size": 9708,
+   "sha256": "1798a14d638b98120a222293e02fd060c92751f51d11c05a9cc1e652f9f999f7"
   },
   {
    "path": "source/JournalTests.cs",
@@ -451,8 +466,8 @@
   },
   {
    "path": "source/NpcInteraction.cs",
-   "size": 12676,
-   "sha256": "c2011c49b579e05bd5b5df3097833d285887070dfd208c1f38285bb67dfa4201"
+   "size": 12782,
+   "sha256": "f8c7d33ba0ea877a24a2423cc933c2c9408f4afa18e3a02ba421bba4c1ecfbf0"
   },
   {
    "path": "source/NpcServices.cs",
@@ -876,8 +891,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9289,
-   "sha256": "82651d3dd0ccda4c395ecb12ecca12262be80fa922bd2e7d7a45fd70d3f82c56"
+   "size": 9378,
+   "sha256": "0e596b40dd327c155123f7c97b0b2ac634ba2ca0f114f2a27f25d8f4a489cd15"
   },
   {
    "path": "source/WorldTests.cs",
