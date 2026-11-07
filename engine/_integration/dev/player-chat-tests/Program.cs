@@ -50,17 +50,22 @@ static class Checks {
             (Global(3,"[玩家] 全體"),PlayerChatChannel.Global,"[玩家] 全體",0u),
             (Global(4,"{玩家} 血盟"),PlayerChatChannel.Clan,"{玩家} 血盟",0u),
             (Global(11,"(玩家) 隊伍"),PlayerChatChannel.Party,"(玩家) 隊伍",0u),
-            (Local(14,"(玩家) 聊天隊伍"),PlayerChatChannel.Party,"(玩家) 聊天隊伍",123u),
-            (Incoming(),PlayerChatChannel.Whisper,"測試者 -> 我：你好",0u),
-            (Global(9,"-> (測試者) 你好"),PlayerChatChannel.Whisper,"-> (測試者) 你好",0u)};
+            (Global(4,"{{玩家}} 聯盟"),PlayerChatChannel.Clan,"{{玩家}} 聯盟",0u),
+            (Local(14,"(玩家) 聊天隊伍"),PlayerChatChannel.ChatParty,"(玩家) 聊天隊伍",123u),
+            (Incoming(),PlayerChatChannel.Whisper,"(測試者) 你好",0u),
+            (Global(9,"-> (測試者) 你好"),PlayerChatChannel.WhisperTo,"-> (測試者) 你好",0u),
+            (Global(12,"[玩家] 交易"),PlayerChatChannel.Trade,"[玩家] 交易",0u),
+            (Global(13,"{{玩家}} 盟主"),PlayerChatChannel.Prince,"{{玩家}} 盟主",0u),
+            (Global(15,"[玩家] 同盟"),PlayerChatChannel.Alliance,"[玩家] 同盟",0u),
+            (Global(17,"{玩家} 血盟公告"),PlayerChatChannel.ClanNotice,"{玩家} 血盟公告",0u)};
         foreach(var (bytes,channel,text,speaker) in packets){
             int revision=c.World.PlayerChatRevision;Feed(c,bytes);var line=c.World.PlayerChatLines.Last();
             Check(line.Channel==channel&&line.Text==text&&line.Speaker==speaker&&c.World.PlayerChatRevision==revision+1,"實際 Receive 分派："+text);
-            Check(PlayerChatProtocol.FormatLine(line).StartsWith("["+PlayerChatProtocol.ChannelName(channel)+"] "),"頻道前綴："+text);
+            Check(PlayerChatProtocol.FormatLine(line)==text,"原版行格式，不加本機頻道標籤："+text);
         }
         Feed(c,Global(9,"系統狀態"));
-        Check(c.World.PlayerChatLines.Length==8&&c.World.LastServerMessage=="系統狀態","S243/type9 系統訊息仍進 Inventory");
-        foreach(var bytes in new[]{Local(7,"unknown"),Global(12,"交易未納入"),LoginPackets.Pad([161,0])}){
+        Check(c.World.PlayerChatLines.Length==packets.Length&&c.World.LastServerMessage=="系統狀態","S243/type9 系統訊息仍進 Inventory");
+        foreach(var bytes in new[]{Local(7,"unknown"),Global(14,"S243 無 type14"),Global(16,"未知"),Global(18,"黃金號角未納入"),LoginPackets.Pad([161,0])}){
             Check(!PlayerChatProtocol.TryDecode(bytes,out _),"不搶其他頻道／NPC opcode "+bytes[0]+"/"+bytes[1]);
         }
         int before=c.World.PlayerChatRevision;
@@ -107,7 +112,14 @@ static class Checks {
         var channels=Enum.GetValues<PlayerChatChannel>();
         var lines=channels.Select((c,i)=>new PlayerChatLine(i+1,0,"文字"+i,c)).ToArray();
         panel.UpdateChat(new(1,1,123,1,true,"",lines));
-        Check(channels.Select(c=>PlayerHudChatPanel.ChannelColor(c).ToArgb()).Distinct().Count()==6,"六頻道顏色互異");
+        var palette=new Dictionary<PlayerChatChannel,int>{
+            [PlayerChatChannel.Normal]=0xFFFFFF,[PlayerChatChannel.Shout]=0xFFE6CE,[PlayerChatChannel.Global]=0xADEFEF,
+            [PlayerChatChannel.Whisper]=0xFFCECE,[PlayerChatChannel.WhisperTo]=0xFFF7B5,[PlayerChatChannel.Clan]=0xC5EFB5,
+            [PlayerChatChannel.Party]=0xFFB500,[PlayerChatChannel.Trade]=0xBDA56B,[PlayerChatChannel.Prince]=0xFF84FF,
+            [PlayerChatChannel.ChatParty]=0xBDEFE6,[PlayerChatChannel.Alliance]=0xCED6FF,[PlayerChatChannel.ClanNotice]=0x00BD00};
+        Check(palette.Count==channels.Length,"每個頻道都有原版調色盤色");
+        foreach(var channel in channels)Check((PlayerHudChatPanel.ChannelColor(channel).ToArgb()&0xFFFFFF)==palette[channel]&&PlayerHudChatPanel.ChannelColor(channel).A==255,"原版調色盤："+channel);
+        Check(channels.Select(c=>PlayerHudChatPanel.ChannelColor(c).ToArgb()).Distinct().Count()==channels.Length,"已實作頻道顏色互異");
         foreach(var line in lines){int start=history.Text.IndexOf(PlayerChatProtocol.FormatLine(line),StringComparison.Ordinal);history.Select(start,1);Check(start>=0&&history.SelectionColor.ToArgb()==PlayerHudChatPanel.ChannelColor(line.Channel).ToArgb(),"RichTextBox 實際行色："+line.Channel);}
         input.Text="\"測試者 "+new string('中',52);Check(send.Enabled,"UI 密語對象不占正文 52 字額度");
         input.Text="!"+new string('中',53);Check(!send.Enabled,"UI 阻擋超長正文");

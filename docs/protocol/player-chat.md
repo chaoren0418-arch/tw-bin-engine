@@ -39,3 +39,13 @@
 `engine/_integration/dev/player-chat-tests/` 對實際產品 DLL 餵入合成封包，測送出 bytes、接收分派、系統訊息回歸、錯誤封包原子性、狀態拒送、歷史上限和未顯示 WinForms 控制項的顏色／驗證。測試不是實際遊戲驗收。
 
 M6 smoke 由 dot 準備兩個測試角色，逐一檢查六頻道的雙端送收、密語方向／離線對象錯誤、血盟／隊伍資格拒絕、全體條件與消耗、顏色與前綴、不同解析度的輸入提示，以及 Enter／Esc 和中文輸入。來源與實際部署 JAR 的一致性也留待真機確認。
+
+## T175 追加：原版行格式、調色盤與接收類型（#449）
+
+依據 `docs/reference/ui-layout.md` 第 3 節與第 7 節 #8–#10。**本段取代上表「本機顏色／前綴」欄**，其餘欄位不變。
+
+- **行格式**：不再加 `[一般]` 等本機頻道標籤，原樣顯示伺服器已格式化的字串（`name: msg`、`[name] msg`、`{name} msg`、`{{name}} msg`、`(name) msg`、`-> (target) msg`）。S73 收密語只有兩個欄位，依 `ChatTextRecvWhisperPrinter` 組成 `(name) msg`。座標分享行維持 `[座標] …`（LocationShare 契約）。
+- **顏色**：調色盤 `dword_1369D70`（VA `0x1369D70`／FO `0xF68570`）RGB555 ×255/31：一般 #FFFFFF、喊話 #FFE6CE、全體 #ADEFEF、收密語 #FFCECE、送密語 #FFF7B5、血盟 #C5EFB5、隊伍 #FFB500、交易 #BDA56B、盟主 #FF84FF、聊天隊伍 #BDEFE6、同盟 #CED6FF、血盟公告 #00BD00。
+- **頻道列舉**：只在尾端追加 `WhisperTo, Trade, Prince, ChatParty, Alliance, ClanNotice`，既有序號不變。S243/9 送密語回覆改為 `WhisperTo`（S73 仍是 `Whisper`）；S81/14 改為 `ChatParty`（原本併入 `Party`）。
+- **接收類型（只收不送）**：S243 type 12 交易、13 盟主、15 同盟、17 血盟公告。唯讀 grep `1-伺服器/src/com/lineage/server/serverpackets`：d287 原始碼只會送 12（`S_ChatTransaction`）與 S81/14（`S_ChatParty2`）；13／15／17 沒有任何寫出點，`S_ChatClanUnion` 的 `writeC(0x0d)` 已被註解、改送 type 4 加 `{{name}}`。所以 13／15／17 只以合成封包測試。S243 type 14、16、18 以上仍不接收，留給其他模組。
+- **不改的部分**：輸入前綴 `! & @ # "` 與送出編碼不變。前綴→頻道對照（含 `$`→交易）在 ui-layout.md 標為推測，本次不新增 `$`。一般頻道以 `*` 開頭改黃、全體 `*` 開頭改紅、訊息自帶色號（type 18／25）沒有實作，因為伺服器字串已含名字，`*` 的判斷位置待驗證。
