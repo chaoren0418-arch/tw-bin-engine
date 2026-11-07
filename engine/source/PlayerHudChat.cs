@@ -36,7 +36,13 @@ public sealed class PlayerHudChatPanel:Panel {
         }
         displayed=view;UpdateAvailability();
     }
-    public static Color ChannelColor(PlayerChatChannel channel)=>channel switch{PlayerChatChannel.Shout=>Color.Orange,PlayerChatChannel.Global=>Color.LightSkyBlue,PlayerChatChannel.Whisper=>Color.Violet,PlayerChatChannel.Clan=>Color.LightGreen,PlayerChatChannel.Party=>Color.Yellow,_=>Color.White};
+    // Original RGB555 palette dword_1369D70 (VA 0x1369D70／FO 0xF68570), ×255/31; see docs/reference/ui-layout.md §3.
+    public static Color ChannelColor(PlayerChatChannel channel)=>channel switch{
+        PlayerChatChannel.Shout=>Rgb(0xFFE6CE),PlayerChatChannel.Global=>Rgb(0xADEFEF),PlayerChatChannel.Whisper=>Rgb(0xFFCECE),
+        PlayerChatChannel.WhisperTo=>Rgb(0xFFF7B5),PlayerChatChannel.Clan=>Rgb(0xC5EFB5),PlayerChatChannel.Party=>Rgb(0xFFB500),
+        PlayerChatChannel.Trade=>Rgb(0xBDA56B),PlayerChatChannel.Prince=>Rgb(0xFF84FF),PlayerChatChannel.ChatParty=>Rgb(0xBDEFE6),
+        PlayerChatChannel.Alliance=>Rgb(0xCED6FF),PlayerChatChannel.ClanNotice=>Rgb(0x00BD00),_=>Rgb(0xFFFFFF)};
+    static Color Rgb(int rgb)=>Color.FromArgb(255,(rgb>>16)&255,(rgb>>8)&255,rgb&255);
     void UpdateAvailability(){
         bool valid=false;string detail="正文 0/52 字";
         try{
