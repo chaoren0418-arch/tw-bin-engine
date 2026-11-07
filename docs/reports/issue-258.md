@@ -2,13 +2,13 @@
 
 ## 結論
 
-本輪僅同步 `origin/main`（`6024dafc682198bf2dc4e3b64bd39738fbea8d21`），保留已審查的書籤功能與生命週期修正。同步提交：`6b433c9e10f5d037d0cdac8c7649ecc5ed4bd071`。產品建置、447 項書籤測試、575 項地圖整合檢查、73 項物品轉移檢查、212 項戰鬥入口檢查及資源檢查通過。
+本輪僅同步 `origin/main`（`bbaac76b815c9b08c51188e63a5cc627724ce646`），保留已審查的書籤功能與生命週期修正。同步提交：`377f0f60c556cd9ebcd8304247581daff40a3dbe`。產品建置、447 項書籤測試、805 項地圖整合檢查、73 項物品轉移檢查、212 項戰鬥入口檢查及資源檢查通過。
 
 沿用分支 `task/258` 與 [PR #271](https://github.com/chaoren0418-arch/tw-bin-engine/pull/271)；PR 為非草稿，GitHub 已確認同步後可合併。同步提交的 build 與 npc-offline CI 全綠。此報告以後續純文件提交補記已完成的 CI，來源與 lock 與該同步提交相同。
 
 ## 做了什麼
 
-本輪同步：處理 `WorldSession.cs`、共用測試專案及入口衝突，保留 main 的 S22／S55／S106 分派與物品轉移測試，並保留本分支 S64／S92、ResetBookmarks 及書籤測試掛接。dev lock 先取 main 版本，再用官方 `--update-lock` 產生；`docs/REPORT.md` 完整採用 main。書籤模組與測試本體未變更，其他模組沿用 main。以下功能與生命週期修正均為前輪既有內容。
+本輪同步：處理 `WorldSession.cs`、共用測試專案及入口衝突，保留 main 的 S22／S55／S106、S68／S148 分派、物品轉移與佈告欄測試，並保留本分支 S64／S92、ResetBookmarks 及書籤測試掛接。dev lock 先取 main 版本，再用官方 `--update-lock` 產生；`docs/REPORT.md` 完整採用 main。書籤模組與測試本體未變更，其他模組沿用 main。以下功能與生命週期修正均為前輪既有內容。
 
 - 新增 `Bookmarks.cs`：S64／0x2A 清單原子替換、S92 單筆更新，保存 ID／名稱／地圖／XY，提供 `World.Bookmarks.TryGet(id)` 及 out overload。
 - C165 只送目前位置的名稱請求；C3 依伺服器書籤名稱送出。新增等待 S92；刪除無確認回包，因此保留待確認列、停用再次刪除及技能查詢，重新登入清單才調和結果。
@@ -23,19 +23,19 @@
 
 | 檢查 | 結果 |
 |---|---|
-| `rebuild.py --update-lock` | 通過，178 個 source／187 個 pinned inputs |
+| `rebuild.py --update-lock` | 通過，180 個 source／189 個 pinned inputs |
 | `rebuild.py --build --configfile scratch/issue-258/NuGet.Config --output scratch/issue-258/build` | 產品、audio、launcher 編譯通過；未執行遊戲 |
 | demo-tests `bookmarks` | 447 項通過，合成封包／記憶體 sender／獨立控制項 |
-| demo-tests `map-continuity` | 575 項通過，包含書籤測試 |
+| demo-tests `map-continuity` | 805 項通過，包含書籤 447 項與 main 的佈告欄 230 項測試 |
 | demo-tests `item-transfer` | 73 項通過，保留 main 測試入口 |
 | demo-tests `combat-admission` | 212 項通過 |
 | `engine/tools/check-no-game-assets.py` | 通過，3286 tracked files、0 errors |
 | `git -c core.whitespace=cr-at-eol diff --check` | 通過；保留既有 CRLF |
-| GitHub CI（`6b433c9e10f5d037d0cdac8c7649ecc5ed4bd071`） | [build #441](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42317457864) 與 [npc-offline #310](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42317458192) 均為 completed／success；build 包含 dotnet 與 map-continuity |
+| GitHub CI（`377f0f60c556cd9ebcd8304247581daff40a3dbe`） | [build #463](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42319990218) 與 [npc-offline #332](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42319990233) 均為 completed／success；build 包含 dotnet 與 map-continuity |
 
-環境：Windows x64、SDK 10.0.300、Python 3.12.10。PATH 無可用 `python`，實際使用 `C:/Users/CHAOREN/AppData/Local/Programs/Python/Python312/python.exe`。NuGet 線上還原遭本機 TLS 認證錯誤，改以 scratch 中的設定唯讀引用原專案 `engine/vendor`；套件快取與暫存均落在本 worktree。
+環境：Windows x64、SDK 10.0.300、Python 3.12.10。PATH 無可用 `python`，實際使用 `C:/Users/CHAOREN/AppData/Local/Programs/Python/Python312/python.exe`。沿用前輪因 NuGet 線上還原 TLS 認證錯誤建立的 scratch 設定，唯讀引用原專案 `engine/vendor`；套件快取與暫存均落在本 worktree。
 
-產品 DLL SHA-256：`9a4033ae897dc45168c22bc0793b0edc265d3da1ad11b8bb2d1447457d868e66`。
+產品 DLL SHA-256：`0ec7340d68e532546cbbb62134feca46c7d977cdb9947caba24e5d8fc788f22b`。
 
 產品建置有兩個既有 `MagicUi.cs:20` nullable 警告（CS8600／CS8602），沒有編譯錯誤；該檔未修改。
 
@@ -49,7 +49,7 @@
 ## 產出路徑
 
 - `engine/source/Bookmarks.cs`、`engine/source/BookmarkUi.cs`
-- `engine/source/WorldSession.cs`：S92 case、S64 書籤子型別分派與本輪最小 reset 掛接
+- `engine/source/WorldSession.cs`：S92 case、S64 書籤子型別分派與前輪最小 reset 掛接
 - `engine/_integration/dev/bookmarks-tests/BookmarkChecks.cs`、`README.md`
 - `engine/_integration/dev/demo-tests/DemoChecks.csproj`、`Program.cs`：測試入口
 - `engine/_integration/dev/rebuild-lock.json`
