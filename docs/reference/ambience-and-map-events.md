@@ -176,8 +176,8 @@
 |---|---|---|---|---|
 | 0–117 | 3 | `rand%250+1`（上半） | 每 4 個 tick 1 px | 程序圖樣 `sub_975C40` 型 3（5 點十字） |
 | 118–235 | 2 | `rand%250+200` | 每 3 個 tick 1 px | 程序圖樣型 2（4×4 共 12 點） |
-| 236–245 | 1 | 485 | 每 2 個 tick 1 px | 圖片 Surf `-98`／`-97`（序號奇偶交替） |
-| 246–255 | 0 | 485 | 每 1 個 tick 1 px | 圖片 Surf `-100`／`-99` |
+| 236–245 | 1 | 485 | 每 2 個 tick 1 px | 圖片 Surf `926`／`927`（序號奇偶交替；T167 更正 IDA 型別誤判） |
+| 246–255 | 0 | 485 | 每 1 個 tick 1 px | 圖片 Surf `924`／`925` |
 
 更新規則，`sub_F0E290`（`0xF0E290`／`0xB0D690`）：
 
@@ -204,17 +204,17 @@
 - y 加 `5n`。
 - y ≥ 落點時，y 歸 0，新落點 = `(4−大小)*64 + (505 − (4−大小)*64)*rand/0x7FFF`。
 
-繪製用 `sub_9755E0(目標, pitch, 大小, 25)` 畫程序雪花，不用圖片。
+繪製用 `sub_9755E0(目標, pitch, 大小, 25)` 畫程序雪花，不用圖片。T167 補查：「大小」是圖樣分支編號，並非像素直徑；分支 3／2 分別呼叫像素操作 11／14 次，見第 3.1 節。
 
 ### 推測
 
 - 雪的「每幀更新」與畫面更新率綁在一起，看起來像原版缺陷，所以速度隨 FPS 改變。
-- 雨的第 2／3 層是落地水花，第 0／1 層是雨絲圖片。依據是落點分布與 alpha 隨階段遞減。
+- 雨的第 2／3 層是落地水花，依據是落點分布與 alpha 隨階段遞減。第 0／1 層原先推測為「雨絲圖片」，T167 已找到 `924..927.img`，為 7–10 px 的小圖，不能以程序直線代替。
 - (a) 第 5 步若伺服器重送天氣封包，L 會一路減到 9，再由 S_TIME 重算還原。
 
 ### 待驗證
 
-- Surf `-100..-97` 的實際圖檔。來源是 `SurfList.xml`（`sub_E524F0` 的錯誤字串 `check id#%d in SurfList.xml`）。3.81 客戶端 `Tile.idx` 有 `SurfList.xml` 條目，但 pak 內容加密，本輪未解。
+- T167（#437）已解除雨圖來源疑點：真正的 Surf ID 是 `924..927`，XML 與圖片位置、解密及機器碼證據見第 3.1 節；實機顯示仍待驗證。
 
 ---
 
@@ -237,7 +237,7 @@
 
 別人：20 → 5，其他保持原值。
 
-**(b) 光源圖 `source.lmp`。** `sub_F0A3A0`（`0xF0A3A0`／`0xB097A0`）在「before lightSource」階段載入，同時配置 96,000 bytes（400×240）的光照圖 `dword_1544634`。內容是 16 張光源圖：
+**(b) 光源圖 `source.lmp`。** `sub_F0A3A0`（`0xF0A3A0`／`0xB097A0`）在「before lightSource」階段載入，同時配置 96,000 bytes（400×240）的光照圖 `dword_1544634`。內容有 16 個光源圖槽位（本機檔案共享 8 組非空圖像，見第 3.1 節）：
 
 - 偏移表：`+4i`
 - 寬高：`+64+8i`、`+68+8i`
@@ -269,13 +269,122 @@
 
 ### 推測
 
-- 「自己至少 5」表示角色周圍永遠有一圈小光。值 0 是否真的無光，要等 `source.lmp` 第 0 張圖確認。
+- 「自己至少 5」表示角色周圍永遠有一圈小光。T167 已確認本機 `Source.lmp` 第 0 槽並非全黑；是否繪製仍由呼叫端條件決定，不能把索引 0 當空圖。
 - `+16` 欄位在距離計算中常被除以 2（見第 5 節），可能是 2 倍 x 座標，所以光源的 x 範圍約 ±17 格。
 
 ### 待驗證
 
-- `source.lmp` 16 張圖的實際尺寸與漸層。TW16 從類別 4 的資源載入。3.81 客戶端的 `Text.idx`／`Tile.idx`／`Sprite.idx` 都找不到這個名稱，`crown.raw` 在 `Sprite.idx`。
+- T167 已在 `Sprite.idx` 找到大小寫為 `Source.lmp` 的原始條目，尺寸、值域與槽位共享見第 3.1 節；先前「三個 idx 都找不到」的結論撤回。TW16 從類別 4 的資源載入。
 - 3.81 伺服器實際送出的 v 值分布：19／20 是否出現。
+
+---
+
+## 3.1 光源圖與雨圖來源（T167／#437，2026-11-08）
+
+### 已驗證：原始檔與索引位置
+
+全部來源唯讀取自 `D:\lineage開發\0-客戶端`。光源是 `Sprite.pak` 的 **`Source.lmp`**；雨圖是同包的 **`924.img`～`927.img`**；雪花由原程式繪製，沒有需另外尋找的雪圖。未複製 pak、BIN 或圖片進受追蹤路徑。
+
+索引格式：4-byte little-endian 條目數，其後每筆 28 bytes：`u32 pakOffset + char name[20] + u32 size`。下表序號從 **0** 起算；IDX File Offset 指整筆記錄開頭，檔名欄再加 4。名稱比對應忽略大小寫。
+
+| 檔名 | pak／idx | 序號 | IDX File Offset | PAK File Offset | bytes |
+|---|---|---:|---|---|---:|
+| `Source.lmp` | `Sprite` | 92352 | `0x277504` | `0x3692CC97` | 152736 |
+| `924.img` | `Sprite` | 90580 | `0x26B334` | `0x16D862F2` | 208 |
+| `925.img` | `Sprite` | 90582 | `0x26B36C` | `0x16D86248` | 170 |
+| `926.img` | `Sprite` | 90616 | `0x26B724` | `0x16D8619E` | 170 |
+| `927.img` | `Sprite` | 90650 | `0x26BADC` | `0x16D86134` | 106 |
+| `SurfList.xml`（密文） | `Tile` | 5432 | `0x25224` | `0x2354A287` | 236644 |
+
+| 原始條目 | SHA-256（完整 payload） |
+|---|---|
+| `Source.lmp` | `30cf051fe516a053ac494b8054e5a320bab1f3f3dd7b0010e0cf0c74aacce5aa` |
+| `924.img` | `7872d5b398fb348781f5d89c87c6ffba5ec8d4b565c8f761db49e4df7d7c2844` |
+| `925.img` | `11cb8eff92406733c4a9c1671568797192773b3817a48278aeee893ac6bcda6f` |
+| `926.img` | `c1be786e7cd80756237b30587f0f83dd9f625d9cfb99cb1069e8eb21c1a73930` |
+| `927.img` | `778c773692ed0342e2b9ab86de3ca5190e10de3df211f01a683f52640ccb5120` |
+| `SurfList.xml` 密文 | `754c27542f0b803bbd35f6a1a755f55f25dcba1fbfb38114836c018659756c80` |
+| `SurfList.xml` 明文（只在 scratch） | `a596c2529a0721e0a294beac4e1a2668ade2d02e30f248dc62db6d7cad5dc051` |
+
+| 來源容器 | bytes | SHA-256（整檔串流計算） |
+|---|---:|---|
+| `Sprite.idx` | 2585972 | `327c06372d87f6cf6d5176da51da5ef1f94dbf388d1588b735c5965b96b6a52b` |
+| `Sprite.pak` | 1904012586 | `4dd4e5348fbad2e69bae9cc388be23d7becebe8423ad9f79f393c1457a69ee62` |
+| `Tile.idx` | 152492 | `9291fd800ac8cae6dc355c1d8bbb965880561de169fbc7ea22d174fff9ad24db` |
+| `Tile.pak` | 593320968 | `82e52f47317f9a55ef775bbfce3c5f26f42b31a98748ffaa84ce5e2c3ed60d4a` |
+
+`Sprite` 的整檔雜湊也與既有 `GroundSpriteReader.cs` pin 相同。掃描 17 個 `Sprite*.idx` 加 `Tile.idx`，六個目標名稱各只有一筆；本輪不把未解密的 `Text.idx` 原始 byte 搜尋當成有效排除證據。
+
+### 已驗證：雨圖負 ID 是反編譯型別錯誤
+
+**撤回 T162 的 Surf `-100..-97`。** 既有 IDB 把查詢參數誤判成 `char`，Hex-Rays 因此把 924 的低 byte `0x9C` 顯示為 -100；926 的低 byte `0x9E` 顯示為 -98。原始 BIN 機器碼加的是 **32-bit 924／926**，查詢亦推入完整 DWORD，沒有截斷。這不是版本差異，也不是需要另找負值檔名。
+
+| 樣本／位置 | VA | File Offset | 直接證據 |
+|---|---|---|---|
+| TW16 雨層 0 | `0xF0E66D` | `0xB0DA6D` | `81 C2 9C 03 00 00`：`add edx,924`，接 `push edx` |
+| TW16 雨層 1 | `0xF0E6AE` | `0xB0DAAE` | `05 9E 03 00 00`：`add eax,926`，接 `push eax` |
+| TW16 Surf 查詢 | `0xE538E3` | `0xA52CE3` | `mov eax,[ebp+8]; push eax`；呼叫 `E524F0` |
+| TW13 雨層 0／1 | `0x4ED2CB`／`0x4ED30A` | `0xED2CB`／`0xED30A` | 同樣加 `0x39C`／`0x39E` |
+| LiTo OEP 快照雨層 0／1 | `0x486DDB`／`0x486D5E` | `0x86DDB`／`0x86D5E` | 同樣加 `0x39C`／`0x39E`；`0x486DF1`／FO `0x86DF1` 用完整 eax 查 Surf 指標表 |
+
+三個樣本的 SHA-256：TW16 見第 0 節；TW13 為 `653da514f750d4714fde2c83e5162aeef553c876ec541fe1cfebf6970f5c62a4`；LiTo 快照為 `4271d92fb2b9a2fa8d118dde0767f6d8a67a896227bcc24127438fcb5c2ab6e9`。LiTo 使用 #417 既有靜態快照（路徑見 `t167_static.py`），沒有附加或啟動遊戲，也未將這次窗口核對擴大宣稱為整個快照已還原。
+
+解密後 XML 共 **6653** 個唯一 Surf ID，四項都是 `id=N file=N`（N=924～927），沒有負值雨圖 ID。TW16 XML parser `sub_E58090`（VA `0xE58090`／FO `0xA57490`）以 `atoi(id)` 保存整數，再讀 `file` 欄。四個 `.img` 的標頭依次為 `u16 width,height,flag,colorKey`，資料為 little-endian RGB555；尺寸依序 **10×10、9×9、9×9、7×7**，flag 與 colorKey 全為 0，且全部滿足 `size = 8 + width*height*2`。原圖檢視為小滴狀／斑點圖案，不能替換成合成雨絲。
+
+### 已驗證：SurfList.xml 解密
+
+沿用並重核 #429 的 [`ui_xml_decrypt.py`](rea-scripts/ui_xml_decrypt.py)，本次包成只處理本題資源的 [`t167_resources.py`](rea-scripts/t167_resources.py)。靜態鏈為：
+
+| 函式 | VA／File Offset | 行為 |
+|---|---|---|
+| `sub_B3D710` | `0xB3D710`／`0x73CB10` | 解密 `buf+4,len-4`，把 `buf[0]` 改為 `<` |
+| `sub_A9FA30` | `0xA9FA30`／`0x69EE30` | 組合 key／IV，呼叫 key schedule 與 CBC 解密 |
+| `sub_4D5EB0` | `0x4D5EB0`／`0xD52B0` | 呼叫者指定 128-bit key；32-byte 區域常數只取前 16 bytes |
+| `sub_4D8FB0` | `0x4D8FB0`／`0xD83B0` | 完整 16-byte 區塊 CBC；不足 16 bytes 的尾段直接 XOR 當前鏈值 |
+
+這些是資源格式常數：key=`dc8401212a40200add25b9a70db9c94e`；初始 IV=`3e0978aac4d53063300c5f9a807f2246`。密文前四 bytes 是 `X?xm`；前四 bytes 不進 AES，最終只把第一 byte 換成 `<`。本條目 body 長 236640、剛好整除 16，無尾段、無 PKCS#7 去填充。解密後以 UTF-8 XML parser 成功解析，再核對四個雨圖對應；明文未進 git。
+
+### 已驗證：光源資料格式與雪花來源
+
+`Source.lmp` 不需要 AES。前 192 bytes 為 16 個 `u32` 相對偏移（0～63），以及 16 組 `u32 width,height`（64～191）；後面為每像素一 byte 的光照強度。偏移相對 **LMP payload 開頭**，不是相對 PAK。TW16 `sub_F0A3A0`（VA `0xF0A3A0`／FO `0xB097A0`）的加基址與寬高載入指令已核對；`sub_97D2F0` 逐 byte 取最大值，無 RGB 解碼。
+
+| 槽位 k | LMP 相對偏移 | 寬×高 | bytes | 像素 min～max |
+|---|---|---|---:|---|
+| 0、1 | `0xC0` | 16×8 | 128 | 0～230 |
+| 2、3 | `0x140` | 32×16 | 512 | 0～244 |
+| 4、5 | `0x340` | 72×36 | 2592 | 0～250 |
+| 6、7 | `0xD60` | 144×72 | 10368 | 0～254 |
+| 8、9 | `0x35E0` | 200×100 | 20000 | 0～255 |
+| 10、11 | `0x8400` | 240×120 | 28800 | 0～255 |
+| 12、13 | `0xF480` | 288×144 | 41472 | 0～255 |
+| 14 | `0x19680` | 312×156 | 48672 | 0～255 |
+| 15 | `0` | 0×0 | 0 | 無像素 |
+
+因此「16 張」應精確理解為 **16 槽、8 組非空像素區**；配對槽共用偏移與資料，第 15 槽不繪製。第 0 槽並非全黑。不得替空槽補合成光圈；所有非空範圍恰好接續到 payload 尾端，無越界。
+
+雪花由 `sub_F0E0D0`（VA `0xF0E0D0`／FO `0xB0D4D0`）呼叫 `sub_9755E0`（`0x9755E0`／`0x5749E0`），透過 `dword_14D7DDC` 對目標像素操作，這條路徑不查 Surf。實際使用的圖樣 3／2 分別在 11／14 個位置操作，位置逐行向左偏（每 4 行左移一個 16-bit 像素），不是直徑 2～3 px 的圓。雨的層 2／3 另用 `sub_975C40`（`0x975C40`／`0x575040`）的 12 點／5 點圖樣。照原始指令重現這些程序圖樣屬原生算法移植；任意畫圓、畫線仍不算原版完成。
+
+### 引擎執行時讀取方式（交給 T164／G2 實作）
+
+1. 沿用 `GroundSpriteReader.ClientRoot`：`TW_CLIENT_ROOT` 或預設 `D:\lineage開發\0-客戶端`。與既有 `EffectSpriteCatalog`／`GroundSpriteReader` 一樣，索引、pak 以唯讀 handle 開啟，只把解碼結果快取在記憶體。`engine/assets` 的 junction 仍供既有資源引用；**不往 junction 放新檔、不解包到 assets、不配送原圖**。
+2. 先核對索引與容器 identity，再以忽略大小寫的名稱定位條目；核對 offset+size 邊界及上表 payload SHA。避免把某次安裝的固定 PAK offset 當永久 API。缺檔、重複條目或 SHA 不符應回報素材錯誤，不能退回合成圖。
+3. `Source.lmp` 讀完整條目，解析 16 槽，保留共享偏移與空槽；以 `AmbienceLightMap.Stamp` 所需的 `ReadOnlySpan<byte>,width,height` 送入原始強度圖。不要轉成 PNG、RGB 或 alpha 圓形；套用仍照第 1／3 節。
+4. 雨層 0 依序號奇偶讀 `924.img`／`925.img`，層 1 讀 `926.img`／`927.img`。保留 RGB555 色值與 colorKey=0 的透明語義；按第 2 節的座標／更新／先雨雪後明暗順序繪製。XML 可執行時在記憶體解密查表；若採固定四項 mapping，須用本節的 XML／圖片 pin 約束版本。
+5. 雪花與雨層 2／3 依已查的原生像素操作移植，沒有待取出的圖檔。產品整合、像素格式切換及實機畫面比對仍需後續驗證，本任務不改引擎程式。
+
+### 重跑與證據界線
+
+在 worktree 根目錄執行（Python 3.12；`pycryptodome`、`pefile`、`capstone`）：
+
+```powershell
+python -B -X utf8 docs/reference/rea-scripts/t167_resources.py "D:\lineage開發\0-客戶端" --xml-out scratch/issue-437/SurfList.xml
+python -B -X utf8 docs/reference/rea-scripts/t167_static.py
+python -B -X utf8 engine/tools/check-no-game-assets.py
+```
+
+本機 Python 未在 PATH，實際以 `C:\Users\CHAOREN\AppData\Local\Programs\Python\Python312\python.exe` 執行。第一支預設只輸出 metadata；省略 `--xml-out` 就完全不寫檔。輸出 XML 強制限制在本 worktree 的 `scratch/` 且拒絕連結。第二支鎖定三個來源 SHA 並直接比對關鍵指令，列出 VA／FO，**不依賴 IDA 的 char 偽碼**。
+
+完整反編譯重跑：依第 9 節複製 IDB 到 scratch，使用 [`t167_targets.txt`](rea-scripts/t167_targets.txt) 與 `ida_dec_xref.py`。不要使用帶錯誤 char 型別的偽碼作為圖號證據。本輪所有 IDB、偽碼、解密 XML 與原圖檢視副本只在 `scratch/`；未修改原客戶端、原 IDB、封存或 DB，未啟動遊戲。**已驗證**的是靜態指令、原始檔定位、解密與格式；**待驗證**的是引擎整合後的實機外觀，沒有以靜態查證宣稱原生驗收通過。
 
 ---
 
@@ -473,10 +582,10 @@ TW16 把物件狀態放在 `+40`（`+0x28`）的旗標。`sub_A46620` 以 `obj+4
 | 4 | 天氣解碼 | 高半位 0 是雨、0x10 是雪，強度 >3 視為 0 | 1–3 雨、17–19 雪，其他晴（`Ambience.cs:8-9`） | 是 |
 | 5 | 天氣附帶規則 | 收包時若 L ≥ 10 則減 1；地圖 7701–7710、7771–7780 強制雨 2；地圖設定可停用；gfx 10683／10632／10891 移除時清除雨雪；地圖腳本 Rain／Snow | 都沒有 | **否** |
 | 6 | 天氣粒子數 | 雨 128／256／512；雪 48／96／144 | `面積/7000*強度`，上限 768（`AmbiencePainter.ParticleCount`） | **否** |
-| 7 | 天氣外觀與速度 | 雨分 4 層：2 層 Surf 圖、2 層落地水花，每 24 ms 1–1/4 px，加 ±8 px 正弦擺動；雪每幀 y+5n、x−rand(3n)，程序雪花大小 2–3 | 程序直線雨（速度 310+35n px/s）、圓點雪（25+8n px/s） | **否** |
+| 7 | 天氣外觀與速度 | 雨分 4 層：2 層 Surf 圖、2 層落地水花，每 24 ms 1–1/4 px，加 ±8 px 正弦擺動；雪每幀 y+5n、x−rand(3n)，程序雪花分支 2／3（14／11 點） | 程序直線雨（速度 310+35n px/s）、圓點雪（25+8n px/s） | **否** |
 | 8 | 天氣與明暗的順序 | 雨雪先畫，再一起變暗 | 先畫明暗再畫天氣（`AmbiencePainter.Draw`），雨雪不受夜晚影響 | **否** |
 | 9 | 光源值換算 | 自己：<5→5、19→10（+1 全域）、20→14（+5 全域）；別人：20→5 | 原值存入 `Light`（`Ambience.cs:43-48`） | **否** |
-| 10 | 光源形狀與合成 | `source.lmp` 16 張圖，索引上限 15；半解析度光照圖取最大值；預算 700；距離 ±35／±15 篩選；動作偏移 | `min(值,32)*24 px` 的圓，smoothstep 邊緣，取最亮（`AmbiencePainter.Radius`／`Shade`） | 部分（取最大值一致，其餘不一致） |
+| 10 | 光源形狀與合成 | `Source.lmp` 16 槽，索引上限 15（第 15 槽空）；半解析度光照圖取最大值；預算 700；距離 ±35／±15 篩選；動作偏移 | `min(值,32)*24 px` 的圓，smoothstep 邊緣，取最亮（`AmbiencePainter.Radius`／`Shade`） | 部分（取最大值一致，其餘不一致） |
 | 11 | 中毒綠 | 加法：只有 G 加 8–14（三角波，週期 1.2 秒），R、B 不變 | 以亮度重算 `(L/3, L, L/3)`，無脈動（`AfflictionColors.Tint`） | **否** |
 | 12 | 麻痺灰 | `c/2 + (3,3,3)`，非灰階 | 灰階 `(L,L,L)` | **否** |
 | 13 | 灰與綠同時 | 灰優先 | 解碼時拒收（`green+gray>1` 丟 ProtocolException） | **否** |
@@ -495,7 +604,7 @@ TW16 把物件狀態放在 `+40`（`+0x28`）的旗標。`sub_A46620` 以 `obj+4
 
 ## 8. 待驗證總表
 
-1. `source.lmp` 16 張光源圖與 Surf `-100..-97` 雨圖的實際內容。`SurfList.xml` 在 3.81 `Tile.pak` 內是加密的。
+1. 光源／雨圖來源已由 T167 解決（第 3.1 節）：`Sprite.pak/Source.lmp` 與 `924..927.img`；負 ID 為 IDA 型別誤判。待驗證僅剩產品整合後的實機外觀。
 2. 天空進度 `dword_1543370..78` 的使用者。
 3. `byte_15442BC`、`sub_F150B0`、`sub_500EA0(1,3)`、`byte_154461E` 的意義。
 4. `sub_956D30`、`$431`（隱身可見條件）的意義。

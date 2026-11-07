@@ -4,7 +4,11 @@ using P24.Audio;
 
 namespace P06;
 
-public sealed record ServerSound(byte Repeat, ushort SoundId);
+// T173: the first byte is a play mode (sound.md section 3), not a repeat count.
+public sealed record ServerSound(byte Mode, ushort SoundId)
+{
+    public S22Mode? Kind => SoundRules.Mode(Mode);
+}
 public sealed record ServerEffect(uint? Target, ushort X, ushort Y, ushort GfxId, ushort? Time);
 
 // #132: lengths include opcode and zero padding, but exclude the transport header.
@@ -36,15 +40,18 @@ public static class SoundPackets
         return result;
     }
 
-    // Product policy pending M6 smoke: repeat means additional plays; zero is one play.
-    // Use WAV duration rather than dispatching every repetition simultaneously.
+    // T173 (sound.md section 3): mode 0 plays once (A05980), mode 1 loops as ambience (A08020),
+    // mode 2 stops the id (A05A00) and has no schedule. Loop cycles reuse the WAV duration.
     public static SoundSchedule Schedule(ServerSound packet, double durationMs)
     {
         if (!double.IsFinite(durationMs) || durationMs <= 0 || durationMs > 60000)
             throw new InvalidDataException("S22 WAV duration outside supported range");
-        return new(Enumerable.Range(0, packet.Repeat + 1)
-            .Select(i => new SoundFrame(i, i * durationMs, [packet.SoundId])).ToArray(),
-            (packet.Repeat + 1) * durationMs, false);
+        return packet.Kind switch
+        {
+            S22Mode.Once => new([new SoundFrame(0, 0, [packet.SoundId])], durationMs, false),
+            S22Mode.AmbientLoop => new([new SoundFrame(0, 0, [packet.SoundId])], durationMs, true),
+            _ => throw new InvalidOperationException($"S22 mode {packet.Mode} has no play schedule")
+        };
     }
 }
 
@@ -138,7 +145,7 @@ public sealed partial class WorldSession
             packetMediaEpoch = WorldEpoch;
         }
         long now = PacketMediaClock();
-        packetSounds.RemoveAll(s => now - s.At >= 256 * 60000L);
+        packetSounds.RemoveAll(s => s.Packet.Kind != S22Mode.AmbientLoop && now - s.At >= 256 * 60000L);
         packetEffects.RemoveAll(e => now >= e.Expires || e.Packet.Target is uint id && PacketEffectPosition(id) == null);
     }
 
@@ -148,14 +155,30 @@ public sealed partial class WorldSession
     {
         var packet = SoundPackets.Sound(plain); // Validate fully before changing state.
         EnsurePacketMedia();
+        switch (packet.Kind)
+        {
+            case null:
+                PacketMediaNotice = $"S22 音效 {packet.SoundId}，未知模式 {packet.Mode}；忽略";
+                return;
+            case S22Mode.Stop:
+                int stopped = packetSounds.RemoveAll(s => s.Packet.SoundId == packet.SoundId);
+                PacketMediaNotice = $"S22 停止音效 {packet.SoundId}（{stopped} 筆）";
+                return;
+            case S22Mode.AmbientLoop when packetSounds.Any(s => s.Packet.Kind == S22Mode.AmbientLoop && s.Packet.SoundId == packet.SoundId):
+                PacketMediaNotice = $"S22 環境音 {packet.SoundId} 已在循環；不重複啟動";
+                return;
+        }
         packetSounds.Add(new(++packetSoundNumber, WorldEpoch, packet, PacketMediaClock()));
         if (packetSounds.Count > 256) packetSounds.RemoveAt(0);
-        PacketMediaNotice = $"S22 音效 {packet.SoundId}，repeat={packet.Repeat}；播放依已核定 WAV";
+        PacketMediaNotice = packet.Kind == S22Mode.AmbientLoop
+            ? $"S22 環境音 {packet.SoundId} 循環；播放依已核定 WAV"
+            : $"S22 音效 {packet.SoundId} 單次；播放依已核定 WAV";
     }
 
     public CombatSoundInstance[] PacketSoundSnapshot(long now, Func<int, double?> duration)
     {
         var result = new List<CombatSoundInstance>();
+        var onceEnds = new Dictionary<ushort, long>();
         foreach (var item in PacketSounds)
         {
             double? ms = duration(item.Packet.SoundId);
@@ -167,8 +190,23 @@ public sealed partial class WorldSession
             }
             var schedule = SoundPackets.Schedule(item.Packet, ms.Value);
             long start = item.At + PacketSoundMatchMs;
+            if (schedule.Loop)
+            {
+                // Loops run until S22 mode 2, a world reset, or the dispatcher is disabled.
+                result.Add(new($"s22/{item.Number}", item.Number, 0, 0, 0, start, long.MaxValue / 4, schedule)
+                { Category = SoundCategory.EnvSound, CooldownFirstCycleOnly = true, StillValid = () => WorldEpoch == item.Epoch });
+                continue;
+            }
             long end = start + (long)Math.Ceiling(schedule.Duration);
             if (now >= end) { packetSounds.Remove(item); continue; }
+            // A05EA0: while this id's single-shot instance is still playing, a new mode-0 packet is not played.
+            if (onceEnds.TryGetValue(item.Packet.SoundId, out long playing) && start < playing)
+            {
+                PacketMediaNotice = $"S22 音效 {item.Packet.SoundId} 仍在播放；不重播";
+                packetSounds.Remove(item);
+                continue;
+            }
+            onceEnds[item.Packet.SoundId] = end;
             result.Add(new($"s22/{item.Number}", item.Number, 0, 0, 0, start, end, schedule)
             { DrainOnEnd = true, StillValid = () => WorldEpoch == item.Epoch });
         }
@@ -201,6 +239,7 @@ public sealed partial class WorldSession
         foreach(var sound in sounds)
         {
             if(now<sound.StartedAt)continue; // Wait for either packet arrival order.
+            if(sound.Schedule.Loop){result.Add(sound);continue;} // Frame/S22 first-play dedup applies to single plays only.
             if(!packetSoundMatches.TryGetValue(sound.Instance,out bool matched))
             {
                 int id=sound.Schedule.Frames[0].Candidates[0];
