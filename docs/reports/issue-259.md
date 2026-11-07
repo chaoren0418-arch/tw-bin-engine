@@ -1,6 +1,23 @@
 # Issue #259 — T125 組隊（code，第 2 次補正）
 
-## 最新同步結果（2026-11-07，本次只做同步）
+## 最新同步結果（2026-11-07，第三次同步，本輪只做同步）
+
+依調度器要求，在既有 `task/259` 合併 `origin/main`（`d604050`，隨後再合入只改 `docs/REPORT.md` 的索引提交 `1fd46dc`）。未新增或修改功能。
+
+- 衝突 3 個，都是雙方各自新增：`DemoChecks.csproj` 保留組隊與主線的測試來源；`demo-tests/Program.cs` 保留 `PartyChecks()`、`PolymorphChecks()` 與雙方全部 case；`rebuild-lock.json` 取 main 版後以 `--update-lock` 重產，未手動拼 hash。`WorldSession.cs`、`PlayerHudView.cs` 自動合併。
+- `docs/REPORT.md` 與 main 的 blob 相同；相對 main 仍只有原任務的 10 個差異檔。
+- 來源核驗：**194 個來源／203 個鎖定檔通過**。
+- `rebuild.py --build --configfile scratch/issue-259/NuGet.Config --output scratch/issue-259/build` 通過（產品與 launcher 退出 0）。產品 DLL SHA-256：`219dec4d6211e02daeae95de20e155dda6934ee89ad53185ad8a212ae43d9407`。
+- demo-tests 入口全部通過：`party`／`polymorph` **170**、`polymorph-cadence` **203**、`buddies` **339**、`item-transfer` **243**、`combat-admission` **1189**、`map-continuity` **21338**。每組都先跑組隊與變身的共同檢查（合計 170 項），各組數字不可加總。
+- `CharacterManagementChecks` **218** 項、`NpcChecks` **165** 項通過。
+- `check-no-game-assets.py` 通過（3345 個追蹤檔、0 錯誤）；demo-tests 與 `engine/source` 的 `git -c core.whitespace=cr-at-eol diff --check` 通過。
+- 本機未跑 CI 中的 web-resource、ResourceChecks、Effect6016、packet-trace、其他測試專案；以 PR #269 最新 head 的 CI 為準。測試證據在 `scratch/issue-259/*-checks.json`（不追蹤）。
+
+未驗證：未啟動遊戲、伺服器或 DB，未做原生畫面或雙角色連線 smoke。
+
+給下一棒：調度器核對 PR #269 的 CI 後接續合併；dot 於 M6 smoke 驗收雙角色組隊、HP、離隊／踢除與重登。
+
+## 前次同步結果（2026-11-07，第二次同步）
 
 本輪依調度器要求，在既有 `task/259` 合併 `origin/main`（`9f62553`，原分支落後 22 個提交）。只處理同步：`WorldSession.cs` 保留組隊與好友接收掛接，demo-tests 專案及入口保留雙方測試，dev lock 由 `--update-lock` 重產，未新增或修改功能。`docs/REPORT.md` 與 main 完全一致。
 
