@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 183,
+ "sourceCount": 189,
  "files": [
   {
    "path": "NuGet.Config",
@@ -130,6 +130,16 @@
    "sha256": "072a214367754da457a0aee4ebcc457d441955cdf17caf30df31cbb1e91649c9"
   },
   {
+   "path": "source/Buddies.cs",
+   "size": 8343,
+   "sha256": "adf112fea62dd30b11ee8c71b9198784340a0aa0fbc448dbc0bbd567485ae186"
+  },
+  {
+   "path": "source/BuddyUi.cs",
+   "size": 5057,
+   "sha256": "bd29d9848d52dd8d36d68de448bcba66ec353e755596c448b658c6db2aaeabd1"
+  },
+  {
    "path": "source/CacheFrameEvidence.cs",
    "size": 2669,
    "sha256": "313ec8d28c59bebd97d05d734e082e7e5b04398e673b8d89e7f64973014dc5ea"
@@ -138,6 +148,11 @@
    "path": "source/CacheTests.cs",
    "size": 11154,
    "sha256": "4584ba1a014e5378870bf1520427c10ff7ace1947ce350dc813ba5d772e5d521"
+  },
+  {
+   "path": "source/CharacterConfig.cs",
+   "size": 7597,
+   "sha256": "25da0357d544740d2f9309241a3c8d84e2b37128b06389326d16ba5c8a9d71f3"
   },
   {
    "path": "source/CharacterManagement.cs",
@@ -445,6 +460,11 @@
    "sha256": "befb109385251d5455e0bb5418995f072568e324424415e1f39e1c5c616e7f47"
   },
   {
+   "path": "source/MapIdPacket.cs",
+   "size": 1209,
+   "sha256": "d17b7699fc12b1fced4b9d2847d1a4f6ef7a5048dbf82bcba372f567b692c7c7"
+  },
+  {
    "path": "source/MapResources.cs",
    "size": 1187,
    "sha256": "8e3e1663a58345ab42bee1fe2c07777a74ece63da7fd6500323efd5b8daa016b"
@@ -621,8 +641,8 @@
   },
   {
    "path": "source/PlayerChat.cs",
-   "size": 7992,
-   "sha256": "b3ff2b6e96b7ab8873da8fc1991f42eae2c7bddfa711c6e80f5456915af3a99e"
+   "size": 8084,
+   "sha256": "329dc66a6ad2353352a24558846340131bf71feb56695bc71046cc47c71ff9f3"
   },
   {
    "path": "source/PlayerChatKeyboardFlow.cs",
@@ -651,8 +671,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15394,
-   "sha256": "f7583e75ba3a88ada62b0612e5ef36e3f36f3a2df3e37a6147853ceabf141c74"
+   "size": 15468,
+   "sha256": "f82b4f12ad2963e750ef30f9c8b9f40cf161f63ff731e30b27a91db80807e694"
   },
   {
    "path": "source/PlayerPointer.cs",
@@ -675,9 +695,19 @@
    "sha256": "8257012faba79f2977e979712f596c80f2610097c9e45ae13cee91561240c5f2"
   },
   {
+   "path": "source/PlayerQuery.cs",
+   "size": 11310,
+   "sha256": "d02d1bb53f7b9c4723c1624aa203486d3f7edec0bd4c335c4bc1c2198a11266b"
+  },
+  {
    "path": "source/PlayerShadows.cs",
    "size": 3677,
    "sha256": "c44d4c21bdf4764a891e8e366b3211f80898336b8fab651e18874ceaee86bca2"
+  },
+  {
+   "path": "source/Polymorph.cs",
+   "size": 2382,
+   "sha256": "2427821e0ba3b625cb0d3545004a880061eff9f2db40b4a1eff79522a6e32c6c"
   },
   {
    "path": "source/Portals.cs",
@@ -901,8 +931,8 @@
   },
   {
    "path": "source/WorldObjects.cs",
-   "size": 6373,
-   "sha256": "2aa63a2e44b3d0a01b0eb17182de9433cf0a6db7772370233927293594048d66"
+   "size": 6002,
+   "sha256": "889abe946a9f5a64377feb4195b16454e6f6f442f0a4b2f72f5a41e333d8ba0a"
   },
   {
    "path": "source/WorldRegression.cs",
@@ -911,8 +941,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9568,
-   "sha256": "586458c6e4f3c54bf39eb39cff522a74451ad86a440f956d46e57c2ca436d002"
+   "size": 10072,
+   "sha256": "4d72d7b4b33c2be91d50245f90787f7365ac757ce632d91cca92561532c22189"
   },
   {
    "path": "source/WorldTests.cs",
