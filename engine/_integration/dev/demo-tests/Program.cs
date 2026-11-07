@@ -276,15 +276,18 @@ partial class Checks {
     static async Task<int> Main(string[] args){try{
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY",Path.Combine(Path.GetFullPath(args[0]),"engine","build","offline-checks")+Path.DirectorySeparatorChar);
         using var guard=new SocketGuard();
+        await PartyChecks();
         Exception? petsFailure=null;
         try{await Pets();}catch(Exception ex){petsFailure=ex;Console.Error.WriteLine("Pets: "+ex);}
         PolymorphChecks();
         if(args.Length>2){
             switch(args[2]){
+                case "afflictions":await AfflictionChecks();break;
                 case "char-reset":await CharResetChecks();break;
                 case "clan":await ClanChecks();break;
                 case "portals":await PortalChecks();break;
                 case "doors":await DoorChecks();break;
+                case "party":break;
                 case "pets":break;
                 case "map-continuity":await MapContinuity();await BookmarkChecks();await BoardChecks();await ClanChecks();await MarriageChecks();await CharResetChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();await PortalChecks();break;
                 case "marriage":await MarriageChecks();break;
