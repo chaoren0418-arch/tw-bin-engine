@@ -43,7 +43,8 @@ public sealed class PlayerPointerController {
     public void Cancel(string reason){version++;route.Clear();stamp=null;login.CancelMovementInput();Notice="已停止後續滑鼠動作（"+reason+"）；已送出的請求仍以伺服器為準。";}
     bool RawStep(int x,int y,int h){
         var w=login.World;int nx=x+MovementRules.Dx[h],ny=y+MovementRules.Dy[h];
-        if(w.Objects.Any(o=>!o.Dead&&o.ObjectId!=w.Actor?.ObjectId&&o.X==nx&&o.Y==ny))return false;
+        // Known doors block only through S209; their object tile is not occupancy.
+        if(w.DoorBlocks(x,y,h)||w.Objects.Any(o=>!o.Dead&&o.ObjectId!=w.Actor?.ObjectId&&!w.IsDoor(o.ObjectId)&&o.X==nx&&o.Y==ny))return false;
         return w.MapCache?.Passable(x,y,h)??MovementRules.Passable(x,y,h);
     }
     bool Step(Point p,int h)=>PlayerPointerPath.Step(p,h,RawStep);
@@ -51,8 +52,8 @@ public sealed class PlayerPointerController {
         Cancel("新目的地");if(!focused()||!login.MovementAvailable){Notice="目前無法行走。";return false;}
         var w=login.World;if(!(w.MapCache?.Contains(goal.X,goal.Y)??Coordinates.Inside(goal.X,goal.Y))){Notice="目的地不在已載入地圖內。";return false;}
         // Snapshot occupancy once for bounded A*, then use live RawStep again for every sent edge.
-        var occupied=w.Objects.Where(o=>!o.Dead&&o.ObjectId!=w.Actor?.ObjectId).Select(o=>new Point(o.X,o.Y)).ToHashSet();var cache=w.MapCache;
-        bool PlanStep(int x,int y,int h)=>!occupied.Contains(new Point(x+MovementRules.Dx[h],y+MovementRules.Dy[h]))&&(cache?.Passable(x,y,h)??MovementRules.Passable(x,y,h));
+        var occupied=w.Objects.Where(o=>!o.Dead&&o.ObjectId!=w.Actor?.ObjectId&&!w.IsDoor(o.ObjectId)).Select(o=>new Point(o.X,o.Y)).ToHashSet();var cache=w.MapCache;
+        bool PlanStep(int x,int y,int h)=>!w.DoorBlocks(x,y,h)&&!occupied.Contains(new Point(x+MovementRules.Dx[h],y+MovementRules.Dy[h]))&&(cache?.Passable(x,y,h)??MovementRules.Passable(x,y,h));
         var start=Position;var path=PlayerPointerPath.Find(start,goal,PlanStep);if(path==null){Notice="沒有可通行的有限路徑，請選較近的地面。";return false;}
         expected=start;stamp=Capture();started=now();foreach(var p in path)route.Enqueue(p);Notice=path.Length==0?"已在目的地。":"沿已載入可通行地面行走；Esc／空白鍵停止。";return true;
     }

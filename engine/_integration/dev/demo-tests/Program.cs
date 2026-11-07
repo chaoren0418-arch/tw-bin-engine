@@ -279,6 +279,8 @@ partial class Checks {
         if(args.Length>2){
             switch(args[2]){
                 case "doors":await DoorChecks();break;
+                case "buddies":await BuddyChecks();break;
+                case "buddies-codec":await BuddyChecks(true);break;
                 case "map-continuity":await MapContinuity();await BoardChecks();break;
                 case "board":await BoardChecks();break;
                 case "item-transfer":await ItemTransferChecks();break;

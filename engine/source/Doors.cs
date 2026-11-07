@@ -23,39 +23,59 @@ public static class DoorPackets {
 }
 
 public sealed record DoorTile(ushort X,ushort Y,byte Direction,bool Closed);
+// One S158 open/close transition, bound to the door incarnation and world that received it.
+public sealed record DoorPlayback(byte Action,long StartedAt,long Generation,int World);
 public sealed partial class WorldSession {
-    readonly ConcurrentDictionary<uint,WorldObject> doorObjects=new();
+    // Id -> full-pack generation. Delta updates replace the WorldObject record but keep the door.
+    readonly ConcurrentDictionary<uint,long> doorGenerations=new();
+    readonly ConcurrentDictionary<uint,DoorPlayback> doorPlaybacks=new();
     readonly ConcurrentDictionary<(int X,int Y),byte> doorBlockedTiles=new();
     readonly ConcurrentDictionary<(ushort X,ushort Y,byte Direction),DoorTile> doorTiles=new();
-    int doorEpoch=-1;
+    int doorEpoch=-1;long doorGeneration;
     void EnsureDoorEpoch(){
         if(doorEpoch==WorldEpoch)return;
-        doorObjects.Clear();doorBlockedTiles.Clear();doorTiles.Clear();doorEpoch=WorldEpoch;
+        doorGenerations.Clear();doorPlaybacks.Clear();doorBlockedTiles.Clear();doorTiles.Clear();doorEpoch=WorldEpoch;
     }
+    void ForgetDoor(uint id){doorGenerations.TryRemove(id,out _);doorPlaybacks.TryRemove(id,out _);}
     public DoorTile[] DoorTiles {get{EnsureDoorEpoch();return doorTiles.Values.ToArray();}}
     public bool IsDoor(uint id)=>GetDoor(id)!=null;
     public WorldObject? GetDoor(uint id){
         EnsureDoorEpoch();
-        if(!doorObjects.TryGetValue(id,out var door))return null;
-        if(objects.TryGetValue(id,out var current)&&ReferenceEquals(door,current))return door;
-        doorObjects.TryRemove(id,out _);return null;
+        if(!doorGenerations.ContainsKey(id))return null;
+        if(objects.TryGetValue(id,out var current))return current;
+        ForgetDoor(id);return null;
     }
+    public DoorPlayback? GetDoorPlayback(uint id){
+        if(GetDoor(id) is not {Dead:false} door||!doorPlaybacks.TryGetValue(id,out var play))return null;
+        return door.DoorAction==play.Action&&doorGenerations.TryGetValue(id,out long generation)
+            &&play.Generation==generation&&play.World==WorldEpoch?play:null;
+    }
+    // Null means S87 current state: there is no transition to replay, so hold its last frame.
+    public double? DoorPlaybackElapsed(uint id,long now)=>GetDoorPlayback(id) is {} play?Math.Max(0,now-play.StartedAt):null;
     bool ReceiveDoorPack(byte[] plain,LoginReader r,ushort x,ushort y,uint id){
-        if(!DoorPackets.IsPack(plain))return false;
-        EnsureDoorEpoch();ReceiveObject(r,x,y,id);
+        EnsureDoorEpoch();
+        if(!DoorPackets.IsPack(plain)){
+            if(!doorGenerations.ContainsKey(id))return false;
+            // Parse first: a malformed pack must leave the current door intact.
+            ReceiveObject(r,x,y,id);ForgetDoor(id);return true;
+        }
+        ReceiveObject(r,x,y,id);ForgetDoor(id);
         var door=objects[id] with{DoorAction=plain[11],Dead=plain[11]==37};
-        objects[id]=door;doorObjects[id]=door;
+        objects[id]=door;doorGenerations[id]=++doorGeneration;
         if(door.Dead&&TargetId==id)SelectTarget(null);
         return true;
     }
     bool ReceiveDoorAction(byte[] plain){
         var r=new LoginReader(plain);r.C();uint id=r.D();
-        if(!IsDoor(id))return false;
+        if(GetDoor(id) is not {} before)return false;
         byte action=r.C();r.Finish();
         // Unknown actions invalidate presentation; they never imply passability.
         UpdateObject(id,o=>o with{DoorAction=DoorPackets.IsAction(action)?action:null,
             ReceivedAction=action,Dead=action==37||o.Dead,MotionAt=0,Combat=null});
-        doorObjects[id]=objects[id];if(objects[id].Dead&&TargetId==id)SelectTarget(null);
+        // A repeated report keeps its running playback; only a state change starts one.
+        if(action is not (28 or 29)||objects[id].Dead)doorPlaybacks.TryRemove(id,out _);
+        else if(before.DoorAction!=action)doorPlaybacks[id]=new(action,Environment.TickCount64,doorGenerations[id],WorldEpoch);
+        if(objects[id].Dead&&TargetId==id)SelectTarget(null);
         return true;
     }
     void ReceiveDoorAttribute(LoginReader r){
