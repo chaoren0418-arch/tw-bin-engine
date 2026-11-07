@@ -15,7 +15,7 @@
 - `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -p:UseSharedCompilation=false -- . scratch/fishing-tests.json fishing`：36 項通過。直接 observer 單元測試，涵蓋 C62、既有 C164 DHH、S158、S119、S71 四種訊息、其他 actor、損壞封包、通用403不誤標、重設／換圖、排隊失效、重複點擊與逾時。
 - 既有 `map-continuity` 入口：394 項通過（包含新增 36 項釣魚模組檢查）。
 - `check-no-game-assets.py`：提交後 3,293 tracked files 通過，0 errors；`git diff --check` 通過。
-- CI 及後續接線裁定見[草稿 PR #354](https://github.com/chaoren0418-arch/tw-bin-engine/pull/354)。檢查入口為 `dotnet`、`map-continuity`、`npc-offline`，最終執行狀態以該 PR checks 為準。CI 通過也不表示未接線的釣魚流程已完成。
+- 程式提交 `d8ff0ec6ddbc007f7935912cb5f8b2c879c89af2` 的 CI 全綠：[build（dotnet、map-continuity）](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42324541041)、[npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42324541053)。後續提交僅更新本報告，查核時未顯示新的 checks，不能宣稱後續提交已重新跑過 CI。CI 通過也不表示未接線的釣魚流程已完成。[草稿 PR #354](https://github.com/chaoren0418-arch/tw-bin-engine/pull/354) 保持未完成狀態。
 
 ## 未驗證什麼
 
