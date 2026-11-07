@@ -76,13 +76,12 @@ partial class Checks {
         }
         MinimapParty();
         MinimapPixels();
-        var allowed=typeof(ClientForm).GetMethod("MinimapKeyAllowed",BindingFlags.Static|BindingFlags.NonPublic)!;
-        bool Key(Keys key,bool active=true,bool input=true,bool focused=true)=>(bool)allowed.Invoke(null,[key,active,input,focused])!;
-        Check(Key(Keys.F5)&&!Key(Keys.F5|Keys.Control)&&!Key(Keys.M)&&!Key(Keys.F5,false)&&!Key(Keys.F5,true,false)&&!Key(Keys.F5,true,true,false),"F5 gate excludes modifiers, login, chat/WebView and focused native inputs");
+        // T176: F5 is the first macro slot; the minimap opens only from its menu button.
+        Check(typeof(ClientForm).GetMethod("MinimapKeyAllowed",BindingFlags.Static|BindingFlags.NonPublic|BindingFlags.Public)==null&&PlayerHudKeys.Slot(Keys.F5)==0,"F5 is no longer a minimap key");
         using(var hud=new PlayerHudView()){
             var menu=hud.Controls.OfType<FlowLayoutPanel>().Single(c=>c.AccessibleName=="玩家功能");
-            Check(menu.Controls.OfType<Button>().Count(b=>b.Text=="小地圖 F5")==1,"HUD mounts one minimap toggle");
-            menu.Controls.OfType<Button>().Single(b=>b.Text=="小地圖 F5").PerformClick();
+            Check(menu.Controls.OfType<Button>().Count(b=>b.Text=="小地圖")==1&&menu.Controls.OfType<Button>().All(b=>!b.Text.Contains("F5")),"HUD mounts one minimap menu button without F5");
+            menu.Controls.OfType<Button>().Single(b=>b.Text=="小地圖").PerformClick();
             Check(!hud.IsDisposed,"detached HUD toggle and disposal require no game/assets");
             using var view=(MinimapUi)Activator.CreateInstance(typeof(MinimapUi),F,null,[hud,menu],null)!;
             var viewModel=(Minimap)typeof(MinimapUi).GetField("model",F)!.GetValue(view)!;

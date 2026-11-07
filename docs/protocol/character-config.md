@@ -48,3 +48,22 @@
 | `serverpackets/S_PacketBoxConfig.java` | `2c94a77b314a0e38d01dbc0a47830913e52a7014502e543043bf5814ab3d0ba5` |
 | `serverpackets/ServerBasePacket.java` | `3348c199e9694bd1eec050b130f28ab99590cae16f0047964c17b32df309a439` |
 | `model/config/CharacterConfigService.java` | `dc63671d106cf7e6d77f01cbcf5b595c2f542dcd84bdabbc3c64348a20ba8b59` |
+
+## T176（#450）附加：八格 F5–F12
+
+依 `docs/reference/ui-layout.md` 第 7 節 #5、#12，原版右巨集框為 8 格、對應 **F5–F12**；小地圖由選單的 Map 按鈕開啟。C244／S250／41 的封包格式**完全不變**，只改 blob 內的格數。
+
+| 欄位 | 長度／意義 |
+|---|---|
+| magic | ASCII `TWCC`，4 bytes |
+| version / count | `C(1), C(8)`（寫出一律 8）；讀取也接受 `C(4)` |
+| 槽 | `count` 個 `C(kind), D(id)`，槽 0–7 依序對應 F5–F12 |
+
+- 寫出長度 46 bytes（C244 宣告 `D(49)`，補齊後 body 56 bytes）。
+- T138 存下的 26 bytes（count 4）仍視為可編輯：還原到 F5–F8，F9–F12 為空；下次變更時以 8 格重寫。
+- count 不是 4／8、或長度與 count 不符時，照舊保留原 blob、不自動覆寫。
+- 預設（伺服器沒有設定且玩家未指派時）：前 4 個可用道具放 F5–F8、前 4 個可用技能放 F9–F12。只在本機顯示，不會自動送出。
+
+鍵盤分派：在世界中且遊戲畫面有焦點、無修飾鍵時，F5–F12 先於 F9（診斷）／F10（回遊戲）／F11（記事欄）處理，作為快捷鍵；焦點在聊天、WebView 或原生輸入框，或尚未進入世界時，F6–F12 維持原有功能。舊的 F1–F4 在世界中不再觸發快捷，也不會落入移動處理。F12 證據截圖在世界中改為第 8 格；診斷面板改用選單「診斷」按鈕。
+
+**待查（不改協定）**：原版把巨集設定存在 protobuf `Lineage.ClientConfig`（ui-layout.md #5）。該 message 的欄位定義、3 個分頁的存放方式，以及 3.81 伺服器（C244／S250／41 不解讀 blob）是否曾承載這個格式，都還沒有查證。本模組的 TWCC 仍是引擎自訂格式，不宣稱與原版相容。
