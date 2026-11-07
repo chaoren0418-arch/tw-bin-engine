@@ -153,7 +153,8 @@ static class Checks
         Pump(now+500);Check(audio.Plays.Count==2,"ambience loop uses WAV interval");
         s.Receive(LoginPackets.Pad([206,4,0,0]),"offline");Pump(now+600);
         Check(audio.Retired.Count==1&&audio.Plays.Count==2,"map change retires audio owner and cancels the loop");
-        Feed(s,Sound());Pump(now);controller.SetControls(1,true,false);Pump(now+1,false);
+        // Keep the clock monotonic: the #433 per-controller 200ms cooldown applies when no SoundGate is set.
+        now+=2000;Feed(s,Sound());Pump(now);controller.SetControls(1,true,false);Pump(now+1,false);
         Check(audio.Retired.Count==2,"disabled dispatch retires packet owner");
         controller.SetControls(1,false,true);Pump(now+2);Check(audio.Plays.Count==3,"reenable does not replay consumed packet");
         Feed(s,Sound(id:65535));s.PacketSoundSnapshot(now,_=>null);

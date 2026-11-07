@@ -146,7 +146,9 @@ static class Checks
         var plain = new FakeAudio(); var legacy = new CombatSfxController(plain, new Random(1), _ => { });
         legacy.SetControls(1, false, true);
         legacy.Pump(1, [Action("a", 1, now, 97), Action("b", 2, now, 97)], now, true);
-        Check(plain.Plays.Count == 2 && plain.Plays.All(p => p.Scale == 1), "controller without gate keeps prior behaviour");
+        Check(plain.Plays.Count == 1 && plain.Plays.All(p => p.Scale == 1), "controller without gate keeps #433 per-controller cooldown, full scale");
+        legacy.Pump(1, [Action("a", 1, now, 97), Action("b", 2, now, 97), Action("c", 3, now + 200, 97)], now + 200, true);
+        Check(plain.Plays.Count == 2, "no-gate cooldown is not doubled with the shared gate");
         await legacy.Shutdown();
     }
 

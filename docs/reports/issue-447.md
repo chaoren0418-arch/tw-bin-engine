@@ -25,8 +25,8 @@
 
 ## 怎麼驗證
 
-- `rebuild.py --update-lock`，再跑 `rebuild.py --build --configfile .github/nuget.ci.config`：**PASS**。product DLL `230e0d23…`，audio DLL `9967d288…`。
-- `sound-rules-tests`：**PASS，121 項**。全部是合成封包和合成位元組，接上產品 DLL 執行，有 socket 守衛。涵蓋：
+- `rebuild.py --update-lock`，再跑 `rebuild.py --build --configfile .github/nuget.ci.config`：**PASS**（已合併 origin/main，含 #433）。product DLL `e1cf5676…`，audio DLL `9967d288…`。
+- `sound-rules-tests`：**PASS，122 項**。全部是合成封包和合成位元組，接上產品 DLL 執行，有 socket 守衛。涵蓋：
   - 距離換算表逐點比對，加上 −30..30 窮舉。
   - 冷卻跨角色、跨管線都生效（影格音效擋 S22，S22 也擋影格音效）。
   - S22 `C(mode) H(id)` 的每個模式、截斷與非零 padding。
@@ -34,14 +34,15 @@
   - 控制器送出的倍率。
   - `AudioCore` 的「主音量 × 倍率」，以及改主音量後倍率仍保留。
 - `sound-packets-tests`：**PASS，148 項**（改成模式語義後）。
-- `combat-sfx-tests`、`effect6016-tests`、`demo-tests`：編譯通過，沒有錯誤。
+- `combat-sfx-tests --selection`（#433 接上 CI 的模式）：**PASS，4 cases／46 checks**。`effect6016-tests`、`demo-tests`：編譯通過，沒有錯誤。
+- 與 #433 的整合：#433 在 `CombatSfxController` 內加了一份每個控制器各自的 200ms 冷卻。合併後，**有設 `Gate` 時只用全域的 `SoundCooldown`**，沒設時保留 #433 的行為，兩份冷卻不會疊加（有測試）。`sound-packets-tests` 有一段時間會倒退，碰到 #433 的冷卻就失敗；已把那段的時鐘改成單調遞增。
 - `check-no-game-assets.py`：**pass**（errors 0）。
 - CI：PR 開出後由 GitHub Actions 執行，結果看 PR 頁面。
 
 ## 沒驗證什麼
 
 - **沒有真機聽音**：模式 1 循環的接縫、距離衰減的實際聽感、冷卻的手感都還沒聽過。
-- `combat-sfx-tests` 的完整執行：它要讀 `engine/assets` 與客戶端 WAV，在本機超過 9 分鐘沒結束，CPU 幾乎沒動。用 **HEAD（未改動）** 建出的基準 DLL 跑，240 秒後也還沒結束，所以這是**既有狀況，不是這次改動造成的**。這組測試本來就不在 CI 裡。
+- `combat-sfx-tests` 的預設完整模式（不是 `--selection`）：它要讀 `engine/assets` 與客戶端 WAV，在本機超過 9 分鐘沒結束，CPU 幾乎沒動。用 **HEAD（未改動）** 建出的基準 DLL 跑，240 秒後也還沒結束，所以這是**既有狀況，不是這次改動造成的**。這組測試本來就不在 CI 裡。
 - 原版每次更新都會用 `A091C0` 重設播放中 sample 的音量。這裡只在派送當下固定倍率，播放中移動位置不會改音量（**已知差距**）。
 - 原版音量 0 時仍會靜音播放；這裡不送出無聲的 voice，但冷卻照樣佔用。
 - 4 類音量目前只能透過程式 API 調整，還沒有 UI，也還沒有讀寫 `lineage.cfg`：原版類別音量的數值範圍沒有查證，所以用 0..1 正規化。

@@ -10,6 +10,7 @@ string repo = Path.GetFullPath(args[0]), client = args[1], output = args[2];
 string assets = Path.Combine(repo, "engine/assets");
 if(args.Length>3 && args[3]=="--session") { NativeSessionChecks.Run(client,output);return; }
 if(args.Length>3 && args[3]=="--native-bolt") { NativeBoltChecks.Run(assets,client,output);return; }
+if(args.Length>3 && args[3]=="--selection") { SelectionChecks.Run(output);return; }
 int checks = 0;
 var cases = new List<object>();
 void Check(bool ok, string name) { checks++; if (!ok) throw new Exception(name); }
@@ -117,7 +118,7 @@ Case("issue47-all-62-melee-actions-and-four-skills", () =>
     }
     var impact = SoundSchedule.Create(new(Path.Combine(assets, "objects/magic-219.json")), "impact", 0, pure: true);
     Check(impact.Frames.All(f => f.Candidates.Length == 0), "219 impact has no invented sound");
-    Check(SoundSchedule.Candidates("<206!<478<479").Length == 0, "non bracket suffix excluded");
+    Check(SoundSchedule.Candidates("<206!<478<479").SequenceEqual(new[] { 206, 478, 479 }), "B07 angle suffix is sound mode0");
     Check(SoundSchedule.Candidates("[248[703[701!").SequenceEqual(new[] { 248, 703, 701 }), "candidate source order");
 });
 Case("seed-and-action-cadence", () =>
@@ -194,13 +195,15 @@ Case("controller-dedup-cancel-and-delayed-register", () =>
     controller.Pump(1, [instance], 149, true); Check(fake.Plays.Count == 1, "next frame pending");
     controller.Pump(1, [instance], 150, true); Check(fake.Plays.Count == 2, "second frame once");
     controller.Pump(2, [], 151, true); Check(fake.Retired.Count == 1, "map epoch retires");
-    controller.Pump(2, [instance with { Instance = 2 }], 152, true);
-    controller.Pump(2, [], 153, false); Check(fake.Retired.Count == 2, "death/disconnect gate retires");
-    controller.Pump(2, [instance with { Instance = 2 }], 154, true); Check(fake.Plays.Count == 4, "cancelled instance cannot resume");
+    // 第二個 instance 移到 200ms 同 sample 冷卻之後，只驗取消語義。
+    var second = instance with { Instance = 2, StartedAt = 400, EndsAt = 1300 };
+    controller.Pump(2, [second], 452, true); Check(fake.Plays.Count == 4, "new instance plays after cooldown");
+    controller.Pump(2, [], 453, false); Check(fake.Retired.Count == 2, "death/disconnect gate retires");
+    controller.Pump(2, [second], 454, true); Check(fake.Plays.Count == 4, "cancelled instance cannot resume");
     controller.Pump(2, [instance with { Instance = 3 }], 1001, true); Check(fake.Plays.Count == 4, "expired action no catchup playback");
     fake.Delay = true;
-    controller.Pump(3, [instance], 100, true);
-    controller.Pump(3, [], 101, false);
+    controller.Pump(3, [instance with { StartedAt = 2000, EndsAt = 2900 }], 2000, true);
+    controller.Pump(3, [], 2001, false);
     fake.Pending.SetResult(FakeAudio.Ok);
     Check(SpinWait.SpinUntil(() => observed.Any(o => o.Reply.Status == "CancelledBeforeDispatch"), 2000), "late registration observable cancellation");
     Check(fake.Plays.Count == 4, "late registration never plays");

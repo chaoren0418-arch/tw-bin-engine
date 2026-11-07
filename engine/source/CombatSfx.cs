@@ -6,9 +6,32 @@ namespace P06;
 public sealed record SoundFrame(int Index, double At, int[] Candidates);
 public sealed record SoundSchedule(SoundFrame[] Frames, double Duration, bool Loop)
 {
-    // 產品政策，推測，待 #52 真機聽音核對。只取 [N，忽略 <、! 等尾綴。
-    public static int[] Candidates(string suffix) => Regex.Matches(suffix, @"\[(\d+)")
-        .Select(m => int.TryParse(m.Groups[1].Value, out int id) ? id : 0).Where(id => id > 0).ToArray();
+    // 依 docs/reference/rea-inventory.md B07（#417，sub_87C890 parser／sub_A3EF40 選擇）：
+    // `<`＝模式 0、`[`＝模式 1、`^`＝模式 2；每個聲音 token 依序累積候選，最多存 5 個，第 6 個起讀掉不存；
+    // 模式是最後一個 token 的值（parser 為互斥 switch，後寫覆蓋）。模式 0／1 都走 A060F0 單次播放。
+    // 模式 2（`^`，A06210 距離／循環路徑）屬 T166，這裡回傳空集合不播放。
+    // 值 0 保留在候選裡：選中 0 時略過、不重抽（見 SoundCursor）。
+    public const int MaxCandidates = 5;
+    static readonly Regex SoundToken = new(@"([<\[\^])(\d+)", RegexOptions.CultureInvariant);
+    public static int[] Candidates(string suffix)
+    {
+        var ids = new List<int>(MaxCandidates);
+        char mode = '\0';
+        foreach (Match m in SoundToken.Matches(suffix ?? ""))
+        {
+            mode = m.Groups[1].Value[0];
+            if (ids.Count < MaxCandidates)
+                ids.Add(int.TryParse(m.Groups[2].Value, out int id) && id <= ushort.MaxValue ? id : 0);
+        }
+        return mode == '^' ? [] : ids.ToArray();
+    }
+    // sub_A3EF40：0 或 >5 個略過；1 個取第 0 項；2～5 個 rand() % n；選中 0 回傳 null（略過，不重抽）。
+    public static int? Select(int[] candidates, Random random)
+    {
+        if (candidates.Length is 0 or > MaxCandidates) return null;
+        int id = candidates.Length == 1 ? candidates[0] : candidates[random.Next(candidates.Length)];
+        return id == 0 ? null : id;
+    }
 
     public static SoundSchedule Create(ObjectAppearance appearance, string action, int direction,
         ActionCadence? timing = null, bool pure = false, bool flight = false)
@@ -47,9 +70,9 @@ public sealed class SoundCursor(SoundSchedule schedule, Random random)
             var frame = schedule.Frames[next % schedule.Frames.Length];
             if (cycle * schedule.Duration + frame.At > elapsed) break;
             next++;
-            // 產品政策，推測，待 #52 真機聽音核對。同幀多候選隨機擇一。
-            if (frame.Candidates.Length > 0)
-                dispatch(frame.Candidates[random.Next(frame.Candidates.Length)], frame.Index, cycle);
+            // B07 選擇規則；靜態驗證，待 #52 真機聽音核對。
+            if (SoundSchedule.Select(frame.Candidates, random) is int id)
+                dispatch(id, frame.Index, cycle);
         }
     }
 }
@@ -81,6 +104,8 @@ public sealed class CombatSfxController(IAudioPlayback audio, Random random, Act
     readonly List<(Lease Lease, long Expires)> draining = [];
     readonly Dictionary<string, (long Instance, long Expires)> consumed = [];
     readonly Stack<string> ownerSlots = [];
+    public const long SampleCooldownMs = 200;
+    readonly Dictionary<int, long> lastPlayed = [];
     int nextSlot;
     long generation, controlsRevision;
     int epoch = -1;
@@ -202,7 +227,21 @@ public sealed class CombatSfxController(IAudioPlayback audio, Random random, Act
                 lease.Registration = audio.RegisterAsync(lease.Owner);
                 _ = Observe("register", instance.Key, lease.Registration);
             }
-            lease.Cursor.Advance(now - instance.StartedAt, (id, frame, cycle) => Dispatch(lease, id, frame, cycle));
+            lease.Cursor.Advance(now - instance.StartedAt, (id, frame, cycle) =>
+            {
+                // T173：有 Gate 時改用 SoundGate 的全域冷卻（SoundCooldown，跨控制器、跨管線），不重複套用。
+                if (Gate == null)
+                {
+                    // B07：A06020 同 sample 200ms 冷卻（now+200）；冷卻中直接略過，不補播。
+                    if (lastPlayed.TryGetValue(id, out long at) && now - at < SampleCooldownMs)
+                    {
+                        observe(new("play", instance.Key, id, frame, cycle, new(false, "Cooldown", null, 0, [])));
+                        return;
+                    }
+                    lastPlayed[id] = now;
+                }
+                Dispatch(lease, id, frame, cycle);
+            });
         }
         if (audio.LastMaintenance != maintenance)
         {
