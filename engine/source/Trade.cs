@@ -42,6 +42,7 @@ public sealed partial class WorldSession {
     bool ReceiveTrade(byte opcode,LoginReader r){
         if(opcode==219){ushort header=r.H();uint challenge=r.D();ushort message=r.H();if(header!=0)throw new ProtocolException("confirmation envelope");
             if(ReceiveMarriageYesNo(message,challenge,r))return true;
+            if(message==97){ReceiveClanInvitation(r,challenge);return true;}
             if(message!=252){if(TradeState=="invited"){TradeState="attention";TradeRevision++;TradeNotice="原服改送其他確認訊息；舊交易邀請不可再回答，可取消交易。";}Unhandled(opcode);return true;}
             string peer=r.S();r.Finish();if(!Ready||OwnDead)return true;
             if(TradeBlocksActions){TradeState="attention";TradeRevision++;TradeNotice="收到新邀請時已有交易操作；請取消後重新邀請。";return true;}

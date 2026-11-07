@@ -114,3 +114,4 @@
 - 2026-11-07 — #322 T136：門（code，claude-local，PR 已合併）→ [報告](reports/issue-322.md)
 - 2026-11-07 — #360 T143：幽靈模式（code，claude-local，PR 已合併）→ [報告](reports/issue-360.md)
 - 2026-11-07 — #377 T145：傳送門（踩點進入）（code，claude-local，PR 已合併）→ [報告](reports/issue-377.md)
+- 2026-11-07 — #262 T128：血盟（code，claude-local，PR 已合併）→ [報告](reports/issue-262.md)

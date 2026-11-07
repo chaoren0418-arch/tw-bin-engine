@@ -16,22 +16,28 @@ PR #367 落後 main 180 個 commit，同步途中 main 又前進 15 個（寵物
 - **決鬥共用 S219**：`ReceiveDuel` 比 `ReceiveTrade` 先處理 S219／630，所以求婚分支看不到決鬥邀請。查證 `C_Fight`、`C_Attr` 630 用 FightId，不動 TempID，因此求婚邀請維持有效才正確；新增測試鎖定，並修正 `marriage.md` 原本過於籠統的 TempID 敘述。
 - `rebuild-lock.json` 取 main 版本後以 `--update-lock` 重產，未手動拼 hash。
 
-## 與 main 同步（第三輪）
+## 與 main 同步（第三、四輪）
 
-PR #367 再次落後 main 42 個 commit（門、傳送門、釣魚、幽靈模組），這輪只做同步，沒有改求婚邏輯。
+PR #367 再次落後 main 42 個 commit（門、傳送門、釣魚、幽靈模組）；第三輪推送時 main 又前進 17 個 commit（血盟模組），接著做第四輪。第三輪只有同步；第四輪因血盟併入，需要下列修改才能編譯及維持正確：
+
+- **`ClientForm.OnCreateControl` 重複覆寫**：`ClanUi.cs` 也占用了，Git 不報但編譯會失敗。本模組入口改用 `OnHandleCreated` 掛 `Shown` 事件，版面定案後才建按鈕；沒有動 `ClanUi.cs`。
+- **`Trade.cs` S219 順序**：雙方分支都保留，求婚排在血盟 message 97 之前，S219／97 才會先讓舊求婚邀請失效。
+- **S219／654 失效缺口**：求婚分支 `return true` 會跳過 `Trade.cs` 的非 252 失效路徑，舊的交易或血盟邀請仍可回答，但伺服器的 TempID 已被覆蓋。比照 `Clan.cs` 對 message 97 的做法，在 `Marriage.cs` 內讓兩者失效。交易這一半是本 PR 原有的缺口，血盟併入後一併補上。新增 4 項回歸檢查。
+
+第三輪的同步內容：
 
 - **`WorldSession.cs`**：`case 71` 同時保留 main 的 `ObserveFishing(plain)` 與求婚分派，`case 119`、`case 158` 照 main。釣魚只看 S71 的 1137／1138／1163／403，與求婚訊息碼不重疊，先觀察不影響求婚。
 - **`DemoChecks.csproj`、`Program.cs`**：雙方測試入口全部保留；`marriage` 組與 `MarriageChecks` 在 `map-continuity`、預設組的位置不變。
-- **語意衝突檢查**：`OnCreateControl` 仍只有本模組覆寫；main 新模組沒有新增 S219 分派；求婚訊息碼在其他來源檔沒有出現。
+- **語意衝突檢查**：門、傳送門、釣魚、幽靈模組沒有新增 S219 分派；求婚訊息碼在其他來源檔沒有出現。
 - `rebuild-lock.json` 取 main 版本後以 `--update-lock` 重產，未手動拼 hash。`docs/REPORT.md` 與 main 相同。
 
 ## 怎麼驗證（已驗證）
 
-下列第三輪數字取代後面第二輪的數字：
+下列第四輪數字取代後面第二輪的數字：
 
-- `--update-lock` 後 `--build` 成功，唯讀來源核驗 `dev-inputs-verified`（203 個來源檔、212 個鎖定檔）。
-- DemoChecks 12 組全部通過（項數均含每次先跑的共用前置檢查）：`marriage` 325、`map-continuity` 21991、`combat-admission` 1326、`ghost-mode` 552、`doors` 514、`buddies` 362、`duel` 307、`portals` 293、`item-transfer` 266、`fishing` 232、`polymorph-cadence` 226、`pets` 193。
-- `check-no-game-assets.py` 通過（3379 個追蹤檔，0 錯誤）。
+- `--update-lock` 後 `--build` 成功，唯讀來源核驗 `dev-inputs-verified`（205 個來源檔、214 個鎖定檔）。
+- DemoChecks 13 組全部通過（項數均含每次先跑的共用前置檢查）：`marriage` 329、`map-continuity` 22114、`combat-admission` 1326、`ghost-mode` 552、`doors` 514、`buddies` 362、`clan` 312、`duel` 307、`portals` 293、`item-transfer` 266、`fishing` 232、`polymorph-cadence` 226、`pets` 193。
+- `check-no-game-assets.py` 通過（3385 個追蹤檔，0 錯誤）。
 
 第二輪紀錄：
 
@@ -50,7 +56,7 @@ PR #367 再次落後 main 42 個 commit（門、傳送門、釣魚、幽靈模�
 - 本地伴侶名稱只代表此世界 epoch 內收到的 S71／655。切圖／切角／重連後清除，等待權威資料；不宣稱具有登入時伴侶查詢或跨地圖常駐資訊。未知名稱不代表未婚。
 - 15 秒逾時與鄰近檢查是本地防護；d287 無求婚取消／requestId 協議，不能聲稱本地逾時已取消伺服器 TempID。
 - 原生視窗外觀、縮放、遮擋與鍵鼠實際操作待 smoke；離線測試沒有顯示任何視窗。
-- `OnCreateControl` 掛接只驗證到編譯，離線測試不建立 `ClientForm`；按鈕是否實際出現待 smoke 確認。
+- `OnHandleCreated`／`Shown` 掛接只驗證到編譯，離線測試不建立 `ClientForm`；按鈕是否實際出現待 smoke 確認。
 - DemoChecks 預設完整組（不帶群組參數）**未跑完**：`Movement123` 需要 `engine/assets/terrain0.bin`，本 worktree 沒有 `engine/assets` junction，在進入求婚檢查前就失敗。這是環境限制，與本次變更無關；求婚檢查已由 `marriage` 與 `map-continuity` 組執行，未為此建立 junction。
 
 ## 產出路徑

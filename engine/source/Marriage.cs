@@ -57,6 +57,9 @@ public sealed partial class WorldSession {
         }
         string peer=r.S();r.Finish();
         if(reserved!=0||string.IsNullOrWhiteSpace(peer)||peer.Any(char.IsControl))throw new ProtocolException("marriage invitation");
+        // This route skips Trade's non-252 path, but S219/654 still replaces the server's TempID.
+        if(TradeState=="invited"){TradeState="attention";TradeRevision++;TradeNotice="原服改送其他確認訊息；舊交易邀請不可再回答，可取消交易。";}
+        if(clanInvitation!=null)ClearClanInvitation("收到求婚確認，原入盟申請已失效，請對方重新申請。");
         if(!Ready||OwnDead||Status?.Hp<=0)return true;
         var candidates=Objects.Where(p=>p.Name==peer&&!p.Dead&&(p.Flags&4)!=0&&Actor is {} a&&Math.Abs(p.X-a.X)<=1&&Math.Abs(p.Y-a.Y)<=1).ToArray();
         BindMarriage(peer,candidates.Length==1?candidates[0].ObjectId:0,"invited",peer+" 向你求婚。是否接受？接受後仍需等待伺服器結果。");
@@ -111,11 +114,12 @@ public sealed partial class LoginConnection {
 // Self-contained native entry point; no changes to the shared HUD or web dispatcher.
 public sealed partial class ClientForm {
     bool marriageUiReady;
-    // OnLoad, OnShown and OnVisibleChanged belong to BuddyUi, LocationShare and DuelUi.
-    protected override void OnCreateControl(){
-        base.OnCreateControl();
-        if(marriageUiReady)return;
-        marriageUiReady=true;
+    // OnLoad, OnShown, OnVisibleChanged and OnCreateControl belong to BuddyUi, LocationShare, DuelUi and ClanUi.
+    protected override void OnHandleCreated(EventArgs e){
+        base.OnHandleCreated(e);
+        if(!marriageUiReady){marriageUiReady=true;Shown+=(_,_)=>InitMarriageUi();}
+    }
+    void InitMarriageUi(){
         var button=new Button{Text="求婚／伴侶",AutoSize=true,Anchor=AnchorStyles.Top|AnchorStyles.Right,Location=new(ClientSize.Width-130,8)};
         Controls.Add(button);button.BringToFront();
         void Open(){

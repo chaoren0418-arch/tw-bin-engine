@@ -74,6 +74,18 @@ partial class Checks {
             Feed(c,MarriageMessage(125));Check(c.World.LastServerMessage!=null,"marriage keeps unrelated S71 dispatch");
         }
         using(var c=MarriageSeed()){
+            Feed(c,MarriageInvite("伴侶",17,252));Feed(c,MarriageInvite());
+            Check(c.World.TradeState=="attention"&&c.MarriageSnapshot().Phase=="invited","marriage S219/654 invalidates older trade invitation");
+        }
+        using(var c=ClanSeed()){
+            Feed(c,ClanInvite());Check(c.World.PendingClanInvitation!=null,"marriage clan fixture pending");
+            Feed(c,MarriageInvite("target"));Check(c.World.PendingClanInvitation==null&&c.ClanSnapshot().Notice.Contains("求婚"),"marriage S219/654 invalidates older clan invitation");
+        }
+        using(var c=ClanSeed()){
+            Feed(c,MarriageInvite("target"));var stamp=c.MarriageSnapshot();Feed(c,ClanInvite());
+            Check(!c.MarriageSnapshot().CanAnswer&&c.MarriageSnapshot().Revision!=stamp.Revision&&c.World.PendingClanInvitation?.Name=="target","marriage S219/97 expires invitation and still reaches clan");
+        }
+        using(var c=MarriageSeed()){
             // Duel confirmations use FightId, so they leave the server's marriage TempID intact.
             Feed(c,MarriageInvite());Feed(c,MarriageInvite("決鬥者",0,630));
             Check(c.MarriageSnapshot().CanAnswer&&c.World.DuelSnapshot.Phase=="invited","marriage invitation survives S219/630 duel prompt");
