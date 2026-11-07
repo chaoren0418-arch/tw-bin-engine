@@ -30,6 +30,8 @@
 
 重跑結果：`rebuild.py --build` 通過（product DLL SHA-256 `933087632f2d92e1f4306645b66a1297280b13518f411c1763c69b2973e1b83e`，已核對測試實際載入的 DLL 與此相同）；DemoChecks `character-config` 183、`map-continuity` 541、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163、`combat-admission` 368 項全過。各群組的數字都含 main 新增、每次必跑的 90 項 polymorph 檢查，所以比上一輪多，本模組仍是 93 項。`check-no-game-assets.py` 通過（3,315 個追蹤檔、0 errors）。
 
+推送後 main 又併入 #243（#217 S206 地圖 ID 變體），dev lock 再次衝突，依同樣做法重產（187 個來源、196 個鎖定輸入）並重跑：`rebuild.py --build` 通過（product DLL SHA-256 `1ab3181903363cb2d8c8329187fc3a02c5b09bcd7ef7c0a8af122ff43827a22e`，與測試載入的 DLL 相同）；`character-config` 183、`map-continuity` 20,032（#217 的 `MapIdChecks` 窮舉迴圈造成數字大增）、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163、`combat-admission` 368 項全過，資源檢查通過。以這一輪數字為最終結果。
+
 ## 未驗證什麼
 
 - 未啟動遊戲、伺服器或 DB；未驗證原生 UI 畫面、真實登入還原或資料庫持久化。
