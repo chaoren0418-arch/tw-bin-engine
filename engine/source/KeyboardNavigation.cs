@@ -14,7 +14,6 @@ public sealed partial class ClientForm {
     internal static int LoginEnterDisposition(Keys keyData,bool normal,bool credentialFocused,bool canLogin,bool buttonEnabled,bool repeat)=>
         keyData!=Keys.Enter||!normal||!credentialFocused?0:canLogin&&buttonEnabled&&!repeat?2:1;
     bool ProcessLoginKeyboardEnter(ref Message msg,Keys keyData){
-        if(ProcessMinimapKeyboard(ref msg,keyData))return true;
         int disposition=LoginEnterDisposition(keyData,normalProduct,loginAccount.Focused||loginPassword.Focused,loginControl?.CanLogin==true,loginConnect.Enabled,((long)msg.LParam&(1L<<30))!=0);
         if(disposition==2)loginConnect.PerformClick(); // Existing Click -> StartLogin -> guarded LoginControl.Start.
         return disposition!=0;
