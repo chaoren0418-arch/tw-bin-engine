@@ -89,6 +89,21 @@ CI 已加入 `Affliction contracts`；遠端結果以本 PR 的 `build` workflow
 - `MailChecks` 119、`WeaponRepairChecks` 98：通過。
 - `check-no-game-assets.py`：通過，0 錯誤。
 
+## 第六次同步（2026-11-07，claude-local）
+
+調度器重派本張時，PR #401 與 main 衝突（組隊 #259）。本段的數值取代上方所有數值。本輪沒有改 `engine/source` 的本模組程式。
+
+- 文字衝突：`DemoChecks.csproj` 兩邊保留；`rebuild-lock.json` 由 `--update-lock` 重產。`WorldSession.cs`、`Program.cs` 自動合併，已確認 S165／S202／S47 三個 case 與 `afflictions` 入口都在。
+- 語意檢查（讀程式）：main 新增的 `ReceiveParty` 只處理 250／219／39／71，`ReceivePartyHp` 只處理 237，與 S165／S202／S47 沒有重疊。組隊的 `PartyAccess` 有 `ActionLocked` 閘門，麻痺時不會送出；這也代表麻痺時無法回覆組隊邀請，邀請會在 30 秒後失效。main 沒有改 `ObjectRendering.cs`、`OnlineInput.cs`。
+
+驗證：
+
+- `--update-lock`：212 個來源、221 個鎖定檔；`--build`：產品及 launcher 通過，產品 DLL SHA-256 `f96069c5da36264019286c9985f8011fe4db8fe14750772df85fc122361dab07`，已確認測試連結的 `engine/build/client-product-dev` DLL 就是這個雜湊。
+- DemoChecks 32 組中 27 組通過：afflictions 428、party 276、char-reset 437、marriage 412、clan 395、portals 376、doors 597、pets 276、map-continuity 22358、ghost-mode 635、fishing 315、location-share 375、player-query 977、character-config 369、polymorph 276、polymorph-cadence 309、buddies 445、buddies-codec 391、ambience 632、invisibility 346、board 506、item-transfer 349、combat-admission 1409、duel 390、attack-skills 1017、hit-reaction-suppress 342、slow-actions 640。`PartyChecks` 屬於每組都先跑的共用檢查，所以數字比上一輪多 83；`party` 這組的 276 就是共用檢查的總數。
+- 其餘 5 組（`combat-loop`、`keyboard`、`busy`、`world`、`attack-skill-resources`）本輪沒有跑，原因同第四次同步。
+- `MailChecks` 119、`WeaponRepairChecks` 98：通過。
+- `check-no-game-assets.py`：通過，0 錯誤。
+
 ## 未驗證什麼
 
 - 麻痺時能力重置視窗的行為：可以送出請求（讀程式確認，見第五次同步），未寫測試，也未確認原服如何回應。
