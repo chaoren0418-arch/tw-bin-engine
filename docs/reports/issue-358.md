@@ -24,6 +24,8 @@ PR #367 再次落後 main 42 個 commit（門、傳送門、釣魚、幽靈模�
 - **`Trade.cs` S219 順序**：雙方分支都保留，求婚排在血盟 message 97 之前，S219／97 才會先讓舊求婚邀請失效。
 - **S219／654 失效缺口**：求婚分支 `return true` 會跳過 `Trade.cs` 的非 252 失效路徑，舊的交易或血盟邀請仍可回答，但伺服器的 TempID 已被覆蓋。比照 `Clan.cs` 對 message 97 的做法，在 `Marriage.cs` 內讓兩者失效。交易這一半是本 PR 原有的缺口，血盟併入後一併補上。新增 4 項回歸檢查。
 
+第四輪推送後 main 再前進 17 個 commit（信件模組，新增 S186），只有 `rebuild-lock.json` 衝突，已取 main 版本後重產，並重跑建置與下列全部測試組，項數不變。信件的 `MailChecks` 是獨立專案，由 CI 執行，本機未另跑。
+
 第三輪的同步內容：
 
 - **`WorldSession.cs`**：`case 71` 同時保留 main 的 `ObserveFishing(plain)` 與求婚分派，`case 119`、`case 158` 照 main。釣魚只看 S71 的 1137／1138／1163／403，與求婚訊息碼不重疊，先觀察不影響求婚。
@@ -35,7 +37,7 @@ PR #367 再次落後 main 42 個 commit（門、傳送門、釣魚、幽靈模�
 
 下列第四輪數字取代後面第二輪的數字：
 
-- `--update-lock` 後 `--build` 成功，唯讀來源核驗 `dev-inputs-verified`（205 個來源檔、214 個鎖定檔）。
+- `--update-lock` 後 `--build` 成功，唯讀來源核驗 `dev-inputs-verified`（207 個來源檔、216 個鎖定檔）。
 - DemoChecks 13 組全部通過（項數均含每次先跑的共用前置檢查）：`marriage` 329、`map-continuity` 22114、`combat-admission` 1326、`ghost-mode` 552、`doors` 514、`buddies` 362、`clan` 312、`duel` 307、`portals` 293、`item-transfer` 266、`fishing` 232、`polymorph-cadence` 226、`pets` 193。
 - `check-no-game-assets.py` 通過（3385 個追蹤檔，0 錯誤）。
 
