@@ -108,3 +108,4 @@
 - 2026-11-07 — #389 T149：隱身（code，claude-local，PR 已合併）→ [報告](reports/issue-389.md)
 - 2026-11-07 — #387 T147：日夜、天氣與光源（code，claude-local，PR #400 已合併）→ [報告](reports/issue-387.md)
 - 2026-11-07 — #272 T132：決鬥（code，claude-local，PR 已合併）→ [報告](reports/issue-272.md)
+- 2026-11-07 — #274 T134：武器修理與 PK 查詢（code，claude-local，PR 已合併）→ [報告](reports/issue-274.md)

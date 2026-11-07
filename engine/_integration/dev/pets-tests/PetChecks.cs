@@ -39,7 +39,10 @@ partial class Checks {
         foreach(int index in new[]{-1,256}){bool rejected=false;try{PetPackets.UseItem(456,2,index);}catch(ArgumentException){rejected=true;}Check(rejected,"C104 invalid index "+index);}
         using var c=Seed();Feed(c,Companion());
         Feed(c,PetList());Check(c.World.PetCollars.Length==2&&c.World.PetCollars[0].ItemId==1001,"S83 collars");
-        Feed(c,PetList(200));Check(c.World.PetCollars.Length==0,"S83 repair not a pet list");
+        int collarRevision=c.World.PetRevision;Call(c.World,"BeginWeaponRepair");Feed(c,PetList(200));
+        Check(c.World.WeaponRepairPhase=="ready"&&c.World.WeaponRepairRows.Length==2,"S83 price 200 reaches weapon repair route");
+        Check(c.World.PetCollars.Length==2&&c.World.PetRevision==collarRevision,"S83 repair list leaves pet collars untouched");
+        c.World.CloseWeaponRepair();Feed(c,PetList(71));Check(c.World.PetCollars.Length==0,"S83 unknown price not a pet list");
         Feed(c,PetList(ids:[]));Check(c.World.PetCollars.Length==0,"S83 empty list");
         PetReject(()=>Feed(c,PetList(ids:[1,1])),"S83 duplicate rejected");
         PetReject(()=>Feed(c,PetList()[..8]),"S83 truncated rejected");

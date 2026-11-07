@@ -32,7 +32,7 @@ public sealed partial class WorldSession {
         if(ReceiveDuel(opcode,plain))return;
         if(opcode==39&&ReceiveBuddies(opcode,plain))return;
         switch(opcode){
-        case 83:ReceivePetList(r);return;
+        case 83 when !WeaponRepairPackets.IsRepairList(plain):ReceivePetList(r);return;
         case 176:ReceivePetInventory(r,plain);return;
         case 115:ReceiveWeather(r);return;
         case 40:ReceiveLight(r);return;
@@ -51,6 +51,7 @@ public sealed partial class WorldSession {
         }
         if(ReceiveRecovery(opcode,r)||ReceivePlayerChat(opcode,r,plain)||ReceiveSustenance(opcode,r,plain)||ReceiveBonusStats(opcode,r,plain)||ReceivePrivateShop(opcode,r,plain)||ReceiveTeleport(opcode,r)||ReceiveTrade(opcode,r)||ReceiveInteraction(opcode,r)||ReceiveMagic(opcode,r,plain)||ReceiveEquipment(opcode,r,plain)||ReceiveInventory(opcode,r,plain)||ReceiveExperience(opcode,r)||ReceiveCombat(opcode,r,plain)||ReceiveObjectDelta(opcode,r)){BasicSupplyReply(opcode,plain);return;}
         switch(opcode){
+        case 83 when WeaponRepairPackets.IsRepairList(plain):ReceiveWeaponRepair(r);break;
         case 76:ReceivePolymorph(plain);break;
         case 68:ReceiveBoardList(r);break;
         case 148:ReceiveBoardRead(r);break;
