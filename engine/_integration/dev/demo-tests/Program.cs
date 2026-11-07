@@ -278,8 +278,10 @@ partial class Checks {
         using var guard=new SocketGuard();
         if(args.Length>2){
             switch(args[2]){
-                case "map-continuity":await MapContinuity();await BoardChecks();await CharResetChecks();break;
                 case "char-reset":await CharResetChecks();break;
+                case "buddies":await BuddyChecks();break;
+                case "buddies-codec":await BuddyChecks(true);break;
+                case "map-continuity":await MapContinuity();await BoardChecks();await CharResetChecks();break;
                 case "board":await BoardChecks();break;
                 case "item-transfer":await ItemTransferChecks();break;
                 case "combat-loop":await CombatLoop();break;
