@@ -31,7 +31,8 @@ public sealed partial class ClientForm
             {
                 combatSfxScene = new(World.Assets.Root);
                 string clientRoot = Environment.GetEnvironmentVariable("TW_CLIENT_ROOT") ?? @"D:\lineage開發\0-客戶端";
-                combatSfx = new(AudioPlayer.CreateCombat(clientRoot), Random.Shared, RecordCombatSfx);
+                combatSfx = new(AudioPlayer.CreateCombat(clientRoot), Random.Shared, RecordCombatSfx)
+                { Gate = SharedSoundGate, Offset = id => login.World.SoundOffset(id) };
             }
             catch (Exception ex)
             {
