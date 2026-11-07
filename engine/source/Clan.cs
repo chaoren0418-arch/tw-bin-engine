@@ -145,6 +145,8 @@ public sealed partial class WorldSession {
     void ReceiveClanOnlineMembers(byte[] packet){var value=ClanProtocol.DecodeOnlineMembers(packet);CheckClanState();if(clanAnnouncement!=null)clanOnline=new(value,StringComparer.OrdinalIgnoreCase);}
     public string[] ClanAttentionNames {get{EnsureClanEpoch();return (string[])clanAttention.Clone();}}
     public string ClanNotice {get{EnsureClanEpoch();return clanNotice;}}
+    public string[] ClanWarEnemies {get{CheckClanWar();return CurrentClanWarEnemies();}}
+    public bool IsClanWarEnemy(string clan)=>clan.Length>0&&ClanWarEnemies.Contains(clan,StringComparer.OrdinalIgnoreCase);
     public ClanEmblem? FindClanEmblem(uint id){EnsureClanEpoch();return clanEmblems.TryGetValue(id,out var emblem)?emblem with{Pixels=(int[])emblem.Pixels.Clone()}:null;}
     void ReceiveClanUpdate(byte[] packet){
         var update=ClanProtocol.DecodeUpdate(packet);EnsureClanEpoch();
