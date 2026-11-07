@@ -292,7 +292,8 @@ partial class Checks {
                 case "board":await BoardChecks();break;
                 case "item-transfer":await ItemTransferChecks();break;
                 case "combat-loop":await CombatLoop();break;
-                case "combat-admission":await CombatAdmission();AttackSkillChecks.Run(args[1],Check);HitReactionSuppression();break;
+                case "combat-admission":await CombatAdmission();AttackSkillChecks.Run(args[1],Check);HitReactionSuppression();await DuelChecks();break;
+                case "duel":CombatAdmissionFixture();await DuelChecks();break;
                 case "attack-skills":AttackSkillChecks.Run(args[1],Check);break;
                 case "attack-skill-resources":AttackSkillChecks.NativeResources(args[3],args[4],Check);break;
                 case "hit-reaction-suppress":HitReactionSuppression();break;
