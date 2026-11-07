@@ -27,7 +27,8 @@
 
 ## 怎麼驗證
 
-- `rebuild.py --update-lock` 後 `--build` 通過，212 個來源／221 個鎖定檔。產品 DLL SHA-256：`a0956cf939460e4911aa39fe27ba78f9ee559b9684a08c2cca148845941fc43d`。
+- 已合併 `origin/main`（落後 14 個提交；只有 `rebuild-lock.json` 衝突，取 main 版後以 `--update-lock` 重產）。以下結果都在合併後的內容上重跑。
+- `rebuild.py --update-lock` 後 `--build` 通過，213 個來源／222 個鎖定檔。產品 DLL SHA-256：`a6cd79cedb24cade5c0825c3add9ed25a430e18e91393c8b2f95869a4d060254`。
 - demo-tests 各組皆退出 0：`display-notices` **334**（共同 276 ＋ 本模組 58）、`map-continuity` **22416**、`combat-admission` **1409**、`doors` **597**、`buddies` **445**、`clan` **395**、`item-transfer` **349**、`polymorph-cadence` **309**。各組都含共同檢查，數字不可加總。
 - 合成封包涵蓋上述全部 S 格式，以及截斷、非零補位、缺字串、多字串的拒絕與原子性。本任務沒有新增 C 封包。
 - `check-no-game-assets.py` 通過，dev lock 唯讀核驗通過。
