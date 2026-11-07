@@ -46,9 +46,7 @@ public sealed partial class Renderer {
         var area=Rectangle.Intersect(Rectangle.FromLTRB(l,t,r,bott),Bounds);
         // Stable ID tie-break makes exact overlaps deterministic, independent of arrival order.
         var commands=ActiveScene.Where(c=>c.Px<area.Right&&c.Px+24>area.Left&&c.Py<area.Bottom&&c.Py+24>area.Top).Concat(draws).OrderBy(c=>c,DrawComparer.Instance).ThenBy(c=>c.ObjectId).ToList();
-        var colors=new ushort[area.Width*area.Height];var mask=new bool[colors.Length];var owners=Enumerable.Repeat(-1,colors.Length).ToArray();
-        FillShipBackdrop(area,colors,mask);var entityOwners=new uint?[colors.Length];foreach(var c in commands)Blit(c,area,colors,mask,owners,entityOwners,session.InvisibilityOpacity(c,opacity?.Get(c)));
-        visuals=vs.ToArray();missing=unavailable.ToArray();return new(area,colors,mask,owners,commands,entityOwners);
+        visuals=vs.ToArray();missing=unavailable.ToArray();return ComposeAfflictionPatch(session,area,commands,opacity);
     }
 }
 public sealed partial class ClientForm {
