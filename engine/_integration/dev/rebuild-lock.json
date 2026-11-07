@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 182,
+ "sourceCount": 183,
  "files": [
   {
    "path": "NuGet.Config",
@@ -360,6 +360,11 @@
    "sha256": "a14571c5746777373cda58022e1374b256ba8f342c00b45d578181e7a4ea8a99"
   },
   {
+   "path": "source/LocationShare.cs",
+   "size": 4474,
+   "sha256": "84624f70480f1aeb73bf4317f03ba6960ae18e4d7386d2725bb306aa0fb5a35a"
+  },
+  {
    "path": "source/LoginConnection.cs",
    "size": 10741,
    "sha256": "16e34f82376fd4319fe44e9699d36502443322e59285a6a12c0d796ddbdf6a74"
@@ -621,8 +626,8 @@
   },
   {
    "path": "source/PlayerChat.cs",
-   "size": 7992,
-   "sha256": "b3ff2b6e96b7ab8873da8fc1991f42eae2c7bddfa711c6e80f5456915af3a99e"
+   "size": 8470,
+   "sha256": "312e67b8f788ac520a646ee8a4ecd7a15290d9e9c0a1a3e5b69a378d9ff580b9"
   },
   {
    "path": "source/PlayerChatKeyboardFlow.cs",
@@ -906,8 +911,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9568,
-   "sha256": "586458c6e4f3c54bf39eb39cff522a74451ad86a440f956d46e57c2ca436d002"
+   "size": 9752,
+   "sha256": "eff9257af5f4a8452de1ca226aa60ae145701fcb29eb3bafc53f1c9ed89fbc98"
   },
   {
    "path": "source/WorldTests.cs",

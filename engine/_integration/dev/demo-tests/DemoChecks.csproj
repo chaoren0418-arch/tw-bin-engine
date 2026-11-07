@@ -3,6 +3,7 @@
   <ItemGroup>
     <Compile Include="../board-tests/BoardChecks.cs" Link="BoardChecks.cs" />
     <Compile Include="../item-transfer-tests/ItemTransferChecks.cs" Link="ItemTransferChecks.cs" />
+    <Compile Include="../location-share-tests/LocationShareChecks.cs" Link="LocationShareChecks.cs" />
     <Reference Include="P11.ClientEngine"><HintPath>../../../build/client-product-dev/P11.ClientEngine.dll</HintPath></Reference>
     <Reference Include="P24.Audio"><HintPath>../../../build/client-product-dev/P24.Audio.dll</HintPath></Reference>
   </ItemGroup>
