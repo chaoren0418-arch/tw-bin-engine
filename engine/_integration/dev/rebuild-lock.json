@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 184,
+ "sourceCount": 186,
  "files": [
   {
    "path": "NuGet.Config",
@@ -366,8 +366,8 @@
   },
   {
    "path": "source/KeyboardNavigation.cs",
-   "size": 1812,
-   "sha256": "a14571c5746777373cda58022e1374b256ba8f342c00b45d578181e7a4ea8a99"
+   "size": 1876,
+   "sha256": "7b3fcb4a7ae4d47c4a578d13fb10ded465aec68ad1adfc35cce74bfbe5f6305a"
   },
   {
    "path": "source/LoginConnection.cs",
@@ -458,6 +458,16 @@
    "path": "source/MapResources.cs",
    "size": 1187,
    "sha256": "8e3e1663a58345ab42bee1fe2c07777a74ece63da7fd6500323efd5b8daa016b"
+  },
+  {
+   "path": "source/Minimap.cs",
+   "size": 5218,
+   "sha256": "ccf546f43aec96f4d0fffa11fbfabdd524eba1509a7a58889e5bfa3b8915ede7"
+  },
+  {
+   "path": "source/MinimapUi.cs",
+   "size": 6043,
+   "sha256": "72ae3d2581351108fc5e6a0bb86d569e64a257e814ff3633f22961677c241dbb"
   },
   {
    "path": "source/MovementRegression.cs",
@@ -661,8 +671,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15394,
-   "sha256": "f7583e75ba3a88ada62b0612e5ef36e3f36f3a2df3e37a6147853ceabf141c74"
+   "size": 15432,
+   "sha256": "461ec46ee8344de13a314b488d474d0b6cf1ab89f8d0580b0b40b6fcc5a85e81"
   },
   {
    "path": "source/PlayerPointer.cs",

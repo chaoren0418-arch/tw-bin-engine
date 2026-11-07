@@ -1,0 +1,128 @@
+using P06;
+using System.Drawing;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Windows.Forms;
+
+partial class Checks {
+    // Only synthetic, memory-owned cache data. No asset directory or store loader is used.
+    static OriginalMapCache MinimapCache(int revision=1){
+        var store=(OriginalMapStore)RuntimeHelpers.GetUninitializedObject(typeof(OriginalMapStore));
+        typeof(OriginalMapStore).GetField("<Bounds>k__BackingField",F)!.SetValue(store,new MapBounds(32576,32896,32703,33023));
+        var cache=(OriginalMapCache)RuntimeHelpers.GetUninitializedObject(typeof(OriginalMapCache));
+        Set(cache,"store",store);Set(cache,"OriginX",32384);Set(cache,"OriginY",32896);Set(cache,"Revision",revision);
+        var tile=new Tile(0,Enumerable.Range(0,576).Select(i=>new Pixel(i%24,i/24,0x3e0)).ToArray());
+        Set(cache,"Scene",new Draw[]{new(48,44,0,1,"ground",0,0,0,tile),new(50,44,0,2,"ground",0,0,0,tile)});
+        return cache;
+    }
+    static void BindMinimap(WorldSession world,OriginalMapCache cache){
+        Set(world,"MapCache",cache);Set(world,"MapResourceState","ready");
+        Set(world,"sceneOpacity",new SceneOpacity(new OpacityCatalog([],[],[])));
+    }
+    static byte[] MinimapPack(uint id,byte flags=0,ushort x=32601,ushort y=32940)=>Packet(b=>{
+        b.Write((byte)87);b.Write(x);b.Write(y);b.Write(id);b.Write((ushort)1110);b.Write(new byte[4]);b.Write(0u);b.Write((ushort)0);
+        Text(b,"NPC");Text(b,"");b.Write(flags);b.Write(0u);Text(b,"");Text(b,"");b.Write((byte)0);b.Write((byte)100);b.Write(new byte[3]);b.Write((byte)255);b.Write((byte)255);
+    });
+    static void MinimapChecks(){
+        using(var connection=Seed())using(var model=new Minimap()){
+            Sender(connection,(_,_,_)=>throw new Exception("minimap must not send C packets"));
+            var world=connection.World;var cache=MinimapCache();BindMinimap(world,cache);
+            void Update()=>model.Update(MinimapSnapshot.Capture(world));
+            Update();Check(model.Image!=null&&model.Snapshot!.Markers.Count(m=>m.Self)==1,"minimap S87 own position + cached image");
+            var original=model.Image;
+            Feed(connection,MinimapPack(457,4));Feed(connection,MinimapPack(458,0,32000));GroundPacket(connection);
+            Update();Check(ReferenceEquals(original,model.Image),"marker updates reuse thumbnail");
+            Check(model.Snapshot!.Markers.Select(m=>m.Id).Order().SequenceEqual(new uint[]{123,456}),"NPC marker excludes PC flags, ground items and outside-cache coordinates");
+            for(byte heading=0;heading<8;heading++){
+                Feed(connection,Move(456,32601,32940,heading));Update();var marker=model.Snapshot!.Markers.Single(m=>m.Id==456);
+                Check(marker.X==32601+MovementRules.Dx[heading]&&marker.Y==32940+MovementRules.Dy[heading],"S10 NPC source plus heading "+heading);
+                Feed(connection,Move(123,32600,32940,heading));Update();marker=model.Snapshot!.Markers.Single(m=>m.Self);
+                Check(marker.X==32600+MovementRules.Dx[heading]&&marker.Y==32940+MovementRules.Dy[heading],"S10 own source plus heading "+heading);
+            }
+            Feed(connection,Pack(123));Update();Check(model.Snapshot!.Markers.Single(m=>m.Self).X==32600,"S87 correction replaces predicted/self coordinates");
+            var before=model.Snapshot.Markers.Single(m=>m.Id==456);
+            Feed(connection,Packet(b=>{b.Write((byte)122);b.Write(456u);b.Write((byte)6);}));Update();
+            Check(before==model.Snapshot!.Markers.Single(m=>m.Id==456),"S122 heading leaves minimap position unchanged");
+            Feed(connection,Packet(b=>{b.Write((byte)158);b.Write(456u);b.Write((byte)8);}));Update();
+            Check(model.Snapshot!.Markers.All(m=>m.Id!=456),"S158 death removes live NPC marker");
+            Feed(connection,MinimapPack(456));Update();Check(model.Snapshot!.Markers.Any(m=>m.Id==456),"S87 respawn restores NPC marker");
+            Feed(connection,Packet(b=>{b.Write((byte)76);b.Write(456u);b.Write((ushort)99);b.Write((ushort)0);}));Update();
+            Check(model.Snapshot!.Markers.All(m=>m.Id!=456),"S76 pending appearance hides stale NPC marker");
+            Feed(connection,MinimapPack(456));Feed(connection,Packet(b=>{b.Write((byte)120);b.Write(456u);}));Update();
+            Check(model.Snapshot!.Markers.All(m=>m.Id!=456),"S120 removal clears NPC marker");
+            Set(cache,"Revision",2);Update();Check(!ReferenceEquals(original,model.Image),"cache shift revision rebuilds thumbnail");
+            original=model.Image;var replacement=MinimapCache(2);BindMinimap(world,replacement);Update();
+            Check(!ReferenceEquals(original,model.Image),"new cache with same map/revision replaces thumbnail");
+            original=model.Image;Set(world,"WorldEpoch",world.WorldEpoch+1);Update();Check(!ReferenceEquals(original,model.Image),"same map epoch reset invalidates thumbnail");
+            model.ZoomBy(1);model.ZoomBy(1);model.ZoomBy(1);Check(model.Zoom==4,"zoom capped at 4x");
+            var source=model.Image!.Viewport(model.Zoom,model.Snapshot!.Markers.Single(m=>m.Self));
+            Check(source.Width==model.Image.Bitmap.Width/4f&&source.X>=0&&source.Right<=model.Image.Bitmap.Width,"zoom viewport remains within cached bitmap");
+            model.ZoomBy(-1);model.ZoomBy(-1);model.ZoomBy(-1);Check(model.Zoom==1,"zoom capped at 1x");
+            model.Toggle();Update();Check(!model.IsOpen&&model.Image==null&&model.Snapshot==null,"closing frees bitmap and snapshot");
+            model.Toggle();Update();Check(model.IsOpen&&model.Image!=null,"reopening regenerates current cache");
+            Set(world,"MapResourceState","unavailable");Update();Check(model.Image==null&&model.Snapshot==null,"failed resource clears prior image and markers");
+            BindMinimap(world,replacement);Set(world,"MapId",(ushort)4);Update();Check(model.Image==null,"mismatched map cannot display old cache");Set(world,"MapId",(ushort)0);
+            Update();Feed(connection,Packet(b=>{b.Write((byte)206);b.Write((ushort)0);b.Write((byte)0);}));Update();
+            Check(model.Image==null&&model.Snapshot==null,"S206 same-map reset clears bitmap before own actor arrives");
+            Feed(connection,Pack(123));BindMinimap(world,MinimapCache());Update();Check(model.Image!=null,"S87 + ready cache restore after map reset");
+            Feed(connection,Packet(b=>{b.Write((byte)149);b.Write((ushort)4);b.Write(17u);}));Update();
+            Check(model.Image==null,"S149 teleport pending clears old world");
+            world.Reset();Update();Check(model.Image==null&&model.Snapshot==null,"logout reset releases all minimap content");
+        }
+        MinimapPixels();
+        var allowed=typeof(ClientForm).GetMethod("MinimapKeyAllowed",BindingFlags.Static|BindingFlags.NonPublic)!;
+        bool Key(Keys key,bool active=true,bool input=true,bool focused=true)=>(bool)allowed.Invoke(null,[key,active,input,focused])!;
+        Check(Key(Keys.F5)&&!Key(Keys.F5|Keys.Control)&&!Key(Keys.M)&&!Key(Keys.F5,false)&&!Key(Keys.F5,true,false)&&!Key(Keys.F5,true,true,false),"F5 gate excludes modifiers, login, chat/WebView and focused native inputs");
+        using(var hud=new PlayerHudView()){
+            var menu=hud.Controls.OfType<FlowLayoutPanel>().Single(c=>c.AccessibleName=="玩家功能");
+            Check(menu.Controls.OfType<Button>().Count(b=>b.Text=="小地圖 F5")==1,"HUD mounts one minimap toggle");
+            menu.Controls.OfType<Button>().Single(b=>b.Text=="小地圖 F5").PerformClick();
+            Check(!hud.IsDisposed,"detached HUD toggle and disposal require no game/assets");
+            using var view=(MinimapUi)Activator.CreateInstance(typeof(MinimapUi),F,null,[hud,menu],null)!;
+            var viewModel=(Minimap)typeof(MinimapUi).GetField("model",F)!.GetValue(view)!;
+            var cache=MinimapCache();
+            viewModel.Update(new(cache,1,0,0,cache.Scene,[new(123,"self",32600,32940,true)]));
+            view.Size=new(272,218);
+            using var painted=new Bitmap(view.Width,view.Height);view.DrawToBitmap(painted,view.ClientRectangle);
+            bool terrain=false,self=false;
+            for(int y=34;y<view.Height-27;y++)for(int x=6;x<view.Width-6;x++){
+                int color=painted.GetPixel(x,y).ToArgb();terrain|=color==Color.Lime.ToArgb();self|=color==Color.White.ToArgb();
+            }
+            Check(terrain&&self,"real minimap control paints cached terrain and own marker without showing a window");
+            view.Dispose();Check(viewModel.Image==null&&viewModel.Snapshot==null,"HUD/control disposal releases rendered minimap");
+        }
+    }
+    static void MinimapPixels(){
+        var pixels=Enumerable.Range(0,576).Select(i=>new Pixel(i%24,i/24,(ushort)((i%24)<<10|(i/24)<<5))).ToArray();
+        var tile=new Tile(0,pixels);var ground=new Draw(-2,-3,0,1,"ground",0,0,0,tile);
+        using(var image=MinimapImage.Create([ground])!){
+            Check(image.Bitmap.Size==new Size(24,24),"small cache retains exact pixel dimensions");
+            Check(pixels.All(p=>image.Bitmap.GetPixel(p.X,p.Y).ToArgb()==Renderer.Argb(p.Color)),"all RGB555 pixels incl black match cache, with negative scene coordinates");
+        }
+        var overlay=ground with{Layer="objects",Tile=new Tile(0,[new Pixel(12,12,0x7c00)])};
+        using(var image=MinimapImage.Create([ground,overlay])!){
+            Check(image.Bitmap.GetPixel(12,12).ToArgb()==Renderer.Argb(0x7c00)&&image.Bitmap.GetPixel(11,12).ToArgb()==Renderer.Argb(pixels[12*24+11].Color),"scene order and sparse transparent coverage preserved");
+        }
+        Check(MinimapImage.Create([])==null&&MinimapImage.Create([ground with{Tile=new Tile(8,pixels)}])==null,"empty cache and ship transparent ground have no invented pixels");
+        var cacheScene=Enumerable.Range(0,32768).Select(i=>ground with{X=i%256,Y=i/256,Serial=i}).ToArray();
+        using(var image=MinimapImage.Create(cacheScene)!){
+            Check(image.Bitmap.Width<=512&&image.Bitmap.Height<=512,"full 2x2 cache raster allocation bounded to 512 squared");
+            var worldPoint=Coordinates.Screen(32600,32940);var p=image.Project(32600,32940);
+            Check(Math.Abs(p.X-(worldPoint.X-image.SourceBounds.X)*image.Bitmap.Width/image.SourceBounds.Width)<.001f&&
+                Math.Abs(p.Y-(worldPoint.Y-image.SourceBounds.Y)*image.Bitmap.Height/image.SourceBounds.Height)<.001f,"markers share terrain isometric projection");
+        }
+        // Independent dense composition oracle for a small downsampled scene.
+        var scene=new[]{ground,ground with{X=50,Y=20},overlay};
+        using(var image=MinimapImage.Create(scene)!){
+            var bounds=image.SourceBounds;var colors=new ushort[bounds.Width*bounds.Height];var mask=new bool[colors.Length];
+            foreach(var draw in scene)Renderer.Blit(draw,bounds,colors,mask,null);
+            bool equal=true;
+            for(int y=0;y<image.Bitmap.Height;y++)for(int x=0;x<image.Bitmap.Width;x++){
+                int sx=(int)Math.Floor((x+.5)*bounds.Width/image.Bitmap.Width),sy=(int)Math.Floor((y+.5)*bounds.Height/image.Bitmap.Height);
+                int index=sy*bounds.Width+sx;
+                equal&=image.Bitmap.GetPixel(x,y).ToArgb()==Renderer.MaskedArgb(colors[index],mask[index]);
+            }
+            Check(equal,"downsampled terrain matches independent dense renderer sample at every pixel");
+        }
+    }
+}
