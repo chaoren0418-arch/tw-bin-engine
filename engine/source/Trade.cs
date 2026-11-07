@@ -41,6 +41,7 @@ public sealed partial class WorldSession {
     internal void TradeServerMessage(ushort? code=null,string[]? args=null){if(!TradeBlocksActions)return;TradeRevision++;if(code==253&&TradeState is "inviting" or "attention"&&!tradeOpened&&args is {Length:1}&&args[0]==TradePeerName){TradeState="cancelled";TradeNotice="原服回報對方拒絕交易。";return;}if(TradeState is "inviting" or "adding" or "accepting"){TradeState="attention";TradeNotice=(LastServerMessage??"收到原服訊息")+"；請取消後重新操作，沒有自動重送。";}else TradeNotice=LastServerMessage??TradeNotice;}
     bool ReceiveTrade(byte opcode,LoginReader r){
         if(opcode==219){ushort header=r.H();uint challenge=r.D();ushort message=r.H();if(header!=0)throw new ProtocolException("confirmation envelope");
+            if(ReceiveMarriageYesNo(message,challenge,r))return true;
             if(message==97){ReceiveClanInvitation(r,challenge);return true;}
             if(message!=252){if(TradeState=="invited"){TradeState="attention";TradeRevision++;TradeNotice="原服改送其他確認訊息；舊交易邀請不可再回答，可取消交易。";}Unhandled(opcode);return true;}
             string peer=r.S();r.Finish();if(!Ready||OwnDead)return true;

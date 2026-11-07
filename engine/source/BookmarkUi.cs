@@ -49,11 +49,11 @@ public sealed class BookmarkPanel:UserControl {
 public sealed partial class ClientForm {
     BookmarkPanel? bookmarkPanel;bool bookmarkUiHooked;
     // Form lifecycle provides a local hook without changing shared HUD or MagicUi dispatch.
-    // OnLoad, OnCreateControl and OnShown belong to other partial modules. The handle can exist before
-    // InitNormalPanels runs, so this override only subscribes and the panel is built on the Shown event.
-    protected override void OnHandleCreated(EventArgs e){
-        base.OnHandleCreated(e);
+    // OnLoad, OnCreateControl, OnHandleCreated and OnShown belong to other partial modules.
+    // Showing the form always passes through here before Shown is raised, so subscribe first.
+    protected override void SetVisibleCore(bool value){
         if(!bookmarkUiHooked){bookmarkUiHooked=true;Shown+=(_,_)=>InitBookmarkUi();}
+        base.SetVisibleCore(value);
     }
     void InitBookmarkUi(){
         if(!normalProduct||normalPanels==null||bookmarkPanel!=null)return;
