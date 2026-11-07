@@ -67,6 +67,7 @@ public sealed partial class WorldSession {
         case 200:ReceiveClanAttention(plain);break;
         case 167:ReceiveClanAnnouncement(plain);break;
         case 170:ReceiveClanMembers(plain);break;
+        case 84:ReceiveClanWar(plain);break;
         case 250 when plain.Length>1&&plain[1]==171:ReceiveClanOnlineMembers(plain);break;
         case 83 when WeaponRepairPackets.IsRepairList(plain):ReceiveWeaponRepair(r);break;
         case 76:ReceivePolymorph(plain);break;

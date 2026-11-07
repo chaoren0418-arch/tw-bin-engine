@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 212,
+ "sourceCount": 213,
  "files": [
   {
    "path": "NuGet.Config",
@@ -191,13 +191,18 @@
   },
   {
    "path": "source/Clan.cs",
-   "size": 17238,
-   "sha256": "fdc98bde0106681946faa454fea0b4b6e62ebef720b99c8b6eeaf461318b50c3"
+   "size": 17451,
+   "sha256": "583e21577348c03bc1407afec4a10f8ba9ae067bd10f56cb7a515926a2443d75"
   },
   {
    "path": "source/ClanUi.cs",
    "size": 7083,
    "sha256": "7311c59680dce1c8b0103465dbd3209a9e2a299eba60d8498ef8b3394f6de358"
+  },
+  {
+   "path": "source/ClanWar.cs",
+   "size": 18041,
+   "sha256": "8e3f7723cad94b0193c910b48178796b584731ea86f3c48c2eae21728a6d5c68"
   },
   {
    "path": "source/ClientAudioSettings.cs",
@@ -621,8 +626,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 9649,
-   "sha256": "297ff6f9c58cef1e3336330cdcbb90f922f0b24e61e319461785d781f059bda0"
+   "size": 9682,
+   "sha256": "e0d483885b4ecb4734e4485b91e7d320a476802e3da54d61b5de3c52a80a3c1a"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -991,8 +996,8 @@
   },
   {
    "path": "source/Trade.cs",
-   "size": 11704,
-   "sha256": "0a33d6c3c02565acc35a7e3473e5fc70ad5ddf8c00dcda9de3bce217228ba965"
+   "size": 11774,
+   "sha256": "45b618b7f461c876b6628954af1df02bad520334341de3afdc557734555cb279"
   },
   {
    "path": "source/TradeUi.cs",
@@ -1056,8 +1061,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 12098,
-   "sha256": "4ee28a1cac71c8ec556dd3db972fdd44ea950481ad34345db5dcaf15b53e6e2f"
+   "size": 12144,
+   "sha256": "b140a5509f351833f288d266f9ab0abcb58adfb87a0100ae460a89f2c4d0e2c4"
   },
   {
    "path": "source/WorldTests.cs",
