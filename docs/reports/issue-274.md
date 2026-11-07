@@ -45,6 +45,13 @@
 - 本輪產品 DLL SHA-256：`403988cc2b2008b80ecc922aced2e61b195ccd226bc840c4ccd339b49dddc214`。本機證據沿用 `scratch/issue-274/build/`、`scratch/issue-274/tests.txt`；推送後精確 head 與新 CI 結果另留於 PR #297，不沿用舊 head 的結果。
 - 下一棒：Claude／調度器核對本輪 head 的 CI 與可合併狀態，依既定流程交由使用者合併；原生修理與 PK 驗收仍由 dot 的 M6 smoke 接手。
 
+## 調度器退回同步（main `cb74af4`，2026-11-07）
+
+- 依「只做同步」要求，從 `ae74431` 合併 `origin/main` 的 `cb74af4`（本機計算落後 171 個 commit）。`WeaponRepair.cs`、`WeaponRepairUi.cs`、本模組測試均未修改。
+- 三處衝突：`WorldSession.cs` 保留本模組 S83／D200 分支與 main 的 `case 76`；`build.yml` 保留本模組測試與 main 的變身、好友測試步驟；dev lock 先取 main 版本，再以 `rebuild.py --update-lock` 重新產生，196 個來源／205 個鎖定檔核驗通過，沒有手工拼 hash。`docs/REPORT.md` 沒有衝突，沿用 main。
+- 已驗證：canonical build 退出 0，產品 DLL SHA-256 `79dd04b72dda253fcc4925a3acf651edbd664c89b64ee58dfcf6e4ba7d47d21b`。測試專案引用的 `engine/build/client-product-dev/` 與測試輸出目錄的 DLL 都是同一雜湊，確認 98 項檢查跑在這次建置上，全部通過。`check-no-game-assets.py`：pass、3357 個追蹤檔、0 errors。
+- 本機只跑本模組測試；其他模組的測試由推送後的 CI 涵蓋，結果另記於 PR #297。
+
 ## 未驗證什麼
 
 - 未驗證原生視窗排版、實際 NPC 修理扣款／耐久變更、PK 真實次數與正式客戶端操作；合成封包測試不代表實機驗收。
