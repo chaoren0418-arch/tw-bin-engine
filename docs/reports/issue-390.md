@@ -62,6 +62,17 @@
 - `check-no-game-assets.py` 通過。
 - **預設入口未驗證**：本 worktree 沒有 `engine/assets` junction，本輪未建立也未執行；CI 同樣不跑預設入口。
 
+## 同步輪（第 4 輪，claude-local）
+
+依調度器指示合併 `origin/main`（落後 47 筆，合到 `d384334`）。第 3 輪的數字由本節取代。本輪只做同步，產品碼與 `minimap-tests` 都沒改。
+
+- 衝突在 `DemoChecks.csproj`、`Program.cs`（兩邊全部保留，`MinimapChecks()` 接回 `map-continuity` 與預設入口，`ghost-mode`、`ClanChecks`、`PortalChecks` 依 main）與 `rebuild-lock.json`。lock 以 `--update-lock` 重產（206 個來源、215 個鎖定檔），未手動拼接。
+- T125（#259）仍未合併，main 沒有 `Party`，維持不標隊友。
+- 建置：`rebuild.py --build` 退出 0。產品 DLL SHA-256：`796fa1bffd5c073671d8b20222f42f56b1cd120cf926b5d7fc1b0314b5774483`。
+- DemoChecks 全部通過：`minimap` 244、`map-continuity` 22029、`combat-admission` 1326、`polymorph-cadence` 226、`buddies` 362、`item-transfer` 266、`doors` 514、`character-config` 286；`WeaponRepairChecks` 98。項數包含群組分派前就會執行的共用檢查，不代表小地圖測試變多。
+- `check-no-game-assets.py` 通過。
+- **預設入口未驗證**：本 worktree 沒有 `engine/assets` junction，本輪未建立也未執行；CI 同樣不跑預設入口。
+
 ## 未驗證什麼
 
 未啟動遊戲、伺服器、DB；未做真實地圖畫面、不同 DPI／視窗大小、實際鍵鼠焦點及長時間換區效能的實機驗收。合成快取與離屏繪製不是原生實機證據。CI 執行結果以本 PR 的 checks 為準。

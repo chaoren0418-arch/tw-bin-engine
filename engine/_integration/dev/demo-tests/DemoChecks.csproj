@@ -2,6 +2,9 @@
   <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWindowsForms>true</UseWindowsForms><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
   <ItemGroup>
     <Compile Include="../minimap-tests/MinimapChecks.cs" Link="MinimapChecks.cs" />
+    <Compile Include="../clan-tests/ClanChecks.cs" Link="ClanChecks.cs" />
+    <Compile Include="../ghost-mode-tests/GhostModeChecks.cs" Link="GhostModeChecks.cs" />
+    <Compile Include="../doors-tests/DoorChecks.cs" Link="DoorChecks.cs" />
     <Compile Include="../fishing-tests/FishingChecks.cs" Link="FishingChecks.cs" />
     <Compile Include="../pets-tests/PetChecks.cs" Link="PetChecks.cs" />
     <Compile Include="../duel-tests/DuelChecks.cs" Link="DuelChecks.cs" />
@@ -12,6 +15,7 @@
     <Compile Include="../polymorph-tests/PolymorphChecks.cs" Link="PolymorphChecks.cs" />
     <Compile Include="../buddies-tests/BuddyChecks.cs" Link="BuddyChecks.cs" />
     <Compile Include="../board-tests/BoardChecks.cs" Link="BoardChecks.cs" />
+    <Compile Include="../portals-tests/PortalChecks.cs" Link="PortalChecks.cs" />
     <Compile Include="../item-transfer-tests/ItemTransferChecks.cs" Link="ItemTransferChecks.cs" />
     <Compile Include="../location-share-tests/LocationShareChecks.cs" Link="LocationShareChecks.cs" />
     <Reference Include="P11.ClientEngine"><HintPath>../../../build/client-product-dev/P11.ClientEngine.dll</HintPath></Reference>
