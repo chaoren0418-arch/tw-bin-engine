@@ -41,6 +41,12 @@ jobs:
           New-Item -ItemType Directory -Force scratch/issue-216 | Out-Null
           dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-216/item-status-checks.json item-status
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Affliction contracts (no game or network)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-388 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-388/afflictions.json afflictions
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Mail packet and lifecycle checks (no game or network)
         shell: pwsh
         run: |

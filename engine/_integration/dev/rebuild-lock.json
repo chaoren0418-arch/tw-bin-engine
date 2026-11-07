@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 210,
+ "sourceCount": 213,
  "files": [
   {
    "path": "NuGet.Config",
@@ -93,6 +93,11 @@
    "path": "source/ActionCadence.cs",
    "size": 7854,
    "sha256": "f533f652619d26639ca2725cb5c3b5c07f9a13bbfe9fcdc8d8164d7d0e9486a5"
+  },
+  {
+   "path": "source/Afflictions.cs",
+   "size": 5155,
+   "sha256": "92696bb748bfbe5986b0f1fcfa3830ef67c20b0d4fd15ca20dc65ed42763c9ef"
   },
   {
    "path": "source/Ambience.cs",
@@ -621,8 +626,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 9997,
-   "sha256": "30d8d3fcb063eeac67f94a698ec6cb3035751d02f65bcd05843fbb7278a99377"
+   "size": 9649,
+   "sha256": "297ff6f9c58cef1e3336330cdcbb90f922f0b24e61e319461785d781f059bda0"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -641,8 +646,8 @@
   },
   {
    "path": "source/OnlineInput.cs",
-   "size": 3366,
-   "sha256": "d43a0881f0fd1cac00170b322093a76cb42289f601b61cb3226c197d6e62c595"
+   "size": 3503,
+   "sha256": "e2da3beb62c930fa4362ef460e9f63e117bee5514be62a8d41b8177623413ef8"
   },
   {
    "path": "source/OnlineMovement.cs",
@@ -710,6 +715,16 @@
    "sha256": "1172b568b9702a0db588cbb5818cc85988bece0e0fd6586af58db6f9469e86d2"
   },
   {
+   "path": "source/Party.cs",
+   "size": 12405,
+   "sha256": "e0a45ea8f3825e238d9a3de7b4c1044187cb8d687d94db9773a1c847193edcb9"
+  },
+  {
+   "path": "source/PartyUi.cs",
+   "size": 5185,
+   "sha256": "63382e90fc5927796bb517e634b45c1baa78935f1d28e01e1de038e439fb26a8"
+  },
+  {
    "path": "source/PetUi.cs",
    "size": 4124,
    "sha256": "f0979c21a3c7c52ee95adba29a754397574222c59abe38a75d54a67ed7645ba5"
@@ -766,8 +781,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15621,
-   "sha256": "975cbd8cf4cadff44b16d44fc06a8e45c6cadba58a7ac1fc617e1f9b8bef4f18"
+   "size": 15702,
+   "sha256": "097e801bd41c8e806b83399a968fc8864e313c62ae0839b76892fefd62c05f78"
   },
   {
    "path": "source/PlayerPointer.cs",
@@ -1046,8 +1061,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 11584,
-   "sha256": "d4262c1df330cd6e428e3b09b070c5a9c270c3fbd6f5d2d15e8864aa143c6862"
+   "size": 12098,
+   "sha256": "4ee28a1cac71c8ec556dd3db972fdd44ea950481ad34345db5dcaf15b53e6e2f"
   },
   {
    "path": "source/WorldTests.cs",
