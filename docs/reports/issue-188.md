@@ -51,3 +51,14 @@
 - 產出路徑：本報告、`engine/_integration/dev/rebuild-lock.json`，以及 main 合併內容；本機證據為 `scratch/issue-188/build/`、`scratch/issue-188/current-sync-checks.log` 與各模式 JSON。原 receipt 備份於 `scratch/issue-188/receipt-before-current-sync.json`，更新後 receipt 不提交。
 - 未驗證：本輪未重跑原素材檢查、未啟動遊戲／伺服器／DB、未做真機畫面與音效驗收。無遞迴刪除，未寫入原專案工作檔、封存或客戶端；Git 共用中繼資料由授權的 fetch／merge／commit 更新。推送後 CI 結果見 PR #202 checks 與交付摘要。
 - 給下一棒的提示：沿用 [PR #202](https://github.com/chaoren0418-arch/tw-bin-engine/pull/202)，由 Claude／調度器審查同步與 CI，再交使用者合併。dot 接 M6 smoke，核對不同 gfx、S42 多目標／方向、權威 HP 與受擊抑制。
+
+## 同步輪：合入變身、S206 地圖編號與角色設定（2026-11-07）
+
+- 做了什麼：先快轉至遠端 `task/188` 的 `4933f4b`，再合併 `origin/main`（含 #263 變身、#217 S206 單參數地圖編號、#324 角色設定快捷列，最後到 `065e81e`）。本輪只同步與重產 dev lock，未修改功能或測試斷言；T101 五個來源檔合併前後無差異，`WorldSession.cs`、`WorldObjects.cs`、`PlayerHudView.cs`、`build.yml` 與 main 相同，`Program.cs` 兩邊的 case 都保留。`docs/REPORT.md` 與 main 相同，未自行編輯。
+- CI 原因（本輪已讀原始 log）：[run 42332090826](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42332090826) 的 `dev canonical build + receipt` 輸出 `REFUSED: sourceCount 185 != pinned source files 186`、退出 2。這次 Git 沒有回報衝突，但自動合併後的 lock 計數與 pins 不一致；以 `--update-lock` 重產後 `sourceCount` 為 **188**（197 pins），未手動改 hash。
+- 已驗證：`rebuild.py --update-lock` 後執行 `rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output scratch/issue-188/build`，即 CI 失敗的同一步驟，產品與 launcher 皆成功。測試引用的 `P11.ClientEngine.dll` SHA-256 與 receipt 相符：`ad07cdab71e371ad8c772c182a3f3b735a381d07576dd4de15cd587f98888dce`。
+- 已驗證：DemoChecks **combat-admission 1,109 項**（比前輪多 90 項，已比對為所有模式都會先跑的 PolymorphChecks）、**map-continuity 20,032 項**、**polymorph-cadence 123 項**、**buddies 259 項**、**item-transfer 163 項**；**NpcChecks 165 項**、**CharacterManagementChecks 218 項**、**LoginChecks 396,589 項斷言**、**ItemUseChecks 426 項**全通過。上述 DemoChecks 計數都含同一批 90 項，不可相加。
+- 已驗證：`check-no-game-assets.py` pass（3,320 追蹤檔、0 errors）。測試跑完後 main 又多了 `065e81e`，該提交只改 `docs/REPORT.md`，合入後未重跑建置與測試，只重跑 `rebuild.py` 唯讀來源核驗。
+- 未在本機跑：CI 的 WebResourceChecks、ResourceChecks、Effect6016Checks、PacketTraceChecks 交由 CI 驗證，結果見 PR #202 checks。未重跑原素材 929 項檢查，未做真機畫面與音效驗收；未啟動遊戲、伺服器或 DB，無遞迴刪除。
+- 產出路徑：本報告、`engine/_integration/dev/rebuild-lock.json`，以及 main 合併內容。本機證據：`scratch/issue-188/polymorph-sync-build.log`、`scratch/issue-188/polymorph-sync-checks.log` 與各模式 JSON；重跑腳本 `scratch/issue-188/sync-lock-build.ps1`、`scratch/issue-188/sync-checks-polymorph.ps1`。原 receipt 備份於 `scratch/issue-188/receipt-before-polymorph-sync.json`，更新後 receipt 不提交。
+- 給下一棒的提示：`git merge` 無衝突不代表 lock 正確，只要 main 有新增或刪除 `engine/source` 來源，合併後都要跑 `--update-lock`。main 上 PR 合併頻繁，PR #202 若再落後，lock 會再次失效，建議 CI 綠燈後盡快合併。合併後由 dot 接 M6 smoke。
