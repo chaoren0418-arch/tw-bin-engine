@@ -36,10 +36,10 @@ JAR：`D:/lineage開發/TW1608262200研究/environments/p24/server/Server_Game.j
 
 沒有漁獲的週期只消耗魚餌，沒有已核實的失敗結果訊息；取得物品失敗可發結束訊息。403 是通用取得通知，沒有釣魚關聯 ID；只顯示「釣魚期間收到」的原服訊息，不宣稱每個 403 都是漁獲、不預扣魚餌、不預加物品。S119 的 wire 也不帶停止原因；UI 明示依外觀更新結束狀態。
 
-## 修改範圍衝突與待接線
+## 產品接收掛接（第 2 次修正）
 
-任務限制 WorldSession 僅可加 S250 子分支，但已核實的釣魚路徑不使用 S250。現有 S250 處理也散在其他 partial 模組，WorldSession.cs 本身沒有 S250 case。**本次未改 WorldSession.cs，產品尚不會呼叫 `ObserveFishing`，釣魚功能尚未完成。**
+原任務假設釣魚使用 S250，但已核實的 d287 路徑使用 S158／S119／S71。本次依重新派工所附退回修正要求，在 `WorldSession.ReceiveCore` 增加一處 `ObserveFishing(plain)` 掛接，限這三個 opcode，保留原有處理器。
 
-待使用者／調度器確認範圍後，在 `ReceiveCore` 建立 opcode 之後、既有處理器之前增加一次 `ObserveFishing(plain);`。模組使用自己的 reader，不吃掉 S71／S119／S158，既有背包、外觀、動作分派保留。對其餘 opcode 不處理；跨地圖／重設以 WorldEpoch 懶清除。
+模組使用獨立 reader；掛接後繼續執行原接收鏈，S71 仍更新伺服器訊息、S119 仍更新外觀、S158 仍更新物件動作。跨地圖／重設以 WorldEpoch 懶清除，未增加共用重設掛接。
 
-離線測試目前直接呼叫模組 observer，再交給原有 `WorldSession.Receive`，驗證模組格式與共用處理相容；**不等同產品接收掛接驗證**。接線後必須移除測試中的直接 observer 呼叫，改由真實 Receive 驗證相同案例。
+離線測試已移除直接 observer 呼叫，全部經 `Feed` → 正常 `WorldSession.Receive`。先以舊產品驗證「S158 開始等待」確實失敗，再建置修正版驗證 39 項通過，包含 C62、C164 DHH、三種 S 格式、訊息 1137／1138／1163／403、其他角色、損壞封包、逾時與排隊失效；另確認 S158 只觀測一次及原有動作／外觀／訊息處理仍生效。合成封包測試不代表真機驗收。

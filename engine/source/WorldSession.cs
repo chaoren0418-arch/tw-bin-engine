@@ -30,6 +30,7 @@ public sealed partial class WorldSession {
     void ReceiveCore(byte[] plain,string selected){
         var r=new LoginReader(plain);byte opcode=r.C();
         switch(opcode){
+        case 71:case 119:case 158:ObserveFishing(plain);break;
         case 22:ReceiveSoundPacket(plain);return;
         case 55:ReceiveEffectPacket(plain);return;
         case 106:ReceiveEffectPacket(plain);return;
