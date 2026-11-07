@@ -33,6 +33,16 @@
 - 未啟動遊戲、伺服器或 DB，未做真機畫面／效能驗收。
 - 雨雪代碼的兩份伺服器註解相反；目前依 `S_Weather` 類別，需 smoke 核對。光圈像素比例、日夜漸層與粒子造型為引擎政策，不宣稱逐像素重現原 BIN。
 
+## 同步輪（2026-11-07，claude-local）
+
+依調度器留言只同步 `origin/main`，未改 T147 功能內容；上方第 1～7 點是同步前的紀錄，數字以本節為準。
+
+- 衝突 4 個：`WorldSession.cs`、`DemoChecks.csproj`、`demo-tests/Program.cs` 保留兩邊新增內容，`AmbienceChecks()` 併入 main 新的 map-continuity 行與預設群組；`rebuild-lock.json` 取 main 版本後以 `--update-lock` 重產（191 來源、200 鎖定輸入）。
+- 建置：`rebuild.py --build` 通過，產品 DLL SHA-256 `20f38cc938e4430fd48ad059a0a6611582bc7dab98d8d7d49d5ceea3dac0f24f`；測試實際載入的 DLL 已核對為同一雜湊。
+- 離線測試：`ambience` 446 項通過、`map-continuity` 21188 項通過。總數增加來自 main 新增的測試（`PolymorphChecks()` 現在每個群組都會跑）；S115 的 256 項與 ambience 的 30 項仍在。
+- `check-no-game-assets.py` 通過，0 errors。
+- **阻塞未解除**：`PaintAmbience` 與 `AmbienceLights` 在產品程式中仍沒有呼叫端，只有測試呼叫，遊戲畫面看不到日夜、天氣與光源。此 PR 合併後，封包解析與狀態會生效，畫面效果不會。
+
 ## 產出路徑
 
 - `engine/source/Ambience.cs`
