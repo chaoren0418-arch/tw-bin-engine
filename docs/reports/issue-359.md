@@ -50,22 +50,24 @@
 
 完整建置通過；重置 161 項、整合 519 項、好友 169 項測試與資源檢查通過。PR #369 三項 CI 全綠。
 
-### 第 2 輪（2026-11-07，同步到 `119439e`，落後 main 123 個 commit）
+### 第 2 輪（2026-11-07，同步到 `1fd46dc`）
+
+先合 `119439e`（落後 123 個 commit），推送後 main 又合入 #387，再合一次，以下是最終結果。
 
 只做同步，沒有改 T142 功能。
 
 - 衝突四處，都是兩邊各自新增的掛接，全部保留：
-  - `WorldSession.cs`：S64/01–04 的 case 與 main 的隱身、位置分享、角色設定分派並存。全程式只有這一個 `case 64`。
+  - `WorldSession.cs`：S64/01–04 的 case 與 main 的環境、隱身、位置分享、角色設定分派並存。全程式只有這一個 `case 64`。
   - `DemoChecks.csproj`：兩邊的測試檔都保留。
   - `demo-tests/Program.cs`：採 main 的 case 組，加回 `char-reset` 入口；`CharResetChecks` 掛回 `map-continuity` 與預設組；兩邊重複的 `buddies` case 去重。
-  - `rebuild-lock.json`：取 main 版後以 `--update-lock` 重產（193 來源檔、202 pinned），沒有手拼。
+  - `rebuild-lock.json`：取 main 版後以 `--update-lock` 重產（194 來源檔、203 pinned），沒有手拼。
 - `docs/REPORT.md` 自動合入 main 版，沒有另外修改。
 
 已驗證（合成封包、記憶體 sender，非真機）：
 
-1. `rebuild.py --build`：產品與 launcher 通過，產品 DLL SHA-256 `074651743f6dd81105827a6fc513567c3d3b276fabd229baae328a6f47ea7c7c`（取代上方本機 DLL 值）。
-2. DemoChecks 各組全數通過（數字含每次都先跑的 `PolymorphChecks`）：`char-reset` 251、`map-continuity` 21063、`combat-admission` 1109、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163、`invisibility` 160、`location-share` 189、`player-query` 791、`character-config` 183。
-3. `check-no-game-assets.py`：通過（3348 個追蹤檔、0 錯誤）。
+1. `rebuild.py --build`：產品與 launcher 通過，產品 DLL SHA-256 `89e6f978ec2318ef613f92552a6f4e86a51a00b9b694a46f12fb110c3caba619`（取代上方本機 DLL 值）。
+2. DemoChecks 各組全數通過（數字含每次都先跑的 `PolymorphChecks`）：`char-reset` 251、`map-continuity` 21419、`combat-admission` 1109、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163、`invisibility` 160、`location-share` 189、`player-query` 791、`character-config` 183、`ambience` 446。
+3. `check-no-game-assets.py`：通過（3353 個追蹤檔、0 錯誤）。
 
 未驗證：
 
