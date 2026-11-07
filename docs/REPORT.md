@@ -150,3 +150,4 @@
 - 2026-11-08 — #482 T180：查證原版——技能與法術表現（G10a）（resource，claude-local，PR 已合併）→ [報告](reports/issue-482.md)
 - 2026-11-08 — #457 ui-verify-red-notice: V2 查證：原版紅字（畫面中央系統訊息）的位置、字色、時長與行數（resource，claude-local，PR #497 已合併）→ [報告](reports/issue-457.md)
 - 2026-11-08 — #459 ui-verify-runtime: V4 查證：UI 框架層細節（.img 旗標與透明、按鈕狀態順序、XML 編碼、-c 退回、Sprite 重名優先序、字型）（resource，claude-local，PR #498 已合併）→ [報告](reports/issue-459.md)
+- 2026-11-08 — #479 T177：日夜時鐘與明暗曲線對齊原版（G5 第一步）（code，claude-local，PR 已合併）→ [報告](reports/issue-479.md)
