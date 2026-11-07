@@ -48,7 +48,7 @@ R／SP 是**伺服器原始碼**的查證，只能證明封包與規則，不能
 | T100 | 技能施放通用化 | 未查證。R17、SP〈C6 技能的條件尾段〉只證明封包尾段 | `SkillCast.cs`、`MagicTargetPreparation.cs`：依技能分送 C6 尾段；施法動作與特效走 `MagicRendering.cs` | 協定一致；表現 ❓ | 待查：TW16 送 C6 前的本地施法動作（動作編號、是否等回包）、目標游標、施法中可否移動。找 C6 的送出函式，往上追 UI 呼叫端 |
 | T101 | S42／S30／箭矢回包分派 | R20（伺服器）；影格音效見 REA B07、SD#1、SD#3 | `AttackSkillPackets.cs`、`MagicRendering.cs`、`ProjectileRendering.cs`；影格聲音已在 T165 改為 `<`／`[` 同路徑 | 協定一致；影格音效 ✅（T165 後）；畫面 ❓ | 待查：S42 多目標時特效與受擊的時序、箭矢 gfx 的飛行速度與落點。找 TW16 收包表中 S30／S42 對應的 case（REA 第一組 dispatch table） |
 | T102 | NPC 出售與私商回購 | R27（伺服器）；WIN§1.1、WIN§2：NPC 商店與私商購買用 `CNpcShop` XML 窗（本機缺檔），3.81 世代是 `TRADE_WINDOW`；開店設定是 `PersonalShopUI`（出售與收購各 8 格一頁、訊息 2×20 字、3 種外型） | `NpcUi.cs`、`PrivateShopUi.cs`：WinForms 清單與數量框；沒有開店設定窗 | 協定一致；表現 ⚠️ | 新增原生模組 `ui-shop`（`TRADE_WINDOW`，含修理模式 6）與 `ui-personal-shop`（`PersonalShopUI`）。`native-ui.md` §0 目前列為不涵蓋，要先補設計 |
-| T103 | 地面物品通用化與三種停用物品的地面圖 | 地面圖：#48／#51 的 sprite 契約；拾取點擊：REA B07（`F112F0` → `5001C0`，距離 1、節流 986 ms／加速 600 ms，**欄位屬推測**） | `Ground*.cs`、`PickupPresentation.cs`：地面圖依釘選 sprite；拾取送 C11 類請求（`Ground.cs`） | 地面圖 ✅（已有 sprite 契約）；拾取時序 ❓ | 待查：把 REA B07 的 opcode 23 欄位對到伺服器拾取格式（REA 建議任務第 6 項），再比較引擎的距離與節流 |
+| T103 | 地面物品通用化與三種停用物品的地面圖 | 地面圖：#48／#51 的 sprite 契約。拾取：[world-objects.md](world-objects.md) 第 1–2 節（#484），送 `C_GET`（23）`chhddc`；1 格內才送，否則自動走近；單個或「全部拾取」時送整疊，否則跳數量提示；送出前本機轉向；節流 986／600 ms，未過就丟棄 | `Ground*.cs`、`PickupPresentation.cs`：地面圖依釘選 sprite；選取後送 C112，3 格內、數量預設 1、900 ms＋等 S158/15，收到回報才轉向 | 地面圖 ✅；拾取 ❌（WO 第 2 節 4 項不一致、2 項部分） | `Ground.cs`、`GroundUi.cs`：點物品自動走到 1 格內再送；數量依原版（整疊或提示）；加「全部拾取」選項；鍵盤拾取改成 1 格內第一個、整疊；本機先轉向；節流 986 ms |
 | T104 | 緩速時的道具、地面與交談政策 | R08、R22–R24（伺服器）；`NormalHaste.cs` 註明 JAR 0.755／原版 0.75 | 依 JAR 係數計算動作間隔 | 協定 | 不需修正。0.75／0.755 的差異已在程式註解說明 |
 | T105 | S22 音效、S106 座標特效、S55 變體 | SD§3、SD#7、SD#8；S106／S55 畫面未查證 | `SoundPackets.cs`：把第一個 byte 當重複次數，播 `repeat+1` 次，延遲 100 ms；只認 33 個釘選 `.wav` | ⚠️ | `SoundPackets.cs`：第一個 byte 改成模式（0 單次、1 環境循環、2 停止）；同 id 還在播時不重播。`AudioAssets.cs`：查找順序改為先 `.mp3` 再 `.wav`。見 G8 |
 | T106 | 多頻道聊天 | UI§3、UI#7–UI#10 | `PlayerChat.cs`、`PlayerHudChat.cs`：`[一般]` 等文字前綴、.NET 具名色、6 種頻道、不處理 `$` | ❌ | 格式與顏色：#448 的 `ui-chat-format`（`PlayerChat.cs`、`PlayerHudChat.cs`）。視窗：`ui-chat-window`。前綴對應頻道仍屬推測（UI§3），要先查 `sub_6C6C60` 之後的呼叫鏈 |
@@ -74,22 +74,22 @@ R／SP 是**伺服器原始碼**的查證，只能證明封包與規則，不能
 | T133 | 刪除與給予物品 | R22（伺服器）；WIN§2.1：`MESSAGE_WINDOW` 只有 OK 鈕，**不是**確認框；伺服器 Yes/No 走 `sub_4FC710`→`sub_AC9560` | `ItemTransfer.cs` | 協定一致；表現 ❓ | 還要查：刪除時的本地確認（背包窗的垃圾桶流程），以及給予的操作方式 |
 | T134 | 武器修理與 PK 查詢 | R27（伺服器）；WIN§2：可修清單用 `TradeWindow` 模式 6（`TRADE_WINDOW`），清單為空時開 NPC 對話頁 `touma3`／`gayle5`；PK 查詢是 HTML 動作 `HyperActCheckPK`；**沒有專用視窗** | `WeaponRepair.cs`、`WeaponRepairUi.cs`：獨立 WinForms 580×420，加 HUD 按鈕 | ❌（引擎多出專用窗與 HUD 鈕） | 併入 `ui-shop` 的模式 6；PK 查詢改走 NPC 對話。移除專用窗與 HUD 鈕，要等原生窗完成 |
 | T135 ⏸ | 盟徽查詢與 ID 對應 | AN§2.8、AN#11 | 未合併 | ⏸／❌ | 合併後依 G4 調整：自動送 opcode 28、`Emblem%d.dat` 快取 ≤512 筆 |
-| T136 | 門 | 未查證 | `Doors.cs`：依 S87／開關封包切換門的動作 | ❓ | 待查：門 sprite 的開關動作編號與點擊判定（REA 的 type 讀取者表沒有門的類別） |
+| T136 | 門 | [world-objects.md](world-objects.md) 第 3 節（#484）：類別 7／8（推測），1 格內才送 `C_OPEN`（131）`chhd`，遠的先自動走近；死亡時物件點擊全擋；`S_CHANGE_ATTR` 更新通行；開關動作走通用 vtable | `Doors.cs`：任何距離可點，直接送 C41 HHD | ❌（距離；欄位 ✅；動畫無法判定） | `Doors.cs`：點門先自動走到 1 格內再送 C41 |
 | T137 | 稱號與表情動作 | AN§1、AN§2、AN#1–AN#7、AN#19 | `TitleAndEmote.cs`：所有物件都畫稱號，位置在腳下 −70，LightYellow、JhengHei 10 px、無外框；表情順序 66／67／68／69；不依外型重映射；缺圖就結束 | ❌ | 見 G1（稱號）與 G2（表情） |
 | T138 | 角色設定存取（快捷列） | UI#5 | `CharacterConfig.cs`、`PlayerHudView.cs`：F1–F4 共 4 格，26 byte「TWCC」 | ❌ | #448 的 `ui-verify-bar-behavior`（V5）→ `ui-macro-bar`（F5–F12 共 8 格、3 分頁） |
 | T139 | 釣魚 | WIN§2：XML 窗 `CFishingUI`（事件 `FishingNet`／`QuitFishing`）＋可釣格提示 `CanFishingTileAreaDisplay`；`FishingUI.xml` 本機缺檔 | `Fishing.cs`：`FishingHud` 按鈕 | ⚠️（版面因資源缺而無法比對） | 新增原生模組 `ui-fishing`，等資源。可釣格提示的繪製規則待查 |
 | T140 | 查詢玩家與排名 | WIN§2：指令 `Commandquery`／`Commandrank` 與 HTML 動作 `HyperActWho`／`HyperActRank`；結果是 `S_HYPERTEXT`，在 NPC 對話窗（`HYPER_TEXT_WINDOW`）顯示 | `PlayerQuery.cs`：全部轉成聊天行「[查詢] …」 | ⚠️ | HTML 結果改在原生 NPC 對話窗（新增 `ui-hypertext`）顯示；聊天行只留伺服器原本就送到聊天的訊息 |
-| T141 | 求婚與結婚 | WIN§2、WIN§2.1：msg 654 走 `S_ASK` default → 通用 Yes/No 框 `sub_AC9560`，回覆用 TW16 opcode 33；**沒有專用視窗** | `Marriage.cs`：HUD 按鈕＋專用 Form 540×240，收到 S219/654 時自動開 | ❌ | 新增通用原生 `ui-yesno`；求婚、交易、組隊、決鬥、血盟邀請都改走它。視覺（`sub_AC9410` 以下）待查 |
+| T141 | 求婚與結婚 | WIN§2、WIN§2.1：msg 654 走 `S_ASK` default → 通用 Yes/No 框 `sub_AC9560`，回覆用 TW16 opcode 33；**沒有專用視窗** | `Marriage.cs`：HUD 按鈕＋專用 Form 540×240，收到 S219/654 時自動開 | ❌ | 新增通用原生 `ui-yesno`；求婚、交易、組隊、決鬥、血盟邀請都改走它。視覺：#484 查出 `sub_AC9410` 以下是**聊天輸入列提示**（打 Y／N 加 Enter），不是獨立的框，見 [world-objects.md](world-objects.md) 第 6 節 |
 | T142 | 能力值重置 | WIN§1.4、WIN§2：重置介面是 `CResetStatUI`（`ResetStatUI.xml`，本機缺檔），由 TW16 opcode 43 子類型 1–3 開啟，和 S64 子類型對得上。**`ReNStatusWinUI-c.xml` 不是重置介面**，而且 TW16 不讀它 | `CharReset.cs`、`CharResetUi.cs`：WinForms 540×490 | ⚠️（觸發一致；版面因資源缺而無法比對） | 等 `ResetStatUI.xml` 或實機截圖。`ReNStatusWinUI-c.xml` 改歸角色狀態窗設計 |
-| T143 | 幽靈模式 | 未查證 | `GhostMode.cs`：刻意不猜 gfx 與轉場（程式註解） | ❓ | 待查：幽靈外觀與退出提示 |
-| T144 | 發送座標 | 未查證 | `LocationShare.cs`：自訂顯示 | ❓ | 待查：原版在聊天中的座標格式與點擊行為（聊天 Printer 的類型清單沒有這項） |
+| T143 | 幽靈模式 | [world-objects.md](world-objects.md) 第 4 節（#484）：flags 0x80 → `byte_13CE51E=2`；本機擋拾取、F 鍵瞬移、快捷與自動攻擊，門與 NPC 仍可點；自身外觀變更略過；離開是 HyperText 動作 `exitghost` → `C_EXIT_GHOST`（179）無欄位 | `GhostMode.cs`：HUD 常駐「離開幽靈」按鈕；本機不擋任何操作 | ⚠️（判定與封包 ✅；入口、本機限制 ❌） | `GhostMode.cs`：拿掉 HUD 常駐按鈕（入口待 HTML 證據）；幽靈中本機擋拾取／快捷／F 鍵瞬移，並略過自身外觀變更 |
+| T144 | 發送座標 | [world-objects.md](world-objects.md) 第 5 節（#484）：送出入口是地圖視窗 `TransferMenu` → 輸入列提示 1785；`C_CHANNEL` 55/11 `S H D D`；區域 id＝MapSystem Map id（推測）；收到時顯示系統訊息 1784（寄件者＋地區名稱），另存最多 10 筆清單 | `LocationShare.cs`：`/loc` 指令、區域 id 送 0、密語行顯示數字座標、⊕ 標記 | ❌（欄位 ✅；入口、區域 id、顯示 ❌） | `LocationShare.cs`：送 MapSystem 地區 id；顯示改成「寄件者＋地區名稱」；入口移到地圖視窗。字串 1784／1785 待從 `Text.pak` 取得 |
 | T145 | 傳送門（踩點進入） | R36 | `Portals.cs` | 協定 | 不需修正 |
 | T146 | 血盟戰爭 | AN§2.7、AN#15：名稱不變色；可直接攻擊；戰爭模式在頭上畫盟徽（置中、`T−23`） | `ClanWar.cs`：在敵對成員腳下 −48 畫橘紅色「名稱 [血盟]」，有暗底框；沒有頭上盟徽 | ❌ | 見 G1：拿掉橘紅標籤，改成頭上盟徽 |
 | T147 | 日夜、天氣與光源 | AM§1–AM§3、AM#1–AM#10 | `Ambience.cs`：本地以 6 倍速推進時鐘，05–06／18–19 漸變，深藍覆蓋 `0x081020`；粒子數 `面積/7000×強度`；先畫明暗再畫天氣；光源原值存入，畫成圓形 | ❌（AM#4 ✅、AM#10 ⚠️） | 見 G5（日夜與光源）、G6（天氣） |
 | T148 | 中毒、麻痺、詛咒盲目 | AM§4、AM#11–AM#16 | `Afflictions.cs`：綠以亮度重算、無脈動；麻痺是灰階；灰與綠同時就丟例外；盲目 2 只把色頻除以 4 | ❌（AM#14、AM#15 ⚠️） | 見 G7 |
 | T149 | 隱身 | AM§4(d)、AM#19–AM#20 | `Invisibility.cs`：自己約 50% ✅；別人也半透明畫出 | ⚠️ | 見 G7：別人隱身預設不畫，只有 `$431`（或隊伍／血盟）條件成立時才半透明。`$431` 語義待查（AM§8 第 4 項） |
 | T150 | 小地圖 | UI§5、UI#12 | `Minimap*.cs`：右上 272×218 地圖快取縮圖，F5 開關 | ❌ | #448 的 `ui-minimap`（讓出 F5、改用 Map 按鈕、png 地圖、8 方向箭頭） |
-| T151 ⏸ | 復活確認與移動鎖定 | 未查證（R21 只有伺服器端） | 未合併；main 的 `Recovery.cs` 只有 S85 基本處理 | ⏸／❓ | 合併前先查：原版復活確認框（推測是 `MESSAGE_WINDOW`）與鎖定期間的游標 |
+| T151 ⏸ | 復活確認與移動鎖定 | [world-objects.md](world-objects.md) 第 6 節（#484）：死亡顯示 `UserPlayStatsUI`（重新開始／結束／取消＋統計），約 8 分 21 秒後自動 `C_QUIT`；復活確認 321／322 放在聊天輸入列，打 Y／N＋Enter，回 `C_ANSWER` H0 D H C S；S241 在 TW16 未定位 | 未合併（#414／PR #425）：自製確認提示、C121 格式一致、S241 本機鎖 5 秒；main 的 `Recovery.cs` 只有自製死亡面板＋重新開始 | ⏸／❌（封包 ✅；死亡視窗、逾時、確認 UI ❌） | 合併 #414 前：確認提示改成聊天輸入列 Y／N；`Recovery.cs` 死亡面板改照 `UserPlayUI.xml`，加逾時離線 |
 | T152 | 鑑定說明、紅字訊息、名稱狀態 | 紅字：UI#17（位置待查）；名稱色：AN§2.4、AN§2.5、AN#8、AN#12、AN#13 | `DisplayNotices.cs`：紅字黑底在 1/3 高、5 秒；粉紅名另畫 HotPink 文字（頭上 −18），127 當 127 秒；沒有正義值名稱色，沒有一般名稱 | ❌（紅字 ❓） | 名稱：見 G1（正義值色、粉紅名改成 `0x767D` 名稱色、127 表示永久）。紅字：#448 的 V2 → `ui-red-notice` |
 | T153 | 暫時能力、酒醉、水中呼吸、刪除技能 | AM§4(c)、AM#17–AM#18 | `TimedBuffs.cs`：酒醉時整個畫面平移（x 2×、y 1×）；型 8 不當酒醉 ✅ | ⚠️ | 見 G7：改成逐掃描線水平正弦（振幅 3.5×醉度、週期 100 行、5 秒一輪），地圖 67／420 至少 1。水中呼吸、刪除技能的表現未查證 |
 
@@ -99,18 +99,19 @@ R／SP 是**伺服器原始碼**的查證，只能證明封包與規則，不能
 
 | 結果 | 數量 | 功能 |
 |---|---:|---|
-| 已查證，有差異（❌／⚠️） | **26** | T102、T105、T106、T107、T108、T125、T126、T127、T128、T129、T130、T132、T134、T137、T138、T139、T140、T141、T142、T146、T147、T148、T149、T150、T152、T153 |
-| 已查證，一致 | 1 | T103（地面圖；拾取時序仍 ❓） |
-| 純協定，#132 已對齊 | 9 | T104、T109、T110、T111、T120、T121、T122、T123、T145 |
-| 原版表現未查證 | 14 | T100、T101、T113–T119（7 個）、T131、T133、T136、T143、T144 |
+| ????????????? | **30** | T102?T103?T105?T106?T107?T108?T125?T126?T127?T128?T129?T130?T132?T134?T136?T137?T138?T139?T140?T141?T142?T143?T144?T146?T147?T148?T149?T150?T152?T153 |
+| ?????? | 0 | ?T103 ??????? #484 ???????????????? |
+| ????#132 ??? | 9 | T104?T109?T110?T111?T120?T121?T122?T123?T145 |
+| ??????? | 11 | T100?T101?T113?T119?7 ???T131?T133 |
 | 合計 | 50 | |
 
-未合併的 3 個裡，T124、T135 已知有差異（書籤版面、盟徽取得），T151 未查證。
+未合併的 3 個裡，T124、T135 已知有差異（書籤版面、盟徽取得）；T151 由 #484 查出死亡視窗與確認 UI 有差異（[world-objects.md](world-objects.md) 第 6 節）。
 
-26 個有差異的功能怎麼分：
+30 個有差異的功能怎麼分：
 - **5 個只有 UI 版面差異**，已由 #448 排定修正：T106、T108、T125、T138、T150。
 - **11 個需要新開 G1–G8**：T105、T128、T129、T132、T137、T146、T147、T148、T149、T152、T153。其中 T152 的紅字部分也歸 #448。
 - **10 個由 G10b（#483，[`windows.md`](windows.md)）補查後確認有差異**：T102、T107、T126、T127、T130、T134、T139、T140、T141、T142。這 10 個都屬於 `native-ui.md` §0「不涵蓋」的視窗，修正方式是新增原生視窗模組，見下表 G11。其中 T107、T139、T142 的原版 XML 本機缺檔，要先補資源。
+- **4 個由 G10c（#484，[world-objects.md](world-objects.md)）補查後確認有差異**：T103、T136、T143、T144。修正提示見該文件第 8 節（自動走近、拾取數量與節流、幽靈本機限制、座標分享地區 id），尚未分組。
 
 ## 3. 建議的修正任務分組
 
