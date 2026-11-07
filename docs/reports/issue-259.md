@@ -2,14 +2,14 @@
 
 ## 最新同步結果（2026-11-07）
 
-前次組隊實作已於 `c3778bb` 通過 codex-review。本次重新派工原因是 PR #269 與前進後的 main 衝突；已合併 `origin/main`（`6024daf`），不改動已審查的組隊產品邏輯。
+前次組隊實作已於 `c3778bb` 通過 codex-review。本次重新派工原因是 PR #269 與前進後的 main 衝突；先合併 `6024daf`，推送期間 main 又合併 #266 公告欄，已再同步至 `c411ddf`，不改動已審查的組隊產品邏輯。
 
-- 解決 `DemoChecks.csproj` 與 `Program.cs` 的衝突：同時保留組隊與主線 #273 物品移轉測試入口。
-- dev lock 以 `rebuild.py --update-lock` 重新產生，178 個來源／187 個鎖定檔核驗通過，沒有手動拼接 hash。
+- 解決 `DemoChecks.csproj` 與 `Program.cs` 的衝突：同時保留組隊、主線 #273 物品移轉及 #266 公告欄測試入口。
+- dev lock 以 `rebuild.py --update-lock` 重新產生，180 個來源／189 個鎖定檔核驗通過，沒有手動拼接 hash。
 - `docs/REPORT.md` 完全沿用 main，沒有加入或編輯索引；本次相對 main 仍只有原任務 10 個差異檔。
-- 重跑 `rebuild.py --build --configfile scratch/issue-259/NuGet.Config --output scratch/issue-259/build`：產品及 launcher 成功；產品仍僅有原有 `MagicUi.cs:20` 的 CS8600／CS8602，launcher 無警告。最新產品 DLL SHA-256：`773173123b9a13788a911751e20091f621e67bf49a8727238c9dde8a1f9e36ca`。
-- 同一 demo-tests 入口依序重跑 `party`、`item-transfer`、`combat-admission`、`map-continuity`，分別 **80／153／292／208 項通過**。後三組均含組隊 80 項，不加總為互不重複的檢查。
-- `check-no-game-assets.py` 通過（trackedFiles=3285、errors=0），`git -c core.whitespace=cr-at-eol diff --check` 通過。
+- 重跑 `rebuild.py --build --configfile scratch/issue-259/NuGet.Config --output scratch/issue-259/build`：產品及 launcher 成功；產品仍僅有原有 `MagicUi.cs:20` 的 CS8600／CS8602，launcher 無警告。最新產品 DLL SHA-256：`7c28195f23eb12be5116d205e020069bde499ec22a1a07b9183a63c129c4cd88`。
+- 同一 demo-tests 入口依序重跑 `party`、`item-transfer`、`combat-admission`、`map-continuity`，分別 **80／153／292／438 項通過**。後三組均含組隊 80 項，map-continuity 另含公告欄 230 項，不加總為互不重複的檢查。
+- `check-no-game-assets.py` 通過（trackedFiles=3291、errors=0），`git -c core.whitespace=cr-at-eol diff --check` 通過。
 - 本次測試與建置均在沙箱內完成；GitHub 連接工具不可用，沙箱內 `gh` 認證回覆 401，已使用獲准的沙箱外 `gh`／git 完成遠端核對與同步，未變更認證設定。
 - 最新證據仍覆寫本報告下列 `scratch/issue-259/` 路徑，另有 `item-transfer-checks.json`。未重新跑音效 148 項；下方音效結果屬前次補正。
 - 本次同步提交的 CI 以 [PR #269 的最新 checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/269/checks) 為準；下方 `c0c91ad` 的成功紀錄僅代表前次補正。
