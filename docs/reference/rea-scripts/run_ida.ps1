@@ -1,4 +1,4 @@
-param([string]$List, [string]$Out, [int]$TimeoutSec = 540, [string]$Script = 'ida_dec.py', [string]$Drive = 'R:')
+param([string]$Script = "ida_dec.py", [string]$List, [string]$Out, [int]$TimeoutSec = 540, [string]$Drive = 'R:')
 # Runs idat against the scratch IDB copy through an ASCII subst drive; env stays inside scratch/rea.
 # -Drive lets parallel tasks avoid clobbering each other's subst letter (#431).
 $real = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
@@ -20,3 +20,4 @@ try {
 } finally {
     subst $drive /D
 }
+
