@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 219,
+ "sourceCount": 220,
  "files": [
   {
    "path": "NuGet.Config",
@@ -36,13 +36,13 @@
   },
   {
    "path": "audio/AudioCore.cs",
-   "size": 10652,
-   "sha256": "f40f35b352e9ae8c9215115f669fdbbc53845ff3432c353a70f9e302078a630d"
+   "size": 10914,
+   "sha256": "f990566d3cee29f4fdba105edf41b018e75041d4dbf4ee6d70ecefa56a5f959f"
   },
   {
    "path": "audio/AudioPlayer.cs",
-   "size": 11047,
-   "sha256": "42e98e2d5d3ea3f97494ff801ebbab3c70c1fe63301538e780a8c468d4959611"
+   "size": 11188,
+   "sha256": "842fc012a91621d1ecc4d55b55b0d33b7451373fb1513ca58ad8460fb1373066"
   },
   {
    "path": "audio/DirectShowDriver.cs",
@@ -56,13 +56,13 @@
   },
   {
    "path": "audio/IAudioPlayback.cs",
-   "size": 539,
-   "sha256": "1196d215df288e050dc173dd308a2de1b690eac53d3476bb4eb45829c27aec69"
+   "size": 837,
+   "sha256": "94b4217bd1bf771905ff49a5c70c1686ec7e98c81ca40d1ef6ae84097f5dcafd"
   },
   {
    "path": "audio/P24.Audio.csproj",
-   "size": 788,
-   "sha256": "9243964ff1e313750139de023f82ce512c4c8193db0bb56435a2eba6679102c1"
+   "size": 842,
+   "sha256": "71801ff0772ff9cf891b41b2c2d0917bf51c371588edf83a11619443aa4bfa1b"
   },
   {
    "path": "audio/Resources/combat-sfx-pins.json",
@@ -211,8 +211,8 @@
   },
   {
    "path": "source/ClientCombatSfx.cs",
-   "size": 2649,
-   "sha256": "158206ce1b4202863af1a225b6b524e137cf60685da6a26e57f1df9b4d808737"
+   "size": 2736,
+   "sha256": "7af596eb54ec907ddf49da33ff2d56871e2879d07101275181621ef13594966b"
   },
   {
    "path": "source/ClientEffect6016.cs",
@@ -241,8 +241,8 @@
   },
   {
    "path": "source/CombatSfx.cs",
-   "size": 11478,
-   "sha256": "aa947ee49da722ccfd3764c065ae45eef5712cc1eb8ad8710ea7df0c04144575"
+   "size": 12888,
+   "sha256": "416b84067906f61d33e0515467b9b2797f1f7ff40805352999bbcf6851b77fb5"
   },
   {
    "path": "source/CombatSfxScene.cs",
@@ -991,8 +991,13 @@
   },
   {
    "path": "source/SoundPackets.cs",
-   "size": 10612,
-   "sha256": "0a5beb6799a19c21ce2db0cf32c7bd1f740e0caf943173a4e79b531c7f99ebe7"
+   "size": 12831,
+   "sha256": "51927389b900e140b52e114ab9fa88d5c5222ff6545d04134101b39b65c1e33b"
+  },
+  {
+   "path": "source/SoundRules.cs",
+   "size": 6663,
+   "sha256": "74d28646c94eb3a0367b174c0aa2964d164a01a79e2fc5bb9cef21bcb39d2fbc"
   },
   {
    "path": "source/StatusIcons.cs",
