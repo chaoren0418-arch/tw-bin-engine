@@ -8,7 +8,7 @@
   - S42 預設類別只放一個特效在封包 x,y，而且**只有第一個目標受擊**（反組譯 `0x8AC26E` `imul eax, 0`，原版缺陷）。
   - 箭矢：伺服器預設 66／2349／2989；kind 3 類別不讀 param，所以 2349 原版不畫 219。
   - 引擎差異 14 項（SV#1–SV#14）：❌ 8、⚠️ 2、✅ 3、❓ 2。
-- 回填 `m6-native-diff.md`：T100、T101、T113–T119 三列改成已查證，統計改為有差異 25／未查證 15，G10(a) 標完成，新增修正組 G11。
+- 回填 `m6-native-diff.md`：T100、T101、T113–T119 三列改成已查證，G10(a) 標完成，新增修正組 G12（main 已用 G11 給原生視窗模組）。同步 main 時順手修復 #484 寫壞成「?」的第 2 節統計表，重算為有差異 39／協定 9／未查證 2（T131、T133）。
 - 更新 `INDEX.md`；新增腳本 `docs/reference/rea-scripts/t180/`（`run.ps1` 加 `-Drive` 參數，避免與其他查證任務的 subst 互撞）。
 
 ## 怎麼驗證
@@ -26,7 +26,7 @@
 - `docs/reference/skills-visual.md`、`docs/reference/m6-native-diff.md`、`docs/reference/INDEX.md`、`docs/reference/rea-scripts/t180/`、本報告。
 
 ## 給下一棒的提示
-- G11 可以直接開 code 的部分：SV#5–#8、#10（`MagicRendering.cs`、`AttackSkillPackets.cs`、`ProjectileRendering.cs`）。
+- G12 可以直接開 code 的部分：SV#5–#8、#10（`MagicRendering.cs`、`AttackSkillPackets.cs`、`ProjectileRendering.cs`）。
 - **要使用者裁定**：(1) 拿掉送出時的預測施法動作（SV#1，照原版會多一個往返延遲）；(2) 「S42 只有第一個目標受擊」是否照抄原版缺陷。
 - SV#12（type 8 的 +5 提亮）併入 G5；SV#3（選目標游標）併入 #448。
 - 跑 IDA 前先 `subst` 看代號，`run.ps1 -Drive` 換一個空的。

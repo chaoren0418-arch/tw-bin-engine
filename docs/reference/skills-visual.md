@@ -12,7 +12,7 @@
 | 地址 | VA，ImageBase `0x400000`。File Offset（FO）：`.text` = VA − `0x400C00`；`.rdata`（`0x114B000` 起）= VA − `0x401400`；`.data`（`0x135C000` 起）= VA − `0x401800`。標「bss」的全域變數磁碟上沒有內容（區段表本輪重讀確認） |
 | 資源 | 客戶端 `D:\lineage開發\0-客戶端\Text.pak` 的 `list.spz`（解密後 SHA `e8cec038…be6242`，12230 個 gfx），只在記憶體解出，摘要 JSON 放 `scratch/`，**沒有進 git** |
 | 伺服器 | `D:\lineage開發\1-伺服器\src`（只讀）：`S_RangeSkill.java`、`L1AttackPc.java`、`L1PolyMorph.java` |
-| 引擎基準 | main `231f1df1` |
+| 引擎基準 | main `231f1df1`；同步到 `65e5143a` 後重核，引用的檔案只有 `MapEffects.cs` 行號偏移 1 |
 | 腳本 | `docs/reference/rea-scripts/t180/`（`run.ps1` 可指定磁碟代號；`queries.txt` 列出全部查詢），見第 8 節 |
 
 **全篇前提（與 T160／T162 相同）：**
@@ -153,7 +153,7 @@ TW16 的技能物件是 `LineageSpell::CSpell` 家族（RTTI，`rtti.py`）。vt
 
 ## 6. 引擎現況與差異（SV#n）
 
-| # | 項目 | 原版來源 | 引擎現況（main `231f1df1`） | 一致？ |
+| # | 項目 | 原版來源 | 引擎現況（main `65e5143a`） | 一致？ |
 |---|---|---|---|---|
 | 1 | 送 C6 時的本地動作 | §1.1：不播，等回包 | `Magic.cs:85` 送出時 `PredictAction` 先播自身 18／19 並轉向目標（`ActionCadence.cs:64`），回包同動作時沿用預測的開始時間 | ❌ |
 | 2 | 施法冷卻 | §1.2：自身外型動作 18／19 的 list.spr 影格總長×速度倍率＋技能 `+56` | `Magic.cs:80` 用 `ActionCadence.WaitMs`（伺服器動作毫秒表＋`ReuseMs`）；未收錄的技能 `ReuseMs`=0（`MagicSpells.cs:20`） | ⚠️（依據不同；數值未比對） |
@@ -167,12 +167,12 @@ TW16 的技能物件是 `LineageSpell::CSpell` 家族（RTTI，`rtti.py`）。vt
 | 10 | kind 3 箭矢的落點圖 | §4：不畫 param（2349 不畫 219） | `ProjectileRendering.cs:55` 非 66 的箭在到達後畫 `effect.Impact`（2349 會畫 219） | ❌ |
 | 11 | kind 4 落點圖、4 方向 | §2.2 | `MagicRendering.cs:162`（`%4`）、`:212`（畫 Impact） | ✅ |
 | 12 | type 8 提亮 +5 | §2.5 | 沒有（屬 G5 光源，AM#3 已列「特效 +5」缺） | ❌（併 G5） |
-| 13 | S55／S106 | §2.5：收包立刻播放 | `MapEffects.cs:113` 起；`Magic.cs:54` 的六個 gfx 用 `TickCount64` 立刻播 | ✅（跟隨物件的 7 個 gfx 未比對） |
+| 13 | S55／S106 | §2.5：收包立刻播放 | `MapEffects.cs:114` 起；`Magic.cs:54` 的六個 gfx 用 `TickCount64` 立刻播 | ✅（跟隨物件的 7 個 gfx 未比對） |
 | 14 | gfx 757→10771、7972 強制 kind 3 | §2.2 特例 | 沒有 | ❓（TW16 專屬，3.81 是否相同待驗證） |
 
 **統計：** 14 項中 ❌ 8（含併入 G5 的 #12）、⚠️ 2、✅ 3、❓ 2。
 
-### 建議修正（新開 G11，code；檔案 `MagicRendering.cs`、`AttackSkillPackets.cs`、`ProjectileRendering.cs`、`Magic.cs`、`ActionCadence.cs`）
+### 建議修正（m6-native-diff 的 G12，code；檔案 `MagicRendering.cs`、`AttackSkillPackets.cs`、`ProjectileRendering.cs`、`Magic.cs`、`ActionCadence.cs`）
 
 1. **SV#5、#6、#7（大）**：S30／S42 改成「施法者 `!` 格啟動一個特效 → 特效 `!` 格受擊」。S42 預設類別只畫一個特效在封包 x,y。
 2. **SV#8（中）**：補 kind 5（60 ms 飛向第一目標、每目標落點 param）、kind 6、kind 7（逐格推進＋終點 param）、kind 8（S30 不畫）。
