@@ -29,7 +29,7 @@
 
 ## 沒驗證／沒做什麼
 
-- **CI**：push 後等 GitHub Actions 結果，本報告寫成時尚未確認。
+- （已驗證）CI：PR #491 的 dotnet、map-continuity、npc-offline 三項全綠。合併 main 後本機重跑：`ambience` PASS 5648、`map-continuity` PASS 28125。
 - **真機畫面**：沒有啟動遊戲，沒有實機比對。
 - **產品沒有呼叫 `PaintAmbience`**：在 HEAD 中，產品程式沒有任何地方呼叫 `Renderer.PaintAmbience`／`AmbiencePainter.Draw`，只有測試會呼叫，所以實際畫面還看不到明暗。接到場景繪製要另開任務，需要傳入場景 Bitmap。
 - 文件標「推測」或「待驗證」的項目，本張沒有實作，維持現狀：
