@@ -70,7 +70,7 @@ public sealed partial class WorldSession {
             if(id!=Status?.ObjectId&&ReceiveDoorPack(plain,r,x,y,id))break;
             if(Status==null||id!=Status.ObjectId){ReceiveObject(r,x,y,id);break;}
             var a=new OwnActor(x,y,id,r.H(),r.C(),r.C(),r.C(),r.C(),r.D(),unchecked((short)r.H()),r.S(),r.S(),r.C(),r.D(),r.S(),r.S(),r.C(),r.C(),r.C(),r.C(),r.C(),r.C(),r.C());r.Finish();
-            if(a.Name!=selected||a.Direction>7)throw new ProtocolException("self actor name/heading mismatch");SelfAppearancePending=false;objects.TryRemove(id,out _);ResetSpeedStatus();ApplyAuthoritative(a);OwnArrived();break;
+            if(a.Name!=selected||a.Direction>7)throw new ProtocolException("self actor name/heading mismatch");SelfAppearancePending=false;objects.TryRemove(id,out _);ResetSpeedStatus();ReceiveGhostState(a);ApplyAuthoritative(a);OwnArrived();break;
         case 255:case 67:
             uint speedId=r.D();byte mode=r.C();ushort duration=r.H();r.Finish();ReceiveSpeed(opcode,speedId,mode,duration);break;
         case 123:ServerTime=r.D();r.Finish();ShipTimeReceived(ServerTime.Value);if(CoreComplete&&ProbeSent){TimeReplies++;CompleteInitialInventory();}
