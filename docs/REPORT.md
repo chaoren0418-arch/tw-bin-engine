@@ -106,3 +106,4 @@
 - 2026-11-07 — #361 T144：發送座標（code，claude-local，PR #394 已合併）→ [報告](reports/issue-361.md)
 - 2026-11-07 — #418 T-plan：M6 補列 T147–T153，同步狀態（plan，claude-chat，PR 已合併）→ [報告](reports/issue-418.md)
 - 2026-11-07 — #389 T149：隱身（code，claude-local，PR 已合併）→ [報告](reports/issue-389.md)
+- 2026-11-07 — #387 T147：日夜、天氣與光源（code，claude-local，PR #400 已合併）→ [報告](reports/issue-387.md)
