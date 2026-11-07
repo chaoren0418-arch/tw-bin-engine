@@ -31,7 +31,7 @@
 ## 怎麼驗證
 
 - `rebuild.py --update-lock`、`--build`、`--verify`：通過，product／audio／launcher 建置成功。
-- `clan-emblem` 群組 323 項通過（含共用檢查）；`map-continuity` 22405 項通過，既有血盟與角色重置測試都包含在內。
+- `clan-emblem` 群組 323 項通過（含共用檢查）；`map-continuity` 22476 項通過，既有血盟與角色重置測試都包含在內。
 - `check-no-game-assets.py` 通過。
 - 封包全走正式入口：`World.Receive`，查詢經真實的 `PumpWorldAsync` 與 `sendMovementGate`。S64/0x3c 用伺服器註解裡的樣本 bytes 核對。
 - **變異測試**：手動破壞 8 處關鍵邏輯（命名空間分類、pump 掛接、盟名防護、切圖保留、排隊失效、重複查詢、最新優先、回覆期限），全部被測試擋下。其中「最新優先」第一次存活，已補測試後確認擋下。切圖保留的變異是在較早的檢查就失敗，不是由切圖專用的檢查擋下。
