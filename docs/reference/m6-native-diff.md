@@ -18,6 +18,7 @@
 | AM#n | [`ambience-and-map-events.md`](ambience-and-map-events.md)（T162） | 第 7 節第 n 列 |
 | SD#n | [`sound.md`](sound.md)（T163） | 第 5 節第 n 列 |
 | REA | [`rea-inventory.md`](rea-inventory.md)（#417） | — |
+| WIN§n | [`windows.md`](windows.md)（T181／#483） | 第 n 節 |
 | Rnn | [`server-rules.md`](server-rules.md)（#132） | 伺服器規則 |
 | SP | [`server-protocol.md`](server-protocol.md)（#132） | 封包欄位 |
 
@@ -46,12 +47,12 @@ R／SP 是**伺服器原始碼**的查證，只能證明封包與規則，不能
 |---|---|---|---|---|---|
 | T100 | 技能施放通用化 | 未查證。R17、SP〈C6 技能的條件尾段〉只證明封包尾段 | `SkillCast.cs`、`MagicTargetPreparation.cs`：依技能分送 C6 尾段；施法動作與特效走 `MagicRendering.cs` | 協定一致；表現 ❓ | 待查：TW16 送 C6 前的本地施法動作（動作編號、是否等回包）、目標游標、施法中可否移動。找 C6 的送出函式，往上追 UI 呼叫端 |
 | T101 | S42／S30／箭矢回包分派 | R20（伺服器）；影格音效見 REA B07、SD#1、SD#3 | `AttackSkillPackets.cs`、`MagicRendering.cs`、`ProjectileRendering.cs`；影格聲音已在 T165 改為 `<`／`[` 同路徑 | 協定一致；影格音效 ✅（T165 後）；畫面 ❓ | 待查：S42 多目標時特效與受擊的時序、箭矢 gfx 的飛行速度與落點。找 TW16 收包表中 S30／S42 對應的 case（REA 第一組 dispatch table） |
-| T102 | NPC 出售與私商回購 | R27（伺服器）；原版有 `PersonalShopUI.xml`、`uishoplev.xml`、`uiextra86-c.xml` 的 `TRADE_WINDOW`／`TRANSACTION_WINDOW`（未解讀內容） | `NpcUi.cs`、`PrivateShopUi.cs`：WinForms 清單與數量框 | ❓ | 待查：解讀上述 XML 的版面與欄位；數量輸入的原版行為。版面修正併入 #448 模組 |
+| T102 | NPC 出售與私商回購 | R27（伺服器）；WIN§1.1、WIN§2：NPC 商店與私商購買用 `CNpcShop` XML 窗（本機缺檔），3.81 世代是 `TRADE_WINDOW`；開店設定是 `PersonalShopUI`（出售與收購各 8 格一頁、訊息 2×20 字、3 種外型） | `NpcUi.cs`、`PrivateShopUi.cs`：WinForms 清單與數量框；沒有開店設定窗 | 協定一致；表現 ⚠️ | 新增原生模組 `ui-shop`（`TRADE_WINDOW`，含修理模式 6）與 `ui-personal-shop`（`PersonalShopUI`）。`native-ui.md` §0 目前列為不涵蓋，要先補設計 |
 | T103 | 地面物品通用化與三種停用物品的地面圖 | 地面圖：#48／#51 的 sprite 契約；拾取點擊：REA B07（`F112F0` → `5001C0`，距離 1、節流 986 ms／加速 600 ms，**欄位屬推測**） | `Ground*.cs`、`PickupPresentation.cs`：地面圖依釘選 sprite；拾取送 C11 類請求（`Ground.cs`） | 地面圖 ✅（已有 sprite 契約）；拾取時序 ❓ | 待查：把 REA B07 的 opcode 23 欄位對到伺服器拾取格式（REA 建議任務第 6 項），再比較引擎的距離與節流 |
 | T104 | 緩速時的道具、地面與交談政策 | R08、R22–R24（伺服器）；`NormalHaste.cs` 註明 JAR 0.755／原版 0.75 | 依 JAR 係數計算動作間隔 | 協定 | 不需修正。0.75／0.755 的差異已在程式註解說明 |
 | T105 | S22 音效、S106 座標特效、S55 變體 | SD§3、SD#7、SD#8；S106／S55 畫面未查證 | `SoundPackets.cs`：把第一個 byte 當重複次數，播 `repeat+1` 次，延遲 100 ms；只認 33 個釘選 `.wav` | ⚠️ | `SoundPackets.cs`：第一個 byte 改成模式（0 單次、1 環境循環、2 停止）；同 id 還在播時不重播。`AudioAssets.cs`：查找順序改為先 `.mp3` 再 `.wav`。見 G8 |
 | T106 | 多頻道聊天 | UI§3、UI#7–UI#10 | `PlayerChat.cs`、`PlayerHudChat.cs`：`[一般]` 等文字前綴、.NET 具名色、6 種頻道、不處理 `$` | ❌ | 格式與顏色：#448 的 `ui-chat-format`（`PlayerChat.cs`、`PlayerHudChat.cs`）。視窗：`ui-chat-window`。前綴對應頻道仍屬推測（UI§3），要先查 `sub_6C6C60` 之後的呼叫鏈 |
-| T107 | 角色建立、刪除、同連線切角 | R03–R06（伺服器）；原版選角／建角畫面未查證 | `CharacterManagementUi.cs`：WinForms 440×590 對話框；切角是 HUD 按鈕 | 協定一致；表現 ❓ | 待查：選角狀態 20 的畫面（SD§4.5 只查到音樂）、建角版面。65 個 XML 都不是選角畫面，推測寫死在 BIN 中 |
+| T107 | 角色建立、刪除、同連線切角 | R03–R06（伺服器）；原版選角／建角畫面未查證 | `CharacterManagementUi.cs`：WinForms 440×590 對話框；切角是 HUD 按鈕 | 協定一致；表現 ⚠️（WIN§2：原版是 XML 全畫面 `CSelectUI`／`CCreateUI`，但 `SelectUI.xml`／`CreateUI.xml` 本機缺檔） | 不寫死在 BIN，推測已推翻。要先取得兩個 XML 或 3.81 實機截圖，再開「登入／選角畫面」設計（`native-ui.md` §0） |
 | T108 | buff／狀態圖示 | UI§4、UI#11 | `StatusIcons.cs`、`MagicStatus.cs`：合成菱形／三角形加文字，依 skill id 排序 | ❌（圖示來源待查） | 先做 #448 的 `ui-verify-buff-icons`（V3：`SpellIcon.idx`），再做 `ui-buff-icons` |
 | T109 | 通用道具 use_type 尾段 | R24、SP〈C164 物品 use_type 的條件尾段〉 | `ItemUseArguments.cs` | 協定 | 不需修正 |
 | T110 | 傳送 recovery wrapper | R33–R35 | `Teleport.cs` | 協定 | 不需修正 |
@@ -63,23 +64,23 @@ R／SP 是**伺服器原始碼**的查證，只能證明封包與規則，不能
 | T123 | 原始碼與 d287 JAR 封包類別對照 | [`source-vs-jar.md`](source-vs-jar.md) | 文件任務 | 協定 | 不需修正 |
 | T124 ⏸ | 記憶座標（書籤） | UI§6、UI#14：`BookmarkUI.xml` 263×420 | 未合併；main 只有傳送卷軸的書籤 ID 欄位（`InventoryUi.cs`） | ⏸／❌ | 合併後由 #448 的 `ui-bookmark` 處理版面 |
 | T125 | 組隊與隊員 HP 條 | UI§6、UI#13 | `PartyUi.cs`：抽屜內清單，標準 ProgressBar 120×22 | ❌ | #448 的 `ui-party`：`PARTY_INTERFACE` 135×107，量表 60×10、58×8 |
-| T126 | 好友與封鎖名單 | 未查證；原版有 `FriendUI.xml`、`ExcludeUI.xml`、`MailExcludeUI.xml`（未解讀內容） | `Buddies.cs`、`BuddyUi.cs`：WinForms `UserControl` | ❓ | 待查：解讀三個 XML，看版面、名單上限、上線狀態顯示 |
-| T127 | 寵物與召喚物控制 | 部分：UI§6 的 `PARTY_PET_RT_WINDOW`（寵物分頁、灰色量表 3225）；另有 `SummonUI.xml`、`summonList.xml`、`uiextra86-c.xml` 的 `PET_QUICK_WINDOW`（未解讀內容） | `Pets.cs`、`PetUi.cs`：抽屜按鈕與清單 | ❓（版面框架已知） | 待查：`PET_QUICK_WINDOW`、`SummonUI.xml` 的指令按鈕與順序。版面併入 #448 的 `ui-party`（寵物分頁） |
+| T126 | 好友與封鎖名單 | WIN§1.2：三個獨立 XML 窗（`FriendUI`／`ExcludeUI`／`MailExcludeUI`），共用版面：14 列＋捲軸＋人數標籤，每列右側有 `Info` 欄 | `Buddies.cs`、`BuddyUi.cs`：單一分頁內兩個 ListBox；沒有信件封鎖 | ⚠️ | 新增原生模組 `ui-friend`（三窗共用一個類別）。名單上限與 `Info` 欄內容待驗證 |
+| T127 | 寵物與召喚物控制 | UI§6 的 `PARTY_PET_RT_WINDOW`；WIN§1.3、WIN§1.5：寵物指令窗是舊式 `PetControl`；`PET_QUICK_WINDOW` 有 5 個鈕（攻擊、防禦、散開、警戒、休息），但類別沒有建立（推測）；召喚選擇是 `CSummonUI`（快速 3 格、12 個等級、魅力標籤） | `Pets.cs`、`PetUi.cs`：分頁內 6 個指令鈕；沒有召喚選擇窗 | ⚠️ | 寵物分頁照舊併入 `ui-party`；另新增 `ui-summon`（`SummonUI.xml`＋`summonList.xml`） |
 | T128 | 血盟建立、加入、退出、盟徽 | AN§2、AN#9–AN#11；原版有 `PledgeUI.xml`、`PledgeFocusUI.xml` | `Clan.cs`、`ClanUi.cs`：世界畫面畫「名稱 [血盟]」淺青色，盟徽在左方 19 px；盟徽只存記憶體 ≤256 筆，要在 UI 手動查詢 | ❌ | 見 G1（不畫血盟名，盟徽改到名稱右側／基準 −20）與 G4（缺圖自動要求、≤32 待回覆） |
 | T129 | 變身 S_ChangeShape | AN§3、AN#16–AN#18 | `Polymorph.cs`、`PlayerProfiles.cs`：外型沒有對應動作時顯示「尚未支援此外觀」，並停止移動與戰鬥；6080／6094 沒有特例 | ❌（#16 推測一致） | 見 G3：依 AN§3.4 逐級退回，不擋操作；補 AN§3.5 的特殊外型 |
-| T130 | 公告板 | UI§6、UI#15：沒有專用 XML，可能用 `HYPER_TEXT_WINDOW` 239×317 | `BoardUi.cs`：WinForms 740×680 | ❓ | 待查：公告板封包的接收函式用哪個視窗類別 |
-| T131 | 信件 | UI§6、UI#16：`RenewalMailUI.xml` **本機資源缺檔** | `MailUi.cs`：780×640 對話框 | ❓（資源缺） | 待查：缺檔時原版的退回行為（`sub_B3D390` 的失敗分支）。拿不到版面前不改 |
+| T130 | 公告板 | WIN§2：**專用舊式窗** `BoardListWindow`／`BoardReadWindow`／`BoardWriteWindow`（不是 `HYPER_TEXT_WINDOW`）；按鈕 surf 658–668、672–678 與座標寫死；一頁 8 筆 | `BoardUi.cs`：WinForms 740×680，一頁 8 筆 | ⚠️（分頁一致，視窗不一致） | 新增原生模組 `ui-board`（3 窗），surf 與座標依 WIN§2 |
+| T131 | 信件 | UI§6、UI#16；WIN§2：`RenewalMailUI` 由 `S_MAIL_INFO` 填入，XML **本機缺檔**；`sub_B3D390` 缺檔時只跳 `Cannot Found %s`，**沒有退回** | `MailUi.cs`：780×640 對話框 | ❓（資源缺） | 拿不到 `RenewalMailUI.xml` 或 3.81 實機截圖前不改 |
 | T132 | 決鬥 | AN§2.6、AN#14 | `DuelUi.cs`：另畫橘紅色「決鬥對手 · 名稱」 | ❌（引擎多畫） | 見 G1：拿掉額外標籤，名稱不變色；保留可直接攻擊與游標的語義 |
-| T133 | 刪除與給予物品 | R22（伺服器）；原版確認框未查證 | `ItemTransfer.cs` | 協定一致；表現 ❓ | 待查：刪除確認框是否用 `MESSAGE_WINDOW`；給予是否靠拖曳到目標 |
-| T134 | 武器修理與 PK 查詢 | R27（伺服器）；原版經 NPC HTML（S39） | `WeaponRepair.cs`、`WeaponRepairUi.cs`：獨立 WinForms 580×420 | ❓ | 待查：原版是否只用 NPC HTML 視窗（`HYPER_TEXT_WINDOW`）而沒有專用視窗。若是，引擎的專用視窗是多出來的 |
+| T133 | 刪除與給予物品 | R22（伺服器）；WIN§2.1：`MESSAGE_WINDOW` 只有 OK 鈕，**不是**確認框；伺服器 Yes/No 走 `sub_4FC710`→`sub_AC9560` | `ItemTransfer.cs` | 協定一致；表現 ❓ | 還要查：刪除時的本地確認（背包窗的垃圾桶流程），以及給予的操作方式 |
+| T134 | 武器修理與 PK 查詢 | R27（伺服器）；WIN§2：可修清單用 `TradeWindow` 模式 6（`TRADE_WINDOW`），清單為空時開 NPC 對話頁 `touma3`／`gayle5`；PK 查詢是 HTML 動作 `HyperActCheckPK`；**沒有專用視窗** | `WeaponRepair.cs`、`WeaponRepairUi.cs`：獨立 WinForms 580×420，加 HUD 按鈕 | ❌（引擎多出專用窗與 HUD 鈕） | 併入 `ui-shop` 的模式 6；PK 查詢改走 NPC 對話。移除專用窗與 HUD 鈕，要等原生窗完成 |
 | T135 ⏸ | 盟徽查詢與 ID 對應 | AN§2.8、AN#11 | 未合併 | ⏸／❌ | 合併後依 G4 調整：自動送 opcode 28、`Emblem%d.dat` 快取 ≤512 筆 |
 | T136 | 門 | 未查證 | `Doors.cs`：依 S87／開關封包切換門的動作 | ❓ | 待查：門 sprite 的開關動作編號與點擊判定（REA 的 type 讀取者表沒有門的類別） |
 | T137 | 稱號與表情動作 | AN§1、AN§2、AN#1–AN#7、AN#19 | `TitleAndEmote.cs`：所有物件都畫稱號，位置在腳下 −70，LightYellow、JhengHei 10 px、無外框；表情順序 66／67／68／69；不依外型重映射；缺圖就結束 | ❌ | 見 G1（稱號）與 G2（表情） |
 | T138 | 角色設定存取（快捷列） | UI#5 | `CharacterConfig.cs`、`PlayerHudView.cs`：F1–F4 共 4 格，26 byte「TWCC」 | ❌ | #448 的 `ui-verify-bar-behavior`（V5）→ `ui-macro-bar`（F5–F12 共 8 格、3 分頁） |
-| T139 | 釣魚 | 未查證 | `Fishing.cs`：`FishingHud` 按鈕 | ❓ | 待查：原版釣魚的觸發 UI（物品使用或專用按鈕）與等待動畫 |
-| T140 | 查詢玩家與排名 | 未查證 | `PlayerQuery.cs` | ❓ | 待查：查詢結果顯示在聊天、`NOTICE_WINDOW` 還是 HTML |
-| T141 | 求婚與結婚 | 未查證 | `Marriage.cs`：獨立入口與確認 | ❓ | 待查：Yes／No 確認框用哪個視窗（推測是 `MESSAGE_WINDOW`） |
-| T142 | 能力值重置 | 未查證；原版有 `ReNStatusWinUI-c.xml`（未解讀內容，可能是新版狀態窗） | `CharReset.cs`、`CharResetUi.cs`：WinForms 540×490 | ❓ | 待查：解讀 `ReNStatusWinUI-c.xml` 是否就是重置介面 |
+| T139 | 釣魚 | WIN§2：XML 窗 `CFishingUI`（事件 `FishingNet`／`QuitFishing`）＋可釣格提示 `CanFishingTileAreaDisplay`；`FishingUI.xml` 本機缺檔 | `Fishing.cs`：`FishingHud` 按鈕 | ⚠️（版面因資源缺而無法比對） | 新增原生模組 `ui-fishing`，等資源。可釣格提示的繪製規則待查 |
+| T140 | 查詢玩家與排名 | WIN§2：指令 `Commandquery`／`Commandrank` 與 HTML 動作 `HyperActWho`／`HyperActRank`；結果是 `S_HYPERTEXT`，在 NPC 對話窗（`HYPER_TEXT_WINDOW`）顯示 | `PlayerQuery.cs`：全部轉成聊天行「[查詢] …」 | ⚠️ | HTML 結果改在原生 NPC 對話窗（新增 `ui-hypertext`）顯示；聊天行只留伺服器原本就送到聊天的訊息 |
+| T141 | 求婚與結婚 | WIN§2、WIN§2.1：msg 654 走 `S_ASK` default → 通用 Yes/No 框 `sub_AC9560`，回覆用 TW16 opcode 33；**沒有專用視窗** | `Marriage.cs`：HUD 按鈕＋專用 Form 540×240，收到 S219/654 時自動開 | ❌ | 新增通用原生 `ui-yesno`；求婚、交易、組隊、決鬥、血盟邀請都改走它。視覺（`sub_AC9410` 以下）待查 |
+| T142 | 能力值重置 | WIN§1.4、WIN§2：重置介面是 `CResetStatUI`（`ResetStatUI.xml`，本機缺檔），由 TW16 opcode 43 子類型 1–3 開啟，和 S64 子類型對得上。**`ReNStatusWinUI-c.xml` 不是重置介面**，而且 TW16 不讀它 | `CharReset.cs`、`CharResetUi.cs`：WinForms 540×490 | ⚠️（觸發一致；版面因資源缺而無法比對） | 等 `ResetStatUI.xml` 或實機截圖。`ReNStatusWinUI-c.xml` 改歸角色狀態窗設計 |
 | T143 | 幽靈模式 | 未查證 | `GhostMode.cs`：刻意不猜 gfx 與轉場（程式註解） | ❓ | 待查：幽靈外觀與退出提示 |
 | T144 | 發送座標 | 未查證 | `LocationShare.cs`：自訂顯示 | ❓ | 待查：原版在聊天中的座標格式與點擊行為（聊天 Printer 的類型清單沒有這項） |
 | T145 | 傳送門（踩點進入） | R36 | `Portals.cs` | 協定 | 不需修正 |
@@ -98,17 +99,18 @@ R／SP 是**伺服器原始碼**的查證，只能證明封包與規則，不能
 
 | 結果 | 數量 | 功能 |
 |---|---:|---|
-| 已查證，有差異（❌／⚠️） | **16** | T105、T106、T108、T125、T128、T129、T132、T137、T138、T146、T147、T148、T149、T150、T152、T153 |
+| 已查證，有差異（❌／⚠️） | **26** | T102、T105、T106、T107、T108、T125、T126、T127、T128、T129、T130、T132、T134、T137、T138、T139、T140、T141、T142、T146、T147、T148、T149、T150、T152、T153 |
 | 已查證，一致 | 1 | T103（地面圖；拾取時序仍 ❓） |
 | 純協定，#132 已對齊 | 9 | T104、T109、T110、T111、T120、T121、T122、T123、T145 |
-| 原版表現未查證 | 24 | T100、T101、T102、T107、T113–T119（7 個）、T126、T127、T130、T131、T133、T134、T136、T139–T144（6 個） |
+| 原版表現未查證 | 14 | T100、T101、T113–T119（7 個）、T131、T133、T136、T143、T144 |
 | 合計 | 50 | |
 
 未合併的 3 個裡，T124、T135 已知有差異（書籤版面、盟徽取得），T151 未查證。
 
-16 個有差異的功能怎麼分：
+26 個有差異的功能怎麼分：
 - **5 個只有 UI 版面差異**，已由 #448 排定修正：T106、T108、T125、T138、T150。
 - **11 個需要新開 G1–G8**：T105、T128、T129、T132、T137、T146、T147、T148、T149、T152、T153。其中 T152 的紅字部分也歸 #448。
+- **10 個由 G10b（#483，[`windows.md`](windows.md)）補查後確認有差異**：T102、T107、T126、T127、T130、T134、T139、T140、T141、T142。這 10 個都屬於 `native-ui.md` §0「不涵蓋」的視窗，修正方式是新增原生視窗模組，見下表 G11。其中 T107、T139、T142 的原版 XML 本機缺檔，要先補資源。
 
 ## 3. 建議的修正任務分組
 
@@ -126,6 +128,7 @@ R／SP 是**伺服器原始碼**的查證，只能證明封包與規則，不能
 | G8 音效封包與播放規則（中；不含 `^`） | 依 SD#4–SD#9：S22 第一個 byte 改成模式 0／1／2，同 id 在播時不重播；200 ms 冷卻擴到所有音效出口（全域每 id 一份）；距離衰減 `max(0,100−14·(nx²+ny²)/20)%`；查找順序先 mp3 再 wav；音量分 4 類並讀寫 `lineage.cfg` 的對應鍵 | `SoundPackets.cs`、`AudioCore.cs`、`AudioAssets.cs`、`PlayerAudioSettings.cs`、`ClientAudioSettings.cs` | 離線測試：模式 0／1／2、冷卻、衰減表、查找順序。`lineage.cfg` 只讀寫專案內的設定副本，不碰正式客戶端 |
 | G9 背景音樂與環境音（大；先查證） | 依 SD#10–SD#14：區域音樂、戰鬥音樂（15 秒淡回）、登入音樂、`envsound.def` 環境音、場景音 | 先開 resource：從資源包解出 `music.def`、`envsound.def`（只讀到 `scratch/`），再開 code | resource 驗收：兩個 def 的格式與本機內容摘要寫進 `sound.md`。code 驗收另訂 |
 | G10 未查證功能的補查（resource，分 3 張） | (a) 技能與法術表現：T100、T101、T113–T119 的本地施法動作、S42 時序、箭矢 gfx；(b) 視窗類：T102、T107、T126、T127、T130、T131、T133、T134、T139–T142，解讀 #448 已解密的 XML（`PersonalShopUI`、`FriendUI`、`ExcludeUI`、`SummonUI`、`ReNStatusWinUI-c`、`HYPER_TEXT_WINDOW`、`MESSAGE_WINDOW`、`PET_QUICK_WINDOW`）；(c) 世界物件類：T103 拾取時序、T136 門、T143 幽靈、T144 座標格式、T151 復活確認 | 只產出 `docs/reference/*.md` | 每個功能都有「原版來源＋一致？」。有差異的，回填本文件第 1 節 |
+| G11 原生視窗模組（design 先行；G10b 結果） | 依 WIN§2：通用 `ui-yesno`（T141 及所有 `S_ASK`）、`ui-hypertext`（NPC 對話，T140、T134 空清單）、`ui-shop`（`TRADE_WINDOW`，含修理模式 6：T102、T134）、`ui-personal-shop`（T102）、`ui-board`（T130）、`ui-friend`（T126）、`ui-summon`（T127）。T107、T131、T139、T142 等資源 | 先開 design，把 `native-ui.md` §0 的「不涵蓋」改成模組表，再開 code | design 驗收：每個模組列出 XML／surf、開窗封包、`IUiCommands` 動作。code 驗收另訂 |
 | （已排定）UI 版面 | UI#1–UI#17：T106、T108、T124、T125、T138、T150、T152 紅字、T130／T131 視窗 | 見 `docs/design/native-ui.md`、`docs/plans/issue-448.json` | 依 #448 各任務的驗收；本文件不重複開任務 |
 
 **建議順序：**
@@ -133,7 +136,8 @@ R／SP 是**伺服器原始碼**的查證，只能證明封包與規則，不能
 2. G2、G3、G6：已查證，範圍中等。
 3. G5：缺 `source.lmp` 內容，可以先做時鐘與曲線，光源圖晚一點補。
 4. G4：等 T135 合併。
-5. G9、G10：先開 resource。
+5. G9、G10：先開 resource（G10b 已由 #483 完成）。
+6. G11：先開 design。
 
 T112（M6 smoke）依 #427，要等上述修正合併後才開。
 

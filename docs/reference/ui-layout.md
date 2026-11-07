@@ -659,7 +659,7 @@ BIN 載入 `RenewalMailUI.xml`（字串 VA `0x119CC48`／FO `0xD9B848`），但*
 | 12 | 小地圖（T150） | 底列 (485, 475) 158×125 格；另有 `Field_Map` 小窗 (5, 250) 161×121，用 png 地圖、8 方向箭頭、隊友點；用 Map 按鈕開啟 | 地圖快取縮圖，右上 272×218，自畫白／青／金色點，F5 開關（`MinimapUi.cs:6-9,50-52,74-76`） | 不一致；F5 與原版巨集鍵衝突 |
 | 13 | 隊伍 HP 條（T125） | 隊伍底板 135×107 蓋在左狀態框；量表圖 60×10／58×8（紅、灰）；右側 RT 窗 158×125 | 抽屜內清單，Windows 標準 ProgressBar 120×22（`PartyUi.cs:5-10,36-49`） | 不一致 |
 | 14 | 書籤（T124） | `BookmarkUI.xml` 263×420 視窗（版面見第 6 節） | 尚未合併（TASKS 狀態為 review），只有傳送卷軸的書籤 ID 欄位（`InventoryUi.cs:143-145`） | 不一致（未實作） |
-| 15 | 公告板（T130） | 未找到專用 XML；可能用 `HYPER_TEXT_WINDOW` 239×317 | 獨立 WinForms 視窗 740×680（`BoardUi.cs:11`） | 無法判定 |
+| 15 | 公告板（T130） | 未找到專用 XML。#483 已查明：原版是寫死的專用舊式視窗 `BoardListWindow`／`BoardReadWindow`／`BoardWriteWindow`，**不是** `HYPER_TEXT_WINDOW`（見 [`windows.md`](windows.md) 第 2 節） | 獨立 WinForms 視窗 740×680（`BoardUi.cs:11`） | ⚠️（視窗不一致） |
 | 16 | 信件（T131） | 版面寫在 `RenewalMailUI.xml`，但本機資源缺檔 | 對話框 780×640，含收件匣／寫信分頁（`MailUi.cs:5,27`） | 無法判定 |
 | 17 | 紅字訊息（T152） | 位置待驗證 | 紅字黑底，水平置中，位於視窗高度 1/3 處，顯示 5 秒（`DisplayNotices.cs:93,99,10`） | 無法判定 |
 
