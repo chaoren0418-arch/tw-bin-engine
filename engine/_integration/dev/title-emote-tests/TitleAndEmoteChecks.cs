@@ -55,6 +55,9 @@ partial class Checks {
             // S158 is shared: emote actions 66-69 stop at the emote branch, action 71 still reaches fishing.
             Feed(c,EmoteUpdate(123,68));Check(c.World.ActiveEmotes(1000).Single().Action==68&&!c.ReadFishing().Active,"S158 emote does not start fishing");
             Feed(c,FishingStart());Check(c.ReadFishing().Active&&c.ReadFishing().Notice.Contains("32602, 32940"),"S158 fishing start reaches observer beside emote branch");
+            // Doors own every action on their objects, so a door ID never becomes an emote actor.
+            Feed(c,DoorPack());Feed(c,EmoteUpdate(700,68));var door=c.World.Objects.Single(o=>o.ObjectId==700);
+            Check(door.ReceivedAction==68&&door.DoorAction==null&&c.World.ActiveEmotes(1000).All(e=>e.Id!=700),"S158 door object keeps door dispatch before emote");
         }
         using(var c=TitleEmoteSeed()){
             int sends=0;byte[]? sent=null;Sender(c,(bytes,current,admit)=>{if(!current())return Task.FromResult(false);sends++;sent=bytes;admit();return Task.FromResult(true);});
