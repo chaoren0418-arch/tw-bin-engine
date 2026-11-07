@@ -15,7 +15,7 @@
 - `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -p:UseSharedCompilation=false -- . scratch/fishing-tests.json fishing`：39 項通過。涵蓋 C62、C164 DHH、S158、S119、S71 四種釣魚相關訊息、其他角色、截斷／超長／非零 padding、不明參數、換圖／重設、過期排隊、重複收竿、逾時及手動重試。
 - 相同測試入口 `map-continuity`：397 項通過，包含 39 項釣魚檢查。`buddies`：169 項通過，另驗證合入的好友共用分派。
 - `check-no-game-assets.py` 與 `git -c core.whitespace=cr-at-eol diff --check` 通過；沒有提交遊戲資源或伺服器原始碼。
-- 最新提交的 CI 結果待推送後確認，記錄於 PR #354；不沿用前次提交的 CI 結果。
+- 修正程式提交 `605d5f9a97171ecb36a836be473c71d572730230` 的 CI 全綠：[build（dotnet、map-continuity）](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42331359099)、[npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42331359220)。後續僅本報告補入此證據；最終文件提交的 CI 另在 [PR #354](https://github.com/chaoren0418-arch/tw-bin-engine/pull/354) 核對並記錄，不將這兩筆執行冒充後續提交的結果。
 
 ## 未驗證什麼
 
