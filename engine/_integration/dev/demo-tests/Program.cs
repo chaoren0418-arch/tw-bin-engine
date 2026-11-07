@@ -279,11 +279,12 @@ partial class Checks {
         PolymorphChecks();
         if(args.Length>2){
             switch(args[2]){
+                case "map-continuity":await MapContinuity();await BoardChecks();await CharacterConfigChecks();MinimapChecks();break;
+                case "character-config":await CharacterConfigChecks();break;
                 case "polymorph":break;
                 case "polymorph-cadence":PolymorphCadenceChecks(args[0]);break;
                 case "buddies":await BuddyChecks();break;
                 case "buddies-codec":await BuddyChecks(true);break;
-                case "map-continuity":await MapContinuity();await BoardChecks();MinimapChecks();break;
                 case "minimap":MinimapChecks();break;
                 case "board":await BoardChecks();break;
                 case "item-transfer":await ItemTransferChecks();break;
@@ -297,7 +298,7 @@ partial class Checks {
                 default:throw new ArgumentException("Unknown regression group");
             }
         }else{
-            MinimapChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
+            MinimapChecks();await CharacterConfigChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
             await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();await BoardChecks();HitReactionSuppression();
         }
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status="pass",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));Console.WriteLine($"PASS {checks} DEMO checks");return 0;
