@@ -26,10 +26,11 @@
 
 依調度器 2026-11-07 退回指示，只做同步，未改隱身功能。上方的斷言數與追蹤檔數是同步前的數字，同步後以本段為準。
 
-- 解衝突：`WorldSession.cs` 保留 S171 與 main 新增的 S250/41 兩個 case；`DemoChecks.csproj` 兩邊的測試都保留；`Program.cs` 的 `map-continuity` 改用 main 版本再接上 `InvisibilityChecks()`，預設入口同樣接上；`rebuild-lock.json` 取 main 版本後以 `--update-lock` 重產（190 來源、199 鎖定檔），未手動拼 hash。
+- 同步兩次：第一次推送後 main 又合入 #361（座標分享），再次衝突，因此再合併一次。以下數字都是第二次同步後的結果。
+- 解衝突：`WorldSession.cs` 保留 S171 與 main 新增的 S250/41、S250/111、S71 座標分享 case；`DemoChecks.csproj` 兩邊的測試都保留；`Program.cs` 的 `map-continuity` 改用 main 版本再接上 `InvisibilityChecks()`，預設入口同樣接上；`rebuild-lock.json` 取 main 版本後以 `--update-lock` 重產（191 來源、200 鎖定檔），未手動拼 hash。
 - 建置：`rebuild.py --build` 通過，0 錯誤，只有既有的 `MagicUi.cs:20` 兩個警告。
-- 測試（DemoChecks，每個群組都會先跑 90 項 polymorph 檢查）：`invisibility` 160 項（隱身本身 70 項）、`map-continuity` 20803 項（含 42 個 S171 標籤）、`combat-admission` 1109 項、`buddies` 259 項、`item-transfer` 163 項、`polymorph-cadence` 123 項，全部通過。
-- `check-no-game-assets.py`：通過，3337 個追蹤檔、0 錯誤。
+- 測試（DemoChecks，每個群組都會先跑 90 項 polymorph 檢查）：`invisibility` 160 項（隱身本身 70 項）、`location-share` 189 項、`map-continuity` 20902 項（含 42 個 S171 標籤）、`combat-admission` 1109 項、`buddies` 259 項、`item-transfer` 163 項、`polymorph-cadence` 123 項，全部通過。
+- `check-no-game-assets.py`：通過，3340 個追蹤檔、0 錯誤。
 - **未通過／未跑完**：不帶群組的預設入口在此 worktree 失敗，停在 `Movement123` 讀 `engine/assets/terrain0.bin`（`DirectoryNotFoundException`），因為 worktree 沒有 `engine/assets` junction，未為此建立。該入口還沒跑到 `InvisibilityChecks()` 就中止，所以預設入口的接線只經過編譯驗證；CI 不跑此入口。
 
 ## 產出路徑
