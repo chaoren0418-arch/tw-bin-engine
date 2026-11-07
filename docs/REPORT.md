@@ -91,3 +91,4 @@
 - 2026-11-07 — #192 T105：S22 音效、S106 座標特效、S55 變體（code，codex-local，PR 已合併）→ [報告](reports/issue-192.md)
 - 2026-11-07 — #226 T123：核對本機伺服器原始碼與 P24Lab d287 JAR 的版本對應（封包處理器）（resource，codex-local，PR 已合併）→ [報告](reports/issue-226.md)
 - 2026-11-07 — #273 T133：刪除物品與給予物品（code，codex-local，PR 已合併）→ [報告](reports/issue-273.md)
+- 2026-11-07 — #266 T130：公告板（code，codex-local，PR 已合併）→ [報告](reports/issue-266.md)
