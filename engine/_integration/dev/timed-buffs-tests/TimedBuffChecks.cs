@@ -80,16 +80,14 @@ partial class Checks {
         Check(early.MagicBuffs.Length==1,"TIMED S126 is sent only to its owner, so unknown identity keeps it");
     }
     static void TimedLiquorChecks(){
-        var w=TimedWorld();Check(w.LiquorLevel==0&&w.LiquorShake.IsEmpty,"TIMED S103 sober has no shake");
-        PolyFeed(w,Liquor(123,1));Check(w.LiquorLevel==1,"TIMED S103 DC own level");
-        var seen=new HashSet<Point>();for(int ms=0;ms<3400;ms+=50){timedNow+=50;seen.Add(w.LiquorShake);}
-        Check(seen.Count>4&&seen.All(p=>Math.Abs(p.X)<=2&&Math.Abs(p.Y)<=1),"TIMED S103 level 1 sways within its bound");
-        Check(seen.Any(p=>p.X<0)&&seen.Any(p=>p.X>0),"TIMED S103 sways both ways");
-        foreach(byte level in new byte[]{2,3}){
-            PolyFeed(w,Liquor(123,level));Check(w.LiquorLevel==level,"TIMED S103 level "+level);
-            int peak=Enumerable.Range(0,120).Max(i=>Math.Abs(TimedBuffRules.ShakeOffset(level,i*10).X));Check(peak==level*2,"TIMED S103 strength scales "+level);
-        }
-        PolyFeed(w,Liquor(123,0));Check(w.LiquorLevel==0&&w.LiquorShake.IsEmpty,"TIMED S103 type 0 clears");
+        var w=TimedWorld();Check(w.LiquorLevel==0,"TIMED S103 sober has no wave");
+        PolyFeed(w,Liquor(123,1));Check(w.LiquorLevel==1&&w.LiquorPhase==0,"TIMED S103 DC own level, phase starts at 0");
+        timedNow+=49;Check(w.LiquorPhase==0,"TIMED S103 phase holds within a 50 ms tick");
+        timedNow+=1;Check(w.LiquorPhase==1,"TIMED S103 phase advances every 50 ms");
+        timedNow+=50*199;Check(w.LiquorPhase==0,"TIMED S103 phase wraps at 200 (5 s)");
+        timedNow+=50*37;Check(w.LiquorPhase==37,"TIMED S103 phase after wrap");
+        foreach(byte level in new byte[]{2,3}){PolyFeed(w,Liquor(123,level));Check(w.LiquorLevel==level&&w.LiquorPhase==0,"TIMED S103 level "+level);}
+        PolyFeed(w,Liquor(123,0));Check(w.LiquorLevel==0,"TIMED S103 type 0 clears");
         PolyFeed(w,Liquor(456,1));Check(w.LiquorLevel==0,"TIMED S103 other object does not shake own screen");
         PolyFeed(w,Liquor(123,1));PolyFeed(w,Liquor(456,0));Check(w.LiquorLevel==1,"TIMED S103 other object does not clear own screen");
         int before=Unhandled(w,103);PolyFeed(w,Liquor(123,8));
@@ -106,8 +104,33 @@ partial class Checks {
         PolyFeed(w,MapChange(4));Check(w.LiquorLevel==0,"TIMED S103 S206 clears client state");
         PolyFeed(w,PolyPack(123,0,0,0,0));PolyFeed(w,Liquor(123,1));Check(w.LiquorLevel==1,"TIMED S103 server resend after S206 restores it");
         RejectMalformed(w,Liquor(123,1),"S103");
-        w.Reset();Check(w.LiquorLevel==0&&w.LiquorShake.IsEmpty,"TIMED S103 session reset clears");
-        Check(TimedBuffRules.ShakeOffset(0,300).IsEmpty&&TimedBuffRules.ShakeOffset(8,300).IsEmpty,"TIMED shake only for levels 1 to 3");
+        w.Reset();Check(w.LiquorLevel==0,"TIMED S103 session reset clears");
+        TimedScanlineTable();
+    }
+    static void TimedScanlineTable(){
+        // AM§4(c): dx(j) = (int)(level*3.5*sin((phase+j)*pi/50)); C-style truncation toward zero.
+        (int Level,int Phase,int Row,int Dx)[] table=[
+            (1,0,0,0),(1,0,25,3),(1,0,50,0),(1,0,75,-3),(1,0,10,2),(1,0,60,-2),
+            (2,0,25,7),(2,0,75,-7),(2,0,5,2),(2,0,55,-2),
+            (3,0,25,10),(3,0,75,-10),(3,0,8,5),(3,0,58,-5),
+            (1,25,0,3),(3,50,25,-10),(3,199,26,10),(2,13,12,7)];
+        foreach(var (level,phase,row,dx) in table)
+            Check(TimedBuffRules.ScanlineOffset(level,phase,row)==dx,$"TIMED scanline table level {level} phase {phase} row {row} = {dx}");
+        foreach(int level in new[]{1,2,3}){
+            int peak=Enumerable.Range(0,100).Max(j=>Math.Abs(TimedBuffRules.ScanlineOffset(level,0,j)));
+            Check(peak==(int)(level*3.5),"TIMED scanline amplitude 3.5x level "+level);
+            Check(Enumerable.Range(0,480).All(j=>TimedBuffRules.ScanlineOffset(level,17,j)==TimedBuffRules.ScanlineOffset(level,17,j+100)),"TIMED scanline vertical period 100 rows "+level);
+            Check(Enumerable.Range(0,480).All(j=>TimedBuffRules.ScanlineOffset(level,0,j)==TimedBuffRules.ScanlineOffset(level,TimedBuffRules.LiquorPhases,j)),"TIMED scanline back home at phase 200 "+level);
+            Check(Enumerable.Range(0,100).Any(j=>TimedBuffRules.ScanlineOffset(level,0,j)!=TimedBuffRules.ScanlineOffset(level,1,j)),"TIMED scanline phase moves the wave "+level);
+        }
+        foreach(int level in new[]{0,4,8,-1})Check(Enumerable.Range(0,200).All(j=>TimedBuffRules.ScanlineOffset(level,j,j)==0),"TIMED scanline only for levels 1 to 3: "+level);
+        Check(TimedBuffRules.LiquorPhase(-10)==0&&TimedBuffRules.LiquorPhase(9999)==199&&TimedBuffRules.LiquorPhase(10000)==0,"TIMED phase bounds");
+
+        int[] pixels=Enumerable.Range(0,3*5).ToArray(); // rows [0..4], [5..9], [10..14]
+        TimedBuffRules.ShiftScanlines(pixels,5,3,row=>row switch{0=>2,1=>0,_=>-1});
+        Check(pixels.SequenceEqual(new[]{0,0,0,1,2, 5,6,7,8,9, 11,12,13,14,14}),"TIMED scanline shift moves each row independently, edges repeat");
+        int[] wide=Enumerable.Range(0,4).ToArray();TimedBuffRules.ShiftScanlines(wide,4,1,_=>9);
+        Check(wide.All(v=>v==0),"TIMED scanline shift larger than the row stays in bounds");
     }
     static void TimedDelSkillChecks(){
         var w=TimedWorld();PolyFeed(w,SkillMasks(164,32,28,(0,0b1001),(1,1)));
@@ -135,20 +158,13 @@ partial class Checks {
         }
     }
     static void TimedShakeMountChecks(){
-        using var bitmap=new Bitmap(16,16);
-        using(var graphics=Graphics.FromImage(bitmap)){
-            graphics.Clear(Color.Black);Renderer.ApplyScreenShake(graphics,Point.Empty);Check(graphics.Transform.IsIdentity,"TIMED mount leaves a sober frame alone");
-            Renderer.ApplyScreenShake(graphics,new(3,-2));graphics.FillRectangle(Brushes.White,5,5,1,1);
-        }
-        Check(bitmap.GetPixel(8,3).R==255&&bitmap.GetPixel(5,5).R==0,"TIMED mount shifts drawn pixels");
-        Check(typeof(ClientForm).GetMethod("CreateHandle",F)!.DeclaringType==typeof(ClientForm)&&typeof(ClientForm).GetMethod("PaintLiquorShake",F)!=null,"TIMED client form registers the paint mount");
-        using var probe=new ShakePaintProbe{Size=new(16,16)};probe.Paint+=(_,e)=>Renderer.ApplyScreenShake(e.Graphics,new(3,2));
-        using var painted=new Bitmap(16,16);probe.DrawToBitmap(painted,new(0,0,16,16));
-        Check(painted.GetPixel(8,7).R==255&&painted.GetPixel(5,5).R==0,"TIMED Paint handler shifts what OnPaint draws after base.OnPaint");
-    }
-    // Same order as ClientForm.OnPaint: base.OnPaint raises Paint, then the scene is drawn.
-    sealed class ShakePaintProbe:Control {
-        public ShakePaintProbe(){BackColor=Color.Black;}
-        protected override void OnPaint(PaintEventArgs e){base.OnPaint(e);e.Graphics.FillRectangle(Brushes.White,5,5,1,1);}
+        Check(typeof(ClientForm).GetMethod("CreateHandle",F)!.DeclaringType==typeof(ClientForm)&&typeof(ClientForm).GetMethod("PaintLiquorWave",F)!=null&&typeof(ClientForm).GetMethod("PaintLiquorShake",F)==null,"TIMED client form registers the scanline paint mount, whole-screen shake removed");
+        // The mount warps a finished 32-bit frame with the product helper: a vertical white line becomes the wave.
+        using var frame=new Bitmap(40,100);
+        using(var g=Graphics.FromImage(frame)){g.Clear(Color.Black);g.FillRectangle(Brushes.White,20,0,1,100);}
+        var warp=typeof(ClientForm).GetMethod("WarpLiquorFrame",F|System.Reflection.BindingFlags.Static)!;
+        warp.Invoke(null,[frame,(Func<int,int>)(row=>TimedBuffRules.ScanlineOffset(3,0,row))]);
+        bool all=true;for(int row=0;row<100;row++){int dx=TimedBuffRules.ScanlineOffset(3,0,row);all&=frame.GetPixel(20+dx,row).R==255&&(dx==0||frame.GetPixel(20,row).R==0);}
+        Check(all,"TIMED mount moves every scanline by its own table offset");
     }
 }

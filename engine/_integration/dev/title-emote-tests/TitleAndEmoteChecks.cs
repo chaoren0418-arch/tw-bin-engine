@@ -173,8 +173,8 @@ partial class Checks {
         // The compositor re-blits every draw, so a title must not restore an invisible actor to full opacity.
         Feed(c,InvisPacket(123,1));var hidden=(Patch)typeof(Renderer).GetMethod("ComposeTitlesAndEmotes",F)!.Invoke(renderer,[own,c.World,catalog,original,new List<ObjectVisual>(),1000L])!;
         Check(hidden.Colors[(draw.Py-hidden.Bounds.Y)*hidden.Bounds.Width+draw.Px-hidden.Bounds.X]==0x3c00,"title overlay keeps invisible actor half blend");
-        Feed(c,InvisPacket(123,0));Feed(c,Poison(123,1,0));var poisoned=(Patch)typeof(Renderer).GetMethod("ComposeTitlesAndEmotes",F)!.Invoke(renderer,[own,c.World,catalog,original,new List<ObjectVisual>(),1000L])!;
-        Check(poisoned.Colors[(draw.Py-poisoned.Bounds.Y)*poisoned.Bounds.Width+draw.Px-poisoned.Bounds.X]==AfflictionColors.Tint(0x7c00,AfflictionTint.Poison),"title recomposition keeps poison tint");
+        Feed(c,InvisPacket(123,0));Feed(c,Poison(123,1,0));Set(c.World,"MagicStatusClock",(Func<long>)(()=>0L));var poisoned=(Patch)typeof(Renderer).GetMethod("ComposeTitlesAndEmotes",F)!.Invoke(renderer,[own,c.World,catalog,original,new List<ObjectVisual>(),1000L])!;
+        Check(poisoned.Colors[(draw.Py-poisoned.Bounds.Y)*poisoned.Bounds.Width+draw.Px-poisoned.Bounds.X]==AfflictionColors.Tint(0x7c00,AfflictionTint.Poison,0L),"title recomposition keeps poison tint");
         TitleEmoteBlindLabels();
     }
     static void TitleEmoteBlindLabels(){
