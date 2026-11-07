@@ -4,7 +4,7 @@ from pathlib import Path
 import ida_funcs, ida_hexrays, ida_lines, ida_bytes, idautils, idc, ida_auto, ida_ida
 
 out = Path(os.environ["REA_OUT"])
-q = json.loads(Path(os.environ["REA_LIST"]).read_text(encoding="utf-8"))
+q = json.loads(Path(os.environ["REA_LIST"]).read_text(encoding="utf-8-sig"))
 rep = {"strings": {}, "xrefs": {}, "functions": {}}
 
 def fstart(ea):
@@ -53,6 +53,9 @@ try:
         rep["strings"][s] = [{"ea": hex(h), "xrefs": xrefs(h)} for h in find_all(bs)]
     for v in q.get("xrefs", []):
         rep["xrefs"][v] = xrefs(int(v, 16))
+    for lo, hi in q.get("ranges", []):
+        for fs in idautils.Functions(int(lo, 16), int(hi, 16)):
+            rep["functions"].setdefault(hex(fs), decomp(fs))
     auto = set()
     if q.get("decompile_string_users"):
         for s, hits in rep["strings"].items():

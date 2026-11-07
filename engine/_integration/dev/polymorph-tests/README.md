@@ -14,3 +14,5 @@ dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Rel
 測試使用合成 S76 CDHH／CDDHS（涵蓋所有公開 serializer 路徑），以及 S87、S119、S158、S10、S120、S255、S67、S206 交錯序列；無新增 C 格式。檢查 gfx、武器姿勢、後續攻擊、解除、死亡保留、速度值保留、未知物件／ID 重用、重新進入世界、錯誤欄位／截斷／padding 的原子拒絕及 S230 不誤分派。
 
 測試不連網、不啟動產品、不讀遊戲素材；沿用 DemoChecks 的 SocketGuard。基本 `polymorph` 組使用未支援的 Brave 模式驗證動作狀態傳遞，90 項檢查；`polymorph-cadence` 再以 scratch 內自行撰寫的合成 timing／profile 驗證 S30、新舊 gfx／武器動作選取、速度 0／1／2 與後續 S255，總計 123 項。合成 timing 只能證明資料路由與既有速度規則，不能當作實際畫面、原始 frame timing 或可用變身素材的證據。
+
+T170（#442）新增：基本組結尾的 `SpecialShapeChecks`（合法姿勢表、6080／6094→6099、迴圈結束姿勢 0↔20／24↔62、欄位 108／111／113 規則、S76 CDHH／CDDHS 與 S87 的特效錨點），以及 `polymorph-cadence` 組結尾的 `PlayerProfiles.Get` 缺姿勢退回空手檢查（含不合法姿勢、無 profile 的 gfx 不替代）。全部是合成資料，不讀遊戲素材。
