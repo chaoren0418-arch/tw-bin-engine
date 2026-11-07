@@ -1,6 +1,33 @@
 # Issue #262／T128：血盟（部分實作，待範圍裁定）
 
-分支：`task/262`。工作目錄：`scratch/wt/task-262`。本輪不宣稱 T128 完整完成，PR 維持草稿。
+分支：`task/262`。工作目錄：`scratch/wt/task-262`。T128 尚未完成。2026-11-07 第二次執行核對 PR #282 為 open、draft=false，已修正前次報告的草稿狀態描述。
+
+## 第二次執行結果
+
+**阻擋，待主控裁定掛接範圍。** 已重新讀取 Issue #262 本文與六則留言，仍只授權 WorldSession.cs 的 S72／S118／S200 三個 case。前次審查要求先裁定 Trade.cs、S167／S170／S250 的必要範圍，並明示未授權越界。本次已提出範圍確認，尚未收到答覆，因此僅更新本報告與 `docs/protocol/clan.md`。
+
+### 本次做了什麼
+
+- 唯讀核對實際 d287 JAR，確認入盟邀請為 `S219 H(0) D(0) H(97) S(申請者)`。C121 的 97 分支依目前 `CLAN_JOIN` 邀請回覆，D 欄位由伺服器讀取後捨棄。後續實作應使用這條既有建構子路徑。
+- 核實 C68 的 S167、S170、S250/171 三種回包均存在，並記錄 S250/171 每筆姓名字串後的額外 C(0)。
+- 核實 C72 仍比對 emblem ID。JAR class 符號掃描只在 `L1Clan.class` 找到 `setEmblemId`／`_emblemId`，初始化與其他血盟的映射來源仍待釐清，不能假定 clan ID 等於 emblem ID。
+- 詳細 wire 格式、JAR SHA-256、方法與最小掛接清單已附加在 `docs/protocol/clan.md`。
+
+### 本次怎麼驗證
+
+- `rebuild.py` 唯讀核驗通過，176 個來源、185 個鎖定輸入。
+- `rebuild.py --verify` 通過，既有 product／audio／launcher 與 receipt 相符。product DLL SHA-256 仍為下列前次建置值。
+- 以 `dotnet run --no-build --no-restore` 重跑已建置的既有離線測試，clan 56 項與 map-continuity 184 項通過。輸出為 `scratch/clan-checks-attempt2.json`、`scratch/clan-map-checks-attempt2.json`。這些計數涵蓋前次已實作範圍。
+- `engine/tools/check-no-game-assets.py` 通過，trackedFiles=3259、errors=0。
+- 本次只修改文件，未執行 `--update-lock` 或重建產品。最新文件提交的 CI 結果另列最後 RESULT。
+
+### 尚待完成與給下一棒的提示
+
+三項 review 缺口全部仍待完成。請調度器將本任務交主控／Claude 裁定掛接範圍及盟徽初始化責任，取得裁定後由本機執行器實作、補正式入口離線測試、更新 dev lock、重建並重送審查。維持原範圍重派同一 code 任務仍會遇到同一阻擋。
+
+本次 `gh issue/pr view` 在沙箱內回傳 HTTP 401，先由 GitHub 連接器核對狀態，再經核准的沙箱外 `gh pr view` 成功讀取，確認前次 head `bce8d2c` 的三項 CI 皆 SUCCESS。Git 沙箱內連線出現 Schannel 憑證錯誤，經核准的沙箱外 `git ls-remote` 已成功核對同一遠端 head。提交、推送與 GitHub 留言結果另列最後 RESULT。
+
+以下保留前次已完成的產品與測試範圍，方便接手者對照。
 
 ## 做了什麼
 

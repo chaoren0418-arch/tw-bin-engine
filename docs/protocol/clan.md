@@ -47,3 +47,34 @@ S118 解碼只讀封包記憶體，接受 16×12、BITMAPINFOHEADER=40、BI_RGB�
 | serverpackets/S_Pledge.java | 5fbe220f68ee9f8923452ab5e1dbb01a038c77ad001a0c31087b86c89d1c2e4a |
 | serverpackets/S_OtherCharPacks.java | 95ee7228e1c9d14d1ae42ec35dbac5fd37166ab2a5ee06f94406960babf99ce5 |
 | model/L1Clan.java | 136a4f6b9130882bb98a0d4d5647e9b73d08bac6b0becaa220e5facee6b4156b |
+
+## 第二次執行的 d287 JAR 核對
+
+2026-11-07 唯讀檢查 `D:/lineage開發/TW1608262200研究/environments/p24/server/Server_Game.jar`，SHA-256 為 `d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf`。使用 Microsoft OpenJDK 17.0.17 的 `javap -p -c` 讀取方法位元碼，並在記憶體中掃描 ZIP 內的 class 符號。未執行 JAR、未解壓或複製伺服器程式碼。
+
+本 worktree 與原專案尚無 `docs/reference/source-vs-jar.md`，已透過 GitHub 連接器讀取預設分支上的 T123 文件，並自行核對上述 JAR 的 SHA。以下為本次已驗證的靜態格式，實際往返仍待授權的真機測試。
+
+| 路徑 | d287 核對結果 |
+|---|---|
+| `C_JoinClan` → `S_Message_YN` | 呼叫 `(Offer, Ticket, int, String)`，kind 為 `CLAN_JOIN`、message 為 97、字串為申請者名稱。S219 格式為 `C(219) H(0) D(0) H(97) S(申請者)`。 |
+| `C_Attr.start` | 先讀 H，若為零則讀取並捨棄 D，再讀 H 訊息碼。97 分支讀 C 回答，以 `UiOperationContext.takeCurrent(CLAN_JOIN)` 取得目前邀請。可對應編碼 `C(121) H(0) D(0) H(97) C(接受=1／拒絕=0)`，再沿用傳輸 padding。 |
+| `S_Message_YN` | 六個建構子均存在，沒有 `confirmation(...)` 或帶 requestId 的私有建構子。入盟流程只使用上述帶一個字串的格式。 |
+| `C_Pledge.start` | 依序送 `S_Pledge(int)`、`S_Pledge(L1Clan)`、`S_PacketBox(171, L1PcInstance[])`。無血盟時送 S166/message=1064。 |
+| `S_Pledge(int)` | 頂層 S167，依序為 S 盟名、S 盟主、D emblem ID、D 建立時間、478-byte 公告。 |
+| `S_Pledge(L1Clan)` | 頂層 S170，H(1)、C 成員數，逐筆 S 姓名、C 階級、C 等級、62-byte 備註、D 角色 ID、C 職業。 |
+| `S_PacketBox(171, L1PcInstance[])` | `C(250) C(171) H(人數)`，逐人為 `S(姓名) C(0)`。每筆字串後另有一個零 byte。此路徑由 `S_PacketBox` 提供。 |
+| `C_Clan` | 仍以請求中的 D 比對 `L1Clan.getEmblemId()`，找到後取 clan ID 查圖，回覆 `S_Emblem(請求的 emblem ID, bytes)`。 |
+| `L1Clan` | `getEmblemId()` 讀取獨立的 `_emblemId` 欄位，`setEmblemId(int)` 寫入該欄位。整個 JAR 的 class 符號掃描中，兩個符號都只出現在 `L1Clan.class`。 |
+
+盟徽初始化仍待釐清。上述掃描支持「未找到一般直接 setter 呼叫」的結論，尚未排除反射或外部程式碼，也未讀取實際角色、DB 或伺服器設定。S167 若提供有效的非零 emblem ID，可用回包盟名與目前血盟身分建立映射，再送 C72。其他血盟的對應來源與零 ID 的伺服器行為仍須主控／伺服器維護者裁定。
+
+## 第二次執行所需的範圍裁定
+
+已重新讀取 Issue #262 本文及六則留言，包含退回留言與第二次派工。仍限定 WorldSession.cs 的 S72／S118／S200 三個 case，審查明示未授權越界。待裁定的最小產品變更如下。
+
+- `Trade.cs` 的 S219 路徑增加 message=97 轉交，並處理其他確認訊息取代舊邀請時的失效通知，避免回答過期的本地邀請。
+- `WorldSession.cs` 增加 S167、S170 各一個血盟接收 case，以及 S250 僅子碼171的轉交。其他子碼沿用既有處理。
+- `Clan.cs`／`ClanUi.cs` 補接受、拒絕、邀請失效、成員與上線狀態、有效 emblem ID 的查詢與映射。測試必須經正式 Receive／sender 入口。
+- 主控釐清有效 emblem ID 的發布範圍與初始化責任，或在 Issue 明確拆分剩餘功能及歸屬。
+
+本次只補協定證據與報告，產品功能缺口仍列為待完成。
