@@ -1,0 +1,468 @@
+[
+ {
+  "path": "D:\\lineage開發\\登入器bin資源\\TW1608262200.bin拆解\\TW1608262200.bin",
+  "size": 16810496,
+  "sha256": "e12949cf8912c5d62ef269ba02ca37eb5cabf8f379c3d5e10189279bf09641a2",
+  "machine": "0x14c",
+  "timestamp": 1472178893,
+  "imagebase": "0x400000",
+  "entry_rva": "0xc3ded9",
+  "entry_section": ".text",
+  "size_of_image": "0x1301000",
+  "dllchar": "0x8100",
+  "overlay": 0,
+  "sections": [
+   {
+    "name": ".text",
+    "rva": "0x1000",
+    "vsize": "0xd496d5",
+    "raw": "0xd49800",
+    "entropy": 6.1575,
+    "chars": "0x60000020"
+   },
+   {
+    "name": ".rdata",
+    "rva": "0xd4b000",
+    "vsize": "0x210bf2",
+    "raw": "0x210c00",
+    "entropy": 5.037,
+    "chars": "0x40000040"
+   },
+   {
+    "name": ".data",
+    "rva": "0xf5c000",
+    "vsize": "0x33a284",
+    "raw": "0x43c00",
+    "entropy": 5.6289,
+    "chars": "0xc0000040"
+   },
+   {
+    "name": ".rsrc",
+    "rva": "0x1297000",
+    "vsize": "0x69d20",
+    "raw": "0x69e00",
+    "entropy": 4.1219,
+    "chars": "0x40000040"
+   }
+  ],
+  "imports": {
+   "ws2_32.dll": 25,
+   "winmm.dll": 2,
+   "imm32.dll": 14,
+   "dinput.dll": 1,
+   "libpng13.dll": 23,
+   "iphlpapi.dll": 2,
+   "version.dll": 3,
+   "wininet.dll": 12,
+   "awesomium.dll": 57,
+   "mss32.dll": 16,
+   "mss32midi.dll": 9,
+   "kernel32.dll": 120,
+   "user32.dll": 117,
+   "gdi32.dll": 38,
+   "advapi32.dll": 19,
+   "shell32.dll": 1,
+   "ole32.dll": 20,
+   "oleaut32.dll": 19,
+   "msvcp110.dll": 158,
+   "msvcr110.dll": 261,
+   "ddraw.dll": 1
+  },
+  "import_total": 918,
+  "whole_entropy": 6.1884,
+  "markers": {
+   "Themida": 0,
+   "WinLicense": 0,
+   ".themida": 0,
+   ".winlice": 0,
+   "Oreans": 0,
+   ".vmp": 0,
+   "UPX!": 0,
+   "ASPack": 0,
+   ".boot": 0,
+   ".SCY": 0
+  },
+  "lineage_strings": {
+   "Lineage": 1237,
+   "sprite": 22,
+   ".spr": 15,
+   ".pak": 1,
+   ".s32": 74,
+   ".seg": 12,
+   "list.spr": 7,
+   "sprite_frame": 0,
+   ".wav": 2,
+   ".idx": 1,
+   "RunTime Expired": 1
+  }
+ },
+ {
+  "path": "D:\\lineage開發\\登入器bin資源\\Lin.bin",
+  "size": 11365984,
+  "sha256": "fc2e1f57cc9f2e3065b87dba19379c5830f32786a7fcab5d42a99f56893bc343",
+  "machine": "0x14c",
+  "timestamp": 1432632400,
+  "imagebase": "0x400000",
+  "entry_rva": "0xefa17b",
+  "entry_section": "nsn",
+  "size_of_image": "0x1c7e000",
+  "dllchar": "0x8100",
+  "overlay": 75360,
+  "sections": [
+   {
+    "name": "nsn",
+    "rva": "0x1000",
+    "vsize": "0x88e665",
+    "raw": "0x28ceeb",
+    "entropy": 7.9173,
+    "chars": "0xe00000e0"
+   },
+   {
+    "name": "nsn",
+    "rva": "0x890000",
+    "vsize": "0x130936",
+    "raw": "0x130a00",
+    "entropy": 5.1179,
+    "chars": "0xe00000e0"
+   },
+   {
+    "name": "nsn",
+    "rva": "0x9c1000",
+    "vsize": "0x2e5718",
+    "raw": "0x9bc7",
+    "entropy": 7.8886,
+    "chars": "0xe00000e0"
+   },
+   {
+    "name": "nsn",
+    "rva": "0xca7000",
+    "vsize": "0x69d20",
+    "raw": "0x69e00",
+    "entropy": 4.1195,
+    "chars": "0xe00000e0"
+   },
+   {
+    "name": "nsn",
+    "rva": "0xd11000",
+    "vsize": "0x4000",
+    "raw": "0x24e4",
+    "entropy": 7.6796,
+    "chars": "0xe00000e0"
+   },
+   {
+    "name": "nsn",
+    "rva": "0xd15000",
+    "vsize": "0x1e4000",
+    "raw": "0xe100b",
+    "entropy": 7.9567,
+    "chars": "0xe00000e0"
+   },
+   {
+    "name": "nsn",
+    "rva": "0xef9000",
+    "vsize": "0x1000",
+    "raw": "0x63",
+    "entropy": 5.9267,
+    "chars": "0xe00000e0"
+   },
+   {
+    "name": "nsn",
+    "rva": "0xefa000",
+    "vsize": "0xd76000",
+    "raw": "0x5a1c00",
+    "entropy": 6.5496,
+    "chars": "0xe00000e0"
+   },
+   {
+    "name": ".vmp0",
+    "rva": "0x1c70000",
+    "vsize": "0xd90a",
+    "raw": "0xda00",
+    "entropy": 6.867,
+    "chars": "0x60000060"
+   }
+  ],
+  "imports": {
+   "kernel32.dll": 2
+  },
+  "import_total": 2,
+  "whole_entropy": 7.0324,
+  "markers": {
+   "Themida": 0,
+   "WinLicense": 0,
+   ".themida": 0,
+   ".winlice": 0,
+   "Oreans": 0,
+   ".vmp": 8,
+   "UPX!": 0,
+   "ASPack": 0,
+   ".boot": 0,
+   ".SCY": 0
+  },
+  "lineage_strings": {
+   "Lineage": 39,
+   "sprite": 13,
+   ".spr": 18,
+   ".pak": 1,
+   ".s32": 54,
+   ".seg": 4,
+   "list.spr": 5,
+   "sprite_frame": 0,
+   ".wav": 2,
+   ".idx": 1,
+   "RunTime Expired": 1
+  }
+ },
+ {
+  "path": "D:\\lineage開發\\登入器bin資源\\TW13081901bin拆解\\TW13081901.unpacked.exe",
+  "size": 11624448,
+  "sha256": "653da514f750d4714fde2c83e5162aeef553c876ec541fe1cfebf6970f5c62a4",
+  "machine": "0x14c",
+  "timestamp": 1376914536,
+  "imagebase": "0x400000",
+  "entry_rva": "0x39ac87",
+  "entry_section": ".image",
+  "size_of_image": "0xb16000",
+  "dllchar": "0x8000",
+  "overlay": 0,
+  "sections": [
+   {
+    "name": ".image",
+    "rva": "0x1000",
+    "vsize": "0xb0a000",
+    "raw": "0xb0a000",
+    "entropy": 5.5477,
+    "chars": "0xe0000060"
+   },
+   {
+    "name": ".reimp",
+    "rva": "0xb0b000",
+    "vsize": "0xab6e",
+    "raw": "0xb000",
+    "entropy": 5.5332,
+    "chars": "0xe0000060"
+   }
+  ],
+  "imports": {
+   "ddraw.dll": 2,
+   "dinput.dll": 2,
+   "dsound.dll": 2,
+   "gdi32.dll": 72,
+   "imm32.dll": 20,
+   "iphlpapi.dll": 4,
+   "msvcp90.dll": 212,
+   "msvcr90.dll": 337,
+   "oleaut32.dll": 35,
+   "shell32.dll": 2,
+   "wininet.dll": 18,
+   "winmm.dll": 4,
+   "ws2_32.dll": 50,
+   "libpng13.dll": 46,
+   "mss32.dll": 46,
+   "ole32.dll": 22,
+   "combase.dll": 12,
+   "ntdll.dll": 3,
+   "kernel32.dll": 93,
+   "user32.dll": 95,
+   "advapi32.dll": 11
+  },
+  "import_total": 1088,
+  "whole_entropy": 5.5546,
+  "markers": {
+   "Themida": 0,
+   "WinLicense": 6,
+   ".themida": 0,
+   ".winlice": 0,
+   "Oreans": 3,
+   ".vmp": 0,
+   "UPX!": 0,
+   "ASPack": 0,
+   ".boot": 0,
+   ".SCY": 0
+  },
+  "lineage_strings": {
+   "Lineage": 85,
+   "sprite": 10,
+   ".spr": 13,
+   ".pak": 1,
+   ".s32": 56,
+   ".seg": 3,
+   "list.spr": 3,
+   "sprite_frame": 0,
+   ".wav": 8,
+   ".idx": 1,
+   "RunTime Expired": 1
+  }
+ },
+ {
+  "path": "D:\\lineage開發\\0-客戶端\\LiTo.bin",
+  "size": 1941568,
+  "sha256": "ce6ee68ada8fd37e6c096b1a27e46cb6888f1179f85defb5007ac60287360292",
+  "machine": "0x14c",
+  "timestamp": 1188889123,
+  "imagebase": "0x400000",
+  "entry_rva": "0x43b014",
+  "entry_section": "Themida ",
+  "size_of_image": "0x6c4000",
+  "dllchar": "0x0",
+  "overlay": 64,
+  "sections": [
+   {
+    "name": "   \u0000    ",
+    "rva": "0x1000",
+    "vsize": "0x436000",
+    "raw": "0x98000",
+    "entropy": 7.9928,
+    "chars": "0xe0000040"
+   },
+   {
+    "name": ".rsrc",
+    "rva": "0x437000",
+    "vsize": "0x28c8",
+    "raw": "0x2000",
+    "entropy": 4.7941,
+    "chars": "0xc0000040"
+   },
+   {
+    "name": ".idata  ",
+    "rva": "0x43a000",
+    "vsize": "0x1000",
+    "raw": "0x1000",
+    "entropy": 0.2403,
+    "chars": "0xc0000040"
+   },
+   {
+    "name": "Themida ",
+    "rva": "0x43b000",
+    "vsize": "0x289000",
+    "raw": "0x13e000",
+    "entropy": 7.7794,
+    "chars": "0xc0000040"
+   }
+  ],
+  "imports": {
+   "kernel32.dll": 2,
+   "comctl32.dll": 1
+  },
+  "import_total": 3,
+  "whole_entropy": 7.8586,
+  "markers": {
+   "Themida": 1,
+   "WinLicense": 0,
+   ".themida": 0,
+   ".winlice": 0,
+   "Oreans": 0,
+   ".vmp": 0,
+   "UPX!": 0,
+   "ASPack": 0,
+   ".boot": 0,
+   ".SCY": 0
+  },
+  "lineage_strings": {
+   "Lineage": 3,
+   "sprite": 0,
+   ".spr": 0,
+   ".pak": 0,
+   ".s32": 0,
+   ".seg": 0,
+   "list.spr": 0,
+   "sprite_frame": 0,
+   ".wav": 0,
+   ".idx": 0,
+   "RunTime Expired": 0
+  }
+ },
+ {
+  "path": "D:\\lineage開發\\0-客戶端\\TW13081901.bin",
+  "size": 3113320,
+  "sha256": "1fe1d8f9529a0982cda01a3efbb127ca2b93248a6d7d5eb198a1a69d9707f4e8",
+  "machine": "0x14c",
+  "timestamp": 1376914536,
+  "imagebase": "0x400000",
+  "entry_rva": "0xb0a000",
+  "entry_section": "qiutvbml",
+  "size_of_image": "0xb0b000",
+  "dllchar": "0x8000",
+  "overlay": 7016,
+  "sections": [
+   {
+    "name": "   \u0000    ",
+    "rva": "0x1000",
+    "vsize": "0x832000",
+    "raw": "0x1a6800",
+    "entropy": 7.9768,
+    "chars": "0xe0000040"
+   },
+   {
+    "name": ".rsrc",
+    "rva": "0x833000",
+    "vsize": "0x5b250",
+    "raw": "0xf600",
+    "entropy": 7.7813,
+    "chars": "0xc0000040"
+   },
+   {
+    "name": ".idata  ",
+    "rva": "0x88f000",
+    "vsize": "0x1000",
+    "raw": "0x200",
+    "entropy": 1.1056,
+    "chars": "0xc0000040"
+   },
+   {
+    "name": "        ",
+    "rva": "0x890000",
+    "vsize": "0x13a000",
+    "raw": "0x200",
+    "entropy": 0.2608,
+    "chars": "0xe0000040"
+   },
+   {
+    "name": "wrnopxlq",
+    "rva": "0x9ca000",
+    "vsize": "0x140000",
+    "raw": "0x13f200",
+    "entropy": 7.586,
+    "chars": "0xe0000040"
+   },
+   {
+    "name": "qiutvbml",
+    "rva": "0xb0a000",
+    "vsize": "0x1000",
+    "raw": "0x200",
+    "entropy": 3.1627,
+    "chars": "0xe0000040"
+   }
+  ],
+  "imports": {
+   "kernel32.dll": 1
+  },
+  "import_total": 1,
+  "whole_entropy": 7.8887,
+  "markers": {
+   "Themida": 0,
+   "WinLicense": 0,
+   ".themida": 0,
+   ".winlice": 0,
+   "Oreans": 0,
+   ".vmp": 0,
+   "UPX!": 0,
+   "ASPack": 0,
+   ".boot": 0,
+   ".SCY": 0
+  },
+  "lineage_strings": {
+   "Lineage": 0,
+   "sprite": 0,
+   ".spr": 0,
+   ".pak": 0,
+   ".s32": 0,
+   ".seg": 0,
+   "list.spr": 0,
+   "sprite_frame": 0,
+   ".wav": 0,
+   ".idx": 0,
+   "RunTime Expired": 0
+  }
+ }
+]
