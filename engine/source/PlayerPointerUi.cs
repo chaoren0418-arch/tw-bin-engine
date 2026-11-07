@@ -20,7 +20,7 @@ public sealed partial class ClientForm {
                 if(e.Button==MouseButtons.Right){
                     if(login.World.Target?.ShopActive==true){StopPlayerPointer("個人商店");if(await RunInteraction(CurrentNpcCommand("talk")))PlayerPointerActionSubmitted?.Invoke("private-shop",target);}
                     else if(await Pointer.ActAsync(target,true))PlayerPointerActionSubmitted?.Invoke("talk",target);
-                }else if(e.Clicks>=2||(ModifierKeys&Keys.Control)!=0){if(await Pointer.ActAsync(target,false))PlayerPointerActionSubmitted?.Invoke("attack",target);}
+                }else if(e.Clicks>=2||(ModifierKeys&Keys.Control)!=0||DirectAttackTarget(target)){if(await Pointer.ActAsync(target,false))PlayerPointerActionSubmitted?.Invoke("attack",target);}
                 else Pointer.Select(target);
             }else if(e.Button==MouseButtons.Left){var scene=Camera.ToScene(e.Location);Pointer.MoveTo(Coordinates.Pick(scene.X,scene.Y));await Pointer.TickAsync();}
             else StopPlayerPointer("右鍵取消");
