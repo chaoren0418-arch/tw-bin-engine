@@ -1,7 +1,9 @@
 namespace P06;
 
 public enum PlayerChatChannel { Normal, Shout, Global, Whisper, Clan, Party }
-public sealed record PlayerChatLine(long Sequence,uint Speaker,string Text,PlayerChatChannel Channel=PlayerChatChannel.Normal);
+public sealed record PlayerChatLine(long Sequence,uint Speaker,string Text,PlayerChatChannel Channel=PlayerChatChannel.Normal) {
+    public SharedLocation? Location {get;init;}
+}
 public sealed record PlayerChatView(int Generation,int WorldEpoch,uint Actor,int Revision,bool CanSend,string Notice,PlayerChatLine[] Lines);
 public sealed record PlayerChatInput(PlayerChatChannel Channel,string Text,string Receiver="");
 
@@ -10,7 +12,7 @@ public static class PlayerChatProtocol {
     public const int MaxCharacters=52;
     // Local input budget: quote + receiver (52) + separator + body (52), or /say + body.
     public const int MaxInputCharacters=106;
-    public const string InputHelp="一般：直接輸入；!喊話 &全體 @血盟 #隊伍；\"對象 訊息：密語；/say 原文：一般";
+    public const string InputHelp="一般：直接輸入；!喊話 &全體 @血盟 #隊伍；\"對象 訊息：密語；/say 原文：一般；/loc 角色：發送座標";
     public static PlayerChatInput ParseInput(string input){
         if(string.IsNullOrWhiteSpace(input))throw new ArgumentException("請輸入 1–52 字的單行訊息。");
         if(input.StartsWith("/say ",StringComparison.Ordinal))return new(PlayerChatChannel.Normal,input[5..]);
@@ -41,7 +43,9 @@ public static class PlayerChatProtocol {
         catch(System.Text.EncoderFallbackException){throw new ArgumentException("訊息含有遊戲字集無法表示的字元。");}
     }
     public static string ChannelName(PlayerChatChannel channel)=>channel switch{PlayerChatChannel.Shout=>"喊話",PlayerChatChannel.Global=>"全體",PlayerChatChannel.Whisper=>"密語",PlayerChatChannel.Clan=>"血盟",PlayerChatChannel.Party=>"隊伍",_=>"一般"};
-    public static string FormatLine(PlayerChatLine line)=>$"[{ChannelName(line.Channel)}] {line.Text}";
+    public static string FormatLine(PlayerChatLine line)=>line.Location is {} location
+        ?$"[座標] {line.Text}：{LocationShareProtocol.Format(location)}"
+        :$"[{ChannelName(line.Channel)}] {line.Text}";
     public static bool TryDecode(byte[] plain,out PlayerChatLine? line){
         line=null;
         if(plain.Length==0)return false;
@@ -86,6 +90,7 @@ public sealed partial class WorldSession {
 }
 
 public sealed partial class LoginConnection {
+    public Task<bool> SendLocation(string receiver,int session,int world,uint actor)=>SendLocationCore(receiver,session,world,actor);
     bool playerChatSending;int playerChatLease;long playerChatNextAt;
     string playerChatNotice="";
     void ResetPlayerChatSend(){playerChatLease++;playerChatSending=false;playerChatNextAt=0;playerChatNotice="";}
@@ -93,6 +98,7 @@ public sealed partial class LoginConnection {
     bool PlayerChatStamp(int session,int world,uint actor)=>session==generation&&world==World.WorldEpoch&&actor!=0&&actor==World.Actor?.ObjectId&&actor==World.Status?.ObjectId;
     public PlayerChatView PlayerChatSnapshot()=>CaptureWorld(()=>new PlayerChatView(generation,World.WorldEpoch,World.Actor?.ObjectId??0,World.PlayerChatRevision,PlayerChatAccess&&!playerChatSending&&WorldClock()>=playerChatNextAt,playerChatNotice,World.PlayerChatLines));
     public async Task<bool> SendPlayerChat(string text,int session,int world,uint actor){
+        if(text=="/loc"||text.StartsWith("/loc ",StringComparison.Ordinal))return await SendLocation(text.Length>5?text[5..]:"",session,world,actor);
         if(!PlayerChatAccess||!PlayerChatStamp(session,world,actor)||playerChatSending||WorldClock()<playerChatNextAt||sendMovementGate==null)return false;
         byte[] packet;
         try{packet=PlayerQueryPacket(text,session,world,actor)??PlayerChatProtocol.Encode(text);}
