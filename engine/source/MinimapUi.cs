@@ -3,16 +3,11 @@ namespace P06;
 
 public sealed partial class ClientForm {
     internal MinimapSnapshot? ReadMinimap()=>login.CaptureWorld(()=>PlayerHudActive?MinimapSnapshot.Capture(login.World):null);
-    internal static bool MinimapKeyAllowed(Keys key,bool active,bool inputAllowed,bool focused)=>key==Keys.F5&&active&&inputAllowed&&focused;
-    bool ProcessMinimapKeyboard(ref Message msg,Keys key){
-        if(!MinimapKeyAllowed(key,PlayerHudActive,GameInputAllowed,Focused))return false;
-        if(((long)msg.LParam&(1L<<30))==0)Controls.OfType<MinimapUi>().FirstOrDefault()?.Toggle();
-        return true;
-    }
 }
 
 // Owned by the HUD but mounted above the scene so opening it never resizes the HUD.
 public sealed class MinimapUi:Panel {
+    internal const string MenuText="小地圖";
     readonly Minimap model=new();
     readonly System.Windows.Forms.Timer refresh=new(){Interval=200};
     readonly Button toggle,minus,plus,close;
@@ -22,11 +17,12 @@ public sealed class MinimapUi:Panel {
     MinimapUi(PlayerHudView hud,FlowLayoutPanel menu){
         this.hud=hud;DoubleBuffered=true;BackColor=PlayerHudPainter.Ink;ForeColor=Color.White;
         AccessibleName="小地圖，已載入區域";TabStop=false;
-        toggle=MakeButton("小地圖 F5",94,Toggle);menu.Controls.Add(toggle);
+        // Original opens the map from the macro-box Map button; F5 is a macro slot (ui-layout.md §7 #12).
+        toggle=MakeButton(MenuText,72,Toggle);menu.Controls.Add(toggle);
         minus=MakeButton("−",30,()=>Zoom(-1));plus=MakeButton("＋",30,()=>Zoom(1));close=MakeButton("×",30,Toggle);
         minus.AccessibleName="縮小小地圖";plus.AccessibleName="放大小地圖";close.AccessibleName="關閉小地圖";
         Controls.AddRange([minus,plus,close]);
-        tips.SetToolTip(this,"白點：自己；青點：隊友；金點：NPC／非玩家物件（含怪物）。不在視野內的隊友位置約每 5 秒更新。只顯示已載入區域；＋／− 或滾輪縮放。F5 開關。");
+        tips.SetToolTip(this,"白點：自己；青點：隊友；金點：NPC／非玩家物件（含怪物）。不在視野內的隊友位置約每 5 秒更新。只顯示已載入區域；＋／− 或滾輪縮放。由選單「小地圖」按鈕開關。");
         hud.ParentChanged+=HudChanged;hud.VisibleChanged+=HudChanged;hud.Disposed+=HudDisposed;
         refresh.Tick+=(_,_)=>RefreshMap();RefreshMap();
     }
@@ -46,7 +42,7 @@ public sealed class MinimapUi:Panel {
         refresh.Enabled=active;
         if(!active||!model.IsOpen){Visible=false;model.Clear();return;}
         var scene=host!.PlayerSceneBounds;
-        // Tiny viewports leave the map accessible via F5 without covering the HUD.
+        // Tiny viewports keep the menu toggle state without covering the HUD.
         if(scene.Width<180||scene.Height<140){Visible=false;model.Clear();return;}
         int width=Math.Min(272,scene.Width-12),height=Math.Min(218,scene.Height-12);
         SetBounds(scene.Right-width-6,scene.Top+6,width,height);

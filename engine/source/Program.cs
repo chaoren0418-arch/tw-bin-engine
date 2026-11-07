@@ -113,6 +113,7 @@ public sealed partial class ClientForm:Form {
     }
     static bool GameKey(Keys k)=>k is Keys.Escape or Keys.M or Keys.P or Keys.U or Keys.G or Keys.F9 or Keys.F6 or Keys.F7 or Keys.F8 or Keys.Up or Keys.Down or Keys.Left or Keys.Right or Keys.Home or Keys.End or Keys.PageUp or Keys.PageDown or Keys.W or Keys.A or Keys.S or Keys.D or Keys.F or Keys.R or Keys.Space or Keys.F1 or Keys.F2 or Keys.F3 or Keys.F4 or Keys.F12 || (k>=Keys.D1&&k<=Keys.D8) || (k>=Keys.NumPad1&&k<=Keys.NumPad9);
     protected override bool ProcessCmdKey(ref Message msg,Keys keyData) {
+        if(ProcessPlayerHudKeyboard(ref msg,keyData))return true;
         if(normalProduct&&keyData==Keys.F9){if(((long)msg.LParam&(1L<<30))==0)_=TogglePanel();return true;}
         if(keyData==Keys.F10){ReturnGameFocus();return true;}
         if(keyData==Keys.F11){_ = FocusWebInput();return true;}
@@ -122,8 +123,8 @@ public sealed partial class ClientForm:Form {
         return base.ProcessCmdKey(ref msg,keyData);
     }
     public void HandleDown(Keys key) {
-        if(key==Keys.F9){_ = TogglePanel();return;}
         if(TryPlayerHudKey(key))return;
+        if(key==Keys.F9){_ = TogglePanel();return;}
         if(OnlineMode){if(playerPointer?.Active==true)StopPlayerPointer("鍵盤操作");if(key==Keys.Escape){ClearInput("escape");return;}OnlineDown(key);return;}
         if(NetworkKey(key))return;
         bool fresh=!Input.Held.Contains(key);Input.Down(key);
