@@ -28,26 +28,15 @@
 - 持久化測試：engine/_integration/dev/demo-tests/{AttackSkillChecks,AttackSkillRenderingChecks,Program}.cs；格式／來源SHA及呈現政策：[attack-skill.md](../protocol/attack-skill.md)。
 - 本機證據：scratch/issue-188/{combined-checks.json,resource-checks.json,build/,receipt.json}。重跑前先建產品與restore DemoChecks；合成測試不依賴本機遊戲素材。
 - Claude審查 PR #202；合併後由 dot 依既有授權做 M6 smoke，檢查其他箭矢（2349／2989）、不同法術、S42多目標／方向、受擊抑制target0與權威HP。不要把 hitFlag 當HP差值。
-## 最新同步輪：同步公告欄上游與重建 lock（2026-11-07）
+## 最新同步輪：合入道具使用與受擊抑制（2026-11-07）
 
-- 做了什麼：在既有 `task/188` 執行 `git fetch origin`、`git merge origin/main`，合入 `bbaac76`（含 #266 公告欄）。唯一衝突為 dev lock，使用 `rebuild.py --update-lock` 重建，未手動拼接 hash。本模組接收／呈現與 T100 送出端均未變；共用分派點和測試入口保留雙方功能；`docs/REPORT.md` 完全採 main 版本，未手動修改。
-- CI 原因核對：PR #202 目前仍開啟、尚未合併；上一輪 `a8f1d20` 的 build 與 npc-checks 均成功。舊失敗 [run 42316647327](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42316647327) 的 jobs／annotations 確認失敗點為 `dev canonical build + receipt`、退出 2。本輪下載原始 log 被 GitHub 以 HTTP 403 拒絕；沿用前輪已讀 log 的結論，並直接核對失敗提交 `7dd30ac` 的 lock：`sourceCount=176`、實際來源 pins=177，與前輪記錄一致。
-- 已驗證：`rebuild.py --update-lock` 核驗 **179 來源／188 pins**；`rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output scratch/issue-188/build` 成功。產品 0 錯誤、僅既有 MagicUi.cs CS8600／CS8602；launcher 0 警告、0 錯誤。本機使用已安裝 Python312 的 `python.exe -B -X utf8`（PATH 無 python）。
-- 已驗證：既有 DemoChecks `combat-admission` **953 項通過**（含本模組 741 項）；`map-continuity` **358 項通過**（含上游公告欄 230 項）；`item-transfer` **73 項通過**。沿用 `--artifacts-path engine/build/issue-188-tests`、`-p:UseSharedCompilation=false`，測試專案建置 0 警告／0 錯誤；未修改測試邏輯。
-- 已驗證：`check-no-game-assets.py` pass（3287 個追蹤檔、0 errors）；`git -c core.whitespace=cr-at-eol diff HEAD --check` 通過。
-- 產品 DLL SHA-256：`e82b1d0d15bab7105a3c83df74508f40317a830aed72503153690415e088f793`。
-- 產出路徑：本報告、`engine/_integration/dev/rebuild-lock.json`；本機證據沿用 `scratch/issue-188/build/`、`scratch/issue-188/{combined-checks,map-checks,item-transfer-checks}.json`；receipt 位於 `engine/_integration/dev/receipt.json`（原有未追蹤檔，不提交）。
-- 未驗證：未重跑原素材 929 項檢查，未執行真機／登入／音效驗收；未啟動遊戲、伺服器或 DB，未遞迴刪除。推送後 CI 結果以 [PR #202 checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/202/checks) 與結果留言為準。
-- 給下一棒的提示：沿用 PR #202，Claude／調度器確認最新提交 CI 後交使用者合併；dot 接 M6 smoke，沿用上方多目標、不同 gfx、S42 與權威 HP 核對清單。本輪僅同步上游、重建 lock 與更新此報告。
-## ??????????????????2026-11-07?
-
-- ??????? `task/188` ?? fetch?merge??? `origin/main` ? `5fece00`?? #197?#215???????????? dev lock ?????????????
-- ?????`ProjectileRendering.cs` ??????? gfx ??????????????? main ? `IsHitReactionSuppressed` ???`demo-tests/Program.cs` ???????`combat-admission` ?????????????????????? main?`Magic.cs`?`MagicRendering.cs`?`AttackSkillPackets.cs` ?????`docs/REPORT.md` ? main ???????????
-- CI ???????????? [run 42316647327 ?? log](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42316647327/job/128230764225)?????? `dev canonical build + receipt`????? `REFUSED: sourceCount 176 != pinned source files 177`??? 2?GitHub ???? PR #202 ??????????? PR ????????? main ????
-- ????? `rebuild.py --update-lock`?? `rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output scratch/issue-188/build`?**181 ???190 pins**???? launcher ?????????? MagicUi.cs CS8600?CS8602?launcher ????????PATH ? python?????? Python312 ??? python.exe ?????? `-B -X utf8`?
-- ?????? DemoChecks `combat-admission` **1,019 ?**????? 741 ???????? 66 ???`map-continuity` **358 ?**?`item-transfer` **73 ?**??? ItemUseChecks **426 ?**??????? `--artifacts-path engine/build/issue-188-tests`?`-p:UseSharedCompilation=false`?????????????????????????
-- ????`check-no-game-assets.py` pass?3,300 ????0 errors??`git -c core.whitespace=cr-at-eol diff HEAD --check` ???
-- ?? DLL SHA-256?`fb19a33fc68c1ca5392d75f6ef53bc742c7c66f1cbc6f10ecff3ca12a93c056d`?
-- ?????????dev lock ????????????? `scratch/issue-188/build/`?`scratch/issue-188/{combined-checks,map-checks,item-transfer-checks,item-use-checks}.json`?`engine/_integration/dev/receipt.json` ????????????
-- ?????????? 929 ???????????????????????????? DB?????????? CI ??? [PR #202 checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/202/checks) ??????
-- ?????????? PR #202?Claude?????????? CI????????dot ? M6 smoke????? gfx?S42 ????????? HP ??????????????????????
+- 做了什麼：既有 `task/188` 執行 fetch／merge，合入 `origin/main` 的 `5fece00`（含 #197、#215）。僅處理合併衝突、重建 dev lock 與更新本報告，未新增功能。
+- 衝突處理：`ProjectileRendering.cs` 保留本分支不同 gfx 的完整呈現，在共用命中判斷保留 main 的 `IsHitReactionSuppressed` 條件；`demo-tests/Program.cs` 保留雙方入口，`combat-admission` 同時執行本模組與上游受擊抑制測試。其他模組採 main；`Magic.cs`、`MagicRendering.cs`、`AttackSkillPackets.cs` 本輪未變。`docs/REPORT.md` 與 main 完全一致，未自行編輯。
+- CI 原因已驗證：本輪成功讀取 [run 42316647327 原始 log](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42316647327/job/128230764225)，失敗步驟為 `dev canonical build + receipt`，明確輸出 `REFUSED: sourceCount 176 != pinned source files 177`、退出 2。GitHub 目前顯示 PR #202 仍開啟，尚未合併；不把 PR 合併預覽的失敗當成 main 已合併。
+- 已驗證：先 `rebuild.py --update-lock`，再 `rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output scratch/issue-188/build`；**181 來源／190 pins**，產品與 launcher 建置成功。產品僅既有 MagicUi.cs CS8600／CS8602，launcher 零警告／零錯誤。PATH 無 python，使用已安裝 Python312 的完整 python.exe 路徑，參數為 `-B -X utf8`。
+- 已驗證：既有 DemoChecks `combat-admission` **1,019 項**（含本模組 741 項與上游受擊抑制 66 項）、`map-continuity` **358 項**、`item-transfer` **73 項**；上游 ItemUseChecks **426 項**全通過。測試採 `--artifacts-path engine/build/issue-188-tests`、`-p:UseSharedCompilation=false`，兩個測試專案建置零警告／零錯誤；未修改測試斷言。
+- 已驗證：`check-no-game-assets.py` pass（3,300 追蹤檔、0 errors）；`git -c core.whitespace=cr-at-eol diff HEAD --check` 通過。
+- 產品 DLL SHA-256：`fb19a33fc68c1ca5392d75f6ef53bc742c7c66f1cbc6f10ecff3ca12a93c056d`。
+- 產出路徑：本報告、dev lock 與上述衝突整合檔；本機證據 `scratch/issue-188/build/`、`scratch/issue-188/{combined-checks,map-checks,item-transfer-checks,item-use-checks}.json`。`engine/_integration/dev/receipt.json` 為原有未追蹤檔，未提交。
+- 未驗證：未重跑原素材 929 項檢查，未執行真機／登入／音效驗收；未啟動遊戲、伺服器或 DB，未遞迴刪除。推送後 CI 結果見 [PR #202 checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/202/checks) 與結果留言。
+- 給下一棒的提示：沿用 PR #202；Claude／調度器核對最新提交 CI，交使用者合併。dot 接 M6 smoke，核對不同 gfx、S42 多目標／方向、權威 HP 與受擊抑制；合成封包通過不代表真機畫面驗收。
