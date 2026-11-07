@@ -88,7 +88,7 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 - **語意衝突（超出「只做同步」字面範圍，只改本模組檔案）**：main 的 `TitleAndEmote.cs:247` 也覆寫 `ClientForm.SetVisibleCore`，合併後 CS0111 無法編譯。`BookmarkUi.cs` 的掛接點改為 `OnLayout`（全專案原本無人覆寫），同樣只訂閱一次 `Shown`、面板在 `Shown` 才建立；面板內容與行為未改。`TitleAndEmote.cs` 未動。
   - 時機實測：`scratch/issue-258/layout-probe`（空白 Form，`Application.Run` 顯示，與遊戲無關），一般顯示與建構子提早建立 handle 兩種情況順序都是 `OnLoad > OnLayout > Shown`，初始化各只執行一次；`Shown` 內 `RecreateHandle` 不重複觸發。
 - 本機驗證：`rebuild.py --update-lock`（220 source／229 pinned）、`--build` PASS（產品 DLL `dbe974e0c46817dde147f2e7e244f57505695f85085a2fef730c79e7cd551add`）；DemoChecks `bookmarks` 723、`title-emote` 704、`map-continuity` 23218、`combat-admission` 1837、`item-status` 358、`afflictions` 428、`polymorph-cadence` 309、`buddies` 445、`item-transfer` 349、`doors` 597 全部 PASS；`check-no-game-assets.py` pass（3463 檔、0 錯誤）。
-- 同步 head 的 CI 結果以後續純文件提交補記於下一行。
+- 同步 head `3484741ea9005d14f7f4e4c21e8cc5f6bdbc5f32` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42372762014) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42372761954) 均 completed／success（只有既有 `MagicUi.cs:20` 警告）。本行以後續純文件提交補記。
 ## 未驗證什麼
 
 - **換掛接點後，「記憶座標」分頁實際出現在真實 `ClientForm`，目前沒有任何自動測試覆蓋**：離線測試不經過 `ClientForm` 生命週期，上述只驗到空白 Form 的框架順序與靜態閱讀。需由 dot smoke 確認。
