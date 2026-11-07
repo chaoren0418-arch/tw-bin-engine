@@ -113,3 +113,4 @@
 - 2026-11-07 — #325 T139：釣魚（code，claude-local，PR #354 已合併）→ [報告](reports/issue-325.md)
 - 2026-11-07 — #322 T136：門（code，claude-local，PR 已合併）→ [報告](reports/issue-322.md)
 - 2026-11-07 — #360 T143：幽靈模式（code，claude-local，PR 已合併）→ [報告](reports/issue-360.md)
+- 2026-11-07 — #377 T145：傳送門（踩點進入）（code，claude-local，PR 已合併）→ [報告](reports/issue-377.md)
