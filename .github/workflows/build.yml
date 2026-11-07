@@ -105,6 +105,14 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           dotnet run --project engine/_integration/dev/combat-sfx-tests/CombatSfxChecks.csproj -c Release --no-restore -- . none scratch/issue-433/selection.json --selection
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Player chat format, palette and channel contracts (no game or network)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-449 | Out-Null
+          dotnet restore engine/_integration/dev/player-chat-tests/PlayerChatChecks.csproj --configfile .github/nuget.ci.config
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          dotnet run --project engine/_integration/dev/player-chat-tests/PlayerChatChecks.csproj -c Release --no-restore -- . scratch/issue-449/chat-checks.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Real WebView2 product page and local resource regression
         shell: pwsh
         run: |
