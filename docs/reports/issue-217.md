@@ -8,6 +8,13 @@
 - 第 2 次嘗試：快轉至遠端 `75741a9`，合併 `origin/main` 的 `25bc0f4`。唯一文字衝突為 dev lock，以 `--update-lock` 重產；`docs/REPORT.md` 僅帶入 main 版本，沒有新增或編輯索引。
 - 同步後重跑既有 `teleport-tests`，發現 #198 的一般 S206 recovery 被誤當作單參數版。修正僅限 `MapIdPacket.cs`：完整比對單參數常數尾段，或接受 main 已核准的 water=0/1、12-byte 全零 recovery；其他尾段、長度與重複 wrapper 均拒絕。增加已掛入 CI 的回歸向量，未修改傳送模組或 `LoginReader`。
 
+### 本次同步補驗
+
+- 依調度器「只做同步」回饋，合併 `origin/main`（`c411ddf`）與遠端 `task/217` 的既有同步紀錄（`d2cb969`），沒有新增功能修改。唯一衝突為 dev lock，使用 `--update-lock` 重產，沒有手動拼接 hash。
+- 前次 CI run `42317238568` 的 `dotnet` 失敗原因為 `sourceCount 176 != pinned source files 177`；本次 lock 核驗通過，179 個來源／188 個鎖定檔。
+- 重跑下列既有命令：產品與 launcher 建置通過（產品仍有 `MagicUi.cs:20` 兩個既存警告、0 錯誤）；`map-continuity` **19,849 項通過**；`teleport-tests` **4,369 項通過**；`check-no-game-assets.py` 通過（0 錯誤、4 個合法 EmbeddedResource）；差異空白檢查通過。
+- 本次產品 DLL SHA-256：`bbfedc3fcbd8436f36f2f298a01151f0c20765a0b1daabfd3be5812f7c06b8b4`。證據沿用 `scratch/issue-217/`，下方舊輪數字與 SHA 僅代表前一輪。本次未啟動遊戲、伺服器或 DB；PR #243 最新提交的 CI 於推送後追蹤。
+
 ## 怎麼驗證（已驗證）
 
 環境：Windows x64、SDK 10.0.300、Python 3.12。此環境 `py` 找不到安裝記錄，實際使用 `C:\Users\CHAOREN\AppData\Local\Programs\Python\Python312\python.exe`。
