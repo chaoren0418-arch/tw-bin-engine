@@ -87,6 +87,7 @@ public sealed class PlayerPointerController {
         int ticket=version,selection=login.World.TargetRevision;var s=Capture();var from=Position;sending=true;
         bool Valid()=>ticket==version&&Current(s)&&!walking()&&Position==from&&login.World.TargetRevision==selection&&login.World.TargetId==id&&TargetVisible(id);
         try{
+            if(login.World.IsDoor(id)){bool doorSent=await login.ToggleDoor(id,Valid);if(ticket==version)Notice=doorSent?"門操作已送出；等待伺服器回報開關與通行狀態。":"門操作未送出；請確認狀態後重新點擊。";return doorSent&&ticket==version;}
             bool sent=talk?await login.PointerTalk(Valid):await login.PointerAttack(Valid);
             if(ticket==version)Notice=sent?(talk?"單次交談已送出，等待伺服器回覆。":"單次攻擊已送出，等待伺服器回覆。"):(talk?"目前無法交談；請走近後再點擊。":login.World.CombatNotice);
             return sent&&ticket==version;
