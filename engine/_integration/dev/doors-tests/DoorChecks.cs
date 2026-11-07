@@ -33,6 +33,7 @@ partial class Checks {
             Feed(c,DoorAttribute(passable:0));Check(!c.World.DoorBlocks(32600,32941,0),"S209 open removes collision");
             Feed(c,DoorAction(37));Check(c.World.Objects.Single(o=>o.ObjectId==700).Dead,"S158 door destruction");
             Feed(c,DoorPack());Check(!c.World.Objects.Single(o=>o.ObjectId==700).Dead,"new full pack restores door incarnation");
+            c.World.SelectTarget(700);Feed(c,DoorPack(37));Check(c.World.TargetId==null,"destroyed full pack clears selected door");
             Feed(c,LoginPackets.Pad([120,..BitConverter.GetBytes(700u)]));Check(!c.World.IsDoor(700),"S120 removes door identity");
             Feed(c,Pack(700));Feed(c,DoorAction(28));Check(!c.World.IsDoor(700),"reused object ID is not a door");
             Feed(c,DoorAction(70,456));Check(c.World.Objects.Single(o=>o.ObjectId==456).ShopActive,"non-door S158 still reaches existing dispatcher");

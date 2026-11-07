@@ -17,10 +17,10 @@
 
 - .NET SDK 10.0.300：先 `rebuild.py --update-lock`，再 `rebuild.py --build`，產品及 launcher 建置通過。
 - 本機 NuGet.org 還原因 TLS 認證失敗；改以 `scratch/issue-322/NuGet.Config` 唯讀引用原專案 `engine/vendor` 完成。套件還原及所有暫存均在此 worktree。
-- `DemoChecks ... doors`：**250 項通過**。包括所有 C／S 格式、完整截斷長度、padding、錯誤欄位、同圖 S206、Reset、S120／ID 重用、排隊期間失效、禁止預測狀態、鍵盤通行及關門競態。
+- `DemoChecks ... doors`：**251 項通過**。包括所有 C／S 格式、完整截斷長度、padding、錯誤欄位、同圖 S206、Reset、S120／ID 重用、排隊期間失效、完整毀壞回包清除選取、禁止預測狀態、鍵盤通行及關門競態。
 - `DemoChecks ... map-continuity`：**358 項通過**，確認既有地圖、船、旅館、特效及佈告欄回歸。
-- 最後產品 DLL SHA-256：`c0b1bf9ee5b0481aad65b15d38d92ecd33340191c027fde5d89cf217b0aabd27`。
-- `check-no-game-assets.py` 通過（0 errors）；遠端 CI 結果於完成檢查後補入本頁。
+- 最後產品 DLL SHA-256：`06be563e1a084bc85eef597ffa0fd1f5dc4e9c72d9210a4c2e825bf1fc597a57`。
+- `check-no-game-assets.py` 通過（0 errors）；遠端 CI 的 `build`／`npc-offline` 執行與結論以 [PR #350 的 Checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/350/checks) 對應提交為準，本機測試不代替 CI。
 
 ## 未完成／未驗證
 

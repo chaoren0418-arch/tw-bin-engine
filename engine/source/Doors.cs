@@ -45,6 +45,7 @@ public sealed partial class WorldSession {
         EnsureDoorEpoch();ReceiveObject(r,x,y,id);
         var door=objects[id] with{DoorAction=plain[11],Dead=plain[11]==37};
         objects[id]=door;doorObjects[id]=door;
+        if(door.Dead&&TargetId==id)SelectTarget(null);
         return true;
     }
     bool ReceiveDoorAction(byte[] plain){
