@@ -1,4 +1,34 @@
 namespace P06;
+// Only the parsed packet shapes wrapped by Teleportation.abortPcTeleport.
+// There is no wrapper opcode; this recognizes the wire variant, not its provenance.
+internal static class TeleportRecoveryPackets {
+    internal static bool Matches(ReadOnlySpan<byte> fields){
+        if(fields.IsEmpty)return false;
+        return fields[0] switch {
+            202=>fields.Length==2&&fields[1]==7, // TYPE_TELEPORT_UNLOCK, false
+            206=>fields.Length==4&&fields[3]<=1, // S_MapID(int, boolean)
+            119=>fields.Length==6, // S_CharVisualUpdate
+            87=>OwnCharacter(fields),
+            _=>false
+        };
+    }
+    static bool OwnCharacter(ReadOnlySpan<byte> fields){
+        // S_OwnCharPack: 21 fixed bytes, name/title, status/clanId, clan/empty owner,
+        // then rank, HP%, brave, 00, 00, FF, FF. Different S87 layouts are excluded.
+        if(fields.Length<37||fields[12]>7)return false;
+        int at=21;
+        if(!SkipString(fields,ref at)||!SkipString(fields,ref at))return false;
+        if(fields.Length-at<5||(fields[at]&4)==0)return false;
+        at+=5;
+        if(!SkipString(fields,ref at)||fields.Length-at!=8||fields[at]!=0)return false;
+        return fields[^4]==0&&fields[^3]==0&&fields[^2]==255&&fields[^1]==255;
+    }
+    static bool SkipString(ReadOnlySpan<byte> fields,ref int at){
+        int end=fields[at..].IndexOf((byte)0);
+        if(end<0)return false;
+        at+=end+1;return true;
+    }
+}
 public sealed partial class WorldSession {
     public int TeleportGeneration {get;private set;}
     public string TeleportState {get;private set;}="idle";

@@ -60,7 +60,9 @@ partial class Checks {
             Check(c.World.InteractionKind=="closed","buddy does not open or change NPC dialog");
             var stale=c.BuddySnapshot();int rev=stale.Revision;
             BuddyBad(()=>Feed(c,BuddyReply(owner:999)),"foreign owner rejected");Check(c.World.BuddyRevision==rev,"bad owner leaves state unchanged");
-            Feed(c,ExcludeReply(17,"Alice","中文"));Check(c.World.IsExcluded("aLiCe")&&c.World.ExcludedNames.Length==2,"S250/17 snapshot and case-insensitive lookup");
+            Feed(c,ExcludeReply(17,"Alice","中文"));
+            Check(c.World.IsExcluded("aLiCe")&&c.World.ExcludedNames.Length==2,"S250/17 snapshot and case-insensitive lookup");
+            Check(c.World.ExcludedNames.Contains("中文")&&c.World.BuddyRevision==rev+1,"S250/17 preserves Big5 name and publishes one revision");
             Feed(c,ExcludeReply(18,"ALICE"));Check(c.World.ExcludedNames.Length==2,"duplicate S250/18 idempotent");
             int beforeBad=c.World.BuddyRevision;
             BuddyBad(()=>Feed(c,ExcludeReply(17,"Bob","").Concat(new byte[8]).ToArray()),"bad snapshot rejected atomically");
@@ -89,6 +91,11 @@ partial class Checks {
             Check(await c.SendBuddy(BuddyAction.ToggleExclude,"Alice",c.BuddySnapshot()),"send C171");
             Check(!c.World.IsExcluded("Alice")&&!c.BuddySnapshot().CanToggle,"exclude waits for authoritative ack");
             Check(!await c.SendBuddy(BuddyAction.ToggleExclude,"Alice",c.BuddySnapshot())&&sent.Count==4,"pending toggle cannot double-submit");
+            int pendingRevision=c.World.BuddyRevision;string pendingNotice=c.World.BuddyNotice;
+            Feed(c,Packet(b=>{b.Write((byte)71);b.Write((ushort)403);b.Write((byte)1);Text(b,"中文");}));
+            Check(c.World.ExcludePending&&c.World.BuddyRevision==pendingRevision&&c.World.BuddyNotice==pendingNotice&&c.World.LastServerReply?.Id==403&&c.World.LastServerReply.Arguments.SequenceEqual(new[]{"中文"}),"unrelated S71 preserves pending toggle and original message dispatch");
+            Feed(c,LoginPackets.Pad([206,0,0,0]));Feed(c,Pack(123));
+            Check(c.World.ExcludePending&&c.World.BuddyRevision==pendingRevision&&!c.BuddySnapshot().CanToggle,"map transfer preserves pending exclude toggle");
             Feed(c,ExcludeReply(18,"Bob"));Check(!c.BuddySnapshot().CanToggle,"unrelated ack does not release pending toggle");
             Feed(c,ExcludeReply(18,"Alice"));Check(c.BuddySnapshot().CanToggle&&c.World.IsExcluded("alice"),"matching ack releases pending toggle");
             await c.SendBuddy(BuddyAction.ToggleExclude,"Alice",c.BuddySnapshot());

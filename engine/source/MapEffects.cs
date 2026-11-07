@@ -32,6 +32,145 @@ public sealed partial class Renderer {
             var effect=block.Effects[ordinal];var frame=WorldSession.MapEffectFrame(effect,block.Name,ordinal,cache.MapId,now-block.EffectsAt,states);visuals.Add(new(block.Name,block.Generation,effect.Id,effect.X,effect.Y,frame.Key,effect.Appearance.Flags));
             foreach(var b in frame.Blocks)draws.Add(new(2*(effect.X-Coordinates.MinX)+b.A,effect.Y-Coordinates.MinY+b.B,b.Z,serial++,"map-effect",b.Order,-1,effect.Offset,b.Tile));
         }
+        ComposePacketEffects(session,draws,now);
         MapEffectVisuals=visuals.ToArray();
+    }
+}
+
+public sealed record PacketEffect(long Number,int Epoch,ServerEffect Packet,long At,long Expires);
+public sealed record PacketEffectVisual(long Number,int Gfx,int X,int Y,string Frame);
+
+// Reuse verified packaged appearances; an unknown gfx never becomes a sound ID or a placeholder.
+public sealed class PacketEffectAppearance
+{
+    public double Duration {get;}
+    readonly Func<long,Frame> frame;
+    public PacketEffectAppearance(MapEffectAppearance appearance)
+    {
+        Duration=appearance.Sequence.Sum(s=>(double)s.Ticks)*1000/24;
+        frame=appearance.At;
+    }
+    public PacketEffectAppearance(ObjectAppearance appearance,string action)
+    {
+        Duration=appearance.Duration(action);
+        frame=elapsed=>appearance.Sequences[(action,0)].All(s=>s.Milliseconds!=null)
+            ?MagicMotion.PureFrame(appearance,action,elapsed)
+            :appearance.At(action,0,elapsed%Duration);
+    }
+    public Frame At(long elapsed)=>frame(Math.Max(0,elapsed));
+}
+
+public sealed class PacketEffectAssets(string root)
+{
+    readonly Dictionary<int,PacketEffectAppearance?> cache=[];
+    MapEffectCatalog? maps;
+    public PacketEffectAppearance? Get(int gfx)
+    {
+        if(cache.TryGetValue(gfx,out var hit))return hit;
+        PacketEffectAppearance? result=null;
+        try
+        {
+            string path=Path.Combine(root,"objects",$"magic-{gfx}.json");
+            if(File.Exists(path))
+            {
+                var integrity=Json.Read(Path.Combine(root,"integrity.json"));
+                var pin=integrity.GetProperty("files").EnumerateArray().Single(f=>f.S("path")==$"objects/magic-{gfx}.json");
+                using var source=File.OpenRead(path);
+                if(!Convert.ToHexString(SHA256.HashData(source)).Equals(pin.S("sha256"),StringComparison.OrdinalIgnoreCase))
+                    throw new InvalidDataException("packet effect integrity");
+                var appearance=new ObjectAppearance(path);
+                string? action=MagicSpells.AttachedEffect(appearance);
+                if(appearance.Gfx==gfx&&action!=null)result=new(appearance,action);
+            }
+            else result=new((maps??=new(Path.Combine(root,"maps"))).Get(gfx));
+        }
+        catch(Exception ex) when(ex is IOException or UnauthorizedAccessException or InvalidDataException or NotSupportedException or InvalidOperationException or JsonException or KeyNotFoundException)
+        {System.Diagnostics.Trace.WriteLine($"Packet gfx {gfx} unavailable: {ex.Message}");}
+        cache[gfx]=result;
+        return result;
+    }
+}
+
+public sealed partial class WorldSession
+{
+    readonly List<PacketEffect> packetEffects=[];
+    long packetEffectNumber;
+    public PacketEffect[] PacketEffects {get{PrunePacketMedia();return packetEffects.ToArray();}}
+
+    internal (int X,int Y)? PacketEffectPosition(uint id)
+    {
+        if(Actor?.ObjectId==id)return SelfAppearancePending?null:(Actor.X,Actor.Y);
+        var obj=Objects.FirstOrDefault(o=>o.ObjectId==id&&!o.AppearancePending);
+        return obj==null?null:(obj.X,obj.Y);
+    }
+
+    internal void ReceiveEffectPacket(byte[] plain)
+    {
+        ReceiveEffectPacketCore(plain);
+        BasicSupplyReply(plain[0],plain);
+    }
+
+    void ReceiveEffectPacketCore(byte[] plain)
+    {
+        var packet=SoundPackets.Effect(plain);
+        EnsurePacketMedia();
+        // Preserve the established S55 item notifications, renderer and sprite sound events.
+        // Only this path owns these six 8-byte variants, so there is no second gfx/audio dispatch.
+        if(plain[0]==55&&plain.Length==8&&MagicSpells.AttachedEffect(packet.GfxId))
+        {
+            var reader=new LoginReader(plain);reader.C();ReceiveMagic(55,reader,plain);return;
+        }
+        if(packet.Target is uint target)
+        {
+            LastItemEffect=new{number=++ItemEffectNumber,actor=target,effect=packet.GfxId};InventoryRevision++;
+            if(PacketEffectPosition(target)==null)
+            {PacketMediaNotice=$"S55 特效 {packet.GfxId} 的對象不在可見世界；已略過";return;}
+        }
+        long now=PacketMediaClock();
+        // Product policy: nonzero time is seconds; absent/zero uses one animation cycle.
+        // The 15 s fallback only bounds missing assets until the renderer resolves the real cycle.
+        long lifetime=packet.Time is >0?packet.Time.Value*1000L:15000;
+        packetEffects.Add(new(++packetEffectNumber,WorldEpoch,packet,now,now+lifetime));
+        if(packetEffects.Count>256)packetEffects.RemoveAt(0);
+        PacketMediaNotice=$"S{plain[0]} 圖像特效 {packet.GfxId}；time={packet.Time?.ToString()??"無"}";
+    }
+
+    public PacketEffectVisual[] PacketEffectFrames(long now,Func<int,PacketEffectAppearance?> resolve,Action<Frame,int,int>? draw=null)
+    {
+        var result=new List<PacketEffectVisual>();
+        foreach(var item in PacketEffects)
+        {
+            var appearance=resolve(item.Packet.GfxId);
+            if(appearance==null)
+            {
+                MagicNotice=PacketMediaNotice=$"圖像特效 {item.Packet.GfxId} 缺少已核定素材；未顯示";
+                packetEffects.Remove(item);continue;
+            }
+            long end=item.Packet.Time is >0?item.Expires:item.At+(long)Math.Ceiling(appearance.Duration);
+            if(now>=end){packetEffects.Remove(item);continue;}
+            var position=item.Packet.Target is uint target?PacketEffectPosition(target):(item.Packet.X,item.Packet.Y);
+            if(position==null){packetEffects.Remove(item);continue;}
+            var frame=appearance.At(now-item.At);
+            result.Add(new(item.Number,item.Packet.GfxId,position.Value.Item1,position.Value.Item2,frame.Key));
+            draw?.Invoke(frame,position.Value.Item1,position.Value.Item2);
+        }
+        return result.ToArray();
+    }
+}
+
+public sealed partial class Renderer
+{
+    PacketEffectAssets? packetEffectAssets;
+    public PacketEffectVisual[] PacketEffectVisuals {get;private set;}=[];
+    void ComposePacketEffects(WorldSession session,List<Draw> draws,long now)
+    {
+        if(session.PacketEffects.Length==0){PacketEffectVisuals=[];return;}
+        packetEffectAssets??=new(assets.Root);
+        int serial=2500000;
+        PacketEffectVisuals=session.PacketEffectFrames(now,packetEffectAssets.Get,(frame,x,y)=>
+        {
+            if(!session.SceneContains(x,y))return;
+            foreach(var b in frame.Blocks)draws.Add(new(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,b.Z,serial++,"packet-effect",b.Order,-1,-1,b.Tile));
+        });
     }
 }

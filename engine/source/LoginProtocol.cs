@@ -53,7 +53,13 @@ public sealed class LoginReader(byte[] data) {
     public ushort H()=>(ushort)(C()|(C()<<8));
     public uint D()=>(uint)(H()|((uint)H()<<16));
     public string S(){int start=offset;while(C()!=0){}return LoginPackets.TextEncoding.GetString(data,start,offset-start-1);}
-    public void Finish(){int pad=(8-(offset&7))&7;if(data.Length-offset!=pad)throw new ProtocolException("unexpected packet length");while(offset<data.Length)if(C()!=0)throw new ProtocolException("nonzero padding");}
+    public void Finish(){
+        int pad=(8-(offset&7))&7;
+        // Teleportation.S_TeleportRecovery appends 00 to an already padded payload.
+        if(data.Length-offset==pad+8&&TeleportRecoveryPackets.Matches(data.AsSpan(0,offset)))pad+=8;
+        if(data.Length-offset!=pad)throw new ProtocolException("unexpected packet length");
+        while(offset<data.Length)if(C()!=0)throw new ProtocolException("nonzero padding");
+    }
 }
 
 public static class LoginPackets {
