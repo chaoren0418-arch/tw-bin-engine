@@ -109,6 +109,12 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 - `git merge origin/main`（落後 22 個提交，含 hotbar）。文字衝突只有 `demo-tests/Program.cs` 的 `map-continuity` 群組：取兩邊聯集（保留 `BookmarkChecks()`，加入 main 的 `HotbarChecks()`）。`rebuild-lock.json` 雖自動合併，仍取 main 版本後 `--update-lock` 重產。本模組檔案、`WorldSession.cs` 未變更；`docs/REPORT.md` 用 main 版本。
 - 本機驗證：`rebuild.py --update-lock`（223 source／232 pinned）、`--build` PASS（產品 DLL `c8c6e1ee6dcf08743bf736e47aed7d6d83db3ff1e6dda6648ccd9f2d60f8a83f`）；DemoChecks `bookmarks` 774、`map-continuity` 23685、`hotbar` 569、`name-display` 414、`character-config` 455、`minimap` 398 全部 PASS；`check-no-game-assets.py` pass（3627 檔、0 錯誤）。
 - 同步 head `0aeff7df80b83cdbb9185a1b791cd636537960da` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42407977530) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42407977534) 均 completed／success；僅既有的 `MagicUi.cs:20` 警告。本行以後續純文件提交補記。
+
+### 2026-11-08 同步輪（ambience／audio 等）
+
+- `git merge origin/main`（main `dfe7bc06`，落後 32 個提交，含 ambience／audio／sound 修改）。文字衝突只有 `rebuild-lock.json`：取 main 版本後 `--update-lock` 重產；重產後對 main 的差異只剩 `BookmarkUi.cs`、`Bookmarks.cs`、`WorldSession.cs` 三筆與 sourceCount。`demo-tests/Program.cs`、`WorldSession.cs` 自動合併；main 沒有新的 `OnResize` 覆寫，無 CS0111。本模組檔案未變更；`docs/REPORT.md` 與 main 相同。
+- 本機驗證：`rebuild.py --update-lock`（224 source／233 pinned）、`--build` PASS（產品 DLL `5b3b70c2374eaabeb3e1a23aeab48e8d5133c5ddd44ca59fa4cf5dcd5e61b1dc`，2 警告 0 錯誤）；DemoChecks `bookmarks` 774、`map-continuity` 28650、`ambience` 5648、`map-ambient` 372、`hotbar` 569、`char-reset` 488 全部 PASS；`check-no-game-assets.py` pass（3686 檔、0 錯誤）；唯讀 `rebuild.py` 核驗通過。
+- 同步 head `7e02d6332cbd8f2fe87b84396dfbfe20eca5668e` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42414463904) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42414463870) 均 completed／success；僅既有的 `MagicUi.cs:20` 警告；PR #271 為 CLEAN／MERGEABLE。本行以後續純文件提交補記。
 ## 未驗證什麼
 
 - **換掛接點後，「記憶座標」分頁實際出現在真實 `ClientForm`，目前沒有任何自動測試覆蓋**：離線測試不經過 `ClientForm` 生命週期，上述只驗到空白 Form 的框架順序與靜態閱讀。需由 dot smoke 確認。
