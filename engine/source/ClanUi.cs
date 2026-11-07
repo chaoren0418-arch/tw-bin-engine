@@ -63,22 +63,5 @@ public sealed partial class ClientForm {
         }
         var refresh=new System.Windows.Forms.Timer{Interval=250};refresh.Tick+=(_,_)=>Refresh();window.FormClosed+=(_,_)=>{refresh.Stop();refresh.Dispose();};Refresh();refresh.Start();window.Show(this);
     }
-    void PaintClanLabels(Graphics g){
-        if(!login.World.Renderable)return;
-        var viewport=new RectangleF(Camera.ViewOffset,Camera.View);
-        void Draw(uint id,string name,string clan,uint clanId,PointF foot){
-            if(clan.Length==0||name.Length==0)return;
-            var p=Camera.ToView(foot);if(!viewport.Contains(p))return;
-            string text=name+" ["+clan+"]";var size=g.MeasureString(text,Font);float x=p.X-size.Width/2,y=p.Y-48;
-            g.DrawString(text,Font,Brushes.Black,x+1,y+1);g.DrawString(text,Font,Brushes.LightCyan,x,y);
-            // S118 broadcasts can be keyed by clan ID; do not reinterpret S72's reserved D.
-            if(login.World.FindClanEmblem(clanId) is {} emblem){
-                for(int row=0;row<12;row++)for(int col=0;col<16;col++){using var brush=new SolidBrush(Color.FromArgb(emblem.Pixels[row*16+col]));g.FillRectangle(brush,x-19+col,y+row+2,1,1);}
-            }
-        }
-        if(login.World.Actor is {} actor)Draw(actor.ObjectId,actor.Name,actor.Clan,actor.ClanId,renderer.OwnCombatVisual?.Foot??Coordinates.Screen(actor.X,actor.Y));
-        foreach(var v in objectVisuals.Where(v=>objectPatch?.VisibleObjectIds.Contains(v.ObjectId)==true)){
-            var obj=login.World.Objects.FirstOrDefault(o=>o.ObjectId==v.ObjectId);if(obj!=null)Draw(obj.ObjectId,obj.Name,obj.Clan,obj.ClanId,v.Foot);
-        }
-    }
+    // The world view never draws the clan name (+244); names and emblems are painted by ObjectRendering.
 }

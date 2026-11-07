@@ -142,3 +142,4 @@
 - 2026-11-07 — #442 T170：變身缺動作時退回，以及特殊外型（code，claude-local，PR 已合併）→ [報告](reports/issue-442.md)
 - 2026-11-07 — #434 T166：地圖事件 `^` 環境音（code，claude-local，PR 已合併）→ [報告](reports/issue-434.md)
 - 2026-11-08 — #449 T175：聊天格式與顏色對齊原版（code，claude-local，PR 已合併）→ [報告](reports/issue-449.md)
+- 2026-11-08 — #440 T168：名稱、稱號、盟徽與名稱顏色對齊原版（code，claude-local，PR 已合併）→ [報告](reports/issue-440.md)
