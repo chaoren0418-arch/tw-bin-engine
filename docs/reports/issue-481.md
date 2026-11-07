@@ -27,7 +27,7 @@
 - **別人隱身的可見例外**（`$431`、`sub_956D30` 隊伍／血盟）：意義未知，**不做例外**，所有別人的隱身一律不畫。`m6-native-diff.md` G7 建議的「隊伍／血盟可見」也沒有做，以 Issue 的指示為準。
 - **盲目 2 讓特定種類物件發光**（102 表 {5,6,10,12}）：**不做**。
 - 盲目 2 的職業加成（6/31）：**不做**，一律 4/31。
-- 光圈形狀：`source.lmp` 未解讀，沿用引擎既有光源半徑（`AmbiencePainter.Radius(5)`＝120 場景像素）與平滑邊緣；盲目 2 光圈內的係數用線性內插。
+- 光圈形狀：`source.lmp` 未解讀，沿用引擎原本的光源半徑（5×24＝120 場景像素；`AmbiencePainter.Radius` 已在 #479 移除，改為 `AfflictionColors.BlindLightRadius` 常數，數值不變）與平滑邊緣；盲目 2 光圈內的係數用線性內插。
 - 酒醉：`sub_81B0E0()` 為假時位移減半、地圖 67／420 最低醉度 1：都沒做；行兩端空出的欄位重複邊緣像素。
 - 中毒脈動的起始相位：原版計數器起點未知，只對齊週期與振幅。
 
@@ -40,7 +40,9 @@
    - `timed-buffs`：PASS 645（相位 50 ms／200 循環、18 筆位移表、振幅 3／7／10、垂直週期 100 行、相位 200 回原點、逐行移位與邊界、`WarpLiquorFrame` 對 Bitmap 的實際移位）。
    - 合併 main 後，CI 的全部群組都跑過：`map-continuity` 23272、`combat-admission` 1686、`item-status` 409、`polymorph-cadence` 380、`buddies` 496、`item-transfer` 400、`doors` 648，另跑 `title-emote` 553，全部 PASS。
 3. `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：pass，errors 0。
-4. CI：PR #496 的 dotnet、map-continuity、npc-offline 全部綠燈。
+4. CI：PR #496 的 dotnet、map-continuity、npc-offline 全部綠燈（同步輪前）。
+
+**同步輪（2026-11-08）**：合併 `origin/main`（`dfe7bc06`，含 #479 日夜光照）後編譯失敗：#479 刪掉了 `AmbiencePainter.Radius`。`Afflictions.cs` 改用常數 `BlindLightRadius=5*24f`（與舊函式在 k=5、zoom 1 的值相同，行為不變）。`--update-lock`（222 來源、231 鎖定檔）→ `--build` PASS（product DLL `99f349f8…1d7c`）。重跑：`afflictions` 580、`invisibility` 397、`timed-buffs` 645、`map-continuity` 28237、`combat-admission` 1686、`item-status` 409、`polymorph-cadence` 380、`buddies` 496、`item-transfer` 400、`doors` 648，全部 PASS；`check-no-game-assets.py` errors 0。
 
 ## 沒驗證什麼
 

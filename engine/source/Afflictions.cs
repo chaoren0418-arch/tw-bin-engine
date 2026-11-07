@@ -85,9 +85,10 @@ public static class AfflictionColors {
     // The 6/31 class bonus depends on an inferred class meaning and is not applied.
     public const int BlindTwoUnlit=4;
     public static ushort Darken(ushort color)=>Scale(color,BlindTwoUnlit);
-    // Own light while blind uses light index k=5. source.lmp is unread, so the disc reuses the engine's
-    // existing light radius for value 5 and its smooth edge; the shape is a presentation stand-in.
-    public static readonly float BlindLightRadius=AmbiencePainter.Radius(5,1f);
+    // Own light while blind uses light index k=5. source.lmp is unread (T167), so the disc keeps the
+    // engine's former light radius for value 5 (5*24 px, removed from AmbiencePainter in #479) and a
+    // smooth edge; the shape is a presentation stand-in until the k=5 light image is available.
+    public const float BlindLightRadius=5*24f;
     public static int BlindLight(double distance){
         double edge=Math.Clamp((distance/BlindLightRadius-.15)/.85,0,1);
         return (int)Math.Round((1-edge*edge*(3-2*edge))*255)>>3;
