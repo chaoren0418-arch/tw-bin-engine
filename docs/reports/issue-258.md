@@ -103,6 +103,12 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 - 兩次 `git merge origin/main`（第一次落後 42 個提交，含 map-ambient；push 後 main 又合入 #440 name-display，再同步一次）。兩次的文字衝突都只在 `demo-tests/Program.cs` 的 `map-continuity` 群組與 `rebuild-lock.json`：群組取兩邊聯集（保留 `BookmarkChecks()`，加入 main 的 `MapAmbientChecks()`、`NameDisplayChecks()` 與 `name-display` case）；lock 取 main 版本後 `--update-lock` 重產。`WorldSession.cs` 自動合併，對 main 的差異只剩本模組既有的 `ResetBookmarks()`、`ReceiveBookmarkList` 子分派與 S92 case。沒有改其他模組檔案，`docs/REPORT.md` 用 main 版本。
 - 本機驗證：`rebuild.py --update-lock`（223 source／232 pinned）、`--build` PASS（產品 DLL `f59bcdfc1376a6d467872b0373a539b43155c84b3403ee6296b47f106ef15945`）；DemoChecks `bookmarks` 774、`map-continuity` 23607、`name-display` 414、`clan-war` 530、`title-emote` 553 全部 PASS；`check-no-game-assets.py` pass（3552 檔、0 錯誤）。
 - 同步 head `75273874408a8b83b4ec43356faeb7af877c9004` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42403055016)（dotnet、map-continuity）與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42403055057) 均 completed／success；僅既有的 `MagicUi.cs:20` 警告。本行以後續純文件提交補記；PR #271 狀態 MERGEABLE。
+
+### 2026-11-08 同步輪（hotbar 等）
+
+- `git merge origin/main`（落後 22 個提交，含 hotbar）。文字衝突只有 `demo-tests/Program.cs` 的 `map-continuity` 群組：取兩邊聯集（保留 `BookmarkChecks()`，加入 main 的 `HotbarChecks()`）。`rebuild-lock.json` 雖自動合併，仍取 main 版本後 `--update-lock` 重產。本模組檔案、`WorldSession.cs` 未變更；`docs/REPORT.md` 用 main 版本。
+- 本機驗證：`rebuild.py --update-lock`（223 source／232 pinned）、`--build` PASS（產品 DLL `c8c6e1ee6dcf08743bf736e47aed7d6d83db3ff1e6dda6648ccd9f2d60f8a83f`）；DemoChecks `bookmarks` 774、`map-continuity` 23685、`hotbar` 569、`name-display` 414、`character-config` 455、`minimap` 398 全部 PASS；`check-no-game-assets.py` pass（3627 檔、0 錯誤）。
+- 同步 head `0aeff7df80b83cdbb9185a1b791cd636537960da` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42407977530) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42407977534) 均 completed／success；僅既有的 `MagicUi.cs:20` 警告。本行以後續純文件提交補記。
 ## 未驗證什麼
 
 - **換掛接點後，「記憶座標」分頁實際出現在真實 `ClientForm`，目前沒有任何自動測試覆蓋**：離線測試不經過 `ClientForm` 生命週期，上述只驗到空白 Form 的框架順序與靜態閱讀。需由 dot smoke 確認。
