@@ -4,16 +4,19 @@ public sealed partial class ClientForm {
     readonly FlowLayoutPanel petContent=new(){Dock=DockStyle.Fill,FlowDirection=FlowDirection.TopDown,WrapContents=false,AutoScroll=true};
     uint selectedPet;
     string petUiSignature="";
-    protected override void OnLoad(EventArgs e) {
-        // Form lifecycle hook keeps the entire UI in this module; no NPC or shared HUD edits.
-        if(normalPanels!=null){
+    protected override void OnShown(EventArgs e) {
+        InitPetUi();
+        base.OnShown(e);
+    }
+    void InitPetUi() {
+        // The buddy module owns OnLoad; attach this page once after the form is ready.
+        if(normalPanels!=null&&petContent.Parent==null){
             var page=new TabPage("寵物"){BackColor=Color.FromArgb(23,38,41),ForeColor=Color.White};
             page.Controls.Add(petContent);normalPanels.TabPages.Add(page);
             petContent.Enter+=(_,_)=>LeaveGameFocus("pets");
             timer.Tick+=SyncPetUi;
             FormClosed+=(_,_)=>timer.Tick-=SyncPetUi;
         }
-        base.OnLoad(e);
     }
     async Task RunPet(PetStamp stamp,string command,int index=-1,uint item=0) {
         ClearInput("pets");

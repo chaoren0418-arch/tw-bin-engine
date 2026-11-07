@@ -135,5 +135,17 @@ partial class Checks {
         Feed(npc,PetNpcDialog("RaiseAttr",123));
         Check(npc.World.BonusStatsOffered&&npc.World.BonusStatsPhase=="offered"&&npc.World.PetRevision==petRevision,"RaiseAttr retains self-stat route without generic or pet envelope");
         PetReject(()=>Feed(npc,PetNpcDialog("RaiseAttr",456)),"RaiseAttr foreign identity still rejected");
+        // Exercise the lifecycle hook without constructing or showing the game form.
+        var form=(ClientForm)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(ClientForm));
+        GC.SuppressFinalize(form);
+        using var tabs=new TabControl();using var content=new FlowLayoutPanel();using var timer=new System.Windows.Forms.Timer();
+        using var existingPage=new TabPage("existing");tabs.TabPages.Add(existingPage);
+        Set(form,"petContent",content);Set(form,"timer",timer);
+        Call(form,"OnShown",EventArgs.Empty);
+        Check(content.Parent==null,"pet lifecycle tolerates absent normal panels");
+        Set(form,"normalPanels",tabs);Call(form,"OnShown",EventArgs.Empty);
+        Check(tabs.TabPages.Count==2&&tabs.TabPages[0]==existingPage&&content.Parent==tabs.TabPages[1],"pet lifecycle preserves existing pages and attaches content");
+        Call(form,"OnShown",EventArgs.Empty);
+        Check(tabs.TabPages.Count==2&&!content.IsHandleCreated&&!tabs.IsHandleCreated,"pet lifecycle attaches once without creating control handles");
     }
 }

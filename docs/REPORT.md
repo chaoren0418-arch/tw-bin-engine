@@ -95,3 +95,6 @@
 - 2026-11-07 — #215 T120：S242/sub2 受擊反應抑制清單（code，codex-local，PR 已合併）→ [報告](reports/issue-215.md)
 - 2026-11-07 — #197 T109：通用道具 use_type 尾段（code，codex-local，PR 已合併）→ [報告](reports/issue-197.md)
 - 2026-11-07 — #195 T107：角色建立、刪除、同連線切角（code，codex-local，PR 已合併）→ [報告](reports/issue-195.md)
+- 2026-11-07 — #238 T-plan：M6 補列 T113–T123（U8 兌現 +7、#132 差異補列 +4）（plan，claude，PR 已合併）→ [報告](reports/issue-238.md)
+- 2026-11-07 — #385 T-plan：M6 補列 T135–T146，同步狀態（plan，claude-chat，PR 已合併）→ [報告](reports/issue-385.md)
+- 2026-11-07 — #260 T126：好友與封鎖名單（code，codex-local，PR #275 已合併）→ [報告](reports/issue-260.md)
