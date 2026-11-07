@@ -31,6 +31,7 @@ public sealed partial class WorldSession {
         var r=new LoginReader(plain);byte opcode=r.C();
         if(opcode==39&&ReceiveBuddies(opcode,plain))return;
         switch(opcode){
+        case 171:ReceiveInvisibility(r);return;
         case 250 when plain.Length>1&&plain[1]==111:ReceiveLocationShare(plain);return;
         case 71 when LocationShareProtocol.IsReply(plain):ReceiveLocationShare(plain);return;
         case 250 when plain.Length>1&&plain[1]==41:ReceiveCharacterConfig(plain);return;
