@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 204,
+ "sourceCount": 208,
  "files": [
   {
    "path": "NuGet.Config",
@@ -183,6 +183,16 @@
    "path": "source/CharacterManagementUi.cs",
    "size": 7435,
    "sha256": "582febb574d3594747546030455e690002d68725764f042a2b06861b3173634e"
+  },
+  {
+   "path": "source/Clan.cs",
+   "size": 17238,
+   "sha256": "fdc98bde0106681946faa454fea0b4b6e62ebef720b99c8b6eeaf461318b50c3"
+  },
+  {
+   "path": "source/ClanUi.cs",
+   "size": 7083,
+   "sha256": "7311c59680dce1c8b0103465dbd3209a9e2a299eba60d8498ef8b3394f6de358"
   },
   {
    "path": "source/ClientAudioSettings.cs",
@@ -510,6 +520,16 @@
    "sha256": "cdb6bab4d853d13cc22a8c925b944702faaef7fea1dafdb618d3a0327ecbb8c5"
   },
   {
+   "path": "source/Mail.cs",
+   "size": 10190,
+   "sha256": "136200b761e2a784b43c8d6309d6de885d08b08e970fcbd3c7e80126fd3bb1fd"
+  },
+  {
+   "path": "source/MailUi.cs",
+   "size": 10062,
+   "sha256": "051a5bd56f1ee1656975a3b2af2973cb03971b85b1697321c62d7fabf714bbb1"
+  },
+  {
    "path": "source/MapEffects.cs",
    "size": 11051,
    "sha256": "befb109385251d5455e0bb5418995f072568e324424415e1f39e1c5c616e7f47"
@@ -591,8 +611,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 9968,
-   "sha256": "941f9d8c11885e7891dd8dfe946a53863fa0d33f59fc2be6f1a4e17997688c3f"
+   "size": 9997,
+   "sha256": "30d8d3fcb063eeac67f94a698ec6cb3035751d02f65bcd05843fbb7278a99377"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -736,8 +756,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15586,
-   "sha256": "46f54742a4112c5c318fbf08591b3c84bfcff8e992e4d1e657cb8c4cfa82ac46"
+   "size": 15621,
+   "sha256": "975cbd8cf4cadff44b16d44fc06a8e45c6cadba58a7ac1fc617e1f9b8bef4f18"
   },
   {
    "path": "source/PlayerPointer.cs",
@@ -951,8 +971,8 @@
   },
   {
    "path": "source/Trade.cs",
-   "size": 11555,
-   "sha256": "6704d27d90b1e59089e917df3379d8e92c834cd592c644412e9fea9920481998"
+   "size": 11633,
+   "sha256": "f0e18f0446620d0ead2e1ec316739d8b7c77b35d3003912d928b5f9c7a298612"
   },
   {
    "path": "source/TradeUi.cs",
@@ -1016,8 +1036,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 11158,
-   "sha256": "d4d7e2fd103a492bfa84bb9e3dc4fae54fe96f99ee94c50aa67f9f81bfd4fb22"
+   "size": 11553,
+   "sha256": "bf25c1a7a177f131e61f3a58da637a050128ff02fde43deca6ba74e609737a28"
   },
   {
    "path": "source/WorldTests.cs",
