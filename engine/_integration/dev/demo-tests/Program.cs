@@ -290,7 +290,7 @@ partial class Checks {
                 case "party":break;
                 case "pets":break;
                 case "display-notices":DisplayNoticeChecks();break;
-                case "map-continuity":await MapContinuity();DisplayNoticeChecks();await BoardChecks();await ClanChecks();await MarriageChecks();await CharResetChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();await PortalChecks();break;
+                case "map-continuity":await MapContinuity();DisplayNoticeChecks();await BoardChecks();await ClanChecks();await MarriageChecks();await CharResetChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();await PortalChecks();MinimapChecks();break;
                 case "marriage":await MarriageChecks();break;
                 case "ghost-mode":await GhostModeChecks();break;
                 case "fishing":await FishingChecks();break;
@@ -301,6 +301,7 @@ partial class Checks {
                 case "polymorph-cadence":PolymorphCadenceChecks(args[0]);break;
                 case "buddies":await BuddyChecks();break;
                 case "buddies-codec":await BuddyChecks(true);break;
+                case "minimap":MinimapChecks();break;
                 case "ambience":AmbienceChecks();break;
                 case "invisibility":InvisibilityChecks();break;
                 case "board":await BoardChecks();break;
@@ -318,7 +319,7 @@ partial class Checks {
                 default:throw new ArgumentException("Unknown regression group");
             }
         }else{
-            await CharacterConfigChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
+            MinimapChecks();await CharacterConfigChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
             await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();DisplayNoticeChecks();await BoardChecks();await ClanChecks();await MarriageChecks();await CharResetChecks();await LocationShareChecks();HitReactionSuppression();await PlayerQueryChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();
         }
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status=petsFailure==null?"pass":"fail",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));

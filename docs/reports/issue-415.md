@@ -27,11 +27,12 @@
 
 ## 怎麼驗證
 
-- 已合併 `origin/main`（落後 14 個提交；只有 `rebuild-lock.json` 衝突，取 main 版後以 `--update-lock` 重產）。以下結果都在合併後的內容上重跑。
-- `rebuild.py --update-lock` 後 `--build` 通過，213 個來源／222 個鎖定檔。產品 DLL SHA-256：`a6cd79cedb24cade5c0825c3add9ed25a430e18e91393c8b2f95869a4d060254`。
-- demo-tests 各組皆退出 0：`display-notices` **334**（共同 276 ＋ 本模組 58）、`map-continuity` **22416**、`combat-admission` **1409**、`doors` **597**、`buddies` **445**、`clan` **395**、`item-transfer` **349**、`polymorph-cadence` **309**。各組都含共同檢查，數字不可加總。
+- 第二次同步 `origin/main`（4518ebc，含 #390 小地圖、#417）：`demo-tests/Program.cs` 與 `rebuild-lock.json` 衝突。Program.cs 兩邊都保留（`display-notices` 入口、`DisplayNoticeChecks()` 與 `MinimapChecks()` 都在 `map-continuity` 和完整回歸裡）；lock 取 main 版後以 `--update-lock` 重產。
+- 同步後 `--build` 通過，215 個來源／224 個鎖定檔。產品 DLL SHA-256：`40206027a9a7a80fecd4a907cc09a521802e369b2fc3845d529b455a50b2615c`。
+- 同步後重跑 demo-tests，皆退出 0：`display-notices` **334**、`minimap` **347**、`map-continuity` **22487**（含本模組與小地圖）。
+- 第一次同步時（落後 14 個提交）另跑過：`combat-admission` **1409**、`doors` **597**、`buddies` **445**、`clan` **395**、`item-transfer` **349**、`polymorph-cadence` **309**；這幾組這次沒在本機重跑，以 CI 為準。各組都含共同檢查，數字不可加總。
 - 合成封包涵蓋上述全部 S 格式，以及截斷、非零補位、缺字串、多字串的拒絕與原子性。本任務沒有新增 C 封包。
-- `check-no-game-assets.py` 通過，dev lock 唯讀核驗通過。
+- `check-no-game-assets.py` 通過（3441 個追蹤檔，0 錯誤），dev lock 唯讀核驗通過。
 - CI 結果以 PR 最新 head 為準。
 
 ## 未驗證什麼
