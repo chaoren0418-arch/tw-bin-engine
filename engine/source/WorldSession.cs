@@ -48,7 +48,7 @@ public sealed partial class WorldSession {
         case 8:
             var v=new OwnStatus(r.D(),r.C(),r.D(),r.C(),r.C(),r.C(),r.C(),r.C(),r.C(),r.D(),r.D(),r.D(),r.D(),unchecked((int)r.D()),r.D(),r.C(),r.C(),unchecked((short)r.H()),unchecked((short)r.H()),unchecked((short)r.H()),unchecked((short)r.H()),unchecked((short)r.H()),r.D());r.Finish();
             if(Status!=null&&Status.ObjectId!=v.ObjectId)throw new ProtocolException("self status identity changed");Status=v;PartialAcByte=null;ApplyExperience(v.Level,v.Exp,opcode);break;
-        case 206:var map=r.H();var water=r.C()!=0;r.Finish();ClearObjects();Actor=null;ResetSpeedStatus();ResetMovement();ResetCombat();ClearMagicEffects();MapId=map;Underwater=water;MapArrived();break;
+        case 206:ReceiveMapId(r);break;
         case 87:
             ushort x=r.H(),y=r.H();uint id=r.D();
             if(Status==null||id!=Status.ObjectId){ReceiveObject(r,x,y,id);break;}
