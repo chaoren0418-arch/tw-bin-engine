@@ -211,6 +211,49 @@ static class Checks
         await controller.Shutdown();
     }
 
+    sealed class AmbientRecorder : P24.HostAudio.IAmbientLoopAudio
+    {
+        public readonly List<MapAmbientVoice> Started = [];
+        public bool Start(MapAmbientVoice voice, int volume) { Started.Add(voice); return true; }
+        public void SetVolume(MapAmbientVoice voice, int volume) { }
+        public void Stop(MapAmbientVoice voice) { }
+    }
+    static MapEffectAppearance Ambient(int id, string events) => new(JsonSerializer.SerializeToUtf8Bytes(new
+    {
+        id, flags = 0, tickRate = 24, sequence = new[] { new { frame = 0, ticks = 12, events } },
+        frames = new[] { new { index = 0, bounds = new[] { 0, 0, 0, 0 }, blocks = new[] { new { a = 0, b = 0, z = 0, order = 0, pixels = new[] { new[] { 0, 0, 31 } } } } } }
+    }));
+
+    // T166 `^` 環境音（main 的 MapAmbientSound）改走共用層：同一公式、同一份 id 冷卻。
+    static void AmbientShared()
+    {
+        for (int dx = -20; dx <= 20; dx++) for (int dy = -20; dy <= 20; dy++)
+            if (MapAmbientSound.Volume(dx, dy) != SoundRules.DistanceVolume(dx, dy)) throw new Exception($"ambient volume diverges ({dx},{dy})");
+        Check(true, "MapAmbientSound.Volume delegates to SoundRules.DistanceVolume");
+        Check(MapAmbientSound.CooldownMs == SoundRules.CooldownMs && MapAmbientSound.Reach == SoundRules.MaxManhattan, "ambient constants come from SoundRules");
+
+        long clock = 20000; var cooldown = new SoundCooldown(); var gate = new SoundGate(new SoundVolumes(), cooldown, () => clock);
+        var audio = new AmbientRecorder(); var ambient = new MapAmbientSound(audio, new Random(1), cooldown);
+        var self = (X: 100, Y: 100);
+        Check(gate.Admit(new(300, SoundCategory.Sound)).Dispatch, "S22/frame sound 300 takes the shared cooldown");
+        ambient.Update([new("x", 101, 100, Ambient(1, "^300"), 0)], self, clock + 100, true);
+        Check(audio.Started.Count == 0, "^300 within 200ms of same-id gate dispatch blocked (cross-pipeline)");
+        ambient.Update([new("y", 102, 100, Ambient(2, "^300"), 0)], self, clock + 200, true);
+        Check(audio.Started.Count == 1 && audio.Started[0].SoundId == 300, "^300 admitted at +200ms");
+        clock += 250;
+        Check(gate.Admit(new(300, SoundCategory.Sound)).Status == "Cooldown", "ambient start also blocks the gate for 200ms");
+
+        var a1 = new AmbientRecorder(); var a2 = new AmbientRecorder();
+        var m1 = new MapAmbientSound(a1, new Random(1), cooldown); var m2 = new MapAmbientSound(a2, new Random(1), cooldown);
+        m1.Update([new("p", 100, 100, Ambient(3, "^301"), 0)], self, 30000, true);
+        m2.Update([new("q", 100, 100, Ambient(3, "^301"), 0)], self, 30050, true);
+        Check(a1.Started.Count == 1 && a2.Started.Count == 0, "two ambient models sharing SoundCooldown share one window per id");
+        var i1 = new AmbientRecorder(); var i2 = new AmbientRecorder();
+        new MapAmbientSound(i1, new Random(1)).Update([new("p", 100, 100, Ambient(3, "^302"), 0)], self, 30000, true);
+        new MapAmbientSound(i2, new Random(1)).Update([new("q", 100, 100, Ambient(3, "^302"), 0)], self, 30050, true);
+        Check(i1.Started.Count == 1 && i2.Started.Count == 1, "unspecified table stays isolated (offline tests only)");
+    }
+
     static void Offsets()
     {
         var s = Session();
@@ -247,7 +290,7 @@ static class Checks
         try
         {
             using var guard = new SocketGuard();
-            Distance(); Modes(); Volumes(); Cooldown(); Gate(); await Controller(); await Packets(); Offsets(); Core();
+            Distance(); Modes(); Volumes(); Cooldown(); Gate(); await Controller(); await Packets(); AmbientShared(); Offsets(); Core();
             if (args.Length > 0)
                 File.WriteAllText(args[0], JsonSerializer.Serialize(new { status = "pass", checks = labels.Count, scope = "合成封包／位元組與記憶體音訊；非真機", labels }, new JsonSerializerOptions { WriteIndented = true }));
             Console.WriteLine($"PASS {labels.Count} sound rule checks"); return 0;

@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 220,
+ "sourceCount": 221,
  "files": [
   {
    "path": "NuGet.Config",
@@ -551,8 +551,8 @@
   },
   {
    "path": "source/MapAmbientSound.cs",
-   "size": 10367,
-   "sha256": "ac9d3b69ed3f4765d2cabec6a2ec7c26a7f6e1623baab63105aa5759961d7113"
+   "size": 10559,
+   "sha256": "f47e81c61dfaf4bf006c0b1d2d0d7107eb14c5d726458ef20915da06e6cf960a"
   },
   {
    "path": "source/MapEffects.cs",

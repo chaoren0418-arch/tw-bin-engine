@@ -13,7 +13,7 @@ CI 入口：`.github/workflows/build.yml` 的 `map-continuity` job，步驟「So
 涵蓋範圍（全部是合成資料，不讀遊戲素材、不開網路、不碰原生音訊）：
 
 - 距離音量 `100 − 14·(nx²+ny²)/20`、曼哈頓距離 > 14 為 0：sound.md 換算表逐點，加上 −30..30 窮舉。
-- 200ms 冷卻：每 id 一份、跨角色、跨管線（影格音效與 S22 共用）。
+- 200ms 冷卻：每 id 一份、跨角色、跨管線（影格音效、S22 與 T166 `^` 環境音 `MapAmbientSound` 共用）；`MapAmbientSound.Volume` 與 `SoundRules.DistanceVolume` 窮舉一致。
 - S22 `C(mode) H(sound)`：模式 0 單次、同 id 播放中不重播；模式 1 環境音循環（EnvSound 類別，冷卻只在啟動）；模式 2 停止；3..255 忽略；截斷與非零 padding 拒收。
 - 4 類音量（Sound／EnvSound／Voice／Music）各自可調；三個效果類別全為 0 時不播（A06020）。
 - `CombatSfxController` 經 `SoundGate` 派送時帶出每個 voice 的音量倍率；`AudioCore` 以「主音量 × voice 倍率」設定原生音量（假 driver），改主音量時保留倍率。

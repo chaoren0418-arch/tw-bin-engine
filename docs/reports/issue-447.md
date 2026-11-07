@@ -12,7 +12,8 @@
 | `engine/source/SoundPackets.cs` | S22 的第一個 byte 改當模式，`ServerSound.Repeat` 改名為 `Mode`，新增 `Kind`。**模式 0**：單次；同 id 的單次播放還沒結束時不重播（A05EA0）。**模式 1**：EnvSound 循環，每輪長度是 WAV 長度，冷卻只在第一輪套用；同 id 已在循環就不再啟動；不受 256 分鐘清理影響，持續到收到模式 2、換圖或重設。**模式 2**：移除這個 id 的單次與循環，循環的 owner 立即退役。**未知模式**：忽略並寫 notice。原本 ±100 ms 的幀／S22 首播去重只套用在模式 0。 |
 | `engine/audio/IAudioPlayback.cs`、`AudioPlayer.cs`、`AudioCore.cs` | 支援每個 voice 各自的音量倍率：`PlayAsync(id, owner, voiceScale)`，介面有預設實作，舊的測試替身不用改。原生音量 = 主音量 × voice 倍率；改主音量時保留各 voice 的倍率。倍率不在 (0,1] 範圍內時回 `InvalidVoiceScale`。 |
 | `engine/audio/P24.Audio.csproj` | 新增 `InternalsVisibleTo SoundRulesChecks`，讓測試能用假 driver 驗證 `AudioCore`。 |
-| `engine/_integration/dev/sound-rules-tests/`（新） | 121 項離線檢查，見下節。 |
+| `engine/source/MapAmbientSound.cs`（T166／#434，合併 main 後才進來） | 改走共用層：`Volume` 委派 `SoundRules.DistanceVolume`；原本每個實例各自的冷卻表改成可注入的 `SoundCooldown`，產品（`Observe`）傳 `SoundCooldown.Shared`，所以 `^` 環境音與戰鬥音效、S22 共用同一份 id 冷卻（產品內三者都用 `Environment.TickCount64`）。未指定時用獨立表，只供離線測試隔離。5 槽表、d² 排序等 T166 邏輯不動。 |
+| `engine/_integration/dev/sound-rules-tests/`（新） | 130 項離線檢查，見下節。 |
 | `engine/_integration/dev/sound-packets-tests/Program.cs` | 舊的 repeat 斷言改成模式語義（148 項）。 |
 | `.github/workflows/build.yml` | `map-continuity`（windows）job 新增一步，執行 sound-rules 與 sound-packets 兩組檢查。sound-packets 原本沒有接上 CI。 |
 | `docs/protocol/sound-effects.md` | 用附加段落寫入 T173 的結論，取代原本「repeat＝額外次數」的推測政策。 |
@@ -25,8 +26,10 @@
 
 ## 怎麼驗證
 
-- `rebuild.py --update-lock`，再跑 `rebuild.py --build --configfile .github/nuget.ci.config`：**PASS**（已合併 origin/main，含 #433）。product DLL `e1cf5676…`，audio DLL `9967d288…`。
-- `sound-rules-tests`：**PASS，122 項**。全部是合成封包和合成位元組，接上產品 DLL 執行，有 socket 守衛。涵蓋：
+- `rebuild.py --update-lock`，再跑 `rebuild.py --build --configfile .github/nuget.ci.config`：**PASS**（2026-11-08 再次合併 origin/main，含 #433、#434）。product DLL `0e3fbb50…`，audio DLL `9967d288…`。
+- 前一次 push 的 CI `dotnet` job 失敗在 `rebuild.py --build`（exit 2）：分支落後 main 33 個 commit，lock 與來源不符。合併 main 並重產 lock 後本機 PASS。
+- `sound-rules-tests`：**PASS，130 項**。全部是合成封包和合成位元組，接上產品 DLL 執行，有 socket 守衛。涵蓋：
+  - `^` 環境音與 `SoundGate` 共用冷卻（S22／影格音效擋 `^`，`^` 也擋 gate）；`MapAmbientSound.Volume` 與共用公式窮舉一致。
   - 距離換算表逐點比對，加上 −30..30 窮舉。
   - 冷卻跨角色、跨管線都生效（影格音效擋 S22，S22 也擋影格音效）。
   - S22 `C(mode) H(id)` 的每個模式、截斷與非零 padding。
@@ -34,7 +37,7 @@
   - 控制器送出的倍率。
   - `AudioCore` 的「主音量 × 倍率」，以及改主音量後倍率仍保留。
 - `sound-packets-tests`：**PASS，148 項**（改成模式語義後）。
-- `combat-sfx-tests --selection`（#433 接上 CI 的模式）：**PASS，4 cases／46 checks**。`effect6016-tests`、`demo-tests`：編譯通過，沒有錯誤。
+- `combat-sfx-tests --selection`（#433 接上 CI 的模式）：**PASS，4 cases／46 checks**（上一輪）。`demo-tests` 的 `map-ambient` 群組（T166）：**PASS，372 項**（本輪，含 `MapAmbientSound` 改動）。
 - 與 #433 的整合：#433 在 `CombatSfxController` 內加了一份每個控制器各自的 200ms 冷卻。合併後，**有設 `Gate` 時只用全域的 `SoundCooldown`**，沒設時保留 #433 的行為，兩份冷卻不會疊加（有測試）。`sound-packets-tests` 有一段時間會倒退，碰到 #433 的冷卻就失敗；已把那段的時鐘改成單調遞增。
 - `check-no-game-assets.py`：**pass**（errors 0）。
 - CI：PR 開出後由 GitHub Actions 執行，結果看 PR 頁面。
@@ -58,7 +61,7 @@
 
 ## 給下一棒的提示
 
-- **T166（`^` 環境音）**：呼叫 `SoundGate.Admit(new(id, SoundCategory.Sound, offset, RequireAudible: true))` 就能套用「音量 0 不啟動、不佔冷卻」。5 槽表與 d² 排序要另外做。循環可以參考 S22 模式 1 的做法（`Loop` 加上 `CooldownFirstCycleOnly`）。
+- **T166（`^` 環境音）**：已在 main（`MapAmbientSound`），本任務只把公式與冷卻接到共用層。它的類別音量檢查仍沿用 6016 host 的主音量／靜音，**還沒乘上 `SoundVolumes[EnvSound]`**；要做的話，在 `Observe` 取得 `ClientForm.SoundVolumes`，並把 `IAmbientLoopAudio` 的音量乘上類別倍率。
 - **T165（`<`）**：只要改 `SoundSchedule.Candidates`。派送已經會經過 gate，冷卻與距離會自動套用。
 - **介面音效**：用 `SoundGate.Admit(new(id, SoundCategory.Sound))`，`Offset` 填 null，音量就是 100。
 - **持續音量更新**：要做到播放中跟著距離改音量，需要在 `IAudioPlayback` 加一個「依 owner／voice 調整倍率」的指令，並在每次 pump 時重算。
