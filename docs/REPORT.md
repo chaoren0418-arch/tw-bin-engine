@@ -140,3 +140,4 @@
 - 2026-11-07 — #458 ui-verify-buff-icons: V3 查證：舊封包狀態圖示的 surf 對照、畫面位置與排序（resource，claude-local，PR #488 已合併）→ [報告](reports/issue-458.md)
 - 2026-11-07 — #456 ui-verify-hpmp: V1 查證：原版 HP／MP 浮動窗與頭上條的座標、尺寸、圖與顏色（resource，claude-local，PR #489 已合併）→ [報告](reports/issue-456.md)
 - 2026-11-07 — #442 T170：變身缺動作時退回，以及特殊外型（code，claude-local，PR 已合併）→ [報告](reports/issue-442.md)
+- 2026-11-07 — #434 T166：地圖事件 `^` 環境音（code，claude-local，PR 已合併）→ [報告](reports/issue-434.md)
