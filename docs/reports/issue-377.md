@@ -9,18 +9,18 @@
 
 ## 怎麼驗證（已驗證）
 
-以下數字都是同步輪合入 `origin/main`（`fb57de1`，含 #188、#361）後重跑的結果。
+以下數字都是同步輪合入 `origin/main`（`ef1f762`，含門、釣魚、幽靈模式等 #322／#360 一帶的變更）後重跑的結果。
 
-- 同步：`demo-tests/Program.cs` 的 selector 衝突保留雙方，`PortalChecks()` 排在 `map-continuity` 最後（它會切換 fixture 根目錄）；`rebuild-lock.json` 一律由 `--update-lock` 重產，未手拼。同步後與 main 的 `engine/source` 差異只有 `Portals.cs`、`OnlineMovement.cs` 掛載點。
-- .NET SDK `10.0.300`；`rebuild.py --update-lock`：191 個來源／200 個 pins；只更新 dev 滾動 lock。
+- 同步：`demo-tests/Program.cs` 的 selector 衝突保留雙方（`portals`、`doors`、`pets`、`ghost-mode`、`fishing`），`PortalChecks()` 排在 `map-continuity` 最後、`GhostModeChecks()` 之後（它會切換 fixture 根目錄）；`rebuild-lock.json` 一律由 `--update-lock` 重產，未手拼。同步後與 main 的 `engine/source` 差異只有 `Portals.cs`、`OnlineMovement.cs` 掛載點。
+- .NET SDK `10.0.300`；`rebuild.py --update-lock`：202 個來源／211 個 pins；只更新 dev 滾動 lock。
 - `rebuild.py --build --configfile scratch/issue-377/NuGet.Config --output engine/build/issue-377`：產品與 launcher 成功，`PASS dev`。
 - 本機 NuGet 設定在 scratch，唯讀引用原專案 `engine/vendor`；套件解壓、暫存、建置與測試輸出均在此 worktree。
-- `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-377/portals.json portals`：190 項通過（數字含 main 在所有 selector 之前固定執行的 `PolymorphChecks()`）。涵蓋 C219 全 bytes／padding／範圍、S32／SEG 可變 section 與截斷／越界、八方向、普通格、轉向、再次進入、等待與 sender gate 失效、壞 manifest 拒絕、既有傳送握手。第一次同步後另把既有 fixture 目錄改名移開跑過一次，確認全新環境可自建 fixture。
-- 同一專案的 CI selector：`map-continuity` 20,932、`combat-admission` 1,109、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163 項，全部通過。`map-continuity` 內含 `PortalChecks()`，所以 CI 會跑到本模組。
+- `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-377/portals.json portals`：293 項通過（數字含 main 在所有 selector 之前固定執行的 `Pets()`、`PolymorphChecks()`）。涵蓋 C219 全 bytes／padding／範圍、S32／SEG 可變 section 與截斷／越界、八方向、普通格、轉向、再次進入、等待與 sender gate 失效、壞 manifest 拒絕、既有傳送握手。全新環境自建 fixture 只在較早的同步輪本機驗過，這輪由 CI 的全新 checkout 涵蓋。
+- 同一專案的 CI selector：`map-continuity` 21,859、`combat-admission` 1,326、`polymorph-cadence` 226、`buddies` 362、`item-transfer` 266、`doors` 514 項，全部通過。`map-continuity` 內含 `PortalChecks()`，所以 CI 會跑到本模組。
 - `teleport-tests/TeleportChecks.csproj`：4,369 項 T110 recovery 回歸通過。`npc-tests/NpcChecks.csproj`：165 項通過。
 - 測試呼叫實際產品 DLL、合成封包與記憶體 sender，啟用 socket guard；沒有呼叫遊戲入口或連伺服器。
-- `engine/tools/check-no-game-assets.py`：PASS、0 errors、3,336 個追蹤檔。
-- 最終產品 DLL SHA-256：`a573b29e696c9c34d47ccd85922177277ada141728539e3bb436410c66800a62`（`rebuild.py` 與 `client-product-dev` 兩次建置相同）。
+- `engine/tools/check-no-game-assets.py`：PASS、0 errors、3,379 個追蹤檔。
+- 最終產品 DLL SHA-256：`e9b1e5afae30307af8b2179ad9bed357271281f85de880203736ab11f49db038`（`rebuild.py --build`）。
 
 ## 未驗證什麼
 
