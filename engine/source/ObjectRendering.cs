@@ -165,7 +165,7 @@ public sealed partial class ClientForm {
         try{
             g.TextRenderingHint=System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;g.InterpolationMode=System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;g.PixelOffsetMode=System.Drawing.Drawing2D.PixelOffsetMode.Half;
             foreach(var e in plan.Emblems){
-                if(login.World.FindClanEmblem(e.EmblemId) is not {} emblem){login.RequestClanEmblem(e.EmblemId);continue;}
+                if(login.ClanEmblemFor(e.ObjectId,e.EmblemId) is not {} emblem)continue;
                 using var bitmap=new Bitmap(NameLayout.EmblemWidth,NameLayout.EmblemHeight,System.Drawing.Imaging.PixelFormat.Format32bppArgb);
                 for(int y=0;y<NameLayout.EmblemHeight;y++)for(int x=0;x<NameLayout.EmblemWidth;x++)bitmap.SetPixel(x,y,Color.FromArgb(emblem.Pixels[y*16+x]));
                 var p=Camera.ToView(e.Position);g.DrawImage(bitmap,p.X,p.Y,NameLayout.EmblemWidth*zoom,NameLayout.EmblemHeight*zoom);
