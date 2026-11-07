@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 180,
+ "sourceCount": 181,
  "files": [
   {
    "path": "NuGet.Config",
@@ -253,6 +253,11 @@
    "path": "source/EventJournal.cs",
    "size": 1474,
    "sha256": "4d0b1989f0ac6fb8ec76a0919c58538db0c3e8a7ff99e6916942818b151cd510"
+  },
+  {
+   "path": "source/Fishing.cs",
+   "size": 6109,
+   "sha256": "87f5ad594cb94708f283fab2902cc4b37c836ddea90cf9eee2dbbb9b5572159e"
   },
   {
    "path": "source/Ground.cs",
@@ -641,8 +646,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15394,
-   "sha256": "f7583e75ba3a88ada62b0612e5ef36e3f36f3a2df3e37a6147853ceabf141c74"
+   "size": 15459,
+   "sha256": "fa74bf311fc387d68aa3d3e770c15418367ba0e4fb0bab22aaf965ac5cdf51e7"
   },
   {
    "path": "source/PlayerPointer.cs",
