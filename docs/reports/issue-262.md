@@ -1,71 +1,43 @@
-# Issue #262／T128：血盟（部分實作，待範圍裁定）
+# Issue #262／T128：血盟
 
-分支：`task/262`。工作目錄：`scratch/wt/task-262`。T128 尚未完成。2026-11-07 第二次執行核對 PR #282 為 open、draft=false，已修正前次報告的草稿狀態描述。
-
-## 第二次執行結果
-
-**阻擋，待主控裁定掛接範圍。** 已重新讀取 Issue #262 本文與六則留言，仍只授權 WorldSession.cs 的 S72／S118／S200 三個 case。前次審查要求先裁定 Trade.cs、S167／S170／S250 的必要範圍，並明示未授權越界。本次已提出範圍確認，尚未收到答覆，因此僅更新本報告與 `docs/protocol/clan.md`。
-
-### 本次做了什麼
-
-- 唯讀核對實際 d287 JAR，確認入盟邀請為 `S219 H(0) D(0) H(97) S(申請者)`。C121 的 97 分支依目前 `CLAN_JOIN` 邀請回覆，D 欄位由伺服器讀取後捨棄。後續實作應使用這條既有建構子路徑。
-- 核實 C68 的 S167、S170、S250/171 三種回包均存在，並記錄 S250/171 每筆姓名字串後的額外 C(0)。
-- 核實 C72 仍比對 emblem ID。JAR class 符號掃描只在 `L1Clan.class` 找到 `setEmblemId`／`_emblemId`，初始化與其他血盟的映射來源仍待釐清，不能假定 clan ID 等於 emblem ID。
-- 詳細 wire 格式、JAR SHA-256、方法與最小掛接清單已附加在 `docs/protocol/clan.md`。
-
-### 本次怎麼驗證
-
-- `rebuild.py` 唯讀核驗通過，176 個來源、185 個鎖定輸入。
-- `rebuild.py --verify` 通過，既有 product／audio／launcher 與 receipt 相符。product DLL SHA-256 仍為下列前次建置值。
-- 以 `dotnet run --no-build --no-restore` 重跑已建置的既有離線測試，clan 56 項與 map-continuity 184 項通過。輸出為 `scratch/clan-checks-attempt2.json`、`scratch/clan-map-checks-attempt2.json`。這些計數涵蓋前次已實作範圍。
-- `engine/tools/check-no-game-assets.py` 通過，trackedFiles=3259、errors=0。
-- 本次只修改文件，未執行 `--update-lock` 或重建產品。最新文件提交的 CI 結果另列最後 RESULT。
-
-### 尚待完成與給下一棒的提示
-
-三項 review 缺口全部仍待完成。請調度器將本任務交主控／Claude 裁定掛接範圍及盟徽初始化責任，取得裁定後由本機執行器實作、補正式入口離線測試、更新 dev lock、重建並重送審查。維持原範圍重派同一 code 任務仍會遇到同一阻擋。
-
-本次 `gh issue/pr view` 在沙箱內回傳 HTTP 401，先由 GitHub 連接器核對狀態，再經核准的沙箱外 `gh pr view` 成功讀取，確認前次 head `bce8d2c` 的三項 CI 皆 SUCCESS。Git 沙箱內連線出現 Schannel 憑證錯誤，經核准的沙箱外 `git ls-remote` 已成功核對同一遠端 head。提交、推送與 GitHub 留言結果另列最後 RESULT。
-
-以下保留前次已完成的產品與測試範圍，方便接手者對照。
+2026-11-07 第三輪，分支 `task/262`，PR #282。本輪已依主控裁定完成入盟確認與成員列表；盟徽實際查詢及 ID 對應拆至 T135（#316）。
 
 ## 做了什麼
 
-- 新增 `Clan.cs`：C222／C194／C61／C69／C72／C68 編碼、既有 sender gate 傳送、S72／S118／S200 解析、血盟名稱與記憶體盟徽快取。拒絕重複傳送、失效世界／連線、失去面對面目標的入盟申請；不預先假造伺服器成功結果。
-- 新增 `ClanUi.cs`：正式 HUD「服務 → 血盟」管理入口，建立、申請加入、退出／解散、驅逐與送出成員查詢；退出／驅逐有操作確認。名稱旁繪製伺服器送來且識別碼可對應的 BMP 盟徽，沒有讀取外部圖檔。
-- `WorldSession.cs` 只增加 S72、S118、S200 各一個 case；`ObjectRendering.cs` 只增加一個繪製呼叫。未修改 Trade.cs、LoginConnection.cs 或其他產品模組。
-- 提交模組測試並接到既有 `DemoChecks`／Windows CI `map-continuity` 入口；以工具更新 dev lock。
+- 先合併 `origin/main`（`ccaa3e02caf1c0cc2c0696683e243c1c7577df4e`），保留公告欄、道具轉移及其他既有分派／測試；dev lock 取 main 後由 `--update-lock` 重建。
+- 保留建立、申請加入、退出／解散、驅逐、成員查詢及已有伺服器盟徽顯示。S200 僅為關注血盟。
+- `Trade.cs` 只加一個 message=97 轉交分支。`ClanUi` 收到邀請會開啟血盟視窗，提供接受／拒絕；C121 固定使用 d287 的 H(0)、D(0)、H(97)、C(1/0)，不使用 requestId／raw confirmation。
+- 邀請以本地 revision 防止重複回答及排隊期間被新邀請取代。對方移除／離線、五分鐘逾時、拒絕、取消相關伺服器訊息、換盟、切圖、斷線或其他對話／確認操作會清除或失效；不預先修改伺服器血盟狀態。
+- `WorldSession.cs` 在原有 S72／S118／S200 外，加 S167、S170 各一個 case，以及只匹配 S250/sub171 的 case。現有 S250 狀態分派在前置模組鏈內，保留其行為，不修改 MagicStatus.cs。
+- S167 解析盟名、盟主、emblem ID、建立時間與 478-byte 公告；S170 解析姓名、階級、等級、62-byte 備註、角色 ID、職業；S250/sub171 解析 H 人數及逐筆 S 姓名＋C(0)。介面列出名稱、階級及上線／離線／未知，取得上線快照前不猜離線。
+- 成員快照依自身血盟及 WorldEpoch 失效；完整解析成功後才替換狀態。S167 的 emblem ID 本輪只解析保留，不建立映射、不自動發 C72。
 
 ## 已驗證／怎麼驗證
 
-- `rebuild.py --update-lock`：176 個來源、185 個鎖定輸入通過。
-- `rebuild.py --build --configfile scratch/clan-nuget.config --output scratch/clan-build --write-receipt`：product／audio／launcher 成功，0 錯誤；產品有原有 `MagicUi.cs` 兩個 nullable 警告。
-- `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/clan-checks.json clan`：56 項通過。
-- 同入口 `map-continuity` 群組：184 項通過，包含此次 56 項，證明 CI 使用的入口已實際執行血盟測試。
-- 所有六種 C／三種 S 格式都有合成封包測試；另測 Big5／NUL／過長名稱、BMP 六種位深與兩種方向、惡意尺寸／截斷／padding、他人與本人更新、換盟／退出清除識別、快取生命週期、重複送出與排隊失效。
-- 本機 NuGet.org HTTPS 發生認證／TLS 錯誤，改從原專案 `engine/vendor` 唯讀還原 WebView2 套件。自訂 config、暫存、套件快取與輸出均在本 worktree；未修改原專案。
-- 資源拒收檢查與 GitHub CI 結果見 PR checks 及最後 RESULT；下方來源路徑均提交，scratch 證據不代替測試原始碼。
+- `rebuild.py --update-lock`：181 個來源、190 個鎖定輸入通過。
+- `rebuild.py --build --configfile scratch/clan-nuget.config --write-receipt --output scratch/clan-build`：Windows product／audio／launcher 全部通過，0 錯誤；產品保留既有 MagicUi.cs 兩個 nullable 警告。
+- 正式 `demo-tests/DemoChecks.csproj` 的 `clan` 群組 **118 項通過**；CI 使用的 `map-continuity` 群組 **476 項通過**，包含血盟及合併後既有測試。預設無群組入口也接入血盟測試。
+- 測試透過實際產品 DLL 的 Receive 與記憶體 sender 執行，SocketGuard 禁止 socket；涵蓋全部本模組 C／S 格式、接受與拒絕的精確 C121 bytes、九種失效／取代情境、重複提交、錯誤／截斷封包不破壞成員快照、既有 message252 交易及 S250 狀態處理。
+- `check-no-game-assets.py` 通過：3290 個追蹤檔、0 錯誤、4 個核准 EmbeddedResource。最新 head 的 GitHub CI 結果記錄於 PR checks 及本輪 RESULT；離線測試不代表真機驗收。
+- 本機 Python 使用已安裝的 Python312 絕對路徑；NuGet 從原專案 vendor 唯讀還原，快取、暫存與建置輸出皆在本 worktree。沒有複製遊戲資源。
 
-本輪產品 DLL SHA-256：`8775fabd3b8da21937440b9b45693c4230902cced898cfc33ae4c09830a40f51`。
+產品 DLL SHA-256：`23036c28aab34eaa7cee0eb545bef28067c0ca0ba89737fca521b523306e8691`。
+固定 JAR SHA-256：`d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf`。本輪唯讀重核 JAR 身分及 UiOperationContext 的五分鐘 TTL。
 
-## 未完成／未驗證什麼
+## 未驗證什麼
 
-1. **加入確認未接入**：伺服器 S219／message=97 的入盟邀請被既有 Trade 模組消耗。依使用者明列範圍不可修改 Trade.cs，也不可新增 S219 分派。因此只能送出申請，尚不能在本客戶端作為招募者接受／拒絕。
-2. **成員列表未顯示**：C68 已能送出，但真正回包是 S167／S170／S250 子碼171，不是 S200。缺少授權接收掛接，沒有把關注血盟名單冒充成員。
-3. **盟徽自動查詢未完成**：C72 的編碼／傳送 API 已具備，S87 clan ID 與 C72 emblem ID 不同；S118 的回覆與廣播也使用不同識別語義。沒有可靠映射就不猜 ID。目前僅可繪製已收到、鍵可對應 S87 的廣播盟徽。需要 S167 掛接及伺服器 emblem ID 初始化契約確認。
-4. 尚未取得實際既有盟徽 payload。BMP 僅有合成驗證；非 BMP／壓縮 BMP 目前明示無法解析。原生 UI、真實服務器往返與成功建立／加入／退出／驅逐、盟徽視覺位置尚未實測。
-5. 沒有啟動遊戲、伺服器、DB，沒有複製遊戲資源或伺服器程式碼，未修改 releases／封存 lock／`docs/REPORT.md`，沒有刪除或清理 worktree。
+- 未啟動遊戲、伺服器或 DB；原生 UI、真實入盟往返、成員名單與實際盟徽 payload 尚待 dot 真機驗收。
+- d287 的確認封包沒有請求 token，也沒有本輪可使用的專用取消通知。客戶端收到可觀測的對象移除、對話取代／一般結果訊息時保守清除，無訊息的伺服器內部失效最遲於本地逾時清除；實際接受仍由伺服器判定。
+- 盟徽查詢與 clan ID／emblem ID 映射交 T135（#316）。本輪僅顯示已存在且可對應的 S118 資料；沒有資料不顯示。BMP 支援的合成驗證不保證實際伺服器所有圖像格式均支援。
+- `docs/REPORT.md` 只有合併 main 帶入既有變更，本任務沒有編輯；未改機密設定、封存 lock、releases 或硬連結，未遞迴刪除、未清理 worktree。
 
 ## 產出路徑
 
-- 產品：`engine/source/Clan.cs`、`ClanUi.cs`；兩個允許的共用掛接。
-- 測試：`engine/_integration/dev/clan-tests/ClanChecks.cs`、`README.md`；`demo-tests/DemoChecks.csproj`、`Program.cs`。
-- 格式、來源 SHA 與缺口：`docs/protocol/clan.md`。
-- 來源鎖：`engine/_integration/dev/rebuild-lock.json`。
-- 本機未追蹤證據：`scratch/clan-build/`、`scratch/clan-checks.json`、`scratch/clan-map-checks.json`；建置 DLL 在 `engine/build/client-product-dev/`。
+- `engine/source/Clan.cs`、`ClanUi.cs`；`Trade.cs`、`WorldSession.cs` 最小分派；原有 `ObjectRendering.cs` 單一繪製掛載。
+- `engine/_integration/dev/clan-tests/ClanChecks.cs`、`README.md`；既有 `demo-tests/DemoChecks.csproj`、`Program.cs`。
+- `engine/_integration/dev/rebuild-lock.json`、`docs/protocol/clan.md`、本報告。
+- 未追蹤證據：`scratch/clan-checks.json`、`scratch/clan-map-checks.json`、`scratch/clan-build/`；產品在 `engine/build/client-product-dev/`。
 
 ## 給下一棒的提示
 
-由調度器／Claude 裁定是否把 Trade.cs 的 S219 最小轉交、S167／S170／S250 血盟子碼掛接加入此任務範圍；本輪已向使用者提出範圍問題，尚未取得答覆。確認後由本機執行器完成 challenge 接受／拒絕與成員顯示、補測。
-
-請伺服器維護者唯讀核對 emblem ID 初始化／C72 查詢契約：本次 src 搜尋只見 `setEmblemId` 定義、未見有效呼叫，不能假定它等於 clan ID。待有可靠映射後實作自動查詢及去重／快取更新。上述程式完成、審查與 CI 通過後，再由 dot 按授權安排 P24Lab 真機驗收；本輪不請使用者代做開發或測試準備。
+Claude 審查 PR #282 的本輪範圍與 CI，再由使用者合併；dot 在 P24Lab 以測試角色驗證雙方接受／拒絕、離線與逾時、成員查詢及有／無盟徽畫面。T135 執行器另處理查詢與 ID 對應，不要把 S167 emblem ID 或 S72 reserved 當作 S87 clan ID，也不要實作 d287 不存在的 S_Classic*。

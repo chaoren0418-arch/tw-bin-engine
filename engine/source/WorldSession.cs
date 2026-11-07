@@ -39,6 +39,9 @@ public sealed partial class WorldSession {
         case 72:ReceiveClanUpdate(plain);break;
         case 118:ReceiveClanEmblem(plain);break;
         case 200:ReceiveClanAttention(plain);break;
+        case 167:ReceiveClanAnnouncement(plain);break;
+        case 170:ReceiveClanMembers(plain);break;
+        case 250 when plain.Length>1&&plain[1]==171:ReceiveClanOnlineMembers(plain);break;
         case 68:ReceiveBoardList(r);break;
         case 148:ReceiveBoardRead(r);break;
         case 223:

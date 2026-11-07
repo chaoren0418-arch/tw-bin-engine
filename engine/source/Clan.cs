@@ -6,10 +6,39 @@ public enum ClanCommand { Create, Join, Leave, Ban, Emblem, Members }
 public sealed record ClanUpdate(uint ObjectId,string Name,string Title,uint Reserved,byte Rank);
 public sealed record ClanEmblem(uint Id,int[] Pixels);
 public sealed record ClanAttention(ushort Type,string[] Names);
-public sealed record ClanView(int Session,int Epoch,uint Actor,bool CanSend,string Name,string Notice,string[] Attention);
+public sealed record ClanAnnouncement(string Name,string Leader,uint EmblemId,uint Created,string Text);
+public sealed record ClanMember(string Name,byte Rank,byte Level,string Note,uint ObjectId,byte Class,bool? Online=null);
+public sealed record ClanInvitation(long Revision,uint PeerId,string Name,long ExpiresAt);
+public sealed record ClanView(int Session,int Epoch,uint Actor,bool CanSend,string Name,string Notice,string[] Attention,
+    ClanInvitation? Invitation,ClanAnnouncement? Announcement,ClanMember[] Members);
 
 // Wire evidence and known server ID mismatch: docs/protocol/clan.md.
 public static class ClanProtocol {
+    // d287 C_Attr discards the zero D; it is not a requestId/confirmation token.
+    public static byte[] Answer(bool accept)=>LoginPackets.Pad([121,0,0,0,0,0,0,97,0,(byte)(accept?1:0)]);
+    public static ClanAnnouncement DecodeAnnouncement(byte[] packet){
+        var r=Reader(packet,167);var value=new ClanAnnouncement(r.S(),r.S(),r.D(),r.D(),FixedText(r,478));r.Finish();return value;
+    }
+    public static ClanMember[] DecodeMembers(byte[] packet){
+        var r=Reader(packet,170);if(r.H()!=1)throw new ProtocolException("clan members header");
+        int count=r.C();var members=new ClanMember[count];var names=new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        for(int i=0;i<count;i++){
+            var m=new ClanMember(r.S(),r.C(),r.C(),FixedText(r,62),r.D(),r.C());
+            if(string.IsNullOrWhiteSpace(m.Name)||m.ObjectId==0||!names.Add(m.Name))throw new ProtocolException("clan member identity");members[i]=m;
+        }
+        r.Finish();return members;
+    }
+    public static string[] DecodeOnlineMembers(byte[] packet){
+        var r=Reader(packet,250);if(r.C()!=171)throw new ProtocolException("clan online subcode");
+        int count=r.H();if(count>255)throw new ProtocolException("clan online count");
+        var names=new string[count];var unique=new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        for(int i=0;i<count;i++){names[i]=r.S();if(string.IsNullOrWhiteSpace(names[i])||!unique.Add(names[i])||r.C()!=0)throw new ProtocolException("clan online member");}
+        r.Finish();return names;
+    }
+    static string FixedText(LoginReader r,int length){
+        var bytes=new byte[length];for(int i=0;i<length;i++)bytes[i]=r.C();int end=Array.IndexOf(bytes,(byte)0);
+        return LoginPackets.TextEncoding.GetString(bytes,0,end<0?length:end);
+    }
     public static byte[] Encode(ClanCommand command,string name="",uint emblemId=0){
         byte opcode=command switch{ClanCommand.Create=>222,ClanCommand.Join=>194,ClanCommand.Leave=>61,ClanCommand.Ban=>69,ClanCommand.Emblem=>72,ClanCommand.Members=>68,_=>throw new ArgumentException("未知血盟操作。")};
         if(command is ClanCommand.Create or ClanCommand.Ban){
@@ -72,7 +101,46 @@ public sealed partial class WorldSession {
     int clanEpoch=-1;
     readonly Dictionary<uint,ClanEmblem> clanEmblems=[];
     string[] clanAttention=[];string clanNotice="";
-    void EnsureClanEpoch(){if(clanEpoch==WorldEpoch)return;clanEpoch=WorldEpoch;clanEmblems.Clear();clanAttention=[];clanNotice="";}
+    ClanAnnouncement? clanAnnouncement;ClanMember[] clanMembers=[];HashSet<string>? clanOnline;
+    ClanInvitation? clanInvitation;long clanInvitationRevision;bool clanSubscribed;
+    int clanInviteTradeRevision,clanInviteInteractionRevision,clanInviteUnhandled;
+    string clanInviteOwnClan="",clanInvitePeerClan="",clanInviteMessage="";ServerMessageReport? clanInviteReply;
+    void ClearClanMembers(){clanAnnouncement=null;clanMembers=[];clanOnline=null;}
+    void EnsureClanEpoch(){
+        if(!clanSubscribed){CombatSoundStateChanged+=CheckClanState;clanSubscribed=true;}
+        if(clanEpoch==WorldEpoch)return;clanEpoch=WorldEpoch;clanEmblems.Clear();clanAttention=[];clanNotice="";clanInvitation=null;ClearClanMembers();
+    }
+    void CheckClanState(){
+        EnsureClanEpoch();
+        if(clanAnnouncement!=null&&clanAnnouncement.Name!=Actor?.Clan)ClearClanMembers();
+        if(clanInvitation is not {} invite)return;
+        bool changedMessage=(!ReferenceEquals(clanInviteReply,LastServerReply)||clanInviteMessage!=(LastServerMessage??""))&&
+            !(LastServerReply is {} reply?ServerStatusMessages.IsInformational(reply.Id,reply.Arguments):ServerStatusMessages.IsInformational(LastServerMessage??""));
+        if(!Ready||OwnDead||TeleportPending||ActionClock()>=invite.ExpiresAt||!objects.TryGetValue(invite.PeerId,out var peer)||peer.Dead||peer.Name!=invite.Name||peer.Clan!=clanInvitePeerClan||Actor?.Clan!=clanInviteOwnClan||
+            TradeRevision!=clanInviteTradeRevision||InteractionRevision!=clanInviteInteractionRevision||unhandled.GetValueOrDefault((byte)219)!=clanInviteUnhandled||changedMessage)
+            ClearClanInvitation("入盟申請已失效或被其他操作取代，請重新申請。");
+    }
+    public ClanInvitation? PendingClanInvitation {get{CheckClanState();return clanInvitation;}}
+    public ClanAnnouncement? ClanAnnouncement {get{CheckClanState();return clanAnnouncement;}}
+    public ClanMember[] ClanMembers {get{CheckClanState();return clanMembers.Select(m=>m with{Online=clanOnline==null?null:clanOnline.Contains(m.Name)}).ToArray();}}
+    internal void ClearClanInvitation(string notice){clanInvitation=null;clanNotice=notice;}
+    void ReceiveClanInvitation(LoginReader r,uint reserved){
+        string name=r.S();r.Finish();EnsureClanEpoch();
+        ClearClanInvitation("收到無法確認對象的入盟申請，請對方重新申請。");
+        // Only d287's zero-D, single-string message 97 is supported.
+        if(reserved!=0||!Ready||OwnDead||TradeBlocksActions||string.IsNullOrWhiteSpace(name))return;
+        var candidates=Objects.Where(o=>o.Name==name&&!o.Dead&&(o.Flags&4)!=0).ToArray();if(candidates.Length!=1)return;
+        var peer=candidates[0];clanInviteOwnClan=Actor!.Clan;clanInvitePeerClan=peer.Clan;
+        clanInviteTradeRevision=TradeRevision;clanInviteInteractionRevision=InteractionRevision;clanInviteUnhandled=unhandled.GetValueOrDefault((byte)219);
+        clanInviteReply=LastServerReply;clanInviteMessage=LastServerMessage??"";
+        clanInvitation=new(++clanInvitationRevision,peer.ObjectId,name,ActionClock()+300000);clanNotice=name+" 申請加入血盟，請接受或拒絕。";
+    }
+    void ReceiveClanAnnouncement(byte[] packet){
+        var value=ClanProtocol.DecodeAnnouncement(packet);EnsureClanEpoch();ClearClanMembers();
+        if(Ready&&value.Name.Length>0&&value.Name==Actor?.Clan)clanAnnouncement=value;
+    }
+    void ReceiveClanMembers(byte[] packet){var value=ClanProtocol.DecodeMembers(packet);CheckClanState();if(clanAnnouncement!=null)clanMembers=value;}
+    void ReceiveClanOnlineMembers(byte[] packet){var value=ClanProtocol.DecodeOnlineMembers(packet);CheckClanState();if(clanAnnouncement!=null)clanOnline=new(value,StringComparer.OrdinalIgnoreCase);}
     public string[] ClanAttentionNames {get{EnsureClanEpoch();return (string[])clanAttention.Clone();}}
     public string ClanNotice {get{EnsureClanEpoch();return clanNotice;}}
     public ClanEmblem? FindClanEmblem(uint id){EnsureClanEpoch();return clanEmblems.TryGetValue(id,out var emblem)?emblem with{Pixels=(int[])emblem.Pixels.Clone()}:null;}
@@ -93,7 +161,21 @@ public sealed partial class WorldSession {
 public sealed partial class LoginConnection {
     int clanSendingGeneration=-1;string clanSendNotice="";int clanNoticeGeneration=-1;
     bool ClanAccess=>State==LoginState.InWorld&&World.Ready&&World.Status is {Hp:>0}&&World.Actor!=null&&!World.OwnDead&&!World.TeleportPending&&!World.ActionLocked&&!World.TradeBlocksActions;
-    public ClanView ClanSnapshot()=>CaptureWorld(()=>new ClanView(generation,World.WorldEpoch,World.Actor?.ObjectId??0,ClanAccess&&clanSendingGeneration!=generation,World.Actor?.Clan??"",World.ClanNotice+(clanNoticeGeneration==generation?"\n"+clanSendNotice:""),World.ClanAttentionNames));
+    public ClanView ClanSnapshot()=>CaptureWorld(()=>{
+        var invitation=World.PendingClanInvitation;
+        return new ClanView(generation,World.WorldEpoch,World.Actor?.ObjectId??0,ClanAccess&&clanSendingGeneration!=generation,World.Actor?.Clan??"",World.ClanNotice+(clanNoticeGeneration==generation?"\n"+clanSendNotice:""),World.ClanAttentionNames,invitation,World.ClanAnnouncement,World.ClanMembers);
+    });
+    public async Task<bool> AnswerClanInvitation(ClanView view,bool accept){
+        bool Current()=>ClanAccess&&view.Session==generation&&view.Epoch==World.WorldEpoch&&view.Actor==World.Actor?.ObjectId&&
+            view.Invitation!=null&&view.Invitation==World.PendingClanInvitation;
+        if(!Current()||clanSendingGeneration==generation||sendMovementGate==null)return false;
+        int session=generation;var sender=sendMovementGate;clanSendingGeneration=session;
+        try{
+            bool sent=await sender(ClanProtocol.Answer(accept),Current,()=>World.ClearClanInvitation(accept?"已接受入盟申請；等待伺服器更新。":"已拒絕入盟申請。"));
+            if(session!=generation||view.Epoch!=World.WorldEpoch)return false;Changed?.Invoke();return sent;
+        }catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,"入盟回覆傳送失敗，已斷線；沒有自動重送。");}return false;}
+        finally{if(clanSendingGeneration==session)clanSendingGeneration=-1;}
+    }
     public async Task<bool> SendClan(ClanCommand command,ClanView view,string name="",uint emblemId=0){
         bool Current()=>ClanAccess&&view.Session==generation&&view.Epoch==World.WorldEpoch&&view.Actor==World.Actor?.ObjectId&&view.Actor==World.Status?.ObjectId;
         if(!Current()||clanSendingGeneration==generation||sendMovementGate==null)return false;
@@ -104,7 +186,7 @@ public sealed partial class LoginConnection {
         var actor=World.Actor;var peer=World.FacingTradeTarget;
         if(command==ClanCommand.Join&&(peer==null||MovementBusy)){clanSendingGeneration=-1;clanNoticeGeneration=session;clanSendNotice="請選取相鄰且面對面的招募者，停止移動後申請。";return false;}
         try{
-            bool sent=await sender(packet,()=>Current()&&(command!=ClanCommand.Join||!MovementBusy&&actor==World.Actor&&peer==World.FacingTradeTarget),()=>{});
+            bool sent=await sender(packet,()=>Current()&&(command!=ClanCommand.Join||!MovementBusy&&actor==World.Actor&&peer==World.FacingTradeTarget),()=>{if(World.PendingClanInvitation!=null)World.ClearClanInvitation("血盟操作已取代舊入盟申請。");});
             if(session!=generation||view.Epoch!=World.WorldEpoch)return false;
             clanNoticeGeneration=session;clanSendNotice=sent?"血盟請求已送出；結果以伺服器回報為準。":"角色或場景已變更，請求未送出。";Changed?.Invoke();return sent;
         }catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,"血盟請求傳送失敗，已斷線；沒有自動重送。");}return false;}
