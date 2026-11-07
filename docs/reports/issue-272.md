@@ -35,7 +35,7 @@ python -B -X utf8 engine/tools/check-no-game-assets.py
 
 本機 NuGet.Config 僅在 scratch，唯讀引用原專案 `engine/vendor`；未複製遊戲資源。產品保留既有 `MagicUi.cs:20` 的 CS8600／CS8602 警告；launcher 與測試專案沒有新增編譯警告。產品 DLL SHA-256：`b24034ee6cdd56f03e03d9958f900486999569f227456d1165e9a9f57aa59569`。
 
-CI：待本次推送後核對 PR #293 的 `dotnet`、`map-continuity` 結果；本機通過不替代 CI 綠燈。
+CI 已驗證：來源／測試提交 `cdbacaea572e3800b35787f43c6443b2ce977b4d` 的 [build（dotnet、map-continuity）](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42318993445) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42318993462) 全數成功。此後只補寫本報告的 CI 證據，送審時另核對 PR 最新 head 的三項檢查。
 
 ## 未驗證什麼
 
