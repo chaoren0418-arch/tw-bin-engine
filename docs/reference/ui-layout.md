@@ -37,7 +37,7 @@ ImageBase 為 `0x400000`。File Offset 依區段換算：
 
    開啟方式是台灣版巨集框上的 **Map 按鈕**（action 13）。快捷鍵本輪未取得。
 4. **聊天格式與顏色寫死在 BIN 中。** 共 16 個 `LineageChat::ChatText*Printer` 類別，由聊天類型 0／1／2／3／4／11／12／13／14／15／17／18／25／29 的工廠建立。顏色取自一張靜態 RGB555 調色盤，前 77 筆與 TW13 逐 byte 相同。
-5. **與引擎比對 17 項：11 項不一致、2 項部分一致、4 項無法判定**，見最後一節。最大的三項：
+5. **與引擎比對 17 項：12 項不一致、2 項部分一致、3 項無法判定**，見最後一節。（#4 HP／MP 由 V1 #456 改判為不一致。）最大的三項：
    - 引擎版面不是 800×600
    - 快捷列只有 F1–F4
    - 小地圖用 F5 開關，與原版巨集鍵 F5 衝突
@@ -80,7 +80,7 @@ u16 寬, u16 高, u16 旗標, u16 透明色, 寬×高 個 RGB555 像素
 | `MINI_MAP_WINDOW` | (485, 475) | 框 3275＋底 3274 | 框 158×125；底 135×101，位於 (+12, +20) | 小地圖 |
 | `EX_MACRO_WINDOW` | (485, 475) | 3226 | 158×125 | 擴充巨集，與小地圖同位置（推測兩者切換顯示） |
 | `RIGHT_WINDOW`（巨集） | (643, 476) | 3176 | 157×124 | 底圖印著 F5–F12，共 8 格 |
-| `FLOAT_WINDOW/HPMP_WINDOW` | XML 註解寫「in Binary File」 | — | — | **HP／MP 不在底列 XML 中** |
+| `FLOAT_WINDOW/HPMP_WINDOW` | XML 註解寫「in Binary File」 | — | — | **HP／MP 不在底列 XML 中**，寫在程式碼裡。預設在 (135, 465)，詳見本節最後的 V1 |
 
 `LEFT_WINDOW` 的子元件（相對座標）：
 
@@ -116,12 +116,206 @@ u16 寬, u16 高, u16 旗標, u16 透明色, 寬×高 個 RGB555 像素
 ### 推測
 
 - **巨集格距：** 從 3176 的渲染圖目測，8 格排成 2 列 × 4 欄，格距約 33×34 px。XML 只給第一格位置，其餘格的座標在程式碼裡，本輪未取。
-- **HP／MP 浮動窗：** 位置寫死在程式碼中。BIN 有 protobuf 設定 `Lineage.ClientConfig.FloatingHPMP`，以及 `showCharacterHPMP`、`HPMPBarThick`、`HPMPBarRecovery`、`HPMPBarPercent` 等選項，解析者在 `sub_919F30`（`0x919F30`）。由此推測有「浮動 HP/MP 窗」和「頭上 HP/MP 條」兩種顯示。
+- ~~HP／MP 浮動窗位置寫死在程式碼中~~ → 已由 V1（#456）查證，見下方「HP／MP 浮動窗與頭上條」。
 
 ### 待驗證
 
-- HP／MP 條的座標、尺寸、顏色。
 - 紅字訊息（畫面中央系統訊息）的位置。
+
+### HP／MP 浮動窗與頭上條（V1，Issue #456）
+
+查證日期 2026-11-07。方法同本文件開頭（IDA 7.7＋Hex-Rays 開 `scratch/rea/ida/tw16.idb` 副本，SHA 已核對；靜態分析 `TW1608262200.bin`，SHA 已核對）。圖檔尺寸讀自本機 `Sprite*.pak` 的 `.img` 標頭；渲染圖只放 `scratch/`，未進 git。
+
+**更正 T161 的推測：** `sub_919F30` 不是 protobuf 解析者，是**選項視窗**（`Lineage::OptionUI`）的 XML 控制項綁定函式。protobuf 是在 `sub_59DD30` 讀進全域變數。
+
+**Hex-Rays 注意事項：** `sub_E538D0`（取 surf，VA `0xE538D0`／FO `0xA52CD0`）的參數被 IDA 標成 `char`，所以偽碼裡直接寫常數的 surf 編號會被截成 1 byte。例如頭上條偽碼寫 `162`，反組譯是 `push 3A2h`（930）。本節所有直接常數的 surf 編號都已用反組譯核對。存在成員變數裡的編號不受影響。
+
+#### 已驗證：設定來源與預設值
+
+`ClientConfig.proto` 的 descriptor 是明文序列化，位於 VA `0x11570D8`／FO `0xD55CD8`，長 3,383 byte。用 `rea-scripts/hpmp_pb_descriptor.py` 解出：
+
+```
+message ClientConfig {
+  optional FloatingHPMP floatingHPMP = 10;
+  optional bool showCharacterHPMP = 11 [default = true];
+  message FloatingHPMP {
+    optional bool   show         = 1 [default = true];
+    optional Status status       = 2 [default = Status2];   // enum Status0=0, Status1=1, Status2=2
+    optional int32  shape        = 3 [default = 1];
+    optional bool   thickness    = 4 [default = false];
+    optional bool   showRecovery = 5 [default = true];
+    optional bool   showPercent  = 6 [default = true];
+    optional Position position   = 7;                        // Position{int32 x=1; int32 y=2}
+  }
+}
+```
+
+各欄位讀取後存放的位置如下：
+
+- 載入：`sub_59DD30`（VA `0x59DD30`／FO `0x19D130`）
+- 存檔：`sub_59E920`（VA `0x59E920`／FO `0x19DD20`）
+- 欄位偏移：依 `sub_5AA660`（FO `0x1A9A60`）的 `case 1…7` 核對
+- 「全部重設」：`sub_998250`（VA `0x998250`／FO `0x597650`）
+
+| 設定 | 存放處 | descriptor 預設 | 全域初值（.data） | 「全部重設」寫入 | 作用 |
+|---|---|---|---|---|---|
+| `showCharacterHPMP` | `byte_138BE7C`（FO `0xF8A67C`） | true | 1 | 1 | 自己頭上的 HP／MP 條 |
+| `FloatingHPMP.show` | `byte_138BE7D`（FO `0xF8A67D`） | true | 1 | **0** | 浮動窗是否顯示。讀取者見「待驗證」 |
+| `FloatingHPMP.status` | `dword_138BFAC`（FO `0xF8A7AC`） | Status2 | 2 | 2 | 浮動窗長度：0 短、1 中、2 長 |
+| `FloatingHPMP.shape` | `dword_138B620`（FO `0xF89E20`） | 1 | 1 | 1 | 1 橫排（HP、MP 左右並排）、0 直排（上下疊） |
+| `FloatingHPMP.thickness` | `dword_154333C`（.bss） | false | 0 | 0 | 改用另一組外框與條的圖 |
+| `FloatingHPMP.showRecovery` | 設定物件 `sub_4F9B90()+670`，同步到浮動窗 `+0x60` | true | — | 1 | 回復光效疊圖，見下文 |
+| `FloatingHPMP.showPercent` | `sub_4F9B90()+799`，同步到浮動窗 `+0x61` | true | — | 1 | 百分比文字 |
+| `FloatingHPMP.position` | `dword_15451F4`／`dword_15451F8`（.bss） | 無 | — | — | 載入時取 x % 800、y % 550。值為 (−1, −1) 時用 **(135, 465)**，見浮動窗建構子 `sub_ECD2A0`（FO `0xACC6A0`）的 `0xECD375`–`0xECD3BC` |
+
+**改設定的入口：**
+
+- **選項視窗「Etc」頁：** 有 4 個勾選框：`ShowCharacterHPMP`、`HPMPBarThick`、`HPMPBarRecovery`、`HPMPBarPercent`。
+  - 綁定在 `sub_919F30`（FO `0x519330`），按鈕註冊在 `sub_919170`（FO `0x518570`）。
+  - 4 個處理函式先切換暫存副本（`dword_13D43E4` 的 +812／+814／+818／+823）：
+    - `sub_91C540`（FO `0x51B940`）
+    - `sub_91B490`（FO `0x51A890`）
+    - `sub_91B430`（FO `0x51A830`）
+    - `sub_91B3D0`（FO `0x51A7D0`）
+  - 再由 `sub_9184B0`（FO `0x5178B0`）寫回全域，`HPMPBarThick` 會觸發浮動窗重排。
+- **選項視窗沒有 shape／status 選項。** 這兩項只能用浮動窗上的兩顆小按鈕切換（見下文）。
+- **HyperText 指令：** `showhpmp`、`showfloathpmp`、`HPMPBarThicknessSet`、`HPMPPercentage`（註冊在 `sub_BB5180`）。
+  - `HyperActShowHPMP`（`sub_584B50`，FO `0x183F50`）切換 `byte_138BE7C`。
+  - `HyperActThickHPMPBar`（`sub_585020`）呼叫 `sub_EDB620`（FO `0xADAA20`），切換 thickness 並重排。
+  - `HyperActHPMPPercentage`（`sub_582EE0`）切換百分比。
+  - `sub_584C40` 切換 showRecovery。
+
+#### 已驗證：浮動窗 `HpMpWindow`
+
+- **物件與建立：**
+  - RTTI `.?AUHpMpWindow@@`（VA `0x138B808`／FO `0xF8A008`），vtable `0x11E28D4`。
+  - 實例存在 `dword_1543330`。進入遊戲時由 `sub_8C7C80`（FO `0x4C7080`）建立，建構後就是可見狀態（`+0x69 = 1`）。
+  - 視窗原點存在子容器的 +20／+24（`this+0x64`），初值 0，加上上表的 position。
+- **版面：** 由 `sub_ED9030`（VA `0xED9030`／FO `0xAD8430`）依 (shape, status, thickness) 決定，`sub_ED8F20` 每次切換時重排。
+  - 重排後若 x＋外框寬 > 799，x 改為 799 − 外框寬。
+  - 拖曳（`sub_ED8D40`，FO `0xAD8140`）時 y 上限是 550。
+- **每幀繪製：** `sub_ED0020`（FO `0xACF420`）依序呼叫：
+  - 橫排 `sub_ED2680`（FO `0xAD1A80`）或直排 `sub_ED56D0`（FO `0xAD4AD0`）
+  - 遊戲時鐘 `sub_ED6330`（FO `0xAD5730`）
+  - 兩個只在特殊旗標 `dword_13CE514 & 0x40000000` 時畫的徽章／提示：`sub_ED68C0`、`sub_ED6A80`
+
+座標都是相對視窗原點的 px。最終螢幕座標＝視窗原點＋`dword_154524C`／`dword_1545250`（UI 原點偏移）＋相對座標。這兩個偏移值在 .bss，沒找到直接寫入者；800×600 時推測為 0。
+
+**橫排（shape = 1，預設）**
+
+| status | 外框 surf（一般／thick） | HP 條 surf，位置 (9, 11) | MP 條 surf | 時鐘位置 | 「切換排法」鈕 | 「切換長度」鈕 | 時鐘提示區 | 拖曳區 |
+|---|---|---|---|---|---|---|---|---|
+| 0 | 2353 265×48／2908 234×34 | 2359 85×20／2914 92×14 | 2356 80×20／2911 92×14，位置 (133, 11) | (108, 3) | (85, 3) | (127, 3) | (108,3)–(128,23) | (102,0)–(132,30) |
+| 1 | 2354 320×48／2909 282×34 | 2362 112×20／2917 116×14 | 2357 107×20／2912 116×14，位置 (157, 11) | (132, 3) | (109, 3) | (151, 3) | (132,3)–(152,23) | (126,0)–(156,30) |
+| 2（預設） | 2355 378×48／2910 334×34 | 2365 141×20／2920 142×14 | 2358 136×20／2913 142×14，位置 (183, 11) | (158, 3) | (135, 3) | (177, 3) | (158,3)–(178,23) | (152,0)–(182,30) |
+
+- 橫排兩顆鈕：「切換排法」2368（22×7）、「切換長度」2371（22×7）。thick 與否都一樣，位置也一樣。
+- **預設外觀：** 橫排、長、一般粗細，位置 (135, 465)。外框 2355 佔 x 135–513、y 465–513，蓋在聊天窗上緣（聊天窗位於 (129, 470)）。
+
+**直排（shape = 0）**
+
+| status | 外框 surf（一般／thick） | HP 條（一般 (30, 9)／thick (30, 9)） | MP 條（一般 (30, 22)／thick (30, 26)） | 時鐘位置（一般／thick） |
+|---|---|---|---|---|
+| 0 | 2332 197×48／2890 141×46 | 2338 108×15／2896 102×14 | 2335 108×15／2893 102×14 | (7, 9)／(7, 13) |
+| 1 | 2333 230×48／2891 167×46 | 2341 142×15／2899 128×14 | 2336 142×15／2894 128×14 | 同上 |
+| 2 | 2334 263×48／2892 193×46 | 2344 174×15／2902 154×14 | 2337 174×15／2895 154×14 | 同上 |
+
+- 直排「切換排法」鈕：一般 2347、thick 2905，都是 21×8，位置 (19, 0)。
+- 直排「切換長度」鈕：2350（26×8），位置 (36, 0)。
+- 時鐘提示區 (7,9)–(27,29)。拖曳區：一般 (0,5)–(33,38)，thick (0,9)–(33,42)。
+
+**HP 條的變體與填充方式**
+
+- **HP 條圖的選擇：** 依 `dword_153CE60`（自己的角色物件）的旗標選用。旗標的語義是推測（顏色讀自渲染圖），見「推測」。
+  - 平常用基準圖（紅）。
+  - byte +86 為真時用基準＋1（灰）：`sub_A43010`。
+  - byte +87 為真時用基準＋2（綠）：`sub_A43030`。
+- **填充（`sub_E53BD0`，旗標 `0x8003`）：**
+  - 橫排的 HP：來源矩形取右段 `[w − w·HP/MaxHP, w]`，貼在 HPx＋同一偏移處，所以血量**從左往右縮、靠右對齊**。
+  - 橫排的 MP：取左段 `[0, w·MP/MaxMP]`，靠左對齊。
+  - 直排的 HP、MP 都靠左對齊。
+  - w 是當下 HP／MP 條圖的寬。
+- **數字文字 `"%d/%d"`：**
+  - 每條置中：x＝條x＋條寬/2−字寬/2；y＝條y＋2＋(thick ? 0 : −2)。
+  - 用 `sub_841770` 畫，文字色是調色盤[14] 白 #FFFFFF，第二色是調色盤[0] 黑 #000000。
+- **百分比 `"%g%%"`：** 只在 showPercent 開啟，而且外框不是 status 0（橫 2353／2908，直 2332／2890）時顯示。
+  - 數值是 HP/MaxHP×100。≤ 99 時經 `sub_8611D0` 取整，> 99 時改用 `sub_8611F0`。
+  - 位置：
+    - 橫排的 HP% 在 HP 條左側 x＝條x＋7。
+    - 橫排的 MP% 靠右：x＝條x＋條寬−字寬＋4。
+    - 直排兩者都靠右。
+    - y＝條y＋(thick ? 0 : −2)＋條高/2−(2·thick＋1)。
+  - 用 `sub_841190` 畫，白字黑第二色。
+- **回復光效疊圖：** HP 疊圖存在 `+0x30`，MP 疊圖存在 `+0x34`。
+  - showRecovery 開啟而且符合以下條件時，用 `sub_AF28D0` 疊在條上，寬度與填充寬一致：
+    - (`sub_EE1BC0()` ≥ 50 或 `sub_EE1B80()` < 17)
+    - 而且 (`sub_F03F80(56)`、`sub_F03F80(66)`、`sub_F03F80(112)` 三者皆真，或 `sub_EFE870(66／56／112)` 任一為真而且前述值 ≥ 83)
+  - 疊圖 surf：
+    - 橫排一般：5292＋s（HP）、5295＋s（MP），92／116／142×10
+    - 橫排 thick：5304＋s、5307＋s，×14
+    - 直排一般：HP 在 s=0 時用 5310，s=1／2 時用 5286＋s；MP 用 5289＋s，×10
+    - 直排 thick：5298＋s、5301＋s，×14
+  - 疊圖本身是白色雜訊紋理。
+- **低血警示框：** 存在 `+0x54`，由 `sub_EDB8E0`（FO `0xADACE0`）控制。
+  - HP ≤ 35% 時，計數器 `+0x5C` 設為 6，並以 300 ms 計時器遞減；計數器為奇數的幀畫紅框。
+  - `byte_1542AA1 == 7` 時改用 `dword_138B62C`＝0.40 當門檻。
+  - 紅框位置：橫排 (+6, +8)，直排 (+27, +6)。
+  - 紅框 surf：
+    - 橫排：一般 2935＋s（107／134／163×33）、thick 2941＋s
+    - 直排：一般 2932＋s（148／182／214×24）、thick 2938＋s
+  - 圖是紅色圓角框，透明色是洋紅。
+- **時鐘：** 依遊戲時刻取階段＝((時＋23) % 24) / 2，共 12 段，查表取圖。
+  - 表的每筆是 {起始 surf, 幀數, dx, dy}。橫排表在 `0x138B630`（FO `0xF89E30`，2405… 與 2381…，33×33）；直排表在 `0x138B6F0`（FO `0xF89EF0`，2772… 與 2748…）。
+  - 換段時播放轉場動畫，每 150 ms 一幀，另疊 2416＋t/150、2423＋t/150。
+  - 滑鼠停在時鐘提示區時，在 (提示區左−7, 提示區上＋7) 畫 `"%02d:%02d"`，顏色是調色盤[33] #FFE6CE。
+- **兩顆按鈕：** 由 `sub_8F9780` 建立，各帶 3 張同尺寸圖（n、n＋1、n＋2）。
+  - 「切換排法」：callback `sub_EDC840`（FO `0xADBC40`），翻轉 shape，提示字串 1639。
+  - 「切換長度」：callback `sub_EDC620`（FO `0xADBA20`），status＝(status＋1) % 3，提示字串 1640。
+- **初始隱藏的元件：** 另有 surf 5868 的圖，位置是時鐘提示區＋(18, −30)；以及按鈕 5866／5867，位置是＋(32, −25)，按下會開啟字串 3409 的網址。這三張圖的檔案本機客戶端沒有。
+
+#### 已驗證：頭上 HP／MP 條（`MiniHpMpBar*`）
+
+- **類別：**
+  - `Lineage::MiniHpMpBarManager`：RTTI VA `0x136FFE8`／FO `0xF6E7E8`；建構子 `sub_8E66D0`（FO `0x4E5AD0`），註冊事件 18／26／28／47／48／49／50。
+  - `MiniHpMpBarDraw`：RTTI `0x1363F18`／FO `0xF62718`。
+  - `MiniHpMpBarBlinkDraw`：閃爍版。
+- **每幀走訪：** `sub_8E7290`（VA `0x8E7290`／FO `0x4E6690`）走訪有條的物件。
+  - **其他物件：** 一律畫，flag 傳 1。HP%、MP% 取物件 byte +217／+218（有號，值為 −1 時不畫）。
+  - **自己：** flag 傳 `byte_138BE7C`（showCharacterHPMP），HP% 由目前 HP×100/MaxHP 算出，經 `sub_8E7110` 夾在 0–100 再取整，MP 同理。
+  - **哪些物件有條：** 事件 18 的處理函式 `sub_8E74E0`（FO `0x4E68E0`）加入「+217 ≥ 0 而且 +220 == 0」的物件，另外一律加入自己。
+- **位置：** `sub_8E77F0`（VA `0x8E77F0`／FO `0x4E6BF0`），bbox 由 `sub_A3E830` 取得。
+  - 其他物件：x＝bbox左＋(bbox右−bbox左)/2−24；y＝bbox上−12。
+  - 自己：x＝P.x＋`dword_154524C`−80，其中 P＝`sub_F1A750(sub_F1A080(obj+16))`；y＝bbox上−12。
+  - 只在 x ≥ 0、y ≥ 0、x ≤ 偏移＋800 時畫。其他物件另外要求 y ≤ 偏移＋600。
+- **繪製：** `sub_8E4E80` 呼叫 HP `sub_8E4D40`（FO `0x4E4140`）與 MP `sub_8E4DE0`（FO `0x4E41E0`）。
+
+  | 層 | surf | 尺寸 | 畫在 | 說明 |
+  |---|---|---|---|---|
+  | HP 底 | **930**（`0x3A2`） | 44×5 | (x, y) | 整張畫，旗標 `0x8003`。米色框＋白底 |
+  | HP 填充 | **931**（`0x3A3`） | 44×5 | (x, y) | 來源 (0, 0, 44·HP%/100, 4)，紅（主色約 RGB 160,48,48） |
+  | MP 底 | 930 | 44×5 | (x, y＋4) | 與 HP 底重疊 1 px |
+  | MP 填充 | **932**（`0x3A4`） | 44×5 | (x, y＋4) | 來源 (0, 0, 44·MP%/100, 4)，藍（主色約 RGB 48,104,160） |
+  | 閃爍（BlinkDraw，`sub_8E4B90`） | `0x20C9`（8393） | — | (x, y) | 只在警示檢查者回真時畫，寬 44·HP%/100。本機 SurfList 沒有 8393 |
+
+### 推測（V1）
+
+- HP 條變體：灰（＋1，角色 byte +86）與綠（＋2，角色 byte +87）。依天堂慣例推測綠是中毒；灰的語義未知。
+- 回復光效的條件：`sub_EE1BC0` 推測是等級；56／66／112 推測是技能或狀態編號。語義都未查。
+- `byte_1542AA1 == 7` 用 40% 警示門檻：BIN 另有 `HpWarnCheckerWarrior` 類別，推測 7 是戰士。
+- `sub_8611D0`／`sub_8611F0`：推測分別向下、向上取整，讓未滿血時不顯示 100%。未展開。
+- 頭上條「其他物件」的 +217／+218：推測是伺服器送的 HP%／MP%（例如隊員血條封包）。
+
+### 待驗證（V1）
+
+- **`FloatingHPMP.show`（`byte_138BE7D`）如何控制浮動窗顯示：**
+  - 讀取者只有存檔、選項文字和 HyperText 文字，沒有找到它呼叫浮動窗的顯示／隱藏 vtable（`sub_ECF910`／`sub_ECFC30`）。
+  - 「全部重設」把它寫成 0，`sub_998840` 在舊設定版本（< 78）時寫成 1。
+  - 所以實際預設是否顯示要真機確認。
+- **時鐘圖的螢幕繪製點：** `sub_ED6330` 以 `sub_565E50` 組合座標，未展開。
+- **自己頭上條的 x：** 公式中 −80 的基準（`sub_F1A750` 回傳的點）未展開。
+- **800×600 下的 UI 原點偏移：** `dword_154524C`／`dword_1545250` 是否為 0。
+- **缺檔的 surf：** 8393（閃爍）、5866–5868 與徽章 5760–5763、5864／5865 本機缺檔，畫面無法對照。
+- **真機比對：** 未做，沒有啟動遊戲。
 
 ## 3. 聊天
 
@@ -273,7 +467,7 @@ BIN 載入 `RenewalMailUI.xml`（字串 VA `0x119CC48`／FO `0xD9B848`），但*
 | 1 | 畫面尺寸 | 800×600 固定，底列 y=470–600 | 視窗 1180×800 可縮放（`Program.cs:95`），HUD 198 px（`PlayerHudModel.cs:42`），右側 365 px 網頁面板 | 不一致 |
 | 2 | UI 美術 | 全部用 `Sprite*.pak` 的 `.img`（surf 編號見上） | WinForms／GDI＋純色合成（`PlayerHudView.cs:16`），沒有載入原版 UI 圖 | 不一致 |
 | 3 | 左狀態框 | 等級／EXP、AC、MR、陣營、SP、負重、飽食、金幣 | HP／MP 條＋名稱等級行（`PlayerHudView.cs:26-30`） | 不一致 |
-| 4 | HP／MP | 浮動窗，位置寫死在程式碼中（座標待驗證） | 底部 HUD 兩條：HP #902D31、MP #2A5B93 | 無法判定 |
+| 4 | HP／MP | 浮動窗 `HpMpWindow` 預設在 (135, 465)：橫排、長，外框 2355（378×48），HP 2365（141×20）位於 (9, 11)，MP 2358（136×20）位於 (183, 11)。另有直排／三種長度／thick 變體與時鐘；頭上條為 930／931／932，44×5（V1，第 2 節） | 底部 HUD 兩條：HP #902D31、MP #2A5B93 | 不一致 |
 | 5 | 快捷列（T138） | 右巨集框 8 格 **F5–F12**，3 個分頁；設定存在 protobuf `Lineage.ClientConfig` | 4 格 **F1–F4**（`PlayerHudView.cs:47,83`）；26 byte「TWCC」設定（`CharacterConfig.cs:14-31`） | 不一致 |
 | 6 | 選單按鈕 | 巨集框 y=91 一排 8 個：Map／Mail／Status／Spell／Item／Pledge／Option／Quit | 底部一列文字按鈕：背包／裝備／技能／聊天／服務／診斷 F9／登出／小地圖 F5／信件／隊伍（`PlayerHudView.cs:85,111`） | 不一致 |
 | 7 | 聊天窗（T106） | 362×240，位於 (129, 600−h)，以 36 px 伸縮；左側有 8 個頻道分頁 | HUD 抽屜內的 RichTextBox，高 236（`PlayerHudChat.cs:4-18`） | 不一致 |
@@ -288,13 +482,13 @@ BIN 載入 `RenewalMailUI.xml`（字串 VA `0x119CC48`／FO `0xD9B848`），但*
 | 16 | 信件（T131） | 版面寫在 `RenewalMailUI.xml`，但本機資源缺檔 | 對話框 780×640，含收件匣／寫信分頁（`MailUi.cs:5,27`） | 無法判定 |
 | 17 | 紅字訊息（T152） | 位置待驗證 | 紅字黑底，水平置中，位於視窗高度 1/3 處，顯示 5 秒（`DisplayNotices.cs:93,99,10`） | 無法判定 |
 
-合計：不一致 11 項（#1–3、#5–8、#11–14），部分一致 2 項（#9、#10），無法判定 4 項（#4、#15、#16、#17）。
+合計：不一致 12 項（#1–8、#11–14），部分一致 2 項（#9、#10），無法判定 3 項（#15、#16、#17）。#4 原為無法判定，V1（#456）查證後改為不一致。
 
 ## 給後續任務（T164）的提示
 
 - 本文件的 XML 數值都可以用 `ui_xml_decrypt.py` 重新取得。產品若要還原原版版面，可以在執行期從 `Tile.pak` 解密讀取，不必把 XML 或圖檔複製進專案。
 - 本輪仍缺的四項：
-  - HP／MP 浮動窗座標：從 `sub_919F30` 與 `FloatingHPMP` 往繪製端追
+  - ~~HP／MP 浮動窗座標~~：V1（#456）已補，見第 2 節
   - 紅字訊息位置
   - 舊封包的狀態圖示對照：可試 `SpellIcon.idx`
   - 前綴字元→頻道對照：在 `sub_6C6C60` 之後的鏈中找
@@ -310,3 +504,7 @@ BIN 載入 `RenewalMailUI.xml`（字串 VA `0x119CC48`／FO `0xD9B848`），但*
 | `ui_img_render.py` | 把 `.img` 轉成 PNG，只能輸出到 `scratch/`，不可進 git |
 | `ui_ida_query.py`、`run_ui_query.ps1` | IDA 唯讀查詢（字串→xref→反編譯、立即數掃描）。使用時複製到 `scratch/rea/scripts/` 並改名為 `ida_query.py`／`run_query.ps1`；IDB 放 `scratch/rea/ida/tw16.idb`。預設 subst 磁碟為 `K:`，該磁碟已被占用時會直接退出，不會卸載別人的對應 |
 | `ui_queries.json` | 本輪使用的全部查詢（q1–q20） |
+| `hpmp_ida_query.py`、`hpmp_x_*.py`、`hpmp_queries.json` | V1（#456）的 IDA 查詢。這版 `ida_query.py` 多了 `exec` 鍵，可執行 `hpmp_x_*.py`：RTTI→vtable、區段批次反編譯、反組譯、全域 xref。用法同上：複製到 `scratch/rea/scripts/`，並把 `exec` 檔名的 `hpmp_` 前綴去掉後放在 `scratch/rea/`。執行器是 `run_ui_query.ps1`，要另外設 `REA_ROOT` 為 subst 磁碟根目錄 |
+| `hpmp_pb_descriptor.py` | 從 BIN 解出 `ClientConfig.proto` descriptor（欄位編號、型別、預設值） |
+| `hpmp_bin_values.py` | 讀 BIN 中的 shape／status／顯示旗標初值、警示門檻、時鐘表、調色盤 |
+| `hpmp_img_all.py` | 列出指定編號在所有 `*.idx` 中的檔案（.img／.png／.tbt），以及 `.img` 尺寸 |
