@@ -20,6 +20,7 @@
     <Compile Include="../invisibility-tests/InvisibilityChecks.cs" Link="InvisibilityChecks.cs" />
     <Compile Include="../player-query-tests/PlayerQueryChecks.cs" Link="PlayerQueryChecks.cs" />
     <Compile Include="../character-config-tests/CharacterConfigChecks.cs" Link="CharacterConfigChecks.cs" />
+    <Compile Include="../hotbar-tests/HotbarChecks.cs" Link="HotbarChecks.cs" />
     <Compile Include="../polymorph-tests/PolymorphChecks.cs" Link="PolymorphChecks.cs" />
     <Compile Include="../buddies-tests/BuddyChecks.cs" Link="BuddyChecks.cs" />
     <Compile Include="../board-tests/BoardChecks.cs" Link="BoardChecks.cs" />

@@ -44,14 +44,14 @@ public sealed class PlayerHudVitals:Control {
 public sealed class PlayerHudView:Panel {
     readonly PlayerHudVitals vitals=new();
     readonly StatusIcons statusIcons=new();
-    readonly FlowLayoutPanel shortcuts=new(){WrapContents=false,AccessibleName="快捷列 F1 至 F4"};
+    readonly FlowLayoutPanel shortcuts=new(){WrapContents=false,AccessibleName="快捷列 F5 至 F12"};
     readonly FlowLayoutPanel menu=new(){WrapContents=false,AccessibleName="玩家功能"};
     readonly FlowLayoutPanel grid=new(){AutoScroll=true,WrapContents=true,AccessibleName="圖示背包及技能清單"};
     readonly FlowLayoutPanel actions=new(){WrapContents=false,AccessibleName="選取項目操作"};
     readonly Label selectedText=new(){ForeColor=Color.White,AutoEllipsis=true};
     readonly Label notice=new(){ForeColor=Color.FromArgb(209,221,215),AutoEllipsis=true,AccessibleName="玩家訊息"};
     readonly Button use,assign,self,clear,chatButton;
-    readonly PlayerHudTile[] slots=new PlayerHudTile[4];
+    readonly PlayerHudTile[] slots=new PlayerHudTile[PlayerHudKeys.SlotCount];
     readonly Dictionary<PlayerHudBinding,PlayerHudTile> tiles=[];
     readonly ToolTip tips=new(){AutoPopDelay=15000};
     readonly PlayerHudSlots bindings=new();
@@ -80,9 +80,9 @@ public sealed class PlayerHudView:Panel {
         self=MakeButton("目標：自己",()=>{if(snapshot is {} s)TargetSelfChanged?.Invoke(!s.Self);},136);
         clear=MakeButton("清除快捷",()=>{assigning=false;clearing=!clearing;UpdateDetails();},102);
         actions.Controls.AddRange([use,assign,self,clear]);
-        for(int i=0;i<4;i++){int index=i;var tile=new PlayerHudTile{Height=66,Margin=new(4,2,4,2)};tile.Click+=(_,_)=>SlotClick(index);slots[i]=tile;shortcuts.Controls.Add(tile);}
+        for(int i=0;i<slots.Length;i++){int index=i;var tile=new PlayerHudTile{Height=66,Margin=new(4,2,4,2)};tile.Click+=(_,_)=>SlotClick(index);slots[i]=tile;shortcuts.Controls.Add(tile);}
         chatButton=MakeButton("聊天",()=>ChatOpenRequested?.Invoke(),58,false);
-        menu.Controls.AddRange([MakeButton("背包",()=>ToggleDrawer("items"),58),MakeButton("裝備",()=>ToggleDrawer("equipment"),58),MakeButton("技能",()=>ToggleDrawer("skills"),58),chatButton,MakeButton("服務",()=>MoreRequested?.Invoke(),62),MakeButton("診斷 F9",()=>DiagnosticsRequested?.Invoke(),80,false),MakeButton("登出",()=>LogoutRequested?.Invoke(),58,false)]);
+        menu.Controls.AddRange([MakeButton("背包",()=>ToggleDrawer("items"),58),MakeButton("裝備",()=>ToggleDrawer("equipment"),58),MakeButton("技能",()=>ToggleDrawer("skills"),58),chatButton,MakeButton("服務",()=>MoreRequested?.Invoke(),62),MakeButton("診斷",()=>DiagnosticsRequested?.Invoke(),80,false),MakeButton("登出",()=>LogoutRequested?.Invoke(),58,false)]);
         Controls.AddRange([vitals,shortcuts,menu,notice,grid,selectedText,actions,chat]);
         Controls.Add(statusIcons);
         MinimapUi.Attach(this,menu);
@@ -107,7 +107,7 @@ public sealed class PlayerHudView:Panel {
         grid.Visible=selectedText.Visible=actions.Visible=DrawerOpen&&drawer!="chat";
         chat.SetBounds(0,0,Width,PlayerHudGeometry.DrawerHeight);chat.Visible=drawer=="chat";
         vitals.SetBounds(0,d,Width,64);shortcuts.SetBounds(4,d+64,Math.Max(1,Width-8),72);
-        foreach(var b in slots)b.Width=Math.Max(90,(shortcuts.Width-32)/4);
+        foreach(var b in slots)b.Width=Math.Max(64,(shortcuts.Width-8*slots.Length)/slots.Length);
         menu.SetBounds(4,d+138,Math.Max(1,Width-8),34);notice.SetBounds(10,d+174,Math.Max(1,Width-20),23);
         statusIcons.ArrangeBeside(notice,notice.Bounds);
     }
@@ -123,10 +123,10 @@ public sealed class PlayerHudView:Panel {
         (FindForm() as ClientForm)?.SyncCharacterConfig(state,bindings);
         vitals.UpdateState(state);tips.SetToolTip(vitals,state.Character+"\n"+state.State);
         notice.Text=state.Notice;notice.AccessibleName="玩家訊息："+state.Notice;tips.SetToolTip(notice,state.Notice);
-        for(int i=0;i<4;i++){
+        for(int i=0;i<slots.Length;i++){
             var entry=bindings.Resolve(i,state);var b=slots[i];b.Icon=entry?.Icon is ushort id?icon(id):null;
             string detail=entry==null?(bindings.Bindings[i]==null?"選擇項目後設為快捷":"已移除／不可用"):(state.Busy?"動作冷卻／忙碌 · ":"")+entry.Detail;
-            b.Describe($"F{i+1}  {entry?.Name??"空槽"}",detail);tips.SetToolTip(b,b.AccessibleName);b.Enabled=assigning||clearing||entry is {Supported:true}&&!state.Busy;
+            b.Describe($"{PlayerHudKeys.Label(i)}  {entry?.Name??"空槽"}",detail);tips.SetToolTip(b,b.AccessibleName);b.Enabled=assigning||clearing||entry is {Supported:true}&&!state.Busy;
         }
         FishingHud.Update(menu,notice,FindForm() as ClientForm);
         RefreshGrid();UpdateDetails();
@@ -149,7 +149,7 @@ public sealed class PlayerHudView:Panel {
         grid.ResumeLayout();
     }
     void UpdateDetails(){
-        var entry=Selection;selectedText.Text=clearing?"請點選要清除的快捷槽。":assigning?"請點選 F1–F4 其中一格，指派選取項目。":entry==null?"點選圖示查看；選取不會使用。快捷槽也可直接點擊。":entry.Name+" · "+entry.Detail+(entry.Binding.Kind==PlayerHudKind.Magic?" · "+snapshot?.Target:"");
+        var entry=Selection;selectedText.Text=clearing?"請點選要清除的快捷槽。":assigning?"請點選 F5–F12 其中一格，指派選取項目。":entry==null?"點選圖示查看；選取不會使用。快捷槽也可直接點擊。":entry.Name+" · "+entry.Detail+(entry.Binding.Kind==PlayerHudKind.Magic?" · "+snapshot?.Target:"");
         selectedText.AccessibleName=selectedText.Text;tips.SetToolTip(selectedText,selectedText.Text);
         use.Text=entry?.Binding.Kind==PlayerHudKind.Magic?"施放一次":entry?.Equipped==true?"卸下一次":entry?.Detail.Contains("裝備")==true?"裝備一次":"使用一次";
         use.AccessibleName=use.Text+"："+entry?.Name;use.Enabled=entry is {Supported:true}&&snapshot?.Busy==false;

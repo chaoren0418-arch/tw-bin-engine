@@ -8,12 +8,18 @@ public sealed class CharacterConfig {
     public byte[] Data=>data.ToArray();
     public PlayerHudBinding?[]? Slots=>slots?.ToArray();
     public bool Editable=>slots!=null;
+    // TWCC v1: "TWCC", version 1, slot count, then count × (kind byte, u32 LE id).
+    // Count 8 = F5–F12 (T176); count 4 = earlier T138 blobs, restored into F5–F8.
+    public const int SlotCount=PlayerHudKeys.SlotCount,LegacySlotCount=4;
+    public static int EncodedLength(int count)=>6+count*5;
     public CharacterConfig(ReadOnlySpan<byte> bytes){
         data=bytes.ToArray();
-        if(data.Length==0){slots=new PlayerHudBinding?[4];return;}
-        if(data.Length!=26||!data.AsSpan(0,4).SequenceEqual("TWCC"u8)||data[4]!=1||data[5]!=4)return;
-        var parsed=new PlayerHudBinding?[4];
-        for(int i=0;i<4;i++){
+        if(data.Length==0){slots=new PlayerHudBinding?[SlotCount];return;}
+        if(data.Length<6||!data.AsSpan(0,4).SequenceEqual("TWCC"u8)||data[4]!=1)return;
+        int count=data[5];
+        if(count is not (SlotCount or LegacySlotCount)||data.Length!=EncodedLength(count))return;
+        var parsed=new PlayerHudBinding?[SlotCount];
+        for(int i=0;i<count;i++){
             int offset=6+i*5;byte kind=data[offset];uint id=BinaryPrimitives.ReadUInt32LittleEndian(data.AsSpan(offset+1));
             if(kind>2||(kind==0)!=(id==0)||(kind==2&&id>int.MaxValue))return;
             parsed[i]=kind==0?null:new(kind==1?PlayerHudKind.Item:PlayerHudKind.Magic,id);
@@ -21,9 +27,9 @@ public sealed class CharacterConfig {
         slots=parsed;
     }
     public static CharacterConfig FromSlots(IReadOnlyList<PlayerHudBinding?> bindings){
-        if(bindings.Count!=4)throw new ArgumentException("expected existing four HUD slots");
-        byte[] bytes=new byte[26];"TWCC"u8.CopyTo(bytes);bytes[4]=1;bytes[5]=4;
-        for(int i=0;i<4;i++)if(bindings[i] is {} binding){
+        if(bindings.Count!=SlotCount)throw new ArgumentException("expected eight HUD slots (F5–F12)");
+        byte[] bytes=new byte[EncodedLength(SlotCount)];"TWCC"u8.CopyTo(bytes);bytes[4]=1;bytes[5]=SlotCount;
+        for(int i=0;i<SlotCount;i++)if(bindings[i] is {} binding){
             if(binding.Id==0||!Enum.IsDefined(binding.Kind)||(binding.Kind==PlayerHudKind.Magic&&binding.Id>int.MaxValue))throw new ArgumentException("invalid shortcut binding");
             bytes[6+i*5]=(byte)(binding.Kind==PlayerHudKind.Item?1:2);
             BinaryPrimitives.WriteUInt32LittleEndian(bytes.AsSpan(7+i*5),binding.Id);
@@ -110,8 +116,8 @@ public sealed class CharacterConfigHud {
         if(identity||!ReferenceEquals(applied,received)){
             generation=stamp.Generation;actor=stamp.Actor;applied=received;
             // Clear old local per-character cache on every login; server data is authoritative.
-            var restored=received?.Slots??new PlayerHudBinding?[4];
-            for(int i=0;i<4;i++)bindings.Assign(i,restored[i]);
+            var restored=received?.Slots??new PlayerHudBinding?[CharacterConfig.SlotCount];
+            for(int i=0;i<CharacterConfig.SlotCount;i++)bindings.Assign(i,restored[i]);
             previous=bindings.Bindings.ToArray();
             if(received is {Editable:false})notice("舊版角色設定格式未支援；保留伺服器原設定，不會自動覆寫。");
             return;
