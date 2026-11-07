@@ -22,7 +22,7 @@
 | `DemoChecks … hotbar` | PASS 518 checks（快捷列、角色設定、小地圖） |
 | `DemoChecks … map-continuity`（CI 步驟） | PASS 23052 checks |
 | `check-no-game-assets.py` | pass，errors 0 |
-| CI | 推送後看 PR 狀態 |
+| CI（PR #487） | dotnet、map-continuity、npc-offline 全部 pass |
 
 封包都用合成資料：C244 編碼（8 格與舊 4 格重寫）、S250／41（直接尾長與回送補齊尾長），以及截斷、子碼錯誤、溢位、非零尾段、超限、count 與長度不符。
 
@@ -31,6 +31,7 @@
 - **沒有真機**：沒有啟動遊戲，也沒有實際按鍵驗證 F5–F12 的 Windows 訊息路由（尤其 F10 是 WM_SYSKEYDOWN）。離線測試只測到 `TryPlayerHudKey`、焦點閘門與 HUD 控制項，沒有測到 `ProcessCmdKey` 的實際訊息。
 - 沒有驗證伺服器是否真的存進 46 bytes（伺服器不回 ACK，T138 的限制照舊）。
 - `world-ui-tests` 在本 worktree 缺少 `engine/assets`；改用主專案素材唯讀執行時，在 `Lifecycle` 的 S76「pending appearance clears selection」失敗。這段在 HUD 測試之前，與本次修改無關；這組測試不在 CI 內，也沒有在 main 上重跑確認是不是本來就壞。
+- DemoChecks 預設入口（不指定模式、需要素材）：用主專案素材唯讀執行，跑了超過 20 分鐘還沒結束，已手動停止，沒有拿到結果。在本 worktree（缺素材）執行時，執行流程已經過 `HotbarChecks`，直到後面的 `Movement123` 讀素材才停下。
 - protobuf `Lineage.ClientConfig` 的欄位與 3 個分頁：**待查**，不改協定。
 - 巨集框外觀與 3 個分頁屬於 T174，本張不做。
 
