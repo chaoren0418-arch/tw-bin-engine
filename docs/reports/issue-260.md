@@ -2,7 +2,7 @@
 
 ## 結論
 
-依 2026-11-07 主控第 3 輪裁定完成必要掛接；完整 buddies 離線測試 169 項通過，原第 63 行的 S250/17 快照與不分大小寫查詢斷言保留並通過。產品建置、相關回歸及素材檢查通過。PR 沿用 [#275](https://github.com/chaoren0418-arch/tw-bin-engine/pull/275)，本輪推送後確認新 head CI；原生實機不在此次驗收範圍。
+依 2026-11-07 主控第 3 輪裁定完成必要掛接；完整 buddies 離線測試 169 項通過，原第 63 行的 S250/17 快照與不分大小寫查詢斷言保留並通過。產品建置、相關回歸及素材檢查通過，修正提交的三項 CI 全綠。PR 沿用 [#275](https://github.com/chaoren0418-arch/tw-bin-engine/pull/275)，合併衝突已解除；原生實機不在此次驗收範圍。
 
 ## 做了什麼
 
@@ -31,7 +31,7 @@
 
 產品 DLL SHA-256：`b4ab42bd3f6bee057380f4baca6e753bf9c678c058ff41db60e4a2a163904ca1`。
 
-CI：待本輪提交推送後核對新 head 的 `dotnet` 與 `map-continuity`，不以空 checks 當通過。`gh` 認證回 401，GitHub 查核及 PR 更新使用 repo 擁有者已連接的 GitHub 帳號。
+CI：修正提交 `58bd1757881c6a1eae98bd1c4949675467b372a9` 的 [dotnet](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42324337305/job/128256032635)、[map-continuity](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42324337305/job/128256032403)（含完整 buddies 與 WebView2 回歸）、[npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42324337311/job/128256032411) 全部成功。這次證據補件僅修改本報告；交付前另核對補件最終 head 的三項 CI，結果與 SHA 記錄於 PR 描述及 [PR Checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/275/checks)，避免文件記錄自身 SHA 的循環。`gh` 認證回 401，GitHub 查核及 PR 更新使用 repo 擁有者已連接的 GitHub 帳號。
 
 ## 未驗證什麼
 
