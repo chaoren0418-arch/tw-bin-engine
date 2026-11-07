@@ -16,11 +16,12 @@
 - 同一入口改用 `map-continuity`：458 項通過，包含原有洞穴／船運／旅館／地圖生命週期及公告板測試。
 - `teleport-tests/TeleportChecks.csproj`：4,369 項 T110 recovery 回歸通過。
 - 測試呼叫實際產品 DLL、合成封包與記憶體 sender，啟用 socket guard；沒有呼叫遊戲入口或連伺服器。
-- `engine/tools/check-no-game-assets.py`：PASS、0 errors；`git -c core.whitespace=cr-at-eol diff --check` 通過。CI 結果見本 PR 同一 commit 的 checks。
+- `engine/tools/check-no-game-assets.py`：PASS、0 errors（含已 staged 的 3,300 個追蹤檔）；`git -c core.whitespace=cr-at-eol diff --cached --check` 通過。
 - 最終產品 DLL SHA-256：`94b8e7212d30031be2924475e5c49f322fddef78203b38763ce8e686144ff59b`。
 
 ## 未驗證什麼
 
+- **CI 尚未執行，未達 CI 綠燈驗收**：[PR #395](https://github.com/chaoren0418-arch/tw-bin-engine/pull/395) 建立時，主線已前進至 `9f62553cf8e1b1f3c8d26cb0c48e0dfd551d19ba`。GitHub 回報 `mergeable=false`、本分支 workflow runs 為空；唯讀 `git merge-tree` 確認 `demo-tests/Program.cs` 與 `rebuild-lock.json` 有衝突（`DemoChecks.csproj` 可自動合併）。依 [m6-contract.md](../design/m6-contract.md) 第 4 條「dev lock 衝突交給調度器的同步輪處理」，本次不合併主線或手拼 hash；交調度器同步後跑 CI。
 - 未啟動遊戲、伺服器、DB 或原 BIN；未驗證實際登入、入口畫面、原生 C219 時序、目前 P24Lab 入口表／物品／船班資格。
 - 原始來源查核只證明入口記錄位置與格式；合成離線測試不等於實機通過。未載入的 map／尚未支援的格式不會被本模組擴充成可用地圖。
 
@@ -34,3 +35,5 @@
 ## 給下一棒的提示
 
 由 Claude 審查 PR，使用者合併；調度器在同步輪處理 dev lock，不手拼 hash。後續由獲授權的 dot 在 P24Lab 集中 smoke：測試 map0 `(32477,32851)` 洞口及 map1 `(32669,32802)` 返回、轉向不重送、離開再踩入、同圖／跨圖後入口索引不殘留。記錄 C29／可能的 C219／S149／C52／S206／S87 與最終原服座標；若 C29 已引發 S149，C219 應被取消，不能把缺少 C219 單獨判成失敗。未收到換圖時不得宣稱傳送成功。
+
+同步時保留 `map-continuity` 分支既有 `BuddyChecks()` 與本次 `PortalChecks()`，兩個獨立 selector／csproj Include 皆保留；完成來源整合後重新執行 `--update-lock`，再建置、跑 `map-continuity` 及 PR CI。不要以本次離線全綠取代 CI 結果。
