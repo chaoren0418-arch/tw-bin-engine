@@ -47,11 +47,15 @@ public sealed class BookmarkPanel:UserControl {
 }
 
 public sealed partial class ClientForm {
-    BookmarkPanel? bookmarkPanel;
+    BookmarkPanel? bookmarkPanel;bool bookmarkUiHooked;
     // Form lifecycle provides a local hook without changing shared HUD or MagicUi dispatch.
-    // OnLoad belongs to BuddyUi and OnShown to LocationShare; Form raises OnLoad from inside this override.
-    protected override void OnCreateControl(){
-        base.OnCreateControl();
+    // OnLoad, OnCreateControl and OnShown belong to other partial modules. The handle can exist before
+    // InitNormalPanels runs, so this override only subscribes and the panel is built on the Shown event.
+    protected override void OnHandleCreated(EventArgs e){
+        base.OnHandleCreated(e);
+        if(!bookmarkUiHooked){bookmarkUiHooked=true;Shown+=(_,_)=>InitBookmarkUi();}
+    }
+    void InitBookmarkUi(){
         if(!normalProduct||normalPanels==null||bookmarkPanel!=null)return;
         bookmarkPanel=new BookmarkPanel();var page=new TabPage("記憶座標");page.Controls.Add(bookmarkPanel);normalPanels.TabPages.Add(page);
         bookmarkPanel.Enter+=(_,_)=>LeaveGameFocus("bookmarks");
