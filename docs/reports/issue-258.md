@@ -2,7 +2,7 @@
 
 ## 做了什麼
 
-本輪為同步輪，不新增功能。`task/258`（同步前 `1f2ed29aac29bc8fc6f57d3179f437181e1f6a92`）合併 `origin/main`，同步期間 main 持續前進，共合併四次（`cb74af4`、`82d3a45`、`20b4a0a`、`76ac0fb`）。程式與 lock 的同步 head 為 `3f4c7cc04e50f7df5e840345c3d57bcd7cd3471d`，沿用 [PR #271](https://github.com/chaoren0418-arch/tw-bin-engine/pull/271)，未強制推送。
+本輪為同步輪，不新增功能。`task/258`（同步前 `1f2ed29aac29bc8fc6f57d3179f437181e1f6a92`）合併 `origin/main`，同步期間 main 持續前進，共合併六次（`cb74af4`、`82d3a45`、`20b4a0a`、`76ac0fb`、`2c561c3`、`f6e8f4a`）。程式與 lock 的同步 head 為 `bee4476d73db47e95a07f1f06324befe5a6e89a1`，沿用 [PR #271](https://github.com/chaoren0418-arch/tw-bin-engine/pull/271)，未強制推送。
 
 - 衝突僅在共用分派點與 lock：`WorldSession.cs`（`Reset()` 同時保留 `ResetBookmarks()` 與 `ResetBuddies()`；S92 與 S76、武器修理的 `case 83 when` 都保留）、`demo-tests/DemoChecks.csproj`、`demo-tests/Program.cs`（書籤與 main 的測試入口都保留，`map-continuity` 與預設全跑仍執行 `BookmarkChecks`）。
 - `engine/_integration/dev/rebuild-lock.json` 每次都先取 main 版本，再執行 `--update-lock`，未手動拼接 hash。
@@ -12,11 +12,11 @@
 
 ## 怎麼驗證（已驗證）
 
-下表皆在最後一次合併後、`3f4c7cc` 的內容上執行。
+下表在合併 #322 後的 `a484d8c` 上執行；`bee4476` 只再合併 main 的一行 `docs/REPORT.md` 索引，程式與 lock 相同，並重跑唯讀核驗通過。
 
 | 檢查 | 結果 |
 |---|---|
-| `rebuild.py --update-lock` | 通過，201 個 source／210 個 pinned inputs |
+| `rebuild.py --update-lock` | 通過，202 個 source／211 個 pinned inputs |
 | `rebuild.py --build --configfile scratch/issue-258/NuGet.Config --output scratch/issue-258/build` | 產品、audio、launcher 建置通過，未執行遊戲 |
 | `rebuild.py`（唯讀核驗） | 通過 |
 | demo-tests `bookmarks` | 640 項通過 |
@@ -26,17 +26,17 @@
 | demo-tests `player-query`／`character-config` | 894／286 項通過 |
 | demo-tests `polymorph`／`polymorph-cadence` | 193／226 項通過 |
 | demo-tests `ambience`／`invisibility`／`duel` | 549／263／307 項通過 |
-| demo-tests `pets`／`fishing` | 193／232 項通過 |
+| demo-tests `pets`／`fishing`／`doors` | 193／232／514 項通過 |
 | `item-use-tests`／`character-management-tests`／`weapon-repair-tests` | 426／218／98 項通過 |
-| `engine/tools/check-no-game-assets.py` | 通過，3373 tracked files、0 errors |
+| `engine/tools/check-no-game-assets.py` | 通過，3376 tracked files、0 errors |
 
 demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所以不等於該模組自己的項數。
 
-`3f4c7cc` 的 CI 全綠：[build #595](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42338138269)（dotnet／map-continuity）與 [npc-offline #464](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42338138279) 均 completed／success；當時 PR 為 CLEAN／MERGEABLE、落後 main 0 個提交。本報告以後續純文件提交補記，最終 head 與 CI 另記於 PR 留言，避免自我引用。
+`bee4476` 的 CI 全綠：[build #601](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42338621359)（dotnet／map-continuity）與 [npc-offline #470](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42338621362) 均 completed／success；當時 PR 為 CLEAN／MERGEABLE、落後 main 0 個提交。本報告以後續純文件提交補記，最終 head 與 CI 另記於 PR 留言，避免自我引用。
 
 `OnCreateControl` 的時機用 `scratch/issue-258/lifecycle-probe`（空白 Form，與遊戲無關）實測，順序為 `OnLoad > OnCreateControl > OnShown`；`RecreateHandle` 會再觸發一次 `OnCreateControl`，既有的 `bookmarkPanel!=null` 判斷會擋掉重複初始化。`normalPanels` 與 `timer` 由建構子完成，觸發時已就緒。
 
-環境：Windows x64、SDK 10.0.300、Python 3.12。產品 DLL SHA-256：`822d3adb2b5023551207d0e487da820d5fe984b14540ad51b474e7e301cef893`。產品有兩個既有 `MagicUi.cs:20` nullable 警告（CS8600／CS8602）、0 錯誤；未修改該檔。
+環境：Windows x64、SDK 10.0.300、Python 3.12。產品 DLL SHA-256：`28891632d4864f4e68de4cb5976ed3e487ed85de73d2659218a05f08893ebc8f`。產品有兩個既有 `MagicUi.cs:20` nullable 警告（CS8600／CS8602）、0 錯誤；未修改該檔。
 
 ## 未驗證什麼
 
@@ -56,6 +56,6 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 ## 給下一棒的提示
 
 1. Claude／codex-review 審查 PR #271 本輪同步（重點：`BookmarkUi.cs` 的 `OnCreateControl`）與 CI，再依流程交使用者合併；worktree 由調度器清理。
-2. main 合併頻繁，本輪就追了四次；建議本 PR 審查通過後盡快合併。之後再有模組覆寫 `ClientForm` 的生命週期方法會再撞 CS0111，新模組請先查已被占用的 `On*`，或把掛接集中到單一入口。
+2. main 合併頻繁，本輪就追了六次；建議本 PR 審查通過後盡快合併。之後再有模組覆寫 `ClientForm` 的生命週期方法會再撞 CS0111，新模組請先查已被占用的 `On*`，或把掛接集中到單一入口。
 3. 法師技能任務用 `World.Bookmarks.TryGet(id)` 查詢，null 表示不存在或刪除待確認。依既有協定報告，伺服器 `BookmarkService.getBookMark(pc, i)` 將技能參數拆成 X/Y；應核對 C6 消費端，不能直接把清單 ID 當傳送參數。
 4. dot 集中 smoke 覆蓋「更多」→「記憶座標」（確認分頁確實存在）、Big5 名稱、重名／容量／不可標記地點、刪除待確認、重登清單、切角隔離與跨圖保留。
