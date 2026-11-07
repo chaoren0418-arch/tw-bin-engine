@@ -24,6 +24,12 @@
 
 同步後重跑完整建置、93 項 `character-config`、451 項 `map-continuity`（含角色設定與公告欄）、115 項 `buddies-codec` 與資源檢查，全部通過。暫存證據另含 `scratch/issue-324/map-checks.json`、`scratch/issue-324/buddies-checks.json`。本輪不改已審查的角色設定功能；推送後核對新提交的 CI 與 PR 可合併狀態。
 
+### 第二次同步（`claude-local`，只做同步）
+
+調度器回報 PR #352 落後 main 且無法自動合入，將 `origin/main`（含 #263 變身模組）再次合併。衝突三處：`DemoChecks.csproj`、DemoChecks `Program.cs` 保留雙方內容（角色設定與 polymorph 的測試來源及入口）；dev lock 取 main 版本後以 `--update-lock` 重產（186 個來源、195 個鎖定輸入）。`docs/REPORT.md` 與 main 相同，角色設定功能未改。
+
+重跑結果：`rebuild.py --build` 通過（product DLL SHA-256 `933087632f2d92e1f4306645b66a1297280b13518f411c1763c69b2973e1b83e`，已核對測試實際載入的 DLL 與此相同）；DemoChecks `character-config` 183、`map-continuity` 541、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163、`combat-admission` 368 項全過。各群組的數字都含 main 新增、每次必跑的 90 項 polymorph 檢查，所以比上一輪多，本模組仍是 93 項。`check-no-game-assets.py` 通過（3,315 個追蹤檔、0 errors）。
+
 ## 未驗證什麼
 
 - 未啟動遊戲、伺服器或 DB；未驗證原生 UI 畫面、真實登入還原或資料庫持久化。

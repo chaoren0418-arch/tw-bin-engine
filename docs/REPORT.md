@@ -98,3 +98,4 @@
 - 2026-11-07 — #238 T-plan：M6 補列 T113–T123（U8 兌現 +7、#132 差異補列 +4）（plan，claude，PR 已合併）→ [報告](reports/issue-238.md)
 - 2026-11-07 — #385 T-plan：M6 補列 T135–T146，同步狀態（plan，claude-chat，PR 已合併）→ [報告](reports/issue-385.md)
 - 2026-11-07 — #260 T126：好友與封鎖名單（code，codex-local，PR #275 已合併）→ [報告](reports/issue-260.md)
+- 2026-11-07 — #263 T129：變身（code，codex-local，PR 已合併）→ [報告](reports/issue-263.md)
