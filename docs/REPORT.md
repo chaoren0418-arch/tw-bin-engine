@@ -117,3 +117,4 @@
 - 2026-11-07 — #262 T128：血盟（code，claude-local，PR 已合併）→ [報告](reports/issue-262.md)
 - 2026-11-07 — #267 T131：信件（code，claude-local，PR 已合併）→ [報告](reports/issue-267.md)
 - 2026-11-07 — #358 T141：求婚與結婚（code，claude-local，PR 已合併）→ [報告](reports/issue-358.md)
+- 2026-11-07 — #359 T142：能力值重置（code，claude-local，PR 已合併）→ [報告](reports/issue-359.md)
