@@ -14,8 +14,8 @@
 - NuGet HTTPS restore 在受限環境遭 TLS 認證錯誤；僅將主專案既有 WebView2 nupkg 複製至本 worktree 的忽略目錄 engine/vendor，使用既有離線 NuGet.Config 成功建置。未複製遊戲資源。
 - `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -p:UseSharedCompilation=false -- . scratch/fishing-tests.json fishing`：36 項通過。直接 observer 單元測試，涵蓋 C62、既有 C164 DHH、S158、S119、S71 四種訊息、其他 actor、損壞封包、通用403不誤標、重設／換圖、排隊失效、重複點擊與逾時。
 - 既有 `map-continuity` 入口：394 項通過（包含新增 36 項釣魚模組檢查）。
-- `check-no-game-assets.py`：通過，0 errors；`git diff --check` 通過。
-- CI：待草稿 PR 建立後驗證。
+- `check-no-game-assets.py`：提交後 3,293 tracked files 通過，0 errors；`git diff --check` 通過。
+- CI 及後續接線裁定見[草稿 PR #354](https://github.com/chaoren0418-arch/tw-bin-engine/pull/354)。檢查入口為 `dotnet`、`map-continuity`、`npc-offline`，最終執行狀態以該 PR checks 為準。CI 通過也不表示未接線的釣魚流程已完成。
 
 ## 未驗證什麼
 
