@@ -1,71 +1,71 @@
-# Issue #322：T136 門（第 2 次 code，待範圍裁定）
+# Issue #322：T136 門
 
-## 第 2 次執行結論（2026-11-07）
+## 結論
 
-**未完成；本輪只補充唯讀核對與可裁定的修正範圍，未修改產品或測試。** 起始分支為既有 `task/322`，HEAD 為 `bc18900f9573bbebd2dbfb6c6fc9a426d19211db`，工作目錄乾淨；沒有切換分支、移除 worktree 或遞迴刪除。
-
-已讀根目錄 `AGENTS.md`、`docs/REPORT.md`、M6 契約與協定／規則表，並查詢 Issue #322 本文、全部 6 則留言及 PR #350。最新留言只有重新派工；[審查退回](https://github.com/chaoren0418-arch/tw-bin-engine/issues/322#issuecomment-6700514041)要求「請主控／調度器先裁定」且「不要自行越過目前檔案限制」，未見後續擴充裁定。重新排隊不是擴充授權。本輪已在執行對話提出具體範圍請求，尚未收到答覆，故未越界修改。
-
-### 本輪已驗證
-
-- `ObjectRendering.cs` 仍以 gfx 2346 判定門，`animationElapsed=0`；`PlayerPointer.cs` 的 `RawStep` 與 `MoveTo` 內 `PlanStep` 仍把活門納入一般物件佔格。兩項退回原因確實尚在。
-- 唯讀檢查原專案 `engine/assets/doors/manifest.json`，其 SHA-256 與 `integrity.json` 相符：`73c7597a7be698bf5b05a5a0650563447c44775c0b2a8ca1381771312110a6c4`。manifest 只有 gfx 2346。
-- `doors/2346.json` SHA-256 與 manifest 相符：`8427f26f1826d84d2001115b9de71de6de10c8a489091ac1771ed42743738594`。8 個方向的 open／close 各只有 **1 幀、4 ticks**（open `0:1`，close `0:0`）。因此時間推進本身無法在這份真實素材上產生連續多幀；不得插造幀或以合成測試畫面宣稱原生動畫完成。
-- 本輪沒有程式或建置輸入變更，不重建、不更新 dev lock、不重跑前輪測試；以下 251／358 項及 DLL SHA 均明確屬前輪證據，不能當成本輪已修復的證明。
-- 本輪 `check-no-game-assets.py` 通過：3294 個追蹤檔、4 個核准 EmbeddedResource 宣告、0 errors；`git diff --check` 通過。PR #350 已確認轉回草稿。
-
-### 給主控的最小裁定方案
-
-1. `Doors.cs`：保存門動作的專用起始時間與物件／世界世代；S87 作為目前狀態，S158 才觸發開關播放。C41 與 S209 不觸發動畫；移除、替換及世界重設使舊播放失效。不要直接沿用會被其他物件更新覆寫的 `UpdatedAt`。
-2. **擴充 `ObjectRendering.cs`**：只改門辨識及動作／時間選取，接入上述門播放狀態，沿用 `ObjectAppearance.At` 的原始時序並在結束後停於末幀；一般角色及 NPC 路徑不改。已有 gfx 2346 素材的第一階段不必修改 `ObjectAssets.cs`；只有主控另要求支援新增核驗 manifest 內的 gfx 時，才解除其硬編碼限制。
-3. **擴充 `PlayerPointer.cs` 的 `RawStep` 與 `MoveTo/PlanStep`**：已識別門不再進一般物件佔格集合；兩處皆加入 `DoorBlocks`，並保留既有地形、其他物件與斜向穿角檢查。發送前仍沿用 `OnlineMovement` 的 S209 再檢查。原 Issue 沒要求單擊手勢，本輪不申請 `PlayerPointerUi.cs`。
-4. `engine/_integration/dev/doors-tests/DoorChecks.cs`：裁定後加入滑鼠開門穿越、關門拒絕、尋路後關門、S158 不取代 S209、開門仍受地形／其他物件限制，以及合成多幀首／中／末幀、反向切換、重複回包與世界／物件失效測試，接既有 `doors` 入口。合成素材只驗播放邏輯，真實 gfx 2346 仍應忠實呈現原始單幀動作。
-5. 主控需明確區分「按原始序列播放開關動作」與審查文字的「連續多幀動畫」。若驗收要求可見的多幀門，另派 resource 任務查證確有多幀的原始門素材及核驗 manifest；不修改封存素材，也不以假圖補足。
-
-### 本輪未驗證與交接
-
-動畫與滑鼠尋路修正尚未實作，對應新增測試尚未提交，不宣稱整張任務通過。未啟動遊戲、伺服器、DB 或讀寫機密設定；原專案與封存皆只讀。產出仍為本報告，不改 `docs/REPORT.md`。
-
-**下一棒：Claude／調度器補上上述兩個共用區段的明確授權與原始單幀素材驗收口徑，再交 codex-local 修改、更新 dev lock、建置、補離線測試及確認最新 CI。PR #350 應保持草稿，不合併、不關閉 #322。**
-
-## 前輪成果與驗證（保留交接依據，非本輪新驗證）
-
-已完成限定檔案內的門封包、物件狀態、C41 送出與移動碰撞掛接；**尚未達成整張任務的顯示／操作驗收，PR 應保留草稿**。任務明列的修改範圍不含必要的渲染器修改，已於對話提出最小擴充請求；未取得確認前不改範圍外的產品檔案。
+依主控第 3 輪裁定完成。門的封包、C41、S209 碰撞、開關播放與滑鼠穿門都已實作，離線測試全部通過。CI 結果以 PR #350 最新 head 的 Checks 為準。真機尚未驗收。
 
 ## 做了什麼
 
-- `Doors.cs` 辨識 S87 DoorPack 完整特徵，保存開／關／損傷／毀壞 action；S158 更新門動作，非門仍交原分派。
-- S209 保存伺服器回報的方向及通行狀態；寬門逐段更新，開門只撤掉門阻擋層。S87、S158、C41 不自行推算通行狀態。
-- `OnlineMovement.cs` 加門查詢，包含實際送出前再次查詢，防止排隊期間關門仍送 C29。
-- `PlayerPointer.cs` 的既有操作分支遇門改送 C41（雙擊／Ctrl 左鍵／右鍵）；保留指標可見性、忙碌、死亡、交易及連線／世界／目標實例驗證。只送請求，不預測開關。
-- C41 採 **HHD**，與唯讀核對的 `C_Door.start` 及參考文件詳細表一致；任務摘要的 DHH 與實際讀取順序不符。來源 SHA 及原因見 [doors.md](../protocol/doors.md)。
-- 測試提交於 `engine/_integration/dev/doors-tests/`，掛接既有 DemoChecks 的 `doors` 群組及 Windows CI job；更新 dev lock，未改封存 lock。
+**前兩輪（保留）**
+- `Doors.cs`：解析 S87 DoorPack、S158 門動作、S209 通行狀態。C41 採 HHD，任務摘要的 DHH 與 `C_Door.start` 的讀取順序不符，來源見 [doors.md](../protocol/doors.md)。
+- `OnlineMovement.cs`：鍵盤移動查 `DoorBlocks`，實際送出前再查一次。
+- `PlayerPointer.cs`：既有的雙擊、Ctrl＋左鍵、右鍵操作遇到門改送 C41，不預測開關。
+
+**第 3 輪（裁定第 1–4 點）**
+1. `Doors.cs`：保存播放起始時間與世代。S87 是目前狀態、不播放；S158 28／29 且狀態改變時才開始播放；C41、S209 不觸發。移除、替換、世界重設後舊播放失效。
+2. `ObjectRendering.cs`：只改門的辨識與時間選取。播放中用 `ObjectAppearance.At` 的原始時序，沒有播放時停在末幀。一般角色與 NPC 路徑未改，`ObjectAssets.cs` 未改。
+3. `PlayerPointer.cs`：`RawStep` 與 `MoveTo`／`PlanStep` 不再把已識別的門算成佔格，改查 `DoorBlocks`。地形、其他物件、斜向穿角檢查保留。`PlayerPointerUi.cs` 未改。
+4. `DoorChecks.cs`：補上報告第 4 點的測試，接既有 `doors` 入口。
+
+**裁定以外的一個必要修改（都在 `Doors.cs` 內）**：門身分原本比對 `WorldObject` 實例，HP 這類差量更新會讓門被當成消失，播放也跟著中斷。現在改以完整封包世代識別，同 ID 改送一般 S87 時才解除身分；格式錯誤的封包不影響現有的門。排隊中的 C41 仍比對實例，維持原本較嚴格的失效條件。
+
+**唯讀核對**：`L1DoorInstance.open()／close()` 只在狀態改變時廣播 S158 再送 S209，與裁定的播放觸發條件一致。
 
 ## 怎麼驗證（已驗證）
 
-- .NET SDK 10.0.300：先 `rebuild.py --update-lock`，再 `rebuild.py --build`，產品及 launcher 建置通過。
-- 本機 NuGet.org 還原因 TLS 認證失敗；改以 `scratch/issue-322/NuGet.Config` 唯讀引用原專案 `engine/vendor` 完成。套件還原及所有暫存均在此 worktree。
-- `DemoChecks ... doors`：**251 項通過**。包括所有 C／S 格式、完整截斷長度、padding、錯誤欄位、同圖 S206、Reset、S120／ID 重用、排隊期間失效、完整毀壞回包清除選取、禁止預測狀態、鍵盤通行及關門競態。
-- `DemoChecks ... map-continuity`：**358 項通過**，確認既有地圖、船、旅館、特效及佈告欄回歸。
-- 最後產品 DLL SHA-256：`06be563e1a084bc85eef597ffa0fd1f5dc4e9c72d9210a4c2e825bf1fc597a57`。
-- `check-no-game-assets.py` 通過（0 errors）；遠端 CI 的 `build`／`npc-offline` 執行與結論以 [PR #350 的 Checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/350/checks) 對應提交為準，本機測試不代替 CI。
+已合併最新 `origin/main`，`rebuild-lock.json` 取 main 版本後用 `--update-lock` 重新產生。
 
-## 未完成／未驗證
+- `rebuild.py --update-lock`、`--build` 通過，產品 DLL SHA-256 `cea48c268a4f13c64c1fd5f52ea44d903b4df442b54ba760342918449a830a50`。
+- `DemoChecks` 全部通過。以下數字含每次都會先跑的 90 項 polymorph 檢查：
 
-1. `ObjectRendering.cs` 目前僅識別 gfx 2346，且 `animationElapsed=0`；因此本次只沿用該既有 open／close 靜態顯示，**沒有完成連續開關動畫**。
-2. `ObjectAssets.GetDoor` 硬編碼 gfx 2346；其他 gfx 與損傷／毀壞動作仍缺原始素材及渲染路徑，不能用假素材代替。
-3. `PlayerPointer.cs` 的尋路將所有活物件一律視為佔格；開門仍可能擋住滑鼠路徑。鍵盤移動已有 S209 查詢。單次左鍵目前仍僅選取，尚未加單擊開關入口。
-4. 未啟動遊戲、伺服器、DB，未進行登入、原生畫面／音效、特殊門權限及真機 C41 驗收。
-5. CHARPACK 無明確型別碼，以完整固定特徵辨識仍有未來封包撞型可能。S209 不含 ID，不因 S120 擅自推測門通行狀態；等待新的 S209 或世界重設。
+| 群組 | 通過項數 |
+|---|---|
+| `doors` | 409 |
+| `map-continuity` | 448 |
+| `buddies` | 259 |
+| `combat-admission` | 368 |
+| `item-transfer` | 163 |
+| `polymorph` | 90 |
+
+- `check-no-game-assets.py` 通過，0 errors。
+
+`doors` 新增涵蓋：
+- **滑鼠**：開門穿越、S209 未到時可穿越、關門拒絕與繞路、規劃後與排隊中關門、S158 不取代 S209（兩個方向）、開門仍受地形與其他物件限制、斜向穿角。
+- **播放**：經由真正的 `Renderer.ComposeObjects`，用合成 3 幀與 1 幀素材驗證首／中／末幀、S87 停末幀、重複回包、反向切換、S209 與 HP 更新不影響、移除／替換／ID 重用／世界重設失效、損傷與毀壞不播放、未核驗 gfx 不繪製。
+
+本機 NuGet.org 還原有 TLS 問題，改用 `scratch/issue-322/NuGet.Config` 唯讀引用原專案 `engine/vendor`。
+
+## 沒驗什麼
+
+- 未啟動遊戲、伺服器或 DB，沒有真機的開關門畫面、音效或 C41 來回。
+- 測試用的是合成素材，真實 gfx 2346 素材沒有在本輪載入渲染。前一輪已唯讀核對它的開、關各只有 1 幀，依驗收口徑顯示這 1 幀並在 S158 時切換。
+
+## 已知限制
+
+- 單次左鍵仍只選取門，開關要用雙擊、Ctrl＋左鍵或右鍵。本輪裁定不做單擊入口。
+- 其他 gfx 及損傷、毀壞動作沒有已核驗素材，列為缺素材、不繪製。要支援需另派 resource 任務，也要解除 `ObjectAssets.GetDoor` 的 gfx 2346 限制。
+- CHARPACK 沒有型別碼，門靠完整固定特徵辨識；沒有這個特徵的 gfx 2346 物件仍算一般佔格，也不會播放。
+- S209 不含物件 ID，S120 不清除通行狀態，要等下一個 S209 或世界重設。
 
 ## 產出路徑
 
-- 產品：`engine/source/Doors.cs`，另有 `WorldSession.cs`、`OnlineMovement.cs`、`PlayerPointer.cs` 最小掛接。
-- 測試：`engine/_integration/dev/doors-tests/DoorChecks.cs`、`README.md`；DemoChecks 入口與 `.github/workflows/build.yml`。
-- 協定：`docs/protocol/doors.md`。
-- 本機證據（不提交）：`scratch/issue-322/build/`、`doors.json`、`map-checks.json`。
-- 報告：本頁；未改 `docs/REPORT.md`。
+- 產品：`engine/source/Doors.cs`、`ObjectRendering.cs`、`PlayerPointer.cs`、`OnlineMovement.cs`、`WorldSession.cs`
+- 測試：`engine/_integration/dev/doors-tests/`
+- 協定：`docs/protocol/doors.md`
+- 本報告；未改 `docs/REPORT.md`
 
 ## 給下一棒的提示
 
-由 Claude／調度器裁定並擴大最小檔案範圍：`ObjectRendering.cs`（辨識門與動作時間）、`ObjectAssets.cs`（依已核驗 manifest 取門）、`PlayerPointer.cs`（開門佔格與 S209 尋路），單次左鍵還需 `PlayerPointerUi.cs` 或明確允許增加指標入口。取得確認後才能補完整動畫、單擊與滑鼠穿門，並加對應離線渲染／路徑測試。尚缺的真實門素材另派 resource 任務；真機驗收交 dot 的授權 smoke。未補齊前不要因編譯與封包測試通過就關閉 #322。
+- 真機項目交 dot 的 M6 smoke：在 P24Lab 開關門、確認 gfx 2346 在 S158 時切換、開門後滑鼠能穿過、關門後被擋。
+- 若驗收要看到多幀的門，另派 resource 任務查證原始素材，不要插造幀或改封存素材。
+- `DemoChecks` 的 `Main` 現在每次都先跑 `PolymorphChecks`，看測試數字時要扣掉這 90 項。
