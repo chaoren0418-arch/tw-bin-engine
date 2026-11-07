@@ -85,6 +85,7 @@ public sealed partial class WorldSession {
         case 105:ReceiveRedMessage(r);break;
         case 46:ReceiveChangeName(r);break;
         case 60:ReceivePinkName(r);break;
+        case 34:ReceiveLawful(r);break;
         case 11:ReceiveTrueTarget(r);break;
         case 223:
             if(!plain.AsSpan(1).SequenceEqual(Convert.FromHexString("03158B7B94F02F")))throw new ProtocolException("unexpected EnterGame payload");Entered=true;break;
