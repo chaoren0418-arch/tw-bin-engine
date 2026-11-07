@@ -17,6 +17,7 @@
 | UI#n | [`ui-layout.md`](ui-layout.md)（T161） | 第 7 節第 n 列 |
 | AM#n | [`ambience-and-map-events.md`](ambience-and-map-events.md)（T162） | 第 7 節第 n 列 |
 | SD#n | [`sound.md`](sound.md)（T163） | 第 5 節第 n 列 |
+| SV#n | [`skills-visual.md`](skills-visual.md)（T180） | 第 6 節第 n 列 |
 | REA | [`rea-inventory.md`](rea-inventory.md)（#417） | — |
 | Rnn | [`server-rules.md`](server-rules.md)（#132） | 伺服器規則 |
 | SP | [`server-protocol.md`](server-protocol.md)（#132） | 封包欄位 |
@@ -44,8 +45,8 @@ R／SP 是**伺服器原始碼**的查證，只能證明封包與規則，不能
 
 | T 編號 | 功能 | 原版來源 | 引擎現況 | 一致？ | 修正建議（檔案、範圍） |
 |---|---|---|---|---|---|
-| T100 | 技能施放通用化 | 未查證。R17、SP〈C6 技能的條件尾段〉只證明封包尾段 | `SkillCast.cs`、`MagicTargetPreparation.cs`：依技能分送 C6 尾段；施法動作與特效走 `MagicRendering.cs` | 協定一致；表現 ❓ | 待查：TW16 送 C6 前的本地施法動作（動作編號、是否等回包）、目標游標、施法中可否移動。找 C6 的送出函式，往上追 UI 呼叫端 |
-| T101 | S42／S30／箭矢回包分派 | R20（伺服器）；影格音效見 REA B07、SD#1、SD#3 | `AttackSkillPackets.cs`、`MagicRendering.cs`、`ProjectileRendering.cs`；影格聲音已在 T165 改為 `<`／`[` 同路徑 | 協定一致；影格音效 ✅（T165 後）；畫面 ❓ | 待查：S42 多目標時特效與受擊的時序、箭矢 gfx 的飛行速度與落點。找 TW16 收包表中 S30／S42 對應的 case（REA 第一組 dispatch table） |
+| T100 | 技能施放通用化 | SV§1、SV#1–SV#4：送 C6 時不在本地播動作，等回包；冷卻＝自身外型動作 18／19 的影格總長×速度倍率＋技能額外延遲；沒有目標時進入選目標游標（推測） | `Magic.cs`：送出時 `PredictAction` 先播 18／19 並轉向；冷卻用伺服器動作毫秒表；沒有目標就不送 | 協定一致；表現 ❌（SV#1）、⚠️（SV#2、#4）、❓（SV#3） | 見 G11 第 4 項（拿掉預測動作要使用者裁定）；SV#3 併入 #448 |
+| T101 | S42／S30／箭矢回包分派 | SV§2–SV§4、SV#5–SV#14：特效在施法者 `!` 格啟動、受擊在特效 `!` 格；S42 預設類別只放一個特效、只有第一個目標受擊（原版缺陷）；109 kind 決定飛行（3：30 ms、4／5：60 ms、7 逐格推進）；kind 3 箭矢不畫落點圖 | `AttackSkillPackets.cs`、`MagicRendering.cs`、`ProjectileRendering.cs`：非飛行特效與受擊在收包時刻；S42 type 0 每個目標各一個特效；只處理 kind 3／4；2349 會畫 219 | 協定一致；影格音效 ✅；飛行 kind 3／4 ✅；其餘 ❌（SV#5–#8、#10、#12） | 見 G11 第 1–3、5 項；SV#12 併入 G5 |
 | T102 | NPC 出售與私商回購 | R27（伺服器）；原版有 `PersonalShopUI.xml`、`uishoplev.xml`、`uiextra86-c.xml` 的 `TRADE_WINDOW`／`TRANSACTION_WINDOW`（未解讀內容） | `NpcUi.cs`、`PrivateShopUi.cs`：WinForms 清單與數量框 | ❓ | 待查：解讀上述 XML 的版面與欄位；數量輸入的原版行為。版面修正併入 #448 模組 |
 | T103 | 地面物品通用化與三種停用物品的地面圖 | 地面圖：#48／#51 的 sprite 契約；拾取點擊：REA B07（`F112F0` → `5001C0`，距離 1、節流 986 ms／加速 600 ms，**欄位屬推測**） | `Ground*.cs`、`PickupPresentation.cs`：地面圖依釘選 sprite；拾取送 C11 類請求（`Ground.cs`） | 地面圖 ✅（已有 sprite 契約）；拾取時序 ❓ | 待查：把 REA B07 的 opcode 23 欄位對到伺服器拾取格式（REA 建議任務第 6 項），再比較引擎的距離與節流 |
 | T104 | 緩速時的道具、地面與交談政策 | R08、R22–R24（伺服器）；`NormalHaste.cs` 註明 JAR 0.755／原版 0.75 | 依 JAR 係數計算動作間隔 | 協定 | 不需修正。0.75／0.755 的差異已在程式註解說明 |
@@ -56,7 +57,7 @@ R／SP 是**伺服器原始碼**的查證，只能證明封包與規則，不能
 | T109 | 通用道具 use_type 尾段 | R24、SP〈C164 物品 use_type 的條件尾段〉 | `ItemUseArguments.cs` | 協定 | 不需修正 |
 | T110 | 傳送 recovery wrapper | R33–R35 | `Teleport.cs` | 協定 | 不需修正 |
 | T111 | 登入密碼字元規則 | R03 | `LoginProtocol.cs` | 協定 | 不需修正。原版輸入框是否擋字元未查證，影響很小 |
-| T113–T119 | 七職業基本技能 | R17–R19（伺服器）；各技能的施法動作、特效 gfx、音效未逐一查證 | `MagicSpells.cs`、`SkillCast.cs`、`MagicRendering.cs`：依伺服器回包的 gfx 與 action 播放 | 協定一致；表現 ❓ | 與 T100 一起查：TW16 是否在本地補施法動作，還是只靠 S30／S42／S55 回包。若只靠回包，引擎已一致 |
+| T113–T119 | 七職業基本技能 | SV§5：原版沒有逐技能的表現程式，全靠回包＋109 規則；本地不補施法動作 | `MagicSpells.cs`、`SkillCast.cs`、`MagicRendering.cs`：依回包播放，但送出時有預測動作 | ❌（繼承 T100、T101 的差異） | 不另開任務；G11 修好後自動一致。各技能實際 gfx 在伺服器 DB，未查 |
 | T120 | S242 sub2 受擊反應抑制 | R20 | `HitReactionSuppress.cs` | 協定 | 不需修正 |
 | T121 | 物品 status blob、權威裝備槽位 | R25、R26 | `ItemStatus.cs`、`Equipment.cs` | 協定 | 不需修正。說明文字的版面由 T152 處理 |
 | T122 | S206 單參數 overload | SP | `MapIdPacket.cs` | 協定 | 不需修正 |
@@ -98,15 +99,15 @@ R／SP 是**伺服器原始碼**的查證，只能證明封包與規則，不能
 
 | 結果 | 數量 | 功能 |
 |---|---:|---|
-| 已查證，有差異（❌／⚠️） | **16** | T105、T106、T108、T125、T128、T129、T132、T137、T138、T146、T147、T148、T149、T150、T152、T153 |
+| 已查證，有差異（❌／⚠️） | **25** | T100、T101、T105、T106、T108、T113–T119（7 個）、T125、T128、T129、T132、T137、T138、T146、T147、T148、T149、T150、T152、T153 |
 | 已查證，一致 | 1 | T103（地面圖；拾取時序仍 ❓） |
 | 純協定，#132 已對齊 | 9 | T104、T109、T110、T111、T120、T121、T122、T123、T145 |
-| 原版表現未查證 | 24 | T100、T101、T102、T107、T113–T119（7 個）、T126、T127、T130、T131、T133、T134、T136、T139–T144（6 個） |
+| 原版表現未查證 | 15 | T102、T107、T126、T127、T130、T131、T133、T134、T136、T139–T144（6 個） |
 | 合計 | 50 | |
 
 未合併的 3 個裡，T124、T135 已知有差異（書籤版面、盟徽取得），T151 未查證。
 
-16 個有差異的功能怎麼分：
+25 個有差異的功能怎麼分（T100、T101、T113–T119 這 9 個由 T180 新增，歸 G11）：
 - **5 個只有 UI 版面差異**，已由 #448 排定修正：T106、T108、T125、T138、T150。
 - **11 個需要新開 G1–G8**：T105、T128、T129、T132、T137、T146、T147、T148、T149、T152、T153。其中 T152 的紅字部分也歸 #448。
 
@@ -125,7 +126,8 @@ R／SP 是**伺服器原始碼**的查證，只能證明封包與規則，不能
 | G7 異常狀態外觀（中） | 依 AM§4：中毒只加 G 8–14、1.2 秒三角波；麻痺 `c/2+(3,3,3)`；灰綠同時以灰優先，不丟例外；綠 ≥8 整包忽略；盲目 1 留自己 k=5 光圈、盲目 2 接近全暗並讓特定物件發光；酒醉改逐掃描線正弦；別人隱身預設不畫 | `Afflictions.cs`、`TimedBuffs.cs`、`Invisibility.cs` | 離線測試：色彩公式的像素向量、封包邊界值不丟例外、酒醉位移表。`$431` 未解前，隱身以「隊伍／血盟可見、其他不畫」實作，並標「推測」 |
 | G8 音效封包與播放規則（中；不含 `^`） | 依 SD#4–SD#9：S22 第一個 byte 改成模式 0／1／2，同 id 在播時不重播；200 ms 冷卻擴到所有音效出口（全域每 id 一份）；距離衰減 `max(0,100−14·(nx²+ny²)/20)%`；查找順序先 mp3 再 wav；音量分 4 類並讀寫 `lineage.cfg` 的對應鍵 | `SoundPackets.cs`、`AudioCore.cs`、`AudioAssets.cs`、`PlayerAudioSettings.cs`、`ClientAudioSettings.cs` | 離線測試：模式 0／1／2、冷卻、衰減表、查找順序。`lineage.cfg` 只讀寫專案內的設定副本，不碰正式客戶端 |
 | G9 背景音樂與環境音（大；先查證） | 依 SD#10–SD#14：區域音樂、戰鬥音樂（15 秒淡回）、登入音樂、`envsound.def` 環境音、場景音 | 先開 resource：從資源包解出 `music.def`、`envsound.def`（只讀到 `scratch/`），再開 code | resource 驗收：兩個 def 的格式與本機內容摘要寫進 `sound.md`。code 驗收另訂 |
-| G10 未查證功能的補查（resource，分 3 張） | (a) 技能與法術表現：T100、T101、T113–T119 的本地施法動作、S42 時序、箭矢 gfx；(b) 視窗類：T102、T107、T126、T127、T130、T131、T133、T134、T139–T142，解讀 #448 已解密的 XML（`PersonalShopUI`、`FriendUI`、`ExcludeUI`、`SummonUI`、`ReNStatusWinUI-c`、`HYPER_TEXT_WINDOW`、`MESSAGE_WINDOW`、`PET_QUICK_WINDOW`）；(c) 世界物件類：T103 拾取時序、T136 門、T143 幽靈、T144 座標格式、T151 復活確認 | 只產出 `docs/reference/*.md` | 每個功能都有「原版來源＋一致？」。有差異的，回填本文件第 1 節 |
+| G10 未查證功能的補查（resource，分 3 張） | (a) ✅ 已由 T180（#482）完成，見 [`skills-visual.md`](skills-visual.md)，修正另開 G11；(b) 視窗類：T102、T107、T126、T127、T130、T131、T133、T134、T139–T142，解讀 #448 已解密的 XML（`PersonalShopUI`、`FriendUI`、`ExcludeUI`、`SummonUI`、`ReNStatusWinUI-c`、`HYPER_TEXT_WINDOW`、`MESSAGE_WINDOW`、`PET_QUICK_WINDOW`）；(c) 世界物件類：T103 拾取時序、T136 門、T143 幽靈、T144 座標格式、T151 復活確認 | 只產出 `docs/reference/*.md` | 每個功能都有「原版來源＋一致？」。有差異的，回填本文件第 1 節 |
+| G11 技能與法術表現（大；依 T180） | 依 SV§6：特效在施法者 `!` 格啟動、受擊在特效 `!` 格；S42 預設類別只放一個特效在封包 x,y；補 109 kind 5／6／7／8；kind 3 不畫落點；拿掉送出時的預測動作並改用 list.spr 動作 18／19 計算冷卻（要使用者裁定）；「只有第一個目標受擊」的原版缺陷要使用者裁定是否照抄 | `MagicRendering.cs`、`AttackSkillPackets.cs`、`ProjectileRendering.cs`、`Magic.cs`、`ActionCadence.cs` | 離線測試：假 list.spr 片段（`!` 位置、kind 0／3／4／5／7）驗證特效啟動與受擊時刻；S42 三目標的特效數量與受擊對象；2349 不畫 219。T112：法師範圍法術與魔法弓各一張截圖 |
 | （已排定）UI 版面 | UI#1–UI#17：T106、T108、T124、T125、T138、T150、T152 紅字、T130／T131 視窗 | 見 `docs/design/native-ui.md`、`docs/plans/issue-448.json` | 依 #448 各任務的驗收；本文件不重複開任務 |
 
 **建議順序：**
@@ -133,7 +135,8 @@ R／SP 是**伺服器原始碼**的查證，只能證明封包與規則，不能
 2. G2、G3、G6：已查證，範圍中等。
 3. G5：缺 `source.lmp` 內容，可以先做時鐘與曲線，光源圖晚一點補。
 4. G4：等 T135 合併。
-5. G9、G10：先開 resource。
+5. G9、G10(b)(c)：先開 resource。
+6. G11：SV#5–#8、#10 可以直接開 code；SV#1／#2 與「只有第一個目標受擊」要先由使用者裁定。
 
 T112（M6 smoke）依 #427，要等上述修正合併後才開。
 
