@@ -1,35 +1,66 @@
-# Issue #357／T140 執行報告
+# Issue #357／T140 執行報告（第 2 次）
+
+## 結論
+
+查詢玩家、查看資訊、排名三個目標都已用 d287 實際存在的協定實作，離線測試全綠。**任務原文的 C99、C63 刻意不送**，因為兩者都不是查詢。審查提出的兩條路裡，這次走「提供正確協定後補齊實作」，不是限縮範圍。這項替換尚未有主控裁定，已在 Issue 請主控確認，並另列於下方。
+
+## 回應前次審查退回
+
+| 退回項目 | 處理 |
+|---|---|
+| `/check`、`/rank` 只拋不支援訊息 | 兩者都已實際送出查詢並顯示結果。 |
+| 協定落差需裁定 | 第一次的「沒有排名協定」結論不成立，當時只看了 C99／C63。重新搜尋後，來源與 d287 JAR 都找到真實入口，見 [協定](../protocol/player-query.md)。 |
+| 不可硬送防外掛／血盟階級封包 | 未送；另有測試斷言三個指令都不會送出 C99／C63。 |
+| 補上 C／S 格式與結果顯示測試 | 已補，零送出測試已換成功能測試。 |
 
 ## 做了什麼
 
-完成可核定的 `/who 名字`／`/who`，送出 C206；S71／166 玩家資訊及 S39／y_who 九欄資訊顯示於聊天區。S161 文字回覆沿用現有資訊顯示。共享送出點僅改一行，WorldSession 僅新增 S39／S71 各一分支；新增模組、測試與 dev lock，未修改 docs/REPORT.md。
-
-**本任務為部分完成，C99／排行榜仍待協定補正。** 唯讀核對來源與 d287 JAR 後確認：C99 的 D 是防外掛 checkType，沒有玩家資訊回包；C63 subtype 1 的 `C C S` 尾段會修改血盟階級，其他 subtype 也不是排行榜。`/check`、`/rank` 因此顯示限制且不送封包。完整差異、條件分支與 SHA-256 見 [協定](../protocol/player-query.md)。
+- `/rank`：C125 D(self) S("lv_ranking") → S39 `y_h_2`，全職業等級榜顯示於聊天區，不需要 NPC。
+- `/check`：先選取目標 → C125 D(self) S("pc_list") → 等伺服器提示 → C223 D(self) C0 D(target) → S39 `pc_show`，29 欄顯示於聊天區。含 3 秒本機逾時，失敗回覆也會顯示。
+- 風雲榜 NPC：`y_h_2`、`y_k_2`、`y_k_3`、`y_w_1`、`y_c_1` 回覆同步顯示到聊天區，既有對話視窗不受影響。`y_c_1` 的宣戰選項不顯示、不送出。
+- **修正第一版的 bug**：S71／166 是伺服器泛用訊息（來源 352 處），第一版全部攔下並標成「玩家資訊」，等於吃掉既有訊息處理；參數數量不是 1 時還會拋例外。現在只攔帶 `($1501–3)` 善惡代碼的 `S_WhoCharinfo`。
+- 共用掛接：PlayerChat 相對 main 只改 `SendPlayerChat` 一行；WorldSession 仍是 S39／S71 各一個分支。
+- 併入 origin/main，解決 WorldSession、DemoChecks、dev lock 衝突（`case 71 when` 須排在 `case 71:` 之前），重產 lock。
 
 ## 怎麼驗證（已驗證）
 
-- .NET SDK 10.0.300；先 `rebuild.py --update-lock`，再 `--build --configfile scratch/issue-357/NuGet.Config --output scratch/issue-357/build`：產品與 launcher 通過；183 個來源檔、192 個鎖定檔。產品 2 個既有 MagicUi.cs nullable 警告、0 錯誤；launcher 0 警告、0 錯誤。
-- 玩家查詢離線測試：283 項通過；包含格式、截斷、padding、實際分派、NPC 隔離、錯誤身份、送出世代與節流、C99／C63 零送出。
-- 接上既有 DemoChecks 的 `player-query`、預設全套與 CI `map-continuity` 入口；本機 `map-continuity` 共 641 項通過。
-- 既有 PlayerChatChecks：107 項通過。
-- `check-no-game-assets.py` 通過；提交前再檢查新增追蹤檔。WorldSession 原本使用 CRLF，使用 `git -c core.whitespace=cr-at-eol diff --check` 檢查。
-- CI 狀態及 PR 連結以 PR checks／任務 RESULT 為準。
+- .NET SDK 10.0.300；`rebuild.py --update-lock`、`--build` 通過，185 個來源檔、194 個鎖定檔。
+- 產品 DLL SHA-256：`c090031d347435714d26be6bbd346581189a116fdea419b4d02163333c8c8d00`；變異測試還原後重建得到相同值。
+- `player-query` 701 項通過：每個 C／S 位元組向量、截斷、padding、實際分派、選取提示時序、逾時、目標變更、session 重設、節流、六種失效守衛×三個指令。
+- CI 群組：`map-continuity` 1059、`combat-admission` 278、`buddies` 169、`item-transfer` 73，全部通過。`player-chat` 107 項通過。
+- 變異測試 4 項全部被抓到：166 全部當玩家資訊、移除 `/check` 的逾時判斷、宣戰選項當名次、`/rank` 改送 C63。第一輪全部假性通過，原因是 `dotnet run --no-build` 沒有換 DLL；修正後重跑並以 DLL hash 確認。
+- `check-no-game-assets.py` 通過（3315 個追蹤檔，0 錯誤）。
+- 協定以 `javap` 與 class 常數比對 d287 JAR，SHA-256 見協定文件。
+- CI 狀態以 PR checks 為準。
 
-本機 NuGet 網路還原遇到 TLS 錯誤，改為 scratch 內臨時 NuGet.Config 唯讀引用原專案 `engine/vendor`；套件快取設為 worktree `engine/.nuget/packages`。Python launcher 找不到註冊版本，使用已安裝的 Python312/python.exe。離線測試加 `UseSharedCompilation=false` 避免共用編譯程序的寫入權限問題。以上未改產品設定或 CI。
-
-產品 DLL SHA-256：`22ec2bab8d0d7f2245dd7b9d3dde8f3a828732c6df368ccbbe66cb8fbb445b1a`。
+環境處理與上次相同：NuGet 用 scratch 內的臨時設定唯讀引用原專案 `engine/vendor`；未改產品設定或 CI。
 
 ## 未驗證什麼
 
-未啟動遊戲、伺服器、DB；未讀機密設定、查詢或改 DB；未動原專案、封存、硬連結或 junction。未驗證登入、實際畫面、伺服器設定分支、線上人數或排名真實值。合成封包僅驗證產品程式行為，不代表真機通過。未取得可用的物件資訊／排行榜協定，因此未實作 C99／C63 查詢送出。
+- 未啟動遊戲、伺服器、DB；未讀機密設定、未查詢或修改 DB。所有封包測試都是合成資料，不代表真機通過。
+- `lv_ranking`、`pc_list` 由自身 objid 送出的實際回應未經真機確認，目前是靜態分析結論。
+- **風雲榜 NPC 可能不在世界中**：`380_db.sql` 沒有 80026–80029 的生成資料列，P24Lab 實際狀態未知。`/rank` 不受影響，NPC 鏡射路徑可能走不到。
+- `y_c_1` 的數值欄位意義未核對，原樣顯示。
+- `/check` 中斷時伺服器可能留在選取模式，下一個寵物指定目標的 C223 會被吃掉一次（伺服器行為）。
+
+## 需要主控確認
+
+T140 原文指定 C99、C63，實作改用 C125／C223。請主控確認此替換，並修正任務敘述。這不影響程式，但我不能自行認定已獲核准。
 
 ## 產出路徑
 
 - `engine/source/PlayerQuery.cs`、PlayerChat／WorldSession 最小掛接。
 - `engine/_integration/dev/player-query-tests/`、demo-tests 入口、dev `rebuild-lock.json`。
 - `docs/protocol/player-query.md`、`docs/reports/issue-357.md`。
-- 本機暫存證據：`scratch/issue-357/build/`、`player-query.json`、`map-continuity.json`、`player-chat.json`（不入 git）。
+- 本機暫存證據：`scratch/issue-357/*.json`（不入 git）。
 
 ## 給下一棒的提示
 
-Claude／調度器審查 PR，先裁定 T140 的 C99／排行榜規格落差，提供 d287 可用入口與回包後另派 code 任務，不以本 PR 直接認定 T140 全部完成。合併由使用者處理。dot 後續 P24Lab smoke 核對 `/who` 空名、在線名字、查無名字、九欄顯示與一般聊天；不得將查無名字的線上資訊回覆誤判為離線通知。
+- 主控：確認上述協定替換。
+- dot（P24Lab smoke）：
+  1. `/who` 空名、在線名字、查無名字（查無名字回的是線上資訊，不是離線通知）。
+  2. `/rank` 有無回 `y_h_2`、聊天區名次是否正確。
+  3. 選取另一個測試角色後 `/check`，核對 HP、六圍與裝備；再選 NPC 測「只能對玩家查詢狀態。」。
+  4. 確認一般 S71／166 訊息（例如自動狩獵提示）仍正常顯示，不再帶「玩家資訊」。
+  5. 若世界中有風雲榜 NPC，點選確認對話與聊天鏡射。
+- 合併由使用者處理。
