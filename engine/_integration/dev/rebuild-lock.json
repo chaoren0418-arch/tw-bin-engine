@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 219,
+ "sourceCount": 220,
  "files": [
   {
    "path": "NuGet.Config",
@@ -116,8 +116,8 @@
   },
   {
    "path": "source/AudioApiTransport.cs",
-   "size": 1616,
-   "sha256": "b1a18d9fc09bfba275e9c17230c57cc398dba06ccd30631f44333a17b9e42c7b"
+   "size": 2031,
+   "sha256": "039d63ef093732b02fb3b66041fcd185a7b1e70939690652c8409c762a8d37f9"
   },
   {
    "path": "source/BasicSupplies.cs",
@@ -326,8 +326,8 @@
   },
   {
    "path": "source/EquipmentTests.cs",
-   "size": 4389,
-   "sha256": "9aea8c38ff99e5b3b134d305dc6fac5193cbcb80861b0c234e5a1e0333d1b063"
+   "size": 4443,
+   "sha256": "f43eb2fcaa15c0bfc03a1c7d3b23bc05df713cb28b4a2370dc846357ef7a619e"
   },
   {
    "path": "source/EquipmentUiTests.cs",
@@ -550,9 +550,14 @@
    "sha256": "051a5bd56f1ee1656975a3b2af2973cb03971b85b1697321c62d7fabf714bbb1"
   },
   {
+   "path": "source/MapAmbientSound.cs",
+   "size": 10367,
+   "sha256": "ac9d3b69ed3f4765d2cabec6a2ec7c26a7f6e1623baab63105aa5759961d7113"
+  },
+  {
    "path": "source/MapEffects.cs",
-   "size": 11051,
-   "sha256": "befb109385251d5455e0bb5418995f072568e324424415e1f39e1c5c616e7f47"
+   "size": 11097,
+   "sha256": "bb4c45a806b80fba5d0119542952919ad881852e69fa936b436f217656bb53b7"
   },
   {
    "path": "source/MapIdPacket.cs",
@@ -646,8 +651,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 9788,
-   "sha256": "6e22e7591729261229fdaf192fb867a44176f6e07b78cdf15b41e4abb1d3d85b"
+   "size": 9834,
+   "sha256": "9cb9d89d068b4445713c496fed0a87f4e7e7182f55ebff30274613f824def7b6"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -821,8 +826,8 @@
   },
   {
    "path": "source/PlayerProfiles.cs",
-   "size": 3355,
-   "sha256": "8257012faba79f2977e979712f596c80f2610097c9e45ae13cee91561240c5f2"
+   "size": 3748,
+   "sha256": "32413a217287af7cb6a3938bc474296a71650745b8a3202ef1174b95e45ae9bd"
   },
   {
    "path": "source/PlayerQuery.cs",
@@ -836,8 +841,8 @@
   },
   {
    "path": "source/Polymorph.cs",
-   "size": 2382,
-   "sha256": "2427821e0ba3b625cb0d3545004a880061eff9f2db40b4a1eff79522a6e32c6c"
+   "size": 6008,
+   "sha256": "dbc648ff1714b4cdf0110414490e288b8988c04cc2c05f84e0e8b59199450fd7"
   },
   {
    "path": "source/Portals.cs",
@@ -1021,8 +1026,8 @@
   },
   {
    "path": "source/TitleAndEmote.cs",
-   "size": 25771,
-   "sha256": "8f9127eacd1d495f240b47f1bb746d4c204e41c0af164433394f0e7719db9d17"
+   "size": 31605,
+   "sha256": "4de4979398c040e8f53aaa726673c45c3c4f26c1200ad57f0a5c72fa64a720e0"
   },
   {
    "path": "source/Trade.cs",
