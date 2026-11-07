@@ -10,10 +10,10 @@
 
 ### 本次同步補驗
 
-- 依調度器「只做同步」回饋，先快轉至遠端 `task/217`（`6e07924`），再合併 `origin/main`（`ccaa3e0`）。沒有新增功能修改；`WorldSession.cs` 自動合併後相對 main 仍僅有原本的 S206 掛接差異。
-- 唯一衝突為 dev lock，使用 `--update-lock` 重產，沒有手動拼接 hash；核驗通過，180 個來源／189 個鎖定檔。`docs/REPORT.md` 與 main 完全一致，未編輯索引。
-- 重跑下列既有命令：產品與 launcher 建置通過（產品仍有 `MagicUi.cs:20` 兩個既存警告、0 錯誤）；`map-continuity` **19,849 項通過**；`teleport-tests` **4,369 項通過**；`check-no-game-assets.py` 通過（0 錯誤、4 個合法 EmbeddedResource）；差異空白檢查通過。
-- 本次產品 DLL SHA-256：`f4573fa46c059c4cd8cefa4d4cdf1f87b6f4aea24e189c0e2d189c9915776592`。證據沿用 `scratch/issue-217/`，下方舊輪數字與 SHA 僅代表前一輪。本次未啟動遊戲、伺服器或 DB；PR #243 最新提交的 CI 於推送後追蹤並回報。
+- 依調度器「只做同步」回饋，執行 fetch 後快轉至遠端 `task/217`（`1cdecd0`），再執行 `git merge origin/main`。該提交已包含 main（`5fece00`），合併回報 Already up to date。
+- CI run `42322359668` 的 dotnet job 明確回報 `sourceCount 180 != pinned source files 181`。使用 `--update-lock` 重產後，dev lock 唯一差異為 `sourceCount` 從 180 更新為 181，核驗通過，181 個來源／190 個鎖定檔。
+- 重跑下列既有命令，產品與 launcher 建置通過。產品有 `MagicUi.cs:20` 兩個既存警告、0 錯誤。`map-continuity` **19,849 項通過**，`teleport-tests` **4,369 項通過**，`check-no-game-assets.py` 通過，3293 個追蹤檔、0 錯誤、4 個合法 EmbeddedResource。差異空白檢查通過。
+- 本次產品 DLL SHA-256 為 `1bdbdf82121dfff06312b0ae32d4cf4c56aea8adaba2188ea56146265109e665`。證據沿用 `scratch/issue-217/`，下方舊輪數字與 SHA 代表前一輪。本輪提交 dev lock 與本報告，PR #243 最新提交的 CI 於推送後追蹤並回報。
 
 ## 怎麼驗證（已驗證）
 
