@@ -15,7 +15,11 @@ public static class PlayerProfiles {
         }
         return result;
     });
-    public static PlayerProfile? Get(int gfx,int weapon)=>profiles.Value.GetValueOrDefault((gfx,weapon));
+    // TW16 sub_A3EF40 (FO 0x63E340): a missing armed action falls back to the stance walk action,
+    // then to stance 0. A profile always carries its own walk, so a missing (gfx, legal stance)
+    // profile resolves to the same gfx bare-handed. Unknown gfx and illegal stances stay null.
+    public static PlayerProfile? Get(int gfx,int weapon)=>profiles.Value.GetValueOrDefault((gfx,weapon))
+        ??(weapon!=0&&PolymorphStances.Legal(weapon)?profiles.Value.GetValueOrDefault((gfx,0)):null);
     public static bool IsCharacter(int gfx)=>profiles.Value.Keys.Any(k=>k.Item1==gfx);
     public static PlayerProfile? ForGfx(int gfx)=>profiles.Value.Values.Where(p=>p.Gfx==gfx).OrderBy(p=>p.Weapon).FirstOrDefault();
     public static ObjectAppearance Load(string root,PlayerProfile profile){
