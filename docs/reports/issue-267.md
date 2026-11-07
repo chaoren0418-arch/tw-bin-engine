@@ -6,22 +6,22 @@
 - 新增 `MailUi.cs`：HUD 信件入口、收件匣、讀信、收件人／標題／多行本文編輯、刪除確認、保管與伺服器訊息。送出後保留並鎖定草稿，不自動重送，不以送出冒充成功。
 - `WorldSession.cs` 僅增加 S186 一個 case；`PlayerHudView.cs` 僅增加一行掛載。連線方法放在新檔的 partial class，未修改 `LoginConnection.cs`。
 - 將 119 項離線檢查提交於 `engine/_integration/dev/mail-tests/`，接入既有 Windows CI；透過 `--update-lock` 更新 dev lock，未手工拼接 hash。
-- 本輪依 PR #283 退回要求只做同步：在既有 `task/267` 合併 `origin/main` 的 `cb74af44ee6f565ad1993916512463577488f044`（落後 149 個 commit），納入變身等主線模組。三處衝突：`build.yml` 保留信件與變身兩個測試步驟，並為信件步驟補上自己的退出碼檢查；`WorldSession.cs` 保留 S186 與主線 S76 兩個 case；dev lock 取 main 版本後由 `--update-lock` 重新產生，沒有手動拼接 hash。信件模組與測試未修改；相對 main，`WorldSession.cs` 仍僅增加 S186 一個 case，`PlayerHudView.cs` 仍僅增加一行掛載。`docs/REPORT.md` 與 main 完全一致，未另行編輯。沿用 PR #283。
+- 本輪依 PR #283 退回要求只做同步：在既有 `task/267` 合併 `origin/main` 的 `583e58651e8c23f545adf1783562047ccaa2cc85`（分兩次同步，先落後 149、後落後 8 個 commit），納入變身、武器修理等主線模組。兩次都是三處衝突：`build.yml` 保留信件與變身、武器修理測試步驟，並為信件步驟補上自己的退出碼檢查；`WorldSession.cs` 保留 S186 與主線 S76、S83 修理清單 case；dev lock 取 main 版本後由 `--update-lock` 重新產生，沒有手動拼接 hash。信件模組與測試未修改；相對 main，`WorldSession.cs` 仍僅增加 S186 一個 case，`PlayerHudView.cs` 仍僅增加一行掛載。`docs/REPORT.md` 與 main 完全一致，未另行編輯。沿用 PR #283。
 
 ## 怎麼驗證（已驗證）
 
-- .NET SDK `10.0.300`，`rebuild.py --update-lock` → `rebuild.py --build --configfile scratch/issue-267/NuGet.Config --output scratch/issue-267/build` 通過：同步主線後 196 個來源、205 個鎖定輸入，product／audio／launcher 建置成功。本輪 PATH 沒有 `python`，以已安裝的 Python 3.12.10 執行腳本；套件快取明確設於 worktree 的 `engine/.nuget`。
+- .NET SDK `10.0.300`，`rebuild.py --update-lock` → `rebuild.py --build --configfile scratch/issue-267/NuGet.Config --output scratch/issue-267/build` 通過：同步主線後 198 個來源、207 個鎖定輸入，product／audio／launcher 建置成功。本輪 PATH 沒有 `python`，以已安裝的 Python 3.12.10 執行腳本；套件快取明確設於 worktree 的 `engine/.nuget`。
 - 本機 NuGet 線上還原遇 TLS 認證錯誤；改用 scratch 中的 config，唯讀引用原專案 `engine/vendor`。套件快取與建置輸出均留在此 worktree，未改原專案。
 - `powershell -NoProfile -ExecutionPolicy Bypass -File engine/_integration/dev/mail-tests/run.ps1 -NuGetConfig scratch/issue-267/NuGet.Config`：**PASS 119**，使用實際產品 DLL、合成封包與記憶體傳送閘門；未開遊戲／未連線／未查 DB。
 - 本輪以最終產品 DLL 執行主線既有 `ItemUseChecks`：**PASS 426**；測試引用的 `engine/build/client-product-dev/P11.ClientEngine.dll` 已核對與本輪建置 SHA-256 相同。
 - `DemoChecks` 各群組：`map-continuity` **PASS 21258**、`combat-admission` **PASS 1223**、`polymorph-cadence` **PASS 123**、`buddies` **PASS 259**、`item-transfer` **PASS 163**、`slow-actions` **PASS 454**。本輪命令與環境設定在 `scratch/issue-267/verify-sync2.ps1`，結果 JSON／log 同目錄。
-- `CharacterManagementChecks`：**PASS 218**，涵蓋建立／刪除／同連線切角；使用合成封包，未啟動遊戲或連線。
+- `CharacterManagementChecks`：**PASS 218**，涵蓋建立／刪除／同連線切角；使用合成封包，未啟動遊戲或連線。主線 `WeaponRepairChecks`：**PASS 98**。
 - 涵蓋每個 C／S 子型別、混合編碼、本文容量邊界、名稱奇偶與非對齊加密往返、畸形回包、ACK 才更新、斷線／世界重設、關閉編輯器撤銷排隊寄信及傳送錯誤不重試。
 - UI 僅建立未顯示的原生控制項，核對 HUD 入口、本文欄位與收件匣繫結。
-- `check-no-game-assets.py` 通過：解衝突後 3359 個追蹤檔、0 錯誤、4 個核准 EmbeddedResource。CI 自動執行 Windows 信件測試與 Linux 完整交叉建置，最終狀態以 [PR #283 checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/283/checks) 為準。
+- `check-no-game-assets.py` 通過：解衝突後 3365 個追蹤檔、0 錯誤、4 個核准 EmbeddedResource。CI 自動執行 Windows 信件測試與 Linux 完整交叉建置，最終狀態以 [PR #283 checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/283/checks) 為準。
 - 編譯僅有既存 `MagicUi.cs` 的兩個 nullable 警告，本模組無新增警告。
 
-同步主線後產品 DLL SHA-256：`2db08323d8b3b20bb57c9edd2af2a41b191b04291601cb9d46219d0b45166761`。
+同步主線後產品 DLL SHA-256：`12ef35d79184879f605bc51035adbc571791a65cfca0542f5da53da4a59c2bf6`。
 
 ## 未驗證什麼
 
