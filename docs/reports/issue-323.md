@@ -24,11 +24,11 @@
 
 ## 未驗證什麼／限制
 
-**阻塞，尚未完成，不可送審為通過**：[PR #356](https://github.com/chaoren0418-arch/tw-bin-engine/pull/356) 仍不可合併；已查詢前輪 head `ba96daf4f2754cb8ca0b9177ce0294bd3b7437e2` 的 PR workflow runs，結果為空，沒有可提供的 CI 執行連結。
+**同步輪（第 3 輪，2026-11-07）**：已依調度器指示 merge `origin/main`（落後 99 個 commit），前述同步阻塞解除。解衝突只做聯集：`DemoChecks.csproj` 保留 title-emote 與 main 的 character-config／polymorph／buddies 引用；`Program.cs` 預設入口保留 `CharacterConfigChecks` 與 `TitleAndEmoteChecks`；`WorldSession.cs` 保留 S183／S158 與 main 的 S250／S71 分派；`rebuild-lock.json` 以 main 為底跑 `--update-lock` 重產，未手動拼 hash；`docs/REPORT.md` 與 main 相同。未改其他程式內容。
 
-本輪 fetch 後，main 已進到 `9f62553cf8e1b1f3c8d26cb0c48e0dfd551d19ba`。`git merge-tree --write-tree --name-only HEAD origin/main` 不更動工作檔或 index；現列出三處衝突：`engine/_integration/dev/rebuild-lock.json`、`engine/_integration/dev/demo-tests/DemoChecks.csproj`、`engine/source/WorldSession.cs`。後兩處涉及 main 新增的好友模組與本任務相鄰掛接，不能再沿用前輪「唯一 lock 衝突」的判斷。
+同步後本機結果：`--update-lock`、`--build`、`--verify` 通過（188 個來源／197 個 pin），產品 DLL SHA-256 `1e28aaa89676d163cfc60bc63ea768a420da4684e1dda2511cbb92a00fcb0da1`；DemoChecks 建置 0 warning／0 error。群組全過：`title-emote` 506、`title-emote-assets` 250、`title-emote-compose` 103、`combat-admission` 784、`map-continuity` 20032、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163；`character-management` 218；`check-no-game-assets.py` 通過（3328 個追蹤檔、0 錯誤）。title-emote 三組各比前輪多 90 項，是 main 在 `Main` 開頭加入、每個群組都會跑的 `PolymorphChecks()`，本模組測試本身未變。
 
-依 [M6 合約第 4 點](../design/m6-contract.md)「dev lock 衝突交給調度器的同步輪處理」，以及本輪附帶的審查回饋再次指定同步責任，尚未自行承接同步。已提出是否改由本輪承接同步與 CI 的確認，未取得答覆；未把等待當成授權。本輪沒有把 merge 寫入分支、沒有手動拼接 hash。本機通過不能替代 CI 綠燈，重新派發同一 code 任務也未解除同步依賴。
+**未通過／未驗證**：DemoChecks 無群組的預設全量入口在本 worktree 退出 1，停在 `Movement123` 讀 `engine/assets/terrain0.bin`（worktree 沒有 assets junction），不是斷言失敗；因此 `Movement123` 之後的預設項目本輪沒有跑。改指向原專案根目錄會讓測試寫入其 `scratch/`，違反「原專案只讀」，故未這樣做。CI 不跑此入口。CI 結果以 PR #356 為準，本機通過不能替代 CI 綠燈。
 
 未做真機登入、角色權限與拒絕訊息、雙角色視野廣播、實際 UI 操作或音效驗收。未窮舉所有變身外觀；原圖缺件會顯示提示，沒有替代假圖。第一次使用封裝同步 SHA 核驗可能造成載入停頓；後續使用記憶體快取。表情音效與缺少的原生陰影不在此任務範圍。離線合成不是原生遊戲畫面驗收。
 
@@ -36,5 +36,5 @@
 
 - 產品：`engine/source/TitleAndEmote.cs`；最小掛接：`WorldSession.cs`、`ObjectRendering.cs`；dev lock 已由腳本重產。
 - 契約：[title-emote.md](../protocol/title-emote.md)；測試：[README](../../engine/_integration/dev/title-emote-tests/README.md)。本機結果與建置紀錄：`scratch/issue-323/`。
-- 分支 `task/323`，PR #356。下一棒為調度器同步輪：同步 main；在 `DemoChecks.csproj` 同時保留 `BuddyChecks` 與 `TitleAndEmoteChecks` 引用，在 `WorldSession.cs` 保留好友掛接及本模組 S183／S158 掛接；以 `--update-lock` 完整重產 dev lock，不拼接 hash。接著重跑建置、`title-emote` 與既有 `combat-admission` 群組，推送後取得兩個 CI job 綠燈及執行連結，再更新本報告並交 Claude 審查、使用者合併。同步前請再次 fetch，避免使用過期 main。
+- 分支 `task/323`，PR #356。同步已完成，下一棒：調度器確認兩個 CI job 綠燈後依閘門合併；若 main 再前進，重新同步並以 `--update-lock` 重產 dev lock。
 - dot 於 M6 smoke：開「更多 → 稱號／表情」，分別核對有權／無權稱號、自身與其他測試角色名稱上方的稱號更新、四種表情、移動／換圖中止，以及首次原圖核驗停頓。依既有 P24Lab 授權執行，不連正式服務。
