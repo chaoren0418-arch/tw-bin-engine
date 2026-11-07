@@ -89,11 +89,13 @@ public sealed partial class LoginConnection {
         if(pointerCurrent?.Invoke()==false)return new(false,"滑鼠操作已失效。");
         if(!MovementAvailable||MovementBusy||sendMovementGate==null)return RefuseMovement(MovementBlockReason);
         var a=World.Actor!;int stepMs=World.MovementIntervalMs!.Value;int nx=a.X+(step?MovementRules.Dx[heading]:0),ny=a.Y+(step?MovementRules.Dy[heading]:0);
+        bool DoorClear()=>!step||!World.DoorBlocks(a.X,a.Y,heading);
+        if(!DoorClear())return RefuseMovement("未送出：伺服器回報關閉的門阻擋通行。");
         if(step&&!drift&&!(World.MapCache?.Passable(a.X,a.Y,heading)??MovementRules.Passable(a.X,a.Y,heading)))return RefuseMovement("未送出：靜態地形／已載入範圍邊界阻擋。");
         int epoch=generation,lease=++movementLease,input=inputVersion,world=World.WorldEpoch,corrections=World.Corrections,appearanceRevision=World.AppearanceRevision,speedRevision=World.SpeedRevision;var sender=sendMovementGate;movementSending=true;
         byte[] bytes=step?MovementRules.Move(a.X+(drift?3:0),a.Y,heading):LoginPackets.Pad([225,(byte)heading]);
         try{
-            bool sent=await sender(bytes,()=>(pointerCurrent?.Invoke()??true)&&MovementAvailable&&epoch==generation&&world==World.WorldEpoch&&input==inputVersion&&corrections==World.Corrections&&appearanceRevision==World.AppearanceRevision&&speedRevision==World.SpeedRevision&&World.Actor?.Speed==a.Speed&&World.Actor?.Brave==a.Brave&&World.Actor?.Gfx==a.Gfx&&World.Actor?.Weapon==a.Weapon,()=>{
+            bool sent=await sender(bytes,()=>(pointerCurrent?.Invoke()??true)&&DoorClear()&&MovementAvailable&&epoch==generation&&world==World.WorldEpoch&&input==inputVersion&&corrections==World.Corrections&&appearanceRevision==World.AppearanceRevision&&speedRevision==World.SpeedRevision&&World.Actor?.Speed==a.Speed&&World.Actor?.Brave==a.Brave&&World.Actor?.Gfx==a.Gfx&&World.Actor?.Weapon==a.Weapon,()=>{
                 lastMovementAt=MovementClock();nextMovementAt=lastMovementAt+stepMs;
                 if(World.MapCache?.Contains(nx,ny)??Coordinates.Inside(nx,ny))World.Predict(nx,ny,heading,step);
                 if(step)MovePlanned?.Invoke(a,World.Actor!);
@@ -107,7 +109,9 @@ public sealed partial class LoginConnection {
                 return RefuseMovement(reason);
             }
             lastMovementAt=MovementClock();nextMovementAt=Math.Max(nextMovementAt,lastMovementAt+Math.Max(stepMs,World.MovementIntervalMs??stepMs));
-            MovementSent?.Invoke(new{utc=DateTimeOffset.UtcNow,monotonicMs=Environment.TickCount64,plainHex=Convert.ToHexString(bytes),step,drift,from=a,predicted=World.Actor});return new(true,"請求已送出；本地預測，伺服器校正優先（無逐步 ACK）。");
+            MovementSent?.Invoke(new{utc=DateTimeOffset.UtcNow,monotonicMs=Environment.TickCount64,plainHex=Convert.ToHexString(bytes),step,drift,from=a,predicted=World.Actor});
+            if(step&&!drift)await EnterPortalAtArrival(nx,ny,epoch,world,corrections);
+            return new(true,"請求已送出；本地預測，伺服器校正優先（無逐步 ACK）。");
         }
         catch(Exception ex){if(epoch==generation){Cancel();Set(LoginState.Faulted,"移動傳送失敗："+ex.Message);}return new(false,"本次移動傳送失敗或已取消；未確認送出結果。");}
         finally{if(epoch==generation&&lease==movementLease)movementSending=false;}

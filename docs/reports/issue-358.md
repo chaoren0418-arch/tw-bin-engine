@@ -16,7 +16,24 @@ PR #367 落後 main 180 個 commit，同步途中 main 又前進 15 個（寵物
 - **決鬥共用 S219**：`ReceiveDuel` 比 `ReceiveTrade` 先處理 S219／630，所以求婚分支看不到決鬥邀請。查證 `C_Fight`、`C_Attr` 630 用 FightId，不動 TempID，因此求婚邀請維持有效才正確；新增測試鎖定，並修正 `marriage.md` 原本過於籠統的 TempID 敘述。
 - `rebuild-lock.json` 取 main 版本後以 `--update-lock` 重產，未手動拼 hash。
 
+## 與 main 同步（第三輪）
+
+PR #367 再次落後 main 42 個 commit（門、傳送門、釣魚、幽靈模組），這輪只做同步，沒有改求婚邏輯。
+
+- **`WorldSession.cs`**：`case 71` 同時保留 main 的 `ObserveFishing(plain)` 與求婚分派，`case 119`、`case 158` 照 main。釣魚只看 S71 的 1137／1138／1163／403，與求婚訊息碼不重疊，先觀察不影響求婚。
+- **`DemoChecks.csproj`、`Program.cs`**：雙方測試入口全部保留；`marriage` 組與 `MarriageChecks` 在 `map-continuity`、預設組的位置不變。
+- **語意衝突檢查**：`OnCreateControl` 仍只有本模組覆寫；main 新模組沒有新增 S219 分派；求婚訊息碼在其他來源檔沒有出現。
+- `rebuild-lock.json` 取 main 版本後以 `--update-lock` 重產，未手動拼 hash。`docs/REPORT.md` 與 main 相同。
+
 ## 怎麼驗證（已驗證）
+
+下列第三輪數字取代後面第二輪的數字：
+
+- `--update-lock` 後 `--build` 成功，唯讀來源核驗 `dev-inputs-verified`（203 個來源檔、212 個鎖定檔）。
+- DemoChecks 12 組全部通過（項數均含每次先跑的共用前置檢查）：`marriage` 325、`map-continuity` 21991、`combat-admission` 1326、`ghost-mode` 552、`doors` 514、`buddies` 362、`duel` 307、`portals` 293、`item-transfer` 266、`fishing` 232、`polymorph-cadence` 226、`pets` 193。
+- `check-no-game-assets.py` 通過（3379 個追蹤檔，0 錯誤）。
+
+第二輪紀錄：
 
 - `rebuild.py --update-lock` 後執行 `--build`：產品、audio、launcher 成功，0 錯誤；產品保留既有 `MagicUi.cs:20` 的 CS8600／CS8602 兩項警告。
 - 求婚組 `marriage`：**325 項通過**，其中本模組 132 項，其餘 193 項是每次都先跑的共用前置檢查（如 PolymorphChecks、PetChecks）。覆蓋 C50、C121 Yes／No、S219、S71 所有本模組格式、CP950、截斷與錯誤補零、非零 D 拒絕、訊息參數數量、成功／拒絕／失敗、過期 revision、切圖、重置、死亡、移除、逾時、替代 Yes-No、新邀請、連線世代與待發前面向改變。
