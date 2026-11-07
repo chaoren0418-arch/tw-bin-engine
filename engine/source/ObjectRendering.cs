@@ -25,10 +25,10 @@ public sealed partial class Renderer {
         var vs=new List<ObjectVisual>();var unavailable=new List<WorldObject>();
         ComposeGround(session,catalog,draws,vs);
         foreach(var o in session.Objects){
-            bool door=o.Gfx==2346,shop=!door&&o.ShopActive&&!o.Dead;var a=door?catalog.GetDoor(o.Gfx):shop?catalog.GetShop(o.Gfx):catalog.Get(o.Gfx,o.Action);
+            bool door=o.Gfx==2346||session.IsDoor(o.ObjectId),shop=!door&&o.ShopActive&&!o.Dead;var a=door?catalog.GetDoor(o.Gfx):shop?catalog.GetShop(o.Gfx):catalog.Get(o.Gfx,o.Action);
             if(a==null||o.AppearancePending||(!shop&&(!NormalSpeed.Supported(o.Speed,o.Brave)||o.MotionAt!=0&&!NormalSpeed.Supported(o.MotionSpeed,o.MotionBrave)))||(door?(o.DoorAction is not (28 or 29)||o.Dead||o.Combat!=null):o.ReceivedAction is not (null or 0 or 1 or 2 or 3 or 8 or 18 or 19 or 70))||!(session.MapCache?.Contains(o.X,o.Y)??Coordinates.Inside(o.X,o.Y))){unavailable.Add(o);continue;}
             int stepMs=shop?a.StepMs:NormalSpeed.AnimationMs(a.StepMs,o.MotionAt!=0?o.MotionSpeed:o.Speed,o.MotionAt!=0?o.MotionBrave:o.Brave);double elapsed=now-o.MotionAt;bool moving=!door&&!shop&&o.MotionAt!=0&&elapsed<stepMs;
-            string action=door?(o.DoorAction==28?"open":"close"):shop?"shop":moving?"walk":"breath";double animationElapsed=door?0:shop?now-o.ShopAt:moving?elapsed*a.StepMs/stepMs:now-o.UpdatedAt;
+            string action=door?(o.DoorAction==28?"open":"close"):shop?"shop":moving?"walk":"breath";double animationElapsed=door?session.DoorPlaybackElapsed(o.ObjectId,now)??double.MaxValue:shop?now-o.ShopAt:moving?elapsed*a.StepMs/stepMs:now-o.UpdatedAt;
             if(!door&&!shop&&WithProjectileHit(o.ObjectId,o.Combat,now,o.Dead) is {} combat){string requested=combat.Action switch{1=>"attack",2=>"damage",8=>"die",18=>"spellDir",19=>"spellNoDir",_=>"unsupported"};if(!a.Supports(requested,o.Direction)){unavailable.Add(o);continue;}double age=now-combat.At;if((combat.Timing==null||combat.Timing.Matches(o.Gfx,o.Action))&&(o.Dead||age<(combat.Timing?.AnimationMs??a.Duration(requested)))){moving=false;action=requested;animationElapsed=age;stepMs=combat.Timing?.AnimationMs??(int)a.Duration(requested);}}
             // Noncombat NPCs and scenery only have the actions present in their original metadata.
             if(!a.Supports(action,o.Direction)){unavailable.Add(o);continue;}
@@ -47,7 +47,7 @@ public sealed partial class Renderer {
         // Stable ID tie-break makes exact overlaps deterministic, independent of arrival order.
         var commands=ActiveScene.Where(c=>c.Px<area.Right&&c.Px+24>area.Left&&c.Py<area.Bottom&&c.Py+24>area.Top).Concat(draws).OrderBy(c=>c,DrawComparer.Instance).ThenBy(c=>c.ObjectId).ToList();
         var colors=new ushort[area.Width*area.Height];var mask=new bool[colors.Length];var owners=Enumerable.Repeat(-1,colors.Length).ToArray();
-        FillShipBackdrop(area,colors,mask);var entityOwners=new uint?[colors.Length];foreach(var c in commands)Blit(c,area,colors,mask,owners,entityOwners,opacity?.Get(c));
+        FillShipBackdrop(area,colors,mask);var entityOwners=new uint?[colors.Length];foreach(var c in commands)Blit(c,area,colors,mask,owners,entityOwners,session.InvisibilityOpacity(c,opacity?.Get(c)));
         visuals=vs.ToArray();missing=unavailable.ToArray();return new(area,colors,mask,owners,commands,entityOwners);
     }
 }
@@ -69,6 +69,7 @@ public sealed partial class ClientForm {
         if(login.World.TargetId is uint id&&objectVisuals.FirstOrDefault(v=>v.ObjectId==id) is {} v){var p=Camera.ToView(v.Foot);using var pen=new Pen(Color.Gold,2);g.DrawEllipse(pen,p.X-19*Camera.Zoom,p.Y-7*Camera.Zoom,38*Camera.Zoom,14*Camera.Zoom);g.DrawString(v.Name+" #"+id,Font,Brushes.Gold,p.X-40,p.Y+10);}
         foreach(var groundVisual in objectVisuals.Where(v=>v.Action=="ground")){var pt=Camera.ToView(groundVisual.Foot);bool selected=login.World.SelectedGroundId==groundVisual.ObjectId;g.DrawString(groundVisual.Name,Font,selected?Brushes.Gold:Brushes.White,pt.X-20,pt.Y+17);if(selected){using var pen=new Pen(Color.Gold,2);g.DrawEllipse(pen,pt.X-16,pt.Y+3,32,12);}}
         PaintObjectPresence(g,Camera.ToView,new RectangleF(Camera.ViewOffset,Camera.View));
+        PaintDuelOpponent(g);
     }
     object ObjectUiSnapshot()=>new{ownCombatVisual=renderer.OwnCombatVisual,magic=renderer.MagicVisuals,projectile=renderer.CurrentProjectileVisual,projectiles=renderer.ProjectileVisuals,visuals=objectVisuals,presence=PresenceSnapshot(),missing=missingObjects.Select(o=>new{o.ObjectId,o.Gfx,o.Action,o.Speed,o.Brave,o.ReceivedAction,o.Name,o.X,o.Y,o.ShopActive}),target=login.World.Target,targetName=login.World.Target is {} t?objectAssets?.DisplayName(t):null,world=login.World.Snapshot()};
 }
