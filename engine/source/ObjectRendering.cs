@@ -48,7 +48,7 @@ public sealed partial class Renderer {
         var commands=ActiveScene.Where(c=>c.Px<area.Right&&c.Px+24>area.Left&&c.Py<area.Bottom&&c.Py+24>area.Top).Concat(draws).OrderBy(c=>c,DrawComparer.Instance).ThenBy(c=>c.ObjectId).ToList();
         var colors=new ushort[area.Width*area.Height];var mask=new bool[colors.Length];var owners=Enumerable.Repeat(-1,colors.Length).ToArray();
         FillShipBackdrop(area,colors,mask);var entityOwners=new uint?[colors.Length];foreach(var c in commands)Blit(c,area,colors,mask,owners,entityOwners,opacity?.Get(c));
-        visuals=vs.ToArray();missing=unavailable.ToArray();return new(area,colors,mask,owners,commands,entityOwners);
+        var composed=ComposeTitlesAndEmotes(own,session,catalog,new(area,colors,mask,owners,commands,entityOwners),vs,now);visuals=vs.ToArray();missing=unavailable.ToArray();return composed;
     }
 }
 public sealed partial class ClientForm {
