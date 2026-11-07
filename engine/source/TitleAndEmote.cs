@@ -3,8 +3,46 @@ using System.Text;
 using System.Text.RegularExpressions;
 namespace P06;
 
+// T160 1.2: immediate = sub_4FBA70 (send + local play, no cooldown); throttled = sub_4FAAF0 (send only, 2500 ms).
+public enum EmoteDelivery{None,Immediate,Throttled}
+public readonly record struct EmotePlan(int Action,EmoteDelivery Delivery,bool Hold);
+
 public static class TitleAndEmotePackets {
     public static bool IsEmote(int action)=>action is >=66 and <=69;
+    // Original item order (Action_SocialAction1-4, menu commands 32817-32820): salute, cheer, aggress, think.
+    public static readonly int[] MenuActions=[68,69,67,66];
+    static readonly HashSet<int> classForms=[0,1,37,48,61,138,734,1186,2786,2796,6650,6658,6661,6671,12490,12494];
+    public static bool ClassForm(int gfx)=>classForms.Contains(gfx);                                   // G1  sub_8CA110
+    public static bool SpecialForm(int gfx)=>gfx is >=6822 and <=6891 or >=7139 and <=7166 or >=11408 and <=11421 or 12541 or 12542; // G1' sub_501280
+    public static bool HorseHelm(int gfx)=>gfx is 6080 or 6094;                                        // G2  sub_501260
+    public static bool GroupThree(int gfx)=>gfx is 6743 or 6744 or 6746 or 6747 or 6749 or 6750 or 6752 or 6753; // G3 sub_501630
+    public static bool GroupFour(int gfx)=>gfx is 8719 or 10866 or 14695;                             // G4  sub_501600
+    /// <summary>item is 1-4 in original order; menu selects the sub_8C14F0 path, otherwise the action-slot path.</summary>
+    public static EmotePlan Plan(int gfx,int item,bool menu){
+        if(item is <1 or >4)throw new ArgumentOutOfRangeException(nameof(item));
+        int d=MenuActions[item-1];
+        static EmotePlan I(int action,bool hold=false)=>new(action,EmoteDelivery.Immediate,hold);
+        static EmotePlan T(int action)=>new(action,EmoteDelivery.Throttled,false);
+        if(ClassForm(gfx))return I(d);
+        if(SpecialForm(gfx))return item<4||menu?I(d):T(66);
+        if(HorseHelm(gfx)||GroupThree(gfx)){
+            if(item==4)return T(66);
+            int[] shifted=[67,68,69];
+            return menu?I(HorseHelm(gfx)?d:shifted[item-1],true):I(shifted[item-1]);
+        }
+        if(GroupFour(gfx))return menu?I(d,true):I(new[]{66,67,68,69}[item-1]);
+        if(gfx==10413)return item switch{1=>I(68,menu),4=>T(66),_=>new(d,EmoteDelivery.None,false)};
+        if(menu&&gfx is 11635 or 11650&&item<=2)return I(d,true);
+        if(item==1&&gfx is 3750 or 3775 or 3858)return I(68);
+        return T(d);
+    }
+    public const int ThrottleBaseMs=2500;
+    // sub_4FAAF0 interval. The engine has no verified mapping for self+547 or the two encrypted speed states, so callers pass defaults.
+    public static int ThrottleMs(bool flag547=false,int speedA=0,int speedB=0){
+        int ms=flag547?ThrottleBaseMs*29>>5:ThrottleBaseMs;
+        ms=speedA switch{1=>ms*3/4,2=>ms*2,3=>ms*7/8,_=>ms};
+        return speedB switch{1 or 6=>ms*3/4,3=>ms*7/8,5=>ms*3/8,_=>ms};
+    }
     public static string EmoteName(int action)=>action switch{66=>"思考",67=>"挑釁",68=>"敬禮",69=>"歡呼",_=>throw new ArgumentOutOfRangeException(nameof(action))};
     public static byte[] Title(string name,string title){
         // C_Title only requires nonempty strings. Do not invent a 16-character server rule.
@@ -49,26 +87,46 @@ public sealed partial class WorldSession {
             if(!current||now-e.At>=10000||now<e.At)emotes.Remove(e.Id);
         }
     }
+    // Title (+240) for the name painter: S183 or S87 value, display-cleaned; empty when none.
+    public string DisplayTitle(uint id)=>TitleAndEmotePackets.DisplayText(Actor?.ObjectId==id?Actor.Title:objects.TryGetValue(id,out var o)?o.Title:"");
     public EmotePlayback[] ActiveEmotes(long now){PruneEmotes(now);return emotes.Values.ToArray();}
     internal void EndEmote(uint id)=>emotes.Remove(id);
+    // A locally played emote is itself a busy action until its sprite frames finish (renderer ends it).
+    internal bool OwnEmotePlaying(){PruneEmotes(ActionClock());return Actor is {} a&&emotes.ContainsKey(a.ObjectId);}
 }
 
 public sealed record TitleEmoteStamp(int Generation,int Epoch,uint Actor);
 public sealed partial class LoginConnection {
     TitleEmoteStamp? titleEmotePending;
     public TitleEmoteStamp? CaptureTitleEmote()=>CaptureWorld(()=>World.Actor is {} a?new TitleEmoteStamp(generation,World.WorldEpoch,a.ObjectId):null);
-    public Task<bool> SendTitle(TitleEmoteStamp? stamp,string name,string title)=>SendTitleEmote(stamp,()=>TitleAndEmotePackets.Title(name,title),null);
-    public Task<bool> SendEmote(TitleEmoteStamp? stamp,int action)=>SendTitleEmote(stamp,()=>TitleAndEmotePackets.Emote(action),(byte)action);
-    async Task<bool> SendTitleEmote(TitleEmoteStamp? stamp,Func<byte[]> encode,byte? action){
+    long emoteThrottleUntil;int emoteThrottleGeneration=-1;
+    public Task<bool> SendTitle(TitleEmoteStamp? stamp,string name,string title)=>SendTitleEmote(stamp,()=>TitleAndEmotePackets.Title(name,title),null,-1);
+    /// <summary>Sends original emote item 1-4 (68, 69, 67, 66) after the T160 appearance remap.</summary>
+    public Task<bool> SendEmote(TitleEmoteStamp? stamp,int item,bool menu=true){
+        if(item is <1 or >4)return Task.FromResult(false);
+        EmotePlan plan=default;int gfx=-1;
+        bool Pick(){
+            if(World.Actor is not {} a)return false;gfx=a.Gfx;plan=TitleAndEmotePackets.Plan(a.Gfx,item,menu);
+            return plan.Delivery==EmoteDelivery.Immediate||plan.Delivery==EmoteDelivery.Throttled&&(emoteThrottleGeneration!=generation||World.ActionClock()>=emoteThrottleUntil);
+        }
+        if(!CaptureWorld(Pick))return Task.FromResult(false);
+        var chosen=plan;return SendTitleEmote(stamp,()=>TitleAndEmotePackets.Emote(chosen.Action),chosen,gfx);
+    }
+    // sub_A3EBF0: only a busy own action blocks an emote; movement, shops and trade are not checked by the original.
+    bool EmoteBusy()=>World.OwnDead||World.Status?.Hp is not >0||CombatBusy||MagicBusy||GroundBusy||World.OwnEmotePlaying();
+    async Task<bool> SendTitleEmote(TitleEmoteStamp? stamp,Func<byte[]> encode,EmotePlan? emote,int gfx){
         bool Current()=>stamp!=null&&stamp.Generation==generation&&stamp.Epoch==World.WorldEpoch&&stamp.Actor==World.Actor?.ObjectId;
-        bool Ready()=>Current()&&State==LoginState.InWorld&&World.Ready&&!World.ActionLocked&&!World.TradeBlocksActions&&!World.OwnDead&&World.Status?.Hp>0&&!MovementBusy
-            &&(action==null||World.Actor is {} a&&(a.Flags&2)==0&&a.Weapon!=70);
+        bool Ready()=>Current()&&State==LoginState.InWorld&&World.Ready&&!World.ActionLocked&&(emote==null
+            ?!World.TradeBlocksActions&&!World.OwnDead&&World.Status?.Hp>0&&!MovementBusy
+            :World.Actor?.Gfx==gfx&&!EmoteBusy());
         if(stamp==null||titleEmotePending==stamp||sendMovementGate==null||!CaptureWorld(Ready))return false;
         byte[] bytes;try{bytes=encode();}catch(ArgumentException){return false;}
         int epoch=generation;var sender=sendMovementGate;titleEmotePending=stamp;
         try{return await sender(bytes,()=>CaptureWorld(Ready),()=>{
-            // broadcastPacketAll excludes self; local playback is explicitly predicted after admission.
-            if(action is byte value&&World.Actor is {} actor)World.StartEmote(actor.ObjectId,value);
+            if(emote is not {} plan)return;
+            // broadcastPacketAll excludes self: class forms play locally at once; other forms send only and start the interval.
+            if(plan.Delivery==EmoteDelivery.Immediate){if(World.Actor is {} actor)World.StartEmote(actor.ObjectId,(byte)plan.Action);}
+            else{emoteThrottleGeneration=generation;emoteThrottleUntil=World.ActionClock()+TitleAndEmotePackets.ThrottleMs();}
         })&&CaptureWorld(Current);}
         catch(Exception){if(epoch==generation){Cancel();Set(LoginState.Faulted,"稱號／表情傳送失敗，已斷線；不會自動重送。");}return false;}
         finally{if(titleEmotePending==stamp)titleEmotePending=null;}
@@ -103,7 +161,7 @@ public sealed class EmoteSprites:IDisposable {
     Dictionary<int,string>? rows;
     readonly Dictionary<string,Dictionary<string,(uint Offset,uint Length)>> indexes=[];
     readonly Dictionary<string,FileStream> archives=[];
-    readonly Dictionary<(int,int,int),EmoteSequence> sequences=[];
+    readonly Dictionary<(int,int,int),EmoteSequence?> sequences=[];
     readonly Dictionary<string,Frame[]> sprites=[];
     public EmoteSprites(string? root=null){this.root=root??GroundSpriteReader.ClientRoot;}
     static void Require(bool ok){if(!ok)throw new InvalidDataException("表情原圖格式或來源 SHA 不符");}
@@ -113,36 +171,50 @@ public sealed class EmoteSprites:IDisposable {
         public int Duration=>Steps.Sum(s=>s.Milliseconds);
         public Frame? At(long age){if(age<0||age>=Duration)return null;for(int i=0;i<Steps.Length;i++){if(age<Steps[i].Milliseconds)return Frames[i];age-=Steps[i].Milliseconds;}return null;}
     }
-    public static Step[] ParseSteps(string row,int action,int direction){
-        Require(TitleAndEmotePackets.IsEmote(action)&&direction is >=0 and <8);
-        int fps=24;string? body=null;int count=0;
+    public static Step[] ParseSteps(string row,int action,int direction)=>TryParseSteps(row,action,direction)??throw new InvalidDataException("表情原圖格式或來源 SHA 不符");
+    /// <summary>Null when the row has no entry for the action; malformed entries still fail closed.</summary>
+    public static Step[]? TryParseSteps(string row,int action,int direction){
+        Require(action is >=0 and <=120&&direction is >=0 and <8);
+        int fps=24;string? body=null;int count=0;bool directional=true;
         foreach(string line in row.Split('\n')){
             var rate=Regex.Match(line,@"^\s*110\.[^(]+\((\d+)\)");if(rate.Success)fps=int.Parse(rate.Groups[1].Value);
-            // The pinned gfx2796/action66 row contains a doubled opening parenthesis.
-            var m=Regex.Match(line,@"^\s*"+action+@"\.[^(]+\(\(?1\s+(\d+),([^)]*)\)");
-            if(m.Success){body=m.Groups[2].Value;count=int.Parse(m.Groups[1].Value);break;}
+            // The pinned gfx2796/action66 row contains a doubled opening parenthesis. "(0 n," entries have one direction.
+            var m=Regex.Match(line,@"^\s*"+action+@"\.[^(]*\(\(?([01])\s+(\d+),([^)]*)\)");
+            if(m.Success){directional=m.Groups[1].Value=="1";body=m.Groups[3].Value;count=int.Parse(m.Groups[2].Value);break;}
         }
-        Require(body!=null&&fps is >0 and <=240&&count is >0 and <=512);
-        var tokens=body!.Split((char[]?)null,StringSplitOptions.RemoveEmptyEntries);Require(tokens.Length==count);
+        if(body==null)return null;
+        Require(fps is >0 and <=240&&count is >0 and <=512);
+        var tokens=body.Split((char[]?)null,StringSplitOptions.RemoveEmptyEntries);Require(tokens.Length==count);
         var steps=new List<Step>();
         foreach(string token in tokens){var m=Regex.Match(token,@"^(\d+)\.(\d+):(\d+)(?:[!<\[\]>^].*)?$");Require(m.Success);
-            int file=int.Parse(m.Groups[1].Value)+direction,frame=int.Parse(m.Groups[2].Value),ticks=int.Parse(m.Groups[3].Value);
+            int file=int.Parse(m.Groups[1].Value)+(directional?direction:0),frame=int.Parse(m.Groups[2].Value),ticks=int.Parse(m.Groups[3].Value);
             Require(file<=65535&&frame<128&&ticks<=1000);steps.Add(new(file,frame,ticks*1000/fps));}
         Require(steps.Sum(s=>s.Milliseconds) is >0 and <=10000);return steps.ToArray();
     }
-    public EmoteSequence Load(int gfx,int action,int direction){
+    /// <summary>T160 3.4 (sub_A3EF40): missing action -> pose action -> action 0; null when none has frames.</summary>
+    public static T? Fallback<T>(int action,int pose,Func<int,T?> exact) where T:class{
+        var result=exact(action);if(result!=null||action<=0||action is 119 or 120)return result;
+        if(pose!=action&&(result=exact(pose))!=null)return result;
+        return pose!=0&&action!=0?exact(0):null;
+    }
+    public EmoteSequence? Load(int gfx,int action,int direction,int pose=0)=>Fallback(action,pose,a=>Exact(gfx,a,direction));
+    EmoteSequence? Exact(int gfx,int action,int direction){
         var key=(gfx,action,direction);if(sequences.TryGetValue(key,out var cached))return cached;
         if(rows==null){byte[] data=File.ReadAllBytes(Path.Combine(root,"TW13081901.txt"));Require(Hash(data,MetadataSha));
             rows=Regex.Matches(Encoding.ASCII.GetString(data),@"(?ms)^#(\d+)[ \t]+.*?(?=^#\d+[ \t]+|\z)").ToDictionary(m=>int.Parse(m.Groups[1].Value),m=>m.Value);}
-        if(!rows.TryGetValue(gfx,out var row))throw new InvalidDataException("表情動作索引缺件");
-        var steps=ParseSteps(row,action,direction);int sprite=gfx;var visited=new HashSet<int>();
-        while(rows.TryGetValue(sprite,out var aliasRow)){
-            Require(visited.Add(sprite));var alias=Regex.Match(aliasRow,@"^#\d+\s+\d+\s*=\s*(\d+)");if(!alias.Success)break;sprite=int.Parse(alias.Groups[1].Value);
+        EmoteSequence? result=null;
+        if(rows.TryGetValue(gfx,out var row)&&TryParseSteps(row,action,direction) is {} steps){
+            int sprite=gfx;var visited=new HashSet<int>();
+            while(rows.TryGetValue(sprite,out var aliasRow)){
+                Require(visited.Add(sprite));var alias=Regex.Match(aliasRow,@"^#\d+\s+\d+\s*=\s*(\d+)");if(!alias.Success)break;sprite=int.Parse(alias.Groups[1].Value);
+            }
+            var frames=new Frame[steps.Length];bool complete=true;
+            for(int i=0;i<steps.Length&&complete;i++){var available=ReadSprite(sprite,steps[i].File);if(available==null||steps[i].Frame>=available.Length)complete=false;else frames[i]=available[steps[i].Frame];}
+            if(complete)result=new EmoteSequence(sprite,steps,frames);
         }
-        var frames=steps.Select(s=>{var available=ReadSprite(sprite,s.File);Require(s.Frame<available.Length);return available[s.Frame];}).ToArray();
-        var result=new EmoteSequence(sprite,steps,frames);sequences.Add(key,result);return result;
+        sequences[key]=result;return result;
     }
-    Frame[] ReadSprite(int sprite,int file){
+    Frame[]? ReadSprite(int sprite,int file){
         string name=$"{sprite}-{file}.spr";if(sprites.TryGetValue(name,out var cached))return cached;
         foreach(var pin in pins){
             if(!indexes.TryGetValue(pin.Name,out var index)){
@@ -160,7 +232,7 @@ public sealed class EmoteSprites:IDisposable {
             Require(item.Length is >0 and <=8*1024*1024&&(long)item.Offset+item.Length<=pak.Length);
             byte[] payload=new byte[item.Length];pak.Position=item.Offset;pak.ReadExactly(payload);var result=Decode(payload,file);sprites.Add(name,result);return result;
         }
-        throw new InvalidDataException("表情原圖缺件："+name);
+        return null;
     }
     public static Frame[] Decode(byte[] payload,int file){
         try{
@@ -197,8 +269,9 @@ public sealed partial class Renderer {
             if(emote.Actor is OwnActor a){gfx=a.Gfx;direction=a.Direction;x=a.X;y=a.Y;weapon=a.Weapon;if(own.Walking){session.EndEmote(emote.Id);continue;}}
             else{var o=(WorldObject)emote.Actor;gfx=o.Gfx;direction=o.Direction;x=o.X;y=o.Y;weapon=o.Action;if(!visuals.Any(v=>v.ObjectId==o.ObjectId&&!v.Walking))continue;}
             try{
-                var sequence=EmoteCache.Get(gfx,emote.Action,direction);var frame=sequence.At(now-emote.At);
-                if(frame==null){session.EndEmote(emote.Id);continue;}
+                // Missing emote art falls back to the pose action, then action 0; with no frames at all the emote simply ends.
+                var sequence=EmoteCache.Get(gfx,emote.Action,direction,weapon);var frame=sequence?.At(now-emote.At);
+                if(sequence==null||frame==null){session.EndEmote(emote.Id);continue;}
                 uint drawId=self?0:emote.Id;commands.RemoveAll(d=>d.ObjectId==drawId&&d.Layer is "actor" or "shadow");
                 commands.AddRange(frame.Blocks.Select(b=>new Draw(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,b.Z,1000000+b.Order,"actor",b.Order,-1,-1,b.Tile,drawId)));
                 var appearance=catalog.Get(gfx,weapon);commands.AddRange(ShadowDraws(appearance,frame,x,y,drawId));
@@ -207,38 +280,23 @@ public sealed partial class Renderer {
                 changed=true;
             }catch(Exception ex) when(ex is IOException or InvalidDataException or IndexOutOfRangeException){session.EmoteAssetNotice="無法顯示表情原圖："+ex.Message;session.EndEmote(emote.Id);}
         }
-        var labels=new List<(PointF Foot,string Name,string Title)>();
-        if(session.Actor is {} actor)labels.Add((own.DisplayPosition,actor.Name,actor.Title));
-        // Blind mode 1 blacks out everyone else, so their labels must not reveal where they stand.
-        ushort blind=session.BlindMode;
-        if(blind!=1)foreach(var o in session.Objects){var v=visuals.FirstOrDefault(v=>v.ObjectId==o.ObjectId);if(v!=null&&original.VisibleObjectIds.Contains(o.ObjectId)&&!string.IsNullOrEmpty(o.Title))labels.Add((v.Foot,catalog.DisplayName(o),o.Title));}
-        labels.RemoveAll(l=>string.IsNullOrEmpty(l.Title));if(labels.Count==0&&!changed)return original;
-        using var font=new Font("Microsoft JhengHei UI",10,FontStyle.Regular,GraphicsUnit.Pixel);
-        using var measure=new Bitmap(1,1);using var mg=Graphics.FromImage(measure);
-        var text=labels.Select(l=>{string value=TitleAndEmotePackets.DisplayText(l.Title)+"\n"+TitleAndEmotePackets.DisplayText(l.Name);SizeF size=mg.MeasureString(value,font,320);return(Value:value,Bounds:new RectangleF(l.Foot.X-size.Width/2,l.Foot.Y-70-size.Height,size.Width,size.Height));}).ToArray();
+        // Titles are no longer baked into the scene: ObjectRendering draws title, name and emblem for the
+        // hovered object only (actions-and-names.md 2.2). This hook now owns emote substitution alone.
+        if(!changed)return original;
         var area=original.Bounds;
-        foreach(var label in text)area=Rectangle.Union(area,Rectangle.Ceiling(label.Bounds));
         foreach(var d in commands.Where(d=>d.Layer=="actor"))area=Rectangle.Union(area,new Rectangle(d.Px,d.Py,24,24));area=Rectangle.Intersect(area,Bounds);
         // Refresh scenery for an emote extending beyond the previous pose, preserving tile depth/ownership.
         var scenery=ActiveScene.ToHashSet();commands=commands.Where(d=>!scenery.Contains(d)).Concat(ActiveScene.Where(d=>d.Px<area.Right&&d.Px+24>area.Left&&d.Py<area.Bottom&&d.Py+24>area.Top)).OrderBy(d=>d,DrawComparer.Instance).ThenBy(d=>d.ObjectId).ToList();
-        // ComposeAfflictionPatch is the only owner of tint, blindness and opacity. Labels alone that fit the
-        // incoming patch reuse it, which also avoids a second full-screen pass while blind.
-        var patch=!changed&&area==original.Bounds?original:ComposeAfflictionPatch(session,area,commands,session.Opacity);
-        area=patch.Bounds;var colors=patch.Colors;var mask=patch.Mask;
-        using var overlay=new Bitmap(area.Width,area.Height);using(var g=Graphics.FromImage(overlay)){
-            g.TextRenderingHint=System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
-            foreach(var label in text){var box=label.Bounds;box.Offset(-area.X,-area.Y);g.DrawString(label.Value,font,Brushes.LightYellow,box);}
-        }
-        foreach(var label in text){var box=Rectangle.Intersect(Rectangle.Ceiling(label.Bounds),area);for(int y=box.Top;y<box.Bottom;y++)for(int x=box.Left;x<box.Right;x++){var c=overlay.GetPixel(x-area.X,y-area.Y);if(c.A==0)continue;int i=(y-area.Y)*area.Width+x-area.X;ushort color=(ushort)((c.R>>3)<<10|(c.G>>3)<<5|(c.B>>3));colors[i]=blind==2?AfflictionColors.Darken(color):color;mask[i]=true;}}
-        return patch;
+        // ComposeAfflictionPatch is the only owner of tint, blindness and opacity.
+        return ComposeAfflictionPatch(session,area,commands,session.Opacity);
     }
 }
 
 static class EmoteCache {
     static readonly object gate=new();
     static readonly EmoteSprites reader=new();
-    static readonly Dictionary<(int,int,int),EmoteSprites.EmoteSequence> cache=[];
-    public static EmoteSprites.EmoteSequence Get(int gfx,int action,int direction){lock(gate){var key=(gfx,action,direction);if(cache.TryGetValue(key,out var result))return result;result=reader.Load(gfx,action,direction);cache.Add(key,result);return result;}}
+    static readonly Dictionary<(int,int,int,int),EmoteSprites.EmoteSequence?> cache=[];
+    public static EmoteSprites.EmoteSequence? Get(int gfx,int action,int direction,int pose){lock(gate){var key=(gfx,action,direction,pose);if(cache.TryGetValue(key,out var result))return result;result=reader.Load(gfx,action,direction,pose);cache.Add(key,result);return result;}}
 }
 
 public sealed partial class ClientForm {
@@ -257,9 +315,12 @@ public sealed partial class ClientForm {
             TitleEmoteStamp? stamp=null;int lastEpoch=-1,lastGeneration=-1;
             page.Enter+=(_,_)=>{ClearInput("title-emote");stamp=login.CaptureTitleEmote();name.Text=login.World.Actor?.Name??"";title.Text=login.World.Actor?.Title??"";};
             submit.Click+=async(_,_)=>{ClearInput("title");var request=stamp;submit.Enabled=false;try{TitleAndEmotePackets.Title(name.Text,title.Text);bool sent=await login.SendTitle(request,name.Text,title.Text);if(request==login.CaptureTitleEmote())notice.Text=sent?"稱號請求已送出；等待伺服器更新或拒絕訊息。":"未送出：角色或操作狀態已變更，請重新開啟此頁。";}catch(ArgumentException ex){notice.Text=ex.Message;}finally{submit.Enabled=true;}};
-            var menu=new ComboBox{DropDownStyle=ComboBoxStyle.DropDownList,Width=260,AccessibleName="表情選單"};menu.Items.AddRange(Enumerable.Range(66,4).Select(a=>(object)TitleAndEmotePackets.EmoteName(a)).ToArray());menu.SelectedIndex=0;
+            var menu=new ComboBox{DropDownStyle=ComboBoxStyle.DropDownList,Width=260,AccessibleName="表情選單"};menu.Items.AddRange(TitleAndEmotePackets.MenuActions.Select(a=>(object)TitleAndEmotePackets.EmoteName(a)).ToArray());menu.SelectedIndex=0;
             var play=new Button{Text="播放表情",AutoSize=true};layout.Controls.AddRange([menu,play,notice]);
-            play.Click+=async(_,_)=>{ClearInput("emote");var request=stamp;play.Enabled=false;try{bool sent=!World.Walking&&await login.SendEmote(request,66+menu.SelectedIndex);if(request==login.CaptureTitleEmote())notice.Text=sent?"表情已送出；自身動畫為本地預測，他人可見與否依伺服器判定。":"未送出：請停止移動並確認角色可操作。";}finally{play.Enabled=true;}};
+            play.Click+=async(_,_)=>{ClearInput("emote");var request=stamp;int item=menu.SelectedIndex+1;play.Enabled=false;try{
+                var plan=login.World.Actor is {} a?TitleAndEmotePackets.Plan(a.Gfx,item,true):default;bool sent=await login.SendEmote(request,item);
+                if(request==login.CaptureTitleEmote())notice.Text=!sent?(plan.Delivery==EmoteDelivery.None?"未送出：此外型沒有這個表情。":"未送出：動作進行中、變身表情間隔未到，或角色狀態已變更。")
+                    :plan.Delivery==EmoteDelivery.Immediate?"表情已送出並在本地播放；他人可見與否依伺服器判定。":"表情已送出（變身外型：原版不在本地播放）；他人可見與否依伺服器判定。";}finally{play.Enabled=true;}};
             timer.Tick+=(_,_)=>{if(lastEpoch!=login.World.WorldEpoch||lastGeneration!=login.SessionGeneration){lastEpoch=login.World.WorldEpoch;lastGeneration=login.SessionGeneration;stamp=null;name.Clear();title.Clear();notice.Text="請重新選取稱號／表情頁面。";}if(login.World.EmoteAssetNotice.Length>0)notice.Text=login.World.EmoteAssetNotice;};
             normalPanels.TabPages.Add(page);
         }

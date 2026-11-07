@@ -90,3 +90,7 @@ S118 解碼只讀封包記憶體，接受 16×12、BITMAPINFOHEADER=40、BI_RGB�
 - S167 開始新查詢快照，僅接受與目前自身血盟相同的盟名。S170 與 sub171 分別更新成員及上線集合；沒有上線快照為未知，收到空集合才是全員離線；離盟或世界切換清除。S200 始終只更新關注血盟。
 - S250 既有狀態處理由 ReceiveMagicStatus 提前分派；本輪在 WorldSession 剩餘 switch 加 `case 250 when ... sub171`，既有子碼不變。回歸包含 sub34 與 S219/message252。
 - 血盟正式測試 119 項；各群組的最新數字見 `docs/reports/issue-262.md`。
+
+## T168（#440）盟徽快取與自動查詢
+
+取代前文「快取上限 256 枚」「快取依 WorldEpoch 失效」「未接自動查詢」三點：盟徽快取改為 512 筆 LRU，跨換圖／重新連線保留，並有 `engine/runtime/user/emblems.bin` 磁碟快取；繪製缺盟徽時自動送 C72（不重送、最多 32 筆待回覆），查詢 id 用 S87 clan id。S118 另接受 TW16 384-byte RGB555 格式。細節與已知 emblem id／clan id 差異見 `name-display.md`。T135（#316）的 S167 emblem id 映射仍由該任務處理。
