@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 194,
+ "sourceCount": 196,
  "files": [
   {
    "path": "NuGet.Config",
@@ -238,6 +238,16 @@
    "path": "source/DualBlockTests.cs",
    "size": 8637,
    "sha256": "4d6990df06e302353b7eba857ba937b1b6f86ae570cad0f9c8e32601ce9c7546"
+  },
+  {
+   "path": "source/Duel.cs",
+   "size": 6279,
+   "sha256": "bd82a01e58f38155ce5981e57feb4020fafa3f694be3686118890d4631cde3f9"
+  },
+  {
+   "path": "source/DuelUi.cs",
+   "size": 2955,
+   "sha256": "12e39a0c712540e0f99b16643680e36c42c6d2eee76f9b4413238fc90107e5d3"
   },
   {
    "path": "source/DuplicateRecoveryProbe.cs",
@@ -556,8 +566,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 9850,
-   "sha256": "61dece0fd7ec3666094bd080dedeab949e5ce10a44f8adad418da7da3d130741"
+   "size": 9881,
+   "sha256": "6bfe2cb8ffa0ab728ac4d5a9a760cfe05a3459e0d8aa3aa464a767d289986a09"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -966,8 +976,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 10580,
-   "sha256": "971ef4543b10d38e1c0b346e86ef7d55cf0697f0f68b71fa958b28aef32d17ed"
+   "size": 10626,
+   "sha256": "31d91dafd865edd2399617c32b34bb02abc5930d62d73bd87eca339894e0e596"
   },
   {
    "path": "source/WorldTests.cs",

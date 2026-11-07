@@ -2,7 +2,7 @@
 
 ## 結論
 
-第 1～3 項在前一輪已完成，本輪（同步輪）在分支上確認仍然有效；缺口是分支落後 main 且有衝突。已同步到 `origin/main` 的 `d604050`，解掉 4 個檔案的衝突與 1 個合併後才出現的編譯衝突，重產 dev lock，重新建置並跑完下表的離線回歸，全部通過、未跳過。PR #276 維持非草稿；新 head 的 CI 以推送後的 PR checks 為準，不引用前輪狀態。
+第 1～3 項在前一輪已完成，本輪（同步輪）在分支上確認仍然有效；缺口是分支落後 main 且有衝突。已分兩次同步到 `origin/main` 的 `cb74af4`（第一次到 `1fd46dc`，推送時 main 又前進 18 個 commit），解掉檔案衝突與 1 個合併後才出現的編譯衝突，重產 dev lock，重新建置並跑完下表的離線回歸，全部通過、未跳過。PR #276 維持非草稿；新 head 的 CI 以推送後的 PR checks 為準，不引用前輪狀態。
 
 ## 做了什麼
 
@@ -26,29 +26,30 @@
 
 | 檢查 | 結果 |
 |---|---|
-| `rebuild.py --update-lock` 與唯讀核驗 | 194 來源／203 鎖定輸入通過 |
+| `rebuild.py --update-lock` 與唯讀核驗 | 196 來源／205 鎖定輸入通過 |
 | `rebuild.py --build --configfile scratch/pets-nuget.config --output scratch/pets-build` | 產品、audio、launcher 成功；產品僅既有 MagicUi.cs 兩則 nullable 警告 |
 | DemoChecks `pets` | 191 項通過（Pets 101 項＋每次都會跑的 Polymorph 90 項） |
 | DemoChecks `map-continuity` | 21359 項通過 |
-| DemoChecks `combat-admission` | 1210 項通過 |
+| DemoChecks `combat-admission` | 1324 項通過 |
 | DemoChecks `polymorph-cadence` | 224 項通過 |
 | DemoChecks `buddies` | 360 項通過 |
 | DemoChecks `item-transfer` | 264 項通過 |
 | DemoChecks `player-query`（驗證合併後的 S39 分派） | 892 項通過 |
 | DemoChecks `character-config`／`location-share`／`ambience`／`invisibility` | 284／290／547／261 項通過 |
+| DemoChecks `attack-skills`／`board`／`duel`／`hit-reaction-suppress`／`slow-actions` | 932／421／305／257／555 項通過 |
 | NpcChecks | 165 項通過 |
-| Pets 失敗仍執行後續群組 | 本輪暫時在 `Pets()` 開頭注入例外實測：後續 Polymorph 與 `board` 跑完共 320 項，JSON 為 fail、退出碼 1；注入已還原，`pets` 重跑通過 |
-| `check-no-game-assets.py` | pass，3354 追蹤檔案、0 錯誤 |
+| Pets 失敗仍執行後續群組 | 第一次同步後暫時在 `Pets()` 開頭注入例外實測：後續 Polymorph 與 `board` 跑完共 320 項，JSON 為 fail、退出碼 1；注入已還原，`pets` 重跑通過 |
+| `check-no-game-assets.py` | pass，3355 追蹤檔案、0 錯誤 |
 
 入口：`dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/pets-pets.json pets`；其他群組替換末尾參數及 JSON 路徑。SocketGuard 禁止建立網路連線。
 
-來源 SHA-256 由 dev lock 鎖定；產品 DLL SHA-256：`a6b6308b8d77ca7d71c80e40a3cbb6651e99b3dd0b31879b03e60d3bbc75be80`。
+來源 SHA-256 由 dev lock 鎖定；產品 DLL SHA-256：`3cb51955f14d630085d84baf368abdcd8fb8ba415f4b5793654dd37f32b3eb64`。
 
 ## 未驗證與已知限制
 
 - 未啟動遊戲、伺服器或 DB；未驗證原生 UI、部署 JAR、實機操作與音效。
 - `OnActivated` 掛接只用無視窗 fixture 驗過，寵物分頁實際出現在真視窗的時機待 dot 的 smoke 確認。
-- DemoChecks 不帶群組參數的完整跑法未跑完：worktree 沒有 `engine/assets`（`terrain0.bin`），`Movement123` 讀檔失敗；這條路徑不在 CI，也未為此建立 junction。
+- DemoChecks 不帶群組參數的完整跑法，以及 `busy`、`combat-loop`、`keyboard`、`world` 四個群組失敗：逐一看過例外，都是 worktree 沒有 `engine/assets`（`terrain0.bin`／`integrity.json`）造成的 `DirectoryNotFoundException`，不是斷言失敗。這些路徑不在 CI，未為此建立 junction，因此這幾組在本輪**沒有驗到**。
 - main 既有 `GroundRules.IsGround` 存在格式重疊：owner 空白、HP255、朝向0且其餘可變欄位全零的 follower，會被視為零數量地面物件而移除。原服格式允許這些值；共用渲染／分類不在本輪授權範圍，沒有修改 Ground.cs。Follower 測試使用同樣合法的朝向3，驗證世界物件、隱藏HP及不可控制；不能據此宣稱所有 follower 顯示情況已解決。
 
 ## 產出路徑

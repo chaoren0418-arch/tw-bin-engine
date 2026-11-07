@@ -29,6 +29,7 @@ public sealed partial class WorldSession {
     public void Receive(byte[] plain,string selected){try{ReceiveCore(plain,selected);}finally{ValidatePickupPresentation(ActionClock());CombatSoundStateChanged?.Invoke();}}
     void ReceiveCore(byte[] plain,string selected){
         var r=new LoginReader(plain);byte opcode=r.C();
+        if(ReceiveDuel(opcode,plain))return;
         if(opcode==39&&ReceiveBuddies(opcode,plain))return;
         switch(opcode){
         case 83:ReceivePetList(r);return;
