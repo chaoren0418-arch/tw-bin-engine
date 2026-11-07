@@ -38,3 +38,15 @@ S55 依完整 payload 長度區分 overload；16-byte 的 `time=0` 仍是合法�
 `engine/_integration/dev/sound-packets-tests/` 執行產品 DLL 的解析、狀態、逐幀與派送程式，以合成 payload／圖像及記憶體音訊檢查。Feed 使用 `WorldSession.Receive`，並在不執行 Form 建構子的宿主直接呼叫 `PumpCombatSfx`，核對掛接、單次播放與退役。這些素材只屬測試，不是遊戲功能證據。禁止連線的 EventListener 會在 socket 活動時使測試失敗。測試須建置到 `scratch/issue-192/tests/bin`，合成 catalog 寫入同任務的 `scratch/issue-192/assets`。
 
 M6 smoke 請 dot 檢查：repeat 0／1 的實際次數；time 0／1／2 的單位與顯示時間；同一事件是否同時收到 S22 及 sprite 音效而重複出聲；S106 的位置和混色；timed S55 跟隨移動及目標離開；播放中換圖／斷線／靜音的退役。先選有核定資源的 ID；若部署使用其他 ID，交資源任務補核定來源。
+
+## T173（#447）附加：S22 改為播放模式、音效共用規則層
+
+依據 `docs/reference/sound.md`（T163／#431）第 2.3、2.6、2.7、3、4.1 節的「已驗證」項目，**取代**上面「repeat 表示額外次數」的推測政策：
+
+- S22 格式不變（`C H`），第一個 byte 是**播放模式**：0 單次（`SoundVolume`，同 id 的單次實例還在播時不重播，對應 `A05EA0`）；1 環境音循環（`EnvSoundVolume`，以 WAV 時長逐輪重送，同 id 已在循環時不重複啟動）；2 停止該 id（移除該 id 的單次與循環，循環 owner 立即退役）；3..255 文件未列，忽略並寫 notice。
+- 幀事件／S22 的 ±100 ms 首播去重只用於模式 0，不套用到循環。
+- 新檔 `engine/source/SoundRules.cs` 是共用層：`SoundRules.DistanceVolume`（`100 − 14·(nx²+ny²)/20`，曼哈頓距離 > 14 夾成 (14,0)，負值為 0）、`SoundCooldown.Shared`（每 id 一份、跨角色跨管線的 200 ms）、`SoundVolumes`（4 類各自可調，0..1 正規化）、`SoundGate.Admit`（類別檢查 → 距離 → 冷卻 → 倍率）。
+- `CombatSfxController` 設了 `Gate` 時每次派送都先過 `SoundGate`，再以 `IAudioPlayback.PlayAsync(id, owner, scale)` 送出；`AudioCore` 以「主音量 × voice 倍率」設定原生音量。產品 `ClientForm` 建立的戰鬥音效控制器已接上 `SharedSoundGate` 與 `WorldSession.SoundOffset`。
+- **刻意不實作（文件標推測）**：Miles 第三參數 `ext`（`64 − 63·(nx+ny)/14`）、x 座標先 `>>1` 的雙倍精度。dx、dy 直接以格計。
+- **與原版的已知差距**：原版每次更新都以 `A091C0` 重設播放中 sample 的音量；這裡只在派送當下固定倍率，播放中移動不改音量。原版音量 0 時仍會靜音播放；這裡不送出無聲 voice，但冷卻照樣佔用。
+- 離線檢查：`engine/_integration/dev/sound-rules-tests/`（CI `map-continuity` job）。
