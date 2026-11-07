@@ -29,10 +29,17 @@ public sealed partial class WorldSession {
     public void Receive(byte[] plain,string selected){try{ReceiveCore(plain,selected);}finally{ValidatePickupPresentation(ActionClock());CombatSoundStateChanged?.Invoke();}}
     void ReceiveCore(byte[] plain,string selected){
         var r=new LoginReader(plain);byte opcode=r.C();
-        if(ReceiveDuel(opcode,plain))return;
+        // Observe party HP before Combat consumes S237; retain its existing actor/target HP update.
+        switch(opcode){case 237:ReceivePartyHp(plain);break;}
+        // Run both: S219 is one shared Yes-No slot, so each module must see the other's invitation to expire its own.
+        bool partyHandled=ReceiveParty(opcode,plain),duelHandled=ReceiveDuel(opcode,plain);
+        if(partyHandled||duelHandled)return;
         if(opcode==39&&ReceiveBuddies(opcode,plain))return;
         switch(opcode){
         case 183:ReceiveTitle(r);return;
+        case 165:ReceivePoison(r);return;
+        case 202:ReceiveParalysis(r,plain);return;
+        case 47:ReceiveBlind(r);return;
         case 64 when plain.Length>1 && plain[1] is >=1 and <=4:ReceiveCharReset(plain);return;
         case 83 when !WeaponRepairPackets.IsRepairList(plain):ReceivePetList(r);return;
         case 176:ReceivePetInventory(r,plain);return;

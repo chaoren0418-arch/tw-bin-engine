@@ -106,6 +106,31 @@ partial class Checks {
         // The compositor re-blits every draw, so a title must not restore an invisible actor to full opacity.
         Feed(c,InvisPacket(123,1));var hidden=(Patch)typeof(Renderer).GetMethod("ComposeTitlesAndEmotes",F)!.Invoke(renderer,[own,c.World,catalog,original,new List<ObjectVisual>(),1000L])!;
         Check(hidden.Colors[(draw.Py-hidden.Bounds.Y)*hidden.Bounds.Width+draw.Px-hidden.Bounds.X]==0x3c00,"title overlay keeps invisible actor half blend");
+        Feed(c,InvisPacket(123,0));Feed(c,Poison(123,1,0));var poisoned=(Patch)typeof(Renderer).GetMethod("ComposeTitlesAndEmotes",F)!.Invoke(renderer,[own,c.World,catalog,original,new List<ObjectVisual>(),1000L])!;
+        Check(poisoned.Colors[(draw.Py-poisoned.Bounds.Y)*poisoned.Bounds.Width+draw.Px-poisoned.Bounds.X]==AfflictionColors.Tint(0x7c00,AfflictionTint.Poison),"title recomposition keeps poison tint");
+        TitleEmoteBlindLabels();
+    }
+    static void TitleEmoteBlindLabels(){
+        // Mirrors the ObjectRendering hook: the affliction patch feeds the title compositor.
+        var assets=(Assets)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(Assets));
+        Backing(assets,"CanvasWidth",2000);Backing(assets,"CanvasHeight",1100);Backing(assets,"Scene",new List<Draw>());
+        var renderer=(Renderer)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(Renderer));Set(renderer,"assets",assets);
+        var own=(World)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(World));Backing(own,"X",32600);Backing(own,"Y",32940);
+        var catalog=(ObjectAssets)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(ObjectAssets));
+        using var c=TitleEmoteSeed();Feed(c,TitleUpdate(123,"自身"));Feed(c,TitleUpdate(456,"遠方"));
+        var self=new Draw(48,44,0,1000000,"actor",0,-1,-1,new Tile(2,[new Pixel(0,0,0x7c00)]));var peer=self with{X=60,ObjectId=456};
+        var foot=new System.Drawing.PointF(peer.Px,peer.Py);var visual=new ObjectVisual(456,0,0,"peer",32612,32940,"breath","8:0",foot,System.Drawing.Rectangle.Empty,false,0);
+        var area=new System.Drawing.Rectangle(1400,700,500,350);var compose=typeof(Renderer).GetMethod("ComposeAfflictionPatch",F)!;var titles=typeof(Renderer).GetMethod("ComposeTitlesAndEmotes",F)!;
+        Patch Compose(){var patch=(Patch)compose.Invoke(renderer,[c.World,area,new List<Draw>{self,peer},null])!;return (Patch)titles.Invoke(renderer,[own,c.World,catalog,patch,new List<ObjectVisual>{visual},1000L])!;}
+        ushort[] Glyphs(Patch p,System.Drawing.PointF at)=>Enumerable.Range((int)at.Y-115,45).SelectMany(y=>Enumerable.Range((int)at.X-60,120).Select(x=>p.Colors[(y-p.Bounds.Y)*p.Bounds.Width+x-p.Bounds.X])).Where(v=>v!=0).ToArray();
+        var ownFoot=own.DisplayPosition;
+        var normal=Compose();Check(Glyphs(normal,foot).Length>20&&Glyphs(normal,ownFoot).Length>20,"sighted title labels drawn for self and peer");
+        Feed(c,Blind(1));var blind=Compose();Check(blind.Bounds==renderer.Bounds,"blind title keeps full-screen affliction patch");
+        Check(Glyphs(blind,foot).Length==0,"blind mode 1 title does not reveal peer position");Check(Glyphs(blind,ownFoot).Length>20,"blind mode 1 keeps own title");
+        Check(blind.Colors[(peer.Py-blind.Bounds.Y)*blind.Bounds.Width+peer.Px-blind.Bounds.X]==0,"blind mode 1 peer stays black under title compositor");
+        Feed(c,Blind(2));var dim=Compose();var dimmed=Glyphs(dim,foot);ushort expected=AfflictionColors.Darken(0x7ffc);
+        Check(dimmed.Length>20&&dimmed.All(v=>v==expected),"blind mode 2 darkens title glyphs with the scene");
+        Feed(c,Blind(0));Check(Compose().Colors.SequenceEqual(normal.Colors),"blind release restores exact title composition");
     }
     static void TitleEmoteOriginalAssets(){
         using var reader=new EmoteSprites();foreach(int gfx in new[]{0,1,37,48,61,734,1186,2786,2796,6650,6658,6661,6671})foreach(int action in Enumerable.Range(66,4))foreach(int direction in Enumerable.Range(0,gfx==0?8:1)){
@@ -132,6 +157,7 @@ partial class Checks {
             Check(patch.Commands.Count(d=>d.Layer=="actor")>1,"original emote replaces base actor tiles "+action);
             Check(patch.Mask.Count(x=>x)>100,"original emote pixels present "+action);
         }
+        Feed(c,Blind(1));Feed(c,EmoteUpdate(123,68));Check(Compose([]).Colors.Count(v=>v!=0)>100,"blind mode 1 own emote stays visible");Feed(c,Blind(0));
         byte[] remote=Pack(456);remote[9]=remote[10]=0;Feed(c,remote);Feed(c,EmoteUpdate(456,68));
         var visual=new ObjectVisual(456,0,3225,"target",32600,32940,"breath","8:0",Coordinates.Screen(32600,32940),System.Drawing.Rectangle.Empty,false,0);
         var list=new List<ObjectVisual>{visual};var result=Compose(list);

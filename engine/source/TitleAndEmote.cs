@@ -209,7 +209,9 @@ public sealed partial class Renderer {
         }
         var labels=new List<(PointF Foot,string Name,string Title)>();
         if(session.Actor is {} actor)labels.Add((own.DisplayPosition,actor.Name,actor.Title));
-        foreach(var o in session.Objects){var v=visuals.FirstOrDefault(v=>v.ObjectId==o.ObjectId);if(v!=null&&original.VisibleObjectIds.Contains(o.ObjectId)&&!string.IsNullOrEmpty(o.Title))labels.Add((v.Foot,catalog.DisplayName(o),o.Title));}
+        // Blind mode 1 blacks out everyone else, so their labels must not reveal where they stand.
+        ushort blind=session.BlindMode;
+        if(blind!=1)foreach(var o in session.Objects){var v=visuals.FirstOrDefault(v=>v.ObjectId==o.ObjectId);if(v!=null&&original.VisibleObjectIds.Contains(o.ObjectId)&&!string.IsNullOrEmpty(o.Title))labels.Add((v.Foot,catalog.DisplayName(o),o.Title));}
         labels.RemoveAll(l=>string.IsNullOrEmpty(l.Title));if(labels.Count==0&&!changed)return original;
         using var font=new Font("Microsoft JhengHei UI",10,FontStyle.Regular,GraphicsUnit.Pixel);
         using var measure=new Bitmap(1,1);using var mg=Graphics.FromImage(measure);
@@ -219,14 +221,16 @@ public sealed partial class Renderer {
         foreach(var d in commands.Where(d=>d.Layer=="actor"))area=Rectangle.Union(area,new Rectangle(d.Px,d.Py,24,24));area=Rectangle.Intersect(area,Bounds);
         // Refresh scenery for an emote extending beyond the previous pose, preserving tile depth/ownership.
         var scenery=ActiveScene.ToHashSet();commands=commands.Where(d=>!scenery.Contains(d)).Concat(ActiveScene.Where(d=>d.Px<area.Right&&d.Px+24>area.Left&&d.Py<area.Bottom&&d.Py+24>area.Top)).OrderBy(d=>d,DrawComparer.Instance).ThenBy(d=>d.ObjectId).ToList();
-        var colors=new ushort[area.Width*area.Height];var mask=new bool[colors.Length];var owners=Enumerable.Repeat(-1,colors.Length).ToArray();var entities=new uint?[colors.Length];FillShipBackdrop(area,colors,mask);
-        foreach(var d in commands)Blit(d,area,colors,mask,owners,entities,session.InvisibilityOpacity(d,session.Opacity?.Get(d)));
+        // ComposeAfflictionPatch is the only owner of tint, blindness and opacity. Labels alone that fit the
+        // incoming patch reuse it, which also avoids a second full-screen pass while blind.
+        var patch=!changed&&area==original.Bounds?original:ComposeAfflictionPatch(session,area,commands,session.Opacity);
+        area=patch.Bounds;var colors=patch.Colors;var mask=patch.Mask;
         using var overlay=new Bitmap(area.Width,area.Height);using(var g=Graphics.FromImage(overlay)){
             g.TextRenderingHint=System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
             foreach(var label in text){var box=label.Bounds;box.Offset(-area.X,-area.Y);g.DrawString(label.Value,font,Brushes.LightYellow,box);}
         }
-        foreach(var label in text){var box=Rectangle.Intersect(Rectangle.Ceiling(label.Bounds),area);for(int y=box.Top;y<box.Bottom;y++)for(int x=box.Left;x<box.Right;x++){var c=overlay.GetPixel(x-area.X,y-area.Y);if(c.A==0)continue;int i=(y-area.Y)*area.Width+x-area.X;colors[i]=(ushort)((c.R>>3)<<10|(c.G>>3)<<5|(c.B>>3));mask[i]=true;}}
-        return new(area,colors,mask,owners,commands,entities);
+        foreach(var label in text){var box=Rectangle.Intersect(Rectangle.Ceiling(label.Bounds),area);for(int y=box.Top;y<box.Bottom;y++)for(int x=box.Left;x<box.Right;x++){var c=overlay.GetPixel(x-area.X,y-area.Y);if(c.A==0)continue;int i=(y-area.Y)*area.Width+x-area.X;ushort color=(ushort)((c.R>>3)<<10|(c.G>>3)<<5|(c.B>>3));colors[i]=blind==2?AfflictionColors.Darken(color):color;mask[i]=true;}}
+        return patch;
     }
 }
 

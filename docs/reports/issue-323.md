@@ -45,6 +45,16 @@
 
 本輪驗證（基準 main `5555e4a`）：`--update-lock`、`--build` 通過（210 個來源／219 個 pin），產品 DLL SHA-256 `9059664e77b26cafd2bba7b2115107f7ef8cf68961f6a6563e416efb9ba00122`；DemoChecks 0 warning／0 error。群組全過：`title-emote` 613、`title-emote-assets` 353、`title-emote-compose` 206、`combat-admission` 1746、`map-continuity` 22275、`marriage` 329、`char-reset` 354、`polymorph-cadence` 226、`buddies` 362、`item-transfer` 266、`player-query` 894、`fishing` 232、`doors` 514、`invisibility` 263、`duel` 307、`ambience` 549、`pets` 193、`location-share` 292、`attack-skills` 934、`character-config` 286、`board` 423、`ghost-mode` 552、`portals` 293、`clan` 312；獨立專案 `MailChecks` 119、`WeaponRepairChecks` 98。`check-no-game-assets.py` 通過（3411 個追蹤檔、0 錯誤）。CI 的 `web-resource`、`ResourceChecks`、`check-local-resources`、`packet-trace`、`npc-checks` 本機未跑，以 CI 為準。本機 `python` 不在 PATH，改用 Python312 完整路徑。
 
+**同步輪（第 6 輪，2026-11-07）**：`fef78ff` 的 CI 三個 job 全綠，但 main 又前進 44 個 commit（狀態異常 #388、組隊 #259）。合併 `origin/main`（`dd640a7`）；`DemoChecks.csproj`、`WorldSession.cs` 取聯集（S183 與 S165／S202／S47 並存），`rebuild-lock.json` 以 main 為底跑 `--update-lock` 重產，`Program.cs` 自動合併。
+
+**本輪有一處改動超出單純同步**：main 把物件合成改由 `ComposeAfflictionPatch` 負責，而 `ComposeTitlesAndEmotes` 原本自己重新 Blit，直接聯集會在畫面有稱號或表情時洗掉中毒／灰色染色與盲目遮罩。改法都限在本任務的掛載點與 `TitleAndEmote.cs`：
+
+- `ObjectRendering.cs` 掛載點改為接收 `ComposeAfflictionPatch` 的結果；`ComposeTitlesAndEmotes` 需要重畫時也走同一個入口，不再自己 Blit。只有稱號且範圍沒變時直接沿用傳入的 patch，避免盲目時多一次全畫面合成。
+- 盲目 1 不畫其他角色的稱號（否則黑畫面會洩漏對方位置），自身稱號保留；盲目 2 的稱號與場景一樣變暗。這是呈現政策，**未與原客戶端比對**，已寫進 `docs/protocol/title-emote.md`。
+- 測試新增：稱號重畫保留中毒染色；盲目 1 不洩漏他人稱號、保留自身稱號、他人維持全黑；盲目 2 稱號變暗；解除後逐像素還原；盲目 1 自身表情仍可見。
+
+本輪驗證（基準 main `dd640a7`）：`--update-lock`、`--build` 通過（213 個來源／222 個 pin），產品 DLL SHA-256 `af499b512c7c74cf19e806d12609873e25a445785770830c44d5dc0cba094a1b`；DemoChecks 0 warning／0 error。群組全過：`title-emote` 704、`title-emote-assets` 436、`title-emote-compose` 290、`afflictions` 428、`party` 276、`combat-admission` 1837、`map-continuity` 22358、`marriage` 412、`char-reset` 437、`polymorph-cadence` 309、`buddies` 445、`item-transfer` 349、`player-query` 977、`fishing` 315、`doors` 597、`invisibility` 346、`duel` 390、`ambience` 632、`pets` 276、`location-share` 375、`attack-skills` 1017、`character-config` 369、`board` 506、`ghost-mode` 635、`portals` 376、`clan` 395；獨立專案 `MailChecks` 119、`WeaponRepairChecks` 98。`check-no-game-assets.py` 通過（3420 個追蹤檔、0 錯誤）。各群組計數含 `Main` 開頭共用的檢查，所以比前輪多，不全是本模組新增。
+
 **未通過／未驗證**：`combat-loop` 群組與 DemoChecks 無群組的預設全量入口需要 `engine/assets`，本 worktree 沒有 junction，沒有跑。`combat-loop` 退出 1，停在讀 `integrity.json`，不是斷言失敗；預設入口第 3 輪停在 `Movement123` 讀 `terrain0.bin`，本輪未重跑。測試碼有檔案寫入路徑，指向原專案會違反「原專案只讀」，故未這樣做。CI 不跑這兩個入口。CI 結果以 PR #356 為準，本機通過不能替代 CI 綠燈。
 
 未做真機登入、角色權限與拒絕訊息、雙角色視野廣播、實際 UI 操作或音效驗收。未窮舉所有變身外觀；原圖缺件會顯示提示，沒有替代假圖。第一次使用封裝同步 SHA 核驗可能造成載入停頓；後續使用記憶體快取。表情音效與缺少的原生陰影不在此任務範圍。離線合成不是原生遊戲畫面驗收。
@@ -53,6 +63,6 @@
 
 - 產品：`engine/source/TitleAndEmote.cs`；最小掛接：`WorldSession.cs`、`ObjectRendering.cs`；dev lock 已由腳本重產。
 - 契約：[title-emote.md](../protocol/title-emote.md)；測試：[README](../../engine/_integration/dev/title-emote-tests/README.md)。本機結果與建置紀錄：`scratch/issue-323/`。
-- 分支 `task/323`，PR #356。同步已完成，下一棒：調度器確認兩個 CI job 綠燈後依閘門合併；若 main 再前進，重新同步並以 `--update-lock` 重產 dev lock。之後的 S158 新模組要接在同一個 `case 158`，表情必須留在門之後。
+- 分支 `task/323`，PR #356。同步已完成，下一棒：調度器確認兩個 CI job 綠燈後依閘門合併；若 main 再前進，重新同步並以 `--update-lock` 重產 dev lock。之後的 S158 新模組要接在同一個 `case 158`，表情必須留在門之後。物件合成的新效果請加在 `ComposeAfflictionPatch`，稱號與表情的重畫會自動帶上；不要在 `ComposeTitlesAndEmotes` 另寫 Blit。
 - 只把 main 合進來但不重產 lock（例如 GitHub 的 Update branch）會讓 CI 以 `sourceCount` 不符失敗；同步一定要跑 `--update-lock`。`ClientForm` 的 `OnLoad`、`OnShown`、`OnVisibleChanged`、`OnActivated`、`OnCreateControl`、`OnHandleCreated`、`SetVisibleCore` 都已有模組使用；每個模組各佔一個 override 的做法已撞名多次，建議由調度器另開任務在 `ClientForm` 建一個共用的 UI 初始化事件。
-- dot 於 M6 smoke：先確認分頁在「更多」出現（第 4、5 輪都改了掛載點），再開「更多 → 稱號／表情」，分別核對隱身角色有稱號時仍為半透明、有權／無權稱號、自身與其他測試角色名稱上方的稱號更新、四種表情、移動／換圖中止，以及首次原圖核驗停頓。依既有 P24Lab 授權執行，不連正式服務。
+- dot 於 M6 smoke：先確認分頁在「更多」出現（第 4、5 輪都改了掛載點），再開「更多 → 稱號／表情」，分別核對隱身角色有稱號時仍為半透明、中毒與盲目時的稱號和表情（盲目 1 看不到他人稱號，並觀察盲目時的流暢度）、有權／無權稱號、自身與其他測試角色名稱上方的稱號更新、四種表情、移動／換圖中止，以及首次原圖核驗停頓。依既有 P24Lab 授權執行，不連正式服務。

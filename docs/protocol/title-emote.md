@@ -21,6 +21,8 @@
 - 原服 `broadcastPacketAll` 走可見玩家廣播，沒有 C120 自身 ACK。自身在 sender admission 後播放明示的本地預測；遠方角色只依 S158 播放。傳送失敗斷線，不重送。稱號永遠等 S183。
 - 稱號繪製移除 legacy 顏色控制碼及控制字元；只為顯示截成 80 字加省略號，模型與送出的稱號不因此截斷。名稱在稱號下方。標籤不改物件選取 owner。
 
+- 稱號與表情一律經 `ComposeAfflictionPatch` 合成，保留 S165 染色、S171 半透明與 S47 盲目。盲目 1 只畫自身稱號，不畫其他角色的稱號，避免洩漏對方位置；盲目 2 的稱號與場景一樣降為四分之一亮度。這是呈現政策，未與原客戶端比對。
+
 ## 原圖與生命週期
 
 `TitleAndEmote.cs` 從 `TW_CLIENT_ROOT`（預設 `D:\lineage開發\0-客戶端`）唯讀讀取 `TW13081901.txt`、`Sprite.idx/pak` 與分卷 `Sprite00`–`Sprite15`。索引、封裝、長度 SHA 沿用既有 `GroundSpriteReader` 核定值。解碼後只放記憶體，不產出或追蹤遊戲資源。
