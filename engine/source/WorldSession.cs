@@ -32,7 +32,7 @@ public sealed partial class WorldSession {
         if(opcode==39&&ReceiveBuddies(opcode,plain))return;
         switch(opcode){
         case 165:ReceivePoison(r);return;
-        case 202:ReceiveParalysis(r);return;
+        case 202:ReceiveParalysis(r,plain);return;
         case 47:ReceiveBlind(r);return;
         case 250 when plain.Length>1&&plain[1]==41:ReceiveCharacterConfig(plain);return;
         case 250 when plain.Length>=2&&plain[1] is 17 or 18 or 19:ReceiveBuddies(opcode,plain);return;

@@ -36,7 +36,7 @@ public sealed partial class WorldSession {
         afflictionTints[id]=green!=0?AfflictionTint.Poison:gray!=0?AfflictionTint.Gray:AfflictionTint.Normal;
     }
 
-    void ReceiveParalysis(LoginReader r){
+    void ReceiveParalysis(LoginReader r,byte[] plain){
         // Keep the existing ActionLocked gate and S202/7 recovery-wrapper semantics.
         // All movement/attack sources, including queued sends, already use that gate.
         bool wasLocked=AfflictionInputLocked;
@@ -46,6 +46,8 @@ public sealed partial class WorldSession {
             AppearanceRevision++;
             CancelPickupPresentation("affliction");
         }
+        // This case returns before the shared chain; S202/7 is the rejection reply for supplies.
+        BasicSupplyReply(202,plain);
     }
 
     void ReceiveBlind(LoginReader r){

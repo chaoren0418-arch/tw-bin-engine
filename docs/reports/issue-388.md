@@ -24,6 +24,20 @@ CI 已加入 `Affliction contracts`；遠端結果以本 PR 的 `build` workflow
 
 初次 NuGet 線上還原因 Windows TLS 認證錯誤失敗；改用原專案 `engine/vendor` 的既有套件唯讀還原，套件快取及暫存均位於本 worktree，未更動原專案。
 
+## 同步輪（2026-11-07，claude-local）
+
+調度器退回同步：PR #401 落後 main 105 個 commit，5 個檔案衝突。上方的檢查數、DLL SHA-256 與 lock 數量是第一輪數值，已由本段取代。
+
+- 合併 `origin/main`：`build.yml`、`DemoChecks.csproj`、`Program.cs`、`WorldSession.cs` 兩邊保留；`rebuild-lock.json` 由 `--update-lock` 重產。
+- **超出「只做同步」的一項修正（獨立 commit，可單獨回退）**：第一輪的 `case 202` 提早返回，略過 `BasicSupplyReply`。原服拒絕吃肉／回家卷軸時 S202/7 是唯一解除路徑，所以 `BasicSupplyPending` 不會清除，`ActionLocked` 一直為真，只能重連。這不是合併造成的，第一輪測試也沒有涵蓋。已在 `ReceiveParalysis` 補呼叫，並加入走真實 `UseSelectedItem` 路徑的迴歸測試；修正前該測試失敗（`S202/7 releases pending supply False`），修正後通過。
+- S165／S47 的 case 同樣略過 `BasicSupplyReply`，但這兩種封包不是補給品回包，只少了一次提示刷新與世界／死亡檢查，下一個封包就會補上，故未修改。
+
+同步輪最終驗證（合併 main 並修正後）：
+
+- `--update-lock`：190 個來源、199 個鎖定檔；`--build`：產品及 launcher 通過，產品 DLL SHA-256 `103a3b138e20a7d03963bacfcab23feafd547d54ee99e93e4c97016ec50b04ee`。
+- DemoChecks：afflictions 238、combat-admission 1109、map-continuity 20733、polymorph-cadence 123、buddies 259、item-transfer 163，全部通過。main 合入後每組都會先跑 `PolymorphChecks()`，所以總數比第一輪高。
+- `check-no-game-assets.py`：通過，0 錯誤。
+
 ## 未驗證什麼
 
 - 未啟動遊戲、伺服器或 DB，未登入／送真實遊戲封包。

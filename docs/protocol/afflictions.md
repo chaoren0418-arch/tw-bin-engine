@@ -28,7 +28,7 @@ H／D 是 little endian；沿用 `LoginReader.Finish()` 的 8-byte 零補齊檢�
 | 暈眩 | 22 | 23 |
 | 束縛 | 24 | 25 |
 
-S202 分派轉交既有 `ReceiveTeleport`，沿用其獨立鎖集合及 `ActionLocked`。解除其中一項不解除其他項；7 只移除傳送鎖，傳送尚未完成時仍進入 recovery。S202/7 額外 8-byte recovery wrapper 仍可接受，其餘格式不接受額外補塊。
+S202 分派轉交既有 `ReceiveTeleport`，沿用其獨立鎖集合及 `ActionLocked`。解除其中一項不解除其他項；7 只移除傳送鎖，傳送尚未完成時仍進入 recovery。S202/7 額外 8-byte recovery wrapper 仍可接受，其餘格式不接受額外補塊。S202 的 case 會提早返回，因此 `ReceiveParalysis` 必須自行呼叫 `BasicSupplyReply`：吃肉／回家卷軸被原服拒絕時，S202/7 是解除補給品等待鎖的唯一回包。
 
 異常狀態首次鎖住輸入時遞增既有 `AppearanceRevision`，讓送出閘門與 UI 清除先前輸入；即使施加與解除都發生在排隊請求送出前，舊移動／攻擊也不會復活。鍵盤查詢提供異常狀態提示；滑鼠、網頁與連線 API 使用既有共同動作鎖。
 

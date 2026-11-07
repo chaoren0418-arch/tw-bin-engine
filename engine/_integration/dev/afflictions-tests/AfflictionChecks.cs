@@ -78,6 +78,17 @@ partial class Checks {
             foreach(var bytes in new[]{Poison(123,1,1),Poison(123,2,0),Poison(0,1,0),Blind(3),Blind(256)})AfflictionReject(()=>Feed(c,bytes),"invalid field "+Convert.ToHexString(bytes));
             Check(c.World.BlindMode==2&&c.World.AfflictionInputLocked&&c.World.TintFor(123)==AfflictionTint.Poison,"malformed packets are atomic");
         }
+        foreach(bool wrapped in new[]{false,true}){
+            // C_ItemUSe rejection answers with S202/7; it is the only release for a pending supply.
+            using var c=Seed();
+            Sender(c,(_,valid,admit)=>{if(!valid())return Task.FromResult(false);admit();return Task.FromResult(true);});
+            SlowItem(c,"home");
+            Check(await c.UseSelectedItem()&&c.World.BasicSupplyPending&&c.World.ActionLocked,"home scroll request stays pending "+wrapped);
+            Feed(c,Paralysis(2));Check(c.World.BasicSupplyPending,"paralysis is not a supply reply "+wrapped);
+            Feed(c,Paralysis(3));Check(c.World.BasicSupplyPending,"paralysis release is not a supply reply "+wrapped);
+            Feed(c,wrapped?[..Paralysis(7),..new byte[8]]:Paralysis(7));
+            Check(!c.World.BasicSupplyPending&&!c.World.ActionLocked,"S202/7 releases pending supply "+wrapped);
+        }
         AfflictionRendering();
     }
 
