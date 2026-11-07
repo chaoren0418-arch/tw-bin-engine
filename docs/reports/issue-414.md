@@ -26,6 +26,8 @@
 - `check-no-game-assets.py`：通過，0 錯誤。
 - d287 JAR 以 `javap -c` 唯讀核對：`C_Attr` 的 H／D／H 順序與 321、322 分支、`S_Lock` 寫入 241 與 0、`C_UnLock` 的 127 分支。
 
+- 同步 origin/main（25 個提交，只有 `rebuild-lock.json` 衝突，取 main 版後 `--update-lock` 重產：215 個來源、224 個鎖定檔）。同步後 `--build` 通過，產品 DLL SHA-256 `6af85308f4a7d3c6550705dcadf3f6170e4216e82675a61b11f149360f5959de`；`resurrection` 502 項重跑通過；`check-no-game-assets.py` 0 錯誤。
+
 CI 結果見 PR。
 
 ## 沒驗證什麼

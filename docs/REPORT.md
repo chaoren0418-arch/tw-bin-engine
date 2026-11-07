@@ -120,3 +120,5 @@
 - 2026-11-07 — #359 T142：能力值重置（code，claude-local，PR 已合併）→ [報告](reports/issue-359.md)
 - 2026-11-07 — #259 T125：組隊（code，claude-local，PR 已合併）→ [報告](reports/issue-259.md)
 - 2026-11-07 — #388 T148：中毒、麻痺、詛咒盲目（code，claude-local，PR 已合併）→ [報告](reports/issue-388.md)
+- 2026-11-07 — #417 盤點本機逆向資源：登入器bin資源、tools/rea-investigation，用 rea-main 拆解可用項目交主控（resource，claude-local，PR 已合併）→ [報告](reports/issue-417.md)
+- 2026-11-07 — #390 T150：小地圖（code，claude-local，PR 已合併）→ [報告](reports/issue-390.md)
