@@ -38,10 +38,13 @@ public sealed partial class ClientForm {
         duelInvite.Enabled=ready&&login.CanInviteDuel&&login.World.FacingTradeTarget is {} target&&HasVisibleObjectPixel(target.ObjectId);
         duelAccept.Enabled=duelReject.Enabled=ready&&view.Phase=="invited"&&!login.World.ActionLocked&&!login.World.TradeBlocksActions;
     }
-    void PaintDuelOpponent(Graphics g){
-        foreach(var visual in objectVisuals.Where(v=>login.World.IsDuelOpponent(v.ObjectId))){
-            var point=Camera.ToView(visual.Foot);
-            g.DrawString("決鬥對手 · "+visual.Name,Font,Brushes.OrangeRed,point.X-40,point.Y-28);
-        }
+    // The original never labels the duel opponent (0x15442DC is read only by sub_A3FE30 and sub_F044C0):
+    // it changes the attack cursor and direct-attack admission, not the name. Same for pink names and enemy clans.
+    bool attackCursorShown;
+    internal static Cursor AttackCursor=>Cursors.Cross;
+    void UpdateAttackCursor(uint? hovered){
+        bool attack=hovered is uint id&&login.World.CanAttackDirectly(id);
+        if(attack==attackCursorShown)return;attackCursorShown=attack;Cursor=attack?AttackCursor:Cursors.Default;
     }
+    internal bool DirectAttackTarget(uint id)=>login.World.CanAttackDirectly(id);
 }

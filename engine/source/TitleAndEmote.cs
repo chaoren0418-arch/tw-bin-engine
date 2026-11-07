@@ -87,6 +87,8 @@ public sealed partial class WorldSession {
             if(!current||now-e.At>=10000||now<e.At)emotes.Remove(e.Id);
         }
     }
+    // Title (+240) for the name painter: S183 or S87 value, display-cleaned; empty when none.
+    public string DisplayTitle(uint id)=>TitleAndEmotePackets.DisplayText(Actor?.ObjectId==id?Actor.Title:objects.TryGetValue(id,out var o)?o.Title:"");
     public EmotePlayback[] ActiveEmotes(long now){PruneEmotes(now);return emotes.Values.ToArray();}
     internal void EndEmote(uint id)=>emotes.Remove(id);
     // A locally played emote is itself a busy action until its sprite frames finish (renderer ends it).
@@ -278,30 +280,15 @@ public sealed partial class Renderer {
                 changed=true;
             }catch(Exception ex) when(ex is IOException or InvalidDataException or IndexOutOfRangeException){session.EmoteAssetNotice="無法顯示表情原圖："+ex.Message;session.EndEmote(emote.Id);}
         }
-        var labels=new List<(PointF Foot,string Name,string Title)>();
-        if(session.Actor is {} actor)labels.Add((own.DisplayPosition,actor.Name,actor.Title));
-        // Blind mode 1 blacks out everyone else, so their labels must not reveal where they stand.
-        ushort blind=session.BlindMode;
-        if(blind!=1)foreach(var o in session.Objects){var v=visuals.FirstOrDefault(v=>v.ObjectId==o.ObjectId);if(v!=null&&original.VisibleObjectIds.Contains(o.ObjectId)&&!string.IsNullOrEmpty(o.Title))labels.Add((v.Foot,catalog.DisplayName(o),o.Title));}
-        labels.RemoveAll(l=>string.IsNullOrEmpty(l.Title));if(labels.Count==0&&!changed)return original;
-        using var font=new Font("Microsoft JhengHei UI",10,FontStyle.Regular,GraphicsUnit.Pixel);
-        using var measure=new Bitmap(1,1);using var mg=Graphics.FromImage(measure);
-        var text=labels.Select(l=>{string value=TitleAndEmotePackets.DisplayText(l.Title)+"\n"+TitleAndEmotePackets.DisplayText(l.Name);SizeF size=mg.MeasureString(value,font,320);return(Value:value,Bounds:new RectangleF(l.Foot.X-size.Width/2,l.Foot.Y-70-size.Height,size.Width,size.Height));}).ToArray();
+        // Titles are no longer baked into the scene: ObjectRendering draws title, name and emblem for the
+        // hovered object only (actions-and-names.md 2.2). This hook now owns emote substitution alone.
+        if(!changed)return original;
         var area=original.Bounds;
-        foreach(var label in text)area=Rectangle.Union(area,Rectangle.Ceiling(label.Bounds));
         foreach(var d in commands.Where(d=>d.Layer=="actor"))area=Rectangle.Union(area,new Rectangle(d.Px,d.Py,24,24));area=Rectangle.Intersect(area,Bounds);
         // Refresh scenery for an emote extending beyond the previous pose, preserving tile depth/ownership.
         var scenery=ActiveScene.ToHashSet();commands=commands.Where(d=>!scenery.Contains(d)).Concat(ActiveScene.Where(d=>d.Px<area.Right&&d.Px+24>area.Left&&d.Py<area.Bottom&&d.Py+24>area.Top)).OrderBy(d=>d,DrawComparer.Instance).ThenBy(d=>d.ObjectId).ToList();
-        // ComposeAfflictionPatch is the only owner of tint, blindness and opacity. Labels alone that fit the
-        // incoming patch reuse it, which also avoids a second full-screen pass while blind.
-        var patch=!changed&&area==original.Bounds?original:ComposeAfflictionPatch(session,area,commands,session.Opacity);
-        area=patch.Bounds;var colors=patch.Colors;var mask=patch.Mask;
-        using var overlay=new Bitmap(area.Width,area.Height);using(var g=Graphics.FromImage(overlay)){
-            g.TextRenderingHint=System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
-            foreach(var label in text){var box=label.Bounds;box.Offset(-area.X,-area.Y);g.DrawString(label.Value,font,Brushes.LightYellow,box);}
-        }
-        foreach(var label in text){var box=Rectangle.Intersect(Rectangle.Ceiling(label.Bounds),area);for(int y=box.Top;y<box.Bottom;y++)for(int x=box.Left;x<box.Right;x++){var c=overlay.GetPixel(x-area.X,y-area.Y);if(c.A==0)continue;int i=(y-area.Y)*area.Width+x-area.X;ushort color=(ushort)((c.R>>3)<<10|(c.G>>3)<<5|(c.B>>3));colors[i]=blind==2?AfflictionColors.Darken(color):color;mask[i]=true;}}
-        return patch;
+        // ComposeAfflictionPatch is the only owner of tint, blindness and opacity.
+        return ComposeAfflictionPatch(session,area,commands,session.Opacity);
     }
 }
 
