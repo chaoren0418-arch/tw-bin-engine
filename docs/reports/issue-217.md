@@ -15,6 +15,14 @@
 - 重跑下列既有命令，產品與 launcher 建置通過。產品有 `MagicUi.cs:20` 兩個既存警告、0 錯誤。`map-continuity` **19,849 項通過**，`teleport-tests` **4,369 項通過**，`check-no-game-assets.py` 通過，3293 個追蹤檔、0 錯誤、4 個合法 EmbeddedResource。差異空白檢查通過。
 - 本次產品 DLL SHA-256 為 `1bdbdf82121dfff06312b0ae32d4cf4c56aea8adaba2188ea56146265109e665`。證據沿用 `scratch/issue-217/`，下方舊輪數字與 SHA 代表前一輪。本輪提交 dev lock 與本報告，PR #243 最新提交的 CI 於推送後追蹤並回報。
 
+### 第 3 次嘗試：同步 main（最新結果）
+
+- 回應審查退回：PR #243 在 `f5277e9` 與 main 衝突（DIRTY）。本輪合併 `origin/main`（`b656483`），提交 `1109412`。沒有新增功能修改。
+- 唯一文字衝突為 `rebuild-lock.json`：取 main 版本後以 `--update-lock` 重產，未手拼 hash，186 個來源／195 個鎖定檔。`docs/REPORT.md` 與 main 版本相同。`WorldSession.cs` 自動合併，與 main 的差異仍只有 `case 206` 一行。`ReceiveMapId` 保留 main 該分支原有的全部清場與重設呼叫。合併後與 main 的差異仍是原本 7 個檔。
+- 同步後本機重跑（SDK 與 NuGet 設定同下方）：`rebuild.py --build` 產品與 launcher 均 exit 0；`map-continuity` **19,939 項通過**（含 main 新增項目）；`teleport-tests` **4,369 項通過**；`check-no-game-assets.py` 通過，3311 個追蹤檔、0 錯誤、4 個合法 EmbeddedResource；差異空白檢查通過。
+- 本輪產品 DLL SHA-256：`f7e12b74429fc5be970bfd4966bbd9e50a76b8e7556b190e9f9baed5feb85579`。下方舊輪數字與 SHA 僅代表前幾輪。
+- 本輪未跑其他模組的測試入口，交由 CI 涵蓋。新 HEAD 的 CI 結果在推送後回報於 PR #243 留言，本報告不預寫結果。
+
 ## 怎麼驗證（已驗證）
 
 環境：Windows x64、SDK 10.0.300、Python 3.12。此環境 `py` 找不到安裝記錄，實際使用 `C:\Users\CHAOREN\AppData\Local\Programs\Python\Python312\python.exe`。
