@@ -1,57 +1,50 @@
 # Issue #316 報告：T135 盟徽查詢與 ID 對應
 
-2026-11-07，分支 `task/316`。協定結論見 `docs/protocol/clan-emblem.md`。
+2026-11-07 初版，2026-11-08 與 #440 整合後改寫。分支 `task/316`。協定結論見 `docs/protocol/clan-emblem.md`。
 
 ## 重要結論
 
-- **d287 的 emblem ID 恆為 0**（靜態結論：`setEmblemId` 全 JAR 無呼叫者，`_emblemId` 只有 setter 內一處寫入）。所以自動 C72 在 d287 上不會觸發，**其他血盟真實玩家的盟徽看不到**。這是伺服器限制，要改善需要伺服器維護者裁定。
-- d287 上實際可顯示的是：自己的血盟（登入 S118）、上傳當下的推送、假人。全部走 S87 clan ID ＋ S118 clan ID。
-- C72 的查詢邏輯已完成並有測試，但在 d287 上屬於待命路徑，要等伺服器發布非零 emblem ID 才會實際運作。
+- **clan ID 與 emblem ID 是兩個獨立的數字空間。** S87 帶 clan ID；S167 與 S64/0x3c 帶 emblem ID；S118 推送時是 clan ID、C72 回覆時是 emblem ID；C72 要的是 emblem ID。
+- **d287 的 emblem ID 恆為 0**（靜態結論：`setEmblemId` 全 JAR 無呼叫者）。所以其他血盟真實玩家的盟徽在 d287 上看不到，這是伺服器限制，要改善需要伺服器維護者裁定。
+- d287 上實際能顯示的是：自己的血盟（登入 S118）、上傳當下的推送、假人，全部走 S87 clan ID ＋ S118 clan ID。
+
+## 與 #440 的整合（2026-11-08）
+
+本分支開發期間，#440（T168）已合併自己的 `ClanEmblem.cs`：512 筆 LRU 快取、跨連線磁碟快取、繪製時缺圖就自動送 C72（依原版用 S87 clan ID）。兩邊設計衝突，整合方式：
+
+- **採用 #440 的快取與送出路徑**（main 已合併、依原版反組譯）。移除本分支原本的雙快取、S118 分類（5 秒回覆期限）與 `PumpWorldAsync` 掛接，所以 `WorldEntry.cs` 不再有改動。
+- **保留本任務的 emblem ID 對應**：S167 與 S64/0x3c → 「角色 → (emblem ID, 盟名)」。
+- 繪製掛載點（`ObjectRendering.cs` 原本那一行）改呼叫 `LoginConnection.ClanEmblemFor(objectId, clanId)`：有發布 emblem ID 就查並送 C72(emblem ID)，回覆前先顯示 clan 推送圖；沒有發布就維持 #440 的 C72(clan ID) 行為。
+- **和本分支先前結論不同的地方**：先前寫「不要用 clan ID 送 C72」。#440 依原版做了後備查詢；在 d287 上它只會送出伺服器不回應的封包，無害，所以保留。風險寫在協定文件「客戶端實作」一節，要不要移除後備需主控裁定。
 
 ## 做了什麼
 
-- 新增 `engine/source/ClanEmblem.cs`：解析 S64/0x3c；clan ID 與 emblem ID 分開快取；S118 依「是否有未結案的 C72」分類；角色 → emblem ID 對應（以盟名防止換盟後誤用）；未知盟徽查一次，結果快取。
-- `Clan.cs`：圖像快取移到新檔，S167 接上 emblem ID 來源。`FindClanEmblem(clanId)` 簽章不變，所以 T128 的 `PaintClanLabels` 掛載點不用改，名稱旁顯示直接沿用。
-- **修正 T128 的隱性缺陷**：圖像快取原本隨 WorldEpoch 清除，但伺服器只在登入送一次 S118，盟徽會在第一次傳送後永久消失。現在保留到 `Reset`。
-- 測試 `engine/_integration/dev/clan-emblem-tests/`，已接上 `DemoChecks.csproj`、`clan-emblem` 群組、`map-continuity` 與預設入口。
-- `docs/protocol/clan-emblem.md`。
-
-## 超出「可修改檔案」清單的改動（請審查）
-
-都是單行掛接，理由如下：
-
-| 檔案 | 改動 | 理由 |
-|---|---|---|
-| `WorldSession.cs` | S64/0x3c 一個 case | 合約允許的分派掛接；0x3c 是 emblem ID 的來源 |
-| `WorldSession.cs` | `Reset()` 加 `ResetClanEmblems()` | 快取不再隨 WorldEpoch 清除，需要連線層級的清除點 |
-| `WorldEntry.cs` | `PumpWorldAsync` 加 `PumpClanEmblemQuery` | 自動查詢需要定期的送出時機。合約的送出掛接寫 `LoginConnection.cs`，但 pump 在同一個 partial class 的這個檔案 |
-
-`ObjectRendering.cs` 與 `ClanUi.cs` 沒有修改。`docs/protocol/clan.md` 與 `clan-tests/README.md` 因不在範圍內沒有改，其中「未接自動查詢」「快取依 WorldEpoch 失效」的描述已由 `clan-emblem.md` 註明取代。
+- `engine/source/ClanEmblem.cs`：#440 內容不動，另加 S64/0x3c 解碼、emblem ID 對應（盟名防止換盟後誤用、上限 256、`Reset` 清除）、`PublishedClanEmblemId`、`ClanEmblemFor`。
+- `Clan.cs`：S167 一行掛接 `ObserveClanEmblemId`。
+- `ObjectRendering.cs`：既有盟徽掛載那一行改呼叫 `ClanEmblemFor`，沒有新增掛載點。
+- `WorldSession.cs`（範圍外，單行掛接）：S64/0x3c 一個 case；`Reset()` 加 `ResetClanEmblems()` 清除對應。
+- 測試 `engine/_integration/dev/clan-emblem-tests/`（依整合後設計改寫），接在 `DemoChecks.csproj`、`clan-emblem` 群組、`map-continuity` 與預設入口。
+- `docs/protocol/clan-emblem.md`：客戶端實作、已知限制、未驗證三節依整合結果改寫。
 
 ## 怎麼驗證
 
-- `rebuild.py --update-lock`、`--build`、`--verify`：通過，product／audio／launcher 建置成功。
-- `clan-emblem` 群組 323 項通過（含共用檢查）；`map-continuity` 22476 項通過，既有血盟與角色重置測試都包含在內。
-- `check-no-game-assets.py` 通過。
-- 2026-11-07 再同步 origin/main（併入 #416 暫時能力），`Program.cs` 兩邊測試入口都保留，重產 dev lock 後重建：`clan-emblem` 323 項、`map-continuity` 22818 項通過，資源檢查 0 錯誤。
-- 2026-11-07 第三次同步 origin/main（併入 #216 道具狀態、#323 稱號表情、#427 等 70 個提交），`Program.cs` 同時保留 `ClanEmblemChecks` 與 `TitleAndEmoteChecks`，重產 dev lock 後重建：`clan-emblem` 323、`map-continuity` 22818、`combat-admission` 1837、`item-status` 358、`afflictions` 428、`polymorph-cadence` 309、`buddies` 445、`item-transfer` 349、`doors` 597 項全部通過，資源檢查 0 錯誤。
-- 2026-11-07 第四次同步 origin/main（併入 #378 盟戰 `ClanWar.cs`、#428 等），`Clan.cs` 保留 main 新增的 `ClanWarEnemies`／`IsClanWarEnemy`，`FindClanEmblem` 仍只在 `ClanEmblem.cs`；`DemoChecks.csproj`／`Program.cs` 同時接上 `ClanEmblemChecks` 與 `ClanWarChecks`。重產 dev lock 後 `rebuild.py --build` PASS，`clan-emblem` 323、`clan` 395、`clan-war` 479、`map-continuity` 23021 項通過，資源檢查 0 錯誤。
-- 2026-11-08 第五次同步 origin/main（併入 #449 地圖環境音 `MapAmbientSound.cs` 等），`Program.cs` 衝突以 main 版為底，再加回 `ClanEmblemChecks`（同時保留 `MapAmbientChecks`）。重產 dev lock 後 `rebuild.py --build` PASS；`clan-emblem` 374、`clan` 446、`clan-war` 530、`map-continuity` 23117 項通過（計數含共用檢查，main 新增檢查使數字上升），資源檢查 0 錯誤。
-- 封包全走正式入口：`World.Receive`，查詢經真實的 `PumpWorldAsync` 與 `sendMovementGate`。S64/0x3c 用伺服器註解裡的樣本 bytes 核對。
-- **變異測試**：手動破壞 8 處關鍵邏輯（命名空間分類、pump 掛接、盟名防護、切圖保留、排隊失效、重複查詢、最新優先、回覆期限），全部被測試擋下。其中「最新優先」第一次存活，已補測試後確認擋下。切圖保留的變異是在較早的檢查就失敗，不是由切圖專用的檢查擋下。
-- 過程中 `CharResetChecks` 抓到我的回歸：不完整的 S64/0x3c 會中斷連線。已改成需要完整 10 bytes 才分派，短封包維持原本的未處理計數；既有測試沒有改。
+- 同步 origin/main（含 #440、#449），`rebuild.py --update-lock` 重產 dev lock，`--build` PASS，唯讀核驗 `dev-inputs-verified`。
+- 離線測試（合成封包，走 `World.Receive` 與真實繪製掛載點）：`clan-emblem` 363、`name-display` 414、`clan` 446、`clan-war` 530、`map-continuity` 23196 項全部通過（計數包含共用檢查）。
+- `check-no-game-assets.py` 通過（0 錯誤）。
+- 整合過程中有一項檢查失敗，原因是測試本身漏了觸發 C72 的步驟；修正測試後通過，產品程式沒有改。
 
 ## 未驗證什麼
 
-- **真實盟徽的資料格式（最大風險）**：T128 解碼器只接受 16×12 BMP，`clan_emblem` 實際內容未讀取。推測舊版系列可能是無檔頭的 384 bytes；若如此，P24Lab 上所有 S118 都會顯示「無法解析」，只有名稱沒有圖像。
-- 沒有真機測試：未啟動遊戲、伺服器或 DB。`PaintClanLabels` 的實際繪製沒有執行過。
+- 沒有真機測試：未啟動遊戲、伺服器或 DB；`ObjectRendering` 的實際繪製沒有執行過。
+- P24Lab `clan_emblem` 的實際格式（#440 已支援 384-byte RGB555 與 BMP）。
 - `getEmblemId()` 恆為 0 未在執行中的伺服器觀察。
+- 整合後的版本**沒有重做**初版的變異測試。
 
 ## 已知限制
 
-- 入盟後到下一次 S87 之前，新成員不顯示盟徽（S72 不帶 clan ID，且 `ClanUi` 只傳 clan ID）。
+- 單一快取以 S118 的 D 為鍵，clan ID 與 emblem ID 數字相同時共用同一格（d287 上不會發生）。
+- 入盟後到下一次 S87 前，新成員不顯示盟徽（S72 不帶 clan ID）。
 - S250/173 盟徽識別開關尚未接上。
-- S118 分類的模糊區見協定文件。
 
 ## 產出路徑
 
@@ -62,6 +55,6 @@
 
 ## 給下一棒的提示
 
-- dot 真機驗收時，**先看有盟徽的血盟角色登入後是顯示圖像，還是提示「收到無法解析的盟徽」**。若是後者，請記錄 S118 長度與開頭 bytes，再開任務擴充解碼器。
-- 真機要驗：登入後自己的盟徽顯示、傳送後仍在、盟主上傳後周圍玩家立即看到、全程不應該送出 C72（封包追蹤可確認）。
-- 是否讓其他血盟的盟徽可見，需要主控或伺服器維護者裁定。不要在客戶端用 clan ID 送 C72，也不要送 0：`C_Clan` 比對 0 會命中第一個血盟，回傳不相干的圖像。
+- dot 真機驗收：有盟徽的血盟角色登入後，看名稱旁是圖像還是提示「收到無法解析的盟徽」；若是後者，記錄 S118 長度與開頭 bytes。
+- 真機要驗：登入後自己的盟徽顯示、傳送後仍在、盟主上傳後周圍玩家立即看到。封包追蹤預期會看到 #440 的 C72(clan ID)，而且伺服器不回應；不應該出現 C72(0)。
+- 是否移除 C72(clan ID) 後備、是否讓其他血盟的盟徽可見（伺服器端），需要主控或伺服器維護者裁定。

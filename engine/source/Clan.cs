@@ -72,6 +72,12 @@ public static class ClanProtocol {
     public static ClanEmblem DecodeEmblem(byte[] packet){
         var r=Reader(packet,118);uint id=r.D();if(id==0)throw new ProtocolException("emblem identity");
         var data=packet.AsSpan(5);
+        // TW16 S_EMBLEM payload: 384 bytes, 16x12 RGB555, value 0 transparent (sub_96E790). Only when not a BMP.
+        if(data.Length is >=384 and <392&&!(data[0]=='B'&&data[1]=='M')){
+            var raw=new int[192];
+            for(int i=0;i<192;i++){int p=r.H();raw[i]=p==0?0:unchecked((int)0xff000000)|(((p>>10)&31)*255/31<<16)|(((p>>5)&31)*255/31<<8)|((p&31)*255/31);}
+            r.Finish();return new(id,raw);
+        }
         if(data.Length<54||data.Length>65536||data[0]!='B'||data[1]!='M')throw new ProtocolException("unsupported emblem: expected BMP");
         uint length=BinaryPrimitives.ReadUInt32LittleEndian(data[2..]),offset=BinaryPrimitives.ReadUInt32LittleEndian(data[10..]);
         uint header=BinaryPrimitives.ReadUInt32LittleEndian(data[14..]);
@@ -146,6 +152,7 @@ public sealed partial class WorldSession {
     public string ClanNotice {get{EnsureClanEpoch();return clanNotice;}}
     public string[] ClanWarEnemies {get{CheckClanWar();return CurrentClanWarEnemies();}}
     public bool IsClanWarEnemy(string clan)=>clan.Length>0&&ClanWarEnemies.Contains(clan,StringComparer.OrdinalIgnoreCase);
+    public ClanEmblem? FindClanEmblem(uint id)=>Emblems.Find(id);
     void ReceiveClanUpdate(byte[] packet){
         var update=ClanProtocol.DecodeUpdate(packet);EnsureClanEpoch();
         // S72's D is reserved, not a clan/emblem ID. Clear old identity on membership change.
@@ -154,8 +161,8 @@ public sealed partial class WorldSession {
     }
     void ReceiveClanEmblem(byte[] packet){
         EnsureClanEpoch();
-        try{StoreClanEmblem(ClanProtocol.DecodeEmblem(packet));clanNotice="已收到伺服器盟徽。";}
-        catch(ProtocolException){if(packet.Length>=5)DropClanEmblem(BinaryPrimitives.ReadUInt32LittleEndian(packet.AsSpan(1)));clanNotice="收到無法解析的盟徽；保留血盟名稱，未顯示圖像。";}
+        try{var emblem=ClanProtocol.DecodeEmblem(packet);Emblems.Store(emblem);clanNotice="已收到伺服器盟徽。";}
+        catch(ProtocolException){if(packet.Length>=5)Emblems.Reject(BinaryPrimitives.ReadUInt32LittleEndian(packet.AsSpan(1)));clanNotice="收到無法解析的盟徽；保留血盟名稱，未顯示圖像。";}
     }
     void ReceiveClanAttention(byte[] packet){var value=ClanProtocol.DecodeAttention(packet);EnsureClanEpoch();if(value.Type==2)clanAttention=value.Names;}
 }
