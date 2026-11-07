@@ -6,11 +6,18 @@
 - S5／S15／S24／S242 更新同步解析屬性；`InventoryItem.Equipped` 改讀 S64 權威裝備槽位。背包 tooltip 顯示解析結果及槽位／待同步狀態。
 - 依 2026-11-07 主控裁定，`ItemTransferChecks.cs` 只改裝備前置：S15 名稱改成一般「劍」，再送 `S64/66 D(itemId) C(slot=9) C(equipped=1)`。裝備中不可刪除／給予兩個斷言不變；未改 `ItemTransfer.cs`、`SupportedUse`。這項修改在先前的提交已完成，本輪確認後沒有再動。
 - 本輪再把 `task/216` 同步到最新 `origin/main`（`4518ebc`，含 #390 小地圖、#417）。`Program.cs` 衝突只在預設入口：`ItemStatusChecks()` 與 main 新增的 `MinimapChecks()` 都保留；dev lock 取 main 版本後用 `--update-lock` 重產。前一輪同步 `dd640a7`（含組隊、異常狀態等）時，衝突只有 dev lock 與 `build.yml`：`build.yml` 兩邊各自新增的測試步驟全部保留，並補回第一個步驟被衝突區塊吃掉的 `$LASTEXITCODE` 檢查；lock 取 main 版本後用 `--update-lock` 重產，未手工拼接 hash。
+- **第 2 次嘗試（本輪）**：PR #242 上一次 CI 紅燈（run 42364457250）的真正原因是 `44b72ba` 合入 main（#415）時沒有重產 dev lock，`rebuild.py --build` 拒絕：`sourceCount 215 != pinned source files 216`；Windows 端 item-transfer 測試前置在先前提交已改用 S64。本輪再合入 `origin/main` `98bf2b7`（#416 限時增益），以 `--update-lock` 重產 lock（217 個來源／226 個 pin），程式 head `2ab1daa`。除 lock 與本報告外未改其他內容。
 - 沿用 [PR #242](https://github.com/chaoren0418-arch/tw-bin-engine/pull/242)。本模組測試已提交並掛入 DemoChecks 與 Windows CI。
 
 ## 怎麼驗證（已驗證）
 
-下列數字都在程式 head `ee03bfd`（已含 main `4518ebc`）實跑。報告本身的提交不動程式。
+**本輪（程式 head `2ab1daa`，含 main `98bf2b7`）實跑：**
+
+- `rebuild.py --update-lock`：217 個來源／226 個 pin；`rebuild.py --build` PASS，產品 DLL SHA-256 `6bbf2ee71d141bc7cc6a2bc5f62c0dcc0c2a54362fe757f23bcc48c303e12ae7`。
+- `check-no-game-assets.py`：3450 個追蹤檔、0 errors。
+- 依 Windows CI 步驟逐一實跑，全部 exit 0、狀態 pass：DemoChecks 的 map-continuity、combat-admission、item-status、afflictions、polymorph-cadence、buddies、item-transfer、doors；MailChecks、WeaponRepairChecks；以及 Linux 工作的 packet-trace。WebView2 頁面檢查本輪未跑。
+
+**前一輪（程式 head `ee03bfd`，含 main `4518ebc`）的完整回歸，保留做參考：**
 
 - `rebuild.py --update-lock` 與唯讀核驗：215 個來源／224 個 pin 通過。
 - `rebuild.py --build` 通過。產品 DLL SHA-256：`7a279a685ce88707792660e68364ed9023b4b31cdcff94c45ddd41b28ee0efc8`。
