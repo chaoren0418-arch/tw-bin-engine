@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 197,
+ "sourceCount": 199,
  "files": [
   {
    "path": "NuGet.Config",
@@ -660,6 +660,16 @@
    "sha256": "1172b568b9702a0db588cbb5818cc85988bece0e0fd6586af58db6f9469e86d2"
   },
   {
+   "path": "source/PetUi.cs",
+   "size": 4124,
+   "sha256": "f0979c21a3c7c52ee95adba29a754397574222c59abe38a75d54a67ed7645ba5"
+  },
+  {
+   "path": "source/Pets.cs",
+   "size": 9572,
+   "sha256": "253ca5ee0c35535e1331c93be935def3ef5011452fc37ae417a3544d117cb24f"
+  },
+  {
    "path": "source/PickupAssets.cs",
    "size": 6448,
    "sha256": "c3c27789794fd0579062d7e3328be605735cc148e1cbd829f3413ffe2dde7f03"
@@ -981,8 +991,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 10626,
-   "sha256": "782efa8ceb7a1a5b854f5cbaa81e07486b408263b7dd226f411ea0ce8ef4d872"
+   "size": 10795,
+   "sha256": "47f59c40db2785cd8bf7b8aad28d7d89f65031f0f16938a1f0c84c0fb9ea7881"
   },
   {
    "path": "source/WorldTests.cs",
