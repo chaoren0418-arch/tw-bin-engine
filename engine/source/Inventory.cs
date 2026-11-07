@@ -61,6 +61,7 @@ public sealed partial class WorldSession {
         case 24:
             uint id=r.D();string name=r.S();uint amount=r.D();string status=Bytes(r,r.C());r.Finish();UpdateItem(id,i=>i with{Name=name,Count=amount,StatusHex=status});ItemNotice="收到原服數量／狀態更新";break;
         case 242:
+            if(plain.Length>=2&&plain[1]==2)return ReceiveHitReactionSuppress(r);
             if(plain.Length<2||plain[1]!=1)return false;r.C();uint longId=r.D();string longName=r.S();uint longCount=r.D();string longStatus=Bytes(r,r.H());r.Finish();UpdateItem(longId,i=>i with{Name=longName,Count=longCount,StatusHex=longStatus});break;
         case 57:uint removed=r.D();r.Finish();RemoveItem(removed);ItemNotice="原服已移除道具";break;
         case 100:uint named=r.D();string updatedName=r.S();r.Finish();UpdateItem(named,i=>i with{Name=updatedName});break;

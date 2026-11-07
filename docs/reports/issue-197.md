@@ -4,9 +4,9 @@
 
 本輪僅同步主線、重新產生 dev lock 與重驗，沒有新增功能或修改既有測試。
 
-- 在既有 `task/197`（同步前 `784b593`）執行 `git fetch origin`、合併 `origin/main` 的 `6024dafc682198bf2dc4e3b64bd39738fbea8d21`。
-- 唯一衝突為 `engine/_integration/dev/rebuild-lock.json`，透過 `rebuild.py --update-lock` 重新產生，未手動拼接 hash；177 個來源、186 個 pinned 輸入。
-- `InventoryUi.cs` 自動納入 main 的 `InitItemTransfer()` 呼叫，保留本分支完整道具使用流程；其他新增模組與測試均使用 main 內容。
+- 在既有 `task/197`（同步前 `a06a167`）執行 `git fetch origin`、合併 `origin/main` 的 `ccaa3e02caf1c0cc2c0696683e243c1c7577df4e`。
+- 唯一衝突為 `engine/_integration/dev/rebuild-lock.json`，透過 `rebuild.py --update-lock` 重新產生，未手動拼接 hash；180 個來源、189 個 pinned 輸入。
+- `Inventory.cs` 自動納入 main 的 S242 subtype 2 受擊反應分派，保留本分支完整道具使用流程；`WorldSession.cs` 保留 main 的公告板分派與狀態重設。其他模組與測試均使用 main 內容。
 - `docs/REPORT.md` 與本次同步的 main 完全一致，未另行編輯。
 - 核對 [原 CI 失敗 log](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42314502009/job/128223701087)：`dev canonical build + receipt` 因 `sourceCount 175 != pinned source files 176` 退出 2。上一輪已修正；本輪再次執行同一 canonical build 路徑通過。
 - GitHub 查詢顯示既有 [PR #223](https://github.com/chaoren0418-arch/tw-bin-engine/pull/223) 仍開啟、尚未合併，因此推送原分支更新該 PR。
@@ -16,11 +16,11 @@
 - SDK `10.0.300`；`rebuild.py --update-lock` 通過。
 - `rebuild.py --build --configfile .github/nuget.ci.config --output scratch/issue-197/build` 通過。產品 0 錯誤、2 項既存 `MagicUi.cs` nullable 警告；launcher 0 錯誤、0 警告。
 - `ItemUseChecks`：426 項通過。
-- `DemoChecks`：`slow-actions` 364 項、`combat-admission` 212 項、`map-continuity` 128 項、主線新增的 `item-transfer` 73 項皆通過。
+- `DemoChecks`：`slow-actions` 364 項、`combat-admission` 278 項（含受擊反應抑制）、`map-continuity` 358 項（含公告板）、`item-transfer` 73 項皆通過。
 - 上述測試使用本次產品 DLL、合成封包與記憶體 sender，並非真機證據。
-- `check-no-game-assets.py`：3281 個追蹤檔案、0 errors。`git diff --check` 通過。
-- 核對本模組 `Inventory.cs`、`ItemUseArguments.cs` 與 `item-use-tests/` 均與同步前一致；其他模組與 main 一致。
-- 產品 DLL SHA-256：`58d6800ece6ed4eddf524523a6615bb749d53972885167954439e2afa6ca2b8d`。
+- `check-no-game-assets.py`：3291 個追蹤檔案、0 errors。相對 `origin/main` 的 `git diff --cached --check` 通過；相對同步前 HEAD 的檢查會列出 main 既存 CRLF 空白警告，依同步範圍保留原樣。
+- 核對 `InventoryUi.cs`、`ItemUseArguments.cs`、`LoginConnection.cs` 與 `item-use-tests/` 均與同步前一致；`Inventory.cs` 僅新增 main 的受擊反應分派；其他模組與 main 一致。
+- 產品 DLL SHA-256：`9a57e612a39d3c76a62fd8d20a9a2a2fe7a3793524e346b0f6a41a81824d585c`。
 - 推送後最新 head 與 CI 結果另記於 PR #223 本輪驗收留言，避免文件提交造成自我引用。
 
 驗證使用環境提供的 Python 3.12 執行檔；測試命令與環境設定見 `scratch/issue-197/verify.ps1`。NuGet、dotnet 與暫存寫入均位於本 worktree。
