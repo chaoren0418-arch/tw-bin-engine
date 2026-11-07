@@ -39,10 +39,11 @@
 
 ## 第 2 次嘗試：僅同步 main
 
-- 合併 `origin/main`（`25bc0f42c6eb9aae18db98771fe8b03c68710e77`）至既有 `task/263`；唯一衝突是 dev lock，使用 `rebuild.py --update-lock` 重產，沒有手拼 hash。`docs/REPORT.md` 完全採 main 版本；未新增功能修改。
-- 已驗證：176 個來源、185 個鎖定輸入；沿用上述本機唯讀 NuGet 設定完成產品與 launcher 建置。產品仍有既有 `MagicUi.cs:20` CS8600／CS8602 兩個警告、零錯誤；launcher 零警告／零錯誤。
-- 既有離線回歸全數通過：`polymorph-cadence` 123 項、`map-continuity` 218 項、`combat-admission` 302 項。`check-no-game-assets.py`：零錯誤、4 個 EmbeddedResource 宣告；合併衝突尚未標記解決時列出 3,277 筆 index 項目（含 lock 的衝突階段項目）。差異空白檢查通過。
-- 證據沿用 `scratch/issue-263/build/`，測試結果為 `scratch/issue-263/polymorph-cadence.json`、`map-continuity.json`、`combat-admission.json`。遠端新 HEAD 結果見既有 [PR #278 Checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/278/checks)。
+- 合併 `origin/main`（最終 `9e979df0b20889b7ff402c5d22ff010d471d9e93`）至既有 `task/263`；保留遠端兩筆同步提交，未強制推送。dev lock 使用 `rebuild.py --update-lock` 重產，沒有手拼 hash。
+- main 的道具轉移測試與變身測試在 `build.yml`、`DemoChecks.csproj`、`Program.cs` 發生入口衝突，已保留兩邊的測試與 CI 掛接。`docs/REPORT.md` 完全採 main 版本；未新增功能修改。
+- 已驗證：177 個來源、186 個鎖定輸入；沿用上述本機唯讀 NuGet 設定完成產品與 launcher 建置。產品仍有既有 `MagicUi.cs:20` CS8600／CS8602 兩個警告、零錯誤；launcher 零警告／零錯誤。
+- 既有離線回歸全數通過：`polymorph-cadence` 123 項、`map-continuity` 218 項、`combat-admission` 302 項、`item-transfer` 163 項（各組包含基本變身檢查）。素材拒收與差異空白檢查結果見本輪 PR 留言。
+- 證據沿用 `scratch/issue-263/build/`，測試結果為 `scratch/issue-263/polymorph-cadence.json`、`map-continuity.json`、`combat-admission.json`、`item-transfer.json`。遠端新 HEAD 結果見既有 [PR #278 Checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/278/checks)。
 - 未驗證：原生遊戲、伺服器、DB、實際外觀與音效；本輪均未啟動。下一棒由 Claude／調度器確認新 HEAD CI 後審查，合併依既有分工處理。
 ## 給下一棒的提示
 

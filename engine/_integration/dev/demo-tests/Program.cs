@@ -281,6 +281,7 @@ partial class Checks {
             switch(args[2]){
                 case "polymorph":break;
                 case "polymorph-cadence":PolymorphCadenceChecks(args[0]);break;
+                case "item-transfer":await ItemTransferChecks();break;
                 case "map-continuity":await MapContinuity();break;
                 case "combat-loop":await CombatLoop();break;
                 case "combat-admission":await CombatAdmission();break;
