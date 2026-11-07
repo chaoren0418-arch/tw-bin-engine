@@ -24,7 +24,7 @@ ImageBase 為 `0x400000`。File Offset 依區段換算：
 
 ## 結論
 
-1. **UI 版面主要寫在 XML 裡，不在程式碼裡。** 主介面、隊伍、書籤、地圖等的座標都寫在 `Tile.pak` 的 65 個加密 XML 中。加密方式已從 BIN 取得（AES-128-CBC，見下節），本輪已全部解開。台灣版（CodePage 950）會組出 `-c` 後綴的檔名；缺 `-c` 檔時是否改讀無後綴的檔，本輪未確認。
+1. **UI 版面主要寫在 XML 裡，不在程式碼裡。** 主介面、隊伍、書籤、地圖等的座標都寫在 `Tile.pak` 的 65 個加密 XML 中。加密方式已從 BIN 取得（AES-128-CBC，見下節），本輪已全部解開。台灣版（CodePage 950）在封存檔層先找 `-c` 後綴的檔名，找不到就改讀無後綴的檔（V4，#459 已驗證）。UI 圖也一樣：會先找台灣版的 `<n>c.img`，見第 1 節 V4 (e)。
 2. **原版是 800×600 固定版面。** 下方是一條 125 px 高的狀態列，由左而右是：
    - 左狀態框：等級、AC、MR、陣營、SP、負重、飽食度
    - 中央聊天窗：可伸縮
@@ -66,6 +66,197 @@ u16 寬, u16 高, u16 旗標, u16 透明色, 寬×高 個 RGB555 像素
 - 轉成 PNG 供本機目視：`ui_img_render.py scratch/rea/render <surf…>`
 
 **交叉驗證：** TW13081901 也有 `uistatus86.xml`、`BookmarkUI.xml`、`MINI_MAP_WINDOW`、`EX_MACRO_WINDOW`、`%s-%c.xml` 字串，所以這套 XML 版面機制在 2013 年版就已存在。
+
+### 框架層細節（V4，Issue #459）
+
+查證日期：2026-11-08。方法同上：靜態分析 TW16（SHA `e12949cf…41a2`），按鈕狀態另外對照 TW13（SHA `653da514…62a4`，File Offset＝VA − `0x400000`），再用本機 `Sprite*.idx/pak`、`Tile.pak` 的實際資料核對。腳本在 [`rea-scripts/v4/`](rea-scripts/v4/README.md)。
+
+#### 摘要
+
+| 項目 | 結論 | 狀態 |
+|---|---|---|
+| (a) `.img` 旗標與透明色 | 旗標只有 0／1。**旗標≠0 才做色鍵**：像素等於透明色的點不畫，沒有半透明或加色。旗標＝0 時整張不透明 | 已驗證 |
+| (b) `a~b` 的狀態順序 | 解析時只用 `atoi` 取 `a`，`~b` 只是註記。狀態由按鈕類別決定：**`a`＝一般，`a+1`＝按下**；3 張圖的按鈕 **`a+2`＝滑過**；2 張圖的按鈕滑過也用 `a+1` | 已驗證（TW13）；TW16 為推測 |
+| (c) XML 編碼 | BIN 不做 CP950 轉碼。版面 XML 由 expat 解析，沒有宣告時預設 UTF-8；另一條 tinyxml2 路徑不轉碼。本機 65 個檔中，62 個是純 ASCII，3 個是 UTF-8，沒有任何一個需要 CP950 | 已驗證（資料、呼叫鏈）；expat 的辨識為推測 |
+| (d) 缺 `-c` 檔 | **會退回無後綴檔。** 退回是在封存檔層（`FileManager`）做的，先找 `<名>-c.<副檔名>`，找不到再找原名。`sub_B3D390` 組出的 `"%s-%c.xml"` 結果沒有被使用 | 已驗證 |
+| (e) Sprite 重名 | 先讀 **`Sprite{名稱位元組和 % 16:02d}.pak`**，找不到才讀 `Sprite.pak`。53 個重名全部以 `SpriteNN` 為準。**另外發現：** `.img` 會先找 `<n>c.img` 台灣版圖，`2000–5800` 範圍內有 1,500 張 | 已驗證 |
+| (f) 字型 | GDI `CreateFontA(12, …, FW_NORMAL, CHINESEBIG5_CHARSET, …, "MingLiU")`，也就是**細明體、高 12 px**，用 `ExtTextOutA`、背景透明。可加 1 px 四方向描邊 | 已驗證 |
+
+#### (a) `.img` 旗標與透明色（已驗證）
+
+| 函式 | VA | File Offset | 作用 |
+|---|---|---|---|
+| `Surf` vtable | `0x11DFB94` | `0xDDE794` | `[1]`＝`sub_E540D0`（確保已載入）、`[2]`＝`sub_E55C50`（`"%s.img"`）、`[3]`＝`sub_E55DD0`（`"%d.img"`） |
+| `sub_E55DD0` | `0xE55DD0` | `0xA551D0` | `sprintf("%d.img", id)`，經 `sub_66E050(4,…)` 從 `Surf` 封存群讀出原始 bytes，存在 `this[1]` |
+| `sub_97CF30` | `0x97CF30` | `0x57C330` | 16 位元 565 模式（`byte_13CC950`）把像素轉成 565。只有在 `hdr[2]`（旗標）> 0 時，才把透明色 `hdr[3]` 一起轉換 |
+| `sub_E538D0` | `0xE538D0` | `0xA52CD0` | `GetSurf(id)`，269 個呼叫者。查不到時跳出 `check id#%d in SurfList.xml` |
+| `sub_E539E0` | `0xE539E0` | `0xA52DE0` | `Surf::Draw(dst,x,y,mode)`：`mode & 0x8000` **而且**旗標≠0 時，走色鍵 blit；否則走不透明 blit。`mode & 2` 走裁切版，`mode & 1` 另外疊一張背景 |
+| `sub_97CA60` | `0x97CA60` | `0x57BE60` | 色鍵 blit：`if (*src != hdr[3]) *dst = *src` |
+| `sub_97C980` | `0x97C980` | `0x57BD80` | 不透明 blit：逐列 `memcpy` |
+| `sub_542370` | `0x542370` | `0x141770` | 另一個入口，**不看旗標**，一律呼叫 `sub_97CA60` |
+
+本機資料（`img_check.py`）：
+
+- 7,543 張 `.img` 的旗標只有兩種值：0 有 4,720 張，1 有 2,823 張。
+- 旗標＝1 的圖，最常見的透明色是 `0x324C`（1,735 張）。
+- 旗標＝0 的圖，透明色欄大多是 0，但也有其他值（例如 `2273.img` 是 `0x14A5`）。這些值不會被使用。
+
+TW13 的 `sub_759A10`（File Offset `0x359A10`）和 TW16 的 `sub_E539E0` 邏輯相同。TW13 的按鈕呼叫時帶 `mode=0x8003`，所以按鈕會依旗標決定是否透明。
+
+**引擎規則：** 旗標≠0 → 像素等於透明色時 alpha＝0；旗標＝0 → 整張不透明，透明色欄忽略。
+
+`sub_542370` 這條「不看旗標」的路徑是哪些元件在用，本輪沒有逐一追。目前只知道按鈕走的是看旗標的路徑。
+
+#### (b) 按鈕 surf 範圍與狀態（TW13 已驗證；TW16 推測相同）
+
+- **解析：** TW16 的版面解析者（`sub_A9AD80`／FO `0x69A180`、`sub_A842D0`／FO `0x6836D0`、`sub_A983A0`／FO `0x6977A0`）對 `surfNumber` 一律只用 `atoi`，所以 `"5726~5728"` 只存成 5726。
+- **TW16 的舊底列是死碼（V5），** 所以狀態切換以 TW13 為準：
+
+| TW13 函式 | VA | 作用 |
+|---|---|---|
+| `LImageButton` vtable | `0x8D372C` | 繪製 `sub_50C3D0`：`surf = base + (按下 ? 1 : 0)` |
+| `LImageButton3Stage` ctor `sub_50C880` | `0x50C880` | `(base, hover, …)`，`this[20] = -1` |
+| `sub_50CA20`（3Stage 繪製） | `0x50CA20` | 按下（`+0x2C`）→ `base+1`；否則滑過（`+0x2D`）→ `hover`；否則 → `base`。繪製模式 `0x8003` |
+| `sub_50ACA0`（滑鼠） | `0x50ACA0` | `WM_MOUSEMOVE`→`sub_50AEC0` 設滑過；`WM_LBUTTONDOWN`→`sub_50AF80` 設按下；`WM_LBUTTONUP`→`sub_50AFD0` 清除並觸發點擊；離開→`sub_50AF20` 全部清除 |
+| `sub_77F6B0`（`Status800` 建構） | `0x77F6B0` | `IMAGE_BUTTON` 清單→`3Stage(a, a+1)`；`IMAGE_BUTTON3` 清單→`3Stage(a, a+2)`；`LEVEL_BTN`（`CUIStatusXML+0x58`）與 `SHOUT_BTN`（`+0xB4`）→`3Stage(a, a+1)`。`CARRY_WARN_BTN`、`FOOD_WARN_BTN` 用 `sub_50C350`，是另一種元件 |
+| `sub_5FE870`（`CUIStatusXML` 解析） | `0x5FE870` | 元素存放位置：`LEVEL_BTN 0x58`、`BALOG_BTN 0x5C`、`CARRY_WARN_BTN 0x90`、`SHOUT_BTN 0xB4`、`FOOD_WARN_BTN 0xB8`、`ADENA_BTN 0xBC` |
+
+其他寫死的 3 張按鈕也是同一個模式，例如 `(1580,1582)`、`(2944,2946)`、`(4987,4989)`：`a` 是一般、`a+1` 是按下、`a+2` 是滑過。
+
+**引擎規則：**
+
+| 按鈕 | 一般 | 滑過 | 按下 |
+|---|---|---|---|
+| 3 張圖（`IMAGE_BUTTON3`，以及 `a~a+2` 而且不屬於下列例外） | `a` | `a+2` | `a+1` |
+| 2 張圖（`IMAGE_BUTTON`，例如選單按鈕 3177/3178；以及 `a~a+1`） | `a` | `a+1` | `a+1` |
+| `LEVEL_BTN`（`5726~5728`） | `a` | `a+1` | `a+1` |
+
+`LEVEL_BTN` 的第 3 張圖 `a+2`（5728），在 TW13 沒有找到使用的地方。`BALOG_BTN`／`ADENA_BTN`（`a~a+2`）的建構位置也沒有追到，先套 3 張圖的規則。這兩點都**待驗證**。
+
+`TAB_BUTTON`（3193／3196／3199，每個間隔 3）由 `sub_50B600` 建立，狀態語義本輪沒有追。
+
+#### (c) XML 編碼（已驗證；expat 的辨識為推測）
+
+UI XML 有兩條載入路徑，兩條都**不做 CP950 轉碼**：
+
+| 路徑 | VA | File Offset | 說明 |
+|---|---|---|---|
+| 版面 XML 檔名表（`uishoplev.xml`、`uistatus86.xml`、`uiextra86.xml`…） | `0x137B3A8`（`.data`） | `0xF79BA8` | 使用者是 `sub_AA0610`（FO `0x69FA10`） |
+| `sub_A97450` | `0xA97450` | `0x696850` | 經 vtable+84（`sub_A97680`／FO `0x696A80`，從 Tile 封存群讀檔）取得資料，解密後交給 `sub_7D0F70` |
+| `sub_7D09F0`／`sub_1011A20` | `0x7D09F0`／`0x1011A20` | `0x3CFDF0`／`0xC10E20` | 建立解析器，`encoding` 參數是 `NULL`（`sub_7D09F0(0,0)`） |
+| `sub_7D0F70`→`sub_1011770` | `0x7D0F70`→`0x1011770` | `0x3D0370`→`0xC10B70` | `parse(parser, buf, len, isFinal=1)` |
+| expat 錯誤字串表 | `0x11F5B68` 等 | `0xDF4768` | 例如 `"encoding specified in XML declaration is incorrect"` |
+| `sub_B3D390`→`sub_B3D640`→`sub_B39E80` | `0xB39E80` | `0x739280` | 另一條路徑：`LineageXML::CTinyXmlParser`。`sub_B39E80` 是 `Parse(str, size)`，只處理 BOM，**不轉碼**；錯誤訊息格式為 `"%s XML Error : %d, %s, %s"` |
+| `sub_B3D0E0` | `0xB3D0E0` | `0x73C4E0` | UTF-8 → `MultiByteToWideChar(65001)` → `WideCharToMultiByte(CP_ACP)`。只有 ChatLink（`sub_5268C0`）會呼叫 |
+
+第一條路徑的解析器，從 `(encoding, memsuite, nsSep)` 的建立簽章、`(parser, s, len, isFinal)` 的解析簽章，以及 expat 原文錯誤訊息，判斷是 **expat**。expat 在沒有宣告時以 UTF-8 解析，交給回呼的也是 UTF-8。
+
+本機 `Tile.pak` 的 65 個 XML 解密後：
+
+- **62 個是純 ASCII**
+- **3 個是合法 UTF-8**：`GlobalEffect86.xml`、`ReNStatusWinUI.xml`（無宣告），以及 `SurfList.xml`（有宣告）
+- **0 個需要 CP950**
+
+**引擎規則：** 沒有宣告時用 UTF-8 解碼，不要用 CP950。依目前資料，兩種做法結果相同，但 UTF-8 才符合原版。字串真正送進 GDI 繪製時，是當作 ANSI（CP950）位元組，見 (f)。
+
+#### (d) 缺 `-c` 檔的退回行為（已驗證）
+
+- `sub_B3D390`（FO `0x73C790`）先用 `sub_A0D670`（FO `0x60CA70`）取主檔名，再組出 `"%s-%c.xml"`，但這個結果**沒有再被讀取**。真正交給 `sub_66E150(…,1,…)` 讀檔的是原始檔名 `this+4`。
+- 語系後綴是在封存檔層加上的。`sub_66DAB0`（FO `0x26CEB0`）建立五組封存：
+
+| 索引 | 名稱 | 管理類別 | 檔名格式器 |
+|---|---|---|---|
+| 0 | Text | `FileManager` | `LocalFileFormatter`（有 `-`） |
+| 1 | Tile | `FileManager` | `LocalFileFormatter` |
+| 2 | Sprite | `HashFileManager` | `LocalFileFormatter` |
+| 4 | Surf | `HashFileManager`（共用 Sprite 的檔案） | `LocalFileNonDashFormatter`（無 `-`） |
+| 3 | Icon | `HashFileManager`（共用 Sprite 的檔案） | `LocalFileNonDashFormatter` |
+
+  `sub_66D980`（FO `0x26CD80`）負責把索引對應到封存組。各類別的 vtable 位置：
+
+| 類別 | VA | File Offset |
+|---|---|---|
+| `FileManager` | `0x11511F8` | `0xD4FDF8` |
+| `HashFileManager` | `0x1151210` | `0xD4FE10` |
+| `LocalFileFormatter` | `0x1161428` | `0xD60028` |
+| `LocalFileNonDashFormatter` | `0x116143C` | `0xD6003C` |
+
+- `FileManager::Read`＝`sub_52D6D0`（FO `0x12CAD0`）：
+  1. `sub_52D5D0`（FO `0x12C9D0`，格式器 vtable+8＝`sub_6336B0`）檢查檔名是否已經帶有 `-c.`。
+  2. 沒有的話，格式器 vtable+4（`sub_633300`／FO `0x232700`）組出 `<主檔名>-c.<副檔名>`，先找這個檔。
+  3. **找不到就用原檔名再找一次。**
+
+  語系字元由 `sub_A14A60` 決定，CP950 → `c`。
+- 本機 `Tile.pak` 中，`uistatus86.xml` 和 `uistatus86-c.xml` 都存在，所以台灣版讀的是 `-c` 版；`BookmarkUI.xml` 只有無後綴版，就退回讀它。
+
+**引擎規則：** 現行設計「先找 `-c`、再找原名」與原版相同。`ui-xml-fallback` 這行日誌只是除錯用，原版不會記錄。
+
+#### (e) Sprite 重名與台灣版圖（已驗證）
+
+`HashFileManager::Read`＝`sub_52D8A0`（FO `0x12CCA0`），對每個候選檔名依序嘗試：
+
+1. 在地化名：`Surf`／`Icon` 用無 `-` 格式器（`sub_6334F0`／FO `0x2328F0`），所以是 `<n>c.img`；`Sprite` 用 `-` 格式器。
+   - 先找 `this[10 + h]`，也就是 `Sprite{h:02d}.pak`
+   - 再找 `this[1]`，也就是 `Sprite.pak`
+2. 原名 `<n>.img`：同樣先找 `Sprite{h:02d}`，再找 `Sprite.pak`。
+
+`h = sum(檔名每個 byte) % 16`，由 `sub_879E60`（FO `0x479260`）計算，檔名包含 `.img`。`SpriteNN` 由 `sub_52D500`（FO `0x12C900`）以 `"%s%02d"` 開啟。
+
+本機資料（`img_check.py`、`img_csuffix.py`）：
+
+- 16 個 `SpriteNN.idx` 共 169,105 筆，**全部符合 `NN == h`**；`Sprite.pak` 的 92,356 筆則平均分布在 16 個 h 值。
+- 53 個重名 `.img` 中，`SpriteNN` 那份都在第 h 個封存檔，所以 **53 個都會先讀到 `SpriteNN`**，`Sprite.pak` 的那份永遠讀不到。
+- **`<n>c.img` 有 2,243 張**：
+  - 其中 1,500 張在 UI 用的 2000–5800 範圍
+  - 抽查的 UI 圖幾乎都有 c 版：`3168`、`3176`、`2273`、`3204`、`4313`、`5726–5728`、`3701–3706`；`2818` 沒有
+  - 有 739 張沒有對應的 `<n>.img`
+  - 在兩版都有的圖中，585 張尺寸不同，180 張內容完全相同
+- 本機目視（PNG 只放在 `scratch/`）：
+  - `3176.img` 是新式灰框，上面印著 F5–F12
+  - `3176c.img` 是傳統金框，沒有字
+  - **台灣版畫面應該是 c 版**
+- 旗標也可能不同。例如 `5726.img` 旗標是 0，`5726c.img` 旗標是 1、透明色 `0x324C`。
+
+**引擎規則：**
+
+- `SurfCatalog` 對每個檔名 `F`，依序找：
+  1. `Fc.img`，在 `Sprite{h(Fc.img)}`
+  2. `Fc.img`，在 `Sprite.pak`
+  3. `F.img`，在 `Sprite{h(F.img)}`
+  4. `F.img`，在 `Sprite.pak`
+- 依這個順序，不再需要「重名且內容不同就拒絕」的規則。
+- 這項會影響 C1：既有的第 1–3 節抽查與 PNG 都以 `<n>.img` 為準，畫面元素要改以 c 版重新核對。尺寸不同的 585 張中，有沒有 UI 版面用到的，**待驗證**。
+
+#### (f) UI 文字字型與大小（已驗證）
+
+| 函式 | VA | File Offset | 作用 |
+|---|---|---|---|
+| `sub_8444A0` | `0x8444A0` | `0x4438A0` | 初始化字型。CP950 用的是 `dword_13CD54C = CreateFontA(12,0,0,0,400,0,0,0,136,0,0,0,0,"MingLiU")`，`"MingLiU"` 在 VA `0x117C748`／FO `0xD7B348`。另外也載入 `font\kor.fnt`（12×12）、`eng.fnt`（6×12）、`small.fnt` 點陣字 |
+| `sub_83DC90`／`sub_83E100` | `0x83DC90`／`0x83E100` | `0x43D090`／`0x43D500` | 文字繪製入口。字碼頁＝950 而且有 MingLiU 時走 GDI；否則才走 `kor.fnt`／`eng.fnt` 點陣字（KS X 1001 範圍，台灣版不會走到） |
+| `sub_83E490` | `0x83E490` | `0x43D890` | GDI 繪製：`SetBkMode(TRANSPARENT)`，先用描邊色在上下左右各偏移 1 px 畫 4 次，再用前景色畫在原位。顏色是 RGB555（565 模式為 RGB565） |
+| `sub_83DF40` | `0x83DF40` | `0x43D340` | 只有描邊的版本：黑色，上下左右各偏移 2 px |
+| `sub_856B80` | `0x856B80` | `0x455F80` | 指定高度的字型快取。CP950 一律用 `MingLiU`、字元集 136。呼叫者帶入的高度有 12 與 11（`sub_AA3000`） |
+
+**引擎規則：**
+
+- 字型用 `MingLiU`（細明體），`CreateFont` 高度 12（cell height，不是 9 pt）、`FW_NORMAL`、`CHINESEBIG5_CHARSET`、`DEFAULT_QUALITY`。
+- 字串以 CP950 位元組送進 GDI。
+- 需要描邊的文字，先在 (±1,0)、(0,±1) 畫描邊色，再畫前景色。
+- 細明體在 12 px 有內嵌點陣字，在原版機器上應該呈現點陣字形，但沒有實際截圖比對，**待驗證**。
+
+#### 推測（V4）
+
+- TW16 的按鈕類別和 TW13 相同。TW16 有同名的 `IMAGE_BTN`／`STAGE3_BTN` 解析分支，但本輪沒有追 TW16 的按鈕繪製。
+- 第 (c) 項的第一條解析器是 expat。
+
+#### 待驗證（V4）
+
+- `LEVEL_BTN` 第 3 張圖 5728 的用途；`BALOG_BTN`／`ADENA_BTN` 的按鈕類別。
+- `TAB_BUTTON` 3 張圖的狀態對應。
+- `sub_542370`（不看旗標的色鍵 blit）有哪些 UI 元件在用。
+- c 版與原版尺寸不同的 585 張中，有沒有 UI 版面用到的。
+- MingLiU 12 在原版機器上是否呈現點陣字形（需要截圖）。
+- 3 個 UTF-8 XML 中的非 ASCII 文字，畫到畫面前有沒有再轉成 CP950。
 
 ## 2. 主介面（`uistatus86-c.xml`，解析者 `sub_A9AD80`／FO `0x69A180`）
 
@@ -863,4 +1054,5 @@ BIN 載入 `RenewalMailUI.xml`（字串 VA `0x119CC48`／FO `0xD9B848`），但*
 | `buff_icon_table.py` | V3：從解密後的 `effectlist2.xml` 與 `Sprite*.pak` 的 `.tbt` 標頭產生第 4 節的 effect→圖示表（只輸出數字，`-o` 寫到 `scratch/`） |
 | `buff_handlers.py`、`buff_casegrep.py` | V3：TW16 opcode → 分派 case → 處理函式；在 Hex-Rays 輸出中列出每個 `sub_F05A90`／`sub_F059F0` 呼叫與所在的 case |
 | `buff_icon_queries.json` | V3 使用的 IDA 查詢（q1–q9 合併）；用法同 `ui_queries.json`，`ida_query.py` 需支援 `ranges` 與 UTF-8 BOM（本輪已在 `ui_ida_query.py` 加上） |
+| `v4/` | V4（#459）：TW16／TW13 的 IDA 查詢，以及 `img_check.py`、`img_csuffix.py` 兩支唯讀資料核對（Sprite 雜湊規則、重名、旗標分布、`<n>c.img`），用法見 [`v4/README.md`](rea-scripts/v4/README.md) |
 | `v5/` | V5（#460）：TW16 與 TW13 的 IDA 唯讀查詢（`ida_exec.py` 執行器、`run_exec.ps1` 可用 `-Db` 指定 IDB），用法見 [`v5/README.md`](rea-scripts/v5/README.md) |
