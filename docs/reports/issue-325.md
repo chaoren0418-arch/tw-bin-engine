@@ -21,11 +21,12 @@
 
 此節為最新狀態；上方的來源數與測試數是同步前的紀錄。本輪只做同步，釣魚功能未改。
 
-- 合入 origin/main `82d3a45`（分支原落後 158 個 commit）。衝突 4 檔：`WorldSession.cs`、`demo-tests/Program.cs`、`demo-tests/DemoChecks.csproj`、`rebuild-lock.json`。
-- `WorldSession.cs`：main 新增的 `case 71:` 與釣魚的 `case 71:` 不能並存，而且玩家查詢處理器可能直接 `return`。因此改成 `case 71:ObserveFishing(plain);if(ReceivePlayerQueryMessage(plain))return;break;`，S119／S158 維持 `ObserveFishing`。已讀過程式碼確認訊息編號不重疊：玩家查詢只處理 166，決鬥只處理 91／93／631／633／634，釣魚只處理 403／1137／1138／1163。
-- 測試入口保留 main 全部群組，再加回 `fishing` 群組與 `FishingChecks`。`rebuild-lock.json` 取 main 版本後以 `--update-lock` 重產，未手動拼 hash；`docs/REPORT.md` 未改。
-- 驗證：`rebuild.py --build` 成功（197 個來源、206 個鎖定檔；產品 DLL SHA-256 `b792386e…e607`）。離線測試全部通過，數字是該次執行的總檢查數，含每次都先跑的 `PolymorphChecks`：`fishing` 129、`map-continuity` 21297、`combat-admission` 1223、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163、`player-query` 791、`location-share` 189、`duel` 204。`check-no-game-assets.py` 通過（3355 個追蹤檔、0 錯誤）。
-- 同步後最新 head 的 CI 以 [PR #354](https://github.com/chaoren0418-arch/tw-bin-engine/pull/354) 的檢查為準。
+- 合入 origin/main 至 `a6bd751`（分支原落後 158 個 commit；同步期間 main 又合入寵物 #261，故分次合併）。衝突 4 檔：`WorldSession.cs`、`demo-tests/Program.cs`、`demo-tests/DemoChecks.csproj`、`rebuild-lock.json`。
+- `WorldSession.cs`：main 新增的 `case 71:` 與釣魚的 `case 71:` 不能並存，而且玩家查詢處理器可能直接 `return`。因此改成 `case 71:ObserveFishing(plain);if(ReceivePlayerQueryMessage(plain))return;break;`，S119／S158 維持 `ObserveFishing`，S39 保留 main 的寵物與查詢分派。已讀過程式碼確認訊息編號不重疊：玩家查詢只處理 166，決鬥只處理 91／93／631／633／634，釣魚只處理 403／1137／1138／1163；寵物未攔截 S71／S119／S158。
+- 測試入口保留 main 全部群組，再加回 `fishing` 群組與 `FishingChecks`。`rebuild-lock.json` 以 `--update-lock` 重產，未手動拼 hash；`docs/REPORT.md` 與 main 相同。
+- 過程失誤：中途推送的 `a72d6cb` 帶的是未重產的舊 lock（`--update-lock` 前就 stage 了），該 commit 不可採用，已由後續 commit 修正。
+- 驗證（程式內容等同最新 head，之後併入的只有 `docs/REPORT.md` 索引）：`rebuild.py --build` 成功（199 個來源、208 個鎖定檔；產品 DLL SHA-256 `8a0b5316…8aef`）。離線測試全部通過，數字是該次執行的總檢查數，含每次都先跑的共用檢查：`fishing` 232、`pets` 193、`map-continuity` 21400、`combat-admission` 1326、`polymorph-cadence` 226、`buddies` 362、`item-transfer` 266、`player-query` 894、`location-share` 292、`duel` 307。`check-no-game-assets.py` 通過（3367 個追蹤檔、0 錯誤）。
+- 本機未跑 `weapon-repair`、`web-resource`、`packet-trace`、`npc` 等獨立測試專案，由 CI 涵蓋。同步後最新 head 的 CI 以 [PR #354](https://github.com/chaoren0418-arch/tw-bin-engine/pull/354) 的檢查為準。
 
 ## 未驗證什麼
 
