@@ -33,6 +33,7 @@ public sealed partial class WorldSession {
         if(opcode==39&&ReceiveBuddies(opcode,plain))return;
         switch(opcode){
         case 183:ReceiveTitle(r);return;
+        case 64 when plain.Length>1 && plain[1] is >=1 and <=4:ReceiveCharReset(plain);return;
         case 83 when !WeaponRepairPackets.IsRepairList(plain):ReceivePetList(r);return;
         case 176:ReceivePetInventory(r,plain);return;
         case 115:ReceiveWeather(r);return;

@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 208,
+ "sourceCount": 210,
  "files": [
   {
    "path": "NuGet.Config",
@@ -158,6 +158,16 @@
    "path": "source/CacheTests.cs",
    "size": 11154,
    "sha256": "4584ba1a014e5378870bf1520427c10ff7ace1947ce350dc813ba5d772e5d521"
+  },
+  {
+   "path": "source/CharReset.cs",
+   "size": 9649,
+   "sha256": "f230aef39e18ff155c092964dc9f53660c36f9464df5705d19cb9feced1fed3a"
+  },
+  {
+   "path": "source/CharResetUi.cs",
+   "size": 5633,
+   "sha256": "96833e7b319e408c0e3d6ca7fee58c2b5d0aba8ab5294c5b435973e8fe3e8b6f"
   },
   {
    "path": "source/CharacterConfig.cs",
@@ -1036,8 +1046,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 11551,
-   "sha256": "57b5900967e3bd7115cfb32e32a22b3521e45244f6c60aa96c7a964ee6cd80ec"
+   "size": 11647,
+   "sha256": "06447d2962ee6b4c052ad983463c244ecd4285564f9d110cf9dbc5208023e039"
   },
   {
    "path": "source/WorldTests.cs",
