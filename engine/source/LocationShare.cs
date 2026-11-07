@@ -67,3 +67,103 @@ public sealed partial class LoginConnection {
         }finally{if(lease==playerChatLease)playerChatSending=false;}
     }
 }
+
+public sealed record LocationChatLink(int Start,int Length,long Sequence,SharedLocation Location);
+public static class LocationSharePresentation {
+    // Match the actual displayed snapshot. Plain chat text cannot manufacture a location link.
+    public static LocationChatLink[] Links(PlayerChatView view,string displayedText){
+        var lines=view.Lines.Select(PlayerChatProtocol.FormatLine).ToArray();
+        if(displayedText.Replace("\r\n","\n",StringComparison.Ordinal)!=string.Join("\n",lines))return [];
+        var links=new List<LocationChatLink>();int start=0;
+        for(int i=0;i<lines.Length;i++){
+            if(view.Lines[i].Location is {} location){
+                int length=LocationShareProtocol.Format(location).Length;
+                links.Add(new(start+lines[i].Length-length,length,view.Lines[i].Sequence,location));
+            }
+            start+=lines[i].Length+1;
+        }
+        return links.ToArray();
+    }
+    public static Point MarkerPoint(PointF projected,Rectangle viewport)=>new(
+        (int)Math.Clamp(projected.X,viewport.Left+12,Math.Max(viewport.Left+12,viewport.Right-12)),
+        (int)Math.Clamp(projected.Y,viewport.Top+12,Math.Max(viewport.Top+12,viewport.Bottom-12)));
+}
+
+// The form lifecycle extension below attaches through public controls; no changes to PlayerHudChat.cs.
+// This is a UI-only indicator: clicks never move the player, change the camera or send packets.
+public sealed class LocationShareUi:IDisposable {
+    readonly Control owner;readonly RichTextBox history;readonly LoginConnection connection;
+    readonly Func<Rectangle> viewport;readonly Func<SharedLocation,PointF> project;readonly Func<bool> active;
+    readonly Label marker=new(){Text="⊕",TextAlign=ContentAlignment.MiddleCenter,Size=new(24,24),ForeColor=Color.Cyan,BackColor=Color.FromArgb(20,40,45),Enabled=false,Visible=false,AccessibleName="分享座標標記"};
+    readonly Label notice=new(){AutoEllipsis=true,ForeColor=Color.Cyan,BackColor=Color.FromArgb(20,40,45),Enabled=false,Visible=false,AccessibleName="分享座標位置提示"};
+    readonly System.Windows.Forms.Timer refresh=new(){Interval=100};
+    PlayerChatView? displayed;LocationChatLink[] links=[];LocationChatLink? selected;
+    string styledText="";bool disposed;
+    public LocationShareUi(Control owner,RichTextBox history,LoginConnection connection,Func<Rectangle> viewport,Func<SharedLocation,PointF> project,Func<bool> active){
+        this.owner=owner;this.history=history;this.connection=connection;this.viewport=viewport;this.project=project;this.active=active;
+        owner.Controls.AddRange([marker,notice]);
+        history.MouseUp+=ClickLocation;history.MouseMove+=HoverLocation;history.TextChanged+=HistoryChanged;
+        owner.Disposed+=OwnerDisposed;refresh.Tick+=RefreshTick;refresh.Start();Refresh();
+    }
+    void HistoryChanged(object? sender,EventArgs e){styledText="";}
+    void RefreshTick(object? sender,EventArgs e)=>Refresh();
+    void OwnerDisposed(object? sender,EventArgs e)=>Dispose();
+    void HoverLocation(object? sender,MouseEventArgs e){
+        Refresh();history.Cursor=AtPoint(e.Location)!=null?Cursors.Hand:Cursors.IBeam;
+    }
+    LocationChatLink? AtPoint(Point point){
+        int index=history.GetCharIndexFromPosition(point);if(index>=history.TextLength)return null;
+        var glyph=history.GetPositionFromCharIndex(index);var next=history.GetPositionFromCharIndex(index+1);
+        int width=next.Y==glyph.Y&&next.X>glyph.X?next.X-glyph.X:TextRenderer.MeasureText(history.Text[index].ToString(),history.Font,Size.Empty,TextFormatFlags.NoPadding).Width;
+        // RichEdit otherwise maps blank space to the last character of a nearby line.
+        if(point.Y<glyph.Y||point.Y>=glyph.Y+history.Font.Height+4||point.X<glyph.X||point.X>=glyph.X+width)return null;
+        return links.FirstOrDefault(link=>index>=link.Start&&index<link.Start+link.Length);
+    }
+    void ClickLocation(object? sender,MouseEventArgs e){
+        if(e.Button!=MouseButtons.Left)return;
+        Refresh();if(AtPoint(e.Location) is {} link)Select(link);
+    }
+    void Select(LocationChatLink link){selected=link;Refresh();}
+    public void Refresh(){
+        if(disposed||owner.IsDisposed||history.IsDisposed)return;
+        var view=connection.PlayerChatSnapshot();
+        if(displayed==null||displayed.Generation!=view.Generation||displayed.WorldEpoch!=view.WorldEpoch||displayed.Actor!=view.Actor){selected=null;styledText="";}
+        displayed=view;links=LocationSharePresentation.Links(view,history.Text);
+        if(styledText!=history.Text){
+            int caret=history.SelectionStart,count=history.SelectionLength;
+            using var underline=new Font(history.Font,FontStyle.Underline);
+            foreach(var link in links){history.Select(link.Start,link.Length);history.SelectionFont=underline;history.SelectionColor=Color.Cyan;}
+            history.Select(history.TextLength,0);history.SelectionFont=history.Font;
+            history.Select(caret,count);styledText=history.Text;
+        }
+        if(!active()||connection.State!=LoginState.InWorld||!connection.World.Ready){selected=null;}
+        if(selected is {} old&&!view.Lines.Any(line=>line.Sequence==old.Sequence&&line.Location==old.Location))selected=null;
+        if(selected is not {} target){marker.Visible=notice.Visible=false;return;}
+        var bounds=viewport();notice.SetBounds(bounds.Left+8,bounds.Top+8,Math.Max(1,bounds.Width-16),24);
+        string text=LocationShareProtocol.Format(target.Location);
+        if(connection.World.MapId!=target.Location.Map){marker.Visible=false;notice.Text="分享座標（不同地圖）："+text;}
+        else{
+            var p=project(target.Location);var point=LocationSharePresentation.MarkerPoint(p,bounds);
+            marker.Location=new(point.X-12,point.Y-12);marker.Visible=true;marker.BringToFront();
+            notice.Text=(bounds.Contains(Point.Round(p))?"分享座標：":"分享座標（視野外，邊緣指示）：")+text;
+        }
+        notice.Visible=true;notice.BringToFront();
+    }
+    public void Dispose(){
+        if(disposed)return;disposed=true;refresh.Stop();refresh.Dispose();
+        history.MouseUp-=ClickLocation;history.MouseMove-=HoverLocation;history.TextChanged-=HistoryChanged;
+        owner.Disposed-=OwnerDisposed;marker.Dispose();notice.Dispose();
+    }
+}
+
+public sealed partial class ClientForm {
+    LocationShareUi? locationShareUi;
+    protected override void OnShown(EventArgs e){
+        base.OnShown(e);
+        if(!normalProduct||playerHud==null||locationShareUi!=null)return;
+        var chat=playerHud.Controls.OfType<PlayerHudChatPanel>().Single();
+        var history=chat.Controls.OfType<RichTextBox>().Single();
+        locationShareUi=new(this,history,login,()=>PlayerSceneBounds,
+            location=>Camera.ToView(Coordinates.Screen(location.X,location.Y)),()=>login.World.Renderable);
+    }
+}

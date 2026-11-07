@@ -85,5 +85,41 @@ partial class Checks {
             }
             release.SetResult(true);Check(!await pending&&sent==0,"location revalidates before socket write "+change);
         }
+        Exception? uiError=null;var uiThread=new Thread(()=>{try{LocationShareUiChecks();}catch(Exception ex){uiError=ex;}});
+        uiThread.SetApartmentState(ApartmentState.STA);uiThread.Start();uiThread.Join();if(uiError!=null)throw uiError;
+    }
+    static void LocationShareUiChecks(){
+        using var c=Seed();int sends=0;Sender(c,(_,_,_)=>{sends++;return Task.FromResult(true);});
+        using var owner=new Panel{Size=new(900,600)};
+        using var chat=new PlayerHudChatPanel{Size=new(880,250),Location=new(0,300)};owner.Controls.Add(chat);
+        owner.CreateControl();chat.CreateControl();chat.PerformLayout();
+        var history=chat.Controls.OfType<RichTextBox>().Single();history.CreateControl();
+        PointF projected=new(200,200);
+        using var ui=new LocationShareUi(owner,history,c,()=>new(0,0,800,280),_=>projected,()=>true);
+        var marker=owner.Controls.OfType<Label>().Single(x=>x.AccessibleName=="分享座標標記");
+        var notice=owner.Controls.OfType<Label>().Single(x=>x.AccessibleName=="分享座標位置提示");
+        void Update(){chat.UpdateChat(c.PlayerChatSnapshot());ui.Refresh();}
+        void Click(int index){var point=history.GetPositionFromCharIndex(index);typeof(RichTextBox).GetMethod("OnMouseUp",F)!.Invoke(history,[new MouseEventArgs(MouseButtons.Left,1,point.X+1,point.Y+1,0)]);}
+        Feed(c,LocationPacket("中",0));Update();
+        var links=LocationSharePresentation.Links(c.PlayerChatSnapshot(),history.Text);
+        Check(links.Length==1&&history.Text.Substring(links[0].Start,links[0].Length)=="地圖 0 (32600, 32940)","location typed data links to exact displayed coordinates");
+        history.Select(links[0].Start,1);Check(history.SelectionFont!.Underline,"location coordinates visibly underlined in real RichTextBox");
+        Click(links[0].Start);
+        Check(marker.Visible&&marker.Location==new Point(188,188)&&notice.Text.Contains("地圖 0"),"location actual mouse event places marker on projected tile");
+        Check(sends==0&&c.World.Actor!.X==32600,"location click does not send movement or change player position");
+        projected=new(900,-500);ui.Refresh();
+        Check(marker.Location==new Point(776,0)&&notice.Text.Contains("視野外"),"location offscreen marker clamps within scene and labels explicitly");
+        Feed(c,LocationPacket("其他角色",4));Update();links=LocationSharePresentation.Links(c.PlayerChatSnapshot(),history.Text);
+        Click(links[1].Start);Check(!marker.Visible&&notice.Text.Contains("不同地圖"),"location other-map click shows destination without false on-map marker");
+        Check(LocationSharePresentation.Links(c.PlayerChatSnapshot(),history.Text+"stale").Length==0,"location stale rendered snapshot cannot be clicked");
+        Feed(c,Packet(b=>{b.Write((byte)243);b.Write((byte)3);Text(b,"地圖 0 (32600, 32940)");}));Update();
+        Check(LocationSharePresentation.Links(c.PlayerChatSnapshot(),history.Text).Length==2,"location ordinary chat cannot forge a clickable coordinate");
+        Feed(c,LoginPackets.Pad([206,4,0,0]));Feed(c,Pack(123));Update();
+        Check(!marker.Visible&&!notice.Visible,"location world epoch transition clears marker");
+        links=LocationSharePresentation.Links(c.PlayerChatSnapshot(),history.Text);Click(links[1].Start);
+        Check(marker.Visible,"location deliberate click can select history after arrival");
+        c.World.Reset();Update();Check(!marker.Visible&&!notice.Visible&&history.TextLength==0,"location session reset clears marker and history");
+        Check(sends==0,"location all UI interaction remains local");
+        ui.Dispose();Check(marker.IsDisposed&&notice.IsDisposed,"location UI disposal releases timer and controls");
     }
 }
