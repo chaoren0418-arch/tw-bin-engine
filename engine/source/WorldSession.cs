@@ -36,6 +36,7 @@ public sealed partial class WorldSession {
         if(partyHandled||duelHandled)return;
         if(opcode==39&&ReceiveBuddies(opcode,plain))return;
         switch(opcode){
+        case 183:ReceiveTitle(r);return;
         case 165:ReceivePoison(r);return;
         case 202:ReceiveParalysis(r,plain);return;
         case 47:ReceiveBlind(r);return;
@@ -54,7 +55,7 @@ public sealed partial class WorldSession {
         case 39:if(ReceivePetDialog(plain)||ReceivePlayerQueryHtml(plain))return;break;
         case 71:ObserveFishing(plain);if(ReceiveMarriageMessage(plain)||ReceivePlayerQueryMessage(plain))return;break;
         case 119:ObserveFishing(plain);break;
-        case 158:ObserveFishing(plain);if(ReceiveDoorAction(plain))return;break;
+        case 158:ObserveFishing(plain);if(ReceiveDoorAction(plain)||ReceiveEmote(plain))return;break;
         case 22:ReceiveSoundPacket(plain);return;
         case 55:ReceiveEffectPacket(plain);return;
         case 106:ReceiveEffectPacket(plain);return;
