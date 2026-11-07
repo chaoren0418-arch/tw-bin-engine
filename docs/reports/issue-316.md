@@ -36,6 +36,7 @@
 - 2026-11-07 再同步 origin/main（併入 #416 暫時能力），`Program.cs` 兩邊測試入口都保留，重產 dev lock 後重建：`clan-emblem` 323 項、`map-continuity` 22818 項通過，資源檢查 0 錯誤。
 - 2026-11-07 第三次同步 origin/main（併入 #216 道具狀態、#323 稱號表情、#427 等 70 個提交），`Program.cs` 同時保留 `ClanEmblemChecks` 與 `TitleAndEmoteChecks`，重產 dev lock 後重建：`clan-emblem` 323、`map-continuity` 22818、`combat-admission` 1837、`item-status` 358、`afflictions` 428、`polymorph-cadence` 309、`buddies` 445、`item-transfer` 349、`doors` 597 項全部通過，資源檢查 0 錯誤。
 - 2026-11-07 第四次同步 origin/main（併入 #378 盟戰 `ClanWar.cs`、#428 等），`Clan.cs` 保留 main 新增的 `ClanWarEnemies`／`IsClanWarEnemy`，`FindClanEmblem` 仍只在 `ClanEmblem.cs`；`DemoChecks.csproj`／`Program.cs` 同時接上 `ClanEmblemChecks` 與 `ClanWarChecks`。重產 dev lock 後 `rebuild.py --build` PASS，`clan-emblem` 323、`clan` 395、`clan-war` 479、`map-continuity` 23021 項通過，資源檢查 0 錯誤。
+- 2026-11-08 第五次同步 origin/main（併入 #449 地圖環境音 `MapAmbientSound.cs` 等），`Program.cs` 衝突以 main 版為底，再加回 `ClanEmblemChecks`（同時保留 `MapAmbientChecks`）。重產 dev lock 後 `rebuild.py --build` PASS；`clan-emblem` 374、`clan` 446、`clan-war` 530、`map-continuity` 23117 項通過（計數含共用檢查，main 新增檢查使數字上升），資源檢查 0 錯誤。
 - 封包全走正式入口：`World.Receive`，查詢經真實的 `PumpWorldAsync` 與 `sendMovementGate`。S64/0x3c 用伺服器註解裡的樣本 bytes 核對。
 - **變異測試**：手動破壞 8 處關鍵邏輯（命名空間分類、pump 掛接、盟名防護、切圖保留、排隊失效、重複查詢、最新優先、回覆期限），全部被測試擋下。其中「最新優先」第一次存活，已補測試後確認擋下。切圖保留的變異是在較早的檢查就失敗，不是由切圖專用的檢查擋下。
 - 過程中 `CharResetChecks` 抓到我的回歸：不完整的 S64/0x3c 會中斷連線。已改成需要完整 10 bytes 才分派，短封包維持原本的未處理計數；既有測試沒有改。
