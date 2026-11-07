@@ -18,6 +18,7 @@ public sealed partial class ClientForm {
     readonly List<(uint Id,NumericUpDown Input)> shopInputs=[];int npcUiRevision=-1;NpcWebCommand? npcShopStamp;
     string ResolveNpcText(string text)=>(objectAssets??=new(World.Assets.Root)).Name(text);
     void InitInteraction(){
+        InitWeaponRepairService();
         string path=Path.Combine(World.Assets.Root,"dialogs/templates.json");if(File.Exists(path))login.World.DialogTemplates=new(path);string skills=Path.Combine(World.Assets.Root,"dialogs/skills.json");if(File.Exists(skills))login.World.SkillCatalog=new(skills);
         npcPanel.Controls.AddRange([npcContent,npcNotice,npcSubmit,npcClose]);Controls.Add(npcTalk);Controls.Add(npcPanel);npcPanel.BringToFront();npcTalk.BringToFront();
         npcTalk.Click+=async(_,_)=>await RunInteraction(CurrentNpcCommand("talk"));npcClose.Click+=async(_,_)=>await RunInteraction(CurrentNpcCommand("close"));
