@@ -278,16 +278,26 @@ partial class Checks {
         using var guard=new SocketGuard();
         Exception? petsFailure=null;
         try{await Pets();}catch(Exception ex){petsFailure=ex;Console.Error.WriteLine("Pets: "+ex);}
+        PolymorphChecks();
         if(args.Length>2){
             switch(args[2]){
                 case "pets":break;
+                case "map-continuity":await MapContinuity();await BoardChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();AmbienceChecks();InvisibilityChecks();break;
+                case "location-share":await LocationShareChecks();break;
+                case "player-query":await PlayerQueryChecks();break;
+                case "character-config":await CharacterConfigChecks();break;
+                case "polymorph":break;
+                case "polymorph-cadence":PolymorphCadenceChecks(args[0]);break;
                 case "buddies":await BuddyChecks();break;
                 case "buddies-codec":await BuddyChecks(true);break;
-                case "map-continuity":await MapContinuity();await BoardChecks();break;
+                case "ambience":AmbienceChecks();break;
+                case "invisibility":InvisibilityChecks();break;
                 case "board":await BoardChecks();break;
                 case "item-transfer":await ItemTransferChecks();break;
                 case "combat-loop":await CombatLoop();break;
-                case "combat-admission":await CombatAdmission();HitReactionSuppression();break;
+                case "combat-admission":await CombatAdmission();AttackSkillChecks.Run(args[1],Check);HitReactionSuppression();break;
+                case "attack-skills":AttackSkillChecks.Run(args[1],Check);break;
+                case "attack-skill-resources":AttackSkillChecks.NativeResources(args[3],args[4],Check);break;
                 case "hit-reaction-suppress":HitReactionSuppression();break;
                 case "slow-actions":await SlowActions();break;
                 case "keyboard":await KeyboardMovement123();break;
@@ -296,8 +306,8 @@ partial class Checks {
                 default:throw new ArgumentException("Unknown regression group");
             }
         }else{
-            NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
-            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();await BoardChecks();HitReactionSuppression();
+            await CharacterConfigChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
+            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();await BoardChecks();await LocationShareChecks();HitReactionSuppression();await PlayerQueryChecks();AmbienceChecks();InvisibilityChecks();
         }
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status=petsFailure==null?"pass":"fail",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));
         if(petsFailure!=null)throw new InvalidOperationException("Pets failed; subsequent groups completed.",petsFailure);

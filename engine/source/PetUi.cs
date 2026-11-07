@@ -4,12 +4,13 @@ public sealed partial class ClientForm {
     readonly FlowLayoutPanel petContent=new(){Dock=DockStyle.Fill,FlowDirection=FlowDirection.TopDown,WrapContents=false,AutoScroll=true};
     uint selectedPet;
     string petUiSignature="";
-    protected override void OnShown(EventArgs e) {
+    protected override void OnActivated(EventArgs e) {
         InitPetUi();
-        base.OnShown(e);
+        base.OnActivated(e);
     }
     void InitPetUi() {
-        // The buddy module owns OnLoad; attach this page once after the form is ready.
+        // Buddies own OnLoad and location sharing owns OnShown. The form is always
+        // activated before the player can open this page, so attach once from here.
         if(normalPanels!=null&&petContent.Parent==null){
             var page=new TabPage("寵物"){BackColor=Color.FromArgb(23,38,41),ForeColor=Color.White};
             page.Controls.Add(petContent);normalPanels.TabPages.Add(page);

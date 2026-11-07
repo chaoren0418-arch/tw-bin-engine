@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 186,
+ "sourceCount": 194,
  "files": [
   {
    "path": "NuGet.Config",
@@ -95,9 +95,19 @@
    "sha256": "f533f652619d26639ca2725cb5c3b5c07f9a13bbfe9fcdc8d8164d7d0e9486a5"
   },
   {
+   "path": "source/Ambience.cs",
+   "size": 8307,
+   "sha256": "77dfb81d791fecced4b9023f425ba9a0add842eb14cb5073f76c874d98ef39d4"
+  },
+  {
    "path": "source/Assets.cs",
    "size": 7448,
    "sha256": "7338b577e307dbf11a7d4699a11eeb0ce472186b77c82fdf0807bef4ef729b6a"
+  },
+  {
+   "path": "source/AttackSkillPackets.cs",
+   "size": 6506,
+   "sha256": "b7405a39c01b80275daf702c8595c3845e646dbb2e00430338b0ae14384b1c5e"
   },
   {
    "path": "source/AudioApiTransport.cs",
@@ -150,6 +160,11 @@
    "sha256": "4584ba1a014e5378870bf1520427c10ff7ace1947ce350dc813ba5d772e5d521"
   },
   {
+   "path": "source/CharacterConfig.cs",
+   "size": 7597,
+   "sha256": "25da0357d544740d2f9309241a3c8d84e2b37128b06389326d16ba5c8a9d71f3"
+  },
+  {
    "path": "source/CharacterManagement.cs",
    "size": 13145,
    "sha256": "26257b76afc4a05ff185abc0922cbd4694443d23ecbb12e46621713578c16ca6"
@@ -186,8 +201,8 @@
   },
   {
    "path": "source/Combat.cs",
-   "size": 13944,
-   "sha256": "8b8360390be7d77e27aae04206a89004b1df878cab7554e4d858357b4618eb6d"
+   "size": 13564,
+   "sha256": "b41b61b9f0a78575dcc817cbe9492706d5e73ea0e575a218802923d82a65fa68"
   },
   {
    "path": "source/CombatRegression.cs",
@@ -350,6 +365,11 @@
    "sha256": "be339fb8b6ca024be20a6b2c57db6536479bec9cec4bd8ef2053f905593991b9"
   },
   {
+   "path": "source/Invisibility.cs",
+   "size": 1401,
+   "sha256": "432a1fc024f43e8d866912cd7fae136162bd4c257d4cb8731eefa20c41087681"
+  },
+  {
    "path": "source/ItemTransfer.cs",
    "size": 9708,
    "sha256": "1798a14d638b98120a222293e02fd060c92751f51d11c05a9cc1e652f9f999f7"
@@ -368,6 +388,11 @@
    "path": "source/KeyboardNavigation.cs",
    "size": 1812,
    "sha256": "a14571c5746777373cda58022e1374b256ba8f342c00b45d578181e7a4ea8a99"
+  },
+  {
+   "path": "source/LocationShare.cs",
+   "size": 11395,
+   "sha256": "f21a28da5a2ddedf3f519d1e7e67d1715ecf5ad129d454bd4a08d0e194ac72db"
   },
   {
    "path": "source/LoginConnection.cs",
@@ -391,8 +416,8 @@
   },
   {
    "path": "source/Magic.cs",
-   "size": 11776,
-   "sha256": "9b68462c03aef5377a78e1c56a083b674d7f80073c75f3e625178b41aeb9f14f"
+   "size": 10945,
+   "sha256": "5413fde4ba807aa6d9fd2771595413a3779a6e049b3fd3e7622ba82225562523"
   },
   {
    "path": "source/MagicIntegration.cs",
@@ -401,8 +426,8 @@
   },
   {
    "path": "source/MagicRendering.cs",
-   "size": 4867,
-   "sha256": "c65cd7e3af2f92d689bb093de1007003efff060798e71a7fe1cad602120f9963"
+   "size": 21478,
+   "sha256": "c4b46fcd64185a5377699142fe30d7280789bbb4613c1ecb45c5e4dd5a0cd2db"
   },
   {
    "path": "source/MagicRenderingTests.cs",
@@ -453,6 +478,11 @@
    "path": "source/MapEffects.cs",
    "size": 11051,
    "sha256": "befb109385251d5455e0bb5418995f072568e324424415e1f39e1c5c616e7f47"
+  },
+  {
+   "path": "source/MapIdPacket.cs",
+   "size": 1209,
+   "sha256": "d17b7699fc12b1fced4b9d2847d1a4f6ef7a5048dbf82bcba372f567b692c7c7"
   },
   {
    "path": "source/MapResources.cs",
@@ -526,8 +556,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 9819,
-   "sha256": "6de015ce11c61e71aaa6de096d192abbb7d0c427f3f0bcedf762871d3a536613"
+   "size": 9850,
+   "sha256": "61dece0fd7ec3666094bd080dedeab949e5ce10a44f8adad418da7da3d130741"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -616,8 +646,8 @@
   },
   {
    "path": "source/PetUi.cs",
-   "size": 4035,
-   "sha256": "54bd78189b229e6803c00b70bd8917218da6fdfa6cbdca8dd1b9d236d1c7df0f"
+   "size": 4124,
+   "sha256": "f0979c21a3c7c52ee95adba29a754397574222c59abe38a75d54a67ed7645ba5"
   },
   {
    "path": "source/Pets.cs",
@@ -641,8 +671,8 @@
   },
   {
    "path": "source/PlayerChat.cs",
-   "size": 8039,
-   "sha256": "c7b29e2b774e7f202cd2ecb525eaf4c5b496faa602466368e7124d1714e15dce"
+   "size": 8562,
+   "sha256": "ef0db5a097ae8408f59b315e4891243aed8c4e3fac7cde6ceb2f755b5e5248f7"
   },
   {
    "path": "source/PlayerChatKeyboardFlow.cs",
@@ -671,8 +701,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15394,
-   "sha256": "f7583e75ba3a88ada62b0612e5ef36e3f36f3a2df3e37a6147853ceabf141c74"
+   "size": 15468,
+   "sha256": "f82b4f12ad2963e750ef30f9c8b9f40cf161f63ff731e30b27a91db80807e694"
   },
   {
    "path": "source/PlayerPointer.cs",
@@ -695,9 +725,19 @@
    "sha256": "8257012faba79f2977e979712f596c80f2610097c9e45ae13cee91561240c5f2"
   },
   {
+   "path": "source/PlayerQuery.cs",
+   "size": 11310,
+   "sha256": "d02d1bb53f7b9c4723c1624aa203486d3f7edec0bd4c335c4bc1c2198a11266b"
+  },
+  {
    "path": "source/PlayerShadows.cs",
    "size": 3677,
    "sha256": "c44d4c21bdf4764a891e8e366b3211f80898336b8fab651e18874ceaee86bca2"
+  },
+  {
+   "path": "source/Polymorph.cs",
+   "size": 2382,
+   "sha256": "2427821e0ba3b625cb0d3545004a880061eff9f2db40b4a1eff79522a6e32c6c"
   },
   {
    "path": "source/PrivateShop.cs",
@@ -721,8 +761,8 @@
   },
   {
    "path": "source/ProjectileRendering.cs",
-   "size": 5605,
-   "sha256": "05d1588ce0fe814462f9175e208f081854e735a8daa4c6dcfa655586a9afbea9"
+   "size": 6341,
+   "sha256": "ccaba7f632758e17c3d0ca1c67dcea4f4d51ae3f75476b1ee8eaa02101a6d07c"
   },
   {
    "path": "source/Protocol.cs",
@@ -781,8 +821,8 @@
   },
   {
    "path": "source/Renderer.cs",
-   "size": 7142,
-   "sha256": "889b6587ebc5b6d85cb914284efc800c2c18c1c2c4713226d7b1d3e60a1f74e5"
+   "size": 7322,
+   "sha256": "71c8e0b2bbd866e5d49db10f5731c3eba5b2d51809cb1f54ac7b784a8285a5a4"
   },
   {
    "path": "source/Resources/ground-catalog.json",
@@ -916,8 +956,8 @@
   },
   {
    "path": "source/WorldObjects.cs",
-   "size": 6373,
-   "sha256": "2aa63a2e44b3d0a01b0eb17182de9433cf0a6db7772370233927293594048d66"
+   "size": 6002,
+   "sha256": "889abe946a9f5a64377feb4195b16454e6f6f442f0a4b2f72f5a41e333d8ba0a"
   },
   {
    "path": "source/WorldRegression.cs",
@@ -926,8 +966,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 10122,
-   "sha256": "d4d16aad7503a7917ce70cb4eade82ce3a86b826353a604f88bb07792aac42dd"
+   "size": 10580,
+   "sha256": "971ef4543b10d38e1c0b346e86ef7d55cf0697f0f68b71fa958b28aef32d17ed"
   },
   {
    "path": "source/WorldTests.cs",
