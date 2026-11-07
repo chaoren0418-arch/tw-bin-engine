@@ -35,6 +35,7 @@ public sealed partial class WorldSession {
         case 165:ReceivePoison(r);return;
         case 202:ReceiveParalysis(r,plain);return;
         case 47:ReceiveBlind(r);return;
+        case 64 when plain.Length>1 && plain[1] is >=1 and <=4:ReceiveCharReset(plain);return;
         case 83 when !WeaponRepairPackets.IsRepairList(plain):ReceivePetList(r);return;
         case 176:ReceivePetInventory(r,plain);return;
         case 115:ReceiveWeather(r);return;
@@ -47,7 +48,7 @@ public sealed partial class WorldSession {
         case 71 when plain.Length>=3&&BinaryPrimitives.ReadUInt16LittleEndian(plain.AsSpan(1)) is 109 or 472:
             ReceiveBuddies(opcode,plain);break; // Continue through the existing server-message dispatch.
         case 39:if(ReceivePetDialog(plain)||ReceivePlayerQueryHtml(plain))return;break;
-        case 71:ObserveFishing(plain);if(ReceivePlayerQueryMessage(plain))return;break;
+        case 71:ObserveFishing(plain);if(ReceiveMarriageMessage(plain)||ReceivePlayerQueryMessage(plain))return;break;
         case 119:ObserveFishing(plain);break;
         case 158:ObserveFishing(plain);if(ReceiveDoorAction(plain))return;break;
         case 22:ReceiveSoundPacket(plain);return;

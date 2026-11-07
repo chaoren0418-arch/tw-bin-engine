@@ -73,8 +73,25 @@ CI 已加入 `Affliction contracts`；遠端結果以本 PR 的 `build` workflow
 - `MailChecks` 119、`WeaponRepairChecks` 98：通過。
 - `check-no-game-assets.py`：通過，0 錯誤。
 
+## 第五次同步（2026-11-07，claude-local）
+
+調度器回報 PR #401 與 main 衝突：分支落後 10 個 commit（結婚 #358、能力重置 #359）。本段的數值取代上方所有數值。本輪沒有改 `engine/source` 的本模組程式。
+
+- 文字衝突：`WorldSession.cs`、`DemoChecks.csproj`、`Program.cs` 兩邊保留；`rebuild-lock.json` 由 `--update-lock` 重產。
+- 語意檢查（讀程式）：main 新增的 S64／S71／S219 分派與 S165／S202／S47 沒有重疊，也沒有改 `ObjectRendering.cs`、`OnlineInput.cs`。結婚的 `MarriageAccess` 有 `ActionLocked` 閘門。
+- **一個沒有處理的落差**：能力重置的 `ResetAccess` 只檢查 `TeleportPending`，沒有檢查 `ActionLocked`；`sendMovementGate` 本身也不檢查鎖定，只靠呼叫端的 `valid()`。所以麻痺、睡眠或凍結時，重置視窗仍可送出請求。這不是移動或攻擊，`CharReset.cs` 也不在本張可改範圍，因此未修改；是否要擋、原服會不會拒絕，都還沒確認。
+
+驗證：
+
+- `--update-lock`：210 個來源、219 個鎖定檔；`--build`：產品及 launcher 通過，產品 DLL SHA-256 `01ff05faf3c8c7a1e0ef9fa6ab57405185e8484bf633b1bdcf2c7309b5152602`，已確認測試連結的 `engine/build/client-product-dev` DLL 就是這個雜湊。
+- DemoChecks 31 組中 26 組通過：afflictions 345、char-reset 354、marriage 329、clan 312、portals 293、doors 514、pets 193、map-continuity 22275、ghost-mode 552、fishing 232、location-share 292、player-query 894、character-config 286、polymorph 193、polymorph-cadence 226、buddies 362、buddies-codec 308、ambience 549、invisibility 263、board 423、item-transfer 266、combat-admission 1326、duel 307、attack-skills 934、hit-reaction-suppress 259、slow-actions 557。
+- 其餘 5 組（`combat-loop`、`keyboard`、`busy`、`world`、`attack-skill-resources`）本輪沒有跑，原因同第四次同步。
+- `MailChecks` 119、`WeaponRepairChecks` 98：通過。
+- `check-no-game-assets.py`：通過，0 錯誤。
+
 ## 未驗證什麼
 
+- 麻痺時能力重置視窗的行為：可以送出請求（讀程式確認，見第五次同步），未寫測試，也未確認原服如何回應。
 - `keyboard`、`busy`、`world`、`combat-loop`、`attack-skill-resources` 五組 DemoChecks 需要真實素材或額外參數，本機與 CI 都沒跑（見第四次同步）。其中 `keyboard`、`busy` 會經過 `OnlineDown`；本模組新增的鎖定查詢由 `afflictions` 組直接測到。
 - 未啟動遊戲、伺服器或 DB，未登入／送真實遊戲封包。
 - 未驗證原生畫面與舊 BIN 調色盤逐像素一致性。綠色、灰色與盲目明度是依伺服器語意實作的呈現政策。
