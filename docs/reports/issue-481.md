@@ -40,7 +40,7 @@
    - `timed-buffs`：PASS 645（相位 50 ms／200 循環、18 筆位移表、振幅 3／7／10、垂直週期 100 行、相位 200 回原點、逐行移位與邊界、`WarpLiquorFrame` 對 Bitmap 的實際移位）。
    - 合併 main 後，CI 的全部群組都跑過：`map-continuity` 23272、`combat-admission` 1686、`item-status` 409、`polymorph-cadence` 380、`buddies` 496、`item-transfer` 400、`doors` 648，另跑 `title-emote` 553，全部 PASS。
 3. `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：pass，errors 0。
-4. CI：見 PR。
+4. CI：PR #496 的 dotnet、map-continuity、npc-offline 全部綠燈。
 
 ## 沒驗證什麼
 
