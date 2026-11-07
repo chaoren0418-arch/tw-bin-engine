@@ -2,22 +2,22 @@
 
 ## 最新同步結果（2026-11-07，第五次同步，本輪只做同步）
 
-依調度器要求，在既有 `task/259` 合併 `origin/main`。開工時落後 18 個提交（`3630dcf`，帶入信件 #267）；工作期間主線又進了求婚 #358（`52695e2`），也一併合入。除下面這 1 處防退步調整外，未新增或修改功能。
+依調度器要求，在既有 `task/259` 合併 `origin/main`。開工時落後 18 個提交（`3630dcf`，帶入信件 #267）；工作期間主線又進了求婚 #358（`52695e2`）與角色重置 #359（`659a98b`），也一併合入。除下面這 1 處防退步調整外，未新增或修改功能。
 
 **超出純文字合併的產品調整（1 處，請審查）**：`Party.cs` 收到 S219/953 時呼叫既有的 `ReceiveMarriageYesNo`，作廢舊求婚邀請。main 上 953 會經 `ReceiveTrade` 走到這個函式；本分支的 Party 先攔下 953，不補的話舊求婚在逾時前都還能回答，而這個 Yes-No 在伺服器是共用的 TempID。同時在 `PartyChecks.cs` 補上 3 項雙向檢查（953 作廢舊求婚、654 作廢舊組隊邀請）。先只加測試，未修產品時停在 `party S219/953 expires older marriage invitation`，修正後通過。這項調整超出「不要改其他內容」的字面，但不修等於合併帶進退步，因此修在任務可改的檔案內。
 
-- 衝突：`rebuild-lock.json`（兩次）取 main 版後以 `--update-lock` 重產，未手動拼 hash；`DemoChecks.csproj` 保留組隊與求婚兩個測試來源。`WorldSession.cs`、`PlayerHudView.cs`、`demo-tests/Program.cs` 自動合併。
-- 語意檢查：S186（信件）與組隊的 S237／S250／S39／S71／S219 不重疊；求婚的 S71（655–661、790）與組隊的 414–426 不重疊。信件與隊伍兩顆按鈕同在不換行的 `menu`，基本 7 顆加這兩顆約 602px，以程式碼推算放得下 900 寬；再加釣魚、鬼魂模式的按鈕時是否超出，沒有實測。
-- `docs/REPORT.md` 與 main（`52695e2`）的 blob 相同；相對 main 仍只有原任務的 10 個差異檔。
+- 衝突：`rebuild-lock.json`（三次）取 main 版後以 `--update-lock` 重產，未手動拼 hash；`DemoChecks.csproj` 保留組隊、求婚、角色重置的測試來源。`WorldSession.cs`、`PlayerHudView.cs`、`demo-tests/Program.cs` 自動合併。
+- 語意檢查：S186（信件）、S64（角色重置）與組隊的 S237／S250／S39／S71／S219 不重疊；求婚的 S71（655–661、790）與組隊的 414–426 不重疊。信件與隊伍兩顆按鈕同在不換行的 `menu`，基本 7 顆加這兩顆約 602px，以程式碼推算放得下 900 寬；再加釣魚、鬼魂模式的按鈕時是否超出，沒有實測。
+- `docs/REPORT.md` 與 main（`659a98b`）的 blob 相同；相對 main 仍只有原任務的 10 個差異檔。
 
 已驗證（皆在最終合併內容上執行）：
 
-- 來源核驗：**209 個來源／218 個鎖定檔通過**。
-- `rebuild.py --build --configfile scratch/issue-259/NuGet.Config --output scratch/issue-259/build` 通過。產品 DLL SHA-256：`90d3aad90276241e4764e2161febb47a385521b00fc091e693d1cc3971a1d107`。
-- demo-tests 入口全部通過：`party`／`pets` **276**、`duel` **390**、`clan` **395**、`marriage` **412**、`polymorph-cadence` **309**、`buddies` **445**、`item-transfer` **349**、`doors` **597**、`combat-admission` **1409**、`map-continuity` **22197**。每組都先跑共同檢查（276 項），各組數字不可加總。
+- 來源核驗：**211 個來源／220 個鎖定檔通過**。
+- `rebuild.py --build --configfile scratch/issue-259/NuGet.Config --output scratch/issue-259/build` 通過。產品 DLL SHA-256：`a24f2f4801e2ca687537ad62b331cc31246541b896f39c9ba9e7cec919f32f18`。
+- demo-tests 入口全部通過：`party`／`pets` **276**、`duel` **390**、`clan` **395**、`marriage` **412**、`char-reset` **437**、`polymorph-cadence` **309**、`buddies` **445**、`item-transfer` **349**、`doors` **597**、`combat-admission` **1409**、`map-continuity` **22358**。每組都先跑共同檢查（276 項），各組數字不可加總。
 - 獨立測試專案：`MailChecks` **119**、`CharacterManagementChecks` **218**、`NpcChecks` **165**、`SoundPacketChecks` **148**、`WeaponRepairChecks` **98**、`PacketTraceChecks` **3468** 項斷言通過。
 - 更正：下方第四次報告的 `WeaponRepairChecks` **99** 是筆誤，當次原始 log 為 98 項，測試數量沒有減少。
-- `check-no-game-assets.py` 通過（3398 個追蹤檔、0 錯誤）；demo-tests 與 `engine/source` 的 `git -c core.whitespace=cr-at-eol diff --check` 通過。
+- `check-no-game-assets.py` 通過（3403 個追蹤檔、0 錯誤）；demo-tests 與 `engine/source` 的 `git -c core.whitespace=cr-at-eol diff --check` 通過。
 - 本機未跑 CI 中的 web-resource、ResourceChecks、Effect6016；以 PR #269 最新 head 的 CI 為準。測試證據在 `scratch/issue-259/sync5/`（不追蹤）。
 
 未驗證：未啟動遊戲、伺服器或 DB，未做原生畫面或雙角色連線 smoke。S219 的取代行為只以合成封包驗證。第四次報告列出的組隊／決鬥／血盟交叉仍沒有提交進 repo 的測試；本輪只補了組隊／求婚這一對。
