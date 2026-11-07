@@ -13,6 +13,7 @@
     <Compile Include="../polymorph-tests/PolymorphChecks.cs" Link="PolymorphChecks.cs" />
     <Compile Include="../buddies-tests/BuddyChecks.cs" Link="BuddyChecks.cs" />
     <Compile Include="../board-tests/BoardChecks.cs" Link="BoardChecks.cs" />
+    <Compile Include="../portals-tests/PortalChecks.cs" Link="PortalChecks.cs" />
     <Compile Include="../item-transfer-tests/ItemTransferChecks.cs" Link="ItemTransferChecks.cs" />
     <Compile Include="../location-share-tests/LocationShareChecks.cs" Link="LocationShareChecks.cs" />
     <Reference Include="P11.ClientEngine"><HintPath>../../../build/client-product-dev/P11.ClientEngine.dll</HintPath></Reference>
