@@ -30,7 +30,7 @@ public sealed partial class WorldSession {
     void ReceiveCore(byte[] plain,string selected){
         var r=new LoginReader(plain);byte opcode=r.C();
         // Observe party HP before Combat consumes S237; retain its existing actor/target HP update.
-        switch(opcode){case 237:ReceivePartyHp(plain);break;}
+        switch(opcode){case 237:ReceivePartyHp(plain);break;case 120:case 158:ObserveWeatherObject(opcode,plain);break;}
         // Run both: S219 is one shared Yes-No slot, so each module must see the other's invitation to expire its own.
         bool partyHandled=ReceiveParty(opcode,plain),duelHandled=ReceiveDuel(opcode,plain);
         if(partyHandled||duelHandled)return;
