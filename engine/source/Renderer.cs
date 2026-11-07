@@ -6,6 +6,7 @@ public sealed record Patch(Rectangle Bounds,ushort[] Colors,bool[] Mask,int[] Ow
     static HashSet<uint> Collect(uint?[]? owners){var result=new HashSet<uint>();if(owners!=null)foreach(var id in owners)if(id is uint value)result.Add(value);return result;}
 }
 public sealed partial class Renderer:IDisposable {
+    public void PaintAmbience(Graphics graphics,Rectangle viewport,AmbienceFrame frame,IReadOnlyList<AmbienceLight> lights)=>AmbiencePainter.Draw(graphics,viewport,frame,lights);
     public int Width=>Bounds.Width;
     public int Height=>Bounds.Height;
     public Rectangle Bounds=>cacheBounds??new(0,0,assets.CanvasWidth,assets.CanvasHeight);
