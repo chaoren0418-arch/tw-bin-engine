@@ -2,7 +2,19 @@
 
 ## 做了什麼
 
-本輪為同步輪，不新增功能。`task/258`（同步前 `208f9489`）合併 `origin/main`（基準 `dd640a75`，落後 44 個提交，含 afflictions、party 等模組），程式與 lock 的同步 head 為 `2bf2ff804bfcb18d64e2ceeb6f2a6dffcf76f487`，沿用 [PR #271](https://github.com/chaoren0418-arch/tw-bin-engine/pull/271)，未強制推送。
+本輪為同步輪，不新增功能。
+
+### 2026-11-07 再同步（第三次）
+
+`task/258`（同步前 `29b9c093`）再次落後 `origin/main` 25 個提交（基準 `4518ebc3`，含 minimap 模組），PR #271 顯示 CONFLICTING，依常設授權直接合併。
+
+- 衝突兩處，都在共用測試入口：`demo-tests/DemoChecks.csproj`（書籤與 minimap 的 Compile 項都保留）、`demo-tests/Program.cs`（`map-continuity` 群組與預設路徑同時保留 `BookmarkChecks()` 與 `MinimapChecks()`；`minimap`、`bookmarks` 兩個 case 都在）。
+- `rebuild-lock.json` 雖自動合併，仍先取 main 版本再 `--update-lock` 重產（216 source／225 pinned）。
+- 本模組檔案、`WorldSession.cs`、`docs/REPORT.md` 本輪沒有變更。
+- 驗證（合併後、提交前）：`rebuild.py --update-lock`、`--build` 通過（產品 DLL `b7153529…6141`）；demo-tests `bookmarks` 723、`minimap` 347、`map-continuity` 22876、`afflictions` 428、`party` 276、`combat-admission` 1409、`item-transfer` 349、`buddies` 445、`board` 506、`pets` 276、`doors` 597、`polymorph-cadence` 309 項全部通過；`check-no-game-assets.py` 通過（3447 tracked files、0 errors）。
+- 新 head 與 CI 結果記在 PR #271 留言（報告本身不自我引用 head）。
+
+以下為上一次同步（第二次）的紀錄：`task/258`（同步前 `208f9489`）合併 `origin/main`（基準 `dd640a75`，落後 44 個提交，含 afflictions、party 等模組），程式與 lock 的同步 head 為 `2bf2ff804bfcb18d64e2ceeb6f2a6dffcf76f487`，沿用 [PR #271](https://github.com/chaoren0418-arch/tw-bin-engine/pull/271)，未強制推送。
 
 - 衝突只有兩處：`demo-tests/DemoChecks.csproj`（書籤與 main 的 afflictions、party 測試項都保留）、`engine/_integration/dev/rebuild-lock.json`（先取 main 版本，再執行 `--update-lock`，未手動拼接 hash）。
 - `WorldSession.cs`、`demo-tests/Program.cs` 自動合併，S92 case 與 `BookmarkChecks` 入口都還在。
