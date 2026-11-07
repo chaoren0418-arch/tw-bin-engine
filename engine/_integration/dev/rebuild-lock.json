@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 184,
+ "sourceCount": 185,
  "files": [
   {
    "path": "NuGet.Config",
@@ -93,6 +93,11 @@
    "path": "source/ActionCadence.cs",
    "size": 7854,
    "sha256": "f533f652619d26639ca2725cb5c3b5c07f9a13bbfe9fcdc8d8164d7d0e9486a5"
+  },
+  {
+   "path": "source/Afflictions.cs",
+   "size": 4722,
+   "sha256": "eb86076af56792e544b9bec5a20ce6292f3d0d9892081414ab12874a933df267"
   },
   {
    "path": "source/Assets.cs",
@@ -526,8 +531,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 9819,
-   "sha256": "6de015ce11c61e71aaa6de096d192abbb7d0c427f3f0bcedf762871d3a536613"
+   "size": 9502,
+   "sha256": "5d20b5a82b0b7bb4ec150f58e0074bbed928fa1fd30c11595657ac8d41892e63"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -546,8 +551,8 @@
   },
   {
    "path": "source/OnlineInput.cs",
-   "size": 3366,
-   "sha256": "d43a0881f0fd1cac00170b322093a76cb42289f601b61cb3226c197d6e62c595"
+   "size": 3503,
+   "sha256": "e2da3beb62c930fa4362ef460e9f63e117bee5514be62a8d41b8177623413ef8"
   },
   {
    "path": "source/OnlineMovement.cs",
@@ -916,8 +921,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9966,
-   "sha256": "29a8cbf5e87454394c45e6c1e2e58a040a182c5f3ee0afd0b4da399abe0fa79b"
+   "size": 10096,
+   "sha256": "43e7e7f6c5deac761b286c432a62eeb6c44ab5b380fd4487128502c7db30b340"
   },
   {
    "path": "source/WorldTests.cs",

@@ -278,6 +278,7 @@ partial class Checks {
         using var guard=new SocketGuard();
         if(args.Length>2){
             switch(args[2]){
+                case "afflictions":await AfflictionChecks();break;
                 case "buddies":await BuddyChecks();break;
                 case "buddies-codec":await BuddyChecks(true);break;
                 case "map-continuity":await MapContinuity();await BoardChecks();break;
