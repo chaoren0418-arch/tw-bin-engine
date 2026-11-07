@@ -134,3 +134,4 @@
 - 2026-11-07 — #429 T161：查證原版——UI 版面與圖示（resource，claude-local，PR 已合併）→ [報告](reports/issue-429.md)
 - 2026-11-07 — #433 T165：戰鬥音效補播 `<` 模式（code，claude-local，PR 已合併）→ [報告](reports/issue-433.md)
 - 2026-11-07 — #448 T174：原版 800×600 UI 框架設計（契約先行）（design，claude-local，PR 已合併）→ [報告](reports/issue-448.md)
+- 2026-11-07 — #432 T164：已完成 M6 功能的原版對照修正清單（resource，claude-local，PR 已合併）→ [報告](reports/issue-432.md)
