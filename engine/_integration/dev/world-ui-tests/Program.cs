@@ -104,7 +104,7 @@ class Checks {
         [new(new(PlayerHudKind.Item,900),"item","×1",2,false,true)],[new(new(PlayerHudKind.Magic,4),"spell","MP 3",null,false,true)]);
     static void Hud(){
         using var c=Seed();var stamp=PlayerHudActions.Stamp(c);var state=HudState(stamp);var bindings=new PlayerHudSlots();bindings.Observe(stamp);bindings.PopulateDefaults(state);
-        Check(bindings.Resolve(0,state)?.Binding.Id==900&&bindings.Resolve(2,state)?.Binding.Id==4,"HUD defaults bind items and learned skills");
+        Check(bindings.Resolve(0,state)?.Binding.Id==900&&bindings.Resolve(PlayerHudKeys.ItemDefaultSlots,state)?.Binding.Id==4,"HUD defaults bind items and learned skills");
         Check(bindings.Resolve(0,state with{Items=[]})==null,"removed inventory item disables quickslot");
         bindings.Assign(0,null);bindings.PopulateDefaults(state);Check(bindings.Resolve(0,state)==null,"explicitly cleared quickslot stays clear");
         bindings.Assign(0,new(PlayerHudKind.Item,900));bindings.Observe(stamp with{Actor=789});Check(bindings.Bindings.All(x=>x==null),"quickslots isolated by actor");bindings.Observe(stamp);Check(bindings.Resolve(0,state)!=null,"same actor retains explicit binding");

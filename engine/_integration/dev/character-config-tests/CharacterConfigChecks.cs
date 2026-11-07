@@ -13,15 +13,28 @@ partial class Checks {
     }
     static PlayerHudSnapshot ConfigHudState(LoginConnection c)=>new(PlayerHudActions.Stamp(c),"offline","test",100,100,100,100,"","",false,"",false,[],[]);
     static async Task CharacterConfigChecks(){
-        PlayerHudBinding?[] slots=[new(PlayerHudKind.Item,0x12345678),null,new(PlayerHudKind.Magic,4),new(PlayerHudKind.Magic,220)];
+        // T176: eight slots F5–F12 (count byte 8, 46 bytes).
+        PlayerHudBinding?[] slots=[new(PlayerHudKind.Item,0x12345678),null,new(PlayerHudKind.Magic,4),new(PlayerHudKind.Magic,220),null,new(PlayerHudKind.Item,1),null,new(PlayerHudKind.Magic,int.MaxValue)];
         var config=CharacterConfig.FromSlots(slots);
-        Check(Convert.ToHexString(config.Data)=="54574343010401785634120000000000020400000002DC000000","TWCC v1 exact fixture");
+        Check(Convert.ToHexString(config.Data)=="54574343"+"01"+"08"+"0178563412"+"0000000000"+"0204000000"+"02DC000000"+"0000000000"+"0101000000"+"0000000000"+"02FFFFFF7F","TWCC v1 eight-slot exact fixture");
         byte[] request=CharacterConfigPackets.Save(config);
-        Check(request[0]==244&&BinaryPrimitives.ReadUInt32LittleEndian(request.AsSpan(1))==29&&request.Length==32,"C244 opcode D(data length + 3) padded length");
-        Check(request.AsSpan(5,26).SequenceEqual(config.Data)&&request[^1]==0,"C244 exact binary body and zero pad");
+        Check(request[0]==244&&BinaryPrimitives.ReadUInt32LittleEndian(request.AsSpan(1))==49&&request.Length==56,"C244 opcode D(data length + 3) padded length");
+        Check(request.AsSpan(5,46).SequenceEqual(config.Data)&&request.AsSpan(51).ToArray().All(x=>x==0),"C244 exact binary body and zero pad");
         foreach(bool echo in new[]{false,true}){
             var read=CharacterConfigPackets.Read(ConfigReply(config.Data,echo));
-            Check(read.Editable&&read.Slots!.SequenceEqual(slots),"S250/41 restores all four bindings echo="+echo);
+            Check(read.Editable&&read.Slots!.SequenceEqual(slots),"S250/41 restores all eight bindings echo="+echo);
+        }
+        try{CharacterConfig.FromSlots(slots[..4]);throw new Exception("four-slot save accepted");}catch(ArgumentException){Check(true,"saving requires all eight slots");}
+        // T138 blobs (count 4, 26 bytes) still restore into F5–F8 and are re-saved as eight slots.
+        byte[] legacy=Convert.FromHexString("54574343010401785634120000000000020400000002DC000000");
+        foreach(bool echo in new[]{false,true}){
+            var old=CharacterConfigPackets.Read(ConfigReply(legacy,echo));
+            Check(old.Editable&&old.Slots!.Length==8&&old.Slots.Take(4).SequenceEqual(slots.Take(4))&&old.Slots.Skip(4).All(x=>x==null),"S250/41 legacy four-slot blob restores F5–F8 echo="+echo);
+            Check(CharacterConfig.FromSlots(old.Slots!).Data.Length==46,"legacy blob re-encodes as eight slots");
+        }
+        foreach(var (count,length) in new[]{(4,46),(8,26),(5,31),(0,6),(9,51)}){
+            var mismatch=new byte[length];"TWCC"u8.CopyTo(mismatch);mismatch[4]=1;mismatch[5]=(byte)count;
+            Check(!new CharacterConfig(mismatch).Editable,$"count {count} with length {length} kept opaque");
         }
         for(int n=0;n<16;n++){
             byte[] opaque=Enumerable.Range(0,n).Select(i=>(byte)(i%3)).ToArray();
@@ -36,6 +49,8 @@ partial class Checks {
         foreach(int offset in new[]{0,4,5,6}){var unknown=config.Data;unknown[offset]=255;Check(!new CharacterConfig(unknown).Editable,"unknown format preserved offset "+offset);}
         var invalidId=config.Data;Array.Clear(invalidId,7,4);Check(!new CharacterConfig(invalidId).Editable,"zero nonempty binding id rejected");
         var hugeSkill=config.Data;BinaryPrimitives.WriteUInt32LittleEndian(hugeSkill.AsSpan(17),uint.MaxValue);Check(!new CharacterConfig(hugeSkill).Editable,"invalid skill id retained as opaque");
+        var hugeLast=config.Data;hugeLast[^1]=0x80;Check(!new CharacterConfig(hugeLast).Editable,"invalid F12 skill id retained as opaque");
+        var badKind=config.Data;badKind[6+7*5]=3;Check(!new CharacterConfig(badKind).Editable,"unknown F12 kind retained as opaque");
         byte[] valid=ConfigReply(config.Data);
         for(int n=0;n<valid.Length;n++)if(n!=((6+config.Data.Length+1+7)&~7))BadConfig(valid[..n],"truncated S config "+n);
         var bad=valid.ToArray();bad[0]=0;BadConfig(bad,"wrong opcode");bad=valid.ToArray();bad[1]=40;BadConfig(bad,"wrong subcode");
