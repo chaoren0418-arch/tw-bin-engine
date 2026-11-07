@@ -239,10 +239,10 @@ static class EmoteCache {
 
 public sealed partial class ClientForm {
     bool titleEmoteUiHooked;
-    // OnLoad, OnShown, OnVisibleChanged, OnActivated and OnCreateControl belong to other modules; handles can be recreated, so hook Shown once.
-    protected override void OnHandleCreated(EventArgs e){
-        base.OnHandleCreated(e);
-        if(!titleEmoteUiHooked){titleEmoteUiHooked=true;Shown+=(_,_)=>InitTitleEmoteUi();}
+    // The On* lifecycle overrides belong to other modules; subscribe before the first show so Shown cannot be missed.
+    protected override void SetVisibleCore(bool value){
+        if(value&&!titleEmoteUiHooked){titleEmoteUiHooked=true;Shown+=(_,_)=>InitTitleEmoteUi();}
+        base.SetVisibleCore(value);
     }
     void InitTitleEmoteUi(){
         if(normalPanels!=null){
