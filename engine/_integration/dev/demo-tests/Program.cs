@@ -281,9 +281,11 @@ partial class Checks {
         PolymorphChecks();
         if(args.Length>2){
             switch(args[2]){
+                case "portals":await PortalChecks();break;
                 case "doors":await DoorChecks();break;
                 case "pets":break;
-                case "map-continuity":await MapContinuity();await BoardChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();break;
+                case "map-continuity":await MapContinuity();await BoardChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();await PortalChecks();break;
+                case "ghost-mode":await GhostModeChecks();break;
                 case "fishing":await FishingChecks();break;
                 case "location-share":await LocationShareChecks();break;
                 case "player-query":await PlayerQueryChecks();break;
@@ -312,7 +314,7 @@ partial class Checks {
         }else{
             ItemStatusChecks();
             await CharacterConfigChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
-            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();await BoardChecks();await LocationShareChecks();HitReactionSuppression();await PlayerQueryChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();
+            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();await BoardChecks();await LocationShareChecks();HitReactionSuppression();await PlayerQueryChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();
         }
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status=petsFailure==null?"pass":"fail",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));
         if(petsFailure!=null)throw new InvalidOperationException("Pets failed; subsequent groups completed.",petsFailure);

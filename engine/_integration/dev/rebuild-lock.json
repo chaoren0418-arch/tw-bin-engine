@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 201,
+ "sourceCount": 203,
  "files": [
   {
    "path": "NuGet.Config",
@@ -310,6 +310,11 @@
    "sha256": "87f5ad594cb94708f283fab2902cc4b37c836ddea90cf9eee2dbbb9b5572159e"
   },
   {
+   "path": "source/GhostMode.cs",
+   "size": 4756,
+   "sha256": "68f205e865739c044125e446dd8615df12d6ab4539f9a4aebdf78f21e0833d6e"
+  },
+  {
    "path": "source/Ground.cs",
    "size": 9502,
    "sha256": "a7686ee7ed54f9655f1231c9a205c1e157ed7ede85d1a97a5d02ea2ce661bc82"
@@ -606,8 +611,8 @@
   },
   {
    "path": "source/OnlineMovement.cs",
-   "size": 12658,
-   "sha256": "b574e116b8cd39637ff7b3bd57b120aa0a483986bd8274a9cdbf7aa252e191ce"
+   "size": 12760,
+   "sha256": "58b1ff76d381656c2b0b7c30f8ee2cd4eeaa210ba95a96cfba4f8ddbae4f5832"
   },
   {
    "path": "source/OpacityHistoricalPumps.cs",
@@ -726,8 +731,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15533,
-   "sha256": "f17cc6eba1c48061fd377b4af528c5642cc405ae5f589f75a3d405f9e8f2a036"
+   "size": 15586,
+   "sha256": "46f54742a4112c5c318fbf08591b3c84bfcff8e992e4d1e657cb8c4cfa82ac46"
   },
   {
    "path": "source/PlayerPointer.cs",
@@ -763,6 +768,11 @@
    "path": "source/Polymorph.cs",
    "size": 2382,
    "sha256": "2427821e0ba3b625cb0d3545004a880061eff9f2db40b4a1eff79522a6e32c6c"
+  },
+  {
+   "path": "source/Portals.cs",
+   "size": 6506,
+   "sha256": "4125505adbc319487e30e00f70f2c40c78c07c47d42197f059640c942e2a9afc"
   },
   {
    "path": "source/PrivateShop.cs",
@@ -1001,8 +1011,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 11041,
-   "sha256": "f11634fe38bce34d9886eb384e8b799ef0cf77780a805de30ff9b3e83cc4f376"
+   "size": 11062,
+   "sha256": "757b327e414a11206505ae43ab7aec59819fc13f2292a318a688e4e06bdf3b72"
   },
   {
    "path": "source/WorldTests.cs",
