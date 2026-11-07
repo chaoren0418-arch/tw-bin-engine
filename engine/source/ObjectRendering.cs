@@ -46,7 +46,70 @@ public sealed partial class Renderer {
         var area=Rectangle.Intersect(Rectangle.FromLTRB(l,t,r,bott),Bounds);
         // Stable ID tie-break makes exact overlaps deterministic, independent of arrival order.
         var commands=ActiveScene.Where(c=>c.Px<area.Right&&c.Px+24>area.Left&&c.Py<area.Bottom&&c.Py+24>area.Top).Concat(draws).OrderBy(c=>c,DrawComparer.Instance).ThenBy(c=>c.ObjectId).ToList();
-        var composed=ComposeTitlesAndEmotes(own,session,catalog,ComposeAfflictionPatch(session,area,commands,opacity),vs,now);visuals=vs.ToArray();missing=unavailable.ToArray();return composed;
+        var composed=ComposeTitlesAndEmotes(own,session,catalog,ComposeAfflictionPatch(session,area,commands,opacity),vs,now);visuals=vs.ToArray();missing=unavailable.ToArray();
+        // Screen rectangle R (sub_A3ED50) per actor, from the final actor tiles; key 0 is the own character.
+        ActorBounds=composed.Commands.Where(d=>d.Layer=="actor").GroupBy(d=>d.ObjectId).ToDictionary(g=>g.Key,g=>Rectangle.FromLTRB(g.Min(d=>d.Px),g.Min(d=>d.Py),g.Max(d=>d.Px+24),g.Max(d=>d.Py+24)));
+        return composed;
+    }
+    public IReadOnlyDictionary<uint,Rectangle> ActorBounds {get;private set;}=new Dictionary<uint,Rectangle>();
+}
+
+// Name, title and emblem placement: docs/reference/actions-and-names.md 2.2-2.4 (TW16 sub_EFF300, sub_F01380,
+// sub_F02810). Coordinates are scene pixels; the painter scales them with the camera like the sprites.
+public sealed record NameTarget(uint ObjectId,string Name,Rectangle Bounds,bool Self);
+public sealed record NameText(uint ObjectId,bool Title,string Text,ushort Color,PointF Position);
+public sealed record NameEmblem(uint ObjectId,uint EmblemId,PointF Position,bool OverHead);
+public sealed record NamePlan(NameText[] Texts,NameEmblem[] Emblems);
+public static class NameLayout {
+    public const int GlyphWidth=6,FontPixels=12,EmblemWidth=16,EmblemHeight=12;
+    public const int NameDy=-3,TitleLine=13,EmblemDx=-20,EmblemDy=-4,ClanNameShift=10,PartyDy=-9,AllNamesDy=-16,HeadEmblemDy=-23;
+    public static int ByteLength(string text)=>LoginPackets.TextEncoding.GetByteCount(text);
+    // X0(s) = L + (W - 6*len)/2: fixed 6 px per Big5 byte.
+    public static int CenterX(Rectangle r,string text)=>r.Left+(r.Width-GlyphWidth*ByteLength(text))/2;
+    public static (PointF? Title,PointF Name,PointF Emblem) Hover(Rectangle r,string title,string name,bool clan,bool partyOther){
+        bool titled=title.Length>0;int dy=partyOther?PartyDy:0,x=CenterX(r,name);
+        PointF? t=titled?new(CenterX(r,title),r.Top+NameDy):null;
+        return(t,new(x+(clan?ClanNameShift:0),r.Top+NameDy+(titled?TitleLine:0)+dy),new(x+EmblemDx,r.Top+EmblemDy+(titled?TitleLine:0)+dy));
+    }
+    // Full-name mode puts the name at T-16 and never draws the title. Its emblem routine (sub_F02870) was not
+    // decompiled, so the hover-mode offsets relative to the name are reused (推測).
+    public static (PointF Name,PointF Emblem) AllNames(Rectangle r,string name,bool clan){
+        int x=CenterX(r,name);return(new(x+(clan?ClanNameShift:0),r.Top+AllNamesDy),new(x+EmblemDx,r.Top+AllNamesDy-1));
+    }
+    public static PointF HeadEmblem(Rectangle r)=>new(r.Left+(r.Width-EmblemWidth)/2,r.Top+HeadEmblemDy);
+    public static NamePlan Plan(WorldSession w,IReadOnlyList<NameTarget> targets,uint? hovered,bool showAll,long? now=null){
+        var texts=new List<NameText>();var emblems=new List<NameEmblem>();
+        // Blind mode 1 blacks out everyone else; their names must not reveal where they stand.
+        bool blind=w.BlindMode==1;uint own=w.Actor?.ObjectId??0;string ownClan=w.Actor?.Clan??"";bool war=w.ClanWarMode;
+        foreach(var t in targets){
+            if(t.Name.Length==0||blind&&!t.Self)continue;
+            var (clan,clanId)=w.ClanIdentity(t.ObjectId);bool hasClan=clanId!=0;ushort color=w.NameColor555(t.ObjectId,now);
+            if(hovered==t.ObjectId){
+                string title=w.DisplayTitle(t.ObjectId);var p=Hover(t.Bounds,title,t.Name,hasClan,!t.Self&&w.IsPartyMemberId(t.ObjectId));
+                if(p.Title is {} tp)texts.Add(new(t.ObjectId,true,title,color,tp));
+                texts.Add(new(t.ObjectId,false,t.Name,color,p.Name));if(hasClan)emblems.Add(new(t.ObjectId,clanId,p.Emblem,false));
+            }else if(showAll&&w.ClanWarFlag(t.ObjectId)==0){
+                var p=AllNames(t.Bounds,t.Name,hasClan);texts.Add(new(t.ObjectId,false,t.Name,color,p.Name));if(hasClan)emblems.Add(new(t.ObjectId,clanId,p.Emblem,false));
+            }
+            // sub_F09070: own clan members while we have a clan; sub_F08C30: +197!=0 in war mode.
+            if(hasClan&&(ownClan.Length>0&&ClanWarProtocol.Same(clan,ownClan)||war&&w.ClanWarFlag(t.ObjectId)!=0))emblems.Add(new(t.ObjectId,clanId,HeadEmblem(t.Bounds),true));
+        }
+        return new(texts.ToArray(),emblems.ToArray());
+    }
+}
+public sealed partial class WorldSession {
+    internal (string Clan,uint ClanId) ClanIdentity(uint id)=>Actor?.ObjectId==id?(Actor.Clan,Actor.ClanId):objects.TryGetValue(id,out var o)?(o.Clan,o.ClanId):("",0u);
+    internal bool IsPartyMemberId(uint id)=>id!=0&&partyMembers.Values.Any(m=>m.ObjectId==id);
+}
+// "Show all names" option (0x138BE7F). There is no prior client settings file, so it is kept beside the
+// emblem cache in the engine user-data directory.
+public static class NameDisplayOptions {
+    public static string? FilePath {get;set;}
+    public static string DefaultFilePath=>Path.Combine(Path.GetDirectoryName(ClanEmblemCache.DefaultDiskPath)!,"name-display.txt");
+    public static bool LoadShowAll(){try{return FilePath is {} p&&File.Exists(p)&&File.ReadAllText(p).Trim()=="show-all-names=1";}catch(IOException){return false;}catch(UnauthorizedAccessException){return false;}}
+    public static void SaveShowAll(bool value){
+        if(FilePath is not {} p)return;
+        try{Directory.CreateDirectory(Path.GetDirectoryName(p)!);File.WriteAllText(p,value?"show-all-names=1\n":"show-all-names=0\n");}catch(IOException){}catch(UnauthorizedAccessException){}
     }
 }
 public sealed partial class ClientForm {
@@ -63,13 +126,65 @@ public sealed partial class ClientForm {
         if(id is uint gid&&login.World.Ground.Any(i=>i.ObjectId==gid)){login.World.SelectGround(gid);}else{login.World.SelectGround(null);login.World.SelectTarget(id);}lastWebState="";PublishWebState();Invalidate();
         events.Add(new{kind="object-pick",scene=p,targetId=id,strategy="topmost visible opaque pixel after original tile/actor depth composition"});
     }
+    static readonly bool nameDisplayConfigured=ConfigureNameDisplay();
+    static bool ConfigureNameDisplay(){ClanEmblemCache.DiskPath??=ClanEmblemCache.DefaultDiskPath;NameDisplayOptions.FilePath??=NameDisplayOptions.DefaultFilePath;return true;}
+    bool nameHoverHooked,showAllNames;Point? nameMouse;uint? paintedHover;
+    void HookNameDisplay(){
+        if(nameHoverHooked)return;nameHoverHooked=true;_=nameDisplayConfigured;showAllNames=NameDisplayOptions.LoadShowAll();
+        MouseMove+=(_,e)=>{nameMouse=e.Location;var id=NameHoverTarget(e.Location);UpdateAttackCursor(id);if(id!=paintedHover)Invalidate();};
+        MouseLeave+=(_,_)=>{nameMouse=null;UpdateAttackCursor(null);if(paintedHover!=null)Invalidate();};
+        BeginInvoke(()=>{
+            var box=new CheckBox{Text="全部顯示名稱",AutoSize=true,Checked=showAllNames,AccessibleName="全部顯示名稱"};
+            box.CheckedChanged+=(_,_)=>{showAllNames=box.Checked;NameDisplayOptions.SaveShowAll(showAllNames);Invalidate();};
+            if(normalPanels!=null){var page=new TabPage("名稱顯示");page.Controls.Add(box);normalPanels.TabPages.Add(page);}
+            else{box.Dock=DockStyle.Right;bar.Controls.Add(box);box.BringToFront();}
+        });
+    }
+    // Pointer pixel owner (own pixels carry no id, so the own rectangle stands in); ground items have their own label.
+    uint? NameHoverTarget(Point point){
+        if(!login.World.Renderable)return null;var id=PointerPixel(point);
+        if(id is uint g)return login.World.Ground.Any(i=>i.ObjectId==g)?null:g;
+        var p=Camera.ToScene(point);return login.World.Actor is {} a&&renderer.ActorBounds.TryGetValue(0,out var r)&&r.Contains((int)Math.Floor(p.X),(int)Math.Floor(p.Y))?a.ObjectId:null;
+    }
+    List<NameTarget> NameTargets(){
+        var list=new List<NameTarget>();
+        static Rectangle Fallback(PointF foot)=>new((int)foot.X-24,(int)foot.Y-64,48,64);
+        if(login.World.Actor is {} a&&renderer.OwnCombatVisual is {} own)list.Add(new(a.ObjectId,TitleAndEmotePackets.DisplayText(a.Name),renderer.ActorBounds.TryGetValue(0,out var r)?r:Fallback(own.Foot),true));
+        foreach(var v in objectVisuals){
+            if(v.Action=="ground"||objectPatch?.VisibleObjectIds.Contains(v.ObjectId)!=true)continue;
+            list.Add(new(v.ObjectId,TitleAndEmotePackets.DisplayText(v.Name),renderer.ActorBounds.TryGetValue(v.ObjectId,out var r)?r:v.Bounds.IsEmpty?Fallback(v.Foot):v.Bounds,false));
+        }
+        return list;
+    }
+    void PaintNames(Graphics g){
+        HookNameDisplay();if(!login.World.Renderable){paintedHover=null;return;}
+        var hovered=nameMouse is Point m?NameHoverTarget(m):null;paintedHover=hovered;
+        var plan=NameLayout.Plan(login.World,NameTargets(),hovered,showAllNames);
+        float zoom=Camera.Zoom;bool dim=login.World.BlindMode==2;
+        var state=g.Save();
+        try{
+            g.TextRenderingHint=System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;g.InterpolationMode=System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;g.PixelOffsetMode=System.Drawing.Drawing2D.PixelOffsetMode.Half;
+            foreach(var e in plan.Emblems){
+                if(login.World.FindClanEmblem(e.EmblemId) is not {} emblem){login.RequestClanEmblem(e.EmblemId);continue;}
+                using var bitmap=new Bitmap(NameLayout.EmblemWidth,NameLayout.EmblemHeight,System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                for(int y=0;y<NameLayout.EmblemHeight;y++)for(int x=0;x<NameLayout.EmblemWidth;x++)bitmap.SetPixel(x,y,Color.FromArgb(emblem.Pixels[y*16+x]));
+                var p=Camera.ToView(e.Position);g.DrawImage(bitmap,p.X,p.Y,NameLayout.EmblemWidth*zoom,NameLayout.EmblemHeight*zoom);
+            }
+            // MingLiU 12 px, weight 400; outline colour palette[0] at +-1 px, then the name colour (+204).
+            using var font=new Font("MingLiU",NameLayout.FontPixels*zoom,FontStyle.Regular,GraphicsUnit.Pixel);
+            using var outline=new SolidBrush(NameColors.ToColor(NameColors.Outline));var format=StringFormat.GenericTypographic;
+            foreach(var t in plan.Texts){
+                var p=Camera.ToView(t.Position);using var brush=new SolidBrush(NameColors.ToColor(dim?AfflictionColors.Darken(t.Color):t.Color));
+                foreach(var (dx,dy) in new[]{(-1,0),(1,0),(0,-1),(0,1)})g.DrawString(t.Text,font,outline,p.X+dx*zoom,p.Y+dy*zoom,format);
+                g.DrawString(t.Text,font,brush,p.X,p.Y,format);
+            }
+        }finally{g.Restore(state);}
+    }
     void PaintObjectSelection(Graphics g){
-        if(login.World.TargetId is uint id&&objectVisuals.FirstOrDefault(v=>v.ObjectId==id) is {} v){var p=Camera.ToView(v.Foot);using var pen=new Pen(Color.Gold,2);g.DrawEllipse(pen,p.X-19*Camera.Zoom,p.Y-7*Camera.Zoom,38*Camera.Zoom,14*Camera.Zoom);g.DrawString(v.Name+" #"+id,Font,Brushes.Gold,p.X-40,p.Y+10);}
+        if(login.World.TargetId is uint id&&objectVisuals.FirstOrDefault(v=>v.ObjectId==id) is {} v){var p=Camera.ToView(v.Foot);using var pen=new Pen(Color.Gold,2);g.DrawEllipse(pen,p.X-19*Camera.Zoom,p.Y-7*Camera.Zoom,38*Camera.Zoom,14*Camera.Zoom);}
         foreach(var groundVisual in objectVisuals.Where(v=>v.Action=="ground")){var pt=Camera.ToView(groundVisual.Foot);bool selected=login.World.SelectedGroundId==groundVisual.ObjectId;g.DrawString(groundVisual.Name,Font,selected?Brushes.Gold:Brushes.White,pt.X-20,pt.Y+17);if(selected){using var pen=new Pen(Color.Gold,2);g.DrawEllipse(pen,pt.X-16,pt.Y+3,32,12);}}
         PaintObjectPresence(g,Camera.ToView,new RectangleF(Camera.ViewOffset,Camera.View));
-        PaintClanLabels(g);
-        PaintClanWarEnemies(g);
-        PaintDuelOpponent(g);
+        PaintNames(g);
         PaintDisplayNotices(g);
     }
     object ObjectUiSnapshot()=>new{ownCombatVisual=renderer.OwnCombatVisual,magic=renderer.MagicVisuals,projectile=renderer.CurrentProjectileVisual,projectiles=renderer.ProjectileVisuals,visuals=objectVisuals,presence=PresenceSnapshot(),missing=missingObjects.Select(o=>new{o.ObjectId,o.Gfx,o.Action,o.Speed,o.Brave,o.ReceivedAction,o.Name,o.X,o.Y,o.ShopActive}),target=login.World.Target,targetName=login.World.Target is {} t?objectAssets?.DisplayName(t):null,world=login.World.Snapshot()};

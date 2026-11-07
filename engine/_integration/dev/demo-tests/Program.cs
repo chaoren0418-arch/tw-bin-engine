@@ -292,7 +292,8 @@ partial class Checks {
                 case "party":break;
                 case "pets":break;
                 case "display-notices":DisplayNoticeChecks();break;
-                case "map-continuity":await MapContinuity();DisplayNoticeChecks();await BoardChecks();await ClanChecks();await ClanWarChecks();await MarriageChecks();await CharResetChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();await PortalChecks();MinimapChecks();TimedBuffChecks();break;
+                case "name-display":await NameDisplayChecks();break;
+                case "map-continuity":await MapContinuity();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();await ClanChecks();await ClanWarChecks();await MarriageChecks();await CharResetChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();await PortalChecks();MinimapChecks();TimedBuffChecks();break;
                 case "marriage":await MarriageChecks();break;
                 case "ghost-mode":await GhostModeChecks();break;
                 case "fishing":await FishingChecks();break;
@@ -327,7 +328,7 @@ partial class Checks {
         }else{
             ItemStatusChecks();
             MinimapChecks();await CharacterConfigChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
-            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();DisplayNoticeChecks();await BoardChecks();await ClanChecks();await ClanWarChecks();await MarriageChecks();await CharResetChecks();await LocationShareChecks();HitReactionSuppression();await TitleAndEmoteChecks();await PlayerQueryChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();TimedBuffChecks();
+            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();await ClanChecks();await ClanWarChecks();await MarriageChecks();await CharResetChecks();await LocationShareChecks();HitReactionSuppression();await TitleAndEmoteChecks();await PlayerQueryChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();TimedBuffChecks();
         }
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status=petsFailure==null?"pass":"fail",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));
         if(petsFailure!=null)throw new InvalidOperationException("Pets failed; subsequent groups completed.",petsFailure);
