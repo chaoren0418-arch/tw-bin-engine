@@ -10,7 +10,9 @@
 
 ## 怎麼驗證（已驗證）
 
-以下結果都在程式 head `6e26e36`（已含 main `a54971c`）取得。之後只再併入 main 的 `docs/REPORT.md` 索引 commit 與本報告，沒有程式變更。
+全部測試在程式 head `6e26e36`（已含 main `a54971c`）跑完，下列數字除另有註明外都出自該 head。
+
+之後 main 再併入 #262 血盟（`Clan.cs`、`ClanUi.cs`、`ObjectRendering.cs`、`Trade.cs` 的 S 邀請分派），未改物品或裝備檔案，只有 lock 衝突。程式 head `0fc3514` **沒有重跑全部測試**，只重跑以下項目並全部通過：lock 重產（205 個來源／214 個 pin）、`rebuild.py --build`（產品 DLL SHA-256 `f44c866b53d7e85c943ecfdc82aca6889b0d8ab2f971c27d57985548f22be7a4`）、item-status 275、item-transfer 266、clan 312、map-continuity 21978、combat-admission 1326、polymorph-cadence 226、buddies 362、doors 514、item-use 426、`check-no-game-assets.py`（3385 個追蹤檔、0 errors）。其餘項目由該 head 的 CI 涵蓋 CI 內的部分；不在 CI 內的項目在此 head 未驗證。
 
 - `rebuild.py --update-lock` 與唯讀核驗：203 個來源／212 個 pin 通過。
 - `rebuild.py --build`：產品與 launcher 成功；產品 0 錯誤，2 個既有 `MagicUi.cs:20` nullable 警告。產品 DLL SHA-256：`cc433d5183e204553575124dd8e7138aa48310a25e7fa9be7cff22d4d790d2bc`。
