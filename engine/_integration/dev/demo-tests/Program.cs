@@ -309,7 +309,10 @@ partial class Checks {
                 case "board":await BoardChecks();break;
                 case "item-transfer":await ItemTransferChecks();break;
                 case "combat-loop":await CombatLoop();break;
-                case "combat-admission":await CombatAdmission();AttackSkillChecks.Run(args[1],Check);HitReactionSuppression();await DuelChecks();break;
+                case "combat-admission":await CombatAdmission();AttackSkillChecks.Run(args[1],Check);HitReactionSuppression();await DuelChecks();await TitleAndEmoteChecks();break;
+                case "title-emote":await TitleAndEmoteChecks();break;
+                case "title-emote-assets":TitleEmoteOriginalAssets();break;
+                case "title-emote-compose":TitleEmoteCompositeAssets();break;
                 case "duel":CombatAdmissionFixture();await DuelChecks();break;
                 case "attack-skills":AttackSkillChecks.Run(args[1],Check);break;
                 case "attack-skill-resources":AttackSkillChecks.NativeResources(args[3],args[4],Check);break;
@@ -325,7 +328,7 @@ partial class Checks {
             await BookmarkChecks();
             ItemStatusChecks();
             MinimapChecks();await CharacterConfigChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
-            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();DisplayNoticeChecks();await BoardChecks();await ClanChecks();await MarriageChecks();await CharResetChecks();await LocationShareChecks();HitReactionSuppression();await PlayerQueryChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();TimedBuffChecks();
+            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();DisplayNoticeChecks();await BoardChecks();await ClanChecks();await MarriageChecks();await CharResetChecks();await LocationShareChecks();HitReactionSuppression();await TitleAndEmoteChecks();await PlayerQueryChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();TimedBuffChecks();
         }
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status=petsFailure==null?"pass":"fail",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));
         if(petsFailure!=null)throw new InvalidOperationException("Pets failed; subsequent groups completed.",petsFailure);
