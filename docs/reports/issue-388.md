@@ -41,7 +41,7 @@ CI 已加入 `Affliction contracts`；遠端結果以本 PR 的 `build` workflow
 
 ## 第三次同步（2026-11-07，claude-local）
 
-調度器再次退回同步：分支落後 main 70 個 commit，6 個檔案衝突。工作期間 main 又前進 9 個 commit（門，#322），已第二次合併：`DemoChecks.csproj`、`Program.cs` 兩邊保留，lock 重產。本段的數值取代上方所有數值。
+調度器再次退回同步：分支落後 main 70 個 commit，6 個檔案衝突。工作期間 main 又兩度前進（門 #322、幽靈模式 #360），各再合併一次：`DemoChecks.csproj`、`Program.cs` 兩邊保留，lock 重產。本段的數值取代上方所有數值。
 
 - 文字衝突：`WorldSession.cs`、`DemoChecks.csproj` 兩邊保留；`build.yml` 兩邊保留，並補回 Affliction 步驟結尾的 exit code 檢查（該行原本是兩邊共用）；`Program.cs` 的 `map-continuity` 採 main 版本，保留 `afflictions`；`rebuild-lock.json` 由 `--update-lock` 重產。
 - **文字合併解決不了、必須改程式的兩處**（都只改 `Afflictions.cs`）：
@@ -51,8 +51,8 @@ CI 已加入 `Affliction contracts`；遠端結果以本 PR 的 `build` workflow
 
 驗證：
 
-- `--update-lock`：201 個來源、210 個鎖定檔；`--build`：產品及 launcher 通過，產品 DLL SHA-256 `0ba1fb9fc20020a3e04dec4d03eb10efd8fe6bf1ff9fd92496948c6123645b4c`。已確認測試連結的 DLL 就是這個雜湊。
-- DemoChecks 13 組全部通過：afflictions 345、doors 514、invisibility 263、ambience 549、fishing 232、pets 193、duel 307、combat-admission 1326、map-continuity 21400、polymorph-cadence 226、buddies 362、item-transfer 266、location-share 292。每組都會先跑共用檢查，所以數字比前幾輪高。
+- `--update-lock`：202 個來源、211 個鎖定檔；`--build`：產品及 launcher 通過，產品 DLL SHA-256 `0df66dce77f4b81fe98a0d49344da97d14e72feefb33d5b84141988dd49f5102`。已確認測試連結的 DLL 就是這個雜湊。
+- DemoChecks 14 組全部通過：afflictions 345、ghost-mode 552、doors 514、invisibility 263、ambience 549、fishing 232、pets 193、duel 307、combat-admission 1326、map-continuity 21759、polymorph-cadence 226、buddies 362、item-transfer 266、location-share 292。每組都會先跑共用檢查，所以數字比前幾輪高。
 - 門的滑鼠路徑 `ToggleDoor` 有 `MovementAvailable` 閘門，麻痺時不會送出（讀程式確認，未另寫測試）。
 - 突變測試（第一次合併後、重建產品後執行）：拿掉隱身呼叫、S47 掛接、S165 掛接，`afflictions` 都失敗，失敗的是對應檢查；還原後 lock 與 DLL 雜湊回到原值。
 - `check-no-game-assets.py`：通過，0 錯誤。

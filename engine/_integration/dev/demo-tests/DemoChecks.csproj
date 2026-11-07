@@ -2,6 +2,7 @@
   <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWindowsForms>true</UseWindowsForms><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
   <ItemGroup>
     <Compile Include="../afflictions-tests/AfflictionChecks.cs" Link="AfflictionChecks.cs" />
+    <Compile Include="../ghost-mode-tests/GhostModeChecks.cs" Link="GhostModeChecks.cs" />
     <Compile Include="../doors-tests/DoorChecks.cs" Link="DoorChecks.cs" />
     <Compile Include="../fishing-tests/FishingChecks.cs" Link="FishingChecks.cs" />
     <Compile Include="../pets-tests/PetChecks.cs" Link="PetChecks.cs" />
