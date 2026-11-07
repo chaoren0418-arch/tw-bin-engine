@@ -45,6 +45,17 @@ partial class Checks {
         }
         if(codecOnly)return;
         using(var c=Seed()){
+            int revision=c.World.BuddyRevision;
+            Call(c.World,"BeginTalk");
+            Feed(c,Packet(b=>{b.Write((byte)39);b.Write(456u);Text(b,"test-dialog");b.Write((ushort)0);b.Write((ushort)0);}));
+            Check(c.World.InteractionKind=="dialog"&&c.World.InteractionNpc==456,"non-buddy S39 retains NPC dispatch");
+            Feed(c,LoginPackets.Pad([250,11,77]));
+            Check(c.World.Status?.Food==77,"non-exclude S250 retains sustenance dispatch");
+            Feed(c,Packet(b=>{b.Write((byte)71);b.Write((ushort)403);b.Write((byte)1);Text(b,"中文");}));
+            Check(c.World.LastServerReply?.Id==403&&c.World.LastServerReply.Arguments.SequenceEqual(new[]{"中文"}),"unrelated S71 retains message arguments");
+            Check(c.World.BuddyRevision==revision&&!c.World.BuddyLoaded&&c.World.ExcludedNames.Length==0,"unrelated packets do not change buddy state");
+        }
+        using(var c=Seed()){
             Feed(c,BuddyReply());Check(c.World.Buddies.Length==2&&c.World.BuddyLoaded,"real WorldSession receives S_Buddy");
             Check(c.World.InteractionKind=="closed","buddy does not open or change NPC dialog");
             var stale=c.BuddySnapshot();int rev=stale.Revision;
@@ -105,6 +116,16 @@ partial class Checks {
         using(var c=Seed()){
             int sends=0;Sender(c,(_,valid,admitted)=>{Feed(c,LoginPackets.Pad([206,0,0,0]));Feed(c,Pack(123));if(!valid())return Task.FromResult(false);sends++;admitted();return Task.FromResult(true);});
             Check(!await c.SendBuddy(BuddyAction.ToggleExclude,"Alice",c.BuddySnapshot())&&sends==0,"map change invalidates queued toggle");
+        }
+        foreach(bool disconnect in new[]{false,true}){
+            using var c=Seed();Feed(c,BuddyReply());Feed(c,ExcludeReply(18,"Alice"));
+            Sender(c,(_,valid,admitted)=>{if(!valid())return Task.FromResult(false);admitted();return Task.FromResult(true);});
+            Check(await c.SendBuddy(BuddyAction.Add,"Bob",c.BuddySnapshot())&&c.World.BuddyStale,"prepare stale friends before reset "+disconnect);
+            Check(await c.SendBuddy(BuddyAction.ToggleExclude,"Bob",c.BuddySnapshot())&&c.World.ExcludePending,"prepare pending exclude before reset "+disconnect);
+            int revision=c.World.BuddyRevision;
+            if(disconnect)c.Cancel();else c.World.Reset();
+            Check(!c.World.ExcludePending&&!c.World.BuddyLoaded&&!c.World.BuddyStale&&c.World.Buddies.Length==0&&c.World.ExcludedNames.Length==0,"reset clears lists and pending state "+disconnect);
+            Check(c.World.BuddyRevision>revision&&!c.BuddySnapshot().CanToggle&&!c.World.BuddyNotice.Contains("等待原服回覆"),"reset invalidates UI revision and pending notice "+disconnect);
         }
     }
 }

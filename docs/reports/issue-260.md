@@ -2,59 +2,58 @@
 
 ## 結論
 
-**第 2 次嘗試仍未完成驗收，PR #275 請勿合併。** 四種 C 封包、S39 buddy 與 S250/17–19 解碼器、清單模型、傳送入口及原生服務 UI 已實作。既有檔案依原任務限制只增加 S39 分支與聊天封鎖查詢點；**S250／S71 觀察及角色重置尚未掛入，封鎖功能目前不能交付使用**。GitHub 的 PR 狀態已非 draft，但不代表驗收通過。
+**第 3 次嘗試仍未完成驗收；PR #275 不可合併。** 2026-11-07 透過 GitHub 連接器核對 Issue 本文與全部 9 則留言，仍未找到主控對兩處必要掛接的範圍修訂；本次對話亦已提出確認，尚未取得答覆。維持原有「WorldSession.cs 只加 S39 分支」限制，不擅自增加 S250／S71 路由或 Reset 掛接。
 
-阻塞來自本 Issue 的明確範圍：「`WorldSession.cs` 在 S39 既有分派只加一個 S_Buddy 分支」。實際 S39 的 NPC 解碼在 `NpcInteraction.cs`，本次已在 `WorldSession` 的接收鏈前截取 buddy，沒有修改 NPC 檔。封鎖回覆實際是 S250，還必須在角色重置時清空名單。已在對話提出範圍確認，尚未取得答覆，未擅自擴張。
-
-## 第 2 次嘗試的核對與補件（2026-11-07）
-
-- 已讀根目錄 `AGENTS.md`、`docs/REPORT.md`、M6 契約及協定／規則參考，維持 `task/260`，沒有切換或建立分支。
-- 查得前次 [build run 42310617554](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42310617554)：Linux `dotnet` 成功；Windows `map-continuity` 失敗步驟是 `Buddy and exclude contracts (no game or network)`。完整日誌下載 API 回 403，故以工作／步驟狀態與本機重現核對，不宣稱已讀完整 CI 日誌。
-- 本機完整 `buddies` 測試重現 `S250/17 snapshot and case-insensitive lookup` 失敗。未移除、略過或改弱該斷言。
-- 新增 S250 三種回包的中文解碼、空快照、16 人邊界及去重測試；`buddies-codec` 現為 **115 項通過**。
-- 增補完整測試的錯誤快照原子性、S71/109 保留原訊息且不能解除封鎖等待、錯誤 S71/472 不能解除等待、快照解除等待；斷線測試先建立非空好友與封鎖清單。這些後段斷言因前面的實際路由失敗，**尚未執行到，不宣稱通過**。
-- 重跑 `--update-lock`（lock 無差異）與 canonical `--build --write-receipt` 成功；地圖回歸 **128 項**、戰鬥 admission 回歸 **212 項**、`check-no-game-assets.py`（3251 tracked files、0 errors）及 `git diff --check` 通過。
-- 本輪已再次提出文末兩處具體掛接的範圍確認，尚未收到答覆；不能將「要求 CI 綠燈」自行當作取消同一份任務明列的修改限制。
+前次審查的三項問題仍成立：S250／S71 無法到達名單處理器、Reset 未清空名單與等待、完整 buddies 測試失敗。115 項 codec 通過及無 CI run 都不代表驗收成功。
 
 ## 做了什麼
 
-- `Buddies.cs`：C4／207／202／171 編碼；S39 的 `buddy`、flag=2、count=2 與兩個名稱字串；S250/17 快照、18 加入、19 移除；Big5、完整封包長度、owner 與名單數量驗證。
-- 好友新增／刪除不樂觀更新、不自動立即查詢；提示稍後手動查詢。封鎖切換等待對應回包，避免重送變成反向操作。
-- 送出採既有記憶體可測的 sender gate，驗證連線世代、世界 epoch、角色 ID、清單 revision，避免舊 UI 操作跨角色／場景送出。
-- `BuddyUi.cs`：原生「好友／封鎖」服務頁，透過新檔內的 WinForms `OnLoad` 掛接；查詢、增刪好友、封鎖／解除與在線狀態。不自動送網路封包。
-- `PlayerChat.cs` 增加一個封鎖查詢點；一般聊天比對來源名稱、密語比對獨立發送者欄位，不過濾本文子字串或送出密語回顯。此版伺服器已過濾一般聊天及密語，本機僅額外防護。
-- 合成測試放在 `engine/_integration/dev/buddies-tests/`，接入既有 DemoChecks 的 `buddies`／`buddies-codec` 入口與 Windows CI。完整測試刻意保留實際路由斷言，不把未接通的功能當作成功。
-- 協定與唯讀來源 SHA-256：`docs/protocol/buddies.md`。
+既有實作包含 `Buddies.cs` 的 C4／207／202／171 編碼、S39 buddy 與 S250/17–19 解碼、名單模型與記憶體可測 sender；`BuddyUi.cs` 的好友／封鎖服務頁；`PlayerChat.cs` 單一封鎖查詢點。好友變更不樂觀更新；封鎖切換等待伺服器回覆。詳細格式與唯讀來源 SHA-256 見 `docs/protocol/buddies.md`。
 
-## 已驗證
+本輪只補強已提交的 `buddies-tests/BuddyChecks.cs`：
 
-- .NET SDK 10.0.300；先執行 `rebuild.py --update-lock`，再執行 canonical `--build --write-receipt`：product、audio、launcher 建置成功。產品有既存 `MagicUi.cs` 的兩個 nullable 警告，本模組沒有新增編譯警告。
-- `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -p:UseSharedCompilation=false -- . scratch/issue-260/buddies-codec.json buddies-codec`：**115 項通過**，涵蓋四種 C 格式、Big5、空／重複名單、S39／S250 回覆格式、錯誤 header、數量、截斷、尾端多餘 bytes、錯誤輸入。
-- 完整 `buddies` 入口已執行：S39 路由與 owner 防護通過，**停在 `S250/17 snapshot and case-insensitive lookup`**，符合尚未允許掛入 S250 的已知限制；不宣稱完整模組綠燈。
-- `check-no-game-assets.py`：pass，0 errors，4 個 EmbeddedResource declarations。
-- 沒有啟動遊戲、伺服器、DB 或連正式服務；沒有複製遊戲資源／伺服器程式，沒有修改封存、硬連結、原始專案或 `docs/REPORT.md`，沒有遞迴刪除。
+- 在完整測試前段增加四個斷言，確認其他 S39 NPC 對話、S250 飽食度、S71 訊息參數保留原分派，且不修改好友狀態。
+- 增加直接 Reset 與 Cancel 兩種清理情境：先建立非空清單、待確認好友及已送出 C171 的等待，再驗證清單、等待、notice 與 UI revision 清理。這些後段斷言尚未執行到，不能宣稱通過。
+- 保留原先失敗斷言及完整測試入口，沒有略過或改弱；原 Windows CI 仍執行完整 `buddies`。
 
-本機 NuGet 線上來源遇到 TLS 認證錯誤，改用 `scratch/issue-260/NuGet.Config` 唯讀引用原專案 `engine/vendor` 的既有 WebView2 套件；快取、TEMP、DOTNET_CLI_HOME 及所有建置輸出都位於此 worktree。未修改 repository 的 NuGet 設定。
+## 怎麼驗證
 
-## 尚未驗證／尚未完成
+本輪使用 SDK 10.0.300、Python 3.12.10，所有快取、暫存、建置輸出均在此 worktree；NuGet 唯讀引用原專案 vendor。未寫原專案工作檔。
 
-- S250／S71 實際路由及 Reset 掛接，因此完整模組離線測試與 CI 綠燈尚未達成。
-- 原生 UI 顯示、實際登入、好友資料持久化、在線變化、封鎖聊天雙角色驗收；本任務禁止啟動遊戲，留給獲授權的 dot smoke。
-- S250/17 格式有伺服器建構子依據，但未宣稱每次登入必定收到完整封鎖快照。
+| 檢查 | 本輪結果 |
+|---|---|
+| `rebuild.py --update-lock` | 通過，175 source files／184 pinned files，dev lock 無差異 |
+| `rebuild.py --build --configfile scratch/issue-260/NuGet.Config --write-receipt --output scratch/issue-260/build` | product、audio、launcher 成功；本次增量建置輸出 0 警告、0 錯誤 |
+| DemoChecks `buddies-codec` | 115 項通過，涵蓋全部 C 格式及 S39／S250 合成格式與錯誤封包 |
+| DemoChecks `buddies` | 退出 1；新增前段四項與原 S39 路由／owner 斷言已通過，仍停在 `S250/17 snapshot and case-insensitive lookup` |
+| `check-no-game-assets.py` | pass；3251 tracked files、0 errors、4 EmbeddedResource declarations |
+| `git diff --check` | 通過 |
+
+未重跑前輪已通過且此次未改產品程式的地圖／戰鬥回歸。建置 DLL SHA-256：`fe048e0cc7278489733a7a2137fcc11e95991b2f0c5a92a9bede563c77098447`，與前輪相同。
+
+GitHub：已確認 PR #275 開啟中且 `mergeable=false`；原 head `6a8fc20a9d18ab5413c7b700f19a82c89735f808` 的 pull-request workflow runs 為空。CLI `gh` 回 401，讀取改用已連接的 GitHub 帳號。**CI 綠燈未達成**；沒有把空 checks 當成成功。
+
+## 未驗證什麼
+
+- 兩處必要掛接尚未取得範圍修訂，封鎖功能不能交付，完整模組測試尚未通過。
+- 最新 head CI 綠燈尚未達成；PR 另有合併衝突狀態，修復時需檢查最新 main。
+- 原生 UI／登入、好友持久化、在線變化、雙角色封鎖聊天；本任務禁止啟動遊戲，集中交獲授權的 dot smoke。
+- S250/17 有伺服器建構子依據，但不宣稱每次登入必定收到完整快照。
+
+沒有啟動遊戲、伺服器或 DB；沒有複製遊戲資源或伺服器原始碼；沒有修改封存、硬連結、`docs/REPORT.md`；沒有遞迴刪除。
 
 ## 產出路徑
 
-- 程式：`engine/source/Buddies.cs`、`BuddyUi.cs`；既有 `WorldSession.cs`、`PlayerChat.cs` 各一行掛接。
-- 測試：`engine/_integration/dev/buddies-tests/BuddyChecks.cs`；DemoChecks 專案及入口；`.github/workflows/build.yml`。
-- 鎖定：`engine/_integration/dev/rebuild-lock.json`（工具重新產生，沒有手拼 hash）。
+- 本輪測試：`engine/_integration/dev/buddies-tests/BuddyChecks.cs`，既有 DemoChecks／Windows CI 入口。
+- 程式：`engine/source/Buddies.cs`、`BuddyUi.cs`、`WorldSession.cs`、`PlayerChat.cs`（本輪未改）。
 - 協定：`docs/protocol/buddies.md`；本報告：`docs/reports/issue-260.md`。
-- 本機證據（不提交）：`scratch/issue-260/build/`、`scratch/issue-260/buddies-codec.json`。
+- 本機證據（不提交）：`scratch/issue-260/build/`、`buddies-run.log`、`buddies-codec.json`、`receipt.json`。
 
 ## 給下一棒的提示
 
-請主控／使用者確認以下**僅兩處**額外掛接是否允許；不必修改 `NpcInteraction.cs` 或額外 UI 檔案：
+主控先在 Issue #260 明確允許下列兩處最小修改，避免帶著相同限制再派一次：
 
-1. `WorldSession.Reset()` 加 `ResetBuddies()`，避免同一連線切角／重連殘留。
-2. 將本次新增的 `if(opcode==39&&ReceiveBuddies(opcode,plain))return;` 改為 `if(ReceiveBuddies(opcode,plain))return;`。模組只消費 S39 buddy 與 S250/17–19；S71/109、472 只觀察，仍回 false 交既有訊息分派。
+1. `WorldSession.Reset()` 加 `ResetBuddies()`。
+2. 把 `if(opcode==39&&ReceiveBuddies(opcode,plain))return;` 改成 `if(ReceiveBuddies(opcode,plain))return;`。模組只消費 S39 buddy 與 S250/17–19；S71/109、472 只觀察並回 false，保留原訊息分派。
 
-取得範圍確認後，由 codex-local 套入兩處、更新 dev lock、重新建置，執行完整 `buddies` 測試並修正其餘實際失敗，再確認最新 PR head 的 CI 綠燈，更新本報告及同一 PR #275。目前 PR 不得作為 T126 完成證據；請主控先明確修訂允許範圍，避免第 3 次派工仍帶相同限制。
+取得修訂後，由 codex-local 套入、更新 dev lock、建置並完成完整 buddies 測試；處理與最新 main 的實際衝突，再確認最新 head CI 綠燈。由 Claude 審查、使用者合併；本次不能以「已提交」視為 T126 完成。
