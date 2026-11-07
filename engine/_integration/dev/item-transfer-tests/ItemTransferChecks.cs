@@ -65,7 +65,10 @@ partial class Checks {
             Check(!await c.SendItemTransfer(request,true,()=>visible)&&sends==0,"stale transfer rejected "+queued+" "+change);
         }
         using(var c=TransferSeed()){
-            TransferInventory(c,1,1,"劍 ($9)");Check(c.PrepareItemTransfer(c.CaptureItemTransfer(),null,"")==null,"equipped item cannot be deleted");
+            TransferInventory(c,1,1,"劍");
+            // S64/66 establishes the authoritative equipped slot; display names do not.
+            Feed(c,Packet(b=>{b.Write((byte)64);b.Write((byte)66);b.Write(TransferItem);b.Write((byte)9);b.Write((byte)1);}));
+            Check(c.PrepareItemTransfer(c.CaptureItemTransfer(),null,"")==null,"equipped item cannot be deleted");
             Check(c.PrepareItemTransfer(c.CaptureItemTransfer(),456,"1")==null,"equipped item cannot be given");
         }
         foreach(bool queued in new[]{false,true}){
