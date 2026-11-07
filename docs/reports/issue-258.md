@@ -76,6 +76,11 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 - 本機驗證：`rebuild.py --update-lock`（218 source／227 pinned）、`--build` PASS（產品 DLL `4bbaa80d6dee0bddc72dfc7bc6ae784096dd5b176f6f41e4c949346b7e37718e`）；`DemoChecks map-continuity` PASS 23218 checks（含書籤與 timed-buffs）；`check-no-game-assets.py` pass（3458 檔、0 錯誤）。
 - 同步 head `e149a0ca82e65e1d11c7c7e4c906162685f3c9da` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42365318933) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42365319092) 均 completed／success。本段以後續純文件提交補記。
 
+### 2026-11-07 同步輪（item-status）
+
+- `git merge origin/main`（main `2aa41def`，落後 45 個提交，含 #216 item-status）。衝突兩處：`demo-tests/Program.cs` 預設路徑同時保留 `BookmarkChecks()` 與 `ItemStatusChecks()`（main 新增的 `item-status` case 自動合併保留）；`rebuild-lock.json` 取 main 版本後 `--update-lock` 重產。`DemoChecks.csproj`、`WorldSession.cs` 自動合併。本模組檔案與 `docs/REPORT.md` 未編輯。
+- 本機驗證：`rebuild.py --update-lock`（219 source／228 pinned）、`--build` PASS（產品 DLL `e03087fa0b6b06598d7307267a0f0d022c1b4dabc4d07b6f8e207ebe1f95eebc`）；DemoChecks `bookmarks` PASS 723、`item-status` PASS 358、`item-transfer` PASS 349、`map-continuity` PASS 23218；`check-no-game-assets.py` pass（3456 檔、0 錯誤）。
+- 新 head 的 CI 結果以後續純文件提交補記。
 ## 未驗證什麼
 
 - **換掛接點後，「記憶座標」分頁實際出現在真實 `ClientForm`，目前沒有任何自動測試覆蓋**：離線測試不經過 `ClientForm` 生命週期，上述只驗到空白 Form 的框架順序與靜態閱讀。需由 dot smoke 確認。
@@ -87,6 +92,7 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 
 ## 產出路徑
 
+- 2026-11-07 同步輪（item-status）修改：`demo-tests/Program.cs`（解衝突）、`rebuild-lock.json`（重產）、本報告。
 - 2026-11-07 同步輪（timed-buffs）修改：`demo-tests/DemoChecks.csproj`、`demo-tests/Program.cs`（解衝突）、`rebuild-lock.json`（重產）、本報告。
 - 2026-11-07 同步輪修改：`engine/_integration/dev/demo-tests/Program.cs`（解衝突）、`rebuild-lock.json`（重產）、本報告。
 - 前一輪修改：`engine/_integration/dev/demo-tests/DemoChecks.csproj`（解衝突）、`engine/_integration/dev/rebuild-lock.json`（重產）、本報告；其餘差異均為 main 既有內容。

@@ -315,6 +315,7 @@ partial class Checks {
                 case "attack-skill-resources":AttackSkillChecks.NativeResources(args[3],args[4],Check);break;
                 case "hit-reaction-suppress":HitReactionSuppression();break;
                 case "slow-actions":await SlowActions();break;
+                case "item-status":ItemStatusChecks();break;
                 case "keyboard":await KeyboardMovement123();break;
                 case "busy":KeyboardBusy123();break;
                 case "world":await KeyboardWorld123();break;
@@ -322,6 +323,7 @@ partial class Checks {
             }
         }else{
             await BookmarkChecks();
+            ItemStatusChecks();
             MinimapChecks();await CharacterConfigChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
             await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();DisplayNoticeChecks();await BoardChecks();await ClanChecks();await MarriageChecks();await CharResetChecks();await LocationShareChecks();HitReactionSuppression();await PlayerQueryChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();await GhostModeChecks();TimedBuffChecks();
         }
