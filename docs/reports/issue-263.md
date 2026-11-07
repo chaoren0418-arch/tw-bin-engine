@@ -55,4 +55,8 @@
 
 ## 給下一棒的提示
 
+本輪同步 `origin/main` 至 `ccaa3e02caf1c0cc2c0696683e243c1c7577df4e`：僅 dev lock 發生衝突，已用 `--update-lock` 重產為 180 個來源、189 個鎖定輸入；main 的受擊抑制與本分支的變身、佈告欄、道具轉移測試入口均保留，未追加功能修改。`docs/REPORT.md` 與 main 完全一致。
+
+本輪產品、launcher、DemoChecks 建置通過；產品僅有既有 `MagicUi.cs:20` 的 CS8600／CS8602，其他建置零警告。離線回歸全綠：`polymorph-cadence` 123 項、`map-continuity` 448 項、`combat-admission` 368 項、`item-transfer` 163 項、`board` 320 項、`hit-reaction-suppress` 156 項（各組含基本變身檢查）。素材拒收檢查 3,289 個追蹤檔、4 個 EmbeddedResource 宣告、零錯誤；dev lock 唯讀核驗與差異空白檢查通過。證據沿用 `scratch/issue-263/build/` 與群組同名 JSON；最終提交 CI 結果記於 PR #278 本輪 RESULT 留言。未啟動遊戲、伺服器或 DB，原生驗收仍待 M6 smoke。
+
 Claude 審查 PR；合併由使用者處理。調度器同步輪若遇 dev lock 衝突，依契約重新產生，不手拼 hash。M6 smoke 由 dot 依既有授權測試：自身／其他角色變身、保留／卸下武器、攻擊與行走、S119 更新、解除、同圖重設；若指定 gfx 缺素材，另開 resource 任務取得經驗證 profile，不以假圖補足。本次未改 `docs/REPORT.md`。

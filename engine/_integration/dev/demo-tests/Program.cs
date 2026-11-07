@@ -285,7 +285,8 @@ partial class Checks {
                 case "board":await BoardChecks();break;
                 case "item-transfer":await ItemTransferChecks();break;
                 case "combat-loop":await CombatLoop();break;
-                case "combat-admission":await CombatAdmission();break;
+                case "combat-admission":await CombatAdmission();HitReactionSuppression();break;
+                case "hit-reaction-suppress":HitReactionSuppression();break;
                 case "slow-actions":await SlowActions();break;
                 case "keyboard":await KeyboardMovement123();break;
                 case "busy":KeyboardBusy123();break;
@@ -294,7 +295,7 @@ partial class Checks {
             }
         }else{
             NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
-            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();await BoardChecks();
+            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();await BoardChecks();HitReactionSuppression();
         }
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status="pass",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));Console.WriteLine($"PASS {checks} DEMO checks");return 0;
     }catch(Exception ex){Console.Error.WriteLine(ex);return 1;}}
