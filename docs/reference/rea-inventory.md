@@ -109,7 +109,7 @@
 | 第二組 | `0x9483D4`／`0x5477D4` | `0x94838C`／`0x54778C` | 240／17 |
 | 第三組 | `0x9484CC`／`0x5478CC` | `0x9484C4`／`0x5478C4` | 235／1 |
 
-第一組只在 `[0x13CE3D8]==3` 時使用。完整 case 對應可用 `work/issue-417/scripts/b07_tables.py` 產生。
+第一組只在 `[0x13CE3D8]==3` 時使用。完整 case 對應可用 `docs/reference/rea-scripts/b07_tables.py` 產生。
 
 值 226 落在 `0x9477AB`，呼叫 `0x92CB70`，補上 #48 未能重新證明的 opcode226 對應。
 
@@ -265,7 +265,7 @@
 | LiTo 登入器＋伺服器 | 確認 lito 登入器有無 callback 清零同型缺陷 | `rea-investigation/README.md` 第三節 |
 | LiTo 登入器＋伺服器 | 評估沿用指定連線逐包取證 | `rea-investigation/packet-trace-review-20261101/` |
 | LiTo 重建版 | 用同一 parser 規格解 sprite 資料，取代逐項猜測 | 本文 B07；LiTo 快照 File Offset `0x3E85C` 一帶 |
-| LiTo 重建版 | 把同一批函式在 LiTo 快照上定位，做版本差異表 | `LiTo.unpacked-oep-current.exe`；`work/issue-417/scripts/xver.py` |
+| LiTo 重建版 | 把同一批函式在 LiTo 快照上定位，做版本差異表 | `LiTo.unpacked-oep-current.exe`；`docs/reference/rea-scripts/xver.py` |
 | LiTo 重建版 | 評估用 TW13081901 的 IAT 重建流程補 LiTo 的 import 缺口（`pe-audit.json` 記載尚未重建；重擷取需另行授權） | `TW13081901bin拆解/tools/` |
 | LiTo 重建版 | 以 LinR 的 RTTI 與封包處理類別名稱作為現代架構參考 | `LinR_static_analysis_20260805/05_ida/rtti_vftable_names.csv`、`network_packet_candidates.md` |
 

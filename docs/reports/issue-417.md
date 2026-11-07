@@ -55,7 +55,7 @@
 ## 給下一棒的提示
 
 - 主控可依 `rea-inventory.md` 的「對各專案的建議任務」開任務。優先順序建議：`CombatSfx` 的 `<`、裁定 B03、`^` 環境音。
-- 重跑反編譯：把 P01 IDB 複製成 `scratch/rea/ida/tw16.idb`，建立 `scratch/rea/ida/env/{user,appdata,local,temp}`，用 `work/issue-417/scripts/run_ida.ps1`。腳本要放在 `scratch/rea/scripts/`。IDA 在中文路徑會失敗，腳本用 `subst R:` 映射。**不要用 `Select-Object -First` 截斷它的輸出**，否則 `finally` 跑不到，`R:` 會殘留。
+- 重跑反編譯：把 P01 IDB 複製成 `scratch/rea/ida/tw16.idb`，建立 `scratch/rea/ida/env/{user,appdata,local,temp}`，用 `docs/reference/rea-scripts/run_ida.ps1`。腳本要放在 `scratch/rea/scripts/`。IDA 在中文路徑會失敗，腳本用 `subst R:` 映射。**不要用 `Select-Object -First` 截斷它的輸出**，否則 `finally` 跑不到，`R:` 會殘留。
 - `TASKS.md`、`PLAN.md`、`docs/demo/README.md` 的 B03／B07 受阻理由本輪沒改，由主控決定。
 - `hook_capture.py`、`gree_path_probe.py`、`scan_broadcast.py` 會碰活程序，不得執行。
 - 要用 REA 需使用者決定：升級 Node、安裝 Ghidra 12.x＋JDK 21、同意建置。
