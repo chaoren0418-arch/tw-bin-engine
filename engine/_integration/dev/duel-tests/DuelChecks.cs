@@ -72,7 +72,7 @@ partial class Checks {
             Check(!await SendDuel(c,"accept")&&sends==0,"queued answer invalidated by "+mutation);
         }
         using(var c=DuelSeed()){
-            foreach(var sample in new[]{DuelPrompt(),DuelState()}){
+            foreach(var sample in new[]{DuelPrompt(),DuelState(),DuelMessage(631,"target"),DuelMessage(633)}){
                 for(int n=0;n<sample.Length;n++)BadDuel(c,sample[..n],"truncated "+sample[0]+"/"+n);
                 var dirty=sample.ToArray();dirty[^1]=255;BadDuel(c,dirty,"nonzero padding");
                 BadDuel(c,[..sample,..new byte[8]],"extra zero block");
@@ -93,6 +93,14 @@ partial class Checks {
             Check(c.World.TradeState=="invited"&&c.World.DuelSnapshot.Phase=="expired","trade subtype retains reader and expires duel answer");
             Feed(c,Packet(b=>{b.Write((byte)250);b.Write((byte)35);b.Write((ushort)60);}));
             Check(c.World.MagicBuffs.Any(b=>b.Source=="packetbox35"),"non-duel packetbox still dispatched");
+        }
+        using(var c=DuelSeed()){
+            Feed(c,DuelState());var active=c.World.DuelSnapshot;
+            Feed(c,DuelMessage(125));
+            Check(c.World.LastServerReply?.Id==125&&c.World.DuelSnapshot==active,"unrelated S71 keeps original message dispatch and duel state");
+            Feed(c,Pack(456,32610));int sends=0;
+            Sender(c,(b,v,a)=>{if(!v())return Task.FromResult(false);sends++;a();return Task.FromResult(true);});
+            Check(!await c.Attack()&&sends==0&&c.World.IsDuelOpponent(456),"authoritative duel marker cannot bypass existing attack range admission");
         }
         using(var c=DuelSeed()){
             Feed(c,DuelState());Feed(c,LoginPackets.Pad([206,0,0,0]));

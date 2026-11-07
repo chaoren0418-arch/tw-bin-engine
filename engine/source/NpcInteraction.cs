@@ -71,6 +71,7 @@ public sealed partial class LoginConnection {
         if(pointerCurrent?.Invoke()==false)return false;
         World.CheckInteraction();if(command!="close"&&World.TradeBlocksActions)return false;if(State!=LoginState.InWorld||revision!=World.InteractionRevision||epoch!=World.WorldEpoch||targetRevision!=World.TargetRevision)return false;
         if(command=="close"){World.CloseInteraction();Set(State,World.InteractionNotice);return true;}
+        if(command=="talk"&&BoardPackets.IsBoard(World.Target))return await OpenBoardUi(pointerCurrent);
         if(command=="option"&&World.OpenDialogLink(option,revision)){Set(State,World.InteractionNotice);return true;}
         if(command=="option"&&World.OpenDeposit(option,revision)){Set(State,World.InteractionNotice);return true;}
         if(interactionSending||MovementBusy||sendMovementGate==null)return false;

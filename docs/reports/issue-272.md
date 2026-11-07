@@ -1,46 +1,55 @@
-# #272／T132 決鬥：草稿，接收掛接待範圍裁定
+# #272／T132 決鬥：正式接收整合與第二次驗證
 
 ## 做了什麼
 
-- 新增 `engine/source/Duel.cs`：C5 邀請、C121 接受／拒絕、S219/630、S250/5、S71 決鬥訊息解碼及狀態模型；送出閘門核對 session、world epoch、revision、面向與選取對象。沒有改變攻擊准入。
-- 新增 `engine/source/DuelUi.cs`：服務視窗決鬥頁、邀請／接受／拒絕按鈕、伺服器確認後的對手標記；`ObjectRendering.cs` 僅一個繪製查詢呼叫。
-- 新增 `engine/_integration/dev/duel-tests/DuelChecks.cs`，接上既有 `DemoChecks.csproj`、`duel` 測試群組與 CI 已執行的 `combat-admission` 群組。
-- 封包與來源 SHA-256 整理於 `docs/protocol/duel.md`；只更新 dev lock，未改封存或 `docs/REPORT.md`。
+- `Duel.cs` 實作 C5 邀請、C121 接受／拒絕，以及 S219/630 邀請、S250/5 開始／結束、S71 決鬥回覆。C5 經唯讀核對 `C_Fight` 無條件尾段；Yes-No 的 D 欄位固定零，不依賴 requestId／raw confirmation，也未實作 `S_Classic*`。
+- `DuelUi.cs` 提供「服務 → 決鬥」頁面與邀請／接受／拒絕操作；只有 S250/5 確認後顯示對手標記，`ObjectRendering.cs` 僅增加一個繪製查詢呼叫。未修改攻擊准入。
+- 依第二次重派修正要求，在 `WorldSession.ReceiveCore` 讀取 opcode 後新增單行 `if(ReceiveDuel(opcode,plain))return;`。解析仍集中在決鬥模組；使用獨立 reader，非決鬥 S219／S250 保留原分派，S71 更新決鬥狀態後仍交由既有訊息處理器顯示。
+- 將現有 `main` 合入 `task/272`，保留音效／公告板接收點與各模組測試入口；dev lock 以 `--update-lock` 重新產生，沒有手動拼接 hash。相對 `main` 的共用接收修改仍只有上述一行。`docs/REPORT.md`、workflow 與其他模組僅承接 main，沒有本任務差異。
+- 測試提交在 `engine/_integration/dev/duel-tests/DuelChecks.cs`，由正式 `demo-tests` 的 `duel` 與 CI 既有 `combat-admission` 群組執行。
 
-## 阻塞與目前可用性
+## 怎麼驗證（已驗證）
 
-**本草稿尚不可視為功能完成，也不應合併。** Issue 指定「WorldSession.cs 只在 Yes-No 既有分派加一個決鬥子型別分支」，但這份 main 的 S219 分派在 `Trade.cs/ReceiveTrade`；S250/5 與 S71 又是不同 opcode。現有指定位置不存在。
+| 驗證 | 結果 |
+|---|---|
+| `rebuild.py --update-lock`、`rebuild.py --build` | 產品、audio、launcher 成功；180 個來源、189 個 lock 項目 |
+| 正式 `demo-tests`：`duel` | 114 項通過 |
+| 正式 `demo-tests`：`combat-admission` | 326 項通過，包含決鬥測試 |
+| 正式 `demo-tests`：`map-continuity` | 358 項通過，驗證合入 main 後的接收鏈 |
+| `engine/tools/check-no-game-assets.py` | pass，0 errors |
+| `git -c core.whitespace=cr-at-eol diff --check` | 通過 |
 
-建議的具體最小調整：在 `WorldSession.ReceiveCore` 建立 reader／讀取 opcode 後、既有接收鏈之前，加一行 `if(ReceiveDuel(opcode,plain))return;`。所有解碼仍在新檔，非決鬥封包保留原 reader cursor 與分派。這個調整已向使用者提出範圍確認，尚未收到答覆，因此 **WorldSession.cs 尚未修改**。
+上述測試經 `WorldSession.Receive` 正式入口驅動本次建出的產品 DLL；沒有使用前次 scratch 的 `ReceiveDuel` reflection 掛接替代品。覆蓋每個 C／S 格式、CP950 名稱、接受／拒絕、權威開始／結束、錯誤 ID、截斷／非零填充／多餘區塊、session／epoch／revision 失效、送出失敗、交易與 buff 子型分派、S71 原訊息，以及決鬥標記不得跳過既有攻擊距離准入。
 
-現況 C5 可送出，但決鬥邀請／開始／結束尚未進入新模組；UI 不會假裝收到成功。完整回歸正確暴露此缺口，沒有刪除測試或降級斷言以取得綠燈。
+本機重現（Python 可使用安裝路徑，dotnet 測試暫存／快取皆指向 worktree）：
 
-## 怎麼驗證
+```powershell
+python -B -X utf8 engine/_integration/dev/rebuild.py --update-lock
+python -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile scratch/issue-272/NuGet.Config --output scratch/issue-272/build
+dotnet restore engine/_integration/dev/demo-tests/DemoChecks.csproj --configfile scratch/issue-272/NuGet.Config
+dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -p:UseSharedCompilation=false -- . scratch/issue-272/duel-checks.json duel
+dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-build -- . scratch/issue-272/combat-checks.json combat-admission
+dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-build -- . scratch/issue-272/map-checks.json map-continuity
+python -B -X utf8 engine/tools/check-no-game-assets.py
+```
 
-已驗證：
+本機 NuGet.Config 僅在 scratch，唯讀引用原專案 `engine/vendor`；未複製遊戲資源。產品保留既有 `MagicUi.cs:20` 的 CS8600／CS8602 警告；launcher 與測試專案沒有新增編譯警告。產品 DLL SHA-256：`b24034ee6cdd56f03e03d9958f900486999569f227456d1165e9a9f57aa59569`。
 
-- `rebuild.py --update-lock` 後執行 `--build`：產品、audio、launcher 編譯成功。產品有既有 `MagicUi.cs:20` 的 CS8600／CS8602 警告；未修改該檔。
-- NuGet 網路來源遭本機 TLS 錯誤拒絕；改以 `scratch/issue-272/NuGet.Config` 唯讀引用原專案 `engine/vendor`，快取與建置輸出均留本 worktree。
-- 測試專案編譯：0 警告、0 錯誤。
-- **模組直接呼叫測試**：scratch 臨時 harness 以 reflection 呼叫產品 DLL 的 `ReceiveDuel`，再讓未消費封包進原有分派；84 項通過。與既有戰鬥准入測試一起執行為 296 項通過。這只是擬議接收掛接的模擬，不能替代已提交入口的整合驗證。
-- `check-no-game-assets.py` 通過；`git -c core.whitespace=cr-at-eol diff --check` 通過。保留既有 CRLF 檔案位元格式。
+CI：待本次推送後核對 PR #293 的 `dotnet`、`map-continuity` 結果；本機通過不替代 CI 綠燈。
 
-未通過／待驗證：
+## 未驗證什麼
 
-- 已提交的正式離線入口 `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release -- . scratch/issue-272/duel-checks.json duel` 於 `S71/631 matches invited peer` 失敗，原因是尚未新增接收掛接；不是封包解析測試通過的宣稱。
-- CI 綠燈未達成；草稿 PR 的 Windows 測試預期會重現上述整合缺口。
-- 未啟動遊戲、伺服器或 DB；未做畫面、網路或真機驗收。
+未啟動遊戲、伺服器或 DB，未做登入、兩角色互動、畫面／音效與實網驗收。合成封包測試只證明離線接收、狀態與送出契約；不宣稱原生 smoke 通過。
 
 ## 產出路徑
 
-- 程式：`engine/source/Duel.cs`、`DuelUi.cs`、`ObjectRendering.cs`。
-- 提交的測試：`engine/_integration/dev/duel-tests/DuelChecks.cs`，既有入口 `engine/_integration/dev/demo-tests/`。
-- 契約：`docs/protocol/duel.md`；本報告：`docs/reports/issue-272.md`。
-- 本機暫存證據（不提交）：`scratch/issue-272/build/`、`module-checks.json`、`module-combat-checks.json`、`module-tests/`。
+- 程式：`engine/source/Duel.cs`、`DuelUi.cs`、`WorldSession.cs`、`ObjectRendering.cs`。
+- 提交的測試：`engine/_integration/dev/duel-tests/DuelChecks.cs`；入口：`engine/_integration/dev/demo-tests/`。
+- 契約與來源 SHA-256：`docs/protocol/duel.md`；dev lock：`engine/_integration/dev/rebuild-lock.json`；本報告：`docs/reports/issue-272.md`。
+- 本機證據（不提交）：`scratch/issue-272/build/`、`duel-checks.json`、`combat-checks.json`、`map-checks.json`。
 
 ## 給下一棒的提示
 
-1. 調度器／Claude 先裁定是否允許上述單行接收鏈掛接；不必擴增 `Trade.cs` 的修改範圍。使用者的 async 確認仍待回覆。
-2. 掛接後重新 `--update-lock`、完整建置並執行正式 `duel` 與 `combat-admission` 群組；不要把 scratch harness 的結果當成完成。
-3. CI 綠燈後再解除草稿；原生 smoke 由 dot 依既有授權驗證兩角色的接受、拒絕與結束標記。
-4. 協議沒有邀請取消指令，且世界重建時本機保守清除標記；若沒有新的 S250/5，不自行恢復狀態。
+1. Claude／調度器審查 PR #293：核對正式單行掛接、非決鬥分派保留、已提交測試與最新 CI；前次未掛接與正式入口失敗已在本輪修正。
+2. dot 於集中 smoke 依既有授權驗證兩角色邀請、接受、拒絕與決鬥結束標記；本任務沒有執行真機。
+3. 協議沒有邀請取消指令；世界重建時本機保守清除標記，沒有新的 S250/5 就不自行恢復。不修改伺服器攻擊判定。
