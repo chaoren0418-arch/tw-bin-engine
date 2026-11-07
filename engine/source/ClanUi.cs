@@ -1,9 +1,13 @@
 namespace P06;
 
 public sealed partial class ClientForm {
-    Form? clanWindow;
-    protected override void OnShown(EventArgs e){
-        base.OnShown(e);
+    Form? clanWindow;bool clanUiHooked;
+    // OnLoad/OnShown belong to other partial modules; the Shown event keeps the same timing.
+    protected override void OnCreateControl(){
+        if(!clanUiHooked){clanUiHooked=true;Shown+=(_,_)=>InitClanUi();}
+        base.OnCreateControl();
+    }
+    void InitClanUi(){
         var button=new Button{Text="血盟",Dock=DockStyle.Top,Height=36,AccessibleName="開啟血盟管理"};
         if(normalPanels!=null){var page=new TabPage("血盟");page.Controls.Add(button);normalPanels.TabPages.Add(page);}
         else{button.Dock=DockStyle.Right;button.Width=72;bar.Controls.Add(button);button.BringToFront();}

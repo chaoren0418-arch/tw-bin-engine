@@ -89,4 +89,4 @@ S118 解碼只讀封包記憶體，接受 16×12、BITMAPINFOHEADER=40、BI_RGB�
 - S167 使用固定 478-byte 公告，S170 使用固定 62-byte 備註；Big5 解碼至第一個零，保留滿長度非零字串。S170 只接受 H(1)，S250/sub171 採 C_Pledge 實際呼叫的 L1PcInstance[] 建構子（H count、S name、C(0)），不混用 Object[] 版本。
 - S167 開始新查詢快照，僅接受與目前自身血盟相同的盟名。S170 與 sub171 分別更新成員及上線集合；沒有上線快照為未知，收到空集合才是全員離線；離盟或世界切換清除。S200 始終只更新關注血盟。
 - S250 既有狀態處理由 ReceiveMagicStatus 提前分派；本輪在 WorldSession 剩餘 switch 加 `case 250 when ... sub171`，既有子碼不變。回歸包含 sub34 與 S219/message252。
-- 血盟正式測試 119 項，CI map-continuity 群組 477 項；詳見 `docs/reports/issue-262.md`。
+- 血盟正式測試 119 項；各群組的最新數字見 `docs/reports/issue-262.md`。

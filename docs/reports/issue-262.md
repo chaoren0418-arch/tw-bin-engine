@@ -2,9 +2,19 @@
 
 2026-11-07 第三輪，分支 `task/262`，PR #282。本輪已依主控裁定完成入盟確認與成員列表；盟徽實際查詢及 ID 對應拆至 T135（#316）。
 
+## 同步輪（2026-11-07，合併 `origin/main` `4e62637`）
+
+- 分支落後 main 116 個 commit。`WorldSession.cs`、`DemoChecks.csproj`、`Program.cs` 的衝突都是雙方新增，全部保留（血盟與變身、玩家查詢、角色設定、位置分享）；dev lock 取 main 版後用 `--update-lock` 重建。
+- **唯一的產品程式修改**：main 的 `LocationShare.cs` 也覆寫 `ClientForm.OnShown`，與 `ClanUi.cs` 重複而編譯失敗（CS0111），這個衝突 git 看不出來。`OnLoad` 已被 `BuddyUi.cs` 使用，因此 `ClanUi.cs` 改為覆寫 `OnCreateControl`，訂閱 `Shown` 事件呼叫 `InitClanUi()`。初始化時機與原本相同，沒有動其他模組的檔案。
+- 掛接行為：以 scratch 的 WinForms 小程式驗證同類別另有 `OnLoad`／`OnShown` 覆寫時，初始化只跑一次，重建 handle 也不重複。該程式跑在 Windows PowerShell 5.1（.NET Framework），不是 .NET 10，也不是實際的 `ClientForm`。
+- 測試結果（`-p:UseSharedCompilation=false`，全部通過）：`clan` 209、`map-continuity` 20951、`combat-admission` 1109、`polymorph-cadence` 123、`polymorph` 90、`buddies` 259、`item-transfer` 163、`location-share` 189、`player-query` 791、`character-config` 183。各群組都含 main 新增的 90 項共用檢查（`polymorph` 群組只跑這部分），血盟本身仍是 119 項。
+- `rebuild.py --build`：product／audio／launcher 通過，0 錯誤，2 個既有 `MagicUi.cs` 警告；`check-no-game-assets.py` 通過（0 錯誤、4 個核准 EmbeddedResource）。產品 DLL SHA-256：`4c6aaa60dd457fad6d54d7e64c0245e7350cce00d694cf4e275663dd02d3544a`。
+- **未通過**：無群組的預設入口在本 worktree 執行失敗（`Movement123` 讀不到 `engine/assets/terrain0.bin`，exit 1），因為 worktree 沒有 `engine/assets` junction，而本任務不新建 junction。失敗點在血盟測試之前，所以預設入口內的血盟測試本輪沒有跑到。CI 不跑此入口；血盟測試由 `clan` 與 `map-continuity` 群組覆蓋。
+- 下方各節保留第三輪紀錄，其中的測試數字與 DLL SHA 以本節為準。
+
 ## 做了什麼
 
-- 本次再合併 `origin/main`（`9f62553cf8e1b1f3c8d26cb0c48e0dfd551d19ba`），保留好友、公告欄、道具轉移、角色管理及其他既有分派／測試。測試專案與 Program 入口衝突保留雙方群組；dev lock 取 main 後由 `--update-lock` 重建。既有血盟實作已符合第三輪範圍，本次沒有額外修改產品程式。另併入遠端 task/262 的 main 同步提交，保留遠端歷史。
+- 前次同步曾合併 `origin/main`（`9f62553cf8e1b1f3c8d26cb0c48e0dfd551d19ba`），保留好友、公告欄、道具轉移、角色管理及其他既有分派／測試。測試專案與 Program 入口衝突保留雙方群組；dev lock 取 main 後由 `--update-lock` 重建。另併入遠端 task/262 的 main 同步提交，保留遠端歷史。
 - 保留建立、申請加入、退出／解散、驅逐、成員查詢及已有伺服器盟徽顯示。S200 僅為關注血盟。
 - `Trade.cs` 只加一個 message=97 轉交分支。`ClanUi` 收到邀請會開啟血盟視窗，提供接受／拒絕；C121 固定使用 d287 的 H(0)、D(0)、H(97)、C(1/0)，不使用 requestId／raw confirmation。
 - 邀請以本地 revision 防止重複回答及排隊期間被新邀請取代。對方移除／離線、五分鐘逾時、拒絕、取消相關伺服器訊息、換盟、切圖、斷線或其他對話／確認操作會清除或失效；不預先修改伺服器血盟狀態。
@@ -27,7 +37,7 @@
 
 ## 未驗證什麼
 
-- 未啟動遊戲、伺服器或 DB；原生 UI、真實入盟往返、成員名單與實際盟徽 payload 尚待 dot 真機驗收。
+- 未啟動遊戲、伺服器或 DB；原生 UI、真實入盟往返、成員名單與實際盟徽 payload 尚待 dot 真機驗收。同步輪改過的 `ClanUi` 掛接沒有在實際 `ClientForm` 上執行，真機時請確認血盟頁籤與收到邀請時的自動開窗。
 - d287 的確認封包沒有請求 token，也沒有本輪可使用的專用取消通知。客戶端收到可觀測的對象移除、對話取代／一般結果訊息時保守清除，無訊息的伺服器內部失效最遲於本地逾時清除；實際接受仍由伺服器判定。
 - 盟徽查詢與 clan ID／emblem ID 映射交 T135（#316）。本輪僅顯示已存在且可對應的 S118 資料；沒有資料不顯示。BMP 支援的合成驗證不保證實際伺服器所有圖像格式均支援。
 - `docs/REPORT.md` 只有合併 main 帶入既有變更，本任務沒有編輯；未改機密設定、封存 lock、releases 或硬連結，未遞迴刪除、未清理 worktree。
