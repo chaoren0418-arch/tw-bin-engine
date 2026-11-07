@@ -283,6 +283,7 @@ partial class Checks {
         if(args.Length>2){
             switch(args[2]){
                 case "afflictions":await AfflictionChecks();break;
+                case "resurrection":await ResurrectionChecks();break;
                 case "char-reset":await CharResetChecks();break;
                 case "clan":await ClanChecks();break;
                 case "portals":await PortalChecks();break;

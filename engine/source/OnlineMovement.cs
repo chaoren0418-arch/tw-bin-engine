@@ -53,7 +53,7 @@ public sealed partial class LoginConnection {
     public void CancelMovementInput(){inputVersion++;}
     public event Action<OwnActor,OwnActor>? MovePlanned;
     public event Action<object>? MovementSent;
-    public bool MovementAvailable=>State==LoginState.InWorld&&!World.ActionLocked&&!World.TradeBlocksActions&&World.Renderable&&!World.OwnDead&&World.Status?.Hp>0&&World.Actor is {} speedActor&&NormalSpeed.Supported(speedActor.Speed,speedActor.Brave);
+    public bool MovementAvailable=>State==LoginState.InWorld&&!World.MoveLocked&&!World.ActionLocked&&!World.TradeBlocksActions&&World.Renderable&&!World.OwnDead&&World.Status?.Hp>0&&World.Actor is {} speedActor&&NormalSpeed.Supported(speedActor.Speed,speedActor.Brave);
     public bool MovementBusy=>MagicBusy||GroundBusy||ItemBusy||CombatBusy||movementSending||MovementClock()<MovementReadyAt;
     void ResetMovementSend(){inputVersion++;movementLease++;movementSending=false;nextMovementAt=0;lastMovementAt=-1;}
     public async Task<bool> Move(int heading)=>(await SendMovement(heading,true,false)).Sent;

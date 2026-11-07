@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 212,
+ "sourceCount": 213,
  "files": [
   {
    "path": "NuGet.Config",
@@ -646,8 +646,8 @@
   },
   {
    "path": "source/OnlineMovement.cs",
-   "size": 12760,
-   "sha256": "58b1ff76d381656c2b0b7c30f8ee2cd4eeaa210ba95a96cfba4f8ddbae4f5832"
+   "size": 12779,
+   "sha256": "7bf6f02df84eb49348b7d8adaeeaa075c570b07a470601fc531b02830dfc3d23"
   },
   {
    "path": "source/OpacityHistoricalPumps.cs",
@@ -896,8 +896,8 @@
   },
   {
    "path": "source/Recovery.cs",
-   "size": 3692,
-   "sha256": "7c8cedba4c00f4292a893919bd9dcc36f6aebb50ede2a90ba658905f55bfa067"
+   "size": 3720,
+   "sha256": "068cdc4e4540df7ec0ca21300ce2ea6f83ed8b4c752ab665736f1466d0b396c4"
   },
   {
    "path": "source/Renderer.cs",
@@ -918,6 +918,11 @@
    "path": "source/Resources/pickup-own-base15-profile-extension.json",
    "size": 2473547,
    "sha256": "aff2e04d4f9395f7993baf5818eb16218730b7def0a29c7d07e86c314db513ba"
+  },
+  {
+   "path": "source/Resurrection.cs",
+   "size": 7677,
+   "sha256": "2037dc554ec6a5846292e277b909613175318daa8389dbdc9db08edd578fe9b3"
   },
   {
    "path": "source/RewardIntegration.cs",
@@ -1056,8 +1061,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 12098,
-   "sha256": "4ee28a1cac71c8ec556dd3db972fdd44ea950481ad34345db5dcaf15b53e6e2f"
+   "size": 12190,
+   "sha256": "9be844e46a0bc2311a368dd7bdf69e1427d9260330d513b701bdfd3fdad02db2"
   },
   {
    "path": "source/WorldTests.cs",
