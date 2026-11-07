@@ -32,6 +32,8 @@ public sealed partial class WorldSession {
         if(ReceiveDuel(opcode,plain))return;
         if(opcode==39&&ReceiveBuddies(opcode,plain))return;
         switch(opcode){
+        case 115:ReceiveWeather(r);return;
+        case 40:ReceiveLight(r);return;
         case 171:ReceiveInvisibility(r);return;
         case 250 when plain.Length>1&&plain[1]==111:ReceiveLocationShare(plain);return;
         case 71 when LocationShareProtocol.IsReply(plain):ReceiveLocationShare(plain);return;
@@ -63,7 +65,8 @@ public sealed partial class WorldSession {
             if(a.Name!=selected||a.Direction>7)throw new ProtocolException("self actor name/heading mismatch");SelfAppearancePending=false;objects.TryRemove(id,out _);ResetSpeedStatus();ApplyAuthoritative(a);OwnArrived();break;
         case 255:case 67:
             uint speedId=r.D();byte mode=r.C();ushort duration=r.H();r.Finish();ReceiveSpeed(opcode,speedId,mode,duration);break;
-        case 123:ServerTime=r.D();r.Finish();ShipTimeReceived(ServerTime.Value);if(CoreComplete&&ProbeSent){TimeReplies++;CompleteInitialInventory();}break;
+        case 123:ServerTime=r.D();r.Finish();ShipTimeReceived(ServerTime.Value);if(CoreComplete&&ProbeSent){TimeReplies++;CompleteInitialInventory();}
+            Ambience.TimeReceived(ServerTime.Value,SceneClock());break;
         case 225:case 33:
             uint current=r.D(),maximum=r.D();r.Finish();if(Status==null)throw new ProtocolException("vitals before own status");Status=opcode==225?Status with{Hp=current,MaxHp=maximum}:Status with{Mp=current,MaxMp=maximum};break;
         case 227:throw new ProtocolException("server disconnect packet");
