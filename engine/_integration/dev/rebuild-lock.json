@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 202,
+ "sourceCount": 207,
  "files": [
   {
    "path": "NuGet.Config",
@@ -178,6 +178,16 @@
    "path": "source/CharacterManagementUi.cs",
    "size": 7435,
    "sha256": "582febb574d3594747546030455e690002d68725764f042a2b06861b3173634e"
+  },
+  {
+   "path": "source/Clan.cs",
+   "size": 17238,
+   "sha256": "fdc98bde0106681946faa454fea0b4b6e62ebef720b99c8b6eeaf461318b50c3"
+  },
+  {
+   "path": "source/ClanUi.cs",
+   "size": 7083,
+   "sha256": "7311c59680dce1c8b0103465dbd3209a9e2a299eba60d8498ef8b3394f6de358"
   },
   {
    "path": "source/ClientAudioSettings.cs",
@@ -505,6 +515,16 @@
    "sha256": "cdb6bab4d853d13cc22a8c925b944702faaef7fea1dafdb618d3a0327ecbb8c5"
   },
   {
+   "path": "source/Mail.cs",
+   "size": 10190,
+   "sha256": "136200b761e2a784b43c8d6309d6de885d08b08e970fcbd3c7e80126fd3bb1fd"
+  },
+  {
+   "path": "source/MailUi.cs",
+   "size": 10062,
+   "sha256": "051a5bd56f1ee1656975a3b2af2973cb03971b85b1697321c62d7fabf714bbb1"
+  },
+  {
    "path": "source/MapEffects.cs",
    "size": 11051,
    "sha256": "befb109385251d5455e0bb5418995f072568e324424415e1f39e1c5c616e7f47"
@@ -586,8 +606,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 9620,
-   "sha256": "728767a2f1d328dae24a5ee0172dfacb428912165d2eee4decfea079a3299a1f"
+   "size": 9649,
+   "sha256": "297ff6f9c58cef1e3336330cdcbb90f922f0b24e61e319461785d781f059bda0"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -611,8 +631,8 @@
   },
   {
    "path": "source/OnlineMovement.cs",
-   "size": 12658,
-   "sha256": "b574e116b8cd39637ff7b3bd57b120aa0a483986bd8274a9cdbf7aa252e191ce"
+   "size": 12760,
+   "sha256": "58b1ff76d381656c2b0b7c30f8ee2cd4eeaa210ba95a96cfba4f8ddbae4f5832"
   },
   {
    "path": "source/OpacityHistoricalPumps.cs",
@@ -731,8 +751,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15586,
-   "sha256": "46f54742a4112c5c318fbf08591b3c84bfcff8e992e4d1e657cb8c4cfa82ac46"
+   "size": 15621,
+   "sha256": "975cbd8cf4cadff44b16d44fc06a8e45c6cadba58a7ac1fc617e1f9b8bef4f18"
   },
   {
    "path": "source/PlayerPointer.cs",
@@ -768,6 +788,11 @@
    "path": "source/Polymorph.cs",
    "size": 2382,
    "sha256": "2427821e0ba3b625cb0d3545004a880061eff9f2db40b4a1eff79522a6e32c6c"
+  },
+  {
+   "path": "source/Portals.cs",
+   "size": 6506,
+   "sha256": "4125505adbc319487e30e00f70f2c40c78c07c47d42197f059640c942e2a9afc"
   },
   {
    "path": "source/PrivateShop.cs",
@@ -941,8 +966,8 @@
   },
   {
    "path": "source/Trade.cs",
-   "size": 11555,
-   "sha256": "6704d27d90b1e59089e917df3379d8e92c834cd592c644412e9fea9920481998"
+   "size": 11633,
+   "sha256": "f0e18f0446620d0ead2e1ec316739d8b7c77b35d3003912d928b5f9c7a298612"
   },
   {
    "path": "source/TradeUi.cs",
@@ -1006,8 +1031,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 11198,
-   "sha256": "e8fa07ecde68e85d5636fd83c6c3d840654f6290634025ff8218175155f3c6fa"
+   "size": 11593,
+   "sha256": "027397f98373a12793f84f1c7375811a2463874908e4c9f244c7cbcf0565d89d"
   },
   {
    "path": "source/WorldTests.cs",

@@ -56,6 +56,13 @@ public sealed partial class WorldSession {
         }
         if(ReceiveRecovery(opcode,r)||ReceivePlayerChat(opcode,r,plain)||ReceiveSustenance(opcode,r,plain)||ReceiveBonusStats(opcode,r,plain)||ReceivePrivateShop(opcode,r,plain)||ReceiveTeleport(opcode,r)||ReceiveTrade(opcode,r)||ReceiveInteraction(opcode,r)||ReceiveMagic(opcode,r,plain)||ReceiveEquipment(opcode,r,plain)||ReceiveInventory(opcode,r,plain)||ReceiveExperience(opcode,r)||ReceiveCombat(opcode,r,plain)||ReceiveObjectDelta(opcode,r)){BasicSupplyReply(opcode,plain);return;}
         switch(opcode){
+        case 186:ReceiveMail(plain);break;
+        case 72:ReceiveClanUpdate(plain);break;
+        case 118:ReceiveClanEmblem(plain);break;
+        case 200:ReceiveClanAttention(plain);break;
+        case 167:ReceiveClanAnnouncement(plain);break;
+        case 170:ReceiveClanMembers(plain);break;
+        case 250 when plain.Length>1&&plain[1]==171:ReceiveClanOnlineMembers(plain);break;
         case 83 when WeaponRepairPackets.IsRepairList(plain):ReceiveWeaponRepair(r);break;
         case 76:ReceivePolymorph(plain);break;
         case 68:ReceiveBoardList(r);break;

@@ -58,8 +58,24 @@ CI 已加入 `Affliction contracts`；遠端結果以本 PR 的 `build` workflow
 - `check-no-game-assets.py`：通過，0 錯誤。
 - `weapon-repair-tests` 本機未跑，以 CI 結果為準。
 
+## 第四次同步（2026-11-07，claude-local）
+
+調度器再次退回同步：分支落後 main 46 個 commit（合併基準 `5813dd2`，含血盟 #262、信件 #267、傳送門 #377）。本段的數值取代上方所有數值。本輪沒有改 `engine/source` 的本模組程式。
+
+- 文字衝突：`DemoChecks.csproj`、`Program.cs`、`build.yml` 兩邊保留，並補回 Affliction 步驟結尾的 exit code 檢查；`rebuild-lock.json` 由 `--update-lock` 重產。
+- 語意檢查（讀程式）：main 新增的 opcode 分派與 S165／S202／S47 沒有重疊。傳送門 `EnterPortalAtArrival`、血盟 `ClanAccess`、信件送出都有 `MovementAvailable` 或 `ActionLocked` 閘門，麻痺時不會送出。main 對 `ObjectRendering.cs` 只多了 `PaintClanLabels` 一行，不影響合成，隱身呼叫仍在 `ComposeAfflictionPatch`。
+
+驗證：
+
+- `--update-lock`：207 個來源、216 個鎖定檔；`--build`：產品及 launcher 通過，產品 DLL SHA-256 `20a3542b7e20beaff27f8d2cf8c37daa79ae1965efe5b503e4e24e8a6a6c5c41`，已確認測試連結的 DLL 就是這個雜湊。
+- DemoChecks 29 組中 24 組通過：afflictions 345、clan 312、portals 293、doors 514、pets 193、map-continuity 21978、ghost-mode 552、fishing 232、location-share 292、player-query 894、character-config 286、polymorph 193、polymorph-cadence 226、buddies 362、buddies-codec 308、ambience 549、invisibility 263、board 423、item-transfer 266、combat-admission 1326、duel 307、attack-skills 934、hit-reaction-suppress 259、slow-actions 557。
+- **另外 5 組本機沒有跑成**：`combat-loop`、`keyboard`、`busy`、`world` 因 worktree 沒有 `engine/assets`（`integrity.json`／`terrain0.bin` 讀取失敗）中止；`attack-skill-resources` 因少傳參數中止。這些都是環境或呼叫方式問題，不是斷言失敗，但也代表這 5 組沒有驗到本分支。CI 也沒有跑這 5 組。
+- `MailChecks` 119、`WeaponRepairChecks` 98：通過。
+- `check-no-game-assets.py`：通過，0 錯誤。
+
 ## 未驗證什麼
 
+- `keyboard`、`busy`、`world`、`combat-loop`、`attack-skill-resources` 五組 DemoChecks 需要真實素材或額外參數，本機與 CI 都沒跑（見第四次同步）。其中 `keyboard`、`busy` 會經過 `OnlineDown`；本模組新增的鎖定查詢由 `afflictions` 組直接測到。
 - 未啟動遊戲、伺服器或 DB，未登入／送真實遊戲封包。
 - 未驗證原生畫面與舊 BIN 調色盤逐像素一致性。綠色、灰色與盲目明度是依伺服器語意實作的呈現政策。
 - 未量測真實地圖的盲目合成成本。盲目需要覆蓋完整 renderer Bounds，應由 smoke 觀察大地圖及船背景時的流暢度。
@@ -75,6 +91,6 @@ CI 已加入 `Affliction contracts`；遠端結果以本 PR 的 `build` workflow
 
 ## 給下一棒的提示
 
-本機跑 DemoChecks 時注意：它連結 `engine/build/client-product-dev/` 的 DLL，改了 `engine/source` 要先 `--update-lock`、`--build`，否則測到的是舊程式。
+本機跑 DemoChecks 時注意：它連結 `engine/build/client-product-dev/` 的 DLL，改了 `engine/source` 要先 `--update-lock`、`--build`，否則測到的是舊程式。本機 PATH 沒有 `python`，用調度器的 `$env:PY`。
 
 由 Claude 審查 PR，使用者合併；dev lock 如遇其他任務同步衝突，由調度器重跑產生，不手拼 hash。合併後由 dot 在授權 P24Lab smoke：確認自身與周邊中毒／灰色及解除，六類鎖的移動／攻擊拒絕與恢復，盲目兩模式及切圖／重連，並觀測全圖盲目時的效能。狀態圖示不屬本張。
