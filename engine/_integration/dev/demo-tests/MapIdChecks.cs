@@ -6,7 +6,9 @@ partial class Checks {
         byte[] dry=Convert.FromHexString("CE34120000000000");
         byte[] wet=Convert.FromHexString("CE34120100000000");
         byte[] single=Convert.FromHexString("CE34120010F8000000000000100D35C5");
-        foreach(var (packet,water) in new[]{(dry,false),(wet,true),(single,false)}){
+        byte[] recoveryDry=Convert.FromHexString("CE341200000000000000000000000000");
+        byte[] recoveryWet=Convert.FromHexString("CE341201000000000000000000000000");
+        foreach(var (packet,water) in new[]{(dry,false),(wet,true),(single,false),(recoveryDry,false),(recoveryWet,true)}){
             using var c=Seed();Set(c.World,"Underwater",true);
             int epoch=c.World.WorldEpoch;
             Feed(c,packet);
@@ -39,8 +41,15 @@ partial class Checks {
             var invalid=(byte[])single.Clone();invalid[3]=(byte)water;Reject(invalid,"single water "+water);
         }
         for(int extra=1;extra<=8;extra++){
-            Reject([..dry,..new byte[extra]],"normal extension "+extra);
+            if(extra!=8)Reject([..dry,..new byte[extra]],"normal extension "+extra);
             Reject([..single,..new byte[extra]],"single extension "+extra);
+            Reject([..recoveryDry,..new byte[extra]],"recovery extension "+extra);
+        }
+        for(int water=2;water<=255;water++){
+            var invalid=(byte[])recoveryDry.Clone();invalid[3]=(byte)water;Reject(invalid,"recovery water "+water);
+        }
+        foreach(var recovery in new[]{recoveryDry,recoveryWet})for(int n=4;n<recovery.Length;n++)for(int value=1;value<=255;value++){
+            var invalid=(byte[])recovery.Clone();invalid[n]=(byte)value;Reject(invalid,$"recovery tail {recovery[3]}/{n}/{value}");
         }
     }
 }
