@@ -28,7 +28,7 @@
 - 持久化測試：engine/_integration/dev/demo-tests/{AttackSkillChecks,AttackSkillRenderingChecks,Program}.cs；格式／來源SHA及呈現政策：[attack-skill.md](../protocol/attack-skill.md)。
 - 本機證據：scratch/issue-188/{combined-checks.json,resource-checks.json,build/,receipt.json}。重跑前先建產品與restore DemoChecks；合成測試不依賴本機遊戲素材。
 - Claude審查 PR #202；合併後由 dot 依既有授權做 M6 smoke，檢查其他箭矢（2349／2989）、不同法術、S42多目標／方向、受擊抑制target0與權威HP。不要把 hitFlag 當HP差值。
-## 最新同步輪：合入角色管理（2026-11-07）
+## 前次同步：合入角色管理（2026-11-07）
 
 - 做了什麼：在既有 `task/188` 執行 fetch／merge，合入 `origin/main` 的 `0380ae6062804b976fe32e5ac2a20b0b611e42ac`（含 #195／PR #219 角色管理）。本輪僅同步、重建 dev lock 與更新本報告，未新增功能。
 - 衝突處理：唯一衝突是 dev lock，直接用 `--update-lock` 重新產生，未手動拼接 hash。本模組來源與共用分派點均無衝突、未修改；角色管理來源、測試與文件採 main。`docs/REPORT.md` 與 main 完全一致，未自行編輯。
@@ -40,3 +40,14 @@
 - 產出路徑：本報告與 dev lock；main 帶入角色管理檔案。本機證據 `scratch/issue-188/build/`、`scratch/issue-188/sync-checks.log`、`scratch/issue-188/{combat-admission,map-continuity,item-transfer,character-management,item-use-checks}.json`；重跑腳本 `scratch/issue-188/sync-checks.ps1`。原有 receipt 已備份至 `scratch/issue-188/receipt-before-sync.json`，更新後的 `engine/_integration/dev/receipt.json` 不提交。
 - 未驗證：未重跑原素材 929 項檢查，未執行真機／登入／音效驗收；未啟動遊戲、伺服器或 DB，未遞迴刪除。推送後 CI 結果見 [PR #202 checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/202/checks) 與交付摘要。
 - 給下一棒的提示：沿用 PR #202；Claude／調度器核對最新提交 CI，交使用者合併。dot 接 M6 smoke，核對不同 gfx、S42 多目標／方向、權威 HP 與受擊抑制；合成封包通過不代表真機畫面驗收。
+
+## 最新同步輪：合入好友與最新任務契約（2026-11-07）
+
+- 做了什麼：`git fetch origin` 後先快轉至遠端 `task/188` 的 `5aed086`（保留已推送的同步），再合併 `origin/main` 的 `9f62553`（含 #260 好友／拒絕名單與 #385 任務契約）。唯一衝突是 dev lock，以 `--update-lock` 重建為 **185 來源／194 pins**。本輪未修改功能或測試斷言；T101 來源保持原內容，共用分派點保留雙方功能；`docs/REPORT.md` 與 main 相同，未自行編輯。
+- CI 查核：GitHub REST 確認 PR #202 仍為 open、尚未合併；同步前 head `5aed086` 的 build／npc-offline 均成功。歷史 [run 42316647327](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42316647327) 的 jobs API 確認失敗步驟為 `dev canonical build + receipt`；本輪下載原始 log 被 GitHub 拒絕（HTTP 403），因此 `sourceCount 176 != pinned source files 177` 的細節沿用前次已讀 log 的紀錄，不宣稱本輪重新取得原始 log。
+- 已驗證：`rebuild.py --update-lock` 後執行 `rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output scratch/issue-188/build`，產品與 launcher 皆成功，覆蓋上述歷史 CI 失敗步驟。Python 使用本機 Python312 完整路徑與 `-B -X utf8`；NuGet、暫存與產物皆留在 worktree。
+- 已驗證：既有離線測試 **combat-admission 1,019 項**（含本模組 741 項）、**map-continuity 358 項**、**item-transfer 73 項**、本輪上游新增 **buddies 169 項**、**CharacterManagementChecks 218 項**、**LoginChecks 396,589 項斷言**、**ItemUseChecks 426 項**全通過。四個測試專案建置皆零警告／零錯誤。
+- 已驗證：`check-no-game-assets.py` pass（3,309 追蹤檔、0 errors）。產品 DLL SHA-256：`3b935d42a4bc09c4364a0c15f6f07abe2382fcc255a7edaf30d86876cc1c00a3`。
+- 產出路徑：本報告、`engine/_integration/dev/rebuild-lock.json`，以及 main 合併內容；本機證據為 `scratch/issue-188/build/`、`scratch/issue-188/current-sync-checks.log` 與各模式 JSON。原 receipt 備份於 `scratch/issue-188/receipt-before-current-sync.json`，更新後 receipt 不提交。
+- 未驗證：本輪未重跑原素材檢查、未啟動遊戲／伺服器／DB、未做真機畫面與音效驗收。無遞迴刪除，未寫入原專案工作檔、封存或客戶端；Git 共用中繼資料由授權的 fetch／merge／commit 更新。推送後 CI 結果見 PR #202 checks 與交付摘要。
+- 給下一棒的提示：沿用 [PR #202](https://github.com/chaoren0418-arch/tw-bin-engine/pull/202)，由 Claude／調度器審查同步與 CI，再交使用者合併。dot 接 M6 smoke，核對不同 gfx、S42 多目標／方向、權威 HP 與受擊抑制。
