@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 219,
+ "sourceCount": 220,
  "files": [
   {
    "path": "NuGet.Config",
@@ -116,8 +116,8 @@
   },
   {
    "path": "source/AudioApiTransport.cs",
-   "size": 1616,
-   "sha256": "b1a18d9fc09bfba275e9c17230c57cc398dba06ccd30631f44333a17b9e42c7b"
+   "size": 2031,
+   "sha256": "039d63ef093732b02fb3b66041fcd185a7b1e70939690652c8409c762a8d37f9"
   },
   {
    "path": "source/BasicSupplies.cs",
@@ -550,9 +550,14 @@
    "sha256": "051a5bd56f1ee1656975a3b2af2973cb03971b85b1697321c62d7fabf714bbb1"
   },
   {
+   "path": "source/MapAmbientSound.cs",
+   "size": 10367,
+   "sha256": "ac9d3b69ed3f4765d2cabec6a2ec7c26a7f6e1623baab63105aa5759961d7113"
+  },
+  {
    "path": "source/MapEffects.cs",
-   "size": 11051,
-   "sha256": "befb109385251d5455e0bb5418995f072568e324424415e1f39e1c5c616e7f47"
+   "size": 11097,
+   "sha256": "bb4c45a806b80fba5d0119542952919ad881852e69fa936b436f217656bb53b7"
   },
   {
    "path": "source/MapIdPacket.cs",

@@ -32,6 +32,7 @@ public sealed partial class Renderer {
             var effect=block.Effects[ordinal];var frame=WorldSession.MapEffectFrame(effect,block.Name,ordinal,cache.MapId,now-block.EffectsAt,states);visuals.Add(new(block.Name,block.Generation,effect.Id,effect.X,effect.Y,frame.Key,effect.Appearance.Flags));
             foreach(var b in frame.Blocks)draws.Add(new(2*(effect.X-Coordinates.MinX)+b.A,effect.Y-Coordinates.MinY+b.B,b.Z,serial++,"map-effect",b.Order,-1,effect.Offset,b.Tile));
         }
+        MapAmbientSound.Observe(session,now);
         ComposePacketEffects(session,draws,now);
         MapEffectVisuals=visuals.ToArray();
     }
