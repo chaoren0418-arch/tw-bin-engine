@@ -70,6 +70,12 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 - 本機驗證：`rebuild.py --update-lock`（217 source／226 pinned）、`--build` PASS（產品 DLL `db360fd5495a46e12320ba4f7614dde18f7564603a4458a2c8a867096c6a95f1`）；`DemoChecks map-continuity` PASS 22934 checks（含書籤）；`check-no-game-assets.py` pass（3451 檔、0 錯誤）。
 - 同步 head `43db979c2eaa46575a614e8239ace08361811637` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42362195138) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42362195055) 均 completed／success；PR #271 為 CLEAN／MERGEABLE。本行以後續純文件提交補記。
 
+### 2026-11-07 同步輪（timed-buffs）
+
+- `git merge origin/main`（main `98bf2b76`，落後 7 個提交，含 #416 timed-buffs）。衝突三處：`demo-tests/DemoChecks.csproj`（書籤與 timed-buffs 的 Compile 項都保留）、`demo-tests/Program.cs`（`map-continuity` 群組同時保留 `BookmarkChecks()` 與 `TimedBuffChecks()`，預設路徑兩者都在，main 新增的 `timed-buffs` case 保留）、`rebuild-lock.json`（取 main 版本後 `--update-lock` 重產）。`WorldSession.cs` 自動合併，S92 書籤 case 與 main 新 case 並存。本模組檔案與 `docs/REPORT.md` 未編輯。
+- 本機驗證：`rebuild.py --update-lock`（218 source／227 pinned）、`--build` PASS（產品 DLL `4bbaa80d6dee0bddc72dfc7bc6ae784096dd5b176f6f41e4c949346b7e37718e`）；`DemoChecks map-continuity` PASS 23218 checks（含書籤與 timed-buffs）；`check-no-game-assets.py` pass（3458 檔、0 錯誤）。
+- 同步 head `e149a0ca82e65e1d11c7c7e4c906162685f3c9da` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42365318933) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42365319092) 均 completed／success。本段以後續純文件提交補記。
+
 ## 未驗證什麼
 
 - **換掛接點後，「記憶座標」分頁實際出現在真實 `ClientForm`，目前沒有任何自動測試覆蓋**：離線測試不經過 `ClientForm` 生命週期，上述只驗到空白 Form 的框架順序與靜態閱讀。需由 dot smoke 確認。
@@ -81,6 +87,7 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 
 ## 產出路徑
 
+- 2026-11-07 同步輪（timed-buffs）修改：`demo-tests/DemoChecks.csproj`、`demo-tests/Program.cs`（解衝突）、`rebuild-lock.json`（重產）、本報告。
 - 2026-11-07 同步輪修改：`engine/_integration/dev/demo-tests/Program.cs`（解衝突）、`rebuild-lock.json`（重產）、本報告。
 - 前一輪修改：`engine/_integration/dev/demo-tests/DemoChecks.csproj`（解衝突）、`engine/_integration/dev/rebuild-lock.json`（重產）、本報告；其餘差異均為 main 既有內容。
 - 既有功能：`engine/source/Bookmarks.cs`、`BookmarkUi.cs`、`WorldSession.cs`；測試位於 `engine/_integration/dev/bookmarks-tests/`，接上 `demo-tests/` 入口。
