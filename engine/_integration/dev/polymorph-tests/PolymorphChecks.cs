@@ -121,6 +121,41 @@ partial class Checks {
         Check(w.Objects.Single().Gfx==777,"POLY packet before full pack is not replayed across world epochs");
         w.Reset();PolyFeed(w,PolyPack(456,888));
         Check(w.Objects.Single().Gfx==888,"POLY session reset has no stale state");
+        SpecialShapeChecks();
+    }
+
+    // T170 / actions-and-names 3.1, 3.2, 3.5: constants and transitions only; no assets.
+    static void SpecialShapeChecks(){
+        foreach(int s in new[]{0,4,11,20,24,40,46,50,54,58,62,83})Check(PolymorphStances.Legal(s),"T170 legal stance "+s);
+        foreach(int s in new[]{1,8,70,255,-1})Check(!PolymorphStances.Legal(s),"T170 illegal stance "+s);
+        Check(SpecialShapes.AttachedEffects(6080).SequenceEqual(new[]{6099})&&SpecialShapes.AttachedEffects(6094).SequenceEqual(new[]{6099}),"T170 6080/6094 attach 6099");
+        foreach(int g in new[]{0,6079,6081,6093,6095,6099,6894})Check(SpecialShapes.AttachedEffects(g).Length==0,"T170 ordinary gfx has no attached effect "+g);
+        Check(SpecialShapes.AttachedEffects(6894,1234).SequenceEqual(new[]{1234})&&SpecialShapes.AttachedEffects(6080,1234).SequenceEqual(new[]{6099,1234})&&SpecialShapes.AttachedEffects(6080,6099).SequenceEqual(new[]{6099}),"T170 list.spr field 113 adds its own gfx once");
+        foreach(var (from,to) in new[]{(0,20),(20,0),(24,62),(62,24)}){
+            Check(SpecialShapes.LoopEndStance(6080,from)==to&&SpecialShapes.LoopEndStance(6094,from)==to,"T170 horse helm loop-end stance "+from+"->"+to);
+            Check(SpecialShapes.LoopEndStance(6894,from)==from,"T170 ordinary gfx keeps stance "+from);
+            Check(SpecialShapes.DisplayStance(6080,from,0)==from&&SpecialShapes.DisplayStance(6080,from,1)==to&&SpecialShapes.DisplayStance(6080,from,2)==from,"T170 horse helm alternates per loop "+from);
+        }
+        foreach(int s in new[]{4,11,46,50})Check(SpecialShapes.LoopEndStance(6080,s)==s,"T170 horse helm keeps unlisted stance "+s);
+        Check(SpecialShapes.ActionEnd(2,0,44)==(4,2)&&SpecialShapes.ActionEnd(2,1,44)==(11,2)&&SpecialShapes.ActionEnd(2,0,45)==(0,1)&&SpecialShapes.ActionEnd(2,7,45)==(0,1),"T170 field 108=2 action 44/45 end");
+        Check(SpecialShapes.ActionEnd(2,0,1)==null&&SpecialShapes.ActionEnd(0,0,44)==null&&SpecialShapes.ActionEnd(1,1,45)==null,"T170 field 108 rule only for 2 and actions 44/45");
+
+        // Every S76 serializer path feeds the anchor list; S87 and undo replace it.
+        var w=PolyWorld();
+        Check(w.SpecialShapeAnchors().Length==0,"T170 no anchors before special shape");
+        PolyFeed(w,Poly(123,6080));PolyFeed(w,Poly(456,6094,0));
+        var anchors=w.SpecialShapeAnchors();
+        Check(anchors.Length==2&&anchors.Any(a=>a is {ObjectId:123,Gfx:6080,EffectGfx:6099,X:32600,Y:32940})&&anchors.Any(a=>a is {ObjectId:456,Gfx:6094,EffectGfx:6099}),"T170 S76 CDHH self/remote anchors 6099");
+        Check(w.Actor is {Gfx:6080,Weapon:4}&&w.Objects.Single() is {Gfx:6094,Action:0},"T170 S76 keeps 3.81 weapon flag semantics (#16 unchanged)");
+        PolyFeed(w,Poly(123,0));PolyFeed(w,Disguise(456,123,6080,"測試角色"));
+        anchors=w.SpecialShapeAnchors();
+        Check(anchors.Length==1&&anchors[0] is {ObjectId:456,Gfx:6080,EffectGfx:6099},"T170 S76 CDDHS anchors 6099; undo removes self anchor");
+        PolyFeed(w,PolyPack(456,1110));
+        Check(w.SpecialShapeAnchors().Length==0,"T170 S87 replaces special shape anchor");
+        PolyFeed(w,PolyPack(456,6094));
+        Check(w.SpecialShapeAnchors().Single() is {ObjectId:456,Gfx:6094},"T170 S87 special gfx anchors 6099");
+        PolyFeed(w,Packet(b=>{b.Write((byte)120);b.Write(456u);}));
+        Check(w.SpecialShapeAnchors().Length==0,"T170 removed object drops anchor");
     }
 
     // Separate process/group: PlayerProfiles is a process-wide lazy cache. These are authored
@@ -175,5 +210,23 @@ partial class Checks {
             PolyFeed(w,PolyAction(123,1));
             Check(w.OwnCombat?.Timing is {Gfx:6894,Slow:true,AnimationMs:2020},"POLY later S255 determines next attack speed "+speed);
         }
+        // T170 / 3.4: a missing (gfx, legal stance) profile falls back to the same gfx bare-handed.
+        Check(PlayerProfiles.Get(6894,4) is {Gfx:6894,Weapon:4}&&PlayerProfiles.Get(0,50) is {Gfx:0,Weapon:50},"T170 exact profile still wins");
+        foreach(int stance in new[]{11,24,40,46,54,58,62,83})
+            Check(PlayerProfiles.Get(6894,stance) is {Gfx:6894,Weapon:0}&&PlayerProfiles.Get(0,stance) is {Gfx:0,Weapon:0},"T170 missing legal stance falls back to bare hands "+stance);
+        foreach(int stance in new[]{1,8,70,255})Check(PlayerProfiles.Get(6894,stance)==null,"T170 illegal stance is not substituted "+stance);
+        Check(PlayerProfiles.Get(7777,0)==null&&PlayerProfiles.Get(7777,4)==null,"T170 gfx without any profile is not substituted");
+        var fb=PolyWorld();
+        PolyFeed(fb,PolyPack(123,6894,62,0,0));
+        Check(fb.SupportedAppearance&&fb.AppearanceNotice=="角色外觀已載入"&&fb.AppearanceProfile is {Gfx:6894,Weapon:0}&&fb.MovementAnimationMs==960,"T170 missing stance keeps movement enabled via bare-hand profile");
+        PolyFeed(fb,Packet(b=>{b.Write((byte)30);b.Write((byte)1);b.Write(123u);b.Write(0u);b.Write((ushort)0);b.Write((byte)5);b.Write((ushort)0);b.Write((ushort)0);b.Write((byte)0);}));
+        Check(fb.OwnCombat?.Timing is {Gfx:6894,Weapon:62,ServerBaseMs:960},"T170 attack in missing stance uses bare-hand cadence and keeps server weapon");
+        Check(fb.Actor is {Weapon:62},"T170 fallback is presentation-only; server weapon pose retained");
+        PolyFeed(fb,PolyWeapon(123,255));
+        Check(!fb.SupportedAppearance,"T170 illegal weapon value remains unsupported");
+        PolyFeed(fb,PolyWeapon(123,24));PolyFeed(fb,Poly(123,7777));
+        Check(!fb.SupportedAppearance&&fb.Actor is {Gfx:7777},"T170 gfx with no profile remains unsupported (no sprite substitute)");
+        PolyFeed(fb,Poly(123,6894));
+        Check(fb.SupportedAppearance&&fb.AppearanceProfile is {Gfx:6894,Weapon:0},"T170 polymorph into gfx lacking stance 24 is not blocked");
     }
 }
