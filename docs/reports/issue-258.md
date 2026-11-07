@@ -97,6 +97,12 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
   - 時機實測：`scratch/issue-258/layout-probe` 改為 `OnResize` 並在建構子設 `ClientSize`（空白 Form，與遊戲無關）：一般顯示與提早建立 handle 兩種情況，`OnResize` 都在建構子內觸發、早於 `OnLoad`／`Shown`，初始化各只執行一次（提早 handle 時的第二次 `OnResize` 被旗標擋下）。
 - 本機驗證：`rebuild.py --update-lock`（221 source／230 pinned）、`--build` PASS（產品 DLL `0ba61034f66c875169288573d0ed8fe236df90d00ddd94e7987d3318fedbb668`）；DemoChecks `bookmarks` 723、`clan-war` 479、`title-emote` 704、`map-continuity` 23421、`item-status` 358、`combat-admission` 1837、`buddies` 445、`doors` 597 全部 PASS；`check-no-game-assets.py` pass（3519 檔、0 錯誤）。
 - 同步 head `b74dcd4a102508b3236c111b1774535a99314bfa` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42376285441) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42376285478) 均 completed／success。本行以後續純文件提交補記；PR #271 狀態 MERGEABLE。
+
+### 2026-11-08 同步輪（map-ambient、name-display）
+
+- 兩次 `git merge origin/main`（第一次落後 42 個提交，含 map-ambient；push 後 main 又合入 #440 name-display，再同步一次）。兩次的文字衝突都只在 `demo-tests/Program.cs` 的 `map-continuity` 群組與 `rebuild-lock.json`：群組取兩邊聯集（保留 `BookmarkChecks()`，加入 main 的 `MapAmbientChecks()`、`NameDisplayChecks()` 與 `name-display` case）；lock 取 main 版本後 `--update-lock` 重產。`WorldSession.cs` 自動合併，對 main 的差異只剩本模組既有的 `ResetBookmarks()`、`ReceiveBookmarkList` 子分派與 S92 case。沒有改其他模組檔案，`docs/REPORT.md` 用 main 版本。
+- 本機驗證：`rebuild.py --update-lock`（223 source／232 pinned）、`--build` PASS（產品 DLL `f59bcdfc1376a6d467872b0373a539b43155c84b3403ee6296b47f106ef15945`）；DemoChecks `bookmarks` 774、`map-continuity` 23607、`name-display` 414、`clan-war` 530、`title-emote` 553 全部 PASS；`check-no-game-assets.py` pass（3552 檔、0 錯誤）。
+- 同步 head `75273874408a8b83b4ec43356faeb7af877c9004` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42403055016)（dotnet、map-continuity）與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42403055057) 均 completed／success；僅既有的 `MagicUi.cs:20` 警告。本行以後續純文件提交補記；PR #271 狀態 MERGEABLE。
 ## 未驗證什麼
 
 - **換掛接點後，「記憶座標」分頁實際出現在真實 `ClientForm`，目前沒有任何自動測試覆蓋**：離線測試不經過 `ClientForm` 生命週期，上述只驗到空白 Form 的框架順序與靜態閱讀。需由 dot smoke 確認。
