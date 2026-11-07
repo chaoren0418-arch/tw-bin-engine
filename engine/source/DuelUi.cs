@@ -6,10 +6,14 @@ public sealed partial class ClientForm {
     readonly Button duelAccept=new(){Text="接受決鬥",AutoSize=true};
     readonly Button duelReject=new(){Text="拒絕決鬥",AutoSize=true};
     DuelView? displayedDuel;
+    bool duelUiReady;
 
     // Form lifecycle keeps this module self-contained; no constructor or HUD dispatch edits.
-    protected override void OnShown(EventArgs e){
-        base.OnShown(e);
+    // OnLoad and OnShown are owned by BuddyUi and LocationShare; VisibleChanged can repeat, so guard it.
+    protected override void OnVisibleChanged(EventArgs e){
+        base.OnVisibleChanged(e);
+        if(!Visible||duelUiReady)return;
+        duelUiReady=true;
         var page=new TabPage("決鬥"){BackColor=Color.FromArgb(23,38,41)};
         var buttons=new FlowLayoutPanel{Dock=DockStyle.Top,Height=80,AutoScroll=true};
         buttons.Controls.AddRange([duelInvite,duelAccept,duelReject]);page.Controls.AddRange([duelNotice,buttons]);
