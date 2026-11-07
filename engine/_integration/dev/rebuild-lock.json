@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 192,
+ "sourceCount": 193,
  "files": [
   {
    "path": "NuGet.Config",
@@ -370,6 +370,11 @@
    "sha256": "be339fb8b6ca024be20a6b2c57db6536479bec9cec4bd8ef2053f905593991b9"
   },
   {
+   "path": "source/Invisibility.cs",
+   "size": 1401,
+   "sha256": "432a1fc024f43e8d866912cd7fae136162bd4c257d4cb8731eefa20c41087681"
+  },
+  {
    "path": "source/ItemTransfer.cs",
    "size": 9708,
    "sha256": "1798a14d638b98120a222293e02fd060c92751f51d11c05a9cc1e652f9f999f7"
@@ -556,8 +561,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 9848,
-   "sha256": "9d8383e09dda3efbb2ab627034b7473e1e4741dd2cfb29e4da58c793696d6b83"
+   "size": 9879,
+   "sha256": "8ae104ba60083fe9f95a0cf80f98661ec3680a09ff9d47e4d68a548ba7a37378"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -956,8 +961,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 10607,
-   "sha256": "6134cea7161758bd534b7e3b55df2d6c3a9d45ff188db4bb4e2ea5e470095b04"
+   "size": 10656,
+   "sha256": "1312c6c644be4f0459fc91faeb5205f67f3c4756134ae71fb1d61f473e89e9a8"
   },
   {
    "path": "source/WorldTests.cs",

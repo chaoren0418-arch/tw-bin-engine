@@ -2,13 +2,13 @@
 
 2026-11-07 第三輪，分支 `task/262`，PR #282。本輪已依主控裁定完成入盟確認與成員列表；盟徽實際查詢及 ID 對應拆至 T135（#316）。
 
-## 同步輪（2026-11-07，合併 `origin/main` `4e62637`）
+## 同步輪（2026-11-07，合併 `origin/main` 至 `281a633`）
 
-- 分支落後 main 116 個 commit。`WorldSession.cs`、`DemoChecks.csproj`、`Program.cs` 的衝突都是雙方新增，全部保留（血盟與變身、玩家查詢、角色設定、位置分享）；dev lock 取 main 版後用 `--update-lock` 重建。
+- 分支落後 main 116 個 commit，同步途中 main 又前進 6 個（#389 隱身），因此合併兩次，下列結果是第二次合併後的。`WorldSession.cs`、`DemoChecks.csproj`、`Program.cs` 的衝突都是雙方新增，全部保留（血盟與變身、玩家查詢、角色設定、位置分享、隱身）；dev lock 取 main 版後用 `--update-lock` 重建。
 - **唯一的產品程式修改**：main 的 `LocationShare.cs` 也覆寫 `ClientForm.OnShown`，與 `ClanUi.cs` 重複而編譯失敗（CS0111），這個衝突 git 看不出來。`OnLoad` 已被 `BuddyUi.cs` 使用，因此 `ClanUi.cs` 改為覆寫 `OnCreateControl`，訂閱 `Shown` 事件呼叫 `InitClanUi()`。初始化時機與原本相同，沒有動其他模組的檔案。
 - 掛接行為：以 scratch 的 WinForms 小程式驗證同類別另有 `OnLoad`／`OnShown` 覆寫時，初始化只跑一次，重建 handle 也不重複。該程式跑在 Windows PowerShell 5.1（.NET Framework），不是 .NET 10，也不是實際的 `ClientForm`。
-- 測試結果（`-p:UseSharedCompilation=false`，全部通過）：`clan` 209、`map-continuity` 20951、`combat-admission` 1109、`polymorph-cadence` 123、`polymorph` 90、`buddies` 259、`item-transfer` 163、`location-share` 189、`player-query` 791、`character-config` 183。各群組都含 main 新增的 90 項共用檢查（`polymorph` 群組只跑這部分），血盟本身仍是 119 項。
-- `rebuild.py --build`：product／audio／launcher 通過，0 錯誤，2 個既有 `MagicUi.cs` 警告；`check-no-game-assets.py` 通過（0 錯誤、4 個核准 EmbeddedResource）。產品 DLL SHA-256：`4c6aaa60dd457fad6d54d7e64c0245e7350cce00d694cf4e275663dd02d3544a`。
+- 測試結果（`-p:UseSharedCompilation=false`，全部通過）：`clan` 209、`map-continuity` 21021、`combat-admission` 1109、`polymorph-cadence` 123、`polymorph` 90、`buddies` 259、`item-transfer` 163、`location-share` 189、`player-query` 791、`character-config` 183。各群組都含 main 新增的 90 項共用檢查（`polymorph` 群組只跑這部分），血盟本身仍是 119 項。
+- `rebuild.py --build`：product／audio／launcher 通過，0 錯誤，2 個既有 `MagicUi.cs` 警告；`check-no-game-assets.py` 通過（0 錯誤、4 個核准 EmbeddedResource）。產品 DLL SHA-256：`527bbadeac04b8e0105e5578bc78fd29cf7493ed2dfa40ac444f843b6b7e5536`。
 - **未通過**：無群組的預設入口在本 worktree 執行失敗（`Movement123` 讀不到 `engine/assets/terrain0.bin`，exit 1），因為 worktree 沒有 `engine/assets` junction，而本任務不新建 junction。失敗點在血盟測試之前，所以預設入口內的血盟測試本輪沒有跑到。CI 不跑此入口；血盟測試由 `clan` 與 `map-continuity` 群組覆蓋。
 - 下方各節保留第三輪紀錄，其中的測試數字與 DLL SHA 以本節為準。
 
