@@ -82,6 +82,7 @@ public sealed partial class WorldSession {
     void ResetPlayerChat(){playerChatLines.Clear();playerChatSequence=0;playerChatRevision++;}
     bool ReceivePlayerChat(byte opcode,LoginReader r,byte[] plain){
         if(!PlayerChatProtocol.TryDecode(plain,out var line))return false;
+        if(BuddyBlocksChat(plain))return true;
         playerChatLines.Enqueue(line! with{Sequence=++playerChatSequence});
         while(playerChatLines.Count>100)playerChatLines.Dequeue();
         playerChatRevision++;return true;
@@ -100,7 +101,7 @@ public sealed partial class LoginConnection {
         if(text=="/loc"||text.StartsWith("/loc ",StringComparison.Ordinal))return await SendLocation(text.Length>5?text[5..]:"",session,world,actor);
         if(!PlayerChatAccess||!PlayerChatStamp(session,world,actor)||playerChatSending||WorldClock()<playerChatNextAt||sendMovementGate==null)return false;
         byte[] packet;
-        try{packet=PlayerChatProtocol.Encode(text);}
+        try{packet=PlayerQueryPacket(text,session,world,actor)??PlayerChatProtocol.Encode(text);}
         catch(ArgumentException ex){playerChatNotice=ex.Message;Changed?.Invoke();return false;}
         var sender=sendMovementGate;int lease=++playerChatLease;playerChatSending=true;
         try{
