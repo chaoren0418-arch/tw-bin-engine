@@ -31,6 +31,7 @@ public sealed partial class WorldSession {
         var r=new LoginReader(plain);byte opcode=r.C();
         if(opcode==39&&ReceiveBuddies(opcode,plain))return;
         switch(opcode){
+        case 250 when plain.Length>1&&plain[1]==41:ReceiveCharacterConfig(plain);return;
         case 250 when plain.Length>=2&&plain[1] is 17 or 18 or 19:ReceiveBuddies(opcode,plain);return;
         case 71 when plain.Length>=3&&BinaryPrimitives.ReadUInt16LittleEndian(plain.AsSpan(1)) is 109 or 472:
             ReceiveBuddies(opcode,plain);break; // Continue through the existing server-message dispatch.
