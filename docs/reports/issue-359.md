@@ -100,23 +100,25 @@
 - `web-resource`、`ResourceChecks`、`effect6016`、`packet-trace` 等其他 CI 項目本機沒有跑，以 PR 的 CI 結果為準。
 - 原生畫面、蠟燭消耗與保存結果仍未驗證，見上方「未驗證什麼」。
 
-### 第 4 輪（2026-11-07，同步到 `3630dcf`）
+### 第 4 輪（2026-11-07，同步到 `52695e2`）
 
-只做同步，沒有改 T142 功能。main 這批合入血盟（#262）與信件（#267）。
+先合 `3630dcf`，推送後 main 又合入 #358，再合一次，以下是最終結果。
+
+只做同步，沒有改 T142 功能。main 這批合入血盟（#262）、信件（#267）與結婚（#358）。
 
 - 衝突三處，都是兩邊各自新增的掛接，全部保留：
-  - `DemoChecks.csproj`：`CharResetChecks` 與 `ClanChecks` 都保留。
-  - `demo-tests/Program.cs`：採 main 的 case 組，加回 `char-reset` 入口；`map-continuity` 與預設組同時跑 `ClanChecks`、`CharResetChecks`。
-  - `rebuild-lock.json`：取 main 版後以 `--update-lock` 重產（208 來源檔、217 pinned），沒有手拼。
+  - `DemoChecks.csproj`：`CharResetChecks`、`MarriageChecks`、`ClanChecks` 都保留。
+  - `demo-tests/Program.cs`：採 main 的 case 組，保留 `char-reset` 入口；`map-continuity` 與預設組同時跑 `ClanChecks`、`MarriageChecks`、`CharResetChecks`。
+  - `rebuild-lock.json`：取 main 版後以 `--update-lock` 重產（209 來源檔、218 pinned），沒有手拼。
 - `WorldSession.cs` 自動合併，全程式仍只有這一個 `case 64`。
 - `docs/REPORT.md` 沒有另外修改。
 
 已驗證（合成封包、記憶體 sender，非真機）：
 
-1. `rebuild.py --build`：產品與 launcher 通過，產品 DLL SHA-256 `41fe3de71d6c9a27bb80dbfe9f89dd32f90f1c58743eadde2d7a68eeb938ab8e`（取代第 3 輪的值）。
-2. DemoChecks 各組全數通過（數字含每次都先跑的 baseline 193 項）：`char-reset` 354、`map-continuity` 22139、`clan` 312、`combat-admission` 1326、`polymorph-cadence` 226、`buddies` 362、`item-transfer` 266、`doors` 514、`portals` 293、`pets` 193、`ghost-mode` 552、`fishing` 232、`duel` 307、`location-share` 292、`player-query` 894、`character-config` 286、`ambience` 549、`invisibility` 263。
+1. `rebuild.py --build`：產品與 launcher 通過，產品 DLL SHA-256 `93cd8043b8807654b6d35d0c5467cf318722991a197623de030bca3e9d547870`（取代第 3 輪的值）。
+2. DemoChecks 各組全數通過（數字含每次都先跑的 baseline 193 項）：`char-reset` 354、`map-continuity` 22275、`marriage` 329、`clan` 312、`combat-admission` 1326、`polymorph-cadence` 226、`buddies` 362、`item-transfer` 266、`doors` 514、`portals` 293、`pets` 193、`ghost-mode` 552、`fishing` 232、`duel` 307、`location-share` 292、`player-query` 894、`character-config` 286、`ambience` 549、`invisibility` 263。
 3. `MailChecks` 119 項、`WeaponRepairChecks` 98 項通過。
-4. `check-no-game-assets.py`：通過（3394 個追蹤檔、0 錯誤）。
+4. `check-no-game-assets.py`：通過（3398 個追蹤檔、0 錯誤）。
 
 未驗證：
 

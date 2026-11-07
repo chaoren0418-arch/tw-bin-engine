@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 208,
+ "sourceCount": 209,
  "files": [
   {
    "path": "NuGet.Config",
@@ -545,6 +545,11 @@
    "sha256": "8e3e1663a58345ab42bee1fe2c07777a74ece63da7fd6500323efd5b8daa016b"
   },
   {
+   "path": "source/Marriage.cs",
+   "size": 11267,
+   "sha256": "5b8373ca4b1308e564fd0019a5391205a6934dd513541f11db09e5e7bc593b0e"
+  },
+  {
    "path": "source/MovementRegression.cs",
    "size": 4481,
    "sha256": "bb6434e453e3be718606d02d61dd1b9c47c96709751f401a93f234ab13716def"
@@ -971,8 +976,8 @@
   },
   {
    "path": "source/Trade.cs",
-   "size": 11633,
-   "sha256": "f0e18f0446620d0ead2e1ec316739d8b7c77b35d3003912d928b5f9c7a298612"
+   "size": 11704,
+   "sha256": "0a33d6c3c02565acc35a7e3473e5fc70ad5ddf8c00dcda9de3bce217228ba965"
   },
   {
    "path": "source/TradeUi.cs",
@@ -1036,8 +1041,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 11553,
-   "sha256": "bf25c1a7a177f131e61f3a58da637a050128ff02fde43deca6ba74e609737a28"
+   "size": 11584,
+   "sha256": "d4262c1df330cd6e428e3b09b070c5a9c270c3fbd6f5d2d15e8864aa143c6862"
   },
   {
    "path": "source/WorldTests.cs",
