@@ -58,6 +58,7 @@ public sealed partial class WorldSession {
         case 22:ReceiveSoundPacket(plain);return;
         case 55:ReceiveEffectPacket(plain);return;
         case 106:ReceiveEffectPacket(plain);return;
+        case 160:ReceiveDelSkill(r,plain);BasicSupplyReply(opcode,plain);return;
         }
         if(ReceiveRecovery(opcode,r)||ReceivePlayerChat(opcode,r,plain)||ReceiveSustenance(opcode,r,plain)||ReceiveBonusStats(opcode,r,plain)||ReceivePrivateShop(opcode,r,plain)||ReceiveTeleport(opcode,r)||ReceiveTrade(opcode,r)||ReceiveInteraction(opcode,r)||ReceiveMagic(opcode,r,plain)||ReceiveEquipment(opcode,r,plain)||ReceiveInventory(opcode,r,plain)||ReceiveExperience(opcode,r)||ReceiveCombat(opcode,r,plain)||ReceiveObjectDelta(opcode,r)){BasicSupplyReply(opcode,plain);return;}
         switch(opcode){
@@ -71,6 +72,10 @@ public sealed partial class WorldSession {
         case 250 when plain.Length>1&&plain[1]==171:ReceiveClanOnlineMembers(plain);break;
         case 83 when WeaponRepairPackets.IsRepairList(plain):ReceiveWeaponRepair(r);break;
         case 76:ReceivePolymorph(plain);break;
+        case 166:ReceiveStrup(r);break;
+        case 188:ReceiveDexup(r);break;
+        case 103:ReceiveLiquor(r);break;
+        case 126:ReceiveBlessOfEva(r);break;
         case 68:ReceiveBoardList(r);break;
         case 148:ReceiveBoardRead(r);break;
         case 209:ReceiveDoorAttribute(r);break;

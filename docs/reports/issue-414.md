@@ -28,6 +28,7 @@
 
 - 同步 origin/main（25 個提交，只有 `rebuild-lock.json` 衝突，取 main 版後 `--update-lock` 重產：215 個來源、224 個鎖定檔）。同步後 `--build` 通過，產品 DLL SHA-256 `6af85308f4a7d3c6550705dcadf3f6170e4216e82675a61b11f149360f5959de`；`resurrection` 502 項重跑通過；`check-no-game-assets.py` 0 錯誤。
 - 第二次同步 origin/main（4a962f3，含 #415 顯示通知）：`DemoChecks.csproj` 衝突兩行都保留、`rebuild-lock.json` 取 main 版後 `--update-lock` 重產（216 個來源、225 個鎖定檔）、`docs/REPORT.md` 用 main 版。`--build` 通過，產品 DLL SHA-256 `28668dd5e8accfb7025d6a673fd25522d584d7015209f482e30ab427ea605795`；`resurrection` 502 項、`display-notices` 334 項通過；`check-no-game-assets.py` 0 錯誤。
+- 第三次同步 origin/main（98bf2b7，含 #416 暫時能力／酒醉等 S166/S188/S103/S126/S160）：只有 `rebuild-lock.json` 衝突，取 main 版後 `--update-lock` 重產（217 個來源、226 個鎖定檔）；`WorldSession.cs`、`DemoChecks.csproj`、`Program.cs` 自動合併，兩邊 case 與測試入口都保留。`--build` 通過，產品 DLL SHA-256 `08df7eb6a06f1546ac525a13f780879cabccd4e4c76cea8d2469412d1bad131d`；`resurrection` 502、`timed-buffs` 560、`display-notices` 334、`afflictions` 428 項通過；`check-no-game-assets.py` 0 錯誤。
 
 CI 結果見 PR。
 
