@@ -17,7 +17,7 @@
 - `check-no-game-assets.py`：通過，trackedFiles=3279、errors=0；`git -c core.whitespace=cr-at-eol diff --check` 通過。
 - dev 來源核驗：177 個來源／186 個鎖定檔；只更新 dev lock，未更動封存 lock。
 - 最終本機產品 DLL SHA-256：`3341a5bbfb34c5f3543d368185a20a1325d37fd81ecd421ef800edefbc94ca36`。
-- CI：推送補正後另行核對 PR #269 最新 head 的檢查結果，再補記於本報告。
+- CI：來源提交 `c0c91ad1e757c40d8f94bb231011811f77ca6a3a` 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42315419034) 的 Linux dotnet 與 Windows map-continuity 均 SUCCESS，[npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42315418864) 亦 SUCCESS。Windows 已執行本輪組隊、地圖及戰鬥檢查；PR 衝突已解除，可送審。
 
 本機 Python 使用 `C:/Users/CHAOREN/AppData/Local/Programs/Python/Python312/python.exe`。NuGet 暫存 config 唯讀引用原專案 `engine/vendor`；套件、建置與暫存均在本 worktree。沙箱無法覆寫前次 obj 且 GitHub 認證失敗，改於沙箱外執行已授權的建置／測試與 GitHub 操作；未更動任何認證設定。
 
