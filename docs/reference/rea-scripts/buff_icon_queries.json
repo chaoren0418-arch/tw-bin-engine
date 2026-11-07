@@ -1,0 +1,167 @@
+{
+ "q1": {
+  "strings": [
+   "SpellIcon.idx",
+   "STATUS_EFFECT_DRAGON_BLOOD :%d",
+   "STATUS_EFFECT_EINHASAD_EMERALD :%d",
+   "qcConcentration :%d",
+   "STATUS_EFFECT_EFFECT_MAGICAL_EYE_GREMLIN :%d",
+   "STATUS_EFFECT_GM_COOK :%d"
+  ],
+  "decompile_string_users": true,
+  "decompile": [
+   "0x940e70",
+   "0x940c80",
+   "0x940d80",
+   "0x94c530",
+   "0x9357e0",
+   "0x946b00",
+   "0x931b60",
+   "0x945bd0",
+   "0x940330",
+   "0x9343c0",
+   "0x940f90",
+   "0x931f60"
+  ]
+ },
+ "q2": {
+  "ranges": [
+   [
+    "0xF04000",
+    "0xF07800"
+   ]
+  ],
+  "xrefs": [
+   "0xF05A90",
+   "0xF059F0"
+  ]
+ },
+ "q3": {
+  "decompile": [
+   "0xF6D560",
+   "0xF716D0",
+   "0xF71890",
+   "0xEFE870",
+   "0x521B20"
+  ],
+  "xrefs": [
+   "0x13D4304"
+  ],
+  "strings": [
+   "SpellIcon",
+   "spellicon",
+   "BuffIcon",
+   "SkillIcon",
+   "IconList",
+   "icon.tbl"
+  ]
+ },
+ "q4": {
+  "decompile": [
+   "0x8fb4d0",
+   "0x8fd8e0",
+   "0x8fdaf0",
+   "0x8fe110",
+   "0x9001f0",
+   "0x901420",
+   "0x9027c0",
+   "0x902840",
+   "0x9029d0",
+   "0x903230",
+   "0x9037c0",
+   "0x903820",
+   "0x903eb0",
+   "0x904350",
+   "0x521600",
+   "0xF71470",
+   "0xF6CB50",
+   "0xF6BBF0",
+   "0x81dba0"
+  ],
+  "xrefs": [
+   "0x153F5A8"
+  ]
+ },
+ "q5": {
+  "decompile": [
+   "0xAA0610",
+   "0x8FD5B0",
+   "0x8FD3D0",
+   "0x903470",
+   "0x903A50",
+   "0x8FBC30",
+   "0x900BE0",
+   "0x900FC0",
+   "0x9027F0",
+   "0x9027C0",
+   "0x97AD60",
+   "0xF6CD60",
+   "0xF6D060",
+   "0xF6D320",
+   "0xF6C770",
+   "0xF71860",
+   "0xF71AE0",
+   "0xEFE760"
+  ],
+  "xrefs": [
+   "0x8FB4D0",
+   "0x8FD8E0",
+   "0x903470"
+  ],
+  "strings": [
+   "effectlist2.xml",
+   "effectlist.xml",
+   "effectlist"
+  ]
+ },
+ "q6": {
+  "ranges": [
+   [
+    "0x81D2D0",
+    "0x81E400"
+   ]
+  ],
+  "decompile": [
+   "0x8FDD20",
+   "0x8FDE00",
+   "0x905C50",
+   "0x907080",
+   "0x903EA0",
+   "0xF02960",
+   "0x88CE60"
+  ],
+  "xrefs": [
+   "0x13D4308"
+  ]
+ },
+ "q7": {
+  "decompile": [
+   "0x927320",
+   "0x935260",
+   "0x81DCA0",
+   "0x922700",
+   "0x9E3260"
+  ]
+ },
+ "q8": {
+  "strings": [
+   "%d.tbt",
+   ".tbt",
+   "Icon Resource Error"
+  ],
+  "decompile_string_users": true
+ },
+ "q9": {
+  "decompile": [
+   "0x9061E0",
+   "0x901550",
+   "0x903650",
+   "0x9015E0",
+   "0x903D70",
+   "0x8FD680",
+   "0x59DD30",
+   "0x89A0F0",
+   "0x999620"
+  ]
+ }
+}
