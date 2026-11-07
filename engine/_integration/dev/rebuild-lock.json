@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 215,
+ "sourceCount": 216,
  "files": [
   {
    "path": "NuGet.Config",
@@ -258,6 +258,11 @@
    "path": "source/CombatVisibilityPlan.cs",
    "size": 2604,
    "sha256": "4cb71ff1ef122dec7974554d443f0fae236bef48674979ffd5c0428610e696c1"
+  },
+  {
+   "path": "source/DisplayNotices.cs",
+   "size": 8028,
+   "sha256": "cdf756b4add3d96f6e2b85f65d927d2e5a6549cce94ed30cdca78acbaf04de71"
   },
   {
    "path": "source/Doors.cs",
@@ -631,8 +636,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 9722,
-   "sha256": "42751a4c60555311e57e6393461d530a7a9a6bbeaf4f53163f5acd94de960e32"
+   "size": 9755,
+   "sha256": "85522c6d7edbcedf8ddd92afb489d917b59da612138bb3a228f13bb3e0ca2f5d"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -956,8 +961,8 @@
   },
   {
    "path": "source/ServerStatusMessages.cs",
-   "size": 564,
-   "sha256": "80595b85cb06efa6875fedc75f41796156bc967a3794288ed553c80755a897a4"
+   "size": 747,
+   "sha256": "30a186197010cccbf4106796d99d532cad5c705c2f14917d65fffcde1627291b"
   },
   {
    "path": "source/ShipBackdrop.cs",
@@ -1071,8 +1076,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 12161,
-   "sha256": "72c4fd0b7a61c8e122e57a8996adf789f3fcaf7f884b28d729f773a8670dd0d5"
+   "size": 12392,
+   "sha256": "6eb0c04aaa99a05049cceac158acb8c82100c118e5d7eefffe9d1dc7bb7325de"
   },
   {
    "path": "source/WorldTests.cs",
