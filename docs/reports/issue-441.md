@@ -25,7 +25,7 @@
   - `title-emote-assets` **PASS 441**：原本 13 個 gfx 的四個表情；另外核對實際的 6080 列：66 退回姿勢 20、姿勢 4 缺圖時退回 0、68 用自己的影格。
   - `title-emote-compose` **PASS 290**。
 - `engine/tools/check-no-game-assets.py`：pass，錯誤 0。
-- CI：推上去後看 PR 的檢查結果（本報告寫成時還沒跑完）。
+- CI（PR #451）：dotnet、map-continuity、npc-offline 三項都通過。
 
 ## 沒驗什麼／刻意沒做
 
