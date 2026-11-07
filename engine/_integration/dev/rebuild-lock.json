@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 176,
+ "sourceCount": 178,
  "files": [
   {
    "path": "NuGet.Config",
@@ -136,8 +136,8 @@
   },
   {
    "path": "source/ClientCombatSfx.cs",
-   "size": 2626,
-   "sha256": "dfd1a65c9bc579d6ab7759e078466d8f28ce630966992c26af834b00bf3fc1ff"
+   "size": 2649,
+   "sha256": "158206ce1b4202863af1a225b6b524e137cf60685da6a26e57f1df9b4d808737"
   },
   {
    "path": "source/ClientEffect6016.cs",
@@ -246,13 +246,13 @@
   },
   {
    "path": "source/Ground.cs",
-   "size": 9407,
-   "sha256": "26dc7687853a04bffc3e61b2e59a55f6879f65be1821c22f0c2a8b7a538d4a95"
+   "size": 9502,
+   "sha256": "a7686ee7ed54f9655f1231c9a205c1e157ed7ede85d1a97a5d02ea2ce661bc82"
   },
   {
    "path": "source/GroundCatalog.cs",
-   "size": 4770,
-   "sha256": "7dcac9e71b016005efc48d637417e17e960fef45cbbda90974465271f6794ec0"
+   "size": 4979,
+   "sha256": "70d16fdcb9508ab5ba30fc088c67216e04b4948026ddbe2e8353a0eff37ab39d"
   },
   {
    "path": "source/GroundIntegration.cs",
@@ -271,8 +271,8 @@
   },
   {
    "path": "source/GroundSpriteReader.cs",
-   "size": 5373,
-   "sha256": "a5d570ff8225fa1c02183bb050bc03fe43f5477f669ef9f4f5a86768b61e35da"
+   "size": 12816,
+   "sha256": "2488add0256808c1469542e539cb00deb4d4bc4fbeb9b7ab7dcfa47088bce32d"
   },
   {
    "path": "source/GroundTests.cs",
@@ -286,8 +286,8 @@
   },
   {
    "path": "source/GroundUi.cs",
-   "size": 4909,
-   "sha256": "ca12ff6588adc3ae14ed330e6a06debeeaef0ed4d78eacc7e0b9ea4288a626aa"
+   "size": 4990,
+   "sha256": "cf6984782fadd2c24d8cbf42cc671277e597a869670e68c3f70dbbd2bf8e7d93"
   },
   {
    "path": "source/Inventory.cs",
@@ -311,8 +311,13 @@
   },
   {
    "path": "source/InventoryUi.cs",
-   "size": 4541,
-   "sha256": "8c08340ec9b8ac5670ceb26e9f210f067334d678626c674693bb7bf5f0c9b472"
+   "size": 4569,
+   "sha256": "928f173a5dd1cbdd80ca99854014a7173e2658d93c9d2882c9fd45fb414872ca"
+  },
+  {
+   "path": "source/ItemTransfer.cs",
+   "size": 9708,
+   "sha256": "1798a14d638b98120a222293e02fd060c92751f51d11c05a9cc1e652f9f999f7"
   },
   {
    "path": "source/JournalTests.cs",
@@ -336,8 +341,8 @@
   },
   {
    "path": "source/LoginProtocol.cs",
-   "size": 6111,
-   "sha256": "b85d6aa6eb165db795d295b19cec3f4321d4e2e014f4de119fa9e777b86c2c9e"
+   "size": 6329,
+   "sha256": "cd3cf28408967eead2d017e4a40f984487a9a8a19f6cb6885c620ffcb57fa443"
   },
   {
    "path": "source/LoginTests.cs",
@@ -371,8 +376,8 @@
   },
   {
    "path": "source/MagicSpells.cs",
-   "size": 1660,
-   "sha256": "00072fb58bcee3cc6b43f4144da6e47c6e7e30d303ab83e93181173f19ea408c"
+   "size": 1838,
+   "sha256": "a4d9c4e71f13dd18e30925d270d4c4837deb2db4695579e06436acd153d3c301"
   },
   {
    "path": "source/MagicStatus.cs",
@@ -416,8 +421,8 @@
   },
   {
    "path": "source/MapEffects.cs",
-   "size": 4465,
-   "sha256": "151017e2a085c66427959f9d6164f3cec08a455ea3866fd7e1f411f38261debd"
+   "size": 11051,
+   "sha256": "befb109385251d5455e0bb5418995f072568e324424415e1f39e1c5c616e7f47"
   },
   {
    "path": "source/MapResources.cs",
@@ -800,6 +805,11 @@
    "sha256": "46c38d4dbdb7c2d4e96ee67abcf7d38ce449a4c681e1fd5f9610fb11fce50676"
   },
   {
+   "path": "source/SoundPackets.cs",
+   "size": 10612,
+   "sha256": "0a5beb6799a19c21ce2db0cf32c7bd1f740e0caf943173a4e79b531c7f99ebe7"
+  },
+  {
    "path": "source/StatusIcons.cs",
    "size": 3707,
    "sha256": "fa35e3802da2fe380487c516cefefe2150884f5b56326b73b00dced0a0695107"
@@ -811,8 +821,8 @@
   },
   {
    "path": "source/Teleport.cs",
-   "size": 4346,
-   "sha256": "be65b1ed0776e8fcef557115525945ea49c8b3080c74386f20044426f5344e37"
+   "size": 5795,
+   "sha256": "9fcccb09235ec7afa44dcbf9753c07ea99ab962b69cc39637585e35a341b1c5d"
   },
   {
    "path": "source/Tests.cs",
@@ -876,8 +886,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9304,
-   "sha256": "bf25724f39844700eb78accdfa1c0f1d61e52f76b06dae0de700bbb347ba9251"
+   "size": 9496,
+   "sha256": "ead2e54d1bdddb6a928e6db77bd6e30391a0f76a5904bd0b829de7a389580b59"
   },
   {
    "path": "source/WorldTests.cs",
