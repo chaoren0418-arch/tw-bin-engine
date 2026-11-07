@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 177,
+ "sourceCount": 179,
  "files": [
   {
    "path": "NuGet.Config",
@@ -108,6 +108,16 @@
    "path": "source/BasicSupplies.cs",
    "size": 3547,
    "sha256": "5311b9c03f0624f5425946f4f4615ebf1456141c82b73a5096e1d85794f2a201"
+  },
+  {
+   "path": "source/Board.cs",
+   "size": 9802,
+   "sha256": "11b51fcaec63414b09e7d5dcdd706e9c0de26aba895734cfc347eb0ac07e31b2"
+  },
+  {
+   "path": "source/BoardUi.cs",
+   "size": 6175,
+   "sha256": "e241a4a54d90c1ccc54f58421f93bb7c43d9876ef1da52858ceaa0eb62520a9e"
   },
   {
    "path": "source/BonusStats.cs",
@@ -451,8 +461,8 @@
   },
   {
    "path": "source/NpcInteraction.cs",
-   "size": 12676,
-   "sha256": "c2011c49b579e05bd5b5df3097833d285887070dfd208c1f38285bb67dfa4201"
+   "size": 12782,
+   "sha256": "f8c7d33ba0ea877a24a2423cc933c2c9408f4afa18e3a02ba421bba4c1ecfbf0"
   },
   {
    "path": "source/NpcServices.cs",
@@ -881,8 +891,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 9500,
-   "sha256": "849701cd78eb90847f82e9bf0203edac6a05c7643477b0fcffbc546b19394e9d"
+   "size": 9589,
+   "sha256": "5026a6b6f60c2f774a1f2e0da79a862a2a17a0a0054e261ad718f09bc25599b1"
   },
   {
    "path": "source/WorldTests.cs",

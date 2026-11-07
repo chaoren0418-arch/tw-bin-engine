@@ -45,6 +45,14 @@
 - 既有離線回歸全數通過：`polymorph-cadence` 123 項、`map-continuity` 218 項、`combat-admission` 302 項、`item-transfer` 163 項（各組包含基本變身檢查）。素材拒收與差異空白檢查結果見本輪 PR 留言。
 - 證據沿用 `scratch/issue-263/build/`，測試結果為 `scratch/issue-263/polymorph-cadence.json`、`map-continuity.json`、`combat-admission.json`、`item-transfer.json`。遠端新 HEAD 結果見既有 [PR #278 Checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/278/checks)。
 - 未驗證：原生遊戲、伺服器、DB、實際外觀與音效；本輪均未啟動。下一棒由 Claude／調度器確認新 HEAD CI 後審查，合併依既有分工處理。
+## 本輪補同步：佈告欄合入後
+
+- 先快轉保留遠端 `task/263` 的 `ea8d77d`，再合併 `origin/main`（`bbaac76b815c9b08c51188e63a5cc627724ce646`）。僅解決 `WorldSession.cs` 與 DemoChecks 入口衝突，保留變身及佈告欄兩邊的既有分派與測試；沒有新增功能。`docs/REPORT.md` 與 main 完全一致。
+- dev lock 由 `rebuild.py --update-lock` 重產並核驗：179 個來源、188 個鎖定輸入。產品與 launcher 建置通過；產品仍有上述兩個既有 nullable 警告，launcher 與 DemoChecks 零警告、零錯誤。
+- 既有離線測試通過：`polymorph-cadence` 123 項、`map-continuity` 448 項（已包含 main 的佈告欄回歸）、`combat-admission` 302 項、`item-transfer` 163 項、`board` 320 項。
+- `check-no-game-assets.py`：3,293 個追蹤檔、4 個 EmbeddedResource 宣告、零錯誤；`git -c core.whitespace=cr-at-eol diff --check` 通過。
+- 本機證據沿用 `scratch/issue-263/build/` 與上述群組同名 JSON。新 HEAD 的遠端 CI 結果另記於 PR #278；本輪未啟動遊戲、伺服器或 DB，原生外觀與音效仍待 M6 smoke。
+
 ## 給下一棒的提示
 
 Claude 審查 PR；合併由使用者處理。調度器同步輪若遇 dev lock 衝突，依契約重新產生，不手拼 hash。M6 smoke 由 dot 依既有授權測試：自身／其他角色變身、保留／卸下武器、攻擊與行走、S119 更新、解除、同圖重設；若指定 gfx 缺素材，另開 resource 任務取得經驗證 profile，不以假圖補足。本次未改 `docs/REPORT.md`。
