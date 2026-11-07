@@ -8,7 +8,7 @@
 | 封包格式（伺服器端） | [`server-protocol.md`](server-protocol.md)、[`server-rules.md`](server-rules.md) | #132 | 全部 | ✅ 已合併 |
 | 伺服器原始碼與 d287 JAR 對照 | [`source-vs-jar.md`](source-vs-jar.md) | T123（#226） | 全部 | ✅ 已合併 |
 | 動作、表情與名稱繪製 | `actions-and-names.md` | T160（#428） | T128、T129、T132、T135、T137、T146、T152 | 待查 |
-| UI 版面與圖示 | `ui-layout.md` | T161（#429） | T106、T108、T124、T125、T130、T131、T138、T150、T152 | 待查 |
+| UI 版面與圖示（UI XML 解密、800×600 主介面、聊天 Printer／調色盤、小地圖、隊伍、書籤） | [`ui-layout.md`](ui-layout.md) | T161（#429） | T106、T108、T124、T125、T130、T131、T138、T150、T152 | ✅ 已查（HP/MP 浮動窗、紅字位置、舊封包狀態圖示仍待驗證） |
 | 光源、天氣與地圖事件 | `ambience-and-map-events.md` | T162（#430） | T147、T148、T149、T153、T166 | 待查 |
 | 音效播放策略 | `sound.md` | T163（#431） | T105、T165、T166 | 待查 |
 | 已完成 M6 功能的原版對照 | `m6-native-diff.md` | T164（#432） | T100–T153 | 等 T160–T163 |
