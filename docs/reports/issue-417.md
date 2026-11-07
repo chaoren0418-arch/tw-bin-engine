@@ -34,7 +34,7 @@
 - `LiTo.unpacked-oep-current.exe` 在 File Offset `0x3E85C` 一帶有相同的 xor 與符號比較。
 - `#6016` 的 token `<3332<1340<1340` 與 #145 的 ID 相符，佐證 `<` 是聲音。
 - REA 回報的 `TW1608262200.bin` SHA 與基準相同；照文件指令完整重跑一次，失敗項相同（僅 `LinR.bin` 憑證、`LiTo.bin` 資源）。
-- 同步 main 後 `rebuild.py` 唯讀核驗回 `dev-inputs-verified`（211 個來源檔、`writes: false`）。本輪只改文件與腳本，**未執行完整建置**。
+- 同步 main 後 `rebuild.py` 唯讀核驗回 `dev-inputs-verified`（212 個來源檔、`writes: false`）。本輪只改文件與腳本，**未執行完整建置**。
 - 結束時重算 `TW1608262200.bin` SHA 相同；兩個來源資料夾與 `rea-main` 最新修改時間都早於本輪。
 
 過程中修正的錯誤：第一版 xref 分類把 `8b 0d` 切開解成假指令，已改用 opcode 判斷；第一版 frame 掃描被資料區截斷，已改 skipdata 重掃；coverage 搜尋兩度回空不可信（大括號 glob 失效；Grep 遵守 `.gitignore`，跳過未追蹤的 `P*/`），改用 `Select-String` 重查後多找到 P10 一筆引用。之後要查 `P*/`，不要用 Grep 工具。
