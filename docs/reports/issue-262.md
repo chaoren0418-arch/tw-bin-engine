@@ -16,12 +16,12 @@
 
 - `rebuild.py --update-lock`：181 個來源、190 個鎖定輸入通過。
 - `rebuild.py --build --configfile scratch/clan-nuget.config --write-receipt --output scratch/clan-build`：Windows product／audio／launcher 全部通過，0 錯誤；產品保留既有 MagicUi.cs 兩個 nullable 警告。
-- 正式 `demo-tests/DemoChecks.csproj` 的 `clan` 群組 **118 項通過**；CI 使用的 `map-continuity` 群組 **476 項通過**，包含血盟及合併後既有測試。預設無群組入口也接入血盟測試。
+- 正式 `demo-tests/DemoChecks.csproj` 的 `clan` 群組 **119 項通過**；CI 使用的 `map-continuity` 群組 **477 項通過**，包含血盟及合併後既有測試。預設無群組入口也接入血盟測試。
 - 測試透過實際產品 DLL 的 Receive 與記憶體 sender 執行，SocketGuard 禁止 socket；涵蓋全部本模組 C／S 格式、接受與拒絕的精確 C121 bytes、九種失效／取代情境、重複提交、錯誤／截斷封包不破壞成員快照、既有 message252 交易及 S250 狀態處理。
 - `check-no-game-assets.py` 通過：3290 個追蹤檔、0 錯誤、4 個核准 EmbeddedResource。最新 head 的 GitHub CI 結果記錄於 PR checks 及本輪 RESULT；離線測試不代表真機驗收。
 - 本機 Python 使用已安裝的 Python312 絕對路徑；NuGet 從原專案 vendor 唯讀還原，快取、暫存與建置輸出皆在本 worktree。沒有複製遊戲資源。
 
-產品 DLL SHA-256：`23036c28aab34eaa7cee0eb545bef28067c0ca0ba89737fca521b523306e8691`。
+產品 DLL SHA-256：`fa594fe9a95d9546ba9126bad9bbb4581970fa3255c62e68edcae38ba19711bf`。
 固定 JAR SHA-256：`d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf`。本輪唯讀重核 JAR 身分及 UiOperationContext 的五分鐘 TTL。
 
 ## 未驗證什麼

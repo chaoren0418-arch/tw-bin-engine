@@ -109,6 +109,7 @@ partial class Checks {
             Feed(c,ClanInvite(reserved:123));Check(c.World.PendingClanInvitation==null,"nonzero raw confirmation token unsupported");
             Feed(c,ClanInvite("missing"));Check(c.World.PendingClanInvitation==null,"unknown applicant cannot create pending answer");
             Feed(c,ClanInvite(message:252));Check(c.World.TradeState=="invited"&&c.World.TradePeerName=="target","S219 message252 trade behavior retained");
+            Feed(c,ClanInvite());Check(c.World.TradeState=="attention"&&c.World.PendingClanInvitation==null,"message97 still invalidates outstanding trade invite");
         }
         using(var c=ClanSeed()){
             bool failed=false;try{Feed(c,ClanInvite()[..8]);}catch(ProtocolException){failed=true;}Check(failed,"truncated S219 rejected");

@@ -127,6 +127,8 @@ public sealed partial class WorldSession {
     void ReceiveClanInvitation(LoginReader r,uint reserved){
         string name=r.S();r.Finish();EnsureClanEpoch();
         ClearClanInvitation("收到無法確認對象的入盟申請，請對方重新申請。");
+        // Preserve Trade's prior non-252 invalidation when this new route takes over message 97.
+        if(TradeState=="invited"){TradeState="attention";TradeRevision++;TradeNotice="原服改送其他確認訊息；舊交易邀請不可再回答，可取消交易。";}
         // Only d287's zero-D, single-string message 97 is supported.
         if(reserved!=0||!Ready||OwnDead||TradeBlocksActions||string.IsNullOrWhiteSpace(name))return;
         var candidates=Objects.Where(o=>o.Name==name&&!o.Dead&&(o.Flags&4)!=0).ToArray();if(candidates.Length!=1)return;
