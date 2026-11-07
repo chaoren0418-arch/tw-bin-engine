@@ -3,6 +3,7 @@ public sealed partial class ClientForm {
     void OnlineDown(Keys key){
         if(key==Keys.F12&&evidence!=null){CaptureEvidence("manual");return;}
         if(key==Keys.Space){ClearInput("stop");return;}
+        if(login.World.AfflictionInputLocked){RejectKeyboardMovement("異常狀態中，請等待原服解除後再操作。");return;}
         if(key==Keys.M){bool first=!Input.Held.Contains(key);if(first){ClearInput("single-magic");Input.Down(key);if(!World.Walking)_=CastFromInput();}return;}
         if(key==Keys.U){bool first=!Input.Held.Contains(key);if(first){ClearInput("single-item");Input.Down(key);if(!World.Walking)_=login.UseSelectedItem();}return;}
         if(key==Keys.P){bool first=!Input.Held.Contains(key);if(first){ClearInput("single-pickup");Input.Down(key);if(!World.Walking)_=NativeGroundQuantity(true);}return;}
