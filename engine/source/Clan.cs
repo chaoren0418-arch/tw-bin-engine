@@ -99,7 +99,6 @@ public static class ClanProtocol {
 
 public sealed partial class WorldSession {
     int clanEpoch=-1;
-    readonly Dictionary<uint,ClanEmblem> clanEmblems=[];
     string[] clanAttention=[];string clanNotice="";
     ClanAnnouncement? clanAnnouncement;ClanMember[] clanMembers=[];HashSet<string>? clanOnline;
     ClanInvitation? clanInvitation;long clanInvitationRevision;bool clanSubscribed;
@@ -108,7 +107,7 @@ public sealed partial class WorldSession {
     void ClearClanMembers(){clanAnnouncement=null;clanMembers=[];clanOnline=null;}
     void EnsureClanEpoch(){
         if(!clanSubscribed){CombatSoundStateChanged+=CheckClanState;clanSubscribed=true;}
-        if(clanEpoch==WorldEpoch)return;clanEpoch=WorldEpoch;clanEmblems.Clear();clanAttention=[];clanNotice="";clanInvitation=null;ClearClanMembers();
+        if(clanEpoch==WorldEpoch)return;clanEpoch=WorldEpoch;clanAttention=[];clanNotice="";clanInvitation=null;ClearClanMembers();
     }
     void CheckClanState(){
         EnsureClanEpoch();
@@ -139,7 +138,7 @@ public sealed partial class WorldSession {
     }
     void ReceiveClanAnnouncement(byte[] packet){
         var value=ClanProtocol.DecodeAnnouncement(packet);EnsureClanEpoch();ClearClanMembers();
-        if(Ready&&value.Name.Length>0&&value.Name==Actor?.Clan)clanAnnouncement=value;
+        if(Ready&&value.Name.Length>0&&value.Name==Actor?.Clan){clanAnnouncement=value;ObserveClanEmblemId(Actor.ObjectId,value.EmblemId);}
     }
     void ReceiveClanMembers(byte[] packet){var value=ClanProtocol.DecodeMembers(packet);CheckClanState();if(clanAnnouncement!=null)clanMembers=value;}
     void ReceiveClanOnlineMembers(byte[] packet){var value=ClanProtocol.DecodeOnlineMembers(packet);CheckClanState();if(clanAnnouncement!=null)clanOnline=new(value,StringComparer.OrdinalIgnoreCase);}
@@ -147,7 +146,6 @@ public sealed partial class WorldSession {
     public string ClanNotice {get{EnsureClanEpoch();return clanNotice;}}
     public string[] ClanWarEnemies {get{CheckClanWar();return CurrentClanWarEnemies();}}
     public bool IsClanWarEnemy(string clan)=>clan.Length>0&&ClanWarEnemies.Contains(clan,StringComparer.OrdinalIgnoreCase);
-    public ClanEmblem? FindClanEmblem(uint id){EnsureClanEpoch();return clanEmblems.TryGetValue(id,out var emblem)?emblem with{Pixels=(int[])emblem.Pixels.Clone()}:null;}
     void ReceiveClanUpdate(byte[] packet){
         var update=ClanProtocol.DecodeUpdate(packet);EnsureClanEpoch();
         // S72's D is reserved, not a clan/emblem ID. Clear old identity on membership change.
@@ -156,8 +154,8 @@ public sealed partial class WorldSession {
     }
     void ReceiveClanEmblem(byte[] packet){
         EnsureClanEpoch();
-        try{var emblem=ClanProtocol.DecodeEmblem(packet);if(clanEmblems.Count>=256&&!clanEmblems.ContainsKey(emblem.Id))clanEmblems.Remove(clanEmblems.Keys.First());clanEmblems[emblem.Id]=emblem;clanNotice="已收到伺服器盟徽。";}
-        catch(ProtocolException){if(packet.Length>=5)clanEmblems.Remove(BinaryPrimitives.ReadUInt32LittleEndian(packet.AsSpan(1)));clanNotice="收到無法解析的盟徽；保留血盟名稱，未顯示圖像。";}
+        try{StoreClanEmblem(ClanProtocol.DecodeEmblem(packet));clanNotice="已收到伺服器盟徽。";}
+        catch(ProtocolException){if(packet.Length>=5)DropClanEmblem(BinaryPrimitives.ReadUInt32LittleEndian(packet.AsSpan(1)));clanNotice="收到無法解析的盟徽；保留血盟名稱，未顯示圖像。";}
     }
     void ReceiveClanAttention(byte[] packet){var value=ClanProtocol.DecodeAttention(packet);EnsureClanEpoch();if(value.Type==2)clanAttention=value.Names;}
 }

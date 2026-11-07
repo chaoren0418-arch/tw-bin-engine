@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 219,
+ "sourceCount": 220,
  "files": [
   {
    "path": "NuGet.Config",
@@ -191,8 +191,13 @@
   },
   {
    "path": "source/Clan.cs",
-   "size": 17451,
-   "sha256": "583e21577348c03bc1407afec4a10f8ba9ae067bd10f56cb7a515926a2443d75"
+   "size": 17120,
+   "sha256": "29a0b30d503f8334736856e1d61cf406d6f8100b583810b0ec1fdf040a5d7720"
+  },
+  {
+   "path": "source/ClanEmblem.cs",
+   "size": 5575,
+   "sha256": "6de150fc716030e12710ef285a27173e434c97cb32c2fbf14c5304e0174228a6"
   },
   {
    "path": "source/ClanUi.cs",
@@ -1076,8 +1081,8 @@
   },
   {
    "path": "source/WorldEntry.cs",
-   "size": 7921,
-   "sha256": "8593bfc088b6e1f7796f842fe931a7a2d5a887dea0315ccfe3bb04ff7c1bee8f"
+   "size": 7992,
+   "sha256": "e13b206f470ae96754cec15cb948ebe1694f5d18405ce178285062e1e1af7c38"
   },
   {
    "path": "source/WorldObjects.cs",
@@ -1091,8 +1096,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 12690,
-   "sha256": "95f147b9fee966d943ceebf4f64fe5c0095d8285ba563baa20c55653fa7a9a71"
+   "size": 12874,
+   "sha256": "2ed131125787e1328c1a92a1dd8476b4eb42a90bbb8ab53ee0f32a1e4d70d472"
   },
   {
    "path": "source/WorldTests.cs",

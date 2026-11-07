@@ -85,6 +85,7 @@ public sealed partial class LoginConnection {
         }
         if(epoch!=generation)return;
         await AdvanceShip();if(epoch!=generation)return;
+        await PumpClanEmblemQuery(epoch);if(epoch!=generation)return;
         TrackWorldEntry();entryTiming?.Check(WorldClock(),World.CoreComplete,World.Ready&&!World.TeleportPending,World.PendingMapLoad!=null);
     }
 }
