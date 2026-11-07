@@ -92,6 +92,16 @@ public sealed partial class WorldSession {
     string[] CurrentClanWarEnemies(){
         lock(clanWarGate)return clanWarPairs.Select(p=>ClanWarProtocol.Same(p.First,clanWarOwnClan)?p.Second:p.First).ToArray();
     }
+    // War mode = at least one current war. Object +197 (sub_A45920): 2 enemy clan, 1 own clan, 0 otherwise.
+    public bool ClanWarMode=>ClanWarEnemies.Length>0;
+    public byte ClanWarFlag(string clan){
+        if(clan.Length==0)return 0;var enemies=ClanWarEnemies;if(enemies.Length==0)return 0;
+        if(enemies.Contains(clan,StringComparer.OrdinalIgnoreCase))return 2;
+        lock(clanWarGate)return ClanWarProtocol.Same(clan,clanWarOwnClan)?(byte)1:(byte)0;
+    }
+    public byte ClanWarFlag(uint id)=>Actor?.ObjectId==id?ClanWarFlag(Actor.Clan):objects.TryGetValue(id,out var o)?ClanWarFlag(o.Clan):(byte)0;
+    // sub_A3FE30 / sub_F044C0: pink name, the duel opponent and an enemy clan (+197=2) may be attacked directly.
+    public bool CanAttackDirectly(uint id)=>Actor?.ObjectId!=id&&objects.ContainsKey(id)&&(IsPinkName(id)||IsDuelOpponent(id)||ClanWarFlag(id)==2);
     // Every S219 passes here first, so one shared TempID slot never keeps two answerable prompts.
     bool ReceiveClanWarYesNo(ushort message,uint reserved,LoginReader r){
         CheckClanWar();
@@ -180,19 +190,7 @@ public sealed partial class ClientForm {
         refresh.Tick+=(_,_)=>{var view=login.ClanWarSnapshot();button.Text=view.Enemies.Length>0?$"血盟戰爭（交戰 {view.Enemies.Length}）":"血盟戰爭";if(view.Prompt is {} prompt&&prompt.Revision!=shown){shown=prompt.Revision;Open();}};
         FormClosed+=(_,_)=>refresh.Dispose();refresh.Start();
     }
-    // Drawn over ClanUi's label at the same anchor; the backing box hides the neutral text underneath.
-    void PaintClanWarEnemies(Graphics g){
-        if(!login.World.Renderable)return;
-        var viewport=new RectangleF(Camera.ViewOffset,Camera.View);
-        using var backing=new SolidBrush(Color.FromArgb(235,20,8,8));
-        foreach(var v in objectVisuals.Where(v=>objectPatch?.VisibleObjectIds.Contains(v.ObjectId)==true)){
-            var obj=login.World.Objects.FirstOrDefault(o=>o.ObjectId==v.ObjectId);
-            if(obj==null||obj.Name.Length==0||!login.World.IsClanWarEnemy(obj.Clan))continue;
-            var p=Camera.ToView(v.Foot);if(!viewport.Contains(p))continue;
-            string text=obj.Name+" ["+obj.Clan+"]";var size=g.MeasureString(text,Font);float x=p.X-size.Width/2,y=p.Y-48;
-            g.FillRectangle(backing,x,y,size.Width+1,size.Height+1);g.DrawString(text,Font,Brushes.OrangeRed,x,y);
-        }
-    }
+    // Enemy clans have no extra label and keep their name colour (actions-and-names.md 2.7); see ClanWarFlag.
 }
 
 public sealed class ClanWarUi:Form {

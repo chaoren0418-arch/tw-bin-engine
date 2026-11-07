@@ -56,6 +56,26 @@ try:
     for lo, hi in q.get("ranges", []):
         for fs in idautils.Functions(int(lo, 16), int(hi, 16)):
             rep["functions"].setdefault(hex(fs), decomp(fs))
+    if q.get("rtti"):
+        # MSVC RTTI: TypeDescriptor = name - 8; COL+0xC -> TD; vtable[-1] -> COL; code refs to vtable = ctor/dtor
+        rep["rtti"] = {}
+        for nm in q["rtti"]:
+            hits = find_all(nm.encode("latin1") + b"\0")
+            r = []
+            for h in hits:
+                td = h - 8
+                for x in idautils.XrefsTo(td):
+                    col = x.frm - 12
+                    for y in idautils.XrefsTo(col):
+                        vt = y.frm + 4
+                        users = []
+                        for z in idautils.XrefsTo(vt):
+                            fs = fstart(z.frm)
+                            if fs is None: continue
+                            callers = sorted({hex(fstart(c.frm) or 0) for c in idautils.XrefsTo(fs) if c.iscode})[:20]
+                            users.append({"func": hex(fs), "callers": callers})
+                        r.append({"td": hex(td), "col": hex(col), "vtable": hex(vt), "users": users[:20]})
+            rep["rtti"][nm] = r
     auto = set()
     if q.get("decompile_string_users"):
         for s, hits in rep["strings"].items():
