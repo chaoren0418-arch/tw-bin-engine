@@ -101,3 +101,4 @@
 - 2026-11-07 — #263 T129：變身（code，codex-local，PR 已合併）→ [報告](reports/issue-263.md)
 - 2026-11-07 — #217 T122：S206 單參數 overload 的變體（code，claude-local，PR 已合併）→ [報告](reports/issue-217.md)
 - 2026-11-07 — #324 T138：角色設定存取（快捷列）（code，claude-local，PR 已合併）→ [報告](reports/issue-324.md)
+- 2026-11-07 — #357 T140：查詢玩家與排名（code，claude-local，PR #366 已合併）→ [報告](reports/issue-357.md)
