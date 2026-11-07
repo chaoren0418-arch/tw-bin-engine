@@ -31,6 +31,7 @@
 - 同步 origin/main（含 #440、#449），`rebuild.py --update-lock` 重產 dev lock，`--build` PASS，唯讀核驗 `dev-inputs-verified`。
 - 離線測試（合成封包，走 `World.Receive` 與真實繪製掛載點）：`clan-emblem` 363、`name-display` 414、`clan` 446、`clan-war` 530、`map-continuity` 23196 項全部通過（計數包含共用檢查）。
 - `check-no-game-assets.py` 通過（0 錯誤）。
+- 2026-11-08 再次同步 origin/main（併入 #450 快捷列、#482～#484 等）：解 demo-tests 入口衝突（同時保留 `ClanEmblemChecks` 與 `HotbarChecks`），重產 dev lock，`--build` PASS；`clan-emblem` 363、`name-display` 414、`clan` 446、`map-continuity` 23274 項通過，`check-no-game-assets.py` 通過。
 - 整合過程中有一項檢查失敗，原因是測試本身漏了觸發 C72 的步驟；修正測試後通過，產品程式沒有改。
 
 ## 未驗證什麼

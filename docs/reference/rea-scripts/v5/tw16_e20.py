@@ -1,0 +1,4 @@
+for v in (0x9F86C0, 0x8DCAC0, 0x8DBB40):
+    t = dec(v); P(hex(v), (t or "").count("\n"))
+for a in (0x8bdf08, 0x8bdfd8, 0x8bdff5, 0x8be033, 0x8be2c2, 0x8be4d2, 0x8be520):
+    P("----", hex(a)); P(dis(a-0x30, 18))

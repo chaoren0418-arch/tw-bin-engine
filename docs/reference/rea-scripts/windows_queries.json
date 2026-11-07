@@ -1,0 +1,155 @@
+﻿{
+    "q1":  {
+               "decompile":  [
+                                 "0x94bd80",
+                                 "0x931fa0",
+                                 "0x9464d0",
+                                 "0x931c50",
+                                 "0x931ca0",
+                                 "0x941000",
+                                 "0x948e60",
+                                 "0x92ead0",
+                                 "0x944f50",
+                                 "0x93f5e0",
+                                 "0x940030",
+                                 "0x93fdf0",
+                                 "0x94c0e0",
+                                 "0x9495a0",
+                                 "0x926bf0",
+                                 "0x9504d0"
+                             ]
+           },
+    "q2":  {
+               "decompile":  [
+                                 "0xde93e0",
+                                 "0xde94e0",
+                                 "0xde7d10",
+                                 "0xde8a30",
+                                 "0xde81f0",
+                                 "0xde86d0",
+                                 "0x7cd600",
+                                 "0x7cd9f0",
+                                 "0xa59780",
+                                 "0x94c120",
+                                 "0x5034a0",
+                                 "0xbbcb00",
+                                 "0x992390"
+                             ],
+               "xrefs":  [
+                             "0xb576c4",
+                             "0xb57106",
+                             "0xb571a0",
+                             "0xb57234",
+                             "0xb5706d",
+                             "0xb574bc",
+                             "0xb58740",
+                             "0xa84425",
+                             "0xa844b9",
+                             "0xa84980",
+                             "0xa845e1",
+                             "0xa84675"
+                         ],
+               "rtti":  [
+                            ".?AVCResetStatUI@@",
+                            ".?AVCFishingUI@LineageFishing@@",
+                            ".?AUBoardListWindow@@",
+                            ".?AUBoardReadWindow@@",
+                            ".?AUBoardWriteWindow@@",
+                            ".?AVRenewalMailUI@@",
+                            ".?AVPersonalShopUI@@",
+                            ".?AUTradeWindow@@",
+                            ".?AVFriendUI@@",
+                            ".?AUFriendWindow@@",
+                            ".?AVExcludeUI@@",
+                            ".?AUExcludeWindow@@",
+                            ".?AVMailExcludeUI@@",
+                            ".?AVCSummonUI@@",
+                            ".?AVCPetSummonUI@@",
+                            ".?AUPetQuickWindow@@",
+                            ".?AUPetControl@@",
+                            ".?AUPetWindow@Lineage@@",
+                            ".?AVCRenewalStatusUI@@",
+                            ".?AVCSelectUI@@",
+                            ".?AVInGameMessageBox@Lineage@@",
+                            ".?AVHyperTextUI@@",
+                            ".?AVCHighLevelRankingUI@@",
+                            ".?AUInputWindow@@",
+                            ".?AVCNpcShop@LineageShop@@",
+                            ".?AVCPersonalShop@LineageShop@@",
+                            ".?AUCNoticeWindow@@",
+                            ".?AVCUIShopXML@@"
+                        ]
+           },
+    "q3":  {
+               "decompile":  [
+                                 "0x8c7c80",
+                                 "0xb56a40",
+                                 "0xa59ab0",
+                                 "0xa57c60",
+                                 "0xdeefd0",
+                                 "0xdef100",
+                                 "0xdf18a0",
+                                 "0xf69110",
+                                 "0x7dc800",
+                                 "0x846890",
+                                 "0x8e1d60",
+                                 "0x884560",
+                                 "0x9cf220"
+                             ],
+               "xrefs":  [
+                             "0x846210",
+                             "0x153ce14",
+                             "0x13aaf24",
+                             "0x1243ee4",
+                             "0xf3a390"
+                         ]
+           },
+    "q4":  {
+               "decompile":  [
+                                 "0xb3d390",
+                                 "0xb56552",
+                                 "0xe65687",
+                                 "0x9cf150",
+                                 "0x846210"
+                             ],
+               "xrefs":  [
+                             "0x137b39c",
+                             "0x137b3a8",
+                             "0x137b3b4",
+                             "0x14ebf4c",
+                             "0x153fcb4",
+                             "0x153fcb8",
+                             "0x1540858",
+                             "0x14ebed8",
+                             "0x1541cf8",
+                             "0x13aad9c",
+                             "0x1544298",
+                             "0xb17dd0",
+                             "0x8300b0"
+                         ]
+           },
+    "q5":  {
+               "decompile":  [
+                                 "0x4fc710",
+                                 "0x94e0e0",
+                                 "0x9872a0",
+                                 "0xada220",
+                                 "0x503ff0",
+                                 "0xf3a0c0",
+                                 "0x9cf2d0",
+                                 "0xb18f10",
+                                 "0x7cb710",
+                                 "0xa26e60"
+                             ]
+           },
+    "q6":  {
+               "decompile":  [
+                                 "0xac9560",
+                                 "0x4fca30",
+                                 "0xdf13e0",
+                                 "0xdf0290",
+                                 "0xdf1680",
+                                 "0x7cba70"
+                             ]
+           }
+}
