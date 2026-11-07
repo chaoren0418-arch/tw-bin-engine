@@ -110,3 +110,4 @@
 - 2026-11-07 — #272 T132：決鬥（code，claude-local，PR 已合併）→ [報告](reports/issue-272.md)
 - 2026-11-07 — #274 T134：武器修理與 PK 查詢（code，claude-local，PR 已合併）→ [報告](reports/issue-274.md)
 - 2026-11-07 — #261 T127：寵物與召喚物（code，claude-local，PR 已合併）→ [報告](reports/issue-261.md)
+- 2026-11-07 — #325 T139：釣魚（code，claude-local，PR #354 已合併）→ [報告](reports/issue-325.md)
