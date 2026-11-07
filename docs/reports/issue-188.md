@@ -28,13 +28,14 @@
 - 持久化測試：engine/_integration/dev/demo-tests/{AttackSkillChecks,AttackSkillRenderingChecks,Program}.cs；格式／來源SHA及呈現政策：[attack-skill.md](../protocol/attack-skill.md)。
 - 本機證據：scratch/issue-188/{combined-checks.json,resource-checks.json,build/,receipt.json}。重跑前先建產品與restore DemoChecks；合成測試不依賴本機遊戲素材。
 - Claude審查 PR #202；合併後由 dot 依既有授權做 M6 smoke，檢查其他箭矢（2349／2989）、不同法術、S42多目標／方向、受擊抑制target0與權威HP。不要把 hitFlag 當HP差值。
-## 最新同步輪：僅同步與重建 lock（2026-11-07）
+## 最新同步輪：同步公告欄上游與重建 lock（2026-11-07）
 
-- 做了什麼：依指示合入 `origin/main`（`6024daf`），並保留遠端 `task/188`（`7dd30ac`）的同步歷史，皆無衝突；本模組接收與呈現實作未變，送出端未變，共用分派點與測試入口保留雙方 case。`docs/REPORT.md` 與 main 完全一致，未手動修改。本輪 GitHub 查詢顯示 PR #202 仍開啟、尚未合併，因此沿用該 PR。
-- 已確認原因：[CI run 42316647327](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42316647327) 的 dotnet job `128230764225` 在 dev canonical build 回報 `sourceCount 176 != pinned source files 177`，退出 2；同輪 map-continuity 與 npc-offline 通過。重新執行 `rebuild.py --update-lock`，唯一 lock 差異為 `sourceCount` 176 → 177；核驗 177 來源／186 pins 通過。本機以已安裝 Python312 的 `python.exe -B -X utf8` 執行（PATH 無 python）。
-- 已驗證：`rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output scratch/issue-188/build` 成功；產品 0 錯誤、僅既有 MagicUi.cs CS8600／CS8602，launcher 0 警告／0 錯誤。
-- 已驗證：既有 DemoChecks `combat-admission` **953 項通過**（含本模組 741 項）；`map-continuity` **128 項通過**；本輪 main 帶入的 `item-transfer` **73 項通過**。`check-no-game-assets.py` pass（3279 個追蹤檔、0 errors）；`git -c core.whitespace=cr-at-eol diff --check` 通過。沿用 `--artifacts-path engine/build/issue-188-tests` 與 `-p:UseSharedCompilation=false`，未刪除目錄或修改測試。
-- 產品 DLL SHA-256：`4aff2ea23457884d2167a35a62a4a7fd71c56be826ec849da6e70856d458575d`。
-- 產出路徑：本報告、`engine/_integration/dev/rebuild-lock.json`；本機證據覆寫既有 `scratch/issue-188/build/`、`scratch/issue-188/combined-checks.json`、`scratch/issue-188/map-checks.json`，新增 `scratch/issue-188/item-transfer-checks.json`；receipt 位於 `engine/_integration/dev/receipt.json`（不提交）。
-- 未驗證：本輪未重跑原素材 929 項檢查，未執行真機／登入／音效驗收；未啟動遊戲、伺服器或 DB。推送後 CI 結果以 [PR #202 checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/202/checks) 與本輪結果留言為準。
-- 給下一棒的提示：Claude／調度器確認 PR #202 最新提交 CI 後交使用者合併；dot 接 M6 smoke，沿用上方多目標、不同 gfx、S42 與權威 HP 核對清單。本輪僅修正同步後的 lock 計數。
+- 做了什麼：在既有 `task/188` 執行 `git fetch origin`、`git merge origin/main`，合入 `bbaac76`（含 #266 公告欄）。唯一衝突為 dev lock，使用 `rebuild.py --update-lock` 重建，未手動拼接 hash。本模組接收／呈現與 T100 送出端均未變；共用分派點和測試入口保留雙方功能；`docs/REPORT.md` 完全採 main 版本，未手動修改。
+- CI 原因核對：PR #202 目前仍開啟、尚未合併；上一輪 `a8f1d20` 的 build 與 npc-checks 均成功。舊失敗 [run 42316647327](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42316647327) 的 jobs／annotations 確認失敗點為 `dev canonical build + receipt`、退出 2。本輪下載原始 log 被 GitHub 以 HTTP 403 拒絕；沿用前輪已讀 log 的結論，並直接核對失敗提交 `7dd30ac` 的 lock：`sourceCount=176`、實際來源 pins=177，與前輪記錄一致。
+- 已驗證：`rebuild.py --update-lock` 核驗 **179 來源／188 pins**；`rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output scratch/issue-188/build` 成功。產品 0 錯誤、僅既有 MagicUi.cs CS8600／CS8602；launcher 0 警告、0 錯誤。本機使用已安裝 Python312 的 `python.exe -B -X utf8`（PATH 無 python）。
+- 已驗證：既有 DemoChecks `combat-admission` **953 項通過**（含本模組 741 項）；`map-continuity` **358 項通過**（含上游公告欄 230 項）；`item-transfer` **73 項通過**。沿用 `--artifacts-path engine/build/issue-188-tests`、`-p:UseSharedCompilation=false`，測試專案建置 0 警告／0 錯誤；未修改測試邏輯。
+- 已驗證：`check-no-game-assets.py` pass（3287 個追蹤檔、0 errors）；`git -c core.whitespace=cr-at-eol diff HEAD --check` 通過。
+- 產品 DLL SHA-256：`e82b1d0d15bab7105a3c83df74508f40317a830aed72503153690415e088f793`。
+- 產出路徑：本報告、`engine/_integration/dev/rebuild-lock.json`；本機證據沿用 `scratch/issue-188/build/`、`scratch/issue-188/{combined-checks,map-checks,item-transfer-checks}.json`；receipt 位於 `engine/_integration/dev/receipt.json`（原有未追蹤檔，不提交）。
+- 未驗證：未重跑原素材 929 項檢查，未執行真機／登入／音效驗收；未啟動遊戲、伺服器或 DB，未遞迴刪除。推送後 CI 結果以 [PR #202 checks](https://github.com/chaoren0418-arch/tw-bin-engine/pull/202/checks) 與結果留言為準。
+- 給下一棒的提示：沿用 PR #202，Claude／調度器確認最新提交 CI 後交使用者合併；dot 接 M6 smoke，沿用上方多目標、不同 gfx、S42 與權威 HP 核對清單。本輪僅同步上游、重建 lock 與更新此報告。
