@@ -7,4 +7,6 @@ internal static class ServerStatusMessages {
         id==77&&args.Length==0 ||
         id==161&&args.Length==3&&args[0].Length>0&&args[1]=="$245"&&args[2]=="$247";
     public static bool IsInformational(string text)=>text=="你覺得舒服多了。";
+    // S105 screen-center mount; DisplayNotices paints this text and it commits no state.
+    public static string? CenterNotice(WorldSession world)=>world.ActiveRedNotice()?.Text;
 }

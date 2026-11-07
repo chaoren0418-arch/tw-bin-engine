@@ -55,3 +55,5 @@
 
 - 真機 smoke 需要兩個君主角色，等級超過 25，各有血盟。核對：宣戰確認視窗、接受後敵對名稱變色、切地圖後仍保留、投降與停戰、重新登入後由 S84／8 恢復。
 - 新增 S219 模組時，留意 `ReceiveClanWarYesNo` 必須維持在 `ReceiveTrade` 的第一個分支；若新模組在 Trade 之前就消耗 S219，要比照 Party／Duel 讓 `CheckClanWar` 觀察得到。
+
+第二次同步 origin/main（4a962f3，含顯示通知 `DisplayNoticeChecks`）：`Program.cs` 測試入口衝突以「兩邊都保留」解決（`display-notices` case 與 `ClanWarChecks` 並存），`rebuild-lock.json` 取 main 版後 `--update-lock` 重產（216 個來源、225 個鎖定輸入）；`--build` 通過，`clan-war` 479 項、`display-notices` 334 項、`map-continuity` 22690 項通過，`check-no-game-assets.py` 0 錯誤。
