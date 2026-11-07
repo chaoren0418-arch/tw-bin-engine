@@ -84,6 +84,7 @@ public sealed partial class WorldSession {
             string name=PartyName(r);r.Finish();if(header!=0)throw new ProtocolException("party invitation envelope");
             if(Ready&&!OwnDead){
                 if(TradeState=="invited")ResetTrade("收到組隊確認對話，舊交易邀請已失效。");
+                if(clanInvitation!=null)ClearClanInvitation("收到組隊確認對話，舊入盟申請已失效。");
                 partyInvitation=new(challenge,message,name,WorldEpoch,PartyClock()+30000);partyNotice=name+" 邀請你加入隊伍。";partyRevision++;
             }return true;
         }
