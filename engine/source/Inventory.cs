@@ -1,4 +1,3 @@
-using System.Buffers.Binary;
 namespace P06;
 // Template IDs are not carried by these packets. Description/icon/use type remain distinct.
 public sealed record InventoryItem(uint ObjectId,ushort DescriptionId,byte UseType,byte Charges,ushort IconId,byte Bless,uint Count,byte Flags,string Name,string StatusHex,string TailHex) {
@@ -26,9 +25,10 @@ public sealed record InventoryItem(uint ObjectId,ushort DescriptionId,byte UseTy
     // Names, enchantment, icons, identification, blessing and class eligibility do not alter that wire shape.
     public bool SupportedEquipment=>ObjectId!=0&&Count>0&&EquipmentRules.IsEquipment(UseType);
     public bool SupportedArrow=>DescriptionId==0&&UseType==254&&IconId==7&&Bless==1&&Charges==0&&(Name=="$61"||Name.StartsWith("$61 (",StringComparison.Ordinal));
-    public bool SupportedUse=>SupportedBasicSupply||SupportedPotion||SupportedHastePotion||SupportedEquipment;
-    public string UseAction=>SupportedEquipment?(Equipped==true?"卸下":"穿上"):"單次使用";
-    public string UseState=>Count==0?"已耗盡":SupportedMeat?"吃一個肉；飽食高時仍會消耗，數量與飽食以原服回報為準":SupportedHomeScroll?"用一張回家卷軸；回城落點由原服決定，部分地圖禁止使用":SupportedEquipment?(Equipped==true?"已裝備；可單次卸下":"未裝備；可單次穿上"):SupportedArrow?"有限箭矢；原服射擊消耗，數量以回包為準":SupportedHastePotion?"可單次使用；消耗一瓶，約 5 分鐘加速，以伺服器回報為準":SupportedPotion?"可單次使用；滿血仍會消耗":"此道具的使用尚未支援";
+    public bool SupportedArguments=>ObjectId!=0&&Count>0&&ItemUseCodec.Kind(UseType)!=ItemUseKind.None;
+    public bool SupportedUse=>SupportedBasicSupply||SupportedPotion||SupportedHastePotion||SupportedEquipment||SupportedArguments;
+    public string UseAction=>SupportedEquipment?(Equipped==true?"卸下":"穿上"):SupportedArguments?"選擇使用目標":"單次使用";
+    public string UseState=>Count==0?"已耗盡":SupportedMeat?"吃一個肉；飽食高時仍會消耗，數量與飽食以原服回報為準":SupportedHomeScroll?"用一張回家卷軸；回城落點由原服決定，部分地圖禁止使用":SupportedEquipment?(Equipped==true?"已裝備；可單次卸下":"未裝備；可單次穿上"):SupportedArrow?"有限箭矢；原服射擊消耗，數量以回包為準":SupportedHastePotion?"可單次使用；消耗一瓶，約 5 分鐘加速，以伺服器回報為準":SupportedPotion?"可單次使用；滿血仍會消耗":SupportedArguments?ItemUseCodec.Prompt(UseType):"此道具的使用尚未支援";
 }
 public sealed partial class WorldSession {
     readonly System.Collections.Concurrent.ConcurrentDictionary<uint,InventoryItem> inventory=new();
@@ -70,6 +70,7 @@ public sealed partial class WorldSession {
         case 24:
             uint id=r.D();string name=r.S();uint amount=r.D();string status=Bytes(r,r.C());r.Finish();UpdateItem(id,i=>i with{Name=name,Count=amount,StatusHex=status});ItemNotice="收到原服數量／狀態更新";break;
         case 242:
+            if(plain.Length>=2&&plain[1]==2)return ReceiveHitReactionSuppress(r);
             if(plain.Length<2||plain[1]!=1)return false;r.C();uint longId=r.D();string longName=r.S();uint longCount=r.D();string longStatus=Bytes(r,r.H());r.Finish();UpdateItem(longId,i=>i with{Name=longName,Count=longCount,StatusHex=longStatus});break;
         case 57:uint removed=r.D();r.Finish();RemoveItem(removed);ItemNotice="原服已移除道具";break;
         case 100:uint named=r.D();string updatedName=r.S();r.Finish();UpdateItem(named,i=>i with{Name=updatedName});break;
@@ -119,21 +120,26 @@ public sealed partial class LoginConnection {
     public bool ItemBusy=>itemSending||Environment.TickCount64<nextItemAt;
     public event Action<object>? ItemSent;
     public bool ItemAvailable=>State==LoginState.InWorld&&!World.ActionLocked&&!World.TradeBlocksActions&&World.Ready&&!World.OwnDead&&World.Status?.Hp>0&&World.Actor is {} actor&&NormalSpeed.Supported(actor.Speed,actor.Brave)&&World.SelectedItem is {Count:>0,SupportedUse:true};
-    void ResetItemSend(){itemLease++;itemSending=false;nextItemAt=0;}
+    void ResetItemSend(){CancelItemUse();itemLease++;itemSending=false;nextItemAt=0;}
     // Explicit original-server negative test only; absent from UI/web commands.
     internal Task ProbeOriginalItemDelay(uint id)=>sendWorld!(LoginPackets.Pad([164,..BitConverter.GetBytes(id)]));
-    public async Task<bool> UseSelectedItem(){
+    public Task<bool> UseSelectedItem()=>UseSelectedItemCore(null,null);
+    async Task<bool> UseSelectedItemCore(ItemUseRequest? request,ItemUseArguments? arguments){
         if(World.BasicSupplyPending){World.ItemNotice=World.BasicSupplyNotice;return false;}
         if(!ItemAvailable||ItemBusy||MovementBusy||sendMovementGate==null){World.ItemNotice="未送出：道具／速度未支援、忙碌或已耗盡";return false;}
-        var item=World.SelectedItem!;var actor=World.Actor!;int delayMs=item.UseDelayMs;int epoch=generation,worldEpoch=World.WorldEpoch,selection=World.ItemSelectionRevision,input=inputVersion,speedRevision=World.SpeedRevision,equipmentRevision=World.EquipmentRevision,appearance=World.AppearanceRevision,correction=World.Corrections,lease=++itemLease;var sender=sendMovementGate;
-        byte[] bytes=new byte[8];bytes[0]=164;BinaryPrimitives.WriteUInt32LittleEndian(bytes.AsSpan(1),item.ObjectId);itemSending=true;
+        var item=World.SelectedItem!;
+        if(request==null&&RequestItemArguments(item))return false;
+        if(!TryItemArguments(item,request,arguments,out byte[] bytes,out var currentTarget))return false;
+        var actor=World.Actor!;int delayMs=item.UseDelayMs;int epoch=generation,worldEpoch=World.WorldEpoch,selection=World.ItemSelectionRevision,input=inputVersion,speedRevision=World.SpeedRevision,equipmentRevision=World.EquipmentRevision,appearance=World.AppearanceRevision,correction=World.Corrections,lease=++itemLease;var sender=sendMovementGate;
+        itemSending=true;
         // Authoritative speed/count/selection replies may precede transport completion.
         // Completion ownership intentionally excludes those admission-only snapshots.
         bool CurrentOwner()=>epoch==generation&&worldEpoch==World.WorldEpoch&&World.Actor?.ObjectId==actor.ObjectId&&lease==itemLease;
         bool OtherActionsReady()=>!combatSending&&!movementSending&&!magicSending&&!groundSending&&!CombatBusy&&!MagicBusy&&!GroundBusy&&Environment.TickCount64>=MovementReadyAt&&Environment.TickCount64>=nextItemAt;
         try{
-            bool sent=await sender(bytes,()=>CurrentOwner()&&selection==World.ItemSelectionRevision&&input==inputVersion&&speedRevision==World.SpeedRevision&&appearance==World.AppearanceRevision&&correction==World.Corrections&&World.Actor?.X==actor.X&&World.Actor.Y==actor.Y&&World.Actor.Gfx==actor.Gfx&&World.Actor.Weapon==actor.Weapon&&(!item.SupportedEquipment||equipmentRevision==World.EquipmentRevision)&&ItemAvailable&&World.SelectedItemId==item.ObjectId&&World.SelectedItem==item&&OtherActionsReady(),()=>{nextItemAt=Environment.TickCount64+delayMs+ItemUseMarginMs;World.MarkItemUseSent(item);Set(State,World.ItemNotice);});
-            if(!CurrentOwner()||!sent)return false;
+            bool sent=await sender(bytes,()=>CurrentOwner()&&(request==null||CurrentItemUse(request))&&currentTarget()&&selection==World.ItemSelectionRevision&&input==inputVersion&&speedRevision==World.SpeedRevision&&appearance==World.AppearanceRevision&&correction==World.Corrections&&World.Actor?.X==actor.X&&World.Actor.Y==actor.Y&&World.Actor.Gfx==actor.Gfx&&World.Actor.Weapon==actor.Weapon&&(!item.SupportedEquipment||equipmentRevision==World.EquipmentRevision)&&ItemAvailable&&World.SelectedItemId==item.ObjectId&&World.SelectedItem==item&&OtherActionsReady(),()=>{CancelItemUse();nextItemAt=Environment.TickCount64+delayMs+ItemUseMarginMs;World.MarkItemUseSent(item);if(item.SupportedArguments)World.ItemNotice="道具使用請求已送出；等待原服回報";Set(State,World.ItemNotice);});
+            if(!CurrentOwner())return false;
+            if(!sent){if(request!=null)World.ItemNotice="未送出：選取內容或操作狀態已改變，請重新選擇目標";return false;}
             nextItemAt=Math.Max(nextItemAt,Environment.TickCount64+delayMs+ItemUseMarginMs);ItemSent?.Invoke(new{utc=DateTimeOffset.UtcNow,monotonicMs=Environment.TickCount64,plainHex=Convert.ToHexString(bytes),worldEpoch,item.ObjectId,delayMs,localMarginMs=ItemUseMarginMs});return true;
         }catch(Exception ex){if(CurrentOwner()){Cancel();Set(LoginState.Faulted,"道具傳送失敗："+ex.Message);}return false;}
         finally{if(CurrentOwner())itemSending=false;}
