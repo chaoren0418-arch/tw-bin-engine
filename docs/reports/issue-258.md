@@ -68,7 +68,7 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 
 - `git merge origin/main`（main `4a962f3b`，含 #415 display-notices）。衝突兩處：`demo-tests/Program.cs` 的 `map-continuity` 群組兩邊都保留（`BookmarkChecks()` + `DisplayNoticeChecks()`），並保留 main 新增的 `display-notices` case；`rebuild-lock.json` 取 main 版本後以 `rebuild.py --update-lock` 重產。`WorldSession.cs` 自動合併，書籤 case 與 main 新 case 並存。
 - 本機驗證：`rebuild.py --update-lock`（217 source／226 pinned）、`--build` PASS（產品 DLL `db360fd5495a46e12320ba4f7614dde18f7564603a4458a2c8a867096c6a95f1`）；`DemoChecks map-continuity` PASS 22934 checks（含書籤）；`check-no-game-assets.py` pass（3451 檔、0 錯誤）。
-- 新 head 與 CI 結果見下方補記。
+- 同步 head `43db979c2eaa46575a614e8239ace08361811637` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42362195138) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42362195055) 均 completed／success；PR #271 為 CLEAN／MERGEABLE。本行以後續純文件提交補記。
 
 ## 未驗證什麼
 
