@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 202,
+ "sourceCount": 203,
  "files": [
   {
    "path": "NuGet.Config",
@@ -318,6 +318,11 @@
    "path": "source/Fishing.cs",
    "size": 6109,
    "sha256": "87f5ad594cb94708f283fab2902cc4b37c836ddea90cf9eee2dbbb9b5572159e"
+  },
+  {
+   "path": "source/GhostMode.cs",
+   "size": 4756,
+   "sha256": "68f205e865739c044125e446dd8615df12d6ab4539f9a4aebdf78f21e0833d6e"
   },
   {
    "path": "source/Ground.cs",
@@ -731,8 +736,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15533,
-   "sha256": "f17cc6eba1c48061fd377b4af528c5642cc405ae5f589f75a3d405f9e8f2a036"
+   "size": 15586,
+   "sha256": "46f54742a4112c5c318fbf08591b3c84bfcff8e992e4d1e657cb8c4cfa82ac46"
   },
   {
    "path": "source/PlayerPointer.cs",
@@ -1006,8 +1011,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 11138,
-   "sha256": "ef2bb902b204afca778a2f5d4839c348b23ea9eb9f567f0d980853521b7cada4"
+   "size": 11159,
+   "sha256": "21c5bf657255a95ed7f95efe49970ef996a652dc0b273006b637ef08a60e8e0e"
   },
   {
    "path": "source/WorldTests.cs",
