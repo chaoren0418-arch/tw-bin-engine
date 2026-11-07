@@ -13,22 +13,22 @@
 
 ## 同步輪（2026-11-07，只做同步）
 
-合併 `origin/main`（commit `beae9f0`），沒有改任何座標功能。對 main 的產品差異維持原範圍：`LocationShare.cs` 新檔、`PlayerChat.cs`、`WorldSession.cs` 兩個分派 case。
+合併 `origin/main`（`beae9f0`；其後 #188 合入 main，再同步一次），沒有改任何座標功能。對 main 的產品差異維持原範圍：`LocationShare.cs` 新檔、`PlayerChat.cs`、`WorldSession.cs` 兩個分派 case。
 
 - `WorldSession.cs`：保留雙方分支。座標的 `case 250 when sub111`、`case 71 when 1782/1783` 排在 main 不帶條件的 `case 71:` 之前，所以 1782／1783 不會落到 `ReceivePlayerQueryMessage`。
 - `demo-tests/Program.cs`：`map-continuity` 與預設組取聯集，並保留 main 新增的測試入口及 `location-share`。
-- `rebuild-lock.json`：取 main 版後以 `--update-lock` 重產（189 個來源檔／198 個鎖定輸入），未手動拼 hash。
+- `rebuild-lock.json`：取 main 版後以 `--update-lock` 重產（190 個來源檔／199 個鎖定輸入），未手動拼 hash。合入 #188 時 git 沒有回報衝突，但 lock 仍有一行過期，同樣靠 `--update-lock` 修正。
 
 | 同步後檢查 | 結果 |
 |---|---|
 | `rebuild.py --build` | 通過 |
 | `location-share-tests/run.ps1` | **189 項通過**＝座標 99 項＋main 帶入、在 switch 前固定執行的 `PolymorphChecks` 90 項 |
 | `player-chat-tests/run.ps1` | 107 項通過 |
-| `DemoChecks` 的 CI 組 | `map-continuity` 20832、`combat-admission` 368、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163 項通過 |
+| `DemoChecks` 的 CI 組 | `map-continuity` 20832、`combat-admission` 1109（含 #188 新增項目）、`polymorph-cadence` 123、`buddies` 259、`item-transfer` 163 項通過 |
 | `DemoChecks` 的共用分派組 | `player-query` 791、`character-config` 183 項通過 |
 | `check-no-game-assets.py` | 通過，0 errors |
 | `DemoChecks` 無參數預設組 | **失敗，未跑完**：`Movement123` 讀不到 `engine/assets/terrain0.bin`，因為本 worktree 沒有 `engine/assets` junction。失敗點在 `LocationShareChecks` 之前，此組的後續項目未執行；CI 不跑此組，座標項目已由上面的分組涵蓋 |
-| CI（`beae9f0`） | **綠燈**：`dotnet`、`map-continuity`、`npc-offline` 全部通過，PR 為 MERGEABLE／CLEAN |
+| CI | `beae9f0`、`c89ee30` 兩個 head 皆綠燈（`dotnet`、`map-continuity`、`npc-offline`）；合入 #188 後的最終 head 以 PR #394 checks 為準 |
 
 下方「已驗證」表是首輪（同步前）的紀錄，數字以本段為準。
 
