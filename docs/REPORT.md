@@ -131,3 +131,4 @@
 - 2026-11-07 — #378 T146：血盟戰爭（code，claude-local，PR 已合併）→ [報告](reports/issue-378.md)
 - 2026-11-07 — #428 T160：查證原版——動作、表情與名稱繪製（resource，claude-local，PR 已合併）→ [報告](reports/issue-428.md)
 - 2026-11-07 — #431 T163：查證原版——音效播放策略（resource，claude-local，PR 已合併）→ [報告](reports/issue-431.md)
+- 2026-11-07 — #429 T161：查證原版——UI 版面與圖示（resource，claude-local，PR 已合併）→ [報告](reports/issue-429.md)
