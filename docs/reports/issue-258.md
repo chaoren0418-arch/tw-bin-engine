@@ -64,6 +64,12 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 
 環境：Windows x64、SDK 10.0.300、Python 3.12。產品 DLL SHA-256：`f614f5f9c026eaf9565783dd67dd38c490c1e4d71adb0f9774502f1c7e3eaf46`。產品有 2 個警告、0 錯誤（上輪記錄為既有 `MagicUi.cs:20` nullable 警告，本輪只核對數量）；未修改該檔。
 
+### 2026-11-07 同步輪
+
+- `git merge origin/main`（main `4a962f3b`，含 #415 display-notices）。衝突兩處：`demo-tests/Program.cs` 的 `map-continuity` 群組兩邊都保留（`BookmarkChecks()` + `DisplayNoticeChecks()`），並保留 main 新增的 `display-notices` case；`rebuild-lock.json` 取 main 版本後以 `rebuild.py --update-lock` 重產。`WorldSession.cs` 自動合併，書籤 case 與 main 新 case 並存。
+- 本機驗證：`rebuild.py --update-lock`（217 source／226 pinned）、`--build` PASS（產品 DLL `db360fd5495a46e12320ba4f7614dde18f7564603a4458a2c8a867096c6a95f1`）；`DemoChecks map-continuity` PASS 22934 checks（含書籤）；`check-no-game-assets.py` pass（3451 檔、0 錯誤）。
+- 新 head 與 CI 結果見下方補記。
+
 ## 未驗證什麼
 
 - **換掛接點後，「記憶座標」分頁實際出現在真實 `ClientForm`，目前沒有任何自動測試覆蓋**：離線測試不經過 `ClientForm` 生命週期，上述只驗到空白 Form 的框架順序與靜態閱讀。需由 dot smoke 確認。
@@ -75,7 +81,8 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 
 ## 產出路徑
 
-- 本輪修改：`engine/_integration/dev/demo-tests/DemoChecks.csproj`（解衝突）、`engine/_integration/dev/rebuild-lock.json`（重產）、本報告；其餘差異均為 main 既有內容。
+- 2026-11-07 同步輪修改：`engine/_integration/dev/demo-tests/Program.cs`（解衝突）、`rebuild-lock.json`（重產）、本報告。
+- 前一輪修改：`engine/_integration/dev/demo-tests/DemoChecks.csproj`（解衝突）、`engine/_integration/dev/rebuild-lock.json`（重產）、本報告；其餘差異均為 main 既有內容。
 - 既有功能：`engine/source/Bookmarks.cs`、`BookmarkUi.cs`、`WorldSession.cs`；測試位於 `engine/_integration/dev/bookmarks-tests/`，接上 `demo-tests/` 入口。
 - 封包格式、伺服器來源 SHA-256 與技能交接：[docs/protocol/bookmarks.md](../protocol/bookmarks.md)。
 - 未追蹤本機證據：`scratch/issue-258/` 下的 `build/`、`lifecycle-probe/`、`verify-all.ps1`、`verify-all.log` 與各群組 JSON。
