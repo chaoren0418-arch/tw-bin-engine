@@ -30,6 +30,8 @@ public sealed partial class WorldSession {
     void ReceiveCore(byte[] plain,string selected){
         var r=new LoginReader(plain);byte opcode=r.C();
         switch(opcode){
+        case 39:if(ReceivePlayerQueryHtml(plain))return;break;
+        case 71:if(ReceivePlayerQueryMessage(plain))return;break;
         case 22:ReceiveSoundPacket(plain);return;
         case 55:ReceiveEffectPacket(plain);return;
         case 106:ReceiveEffectPacket(plain);return;

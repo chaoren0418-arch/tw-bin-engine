@@ -22,7 +22,7 @@ public static class PlayerChatProtocol {
         var channel=input[0] switch{'!'=>PlayerChatChannel.Shout,'&'=>PlayerChatChannel.Global,'@'=>PlayerChatChannel.Clan,'#'=>PlayerChatChannel.Party,_=>PlayerChatChannel.Normal};
         return new(channel,channel==PlayerChatChannel.Normal?input:input[1..]);
     }
-    public static byte[] Encode(string input)=>Encode(ParseInput(input));
+    public static byte[] Encode(string input)=>PlayerQueryPackets.TryEncodeCommand(input,out var query)?query:Encode(ParseInput(input));
     public static byte[] Encode(PlayerChatInput message){
         string text=message.Text;
         if(string.IsNullOrWhiteSpace(text)||text.Length>MaxCharacters||text.Any(char.IsControl))
