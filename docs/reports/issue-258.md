@@ -80,7 +80,7 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 
 - `git merge origin/main`（main `2aa41def`，落後 45 個提交，含 #216 item-status）。衝突兩處：`demo-tests/Program.cs` 預設路徑同時保留 `BookmarkChecks()` 與 `ItemStatusChecks()`（main 新增的 `item-status` case 自動合併保留）；`rebuild-lock.json` 取 main 版本後 `--update-lock` 重產。`DemoChecks.csproj`、`WorldSession.cs` 自動合併。本模組檔案與 `docs/REPORT.md` 未編輯。
 - 本機驗證：`rebuild.py --update-lock`（219 source／228 pinned）、`--build` PASS（產品 DLL `e03087fa0b6b06598d7307267a0f0d022c1b4dabc4d07b6f8e207ebe1f95eebc`）；DemoChecks `bookmarks` PASS 723、`item-status` PASS 358、`item-transfer` PASS 349、`map-continuity` PASS 23218；`check-no-game-assets.py` pass（3456 檔、0 錯誤）。
-- 新 head 的 CI 結果以後續純文件提交補記。
+- 同步 head `2ebce98ac15d28e9061d3d68e2f58556d8ce43b9` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42368193291) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42368193325) 均 completed／success（只有既有 `MagicUi.cs:20` 警告）。本行以後續純文件提交補記。
 ## 未驗證什麼
 
 - **換掛接點後，「記憶座標」分頁實際出現在真實 `ClientForm`，目前沒有任何自動測試覆蓋**：離線測試不經過 `ClientForm` 生命週期，上述只驗到空白 Form 的框架順序與靜態閱讀。需由 dot smoke 確認。
