@@ -282,6 +282,7 @@ partial class Checks {
         if(args.Length>2){
             switch(args[2]){
                 case "afflictions":await AfflictionChecks();break;
+                case "doors":await DoorChecks();break;
                 case "pets":break;
                 case "map-continuity":await MapContinuity();await BoardChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();break;
                 case "fishing":await FishingChecks();break;
