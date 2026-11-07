@@ -238,9 +238,13 @@ static class EmoteCache {
 }
 
 public sealed partial class ClientForm {
-    // OnLoad, OnShown, OnVisibleChanged and OnActivated belong to other modules; this one fires once after construction.
-    protected override void OnCreateControl(){
-        base.OnCreateControl();
+    bool titleEmoteUiHooked;
+    // OnLoad, OnShown, OnVisibleChanged, OnActivated and OnCreateControl belong to other modules; handles can be recreated, so hook Shown once.
+    protected override void OnHandleCreated(EventArgs e){
+        base.OnHandleCreated(e);
+        if(!titleEmoteUiHooked){titleEmoteUiHooked=true;Shown+=(_,_)=>InitTitleEmoteUi();}
+    }
+    void InitTitleEmoteUi(){
         if(normalPanels!=null){
             var page=new TabPage("稱號／表情"){AutoScroll=true};var layout=new FlowLayoutPanel{Dock=DockStyle.Fill,FlowDirection=FlowDirection.TopDown,WrapContents=false,AutoScroll=true};page.Controls.Add(layout);
             var name=new TextBox{Width=260,AccessibleName="授予稱號的角色名稱",MaxLength=10232};var title=new TextBox{Width=260,AccessibleName="稱號",MaxLength=10232};

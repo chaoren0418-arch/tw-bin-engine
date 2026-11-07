@@ -32,10 +32,16 @@
 
 - `WorldSession.cs`：main 的釣魚與門都用 S158，和本任務的 `case 158` 重複。現為 `case 158:ObserveFishing(plain);if(ReceiveDoorAction(plain)||ReceiveEmote(plain))return;break;`。順序不能換：門要處理自身 ID 的所有 action，含未知動作。
 - `TitleAndEmote.cs` 合成：重新 Blit 時原本只用 `session.Opacity`，會讓畫面有稱號或表情時隱身角色變回不透明；改走 main 的 `InvisibilityOpacity`。
-- `TitleAndEmote.cs` 分頁掛載：main 的 `LocationShare.cs` 已 override `OnShown`，造成 CS0111 編譯失敗；`OnLoad`、`OnVisibleChanged`、`OnActivated` 也都有模組使用，改掛 `OnCreateControl`（建構式未提早呼叫 `CreateControl`，已查過）。此掛載點只有編譯驗證，**分頁實際出現未驗證**，請 smoke 時確認。
+- `TitleAndEmote.cs` 分頁掛載：main 的 `LocationShare.cs` 已 override `OnShown`，造成 CS0111 編譯失敗；`OnLoad`、`OnVisibleChanged`、`OnActivated` 也都有模組使用，改掛 `OnCreateControl`（建構式未提早呼叫 `CreateControl`，已查過；第 5 輪又改掛，見下）。此掛載點只有編譯驗證，**分頁實際出現未驗證**，請 smoke 時確認。
 - 測試：`TitleAndEmoteChecks.cs` 新增 S158 表情／釣魚、門物件優先、稱號合成保留隱身半透明三項回歸。其餘衝突（`DemoChecks.csproj`、`Program.cs`）取聯集；`rebuild-lock.json` 以 main 為底跑 `--update-lock` 重產；`docs/REPORT.md` 用 main 版本。
 
 本輪最後一次完整驗證（基準 main `052f8c7`）：`--update-lock`、`--build`、唯讀核驗通過（202 個來源／211 個 pin），產品 0 error、2 個 `MagicUi.cs` 既有 warning，DemoChecks 0 warning／0 error，產品 DLL SHA-256 `22383f61b88c9a57176b71e9dc10b9ae48e737ec15173ad7a06c1a5926872e88`。群組全過：`title-emote` 613、`title-emote-assets` 353、`title-emote-compose` 206、`combat-admission` 1746、`map-continuity` 21759、`polymorph-cadence` 226、`buddies` 362、`item-transfer` 266、`player-query` 894、`fishing` 232、`doors` 514、`invisibility` 263、`duel` 307、`ambience` 549、`pets` 193、`location-share` 292、`attack-skills` 934、`character-config` 286、`board` 423、`ghost-mode` 552。`check-no-game-assets.py` 通過（3382 個追蹤檔、0 錯誤）。`title-emote-compose` 以原專案根目錄作 assets 唯讀定位，結果寫在 worktree，原專案未新增 `engine/build/offline-checks`。
+
+**同步輪（第 5 輪，2026-11-07）**：PR #356 的 CI `dotnet` job 失敗，原因是 `REFUSED: sourceCount 202 != pinned source files 203`：head `b4a8297` 合入 main 帶進 `Portals.cs`，但沒有重產 dev lock。本輪合併 `origin/main`（`3630dcf`，再進來血盟與信件）並以 main 的 lock 為底跑 `--update-lock`。`DemoChecks.csproj`、`Program.cs` 取聯集，保留 `TitleAndEmoteChecks` 與 `ClanChecks`。
+
+**本輪有一處改動超出單純同步，是編譯必要的**：main 的 `ClanUi.cs` 也 override `ClientForm.OnCreateControl`，與第 4 輪的分頁掛載點重複，Git 不會標出但會 CS0111。只改本任務的 `TitleAndEmote.cs`：改為 `OnHandleCreated` 掛一次 `Shown`（handle 可能重建，故有旗標防重複），分頁內容原樣搬進 `InitTitleEmoteUi`；`ClanUi.cs` 未動。分頁加入時機因此從建立控制項時延後到 `Shown`，與血盟分頁相同；`ShowPlayerService` 是用名稱動態查頁，不受影響。此掛載點同樣只有編譯驗證，**分頁實際出現未驗證**。
+
+本輪驗證（基準 main `3630dcf`）：`--update-lock`、`--build`、唯讀核驗通過（207 個來源／216 個 pin），產品 DLL SHA-256 `0146647b1c5336616e95d0139969efc706b190d8c73174228da5d9f18441b836`；DemoChecks 0 warning／0 error。群組全過：`title-emote` 613、`title-emote-assets` 353、`title-emote-compose` 206、`combat-admission` 1746、`map-continuity` 21978、`polymorph-cadence` 226、`buddies` 362、`item-transfer` 266、`player-query` 894、`fishing` 232、`doors` 514、`invisibility` 263、`duel` 307、`ambience` 549、`pets` 193、`location-share` 292、`attack-skills` 934、`character-config` 286、`board` 423、`ghost-mode` 552、`portals` 293、`clan` 312；獨立專案 `MailChecks` 119、`WeaponRepairChecks` 98。`check-no-game-assets.py` 通過（3400 個追蹤檔、0 錯誤）。CI 的 `web-resource`、`ResourceChecks`、`check-local-resources`、`packet-trace`、`npc-checks` 本機未跑，以 CI 為準。本機 `python` 不在 PATH，改用 Python312 完整路徑。
 
 **未通過／未驗證**：`combat-loop` 群組與 DemoChecks 無群組的預設全量入口需要 `engine/assets`，本 worktree 沒有 junction，沒有跑。`combat-loop` 退出 1，停在讀 `integrity.json`，不是斷言失敗；預設入口第 3 輪停在 `Movement123` 讀 `terrain0.bin`，本輪未重跑。測試碼有檔案寫入路徑，指向原專案會違反「原專案只讀」，故未這樣做。CI 不跑這兩個入口。CI 結果以 PR #356 為準，本機通過不能替代 CI 綠燈。
 
@@ -46,4 +52,5 @@
 - 產品：`engine/source/TitleAndEmote.cs`；最小掛接：`WorldSession.cs`、`ObjectRendering.cs`；dev lock 已由腳本重產。
 - 契約：[title-emote.md](../protocol/title-emote.md)；測試：[README](../../engine/_integration/dev/title-emote-tests/README.md)。本機結果與建置紀錄：`scratch/issue-323/`。
 - 分支 `task/323`，PR #356。同步已完成，下一棒：調度器確認兩個 CI job 綠燈後依閘門合併；若 main 再前進，重新同步並以 `--update-lock` 重產 dev lock。之後的 S158 新模組要接在同一個 `case 158`，表情必須留在門之後。
-- dot 於 M6 smoke：先確認分頁在「更多」出現（第 4 輪改了掛載點），再開「更多 → 稱號／表情」，分別核對隱身角色有稱號時仍為半透明、有權／無權稱號、自身與其他測試角色名稱上方的稱號更新、四種表情、移動／換圖中止，以及首次原圖核驗停頓。依既有 P24Lab 授權執行，不連正式服務。
+- 只把 main 合進來但不重產 lock（例如 GitHub 的 Update branch）會讓 CI 以 `sourceCount` 不符失敗；同步一定要跑 `--update-lock`。`ClientForm` 的 `OnLoad`、`OnShown`、`OnVisibleChanged`、`OnActivated`、`OnCreateControl`、`OnHandleCreated` 都已有模組使用，新模組不要再 override，可直接訂閱事件或另找掛載方式。
+- dot 於 M6 smoke：先確認分頁在「更多」出現（第 4、5 輪都改了掛載點），再開「更多 → 稱號／表情」，分別核對隱身角色有稱號時仍為半透明、有權／無權稱號、自身與其他測試角色名稱上方的稱號更新、四種表情、移動／換圖中止，以及首次原圖核驗停頓。依既有 P24Lab 授權執行，不連正式服務。
