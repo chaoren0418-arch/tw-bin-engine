@@ -1,0 +1,35 @@
+# T160 (#428) reproduction queries. Run from repo root:
+#   powershell -NoProfile -File docs\reference\rea-scripts\t160\run.ps1 -Script <script> -Out <dir> -Arg "<arg>"
+# Output: scratch\rea\out\<dir>\ (pseudocode *.c, report.json). All work is on the scratch IDB copy.
+# Note: decomp.py / mkfunc.py / disasm.py may define missing functions or code in the COPY only.
+
+# 0. Packet sender call sites (fmt, opcode, args) and RTTI class map
+sends_full.py   sf      ""
+rtti.py         rtti    "Lineage"
+recvfmt.py      recv    ""
+
+# 1. Emotes: registration, slot callbacks, menu handler, send helpers, gfx predicates
+decomp.py  emote  "AD8EF0,ADACB0,ADADE0,ADAED0,ADAFC0,8C14F0,4FBA70,4FAAF0,8CA110,501280,501260,501630,501600"
+disasm.py  emote_cd  "4FAAF0,4FAB40"
+
+# 2. Names: frame, hover renderer (force function), helpers, emblem cache, text draw, palette
+decomp.py  frame  "F0F0C0,F00FD0,F03E20,F09070,F08C30,F01380,F02810,EFE0C0,EFE690"
+mkfunc.py  hover  "EFF300:F00195"
+disasm.py  hover_tail  "EFF2E0,F00660"
+decomp.py  emblem  "81F390,81F210,81F1D0,81EDD0,971E50,96E790,935220"
+decomp.py  text  "841770,8412A0,83E100,83E490,8444A0,845CE0"
+palette.py palette "1369D58,70"
+fieldw.py  color_writers "CC,1369D58"
+decomp.py  color  "A406C0,A450C0,A452C0,A4A020,5FC230,933D90,6D30C0,6D3110"
+strfields.py fields "E8,EC,F0,F4,F8,D4"
+decomp.py  strings "94DB20,932510,942030,946770,933640,A45DA0,A45920,A457E0,A45390"
+decomp.py  duel_war "A3FE30,A43400,F044C0,B2D2B0,94F190"
+
+# 3. Polymorph / weapon stance
+decomp.py  poly  "946CF0,94FE30,A43B50,A48A70,A43560,A4ADD0,A3EF40,66D480,506210"
+bytew.py   stance "C2,A30000,A60000"
+immset.py  weapon_sets "7;4,11,20,24,40,46,50,54,58,62,83"
+
+# Offline (no IDA): opcode names for the handlers, and TW13 cross-version fingerprints
+#   py -3 -I docs\reference\rea-scripts\t160_opmap.py
+#   py -3 -I docs\reference\rea-scripts\t160_xcheck.py scratch\rea\out\xcheck.json
