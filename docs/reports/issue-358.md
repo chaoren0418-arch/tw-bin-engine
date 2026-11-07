@@ -39,7 +39,7 @@ PR #367 再次落後 main 42 個 commit（門、傳送門、釣魚、幽靈模�
 
 - `--update-lock` 後 `--build` 成功，唯讀來源核驗 `dev-inputs-verified`（207 個來源檔、216 個鎖定檔）。
 - DemoChecks 13 組全部通過（項數均含每次先跑的共用前置檢查）：`marriage` 329、`map-continuity` 22114、`combat-admission` 1326、`ghost-mode` 552、`doors` 514、`buddies` 362、`clan` 312、`duel` 307、`portals` 293、`item-transfer` 266、`fishing` 232、`polymorph-cadence` 226、`pets` 193。
-- `check-no-game-assets.py` 通過（3385 個追蹤檔，0 錯誤）。
+- `check-no-game-assets.py` 通過（3393 個追蹤檔，0 錯誤）。
 
 第二輪紀錄：
 
