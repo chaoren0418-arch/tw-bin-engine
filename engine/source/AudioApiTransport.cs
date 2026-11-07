@@ -19,3 +19,10 @@ public sealed class AudioApiTransport(AudioPlayer player):IEffectAudio {
     public Task WhenReleased=>player.WhenReleased;
     public EffectAudioReply LastMaintenance {get{var reply=player.LastMaintenance;return new(reply.Success,reply.Status,reply);}}
 }
+// T166 (#434)：`^` 需要循環播放（AIL_quick_play 次數 0）與逐音源音量（0..100）。AudioPlayer 目前兩者皆無，
+// 由實作此介面的後端提供；Start 回 false 表示未啟動（槽表不變）。
+public interface IAmbientLoopAudio {
+    bool Start(MapAmbientVoice voice,int volume);
+    void SetVolume(MapAmbientVoice voice,int volume);
+    void Stop(MapAmbientVoice voice);
+}

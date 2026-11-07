@@ -1,6 +1,7 @@
 namespace P06;
 
-public enum PlayerChatChannel { Normal, Shout, Global, Whisper, Clan, Party }
+// Append-only: Whisper = received (S73), WhisperTo = sender echo (S243/9). Types 12–17 are receive-only (T175).
+public enum PlayerChatChannel { Normal, Shout, Global, Whisper, Clan, Party, WhisperTo, Trade, Prince, ChatParty, Alliance, ClanNotice }
 public sealed record PlayerChatLine(long Sequence,uint Speaker,string Text,PlayerChatChannel Channel=PlayerChatChannel.Normal) {
     public SharedLocation? Location {get;init;}
 }
@@ -42,10 +43,19 @@ public static class PlayerChatProtocol {
         }
         catch(System.Text.EncoderFallbackException){throw new ArgumentException("訊息含有遊戲字集無法表示的字元。");}
     }
-    public static string ChannelName(PlayerChatChannel channel)=>channel switch{PlayerChatChannel.Shout=>"喊話",PlayerChatChannel.Global=>"全體",PlayerChatChannel.Whisper=>"密語",PlayerChatChannel.Clan=>"血盟",PlayerChatChannel.Party=>"隊伍",_=>"一般"};
+    public static string ChannelName(PlayerChatChannel channel)=>channel switch{
+        PlayerChatChannel.Shout=>"喊話",PlayerChatChannel.Global=>"全體",PlayerChatChannel.Whisper or PlayerChatChannel.WhisperTo=>"密語",
+        PlayerChatChannel.Clan=>"血盟",PlayerChatChannel.Party=>"隊伍",PlayerChatChannel.Trade=>"交易",PlayerChatChannel.Prince=>"盟主",
+        PlayerChatChannel.ChatParty=>"聊天隊伍",PlayerChatChannel.Alliance=>"同盟",PlayerChatChannel.ClanNotice=>"血盟公告",_=>"一般"};
+    // Original printers (docs/reference/ui-layout.md §3) show the server-formatted string as is:
+    // `name: msg`, `[name] msg`, `{name} msg`, `{{name}} msg`, `(name) msg`, `-> (target) msg`. No local channel tag.
     public static string FormatLine(PlayerChatLine line)=>line.Location is {} location
         ?$"[座標] {line.Text}：{LocationShareProtocol.Format(location)}"
-        :$"[{ChannelName(line.Channel)}] {line.Text}";
+        :line.Text;
+    // S243 chat types beyond whisper replies. 13/15/17 are not emitted by the d287 source; accepted for display only.
+    static PlayerChatChannel? GlobalChannel(byte type)=>type switch{
+        3=>PlayerChatChannel.Global,4=>PlayerChatChannel.Clan,9=>PlayerChatChannel.WhisperTo,11=>PlayerChatChannel.Party,
+        12=>PlayerChatChannel.Trade,13=>PlayerChatChannel.Prince,15=>PlayerChatChannel.Alliance,17=>PlayerChatChannel.ClanNotice,_=>null};
     public static bool TryDecode(byte[] plain,out PlayerChatLine? line){
         line=null;
         if(plain.Length==0)return false;
@@ -54,19 +64,19 @@ public static class PlayerChatProtocol {
         case 81:
             byte localType=r.C();
             if(localType is not (0 or 2 or 14))return false;
-            channel=localType switch{2=>PlayerChatChannel.Shout,14=>PlayerChatChannel.Party,_=>PlayerChatChannel.Normal};
+            channel=localType switch{2=>PlayerChatChannel.Shout,14=>PlayerChatChannel.ChatParty,_=>PlayerChatChannel.Normal};
             speaker=r.D();text=r.S();
             if(localType==2){r.H();r.H();} // Shout carries x/y after its string, including invisible speakers.
             break;
         case 73:
-            channel=PlayerChatChannel.Whisper;text=$"{r.S()} -> 我：{r.S()}";break;
+            // ChatTextRecvWhisperPrinter: `(name) msg`.
+            channel=PlayerChatChannel.Whisper;text=$"({r.S()}) {r.S()}";break;
         case 243:
-            byte globalType=r.C();
-            if(globalType is not (3 or 4 or 9 or 11))return false;
+            if(GlobalChannel(r.C()) is not {} global)return false;
             text=r.S();
             // Type 9 is shared with S_SystemMessage. Leave non-whisper replies to Inventory.
-            if(globalType==9&&!(text.StartsWith("-> (",StringComparison.Ordinal)&&text.IndexOf(") ",4,StringComparison.Ordinal)>4))return false;
-            channel=globalType switch{3=>PlayerChatChannel.Global,4=>PlayerChatChannel.Clan,11=>PlayerChatChannel.Party,_=>PlayerChatChannel.Whisper};break;
+            if(global==PlayerChatChannel.WhisperTo&&!(text.StartsWith("-> (",StringComparison.Ordinal)&&text.IndexOf(") ",4,StringComparison.Ordinal)>4))return false;
+            channel=global;break;
         default:return false;
         }
         r.Finish();line=new(0,speaker,Display(text),channel);return true;

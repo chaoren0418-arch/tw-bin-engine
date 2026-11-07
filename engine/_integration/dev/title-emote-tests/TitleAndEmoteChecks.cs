@@ -62,28 +62,95 @@ partial class Checks {
         using(var c=TitleEmoteSeed()){
             int sends=0;byte[]? sent=null;Sender(c,(bytes,current,admit)=>{if(!current())return Task.FromResult(false);sends++;sent=bytes;admit();return Task.FromResult(true);});
             var stamp=c.CaptureTitleEmote();Check(await c.SendTitle(stamp,"offline","稱號")&&sends==1&&sent![0]==90,"C90 memory sender");Check(c.World.Actor!.Title=="","title never predicted before S183");
-            foreach(int action in Enumerable.Range(66,4)){Check(await c.SendEmote(stamp,action)&&sent![0]==120&&sent[1]==action,"C120 memory sender "+action);Check(c.World.ActiveEmotes(1000).Single().Action==action,"self predicts only admitted emote "+action);}
-            int before=sends;Check(!await c.SendEmote(stamp,322)&&!await c.SendTitle(stamp,"offline","😀")&&sends==before,"bad request sends nothing");
-            Set(c.World,"OwnDead",true);Check(!await c.SendEmote(stamp,68)&&sends==before,"own death blocks send");Set(c.World,"OwnDead",false);
+            for(int item=1;item<=4;item++){int action=new[]{68,69,67,66}[item-1];
+                Check(await c.SendEmote(stamp,item)&&sent![0]==120&&sent[1]==action,"C120 memory sender original order item "+item);Check(c.World.ActiveEmotes(1000).Single().Action==action,"class form plays admitted emote locally "+action);
+                int busy=sends;Check(!await c.SendEmote(stamp,item)&&sends==busy,"playing own emote is a busy action "+item);EndEmote(c);}
+            int before=sends;Check(!await c.SendEmote(stamp,0)&&!await c.SendEmote(stamp,5)&&!await c.SendTitle(stamp,"offline","😀")&&sends==before,"bad request sends nothing");
+            Set(c.World,"OwnDead",true);Check(!await c.SendEmote(stamp,1)&&sends==before,"own death blocks send");Set(c.World,"OwnDead",false);
             Feed(c,LoginPackets.Pad([206,0,0,0]));Check(!await c.SendTitle(stamp,"offline","stale")&&sends==before,"old map stamp cannot send");
         }
         using(var c=TitleEmoteSeed()){
             var release=new TaskCompletionSource();int sends=0;Sender(c,async(bytes,current,admit)=>{await release.Task;if(!current())return false;sends++;admit();return true;});
-            var stamp=c.CaptureTitleEmote();var pending=c.SendEmote(stamp,68);Check(!await c.SendEmote(stamp,69),"duplicate pending request blocked");
+            var stamp=c.CaptureTitleEmote();var pending=c.SendEmote(stamp,1);Check(!await c.SendEmote(stamp,2),"duplicate pending request blocked");
             c.World.Reset();release.SetResult();Check(!await pending&&sends==0&&c.World.ActiveEmotes(1000).Length==0,"delayed send revalidates reset before admission");
         }
         using(var c=TitleEmoteSeed()){
-            Sender(c,(_,_,_)=>throw new IOException("synthetic transport failure"));Check(!await c.SendEmote(c.CaptureTitleEmote(),68)&&c.State==LoginState.Faulted,"send exception fails closed without retry");
+            Sender(c,(_,_,_)=>throw new IOException("synthetic transport failure"));Check(!await c.SendEmote(c.CaptureTitleEmote(),1)&&c.State==LoginState.Faulted,"send exception fails closed without retry");
         }
+        EmotePlanChecks();await EmoteDeliveryChecks();
         var steps=EmoteSprites.ParseSteps("#0 1\n 110.framerate(40)\n 68.wave(1 2,56.0:4[123 56.1:6)",68,7);
         Check(steps[0]==new EmoteSprites.Step(63,0,100)&&steps[1]==new EmoteSprites.Step(63,1,150),"original direction offset/frame ticks/FPS");
         Check(EmoteSprites.ParseSteps("66.shop loop((1 1,368.0:4)",66,0).Single().File==368,"gfx2796 original doubled parenthesis");
         TitleEmoteReject(()=>EmoteSprites.ParseSteps("68.wave(1 2,56.0:4)",68,0),"metadata frame count mismatch");
         TitleEmoteReject(()=>EmoteSprites.ParseSteps("68.wave(1 1,56.0:0)",68,0),"metadata zero duration");
+        // T160 3.4 fallback inputs: absent action is "missing", not malformed; pose/0 rows parse like the original table.
+        const string horse="#6080 112 princess horse\n 3.breath(1 1,0.0:4)\n 0.walkleft(1 2,8.0:2 8.1:2<4353)\n 20.walkright(1 1,16.0:2)";
+        Check(EmoteSprites.TryParseSteps(horse,66,3)==null&&EmoteSprites.TryParseSteps(horse,2,0)==null,"missing action row reports null without exception");
+        Check(EmoteSprites.TryParseSteps(horse,0,3)!.Select(s=>s.File).SequenceEqual(new[]{11,11})&&EmoteSprites.TryParseSteps(horse,20,1)!.Single().File==17,"walk/pose rows apply direction offset");
+        Check(EmoteSprites.TryParseSteps("#1120 1 X_mark 9.(0 1,0.0:4)\n 0.(0 1,5.0:4)",0,6)!.Single().File==5,"single-direction (0 n) row ignores direction");
+        TitleEmoteReject(()=>EmoteSprites.TryParseSteps(horse+"\n 66.bad(1 2,1.0:4)",66,0),"present but malformed action still fails closed");
+        TitleEmoteReject(()=>EmoteSprites.TryParseSteps(horse,121,0),"action table bound 0..120");
+        string?[] art=new string?[121];art[0]="a0";art[20]="a20";var asked=new List<int>();string? Exact(int a){asked.Add(a);return art[a];}
+        Check(EmoteSprites.Fallback(66,20,Exact)=="a20"&&asked.SequenceEqual(new[]{66,20}),"missing emote falls back to pose action");
+        asked.Clear();Check(EmoteSprites.Fallback(66,4,Exact)=="a0"&&asked.SequenceEqual(new[]{66,4,0}),"missing pose art falls back to action 0");
+        asked.Clear();Check(EmoteSprites.Fallback(66,0,Exact)=="a0"&&asked.SequenceEqual(new[]{66,0}),"pose 0 falls back once to action 0");
+        art[0]=null;asked.Clear();Check(EmoteSprites.Fallback(66,4,Exact)==null,"no art at all yields null instead of exception");
+        art[68]="a68";Check(EmoteSprites.Fallback(68,4,Exact)=="a68","present emote art is used directly");
+        art[119]=null;asked.Clear();Check(EmoteSprites.Fallback(119,20,Exact)==null&&asked.SequenceEqual(new[]{119}),"actions 119/120 are excluded from fallback");
         var bytes=EmoteSpriteFixture();var frame=EmoteSprites.Decode(bytes,56).Single();Check(frame.Key=="56:0"&&frame.Blocks.Single().Tile.Pixels.Single()==new Pixel(0,0,0x7c00),"synthetic original SPR pixel decoder");
         for(int n=0;n<bytes.Length;n++)TitleEmoteReject(()=>EmoteSprites.Decode(bytes[..n],56),"truncated SPR "+n);
         var sequence=new EmoteSprites.EmoteSequence(0,steps,[frame,frame with{Key="second"}]);Check(sequence.At(0)?.Key=="56:0"&&sequence.At(100)?.Key=="second"&&sequence.At(250)==null,"animation advances once and terminates");
         TitleEmoteLabelRendering();
+    }
+    static void EndEmote(LoginConnection c)=>typeof(WorldSession).GetMethod("EndEmote",F)!.Invoke(c.World,[123u]);
+    static string PlanText(int gfx,bool menu)=>string.Join(" ",Enumerable.Range(1,4).Select(i=>{var p=TitleAndEmotePackets.Plan(gfx,i,menu);return p.Delivery switch{EmoteDelivery.Immediate=>"I",EmoteDelivery.Throttled=>"T",_=>"-"}+(p.Delivery==EmoteDelivery.None?"":p.Action.ToString())+(p.Hold?"h":"");}));
+    static void EmotePlanChecks(){
+        Check(TitleAndEmotePackets.MenuActions.SequenceEqual(new[]{68,69,67,66})&&TitleAndEmotePackets.MenuActions.Select(TitleAndEmotePackets.EmoteName).SequenceEqual(new[]{"敬禮","歡呼","挑釁","思考"}),"original item order salute/cheer/aggress/think");
+        // T160 1.2 action-slot table (sub_ADACB0..) and menu table (sub_8C14F0), one row per group.
+        var slot=new (int Gfx,string Plan)[]{(0,"I68 I69 I67 I66"),(12494,"I68 I69 I67 I66"),(6822,"I68 I69 I67 T66"),(12542,"I68 I69 I67 T66"),(6080,"I67 I68 I69 T66"),(6094,"I67 I68 I69 T66"),
+            (6743,"I67 I68 I69 T66"),(8719,"I66 I67 I68 I69"),(10413,"I68 - - T66"),(3750,"I68 T69 T67 T66"),(11635,"T68 T69 T67 T66"),(3225,"T68 T69 T67 T66")};
+        foreach(var row in slot)Check(PlanText(row.Gfx,false)==row.Plan,$"slot remap gfx {row.Gfx} = {row.Plan} (got {PlanText(row.Gfx,false)})");
+        var menu=new (int Gfx,string Plan)[]{(0,"I68 I69 I67 I66"),(7139,"I68 I69 I67 I66"),(6080,"I68h I69h I67h T66"),(6094,"I68h I69h I67h T66"),(6753,"I67h I68h I69h T66"),
+            (14695,"I68h I69h I67h I66h"),(10413,"I68h - - T66"),(11650,"I68h I69h T67 T66"),(3858,"I68 T69 T67 T66"),(3225,"T68 T69 T67 T66")};
+        foreach(var row in menu)Check(PlanText(row.Gfx,true)==row.Plan,$"menu remap gfx {row.Gfx} = {row.Plan} (got {PlanText(row.Gfx,true)})");
+        foreach(int gfx in new[]{0,1,37,48,61,138,734,1186,2786,2796,6650,6658,6661,6671,12490,12494})Check(TitleAndEmotePackets.ClassForm(gfx),"G1 class form "+gfx);
+        Check(!TitleAndEmotePackets.ClassForm(2)&&!TitleAndEmotePackets.SpecialForm(6821)&&!TitleAndEmotePackets.SpecialForm(6892)&&TitleAndEmotePackets.SpecialForm(11421)&&!TitleAndEmotePackets.SpecialForm(11422),"group boundaries");
+        TitleEmoteReject(()=>TitleAndEmotePackets.Plan(0,0,true),"plan item lower bound");TitleEmoteReject(()=>TitleAndEmotePackets.Plan(0,5,false),"plan item upper bound");
+        Check(TitleAndEmotePackets.ThrottleMs()==2500&&TitleAndEmotePackets.ThrottleMs(true)==2265,"throttle 2500 ms, flag547 2500*29>>5");
+        Check(TitleAndEmotePackets.ThrottleMs(speedA:1)==1875&&TitleAndEmotePackets.ThrottleMs(speedA:2)==5000&&TitleAndEmotePackets.ThrottleMs(speedA:3)==2187,"throttle speed state A factors");
+        Check(TitleAndEmotePackets.ThrottleMs(speedB:1)==1875&&TitleAndEmotePackets.ThrottleMs(speedB:3)==2187&&TitleAndEmotePackets.ThrottleMs(speedB:6)==1875&&TitleAndEmotePackets.ThrottleMs(speedB:5)==937&&TitleAndEmotePackets.ThrottleMs(speedB:2)==2500,"throttle speed state B factors");
+    }
+    static async Task EmoteDeliveryChecks(){
+        using(var c=TitleEmoteSeed()){
+            long now=1000;Set(c.World,"ActionClock",(Func<long>)(()=>now));int sends=0;byte[]? sent=null;
+            Sender(c,(bytes,current,admit)=>{if(!current())return Task.FromResult(false);sends++;sent=bytes;admit();return Task.FromResult(true);});
+            Set(c.World,"Actor",c.World.Actor! with{Gfx=3225});var stamp=c.CaptureTitleEmote();
+            Check(await c.SendEmote(stamp,1)&&sent![0]==120&&sent[1]==68&&c.World.ActiveEmotes(now).Length==0,"polymorph sends throttled C120 without local playback");
+            Check(!await c.SendEmote(stamp,2)&&sends==1,"throttle refuses within interval");
+            now=3499;Check(!await c.SendEmote(stamp,2)&&sends==1,"throttle refuses at 2499 ms");
+            now=3500;Check(await c.SendEmote(stamp,2)&&sent![1]==69&&sends==2,"throttle admits at 2500 ms");
+            Feed(c,EmoteUpdate(123,69));Check(c.World.ActiveEmotes(now).Single().Action==69,"server S158 for self still plays if it arrives");EndEmote(c);
+            now=10000;Set(c.World,"Actor",c.World.Actor! with{Gfx=6080});
+            Check(await c.SendEmote(stamp,1)&&sent![1]==68&&c.World.ActiveEmotes(now).Single().Action==68,"horse helm menu item 1 immediate 68 with local playback");EndEmote(c);
+            Check(await c.SendEmote(stamp,1,menu:false)&&sent![1]==67,"horse helm slot 1 remaps to 67");EndEmote(c);
+            Check(await c.SendEmote(stamp,4)&&sent![1]==66&&c.World.ActiveEmotes(now).Length==0,"horse helm item 4 throttled 66");
+            Set(c.World,"Actor",c.World.Actor! with{Gfx=10413});int before=sends;now=20000;
+            Check(!await c.SendEmote(stamp,2)&&!await c.SendEmote(stamp,3)&&sends==before,"gfx 10413 items 2/3 send nothing");
+        }
+        using(var c=TitleEmoteSeed()){
+            int sends=0;Sender(c,(bytes,current,admit)=>{if(!current())return Task.FromResult(false);sends++;admit();return Task.FromResult(true);});var stamp=c.CaptureTitleEmote();
+            // Original only checks the busy action: movement, shop pose and the old Flags&2 gate no longer block.
+            Set(c,"movementSending",true);Check(c.MovementBusy&&await c.SendEmote(stamp,1)&&sends==1,"movement in progress does not block emote");Set(c,"movementSending",false);EndEmote(c);
+            Set(c.World,"Actor",c.World.Actor! with{Weapon=70,Flags=2});stamp=c.CaptureTitleEmote();Check(await c.SendEmote(stamp,2)&&sends==2,"shop pose / flags no longer block emote");EndEmote(c);
+            Set(c,"nextCombatAt",long.MaxValue);Check(!await c.SendEmote(stamp,1)&&sends==2,"attack in progress blocks emote");Set(c,"nextCombatAt",0L);
+            Set(c,"nextMagicAt",long.MaxValue);Check(!await c.SendEmote(stamp,1)&&sends==2,"spell in progress blocks emote");Set(c,"nextMagicAt",0L);
+            Check(await c.SendEmote(stamp,3)&&sends==3,"busy release admits emote");
+        }
+        using(var c=TitleEmoteSeed()){
+            var release=new TaskCompletionSource();int sends=0;Sender(c,async(bytes,current,admit)=>{await release.Task;if(!current())return false;sends++;admit();return true;});
+            var pending=c.SendEmote(c.CaptureTitleEmote(),1);Set(c.World,"Actor",c.World.Actor! with{Gfx=3225});release.SetResult();
+            Check(!await pending&&sends==0&&c.World.ActiveEmotes(1000).Length==0,"appearance change before admission refuses stale remap");
+        }
     }
     static void Backing(object instance,string property,object value)=>instance.GetType().GetField("<"+property+">k__BackingField",F)!.SetValue(instance,value);
     static void TitleEmoteLabelRendering(){
@@ -103,9 +170,16 @@ partial class Checks {
         Feed(c,TitleUpdate(456,"\f2遠方\r\n"));Check(c.World.DisplayTitle(456)=="遠方","title data provider strips legacy colour codes");
     }    static void TitleEmoteOriginalAssets(){
         using var reader=new EmoteSprites();foreach(int gfx in new[]{0,1,37,48,61,734,1186,2786,2796,6650,6658,6661,6671})foreach(int action in Enumerable.Range(66,4))foreach(int direction in Enumerable.Range(0,gfx==0?8:1)){
-            var sequence=reader.Load(gfx,action,direction);Check(sequence.Duration>0&&sequence.Frames.All(f=>f.Blocks.Length>0),$"read-only original gfx {gfx} action {action} direction {direction}");
+            var sequence=reader.Load(gfx,action,direction)!;Check(sequence.Duration>0&&sequence.Frames.All(f=>f.Blocks.Length>0),$"read-only original gfx {gfx} action {action} direction {direction}");
             Check(sequence.At(0)!=null&&sequence.At(sequence.Duration)==null,"original animation lifecycle");
         }
+        // T160 3.4 on real rows: 6080 has 67-69 but no 66, and has 0/20 but no 4.
+        var horse=reader.Load(6080,66,0,20);Check(horse!=null&&ReferenceEquals(horse,reader.Load(6080,20,0)),"real horse emote falls back to pose 20");
+        var horseZero=reader.Load(6080,66,0,4);Check(horseZero!=null&&ReferenceEquals(horseZero,reader.Load(6080,0,0)),"real horse missing pose 4 falls back to action 0");
+        // gfx 2129 has rows 0/4 but no usable sprite frames in the pinned paks: the chain ends in null instead of an exception.
+        var knight=reader.Load(2129,66,2,4);Check(ReferenceEquals(knight,reader.Load(2129,4,2)),"real gfx 2129 follows the same pose/0 chain without throwing");
+        Check(reader.Load(3225,66,0,0)?.Duration is null or >0,"dummy gfx missing emote does not throw");
+        Check(reader.Load(6080,68,0,20)?.Frames.Length==12&&!ReferenceEquals(reader.Load(6080,68,0,20),horse),"real horse 68 keeps its own sprite frames");
     }
     static void TitleEmoteCompositeAssets(){
         string root=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../assets"));

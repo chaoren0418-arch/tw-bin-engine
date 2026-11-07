@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 220,
+ "sourceCount": 221,
  "files": [
   {
    "path": "NuGet.Config",
@@ -116,8 +116,8 @@
   },
   {
    "path": "source/AudioApiTransport.cs",
-   "size": 1616,
-   "sha256": "b1a18d9fc09bfba275e9c17230c57cc398dba06ccd30631f44333a17b9e42c7b"
+   "size": 2031,
+   "sha256": "039d63ef093732b02fb3b66041fcd185a7b1e70939690652c8409c762a8d37f9"
   },
   {
    "path": "source/BasicSupplies.cs",
@@ -246,8 +246,8 @@
   },
   {
    "path": "source/CombatSfx.cs",
-   "size": 9690,
-   "sha256": "a597b6c82d7ec490544de272ade5d498af1bce5b94494f6aad10678c18ee646b"
+   "size": 11478,
+   "sha256": "aa947ee49da722ccfd3764c065ae45eef5712cc1eb8ad8710ea7df0c04144575"
   },
   {
    "path": "source/CombatSfxScene.cs",
@@ -331,8 +331,8 @@
   },
   {
    "path": "source/EquipmentTests.cs",
-   "size": 4389,
-   "sha256": "9aea8c38ff99e5b3b134d305dc6fac5193cbcb80861b0c234e5a1e0333d1b063"
+   "size": 4443,
+   "sha256": "f43eb2fcaa15c0bfc03a1c7d3b23bc05df713cb28b4a2370dc846357ef7a619e"
   },
   {
    "path": "source/EquipmentUiTests.cs",
@@ -555,9 +555,14 @@
    "sha256": "051a5bd56f1ee1656975a3b2af2973cb03971b85b1697321c62d7fabf714bbb1"
   },
   {
+   "path": "source/MapAmbientSound.cs",
+   "size": 10367,
+   "sha256": "ac9d3b69ed3f4765d2cabec6a2ec7c26a7f6e1623baab63105aa5759961d7113"
+  },
+  {
    "path": "source/MapEffects.cs",
-   "size": 11051,
-   "sha256": "befb109385251d5455e0bb5418995f072568e324424415e1f39e1c5c616e7f47"
+   "size": 11097,
+   "sha256": "bb4c45a806b80fba5d0119542952919ad881852e69fa936b436f217656bb53b7"
   },
   {
    "path": "source/MapIdPacket.cs",
@@ -651,8 +656,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 19565,
-   "sha256": "e85b522ce2217581df5641ec9c52a938df646280270f036190e1ca5344f063a6"
+   "size": 19611,
+   "sha256": "4faaae5f05df5607cf0ac5430b0c8889d3787044725286137e258f3ba45d2886"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -776,8 +781,8 @@
   },
   {
    "path": "source/PlayerChat.cs",
-   "size": 8562,
-   "sha256": "ef0db5a097ae8408f59b315e4891243aed8c4e3fac7cde6ceb2f755b5e5248f7"
+   "size": 9539,
+   "sha256": "d2001f26be68b6e6b7edde9e9020491b11f8052da7f817831015d316b4193d3d"
   },
   {
    "path": "source/PlayerChatKeyboardFlow.cs",
@@ -786,8 +791,8 @@
   },
   {
    "path": "source/PlayerHudChat.cs",
-   "size": 5484,
-   "sha256": "4a4c1661761b04a6573d7ce367710b4fe79da5191b0841ebf02f08ab0efdd53d"
+   "size": 5983,
+   "sha256": "7eeabd0b1f9c7736ffc5b3076e6e13dcb55b3c576f512e032642c6f75c99e906"
   },
   {
    "path": "source/PlayerHudIntegration.cs",
@@ -826,8 +831,8 @@
   },
   {
    "path": "source/PlayerProfiles.cs",
-   "size": 3355,
-   "sha256": "8257012faba79f2977e979712f596c80f2610097c9e45ae13cee91561240c5f2"
+   "size": 3748,
+   "sha256": "32413a217287af7cb6a3938bc474296a71650745b8a3202ef1174b95e45ae9bd"
   },
   {
    "path": "source/PlayerQuery.cs",
@@ -841,8 +846,8 @@
   },
   {
    "path": "source/Polymorph.cs",
-   "size": 2382,
-   "sha256": "2427821e0ba3b625cb0d3545004a880061eff9f2db40b4a1eff79522a6e32c6c"
+   "size": 6008,
+   "sha256": "dbc648ff1714b4cdf0110414490e288b8988c04cc2c05f84e0e8b59199450fd7"
   },
   {
    "path": "source/Portals.cs",
@@ -1026,8 +1031,8 @@
   },
   {
    "path": "source/TitleAndEmote.cs",
-   "size": 24010,
-   "sha256": "f353a59dcac6b7032e3307ef44af29034ebeea2e0139580708229f1ae8154ad3"
+   "size": 29844,
+   "sha256": "b39240b3cde987a55d840852b547dffa6bc1e8eade2b50b6d54751ba2e2c3d48"
   },
   {
    "path": "source/Trade.cs",

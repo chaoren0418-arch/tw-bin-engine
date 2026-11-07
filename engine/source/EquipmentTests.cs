@@ -37,7 +37,7 @@ public static class EquipmentTests {
             var app=a.Get(0,weapon)!;Check(app.Supports(action,d),"original mapped action "+weapon+"/"+action+"/"+d);
             if(action!="die")Check(app.At(action,d,0).Key!=a.Get(0)!.At(action,d,0).Key,"armed frame differs from bare hands");
         }
-        Check(a.Get(0,62)==null,"unsupported gauntlet never substituted");
+        Check(ReferenceEquals(a.Get(0,62),a.Get(0)),"missing gauntlet stance falls back to bare hands (actions-and-names 3.4)");
         Json.Save(output,new{status="pass",kind="explicit synthetic original serializer vectors and original resource mappings; not live gameplay",checks});
     }
 }

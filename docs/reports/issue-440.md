@@ -26,12 +26,13 @@
 - 既有群組重跑全過：`display-notices` 337（新增 127 永久、`0x767D` 3 項）、`title-emote` 427（改寫舊的稱號疊字測試為「不再改動場景 patch」與稱號資料提供）、`clan` 395、`clan-war` 479、`duel` 390、`map-continuity` 23064、`combat-admission` 1560、`afflictions` 428、`item-status` 358、`buddies` 445、`item-transfer` 349、`doors` 597。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：pass，3511 個追蹤檔、0 錯誤。
 - 本機還原用 `scratch/issue-440/nuget.config` 唯讀指向原專案 `engine/vendor`。
+- **2026-11-08 同步 main（落後 42 個 commit）**：`demo-tests/Program.cs` 衝突取聯集（保留 `NameDisplayChecks` 與 main 新增的 `MapAmbientChecks`），`rebuild-lock.json` 取 main 版後 `--update-lock` 重產（221 來源、230 鎖定檔）；`--build` 通過，產品 DLL SHA-256 `e0bb83198541661eb926edbfb0bedd004fcdaeb3adf09f18b9057e7dde1871f7`。重跑 `name-display`、`map-continuity`、`display-notices`、`title-emote`、`clan`、`clan-war`、`duel`、`combat-admission`、`item-status`、`afflictions`、`buddies`、`item-transfer`、`doors`、`map-ambient` 共 14 群組全為 pass；`check-no-game-assets.py` pass（3546 追蹤檔、0 錯誤）。
 
 ## 沒驗證什麼
 
 - **沒有真機**：字型實際外觀（MingLiU 是否存在、外框粗細）、與原版逐像素位置、十字游標、左鍵單擊攻擊的手感、實際伺服器盟徽格式與 emblem id 是否等於 clan id，都待 M6 smoke 由 dot 驗收。
 - 不帶群組的完整回歸在本 worktree 跑不完：`Movement123` 讀 `engine/assets/terrain0.bin`，worktree 沒有 `engine/assets` junction（與本次改動無關；CI 不跑這個入口）。
-- CI 結果待 push 後確認。
+- 同步前 PR #454 的 CI（dotnet、map-continuity、npc-offline）全綠；同步後的 CI 結果待 push 後確認。
 
 ## 推測或未做（照任務規則不做或維持現狀）
 
