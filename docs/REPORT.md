@@ -146,3 +146,8 @@
 - 2026-11-08 — #483 T181：查證原版——視窗類功能（G10b）（resource，claude-local，PR 已合併）→ [報告](reports/issue-483.md)
 - 2026-11-08 — #460 ui-verify-bar-behavior: V5 查證：底列行為（巨集 8 格座標、F1–F4 與 Map 快捷鍵、世界畫面範圍、小地圖內容、485 槽位切換）（resource，claude-local，PR #492 已合併）→ [報告](reports/issue-460.md)
 - 2026-11-08 — #484 T182：查證原版——世界物件類功能（G10c）（resource，claude-local，PR #493 已合併）→ [報告](reports/issue-484.md)
+- 2026-11-08 — #450 T176：快捷列改為 F5–F12 共 8 格，小地圖不再佔用 F5（code，claude-local，PR 已合併）→ [報告](reports/issue-450.md)
+- 2026-11-08 — #482 T180：查證原版——技能與法術表現（G10a）（resource，claude-local，PR 已合併）→ [報告](reports/issue-482.md)
+- 2026-11-08 — #457 ui-verify-red-notice: V2 查證：原版紅字（畫面中央系統訊息）的位置、字色、時長與行數（resource，claude-local，PR #497 已合併）→ [報告](reports/issue-457.md)
+- 2026-11-08 — #459 ui-verify-runtime: V4 查證：UI 框架層細節（.img 旗標與透明、按鈕狀態順序、XML 編碼、-c 退回、Sprite 重名優先序、字型）（resource，claude-local，PR #498 已合併）→ [報告](reports/issue-459.md)
+- 2026-11-08 — #479 T177：日夜時鐘與明暗曲線對齊原版（G5 第一步）（code，claude-local，PR 已合併）→ [報告](reports/issue-479.md)
