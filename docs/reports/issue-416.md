@@ -27,6 +27,7 @@
   - `timed-buffs`：560 項通過，本模組 284 項。
   - `map-continuity`：22642 項通過，含同樣 284 項。
   - 第二次同步 origin/main（含 #390 小地圖、#417）後重跑：`--update-lock`（215 來源、224 鎖定檔）、`--build` 通過；`timed-buffs` 560、`minimap` 347、`map-continuity` 22713 項全部通過；兩邊測試入口都保留。
+  - 第三次同步 origin/main（含 #415 顯示通知）後重跑：`--update-lock`（216 來源、225 鎖定檔）、`--build` 通過；`timed-buffs` 560、`display-notices` 334、`map-continuity` 22771 項全部通過；兩邊測試入口都保留，`check-no-game-assets.py` 3450 個追蹤檔、0 錯誤。
   - `afflictions` 428、`combat-admission` 1409、`buddies` 445、`item-transfer` 349、`doors` 597、`polymorph-cadence` 309，全部通過。
 - 測試涵蓋：S166、S188、S103、S126、S160 兩種長度；計時、解除、到期、其他物件；截斷、padding、多餘資料的原子拒絕；搖晃掛載點的像素位移與 `OnPaint` 順序。本模組沒有新增 C 格式。
 - NuGet 用 scratch 中的設定唯讀引用原專案 `engine/vendor`，未複製遊戲資源。
