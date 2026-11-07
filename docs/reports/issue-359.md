@@ -75,3 +75,27 @@
 - 原生畫面、蠟燭消耗與保存結果仍未驗證，見上方「未驗證什麼」。
 
 給下一棒的補充：部分 DemoChecks 會寫到 `<args[0]>/scratch/`（例如 `CombatAdmissionChecks`），在 worktree 跑預設組時不要把 `args[0]` 指向原始專案。
+
+### 第 3 輪（2026-11-07，同步到 `17e3dec`）
+
+落後 main 84 個 commit。只做同步，沒有改 T142 功能。
+
+- 衝突四處，都是兩邊各自新增的掛接，全部保留：
+  - `WorldSession.cs`：S64/01–04 的 case 與 main 的寵物清單、寵物背包分派並存。全程式仍只有這一個 `case 64`，main 這批也沒有新增其他 S64 分派。
+  - `DemoChecks.csproj`：`CharResetChecks` 與 main 新增的 ghost-mode、doors、fishing、pets、duel 測試檔都保留。
+  - `demo-tests/Program.cs`：採 main 的 case 組，加回 `char-reset` 入口；`CharResetChecks` 掛回 `map-continuity` 與預設組。
+  - `rebuild-lock.json`：取 main 版後以 `--update-lock` 重產（204 來源檔、213 pinned），沒有手拼。
+- `docs/REPORT.md` 沒有另外修改。
+
+已驗證（合成封包、記憶體 sender，非真機）：
+
+1. `rebuild.py --build`：產品與 launcher 通過，產品 DLL SHA-256 `b7b9e7f48c770208366a49e7445e2e2028473705d00e79c2f7c6bbc9dec32129`（取代第 2 輪的值）。
+2. DemoChecks 各組全數通過。數字含每次都先跑的 baseline 193 項，`char-reset` 354 項扣掉後就是本模組 161 項：`char-reset` 354、`map-continuity` 22020、`combat-admission` 1326、`polymorph-cadence` 226、`buddies` 362、`item-transfer` 266、`doors` 514、`portals` 293、`pets` 193、`ghost-mode` 552、`fishing` 232、`duel` 307、`location-share` 292、`player-query` 894、`character-config` 286、`ambience` 549、`invisibility` 263。
+3. `WeaponRepairChecks`：98 項通過。
+4. `check-no-game-assets.py`：通過（3388 個追蹤檔、0 錯誤）。
+
+未驗證：
+
+- DemoChecks 無參數的預設組**失敗、沒有跑完**：與第 2 輪相同，`engine/assets/terrain0.bin` 找不到路徑（本 worktree 沒有 assets junction，CI 也不跑這組）。`CharResetChecks` 已由 `char-reset`、`map-continuity` 涵蓋，但預設組中其他需要真實資源的測試本輪沒有執行。
+- `web-resource`、`ResourceChecks`、`effect6016`、`packet-trace` 等其他 CI 項目本機沒有跑，以 PR 的 CI 結果為準。
+- 原生畫面、蠟燭消耗與保存結果仍未驗證，見上方「未驗證什麼」。
