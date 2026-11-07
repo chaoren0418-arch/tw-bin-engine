@@ -16,7 +16,7 @@
 ## 審查時請注意
 
 1. **S160 原本就已實作**：`Magic.cs` 的 `ReceiveMagic` 早已處理 `opcode is 164 or 160`。依任務範圍加了 case 之後，該分支的 160 路徑不會再被執行；因為 `Magic.cs` 只能加介面，所以沒有刪。外部行為不變（訊息、例外、`BasicSupplyReply` 都保留）。之後可由負責 `ReceiveMagic` 的任務清掉。
-2. **多動了任務清單以外的掛接方式**：`OnPaint` 在 `Program.cs`，不在可修改清單內。所以在 `TimedBuffs.cs` 的 `ClientForm` 覆寫 `CreateHandle`、訂閱 `Paint` 事件，利用 `OnPaint` 先呼叫 `base.OnPaint(e)` 的順序套用位移。若改為在 `OnPaint` 直接呼叫 `ApplyScreenShake` 會更直接，但需要放寬範圍。
+2. **搖晃不是直接掛在 `OnPaint`**：`OnPaint` 在 `Program.cs`，不在可修改清單內。所以在 `TimedBuffs.cs` 的 `ClientForm` 覆寫 `CreateHandle`、訂閱 `Paint` 事件，利用 `OnPaint` 先呼叫 `base.OnPaint(e)` 的順序套用位移。若改為在 `OnPaint` 直接呼叫 `ApplyScreenShake` 會更直接，但需要放寬範圍。
 3. **搖晃有邊緣縫隙**：`SetClip` 在位移後才設定，畫面一側最多會露出 6 像素的表單底色。真機若覺得明顯再調整。
 4. **計時會顯示成狀態圖示**：S166／S188／S126 走既有的 `ReceiveBuff`，所以 HUD 圖示列也會出現，未改圖示程式。S126 沒有技能編號，用負數鍵 `-3126`，顯示為通用圖示。
 
@@ -29,7 +29,7 @@
   - `afflictions` 428、`combat-admission` 1409、`buddies` 445、`item-transfer` 349、`doors` 597、`polymorph-cadence` 309，全部通過。
 - 測試涵蓋：S166、S188、S103、S126、S160 兩種長度；計時、解除、到期、其他物件；截斷、padding、多餘資料的原子拒絕；搖晃掛載點的像素位移與 `OnPaint` 順序。本模組沒有新增 C 格式。
 - NuGet 用 scratch 中的設定唯讀引用原專案 `engine/vendor`，未複製遊戲資源。
-- `check-no-game-assets.py` 與 CI 結果見 PR。
+- `check-no-game-assets.py` 通過：3412 個追蹤檔、0 錯誤。CI 結果見 PR。
 
 ## 未驗證什麼
 
