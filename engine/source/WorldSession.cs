@@ -44,11 +44,12 @@ public sealed partial class WorldSession {
         case 71 when plain.Length>=3&&BinaryPrimitives.ReadUInt16LittleEndian(plain.AsSpan(1)) is 109 or 472:
             ReceiveBuddies(opcode,plain);break; // Continue through the existing server-message dispatch.
         case 39:if(ReceivePetDialog(plain)||ReceivePlayerQueryHtml(plain))return;break;
-        case 71:if(ReceivePlayerQueryMessage(plain))return;break;
+        case 71:ObserveFishing(plain);if(ReceivePlayerQueryMessage(plain))return;break;
+        case 119:ObserveFishing(plain);break;
+        case 158:ObserveFishing(plain);if(ReceiveDoorAction(plain))return;break;
         case 22:ReceiveSoundPacket(plain);return;
         case 55:ReceiveEffectPacket(plain);return;
         case 106:ReceiveEffectPacket(plain);return;
-        case 158:if(ReceiveDoorAction(plain))return;break;
         }
         if(ReceiveRecovery(opcode,r)||ReceivePlayerChat(opcode,r,plain)||ReceiveSustenance(opcode,r,plain)||ReceiveBonusStats(opcode,r,plain)||ReceivePrivateShop(opcode,r,plain)||ReceiveTeleport(opcode,r)||ReceiveTrade(opcode,r)||ReceiveInteraction(opcode,r)||ReceiveMagic(opcode,r,plain)||ReceiveEquipment(opcode,r,plain)||ReceiveInventory(opcode,r,plain)||ReceiveExperience(opcode,r)||ReceiveCombat(opcode,r,plain)||ReceiveObjectDelta(opcode,r)){BasicSupplyReply(opcode,plain);return;}
         switch(opcode){

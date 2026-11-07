@@ -19,23 +19,27 @@
 
 **裁定以外的一個必要修改（都在 `Doors.cs` 內）**：門身分原本比對 `WorldObject` 實例，HP 這類差量更新會讓門被當成消失，播放也跟著中斷。現在改以完整封包世代識別，同 ID 改送一般 S87 時才解除身分；格式錯誤的封包不影響現有的門。排隊中的 C41 仍比對實例，維持原本較嚴格的失效條件。
 
+**同步時的共用分派修正**：#325 釣魚也在 `WorldSession` 的同一個 `switch` 加了 `case 158`，文字合併沒有衝突，但編譯失敗（CS0152）。已合成一個 case：先 `ObserveFishing`，再 `ReceiveDoorAction`。釣魚用獨立 reader，只有 action 71 才繼續讀，不影響門；`DoorChecks` 補了釣魚與門共用 S158 的回歸測試。
+
 **唯讀核對**：`L1DoorInstance.open()／close()` 只在狀態改變時廣播 S158 再送 S209，與裁定的播放觸發條件一致。
 
 ## 怎麼驗證（已驗證）
 
-已合併最新 `origin/main`，`rebuild-lock.json` 取 main 版本後用 `--update-lock` 重新產生。
+已合併最新 `origin/main`（含 #325 釣魚），`rebuild-lock.json` 取 main 版本後用 `--update-lock` 重新產生。
 
-- `rebuild.py --update-lock`、`--build` 通過，產品 DLL SHA-256 `cea48c268a4f13c64c1fd5f52ea44d903b4df442b54ba760342918449a830a50`。
-- `DemoChecks` 全部通過。以下數字含每次都會先跑的 90 項 polymorph 檢查：
+- `rebuild.py --update-lock`、`--build` 通過，產品 DLL SHA-256 `1d6eaaa352e7d5519fb63d34c02baa77a25be0be9ddabf19877a50961ab75da4`。
+- `DemoChecks` 全部通過。每次都會先跑 193 項基礎檢查（polymorph、pets 等），下表列總數與扣除後的項數：
 
-| 群組 | 通過項數 |
-|---|---|
-| `doors` | 409 |
-| `map-continuity` | 448 |
-| `buddies` | 259 |
-| `combat-admission` | 368 |
-| `item-transfer` | 163 |
-| `polymorph` | 90 |
+| 群組 | 總數 | 扣除基礎 193 項 |
+|---|---|---|
+| `doors` | 514 | 321 |
+| `fishing` | 232 | 39 |
+| `map-continuity` | 21400 | 21207 |
+| `combat-admission` | 1326 | 1133 |
+| `polymorph-cadence` | 226 | 33 |
+| `buddies` | 362 | 169 |
+| `item-transfer` | 266 | 73 |
+| `duel` | 307 | 114 |
 
 - `check-no-game-assets.py` 通過，0 errors。
 
@@ -68,4 +72,5 @@
 
 - 真機項目交 dot 的 M6 smoke：在 P24Lab 開關門、確認 gfx 2346 在 S158 時切換、開門後滑鼠能穿過、關門後被擋。
 - 若驗收要看到多幀的門，另派 resource 任務查證原始素材，不要插造幀或改封存素材。
-- `DemoChecks` 的 `Main` 現在每次都先跑 `PolymorphChecks`，看測試數字時要扣掉這 90 項。
+- `DemoChecks` 的 `Main` 每次都先跑基礎檢查，看測試數字時要扣掉這 193 項（數字會隨 main 增加）。
+- 合併後要重新建置再看測試：`--no-build` 建置失敗時仍會跑舊二進位並顯示 PASS。

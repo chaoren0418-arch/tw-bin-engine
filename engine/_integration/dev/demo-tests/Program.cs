@@ -283,7 +283,8 @@ partial class Checks {
             switch(args[2]){
                 case "doors":await DoorChecks();break;
                 case "pets":break;
-                case "map-continuity":await MapContinuity();await BoardChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();AmbienceChecks();InvisibilityChecks();break;
+                case "map-continuity":await MapContinuity();await BoardChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();break;
+                case "fishing":await FishingChecks();break;
                 case "location-share":await LocationShareChecks();break;
                 case "player-query":await PlayerQueryChecks();break;
                 case "character-config":await CharacterConfigChecks();break;
@@ -309,7 +310,7 @@ partial class Checks {
             }
         }else{
             await CharacterConfigChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
-            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();await BoardChecks();await LocationShareChecks();HitReactionSuppression();await PlayerQueryChecks();AmbienceChecks();InvisibilityChecks();
+            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();await BoardChecks();await LocationShareChecks();HitReactionSuppression();await PlayerQueryChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();
         }
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status=petsFailure==null?"pass":"fail",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));
         if(petsFailure!=null)throw new InvalidOperationException("Pets failed; subsequent groups completed.",petsFailure);

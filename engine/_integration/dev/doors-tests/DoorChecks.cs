@@ -40,6 +40,13 @@ partial class Checks {
             Feed(c,Pack(700));Feed(c,DoorAction(28));Check(!c.World.IsDoor(700),"reused object ID is not a door");
             Feed(c,DoorAction(70,456));Check(c.World.Objects.Single(o=>o.ObjectId==456).ShopActive,"non-door S158 still reaches existing dispatcher");
         }
+        // S158 is shared: fishing observes it first, then doors consume their own objects.
+        using(var c=Seed()){
+            Feed(c,DoorPack());Feed(c,FishingStart());var fishing=c.ReadFishing();
+            Check(fishing.Active,"fishing S158 still starts with a door in view");
+            Feed(c,DoorAction(28));
+            Check(c.World.Objects.Single(o=>o.ObjectId==700).DoorAction==28&&c.ReadFishing()==fishing,"door S158 still works and leaves fishing state unchanged");
+        }
         foreach(byte opcode in new byte[]{87,158,209}){
             var packet=opcode==87?DoorPack():opcode==158?DoorAction(28):DoorAttribute();
             for(int n=0;n<packet.Length;n++){
