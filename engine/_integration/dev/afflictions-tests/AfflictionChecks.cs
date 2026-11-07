@@ -31,6 +31,13 @@ partial class Checks {
             Feed(c,Pack(456));Check(c.World.TintFor(456)==AfflictionTint.Normal,"map change discards remote tints");
             c.World.Reset();Check(c.World.BlindMode==0&&!c.World.AfflictionInputLocked&&c.World.TintFor(123)==AfflictionTint.Normal,"reset clears all afflictions immediately");
         }
+        using(var c=Seed()){
+            // Lifecycle hooks attach on first use, so each packet must arm reset on its own.
+            Feed(c,Blind(2));c.World.Reset();Check(c.World.BlindMode==0,"S47 as first affliction packet clears on reset");
+        }
+        using(var c=Seed()){
+            Feed(c,Poison(123,1,0));c.World.Reset();Check(c.World.TintFor(123)==AfflictionTint.Normal,"S165 as first affliction packet clears on reset");
+        }
         foreach(byte on in new byte[]{2,4,10,12,22,24}){
             using var c=Seed();int sends=0;
             Sender(c,(_,valid,admit)=>{if(!valid())return Task.FromResult(false);sends++;admit();return Task.FromResult(true);});
@@ -121,5 +128,10 @@ partial class Checks {
         Check(At(blind,own,2)==0&&blind.Mask[(own.Py-blind.Bounds.Y)*blind.Bounds.Width+own.Px+2],"black covered pixel remains opaque");
         Feed(c,Blind(0));Feed(c,Poison(123,0,0));Feed(c,Poison(456,0,0));var restored=Compose();
         Check(restored.Colors.SequenceEqual(normal.Colors)&&restored.Mask.SequenceEqual(normal.Mask),"release restores exact normal pixels");
+        // S171 opacity must survive this entry point: it replaced the composition loop that applied it.
+        Feed(c,Packet(b=>{b.Write((byte)171);b.Write(456u);b.Write((byte)1);}));var half=Compose();
+        Check(At(half,other)==Renderer.Blend(0,0x7fff),"invisible peer keeps half blend through affliction composition");
+        Feed(c,Packet(b=>{b.Write((byte)171);b.Write(456u);b.Write((byte)0);}));
+        Check(Compose().Colors.SequenceEqual(normal.Colors),"S171 clear restores composition");
     }
 }

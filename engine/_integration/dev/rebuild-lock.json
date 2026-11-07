@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 191,
+ "sourceCount": 200,
  "files": [
   {
    "path": "NuGet.Config",
@@ -96,8 +96,13 @@
   },
   {
    "path": "source/Afflictions.cs",
-   "size": 4870,
-   "sha256": "8f203a12c28da057b771ab261fe922c9535235733d7809cb295886fbe3af8625"
+   "size": 5155,
+   "sha256": "92696bb748bfbe5986b0f1fcfa3830ef67c20b0d4fd15ca20dc65ed42763c9ef"
+  },
+  {
+   "path": "source/Ambience.cs",
+   "size": 8307,
+   "sha256": "77dfb81d791fecced4b9023f425ba9a0add842eb14cb5073f76c874d98ef39d4"
   },
   {
    "path": "source/Assets.cs",
@@ -240,6 +245,16 @@
    "sha256": "4d6990df06e302353b7eba857ba937b1b6f86ae570cad0f9c8e32601ce9c7546"
   },
   {
+   "path": "source/Duel.cs",
+   "size": 6279,
+   "sha256": "bd82a01e58f38155ce5981e57feb4020fafa3f694be3686118890d4631cde3f9"
+  },
+  {
+   "path": "source/DuelUi.cs",
+   "size": 2955,
+   "sha256": "12e39a0c712540e0f99b16643680e36c42c6d2eee76f9b4413238fc90107e5d3"
+  },
+  {
    "path": "source/DuplicateRecoveryProbe.cs",
    "size": 1765,
    "sha256": "bd9fac40979690f34622fe5112cc4359f52e185b205c8279d78a86bc1880c2c7"
@@ -288,6 +303,11 @@
    "path": "source/EventJournal.cs",
    "size": 1474,
    "sha256": "4d0b1989f0ac6fb8ec76a0919c58538db0c3e8a7ff99e6916942818b151cd510"
+  },
+  {
+   "path": "source/Fishing.cs",
+   "size": 6109,
+   "sha256": "87f5ad594cb94708f283fab2902cc4b37c836ddea90cf9eee2dbbb9b5572159e"
   },
   {
    "path": "source/Ground.cs",
@@ -363,6 +383,11 @@
    "path": "source/InventoryUi.cs",
    "size": 12534,
    "sha256": "be339fb8b6ca024be20a6b2c57db6536479bec9cec4bd8ef2053f905593991b9"
+  },
+  {
+   "path": "source/Invisibility.cs",
+   "size": 1401,
+   "sha256": "432a1fc024f43e8d866912cd7fae136162bd4c257d4cb8731eefa20c41087681"
   },
   {
    "path": "source/ItemTransfer.cs",
@@ -531,8 +556,8 @@
   },
   {
    "path": "source/NpcUi.cs",
-   "size": 7579,
-   "sha256": "783fa44f18ea915ad79bb9eb2aaaa62bb87dcdc2a8c958bde4d6d671e950afbf"
+   "size": 7614,
+   "sha256": "1997a9e4cd358dc244b71ac38d75f6790a0354704c7a987afbfca29bd7bccae5"
   },
   {
    "path": "source/ObjectAssets.cs",
@@ -551,8 +576,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 9502,
-   "sha256": "5d20b5a82b0b7bb4ec150f58e0074bbed928fa1fd30c11595657ac8d41892e63"
+   "size": 9533,
+   "sha256": "d1a18b2300c91e8bf1ebd4ed6d97db114ae8d429f0cd1655223b46f7c7fa0a20"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -640,6 +665,16 @@
    "sha256": "1172b568b9702a0db588cbb5818cc85988bece0e0fd6586af58db6f9469e86d2"
   },
   {
+   "path": "source/PetUi.cs",
+   "size": 4124,
+   "sha256": "f0979c21a3c7c52ee95adba29a754397574222c59abe38a75d54a67ed7645ba5"
+  },
+  {
+   "path": "source/Pets.cs",
+   "size": 9572,
+   "sha256": "253ca5ee0c35535e1331c93be935def3ef5011452fc37ae417a3544d117cb24f"
+  },
+  {
    "path": "source/PickupAssets.cs",
    "size": 6448,
    "sha256": "c3c27789794fd0579062d7e3328be605735cc148e1cbd829f3413ffe2dde7f03"
@@ -686,8 +721,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15468,
-   "sha256": "f82b4f12ad2963e750ef30f9c8b9f40cf161f63ff731e30b27a91db80807e694"
+   "size": 15533,
+   "sha256": "f17cc6eba1c48061fd377b4af528c5642cc405ae5f589f75a3d405f9e8f2a036"
   },
   {
    "path": "source/PlayerPointer.cs",
@@ -806,8 +841,8 @@
   },
   {
    "path": "source/Renderer.cs",
-   "size": 7142,
-   "sha256": "889b6587ebc5b6d85cb914284efc800c2c18c1c2c4713226d7b1d3e60a1f74e5"
+   "size": 7322,
+   "sha256": "71c8e0b2bbd866e5d49db10f5731c3eba5b2d51809cb1f54ac7b784a8285a5a4"
   },
   {
    "path": "source/Resources/ground-catalog.json",
@@ -905,6 +940,16 @@
    "sha256": "007b0f58d5e0e41f035abf044673430645aff0e199930b58c91047bd77c3d544"
   },
   {
+   "path": "source/WeaponRepair.cs",
+   "size": 9242,
+   "sha256": "d41aac768346d1e601886c492af4a8073b9da4fd4d3ab689e846466aef1334a2"
+  },
+  {
+   "path": "source/WeaponRepairUi.cs",
+   "size": 3175,
+   "sha256": "03a40e13f6c4596aae1290c2ffea0f332fb325c3d3372aed7f74790da2d604f3"
+  },
+  {
    "path": "source/WebIconResource.cs",
    "size": 2008,
    "sha256": "f490c7f61da5cb33e870fd6219a70ae4ad2640ed0e2558386e4621ddf4dfe822"
@@ -951,8 +996,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 10392,
-   "sha256": "abc2401586a93ac804644cb7e49c84328bf23cea6b6e51b779e70bbea4768d69"
+   "size": 10978,
+   "sha256": "a8bf5b7146b49e9f33385798528b62afb19713871315f5287dd46813263a8f0e"
   },
   {
    "path": "source/WorldTests.cs",

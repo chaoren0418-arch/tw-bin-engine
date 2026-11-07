@@ -8,7 +8,12 @@ public sealed partial class WorldSession {
     public ushort BlindMode {get;private set;}
     public bool AfflictionInputLocked=>paralysis.Any(mode=>mode!=6);
 
-    public WorldSession(){
+    bool afflictionObserving;
+
+    // Tints and blindness are only written by S165/S47, so hooking on first use is early enough.
+    void ObserveAfflictions(){
+        if(afflictionObserving)return;
+        afflictionObserving=true;
         // Reset() clears Status before ResetOpacity emits its existing lifecycle event.
         // Map/position changes keep Status and must retain self blindness and poison.
         OpacityObserved+=_=>{if(Status==null){afflictionTints.Clear();BlindMode=0;}};
@@ -31,7 +36,7 @@ public sealed partial class WorldSession {
     void ReceivePoison(LoginReader r){
         uint id=r.D();byte green=r.C(),gray=r.C();r.Finish();
         if(id==0||green>1||gray>1||green+gray>1)throw new ProtocolException("invalid S165 poison appearance");
-        PruneAfflictionTints();
+        ObserveAfflictions();PruneAfflictionTints();
         if(id!=Status?.ObjectId&&!objects.ContainsKey(id))return;
         afflictionTints[id]=green!=0?AfflictionTint.Poison:gray!=0?AfflictionTint.Gray:AfflictionTint.Normal;
     }
@@ -53,7 +58,7 @@ public sealed partial class WorldSession {
     void ReceiveBlind(LoginReader r){
         ushort mode=r.H();r.Finish();
         if(mode>2)throw new ProtocolException("invalid S47 blindness mode");
-        BlindMode=mode;
+        ObserveAfflictions();BlindMode=mode;
     }
 }
 
@@ -90,7 +95,7 @@ public sealed partial class Renderer {
             var draw=command;
             if(draw.Actor&&tints[draw.ObjectId] is var tint&&tint!=AfflictionTint.Normal)
                 draw=draw with{Tile=draw.Tile with{Pixels=draw.Tile.Pixels.Select(p=>p with{Color=AfflictionColors.Tint(p.Color,tint)}).ToArray()}};
-            Blit(draw,area,colors,mask,owners,entityOwners,opacity?.Get(command));
+            Blit(draw,area,colors,mask,owners,entityOwners,session.InvisibilityOpacity(command,opacity?.Get(command)));
         }
         if(blind!=0)for(int i=0;i<colors.Length;i++)
             colors[i]=blind==1?(owners[i]==-2&&entityOwners[i]==null?colors[i]:(ushort)0):AfflictionColors.Darken(colors[i]);

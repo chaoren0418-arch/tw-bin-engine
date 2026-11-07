@@ -276,11 +276,15 @@ partial class Checks {
     static async Task<int> Main(string[] args){try{
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY",Path.Combine(Path.GetFullPath(args[0]),"engine","build","offline-checks")+Path.DirectorySeparatorChar);
         using var guard=new SocketGuard();
+        Exception? petsFailure=null;
+        try{await Pets();}catch(Exception ex){petsFailure=ex;Console.Error.WriteLine("Pets: "+ex);}
         PolymorphChecks();
         if(args.Length>2){
             switch(args[2]){
                 case "afflictions":await AfflictionChecks();break;
-                case "map-continuity":await MapContinuity();await BoardChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();break;
+                case "pets":break;
+                case "map-continuity":await MapContinuity();await BoardChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();break;
+                case "fishing":await FishingChecks();break;
                 case "location-share":await LocationShareChecks();break;
                 case "player-query":await PlayerQueryChecks();break;
                 case "character-config":await CharacterConfigChecks();break;
@@ -288,10 +292,13 @@ partial class Checks {
                 case "polymorph-cadence":PolymorphCadenceChecks(args[0]);break;
                 case "buddies":await BuddyChecks();break;
                 case "buddies-codec":await BuddyChecks(true);break;
+                case "ambience":AmbienceChecks();break;
+                case "invisibility":InvisibilityChecks();break;
                 case "board":await BoardChecks();break;
                 case "item-transfer":await ItemTransferChecks();break;
                 case "combat-loop":await CombatLoop();break;
-                case "combat-admission":await CombatAdmission();AttackSkillChecks.Run(args[1],Check);HitReactionSuppression();break;
+                case "combat-admission":await CombatAdmission();AttackSkillChecks.Run(args[1],Check);HitReactionSuppression();await DuelChecks();break;
+                case "duel":CombatAdmissionFixture();await DuelChecks();break;
                 case "attack-skills":AttackSkillChecks.Run(args[1],Check);break;
                 case "attack-skill-resources":AttackSkillChecks.NativeResources(args[3],args[4],Check);break;
                 case "hit-reaction-suppress":HitReactionSuppression();break;
@@ -303,9 +310,11 @@ partial class Checks {
             }
         }else{
             await CharacterConfigChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
-            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();await BoardChecks();await LocationShareChecks();HitReactionSuppression();await PlayerQueryChecks();
+            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();await BoardChecks();await LocationShareChecks();HitReactionSuppression();await PlayerQueryChecks();await FishingChecks();AmbienceChecks();InvisibilityChecks();
         }
-        File.WriteAllText(args[1],JsonSerializer.Serialize(new{status="pass",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));Console.WriteLine($"PASS {checks} DEMO checks");return 0;
+        File.WriteAllText(args[1],JsonSerializer.Serialize(new{status=petsFailure==null?"pass":"fail",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));
+        if(petsFailure!=null)throw new InvalidOperationException("Pets failed; subsequent groups completed.",petsFailure);
+        Console.WriteLine($"PASS {checks} DEMO checks");return 0;
     }catch(Exception ex){Console.Error.WriteLine(ex);return 1;}}
     sealed class SocketGuard:EventListener {protected override void OnEventSourceCreated(EventSource source){if(source.Name=="System.Net.Sockets")EnableEvents(source,EventLevel.LogAlways);}protected override void OnEventWritten(EventWrittenEventArgs e)=>throw new Exception("Network not allowed in offline regression");}
 }

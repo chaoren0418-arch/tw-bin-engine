@@ -35,7 +35,8 @@ S202 分派轉交既有 `ReceiveTeleport`，沿用其獨立鎖集合及 `ActionL
 ## 狀態生命週期與呈現政策
 
 - S87 的 poison bit 可初始化綠色外觀，S165 明確值優先；顏色只作用於角色像素，不改共用 Tile、陰影、深度與點選資料。
-- 已移除物件及切圖前的周邊物件不保留染色；自身狀態跨切圖保留。`WorldSession.Reset()` 經既有 `OpacityObserved` 生命週期清除染色／盲目，麻痺集合由既有 reset 清除。
+- 已移除物件及切圖前的周邊物件不保留染色；自身狀態跨切圖保留。`WorldSession.Reset()` 經既有 `OpacityObserved` 生命週期清除染色／盲目，麻痺集合由既有 reset 清除。這兩個事件在第一個 S165／S47 才訂閱（`ObserveAfflictions`）：`WorldSession` 的無參數建構子已由 `Ambience.cs` 使用，而染色與盲目只由這兩種封包寫入，訂閱前沒有狀態要清。
+- `ComposeAfflictionPatch` 取代了原本的合成迴圈，所以 S171 隱身的 `InvisibilityOpacity` 也在這裡套用，並傳入染色前的原始 `Draw`。之後改合成流程時要保留這個呼叫。
 - 綠色／灰色以 RGB555 明度轉換呈現；盲目 1 將自身以外的場景像素轉黑，盲目 2 將場景亮度降為四分之一。解除後直接用未修改來源重新合成，避免累積變暗。
 - 盲目合成範圍涵蓋完整 renderer Bounds，以包含角色 patch 外的地圖與船背景；原生及網頁場景共用結果。HUD 不變。這會增加盲目時的合成成本，實機流暢度留待 smoke 觀測。
 - 色彩轉換與變暗比例屬客戶端呈現政策，並非已核對舊 BIN 的調色盤或逐像素一致性；狀態圖示維持 T108。
