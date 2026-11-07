@@ -37,6 +37,7 @@ partial class Checks {
     }
     static void CleanScene(LoginConnection c,string label)=>Check(c.World.Objects.Length==0&&c.World.Ground.Length==0&&c.World.MagicEffects.Length==0&&c.World.TargetId==null&&c.World.SelectedGroundId==null&&c.World.InteractionKind=="closed",label);
     static async Task MapContinuity(){
+        MapIdOverloads();
         string fixtureRoot=Path.Combine(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../..")),"scratch","issue-140","synthetic-maps");
         mapFixture=Path.Combine(fixtureRoot,"assets");
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY",Path.Combine(fixtureRoot,"build","offline-checks")+Path.DirectorySeparatorChar);
