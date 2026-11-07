@@ -25,6 +25,8 @@
 | `check-no-game-assets.py` | 通過，0 個錯誤 |
 | d287 JAR | `javap` 唯讀核對 C_War、C_Attr、S_War、S_Message_YN、L1War，SHA-256 相符 |
 
+同步 origin/main（含小地圖 `MinimapChecks`）後重跑：`--update-lock`（215 個來源、224 個鎖定輸入）、`--build` 通過，`clan-war` 479 項、`map-continuity` 22632 項通過，`check-no-game-assets.py` 0 錯誤。
+
 開發中測試抓到兩個產品問題，都已修正：第三方廣播可能把己方戰爭擠出上限清單；切地圖時 `Actor` 短暫為 null，交戰清單會變空。
 
 ## 未驗證什麼
