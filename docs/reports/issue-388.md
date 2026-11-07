@@ -34,8 +34,9 @@ CI 已加入 `Affliction contracts`；遠端結果以本 PR 的 `build` workflow
 
 同步輪最終驗證（合併 main 並修正後）：
 
-- `--update-lock`：190 個來源、199 個鎖定檔；`--build`：產品及 launcher 通過，產品 DLL SHA-256 `103a3b138e20a7d03963bacfcab23feafd547d54ee99e93e4c97016ec50b04ee`。
-- DemoChecks：afflictions 238、combat-admission 1109、map-continuity 20733、polymorph-cadence 123、buddies 259、item-transfer 163，全部通過。main 合入後每組都會先跑 `PolymorphChecks()`，所以總數比第一輪高。
+- 工作期間 main 又前進 9 個 commit（#361），已第二次同步：`WorldSession.cs` 兩邊保留，`Program.cs` 的 `map-continuity` 採 main 版本（含 `LocationShareChecks`）。
+- `--update-lock`：191 個來源、200 個鎖定檔；`--build`：產品及 launcher 通過，產品 DLL SHA-256 `0e4fc33aced6d65f44781391fd4aba829e9e31801eb2953555ae29c13d5113ba`。
+- DemoChecks：afflictions 238、combat-admission 1109、map-continuity 20832、polymorph-cadence 123、buddies 259、item-transfer 163、location-share 189，全部通過。main 合入後每組都會先跑 `PolymorphChecks()`，所以總數比第一輪高。
 - `check-no-game-assets.py`：通過，0 錯誤。
 
 ## 未驗證什麼

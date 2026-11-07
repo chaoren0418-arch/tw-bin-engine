@@ -34,6 +34,8 @@ public sealed partial class WorldSession {
         case 165:ReceivePoison(r);return;
         case 202:ReceiveParalysis(r,plain);return;
         case 47:ReceiveBlind(r);return;
+        case 250 when plain.Length>1&&plain[1]==111:ReceiveLocationShare(plain);return;
+        case 71 when LocationShareProtocol.IsReply(plain):ReceiveLocationShare(plain);return;
         case 250 when plain.Length>1&&plain[1]==41:ReceiveCharacterConfig(plain);return;
         case 250 when plain.Length>=2&&plain[1] is 17 or 18 or 19:ReceiveBuddies(opcode,plain);return;
         case 71 when plain.Length>=3&&BinaryPrimitives.ReadUInt16LittleEndian(plain.AsSpan(1)) is 109 or 472:
