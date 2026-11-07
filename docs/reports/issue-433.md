@@ -19,9 +19,9 @@
 
 | 項目 | 結果 |
 |---|---|
-| `rebuild.py --update-lock` → `rebuild.py --build` | PASS，productDll `e8546eb7…ecd4`、audioDll `f135b508…d63d` |
-| `--selection` 離線檢查（`run.ps1`） | PASS 4 cases / 46 checks |
-| 既有 combat-sfx 完整套件（唯讀讀取 r29 assets 與 `0-客戶端` WAV） | PASS 8 cases / 8987 checks |
+| `rebuild.py --update-lock` → `rebuild.py --build` | PASS。合併 main 前 productDll 是 `e8546eb7…ecd4`；合併 main 後重產 lock（沒有差異）再建置，productDll 是 `4e3ef52b…44a7`，audioDll `f135b508…d63d` |
+| `--selection` 離線檢查（`run.ps1`） | PASS 4 cases / 46 checks（合併 main 前後各跑一次） |
+| 既有 combat-sfx 完整套件（唯讀讀取 r29 assets 與 `0-客戶端` WAV） | PASS 8 cases / 8987 checks（只在合併 main 前跑過） |
 | `check-no-game-assets.py` | pass，errors 0 |
 
 完整套件需要 `engine/assets`，但 worktree 沒有這個 junction。所以暫時用 `mklink /J` 建一個指向 `releases/r29/assets` 的 junction，跑完已經用 `cmd /c rmdir`（不加 /s）拆掉，目標目錄還在。
