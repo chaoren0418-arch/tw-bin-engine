@@ -22,6 +22,16 @@
 - 未啟動遊戲、伺服器、DB，未做登入、真機畫面、部署 JAR 行為或技能成功率驗收。合成封包與像素僅為離線測試，不能當作真機證據。
 - CI 結果以此分支 PR 的 checks 為準；PR 綠燈後交 Claude 審查、使用者合併。
 
+## 同步輪（合併 origin/main）
+
+依調度器 2026-11-07 退回指示，只做同步，未改隱身功能。上方的斷言數與追蹤檔數是同步前的數字，同步後以本段為準。
+
+- 解衝突：`WorldSession.cs` 保留 S171 與 main 新增的 S250/41 兩個 case；`DemoChecks.csproj` 兩邊的測試都保留；`Program.cs` 的 `map-continuity` 改用 main 版本再接上 `InvisibilityChecks()`，預設入口同樣接上；`rebuild-lock.json` 取 main 版本後以 `--update-lock` 重產（190 來源、199 鎖定檔），未手動拼 hash。
+- 建置：`rebuild.py --build` 通過，0 錯誤，只有既有的 `MagicUi.cs:20` 兩個警告。
+- 測試（DemoChecks，每個群組都會先跑 90 項 polymorph 檢查）：`invisibility` 160 項（隱身本身 70 項）、`map-continuity` 20803 項（含 42 個 S171 標籤）、`combat-admission` 1109 項、`buddies` 259 項、`item-transfer` 163 項、`polymorph-cadence` 123 項，全部通過。
+- `check-no-game-assets.py`：通過，3337 個追蹤檔、0 錯誤。
+- **未通過／未跑完**：不帶群組的預設入口在此 worktree 失敗，停在 `Movement123` 讀 `engine/assets/terrain0.bin`（`DirectoryNotFoundException`），因為 worktree 沒有 `engine/assets` junction，未為此建立。該入口還沒跑到 `InvisibilityChecks()` 就中止，所以預設入口的接線只經過編譯驗證；CI 不跑此入口。
+
 ## 產出路徑
 
 - 模組：`engine/source/Invisibility.cs`
