@@ -6,7 +6,7 @@
 
 | 封包 | opcode 後欄位 | 語意 |
 |---|---|---|
-| S64／S_BookmarkList | C(0x2A), H(0x80), C(2), 127 個 FF, H(容量), H(筆數), 每筆 D(id), S(name), H(map), H(x), H(y) | 完整替換書籤；其他 S64 子型別仍由既有模組處理 |
+| S64／S_BookmarkList | C(0x2A), H(0x80), C(2), 127 個 FF, H(容量), H(筆數), 每筆 D(id), S(name), H(map), H(x), H(y) | 完整替換書籤；只有完整標頭 `2A 80 00 02` 才算書籤清單，之後的欄位嚴格驗證；標頭不完整的 `0x2A` 與其他 S64 子型別都不接管，仍由既有分派處理 |
 | S92／S_Bookmarks | S(name), H(map), H(x), H(y), D(id) | 按 ID 新增或更新 |
 | C165／C_AddBookmark | S(name) | 伺服器自行取得當時地圖與座標；客戶端不提交座標 |
 | C3／C_DeleteBookmark | S(name) | 按名稱刪除，無成功確認回包 |

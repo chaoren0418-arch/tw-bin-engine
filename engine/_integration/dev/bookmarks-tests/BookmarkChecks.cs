@@ -33,14 +33,20 @@ partial class Checks {
             int revision=w.Bookmarks.Revision;
             foreach(var data in new[]{BookmarkList(one),BookmarkOne(one)}){
                 for(int n=0;n<data.Length;n++){
-                    if(data[0]==64&&n==1)continue; // No subtype yet: shared opcode is not claimed.
-                    byte[] truncated=data[..n];BookmarkReject(()=>Feed(c,truncated),"all truncated packet prefixes");
+                    byte[] truncated=data[..n];
+                    if(data[0]==64&&n is >=1 and <5)Feed(c,truncated); // Incomplete header: shared opcode is not claimed.
+                    else BookmarkReject(()=>Feed(c,truncated),"all truncated packet prefixes");
                     Check(w.Bookmarks.Revision==revision&&w.Bookmarks.Items.SequenceEqual(new[]{two}),"truncated packet atomicity");
                 }
             }
-            foreach(int offset in new[]{2,4,5,131}){
-                var bad=BookmarkList(one);bad[offset]=0;BookmarkReject(()=>Feed(c,bad),"invalid list header/slots");
+            foreach(int offset in new[]{5,131}){
+                var bad=BookmarkList(one);bad[offset]=0;BookmarkReject(()=>Feed(c,bad),"invalid list slots");
             }
+            foreach(var (offset,value) in new[]{(2,0),(3,1),(4,0)}){
+                var foreign=BookmarkList(one);foreign[offset]=(byte)value;Feed(c,foreign);
+                Check(w.Bookmarks.Revision==revision&&w.Bookmarks.Items.SequenceEqual(new[]{two}),"S64 0x2A without list header stays foreign");
+            }
+            Feed(c,LoginPackets.Pad([64,0x2A]));Check(w.Bookmarks.Revision==revision,"padded S64 0x2A stub stays foreign");
             var count=BookmarkList(one);count[134]=255;count[135]=255;BookmarkReject(()=>Feed(c,count),"impossible count");
             var tail=BookmarkOne(one);tail[^1]=1;BookmarkReject(()=>Feed(c,tail),"nonzero padding");
             BookmarkReject(()=>Feed(c,BookmarkList(one,one)),"duplicate ids rejected");

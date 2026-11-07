@@ -73,7 +73,8 @@ public sealed partial class WorldSession {
     public Bookmarks Bookmarks {get;}=new();
     void ResetBookmarks()=>Bookmarks.Reset();
     bool ReceiveBookmarkList(byte opcode,LoginReader r,byte[] plain){
-        if(opcode!=64||plain.Length<2||plain[1]!=0x2A)return false;
+        // S64 is shared: only the full list header claims the packet. Past it, ReceiveList stays strict.
+        if(opcode!=64||plain.Length<5||plain[1]!=0x2A||plain[2]!=0x80||plain[3]!=0||plain[4]!=2)return false;
         Bookmarks.ReceiveList(r);return true;
     }
     void ReceiveBookmark(LoginReader r)=>Bookmarks.ReceiveOne(r);
