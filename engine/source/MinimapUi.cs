@@ -26,7 +26,7 @@ public sealed class MinimapUi:Panel {
         minus=MakeButton("−",30,()=>Zoom(-1));plus=MakeButton("＋",30,()=>Zoom(1));close=MakeButton("×",30,Toggle);
         minus.AccessibleName="縮小小地圖";plus.AccessibleName="放大小地圖";close.AccessibleName="關閉小地圖";
         Controls.AddRange([minus,plus,close]);
-        tips.SetToolTip(this,"白點：自己；金點：NPC／非玩家物件（含怪物）。只顯示已載入區域；＋／− 或滾輪縮放。F5 開關。");
+        tips.SetToolTip(this,"白點：自己；青點：隊友；金點：NPC／非玩家物件（含怪物）。不在視野內的隊友位置約每 5 秒更新。只顯示已載入區域；＋／− 或滾輪縮放。F5 開關。");
         hud.ParentChanged+=HudChanged;hud.VisibleChanged+=HudChanged;hud.Disposed+=HudDisposed;
         refresh.Tick+=(_,_)=>RefreshMap();RefreshMap();
     }
@@ -53,7 +53,7 @@ public sealed class MinimapUi:Panel {
         minus.SetBounds(Width-96,3,30,26);plus.SetBounds(Width-65,3,30,26);close.SetBounds(Width-34,3,30,26);
         model.Update(host.ReadMinimap());Visible=true;BringToFront();
         minus.Enabled=model.Zoom>1;plus.Enabled=model.Zoom<4;
-        AccessibleDescription=model.Snapshot is {} state?$"地圖 {state.MapId}，{model.Zoom} 倍；白點自己，金點 NPC／非玩家物件；已載入區域":"等待目前地圖快取";
+        AccessibleDescription=model.Snapshot is {} state?$"地圖 {state.MapId}，{model.Zoom} 倍；白點自己，青點隊友，金點 NPC／非玩家物件；已載入區域":"等待目前地圖快取";
         Invalidate();
     }
     protected override void OnMouseWheel(MouseEventArgs e){base.OnMouseWheel(e);if(e.Delta!=0)Zoom(Math.Sign(e.Delta));}
@@ -71,12 +71,12 @@ public sealed class MinimapUi:Panel {
         var saved=e.Graphics.Save();e.Graphics.SetClip(area);
         foreach(var marker in snapshot.Markers){
             var p=image.Project(marker.X,marker.Y);if(!source.Contains(p))continue;
-            float x=target.X+(p.X-source.X)*scale,y=target.Y+(p.Y-source.Y)*scale,r=marker.Self?4:2;
+            float x=target.X+(p.X-source.X)*scale,y=target.Y+(p.Y-source.Y)*scale,r=marker.Self?4:marker.Party?3:2;
             e.Graphics.FillEllipse(Brushes.Black,x-r-1,y-r-1,r*2+2,r*2+2);
-            using var color=new SolidBrush(marker.Self?Color.White:PlayerHudPainter.Gold);e.Graphics.FillEllipse(color,x-r,y-r,r*2,r*2);
+            using var color=new SolidBrush(marker.Self?Color.White:marker.Party?Color.Cyan:PlayerHudPainter.Gold);e.Graphics.FillEllipse(color,x-r,y-r,r*2,r*2);
         }
         e.Graphics.Restore(saved);
-        TextRenderer.DrawText(e.Graphics,$"地圖 {snapshot.MapId} · 已載入區域 · 白：自己／金：NPC",Font,new Rectangle(6,Height-24,Width-12,22),Color.Silver,TextFormatFlags.SingleLine|TextFormatFlags.EndEllipsis);
+        TextRenderer.DrawText(e.Graphics,$"地圖 {snapshot.MapId} · 已載入區域 · 白我／青隊友／金NPC",Font,new Rectangle(6,Height-24,Width-12,22),Color.Silver,TextFormatFlags.SingleLine|TextFormatFlags.EndEllipsis);
     }
     protected override void Dispose(bool disposing){
         if(disposing){hud.ParentChanged-=HudChanged;hud.VisibleChanged-=HudChanged;hud.Disposed-=HudDisposed;refresh.Dispose();model.Dispose();tips.Dispose();toggle.Dispose();}

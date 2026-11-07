@@ -89,6 +89,7 @@ public sealed class PlayerHudView:Panel {
         MailUi.Attach(this,menu);
         chat.Enter+=(_,_)=>ChatEntered?.Invoke();chat.SubmitRequested+=async(text,view)=>ChatSubmitRequested!=null&&await ChatSubmitRequested(text,view);
         Resize+=(_,_)=>Arrange();
+        PartyUi.Mount(this,menu,()=>ToggleDrawer("party"),()=>drawer=="party");
     }
     bool clearing;
     Button MakeButton(string title,Action click,int width,bool gameFocus=true){var b=new Button{Text=title,AccessibleName=title,Width=width,Height=30,Margin=new(3,2,3,2),FlatStyle=FlatStyle.Flat,BackColor=PlayerHudPainter.Panel,ForeColor=Color.White};b.FlatAppearance.BorderColor=Color.FromArgb(88,104,102);b.Click+=(_,_)=>{click();if(gameFocus)GameFocusRequested?.Invoke();};return b;}

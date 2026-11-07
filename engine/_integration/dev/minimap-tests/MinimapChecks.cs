@@ -74,6 +74,7 @@ partial class Checks {
             Check(model.Image==null,"S149 teleport pending clears old world");
             world.Reset();Update();Check(model.Image==null&&model.Snapshot==null,"logout reset releases all minimap content");
         }
+        MinimapParty();
         MinimapPixels();
         var allowed=typeof(ClientForm).GetMethod("MinimapKeyAllowed",BindingFlags.Static|BindingFlags.NonPublic)!;
         bool Key(Keys key,bool active=true,bool input=true,bool focused=true)=>(bool)allowed.Invoke(null,[key,active,input,focused])!;
@@ -86,16 +87,56 @@ partial class Checks {
             using var view=(MinimapUi)Activator.CreateInstance(typeof(MinimapUi),F,null,[hud,menu],null)!;
             var viewModel=(Minimap)typeof(MinimapUi).GetField("model",F)!.GetValue(view)!;
             var cache=MinimapCache();
-            viewModel.Update(new(cache,1,0,0,cache.Scene,[new(123,"self",32600,32940,true)]));
+            viewModel.Update(new(cache,1,0,0,cache.Scene,[new(456,"隊員",32600,32939,false,true),new(123,"self",32600,32940,true)]));
             view.Size=new(272,218);
             using var painted=new Bitmap(view.Width,view.Height);view.DrawToBitmap(painted,view.ClientRectangle);
-            bool terrain=false,self=false;
+            bool terrain=false,self=false,mate=false;
             for(int y=34;y<view.Height-27;y++)for(int x=6;x<view.Width-6;x++){
-                int color=painted.GetPixel(x,y).ToArgb();terrain|=color==Color.Lime.ToArgb();self|=color==Color.White.ToArgb();
+                int color=painted.GetPixel(x,y).ToArgb();terrain|=color==Color.Lime.ToArgb();self|=color==Color.White.ToArgb();mate|=color==Color.Cyan.ToArgb();
             }
-            Check(terrain&&self,"real minimap control paints cached terrain and own marker without showing a window");
+            Check(terrain&&self&&mate,"real minimap control paints cached terrain, own and party markers without showing a window");
             view.Dispose();Check(viewModel.Image==null&&viewModel.Snapshot==null,"HUD/control disposal releases rendered minimap");
         }
+    }
+    static byte[] MinimapPartyRow(byte sub,uint id,string name,uint map,ushort x,ushort y)=>Packet(b=>{b.Write((byte)250);b.Write(sub);if(sub==104)b.Write((byte)1);b.Write(id);Text(b,name);b.Write((byte)75);b.Write(map);b.Write(x);b.Write(y);});
+    static byte[] MinimapPartyMove(uint id,uint map,ushort x,ushort y)=>Packet(b=>{b.Write((byte)250);b.Write((byte)110);b.Write((byte)1);b.Write(id);b.Write(map);b.Write(x);b.Write(y);});
+    static byte[] MinimapPc(uint id,string name,ushort x,ushort y,byte flags=4)=>Packet(b=>{
+        b.Write((byte)87);b.Write(x);b.Write(y);b.Write(id);b.Write((ushort)1110);b.Write(new byte[4]);b.Write(0u);b.Write((ushort)0);
+        Text(b,name);Text(b,"");b.Write(flags);b.Write(0u);Text(b,"");Text(b,"");b.Write((byte)0);b.Write((byte)100);b.Write(new byte[3]);b.Write((byte)255);b.Write((byte)255);
+    });
+    // Seed() places the player on map 0, so synthetic rows use map 0 for "same map".
+    static void MinimapParty(){
+        using var connection=Seed();
+        Sender(connection,(_,_,_)=>throw new Exception("minimap must not send C packets"));
+        var world=connection.World;BindMinimap(world,MinimapCache());Check(world.Objects.All(o=>o.ObjectId is not (900 or 901)),"party fixture IDs start out of view");
+        MinimapMarker[] All()=>MinimapSnapshot.Capture(world)!.Markers;
+        MinimapMarker[] Mates()=>All().Where(m=>m.Party).ToArray();
+        Check(Mates().Length==0,"no party means no party markers");
+        Feed(connection,MinimapPc(700,"路人",32602,32940));Check(All().All(m=>m.Id!=700),"PC outside the party is not guessed as a teammate");
+        Feed(connection,MinimapPartyRow(105,900,"隊員",0,32605,32941));
+        Check(Mates().Single() is {Id:900,Name:"隊員",X:32605,Y:32941,Self:false},"S250/105 row places a teammate out of view");
+        Feed(connection,MinimapPartyRow(104,901,"新隊員",0,32606,32942));
+        Check(Mates().Select(m=>m.Id).Order().SequenceEqual(new uint[]{900,901}),"S250/104 row adds a second teammate");
+        Feed(connection,MinimapPartyMove(900,0,32607,32943));
+        Check(Mates().Single(m=>m.Id==900) is {X:32607,Y:32943},"S250/110 moves an out-of-view teammate");
+        Feed(connection,MinimapPartyMove(900,4,32607,32943));Check(Mates().All(m=>m.Id!=900),"S250/110 on another map hides the teammate");
+        Feed(connection,MinimapPartyMove(900,0,32000,32943));Check(Mates().All(m=>m.Id!=900),"reported position outside the cache has no marker");
+        Feed(connection,MinimapPartyMove(900,4,32607,32943));Feed(connection,MinimapPc(900,"隊員",32608,32944));
+        Check(Mates().Single(m=>m.Id==900) is {X:32608,Y:32944},"visible teammate uses live object over a stale report from another map");
+        Feed(connection,Move(900,32608,32944,2));
+        Check(Mates().Single(m=>m.Id==900) is {X:var liveX}&&liveX==32608+MovementRules.Dx[2],"S10 moves a visible teammate immediately");
+        Feed(connection,Packet(b=>{b.Write((byte)158);b.Write(900u);b.Write((byte)8);}));Check(Mates().Any(m=>m.Id==900),"dead teammate stays marked");
+        Feed(connection,MinimapPartyMove(900,0,32609,32945));Feed(connection,Packet(b=>{b.Write((byte)120);b.Write(900u);}));
+        Check(Mates().Single(m=>m.Id==900) is {X:32609,Y:32945},"S120 falls back to the last S250/110 report");
+        Feed(connection,MinimapPack(900,0,32603));Check(All().Count(m=>m.Id==900)==1&&All().Single(m=>m.Id==900).Party,"non-PC-flag teammate object is one party marker, not also an NPC");
+        Check(All()[^1].Self,"own marker stays last so it paints on top");
+        Feed(connection,PartyListPacket("offline","offline 遠方 "));
+        Check(Mates().Length==0,"S39 name-only member without object or location has no marker");
+        Feed(connection,MinimapPc(800,"遠方",32604,32940));Check(Mates().Single() is {Id:800,X:32604},"S39 name-only member resolves to one visible PC");
+        Feed(connection,MinimapPc(801,"遠方",32605,32940));Check(Mates().Length==0,"ambiguous PC name is not guessed as the teammate");
+        Feed(connection,MinimapPartyRow(105,900,"隊員",0,32605,32941));Feed(connection,PartyHp(900,255));Check(Mates().All(m=>m.Id!=900),"S237 FF removal clears the marker");
+        Feed(connection,MinimapPartyRow(105,900,"隊員",0,32605,32941));Feed(connection,PartyMessage(420,"隊員"));Check(Mates().All(m=>m.Id!=900),"S71/420 departure clears the marker");
+        Feed(connection,MinimapPartyRow(105,900,"隊員",0,32605,32941));Feed(connection,PartyMessage(418));Check(Mates().Length==0,"S71/418 dissolve clears all markers");
     }
     static void MinimapPixels(){
         var pixels=Enumerable.Range(0,576).Select(i=>new Pixel(i%24,i/24,(ushort)((i%24)<<10|(i/24)<<5))).ToArray();

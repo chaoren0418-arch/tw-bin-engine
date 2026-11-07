@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 211,
+ "sourceCount": 213,
  "files": [
   {
    "path": "NuGet.Config",
@@ -551,13 +551,13 @@
   },
   {
    "path": "source/Minimap.cs",
-   "size": 5218,
-   "sha256": "ccf546f43aec96f4d0fffa11fbfabdd524eba1509a7a58889e5bfa3b8915ede7"
+   "size": 6331,
+   "sha256": "39b820639a13b8e1c4483c95d2ac8e720e0e2d8477dfeada3f409ebfde5359fa"
   },
   {
    "path": "source/MinimapUi.cs",
-   "size": 6043,
-   "sha256": "72ae3d2581351108fc5e6a0bb86d569e64a257e814ff3633f22961677c241dbb"
+   "size": 6169,
+   "sha256": "9eb3e11815f23b02b6e07a51b11e84cca4d288e3af6f0d449a76101e3436b503"
   },
   {
    "path": "source/MovementRegression.cs",
@@ -715,6 +715,16 @@
    "sha256": "1172b568b9702a0db588cbb5818cc85988bece0e0fd6586af58db6f9469e86d2"
   },
   {
+   "path": "source/Party.cs",
+   "size": 12405,
+   "sha256": "e0a45ea8f3825e238d9a3de7b4c1044187cb8d687d94db9773a1c847193edcb9"
+  },
+  {
+   "path": "source/PartyUi.cs",
+   "size": 5185,
+   "sha256": "63382e90fc5927796bb517e634b45c1baa78935f1d28e01e1de038e439fb26a8"
+  },
+  {
    "path": "source/PetUi.cs",
    "size": 4124,
    "sha256": "f0979c21a3c7c52ee95adba29a754397574222c59abe38a75d54a67ed7645ba5"
@@ -771,8 +781,8 @@
   },
   {
    "path": "source/PlayerHudView.cs",
-   "size": 15659,
-   "sha256": "335aa4bf12a66d1bfbacec4e5b2aa3665453f018d8d50fc272f94d82875b2469"
+   "size": 15740,
+   "sha256": "e64e7529af346e9419f1b577fe18e3dcb534e7556ffc6da4073bec3037930574"
   },
   {
    "path": "source/PlayerPointer.cs",
@@ -1051,8 +1061,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 11584,
-   "sha256": "d4262c1df330cd6e428e3b09b070c5a9c270c3fbd6f5d2d15e8864aa143c6862"
+   "size": 11962,
+   "sha256": "189bb031a76ffea0af2bef0646274099cad871b8a0ead250f0ac92d082d14064"
   },
   {
    "path": "source/WorldTests.cs",

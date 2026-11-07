@@ -1,6 +1,6 @@
 namespace P06;
 
-public sealed record MinimapMarker(uint Id,string Name,int X,int Y,bool Self);
+public sealed record MinimapMarker(uint Id,string Name,int X,int Y,bool Self,bool Party=false);
 
 // Captured under LoginConnection.CaptureWorld. Scene and tiles are published cache data;
 // the minimap never loads blocks, advances the world, or retains evicted map history.
@@ -10,13 +10,29 @@ public sealed record MinimapSnapshot(object CacheIdentity,int Revision,int Epoch
         if(!world.Ready||world.TeleportPending||world.MapResourceState!="ready"||
             world.MapCache is not {} cache||world.Actor is not {} actor||cache.MapId!=world.MapId||
             !cache.Bounds.Contains(actor.X,actor.Y)||!cache.Contains(actor.X,actor.Y))return null;
+        var party=PartyMarkers(world,cache);
         var markers=world.Objects.Where(o=>o.ObjectId!=actor.ObjectId&&!o.Dead&&!o.AppearancePending&&
-            (o.Flags&4)==0&&cache.Bounds.Contains(o.X,o.Y)&&cache.Contains(o.X,o.Y))
+            (o.Flags&4)==0&&cache.Bounds.Contains(o.X,o.Y)&&cache.Contains(o.X,o.Y)&&party.All(m=>m.Id!=o.ObjectId))
             .Select(o=>new MinimapMarker(o.ObjectId,o.Name,o.X,o.Y,false)).ToList();
         // S87 has no species/template ID. Non-PC flags include monsters and scenery;
         // do not infer friendly NPCs or party membership from names or gfx.
+        markers.AddRange(party);
         markers.Add(new(actor.ObjectId,actor.Name,actor.X,actor.Y,true));
         return new(cache,cache.Revision,world.WorldEpoch,cache.MapId,cache.Scene,markers.ToArray());
+    }
+    // Membership comes only from the Party roster. A visible object is live; otherwise use the
+    // last S250 row, which the server refreshes every 5 s, and only when it names this map.
+    static List<MinimapMarker> PartyMarkers(WorldSession world,OriginalMapCache cache){
+        var markers=new List<MinimapMarker>();
+        foreach(var member in world.PartySnapshot(0,false).Members){
+            // S39 rows may lack an ID; a name is only an identity when exactly one PC holds it.
+            var seen=world.Objects.Where(o=>member.ObjectId!=0?o.ObjectId==member.ObjectId:o.Name==member.Name&&(o.Flags&4)!=0).ToArray();
+            var live=seen.Length==1?seen[0]:null;
+            if(live==null&&member.MapId!=(uint)cache.MapId)continue;
+            int x=live?.X??member.X,y=live?.Y??member.Y;
+            if(cache.Bounds.Contains(x,y)&&cache.Contains(x,y))markers.Add(new(live?.ObjectId??member.ObjectId,member.Name,x,y,false,true));
+        }
+        return markers;
     }
 }
 
