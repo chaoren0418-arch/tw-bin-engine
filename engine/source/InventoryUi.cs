@@ -14,6 +14,7 @@ public sealed partial class ClientForm {
         inventoryList.SelectedIndexChanged+=(_,_)=>{if(syncingInventory)return;ClearInput("inventory-select");login.World.SelectItem(inventoryList.SelectedItem is InventoryItem i?i.ObjectId:null);SyncQuantitySelection(false);lastWebState="";PublishWebState();};
         inventoryList.Enter+=(_,_)=>LeaveGameFocus("inventory-list");useItemButton.Enter+=(_,_)=>LeaveGameFocus("inventory-button");
         useItemButton.Click+=async(_,_)=>{ClearInput("inventory-use");await login.UseSelectedItem();SyncInventory();PublishWebState();};
+        InitItemTransfer();
         FormClosed+=(_,_)=>{foreach(var b in itemIcons.Values)b?.Dispose();};
     }
     void SyncInventory(){
