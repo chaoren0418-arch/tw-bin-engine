@@ -45,7 +45,8 @@ public sealed partial class WorldSession {
             ReceiveBuddies(opcode,plain);break; // Continue through the existing server-message dispatch.
         case 39:if(ReceivePetDialog(plain)||ReceivePlayerQueryHtml(plain))return;break;
         case 71:ObserveFishing(plain);if(ReceivePlayerQueryMessage(plain))return;break;
-        case 119:case 158:ObserveFishing(plain);break;
+        case 119:ObserveFishing(plain);break;
+        case 158:ObserveFishing(plain);if(ReceiveDoorAction(plain))return;break;
         case 22:ReceiveSoundPacket(plain);return;
         case 55:ReceiveEffectPacket(plain);return;
         case 106:ReceiveEffectPacket(plain);return;
@@ -57,6 +58,7 @@ public sealed partial class WorldSession {
         case 76:ReceivePolymorph(plain);break;
         case 68:ReceiveBoardList(r);break;
         case 148:ReceiveBoardRead(r);break;
+        case 209:ReceiveDoorAttribute(r);break;
         case 223:
             if(!plain.AsSpan(1).SequenceEqual(Convert.FromHexString("03158B7B94F02F")))throw new ProtocolException("unexpected EnterGame payload");Entered=true;break;
         case 8:
@@ -65,6 +67,7 @@ public sealed partial class WorldSession {
         case 206:ReceiveMapId(r);break;
         case 87:
             ushort x=r.H(),y=r.H();uint id=r.D();
+            if(id!=Status?.ObjectId&&ReceiveDoorPack(plain,r,x,y,id))break;
             if(Status==null||id!=Status.ObjectId){ReceiveObject(r,x,y,id);break;}
             var a=new OwnActor(x,y,id,r.H(),r.C(),r.C(),r.C(),r.C(),r.D(),unchecked((short)r.H()),r.S(),r.S(),r.C(),r.D(),r.S(),r.S(),r.C(),r.C(),r.C(),r.C(),r.C(),r.C(),r.C());r.Finish();
             if(a.Name!=selected||a.Direction>7)throw new ProtocolException("self actor name/heading mismatch");SelfAppearancePending=false;objects.TryRemove(id,out _);ResetSpeedStatus();ApplyAuthoritative(a);OwnArrived();break;

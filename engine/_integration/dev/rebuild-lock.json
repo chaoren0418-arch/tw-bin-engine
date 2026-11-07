@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 201,
+ "sourceCount": 202,
  "files": [
   {
    "path": "NuGet.Config",
@@ -243,6 +243,11 @@
    "path": "source/CombatVisibilityPlan.cs",
    "size": 2604,
    "sha256": "4cb71ff1ef122dec7974554d443f0fae236bef48674979ffd5c0428610e696c1"
+  },
+  {
+   "path": "source/Doors.cs",
+   "size": 6741,
+   "sha256": "46bff83d398f3db14ac5dbc575731ca9fb5a792138e1f635f4b7729f6ee45dbd"
   },
   {
    "path": "source/DualBlockTests.cs",
@@ -581,8 +586,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 9881,
-   "sha256": "6bfe2cb8ffa0ab728ac4d5a9a760cfe05a3459e0d8aa3aa464a767d289986a09"
+   "size": 9968,
+   "sha256": "941f9d8c11885e7891dd8dfe946a53863fa0d33f59fc2be6f1a4e17997688c3f"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -606,8 +611,8 @@
   },
   {
    "path": "source/OnlineMovement.cs",
-   "size": 12469,
-   "sha256": "fd3fca75309cc75d303a9cf7eb8209150d93b534b764b720a532bd851b8a8a6c"
+   "size": 12658,
+   "sha256": "b574e116b8cd39637ff7b3bd57b120aa0a483986bd8274a9cdbf7aa252e191ce"
   },
   {
    "path": "source/OpacityHistoricalPumps.cs",
@@ -731,8 +736,8 @@
   },
   {
    "path": "source/PlayerPointer.cs",
-   "size": 9047,
-   "sha256": "b2c1f6e85945133b90c0127584d7f032959af248590563b7e019f2e89401126d"
+   "size": 9504,
+   "sha256": "afa627532ab8715ea7dbc68802cfea6aef3524f90f14fd893a4d8adfae2715b4"
   },
   {
    "path": "source/PlayerPointerHud.cs",
@@ -1001,8 +1006,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 10939,
-   "sha256": "a4db41eac89e58156c7080ad957f97a7bd874415e009e5363b963f1ffbb0eb73"
+   "size": 11138,
+   "sha256": "ef2bb902b204afca778a2f5d4839c348b23ea9eb9f567f0d980853521b7cada4"
   },
   {
    "path": "source/WorldTests.cs",
