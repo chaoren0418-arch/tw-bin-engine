@@ -10,10 +10,15 @@ partial class Checks {
         var store=(OriginalMapStore)RuntimeHelpers.GetUninitializedObject(typeof(OriginalMapStore));
         typeof(OriginalMapStore).GetField("<Bounds>k__BackingField",F)!.SetValue(store,new MapBounds(32576,32896,32703,33023));
         var cache=(OriginalMapCache)RuntimeHelpers.GetUninitializedObject(typeof(OriginalMapCache));
-        Set(cache,"store",store);Set(cache,"OriginX",32384);Set(cache,"OriginY",32896);Set(cache,"Revision",revision);
+        Set(cache,"store",store);SetCacheCollections(cache);Set(cache,"OriginX",32384);Set(cache,"OriginY",32896);Set(cache,"Revision",revision);
         var tile=new Tile(0,Enumerable.Range(0,576).Select(i=>new Pixel(i%24,i/24,0x3e0)).ToArray());
         Set(cache,"Scene",new Draw[]{new(48,44,0,1,"ground",0,0,0,tile),new(50,44,0,2,"ground",0,0,0,tile)});
         return cache;
+    }
+    // GetUninitializedObject skips initializers; OriginalMapCache.Snapshot() reads these on every ObserveOpacity.
+    static void SetCacheCollections(OriginalMapCache cache){
+        typeof(OriginalMapCache).GetField("<Slots>k__BackingField",F)!.SetValue(cache,new OriginalMapBlock?[4]);
+        typeof(OriginalMapCache).GetField("<Events>k__BackingField",F)!.SetValue(cache,new List<object>());
     }
     static void BindMinimap(WorldSession world,OriginalMapCache cache){
         Set(world,"MapCache",cache);Set(world,"MapResourceState","ready");

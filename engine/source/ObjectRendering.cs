@@ -47,7 +47,7 @@ public sealed partial class Renderer {
         // Stable ID tie-break makes exact overlaps deterministic, independent of arrival order.
         var commands=ActiveScene.Where(c=>c.Px<area.Right&&c.Px+24>area.Left&&c.Py<area.Bottom&&c.Py+24>area.Top).Concat(draws).OrderBy(c=>c,DrawComparer.Instance).ThenBy(c=>c.ObjectId).ToList();
         var colors=new ushort[area.Width*area.Height];var mask=new bool[colors.Length];var owners=Enumerable.Repeat(-1,colors.Length).ToArray();
-        FillShipBackdrop(area,colors,mask);var entityOwners=new uint?[colors.Length];foreach(var c in commands)Blit(c,area,colors,mask,owners,entityOwners,opacity?.Get(c));
+        FillShipBackdrop(area,colors,mask);var entityOwners=new uint?[colors.Length];foreach(var c in commands)Blit(c,area,colors,mask,owners,entityOwners,session.InvisibilityOpacity(c,opacity?.Get(c)));
         visuals=vs.ToArray();missing=unavailable.ToArray();return new(area,colors,mask,owners,commands,entityOwners);
     }
 }
@@ -69,6 +69,7 @@ public sealed partial class ClientForm {
         if(login.World.TargetId is uint id&&objectVisuals.FirstOrDefault(v=>v.ObjectId==id) is {} v){var p=Camera.ToView(v.Foot);using var pen=new Pen(Color.Gold,2);g.DrawEllipse(pen,p.X-19*Camera.Zoom,p.Y-7*Camera.Zoom,38*Camera.Zoom,14*Camera.Zoom);g.DrawString(v.Name+" #"+id,Font,Brushes.Gold,p.X-40,p.Y+10);}
         foreach(var groundVisual in objectVisuals.Where(v=>v.Action=="ground")){var pt=Camera.ToView(groundVisual.Foot);bool selected=login.World.SelectedGroundId==groundVisual.ObjectId;g.DrawString(groundVisual.Name,Font,selected?Brushes.Gold:Brushes.White,pt.X-20,pt.Y+17);if(selected){using var pen=new Pen(Color.Gold,2);g.DrawEllipse(pen,pt.X-16,pt.Y+3,32,12);}}
         PaintObjectPresence(g,Camera.ToView,new RectangleF(Camera.ViewOffset,Camera.View));
+        PaintDuelOpponent(g);
     }
     object ObjectUiSnapshot()=>new{ownCombatVisual=renderer.OwnCombatVisual,magic=renderer.MagicVisuals,projectile=renderer.CurrentProjectileVisual,projectiles=renderer.ProjectileVisuals,visuals=objectVisuals,presence=PresenceSnapshot(),missing=missingObjects.Select(o=>new{o.ObjectId,o.Gfx,o.Action,o.Speed,o.Brave,o.ReceivedAction,o.Name,o.X,o.Y,o.ShopActive}),target=login.World.Target,targetName=login.World.Target is {} t?objectAssets?.DisplayName(t):null,world=login.World.Snapshot()};
 }

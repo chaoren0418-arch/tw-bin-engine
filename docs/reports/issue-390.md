@@ -50,6 +50,18 @@
 - `check-no-game-assets.py` 通過（3320 個追蹤檔、0 錯誤）。
 - **預設入口未通過（本機環境限制）**：在合併 #324 之前實測，不帶群組的 DemoChecks 跑完 `MinimapChecks` 後，在 `Movement123` 讀取 `engine/assets/terrain0.bin` 時失敗，因為本 worktree 沒有 `engine/assets` junction。與小地圖無關，CI 也不跑預設入口；本輪未建立 junction，所以預設入口其餘項目未驗證。
 
+## 同步輪（第 3 輪，claude-local）
+
+依調度器指示合併 `origin/main`（落後 130 筆，合到 `76ac0fb`）。第 2 輪的數字由本節取代。
+
+- 衝突在 `DemoChecks.csproj`、`Program.cs`（兩邊全部保留，`MinimapChecks()` 接回 `map-continuity`、`minimap` 與預設入口）與 `rebuild-lock.json`。lock 以 `--update-lock` 重產（201 個來源、210 個鎖定檔），未手動拼接。
+- T125（#259）仍未合併，main 沒有 `Party`，維持不標隊友。
+- **測試夾具調整（超出「只做同步」）**：合併後 `minimap` 群組失敗，`MinimapChecks.cs` 的自身 S10 檢查拿到 null。呼叫堆疊顯示：main 的 `Ambience.cs:37` 在建構時訂閱 `OpacityObserved`，`ObserveOpacity` 因此每次都會求值 `OriginalMapCache.Snapshot()`；合成快取由 `GetUninitializedObject` 建立，沒有 `Slots`／`Events`，丟出的 `ArgumentNullException` 進了 `MapFailed` 並清掉快取。實際建構的快取一定有這兩個欄位，所以不是產品問題；夾具補上這兩個欄位，檢查內容未放寬。產品碼未改，`Minimap.cs`／`MinimapUi.cs` 與第 1 輪相同。
+- 建置：`rebuild.py --build` 退出 0。產品 DLL SHA-256：`2108adec6cf8c58abdbed7add4ab0e99935b84774a06a632ca87e8f971215f4e`。唯讀來源核驗 `dev-inputs-verified`。
+- DemoChecks 全部通過：`minimap` 244、`map-continuity` 21451、`character-config` 286、`combat-admission` 1326、`polymorph-cadence` 226、`buddies` 362、`item-transfer` 266；`WeaponRepairChecks` 98。項數包含群組分派前就會執行的 Pets、POLY 檢查，不代表小地圖測試變多。
+- `check-no-game-assets.py` 通過。
+- **預設入口未驗證**：本 worktree 沒有 `engine/assets` junction，本輪未建立也未執行；CI 同樣不跑預設入口。
+
 ## 未驗證什麼
 
 未啟動遊戲、伺服器、DB；未做真實地圖畫面、不同 DPI／視窗大小、實際鍵鼠焦點及長時間換區效能的實機驗收。合成快取與離屏繪製不是原生實機證據。CI 執行結果以本 PR 的 checks 為準。
@@ -64,3 +76,5 @@
 ## 給下一棒的提示
 
 閘門與 CI 通過後由調度器合併；dev lock 衝突依常設授權用 `--update-lock` 重產，不手動拼接 hash。M6 smoke 由 dot 在已授權的 P24Lab 測試角色驗證：F5 開關與長按、聊天輸入不觸發、三段縮放、走出快取區、NPC 移動／消失、同圖傳送／跨圖／登出清除，以及 HUD／服務面板交疊。T125 合併後，再依正式 Party 介面擴充隊友標記。
+
+另一件不屬於本任務、未處理也未量測的事：`Ambience.cs:37` 的常駐訂閱讓 `ObserveOpacity` 在產品中每次都建立完整的 `OriginalMapCache.Snapshot()`（含 `Events.ToArray()`），原本只有診斷時才會做。建議由 Ambience 的負責任務評估是否改用較輕的掛接點。之後新增以 `GetUninitializedObject` 建快取的測試，也要記得補 `Slots`／`Events`。
