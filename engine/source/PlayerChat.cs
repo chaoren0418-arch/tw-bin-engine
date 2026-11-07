@@ -78,6 +78,7 @@ public sealed partial class WorldSession {
     void ResetPlayerChat(){playerChatLines.Clear();playerChatSequence=0;playerChatRevision++;}
     bool ReceivePlayerChat(byte opcode,LoginReader r,byte[] plain){
         if(!PlayerChatProtocol.TryDecode(plain,out var line))return false;
+        if(BuddyBlocksChat(plain))return true;
         playerChatLines.Enqueue(line! with{Sequence=++playerChatSequence});
         while(playerChatLines.Count>100)playerChatLines.Dequeue();
         playerChatRevision++;return true;
