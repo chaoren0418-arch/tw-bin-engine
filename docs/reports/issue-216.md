@@ -1,5 +1,15 @@
 # Issue #216：T121 物品 status blob 語義化
 
+## 第 3 次：只做同步（2026-11-07）
+
+- 先快轉至調度器的遠端提交 `f46f9a9`，再合入 `origin/main` 的 `6024daf`。僅解決合併衝突：CI 同時保留 item-status 與 item-transfer 入口；背包同時保留 tooltip 釋放與 main 的 `InitItemTransfer()`。未改其他模組功能或 `SupportedUse`；`docs/REPORT.md` 完全採用 main。
+- 上輪 [CI 失敗紀錄](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42314535616/job/128223814782) 為 `sourceCount 175 != pinned source files 176`。本輪以 `rebuild.py --update-lock` 重產 dev lock，**177 個來源／186 個 pin** 核驗成功，未手動拼接 hash。
+- 完整 `rebuild.py --build --configfile scratch/issue-216/NuGet.Config --output scratch/issue-216/build` 通過；產品仍有既有 `MagicUi.cs:20` 兩個 nullable 警告，launcher 無警告。唯讀使用主專案 vendor；快取與暫存留在 worktree。
+- 既有 DemoChecks：item-status **82 項**、map-continuity **128 項**、combat-admission **212 項**通過。`check-no-game-assets.py`：**3284 個追蹤檔，0 errors**；相對 main 的 diff 檢查通過。
+- **未完成：整體 CI 綠燈。** main 新增的 `item-transfer` 測試在 `engine/_integration/dev/item-transfer-tests/ItemTransferChecks.cs:68` 失敗：`equipped item cannot be deleted`。該案例只送 S15 名稱 `劍 ($9)`，未送 S64；與 T121「名稱不得建立裝備狀態」契約衝突。現有產品轉移閘門會查 `World.ItemEquipped` 與 `EquipmentSlots`，不應恢復名稱猜測來迎合舊測試。本輪「只做同步、不要改其他內容」未授權修改此測試，保留原樣交下一棒。
+- 本機證據：`scratch/issue-216/build/result.json` 與 `scratch/issue-216/{item-status,map-continuity,combat-admission}-checks.json`；產品 DLL SHA-256：`21d47a8318fdd53bc012ff78e513bdfcb53fad1bef2eb875b0a8cc8fa7b65bf2`。本輪 PR CI 結果另回報於 PR #242，以下綠燈紀錄僅屬第 2 次歷史證據。
+- 未啟動遊戲、伺服器或 DB；真實回包及 tooltip 畫面仍待 dot 的 M6 smoke。
+
 ## 做了什麼
 
 - 新增 `engine/source/ItemStatus.cs`：解析常見武器／防具／一般物品欄位、強化、損傷度、能力、元素及狀態抗性、Big5 說明；保留原始 hex、未解析尾段及錯誤位置。
@@ -43,4 +53,4 @@
 
 ## 給下一棒的提示
 
-本輪已處理 dev lock 整合問題並取得 CI 綠燈，交由 Claude 審查、使用者合併。dot 的 M6 smoke 核對背包 tooltip 的強化、損傷、抗性與說明，以及穿上／卸下／重新登入後的槽位顯示。`Equipped` 現為即時權威查詢；需要歷史快照的呼叫端應保存 bool? 值。歷史依名稱推算的測試與不在本任務範圍的 HUD／Web 額外 tooltip，可在後續統一整理。
+第 3 次已修正 dev lock 並同步 main；請調度器允許或另派 #273 測試維護：將 `ItemTransferChecks.cs:68` 的裝備前置改為合成 S64 權威槽位封包，再跑 item-transfer 與 CI。CI 尚未全綠前不要合併。通過後交 Claude 審查、使用者合併；dot 的 M6 smoke 核對 tooltip 與穿卸／重新登入槽位。`Equipped` 現為即時權威查詢；需要歷史快照的呼叫端應保存 bool? 值。歷史依名稱推算的測試及其他 HUD／Web tooltip 可在後續整理。

@@ -23,6 +23,7 @@ public sealed partial class ClientForm {
         inventoryList.MouseMove+=(_,e)=>{int index=inventoryList.IndexFromPoint(e.Location);hoveredInventoryItem=index>=0&&index<inventoryList.Items.Count?((InventoryItem)inventoryList.Items[index]).ObjectId:null;SyncInventoryTooltip();};
         inventoryList.MouseLeave+=(_,_)=>{hoveredInventoryItem=null;SyncInventoryTooltip();};
         useItemButton.Click+=async(_,_)=>{ClearInput("inventory-use");await login.UseSelectedItem();SyncInventory();PublishWebState();};
+        InitItemTransfer();
         FormClosed+=(_,_)=>{inventoryTooltip.Dispose();foreach(var b in itemIcons.Values)b?.Dispose();};
     }
     void SyncInventory(){
