@@ -33,6 +33,7 @@ public sealed partial class WorldSession {
         switch(opcode){
         case 115:ReceiveWeather(r);return;
         case 40:ReceiveLight(r);return;
+        case 171:ReceiveInvisibility(r);return;
         case 250 when plain.Length>1&&plain[1]==111:ReceiveLocationShare(plain);return;
         case 71 when LocationShareProtocol.IsReply(plain):ReceiveLocationShare(plain);return;
         case 250 when plain.Length>1&&plain[1]==41:ReceiveCharacterConfig(plain);return;
