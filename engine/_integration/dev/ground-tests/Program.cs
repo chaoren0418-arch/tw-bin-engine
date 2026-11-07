@@ -7,7 +7,7 @@ using System.Diagnostics.Tracing;
 
 // Executes the built product assembly; never invokes its application entry point.
 // Reflection only seeds offline world state and substitutes an in-memory sender.
-class Checks {
+partial class Checks {
     const BindingFlags F=BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic;
     static int assertions;static readonly List<string> cases=[];static JsonElement fixtures;
     static void Check(bool ok,string label){assertions++;if(!ok)throw new Exception(label);}
@@ -91,17 +91,18 @@ class Checks {
         using var doc=JsonDocument.Parse(raw);fixtures=doc.RootElement;
         Check(GroundCatalog.Rows.Count==7&&GroundCatalog.Rows.Count(r=>r.Sprite!=null)==4,"catalog coverage");
         foreach(var row in GroundCatalog.Rows){
-            Check((GroundCatalog.Find(row.GroundGfx)!=null)==(row.Sprite!=null),row.Id+" enabled only with pin");
-            using var c=Seed(row);Check((c.World.Ground.Length==1)==(row.Sprite!=null),row.Id+" S87 classification");Check(GroundRules.Droppable(c.World.SelectedItem!)==(row.Sprite!=null),row.Id+" drop classification");
+            Check(GroundCatalog.Find(row.GroundGfx)!=null,row.Id+" runtime appearance descriptor");
+            using var c=Seed(row);Check(c.World.Ground.Length==1,row.Id+" S87 classification");Check(GroundRules.Droppable(c.World.SelectedItem!)==(row.Sprite!=null),row.Id+" drop classification");
         }
-        cases.Add("七筆模板交集：四筆啟用、三筆缺 pin 關閉");
+        cases.Add("七筆皆可接收與拾取；本地丟棄白名單維持四筆");
         var gold=GroundCatalog.Rows.Single(r=>r.Id=="gold");
         await RejectedDrop(gold);
+        await GenericGroundChecks(gold);
         foreach(string name in new[]{"gold","meat"}){
             using var c=new LoginConnection();Feed(c,Fixture(name+"-s87"));Feed(c,Fixture(name+"-s15"));var row=GroundCatalog.Rows.Single(r=>r.Id==name);uint n=name=="gold"?250u:3u;
             Check(c.World.Ground.Single().Count==n&&c.World.Ground.Single().Gfx==row.GroundGfx,"source S87 "+name);Check(GroundRules.Droppable(c.World.Inventory.Single()),"source S15 "+name);
             var o=c.World.Ground.Single().Envelope;
-            foreach(var bad in new[]{o with{Gfx=3247},o with{Gfx=999},o with{Name="$4"},o with{Action=1},o with{Flags=4},o with{HpByte=100},o with{Title="npc"},o with{Owner="owner"},o with{ObjectId=0},o with{WireExp=2000000001}})Check(!GroundRules.IsGround(bad),"nonitem/mismatched envelope");
+            foreach(var bad in new[]{o with{Action=1},o with{Flags=4},o with{HpByte=100},o with{Title="npc"},o with{Owner="owner"},o with{ObjectId=0},o with{WireExp=2000000001}})Check(!GroundRules.IsGround(bad),"nonitem/mismatched envelope");
             var i=c.World.Inventory.Single();foreach(var bad in new[]{i with{UseType=1},i with{Bless=129},i with{Flags=32},i with{Flags=128},i with{Charges=1},i with{IconId=999},i with{DescriptionId=999},i with{Name="same name"},i with{Count=0}})Check(!GroundRules.Droppable(bad),"inventory identity/policy");
         }
         cases.Add("#49 金幣／肉 S87、S15 原 fixture 與同名／同 gfx 非物品欄位反例");
@@ -184,6 +185,7 @@ class Checks {
             }
             cases.Add("實際 ComposeGround→Blit→可見像素 owner→選取，四種 catalog 物品一致");
         }
+        RuntimeSprites(args);
         Check(!guard.Observed,"no sockets");Json.Save(output,new{status="pass",assertions,cases,fixtureSha256=Convert.ToHexString(SHA256.HashData(raw)).ToLowerInvariant(),productSha256=Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(typeof(LoginConnection).Assembly.Location))).ToLowerInvariant(),scope="離線：來源 fixture、明示合成狀態、記憶體 sender、真實原圖；未執行遊戲／服務／DB"});Console.WriteLine($"PASS {assertions} assertions / {cases.Count} groups");
     }
     sealed class SocketGuard:EventListener {public bool Observed;protected override void OnEventSourceCreated(EventSource e){if(e.Name.StartsWith("System.Net.Sockets"))EnableEvents(e,EventLevel.LogAlways);}protected override void OnEventWritten(EventWrittenEventArgs e){Observed=true;}}
