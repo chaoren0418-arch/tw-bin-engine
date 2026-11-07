@@ -36,6 +36,9 @@ public sealed partial class WorldSession {
         if(partyHandled||duelHandled)return;
         if(opcode==39&&ReceiveBuddies(opcode,plain))return;
         switch(opcode){
+        case 165:ReceivePoison(r);return;
+        case 202:ReceiveParalysis(r,plain);return;
+        case 47:ReceiveBlind(r);return;
         case 64 when plain.Length>1 && plain[1] is >=1 and <=4:ReceiveCharReset(plain);return;
         case 83 when !WeaponRepairPackets.IsRepairList(plain):ReceivePetList(r);return;
         case 176:ReceivePetInventory(r,plain);return;
