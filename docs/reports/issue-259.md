@@ -2,6 +2,23 @@
 
 ## 最新同步結果（2026-11-07，本次只做同步）
 
+本輪依調度器要求，在既有 `task/259` 合併 `origin/main`（`9f62553`，原分支落後 22 個提交）。只處理同步：`WorldSession.cs` 保留組隊與好友接收掛接，demo-tests 專案及入口保留雙方測試，dev lock 由 `--update-lock` 重產，未新增或修改功能。`docs/REPORT.md` 與 main 完全一致。
+
+- 來源核驗：**186 個來源／195 個鎖定檔通過**。
+- `rebuild.py --build --configfile scratch/issue-259/NuGet.Config --output scratch/issue-259/build` 通過；產品僅有既有 `MagicUi.cs:20` CS8600／CS8602 警告，launcher 成功。
+- 既有 demo-tests 入口：`party` **80**、`buddies` **249**、`item-transfer` **153**、`combat-admission` **358**、`map-continuity` **438** 項通過；後四組均包含 80 項組隊檢查，不加總為互不重複的測試。`CharacterManagementChecks` **218** 項通過。
+- `check-no-game-assets.py` 通過（0 錯誤）；`git -c core.whitespace=cr-at-eol diff --check` 及 staged 檢查通過。
+- 產品 DLL SHA-256：`3545f54fe52924c410bd383cc9c0a8361027df72de1db8c9c5dfd2b9193f1659`。
+- 產出：本報告、合併衝突解決及 dev lock；相對 main 仍只有原任務的 10 個差異檔。測試證據為 `scratch/issue-259/{party,buddies,item-transfer,combat-admission,map-continuity,character-management}-checks.json`，建置紀錄為 `scratch/issue-259/build/`。
+- 本機建置、測試、套件及暫存均位於此 worktree；唯讀引用原專案 vendor。Git 共用中繼資料與 GitHub 認證操作使用獲准的沙箱外命令，未修改認證設定。
+- 沿用 [PR #269](https://github.com/chaoren0418-arch/tw-bin-engine/pull/269)；本輪最新 head 的 CI 結果見 PR checks 與同步留言。下方數據為前次紀錄，不能代替本輪驗證。
+
+未驗證：未啟動遊戲、伺服器或 DB，未做原生畫面或雙角色連線 smoke。
+
+給下一棒：調度器／Claude 審查同步提交及 CI，接續既有合併流程；dot 於 M6 smoke 驗收雙角色組隊、HP、離隊／踢除與重登。
+
+## 前次同步紀錄（2026-11-07）
+
 依調度器退回要求，於既有 `task/259` 合併 `origin/main`（`0380ae6`），並合併遠端 `task/259`（`4769046`）的同步提交，保留雙方歷史。合併均無衝突，未修改組隊或其他功能。
 
 - 已確認 [前次 CI 失敗紀錄](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42324828531)：Linux canonical build 回報 `sourceCount 182 != pinned source files 184`，Windows map-continuity 與 npc-offline 已成功。

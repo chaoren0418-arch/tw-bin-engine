@@ -23,7 +23,7 @@ public sealed partial class WorldSession {
     public string AppearanceNotice=>Actor==null?"等待角色資料":SelfAppearancePending?"角色外觀正在更新；可取消連線":SupportedAppearance?"角色外觀已載入":$"尚未支援此外觀（角色 {Actor.Gfx}／武器 {Actor.Weapon}）；移動與戰鬥已停止，仍可從背包卸下裝備或取消連線。";
     public bool Renderable=>Ready&&!TeleportPending&&SupportedMap&&SupportedAppearance;
     readonly System.Collections.Concurrent.ConcurrentDictionary<byte,int> unhandled=new();
-    public void Reset(){Clear6016(SceneClock());ResetPlayerChat();ResetPrivateShop();ResetShip();ResetSpeedStatus();ResetBonusStats();ResetHitReactionSuppress();AppearanceRevision++;ResetTeleport();Entered=false;MapId=null;Status=null;Actor=null;SelfAppearancePending=false;Underwater=false;KeepalivesSent=TimeReplies=0;ServerTime=null;ProbeSent=false;unhandled.Clear();ResetMovement();ResetCombat();ResetMagic();ResetInventory();ResetEquipment();ResetRewards();ClearObjects();}
+    public void Reset(){Clear6016(SceneClock());ResetPlayerChat();ResetBuddies();ResetPrivateShop();ResetShip();ResetSpeedStatus();ResetBonusStats();ResetHitReactionSuppress();AppearanceRevision++;ResetTeleport();Entered=false;MapId=null;Status=null;Actor=null;SelfAppearancePending=false;Underwater=false;KeepalivesSent=TimeReplies=0;ServerTime=null;ProbeSent=false;unhandled.Clear();ResetMovement();ResetCombat();ResetMagic();ResetInventory();ResetEquipment();ResetRewards();ClearObjects();}
     public object Snapshot()=>new{playerChat=PlayerChatLines,sustenance=SustenanceText,basicSupplyNotice=BasicSupplyNotice,privateShop=PrivateShopSnapshotModel(),announcement=LastAnnouncement,bonusStatsNotice=BonusStatsNotice,bonusStats=new{phase=BonusStatsPhase,revision=BonusStatsRevision,selected=SelectedBonusAttribute,remaining=(int?)null},ready=Ready,coreComplete=CoreComplete,entered=Entered,mapId=MapId,underwater=Underwater,status=Status,actor=Actor,supportedMap=SupportedMap,mapResourceState=MapResourceState,mapResourceNotice=MapResourceNotice,loadedRegion=MapCache is {} cache?new{minX=(cache.OriginX+32768)/2,minY=cache.OriginY,maxX=(cache.OriginX+32768)/2+127,maxY=cache.OriginY+127,mode="original moving 2x2 cache"}:new{minX=Coordinates.MinX,minY=Coordinates.MinY,maxX=Coordinates.MaxX,maxY=Coordinates.MaxY,mode="resident original dual blocks"},supportedAppearance=SupportedAppearance,appearanceNotice=AppearanceNotice,appearanceRevision=AppearanceRevision,appearanceProfile=AppearanceProfile,renderable=Renderable,keepalivesSent=KeepalivesSent,timeReplies=TimeReplies,serverTime=ServerTime,unhandled=unhandled.ToDictionary(x=>$"0x{x.Key:X2}",x=>x.Value),ship=ShipSnapshot(),teleport=TeleportSnapshot(),movement=MovementSnapshot(),combat=CombatSnapshot(),inventory=InventorySnapshot(),equipment=EquipmentSnapshot(),rewards=RewardsSnapshot(),ground=GroundSnapshot(),magic=MagicSnapshot(),objects=Objects,target=Target,targetId=TargetId,opacity=sceneOpacity?.Snapshot(),cache=MapCache?.Snapshot(),objectRevision=ObjectRevision,worldEpoch=WorldEpoch,unknownObjectUpdates=UnknownObjectUpdates};
     public event Action? CombatSoundStateChanged;
     public void Receive(byte[] plain,string selected){try{ReceiveCore(plain,selected);}finally{ValidatePickupPresentation(ActionClock());CombatSoundStateChanged?.Invoke();}}
@@ -32,7 +32,11 @@ public sealed partial class WorldSession {
         // Observe party HP before Combat consumes S237; retain its existing actor/target HP update.
         switch(opcode){case 237:ReceivePartyHp(plain);break;}
         if(ReceiveParty(opcode,plain))return;
+        if(opcode==39&&ReceiveBuddies(opcode,plain))return;
         switch(opcode){
+        case 250 when plain.Length>=2&&plain[1] is 17 or 18 or 19:ReceiveBuddies(opcode,plain);return;
+        case 71 when plain.Length>=3&&BinaryPrimitives.ReadUInt16LittleEndian(plain.AsSpan(1)) is 109 or 472:
+            ReceiveBuddies(opcode,plain);break; // Continue through the existing server-message dispatch.
         case 22:ReceiveSoundPacket(plain);return;
         case 55:ReceiveEffectPacket(plain);return;
         case 106:ReceiveEffectPacket(plain);return;
