@@ -102,6 +102,13 @@ PR #413 與 main 衝突（落後 30 筆），合併 `origin/main`（`9cc953b`，
 - HUD 按鈕列：`menu` 是不換行的 FlowLayoutPanel。依第 4 輪約 740 像素，加上隊伍按鈕 64 像素約 804 像素，最小視窗 900 像素放得下（靜態計算，未量測）。幽靈模式退出鈕出現或 WebView 面板開啟時可能更擠。
 - **預設入口未驗證**：本 worktree 沒有 `engine/assets` junction，本輪未建立也未執行；CI 同樣不跑預設入口。
 
+本輪等 CI 時 main 又前進 14 筆（`dd640a7`，含 #388 異常狀態），再合併一次。衝突同樣在 `DemoChecks.csproj` 與 `rebuild-lock.json`，處理方式相同。以下數字取代上面的 lock、建置與 DemoChecks 紀錄：
+
+- lock：214 個來源、223 個鎖定檔，以 `--update-lock` 重產；唯讀核驗 `dev-inputs-verified`。
+- 建置：`rebuild.py --build` 退出 0。產品 DLL SHA-256：`f0ee9607233be4bfefc9527e83bf6a393874206662afb110005cc0f337a76df6`。
+- DemoChecks 全部以最終程式重跑並通過：`minimap` 347、`map-continuity` 22429、`party` 276、`afflictions` 428、`marriage` 412、`char-reset` 437、`combat-admission` 1409、`polymorph-cadence` 309、`buddies` 445、`item-transfer` 349、`doors` 597、`character-config` 369。
+- `check-no-game-assets.py` 通過（3416 個追蹤檔、0 錯誤）。
+
 ## 未驗證什麼
 
 未啟動遊戲、伺服器、DB；未做真實地圖畫面、不同 DPI／視窗大小、實際鍵鼠焦點及長時間換區效能的實機驗收。合成快取與離屏繪製不是原生實機證據。CI 執行結果以本 PR 的 checks 為準。
