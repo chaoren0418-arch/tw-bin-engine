@@ -11,17 +11,21 @@
     <Compile Include="../display-notices-tests/DisplayNoticeChecks.cs" Link="DisplayNoticeChecks.cs" />
     <Compile Include="../char-reset-tests/CharResetChecks.cs" Link="CharResetChecks.cs" />
     <Compile Include="../marriage-tests/MarriageChecks.cs" Link="MarriageChecks.cs" />
+    <Compile Include="../yes-no-tests/YesNoPromptTests.cs" Link="YesNoPromptTests.cs" />
     <Compile Include="../clan-tests/ClanChecks.cs" Link="ClanChecks.cs" />
     <Compile Include="../clan-emblem-tests/ClanEmblemChecks.cs" Link="ClanEmblemChecks.cs" />
     <Compile Include="../clan-war-tests/ClanWarChecks.cs" Link="ClanWarChecks.cs" />
     <Compile Include="../ghost-mode-tests/GhostModeChecks.cs" Link="GhostModeChecks.cs" />
+    <Compile Include="../ghost-limits-tests/GhostLimitsChecks.cs" Link="GhostLimitsChecks.cs" />
     <Compile Include="../doors-tests/DoorChecks.cs" Link="DoorChecks.cs" />
     <Compile Include="../pickup-tests/PickupChecks.cs" Link="PickupChecks.cs" />
+    <Compile Include="../doors-tests/DoorApproachChecks.cs" Link="DoorApproachChecks.cs" />
     <Compile Include="../fishing-tests/FishingChecks.cs" Link="FishingChecks.cs" />
     <Compile Include="../pets-tests/PetChecks.cs" Link="PetChecks.cs" />
     <Compile Include="../duel-tests/DuelChecks.cs" Link="DuelChecks.cs" />
     <Compile Include="../ambience-tests/AmbienceChecks.cs" Link="AmbienceChecks.cs" />
     <Compile Include="../map-ambient-tests/MapAmbientChecks.cs" Link="MapAmbientChecks.cs" />
+    <Compile Include="../background-music-tests/BackgroundMusicChecks.cs" Link="BackgroundMusicChecks.cs" />
     <Compile Include="../invisibility-tests/InvisibilityChecks.cs" Link="InvisibilityChecks.cs" />
     <Compile Include="../player-query-tests/PlayerQueryChecks.cs" Link="PlayerQueryChecks.cs" />
     <Compile Include="../hypertext-tests/HyperTextChecks.cs" Link="HyperTextChecks.cs" />
@@ -36,6 +40,7 @@
     <Compile Include="../location-share-tests/LocationRegionChecks.cs" Link="LocationRegionChecks.cs" />
     <Compile Include="../name-display-tests/NameDisplayChecks.cs" Link="NameDisplayChecks.cs" />
     <Compile Include="../native-ui-tests/ResourceChecks.cs" Link="ResourceChecks.cs" />
+    <Compile Include="../native-ui-tests/CanvasChecks.cs" Link="CanvasChecks.cs" />
     <Reference Include="P11.ClientEngine"><HintPath>../../../build/client-product-dev/P11.ClientEngine.dll</HintPath></Reference>
     <Reference Include="P24.Audio"><HintPath>../../../build/client-product-dev/P24.Audio.dll</HintPath></Reference>
   </ItemGroup>
