@@ -26,6 +26,7 @@
 - 建置前置：worktree 用 junction 指到主專案的 `engine/vendor`（唯讀，已被 gitignore，沒有 commit）。
 - 第三次同步 origin/main（含 #519、#523、#548、#551）：合併無衝突；`--update-lock` → 245 個來源檔；`--build` → `PASS dev`，product DLL SHA-256 `fde9cb39b7d9776acdba14b17ee7a0c2d75820ef9cfd5bb054fe311137a7ceeb`；`--module-tests` → `pass`（7 組、401 項，spell-exchange 54 項全過）；DemoChecks map-continuity `PASS 33019`、door-approach `PASS 361`、doors `PASS 648`；`check-no-game-assets.py` → `pass`（3768 檔，0 錯誤）。
 - 第四次同步 origin/main（含 #446 背景音樂）：`rebuild-lock.json` 衝突改用 main 版後以 `--update-lock` 重產（251 個來源檔）；`--build` → `PASS dev`，product DLL SHA-256 `f9ae10b9187a851f10a4194cff974a975574454a591975cda34023be7ebd430d`；`--module-tests` → `pass`（7 組、401 項，spell-exchange 54 項全過）；DemoChecks map-continuity `PASS 33126`、doors `PASS 648`、hypertext `PASS 357`、pickup `PASS 369`；`check-no-game-assets.py` → `pass`（3778 檔，0 錯誤）。
+- 第五次同步 origin/main（含 #510 AbilityStatus、#463 原生 UI 畫布）：`rebuild-lock.json` 衝突改用 main 版後以 `--update-lock` 重產（262 個來源檔）；`--build` → `PASS dev`，product DLL SHA-256 `51ef81cb493031fddb8f7bc2c62735bc5dff31860c453272e20dead9eb1e904e`；`--module-tests` → `pass`（8 組、439 項，spell-exchange 54 項全過）；`check-no-game-assets.py` → `pass`（3792 檔，0 錯誤）。
 - CI 結果以 PR 為準。
 
 ## 沒驗證什麼
