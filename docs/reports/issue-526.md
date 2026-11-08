@@ -50,7 +50,8 @@
 - `map-continuity` 本機在 `DisplayNoticeChecks` 的「notice S245 unknown message stays labeled」失敗：預設客戶端根目錄 `D:\lineage開發\0-客戶端` 在本機存在，訊息表讀得到，所以 999 被辨識。這是本機環境造成的，與本任務無關（CI 沒有客戶端；main 最近的 CI 是綠的）。
 - `engine/tools/check-no-game-assets.py` → pass（errors 0）。沒有新增 `.xml`／`.img`／`.png`。
 - 與 main 同步（8 個 commit，含 #559 Cooking，無衝突）後重跑：`--update-lock`（276 來源檔）→ `PASS dev`（productDll `03e00a2a…4258`）；`--module-tests` **16 組 861 checks 全過**；`weapon-repair-tests` 98 綠；`check-no-game-assets.py` pass。
-- CI：見 PR。
+- 第二次與 main 同步（17 個 commit，含 #556／#557；只有 `rebuild-lock.json` 衝突，取 main 版本後重產）：`--update-lock`（277 來源檔）→ `PASS dev`（productDll `0e130b4d…2634`）；`--module-tests`（照 CI 方式）**17 組 927 checks 全過**；`WeaponRepairChecks` 98 綠；`check-no-game-assets.py` pass（errors 0）。
+- CI：見 PR #590。
 
 ## 沒驗證什麼
 
