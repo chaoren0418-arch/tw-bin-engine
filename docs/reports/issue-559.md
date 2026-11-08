@@ -35,6 +35,7 @@
 - `check-no-game-assets.py`：`pass`（3757 個檔案，0 錯誤）。
 - CI 結果以 PR 為準。
 - **同步 origin/main 後重驗（2026-11-08）**：`rebuild-lock.json` 衝突取 main 版本後用 `--update-lock` 重產（259 個來源檔，`dev-inputs-verified`）；`build-product.ps1` `PASS dev`（product DLL `1124d2d1d49d73cb90c08b8af04931c3ddb3adab1ef604097770c78ff02f1aa1`）；`--module-tests` `pass`，7 組共 379 項，0 失敗（cooking 32）；`check-no-game-assets.py` `pass`（3790 個檔案，0 錯誤）。
+- **第二次同步 origin/main 後重驗（2026-11-09，main 前進 54 個 commit）**：`rebuild-lock.json` 衝突取 main 版本後用 `--update-lock` 重產（267 個來源檔，`dev-inputs-verified`）；`build-product.ps1` `PASS dev`（product DLL `fbf3e22c7363cb8f3e9cf13aa9bdcabab9024c9631cc1cf765c6bb2444b21257`）；`--module-tests`（照 CI 的參數）`pass`，10 組共 533 項，0 失敗（cooking 32）；`check-no-game-assets.py` `pass`（3803 個檔案，0 錯誤）。
 
 ## 沒驗證什麼
 - **沒有做真機驗收**：沒有啟動遊戲、伺服器或 DB。

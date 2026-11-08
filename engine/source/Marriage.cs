@@ -46,6 +46,7 @@ public sealed partial class WorldSession {
         }else{
             marriagePhase=command=="accept"?"accepting":"rejected";marriageRevision++;marriageWait=InteractionClock();
             marriageNotice=command=="accept"?"接受已送出，等待伺服器確認結婚。":"已送出拒絕；伺服器不另回覆拒絕方。";
+            YesNoHandled(654);
         }
     }
     bool ReceiveMarriageYesNo(ushort message,uint reserved,LoginReader r){
@@ -63,7 +64,10 @@ public sealed partial class WorldSession {
         if(!Ready||OwnDead||Status?.Hp<=0)return true;
         var candidates=Objects.Where(p=>p.Name==peer&&!p.Dead&&(p.Flags&4)!=0&&Actor is {} a&&Math.Abs(p.X-a.X)<=1&&Math.Abs(p.Y-a.Y)<=1).ToArray();
         BindMarriage(peer,candidates.Length==1?candidates[0].ObjectId:0,"invited",peer+" 向你求婚。是否接受？接受後仍需等待伺服器結果。");
-        CheckMarriage();return true;
+        CheckMarriage();
+        // T141: msg 654 takes S_ASK's default branch, i.e. the shared input-line Y/N (YesNoPrompt.cs).
+        if(marriagePhase=="invited")OfferYesNo(reserved,message,[peer]);
+        return true;
     }
     bool ReceiveMarriageMessage(byte[] plain){
         var r=new LoginReader(plain);r.C();ushort message=r.H();
@@ -110,54 +114,5 @@ public sealed partial class LoginConnection {
         finally{marriageSending=false;}
     }
 }
-
-// Self-contained native entry point; no changes to the shared HUD or web dispatcher.
-public sealed partial class ClientForm {
-    bool marriageUiReady;
-    // OnLoad, OnShown, OnVisibleChanged and OnCreateControl belong to BuddyUi, LocationShare, DuelUi and ClanUi.
-    protected override void OnHandleCreated(EventArgs e){
-        base.OnHandleCreated(e);
-        if(!marriageUiReady){marriageUiReady=true;Shown+=(_,_)=>InitMarriageUi();}
-    }
-    void InitMarriageUi(){
-        var button=new Button{Text="求婚／伴侶",AutoSize=true,Anchor=AnchorStyles.Top|AnchorStyles.Right,Location=new(ClientSize.Width-130,8)};
-        Controls.Add(button);button.BringToFront();
-        void Open(){
-            if(login.State!=LoginState.InWorld)return;
-            var existing=OwnedForms.OfType<MarriageUi>().FirstOrDefault();if(existing!=null){existing.Activate();return;}
-            ClearInput("marriage");LeaveGameFocus("marriage");new MarriageUi(login).Show(this);
-        }
-        button.Click+=(_,_)=>Open();
-        var refresh=new System.Windows.Forms.Timer{Interval=200};int shownRevision=-1;
-        refresh.Tick+=(_,_)=>{
-            var v=login.MarriageSnapshot();button.Visible=login.State==LoginState.InWorld;
-            button.Text=v.Partner.Length>0?"伴侶："+v.Partner:"求婚／伴侶";
-            if(v.Phase=="invited"&&v.Revision!=shownRevision){shownRevision=v.Revision;Open();}
-        };
-        FormClosed+=(_,_)=>refresh.Dispose();refresh.Start();
-    }
-}
-
-public sealed class MarriageUi:Form {
-    readonly LoginConnection connection;
-    readonly Label notice=new(){Dock=DockStyle.Fill,Padding=new(12)};
-    readonly Button propose=new(){Text="向選取角色求婚",AutoSize=true},yes=new(){Text="接受",AutoSize=true},no=new(){Text="拒絕",AutoSize=true};
-    readonly System.Windows.Forms.Timer timer=new(){Interval=150};
-    MarriageView displayed;bool busy;
-    public MarriageUi(LoginConnection connection){
-        this.connection=connection;displayed=connection.MarriageSnapshot();
-        Text="求婚與結婚";Size=new(540,240);StartPosition=FormStartPosition.CenterParent;
-        var actions=new FlowLayoutPanel{Dock=DockStyle.Bottom,Height=45};actions.Controls.AddRange([propose,yes,no]);Controls.Add(notice);Controls.Add(actions);
-        propose.Click+=async(_,_)=>await Send("propose");yes.Click+=async(_,_)=>await Send("accept");no.Click+=async(_,_)=>await Send("reject");
-        timer.Tick+=(_,_)=>Sync();FormClosed+=(_,_)=>timer.Dispose();Sync();timer.Start();
-    }
-    void Sync(){
-        var v=connection.MarriageSnapshot();if(v.Generation!=displayed.Generation||v.Epoch!=displayed.Epoch||connection.State!=LoginState.InWorld){Close();return;}
-        displayed=v;notice.Text=v.Notice+(v.Partner.Length>0?"\n伴侶："+v.Partner:"");
-        propose.Enabled=!busy&&v.CanPropose;yes.Enabled=no.Enabled=!busy&&v.CanAnswer;
-    }
-    async Task Send(string command){
-        var stamp=displayed;if(busy)return;busy=true;Sync();bool sent=await connection.SendMarriage(command,stamp);busy=false;
-        if(IsDisposed)return;Sync();if(!sent)notice.Text="未送出：操作已失效，請重新核對角色與邀請。";
-    }
-}
+// M7-J: no dedicated Form or HUD button (windows.md T141). The S219/654 question is answered from the
+// chat input line via YesNoPrompt.cs; proposing stays available through LoginConnection.SendMarriage.
