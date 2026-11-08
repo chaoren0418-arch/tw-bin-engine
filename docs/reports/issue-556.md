@@ -86,6 +86,11 @@
 - `--module-tests`：pass，15 組、778 項，0 失敗（`npc-server-page` 28 項）。
 - `check-no-game-assets.py`：pass，errors 0。
 
+**第六次同步 origin/main 後重驗（2026-11-09）**：main 合入 #559（Cooking），只有 `rebuild-lock.json` 衝突，改取 main 版本後以 `--update-lock` 重產（275 個來源／284 個鎖定檔）。
+- 建置 `PASS dev`，product DLL `00eea0e2…b3e071e1`。
+- `--module-tests`：pass，16 組、810 項，0 失敗（`npc-server-page` 28 項）。
+- `check-no-game-assets.py`：pass，errors 0。
+
 - worktree 沒有 `engine/vendor`，本機離線 NuGet 設定無法 restore，所以建置改用 CI 的 `.github/nuget.ci.config`。
 - DemoChecks `world` 讀 `engine/assets/terrain0.bin`，worktree 沒有 assets junction，所以失敗。這與本改動無關，CI 也不跑這組。
 - CI：PR 開出後由 GitHub Actions 驗證。

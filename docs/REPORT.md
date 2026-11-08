@@ -190,3 +190,4 @@
 - 2026-11-09 — #546 T228：伺服器訊息改用完整字串表（protocol-gaps A）（code，claude-local，PR 已合併）→ [報告](reports/issue-546.md)
 - 2026-11-09 — #566 T241：光照圖接上畫面，以及地圖特效光源表（FX1）（code，claude-local，PR 已合併）→ [報告](reports/issue-566.md)
 - 2026-11-09 — #549 T231：C26 聊天頻道開關（protocol-gaps C）（code，claude-local，PR 已合併）→ [報告](reports/issue-549.md)
+- 2026-11-09 — #559 T237：料理窗資料（W2-F）（code，claude-local，PR 已合併）→ [報告](reports/issue-559.md)
