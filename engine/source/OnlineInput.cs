@@ -4,6 +4,8 @@ public sealed partial class ClientForm {
         if(key==Keys.F12&&evidence!=null){CaptureEvidence("manual");return;}
         if(key==Keys.Space){ClearInput("stop");return;}
         if(login.World.AfflictionInputLocked){RejectKeyboardMovement("異常狀態中，請等待原服解除後再操作。");return;}
+        // M7-N（WO §4）：幽靈中原版本機擋道具／技能快捷與攻擊；不送封包。P（拾取）由 M7-L 擋，移動照常。
+        if((key is Keys.M or Keys.U or Keys.G)&&login.GhostLocalBlocked){RejectKeyboardMovement(GhostLocalLimits.Notice);return;}
         if(key==Keys.M){bool first=!Input.Held.Contains(key);if(first){ClearInput("single-magic");Input.Down(key);if(!World.Walking)_=CastFromInput();}return;}
         if(key==Keys.U){bool first=!Input.Held.Contains(key);if(first){ClearInput("single-item");Input.Down(key);if(!World.Walking)_=login.UseSelectedItem();}return;}
         if(key==Keys.P){bool first=!Input.Held.Contains(key);if(first){ClearInput("single-pickup");Input.Down(key);if(!World.Walking)_=NativeGroundQuantity(true);}return;}
@@ -46,5 +48,5 @@ public sealed partial class ClientForm {
         if(epoch!=login.World.WorldEpoch||result.Sent)return;
         RejectKeyboardMovement(result.Notice);
     }
-    async Task OnlineWeb(int id,string cmd,int d){if(cmd=="attack"){bool attacked=await login.Attack();Reply(id,attacked?"單次攻擊已送出，等待原服回報":login.World.CombatNotice);PublishWebState();return;}var result=await login.RequestMovement(d,cmd=="move",World.Walking);Reply(id,result.Notice);PublishWebState();}
+    async Task OnlineWeb(int id,string cmd,int d){if(cmd=="attack"&&login.GhostLocalBlocked){Reply(id,GhostLocalLimits.Notice);PublishWebState();return;}if(cmd=="attack"){bool attacked=await login.Attack();Reply(id,attacked?"單次攻擊已送出，等待原服回報":login.World.CombatNotice);PublishWebState();return;}var result=await login.RequestMovement(d,cmd=="move",World.Walking);Reply(id,result.Notice);PublishWebState();}
 }

@@ -13,6 +13,15 @@ public sealed partial class WorldSession {
     // Called only after the complete self S87 and its identity/heading have been validated.
     // No guessed gfx, death transition, NPC permission or local clear on C173.
     void ReceiveGhostState(OwnActor next){if(Actor==null||Actor.ObjectId!=next.ObjectId||((Actor.Flags^next.Flags)&0x80)!=0)GhostRevision++;}
+    // M7-N（WO §4）：原版 sub_A43B50 在幽靈中對自己的外觀變更（S_RESURRECT、變身等）直接略過。
+    // 呼叫點在 Polymorph.cs／Recovery.cs（不屬本組可改範圍），此處只提供判斷，供後續接上。
+    // 自身 S87 不受影響：它是原服權威狀態（含幽靈旗標本身）。
+    internal bool GhostSkipsSelfAppearance(uint objectId)=>IsGhost&&Actor?.ObjectId==objectId;
+}
+
+// M7-N（WO §4）：byte_13CE51E==2 時原版本機直接擋下的功能。門、NPC、移動仍照常；拾取由 M7-L（Ground.cs）擋。
+public static class GhostLocalLimits {
+    public const string Notice="幽靈模式中無法使用快捷、攻擊或道具／技能。";
 }
 
 public sealed partial class LoginConnection {
@@ -29,7 +38,7 @@ public sealed partial class LoginConnection {
         bool waiting=sending||submitted&&GhostClock()-ghostSubmittedAt<15000;
         string notice=!active?"":sending?"幽靈模式：正在送出離開請求。":submitted?
             waiting?"幽靈模式：已要求離開，等待原服更新。":"幽靈模式：離開結果尚未確認，可手動重試。":
-            "幽靈模式：外觀與動作依原服狀態；可要求離開。";
+            "幽靈模式：本機停用快捷、攻擊與拾取；門、NPC 與移動交原服判定。";
         return new(PlayerHudActions.Stamp(this),World.GhostRevision,active,GhostExitAccess&&!waiting&&sendMovementGate!=null,waiting,notice);
     }
     public async Task<bool> ExitGhost(GhostModeView shown){
@@ -44,32 +53,20 @@ public sealed partial class LoginConnection {
             return false;
         }finally{if(ReferenceEquals(ghostSending,attempt))ghostSending=null;}
     }
+    // 送 C173 只保留給 HyperText 動作 exitghost（WO §4；入口在 NPC 對話，尚待 HTML 證據接上），沒有常駐按鈕。
+    public bool GhostLocalBlocked=>State==LoginState.InWorld&&World.IsGhost;
 }
 
 public sealed partial class ClientForm {
     internal GhostModeView? ReadGhostMode()=>PlayerHudActive?login.GhostModeSnapshot():null;
-    internal async Task ExitGhostFromHud(GhostModeView shown){
-        if(!PlayerHudActive||!PlayerHudActions.Current(login,shown.Stamp))return;
-        ClearInput("exit-ghost");
-        try{await login.ExitGhost(shown);}finally{if(!IsDisposed){SyncPlayerHud();PublishWebState();}}
-    }
 }
 
-// One HUD mount; the view retains the state actually shown when the player clicks.
-internal sealed class GhostModeHud {
-    static readonly System.Runtime.CompilerServices.ConditionalWeakTable<PlayerHudView,GhostModeHud> mounts=new();
-    readonly Button exit=new(){Text="離開幽靈",AccessibleName="離開幽靈模式",Width=94,Height=30,Margin=new(3,2,3,2),FlatStyle=FlatStyle.Flat,BackColor=PlayerHudPainter.Panel,ForeColor=Color.White,Visible=false};
-    GhostModeView? shown;
-    GhostModeHud(PlayerHudView hud,FlowLayoutPanel menu){
-        menu.Controls.Add(exit);
-        exit.Click+=async(_,_)=>{if(shown is {} view&&hud.FindForm() is ClientForm form)await form.ExitGhostFromHud(view);};
-    }
-    internal static PlayerHudSnapshot Update(PlayerHudView hud,FlowLayoutPanel menu,PlayerHudSnapshot state){
-        var mount=mounts.GetValue(hud,_=>new(hud,menu));
-        var view=(hud.FindForm() as ClientForm)?.ReadGhostMode();
-        if(view?.Stamp!=state.Stamp)view=null;
-        mount.shown=view;mount.exit.Visible=view?.Active==true;mount.exit.Enabled=view?.CanExit==true;
-        mount.exit.AccessibleDescription=view?.Notice??"";
-        return view?.Active==true?state with{State="幽靈模式 · 行動由原服判定",Notice=view.Notice+(state.Notice.Length>0?" · "+state.Notice:"")}:state;
-    }
+// HUD 不再提供「離開幽靈」鈕（WO §4 #3）。幽靈中把快照標為忙碌：F5–F12 快捷槽與「使用一次」都不會送出（WO §4 #4）。
+internal static class GhostModeHud {
+    internal static PlayerHudSnapshot Update(PlayerHudView hud,FlowLayoutPanel menu,PlayerHudSnapshot state)=>
+        Apply(state,(hud.FindForm() as ClientForm)?.ReadGhostMode());
+    internal static PlayerHudSnapshot Apply(PlayerHudSnapshot state,GhostModeView? view)=>
+        view is {Active:true}&&view.Stamp==state.Stamp
+            ?state with{State="幽靈模式 · 快捷與攻擊停用",Busy=true,Notice=view.Notice+(state.Notice.Length>0?" · "+state.Notice:"")}
+            :state;
 }
