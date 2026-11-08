@@ -206,13 +206,13 @@
   },
   {
    "path": "source/Buddies.cs",
-   "size": 8343,
-   "sha256": "adf112fea62dd30b11ee8c71b9198784340a0aa0fbc448dbc0bbd567485ae186"
+   "size": 9910,
+   "sha256": "14393ff3f2766f2a9dd7ccda404387ba5dbd5ada20242eafdc874e2ebf05631d"
   },
   {
    "path": "source/BuddyUi.cs",
-   "size": 5057,
-   "sha256": "bd29d9848d52dd8d36d68de448bcba66ec353e755596c448b658c6db2aaeabd1"
+   "size": 8155,
+   "sha256": "bc9600f85193c894bc424090feb0415545cf38de24f8df0b29ea5ecba67c70ff"
   },
   {
    "path": "source/CacheFrameEvidence.cs",
@@ -765,6 +765,16 @@
    "sha256": "80d3bd1e8d405b65c3e4d1cb0ff007e12ab549e005213ea2ab2a0f639baa4d75"
   },
   {
+   "path": "source/NativeUi/FriendPanel.cs",
+   "size": 15918,
+   "sha256": "987465bb3a9ea5a766e004ba140501fa049c380e7fbcc4821503ccb2c111a1a9"
+  },
+  {
+   "path": "source/NativeUi/FriendPanelTests.cs",
+   "size": 16158,
+   "sha256": "e51d4fe1bfad1c8eb39dc22b867040726838f596b7e16349e28bd4f0e9ebd689"
+  },
+  {
    "path": "source/NativeUi/HpMpPanel.cs",
    "size": 14635,
    "sha256": "066dee37431d7c844ce11944871c1ce0d6fadf0d681dd2a0d334088ebbf2016d"
@@ -841,8 +851,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 1372,
-   "sha256": "4986714e9365679cef230c852db04976e5bc51727a3c035332198f9dd6c7caf5"
+   "size": 1480,
+   "sha256": "954ea65a9db483e77aeb93b0ec7f8870389b4b4c8e0f14ca7471b18a8d354ea6"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
