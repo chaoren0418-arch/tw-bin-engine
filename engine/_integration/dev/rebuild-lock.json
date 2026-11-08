@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 295,
+ "sourceCount": 297,
  "files": [
   {
    "path": "NuGet.Config",
@@ -1008,6 +1008,16 @@
    "path": "source/OriginalMapCache.cs",
    "size": 20268,
    "sha256": "8c7009fd8483196beda9108a07a01f54b1e02d4447ba6cb3c6b88fb78b15d084"
+  },
+  {
+   "path": "source/PacketBoxMessages.cs",
+   "size": 14512,
+   "sha256": "d34605ac4b61f5e5621b86519910f46210e51a3cd7ba33919c5a1239da452dae"
+  },
+  {
+   "path": "source/PacketBoxMessagesTests.cs",
+   "size": 9253,
+   "sha256": "44c05cd07dd4d8fe8667c26c4bac9c7bcf5b9948b3981bf46688fe15870c1047"
   },
   {
    "path": "source/PacketBoxStatus.cs",
