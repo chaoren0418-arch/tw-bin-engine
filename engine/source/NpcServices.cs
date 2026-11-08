@@ -51,8 +51,12 @@ public sealed partial class WorldSession {
             "選擇出售數量（0 表示不出售），再提交一次。收購單價以原服清單為準；物品與金幣等待原服更新，背包或裝備改變後須重新查詢。";
         return true;
     }
+    // NpcInteraction 在送 C125 之前先問這裡：本機處理的對話動作（倉庫存入、M7-S 修理 fix／武器選項）回 true，不送 C125。
     internal bool OpenDeposit(int option,int revision){
-        CheckInteraction();if(!InteractionValid||revision!=InteractionRevision||InteractionKind!="dialog"||!InventoryLoaded||InteractionPage?.Options.Any(o=>o.Id==option&&o.Enabled&&o.Kind=="action"&&o.Value=="deposit")!=true)return false;
+        CheckInteraction();if(!InteractionValid||revision!=InteractionRevision||InteractionKind!="dialog")return false;
+        var selected=InteractionPage?.Options.FirstOrDefault(o=>o.Id==option&&o.Enabled&&o.Kind=="action");
+        if(selected!=null&&HandleRepairOption(selected.Value))return true;
+        if(!InventoryLoaded||selected?.Value!="deposit")return false;
         ShopRows=Inventory.Where(i=>i.Count>0&&i.Equipped!=true).Select(i=>new ShopRow(i.ObjectId,i.IconId,0,i.Name,i.Count,i.StatusHex)).ToArray();InteractionRevision++;InteractionPage=null;InteractionKind="deposit";pendingNpcReply="";InteractionNotice="選擇目前背包物品存入個人倉庫。存入不收費；原服仍會檢查綁定、重量與可存入條件。";return true;
     }
     internal void AwaitNpcService(string kind,IReadOnlyList<ShopChoice>? choices=null){

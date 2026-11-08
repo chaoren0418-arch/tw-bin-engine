@@ -55,6 +55,7 @@
 - `P11.ClientEngine.exe --module-tests` → `pass`，20 組、982 項，失敗 0；其中 pet-target 36、summon-request 17、summon-panel 56。
 - DemoChecks：pets `PASS 327`、native-ui-canvas `PASS 429`、native-ui-resources `PASS 539`、player-query（含 hypertext）`PASS 1058`。
 - `engine/tools/check-no-game-assets.py` → `pass`，errors 0。
+- **第二次再同步（2026-11-09，main 前進 88 個 commit，含 #517／#526／#529／#466 等）**：`UiPanelRegistry.cs` 衝突兩邊都保留（LeftStatus、Chat、SummonPanel、HpMp、Macro、Trade、Friend）；`rebuild-lock.json` 取 main 版後以 `--update-lock` 重產（301 個來源檔）。重驗：`--build` `PASS dev`（productDll `0eba49e7…360b18f2`）；`--module-tests` `pass`，27 組、1370 項、失敗 0（pet-target 36、summon-request 17、summon-panel 56）；native-ui-canvas `PASS 429`；`check-no-game-assets.py` `pass`。
 - **再同步（2026-11-09，main 合入 #465 HpMp）**：`UiPanelRegistry.cs` 衝突照註解規則兩邊的行都保留（SummonPanel＋HpMp）；`rebuild-lock.json` 取 main 版後以 `--update-lock` 重產（284 個來源檔）。重驗：`--build` `PASS dev`（productDll `1fe679af…24193e`）；`--module-tests` `pass`，21 組、1019 項、失敗 0（pet-target 36、summon-request 17、summon-panel 56）；native-ui-canvas `PASS 429`；`check-no-game-assets.py` `pass`。
 - 真實客戶端渲染（唯讀 `D:\lineage開發\0-客戶端`，PNG 只放在 `scratch/issue-530/`，沒有進 git）：
   - 所有 surf 都解得到，summonList 共 31 隻；等級 28 的第一隻 action 是 `7`，與伺服器 `summonstr_list` 一致。

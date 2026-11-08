@@ -32,6 +32,7 @@ public static class YesNoProtocol {
             953 when first.Length>0=>first+" 邀請你加入隊伍。",
             630 when first.Length>0=>first+" 要與你決鬥。",
             654 when first.Length>0=>first+" 向你求婚。",
+            252 when first.Length>0=>first+" 邀請你交易。",
             _=>"原服詢問 "+message+(args.Length>0?"："+string.Join("、",args):"。")};
         return body+"（輸入 Y 接受、N 拒絕後按 Enter）";
     }
@@ -82,6 +83,7 @@ public sealed partial class WorldSession {
         953=>partyInvitation is {} i&&i.Challenge==p.RequestId&&i.Epoch==WorldEpoch,
         630=>DuelSnapshot.Phase=="invited",
         654=>MarriagePhaseAfterCheck()=="invited",
+        252=>TradeYesNoLive(p), // M7-K: Trade offers 252 itself when byte_136E99D is 1.
         _=>true};
     string MarriagePhaseAfterCheck(){CheckMarriage();return marriagePhase;}
     // Module state is read outside yesNoGate: Duel takes duelGate, and modules call YesNoHandled.
@@ -125,6 +127,7 @@ public sealed partial class LoginConnection {
             case 953:{var v=PartySnapshot();return v.Invitation?.Challenge==p.RequestId&&await SendParty(command,v);}
             case 630:{var d=World.DuelSnapshot;return await Duel(command,d.Revision,d.Epoch);}
             case 654:return await SendMarriage(command,MarriageSnapshot());
+            case 252:return await TradeYesNo(accept);
         }
         return await SendYesNo(p,accept,false);
     }
@@ -147,6 +150,28 @@ public sealed partial class LoginConnection {
     }
 }
 
+// W2-E (#558, windows-2.md §5.3 / §9): InputWindow #1 (ctor sub_A57590, FO 0x656990) has the text buttons "YES" at
+// (361, 567) and "NO" at (401, 567), 800×600 screen coordinates (已驗證, static). The button size is not in the source
+// we read: 32×14 is 推定 (enough for the word at the 12 px font); the click answers like Y/N + Enter (same C121 path).
+public static class YesNoButtons {
+    public static readonly Point YesOrigin=new(361,567),NoOrigin=new(401,567);
+    public static readonly Size Size=new(32,14);   // 推定
+    public static string Label(bool accept)=>accept?"YES":"NO";
+    public static Rectangle Logical(bool accept)=>new(accept?YesOrigin:NoOrigin,Size);
+    /// <summary>Logical 800×600 point → true YES, false NO, null neither.</summary>
+    public static bool? Hit(Point logical)=>Logical(true).Contains(logical)?true:Logical(false).Contains(logical)?false:null;
+    /// <summary>Native canvas: the logical rectangle through the presenter's scale and offset.</summary>
+    public static Rectangle Client(bool accept,P06.NativeUi.UiViewport view){
+        var r=Logical(accept);var a=view.ToClient(r.Location);var b=view.ToClient(new(r.Right,r.Bottom));
+        return Rectangle.FromLTRB(a.X,a.Y,b.X,b.Y);
+    }
+    /// <summary>Legacy HUD (no 800×600 canvas): keep the original order and 40 px pitch, at the right end of the prompt line.</summary>
+    public static Rectangle Legacy(bool accept,Rectangle line){
+        int pitch=NoOrigin.X-YesOrigin.X,x=line.Right-pitch-Size.Width-4+(accept?0:pitch);
+        return new(x,line.Y+(line.Height-Size.Height)/2,Size.Width,Size.Height);
+    }
+}
+
 // Chat input line prompt. Layout of the original line (800x600 at (192,581), 280x12) is 推測 to be the
 // chat input; this keeps the existing chat TextBox and only shows the question text above the status bar.
 public sealed partial class ClientForm {
@@ -158,8 +183,29 @@ public sealed partial class ClientForm {
         base.OnHandleCreated(e);
         if(!yesNoUiReady){yesNoUiReady=true;Shown+=(_,_)=>InitYesNoUi();}
     }
+    // Not selectable: a click never takes focus from the chat TextBox or the game (the original buttons sit on the input line).
+    sealed class YesNoButton:Button {
+        public YesNoButton(bool accept){
+            SetStyle(ControlStyles.Selectable,false);TabStop=false;Visible=false;Text=YesNoButtons.Label(accept);
+            FlatStyle=FlatStyle.Flat;FlatAppearance.BorderColor=Color.FromArgb(120,110,80);BackColor=Color.FromArgb(40,36,28);
+            ForeColor=Color.FromArgb(255,230,160);Padding=Padding.Empty;Margin=Padding.Empty;Font=new Font(SystemFonts.DefaultFont.FontFamily,7.5f);
+            AccessibleName="伺服器詢問 "+Text;
+        }
+    }
+    readonly YesNoButton yesNoYes=new(true),yesNoNo=new(false);
+    YesNoView? yesNoView;
+    async Task YesNoClick(bool accept){
+        // Answers exactly the prompt that was on screen; a newer S219 or a new session makes it a no-op (AnswerYesNo checks).
+        if(yesNoAnswering||yesNoView is not {Prompt: not null} view)return;
+        ClearInput("yes-no-button");yesNoAnswering=true;
+        try{if(!await login.AnswerYesNo(view,accept)&&!IsDisposed)yesNoLine.Text="未送出：詢問已失效或目前不能回覆。";}
+        finally{yesNoAnswering=false;}
+        if(!IsDisposed)SyncYesNo();
+    }
     void InitYesNoUi(){
-        Controls.Add(yesNoLine);
+        Controls.Add(yesNoLine);Controls.Add(yesNoYes);Controls.Add(yesNoNo);
+        yesNoYes.Click+=async(_,_)=>await YesNoClick(true);
+        yesNoNo.Click+=async(_,_)=>await YesNoClick(false);
         // KeyPreview: runs before the chat TextBox, so a handled Enter never reaches chat Submit.
         KeyDown+=async(_,e)=>{
             if(e.KeyCode!=Keys.Enter||e.Modifiers!=Keys.None||!PlayerChatFocused)return;
@@ -179,9 +225,14 @@ public sealed partial class ClientForm {
         var view=login.YesNoSnapshot();
         bool show=login.State==LoginState.InWorld&&view.Prompt!=null;
         if(show&&view.Revision!=yesNoShown){yesNoShown=view.Revision;yesNoLine.Text=view.Prompt!.Text+(PlayerChatFocused?"":"　按 Enter 開啟輸入列。");}
-        yesNoLine.Visible=show;if(!show){yesNoShown=-1;return;}
+        yesNoLine.Visible=yesNoYes.Visible=yesNoNo.Visible=show;if(!show){yesNoShown=-1;yesNoView=null;return;}
+        yesNoView=view;
         int width=Math.Min(640,Math.Max(200,ClientSize.Width-16));
         yesNoLine.SetBounds(8,Math.Max(0,ClientSize.Height-bar.Height-yesNoLine.Height-6),width,yesNoLine.Height);yesNoLine.BringToFront();
+        var native=NativeUiActive?NativeUiViewport():(P06.NativeUi.UiViewport?)null;
+        foreach(var (b,accept) in new[]{(yesNoYes,true),(yesNoNo,false)}){
+            b.Bounds=native is {} v?YesNoButtons.Client(accept,v):YesNoButtons.Legacy(accept,yesNoLine.Bounds);b.BringToFront();
+        }
     }
     static TextBox? FocusedTextBox(Control root){
         foreach(Control c in root.Controls){if(c is TextBox t&&t.Focused)return t;if(c.ContainsFocus&&FocusedTextBox(c) is {} f)return f;}
