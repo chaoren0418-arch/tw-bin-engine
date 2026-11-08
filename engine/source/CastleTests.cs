@@ -115,5 +115,91 @@ static class CastleTests {
         t.Equal(0,cleared.GetProperty("masters").GetArrayLength(),"Reset clears castle master table");
         t.Equal(JsonValueKind.Null,cleared.GetProperty("offer").ValueKind,"Reset clears offer");
         t.Equal((CastleOffer?)null,s.CastleOffer,"Reset clears offer property");
+        t.Equal((CastlePage?)null,s.CastlePage,"Reset clears page");
+        t.Equal(JsonValueKind.Null,cleared.GetProperty("page").ValueKind,"Reset clears page snapshot");
+
+        Pages(t);
+        Crowns(t);
+    }
+
+    // W2-B（T235／#557）：S185／S141／S4 開 tax／withdraw／deposit 頁（windows-2.md §5.1）。
+    static void Pages(WorldModuleTestContext t){
+        const uint Me=0x00123456;
+        var s=new WorldSession();
+        t.Equal("tax",CastleProtocol.PageName(CastleOfferKind.TaxRate),"tax page name");
+        t.Equal("withdraw",CastleProtocol.PageName(CastleOfferKind.Withdraw),"withdraw page name");
+        t.Equal("deposit",CastleProtocol.PageName(CastleOfferKind.Deposit),"deposit page name");
+        t.Equal("$457 : 5000 $4",CastleProtocol.WithdrawLine(5000),"withdraw #1 = \"%s : %d %s\" with strings 457, 4");
+
+        s.Receive(TaxRate(Me),"");
+        t.Check(s.CastlePage is {Kind:CastleOfferKind.TaxRate,Html:"tax"},"S185 opens tax page",s.CastlePage);
+        t.Equal("tax",s.QueryHtml,"tax page shown on NPC panel (query page)");
+        t.Check(s.QueryPage!=null,"panel page rendered");
+        t.Equal(1,s.CastlePage!.Args.Length,"tax page carries only #0 (NPC name)");
+        t.Equal("",s.CastlePage.Args[0],"no NPC dialog → #0 left empty, not own name");
+        var snap=Castle(s).GetProperty("page");
+        t.Equal("tax",snap.GetProperty("html").GetString(),"snapshot page html");
+
+        s.Receive(Drawal(Me,5000),"");
+        t.Check(s.CastlePage is {Kind:CastleOfferKind.Withdraw,Html:"withdraw"},"S141 opens withdraw page",s.CastlePage);
+        t.Equal("$457 : 5000 $4",s.CastlePage!.Args[1],"withdraw #1 shows treasury amount");
+        t.Equal("withdraw",s.QueryHtml,"withdraw page replaces tax page");
+        var wd=s.CastleOffer!;
+        s.CastleSent(wd.Revision,100);
+        t.Equal((CastlePage?)null,s.CastlePage,"page closed after reply sent");
+        t.Check(s.QueryPage==null,"panel closed after reply sent");
+
+        s.Receive(Drawal(Me,0),"");
+        t.Check(s.CastleOffer==null&&s.CastlePage is {Html:"withdraw"},"S141 count 0 still shows withdraw page without offer");
+        t.Equal("$457 : 0 $4",s.CastlePage!.Args[1],"withdraw page shows 0");
+
+        // 存入頁 #1 顯示目前持有的金幣（S15 加入金幣 1234）。
+        byte[] gold=[..BitConverter.GetBytes(1900249901u),0,0,0,0,5,0,0,..BitConverter.GetBytes(1234u),1,..LoginPackets.TextEncoding.GetBytes("$4 (1234)"),0,0,10,0,0,0,0,0,0,0,0,0,0];
+        s.Receive(LoginPackets.Pad([15,..gold]),"");
+        s.Receive(Deposit(Me),"");
+        t.Check(s.CastlePage is {Kind:CastleOfferKind.Deposit,Html:"deposit"},"S4 opens deposit page",s.CastlePage);
+        t.Equal("1234 $4",s.CastlePage!.Args[1],"deposit #1 shows gold held");
+        var dep=s.CastleOffer!;
+        t.Check(s.CancelCastleOffer(dep.Revision),"cancel deposit offer");
+        t.Check(s.CastlePage==null&&s.QueryPage==null,"cancel closes the page");
+
+        // 使用者自己關掉面板：頁失效，但詢問（原服的票）仍在，回覆照樣可組。
+        s.Receive(TaxRate(Me),"");
+        var tax=s.CastleOffer!;
+        s.CloseQueryPage();
+        t.Equal((CastlePage?)null,s.CastlePage,"closing panel drops castle page");
+        t.Check(s.CastleRequest(tax.Revision,Me,20)!=null,"offer survives panel close");
+        // 面板被別的查詢頁換掉後，送出不會關掉別人的頁。
+        s.Receive(Deposit(Me),"");
+        var dep2=s.CastleOffer!;
+        s.ShowQueryPage(Me,"other",[],["x"]);
+        s.CastleSent(dep2.Revision,1);
+        t.Equal("other",s.QueryHtml,"castle send leaves unrelated query page");
+    }
+
+    // 王冠資料：12 格、每格 500 ms、各城自己計時；第 2 格沒有王冠；錨點 x＋17、y − 高度 − 12。
+    static void Crowns(WorldModuleTestContext t){
+        long now=1_000_000;
+        var s=new WorldSession{CastleClock=()=>now};
+        t.Equal(0,CastleProtocol.CrownFrame(0),"frame 0 at start");
+        t.Equal(1,CastleProtocol.CrownFrame(500),"frame 1 at 500 ms");
+        t.Equal(11,CastleProtocol.CrownFrame(5999),"frame 11 at 5999 ms");
+        t.Equal(0,CastleProtocol.CrownFrame(6000),"12 frames loop");
+        t.Equal((117,148),CastleProtocol.CrownAnchor(100,200,false),"anchor normal height 40");
+        t.Equal((117,138),CastleProtocol.CrownAnchor(100,200,true),"anchor tall height 50");
+
+        s.Receive(CastleMaster(1,0x111),"");
+        now+=1600;
+        s.Receive(CastleMaster(3,0x111),"");
+        s.Receive(CastleMaster(2,0x222),"");
+        now+=500;
+        var f=s.CastleCrownFrames(0x111);
+        t.Equal(2,f.Length,"leader of castles 1 and 3 has two crowns");
+        t.Check(f.Any(c=>c.Castle==1&&c.Frame==4),"castle 1 timer: 2100 ms → frame 4",f);
+        t.Check(f.Any(c=>c.Castle==3&&c.Frame==1),"castle 3 timer: 500 ms → frame 1",f);
+        t.Equal(0,s.CastleCrownFrames(0x222).Length,"castle 2 leader has no crown");
+        t.Equal(0,s.CastleCrownFrames(0).Length,"object 0 has no crown");
+        s.Reset();
+        t.Equal(0,s.CastleCrownFrames(0x111).Length,"Reset clears crowns");
     }
 }
