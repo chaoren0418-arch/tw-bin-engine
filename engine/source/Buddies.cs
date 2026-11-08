@@ -5,7 +5,7 @@ public sealed record BuddyEntry(string Name,bool Online);
 public sealed record BuddyListPacket(uint Owner,BuddyEntry[] Entries);
 public sealed record ExcludePacket(byte Kind,string[] Names);
 public sealed record BuddyView(int Generation,int Epoch,uint Actor,int Revision,bool CanSend,bool CanToggle,
-    bool Loaded,bool Stale,string Notice,BuddyEntry[] Friends,string[] Excluded);
+    bool Loaded,bool Stale,string Notice,BuddyEntry[] Friends,string[] Excluded,string[] MailExcluded);
 
 // Field layouts and source identities: docs/protocol/buddies.md.
 public static class BuddyPackets {
@@ -16,7 +16,7 @@ public static class BuddyPackets {
         try{return LoginPackets.Pad([opcode,..LoginPackets.TextEncoding.GetBytes(name),0]);}
         catch(System.Text.EncoderFallbackException){throw new ArgumentException("角色名稱含有遊戲字集無法表示的字元。");}
     }
-    static void ValidateName(string name){
+    internal static void ValidateName(string name){
         // Local input budget, not a claim about server character creation rules.
         if(string.IsNullOrWhiteSpace(name)||name.Length>52||name.Any(c=>char.IsControl(c)||char.IsWhiteSpace(c)))
             throw new ArgumentException("請輸入角色名稱（不可含空白，最多 52 字）。");
@@ -48,6 +48,10 @@ public static class BuddyPackets {
 public sealed partial class WorldSession {
     BuddyEntry[] buddies=[];
     readonly HashSet<string> excluded=new(StringComparer.OrdinalIgnoreCase);
+    // M7-V（#529）：信件封鎖名單（MailExcludeUI）。伺服器沒有對應協定（docs/reference/server-protocol.md 只有 C_Exclude），
+    // 所以這份名單只存在本機記憶體、重新連線或角色重置即清空，也尚未用來過濾信件（Mail.cs 不在本任務範圍）。
+    readonly HashSet<string> mailExcluded=new(StringComparer.OrdinalIgnoreCase);
+    public const string MailExcludeNotice="信件封鎖名單只存在本機（伺服器沒有對應協定），重新連線即清空，尚未用來過濾信件。";
     public int BuddyRevision {get;private set;}
     public bool BuddyLoaded {get;private set;}
     public bool BuddyStale {get;private set;}
@@ -57,7 +61,15 @@ public sealed partial class WorldSession {
     public string[] ExcludedNames=>excluded.Order(StringComparer.OrdinalIgnoreCase).ToArray();
     public bool ExcludePending=>pendingExclude!=null;
     public bool IsExcluded(string name)=>excluded.Contains(name);
-    void ResetBuddies(){buddies=[];excluded.Clear();BuddyLoaded=BuddyStale=false;pendingExclude=null;BuddyNotice="請查詢好友；封鎖名單依伺服器回覆更新。";BuddyRevision++;}
+    public string[] MailExcludedNames=>mailExcluded.Order(StringComparer.OrdinalIgnoreCase).ToArray();
+    public bool IsMailExcluded(string name)=>mailExcluded.Contains(name);
+    /// <summary>Local toggle (no packet). Returns true when the name is now on the list.</summary>
+    internal bool ToggleMailExclude(string name){
+        BuddyPackets.ValidateName(name);
+        bool added=mailExcluded.Remove(name)?false:mailExcluded.Add(name);
+        BuddyRevision++;BuddyNotice=(added?"已加入信件封鎖：":"已移出信件封鎖：")+name+"。"+MailExcludeNotice;return added;
+    }
+    void ResetBuddies(){buddies=[];excluded.Clear();mailExcluded.Clear();BuddyLoaded=BuddyStale=false;pendingExclude=null;BuddyNotice="請查詢好友；封鎖名單依伺服器回覆更新。";BuddyRevision++;}
     bool ReceiveBuddies(byte opcode,byte[] plain){
         if(BuddyPackets.TryBuddy(plain,out var friends)){
             if(Status?.ObjectId!=friends!.Owner)throw new ProtocolException("buddy owner");
@@ -107,9 +119,14 @@ public sealed partial class LoginConnection {
     bool BuddyAccess=>State==LoginState.InWorld&&World.Ready&&World.Status is {} s&&World.Actor?.ObjectId==s.ObjectId&&!World.TeleportPending;
     public BuddyView BuddySnapshot()=>CaptureWorld(()=>{
         CheckBuddySendGeneration();return new BuddyView(generation,World.WorldEpoch,World.Status?.ObjectId??0,World.BuddyRevision,
-            BuddyAccess&&!buddySending,BuddyAccess&&!buddySending&&!World.ExcludePending,World.BuddyLoaded,World.BuddyStale,World.BuddyNotice,World.Buddies,World.ExcludedNames);
+            BuddyAccess&&!buddySending,BuddyAccess&&!buddySending&&!World.ExcludePending,World.BuddyLoaded,World.BuddyStale,World.BuddyNotice,World.Buddies,World.ExcludedNames,World.MailExcludedNames);
     });
     bool BuddyStamp(BuddyView view)=>view.Generation==generation&&view.Epoch==World.WorldEpoch&&view.Actor!=0&&view.Actor==World.Status?.ObjectId&&view.Actor==World.Actor?.ObjectId&&view.Revision==World.BuddyRevision;
+    /// <summary>Mail exclude is local only: same access/stamp rules as the server lists, but nothing is sent.</summary>
+    public bool ToggleMailExclude(string name,BuddyView view)=>CaptureWorld(()=>{
+        CheckBuddySendGeneration();if(!BuddyAccess||!BuddyStamp(view))return false;
+        World.ToggleMailExclude(name);return true;
+    });
     public async Task<bool> SendBuddy(BuddyAction action,string name,BuddyView view){
         CheckBuddySendGeneration();if(!BuddyAccess||buddySending||!BuddyStamp(view)||sendMovementGate==null||action==BuddyAction.ToggleExclude&&World.ExcludePending)return false;
         byte[] packet=BuddyPackets.Encode(action,name);var sender=sendMovementGate;int lease=++buddyLease;buddySending=true;

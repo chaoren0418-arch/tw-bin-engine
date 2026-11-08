@@ -62,6 +62,12 @@ jobs:
           New-Item -ItemType Directory -Force scratch/issue-463 | Out-Null
           dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-463/canvas-checks.json native-ui-canvas
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Native UI macro bar F5–F12, 3 tabs, lock, extended macro (synthetic, no game assets)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-466 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-466/macro-checks.json native-ui-macro
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Affliction contracts (no game or network)
         shell: pwsh
         run: |

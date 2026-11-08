@@ -31,6 +31,7 @@
 
 - `py -3.12 -B -X utf8 engine/_integration/dev/rebuild.py --update-lock` 的結果是 `dev-inputs-verified`。
 - `rebuild.py --build --configfile .github/nuget.ci.config` 的結果是 `PASS dev`，productDll SHA-256 `ad45d39d…553310`。這是同步 origin/main 之後的建置。
+- **第二次同步 origin/main（2026-11-09，80947cce）**：`Program.cs` 衝突（main 新增 `NativeUiBoardChecks`）兩邊都保留；`rebuild-lock.json` 取 main 版再 `--update-lock` 重產（`dev-inputs-verified`，297 檔）。`rebuild.py --build` 結果 `PASS dev`，productDll `e61a80bf…6f834`。重跑 `trade-yes-no`、`yes-no`、`map-continuity`、`combat-admission`、`native-ui-canvas`、`item-transfer`、`hypertext`（`TW_CLIENT_ROOT` 指向空目錄）全 PASS；`native-ui-macro` 在空客戶端根目錄下會因為 idx 沒有項目而失敗，不設 `TW_CLIENT_ROOT` 時（和 CI 相同，會略過真客戶端繪製）PASS 403；`npc-tests`、`--module-tests`、`check-no-game-assets.py` 都通過。
 - `DemoChecks` 各群組都通過。執行時 `TW_CLIENT_ROOT` 指向空的 scratch 目錄，和 CI 的環境一致（原因見下一節）。
 
   | 群組 | 結果 |
