@@ -21,7 +21,7 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
     public bool Visible=>inWorld;
     /// <summary>Split view is wider: LCHAT 260 + RCHAT (real 259) = 519 (推測 that the window really widens; 待驗證).</summary>
     public Rectangle Bounds=>new(Origin.X,Bottom-view.Height,view.Split?SplitWidth:Width,view.Height);
-    /// <summary>Text shadow (推測; line colours come from the shared chat palette).</summary>
+    /// <summary>Text shadow (推測; line colours come from the shared chat palette and ChatFormat runs, R2-G).</summary>
     public static readonly Color TextShadow=Color.Black,InputColor=Color.White;
 
     public const string Base="CHAT_MAIN_WINDOW/CHAT_WINDOW",LeftBase="CHAT_MAIN_WINDOW/LCHAT_WINDOW",RightBase="CHAT_MAIN_WINDOW/RCHAT_WINDOW",Bar="CHAT_MAIN_WINDOW/CHAT_BAR";
@@ -180,7 +180,13 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
             int index=rows.Count-1-scroll-i;if(index<0)break;
             var r=rows[index];int y=TextBottomY-(i+1)*ChatRules.LineHeight;
             if(r.Text.Length==0)continue;
-            canvas.DrawText(r.Text,x,y,PlayerHudChatPanel.ChannelColor(r.Channel),TextShadow);
+            // R2-G: each coloured run (`*` colours, own colour index, `\f` codes) is drawn after the previous one's width.
+            int rx=x;
+            foreach(var run in r.Runs){
+                if(run.Text.Length==0)continue;
+                canvas.DrawText(run.Text,rx,y,ChatPalette.Color(run.Color),TextShadow);
+                foreach(char ch in run.Text)rx+=Measure(canvas.Graphics,ch);
+            }
             drawn.Add(new(element,null,new(x,y,0,ChatRules.LineHeight),r.Text));
         }
     }
