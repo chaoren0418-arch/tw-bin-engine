@@ -52,6 +52,7 @@
 - 與 main 同步（8 個 commit，含 #559 Cooking，無衝突）後重跑：`--update-lock`（276 來源檔）→ `PASS dev`（productDll `03e00a2a…4258`）；`--module-tests` **16 組 861 checks 全過**；`weapon-repair-tests` 98 綠；`check-no-game-assets.py` pass。
 - 第二次與 main 同步（17 個 commit，含 #556／#557；只有 `rebuild-lock.json` 衝突，取 main 版本後重產）：`--update-lock`（277 來源檔）→ `PASS dev`（productDll `0e130b4d…2634`）；`--module-tests`（照 CI 方式）**17 組 927 checks 全過**；`WeaponRepairChecks` 98 綠；`check-no-game-assets.py` pass（errors 0）。
 - 第三次與 main 同步（含 #568 breath-status；只有 `rebuild-lock.json` 衝突，取 main 版本後重產）：`--update-lock`（278 來源檔）→ `PASS dev`（productDll `294817b0…7d56`）；`--module-tests`（照 CI 方式）**18 組 952 checks 全過**（`trade-window` 79）；`WeaponRepairChecks` 98 綠；`check-no-game-assets.py` pass（errors 0）。
+- 第四次與 main 同步（53 個 commit，含 #464／#465／#466／#468 原生 UI 面板）：`UiPanelRegistry.cs` 衝突，保留 main 的所有面板並把 `TRADE_WINDOW` 一行接在最後；`rebuild-lock.json` 取 main 版本後重產。`native-ui-macro` 用合成 uistatus86 建整份登錄表，`TRADE_WINDOW`（uiextra86）會讓它找不到 XML，所以照 #464／#468 的做法在 `MacroChecks.cs` 的 `MacroRegistry` 篩掉 `TRADE_WINDOW`（測試檔，一行）。重跑：`--update-lock`（289 來源檔）→ `PASS dev`（productDll `3656742c…acd2`）；`--module-tests` **19 組 989 checks 全過**（`trade-window` 79）；`WeaponRepairChecks` 98 綠；DemoChecks `native-ui-macro`（403）、`native-ui-canvas`（429）、`native-ui-resources`（539）、`hypertext`（357）及 CI 其他 11 組（`TW_CLIENT_ROOT` 指到不存在路徑）全綠；`check-no-game-assets.py` pass（errors 0）。
 - CI：見 PR #590。
 
 ## 沒驗證什麼
