@@ -89,6 +89,8 @@ public interface ILeftStatusSource { LeftStatusState LeftStatus { get; } }
 /// <summary>Decorator: the shared IUiGameState plus the LEFT_WINDOW snapshot (built by the client bridge once per frame).</summary>
 public sealed class UiLeftStatusGameState(IUiGameState inner,LeftStatusState left):IUiGameState,ILeftStatusSource {
     public LeftStatusState LeftStatus=>left;
+    /// <summary>The wrapped state (ui-buff-icons #473 sits inside and is found through this).</summary>
+    public IUiGameState Inner=>inner;
     public bool InWorld=>inner.InWorld;
     public string? CharacterName=>inner.CharacterName;
     public int? Level=>inner.Level;
