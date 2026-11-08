@@ -29,14 +29,25 @@ public static class PlayerPointerPath {
     }
 }
 
+// R2-C (T253/#614) pointer texts shared by controller, form and HUD.
+public static class PointerFlow {
+    public const string Help="左鍵地面行走；左鍵選取，雙擊或 Ctrl＋左鍵攻擊，右鍵交談；雙擊地上物品拾取（遠的先走近，多個時詢問數量）。";
+    public const string DeadNotice="未送出：死亡中不能操作物件";
+    public const string GroundGone="未送出：地上物品已不可見，或上一個拾取仍在進行。";
+    public const string TargetUnavailable="未送出：請確認目標仍可見，停下並等待可操作後再點擊。";
+}
+
 public sealed class PlayerPointerController {
     readonly LoginConnection login;readonly Func<bool> focused,walking;readonly Func<uint,bool> visible;readonly Func<long> now;
     readonly Queue<Point> route=new();int version;bool sending;long started;Point expected;Stamp? stamp;
     sealed record Stamp(int Session,int World,uint Actor,ushort? Map,int Correction,int Appearance,int Speed);
     public PlayerPointerController(LoginConnection login,Func<bool> focused,Func<bool> walking,Func<uint,bool> visible,Func<long>? clock=null){this.login=login;this.focused=focused;this.walking=walking;this.visible=visible;now=clock??(()=>Environment.TickCount64);}
-    public bool Active=>route.Count>0||sending;
+    // A ground click that is still approaching (ApproachWalk) counts as active so keyboard/Esc stop it,
+    // but it does not hold `sending`: a new click cancels it through inputVersion instead of being refused.
+    public bool Active=>route.Count>0||sending||groundClicks>0;
+    int groundClicks;
     public int RemainingSteps=>route.Count;
-    public string Notice {get;private set;}="左鍵地面行走；左鍵選取，雙擊或 Ctrl＋左鍵攻擊，右鍵交談；雙擊地上物品拾取1件。";
+    public string Notice {get;private set;}=PointerFlow.Help;
     Stamp Capture(){var w=login.World;return new(login.SessionGeneration,w.WorldEpoch,w.Actor!.ObjectId,w.MapId,w.Corrections,w.AppearanceRevision,w.SpeedRevision);}
     bool Current(Stamp s)=>focused()&&login.MovementAvailable&&s==Capture();
     Point Position=>new(login.World.Actor!.X,login.World.Actor.Y);
@@ -72,6 +83,21 @@ public sealed class PlayerPointerController {
     }
     bool TargetVisible(uint id)=>visible(id)&&login.World.Objects.Any(o=>o.ObjectId==id&&!o.Dead&&!o.AppearancePending);
     public bool Select(uint id){Cancel("選取目標");if(!focused()||!login.World.Renderable||!TargetVisible(id))return false;login.World.SelectTarget(id);Notice=$"已選取 {login.World.Target?.Name} #{id}；G 攻擊，選技能後 M 施放。";return login.World.TargetId==id;}
+    // R2-C (WO §1–2): double-click on a ground item goes through the object-click flow
+    // (GroundUi.PickupGroundClicked → LoginConnection.PickupGround): approach to 1 tile, then the whole
+    // stack or the quantity prompt. `pickup` defaults to that flow; the UI passes PickupGroundClicked.
+    // Returns true only when a C_GET was actually admitted; an opened prompt returns false.
+    public async Task<bool> ClickGroundAsync(uint id,Func<uint,Task<bool>>? pickup=null){
+        Cancel("點擊地上物品");
+        if(sending||!focused()||!visible(id)||!login.World.Ground.Any(g=>g.ObjectId==id)){Notice=PointerFlow.GroundGone;return false;}
+        int ticket=version;groundClicks++;
+        try{
+            bool sent=await (pickup??(g=>login.PickupGround(g,walking)))(id);
+            if(ticket==version)Notice=login.World.GroundNotice;
+            return sent&&ticket==version;
+        }finally{groundClicks--;}
+    }
+    // Explicit-count pickup kept for callers that already chose a count (not the double-click path).
     public async Task<bool> PickupAsync(uint id,uint count=1){
         Cancel("單次拾取");
         if(sending||!focused()||!login.MovementAvailable||walking()||login.MovementBusy||!visible(id)||!login.World.Ground.Any(g=>g.ObjectId==id))return false;
@@ -81,14 +107,26 @@ public sealed class PlayerPointerController {
         try{bool sent=await login.PointerPickup(count,Valid);if(ticket==version)Notice=sent?$"單次拾取{count}件已送出；等待地面與背包回報。":"目前無法拾取；請走近後再雙擊，不會自動追物或重送。";return sent&&ticket==version;}
         finally{sending=false;}
     }
+    // Local refusal before any send (R2-C). Doors are not refused here: ToggleDoor owns their death
+    // gate and DoorNotice. WO §1: own death returns from sub_F112F0 for every object click (NPC talk
+    // and attack included). WO §4: ghost blocks attack only; NPC talk and doors stay clickable.
+    public string? Refusal(uint id,bool talk){
+        if(login.World.IsDoor(id))return null;
+        if(login.ObjectClicksBlocked)return PointerFlow.DeadNotice;
+        if(!talk&&login.GhostLocalBlocked)return GhostLocalLimits.Notice;
+        return null;
+    }
     public async Task<bool> ActAsync(uint id,bool talk){
         Cancel(talk?"單次交談":"單次攻擊");
-        if(sending||!focused()||!login.MovementAvailable||walking()||login.MovementBusy||!TargetVisible(id)){Notice="未送出：請確認目標仍可見，停下並等待可操作後再點擊。";return false;}
+        if(Refusal(id,talk) is {} refused){Notice=refused;return false;}
+        bool door=login.World.IsDoor(id);
+        // Doors: ToggleDoor checks availability itself and reports why through DoorNotice.
+        if(sending||!focused()||login.World.Actor==null||!TargetVisible(id)||!door&&(!login.MovementAvailable||walking()||login.MovementBusy)){Notice=PointerFlow.TargetUnavailable;return false;}
         login.World.SelectTarget(id);if(login.World.TargetId!=id)return false;
         int ticket=version,selection=login.World.TargetRevision;var s=Capture();var from=Position;sending=true;
         bool Valid()=>ticket==version&&Current(s)&&!walking()&&Position==from&&login.World.TargetRevision==selection&&login.World.TargetId==id&&TargetVisible(id);
         try{
-            if(login.World.IsDoor(id)){bool doorSent=await login.ToggleDoor(id,Valid);if(ticket==version)Notice=doorSent?"門操作已送出；等待伺服器回報開關與通行狀態。":"門操作未送出；請確認狀態後重新點擊。";return doorSent&&ticket==version;}
+            if(door){bool doorSent=await login.ToggleDoor(id,Valid,walking);if(ticket==version)Notice=login.DoorNotice;return doorSent&&ticket==version;}
             bool sent=talk?await login.PointerTalk(Valid):await login.PointerAttack(Valid);
             if(ticket==version)Notice=sent?(talk?"單次交談已送出，等待伺服器回覆。":"單次攻擊已送出，等待伺服器回覆。"):(talk?"目前無法交談；請走近後再點擊。":login.World.CombatNotice);
             return sent&&ticket==version;
