@@ -115,6 +115,12 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 - `git merge origin/main`（main `dfe7bc06`，落後 32 個提交，含 ambience／audio／sound 修改）。文字衝突只有 `rebuild-lock.json`：取 main 版本後 `--update-lock` 重產；重產後對 main 的差異只剩 `BookmarkUi.cs`、`Bookmarks.cs`、`WorldSession.cs` 三筆與 sourceCount。`demo-tests/Program.cs`、`WorldSession.cs` 自動合併；main 沒有新的 `OnResize` 覆寫，無 CS0111。本模組檔案未變更；`docs/REPORT.md` 與 main 相同。
 - 本機驗證：`rebuild.py --update-lock`（224 source／233 pinned）、`--build` PASS（產品 DLL `5b3b70c2374eaabeb3e1a23aeab48e8d5133c5ddd44ca59fa4cf5dcd5e61b1dc`，2 警告 0 錯誤）；DemoChecks `bookmarks` 774、`map-continuity` 28650、`ambience` 5648、`map-ambient` 372、`hotbar` 569、`char-reset` 488 全部 PASS；`check-no-game-assets.py` pass（3686 檔、0 錯誤）；唯讀 `rebuild.py` 核驗通過。
 - 同步 head `7e02d6332cbd8f2fe87b84396dfbfe20eca5668e` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42414463904) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42414463870) 均 completed／success；僅既有的 `MagicUi.cs:20` 警告；PR #271 為 CLEAN／MERGEABLE。本行以後續純文件提交補記。
+
+### 2026-11-08 同步輪（clan-emblem 等）
+
+- `git merge origin/main`（main `d069f0f0`，落後 22 個提交，含 clan-emblem、afflictions／invisibility／timed-buffs 修改）。文字衝突三處：`WorldSession.cs` 的 `Reset()`（兩邊都保留：main 的 `ResetClanEmblems()` 與本模組的 `ResetBookmarks()`）、`demo-tests/Program.cs` 的 `map-continuity` 群組（聯集：`BookmarkChecks()` 與 main 的 `ClanEmblemChecks()`）、`rebuild-lock.json`（取 main 版本後 `--update-lock` 重產）。本模組檔案未變更；`docs/REPORT.md` 與 main 相同。
+- 本機驗證：`rebuild.py --update-lock`（224 source／233 pinned）、`--build` PASS（產品 DLL `dd9c553435931d632889d7f53748397829be243504a5c95f0094941bf85489ac`）；DemoChecks `bookmarks` 774、`map-continuity` 28720、`clan-emblem` 363、`char-reset` 488 全部 PASS；`check-no-game-assets.py` pass（3695 檔、0 錯誤）；唯讀 `rebuild.py` 核驗通過。
+- 同步 head `c01607004098f6c0f5d64941e8f49573d12bba2e` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42427837768) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42427837739) 均 completed／success；PR #271 為 CLEAN／MERGEABLE。本行以後續純文件提交補記。
 ## 未驗證什麼
 
 - **換掛接點後，「記憶座標」分頁實際出現在真實 `ClientForm`，目前沒有任何自動測試覆蓋**：離線測試不經過 `ClientForm` 生命週期，上述只驗到空白 Form 的框架順序與靜態閱讀。需由 dot smoke 確認。
