@@ -294,6 +294,7 @@ partial class Checks {
                 case "clan-war":await ClanWarChecks();break;
                 case "portals":await PortalChecks();break;
                 case "doors":await DoorChecks();break;
+                case "pickup":await PickupAlignChecks();break;
                 case "party":break;
                 case "pets":break;
                 case "display-notices":DisplayNoticeChecks();break;
