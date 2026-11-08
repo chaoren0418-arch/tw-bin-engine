@@ -38,6 +38,7 @@
     <Compile Include="../location-share-tests/LocationRegionChecks.cs" Link="LocationRegionChecks.cs" />
     <Compile Include="../name-display-tests/NameDisplayChecks.cs" Link="NameDisplayChecks.cs" />
     <Compile Include="../native-ui-tests/ResourceChecks.cs" Link="ResourceChecks.cs" />
+    <Compile Include="../native-ui-tests/CanvasChecks.cs" Link="CanvasChecks.cs" />
     <Reference Include="P11.ClientEngine"><HintPath>../../../build/client-product-dev/P11.ClientEngine.dll</HintPath></Reference>
     <Reference Include="P24.Audio"><HintPath>../../../build/client-product-dev/P24.Audio.dll</HintPath></Reference>
   </ItemGroup>
