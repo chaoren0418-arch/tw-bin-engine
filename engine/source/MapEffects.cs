@@ -45,18 +45,26 @@ public sealed record PacketEffectVisual(long Number,int Gfx,int X,int Y,string F
 public sealed class PacketEffectAppearance
 {
     public double Duration {get;}
+    // Frame start offsets with their tokens, same selection as At(); the default Effect class handles `]` (SubEffects.cs).
+    public ActionTimeline Timeline {get;}
     readonly Func<long,Frame> frame;
     public PacketEffectAppearance(MapEffectAppearance appearance)
     {
         Duration=appearance.Sequence.Sum(s=>(double)s.Ticks)*1000/24;
         frame=appearance.At;
+        double t=0;var steps=new List<TimelineStep>();
+        foreach(var s in appearance.Sequence){steps.Add(new(t,s.Events));t+=s.Ticks*1000d/24;}
+        Timeline=new(steps.ToArray(),t,true);
     }
     public PacketEffectAppearance(ObjectAppearance appearance,string action)
     {
         Duration=appearance.Duration(action);
-        frame=elapsed=>appearance.Sequences[(action,0)].All(s=>s.Milliseconds!=null)
+        bool pure=appearance.Sequences[(action,0)].All(s=>s.Milliseconds!=null);
+        frame=elapsed=>pure
             ?MagicMotion.PureFrame(appearance,action,elapsed)
             :appearance.At(action,0,elapsed%Duration);
+        var sequence=appearance.Sequences[(action,0)];var once=ActionTimeline.Of(sequence,false,Duration);
+        Timeline=pure?ActionTimeline.Pure(sequence,true):new(once.Steps,once.Length,true);
     }
     public Frame At(long elapsed)=>frame(Math.Max(0,elapsed));
 }
@@ -173,5 +181,11 @@ public sealed partial class Renderer
             if(!session.SceneContains(x,y))return;
             foreach(var b in frame.Blocks)draws.Add(new(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,b.Z,serial++,"packet-effect",b.Order,-1,-1,b.Tile));
         });
+        // S55/S106 build the default Effect class (effects-2.md §4.1): its `]` frames spawn sub-effects, direction 0.
+        if(PacketEffectVisuals.Length==0)return;
+        var started=session.PacketEffects.ToDictionary(p=>p.Number,p=>p.At);
+        foreach(var v in PacketEffectVisuals)
+            if(started.TryGetValue(v.Number,out long at)&&packetEffectAssets.Get(v.Gfx) is {Timeline.HasTokens:true} appearance)
+                ObserveEffectFrames(session,$"packet:{v.Number}",appearance.Timeline,now-at,v.X,v.Y,0,now);
     }
 }
