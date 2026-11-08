@@ -57,6 +57,9 @@
   - 組隊、決鬥、求婚經詢問槽回覆，封包精確；模組按鈕回覆後清槽；跟隨組隊本地逾時；死亡後擋下。
   - `MarriageUi` 類別已不存在。
 - `engine/tools/check-no-game-assets.py` → pass。
+- **同步 origin/main（2026-11-08，含 #509／#518／#535）**：只有 `rebuild-lock.json` 衝突，取 main 版後用 `--update-lock` 重產。
+  - 重建 `PASS dev`，productDll SHA-256 `df388ca8…b56c39`。
+  - 重跑 `yes-no`、`map-continuity`、`combat-admission`、`duel`、`item-status`、`native-ui-resources`、`afflictions`、`resurrection`、`polymorph-cadence`、`buddies`、`item-transfer`、`doors`、`pickup`，13 組全綠。
 
 ## 沒驗證什麼（含推測）
 
