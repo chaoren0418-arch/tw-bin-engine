@@ -130,7 +130,7 @@ partial class Checks {
         }
 
         using var res=new UiResources(dir,tilePin,spritePins);
-        var root=UiRoot.Build(res,UiPanelRegistry.Panels);
+        var root=UiRoot.Build(res,UiPanelRegistry.Panels.Where(r=>r.Id==MiniMapPanel.PanelId).ToArray());   // other modules need their own fixtures
         var mini=(MiniMapPanel)root.Find(MiniMapPanel.PanelId)!;
         var field=(FieldMapPanel)root.Find(FieldMapPanel.PanelId)!;
         var group=root.SlotGroup(UiSlotGroup.Bar485);

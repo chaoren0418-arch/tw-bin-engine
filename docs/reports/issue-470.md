@@ -89,6 +89,16 @@
    - 以 `TW_CLIENT_ROOT=D:\nonexistent-client` 重跑 map-continuity，結果 **PASS 33259**。
    - 建議另開一張小任務：讓這項檢查不依賴本機客戶端。
 
+6. **同步 origin/main**（併入 #465 ui-hpmp 等 13 個提交）：
+   - 衝突處理：
+     - `UiPanelRegistry.cs`、`DemoChecks.csproj`、`demo-tests/Program.cs`：兩邊都保留
+     - `rebuild-lock.json`：改用 main 版本，再以 `--update-lock` 重產（283 個來源檔／292 個鎖定檔）
+   - `--build` 結果 **`PASS dev`**，productDll `e99e60fa…d6da`。
+   - 本分組的 Build 改成只取小地圖那一行註冊，因為 HpMp 需要自己的 fixture。
+   - 重跑：native-ui-minimap 402、native-ui-hpmp 397、native-ui-canvas 429、native-ui-resources 539、minimap 398、item-status 409，**全部 PASS**。
+   - 真實資源探針：四個面板（HpMpWindow、MiniHpMpBar、Field_Map、MINI_MAP_WINDOW）一起 Build 通過（46.5 秒），結果與合併前相同。
+   - `check-no-game-assets.py`：pass，errors 0。
+
 ## 已驗證／推測／待驗證
 
 **已驗證（本輪，離線＋真實資源唯讀）**

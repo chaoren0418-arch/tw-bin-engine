@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 281,
+ "sourceCount": 283,
  "files": [
   {
    "path": "NuGet.Config",
@@ -745,9 +745,19 @@
    "sha256": "5d545b1fda7e166d5242fe9142815665a8c73e42f02b327b867f6138777d0235"
   },
   {
+   "path": "source/NativeUi/HpMpPanel.cs",
+   "size": 14635,
+   "sha256": "066dee37431d7c844ce11944871c1ce0d6fadf0d681dd2a0d334088ebbf2016d"
+  },
+  {
    "path": "source/NativeUi/MiniMapPanel.cs",
    "size": 3744,
    "sha256": "60ede4801f0784492aa1f62c90f2de521b6c6791eb53a05fbe9193da15655e45"
+  },
+  {
+   "path": "source/NativeUi/State/HpMpState.cs",
+   "size": 4859,
+   "sha256": "f3f700f3d3e2b52f4c0a56d94baf4e025f409e07ee91bc0599746d8ed2fcfa13"
   },
   {
    "path": "source/NativeUi/State/MapState.cs",
@@ -766,8 +776,8 @@
   },
   {
    "path": "source/NativeUi/UiClientBridge.cs",
-   "size": 7737,
-   "sha256": "dbab7875945d585c53de15a1bc6c2ab152ca4be555d010d0b166ef08769ad17e"
+   "size": 7812,
+   "sha256": "ed23aec2a8f3fd566b881d6eda9e8e975816aa649171873eb47dcf206010d9f9"
   },
   {
    "path": "source/NativeUi/UiContracts.cs",
@@ -786,8 +796,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 847,
-   "sha256": "d6bfa94726edf0b9d8737e69cc749867d9088cf58b04eb35983bea29e83416ba"
+   "size": 1114,
+   "sha256": "6041f8a3a31c6b08c6147c2fb859c9448624de18c7b034ae7869c7d284eb74d1"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
