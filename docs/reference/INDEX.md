@@ -17,5 +17,6 @@
 | 已完成 M6 功能的原版對照（50 個已合併功能：39 個有差異、9 個純協定、2 個未查證；修正分組 G1–G12） | [`m6-native-diff.md`](m6-native-diff.md) | T164（#432） | T100–T153 | ✅ 已完成（PR 待合併） |
 | 原版功能對照引擎的差距盤點（gap-matrix：三組收包 dispatch 的全部 case、139 個送包名稱、80 個 XML 視窗與舊式視窗類別、物件／技能／地圖事件處理函式；T225 回填後 289 列：已有 58、部分 165、缺 66；M7 code 任務分組 M7-A–X 共 22 組；需先查證清單） | [`gap-matrix.md`](gap-matrix.md) | T202（#504） | M7 全部 | ✅ 已完成（PR 待合併） |
 | 協定空白（S_EXTENDED 是 protobuf 通道、S250 的對應是 S_EVENT op 108 與 62 個子碼對照；S_MESSAGE_CODE 取 `Text.pak` 的 `string-c.tbl`；3.81 不要求 C14／S139；S_BLINK／S_HIT_RATIO／S_SHOW_MAP／S_CLONE／S_EVENT／S_NOTICE；13 個未知送包的送出點與欄位；S87 同身份入口 `A51920`） | [`protocol-gaps.md`](protocol-gaps.md) | T225（#532） | M7（gap-matrix 第 8 節六列） | ✅ 已查（PR 待合併；C_ALT_ATTACK／C_BOOK／C_SAVE 送出點仍查不到） |
+| 視窗世代與待查視窗（TW16 背包／魔法／倉庫走 XML 版、3.81 世代用 `uimagicitem.xml`／`uiextra86.xml` 舊式設定；血盟窗讀 `RePledgeUI.xml`、S250 167–171；變身走 S39 `monlist` HTML；城堡 `tax`／`withdraw`／`deposit` 頁與王冠；盟屋地圖窗；S136 走 HTML 數字框、`InputWindow` 是聊天列 YES／NO；料理 52、血盟倉庫紀錄 117；信件／釣魚／重置 XML 在本機其他客戶端找到） | [`windows-2.md`](windows-2.md) | T226（#533） | M7-C、D、E、J、R；gap-matrix 第 8 節七列 | ✅ 已查（PR 待合併；`QuestUI` 的 S250 格式、`QuitWindow` 使用點、王冠圖源仍查不到） |
 
 各查證任務合併時，把自己那一列的「狀態」改成 ✅，並補上文件連結。
