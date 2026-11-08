@@ -26,8 +26,8 @@
 - `engine/_integration/dev/rebuild-lock.json`：以 `--update-lock` 重產，共 240 個來源、249 個鎖定檔。
 
 ## 怎麼驗證（本機 Windows）
-- `rebuild.py --update-lock` → `--build`：PASS。worktree 沒有 `engine/vendor`，所以用 `--configfile scratch/issue-513/NuGet.Config` 指向原專案的 vendor（唯讀）。productDll SHA-256 `5563f1619d32a0fe549c419459e9d0d1c2008182acb5d38f73760669acb29889`。
-- `P11.ClientEngine.exe --module-tests`：結束碼 0。`amount-prompt` 70 項、`agit` 44 項、`castle` 62 項、`world-extensions` 39 項全部通過，Default 登錄表沒有錯誤。
+- `rebuild.py --update-lock` → `--build`：PASS。worktree 沒有 `engine/vendor`，所以用 `--configfile scratch/issue-513/NuGet.Config` 指向原專案的 vendor（唯讀）。productDll SHA-256 `057bb8b2e282e633e0670fe6c988feb80aa4b7ab4c92aae004762926ef852de6（與 main 同步後）`。
+- `P11.ClientEngine.exe --module-tests`：結束碼 0。`amount-prompt` 70 項、`agit` 44 項、`castle` 62 項、`recovery-death` 72 項、`world-extensions` 39 項全部通過，Default 登錄表沒有錯誤。
 - `amount-prompt` 測試涵蓋：
   - 註冊項目。
   - C11 逐 byte 編碼；拒絕數量 0、空命令、控制字元、過長命令。
