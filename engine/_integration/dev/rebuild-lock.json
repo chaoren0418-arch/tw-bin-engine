@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 232,
+ "sourceCount": 234,
  "files": [
   {
    "path": "NuGet.Config",
@@ -916,8 +916,8 @@
   },
   {
    "path": "source/Program.cs",
-   "size": 25528,
-   "sha256": "cb9cd19c0c8210daa1d54b0ecd79ff41234545d5b9d0ec7214b27f060085256c"
+   "size": 25803,
+   "sha256": "d3ef64022d5cedce15b101be1a93dbfea7e80e1f5bd334873294ce9b1bea8574"
   },
   {
    "path": "source/ProjectileRendering.cs",
@@ -1145,6 +1145,16 @@
    "sha256": "8593bfc088b6e1f7796f842fe931a7a2d5a887dea0315ccfe3bb04ff7c1bee8f"
   },
   {
+   "path": "source/WorldExtensions.cs",
+   "size": 12209,
+   "sha256": "7b40f8a903d1c4c66544fa0944787f65ed1e8ceb33395199ef353a0a3e0d77dd"
+  },
+  {
+   "path": "source/WorldExtensionsTests.cs",
+   "size": 8945,
+   "sha256": "34194a74252210bc1ad6c61fe3f030b591baa75d13029442c34a79df61e40aec"
+  },
+  {
    "path": "source/WorldObjects.cs",
    "size": 6002,
    "sha256": "889abe946a9f5a64377feb4195b16454e6f6f442f0a4b2f72f5a41e333d8ba0a"
@@ -1156,8 +1166,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 13160,
-   "sha256": "6a41075d5dfdf66f761a0b4dd61ae4b67091f38dd08c2ee7beebae0b22c5332c"
+   "size": 13564,
+   "sha256": "d2c0d0f45c5c4a3405775e1fcdf324d209d6975213063334acbef21d579f8ee8"
   },
   {
    "path": "source/WorldTests.cs",
