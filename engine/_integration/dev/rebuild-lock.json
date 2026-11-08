@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 271,
+ "sourceCount": 272,
  "files": [
   {
    "path": "NuGet.Config",
@@ -121,8 +121,13 @@
   },
   {
    "path": "source/Ambience.cs",
-   "size": 29781,
-   "sha256": "83b81f92ed413965eac5e292208610b47c250bdbb9691d03295e8eacc8781f36"
+   "size": 40623,
+   "sha256": "e3d4716ecb17e98483bd720555f7e9d4847ff59c8116cdf1fd9519052924a3b0"
+  },
+  {
+   "path": "source/AmbienceLightsTests.cs",
+   "size": 8540,
+   "sha256": "2f20b3f10fec9d88492b8b4362234a256ecc0d7a5d7ea6a7342787a49f19b06e"
   },
   {
    "path": "source/AmountPrompt.cs",
@@ -656,8 +661,8 @@
   },
   {
    "path": "source/MapEffects.cs",
-   "size": 11181,
-   "sha256": "22669cc170fc140063e322ba84b71e210cd5c9d80eb33faca5f76456cb4ae301"
+   "size": 12985,
+   "sha256": "e83cfd14144c9e9bd9d76a4b18ca633bf485c2071490b1aa68ae2ce6d5518c66"
   },
   {
    "path": "source/MapEnvSound.cs",

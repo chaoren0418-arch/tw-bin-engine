@@ -34,6 +34,7 @@
 - **第二次同步 origin/main（2026-11-09，含 #514／#510／#516／#520）**：`rebuild-lock.json` 衝突改用 main 版本後 `--update-lock` 重產（265 個來源／274 個鎖定檔）；`--build` PASS，productDll `ad24daeed964f785c04f7d97236054ce71ac1b3b721f1d3ed12df923954ab504`；`--module-tests` 結束碼 0、status pass、9 組 531 項、0 失敗（chat-channel-toggle 92 項）；`check-no-game-assets.py` pass、3802 個追蹤檔、0 錯誤。
 - **第三次同步 origin/main（2026-11-09，含 #513／#515）**：`rebuild-lock.json` 衝突改用 main 版本後 `--update-lock` 重產（269 個來源／278 個鎖定檔）；`--build` PASS，productDll `bac8568c16c6a9c1252f25a61bdfb2e9126fb48c88f85412973fdb52cb15ebd4`；`--module-tests` 結束碼 0、status pass、11 組 663 項、0 失敗（chat-channel-toggle 92 項）；`check-no-game-assets.py` pass、3808 個追蹤檔、0 錯誤。（推送後 CI dotnet 因 main 又合入 #546 而 `REFUSED: sourceCount 269 != 271`，隨即第四次同步。）
 - **第四次同步 origin/main（2026-11-09，含 #546）**：`--update-lock` 重產（271 個來源／280 個鎖定檔）；`--build` PASS，productDll `c4ef9ce5a813f16195ed4a0092d67ee269eee189240118450b08c579d740c8a8`；`--module-tests` 結束碼 0、status pass、13 組 703 項、0 失敗；`check-no-game-assets.py` pass、3809 個追蹤檔、0 錯誤。
+- **第五次同步 origin/main（2026-11-09，含 #566）**：`rebuild-lock.json` 衝突改用 main 版本後 `--update-lock` 重產（272 個來源／281 個鎖定檔）；`--build` PASS，productDll `eeba6e4d8443f57cb0577a651be37e433de292d22b5dd215162d9356b1f2d2f0`；`--module-tests` 結束碼 0、status pass、14 組 750 項、0 失敗（chat-channel-toggle 92 項）；`check-no-game-assets.py` pass、3813 個追蹤檔、0 錯誤。
 
 ## 未驗證什麼（推定／待驗證）
 
