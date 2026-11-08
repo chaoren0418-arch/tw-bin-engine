@@ -75,6 +75,10 @@
   - `demo-tests/Program.cs` 衝突：取 main 版（多了 `BackgroundMusicChecks()`），再把 `YesNoPromptChecks()` 接在 `MarriageChecks()` 後面。
   - 重建 `PASS dev`，productDll SHA-256 `31316c43…c4ee64`；`check-no-game-assets.py` pass。
   - 重跑 15 組加 `background-music`，16 組全綠（`yes-no` 425、`map-continuity` 33224、`combat-admission` 1750、`background-music` 434）。
+- **第六輪同步 origin/main（2026-11-08，含 #463 原生 UI 畫布）**：
+  - 只有 `rebuild-lock.json` 衝突：取 main 版後用 `--update-lock` 重產。`Program.cs`、`DemoChecks.csproj`、`PlayerHudIntegration.cs` 自動合併，`YesNoPromptChecks()` 仍接在入口上；全原始碼已無 `MarriageUi` 參照。
+  - 重建 `PASS dev`，productDll SHA-256 `bac7b5be…10cb0e2e`；`check-no-game-assets.py` pass。
+  - 重跑 `yes-no` 425、`map-continuity` 33224、`combat-admission` 1750、`duel` 441、`item-status` 409、`native-ui-resources` 539、`native-ui-canvas` 429（新）、`afflictions` 580、`resurrection` 553、`background-music` 434，10 組全綠。
 
 ## 沒驗證什麼（含推測）
 
