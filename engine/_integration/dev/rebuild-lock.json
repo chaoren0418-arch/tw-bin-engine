@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 231,
+ "sourceCount": 232,
  "files": [
   {
    "path": "NuGet.Config",
@@ -301,8 +301,8 @@
   },
   {
    "path": "source/Duel.cs",
-   "size": 6279,
-   "sha256": "bd82a01e58f38155ce5981e57feb4020fafa3f694be3686118890d4631cde3f9"
+   "size": 6451,
+   "sha256": "3dd47735f98b581fa5d80a09141d1e2e9303a82d32956e7463e70a4af6ebd339"
   },
   {
    "path": "source/DuelUi.cs",
@@ -591,8 +591,8 @@
   },
   {
    "path": "source/Marriage.cs",
-   "size": 11267,
-   "sha256": "5b8373ca4b1308e564fd0019a5391205a6934dd513541f11db09e5e7bc593b0e"
+   "size": 8507,
+   "sha256": "1625fbb291cbf428b54390953096792db0ecb6a99b891db9c53c2fe3ae5e718d"
   },
   {
    "path": "source/Minimap.cs",
@@ -786,8 +786,8 @@
   },
   {
    "path": "source/Party.cs",
-   "size": 12405,
-   "sha256": "e0a45ea8f3825e238d9a3de7b4c1044187cb8d687d94db9773a1c847193edcb9"
+   "size": 12580,
+   "sha256": "8eba9de59d44a0e3aad6e921742305fa0d8b7420da945afda8c08c603133e8de"
   },
   {
    "path": "source/PartyUi.cs",
@@ -1158,6 +1158,11 @@
    "path": "source/WorldTests.cs",
    "size": 8432,
    "sha256": "89840da776b378d7e0ea05a8178d02c436547f0fe62ed0ea2330ff7f923b9bc4"
+  },
+  {
+   "path": "source/YesNoPrompt.cs",
+   "size": 12155,
+   "sha256": "0fdf64ea2acfcfe2ecb4c777fc2ef2fbd49fa3fb7ed09eb758278a98149e91eb"
   },
   {
    "path": "web/bonus-stats.js",

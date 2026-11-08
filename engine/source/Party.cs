@@ -55,6 +55,7 @@ public sealed partial class WorldSession {
         // Observe every packet before dispatch, including EnterGame while Entered is still false.
         // This clears a prior login even if no HUD snapshot was read between Reset and re-entry.
         CheckParty();
+        ObserveYesNo(opcode,plain); // M7-J: every S219 replaces the shared input-line prompt first.
         if(opcode is not (250 or 219 or 39 or 71))return false;
         var r=new LoginReader(plain);r.C();
         if(opcode==250){
@@ -87,6 +88,7 @@ public sealed partial class WorldSession {
                 if(TradeState=="invited")ResetTrade("收到組隊確認對話，舊交易邀請已失效。");
                 if(clanInvitation!=null)ClearClanInvitation("收到組隊確認對話，舊入盟申請已失效。");
                 partyInvitation=new(challenge,message,name,WorldEpoch,PartyClock()+30000);partyNotice=name+" 邀請你加入隊伍。";partyRevision++;
+                OfferYesNo(challenge,message,[name]);
             }return true;
         }
         if(opcode==39){
@@ -111,7 +113,7 @@ public sealed partial class WorldSession {
         return false; // Preserve the existing server-message/chat presentation.
     }
     internal bool PartyCurrent(PartyView v){CheckParty();return v.Owner!=0&&v.Owner==partyOwner&&v.Epoch==WorldEpoch&&v.Revision==partyRevision;}
-    internal void PartySent(string command){if(command is "accept" or "reject")partyInvitation=null;partyNotice="已送出"+(command switch{"invite"=>"組隊邀請","accept"=>"接受邀請","reject"=>"拒絕邀請","leave"=>"離隊請求","kick"=>"踢除請求",_=>"名單查詢"})+"；隊員與 HP 以原服回覆為準。";partyRevision++;}
+    internal void PartySent(string command){if(command is "accept" or "reject"){partyInvitation=null;YesNoHandled(953);}partyNotice="已送出"+(command switch{"invite"=>"組隊邀請","accept"=>"接受邀請","reject"=>"拒絕邀請","leave"=>"離隊請求","kick"=>"踢除請求",_=>"名單查詢"})+"；隊員與 HP 以原服回覆為準。";partyRevision++;}
 }
 
 public sealed partial class LoginConnection {
