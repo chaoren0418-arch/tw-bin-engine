@@ -12,7 +12,7 @@ runner：claude-local（第 1 次嘗試）。分支 `task/468`。依據 `docs/de
 | `UiPanelRegistry.cs` | 加一行 `new("CENTER_WINDOW","uistatus86",root=>new ChatPanel())` |
 | `UiClientBridge.cs`（**範圍外，理由如下**） | 3 處小改：①`NativeUiGameState` 回傳 `UiChatGameState`（帶 `login.PlayerChatSnapshot()` 與 `gameFocus`）；②`NativeUiCommands` 改實作 `IUiChatCommands`：`BeginChatInput`＝`OpenPlayerChat` 的同一套 `PlayerChatFlowRules.CanOpen`＋`LeaveGameFocus`、`EndChatInput`＝`ReturnGameFocus`、`SendChat`＝核對 stamp 後呼叫既有 `login.SendPlayerChat`；③開關打開時掛 `KeyPress`，把 WM_CHAR（含 IME 組字後的字）交給 `IUiTextInput` 面板 |
 | `DemoChecks.csproj`／`demo-tests/Program.cs` | 各加一行；新分組 `native-ui-chat-window`，並加進預設全組 |
-| `rebuild-lock.json` | `rebuild.py --update-lock` 重產（同步 main 後為 274 個來源檔／283 個鎖定檔），未手動改 hash |
+| `rebuild-lock.json` | `rebuild.py --update-lock` 重產（再次同步 main（#557）後為 277 個來源檔／286 個鎖定檔），未手動改 hash |
 
 **為何動 `UiClientBridge.cs`：** C2 的 `IUiGameState` 沒有聊天欄位、`IUiCommands` 沒有送出聊天，`UiKeyEvent` 也收不到字元。原生模式下舊 HUD 被隱藏，`ProcessPlayerChatKeyboard` 因 `playerHud.Visible==false` 直接略過，所以不接這座橋，聊天窗只能看不能打字。做法照 #464（ui-left-status）的先例：用裝飾器包 `IUiGameState`，只多一行；送出與焦點完全轉呼叫既有流程。開關關閉時這些程式都不會執行。
 
@@ -33,8 +33,8 @@ runner：claude-local（第 1 次嘗試）。分支 `task/468`。依據 `docs/de
 | 指令 | 結果 |
 |---|---|
 | `git merge origin/main`（帶入 #549 C26 聊天頻道開關，沒有衝突） | — |
-| `py -3 -B -X utf8 engine/_integration/dev/rebuild.py --update-lock` | `dev-inputs-verified`，274／283 |
-| `py -3 -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config` | `PASS dev`，productDll `902122cf…0a10d`（worktree 沒有 `engine/vendor`，照 #464 改用 CI NuGet 設定） |
+| `py -3 -B -X utf8 engine/_integration/dev/rebuild.py --update-lock` | `dev-inputs-verified`，277／286 |
+| `py -3 -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config` | `PASS dev`，productDll `b1f067fa…69daf29`（同步 #557 後）（worktree 沒有 `engine/vendor`，照 #464 改用 CI NuGet 設定） |
 | `dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore --no-build -- . scratch/issue-468/demo.json native-ui-chat-window`（無 `TW_CLIENT_ROOT`） | **PASS 443** |
 | 同上，`TW_CLIENT_ROOT=D:\lineage開發\0-客戶端`（唯讀） | **PASS 444**（多 1 項真實版面檢查） |
 | `native-ui-canvas` | PASS 429 |
