@@ -32,6 +32,7 @@ public static class YesNoProtocol {
             953 when first.Length>0=>first+" 邀請你加入隊伍。",
             630 when first.Length>0=>first+" 要與你決鬥。",
             654 when first.Length>0=>first+" 向你求婚。",
+            252 when first.Length>0=>first+" 邀請你交易。",
             _=>"原服詢問 "+message+(args.Length>0?"："+string.Join("、",args):"。")};
         return body+"（輸入 Y 接受、N 拒絕後按 Enter）";
     }
@@ -82,6 +83,7 @@ public sealed partial class WorldSession {
         953=>partyInvitation is {} i&&i.Challenge==p.RequestId&&i.Epoch==WorldEpoch,
         630=>DuelSnapshot.Phase=="invited",
         654=>MarriagePhaseAfterCheck()=="invited",
+        252=>TradeYesNoLive(p), // M7-K: Trade offers 252 itself when byte_136E99D is 1.
         _=>true};
     string MarriagePhaseAfterCheck(){CheckMarriage();return marriagePhase;}
     // Module state is read outside yesNoGate: Duel takes duelGate, and modules call YesNoHandled.
@@ -125,6 +127,7 @@ public sealed partial class LoginConnection {
             case 953:{var v=PartySnapshot();return v.Invitation?.Challenge==p.RequestId&&await SendParty(command,v);}
             case 630:{var d=World.DuelSnapshot;return await Duel(command,d.Revision,d.Epoch);}
             case 654:return await SendMarriage(command,MarriageSnapshot());
+            case 252:return await TradeYesNo(accept);
         }
         return await SendYesNo(p,accept,false);
     }
