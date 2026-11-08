@@ -20,6 +20,7 @@
     <Compile Include="../duel-tests/DuelChecks.cs" Link="DuelChecks.cs" />
     <Compile Include="../ambience-tests/AmbienceChecks.cs" Link="AmbienceChecks.cs" />
     <Compile Include="../map-ambient-tests/MapAmbientChecks.cs" Link="MapAmbientChecks.cs" />
+    <Compile Include="../background-music-tests/BackgroundMusicChecks.cs" Link="BackgroundMusicChecks.cs" />
     <Compile Include="../invisibility-tests/InvisibilityChecks.cs" Link="InvisibilityChecks.cs" />
     <Compile Include="../player-query-tests/PlayerQueryChecks.cs" Link="PlayerQueryChecks.cs" />
     <Compile Include="../character-config-tests/CharacterConfigChecks.cs" Link="CharacterConfigChecks.cs" />
