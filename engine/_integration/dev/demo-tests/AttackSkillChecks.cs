@@ -104,9 +104,9 @@ static partial class AttackSkillChecks
                 p.Targets[0].DisplayDamage == (extended ? 70000u : null) && p.Targets[1].DisplayDamage == null &&
                 p.Targets[3].DisplayDamage == (extended ? (uint)int.MaxValue : null), "S42 typed fields and unsigned display damage");
             var w = Seed(); w.Receive(bytes, "offline");
-            Check(w.LastRangeSkill!.Targets.SequenceEqual(p.Targets) && w.MagicEffects.Length == (type==8?1:3) && w.Actor!.Direction == 6 &&
-                w.OwnCombat?.Action == 19 && w.Objects[0].Combat?.Action == 2 && w.Objects[1].Combat == null,
-                "S42 visible target effects, caster motion, per-target hit flags");
+            Check(w.LastRangeSkill!.Targets.SequenceEqual(p.Targets) && w.MagicEffects.Length == 1 && w.RangeTargets(w.MagicEffects[0].Number).Count == 5 && w.Actor!.Direction == 6 &&
+                w.OwnCombat?.Action == 19 && w.Objects[0].Combat == null && w.Objects[1].Combat == null,
+                "S42 one effect carrying the list, caster motion, no hit reaction on receipt (skills-visual §3)");
             Check(w.Status!.Hp == 100 && w.Actor!.HpPercent == 50 && w.Objects[0].HpPercent == 75, "S42 flag/damage never deducts HP");
             w.Receive(Packet(b => { b.Write((byte)225); b.Write(90u); b.Write(200u); }), "offline");
             foreach (uint id in new uint[] { 123, 456 }) w.Receive(Packet(b => { b.Write((byte)237); b.Write(id); b.Write((byte)45); }), "offline");
@@ -156,6 +156,7 @@ static partial class AttackSkillChecks
         var melee = Packet(b => { b.Write((byte)30); b.Write((byte)18); b.Write(123u); b.Write(456u); b.Write((ushort)10); b.Write((byte)2); b.Write(0u); b.Write((byte)0); });
         var m = Seed(); m.Receive(melee, "offline"); Check(m.AttackReports == 1 && m.MagicEffectCount == 0 && m.Objects[0].Combat?.Action == 2, "24-byte melee action18 not stolen by magic");
         Rendering(root);
+        SkillEffectTiming(root);
         foreach(string label in Passed)report(true,label);
         }finally{AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY",prior);}
     }

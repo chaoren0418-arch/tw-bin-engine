@@ -55,7 +55,8 @@
 4. `engine/tools/check-no-game-assets.py` → `pass, errors 0`。新增的只有 `.cs`。
 5. **第二次同步 origin/main（併入 #518 拾取、#504、#535）**：`rebuild-lock.json` 衝突改用 main 版本後，以 `--update-lock` 重產（241 個來源檔／250 個鎖定檔）；`--build` → `PASS dev`，productDll `92d96a28…3ab9`。重跑的分組：native-ui-canvas 429、pickup 369（main 新增）、native-ui-resources 539、combat-admission 1686、item-status 409，**全部 PASS**。
 6. **第三次同步 origin/main（併入 #524 S39 查詢／HTML 對話、#509）**：只有 `rebuild-lock.json` 衝突，改用 main 版本後 `--update-lock` 重產（243 個來源檔／252 個鎖定檔）；`--build` → `PASS dev`，productDll `a989d8db…abad9`。重跑：native-ui-canvas 429、hypertext 357（main 新增）、player-query 1058、native-ui-resources 539、item-status 409、map-continuity 32983（含 main 新增的查詢與 HTML 檢查），**全部 PASS**；`check-no-game-assets.py` pass、errors 0。
-7. **本機選用檢查**（真實客戶端、唯讀；程式與輸出都在 `scratch/issue-463/real-probe/`、`scratch/issue-463/real/`，不進 git）：
+7. **第四次同步 origin/main（併入 #511 城堡、#512 盟屋、#521、#534、#569 等 36 個提交）**：只有 `rebuild-lock.json` 衝突，改用 main 版本後 `--update-lock` 重產（247 個來源檔／256 個鎖定檔）；`--build` → `PASS dev`，productDll `354d3186…6890`。重跑：native-ui-canvas 429、native-ui-resources 539、attack-skills 1110、location-share 462、combat-admission 1728、item-status 409、map-continuity 33019，**全部 PASS**；`P11.ClientEngine.exe --module-tests`（agit 44、castle 62、world-extensions 39）結束碼 0。
+8. **本機選用檢查**（真實客戶端、唯讀；程式與輸出都在 `scratch/issue-463/real-probe/`、`scratch/issue-463/real/`，不進 git）：
    - `UiRoot.VerifyResources` 對真實 `Tile` 與 17 個 `Sprite*` 全部通過，**冷啟動耗時 70.4 秒**（雜湊所有 pak）。
    - 用真實 surf 3168／3279／3176 放在 XML 的 x/y 合成畫布，再以 800×600、1600×1200、1920×1080 呈現。目視 `present-1920x1080.png`：800×600 的畫面置中於 (560,240)，四周全黑，左狀態框、聊天框、巨集框以 1:1 原圖顯示。這只是框架的煙霧測試，不是模組實作（聊天框的底部錨定由 ui-chat-window 負責）。
    - 另外量到：GDI+ 加上 `ImageAttributes`（TileFlipXY）時，1:1 輸出會被混色（255→253、255→248）。所以 `Present` 不用 ImageAttributes，改用單純的最近鄰＋Half，四種大小都逐像素正確（`scratch/issue-463/gdi-probe/`）。
