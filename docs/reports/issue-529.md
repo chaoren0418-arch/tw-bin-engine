@@ -48,9 +48,9 @@
 
 | 項目 | 結果 |
 |---|---|
-| `rebuild.py --update-lock` → `rebuild.py --build` | PASS；第三次同步 origin/main（含 #464–#468、#526–#528、#602）後重驗 productDll `ae0c05f0…` |
-| `P11.ClientEngine.exe --module-tests` | pass；第三次同步後 23 組、1214 項檢查，`friend-panel` 104 項全過 |
-| demo-tests：CI 會跑的 15 組（map-continuity、combat-admission、item-status、native-ui-resources、native-ui-canvas、native-ui-macro、afflictions、resurrection、polymorph-cadence、buddies、item-transfer、doors、pickup、door-approach、hypertext） | 全部 PASS（第三次同步後重跑；native-ui-resources、native-ui-macro 不設 `TW_CLIENT_ROOT`，其餘 13 組把它指到不存在的路徑，見環境備註） |
+| `rebuild.py --update-lock` → `rebuild.py --build` | PASS；第三、四次同步 origin/main（含 #464–#468、#526–#528、#560、#601、#602）後重驗 productDll `914aec0a…` |
+| `P11.ClientEngine.exe --module-tests` | pass；第四次同步後 24 組、1261 項檢查，`friend-panel` 104 項全過 |
+| demo-tests：CI 會跑的 15 組（map-continuity、combat-admission、item-status、native-ui-resources、native-ui-canvas、native-ui-macro、afflictions、resurrection、polymorph-cadence、buddies、item-transfer、doors、pickup、door-approach、hypertext） | 全部 PASS（第四次同步後重跑；native-ui-resources、native-ui-macro 不設 `TW_CLIENT_ROOT`，其餘 13 組把它指到不存在的路徑，見環境備註） |
 
 第三次同步的處理：
 - `UiPanelRegistry.cs` 衝突：兩邊的行都保留，`FriendPanels.Registrations` 放在最後一行。
