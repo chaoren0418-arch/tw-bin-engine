@@ -38,6 +38,12 @@
 - `PrivateShopUi.cs` **沒有改**：開店設定窗屬於原生 UI；既有的 WinForms 私商分頁維持原樣。
 - `engine/_integration/dev/rebuild-lock.json`：用 `rebuild.py --update-lock` 重產（276 個來源檔）。
 
+## 重驗（本機，2026-11-09，第四次同步 origin/main `8264d7f3`，含 #464–#468、#526、#558）
+- 合併時 `rebuild-lock.json` 衝突：取 main 版本後用 `rebuild.py --update-lock` 重產（`dev-inputs-verified`，292 個來源檔）。其他檔案自動合併，沒有衝突。
+- `engine/build-product.ps1`：`PASS dev`，product DLL `ea015c516ab780ad1ef99cd5751f3f70cf91a7ee37635662ac95de979d0100ad`。
+- `--module-tests`：`pass`，21 組共 1109 項，0 失敗（含 personal-shop）。
+- `check-no-game-assets.py`：`pass`，3849 個檔案，0 錯誤。
+
 ## 重驗（本機，2026-11-09，第三次同步 origin/main `0b8dea8d`，含 #568）
 - 合併時 `rebuild-lock.json` 衝突：取 main 版本後用 `rebuild.py --update-lock` 重產（`dev-inputs-verified`，278 個來源檔）。
 - `engine/build-product.ps1`：`PASS dev`，product DLL `1f5eca75fbcc9d27f922bfb815ac5467f56fa223c9694d13680b41077311b775`。
