@@ -30,7 +30,8 @@
 
 ## 怎麼驗證（本機 Windows，worktree）
 - `rebuild.py --update-lock` → `--build`：PASS。productDll SHA-256 `deeaa1dea43c91acacbff008fa4922b05c47b6cf898b378048bccf4c730f0c4f`。NuGet 用 `scratch/issue-531/NuGet.Config`，指向原專案的 vendor（唯讀）。
-- `P11.ClientEngine.exe --module-tests`：結束碼 0；`recovery-death` 72 項、`world-extensions` 39 項全過。涵蓋：
+- 同步 origin/main（落後 39 個 commit，只有 `rebuild-lock.json` 衝突，取 main 版後以 `--update-lock` 重產）後重驗：`--build` PASS，productDll `cf80f8748669338934909da9d1d07dec4e45acfb307296dcc4a02fc8031f05d5`；`--module-tests` 結束碼 0，4 組 217 項全過（agit 44、castle 62、recovery-death 72、world-extensions 39）；`check-no-game-assets.py` pass。
+- `P11.ClientEngine.exe --module-tests`（同步前）：結束碼 0；`recovery-death` 72 項、`world-extensions` 39 項全過。涵蓋：
   - 逾時規則的邊界（1016／1017／1023／1024、2600）與 C122 位元組。
   - 死亡起點取 S158 封包時刻，不取之後的輪詢時刻；他人死亡不會啟動計時。
   - 提早 1 ms 不送、到期才送；地圖 1019 套用 30 分鐘規則。

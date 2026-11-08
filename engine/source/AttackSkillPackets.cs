@@ -89,29 +89,38 @@ public sealed partial class WorldSession
         MagicNotice = $"原服法術回報：特效 {p.Gfx}、動作 {p.Action}；傷害欄 {p.DamageWord}，HP 依原服回包更新";
     }
 
+    // S42 target lists keyed by MagicEffect.Number. The renderer selects the 109 class and
+    // therefore who is hit and where landings go (docs/reference/skills-visual.md §2.2–§3).
+    readonly System.Collections.Concurrent.ConcurrentDictionary<long, RangeSkillTarget[]> rangeTargets = new();
+    public IReadOnlyList<RangeSkillTarget> RangeTargets(long number) =>
+        rangeTargets.TryGetValue(number, out var t) ? t : Array.Empty<RangeSkillTarget>();
+    // Current position of a visible S42 target. S42 has no target coordinates: an invisible
+    // or suppressed target never gets an inferred location.
+    public (ushort X, ushort Y)? VisibleTargetPosition(uint id)
+    {
+        if (id == 0) return null;
+        if (Actor?.ObjectId == id) return (Actor.X, Actor.Y);
+        var other = Objects.FirstOrDefault(o => o.ObjectId == id);
+        return other == null ? null : (other.X, other.Y);
+    }
+
     void ReceiveRangeMagic(RangeSkillPacket p)
     {
         ApplySkillCaster(p.Caster, p.Action, p.Heading, p.Targets.FirstOrDefault()?.ObjectId);
         var animation = ActionFor(p.Caster);
         long at = ActionClock();
-        foreach (var target in p.Targets)
-        {
-            // S42 has no target coordinates. Never infer an invisible/suppressed target location.
-            var other = Objects.FirstOrDefault(o => o.ObjectId == target.ObjectId);
-            bool own = Actor?.ObjectId == target.ObjectId;
-            if (own || other != null)
-            {
-                ushort x = own ? Actor!.X : other!.X, y = own ? Actor!.Y : other!.Y;
-                if(p.Type==0)AddMagicEffect(new(++MagicEffectCount, p.Caster, target.ObjectId, p.Gfx, p.Action,
-                    target.HitFlag, p.Heading, p.X, p.Y, x, y, at, p.Sequence)
-                    { Timing = animation?.Timing, ActionAt = animation?.At, RangeType=p.Type });
-                if (target.HitFlag != 0) AnimateCombat(target.ObjectId, 2);
-            }
-        }
-        // Directional range sprites originate at the caster. Empty lists still carry an effect.
-        if(p.Type==8||p.Targets.Count==0)
-            AddMagicEffect(new(++MagicEffectCount,p.Caster,0,p.Gfx,p.Action,0,p.Heading,p.X,p.Y,p.X,p.Y,at,p.Sequence)
-                {Timing=animation?.Timing,ActionAt=animation?.At,RangeType=p.Type});
+        // Original sub_A3DC10 attaches the whole list to ONE effect object, started at the
+        // caster's `!` frame and placed at packet x,y (the caster). No hit reaction on receipt:
+        // the effect (or the caster `!` frame when there is no effect) triggers it (SV#6/#7).
+        var first = p.Targets.FirstOrDefault();
+        uint firstId = first?.ObjectId ?? 0;
+        var aim = VisibleTargetPosition(firstId) ?? (p.X, p.Y);
+        AddMagicEffect(new(++MagicEffectCount, p.Caster, firstId, p.Gfx, p.Action, first?.HitFlag ?? 0,
+            p.Heading, p.X, p.Y, aim.X, aim.Y, at, p.Sequence)
+            { Timing = animation?.Timing, ActionAt = animation?.At, RangeType = p.Type });
+        rangeTargets[MagicEffectCount] = p.Targets.ToArray();
+        var live = magicEffects.Select(e => e.Number).ToHashSet();
+        foreach (long stale in rangeTargets.Keys.Where(n => !live.Contains(n)).ToArray()) rangeTargets.TryRemove(stale, out _);
         lastRangeSkill = p; rangeSkillEpoch = WorldEpoch;
         MagicRevision++;
         MagicNotice = $"原服範圍法術：特效 {p.Gfx}、動作 {p.Action}、目標 {p.Targets.Count}；HP 依原服回包更新";
