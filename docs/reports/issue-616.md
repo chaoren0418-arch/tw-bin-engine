@@ -66,6 +66,10 @@
 - 本報告 `docs/reports/issue-616.md`
 - 本機證據（不進 git）：`scratch/issue-616/`（反組譯腳本、module-tests.json、chat-checks.json、chat-window.json）
 
+## 同步
+
+- 2026-11-09 合併 origin/main（落後 4 個 commit，#467 選單鈕；沒有衝突）：`rebuild-lock.json` 以 `--update-lock` 重產（sourceFiles 303）；`rebuild.py --build` PASS（productDll `8984562e…4d186`）；`--module-tests` 28 組 1463 項 0 失敗（`chat-format` 93 項）；player-chat-tests 138 項、native-ui-chat-window 446 項通過；`check-no-game-assets.py` 0 錯誤。
+
 ## 給下一棒的提示
 
 - 顯示一律用 `ChatFormat.Runs(line)`／`DisplayText(line)`；`line.Text` 是伺服器原字串，`PlayerChatProtocol.FormatLine` 保持舊行為（座標分享測試也依賴它）。
