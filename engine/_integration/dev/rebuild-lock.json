@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 239,
+ "sourceCount": 241,
  "files": [
   {
    "path": "NuGet.Config",
@@ -243,6 +243,16 @@
    "path": "source/ClanWar.cs",
    "size": 18091,
    "sha256": "38d243cc5586af54d53eec51b89001414d805a27f4a31d95339bb26786c9734b"
+  },
+  {
+   "path": "source/ClanWarehouseHistory.cs",
+   "size": 5344,
+   "sha256": "e259221f6d9db35eddacec9177716a833b50665e8d7979de08073bdda948bbd6"
+  },
+  {
+   "path": "source/ClanWarehouseHistoryTests.cs",
+   "size": 7164,
+   "sha256": "e0c466f347b25476e7d34715d0a495dae73924beed04dd9a9108e18c26b40a0b"
   },
   {
    "path": "source/ClientAudioSettings.cs",
