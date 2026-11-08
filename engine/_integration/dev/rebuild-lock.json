@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 301,
+ "sourceCount": 304,
  "files": [
   {
    "path": "NuGet.Config",
@@ -476,8 +476,8 @@
   },
   {
    "path": "source/GhostMode.cs",
-   "size": 4801,
-   "sha256": "d08f975c33671d557487a56d850d37a7af32f0c83943342b95b361c1039e49f5"
+   "size": 5903,
+   "sha256": "831af7ebcd11dc7a7d98b42bc7b0fe37f962f3efeefa7bb72b7431b3a10870f4"
   },
   {
    "path": "source/Ground.cs",
@@ -795,6 +795,11 @@
    "sha256": "6c4fe29aec802dba88508cc372136678cbe5f3ea06f3716b88a8bc417e1122f9"
   },
   {
+   "path": "source/NativeUi/QuitWindowPanel.cs",
+   "size": 6708,
+   "sha256": "f8535db8ea6bee1db93b2d6adb828ae29d82fc388e94eed272774d1865676eb9"
+  },
+  {
    "path": "source/NativeUi/State/ChatState.cs",
    "size": 12477,
    "sha256": "fb07b816ae12ad39eb44f5674e3623159aa19760b3f31605cb3f2b9140ad3487"
@@ -861,8 +866,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 1603,
-   "sha256": "43abb8c49544399c06ee90505995f58274a3e29293ea79459e98077b260562f5"
+   "size": 1888,
+   "sha256": "03ef56c0f83bdeef602527755071bcde8f179e0ee1f33dfb44425707941789a9"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
@@ -893,6 +898,11 @@
    "path": "source/NativeUi/UiXmlSource.cs",
    "size": 5645,
    "sha256": "bfd5906ff7bdcb80a46eb73e9939a4c5c2016337123cfb8d603e59226e3593bd"
+  },
+  {
+   "path": "source/NativeUi/UserPlayStatsPanel.cs",
+   "size": 8101,
+   "sha256": "3bd4dfbe6ee1cd5fcf9065f5df131b4e218b4c09c8c66d59cefa556842252429"
   },
   {
    "path": "source/Network.cs",
@@ -966,8 +976,8 @@
   },
   {
    "path": "source/OnlineInput.cs",
-   "size": 3884,
-   "sha256": "95be1ffb3b8c545d4435d652b6e42f0ebcac44fef15e1ff2839f404735f68840"
+   "size": 4694,
+   "sha256": "07a12c08bf26940b2eec7693ea5d6b7643d8ec07539b7086a2f432705a288c2a"
   },
   {
    "path": "source/OnlineMovement.cs",
@@ -1246,8 +1256,8 @@
   },
   {
    "path": "source/Recovery.cs",
-   "size": 20626,
-   "sha256": "680f9ba0751cff1c1e16b9ac50f6d5837476978d6d1b3fe5c4b35d2a4681e05a"
+   "size": 30245,
+   "sha256": "2621efb3926354e64e7eb482f8b57b5071bb316771848e1428ba5396a738c375"
   },
   {
    "path": "source/RecoveryTests.cs",
@@ -1423,6 +1433,11 @@
    "path": "source/TradeWindowTests.cs",
    "size": 15919,
    "sha256": "050ff6d10cd78fb24b79288ff226bafeb5c9e1515b13308bf4eec27760542831"
+  },
+  {
+   "path": "source/UserPlayStatsTests.cs",
+   "size": 22901,
+   "sha256": "70a473ccd3fa4a919d6308201ba5a3acabf39eb2a34e521d17851aa28ee1bd70"
   },
   {
    "path": "source/WeaponRepair.cs",

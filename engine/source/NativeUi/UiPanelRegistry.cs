@@ -16,5 +16,7 @@ public static class UiPanelRegistry {
         new(ExMacroPanel.WindowId,"uistatus86",root=>new ExMacroPanel(root.SlotGroup(UiSlotGroup.Bar485))),new(MacroPanel.WindowId,"uistatus86",_=>new MacroPanel()),   // ui-macro-bar #466 (RIGHT_WINDOW last: MACRO_LOCK overlaps BAR_485)
         new(TradeWindowPanel.PanelId,TradeWindowPanel.LayoutName,root=>new TradeWindowPanel()),   // M7-S (#526)
         ..FriendPanels.Registrations,   // M7-V (#529): Friend_Window／Exclude_Window／Mailexclude_Window
+        new(UserPlayStatsPanel.PanelId,UserPlayStatsPanel.LayoutName,_=>new UserPlayStatsPanel()),   // R2-D (#615): death window (UserPlayUI.xml)
+        new(QuitWindowPanel.PanelId,QuitWindowPanel.LayoutName,_=>new QuitWindowPanel()),   // R2-D (#615) PBW-B: QUIT_WINDOW (uiextra86)
     ];
 }
