@@ -66,6 +66,10 @@
   - 只有 `rebuild-lock.json` 衝突：取 main 版後用 `--update-lock` 重產；`Program.cs` 自動合併，`YesNoPromptChecks()` 仍接在入口上。
   - 重建 `PASS dev`，productDll SHA-256 `d6ddee77…6fa6fa4`；`check-no-game-assets.py` pass。
   - 重跑上面 13 組加 `hypertext`，14 組全綠（`yes-no` 425、`map-continuity` 33117、`combat-admission` 1728）。
+- **第四輪同步 origin/main（2026-11-08，含 #519／#523／#531／#548／#551）**：
+  - 只有 `rebuild-lock.json` 衝突：取 main 版後用 `--update-lock` 重產；`Program.cs`、`DemoChecks.csproj` 自動合併。
+  - 重建 `PASS dev`，productDll SHA-256 `76a6c611…5735311`；`check-no-game-assets.py` pass。
+  - 重跑上面 14 組加 `door-approach`，15 組全綠（`yes-no` 425、`map-continuity` 33117、`combat-admission` 1750、`door-approach` 361）。
 
 ## 沒驗證什麼（含推測）
 

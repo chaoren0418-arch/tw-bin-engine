@@ -295,6 +295,7 @@ partial class Checks {
                 case "portals":await PortalChecks();break;
                 case "doors":await DoorChecks();break;
                 case "pickup":await PickupAlignChecks();break;
+                case "door-approach":await DoorApproachChecks();break;
                 case "party":break;
                 case "pets":break;
                 case "display-notices":DisplayNoticeChecks();break;
@@ -321,7 +322,8 @@ partial class Checks {
                 case "board":await BoardChecks();break;
                 case "item-transfer":await ItemTransferChecks();break;
                 case "combat-loop":await CombatLoop();break;
-                case "combat-admission":await CombatAdmission();AttackSkillChecks.Run(args[1],Check);HitReactionSuppression();await DuelChecks();await TitleAndEmoteChecks();break;
+                case "cast-cadence":CombatAdmissionFixture();await CastCadenceChecks();break;
+                case "combat-admission":await CombatAdmission();await CastCadenceChecks();AttackSkillChecks.Run(args[1],Check);HitReactionSuppression();await DuelChecks();await TitleAndEmoteChecks();break;
                 case "title-emote":await TitleAndEmoteChecks();break;
                 case "title-emote-assets":TitleEmoteOriginalAssets();break;
                 case "title-emote-compose":TitleEmoteCompositeAssets();break;
