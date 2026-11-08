@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 265,
+ "sourceCount": 267,
  "files": [
   {
    "path": "NuGet.Config",
@@ -123,6 +123,16 @@
    "path": "source/Ambience.cs",
    "size": 29781,
    "sha256": "83b81f92ed413965eac5e292208610b47c250bdbb9691d03295e8eacc8781f36"
+  },
+  {
+   "path": "source/AmountPrompt.cs",
+   "size": 13775,
+   "sha256": "9f9b1cf525f386d2babb47c741bf460105b88b876f729d187f0c23414e8c4238"
+  },
+  {
+   "path": "source/AmountPromptTests.cs",
+   "size": 12481,
+   "sha256": "cef80162c4973a2b0533674d3c7683746a61329a7cca6aa07b33577705953eab"
   },
   {
    "path": "source/ApproachWalk.cs",
