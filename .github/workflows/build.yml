@@ -41,6 +41,12 @@ jobs:
           New-Item -ItemType Directory -Force scratch/issue-216 | Out-Null
           dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-216/item-status-checks.json item-status
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Native UI resource layer with synthetic idx/pak/XML/img (no game assets)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-461 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-461/resource-checks.json native-ui-resources
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Affliction contracts (no game or network)
         shell: pwsh
         run: |
@@ -60,6 +66,18 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           dotnet run --project engine/_integration/dev/mail-tests/MailChecks.csproj -c Release --no-restore
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Sound rules, S22 mode and packet media checks (no game or network)
+        shell: pwsh
+        run: |
+          foreach ($t in @(@{p='sound-rules-tests/SoundRulesChecks'; d='issue-447'}, @{p='sound-packets-tests/SoundPacketChecks'; d='issue-192'})) {
+            $proj = "engine/_integration/dev/$($t.p).csproj"; $name = Split-Path $t.p -Leaf
+            dotnet restore $proj --configfile .github/nuget.ci.config
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            dotnet build $proj -c Release --no-restore -o "scratch/$($t.d)/tests/bin"
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            dotnet "scratch/$($t.d)/tests/bin/$name.dll" "scratch/$($t.d)/checks.json"
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
       - name: Weapon repair and PK checks (no game or network)
         shell: pwsh
         run: |

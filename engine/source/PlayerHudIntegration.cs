@@ -9,14 +9,10 @@ public sealed partial class ClientForm {
     bool PlayerHudActive=>normalProduct&&login.State==LoginState.InWorld;
     // Public contract: client coordinates, no hard-coded margins in the pointer module.
     public Rectangle PlayerSceneBounds=>PlayerHudActive
-        ?PlayerHudGeometry.Scene(ClientSize,webHost.Visible?webHost.Width:0,true,playerHud?.DrawerOpen==true,NormalSceneLeft)
-        :new(NormalSceneLeft,140,Math.Max(1,ClientSize.Width-(webHost.Visible?webHost.Width:0)-NormalSceneLeft),Math.Max(1,ClientSize.Height-bar.Height-140));
+        ?PlayerHudGeometry.Scene(ClientSize,0,true,playerHud?.DrawerOpen==true,0)
+        :ClientRectangle;
     public bool PlayerSceneAccepts(Point clientPoint)=>!PlayerChatFocused&&PlayerSceneBounds.Contains(clientPoint)
-        &&!(playerHud?.Visible==true&&playerHud.Bounds.Contains(clientPoint))
-        &&!(normalPanels?.Visible==true&&normalPanels.Bounds.Contains(clientPoint))
-        &&!(webHost.Visible&&webHost.Bounds.Contains(clientPoint))
-        &&!(playerLoginStrip?.Visible==true&&playerLoginStrip.Bounds.Contains(clientPoint))
-        &&!(playerToolsStrip?.Visible==true&&playerToolsStrip.Bounds.Contains(clientPoint));
+        &&!(playerHud?.Visible==true&&playerHud.Bounds.Contains(clientPoint));
     void SyncPlayerViewport(){var viewport=PlayerSceneBounds;Camera.ViewOffset=viewport.Location;Camera.View=viewport.Size;Invalidate();}
     void InitPlayerHud(){
         if(!normalProduct)return;
@@ -47,18 +43,25 @@ public sealed partial class ClientForm {
         }finally{playerHudSending=false;if(!IsDisposed){SyncPlayerHud();PublishWebState();}}
     }
     bool TryPlayerHudKey(Keys key){
-        if(!PlayerHudActive||key<Keys.F1||key>Keys.F4)return false;
-        if(playerHudHeld.Add(key))playerHud?.ActivateSlot(key-Keys.F1);
+        if(!PlayerHudActive)return false;
+        // The former F1–F4 shortcuts stay inert in the world instead of falling through to movement.
+        if(key is >=Keys.F1 and <=Keys.F4)return true;
+        int slot=PlayerHudKeys.Slot(key);if(slot<0)return false;
+        if(playerHudHeld.Add(key))playerHud?.ActivateSlot(slot);
+        return true;
+    }
+    // Runs before the F9/F10/F11 tool keys: with game focus in the world, F5–F12 belong to the macro slots.
+    bool ProcessPlayerHudKeyboard(ref Message msg,Keys keyData){
+        if(!PlayerHudKeys.Allowed(keyData,PlayerHudActive,GameInputAllowed,Focused))return false;
+        if(((long)msg.LParam&(1L<<30))==0)playerHud?.ActivateSlot(PlayerHudKeys.Slot(keyData));
         return true;
     }
     void SyncPlayerHud(){
         if(playerHud==null)return;
         bool active=PlayerHudActive;bool entered=active&&!playerHudWasActive;playerHudWasActive=active;
-        playerHud.Visible=active;bar.Visible=!active;
-        if(playerLoginStrip!=null)playerLoginStrip.Visible=!active;
-        if(playerToolsStrip!=null)playerToolsStrip.Visible=!active;
+        playerHud.Visible=active;
         if(!active){playerLegacyOpen=false;playerHudHeld.Clear();playerHudNotice="";return;}
-        if(entered&&ActiveForm==this&&!webHost.Visible)ReturnGameFocus();
+        if(entered&&ActiveForm==this)ReturnGameFocus();
         SyncPlayerServices();SyncPlayerPointerHud();var w=login.World;var status=w.Status;
         bool busy=playerHudSending||login.MovementBusy||World.Walking||!w.Ready||w.ActionLocked||w.TradeBlocksActions||w.OwnDead||status?.Hp is not >0;
         var items=w.Inventory.Select(item=>new PlayerHudEntry(new(PlayerHudKind.Item,item.ObjectId),ItemName(item),$"×{item.Count} · "+(item.SupportedEquipment?"裝備 · ":"")+(w.ItemEquipped(item)==true?"已裝備 · ":"")+w.ItemUseState(item),item.IconId,w.ItemEquipped(item)==true,item.SupportedUse)).ToArray();
@@ -68,8 +71,7 @@ public sealed partial class ClientForm {
         var snapshot=new PlayerHudSnapshot(PlayerHudActions.Stamp(login),w.Actor?.Name??"等待角色資料",$"Lv.{status?.Level} · {w.MagicBuffNotice} · {w.PositionDisplayText}",status?.Hp??0,status?.MaxHp??0,status?.Mp??0,status?.MaxMp??0,state,notice,busy,w.MagicTargetName,w.MagicTargetSelf,items,skills);
         playerHud.UpdateState(snapshot,ItemIcon);playerHud.UpdateChat(login.PlayerChatSnapshot());
         int height=PlayerHudGeometry.BaseHeight+(playerHud.DrawerOpen?PlayerHudGeometry.DrawerHeight:0);
-        playerHud.SetBounds(0,Math.Max(0,ClientSize.Height-height),Math.Max(1,ClientSize.Width-(webHost.Visible?webHost.Width:0)),height);playerHud.BringToFront();
-        if(normalPanels?.Visible==true)normalPanels.Bounds=new(12,8,Math.Min(470,Math.Max(260,playerHud.Width-24)),Math.Max(100,playerHud.Top-16));
+        playerHud.SetBounds(0,Math.Max(0,ClientSize.Height-height),Math.Max(1,ClientSize.Width),height);playerHud.BringToFront();
         SyncPlayerViewport();
     }
 }

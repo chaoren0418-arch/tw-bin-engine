@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWindowsForms>true</UseWindowsForms><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
   <ItemGroup>
+    <Compile Include="../bookmarks-tests/BookmarkChecks.cs" Link="BookmarkChecks.cs" />
     <Compile Include="../title-emote-tests/TitleAndEmoteChecks.cs" Link="TitleAndEmoteChecks.cs" />
     <Compile Include="../timed-buffs-tests/TimedBuffChecks.cs" Link="TimedBuffChecks.cs" />
     <Compile Include="../minimap-tests/MinimapChecks.cs" Link="MinimapChecks.cs" />
@@ -11,6 +12,7 @@
     <Compile Include="../char-reset-tests/CharResetChecks.cs" Link="CharResetChecks.cs" />
     <Compile Include="../marriage-tests/MarriageChecks.cs" Link="MarriageChecks.cs" />
     <Compile Include="../clan-tests/ClanChecks.cs" Link="ClanChecks.cs" />
+    <Compile Include="../clan-emblem-tests/ClanEmblemChecks.cs" Link="ClanEmblemChecks.cs" />
     <Compile Include="../clan-war-tests/ClanWarChecks.cs" Link="ClanWarChecks.cs" />
     <Compile Include="../ghost-mode-tests/GhostModeChecks.cs" Link="GhostModeChecks.cs" />
     <Compile Include="../doors-tests/DoorChecks.cs" Link="DoorChecks.cs" />
@@ -22,6 +24,7 @@
     <Compile Include="../invisibility-tests/InvisibilityChecks.cs" Link="InvisibilityChecks.cs" />
     <Compile Include="../player-query-tests/PlayerQueryChecks.cs" Link="PlayerQueryChecks.cs" />
     <Compile Include="../character-config-tests/CharacterConfigChecks.cs" Link="CharacterConfigChecks.cs" />
+    <Compile Include="../hotbar-tests/HotbarChecks.cs" Link="HotbarChecks.cs" />
     <Compile Include="../polymorph-tests/PolymorphChecks.cs" Link="PolymorphChecks.cs" />
     <Compile Include="../buddies-tests/BuddyChecks.cs" Link="BuddyChecks.cs" />
     <Compile Include="../board-tests/BoardChecks.cs" Link="BoardChecks.cs" />
@@ -29,6 +32,7 @@
     <Compile Include="../item-transfer-tests/ItemTransferChecks.cs" Link="ItemTransferChecks.cs" />
     <Compile Include="../location-share-tests/LocationShareChecks.cs" Link="LocationShareChecks.cs" />
     <Compile Include="../name-display-tests/NameDisplayChecks.cs" Link="NameDisplayChecks.cs" />
+    <Compile Include="../native-ui-tests/ResourceChecks.cs" Link="ResourceChecks.cs" />
     <Reference Include="P11.ClientEngine"><HintPath>../../../build/client-product-dev/P11.ClientEngine.dll</HintPath></Reference>
     <Reference Include="P24.Audio"><HintPath>../../../build/client-product-dev/P24.Audio.dll</HintPath></Reference>
   </ItemGroup>

@@ -274,6 +274,9 @@ partial class Checks {
     }
 
     static async Task<int> Main(string[] args){try{
+        // This offline console harness has no WinForms message loop. Creating HUD
+        // controls must not capture async sender continuations onto an unpumped UI context.
+        System.Windows.Forms.WindowsFormsSynchronizationContext.AutoInstall=false;
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY",Path.Combine(Path.GetFullPath(args[0]),"engine","build","offline-checks")+Path.DirectorySeparatorChar);
         using var guard=new SocketGuard();
         await PartyChecks();
@@ -287,6 +290,7 @@ partial class Checks {
                 case "resurrection":await ResurrectionChecks();break;
                 case "char-reset":await CharResetChecks();break;
                 case "clan":await ClanChecks();break;
+                case "clan-emblem":await ClanEmblemChecks();break;
                 case "clan-war":await ClanWarChecks();break;
                 case "portals":await PortalChecks();break;
                 case "doors":await DoorChecks();break;
@@ -294,13 +298,14 @@ partial class Checks {
                 case "pets":break;
                 case "display-notices":DisplayNoticeChecks();break;
                 case "name-display":await NameDisplayChecks();break;
-                case "map-continuity":await MapContinuity();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();await ClanChecks();await ClanWarChecks();await MarriageChecks();await CharResetChecks();await PlayerQueryChecks();await CharacterConfigChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();MapAmbientChecks();InvisibilityChecks();await GhostModeChecks();await PortalChecks();MinimapChecks();TimedBuffChecks();break;
+                case "map-continuity":await MapContinuity();await BookmarkChecks();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();await ClanChecks();await ClanEmblemChecks();await ClanWarChecks();await MarriageChecks();await CharResetChecks();await PlayerQueryChecks();await CharacterConfigChecks();HotbarChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();MapAmbientChecks();InvisibilityChecks();await GhostModeChecks();await PortalChecks();MinimapChecks();TimedBuffChecks();break;
                 case "marriage":await MarriageChecks();break;
                 case "ghost-mode":await GhostModeChecks();break;
                 case "fishing":await FishingChecks();break;
                 case "location-share":await LocationShareChecks();break;
                 case "player-query":await PlayerQueryChecks();break;
                 case "character-config":await CharacterConfigChecks();break;
+            case "hotbar":HotbarChecks();await CharacterConfigChecks();MinimapChecks();break;
                 case "polymorph":break;
                 case "polymorph-cadence":PolymorphCadenceChecks(args[0]);break;
                 case "buddies":await BuddyChecks();break;
@@ -309,6 +314,7 @@ partial class Checks {
                 case "ambience":AmbienceChecks();break;
                 case "map-ambient":MapAmbientChecks();break;
                 case "invisibility":InvisibilityChecks();break;
+                case "bookmarks":await BookmarkChecks();break;
                 case "board":await BoardChecks();break;
                 case "item-transfer":await ItemTransferChecks();break;
                 case "combat-loop":await CombatLoop();break;
@@ -322,15 +328,17 @@ partial class Checks {
                 case "hit-reaction-suppress":HitReactionSuppression();break;
                 case "slow-actions":await SlowActions();break;
                 case "item-status":ItemStatusChecks();break;
+                case "native-ui-resources":NativeUiResourceChecks(args[0]);NativeUiRealClientChecks(args[0]);break;
                 case "keyboard":await KeyboardMovement123();break;
                 case "busy":KeyboardBusy123();break;
                 case "world":await KeyboardWorld123();break;
                 default:throw new ArgumentException("Unknown regression group");
             }
         }else{
-            ItemStatusChecks();
-            MinimapChecks();await CharacterConfigChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
-            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();await ClanChecks();await ClanWarChecks();await MarriageChecks();await CharResetChecks();await LocationShareChecks();HitReactionSuppression();await TitleAndEmoteChecks();await PlayerQueryChecks();await FishingChecks();AmbienceChecks();MapAmbientChecks();InvisibilityChecks();await GhostModeChecks();TimedBuffChecks();
+            await BookmarkChecks();
+            ItemStatusChecks();NativeUiResourceChecks(args[0]);
+            MinimapChecks();await CharacterConfigChecks();HotbarChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
+            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();await ClanChecks();await ClanEmblemChecks();await ClanWarChecks();await MarriageChecks();await CharResetChecks();await LocationShareChecks();HitReactionSuppression();await TitleAndEmoteChecks();await PlayerQueryChecks();await FishingChecks();AmbienceChecks();MapAmbientChecks();InvisibilityChecks();await GhostModeChecks();TimedBuffChecks();
         }
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status=petsFailure==null?"pass":"fail",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));
         if(petsFailure!=null)throw new InvalidOperationException("Pets failed; subsequent groups completed.",petsFailure);

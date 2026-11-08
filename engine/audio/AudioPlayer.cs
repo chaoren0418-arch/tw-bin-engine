@@ -108,7 +108,8 @@ public sealed class AudioPlayer : IAsyncDisposable, IAudioPlayback
             });
         }
     }
-    public Task<AudioReply> PlayAsync(int fullSoundId, AudioOwner owner)
+    public Task<AudioReply> PlayAsync(int fullSoundId, AudioOwner owner) => PlayAsync(fullSoundId, owner, 1);
+    public Task<AudioReply> PlayAsync(int fullSoundId, AudioOwner owner, double voiceScale)
     {
         lock (gate)
         {
@@ -118,7 +119,7 @@ public sealed class AudioPlayer : IAsyncDisposable, IAudioPlayback
             if (owner.Key == null || !ownerFences.TryGetValue(owner.Key, out var ownerFence) || !ownerFence.Active || ownerFence.Generation != owner.Generation)
                 return Rejected("StaleOrUnknownOwner");
             return Queue(() => core.Play(fullSoundId, owner, () =>
-                ReferenceEquals(Volatile.Read(ref dispatch), requested) && OwnerStillCurrent(owner.Key, ownerFence)));
+                ReferenceEquals(Volatile.Read(ref dispatch), requested) && OwnerStillCurrent(owner.Key, ownerFence), voiceScale));
         }
     }
     public Task<AudioReply> FinishAsync(AudioOwner owner)

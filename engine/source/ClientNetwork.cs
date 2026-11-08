@@ -55,11 +55,11 @@ public sealed partial class ClientForm {
                     network.Disconnect("demo reconnect");Check("disconnect visible",network.State=="Disconnected");int generation=network.Generation;
                     await network.Connect(fixturePort!.Value);Check("reconnect reset",network.Ready&&network.Confirmed==0&&network.Generation>generation);
                     HandleDown(Keys.D5);HandleUp(Keys.D5);await Until(()=>network.Confirmed==1);Check("fresh stream after reset",World.Direction==4);CaptureEvidence("04-reconnected");
-                    HandleDown(Keys.F8);HandleUp(Keys.F8);HandleDown(Keys.Up);await Task.Delay(70);HandleUp(Keys.Up);await Until(()=>!World.Walking);Check("offline movement retained",World.Steps==1&&World.X==32589&&World.Y==32927);CaptureEvidence("05-offline");
+                    ProcessDevToolsKey(Keys.Control|Keys.Shift|Keys.F8,false);HandleUp(Keys.F8);HandleDown(Keys.Up);await Task.Delay(70);HandleUp(Keys.Up);await Until(()=>!World.Walking);Check("offline movement retained",World.Steps==1&&World.X==32589&&World.Y==32927);CaptureEvidence("05-offline");
                     foreach(var cancel in new[]{Keys.F7,Keys.F8}) {
-                        HandleDown(Keys.F8);HandleUp(Keys.F8);HandleDown(Keys.Up);await Task.Delay(50);HandleUp(Keys.Up);
-                        Check("mode switch begins during active step",World.Walking);HandleDown(Keys.F6);HandleUp(Keys.F6);
-                        HandleDown(Keys.F6);HandleUp(Keys.F6);HandleDown(cancel);HandleUp(cancel);int cancelledGeneration=network.Generation;
+                        ProcessDevToolsKey(Keys.Control|Keys.Shift|Keys.F8,false);HandleUp(Keys.F8);HandleDown(Keys.Up);await Task.Delay(50);HandleUp(Keys.Up);
+                        Check("mode switch begins during active step",World.Walking);ProcessDevToolsKey(Keys.Control|Keys.Shift|Keys.F6,false);HandleUp(Keys.F6);
+                        ProcessDevToolsKey(Keys.Control|Keys.Shift|Keys.F6,false);HandleUp(Keys.F6);ProcessDevToolsKey(Keys.Control|Keys.Shift|cancel,false);HandleUp(cancel);int cancelledGeneration=network.Generation;
                         await Until(()=>!World.Walking);await Task.Delay(120);
                         Check($"walking F6 twice then {cancel} cannot reconnect",network.State=="Disconnected"&&network.Generation==cancelledGeneration);
                         Check($"{cancel} preserves mode",networkMode==(cancel==Keys.F7));
