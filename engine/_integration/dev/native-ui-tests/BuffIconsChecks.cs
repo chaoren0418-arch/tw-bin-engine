@@ -50,7 +50,7 @@ partial class Checks {
         string root=Path.Combine(Path.GetFullPath(repo),"scratch","issue-473","synthetic");Directory.CreateDirectory(root);
 
         // --- V3 layout: (798 − 35·(n mod 22 + 1), 5 + 35·⌊n/22⌋).
-        Check(BuffIconsPanel.Cell(0)==new Point(763,5)&&BuffIconsPanel.Cell(1)==new Point(728,5)&&BuffIconsPanel.Cell(21)==new Point(28,5)&&BuffIconsPanel.Cell(22)==new Point(763,40)&&BuffIconsPanel.Cell(45)==new Point(693,75),"BUFF cells: first (763,5), 35 px pitch leftwards, 22 per row");
+        Check(BuffIconsPanel.Cell(0)==new Point(763,5)&&BuffIconsPanel.Cell(1)==new Point(728,5)&&BuffIconsPanel.Cell(21)==new Point(28,5)&&BuffIconsPanel.Cell(22)==new Point(763,40)&&BuffIconsPanel.Cell(45)==new Point(728,75),"BUFF cells: first (763,5), 35 px pitch leftwards, 22 per row");
         Check(BuffIconsPanel.TooltipRect(new(763,5,32,32))==new Rectangle(635,37,160,BuffIconsPanel.TooltipHeight)&&BuffIconsPanel.TooltipRect(new(28,5,32,32)).Location==new Point(28,37),"BUFF tooltip 160 wide at (x, y+32), moved left when < 5 px from the right edge");
 
         // --- effectlist2 parsing and sort keys.
@@ -125,12 +125,12 @@ partial class Checks {
             Check(BuffState.From(w,4,BuffTooltipText.None).Unmapped.Any(u=>u.Origin=="invisible")&&BuffState.From(w,null,BuffTooltipText.None).Unmapped.Any(u=>u.Origin=="invisible"),"BUFF world: dark elf / unknown class invisibility unmapped (377/396 flag)");
         }
 
-        // --- state unwrapping through the bridge chain (HpMp → Macro → LeftStatus → Buff).
+        // --- state unwrapping through the bridge chain (HpMp → Macro → LeftStatus → Chat → Buff).
         {
             var bs=new BuffState([new(4,30,false,"t")],[],BuffTooltipText.None);
             var basic=new UiStaticGameState(true,"t",1,1,1,1,1,0);
-            IUiGameState chain=new UiHpMpGameState(new UiMacroGameState(new UiLeftStatusGameState(new UiBuffGameState(basic,bs),LeftStatusState.Empty),new MacroBook(),null,false),[]);
-            Check(BuffState.Of(chain)==bs&&BuffState.Of(basic)==null&&LeftStatusState.From(chain)==LeftStatusState.Empty&&MacroBook.StateOf(chain)!=null,"BUFF state found through HpMp → Macro → LeftStatus; other modules still find theirs");
+            IUiGameState chain=new UiHpMpGameState(new UiMacroGameState(new UiLeftStatusGameState(new UiChatGameState(new UiBuffGameState(basic,bs),new UiChatSnapshot(null,false)),LeftStatusState.Empty),new MacroBook(),null,false),[]);
+            Check(BuffState.Of(chain)==bs&&BuffState.Of(basic)==null&&LeftStatusState.From(chain)==LeftStatusState.Empty&&MacroBook.StateOf(chain)!=null&&!UiChatGameState.From(chain).GameFocus,"BUFF state found through HpMp → Macro → LeftStatus → Chat; other modules still find theirs");
         }
 
         // --- panel end to end on synthetic archives.
@@ -142,6 +142,8 @@ partial class Checks {
                 ["1620.tbt"]=(Hn("1620.tbt"),Tbt(32,32,BiDebuff)),
             };
             using var res=BuffSyntheticResources(Path.Combine(root,"archives"),tbts);
+            var built=UiRoot.Build(res,UiPanelRegistry.Panels.Where(r=>r.Id==BuffIconsPanel.PanelId).ToArray());
+            Check(built.Find(BuffIconsPanel.PanelId) is BuffIconsPanel{Table.Count:12},"BUFF registry line builds the panel from effectlist2 (one line in UiPanelRegistry)");
             var p=new BuffIconsPanel(res.Sprites);p.Load(res.Xml.Load(BuffEffectTable.FileName),res.Surfs);
             Check(p.Id=="STATUS_EFFECT_ICONS"&&p.Layer==UiLayer.Bar&&p.Table!.Count==12&&!p.Visible,"BUFF panel loads effectlist2 from Tile; hidden with no effect");
             var state=new BuffState([new(4,30,false,"shield"),new(0,0,true,"haste"),new(1,12,false,"slow"),new(7,5,false,"missing"),new(6,5,false,"noicon"),new(40,5,false,"beyond")],[new("strup:42","x")],new("剩餘時間","秒","時間已到"));
@@ -204,5 +206,8 @@ partial class Checks {
         string file=Path.Combine(outDir,"buff-icons-sample.png");canvas.Bitmap.Save(file,ImageFormat.Png);
         File.WriteAllText(Path.Combine(outDir,"buff-icons-real.json"),JsonSerializer.Serialize(new{client,file=layout.FileName,count=table.Count,sampleTimers="synthetic, not server data",rows,placed=p.Layout.Select(x=>new{effect=x.Effect.Id,name=x.Effect.Name,x.Icon,x.Off,rect=new{x.Rect.X,x.Rect.Y,x.Rect.Width,x.Rect.Height}}),bounds=new{p.Bounds.X,p.Bounds.Y,p.Bounds.Width,p.Bounds.Height}},new JsonSerializerOptions{WriteIndented=true,Encoder=System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping}));
         Check(File.Exists(file),"BUFF real: sample PNG written to scratch/issue-473/real");
+        // The whole registry still builds against the pinned real client (all-or-nothing start, §2.1).
+        var ui=UiRoot.Build(res,UiPanelRegistry.Panels);
+        Check(ui.Find(BuffIconsPanel.PanelId) is BuffIconsPanel{Table.Count:540}&&ui.Faulted.Count==0,"BUFF real: full UiPanelRegistry builds with the buff panel ("+ui.Panels.Count+" panels)");
     }
 }

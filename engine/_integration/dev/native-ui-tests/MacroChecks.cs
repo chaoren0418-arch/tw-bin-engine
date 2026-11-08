@@ -54,7 +54,7 @@ partial class Checks {
     }
 
     /// <summary>The real registry minus LEFT_WINDOW (#464): these synthetic uistatus86 layouts have no LEFT_WINDOW node and UiRoot.Build is all-or-nothing.</summary>
-    static IReadOnlyList<UiPanelRegistration> MacroRegistry=>UiPanelRegistry.Panels.Where(p=>p.Id!="LEFT_WINDOW").ToArray();
+    static IReadOnlyList<UiPanelRegistration> MacroRegistry=>UiPanelRegistry.Panels.Where(p=>p.Id is not ("LEFT_WINDOW" or "CENTER_WINDOW" or "STATUS_EFFECT_ICONS")).ToArray();   // synthetic layout has neither window (#464, #468) nor effectlist2.xml (#473)
 
     static void NativeUiMacroChecks(string repo){
         string root=Path.Combine(Path.GetFullPath(repo),"scratch","issue-466","synthetic");Directory.CreateDirectory(root);
