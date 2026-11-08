@@ -12,7 +12,18 @@ runner：claude-local（第 1 次嘗試）。分支 `task/468`。依據 `docs/de
 | `UiPanelRegistry.cs` | 加一行 `new("CENTER_WINDOW","uistatus86",root=>new ChatPanel())` |
 | `UiClientBridge.cs`（**範圍外，理由如下**） | 3 處小改：①`NativeUiGameState` 回傳 `UiChatGameState`（帶 `login.PlayerChatSnapshot()` 與 `gameFocus`）；②`NativeUiCommands` 改實作 `IUiChatCommands`：`BeginChatInput`＝`OpenPlayerChat` 的同一套 `PlayerChatFlowRules.CanOpen`＋`LeaveGameFocus`、`EndChatInput`＝`ReturnGameFocus`、`SendChat`＝核對 stamp 後呼叫既有 `login.SendPlayerChat`；③開關打開時掛 `KeyPress`，把 WM_CHAR（含 IME 組字後的字）交給 `IUiTextInput` 面板 |
 | `DemoChecks.csproj`／`demo-tests/Program.cs` | 各加一行；新分組 `native-ui-chat-window`，並加進預設全組 |
-| `rebuild-lock.json` | `rebuild.py --update-lock` 重產（第三次同步 main（#568）後為 278 個來源檔／287 個鎖定檔），未手動改 hash |
+| `rebuild-lock.json` | `rebuild.py --update-lock` 重產（第四次同步 main（#464／#465／#466）後為 287 個來源檔／296 個鎖定檔），未手動改 hash |
+| `State/LeftStatusState.cs`（**範圍外，1 行**） | `UiLeftStatusGameState` 公開 `Inner`，讓聊天狀態可以從外層一路找進來（見下方「第四次同步」） |
+| `native-ui-tests/MacroChecks.cs`（**範圍外，1 行**） | `MacroRegistry` 本來就排除 `LEFT_WINDOW`（合成版面沒有這個視窗），同理再排除 `CENTER_WINDOW` |
+
+### 第四次同步 origin/main（#464 ui-left-status、#465 ui-hpmp、#466 ui-macro-bar）
+
+這三個模組都改了 `UiClientBridge.NativeUiGameState()`、`UiPanelRegistry`、demo-tests，造成衝突。處理方式：
+
+- **狀態串接順序：** `WithHpMpState(NativeMacroGameState(new UiLeftStatusGameState(new UiChatGameState(basic,…),…)))`。聊天放在最內層，因為既有的 `LeftStatusState.From`／`MacroBook.StateOf` 只會往內找到自己那層就停，不需要看穿聊天層；`UiChatGameState.From` 改成逐層往內找（HpMp `Base` → 巨集 `Inner` → 左狀態 `Inner` → 聊天）。
+- **指令解包：** main 的 `UiInput` 現在拿到的是 `UiMacroCommands(new NativeUiCommands(this))`，原本 `commands is IUiChatCommands` 在產品裡會失敗（聊天窗變成不能打字）。新增 `UiChatGameState.Commands(IUiCommands)`，會穿過 `UiMacroCommands.Inner` 找到聊天指令；`ChatPanel` 的 3 處改用它。
+- **註冊順序：** `LEFT_WINDOW` → `CENTER_WINDOW` → HpMp → 巨集（巨集維持最後，照 #466 的註解）。
+- 新增離線檢查：完整串接下聊天、左狀態、巨集三者都找得到；沒有聊天層時回傳空快照；包一層或兩層 `UiMacroCommands` 都能找到聊天指令。
 
 **為何動 `UiClientBridge.cs`：** C2 的 `IUiGameState` 沒有聊天欄位、`IUiCommands` 沒有送出聊天，`UiKeyEvent` 也收不到字元。原生模式下舊 HUD 被隱藏，`ProcessPlayerChatKeyboard` 因 `playerHud.Visible==false` 直接略過，所以不接這座橋，聊天窗只能看不能打字。做法照 #464（ui-left-status）的先例：用裝飾器包 `IUiGameState`，只多一行；送出與焦點完全轉呼叫既有流程。開關關閉時這些程式都不會執行。
 
@@ -29,6 +40,19 @@ runner：claude-local（第 1 次嘗試）。分支 `task/468`。依據 `docs/de
 - 行的文字與顏色直接用共用的 `PlayerChatProtocol.FormatLine` 與 `PlayerHudChatPanel.ChannelColor`，ui-chat-format 改格式時新舊 UI 會一起變。
 
 ## 怎麼驗證
+
+**第四次同步後重驗（2026-11-09）：**
+
+| 指令 | 結果 |
+|---|---|
+| `rebuild.py --update-lock`／唯讀 `rebuild.py` | `dev-inputs-verified`，287／296 |
+| `rebuild.py --build --configfile .github/nuget.ci.config` | `PASS dev`，productDll `c1df26a3…6e16621` |
+| demo-tests（無 `TW_CLIENT_ROOT`） | `native-ui-chat-window` PASS 446、`native-ui-canvas` 429、`native-ui-left-status` 370、`native-ui-macro` 403、`native-ui-hpmp` 397、`native-ui-resources` 539、`item-status` 409 |
+| demo-tests（`TW_CLIENT_ROOT=D:\lineage開發\0-客戶端`，唯讀） | chat-window 447、left-status 371、hpmp 398、macro 405、resources 550 |
+| `player-chat-tests` | PASS 138 |
+| `check-no-game-assets.py` | pass，errors 0 |
+
+**先前各輪：**
 
 | 指令 | 結果 |
 |---|---|
@@ -85,15 +109,15 @@ runner：claude-local（第 1 次嘗試）。分支 `task/468`。依據 `docs/de
 
 ## 產出路徑
 
-- 程式：`engine/source/NativeUi/ChatPanel.cs`、`engine/source/NativeUi/State/ChatState.cs`、`engine/source/NativeUi/UiClientBridge.cs`、`engine/source/NativeUi/UiPanelRegistry.cs`
-- 測試：`engine/_integration/dev/native-ui-tests/ChatWindowChecks.cs`、`demo-tests/DemoChecks.csproj`、`demo-tests/Program.cs`
+- 程式：`engine/source/NativeUi/ChatPanel.cs`、`engine/source/NativeUi/State/ChatState.cs`、`engine/source/NativeUi/UiClientBridge.cs`、`engine/source/NativeUi/UiPanelRegistry.cs`、`engine/source/NativeUi/State/LeftStatusState.cs`（1 行）
+- 測試：`engine/_integration/dev/native-ui-tests/ChatWindowChecks.cs`、`native-ui-tests/MacroChecks.cs`（1 行）、`demo-tests/DemoChecks.csproj`、`demo-tests/Program.cs`
 - 鎖檔：`engine/_integration/dev/rebuild-lock.json`
 - 報告：`docs/reports/issue-468.md`
 - 本機證據（未進 git）：`scratch/issue-468/real/`
 
 ## 給下一棒的提示
 
-1. **合併衝突預期：** `UiClientBridge.cs` 的 `NativeUiGameState()` 與 #464（`UiLeftStatusGameState`）、#465（HpMp）都改同一行。解法：把裝飾器串起來，例如 `new UiChatGameState(new UiLeftStatusGameState(basic,…),chat)`。但 `LeftStatusState.From(state)` 用 `state is ILeftStatusSource` 判斷，被外層包住後會失效。建議 C2 在 `IUiGameState` 加一個通用的 `T? Get<T>()`（或讓各裝飾器公開 `Inner` 並逐層找），一次解決。`UiChatGameState` 已經公開 `Inner`。`UiPanelRegistry.cs` 與 `demo-tests` 的衝突照規則保留兩邊的行。
+1. **裝飾器串接已經變成四層**（HpMp → 巨集 → 左狀態 → 聊天），每個模組各自寫一份「逐層往內找」的 switch（`LeftStatusState.From`、`MacroBook.StateOf`、`UiChatGameState.From`），指令也有 `UiMacroCommands` 一層。之後再有模組加裝飾器時，每一份都要補，很容易漏。建議 C2 開一張小任務：在 `IUiGameState`／`IUiCommands` 加通用的 `T? Get<T>()`（或統一的 `Inner`），一次收掉這些 switch。
 2. ui-native-smoke 時請特別看：Enter 開啟、中文 IME 輸入、送出後原服回傳行出現在聊天窗、Esc 還焦點後 WASD／方向鍵恢復移動、五階伸縮與錨定、分頁／過濾只影響顯示。請截原版同一畫面對照「推測」各項（尤其是第 5 階 238／240、底圖上緣對齊、分頁是否顯示在文字區內）。
 3. V4／V5 查證若確認元件錨定或分頁語義，只需要改 `ChatState.cs` 的 `ChatRules` 與 `ChatPanel.Load` 裡的 `Anchor` 指定。
 4. main 已有 #549 的 `ChatChannelToggle`（C26，伺服器端全體／密語／買賣開關）。本任務的過濾圖示依設計**只影響顯示**，沒有接 C26。原版過濾圖示是否也會送 C26，目前未查證；如果查證後確認會送，要另開任務，由 `IUiChatCommands` 轉呼叫 `LoginConnection` 既有的 API。

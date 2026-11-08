@@ -218,7 +218,7 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
         return true;
     }
     bool TryOpen(IUiCommands commands,bool byEnter){
-        if(commands is not IUiChatCommands c||chat.View is not {CanSend:true})return false;
+        if(UiChatGameState.Commands(commands) is not {} c||chat.View is not {CanSend:true})return false;
         if(!c.BeginChatInput())return false;
         input.Begin(byEnter);return true;
     }
@@ -228,7 +228,7 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
             if(e.KeyCode==Keys.Enter)input.EnterUp();
             return false;
         }
-        if(e.KeyData==Keys.Escape&&input.Open){input.Close();(commands as IUiChatCommands)?.EndChatInput();return true;}
+        if(e.KeyData==Keys.Escape&&input.Open){input.Close();UiChatGameState.Commands(commands)?.EndChatInput();return true;}
         if(e.KeyCode==Keys.Enter){
             if(!input.Open){
                 if(e.KeyData!=Keys.Enter)return false;
@@ -248,7 +248,7 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
     }
 
     async Task Submit(IUiCommands commands){
-        if(input.Pending||commands is not IUiChatCommands c||chat.View is not {CanSend:true} displayed||!input.Valid)return;
+        if(input.Pending||UiChatGameState.Commands(commands) is not {} c||chat.View is not {CanSend:true} displayed||!input.Valid)return;
         string text=input.Text;input.Pending=true;
         try{
             bool sent=await c.SendChat(text,displayed);

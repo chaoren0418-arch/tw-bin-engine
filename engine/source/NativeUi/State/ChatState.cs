@@ -185,5 +185,20 @@ public sealed class UiChatGameState(IUiGameState inner,UiChatSnapshot chat):IUiG
     public long? Mp=>inner.Mp;
     public long? MaxMp=>inner.MaxMp;
     public long Now=>inner.Now;
-    public static UiChatSnapshot From(IUiGameState state)=>state is IUiChatSource s?s.Chat:UiChatSnapshot.Empty;
+    /// <summary>Bridge order: UiHpMpGameState (#465) → UiMacroGameState (#466) → UiLeftStatusGameState (#464) → UiChatGameState; looks through all three.</summary>
+    public static UiChatSnapshot From(IUiGameState? state){
+        for(int depth=0;state!=null&&depth<8;depth++){
+            if(state is IUiChatSource s)return s.Chat;
+            state=state switch{UiHpMpGameState h=>h.Base,UiMacroGameState m=>m.Inner,UiLeftStatusGameState l=>l.Inner,_=>null};
+        }
+        return UiChatSnapshot.Empty;
+    }
+    /// <summary>The bridge commands are wrapped in UiMacroCommands (#466); find the chat commands underneath.</summary>
+    public static IUiChatCommands? Commands(IUiCommands? commands){
+        for(int depth=0;commands!=null&&depth<8;depth++){
+            if(commands is IUiChatCommands c)return c;
+            commands=commands is UiMacroCommands m?m.Inner:null;
+        }
+        return null;
+    }
 }

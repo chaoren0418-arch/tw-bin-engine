@@ -36,7 +36,7 @@ public sealed partial class ClientForm {
     internal void ApplyNativeUiStart(UiRoot? root,Exception? error){
         if(nativeUiState!=UiStartState.Verifying)return;
         if(root!=null&&error==null){
-            nativeUiRoot=root;nativeUiInput=new UiInput(root,new NativeUiCommands(this));nativeUiCanvas??=new UiCanvas();
+            nativeUiRoot=root;nativeUiInput=new UiInput(root,NativeMacroCommands(new NativeUiCommands(this)));nativeUiCanvas??=new UiCanvas();
             nativeUiState=UiStartState.Active;nativeUiError=null;
             ClearInput("native-ui-active");
             events.Add(new{kind="native-ui",state="active",panels=root.Panels.Select(p=>p.Id).ToArray()});
@@ -115,7 +115,9 @@ public sealed partial class ClientForm {
     IUiGameState NativeUiGameState(){
         var w=login.World;var s=w.Status;bool inWorld=login.State==LoginState.InWorld;
         var basic=new UiStaticGameState(inWorld,inWorld?w.Actor?.Name:null,inWorld?s?.Level:null,inWorld?s?.Hp:null,inWorld?s?.MaxHp:null,inWorld?s?.Mp:null,inWorld?s?.MaxMp:null,Environment.TickCount64);
-        return new UiChatGameState(basic,inWorld?new UiChatSnapshot(login.PlayerChatSnapshot(),gameFocus):UiChatSnapshot.Empty);   // ui-chat-window (#468)
+        // ui-chat-window (#468) innermost: UiChatGameState.From walks HpMp → macro → left-status → chat, the other lookups never reach it.
+        var chat=new UiChatGameState(basic,inWorld?new UiChatSnapshot(login.PlayerChatSnapshot(),gameFocus):UiChatSnapshot.Empty);
+        return WithHpMpState(NativeMacroGameState(new UiLeftStatusGameState(chat,inWorld?LeftStatusState.From(w):LeftStatusState.Empty)));   // ui-hpmp #465 outside; #466 macro (MacroBook.StateOf unwraps HpMp only, so it sits right inside); ui-left-status #464 (LeftStatusState.From unwraps both)
     }
     /// <summary>ui-chat-window (#468): typed characters (WM_CHAR, after IME composition) go to the native text input that takes them.</summary>
     bool NativeUiChar(char c){

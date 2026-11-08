@@ -100,6 +100,16 @@ partial class Checks {
         int Argb(ushort p)=>unchecked((int)UiImage.ToArgb(p));
         var reg=UiPanelRegistry.Panels.Single(p=>p.Id=="CENTER_WINDOW");
         Check(reg.Layout=="uistatus86","registry: CENTER_WINDOW reads uistatus86 (-c first)");
+        {
+            // Product nesting (UiClientBridge): HpMp → macro → left-status → chat; commands wrapped in UiMacroCommands (#466).
+            var snap=new UiChatSnapshot(ChatView(ChatLines(1)),false);
+            var chatState=new UiChatGameState(new UiStaticGameState(InWorld:true),snap);
+            var nested=new UiHpMpGameState(new UiMacroGameState(new UiLeftStatusGameState(chatState,LeftStatusState.Empty with{Level=5}),new MacroBook(),null,false),[]);
+            Check(UiChatGameState.From(nested)==snap&&LeftStatusState.From(nested).Level==5&&MacroBook.StateOf(nested)!=null,"bridge order hpmp → macro → left-status → chat: chat, left-status and macro state all reachable");
+            Check(UiChatGameState.From(new UiStaticGameState(InWorld:true))==UiChatSnapshot.Empty,"no chat decorator → empty chat snapshot");
+            var inner=new ChatCommands();
+            Check(UiChatGameState.Commands(new UiMacroCommands(inner,(_,_)=>{}))==inner&&UiChatGameState.Commands(new UiMacroCommands(new UiMacroCommands(inner,(_,_)=>{}),(_,_)=>{}))==inner,"chat commands found through UiMacroCommands");
+        }
 
         using(var res=ChatResources(Path.Combine(root,"tw"),ChatXml(129,470))){
             var built=UiRoot.Build(res,[reg]);

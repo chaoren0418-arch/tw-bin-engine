@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 278,
+ "sourceCount": 287,
  "files": [
   {
    "path": "NuGet.Config",
@@ -611,8 +611,8 @@
   },
   {
    "path": "source/MagicRendering.cs",
-   "size": 27008,
-   "sha256": "8d55d49e84c1be13bc1de8067f7cd895aeac9126f64f17c1124607a2c255bff4"
+   "size": 27429,
+   "sha256": "f2aac27861e0704c05321ab0584cffad4a0fa948f908ab58b9d56009f11ed222"
   },
   {
    "path": "source/MagicRenderingTests.cs",
@@ -676,8 +676,8 @@
   },
   {
    "path": "source/MapEffects.cs",
-   "size": 12985,
-   "sha256": "e83cfd14144c9e9bd9d76a4b18ca633bf485c2071490b1aa68ae2ce6d5518c66"
+   "size": 14098,
+   "sha256": "2b7da9fa4987a0ed0452f1fe9f7c69113c594b5d15d5cc2a9a57c3fcee465d8d"
   },
   {
    "path": "source/MapEnvSound.cs",
@@ -736,8 +736,8 @@
   },
   {
    "path": "source/NativeUi/ChatPanel.cs",
-   "size": 16216,
-   "sha256": "ac8cfa00d6113278c364fd54e571e47242a3e47faf86824f48e10e5762f940b9"
+   "size": 16247,
+   "sha256": "b3c8da2fbd5b28bee74047856c6611aeeb4ccc8399afd7c05db33e7fa71bde18"
   },
   {
    "path": "source/NativeUi/ClientArchive.cs",
@@ -745,9 +745,44 @@
    "sha256": "182f97bd99647a7e9a5acd1c477a22be71b5ef9a7245cc023b1ebbe446f28289"
   },
   {
+   "path": "source/NativeUi/ExMacroPanel.cs",
+   "size": 3478,
+   "sha256": "80d3bd1e8d405b65c3e4d1cb0ff007e12ab549e005213ea2ab2a0f639baa4d75"
+  },
+  {
+   "path": "source/NativeUi/HpMpPanel.cs",
+   "size": 14635,
+   "sha256": "066dee37431d7c844ce11944871c1ce0d6fadf0d681dd2a0d334088ebbf2016d"
+  },
+  {
+   "path": "source/NativeUi/LeftStatusPanel.cs",
+   "size": 7005,
+   "sha256": "a70286f5f1bd69a2783479096cc1f359e387d10af665ee2a18b571a9f1866a24"
+  },
+  {
+   "path": "source/NativeUi/MacroPanel.cs",
+   "size": 9393,
+   "sha256": "53bdbf8c94d4135327d15148acb5fe7955cb669013115cc131892caf1064c5d9"
+  },
+  {
    "path": "source/NativeUi/State/ChatState.cs",
-   "size": 11664,
-   "sha256": "0aaa90865c39c43dc92b8e177195b2d4b21aeddd42f816952364fd1d0742c930"
+   "size": 12477,
+   "sha256": "fb07b816ae12ad39eb44f5674e3623159aa19760b3f31605cb3f2b9140ad3487"
+  },
+  {
+   "path": "source/NativeUi/State/HpMpState.cs",
+   "size": 4859,
+   "sha256": "f3f700f3d3e2b52f4c0a56d94baf4e025f409e07ee91bc0599746d8ed2fcfa13"
+  },
+  {
+   "path": "source/NativeUi/State/LeftStatusState.cs",
+   "size": 6635,
+   "sha256": "7b24d697d2806b823b480c94bbf2f4a1435cbc36867bc93022d9283fe2a0b2a9"
+  },
+  {
+   "path": "source/NativeUi/State/MacroState.cs",
+   "size": 12052,
+   "sha256": "0b5b3d55bc1327acedcb345548f19b063305bedfff8b301c3ecf3eb6df73fa50"
   },
   {
    "path": "source/NativeUi/SurfCatalog.cs",
@@ -761,8 +796,8 @@
   },
   {
    "path": "source/NativeUi/UiClientBridge.cs",
-   "size": 9501,
-   "sha256": "90db0254f726b0acdc1f67814a71a13f117186e2f03673d9b99d0aa498b6f358"
+   "size": 9940,
+   "sha256": "6c1232378c8f3e63ab8e3bd5b5522960f1d8efc041a639e3beeb303902963726"
   },
   {
    "path": "source/NativeUi/UiContracts.cs",
@@ -781,8 +816,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 788,
-   "sha256": "4529ccd210e31b2022f20290191053af3133f3fca604483730dbcd3ccf912b13"
+   "size": 1259,
+   "sha256": "5251999e2f87fc2e50a42e1ef8afecb7fb187b25d938583dd8cf37b45309cb04"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
@@ -866,8 +901,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 19577,
-   "sha256": "101c66caa49afd38f8e87ef71d4b91968eb2e806288b32f070a00f6baeb0ef6c"
+   "size": 20493,
+   "sha256": "e82cf8fe2173ffe96af6b55f47e99424976348479f62eaff7233c1227910ad0c"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -1273,6 +1308,16 @@
    "path": "source/StatusIcons.cs",
    "size": 3707,
    "sha256": "fa35e3802da2fe380487c516cefefe2150884f5b56326b73b00dced0a0695107"
+  },
+  {
+   "path": "source/SubEffects.cs",
+   "size": 14314,
+   "sha256": "f304298ca5ecfc60edec6134f86afeda3669b194c7aae27a7233ea4ae19ab55c"
+  },
+  {
+   "path": "source/SubEffectsTests.cs",
+   "size": 8122,
+   "sha256": "2849dede13557f96823af84d771b33b2b205519d6152d84ef64ad22ebc41e983"
   },
   {
    "path": "source/SystemAnnouncements.cs",

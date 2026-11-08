@@ -118,7 +118,8 @@ public sealed class EffectSpriteCatalog(string clientRoot) {
     }
 }
 // Hit: list.spr frame flag `!` (36-byte frame +22 bit1, REA B07).
-public sealed record EffectStep(int SubId,int Frame,int Milliseconds,bool Hit=false);
+// Events: the frame's raw token text (`!`, `]N`, `{N`, `}N`, sounds), consumed by SubEffects.cs.
+public sealed record EffectStep(int SubId,int Frame,int Milliseconds,bool Hit=false,string Events="");
 public sealed record EffectSprite(int Gfx,int Sprite,bool Directional,int Directions,int TileType,int Kind,int Impact,EffectStep[] Steps){
     public int Duration=>Steps.Sum(s=>s.Milliseconds);
     // Offsets from effect start of every displayed `!` frame, in the same display order as At():
@@ -145,7 +146,7 @@ public sealed record EffectSprite(int Gfx,int Sprite,bool Directional,int Direct
         if(tokens.Count!=int.Parse(action.Groups[2].Value)||tokens.Count is <1 or >4096)throw new InvalidDataException("特效動畫長度");
         var fpsMatch=Regex.Match(entry,@"(?<![\d.])110\.[^(]*\((\d+)\)");int fps=fpsMatch.Success?int.Parse(fpsMatch.Groups[1].Value):24;
         if(fps is <1 or >1000)throw new InvalidDataException("特效 fps");
-        var steps=tokens.Select(t=>new EffectStep(int.Parse(t.Groups[1].Value),int.Parse(t.Groups[2].Value),checked(1000*int.Parse(t.Groups[3].Value)/fps),t.Groups[4].Value.Contains('!'))).ToArray();
+        var steps=tokens.Select(t=>new EffectStep(int.Parse(t.Groups[1].Value),int.Parse(t.Groups[2].Value),checked(1000*int.Parse(t.Groups[3].Value)/fps),t.Groups[4].Value.Contains('!'),t.Groups[4].Value)).ToArray();
         if(steps.Sum(s=>s.Milliseconds)<=0)throw new InvalidDataException("特效空動畫");
         var effect=Regex.Match(entry,@"(?<![\d.])109\.[^(]*\((\d+)\s+(-?\d+)\)");
         var attr=Regex.Match(entry,@"(?<![\d.])104\.[^(]*\((\d+)\)");int flags=attr.Success?int.Parse(attr.Groups[1].Value):0;
@@ -261,6 +262,8 @@ public sealed partial class Renderer {
             }
             var still=DrawNativeEffect(e.Gfx,e.Heading,flight.X,flight.Y,now-release,session,draws,"magic");
             if(still!=null)visuals.Add(new(e.Number,e.Gfx,flight.X,flight.Y,e.Heading,still.Key,"effect",release));
+            // Default Effect class: sub_8ABC10 spawns `]` children at the effect's own position (effects-2.md §2.1(a)).
+            if(now-release<effect.Duration)ObserveEffectFrames(session,$"magic:{e.Number}",ActionTimeline.Of(effect),now-release,flight.X,flight.Y,e.Heading,now);
             return;
         }
         var motion=MagicMotion.At(e,flight.X,flight.Y,release,Math.Min(now,flight.Impact));
