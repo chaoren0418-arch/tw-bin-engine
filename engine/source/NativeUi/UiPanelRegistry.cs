@@ -10,5 +10,6 @@ public sealed record UiPanelRegistration(string Id,string Layout,Func<UiRoot,IUi
 public static class UiPanelRegistry {
     public static IReadOnlyList<UiPanelRegistration> Panels{get;}=[
         // new("LEFT_WINDOW","uistatus86",root=>new LeftStatusPanel()),   ← example (ui-left-status)
+        new(SummonPanel.PanelId,SummonPanel.LayoutName,root=>new SummonPanel(root.Resources)),   // ui-summon (M7-W, #530)
     ];
 }
