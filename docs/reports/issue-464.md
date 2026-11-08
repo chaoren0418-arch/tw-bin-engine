@@ -76,6 +76,11 @@
 - `rebuild-lock.json` 先取 main 版，再用 `py -3 rebuild.py --update-lock` 重產（282 個來源檔／291 個鎖定檔）；唯讀核驗結果 `dev-inputs-verified`。`docs/REPORT.md` 維持 main 版。
 - 建置（`--configfile .github/nuget.ci.config`）：`PASS dev`，productDll `677af422…96eb`。
 - 測試：`native-ui-left-status` 離線 PASS 369；設了 `TW_CLIENT_ROOT` 時 PASS 370。`native-ui-hpmp`（設了 `TW_CLIENT_ROOT`）PASS 398；`native-ui-canvas` PASS 429；`item-status` PASS 409。`engine/tools/check-no-game-assets.py` pass（trackedFiles 3830），errors 0。
+- 推送後 main 又合入 #466（原生巨集框，10 個 commit），因此**第四次同步**：
+  - `UiClientBridge` 第三層包裝：`WithHpMpState(NativeMacroGameState(new UiLeftStatusGameState(basic, …)))`。`MacroBook.StateOf` 只會穿過 `UiHpMpGameState`，所以巨集層要放在 HP/MP 下一層；左狀態放在最內層。`LeftStatusState.From` 改成迴圈（最多 8 層），會依序穿過 `UiHpMpGameState.Base`、`UiMacroGameState.Inner`。`LeftStatusChecks` 再加 1 項檢查，確認三層都包上之後，左狀態快照和巨集狀態兩個都讀得到。
+  - `native-ui-macro` 原本會失敗：#466 的合成 `uistatus86` 沒有 `LEFT_WINDOW` 節點，而 `UiRoot.Build` 的設計是缺一個就整個拒絕。現在 registry 正式註冊了 LEFT_WINDOW，這個測試就建不起來。修法是在 `MacroChecks.cs` 加一個 `MacroRegistry`（真實 registry 扣掉 LEFT_WINDOW），3 處 `Build` 改用它。**這是本任務檔案範圍以外的改動**，只動測試；真實客戶端的 `uistatus86-c.xml` 有 LEFT_WINDOW，產品行為不受影響。
+  - lock 重產後是 285 個來源檔／294 個鎖定檔，`dev-inputs-verified`；建置 `PASS dev`，productDll `f5fbf103…6bdd`。
+  - 測試：`native-ui-macro` PASS 403；`native-ui-left-status` 離線 PASS 370，設了 `TW_CLIENT_ROOT` 時 PASS 371；`native-ui-hpmp` PASS 398；`native-ui-canvas` PASS 429；`native-ui-resources` PASS 550；`check-no-game-assets` pass（trackedFiles 3843），errors 0。
 - 未驗證：左狀態框與 HP/MP 浮動窗在同一個畫面上的實際重疊情形（HP/MP 預設位置 (135,465)，左框 (0,475)–(135,600)，座標上相鄰、不重疊），要等真機 smoke 才能確認。
 
 ### 真實客戶端渲染（只在 scratch，未進 git）

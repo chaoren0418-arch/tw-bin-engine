@@ -90,6 +90,9 @@ partial class Checks {
                 var snap=LeftStatusState.Empty with{Level=9,Ac=-3,Adena=42};
                 var wrapped=new UiHpMpGameState(LeftState(snap),[]);
                 Check(LeftStatusState.From(wrapped)==snap&&LeftStatusState.From(new UiHpMpGameState(new UiStaticGameState(InWorld:true,Level:4),[])) is {Level:4,Ac:null,Adena:null},"left-status snapshot reads through UiHpMpGameState (bridge: hpmp outside, left-status inside)");
+                // Full bridge order after #466: HpMp → Macro → LeftStatus. Both readers must still find their state.
+                var full=new UiHpMpGameState(new UiMacroGameState(LeftState(snap),new MacroBook(),null,false),[]);
+                Check(LeftStatusState.From(full)==snap&&MacroBook.StateOf(full)!=null,"bridge order hpmp → macro → left-status: left-status snapshot and macro state both reachable");
             }
 
             // Sample state: every component at its logical position.

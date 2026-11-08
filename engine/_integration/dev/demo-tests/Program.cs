@@ -338,6 +338,7 @@ partial class Checks {
                 case "native-ui-resources":NativeUiResourceChecks(args[0]);NativeUiRealClientChecks(args[0]);break;
                 case "native-ui-canvas":NativeUiCanvasChecks(args[0]);break;
                 case "native-ui-left-status":NativeUiLeftStatusRealRender(args[0]);NativeUiLeftStatusChecks(args[0]);break;
+                case "native-ui-macro":NativeUiMacroChecks(args[0]);break;
                 case "native-ui-hpmp":NativeUiHpMpChecks(args[0]);NativeUiHpMpRealClientChecks(args[0]);break;
                 case "keyboard":await KeyboardMovement123();break;
                 case "busy":KeyboardBusy123();break;
@@ -346,7 +347,7 @@ partial class Checks {
             }
         }else{
             await BookmarkChecks();
-            ItemStatusChecks();NativeUiResourceChecks(args[0]);NativeUiCanvasChecks(args[0]);NativeUiLeftStatusChecks(args[0]);NativeUiHpMpChecks(args[0]);
+            ItemStatusChecks();NativeUiResourceChecks(args[0]);NativeUiCanvasChecks(args[0]);NativeUiLeftStatusChecks(args[0]);NativeUiHpMpChecks(args[0]);NativeUiMacroChecks(args[0]);
             MinimapChecks();await CharacterConfigChecks();HotbarChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
             await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();await ClanChecks();await ClanEmblemChecks();await ClanWarChecks();await MarriageChecks();await YesNoPromptChecks();await CharResetChecks();await LocationShareChecks();HitReactionSuppression();await TitleAndEmoteChecks();await PlayerQueryChecks();await HyperTextChecks(args[1]);await FishingChecks();AmbienceChecks();MapAmbientChecks();BackgroundMusicChecks();InvisibilityChecks();await GhostModeChecks();await GhostLimitsChecks();TimedBuffChecks();
         }
