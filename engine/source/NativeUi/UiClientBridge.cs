@@ -113,7 +113,8 @@ public sealed partial class ClientForm {
 
     IUiGameState NativeUiGameState(){
         var w=login.World;var s=w.Status;bool inWorld=login.State==LoginState.InWorld;
-        return WithHpMpState(NativeMacroGameState(new UiStaticGameState(inWorld,inWorld?w.Actor?.Name:null,inWorld?s?.Level:null,inWorld?s?.Hp:null,inWorld?s?.MaxHp:null,inWorld?s?.Mp:null,inWorld?s?.MaxMp:null,Environment.TickCount64)));   // ui-hpmp #465: + over-head targets (State/HpMpState.cs); #466: macro state inside (MacroBook.StateOf unwraps)
+        var basic=new UiStaticGameState(inWorld,inWorld?w.Actor?.Name:null,inWorld?s?.Level:null,inWorld?s?.Hp:null,inWorld?s?.MaxHp:null,inWorld?s?.Mp:null,inWorld?s?.MaxMp:null,Environment.TickCount64);
+        return WithHpMpState(NativeMacroGameState(new UiLeftStatusGameState(basic,inWorld?LeftStatusState.From(w):LeftStatusState.Empty)));   // ui-hpmp #465 outside; #466 macro (MacroBook.StateOf unwraps HpMp only, so it sits right inside); ui-left-status #464 innermost (LeftStatusState.From unwraps both)
     }
 
     sealed class NativeUiCommands(ClientForm form):IUiCommands {

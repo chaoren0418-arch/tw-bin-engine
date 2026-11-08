@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 283,
+ "sourceCount": 285,
  "files": [
   {
    "path": "NuGet.Config",
@@ -750,6 +750,11 @@
    "sha256": "066dee37431d7c844ce11944871c1ce0d6fadf0d681dd2a0d334088ebbf2016d"
   },
   {
+   "path": "source/NativeUi/LeftStatusPanel.cs",
+   "size": 7005,
+   "sha256": "a70286f5f1bd69a2783479096cc1f359e387d10af665ee2a18b571a9f1866a24"
+  },
+  {
    "path": "source/NativeUi/MacroPanel.cs",
    "size": 9393,
    "sha256": "53bdbf8c94d4135327d15148acb5fe7955cb669013115cc131892caf1064c5d9"
@@ -758,6 +763,11 @@
    "path": "source/NativeUi/State/HpMpState.cs",
    "size": 4859,
    "sha256": "f3f700f3d3e2b52f4c0a56d94baf4e025f409e07ee91bc0599746d8ed2fcfa13"
+  },
+  {
+   "path": "source/NativeUi/State/LeftStatusState.cs",
+   "size": 6498,
+   "sha256": "8a74addebc83bacedfc862723d04cc8f8ffd51f854298e739b97ddaa12f520ab"
   },
   {
    "path": "source/NativeUi/State/MacroState.cs",
@@ -776,8 +786,8 @@
   },
   {
    "path": "source/NativeUi/UiClientBridge.cs",
-   "size": 7909,
-   "sha256": "f6247aacda02084663072b4cf14daee177eb8d663c862c71e5e65fa7f58e2f2b"
+   "size": 8069,
+   "sha256": "cb941caceee3f542a09937252140a9720b7d6b583545d859a8a9def0e979504d"
   },
   {
    "path": "source/NativeUi/UiContracts.cs",
@@ -796,8 +806,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 1228,
-   "sha256": "77bee130f38163d6eb56caa03f06fadd9b85a5e98a312803c03fdbf604631a07"
+   "size": 1194,
+   "sha256": "79be8425f4c1ab4e2712cb462b70ec6d76fb8e78b74347e3c067575cf780d66c"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",

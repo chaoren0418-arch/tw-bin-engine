@@ -53,6 +53,9 @@ partial class Checks {
         return new UiResources(dir,tile,sprites);
     }
 
+    /// <summary>The real registry minus LEFT_WINDOW (#464): these synthetic uistatus86 layouts have no LEFT_WINDOW node and UiRoot.Build is all-or-nothing.</summary>
+    static IReadOnlyList<UiPanelRegistration> MacroRegistry=>UiPanelRegistry.Panels.Where(p=>p.Id!="LEFT_WINDOW").ToArray();
+
     static void NativeUiMacroChecks(string repo){
         string root=Path.Combine(Path.GetFullPath(repo),"scratch","issue-466","synthetic");Directory.CreateDirectory(root);
         // RGB555 colours (R high): every image distinct so pixels identify the drawn surf.
@@ -68,7 +71,7 @@ partial class Checks {
 
         using var res=MacroResources(Path.Combine(root,"full"),full,MacroLayoutXml);
         // Uses the real registry: the #466 registrations must build from uistatus86.
-        var ui=UiRoot.Build(res,UiPanelRegistry.Panels);
+        var ui=UiRoot.Build(res,MacroRegistry);
         var main=(MacroPanel)ui.Find(MacroPanel.WindowId)!;var ex=(ExMacroPanel)ui.Find(ExMacroPanel.WindowId)!;
         Check(main!=null&&ex!=null&&main.Layer==UiLayer.Bar&&ex.Layer==UiLayer.Bar,"registry builds RIGHT_WINDOW and EX_MACRO_WINDOW on the bar layer");
 
@@ -203,7 +206,7 @@ partial class Checks {
         {
             var partial=full.Where(kv=>kv.Key is not (3191 or 3192 or 3226)).ToDictionary(kv=>kv.Key,kv=>kv.Value);
             using var res2=MacroResources(Path.Combine(root,"partial"),partial,MacroLayoutXml);
-            var ui2=UiRoot.Build(res2,UiPanelRegistry.Panels);
+            var ui2=UiRoot.Build(res2,MacroRegistry);
             var m2=(MacroPanel)ui2.Find(MacroPanel.WindowId)!;var e2=(ExMacroPanel)ui2.Find(ExMacroPanel.WindowId)!;
             ui2.Update(S());
             Check(m2.LockRect.IsEmpty&&m2.Bounds==m2.FrameRect&&m2.Visible&&!e2.Visible,"missing lock/extended surf → no lock rect, extended box hidden");
@@ -233,7 +236,7 @@ partial class Checks {
         if(string.IsNullOrEmpty(client)){Console.WriteLine("SKIP native-ui macro real client render (TW_CLIENT_ROOT not set)");return;}
         string outDir=Path.Combine(Path.GetFullPath(repo),"scratch","issue-466","real");Directory.CreateDirectory(outDir);
         using var res=UiResources.Open(client);
-        var ui=UiRoot.Build(res,UiPanelRegistry.Panels);
+        var ui=UiRoot.Build(res,MacroRegistry);
         var main=(MacroPanel)ui.Find(MacroPanel.WindowId)!;var ex=(ExMacroPanel)ui.Find(ExMacroPanel.WindowId)!;
         var book=new MacroBook();var stamp=new PlayerHudStamp(1,1,1);book.Observe(stamp);
         ui.Update(new MacroTestState(true,book,new MacroInventory(stamp,[],[],false),true,null));
