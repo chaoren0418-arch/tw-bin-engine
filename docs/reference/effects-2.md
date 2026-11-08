@@ -28,7 +28,7 @@
 | 組物件描述 | `sub_A4E5D0`／`0x64D9D0` → `sub_9262D0`／`0x5256D0` | 參數依序寫入描述結構：x `+8`、y `+10`、id `+12`、gfx `+16`、第 5 參數 `+20`、第 6 參數 `+24`、**第 7 參數 `+28`**、…、第 13 參數（狀態旗標）`+88` |
 | 建物件 | `sub_A51920`／`0x650D20` | `actor+9 = (byte)描述+28`；`actor+8 = 描述+24`（方向）；`actor+195 = 描述+88`（狀態旗標）。只有 `描述+12 == 自己的物件 id`（`dword_15442C8`）時才套用「< 5 改 5、19 改 10、旗標 20 改 14」 |
 
-**`actor+9` 就是 [`ambience-and-map-events.md`](ambience-and-map-events.md) 第 3 節的光源值**（S40 `S_CHANGE_LIGHT` 也寫這個欄位）。光源繪製 `sub_F11FA0`（`0xF11FA0`／`0xB113A0`）用 `k = min(15, actor+9)` 從 `source.lmp` 取第 k 張光源圖。所以第 7 參數的語義是：**這個地圖特效當作光源時的半徑索引 k**（0 = 不發光）。S87 物件封包同一位置的欄位也是光源（3.81 `S_PutObject` 的 `C(light)`）；物件建立對兩種來源共用同一條路。
+**`actor+9` 就是 [`ambience-and-map-events.md`](ambience-and-map-events.md) 第 3 節的光源值**（S40 `S_CHANGE_LIGHT` 也寫這個欄位）。光源繪製 `sub_F11FA0`（`0xF11FA0`／`0xB113A0`）用 `k = min(15, actor+9)` 從 `source.lmp` 取第 k 張光源圖。所以第 7 參數的語義是：**這個地圖特效當作光源時的半徑索引 k**（0 = 不發光）。S87 物件封包同一位置的欄位也是光源（3.81 `S_PutObject` 的 `C(light)`）；TW16 的 `S_PUT_OBJECT`（op 186）同樣經 `sub_9262D0` → `A51920`（[`protocol-gaps.md`](protocol-gaps.md) 第 7 節），物件建立對兩種來源共用同一條路。
 
 **(b) id → k 表（`.s32` 路徑）。** `F112A0`（`0xF112A0`／`0xB106A0`）與 `F11250`（`0xF11250`／`0xB10650`）各查一張 `.data` 表：
 
