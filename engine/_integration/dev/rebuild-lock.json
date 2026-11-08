@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 289,
+ "sourceCount": 290,
  "files": [
   {
    "path": "NuGet.Config",
@@ -1445,9 +1445,14 @@
    "sha256": "89840da776b378d7e0ea05a8178d02c436547f0fe62ed0ea2330ff7f923b9bc4"
   },
   {
+   "path": "source/YesNoButtonsTests.cs",
+   "size": 3682,
+   "sha256": "ed7156aa72b33cda849d6f39e027e52122d5807de095cc46b9a9ef120016d40b"
+  },
+  {
    "path": "source/YesNoPrompt.cs",
-   "size": 12155,
-   "sha256": "0fdf64ea2acfcfe2ecb4c777fc2ef2fbd49fa3fb7ed09eb758278a98149e91eb"
+   "size": 15601,
+   "sha256": "29c88148db6d1942044dc978cb6efe7ce5b80494046e18f27995cb039c414717"
   },
   {
    "path": "web/bonus-stats.js",
