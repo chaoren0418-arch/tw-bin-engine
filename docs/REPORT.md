@@ -162,3 +162,4 @@
 - 2026-11-08 — #461 ui-core-resources: C1 原生 UI 資源層：Tile.pak UI XML 解密與 Sprite .img 執行期讀取（code，claude-local，PR #502 已合併）→ [報告](reports/issue-461.md)
 - 2026-11-08 — #503 主控：M7 重建補缺——以原版為準補足缺失函式（審查與驗證暫緩，只用 claude-local）（plan，claude-chat，PR 已合併）→ [報告](reports/issue-503.md)
 - 2026-11-08 — #414 T151：復活確認與移動鎖定（code，claude-local，PR 已合併）→ [報告](reports/issue-414.md)
+- 2026-11-08 — #504 T202：差距盤點——原版功能對照引擎，產出 gap-matrix（M7）（resource，claude-local，PR 已合併）→ [報告](reports/issue-504.md)
