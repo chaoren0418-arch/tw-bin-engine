@@ -200,3 +200,4 @@
 - 2026-11-09 — #464 ui-left-status: 原生 UI 模組：左狀態框 LEFT_WINDOW（等級／EXP、AC、MR、陣營、SP、負重、飽食、金幣）（code，claude-local，PR #586 已合併）→ [報告](reports/issue-464.md)
 - 2026-11-09 — #468 ui-chat-window: 原生 UI 模組：聊天窗 CENTER_WINDOW（36 px 伸縮、頻道分頁、過濾、輸入列、左右分割）（code，claude-local，PR #589 已合併）→ [報告](reports/issue-468.md)
 - 2026-11-09 — #526 T219：M7-S 商店與修理改用 `TRADE_WINDOW`（code，claude-local，PR 已合併）→ [報告](reports/issue-526.md)
+- 2026-11-09 — #558 T236：聊天輸入列的 YES／NO 鈕（W2-E）（code，claude-local，PR 已合併）→ [報告](reports/issue-558.md)
