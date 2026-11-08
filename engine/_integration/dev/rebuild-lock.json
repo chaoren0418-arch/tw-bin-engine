@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 285,
+ "sourceCount": 286,
  "files": [
   {
    "path": "NuGet.Config",
@@ -758,6 +758,11 @@
    "path": "source/NativeUi/MacroPanel.cs",
    "size": 9393,
    "sha256": "53bdbf8c94d4135327d15148acb5fe7955cb669013115cc131892caf1064c5d9"
+  },
+  {
+   "path": "source/NativeUi/PledgePanel.cs",
+   "size": 36949,
+   "sha256": "4180eba51485b32319c3633f4091c1aa82f90e3e994a1fae9b96df6f24d534dd"
   },
   {
    "path": "source/NativeUi/State/HpMpState.cs",
