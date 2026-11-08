@@ -1,6 +1,6 @@
 # TASKS — tw-bin-engine
 
-更新：2026-11-06（#76 範圍凍結；#99、#110 調整 M3；#128 依使用者節流指示改寫驗證方式與 M2；#162 M2 結案、新增 M4；#177 M4 結案、新增 M5；#186 新增 M6 內容擴充；#238 M6 補列 T113–T134；#385 補列 T135–T146；#418 補列 T147–T153；#427 第四層證據：原版表現查證先於開發；#485 補列 T167–T201；#503 新增 M7 重建補缺）。格式：`### ID | 狀態 | 負責 | 範圍`。狀態只用 todo／doing／review／done／blocked。
+更新：2026-11-06（#76 範圍凍結；#99、#110 調整 M3；#128 依使用者節流指示改寫驗證方式與 M2；#162 M2 結案、新增 M4；#177 M4 結案、新增 M5；#186 新增 M6 內容擴充；#238 M6 補列 T113–T134；#385 補列 T135–T146；#418 補列 T147–T153；#427 第四層證據：原版表現查證先於開發；#485 補列 T167–T201；#503 新增 M7 重建補缺；#535 M7 補列 T203–T227）。格式：`### ID | 狀態 | 負責 | 範圍`。狀態只用 todo／doing／review／done／blocked。
 
 **計算規則（凍結）**：
 - 調度台的進度條**只算 `## M*` 區段**；`## Backlog` 只顯示數量，不算進度。
@@ -255,13 +255,38 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 
 ---
 
-## M7 重建補缺（使用者 2026-11-08 17:53，#503）— 主線 1 項，封頂（加上 U9 依 gap-matrix 開出的 code 任務）
+## M7 重建補缺（使用者 2026-11-08 17:53，#503）— 主線 26 項，封頂（#535：U9 兌現 +25，原估最多 +40）
 
 **驗收：使用者打開會看到什麼**：`docs/reference/gap-matrix.md` 列出原版每個功能在引擎中的狀態（已有／部分／缺）；依它開出的 code 任務全部合併後，「缺」與「部分」只剩標明「需先查證」或「伺服器不支援」的列，且每列都附原因。
 
 **做法**：T202 先產出 gap-matrix，主控依它的分組開 code 任務。契約先行、模組平行，每張只動列出的檔案，並引用對應的 reference 文件。佇列隨時保持 ≥4 張可派的任務。審查與驗證暫緩（見上方暫行政策）。
 
-### T202 | todo | claude-local | 差距盤點：原版功能對照引擎，產出 `docs/reference/gap-matrix.md`（#504）
+### T202 | done | claude-local | 差距盤點：原版功能對照引擎，產出 `docs/reference/gap-matrix.md`（#504）
+### T203 | todo | claude-local | M7-A 接收與快照擴充點（#509）
+### T204 | blocked | claude-local | M7-B 能力旗標與 SP／MR（#510）
+### T205 | blocked | claude-local | M7-C 城堡：城主、稅率、金庫（#511）
+### T206 | blocked | claude-local | M7-D 盟屋清單與地圖（#512）
+### T207 | blocked | claude-local | M7-E 數量與文字輸入詢問（#513）
+### T208 | blocked | claude-local | M7-G 以物品學魔法（#514）
+### T209 | blocked | claude-local | M7-H 血盟推薦（#515）
+### T210 | todo | claude-local | M7-J 通用 Yes／No（聊天輸入列）（#516）
+### T211 | blocked | claude-local | M7-K 交易詢問與交易流程（#517）
+### T212 | todo | claude-local | M7-L 拾取對齊原版（#518）
+### T213 | blocked | claude-local | M7-M 門：自動走近（#519）
+### T214 | blocked | claude-local | M7-N 幽靈：本機限制（#520）
+### T215 | todo | claude-local | M7-O 發送座標對齊原版（#521）
+### T216 | todo | claude-local | M7-P 技能特效時機與飛行（#522）
+### T217 | todo | claude-local | M7-Q 施法：拿掉本地預測、冷卻改用影格總長（#523）
+### T218 | todo | claude-local | M7-R HTML 結果改走 NPC 對話窗（#524）
+### T219 | blocked | claude-local | M7-S 商店與修理改用 TRADE_WINDOW（#526）
+### T220 | blocked | claude-local | M7-T 個人商店開店設定窗（#527）
+### T221 | blocked | claude-local | M7-U 公告板原生窗（#528）
+### T222 | blocked | claude-local | M7-V 好友、封鎖、信件封鎖三窗（#529）
+### T223 | blocked | claude-local | M7-W 寵物：召喚選擇與指令目標（#530）
+### T224 | todo | claude-local | M7-X 死亡統計窗與逾時離線（#531）
+### T225 | todo | claude-local | 查證原版：協定空白（S_EXTENDED 子碼、訊息字串表、版本檢查、未知封包）（#532）
+### T226 | todo | claude-local | 查證原版：視窗世代與待查視窗（#533）
+### T227 | todo | claude-local | 查證原版：地圖特效、子特效、水中呼吸與座標特效（#534）
 
 ---
 
