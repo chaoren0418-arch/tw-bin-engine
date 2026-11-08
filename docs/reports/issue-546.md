@@ -26,7 +26,8 @@
 - `rebuild.py --update-lock` → `dev-inputs-verified`（241 個來源檔）。`rebuild.py --build --configfile .github/nuget.ci.config` → `PASS dev`，product DLL SHA-256 `ec47397501e5094d32797ce295532852437481eae4a94f5190f6d5eea9aa134e`（合併 main 之後）。worktree 沒有 `engine/vendor`，所以改用 CI 的 NuGet 設定 restore。沒有新的警告，只有原本就有的 `MagicUi.cs(20,62)`。
 - `P11.ClientEngine.exe --module-tests`：結束碼 0，6 組 257 項全過（agit 44、castle 62、recovery-death 72、server-message-text 33、server-message-text-client 7、world-extensions 39）。把 `TW_CLIENT_ROOT` 指向不存在的目錄（模擬 CI）也是結束碼 0。
 - `DemoChecks`，用 CI 會跑的模式。模擬 CI（沒有客戶端）：map-continuity、combat-admission、item-status、afflictions、resurrection、polymorph-cadence、buddies、item-transfer、doors、pickup、hypertext 全部結束碼 0。native-ui-resources 在假的 client root 下失敗，原因是它會從別的路徑找到真客戶端、再讀 Tile.pak，跟本任務無關；改用真的 client root 跑就通過。`combat-admission` 包含 `AttackSkillChecks`，它用合成的 Text 封存跑 `EffectSpriteCatalog`，等於驗證了這次的抽取。
-- `check-no-game-assets.py` → pass。字串表沒有進 repo，測試只用自己編的字串，加上原本註解裡就有的 125／189 文字。
+- **第二次同步 origin/main（2026-11-08，含 #446／#519／#523／#548／#551）**：`rebuild-lock.json` 取 main 版後以 `--update-lock` 重產（250 個來源檔，沒有手動改 hash）；`--build` → `PASS dev`，product DLL SHA-256 `23ff2d7b85213406fbe70fb89c155f24639f2a9e50d5c8e763e7ecdf70194e84`。`--module-tests`（照 CI 的 Start-Process 方式）結束碼 0：有客戶端 8 組 387 項全過；`TW_CLIENT_ROOT` 指向不存在目錄 8 組 382 項全過（新增 packetbox-status 86、server-features 44）。
+- `engine/tools/check-no-game-assets.py` → pass。字串表沒有進 repo，測試只用自己編的字串，加上原本註解裡就有的 125／189 文字。
 
 ## 未驗證／已知影響
 

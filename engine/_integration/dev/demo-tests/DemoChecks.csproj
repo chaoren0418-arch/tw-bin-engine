@@ -17,11 +17,13 @@
     <Compile Include="../ghost-mode-tests/GhostModeChecks.cs" Link="GhostModeChecks.cs" />
     <Compile Include="../doors-tests/DoorChecks.cs" Link="DoorChecks.cs" />
     <Compile Include="../pickup-tests/PickupChecks.cs" Link="PickupChecks.cs" />
+    <Compile Include="../doors-tests/DoorApproachChecks.cs" Link="DoorApproachChecks.cs" />
     <Compile Include="../fishing-tests/FishingChecks.cs" Link="FishingChecks.cs" />
     <Compile Include="../pets-tests/PetChecks.cs" Link="PetChecks.cs" />
     <Compile Include="../duel-tests/DuelChecks.cs" Link="DuelChecks.cs" />
     <Compile Include="../ambience-tests/AmbienceChecks.cs" Link="AmbienceChecks.cs" />
     <Compile Include="../map-ambient-tests/MapAmbientChecks.cs" Link="MapAmbientChecks.cs" />
+    <Compile Include="../background-music-tests/BackgroundMusicChecks.cs" Link="BackgroundMusicChecks.cs" />
     <Compile Include="../invisibility-tests/InvisibilityChecks.cs" Link="InvisibilityChecks.cs" />
     <Compile Include="../player-query-tests/PlayerQueryChecks.cs" Link="PlayerQueryChecks.cs" />
     <Compile Include="../hypertext-tests/HyperTextChecks.cs" Link="HyperTextChecks.cs" />
