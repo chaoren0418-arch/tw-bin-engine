@@ -11,6 +11,7 @@ public static class UiPanelRegistry {
     public static IReadOnlyList<UiPanelRegistration> Panels{get;}=[
         new("LEFT_WINDOW","uistatus86",root=>new LeftStatusPanel()),
         new("CENTER_WINDOW","uistatus86",root=>new ChatPanel()),
+        new(SummonPanel.PanelId,SummonPanel.LayoutName,root=>new SummonPanel(root.Resources)),   // ui-summon (M7-W, #530)
         new(HpMpPanel.PanelId,"uistatus86",root=>new HpMpPanel()),new(HpMpHeadBarPanel.PanelId,"uistatus86",root=>new HpMpHeadBarPanel(()=>(root.Find(HpMpPanel.PanelId) as HpMpPanel)?.Settings??HpMpSettings.Default)),   // ui-hpmp #465 (no XML: V1 hard-coded layout)
         new(ExMacroPanel.WindowId,"uistatus86",root=>new ExMacroPanel(root.SlotGroup(UiSlotGroup.Bar485))),new(MacroPanel.WindowId,"uistatus86",_=>new MacroPanel()),   // ui-macro-bar #466 (RIGHT_WINDOW last: MACRO_LOCK overlaps BAR_485)
         new(TradeWindowPanel.PanelId,TradeWindowPanel.LayoutName,root=>new TradeWindowPanel()),   // M7-S (#526)

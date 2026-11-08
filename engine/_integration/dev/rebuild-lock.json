@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 297,
+ "sourceCount": 301,
  "files": [
   {
    "path": "NuGet.Config",
@@ -815,6 +815,16 @@
    "sha256": "0b5b3d55bc1327acedcb345548f19b063305bedfff8b301c3ecf3eb6df73fa50"
   },
   {
+   "path": "source/NativeUi/SummonPanel.cs",
+   "size": 16457,
+   "sha256": "d30f97688d78a843d09117c1212fd057653f9f23fb3733124ff2569bdc84d831"
+  },
+  {
+   "path": "source/NativeUi/SummonPanelTests.cs",
+   "size": 16710,
+   "sha256": "d2bebd3e4a1e7c5cb8254ba62a861d72c2cce273934c19a834772b94f37a6fbc"
+  },
+  {
    "path": "source/NativeUi/SurfCatalog.cs",
    "size": 7527,
    "sha256": "599be507ea3f428e5f279566d748755539f9f35a30d80f666fbc282e631c4a44"
@@ -851,8 +861,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 1480,
-   "sha256": "954ea65a9db483e77aeb93b0ec7f8870389b4b4c8e0f14ca7471b18a8d354ea6"
+   "size": 1603,
+   "sha256": "43abb8c49544399c06ee90505995f58274a3e29293ea79459e98077b260562f5"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
@@ -1050,14 +1060,24 @@
    "sha256": "a3165cb564ef07d5c381a287694b2fe4c10cfb58984dc53a78244e9763e595f5"
   },
   {
+   "path": "source/PetTarget.cs",
+   "size": 6673,
+   "sha256": "c8c83d46d806dd72386f98cd9f6b37e483db8ab30b6bba9d82fec16de3f9310c"
+  },
+  {
+   "path": "source/PetTargetTests.cs",
+   "size": 10607,
+   "sha256": "ac55fb4051009231a6d9b181912c688a61f8e5db59839442097a4b3b3ac2b9ae"
+  },
+  {
    "path": "source/PetUi.cs",
-   "size": 4124,
-   "sha256": "f0979c21a3c7c52ee95adba29a754397574222c59abe38a75d54a67ed7645ba5"
+   "size": 6758,
+   "sha256": "74946a8e667649ac756d42ef1adb29e0edbad2da9313cd54389418abc28fc38b"
   },
   {
    "path": "source/Pets.cs",
-   "size": 9572,
-   "sha256": "253ca5ee0c35535e1331c93be935def3ef5011452fc37ae417a3544d117cb24f"
+   "size": 16382,
+   "sha256": "23a2ed136e006dd5e7d831995fda56ddb073b51aaa4f21b1527fc57dc12c1001"
   },
   {
    "path": "source/PickupAssets.cs",
