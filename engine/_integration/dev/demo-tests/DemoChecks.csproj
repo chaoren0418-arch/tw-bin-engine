@@ -15,6 +15,7 @@
     <Compile Include="../clan-emblem-tests/ClanEmblemChecks.cs" Link="ClanEmblemChecks.cs" />
     <Compile Include="../clan-war-tests/ClanWarChecks.cs" Link="ClanWarChecks.cs" />
     <Compile Include="../ghost-mode-tests/GhostModeChecks.cs" Link="GhostModeChecks.cs" />
+    <Compile Include="../ghost-limits-tests/GhostLimitsChecks.cs" Link="GhostLimitsChecks.cs" />
     <Compile Include="../doors-tests/DoorChecks.cs" Link="DoorChecks.cs" />
     <Compile Include="../pickup-tests/PickupChecks.cs" Link="PickupChecks.cs" />
     <Compile Include="../doors-tests/DoorApproachChecks.cs" Link="DoorApproachChecks.cs" />
@@ -38,6 +39,7 @@
     <Compile Include="../location-share-tests/LocationRegionChecks.cs" Link="LocationRegionChecks.cs" />
     <Compile Include="../name-display-tests/NameDisplayChecks.cs" Link="NameDisplayChecks.cs" />
     <Compile Include="../native-ui-tests/ResourceChecks.cs" Link="ResourceChecks.cs" />
+    <Compile Include="../native-ui-tests/CanvasChecks.cs" Link="CanvasChecks.cs" />
     <Reference Include="P11.ClientEngine"><HintPath>../../../build/client-product-dev/P11.ClientEngine.dll</HintPath></Reference>
     <Reference Include="P24.Audio"><HintPath>../../../build/client-product-dev/P24.Audio.dll</HintPath></Reference>
   </ItemGroup>

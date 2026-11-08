@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 249,
+ "sourceCount": 260,
  "files": [
   {
    "path": "NuGet.Config",
@@ -88,6 +88,16 @@
    "path": "launch-product.ps1",
    "size": 2781,
    "sha256": "9f93a1d39c4a97358a75be125751966779d08554fc395bea36fb642e286aacc1"
+  },
+  {
+   "path": "source/AbilityStatus.cs",
+   "size": 3247,
+   "sha256": "6dbc79f5736ea65883c9fc3bb368283cd808882541adacc69705ca0d9f423456"
+  },
+  {
+   "path": "source/AbilityStatusTests.cs",
+   "size": 5817,
+   "sha256": "d96b791cc224f52f7374253fd4aceeb0be6d02a5ff65feba39f2929c6c597b02"
   },
   {
    "path": "source/ActionCadence.cs",
@@ -406,8 +416,8 @@
   },
   {
    "path": "source/GhostMode.cs",
-   "size": 4756,
-   "sha256": "68f205e865739c044125e446dd8615df12d6ab4539f9a4aebdf78f21e0833d6e"
+   "size": 4801,
+   "sha256": "d08f975c33671d557487a56d850d37a7af32f0c83943342b95b361c1039e49f5"
   },
   {
    "path": "source/Ground.cs",
@@ -685,14 +695,59 @@
    "sha256": "599be507ea3f428e5f279566d748755539f9f35a30d80f666fbc282e631c4a44"
   },
   {
+   "path": "source/NativeUi/UiCanvas.cs",
+   "size": 2677,
+   "sha256": "846cffab333e656a3b80ae2f574e230b8f0ee731e3cbfbbf9b40dcbdc9016bd1"
+  },
+  {
+   "path": "source/NativeUi/UiClientBridge.cs",
+   "size": 7737,
+   "sha256": "dbab7875945d585c53de15a1bc6c2ab152ca4be555d010d0b166ef08769ad17e"
+  },
+  {
+   "path": "source/NativeUi/UiContracts.cs",
+   "size": 3949,
+   "sha256": "e5dbf6bcc2ca924e7d935e046f81f04a0316de9c4100453c49a5023860a6152d"
+  },
+  {
+   "path": "source/NativeUi/UiInput.cs",
+   "size": 4392,
+   "sha256": "1dc0d6eb34903c975f0ac6cc200a4573f7c87924b4c8e92cd2848e3c7b664cea"
+  },
+  {
    "path": "source/NativeUi/UiLayout.cs",
    "size": 5189,
    "sha256": "238c2c95cf0e86816574d08f19011155d77eedac7c5406db5bd18f47be82ba6a"
   },
   {
+   "path": "source/NativeUi/UiPanelRegistry.cs",
+   "size": 723,
+   "sha256": "0978c88c5ae87888da72c39eeab23c1301f748d958a10edd8b83144640359b12"
+  },
+  {
+   "path": "source/NativeUi/UiPresenter.cs",
+   "size": 3927,
+   "sha256": "9746675e069565c9e47ec4de1b1346a2bea432bb95543aff1e26cf249f0d756b"
+  },
+  {
+   "path": "source/NativeUi/UiRoot.cs",
+   "size": 7914,
+   "sha256": "de9b638768b5b354dc91e5a33650178b3677080ef14d1114acc1ba58bd5a80ef"
+  },
+  {
+   "path": "source/NativeUi/UiSlotGroup.cs",
+   "size": 2679,
+   "sha256": "7827a076cc471cb73e14ca2b597d3ad07ea8ef561018e6db18f4748b260cf02e"
+  },
+  {
    "path": "source/NativeUi/UiSurface.cs",
    "size": 3307,
    "sha256": "5910f13e840d3ff62d957a950788714e665dc379665e600c4aa1dde4b4b9215b"
+  },
+  {
+   "path": "source/NativeUi/UiText.cs",
+   "size": 1880,
+   "sha256": "faa33987562362079c69c227613b69c7c544e0f31fcd114fa1e7369577b26cf2"
   },
   {
    "path": "source/NativeUi/UiXmlSource.cs",
@@ -771,8 +826,8 @@
   },
   {
    "path": "source/OnlineInput.cs",
-   "size": 3503,
-   "sha256": "e2da3beb62c930fa4362ef460e9f63e117bee5514be62a8d41b8177623413ef8"
+   "size": 3884,
+   "sha256": "95be1ffb3b8c545d4435d652b6e42f0ebcac44fef15e1ff2839f404735f68840"
   },
   {
    "path": "source/OnlineMovement.cs",
@@ -901,8 +956,8 @@
   },
   {
    "path": "source/PlayerHudIntegration.cs",
-   "size": 6378,
-   "sha256": "0fd135aeda49c473c21c099803aaab52073ab5853d50a23834d9d99d0e1f67ff"
+   "size": 6693,
+   "sha256": "023d2a1e2b82205afa993127612c01b399e993a126e24e574ed144d1ec761e89"
   },
   {
    "path": "source/PlayerHudModel.cs",
@@ -976,8 +1031,8 @@
   },
   {
    "path": "source/Program.cs",
-   "size": 25803,
-   "sha256": "d3ef64022d5cedce15b101be1a93dbfea7e80e1f5bd334873294ce9b1bea8574"
+   "size": 26753,
+   "sha256": "dec8cc860ea5ddb19035cb6b938debf336f22a8e6264f5cd96750eb59ca4f398"
   },
   {
    "path": "source/ProjectileRendering.cs",
