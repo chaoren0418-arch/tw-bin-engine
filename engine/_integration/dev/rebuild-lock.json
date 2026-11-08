@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 272,
+ "sourceCount": 276,
  "files": [
   {
    "path": "NuGet.Config",
@@ -241,8 +241,8 @@
   },
   {
    "path": "source/CharacterConfig.cs",
-   "size": 8130,
-   "sha256": "cf3c8a485a82a75de2cdfbb4a530c1d21437f223849f7f22e9795613d6ca7242"
+   "size": 9372,
+   "sha256": "e1171298f82d6d032d71b7530e7fc30eb7759f06e7e61808b39af10dfcff176b"
   },
   {
    "path": "source/CharacterManagement.cs",
@@ -253,6 +253,16 @@
    "path": "source/CharacterManagementUi.cs",
    "size": 7435,
    "sha256": "582febb574d3594747546030455e690002d68725764f042a2b06861b3173634e"
+  },
+  {
+   "path": "source/ChatChannelToggle.cs",
+   "size": 11167,
+   "sha256": "34e01e0a03e7f70d020e42f49e623b9d17163fb2649984833e56ae4d0d9a4ec9"
+  },
+  {
+   "path": "source/ChatChannelToggleTests.cs",
+   "size": 8272,
+   "sha256": "dd693c0e480b9f04b12aad46711b3e3438500acbb09395cd6bdd2c1c6eadb4d8"
   },
   {
    "path": "source/Clan.cs",
@@ -348,6 +358,16 @@
    "path": "source/CombatVisibilityPlan.cs",
    "size": 2604,
    "sha256": "4cb71ff1ef122dec7974554d443f0fae236bef48674979ffd5c0428610e696c1"
+  },
+  {
+   "path": "source/Cooking.cs",
+   "size": 4159,
+   "sha256": "d5c3edd74b9706f6173666f129f71a57cbbfe1a807cc292f25b6f3ac6af4a632"
+  },
+  {
+   "path": "source/CookingTests.cs",
+   "size": 4644,
+   "sha256": "6caab5007559367e181f63f5c87e6965ec296bf454b01cd6bf103b72bfcc360a"
   },
   {
    "path": "source/DevToolsForm.cs",
