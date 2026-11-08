@@ -187,3 +187,5 @@
 - 2026-11-09 — #514 T208：M7-G 以物品學魔法（code，claude-local，PR 已合併）→ [報告](reports/issue-514.md)
 - 2026-11-09 — #515 T209：M7-H 血盟推薦（code，claude-local，PR 已合併）→ [報告](reports/issue-515.md)
 - 2026-11-09 — #513 T207：M7-E 數量與文字輸入詢問（code，claude-local，PR 已合併）→ [報告](reports/issue-513.md)
+- 2026-11-09 — #546 T228：伺服器訊息改用完整字串表（protocol-gaps A）（code，claude-local，PR 已合併）→ [報告](reports/issue-546.md)
+- 2026-11-09 — #566 T241：光照圖接上畫面，以及地圖特效光源表（FX1）（code，claude-local，PR 已合併）→ [報告](reports/issue-566.md)

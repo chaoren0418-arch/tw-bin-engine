@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 269,
+ "sourceCount": 270,
  "files": [
   {
    "path": "NuGet.Config",
@@ -121,8 +121,13 @@
   },
   {
    "path": "source/Ambience.cs",
-   "size": 29781,
-   "sha256": "83b81f92ed413965eac5e292208610b47c250bdbb9691d03295e8eacc8781f36"
+   "size": 40623,
+   "sha256": "e3d4716ecb17e98483bd720555f7e9d4847ff59c8116cdf1fd9519052924a3b0"
+  },
+  {
+   "path": "source/AmbienceLightsTests.cs",
+   "size": 8540,
+   "sha256": "2f20b3f10fec9d88492b8b4362234a256ecc0d7a5d7ea6a7342787a49f19b06e"
   },
   {
    "path": "source/AmountPrompt.cs",
@@ -581,8 +586,8 @@
   },
   {
    "path": "source/MagicRendering.cs",
-   "size": 27918,
-   "sha256": "15acfeec7d0314be40e8ec8835a4c7a63dfadac158500f461cb23ade60e7a909"
+   "size": 27008,
+   "sha256": "8d55d49e84c1be13bc1de8067f7cd895aeac9126f64f17c1124607a2c255bff4"
   },
   {
    "path": "source/MagicRenderingTests.cs",
@@ -646,8 +651,8 @@
   },
   {
    "path": "source/MapEffects.cs",
-   "size": 12294,
-   "sha256": "4dc92ed52f544d4ce7d754692b37ecc954c05b277895521023340f2158704c8c"
+   "size": 12985,
+   "sha256": "e83cfd14144c9e9bd9d76a4b18ca633bf485c2071490b1aa68ae2ce6d5518c66"
   },
   {
    "path": "source/MapEnvSound.cs",
@@ -821,8 +826,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 20493,
-   "sha256": "e82cf8fe2173ffe96af6b55f47e99424976348479f62eaff7233c1227910ad0c"
+   "size": 19577,
+   "sha256": "101c66caa49afd38f8e87ef71d4b91968eb2e806288b32f070a00f6baeb0ef6c"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -1166,13 +1171,18 @@
   },
   {
    "path": "source/ServerMessageText.cs",
-   "size": 1256,
-   "sha256": "aae0243434301a53a54c762ef1c2786e9336503361c7dbc6becad20ac434a25c"
+   "size": 7219,
+   "sha256": "2e20c772297ef0100b6218b5de4fd1ed265df009179819251bcfdb420cc346f5"
+  },
+  {
+   "path": "source/ServerMessageTextTests.cs",
+   "size": 8668,
+   "sha256": "154ed9e5c78098a5d8044fe20349c5f190e5635a2a05ab089513f14a6155f0be"
   },
   {
    "path": "source/ServerStatusMessages.cs",
-   "size": 747,
-   "sha256": "30a186197010cccbf4106796d99d532cad5c705c2f14917d65fffcde1627291b"
+   "size": 1004,
+   "sha256": "9c55e0432988170f7610a1b5faf515c6578c78baa6d841a7f699805e2d683244"
   },
   {
    "path": "source/ShipBackdrop.cs",
@@ -1225,16 +1235,6 @@
    "sha256": "fa35e3802da2fe380487c516cefefe2150884f5b56326b73b00dced0a0695107"
   },
   {
-   "path": "source/SubEffects.cs",
-   "size": 14314,
-   "sha256": "f304298ca5ecfc60edec6134f86afeda3669b194c7aae27a7233ea4ae19ab55c"
-  },
-  {
-   "path": "source/SubEffectsTests.cs",
-   "size": 8122,
-   "sha256": "2849dede13557f96823af84d771b33b2b205519d6152d84ef64ad22ebc41e983"
-  },
-  {
    "path": "source/SystemAnnouncements.cs",
    "size": 760,
    "sha256": "24267217581cf3c6abbca50627b00a20bb2aeacf79197c46c07cc6283812a043"
@@ -1248,6 +1248,11 @@
    "path": "source/Tests.cs",
    "size": 12205,
    "sha256": "7c6c04dc6bf70a505d6ac518ebadc79c0832f72748959e0d8c73182a9aa7b612"
+  },
+  {
+   "path": "source/TextArchive.cs",
+   "size": 5000,
+   "sha256": "31b92a3e5b5428ec3bb18472745ed22f470984ba38e0aeed50f70fbb3ae1ed37"
   },
   {
    "path": "source/TimedBuffs.cs",
