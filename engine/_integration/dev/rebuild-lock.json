@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 239,
+ "sourceCount": 241,
  "files": [
   {
    "path": "NuGet.Config",
@@ -556,8 +556,8 @@
   },
   {
    "path": "source/MagicStatus.cs",
-   "size": 8230,
-   "sha256": "4ee0df2c149b2e630094a2dddf2751f84cd6c24b4183ce376ded75aa2f01f1f6"
+   "size": 8409,
+   "sha256": "f7b690920000c5a78ee78649cf6f85b2a2575ea0e7d694de028046e63475d867"
   },
   {
    "path": "source/MagicTargetPreparation.cs",
@@ -803,6 +803,16 @@
    "path": "source/OriginalMapCache.cs",
    "size": 20268,
    "sha256": "8c7009fd8483196beda9108a07a01f54b1e02d4447ba6cb3c6b88fb78b15d084"
+  },
+  {
+   "path": "source/PacketBoxStatus.cs",
+   "size": 12806,
+   "sha256": "68af4dc8e0d334f142996b5f8df8d80f1a7a36a81952593bf3e421b4494ec472"
+  },
+  {
+   "path": "source/PacketBoxStatusTests.cs",
+   "size": 9955,
+   "sha256": "76884d8934e33f9fb1d414eddb8499825b0fee181f9505bcb1f6ab56464465f2"
   },
   {
    "path": "source/PacketTrace.cs",
