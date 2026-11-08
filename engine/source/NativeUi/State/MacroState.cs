@@ -97,6 +97,18 @@ namespace P06.NativeUi {
             macro.ActivateMacro(inv.Stamp,binding);return true;
         }
 
+        /// <summary>
+        /// Finds the macro state through other game-state decorators (the product wraps it in UiHpMpGameState, #465):
+        /// walks UiHpMpGameState.Base / UiMacroGameState.Inner until an IUiMacroState is found.
+        /// </summary>
+        public static IUiMacroState? StateOf(IUiGameState? state){
+            for(int depth=0;state!=null&&depth<8;depth++){
+                if(state is IUiMacroState m)return m;
+                state=state switch{UiHpMpGameState h=>h.Base,_=>null};
+            }
+            return null;
+        }
+
         static void Check(int v,int count,string name){if(v<0||v>=count)throw new ArgumentOutOfRangeException(name);}
         static void Validate(PlayerHudBinding? b){
             if(b!=null&&(b.Id==0||!Enum.IsDefined(b.Kind)||(b.Kind==PlayerHudKind.Magic&&b.Id>int.MaxValue)))throw new ArgumentException("invalid macro binding");

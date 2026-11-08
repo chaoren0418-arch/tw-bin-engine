@@ -113,7 +113,7 @@ public sealed partial class ClientForm {
 
     IUiGameState NativeUiGameState(){
         var w=login.World;var s=w.Status;bool inWorld=login.State==LoginState.InWorld;
-        return NativeMacroGameState(new UiStaticGameState(inWorld,inWorld?w.Actor?.Name:null,inWorld?s?.Level:null,inWorld?s?.Hp:null,inWorld?s?.MaxHp:null,inWorld?s?.Mp:null,inWorld?s?.MaxMp:null,Environment.TickCount64));   // #466: macro state adapter (State/MacroState.cs)
+        return WithHpMpState(NativeMacroGameState(new UiStaticGameState(inWorld,inWorld?w.Actor?.Name:null,inWorld?s?.Level:null,inWorld?s?.Hp:null,inWorld?s?.MaxHp:null,inWorld?s?.Mp:null,inWorld?s?.MaxMp:null,Environment.TickCount64)));   // ui-hpmp #465: + over-head targets (State/HpMpState.cs); #466: macro state inside (MacroBook.StateOf unwraps)
     }
 
     sealed class NativeUiCommands(ClientForm form):IUiCommands {

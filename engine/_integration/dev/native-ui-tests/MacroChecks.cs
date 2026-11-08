@@ -149,6 +149,10 @@ partial class Checks {
         Click(630,596);Check(book.SelectionInExtended&&book.SelectedExtended==11,"extended click selects and moves the mark there");
         int before=log.Count;Click(630,596,2);Check(log.Count==before+1&&Last()==heal,"extended double click uses extended slot 12");
         group.Show(ExMacroPanel.WindowId);
+        // Product nesting since #465: WithHpMpState(NativeMacroGameState(…)) — macro panels must see through UiHpMpGameState.
+        int nested=log.Count;ui.Update(new UiHpMpGameState(S(),[]));
+        Check(MacroBook.StateOf(new UiHpMpGameState(S(),[]))!=null&&main.Visible&&K(Keys.F5)&&log.Count==nested+1&&Last()==potion,"macro state found inside UiHpMpGameState: F5 still activates");
+        log.RemoveAt(log.Count-1);ui.Update(S());
 
         // --- paint.
         {

@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 279,
+ "sourceCount": 283,
  "files": [
   {
    "path": "NuGet.Config",
@@ -611,8 +611,8 @@
   },
   {
    "path": "source/MagicRendering.cs",
-   "size": 27008,
-   "sha256": "8d55d49e84c1be13bc1de8067f7cd895aeac9126f64f17c1124607a2c255bff4"
+   "size": 27429,
+   "sha256": "f2aac27861e0704c05321ab0584cffad4a0fa948f908ab58b9d56009f11ed222"
   },
   {
    "path": "source/MagicRenderingTests.cs",
@@ -676,8 +676,8 @@
   },
   {
    "path": "source/MapEffects.cs",
-   "size": 12985,
-   "sha256": "e83cfd14144c9e9bd9d76a4b18ca633bf485c2071490b1aa68ae2ce6d5518c66"
+   "size": 14098,
+   "sha256": "2b7da9fa4987a0ed0452f1fe9f7c69113c594b5d15d5cc2a9a57c3fcee465d8d"
   },
   {
    "path": "source/MapEnvSound.cs",
@@ -741,18 +741,28 @@
   },
   {
    "path": "source/NativeUi/ExMacroPanel.cs",
-   "size": 3476,
-   "sha256": "39aa3f4e2f12ee4715fb1c0df832924d4bec847a071d535bb9952c5cbff15c41"
+   "size": 3478,
+   "sha256": "80d3bd1e8d405b65c3e4d1cb0ff007e12ab549e005213ea2ab2a0f639baa4d75"
+  },
+  {
+   "path": "source/NativeUi/HpMpPanel.cs",
+   "size": 14635,
+   "sha256": "066dee37431d7c844ce11944871c1ce0d6fadf0d681dd2a0d334088ebbf2016d"
   },
   {
    "path": "source/NativeUi/MacroPanel.cs",
-   "size": 9391,
-   "sha256": "3a29131c28317eff841a17808a82a6848673c487d9e6ce0a052a5b8ea7cc91b0"
+   "size": 9393,
+   "sha256": "53bdbf8c94d4135327d15148acb5fe7955cb669013115cc131892caf1064c5d9"
+  },
+  {
+   "path": "source/NativeUi/State/HpMpState.cs",
+   "size": 4859,
+   "sha256": "f3f700f3d3e2b52f4c0a56d94baf4e025f409e07ee91bc0599746d8ed2fcfa13"
   },
   {
    "path": "source/NativeUi/State/MacroState.cs",
-   "size": 11490,
-   "sha256": "18e1377393106e6a667db4bec0663e215d2db6e65011b470b5dc5596d248b69b"
+   "size": 12052,
+   "sha256": "0b5b3d55bc1327acedcb345548f19b063305bedfff8b301c3ecf3eb6df73fa50"
   },
   {
    "path": "source/NativeUi/SurfCatalog.cs",
@@ -766,8 +776,8 @@
   },
   {
    "path": "source/NativeUi/UiClientBridge.cs",
-   "size": 7833,
-   "sha256": "3999a800b11dae175fb8d08606ff6dd27201f479d8f86e6150b30645369f91a0"
+   "size": 7909,
+   "sha256": "f6247aacda02084663072b4cf14daee177eb8d663c862c71e5e65fa7f58e2f2b"
   },
   {
    "path": "source/NativeUi/UiContracts.cs",
@@ -786,8 +796,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 961,
-   "sha256": "b7415874a057eafc85fe31b6a727412a567f938c019ff51ddc39e6a3d3683c42"
+   "size": 1228,
+   "sha256": "77bee130f38163d6eb56caa03f06fadd9b85a5e98a312803c03fdbf604631a07"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
@@ -871,8 +881,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 19577,
-   "sha256": "101c66caa49afd38f8e87ef71d4b91968eb2e806288b32f070a00f6baeb0ef6c"
+   "size": 20493,
+   "sha256": "e82cf8fe2173ffe96af6b55f47e99424976348479f62eaff7233c1227910ad0c"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -1278,6 +1288,16 @@
    "path": "source/StatusIcons.cs",
    "size": 3707,
    "sha256": "fa35e3802da2fe380487c516cefefe2150884f5b56326b73b00dced0a0695107"
+  },
+  {
+   "path": "source/SubEffects.cs",
+   "size": 14314,
+   "sha256": "f304298ca5ecfc60edec6134f86afeda3669b194c7aae27a7233ea4ae19ab55c"
+  },
+  {
+   "path": "source/SubEffectsTests.cs",
+   "size": 8122,
+   "sha256": "2849dede13557f96823af84d771b33b2b205519d6152d84ef64ad22ebc41e983"
   },
   {
    "path": "source/SystemAnnouncements.cs",

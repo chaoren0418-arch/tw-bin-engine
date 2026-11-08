@@ -71,6 +71,14 @@
 - `rebuild.py --build` → **`PASS dev`**，productDll `03f14982…d0c6`。
 - `native-ui-macro` → **PASS 402**（真實客戶端渲染 SKIP）。
 
+### 第三次同步 main（2026-11-09，合併 #465 ui-hpmp）
+- 衝突：`UiPanelRegistry.cs`、`UiClientBridge.cs`、`DemoChecks.csproj`、`Program.cs`（兩邊都保留）、`rebuild-lock.json`（main 版為底，`--update-lock` 重產：283 個來源檔／292 個鎖定檔）。
+- **狀態包裝的串接**：#465 的 `UiHpMpGameState` 與本任務的 `UiMacroGameState` 都是包住 `UiStaticGameState` 的裝飾器，面板都用 `state is I…State` 判斷，直接套兩層會讓其中一方找不到。做法：產品端改為 `WithHpMpState(NativeMacroGameState(…))`（HP/MP 在外，`HpMpPanel` 不用改）；巨集面板改用新加的 `MacroBook.StateOf(state)`，它會沿 `UiHpMpGameState.Base` 往內找 `IUiMacroState`。`MacroChecks` 加 1 項：包在 `UiHpMpGameState` 裡時 F5 仍會觸發。
+- 註冊順序：HP/MP 兩行在前、巨集一行在後（`RIGHT_WINDOW` 仍是最後一個）。
+- `rebuild.py --build` → **`PASS dev`**，productDll `a3adf86c…c735`。
+- `native-ui-macro` → **PASS 403**；`native-ui-hpmp` → **PASS 397**（兩者真實客戶端部分 SKIP，未設 `TW_CLIENT_ROOT`）。
+- 預設全組仍在 `Movement123` 因 worktree 沒有 `engine/assets` 而中止（同前，與本任務無關）。
+
 ## 已驗證／推測／待驗證
 
 **已驗證**（V5 或 XML，加上本輪真實渲染核對）：底框、分頁鈕、選取框、鎖定鈕的 XML 座標；8 格與擴充 12 格的座標與格距；點擊換算公式；F1–F3＝分頁、F5–F12＝目前分頁第 0–7 格、雙擊＝使用；數量文字位置與顏色（黃字、黑影、上限 99999）；擴充巨集位於 BAR_485。

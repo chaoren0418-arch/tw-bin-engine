@@ -65,7 +65,7 @@ public sealed class MacroPanel:IUiPanel {
         Bounds=MacroLayout.Union(FrameRect,lockRect);
     }
 
-    public void Update(IUiGameState state){inWorld=state.InWorld;macro=state as IUiMacroState;}
+    public void Update(IUiGameState state){inWorld=state.InWorld;macro=MacroBook.StateOf(state);}
 
     /// <summary>Top-left of slot k's icon: (iconX + 34·(k%4), iconY + 34·(k/4)).</summary>
     public Point SlotIcon(int k)=>new(iconAt.X+Pitch*(k%Columns),iconAt.Y+Pitch*(k/Columns));

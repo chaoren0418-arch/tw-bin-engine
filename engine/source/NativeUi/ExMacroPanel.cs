@@ -36,7 +36,7 @@ public sealed class ExMacroPanel:IUiPanel {
         Bounds=MacroLayout.Rect(frameAt,frame);
     }
 
-    public void Update(IUiGameState state){inWorld=state.InWorld;macro=state as IUiMacroState;}
+    public void Update(IUiGameState state){inWorld=state.InWorld;macro=MacroBook.StateOf(state);}
 
     public Point SlotIcon(int k)=>new(iconAt.X+MacroPanel.Pitch*(k%MacroPanel.Columns),iconAt.Y+MacroPanel.Pitch*(k/MacroPanel.Columns));
     public Point SlotMark(int k)=>SlotIcon(k)+MarkOffset;
