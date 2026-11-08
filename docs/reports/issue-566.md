@@ -40,6 +40,7 @@
 - **本機原客戶端核對**（設 `TW_MODULE_CLIENT_CHECKS=1`，只跑 `--module ambience-lights`）：50 checks 全部通過。`Source.lmp` 實際讀出 16 槽，尺寸與 AM §3.1 表一致（16×8 到 312×156，第 15 槽 0×0）；配對槽共用偏移；第 14 槽偏移 `0x19680`；第 0 槽不是全黑。CI 不設這個變數，所以 CI 不會讀素材。
 - 既有 `DemoChecks`（含 ambience 群組）：`PASS 9881`。
 - `engine/tools/check-no-game-assets.py`：pass，errors 0。
+- **2026-11-08 與 main 同步**（落後 27 個 commit）：只有 `rebuild-lock.json` 衝突，採 main 版後以 `--update-lock` 重產（`dev-inputs-verified`，249 來源檔）。重建 `PASS dev`，productDll SHA `0ccc5517…367ba`；`--module-tests` 7 組 394 checks 全部通過（`ambience-lights` 47）；DemoChecks `ambience` 群組 `PASS 9881`；`check-no-game-assets.py` pass。
 
 ## 未驗證／未完成
 
