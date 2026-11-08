@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 279,
+ "sourceCount": 280,
  "files": [
   {
    "path": "NuGet.Config",
@@ -198,6 +198,11 @@
    "path": "source/Bookmarks.cs",
    "size": 7395,
    "sha256": "8dac199e29642233c96b7234a24159de3051f1bc54f6248864e900e5384a7e41"
+  },
+  {
+   "path": "source/BreathStatusTests.cs",
+   "size": 4737,
+   "sha256": "321f56f7da45db589d04851fdd46506cda116b03ad4b246bdc42151b32fe1f5b"
   },
   {
    "path": "source/Buddies.cs",
@@ -1301,8 +1306,8 @@
   },
   {
    "path": "source/TimedBuffs.cs",
-   "size": 6628,
-   "sha256": "87530220dde8a82c358d2fc09f819862e9ca6c24a4bc916635c2485ba9346a89"
+   "size": 8113,
+   "sha256": "26122b659dfbba9bd60a959833dc37dd467fb8de34cecc3264b9a628ee429484"
   },
   {
    "path": "source/TitleAndEmote.cs",
