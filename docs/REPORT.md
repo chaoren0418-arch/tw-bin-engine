@@ -197,4 +197,3 @@
 - 2026-11-09 — #567 T242：`]` 子特效與 `{`／`}` 淡入淡出（FX2）（code，claude-local，PR 已合併）→ [報告](reports/issue-567.md)
 - 2026-11-09 — #465 ui-hpmp: 原生 UI 模組：HP／MP 浮動窗與頭上條（code，claude-local，PR #587 已合併）→ [報告](reports/issue-465.md)
 - 2026-11-09 — #466 ui-macro-bar: 原生 UI 模組：巨集框 F5–F12 共 8 格、3 個分頁、鎖定，以及擴充巨集（code，claude-local，PR #588 已合併）→ [報告](reports/issue-466.md)
-- 2026-11-09 — #464 ui-left-status: 原生 UI 模組：左狀態框 LEFT_WINDOW（等級／EXP、AC、MR、陣營、SP、負重、飽食、金幣）（code，claude-local，PR #586 已合併）→ [報告](reports/issue-464.md)
