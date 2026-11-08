@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 273,
+ "sourceCount": 275,
  "files": [
   {
    "path": "NuGet.Config",
@@ -363,6 +363,16 @@
    "path": "source/CombatVisibilityPlan.cs",
    "size": 2604,
    "sha256": "4cb71ff1ef122dec7974554d443f0fae236bef48674979ffd5c0428610e696c1"
+  },
+  {
+   "path": "source/Cooking.cs",
+   "size": 4159,
+   "sha256": "d5c3edd74b9706f6173666f129f71a57cbbfe1a807cc292f25b6f3ac6af4a632"
+  },
+  {
+   "path": "source/CookingTests.cs",
+   "size": 4644,
+   "sha256": "6caab5007559367e181f63f5c87e6965ec296bf454b01cd6bf103b72bfcc360a"
   },
   {
    "path": "source/DevToolsForm.cs",

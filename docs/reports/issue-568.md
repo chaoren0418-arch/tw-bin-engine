@@ -36,6 +36,10 @@
   - `--module-tests`（照 CI 方式）：pass，15 組、775 項，0 失敗；breath-status 25 項全過。
   - DemoChecks：timed-buffs（645）、item-status（409）、afflictions（580）全部 PASS。
   - `check-no-game-assets.py`：pass，0 錯誤（3815 個追蹤檔）。
+- 第六次同步（2026-11-09，main 前進到 #559）：只有 `rebuild-lock.json` 衝突，取 main 版本後 `--update-lock` 重產（275 個來源、284 個鎖定檔）。
+  - `rebuild.py --build`：PASS，product DLL SHA-256 `c7e2a0b78b5bba8a0e3e7715160fc2e0bcb4c64385f7a633a26b9b7b1c3afe0d`。
+  - `--module-tests`（照 CI 方式）：pass，16 組、807 項，0 失敗；breath-status 25 項全過。
+  - `check-no-game-assets.py`：pass，0 錯誤（3816 個追蹤檔）。
 
 ## 未驗證什麼
 - DemoChecks 不帶群組的預設入口在這個 worktree 跑不起來：沒有 `engine/assets` junction，讀 `terrain0.bin` 失敗。這是環境限制，和本次改動無關，CI 也不跑這個入口。
