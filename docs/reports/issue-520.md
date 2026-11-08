@@ -26,6 +26,7 @@
 - 建置：合併 `origin/main`（`8f83f4d`）後 `rebuild.py --update-lock`、`rebuild.py --build` → `PASS dev`。worktree 沒有 `engine/vendor`，建置期間暫時以 junction 唯讀指向原專案 vendor，結束後已用 `cmd /c rmdir` 拆除。
 - 本組離線測試 `DemoChecks … ghost-limits` → PASS（新增 35 項）：幽靈中 M／U／G 不送封包、HUD 顯示原因、清掉按住的鍵；Web 攻擊幽靈中不送且同步返回；非幽靈不受限；原服 S87 清 `0x80` 後立即解除、重新進入再套用、取消連線後解除；HUD 快照幽靈時 `Busy`、非幽靈／無資料／stamp 過期時原樣返回；`GhostModeHud` 無狀態、`ExitGhostFromHud` 已移除；真的 `PlayerHudView.ActivateSlot` 在幽靈快照下不觸發、不忙時會觸發（對照）；自身外觀略過判斷只對幽靈中的自己成立。
 - 既有測試：`ghost-mode` 721、`map-continuity` 33018、`combat-admission`、`item-status`、`afflictions`、`resurrection`、`polymorph-cadence`、`buddies`、`item-transfer`、`doors`、`pickup`、`hypertext` 全綠；`--module-tests` pass（1 組 39 項）；`check-no-game-assets.py` pass（errors 0）。
+- 再次同步（2026-11-08，PR #564 與 main 衝突）：合併 `origin/main`（`57d3643`），`demo-tests/Program.cs` 衝突為兩邊各加一個呼叫（main 的 `BackgroundMusicChecks()`、本張的 `GhostLimitsChecks()`），兩者都保留；`rebuild-lock.json` 以 `--update-lock` 重產。`rebuild.py --build` → `PASS dev`（product DLL `48ed92d4…49e2`）。重跑 `ghost-limits`、`ghost-mode` 721、`map-continuity` 33161 及 CI 上其餘 10 組全綠；`check-no-game-assets.py` pass。
 - 途中發現：新測試裡原本的 `await Task.Yield()` 在 `map-continuity` 中會卡住（前面的測試建立 WinForms 控制項後，執行緒有 `WindowsFormsSynchronizationContext`，續行排進沒人處理的訊息迴圈）。已拿掉，並改為斷言幽靈路徑同步完成。拿掉新呼叫的基準版同時確認通過（32983 項）。
 
 ## 沒驗證什麼
