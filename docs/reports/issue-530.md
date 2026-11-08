@@ -55,6 +55,7 @@
 - `P11.ClientEngine.exe --module-tests` → `pass`，20 組、982 項，失敗 0；其中 pet-target 36、summon-request 17、summon-panel 56。
 - DemoChecks：pets `PASS 327`、native-ui-canvas `PASS 429`、native-ui-resources `PASS 539`、player-query（含 hypertext）`PASS 1058`。
 - `engine/tools/check-no-game-assets.py` → `pass`，errors 0。
+- **再同步（2026-11-09，main 合入 #465 HpMp）**：`UiPanelRegistry.cs` 衝突照註解規則兩邊的行都保留（SummonPanel＋HpMp）；`rebuild-lock.json` 取 main 版後以 `--update-lock` 重產（284 個來源檔）。重驗：`--build` `PASS dev`（productDll `1fe679af…24193e`）；`--module-tests` `pass`，21 組、1019 項、失敗 0（pet-target 36、summon-request 17、summon-panel 56）；native-ui-canvas `PASS 429`；`check-no-game-assets.py` `pass`。
 - 真實客戶端渲染（唯讀 `D:\lineage開發\0-客戶端`，PNG 只放在 `scratch/issue-530/`，沒有進 git）：
   - 所有 surf 都解得到，summonList 共 31 隻；等級 28 的第一隻 action 是 `7`，與伺服器 `summonstr_list` 一致。
   - 元件矩形：視窗 239×364，位於 (0,0)。關閉鈕 (225,15)，確定 (60,340)，取消 (127,340)。快速格 (25,67)、(85,67)、(145,67)，每格 60×80。等級鈕從 (25,169) 開始，每顆 86×21，兩欄分別在 x=25、x=119。怪物格從 (25,166) 開始，每格 60×80。

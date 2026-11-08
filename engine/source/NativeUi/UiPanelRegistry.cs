@@ -11,5 +11,6 @@ public static class UiPanelRegistry {
     public static IReadOnlyList<UiPanelRegistration> Panels{get;}=[
         // new("LEFT_WINDOW","uistatus86",root=>new LeftStatusPanel()),   ← example (ui-left-status)
         new(SummonPanel.PanelId,SummonPanel.LayoutName,root=>new SummonPanel(root.Resources)),   // ui-summon (M7-W, #530)
+        new(HpMpPanel.PanelId,"uistatus86",root=>new HpMpPanel()),new(HpMpHeadBarPanel.PanelId,"uistatus86",root=>new HpMpHeadBarPanel(()=>(root.Find(HpMpPanel.PanelId) as HpMpPanel)?.Settings??HpMpSettings.Default)),   // ui-hpmp #465 (no XML: V1 hard-coded layout)
     ];
 }
