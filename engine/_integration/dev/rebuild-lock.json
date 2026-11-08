@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 287,
+ "sourceCount": 290,
  "files": [
   {
    "path": "NuGet.Config",
@@ -755,6 +755,11 @@
    "sha256": "066dee37431d7c844ce11944871c1ce0d6fadf0d681dd2a0d334088ebbf2016d"
   },
   {
+   "path": "source/NativeUi/ItemWindowPanel.cs",
+   "size": 28303,
+   "sha256": "4b8e7dc21f8d517b30091415435f691dabbb545e2e618410330078c711339aec"
+  },
+  {
    "path": "source/NativeUi/LeftStatusPanel.cs",
    "size": 7005,
    "sha256": "a70286f5f1bd69a2783479096cc1f359e387d10af665ee2a18b571a9f1866a24"
@@ -763,6 +768,11 @@
    "path": "source/NativeUi/MacroPanel.cs",
    "size": 9393,
    "sha256": "53bdbf8c94d4135327d15148acb5fe7955cb669013115cc131892caf1064c5d9"
+  },
+  {
+   "path": "source/NativeUi/SpellWindowPanel.cs",
+   "size": 12652,
+   "sha256": "867e776f33f88931b8c7be2751def31694158b795def613bcdee4c96362d6eed"
   },
   {
    "path": "source/NativeUi/State/ChatState.cs",
@@ -848,6 +858,11 @@
    "path": "source/NativeUi/UiXmlSource.cs",
    "size": 5645,
    "sha256": "bfd5906ff7bdcb80a46eb73e9939a4c5c2016337123cfb8d603e59226e3593bd"
+  },
+  {
+   "path": "source/NativeUi/WarehouseWindowPanel.cs",
+   "size": 20369,
+   "sha256": "bd0d29f590a73840f42be3aaebfba79e3bd1854b89d615389f0a37f9d7b0812b"
   },
   {
    "path": "source/Network.cs",
