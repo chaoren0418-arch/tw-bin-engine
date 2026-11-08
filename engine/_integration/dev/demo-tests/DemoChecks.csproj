@@ -47,6 +47,7 @@
     <Compile Include="../native-ui-tests/LeftStatusChecks.cs" Link="LeftStatusChecks.cs" />
     <Compile Include="../native-ui-tests/MacroChecks.cs" Link="MacroChecks.cs" />
     <Compile Include="../native-ui-tests/HpMpChecks.cs" Link="HpMpChecks.cs" />
+    <Compile Include="../native-ui-tests/MenuButtonsChecks.cs" Link="MenuButtonsChecks.cs" />
     <Reference Include="P11.ClientEngine"><HintPath>../../../build/client-product-dev/P11.ClientEngine.dll</HintPath></Reference>
     <Reference Include="P24.Audio"><HintPath>../../../build/client-product-dev/P24.Audio.dll</HintPath></Reference>
   </ItemGroup>
