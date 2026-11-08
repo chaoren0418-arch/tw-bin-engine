@@ -27,7 +27,7 @@
 
 | 項目 | 結果 |
 |---|---|
-| `rebuild.py --update-lock` 後 `engine/build-product.ps1` | PASS dev，product DLL SHA-256 `49124c23013381af1205d122f47145ca3ab4f2ab1718e16dce036781327932b0` |
+| `rebuild.py --update-lock` 後 `engine/build-product.ps1` | PASS dev（已同步 origin/main `55cb231c`），product DLL SHA-256 `478853a9c491e4d0cdba42ab7b6c6f269131a410b64632733bd33cbb6dc2e9d5` |
 | `P11.ClientEngine.exe --module-tests`（CI 同指令） | pass，5 組 0 失敗、261 斷言；其中 `server-features` 44 斷言、`world-extensions` 預設登錄表無錯誤 |
 | `login-tests`（LoginChecks） | pass，396,589 斷言 |
 | `character-management-tests` | pass，218 斷言 |
