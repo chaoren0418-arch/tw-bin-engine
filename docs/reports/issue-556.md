@@ -71,6 +71,11 @@
 - DemoChecks `hypertext` PASS 357、`player-query` PASS 1058、`polymorph` PASS 327。
 - `check-no-game-assets.py`：pass，errors 0。
 
+**第三次同步 origin/main 後重驗（2026-11-09）**：main 合入 #513／#514／#515／#516（AmountPrompt、ClanMatching、SpellExchange、YesNoPrompt 等），只有 `rebuild-lock.json` 衝突，改取 main 版本後以 `--update-lock` 重產（268 個來源／277 個鎖定檔）。
+- 建置 `PASS dev`，product DLL `4bb1bac8…ec0d36`。
+- `--module-tests`：pass，11 組、599 項，0 失敗（`npc-server-page` 28 項）。
+- `check-no-game-assets.py`：pass，errors 0。
+
 - worktree 沒有 `engine/vendor`，本機離線 NuGet 設定無法 restore，所以建置改用 CI 的 `.github/nuget.ci.config`。
 - DemoChecks `world` 讀 `engine/assets/terrain0.bin`，worktree 沒有 assets junction，所以失敗。這與本改動無關，CI 也不跑這組。
 - CI：PR 開出後由 GitHub Actions 驗證。
