@@ -18,11 +18,11 @@
 - `engine/_integration/dev/rebuild-lock.json`：用 `rebuild.py --update-lock` 重產，沒有手動改 hash。
 
 ## 怎麼驗證（本機，2026-11-08）
-- `rebuild.py --update-lock` → `dev-inputs-verified`（合併 origin/main 後 241 個來源檔）。`engine/build-product.ps1` → `PASS dev`，product DLL SHA-256 `9423d2d7e87bf7eda95c20563f10de99a6329590d2125802560a134a82707c8b（合併 origin/main 後）`。
+- `rebuild.py --update-lock` → `dev-inputs-verified`（第二次合併 origin/main〔含 #531〕後 242 個來源檔）。`rebuild.py --build` → `PASS dev`，product DLL SHA-256 `a36d9d97315f1e8b5d967c2af4eb1b6639e849087ca37cc689f8e3d95341cf37`。
 - `dotnet build --no-incremental`：新檔沒有警告。原本有 CS0114（`Refresh` 蓋掉 `Control.Refresh`），已改名修掉；剩下的只有既有的 `MagicUi.cs` 警告。
-- `P11.ClientEngine.exe --module-tests` → `pass`：agit 44、castle 62、spell-exchange 54、world-extensions 39（其中「default registry valid」也通過）。
+- `P11.ClientEngine.exe --module-tests` → `pass`（5 組、271 項）：agit 44、castle 62、recovery-death 72、spell-exchange 54、world-extensions 39（其中「default registry valid」也通過）。
 - 既有 CI 離線測試退出碼全部是 0：DemoChecks 的 map-continuity、combat-admission、item-status、afflictions、resurrection、polymorph-cadence、buddies、item-transfer、doors、pickup、hypertext，以及 PlayerChatChecks。
-- `check-no-game-assets.py` → `pass`（3757 個追蹤檔，0 錯誤）。
+- `check-no-game-assets.py` → `pass`（3761 個追蹤檔，0 錯誤）。第二次同步後另跑 DemoChecks map-continuity → `PASS 33019`。
 - 建置前置：worktree 用 junction 指到主專案的 `engine/vendor`（唯讀，已被 gitignore，沒有 commit）。
 - CI 結果以 PR 為準。
 
