@@ -22,7 +22,7 @@
 | 部分 | 引擎有處理，但 reference 文件已查出表現差異，或只做了協定、沒有原版視窗 |
 | 缺 | 引擎沒有對應的處理。依據欄註明「伺服器不支援」的，是 3.81 伺服器沒有對應封包（依 SP 全表），**不建議補** |
 
-**依據代號**：沿用 [`m6-native-diff.md`](m6-native-diff.md) 的代號：AN＝[`actions-and-names.md`](actions-and-names.md)、UI＝[`ui-layout.md`](ui-layout.md)、AM＝[`ambience-and-map-events.md`](ambience-and-map-events.md)、SD＝[`sound.md`](sound.md)、SV＝[`skills-visual.md`](skills-visual.md)、WIN＝[`windows.md`](windows.md)、REA＝[`rea-inventory.md`](rea-inventory.md)、SP＝[`server-protocol.md`](server-protocol.md)、R＝[`server-rules.md`](server-rules.md)。另加 WO＝[`world-objects.md`](world-objects.md)、M6＝[`m6-native-diff.md`](m6-native-diff.md)。「T1xx 審查中」是 `TASKS.md` 已排定、尚未合併的任務。
+**依據代號**：沿用 [`m6-native-diff.md`](m6-native-diff.md) 的代號：AN＝[`actions-and-names.md`](actions-and-names.md)、UI＝[`ui-layout.md`](ui-layout.md)、AM＝[`ambience-and-map-events.md`](ambience-and-map-events.md)、SD＝[`sound.md`](sound.md)、SV＝[`skills-visual.md`](skills-visual.md)、WIN＝[`windows.md`](windows.md)、REA＝[`rea-inventory.md`](rea-inventory.md)、SP＝[`server-protocol.md`](server-protocol.md)、R＝[`server-rules.md`](server-rules.md)。另加 WO＝[`world-objects.md`](world-objects.md)、M6＝[`m6-native-diff.md`](m6-native-diff.md)、PG＝[`protocol-gaps.md`](protocol-gaps.md)（T225）。「T1xx 審查中」是 `TASKS.md` 已排定、尚未合併的任務。
 
 ## 1. 收包：第一組 dispatch（世界中，`sub_947530`）
 
@@ -51,7 +51,7 @@
 | 82 | S_REMOVE_SPELL | `sub_9494D0`／`0x5488D0` | 移除魔法 | S160 DelSkill | `Magic.cs`、`TimedBuffs.cs` | 已有 | SP S160 |
 | 211 | S_MOVE_OBJECT | `sub_945770`／`0x544B70` | 物件移動 | S10 MoveObject | `WorldObjects.cs` | 已有 | SP S10 |
 | 153 | S_MESSAGE | `sub_944F50`／`0x544350` | 系統文字訊息 | S243 GlobalChat／SystemMessage | `PlayerChat.cs`、`Inventory.cs` | 部分 | UI§3 顏色與前綴（T175） |
-| 102 | S_MESSAGE_CODE | `sub_942B40`／`0x541F40` | 訊息代碼（字串表 + 參數） | S71 ServerMessage | `ServerMessageText.cs`、`ServerStatusMessages.cs`、各模組 | 部分 | 引擎只認個別 id；原版字串表取文字的路徑未查（WO 第 7 節） |
+| 102 | S_MESSAGE_CODE | `sub_942B40`／`0x541F40` | 訊息代碼（字串表 + 參數） | S71 ServerMessage | `ServerMessageText.cs`、`ServerStatusMessages.cs`、各模組 | 部分 | PG§3：原版查 `Text.pak` 的 `string-c.tbl`（本機 3484 筆），id ≥ 筆數整包丟棄；引擎只硬寫 4 個 id → PG 任務 A 載入整張表 |
 | 193 | S_WIELD | `sub_94FE30`／`0x54F230` | 換武器／外觀姿勢 | S119 CharVisualUpdate | `Equipment.cs`、`Fishing.cs` | 已有 | SP S119；`sub_94FE30` 見 AN（t160_opmap） |
 | 226 | S_ACTION | `sub_92CB70`／`0x52BF70` | 播放動作 | S158 DoActionGFX | `WorldObjects.cs`、`ObjectRendering.cs` | 部分 | REA（opcode226→`0x92CB70`）；缺圖退回見 AN§3.4（T170） |
 | 156 | S_TIME | `sub_94DA90`／`0x54CE90` | 遊戲時間 | S123 GameTime | `WorldSession.cs`、`Ambience.cs` | 部分 | AM§1：本地 6 倍速推進，原版只在收包時重算（T177） |
@@ -116,25 +116,25 @@
 | 152 | S_BOARD_LIST | `sub_931C50`／`0x531050` | 公告板清單 | S68 Board | `Board.cs`、`BoardUi.cs` | 部分 | WIN§2 T130：`BoardListWindow` |
 | 248 | S_BOARD_READ | `sub_931CA0`／`0x5310A0` | 公告板內文 | S148 BoardRead | `Board.cs`、`BoardUi.cs` | 部分 | WIN§2 T130：`BoardReadWindow` |
 | 92 | S_EMOTION | `sub_935260`／`0x534660` | 表情動作 | S158 DoActionGFX（表情 action） | `TitleAndEmote.cs` | 部分 | AN§1（T169 審查中） |
-| 189 | S_BLINK | `sub_931B90`／`0x530F90` | 畫面閃爍／瞬移 | 不明 | （無） | 缺 | 需先查證（`sub_931B90`） |
+| 189 | S_BLINK | `sub_931B90`／`0x530F90` | 傳送開始（回 C_BLINK 確認） | S149 Teleport（推定） | `Teleport.cs` | 部分 | PG§5：不讀欄位，回 C_BLINK（＝C52）；原版在移動中延後到該步結束才回，引擎立即回 |
 | 89 | S_RESTART | `sub_981490`／`0x580890` | 重新開始 | C177 後的回包序列 | `Recovery.cs` | 部分 | WO 第 6 節：`UserPlayStatsUI` 死亡窗與逾時 |
 | 245 | S_KICK | `sub_940960`／`0x53FD60` | 踢出 | S227 Disconnect | `WorldSession.cs` | 部分 | 引擎丟例外顯示錯誤；原版提示窗未查證 |
-| 250 | S_HIT_RATIO | `sub_93FAD0`／`0x53EED0` | 命中率 | 不明（3.81 無） | （無） | 缺 | 需先查證（`sub_93FAD0`） |
+| 250 | S_HIT_RATIO | `sub_93FAD0`／`0x53EED0` | 頭上 HP／MP 比例條 | S237 HpMeter（推定） | `Combat.cs`、`WorldSession.cs` | 已有 | PG§5：`d c c`（物件、HP 比、MP 比）；3.81 只送 HP 比 |
 | 110 | S_PLEDGE | `sub_946770`／`0x545B70` | 血盟資訊 | S72 ClanUpdate／S250 Pledge | `Clan.cs`、`ClanUi.cs` | 部分 | 原版 `PledgeUI`（XML 本機有 `PledgeUI.xml`，版面未解讀） |
 | 24 | S_CRIMINAL | `sub_933D90`／`0x533190` | 犯罪者（粉紅名） | S60 PinkName | `DisplayNotices.cs`、`ObjectRendering.cs` | 部分 | AN§2.5（T168） |
 | 4 | S_MAGE_STRENGTH | `sub_940E70`／`0x540270` | 力量提升 | S166 Strup | `TimedBuffs.cs` | 已有 | SP S166；圖示另見 T199 |
 | 196 | S_MAGE_DEXTERITY | `sub_940C80`／`0x540080` | 敏捷提升 | S188 Dexup | `TimedBuffs.cs` | 已有 | SP S188 |
 | 69 | S_MAGE_SHIELD | `sub_940D80`／`0x540180` | 魔法盾 | S216 SkillIconShield | `MagicStatus.cs` | 已有 | SP S216 |
-| 132 | S_SHOW_MAP | `sub_94BFC0`／`0x54B3C0` | 顯示地圖（藏寶圖等） | 不明（3.81 S187 HouseMap 可能相近） | （無） | 缺 | 需先查證（`sub_94BFC0`） |
+| 132 | S_SHOW_MAP | `sub_94BFC0`／`0x54B3C0` | 以背包物品開地圖視窗 | S187 HouseMap（推定） | （無） | 缺 | PG§5：`d c`（物品 objid、頁）；PG 任務 D（低，需原生 UI） |
 | 225 | S_WANTED_LOGIN | `sub_94F100`／`0x54E500` | 通緝登入通知 | 無 | （無） | 缺 | 伺服器不支援 |
 | 0 | S_AGIT_LIST | `sub_92E550`／`0x52D950` | 盟屋清單 | S156 HouseList（AuctionBoard） | （無） | 缺 | SP S156 |
 | 18 | S_AGIT_MAP | `sub_92E710`／`0x52DB10` | 盟屋地圖 | S187 HouseMap | （無） | 缺 | SP S187 |
 | 45 | S_WARNING_CODE | `sub_94FB00`／`0x54EF00` | 紅字警告 | S105 BlueMessage | `DisplayNotices.cs` | 部分 | UI§2 V2（T200） |
 | 17 | S_BREATH | `sub_931F60`／`0x531360` | 水中呼吸 | S250 WaterLife | `TimedBuffs.cs`、`WorldSession.cs` | 部分 | M6 T153：水中呼吸表現未查證 |
 | 198 | S_PING | `sub_9465A0`／`0x5459A0` | Ping | 無（C95 KeepAlive 無回包） | `WorldEntry.cs` | 已有 | SP C95；原版回應方式未查 |
-| 172 | S_CLONE | `sub_933640`／`0x532A40` | 分身／外觀複製 | 不明 | （無） | 缺 | 需先查證（`sub_933640` 寫稱號／正義值／gfx，t160_opmap） |
+| 172 | S_CLONE | `sub_933640`／`0x532A40` | 分身／外觀複製 | S76 Poly 的 `S_ChangeShape(pc,npc,poly)` 型（推定） | `Polymorph.cs` | 已有 | PG§5：`ddhhcs`，交給變身函式；引擎兩種 S76 都解析 |
 | 228 | S_COMMAND_TARGET | `sub_933760`／`0x532B60` | 指令目標（寵物攻擊目標） | S236 SelectTarget | （無） | 缺 | SP S236；引擎無接收 |
-| 108 | S_EVENT | `sub_9357E0`／`0x534BE0` | 活動事件 | 不明 | （無） | 缺 | 需先查證（`sub_9357E0`，兩組都有） |
+| 108 | S_EVENT | `sub_9357E0`／`0x534BE0` | PACKETBOX 子碼（158 個 case） | S250 PACKETBOX | `Party.cs`、`Duel.cs`、`MagicStatus.cs`、`LocationShare.cs`、`CharacterConfig.cs`、`Buddies.cs`、`Clan.cs`、`BasicSupplies.cs`、`CharacterManagement.cs` | 部分 | PG§2.2：子碼與 3.81 `S_PacketBox` 一致；伺服器會送 62 個，引擎處理其中 23 個，缺 39 個（PG§2.3 B1–B3） |
 | 216 | S_ADD_INVENTORY_BATCH | `sub_92D360`／`0x52C760` | 背包整批 | S5 InvList | `Inventory.cs` | 已有 | SP S5 |
 | 238 | S_BOOK_LIST | `sub_931CC0`／`0x5310C0` | 書籤清單 | S64 BookmarkList | `Bookmarks.cs` | 部分 | T124 審查中；UI 見 T198 |
 | 29 | S_PERSONAL_SHOP_LIST | `sub_9464D0`／`0x5458D0` | 個人商店清單 | S140 PrivateShop | `PrivateShop.cs`、`PrivateShopUi.cs` | 部分 | WIN§2 T102（模式 13／14） |
@@ -143,7 +143,7 @@
 | 43 | S_VOICE_CHAT | `sub_94E0E0`／`0x54D4E0` | 能力值重置（名稱表為 VOICE_CHAT） | S64 CharReset 子類 1–3 | `CharReset.cs`、`CharResetUi.cs` | 部分 | WIN§2 T142：`sub_94E0E0` 開 `CResetStatUI` |
 | 133 | S_MATCH_MAKING | `sub_B243A0`／`0x7237A0` | 血盟推薦 | S0 PledgeRecommend | （無） | 缺 | SP S0；引擎無接收 |
 | 78 | S_PLEDGE_WATCH | `sub_B2E1D0`／`0x72D5D0` | 血盟注意（關注） | S200 ClanAttention | `Clan.cs` | 部分 | 協定已有；`sub_B2E1D0` 的 UI 未查 |
-| 19、39、109 | S_EXTENDED_PROTOBUF／S_EXTENDED_HYBRID／S_EXTENDED | `sub_926BF0`／`0x525FF0`；protobuf `sub_E428F0`、`sub_E42A50` | 擴充封包（子碼） | S250 PACKETBOX（大量子碼） | `Party.cs`、`Duel.cs`、`MagicStatus.cs`、`LocationShare.cs`、`CharacterConfig.cs`、`Buddies.cs`、`Clan.cs`、`BasicSupplies.cs` | 部分 | 引擎只處理部分子碼；TW16 子碼表未列（需先查證） |
+| 19、39、109 | S_EXTENDED_PROTOBUF／S_EXTENDED_HYBRID／S_EXTENDED | `sub_926BF0`／`0x525FF0`；protobuf `sub_E428F0`、`sub_E42A50` | protobuf 擴充封包（H message id，125 個） | 無（S250 的對應是 op 108） | （無） | 缺 | PG§2.1：商城、製作、競技場、攻城、通知等新系統；伺服器不支援，不建議補 |
 
 ## 2. 收包：第二組（登入期）與第三組
 
@@ -152,10 +152,10 @@
 | TW16 op | 名稱 | 處理函式 VA／FO | 功能 | 3.81 對應 | 引擎對應檔案 | 狀態 | 依據 |
 |---|---|---|---|---|---|---|---|
 | 231 | S_KEY | `sub_940750`／`0x53FB50` | 連線金鑰（首包） | S150 INITPACKET | `LoginConnection.cs`、`Network.cs` | 已有 | SP〈查表方式〉首包 18-byte |
-| 107 | S_VERSION_CHECK | `sub_94DBB0`／`0x54CFB0` | 版本檢查回應 | S139 ServerVersion（回 C14） | （無） | 缺 | 引擎直接送登入包，不送 C14、不收 S139；伺服器是否要求，需先查證 |
+| 107 | S_VERSION_CHECK | `sub_94DBB0`／`0x54CFB0` | 版本檢查回應 | S139 ServerVersion（回 C14） | （無） | 缺 | PG§4：3.81 不要求 C14（屬 TRANSPORT），引擎不送也能登入；不建議為登入補，選做 PG 任務 E（語系與功能旗標） |
 | 81 | S_LOGIN_CHECK | `sub_EC9D90`／`0xAC9190` | 登入結果 | S233 LoginResult | `LoginConnection.cs`、`LoginProtocol.cs` | 已有 | R03（T111） |
 | 179 | S_NEWS | `sub_ECAA10`／`0xAC9E10` | 登入公告 | S48 CommonNews | `LoginConnection.cs` | 部分 | 引擎收下後自動回 C16，不顯示；原版 `CNoticeWindow`（RTTI `0x1372600`）版面未查 |
-| 212 | S_NOTICE | `sub_ECABC0`／`0xAC9FC0` | 登入通知 | 無獨立封包（推定併入 S48） | （無） | 缺 | 需先查證 |
+| 212 | S_NOTICE | `sub_ECABC0`／`0xAC9FC0` | 登入期字串表彈窗 | 無（3.81 用 S233 reason 與 S48） | （無） | 缺 | PG§5：讀 `h` 字串 id 開模態框；伺服器不支援，不建議補 |
 | 190 | S_NUM_CHARACTER | `sub_9459C0`／`0x544DC0` | 角色數量 | S178 CharAmount | `LoginConnection.cs`、`CharacterManagement.cs` | 已有 | R03–R06 |
 | 31、204 | S_CHARACTER_INFO／S_NEW_CHAR_INFO | `sub_933040`／`0x532440` | 角色清單、新角色 | S93 CharPacks／S127 NewCharPack | `LoginConnection.cs`、`CharacterManagement.cs` | 已有 | R03–R06（T107） |
 | 42、67、83、215 | S_CHANGE_PASSWORD_CHECK、S_CHANGE_ACCOUNTINFO_CHECK、S_NEW_ACCOUNT_CHECK、S_CREATE_CHARACTER_CHECK | `sub_ECB0F0`／`0xACA4F0` | 建角結果（另三種是帳號操作） | S98 NewCharWrong（只對建角） | `CharacterManagement.cs` | 部分 | 建角結果已有（T107）；改密碼、改帳號、新帳號在 3.81 無啟用分派，伺服器不支援 |
@@ -173,11 +173,11 @@
 | TW16 送包（op） | 功能 | 3.81 C 對應 | 引擎對應檔案 | 狀態 | 依據 |
 |---|---|---|---|---|---|
 | C_LOGIN(85)、C_LOGIN_TEST(72)、C_LOGIN_RESULT(18)、C_ENTER_WORLD(168)、C_CLIENT_READY(202)、C_READ_NEWS(110)、C_READ_NOTICE(27) | 登入、選角進入、公告確認 | C119、C137、C26、C16 | `LoginConnection.cs`、`LoginProtocol.cs`、`WorldSession.cs` | 已有 | R03；引擎未送 C26 與 C_LOGIN_TEST，是否必要未查 |
-| C_VERSION(122) | 版本 | C14 | （無） | 缺 | 與第 2 節 S139 同一項，需先查證 |
+| C_VERSION(122) | 版本 | C14 | （無） | 缺 | PG§4：S_KEY 後送 `H D C D D C`；3.81 不要求，不建議為登入補（選做 PG 任務 E） |
 | C_CREATE_CUSTOM_CHARACTER(35)、C_DELETE_CHARACTER(81)、C_RESTART(194) | 建角、刪角、切角 | C84、C162、C7 | `CharacterManagement.cs` | 已有 | R04–R06（T107） |
 | C_NEW_ACCOUNT(52)、C_CHANGE_PASSWORD(19)、C_CHANGE_ACCOUNTINFO(104)、C_SERVER_SELECT(3)、C_SHIFT_SERVER(29)、C_REQUEST_ROLL(236) | 帳號、伺服器、擲骰 | 無啟用分派 | （無） | 缺 | 伺服器不支援 |
 | C_MOVE(175)、C_CHANGE_DIRECTION(79) | 移動、轉向 | C29、C225 | `OnlineMovement.cs` | 已有 | R08 |
-| C_ATTACK(43)、C_ALT_ATTACK(96)、C_ATTACK_CONTINUE(130)、C_FAR_ATTACK(4) | 近戰、遠程攻擊 | C229、C123 | `Combat.cs`、`RangedIntegration.cs` | 部分 | ALT_ATTACK／ATTACK_CONTINUE（連續攻擊）的原版語義未查證，引擎只送 C229／C123 |
+| C_ATTACK(43)、C_ALT_ATTACK(96)、C_ATTACK_CONTINUE(130)、C_FAR_ATTACK(4) | 近戰、遠程攻擊 | C229、C123 | `Combat.cs`、`RangedIntegration.cs` | 部分 | PG§6：C_ALT_ATTACK 在 847 個送出點都沒有（推定未使用）；C_ATTACK_CONTINUE 是伺服器端連續攻擊，受旗標 0x800000 控制，3.81 旗標未開，不補 |
 | C_USE_SPELL(216)、C_START_CASTING(144) | 施法 | C6 | `MagicIntegration.cs`、`Magic.cs` | 部分 | SV§1：送出時不該本地播動作（G12） |
 | C_SAY(16)、C_CHAT(170)、C_TELL(67)、C_CHAT_PARTY_CONTROL(120) | 聊天、密語、隊伍聊天 | C136、C40、C184、C199 | `PlayerChat.cs` | 部分 | UI§3（T175）；C199 引擎未送 |
 | C_CHANNEL(55) | 發送座標 | C254 SENDLOCATION | `LocationShare.cs` | 部分 | WO 第 5 節：地區 id、入口不同 |
@@ -203,8 +203,8 @@
 | C_MARRIAGE(21) | 求婚 | C50 | `Marriage.cs` | 部分 | WIN§2 T141 ❌ |
 | C_ADD_BUDDY(138)、C_REMOVE_BUDDY(124)、C_QUERY_BUDDY(56)、C_EXCLUDE(7)、C_INCLUDE(217) | 好友、封鎖 | C207、C202、C4、C171 | `Buddies.cs`、`BuddyUi.cs` | 部分 | WIN§1.2；信件封鎖缺 |
 | C_WHO(174)、C_CHECK_PK(9) | 查詢玩家、PK 查詢 | C206、C51 | `PlayerQuery.cs`、`WeaponRepair.cs` | 部分 | WIN§2 T140、T134 |
-| C_BOOKMARK(84)、C_DELETE_BOOKMARK(106)、C_BOOK(126) | 書籤 | C165、C3 | `Bookmarks.cs` | 部分 | T124 審查中；C_BOOK 對應未查 |
-| C_TELEPORT(226)、C_TELEPORT_USER(31)、C_GOTO_PORTAL(200)、C_ENTER_PORTAL(101)、C_GOTO_MAP(60) | 傳送、傳送門 | C52、C219 | `Teleport.cs`、`Portals.cs` | 部分 | R33–R36；C_TELEPORT_USER／C_GOTO_MAP 對應未查 |
+| C_BOOKMARK(84)、C_DELETE_BOOKMARK(106)、C_BOOK(126) | 書籤 | C165、C3 | `Bookmarks.cs` | 部分 | T124 審查中；C_BOOK 在 847 個送出點都沒有（PG§6，仍待驗證） |
+| C_TELEPORT(226)、C_TELEPORT_USER(31)、C_GOTO_PORTAL(200)、C_ENTER_PORTAL(101)、C_GOTO_MAP(60) | 傳送、傳送門、下船 | C52、C219、C231 | `Teleport.cs`、`Portals.cs`、`ShipTravel.cs` | 部分 | R33–R36；PG§6：C_TELEPORT_USER 是 GM 傳送清單（不補）；C_GOTO_MAP＝C231 下船 `H H H`（已有） |
 | C_ENTER_SHIP(185) | 搭船 | C231 | `ShipTravel.cs` | 已有 | SP C231 |
 | C_DEAD_RESTART(58)、C_QUIT(68)、C_LOGOUT(235) | 死亡重新開始、離開 | C177、C122 | `Recovery.cs` | 部分 | WO 第 6 節：死亡窗、約 8 分 21 秒逾時 `C_QUIT` |
 | C_EXIT_GHOST(179) | 離開幽靈 | C173 | `GhostMode.cs` | 部分 | WO 第 4 節 |
@@ -213,14 +213,16 @@
 | C_SLAVE_CONTROL(45)、C_RETURN_SUMMON(147)、C_NPC_ITEM_CONTROL(37)、C_SUMMON(164) | 寵物指令、解散、寵物道具、召喚選擇 | C103、C104、C125（summonlist 動作） | `Pets.cs`、`PetUi.cs` | 部分 | WIN§1.3：沒有召喚選擇窗 |
 | C_BOARD_LIST(6)、C_BOARD_READ(93)、C_BOARD_WRITE(91)、C_BOARD_DELETE(222) | 公告板 | C10、C23、C114、C141、C153 | `Board.cs`、`BoardUi.cs` | 部分 | WIN§2 T130 |
 | C_MAIL(95) | 信件 | C87 | `Mail.cs`、`MailUi.cs` | 部分 | WIN§2 T131 ❓ |
-| C_SAVEIO(128)、C_SAVE(150) | 角色設定存取 | C244 | `CharacterConfig.cs` | 部分 | UI#5（T176）；C_SAVE 對應未查 |
+| C_SAVEIO(128)、C_SAVE(150) | 角色設定存取 | C244 | `CharacterConfig.cs` | 部分 | UI#5（T176）；C_SAVE 在 847 個送出點都沒有（PG§6，仍待驗證） |
 | C_VOICE_CHAT(232) | 能力值重置（名稱表為 VOICE_CHAT，推定） | C98 | `CharReset.cs` | 部分 | WIN§2 T142 |
 | C_ALIVE(176) | 保持連線 | C95 | `WorldEntry.cs` | 已有 | SP C95 |
 | C_TAX(41)、C_DEPOSIT(36)、C_WITHDRAW(59)、C_CHANGE_CASTLE_SECURITY(63)、C_QUERY_CASTLE_SECURITY(171) | 城堡稅率、金庫、治安 | C19、C56、C44（治安 C128 無啟用分派） | （無） | 缺 | 見第 1 節 op 95／49／12 |
 | C_SELECTABLE_TIME(167)、C_SELECT_TIME(109) | 攻城時間 | 無啟用分派 | （無） | 缺 | 伺服器不支援 |
 | C_MERCENARYSELECT(14)、C_MERCENARYNAME(148)、C_MERCENARYARRANGE(169)、C_ARCHERARRANGE(190)、C_MERCENARYEMPLOY(253) | 傭兵 | C_HireSoldier 停用 | （無） | 缺 | 伺服器不支援 |
 | C_EXTENDED(53)、C_EXTENDED_PROTOBUF(157)、C_EXTENDED_HYBRID(207) | 擴充送包 | C120 等／無 protobuf | 各模組 | 部分 | 子碼未列，需先查證 |
-| C_REGISTER_QUIZ(100)、C_WISH(254)、C_THROW(146)、C_BLINK(139)、C_ONOFF(184)、C_ADDR(64)、C_PLATE(121) | 其他（問答、許願、投擲、瞬移、開關、位址、牌子） | 不明 | （無） | 缺 | 需先查證（名稱表以外沒有地址） |
+| C_REGISTER_QUIZ(100)、C_WISH(254)、C_ADDR(64) | 帳號安全問答、GM 文字指令、反外掛記憶體雜湊 | 無 | （無） | 缺 | PG§6：伺服器不支援，不建議補 |
+| C_THROW(146)、C_BLINK(139)、C_PLATE(121) | 結束釣魚、傳送確認、點看板 | C62、C52、C10（推定） | `Fishing.cs`、`Teleport.cs`、`Board.cs` | 已有 | PG§6 |
+| C_ONOFF(184) | 聊天頻道與拒收開關 | C26（`C_LoginToServerOK` type／button） | （無） | 缺 | PG§6：3.81 處理 255／0／2／6；PG 任務 C |
 | C_SMS(224)、C_WANTED(231)、C_KICK(252)、C_SILENCE(223)、C_SHUTDOWN(140)、C_CONTROL_WEATHER(132)、C_BUILDER_CONTROL(161)、C_MONITOR_CONTROL(178) | 簡訊、通緝、GM 指令 | C253 無啟用；GM 走聊天指令 | （無） | 缺 | 伺服器不支援（GM 功能不在範圍） |
 
 ## 4. UI 視窗
@@ -325,7 +327,7 @@
 | `sub_F0B570`／`0xB0A970` | 地圖特效載入與 id→類別表（3442–3446 等） | `MapEffects.cs`、`OriginalMapCache.cs` | 部分 | REA B04：`A4E5D0` 第 7 參數語義未解，需先查證 |
 | `sub_F0E9B0`／`0xB0DDB0` | 地圖 actor 建立（經 `A4E5D0`） | `MapEffects.cs`、`Effect6016Host.cs` | 部分 | REA B04；只有 6016 走完整路徑 |
 | `sub_85E090`／`0x45D490` | MAP-F4 區域特效淡出（`actor+612` 群組） | `OriginalMapCache.cs`（`NotSupportedException`） | 缺 | REA B03：本機 7,807 個 `.s32` 延伸記錄 0 筆，**不建議做** |
-| `sub_A51920`／`0x650D20`（6 個呼叫點） | 物件建立（S87 同身份入口） | `WorldObjects.cs`、`ObjectRendering.cs` | 部分 | REA：同身份入口未定位，需先查證 |
+| `sub_A51920`／`0x650D20`（6 個呼叫點） | 物件建立（S87 同身份入口） | `WorldObjects.cs`、`ObjectRendering.cs` | 部分 | PG§7：S_PUT_OBJECT（186）→`sub_9262D0`→`A51920`；同 id 原地覆寫、移動進度歸零；引擎整筆取代，可見差異待驗證 |
 | `sub_A4B060`／`0x64A460`、`sub_A4BA20`／`0x64AE20` | `]` 旗標：建立 `0x2A0` 子特效（推測） | （無） | 缺 | REA〈仍待驗證〉，需先查證 |
 | `sub_81C7C0`／`0x41BBC0`、`sub_8ABC10`／`0x4AB010` | `!` 旗標：待處理動作的釋放時機 | `MagicRendering.cs`（收包時刻就放） | 部分 | SV§2：特效在施法者 `!` 格、受擊在特效 `!` 格（G12） |
 | （109 kind 0–10，SV§3） | 投射物飛行 kind 3／4／5／7 等 | `ProjectileRendering.cs` | 部分 | SV§3：只做 kind 3／4（G12） |
@@ -362,12 +364,14 @@
 
 | 節 | 已有 | 部分 | 缺 | 其中需先查證 | 其中伺服器不支援／不建議 | 其中可直接補 |
 |---|---:|---:|---:|---:|---:|---:|
-| 1. 收包：第一組 dispatch | 33 | 56 | 25 | 5 | 8 | 12 |
-| 2. 收包：第二組 | 6 | 2 | 5 | 2 | 3 | 0 |
-| 3. 送包：`sub_951F80` 名稱表 | 7 | 34 | 9 | 2 | 4 | 3 |
+| 1. 收包：第一組 dispatch | 35 | 57 | 22 | 0 | 9 | 13 |
+| 2. 收包：第二組 | 6 | 2 | 5 | 0 | 5 | 0 |
+| 3. 送包：`sub_951F80` 名稱表 | 8 | 34 | 10 | 0 | 6 | 4 |
 | 4. UI 視窗 | 0 | 47 | 26 | 17 | 5 | 4 |
 | 5. 物件、技能、道具、地圖事件與繪製的處理函式 | 9 | 25 | 3 | 1 | 1 | 1 |
-| **合計** | **55** | **164** | **68** | 27 | 21 | 20 |
+| **合計** | **58** | **165** | **66** | 18 | 26 | 22 |
+
+T225（#532）回填後重算：第 3 節「其他」一列拆成三列（共 289 列），第 1–3 節的「需先查證」已全部查完，見 [`protocol-gaps.md`](protocol-gaps.md)。
 
 「部分」多數屬於兩類：(a) reference 文件已查出表現差異、且 `TASKS.md` 已排了修正任務（T168–T200）；(b) 只有協定，沒有原版視窗（等原生 UI 畫布 T190）。所以 M7 新開的任務集中在「缺」與沒有排到任務的「部分」。
 
@@ -431,17 +435,17 @@
 
 | 項目 | 要查的內容 | 起點 |
 |---|---|---|
-| S_EXTENDED 子碼表 | TW16 op 19／39／109 的子碼全表，對 3.81 S250 子碼逐一比對，列出引擎沒處理的子碼 | `sub_926BF0`／`0x525FF0`、`sub_E428F0`、`sub_E42A50` |
-| S_MESSAGE_CODE 字串表 | 原版從哪個字串表取訊息文字（`Text.pak`？），引擎要不要載入整張表取代個別 id | `sub_942B40`／`0x541F40`；WO 第 7 節 |
-| 版本檢查 | 3.81 伺服器是否要求 C14／S139；TW16 收到 S_VERSION_CHECK 後做什麼 | `sub_94DBB0`／`0x54CFB0`；SP C14、S139 |
-| 未知收包 | S_BLINK、S_HIT_RATIO、S_SHOW_MAP、S_CLONE、S_EVENT、S_NOTICE 的欄位與表現，以及在 3.81 是否有對應 | `sub_931B90`、`sub_93FAD0`、`sub_94BFC0`、`sub_933640`、`sub_9357E0`、`sub_ECABC0` |
-| 未知送包 | C_REGISTER_QUIZ、C_WISH、C_THROW、C_BLINK、C_ONOFF、C_ADDR、C_PLATE、C_BOOK、C_SAVE、C_TELEPORT_USER、C_GOTO_MAP、C_ALT_ATTACK、C_ATTACK_CONTINUE 的送出點與欄位 | `sub_951F80` 名稱表 → 各送出點（`wo_sendsites.py` 的作法） |
+| S_EXTENDED 子碼表 | ✅ T225 已查（[PG§2](protocol-gaps.md)）。TW16 op 19／39／109 的子碼全表，對 3.81 S250 子碼逐一比對，列出引擎沒處理的子碼 | `sub_926BF0`／`0x525FF0`、`sub_E428F0`、`sub_E42A50` |
+| S_MESSAGE_CODE 字串表 | ✅ T225 已查（[PG§3](protocol-gaps.md)）。原版從哪個字串表取訊息文字（`Text.pak`？），引擎要不要載入整張表取代個別 id | `sub_942B40`／`0x541F40`；WO 第 7 節 |
+| 版本檢查 | ✅ T225 已查（[PG§4](protocol-gaps.md)）。3.81 伺服器是否要求 C14／S139；TW16 收到 S_VERSION_CHECK 後做什麼 | `sub_94DBB0`／`0x54CFB0`；SP C14、S139 |
+| 未知收包 | ✅ T225 已查（[PG§5](protocol-gaps.md)）。S_BLINK、S_HIT_RATIO、S_SHOW_MAP、S_CLONE、S_EVENT、S_NOTICE 的欄位與表現，以及在 3.81 是否有對應 | `sub_931B90`、`sub_93FAD0`、`sub_94BFC0`、`sub_933640`、`sub_9357E0`、`sub_ECABC0` |
+| 未知送包 | ✅ T225 已查（[PG§6](protocol-gaps.md)）。C_REGISTER_QUIZ、C_WISH、C_THROW、C_BLINK、C_ONOFF、C_ADDR、C_PLATE、C_BOOK、C_SAVE、C_TELEPORT_USER、C_GOTO_MAP、C_ALT_ATTACK、C_ATTACK_CONTINUE 的送出點與欄位 | `sub_951F80` 名稱表 → 各送出點（`wo_sendsites.py` 的作法） |
 | 3.81 世代用哪套視窗 | 背包、魔法、倉庫：舊式 `InventoryWindow`／`SpellWindow`／`RenewalWareHouseWin` 與 XML 版 `RenewalInventoryUI`／`SpellUI`／`RenewalWareHouseUI`，TW16 實際開的是哪個；XML 版缺檔時的版面來源 | `sub_8C7C80` 的建立順序；`sub_A57C60` 的呼叫者 |
 | 血盟窗 | `PledgeUI.xml`、`PledgeFocusUI.xml`（本機有）的版面與開窗封包 | #448 解密的 XML；`sub_B2A0C0`／`0x7294C0` |
 | 變身選擇窗 | `CPolymorphUI`／`CSpecialPolymorphUI` 由哪個封包開啟，與 3.81 的 S39 變身清單 HTML 的關係 | `sub_BF8C00`／`0x7F8000`、`sub_A09770`／`0x608B70`；`polymorphList.xml` |
 | 城堡、盟屋、數量輸入的畫面 | 城主王冠、稅率／金庫窗（`AgitWindow`、`AgitMapWindow`、`InputWindow`）的版面與按鈕 | 第 1 節 op 252、95、12、49、0、18、224 的處理函式 |
 | 地圖特效 id→類別 | `A4E5D0` 第 7 參數的語義，3442–3446（占地圖特效 31.7%）的行為 | REA B04；`sub_F0B570`／`0xB0A970`、`sub_A4E5D0` |
-| S87 同身份入口 | TW16 的物件建立封包是哪一個 case，`A51920` 的 6 個呼叫點 | REA B07 |
+| S87 同身份入口 | ✅ T225 已查（[PG§7](protocol-gaps.md)）。TW16 的物件建立封包是哪一個 case，`A51920` 的 6 個呼叫點 | REA B07 |
 | `]` 子特效 | `A4B060`、`A4BA20` 建立的 `0x2A0` 物件 | REA〈仍待驗證〉 |
 | 登入流程畫面 | `LoginUI`、`SelectUI`、`CreateUI`、`CNoticeWindow`、`QuitWindow`、`LoadingWindowUI` 的版面（XML 本機缺檔，要使用者提供資源或 3.81 截圖） | WIN§2 T107；第 4 節 |
 | 其他 XML 窗 | `BookmarkMemoryWindowUI`、`StatInfoUI`、`UserObtainUI`、`QuickMotionUI`、`OptionUI`、`PopUpUI`／`PopupMsgUI`、`LinHelperUI`、`FightPlaceUI`、`SmithUI`、`StoryBookUI`、`QuestUI`、`SiegeUI`、`ZoneNameNotice`、`PetSummonUI` 的觸發封包與 3.81 伺服器是否支援 | 第 4.1 節的建構子地址 |

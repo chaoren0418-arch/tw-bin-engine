@@ -168,3 +168,4 @@
 - 2026-11-08 — #509 T203：M7-A 接收與快照擴充點（code，claude-local，PR 已合併）→ [報告](reports/issue-509.md)
 - 2026-11-08 — #524 T218：M7-R HTML 結果改走 NPC 對話窗（code，claude-local，PR #543 已合併）→ [報告](reports/issue-524.md)
 - 2026-11-08 — #522 T216：M7-P 技能特效時機與飛行（code，claude-local，PR 已合併）→ [報告](reports/issue-522.md)
+- 2026-11-08 — #532 T225：查證原版——協定空白（S_EXTENDED 子碼、訊息字串表、版本檢查、未知封包）（resource，claude-local，PR 已合併）→ [報告](reports/issue-532.md)

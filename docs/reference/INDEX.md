@@ -15,6 +15,7 @@
 | 世界物件類功能（物件點擊共通流程與自動走近、拾取數量／節流／轉向、門、幽靈本機限制與 `exitghost`、座標分享格式與地區 id、死亡視窗 `UserPlayStatsUI`、復活確認走聊天輸入列；TW16 送出端名稱表；引擎差異 13 項不一致、5 項部分） | [`world-objects.md`](world-objects.md) | T182（#484） | T103、T136、T143、T144、T151 | ✅ 已查（PR 待合併；字串表文字、幽靈繪製效果、S241 對應仍待驗證） |
 | 視窗類功能（兩套視窗系統、34 個缺檔 XML、個人商店／好友／封鎖／召喚／新版能力窗 XML、`MESSAGE_WINDOW`／`HYPER_TEXT_WINDOW`／`PET_QUICK_WINDOW`、公告板／修理／求婚／重置的原版視窗；對應 `native-ui.md` 模組） | [`windows.md`](windows.md) | G10b T181（#483） | T102、T107、T126、T127、T130、T131、T133、T134、T139–T142 | ✅ 已查（T131、T133 仍 ❓；多個 XML 本機缺檔，版面待資源） |
 | 已完成 M6 功能的原版對照（50 個已合併功能：39 個有差異、9 個純協定、2 個未查證；修正分組 G1–G12） | [`m6-native-diff.md`](m6-native-diff.md) | T164（#432） | T100–T153 | ✅ 已完成（PR 待合併） |
-| 原版功能對照引擎的差距盤點（gap-matrix：三組收包 dispatch 的全部 case、139 個送包名稱、80 個 XML 視窗與舊式視窗類別、物件／技能／地圖事件處理函式；287 列：已有 55、部分 164、缺 68；M7 code 任務分組 M7-A–X 共 22 組；需先查證清單） | [`gap-matrix.md`](gap-matrix.md) | T202（#504） | M7 全部 | ✅ 已完成（PR 待合併） |
+| 原版功能對照引擎的差距盤點（gap-matrix：三組收包 dispatch 的全部 case、139 個送包名稱、80 個 XML 視窗與舊式視窗類別、物件／技能／地圖事件處理函式；T225 回填後 289 列：已有 58、部分 165、缺 66；M7 code 任務分組 M7-A–X 共 22 組；需先查證清單） | [`gap-matrix.md`](gap-matrix.md) | T202（#504） | M7 全部 | ✅ 已完成（PR 待合併） |
+| 協定空白（S_EXTENDED 是 protobuf 通道、S250 的對應是 S_EVENT op 108 與 62 個子碼對照；S_MESSAGE_CODE 取 `Text.pak` 的 `string-c.tbl`；3.81 不要求 C14／S139；S_BLINK／S_HIT_RATIO／S_SHOW_MAP／S_CLONE／S_EVENT／S_NOTICE；13 個未知送包的送出點與欄位；S87 同身份入口 `A51920`） | [`protocol-gaps.md`](protocol-gaps.md) | T225（#532） | M7（gap-matrix 第 8 節六列） | ✅ 已查（PR 待合併；C_ALT_ATTACK／C_BOOK／C_SAVE 送出點仍查不到） |
 
 各查證任務合併時，把自己那一列的「狀態」改成 ✅，並補上文件連結。
