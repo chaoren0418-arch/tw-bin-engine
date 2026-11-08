@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 263,
+ "sourceCount": 265,
  "files": [
   {
    "path": "NuGet.Config",
@@ -248,6 +248,16 @@
    "path": "source/ClanEmblem.cs",
    "size": 9246,
    "sha256": "e1a6da7d56ab681a82270dd010774b8b1b8bccea8448be1e3759052f3f683a60"
+  },
+  {
+   "path": "source/ClanMatching.cs",
+   "size": 18379,
+   "sha256": "16a60c8039f16dbfb70a60a52c94423841cc564a9c19076b8272558e821daa3f"
+  },
+  {
+   "path": "source/ClanMatchingTests.cs",
+   "size": 10058,
+   "sha256": "5a23c7261372f1573ca42fa5bb61def13d2e73c2bb39fc63f0a7d99c7c341e1c"
   },
   {
    "path": "source/ClanUi.cs",
