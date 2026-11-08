@@ -25,8 +25,8 @@
 
 ## 怎麼驗證（已驗證）
 
-- `rebuild.py --update-lock`：通過。`rebuild.py --build`：PASS dev，productDll `123b0c7f…8b18`、audioDll `09898a58…7e6a`。唯讀核驗：dev-inputs-verified。
-- `--module-tests`：27 組全部通過，共 1301 項檢查。本組新增 3 組：
+- `rebuild.py --update-lock`：通過。`rebuild.py --build`：PASS dev（已同步 origin/main 後重產 lock），productDll `e0b9c8a5…afdb4`、audioDll `09898a58…7e6a`。唯讀核驗：dev-inputs-verified。
+- `--module-tests`：同步 main 後 30 組全部通過，共 1410 項檢查。本組新增 3 組：
   - `product-sound-stream`（15 項）：缺檔、拒絕路徑、mp3→wav 後備、dB 換算、播放中改音量、循環倒帶、單次播完、Stop、錯誤、開檔失敗、容量上限、Dispose。
   - `product-sound-adapters`（17 項）：三個轉接器的檔名、循環旗標、音量傳遞；`^` 的距離、類別、靜音音量。
   - `product-sound-install`（8 項）：沒 Arm 時不做任何事；Arm 了但還沒進世界時不建立；進世界後才建立並設好 Backend；定義檔讀完才 Configure；只安裝一次；Disarm 會還原。
