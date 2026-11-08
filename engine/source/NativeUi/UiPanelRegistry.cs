@@ -16,5 +16,6 @@ public static class UiPanelRegistry {
         new(ExMacroPanel.WindowId,"uistatus86",root=>new ExMacroPanel(root.SlotGroup(UiSlotGroup.Bar485))),new(MacroPanel.WindowId,"uistatus86",_=>new MacroPanel()),   // ui-macro-bar #466 (RIGHT_WINDOW last: MACRO_LOCK overlaps BAR_485)
         new(TradeWindowPanel.PanelId,TradeWindowPanel.LayoutName,root=>new TradeWindowPanel()),   // M7-S (#526)
         ..FriendPanels.Registrations,   // M7-V (#529): Friend_Window／Exclude_Window／Mailexclude_Window
+        new(MenuButtonsPanel.PanelId,"uistatus86",_=>new MenuButtonsPanel()),   // ui-menu-buttons #467: after MacroPanel (buttons y=567 lie inside the 3176 frame; later Bar = painted/hit on top)
     ];
 }
