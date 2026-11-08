@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 239,
+ "sourceCount": 240,
  "files": [
   {
    "path": "NuGet.Config",
@@ -506,8 +506,8 @@
   },
   {
    "path": "source/LoginConnection.cs",
-   "size": 10741,
-   "sha256": "16e34f82376fd4319fe44e9699d36502443322e59285a6a12c0d796ddbdf6a74"
+   "size": 11483,
+   "sha256": "e964c60288d19f7abd8f2a89e8946f1021c4ec21f776e11210828f6ac68f04f2"
   },
   {
    "path": "source/LoginControl.cs",
@@ -1048,6 +1048,11 @@
    "path": "source/SceneOpacity.cs",
    "size": 10505,
    "sha256": "d8e1f4ca80c0cd790b72f94f8a5a1837a6b00e85688afbd724773b2cc56a4e09"
+  },
+  {
+   "path": "source/ServerFeatures.cs",
+   "size": 12649,
+   "sha256": "31ebfb8dad400767d1ceea30364a1202e769b7ed93b19ee247efe66c31731dcc"
   },
   {
    "path": "source/ServerMessageText.cs",
