@@ -23,11 +23,11 @@
     - 這一列位在頁面內容下方、提示文字上方。HTML 頁文字照舊由 `InteractionPage` 顯示。
     - 掛法比照 `ClanWar.cs`／`Marriage.cs`：在 partial `ClientForm` 覆寫還沒被其他模組使用的 `OnSizeChanged`，在 `Shown` 時建立這一列，同步則掛在既有的 16 ms `timer.Tick`。**沒改 `NpcUi.cs`／`NpcInteraction.cs`。**
 - 新檔 `engine/source/AmountPromptTests.cs`：`[WorldModuleTest("amount-prompt")]` 共 70 項，只用合成封包與記憶體內的假傳送端。CI 既有的「World module extension tests」步驟會自動跑到，沒改 workflow。
-- `engine/_integration/dev/rebuild-lock.json`：以 `--update-lock` 重產，共 259 個來源、268 個鎖定檔（第三次同步 origin/main 後，含 #463 NativeUi）。
+- `engine/_integration/dev/rebuild-lock.json`：以 `--update-lock` 重產，共 262 個來源、271 個鎖定檔（第四次同步 origin/main 2c788c51 後，含 #510／#516／#520）。
 
 ## 怎麼驗證（本機 Windows）
-- `rebuild.py --update-lock` → `--build`：PASS。worktree 沒有 `engine/vendor`，所以用 `--configfile scratch/issue-513/NuGet.Config` 指向原專案的 vendor（唯讀）。productDll SHA-256 `b46ad32da12693a3ea5fab7d98c806fc86eca3e8230b96cfbd7ef75d18f2200e（與 main 186f69bb 同步後）`。
-- `P11.ClientEngine.exe --module-tests`：結束碼 0。7 組共 417 項全部通過（含 `amount-prompt` 70 項、`agit` 44 項、`castle` 62 項、`packetbox-status` 86 項），Default 登錄表沒有錯誤。
+- `rebuild.py --update-lock` → `--build`：PASS。worktree 沒有 `engine/vendor`，所以用 `--configfile scratch/issue-513/NuGet.Config` 指向原專案的 vendor（唯讀）。productDll SHA-256 `5906141b62e4bb2e3edea461603ace2542144ae3cc5aa12313566a271ebb1b00`（與 main 2c788c51 同步後）。
+- `P11.ClientEngine.exe --module-tests`：結束碼 0。8 組共 455 項全部通過（含 `amount-prompt` 70 項、`ability-status` 38 項、`agit` 44 項、`castle` 62 項、`packetbox-status` 86 項），Default 登錄表沒有錯誤。
 - `amount-prompt` 測試涵蓋：
   - 註冊項目。
   - C11 逐 byte 編碼；拒絕數量 0、空命令、控制字元、過長命令。

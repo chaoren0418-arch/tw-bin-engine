@@ -25,6 +25,7 @@ public sealed partial class WorldSession {
                 Phase=command switch{"invite"=>"inviting","accept"=>"accepting",_=>"rejected"},
                 Notice=command switch{"invite"=>"邀請已送出，等待對方與伺服器回覆。","accept"=>"接受已送出，等待伺服器確認開始決鬥。",_=>"拒絕已送出；伺服器不另回覆拒絕方。"}};
         }
+        if(command!="invite")YesNoHandled(630);
     }
     // Own reader: unrelated packetbox/message subtypes keep their existing dispatch cursor.
     bool ReceiveDuel(byte opcode,byte[] plain){
@@ -40,6 +41,7 @@ public sealed partial class WorldSession {
                 if(old.Phase=="active")return true;
                 duel=new(old.Revision+1,WorldEpoch,"invited",peer,null,peer+" 要與你決鬥，是否接受？");
             }
+            OfferYesNo(token,message,[peer]); // Outside duelGate: the shared prompt reads DuelSnapshot under its own gate.
             return true;
         }
         if(opcode==250){
