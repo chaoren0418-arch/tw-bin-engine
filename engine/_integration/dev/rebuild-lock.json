@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 244,
+ "sourceCount": 245,
  "files": [
   {
    "path": "NuGet.Config",
@@ -91,8 +91,8 @@
   },
   {
    "path": "source/ActionCadence.cs",
-   "size": 7854,
-   "sha256": "f533f652619d26639ca2725cb5c3b5c07f9a13bbfe9fcdc8d8164d7d0e9486a5"
+   "size": 8568,
+   "sha256": "d730b3b2c283379c378f72f854911ba69d6b6805005b4ef960b720dde8e42c33"
   },
   {
    "path": "source/Afflictions.cs",
@@ -541,8 +541,8 @@
   },
   {
    "path": "source/Magic.cs",
-   "size": 11248,
-   "sha256": "9377f05f1a67a4c3de692619ae77c1be516400da537423343db5952f902c8111"
+   "size": 11150,
+   "sha256": "5495a506e43dca615660b8e5dc74863f7878e94d4e220dc4f168c1b62cd59ae7"
   },
   {
    "path": "source/MagicIntegration.cs",
@@ -1021,8 +1021,13 @@
   },
   {
    "path": "source/Recovery.cs",
-   "size": 3720,
-   "sha256": "068cdc4e4540df7ec0ca21300ce2ea6f83ed8b4c752ab665736f1466d0b396c4"
+   "size": 20626,
+   "sha256": "680f9ba0751cff1c1e16b9ac50f6d5837476978d6d1b3fe5c4b35d2a4681e05a"
+  },
+  {
+   "path": "source/RecoveryTests.cs",
+   "size": 12755,
+   "sha256": "1183af3e20f98a5caaf63c4b44c8bcb298d26ef11159126d7e2647d33bd121ee"
   },
   {
    "path": "source/Renderer.cs",
