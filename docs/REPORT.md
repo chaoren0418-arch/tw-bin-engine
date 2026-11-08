@@ -178,3 +178,4 @@
 - 2026-11-08 — #523 T217：M7-Q 施法：拿掉本地預測動作，冷卻改用動作影格總長（code，claude-local，PR 已合併）→ [報告](reports/issue-523.md)
 - 2026-11-08 — #519 T213：M7-M 門：自動走近（code，claude-local，PR 已合併）→ [報告](reports/issue-519.md)
 - 2026-11-08 — #548 T230：S250 狀態圖示類子碼（protocol-gaps B2）（code，claude-local，PR 已合併）→ [報告](reports/issue-548.md)
+- 2026-11-08 — #551 T233：送 C14 並解析 S139（protocol-gaps E）（code，claude-local，PR 已合併）→ [報告](reports/issue-551.md)
