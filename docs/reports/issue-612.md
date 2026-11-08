@@ -31,6 +31,7 @@
 - **本機原客戶端核對**（`TW_MODULE_CLIENT_CHECKS=1`，只跑這兩組）：104 checks 全過；實際讀到 924–927，尺寸 10/9/9/7、flags／colorKey 0，SHA 與 AM§3.1 相符。CI 不設這個變數。
 - 既有 DemoChecks：`afflictions` PASS 580、`ambience` PASS 9881、`invisibility` PASS 397、`timed-buffs` PASS 645。
 - `engine/tools/check-no-game-assets.py`：pass（errors 0）；`git diff --check`：通過。
+- **與 origin/main 同步**（#517，1 個 commit，沒有衝突）：`--update-lock` 重產後內容不變（299 來源檔）；重建 `PASS dev`，productDll SHA `c7e75193…d241eb`；`--module-tests` 25 組 1313 checks 全過；`check-no-game-assets.py` pass。
 
 ## 未驗證什麼
 
