@@ -7,12 +7,12 @@
   - 快照 `extensions.agit`：封包計數、最後一份清單、最後一份地圖。另有 `AgitHouseList`／`AgitHouseMap` 屬性，以及 `AgitHouseListReceived`／`AgitHouseMapReceived` 事件，給之後的畫面任務訂閱。
   - `Reset()` 時清空。
 - 新檔 `engine/source/AgitTests.cs`：`[WorldModuleTest("agit")]` 共 44 項，只用合成封包。CI 現有的「World module extension tests」步驟會自動跑，不必改 workflow。
-- `engine/_integration/dev/rebuild-lock.json`：用 `--update-lock` 重產（236 個來源、245 個鎖定檔）。
+- `engine/_integration/dev/rebuild-lock.json`：用 `--update-lock` 重產（與 main 同步後 238 個來源、247 個鎖定檔）。
 - **沒做畫面**：`AgitAuctionUI` 的 XML 在 BIN 和各客戶端都找不到；`AgitMapWindow` 需要原生 UI 畫布（T190），地圖圖號表 `aAvadentelui` 內容也還沒查證。依 gap-matrix 第 7 節，標「需先查證」的部分只做協定與資料。
 
 ## 怎麼驗證（本機 Windows）
-- `rebuild.py --update-lock` 之後跑 `--build`：PASS。worktree 沒有 `engine/vendor`，所以用 `--configfile scratch/issue-512/NuGet.Config` 指向原專案的 vendor（唯讀）。productDll SHA-256 `f72e0fdc194eb2e549fd23fc796e737c5b899f841792e406e9bd1d2fc66d9be6`。
-- `P11.ClientEngine.exe --module-tests`：結束碼 0。`agit` 44 項、`world-extensions` 39 項全部通過，Default 登錄表沒有錯誤。
+- `rebuild.py --update-lock` 之後跑 `--build`：PASS。worktree 沒有 `engine/vendor`，所以用 `--configfile scratch/issue-512/NuGet.Config` 指向原專案的 vendor（唯讀）。productDll SHA-256 `7243ff4768de84d0cc7733a636dbfc8196ac522bfb46de40d4603bf0f92ff04a`。
+- `P11.ClientEngine.exe --module-tests`：結束碼 0。`agit` 44 項、`castle` 62 項、`world-extensions` 39 項全部通過，Default 登錄表沒有錯誤。
 - `agit` 測試涵蓋：
   - 四個註冊項目都在。
   - 初始快照。
