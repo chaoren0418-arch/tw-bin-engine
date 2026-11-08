@@ -121,6 +121,12 @@ demo-tests 每個群組的數字都包含入口固定執行的共用檢查，所
 - `git merge origin/main`（main `d069f0f0`，落後 22 個提交，含 clan-emblem、afflictions／invisibility／timed-buffs 修改）。文字衝突三處：`WorldSession.cs` 的 `Reset()`（兩邊都保留：main 的 `ResetClanEmblems()` 與本模組的 `ResetBookmarks()`）、`demo-tests/Program.cs` 的 `map-continuity` 群組（聯集：`BookmarkChecks()` 與 main 的 `ClanEmblemChecks()`）、`rebuild-lock.json`（取 main 版本後 `--update-lock` 重產）。本模組檔案未變更；`docs/REPORT.md` 與 main 相同。
 - 本機驗證：`rebuild.py --update-lock`（224 source／233 pinned）、`--build` PASS（產品 DLL `dd9c553435931d632889d7f53748397829be243504a5c95f0094941bf85489ac`）；DemoChecks `bookmarks` 774、`map-continuity` 28720、`clan-emblem` 363、`char-reset` 488 全部 PASS；`check-no-game-assets.py` pass（3695 檔、0 錯誤）；唯讀 `rebuild.py` 核驗通過。
 - 同步 head `c01607004098f6c0f5d64941e8f49573d12bba2e` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42427837768) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42427837739) 均 completed／success；PR #271 為 CLEAN／MERGEABLE。本行以後續純文件提交補記。
+
+### 2026-11-08 同步輪（ambience 修改等）
+
+- `git merge origin/main`（main `00627028`，落後 11 個提交，含 #480 ambience 修改）。只有 `rebuild-lock.json` 衝突：取 main 版本後 `--update-lock` 重產；`WorldSession.cs` 自動合併，S92 書籤 case 保留。本模組檔案未變更；`docs/REPORT.md` 與 main 相同。
+- 本機驗證：`rebuild.py --update-lock`（224 source／233 pinned）、`--build` PASS（產品 DLL `bd18416a19b5c25175ecce928d707bf6c53c230368889cb5dcd58d404878b7fc`，2 警告 0 錯誤）；DemoChecks `bookmarks` 774、`map-continuity` 32953、`ambience` 9881、`map-ambient` 372、`clan-emblem` 363 全部 PASS；`check-no-game-assets.py` pass（3692 檔、0 錯誤）；唯讀 `rebuild.py` 核驗通過。
+- 同步 head `061b7bdba280027e610dcf3ee8d59d4b01f106f7` 的 CI 全綠：[build](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42431250357) 與 [npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/42431250365) 均 completed／success（只有既有的 `MagicUi.cs:20` 警告）；PR #271 為 CLEAN／MERGEABLE。本行以後續純文件提交補記。
 ## 未驗證什麼
 
 - **換掛接點後，「記憶座標」分頁實際出現在真實 `ClientForm`，目前沒有任何自動測試覆蓋**：離線測試不經過 `ClientForm` 生命週期，上述只驗到空白 Form 的框架順序與靜態閱讀。需由 dot smoke 確認。
