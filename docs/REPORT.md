@@ -156,3 +156,4 @@
 - 2026-11-08 — #437 T167：找出光源圖與雨雪圖的原始位置（Tile.pak 加密）（resource，codex-local，PR 已合併）→ [報告](reports/issue-437.md)
 - 2026-11-08 — #316 T135：盟徽查詢與 ID 對應（code，claude-local，PR 已合併）→ [報告](reports/issue-316.md)
 - 2026-11-08 — #481 T179：異常狀態外觀對齊原版（G7）（code，claude-local，PR 已合併）→ [報告](reports/issue-481.md)
+- 2026-11-08 — #480 T178：天氣對齊原版（G6）（code，claude-local，PR 已合併）→ [報告](reports/issue-480.md)

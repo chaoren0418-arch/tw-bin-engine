@@ -12,11 +12,11 @@ partial class Checks {
     }
     static ObjectVisual Lamp(uint id, PointF point) => new(id, 0, 0, "synthetic", 0, 0, "breath", "", point, new(0, 0, 20, 30), false, 0);
     static readonly Color AmbienceBase = Color.FromArgb(255, 248, 132, 66);
-    static Bitmap AmbienceImage(AmbienceFrame frame, AmbienceLightMap? map = null) {
+    static Bitmap AmbienceImage(AmbienceFrame frame, AmbienceLightMap? map = null, WeatherParticles? particles = null, WeatherSprite? sprite = null) {
         var bitmap = new Bitmap(240, 180, PixelFormat.Format32bppArgb);
         using var graphics = Graphics.FromImage(bitmap);
         graphics.Clear(AmbienceBase);
-        AmbiencePainter.Draw(graphics, bitmap, new(20, 20, 200, 140), frame, map);
+        AmbiencePainter.Draw(graphics, bitmap, new(20, 20, 200, 140), frame, map, particles, sprite);
         return bitmap;
     }
     static int ChangedPixels(Bitmap bitmap) {
@@ -125,10 +125,19 @@ partial class Checks {
         Set(world, "Status", world.Status! with { Hp = 50 });
         Feed(c, TimePacket(Clock(6, 35))); Set(world, "Status", world.Status! with { Hp = 60 });
         Check(world.Ambience.At(now).Seconds == Clock(6, 35), "status without a new time does not roll back S123");
-        // Rain at recompute time: only S123/S_STATUS/map change apply it (weather packet alone does not).
+        // AM§2(a) step 5: each S115 with an amount lowers L ≥ 10 by one (no recompute); the curve then applies its own −1.
         Feed(c, TimePacket(Clock(12, 0))); Feed(c, WeatherPacket(2));
-        Check(world.Ambience.At(now).Level == 15, "weather alone does not recompute");
+        Check(world.Ambience.At(now).Level == 14, "S115 rain lowers L >= 10 by one");
+        Feed(c, WeatherPacket(0x12)); Check(world.Ambience.At(now).Level == 13, "every S115 with an amount lowers L again (snow too)");
+        Feed(c, WeatherPacket(0)); Feed(c, WeatherPacket(4)); Feed(c, WeatherPacket(0x20));
+        Check(world.Ambience.At(now).Level == 13, "clear, n > 3 and unknown kinds do not lower L");
+        Feed(c, WeatherPacket(2));
         Feed(c, TimePacket(Clock(12, 0))); Check(world.Ambience.At(now).Level == 14 && world.Ambience.At(now).FrameLevel == 15, "rain -1 at recompute, offset by frame +1");
+        Feed(c, TimePacket(Clock(20, 20))); Feed(c, WeatherPacket(3));
+        Check(world.Ambience.At(now).Level == 8, "S115 leaves L < 10 unchanged");
+        Feed(c, TimePacket(Clock(20, 3))); Feed(c, WeatherPacket(1));
+        Check(world.Ambience.At(now).Level == 12, "dusk L 13 (curve 14 - 1) lowered to 12 by S115");
+        Feed(c, TimePacket(Clock(12, 0)));
         Feed(c, WeatherPacket(0)); Feed(c, MapPacket(5)); Check(world.Ambience.At(now).Level == 15 && world.Ambience.At(now).MapId == 5, "map change recomputes");
         Feed(c, MapPacket(2006)); Feed(c, TimePacket(Clock(0, 0))); Check(world.Ambience.At(now).FrameLevel == 3, "map override in frame");
         Feed(c, MapPacket(4)); Feed(c, TimePacket(Clock(0, 0)));
@@ -142,8 +151,58 @@ partial class Checks {
         foreach (int code in Enumerable.Range(0, 256)) {
             Feed(c, WeatherPacket((byte)code)); var frame = world.Ambience.At(now);
             var expected = code is >= 1 and <= 3 ? WeatherKind.Rain : code is >= 17 and <= 19 ? WeatherKind.Snow : WeatherKind.Clear;
-            Check(frame.Weather == code && frame.Kind == expected && frame.Intensity == (expected == WeatherKind.Clear ? 0 : code & 15), "S115 value " + code);
+            int n = (code & 15) <= 3 ? code & 15 : 0;
+            Check(frame.Weather == code && frame.Kind == expected && frame.Intensity == (expected == WeatherKind.Clear ? 0 : code & 15)
+                && frame.Rain == ((code & 0xF0) == 0 ? n : 0) && frame.Snow == ((code & 0xF0) == 0x10 ? n : 0)
+                && AmbienceWeather.Decode((byte)code) == (frame.Rain, frame.Snow), "S115 value " + code);
+            Check(frame.Level == 1, "S115 at night leaves L " + code);
         }
+        // AM§2(a) step 6: maps 7701–7710 and 7771–7780 force rain 2 on every S115, whatever it says.
+        foreach (ushort mapId in new ushort[] { 7700, 7701, 7705, 7710, 7711, 7770, 7771, 7780, 7781 }) {
+            bool forced = mapId is >= 7701 and <= 7710 or >= 7771 and <= 7780;
+            Check(AmbienceWeather.ForcedRain(mapId) == forced, "forced rain map table " + mapId);
+            Feed(c, MapPacket(4)); Feed(c, WeatherPacket(0)); Feed(c, MapPacket(mapId));
+            Check(world.Ambience.At(now).Rain == 0, "map change alone does not start forced rain " + mapId);
+            foreach (byte code in new byte[] { 0, 3, 0x13, 0x20, 0x0F }) {
+                Feed(c, WeatherPacket(code)); var frame = world.Ambience.At(now); var (r, s) = AmbienceWeather.Decode(code);
+                Check(frame.Rain == (forced ? 2 : r) && frame.Snow == s && frame.Kind == (forced || r > 0 ? WeatherKind.Rain : s > 0 ? WeatherKind.Snow : WeatherKind.Clear),
+                    $"map {mapId} S115 {code:X2} rain/snow");
+            }
+        }
+        Check(!AmbienceWeather.ForcedRain(null), "no map, no forced rain");
+        Feed(c, MapPacket(4)); Feed(c, TimePacket(Clock(12, 0))); Feed(c, MapPacket(7701)); _ = world.Ambience.At(now); Feed(c, WeatherPacket(0));
+        Check(world.Ambience.At(now).Level == 15 && world.Ambience.At(now).Rain == 2, "forced rain does not lower L by itself (step 5 uses the packet amount)");
+        Feed(c, MapPacket(4)); Feed(c, WeatherPacket(0)); Feed(c, TimePacket(Clock(0, 0)));
+        // AM§2(a): removing (S120) or action 8 (S158) of gfx 10683/10632 clears snow, 10891 clears rain.
+        static byte[] WeatherObject(uint id, ushort gfx) { var p = Pack(id); p[9] = (byte)gfx; p[10] = (byte)(gfx >> 8); return p; }
+        static byte[] Remove(uint id) => Packet(b => { b.Write((byte)120); b.Write(id); });
+        static byte[] Act(uint id, byte action) => Packet(b => { b.Write((byte)158); b.Write(id); b.Write(action); });
+        var observe = typeof(WorldSession).GetMethod("ObserveWeatherObject", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        void ObserveAction(uint id, byte action) => observe.Invoke(world, [(byte)158, Act(id, action)]);
+        var paddedAction = Act(777, 8); paddedAction[^1] = 1; // nonzero padding: ignored by the observer
+        foreach (var (gfx, clearsRain, clearsSnow) in new (ushort, bool, bool)[] { (10683, false, true), (10632, false, true), (10891, true, false), (1110, false, false), (10682, false, false), (10892, false, false) }) {
+            Check(AmbienceWeather.ClearsRain(gfx) == clearsRain && AmbienceWeather.ClearsSnow(gfx) == clearsSnow, "gfx table " + gfx);
+            // S158 action 8 continues into AnimateCombat, which needs the sprite catalogue (not in the offline checkout):
+            // feed the observe-only hook directly with the synthetic S158; S120 goes through the full dispatch.
+            foreach (var gone in new Action<uint>[] { id => Feed(c, Remove(id)), id => ObserveAction(id, 8) }) {
+                // Rain and snow cannot both arrive by S115; use the 0x10 packet for snow and a forced-rain map for both.
+                Feed(c, MapPacket(7701)); Feed(c, WeatherObject(777, gfx)); Feed(c, WeatherObject(778, gfx)); Feed(c, WeatherPacket(0x13));
+                Check(world.Ambience.At(now).Rain == 2 && world.Ambience.At(now).Snow == 3, "forced map gives rain and snow " + gfx);
+                gone(777); var frame = world.Ambience.At(now);
+                Check(frame.Rain == (clearsRain ? 0 : 2) && frame.Snow == (clearsSnow ? 0 : 3), $"gfx {gfx} gone clears its weather");
+                Feed(c, Remove(778)); Feed(c, MapPacket(4)); Feed(c, WeatherPacket(0));
+            }
+        }
+        Feed(c, MapPacket(7701)); Feed(c, WeatherObject(777, 10891)); Feed(c, WeatherPacket(0x13));
+        foreach (byte action in new byte[] { 0, 1, 7, 9, 19, 70 }) ObserveAction(777, action);
+        Check(world.Ambience.At(now).Rain == 2, "other S158 actions keep weather");
+        observe.Invoke(world, [(byte)158, paddedAction]); observe.Invoke(world, [(byte)158, Act(777, 8)[..6]]);
+        Check(world.Ambience.At(now).Rain == 2, "malformed S158 action 8 is ignored by the observer");
+        Feed(c, Remove(999)); Check(world.Ambience.At(now).Rain == 2, "unknown removed ID keeps weather");
+        var malformed = Remove(777); malformed[^1] = 1; AmbienceReject(c, malformed, "S120 nonzero padding");
+        Check(world.Ambience.At(now).Rain == 2 && world.Objects.Any(o => o.ObjectId == 777), "malformed S120 keeps weather and object");
+        Feed(c, Remove(777)); Check(world.Ambience.At(now).Rain == 0 && world.Ambience.At(now).Snow == 3, "S120 of gfx 10891 clears rain only");
+        Feed(c, MapPacket(4)); Feed(c, WeatherPacket(0));
         // S40 conversion: own <5 -> 5, 19 -> 10 (+1), 20 -> 14 (+5); others 20 -> 5.
         Feed(c, Pack(123)); Feed(c, Pack(456, 32601));
         Feed(c, WeatherPacket(3)); Feed(c, LightPacket(123, 14)); Feed(c, LightPacket(456, 5));
@@ -207,25 +266,116 @@ partial class Checks {
             AmbiencePainter.Shade(translucent, new(0, 0, 4, 4), new(0, 0, 4, 4), night);
             Check(translucent.GetPixel(1, 1).A == 128, "alpha is preserved");
         }
-        foreach (byte weather in new byte[] { 1, 2, 3, 17, 18, 19 }) {
-            var frame = day with { Weather = weather };
-            using var first = AmbienceImage(frame); using var later = AmbienceImage(frame with { AnimationMs = 10300 });
-            Check(ChangedPixels(first) > 0 && !SamePixels(first, later), "animated weather pixels " + weather);
-            Check(first.GetPixel(0, 0) == AmbienceBase, "weather respects viewport " + weather);
+        // AM§2(b): no rain/snow art yet (T167) — without a sprite source nothing is drawn, whatever the weather.
+        var particles = new WeatherParticles(7);
+        foreach (var (rainAmount, snowAmount) in new (byte, byte)[] { (1, 0), (2, 0), (3, 0), (0, 1), (0, 2), (0, 3), (2, 3) }) {
+            var frame = day with { Rain = rainAmount, Snow = snowAmount };
+            particles.Step(frame, 240);
+            using (var none = AmbienceImage(frame, null, particles)) Check(ChangedPixels(none) == 0, $"no sprite source, no particles {rainAmount}/{snowAmount}");
+            int drawn = 0; var kinds = new HashSet<WeatherKind>();
+            using var withSprite = AmbienceImage(frame, null, particles, (g, particle, at) => { drawn++; kinds.Add(particle.Kind); g.FillRectangle(Brushes.White, at.X, at.Y, 2, 2); });
+            Check(drawn == AmbiencePainter.ParticleCount(frame) && kinds.SetEquals([rainAmount > 0 ? WeatherKind.Rain : WeatherKind.Snow]), $"sprite source receives every active particle {rainAmount}/{snowAmount}");
+            Check(ChangedPixels(withSprite) > 0 && withSprite.GetPixel(0, 0) == AmbienceBase && withSprite.GetPixel(239, 179) == AmbienceBase, $"synthetic sprite stays in viewport {rainAmount}/{snowAmount}");
         }
-        using (var wetNight = AmbienceImage(night with { Weather = 3 })) {
-            bool allDark = true;
-            for (int y = 20; y < 160; y++) for (int x = 20; x < 220; x++) if (wetNight.GetPixel(x, y).R > 82 + 4) allDark = false;
-            Check(allDark, "rain is drawn before shading, so it is darkened too");
+        using (var clear = AmbienceImage(day, null, particles, (g, _, at) => g.FillRectangle(Brushes.White, at.X, at.Y, 2, 2)))
+            Check(ChangedPixels(clear) == 0, "clear weather draws nothing even with a sprite source");
+        // Rain (synthetic white sprite) is drawn before shading, so it is darkened with the scene: white * 10/31.
+        using (var wetNight = AmbienceImage(night with { Rain = 3 }, null, particles, (g, _, at) => g.FillRectangle(Brushes.White, at.X, at.Y, 2, 2))) {
+            bool allDark = true, anyDrop = false; var darkWhite = Shaded(Color.White, 10);
+            for (int y = 20; y < 160; y++) for (int x = 20; x < 220; x++) {
+                var pixel = wetNight.GetPixel(x, y);
+                if (pixel.R > 82) allDark = false;
+                if (pixel == darkWhite) anyDrop = true;
+            }
+            Check(allDark && anyDrop && darkWhite.R == 82, "rain is drawn before shading, so it is darkened too");
         }
-        Check(AmbiencePainter.ParticleCount(day with { Weather = 1 }, new(0, 0, 640, 480)) < AmbiencePainter.ParticleCount(day with { Weather = 3 }, new(0, 0, 640, 480)), "intensity increases particle count");
-        Check(AmbiencePainter.ParticleCount(day with { Weather = 3 }, new(0, 0, 7680, 4320)) == 768, "4K/8K weather work is bounded");
-        using var unknown = AmbienceImage(day with { Weather = 255 }); Check(SamePixels(daylight, unknown), "unknown weather has no invented particles");
-        using var clipImage = new Bitmap(240, 180, PixelFormat.Format32bppArgb); using var clipGraphics = Graphics.FromImage(clipImage);
+        foreach (var (amount, rainCount, snowCount) in new[] { (0, 0, 0), (1, 128, 48), (2, 256, 96), (3, 512, 144), (4, 0, 0) }) {
+            Check(AmbienceWeather.RainCount(amount) == rainCount && AmbienceWeather.SnowCount(amount) == snowCount, "fixed particle counts " + amount);
+            Check(AmbiencePainter.ParticleCount(day with { Rain = (byte)amount }) == rainCount && AmbiencePainter.ParticleCount(day with { Snow = (byte)amount }) == snowCount, "painter count " + amount);
+        }
+        Check(AmbiencePainter.ParticleCount(day with { Rain = 1, Snow = 3 }) == 128, "rain has priority over snow");
+        WeatherParticleChecks();        using var clipImage = new Bitmap(240, 180, PixelFormat.Format32bppArgb); using var clipGraphics = Graphics.FromImage(clipImage);
         clipGraphics.Clear(AmbienceBase); clipGraphics.SetClip(new Rectangle(0, 0, 100, 100));
         var originalClip = clipGraphics.ClipBounds; var interpolation = clipGraphics.InterpolationMode;
         AmbiencePainter.Draw(clipGraphics, clipImage, new(20, 20, 200, 140), night);
         Check(clipImage.GetPixel(110, 90) == AmbienceBase && clipImage.GetPixel(50, 50) == Shaded(AmbienceBase, 10) && clipGraphics.ClipBounds == originalClip && clipGraphics.InterpolationMode == interpolation,
             "respects and restores caller graphics state");
+    }
+
+    static double CircularDistance(double a, double b) { double d = ((a - b) % 800 + 800) % 800; return Math.Min(d, 800 - d); }
+    static void WeatherParticleChecks() {
+        // AM§2(c) rain layers by index within each 256 group, and movement divisors (every 4/3/2/1 ticks for layer 3/2/1/0).
+        foreach (var (index, layer) in new[] { (0, 3), (117, 3), (118, 2), (235, 2), (236, 1), (245, 1), (246, 0), (255, 0), (256, 3), (373, 3), (374, 2), (502, 0), (511, 0) })
+            Check(WeatherParticles.RainLayer(index) == layer, $"rain layer of {index}");
+        for (int layer = 0; layer < 4; layer++) Check(WeatherParticles.RainDivisor(layer) == layer + 1, "rain divisor " + layer);
+        // AM§2(d) snow sizes and period field.
+        foreach (var (index, size, period) in new[] { (0, 3, 50), (63, 3, 50), (64, 2, 60), (149, 2, 60), (150, 1, 70), (175, 1, 70), (176, 0, 80), (191, 0, 80) })
+            Check(WeatherParticles.SnowSize(index) == size && WeatherParticles.SnowPeriod(index) == period, $"snow size/period of {index}");
+
+        var rain = new AmbienceFrame(0, 0, 0) { Rain = 3 }; var snow = new AmbienceFrame(0, 0, 0) { Snow = 2 };
+        var a = new WeatherParticles(5); var b = new WeatherParticles(5);
+        var initial = a.Active(rain).ToArray();
+        Check(initial.Length == 512 && initial.Select(p => p.Index).SequenceEqual(Enumerable.Range(0, 512)), "rain 3 uses the whole 512 pool in order");
+        Check(new WeatherParticles(5).Active(rain with { Rain = 1 }).Select(p => p.Index).SequenceEqual(Enumerable.Range(0, 128)), "rain 1 uses the first 128");
+        Check(initial.All(p => p.X >= 0 && p.X < 800 && p.Y >= 0 && p.Y < 485 && p.Stage == 0 && p.Layer == WeatherParticles.RainLayer(p.Index)), "rain initial positions in 800x485");
+        Check(initial.Where(p => p.Layer == 3).All(p => p.Y <= 250) && initial.Where(p => p.Layer == 2).All(p => p.Y <= 449), "splash layers start above their landing range");
+        Check(initial.SequenceEqual(b.Active(rain)), "same seed, same pool");
+        // 24 ms ticks; frame time capped at 500 ms.
+        a.Step(rain, 23); Check(a.Ticks == 0 && a.Active(rain).SequenceEqual(initial), "23 ms is below one tick");
+        a.Step(rain, 1); Check(a.Ticks == 1, "24 ms makes one tick");
+        a.Step(rain, 10_000); Check(a.Ticks == 1 + 20, "frame time capped at 500 ms (20 ticks)");
+        a.Step(rain, 4); Check(a.Ticks == 22, "capped remainder carries over (20 + 4 ms)");
+        // Per-layer speed over 12 ticks (288 ms): layer 0 → 12 px, 1 → 6, 2 → 4, 3 → 3 (while not landed).
+        b.Step(rain, 288); var moved = b.Active(rain).ToArray();
+        float sway = (float)(Math.Sin(12 * Math.PI / 144) * 8);
+        foreach (var layer in new[] { 0, 1, 2, 3 }) {
+            int step = 12 / (layer + 1);
+            var falling = initial.Where(p => p.Layer == layer && (layer < 2 || p.Y + step <= p.Landing)).ToArray();
+            Check(falling.Length > 0 && falling.All(p => moved[p.Index].Y == (p.Y + step) % 485 && moved[p.Index].Stage == 0), $"layer {layer} falls {step} px in 12 ticks");
+            Check(initial.Where(p => p.Layer == layer).All(p => CircularDistance(moved[p.Index].X, p.X + sway) < 1e-3),
+                $"layer {layer} x = spawn x + sin(ticks*pi/144)*8");
+        }
+        Check(Math.Abs(sway - 8 * Math.Sin(Math.PI / 12)) < 1e-6, "sway after 12 ticks");
+        // Camera compensation adds to x (mod 800) without consuming ticks.
+        var shifted = new WeatherParticles(5); shifted.Step(rain, 0, 30);
+        Check(shifted.Ticks == 0 && shifted.Active(rain).Zip(initial).All(z => CircularDistance(z.First.X, z.Second.X + 30) < 1e-3 && z.First.Y == z.Second.Y), "camera shift moves rain x");
+        // Long run: bounds, splash stages and respawn.
+        var run = new WeatherParticles(9); int maxStage3 = 0, maxStage2 = 0; bool respawned = false; var previous = run.Active(rain).ToArray();
+        double maxSway = 0;
+        for (int frame = 0; frame < 600; frame++) {
+            run.Step(rain, 500); var now = run.Active(rain).ToArray();
+            maxSway = Math.Max(maxSway, Math.Abs(Math.Sin(run.Ticks * Math.PI / 144) * 8));
+            Check(now.All(p => p.X >= 0 && p.X < 800 && p.Y >= 0 && p.Y < 485 && p.Y <= p.Landing && p.Stage < 5 * (4 - p.Layer)), "rain stays in 800x485, at or above its landing");
+            maxStage3 = Math.Max(maxStage3, now.Where(p => p.Layer == 3).Max(p => p.Stage));
+            maxStage2 = Math.Max(maxStage2, now.Where(p => p.Layer == 2).Max(p => p.Stage));
+            if (now.Zip(previous).Any(z => z.First.Layer >= 2 && z.Second.Stage > 0 && z.First.Stage == 0 && z.First.Y < z.Second.Y)) respawned = true;
+            Check(now.Where(p => p.Layer == 3).All(p => p.Y <= 250) && now.Where(p => p.Layer == 2).All(p => p.Y <= 449), "splashes stop at their landing row");
+            Check(now.Where(p => p.Layer < 2).All(p => p.Stage == 0), "streak layers never land (landing 485, y wraps at 485)");
+            previous = now;
+        }
+        Check(maxStage3 == 4 && maxStage2 == 9 && respawned, $"splash stage grows to 5*(4-layer)-1 then respawns (layer 3 {maxStage3}, layer 2 {maxStage2})");
+        Check(maxSway <= 8 && maxSway > 7.9, "sway amplitude 8 px");
+        var reset = new WeatherParticles(5); reset.Step(rain, 5000); reset.Reset();
+        Check(reset.Ticks == 0 && reset.Active(rain).SequenceEqual(initial), "Reset re-initialises the pool from the seed");
+
+        // AM§2(d) snow: once per frame, x -= rand % (3n) (x <= 0 → 800), y += 5n, new landing in [(4-size)*64, 505].
+        var flakes = new WeatherParticles(11); var before = flakes.Active(snow).ToArray();
+        Check(before.Length == 96 && before.Select(p => p.Index).SequenceEqual(Enumerable.Range(0, 96)) && before.All(p => p.Kind == WeatherKind.Snow && p.Layer == WeatherParticles.SnowSize(p.Index)), "snow 2 uses the first 96");
+        Check(new WeatherParticles(11).Active(snow with { Snow = 3 }).Count() == 144 && new WeatherParticles(11).Active(snow with { Snow = 1 }).Count() == 48, "snow counts 48/144");
+        flakes.Step(rain, 500); Check(flakes.Active(snow).SequenceEqual(before), "snow does not move while it rains");
+        flakes.Step(snow, 0); var after = flakes.Active(snow).ToArray();
+        Check(after.Zip(before).All(z => (z.First.Y == z.Second.Y + 10 || z.First.Y == 0) && (z.First.X == 800 || (int)(z.Second.X - z.First.X) is >= 0 and < 6)), "snow step: y + 5n, x - rand % 3n (n = 2)");
+        var low = new WeatherParticles(11); low.Step(snow with { Snow = 1 }, 0);
+        Check(low.Active(snow with { Snow = 1 }).Zip(new WeatherParticles(11).Active(snow with { Snow = 1 })).All(z => z.First.Y == z.Second.Y + 5 || z.First.Y == 0), "snow n = 1 moves 5 px");
+        bool wrappedX = false, wrappedY = false; int maxY = 0;
+        for (int frame = 0; frame < 2000; frame++) {
+            var last = flakes.Active(snow).ToArray(); flakes.Step(snow, 16); var next = flakes.Active(snow).ToArray();
+            if (next.Zip(last).Any(z => z.First.X == 800 && z.Second.X <= 5)) wrappedX = true;
+            if (next.Zip(last).Any(z => z.First.Y == 0 && z.Second.Y > 0)) wrappedY = true;
+            maxY = Math.Max(maxY, (int)next.Max(p => p.Y));
+            Check(next.All(p => p.X > 0 && p.X <= 800 && p.Y >= 0 && p.Y < p.Landing && p.Landing >= (4 - p.Layer) * 64 && p.Landing <= 505), "snow stays in (0,800] and above a landing in [(4-size)*64, 505]");
+        }
+        Check(wrappedX && wrappedY && maxY >= 400, "snow wraps left edge to 800 and respawns at y 0 after its landing");
+        var empty = new WeatherParticles(); Check(!empty.Active(new AmbienceFrame(0, 0, 0)).Any(), "clear weather has no active particles");
     }
 }
