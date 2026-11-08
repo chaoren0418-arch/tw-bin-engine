@@ -31,7 +31,7 @@ public sealed partial class ClientForm {
                 Check("origin oversized duplicate rejected (host validation harness)",Count("bridge-rejected")==rejected+12&&World.Direction==2);
                 int blocked=Count("navigation-blocked");web.CoreWebView2.Navigate("https://example.com/");await Task.Delay(100);Check("external navigation cancelled",Count("navigation-blocked")==blocked+1&&web.CoreWebView2.Source==LocalPage);
                 await Script("window.open('https://example.com/');");Check("new window blocked",Count("new-window-blocked")>=1);
-                if(networkMode){HandleDown(Keys.F8);HandleUp(Keys.F8);}
+                if(networkMode){ProcessDevToolsKey(Keys.Control|Keys.Shift|Keys.F8,false);HandleUp(Keys.F8);}
                 ReturnGameFocus();HandleDown(Keys.Up);await Task.Delay(60);Check("movement starts",World.Walking&&Input.Held.Count>0);
                 web.Focus();await Script("document.querySelector('#notes').focus()");Check("real control focus clears held intent",Input.Held.Count==0&&World.Intent==null&&!GameInputAllowed);await Until(()=>!World.Walking);long steps=World.Steps;await Task.Delay(750);Check("current step finishes then stops",World.Steps==steps);
                 await Script("document.querySelector('#game').click()");Check("page focus command restores game gate",GameInputAllowed);HandleDown(Keys.Right);HandleUp(Keys.Right);await Until(()=>!World.Walking);Check("movement resumes",World.Steps==steps+1);

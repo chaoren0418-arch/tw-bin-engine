@@ -95,7 +95,7 @@ public sealed partial class ClientForm:Form {
         Text="P24 • 原場景透明 / 遮擋 • map0 / 7ffd8002 + 7ffd8003";ClientSize=new(1180,800);MinimumSize=new(720,500);StartPosition=FormStartPosition.CenterScreen;
         Camera.SetBounds(assets.CanvasWidth,assets.CanvasHeight);
         AutoScaleMode=AutoScaleMode.None;Font=new("Microsoft JhengHei UI",10);BackColor=Color.FromArgb(17,25,27);DoubleBuffered=true;KeyPreview=true;
-        bar.Controls.Add(status);Controls.Add(bar);
+        bar.Controls.Add(status);
         Camera.SetCenter(World.DisplayPosition);
         KeyDown+=(_,e)=>{if(OwnsGameKeyboardKey(e.KeyData)){HandleDown(e.KeyCode);e.Handled=true;e.SuppressKeyPress=true;}};
         KeyUp+=(_,e)=>{if(e.KeyCode==Keys.Enter)playerHud?.ReleaseChatEntryKey();if(OwnsGameKeyboardKey(e.KeyData)||Input.Held.Contains(e.KeyCode)||playerHudHeld.Contains(e.KeyCode)){HandleUp(e.KeyCode);e.Handled=true;}};
@@ -108,15 +108,13 @@ public sealed partial class ClientForm:Form {
         MouseWheel+=(_,e)=>{if(PlayerChatFocused)return;Camera.Scale(e.Delta>0?1.15f:1/1.15f,e.Location);Invalidate();};
         timer.Tick+=(_,_)=>{double now=clock.Elapsed.TotalMilliseconds;World.Advance(now-last);last=now;if(OnlineMode){SyncWorld();OnlineTick();PlayerPointerTick();}Pump6016();PumpCombatSfx();RefreshScene();};
         Shown+=async(_,_)=>{last=clock.Elapsed.TotalMilliseconds;timer.Start();events.Add(new{kind="shown",pid=Environment.ProcessId});if(demo!=null)await Demo();};
-        InitNetwork(port,networkDemo);InitWeb(webDemo,webFault);InitLogin(loginPort,loginDemo);InitInventory();InitGround();InitRewards();InitRecovery();InitMagic();InitInteraction();InitTrade();InitBonusStats();InitPrivateShop();InitNormalPanels();Init6016();InitCombatSfx();
+        InitNetwork(port,networkDemo);InitWeb(webDemo,webFault);InitLogin(loginPort,loginDemo);InitInventory();InitGround();InitRewards();InitRecovery();InitMagic();InitInteraction();InitTrade();InitBonusStats();InitPrivateShop();InitNormalPanels();InitDevTools();Init6016();InitCombatSfx();
         FormClosed+=(_,_)=>{StopPlayerPointer("視窗關閉");modeEpoch++;timer.Stop();network.Dispose();wireLog.Add("form-closed",new{timerEnabled=timer.Enabled});wireLog.Dispose();timer.Dispose();Input.Clear();World.SetIntent(null);patch?.Dispose();renderer.Dispose();events.Add(new{kind="closed",timerEnabled=false,pid=Environment.ProcessId,model=World.Snapshot()});if(evidence!=null)Json.Save(Path.Combine(evidence,"window-events.json"),events);};
     }
     static bool GameKey(Keys k)=>k is Keys.Escape or Keys.M or Keys.P or Keys.U or Keys.G or Keys.F9 or Keys.F6 or Keys.F7 or Keys.F8 or Keys.Up or Keys.Down or Keys.Left or Keys.Right or Keys.Home or Keys.End or Keys.PageUp or Keys.PageDown or Keys.W or Keys.A or Keys.S or Keys.D or Keys.F or Keys.R or Keys.Space or Keys.F1 or Keys.F2 or Keys.F3 or Keys.F4 or Keys.F12 || (k>=Keys.D1&&k<=Keys.D8) || (k>=Keys.NumPad1&&k<=Keys.NumPad9);
     protected override bool ProcessCmdKey(ref Message msg,Keys keyData) {
+        if(ProcessDevToolsKey(keyData,((long)msg.LParam&(1L<<30))!=0))return true;
         if(ProcessPlayerHudKeyboard(ref msg,keyData))return true;
-        if(normalProduct&&keyData==Keys.F9){if(((long)msg.LParam&(1L<<30))==0)_=TogglePanel();return true;}
-        if(keyData==Keys.F10){ReturnGameFocus();return true;}
-        if(keyData==Keys.F11){_ = FocusWebInput();return true;}
         if(ProcessLoginKeyboardEnter(ref msg,keyData))return true;
         if(ProcessPlayerChatKeyboard(ref msg,keyData))return true;
         if(OwnsGameKeyboardKey(keyData) && keyData is Keys.Up or Keys.Down or Keys.Left or Keys.Right or Keys.Home or Keys.End or Keys.PageUp or Keys.PageDown){HandleDown(keyData);return true;}
@@ -124,18 +122,16 @@ public sealed partial class ClientForm:Form {
     }
     public void HandleDown(Keys key) {
         if(TryPlayerHudKey(key))return;
-        if(key==Keys.F9){_ = TogglePanel();return;}
+        if(key is >=Keys.F1 and <=Keys.F12)return;
         if(OnlineMode){if(playerPointer?.Active==true)StopPlayerPointer("鍵盤操作");if(key==Keys.Escape){ClearInput("escape");return;}OnlineDown(key);return;}
-        if(NetworkKey(key))return;
+
         bool fresh=!Input.Held.Contains(key);Input.Down(key);
         if(fresh) {
             if(key==Keys.F){Camera.Follow=!Camera.Follow;}
             if(key==Keys.R){World.Teleport(World.Assets.Spawn[0],World.Assets.Spawn[1]);Input.Clear();Camera.Follow=true;}
             if(key==Keys.Space){Input.Clear();}
-            if(key==Keys.F2){buildingBack=!buildingBack;World.Teleport(buildingBack?32590:32589,32930);World.Face(5);Input.Clear();Camera.Follow=true;}
-            if(key==Keys.F3){treeBack=!treeBack;World.Teleport(treeBack?32591:32589,treeBack?32938:32941);World.Face(5);Input.Clear();Camera.Follow=true;}
             if(key>=Keys.D1&&key<=Keys.D8)World.Face(key-Keys.D1);
-            if(key==Keys.F12&&evidence!=null)CaptureEvidence("manual");
+
             events.Add(new{kind="keydown",key=key.ToString(),utc=DateTimeOffset.UtcNow});
         }
         World.SetIntent(Input.Direction);RefreshScene();
@@ -160,17 +156,18 @@ public sealed partial class ClientForm:Form {
         RefreshSceneImage();
         status.Text=$"世界 {World.X}, {World.Y}   D{World.Direction}   {(World.Walking?"行走":"站立")} {World.Frame.Key}   縮放 {Camera.Zoom:0.00}×   攝影機 {(Camera.Follow?"跟隨":"自由")}   {World.BoundaryNotice}\n"+
             (networkMode?"轉向：1–8；收到回應才更新方向　測試期間移動暫停\n":"移動：方向鍵 / WASD / 數字鍵盤　斜向：Home PgUp End PgDn　轉向：1–8\n")+
-            (networkMode?"鏡頭：F 跟隨、滾輪縮放、中鍵拖曳　F8 可回離線移動\n":"鏡頭：F 跟隨、滾輪縮放、中鍵拖曳　R 回起點　F2 建物 / F3 樹木前後示範\n")+
+            (networkMode?"鏡頭：F 跟隨、滾輪縮放、中鍵拖曳　Ctrl+Shift+F8 可回離線移動\n":"鏡頭：F 跟隨、滾輪縮放、中鍵拖曳　R 回起點　Ctrl+Shift+F2 建物 / Ctrl+Shift+F3 樹木前後示範\n")+
             $"單區塊 • 碰撞/尋路未知，只有區域限制 • 群組未觸發{(selected is Point s?$" • 選格 {s.X},{s.Y}（{(Coordinates.Inside(s.X,s.Y)?"區內":"區外")}）":"")}";
         if(OnlineMode)status.Text=$"P24 真實連線 • {login.State} • {login.Detail}\n"+(login.World.Actor is {} actor?$"{actor.Name} / object {actor.ObjectId} / gfx {actor.Gfx} / map {login.World.MapId} / {actor.X},{actor.Y} / D{actor.Direction}\n":"尚未收到本次完整世界角色資料\n")+$"在線步行：方向鍵／WASD，斜向 Home/PgUp/End/PgDn；轉向：1–8。\n單次攻擊：G；HP {login.World.Status?.Hp}/{login.World.Status?.MaxHp}；{login.World.CombatNotice}";
-        else status.Text=NetworkStatus+"\n"+status.Text;
-        if(normalProduct){status.Text=OnlineMode?(login.World.Actor is {} player?$"{player.Name} · HP {login.World.Status?.Hp}/{login.World.Status?.MaxHp} · MP {login.World.Status?.Mp}/{login.World.Status?.MaxMp}\n{login.World.SustenanceText}\n方向鍵／WASD 移動 · 點選目標後 G 攻擊 · M 施法 · U 使用道具 · P 拾取":loginControl.Notice):"離線預覽 · 登入後可選擇角色進入世界\n方向鍵／WASD 移動 · 滾輪縮放 · F9 開關面板 · F10 回遊戲";}
+        else status.Text=NetworkStatus.Replace("F6","Ctrl+Shift+F6").Replace("F7","Ctrl+Shift+F7").Replace("F8","Ctrl+Shift+F8")+"\n"+status.Text;
+        if(normalProduct){status.Text=OnlineMode?(login.World.Actor is {} player?$"{player.Name} · HP {login.World.Status?.Hp}/{login.World.Status?.MaxHp} · MP {login.World.Status?.Mp}/{login.World.Status?.MaxMp}\n{login.World.SustenanceText}\n方向鍵／WASD 移動 · 點選目標後 G 攻擊 · M 施法 · U 使用道具 · P 拾取":loginControl.Notice):"離線預覽 · 登入後可選擇角色進入世界\n方向鍵／WASD 移動 · 滾輪縮放 · Ctrl+Shift+F9 開關開發工具 · Ctrl+Shift+F10 回遊戲";}
         SyncNormalPanels();
-        bar.Height=TextRenderer.MeasureText(status.Text,status.Font,new Size(Math.Max(100,ClientSize.Width-(webHost.Visible?webHost.Width:0)-28),1000),TextFormatFlags.WordBreak|TextFormatFlags.TextBoxControl).Height+24;
         SyncPlayerHud();PublishWebState();PublishSceneWeb();Invalidate();
     }
     protected override void OnPaint(PaintEventArgs e) {paintCount++;
-        base.OnPaint(e);var viewport=PlayerSceneBounds;Camera.ViewOffset=viewport.Location;Camera.View=viewport.Size;
+        base.OnPaint(e);PaintScene(e,PlayerSceneBounds);
+    }
+    void PaintScene(PaintEventArgs e,Rectangle viewport){Camera.ViewOffset=viewport.Location;Camera.View=viewport.Size;
         e.Graphics.SetClip(viewport);e.Graphics.InterpolationMode=InterpolationMode.NearestNeighbor;e.Graphics.PixelOffsetMode=PixelOffsetMode.Half;
         lastPaintMode=OnlineMode?(login.World.Renderable?"online-supported":login.World.Ready?"online-unsupported":"waiting"):"offline";lastPaintActorId=OnlineMode&&login.World.Renderable?login.World.Actor?.ObjectId:null;
         if(OnlineMode&&!login.World.Renderable){
@@ -188,8 +185,17 @@ public sealed partial class ClientForm:Form {
         if(OnlineMode)PaintObjectSelection(e.Graphics);
         if(!OnlineMode&&selected is Point s){var p=Camera.ToView(Coordinates.Screen(s.X,s.Y));using var pen=new Pen(Coordinates.Inside(s.X,s.Y)?Color.FromArgb(220,204,133):Color.OrangeRed,1.5f);e.Graphics.DrawPolygon(pen,new PointF[]{new(p.X-24*Camera.Zoom,p.Y),new(p.X,p.Y-12*Camera.Zoom),new(p.X+24*Camera.Zoom,p.Y),new(p.X,p.Y+12*Camera.Zoom)});}
     }
+    // C3 scene-only logical capture. C2 will compose native HUD panels into this canvas.
+    internal Bitmap CaptureLogicalScene(){
+        var bitmap=new Bitmap(800,600,PixelFormat.Format32bppPArgb);
+        var oldView=Camera.View;var oldOffset=Camera.ViewOffset;
+        try{using var graphics=Graphics.FromImage(bitmap);graphics.Clear(BackColor);PaintScene(new PaintEventArgs(graphics,new(0,0,800,600)),new(0,0,800,600));return bitmap;}
+        catch{bitmap.Dispose();throw;}
+        finally{Camera.View=oldView;Camera.ViewOffset=oldOffset;}
+    }
     void CaptureEvidence(string name) {
-        string output=demo??evidence!;Directory.CreateDirectory(output);RefreshScene();Update();
+        string output=demo??evidence??WebEvidence;Directory.CreateDirectory(output);RefreshScene();Update();
+        using(var logical=CaptureLogicalScene())logical.Save(Path.Combine(output,name+"-logical.png"),ImageFormat.Png);
         using(var b=new Bitmap(Width,Height)){DrawToBitmap(b,new(Point.Empty,Size));b.Save(Path.Combine(output,name+"-client.png"),ImageFormat.Png);}
         try {using var b=new Bitmap(Width,Height);using var g=Graphics.FromImage(b);g.CopyFromScreen(Left,Top,0,0,Size);b.Save(Path.Combine(output,name+"-screen.png"),ImageFormat.Png);events.Add(new{kind="screen-copy",name,success=true});}
         catch(Exception ex){events.Add(new{kind="screen-copy",name,success=false,error=ex.ToString()});}
@@ -212,8 +218,8 @@ public sealed partial class ClientForm:Form {
             }
             Activate();await Task.Delay(800);
             if(World.Walking||Input.Held.Count!=0)throw new Exception("Focus clear left moving");
-            HandleDown(Keys.F2);HandleUp(Keys.F2);await Task.Delay(100);CaptureEvidence("building-back");HandleDown(Keys.F2);HandleUp(Keys.F2);await Task.Delay(100);CaptureEvidence("building-front");
-            HandleDown(Keys.F3);HandleUp(Keys.F3);await Task.Delay(100);CaptureEvidence("tree-back");HandleDown(Keys.F3);HandleUp(Keys.F3);await Task.Delay(100);CaptureEvidence("tree-front");
+            ProcessDevToolsKey(Keys.Control|Keys.Shift|Keys.F2,false);await Task.Delay(100);CaptureEvidence("building-back");ProcessDevToolsKey(Keys.Control|Keys.Shift|Keys.F2,false);await Task.Delay(100);CaptureEvidence("building-front");
+            ProcessDevToolsKey(Keys.Control|Keys.Shift|Keys.F3,false);await Task.Delay(100);CaptureEvidence("tree-back");ProcessDevToolsKey(Keys.Control|Keys.Shift|Keys.F3,false);await Task.Delay(100);CaptureEvidence("tree-front");
             ClientSize=new(900,640);await Task.Delay(100);CaptureEvidence("02-resized");
             ClientSize=new(1180,800);World.Teleport(World.Assets.Spawn[0],World.Assets.Spawn[1]);Camera.Follow=false;Camera.SetCenter(new(1536,816));Camera.Scale(.45f,new(590,360));await Task.Delay(100);CaptureEvidence("03-overview");
             Json.Save(Path.Combine(demo!,"ui-result.json"),new{status="pass",kind="in-process WinForms message-loop/controller harness",nativeExternalInput=false,pid=Environment.ProcessId,events});

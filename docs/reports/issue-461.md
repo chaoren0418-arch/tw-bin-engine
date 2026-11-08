@@ -55,7 +55,7 @@ Issue 文字寫於 V4 合併前。V4 已經從 BIN 查證，並在 ui-layout.md 
      | 3279 | `3279c.img` | Sprite03 | 362×240 | 1／`0x324C` | Sprite00，362×240 | 362×240 ✔ |
 
    - 目視 `surf-3176-3176c.img.png`：傳統金框、4×2 格、沒有 F5–F12 字樣，與 V4 (e) 和 V5 (a) 的描述一致。
-3. `python -B -X utf8 engine/_integration/dev/rebuild.py --update-lock` → 229 個來源檔，238 個鎖定檔。`--build` → `PASS dev`，productDll `ad86cfee…1628`。
+3. `python -B -X utf8 engine/_integration/dev/rebuild.py --update-lock` 與 `--build`：合併 origin/main（含 C3 #462）之後重產 lock，230 個來源檔、239 個鎖定檔；`--build` → `PASS dev`，productDll `12a56cef…12fe`。合併後重跑 native-ui-resources（合成 539、選用 550）、combat-admission、item-status、doors，全部 PASS。
 4. 既有 demo 分組（CI 會跑的）：map-continuity 32953、combat-admission 1686、item-status 409、afflictions 580、polymorph-cadence 380、buddies 496、item-transfer 400、doors 648，**全部 PASS**。
 5. `engine/tools/check-no-game-assets.py` → `pass, errors 0`。新增的檔案只有 `.cs`；沒有任何 `.img`、`.xml`、`.png` 或像素進 git、embedded resource 或 `engine/assets`。
 

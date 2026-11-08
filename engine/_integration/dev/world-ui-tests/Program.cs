@@ -7,7 +7,7 @@ using System.Text.Json;
 
 // Offline product DLL regression. No product entry point, ClientForm constructor,
 // login/socket, server, DB, audio device, or visible window is started.
-class Checks {
+partial class Checks {
     const BindingFlags F=BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic;
     static readonly List<string> passed=[];
     static void Check(bool ok,string name){if(!ok)throw new Exception(name);passed.Add(name);}
@@ -40,8 +40,11 @@ class Checks {
         Feed(c,Remove(456));Check(w.TargetId==null&&w.Objects.Length==0&&w.TargetRevision>rev,"AOI remove clears object and target");
         Feed(c,Move(456,32604,32940,2));Check(w.Objects.Length==0&&w.UnknownObjectUpdates==1,"late delta cannot recreate removed object");
         Feed(c,Pack(456,32601));Check(w.Objects.Single().MotionAt==0&&!w.Objects.Single().Dead&&w.TargetId==null,"AOI reentry starts fresh and does not reselect");
-        w.SelectTarget(456);Feed(c,LoginPackets.Pad([76,..BitConverter.GetBytes(456u),0,0,0,0]));
-        Check(w.TargetId==null&&w.Objects.Single().AppearancePending,"pending appearance clears selection");w.SelectTarget(456);Check(w.TargetId==null,"pending appearance cannot be selected");
+        w.SelectTarget(456);int targetRevision=w.TargetRevision;Feed(c,LoginPackets.Pad([76,..BitConverter.GetBytes(456u),0,0,0,0]));
+        // S76 now applies the server gfx immediately (T128), retaining target identity
+        // while invalidating queued actions; it no longer waits for a later S87.
+        Check(w.TargetId==456&&!w.Objects.Single().AppearancePending&&w.TargetRevision>targetRevision,"polymorph retains identity and invalidates old target actions");
+        w.SelectTarget(456);Check(w.TargetId==456,"applied appearance remains selectable");
         Feed(c,Pack(456,32601));w.SelectTarget(456);Check(w.TargetId==456,"full pack restores selectable appearance");
         Feed(c,LoginPackets.Pad([206,0,0,0]));Check(w.Objects.Length==0&&w.TargetId==null&&!w.Renderable,"same-map reset clears AOI before own pack");
         Feed(c,Pack(123));Feed(c,Pack(789,32601));w.SelectTarget(789);int oldEpoch=w.WorldEpoch;
@@ -156,7 +159,7 @@ class Checks {
     [STAThread] static int Main(string[] args){try{
         string root=Path.GetFullPath(args[0]);AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY",Path.Combine(root,"engine/build/offline-checks")+Path.DirectorySeparatorChar);
         using var guard=new SocketGuard();var assets=new Assets(Path.Combine(root,"engine/assets"));
-        Lifecycle();Position();Pointer().GetAwaiter().GetResult();Actions().GetAwaiter().GetResult();Hud();Focus(assets);Render(assets);Icons(root);
+        DevTools(assets,args[1]);Lifecycle();Position();Pointer().GetAwaiter().GetResult();Actions().GetAwaiter().GetResult();Hud();Focus(assets);Render(assets);Icons(root);
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status="pass",checks=passed.Count,scope="產品 DLL、合成封包、記憶體 sender、離線 ClientForm handlers／HUD／renderer；非原生驗收",labels=passed},new JsonSerializerOptions{WriteIndented=true}));Console.WriteLine($"PASS {passed.Count} world/UI checks");return 0;
     }catch(Exception ex){Console.Error.WriteLine(ex);return 1;}}
     sealed class SocketGuard:EventListener {protected override void OnEventSourceCreated(EventSource s){if(s.Name=="System.Net.Sockets")EnableEvents(s,EventLevel.LogAlways);}protected override void OnEventWritten(EventWrittenEventArgs e)=>throw new Exception("Socket activity forbidden in offline checks");}

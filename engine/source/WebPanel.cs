@@ -4,10 +4,11 @@ using System.Text.Json;
 namespace P06;
 public sealed partial class ClientForm {
     const string LocalPage="https://p08.example/index.html";
-    readonly Panel webHost=new(){Dock=DockStyle.Right,Width=365,Visible=false,BackColor=Color.FromArgb(19,35,42)};
-    readonly Button webToggle=new(){Text="開啟本機面板 (F9)",Dock=DockStyle.Top,Height=34};
-    readonly Button gameButton=new(){Text="遊戲控制 (F10)",Dock=DockStyle.Top,Height=30};
+    readonly Panel webHost=new(){Dock=DockStyle.Fill,Visible=true,BackColor=Color.FromArgb(19,35,42)};
+    readonly Button webToggle=new(){Text="開啟本機面板 (Ctrl+Shift+F9)",Dock=DockStyle.Top,Height=34};
+    readonly Button gameButton=new(){Text="遊戲控制 (Ctrl+Shift+F10)",Dock=DockStyle.Top,Height=30};
     readonly Label webNotice=new(){Dock=DockStyle.Fill,ForeColor=Color.White,Padding=new(18),Text="WebView2 初始化中…"};
+    readonly HashSet<Keys> webShortcutHeld=[];
     WebView2? web;CoreWebView2Environment? webEnvironment;Task? initializing;
     int webEpoch,revision;bool webClosing,finalClose,gameFocus=true,webReady;string? webFault;
     string lastWebState="";EventJournal? webJournal;
@@ -17,9 +18,9 @@ public sealed partial class ClientForm {
     public void CompleteWebJournal()=>webJournal?.Complete();
     void WebLog(string kind,object? data=null){(webJournal??=new EventJournal(Path.Combine(WebEvidence,"web-events.json"))).Append(kind,new{kind,data,utc=DateTimeOffset.UtcNow,monotonic=clock.ElapsedTicks,pid=Environment.ProcessId});}
     void InitWeb(string? scenario,string? fault){
-        webFault=fault;Font=new("Microsoft JhengHei UI",10f*96/DeviceDpi);webToggle.ForeColor=Color.White;gameButton.ForeColor=Color.White;webToggle.BackColor=Color.FromArgb(42,74,80);gameButton.BackColor=Color.FromArgb(42,74,80);webHost.Controls.Add(webNotice);Controls.Add(webHost);
+        webFault=fault;Font=new("Microsoft JhengHei UI",10f*96/DeviceDpi);webToggle.ForeColor=Color.White;gameButton.ForeColor=Color.White;webToggle.BackColor=Color.FromArgb(42,74,80);gameButton.BackColor=Color.FromArgb(42,74,80);webHost.Controls.Add(webNotice);
         var tools=new FlowLayoutPanel{Dock=DockStyle.Top,Height=36,BackColor=Color.FromArgb(23,38,41)};
-        webToggle.Dock=DockStyle.None;webToggle.Width=220;gameButton.Dock=DockStyle.None;gameButton.Width=130;tools.Controls.AddRange([webToggle,gameButton,tradeInvite]);Controls.Add(tools);playerToolsStrip=tools;
+        webToggle.Dock=DockStyle.None;webToggle.Width=300;gameButton.Dock=DockStyle.None;gameButton.Width=260;tools.Controls.AddRange([webToggle,gameButton,tradeInvite]);playerToolsStrip=tools;
         webToggle.Enter+=(_,_)=>LeaveGameFocus("toolbar");gameButton.Enter+=(_,_)=>LeaveGameFocus("toolbar");
         webToggle.Click+=async(_,_)=>await TogglePanel();gameButton.Click+=(_,_)=>ReturnGameFocus();
         Deactivate+=(_,_)=>LeaveGameFocus("deactivate");
@@ -27,12 +28,12 @@ public sealed partial class ClientForm {
         FormClosing+=async(_,e)=>{if(finalClose)return;e.Cancel=true;if(webClosing)return;webClosing=true;var combatShutdown=ShutdownCombatSfx();var audioShutdown=await Shutdown6016();Record6016(new("form-closing",audioShutdown));await combatShutdown;await ClosePanel();finalClose=true;Close();};
     }
     void LeaveGameFocus(string why){gameFocus=false;ClearInput("web-"+why);PublishWebState();WebLog("focus-left-game",new{why,held=Input.Held.Count,model=World.Snapshot()});}
-    void ReturnGameFocus(){ActiveControl=null;Focus();gameFocus=true;ClearInput("return-game");PublishWebState();WebLog("focus-game",new{held=Input.Held.Count,model=World.Snapshot()});}
-    async Task TogglePanel(){if(webClosing)return;webToggle.Enabled=false;try{if(webHost.Visible)await ClosePanel();else await OpenPanel();}finally{if(!IsDisposed)webToggle.Enabled=true;}}
-    Task OpenPanel(){if(web!=null)return initializing??Task.CompletedTask;webHost.Visible=true;webNotice.Text="WebView2 初始化中…";webToggle.Text="關閉本機面板 (F9)";LeaveGameFocus("open");int epoch=++webEpoch;
-        web=new WebView2{Dock=DockStyle.Fill};webHost.Controls.Add(web);web.BringToFront();web.Enter+=WebEnter;initializing=InitializePanel(web,epoch);return initializing;}
-    void WebEnter(object? sender,EventArgs e)=>LeaveGameFocus("webview-enter");
-    async Task FocusWebInput(){if(!webReady||web==null)return;LeaveGameFocus("F11-input");web.Focus();await web.ExecuteScriptAsync("document.getElementById('notes').focus()");WebLog("focus-web-input",new{source="native F11 command"});}
+    void ReturnGameFocus(){ActiveControl=null;Activate();Focus();gameFocus=true;ClearInput("return-game");PublishWebState();WebLog("focus-game",new{held=Input.Held.Count,model=World.Snapshot()});}
+    async Task TogglePanel(){if(webClosing)return;webToggle.Enabled=false;try{if(devTools?.Visible==true)devTools.HideTools();else await OpenPanel();}finally{if(!IsDisposed)webToggle.Enabled=true;}}
+    Task OpenPanel(){ShowDevTools(webHost);if(web!=null)return initializing??Task.CompletedTask;webHost.Visible=true;webNotice.Text="WebView2 初始化中…";webToggle.Text="關閉本機面板 (Ctrl+Shift+F9)";LeaveGameFocus("open");int epoch=++webEpoch;
+        web=new WebView2{Dock=DockStyle.Fill};webHost.Controls.Add(web);web.BringToFront();web.Enter+=WebEnter;web.KeyDown+=(_,e)=>{if(ProcessDevToolsKey(e.KeyData,!webShortcutHeld.Add(e.KeyCode))){e.Handled=true;e.SuppressKeyPress=true;}};web.KeyUp+=(_,e)=>webShortcutHeld.Remove(e.KeyCode);initializing=InitializePanel(web,epoch);return initializing;}
+    void WebEnter(object? sender,EventArgs e){webShortcutHeld.Clear();LeaveGameFocus("webview-enter");}
+    async Task FocusWebInput(){await OpenPanel();if(!webReady||web==null)return;LeaveGameFocus("Ctrl+Shift+F11-input");web.Focus();await web.ExecuteScriptAsync("document.getElementById('notes').focus()");WebLog("focus-web-input",new{source="native Ctrl+Shift+F11 command"});}
     async Task InitializePanel(WebView2 view,int epoch){
         try{
             string udf=Path.Combine(stageRoot,"runtime",$"session-{Environment.ProcessId}");
@@ -144,6 +145,6 @@ public sealed partial class ClientForm {
     async Task ClosePanel(){WebLog("close-request",new{initializing=initializing is {IsCompleted:false},epoch=webEpoch,formClosing=webClosing});++webEpoch;webReady=false;ClearInput("panel-close");var old=web;
         if(initializing!=null)await initializing;initializing=null;
         if(old!=null){old.Enter-=WebEnter;if(!old.IsDisposed&&old.CoreWebView2 is {} core){core.NavigationStarting-=NavigationStarting;core.NavigationCompleted-=NavigationCompleted;core.WebMessageReceived-=WebMessage;core.NewWindowRequested-=NewWindow;core.PermissionRequested-=Permission;core.DownloadStarting-=Download;core.ProcessFailed-=ProcessFailed;core.WebResourceRequested-=ResourceRequested;core.Stop();}old.Dispose();}
-        web=null;webEnvironment=null;webHost.Visible=false;webToggle.Text="開啟本機面板 (F9)";lastWebState="";WebLog("panel-disposed",new{held=Input.Held.Count});if(!webClosing)ReturnGameFocus();webJournal?.Flush();
+        web=null;webEnvironment=null;devTools?.Hide();webToggle.Text="開啟本機面板 (Ctrl+Shift+F9)";lastWebState="";WebLog("panel-disposed",new{held=Input.Held.Count});if(!webClosing)ReturnGameFocus();webJournal?.Flush();
     }
 }
