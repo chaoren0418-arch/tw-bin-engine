@@ -115,8 +115,8 @@ static partial class AttackSkillChecks
             world=Seed();renderer=BareRenderer(client);var packet=Range([(456,32,70000),(457,0,0)],true,type);
             BinaryPrimitives.WriteUInt16LittleEndian(packet.AsSpan(15),40000);world.Receive(packet,"offline");at=world.MagicEffects[0].At;
             draws=Compose(renderer,world,at);
-            Check(draws.Count==(type==8?1:2)&&renderer.MagicVisuals.All(v=>v.Gfx==40000),"S42 type/multiple targets reach actual draw list "+type);
-            Check(renderer.MagicVisuals.All(v=>v.X==(type==8?32600:32603)&&v.Direction==6),"S42 origin and heading "+type);
+            Check(draws.Count==1&&renderer.MagicVisuals.All(v=>v.Gfx==40000),"S42 type/multiple targets reach one actual draw "+type);
+            Check(renderer.MagicVisuals.All(v=>v.X==32600&&v.Direction==6),"S42 origin (packet x,y) and heading "+type);
             world.Reset();Compose(renderer,world,at);Check(renderer.MagicVisuals.Length==0,"epoch clears render effects");
         }
         world=Seed();renderer=BareRenderer(client);world.Receive(Attack(gfx:65535),"offline");
