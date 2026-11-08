@@ -45,6 +45,7 @@ public sealed partial class ClientForm {
     void InitRecovery(){
         recoveryPanel.Controls.AddRange([recoveryNotice,restartButton]);Controls.Add(recoveryPanel);
         restartButton.Click+=async(_,_)=>{ClearInput("restart-after-death");await login.RestartAfterDeath();SyncRecovery();};
+        InitResurrection();
     }
     void SyncRecovery(){
         recoveryPanel.Visible=login.State==LoginState.InWorld&&(login.World.OwnDead||login.World.Status?.Hp==0);
