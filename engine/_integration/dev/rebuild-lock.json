@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 241,
+ "sourceCount": 259,
  "files": [
   {
    "path": "NuGet.Config",
@@ -133,6 +133,11 @@
    "path": "source/AudioApiTransport.cs",
    "size": 2031,
    "sha256": "039d63ef093732b02fb3b66041fcd185a7b1e70939690652c8409c762a8d37f9"
+  },
+  {
+   "path": "source/BackgroundMusic.cs",
+   "size": 8669,
+   "sha256": "7afc6cca2f19da811ca823f13b99f6aebb4fdeeb1c1e45712c560a9f12ec10c3"
   },
   {
    "path": "source/BasicSupplies.cs",
@@ -280,9 +285,14 @@
    "sha256": "4fd35c310e4dce8cb56e943ca7dde9f44c952b262aa5f1c1ee3142cc3c6d007c"
   },
   {
+   "path": "source/ClientSoundScene.cs",
+   "size": 3682,
+   "sha256": "16d80ab1675ce63b2ef92a48521a65ec50a4160e598f3281e816132de65ae695"
+  },
+  {
    "path": "source/Combat.cs",
-   "size": 13564,
-   "sha256": "b41b61b9f0a78575dcc817cbe9492706d5e73ea0e575a218802923d82a65fa68"
+   "size": 13669,
+   "sha256": "987cbb8c1eedfb4ae93f411231ca8c1dc9d1503b3e4a7de4ea4ecc47b4383b67"
   },
   {
    "path": "source/CombatRegression.cs",
@@ -326,8 +336,8 @@
   },
   {
    "path": "source/Doors.cs",
-   "size": 6741,
-   "sha256": "46bff83d398f3db14ac5dbc575731ca9fb5a792138e1f635f4b7729f6ee45dbd"
+   "size": 9247,
+   "sha256": "106a6ad55d06b2007700cd6cc62175814c03cfd116eb0c8cb5eaefb6697974aa"
   },
   {
    "path": "source/DualBlockTests.cs",
@@ -363,6 +373,11 @@
    "path": "source/Effect6016Host.cs",
    "size": 8406,
    "sha256": "d8214e2973b033126f1bf865546a6fac64666808ece64a0a3f9da8db54a11891"
+  },
+  {
+   "path": "source/EnvSoundDefinition.cs",
+   "size": 6856,
+   "sha256": "aa26a1aab9405d7cda9ffeea53b49bec7e9228d3040c0dd3e1344b6debe34628"
   },
   {
    "path": "source/Equipment.cs",
@@ -516,8 +531,8 @@
   },
   {
    "path": "source/LoginConnection.cs",
-   "size": 10741,
-   "sha256": "16e34f82376fd4319fe44e9699d36502443322e59285a6a12c0d796ddbdf6a74"
+   "size": 11483,
+   "sha256": "e964c60288d19f7abd8f2a89e8946f1021c4ec21f776e11210828f6ac68f04f2"
   },
   {
    "path": "source/LoginControl.cs",
@@ -566,8 +581,8 @@
   },
   {
    "path": "source/MagicStatus.cs",
-   "size": 8230,
-   "sha256": "4ee0df2c149b2e630094a2dddf2751f84cd6c24b4183ce376ded75aa2f01f1f6"
+   "size": 8409,
+   "sha256": "f7b690920000c5a78ee78649cf6f85b2a2575ea0e7d694de028046e63475d867"
   },
   {
    "path": "source/MagicTargetPreparation.cs",
@@ -611,8 +626,13 @@
   },
   {
    "path": "source/MapEffects.cs",
-   "size": 11097,
-   "sha256": "bb4c45a806b80fba5d0119542952919ad881852e69fa936b436f217656bb53b7"
+   "size": 11181,
+   "sha256": "22669cc170fc140063e322ba84b71e210cd5c9d80eb33faca5f76456cb4ae301"
+  },
+  {
+   "path": "source/MapEnvSound.cs",
+   "size": 4564,
+   "sha256": "5024bbb599dd0e39cee0b9f45047b843914fe040b5d39de9fd4be9b8a32c9ca0"
   },
   {
    "path": "source/MapIdPacket.cs",
@@ -655,6 +675,11 @@
    "sha256": "7021dbcfbf3427142de2d6890e0942c253374cbce798cd581d1687df19317051"
   },
   {
+   "path": "source/MusicDefinition.cs",
+   "size": 6359,
+   "sha256": "98e8df9729bf7286757d6f305f8fe2b24f29e34e0757f8985c00fe83c0b38dd3"
+  },
+  {
    "path": "source/NativeFocusDiagnostics.cs",
    "size": 1837,
    "sha256": "deaf7308df2c3f4d2f9f09406510f84bc42c2c96267b739a3fcd8bd6b0b5cca8"
@@ -670,14 +695,59 @@
    "sha256": "599be507ea3f428e5f279566d748755539f9f35a30d80f666fbc282e631c4a44"
   },
   {
+   "path": "source/NativeUi/UiCanvas.cs",
+   "size": 2677,
+   "sha256": "846cffab333e656a3b80ae2f574e230b8f0ee731e3cbfbbf9b40dcbdc9016bd1"
+  },
+  {
+   "path": "source/NativeUi/UiClientBridge.cs",
+   "size": 7737,
+   "sha256": "dbab7875945d585c53de15a1bc6c2ab152ca4be555d010d0b166ef08769ad17e"
+  },
+  {
+   "path": "source/NativeUi/UiContracts.cs",
+   "size": 3949,
+   "sha256": "e5dbf6bcc2ca924e7d935e046f81f04a0316de9c4100453c49a5023860a6152d"
+  },
+  {
+   "path": "source/NativeUi/UiInput.cs",
+   "size": 4392,
+   "sha256": "1dc0d6eb34903c975f0ac6cc200a4573f7c87924b4c8e92cd2848e3c7b664cea"
+  },
+  {
    "path": "source/NativeUi/UiLayout.cs",
    "size": 5189,
    "sha256": "238c2c95cf0e86816574d08f19011155d77eedac7c5406db5bd18f47be82ba6a"
   },
   {
+   "path": "source/NativeUi/UiPanelRegistry.cs",
+   "size": 723,
+   "sha256": "0978c88c5ae87888da72c39eeab23c1301f748d958a10edd8b83144640359b12"
+  },
+  {
+   "path": "source/NativeUi/UiPresenter.cs",
+   "size": 3927,
+   "sha256": "9746675e069565c9e47ec4de1b1346a2bea432bb95543aff1e26cf249f0d756b"
+  },
+  {
+   "path": "source/NativeUi/UiRoot.cs",
+   "size": 7914,
+   "sha256": "de9b638768b5b354dc91e5a33650178b3677080ef14d1114acc1ba58bd5a80ef"
+  },
+  {
+   "path": "source/NativeUi/UiSlotGroup.cs",
+   "size": 2679,
+   "sha256": "7827a076cc471cb73e14ca2b597d3ad07ea8ef561018e6db18f4748b260cf02e"
+  },
+  {
    "path": "source/NativeUi/UiSurface.cs",
    "size": 3307,
    "sha256": "5910f13e840d3ff62d957a950788714e665dc379665e600c4aa1dde4b4b9215b"
+  },
+  {
+   "path": "source/NativeUi/UiText.cs",
+   "size": 1880,
+   "sha256": "faa33987562362079c69c227613b69c7c544e0f31fcd114fa1e7369577b26cf2"
   },
   {
    "path": "source/NativeUi/UiXmlSource.cs",
@@ -815,6 +885,16 @@
    "sha256": "8c7009fd8483196beda9108a07a01f54b1e02d4447ba6cb3c6b88fb78b15d084"
   },
   {
+   "path": "source/PacketBoxStatus.cs",
+   "size": 12806,
+   "sha256": "68af4dc8e0d334f142996b5f8df8d80f1a7a36a81952593bf3e421b4494ec472"
+  },
+  {
+   "path": "source/PacketBoxStatusTests.cs",
+   "size": 9955,
+   "sha256": "76884d8934e33f9fb1d414eddb8499825b0fee181f9505bcb1f6ab56464465f2"
+  },
+  {
    "path": "source/PacketTrace.cs",
    "size": 7341,
    "sha256": "1172b568b9702a0db588cbb5818cc85988bece0e0fd6586af58db6f9469e86d2"
@@ -871,8 +951,8 @@
   },
   {
    "path": "source/PlayerHudIntegration.cs",
-   "size": 6378,
-   "sha256": "0fd135aeda49c473c21c099803aaab52073ab5853d50a23834d9d99d0e1f67ff"
+   "size": 6693,
+   "sha256": "023d2a1e2b82205afa993127612c01b399e993a126e24e574ed144d1ec761e89"
   },
   {
    "path": "source/PlayerHudModel.cs",
@@ -946,8 +1026,8 @@
   },
   {
    "path": "source/Program.cs",
-   "size": 25803,
-   "sha256": "d3ef64022d5cedce15b101be1a93dbfea7e80e1f5bd334873294ce9b1bea8574"
+   "size": 26753,
+   "sha256": "dec8cc860ea5ddb19035cb6b938debf336f22a8e6264f5cd96750eb59ca4f398"
   },
   {
    "path": "source/ProjectileRendering.cs",
@@ -1060,6 +1140,11 @@
    "sha256": "d8e1f4ca80c0cd790b72f94f8a5a1837a6b00e85688afbd724773b2cc56a4e09"
   },
   {
+   "path": "source/ServerFeatures.cs",
+   "size": 12649,
+   "sha256": "31ebfb8dad400767d1ceea30364a1202e769b7ed93b19ee247efe66c31731dcc"
+  },
+  {
    "path": "source/ServerMessageText.cs",
    "size": 1256,
    "sha256": "aae0243434301a53a54c762ef1c2786e9336503361c7dbc6becad20ac434a25c"
@@ -1083,6 +1168,11 @@
    "path": "source/SkillCast.cs",
    "size": 5725,
    "sha256": "46c38d4dbdb7c2d4e96ee67abcf7d38ce449a4c681e1fd5f9610fb11fce50676"
+  },
+  {
+   "path": "source/SoundDefinitionSource.cs",
+   "size": 4329,
+   "sha256": "cd4161b580760468977f711964530c910abcdf1b236ffcd9905bb08d8e380f26"
   },
   {
    "path": "source/SoundPackets.cs",

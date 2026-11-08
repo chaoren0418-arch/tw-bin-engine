@@ -29,7 +29,8 @@
 - DemoChecks：`character-config` 455 項、`hotbar` 569 項、`map-continuity` 33019 項，全部 PASS（現有的角色設定與快捷列測試沒有被這次改動影響）。
 - PlayerChatChecks：138 項 PASS。
 - `engine/tools/check-no-game-assets.py` → pass，0 錯誤。
-- CI：以 PR 結果為準。
+- CI：PR #576 第一版 dotnet／map-continuity／npc-offline 全綠。
+- **同步 origin/main（2026-11-08，含 #525 等）**：`rebuild-lock.json` 衝突改用 main 版本後 `--update-lock` 重產（259 個來源／268 個鎖定檔）；`--build` PASS，productDll `0f3e6bdcfa42f43b0a59711f0991d2d3b1661869fcbf0c19562b49dc6a376ce1`；`--module-tests` status pass、7 組 439 項、0 失敗；`check-no-game-assets.py` pass、0 錯誤。
 
 ## 未驗證什麼（推定／待驗證）
 
