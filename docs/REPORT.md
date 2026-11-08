@@ -209,3 +209,4 @@
 - 2026-11-09 — #529 T222：M7-V 好友、封鎖、信件封鎖三窗（code，claude-local，PR 已合併）→ [報告](reports/issue-529.md)
 - 2026-11-09 — #517 T211：M7-K 交易詢問與交易流程（code，claude-local，PR 已合併）→ [報告](reports/issue-517.md)
 - 2026-11-09 — #530 T223：M7-W 寵物：召喚選擇與指令目標（code，claude-local，PR 已合併）→ [報告](reports/issue-530.md)
+- 2026-11-09 — #467 ui-menu-buttons: 原生 UI 模組：巨集框選單按鈕 Map／Mail／Status／Spell／Item／Pledge／Option／Quit（code，claude-local，PR #596 已合併）→ [報告](reports/issue-467.md)
