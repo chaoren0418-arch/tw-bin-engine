@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 238,
+ "sourceCount": 239,
  "files": [
   {
    "path": "NuGet.Config",
@@ -996,8 +996,13 @@
   },
   {
    "path": "source/Recovery.cs",
-   "size": 3720,
-   "sha256": "068cdc4e4540df7ec0ca21300ce2ea6f83ed8b4c752ab665736f1466d0b396c4"
+   "size": 20626,
+   "sha256": "680f9ba0751cff1c1e16b9ac50f6d5837476978d6d1b3fe5c4b35d2a4681e05a"
+  },
+  {
+   "path": "source/RecoveryTests.cs",
+   "size": 12755,
+   "sha256": "1183af3e20f98a5caaf63c4b44c8bcb298d26ef11159126d7e2647d33bd121ee"
   },
   {
    "path": "source/Renderer.cs",
