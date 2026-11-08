@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 297,
+ "sourceCount": 299,
  "files": [
   {
    "path": "NuGet.Config",
@@ -106,8 +106,8 @@
   },
   {
    "path": "source/Afflictions.cs",
-   "size": 8353,
-   "sha256": "a7221fa0f85976c42888c0510aad620fbaf709ae215d68b61b5796dc85cef3b0"
+   "size": 10156,
+   "sha256": "46a180fb14713888d11b4605034fcf851ea313ed53abdb5e24c74c20b57cfe3e"
   },
   {
    "path": "source/Agit.cs",
@@ -121,13 +121,18 @@
   },
   {
    "path": "source/Ambience.cs",
-   "size": 40623,
-   "sha256": "e3d4716ecb17e98483bd720555f7e9d4847ff59c8116cdf1fd9519052924a3b0"
+   "size": 46261,
+   "sha256": "04f589b19068976ca2f0ab2c6605733171c717d9b6982c32e9b574bd9b45d5d8"
   },
   {
    "path": "source/AmbienceLightsTests.cs",
    "size": 8540,
    "sha256": "2f20b3f10fec9d88492b8b4362234a256ecc0d7a5d7ea6a7342787a49f19b06e"
+  },
+  {
+   "path": "source/AmbienceWiringTests.cs",
+   "size": 18406,
+   "sha256": "0d730cb29c9651fd1d3ea721f6df1a702dc2e75152aa91c50ce8dd4d778e5410"
   },
   {
    "path": "source/AmountPrompt.cs",
@@ -556,8 +561,8 @@
   },
   {
    "path": "source/Invisibility.cs",
-   "size": 1741,
-   "sha256": "d71497ef08ec3c1693dd2120703237b7f4a58b87e4d84d99e90ca7ff5511b847"
+   "size": 2421,
+   "sha256": "82a7722478234ccea2828329f3b99b1c2c5172105b4ccd2a6ea9161fe0398d4e"
   },
   {
    "path": "source/ItemStatus.cs",
@@ -1166,8 +1171,8 @@
   },
   {
    "path": "source/Program.cs",
-   "size": 26753,
-   "sha256": "dec8cc860ea5ddb19035cb6b938debf336f22a8e6264f5cd96750eb59ca4f398"
+   "size": 27334,
+   "sha256": "85b7de65ecf3fd01cab2cdb64550bedfbcecf7105266816f75750f351a85a867"
   },
   {
    "path": "source/ProjectileRendering.cs",
@@ -1236,8 +1241,8 @@
   },
   {
    "path": "source/Renderer.cs",
-   "size": 7555,
-   "sha256": "1b43a818cce1cb762efbe31ec553b779fd38d53fd3efe031fd7a2125c8a8d0ff"
+   "size": 8005,
+   "sha256": "8773ca1889767128334061e4603e48e823c6639a88d896c1a83e4e438d3e9e53"
   },
   {
    "path": "source/Resources/ground-catalog.json",
@@ -1381,8 +1386,8 @@
   },
   {
    "path": "source/TimedBuffs.cs",
-   "size": 8113,
-   "sha256": "26122b659dfbba9bd60a959833dc37dd467fb8de34cecc3264b9a628ee429484"
+   "size": 9420,
+   "sha256": "0f9749d873b8a6bd4897f36f39c53fd757ed353005b254d28c11cb80682012c9"
   },
   {
    "path": "source/TitleAndEmote.cs",
@@ -1413,6 +1418,11 @@
    "path": "source/WeaponRepairUi.cs",
    "size": 1685,
    "sha256": "0b9724347dd2b9b5bd51d1c3a3255bee53ea15615bfb045354b244615208a2c8"
+  },
+  {
+   "path": "source/WeatherSprite.cs",
+   "size": 10668,
+   "sha256": "1600061cb59c1eca355c59d95bee3fca3b2ee20d35b30bad38898ddca8d734de"
   },
   {
    "path": "source/WebIconResource.cs",
