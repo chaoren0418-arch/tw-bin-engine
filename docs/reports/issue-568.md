@@ -11,9 +11,10 @@
 - `engine/_integration/dev/rebuild-lock.json`：用 `rebuild.py --update-lock` 重新產生（240 個來源、249 個鎖定檔）。
 
 ## 怎麼驗證（已驗證）
-- `rebuild.py --build`：PASS。product DLL SHA-256 `8f3ec0caa5a7380655f26595710bf1542e7d6d8fc33dc0e5312d98d29fe32632`。
-- `P11.ClientEngine.exe --module-tests`：pass，5 組、242 項（agit 44、breath-status 25、castle 62、recovery-death 72、world-extensions 39）。
-- DemoChecks：timed-buffs 645、afflictions 580、resurrection 553、item-status 409、map-continuity 33019，全部 PASS。
+- 合併 origin/main（落後 27 個 commit，只有 `rebuild-lock.json` 衝突，取 main 版本後以 `--update-lock` 重產：249 個來源、258 個鎖定檔）。
+- `rebuild.py --build`：PASS。product DLL SHA-256 `4293854312e6b3cec6e3362a07d21092962fa76dc93f30b299c18d7d4d4a3efc`。
+- `P11.ClientEngine.exe --module-tests`（照 CI 方式）：pass，7 組、372 項，0 失敗；breath-status 25 項全過。
+- DemoChecks：timed-buffs、afflictions、resurrection、item-status、combat-admission 全部 PASS（同步 main 後重跑）。
 - `check-no-game-assets.py`：pass，0 錯誤。
 
 ## 未驗證什麼
