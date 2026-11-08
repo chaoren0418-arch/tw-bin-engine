@@ -42,6 +42,7 @@
 - `engine/tools/check-no-game-assets.py`：pass，errors 0。
 - **2026-11-08 與 main 同步**（落後 27 個 commit）：只有 `rebuild-lock.json` 衝突，採 main 版後以 `--update-lock` 重產（`dev-inputs-verified`，249 來源檔）。重建 `PASS dev`，productDll SHA `0ccc5517…367ba`；`--module-tests` 7 組 394 checks 全部通過（`ambience-lights` 47）；DemoChecks `ambience` 群組 `PASS 9881`；`check-no-game-assets.py` pass。
 - **2026-11-08 第二次與 main 同步**（#463／#510／#520，PR #581 開著時 main 又往前走了）：只有 `rebuild-lock.json` 衝突，採 main 版後以 `--update-lock` 重產（`dev-inputs-verified`，260 來源檔）。重建 `PASS dev`，productDll SHA `bd3d052b…e2cefc`；`--module-tests` 8 組 432 checks 全部通過（`ambience-lights` 47）；`check-no-game-assets.py` pass（errors 0）。
+- **2026-11-09 第三次與 main 同步**（#513／#514／#515／#516）：只有 `rebuild-lock.json` 衝突，採 main 版後以 `--update-lock` 重產（`dev-inputs-verified`，268 來源檔）。`rebuild.py --build --configfile .github/nuget.ci.config` 重建 `PASS dev`，productDll SHA `c1983a24…694afc`；`--module-tests` 11 組 618 checks 全部通過（`ambience-lights` 47）；`check-no-game-assets.py` pass（errors 0）。註：本機 PATH 沒有 `python`，`product-build.ps1` 直接呼叫會失敗，這次改用 `py -3` 跑同一支 `rebuild.py --build`。
 
 ## 未驗證／未完成
 
