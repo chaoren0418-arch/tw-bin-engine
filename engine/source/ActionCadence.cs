@@ -14,6 +14,13 @@ public sealed record ActionCadence(int Gfx,int Weapon,int Action,int ServerBaseM
     public int WaitMs=>Math.Max(Math.Max(ServerIntervalMs,ReuseMs),Slow||Haste?AnimationMs:0)+MarginMs;
     public int SlowWaitMs=>(this with{Slow=true}).WaitMs;
     public int NormalWaitMs=>(this with{Slow=false,Haste=false}).WaitMs;
+    // SV§1.2 (TW16 sub_E246E0/sub_A3BC30): spell reuse = own appearance list.spr action 18/19 frame total,
+    // speed-scaled (haste x3/4 per frame, slow x2), plus the skill's extra delay. ReuseMs stands in for the
+    // native skill-table +56 field, whose source table is unverified. No local margin (native has none); the
+    // server action window is only a floor so a shorter list.spr sequence never sends faster than the server accepts.
+    public int NativeCastMs=>Slow?checked(NativeBaseMs*2):Haste?HasteAnimationMs:NativeBaseMs;
+    public int CastWaitMs=>Math.Max(checked(NativeCastMs+ReuseMs),ServerIntervalMs);
+    public int CastSpeedWaitMs(byte speed)=>(this with{Slow=speed==2,Haste=speed==1}).CastWaitMs;
     public bool Matches(int gfx,int weapon)=>Gfx==gfx&&Weapon==weapon;
     public static string Name(int action)=>action switch{1=>"attack",18=>"spellDir",19=>"spellNoDir",_=>throw new ArgumentOutOfRangeException(nameof(action))};
     sealed record Metadata(int Native,int Legacy,int? Release,int HasteNative,int? HasteRelease);
@@ -89,7 +96,7 @@ public sealed partial class LoginConnection {
     void ExtendActionCooldown(){
         if(World.Actor is not {Brave:0} actor||actor.Speed is not (0 or 2))return;
         if(lastCombatTiming is {} combat&&lastCombatAdmission>=0&&combatTimingEpoch==World.WorldEpoch)nextCombatAt=Math.Max(nextCombatAt,lastCombatAdmission+(actor.Speed==2?combat.SlowWaitMs:combat.NormalWaitMs));
-        if(lastMagicTiming is {} magic&&lastMagicAdmission>=0&&magicTimingEpoch==World.WorldEpoch)nextMagicAt=Math.Max(nextMagicAt,lastMagicAdmission+(actor.Speed==2?magic.SlowWaitMs:magic.NormalWaitMs));
+        if(lastMagicTiming is {} magic&&lastMagicAdmission>=0&&magicTimingEpoch==World.WorldEpoch)nextMagicAt=Math.Max(nextMagicAt,lastMagicAdmission+magic.CastSpeedWaitMs(actor.Speed));
     }
     bool ActionAdmissionReady=>!movementSending&&!itemSending&&!groundSending&&!GroundBusy&&!ItemBusy&&MovementClock()>=MovementReadyAt&&ActionClock()>=nextCombatAt&&ActionClock()>=nextMagicAt;
 }
