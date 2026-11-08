@@ -53,6 +53,7 @@
 2. **開關關閉時既有測試不變**（同步 main 之後重跑）：native-ui-resources 539、map-continuity 32953、combat-admission 1686、item-status 409、afflictions 580、resurrection 553、polymorph-cadence 380、buddies 496、item-transfer 400、doors 648、player-chat 138、mail 119、weapon-repair 98、combat-sfx selection 4 cases／46 項、web-resource product，**全部 PASS**。數字與 C1 報告相同（resurrection 是這次 main 新增的分組）。
 3. `py -3 -B -X utf8 engine/_integration/dev/rebuild.py --update-lock`（240 個來源檔／249 個鎖定檔）與 `--build` → **`PASS dev`**，productDll `185176e5…ca39`。本機 worktree 沒有 `engine/vendor`，所以 `--build` 加了 `--configfile D:\lineage開發\TW1608262200研究\engine\NuGet.Config`（唯讀引用主專案的離線套件來源）。
 4. `engine/tools/check-no-game-assets.py` → `pass, errors 0`。新增的只有 `.cs`。
+6. **第二次同步 origin/main（併入 #518 拾取、#504、#535）**：`rebuild-lock.json` 衝突改用 main 版本後，以 `--update-lock` 重產（241 個來源檔／250 個鎖定檔）；`--build` → `PASS dev`，productDll `92d96a28…3ab9`。重跑的分組：native-ui-canvas 429、pickup 369（main 新增）、native-ui-resources 539、combat-admission 1686、item-status 409，**全部 PASS**。
 5. **本機選用檢查**（真實客戶端、唯讀；程式與輸出都在 `scratch/issue-463/real-probe/`、`scratch/issue-463/real/`，不進 git）：
    - `UiRoot.VerifyResources` 對真實 `Tile` 與 17 個 `Sprite*` 全部通過，**冷啟動耗時 70.4 秒**（雜湊所有 pak）。
    - 用真實 surf 3168／3279／3176 放在 XML 的 x/y 合成畫布，再以 800×600、1600×1200、1920×1080 呈現。目視 `present-1920x1080.png`：800×600 的畫面置中於 (560,240)，四周全黑，左狀態框、聊天框、巨集框以 1:1 原圖顯示。這只是框架的煙霧測試，不是模組實作（聊天框的底部錨定由 ui-chat-window 負責）。
