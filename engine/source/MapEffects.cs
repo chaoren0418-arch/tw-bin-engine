@@ -33,6 +33,7 @@ public sealed partial class Renderer {
             foreach(var b in frame.Blocks)draws.Add(new(2*(effect.X-Coordinates.MinX)+b.A,effect.Y-Coordinates.MinY+b.B,b.Z,serial++,"map-effect",b.Order,-1,effect.Offset,b.Tile));
         }
         MapAmbientSound.Observe(session,now);
+        ClientSoundScene.Observe(session,now); // T172 背景音樂與 envsound.def
         ComposePacketEffects(session,draws,now);
         MapEffectVisuals=visuals.ToArray();
     }
