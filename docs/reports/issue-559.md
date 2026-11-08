@@ -34,6 +34,7 @@
   - PlayerChatChecks
 - `check-no-game-assets.py`：`pass`（3757 個檔案，0 錯誤）。
 - CI 結果以 PR 為準。
+- **同步 origin/main 後重驗（2026-11-08）**：`rebuild-lock.json` 衝突取 main 版本後用 `--update-lock` 重產（259 個來源檔，`dev-inputs-verified`）；`build-product.ps1` `PASS dev`（product DLL `1124d2d1d49d73cb90c08b8af04931c3ddb3adab1ef604097770c78ff02f1aa1`）；`--module-tests` `pass`，7 組共 379 項，0 失敗（cooking 32）；`check-no-game-assets.py` `pass`（3790 個檔案，0 錯誤）。
 
 ## 沒驗證什麼
 - **沒有做真機驗收**：沒有啟動遊戲、伺服器或 DB。
