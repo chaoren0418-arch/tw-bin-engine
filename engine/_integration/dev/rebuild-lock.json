@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 270,
+ "sourceCount": 272,
  "files": [
   {
    "path": "NuGet.Config",
@@ -710,9 +710,19 @@
    "sha256": "deaf7308df2c3f4d2f9f09406510f84bc42c2c96267b739a3fcd8bd6b0b5cca8"
   },
   {
+   "path": "source/NativeUi/ChatPanel.cs",
+   "size": 16216,
+   "sha256": "ac8cfa00d6113278c364fd54e571e47242a3e47faf86824f48e10e5762f940b9"
+  },
+  {
    "path": "source/NativeUi/ClientArchive.cs",
    "size": 9483,
    "sha256": "182f97bd99647a7e9a5acd1c477a22be71b5ef9a7245cc023b1ebbe446f28289"
+  },
+  {
+   "path": "source/NativeUi/State/ChatState.cs",
+   "size": 11664,
+   "sha256": "0aaa90865c39c43dc92b8e177195b2d4b21aeddd42f816952364fd1d0742c930"
   },
   {
    "path": "source/NativeUi/SurfCatalog.cs",
@@ -726,8 +736,8 @@
   },
   {
    "path": "source/NativeUi/UiClientBridge.cs",
-   "size": 7737,
-   "sha256": "dbab7875945d585c53de15a1bc6c2ab152ca4be555d010d0b166ef08769ad17e"
+   "size": 9501,
+   "sha256": "90db0254f726b0acdc1f67814a71a13f117186e2f03673d9b99d0aa498b6f358"
   },
   {
    "path": "source/NativeUi/UiContracts.cs",
@@ -746,8 +756,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 723,
-   "sha256": "0978c88c5ae87888da72c39eeab23c1301f748d958a10edd8b83144640359b12"
+   "size": 788,
+   "sha256": "4529ccd210e31b2022f20290191053af3133f3fca604483730dbcd3ccf912b13"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
