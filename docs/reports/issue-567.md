@@ -41,6 +41,7 @@
 - 2026-11-09 第四次同步 origin/main（落後 19 個 commit，含 #546／#566 對 `MagicRendering.cs`、`MapEffects.cs` 的改動，自動合併無衝突）：`rebuild-lock.json` 採 main 版本後以 `--update-lock` 重產；`rebuild.py --build` PASS（productDll `d273fef5…da97`）；`--module-tests` 14 組 695 項 0 失敗（`sub-effects` 37 項）；`check-no-game-assets.py` 0 錯誤。
 - 2026-11-09 第五次同步 origin/main（落後 17 個 commit，含 #549 聊天頻道開關、#559 料理窗；只有 `rebuild-lock.json` 衝突）：lock 採 main 版本後以 `--update-lock` 重產（sourceFiles 276）；`rebuild.py --build` PASS（productDll `049291d0…0f6f`）；`--module-tests` 16 組 819 項 0 失敗（`sub-effects` 37 項）；`check-no-game-assets.py` 0 錯誤。
 - 2026-11-09 第六次同步 origin/main（落後 16 個 commit，含 #556 NPC 伺服器頁、#557 城堡稅務頁；只有 `rebuild-lock.json` 衝突）：lock 採 main 版本後以 `--update-lock` 重產（sourceFiles 277）；`rebuild.py --build` PASS（productDll `e5b1bd30…9d1e`）；`--module-tests` 17 組 885 項 0 失敗（`sub-effects` 37 項）；`check-no-game-assets.py` 0 錯誤。
+- 2026-11-09 第七次同步 origin/main（落後 16 個 commit，含 #568 水中呼吸狀態圖示；只有 `rebuild-lock.json` 衝突）：lock 採 main 版本後以 `--update-lock` 重產（sourceFiles 278）；`rebuild.py --build` PASS（productDll `2cddb9ae…63f3`）；`--module-tests` 18 組 910 項 0 失敗（`sub-effects` 37 項）；`check-no-game-assets.py` 0 錯誤。註：本機 PATH 沒有 `python`，`build-product.ps1` 會失敗，改用 `py -3` 直接跑 `rebuild.py`。
 
 ## 產出路徑
 
