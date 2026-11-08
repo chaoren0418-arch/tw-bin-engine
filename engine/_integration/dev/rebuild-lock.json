@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 225,
+ "sourceCount": 230,
  "files": [
   {
    "path": "NuGet.Config",
@@ -623,6 +623,31 @@
    "path": "source/NativeFocusDiagnostics.cs",
    "size": 1837,
    "sha256": "deaf7308df2c3f4d2f9f09406510f84bc42c2c96267b739a3fcd8bd6b0b5cca8"
+  },
+  {
+   "path": "source/NativeUi/ClientArchive.cs",
+   "size": 9483,
+   "sha256": "182f97bd99647a7e9a5acd1c477a22be71b5ef9a7245cc023b1ebbe446f28289"
+  },
+  {
+   "path": "source/NativeUi/SurfCatalog.cs",
+   "size": 7527,
+   "sha256": "599be507ea3f428e5f279566d748755539f9f35a30d80f666fbc282e631c4a44"
+  },
+  {
+   "path": "source/NativeUi/UiLayout.cs",
+   "size": 5189,
+   "sha256": "238c2c95cf0e86816574d08f19011155d77eedac7c5406db5bd18f47be82ba6a"
+  },
+  {
+   "path": "source/NativeUi/UiSurface.cs",
+   "size": 3307,
+   "sha256": "5910f13e840d3ff62d957a950788714e665dc379665e600c4aa1dde4b4b9215b"
+  },
+  {
+   "path": "source/NativeUi/UiXmlSource.cs",
+   "size": 5645,
+   "sha256": "bfd5906ff7bdcb80a46eb73e9939a4c5c2016337123cfb8d603e59226e3593bd"
   },
   {
    "path": "source/Network.cs",
