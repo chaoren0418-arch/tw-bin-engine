@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 230,
+ "sourceCount": 239,
  "files": [
   {
    "path": "NuGet.Config",
@@ -635,14 +635,59 @@
    "sha256": "599be507ea3f428e5f279566d748755539f9f35a30d80f666fbc282e631c4a44"
   },
   {
+   "path": "source/NativeUi/UiCanvas.cs",
+   "size": 2677,
+   "sha256": "846cffab333e656a3b80ae2f574e230b8f0ee731e3cbfbbf9b40dcbdc9016bd1"
+  },
+  {
+   "path": "source/NativeUi/UiClientBridge.cs",
+   "size": 7737,
+   "sha256": "dbab7875945d585c53de15a1bc6c2ab152ca4be555d010d0b166ef08769ad17e"
+  },
+  {
+   "path": "source/NativeUi/UiContracts.cs",
+   "size": 3949,
+   "sha256": "e5dbf6bcc2ca924e7d935e046f81f04a0316de9c4100453c49a5023860a6152d"
+  },
+  {
+   "path": "source/NativeUi/UiInput.cs",
+   "size": 4392,
+   "sha256": "1dc0d6eb34903c975f0ac6cc200a4573f7c87924b4c8e92cd2848e3c7b664cea"
+  },
+  {
    "path": "source/NativeUi/UiLayout.cs",
    "size": 5189,
    "sha256": "238c2c95cf0e86816574d08f19011155d77eedac7c5406db5bd18f47be82ba6a"
   },
   {
+   "path": "source/NativeUi/UiPanelRegistry.cs",
+   "size": 723,
+   "sha256": "0978c88c5ae87888da72c39eeab23c1301f748d958a10edd8b83144640359b12"
+  },
+  {
+   "path": "source/NativeUi/UiPresenter.cs",
+   "size": 3927,
+   "sha256": "9746675e069565c9e47ec4de1b1346a2bea432bb95543aff1e26cf249f0d756b"
+  },
+  {
+   "path": "source/NativeUi/UiRoot.cs",
+   "size": 7914,
+   "sha256": "de9b638768b5b354dc91e5a33650178b3677080ef14d1114acc1ba58bd5a80ef"
+  },
+  {
+   "path": "source/NativeUi/UiSlotGroup.cs",
+   "size": 2679,
+   "sha256": "7827a076cc471cb73e14ca2b597d3ad07ea8ef561018e6db18f4748b260cf02e"
+  },
+  {
    "path": "source/NativeUi/UiSurface.cs",
    "size": 3307,
    "sha256": "5910f13e840d3ff62d957a950788714e665dc379665e600c4aa1dde4b4b9215b"
+  },
+  {
+   "path": "source/NativeUi/UiText.cs",
+   "size": 1880,
+   "sha256": "faa33987562362079c69c227613b69c7c544e0f31fcd114fa1e7369577b26cf2"
   },
   {
    "path": "source/NativeUi/UiXmlSource.cs",
@@ -836,8 +881,8 @@
   },
   {
    "path": "source/PlayerHudIntegration.cs",
-   "size": 6378,
-   "sha256": "0fd135aeda49c473c21c099803aaab52073ab5853d50a23834d9d99d0e1f67ff"
+   "size": 6693,
+   "sha256": "023d2a1e2b82205afa993127612c01b399e993a126e24e574ed144d1ec761e89"
   },
   {
    "path": "source/PlayerHudModel.cs",
@@ -911,8 +956,8 @@
   },
   {
    "path": "source/Program.cs",
-   "size": 25528,
-   "sha256": "cb9cd19c0c8210daa1d54b0ecd79ff41234545d5b9d0ec7214b27f060085256c"
+   "size": 26478,
+   "sha256": "c15299edf137dbe30ee42ee6f7af77fd16858169857acbb5c560755a7baefd79"
   },
   {
    "path": "source/ProjectileRendering.cs",

@@ -328,6 +328,7 @@ partial class Checks {
                 case "slow-actions":await SlowActions();break;
                 case "item-status":ItemStatusChecks();break;
                 case "native-ui-resources":NativeUiResourceChecks(args[0]);NativeUiRealClientChecks(args[0]);break;
+                case "native-ui-canvas":NativeUiCanvasChecks(args[0]);break;
                 case "keyboard":await KeyboardMovement123();break;
                 case "busy":KeyboardBusy123();break;
                 case "world":await KeyboardWorld123();break;
@@ -335,7 +336,7 @@ partial class Checks {
             }
         }else{
             await BookmarkChecks();
-            ItemStatusChecks();NativeUiResourceChecks(args[0]);
+            ItemStatusChecks();NativeUiResourceChecks(args[0]);NativeUiCanvasChecks(args[0]);
             MinimapChecks();await CharacterConfigChecks();HotbarChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
             await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();await ClanChecks();await ClanEmblemChecks();await ClanWarChecks();await MarriageChecks();await CharResetChecks();await LocationShareChecks();HitReactionSuppression();await TitleAndEmoteChecks();await PlayerQueryChecks();await FishingChecks();AmbienceChecks();MapAmbientChecks();InvisibilityChecks();await GhostModeChecks();TimedBuffChecks();
         }

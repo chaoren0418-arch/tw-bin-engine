@@ -47,6 +47,12 @@ jobs:
           New-Item -ItemType Directory -Force scratch/issue-461 | Out-Null
           dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-461/resource-checks.json native-ui-resources
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Native UI canvas, scaling, input and switch (synthetic panels, no game assets)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-463 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-463/canvas-checks.json native-ui-canvas
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Affliction contracts (no game or network)
         shell: pwsh
         run: |

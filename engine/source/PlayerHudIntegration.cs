@@ -6,9 +6,11 @@ public sealed partial class ClientForm {
     string playerHudNotice="";
     long playerHudNoticeUntil;PlayerHudKind playerHudLastAction;
     readonly HashSet<Keys> playerHudHeld=[];
-    bool PlayerHudActive=>normalProduct&&login.State==LoginState.InWorld;
+    // C2: with the native UI active the legacy HUD (and everything gated on it: minimap, party, status icons, F-keys) stays hidden.
+    bool PlayerHudActive=>normalProduct&&login.State==LoginState.InWorld&&!NativeUiActive;
     // Public contract: client coordinates, no hard-coded margins in the pointer module.
-    public Rectangle PlayerSceneBounds=>PlayerHudActive
+    // Native UI: the world is the logical WorldRect; mouse input reaching the world is already in logical coordinates.
+    public Rectangle PlayerSceneBounds=>NativeUiActive?P06.NativeUi.UiRoot.WorldRect:PlayerHudActive
         ?PlayerHudGeometry.Scene(ClientSize,0,true,playerHud?.DrawerOpen==true,0)
         :ClientRectangle;
     public bool PlayerSceneAccepts(Point clientPoint)=>!PlayerChatFocused&&PlayerSceneBounds.Contains(clientPoint)

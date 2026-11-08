@@ -6,6 +6,7 @@ static class Program {
     static void awaitReal(string path)=>RealLoginTests.Probe(path).GetAwaiter().GetResult();
     [STAThread] static int Main(string[] args) {
         string? Value(string k) {int i=Array.IndexOf(args,k);return i>=0&&i+1<args.Length?args[i+1]:null;}
+        args=P06.NativeUi.UiOptions.Strip(args); // C2: --native-ui is a switch, not a diagnostic mode; the normal entry still sees no arguments.
         string root=Value("--assets")??Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../assets"));
         try {
             bool normalProduct=ProductEntry.Normal(args);
@@ -98,22 +99,23 @@ public sealed partial class ClientForm:Form {
         bar.Controls.Add(status);
         Camera.SetCenter(World.DisplayPosition);
         KeyDown+=(_,e)=>{if(OwnsGameKeyboardKey(e.KeyData)){HandleDown(e.KeyCode);e.Handled=true;e.SuppressKeyPress=true;}};
-        KeyUp+=(_,e)=>{if(e.KeyCode==Keys.Enter)playerHud?.ReleaseChatEntryKey();if(OwnsGameKeyboardKey(e.KeyData)||Input.Held.Contains(e.KeyCode)||playerHudHeld.Contains(e.KeyCode)){HandleUp(e.KeyCode);e.Handled=true;}};
+        KeyUp+=(_,e)=>{if(NativeUiKey(e.KeyData,false,false)){e.Handled=true;return;}if(e.KeyCode==Keys.Enter)playerHud?.ReleaseChatEntryKey();if(OwnsGameKeyboardKey(e.KeyData)||Input.Held.Contains(e.KeyCode)||playerHudHeld.Contains(e.KeyCode)){HandleUp(e.KeyCode);e.Handled=true;}};
         Deactivate+=(_,_)=>ClearInput("deactivate");
         Resize+=(_,_)=>{if(WindowState==FormWindowState.Minimized)ClearInput("minimize");Invalidate();};
-        MouseDown+=async(_,e)=>{if(PlayerChatFocused){ClearInput("聊天聚焦");return;}if(OnlineMode){if(!PlayerPointerSceneHit(e.Location)){ClearInput("HUD或場景外點擊");return;}ReturnGameFocus();if(e.Button is MouseButtons.Left or MouseButtons.Right){await HandlePlayerPointer(e);return;}}else ReturnGameFocus();if(e.Button==MouseButtons.Middle){drag=e.Location;Capture=true;}else if(e.Button==MouseButtons.Left){var p=Camera.ToScene(e.Location);selected=Coordinates.Pick(p.X,p.Y);events.Add(new{kind="pick",point=selected,inside=Coordinates.Inside(selected.Value.X,selected.Value.Y)});Invalidate();}};
-        MouseMove+=(_,e)=>{if(drag is Point p){Camera.Pan(e.X-p.X,e.Y-p.Y);drag=e.Location;Invalidate();}};
-        MouseUp+=(_,_)=>{drag=null;Capture=false;};
+        MouseDown+=async(_,raw)=>{if(NativeUiMouse(raw,P06.NativeUi.UiMouseKind.Down) is not MouseEventArgs e)return;if(PlayerChatFocused){ClearInput("聊天聚焦");return;}if(OnlineMode){if(!PlayerPointerSceneHit(e.Location)){ClearInput("HUD或場景外點擊");return;}ReturnGameFocus();if(e.Button is MouseButtons.Left or MouseButtons.Right){await HandlePlayerPointer(e);return;}}else ReturnGameFocus();if(e.Button==MouseButtons.Middle){drag=e.Location;Capture=true;}else if(e.Button==MouseButtons.Left){var p=Camera.ToScene(e.Location);selected=Coordinates.Pick(p.X,p.Y);events.Add(new{kind="pick",point=selected,inside=Coordinates.Inside(selected.Value.X,selected.Value.Y)});Invalidate();}};
+        MouseMove+=(_,raw)=>{if(NativeUiMouse(raw,P06.NativeUi.UiMouseKind.Move) is not MouseEventArgs e)return;if(drag is Point p){Camera.Pan(e.X-p.X,e.Y-p.Y);drag=e.Location;Invalidate();}};
+        MouseUp+=(_,e)=>{NativeUiMouse(e,P06.NativeUi.UiMouseKind.Up);drag=null;Capture=false;};
         MouseCaptureChanged+=(_,_)=>{if(!Capture)drag=null;};
-        MouseWheel+=(_,e)=>{if(PlayerChatFocused)return;Camera.Scale(e.Delta>0?1.15f:1/1.15f,e.Location);Invalidate();};
+        MouseWheel+=(_,raw)=>{if(NativeUiMouse(raw,P06.NativeUi.UiMouseKind.Wheel) is not MouseEventArgs e)return;if(PlayerChatFocused)return;Camera.Scale(e.Delta>0?1.15f:1/1.15f,e.Location);Invalidate();};
         timer.Tick+=(_,_)=>{double now=clock.Elapsed.TotalMilliseconds;World.Advance(now-last);last=now;if(OnlineMode){SyncWorld();OnlineTick();PlayerPointerTick();}Pump6016();PumpCombatSfx();RefreshScene();};
         Shown+=async(_,_)=>{last=clock.Elapsed.TotalMilliseconds;timer.Start();events.Add(new{kind="shown",pid=Environment.ProcessId});if(demo!=null)await Demo();};
-        InitNetwork(port,networkDemo);InitWeb(webDemo,webFault);InitLogin(loginPort,loginDemo);InitInventory();InitGround();InitRewards();InitRecovery();InitMagic();InitInteraction();InitTrade();InitBonusStats();InitPrivateShop();InitNormalPanels();InitDevTools();Init6016();InitCombatSfx();
+        InitNetwork(port,networkDemo);InitWeb(webDemo,webFault);InitLogin(loginPort,loginDemo);InitInventory();InitGround();InitRewards();InitRecovery();InitMagic();InitInteraction();InitTrade();InitBonusStats();InitPrivateShop();InitNormalPanels();InitDevTools();Init6016();InitCombatSfx();InitNativeUi();
         FormClosed+=(_,_)=>{StopPlayerPointer("視窗關閉");modeEpoch++;timer.Stop();network.Dispose();wireLog.Add("form-closed",new{timerEnabled=timer.Enabled});wireLog.Dispose();timer.Dispose();Input.Clear();World.SetIntent(null);patch?.Dispose();renderer.Dispose();events.Add(new{kind="closed",timerEnabled=false,pid=Environment.ProcessId,model=World.Snapshot()});if(evidence!=null)Json.Save(Path.Combine(evidence,"window-events.json"),events);};
     }
     static bool GameKey(Keys k)=>k is Keys.Escape or Keys.M or Keys.P or Keys.U or Keys.G or Keys.F9 or Keys.F6 or Keys.F7 or Keys.F8 or Keys.Up or Keys.Down or Keys.Left or Keys.Right or Keys.Home or Keys.End or Keys.PageUp or Keys.PageDown or Keys.W or Keys.A or Keys.S or Keys.D or Keys.F or Keys.R or Keys.Space or Keys.F1 or Keys.F2 or Keys.F3 or Keys.F4 or Keys.F12 || (k>=Keys.D1&&k<=Keys.D8) || (k>=Keys.NumPad1&&k<=Keys.NumPad9);
     protected override bool ProcessCmdKey(ref Message msg,Keys keyData) {
         if(ProcessDevToolsKey(keyData,((long)msg.LParam&(1L<<30))!=0))return true;
+        if(NativeUiKey(keyData,true,((long)msg.LParam&(1L<<30))!=0))return true;
         if(ProcessPlayerHudKeyboard(ref msg,keyData))return true;
         if(ProcessLoginKeyboardEnter(ref msg,keyData))return true;
         if(ProcessPlayerChatKeyboard(ref msg,keyData))return true;
@@ -139,7 +141,7 @@ public sealed partial class ClientForm:Form {
     public void HandleUp(Keys key) {playerHudHeld.Remove(key);if(OnlineMode){Input.Up(key);login.CancelMovementInput();return;}Input.Up(key);World.SetIntent(Input.Direction);events.Add(new{kind="keyup",key=key.ToString(),utc=DateTimeOffset.UtcNow});}
     // Shared by focus/stop paths; independent of a native handle for offline regression.
     void ClearHeldInput(string reason){playerHudHeld.Clear();StopPlayerPointer(reason);login.CancelMovementInput();Input.Clear();World.SetIntent(null);}
-    void ClearInput(string reason){ClearHeldInput(reason);drag=null;Capture=false;events.Add(new{kind="clear-input",reason,model=World.Snapshot()});}
+    void ClearInput(string reason){ClearHeldInput(reason);ResetNativeUiInput();drag=null;Capture=false;events.Add(new{kind="clear-input",reason,model=World.Snapshot()});}
     internal void RefreshSceneImage(){
         // Waiting/cancelled online state has no resident offline scene. Its last coordinates
         // may be on another cache/map; never compose them against the offline canvas.
@@ -165,7 +167,9 @@ public sealed partial class ClientForm:Form {
         SyncPlayerHud();PublishWebState();PublishSceneWeb();Invalidate();
     }
     protected override void OnPaint(PaintEventArgs e) {paintCount++;
-        base.OnPaint(e);PaintScene(e,PlayerSceneBounds);
+        // C2: native UI owns the whole frame (world inside WorldRect + panels, then one scaled DrawImage); legacy path unchanged.
+        if(PaintNativeUi(e))return;
+        base.OnPaint(e);PaintScene(e,PlayerSceneBounds);PaintNativeUiNotice(e.Graphics);
     }
     void PaintScene(PaintEventArgs e,Rectangle viewport){Camera.ViewOffset=viewport.Location;Camera.View=viewport.Size;
         e.Graphics.SetClip(viewport);e.Graphics.InterpolationMode=InterpolationMode.NearestNeighbor;e.Graphics.PixelOffsetMode=PixelOffsetMode.Half;
@@ -187,6 +191,7 @@ public sealed partial class ClientForm:Form {
     }
     // C3 scene-only logical capture. C2 will compose native HUD panels into this canvas.
     internal Bitmap CaptureLogicalScene(){
+        if(CaptureNativeLogical() is Bitmap native)return native; // C2: composed canvas (world + native panels) when active
         var bitmap=new Bitmap(800,600,PixelFormat.Format32bppPArgb);
         var oldView=Camera.View;var oldOffset=Camera.ViewOffset;
         try{using var graphics=Graphics.FromImage(bitmap);graphics.Clear(BackColor);PaintScene(new PaintEventArgs(graphics,new(0,0,800,600)),new(0,0,800,600));return bitmap;}
