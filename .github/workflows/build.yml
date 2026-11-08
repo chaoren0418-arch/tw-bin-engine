@@ -124,6 +124,12 @@ jobs:
           New-Item -ItemType Directory -Force scratch/issue-518 | Out-Null
           dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-518/pickup.json pickup
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Door approach contracts T213 (no game or network)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-519 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-519/door-approach.json door-approach
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: HyperText query result contracts T218 (no game or network)
         shell: pwsh
         run: |
