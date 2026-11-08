@@ -51,6 +51,7 @@
 - `engine/tools/check-no-game-assets.py` → pass（errors 0）。沒有新增 `.xml`／`.img`／`.png`。
 - 與 main 同步（8 個 commit，含 #559 Cooking，無衝突）後重跑：`--update-lock`（276 來源檔）→ `PASS dev`（productDll `03e00a2a…4258`）；`--module-tests` **16 組 861 checks 全過**；`weapon-repair-tests` 98 綠；`check-no-game-assets.py` pass。
 - 第二次與 main 同步（17 個 commit，含 #556／#557；只有 `rebuild-lock.json` 衝突，取 main 版本後重產）：`--update-lock`（277 來源檔）→ `PASS dev`（productDll `0e130b4d…2634`）；`--module-tests`（照 CI 方式）**17 組 927 checks 全過**；`WeaponRepairChecks` 98 綠；`check-no-game-assets.py` pass（errors 0）。
+- 第三次與 main 同步（含 #568 breath-status；只有 `rebuild-lock.json` 衝突，取 main 版本後重產）：`--update-lock`（278 來源檔）→ `PASS dev`（productDll `294817b0…7d56`）；`--module-tests`（照 CI 方式）**18 組 952 checks 全過**（`trade-window` 79）；`WeaponRepairChecks` 98 綠；`check-no-game-assets.py` pass（errors 0）。
 - CI：見 PR #590。
 
 ## 沒驗證什麼
