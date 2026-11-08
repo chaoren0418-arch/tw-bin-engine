@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 224,
+ "sourceCount": 225,
  "files": [
   {
    "path": "NuGet.Config",
@@ -241,8 +241,8 @@
   },
   {
    "path": "source/ClientNetwork.cs",
-   "size": 8638,
-   "sha256": "a0fb986760c8a2b215cd03d044e4aa3f303cc8c53d10acf75e283b5b7369e88c"
+   "size": 8828,
+   "sha256": "4fd35c310e4dce8cb56e943ca7dde9f44c952b262aa5f1c1ee3142cc3c6d007c"
   },
   {
    "path": "source/Combat.cs",
@@ -278,6 +278,11 @@
    "path": "source/CombatVisibilityPlan.cs",
    "size": 2604,
    "sha256": "4cb71ff1ef122dec7974554d443f0fae236bef48674979ffd5c0428610e696c1"
+  },
+  {
+   "path": "source/DevToolsForm.cs",
+   "size": 5403,
+   "sha256": "e1f99491fb64a5f34cb2874f1cf723dd7d4cf580347a0a6e4d4e6ce2f686d313"
   },
   {
    "path": "source/DisplayNotices.cs",
@@ -806,8 +811,8 @@
   },
   {
    "path": "source/PlayerHudIntegration.cs",
-   "size": 7246,
-   "sha256": "d73def0e52ac6c50fbd692a0362fce7222346d9e0572ef3a17249c6a97782a33"
+   "size": 6378,
+   "sha256": "0fd135aeda49c473c21c099803aaab52073ab5853d50a23834d9d99d0e1f67ff"
   },
   {
    "path": "source/PlayerHudModel.cs",
@@ -876,13 +881,13 @@
   },
   {
    "path": "source/ProductEntry.cs",
-   "size": 2593,
-   "sha256": "be174e03d4ae6400acf7b6ba36f52e7c77521f1ab12864fdc9f3ad4fdf8e4cb1"
+   "size": 2258,
+   "sha256": "78dcd9d01730ba4482efee76ed4b2eb41c40d9c2ab35f75382a070a086be83c9"
   },
   {
    "path": "source/Program.cs",
-   "size": 25334,
-   "sha256": "da447dc967bddf934386d214af2c5325bccaf6b5fc15310a45f4e90b92c30807"
+   "size": 25528,
+   "sha256": "cb9cd19c0c8210daa1d54b0ecd79ff41234545d5b9d0ec7214b27f060085256c"
   },
   {
    "path": "source/ProjectileRendering.cs",
@@ -1081,13 +1086,13 @@
   },
   {
    "path": "source/WebPanel.cs",
-   "size": 20135,
-   "sha256": "ec93c8db571965781a6a1ce27bcf84bee346f36e948bc439fad5f1a08a3df1f7"
+   "size": 20455,
+   "sha256": "b2097c2039af2026661181ea54ee785d453d2428932fc9fef15dbe415f667514"
   },
   {
    "path": "source/WebTests.cs",
-   "size": 6046,
-   "sha256": "e442819277dbab19f31c1677469d55a22b3f06408e1d4d0b85f078354c2f3809"
+   "size": 6084,
+   "sha256": "d3fee4965edb55b608af8a2eaf92aec51efe87e37fca353a6c03737df2a919c5"
   },
   {
    "path": "source/World.cs",

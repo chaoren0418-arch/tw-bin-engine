@@ -274,6 +274,9 @@ partial class Checks {
     }
 
     static async Task<int> Main(string[] args){try{
+        // This offline console harness has no WinForms message loop. Creating HUD
+        // controls must not capture async sender continuations onto an unpumped UI context.
+        System.Windows.Forms.WindowsFormsSynchronizationContext.AutoInstall=false;
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY",Path.Combine(Path.GetFullPath(args[0]),"engine","build","offline-checks")+Path.DirectorySeparatorChar);
         using var guard=new SocketGuard();
         await PartyChecks();
