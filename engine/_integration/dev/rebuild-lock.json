@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 272,
+ "sourceCount": 275,
  "files": [
   {
    "path": "NuGet.Config",
@@ -725,6 +725,21 @@
    "sha256": "182f97bd99647a7e9a5acd1c477a22be71b5ef9a7245cc023b1ebbe446f28289"
   },
   {
+   "path": "source/NativeUi/ExMacroPanel.cs",
+   "size": 3476,
+   "sha256": "39aa3f4e2f12ee4715fb1c0df832924d4bec847a071d535bb9952c5cbff15c41"
+  },
+  {
+   "path": "source/NativeUi/MacroPanel.cs",
+   "size": 9391,
+   "sha256": "3a29131c28317eff841a17808a82a6848673c487d9e6ce0a052a5b8ea7cc91b0"
+  },
+  {
+   "path": "source/NativeUi/State/MacroState.cs",
+   "size": 11490,
+   "sha256": "18e1377393106e6a667db4bec0663e215d2db6e65011b470b5dc5596d248b69b"
+  },
+  {
    "path": "source/NativeUi/SurfCatalog.cs",
    "size": 7527,
    "sha256": "599be507ea3f428e5f279566d748755539f9f35a30d80f666fbc282e631c4a44"
@@ -736,8 +751,8 @@
   },
   {
    "path": "source/NativeUi/UiClientBridge.cs",
-   "size": 7737,
-   "sha256": "dbab7875945d585c53de15a1bc6c2ab152ca4be555d010d0b166ef08769ad17e"
+   "size": 7833,
+   "sha256": "3999a800b11dae175fb8d08606ff6dd27201f479d8f86e6150b30645369f91a0"
   },
   {
    "path": "source/NativeUi/UiContracts.cs",
@@ -756,8 +771,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 723,
-   "sha256": "0978c88c5ae87888da72c39eeab23c1301f748d958a10edd8b83144640359b12"
+   "size": 961,
+   "sha256": "b7415874a057eafc85fe31b6a727412a567f938c019ff51ddc39e6a3d3683c42"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",

@@ -56,11 +56,11 @@ partial class Checks {
     static void NativeUiMacroChecks(string repo){
         string root=Path.Combine(Path.GetFullPath(repo),"scratch","issue-466","synthetic");Directory.CreateDirectory(root);
         // RGB555 colours (R high): every image distinct so pixels identify the drawn surf.
-        const ushort Frame=0x0010,TabN=0x0200,TabS=0x4000,LockOff=0x0210,LockOn=0x4200,Mark=0x7FE0,Ex=0x4010,Key=0x324C;
+        const ushort Frame=0x0010,TabN=0x0200,TabS=0x4000,LockClosed=0x0210,LockOpen=0x4200,Mark=0x7FE0,Ex=0x4010,Key=0x324C;
         var full=new Dictionary<int,byte[]>{
             [3176]=MacroImg(157,124,0,0,(_,_)=>Frame),
             [2331]=MacroImg(36,36,1,Key,(x,y)=>x==0||y==0||x==35||y==35?Mark:Key),   // hollow mark, colour-keyed inside
-            [3191]=MacroImg(12,30,0,0,(_,_)=>LockOff),[3192]=MacroImg(12,30,0,0,(_,_)=>LockOn),
+            [3191]=MacroImg(12,30,0,0,(_,_)=>LockClosed),[3192]=MacroImg(12,30,0,0,(_,_)=>LockOpen),
             [3226]=MacroImg(158,125,0,0,(_,_)=>Ex),
         };
         foreach(int a in new[]{3193,3196,3199}){full[a]=MacroImg(20,12,0,0,(_,_)=>TabN);full[a+1]=MacroImg(20,12,0,0,(_,_)=>TabS);full[a+2]=MacroImg(20,12,0,0,(_,_)=>0x7C00);}
@@ -164,10 +164,10 @@ partial class Checks {
             Check(yellow,"item count 5 drawn in palette[13] yellow near (677,517)");
             Check(At(655,529)==Rgb(Mark)&&At(690,564)==Rgb(Mark)&&At(670,545)==Rgb(Frame),"select mark on slot 5 at (655,529), colour-keyed inside");
             Check(At(655,495)!=Rgb(Mark),"no mark on the previous slot");
-            Check(At(636,520)==Rgb(LockOff),"lock button drawn off");
+            Check(At(636,520)==Rgb(LockOpen),"unlocked: open padlock a+1 (3192)");
             Check(At(490,480)==Rgb(Ex)&&At(495,495)!=Rgb(Mark),"extended frame drawn; mark is in the main box");
             book.ToggleLock();book.SelectExtended(0);ui.Compose(canvas,null);
-            Check(At(636,520)==Rgb(LockOn)&&At(493,493)==Rgb(Mark)&&At(655,529)!=Rgb(Mark),"lock on image; mark moves to extended slot 1 at (493,493)");
+            Check(At(636,520)==Rgb(LockClosed)&&At(493,493)==Rgb(Mark)&&At(655,529)!=Rgb(Mark),"locked: closed padlock a (3191); mark moves to extended slot 1 at (493,493)");
             book.ToggleLock();
             ui.Update(S(inWorld:false));ui.Compose(canvas,null);
             Check(At(700,560)==Color.Black.ToArgb()&&At(490,480)==Color.Black.ToArgb(),"outside the world nothing is drawn");
@@ -220,5 +220,30 @@ partial class Checks {
             Throws<UiLayoutException>(()=>new MacroPanel().Load(noFrame,surfs),"missing MACRO_FRAME refused","缺少節點");
         }
         icon.Dispose();
+        NativeUiMacroRealClient(repo);
+    }
+
+    /// <summary>Optional (TW_CLIENT_ROOT): real Tile/Sprite, real registry; PNG and coordinate table only under scratch/issue-466/real.</summary>
+    static void NativeUiMacroRealClient(string repo){
+        string? client=Environment.GetEnvironmentVariable("TW_CLIENT_ROOT");
+        if(string.IsNullOrEmpty(client)){Console.WriteLine("SKIP native-ui macro real client render (TW_CLIENT_ROOT not set)");return;}
+        string outDir=Path.Combine(Path.GetFullPath(repo),"scratch","issue-466","real");Directory.CreateDirectory(outDir);
+        using var res=UiResources.Open(client);
+        var ui=UiRoot.Build(res,UiPanelRegistry.Panels);
+        var main=(MacroPanel)ui.Find(MacroPanel.WindowId)!;var ex=(ExMacroPanel)ui.Find(ExMacroPanel.WindowId)!;
+        var book=new MacroBook();var stamp=new PlayerHudStamp(1,1,1);book.Observe(stamp);
+        ui.Update(new MacroTestState(true,book,new MacroInventory(stamp,[],[],false),true,null));
+        Check(main.FrameRect==new Rectangle(643,476,157,124),"real 3176 frame = (643,476) 157×124");
+        Check(ex.Bounds==new Rectangle(485,475,158,125),"real 3226 extended frame = (485,475) 158×125");
+        using var canvas=new UiCanvas();
+        foreach(var (page,name) in new[]{(0,"page1"),(1,"page2"),(2,"page3")}){
+            book.SetPage(page);ui.Compose(canvas,null);canvas.Bitmap.Save(Path.Combine(outDir,$"macro-{name}.png"),ImageFormat.Png);
+        }
+        book.ToggleLock();book.SetPage(0);book.Select(5);ui.Compose(canvas,null);canvas.Bitmap.Save(Path.Combine(outDir,"macro-locked-select6.png"),ImageFormat.Png);
+        File.WriteAllText(Path.Combine(outDir,"macro-coordinates.json"),System.Text.Json.JsonSerializer.Serialize(new{
+            client,frame=main.FrameRect.ToString(),bounds=main.Bounds.ToString(),lockRect=main.LockRect.ToString(),tabs=main.TabRects.Select(r=>r.ToString()),
+            icons=Enumerable.Range(0,8).Select(k=>main.SlotIcon(k).ToString()),marks=Enumerable.Range(0,8).Select(k=>main.SlotMark(k).ToString()),
+            extended=new{bounds=ex.Bounds.ToString(),icons=Enumerable.Range(0,12).Select(k=>ex.SlotIcon(k).ToString())}},
+            new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));
     }
 }

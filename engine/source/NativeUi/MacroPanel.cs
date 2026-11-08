@@ -13,17 +13,18 @@ public sealed class MacroPanel:IUiPanel {
     /// <summary>Tab actions 10/11/12 → pages 0/1/2 (ui-layout.md §2 RIGHT_WINDOW).</summary>
     public const int FirstTabAction=10,LockAction=8;
     /// <summary>
-    /// Image offsets inside a surf range. ONOFF_BUTTON is "2 images per 1 button" (XML comment): a = off, a+1 = on (推測 —
-    /// V4 traced only IMAGE_BUTTON/3Stage). TAB_BUTTON is "3 images per 1 button"; its state order is unverified (V4 §(b)
+    /// Image offsets inside a surf range. ONOFF_BUTTON is "2 images per 1 button" (XML comment); in the real client 3191 is a
+    /// closed padlock and 3192 an open one, so locked = a, unlocked = a+1 (推測 from the image content — V4 traced only
+    /// IMAGE_BUTTON/3Stage; the BIN state byte_C31EAF and its default are not traced). TAB_BUTTON is "3 images per 1 button"; its state order is unverified (V4 §(b)
     /// last line), so the selected tab uses a+1 like a pressed button (推測). Change only these two constants once verified.
     /// </summary>
-    public const int LockOnOffset=1,TabSelectedOffset=1;
+    public const int LockOpenOffset=1,TabSelectedOffset=1;
     /// <summary>Item count text: palette[13] yellow on palette[0] black, capped at 99999 (V5 (a)).</summary>
     public static readonly Color CountColor=Color.FromArgb(255,255,255,0),CountShadow=Color.FromArgb(255,0,0,0);
     public const long CountCap=99999;
 
     sealed record Tab(int Page,Rectangle Rect,UiSurface? Normal,UiSurface? Selected);
-    UiSurface? frame,selectMark,lockOff,lockOn;
+    UiSurface? frame,selectMark,lockClosed,lockOpen;
     Point frameAt,selectAt,iconAt;
     Rectangle lockRect;
     Tab[] tabs=[];
@@ -58,8 +59,8 @@ public sealed class MacroPanel:IUiPanel {
         tabs=list.OrderBy(t=>t.Page).ToArray();
         var locks=w.Child("BUTTON_ONOFF_LIST").ChildrenNamed("ONOFF_BUTTON").Where(n=>n.Attr("title")=="MACRO_LOCK").ToArray();
         if(locks.Length!=1)throw new UiLayoutException(layout.FileName,w.Path+"/BUTTON_ONOFF_LIST","MACRO_LOCK 應恰有 1 個");
-        int lockSurf=MacroLayout.FirstSurf(locks[0]);lockOff=surfs.Get(lockSurf);lockOn=surfs.Get(lockSurf+LockOnOffset);
-        lockRect=MacroLayout.Rect(MacroLayout.At(locks[0],x,y),lockOff);
+        int lockSurf=MacroLayout.FirstSurf(locks[0]);lockClosed=surfs.Get(lockSurf);lockOpen=surfs.Get(lockSurf+LockOpenOffset);
+        lockRect=MacroLayout.Rect(MacroLayout.At(locks[0],x,y),lockClosed??lockOpen);
         // MACRO_LOCK sits at xRPos=-9, i.e. left of the frame (over the BAR_485 slot's last 9 columns), so Bounds is the union.
         Bounds=MacroLayout.Union(FrameRect,lockRect);
     }
@@ -82,7 +83,7 @@ public sealed class MacroPanel:IUiPanel {
         foreach(var t in tabs)canvas.DrawSurface(t.Page==book.Page?t.Selected:t.Normal,t.Rect.X,t.Rect.Y);
         for(int k=0;k<MacroBook.SlotsPerPage;k++)MacroLayout.PaintSlot(canvas,macro,book.Binding(book.Page,k),SlotIcon(k),SlotMark(k));
         if(!book.SelectionInExtended){var m=SlotMark(book.Selected);canvas.DrawSurface(selectMark,m.X,m.Y);}
-        canvas.DrawSurface(book.Locked?lockOn:lockOff,lockRect.X,lockRect.Y);
+        canvas.DrawSurface(book.Locked?lockClosed:lockOpen,lockRect.X,lockRect.Y);
     }
 
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
