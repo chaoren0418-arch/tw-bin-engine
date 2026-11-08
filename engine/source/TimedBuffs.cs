@@ -6,6 +6,12 @@ public static class TimedBuffRules {
     public const int PhysicalEnchantStr=42,DressMighty=109,PhysicalEnchantDex=26,DressDexterity=110;
     // Item status with no skill id; negative keys are the MagicStatus convention for those.
     public const int WaterBreath=-3126;
+    // EF2§3 (T227), UI§4: TW16 S_BREATH (sub_931F60, VA 0x931F60 / FO 0x531360) only calls
+    // sub_F05A90(seconds, 11, 0, -1, 1): status effect 11 WATER_BREATH_S in display mode 0, no scene effect.
+    // The effect id indexes Tile.pak effectlist2.xml, which the buff-icons module reads at run time.
+    public const int WaterBreathEffect=11,WaterBreathDisplayMode=0;
+    // Only the S126 mapping is owned here; other buffs have no verified effect id in this module.
+    public static int? StatusEffect(int skill)=>skill==WaterBreath?WaterBreathEffect:null;
     // AM§4(c), TW16 sub_F01E50: after lighting, screen row j moves horizontally by
     // (int)(level*3.5*sin((phase+j)*pi/50)). Phase advances every 50 ms through 0..199 (sub_F05FD0),
     // so the 100-row wave travels one period in 5 s and returns home at phase 200.
@@ -22,7 +28,19 @@ public static class TimedBuffRules {
         }
     }
 }
+// Data for the status icon row: an effectlist2.xml id plus the T153 timer. Drawing is not done here.
+public sealed record StatusEffectIcon(int Effect,int DisplayMode,int Skill,string Name,int Seconds);
 public sealed partial class WorldSession {
+    // Live buffs that have a verified effect id; remaining seconds come from the S126 timer in MagicBuffs.
+    public StatusEffectIcon[] StatusEffectIcons {
+        get {
+            long now=MagicStatusClock();
+            return MagicBuffs.Where(b=>TimedBuffRules.StatusEffect(b.Skill)!=null)
+                .Select(b=>new StatusEffectIcon(TimedBuffRules.StatusEffect(b.Skill)!.Value,TimedBuffRules.WaterBreathDisplayMode,b.Skill,b.Name,b.Remaining(now)))
+                .Where(i=>i.Seconds>0).ToArray();
+        }
+    }
+    [WorldSnapshot("statusEffects")] object StatusEffectSnapshot()=>StatusEffectIcons.Select(i=>new{effect=i.Effect,mode=i.DisplayMode,skill=i.Skill,name=i.Name,seconds=i.Seconds}).ToArray();
     int liquorLevel,liquorEpoch;long liquorAt;bool liquorWatchesSpeed;
     // S206 clears the client's visual state and the server resends S103; Reset also moves the epoch.
     public int LiquorLevel=>liquorEpoch==WorldEpoch?liquorLevel:0;
