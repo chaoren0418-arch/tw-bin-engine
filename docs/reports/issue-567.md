@@ -37,6 +37,7 @@
 - 沒處理的部分：.s32 地圖特效（它們也是 actor，可能也走 A4B060 的 `]`）、門、自己的走路／呼吸動作、飛行類（kind 3/4/5/6）與落點特效的 `]`；子特效影格上的音效（`<`／`[`）與 `!` 也沒處理（沒有傷害清單，原版應該也不會觸發受擊）。
 - CI 結果以 PR 頁面為準（本機只跑了上面列出的項目）。
 - 2026-11-08 第二次同步 origin/main（到 `f7bd263e`）：`rebuild-lock.json` 衝突採 main 版本後跑 `--update-lock` 重產；`rebuild.py --build` PASS；`--module-tests` 422 項 0 失敗（含 `P06.SubEffectsTests.Run`）；`check-no-game-assets.py` 0 錯誤。
+- 2026-11-09 第三次同步 origin/main（落後 56 個 commit，到 `8354654e`）：`rebuild-lock.json` 衝突採 main 版本後跑 `--update-lock` 重產；`rebuild.py --build` PASS（productDll `ef701813…1cf4`）；`--module-tests` 11 組 608 項 0 失敗（`sub-effects` 37 項）；`check-no-game-assets.py` 0 錯誤。其餘程式檔自動合併無衝突。
 
 ## 產出路徑
 
