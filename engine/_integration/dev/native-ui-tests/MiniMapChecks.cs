@@ -11,7 +11,7 @@ partial class Checks {
         public long Now=>0;
         public UiMapSnapshot? ReadMap()=>map;
     }
-    static Color Rgb555(ushort p)=>Color.FromArgb(unchecked((int)UiImage.ToArgb(p)));
+    static Color MiniRgb555(ushort p)=>Color.FromArgb(unchecked((int)UiImage.ToArgb(p)));
     static bool Same(Bitmap b,int x,int y,Color c)=>b.GetPixel(x,y).ToArgb()==c.ToArgb();
     /// <summary>w×h image whose border (thickness t) is colour and whose interior is the transparent key.</summary>
     static byte[] Hollow(int w,int h,int t,ushort colour){
@@ -149,7 +149,7 @@ partial class Checks {
         // --- not in world: base + frame only.
         {
             var b=Frame(new MapTestState(false,null));
-            Check(Same(b,540,530,Rgb555(Base))&&Same(b,485,475,Rgb555(FrameC))&&Same(b,642,599,Rgb555(FrameC)),"outside the world: base 3274 and frame 3275 only");
+            Check(Same(b,540,530,MiniRgb555(Base))&&Same(b,485,475,MiniRgb555(FrameC))&&Same(b,642,599,MiniRgb555(FrameC)),"outside the world: base 3274 and frame 3275 only");
             Check(mini.Map.Kind==MapViewKind.None&&root.Faulted.Count==0,"no map kind, nothing faulted");
         }
 
@@ -159,14 +159,14 @@ partial class Checks {
             var b=Frame(new MapTestState(true,self));
             Check(mini.Map.Kind==MapViewKind.Field&&mini.Map.Image?.Size==new Size(400,300),"listed map: png 10100 decoded from Sprite05");
             Check(Same(b,540,530,Png(163,120))&&Same(b,600,590,Png(223,180)),"png drawn so the player's pixel (200,150) sits at view origin+(80,60) = (577,560)");
-            Check(Same(b,575,559,Rgb555(ArrowC(3)))&&Same(b,572,556,Rgb555(ArrowC(3)))&&Same(b,580,564,Rgb555(ArrowC(3)))&&!Same(b,581,559,Rgb555(ArrowC(3))),"heading 3 → arrow 2821, 9×9 at (572,556)");
-            Check(Same(b,586,554,Rgb555(Party))&&Same(b,584,552,Rgb555(Party))&&Same(b,589,557,Rgb555(Party)),"party member at +10 tiles: dot 2826 centred on its png pixel (210,145)");
+            Check(Same(b,575,559,MiniRgb555(ArrowC(3)))&&Same(b,572,556,MiniRgb555(ArrowC(3)))&&Same(b,580,564,MiniRgb555(ArrowC(3)))&&!Same(b,581,559,MiniRgb555(ArrowC(3))),"heading 3 → arrow 2821, 9×9 at (572,556)");
+            Check(Same(b,586,554,MiniRgb555(Party))&&Same(b,584,552,MiniRgb555(Party))&&Same(b,589,557,MiniRgb555(Party)),"party member at +10 tiles: dot 2826 centred on its png pixel (210,145)");
             Check(Same(b,507,560,Png(130,150)),"party member outside the minimap marker rect is not drawn");
-            Check(Same(b,485,475,Rgb555(FrameC))&&Same(b,486,560,Rgb555(FrameC)),"frame 3275 over the png; png visible inside the hollow frame");
-            Check(Same(b,499,560,Rgb555(Base))&&Same(b,500,560,Png(123,150)),"png clipped to the view inset by 3 (x ≥ 500)");
+            Check(Same(b,485,475,MiniRgb555(FrameC))&&Same(b,486,560,MiniRgb555(FrameC)),"frame 3275 over the png; png visible inside the hollow frame");
+            Check(Same(b,499,560,MiniRgb555(Base))&&Same(b,500,560,Png(123,150)),"png clipped to the view inset by 3 (x ≥ 500)");
             foreach(int h in new[]{0,7}){
                 var bh=Frame(new MapTestState(true,self with{Heading=h}));
-                Check(Same(bh,575,559,Rgb555(ArrowC(h))),$"heading {h} → arrow {2818+h}");
+                Check(Same(bh,575,559,MiniRgb555(ArrowC(h))),$"heading {h} → arrow {2818+h}");
             }
             var none=Frame(new MapTestState(true,self with{Heading=9,Party=[]}));
             Check(Same(none,575,559,Png(198,149)),"unknown heading: no arrow drawn");
@@ -177,11 +177,11 @@ partial class Checks {
         // --- unlisted / restricted / missing png: frame only, no exception.
         {
             var b=Frame(new MapTestState(true,self with{MapId=77}));
-            Check(mini.Map.Kind==MapViewKind.Dungeon&&Same(b,540,530,Rgb555(Base))&&Same(b,575,559,Rgb555(Base)),"unlisted map: base + frame only (no png, no arrow)");
+            Check(mini.Map.Kind==MapViewKind.Dungeon&&Same(b,540,530,MiniRgb555(Base))&&Same(b,575,559,MiniRgb555(Base)),"unlisted map: base + frame only (no png, no arrow)");
             b=Frame(new MapTestState(true,self with{MapId=5001}));
-            Check(mini.Map.Kind==MapViewKind.Restricted&&Same(b,540,530,Rgb555(Base)),"restricted map: base + frame only even though a row exists");
+            Check(mini.Map.Kind==MapViewKind.Restricted&&Same(b,540,530,MiniRgb555(Base)),"restricted map: base + frame only even though a row exists");
             b=Frame(new MapTestState(true,self with{MapId=9}));
-            Check(mini.Map.Kind==MapViewKind.Field&&mini.Map.Image==null&&Same(b,540,530,Rgb555(Base))&&root.Faulted.Count==0,"listed map whose png is missing: frame only, panel not faulted");
+            Check(mini.Map.Kind==MapViewKind.Field&&mini.Map.Image==null&&Same(b,540,530,MiniRgb555(Base))&&root.Faulted.Count==0,"listed map whose png is missing: frame only, panel not faulted");
             Check(UiResourceLog.Recent().Any(l=>l.Contains("10109.png")),"missing png logged once");
         }
 
@@ -194,10 +194,10 @@ partial class Checks {
             Check(input.Key(new(Keys.Control|Keys.M,true,true))&&mini.Map.FieldOpen,"auto-repeat does not toggle again");
             Check(input.Key(new(Keys.Control|Keys.M,false,false))&&mini.Map.FieldOpen,"key-up is taken but does not toggle");
             var b=Frame(new MapTestState(true,self));
-            Check(Same(b,5,250,Rgb555(FieldFrame))&&Same(b,165,370,Rgb555(FieldFrame)),"Field_Map frame 2816");
+            Check(Same(b,5,250,MiniRgb555(FieldFrame))&&Same(b,165,370,MiniRgb555(FieldFrame)),"Field_Map frame 2816");
             Check(Same(b,45,280,Png(160,120))&&Same(b,7,253,Color.Black)&&Same(b,8,253,Png(123,93)),"Field_Map png view: player at (85,310), clipped to the view inset by 3");
-            Check(Same(b,101,251,Rgb555(Title))&&Same(b,151,256,Rgb555(Exit))&&Same(b,134,256,Rgb555(Zoom)),"title 2815, exit 2801, zoom 2803 at their XML positions");
-            Check(Same(b,83,309,Rgb555(ArrowC(3)))&&Same(b,96,306,Rgb555(Party)),"Field_Map arrow and party dot");
+            Check(Same(b,101,251,MiniRgb555(Title))&&Same(b,151,256,MiniRgb555(Exit))&&Same(b,134,256,MiniRgb555(Zoom)),"title 2815, exit 2801, zoom 2803 at their XML positions");
+            Check(Same(b,83,309,MiniRgb555(ArrowC(3)))&&Same(b,96,306,MiniRgb555(Party)),"Field_Map arrow and party dot");
             Check(input.Key(new(Keys.Control|Keys.M,true,false))&&!mini.Map.FieldOpen&&field.Bounds==Rectangle.Empty,"Ctrl+M again closes it");
             Frame(new MapTestState(false,null));
             Check(!input.Key(new(Keys.Control|Keys.M,true,false))&&!mini.Map.FieldOpen,"outside the world Ctrl+M is not used");
@@ -218,7 +218,7 @@ partial class Checks {
             input.Mouse(UiMouseKind.Down,new(60,300),MouseButtons.Left,1);input.Mouse(UiMouseKind.Move,new(160,320));input.Mouse(UiMouseKind.Up,new(160,320),MouseButtons.Left);
             Check(field.Bounds==new Rectangle(105,270,161,121),"Field_Map is draggable (moved by +100,+20)");
             var b=Frame(new MapTestState(true,self));
-            Check(Same(b,105,270,Rgb555(FieldFrame))&&Same(b,145,300,Png(160,120)),"dragged window paints at its new place");
+            Check(Same(b,105,270,MiniRgb555(FieldFrame))&&Same(b,145,300,Png(160,120)),"dragged window paints at its new place");
             mini.Map.CloseField();
             r=input.Mouse(UiMouseKind.Down,new(520,520),MouseButtons.Left,1);input.Mouse(UiMouseKind.Up,new(520,520),MouseButtons.Left,1);
             Check(r.Route==UiRoute.Panel&&!mini.Map.FieldOpen,"a click on the minimap stays in the UI (character does not walk) and opens nothing");
@@ -229,7 +229,7 @@ partial class Checks {
         {
             Frame(new MapTestState(true,self with{MapId=77}));mini.Map.ToggleField();
             var b=Frame(new MapTestState(true,self with{MapId=77}));
-            Check(field.Chrome?.Title.Surf==2888&&field.ZoomRect==Rectangle.Empty&&Same(b,105+113,271,Rgb555(DungeonTitle))&&!Same(b,235,277,Rgb555(Zoom)),"unlisted map: Dungern_Map title 2888, no zoom button, no png");
+            Check(field.Chrome?.Title.Surf==2888&&field.ZoomRect==Rectangle.Empty&&Same(b,105+113,271,MiniRgb555(DungeonTitle))&&!Same(b,235,277,MiniRgb555(Zoom)),"unlisted map: Dungern_Map title 2888, no zoom button, no png");
             mini.Map.CloseField();
         }
 

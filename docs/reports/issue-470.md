@@ -99,6 +99,19 @@
    - 真實資源探針：四個面板（HpMpWindow、MiniHpMpBar、Field_Map、MINI_MAP_WINDOW）一起 Build 通過（46.5 秒），結果與合併前相同。
    - `check-no-game-assets.py`：pass，errors 0。
 
+7. **第二次同步 origin/main**（2026-11-09，PR #597 衝突；併入 #464 #466 #467 #468 #517 #526–#530 #558 #560 #601 #602 等）：
+   - 衝突處理：
+     - `UiPanelRegistry.cs`：兩邊都保留；小地圖那一行放在 HpMp 之後、`ExMacroPanel`／`MacroPanel`（RIGHT_WINDOW）之前，讓 MACRO_LOCK 照 #466 的設計畫在 BAR_485 上面。`BAR_485` 成員順序由 `UiSlotGroup.OrderOf` 依 V5 決定，跟註冊順序無關；小地圖現在和 main 的真 `ExMacroPanel` 共用同一個 `root.SlotGroup(UiSlotGroup.Bar485)`。
+     - `DemoChecks.csproj`、`demo-tests/Program.cs`：兩邊都保留（分組 `native-ui-minimap` 也加進預設全組）
+     - `rebuild-lock.json`：改用 main 版本，再以 `--update-lock` 重產（305 個來源檔／314 個鎖定檔）；`docs/REPORT.md` 用 main 版本
+   - 合併後的必要小修：
+     - `MiniMapChecks.cs` 的 `Rgb555` 與 main 新增的 `MenuButtonsChecks.cs` 同名（同一個 partial class `Checks`，CS0111），本檔改名 `MiniRgb555`。
+     - `MacroChecks.cs` 的 `MacroRegistry` 篩選多排除 `MiniMapPanel.PanelId`：它的合成 `uistatus86` 版面沒有 `MINI_MAP_WINDOW` 節點，和既有排除 LEFT／CENTER_WINDOW 的理由相同。
+   - `build-product.ps1` 結果 **`PASS dev`**，productDll `0c59f0ea…c66b`；唯讀核驗 `dev-inputs-verified`。
+   - 重跑：native-ui-minimap 402、native-ui-macro 403、native-ui-menu-buttons 355、native-ui-hpmp 397、native-ui-canvas 429、native-ui-left-status 370、native-ui-chat-window 446、minimap 398，以及 CI 列出的 combat-admission 1750、item-status 409、native-ui-resources 539、afflictions 580、resurrection 553、polymorph-cadence 380、buddies 496、item-transfer 400、doors 648、pickup 369、door-approach 361、hypertext 357，**全部 PASS**。
+   - map-continuity：同第 5 點，本機有真實客戶端時在 DisplayNotice S245 那一項失敗（環境相關，與本任務無關）；交給 PR CI（ubuntu、無客戶端）判定。
+   - 不帶分組的預設全組在本 worktree 跑不起來：`engine/assets` junction 不在 worktree（`terrain0.bin` 找不到），屬環境問題。
+
 ## 已驗證／推測／待驗證
 
 **已驗證（本輪，離線＋真實資源唯讀）**
@@ -143,6 +156,7 @@
 
 ## 給下一棒的提示
 
+- **ui-menu-buttons（#467 已合併）**：`MenuButtonsPanel` 的 Map 鈕（action 13）目前沒有接到任何功能（只有 Quit 有對應）。下一張任務可以讓它呼叫下面的 `ToggleField()`。
 - **ui-macro-bar**：
   - Map 按鈕（action 13）呼叫 `((FieldMapPanel)root.Find(FieldMapPanel.PanelId)!).Map.ToggleField()`，另播音效 237（V5 (b)）
   - Alt＋F3 → `root.SlotGroup(UiSlotGroup.Bar485).Cycle()`，建議放在一直可見的巨集框面板的 `Key`
