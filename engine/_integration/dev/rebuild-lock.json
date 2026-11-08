@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 275,
+ "sourceCount": 277,
  "files": [
   {
    "path": "NuGet.Config",
@@ -201,13 +201,13 @@
   },
   {
    "path": "source/Buddies.cs",
-   "size": 8343,
-   "sha256": "adf112fea62dd30b11ee8c71b9198784340a0aa0fbc448dbc0bbd567485ae186"
+   "size": 9910,
+   "sha256": "14393ff3f2766f2a9dd7ccda404387ba5dbd5ada20242eafdc874e2ebf05631d"
   },
   {
    "path": "source/BuddyUi.cs",
-   "size": 5057,
-   "sha256": "bd29d9848d52dd8d36d68de448bcba66ec353e755596c448b658c6db2aaeabd1"
+   "size": 8155,
+   "sha256": "bc9600f85193c894bc424090feb0415545cf38de24f8df0b29ea5ecba67c70ff"
   },
   {
    "path": "source/CacheFrameEvidence.cs",
@@ -735,6 +735,16 @@
    "sha256": "182f97bd99647a7e9a5acd1c477a22be71b5ef9a7245cc023b1ebbe446f28289"
   },
   {
+   "path": "source/NativeUi/FriendPanel.cs",
+   "size": 15918,
+   "sha256": "987465bb3a9ea5a766e004ba140501fa049c380e7fbcc4821503ccb2c111a1a9"
+  },
+  {
+   "path": "source/NativeUi/FriendPanelTests.cs",
+   "size": 16158,
+   "sha256": "e51d4fe1bfad1c8eb39dc22b867040726838f596b7e16349e28bd4f0e9ebd689"
+  },
+  {
    "path": "source/NativeUi/SurfCatalog.cs",
    "size": 7527,
    "sha256": "599be507ea3f428e5f279566d748755539f9f35a30d80f666fbc282e631c4a44"
@@ -766,8 +776,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 723,
-   "sha256": "0978c88c5ae87888da72c39eeab23c1301f748d958a10edd8b83144640359b12"
+   "size": 831,
+   "sha256": "b7345952fbc1ae7aa50f7fc505ccdfa93471602f445233f6f7b1a7ab1497279e"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
