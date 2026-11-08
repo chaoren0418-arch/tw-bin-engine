@@ -21,7 +21,7 @@ partial class Checks {
         var vector=Convert.FromHexString("FA6FA4A40034127856BC9A3412F0DE00");
         var decoded=LocationShareProtocol.Decode(vector);
         Check(decoded.Location==location&&decoded.Text=="中"&&decoded.Channel==PlayerChatChannel.Whisper,"location S250/111 full fields including opaque uint zone");
-        Check(PlayerChatProtocol.FormatLine(decoded)=="[座標] 中：地圖 4660 (22136, 39612)","location display is typed server data");
+        Check(PlayerChatProtocol.FormatLine(decoded)=="[座標] 中：地區3740275252〔訊息1784〕","location display is sender + region placeholder (no table), not coordinates");
         Check(LocationShareProtocol.Decode(LocationPacket("a",ushort.MaxValue,0,ushort.MaxValue,uint.MaxValue)).Location==new SharedLocation(65535,0,65535,uint.MaxValue),"location full unsigned coordinate ranges");
         Check(LocationShareProtocol.Decode(LocationReply(1782)).Text.Contains("不在線上"),"location S71/1782 failure");
         Check(LocationShareProtocol.Decode(LocationReply(1783,"測試者")).Text.Contains("測試者"),"location S71/1783 success CP950 argument");
@@ -85,6 +85,7 @@ partial class Checks {
             }
             release.SetResult(true);Check(!await pending&&sent==0,"location revalidates before socket write "+change);
         }
+        await LocationRegionChecks();
         Exception? uiError=null;var uiThread=new Thread(()=>{try{LocationShareUiChecks();}catch(Exception ex){uiError=ex;}});
         uiThread.SetApartmentState(ApartmentState.STA);uiThread.Start();uiThread.Join();if(uiError!=null)throw uiError;
     }
@@ -102,17 +103,17 @@ partial class Checks {
         void Click(int index){var point=history.GetPositionFromCharIndex(index);typeof(RichTextBox).GetMethod("OnMouseUp",F)!.Invoke(history,[new MouseEventArgs(MouseButtons.Left,1,point.X+1,point.Y+1,0)]);}
         Feed(c,LocationPacket("中",0));Update();
         var links=LocationSharePresentation.Links(c.PlayerChatSnapshot(),history.Text);
-        Check(links.Length==1&&history.Text.Substring(links[0].Start,links[0].Length)=="地圖 0 (32600, 32940)","location typed data links to exact displayed coordinates");
+        Check(links.Length==1&&history.Text.Substring(links[0].Start,links[0].Length)==LocationShareProtocol.Format(new(0,32600,32940,0)),"location typed data links to exact displayed region text");
         history.Select(links[0].Start,1);Check(history.SelectionFont!.Underline,"location coordinates visibly underlined in real RichTextBox");
         Click(links[0].Start);
-        Check(marker.Visible&&marker.Location==new Point(188,188)&&notice.Text.Contains("地圖 0"),"location actual mouse event places marker on projected tile");
+        Check(marker.Visible&&marker.Location==new Point(188,188)&&notice.Text.Contains("地區0"),"location actual mouse event places marker on projected tile");
         Check(sends==0&&c.World.Actor!.X==32600,"location click does not send movement or change player position");
         projected=new(900,-500);ui.Refresh();
         Check(marker.Location==new Point(776,0)&&notice.Text.Contains("視野外"),"location offscreen marker clamps within scene and labels explicitly");
         Feed(c,LocationPacket("其他角色",4));Update();links=LocationSharePresentation.Links(c.PlayerChatSnapshot(),history.Text);
         Click(links[1].Start);Check(!marker.Visible&&notice.Text.Contains("不同地圖"),"location other-map click shows destination without false on-map marker");
         Check(LocationSharePresentation.Links(c.PlayerChatSnapshot(),history.Text+"stale").Length==0,"location stale rendered snapshot cannot be clicked");
-        Feed(c,Packet(b=>{b.Write((byte)243);b.Write((byte)3);Text(b,"地圖 0 (32600, 32940)");}));Update();
+        Feed(c,Packet(b=>{b.Write((byte)243);b.Write((byte)3);Text(b,LocationShareProtocol.Format(new(0,32600,32940,0)));}));Update();
         Check(LocationSharePresentation.Links(c.PlayerChatSnapshot(),history.Text).Length==2,"location ordinary chat cannot forge a clickable coordinate");
         Feed(c,LoginPackets.Pad([206,4,0,0]));Feed(c,Pack(123));Update();
         Check(!marker.Visible&&!notice.Visible,"location world epoch transition clears marker");
