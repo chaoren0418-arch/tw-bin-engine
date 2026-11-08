@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 271,
+ "sourceCount": 273,
  "files": [
   {
    "path": "NuGet.Config",
@@ -246,8 +246,8 @@
   },
   {
    "path": "source/CharacterConfig.cs",
-   "size": 8130,
-   "sha256": "cf3c8a485a82a75de2cdfbb4a530c1d21437f223849f7f22e9795613d6ca7242"
+   "size": 9372,
+   "sha256": "e1171298f82d6d032d71b7530e7fc30eb7759f06e7e61808b39af10dfcff176b"
   },
   {
    "path": "source/CharacterManagement.cs",
@@ -258,6 +258,16 @@
    "path": "source/CharacterManagementUi.cs",
    "size": 7435,
    "sha256": "582febb574d3594747546030455e690002d68725764f042a2b06861b3173634e"
+  },
+  {
+   "path": "source/ChatChannelToggle.cs",
+   "size": 11167,
+   "sha256": "34e01e0a03e7f70d020e42f49e623b9d17163fb2649984833e56ae4d0d9a4ec9"
+  },
+  {
+   "path": "source/ChatChannelToggleTests.cs",
+   "size": 8272,
+   "sha256": "dd693c0e480b9f04b12aad46711b3e3438500acbb09395cd6bdd2c1c6eadb4d8"
   },
   {
    "path": "source/Clan.cs",
