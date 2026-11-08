@@ -48,8 +48,8 @@
 
 | 項目 | 結果 |
 |---|---|
-| `rebuild.py --update-lock` → `rebuild.py --build` | PASS（productDll `4e657108…`） |
-| `P11.ClientEngine.exe --module-tests`（全部 18 組） | pass，915 項檢查；`friend-panel` 104 項全過 |
+| `rebuild.py --update-lock` → `rebuild.py --build` | PASS；同步 origin/main（#557）後重驗 productDll `6cf95b4d…` |
+| `P11.ClientEngine.exe --module-tests`（全部 18 組） | pass；同步後 953 項檢查，`friend-panel` 104 項全過 |
 | demo-tests：CI 會跑的 14 組（map-continuity、combat-admission、item-status、native-ui-resources、native-ui-canvas、afflictions、resurrection、polymorph-cadence、buddies、item-transfer、doors、pickup、door-approach、hypertext） | 全部 PASS（buddies 496、native-ui-canvas 429 項） |
 | `engine/tools/check-no-game-assets.py` | pass，errors 0 |
 | 本機選用檢查 `friend-panel-real`（真實 `Tile.pak`／`Sprite*.pak`，唯讀） | pass，45 項 |
