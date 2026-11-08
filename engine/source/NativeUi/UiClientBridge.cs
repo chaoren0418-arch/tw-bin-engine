@@ -114,7 +114,7 @@ public sealed partial class ClientForm {
     IUiGameState NativeUiGameState(){
         var w=login.World;var s=w.Status;bool inWorld=login.State==LoginState.InWorld;
         var basic=new UiStaticGameState(inWorld,inWorld?w.Actor?.Name:null,inWorld?s?.Level:null,inWorld?s?.Hp:null,inWorld?s?.MaxHp:null,inWorld?s?.Mp:null,inWorld?s?.MaxMp:null,Environment.TickCount64);
-        return new UiLeftStatusGameState(basic,inWorld?LeftStatusState.From(w):LeftStatusState.Empty);   // ui-left-status (#464)
+        return WithHpMpState(new UiLeftStatusGameState(basic,inWorld?LeftStatusState.From(w):LeftStatusState.Empty));   // ui-left-status (#464) inside, ui-hpmp #465 over-head targets outside (State/HpMpState.cs)
     }
 
     sealed class NativeUiCommands(ClientForm form):IUiCommands {

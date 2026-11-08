@@ -72,7 +72,12 @@ public sealed record LeftStatusState(int? Level,decimal? ExpPercent,int? Ac,int?
         return new(s?.Level,xp is {} e&&s!=null&&e.Level==s.Level?e.Percent:null,s?.Ac,spMr?.Mr,s?.Lawful,spMr?.Sp,s?.Weight,s?.Food,adena);
     }
     /// <summary>Fallback when the state carries no left-status adapter: only the common Level is known.</summary>
-    public static LeftStatusState From(IUiGameState state)=>state is ILeftStatusSource src?src.LeftStatus:Empty with{Level=state.Level};
+    /// UiHpMpGameState (#465) wraps the bridge state from outside, so look through it to its Base.
+    public static LeftStatusState From(IUiGameState state)=>state switch{
+        ILeftStatusSource src=>src.LeftStatus,
+        UiHpMpGameState hpmp=>From(hpmp.Base),
+        _=>Empty with{Level=state.Level},
+    };
 }
 
 /// <summary>A game state that also carries the LEFT_WINDOW snapshot.</summary>

@@ -85,6 +85,12 @@ partial class Checks {
                 built.Compose(c,null);
                 Check(panel.Drawn.Count(d=>d.Text!=null)==1&&panel.Drawn.Single(d=>d.Text!=null) is {Element:LeftStatusPanel.LevelNumber,Text:"7"},"plain game state: only the level is shown");
             }
+            // Client bridge order (#465 merge): WithHpMpState wraps the left-status state from outside; the snapshot must still come through.
+            {
+                var snap=LeftStatusState.Empty with{Level=9,Ac=-3,Adena=42};
+                var wrapped=new UiHpMpGameState(LeftState(snap),[]);
+                Check(LeftStatusState.From(wrapped)==snap&&LeftStatusState.From(new UiHpMpGameState(new UiStaticGameState(InWorld:true,Level:4),[])) is {Level:4,Ac:null,Adena:null},"left-status snapshot reads through UiHpMpGameState (bridge: hpmp outside, left-status inside)");
+            }
 
             // Sample state: every component at its logical position.
             built.Update(LeftState(LeftSample));

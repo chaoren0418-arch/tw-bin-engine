@@ -69,6 +69,15 @@
 - 重新建置：`PASS dev`，productDll `5ba7e8d9…902b`。
 - 重新測試：`native-ui-left-status` PASS 368（離線）／PASS 369（有 `TW_CLIENT_ROOT`）；`native-ui-canvas` PASS 429；`item-status` PASS 409；`check-no-game-assets.py` pass（trackedFiles 3823），errors 0。
 
+### 第三次同步 origin/main（2026-11-09，main 又前進 26 個 commit，含 #465 ui-hpmp）
+
+- 衝突 5 個：`DemoChecks.csproj`、`demo-tests/Program.cs`、`UiPanelRegistry.cs` 三處都是兩邊各加一行，全部保留（registry 移除 main 版原本的 `LEFT_WINDOW` 範例註解，改為正式註冊）；預設全組同時呼叫 `NativeUiLeftStatusChecks` 與 `NativeUiHpMpChecks`。
+- `UiClientBridge.NativeUiGameState`：兩邊都包裝 game state。合併後的順序是 `WithHpMpState(new UiLeftStatusGameState(basic, …))`，也就是 HP/MP 在外、左狀態在內。HP/MP 面板用 `state is IUiHpMpState` 判斷，所以必須在最外層；`LeftStatusState.From(IUiGameState)` 改成會透過 `UiHpMpGameState.Base` 往內找 `ILeftStatusSource`（只改本任務自己的檔案）。`LeftStatusChecks` 加了 1 項檢查，確認包了一層之後快照仍然讀得到，沒有快照時只會顯示等級。
+- `rebuild-lock.json` 先取 main 版，再用 `py -3 rebuild.py --update-lock` 重產（282 個來源檔／291 個鎖定檔）；唯讀核驗結果 `dev-inputs-verified`。`docs/REPORT.md` 維持 main 版。
+- 建置（`--configfile .github/nuget.ci.config`）：`PASS dev`，productDll `677af422…96eb`。
+- 測試：`native-ui-left-status` 離線 PASS 369；設了 `TW_CLIENT_ROOT` 時 PASS 370。`native-ui-hpmp`（設了 `TW_CLIENT_ROOT`）PASS 398；`native-ui-canvas` PASS 429；`item-status` PASS 409。`engine/tools/check-no-game-assets.py` pass（trackedFiles 3830），errors 0。
+- 未驗證：左狀態框與 HP/MP 浮動窗在同一個畫面上的實際重疊情形（HP/MP 預設位置 (135,465)，左框 (0,475)–(135,600)，座標上相鄰、不重疊），要等真機 smoke 才能確認。
+
 ### 真實客戶端渲染（只在 scratch，未進 git）
 
 輸出在 `scratch/issue-464/real/`：4 種狀態的 `canvas-*.png`（800×600）、`left-x4-*.png`（左框放大 4 倍）、`surf-3168…3175.png`，以及 `left-status.json`（元件座標、surf 尺寸、每種狀態的繪製清單）。

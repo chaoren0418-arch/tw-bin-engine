@@ -14,6 +14,7 @@ public sealed partial class Renderer {
                 string name=OwnCombatName(self.Action);double elapsed=now-self.At;
                 var frame=self.Timing?.Frame(appearance,actor.Direction,elapsed)??appearance.At(name,actor.Direction,elapsed);draws.RemoveAll(d=>(d.Layer is "actor" or "shadow")&&d.ObjectId==0);draws.AddRange(frame.Blocks.Select(b=>new Draw(2*(actor.X-Coordinates.MinX)+b.A,actor.Y-Coordinates.MinY+b.B,b.Z,1000000+b.Order,"actor",b.Order,-1,-1,b.Tile)));draws.AddRange(ShadowDraws(appearance,frame,actor.X,actor.Y));
                 OwnCombatVisual=new(actor.ObjectId,actor.Gfx,appearance.Sprite,actor.Name,actor.X,actor.Y,name,frame.Key,Coordinates.Screen(actor.X,actor.Y),Rectangle.Empty,false,self.Timing?.AnimationMs??(int)appearance.Duration(name));
+                ObserveOwnerFrames(session,"self",0,appearance,name,actor.Direction,self.Timing,$"{name}:{self.At}",elapsed,actor.X,actor.Y,false,now);
             }
             if(session.PickupFrame(now) is {} pickupFrame){
                 draws.RemoveAll(d=>(d.Layer is "actor" or "shadow")&&d.ObjectId==0);
@@ -29,11 +30,15 @@ public sealed partial class Renderer {
             if(a==null||o.AppearancePending||(!shop&&(!NormalSpeed.Supported(o.Speed,o.Brave)||o.MotionAt!=0&&!NormalSpeed.Supported(o.MotionSpeed,o.MotionBrave)))||(door?(o.DoorAction is not (28 or 29)||o.Dead||o.Combat!=null):o.ReceivedAction is not (null or 0 or 1 or 2 or 3 or 8 or 18 or 19 or 70))||!(session.MapCache?.Contains(o.X,o.Y)??Coordinates.Inside(o.X,o.Y))){unavailable.Add(o);continue;}
             int stepMs=shop?a.StepMs:NormalSpeed.AnimationMs(a.StepMs,o.MotionAt!=0?o.MotionSpeed:o.Speed,o.MotionAt!=0?o.MotionBrave:o.Brave);double elapsed=now-o.MotionAt;bool moving=!door&&!shop&&o.MotionAt!=0&&elapsed<stepMs;
             string action=door?(o.DoorAction==28?"open":"close"):shop?"shop":moving?"walk":"breath";double animationElapsed=door?session.DoorPlaybackElapsed(o.ObjectId,now)??double.MaxValue:shop?now-o.ShopAt:moving?elapsed*a.StepMs/stepMs:now-o.UpdatedAt;
-            if(!door&&!shop&&WithProjectileHit(o.ObjectId,o.Combat,now,o.Dead) is {} combat){string requested=combat.Action switch{1=>"attack",2=>"damage",8=>"die",18=>"spellDir",19=>"spellNoDir",_=>"unsupported"};if(!a.Supports(requested,o.Direction)){unavailable.Add(o);continue;}double age=now-combat.At;if((combat.Timing==null||combat.Timing.Matches(o.Gfx,o.Action))&&(o.Dead||age<(combat.Timing?.AnimationMs??a.Duration(requested)))){moving=false;action=requested;animationElapsed=age;stepMs=combat.Timing?.AnimationMs??(int)a.Duration(requested);}}
+            long stamp=shop?o.ShopAt:moving?o.MotionAt:o.UpdatedAt;
+            if(!door&&!shop&&WithProjectileHit(o.ObjectId,o.Combat,now,o.Dead) is {} combat){string requested=combat.Action switch{1=>"attack",2=>"damage",8=>"die",18=>"spellDir",19=>"spellNoDir",_=>"unsupported"};if(!a.Supports(requested,o.Direction)){unavailable.Add(o);continue;}double age=now-combat.At;if((combat.Timing==null||combat.Timing.Matches(o.Gfx,o.Action))&&(o.Dead||age<(combat.Timing?.AnimationMs??a.Duration(requested)))){moving=false;action=requested;animationElapsed=age;stepMs=combat.Timing?.AnimationMs??(int)a.Duration(requested);stamp=combat.At;}}
             // Noncombat NPCs and scenery only have the actions present in their original metadata.
             if(!a.Supports(action,o.Direction)){unavailable.Add(o);continue;}
-            var displayedCombat=WithProjectileHit(o.ObjectId,o.Combat,now,o.Dead);var frame=displayedCombat?.Timing is {} timing&&action==ActionCadence.Name(timing.Action)?timing.Frame(a,o.Direction,animationElapsed):a.At(action,o.Direction,animationElapsed);
+            var displayedCombat=WithProjectileHit(o.ObjectId,o.Combat,now,o.Dead);var cadence=displayedCombat?.Timing is {} timing&&action==ActionCadence.Name(timing.Action)?timing:null;var frame=cadence!=null?cadence.Frame(a,o.Direction,animationElapsed):a.At(action,o.Direction,animationElapsed);
             int x=moving?o.SourceX:o.X,y=moving?o.SourceY:o.Y;
+            // `]`／`{`／`}` (effects-2.md §2): children take this frame's position and direction; an invisible
+            // other object's state flag is copied, so its children are not drawn either.
+            if(!door)ObserveOwnerFrames(session,$"o{o.ObjectId}",o.ObjectId,a,action,o.Direction,cadence,$"{action}:{stamp}",animationElapsed,x,y,o.ObjectId!=session.Actor?.ObjectId&&(o.Flags&2)!=0,now);
             draws.AddRange(ShadowDraws(a,frame,x,y,o.ObjectId));
             // An authenticated original zero-tile frame is transparent, not a missing asset.
             if(frame.Blocks.Length==0){vs.Add(new(o.ObjectId,o.Gfx,a.Sprite,catalog.DisplayName(o),x,y,action,frame.Key,Coordinates.Screen(x,y),Rectangle.Empty,false,stepMs));continue;}
@@ -42,11 +47,12 @@ public sealed partial class Renderer {
             var foot=Coordinates.Screen(x+(moving?MovementRules.Dx[o.Direction]*elapsed/stepMs:0),y+(moving?MovementRules.Dy[o.Direction]*elapsed/stepMs:0));
             vs.Add(new(o.ObjectId,o.Gfx,a.Sprite,catalog.DisplayName(o),x,y,action,frame.Key,foot,bounds,moving,stepMs));
         }
+        ComposeSubEffects(session,draws,now);
         int l=draws.Min(d=>d.Px),t=draws.Min(d=>d.Py),r=draws.Max(d=>d.Px+24),bott=draws.Max(d=>d.Py+24);
         var area=Rectangle.Intersect(Rectangle.FromLTRB(l,t,r,bott),Bounds);
         // Stable ID tie-break makes exact overlaps deterministic, independent of arrival order.
         var commands=ActiveScene.Where(c=>c.Px<area.Right&&c.Px+24>area.Left&&c.Py<area.Bottom&&c.Py+24>area.Top).Concat(draws).OrderBy(c=>c,DrawComparer.Instance).ThenBy(c=>c.ObjectId).ToList();
-        var composed=ComposeTitlesAndEmotes(own,session,catalog,ComposeAfflictionPatch(session,area,commands,opacity),vs,now);visuals=vs.ToArray();missing=unavailable.ToArray();
+        var composed=ComposeTitlesAndEmotes(own,session,catalog,ComposeFadedPatch(session,area,commands,opacity,now),vs,now);visuals=vs.ToArray();missing=unavailable.ToArray();
         // Screen rectangle R (sub_A3ED50) per actor, from the final actor tiles; key 0 is the own character.
         ActorBounds=composed.Commands.Where(d=>d.Layer=="actor").GroupBy(d=>d.ObjectId).ToDictionary(g=>g.Key,g=>Rectangle.FromLTRB(g.Min(d=>d.Px),g.Min(d=>d.Py),g.Max(d=>d.Px+24),g.Max(d=>d.Py+24)));
         return composed;
@@ -187,5 +193,5 @@ public sealed partial class ClientForm {
         PaintNames(g);
         PaintDisplayNotices(g);
     }
-    object ObjectUiSnapshot()=>new{ownCombatVisual=renderer.OwnCombatVisual,magic=renderer.MagicVisuals,projectile=renderer.CurrentProjectileVisual,projectiles=renderer.ProjectileVisuals,visuals=objectVisuals,presence=PresenceSnapshot(),missing=missingObjects.Select(o=>new{o.ObjectId,o.Gfx,o.Action,o.Speed,o.Brave,o.ReceivedAction,o.Name,o.X,o.Y,o.ShopActive}),target=login.World.Target,targetName=login.World.Target is {} t?objectAssets?.DisplayName(t):null,world=login.World.Snapshot()};
+    object ObjectUiSnapshot()=>new{ownCombatVisual=renderer.OwnCombatVisual,magic=renderer.MagicVisuals,subEffects=renderer.SubEffectVisuals,subEffectMissingGfx=renderer.SubEffects.Missing,subEffectDropped=renderer.SubEffects.Dropped,fades=renderer.FadeAlphas(Environment.TickCount64),projectile=renderer.CurrentProjectileVisual,projectiles=renderer.ProjectileVisuals,visuals=objectVisuals,presence=PresenceSnapshot(),missing=missingObjects.Select(o=>new{o.ObjectId,o.Gfx,o.Action,o.Speed,o.Brave,o.ReceivedAction,o.Name,o.X,o.Y,o.ShopActive}),target=login.World.Target,targetName=login.World.Target is {} t?objectAssets?.DisplayName(t):null,world=login.World.Snapshot()};
 }
