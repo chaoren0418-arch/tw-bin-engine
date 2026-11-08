@@ -26,6 +26,7 @@
 - `rebuild.py --build --configfile .github/nuget.ci.config` → `PASS dev`。worktree 沒有離線 `vendor`，所以改用 CI 的 NuGet 設定。
 - `P11.ClientEngine.exe --module-tests` → `pass`，5 組、264 項，失敗 0；本組 47 項全過。輸出在 `scratch/issue-560/module-tests.json`，不進 git。
 - `check-no-game-assets.py` → `pass`。
+- **同步 origin/main 後重驗（2026-11-08）**：merge origin/main（含 #446／#463／#510／#519／#548／#551），`rebuild-lock.json` 取 main 版後以 `--update-lock` 重產（261 個來源檔）；`--build` → `PASS dev`（product DLL SHA-256 `8031a02f…71a3`）；`--module-tests` → `pass`，8 組、432 項，失敗 0，本組 `clan-warehouse-history` 47 項全過；`check-no-game-assets.py` → `pass`（3791 檔，0 錯誤）。S250 子碼 117 與 main 新增的 `PacketBoxStatus.cs` 註冊的子碼沒有重疊。
 
 ## 未驗證／推定
 - **type 欄位的意思**：0／1 是存入還是領出沒有查證，目前保留原值，由畫面任務查證後再定文字。
