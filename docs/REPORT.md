@@ -191,3 +191,4 @@
 - 2026-11-09 — #566 T241：光照圖接上畫面，以及地圖特效光源表（FX1）（code，claude-local，PR 已合併）→ [報告](reports/issue-566.md)
 - 2026-11-09 — #549 T231：C26 聊天頻道開關（protocol-gaps C）（code，claude-local，PR 已合併）→ [報告](reports/issue-549.md)
 - 2026-11-09 — #559 T237：料理窗資料（W2-F）（code，claude-local，PR 已合併）→ [報告](reports/issue-559.md)
+- 2026-11-09 — #556 T234：伺服器主動送的 S39 頁（W2-A）（code，claude-local，PR 已合併）→ [報告](reports/issue-556.md)
