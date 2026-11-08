@@ -113,7 +113,8 @@ public sealed partial class ClientForm {
 
     IUiGameState NativeUiGameState(){
         var w=login.World;var s=w.Status;bool inWorld=login.State==LoginState.InWorld;
-        return new UiStaticGameState(inWorld,inWorld?w.Actor?.Name:null,inWorld?s?.Level:null,inWorld?s?.Hp:null,inWorld?s?.MaxHp:null,inWorld?s?.Mp:null,inWorld?s?.MaxMp:null,Environment.TickCount64);
+        var basic=new UiStaticGameState(inWorld,inWorld?w.Actor?.Name:null,inWorld?s?.Level:null,inWorld?s?.Hp:null,inWorld?s?.MaxHp:null,inWorld?s?.Mp:null,inWorld?s?.MaxMp:null,Environment.TickCount64);
+        return new UiLeftStatusGameState(basic,inWorld?LeftStatusState.From(w):LeftStatusState.Empty);   // ui-left-status (#464)
     }
 
     sealed class NativeUiCommands(ClientForm form):IUiCommands {

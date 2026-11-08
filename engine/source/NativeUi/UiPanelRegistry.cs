@@ -9,6 +9,6 @@ public sealed record UiPanelRegistration(string Id,string Layout,Func<UiRoot,IUi
 /// </summary>
 public static class UiPanelRegistry {
     public static IReadOnlyList<UiPanelRegistration> Panels{get;}=[
-        // new("LEFT_WINDOW","uistatus86",root=>new LeftStatusPanel()),   ← example (ui-left-status)
+        new("LEFT_WINDOW","uistatus86",root=>new LeftStatusPanel()),
     ];
 }
