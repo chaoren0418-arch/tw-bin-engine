@@ -106,3 +106,7 @@
 - `git merge origin/main`（含 #549 聊天頻道開關、#559 料理窗），唯一衝突仍是 `rebuild-lock.json`，取 main 版本後 `--update-lock` 重產（276 個來源、285 個鎖定檔）；`docs/REPORT.md` 用 main 版本。
 - 重驗：`rebuild.py --build` → **PASS dev**（productDll `1b7dffdf…0650`）；`native-ui-hpmp` → **PASS 397**（未設 `TW_CLIENT_ROOT`）／**PASS 398**（設本機客戶端）；`check-no-game-assets.py` → pass、errors 0。
 - 本模組程式碼未改動。
+## 同步 main 紀錄（2026-11-09，第 4 次同步）
+- `git merge origin/main`（含 #556、#557），唯一衝突仍是 `rebuild-lock.json`，取 main 版本後 `--update-lock` 重產（277 個來源、286 個鎖定檔）；`docs/REPORT.md` 用 main 版本。
+- 重驗：`rebuild.py --build` → **PASS dev**（productDll `5422c095…5c06`）；`native-ui-hpmp` → **PASS 397**（未設 `TW_CLIENT_ROOT`）／**PASS 398**（設本機客戶端）；`check-no-game-assets.py` → pass、errors 0。
+- 本模組程式碼未改動。
