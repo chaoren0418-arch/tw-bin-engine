@@ -18,9 +18,10 @@
 
 ## 怎麼驗證（已驗證）
 
-- `rebuild.py --update-lock`（286 個來源檔／295 個鎖定檔）→ `rebuild.py --build` → `PASS dev`，productDll `dae1190e…a785`。
+- 同步 origin/main（#468 聊天窗）：只有 `rebuild-lock.json` 衝突，改用 main 版本後 `--update-lock` 重產（288 個來源檔／297 個鎖定檔）→ `rebuild.py --build` → `PASS dev`，productDll `53f69815…9969`。
 - `P11.ClientEngine.exe --module-tests`：19 組、992 項全過，結束碼 0（`pledge-panel` 82 項，其餘 18 組既有測試照舊通過）。
-- `DemoChecks`：`native-ui-canvas` 429、`native-ui-resources` 539、`native-ui-macro` 403，全過。
+- `DemoChecks`：`native-ui-canvas` 429、`native-ui-resources` 539、`native-ui-macro` 403、`native-ui-chat-window` 446、`native-ui-hpmp` 397、`native-ui-left-status` 370，全過。
+- 本機建置需要離線 NuGet `engine/vendor`。worktree 裡沒有，所以臨時建了指向主專案 `engine/vendor` 的 junction（git 忽略），用完已用 `rmdir`（不遞迴）拆掉。
 - `check-no-game-assets.py`：pass，errors 0。沒有任何 XML、`.img`、PNG 進 git；測試用的 XML 與圖都是程式合成。
 - 版面數值由合成 XML 驗證，和本機 `PledgeUI.xml`（只解到 `scratch/`）的值一致：底 4450／4512、框 4451／4487、關閉 (260, 13)、盟名標籤 (19+17, 25−2) 169×20、公告條 (16, 41)、箭頭 (16+200, 41)、排序列 y=61／181、清單 (21, 82)／(21, 202)、欄位 x＝0／20／95／131（寬 19／74／35／97，Gap 1）、捲軸 (255, 67)，上鈕 y+0、拉桿 y+14、下鈕 y+277、ScrollStart 14、ScrollHeight 262。
 
