@@ -228,7 +228,7 @@ TW16 另有 96 個子碼 3.81 伺服器不會送（6、9、13、14、16、17、3
 | D | S187 HouseMap（原版 S_SHOW_MAP）開地圖視窗 | 需原生 UI（T190）之後 | 低 |
 | E | 送 C14、解析 S139，保存語系與功能旗標（例：拾取節流 600 ms） | `LoginConnection.cs`、`LoginProtocol.cs` | 低 |
 
-B3（視窗類 14 個子碼）要等各視窗查版面，本輪不開。
+B3（視窗類 14 個子碼）要等各視窗查版面，本輪不開。→ T245（#602）已逐一查完，見 [`packetbox-windows.md`](packetbox-windows.md)：66、146 伺服器沒有呼叫點，86 只有測試指令會送，190／192 是伺服器自訂格式；可開 PBW-A–E。
 
 **不建議補（3.81 伺服器不支援或不需要）**：S_EXTENDED 整組（protobuf）、S_EVENT 中 96 個伺服器不送的子碼、S_NOTICE、C_REGISTER_QUIZ、C_WISH、C_TELEPORT_USER、C_ADDR、C_ATTACK_CONTINUE。
 

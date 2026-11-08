@@ -48,9 +48,14 @@
 
 | 項目 | 結果 |
 |---|---|
-| `rebuild.py --update-lock` → `rebuild.py --build` | PASS；第二次同步 origin/main（含 #568）後重驗 productDll `031919db…` |
-| `P11.ClientEngine.exe --module-tests`（全部 18 組） | pass；第二次同步後 19 組、978 項檢查，`friend-panel` 104 項全過 |
-| demo-tests：CI 會跑的 14 組（map-continuity、combat-admission、item-status、native-ui-resources、native-ui-canvas、afflictions、resurrection、polymorph-cadence、buddies、item-transfer、doors、pickup、door-approach、hypertext） | 全部 PASS（第二次同步後重跑；native-ui-resources 不設 `TW_CLIENT_ROOT`，其餘 13 組把它指到不存在的路徑，見環境備註） |
+| `rebuild.py --update-lock` → `rebuild.py --build` | PASS；第三次同步 origin/main（含 #464–#468、#526–#528、#602）後重驗 productDll `ae0c05f0…` |
+| `P11.ClientEngine.exe --module-tests` | pass；第三次同步後 23 組、1214 項檢查，`friend-panel` 104 項全過 |
+| demo-tests：CI 會跑的 15 組（map-continuity、combat-admission、item-status、native-ui-resources、native-ui-canvas、native-ui-macro、afflictions、resurrection、polymorph-cadence、buddies、item-transfer、doors、pickup、door-approach、hypertext） | 全部 PASS（第三次同步後重跑；native-ui-resources、native-ui-macro 不設 `TW_CLIENT_ROOT`，其餘 13 組把它指到不存在的路徑，見環境備註） |
+
+第三次同步的處理：
+- `UiPanelRegistry.cs` 衝突：兩邊的行都保留，`FriendPanels.Registrations` 放在最後一行。
+- `rebuild-lock.json`：取 main 版本後用 `--update-lock` 重產。
+- **範圍外的一行修改**：`engine/_integration/dev/native-ui-tests/MacroChecks.cs`（#466 的測試）用真實註冊表，但合成的 Tile.pak 只有 `uistatus86`，原本用 Id 黑名單排除別的版面（TRADE_WINDOW）。合併後 FriendUI 三窗也進了註冊表，`native-ui-macro` 因為找不到 `FriendUI.xml` 失敗。改成「只取 Layout 為 `uistatus86` 的註冊，再排除 LEFT／CENTER」，以後其他 M7 面板加進註冊表時不必再改這個測試。測試內容沒有其他改變（403 項全過）。
 | `engine/tools/check-no-game-assets.py` | pass，errors 0 |
 | 本機選用檢查 `friend-panel-real`（真實 `Tile.pak`／`Sprite*.pak`，唯讀） | pass，45 項 |
 
@@ -115,6 +120,7 @@
 - `engine/source/NativeUi/FriendPanelTests.cs`（新）
 - `engine/source/Buddies.cs`、`engine/source/BuddyUi.cs`
 - `engine/source/NativeUi/UiPanelRegistry.cs`（一行）
+- `engine/_integration/dev/native-ui-tests/MacroChecks.cs`（一行，同步 main 後修測試過濾條件）
 - `engine/_integration/dev/rebuild-lock.json`
 - `docs/reports/issue-529.md`
 

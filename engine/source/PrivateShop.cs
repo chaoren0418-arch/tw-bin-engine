@@ -82,6 +82,103 @@ public sealed partial class WorldSession {
         PrivateShopNotice=rows.Count==0?"原服沒有列出可操作的商品；可手動重新查詢。":sell?"向店主出售：選一筆持有物品、輸入數量，再確認出售。清單為店主原訂收購量，剩餘需求與貨幣種類未提供；實際數量及收入依原服回包確認。":"請選一筆商品並輸入數量，再確認一次。清單未提供貨幣種類；店主可能變更價格與庫存，原服以送出時狀態處理。";PrivateShopRevision++;return true;
     }
 }
+// ---------------------------------------------------------------------------------------------------------------------
+// M7-T（T220／#527）個人商店「開店設定」：資料模型與 C38 封包（WIN§1.1 PersonalShopUI；SP C_Shop）。
+// C_Shop.java（SHA-256 cd94e740…8b9bff）：C(type)；type 1＝關店；type 0＝H(出售筆數 0..8) {D 物件, D 單價, D 數量}*
+// H(收購筆數 0..8) {D 物件, D 單價, D 數量}* Byte(chat＝剩餘全部 byte)。單價或數量 ≤0 時伺服器直接踢線，所以本端一定先擋。
+// 伺服器一律用 polyIndex=0 開店；3 種外型只存在本機，不會送出。
+// ---------------------------------------------------------------------------------------------------------------------
+public sealed record PersonalShopEntry(uint ObjectId,ushort IconId,string Name,uint Price,uint Count);
+public static class PersonalShopPackets {
+    public const byte Opcode=38;
+    /// <summary>C_Shop 兩份清單各自的上限（伺服器 &gt;8 拒絕），也剛好是 PersonalShopUI 一頁 8 格。</summary>
+    public const int MaxEntries=8;
+    public const uint MaxBuyPrice=2000000000;
+    public static byte[] Close()=>LoginPackets.Pad([Opcode,1]);
+    public static string? Invalid(PersonalShopEntry e,bool sell){
+        if(e.ObjectId==0)return "物件編號無效";
+        if(e.Price==0||e.Price>int.MaxValue||!sell&&e.Price>MaxBuyPrice)return sell?"出售單價必須是 1～2147483647":"收購單價必須是 1～2000000000";
+        if(e.Count==0||e.Count>int.MaxValue)return "數量必須是 1～2147483647";
+        if(!sell&&(ulong)e.Price*e.Count>long.MaxValue)return "收購總額溢位";
+        return null;
+    }
+    /// <summary>
+    /// 兩行訊息合成 chat byte：CP950（LoginPackets.TextEncoding）第 1 行＋第 2 行＋00。伺服器原樣存起來、由 S_DoActionShop 廣播，
+    /// 引擎以 S（讀到 00）解讀。兩行怎麼接（有沒有分隔字元）原版未查證——**推測**為直接相接。
+    /// </summary>
+    public static byte[] Chat(string line1,string line2)=>[..LoginPackets.TextEncoding.GetBytes(line1),..LoginPackets.TextEncoding.GetBytes(line2),0];
+    public static byte[] Open(IReadOnlyList<PersonalShopEntry> sell,IReadOnlyList<PersonalShopEntry> buy,byte[] chat){
+        if(sell.Count>MaxEntries||buy.Count>MaxEntries)throw new ArgumentException("personal shop list > 8");
+        if(sell.Count+buy.Count==0)throw new ArgumentException("personal shop empty");
+        foreach(var e in sell)if(Invalid(e,true) is string m)throw new ArgumentException("personal shop sell: "+m);
+        foreach(var e in buy)if(Invalid(e,false) is string m)throw new ArgumentException("personal shop buy: "+m);
+        var p=new List<byte>{Opcode,0};
+        void List(IReadOnlyList<PersonalShopEntry> rows){p.AddRange(BitConverter.GetBytes((ushort)rows.Count));foreach(var e in rows){p.AddRange(BitConverter.GetBytes(e.ObjectId));p.AddRange(BitConverter.GetBytes(e.Price));p.AddRange(BitConverter.GetBytes(e.Count));}}
+        List(sell);List(buy);p.AddRange(chat);return LoginPackets.Pad(p.ToArray());
+    }
+}
+/// <summary>
+/// 開店設定窗的本機狀態（不碰網路）。出售、收購各 8 格（一頁 8 格，WIN§1.1；伺服器上限也是 8），兩行訊息各 20 字
+/// （LimitText=20；以 UTF-16 字元計，原版以字元或 CP950 byte 計**待驗證**），3 種外型（只在本機，伺服器忽略）。
+/// </summary>
+public sealed class PersonalShopSetup {
+    public const int SlotsPerPage=8,MessageLines=2,MessageLimit=20,PolyCount=3;
+    readonly PersonalShopEntry?[] sell=new PersonalShopEntry?[PersonalShopPackets.MaxEntries],buy=new PersonalShopEntry?[PersonalShopPackets.MaxEntries];
+    readonly string[] messages=["",""];
+    public IReadOnlyList<PersonalShopEntry?> Sell=>sell;
+    public IReadOnlyList<PersonalShopEntry?> Buy=>buy;
+    public IReadOnlyList<string> Messages=>messages;
+    public int Poly{get;private set;}
+    public int Page{get;private set;}
+    public int Revision{get;private set;}
+    public string Notice{get;private set;}="";
+    public (bool Sell,int Slot)? Selected{get;private set;}
+    /// <summary>頁數：兩份清單最多 8 筆，所以只會是 0（全空）或 1。翻頁照原版按鈕保留，但不會超出。</summary>
+    public int PageCount=>sell.Any(e=>e!=null)||buy.Any(e=>e!=null)?(PersonalShopPackets.MaxEntries+SlotsPerPage-1)/SlotsPerPage:0;
+    public string PageLabel=>$"{(PageCount==0?0:Page+1)}/{PageCount}";
+    PersonalShopEntry?[] List(bool s)=>s?sell:buy;
+    bool Fail(string m){Notice=m;Revision++;return false;}
+    bool Done(string m=""){Notice=m;Revision++;return true;}
+    public bool Set(bool sellList,int slot,PersonalShopEntry? entry){
+        var list=List(sellList);if(slot<0||slot>=list.Length)return Fail("格位超出範圍");
+        if(entry!=null){
+            if(PersonalShopPackets.Invalid(entry,sellList) is string m)return Fail(m);
+            // 同一份清單重複放同一個物件：伺服器逐筆檢查數量，會讓總量超過持有量；本端拒絕（設計決定）。
+            for(int i=0;i<list.Length;i++)if(i!=slot&&list[i]?.ObjectId==entry.ObjectId)return Fail("同一物品已在清單中");
+        }
+        list[slot]=entry;return Done();
+    }
+    public bool Select(bool sellList,int slot){if(slot<0||slot>=List(sellList).Length)return false;Selected=(sellList,slot);Revision++;return true;}
+    public bool SetMessage(int line,string text){
+        if(line is <0 or >=MessageLines)return false;
+        if(text.Length>MessageLimit)return Fail($"訊息每行最多 {MessageLimit} 字");
+        if(text.Any(char.IsControl))return Fail("訊息不可含控制字元");
+        try{var enc=(System.Text.Encoding)LoginPackets.TextEncoding.Clone();enc.EncoderFallback=System.Text.EncoderFallback.ExceptionFallback;enc.GetByteCount(text);}
+        catch(System.Text.EncoderFallbackException){return Fail("訊息含無法以 Big5 送出的字");}
+        messages[line]=text;return Done();
+    }
+    public bool SelectPoly(int index){if(index is <0 or >=PolyCount)return false;Poly=index;Revision++;return true;}
+    public bool GoPage(int page){int last=Math.Max(0,PageCount-1);page=Math.Clamp(page,0,last);if(page==Page)return false;Page=page;Revision++;return true;}
+    public void Clear(){Array.Clear(sell);Array.Clear(buy);messages[0]=messages[1]="";Poly=0;Page=0;Selected=null;Done();}
+    /// <summary>OK：驗證後組 C38 type 0。至少要有 1 筆。失敗回 null 並設 Notice。</summary>
+    public byte[]? BuildOpen(){
+        var s=sell.OfType<PersonalShopEntry>().ToArray();var b=buy.OfType<PersonalShopEntry>().ToArray();
+        if(s.Length+b.Length==0){Fail("請至少放入一筆出售或收購物品");return null;}
+        try{var packet=PersonalShopPackets.Open(s,b,PersonalShopPackets.Chat(messages[0],messages[1]));Done();return packet;}
+        catch(ArgumentException ex){Fail(ex.Message);return null;}
+    }
+}
+public sealed partial class WorldSession {
+    /// <summary>
+    /// 從背包建立開店設定的一筆。出售：持有、未裝備、數量 ≤ 持有量；收購：背包要有同物件當樣本（C_Shop 以物件編號查背包），
+    /// 未裝備。其餘（可否交易、封印、寵物項鍊、娃娃、安全區、貨幣）由伺服器判斷，本端不推算。
+    /// </summary>
+    public PersonalShopEntry? PersonalShopCandidate(uint objectId,uint price,uint count,bool sell){
+        if(!inventory.TryGetValue(objectId,out var item)||ItemEquipped(item)==true||count==0||sell&&count>item.Count)return null;
+        var e=new PersonalShopEntry(objectId,item.IconId,item.Name,price,count);
+        return PersonalShopPackets.Invalid(e,sell)==null?e:null;
+    }
+}
 public sealed partial class LoginConnection {
     bool privateShopSending;int privateShopLease;
     void ResetPrivateShopSend(){privateShopLease++;privateShopSending=false;}

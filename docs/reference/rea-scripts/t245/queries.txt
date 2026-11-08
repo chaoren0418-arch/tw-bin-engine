@@ -1,0 +1,62 @@
+# T245（#602）ida_dis.py 查詢清單；每個 "# qN" 段落存成一個清單檔後執行 run_ida.ps1 -Script ida_dis.py。q3 是 ida_t245_rtti.py 的 TD 清單。
+# q1
+dec 9357E0
+dec B2EF40
+dec B2EE50
+dec 8C7C80
+# q2
+dec B617C0
+dec B60A60
+dec B61A10
+dec A7C3F0
+dec EFDFD0
+dec F04260
+dec F04180
+dec 9DA410
+dec 9DA2B0
+dec C15540
+dec B30990
+dec F05A90
+xdec 13AA8D8
+xdec 1656934
+xdec 15401B8
+dis 1184F98 1184FA0
+dis 1183B28 1183B30
+xdec 153D218
+# q3
+13767A8
+13725F8
+# q4
+xdec 14EBE24
+xdec 13D43BC
+dec 980F70
+dec 909510
+dec 909520
+dec 9094E0
+dec 7D7650
+dec 7D7630
+dec 91E160
+dec F18F40
+dec 9D97F0
+xdec 15401B5
+# q5
+dis 1181F7C 1181FFC
+dis 118702C 11870AC
+dis 9805D0 980640
+dis 9090E0 909130
+dec 8C4EE0
+dec 9093E0
+dec 980B20
+# q6
+dec 909550
+dec 909530
+dec 909A40
+dec 980C80
+dec 980BE0
+dec 980C60
+dec 980E90
+dec A4B5C3
+xdec 153F598
+# q7
+dec ECAA10
+dis 1181F28 1181F5C
