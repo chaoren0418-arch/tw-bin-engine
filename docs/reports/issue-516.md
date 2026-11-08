@@ -84,6 +84,11 @@
   - 重建 `PASS dev`，productDll SHA-256 `19f2e86d…bc8852b6`；`check-no-game-assets.py` pass（errors 0）。
   - `P11.ClientEngine.exe --module-tests` pass（385 項、失敗 0，含 #510 的 `ability-status`）。
   - 重跑 `yes-no` 425、`map-continuity` 33224、`combat-admission` 1750、`duel` 441、`item-status` 409、`native-ui-canvas` 429、`afflictions` 580、`resurrection` 553，8 組全綠。
+- **第八輪同步 origin/main（2026-11-08，含 #520 幽靈本機限制）**：
+  - `demo-tests/Program.cs` 衝突：取 main 版（多了 `GhostLimitsChecks()` 與 `case "ghost-limits"`），再把 `YesNoPromptChecks()` 接回 `MarriageChecks()` 後面，`case "yes-no"` 保留；行尾維持 LF。`rebuild-lock.json`、`DemoChecks.csproj`、`GhostMode.cs`、`OnlineInput.cs` 自動合併，lock 再用 `--update-lock` 重產（260 個來源檔）。
+  - 重建 `PASS dev`，productDll SHA-256 `5dc6ce83…3f117b7d04`；`check-no-game-assets.py` pass（errors 0）。
+  - `P11.ClientEngine.exe --module-tests` pass（失敗 0）。
+  - 重跑 `yes-no` 425、`map-continuity` 33259、`combat-admission` 1750、`duel` 441、`ghost-mode` 721、`ghost-limits` 362（新）、`item-status` 409、`native-ui-canvas` 429、`afflictions` 580、`resurrection` 553，10 組全綠。
 
 ## 沒驗證什麼（含推測）
 
