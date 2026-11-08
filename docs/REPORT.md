@@ -159,3 +159,4 @@
 - 2026-11-08 — #480 T178：天氣對齊原版（G6）（code，claude-local，PR 已合併）→ [報告](reports/issue-480.md)
 - 2026-11-08 — #258 T124：記憶座標（書籤）（code，claude-local，PR #271 已合併）→ [報告](reports/issue-258.md)
 - 2026-11-08 — #462 ui-dev-window: C3 開發工具改為獨立視窗：網頁面板、服務分頁、狀態列移出遊戲畫面，開發快捷鍵讓出 F1–F12（code，claude-local，PR 已合併）→ [報告](reports/issue-462.md)
+- 2026-11-08 — #461 ui-core-resources: C1 原生 UI 資源層：Tile.pak UI XML 解密與 Sprite .img 執行期讀取（code，claude-local，PR #502 已合併）→ [報告](reports/issue-461.md)
