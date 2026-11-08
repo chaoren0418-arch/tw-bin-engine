@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 237,
+ "sourceCount": 238,
  "files": [
   {
    "path": "NuGet.Config",
@@ -103,6 +103,11 @@
    "path": "source/Ambience.cs",
    "size": 29781,
    "sha256": "83b81f92ed413965eac5e292208610b47c250bdbb9691d03295e8eacc8781f36"
+  },
+  {
+   "path": "source/ApproachWalk.cs",
+   "size": 6608,
+   "sha256": "6fb47f0af5207f6a0fd24750660f12ac88881598193a475566f0efb9505f6c45"
   },
   {
    "path": "source/Assets.cs",
@@ -386,8 +391,8 @@
   },
   {
    "path": "source/Ground.cs",
-   "size": 9502,
-   "sha256": "a7686ee7ed54f9655f1231c9a205c1e157ed7ede85d1a97a5d02ea2ce661bc82"
+   "size": 16497,
+   "sha256": "93a99075c32e4cfa5b8ded82e8e21b54ec0cb5ad303650e8eb4723f383c6f27a"
   },
   {
    "path": "source/GroundCatalog.cs",
@@ -426,8 +431,8 @@
   },
   {
    "path": "source/GroundUi.cs",
-   "size": 4990,
-   "sha256": "cf6984782fadd2c24d8cbf42cc671277e597a869670e68c3f70dbbd2bf8e7d93"
+   "size": 6881,
+   "sha256": "aba7b3cc181309e3483d4da8dc63a2e618a0ffa11455baecf98cfbe36c8cf427"
   },
   {
    "path": "source/HitReactionSuppress.cs",
