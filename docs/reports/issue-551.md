@@ -27,8 +27,8 @@
 
 | 項目 | 結果 |
 |---|---|
-| `rebuild.py --update-lock` 後 `engine/build-product.ps1` | PASS dev（已同步 origin/main `55cb231c`），product DLL SHA-256 `478853a9c491e4d0cdba42ab7b6c6f269131a410b64632733bd33cbb6dc2e9d5` |
-| `P11.ClientEngine.exe --module-tests`（CI 同指令） | pass，5 組 0 失敗、261 斷言；其中 `server-features` 44 斷言、`world-extensions` 預設登錄表無錯誤 |
+| `rebuild.py --update-lock` 後 `engine/build-product.ps1` | PASS dev（已同步 origin/main `bb15b79f`），product DLL SHA-256 `545c20429b0f741ddc6465942e5ecead91c9ef1cbd9dc5b44fb3b9527acdda05` |
+| `P11.ClientEngine.exe --module-tests`（CI 同指令） | pass，6 組 0 失敗、347 斷言；其中 `server-features` 44 斷言、`world-extensions` 預設登錄表無錯誤 |
 | `login-tests`（LoginChecks） | pass，396,589 斷言 |
 | `character-management-tests` | pass，218 斷言 |
 | `engine/tools/check-no-game-assets.py` | pass，0 errors |
