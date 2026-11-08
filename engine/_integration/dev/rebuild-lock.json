@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 305,
+ "sourceCount": 308,
  "files": [
   {
    "path": "NuGet.Config",
@@ -805,6 +805,16 @@
    "sha256": "60ede4801f0784492aa1f62c90f2de521b6c6791eb53a05fbe9193da15655e45"
   },
   {
+   "path": "source/NativeUi/PartyPanel.cs",
+   "size": 13089,
+   "sha256": "4606fab12c965fab5154ea0884baac212c14e97f0363e362ef03c93d901936c1"
+  },
+  {
+   "path": "source/NativeUi/PartyRtPanel.cs",
+   "size": 4722,
+   "sha256": "f9375afac49e3f8fdfe907d36ff31f3253426a158d10356ddb84501ee748953c"
+  },
+  {
    "path": "source/NativeUi/PersonalShopPanel.cs",
    "size": 14946,
    "sha256": "6c4fe29aec802dba88508cc372136678cbe5f3ea06f3716b88a8bc417e1122f9"
@@ -821,8 +831,8 @@
   },
   {
    "path": "source/NativeUi/State/LeftStatusState.cs",
-   "size": 6635,
-   "sha256": "7b24d697d2806b823b480c94bbf2f4a1435cbc36867bc93022d9283fe2a0b2a9"
+   "size": 6652,
+   "sha256": "087363d6eebc54e2c8f8f701e545c78c33aded9e134d981d27dbfb282e5b8bd3"
   },
   {
    "path": "source/NativeUi/State/MacroState.cs",
@@ -833,6 +843,11 @@
    "path": "source/NativeUi/State/MapState.cs",
    "size": 16853,
    "sha256": "1d25c448a508629ba7a56d452012558850637b6baf52b164eac4d952da48f98d"
+  },
+  {
+   "path": "source/NativeUi/State/PartyState.cs",
+   "size": 3843,
+   "sha256": "341456e87501e9cd7094308549a687eb68a084ea1ee5fc3951ff977206919733"
   },
   {
    "path": "source/NativeUi/SummonPanel.cs",
@@ -861,8 +876,8 @@
   },
   {
    "path": "source/NativeUi/UiClientBridge.cs",
-   "size": 9940,
-   "sha256": "6c1232378c8f3e63ab8e3bd5b5522960f1d8efc041a639e3beeb303902963726"
+   "size": 10430,
+   "sha256": "01fda7ebbd9819567a6f7c052e31cac5454aa24e65a141cebc6b8d7b31cdfb08"
   },
   {
    "path": "source/NativeUi/UiContracts.cs",
@@ -881,8 +896,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 1960,
-   "sha256": "31c78f397292907e91943e61e9c16aeed95dd7ba78b6cd08d736ef210f2774bb"
+   "size": 2231,
+   "sha256": "1f6475f11f9b4fbecc1dabc2e780de52376c7340bf3dcb3ae4029ca7e8e13e08"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
