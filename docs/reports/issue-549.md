@@ -32,6 +32,7 @@
 - CI：PR #576 第一版 dotnet／map-continuity／npc-offline 全綠。
 - **同步 origin/main（2026-11-08，含 #525 等）**：`rebuild-lock.json` 衝突改用 main 版本後 `--update-lock` 重產（259 個來源／268 個鎖定檔）；`--build` PASS，productDll `0f3e6bdcfa42f43b0a59711f0991d2d3b1661869fcbf0c19562b49dc6a376ce1`；`--module-tests` status pass、7 組 439 項、0 失敗；`check-no-game-assets.py` pass、0 錯誤。
 - **第二次同步 origin/main（2026-11-09，含 #514／#510／#516／#520）**：`rebuild-lock.json` 衝突改用 main 版本後 `--update-lock` 重產（265 個來源／274 個鎖定檔）；`--build` PASS，productDll `ad24daeed964f785c04f7d97236054ce71ac1b3b721f1d3ed12df923954ab504`；`--module-tests` 結束碼 0、status pass、9 組 531 項、0 失敗（chat-channel-toggle 92 項）；`check-no-game-assets.py` pass、3802 個追蹤檔、0 錯誤。
+- **第三次同步 origin/main（2026-11-09，含 #513／#515）**：`rebuild-lock.json` 衝突改用 main 版本後 `--update-lock` 重產（269 個來源／278 個鎖定檔）；`--build` PASS，productDll `bac8568c16c6a9c1252f25a61bdfb2e9126fb48c88f85412973fdb52cb15ebd4`；`--module-tests` 結束碼 0、status pass、11 組 663 項、0 失敗（chat-channel-toggle 92 項）；`check-no-game-assets.py` pass、3808 個追蹤檔、0 錯誤。
 
 ## 未驗證什麼（推定／待驗證）
 
