@@ -182,3 +182,7 @@
 - 2026-11-08 — #446 T172：背景音樂、戰鬥音樂、登入音樂與地圖環境音（code，claude-local，PR 已合併）→ [報告](reports/issue-446.md)
 - 2026-11-08 — #463 ui-core-canvas: C2 原生 UI 畫布：800×600 邏輯畫布、整數倍置中縮放、輸入對映、IUiPanel 契約與 nativeUi 開關（code，claude-local，PR #525 已合併）→ [報告](reports/issue-463.md)
 - 2026-11-08 — #510 T204：M7-B 能力旗標與 SP／MR（code，claude-local，PR 已合併）→ [報告](reports/issue-510.md)
+- 2026-11-08 — #520 T214：M7-N 幽靈：本機限制（code，claude-local，PR 已合併）→ [報告](reports/issue-520.md)
+- 2026-11-08 — #516 T210：M7-J 通用 Yes／No（聊天輸入列）（code，claude-local，PR 已合併）→ [報告](reports/issue-516.md)
+- 2026-11-09 — #514 T208：M7-G 以物品學魔法（code，claude-local，PR 已合併）→ [報告](reports/issue-514.md)
+- 2026-11-09 — #515 T209：M7-H 血盟推薦（code，claude-local，PR 已合併）→ [報告](reports/issue-515.md)
