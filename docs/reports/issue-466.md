@@ -61,6 +61,11 @@
 5. `engine/tools/check-no-game-assets.py` → pass、errors 0；`git diff` 沒有新增任何 `.img`／`.xml`／`.png` 或二進位遊戲資料。
 6. 不帶分組的預設全組：在 `Movement123` 因讀不到 `engine/assets/terrain0.bin` 而中止（這個 worktree 沒有 `engine/assets` junction），與本任務無關；它之前的各組（含 native-ui、minimap、character-config、hotbar）都已通過。
 
+### 同步 main 後重驗（2026-11-09，合併 #556／#557）
+- `rebuild-lock.json` 衝突以 main 版為底，`rebuild.py --update-lock` 重產（278 個來源檔／287 個鎖定檔），未手動拼 hash。
+- `rebuild.py --build` → **`PASS dev`**，productDll `7abc1212…be93`。
+- `native-ui-macro` → **PASS 402**（合成資料；真實客戶端渲染此輪 SKIP）。
+
 ## 已驗證／推測／待驗證
 
 **已驗證**（V5 或 XML，加上本輪真實渲染核對）：底框、分頁鈕、選取框、鎖定鈕的 XML 座標；8 格與擴充 12 格的座標與格距；點擊換算公式；F1–F3＝分頁、F5–F12＝目前分頁第 0–7 格、雙擊＝使用；數量文字位置與顏色（黃字、黑影、上限 99999）；擴充巨集位於 BAR_485。
