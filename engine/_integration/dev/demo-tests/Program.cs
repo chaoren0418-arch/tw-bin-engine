@@ -295,6 +295,7 @@ partial class Checks {
                 case "portals":await PortalChecks();break;
                 case "doors":await DoorChecks();break;
                 case "pickup":await PickupAlignChecks();break;
+                case "door-approach":await DoorApproachChecks();break;
                 case "party":break;
                 case "pets":break;
                 case "display-notices":DisplayNoticeChecks();break;
