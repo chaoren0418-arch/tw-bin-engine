@@ -1,3 +1,4 @@
+using P06.NativeUi;
 namespace P06;
 
 // Owned native window: no changes to the shared WebView command dispatcher are required.
@@ -23,10 +24,28 @@ public sealed class BoardUi:Form {
         layout.Controls.Add(title,0,3);layout.Controls.Add(content,0,4);layout.Controls.Add(write,0,5);layout.Controls.Add(notice,0,6);Controls.Add(layout);
         refresh.Click+=async(_,_)=>await Run("refresh");previous.Click+=async(_,_)=>await Run("previous");next.Click+=async(_,_)=>await Run("next");
         read.Click+=async(_,_)=>await Run("read");rows.DoubleClick+=async(_,_)=>{if(read.Enabled)await Run("read");};
-        write.Click+=async(_,_)=>{if(MessageBox.Show(this,$"送出這篇文章？費用 {displayed.Fee} 金幣。","確認發文",MessageBoxButtons.OKCancel)==DialogResult.OK)await Run("write");};
-        delete.Click+=async(_,_)=>{if(MessageBox.Show(this,"刪除目前閱讀的文章？","確認刪文",MessageBoxButtons.OKCancel)==DialogResult.OK)await Run("delete");};
+        write.Click+=async(_,_)=>await ConfirmWrite();delete.Click+=async(_,_)=>await ConfirmDelete();
         timer.Tick+=(_,_)=>Sync();Shown+=(_,_)=>{Sync();timer.Start();};
         FormClosed+=(_,_)=>{timer.Dispose();connection.CloseBoard(displayed);};Sync();
+    }
+    async Task ConfirmWrite(){if(MessageBox.Show(this,$"送出這篇文章？費用 {displayed.Fee} 金幣。","確認發文",MessageBoxButtons.OKCancel)==DialogResult.OK)await Run("write");}
+    async Task ConfirmDelete(){if(MessageBox.Show(this,"刪除目前閱讀的文章？","確認刪文",MessageBoxButtons.OKCancel)==DialogResult.OK)await Run("delete");}
+    /// <summary>Snapshot shown by this window (null once closed); read by the native board panels (M7-U).</summary>
+    internal BoardView? Displayed=>IsDisposed?null:displayed;
+    /// <summary>
+    /// Native board button (M7-U) → the same action as this window's button, with the same enabled rule and confirmations.
+    /// Read uses the row selected here: the native windows draw no rows (row positions are unverified).
+    /// </summary>
+    internal async Task Press(string command){
+        if(IsDisposed)return;Sync();if(IsDisposed)return;
+        switch(command){
+            case "close":Close();break;
+            case "read" when read.Enabled:await Run("read");break;
+            case "write" when write.Enabled:await ConfirmWrite();break;
+            case "delete" when delete.Enabled:await ConfirmDelete();break;
+            case "previous" when previous.Enabled:await Run("previous");break;
+            case "next" when next.Enabled:await Run("next");break;
+        }
     }
     async Task Run(string command){
         if(busy)return;var stamp=displayed;uint topic=command=="delete"?stamp.Article?.Id??0:(rows.SelectedItem as RowItem)?.Row.Id??0;
@@ -68,6 +87,31 @@ public sealed partial class ClientForm {
     internal void ShowBoardUi(LoginConnection connection){
         ClearInput("board");LeaveGameFocus("board");
         foreach(var old in OwnedForms.OfType<BoardUi>().ToArray())old.Close();
-        new BoardUi(connection).Show(this);
+        var ui=new BoardUi(connection);ui.Show(this);
+        AttachNativeBoard(ui);
+    }
+
+    // M7-U: with the native UI active, the original board windows (verified buttons only) are drawn on the 800×600 canvas and
+    // drive the same BoardUi actions. Rows, article text and writing stay in BoardUi (transitional, not original behaviour)
+    // until their positions are verified. Switch off / native inactive → nothing changes.
+    BoardPanelSet? nativeBoard;readonly BoardPanelHost nativeBoardHost=new();
+    void AttachNativeBoard(BoardUi ui){
+        nativeBoardHost.Current=ui;
+        if(!NativeUiActive||NativeUiRoot is not {Resources:{} resources} root)return;
+        try{
+            if(nativeBoard==null){
+                var set=new BoardPanelSet(nativeBoardHost);set.LoadSurfaces(resources.Surfs);
+                foreach(var p in set.Panels)root.Add(p);
+                nativeBoard=set;
+            }
+            root.BringToFront(nativeBoard.List);root.BringToFront(nativeBoard.Read);Invalidate();
+        }catch(Exception ex) when(ex is UiResourceException or UiLayoutException or InvalidOperationException){
+            UiResourceLog.Write("board native panels skipped: "+ex.Message);
+        }
+    }
+    sealed class BoardPanelHost:IBoardPanelHost {
+        public BoardUi? Current;
+        public BoardView? Board=>Current?.Displayed;
+        public void Press(string command){if(Current is {IsDisposed:false} ui)_=ui.Press(command);}
     }
 }

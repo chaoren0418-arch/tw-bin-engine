@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 274,
+ "sourceCount": 275,
  "files": [
   {
    "path": "NuGet.Config",
@@ -176,8 +176,8 @@
   },
   {
    "path": "source/BoardUi.cs",
-   "size": 6175,
-   "sha256": "e241a4a54d90c1ccc54f58421f93bb7c43d9876ef1da52858ceaa0eb62520a9e"
+   "size": 8700,
+   "sha256": "f3208d24856710cbcbc50fc9b56be43bd35b7c725b9ef6f047c4231486bedb81"
   },
   {
    "path": "source/BonusStats.cs",
@@ -728,6 +728,11 @@
    "path": "source/NativeFocusDiagnostics.cs",
    "size": 1837,
    "sha256": "deaf7308df2c3f4d2f9f09406510f84bc42c2c96267b739a3fcd8bd6b0b5cca8"
+  },
+  {
+   "path": "source/NativeUi/BoardPanels.cs",
+   "size": 9412,
+   "sha256": "06a69aeeb85da64740bb9ae1b0bb47004f6911a76b4cd96d3988c8208089fb4b"
   },
   {
    "path": "source/NativeUi/ClientArchive.cs",
