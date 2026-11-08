@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 261,
+ "sourceCount": 260,
  "files": [
   {
    "path": "NuGet.Config",
@@ -250,16 +250,6 @@
    "sha256": "e1a6da7d56ab681a82270dd010774b8b1b8bccea8448be1e3759052f3f683a60"
   },
   {
-   "path": "source/ClanMatching.cs",
-   "size": 18379,
-   "sha256": "16a60c8039f16dbfb70a60a52c94423841cc564a9c19076b8272558e821daa3f"
-  },
-  {
-   "path": "source/ClanMatchingTests.cs",
-   "size": 10058,
-   "sha256": "5a23c7261372f1573ca42fa5bb61def13d2e73c2bb39fc63f0a7d99c7c341e1c"
-  },
-  {
    "path": "source/ClanUi.cs",
    "size": 5806,
    "sha256": "4bffdc9da6da0c53fc7cfeb7e786b618d37a5164a74b8a2cf1d4a171775389b8"
@@ -356,8 +346,8 @@
   },
   {
    "path": "source/Duel.cs",
-   "size": 6279,
-   "sha256": "bd82a01e58f38155ce5981e57feb4020fafa3f694be3686118890d4631cde3f9"
+   "size": 6451,
+   "sha256": "3dd47735f98b581fa5d80a09141d1e2e9303a82d32956e7463e70a4af6ebd339"
   },
   {
    "path": "source/DuelUi.cs",
@@ -426,8 +416,8 @@
   },
   {
    "path": "source/GhostMode.cs",
-   "size": 4756,
-   "sha256": "68f205e865739c044125e446dd8615df12d6ab4539f9a4aebdf78f21e0833d6e"
+   "size": 4801,
+   "sha256": "d08f975c33671d557487a56d850d37a7af32f0c83943342b95b361c1039e49f5"
   },
   {
    "path": "source/Ground.cs",
@@ -656,8 +646,8 @@
   },
   {
    "path": "source/Marriage.cs",
-   "size": 11267,
-   "sha256": "5b8373ca4b1308e564fd0019a5391205a6934dd513541f11db09e5e7bc593b0e"
+   "size": 8507,
+   "sha256": "1625fbb291cbf428b54390953096792db0ecb6a99b891db9c53c2fe3ae5e718d"
   },
   {
    "path": "source/Minimap.cs",
@@ -831,8 +821,8 @@
   },
   {
    "path": "source/OnlineInput.cs",
-   "size": 3503,
-   "sha256": "e2da3beb62c930fa4362ef460e9f63e117bee5514be62a8d41b8177623413ef8"
+   "size": 3884,
+   "sha256": "95be1ffb3b8c545d4435d652b6e42f0ebcac44fef15e1ff2839f404735f68840"
   },
   {
    "path": "source/OnlineMovement.cs",
@@ -911,8 +901,8 @@
   },
   {
    "path": "source/Party.cs",
-   "size": 12405,
-   "sha256": "e0a45ea8f3825e238d9a3de7b4c1044187cb8d687d94db9773a1c847193edcb9"
+   "size": 12580,
+   "sha256": "8eba9de59d44a0e3aad6e921742305fa0d8b7420da945afda8c08c603133e8de"
   },
   {
    "path": "source/PartyUi.cs",
@@ -1308,6 +1298,11 @@
    "path": "source/WorldTests.cs",
    "size": 8432,
    "sha256": "89840da776b378d7e0ea05a8178d02c436547f0fe62ed0ea2330ff7f923b9bc4"
+  },
+  {
+   "path": "source/YesNoPrompt.cs",
+   "size": 12155,
+   "sha256": "0fdf64ea2acfcfe2ecb4c777fc2ef2fbd49fa3fb7ed09eb758278a98149e91eb"
   },
   {
    "path": "web/bonus-stats.js",

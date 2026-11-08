@@ -11,10 +11,12 @@
     <Compile Include="../display-notices-tests/DisplayNoticeChecks.cs" Link="DisplayNoticeChecks.cs" />
     <Compile Include="../char-reset-tests/CharResetChecks.cs" Link="CharResetChecks.cs" />
     <Compile Include="../marriage-tests/MarriageChecks.cs" Link="MarriageChecks.cs" />
+    <Compile Include="../yes-no-tests/YesNoPromptTests.cs" Link="YesNoPromptTests.cs" />
     <Compile Include="../clan-tests/ClanChecks.cs" Link="ClanChecks.cs" />
     <Compile Include="../clan-emblem-tests/ClanEmblemChecks.cs" Link="ClanEmblemChecks.cs" />
     <Compile Include="../clan-war-tests/ClanWarChecks.cs" Link="ClanWarChecks.cs" />
     <Compile Include="../ghost-mode-tests/GhostModeChecks.cs" Link="GhostModeChecks.cs" />
+    <Compile Include="../ghost-limits-tests/GhostLimitsChecks.cs" Link="GhostLimitsChecks.cs" />
     <Compile Include="../doors-tests/DoorChecks.cs" Link="DoorChecks.cs" />
     <Compile Include="../pickup-tests/PickupChecks.cs" Link="PickupChecks.cs" />
     <Compile Include="../doors-tests/DoorApproachChecks.cs" Link="DoorApproachChecks.cs" />
