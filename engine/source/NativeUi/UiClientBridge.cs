@@ -35,7 +35,7 @@ public sealed partial class ClientForm {
     internal void ApplyNativeUiStart(UiRoot? root,Exception? error){
         if(nativeUiState!=UiStartState.Verifying)return;
         if(root!=null&&error==null){
-            nativeUiRoot=root;nativeUiInput=new UiInput(root,NativeMacroCommands(new NativeUiCommands(this)));nativeUiCanvas??=new UiCanvas();
+            nativeUiRoot=root;nativeUiInput=new UiInput(root,NativeMacroCommands(NativePartyCommands(new NativeUiCommands(this))));nativeUiCanvas??=new UiCanvas();
             nativeUiState=UiStartState.Active;nativeUiError=null;
             ClearInput("native-ui-active");
             events.Add(new{kind="native-ui",state="active",panels=root.Panels.Select(p=>p.Id).ToArray()});
@@ -113,7 +113,7 @@ public sealed partial class ClientForm {
 
     IUiGameState NativeUiGameState(){
         var w=login.World;var s=w.Status;bool inWorld=login.State==LoginState.InWorld;
-        return WithHpMpState(NativeMacroGameState(new UiStaticGameState(inWorld,inWorld?w.Actor?.Name:null,inWorld?s?.Level:null,inWorld?s?.Hp:null,inWorld?s?.MaxHp:null,inWorld?s?.Mp:null,inWorld?s?.MaxMp:null,Environment.TickCount64)));   // ui-hpmp #465: + over-head targets (State/HpMpState.cs); #466: macro state inside (MacroBook.StateOf unwraps)
+        return WithHpMpState(NativeMacroGameState(NativePartyGameState(new UiStaticGameState(inWorld,inWorld?w.Actor?.Name:null,inWorld?s?.Level:null,inWorld?s?.Hp:null,inWorld?s?.MaxHp:null,inWorld?s?.Mp:null,inWorld?s?.MaxMp:null,Environment.TickCount64))));   // ui-hpmp #465: + over-head targets (State/HpMpState.cs); #466: macro state inside (MacroBook.StateOf unwraps); #471: party state innermost (PartyStates.StateOf unwraps)
     }
 
     sealed class NativeUiCommands(ClientForm form):IUiCommands {

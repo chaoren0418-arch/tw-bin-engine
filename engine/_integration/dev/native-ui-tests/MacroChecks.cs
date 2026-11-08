@@ -68,7 +68,7 @@ partial class Checks {
 
         using var res=MacroResources(Path.Combine(root,"full"),full,MacroLayoutXml);
         // Uses the real registry: the #466 registrations must build from uistatus86.
-        var ui=UiRoot.Build(res,UiPanelRegistry.Panels);
+        var ui=UiRoot.Build(res,UiPanelRegistry.Panels.Where(r=>r.Layout=="uistatus86").ToArray());   // #471: uiextra86 panels are not in this synthetic Tile
         var main=(MacroPanel)ui.Find(MacroPanel.WindowId)!;var ex=(ExMacroPanel)ui.Find(ExMacroPanel.WindowId)!;
         Check(main!=null&&ex!=null&&main.Layer==UiLayer.Bar&&ex.Layer==UiLayer.Bar,"registry builds RIGHT_WINDOW and EX_MACRO_WINDOW on the bar layer");
 
@@ -203,7 +203,7 @@ partial class Checks {
         {
             var partial=full.Where(kv=>kv.Key is not (3191 or 3192 or 3226)).ToDictionary(kv=>kv.Key,kv=>kv.Value);
             using var res2=MacroResources(Path.Combine(root,"partial"),partial,MacroLayoutXml);
-            var ui2=UiRoot.Build(res2,UiPanelRegistry.Panels);
+            var ui2=UiRoot.Build(res2,UiPanelRegistry.Panels.Where(r=>r.Layout=="uistatus86").ToArray());
             var m2=(MacroPanel)ui2.Find(MacroPanel.WindowId)!;var e2=(ExMacroPanel)ui2.Find(ExMacroPanel.WindowId)!;
             ui2.Update(S());
             Check(m2.LockRect.IsEmpty&&m2.Bounds==m2.FrameRect&&m2.Visible&&!e2.Visible,"missing lock/extended surf → no lock rect, extended box hidden");
