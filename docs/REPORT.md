@@ -207,3 +207,4 @@
 - 2026-11-09 — #601 T244：gap-matrix 第二輪——依目前的 main 重新盤點，列出下一批任務（resource，claude-local，PR 已合併）→ [報告](reports/issue-601.md)
 - 2026-11-09 — #560 T238：血盟倉庫紀錄（W2-G）（code，claude-local，PR 已合併）→ [報告](reports/issue-560.md)
 - 2026-11-09 — #529 T222：M7-V 好友、封鎖、信件封鎖三窗（code，claude-local，PR 已合併）→ [報告](reports/issue-529.md)
+- 2026-11-09 — #517 T211：M7-K 交易詢問與交易流程（code，claude-local，PR 已合併）→ [報告](reports/issue-517.md)
