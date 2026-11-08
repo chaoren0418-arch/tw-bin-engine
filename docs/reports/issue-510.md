@@ -10,8 +10,8 @@
 - `engine/_integration/dev/rebuild-lock.json`：`--update-lock` 重產（新增兩個來源檔）。
 
 ## 怎麼驗證
-- `rebuild.py --update-lock` → `rebuild.py --build`：PASS（同步 main 後 productDll `1773f2d6…3409`）。
-- `P11.ClientEngine.exe --module-tests`：同步 main 後 pass，4 組 183 項（ability-status 38、agit 44、castle 62、world-extensions 39，含「產品登錄表無錯誤註冊」），失敗 0。
+- `rebuild.py --update-lock` → `rebuild.py --build`：PASS（第二次同步 main〈含 #523／#531〉後 productDll `0f20cf3d…4a0`）。
+- `P11.ClientEngine.exe --module-tests`（照 CI 指令）：第二次同步 main 後 pass，5 組 255 項，失敗 0（含 ability-status 38 項與 main 新增的 recovery 測試）。
 - `check-no-game-assets.py`：pass（errors 0）。
 - `packet-trace-tests`：pass。其餘既有測試由 CI 跑。
 
