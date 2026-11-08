@@ -41,13 +41,13 @@ namespace P06.NativeUi {
     public static class PartyStates {
         /// <summary>
         /// Finds the party state through the other decorators. Product nesting (#471):
-        /// UiHpMpGameState( UiMacroGameState( UiPartyGameState(basic) ) ) — the party state is innermost so that
-        /// MacroBook.StateOf (which only unwraps UiHpMpGameState) keeps working unchanged.
+        /// UiHpMpGameState( UiMacroGameState( UiLeftStatusGameState( UiPartyGameState(basic) ) ) ) — the party state is innermost so
+        /// that MacroBook.StateOf and LeftStatusState.From (which only unwrap the layers above them) keep working unchanged.
         /// </summary>
         public static IUiPartyState? StateOf(IUiGameState? state){
             for(int depth=0;state!=null&&depth<8;depth++){
                 if(state is IUiPartyState p)return p;
-                state=state switch{UiHpMpGameState h=>h.Base,UiMacroGameState m=>m.Inner,UiPartyGameState q=>q.Inner,_=>null};
+                state=state switch{UiHpMpGameState h=>h.Base,UiMacroGameState m=>m.Inner,UiLeftStatusGameState l=>l.Inner,UiPartyGameState q=>q.Inner,_=>null};
             }
             return null;
         }

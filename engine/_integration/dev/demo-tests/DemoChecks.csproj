@@ -41,6 +41,7 @@
     <Compile Include="../name-display-tests/NameDisplayChecks.cs" Link="NameDisplayChecks.cs" />
     <Compile Include="../native-ui-tests/ResourceChecks.cs" Link="ResourceChecks.cs" />
     <Compile Include="../native-ui-tests/CanvasChecks.cs" Link="CanvasChecks.cs" />
+    <Compile Include="../native-ui-tests/LeftStatusChecks.cs" Link="LeftStatusChecks.cs" />
     <Compile Include="../native-ui-tests/MacroChecks.cs" Link="MacroChecks.cs" />
     <Compile Include="../native-ui-tests/HpMpChecks.cs" Link="HpMpChecks.cs" />
     <Compile Include="../native-ui-tests/PartyPanelChecks.cs" Link="PartyPanelChecks.cs" />

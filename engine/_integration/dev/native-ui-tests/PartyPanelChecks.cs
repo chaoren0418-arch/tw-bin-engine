@@ -121,8 +121,9 @@ partial class Checks {
         Check(!lt.Visible&&!rt.Visible,"outside the world: hidden");
         ui.Update(new PartyTestState(true,null));
         Check(!lt.Visible,"no party snapshot: hidden");
-        var nested=new UiHpMpGameState(new UiMacroGameState(new UiPartyGameState(new UiStaticGameState(true),View()),new MacroBook(),null,false),[]);
-        Check(PartyStates.StateOf(nested)?.Party!=null&&PartyStates.CommandsOf(cmd)!=null&&MacroBook.StateOf(nested)!=null,"party state found inside UiHpMpGameState/UiMacroGameState; macro still found");
+        var leftState=LeftStatusState.Empty with{Level=42};
+        var nested=new UiHpMpGameState(new UiMacroGameState(new UiLeftStatusGameState(new UiPartyGameState(new UiStaticGameState(true),View()),leftState),new MacroBook(),null,false),[]);
+        Check(PartyStates.StateOf(nested)?.Party!=null&&PartyStates.CommandsOf(cmd)!=null&&MacroBook.StateOf(nested)!=null&&LeftStatusState.From(nested).Level==42,"product nesting HpMp→Macro→LeftStatus→Party: party, macro and left status all found");
         Check(PartyStates.CommandsOf(new UiNullCommands())==null,"commands without party support → none");
         ui.Update(nested);
         Check(lt.Visible&&rt.Visible,"in the world: LT tabs shown; RT shown as the only BAR_485 member");
@@ -213,7 +214,8 @@ partial class Checks {
         if(string.IsNullOrEmpty(client)){Console.WriteLine("SKIP native-ui party real client render (TW_CLIENT_ROOT not set)");return;}
         string outDir=Path.Combine(Path.GetFullPath(repo),"scratch","issue-471","real");Directory.CreateDirectory(outDir);
         using var res=UiResources.Open(client);
-        var regs=UiPanelRegistry.Panels.Where(r=>r.Id is PartyPanel.WindowId or PartyRtPanel.WindowId).ToArray();
+        // LEFT_WINDOW included (registry order) so the PNGs show the party base over the left status frame.
+        var regs=UiPanelRegistry.Panels.Where(r=>r.Id is "LEFT_WINDOW" or PartyPanel.WindowId or PartyRtPanel.WindowId).ToArray();
         var ui=UiRoot.Build(res,regs);
         var lt=(PartyPanel)ui.Find(PartyPanel.WindowId)!;var rt=(PartyRtPanel)ui.Find(PartyRtPanel.WindowId)!;
         Check(lt.BaseRect==new Rectangle(0,493,135,107)&&rt.Bounds==new Rectangle(485,475,158,125),"real 3204 = (0,493) 135×107, real 3220 = (485,475) 158×125");
