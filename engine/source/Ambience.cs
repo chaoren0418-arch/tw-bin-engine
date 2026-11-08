@@ -5,9 +5,14 @@ using System.Runtime.InteropServices;
 namespace P06;
 
 public enum WeatherKind { Clear, Rain, Snow }
+/// <summary>Weather is the last raw S115 byte (diagnostic only); Rain and Snow are the TW16 amounts
+/// (dword_15442B0 / dword_15442B4, 0–3) after the map and gfx rules. Rain takes precedence when drawing.</summary>
 public sealed record AmbienceFrame(uint? Seconds, byte Weather, long AnimationMs) {
-    public WeatherKind Kind => Weather switch { >= 1 and <= 3 => WeatherKind.Rain, >= 17 and <= 19 => WeatherKind.Snow, _ => WeatherKind.Clear };
-    public int Intensity => Kind == WeatherKind.Clear ? 0 : Weather & 15;
+    public byte Rain { get; init; }
+    public byte Snow { get; init; }
+    public WeatherKind Kind => Rain > 0 ? WeatherKind.Rain : Snow > 0 ? WeatherKind.Snow : WeatherKind.Clear;
+    public int Intensity => Rain > 0 ? Rain : Snow;
+    public bool Precipitation => Rain > 0 || Snow > 0;
     public TimeSpan? TimeOfDay => Seconds is uint seconds ? TimeSpan.FromSeconds(seconds % 86400) : null;
     public bool Night => Seconds is uint seconds && (seconds % 86400 < 21600 || seconds % 86400 >= 64800);
     /// <summary>Global level L (0–15, 15 = brightest); recomputed only on S123, S_STATUS time and map change.</summary>
@@ -131,15 +136,30 @@ public sealed class Ambience {
     readonly Func<ushort?> mapId;
     uint? seconds, statusSeen;
     ushort? mapSeen;
-    byte weather, level = 15, ownLightFlag, flashSaved;
+    byte weather, rain, snow, level = 15, ownLightFlag, flashSaved;
     int flashes;
     public Ambience() : this(() => null, () => null) { }
     internal Ambience(Func<uint?> statusTime, Func<ushort?> mapId) { this.statusTime = statusTime; this.mapId = mapId; }
+    /// <summary>Particle pools (sub_F0A730). Stepped by the frame loop; drawn only when a sprite source exists.</summary>
+    public WeatherParticles Particles { get; } = new();
 
     internal void TimeReceived(uint value, long now) { statusSeen = statusTime(); seconds = value; Recalculate(); }
-    internal void WeatherReceived(byte value) => weather = value;
+    /// <summary>sub_94FD10 (AM§2(a)). The map-setting veto (sub_926DA0()->[4]) is unverified and not applied.</summary>
+    internal void WeatherReceived(byte value) {
+        weather = value;
+        (rain, snow) = AmbienceWeather.Decode(value);
+        // Step 5: every packet with an amount lowers L by one while L ≥ 10 (no recompute).
+        if ((rain | snow) > 0 && level >= 10) level--;
+        // Step 6: forced rain 2 on these maps, regardless of the packet.
+        if (AmbienceWeather.ForcedRain(mapId())) rain = AmbienceWeather.ForcedRainAmount;
+    }
+    /// <summary>sub_9493B0 / sub_92C9F0: removing (or action 8 of) a weather object clears its amount.</summary>
+    internal void WeatherObjectGone(ushort gfx) {
+        if (AmbienceWeather.ClearsSnow(gfx)) snow = 0;
+        if (AmbienceWeather.ClearsRain(gfx)) rain = 0;
+    }
     internal void OwnLightReceived(byte flag) => ownLightFlag = flag;
-    internal void Clear() { seconds = statusSeen = null; mapSeen = null; weather = ownLightFlag = flashSaved = 0; level = 15; flashes = 0; }
+    internal void Clear() { seconds = statusSeen = null; mapSeen = null; weather = rain = snow = ownLightFlag = flashSaved = 0; level = 15; flashes = 0; Particles.Reset(); }
     /// <summary>AM§1(g): first light effect raises L by 5 (cap 15); the last one restores L. Curve writes are suspended meanwhile.</summary>
     public void BeginLightEffect() { if (flashes++ == 0) { flashSaved = level; level = (byte)Math.Min(15, level + 5); } }
     public void EndLightEffect() { if (flashes > 0 && --flashes == 0) level = flashSaved; }
@@ -155,12 +175,135 @@ public sealed class Ambience {
     // sub_EDC880: write L only while no light effect is active (byte_15442BC assumed 0).
     void Recalculate() {
         if (seconds is not uint s || flashes > 0) return;
-        level = AmbienceCurve.Level(s, new AmbienceFrame(s, weather, 0).Intensity > 0);
+        level = AmbienceCurve.Level(s, (rain | snow) > 0);
     }
     public AmbienceFrame At(long now) {
         Observe();
-        return new(seconds, weather, now) { Level = seconds == null ? (byte)15 : level, MapId = mapSeen, OwnLightFlag = ownLightFlag };
+        return new(seconds, weather, now) { Level = seconds == null ? (byte)15 : level, MapId = mapSeen, OwnLightFlag = ownLightFlag, Rain = rain, Snow = snow };
     }
+}
+
+/// <summary>TW16 S_WEATHER rules (docs/reference/ambience-and-map-events.md §2(a)). Pure functions.</summary>
+public static class AmbienceWeather {
+    public const byte ForcedRainAmount = 2;
+    /// <summary>n = v &amp; 0x0F (n &gt; 3 → 0); high nibble 0x00 = rain, 0x10 = snow, anything else = clear.</summary>
+    public static (byte Rain, byte Snow) Decode(byte value) {
+        byte n = (byte)(value & 0x0F); if (n > 3) n = 0;
+        return (value & 0xF0) switch { 0x00 => (n, (byte)0), 0x10 => ((byte)0, n), _ => ((byte)0, (byte)0) };
+    }
+    public static bool ForcedRain(ushort? map) => map is >= 7701 and <= 7710 or >= 7771 and <= 7780;
+    public static bool ClearsSnow(ushort gfx) => gfx is 10683 or 10632;
+    public static bool ClearsRain(ushort gfx) => gfx == 10891;
+    /// <summary>Amount 1/2/3 → 128/256/512 rain particles, 48/96/144 snow particles (first n of each pool).</summary>
+    public static int RainCount(int amount) => amount switch { 1 => 128, 2 => 256, 3 => 512, _ => 0 };
+    public static int SnowCount(int amount) => amount switch { 1 => 48, 2 => 96, 3 => 144, _ => 0 };
+}
+
+/// <summary>One weather particle in the TW16 800×480 screen space. Rain: Layer 0–3 and Stage (splash phase).
+/// Snow: Layer is the flake size 0–3 and Stage is unused. Landing is the row where the particle stops or respawns.</summary>
+public readonly record struct WeatherParticle(WeatherKind Kind, int Index, int Layer, float X, float Y, int Stage, int Landing);
+
+/// <summary>Draws one particle at a viewport position. TW16 uses Surf 924/925 (layer 0) and 926/927
+/// (layer 1) from Sprite.pak for rain (T167/#437; the old −100..−97 was a decompiler char-type misread) and
+/// procedural patterns for rain layers 2/3 and snow. No loader is wired up yet, so the painter draws nothing
+/// unless a source is supplied.</summary>
+public delegate void WeatherSprite(Graphics graphics, WeatherParticle particle, PointF position);
+
+/// <summary>TW16 rain (512, sub_F0E290) and snow (192, sub_F0E0D0) particle pools in 800×480 coordinates.
+/// Random numbers use the MSVC rand() LCG (RAND_MAX 0x7FFF) so a seed gives a reproducible sequence.</summary>
+public sealed class WeatherParticles {
+    public const int Width = 800, Height = 480, RainWrap = 485, RainPool = 512, SnowPool = 192, TickMs = 24, MaxFrameMs = 500;
+    struct Drop { public int X, Y, Landing, Stage; }
+    struct Flake { public int X, Y, Landing; }
+    readonly Drop[] rain = new Drop[RainPool];
+    readonly Flake[] snow = new Flake[SnowPool];
+    readonly uint initialSeed;
+    uint seed;
+    int pending;
+    public long Ticks { get; private set; }
+    public WeatherParticles(uint seed = 1) { initialSeed = seed; Reset(); }
+
+    int Rand() { seed = unchecked(seed * 214013 + 2531011); return (int)(seed >> 16 & 0x7FFF); }
+
+    /// <summary>Rain layer by index within each 256 group: 0–117 → 3, 118–235 → 2, 236–245 → 1, 246–255 → 0.</summary>
+    public static int RainLayer(int index) => (index & 255) switch { < 118 => 3, < 236 => 2, < 246 => 1, _ => 0 };
+    /// <summary>Layer 3 moves 1 px every 4 ticks, 2 every 3, 1 every 2, 0 every tick.</summary>
+    public static int RainDivisor(int layer) => layer + 1;
+    /// <summary>Snow size by index: 0–63 → 3, 64–149 → 2, 150–175 → 1, 176–191 → 0.</summary>
+    public static int SnowSize(int index) => index switch { < 64 => 3, < 150 => 2, < 176 => 1, _ => 0 };
+    /// <summary>Snow period field (50/60/70/80); the update test "accumulated + 100 &gt; period" holds every frame.</summary>
+    public static int SnowPeriod(int index) => 50 + 10 * (3 - SnowSize(index));
+
+    int RainLanding(int layer) => layer switch { 3 => Rand() % 250 + 1, 2 => Rand() % 250 + 200, _ => RainWrap };
+    int SnowLanding(int size) { int top = (4 - size) * 64; return top + (505 - top) * Rand() / 0x7FFF; }
+
+    /// <summary>sub_F0A730: re-seed and re-initialise both pools.</summary>
+    public void Reset() {
+        seed = initialSeed; pending = 0; Ticks = 0;
+        for (int i = 0; i < RainPool; i++) {
+            int layer = RainLayer(i);
+            rain[i] = new() { X = Rand() % Width, Y = Rand() % RainWrap, Landing = RainLanding(layer) };
+            if (rain[i].Y > rain[i].Landing) rain[i].Y = 0;
+        }
+        for (int i = 0; i < SnowPool; i++) {
+            int landing = SnowLanding(SnowSize(i));
+            snow[i] = new() { X = Rand() % Width, Landing = landing, Y = landing > 0 ? Rand() % landing : 0 };
+        }
+    }
+
+    /// <summary>Advance one rendered frame. elapsedMs is capped at 500 (dword_1544378). shiftX is the camera
+    /// compensation in 800-wide screen pixels, added to every rain x. Rain advances in 24 ms ticks;
+    /// snow advances once per call.</summary>
+    public void Step(AmbienceFrame frame, long elapsedMs, int shiftX = 0) {
+        int rainCount = AmbienceWeather.RainCount(frame.Rain), snowCount = AmbienceWeather.SnowCount(frame.Snow);
+        if (frame.Rain > 0) {
+            pending += (int)Math.Clamp(elapsedMs, 0, MaxFrameMs);
+            if (shiftX != 0) for (int i = 0; i < rainCount; i++) rain[i].X = Mod(rain[i].X + shiftX, Width);
+            for (; pending >= TickMs; pending -= TickMs) {
+                Ticks++;
+                for (int i = 0; i < rainCount; i++) {
+                    int layer = RainLayer(i);
+                    if (Ticks % RainDivisor(layer) != 0) continue;
+                    ref var drop = ref rain[i];
+                    if (drop.Y >= drop.Landing) {
+                        // Landed: y stays, the stage grows; respawn once y + stage − 5*(4 − layer) ≥ landing.
+                        drop.Stage++;
+                        if (drop.Y + drop.Stage - 5 * (4 - layer) >= drop.Landing) {
+                            drop.X = Rand() % Width; drop.Y = 0; drop.Stage = 0; drop.Landing = RainLanding(layer);
+                        }
+                    } else drop.Y = (drop.Y + 1) % RainWrap;
+                }
+            }
+        } else pending = 0;
+        if (frame.Rain == 0 && frame.Snow > 0) {
+            int n = frame.Snow;
+            for (int i = 0; i < snowCount; i++) {
+                ref var flake = ref snow[i];
+                flake.X -= Rand() % (3 * n);
+                if (flake.X <= 0) flake.X = Width;
+                flake.Y += 5 * n;
+                if (flake.Y >= flake.Landing) { flake.Y = 0; flake.Landing = SnowLanding(SnowSize(i)); }
+            }
+        }
+    }
+
+    /// <summary>Active particles for the frame (rain has priority over snow), in 800×480 coordinates.
+    /// Rain x includes the ±8 px sine sway sin(ticks·π/144)·8 and wraps at 800.</summary>
+    public IEnumerable<WeatherParticle> Active(AmbienceFrame frame) {
+        if (frame.Rain > 0) {
+            float sway = (float)(Math.Sin(Ticks * Math.PI / 144) * 8);
+            for (int i = 0; i < AmbienceWeather.RainCount(frame.Rain); i++) {
+                var drop = rain[i];
+                float x = (float)ModF(drop.X + sway, Width); if (x >= Width) x = 0; // float rounding of 799.99…
+                yield return new(WeatherKind.Rain, i, RainLayer(i), x, Math.Min(drop.Y, drop.Landing), drop.Stage, drop.Landing);
+            }
+        } else if (frame.Snow > 0) {
+            for (int i = 0; i < AmbienceWeather.SnowCount(frame.Snow); i++)
+                yield return new(WeatherKind.Snow, i, SnowSize(i), snow[i].X, snow[i].Y, 0, snow[i].Landing);
+        }
+    }
+    static int Mod(int value, int period) => (value % period + period) % period;
+    static double ModF(double value, double period) => (value % period + period) % period;
 }
 
 public sealed partial class WorldSession {
@@ -175,6 +318,17 @@ public sealed partial class WorldSession {
     void ReceiveWeather(LoginReader reader) {
         byte value = reader.C(); reader.Finish();
         Ambience.WeatherReceived(value);
+    }
+    /// <summary>Observe-only hook for S120 (remove object) and S158 action 8, called before the object handlers
+    /// so the departing object's gfx is still known. Malformed packets are left to those handlers.</summary>
+    void ObserveWeatherObject(byte opcode, byte[] plain) {
+        uint id;
+        try {
+            var reader = new LoginReader(plain); reader.C(); id = reader.D();
+            if (opcode == 158 && reader.C() != 8) return;
+            reader.Finish();
+        } catch (ProtocolException) { return; }
+        if (objects.TryGetValue(id, out var gone)) Ambience.WeatherObjectGone(gone.Gfx);
     }
     void ReceiveLight(LoginReader reader) {
         uint id = reader.D(); byte value = reader.C(); reader.Finish();
@@ -225,16 +379,18 @@ public sealed class AmbienceLightMap {
 
 /// <summary>Weather particles and TW16 coefficient shading. No game assets; ownership/picking buffers are untouched.</summary>
 public static class AmbiencePainter {
-    public static int ParticleCount(AmbienceFrame frame, Rectangle viewport) =>
-        Math.Min(768, (int)Math.Ceiling((double)viewport.Width * viewport.Height / 7000 * frame.Intensity));
+    /// <summary>Fixed TW16 counts (AM§2(c)(d)), independent of the viewport size: rain has priority over snow.</summary>
+    public static int ParticleCount(AmbienceFrame frame) =>
+        frame.Rain > 0 ? AmbienceWeather.RainCount(frame.Rain) : AmbienceWeather.SnowCount(frame.Snow);
 
     /// <summary>Weather first, then shading of the target pixels (AM§2(b): rain/snow are darkened with the scene).</summary>
-    public static void Draw(Graphics graphics, Bitmap target, Rectangle viewport, AmbienceFrame frame, AmbienceLightMap? lightMap = null) {
+    public static void Draw(Graphics graphics, Bitmap target, Rectangle viewport, AmbienceFrame frame, AmbienceLightMap? lightMap = null,
+        WeatherParticles? particles = null, WeatherSprite? sprite = null) {
         if (viewport.Width <= 0 || viewport.Height <= 0) return;
         var saved = graphics.Save();
         try {
             graphics.SetClip(viewport, CombineMode.Intersect);
-            DrawWeather(graphics, viewport, frame);
+            DrawWeather(graphics, viewport, frame, particles, sprite);
             if (frame.Shaded) {
                 graphics.Flush(FlushIntention.Sync);
                 // Shading writes pixels directly; honour the caller's rectangular clip (identity transform only).
@@ -272,22 +428,12 @@ public static class AmbiencePainter {
         } finally { target.UnlockBits(bits); }
     }
 
-    static void DrawWeather(Graphics graphics, Rectangle viewport, AmbienceFrame frame) {
-        int count = ParticleCount(frame, viewport);
-        if (count == 0) return;
-        bool rain = frame.Kind == WeatherKind.Rain;
-        using var pen = new Pen(Color.FromArgb(155, 183, 209, 235), 1);
-        using var snow = new SolidBrush(Color.FromArgb(215, 240, 246, 255));
-        double seconds = frame.AnimationMs / 1000d;
-        for (int i = 0; i < count; i++) {
-            uint seed = unchecked((uint)(i + 1) * 2654435761u);
-            double phase = (seed & 65535) / 65536d, drift = (seed >> 16) / 65536d;
-            double speed = rain ? 310 + 35 * frame.Intensity : 25 + 8 * frame.Intensity;
-            float x = viewport.Left - 16 + (float)Wrap(phase * (viewport.Width + 32) + seconds * (rain ? -100 : 12) + (rain ? 0 : 10 * Math.Sin(seconds + drift * 6)), viewport.Width + 32);
-            float y = viewport.Top - 16 + (float)Wrap(drift * (viewport.Height + 32) + seconds * speed, viewport.Height + 32);
-            if (rain) graphics.DrawLine(pen, x, y, x - 4, y + 12);
-            else graphics.FillEllipse(snow, x, y, 2 + seed % 2, 2 + seed % 2);
-        }
+    /// <summary>Particles in TW16 800×480 coordinates, scaled to the viewport. Without a sprite source nothing is drawn:
+    /// the original rain/snow art is not available (T167) and no substitute is used.</summary>
+    static void DrawWeather(Graphics graphics, Rectangle viewport, AmbienceFrame frame, WeatherParticles? particles, WeatherSprite? sprite) {
+        if (particles == null || sprite == null || !frame.Precipitation) return;
+        float sx = (float)viewport.Width / WeatherParticles.Width, sy = (float)viewport.Height / WeatherParticles.Height;
+        foreach (var particle in particles.Active(frame))
+            sprite(graphics, particle, new(viewport.X + particle.X * sx, viewport.Y + particle.Y * sy));
     }
-    static double Wrap(double value, double period) => (value % period + period) % period;
 }
