@@ -33,12 +33,14 @@ public sealed partial class WorldSession {
         return (flags&1)!=0?AfflictionTint.Poison:AfflictionTint.Normal;
     }
 
+    // AM§4(a), TW16 sub_946B00: green >= 8 drops the whole packet; otherwise each nonzero byte sets its
+    // flag and zero clears it. Gray outranks green in the draw priority, so both nonzero shows gray.
     void ReceivePoison(LoginReader r){
         uint id=r.D();byte green=r.C(),gray=r.C();r.Finish();
-        if(id==0||green>1||gray>1||green+gray>1)throw new ProtocolException("invalid S165 poison appearance");
+        if(green>=8)return;
         ObserveAfflictions();PruneAfflictionTints();
-        if(id!=Status?.ObjectId&&!objects.ContainsKey(id))return;
-        afflictionTints[id]=green!=0?AfflictionTint.Poison:gray!=0?AfflictionTint.Gray:AfflictionTint.Normal;
+        if(id==0||id!=Status?.ObjectId&&!objects.ContainsKey(id))return;
+        afflictionTints[id]=gray!=0?AfflictionTint.Gray:green!=0?AfflictionTint.Poison:AfflictionTint.Normal;
     }
 
     void ReceiveParalysis(LoginReader r,byte[] plain){
@@ -57,23 +59,43 @@ public sealed partial class WorldSession {
 
     void ReceiveBlind(LoginReader r){
         ushort mode=r.H();r.Finish();
-        if(mode>2)throw new ProtocolException("invalid S47 blindness mode");
+        // AM§4(b), TW16 sub_4FFA00: values above 2 are ignored, not a protocol fault.
+        if(mode>2)return;
         ObserveAfflictions();BlindMode=mode;
     }
 }
 
+// RGB555 formulas from docs/reference/ambience-and-map-events.md §4 (TW16, verified there).
 public static class AfflictionColors {
-    // RGB555 presentation policy; original-client palette parity is not claimed.
-    public static ushort Tint(ushort color,AfflictionTint tint){
+    // Poison, VA 0x976CA0 with color 256 = (R0,G8,B0): c' = min(31, c + k*C/16), k = 16+|12-(t%24)|,
+    // t advancing every 50 ms (VA 0xF06C60). Only green moves, by 8..14, as a 1.2 s triangle wave.
+    public static int PoisonPulse(long clockMs){int t=(int)((clockMs/50%24+24)%24);return 16+Math.Abs(12-t);}
+    // Paralysis gray, VA 0x977020 with 0x0C63 = (3,3,3): c' = C + c/2.
+    public static ushort Tint(ushort color,AfflictionTint tint,long clockMs){
         int red=(color>>10)&31,green=(color>>5)&31,blue=color&31;
-        int light=(red*3+green*6+blue)/10;
         return tint switch {
-            AfflictionTint.Poison=>(ushort)((light/3<<10)|(light<<5)|light/3),
-            AfflictionTint.Gray=>(ushort)((light<<10)|(light<<5)|light),
+            AfflictionTint.Poison=>(ushort)((red<<10)|(Math.Min(31,green+PoisonPulse(clockMs)*8/16)<<5)|blue),
+            AfflictionTint.Gray=>(ushort)((3+red/2<<10)|(3+green/2<<5)|(3+blue/2)),
             _=>color
         };
     }
-    public static ushort Darken(ushort color)=>(ushort)((((color>>10)&31)/4<<10)|(((color>>5)&31)/4<<5)|(color&31)/4);
+    // Lighting table application (VA 0x9786F0): each 5-bit channel c' = c*f/31.
+    public static ushort Scale(ushort color,int f)=>f>=31?color:(ushort)((((color>>10)&31)*f/31<<10)|(((color>>5)&31)*f/31<<5)|(color&31)*f/31);
+    // Unlit coefficient for blind mode 2: level 1 of table mode 0 is 4/31 (AM§1(h), §4(b)).
+    // The 6/31 class bonus depends on an inferred class meaning and is not applied.
+    public const int BlindTwoUnlit=4;
+    public static ushort Darken(ushort color)=>Scale(color,BlindTwoUnlit);
+    // Own light while blind uses light index k=5. source.lmp is unread (T167), so the disc keeps the
+    // engine's former light radius for value 5 (5*24 px, removed from AmbiencePainter in #479) and a
+    // smooth edge; the shape is a presentation stand-in until the k=5 light image is available.
+    public const float BlindLightRadius=5*24f;
+    public static int BlindLight(double distance){
+        double edge=Math.Clamp((distance/BlindLightRadius-.15)/.85,0,1);
+        return (int)Math.Round((1-edge*edge*(3-2*edge))*255)>>3;
+    }
+    // Mode 1 is table level 0 (coefficient = light index, verified). Mode 2 is level 1: only its unlit
+    // entry 4 is documented, so the rise to 31 is interpolated linearly (inferred).
+    public static int BlindCoefficient(ushort mode,int light)=>mode==1?light:mode==2?BlindTwoUnlit+(31-BlindTwoUnlit)*light/31:31;
 }
 
 public sealed partial class Renderer {
@@ -88,17 +110,37 @@ public sealed partial class Renderer {
         }
         var tints=commands.Where(c=>c.Actor).Select(c=>c.ObjectId).Distinct()
             .ToDictionary(id=>id,id=>session.TintFor(id==0?session.Actor?.ObjectId??0:id));
+        long clock=session.MagicStatusClock();
         var colors=new ushort[area.Width*area.Height];var mask=new bool[colors.Length];
         var owners=Enumerable.Repeat(-1,colors.Length).ToArray();var entityOwners=new uint?[colors.Length];
         FillShipBackdrop(area,colors,mask);
         foreach(var command in commands){
             var draw=command;
             if(draw.Actor&&tints[draw.ObjectId] is var tint&&tint!=AfflictionTint.Normal)
-                draw=draw with{Tile=draw.Tile with{Pixels=draw.Tile.Pixels.Select(p=>p with{Color=AfflictionColors.Tint(p.Color,tint)}).ToArray()}};
+                draw=draw with{Tile=draw.Tile with{Pixels=draw.Tile.Pixels.Select(p=>p with{Color=AfflictionColors.Tint(p.Color,tint,clock)}).ToArray()}};
             Blit(draw,area,colors,mask,owners,entityOwners,session.InvisibilityOpacity(command,opacity?.Get(command)));
         }
-        if(blind!=0)for(int i=0;i<colors.Length;i++)
-            colors[i]=blind==1?(owners[i]==-2&&entityOwners[i]==null?colors[i]:(ushort)0):AfflictionColors.Darken(colors[i]);
+        if(blind!=0)ApplyBlindLight(session,blind,area,colors,commands);
         return new(area,colors,mask,owners,commands,entityOwners);
+    }
+
+    // AM§4(b): while blind every pixel goes through the lighting table, and the only light left is the
+    // own k=5 disc. Mode 2's extra light on some object kinds rests on an inferred kind meaning: not done.
+    static void ApplyBlindLight(WorldSession session,ushort blind,Rectangle area,ushort[] colors,List<Draw> commands){
+        var center=BlindLightCenter(session,commands);
+        int unlit=AfflictionColors.BlindCoefficient(blind,0);
+        for(int i=0;i<colors.Length;i++){
+            int f=unlit;
+            if(center is PointF c){double dx=area.X+i%area.Width+.5-c.X,dy=area.Y+i/area.Width+.5-c.Y;
+                if(Math.Abs(dx)<AfflictionColors.BlindLightRadius&&Math.Abs(dy)<AfflictionColors.BlindLightRadius)
+                    f=AfflictionColors.BlindCoefficient(blind,AfflictionColors.BlindLight(Math.Sqrt(dx*dx+dy*dy)));}
+            colors[i]=AfflictionColors.Scale(colors[i],f);
+        }
+    }
+    static PointF? BlindLightCenter(WorldSession session,List<Draw> commands){
+        uint ownId=session.Actor?.ObjectId??0;
+        var own=commands.Where(d=>d.Layer=="actor"&&(d.ObjectId==0||d.ObjectId==ownId)).ToList();
+        if(own.Count>0){int left=own.Min(d=>d.Px),top=own.Min(d=>d.Py),right=own.Max(d=>d.Px+24),bottom=own.Max(d=>d.Py+24);return new((left+right)/2f,(top+bottom)/2f);}
+        return session.Actor is {} actor?Coordinates.Screen(actor.X,actor.Y):null;
     }
 }
