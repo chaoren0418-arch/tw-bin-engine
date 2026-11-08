@@ -43,6 +43,7 @@
 - SV#4 沒有處理施法者忙碌時整包排隊（`sub_A40250`）的情況；箭矢（S30 flight 127）的轉向不在本組檔案，沒有改。
 - 本組離線測試沒有涵蓋箭矢落點的 `]`：箭矢的釋放時間要讀玩家外型資料（`RangedRules.ReleaseFor`），模組測試環境沒有 `engine/assets`。程式路徑和法術落點共用 `ObserveLandingFrames`。
 - `MagicRenderingTests`（`--magic-render-tests`）與 `DualBlockTests` 要用 `engine/assets` 與 fixtures，這個 worktree 沒有，CI 也沒跑，所以**沒有執行**。其中「heal 在收包時刻畫第 0 格」的斷言在施法者有擷取到動作時會跟新行為不同（新行為是等施法者 `!`）。
+- 2026-11-09 同步 origin/main（落後 5 個 commit，只有 `rebuild-lock.json` 衝突，採 main 版本後 `--update-lock` 重產）：`rebuild.py --build` PASS；`--module-tests` 28 組 1417 項 0 失敗；`combat-admission` 1750 項 PASS；`check-no-game-assets.py` 0 錯誤。
 - CI 結果以 PR 頁面為準。
 
 ## 產出路徑
