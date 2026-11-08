@@ -172,3 +172,4 @@
 - 2026-11-08 — #533 T226：查證原版——視窗世代與待查視窗（resource，claude-local，PR 已合併）→ [報告](reports/issue-533.md)
 - 2026-11-08 — #511 T205：M7-C 城堡：城主、稅率、金庫（code，claude-local，PR 已合併）→ [報告](reports/issue-511.md)
 - 2026-11-08 — #534 T227：查證原版——地圖特效、子特效、水中呼吸與座標特效（resource，claude-local，PR #554 已合併）→ [報告](reports/issue-534.md)
+- 2026-11-08 — #512 T206：M7-D 盟屋清單與地圖（code，claude-local，PR 已合併）→ [報告](reports/issue-512.md)
