@@ -22,7 +22,7 @@
 | 部分 | 引擎有處理，但 reference 文件已查出表現差異，或只做了協定、沒有原版視窗 |
 | 缺 | 引擎沒有對應的處理。依據欄註明「伺服器不支援」的，是 3.81 伺服器沒有對應封包（依 SP 全表），**不建議補** |
 
-**依據代號**：沿用 [`m6-native-diff.md`](m6-native-diff.md) 的代號：AN＝[`actions-and-names.md`](actions-and-names.md)、UI＝[`ui-layout.md`](ui-layout.md)、AM＝[`ambience-and-map-events.md`](ambience-and-map-events.md)、SD＝[`sound.md`](sound.md)、SV＝[`skills-visual.md`](skills-visual.md)、WIN＝[`windows.md`](windows.md)、REA＝[`rea-inventory.md`](rea-inventory.md)、SP＝[`server-protocol.md`](server-protocol.md)、R＝[`server-rules.md`](server-rules.md)。另加 WO＝[`world-objects.md`](world-objects.md)、M6＝[`m6-native-diff.md`](m6-native-diff.md)、PG＝[`protocol-gaps.md`](protocol-gaps.md)（T225）、WIN2＝[`windows-2.md`](windows-2.md)（T226）。「T1xx 審查中」是 `TASKS.md` 已排定、尚未合併的任務。
+**依據代號**：沿用 [`m6-native-diff.md`](m6-native-diff.md) 的代號：AN＝[`actions-and-names.md`](actions-and-names.md)、UI＝[`ui-layout.md`](ui-layout.md)、AM＝[`ambience-and-map-events.md`](ambience-and-map-events.md)、SD＝[`sound.md`](sound.md)、SV＝[`skills-visual.md`](skills-visual.md)、WIN＝[`windows.md`](windows.md)、REA＝[`rea-inventory.md`](rea-inventory.md)、SP＝[`server-protocol.md`](server-protocol.md)、R＝[`server-rules.md`](server-rules.md)。另加 WO＝[`world-objects.md`](world-objects.md)、M6＝[`m6-native-diff.md`](m6-native-diff.md)、PG＝[`protocol-gaps.md`](protocol-gaps.md)（T225）、WIN2＝[`windows-2.md`](windows-2.md)（T226）、EF2＝[`effects-2.md`](effects-2.md)（T227）。「T1xx 審查中」是 `TASKS.md` 已排定、尚未合併的任務。
 
 ## 1. 收包：第一組 dispatch（世界中，`sub_947530`）
 
@@ -101,7 +101,7 @@
 | 223 | S_ABILITY_SCORES | `sub_92C820`／`0x52BC20` | 能力值（六項、加成） | S155 OwnCharStatus2 | `BonusStats.cs` | 已有 | SP S155 |
 | 41 | S_EXP | `sub_93F3B0`／`0x53E7B0` | 經驗值 | S113 Exp | `Rewards.cs` | 已有 | SP S113 |
 | 106 | S_AC | `sub_92C900`／`0x52BD00` | AC 與屬性防禦 | S174 OwnCharAttrDef | `MagicStatus.cs` | 已有 | SP S174 |
-| 219 | S_EFFECT_LOC | `sub_934530`／`0x533930` | 座標特效 | S106 EffectLocation | `SoundPackets.cs`、`MagicRendering.cs` | 部分 | M6 T105：S106 畫面未查證 |
+| 219 | S_EFFECT_LOC | `sub_934530`／`0x533930` | 座標特效 | S106 EffectLocation | `SoundPackets.cs`、`MapEffects.cs` | 部分 | EF2§4（T227）：協定、位置、存活一致；差在素材覆蓋與 `]`（併入 FX2） |
 | 166 | S_SELECTABLE_TIME_LIST | `sub_94BB90`／`0x54AF90` | 可選時間清單（攻城時間） | S_WarTime（opcode 由參數決定） | （無） | 缺 | SP〈容易混淆〉S_WarTime；C_ChangeWarTime 無啟用分派，伺服器不支援 |
 | 52 | S_REQUEST_SUMMON | `sub_9495A0`／`0x5489A0` | 召喚怪物選擇 | S39 ShowSummonList | `Pets.cs`、`PetUi.cs` | 缺 | WIN§1.3 `CSummonUI`；引擎沒有召喚選擇窗 |
 | 25 | S_MAGIC_STATUS | `sub_940F90`／`0x540390` | 魔法狀態（buff 圖示） | S216 SkillIconShield／S250 圖示子碼 | `MagicStatus.cs`、`StatusIcons.cs` | 部分 | UI§4（T199） |
@@ -130,7 +130,7 @@
 | 0 | S_AGIT_LIST | `sub_92E550`／`0x52D950` | 盟屋清單 | S156 HouseList（AuctionBoard） | （無） | 缺 | SP S156；WIN2§5.2：欄位完全一致；`AgitAuctionUI` XML 缺資源 |
 | 18 | S_AGIT_MAP | `sub_92E710`／`0x52DB10` | 盟屋地圖 | S187 HouseMap | （無） | 缺 | SP S187；WIN2§5.2：開舊式 `AgitMapWindow`（區域＝高 16 位元、編號＝低 16 位元） |
 | 45 | S_WARNING_CODE | `sub_94FB00`／`0x54EF00` | 紅字警告 | S105 BlueMessage | `DisplayNotices.cs` | 部分 | UI§2 V2（T200） |
-| 17 | S_BREATH | `sub_931F60`／`0x531360` | 水中呼吸 | S250 WaterLife | `TimedBuffs.cs`、`WorldSession.cs` | 部分 | M6 T153：水中呼吸表現未查證 |
+| 17 | S_BREATH | `sub_931F60`／`0x531360` | 水中呼吸 | S126 SkillIconBlessOfEva | `TimedBuffs.cs`、`WorldSession.cs` | 部分 | EF2§3（T227）：原版只加圖示 effect 11（`552.tbt`），無畫面特效；差異只在圖示（併入狀態圖示任務） |
 | 198 | S_PING | `sub_9465A0`／`0x5459A0` | Ping | 無（C95 KeepAlive 無回包） | `WorldEntry.cs` | 已有 | SP C95；原版回應方式未查 |
 | 172 | S_CLONE | `sub_933640`／`0x532A40` | 分身／外觀複製 | S76 Poly 的 `S_ChangeShape(pc,npc,poly)` 型（推定） | `Polymorph.cs` | 已有 | PG§5：`ddhhcs`，交給變身函式；引擎兩種 S76 都解析 |
 | 228 | S_COMMAND_TARGET | `sub_933760`／`0x532B60` | 指令目標（寵物攻擊目標） | S236 SelectTarget | （無） | 缺 | SP S236；引擎無接收 |
@@ -233,9 +233,9 @@
 
 | UI 名稱 | 類別（RTTI） | 建構子 VA／FO | 本機 XML | 功能 | 引擎對應 | 狀態 | 依據 |
 |---|---|---|---|---|---|---|---|
-| LoginUI | CLoginUI | `0xEE8260`／`0xAE7660` | 缺檔 | 登入畫面 | `LoginControl.cs`、`ClientLogin.cs`（WinForms） | 部分 | `LoginUI.xml` 本機缺檔，版面需先查證 |
-| SelectUI | CSelectUI | `0xEEBB10`／`0xAEAF10` | 缺檔 | 選角畫面 | `CharacterManagementUi.cs` | 部分 | WIN§2 T107 |
-| CreateUI | CCreateUI | `0xEE2DF0`／`0xAE21F0` | 缺檔 | 建角畫面 | `CharacterManagementUi.cs` | 部分 | WIN§2 T107 |
+| LoginUI | CLoginUI | `0xEE8260`／`0xAE7660` | 缺檔 | 登入畫面 | `LoginControl.cs`、`ClientLogin.cs`（WinForms） | 部分 | EF2§5（T227）：本機所有版本都沒有 `LoginUI.xml`，缺資源 |
+| SelectUI | CSelectUI | `0xEEBB10`／`0xAEAF10` | 缺檔 | 選角畫面 | `CharacterManagementUi.cs` | 部分 | WIN§2 T107；EF2§5（T227）：本機所有版本都沒有，缺資源 |
+| CreateUI | CCreateUI | `0xEE2DF0`／`0xAE21F0` | 缺檔 | 建角畫面 | `CharacterManagementUi.cs` | 部分 | WIN§2 T107；EF2§5（T227）：只有他版本（89 參考 PAK）的 `createui.xml`，15 個事件名稱與 TW16 相容，surf 7091–7225 不在本機客戶端 |
 | NewPasswordUI | NewPasswordUI | `0x907580`／`0x506980` | 缺檔 | 改密碼 | （無） | 缺 | 伺服器不支援 |
 | LoadingWindowUI | LoadingWindowUI（Lineage） | `0x6EEEB0`／`0x2EE2B0` | 缺檔 | 讀取畫面 | `WorldEntry.cs`（文字狀態） | 部分 | 需先查證（3.81 世代是否有讀取畫面） |
 | MainChatUI | MainChatUI | `0x7021B0`／`0x3015B0` | 缺檔 | 新版聊天 widget | 原版 800×600 走 `uistatus86` 的 `CENTER_WINDOW`：`PlayerHudChat.cs` | 部分 | UI§3、§2 V5：本機無 widget XML，3.81 世代用 `uistatus86`（T195） |
@@ -305,8 +305,8 @@
 | `MapSystemWindow`、`FieldMapWindow`、`WorldMapWindow`、`VillageMapWindow`、`ImageBasedMapSystemWindow`、`LargeImageBasedMapSystemWindow`、`BGMapWindow`、`SmallBGMapWindow`、`MapWindow`（`0x137AE94`–`0x137AF88`、`0x138DA10`） | 地圖系統（小地圖、世界、村莊） | `Minimap.cs`、`MinimapUi.cs` | 部分 | UI§5（T196）；世界／村莊地圖引擎沒有 |
 | `MapLocationSaveWindow`、`MapCommunicationSelectWindow`（`0x137AFD4`、`0x137AFA8`） | 地圖存點、地圖發送座標（`TransferMenu`） | `LocationShare.cs`、`Bookmarks.cs` | 部分 | WO 第 5 節 |
 | `InputWindow`（`0x137A09C`） | 數量／文字輸入 | `GroundUi.cs`、`NpcUi.cs`（各自的數量框） | 部分 | WIN2§5.3：聊天輸入列提示（YES (361, 567)／NO (401, 567)，W2-E）；S136 改走 NPC 對話 HTML 頁 |
-| `QuitWindow`（`0x13767B0`） | 離開遊戲確認 | （無） | 缺 | 需先查證（WIN2§7：vtable 沒有程式引用，類別使用點未找到；版面見 `uiextra86.xml` `QUIT_WINDOW`） |
-| `CNoticeWindow`（`0x1372600`） | 公告 | `LoginConnection.cs`（自動確認） | 部分 | 需先查證（WIN2§7：vtable 沒有程式引用，類別使用點未找到） |
+| `QuitWindow`（`0x13767B0`） | 離開遊戲確認 | （無） | 缺 | 需先查證（WIN2§7：vtable 沒有程式引用，類別使用點未找到；版面見 `uiextra86.xml` `QUIT_WINDOW`；EF2§5：舊式寫死視窗，不讀 XML） |
+| `CNoticeWindow`（`0x1372600`） | 公告 | `LoginConnection.cs`（自動確認） | 部分 | 需先查證（WIN2§7：vtable 沒有程式引用，類別使用點未找到；EF2§5：舊式寫死視窗，不讀 XML，版面在建構子） |
 | `PKWindow`（`0x138B824`） | PK 狀態 | （無） | 缺 | WIN2§7：第一層沒有收包函式，3.81 無對應；不建議做 |
 | `CCookWindow`（`0x137A28C`） | 料理 | `InventoryUi.cs`（料理書使用） | 部分 | WIN2§7：S250 52 開窗，欄位與 3.81 一致；版面 `uiextra86.xml` `COOK_BOOK_WINDOW`（W2-F） |
 | `TelTablesWindow`（`0x137929C`） | 傳送表 | `Teleport.cs` | 部分 | WIN2§7：S_EVENT 38／45 的使用者清單（推測 GM 工具），與傳送無關；不建議做 |
@@ -324,11 +324,11 @@
 | `sub_A3EF40`／`0x63E340`（`A3FB..` 段） | 動作影格音效選擇（`<`／`[`／`^`、候選 ≤5、0 不重抽） | `CombatSfx.cs`、`ClientCombatSfx.cs` | 已有 | REA 產品差異 1、3（T165 已修） |
 | `sub_A06020`／`0x605420`、`sub_A060F0`／`0x6054F0` | 單次音效與同 sample 200 ms 冷卻 | `SoundRules.cs`、`CombatSfx.cs` | 部分 | SD#5（G8，T173 審查中） |
 | `sub_A06210`／`0x605610` | `^` 循環環境音，每 id 最多 5 個近距音源 | `MapAmbientSound.cs` | 部分 | REA B04、SD（T166 審查中） |
-| `sub_F0B570`／`0xB0A970` | 地圖特效載入與 id→類別表（3442–3446 等） | `MapEffects.cs`、`OriginalMapCache.cs` | 部分 | REA B04：`A4E5D0` 第 7 參數語義未解，需先查證 |
+| `sub_F0B570`／`0xB0A970` | 地圖特效載入與 id→光源半徑表（3442–3446＝隱形光源點 k=5–13） | `MapEffects.cs`、`OriginalMapCache.cs` | 部分 | EF2§1（T227）：第 7 參數＝`actor+9` 光源 k；六成地圖特效是光源，引擎沒有表也沒畫光源（FX1） |
 | `sub_F0E9B0`／`0xB0DDB0` | 地圖 actor 建立（經 `A4E5D0`） | `MapEffects.cs`、`Effect6016Host.cs` | 部分 | REA B04；只有 6016 走完整路徑 |
 | `sub_85E090`／`0x45D490` | MAP-F4 區域特效淡出（`actor+612` 群組） | `OriginalMapCache.cs`（`NotSupportedException`） | 缺 | REA B03：本機 7,807 個 `.s32` 延伸記錄 0 筆，**不建議做** |
 | `sub_A51920`／`0x650D20`（6 個呼叫點） | 物件建立（S87 同身份入口） | `WorldObjects.cs`、`ObjectRendering.cs` | 部分 | PG§7：S_PUT_OBJECT（186）→`sub_9262D0`→`A51920`；同 id 原地覆寫、移動進度歸零；引擎整筆取代，可見差異待驗證 |
-| `sub_A4B060`／`0x64A460`、`sub_A4BA20`／`0x64AE20` | `]` 旗標：建立 `0x2A0` 子特效（推測） | （無） | 缺 | REA〈仍待驗證〉，需先查證 |
+| `sub_A4B060`／`0x64A460`、`sub_A4BA20`／`0x64AE20` | `]` 旗標：建立 `0x2A0` 預設 Effect 子特效（`{`／`}` 為淡入淡出） | （無） | 缺 | EF2§2（T227）：已驗證；list.spr 2,812 處、485 個 sprite（FX2） |
 | `sub_81C7C0`／`0x41BBC0`、`sub_8ABC10`／`0x4AB010` | `!` 旗標：待處理動作的釋放時機 | `MagicRendering.cs`（收包時刻就放） | 部分 | SV§2：特效在施法者 `!` 格、受擊在特效 `!` 格（G12） |
 | （109 kind 0–10，SV§3） | 投射物飛行 kind 3／4／5／7 等 | `ProjectileRendering.cs` | 部分 | SV§3：只做 kind 3／4（G12） |
 | `LineageSpell::CSpell` vtable 第 3 格（SV§1） | 施法只送封包、不在本地播動作 | `Magic.cs`、`SkillCast.cs` | 部分 | SV#1（需使用者裁定） |
@@ -446,13 +446,13 @@ T226（#533）回填後重算：第 4 節依 [`windows-2.md`](windows-2.md) 更�
 | 血盟窗 | `PledgeUI.xml`、`PledgeFocusUI.xml`（本機有）的版面與開窗封包 | #448 解密的 XML；`sub_B2A0C0`／`0x7294C0`；✅ T226（#533）已查：[`windows-2.md`](windows-2.md) 第 3 節 |
 | 變身選擇窗 | `CPolymorphUI`／`CSpecialPolymorphUI` 由哪個封包開啟，與 3.81 的 S39 變身清單 HTML 的關係 | `sub_BF8C00`／`0x7F8000`、`sub_A09770`／`0x608B70`；`polymorphList.xml`；✅ T226（#533）已查：[`windows-2.md`](windows-2.md) 第 4 節 |
 | 城堡、盟屋、數量輸入的畫面 | 城主王冠、稅率／金庫窗（`AgitWindow`、`AgitMapWindow`、`InputWindow`）的版面與按鈕 | 第 1 節 op 252、95、12、49、0、18、224 的處理函式；✅ T226（#533）已查：[`windows-2.md`](windows-2.md) 第 5 節 |
-| 地圖特效 id→類別 | `A4E5D0` 第 7 參數的語義，3442–3446（占地圖特效 31.7%）的行為 | REA B04；`sub_F0B570`／`0xB0A970`、`sub_A4E5D0` |
+| ~~地圖特效 id→類別~~ | ✅ 已查（T227）：第 7 參數＝光源半徑 k；3442–3446＝隱形光源點 k=5–13。可開 FX1 | EF2§1 |
 | S87 同身份入口 | ✅ T225 已查（[PG§7](protocol-gaps.md)）。TW16 的物件建立封包是哪一個 case，`A51920` 的 6 個呼叫點 | REA B07 |
-| `]` 子特效 | `A4B060`、`A4BA20` 建立的 `0x2A0` 物件 | REA〈仍待驗證〉 |
-| 登入流程畫面 | `LoginUI`、`SelectUI`、`CreateUI`、`CNoticeWindow`、`QuitWindow`、`LoadingWindowUI` 的版面（XML 本機缺檔，要使用者提供資源或 3.81 截圖） | WIN§2 T107；第 4 節 |
+| ~~`]` 子特效~~ | ✅ 已查（T227）：預設 Effect，位置／方向取當格擁有者，播完自刪。可開 FX2 | EF2§2 |
+| 登入流程畫面 | T227 已搜本機所有版本：`LoginUI`／`SelectUI`／`ServerName`／`LoadingScene` 缺資源；`CreateUI` 只有他版本候選。剩 `CNoticeWindow`、`QuitWindow` 寫死版面與 `LoadingWindowUI` 待查 | EF2§5；WIN§2 T107；第 4 節 |
 | 其他 XML 窗 | `BookmarkMemoryWindowUI`、`StatInfoUI`、`UserObtainUI`、`QuickMotionUI`、`OptionUI`、`PopUpUI`／`PopupMsgUI`、`LinHelperUI`、`FightPlaceUI`、`SmithUI`、`StoryBookUI`、`QuestUI`、`SiegeUI`、`ZoneNameNotice`、`PetSummonUI` 的觸發封包與 3.81 伺服器是否支援 | 第 4.1 節的建構子地址；✅ T226（#533）已查：[`windows-2.md`](windows-2.md) 第 6 節 |
 | 其他舊式窗 | `PKWindow`、`CCookWindow`、`TelTablesWindow`、`PetInventoryWindow`、`WareHistoryWindow` 與看板／提示類 | 第 4.2 節的 RTTI；✅ T226（#533）已查：[`windows-2.md`](windows-2.md) 第 7 節 |
-| 水中呼吸、座標特效 | S_BREATH（op 17）、S_EFFECT_LOC（op 219）的畫面 | `sub_931F60`／`0x531360`、`sub_934530`／`0x533930`；M6 T105、T153 |
+| ~~水中呼吸、座標特效~~ | ✅ 已查（T227）：S_BREATH 只加圖示 effect 11；S_EFFECT_LOC 與引擎一致（`]` 併入 FX2） | EF2§3、§4 |
 | 信件、釣魚、能力值重置 | XML 本機缺檔（`RenewalMailUI`、`FishingUI`、`ResetStatUI`） | WIN§3；✅ T226（#533）已查：[`windows-2.md`](windows-2.md) 第 8 節 |
 
 ## 9. 限制

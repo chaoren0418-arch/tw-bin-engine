@@ -18,6 +18,7 @@
     <Compile Include="../ghost-limits-tests/GhostLimitsChecks.cs" Link="GhostLimitsChecks.cs" />
     <Compile Include="../doors-tests/DoorChecks.cs" Link="DoorChecks.cs" />
     <Compile Include="../pickup-tests/PickupChecks.cs" Link="PickupChecks.cs" />
+    <Compile Include="../doors-tests/DoorApproachChecks.cs" Link="DoorApproachChecks.cs" />
     <Compile Include="../fishing-tests/FishingChecks.cs" Link="FishingChecks.cs" />
     <Compile Include="../pets-tests/PetChecks.cs" Link="PetChecks.cs" />
     <Compile Include="../duel-tests/DuelChecks.cs" Link="DuelChecks.cs" />
@@ -34,6 +35,7 @@
     <Compile Include="../portals-tests/PortalChecks.cs" Link="PortalChecks.cs" />
     <Compile Include="../item-transfer-tests/ItemTransferChecks.cs" Link="ItemTransferChecks.cs" />
     <Compile Include="../location-share-tests/LocationShareChecks.cs" Link="LocationShareChecks.cs" />
+    <Compile Include="../location-share-tests/LocationRegionChecks.cs" Link="LocationRegionChecks.cs" />
     <Compile Include="../name-display-tests/NameDisplayChecks.cs" Link="NameDisplayChecks.cs" />
     <Compile Include="../native-ui-tests/ResourceChecks.cs" Link="ResourceChecks.cs" />
     <Reference Include="P11.ClientEngine"><HintPath>../../../build/client-product-dev/P11.ClientEngine.dll</HintPath></Reference>
