@@ -66,6 +66,11 @@
 - `rebuild.py --build` → **`PASS dev`**，productDll `7abc1212…be93`。
 - `native-ui-macro` → **PASS 402**（合成資料；真實客戶端渲染此輪 SKIP）。
 
+### 第二次同步 main（2026-11-09，合併 #568 等 16 個 commit）
+- `rebuild-lock.json` 衝突以 main 版為底，`rebuild.py --update-lock` 重產（279 個來源檔／288 個鎖定檔）。
+- `rebuild.py --build` → **`PASS dev`**，productDll `03f14982…d0c6`。
+- `native-ui-macro` → **PASS 402**（真實客戶端渲染 SKIP）。
+
 ## 已驗證／推測／待驗證
 
 **已驗證**（V5 或 XML，加上本輪真實渲染核對）：底框、分頁鈕、選取框、鎖定鈕的 XML 座標；8 格與擴充 12 格的座標與格距；點擊換算公式；F1–F3＝分頁、F5–F12＝目前分頁第 0–7 格、雙擊＝使用；數量文字位置與顏色（黃字、黑影、上限 99999）；擴充巨集位於 BAR_485。
