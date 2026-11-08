@@ -176,3 +176,4 @@
 - 2026-11-08 — #569 T-plan：M7 補列 T228–T243，同步狀態（plan，claude-chat，PR 已合併）→ [報告](reports/issue-569.md)
 - 2026-11-08 — #521 T215：M7-O 發送座標對齊原版（code，claude-local，PR 已合併）→ [報告](reports/issue-521.md)
 - 2026-11-08 — #523 T217：M7-Q 施法：拿掉本地預測動作，冷卻改用動作影格總長（code，claude-local，PR 已合併）→ [報告](reports/issue-523.md)
+- 2026-11-08 — #519 T213：M7-M 門：自動走近（code，claude-local，PR 已合併）→ [報告](reports/issue-519.md)
