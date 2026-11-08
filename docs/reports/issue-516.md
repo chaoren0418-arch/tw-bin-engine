@@ -62,6 +62,10 @@
   - `demo-tests/Program.cs` 衝突：取 main 版，再把 `YesNoPromptChecks()` 接在 `MarriageChecks()` 後面。
   - 重建 `PASS dev`，productDll SHA-256 `82a0c258…1b1a65`；`check-no-game-assets.py` pass。
   - 重跑 `yes-no`、`map-continuity`、`combat-admission`、`duel`、`item-status`、`native-ui-resources`、`afflictions`、`resurrection`、`polymorph-cadence`、`buddies`、`item-transfer`、`doors`、`pickup`，13 組全綠。
+- **第三輪同步 origin/main（2026-11-08，含 #511／#512／#521／#522／#532–#534／#569）**：
+  - 只有 `rebuild-lock.json` 衝突：取 main 版後用 `--update-lock` 重產；`Program.cs` 自動合併，`YesNoPromptChecks()` 仍接在入口上。
+  - 重建 `PASS dev`，productDll SHA-256 `d6ddee77…6fa6fa4`；`check-no-game-assets.py` pass。
+  - 重跑上面 13 組加 `hypertext`，14 組全綠（`yes-no` 425、`map-continuity` 33117、`combat-admission` 1728）。
 
 ## 沒驗證什麼（含推測）
 
