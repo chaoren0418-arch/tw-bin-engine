@@ -42,6 +42,7 @@
 | CI | 見 PR |
 | 2026-11-08 同步 origin/main（含 #518 拾取、#504、#535）後重驗 | 只有 `rebuild-lock.json` 衝突：取 main 版本後用 `--update-lock` 重產（238 個來源檔）；`rebuild.py --build` PASS（product DLL `dbba949a…`）；`DemoChecks … background-music` PASS 434；`check-no-game-assets.py` pass（errors 0） |
 | 2026-11-08 第二次同步 origin/main（含 #509、#524 hypertext）後重驗 | 衝突：`demo-tests/Program.cs`（取 main 的 `HyperTextChecks` 版本，再補回 `BackgroundMusicChecks()`）與 `rebuild-lock.json`（取 main 版本後 `--update-lock` 重產，240 個來源檔）；`rebuild.py --build` PASS（product DLL `150533e5…`）；`background-music` PASS 434；`map-continuity` PASS 33090；`hypertext` PASS 357；`check-no-game-assets.py` pass（errors 0） |
+| 2026-11-08 第三次同步 origin/main（含 #533、#534、#569 等）後重驗 | 只有 `rebuild-lock.json` 衝突：取 main 版本後 `--update-lock` 重產（244 個來源檔）；`rebuild.py --build` PASS（product DLL `a400ccc6…`）；`background-music` PASS 434；`map-continuity` PASS 33126；`check-no-game-assets.py` pass（errors 0） |
 
 本機實際客戶端核對（唯讀，只在本機執行，CI 會略過）：
 

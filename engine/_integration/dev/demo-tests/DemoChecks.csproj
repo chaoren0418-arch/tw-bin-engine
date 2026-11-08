@@ -34,6 +34,7 @@
     <Compile Include="../portals-tests/PortalChecks.cs" Link="PortalChecks.cs" />
     <Compile Include="../item-transfer-tests/ItemTransferChecks.cs" Link="ItemTransferChecks.cs" />
     <Compile Include="../location-share-tests/LocationShareChecks.cs" Link="LocationShareChecks.cs" />
+    <Compile Include="../location-share-tests/LocationRegionChecks.cs" Link="LocationRegionChecks.cs" />
     <Compile Include="../name-display-tests/NameDisplayChecks.cs" Link="NameDisplayChecks.cs" />
     <Compile Include="../native-ui-tests/ResourceChecks.cs" Link="ResourceChecks.cs" />
     <Reference Include="P11.ClientEngine"><HintPath>../../../build/client-product-dev/P11.ClientEngine.dll</HintPath></Reference>
