@@ -22,6 +22,15 @@ jobs:
           dotnet restore source/OfflineClient.csproj --configfile ../.github/nuget.ci.config
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           dotnet build source/OfflineClient.csproj -c Release --no-restore -o build/client-product-dev
+      - name: World module extension tests (all [WorldModuleTest] methods, no game or network)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-509 | Out-Null
+          $out = Join-Path $PWD 'scratch/issue-509/module-tests.json'; $err = Join-Path $PWD 'scratch/issue-509/module-tests-error.json'
+          $p = Start-Process -FilePath engine/build/client-product-dev/P11.ClientEngine.exe -ArgumentList '--module-tests', "`"$out`"", '--error-log', "`"$err`"" -Wait -PassThru -NoNewWindow
+          if (Test-Path $out) { Get-Content $out }
+          if (Test-Path $err) { Get-Content $err }
+          exit $p.ExitCode
       - name: Synthetic cave, ship, inn and map effect checks (no game or network)
         shell: pwsh
         run: |
@@ -114,6 +123,12 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force scratch/issue-518 | Out-Null
           dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-518/pickup.json pickup
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: HyperText query result contracts T218 (no game or network)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-524 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-524/hypertext.json hypertext
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Combat sound selection contracts (no game, assets or audio device)
         shell: pwsh
