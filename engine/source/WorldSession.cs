@@ -30,7 +30,7 @@ public sealed partial class WorldSession {
     void ReceiveCore(byte[] plain,string selected){
         var r=new LoginReader(plain);byte opcode=r.C();
         // Observe party HP before Combat consumes S237; retain its existing actor/target HP update.
-        switch(opcode){case 237:ReceivePartyHp(plain);break;case 120:case 158:ObserveWeatherObject(opcode,plain);break;}
+        switch(opcode){case 237:ReceivePartyHp(plain);break;case 219:ObserveResurrectionPrompt(plain);break;case 120:case 158:ObserveWeatherObject(opcode,plain);break;}
         // Run both: S219 is one shared Yes-No slot, so each module must see the other's invitation to expire its own.
         bool partyHandled=ReceiveParty(opcode,plain),duelHandled=ReceiveDuel(opcode,plain);
         if(partyHandled||duelHandled)return;
@@ -64,6 +64,7 @@ public sealed partial class WorldSession {
         }
         if(ReceiveRecovery(opcode,r)||ReceivePlayerChat(opcode,r,plain)||ReceiveSustenance(opcode,r,plain)||ReceiveBonusStats(opcode,r,plain)||ReceivePrivateShop(opcode,r,plain)||ReceiveTeleport(opcode,r)||ReceiveTrade(opcode,r)||ReceiveInteraction(opcode,r)||ReceiveMagic(opcode,r,plain)||ReceiveBookmarkList(opcode,r,plain)||ReceiveEquipment(opcode,r,plain)||ReceiveInventory(opcode,r,plain)||ReceiveExperience(opcode,r)||ReceiveCombat(opcode,r,plain)||ReceiveObjectDelta(opcode,r)){BasicSupplyReply(opcode,plain);return;}
         switch(opcode){
+        case 241:ReceiveMoveLock(r);break;
         case 92:ReceiveBookmark(r);break;
         case 186:ReceiveMail(plain);break;
         case 72:ReceiveClanUpdate(plain);break;
