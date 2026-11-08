@@ -48,9 +48,9 @@
 
 | 項目 | 結果 |
 |---|---|
-| `rebuild.py --update-lock` → `rebuild.py --build` | PASS；同步 origin/main（#557）後重驗 productDll `6cf95b4d…` |
-| `P11.ClientEngine.exe --module-tests`（全部 18 組） | pass；同步後 953 項檢查，`friend-panel` 104 項全過 |
-| demo-tests：CI 會跑的 14 組（map-continuity、combat-admission、item-status、native-ui-resources、native-ui-canvas、afflictions、resurrection、polymorph-cadence、buddies、item-transfer、doors、pickup、door-approach、hypertext） | 全部 PASS（buddies 496、native-ui-canvas 429 項） |
+| `rebuild.py --update-lock` → `rebuild.py --build` | PASS；第二次同步 origin/main（含 #568）後重驗 productDll `031919db…` |
+| `P11.ClientEngine.exe --module-tests`（全部 18 組） | pass；第二次同步後 19 組、978 項檢查，`friend-panel` 104 項全過 |
+| demo-tests：CI 會跑的 14 組（map-continuity、combat-admission、item-status、native-ui-resources、native-ui-canvas、afflictions、resurrection、polymorph-cadence、buddies、item-transfer、doors、pickup、door-approach、hypertext） | 全部 PASS（第二次同步後重跑；native-ui-resources 不設 `TW_CLIENT_ROOT`，其餘 13 組把它指到不存在的路徑，見環境備註） |
 | `engine/tools/check-no-game-assets.py` | pass，errors 0 |
 | 本機選用檢查 `friend-panel-real`（真實 `Tile.pak`／`Sprite*.pak`，唯讀） | pass，45 項 |
 
