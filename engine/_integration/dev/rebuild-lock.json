@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 272,
+ "sourceCount": 274,
  "files": [
   {
    "path": "NuGet.Config",
@@ -730,6 +730,11 @@
    "sha256": "599be507ea3f428e5f279566d748755539f9f35a30d80f666fbc282e631c4a44"
   },
   {
+   "path": "source/NativeUi/TradeWindowPanel.cs",
+   "size": 8210,
+   "sha256": "cfc1c28e79c51bfcac7be4f00edfb2ad2b67ec59d1d83c540897b05f2747dc1a"
+  },
+  {
    "path": "source/NativeUi/UiCanvas.cs",
    "size": 2677,
    "sha256": "846cffab333e656a3b80ae2f574e230b8f0ee731e3cbfbbf9b40dcbdc9016bd1"
@@ -756,8 +761,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 723,
-   "sha256": "0978c88c5ae87888da72c39eeab23c1301f748d958a10edd8b83144640359b12"
+   "size": 836,
+   "sha256": "7f9b2a1ffb732c49ca5bba7831b1be9938b0eca78d9c043aa0dbcdbc2e61cdae"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
@@ -806,8 +811,8 @@
   },
   {
    "path": "source/NpcServices.cs",
-   "size": 10153,
-   "sha256": "4de5f43f17b1aa0d6aa2fd818825a29db399bf64cabde7bd7d7ac482d16a9fab"
+   "size": 10449,
+   "sha256": "a7b7d90c5a4b8ccba0e9f1e6f63361ed6ef249c84a811ad46bb2fa0f524fa437"
   },
   {
    "path": "source/NpcTemplates.cs",
@@ -1285,14 +1290,19 @@
    "sha256": "007b0f58d5e0e41f035abf044673430645aff0e199930b58c91047bd77c3d544"
   },
   {
+   "path": "source/TradeWindowTests.cs",
+   "size": 15919,
+   "sha256": "050ff6d10cd78fb24b79288ff226bafeb5c9e1515b13308bf4eec27760542831"
+  },
+  {
    "path": "source/WeaponRepair.cs",
-   "size": 9242,
-   "sha256": "d41aac768346d1e601886c492af4a8073b9da4fd4d3ab689e846466aef1334a2"
+   "size": 16356,
+   "sha256": "12c3b0d0b8eb02524711aa0fed5b0520ef939c2d281e13e5811a5a645e23125c"
   },
   {
    "path": "source/WeaponRepairUi.cs",
-   "size": 3175,
-   "sha256": "03a40e13f6c4596aae1290c2ffea0f332fb325c3d3372aed7f74790da2d604f3"
+   "size": 1685,
+   "sha256": "0b9724347dd2b9b5bd51d1c3a3255bee53ea15615bfb045354b244615208a2c8"
   },
   {
    "path": "source/WebIconResource.cs",
