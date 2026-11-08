@@ -42,8 +42,38 @@ public sealed partial class WorldSession {
         CloseInteraction((LastServerMessage??"收到伺服器訊息")+"\n"+guidance);InteractionHasResult=true;
     }
     public bool OpenDialogLink(int option,int revision){CheckInteraction();if(!InteractionValid||revision!=InteractionRevision||InteractionKind!="dialog")return false;var o=InteractionPage?.Options.FirstOrDefault(o=>o.Id==option&&o.Enabled&&o.Kind=="link");if(o==null)return false;ShowPage(o.Value);return true;}
-    void ShowPage(string key){ClearNpcService();InteractionRevision++;InteractionKind="dialog";ShopRows=[];InteractionPage=DialogTemplates?.Render(key,dialogArguments,dialogNpcName,Actor?.Name??"")??new("對話資源尚未載入。",[],"");InteractionNotice=InteractionPage.Limitation;}
+    void ShowPage(string key,string[]? fallback=null){ClearNpcService();InteractionRevision++;InteractionKind="dialog";ShopRows=[];InteractionPage=RenderHyperText(key,dialogArguments,dialogNpcName,fallback);InteractionNotice=InteractionPage.Limitation;}
+    // WIN§2.1: one HYPER_TEXT_WINDOW shows NPC pages and S39 query results. The native layout waits for T190;
+    // until then known query pages without a template are shown as decoded plain text, never as markup.
+    public const string HyperTextFallbackNotice="查詢結果以解碼後的文字顯示；原版 HYPER_TEXT_WINDOW 版面尚未實作。";
+    NpcPage RenderHyperText(string key,string[] args,string npc,string[]? fallback){
+        var page=DialogTemplates?.Render(key,args,npc,Actor?.Name??"");
+        bool missing=page==null||page.Options.Length==0&&page.Text=="缺少此對話的原始繁中模板："+key;
+        if(missing&&fallback!=null)return new(string.Join("\n",fallback),[],HyperTextFallbackNotice);
+        return page??new("對話資源尚未載入。",[],"");
+    }
+    string[]? dialogFallback;
+    // Consumed by the very next S39 dispatch (same packet); see ReceivePlayerQueryHtml.
+    internal void OfferDialogFallback(string[] lines)=>dialogFallback=lines;
+    // Self-addressed S_HYPERTEXT results (y_who, pc_show, /rank pages). Kept apart from the NPC context so
+    // a pending dialog, shop or submitted order is never replaced; both share the NPC panel.
+    public NpcPage? QueryPage {get;private set;}
+    public string QueryHtml {get;private set;}="";
+    public int QueryRevision {get;private set;}
+    int queryEpoch;
+    public bool QueryVisible=>QueryPage!=null&&Ready&&queryEpoch==WorldEpoch;
+    internal void ShowQueryPage(uint self,string html,string[] args,string[] lines){
+        var page=RenderHyperText(html,args,Actor?.Name??"",lines);
+        // Self pages have no NPC to receive C125; links/actions stay visible but disabled.
+        if(page.Options.Length>0)page=page with{Options=page.Options.Select(o=>o with{Enabled=false}).ToArray(),Limitation=string.Join("\n",new[]{page.Limitation,"查詢結果頁的選項尚未支援。"}.Where(s=>s.Length>0))};
+        QueryPage=page;QueryHtml=html;queryEpoch=WorldEpoch;QueryRevision++;
+    }
+    public bool CloseQueryPage(){if(QueryPage==null)return false;QueryPage=null;QueryHtml="";QueryRevision++;return true;}
+    // HyperAct name table (TW16 FO 0xDA78A4 "checkpk", next to "fix"/"getall"/"exitghost"): the client handles
+    // this action itself and sends the field-less C_CHECK_PK instead of C_HACTION.
+    public const string CheckPkAction="checkpk";
     bool ReceiveInteraction(byte opcode,LoginReader r){
+        string[]? fallback=dialogFallback;dialogFallback=null;
         if(ReceiveNpcService(opcode,r))return true;
         if(opcode is not (39 or 70 or 65))return false;
         uint npc=r.D();CheckInteraction();bool accept=InteractionValid&&npc==InteractionNpc;
@@ -53,7 +83,7 @@ public sealed partial class WorldSession {
                 r.Finish();if(npc==0||Status?.ObjectId!=npc)throw new ProtocolException("bonus stats self identity");
                 ReceiveBonusOffer(npc);return true;
             }
-            ushort flag=r.H(),count=r.H();if(flag>1||count>256||flag==0&&count!=0)throw new ProtocolException("dialog arguments");var args=new string[count];for(int i=0;i<count;i++)args[i]=r.S();r.Finish();if(!accept)return true;if(html.Length==0){CloseInteraction("伺服器已關閉對話。");return true;}dialogArguments=args;dialogNpcName=Target?.Name??"";ShowPage(html);return true;}
+            ushort flag=r.H(),count=r.H();if(flag>1||count>256||flag==0&&count!=0)throw new ProtocolException("dialog arguments");var args=new string[count];for(int i=0;i<count;i++)args[i]=r.S();r.Finish();if(!accept)return true;if(html.Length==0){CloseInteraction("伺服器已關閉對話。");return true;}dialogArguments=args;dialogNpcName=Target?.Name??"";ShowPage(html,fallback);return true;}
         int n=r.H();if(n>2048)throw new ProtocolException("shop list too large");var rows=new List<ShopRow>();var ids=new HashSet<uint>();
         for(int i=0;i<n;i++){uint id=r.D();if(!ids.Add(id))throw new ProtocolException("duplicate shop identity");ushort icon=opcode==70?r.H():(ushort)0;uint price=r.D();if(price>int.MaxValue)throw new ProtocolException("shop price");string name=opcode==70?r.S():inventory.GetValueOrDefault(id)?.Name??"未持有物件 "+id;string status=opcode==70?Bytes(r,r.C()):"";uint available=opcode==70?int.MaxValue:inventory.GetValueOrDefault(id)?.Count??0;rows.Add(new(id,icon,price,name,available,status));}
         // Lists have no request ID: never let a duplicate reply reopen a submitted order.
@@ -61,7 +91,7 @@ public sealed partial class WorldSession {
     }
     public bool CanSubmitShop=>InteractionValid&&InteractionKind is "buy" or "sell"&&shopCurrency==7&&ShopRows.Length>0;
     public bool ValidateShop(IReadOnlyList<ShopChoice> choices){if(!CanSubmitShop||choices.Count is <1 or >255||choices.Select(c=>c.Id).Distinct().Count()!=choices.Count)return false;long total=0;foreach(var c in choices){var row=ShopRows.FirstOrDefault(r=>r.Id==c.Id);if(row==null||c.Count is 0 or >int.MaxValue)return false;if(InteractionKind=="sell"&&(c.Count>row.Available||!inventory.TryGetValue(c.Id,out var item)||c.Count>item.Count))return false;total+=(long)c.Count*row.Price;if(total>int.MaxValue)return false;}return true;}
-    public object InteractionSnapshot()=>new{revision=InteractionRevision,epoch=WorldEpoch,targetRevision=TargetRevision,npcId=InteractionNpc,targetId=TargetId,kind=InteractionKind,hasResult=InteractionHasResult,notice=InteractionNotice,text=InteractionPage?.Text,options=InteractionPage?.Options.Select(o=>new{id=o.Id,label=o.Label,enabled=o.Enabled,kind=o.Kind}),rows=ShopRows.Select(r=>new{id=r.Id,icon=r.Icon,price=r.Price,name=r.Name,available=r.Available}),currency=shopCurrency,title=InteractionTitle,priceLabel=InteractionPriceLabel,selection=IsInteractionSelection,feePerRow=InteractionKind=="withdraw",canSubmit=CanSubmitShop||CanSubmitService};
+    public object InteractionSnapshot()=>new{revision=InteractionRevision,epoch=WorldEpoch,targetRevision=TargetRevision,npcId=InteractionNpc,targetId=TargetId,kind=InteractionKind,hasResult=InteractionHasResult,notice=InteractionNotice,text=InteractionPage?.Text,options=InteractionPage?.Options.Select(o=>new{id=o.Id,label=o.Label,enabled=o.Enabled,kind=o.Kind}),rows=ShopRows.Select(r=>new{id=r.Id,icon=r.Icon,price=r.Price,name=r.Name,available=r.Available}),currency=shopCurrency,title=InteractionTitle,priceLabel=InteractionPriceLabel,selection=IsInteractionSelection,feePerRow=InteractionKind=="withdraw",canSubmit=CanSubmitShop||CanSubmitService,query=QueryVisible?new{revision=QueryRevision,html=QueryHtml,text=QueryPage!.Text,notice=QueryPage.Limitation}:null};
 }
 public sealed partial class LoginConnection {
     bool interactionSending;
@@ -77,7 +107,7 @@ public sealed partial class LoginConnection {
         if(interactionSending||MovementBusy||sendMovementGate==null)return false;
         byte[] packet;bool shop=command=="shop";string service="";
         if(command=="talk"){if(!CanTalk)return false;packet=NpcPackets.Talk(World.TargetId!.Value);}
-        else if(command=="option"){var selected=World.InteractionPage?.Options.FirstOrDefault(o=>o.Id==option&&o.Enabled&&o.Kind=="action");if(!World.InteractionValid||selected==null||World.InteractionKind!="dialog")return false;service=selected.Value switch{"buyspell"=>"skill-list","retrieve"=>"withdraw-list",_=>""};packet=service=="skill-list"?ServicePackets.SkillList(World.InteractionNpc!.Value):NpcPackets.Action(World.InteractionNpc!.Value,selected.Value);}
+        else if(command=="option"){var selected=World.InteractionPage?.Options.FirstOrDefault(o=>o.Id==option&&o.Enabled&&o.Kind=="action");if(!World.InteractionValid||selected==null||World.InteractionKind!="dialog")return false;service=selected.Value switch{"buyspell"=>"skill-list","retrieve"=>"withdraw-list",_=>""};packet=service=="skill-list"?ServicePackets.SkillList(World.InteractionNpc!.Value):string.Equals(selected.Value,WorldSession.CheckPkAction,StringComparison.OrdinalIgnoreCase)?WeaponRepairPackets.CheckPk():NpcPackets.Action(World.InteractionNpc!.Value,selected.Value);}
         else if(shop){if(choices==null)return false;service=World.IsServiceSelection?World.InteractionKind:"";if(service!=""?!World.ValidateService(choices):!World.ValidateShop(choices))return false;choices=choices.ToArray();packet=service=="skills"?ServicePackets.Learn(choices):service is "deposit" or "withdraw"?ServicePackets.Warehouse(World.InteractionNpc!.Value,service=="withdraw",choices):NpcPackets.Shop(World.InteractionNpc!.Value,World.InteractionKind=="sell",choices);}
         else return false;
         int session=generation;var sender=sendMovementGate;interactionSending=true;
