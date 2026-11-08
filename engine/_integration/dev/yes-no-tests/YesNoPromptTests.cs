@@ -40,7 +40,7 @@ partial class Checks {
             Feed(c,YesNoAsk(1000));var old=c.YesNoSnapshot();Feed(c,YesNoAsk(1001));
             Check(c.YesNoSnapshot().Prompt?.Message==1001&&!await c.AnswerYesNo(old,"y")&&sent.Count==0,"yes-no newer S219 replaces the single input-line prompt");
             Feed(c,YesNoAsk(252,12,0,"target"));
-            Check(c.YesNoSnapshot().Prompt==null&&c.World.TradeState=="invited","yes-no special 252 clears prompt and stays with trade");
+            Check(c.YesNoSnapshot().Prompt is {Message:252,RequestId:12}&&c.World.TradeState=="invited","yes-no special 252 replaced by trade-owned question (M7-K)");
             Feed(c,YesNoAsk(1000));Set(c.World,"WorldEpoch",c.World.WorldEpoch+1);
             Check(c.YesNoSnapshot().Prompt==null,"yes-no world epoch invalidates prompt");
             Feed(c,YesNoAsk(1000));var stamp=c.YesNoSnapshot();Set(c,"generation",stamp.Generation+1);
@@ -88,7 +88,7 @@ partial class Checks {
         }
         using(var c=DuelSeed()){
             Feed(c,DuelPrompt());Feed(c,DuelPrompt("trader",252,12));
-            Check(c.YesNoSnapshot().Prompt==null&&c.World.DuelSnapshot.Phase=="expired","yes-no duel prompt replaced by trade");
+            Check(c.YesNoSnapshot().Prompt?.Message==252&&c.World.DuelSnapshot.Phase=="expired","yes-no duel prompt replaced by trade");
         }
         foreach(bool yes in new[]{false,true})using(var c=MarriageSeed()){
             var sent=YesNoWire(c);Feed(c,MarriageInvite());var v=c.YesNoSnapshot();

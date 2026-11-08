@@ -18,7 +18,8 @@
 
 ## 怎麼驗證（已驗證）
 
-- 同步 origin/main（#468 聊天窗）：只有 `rebuild-lock.json` 衝突，改用 main 版本後 `--update-lock` 重產（288 個來源檔／297 個鎖定檔）→ `rebuild.py --build` → `PASS dev`，productDll `53f69815…9969`。
+- 第二次同步 origin/main（落後 82 個 commit，2026-11-09）：同樣只有 `rebuild-lock.json` 衝突，取 main 版後 `--update-lock` 重產（309 個來源檔／318 個鎖定檔）→ `rebuild.py --build` → `PASS dev`，productDll `1b8e5e85…4291`；`--module-tests` 28 組、1452 項全過（`pledge-panel` 82 項），結束碼 0；`check-no-game-assets.py` pass、errors 0。
+- 第一次同步 origin/main（#468 聊天窗）：只有 `rebuild-lock.json` 衝突，改用 main 版本後 `--update-lock` 重產（288 個來源檔／297 個鎖定檔）→ `rebuild.py --build` → `PASS dev`，productDll `53f69815…9969`。
 - `P11.ClientEngine.exe --module-tests`：19 組、992 項全過，結束碼 0（`pledge-panel` 82 項，其餘 18 組既有測試照舊通過）。
 - `DemoChecks`：`native-ui-canvas` 429、`native-ui-resources` 539、`native-ui-macro` 403、`native-ui-chat-window` 446、`native-ui-hpmp` 397、`native-ui-left-status` 370，全過。
 - 本機建置需要離線 NuGet `engine/vendor`。worktree 裡沒有，所以臨時建了指向主專案 `engine/vendor` 的 junction（git 忽略），用完已用 `rmdir`（不遞迴）拆掉。
