@@ -91,8 +91,8 @@
   },
   {
    "path": "source/ActionCadence.cs",
-   "size": 7854,
-   "sha256": "f533f652619d26639ca2725cb5c3b5c07f9a13bbfe9fcdc8d8164d7d0e9486a5"
+   "size": 8568,
+   "sha256": "d730b3b2c283379c378f72f854911ba69d6b6805005b4ef960b720dde8e42c33"
   },
   {
    "path": "source/Afflictions.cs",
@@ -316,8 +316,8 @@
   },
   {
    "path": "source/Doors.cs",
-   "size": 6741,
-   "sha256": "46bff83d398f3db14ac5dbc575731ca9fb5a792138e1f635f4b7729f6ee45dbd"
+   "size": 9247,
+   "sha256": "106a6ad55d06b2007700cd6cc62175814c03cfd116eb0c8cb5eaefb6697974aa"
   },
   {
    "path": "source/DualBlockTests.cs",
@@ -506,8 +506,8 @@
   },
   {
    "path": "source/LoginConnection.cs",
-   "size": 10741,
-   "sha256": "16e34f82376fd4319fe44e9699d36502443322e59285a6a12c0d796ddbdf6a74"
+   "size": 11483,
+   "sha256": "e964c60288d19f7abd8f2a89e8946f1021c4ec21f776e11210828f6ac68f04f2"
   },
   {
    "path": "source/LoginControl.cs",
@@ -526,8 +526,8 @@
   },
   {
    "path": "source/Magic.cs",
-   "size": 11248,
-   "sha256": "9377f05f1a67a4c3de692619ae77c1be516400da537423343db5952f902c8111"
+   "size": 11150,
+   "sha256": "5495a506e43dca615660b8e5dc74863f7878e94d4e220dc4f168c1b62cd59ae7"
   },
   {
    "path": "source/MagicIntegration.cs",
@@ -556,8 +556,8 @@
   },
   {
    "path": "source/MagicStatus.cs",
-   "size": 8230,
-   "sha256": "4ee0df2c149b2e630094a2dddf2751f84cd6c24b4183ce376ded75aa2f01f1f6"
+   "size": 8409,
+   "sha256": "f7b690920000c5a78ee78649cf6f85b2a2575ea0e7d694de028046e63475d867"
   },
   {
    "path": "source/MagicTargetPreparation.cs",
@@ -805,6 +805,16 @@
    "sha256": "8c7009fd8483196beda9108a07a01f54b1e02d4447ba6cb3c6b88fb78b15d084"
   },
   {
+   "path": "source/PacketBoxStatus.cs",
+   "size": 12806,
+   "sha256": "68af4dc8e0d334f142996b5f8df8d80f1a7a36a81952593bf3e421b4494ec472"
+  },
+  {
+   "path": "source/PacketBoxStatusTests.cs",
+   "size": 9955,
+   "sha256": "76884d8934e33f9fb1d414eddb8499825b0fee181f9505bcb1f6ab56464465f2"
+  },
+  {
    "path": "source/PacketTrace.cs",
    "size": 7341,
    "sha256": "1172b568b9702a0db588cbb5818cc85988bece0e0fd6586af58db6f9469e86d2"
@@ -1048,6 +1058,11 @@
    "path": "source/SceneOpacity.cs",
    "size": 10505,
    "sha256": "d8e1f4ca80c0cd790b72f94f8a5a1837a6b00e85688afbd724773b2cc56a4e09"
+  },
+  {
+   "path": "source/ServerFeatures.cs",
+   "size": 12649,
+   "sha256": "31ebfb8dad400767d1ceea30364a1202e769b7ed93b19ee247efe66c31731dcc"
   },
   {
    "path": "source/ServerMessageText.cs",
