@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 242,
+ "sourceCount": 248,
  "files": [
   {
    "path": "NuGet.Config",
@@ -133,6 +133,11 @@
    "path": "source/AudioApiTransport.cs",
    "size": 2031,
    "sha256": "039d63ef093732b02fb3b66041fcd185a7b1e70939690652c8409c762a8d37f9"
+  },
+  {
+   "path": "source/BackgroundMusic.cs",
+   "size": 8669,
+   "sha256": "7afc6cca2f19da811ca823f13b99f6aebb4fdeeb1c1e45712c560a9f12ec10c3"
   },
   {
    "path": "source/BasicSupplies.cs",
@@ -270,9 +275,14 @@
    "sha256": "4fd35c310e4dce8cb56e943ca7dde9f44c952b262aa5f1c1ee3142cc3c6d007c"
   },
   {
+   "path": "source/ClientSoundScene.cs",
+   "size": 3682,
+   "sha256": "16d80ab1675ce63b2ef92a48521a65ec50a4160e598f3281e816132de65ae695"
+  },
+  {
    "path": "source/Combat.cs",
-   "size": 13564,
-   "sha256": "b41b61b9f0a78575dcc817cbe9492706d5e73ea0e575a218802923d82a65fa68"
+   "size": 13669,
+   "sha256": "987cbb8c1eedfb4ae93f411231ca8c1dc9d1503b3e4a7de4ea4ecc47b4383b67"
   },
   {
    "path": "source/CombatRegression.cs",
@@ -353,6 +363,11 @@
    "path": "source/Effect6016Host.cs",
    "size": 8406,
    "sha256": "d8214e2973b033126f1bf865546a6fac64666808ece64a0a3f9da8db54a11891"
+  },
+  {
+   "path": "source/EnvSoundDefinition.cs",
+   "size": 6856,
+   "sha256": "aa26a1aab9405d7cda9ffeea53b49bec7e9228d3040c0dd3e1344b6debe34628"
   },
   {
    "path": "source/Equipment.cs",
@@ -601,8 +616,13 @@
   },
   {
    "path": "source/MapEffects.cs",
-   "size": 11097,
-   "sha256": "bb4c45a806b80fba5d0119542952919ad881852e69fa936b436f217656bb53b7"
+   "size": 11181,
+   "sha256": "22669cc170fc140063e322ba84b71e210cd5c9d80eb33faca5f76456cb4ae301"
+  },
+  {
+   "path": "source/MapEnvSound.cs",
+   "size": 4564,
+   "sha256": "5024bbb599dd0e39cee0b9f45047b843914fe040b5d39de9fd4be9b8a32c9ca0"
   },
   {
    "path": "source/MapIdPacket.cs",
@@ -643,6 +663,11 @@
    "path": "source/MovementUiTests.cs",
    "size": 6825,
    "sha256": "7021dbcfbf3427142de2d6890e0942c253374cbce798cd581d1687df19317051"
+  },
+  {
+   "path": "source/MusicDefinition.cs",
+   "size": 6359,
+   "sha256": "98e8df9729bf7286757d6f305f8fe2b24f29e34e0757f8985c00fe83c0b38dd3"
   },
   {
    "path": "source/NativeFocusDiagnostics.cs",
@@ -1088,6 +1113,11 @@
    "path": "source/SkillCast.cs",
    "size": 5725,
    "sha256": "46c38d4dbdb7c2d4e96ee67abcf7d38ce449a4c681e1fd5f9610fb11fce50676"
+  },
+  {
+   "path": "source/SoundDefinitionSource.cs",
+   "size": 4329,
+   "sha256": "cd4161b580760468977f711964530c910abcdf1b236ffcd9905bb08d8e380f26"
   },
   {
    "path": "source/SoundPackets.cs",
