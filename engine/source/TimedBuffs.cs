@@ -1,21 +1,32 @@
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 namespace P06;
 // Server formats and the verified/inferred split: docs/protocol/timed-buffs.md.
 public static class TimedBuffRules {
     public const int PhysicalEnchantStr=42,DressMighty=109,PhysicalEnchantDex=26,DressDexterity=110;
     // Item status with no skill id; negative keys are the MagicStatus convention for those.
     public const int WaterBreath=-3126;
-    // Inferred: the wave shape is not taken from the original client. Calibrate at M6 smoke.
-    public static Point ShakeOffset(int level,long elapsedMs){
-        if(level is not (1 or 2 or 3))return Point.Empty;
-        double seconds=elapsedMs/1000.0;int amplitude=level*2;
-        return new((int)Math.Round(amplitude*Math.Sin(seconds*2*Math.PI/1.2)),(int)Math.Round(amplitude*.5*Math.Sin(seconds*2*Math.PI/1.7)));
+    // AM§4(c), TW16 sub_F01E50: after lighting, screen row j moves horizontally by
+    // (int)(level*3.5*sin((phase+j)*pi/50)). Phase advances every 50 ms through 0..199 (sub_F05FD0),
+    // so the 100-row wave travels one period in 5 s and returns home at phase 200.
+    public const int LiquorTickMs=50,LiquorPhases=200;
+    public static int LiquorPhase(long elapsedMs)=>(int)(Math.Max(0,elapsedMs)/LiquorTickMs%LiquorPhases);
+    public static int ScanlineOffset(int level,int phase,int row)=>level is 1 or 2 or 3?(int)(level*3.5*Math.Sin((phase+row)*Math.PI/50)):0;
+    // Shift each row of a 32-bit frame in place. Uncovered edge columns repeat the row's edge pixel
+    // (what the original leaves there is not documented).
+    public static void ShiftScanlines(Span<int> pixels,int width,int height,Func<int,int> offset){
+        if(width<=0)return;var row=new int[width];
+        for(int y=0;y<height;y++){
+            int dx=offset(y);if(dx==0)continue;var line=pixels.Slice(y*width,width);line.CopyTo(row);
+            for(int x=0;x<width;x++)line[x]=row[Math.Clamp(x-dx,0,width-1)];
+        }
     }
 }
 public sealed partial class WorldSession {
     int liquorLevel,liquorEpoch;long liquorAt;bool liquorWatchesSpeed;
     // S206 clears the client's visual state and the server resends S103; Reset also moves the epoch.
     public int LiquorLevel=>liquorEpoch==WorldEpoch?liquorLevel:0;
-    public Point LiquorShake=>TimedBuffRules.ShakeOffset(LiquorLevel,MagicStatusClock()-liquorAt);
+    public int LiquorPhase=>TimedBuffRules.LiquorPhase(MagicStatusClock()-liquorAt);
     void ReceiveStrup(LoginReader r){
         int seconds=r.H();byte strength=r.C(),weight=r.C(),type=r.C();r.Finish();
         if(Status!=null)Status=Status with{Strength=strength,Weight=weight}; // Full S8 supplies both otherwise.
@@ -57,7 +68,30 @@ public sealed partial class WorldSession {
     }
 }
 public sealed partial class ClientForm {
+    bool liquorFramePainting;
     // Program.OnPaint raises Paint from base.OnPaint before it draws, on the same Graphics.
-    protected override void CreateHandle(){Paint-=PaintLiquorShake;Paint+=PaintLiquorShake;base.CreateHandle();}
-    void PaintLiquorShake(object? sender,PaintEventArgs e){if(OnlineMode&&login.World.Renderable)Renderer.ApplyScreenShake(e.Graphics,login.World.LiquorShake);}
+    protected override void CreateHandle(){Paint-=PaintLiquorWave;Paint+=PaintLiquorWave;base.CreateHandle();}
+    // A per-row warp needs the finished frame, and this module does not own OnPaint. While drunk the
+    // handler runs the unchanged OnPaint into an off-screen frame (the nested Paint returns at once),
+    // warps its rows, draws it, then moves the outer pass's remaining drawing out of view.
+    void PaintLiquorWave(object? sender,PaintEventArgs e){
+        if(liquorFramePainting||!OnlineMode||!login.World.Renderable)return;
+        int level=login.World.LiquorLevel;if(level==0)return;
+        var viewport=PlayerSceneBounds;if(viewport.Width<=0||viewport.Height<=0)return;
+        using var frame=new Bitmap(viewport.Width,viewport.Height,PixelFormat.Format32bppArgb);
+        liquorFramePainting=true;
+        try{using var g=Graphics.FromImage(frame);g.Clear(BackColor);g.TranslateTransform(-viewport.X,-viewport.Y);OnPaint(new PaintEventArgs(g,viewport));}
+        finally{liquorFramePainting=false;}
+        // The original warps an 800x480 frame at 1x; scale rows and offsets with the scene zoom.
+        int phase=login.World.LiquorPhase;float zoom=Math.Max(Camera.Zoom,.01f);
+        WarpLiquorFrame(frame,row=>(int)Math.Round(TimedBuffRules.ScanlineOffset(level,phase,(int)(row/zoom))*zoom));
+        e.Graphics.InterpolationMode=InterpolationMode.NearestNeighbor;e.Graphics.PixelOffsetMode=PixelOffsetMode.Half;
+        e.Graphics.DrawImage(frame,new Rectangle(viewport.Location,frame.Size));
+        e.Graphics.TranslateTransform(0,ClientSize.Height+viewport.Height+65536);
+    }
+    internal static void WarpLiquorFrame(Bitmap frame,Func<int,int> offset){
+        var bits=frame.LockBits(new(0,0,frame.Width,frame.Height),ImageLockMode.ReadWrite,PixelFormat.Format32bppArgb);
+        try{unsafe{TimedBuffRules.ShiftScanlines(new Span<int>((void*)bits.Scan0,bits.Stride/4*frame.Height),bits.Stride/4,frame.Height,offset);}}
+        finally{frame.UnlockBits(bits);}
+    }
 }

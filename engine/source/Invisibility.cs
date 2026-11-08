@@ -15,11 +15,15 @@ public sealed partial class WorldSession {
 
     public OpacityValue? InvisibilityOpacity(Draw draw,OpacityValue? original){
         if(draw.Layer is not ("actor" or "shadow"))return original;
-        byte flags=draw.ObjectId==0?Actor?.Flags??0:objects.TryGetValue(draw.ObjectId,out var other)?other.Flags:(byte)0;
+        bool self=draw.ObjectId==0||Actor?.ObjectId==draw.ObjectId;
+        byte flags=self?Actor?.Flags??0:objects.TryGetValue(draw.ObjectId,out var other)?other.Flags:(byte)0;
         if((flags&InvisibleFlag)==0)return original;
+        // AM§4(d), TW16 sub_940330/F00640: another object's invisibility uses flag 0x40, which is drawn
+        // only when sub_F03F20 ($431 and related checks) holds. That condition is inferred, so no peer
+        // exception is made: retained invisible peers and their shadows are not drawn at all.
+        if(!self)return new OpacityValue(2,0,0);
         var value=original??new OpacityValue(Renderer.InitialFlags(draw),0,0);
-        // Visibility permission belongs to the server: S120 removes hidden peers;
-        // a retained S87/S171 invisible actor is drawn with the existing half blend.
+        // Self uses flag 0x100: the 50% blend (VA 0x976FC0, (dst+src)/2), same as Renderer.Blend.
         return value.Transition?value with{Alpha=Math.Min(value.Alpha,16)}:value with{Flags=value.Flags|1};
     }
 }

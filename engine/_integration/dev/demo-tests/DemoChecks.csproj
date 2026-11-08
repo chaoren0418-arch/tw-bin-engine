@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWindowsForms>true</UseWindowsForms><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
   <ItemGroup>
+    <Compile Include="../bookmarks-tests/BookmarkChecks.cs" Link="BookmarkChecks.cs" />
     <Compile Include="../title-emote-tests/TitleAndEmoteChecks.cs" Link="TitleAndEmoteChecks.cs" />
     <Compile Include="../timed-buffs-tests/TimedBuffChecks.cs" Link="TimedBuffChecks.cs" />
     <Compile Include="../minimap-tests/MinimapChecks.cs" Link="MinimapChecks.cs" />
@@ -10,6 +11,7 @@
     <Compile Include="../char-reset-tests/CharResetChecks.cs" Link="CharResetChecks.cs" />
     <Compile Include="../marriage-tests/MarriageChecks.cs" Link="MarriageChecks.cs" />
     <Compile Include="../clan-tests/ClanChecks.cs" Link="ClanChecks.cs" />
+    <Compile Include="../clan-emblem-tests/ClanEmblemChecks.cs" Link="ClanEmblemChecks.cs" />
     <Compile Include="../clan-war-tests/ClanWarChecks.cs" Link="ClanWarChecks.cs" />
     <Compile Include="../ghost-mode-tests/GhostModeChecks.cs" Link="GhostModeChecks.cs" />
     <Compile Include="../doors-tests/DoorChecks.cs" Link="DoorChecks.cs" />

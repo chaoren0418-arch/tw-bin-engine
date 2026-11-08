@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 222,
+ "sourceCount": 225,
  "files": [
   {
    "path": "NuGet.Config",
@@ -36,13 +36,13 @@
   },
   {
    "path": "audio/AudioCore.cs",
-   "size": 10652,
-   "sha256": "f40f35b352e9ae8c9215115f669fdbbc53845ff3432c353a70f9e302078a630d"
+   "size": 10914,
+   "sha256": "f990566d3cee29f4fdba105edf41b018e75041d4dbf4ee6d70ecefa56a5f959f"
   },
   {
    "path": "audio/AudioPlayer.cs",
-   "size": 11047,
-   "sha256": "42e98e2d5d3ea3f97494ff801ebbab3c70c1fe63301538e780a8c468d4959611"
+   "size": 11188,
+   "sha256": "842fc012a91621d1ecc4d55b55b0d33b7451373fb1513ca58ad8460fb1373066"
   },
   {
    "path": "audio/DirectShowDriver.cs",
@@ -56,13 +56,13 @@
   },
   {
    "path": "audio/IAudioPlayback.cs",
-   "size": 539,
-   "sha256": "1196d215df288e050dc173dd308a2de1b690eac53d3476bb4eb45829c27aec69"
+   "size": 837,
+   "sha256": "94b4217bd1bf771905ff49a5c70c1686ec7e98c81ca40d1ef6ae84097f5dcafd"
   },
   {
    "path": "audio/P24.Audio.csproj",
-   "size": 788,
-   "sha256": "9243964ff1e313750139de023f82ce512c4c8193db0bb56435a2eba6679102c1"
+   "size": 842,
+   "sha256": "71801ff0772ff9cf891b41b2c2d0917bf51c371588edf83a11619443aa4bfa1b"
   },
   {
    "path": "audio/Resources/combat-sfx-pins.json",
@@ -96,13 +96,13 @@
   },
   {
    "path": "source/Afflictions.cs",
-   "size": 5155,
-   "sha256": "92696bb748bfbe5986b0f1fcfa3830ef67c20b0d4fd15ca20dc65ed42763c9ef"
+   "size": 8353,
+   "sha256": "a7221fa0f85976c42888c0510aad620fbaf709ae215d68b61b5796dc85cef3b0"
   },
   {
    "path": "source/Ambience.cs",
-   "size": 20610,
-   "sha256": "c6cf5ef0bfa8ac6e61b10abe46449953aed82e5250b1a70e13730891f63c8966"
+   "size": 29781,
+   "sha256": "83b81f92ed413965eac5e292208610b47c250bdbb9691d03295e8eacc8781f36"
   },
   {
    "path": "source/Assets.cs",
@@ -143,6 +143,16 @@
    "path": "source/BonusStatsUi.cs",
    "size": 4738,
    "sha256": "072a214367754da457a0aee4ebcc457d441955cdf17caf30df31cbb1e91649c9"
+  },
+  {
+   "path": "source/BookmarkUi.cs",
+   "size": 4706,
+   "sha256": "c9d311b5c5a0e05db0b7bac8a1171a0a79ccf02120d08981a707817444270ed4"
+  },
+  {
+   "path": "source/Bookmarks.cs",
+   "size": 7395,
+   "sha256": "8dac199e29642233c96b7234a24159de3051f1bc54f6248864e900e5384a7e41"
   },
   {
    "path": "source/Buddies.cs",
@@ -191,13 +201,13 @@
   },
   {
    "path": "source/Clan.cs",
-   "size": 17580,
-   "sha256": "8699ceb0c5065d90a9c06e6211ec17ef7d641c341a6d60aa1816af48df4fca05"
+   "size": 17633,
+   "sha256": "ac83cc31250774834294fed8952893e7f8aba002377eb207aee519663113757c"
   },
   {
    "path": "source/ClanEmblem.cs",
-   "size": 6294,
-   "sha256": "3ee985b052b641ebcedc5ab94a8a64e19cdee35c3f495dd4d3b8880e0968de73"
+   "size": 9246,
+   "sha256": "e1a6da7d56ab681a82270dd010774b8b1b8bccea8448be1e3759052f3f683a60"
   },
   {
    "path": "source/ClanUi.cs",
@@ -216,8 +226,8 @@
   },
   {
    "path": "source/ClientCombatSfx.cs",
-   "size": 2649,
-   "sha256": "158206ce1b4202863af1a225b6b524e137cf60685da6a26e57f1df9b4d808737"
+   "size": 2736,
+   "sha256": "7af596eb54ec907ddf49da33ff2d56871e2879d07101275181621ef13594966b"
   },
   {
    "path": "source/ClientEffect6016.cs",
@@ -246,8 +256,8 @@
   },
   {
    "path": "source/CombatSfx.cs",
-   "size": 11478,
-   "sha256": "aa947ee49da722ccfd3764c065ae45eef5712cc1eb8ad8710ea7df0c04144575"
+   "size": 12888,
+   "sha256": "416b84067906f61d33e0515467b9b2797f1f7ff40805352999bbcf6851b77fb5"
   },
   {
    "path": "source/CombatSfxScene.cs",
@@ -436,8 +446,8 @@
   },
   {
    "path": "source/Invisibility.cs",
-   "size": 1401,
-   "sha256": "432a1fc024f43e8d866912cd7fae136162bd4c257d4cb8731eefa20c41087681"
+   "size": 1741,
+   "sha256": "d71497ef08ec3c1693dd2120703237b7f4a58b87e4d84d99e90ca7ff5511b847"
   },
   {
    "path": "source/ItemStatus.cs",
@@ -561,8 +571,8 @@
   },
   {
    "path": "source/MapAmbientSound.cs",
-   "size": 10367,
-   "sha256": "ac9d3b69ed3f4765d2cabec6a2ec7c26a7f6e1623baab63105aa5759961d7113"
+   "size": 10559,
+   "sha256": "f47e81c61dfaf4bf006c0b1d2d0d7107eb14c5d726458ef20915da06e6cf960a"
   },
   {
    "path": "source/MapEffects.cs",
@@ -661,8 +671,8 @@
   },
   {
    "path": "source/ObjectRendering.cs",
-   "size": 19611,
-   "sha256": "4faaae5f05df5607cf0ac5430b0c8889d3787044725286137e258f3ba45d2886"
+   "size": 19577,
+   "sha256": "101c66caa49afd38f8e87ef71d4b91968eb2e806288b32f070a00f6baeb0ef6c"
   },
   {
    "path": "source/ObjectTests.cs",
@@ -1006,8 +1016,13 @@
   },
   {
    "path": "source/SoundPackets.cs",
-   "size": 10612,
-   "sha256": "0a5beb6799a19c21ce2db0cf32c7bd1f740e0caf943173a4e79b531c7f99ebe7"
+   "size": 12831,
+   "sha256": "51927389b900e140b52e114ab9fa88d5c5222ff6545d04134101b39b65c1e33b"
+  },
+  {
+   "path": "source/SoundRules.cs",
+   "size": 6663,
+   "sha256": "74d28646c94eb3a0367b174c0aa2964d164a01a79e2fc5bb9cef21bcb39d2fbc"
   },
   {
    "path": "source/StatusIcons.cs",
@@ -1031,8 +1046,8 @@
   },
   {
    "path": "source/TimedBuffs.cs",
-   "size": 4134,
-   "sha256": "59d7edc24323504c063483ac3cb73c3efb9731cfc019687b0595e46e6a567129"
+   "size": 6628,
+   "sha256": "87530220dde8a82c358d2fc09f819862e9ca6c24a4bc916635c2485ba9346a89"
   },
   {
    "path": "source/TitleAndEmote.cs",
@@ -1106,8 +1121,8 @@
   },
   {
    "path": "source/WorldSession.cs",
-   "size": 12731,
-   "sha256": "6aefe0bd2293ecbc3b912206593c3f30e8ad93702401c83497ce3ddfb7c9a564"
+   "size": 13071,
+   "sha256": "8c0d5744c91b733236424a89be1342f8fe8e516033cbc4343346a87dfe0601f5"
   },
   {
    "path": "source/WorldTests.cs",

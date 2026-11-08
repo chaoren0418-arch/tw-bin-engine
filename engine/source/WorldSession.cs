@@ -23,14 +23,14 @@ public sealed partial class WorldSession {
     public string AppearanceNotice=>Actor==null?"等待角色資料":SelfAppearancePending?"角色外觀正在更新；可取消連線":SupportedAppearance?"角色外觀已載入":$"尚未支援此外觀（角色 {Actor.Gfx}／武器 {Actor.Weapon}）；移動與戰鬥已停止，仍可從背包卸下裝備或取消連線。";
     public bool Renderable=>Ready&&!TeleportPending&&SupportedMap&&SupportedAppearance;
     readonly System.Collections.Concurrent.ConcurrentDictionary<byte,int> unhandled=new();
-    public void Reset(){Clear6016(SceneClock());ResetPlayerChat();ResetBuddies();ResetPrivateShop();ResetShip();ResetSpeedStatus();ResetBonusStats();ResetHitReactionSuppress();AppearanceRevision++;ResetTeleport();Entered=false;MapId=null;Status=null;Actor=null;SelfAppearancePending=false;Underwater=false;KeepalivesSent=TimeReplies=0;ServerTime=null;ProbeSent=false;unhandled.Clear();ResetMovement();ResetCombat();ResetMagic();ResetInventory();ResetEquipment();ResetRewards();ClearObjects();}
+    public void Reset(){Clear6016(SceneClock());ResetClanEmblems();ResetPlayerChat();ResetBuddies();ResetPrivateShop();ResetShip();ResetSpeedStatus();ResetBonusStats();ResetBookmarks();ResetHitReactionSuppress();AppearanceRevision++;ResetTeleport();Entered=false;MapId=null;Status=null;Actor=null;SelfAppearancePending=false;Underwater=false;KeepalivesSent=TimeReplies=0;ServerTime=null;ProbeSent=false;unhandled.Clear();ResetMovement();ResetCombat();ResetMagic();ResetInventory();ResetEquipment();ResetRewards();ClearObjects();}
     public object Snapshot()=>new{playerChat=PlayerChatLines,sustenance=SustenanceText,basicSupplyNotice=BasicSupplyNotice,privateShop=PrivateShopSnapshotModel(),announcement=LastAnnouncement,bonusStatsNotice=BonusStatsNotice,bonusStats=new{phase=BonusStatsPhase,revision=BonusStatsRevision,selected=SelectedBonusAttribute,remaining=(int?)null},ready=Ready,coreComplete=CoreComplete,entered=Entered,mapId=MapId,underwater=Underwater,status=Status,actor=Actor,supportedMap=SupportedMap,mapResourceState=MapResourceState,mapResourceNotice=MapResourceNotice,loadedRegion=MapCache is {} cache?new{minX=(cache.OriginX+32768)/2,minY=cache.OriginY,maxX=(cache.OriginX+32768)/2+127,maxY=cache.OriginY+127,mode="original moving 2x2 cache"}:new{minX=Coordinates.MinX,minY=Coordinates.MinY,maxX=Coordinates.MaxX,maxY=Coordinates.MaxY,mode="resident original dual blocks"},supportedAppearance=SupportedAppearance,appearanceNotice=AppearanceNotice,appearanceRevision=AppearanceRevision,appearanceProfile=AppearanceProfile,renderable=Renderable,keepalivesSent=KeepalivesSent,timeReplies=TimeReplies,serverTime=ServerTime,unhandled=unhandled.ToDictionary(x=>$"0x{x.Key:X2}",x=>x.Value),ship=ShipSnapshot(),teleport=TeleportSnapshot(),movement=MovementSnapshot(),combat=CombatSnapshot(),inventory=InventorySnapshot(),equipment=EquipmentSnapshot(),rewards=RewardsSnapshot(),ground=GroundSnapshot(),magic=MagicSnapshot(),objects=Objects,target=Target,targetId=TargetId,opacity=sceneOpacity?.Snapshot(),cache=MapCache?.Snapshot(),objectRevision=ObjectRevision,worldEpoch=WorldEpoch,unknownObjectUpdates=UnknownObjectUpdates};
     public event Action? CombatSoundStateChanged;
     public void Receive(byte[] plain,string selected){try{ReceiveCore(plain,selected);}finally{ValidatePickupPresentation(ActionClock());CombatSoundStateChanged?.Invoke();}}
     void ReceiveCore(byte[] plain,string selected){
         var r=new LoginReader(plain);byte opcode=r.C();
         // Observe party HP before Combat consumes S237; retain its existing actor/target HP update.
-        switch(opcode){case 237:ReceivePartyHp(plain);break;}
+        switch(opcode){case 237:ReceivePartyHp(plain);break;case 120:case 158:ObserveWeatherObject(opcode,plain);break;}
         // Run both: S219 is one shared Yes-No slot, so each module must see the other's invitation to expire its own.
         bool partyHandled=ReceiveParty(opcode,plain),duelHandled=ReceiveDuel(opcode,plain);
         if(partyHandled||duelHandled)return;
@@ -41,6 +41,7 @@ public sealed partial class WorldSession {
         case 202:ReceiveParalysis(r,plain);return;
         case 47:ReceiveBlind(r);return;
         case 64 when plain.Length>1 && plain[1] is >=1 and <=4:ReceiveCharReset(plain);return;
+        case 64 when plain.Length>=ClanEmblemProtocol.AssignmentLength && plain[1]==ClanEmblemProtocol.AssignmentSubtype:ReceiveClanEmblemAssignment(plain);return;
         case 83 when !WeaponRepairPackets.IsRepairList(plain):ReceivePetList(r);return;
         case 176:ReceivePetInventory(r,plain);return;
         case 115:ReceiveWeather(r);return;
@@ -61,8 +62,9 @@ public sealed partial class WorldSession {
         case 106:ReceiveEffectPacket(plain);return;
         case 160:ReceiveDelSkill(r,plain);BasicSupplyReply(opcode,plain);return;
         }
-        if(ReceiveRecovery(opcode,r)||ReceivePlayerChat(opcode,r,plain)||ReceiveSustenance(opcode,r,plain)||ReceiveBonusStats(opcode,r,plain)||ReceivePrivateShop(opcode,r,plain)||ReceiveTeleport(opcode,r)||ReceiveTrade(opcode,r)||ReceiveInteraction(opcode,r)||ReceiveMagic(opcode,r,plain)||ReceiveEquipment(opcode,r,plain)||ReceiveInventory(opcode,r,plain)||ReceiveExperience(opcode,r)||ReceiveCombat(opcode,r,plain)||ReceiveObjectDelta(opcode,r)){BasicSupplyReply(opcode,plain);return;}
+        if(ReceiveRecovery(opcode,r)||ReceivePlayerChat(opcode,r,plain)||ReceiveSustenance(opcode,r,plain)||ReceiveBonusStats(opcode,r,plain)||ReceivePrivateShop(opcode,r,plain)||ReceiveTeleport(opcode,r)||ReceiveTrade(opcode,r)||ReceiveInteraction(opcode,r)||ReceiveMagic(opcode,r,plain)||ReceiveBookmarkList(opcode,r,plain)||ReceiveEquipment(opcode,r,plain)||ReceiveInventory(opcode,r,plain)||ReceiveExperience(opcode,r)||ReceiveCombat(opcode,r,plain)||ReceiveObjectDelta(opcode,r)){BasicSupplyReply(opcode,plain);return;}
         switch(opcode){
+        case 92:ReceiveBookmark(r);break;
         case 186:ReceiveMail(plain);break;
         case 72:ReceiveClanUpdate(plain);break;
         case 118:ReceiveClanEmblem(plain);break;

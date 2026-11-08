@@ -144,7 +144,7 @@ public sealed partial class WorldSession {
     }
     void ReceiveClanAnnouncement(byte[] packet){
         var value=ClanProtocol.DecodeAnnouncement(packet);EnsureClanEpoch();ClearClanMembers();
-        if(Ready&&value.Name.Length>0&&value.Name==Actor?.Clan)clanAnnouncement=value;
+        if(Ready&&value.Name.Length>0&&value.Name==Actor?.Clan){clanAnnouncement=value;ObserveClanEmblemId(Actor.ObjectId,value.EmblemId);}
     }
     void ReceiveClanMembers(byte[] packet){var value=ClanProtocol.DecodeMembers(packet);CheckClanState();if(clanAnnouncement!=null)clanMembers=value;}
     void ReceiveClanOnlineMembers(byte[] packet){var value=ClanProtocol.DecodeOnlineMembers(packet);CheckClanState();if(clanAnnouncement!=null)clanOnline=new(value,StringComparer.OrdinalIgnoreCase);}
