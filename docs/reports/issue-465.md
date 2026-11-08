@@ -96,3 +96,8 @@
 - PR #587 與 main 衝突：`git merge origin/main`（含 #514／#515），唯一衝突是 `engine/_integration/dev/rebuild-lock.json`，取 main 版本後以 `py -3 -B -X utf8 engine/_integration/dev/rebuild.py --update-lock` 重產（267 個來源、276 個鎖定檔）；`docs/REPORT.md` 用 main 版本（自動合併、未手改）。
 - 重驗：`rebuild.py --build` → **PASS dev**（productDll `a8bac311…9168`）；`DemoChecks … native-ui-hpmp` → **PASS 397**（未設 `TW_CLIENT_ROOT`）、設 `TW_CLIENT_ROOT=D:\lineage開發\0-客戶端` 後 **PASS 398**（含本機客戶端檢查）。
 - 本模組程式碼未改動。
+
+## 同步 main 紀錄（2026-11-09，第 2 次同步）
+- `git merge origin/main`（含 #513／#546／#566），唯一衝突仍是 `rebuild-lock.json`，取 main 版本後 `--update-lock` 重產（272 個來源、281 個鎖定檔）；`docs/REPORT.md` 用 main 版本（自動合併）。
+- 重驗：`rebuild.py --build` → **PASS dev**（productDll `901a25bf…8042`）；`native-ui-hpmp` → **PASS 397**（未設 `TW_CLIENT_ROOT`）／**PASS 398**（設本機客戶端）；`check-no-game-assets.py` → pass、errors 0。
+- 本模組程式碼未改動。
