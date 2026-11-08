@@ -202,3 +202,4 @@
 - 2026-11-09 — #526 T219：M7-S 商店與修理改用 `TRADE_WINDOW`（code，claude-local，PR 已合併）→ [報告](reports/issue-526.md)
 - 2026-11-09 — #558 T236：聊天輸入列的 YES／NO 鈕（W2-E）（code，claude-local，PR 已合併）→ [報告](reports/issue-558.md)
 - 2026-11-09 — #527 T220：M7-T 個人商店開店設定窗（code，claude-local，PR 已合併）→ [報告](reports/issue-527.md)
+- 2026-11-09 — #602 T245：查證原版——S250 視窗類子碼（B3）與任務窗（resource，claude-local，PR #606 已合併）→ [報告](reports/issue-602.md)
