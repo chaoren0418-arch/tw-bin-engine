@@ -62,6 +62,13 @@
 - 重新建置：`PASS dev`，productDll `46dcea7b…1910`。
 - 重新測試：`native-ui-left-status` PASS 368（離線）／PASS 369（有 `TW_CLIENT_ROOT`）；`native-ui-canvas` PASS 429；`item-status` PASS 409；`check-no-game-assets.py` pass，errors 0。
 
+### 第二次同步 origin/main（2026-11-09，PR #586 CI 失敗）
+
+- CI 失敗原因：`rebuild.py --build` 回報 `REFUSED: sourceCount 265 != pinned source files 267`。CI 建的是 PR 和 main 的合併結果，而 main 在上次同步後又合入了 #556／#557／#559／#568 等任務，來源檔變多，分支上的 lock 跟著過期。這不是本任務程式碼的問題。
+- `git merge origin/main`：唯一衝突是 `rebuild-lock.json`，先取 main 版，再用 `rebuild.py --update-lock` 重產（278 個來源檔／287 個鎖定檔）；唯讀核驗 `dev-inputs-verified`。`docs/REPORT.md` 沒有衝突，維持 main 版。
+- 重新建置：`PASS dev`，productDll `5ba7e8d9…902b`。
+- 重新測試：`native-ui-left-status` PASS 368（離線）／PASS 369（有 `TW_CLIENT_ROOT`）；`native-ui-canvas` PASS 429；`item-status` PASS 409；`check-no-game-assets.py` pass（trackedFiles 3823），errors 0。
+
 ### 真實客戶端渲染（只在 scratch，未進 git）
 
 輸出在 `scratch/issue-464/real/`：4 種狀態的 `canvas-*.png`（800×600）、`left-x4-*.png`（左框放大 4 倍）、`surf-3168…3175.png`，以及 `left-status.json`（元件座標、surf 尺寸、每種狀態的繪製清單）。
