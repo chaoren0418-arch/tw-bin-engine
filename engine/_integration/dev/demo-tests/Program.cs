@@ -300,7 +300,7 @@ partial class Checks {
                 case "pets":break;
                 case "display-notices":DisplayNoticeChecks();break;
                 case "name-display":await NameDisplayChecks();break;
-                case "map-continuity":await MapContinuity();await BookmarkChecks();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();await ClanChecks();await ClanEmblemChecks();await ClanWarChecks();await MarriageChecks();await YesNoPromptChecks();await CharResetChecks();await PlayerQueryChecks();await HyperTextChecks(args[1]);await CharacterConfigChecks();HotbarChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();MapAmbientChecks();BackgroundMusicChecks();InvisibilityChecks();await GhostModeChecks();await GhostLimitsChecks();await PortalChecks();MinimapChecks();TimedBuffChecks();break;
+                case "map-continuity":await MapContinuity();await BookmarkChecks();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();NativeUiBoardChecks(args[0]);await ClanChecks();await ClanEmblemChecks();await ClanWarChecks();await MarriageChecks();await YesNoPromptChecks();await CharResetChecks();await PlayerQueryChecks();await HyperTextChecks(args[1]);await CharacterConfigChecks();HotbarChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();MapAmbientChecks();BackgroundMusicChecks();InvisibilityChecks();await GhostModeChecks();await GhostLimitsChecks();await PortalChecks();MinimapChecks();TimedBuffChecks();break;
                 case "marriage":await MarriageChecks();break;
                 case "yes-no":await YesNoPromptChecks();break;
                 case "ghost-mode":await GhostModeChecks();await GhostLimitsChecks();break;
@@ -321,7 +321,7 @@ partial class Checks {
                 case "background-music":BackgroundMusicChecks();break;
                 case "invisibility":InvisibilityChecks();break;
                 case "bookmarks":await BookmarkChecks();break;
-                case "board":await BoardChecks();break;
+                case "board":await BoardChecks();NativeUiBoardChecks(args[0]);break;
                 case "item-transfer":await ItemTransferChecks();break;
                 case "combat-loop":await CombatLoop();break;
                 case "cast-cadence":CombatAdmissionFixture();await CastCadenceChecks();break;
@@ -348,7 +348,7 @@ partial class Checks {
             }
         }else{
             await BookmarkChecks();
-            ItemStatusChecks();NativeUiResourceChecks(args[0]);NativeUiCanvasChecks(args[0]);NativeUiLeftStatusChecks(args[0]);NativeUiHpMpChecks(args[0]);NativeUiMacroChecks(args[0]);NativeUiChatWindowChecks(args[0]);
+            ItemStatusChecks();NativeUiResourceChecks(args[0]);NativeUiCanvasChecks(args[0]);NativeUiLeftStatusChecks(args[0]);NativeUiHpMpChecks(args[0]);NativeUiMacroChecks(args[0]);NativeUiChatWindowChecks(args[0]);NativeUiBoardChecks(args[0]);
             MinimapChecks();await CharacterConfigChecks();HotbarChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
             await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();await ClanChecks();await ClanEmblemChecks();await ClanWarChecks();await MarriageChecks();await YesNoPromptChecks();await CharResetChecks();await LocationShareChecks();HitReactionSuppression();await TitleAndEmoteChecks();await PlayerQueryChecks();await HyperTextChecks(args[1]);await FishingChecks();AmbienceChecks();MapAmbientChecks();BackgroundMusicChecks();InvisibilityChecks();await GhostModeChecks();await GhostLimitsChecks();TimedBuffChecks();
         }
