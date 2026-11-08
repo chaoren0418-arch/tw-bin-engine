@@ -29,7 +29,37 @@ public static class WeaponRepairPackets {
     public static string? PkText(ServerMessageReport? reply) => reply is { Id: 562, Arguments.Length: 1 } &&
         uint.TryParse(reply.Arguments[0], NumberStyles.None, CultureInfo.InvariantCulture, out uint count)
         ? $"你的 PK 次數為 {count} 次。" : null;
+
+    // M7-S（T219／#526）：修理改走 NPC 對話與 TRADE_WINDOW 模式 6（WIN§2 T134）。
+    // 推測（字串證據）：TW16 HyperAct 名稱表 FO 0xDA78AC 的 "fix"（與已證實的 "checkpk"、"exitghost" 同一區），
+    // 由客戶端自己處理並送無欄位的 C118，不送 C125。
+    public const string FixAction = "fix";
+    /// <summary>TRADE_WINDOW 修理模式（sub_A59780／FO 0x658B80，WIN§2 T134，已驗證）。</summary>
+    public const int TradeWindowMode = 6;
+    /// <summary>
+    /// 清單為空時的 NPC 對話頁（WIN§2 T134：touma3／gayle5，已驗證兩個頁名）。原版依哪個條件選頁沒有追；
+    /// 這裡以「這位 NPC 上一個對話頁名的前綴」決定（推測），對不上就不開頁，只留文字通知。
+    /// </summary>
+    public static string? EmptyListPage(string? dialogHtml) =>
+        dialogHtml is null ? null :
+        dialogHtml.StartsWith("touma", StringComparison.OrdinalIgnoreCase) ? "touma3" :
+        dialogHtml.StartsWith("gayle", StringComparison.OrdinalIgnoreCase) ? "gayle5" : null;
+    /// <summary>舊介面（原生 UI 關閉時）在 NPC 對話頁列出可修武器用的選項值；引擎內部用，不送給伺服器。</summary>
+    public const string ItemOptionPrefix = "fix-item:";
+    public static string ItemOption(uint item, int revision) => $"{ItemOptionPrefix}{item}:{revision}";
+    public static bool TryItemOption(string value, out uint item, out int revision) {
+        item = 0; revision = -1;
+        if (!value.StartsWith(ItemOptionPrefix, StringComparison.Ordinal)) return false;
+        var parts = value[ItemOptionPrefix.Length..].Split(':');
+        return parts.Length == 2 && uint.TryParse(parts[0], NumberStyles.None, CultureInfo.InvariantCulture, out item) && item != 0 &&
+            int.TryParse(parts[1], NumberStyles.None, CultureInfo.InvariantCulture, out revision);
+    }
 }
+
+/// <summary>TRADE_WINDOW 一列（原生面板只顯示，不解析封包）。</summary>
+public sealed record TradeWindowRow(uint Id, string Name, string Detail, bool Enabled);
+/// <summary>TRADE_WINDOW 目前內容：Mode 是原版 TradeWindow 模式（目前只有修理 6）；Revision 變了代表是新清單。</summary>
+public sealed record TradeWindowView(int Mode, int Revision, TradeWindowRow[] Rows, string Notice);
 
 public sealed partial class WorldSession {
     WeaponRepairRow[] repairRows = [];
@@ -75,6 +105,66 @@ public sealed partial class WorldSession {
         if (repairPhase != "querying") return;
         repairRows=rows;repairInventoryRevision=InventoryContentRevision;repairPhase="ready";repairRevision++;
         repairNotice=rows.Length==0 ? "原服沒有列出損壞武器。" : "每點損壞修理費 200 金幣；選取一件提交，扣款與結果以原服回報為準。";
+        PresentWeaponRepair();
+    }
+
+    // ---- M7-S（T219／#526）：NPC 對話與 TRADE_WINDOW 模式 6 ----
+    string? repairDialogHtml;uint? repairDialogNpc;
+    /// <summary>空清單時開過的對話頁（touma3／gayle5）；沒開頁為 null。給測試與診斷用。</summary>
+    public string? WeaponRepairEmptyPage {get;private set;}
+    /// <summary>true＝原生 TRADE_WINDOW 已接上，清單只在原生窗顯示；false＝舊介面，清單改列在 NPC 對話頁的選項。</summary>
+    public bool WeaponRepairNativeWindow {get;set;}
+    /// <summary>對話頁的 fix 動作（送 C118）；由 LoginConnection.WireWeaponRepairDialog 接上。</summary>
+    internal event Action? WeaponRepairRequested;
+    /// <summary>舊介面對話頁上選了一件武器（送 C20）。</summary>
+    internal event Action<uint,int>? WeaponRepairItemChosen;
+
+    // S39 只觀察：記下每位 NPC 最後一個對話頁名，給空清單選 touma3／gayle5。C(39) D(npc) S(html) …
+    [WorldReceive(39,Observe=true)]
+    void ObserveRepairDialog(byte[] plain) {
+        if (plain.Length < 6) return;
+        uint npc=BinaryPrimitives.ReadUInt32LittleEndian(plain.AsSpan(1));
+        int end=Array.IndexOf(plain,(byte)0,5);if(npc==0||end<=5)return;
+        repairDialogNpc=npc;repairDialogHtml=LoginPackets.TextEncoding.GetString(plain,5,end-5);
+    }
+    [WorldReset]
+    void ResetWeaponRepairDialog() {repairDialogHtml=null;repairDialogNpc=null;WeaponRepairEmptyPage=null;}
+
+    bool RepairDialogOpen => InteractionValid && InteractionNpc==repairNpc && InteractionKind=="dialog";
+    void PresentWeaponRepair() {
+        WeaponRepairEmptyPage=null;
+        if (!RepairDialogOpen) return;
+        if (repairRows.Length==0) {
+            // WIN§2 T134：清單為空時改開 NPC 對話頁（HYPER_TEXT_WINDOW；引擎目前是 npcPanel）。
+            if (WeaponRepairPackets.EmptyListPage(repairDialogNpc==repairNpc?repairDialogHtml:null) is {} page) {ShowPage(page);WeaponRepairEmptyPage=page;}
+            return;
+        }
+        if (WeaponRepairNativeWindow) return;
+        // 舊介面過渡：原生 UI 關閉時沒有 TRADE_WINDOW，把可修武器列成同一個 NPC 對話頁的選項（不是原版畫面）。
+        var options=repairRows.Select((row,i)=>new NpcOption(i+1,$"{RepairItemName(row.ObjectId)}　損壞 {row.Damage}　{row.Cost:N0} 金幣","action",
+            WeaponRepairPackets.ItemOption(row.ObjectId,repairRevision),CanRepairWeapon(row.ObjectId,repairRevision))).ToArray();
+        ClearNpcService();InteractionRevision++;ShopRows=[];
+        InteractionPage=new NpcPage("選擇要修理的武器。",options,"原版是 TRADE_WINDOW 修理模式 6；原生 UI 關閉時改列在對話頁（過渡）。"+repairNotice);
+        InteractionNotice=InteractionPage.Limitation;
+    }
+    string RepairItemName(uint id) => inventory.TryGetValue(id,out var item) ? item.Name : "未持有物件 "+id;
+
+    /// <summary>NpcServices.OpenDeposit 轉來的本地對話動作：fix → C118；fix-item → C20。true＝已在本機處理，不送 C125。</summary>
+    internal bool HandleRepairOption(string value) {
+        if (string.Equals(value,WeaponRepairPackets.FixAction,StringComparison.OrdinalIgnoreCase)) {
+            if (WeaponRepairRequested==null) return false;
+            WeaponRepairRequested();return true;
+        }
+        if (!WeaponRepairPackets.TryItemOption(value,out uint item,out int revision)) return false;
+        WeaponRepairItemChosen?.Invoke(item,revision);return true;
+    }
+
+    /// <summary>TRADE_WINDOW 模式 6 的內容；沒有可修清單時為 null（窗不開）。名稱經 names 轉換（例如 $ 名稱表）。</summary>
+    public TradeWindowView? WeaponRepairWindow(Func<string,string>? names=null) {
+        CheckWeaponRepair();
+        if (repairPhase!="ready" || repairRows.Length==0) return null;
+        var rows=repairRows.Select(row=>new TradeWindowRow(row.ObjectId,(names??(s=>s))(RepairItemName(row.ObjectId)),$"{row.Cost:N0}",CanRepairWeapon(row.ObjectId,repairRevision))).ToArray();
+        return new(WeaponRepairPackets.TradeWindowMode,repairRevision,rows,repairNotice);
     }
     public bool CanRepairWeapon(uint item, int revision) {
         CheckWeaponRepair();return revision==repairRevision && repairPhase=="ready" &&
@@ -110,6 +200,17 @@ public sealed partial class LoginConnection {
         try { return await sender(bytes,Valid,()=>{if(query)World.BeginWeaponRepair();else World.SubmitWeaponRepair();}) && session==generation; }
         catch(Exception) { if(session==generation){Cancel();Set(LoginState.Faulted,"修理傳送失敗，已斷線；不會重送。");}return false; }
         finally { if(repairSendingGeneration==session)repairSendingGeneration=-1; }
+    }
+    bool repairDialogWired;
+    /// <summary>
+    /// 把 NPC 對話頁的修理動作接到既有的送出路徑（M7-S）：fix → SendWeaponRepair(true)（C118），
+    /// 舊介面的武器選項 → SendWeaponRepair(false,…)（C20）。重複呼叫只接一次。
+    /// </summary>
+    public void WireWeaponRepairDialog() {
+        if (repairDialogWired) return;
+        repairDialogWired=true;
+        World.WeaponRepairRequested+=()=>_=SendWeaponRepair(true);
+        World.WeaponRepairItemChosen+=(item,revision)=>_=SendWeaponRepair(false,item,revision);
     }
     public string CheckPkNotice {
         get {
