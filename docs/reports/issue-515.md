@@ -33,6 +33,7 @@
 - **第二次同步 main**（含 #531 Recovery 模組；`rebuild-lock.json` 衝突，取 main 版後以 `--update-lock` 重產，241 個來源檔）→ `PASS dev`，product DLL `5c8181812c7cbc5b52bb195388a688adc01e35af2824a6f72f00be6184303352`。`--module-tests` → `pass`，共 5 組、279 項（含 clan-matching 62、recovery-death）。`check-no-game-assets.py` → `pass`（3758 個追蹤檔）。
 - **第三次同步 main**（含 #446、#519、#523、#548、#551；`rebuild-lock.json` 衝突，取 main 版後以 `--update-lock` 重產，250 個來源檔）→ `PASS dev`，product DLL `fbe2c756ef55385bda6108b71fa8e6d44c493572e29831f2a2fb04647244beaf`。`--module-tests`（照 CI 指令）→ `pass`，共 7 組、409 項（agit 44、castle 62、clan-matching 62、packetbox-status 86、recovery-death 72、server-features 44 等）。`check-no-game-assets.py` → `pass`（3777 個追蹤檔）。
 - **第四次同步 main**（含 #463 AbilityStatus／NativeUi、#510；`rebuild-lock.json` 衝突，取 main 版後以 `--update-lock` 重產，261 個來源檔）→ `PASS dev`，product DLL `d74f36c692064af447733b53da637a634aa907b106145678ef4da87107753964`。`--module-tests`（照 CI 指令）→ `pass`，共 8 組、447 項（ability-status 38、agit 44、castle 62、clan-matching 62、packetbox-status 86、recovery-death 72、server-features 44、world-extensions 39）。`check-no-game-assets.py` → `pass`（3793 個追蹤檔）。
+- **第五次同步 main**（2026-11-09，含 #516、#520；`rebuild-lock.json` 衝突，取 main 版後以 `--update-lock` 重產，262 個來源檔）→ `PASS dev`，product DLL `488e2d172e81771390e6f35cca395b2ce89efe0be52697c325fe150158cfe351`。`--module-tests`（照 CI 指令）→ `pass`，共 8 組、447 項（clan-matching 62）。`check-no-game-assets.py` → `pass`（3796 個追蹤檔）。
 - 建置前置：worktree 沒有離線的 `engine/vendor`，所以建了一個 junction 指向主專案的 `engine/vendor`（唯讀使用，已被 gitignore，沒有 commit）。
 - CI 結果以 PR 為準。
 
