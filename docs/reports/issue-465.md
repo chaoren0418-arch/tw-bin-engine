@@ -91,3 +91,8 @@
 - **CI**：建議主控在 `build.yml` 加一步 `native-ui-hpmp`（同 native-ui-canvas 的寫法，不讀客戶端）。
 - **ui-native-smoke 真機請確認**：新角色進入遊戲時浮動窗是否預設顯示；thick 外觀在台灣版的實際樣子；低血紅框的閃法；頭上條是否出現在隊員／怪物上（伺服器何時送 HP%）；自己頭上條的水平位置。
 - **後續可開的小任務**：時鐘（先查 `sub_ED6330` 與兩張時鐘表）、設定存檔與選項視窗 Etc 頁、回復光效條件查證。
+
+## 同步 main 紀錄（2026-11-09，第 1 次同步）
+- PR #587 與 main 衝突：`git merge origin/main`（含 #514／#515），唯一衝突是 `engine/_integration/dev/rebuild-lock.json`，取 main 版本後以 `py -3 -B -X utf8 engine/_integration/dev/rebuild.py --update-lock` 重產（267 個來源、276 個鎖定檔）；`docs/REPORT.md` 用 main 版本（自動合併、未手改）。
+- 重驗：`rebuild.py --build` → **PASS dev**（productDll `a8bac311…9168`）；`DemoChecks … native-ui-hpmp` → **PASS 397**（未設 `TW_CLIENT_ROOT`）、設 `TW_CLIENT_ROOT=D:\lineage開發\0-客戶端` 後 **PASS 398**（含本機客戶端檢查）。
+- 本模組程式碼未改動。
