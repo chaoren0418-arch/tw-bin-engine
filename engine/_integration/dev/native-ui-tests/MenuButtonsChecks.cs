@@ -38,6 +38,10 @@ partial class Checks {
         // --- registry: exactly one line, layout uistatus86 (UiXmlSource picks -c).
         var reg=UiPanelRegistry.Panels.Where(p=>p.Id==MenuButtonsPanel.PanelId).ToArray();
         Check(reg.Length==1&&reg[0].Layout=="uistatus86"&&MenuButtonsPanel.PanelId!="RIGHT_WINDOW","registry: one menu-buttons line on uistatus86, id distinct from the macro frame panel (RIGHT_WINDOW)");
+        // Buttons (y=567) lie inside the macro frame 3176 (643,476,157×124); both are Bar layer, so the later registration paints
+        // and hit-tests on top (UiRoot.PaintOrder/HitTest). Menu buttons must come after MacroPanel or the frame hides them.
+        var ids=UiPanelRegistry.Panels.Select(p=>p.Id).ToList();
+        Check(ids.IndexOf(MacroPanel.WindowId)>=0&&ids.IndexOf(MenuButtonsPanel.PanelId)>ids.IndexOf(MacroPanel.WindowId),"registry: menu buttons after MacroPanel (on top of the 3176 frame)");
         Check(MenuButtonsPanel.StateSurfs(3177)==(3177,3178),"V4 (b) 2-stage button: normal a, pressed a+1");
 
         var ui=Build(good,"good");

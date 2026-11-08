@@ -113,6 +113,25 @@ runner：claude-local（2026-11-08 由 codex-local 改派）。分支：`task/46
   - 建立 `engine/assets` junction，指向原專案的 `engine/assets`，只供唯讀。
   - 兩者都在 gitignore 範圍內，沒有進 commit。
 
+## 第二輪：同步 origin/main（2026-11-09）
+
+PR #596 落後 main 108 個 commit，有 4 個衝突：`UiPanelRegistry.cs`、`DemoChecks.csproj`、`Program.cs`、`rebuild-lock.json`。
+
+- **解法：** 兩邊都保留。`rebuild-lock.json` 用 `rebuild.py --update-lock` 重新產生（302 個來源、311 個鎖定輸入）。
+- **註冊順序（實際問題）：** main 已經有 ui-macro-bar 的 `MacroPanel`。它的 `Bounds` 是 3176 底圖加鎖定鈕，範圍蓋住選單按鈕所在的 y=567。兩個面板都在 Bar 圖層，`UiRoot` 依註冊順序畫圖，命中測試也只挑最上層那一個面板，不會往下傳。所以本面板那一行改排在註冊表最後，否則底圖會蓋住按鈕，也會吃掉按鈕的點擊。`MenuButtonsChecks` 加了一項檢查，確認順序。
+- **驗證：**
+
+| 項目 | 結果 |
+|---|---|
+| `rebuild.py --build` | PASS（product `38eba1f3…`） |
+| `native-ui-menu-buttons`（沒有客戶端） | PASS |
+| `native-ui-menu-buttons`（`TW_CLIENT_ROOT=D:\lineage開發\0-客戶端`，唯讀） | PASS |
+| `build.yml` 的 15 個 CI 群組＋`native-ui-menu-buttons`（`TW_CLIENT_ROOT` 未設定） | 15 個 PASS。`map-continuity` 失敗在 `DisplayNoticeChecks` 的「S245 unknown message stays labeled」，就是 #546 記錄的本機問題（本機找得到真實訊息表），與本任務無關 |
+| 完整回歸（不帶群組參數） | 第 353 行的原生 UI 群組全部通過，之後一樣停在 #546 那一項。改用空的客戶端目錄也跑不完：main 的 `NativeUiMacroRealClient` 只有在變數是空字串時才略過，指向空目錄會丟例外（屬於 #466 的測試，本任務沒改） |
+| `check-no-game-assets.py` | pass |
+
+- **未驗證：** 沒有在同一個 `UiRoot` 裡放 `MacroPanel`＋本面板做實際命中測試（要有完整巨集 XML 與巨集狀態），目前只檢查註冊順序。也沒有做真機 smoke。
+
 ## 產出路徑
 
 - `engine/source/NativeUi/MenuButtonsPanel.cs`（新增）
@@ -124,7 +143,7 @@ runner：claude-local（2026-11-08 由 codex-local 改派）。分支：`task/46
 
 ## 給下一棒的提示
 
-1. **註冊順序：** ui-macro-bar 的 `RIGHT_WINDOW` 面板會畫 3176 底圖。它在 `UiPanelRegistry` 的那一行必須排在本面板**之前**（同一圖層裡，後註冊的畫在上面），否則底圖會蓋住按鈕。合併衝突時保留兩行，並調整順序。
+1. **註冊順序（已處理）：** 同步 main 後，`MenuButtonsPanel` 那一行已排在 `MacroPanel`（`RIGHT_WINDOW`）與 FriendPanels **之後**。之後新增其他 Bar 圖層面板時，如果和 (645, 567) 152×31 這塊區域重疊，要注意不要排在本面板後面。`MenuButtonsChecks` 會檢查這個順序。
 2. **讓 page 參數生效（小任務，要改 C2 的 `UiClientBridge.cs`）：** 讓 `NativeUiCommands.ShowDevTools(page)` 依頁名選分頁，可以參考 `ShowPlayerService(name)` 的作法。另外：
    - Mail 改呼叫既有的 `OpenMail()`。
    - Map 改呼叫小地圖開關。

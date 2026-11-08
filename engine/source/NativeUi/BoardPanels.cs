@@ -1,0 +1,152 @@
+namespace P06.NativeUi;
+
+// M7-U (Issue #528, gap-matrix §7): native board windows. The original builds three hard-coded legacy windows in sub_8C7C80
+// (VA 0x8C7C80 / FO 0x4C7080): BoardListWindow (sub_7CB710 / FO 0x3CAB10), BoardReadWindow (sub_7CBA70 / FO 0x3CAE70) and
+// BoardWriteWindow (sub_7CBE90 / FO 0x3CB290). They read no XML, so these panels are attached at run time by the board
+// window owner (BoardUi.cs) instead of UiPanelRegistry, which requires an XML layout.
+//
+// Evidence levels (docs/reference/windows.md §2 T130 is the only source):
+//   Verified  — button surf ids and their offsets inside the list/read windows (WIN§2 T130). Painted.
+//   Inferred  — window backgrounds (656 / 670), button meaning, write-window surfs (680–687), row/article text positions.
+//               Data only: never painted (gap-matrix §7 rule). Button meaning is used only to route clicks to the existing
+//               board actions, read from the words drawn on the original images (issue-528 report).
+//   Unverified — where the window sits on the 800×600 screen. DefaultOrigin is a placement choice, not original data.
+
+public enum BoardButtonRole { Close, Read, Write, Delete, Previous, Next, BackToList, ArticlePrevious, ArticleNext }
+
+/// <summary>One hard-coded button: surf id and offset inside its window (WIN§2 T130). Role is inferred from the image.</summary>
+public sealed record BoardButton(int Surf,int X,int Y,BoardButtonRole Role);
+
+public static class BoardWindowLayout {
+    /// <summary>BoardListWindow buttons, WIN§2 T130 (verified surf + offset).</summary>
+    public static readonly BoardButton[] List=[
+        new(658,209,305,BoardButtonRole.Close),   // image: "X"
+        new(660,34,332,BoardButtonRole.Read),     // image: "Read"
+        new(662,139,304,BoardButtonRole.Write),   // image: "Write"
+        new(664,171,304,BoardButtonRole.Delete),  // image: "Delete"
+        new(666,64,311,BoardButtonRole.Previous), // image: flourish pointing left (direction inferred)
+        new(668,99,311,BoardButtonRole.Next),     // image: flourish pointing right (direction inferred)
+    ];
+    /// <summary>BoardReadWindow buttons, WIN§2 T130 (verified surf + offset).</summary>
+    public static readonly BoardButton[] Read=[
+        new(672,56,312,BoardButtonRole.ArticlePrevious), // image: flourish pointing left (meaning unverified → no action)
+        new(676,110,312,BoardButtonRole.ArticleNext),    // image: flourish pointing right (meaning unverified → no action)
+        new(678,213,297,BoardButtonRole.Close),          // image: "X"
+        new(674,90,299,BoardButtonRole.BackToList),      // image: upward arrow (inferred: back to the list)
+    ];
+    /// <summary>Inferred only (same colour key and a size that contains every button); not painted.</summary>
+    public const int ListBackgroundSurf=656,ReadBackgroundSurf=670;
+    /// <summary>Inferred only: "Delete", "Write", "Done", "O.K." images next to the read window; offsets unknown. Not painted.</summary>
+    public static readonly int[] WriteWindowSurfs=[680,682,684,686];
+    /// <summary>Unverified placement: a 238×350 box centred above the 130-px bottom bar. Change here once verified.</summary>
+    public static readonly Point DefaultOrigin=new(281,60);
+}
+
+/// <summary>What a board panel needs from the existing board window (BoardUi). UI modules never touch LoginConnection.</summary>
+public interface IBoardPanelHost {
+    /// <summary>Current board snapshot, or null when no board window is open.</summary>
+    BoardView? Board { get; }
+    /// <summary>Same actions as the existing board window: "close", "read", "write", "delete", "previous", "next".</summary>
+    void Press(string command);
+}
+
+/// <summary>The three windows plus the shared "which window is up" state.</summary>
+public sealed class BoardPanelSet {
+    public IBoardPanelHost Host{get;}
+    public BoardListWindow List{get;}
+    public BoardReadWindow Read{get;}
+    public BoardWriteWindow Write{get;}
+    public BoardPanelSet(IBoardPanelHost host){Host=host;List=new(this);Read=new(this);Write=new(this);}
+    public IEnumerable<IUiPanel> Panels=>[List,Read,Write];
+
+    BoardView? view;bool listOverArticle;uint shownArticle;
+    /// <summary>"none", "list" or "read" for the current snapshot.</summary>
+    public string Mode{get;private set;}="none";
+    internal void Sync(){
+        view=Host.Board;
+        if(view is not {Kind:not "closed"}){Mode="none";listOverArticle=false;shownArticle=0;return;}
+        if(view.Article is {} a&&a.Id!=shownArticle){shownArticle=a.Id;listOverArticle=false;}
+        Mode=view.Kind=="article"&&view.Article!=null&&!listOverArticle?"read":"list";
+    }
+    /// <summary>Original "back to list" (inferred) is a local view switch: no packet.</summary>
+    internal void ShowList(){listOverArticle=true;Mode=view is {Kind:not "closed"}?"list":"none";}
+    public void LoadSurfaces(SurfCatalog surfs){foreach(var p in Panels)p.Load(null!,surfs);}
+}
+
+/// <summary>Shared button window: verified buttons only, at Origin + WIN§2 offset; a missing surf draws and hits nothing.</summary>
+public abstract class BoardButtonWindow:IUiPanel {
+    readonly BoardButton[] buttons;readonly UiSurface?[] surfaces;
+    protected BoardPanelSet Set{get;}
+    int pressed=-1;
+    protected BoardButtonWindow(BoardPanelSet set,BoardButton[] buttons){Set=set;this.buttons=buttons;surfaces=new UiSurface?[buttons.Length];}
+    public abstract string Id{get;}
+    protected abstract string Mode{get;}
+    public UiLayer Layer=>UiLayer.Window;
+    public Point Origin{get;private set;}=BoardWindowLayout.DefaultOrigin;
+    public IReadOnlyList<BoardButton> Buttons=>buttons;
+    public Rectangle Bounds{get;private set;}
+    public bool Visible=>!Bounds.IsEmpty&&Set.Mode==Mode;
+    /// <summary>Board windows read no XML (hard-coded in the BIN); layout is ignored and may be null.</summary>
+    public void Load(UiLayout layout,SurfCatalog surfs){
+        for(int i=0;i<buttons.Length;i++)surfaces[i]=surfs.Get(buttons[i].Surf);
+        Bounds=buttons.Select((_,i)=>ButtonRect(i)).Where(r=>!r.IsEmpty).Aggregate(Rectangle.Empty,(a,r)=>a.IsEmpty?r:Rectangle.Union(a,r));
+    }
+    public Rectangle ButtonRect(int index)=>surfaces[index] is {} s?new(Origin.X+buttons[index].X,Origin.Y+buttons[index].Y,s.Width,s.Height):Rectangle.Empty;
+    public int HitButton(Point p){for(int i=0;i<buttons.Length;i++)if(ButtonRect(i).Contains(p))return i;return -1;}
+    public void Update(IUiGameState state){Set.Sync();if(!Visible)pressed=-1;}
+    public void Paint(UiCanvas canvas){for(int i=0;i<buttons.Length;i++)canvas.DrawSurface(surfaces[i],Origin.X+buttons[i].X,Origin.Y+buttons[i].Y);}
+    /// <summary>Press on a button, release on the same button = activate. Presses between buttons are swallowed (inside Bounds).</summary>
+    public bool Mouse(UiMouseEvent e,IUiCommands commands){
+        if(e.Button!=MouseButtons.Left&&e.Kind is UiMouseKind.Down or UiMouseKind.Up)return false;
+        int hit=HitButton(e.Location);
+        switch(e.Kind){
+            case UiMouseKind.Down:pressed=hit;return true;
+            case UiMouseKind.Up:{
+                int was=pressed;pressed=-1;
+                if(was>=0&&was==hit&&Visible)Activate(buttons[was].Role);
+                return true;
+            }
+            default:return Bounds.Contains(e.Location);
+        }
+    }
+    public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
+    void Activate(BoardButtonRole role){
+        switch(role){
+            case BoardButtonRole.Close:Set.Host.Press("close");break;
+            case BoardButtonRole.Read:Set.Host.Press("read");break;
+            case BoardButtonRole.Write:Set.Host.Press("write");break;
+            case BoardButtonRole.Delete:Set.Host.Press("delete");break;
+            case BoardButtonRole.Previous:Set.Host.Press("previous");break;
+            case BoardButtonRole.Next:Set.Host.Press("next");break;
+            case BoardButtonRole.BackToList:Set.ShowList();break;
+            // ArticlePrevious / ArticleNext: meaning unverified (WIN§2 lists only surf + offset) → no action.
+        }
+    }
+}
+
+public sealed class BoardListWindow(BoardPanelSet set):BoardButtonWindow(set,BoardWindowLayout.List) {
+    public override string Id=>"BoardListWindow";
+    protected override string Mode=>"list";
+}
+public sealed class BoardReadWindow(BoardPanelSet set):BoardButtonWindow(set,BoardWindowLayout.Read) {
+    public override string Id=>"BoardReadWindow";
+    protected override string Mode=>"read";
+}
+
+/// <summary>
+/// BoardWriteWindow (sub_7CBE90 / FO 0x3CB290): no surf or offset is verified, so it is data only and never visible.
+/// Writing stays in the existing board window (BoardUi) until WIN§2 gains the write-window layout.
+/// </summary>
+public sealed class BoardWriteWindow(BoardPanelSet set):IUiPanel {
+    public BoardPanelSet Set{get;}=set;
+    public string Id=>"BoardWriteWindow";
+    public UiLayer Layer=>UiLayer.Window;
+    public Rectangle Bounds=>Rectangle.Empty;
+    public bool Visible=>false;
+    public IReadOnlyList<int> InferredSurfs=>BoardWindowLayout.WriteWindowSurfs;
+    public void Load(UiLayout layout,SurfCatalog surfs){}
+    public void Update(IUiGameState state){}
+    public void Paint(UiCanvas canvas){}
+    public bool Mouse(UiMouseEvent e,IUiCommands commands)=>false;
+    public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
+}

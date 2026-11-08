@@ -28,10 +28,16 @@ public sealed partial class WorldSession {
             if(t.X!=a.X+MovementRules.Dx[a.Direction]||t.Y!=a.Y+MovementRules.Dy[a.Direction]||t.Direction!=(a.Direction+4)%8)return null;
             return Objects.Count(o=>o.X==t.X&&o.Y==t.Y&&(o.Flags&4)!=0&&!o.Dead)==1?t:null;}
     }
-    internal void ResetTrade(string notice="交易狀態已清除。"){TradeGeneration++;tradeOffers.Clear();TradePeerName="";TradePeerId=null;TradeChallenge=0;tradeOwnConfirmed=false;tradeOpened=false;TradeCancelRequired=false;TradeState="idle";TradeRevision++;TradeNotice=notice;}
+    internal void ResetTrade(string notice="交易狀態已清除。"){if(TradeState=="invited")YesNoHandled(252);TradeGeneration++;tradeOffers.Clear();TradePeerName="";TradePeerId=null;TradeChallenge=0;tradeOwnConfirmed=false;tradeOpened=false;TradeCancelRequired=false;TradeState="idle";TradeRevision++;TradeNotice=notice;}
     public void CheckTrade(){if(TradeBlocksActions&&TradeState is not ("invited" or "attention" or "cancelling")&&!TradePeerPresent){TradeState="attention";TradeRevision++;TradeNotice="交易對象、位置或世界已改變，不能繼續確認；請取消或斷線。";}}
     internal void BeginTradeInvite(){var t=FacingTradeTarget!;ResetTrade();CloseInteraction("已開啟交易操作。");tradeEpoch=WorldEpoch;TradePeerId=t.ObjectId;TradePeerName=t.Name;TradeState="inviting";TradeNotice="已送出面對面交易邀請，等待對方回覆；不會自動重送。";}
-    internal void TradeAdmit(string command){TradeRevision++;switch(command){
+    // byte_136E99D (WIN§2.1): 1 = S219/252 shows the generic Y/N question; otherwise the original auto-replies C121 (op 33).
+    // Where the flag is set and which value the auto-reply carries are unverified (推測), so the engine assumes 1
+    // and the flag-0 path keeps the pre-M7-K manual accept/reject instead of inventing an automatic answer.
+    internal bool TradeAskWindow {get;set;}=true;
+    // The shared question is live only while this exact invitation (same challenge, same world) is still waiting.
+    internal bool TradeYesNoLive(YesNoPrompt p)=>p.Message==252&&TradeState=="invited"&&TradeChallenge==p.RequestId&&tradeEpoch==p.Epoch&&p.Arguments is [var name]&&name==TradePeerName;
+    internal void TradeAdmit(string command){if(TradeState=="invited")YesNoHandled(252);TradeRevision++;switch(command){
         case "accept":TradeState="accepting";TradeNotice="已接受，等待原服開啟交易視窗。";break;
         case "reject":TradeCancelRequired=false;TradeState="cancelled";TradeNotice="拒絕已送出；本次沒有開啟交易。原服不另回傳拒絕方狀態。";break;
         case "cancel":TradeCancelRequired=false;TradeState=tradeOpened?"cancelling":"cancelled";TradeNotice=tradeOpened?"取消已送出，等待原服結果；物品與金額以回包為準。":"取消請求已送出，本地已停止等待尚未開啟的交易；沒有宣稱收到原服確認。";break;
@@ -48,7 +54,11 @@ public sealed partial class WorldSession {
             string peer=r.S();r.Finish();if(!Ready||OwnDead)return true;
             if(TradeBlocksActions){TradeState="attention";TradeRevision++;TradeNotice="收到新邀請時已有交易操作；請取消後重新邀請。";return true;}
             var candidates=Objects.Where(o=>o.Name==peer&&!o.Dead&&Actor is {} a&&Math.Abs(o.X-a.X)<=1&&Math.Abs(o.Y-a.Y)<=1).ToArray();
-            ResetTrade();CloseInteraction("收到交易邀請，舊NPC操作已失效。");tradeEpoch=WorldEpoch;TradePeerName=peer;TradePeerId=candidates.Length==1?candidates[0].ObjectId:null;TradeChallenge=challenge;TradeState="invited";TradeNotice=peer+" 邀請你交易。接受前請核對角色名稱；也可拒絕。";return true;
+            ResetTrade();CloseInteraction("收到交易邀請，舊NPC操作已失效。");tradeEpoch=WorldEpoch;TradePeerName=peer;TradePeerId=candidates.Length==1?candidates[0].ObjectId:null;TradeChallenge=challenge;TradeState="invited";
+            // M7-K: WIN§2.1 — flag 1 shows the shared Y/N question (chat input line, M7-J); flag 0 auto-replies in the original (value unverified, kept manual here).
+            if(TradeAskWindow){TradeNotice=peer+" 邀請你交易。請在聊天輸入列輸入 Y 接受、N 拒絕後按 Enter。";OfferYesNo(challenge,252,[peer]);}
+            else TradeNotice=peer+" 邀請你交易。接受前請核對角色名稱；也可拒絕。";
+            return true;
         }
         if(opcode==52){string peer=r.S();r.Finish();if(tradeEpoch!=WorldEpoch||TradeState is not ("inviting" or "accepting")||peer!=TradePeerName)return true;TradeRevision++;tradeOffers.Clear();tradeOwnConfirmed=false;tradeOpened=true;TradeState="open";TradeNotice="原服已開啟交易。逐次加入物品，核對雙方原服清單後才確認。";CheckTrade();return true;}
         if(opcode==35){byte side=r.C();ushort icon=r.H();string name=r.S();byte bless=r.C();r.Finish();if(side>1)throw new ProtocolException("trade side");if(tradeEpoch!=WorldEpoch||TradeState is not ("open" or "adding" or "confirmed" or "attention"))return true;if(tradeOffers.Count>=512)throw new ProtocolException("trade list too large");tradeOffers.Add(new(side,icon,name,bless));TradeRevision++;
@@ -85,5 +95,7 @@ public sealed partial class LoginConnection {
         catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,"交易傳送失敗，已斷線；沒有自動重送。");}return false;}
         finally{if(session==generation&&lease==tradeSendLease){tradeSending=false;if(World.TradeCancelRequired)_=CancelChangedTrade();}}
     }
+    // M7-K: Y/N on the chat input line for S219/252 goes through Trade's own admission and C121 (same bytes as YesNoProtocol.Answer).
+    internal Task<bool> TradeYesNo(bool accept)=>Trade(accept?"accept":"reject",World.TradeRevision,World.WorldEpoch,World.TradeGeneration);
     async Task CancelChangedTrade(){if(World.TradeCancelRequired)await Trade("cancel",World.TradeRevision,World.WorldEpoch,World.TradeGeneration);}
 }
