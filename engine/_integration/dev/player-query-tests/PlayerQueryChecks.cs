@@ -94,9 +94,9 @@ partial class Checks {
         using(var c=Seed()){
             Feed(c,WhoMessage());Check(c.World.PlayerChatLines.Length==1&&c.World.LastServerReply==null,"query real S71 dispatcher does not acknowledge inventory");
             Feed(c,WhoMessage(id:125,count:0));Check(c.World.LastServerReply?.Id==125&&c.World.PlayerChatLines.Length==1,"query unrelated inventory response preserved");
-            Feed(c,WhoHtml());Check(c.World.PlayerChatLines.Length==10&&c.World.PlayerChatLines.Last().Text.Contains("重啟時間"),"query self HTML visible without NPC selection");
-            int revision=c.World.PlayerChatRevision;Feed(c,WhoHtml(id:456));Check(c.World.PlayerChatRevision==revision,"query wrong self ignored");
-            Feed(c,QueryHtml(456,"pc_show",CheckFields()));Feed(c,QueryHtml(456,"y_h_2",HeroRows("甲")));Check(c.World.PlayerChatRevision==revision,"query other-object check/rank ignored without dialog");
+            Feed(c,WhoHtml());Check(c.World.PlayerChatLines.Length==1&&c.World.QueryVisible&&c.World.QueryHtml=="y_who"&&c.World.QueryPage!.Text.Contains("重啟時間：2026/11/08 10:00"),"query self HTML shown in hypertext page, not chat");
+            int revision=c.World.PlayerChatRevision,queryRevision=c.World.QueryRevision;Feed(c,WhoHtml(id:456));Check(c.World.PlayerChatRevision==revision&&c.World.QueryRevision==queryRevision,"query wrong self ignored");
+            Feed(c,QueryHtml(456,"pc_show",CheckFields()));Feed(c,QueryHtml(456,"y_h_2",HeroRows("甲")));Check(c.World.PlayerChatRevision==revision&&c.World.QueryRevision==queryRevision,"query other-object check/rank ignored without dialog");
             Call(c.World,"BeginTalk");int npcRevision=c.World.InteractionRevision;
             Feed(c,WhoMessage());Check(c.World.InteractionRevision==npcRevision&&c.World.LastServerReply?.Id==125,"query S71 preserves pending NPC and inventory state");
             Feed(c,WhoHtml());Check(c.World.InteractionRevision==npcRevision&&c.World.InteractionKind=="waiting","query preserves pending NPC dialog");
@@ -110,7 +110,7 @@ partial class Checks {
             Check(c.World.PlayerChatLines.Length==100&&c.World.PlayerChatLines.Last().Text.Contains("119"),"query shared chat history bounded");
             c.World.Reset();Check(c.World.PlayerChatLines.Length==0,"query logout clears query history");
             Feed(c,WhoHtml());Feed(c,QueryHtml(123,"y_h_2",HeroRows("甲")));Feed(c,QueryHtml(123,"pc_show",CheckFields()));
-            Check(c.World.PlayerChatLines.Length==0,"query HTML before world ready ignored");
+            Check(c.World.PlayerChatLines.Length==0&&!c.World.QueryVisible,"query HTML before world ready ignored");
         }
         using(var c=Seed()){
             int before=c.World.PlayerChatRevision;Feed(c,WhoMessage("一般伺服器文字"));
@@ -120,7 +120,7 @@ partial class Checks {
             Feed(c,QueryHtml(456,"y_h_1"));Check(c.World.PlayerChatRevision==before&&c.World.InteractionKind=="dialog","query rank menu stays dialog only");
             Feed(c,QueryHtml(456,"y_w_1",RankRows(10,"重複")));Check(c.World.PlayerChatRevision==before&&c.World.InteractionKind=="dialog","query unrequested rank page not mirrored");
             Call(c.World,"AwaitInteraction",false);Feed(c,QueryHtml(456,"y_k_2",RankRows(10,"甲,5")));
-            Check(QueryChat(c).Contains("No.1 甲（5）")&&c.World.InteractionKind=="dialog","query rank NPC reply mirrored to chat and kept in dialog");
+            Check(!QueryChat(c).Contains("甲")&&c.World.InteractionKind=="dialog"&&c.World.InteractionPage!.Text.Contains("No.1 甲（5）"),"query rank NPC reply shown in dialog, not chat");
             int revision=c.World.PlayerChatRevision;Call(c.World,"AwaitInteraction",false);Feed(c,QueryHtml(456,"y_h_2","too few"));
             Check(c.World.PlayerChatRevision==revision&&c.World.InteractionKind=="dialog","query incomplete rank page still opens dialog");
         }
@@ -129,7 +129,7 @@ partial class Checks {
             Check(await QuerySend(c,"/rank")&&sent.Single().SequenceEqual(PlayerQueryPackets.Rank(123)),"query /rank sends self action through chat transport");
             Check(c.World.PlayerChatLines.Length==0,"query rank send does not fabricate result");
             Feed(c,QueryHtml(123,"y_h_2",HeroRows("甲","乙","丙")));
-            Check(c.World.PlayerChatLines.Length==4&&QueryChat(c).Contains("[查詢] 排名：英雄風雲榜・全職業")&&QueryChat(c).Contains("No.3 丙"),"query /rank result shown in chat");
+            Check(c.World.PlayerChatLines.Length==0&&c.World.QueryPage!.Text.Contains("排名：英雄風雲榜・全職業")&&c.World.QueryPage.Text.Contains("No.3 丙"),"query /rank result shown in hypertext page");
             Check(c.World.InteractionKind=="closed","query self rank result does not open NPC dialog");
         }
         using(var c=Seed()){
@@ -148,8 +148,8 @@ partial class Checks {
             Check(sent[1].SequenceEqual(PlayerQueryPackets.CheckTarget(123,456))&&c.World.LastServerMessage==message,"query C223 carries selected target; prompt consumed");
             Check(c.World.PlayerChatLines.Length==0,"query check send does not fabricate result");
             Feed(c,QueryHtml(123,"pc_show",CheckFields()));
-            Check(c.World.PlayerChatLines.Length==7&&QueryChat(c).Contains("[查詢] 目標：目標者｜等級 52")&&QueryChat(c).Contains("裝備・武器：長劍")&&c.World.InteractionKind=="closed","query pc_show shown in chat");
-            Feed(c,WhoMessage("目標不存在。"));Check(c.World.PlayerChatLines.Length==7,"query finished check ignores later failure text");
+            Check(c.World.PlayerChatLines.Length==0&&c.World.QueryPage!.Text.Contains("目標：目標者｜等級 52")&&c.World.QueryPage.Text.Contains("裝備・武器：長劍")&&c.World.InteractionKind=="closed","query pc_show shown in hypertext page");
+            Feed(c,WhoMessage("目標不存在。"));Check(c.World.PlayerChatLines.Length==0,"query finished check ignores later failure text");
         }
         foreach(string failure in new[]{"目標不存在。","只能對玩家查詢狀態。","查詢失敗。"}){
             using var c=Seed();var sent=QuerySender(c);await QuerySend(c,"/check");Feed(c,WhoMessage(PlayerQueryPackets.CheckPrompt));

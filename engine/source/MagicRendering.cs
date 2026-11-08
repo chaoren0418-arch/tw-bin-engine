@@ -124,9 +124,19 @@ public sealed class EffectSpriteCatalog(string clientRoot) {
         }).ToArray())).ToArray();
     }
 }
-public sealed record EffectStep(int SubId,int Frame,int Milliseconds);
+// Hit: list.spr frame flag `!` (36-byte frame +22 bit1, REA B07).
+public sealed record EffectStep(int SubId,int Frame,int Milliseconds,bool Hit=false);
 public sealed record EffectSprite(int Gfx,int Sprite,bool Directional,int Directions,int TileType,int Kind,int Impact,EffectStep[] Steps){
     public int Duration=>Steps.Sum(s=>s.Milliseconds);
+    // Offsets from effect start of every displayed `!` frame, in the same display order as At():
+    // 8ABC10 advances the cursor before the first display, the terminal wrap shows index0 last.
+    public long[] HitOffsets(){
+        var result=new List<long>();long t=0;
+        for(int i=1;i<=Steps.Length;i++){var s=Steps[i%Steps.Length];if(s.Hit)result.Add(t);t+=s.Milliseconds;}
+        return result.ToArray();
+    }
+    // Latest `!` time not after now (null before the first one, or when the sprite has none).
+    public long? LatestHit(long start,long now){long? hit=null;foreach(long o in HitOffsets())if(start+o<=now)hit=start+o;return hit;}
     public EffectStep At(long age,bool loop=false,int? step=null){
         // Native pure effects advance the metadata cursor before the first display.
         if(step is int n)return Steps[((n%Steps.Length)+Steps.Length)%Steps.Length];
@@ -138,11 +148,11 @@ public sealed record EffectSprite(int Gfx,int Sprite,bool Directional,int Direct
         var action=Regex.Match(entry,@"(?<![\d.])0\.[^(]*\((\d+)\s+(\d+),([^)]*)\)");
         if(!header.Success||!action.Success)throw new InvalidDataException($"特效 gfx {gfx} 缺少 action0");
         int sprite=header.Groups[2].Success?int.Parse(header.Groups[2].Value):gfx;
-        var tokens=Regex.Matches(action.Groups[3].Value,@"(\d+)\.(\d+):(\d+)[^\s]*");
+        var tokens=Regex.Matches(action.Groups[3].Value,@"(\d+)\.(\d+):(\d+)([^\s]*)");
         if(tokens.Count!=int.Parse(action.Groups[2].Value)||tokens.Count is <1 or >4096)throw new InvalidDataException("特效動畫長度");
         var fpsMatch=Regex.Match(entry,@"(?<![\d.])110\.[^(]*\((\d+)\)");int fps=fpsMatch.Success?int.Parse(fpsMatch.Groups[1].Value):24;
         if(fps is <1 or >1000)throw new InvalidDataException("特效 fps");
-        var steps=tokens.Select(t=>new EffectStep(int.Parse(t.Groups[1].Value),int.Parse(t.Groups[2].Value),checked(1000*int.Parse(t.Groups[3].Value)/fps))).ToArray();
+        var steps=tokens.Select(t=>new EffectStep(int.Parse(t.Groups[1].Value),int.Parse(t.Groups[2].Value),checked(1000*int.Parse(t.Groups[3].Value)/fps),t.Groups[4].Value.Contains('!'))).ToArray();
         if(steps.Sum(s=>s.Milliseconds)<=0)throw new InvalidDataException("特效空動畫");
         var effect=Regex.Match(entry,@"(?<![\d.])109\.[^(]*\((\d+)\s+(-?\d+)\)");
         var attr=Regex.Match(entry,@"(?<![\d.])104\.[^(]*\((\d+)\)");int flags=attr.Success?int.Parse(attr.Groups[1].Value):0;
@@ -166,7 +176,25 @@ public static class MagicMotion {
         for(int n=1;n<=steps;n++){fx=unchecked(fx+(uint)vx);fy=unchecked(fy+(uint)vy);ix=(int)(unchecked(fx+0x8000u)>>16)&~1;iy=(int)(unchecked(fy+0x8000u)>>16);remaining--;if(ix==2*tx-32768&&iy==ty||remaining<=0)return((ix+32768)/2,iy,direction,n,true);}
         return((ix+32768)/2,iy,direction,steps,false);
     }
+    // Kind 7 (sub_81C490, recursive sub_81C9D0): tiles advanced from the origin toward the target,
+    // using the same one-tile major-axis stepping. Segment stay/advance timing is NOT verified
+    // (skills-visual.md §7.4), so this is data only and the renderer does not draw kind 7.
+    public static (int X,int Y)[] EruptionPath(int sx,int sy,int tx,int ty){
+        var e=new MagicEffect(0,0,0,0,0,0,0,(ushort)sx,(ushort)sy,(ushort)tx,(ushort)ty,0);var path=new List<(int,int)>();
+        for(long t=0;path.Count<128;t+=60){var m=At(e,tx,ty,0,t);path.Add((m.X,m.Y));if(m.Arrived)break;}
+        return path.ToArray();
+    }
 }
+// Native 109 class names used by the renderer (skills-visual.md §2.2).
+public static class MagicClass {
+    // Hardcoded kind 3 override (gfx 7972) and S42 757->10771 are TW16 specific and unverified
+    // for 3.81 (SV#14); deliberately not applied.
+    public static bool Flies(int kind,bool range)=>range?kind==5:kind is 3 or 4 or 5;
+    // S30 kinds that never build an effect object (kind 8: `case 8: break`) or whose drawing is
+    // unverified (kind 7). The caster `!` frame then hits the attached list directly (sub_A4B060).
+    public static bool CasterHits(int kind,bool range)=>!range&&kind is 7 or 8;
+}
+public sealed record UndrawnMagic(long Number,int Gfx,int Kind,(int X,int Y)[] Path,int EndGfx,string Reason);
 public sealed partial class Renderer {
     EffectSpriteCatalog? effectSprites;
     readonly Dictionary<int,string> effectResourceErrors=[];
@@ -183,48 +211,110 @@ public sealed partial class Renderer {
             draws.AddRange(frame.Blocks.Select(b=>new Draw(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,b.Z,1200000+b.Order,layer,b.Order,-1,-1,b.Tile)));return frame;
         }catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or OverflowException){effectResourceErrors[gfx]=ex.Message;return null;}
     }
-    void ComposeNativeMagic(MagicEffect e,WorldSession session,List<Draw> draws,List<MagicVisual> visuals,long now){
+    static bool MagicCasterBlocked(MagicEffect e,WorldSession session){
+        var caster=session.Objects.FirstOrDefault(o=>o.ObjectId==e.Caster);
+        return e.Caster==session.Actor?.ObjectId
+            ?session.OwnDead||session.SelfAppearancePending||e.Timing is {} ownTiming&&!ownTiming.Matches(session.Actor!.Gfx,session.Actor.Weapon)
+            :caster!=null&&(caster.Dead||caster.AppearancePending||e.Timing is {} otherTiming&&!otherTiming.Matches(caster.Gfx,caster.Action));
+    }
+    void MagicHit(WorldSession session,uint id,long at){
+        if(id==0||session.IsHitReactionSuppressed(id))return;
+        if(!projectileHits.TryGetValue(id,out var hit)||hit.At<at)projectileHits[id]=new(2,at,false);
+    }
+    // No effect object: the caster `!` frame hits every nonzero entry (sub_A4B060 loop uses entry i).
+    void CasterFrameHits(MagicEffect e,WorldSession session,long release){
+        if(e.RangeType!=null){foreach(var t in session.RangeTargets(e.Number))if(t.HitFlag!=0)MagicHit(session,t.ObjectId,release);}
+        else if(e.DamageWord>0)MagicHit(session,e.Target,release);
+    }
+    // skills-visual.md §2–§4: every class starts at the caster `!` frame (SV#5). Default classes hit
+    // on the effect's own `!` frames; flying classes hit on arrival.
+    void ComposeNativeMagic(MagicEffect e,WorldSession session,List<Draw> draws,List<MagicVisual> visuals,List<UndrawnMagic> undrawn,long now){
         if(now<e.At)return;
-        var effect=NativeEffect(e.Gfx);if(effect==null)return;
-        int gfx=e.Gfx,x=e.TargetX,y=e.TargetY,d=e.Heading;long at=e.At;string phase="effect";bool loop=false;
-        if(e.RangeType==null&&effect.Kind is 3 or 4){
-            var caster=session.Objects.FirstOrDefault(o=>o.ObjectId==e.Caster);
-            if(!magicFlights.ContainsKey(e.Number)&&(e.Caster==session.Actor?.ObjectId
-                ?session.OwnDead||session.SelfAppearancePending||e.Timing is {} ownTiming&&!ownTiming.Matches(session.Actor!.Gfx,session.Actor.Weapon)
-                :caster!=null&&(caster.Dead||caster.AppearancePending||e.Timing is {} otherTiming&&!otherTiming.Matches(caster.Gfx,caster.Action))))return;
-            long release=(e.ActionAt??e.At)+(e.Timing?.ReleaseMs??0);if(now<release)return;
-            var arrow=new ProjectileReport(e.Number,e.Caster,e.Target,e.Gfx,e.Heading,e.SourceX,e.SourceY,e.TargetX,e.TargetY,e.At);
-            bool Arrived(int tx,int ty,long tick)=>effect.Kind==3?ProjectileMotion.At(arrow,tx,ty,release,tick)==null:MagicMotion.At(e,tx,ty,release,tick).Arrived;
-            if(!magicFlights.TryGetValue(e.Number,out var flight)){
-                var target=session.Objects.FirstOrDefault(o=>o.ObjectId==e.Target);
-                int tx=e.Target==session.Actor?.ObjectId?session.Actor.X:target?.X??e.TargetX;
-                int ty=e.Target==session.Actor?.ObjectId?session.Actor.Y:target?.Y??e.TargetY;
-                long impact=release;while(impact<release+6000&&!Arrived(tx,ty,impact))impact+=effect.Kind==3?30:60;
-                flight=(tx,ty,release,impact);magicFlights[e.Number]=flight;
+        var effect=NativeEffect(e.Gfx);bool range=e.RangeType!=null;int kind=effect?.Kind??-1;
+        bool flies=effect!=null&&MagicClass.Flies(kind,range);
+        if(!magicFlights.ContainsKey(e.Number)&&(flies||e.Timing!=null)&&MagicCasterBlocked(e,session))return;
+        // Caster `!` frame. A caster without a captured action (absent, caster0) starts at once (§2.1).
+        long release=(e.ActionAt??e.At)+(e.Timing?.ReleaseMs??0);if(now<release)return;
+        if(effect==null||MagicClass.CasterHits(kind,range)){
+            CasterFrameHits(e,session,release);
+            if(effect!=null&&kind==7){
+                var aim=session.VisibleTargetPosition(e.Target);
+                undrawn.Add(new(e.Number,e.Gfx,7,MagicMotion.EruptionPath(e.SourceX,e.SourceY,aim?.X??e.TargetX,aim?.Y??e.TargetY),effect.Impact,"kind 7 segment timing unverified (skills-visual §7.4)"));
             }
-            var motion=MagicMotion.At(e,flight.X,flight.Y,release,Math.Min(now,flight.Impact));
-            x=motion.X;y=motion.Y;d=ProjectileMotion.Direction(e.SourceX,e.SourceY,flight.X,flight.Y,e.Heading);
-            if(effect.Kind==3&&ProjectileMotion.At(arrow,flight.X,flight.Y,release,now) is {} arrowMotion){x=arrowMotion.X;y=arrowMotion.Y;}
-            if(now<flight.Impact){at=release;phase="fly";loop=true;}
-            else{
-                x=flight.X;y=flight.Y;at=flight.Impact;phase="impact";
-                if(e.DamageWord>0&&e.Target!=0&&(!projectileHits.TryGetValue(e.Target,out var hit)||hit.At<at))projectileHits[e.Target]=new(2,at,false);
-                gfx=effect.Impact;if(gfx<0)return;
+            return;
+        }
+        var arrow=new ProjectileReport(e.Number,e.Caster,e.Target,e.Gfx,e.Heading,e.SourceX,e.SourceY,e.TargetX,e.TargetY,e.At);
+        bool Arrived(int tx,int ty,long tick)=>kind==3?ProjectileMotion.At(arrow,tx,ty,release,tick)==null:MagicMotion.At(e,tx,ty,release,tick).Arrived;
+        if(!magicFlights.TryGetValue(e.Number,out var flight)){
+            int tx,ty;
+            // S42 default classes: packet x,y (caster). S30 default: constructed at the packet target.
+            if(range&&!flies){tx=e.SourceX;ty=e.SourceY;}
+            else if(!flies&&kind!=6){tx=e.TargetX;ty=e.TargetY;}
+            // Flying classes and kind 6 (81CF30) re-aim at the target's current position at start (§2.3).
+            else{var aim=session.VisibleTargetPosition(e.Target);tx=aim?.X??e.TargetX;ty=aim?.Y??e.TargetY;}
+            long impact=release;
+            if(flies)while(impact<release+6000&&!Arrived(tx,ty,impact))impact+=kind==3?30:60;
+            flight=(tx,ty,release,impact);magicFlights[e.Number]=flight;
+        }
+        if(!flies){
+            if(effect.LatestHit(release,now) is long hitAt){
+                if(!range){if(e.DamageWord>0)MagicHit(session,e.Target,hitAt);}
+                else{
+                    // Original defect kept on purpose (§2.4, 0x8AC26E imul eax,0): any nonzero entry
+                    // triggers the hit on entry 0 only, so only the FIRST target reacts.
+                    var list=session.RangeTargets(e.Number);
+                    if(list.Count>0&&list.Any(t=>t.HitFlag!=0))MagicHit(session,list[0].ObjectId,hitAt);
+                }
             }
-        }else if(e.DamageWord>0&&e.Target!=0&&(!projectileHits.TryGetValue(e.Target,out var hit)||hit.At<at))projectileHits[e.Target]=new(2,at,false);
-        var frame=DrawNativeEffect(gfx,d,x,y,now-at,session,draws,"magic",loop);
-        if(frame!=null)visuals.Add(new(e.Number,gfx,x,y,d,frame.Key,phase,at));
+            var still=DrawNativeEffect(e.Gfx,e.Heading,flight.X,flight.Y,now-release,session,draws,"magic");
+            if(still!=null)visuals.Add(new(e.Number,e.Gfx,flight.X,flight.Y,e.Heading,still.Key,"effect",release));
+            return;
+        }
+        var motion=MagicMotion.At(e,flight.X,flight.Y,release,Math.Min(now,flight.Impact));
+        int x=motion.X,y=motion.Y,d=ProjectileMotion.Direction(e.SourceX,e.SourceY,flight.X,flight.Y,e.Heading);
+        if(kind==3&&ProjectileMotion.At(arrow,flight.X,flight.Y,release,now) is {} arrowMotion){x=arrowMotion.X;y=arrowMotion.Y;}
+        if(now<flight.Impact){
+            var fly=DrawNativeEffect(e.Gfx,d,x,y,now-release,session,draws,"magic",true);
+            if(fly!=null)visuals.Add(new(e.Number,e.Gfx,x,y,d,fly.Key,"fly",release));
+            return;
+        }
+        var landings=new List<(int X,int Y)>();
+        if(kind==5){
+            // sub_83CE90: on arrival every target with damage is hit and every target gets the param gfx.
+            if(range){
+                var known=magicLandings??=[];
+                if(!known.TryGetValue(e.Number,out var at)){
+                    at=session.RangeTargets(e.Number).Select(t=>session.VisibleTargetPosition(t.ObjectId)).Where(p=>p!=null).Select(p=>((int)p!.Value.X,(int)p.Value.Y)).ToArray();
+                    known[e.Number]=at;
+                }
+                foreach(var t in session.RangeTargets(e.Number))if(t.HitFlag!=0)MagicHit(session,t.ObjectId,flight.Impact);
+                landings.AddRange(at);
+            }else{if(e.DamageWord>0)MagicHit(session,e.Target,flight.Impact);landings.Add((flight.X,flight.Y));}
+        }else{
+            if(e.DamageWord>0)MagicHit(session,e.Target,flight.Impact);
+            // Kind 4 places the param gfx; the kind 3 class never reads param (SV#10, 2349 no 219).
+            if(kind==4)landings.Add((flight.X,flight.Y));
+        }
+        if(effect.Impact<0)return;
+        foreach(var (lx,ly) in landings){
+            var frame=DrawNativeEffect(effect.Impact,d,lx,ly,now-flight.Impact,session,draws,"magic");
+            if(frame!=null)visuals.Add(new(e.Number,effect.Impact,lx,ly,d,frame.Key,"impact",flight.Impact));
+        }
     }
     readonly Dictionary<int,ObjectAppearance> magicAppearances=[];
     readonly Dictionary<long,(int X,int Y,long Release,long Impact)> magicFlights=[];
+    // Lazily created: constructor-free test renderers do not run field initializers.
+    Dictionary<long,(int X,int Y)[]>? magicLandings;
     int magicEpoch=-1;
     public MagicVisual[] MagicVisuals {get;private set;}=[];
+    // Effects whose drawing is deliberately withheld (unverified presentation), as data.
+    public UndrawnMagic[] UndrawnMagicEffects {get;private set;}=[];
     ObjectAppearance MagicAppearance(int gfx){if(!magicAppearances.TryGetValue(gfx,out var a)){a=new(Path.Combine(assets.Root,$"objects/magic-{gfx}.json"));magicAppearances[gfx]=a;}return a;}
     void ComposeMagic(WorldSession session,List<Draw> draws,long now){
-        if(magicEpoch!=session.WorldEpoch){magicFlights.Clear();magicEpoch=session.WorldEpoch;}var visuals=new List<MagicVisual>();
+        if(magicEpoch!=session.WorldEpoch){magicFlights.Clear();magicLandings?.Clear();magicEpoch=session.WorldEpoch;}var visuals=new List<MagicVisual>();var undrawn=new List<UndrawnMagic>();
         foreach(var e in session.MagicEffects){
             if(e.RangeType!=null||e.Gfx is not (11722 or 221 or 2165 or 189 or 191 or 197 or 167)){
-                ComposeNativeMagic(e,session,draws,visuals,now);continue;
+                ComposeNativeMagic(e,session,draws,visuals,undrawn,now);continue;
             }
             int gfx=e.Gfx,x=e.TargetX,y=e.TargetY,d=e.Heading;long at=e.At;Frame? frame=null;string phase="heal";
             if(now<at)continue;
@@ -246,6 +336,7 @@ public sealed partial class Renderer {
             }
             if(frame==null||!session.SceneContains(x,y))continue;visuals.Add(new(e.Number,gfx,x,y,d,frame.Key,phase,at));draws.AddRange(frame.Blocks.Select(b=>new Draw(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,b.Z,1200000+b.Order,"magic",b.Order,-1,-1,b.Tile)));
         }
-        MagicVisuals=visuals.ToArray();foreach(var k in magicFlights.Where(x=>now-x.Value.Release>15000).Select(x=>x.Key).ToArray())magicFlights.Remove(k);
+        MagicVisuals=visuals.ToArray();UndrawnMagicEffects=undrawn.ToArray();
+        foreach(var k in magicFlights.Where(x=>now-x.Value.Release>15000).Select(x=>x.Key).ToArray()){magicFlights.Remove(k);magicLandings?.Remove(k);}
     }
 }

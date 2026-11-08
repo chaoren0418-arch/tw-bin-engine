@@ -52,7 +52,8 @@ public sealed partial class Renderer {
         if(p.Gfx!=66){
             var effect=NativeEffect(p.Gfx);if(effect==null)continue;
             if(v==null){
-                if(now>=flight.Impact&&effect.Impact>=0)DrawNativeEffect(effect.Impact,p.Heading,flight.X,flight.Y,now-flight.Impact,session,draws,"projectile");
+                // The kind 3 arrow class (7C36C0) never reads the 109 param: 2349 does not draw 219 (SV#10).
+                if(now>=flight.Impact&&effect.Kind!=3&&effect.Impact>=0)DrawNativeEffect(effect.Impact,p.Heading,flight.X,flight.Y,now-flight.Impact,session,draws,"projectile");
                 continue;
             }
             // Arrow class 3 uses the original fly sequence, including one-frame arrows.
