@@ -9,15 +9,17 @@
 |---|---|
 | `engine/source/NativeUi/PartyPanel.cs`（新） | `PARTY_INTERFACE`：3 個分頁鈕（角色 3205／隊伍 3208／寵物 3298，y=481）；隊伍頁畫底板 3204 (0,493)、7 個隊員格（名字＋量表 3211＋紅色 3212）、選取框 3219、離開／踢除／委任 (70／90／109, 574)；寵物頁畫 3301；Alt+F3 循環 `BAR_485`。共用的 `PartyLayout`（版面、量表寬度、按鈕點擊）也在這個檔 |
 | `engine/source/NativeUi/PartyRtPanel.cs`（新） | `PARTY_PET_RT_WINDOW`：框 3220 (485,475)，加入 `UiSlotGroup("BAR_485")`（V5 順序：小地圖→擴充巨集→隊伍 RT）；隊伍／寵物分頁 3295／3222、7 格隊員、三個按鈕、寵物頁 3221 |
-| `engine/source/NativeUi/State/PartyState.cs`（新） | `IUiPartyState`／`UiPartyGameState`（包裝既有 `PartyView`）、`IUiPartyCommands`／`UiPartyCommands`、`PartyStates.StateOf／CommandsOf`（穿透其他 decorator）；產品端 `ClientForm.NativePartyGameState`（`PartyRead()` = `login.PartySnapshot()`）與 `NativePartyCommands`（`PartyAction` → `SendParty`） |
+| `engine/source/NativeUi/State/PartyState.cs`（新） | `IUiPartyState`／`UiPartyGameState`（包裝既有 `PartyView`）、`IUiPartyCommands`／`UiPartyCommands`（測試用包裝）、`PartyStates.StateOf／CommandsOf`（穿透其他 decorator）；產品端 `ClientForm.NativePartyGameState`（`PartyRead()` = `login.PartySnapshot()`） |
 | `engine/source/NativeUi/UiPanelRegistry.cs` | 加 1 行（兩個面板，layout `uiextra86`，排在 `LEFT_WINDOW` 之後） |
 | `engine/_integration/dev/native-ui-tests/PartyPanelChecks.cs`（新） | 離線檢查（分組 `native-ui-party`），選用的真實客戶端渲染 |
 | `demo-tests/DemoChecks.csproj`、`demo-tests/Program.cs` | 各加 1 行（新分組，並加入預設全組） |
 | `engine/_integration/dev/rebuild-lock.json` | `rebuild.py --update-lock` 重產（288 個來源檔／297 個鎖定檔） |
 
 **範圍外的改動（PR 說明理由）：**
-- `UiClientBridge.cs` 2 行：命令改成 `NativeMacroCommands(NativePartyCommands(bridge))`；狀態改成 `WithHpMpState(NativeMacroGameState(new UiLeftStatusGameState(NativePartyGameState(basic), …)))`。隊伍放在最內層，因為 `MacroBook.StateOf`（只解開 HpMp）、`LeftStatusState.From`（只解開 HpMp／Macro）、巨集的 `commands is IUiMacroCommands`（只看最外層）都不認得新的包裝層；放最內層，其他模組的程式完全不用改。
-- `State/LeftStatusState.cs` 1 行：`UiLeftStatusGameState` 加 `public IUiGameState Inner`，讓 `PartyStates.StateOf` 能往裡解開。
+- `UiClientBridge.cs`（2026-11-09 第二次同步 origin/main 後的最終形）：
+  - 狀態：`WithHpMpState(NativeMacroGameState(new UiLeftStatusGameState(new UiChatGameState(NativePartyGameState(basic), …), …)))`。隊伍放在最內層（chat #468 之下），因為 `MacroBook.StateOf`、`LeftStatusState.From`、`UiChatGameState.From` 都只解開它們上面的層；放最內層，其他模組的程式不用改。`PartyStates.StateOf` 多認 `UiChatGameState`。
+  - 命令：**不再包 `UiPartyCommands`**，改成 `NativeUiCommands` 直接實作 `IUiPartyCommands`（`PartyAction` → 既有 `ClientForm.PartyAction`，mode 0）。原因：`UiChatGameState.Commands` 只解開 `UiMacroCommands`，多一層隊伍包裝會讓聊天輸入找不到 `IUiChatCommands`。原本的 `ClientForm.NativePartyCommands` 已刪除。
+- `State/LeftStatusState.cs` 1 行：`UiLeftStatusGameState` 的 `public IUiGameState Inner`（main 的 #468 也加了同一個存取子，合併時只留一份，註解改成兩個模組共用）。
 - `MacroChecks.cs` 1 行：`MacroRegistry` 多一個條件 `Layout=="uistatus86"`。原本它用整個註冊表去建一個只放 `uistatus86-c.xml` 的合成 Tile，新增 `uiextra86` 的註冊後會找不到 XML。
 - `.github/workflows/build.yml`：加一個 CI 步驟跑 `native-ui-party`（只用合成資料，做法和 #466 相同）。
 
@@ -56,7 +58,8 @@
    - 檢查內容：LT／RT 幾何、7 格與按鈕在第 8 格內、量表寬度、HP 未知不畫、分頁切換（角色／隊伍／寵物、RT 隊伍／寵物）、與 `LEFT_WINDOW` 的命中與像素層次、註冊表中 `LEFT_WINDOW` 排在 `PARTY_INTERFACE` 之前、選取與清除、leave／kick 呼叫、委任與無選取／非隊長／忙碌／無隊員時不送、按下後在別處放開不送、`BAR_485` 成員順序與 Alt+F3 循環（不吃連發、不吃單獨 F3）、產品的四層包裝下隊伍／巨集／左狀態都找得到、缺 surf 時不畫、XML 缺節點時拒絕載入。
 3. 其他原生 UI 分組（設 `TW_CLIENT_ROOT`）：resources **PASS 550**、canvas **429**、left-status **371**、macro **405**、hpmp **398**。
 4. 完整預設全組：在 `Movement123` 中止，原因是 `engine\assets\terrain0.bin` 不存在。worktree 沒有 `engine/assets` junction，與本任務無關；在它之前的原生 UI、小地圖、CharacterConfig、Hotbar、NativeTargetUi 各組都已執行通過。**完整全組待 CI 或主專案目錄確認。**
-5. `git ls-files` 沒有新增任何 `.img`、`.xml`、`.png` 或二進位檔。PNG 只在 `scratch/issue-471/real/`。
+5. **2026-11-09 第二次同步 origin/main（87 個 commit：#467／#468／#470／#517／#526–#530 等）後重驗**：解 7 個衝突（註冊表兩邊都留；Program.cs／DemoChecks.csproj 兩邊分組都留，預設全組加回 `NativeUiPartyChecks`；`MacroChecks.MacroRegistry` 用 main 版本（已限定 `uistatus86`）；lock 取 main 版本後 `--update-lock` 重產 → 308 個來源檔／317 個鎖定檔）。`--build` → **`PASS dev`**，productDll `37dd7f9c…6951b`。設 `TW_CLIENT_ROOT` 後：party **PASS 398**、chat-window **447**、macro **405**、minimap **402**、menu-buttons **356**、left-status **371**。完整預設全組仍因 worktree 無 `engine/assets`（`terrain0.bin`）中止，待 CI。
+6. `git ls-files` 沒有新增任何 `.img`、`.xml`、`.png` 或二進位檔。PNG 只在 `scratch/issue-471/real/`。
 
 ### 真實渲染座標表（`scratch/issue-471/real/party-coordinates.json`）
 
@@ -95,4 +98,5 @@ PNG：`party-lt-party.png`（左狀態框＋隊伍頁、RT 隊伍）、`party-lt
   - 寵物頁清單接 `Pets.cs`。
   - RT「沒有隊員但有寵物時自動切寵物頁」。
   - 若 ui-minimap 也要處理 Alt+F3，請改成共用一處（目前在 `PartyPanel.Key`）。
-- 新模組若再包一層 game-state decorator，請放在**最內層**，並在 `PartyStates.StateOf`、`LeftStatusState.From`、`MacroBook.StateOf` 中檢查能否穿透；不然就照本任務的做法，加 `Inner` 存取子。
+- 新模組若再包一層 game-state decorator，請放在**最內層**，並在 `PartyStates.StateOf`、`UiChatGameState.From`、`LeftStatusState.From`、`MacroBook.StateOf` 中檢查能否穿透；不然就照本任務的做法，加 `Inner` 存取子。新的命令介面請直接讓 `NativeUiCommands` 實作，不要再包一層（`UiChatGameState.Commands` 只解開 `UiMacroCommands`）。
+- 這幾個 decorator 的解包邏輯已經分散在 4 處，建議另開小任務統一成一個 `UiStates.Find<T>()`。

@@ -41,17 +41,17 @@ namespace P06.NativeUi {
     public static class PartyStates {
         /// <summary>
         /// Finds the party state through the other decorators. Product nesting (#471):
-        /// UiHpMpGameState( UiMacroGameState( UiLeftStatusGameState( UiPartyGameState(basic) ) ) ) — the party state is innermost so
-        /// that MacroBook.StateOf and LeftStatusState.From (which only unwrap the layers above them) keep working unchanged.
+        /// UiHpMpGameState( UiMacroGameState( UiLeftStatusGameState( UiChatGameState( UiPartyGameState(basic) ) ) ) ) — the party state is innermost so
+        /// that MacroBook.StateOf and LeftStatusState.From / UiChatGameState.From (which only unwrap the layers above them) keep working unchanged.
         /// </summary>
         public static IUiPartyState? StateOf(IUiGameState? state){
             for(int depth=0;state!=null&&depth<8;depth++){
                 if(state is IUiPartyState p)return p;
-                state=state switch{UiHpMpGameState h=>h.Base,UiMacroGameState m=>m.Inner,UiLeftStatusGameState l=>l.Inner,UiPartyGameState q=>q.Inner,_=>null};
+                state=state switch{UiHpMpGameState h=>h.Base,UiMacroGameState m=>m.Inner,UiLeftStatusGameState l=>l.Inner,UiChatGameState c=>c.Inner,UiPartyGameState q=>q.Inner,_=>null};
             }
             return null;
         }
-        /// <summary>Same idea for commands: UiMacroCommands( UiPartyCommands(bridge) ) — macro checks only the outer object.</summary>
+        /// <summary>Same idea for commands: product is UiMacroCommands( NativeUiCommands ) with NativeUiCommands implementing IUiPartyCommands; UiPartyCommands is the test/adapter wrapper.</summary>
         public static IUiPartyCommands? CommandsOf(IUiCommands? commands){
             for(int depth=0;commands!=null&&depth<8;depth++){
                 if(commands is IUiPartyCommands p)return p;
@@ -66,7 +66,5 @@ namespace P06 {
     public sealed partial class ClientForm {
         /// <summary>Existing party snapshot (same source as the legacy PartyUi drawer); null outside the world.</summary>
         IUiGameState NativePartyGameState(IUiGameState basic)=>new UiPartyGameState(basic,login.State==LoginState.InWorld?PartyRead():null);
-        /// <summary>Existing PartyAction (ClearInput + SendParty); mode 0 like the legacy drawer default. Result is only the server's reply.</summary>
-        IUiCommands NativePartyCommands(IUiCommands inner)=>new UiPartyCommands(inner,(command,view,name)=>_=PartyAction(command,view,name,0));
     }
 }
