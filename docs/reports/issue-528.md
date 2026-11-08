@@ -29,7 +29,7 @@
 | 清單列、文章文字的位置與字型 | 待驗證 | **不畫**；列表、文章、發文仍由既有 `BoardUi` 視窗處理（過渡做法，不是原版行為） |
 
 ## 怎麼驗證
-- `rebuild.py --update-lock`，然後 `rebuild.py --build` → `PASS dev`；merge origin/main 後重跑 `--update-lock` 與 `--build`，仍是 `PASS dev`（productDll `45fcd359…`）。第二次同步 origin/main（#567）後：解 lock 衝突（用 main 版）→ `--update-lock` → `--build` `PASS dev`（productDll `7006f885…`）；`board` PASS 585、`native-ui-canvas` PASS 429、`native-ui-resources` PASS 539；`check-no-game-assets.py` pass。
+- `rebuild.py --update-lock`，然後 `rebuild.py --build` → `PASS dev`；merge origin/main 後重跑 `--update-lock` 與 `--build`，仍是 `PASS dev`（productDll `45fcd359…`）。第二次同步 origin/main（#567）後：解 lock 衝突（用 main 版）→ `--update-lock` → `--build` `PASS dev`（productDll `7006f885…`）；`board` PASS 585、`native-ui-canvas` PASS 429、`native-ui-resources` PASS 539；`check-no-game-assets.py` pass。第三次同步（#465 HP／MP 合入）：`DemoChecks.csproj`、`demo-tests/Program.cs` 兩邊新增都保留 → `--update-lock` → `--build` `PASS dev`（productDll `fab8e9cb…`）；`board` 585、`native-ui-canvas` 429、`native-ui-resources` 539、`native-ui-hpmp` 397 全 PASS；資產檢查 pass。
 - `DemoChecks … board` → `PASS 585`（含新的公告板面板檢查）；`native-ui-canvas` → `PASS 429`；`native-ui-resources` → `PASS 539`。
 - 新的檢查涵蓋：
   - WIN§2 資料逐項比對。
