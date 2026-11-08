@@ -5,7 +5,7 @@ namespace P06;
 //       `sub_A559D0` 的視窗 `dword_153D218`）；docs/reference/server-protocol.md S_PledgeWarehouseHistory
 //       （C(250) C(117) D(n) {S(角色名) C(type) S(物品名) D(數量) D(距今分鐘)}×n），兩邊完全一致。
 // 視窗元件（按鈕 surf 9183）等原生 UI（T190），本檔不做畫面；後續面板訂閱 ClanWarehouseHistoryReceived 開窗。
-// 訊息 1889 的文字：T228 字串表未合併，暫用 ServerMessageText 的「原服訊息 1889」編號占位。
+// 訊息 1889 的文字：走 ServerMessageText（T228 字串表，讀本機客戶端）；讀不到字串表時為「原服訊息 1889」編號占位。
 
 /// <summary>
 /// 一筆血盟倉庫紀錄（`scsdd`）。Type 保留原值：伺服器寫 L1ClanWarehouseHistory.get_type()，
@@ -79,7 +79,7 @@ public sealed partial class WorldSession {
             packets=clanWarehouseHistoryCount,
             records=clanWarehouseHistory?.Records.Select(x=>new{charName=x.CharName,type=x.Type,itemName=x.ItemName,count=x.Count,minutesAgo=x.MinutesAgo}).ToArray(),
             notice=clanWarehouseHistoryNotice is {} n?new{id=n.Id,text=n.Text,recognized=n.Recognized}:null,
-            ui="data only: window sub_A559D0 (surf 9183) needs native UI (T190); message 1889 text placeholder until T228",
+            ui="data only: window sub_A559D0 (surf 9183) needs native UI (T190); message 1889 text from T228 string table",
         };
     }
 }

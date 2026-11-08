@@ -53,13 +53,14 @@ static class ClanWarehouseHistoryTests {
         t.Equal(JsonValueKind.Null,a.GetProperty("notice").ValueKind,"non-empty list has no notice");
         t.Check(s.ClanWarehouseHistoryNotice==null,"notice property null");
 
-        // 4. 0 筆：不觸發開窗事件，改設訊息 1889（T228 前為編號占位），不動 LastServerMessage。
+        // 4. 0 筆：不觸發開窗事件，改設訊息 1889（文字走 T228 字串表），不動 LastServerMessage。
         s.Receive(History(),"");
         t.Equal(1,evCount,"empty list does not raise open event");
         a=Snap(s);
         t.Equal(0,a.GetProperty("records").GetArrayLength(),"empty list replaces previous");
         t.Equal(1889,a.GetProperty("notice").GetProperty("id").GetInt32(),"empty list notice id 1889");
-        t.Equal("原服訊息 1889",a.GetProperty("notice").GetProperty("text").GetString(),"1889 placeholder text until T228");
+        // 文字來自 T228 字串表（讀本機客戶端；CI 無客戶端時為「原服訊息 1889」占位），所以和 Decode 結果比對。
+        t.Equal(ServerMessageText.Decode(1889,[]).Text,a.GetProperty("notice").GetProperty("text").GetString(),"1889 text from T228 string table");
         t.Check(s.ClanWarehouseHistory is {Empty:true},"property reports empty");
         t.Check(s.LastServerMessage==null&&s.LastServerReply==null,"empty notice does not touch LastServerMessage");
 

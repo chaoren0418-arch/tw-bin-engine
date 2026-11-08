@@ -28,6 +28,7 @@
 - `check-no-game-assets.py` → `pass`。
 - **同步 origin/main 後重驗（2026-11-08）**：merge origin/main（含 #446／#463／#510／#519／#548／#551），`rebuild-lock.json` 取 main 版後以 `--update-lock` 重產（261 個來源檔）；`--build` → `PASS dev`（product DLL SHA-256 `8031a02f…71a3`）；`--module-tests` → `pass`，8 組、432 項，失敗 0，本組 `clan-warehouse-history` 47 項全過；`check-no-game-assets.py` → `pass`（3791 檔，0 錯誤）。S250 子碼 117 與 main 新增的 `PacketBoxStatus.cs` 註冊的子碼沒有重疊。
 - **第二次同步 origin/main 後重驗（2026-11-09）**：merge origin/main（含 #514／#515／#516／#520），`rebuild-lock.json` 取 main 版後以 `--update-lock` 重產（267 個來源檔）；`--build` → `PASS dev`（product DLL SHA-256 `910c8fce…f96f`）；`--module-tests` → `pass`，10 組、548 項，失敗 0，本組 `clan-warehouse-history` 47 項全過；`check-no-game-assets.py` → `pass`（3803 檔，0 錯誤）。S250 子碼 117 仍只由本檔註冊。
+- **第三次同步 origin/main 後重驗（2026-11-09，修 PR #579 CI 失敗）**：CI `dotnet` 失敗原因是 `REFUSED: sourceCount 267 != pinned source files 269`——PR 合併提交含 main 新增的來源檔，lock 落後。merge origin/main（含 #464–#468／#526／#527／#558／#602 等），`rebuild-lock.json` 取 main 版後以 `--update-lock` 重產（294 個來源檔）。main 已合併 T228 字串表，`ServerMessageText.Decode(1889)` 在本機會讀出原版文字「目前沒有血盟倉庫使用的記錄。」，原本寫死「原服訊息 1889」的測試因此失敗；改成與 `ServerMessageText.Decode(1889,[]).Text` 比對（CI 沒有客戶端時仍是編號占位，兩種環境都成立），並更新原始檔註解。`--build` → `PASS dev`（product DLL SHA-256 `c737799a…9294`）；`--module-tests` → `pass`，22 組、1156 項，失敗 0，本組 47 項全過；`check-no-game-assets.py` → `pass`（3855 檔，0 錯誤）。
 
 ## 未驗證／推定
 - **type 欄位的意思**：0／1 是存入還是領出沒有查證，目前保留原值，由畫面任務查證後再定文字。

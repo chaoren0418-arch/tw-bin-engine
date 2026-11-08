@@ -28,8 +28,9 @@ public sealed record AmbienceFrame(uint? Seconds, byte Weather, long AnimationMs
     public bool Shaded => Level < 15;
     public byte FrameLevel => AmbienceCurve.FrameLevel(Level, MapId, OwnLightFlag, NightVision);
 }
-/// <summary>A light prepared for the (not yet available) TW16 light map: Source is the source.lmp index k (0–15).</summary>
-public sealed record AmbienceLight(uint ObjectId, PointF Center, byte Source);
+/// <summary>A light for the TW16 light map: Source is the Source.lmp index k (0–15); Center is in 800×480 light-map
+/// coordinates. MapEffectId is the .s32 map effect id for map-effect sources (ObjectId 0), otherwise 0.</summary>
+public sealed record AmbienceLight(uint ObjectId, PointF Center, byte Source, int MapEffectId = 0);
 
 /// <summary>TW16 day/night rules (docs/reference/ambience-and-map-events.md §1, §3). Pure functions.</summary>
 public static class AmbienceCurve {
@@ -340,29 +341,114 @@ public sealed partial class WorldSession {
         else if (objects.TryGetValue(id, out var other)) objects[id] = other with { Light = AmbienceCurve.OtherLight(value) };
         // Do not remember unknown IDs: a later S87 is a new incarnation with its own Light.
     }
-    /// <summary>Light sources in display coordinates, own first, bounded by the TW16 budget (sum of k ≥ 700 stops).
-    /// The ±35/±15 distance filter and action offsets of sub_F11FA0 are not applied (field meaning unverified).</summary>
-    public AmbienceLight[] AmbienceLights(Func<PointF, PointF> toView, ObjectVisual? ownVisual, IReadOnlyList<ObjectVisual> visuals) {
+    /// <summary>Light sources in display coordinates: own, S87 objects, then map effects with k &gt; 0 (EF2§1.1(b)),
+    /// all bounded by the TW16 budget (sum of k ≥ 700 stops). With a window, every source passes the same distance
+    /// filter: its Source.lmp stamp must be able to reach the window (AmbienceLightMap.Reaches). The native ±35/±15
+    /// field filter and action offsets of sub_F11FA0 are not applied (field meaning unverified). Map effects are taken
+    /// nearest to the window centre first, so a full budget keeps the lights that are on screen (推測; the native object
+    /// list order is unknown).</summary>
+    public AmbienceLight[] AmbienceLights(Func<PointF, PointF> toView, ObjectVisual? ownVisual, IReadOnlyList<ObjectVisual> visuals,
+        IReadOnlyList<MapEffectLight>? mapEffects = null, RectangleF? window = null) {
         var result = new List<AmbienceLight>(); int budget = 0;
-        void Add(uint id, PointF foot, byte value) {
+        void Add(uint id, PointF center, byte value, int effect = 0) {
             if (budget >= AmbienceCurve.SourceBudget) return;
-            byte k = AmbienceCurve.SourceIndex(value); budget += k; result.Add(new(id, toView(foot), k));
+            if (window is { } w && !AmbienceLightMap.Reaches(w, center)) return;
+            byte k = AmbienceCurve.SourceIndex(value); budget += k; result.Add(new(id, center, k, effect));
         }
-        if (Actor is { Light: > 0 } own && ownVisual?.ObjectId == own.ObjectId && !SelfAppearancePending) Add(own.ObjectId, ownVisual.Foot, own.Light);
+        if (Actor is { Light: > 0 } own && ownVisual?.ObjectId == own.ObjectId && !SelfAppearancePending) Add(own.ObjectId, toView(ownVisual.Foot), own.Light);
         foreach (var visual in visuals) {
             if (visual.Bounds.IsEmpty || visual.Action == "ground") continue;
-            if (objects.TryGetValue(visual.ObjectId, out var other) && other.Light > 0 && !other.AppearancePending) Add(other.ObjectId, visual.Foot, other.Light);
+            if (objects.TryGetValue(visual.ObjectId, out var other) && other.Light > 0 && !other.AppearancePending) Add(other.ObjectId, toView(visual.Foot), other.Light);
+        }
+        if (mapEffects is { Count: > 0 }) {
+            var lit = mapEffects.Where(e => e.Light > 0).Select(e => (e, center: toView(Coordinates.Screen(e.X, e.Y))));
+            if (window is { } w) {
+                float cx = w.X + w.Width / 2, cy = w.Y + w.Height / 2;
+                lit = lit.OrderBy(x => (x.center.X - cx) * (x.center.X - cx) + (x.center.Y - cy) * (x.center.Y - cy));
+            }
+            foreach (var (e, center) in lit) { if (budget >= AmbienceCurve.SourceBudget) break; Add(0, center, e.Light, e.Id); }
         }
         return result.ToArray();
     }
 }
 
-/// <summary>Half-resolution light map (TW16 400×240 for an 800×480 view). Empty until source.lmp is available (T167).</summary>
+/// <summary>TW16 Source.lmp (AM§3.1): 16 u32 offsets relative to the payload, 16 u32 width/height pairs, then one
+/// intensity byte per pixel. Paired slots share data; slot 15 is 0×0 and draws nothing. No AES, no RGB.</summary>
+public sealed class AmbienceLightImages {
+    public const int Slots = 16, HeaderBytes = 192;
+    public const string EntryName = "Source.lmp", PayloadSha256 = "30cf051fe516a053ac494b8054e5a320bab1f3f3dd7b0010e0cf0c74aacce5aa";
+    // Sprite.idx / Sprite.pak identity (same pins as GroundSpriteReader; AM§3.1).
+    const string IndexSha256 = "327c06372d87f6cf6d5176da51da5ef1f94dbf388d1588b735c5965b96b6a52b";
+    const long PakSize = 1904012586L;
+    readonly byte[] payload;
+    readonly (int Offset, int Width, int Height)[] slots;
+    AmbienceLightImages(byte[] payload, (int, int, int)[] slots) { this.payload = payload; this.slots = slots; }
+    public int Width(int k) => (uint)k < Slots ? slots[k].Width : 0;
+    public int Height(int k) => (uint)k < Slots ? slots[k].Height : 0;
+    public int Offset(int k) => (uint)k < Slots ? slots[k].Offset : 0;
+    public ReadOnlySpan<byte> Image(int k) => (uint)k < Slots && slots[k].Width > 0 ? payload.AsSpan(slots[k].Offset, slots[k].Width * slots[k].Height) : default;
+
+    /// <summary>Parse an LMP payload. Every non-empty slot must lie inside the payload after the header.</summary>
+    public static AmbienceLightImages Parse(byte[] payload) {
+        if (payload.Length < HeaderBytes) throw new InvalidDataException("Source.lmp 標頭截斷");
+        var slots = new (int, int, int)[Slots];
+        for (int i = 0; i < Slots; i++) {
+            uint offset = BitConverter.ToUInt32(payload, 4 * i), width = BitConverter.ToUInt32(payload, 64 + 8 * i), height = BitConverter.ToUInt32(payload, 68 + 8 * i);
+            if (width == 0 || height == 0) { if (width != height) throw new InvalidDataException($"Source.lmp 第 {i} 槽寬高不一致"); slots[i] = (0, 0, 0); continue; }
+            if (width > 4096 || height > 4096 || offset < HeaderBytes || offset + (ulong)width * height > (ulong)payload.Length)
+                throw new InvalidDataException($"Source.lmp 第 {i} 槽越界");
+            slots[i] = ((int)offset, (int)width, (int)height);
+        }
+        return new(payload, slots);
+    }
+
+    /// <summary>Read Source.lmp at run time from the original client (TW_CLIENT_ROOT, read-only). Verifies the Sprite.idx
+    /// hash, the Sprite.pak length, a single case-insensitive entry and the payload SHA-256. Nothing is copied.</summary>
+    public static AmbienceLightImages Load(string? clientRoot = null) {
+        string root = Path.GetFullPath(clientRoot ?? GroundSpriteReader.ClientRoot);
+        byte[] index = File.ReadAllBytes(Path.Combine(root, "Sprite.idx"));
+        if (!Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(index)).Equals(IndexSha256, StringComparison.OrdinalIgnoreCase))
+            throw new InvalidDataException("Sprite.idx pin 不符");
+        uint count = BitConverter.ToUInt32(index, 0);
+        if (index.Length != 4 + 28L * count) throw new InvalidDataException("Sprite.idx 長度不符");
+        (long Offset, int Size)? found = null;
+        for (int i = 0; i < count; i++) {
+            int at = 4 + 28 * i, end = Array.IndexOf(index, (byte)0, at + 4, 20);
+            if (end < 0) end = at + 24;
+            if (!System.Text.Encoding.ASCII.GetString(index, at + 4, end - at - 4).Equals(EntryName, StringComparison.OrdinalIgnoreCase)) continue;
+            if (found != null) throw new InvalidDataException("Sprite.idx 有重複的 Source.lmp");
+            found = (BitConverter.ToUInt32(index, at), checked((int)BitConverter.ToUInt32(index, at + 24)));
+        }
+        if (found is not { } entry) throw new InvalidDataException("Sprite.idx 找不到 Source.lmp");
+        using var pak = new FileStream(Path.Combine(root, "Sprite.pak"), FileMode.Open, FileAccess.Read, FileShare.Read);
+        if (pak.Length != PakSize || entry.Size is <= HeaderBytes or > 8 * 1024 * 1024 || entry.Offset + entry.Size > pak.Length)
+            throw new InvalidDataException("Sprite.pak 長度或 Source.lmp 範圍不符");
+        pak.Position = entry.Offset; var payload = new byte[entry.Size]; pak.ReadExactly(payload);
+        if (!Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(payload)).Equals(PayloadSha256, StringComparison.OrdinalIgnoreCase))
+            throw new InvalidDataException("Source.lmp payload pin 不符");
+        return Parse(payload);
+    }
+}
+
+/// <summary>Half-resolution light map (TW16 400×240 for an 800×480 view), stamped from Source.lmp (sub_F11FA0).</summary>
 public sealed class AmbienceLightMap {
-    public const int Width = 400, Height = 240;
+    public const int Width = 400, Height = 240, ViewWidth = 2 * Width, ViewHeight = 2 * Height;
+    /// <summary>A stamp of w×h cells covers full-resolution x±w, y±h; the largest Source.lmp slot (14) is 312×156 (AM§3.1).</summary>
+    public const int MaxReachX = 312, MaxReachY = 156;
     readonly byte[] values = new byte[Width * Height];
     public byte this[int x, int y] => (uint)x < Width && (uint)y < Height ? values[y * Width + x] : (byte)0;
     public void Clear() => Array.Clear(values);
+    /// <summary>Distance filter shared by every light source: could the largest stamp at center touch the window?</summary>
+    public static bool Reaches(RectangleF window, PointF center) =>
+        center.X > window.Left - MaxReachX && center.X < window.Right + MaxReachX && center.Y > window.Top - MaxReachY && center.Y < window.Bottom + MaxReachY;
+    /// <summary>sub_F11FA0 steps 1 and 5: clear, then stamp image k of every source (empty slots draw nothing).</summary>
+    public void Render(IEnumerable<AmbienceLight> lights, AmbienceLightImages images) {
+        Clear();
+        foreach (var light in lights) {
+            int k = light.Source, w = images.Width(k), h = images.Height(k);
+            if (w > 0) Stamp((int)MathF.Floor(light.Center.X), (int)MathF.Floor(light.Center.Y), images.Image(k), w, h);
+        }
+    }
     /// <summary>sub_97D2F0: stamp a w×h image centred at full-resolution (x, y): left ((x−w)&gt;&gt;1)&amp;~3, top (y−h)&gt;&gt;1; overlaps keep the maximum.</summary>
     public void Stamp(int x, int y, ReadOnlySpan<byte> image, int width, int height) {
         if (width <= 0 || height <= 0 || image.Length < width * height) return;
@@ -374,6 +460,59 @@ public sealed class AmbienceLightMap {
                 ref byte cell = ref values[my * Width + mx]; cell = Math.Max(cell, image[j * width + i]);
             }
         }
+    }
+}
+
+/// <summary>Light-map wiring (sub_F11FA0). The TW16 screen is an 800×480 scene window; here it is centred on the own
+/// displayed foot (推測: the native player anchor on screen is not pinned). Each frame the lights inside reach of that
+/// window are stamped from Source.lmp, read at run time from the original client; if it cannot be read the map stays
+/// empty (unlit) and AmbienceLightNotice says why — no substitute shape is drawn.</summary>
+public sealed partial class Renderer {
+    AmbienceLightImages? ambienceImages; bool ambienceImagesTried;
+    public AmbienceLightMap AmbienceLightMap { get; } = new();
+    public AmbienceLight[] AmbienceLightSources { get; private set; } = [];
+    /// <summary>Scene rectangle that the light map covers (800×480); empty when there is no own actor.</summary>
+    public Rectangle AmbienceWindow { get; private set; }
+    public string? AmbienceLightNotice { get; private set; }
+    public static Rectangle AmbienceWindowAt(PointF foot) =>
+        new((int)MathF.Floor(foot.X) - AmbienceLightMap.Width, (int)MathF.Floor(foot.Y) - AmbienceLightMap.Height, AmbienceLightMap.ViewWidth, AmbienceLightMap.ViewHeight);
+
+    AmbienceLightImages? AmbienceImages() {
+        if (ambienceImagesTried) return ambienceImages;
+        ambienceImagesTried = true;
+        try { ambienceImages = AmbienceLightImages.Load(); AmbienceLightNotice = null; }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidDataException or ArgumentException or OverflowException) {
+            AmbienceLightNotice = "光源圖 Source.lmp 無法讀取，光照圖保持未照亮：" + ex.Message;
+            System.Diagnostics.Trace.WriteLine(AmbienceLightNotice);
+        }
+        return ambienceImages;
+    }
+
+    /// <summary>Collect this frame's lights (own, S87 objects, map effects from the last composition) and stamp the light
+    /// map. Call after ComposeObjects with its visuals. images overrides the client Source.lmp (tests).</summary>
+    public AmbienceLight[] ComposeAmbienceLights(WorldSession session, IReadOnlyList<ObjectVisual> visuals, AmbienceLightImages? images = null) {
+        if (OwnCombatVisual is not { } own) { AmbienceWindow = Rectangle.Empty; AmbienceLightMap.Clear(); return AmbienceLightSources = []; }
+        var window = AmbienceWindowAt(own.Foot); AmbienceWindow = window;
+        var lights = session.AmbienceLights(p => new(p.X - window.X, p.Y - window.Y), own, visuals, MapEffectLightSources,
+            new RectangleF(0, 0, AmbienceLightMap.ViewWidth, AmbienceLightMap.ViewHeight));
+        images ??= AmbienceImages();
+        if (images == null) AmbienceLightMap.Clear(); else AmbienceLightMap.Render(lights, images);
+        return AmbienceLightSources = lights;
+    }
+
+    /// <summary>Shade a scene bitmap covering sceneArea (1 bitmap pixel = 1 scene pixel, e.g. SceneView) with the light
+    /// map inside AmbienceWindow; pixels outside the window are unlit (light 0).</summary>
+    public void ShadeAmbience(Bitmap scene, Rectangle sceneArea, AmbienceFrame frame) {
+        if (!frame.Shaded) return;
+        var full = new Rectangle(0, 0, scene.Width, scene.Height);
+        var viewport = AmbienceWindow; viewport.Offset(-sceneArea.X, -sceneArea.Y);
+        var inside = AmbienceWindow.IsEmpty ? Rectangle.Empty : Rectangle.Intersect(viewport, full);
+        if (inside.IsEmpty) { AmbiencePainter.Shade(scene, full, full, frame); return; }
+        AmbiencePainter.Shade(scene, viewport, inside, frame, AmbienceLightMap);
+        foreach (var strip in new[] {
+            Rectangle.FromLTRB(0, 0, full.Right, inside.Top), Rectangle.FromLTRB(0, inside.Bottom, full.Right, full.Bottom),
+            Rectangle.FromLTRB(0, inside.Top, inside.Left, inside.Bottom), Rectangle.FromLTRB(inside.Right, inside.Top, full.Right, inside.Bottom) })
+            if (strip.Width > 0 && strip.Height > 0) AmbiencePainter.Shade(scene, full, strip, frame);
     }
 }
 

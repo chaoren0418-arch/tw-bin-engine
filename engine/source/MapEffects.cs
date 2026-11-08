@@ -22,20 +22,47 @@ public sealed class MapEffectCatalog {
     static byte[] Verified(string path,string hash){var data=File.ReadAllBytes(path);if(!Convert.ToHexString(SHA256.HashData(data)).Equals(hash,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("map effect source hash: "+path);return data;}
     public MapEffectAppearance Get(int id){if(cache.TryGetValue(id,out var hit))return hit;if(!entries.TryGetValue(id,out var e))throw new NotSupportedException("尚未封裝原始地圖特效 "+id);var result=new MapEffectAppearance(Verified(Path.Combine(root,id+".json"),e.S("sha256")));if(result.Id!=id)throw new InvalidDataException("map effect identity");cache[id]=result;return result;}
 }
-public sealed record MapLocalEffect(int Id,int X,int Y,int Offset,MapEffectAppearance Appearance);
+/// <summary>A map-local effect from the .s32 tail. Light is the light-map index k recorded at load (EF2§1.1(b)).</summary>
+public sealed record MapLocalEffect(int Id,int X,int Y,int Offset,MapEffectAppearance Appearance){
+    public byte Light {get;}=MapEffectLightTable.Radius(Id);
+}
 public sealed record MapEffectVisual(string Block,int Generation,int Id,int X,int Y,string Frame,int Flags);
+/// <summary>A map effect acting as a light source (k &gt; 0) at world tile (X, Y).</summary>
+public sealed record MapEffectLight(int Id,int X,int Y,byte Light);
+
+/// <summary>TW16 .s32 map effect id → light radius index k (docs/reference/effects-2.md §1.1(b)): sub_F0B570 passes it as
+/// the 7th sub_A4E5D0 argument, stored at actor+9 like the S40 light. Tables word_138BE2C (FO 0xF8A62C, k 8) and
+/// word_138BE44 (FO 0xF8A644, k 11) via F112A0/F11250; the ranges are immediate compares in F0B570. 3442–3446 ("dot range
+/// five…thirteen") are 1-pixel invisible light points, k = 2·id − 6879; no extra halo is drawn for them.</summary>
+public static class MapEffectLightTable {
+    static readonly HashSet<int> eight=[3552,3737,3601,3604,3607,3610,3613,3616,3619,3622,3625,3628];
+    static readonly HashSet<int> eleven=[1992,1993,2088,2094,2097,2214,2215,2217,2219,2221,2223,3550,3580,3736];
+    public static byte Radius(int id)=>id switch{
+        _ when eight.Contains(id)=>8,
+        _ when eleven.Contains(id)=>11,
+        1884 or 1885 or >=1901 and <=1987 or 2209=>5,
+        >=1892 and <=1897=>7,
+        2195 or >=2197 and <=2202=>9,
+        149 or 1522=>13,
+        1886 or 2196=>14,
+        >=3442 and <=3446=>(byte)(2*id-6879),
+        _=>0};
+}
 public sealed partial class Renderer {
     public MapEffectVisual[] MapEffectVisuals {get;private set;}=[];
+    /// <summary>Map effects with k &gt; 0 from the last composition, for ComposeAmbienceLights.</summary>
+    public MapEffectLight[] MapEffectLightSources {get;private set;}=[];
     void ComposeMapEffects(WorldSession session,List<Draw> draws,long now){
-        var visuals=new List<MapEffectVisual>();int serial=2000000;var states=session.Frames6016();
+        var visuals=new List<MapEffectVisual>();var lights=new List<MapEffectLight>();int serial=2000000;var states=session.Frames6016();
         if(session.MapCache is {} cache)foreach(var block in cache.Slots.OfType<OriginalMapBlock>())for(int ordinal=0;ordinal<block.Effects.Length;ordinal++){
             var effect=block.Effects[ordinal];var frame=WorldSession.MapEffectFrame(effect,block.Name,ordinal,cache.MapId,now-block.EffectsAt,states);visuals.Add(new(block.Name,block.Generation,effect.Id,effect.X,effect.Y,frame.Key,effect.Appearance.Flags));
+            if(effect.Light>0)lights.Add(new(effect.Id,effect.X,effect.Y,effect.Light));
             foreach(var b in frame.Blocks)draws.Add(new(2*(effect.X-Coordinates.MinX)+b.A,effect.Y-Coordinates.MinY+b.B,b.Z,serial++,"map-effect",b.Order,-1,effect.Offset,b.Tile));
         }
         MapAmbientSound.Observe(session,now);
         ClientSoundScene.Observe(session,now); // T172 背景音樂與 envsound.def
         ComposePacketEffects(session,draws,now);
-        MapEffectVisuals=visuals.ToArray();
+        MapEffectVisuals=visuals.ToArray();MapEffectLightSources=lights.ToArray();
     }
 }
 
@@ -46,18 +73,26 @@ public sealed record PacketEffectVisual(long Number,int Gfx,int X,int Y,string F
 public sealed class PacketEffectAppearance
 {
     public double Duration {get;}
+    // Frame start offsets with their tokens, same selection as At(); the default Effect class handles `]` (SubEffects.cs).
+    public ActionTimeline Timeline {get;}
     readonly Func<long,Frame> frame;
     public PacketEffectAppearance(MapEffectAppearance appearance)
     {
         Duration=appearance.Sequence.Sum(s=>(double)s.Ticks)*1000/24;
         frame=appearance.At;
+        double t=0;var steps=new List<TimelineStep>();
+        foreach(var s in appearance.Sequence){steps.Add(new(t,s.Events));t+=s.Ticks*1000d/24;}
+        Timeline=new(steps.ToArray(),t,true);
     }
     public PacketEffectAppearance(ObjectAppearance appearance,string action)
     {
         Duration=appearance.Duration(action);
-        frame=elapsed=>appearance.Sequences[(action,0)].All(s=>s.Milliseconds!=null)
+        bool pure=appearance.Sequences[(action,0)].All(s=>s.Milliseconds!=null);
+        frame=elapsed=>pure
             ?MagicMotion.PureFrame(appearance,action,elapsed)
             :appearance.At(action,0,elapsed%Duration);
+        var sequence=appearance.Sequences[(action,0)];var once=ActionTimeline.Of(sequence,false,Duration);
+        Timeline=pure?ActionTimeline.Pure(sequence,true):new(once.Steps,once.Length,true);
     }
     public Frame At(long elapsed)=>frame(Math.Max(0,elapsed));
 }
@@ -174,5 +209,11 @@ public sealed partial class Renderer
             if(!session.SceneContains(x,y))return;
             foreach(var b in frame.Blocks)draws.Add(new(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,b.Z,serial++,"packet-effect",b.Order,-1,-1,b.Tile));
         });
+        // S55/S106 build the default Effect class (effects-2.md §4.1): its `]` frames spawn sub-effects, direction 0.
+        if(PacketEffectVisuals.Length==0)return;
+        var started=session.PacketEffects.ToDictionary(p=>p.Number,p=>p.At);
+        foreach(var v in PacketEffectVisuals)
+            if(started.TryGetValue(v.Number,out long at)&&packetEffectAssets.Get(v.Gfx) is {Timeline.HasTokens:true} appearance)
+                ObserveEffectFrames(session,$"packet:{v.Number}",appearance.Timeline,now-at,v.X,v.Y,0,now);
     }
 }

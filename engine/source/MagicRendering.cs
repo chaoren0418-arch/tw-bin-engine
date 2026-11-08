@@ -15,25 +15,17 @@ public sealed class EffectSpriteCatalog(string clientRoot) {
     bool metadataLoaded;
     static void Require(bool ok,string message){if(!ok)throw new InvalidDataException("特效素材："+message);}
     static byte[] ReadFile(string path,int limit){var file=new FileInfo(path);Require(file.Length<=limit,"檔案超出限制");return File.ReadAllBytes(path);}
-    static byte[] DecodeText(byte[] data){
-        // Original Text archive format constant (not an account credential).
-        using var des=DES.Create();des.Key=Convert.FromHexString("7E214023255E243C");
-        var result=(byte[])data.Clone();int length=data.Length/8*8;
-        des.DecryptEcb(data.AsSpan(0,length),PaddingMode.None).CopyTo(result,0);return result;
-    }
-    Dictionary<string,Entry> Index(string stem,bool text=false){
+    Dictionary<string,Entry> Index(string stem){
         if(archives.TryGetValue(stem,out var cached))return cached;
         string path=Path.Combine(clientRoot,stem+".idx");var data=ReadFile(path,32*1024*1024);
         Require(data.Length>=4,"索引截斷");uint count=BinaryPrimitives.ReadUInt32LittleEndian(data);
         Require(count<=1000000&&data.Length==4L+28L*count,"僅支援 plain28 索引");
-        byte[] rows=text?DecodeText(data[4..]):data[4..];var result=new Dictionary<string,Entry>(StringComparer.OrdinalIgnoreCase);
+        byte[] rows=data[4..];var result=new Dictionary<string,Entry>(StringComparer.OrdinalIgnoreCase);
         string pak=Path.Combine(clientRoot,stem+".pak");long size=new FileInfo(pak).Length;
         for(int i=0;i<count;i++){
             var row=rows.AsSpan(i*28,28);uint offset=BinaryPrimitives.ReadUInt32LittleEndian(row),length=BinaryPrimitives.ReadUInt32LittleEndian(row[24..]);
             string name=Encoding.ASCII.GetString(row.Slice(4,20)).TrimEnd('\0');
             Require(name.Length>0&&name.All(c=>c is >= ' ' and <= '~')&&(long)offset+length<=size,"索引範圍或名稱錯誤");
-            // Text contains repeated unrelated dialog names; only animation tables are read.
-            if(text&&name is not ("list.spz" or "list.spr"))continue;
             Require(result.TryAdd(name,new(pak,offset,length)),"索引名稱重複");
         }
         archives[stem]=result;return result;
@@ -45,14 +37,15 @@ public sealed class EffectSpriteCatalog(string clientRoot) {
     }
     void LoadMetadata(){
         if(metadataLoaded)return;
-        var index=Index("Text",true);byte[] raw;
-        if(index.TryGetValue("list.spz",out var packed)){
-            raw=DecodeText(Payload(packed));Require(raw.AsSpan().StartsWith("S1223"u8),"未知 list.spz 格式");
+        // Text contains repeated unrelated dialog names; only the animation tables are read (TextArchive.Single).
+        var text=TextArchive.Open(clientRoot);byte[] raw;
+        if(text.Single("list.spz") is {} packed){
+            raw=text.Read(packed);Require(raw.AsSpan().StartsWith("S1223"u8),"未知 list.spz 格式");
             using var aes=Aes.Create();aes.Key=Convert.FromHexString("DC8401212A40200ADD25B9A70DB9C94E");
             byte[] iv=Convert.FromHexString("3E0978AAC4D53063300C5F9A807F2246");int length=(raw.Length-5)/16*16;
             var decoded=(byte[])raw.Clone();aes.DecryptCbc(raw.AsSpan(5,length),iv,PaddingMode.None).CopyTo(decoded,5);
             for(int i=5+length;i<raw.Length;i++)decoded[i]=(byte)(raw[i]^(length>0?raw[i-16]:iv[i-5]));raw=decoded;
-        }else {Require(index.ContainsKey("list.spr"),"缺少動畫表");raw=DecodeText(Payload(index["list.spr"]));}
+        }else {var plain=text.Single("list.spr");Require(plain!=null,"缺少動畫表");raw=text.Read(plain!);}
         string source=Encoding.ASCII.GetString(raw).Replace("\r","");
         var entries=Regex.Matches(source,@"(?m)^#(\d+)\s");Require(entries.Count>0,"動畫表無 gfx");
         for(int i=0;i<entries.Count;i++){
@@ -125,7 +118,8 @@ public sealed class EffectSpriteCatalog(string clientRoot) {
     }
 }
 // Hit: list.spr frame flag `!` (36-byte frame +22 bit1, REA B07).
-public sealed record EffectStep(int SubId,int Frame,int Milliseconds,bool Hit=false);
+// Events: the frame's raw token text (`!`, `]N`, `{N`, `}N`, sounds), consumed by SubEffects.cs.
+public sealed record EffectStep(int SubId,int Frame,int Milliseconds,bool Hit=false,string Events="");
 public sealed record EffectSprite(int Gfx,int Sprite,bool Directional,int Directions,int TileType,int Kind,int Impact,EffectStep[] Steps){
     public int Duration=>Steps.Sum(s=>s.Milliseconds);
     // Offsets from effect start of every displayed `!` frame, in the same display order as At():
@@ -152,7 +146,7 @@ public sealed record EffectSprite(int Gfx,int Sprite,bool Directional,int Direct
         if(tokens.Count!=int.Parse(action.Groups[2].Value)||tokens.Count is <1 or >4096)throw new InvalidDataException("特效動畫長度");
         var fpsMatch=Regex.Match(entry,@"(?<![\d.])110\.[^(]*\((\d+)\)");int fps=fpsMatch.Success?int.Parse(fpsMatch.Groups[1].Value):24;
         if(fps is <1 or >1000)throw new InvalidDataException("特效 fps");
-        var steps=tokens.Select(t=>new EffectStep(int.Parse(t.Groups[1].Value),int.Parse(t.Groups[2].Value),checked(1000*int.Parse(t.Groups[3].Value)/fps),t.Groups[4].Value.Contains('!'))).ToArray();
+        var steps=tokens.Select(t=>new EffectStep(int.Parse(t.Groups[1].Value),int.Parse(t.Groups[2].Value),checked(1000*int.Parse(t.Groups[3].Value)/fps),t.Groups[4].Value.Contains('!'),t.Groups[4].Value)).ToArray();
         if(steps.Sum(s=>s.Milliseconds)<=0)throw new InvalidDataException("特效空動畫");
         var effect=Regex.Match(entry,@"(?<![\d.])109\.[^(]*\((\d+)\s+(-?\d+)\)");
         var attr=Regex.Match(entry,@"(?<![\d.])104\.[^(]*\((\d+)\)");int flags=attr.Success?int.Parse(attr.Groups[1].Value):0;
@@ -268,6 +262,8 @@ public sealed partial class Renderer {
             }
             var still=DrawNativeEffect(e.Gfx,e.Heading,flight.X,flight.Y,now-release,session,draws,"magic");
             if(still!=null)visuals.Add(new(e.Number,e.Gfx,flight.X,flight.Y,e.Heading,still.Key,"effect",release));
+            // Default Effect class: sub_8ABC10 spawns `]` children at the effect's own position (effects-2.md §2.1(a)).
+            if(now-release<effect.Duration)ObserveEffectFrames(session,$"magic:{e.Number}",ActionTimeline.Of(effect),now-release,flight.X,flight.Y,e.Heading,now);
             return;
         }
         var motion=MagicMotion.At(e,flight.X,flight.Y,release,Math.Min(now,flight.Impact));
