@@ -64,11 +64,33 @@ public sealed partial class WorldSession {
     public bool QueryVisible=>QueryPage!=null&&Ready&&queryEpoch==WorldEpoch;
     internal void ShowQueryPage(uint self,string html,string[] args,string[] lines){
         var page=RenderHyperText(html,args,Actor?.Name??"",lines);
-        // Self pages have no NPC to receive C125; links/actions stay visible but disabled.
+        // Player-query results (y_who, pc_show, /rank): links/actions stay visible but disabled.
         if(page.Options.Length>0)page=page with{Options=page.Options.Select(o=>o with{Enabled=false}).ToArray(),Limitation=string.Join("\n",new[]{page.Limitation,"查詢結果頁的選項尚未支援。"}.Where(s=>s.Length>0))};
-        QueryPage=page;QueryHtml=html;queryEpoch=WorldEpoch;QueryRevision++;
+        QueryPage=page;QueryHtml=html;queryEpoch=WorldEpoch;QueryActionable=false;queryArguments=[];QueryRevision++;
     }
-    public bool CloseQueryPage(){if(QueryPage==null)return false;QueryPage=null;QueryHtml="";QueryRevision++;return true;}
+    public bool CloseQueryPage(){if(QueryPage==null)return false;QueryPage=null;QueryHtml="";QueryActionable=false;queryArguments=[];QueryRevision++;return true;}
+    // W2-A（T234／#556，windows-2.md §4）：伺服器主動送、物件 id 是自己的 S39（3.81 S_ShowPolyList 的 monlist、pledge 等）。
+    // 原版一律交給同一個 NPC 對話窗（S_HYPERTEXT sub_940030 → sub_BBCB00）；id 剛好是 "monlist" 時走一般 HTML（sub_874A10）。
+    // 這裡放在查詢頁（與 NPC 對話共用面板），不取代進行中的 NPC 對話／交易，也不受選取目標改變影響。
+    // 選項可點：link 本地換頁（沿用同一組參數），action 回 C125，物件 id＝封包裡的自己（與 NPC 頁同一路徑）。
+    public bool QueryActionable {get;private set;}
+    uint queryObject;string[] queryArguments=[];
+    void ReceiveServerPage(uint self,string html,string[] args,string[]? fallback){
+        if(html.Length==0){if(QueryActionable)CloseQueryPage();return;}
+        ShowServerPage(self,html,args,fallback);
+    }
+    void ShowServerPage(uint self,string html,string[] args,string[]? fallback){
+        QueryPage=RenderHyperText(html,args,Actor?.Name??"",fallback);QueryHtml=html;queryEpoch=WorldEpoch;queryObject=self;queryArguments=args;QueryActionable=true;QueryRevision++;
+    }
+    NpcOption? FindQueryOption(int option,int revision,string kind)=>QueryVisible&&QueryActionable&&revision==QueryRevision?QueryPage!.Options.FirstOrDefault(o=>o.Id==option&&o.Enabled&&o.Kind==kind):null;
+    public bool OpenQueryLink(int option,int revision){if(FindQueryOption(option,revision,"link") is not {} o)return false;ShowServerPage(queryObject,o.Value,queryArguments,null);return true;}
+    // HyperAct "checkpk" is handled by the client itself (C51), same as on NPC pages.
+    public byte[]? QueryActionPacket(int option,int revision){
+        if(FindQueryOption(option,revision,"action") is not {} o||queryObject==0||Status?.ObjectId!=queryObject)return null;
+        return string.Equals(o.Value,CheckPkAction,StringComparison.OrdinalIgnoreCase)?WeaponRepairPackets.CheckPk():NpcPackets.Action(queryObject,o.Value);
+    }
+    // 送出後關頁、不自動重送；伺服器若回新頁會再開（推測：原版點 action 後的關窗時機待驗證）。
+    internal void QueryActionSent(int revision){if(revision==QueryRevision&&QueryActionable)CloseQueryPage();}
     // HyperAct name table (TW16 FO 0xDA78A4 "checkpk", next to "fix"/"getall"/"exitghost"): the client handles
     // this action itself and sends the field-less C_CHECK_PK instead of C_HACTION.
     public const string CheckPkAction="checkpk";
@@ -77,13 +99,14 @@ public sealed partial class WorldSession {
         if(ReceiveNpcService(opcode,r))return true;
         if(opcode is not (39 or 70 or 65))return false;
         uint npc=r.D();CheckInteraction();bool accept=InteractionValid&&npc==InteractionNpc;
+        bool selfPage=opcode==39&&!accept&&npc!=0&&Ready&&Status?.ObjectId==npc;
         if(opcode==39){string html=r.S();
             // Fixed d287 S_Bonusstats writes only C39, self D, and S("RaiseAttr").
             if(html=="RaiseAttr"){
                 r.Finish();if(npc==0||Status?.ObjectId!=npc)throw new ProtocolException("bonus stats self identity");
                 ReceiveBonusOffer(npc);return true;
             }
-            ushort flag=r.H(),count=r.H();if(flag>1||count>256||flag==0&&count!=0)throw new ProtocolException("dialog arguments");var args=new string[count];for(int i=0;i<count;i++)args[i]=r.S();r.Finish();if(!accept)return true;if(html.Length==0){CloseInteraction("伺服器已關閉對話。");return true;}dialogArguments=args;dialogNpcName=Target?.Name??"";ShowPage(html,fallback);return true;}
+            ushort flag=r.H(),count=r.H();if(flag>1||count>256||flag==0&&count!=0)throw new ProtocolException("dialog arguments");var args=new string[count];for(int i=0;i<count;i++)args[i]=r.S();r.Finish();if(selfPage){ReceiveServerPage(npc,html,args,fallback);return true;}if(!accept)return true;if(html.Length==0){CloseInteraction("伺服器已關閉對話。");return true;}dialogArguments=args;dialogNpcName=Target?.Name??"";ShowPage(html,fallback);return true;}
         int n=r.H();if(n>2048)throw new ProtocolException("shop list too large");var rows=new List<ShopRow>();var ids=new HashSet<uint>();
         for(int i=0;i<n;i++){uint id=r.D();if(!ids.Add(id))throw new ProtocolException("duplicate shop identity");ushort icon=opcode==70?r.H():(ushort)0;uint price=r.D();if(price>int.MaxValue)throw new ProtocolException("shop price");string name=opcode==70?r.S():inventory.GetValueOrDefault(id)?.Name??"未持有物件 "+id;string status=opcode==70?Bytes(r,r.C()):"";uint available=opcode==70?int.MaxValue:inventory.GetValueOrDefault(id)?.Count??0;rows.Add(new(id,icon,price,name,available,status));}
         // Lists have no request ID: never let a duplicate reply reopen a submitted order.
@@ -91,11 +114,23 @@ public sealed partial class WorldSession {
     }
     public bool CanSubmitShop=>InteractionValid&&InteractionKind is "buy" or "sell"&&shopCurrency==7&&ShopRows.Length>0;
     public bool ValidateShop(IReadOnlyList<ShopChoice> choices){if(!CanSubmitShop||choices.Count is <1 or >255||choices.Select(c=>c.Id).Distinct().Count()!=choices.Count)return false;long total=0;foreach(var c in choices){var row=ShopRows.FirstOrDefault(r=>r.Id==c.Id);if(row==null||c.Count is 0 or >int.MaxValue)return false;if(InteractionKind=="sell"&&(c.Count>row.Available||!inventory.TryGetValue(c.Id,out var item)||c.Count>item.Count))return false;total+=(long)c.Count*row.Price;if(total>int.MaxValue)return false;}return true;}
-    public object InteractionSnapshot()=>new{revision=InteractionRevision,epoch=WorldEpoch,targetRevision=TargetRevision,npcId=InteractionNpc,targetId=TargetId,kind=InteractionKind,hasResult=InteractionHasResult,notice=InteractionNotice,text=InteractionPage?.Text,options=InteractionPage?.Options.Select(o=>new{id=o.Id,label=o.Label,enabled=o.Enabled,kind=o.Kind}),rows=ShopRows.Select(r=>new{id=r.Id,icon=r.Icon,price=r.Price,name=r.Name,available=r.Available}),currency=shopCurrency,title=InteractionTitle,priceLabel=InteractionPriceLabel,selection=IsInteractionSelection,feePerRow=InteractionKind=="withdraw",canSubmit=CanSubmitShop||CanSubmitService,query=QueryVisible?new{revision=QueryRevision,html=QueryHtml,text=QueryPage!.Text,notice=QueryPage.Limitation}:null};
+    public object InteractionSnapshot()=>new{revision=InteractionRevision,epoch=WorldEpoch,targetRevision=TargetRevision,npcId=InteractionNpc,targetId=TargetId,kind=InteractionKind,hasResult=InteractionHasResult,notice=InteractionNotice,text=InteractionPage?.Text,options=InteractionPage?.Options.Select(o=>new{id=o.Id,label=o.Label,enabled=o.Enabled,kind=o.Kind}),rows=ShopRows.Select(r=>new{id=r.Id,icon=r.Icon,price=r.Price,name=r.Name,available=r.Available}),currency=shopCurrency,title=InteractionTitle,priceLabel=InteractionPriceLabel,selection=IsInteractionSelection,feePerRow=InteractionKind=="withdraw",canSubmit=CanSubmitShop||CanSubmitService,query=QueryVisible?new{revision=QueryRevision,html=QueryHtml,text=QueryPage!.Text,notice=QueryPage.Limitation,actionable=QueryActionable,options=QueryPage.Options.Select(o=>new{id=o.Id,label=o.Label,enabled=o.Enabled&&QueryActionable,kind=o.Kind})}:null};
 }
 public sealed partial class LoginConnection {
     bool interactionSending;
     public bool CanTalk=>State==LoginState.InWorld&&!World.ActionLocked&&World.NearbyTarget&&!World.TradeBlocksActions&&!MovementBusy&&!interactionSending&&World.CanStartInteraction;
+    // W2-A：伺服器主動頁的選項。link 本地換頁；action 送一次 C125（或 checkpk 的 C51），送出後關頁，不重送。
+    public async Task<bool> QueryOption(int option,int revision,int epoch){
+        if(State!=LoginState.InWorld||epoch!=World.WorldEpoch||revision!=World.QueryRevision||!World.QueryVisible||!World.QueryActionable)return false;
+        if(World.OpenQueryLink(option,revision))return true;
+        if(interactionSending||MovementBusy||sendMovementGate==null||World.ActionLocked||World.TradeBlocksActions)return false;
+        if(World.QueryActionPacket(option,revision) is not {} packet)return false;
+        int session=generation;var sender=sendMovementGate;interactionSending=true;
+        bool Valid()=>session==generation&&State==LoginState.InWorld&&epoch==World.WorldEpoch&&revision==World.QueryRevision&&World.QueryVisible&&World.QueryActionable&&!World.ActionLocked&&!World.TradeBlocksActions&&!MovementBusy;
+        try{bool sent=await sender(packet,Valid,()=>World.QueryActionSent(revision));return sent&&session==generation;}
+        catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,"互動傳送失敗，已斷線；不會重送。");}return false;}
+        finally{if(session==generation)interactionSending=false;}
+    }
     public Task<bool> Interact(string command,int revision,int epoch,int targetRevision,int option=0,IReadOnlyList<ShopChoice>? choices=null)=>InteractCore(command,revision,epoch,targetRevision,option,choices,null);
     async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){
         if(pointerCurrent?.Invoke()==false)return false;
