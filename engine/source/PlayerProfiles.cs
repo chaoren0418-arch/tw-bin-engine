@@ -2,6 +2,9 @@ using System.Security.Cryptography;
 namespace P06;
 public sealed record PlayerProfile(int Gfx,int Weapon,string Path,string Sha256,int StepMs,Dictionary<string,int> ServerActionMs,Dictionary<string,int> CastReleaseMs,int? ProjectileReleaseMs);
 public static class PlayerProfiles {
+    // TW16 sub_A3EF40 第 3 點（AN§3.4）：他人的 sprite 檔不存在時改畫 gfx 1120、動作 0。只用於他人
+    // （ObjectRendering 的 ObjectDrawFallback）；自己沒有這條退回，仍由 AppearanceNotice 告知。
+    public const int MissingSpriteGfx=1120;
     static readonly Lazy<Dictionary<(int,int),PlayerProfile>> profiles=new(()=>{
         string root=System.IO.Path.GetFullPath(System.IO.Path.Combine(AppContext.BaseDirectory,"../../assets")),relative="players/manifest.json";
         var pin=Json.Read(System.IO.Path.Combine(root,"integrity.json")).GetProperty("files").EnumerateArray().Single(f=>f.S("path")==relative);
