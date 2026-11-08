@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 268,
+ "sourceCount": 270,
  "files": [
   {
    "path": "NuGet.Config",
@@ -586,8 +586,8 @@
   },
   {
    "path": "source/MagicRendering.cs",
-   "size": 27497,
-   "sha256": "2fff8429bd5d7c461951855a6b66ff449f12be9525358c3661267b2bfbaf79ef"
+   "size": 27008,
+   "sha256": "8d55d49e84c1be13bc1de8067f7cd895aeac9126f64f17c1124607a2c255bff4"
   },
   {
    "path": "source/MagicRenderingTests.cs",
@@ -1171,13 +1171,18 @@
   },
   {
    "path": "source/ServerMessageText.cs",
-   "size": 1256,
-   "sha256": "aae0243434301a53a54c762ef1c2786e9336503361c7dbc6becad20ac434a25c"
+   "size": 7219,
+   "sha256": "2e20c772297ef0100b6218b5de4fd1ed265df009179819251bcfdb420cc346f5"
+  },
+  {
+   "path": "source/ServerMessageTextTests.cs",
+   "size": 8668,
+   "sha256": "154ed9e5c78098a5d8044fe20349c5f190e5635a2a05ab089513f14a6155f0be"
   },
   {
    "path": "source/ServerStatusMessages.cs",
-   "size": 747,
-   "sha256": "30a186197010cccbf4106796d99d532cad5c705c2f14917d65fffcde1627291b"
+   "size": 1004,
+   "sha256": "9c55e0432988170f7610a1b5faf515c6578c78baa6d841a7f699805e2d683244"
   },
   {
    "path": "source/ShipBackdrop.cs",
@@ -1243,6 +1248,11 @@
    "path": "source/Tests.cs",
    "size": 12205,
    "sha256": "7c6c04dc6bf70a505d6ac518ebadc79c0832f72748959e0d8c73182a9aa7b612"
+  },
+  {
+   "path": "source/TextArchive.cs",
+   "size": 5000,
+   "sha256": "31b92a3e5b5428ec3bb18472745ed22f470984ba38e0aeed50f70fbb3ae1ed37"
   },
   {
    "path": "source/TimedBuffs.cs",
