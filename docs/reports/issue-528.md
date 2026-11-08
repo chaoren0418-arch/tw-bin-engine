@@ -29,7 +29,7 @@
 | 清單列、文章文字的位置與字型 | 待驗證 | **不畫**；列表、文章、發文仍由既有 `BoardUi` 視窗處理（過渡做法，不是原版行為） |
 
 ## 怎麼驗證
-- `rebuild.py --update-lock`，然後 `rebuild.py --build` → `PASS dev`（productDll `9038337c…`，這是 merge main 之前的值）。
+- `rebuild.py --update-lock`，然後 `rebuild.py --build` → `PASS dev`；merge origin/main 後重跑 `--update-lock` 與 `--build`，仍是 `PASS dev`（productDll `45fcd359…`）。
 - `DemoChecks … board` → `PASS 585`（含新的公告板面板檢查）；`native-ui-canvas` → `PASS 429`；`native-ui-resources` → `PASS 539`。
 - 新的檢查涵蓋：
   - WIN§2 資料逐項比對。
