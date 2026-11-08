@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 305,
+ "sourceCount": 307,
  "files": [
   {
    "path": "NuGet.Config",
@@ -881,8 +881,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 1960,
-   "sha256": "31c78f397292907e91943e61e9c16aeed95dd7ba78b6cd08d736ef210f2774bb"
+   "size": 2073,
+   "sha256": "f78f46a77ff5bb84625715b55692118a2937ec5f016b2b53c223c51f27e17b4d"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
@@ -1075,6 +1075,16 @@
    "sha256": "63382e90fc5927796bb517e634b45c1baa78935f1d28e01e1de038e439fb26a8"
   },
   {
+   "path": "source/PersonalShopIntegration.cs",
+   "size": 12756,
+   "sha256": "cf4b891837a115bff9f62e882155986fbebfbc1bb63e82e91864d71883cb70dc"
+  },
+  {
+   "path": "source/PersonalShopIntegrationTests.cs",
+   "size": 13087,
+   "sha256": "a539bfc632a6717499678044896f1618e34ec0d0e773b89281508aeefc8a1ed9"
+  },
+  {
    "path": "source/PersonalShopTests.cs",
    "size": 17365,
    "sha256": "a3165cb564ef07d5c381a287694b2fe4c10cfb58984dc53a78244e9763e595f5"
@@ -1196,8 +1206,8 @@
   },
   {
    "path": "source/PrivateShopUi.cs",
-   "size": 9577,
-   "sha256": "b6e53e482d26aa21454fd6b55687a51bd2dda52dbcc92f30788023682b350372"
+   "size": 9616,
+   "sha256": "7b44fa20a65aefceafc23b39f29861ff061ca88061834f6983de83ab26991aff"
   },
   {
    "path": "source/ProductEntry.cs",
