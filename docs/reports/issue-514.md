@@ -24,6 +24,7 @@
 - 既有 CI 離線測試退出碼全部是 0：DemoChecks 的 map-continuity、combat-admission、item-status、afflictions、resurrection、polymorph-cadence、buddies、item-transfer、doors、pickup、hypertext，以及 PlayerChatChecks。
 - `check-no-game-assets.py` → `pass`（3761 個追蹤檔，0 錯誤）。第二次同步後另跑 DemoChecks map-continuity → `PASS 33019`。
 - 建置前置：worktree 用 junction 指到主專案的 `engine/vendor`（唯讀，已被 gitignore，沒有 commit）。
+- 第三次同步 origin/main（含 #519、#523、#548、#551）：合併無衝突；`--update-lock` → 245 個來源檔；`--build` → `PASS dev`，product DLL SHA-256 `fde9cb39b7d9776acdba14b17ee7a0c2d75820ef9cfd5bb054fe311137a7ceeb`；`--module-tests` → `pass`（7 組、401 項，spell-exchange 54 項全過）；DemoChecks map-continuity `PASS 33019`、door-approach `PASS 361`、doors `PASS 648`；`check-no-game-assets.py` → `pass`（3768 檔，0 錯誤）。
 - CI 結果以 PR 為準。
 
 ## 沒驗證什麼
