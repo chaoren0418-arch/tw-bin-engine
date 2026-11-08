@@ -115,3 +115,7 @@
 - `git merge origin/main`（含 #568 水中呼吸狀態圖示），唯一衝突仍是 `rebuild-lock.json`，取 main 版本後 `--update-lock` 重產（278 個來源、287 個鎖定檔）；`docs/REPORT.md` 用 main 版本（自動合併）。
 - 重驗：`rebuild.py --build` → **PASS dev**（productDll `45f07949…a2c5`）；`native-ui-hpmp` → **PASS 397**（未設 `TW_CLIENT_ROOT`）／**PASS 398**（設本機客戶端）；`check-no-game-assets.py` → pass、errors 0。
 - 本模組程式碼未改動。
+## 同步 main 紀錄（2026-11-09，第 6 次同步）
+- `git merge origin/main`（含 #567 子特效），沒有文字衝突（`rebuild-lock.json` 自動合併），仍以 `--update-lock` 重產（280 個來源、289 個鎖定檔）；`docs/REPORT.md` 用 main 版本（自動合併）。
+- 重驗：`rebuild.py --build` → **PASS dev**（productDll `8c1704d9…4bf8`）；`native-ui-hpmp` → **PASS 397**（未設 `TW_CLIENT_ROOT`）／**PASS 398**（設本機客戶端）；`check-no-game-assets.py` → pass、errors 0。
+- 本模組程式碼未改動。
