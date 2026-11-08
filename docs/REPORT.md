@@ -180,3 +180,4 @@
 - 2026-11-08 — #548 T230：S250 狀態圖示類子碼（protocol-gaps B2）（code，claude-local，PR 已合併）→ [報告](reports/issue-548.md)
 - 2026-11-08 — #551 T233：送 C14 並解析 S139（protocol-gaps E）（code，claude-local，PR 已合併）→ [報告](reports/issue-551.md)
 - 2026-11-08 — #446 T172：背景音樂、戰鬥音樂、登入音樂與地圖環境音（code，claude-local，PR 已合併）→ [報告](reports/issue-446.md)
+- 2026-11-08 — #463 ui-core-canvas: C2 原生 UI 畫布：800×600 邏輯畫布、整數倍置中縮放、輸入對映、IUiPanel 契約與 nativeUi 開關（code，claude-local，PR #525 已合併）→ [報告](reports/issue-463.md)
