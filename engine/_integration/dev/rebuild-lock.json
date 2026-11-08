@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 260,
+ "sourceCount": 263,
  "files": [
   {
    "path": "NuGet.Config",
@@ -1183,6 +1183,21 @@
    "path": "source/SoundRules.cs",
    "size": 6663,
    "sha256": "74d28646c94eb3a0367b174c0aa2964d164a01a79e2fc5bb9cef21bcb39d2fbc"
+  },
+  {
+   "path": "source/SpellExchange.cs",
+   "size": 12643,
+   "sha256": "2a12857b1251fe9f11f44f786dc2cb55c6be166dd4f7088051097af1d669ee9a"
+  },
+  {
+   "path": "source/SpellExchangeTests.cs",
+   "size": 8404,
+   "sha256": "88f21740fec0346d5d9ff0c614161ad4c5e95b4099ba391832f8a1cb0a1fa40c"
+  },
+  {
+   "path": "source/SpellExchangeUi.cs",
+   "size": 5684,
+   "sha256": "31ea12e05191af77d4772955702160d668939d47490e0de1831a55316b373deb"
   },
   {
    "path": "source/StatusIcons.cs",
