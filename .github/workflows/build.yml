@@ -41,6 +41,12 @@ jobs:
           New-Item -ItemType Directory -Force scratch/issue-216 | Out-Null
           dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-216/item-status-checks.json item-status
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Native UI resource layer with synthetic idx/pak/XML/img (no game assets)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-461 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-461/resource-checks.json native-ui-resources
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Affliction contracts (no game or network)
         shell: pwsh
         run: |
