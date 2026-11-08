@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 239,
+ "sourceCount": 240,
  "files": [
   {
    "path": "NuGet.Config",
@@ -111,8 +111,13 @@
   },
   {
    "path": "source/Ambience.cs",
-   "size": 29781,
-   "sha256": "83b81f92ed413965eac5e292208610b47c250bdbb9691d03295e8eacc8781f36"
+   "size": 40623,
+   "sha256": "e3d4716ecb17e98483bd720555f7e9d4847ff59c8116cdf1fd9519052924a3b0"
+  },
+  {
+   "path": "source/AmbienceLightsTests.cs",
+   "size": 8540,
+   "sha256": "2f20b3f10fec9d88492b8b4362234a256ecc0d7a5d7ea6a7342787a49f19b06e"
   },
   {
    "path": "source/ApproachWalk.cs",
@@ -601,8 +606,8 @@
   },
   {
    "path": "source/MapEffects.cs",
-   "size": 11097,
-   "sha256": "bb4c45a806b80fba5d0119542952919ad881852e69fa936b436f217656bb53b7"
+   "size": 12901,
+   "sha256": "aa8348d6a6e9e1038bb9757637856325e69c9f348cdbf6eff0cb9daec1673ef2"
   },
   {
    "path": "source/MapIdPacket.cs",
