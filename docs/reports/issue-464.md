@@ -56,6 +56,12 @@
 - 文字格式：EXP% 截斷到小數 2 位、不進位（99.999 → 99.99%）；空值一律空字串；金幣辨識規則。
 - 點擊左框時命中這個面板，事件不會傳到世界層。
 
+### 同步 origin/main（2026-11-09，PR #586 衝突）
+
+- `git merge origin/main`（帶入 #514 SpellExchange），唯一衝突是 `rebuild-lock.json`：先取 main 版，再用 `rebuild.py --update-lock` 重產（265 個來源檔／274 個鎖定檔），沒有手動拼 hash。`docs/REPORT.md` 沒有衝突，維持 main 版。
+- 重新建置：`PASS dev`，productDll `46dcea7b…1910`。
+- 重新測試：`native-ui-left-status` PASS 368（離線）／PASS 369（有 `TW_CLIENT_ROOT`）；`native-ui-canvas` PASS 429；`item-status` PASS 409；`check-no-game-assets.py` pass，errors 0。
+
 ### 真實客戶端渲染（只在 scratch，未進 git）
 
 輸出在 `scratch/issue-464/real/`：4 種狀態的 `canvas-*.png`（800×600）、`left-x4-*.png`（左框放大 4 倍）、`surf-3168…3175.png`，以及 `left-status.json`（元件座標、surf 尺寸、每種狀態的繪製清單）。
