@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 258,
+ "sourceCount": 260,
  "files": [
   {
    "path": "NuGet.Config",
@@ -88,6 +88,16 @@
    "path": "launch-product.ps1",
    "size": 2781,
    "sha256": "9f93a1d39c4a97358a75be125751966779d08554fc395bea36fb642e286aacc1"
+  },
+  {
+   "path": "source/AbilityStatus.cs",
+   "size": 3247,
+   "sha256": "6dbc79f5736ea65883c9fc3bb368283cd808882541adacc69705ca0d9f423456"
+  },
+  {
+   "path": "source/AbilityStatusTests.cs",
+   "size": 5817,
+   "sha256": "d96b791cc224f52f7374253fd4aceeb0be6d02a5ff65feba39f2929c6c597b02"
   },
   {
    "path": "source/ActionCadence.cs",

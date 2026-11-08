@@ -79,6 +79,11 @@
   - 只有 `rebuild-lock.json` 衝突：取 main 版後用 `--update-lock` 重產。`Program.cs`、`DemoChecks.csproj`、`PlayerHudIntegration.cs` 自動合併，`YesNoPromptChecks()` 仍接在入口上；全原始碼已無 `MarriageUi` 參照。
   - 重建 `PASS dev`，productDll SHA-256 `bac7b5be…10cb0e2e`；`check-no-game-assets.py` pass。
   - 重跑 `yes-no` 425、`map-continuity` 33224、`combat-admission` 1750、`duel` 441、`item-status` 409、`native-ui-resources` 539、`native-ui-canvas` 429（新）、`afflictions` 580、`resurrection` 553、`background-music` 434，10 組全綠。
+- **第七輪同步 origin/main（2026-11-08，含 #510 Ability／SPMR）**：
+  - 只有 `rebuild-lock.json` 衝突：取 main 版後用 `--update-lock` 重產（260 個來源檔）。
+  - 重建 `PASS dev`，productDll SHA-256 `19f2e86d…bc8852b6`；`check-no-game-assets.py` pass（errors 0）。
+  - `P11.ClientEngine.exe --module-tests` pass（385 項、失敗 0，含 #510 的 `ability-status`）。
+  - 重跑 `yes-no` 425、`map-continuity` 33224、`combat-admission` 1750、`duel` 441、`item-status` 409、`native-ui-canvas` 429、`afflictions` 580、`resurrection` 553，8 組全綠。
 
 ## 沒驗證什麼（含推測）
 
