@@ -47,17 +47,17 @@ public static class PlayerQueryPackets {
     // Known server alignment tokens only; render as plain text, never as HTML or commands.
     public static string FormatWho(string text)=>"玩家資訊："+Display(text.Replace("($1501)","（正義者）").Replace("($1502)","（中立者）").Replace("($1503)","（邪惡者）"));
     public static string? DecodeWhoMessage(byte[] plain)=>DecodeTextMessage(plain) is {} text&&IsWhoInfo(text)?FormatWho(text):null;
-    public static (uint ObjectId,string[] Lines)? DecodeWhoHtml(byte[] plain){
+    public static (uint ObjectId,string[] Lines,string Html,string[] Arguments)? DecodeWhoHtml(byte[] plain){
         var r=new LoginReader(plain);
         if(r.C()!=39)return null;
         uint id=r.D();if(r.S()!="y_who")return null;
         if(id==0||r.H()!=1||r.H()!=9)throw new ProtocolException("who HTML identity/arguments");
         string[] labels=["線上人數","經驗倍率","掉寶倍率","金錢倍率","手點能力上限","單項萬能藥上限","萬能藥總瓶數","目前時間","重啟時間"];
-        var lines=new string[labels.Length];
-        for(int i=0;i<lines.Length;i++)lines[i]=labels[i]+"："+Display(r.S());
-        r.Finish();return(id,lines);
+        var lines=new string[labels.Length];var args=new string[labels.Length];
+        for(int i=0;i<lines.Length;i++){args[i]=Display(r.S());lines[i]=labels[i]+"："+args[i];}
+        r.Finish();return(id,lines,"y_who",args);
     }
-    public static (uint ObjectId,string[] Lines)? DecodeCheckHtml(byte[] plain){
+    public static (uint ObjectId,string[] Lines,string Html,string[] Arguments)? DecodeCheckHtml(byte[] plain){
         var r=new LoginReader(plain);
         if(r.C()!=39)return null;
         uint id=r.D();if(r.S()!="pc_show")return null;
@@ -66,10 +66,10 @@ public static class PlayerQueryPackets {
         r.Finish();
         var lines=new List<string>{$"目標：{a[0]}｜等級 {a[1]}",$"HP {a[2]}｜MP {a[3]}｜AC {a[4]}｜MR {a[5]}",$"力量 {a[6]}｜敏捷 {a[7]}｜體質 {a[8]}｜智力 {a[9]}｜精神 {a[10]}｜魅力 {a[11]}"};
         for(int i=0;i<Equipment.Length;i++)if(a[12+i].Length>0)lines.Add($"裝備・{Equipment[i]}：{a[12+i]}");
-        return(id,lines.ToArray());
+        return(id,lines.ToArray(),"pc_show",a);
     }
     // Returns null for anything but a complete known ranking page, so ordinary NPC dialogs stay untouched.
-    public static (uint ObjectId,string[] Lines)? DecodeRankHtml(byte[] plain){
+    public static (uint ObjectId,string[] Lines,string Html,string[] Arguments)? DecodeRankHtml(byte[] plain){
         var r=new LoginReader(plain);
         if(r.C()!=39)return null;
         uint id=r.D();string html=r.S();
@@ -87,7 +87,7 @@ public static class PlayerQueryPackets {
             lines.Add($"No.{i+1} {row}");
         }
         if(lines.Count==1)lines.Add("目前沒有排名資料。");
-        return(id,lines.ToArray());
+        return(id,lines.ToArray(),html,a);
     }
     static string Display(string text)=>PlayerChatProtocol.Display(text);
 }
@@ -122,25 +122,25 @@ public sealed partial class WorldSession {
         if(PlayerQueryPackets.IsCheckFailure(text)&&check.Task.IsCompleted){playerCheck=null;if(Ready)AddPlayerQueryLine(text);}
         return false;
     }
+    // WIN§2 T140: S_HYPERTEXT results belong to the NPC/HTML window, not to chat.
+    // S71 text (who summary, check failures) stays a chat line because the server sends it as chat text.
     bool ReceivePlayerQueryHtml(byte[] plain){
         if(PlayerQueryPackets.DecodeWhoHtml(plain) is {} who){
             // y_who is addressed to self, not the currently selected NPC; never mutate its dialog.
-            AddSelfQueryLines(who.ObjectId,who.Lines);return true;
+            ShowSelfQuery(who.ObjectId,who.Html,who.Arguments,who.Lines);return true;
         }
         if(PlayerQueryPackets.DecodeCheckHtml(plain) is {} check){
             if(check.ObjectId==Status?.ObjectId)playerCheck=null;
-            AddSelfQueryLines(check.ObjectId,check.Lines);return true;
+            ShowSelfQuery(check.ObjectId,check.Html,check.Arguments,check.Lines);return true;
         }
         if(PlayerQueryPackets.DecodeRankHtml(plain) is not {} rank)return false;
-        if(rank.ObjectId==Status?.ObjectId){AddSelfQueryLines(rank.ObjectId,rank.Lines);return true;}
-        // Ranking NPC page: mirror it to chat, then let the normal dialog handle the same packet.
-        CheckInteraction();
-        if(Ready&&InteractionValid&&InteractionKind=="waiting"&&rank.ObjectId==InteractionNpc)
-            foreach(string line in rank.Lines)AddPlayerQueryLine(line);
+        if(rank.ObjectId==Status?.ObjectId){ShowSelfQuery(rank.ObjectId,rank.Html,rank.Arguments,rank.Lines);return true;}
+        // Ranking NPC page: the normal dialog handles the same packet; decoded rows replace a missing template.
+        OfferDialogFallback(rank.Lines);
         return false;
     }
-    void AddSelfQueryLines(uint id,string[] lines){
-        if(Ready&&id==Status?.ObjectId)foreach(string line in lines)AddPlayerQueryLine(line);
+    void ShowSelfQuery(uint id,string html,string[] args,string[] lines){
+        if(Ready&&id==Status?.ObjectId)ShowQueryPage(id,html,args,lines);
     }
 }
 

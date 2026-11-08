@@ -165,3 +165,5 @@
 - 2026-11-08 — #504 T202：差距盤點——原版功能對照引擎，產出 gap-matrix（M7）（resource，claude-local，PR 已合併）→ [報告](reports/issue-504.md)
 - 2026-11-08 — #535 T-plan：M7 補列 T203–T227（U9 兌現），同步狀態（plan，claude-chat，PR 已合併）→ [報告](reports/issue-535.md)
 - 2026-11-08 — #518 T212：M7-L 拾取對齊原版（code，claude-local，PR 已合併）→ [報告](reports/issue-518.md)
+- 2026-11-08 — #509 T203：M7-A 接收與快照擴充點（code，claude-local，PR 已合併）→ [報告](reports/issue-509.md)
+- 2026-11-08 — #524 T218：M7-R HTML 結果改走 NPC 對話窗（code，claude-local，PR #543 已合併）→ [報告](reports/issue-524.md)

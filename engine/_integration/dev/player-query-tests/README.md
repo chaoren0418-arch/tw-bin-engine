@@ -16,7 +16,7 @@ dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Rel
 
 - 送出：C206、C125（`lv_ranking`、`pc_list`、NPC action）、C223 的位元組向量；命令分派、一般聊天逃脫、輸入限制。
 - 回包：S71／166 的玩家資訊與泛用訊息區分；S39 的 `y_who`、`pc_show`、`y_h_2`、`y_k_2`、`y_k_3`、`y_w_1`、`y_c_1`；控制字元顯示、所有截斷長度、padding、非法計數與身份。
-- 流程：`/rank` 與 `/check` 走實際聊天傳輸；C223 必須等選取提示；逾時、目標變更、session 重設、失敗回覆；風雲榜 NPC 鏡射與對話並存；不鏡射未請求的頁面。
+- 流程：`/rank` 與 `/check` 走實際聊天傳輸；C223 必須等選取提示；逾時、目標變更、session 重設、失敗回覆；S39 結果（`y_who`、`pc_show`、排名頁）改在 NPC 對話面板的查詢頁顯示，不再寫入聊天（T218／#524，細節見 `../hypertext-tests/HyperTextChecks.cs`）；S71 文字（`/who` 摘要、查詢失敗）仍是聊天行。
 - 既有行為：真實 WorldSession 分派、NPC 對話與 RaiseAttr、S161 資訊顯示、100 行上限／重設、節流、session／world／actor／死亡／排隊失效。
 
 C99 與 C63 不是本伺服器的查詢封包，測試斷言三個指令都不會送出。詳見 `docs/protocol/player-query.md`。
