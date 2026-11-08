@@ -98,15 +98,40 @@ public sealed partial class WorldSession {
 }
 
 public sealed partial class LoginConnection {
-    public async Task<bool> ToggleDoor(uint id,Func<bool>? current=null){
+    // WO §3 (T213/#519, M7-M): sub_F112F0 → sub_5001C0 classes 7/8. C_OPEN is only sent within
+    // 1 game tile (diagonals included); farther doors enter mode 3 and are approached first.
+    public const int DoorClickRange=1;
+    public string DoorNotice {get;private set;}="";
+    // WO §1: byte_13CE3FD (own death) returns from sub_F112F0 before any object click is handled.
+    public bool ObjectClicksBlocked=>World.OwnDead;
+    // `current` is the caller's admission fence (e.g. PlayerPointer). It is checked before any step
+    // and at an in-range send; once walking, the pointer's "same position" fence can no longer hold,
+    // so the approach is fenced by ApproachWalk's stamp (input/correction/world/appearance/speed),
+    // door identity and position, own death, and the door staying selected if it was selected.
+    public async Task<bool> ToggleDoor(uint id,Func<bool>? current=null,Func<bool>? walking=null){
+        if(ObjectClicksBlocked){DoorNotice="未送出：死亡中不能操作物件";return false;}
         if(!MovementAvailable||MovementBusy||sendMovementGate==null||current?.Invoke()==false
-            ||World.GetDoor(id) is not {Dead:false,AppearancePending:false} door)return false;
+            ||World.GetDoor(id) is not {Dead:false,AppearancePending:false} door||World.Actor is not {} actor){DoorNotice="未送出：目前不能操作門";return false;}
+        if(ApproachRules.Within(actor.X,actor.Y,door.X,door.Y,DoorClickRange))return await SendDoor(id,door,current);
+        bool selected=World.TargetId==id;
+        bool Target()=>!ObjectClicksBlocked&&World.GetDoor(id) is {Dead:false,AppearancePending:false} d&&d.X==door.X&&d.Y==door.Y&&(!selected||World.TargetId==id);
+        DoorNotice="走近門中；到達 1 格內後自動送出開關門";
+        bool sent=await Approach.RunAsync(new(door.X,door.Y),DoorClickRange,Target,
+            ()=>{if(Target()&&World.GetDoor(id) is {} now)return SendDoor(id,now,null);DoorNotice="未送出：門已失效";return Task.FromResult(false);},walking);
+        // Refused or cancelled before arrival: surface ApproachWalk's reason.
+        if(!sent&&!DoorNotice.StartsWith("未送出"))DoorNotice="未送出："+Approach.Notice;
+        return sent;
+    }
+    async Task<bool> SendDoor(uint id,WorldObject door,Func<bool>? current){
+        if(ObjectClicksBlocked){DoorNotice="未送出：死亡中不能操作物件";return false;}
+        if(!MovementAvailable||MovementBusy||sendMovementGate==null||current?.Invoke()==false
+            ||World.Actor is not {} a||!ApproachRules.Within(a.X,a.Y,door.X,door.Y,DoorClickRange)){DoorNotice="未送出：目前不能操作門或距離超過 1 格";return false;}
         var actor=World.Actor;int epoch=generation,world=World.WorldEpoch,input=inputVersion,lease=++movementLease;
         var sender=sendMovementGate;movementSending=true;
         bool Valid()=>epoch==generation&&world==World.WorldEpoch&&input==inputVersion&&MovementAvailable
             &&Equals(actor,World.Actor)&&(current?.Invoke()??true)&&!MagicBusy&&!GroundBusy&&!ItemBusy&&!CombatBusy
-            &&ReferenceEquals(door,World.GetDoor(id));
-        try{return await sender(DoorPackets.Toggle(id,door.X,door.Y),Valid,()=>{})&&Valid();}
+            &&ReferenceEquals(door,World.GetDoor(id))&&!ObjectClicksBlocked;
+        try{bool sent=await sender(DoorPackets.Toggle(id,door.X,door.Y),Valid,()=>{})&&Valid();DoorNotice=sent?"門操作已送出；等待伺服器回報開關與通行狀態":"未送出：門操作未通過閘門";return sent;}
         catch(Exception ex){if(epoch==generation){Cancel();Set(LoginState.Faulted,"門操作傳送失敗："+ex.Message);}return false;}
         finally{if(epoch==generation&&lease==movementLease)movementSending=false;}
     }
