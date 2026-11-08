@@ -70,6 +70,11 @@
   - 只有 `rebuild-lock.json` 衝突：取 main 版後用 `--update-lock` 重產；`Program.cs`、`DemoChecks.csproj` 自動合併。
   - 重建 `PASS dev`，productDll SHA-256 `76a6c611…5735311`；`check-no-game-assets.py` pass。
   - 重跑上面 14 組加 `door-approach`，15 組全綠（`yes-no` 425、`map-continuity` 33117、`combat-admission` 1750、`door-approach` 361）。
+- **第五輪同步 origin/main（2026-11-08，含 #508／#446 背景音樂）**：
+  - `rebuild-lock.json` 衝突：取 main 版後用 `--update-lock` 重產。
+  - `demo-tests/Program.cs` 衝突：取 main 版（多了 `BackgroundMusicChecks()`），再把 `YesNoPromptChecks()` 接在 `MarriageChecks()` 後面。
+  - 重建 `PASS dev`，productDll SHA-256 `31316c43…c4ee64`；`check-no-game-assets.py` pass。
+  - 重跑 15 組加 `background-music`，16 組全綠（`yes-no` 425、`map-continuity` 33224、`combat-admission` 1750、`background-music` 434）。
 
 ## 沒驗證什麼（含推測）
 
