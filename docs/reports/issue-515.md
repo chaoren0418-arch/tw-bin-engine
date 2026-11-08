@@ -29,6 +29,7 @@
   - PlayerChatChecks、MailChecks、WeaponRepairChecks、CombatSfxChecks（selection）、SoundRulesChecks、SoundPacketChecks。
 - `check-no-game-assets.py` → `pass`（3747 個追蹤檔，0 錯誤）。
 - 協定依據：SP 的 S0、C76、C78 段落。另外唯讀查看了伺服器原始碼 `S_PacketBoxPledgeRecommend.java`、`C_PledgeRecommendation.java`、`C_PledgeContent.java`，三個檔案的 SHA-256 都和 SP 記錄的一致，用來確認各 type 的語義與資格規則。沒有複製原始碼。
+- **同步 main 後重驗**（merge origin/main，含 #512 Agit 模組；無衝突）：`--update-lock` 重產（240 個來源檔）→ `PASS dev`，product DLL `a2b3e351fd79bb08a3facfe8d30a7eddeeeebe35f7c6eefcaf91c7f6f52a32a7`。`--module-tests` → `pass`，共 4 組、207 項：agit 44、castle 62、clan-matching 62、world-extensions 39。`check-no-game-assets.py` → `pass`（3756 個追蹤檔）。
 - 建置前置：worktree 沒有離線的 `engine/vendor`，所以建了一個 junction 指向主專案的 `engine/vendor`（唯讀使用，已被 gitignore，沒有 commit）。
 - CI 結果以 PR 為準。
 
