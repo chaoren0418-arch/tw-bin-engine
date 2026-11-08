@@ -21,6 +21,7 @@ public sealed partial class ClientForm {
     void InitNativeUi(){
         nativeUiOptions=UiOptions.Resolve(UiOptions.CommandLine,Path.Combine(stageRoot,"runtime",UiOptions.SettingsFileName));
         if(!nativeUiOptions.Enabled)return;
+        KeyPress+=(_,e)=>{if(NativeUiChar(e.KeyChar))e.Handled=true;};   // ui-chat-window (#468)
         // §3.2: the client area is at least 800×600 and starts at 800×600 while the switch is on.
         MinimumSize=SizeFromClientSize(new(UiRoot.LogicalWidth,UiRoot.LogicalHeight));ClientSize=new(UiRoot.LogicalWidth,UiRoot.LogicalHeight);
         nativeUiState=UiStartState.Verifying;events.Add(new{kind="native-ui",state="verifying",source=nativeUiOptions.Source,fill=nativeUiOptions.Fill});
@@ -114,12 +115,36 @@ public sealed partial class ClientForm {
     IUiGameState NativeUiGameState(){
         var w=login.World;var s=w.Status;bool inWorld=login.State==LoginState.InWorld;
         var basic=new UiStaticGameState(inWorld,inWorld?w.Actor?.Name:null,inWorld?s?.Level:null,inWorld?s?.Hp:null,inWorld?s?.MaxHp:null,inWorld?s?.Mp:null,inWorld?s?.MaxMp:null,Environment.TickCount64);
-        return WithHpMpState(NativeMacroGameState(new UiLeftStatusGameState(basic,inWorld?LeftStatusState.From(w):LeftStatusState.Empty)));   // ui-hpmp #465 outside; #466 macro (MacroBook.StateOf unwraps HpMp only, so it sits right inside); ui-left-status #464 innermost (LeftStatusState.From unwraps both)
+        // ui-chat-window (#468) innermost: UiChatGameState.From walks HpMp → macro → left-status → chat, the other lookups never reach it.
+        var chat=new UiChatGameState(basic,inWorld?new UiChatSnapshot(login.PlayerChatSnapshot(),gameFocus):UiChatSnapshot.Empty);
+        return WithHpMpState(NativeMacroGameState(new UiLeftStatusGameState(chat,inWorld?LeftStatusState.From(w):LeftStatusState.Empty)));   // ui-hpmp #465 outside; #466 macro (MacroBook.StateOf unwraps HpMp only, so it sits right inside); ui-left-status #464 (LeftStatusState.From unwraps both)
+    }
+    /// <summary>ui-chat-window (#468): typed characters (WM_CHAR, after IME composition) go to the native text input that takes them.</summary>
+    bool NativeUiChar(char c){
+        if(!NativeUiActive)return false;
+        foreach(var p in nativeUiRoot!.HitOrder()){
+            if(p is not IUiTextInput t||!nativeUiRoot.Usable(p))continue;
+            try{if(t.Char(c)){Invalidate();return true;}}catch(Exception ex){nativeUiRoot.Fault(p,"Char",ex);}
+        }
+        return false;
     }
 
-    sealed class NativeUiCommands(ClientForm form):IUiCommands {
+    sealed class NativeUiCommands(ClientForm form):IUiChatCommands {
         public void ShowDevTools(string? page=null){form.ClearInput("native-ui-dev-tools");form.ShowDevTools();}
         public void ReturnGameFocus()=>form.ReturnGameFocus();
         public void Logout(){form.ClearInput("native-ui-logout");form.CancelLogin(form.login.SessionGeneration,false);form.SyncPlayerHud();}
+        // ui-chat-window (#468): the same rules and calls as OpenPlayerChat / ExitPlayerChat / ChatSubmitRequested.
+        public bool BeginChatInput(){
+            var current=form.login.PlayerChatSnapshot();
+            if(!PlayerChatFlowRules.CanOpen(form.normalProduct,form.login.State,Form.ActiveForm==form,true,current.CanSend))return false;
+            form.ClearInput("chat-open");form.playerHudHeld.Clear();form.LeaveGameFocus("chat-open");return true;
+        }
+        public void EndChatInput(){form.playerHudHeld.Clear();form.ReturnGameFocus();}
+        public async Task<bool> SendChat(string text,PlayerChatView displayed){
+            var current=form.login.PlayerChatSnapshot();
+            if(current.Generation!=displayed.Generation||current.WorldEpoch!=displayed.WorldEpoch||current.Actor!=displayed.Actor)return false;
+            form.ClearInput("player-chat-send");
+            return await form.login.SendPlayerChat(text,current.Generation,current.WorldEpoch,current.Actor);
+        }
     }
 }
