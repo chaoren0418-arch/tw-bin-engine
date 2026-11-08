@@ -210,3 +210,4 @@
 - 2026-11-09 — #517 T211：M7-K 交易詢問與交易流程（code，claude-local，PR 已合併）→ [報告](reports/issue-517.md)
 - 2026-11-09 — #530 T223：M7-W 寵物：召喚選擇與指令目標（code，claude-local，PR 已合併）→ [報告](reports/issue-530.md)
 - 2026-11-09 — #467 ui-menu-buttons: 原生 UI 模組：巨集框選單按鈕 Map／Mail／Status／Spell／Item／Pledge／Option／Quit（code，claude-local，PR #596 已合併）→ [報告](reports/issue-467.md)
+- 2026-11-09 — #470 ui-minimap: 原生 UI 模組：底列小地圖與 Field_Map 小窗（Map 按鈕開關，讓出 F5）（code，claude-local，PR #597 已合併）→ [報告](reports/issue-470.md)
