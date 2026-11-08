@@ -8,16 +8,24 @@ public sealed class CharacterConfig {
     public byte[] Data=>data.ToArray();
     public PlayerHudBinding?[]? Slots=>slots?.ToArray();
     public bool Editable=>slots!=null;
+    // T231：聊天頻道開關（全體／密語／買賣）；null＝從未設定（v1 資料）。
+    readonly ChatChannelSettings? channels;
+    public ChatChannelSettings? Channels=>slots==null?null:channels;
     // TWCC v1: "TWCC", version 1, slot count, then count × (kind byte, u32 LE id).
     // Count 8 = F5–F12 (T176); count 4 = earlier T138 blobs, restored into F5–F8.
+    // TWCC v2 (T231): same as v1 with count 8, followed by one chat-channel flags byte (ChatChannelSettings.Flags).
     public const int SlotCount=PlayerHudKeys.SlotCount,LegacySlotCount=4;
     public static int EncodedLength(int count)=>6+count*5;
     public CharacterConfig(ReadOnlySpan<byte> bytes){
         data=bytes.ToArray();
         if(data.Length==0){slots=new PlayerHudBinding?[SlotCount];return;}
-        if(data.Length<6||!data.AsSpan(0,4).SequenceEqual("TWCC"u8)||data[4]!=1)return;
+        if(data.Length<6||!data.AsSpan(0,4).SequenceEqual("TWCC"u8)||data[4] is not (1 or 2))return;
         int count=data[5];
-        if(count is not (SlotCount or LegacySlotCount)||data.Length!=EncodedLength(count))return;
+        if(data[4]==2){
+            if(count!=SlotCount||data.Length!=EncodedLength(count)+1||ChatChannelSettings.FromFlags(data[^1]) is not {} stored)return;
+            channels=stored;
+        }
+        else if(count is not (SlotCount or LegacySlotCount)||data.Length!=EncodedLength(count))return;
         var parsed=new PlayerHudBinding?[SlotCount];
         for(int i=0;i<count;i++){
             int offset=6+i*5;byte kind=data[offset];uint id=BinaryPrimitives.ReadUInt32LittleEndian(data.AsSpan(offset+1));
@@ -26,9 +34,11 @@ public sealed class CharacterConfig {
         }
         slots=parsed;
     }
-    public static CharacterConfig FromSlots(IReadOnlyList<PlayerHudBinding?> bindings){
+    // channels==null keeps the v1 bytes exactly; a channel setting switches to v2.
+    public static CharacterConfig FromSlots(IReadOnlyList<PlayerHudBinding?> bindings,ChatChannelSettings? channels=null){
         if(bindings.Count!=SlotCount)throw new ArgumentException("expected eight HUD slots (F5–F12)");
-        byte[] bytes=new byte[EncodedLength(SlotCount)];"TWCC"u8.CopyTo(bytes);bytes[4]=1;bytes[5]=SlotCount;
+        byte[] bytes=new byte[EncodedLength(SlotCount)+(channels==null?0:1)];"TWCC"u8.CopyTo(bytes);bytes[4]=(byte)(channels==null?1:2);bytes[5]=SlotCount;
+        if(channels is {} c)bytes[^1]=c.Flags;
         for(int i=0;i<SlotCount;i++)if(bindings[i] is {} binding){
             if(binding.Id==0||!Enum.IsDefined(binding.Kind)||(binding.Kind==PlayerHudKind.Magic&&binding.Id>int.MaxValue))throw new ArgumentException("invalid shortcut binding");
             bytes[6+i*5]=(byte)(binding.Kind==PlayerHudKind.Item?1:2);
@@ -36,6 +46,8 @@ public sealed class CharacterConfig {
         }
         return new(bytes);
     }
+    public CharacterConfig WithChannels(ChatChannelSettings settings)=>
+        slots==null?throw new InvalidOperationException("legacy character config is not editable"):FromSlots(slots,settings);
 }
 
 public static class CharacterConfigPackets {
@@ -97,6 +109,7 @@ public sealed partial class LoginConnection {
         try {
             bool sent=await sender(bytes,()=>PlayerHudActions.Current(this,stamp)&&ReferenceEquals(original,World.ServerCharacterConfig),()=>{});
             if(!PlayerHudActions.Current(this,stamp))return false;
+            if(sent)World.RememberCharacterConfig(config);
             CharacterConfigNotice=sent?"快捷設定已送出；伺服器沒有儲存確認回包。":"快捷設定未送出。";
             return sent;
         }catch(Exception){if(PlayerHudActions.Current(this,stamp))CharacterConfigNotice="快捷設定傳送結果不明；請重新登入核對。";return false;}
@@ -120,6 +133,8 @@ public sealed class CharacterConfigHud {
             for(int i=0;i<CharacterConfig.SlotCount;i++)bindings.Assign(i,restored[i]);
             previous=bindings.Bindings.ToArray();
             if(received is {Editable:false})notice("舊版角色設定格式未支援；保留伺服器原設定，不會自動覆寫。");
+            // T231: restore saved chat-channel switches (server starts every login with all channels on).
+            if(received?.Channels!=null)_=connection.SyncChatChannels(stamp);
             return;
         }
         var current=bindings.Bindings.ToArray();
@@ -130,7 +145,7 @@ public sealed class CharacterConfigHud {
         async Task Save(){
             saving=true;
             try {
-                await connection.SaveCharacterConfig(stamp,CharacterConfig.FromSlots(current));
+                await connection.SaveCharacterConfig(stamp,CharacterConfig.FromSlots(current,connection.World.PersistedChatChannels));
                 if(PlayerHudActions.Current(connection,stamp))notice(connection.CharacterConfigNotice);
             }finally{saving=false;}
         }
