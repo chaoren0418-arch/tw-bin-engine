@@ -47,6 +47,7 @@
     <Compile Include="../native-ui-tests/LeftStatusChecks.cs" Link="LeftStatusChecks.cs" />
     <Compile Include="../native-ui-tests/MacroChecks.cs" Link="MacroChecks.cs" />
     <Compile Include="../native-ui-tests/HpMpChecks.cs" Link="HpMpChecks.cs" />
+    <Compile Include="../native-ui-tests/PartyPanelChecks.cs" Link="PartyPanelChecks.cs" />
     <Compile Include="../native-ui-tests/MenuButtonsChecks.cs" Link="MenuButtonsChecks.cs" />
     <Compile Include="../native-ui-tests/MiniMapChecks.cs" Link="NativeMiniMapChecks.cs" />
     <Reference Include="P11.ClientEngine"><HintPath>../../../build/client-product-dev/P11.ClientEngine.dll</HintPath></Reference>
