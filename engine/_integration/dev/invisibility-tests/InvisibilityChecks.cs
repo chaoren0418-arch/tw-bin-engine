@@ -30,16 +30,19 @@ partial class Checks {
             Check((id==123?world.Actor!.Flags:world.Objects.Single(o=>o.ObjectId==id).Flags)==0xFF,"S171 sets only invisible bit "+id);
             Check(world.ObjectRevision==revision+1,"S171 invalidates visual revision "+id);
             var draw=id==123?ownDraw:peerDraw;
-            Check(world.InvisibilityOpacity(draw,null) is {Half:true,Hidden:false},"self/retained peer half opacity "+id);
+            // AM§4(d): self is a 50% blend; another object's invisibility is not drawn (no $431 exception).
+            bool Invisible(OpacityValue? v)=>id==123?v is {Half:true,Hidden:false}:v is {Hidden:true};
+            Check(Invisible(world.InvisibilityOpacity(draw,null)),"self half opacity, retained peer not drawn "+id);
             Feed(c,InvisPacket(id,1));
             Check((id==123?world.Actor!.Flags:world.Objects.Single(o=>o.ObjectId==id).Flags)==0xFF,"duplicate S171 does not toggle "+id);
             Feed(c,Move(id,32600,32940,2));
-            Check(world.InvisibilityOpacity(draw,null) is {Half:true},"movement retains invisibility "+id);
+            Check(Invisible(world.InvisibilityOpacity(draw,null)),"movement retains invisibility "+id);
             Feed(c,InvisPacket(id,0));
             Check((id==123?world.Actor!.Flags:world.Objects.Single(o=>o.ObjectId==id).Flags)==0xFD,"S171 clears only invisible bit "+id);
             Check(world.InvisibilityOpacity(draw,null)==null,"S171 type 0 restores original rendering "+id);
             Feed(c,InvisPack(id,2));
-            Check(world.InvisibilityOpacity(draw,null) is {Half:true},"S87 invisible flag works without S171 "+id);
+            Check(Invisible(world.InvisibilityOpacity(draw,null)),"S87 invisible flag works without S171 "+id);
+            if(id==123)Check(Invisible(world.InvisibilityOpacity(InvisDraw(123),null)),"own draw tagged with own ID is still self");
             Feed(c,InvisPack(id,0));
             Check(world.InvisibilityOpacity(draw,null)==null,"full S87 visible replacement clears state "+id);
         }
@@ -63,14 +66,15 @@ partial class Checks {
         foreach(var draw in new[]{ownDraw,peerDraw}){
             ushort[] colors=[0];bool[] mask=[false];int[] owners=[-1];uint?[] entities=[null];
             Renderer.Blit(draw,new Rectangle(draw.Px,draw.Py,1,1),colors,mask,owners,entities,world.InvisibilityOpacity(draw,null));
-            Check(colors[0]==15&&mask[0],"invisible actor uses existing RGB555 half blend "+draw.ObjectId);
-            Check(entities[0]==(draw.ObjectId==0?(uint?)null:draw.ObjectId),"half-visible peer preserves pixel picking "+draw.ObjectId);
+            if(draw.ObjectId==0)Check(colors[0]==15&&mask[0]&&entities[0]==null,"invisible self uses existing RGB555 half blend");
+            else Check(colors[0]==0&&!mask[0]&&owners[0]==-1&&entities[0]==null,"invisible peer leaves no pixel, depth or picking");
         }
         var hidden=new OpacityValue(2,0,0);var transition=new OpacityValue(0x400,23,1);
-        Check(world.InvisibilityOpacity(peerDraw,hidden) is {Hidden:true},"invisibility cannot reveal already hidden draw");
-        Check(world.InvisibilityOpacity(peerDraw,transition) is {Transition:true,Alpha:16},"invisibility caps existing transition opacity");
-        Check(world.InvisibilityOpacity(peerDraw,transition with{Alpha=7}) is {Alpha:7},"invisibility does not brighten dim transition");
-        Check(world.InvisibilityOpacity(InvisDraw(456,"shadow"),null) is {Half:true},"actor shadow uses existing opacity interface");
+        Check(world.InvisibilityOpacity(ownDraw,hidden) is {Hidden:true}&&world.InvisibilityOpacity(peerDraw,hidden) is {Hidden:true},"invisibility cannot reveal already hidden draw");
+        Check(world.InvisibilityOpacity(ownDraw,transition) is {Transition:true,Alpha:16},"self invisibility caps existing transition opacity");
+        Check(world.InvisibilityOpacity(ownDraw,transition with{Alpha=7}) is {Alpha:7},"self invisibility does not brighten dim transition");
+        Check(world.InvisibilityOpacity(peerDraw,transition) is {Hidden:true,Transition:false},"peer invisibility hides even during a transition");
+        Check(world.InvisibilityOpacity(InvisDraw(456,"shadow"),null) is {Hidden:true}&&world.InvisibilityOpacity(InvisDraw(0,"shadow"),null) is {Half:true},"actor shadow follows its owner");
         foreach(string layer in new[]{"ground","objects","magic","projectile"})
             Check(world.InvisibilityOpacity(InvisDraw(456,layer),transition)==transition&&world.InvisibilityOpacity(InvisDraw(456,layer),null)==null,"unrelated layer unchanged "+layer);
         world.SelectTarget(456);Feed(c,Packet(b=>{b.Write((byte)120);b.Write(456u);}));

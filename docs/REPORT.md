@@ -154,3 +154,5 @@
 - 2026-11-08 — #447 T173：音效共用層——距離衰減、全域冷卻、S22 模式與音量分類（code，claude-local，PR 已合併）→ [報告](reports/issue-447.md)
 - 2026-11-08 — #445 T171：解出 music.def 與 envsound.def 的內容（resource，codex-local，PR 已合併）→ [報告](reports/issue-445.md)
 - 2026-11-08 — #437 T167：找出光源圖與雨雪圖的原始位置（Tile.pak 加密）（resource，codex-local，PR 已合併）→ [報告](reports/issue-437.md)
+- 2026-11-08 — #316 T135：盟徽查詢與 ID 對應（code，claude-local，PR 已合併）→ [報告](reports/issue-316.md)
+- 2026-11-08 — #481 T179：異常狀態外觀對齊原版（G7）（code，claude-local，PR 已合併）→ [報告](reports/issue-481.md)

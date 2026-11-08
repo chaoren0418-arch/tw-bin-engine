@@ -73,13 +73,57 @@ public sealed class ClanEmblemCache {
     }
 }
 
+// T135 (#316): the server's emblem ID is a separate number from the clan ID (docs/protocol/clan-emblem.md).
+// S167 and S64/0x3c publish it per character; S87 only carries the clan ID.
+public sealed record ClanEmblemAssignment(uint ObjectId,uint EmblemId);
+
+public static class ClanEmblemProtocol {
+    public const byte AssignmentSubtype=0x3c;
+    // C C D D. A shorter S64/0x3c stays unhandled: an emblem must not cost the connection.
+    public const int AssignmentLength=10,MaxAssignments=256;
+    public static ClanEmblemAssignment DecodeAssignment(byte[] packet){
+        var r=new LoginReader(packet);if(r.C()!=64||r.C()!=AssignmentSubtype)throw new ProtocolException("clan emblem assignment subtype");
+        var value=new ClanEmblemAssignment(r.D(),r.D());r.Finish();
+        if(value.ObjectId==0)throw new ProtocolException("clan emblem assignment identity");return value;
+    }
+}
+
 public sealed partial class WorldSession {
     public ClanEmblemCache Emblems {get;}=new();
     internal bool ReserveEmblemRequest(uint id,int generation)=>Emblems.TryReserve(id,generation);
     internal void ReleaseEmblemRequest(uint id,int generation)=>Emblems.Release(id,generation);
+    sealed record PublishedClanEmblem(uint EmblemId,string Clan);
+    // The paint thread reads this outside the world capture gate.
+    readonly object clanEmblemGate=new();
+    readonly Dictionary<uint,PublishedClanEmblem> publishedClanEmblems=[];
+    // Images stay (cross-connection cache); who published which emblem ID belongs to this connection.
+    void ResetClanEmblems(){lock(clanEmblemGate)publishedClanEmblems.Clear();}
+    void ReceiveClanEmblemAssignment(byte[] packet){var value=ClanEmblemProtocol.DecodeAssignment(packet);ObserveClanEmblemId(value.ObjectId,value.EmblemId);}
+    // The clan name fences the ID: a later clan change retires it without a new packet.
+    void ObserveClanEmblemId(uint objectId,uint emblemId){
+        lock(clanEmblemGate){
+            publishedClanEmblems.Remove(objectId);string clan=ClanIdentity(objectId).Clan;if(emblemId==0||clan.Length==0)return;
+            if(publishedClanEmblems.Count>=ClanEmblemProtocol.MaxAssignments)publishedClanEmblems.Remove(publishedClanEmblems.Keys.First());
+            publishedClanEmblems[objectId]=new(emblemId,clan);
+        }
+    }
+    // The emblem ID this holder's clan published, or 0 when the server never published one.
+    public uint PublishedClanEmblemId(uint objectId){
+        lock(clanEmblemGate){
+            if(!publishedClanEmblems.TryGetValue(objectId,out var published))return 0;
+            var (clan,clanId)=ClanIdentity(objectId);return clanId!=0&&clan==published.Clan?published.EmblemId:0;
+        }
+    }
 }
 
 public sealed partial class LoginConnection {
+    // T128 paint mount. A published emblem ID is asked for by itself; while it is missing the clan-keyed push
+    // (login/upload S118) still shows. Without one, the original's clan-ID request applies (#440).
+    public ClanEmblem? ClanEmblemFor(uint objectId,uint clanId){
+        if(clanId==0)return null;uint emblemId=World.PublishedClanEmblemId(objectId),id=emblemId!=0?emblemId:clanId;
+        if(World.FindClanEmblem(id) is {} emblem)return emblem;
+        RequestClanEmblem(id);return id!=clanId?World.FindClanEmblem(clanId):null;
+    }
     // Called while drawing a name or head emblem whose pixels are missing (sub_81F210). Fire and forget.
     public bool RequestClanEmblem(uint id){
         if(id==0||State!=LoginState.InWorld||sendMovementGate is not {} sender||World.Emblems.Contains(id))return false;
