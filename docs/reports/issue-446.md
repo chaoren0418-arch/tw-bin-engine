@@ -40,6 +40,7 @@
 | `DemoChecks … map-continuity`（CI 群組） | PASS 33060 |
 | `engine/tools/check-no-game-assets.py` | pass，errors 0 |
 | CI | 見 PR |
+| 2026-11-08 同步 origin/main（含 #518 拾取、#504、#535）後重驗 | 只有 `rebuild-lock.json` 衝突：取 main 版本後用 `--update-lock` 重產（238 個來源檔）；`rebuild.py --build` PASS（product DLL `dbba949a…`）；`DemoChecks … background-music` PASS 434；`check-no-game-assets.py` pass（errors 0） |
 
 本機實際客戶端核對（唯讀，只在本機執行，CI 會略過）：
 
