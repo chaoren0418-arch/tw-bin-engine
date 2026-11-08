@@ -1,7 +1,9 @@
 using System.Buffers.Binary;
 namespace P06;
 
-// M7-C（T205／#511）：城堡城主、稅率、金庫。只做協定、資料與文字通知；王冠動畫（圖源待查）與 NPC 對話窗 tax／withdraw／deposit 頁不在本檔。
+// M7-C（T205／#511）：城堡城主、稅率、金庫。協定、資料與文字通知。
+// W2-B（T235／#557）：S185／S141／S4 在 NPC 對話面板開 tax／withdraw／deposit 頁；王冠只做資料（12 格、500 ms、錨點），圖源待查不畫。
+// 頁內的數字輸入框與送出鈕待原生 HYPER_TEXT_WINDOW（T190）；回覆走 LoginConnection.SendCastleReply。
 // 原版行為依 docs/reference/windows-2.md §5.1（T226）：S69 在城堡編號 < 9 時寫入城主表 table[城堡]=物件 id；
 // 只有第 1、3–8 格畫王冠，第 2 格不畫；type 0 只寫第 0 格（不會清掉其他格）。
 // 格式依 docs/reference/server-protocol.md（#132）：
@@ -18,7 +20,11 @@ public enum CastleOfferKind:byte {TaxRate=1,Deposit=2,Withdraw=3}
 /// <summary>城主表一格。Crowned＝原版會畫王冠（第 1、3–8 格）。</summary>
 public sealed record CastleCrown(byte Castle,uint Leader,bool Crowned);
 public sealed record CastleOffer(CastleOfferKind Kind,uint ObjectId,long Min,long Max,long Revision);
-public sealed record CastleView(int Generation,int WorldEpoch,uint Actor,long Revision,bool CanSend,string Notice,CastleOffer? Offer,CastleCrown[] Crowns);
+public sealed record CastleView(int Generation,int WorldEpoch,uint Actor,long Revision,bool CanSend,string Notice,CastleOffer? Offer,CastleCrown[] Crowns,CastlePage? Page=null);
+/// <summary>W2-B（T235）：S185／S141／S4 在 NPC 對話面板開的 HTML 頁。Html＝templates.json 的頁名，Args＝&lt;var src="#n"&gt; 參數（`$n` 由畫面依 names.json 解析）。</summary>
+public sealed record CastlePage(CastleOfferKind Kind,string Html,string[] Args);
+/// <summary>王冠一格的資料（圖源未查到，不畫）：Frame＝0–11，每格 500 ms，各城自己計時。</summary>
+public sealed record CastleCrownFrame(byte Castle,uint Leader,int Frame);
 
 public static class CastleProtocol {
     public const byte SCastleMaster=69,STaxRate=185,SDrawal=141,SDeposit=4,CTaxRate=19,CDrawal=44,CDeposit=56;
@@ -73,6 +79,20 @@ public static class CastleProtocol {
     public static byte[] Deposit(uint id,long count)=>IdAndCount(CDeposit,id,count);
     public static byte[] Withdraw(uint id,long count)=>IdAndCount(CDrawal,id,count);
 
+    // W2-B（windows-2.md §5.1）：TW16 以 NPC 對話窗開頁；頁名在 .rdata（tax：VA 0x1183F78／FO 0xD82B78）。
+    public const string TaxPage="tax",WithdrawPage="withdraw",DepositPage="deposit";
+    public static string PageName(CastleOfferKind kind)=>kind switch{CastleOfferKind.TaxRate=>TaxPage,CastleOfferKind.Deposit=>DepositPage,_=>WithdrawPage};
+    /// <summary>提領頁 #1：TW16 以「%s : %d %s」組字串 457（寶庫）與 4（金幣）。</summary>
+    public static string WithdrawLine(long count)=>$"$457 : {count} $4";
+    /// <summary>存入頁 #1：TW16 顯示目前持有金額。數字後接字串 4（金幣）的排法是推定（待驗證）。</summary>
+    public static string DepositLine(long gold)=>$"{gold} $4";
+
+    // 王冠（windows-2.md §5.1，sub_F08880）：12 格、每格 500 ms；錨點 x＋17、y − 高度 − 12，高度一般 40，特定外型 50。
+    // 依外型類別、方向、動作的偏移表（dword_138CCC8 等）內容未取得，不在這裡套用。
+    public const int CrownFrames=12,CrownFrameMs=500,CrownDx=17,CrownDy=12,CrownHeight=40,CrownTallHeight=50;
+    public static int CrownFrame(long elapsedMs)=>elapsedMs<0?0:(int)(elapsedMs/CrownFrameMs%CrownFrames);
+    public static (int X,int Y) CrownAnchor(int x,int y,bool tall)=>(x+CrownDx,y-(tall?CrownTallHeight:CrownHeight)-CrownDy);
+
     public static string Prompt(CastleOffer offer)=>offer.Kind switch{
         CastleOfferKind.TaxRate=>$"城堡管家詢問稅率設定（可設定 {offer.Min}%～{offer.Max}%）。",
         CastleOfferKind.Deposit=>"城堡管家詢問要存入金庫的金幣數量。",
@@ -85,8 +105,18 @@ public static class CastleProtocol {
 
 public sealed partial class WorldSession {
     readonly uint[] castleMasters=new uint[CastleProtocol.MasterSlots];
+    readonly long[] castleCrownStart=new long[CastleProtocol.MasterSlots];
     CastleOffer? castleOffer;long castleRevision;string castleNotice="";
+    CastlePage? castlePage;int castleQueryRevision=-1;
+    internal Func<long> CastleClock=()=>Environment.TickCount64;
     public CastleOffer? CastleOffer=>castleOffer;
+    /// <summary>最近一次由 S185／S141／S4 開的 HTML 頁；面板被關掉或換頁後為 null。</summary>
+    public CastlePage? CastlePage=>castlePage!=null&&QueryRevision==castleQueryRevision?castlePage:null;
+    /// <summary>某物件頭上的王冠資料（第 1、3–8 格，各城一筆）。圖源待驗證，畫面不畫。</summary>
+    public CastleCrownFrame[] CastleCrownFrames(uint objectId){
+        if(objectId==0)return [];long now=CastleClock();
+        return CastleCrowns.Where(c=>c.Crowned&&c.Leader==objectId).Select(c=>new CastleCrownFrame(c.Castle,c.Leader,CastleProtocol.CrownFrame(now-castleCrownStart[c.Castle]))).ToArray();
+    }
     public long CastleRevision=>castleRevision;
     /// <summary>城主表第 1–8 格中有物件 id 的格子（第 0 格是失城通知寫入處，不列出）。</summary>
     public CastleCrown[] CastleCrowns=>Enumerable.Range(1,CastleProtocol.MasterSlots-1).Where(i=>castleMasters[i]!=0)
@@ -108,7 +138,7 @@ public sealed partial class WorldSession {
         var (castle,leader)=CastleProtocol.DecodeCastleMaster(plain);
         // 原版：編號 ≥ 9 不寫入；同值重送不另行通知。
         if(castle>=CastleProtocol.MasterSlots||castleMasters[castle]==leader){castleRevision++;return true;}
-        castleMasters[castle]=leader;
+        castleMasters[castle]=leader;castleCrownStart[castle]=CastleClock();
         // 第 0 格不畫王冠也不清別格（原服失城通知）；本引擎只給文字，不推測王冠會消失。
         if(castle==0)CastleLine($"伺服器通知：{CastleLeaderName(leader)} 的血盟失去城堡。");
         else if(leader==0)CastleLine($"{CastleProtocol.CastleName(castle)}目前沒有城主。");
@@ -119,15 +149,35 @@ public sealed partial class WorldSession {
         castleOffer=new(kind,id,min,max,castleRevision+1);
         CastleLine(CastleProtocol.Prompt(castleOffer));
     }
+    // TW16 把欄位寫進 NPC 對話窗再開頁（模式 1／2／3）。引擎的 NPC 面板以 QueryPage 承載伺服器主動送的頁（WIN§2.1，同一個 HYPER_TEXT_WINDOW），
+    // 不覆寫進行中的 NPC 對話或商店。#0＝目前對話 NPC 的名稱（原始 `$n` 名稱，畫面解析）；查不到就留空，不拿自己的名字代替。
+    string CastleNpcName()=>InteractionNpc is uint n&&objects.TryGetValue(n,out var o)?o.Name??"":"";
+    long CastleGoldHeld()=>inventory.Values.Where(i=>i.DescriptionId==0&&i.IconId==5&&(i.Name=="$4"||i.Name.StartsWith("$4 (",StringComparison.Ordinal))).Sum(i=>(long)i.Count);
+    void OpenCastlePage(CastleOfferKind kind,params string[] extra){
+        string[] args=[CastleNpcName(),..extra];
+        string html=CastleProtocol.PageName(kind);
+        castlePage=new(kind,html,args);
+        ShowQueryPage(Actor?.ObjectId??0,html,args,[]);
+        castleQueryRevision=QueryRevision;
+    }
+    void CloseCastlePage(){
+        if(castlePage!=null&&QueryRevision==castleQueryRevision)CloseQueryPage();
+        castlePage=null;castleQueryRevision=-1;
+    }
     [WorldReceive(CastleProtocol.STaxRate)]
-    bool ReceiveCastleTaxRate(byte[] plain){var (id,min,max)=CastleProtocol.DecodeTaxRate(plain);OpenCastleOffer(CastleOfferKind.TaxRate,id,min,max);return true;}
+    bool ReceiveCastleTaxRate(byte[] plain){var (id,min,max)=CastleProtocol.DecodeTaxRate(plain);OpenCastleOffer(CastleOfferKind.TaxRate,id,min,max);OpenCastlePage(CastleOfferKind.TaxRate);return true;}
     [WorldReceive(CastleProtocol.SDeposit)]
-    bool ReceiveCastleDeposit(byte[] plain){OpenCastleOffer(CastleOfferKind.Deposit,CastleProtocol.DecodeDeposit(plain),1,CastleProtocol.DepositMax);return true;}
+    bool ReceiveCastleDeposit(byte[] plain){
+        OpenCastleOffer(CastleOfferKind.Deposit,CastleProtocol.DecodeDeposit(plain),1,CastleProtocol.DepositMax);
+        OpenCastlePage(CastleOfferKind.Deposit,CastleProtocol.DepositLine(CastleGoldHeld()));return true;
+    }
     [WorldReceive(CastleProtocol.SDrawal)]
     bool ReceiveCastleDrawal(byte[] plain){
         var (id,count)=CastleProtocol.DecodeDrawal(plain);
-        if(count<1){castleOffer=null;CastleLine("城堡金庫目前沒有可以提領的金幣。");return true;}
-        OpenCastleOffer(CastleOfferKind.Withdraw,id,1,Math.Min(count,CastleProtocol.WithdrawCap));return true;
+        // 原版照樣開 withdraw 頁並顯示金額；金額 0 時不開詢問（沒有可提領的範圍）。
+        if(count<1){castleOffer=null;CastleLine("城堡金庫目前沒有可以提領的金幣。");OpenCastlePage(CastleOfferKind.Withdraw,CastleProtocol.WithdrawLine(0));return true;}
+        OpenCastleOffer(CastleOfferKind.Withdraw,id,1,Math.Min(count,CastleProtocol.WithdrawCap));
+        OpenCastlePage(CastleOfferKind.Withdraw,CastleProtocol.WithdrawLine(count));return true;
     }
 
     /// <summary>為目前詢問組回覆封包；詢問已換掉（revision 不同）或角色不符時回 null。</summary>
@@ -138,20 +188,21 @@ public sealed partial class WorldSession {
     }
     internal void CastleSent(long revision,long value){
         if(castleOffer is not {} offer||offer.Revision!=revision)return;
-        castleOffer=null;CastleLine(CastleProtocol.Sent(offer.Kind,value));
+        castleOffer=null;CloseCastlePage();CastleLine(CastleProtocol.Sent(offer.Kind,value));
     }
     /// <summary>不回覆就關掉詢問（原服的票會自然失效，不送任何封包）。</summary>
     public bool CancelCastleOffer(long revision){
         if(castleOffer is not {} offer||offer.Revision!=revision)return false;
-        castleOffer=null;castleNotice="已取消城堡操作。";castleRevision++;return true;
+        castleOffer=null;CloseCastlePage();castleNotice="已取消城堡操作。";castleRevision++;return true;
     }
-    internal CastleView CastleSnapshot(int generation,bool canSend)=>new(generation,WorldEpoch,Actor?.ObjectId??0,castleRevision,canSend&&castleOffer!=null,castleNotice,castleOffer,CastleCrowns);
+    internal CastleView CastleSnapshot(int generation,bool canSend)=>new(generation,WorldEpoch,Actor?.ObjectId??0,castleRevision,canSend&&castleOffer!=null,castleNotice,castleOffer,CastleCrowns,CastlePage);
 
     [WorldReset]
-    void ResetCastle(){Array.Clear(castleMasters);castleOffer=null;castleNotice="";castleRevision++;}
+    void ResetCastle(){Array.Clear(castleMasters);Array.Clear(castleCrownStart);castleOffer=null;castlePage=null;castleQueryRevision=-1;castleNotice="";castleRevision++;}
     [WorldSnapshot("castle")]
     object? CastleSnapshotModel()=>new{revision=castleRevision,notice=castleNotice,
         offer=castleOffer is {} o?new{kind=o.Kind.ToString(),objectId=o.ObjectId,min=o.Min,max=o.Max,revision=o.Revision}:null,
+        page=CastlePage is {} p?new{kind=p.Kind.ToString(),html=p.Html,args=p.Args}:null,
         masters=CastleCrowns.Select(c=>new{castle=c.Castle,leader=c.Leader,crowned=c.Crowned,name=CastleProtocol.CastleName(c.Castle)}).ToArray(),lostNotice=castleMasters[0]};
 }
 
