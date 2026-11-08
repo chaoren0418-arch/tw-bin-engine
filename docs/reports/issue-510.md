@@ -12,6 +12,7 @@
 ## 怎麼驗證
 - `rebuild.py --update-lock` → `rebuild.py --build`：PASS（第二次同步 main〈含 #523／#531〉後 productDll `0f20cf3d…4a0`）。
 - `P11.ClientEngine.exe --module-tests`（照 CI 指令）：第二次同步 main 後 pass，5 組 255 項，失敗 0（含 ability-status 38 項與 main 新增的 recovery 測試）。
+- 第三次同步 main（含 #446／#519／#548／#551）：`rebuild-lock.json` 取 main 版後 `--update-lock` 重產；`--build` PASS，productDll `b9c1b756…ab84`；`--module-tests` pass，7 組 385 項，失敗 0（ability-status 38 項；與 main 新增的 packetbox-status、server-features 無 opcode 衝突）。
 - `check-no-game-assets.py`：pass（errors 0）。
 - `packet-trace-tests`：pass。其餘既有測試由 CI 跑。
 

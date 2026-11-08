@@ -70,6 +70,7 @@ public sealed partial class WorldSession {
             if(heading>7)throw new ProtocolException("attack heading");
             LastAttack=new(++AttackReports,attacker,target,action,word,heading,x,y,flags);
             if(target==Actor?.ObjectId)LastIncomingAttack=LastAttack;
+            ClientSoundScene.Attack(this,attacker,target,Environment.TickCount64); // T172 戰鬥音樂
             if(Actor?.ObjectId==attacker)Actor=Actor with{Direction=(byte)heading};
             else if(objects.ContainsKey(attacker))UpdateObject(attacker,o=>o with{Direction=(byte)heading});
             AnimateCombat(attacker,action,target:target);
