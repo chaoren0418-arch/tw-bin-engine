@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 302,
+ "sourceCount": 305,
  "files": [
   {
    "path": "NuGet.Config",
@@ -765,6 +765,11 @@
    "sha256": "80d3bd1e8d405b65c3e4d1cb0ff007e12ab549e005213ea2ab2a0f639baa4d75"
   },
   {
+   "path": "source/NativeUi/FieldMapPanel.cs",
+   "size": 3707,
+   "sha256": "5d545b1fda7e166d5242fe9142815665a8c73e42f02b327b867f6138777d0235"
+  },
+  {
    "path": "source/NativeUi/FriendPanel.cs",
    "size": 15918,
    "sha256": "987465bb3a9ea5a766e004ba140501fa049c380e7fbcc4821503ccb2c111a1a9"
@@ -795,6 +800,11 @@
    "sha256": "a2b97527d6275d1b866a8994f0f4f4cd6cec33333b3ad0eccaae8401ad5fb2c6"
   },
   {
+   "path": "source/NativeUi/MiniMapPanel.cs",
+   "size": 3744,
+   "sha256": "60ede4801f0784492aa1f62c90f2de521b6c6791eb53a05fbe9193da15655e45"
+  },
+  {
    "path": "source/NativeUi/PersonalShopPanel.cs",
    "size": 14946,
    "sha256": "6c4fe29aec802dba88508cc372136678cbe5f3ea06f3716b88a8bc417e1122f9"
@@ -818,6 +828,11 @@
    "path": "source/NativeUi/State/MacroState.cs",
    "size": 12052,
    "sha256": "0b5b3d55bc1327acedcb345548f19b063305bedfff8b301c3ecf3eb6df73fa50"
+  },
+  {
+   "path": "source/NativeUi/State/MapState.cs",
+   "size": 16853,
+   "sha256": "1d25c448a508629ba7a56d452012558850637b6baf52b164eac4d952da48f98d"
   },
   {
    "path": "source/NativeUi/SummonPanel.cs",
@@ -866,8 +881,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 1800,
-   "sha256": "9fd94b879527704b9df0643048c76db92935f9b25d6af0b2a344e52b0696ca7a"
+   "size": 1960,
+   "sha256": "31c78f397292907e91943e61e9c16aeed95dd7ba78b6cd08d736ef210f2774bb"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
