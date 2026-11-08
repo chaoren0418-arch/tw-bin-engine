@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 239,
+ "sourceCount": 241,
  "files": [
   {
    "path": "NuGet.Config",
@@ -98,6 +98,16 @@
    "path": "source/Afflictions.cs",
    "size": 8353,
    "sha256": "a7221fa0f85976c42888c0510aad620fbaf709ae215d68b61b5796dc85cef3b0"
+  },
+  {
+   "path": "source/Agit.cs",
+   "size": 4764,
+   "sha256": "37e8a472e03b0653628f00d19e7db30b0f20660a12e8a8cc1fdf96efd6355af5"
+  },
+  {
+   "path": "source/AgitTests.cs",
+   "size": 6690,
+   "sha256": "55cb37f8d030f261ebf23a3f32422ff47029d3f548853d5d203053cb74c599a7"
   },
   {
    "path": "source/Ambience.cs",
@@ -491,8 +501,8 @@
   },
   {
    "path": "source/LocationShare.cs",
-   "size": 11395,
-   "sha256": "f21a28da5a2ddedf3f519d1e7e67d1715ecf5ad129d454bd4a08d0e194ac72db"
+   "size": 19703,
+   "sha256": "07d83c2ac6e2020af6cad34c23555588b03e40e6241ca8e40070e942ef9afed6"
   },
   {
    "path": "source/LoginConnection.cs",
