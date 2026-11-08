@@ -194,3 +194,4 @@
 - 2026-11-09 — #556 T234：伺服器主動送的 S39 頁（W2-A）（code，claude-local，PR 已合併）→ [報告](reports/issue-556.md)
 - 2026-11-09 — #557 T235：城堡 HTML 頁與城主王冠（W2-B）（code，claude-local，PR 已合併）→ [報告](reports/issue-557.md)
 - 2026-11-09 — #568 T243：水中呼吸的狀態圖示（S126／原版 S_BREATH）（code，claude-local，PR 已合併）→ [報告](reports/issue-568.md)
+- 2026-11-09 — #567 T242：`]` 子特效與 `{`／`}` 淡入淡出（FX2）（code，claude-local，PR 已合併）→ [報告](reports/issue-567.md)
