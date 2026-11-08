@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 278,
+ "sourceCount": 279,
  "files": [
   {
    "path": "NuGet.Config",
@@ -740,6 +740,11 @@
    "sha256": "182f97bd99647a7e9a5acd1c477a22be71b5ef9a7245cc023b1ebbe446f28289"
   },
   {
+   "path": "source/NativeUi/MenuButtonsPanel.cs",
+   "size": 6555,
+   "sha256": "a2b97527d6275d1b866a8994f0f4f4cd6cec33333b3ad0eccaae8401ad5fb2c6"
+  },
+  {
    "path": "source/NativeUi/SurfCatalog.cs",
    "size": 7527,
    "sha256": "599be507ea3f428e5f279566d748755539f9f35a30d80f666fbc282e631c4a44"
@@ -771,8 +776,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 723,
-   "sha256": "0978c88c5ae87888da72c39eeab23c1301f748d958a10edd8b83144640359b12"
+   "size": 801,
+   "sha256": "b9d4a720577196c45eb2a9d53564eef25827d1b4c549be129525cf1010256c30"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
