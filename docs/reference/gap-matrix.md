@@ -477,7 +477,7 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 
 ## 11. 第二輪盤點（T244／#601，2026-11-09）
 
-依目前的 main `8a35d710`（含 #527）重新核對第 1–5 節的每一列。第 1–10 節保留原文不改；本節的變更表覆蓋原表的狀態，統計由 `rea-scripts/gap_count_r2.py` 從「原表＋本節變更表」重算。
+依目前的 main `6d07fe0d`（含 #527、#528 與 T245 #602 的回填）重新核對第 1–5 節的每一列。第 1–10 節保留原文不改；本節的變更表覆蓋原表的狀態，統計由 `rea-scripts/gap_count_r2.py` 從「原表＋本節變更表」重算。
 
 ### 11.1 方法
 
@@ -493,7 +493,7 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
    - 聲音：`ClientSoundScene.Configure`（`ClientSoundScene.cs:16`）、`MapAmbientSound.Backend`。`Observe` 有接（`MapEffects.cs:62–63`），但沒有後端，所以背景音樂、envsound、`^` 環境音都不會出聲。
    - 資料：`CastleCrownFrames`（王冠不畫）、`StatusEffectIcons`（水中呼吸圖示）、`RequestSpellExchangeList`、`SendCastleReply`、`SendClanMatching`、`ChatChannelCommands.IsCommand`、`GhostSkipsSelfAppearance`，以及 #527 的 `PersonalShopPanel.Registration`（沒有加進 `UiPanelRegistry.cs`）。
 2. **原生 UI 預設關閉**：C2 畫布（#463）與 #464–#468、#526 的面板，只有在加 `--native-ui` 或 `native-ui.json` 寫 `{"nativeUi":true}` 時才出現。`UiLayer` 只有 4 個繪製圖層，Window 層數量**沒有上限**，和原版 `sub_A57C60` 的「最多 4 層」不同。
-3. **S250（op 108）子碼**：3.81 伺服器會送 62 個，引擎現在處理 **37 個**（原本 23 個）。還缺 25 個：B1 的 12 個由 #547 處理；B3 剩 13 個（37、45、66、83、84、86、117、146、168、169、173、190、192），其中 117 由 #560 處理，其他 12 個由 #602（T245）查證。
+3. **S250（op 108）子碼**：3.81 伺服器會送 62 個，引擎現在處理 **37 個**（原本 23 個）。還缺 25 個：B1 的 12 個由 #547 處理；B3 剩 13 個（37、45、66、83、84、86、117、146、168、169、173、190、192），其中 117 由 #560 處理，其他 12 個已由 #602（T245）查完（PBW§2）：66、146 伺服器沒有呼叫點，190／192 是伺服器自訂格式；可做的是 PBW-A（83／84）、PBW-C（168／169，隨 #561）、PBW-D（173）、PBW-E（37），已併入 11.5。
 4. **完整字串表已可用**：#546 已在執行期讀入整張 `string-c.tbl`（`ServerMessageText.cs:14`）。各模組用編號占位的字串（1784／1785／2139、3123–3126、Yes/No 提示文字）可以改讀這張表，但要先確認這些編號屬於同一張表（見 11.5 的 Q-2）。
 5. 商店清單（op 131／40）**沒有**改用 `TradeWindowPanel`。#526 只把修理模式 6 接上（`TradeWindowPanel.Source` 只有 `RepairTradeSource`），商店仍走 `NpcInteraction.cs:113` 的 `ShopRows`。
 
@@ -544,6 +544,7 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 | 1 | 131 | 部分 | 部分 | （無） | #526 沒涵蓋商店，仍走 `ShopRows`（`NpcInteraction.cs:113`） |
 | 1 | 40 | 部分 | 部分 | （無） | 同 op 131 |
 | 1 | 89 | 部分 | 部分 | #531 M7-X | 約 8 分 21 秒逾時送 C122 已做（`Recovery.cs:110`）；死亡窗見第 4.1 節 `UserPlayStatsUI` |
+| 2 | 179 | 部分 | 部分 | （無） | PBW§5.3：原版用通用模態訊息框 `sub_8E1E30` 顯示（並存 `Capture\NewsNNNN.txt`）；引擎收下後自動回 C16、不顯示 → R2-Q |
 | 2 | 107 | 缺 | 部分 | #551 T233 | 送 C14、收 S139，保存語系與功能旗標（`ServerFeatures.cs:157`）；拾取節流還沒改用伺服器旗標（`Ground.cs:84`）；沒有用 3.81 真機測過 |
 | 3 | C_VERSION(122) | 缺 | 部分 | #551 T233 | 同第 2 節 op 107 |
 | 3 | C_EXCHANGEABLE_SPELL(125) | 缺 | 部分 | #514 M7-G | 同第 1 節 op 175（沒有產品入口） |
@@ -569,6 +570,8 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 | 4.2 | `MacroWindow` | 部分 | 部分 | T176（#450）、#466 T193 | F5–F12 共 8 格、3 分頁、鎖定、擴充巨集已有（`NativeUi/MacroPanel.cs`），預設關閉；選單鈕由 #467（PR #596）處理 |
 | 4.2 | `TradeWindow` | 部分 | 部分 | #526 M7-S | 只有修理模式 6；商店、私商購買仍是 WinForms |
 | 4.2 | `InputWindow` | 部分 | 部分 | #558 T236 | YES (361, 567)／NO (401, 567) 鈕已有（`YesNoPrompt.cs:153`），是疊在畫面上的 WinForms 控制項；舊 HUD 下的位置是權宜做法 |
+| 4.2 | `BoardListWindow` | 部分 | 部分 | #528 M7-U | 清單窗 6 鈕、閱讀窗 4 鈕依 WIN§2 T130 畫出（`NativeUi/BoardPanels.cs`），只在原生 UI 開啟時掛上；背景 656／670、清單列與文章文字沒畫（仍由 WinForms `BoardUi` 顯示）；`BoardWriteWindow` 只有資料；672／676 用途待驗證 |
+| 4.2 | `QuitWindow` | 缺 | 缺 | T245（#602） | 已查（PBW§4）：死亡逾時送 C_QUIT 後開 `uiextra86.xml` `QUIT_WINDOW`（重新開始／離開／取消）；引擎逾時只送 C122（`Recovery.cs`）。可直接補 → R2-D（PBW-B） |
 | 4.2 | `CCookWindow` | 部分 | 部分 | #559 T237 | S250 52 的資料與版面常數已有（`Cooking.cs:42`），沒有 `COOK_BOOK_WINDOW` 原生面板 |
 | 5 | `sub_A06020` | 部分 | 已有 | T173（#447） | SD#5 單次播放與同 id 200 ms 冷卻已做，三條管線共用一份冷卻表（`SoundRules.cs:70`） |
 | 5 | `LineageSpell::CSpell` | 部分 | 已有 | #523 M7-Q | 送 C6 時不再本地播動作（`Magic.cs:80`） |
@@ -584,26 +587,28 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 
 ### 11.4 統計（第二輪）
 
-以第 1–5 節原表套用 11.3 的 76 列變更（py -3 -I docs/reference/rea-scripts/gap_count_r2.py docs/reference/gap-matrix.md），共 290 列：
+以第 1–5 節原表（已含 T245 的回填：58／164／67）套用 11.3 的 79 列變更（`py -3 -I docs/reference/rea-scripts/gap_count_r2.py docs/reference/gap-matrix.md`），共 290 列：
 
 | 節 | 已有 | 部分 | 缺 | 其中需先查證 | 其中伺服器不支援／不建議 | 其中可直接補 |
 |---|---:|---:|---:|---:|---:|---:|
 | 1. 收包：第一組 dispatch | 40 | 62 | 12 | 0 | 9 | 3 |
 | 2. 收包：第二組 | 6 | 3 | 4 | 0 | 4 | 0 |
 | 3. 送包：`sub_951F80` 名稱表 | 9 | 38 | 5 | 0 | 5 | 0 |
-| 4. UI 視窗 | 0 | 48 | 25 | 2 | 17 | 6 |
+| 4. UI 視窗 | 0 | 47 | 26 | 0 | 19 | 7 |
 | 5. 物件、技能、道具、地圖事件與繪製的處理函式 | 12 | 25 | 1 | 0 | 1 | 0 |
-| **合計** | **67** | **176** | **47** | 2 | 36 | 9 |
+| **合計** | **67** | **175** | **48** | 0 | 38 | 10 |
 
-和第 6 節比較：「缺→部分」18 列、「部分→已有」9 列、新增 1 列（背景音樂）。「部分」變多，是因為補上的大多是**協定或資料層**，原版視窗、畫面掛接或字串還沒做。仍為「缺」且「可直接補」的 9 列：op 52、op 228、`SummonUI`（#530，PR #595）；`AgitWindow`／`AgitMapWindow`（#550）；`BookmarkMemoryWindowUI`（建議併入 #472 之後的書籤後續）；op 132 S_SHOW_MAP（PG 任務 D，需原生窗，低）；`StatInfoUI`（隨重置窗，本機缺 23 個 surf）；`UserObtainUI`（低）；`AgitAuctionUI`（XML 缺資源）。後四列本批不分組。
+和第 6 節的 T245 回填後數字比較：「缺→部分」19 列、「部分→已有」9 列、新增 1 列（背景音樂）。「部分」變多，是因為補上的大多是**協定或資料層**，原版視窗、畫面掛接或字串還沒做。全表「需先查證」為 0（T245 查完最後兩列）。
 
-### 11.5 下一批 code 任務分組（14 組）
+仍為「缺」且「可直接補」的 10 列：op 52、op 228、`SummonUI`（#530，PR #595）；`AgitWindow`／`AgitMapWindow`（#550）；`QuitWindow`（R2-D，PBW-B）；`BookmarkMemoryWindowUI`（建議併入 #472 之後的書籤後續）；op 132 S_SHOW_MAP（PG 任務 D，需原生窗，低）；`StatInfoUI`（隨重置窗，本機缺 23 個 surf）；`UserObtainUI`（低）；`AgitAuctionUI`（XML 缺資源）。後四列本批不分組。
+
+### 11.5 下一批 code 任務分組（17 組）
 
 **原則**（沿用第 7 節）
 - 同一個既有檔案只分給一組。新檔用該組自己的名稱。
 - 新封包一律用 M7-A 的擴充點（`[WorldReceive]`、`[WorldReset]`、`[WorldSnapshot]`、`[WorldModuleTest]`），不改 `WorldSession.cs`。
 - `UiPanelRegistry.cs` 是共用的註冊檔：每組只准加自己那一行（#472、#474 也是這樣做），衝突時照常設授權自行同步。
-- 下列待合併 PR 用到的檔案，本批不碰，列為依賴：#594（`Trade.cs`、`TradeUi.cs`、`YesNoPrompt.cs`）、#595（`Pets.cs`、`PetUi.cs`、`PetTarget.cs`、`NativeUi/SummonPanel.cs`）、#593（`Buddies.cs`、`BuddyUi.cs`、`NativeUi/FriendPanel.cs`）、#592（`BoardUi.cs`、`NativeUi/BoardPanels.cs`）、#596–#600（`NativeUi/` 的選單鈕、小地圖、隊伍、血盟、狀態圖示面板與 `LeftStatusState.cs`、`UiClientBridge.cs`）、#604（`NativeUi/ItemWindowPanel.cs`、`SpellWindowPanel.cs`、`WarehouseWindowPanel.cs`）、#579（`ClanWarehouseHistory.cs`）；排隊中的 #547（`PacketBoxMessages.cs`）、#550（`Agit.cs`、`NativeUi/AgitMapPanel.cs`）、#472（`NativeUi/BookmarkPanel.cs`）、#474（`NativeUi/RedNoticePanel.cs`）。
+- 下列待合併 PR 用到的檔案，本批不碰，列為依賴：#594（`Trade.cs`、`TradeUi.cs`、`YesNoPrompt.cs`）、#595（`Pets.cs`、`PetUi.cs`、`PetTarget.cs`、`NativeUi/SummonPanel.cs`）、#593（`Buddies.cs`、`BuddyUi.cs`、`NativeUi/FriendPanel.cs`）、#596–#600（`NativeUi/` 的選單鈕、小地圖、隊伍、血盟、狀態圖示面板與 `LeftStatusState.cs`、`UiClientBridge.cs`）、#604（`NativeUi/ItemWindowPanel.cs`、`SpellWindowPanel.cs`、`WarehouseWindowPanel.cs`）、#579（`ClanWarehouseHistory.cs`）；排隊中的 #547（`PacketBoxMessages.cs`）、#550（`Agit.cs`、`NativeUi/AgitMapPanel.cs`）、#472（`NativeUi/BookmarkPanel.cs`）、#474（`NativeUi/RedNoticePanel.cs`）。
 - 驗收照 #503 暫行政策：編譯＋既有單元測試綠，每組另加自己的離線測試（新檔）。標「需先查證」的部分只做協定與資料，不做畫面。
 
 | 組 | 目標 | 可改的檔案 | 依賴 | 引用 |
@@ -611,19 +616,22 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 | R2-A 環境表現接上畫面 | 在 `PaintScene` 呼叫 `ComposeAmbienceLights`／`ShadeAmbience`／`PaintAmbience`，讓日夜明暗與 FX1 光照圖出現在畫面上；實作 `WeatherSprite`（雨 surf 924–927、程序雪）並在每格推進 `WeatherParticles`；盲目光圈改用 `source.lmp` k=5；酒醉補 `sub_81B0E0` 為假時位移減半、地圖 67／420 最低醉度；隱身補隊伍／血盟可見例外 | `Program.cs`（只限 `PaintScene`）、`Renderer.cs`、`Ambience.cs`、`MapEffects.cs`、`Afflictions.cs`、`Invisibility.cs`、`TimedBuffs.cs`（只限酒醉）、新檔 `WeatherSprite.cs`、`AmbienceWiringTests.cs` | 無 | AM§1–§4；EF2§1；第 1 節 op 156、206、176、114、229、160；第 5 節 `sub_F0B570` |
 | R2-B 聲音接上產品 | 實作 `IMusicStreamAudio`／`IEnvSoundAudio` 與 `^` 環境音的產品後端（走 `engine/audio` 的既有傳輸），在進入世界時呼叫 `ClientSoundScene.Configure` 並設定 `MapAmbientSound.Backend`；環境音乘上 EnvSound 類別音量；播放中隨距離更新音量（`A091C0`） | 新檔 `ProductSoundBackends.cs`、`ProductSoundTests.cs`；`ClientSoundScene.cs`、`MapAmbientSound.cs`、`AudioApiTransport.cs`、`SoundRules.cs`、`engine/audio/` | 無 | SD#4–#14；REA B04；第 1 節 op 91；第 5 節 `sub_A06210`、背景音樂列 |
 | R2-C 點擊與拾取收尾 | 雙擊地上物品改走 `PickupGroundClicked`（走近、整疊或數量提示）；死亡阻擋套到 NPC 與攻擊點擊；幽靈中擋滑鼠攻擊（`GhostLocalBlocked`）；拾取節流改讀 S139 功能旗標；門提示改讀 `DoorNotice` | `PlayerPointer.cs`、`PlayerPointerUi.cs`、`PlayerPointerHud.cs`、`Ground.cs`、`GroundUi.cs`、`ApproachWalk.cs`、新檔 `PointerFlowTests.cs` | 無 | WO 第 1、2、4 節；PG§4；第 3 節 C_GET；第 5 節 `sub_F112F0`、`sub_5001C0` |
-| R2-D 幽靈與死亡窗收尾 | 提供 `exitghost` 動作的處理（由 R2-F 接到 HTML 入口）；S85 接 `GhostSkipsSelfAppearance`；死亡統計窗改成 `IUiPanel`（外框 surf 5323、按鈕狀態圖），字串 3123–3126 改讀字串表；統計值的來源等 Q-2 | `GhostMode.cs`、`Recovery.cs`、`OnlineInput.cs`、新檔 `NativeUi/UserPlayStatsPanel.cs`、`UserPlayStatsTests.cs`；`UiPanelRegistry.cs` 一行 | Q-2（只擋統計值） | WO 第 4、6 節；第 4.1 節 `UserPlayStatsUI`；第 3 節 C_EXIT_GHOST、C_DEAD_RESTART |
+| R2-D 幽靈、死亡窗與離開窗 | 提供 `exitghost` 動作的處理（由 R2-F 接到 HTML 入口）；S85 接 `GhostSkipsSelfAppearance`；死亡統計窗改成 `IUiPanel`（外框 surf 5323、按鈕狀態圖），字串 3123–3126 改讀字串表；統計值的來源等 Q-2；**PBW-B**：原生 `QUIT_WINDOW`（重新開始 C177／C7、離開 C122、取消），死亡逾時改開此窗＋訊息 47 | `GhostMode.cs`、`Recovery.cs`、`OnlineInput.cs`、新檔 `NativeUi/UserPlayStatsPanel.cs`、`NativeUi/QuitWindowPanel.cs`、`UserPlayStatsTests.cs`；`UiPanelRegistry.cs` 兩行 | Q-2（只擋統計值） | WO 第 4、6 節；PBW§4；第 4.1 節 `UserPlayStatsUI`；第 4.2 節 `QuitWindow`；第 3 節 C_EXIT_GHOST、C_DEAD_RESTART |
 | R2-E 商店改用 `TRADE_WINDOW` | 新增商店用的 `TradeWindowPanel` 資料來源（買、賣），接上 S70／S65 並回 C38；修理模式 6 的列版面、框 1984、拉桿、按鈕狀態圖依 Q-1 修正；拿掉 WinForms 商店清單 | `NpcServices.cs`、`NativeUi/TradeWindowPanel.cs`、`WeaponRepairUi.cs`、新檔 `ShopTradeSource.cs`、`ShopTradeTests.cs`；`NpcInteraction.cs` 只限 `ShopRows` 呼叫點 | R2-F 合併（共用 `NpcInteraction.cs`）；Q-1 | WIN§2 T102、T134；WIN§1.5；第 1 節 op 131、40、136；第 4.2 節 `TradeWindow` |
 | R2-F NPC 對話面板收尾 | 城堡 `tax`／`withdraw`／`deposit` 頁內的數字框與送出鈕接 `SendCastleReply`，拿掉暫代聊天行「[城堡]」；S136 數字框補到 web 面板；把 R2-D 的 `exitghost` 接到 HTML 動作；以物品學魔法的入口（`RequestSpellExchangeList`）在 Q-3 查到送出點後接上 | `NpcInteraction.cs`、`NpcUi.cs`、`Castle.cs`、`AmountPrompt.cs`、`SpellExchange.cs`、`SpellExchangeUi.cs`、`engine/web/` 的 NPC 互動腳本、新檔 `NpcPageTests.cs` | R2-D（`exitghost` API）；Q-3（只擋學魔法入口） | WIN2§5.1、§5.3；第 1 節 op 95、12、49、224、175；第 3 節 C_TAX、C_DIALOG |
 | R2-G 聊天收尾 | 聊天列接 `ChatChannelCommands.IsCommand`（`/on`、`/off` 不再當聊天送出）；喊話改 `[name]`；`*` 開頭變色、type 18／25 自帶色號、`\f`／`\b` 色碼、血盟第二色 #BDBDBD、`$` 前綴；補送 C199 | `PlayerChat.cs`、`PlayerHudChat.cs`、`PlayerChatKeyboardFlow.cs`、`ChatChannelToggle.cs`、`NativeUi/ChatPanel.cs`、`NativeUi/State/ChatState.cs`、新檔 `ChatFormatTests.cs` | 無 | UI§3；PG§6 C_ONOFF；第 1 節 op 112、61、104、153；第 3 節 C_SAY、C_ONOFF；第 5 節 vtable `0x1165C80` |
 | R2-H 技能表現收尾 | 舊素材路徑（`ComposeMagic` 寫死的 gfx）改走 `!` 時機；SV#4 轉向、SV#12 提亮；`]` 擴到飛行物與落點特效；冷卻改用技能資料 `+56`／`+60`（Q-3 查到後）；kind 6／7 等 Q-4 | `MagicRendering.cs`、`AttackSkillPackets.cs`、`ProjectileRendering.cs`、`ActionCadence.cs`、`SkillCast.cs`、`SubEffects.cs`、新檔 `SkillVisualTests.cs` | Q-3、Q-4（只擋對應小項） | SV§1–§4、§7；EF2§2；第 1 節 op 5、240、137；第 3 節 C_USE_SPELL；第 5 節 `!`、109 kind、`sub_A4B060` |
 | R2-I 物件繪製收尾 | 變身缺 profile 時退回 gfx 1120、他人逐動作退回；名稱補 +181 圖示、隊伍與主人圖示、+252 行、物件種類 2／3／9／10 過濾、怪物等級差外框；S76 接 `GhostSkipsSelfAppearance`；城主王冠在 Q-2 查到圖源後接 `CastleCrownFrames` | `ObjectRendering.cs`、`PlayerProfiles.cs`、`Polymorph.cs`、`TitleAndEmote.cs`、新檔 `ObjectDrawTests.cs` | Q-2（只擋王冠） | AN§2、§3.4；WIN2§5.1；第 1 節 op 16、226、186、36、252 |
 | R2-J Yes/No 收尾 | 復活 322 移進共用詢問槽；Esc 交給詢問槽送拒絕；拿掉組隊 30 秒、求婚 15 秒的本地逾時與 PartyUi／DuelUi 的回覆鈕；提示文字改讀字串表；補發起求婚的入口；YES／NO 鈕改成 `IUiPanel` | `YesNoPrompt.cs`、`Party.cs`、`PartyUi.cs`、`Duel.cs`、`DuelUi.cs`、`Marriage.cs`、`Resurrection.cs`、`KeyboardNavigation.cs`、新檔 `NativeUi/YesNoPanel.cs`、`YesNoFollowupTests.cs`；`UiPanelRegistry.cs` 一行 | #517（PR #594）合併 | WIN§2.1；WO 第 6 節；WIN2§5.3；第 1 節 op 85、197；第 3 節 C_ANSWER；第 5 節 `sub_4FC710` |
-| R2-K 血盟收尾 | 送 C18 上傳盟徽、C63 階級設定；入盟與盟戰詢問移進共用詢問槽；S250／173 盟徽開關（等 #602 的 B3 結果）；血盟推薦的 UI 等 Q-3 查完 `sub_B243A0` | `Clan.cs`、`ClanEmblem.cs`、`ClanUi.cs`、`ClanWar.cs`、`ClanMatching.cs`、新檔 `ClanFollowupTests.cs` | R2-J（詢問槽改動）；#602；Q-3（只擋推薦 UI） | AN§2.8；WIN2§3；PG§2.3；第 1 節 op 161、110、133、63；第 3 節血盟、C_EMBLEM、C_MATCH_MAKING |
+| R2-K 血盟收尾 | 送 C18 上傳盟徽、C63 階級設定；入盟與盟戰詢問移進共用詢問槽；**PBW-D**：S250／173 存「顯示盟徽」旗標、類型 130 顯示訊息 3383；血盟推薦的 UI 等 Q-3 查完 `sub_B243A0` | `Clan.cs`、`ClanEmblem.cs`、`ClanUi.cs`、`ClanWar.cs`、`ClanMatching.cs`、新檔 `ClanFollowupTests.cs` | R2-J（詢問槽改動）；Q-3（只擋推薦 UI） | AN§2.8；WIN2§3；PG§2.3；PBW§2；第 1 節 op 161、110、133、63；第 3 節血盟、C_EMBLEM、C_MATCH_MAKING |
 | R2-L 狀態圖示資料收尾 | B2 的 82／75／180 補文字與圖示對照，59 刪除對象依原版修正；水中呼吸 effect 11 與 S36／S37（SP／MR）接到 #473 的圖示與左狀態框資料 | `PacketBoxStatus.cs`、`StatusIcons.cs`、`MagicStatus.cs`、`AbilityStatus.cs`、新檔 `StatusIconFeedTests.cs` | #473（PR #600）、#464 後續（PR #598 的 `LeftStatusState.cs`）合併 | UI§4；EF2§3；PG§2.3 B2；第 1 節 op 25、17、122 |
 | R2-M 發送座標收尾 | 字串 1784／1785／2139 與 mapDesc 改讀字串表（Q-2 確認編號）；10 筆清單改用 `[WorldReset]` 清空並加畫面；`+16`＝0 分支 | `LocationShare.cs`、新檔 `NativeUi/LocationListPanel.cs`、`LocationShareFollowupTests.cs`；`UiPanelRegistry.cs` 一行 | Q-2（只擋字串） | WO 第 5 節；第 3 節 C_CHANNEL；第 4.2 節 `MapLocationSaveWindow` |
 | R2-N 個人商店窗接上產品 | 把 `PersonalShopPanel.Registration` 加進註冊表；從背包選格（`PersonalShopCandidate`）、`Confirmed` 送 C38、關店送 C38 type 1；物品圖示來源 | `PrivateShopUi.cs`、新檔 `PersonalShopIntegration.cs`、`PersonalShopIntegrationTests.cs`；`UiPanelRegistry.cs` 一行 | 無 | WIN§1.1；SP C38；第 4.1 節 `PersonalShopUI` |
+| R2-O 畫面中央訊息與震動（PBW-A） | S250／84 類型 2 → 畫面中央訊息佇列（7 秒、最多 14 則、`$` 字串表代換）；S250／83 → 1 短震動、2 持續晃動開關、3 隨機煙火 gfx 2042／2030／2029 | 新檔 `PacketBoxScreen.cs`、`PacketBoxScreenTests.cs` | R2-A（畫面震動掛在 `Renderer.cs`，由 R2-A 留掛點）；#474（紅字面板，避免兩處畫中央訊息） | PBW§2 PBW-A；第 1 節 op 108 |
+| R2-P 寵物裝備（PBW-E） | S250／37 更新寵物 AC 與裝備欄，不回送 C99 | 新檔 `PetEquipment.cs`、`PetEquipmentTests.cs` | #530（PR #595，`Pets.cs`）合併 | PBW§2 PBW-E；第 1 節 op 108 |
+| R2-Q 登入公告顯示 | S48（TW16 op 179 S_NEWS）改用通用模態訊息框顯示，確認後才回 C16 | `LoginConnection.cs`、`ClientLogin.cs`、新檔 `LoginNewsTests.cs` | 無 | PBW§5.3；第 2 節 op 179 |
 
-**建議順序**：先派 R2-A、R2-B、R2-C、R2-G、R2-I、R2-N（不等別人）；R2-D 合併後派 R2-F，R2-F 合併後派 R2-E；#594 合併後派 R2-J，R2-J 後派 R2-K；#600 與 #598 合併後派 R2-L；R2-M 可以先做清單與重置，字串等 Q-2。
+**建議順序**：先派 R2-A、R2-B、R2-C、R2-G、R2-I、R2-N、R2-Q（不等別人）；R2-A 合併後派 R2-O；#530 合併後派 R2-P；R2-D 合併後派 R2-F，R2-F 合併後派 R2-E；#594 合併後派 R2-J，R2-J 後派 R2-K；#600 與 #598 合併後派 R2-L；R2-M 可以先做清單與重置，字串等 Q-2。
 
 **另外建議（需要使用者決定，不開 code 任務）**：原生 UI 目前預設關閉。等 #475（T201）真機 smoke 通過後，再決定要不要改成預設開啟。
 
@@ -635,12 +643,12 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 | Q-2 圖源與字串 | 王冠圖源與偏移表（`dword_15451B8`、`sub_501260`）；盟屋地圖圖號（`aAvadentelui`、`dword_13A96F0[+560]`）；死亡統計值來源（`sub_C0AB50`）；字串 1784、1785、2139、3123–3126、3131 與 mapDesc 是否就在 `string-c.tbl` | 第 1 節 op 252 `sub_9322C0`；`CUserPlayStatsUI` 建構子 `0xC0AB50`／`0x809F50`；`ServerStringTable` | R2-D、R2-I、R2-M；#550 |
 | Q-3 送出點與欄位 | `C_EXCHANGEABLE_SPELL`(125) 的送出點與 `sub_93F200` 的視窗；`sub_B243A0` 血盟推薦欄位與 C_MATCH_MAKING 子碼；`checkpk`→C51（`sub_BB5180`）；技能資料 `+56`／`+60` 的來源；S36 各 type、S185 第 3 個 C 的意義；S_KICK（op 245）的提示窗；C_EXTENDED(53) 子碼；op 44 學魔法窗、op 78 `sub_B2E1D0` 的 UI；`PledgeNoticeUI` 的開窗 | `wo_sendsites.py` 的作法；第 1 節各處理函式 | R2-F、R2-H、R2-K |
 | Q-4 技能飛行 | 109 kind 6 的推進與 kind 7 的畫法、受擊時機；`]` 在 `.s32` 地圖特效、門、飛行物上的行為 | SV§7.4；EF2§2；`sub_A4B060` | R2-H |
-| （進行中）T245 #602 | S250 B3 的視窗類子碼、`QuestUI` 的 S250 格式、`QuitWindow`／`CNoticeWindow` 的使用點（含 S_NEWS 公告窗） | 見 #602 | R2-K；第 4 節三列 |
+| ~~T245 #602~~ | ✅ 已合併（[`packetbox-windows.md`](packetbox-windows.md)）：B3 子碼、`QuestUI`、`QuitWindow`、`CNoticeWindow`、S_NEWS 的顯示方式都已查；結果已併入 11.3 與 11.5（R2-D、R2-K、R2-O、R2-P、R2-Q）。剩 `QuitWindow` 的 ESC 入口與 192 的讀取者待驗證 | PBW | — |
 
-建議開 **3 張 resource 任務**：Q-1＋Q-4（畫面與版面）、Q-2（圖源與字串，量小，可先做）、Q-3（送出點與欄位）。T245 已在進行，不重開。
+建議開 **3 張 resource 任務**：Q-1＋Q-4（畫面與版面）、Q-2（圖源與字串，量小，可先做）、Q-3（送出點與欄位）。
 
 ### 11.7 限制
 
 - 只讀報告與原始碼，沒有建置或執行；「產品沒有呼叫」是用 Grep 搜呼叫點判斷，以反射或事件間接呼叫的可能會漏。
 - 各任務都沒有真機驗收；「已有」只表示程式和已查證的表現沒有已知差異。
-- 本節的 `檔案:行` 以 main `8a35d710` 為準。
+- 本節的 `檔案:行` 以 main `6d07fe0d` 為準。
