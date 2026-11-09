@@ -28,6 +28,7 @@ partial class Checks {
         b.Write((byte)87);b.Write(x);b.Write(y);b.Write(id);b.Write((ushort)1110);b.Write(new byte[4]);b.Write(0u);b.Write((ushort)0);
         Text(b,"NPC");Text(b,"");b.Write(flags);b.Write(0u);Text(b,"");Text(b,"");b.Write((byte)0);b.Write((byte)100);b.Write(new byte[3]);b.Write((byte)255);b.Write((byte)255);
     });
+    [CheckGroup("minimap"),CheckGroup("hotbar",Order=3),CheckGroup("map-continuity",Order=270),CheckGroup(CheckGroups.Default,Order=130)]
     static void MinimapChecks(){
         using(var connection=Seed())using(var model=new Minimap()){
             Sender(connection,(_,_,_)=>throw new Exception("minimap must not send C packets"));

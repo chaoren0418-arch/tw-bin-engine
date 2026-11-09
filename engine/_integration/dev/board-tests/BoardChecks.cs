@@ -17,6 +17,7 @@ partial class Checks {
     static Task<bool> OpenBoard(LoginConnection c)=>c.Interact("talk",c.World.InteractionRevision,c.World.WorldEpoch,c.World.TargetRevision);
     static void BoardReject(Action action,string label){try{action();}catch(Exception ex) when(ex is ArgumentException or ProtocolException){Check(true,label);return;}throw new Exception("accepted invalid board packet: "+label);}
     static LoginReader BoardReader(byte[] bytes){var r=new LoginReader(bytes);r.C();return r;}
+    [CheckGroup("board",Order=1),CheckGroup("map-continuity",Order=50),CheckGroup(CheckGroups.Default,Order=290)]
     static async Task BoardChecks(){
         // Independent byte vectors: opcode + little endian D fields + NUL terminated CP950 + zero padding.
         Check(Convert.ToHexString(BoardPackets.List(0x01020304))=="0A04030201000000","board C10 D vector");

@@ -65,6 +65,7 @@ static partial class AttackSkillChecks
         File.WriteAllText(Path.Combine(root, "integrity.json"), JsonSerializer.Serialize(new { files = new[] {
             new { path = "players/manifest.json", size = manifest.Length, sha256 = Convert.ToHexString(SHA256.HashData(manifest)) } } }));
     }
+    [CheckGroup("attack-skills"),CheckGroup("combat-admission",Order=3)]
     public static void Run(string output, Action<bool,string> report)
     {
         Passed.Clear();
@@ -104,7 +105,8 @@ static partial class AttackSkillChecks
                 p.Targets[0].DisplayDamage == (extended ? 70000u : null) && p.Targets[1].DisplayDamage == null &&
                 p.Targets[3].DisplayDamage == (extended ? (uint)int.MaxValue : null), "S42 typed fields and unsigned display damage");
             var w = Seed(); w.Receive(bytes, "offline");
-            Check(w.LastRangeSkill!.Targets.SequenceEqual(p.Targets) && w.MagicEffects.Length == 1 && w.RangeTargets(w.MagicEffects[0].Number).Count == 5 && w.Actor!.Direction == 6 &&
+            // SV#4 (#617): the caster turns toward the first target (456 at 32603,32942 -> 3), not packet heading 6.
+            Check(w.LastRangeSkill!.Targets.SequenceEqual(p.Targets) && w.MagicEffects.Length == 1 && w.RangeTargets(w.MagicEffects[0].Number).Count == 5 && w.Actor!.Direction == 3 &&
                 w.OwnCombat?.Action == 19 && w.Objects[0].Combat == null && w.Objects[1].Combat == null,
                 "S42 one effect carrying the list, caster motion, no hit reaction on receipt (skills-visual §3)");
             Check(w.Status!.Hp == 100 && w.Actor!.HpPercent == 50 && w.Objects[0].HpPercent == 75, "S42 flag/damage never deducts HP");

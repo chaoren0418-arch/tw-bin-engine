@@ -24,6 +24,7 @@
 - `P11.ClientEngine.exe --module-tests`：28 組、1401 項、0 失敗；本組 `login-news` 31 項通過（S48 CP950 解析與錯誤長度／opcode 拒絕、C16 位元組、閘門等待／確認／重複確認／舊 revision／Reset 取消／後到公告取代、`LoginConnection` 預設自動確認與 `newsPending` 快照、顯示文字斷行）。
 - `engine/tools/check-no-game-assets.py`：pass，errors 0。
 - 與 origin/main 同步：開工時落後 0 個 commit。
+- 2026-11-09 同步 origin/main（PR #638 開出後 main 前進；只有 `rebuild-lock.json` 衝突，採 main 版本後 `--update-lock` 重產，332 來源檔）：`rebuild.py --build` PASS（productDll SHA `f62267cb…bcdae797`）；`--module-tests` 44 組、2211 項、0 失敗（`login-news` 31 項通過）；`check-no-game-assets.py` 0 錯誤。本機證據（不進 git）：`scratch/t621/module-tests.json`。
 
 ## 未驗證什麼
 

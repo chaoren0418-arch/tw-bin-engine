@@ -18,6 +18,7 @@ partial class Checks {
         b.Write(new byte[]{0,0,1,1,1,0,1});b.Write((ushort)0x7c00);
     });
     static byte[] PacketRaw(Action<BinaryWriter> write){using var stream=new MemoryStream();using var writer=new BinaryWriter(stream);write(writer);return stream.ToArray();}
+    [CheckGroup("title-emote"),CheckGroup("combat-admission",Order=6),CheckGroup(CheckGroups.Default,Order=390)]
     static async Task TitleAndEmoteChecks(){
         Check(Convert.ToHexString(TitleAndEmotePackets.Title("中","文"))=="5AA4A400A4E50000","C90 independent CP950 SS vector");
         foreach(int action in Enumerable.Range(66,4))Check(TitleAndEmotePackets.Emote(action).SequenceEqual(new byte[]{120,(byte)action,0,0,0,0,0,0}),"C120 C vector "+action);
@@ -168,7 +169,7 @@ partial class Checks {
         Check(ReferenceEquals(result,original),"title no longer recomposes or expands the scene patch");
         Check(c.World.DisplayTitle(123)=="測試稱號"&&c.World.DisplayTitle(999)=="","title data provider for the name painter");
         Feed(c,TitleUpdate(456,"\f2遠方\r\n"));Check(c.World.DisplayTitle(456)=="遠方","title data provider strips legacy colour codes");
-    }    static void TitleEmoteOriginalAssets(){
+    }    [CheckGroup("title-emote-assets")] static void TitleEmoteOriginalAssets(){
         using var reader=new EmoteSprites();foreach(int gfx in new[]{0,1,37,48,61,734,1186,2786,2796,6650,6658,6661,6671})foreach(int action in Enumerable.Range(66,4))foreach(int direction in Enumerable.Range(0,gfx==0?8:1)){
             var sequence=reader.Load(gfx,action,direction)!;Check(sequence.Duration>0&&sequence.Frames.All(f=>f.Blocks.Length>0),$"read-only original gfx {gfx} action {action} direction {direction}");
             Check(sequence.At(0)!=null&&sequence.At(sequence.Duration)==null,"original animation lifecycle");
@@ -181,6 +182,7 @@ partial class Checks {
         Check(reader.Load(3225,66,0,0)?.Duration is null or >0,"dummy gfx missing emote does not throw");
         Check(reader.Load(6080,68,0,20)?.Frames.Length==12&&!ReferenceEquals(reader.Load(6080,68,0,20),horse),"real horse 68 keeps its own sprite frames");
     }
+    [CheckGroup("title-emote-compose")]
     static void TitleEmoteCompositeAssets(){
         string root=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../assets"));
         var assets=(Assets)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(Assets));

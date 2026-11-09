@@ -7,7 +7,8 @@ using System.Text;
 // All fixture archives below contain invented one-pixel sprites, never game assets.
 static partial class AttackSkillChecks
 {
-    public static void NativeResources(string client,string assets,Action<bool,string> report){
+    [CheckGroup("attack-skill-resources")]
+    public static void NativeResources([CheckArg(3)] string client,[CheckArg(4)] string assets,Action<bool,string> report){
         var catalog=new EffectSpriteCatalog(client);
         foreach(int gfx in new[]{66,167,180,193,214,219,221,2349,2989,11722}){
             var effect=catalog.Get(gfx);

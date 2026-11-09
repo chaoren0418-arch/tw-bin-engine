@@ -130,9 +130,19 @@ public sealed partial class WorldSession
     {
         // withCastMotion=false intentionally serializes caster=0.
         if (caster == 0) return;
-        if (Actor?.ObjectId == caster) Actor = Actor with { Direction = heading };
-        else if (objects.ContainsKey(caster)) UpdateObject(caster, o => o with { Direction = heading });
+        // SV#4 (skills-visual.md §2.1, sub_A3D050/sub_A3DC10 -> sub_A40EC0): turn toward the target's
+        // (S42: first target's) CURRENT position when that object exists; otherwise keep the packet heading.
+        var aim = target is uint t && t != caster ? VisibleTargetPosition(t) : null;
+        if (Actor?.ObjectId == caster) Actor = Actor with { Direction = SkillFacing.Toward(Actor.X, Actor.Y, aim, heading) };
+        else if (objects.TryGetValue(caster, out var o)) UpdateObject(caster, x => x with { Direction = SkillFacing.Toward(o.X, o.Y, aim, heading) });
         else return;
         AnimateCombat(caster, action, target: target);
     }
+}
+
+public static class SkillFacing
+{
+    // Same direction function as flights (F1A340); a target on the caster's own tile keeps the packet heading.
+    public static byte Toward(int x, int y, (ushort X, ushort Y)? target, byte packet) =>
+        target is { } p ? (byte)ProjectileMotion.Direction(x, y, p.X, p.Y, packet) : packet;
 }
