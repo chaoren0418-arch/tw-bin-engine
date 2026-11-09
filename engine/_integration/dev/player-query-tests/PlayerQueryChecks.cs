@@ -29,6 +29,7 @@ partial class Checks {
         var sent=new List<byte[]>();Sender(c,(b,v,a)=>{if(!v())return Task.FromResult(false);lock(sent)sent.Add(b);a();return Task.FromResult(true);});return sent;
     }
     static string QueryChat(LoginConnection c)=>string.Join("\n",c.World.PlayerChatLines.Select(l=>l.Text));
+    [CheckGroup("player-query",Order=1),CheckGroup("map-continuity",Order=140),CheckGroup(CheckGroups.Default,Order=400)]
     static async Task PlayerQueryChecks(){
         byte[]? Encode(string input,uint? target=456)=>PlayerQueryPackets.Encode(input,123,target);
         Check(Convert.ToHexString(PlayerQueryPackets.Who(""))=="CE00000000000000","query C206 empty S vector");

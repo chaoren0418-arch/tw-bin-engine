@@ -5,6 +5,7 @@ using P06;
 // so the engine keeps the manual accept/reject there). Synthetic packets and an in-memory sender; no game, server, DB or assets.
 partial class Checks {
     static byte[] TradeAsk(uint challenge=12,string peer="target")=>YesNoAsk(252,challenge,0,peer);
+    [CheckGroup("trade-yes-no"),CheckGroup("yes-no",Order=2),CheckGroup("map-continuity",Order=120),CheckGroup(CheckGroups.Default,Order=350)]
     static async Task TradeYesNoChecks(){
         foreach(bool yes in new[]{false,true})
             Check(TradePackets.Answer(12,yes).SequenceEqual(YesNoProtocol.Answer(12,252,yes)),"trade C121 equals shared yes-no envelope "+yes);

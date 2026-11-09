@@ -21,6 +21,7 @@ partial class Checks {
     }
     static Color PngColour(int x,int y)=>Color.FromArgb(255,x&255,y&255,77);
 
+    [CheckGroup("native-ui-minimap"),CheckGroup(CheckGroups.Default,Order=110)]
     static void NativeUiMiniMapChecks(string repo){
         string dir=Path.Combine(Path.GetFullPath(repo),"scratch","issue-470","synthetic");
         Directory.CreateDirectory(dir);foreach(var f in Directory.GetFiles(dir))File.Delete(f);

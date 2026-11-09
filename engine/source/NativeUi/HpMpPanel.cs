@@ -54,6 +54,7 @@ public sealed record HpMpLayout(
 
 /// <summary>Floating HP/MP window. Float layer, draggable by its drag strip; two buttons toggle shape and cycle length.</summary>
 public sealed class HpMpPanel:IUiMovablePanel {
+    [UiPanel(40)] internal static UiPanelRegistration Registration=>new(HpMpPanel.PanelId,"uistatus86",root=>new HpMpPanel());   // ui-hpmp #465 (no XML: V1 hard-coded layout)
     public const string PanelId="HpMpWindow";
     /// <summary>Low-HP threshold (sub_EDB8E0). 0.40 when byte_1542AA1 == 7 (class unknown here, so not applied).</summary>
     public const double WarnRatio=0.35;
@@ -214,6 +215,7 @@ public sealed class HpMpPanel:IUiMovablePanel {
 /// world). Surfs 930 (base), 931 (HP), 932 (MP), each 44×5; each bar shows 4 rows; MP sits 4 px below HP.
 /// </summary>
 public sealed class HpMpHeadBarPanel(Func<HpMpSettings>? settings=null):IUiPanel {
+    [UiPanel(50)] internal static UiPanelRegistration Registration=>new(HpMpHeadBarPanel.PanelId,"uistatus86",root=>new HpMpHeadBarPanel(()=>(root.Find(HpMpPanel.PanelId) as HpMpPanel)?.Settings??HpMpSettings.Default));   // ui-hpmp #465
     public const string PanelId="MiniHpMpBar";
     public const int BaseSurf=930,HpSurf=931,MpSurf=932,BarWidth=44,FillRows=4,MpOffsetY=4;
     SurfCatalog? surfs;bool inWorld;
