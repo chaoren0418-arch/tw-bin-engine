@@ -20,6 +20,7 @@ partial class Checks {
         return new UiResources(dir,tilePin,spritePins);
     }
 
+    [CheckGroup("native-ui-hpmp",Order=1),CheckGroup(CheckGroups.Default,Order=60)]
     static void NativeUiHpMpChecks(string repo){
         string root=Path.Combine(Path.GetFullPath(repo),"scratch","issue-465","synthetic");
         Directory.CreateDirectory(root);
@@ -193,6 +194,7 @@ partial class Checks {
     }
 
     /// <summary>Optional: TW_CLIENT_ROOT set → check every V1 surf size against the real client and render PNGs into scratch/ only.</summary>
+    [CheckGroup("native-ui-hpmp",Order=2)]
     static void NativeUiHpMpRealClientChecks(string repo){
         string? client=Environment.GetEnvironmentVariable("TW_CLIENT_ROOT");
         if(string.IsNullOrEmpty(client)){Console.WriteLine("SKIP native-ui hpmp real client checks (TW_CLIENT_ROOT not set)");return;}

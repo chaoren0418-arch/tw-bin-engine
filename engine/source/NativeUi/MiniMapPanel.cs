@@ -8,6 +8,7 @@ namespace P06.NativeUi;
 /// party dots, arrow. No key is used here: F5 stays a macro key and the map toggle is Ctrl+M (Field_Map).
 /// </summary>
 public sealed class MiniMapPanel:IUiPanel {
+    [UiPanel(60)] internal static UiPanelRegistration Registration=>new(MiniMapPanel.PanelId,"uistatus86",root=>MiniMapPanel.Create(root));   // ui-minimap (#470); also adds Field_Map; BAR_485 member, before RIGHT_WINDOW
     public const string PanelId="MINI_MAP_WINDOW";
     /// <summary>V5 (d): the view is drawn at MINI_MAP_BASE + (0,5).</summary>
     public static readonly Size ViewOffset=new(0,5);

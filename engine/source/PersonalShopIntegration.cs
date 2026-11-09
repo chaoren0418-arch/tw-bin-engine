@@ -3,7 +3,7 @@ namespace P06;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // R2-N（T259／#620）：把 M7-T 的 PersonalShopPanel（WIN§1.1 PersonalShopUI）接上產品。
-// - 註冊：UiPanelRegistry 加 PersonalShopPanel.Registration 一行。
+// - 註冊：T270（#645）之後由 [UiPanel] 自動發現（見下方 PersonalShopPanelRegistration），不改 UiPanelRegistry.cs。
 // - 選格：面板點出售／收購格 → Setup.Selected；過渡用的「個人商店」頁（舊 WinForms）以背包目前選取的物品＋單價＋數量
 //   呼叫 WorldSession.PersonalShopCandidate 放進該格（原版的拖放與單價／數量輸入窗未查證，不做假畫面）。
 // - 送出：面板 OK → Confirmed(C38 type 0) → 送出前每筆重新以背包核對 → LoginConnection.SendPersonalShop。
@@ -11,6 +11,11 @@ namespace P06;
 // - 物品圖示：ClientForm.ItemIcon（背包同一來源）。
 // 推測（報告列出）：OK 送出成功後關閉設定窗、保留設定以便再開；開窗入口原版待查證（這裡由過渡頁按鈕開窗）。
 // ---------------------------------------------------------------------------------------------------------------------
+
+/// <summary>R2-N（#620）：PersonalShop_Window 註冊（順序 115：TRADE_WINDOW 110 之後、Friend 120 之前）。</summary>
+static class PersonalShopPanelRegistration {
+    [UiPanel(115)] internal static UiPanelRegistration Registration=>PersonalShopPanel.Registration;
+}
 
 /// <summary>控制器需要的外部能力；產品由 ClientForm 實作，離線測試用假的。</summary>
 public interface IPersonalShopHost {

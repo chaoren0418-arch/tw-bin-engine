@@ -6,9 +6,13 @@ public sealed record Patch(Rectangle Bounds,ushort[] Colors,bool[] Mask,int[] Ow
     static HashSet<uint> Collect(uint?[]? owners){var result=new HashSet<uint>();if(owners!=null)foreach(var id in owners)if(id is uint value)result.Add(value);return result;}
 }
 public sealed partial class Renderer:IDisposable {
-    public void PaintAmbience(Graphics graphics,Bitmap target,Rectangle viewport,AmbienceFrame frame,AmbienceLightMap? lightMap=null)=>AmbiencePainter.Draw(graphics,target,viewport,frame,lightMap);
+    // Viewport-sized variant (1 viewport = 800×480 TW16 screen). The product path is PrepareAmbience + PaintAmbienceScene (Ambience.cs).
+    public void PaintAmbience(Graphics graphics,Bitmap target,Rectangle viewport,AmbienceFrame frame,AmbienceLightMap? lightMap=null,WeatherParticles? particles=null,WeatherSprite? sprite=null)=>AmbiencePainter.Draw(graphics,target,viewport,frame,lightMap,particles,sprite);
     // Paint-only: Camera and hit testing keep the true scene position.
     public static void ApplyScreenShake(Graphics graphics,Point offset){if(!offset.IsEmpty)graphics.TranslateTransform(offset.X,offset.Y);}
+    /// <summary>Screen-shake hook (R2-O / PBW-A will set it): a paint-only offset in view pixels applied by PaintScene
+    /// before the world is drawn. Empty = no shake.</summary>
+    public Func<Point>? ScreenShake {get;set;}
     public int Width=>Bounds.Width;
     public int Height=>Bounds.Height;
     public Rectangle Bounds=>cacheBounds??new(0,0,assets.CanvasWidth,assets.CanvasHeight);

@@ -11,7 +11,8 @@ static class CastleTests {
     static byte[] Drawal(uint id,uint count)=>S([CastleProtocol.SDrawal],Le32(id),Le32(count));
     static JsonElement Castle(WorldSession s)=>WorldModuleTestContext.SnapshotJson(s).GetProperty("extensions").GetProperty("castle");
     static int Unhandled(WorldSession s,string key)=>WorldModuleTestContext.SnapshotJson(s).GetProperty("unhandled").TryGetProperty(key,out var v)?v.GetInt32():0;
-    static string LastLine(WorldSession s)=>s.PlayerChatLines.LastOrDefault()?.Text??"";
+    // R2-F（#622）：「[城堡]」暫代聊天行已拿掉，通知只留在 castle 快照的 notice。
+    static string LastLine(WorldSession s)=>Castle(s).GetProperty("notice").GetString()??"";
 
     [WorldModuleTest("castle")]
     static void Run(WorldModuleTestContext t){
@@ -35,7 +36,7 @@ static class CastleTests {
         s.Receive(CastleMaster(4,Me),"");
         t.Equal(Me,s.CastleMaster(4),"S69 type 4 writes slot 4");
         t.Check(s.HasCastleCrown(Me),"slot 4 owner gets crown");
-        t.Equal("[城堡] #1193046 成為奇巖城城主。",LastLine(s),"S69 text notice");
+        t.Equal("#1193046 成為奇巖城城主。",LastLine(s),"S69 text notice");
         t.Equal(0,Unhandled(s,"0x45"),"S69 not counted unhandled");
         int lines=s.PlayerChatLines.Length;
         s.Receive(CastleMaster(4,Me),"");
@@ -54,13 +55,14 @@ static class CastleTests {
         t.Equal(Other,s.CastleMaster(4),"type 0 does not clear other slots");
         t.Equal(Other,s.CastleMaster(0),"type 0 writes slot 0");
         t.Check(s.HasCastleCrown(Other),"type 0 leaves existing crown (original only writes slot 0)");
-        t.Equal("[城堡] 伺服器通知：#11259375 的血盟失去城堡。",LastLine(s),"type 0 text notice");
+        t.Equal("伺服器通知：#11259375 的血盟失去城堡。",LastLine(s),"type 0 text notice");
         lines=s.PlayerChatLines.Length;
         s.Receive(CastleMaster(9,Me),"");
         t.Equal(lines,s.PlayerChatLines.Length,"type 9 ignored");
         t.Equal(0u,s.CastleMaster(9),"type 9 not stored");
         s.Receive(CastleMaster(8,0),"");
-        t.Equal("[城堡] 狄亞得要塞目前沒有城主。",LastLine(s),"leader 0 clears slot with notice");
+        t.Equal("狄亞得要塞目前沒有城主。",LastLine(s),"leader 0 clears slot with notice");
+        t.Equal(0,s.PlayerChatLines.Length,"castle notices never go to the chat area");
         var snap=Castle(s);
         t.Equal(3,snap.GetProperty("masters").GetArrayLength(),"snapshot lists slots 1,2,4");
         t.Check(!snap.GetProperty("masters")[1].GetProperty("crowned").GetBoolean(),"snapshot marks slot 2 uncrowned");
@@ -69,7 +71,7 @@ static class CastleTests {
         s.Receive(TaxRate(Me),"");
         var tax=s.CastleOffer;
         t.Check(tax is {Kind:CastleOfferKind.TaxRate,ObjectId:Me,Min:10,Max:50},"S185 opens tax-rate offer with min/max from packet",tax);
-        t.Equal("[城堡] 城堡管家詢問稅率設定（可設定 10%～50%）。",LastLine(s),"S185 text notice");
+        t.Equal("城堡管家詢問稅率設定（可設定 10%～50%）。",LastLine(s),"S185 text notice");
         t.Equal(0,Unhandled(s,"0xB9"),"S185 not counted unhandled");
         t.Throws<ArgumentException>(()=>s.CastleRequest(tax!.Revision,Me,9),"tax 9% rejected (server range 10..50)");
         t.Throws<ArgumentException>(()=>s.CastleRequest(tax!.Revision,Me,51),"tax 51% rejected");
@@ -79,7 +81,7 @@ static class CastleTests {
         t.Equal(Convert.ToHexString(CastleProtocol.TaxRate(Me,50)),Convert.ToHexString(s.CastleRequest(tax.Revision,Me,50)!),"tax request at max bound");
         s.CastleSent(tax.Revision,30);
         t.Equal((CastleOffer?)null,s.CastleOffer,"offer consumed after send (server ticket is single use)");
-        t.Equal("[城堡] 已送出稅率設定 30%，等待伺服器處理。",LastLine(s),"sent notice");
+        t.Equal("已送出稅率設定 30%，等待伺服器處理。",LastLine(s),"sent notice");
         t.Equal((byte[]?)null,s.CastleRequest(tax.Revision,Me,30),"no second reply for the same offer");
 
         // 5. S4 存入 → C56。
@@ -96,14 +98,14 @@ static class CastleTests {
         s.Receive(Drawal(Me,5000),"");
         var wd=s.CastleOffer!;
         t.Check(wd is {Kind:CastleOfferKind.Withdraw,Min:1,Max:5000},"S141 opens withdraw offer capped at packet count",wd);
-        t.Equal("[城堡] 城堡管家詢問要從金庫提領的金幣數量（最多 5,000）。",LastLine(s),"S141 text notice");
+        t.Equal("城堡管家詢問要從金庫提領的金幣數量（最多 5,000）。",LastLine(s),"S141 text notice");
         t.Throws<ArgumentException>(()=>s.CastleRequest(wd.Revision,Me,5001),"withdraw above treasury rejected");
         t.Equal(Convert.ToHexString(CastleProtocol.Withdraw(Me,5000)),Convert.ToHexString(s.CastleRequest(wd.Revision,Me,5000)!),"withdraw at max encodes");
         s.Receive(TaxRate(Me),"");
         t.Equal((byte[]?)null,s.CastleRequest(wd.Revision,Me,10),"newer offer replaces older one");
         s.Receive(Drawal(Me,0),"");
         t.Equal((CastleOffer?)null,s.CastleOffer,"S141 count 0 opens nothing");
-        t.Equal("[城堡] 城堡金庫目前沒有可以提領的金幣。",LastLine(s),"empty treasury notice");
+        t.Equal("城堡金庫目前沒有可以提領的金幣。",LastLine(s),"empty treasury notice");
         t.Throws<ProtocolException>(()=>s.Receive(Drawal(Me,0x80000000),""),"S141 negative count rejected");
         t.Throws<ProtocolException>(()=>s.Receive(S([CastleProtocol.STaxRate],Le32(Me),[0x32,0x0a]),""),"S185 min>max rejected");
         t.Throws<ProtocolException>(()=>s.Receive(Deposit(0),""),"S4 objId 0 rejected");

@@ -3,7 +3,7 @@
 依據：`docs/reference/gap-matrix.md` 第 11.5 節 R2-N（T244／#601）；WIN§1.1 `PersonalShopUI`；SP C38（C_Shop）。
 
 ## 做了什麼
-- `engine/source/NativeUi/UiPanelRegistry.cs`：加一行 `PersonalShopPanel.Registration`（`PersonalShop_Window`／`PersonalShopUI`）。
+- 註冊：同步 main 後 `UiPanelRegistry.cs` 已改為 T270（#645）`[UiPanel]` 自動發現，所以**不改 `UiPanelRegistry.cs`**；改在 `PersonalShopIntegration.cs` 宣告 `[UiPanel(115)] PersonalShopPanelRegistration.Registration`（`PersonalShop_Window`／`PersonalShopUI`，排在 TRADE_WINDOW 110 之後、Friend 120 之前）。
 - 新檔 `engine/source/PersonalShopIntegration.cs`：
   - `IPersonalShopHost`＋`PersonalShopController`（不依賴視窗，可離線測試）：
     - `Attach(panel)`：設 `IconSource`（物品圖示＝背包同一來源 `ClientForm.ItemIcon`），訂 `Confirmed`；換面板時退訂舊的。
@@ -19,8 +19,9 @@
 - 沒有改 `WorldSession.cs`；沒有新的收包（伺服器對開／關店沒有專用確認回包），所以沒用 `[WorldReceive]`。
 
 ## 怎麼驗證（已驗證）
-- `rebuild.py --update-lock` → 307 個來源檔；`rebuild.py --build` → `PASS dev`（productDll `e25d41ed…a2a21c3`）。
-- `P11.ClientEngine.exe --module-tests`（照 CI 指令）→ `pass`，28 組、1410 項、失敗 0；`personal-shop` 91、`personal-shop-integration` 40。
+- 同步 origin/main（120 commits，含 #645 自動發現）後：`rebuild.py --update-lock` → 336 個來源檔；`rebuild.py --build` → `PASS dev`。
+  - productDllSha256 `c5c4e38130acd2653c5950c3b7d0b2ed0228f328a7156187d2e902cf24dbee6c`
+- `P11.ClientEngine.exe --module-tests`（照 CI 指令）→ `pass`，46 組、2313 項、失敗 0；`personal-shop` 91、`personal-shop-integration` 40、`auto-discovery` 28（無無效 [UiPanel] 成員）。
 - `DemoChecks native-ui-canvas` → `PASS 429`；`native-ui-macro` → `PASS 403`。
 - `engine/tools/check-no-game-assets.py` → `pass`，errors 0。
 - 測試內容：註冊表一行；無面板／不在世界不能開窗；圖示來源；選格→放入（不在背包、超過持有、單價 0、同物件重複都拒絕；收購可超過持有量）；OK 送出的 bytes 與 `PersonalShopPackets.Open` 逐 byte 相同；背包變動後不送；不能送／送出被拒時窗不關；關店送 C38 type 1；換世代清空；換面板後舊面板 OK 不送；`LoginConnection.SendPersonalShop` 不在世界不送、非 C38／type 2 拒絕、在世界時 type 0／1 都送出。
@@ -33,7 +34,7 @@
 
 ## 產出路徑
 - `engine/source/PersonalShopIntegration.cs`、`engine/source/PersonalShopIntegrationTests.cs`
-- `engine/source/PrivateShopUi.cs`、`engine/source/NativeUi/UiPanelRegistry.cs`
+- `engine/source/PrivateShopUi.cs`（`UiPanelRegistry.cs` 最終與 main 相同）
 - `engine/_integration/dev/rebuild-lock.json`（`--update-lock` 重產）
 - 分支 `task/620`
 

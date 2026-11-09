@@ -7,6 +7,7 @@ namespace P06.NativeUi;
 /// No F-key is bound to these slots in the traced code; click selects and double click uses (推測: same as the main box).
 /// </summary>
 public sealed class ExMacroPanel:IUiPanel {
+    [UiPanel(70)] internal static UiPanelRegistration Registration=>new(ExMacroPanel.WindowId,"uistatus86",root=>new ExMacroPanel(root.SlotGroup(UiSlotGroup.Bar485)));   // ui-macro-bar #466
     public const string WindowId="EX_MACRO_WINDOW";
     public const int Rows=3;
     /// <summary>Icon origin relative to EX_MACRO_FRAME (V5, verified constant in the BIN).</summary>

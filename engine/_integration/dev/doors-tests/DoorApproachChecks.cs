@@ -16,6 +16,7 @@ partial class Checks {
     }
     static bool IsToggle(byte[] b,ushort x,ushort y)=>b.SequenceEqual(DoorPackets.Toggle(700,x,y));
 
+    [CheckGroup("door-approach")]
     static async Task DoorApproachChecks(){
         // Same authored synthetic fixture as DoorChecks: a supported own appearance makes MovementAvailable real.
         string fixtureRoot=Path.GetFullPath("scratch/issue-519/synthetic");
