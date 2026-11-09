@@ -47,8 +47,10 @@
 - `py -B -X utf8 engine/tools/check-no-game-assets.py`：pass（errors 0）。
 - 依本機限制，**沒有在本機執行任何測試或程式**。`--module-tests` 交給 PR 的 CI 跑，包含新的 `pledge-window-followup` 和既有的 `pledge-panel`、`clan-followup`、`native-window-wiring`。
 
+- **CI（PR #721，commit `39aeff97`）**：dotnet、map-continuity、npc-offline 全部 pass。模組測試 `pledge-window-followup` 85 項、`pledge-panel` 110 項、`clan-followup` 94 項、`native-window-wiring` 47 項，失敗都是 0。
+
 ## 沒驗證什麼
-- 本機沒跑離線測試，結果以 CI 為準。
+- 本機沒跑離線測試；上面是 CI 的結果。
 - 真機都還沒驗：
   - 原生 UI 開著：171 開窗 → 側欄關注清單與勾選框；公告窗「公告」→ 打字 → 存檔 → 伺服器回 168；點階級欄 → 選階級 → 伺服器回應；上傳盟徽對話框。
   - 原生 UI 關閉：WinForms 血盟窗的「送出公告」與「顯示盟徽」。
