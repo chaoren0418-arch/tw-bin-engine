@@ -1,15 +1,27 @@
 namespace P06;
 
-public sealed record StatusIconEntry(int Id,string Name,int Seconds,bool Debuff,bool Approximate) {
-    public string Detail=>$"{Name} · {(Approximate?"約":"")}{Seconds} 秒";
+/// <summary>WinForms 狀態列的一筆。ValueText 非 null 時是沒有倒數的狀態（S250 75／82／180），顯示文字取代秒數。</summary>
+public sealed record StatusIconEntry(int Id,string Name,int Seconds,bool Debuff,bool Approximate,string? ValueText=null) {
+    public string Detail=>ValueText!=null?$"{Name} · {ValueText}":$"{Name} · {(Approximate?"約":"")}{Seconds} 秒";
+    /// <summary>T265：S250 B2 圖示的 Id＝−(1_000_000＋effect)，不和 MagicBuffs 的技能鍵相撞。</summary>
+    public static int PacketBoxId(int effect)=>-1_000_000-effect;
+}
+
+public static class StatusIconFeed {
+    /// <summary>
+    /// 狀態列內容：MagicBuffs 的倒數狀態（秒數 &gt; 0），再接 S250 75／82／180 的圖示（T265，資料見 PacketBoxStatusIcons）。
+    /// 75 有預設秒數但引擎不知道 effect 135 的 duration（在 effectlist2），所以只顯示階段，不顯示秒數。
+    /// </summary>
+    public static StatusIconEntry[] Read(WorldSession w){
+        long now=w.MagicStatusClock();
+        var timed=w.MagicBuffs.Select(b=>new StatusIconEntry(b.Skill,b.Name,b.Remaining(now),b.Debuff,b.Approximate)).Where(b=>b.Seconds>0);
+        var boxed=w.PacketBoxStatusIcons.Select(i=>new StatusIconEntry(StatusIconEntry.PacketBoxId(i.Effect),i.Name,0,false,false,i.ValueText));
+        return [..timed,..boxed];
+    }
 }
 
 public sealed partial class ClientForm {
-    internal StatusIconEntry[] ReadStatusIcons(){
-        if(!PlayerHudActive)return [];
-        var w=login.World;long now=w.MagicStatusClock();
-        return w.MagicBuffs.Select(b=>new StatusIconEntry(b.Skill,b.Name,b.Remaining(now),b.Debuff,b.Approximate)).Where(b=>b.Seconds>0).ToArray();
-    }
+    internal StatusIconEntry[] ReadStatusIcons()=>PlayerHudActive?StatusIconFeed.Read(login.World):[];
 }
 
 // Compact HUD badges use original vector symbols; no packaged game artwork is required.
