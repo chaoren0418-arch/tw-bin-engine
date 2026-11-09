@@ -276,3 +276,4 @@
 - 2026-11-10 — #715 T303：R4-C 交易、商店、修理、學魔法窗收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-715.md)
 - 2026-11-10 — #730 T305：gap-matrix 第五輪——剩餘缺口、原生 UI 缺口更新，以及 M7 是否可以結案（resource，claude-local，PR 已合併）→ [報告](reports/issue-730.md)
 - 2026-11-10 — #698 T290：T272 補做——城主王冠繪製、死亡統計 Reset 與道具窗、地名備援、座標聊天行（code，claude-local，PR 已合併）→ [報告](reports/issue-698.md)
+- 2026-11-10 — #716 T304：查證原版——第四輪細項 Q4-3 到 Q4-9（血盟關注、盟戰、求婚、盟屋窗、代碼聊天名稱、世界地圖）（resource，claude-local，PR 已合併）→ [報告](reports/issue-716.md)
