@@ -30,7 +30,8 @@
   - S250/173：註冊、type 1 開／關、TW16 4 byte 與 3.81 8 byte 兩種長度、type 130 → 3383 不動 `LastServerMessage`、未知 type、padding 非 0、重設。
   - 97：進槽、Y／N 送出 bytes 等於舊模組回覆、槽回答後模組清掉申請且不能再從模組回答、模組回答會清槽、申請人離開時兩邊都清、新的 S219 取代、不明申請人不進槽。
   - 221／222：進槽、送出 bytes 等於 `ClanWarProtocol.Answer`、槽回答後盟戰窗清掉、盟戰窗回答會清槽；217 不進槽；沒有血盟不進槽。
-- 既有 dev 測試（`clan`、`clan-war`、`marriage`、`yes-no`、`name-display` 的 S118 raw）沒有改；我逐條對過預期，判斷應維持綠燈，待 CI 確認。
+- 既有 dev 測試（`clan`、`clan-war`、`marriage`、`yes-no`、`name-display` 的 S118 raw）沒有改。
+- **CI 結果（PR #691，run 42619230876／42619230859）**：`build`（`dotnet`、`map-continuity`）與 `npc-offline` 全部 success；`--module-tests` 的 `clan-followup` `pass: true`，94 個檢查、0 個失敗。
 
 ## 未驗證什麼
 
