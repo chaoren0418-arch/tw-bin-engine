@@ -26,7 +26,9 @@
 
 - 已驗證：`py -3.12 -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config` 結果是 `PASS dev`，0 錯誤。只有兩個既有警告：`MagicUi.cs(20)` 的 CS8600／CS8602，不是本次改動造成的。本機沒有 `vendor`，所以用 CI 的 NuGet 設定；lock 沒有寫入，用的是暫時 lock。
 - 已驗證：`check-no-game-assets.py` 結果 `status: pass`，errors 0。
-- 待 CI：本機依規定不執行任何編譯出來的程式，所以 4 組新測試與既有測試都要看 PR 的 CI 結果。
+- 已驗證（CI，PR #700）：dotnet、map-continuity（含全部 `[WorldModuleTest]`）、npc-offline 三項全綠。
+  - 前兩輪各修了一個測試本身的錯：等級公式的測試邊界寫錯；測試走到需要素材的施放閘門／完整快照，改為直接讀能力快照、只測攔截。產品程式碼沒有改。
+  - 本機依規定不執行任何編譯出來的程式。
 
 ## 未驗證什麼／推測
 
