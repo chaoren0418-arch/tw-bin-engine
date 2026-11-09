@@ -1,8 +1,10 @@
+using P06.NativeUi;
 namespace P06;
 
-// R3-C（T279／#672）：血盟倉庫紀錄的暫行 WinForms 清單，以及料理窗原生面板的接線（共用同一個 timer tick）。
-// 原版收到非空 S250/117 時開 sub_A559D0 的視窗（WIN2§7）；該窗的版面（XML 或寫死座標、surf）待查證（Q3-6），
-// 所以先用 WinForms 清單顯示原服送來的紀錄，不畫原生窗、不推定版面。0 筆由 WorldSession 顯示訊息 1889，不開清單。
+// R3-C（T279／#672）：血盟倉庫紀錄的畫面，以及料理窗原生面板的接線（共用同一個 timer tick）。
+// 原版收到非空 S250/117 時開 sub_A559D0 的視窗（WIN2§7）。T288（#689）：原生 UI 開著時開原生窗
+// NativeUi/ClanWarehouseHistoryPanel.cs（FU4§5 版面、字串 1880–1889）；原生 UI 沒開時仍用 WinForms 暫行清單。
+// 0 筆由 WorldSession 顯示訊息 1889，不開窗。
 // 掛點：ClientForm 的 OnLoad／OnShown／OnActivated／OnHandleCreated 等已被其他模組使用，本模組用 OnClientSizeChanged
 // （建構子設定 ClientSize 時必定觸發）只做一次初始化；實際工作都在 timer tick（UI 執行緒）。
 
@@ -30,6 +32,12 @@ public sealed partial class ClientForm {
             return;
         }
         if(clanWarehouseHistoryInbox?.Take() is not {} history)return;
+        if(NativeUiActive&&NativeUiRoot?.Find(ClanWarehouseHistoryPanel.PanelId) is ClanWarehouseHistoryPanel panel){
+            if(clanWarehouseHistoryWindow is {IsDisposed:false,Visible:true} legacy)legacy.Hide();
+            panel.Show(new(ClanWarehouseHistoryText.Lines(history,ResolveNpcText),ClanWarehouseHistoryText.EmptyText));
+            NativeUiRoot?.BringToFront(panel);
+            return;
+        }
         if(clanWarehouseHistoryWindow is not {IsDisposed:false} window)clanWarehouseHistoryWindow=window=new ClanWarehouseHistoryWindow();
         window.SetRows(ClanWarehouseHistoryView.Rows(history,ResolveNpcText));
         if(!window.Visible)window.Show(this);
