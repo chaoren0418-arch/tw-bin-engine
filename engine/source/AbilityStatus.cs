@@ -23,6 +23,19 @@ public static class AbilityRules {
     public static string? Name(int type)=>type switch{1=>"傳送控制戒指",2=>"變形控制戒指",5=>"道具 20284",_=>null};
 }
 
+/// <summary>T276（#667）：S36 type 1 開的「選傳送目的地」請求。Skill＝施放的技能（5 指定傳送／69 集體傳送）。</summary>
+public sealed record TeleportDestinationRequest(long Revision,int Skill);
+
+/// <summary>T276（#667）：控制戒指開窗的常數（followups-3.md 第 3 節，皆為 BIN 已驗證值）。</summary>
+public static class RingWindowRules {
+    public const int TeleportRing=1,SummonRing=5,SummonSkill=51;
+    public const ushort TeleportBlockedMessage=276,SummonLevelMessage=743;
+    /// <summary>sub_BE0F10 只接受技能索引 4（指定傳送）、68（集體傳送）＝技能 5／69。</summary>
+    public static bool TeleportSkill(int skill)=>skill is 5 or 69;
+    /// <summary>dword_138BE60（目前地圖）是 5、6、83、84 或 ≥ 0x4000 → 276「在此無法使用傳送。」</summary>
+    public static bool TeleportBlocked(int map)=>map is 5 or 6 or 83 or 84||map>=0x4000;
+}
+
 public sealed partial class WorldSession {
     readonly object abilityLock=new();
     readonly SortedDictionary<int,AbilityFlag> abilityFlags=[];
@@ -61,8 +74,48 @@ public sealed partial class WorldSession {
         return true;
     }
 
+    // T276（#667）：S36 type 1／5 的開窗事件。依據 docs/reference/followups-3.md 第 3 節。
+    // 施放（不帶參數的 CastSelectedMagic）先問這裡：回 true＝已開窗或已顯示訊息，**不送 C6**。
+    //   type 1（sub_E08A20）：技能 5／69＋戴傳送控制戒指 → 開書籤窗的「選目的地」模式；限制地圖顯示 276。
+    //     選定後仍以 3.81 的 HD（地圖、書籤 id）送 C6（RingWindows.cs），不照抄 TW16 的 hhh。
+    //   type 5（sub_DF8A50）：技能 51＋戴召喚控制戒指 → 開既有的本機召喚窗（OpenLocalSummon，窗已開就不重開）。
+    // 沒做（待驗證）：王族 Lv ≥ 50 且 byte_13A931C 的分支（旗標意義沒查）；技能索引 130 的排除（5／69 的索引是 4／68，不會碰到）。
+    TeleportDestinationRequest? teleportDestination;long teleportDestinationRevision;
+    /// <summary>目前的「選傳送目的地」請求；沒開為 null。</summary>
+    public TeleportDestinationRequest? TeleportDestination {get{lock(abilityLock)return teleportDestination;}}
+    internal bool TryOpenRingWindow(){
+        if(SelectedMagicId is not int id||!learnedMagic.Contains(id))return false;
+        if(RingWindowRules.TeleportSkill(id)&&AbilityEquipped(RingWindowRules.TeleportRing)==true){
+            if(MapId is ushort map&&RingWindowRules.TeleportBlocked(map)){MagicNotice=ServerMessageText.Decode(RingWindowRules.TeleportBlockedMessage,[]).Text;return true;}
+            lock(abilityLock){if(teleportDestination==null)teleportDestination=new(++teleportDestinationRevision,id);}
+            MagicNotice="已開啟傳送目的地選擇（傳送控制戒指）；選定書籤後才送出。";
+            return true;
+        }
+        if(id==RingWindowRules.SummonSkill&&AbilityEquipped(RingWindowRules.SummonRing)==true){
+            if(SummonRequestState==null&&!OpenLocalSummon())return false;
+            MagicNotice="已開啟召喚怪物選擇（召喚控制戒指）；選定後才送出。";
+            return true;
+        }
+        return false;
+    }
+    /// <summary>選定書籤 → 技能目標（HD：書籤地圖、書籤 id）；請求過期、書籤不存在或已送出刪除時 null。會把選取技能設回請求的技能。</summary>
+    internal SkillCastTarget? TeleportDestinationTarget(long revision,uint bookmarkId){
+        if(TeleportDestination is not {} q||q.Revision!=revision||bookmarkId==0||Bookmarks.TryGet(bookmarkId) is not {} b)return null;
+        if(SelectedMagicId!=q.Skill&&!SelectMagic(q.Skill))return null;
+        return new(SkillTargetKind.Bookmark,MapId:b.MapId,BookmarkId:b.Id);
+    }
+    /// <summary>取消（ESC／取消鈕）或送出後關閉；revision 不符時不動。</summary>
+    public bool CloseTeleportDestination(long revision){lock(abilityLock){if(teleportDestination?.Revision!=revision)return false;teleportDestination=null;return true;}}
+    /// <summary>召喚窗送出前的等級檢查（sub_C00890）；不通過時顯示 743、不送。</summary>
+    internal bool RingSummonAllowed(string action){
+        if(Status?.Level is byte level&&NativeUi.SummonCatalog.RingLevelAllows(level,action))return true;
+        // 不動 summonRevision：請求的 revision 必須維持，窗不關、選擇保留（原版也只跳訊息）。
+        summonNotice=MagicNotice=ServerMessageText.Decode(RingWindowRules.SummonLevelMessage,[]).Text;
+        return false;
+    }
+
     [WorldReset]
-    void ResetAbilityStatus(){lock(abilityLock){abilityFlags.Clear();abilityUpdates=0;spMr=null;}}
+    void ResetAbilityStatus(){lock(abilityLock){abilityFlags.Clear();abilityUpdates=0;spMr=null;teleportDestination=null;}}
 
     [WorldSnapshot("ability")]
     object? AbilitySnapshot(){
@@ -71,6 +124,7 @@ public sealed partial class WorldSession {
             active=abilityFlags.Values.Where(f=>f.Equipped).Select(f=>f.Type).ToArray(),
             updates=abilityUpdates,
             spMr=spMr==null?null:new{sp=spMr.Sp,mr=spMr.Mr,form=spMr.Form,updates=spMr.Updates},
+            teleportDestination=teleportDestination is {} q?new{revision=q.Revision,skill=q.Skill}:null,
         };
     }
 }

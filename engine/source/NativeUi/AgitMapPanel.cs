@@ -13,7 +13,14 @@ namespace P06.NativeUi;
 //     surf 674 (90, 299)＝sub_543810。
 // 推測：閃爍相位——原版開窗時先排 1000 ms 計時，本面板以開窗那一格為 0，做「每 1000 ms 前 800 ms 亮」；
 //       Bounds 取上述所有圖的聯集；按鈕在「按下與放開都在同一鈕」時才作用（與其他原生窗一致）；不可拖曳。
-// 待驗證（不做）：674 鈕（sub_543810）的作用——畫出來、可點但不接動作；按鈕的按下圖；ESC 行為；3.81 伺服器實際送的盟屋編號（DB house 表）。
+// T276（#667）：674 鈕＝sub_543810 → sub_542BF0，送 `cdss` 227（＝3.81 C125 C_NPCAction）D(S187 物件 id) S("select") S("%u" 區域<<16|編號)，
+//   伺服器 Npc_AuctionBoard 回 S39 `agsel`（拍賣資訊頁），由既有 NPC 對話窗顯示（followups-3.md 第 4.1 節，已驗證）。
+//   面板不碰 LoginConnection：按下＋放開都在 674 鈕內時呼叫宿主（IAgitMapHost，RingWindows.cs 的轉接），送出由宿主擋重複與過期。
+//   推測：送出後地圖窗不關（原版 sub_543810 之後沒有看到關窗呼叫，未逐行追）。
+// 待驗證（不做）：按鈕的按下圖；ESC 行為；3.81 伺服器實際送的盟屋編號（DB house 表）；agsel 頁在原版是否另開窗。
+
+/// <summary>674 鈕的宿主：對 shown 這一次的 S187 送「select」。不合法或過期時由宿主拒絕。</summary>
+public interface IAgitMapHost { void Select(AgitMapOpenRequest shown); }
 
 /// <summary>AgitMapWindow 的 BIN 常數（sprites-and-strings.md 第 2.1 節）。</summary>
 public static class AgitMapLayout {
@@ -65,6 +72,8 @@ public sealed class AgitMapPanel:IUiPanel {
     Rectangle bounds;
 
     public AgitMapPanel(Func<AgitMapOpenRequest?>? source=null){this.source=source??(()=>AgitMapWindow.Current);}
+    public IAgitMapHost? Host{get;private set;}
+    public void Attach(IAgitMapHost host)=>Host=host;
 
     public string Id=>PanelId;
     public UiLayer Layer=>UiLayer.Window;
@@ -124,7 +133,7 @@ public sealed class AgitMapPanel:IUiPanel {
         if(e.Kind==UiMouseKind.Up){
             string? key=HitKey(e.Location),was=pressed;pressed=null;
             if(key=="close"&&was=="close"){dismissed=shown!.Revision;shown=null;commands.ReturnGameFocus();}
-            // "action"（surf 674，sub_543810）：待驗證，不接動作。
+            else if(key=="action"&&was=="action")Host?.Select(shown!);   // 674（sub_543810）：C125 select（T276）
             return true;
         }
         return inside;

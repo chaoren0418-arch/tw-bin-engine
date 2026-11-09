@@ -199,7 +199,7 @@ public sealed partial class LoginConnection {
                 byte[] bytes=PetPackets.SummonChoice(v.ObjectId,action);
                 return await sender(bytes,Valid,()=>CaptureWorld(()=>{World.SummonSubmitted(v.Revision,action);return true;}))&&session==SessionGeneration;
             }
-            if(v.Source!="local"||!CaptureWorld(()=>World.SelectMagic(51)))return false;
+            if(v.Source!="local"||!CaptureWorld(()=>World.RingSummonAllowed(action))||!CaptureWorld(()=>World.SelectMagic(51)))return false;   // T276：743 等級檢查（AbilityStatus.cs）
             bool cast=await CastSelectedMagic(new SkillCastTarget(SkillTargetKind.Summon,SummonId:uint.Parse(action)));
             if(cast&&session==SessionGeneration)CaptureWorld(()=>{World.SummonSubmitted(v.Revision,action);return true;});
             return cast&&session==SessionGeneration;
