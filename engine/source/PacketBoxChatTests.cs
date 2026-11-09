@@ -110,12 +110,14 @@ static class PacketBoxChatTests {
             t.Equal<int?>(null,s.PlayerChatLines[^1].ColorIndex,"other B1 subtype keeps default colour");
 
             // 9. 格式錯誤：不改狀態、不加聊天行。
-            string snap=WorldModuleTestContext.SnapshotJson(s).GetProperty("extensions").GetProperty("packetBoxMessages").GetRawText();int chat=Chat(s).Length;
+            // 有 Actor 時完整快照會讀外觀素材（CI 沒有 engine/assets），所以比對公開狀態。
+            object State()=>(s.RankChange,s.LastavardWin,s.FeelGoodCount,s.FeelGoodEffectPending,s.PacketBoxMessageLines.Length,s.Actor!.Rank);
+            var snap=State();int chat=Chat(s).Length;
             t.Throws<ProtocolException>(()=>s.Receive(Box(30,[..Le32(1),..Str("a")]),""),"lastavard missing clan");
             t.Throws<ProtocolException>(()=>s.Receive(Box(30,[..Le32(1),..Str("a"),..Str("b"),..Le32(1),1]),""),"lastavard nonzero tail");
             t.Throws<ProtocolException>(()=>s.Receive([..Box(31),0,0,0,0,0,0,0,0],""),"feel good extra block");
             t.Throws<ProtocolException>(()=>s.Receive([250,27,3,0x41,0x42,0x43,0x44,0x45],""),"rank name unterminated");
-            t.Equal(snap,WorldModuleTestContext.SnapshotJson(s).GetProperty("extensions").GetProperty("packetBoxMessages").GetRawText(),"malformed packets keep state");
+            t.Equal(snap,State(),"malformed packets keep state");
             t.Equal(chat,Chat(s).Length,"malformed packets add no chat");
 
             // 10. Reset 清旗標。
