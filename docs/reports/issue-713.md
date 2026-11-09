@@ -36,7 +36,8 @@
 ## 怎麼驗證
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py` → `{"status": "pass", "errors": 0}`。
 - 離線測試 `bookmark-window-panel`（合成 XML 與單色 surf，不讀真實客戶端）：註冊一次＋介面；UI§6 座標（窗原點改成 (10,20) 檢查偏移）；框、底、按鈕、選取列、停用確認鈕、拉桿的像素；S92 單筆收包會開窗，整份清單／換角色／同一個 revision 不會開；也用真的 `WorldSession` 收 S92，確認提示字串對得上；選目的地流程（沒選不送、待刪除列不能用、送一次、送出中停用、請求結束關窗）；ESC／取消／關閉／`IUiClosablePanel.Close`／離開世界都會取消請求，同一請求不重開，下一個請求重開；捲動（上下鈕、滾輪、方向鍵、上限）；拖曳；缺圖停用；缺節點丟例外；沒有宿主時不開窗。
-- **編譯與測試以 PR #726 的 CI 為準**。本機 `dotnet build` 和 `rebuild.py --build --configfile <CI nuget 設定>` 都卡在 `NETSDK1130: Microsoft.Web.WebView2.Core.winmd 無法參照`，在 Csc 之前就停了（worktree 沒有 `engine/vendor`，是本機套件解析的問題，與本次改動無關）。
+- **CI（PR #726，run 42693944085）**：`dotnet`、`map-continuity`、`npc-offline` 都通過；`--module-tests` 全部組 `failed: 0`，其中 `bookmark-window-panel`（`P06.BookmarkPanelTests.Run`）61 項檢查全過。
+- 編譯與測試以 CI 為準。本機 `dotnet build` 和 `rebuild.py --build --configfile <CI nuget 設定>` 都卡在 `NETSDK1130: Microsoft.Web.WebView2.Core.winmd 無法參照`，在 Csc 之前就停了（worktree 沒有 `engine/vendor`，是本機套件解析的問題，與本次改動無關）。
 - 依本機執行限制，沒有在本機執行任何編譯出來的程式。
 
 ## 未驗證什麼（待驗證，交給 Codex／dot 真機）
