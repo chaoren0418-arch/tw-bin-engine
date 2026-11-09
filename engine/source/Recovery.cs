@@ -39,10 +39,47 @@ public sealed class DeathWatch {
         :new(quitSent?"quit-sent":dismissed?"dismissed":now<WindowAt?"window-delayed":"window-open",map,diedAt,WindowAt,QuitAt,Math.Max(0,QuitAt!.Value-now),WindowOpen(now),dismissed,quitSent);
 }
 
-public sealed record UserPlayStatsButton(string Name,int X,int Y,int? BaseSurf,string MouseEvent);
+// R2-D（T254／#615）PBW-B：原生 QUIT_WINDOW（PBW§4，已驗證）。死亡逾時（計時器 0x29A）送 C_QUIT 後關死亡窗、顯示訊息 47、開此窗。
+//   重新開始 sub_981490：死亡→C_DEAD_RESTART（TW16 58＝3.81 C177）；存活→死亡、安全區或離上次戰鬥 ≥15 秒才送 C_RESTART（194＝C7），否則訊息 130。
+//   離開遊戲 sub_981150：同樣 15 秒檢查（否則訊息 131），送 C_QUIT（68＝C122）後 exit(0)。取消／關閉 sub_A59AD0：只關窗。
+public static class QuitWindowRules {
+    public const int CombatHoldMs=15000;
+    public const int DisconnectedMessage=47,RestartCombatMessage=130,QuitCombatMessage=131;
+    public enum RestartKind { DeadRestart, CharacterSelect, CombatBlocked, Offline }
+    public enum QuitKind { Quit, CombatBlocked, Exit }
+    /// <summary>
+    /// 原版 15 秒戰鬥限制。死亡處理把時間戳往前推 15000（WO§6），所以死亡時一定允許。
+    /// 引擎沒有原版「上次戰鬥時間」的對應值（lastCombatAt＝null）：不推算，交原服判定（允許）。
+    /// </summary>
+    public static bool CombatAllows(bool dead,bool safety,long? lastCombatAt,long now)=>dead||safety||lastCombatAt is not long at||now-at>=CombatHoldMs;
+    public static RestartKind Restart(bool inWorld,bool dead,bool combatAllows)=>!inWorld?RestartKind.Offline:dead?RestartKind.DeadRestart:combatAllows?RestartKind.CharacterSelect:RestartKind.CombatBlocked;
+    public static QuitKind Quit(bool inWorld,bool combatAllows)=>!inWorld?QuitKind.Exit:combatAllows?QuitKind.Quit:QuitKind.CombatBlocked;
+    /// <summary>字串表訊息；沒有字串表時用 PBW§4 記錄的原文（47「斷線。」、130、131）。</summary>
+    public static string Message(int id){
+        var r=ServerMessageText.Decode((ushort)id,[]);
+        if(r.Recognized&&r.Displayed)return r.Text;
+        return id switch{DisconnectedMessage=>"斷線。",RestartCombatMessage=>"戰鬥中，無法重新開始。",QuitCombatMessage=>"戰鬥中無法離開遊戲。",_=>r.Text};
+    }
+}
+
+/// <summary>QUIT_WINDOW 的內容。Revision 每次開窗遞增；InWorld＝連線仍在世界中（逾時後為 false）。</summary>
+public sealed record QuitWindowView(int Revision,bool InWorld,bool Dead,string Message);
+
+/// <summary>UserPlayStatsUI 統計列名稱：字串 3123–3126 改讀執行期字串表（Q-2：是否同一張表待查）；表裡沒有時用 WO§6 的名稱。</summary>
+public static class UserPlayStatsText {
+    // WO§6 names the four rows; used only when string-c.tbl is unavailable or shorter than the id.
+    static readonly Dictionary<int,string> Fallback=new(){[3123]="經驗",[3124]="擊殺數",[3125]="金幣",[3126]="取得物品"};
+    public static (string Text,bool FromTable) Label(int? stringId,string rowName){
+        if(stringId is not int id)return (rowName,false);
+        if(ServerMessageText.Table is {} t&&id<t.Count){string s=ServerMessageText.DisplayText(t[id]).Trim();if(s.Length>0)return (s,true);}
+        return (Fallback.TryGetValue(id,out var n)?n:$"#{id}",false);
+    }
+}
+
+public sealed record UserPlayStatsButton(string Name,int X,int Y,int? BaseSurf,string MouseEvent,int? HighlightSurf=null,int? PushSurf=null);
 public sealed record UserPlayStatsRow(string Name,int? IconSurf,int IconY,int? StringId,int LabelWidth,int ValueWidth,int Height,int Gap,Color LabelColor,Color ValueColor);
 /// <summary>執行期由原客戶端 Tile.pak 的 UserPlayUI.xml 解析；缺節點或屬性丟 UiLayoutException，不補預設座標。</summary>
-public sealed record UserPlayStatsLayout(int? BaseSurf,int? FrameSurf,bool Toggle,UserPlayStatsButton Restart,UserPlayStatsButton Quit,UserPlayStatsButton Cancel,UserPlayStatsButton? Close,int ListX,int ListY,int RowHeight,IReadOnlyList<UserPlayStatsRow> Rows) {
+public sealed record UserPlayStatsLayout(int? BaseSurf,int? FrameSurf,bool Toggle,UserPlayStatsButton Restart,UserPlayStatsButton Quit,UserPlayStatsButton Cancel,UserPlayStatsButton? Close,int ListX,int ListY,int RowHeight,IReadOnlyList<UserPlayStatsRow> Rows,int WindowX=0,int WindowY=0,int? Moveable=null) {
     public const string FileName="UserPlayUI";
     public const string RootName="UserPlayStatsUI";
     public static UserPlayStatsLayout From(UiLayout layout){
@@ -54,7 +91,7 @@ public sealed record UserPlayStatsLayout(int? BaseSurf,int? FrameSurf,bool Toggl
             if(matches.Count>1)throw new UiLayoutException(layout.FileName,window.Path+"/Button[@Name="+name+"]","節點不唯一");
             if(matches.Count==0){if(required)throw new UiLayoutException(layout.FileName,window.Path+"/Button[@Name="+name+"]","缺少節點");return null;}
             var node=matches[0];
-            return new(name,node.Int("X"),node.Int("Y"),FirstSurf(node,"BaseSurf"),node.RequiredAttr("MouseEvent"));
+            return new(name,node.Int("X"),node.Int("Y"),FirstSurf(node,"BaseSurf"),node.RequiredAttr("MouseEvent"),FirstSurf(node,"HighlightSurf"),FirstSurf(node,"PushSurf"));
         }
         var list=window.ChildrenNamed("List").SingleOrDefault(l=>l.Attr("Name")=="UserPlayStats_List")
             ??throw new UiLayoutException(layout.FileName,window.Path+"/List[@Name=UserPlayStats_List]","缺少節點");
@@ -67,7 +104,7 @@ public sealed record UserPlayStatsLayout(int? BaseSurf,int? FrameSurf,bool Toggl
         }).ToArray();
         int rowHeight=rows.Length==0?0:rows[0].Height;
         return new(FirstSurf(window,"BaseSurf"),FirstSurf(window,"FrameSurf"),string.Equals(root.Attr("Toggle"),"true",StringComparison.OrdinalIgnoreCase),
-            Find("Restart_Button",true)!,Find("Quit_Button",true)!,Find("Cancel_Button",true)!,Find("CloseWindow_Button",false),list.Int("X"),list.Int("Y"),rowHeight,rows);
+            Find("Restart_Button",true)!,Find("Quit_Button",true)!,Find("Cancel_Button",true)!,Find("CloseWindow_Button",false),list.Int("X"),list.Int("Y"),rowHeight,rows,window.Int("X"),window.Int("Y"),window.TryInt("Moveable"));
     }
     /// <summary>"5322;1" → 5322；原版解析只取第一個數字（V4 (b)）。沒有屬性或空值＝不畫。</summary>
     public static int? FirstSurf(UiNode node,string name){
@@ -86,6 +123,8 @@ public sealed record UserPlayStatsLayout(int? BaseSurf,int? FrameSurf,bool Toggl
 
 public sealed partial class WorldSession {
     public bool RestartRequested {get;internal set;}
+    /// <summary>自身 S85 復活次數（PBW§4：S_RESURRECT 時若 QUIT_WINDOW 開著就關掉）。不隨 Reset 歸零，只用來比對變化。</summary>
+    public int OwnResurrections {get;private set;}
     bool recoveryAppearancePending;
     readonly DeathWatch deathWatch=new();
     internal Func<long> DeathClock=()=>Environment.TickCount64;
@@ -97,7 +136,9 @@ public sealed partial class WorldSession {
         if(type!=0||gfx>ushort.MaxValue){Unhandled(opcode);return true;}
         if(Actor?.ObjectId==id&&OwnDead){
             CancelPickupPresentation("resurrection");pendingAction=null;OwnCombat=null;OwnDead=false;RestartRequested=false;
-            Actor=Actor with{Gfx=(ushort)gfx};AppearanceRevision++;
+            OwnResurrections++;
+            // WO§4／§6: sub_A43B50 skips own appearance changes while a ghost (R2-D: S85 is a caller).
+            if(!GhostSkipsSelfAppearance(id)){Actor=Actor with{Gfx=(ushort)gfx};AppearanceRevision++;}
             // S85 has no weapon or HP. Wait for S119 and positive authoritative HP.
             recoveryAppearancePending=true;SelfAppearancePending=true;
             // Original S_RESURRECT closes UserPlayStatsUI (WO§6); the timer stops with the death.
@@ -152,10 +193,47 @@ public sealed partial class LoginConnection {
         var sender=sendMovementGate!;deathQuitSendingGeneration=session;
         try{
             bool sent=await sender(DeathTimeoutRules.Quit(),Eligible,()=>{CaptureWorld(()=>{World.DeathQuitSent();return true;});CancelMovementInput();});
-            if(sent&&session==generation){Cancel();Set(LoginState.Disconnected,"死亡後逾時未重新開始：已依原版送出離線（C122），連線已關閉。");}
+            if(sent&&session==generation){
+                // PBW§4: after C_QUIT the original closes the death window, shows message 47 and opens QUIT_WINDOW.
+                string message=QuitWindowRules.Message(QuitWindowRules.DisconnectedMessage);
+                Cancel();OpenQuitWindow(message,false);
+                Set(LoginState.Disconnected,message+"（死亡後逾時未重新開始：已依原版送出離線 C122，連線已關閉。）");
+            }
             return sent;
         }catch(Exception ex){if(session==generation){Cancel();Set(LoginState.Faulted,"死亡逾時離線傳送失敗："+ex.Message);}return false;}
         finally{if(deathQuitSendingGeneration==session)deathQuitSendingGeneration=-1;}
+    }
+
+    // QUIT_WINDOW state lives on the connection: the death-timeout path closes the world (Cancel → World.Reset) and the
+    // window must stay. It belongs to one session generation; a new login (Run → Cancel) hides it.
+    bool quitWindowOpen,quitWindowInWorld;int quitWindowGeneration=-1,quitWindowRevision,quitWindowResurrections;string quitWindowMessage="";
+    bool quitSending;
+    /// <summary>Only verified opener: the death timeout (PBW§4). inWorld=true is kept for a future ESC/menu entry (unverified).</summary>
+    internal void OpenQuitWindow(string message,bool inWorld){
+        quitWindowOpen=true;quitWindowInWorld=inWorld;quitWindowGeneration=generation;quitWindowRevision++;quitWindowMessage=message;
+        quitWindowResurrections=World.OwnResurrections;
+    }
+    public void CloseQuitWindow(){quitWindowOpen=false;}
+    public QuitWindowView? QuitWindowSnapshot(){
+        if(!quitWindowOpen)return null;
+        if(generation!=quitWindowGeneration){quitWindowOpen=false;return null;}
+        bool inWorld=State==LoginState.InWorld;
+        // S_RESURRECT (sub_9496B0) closes an open QUIT_WINDOW on own resurrection.
+        if(inWorld&&quitWindowInWorld&&World.OwnResurrections!=quitWindowResurrections){quitWindowOpen=false;return null;}
+        return new(quitWindowRevision,inWorld,inWorld&&World.OwnDead,quitWindowMessage);
+    }
+    /// <summary>QUIT_WINDOW「離開遊戲」在世界中：送一次 C122（TW16 C_QUIT 68），送出後關閉連線。呼叫端之後結束程式（原版 exit(0)）。</summary>
+    public async Task<bool> QuitGame(){
+        int session=generation;
+        bool Eligible()=>session==generation&&State==LoginState.InWorld&&sendMovementGate!=null&&!quitSending;
+        if(!Eligible())return false;
+        var sender=sendMovementGate!;quitSending=true;
+        try{
+            bool sent=await sender(DeathTimeoutRules.Quit(),()=>session==generation&&State==LoginState.InWorld,CancelMovementInput);
+            if(sent&&session==generation){Cancel();quitWindowOpen=false;Set(LoginState.Disconnected,"已送出離開遊戲（C122），連線已關閉。");}
+            return sent;
+        }catch(Exception ex){if(session==generation){Cancel();Set(LoginState.Faulted,"離開遊戲傳送失敗："+ex.Message);}return false;}
+        finally{quitSending=false;}
     }
 }
 
@@ -171,15 +249,13 @@ public sealed partial class ClientForm {
     volatile UserPlayStatsLayout? deathLayout;volatile string deathLayoutNotice="正在讀取原客戶端 UserPlayUI.xml。";
     Dictionary<int,Bitmap>? deathSurfs;bool deathLayoutApplied,deathTicking;
     internal string? DeathLayoutError {get;private set;}
-    // WO§6 names the four rows; the real Text.pak strings 3123–3126 are not extracted yet.
-    static readonly Dictionary<int,string> DeathStatNames=new(){[3123]="經驗",[3124]="擊殺數",[3125]="金幣",[3126]="取得物品"};
+    bool nativeRecoveryShown;
     void InitRecovery(){
         recoveryPanel.Controls.AddRange([recoveryNotice,restartButton,deathQuitButton,deathCancelButton,deathCloseButton]);Controls.Add(recoveryPanel);Controls.Add(deathReopenButton);
-        restartButton.Click+=async(_,_)=>{ClearInput("restart-after-death");await login.RestartAfterDeath();SyncRecovery();};
-        // "結束" (MouseEvent=Quit): the original handler is not verified; it uses the existing logout path (no packet).
-        deathQuitButton.Click+=(_,_)=>{ClearInput("death-quit");CancelLogin(login.SessionGeneration,false);SyncRecovery();};
-        deathCancelButton.Click+=(_,_)=>{login.DismissDeathWindow();SyncRecovery();};
-        deathCloseButton.Click+=(_,_)=>{login.DismissDeathWindow();SyncRecovery();};
+        restartButton.Click+=async(_,_)=>await DeathRestart();
+        deathQuitButton.Click+=(_,_)=>DeathQuit();
+        deathCancelButton.Click+=(_,_)=>DeathDismiss();
+        deathCloseButton.Click+=(_,_)=>DeathDismiss();
         // Engine transition: the original re-opens the Toggle window by an unverified trigger.
         deathReopenButton.Click+=(_,_)=>{login.ReopenDeathWindow();SyncRecovery();};
         ApplyDeathFallbackLayout();
@@ -220,7 +296,7 @@ public sealed partial class ClientForm {
         for(int i=0;i<layout.Rows.Count;i++){
             var row=layout.Rows[i];int y=layout.ListY+i*layout.RowHeight,x=layout.ListX;
             if(Surf(row.IconSurf) is {} icon){var pic=new Label{Location=new(x,y+row.IconY),Size=icon.Size,Image=icon,BackColor=Color.Transparent};deathStatLabels.Add(pic);x+=icon.Width+row.Gap;}
-            string name=row.StringId is int sid&&DeathStatNames.TryGetValue(sid,out var n)?n:row.StringId is int other?$"#{other}":row.Name;
+            string name=UserPlayStatsText.Label(row.StringId,row.Name).Text;
             deathStatLabels.Add(new Label{Location=new(x,y),Size=new(row.LabelWidth,row.Height),Text=name,ForeColor=row.LabelColor,BackColor=Color.Transparent,TextAlign=ContentAlignment.MiddleLeft});
             // Values: the original data source is not verified, so no number is shown (no synthesized 0).
             deathStatLabels.Add(new Label{Location=new(x+row.LabelWidth+row.Gap,y),Size=new(row.ValueWidth,row.Height),Text="—",ForeColor=row.ValueColor,BackColor=Color.Transparent,TextAlign=ContentAlignment.MiddleRight});
@@ -233,10 +309,60 @@ public sealed partial class ClientForm {
         try{if(await login.CheckDeathTimeout())ClearInput("death-timeout-quit");SyncRecovery();}
         finally{deathTicking=false;}
     }
+    async Task DeathRestart(){ClearInput("restart-after-death");await login.RestartAfterDeath();SyncRecovery();}
+    // "結束" (MouseEvent=Quit): the original handler is not verified; it uses the existing logout path (no packet).
+    void DeathQuit(){ClearInput("death-quit");CancelLogin(login.SessionGeneration,false);SyncRecovery();}
+    void DeathDismiss(){login.DismissDeathWindow();SyncRecovery();}
+
+    // R2-D (#615): with the native UI active, UserPlayStatsUI and QUIT_WINDOW are IUiPanels; the WinForms panel stays the
+    // fallback when the native UI is off or the panel faulted.
+    bool AttachNativeRecovery(){
+        if(!NativeUiActive||nativeUiRoot is not {} root)return false;
+        if(root.Find(QuitWindowPanel.PanelId) is QuitWindowPanel quit&&quit.Source==null)quit.Source=new QuitWindowSource(this);
+        if(root.Find(UserPlayStatsPanel.PanelId) is not UserPlayStatsPanel stats||root.Faulted.Contains(stats))return false;
+        stats.Source??=new UserPlayStatsSource(this);
+        return true;
+    }
+    sealed class UserPlayStatsSource(ClientForm form):IUserPlayStatsSource {
+        public UserPlayStatsView? Current=>form.login.State==LoginState.InWorld&&form.login.DeathSnapshot().WindowOpen?new(form.login.CanRestart):null;
+        public void Restart(){_=form.DeathRestart();}
+        public void Quit()=>form.DeathQuit();
+        public void Dismiss()=>form.DeathDismiss();
+    }
+    sealed class QuitWindowSource(ClientForm form):IQuitWindowSource {
+        public QuitWindowView? Current=>form.login.QuitWindowSnapshot();
+        public void Restart(){
+            var view=form.login.QuitWindowSnapshot();if(view==null)return;
+            // Engine has no counterpart of the original last-combat timestamp: null → server decides (QuitWindowRules.CombatAllows).
+            switch(QuitWindowRules.Restart(view.InWorld,view.Dead,QuitWindowRules.CombatAllows(view.Dead,false,null,Environment.TickCount64))){
+                case QuitWindowRules.RestartKind.DeadRestart:form.login.CloseQuitWindow();_=form.DeathRestart();break;
+                case QuitWindowRules.RestartKind.CharacterSelect:form.login.CloseQuitWindow();form.ClearInput("quit-window-restart");_=form.login.SwitchCharacter(form.login.SessionGeneration,form.login.Revision);break;
+                case QuitWindowRules.RestartKind.CombatBlocked:form.SetSingleActionNotice(QuitWindowRules.Message(QuitWindowRules.RestartCombatMessage));break;
+                // Engine transition: the connection is already closed (C122 sent), so C177 cannot be sent; go back to login.
+                default:form.login.CloseQuitWindow();form.ClearInput("quit-window-relogin");form.CancelLogin(form.login.SessionGeneration,false);break;
+            }
+            form.SyncRecovery();
+        }
+        public void Quit(){
+            var view=form.login.QuitWindowSnapshot();if(view==null)return;
+            switch(QuitWindowRules.Quit(view.InWorld,QuitWindowRules.CombatAllows(view.Dead,false,null,Environment.TickCount64))){
+                case QuitWindowRules.QuitKind.Quit:_=form.QuitFromWindow();break;
+                case QuitWindowRules.QuitKind.CombatBlocked:form.SetSingleActionNotice(QuitWindowRules.Message(QuitWindowRules.QuitCombatMessage));break;
+                default:form.login.CloseQuitWindow();form.BeginInvoke(new Action(form.Close));break;   // original: exit(0)
+            }
+        }
+        public void Close(){form.login.CloseQuitWindow();form.SyncRecovery();}
+    }
+    async Task QuitFromWindow(){ClearInput("quit-window-quit");if(await login.QuitGame()&&!IsDisposed)BeginInvoke(new Action(Close));}
+
     void SyncRecovery(){
         if(!deathLayoutApplied&&deathLayout is {} layout){deathLayoutApplied=true;try{ApplyDeathLayout(layout);}catch(Exception ex){deathLayoutNotice="（引擎面板：UserPlayUI 版面套用失敗）";DeathLayoutError=ex.GetType().Name+": "+ex.Message;ApplyDeathFallbackLayout();}}
         var view=login.DeathSnapshot();
-        recoveryPanel.Visible=login.State==LoginState.InWorld&&view.WindowOpen;
+        bool native=AttachNativeRecovery();
+        bool nativeShown=native&&(view.WindowOpen||login.QuitWindowSnapshot()!=null);
+        if(nativeShown!=nativeRecoveryShown)Invalidate();
+        nativeRecoveryShown=nativeShown;
+        recoveryPanel.Visible=!native&&login.State==LoginState.InWorld&&view.WindowOpen;
         deathReopenButton.Visible=login.State==LoginState.InWorld&&view.Dismissed&&!view.QuitSent&&login.World.OwnDead;
         if(deathReopenButton.Visible){deathReopenButton.Location=new(Math.Max(0,(ClientSize.Width-deathReopenButton.Width)/2),160);deathReopenButton.BringToFront();}
         if(!recoveryPanel.Visible)return;

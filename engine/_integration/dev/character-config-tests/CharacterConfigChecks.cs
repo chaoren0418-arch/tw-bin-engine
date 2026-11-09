@@ -12,6 +12,7 @@ partial class Checks {
         catch(ProtocolException){Check(true,label);}
     }
     static PlayerHudSnapshot ConfigHudState(LoginConnection c)=>new(PlayerHudActions.Stamp(c),"offline","test",100,100,100,100,"","",false,"",false,[],[]);
+    [CheckGroup("character-config"),CheckGroup("hotbar",Order=2),CheckGroup("map-continuity",Order=160),CheckGroup(CheckGroups.Default,Order=140)]
     static async Task CharacterConfigChecks(){
         // T176: eight slots F5–F12 (count byte 8, 46 bytes).
         PlayerHudBinding?[] slots=[new(PlayerHudKind.Item,0x12345678),null,new(PlayerHudKind.Magic,4),new(PlayerHudKind.Magic,220),null,new(PlayerHudKind.Item,1),null,new(PlayerHudKind.Magic,int.MaxValue)];

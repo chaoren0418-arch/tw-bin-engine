@@ -10,6 +10,7 @@ partial class Checks {
         try{action();}catch(ProtocolException){Check(true,label);return;}
         throw new Exception("accepted invalid affliction packet: "+label);
     }
+    [CheckGroup("afflictions")]
     static async Task AfflictionChecks(){
         CombatAdmissionFixture(); // Authored metadata, never original game assets or sockets.
         using(var c=Seed()){

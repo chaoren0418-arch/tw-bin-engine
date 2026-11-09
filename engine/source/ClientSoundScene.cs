@@ -1,14 +1,16 @@
 namespace P06;
 
 // T172（#446）：背景音樂與地圖環境音的產品掛載點。
-// 產品目前沒有串流／循環播放後端（P24.Audio 只播 pin 過的取樣，見 docs/protocol/music.md），
-// 所以 Configure 尚未被呼叫；未設定時所有掛載點都是 no-op，不建立任何狀態、不讀 Text 包。
+// T252（#613）：產品 ClientForm 建構時 ProductSound.Arm()；第一次在世界中組畫面時由 Observe 安裝串流後端並 Configure
+// （ProductSoundBackends.cs）。未 Arm（測試、--module-tests）時所有掛載點仍是 no-op，不建立任何狀態、不讀 Text 包。
 public static class ClientSoundScene
 {
     static BackgroundMusic? music;
     static MapEnvSound? env;
     static SoundVolumes volumes=new();
     public static BackgroundMusic? Music=>music;
+    // 產品唯一的 4 類音量（ClientForm.SoundVolumes 也指向這一份）。
+    public static SoundVolumes Volumes=>volumes;
     public static MapEnvSound? EnvSound=>env;
     public static string Status {get;private set;}="未設定後端";
 
@@ -48,6 +50,7 @@ public static class ClientSoundScene
     // 世界畫面：Renderer.ComposeMapEffects 每次組畫面呼叫一次。
     public static void Observe(WorldSession session,long now)
     {
+        ProductSound.Pump(session.Renderable&&session.MapId is not null&&session.Actor is not null);
         if(music==null&&env==null)return;
         var (on,gain)=Host(session);
         bool ready=on&&session.Renderable&&session.MapId is not null&&session.Actor is not null;

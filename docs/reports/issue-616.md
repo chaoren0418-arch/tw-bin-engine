@@ -77,3 +77,4 @@
 - 要畫第二色或 `\b` 背景前，先查 `sub_7DC850`（VA `0x7DC850`／FO `0x3DBC50`）與繪字函式（候選 `sub_C01B70`、`0x7DD0B5` 一帶）。
 - `/on`、`/off` 之外的頻道選項視窗（原版 C_ONOFF 選項窗）仍沒做。
 - `%`→同盟（C136 type 13）伺服器有處理，但不在本任務範圍，沒有加。
+- 2026-11-09 第二次合併 origin/main（落後 84 個 commit；只有 `rebuild-lock.json` 衝突，取 main 版後以 `--update-lock` 重產，sourceFiles 328）：`rebuild.py --build` PASS（productDll `d326d337…7f614`）；`--module-tests` 40 組 1982 項 0 失敗（含 `chat-format`）；`check-no-game-assets.py` 0 錯誤。`ChatPanel.cs` 自動合併無衝突。

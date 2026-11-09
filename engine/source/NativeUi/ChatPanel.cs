@@ -15,6 +15,7 @@ public sealed record ChatDraw(string Element,int? Surf,Rectangle Rect,string? Te
 /// Not drawn (role 待驗證): scroll track tiles SCROLL1–4, SHORT_CHAT_ICON, WEBBROWSER_ICON, LANGUAGE_ICON, *_FOCUS states.
 /// </summary>
 public sealed class ChatPanel:IUiPanel,IUiTextInput {
+    [UiPanel(20)] internal static UiPanelRegistration Registration=>new("CENTER_WINDOW","uistatus86",root=>new ChatPanel());   // ui-chat-window #468
     public const string WindowName="CENTER_WINDOW";
     public string Id=>WindowName;
     public UiLayer Layer=>UiLayer.Bar;

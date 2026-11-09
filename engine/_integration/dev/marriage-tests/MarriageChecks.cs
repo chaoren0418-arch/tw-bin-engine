@@ -18,6 +18,7 @@ partial class Checks {
         }));c.World.SelectTarget(456);return c;
     }
     static void MarriageReject(Action action,string label){try{action();}catch(ProtocolException){Check(true,label);return;}throw new Exception("marriage malformed accepted: "+label);}
+    [CheckGroup("marriage"),CheckGroup("map-continuity",Order=100),CheckGroup(CheckGroups.Default,Order=330)]
     static async Task MarriageChecks(){
         Check(Convert.ToHexString(MarriagePackets.Propose())=="3200000000000000","marriage C50 subtype zero only");
         Check(Convert.ToHexString(MarriagePackets.Answer(true))=="790000000000008E0201000000000000","marriage C121 Yes legacy H0 D0 H654 C1");
