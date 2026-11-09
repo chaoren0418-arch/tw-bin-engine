@@ -239,3 +239,4 @@
 - 2026-11-09 — #624 T263：R2-J Yes/No 收尾（code，claude-local，PR #647 已合併）→ [報告](reports/issue-624.md)
 - 2026-11-09 — #609 T248：血盟公告與成員備註更新（PBW-C）（code，claude-local，PR 已合併）→ [報告](reports/issue-609.md)
 - 2026-11-09 — #655 T274：測試結果隨環境不同——S245 與 attack-skill-resources（code，claude-local，PR 已合併）→ [報告](reports/issue-655.md)
+- 2026-11-09 — #659 T-plan：規則檔加入「PR 不改 rebuild-lock.json」與「新模組用自動發現」（plan，claude-chat，PR 已合併）→ [報告](reports/issue-659.md)
