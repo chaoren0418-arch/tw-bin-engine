@@ -59,6 +59,8 @@ public sealed partial class WorldSession {
     }
     void ReceivePolymorph(byte[] plain){
         var shape=PolymorphPacket.Parse(plain);
+        // R2-I（WO §4）：原版 sub_A43B50 在幽靈中對自己的外觀變更直接略過；封包照常解碼（格式錯誤仍要報）。
+        if(GhostSkipsSelfAppearance(shape.ObjectId))return;
         if(Actor is {} actor&&actor.ObjectId==shape.ObjectId){
             // Gfx/Weapon are the shared current-appearance query for rendering and cadence.
             // Undo is another S76 with the server's base gfx; no local timer or class guess.

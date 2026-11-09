@@ -180,10 +180,14 @@ public sealed partial class ClientForm:Form {
             string message=login.World.TeleportPending?$"{login.World.TeleportNotice}\n{login.World.MapResourceNotice}":login.World.Ready?$"真實世界已連線\nmap {login.World.MapId} / gfx {login.World.Actor?.Gfx}\n{login.World.MapResourceNotice}\n{login.World.AppearanceNotice}":"等待真實世界初始化\n可取消連線或回離線預覽。";
             e.Graphics.DrawString(message,Font,Brushes.White,new PointF(viewport.Left+20,viewport.Top+80));return;
         }
-        if(OnlineMode&&renderer.HasShipBackdrop&&objectPatch!=null){
+        // R2-A (T251): day/night shading, FX1 light map and weather. Daylight without rain/snow keeps the old path.
+        AmbienceFrame? ambience=OnlineMode&&objectPatch!=null?renderer.PrepareAmbience(login.World,objectVisuals,Environment.TickCount64):null;
+        bool ambient=ambience!=null&&Renderer.AmbienceVisible(ambience);
+        if(OnlineMode&&renderer.ScreenShake?.Invoke() is {IsEmpty:false} shake)Renderer.ApplyScreenShake(e.Graphics,shake);
+        if(OnlineMode&&(renderer.HasShipBackdrop||ambient)&&objectPatch!=null){
             var topLeft=Camera.ToScene(viewport.Location);var bottomRight=Camera.ToScene(new PointF(viewport.Right,viewport.Bottom));
             var area=Rectangle.Intersect(renderer.Bounds,Rectangle.FromLTRB((int)Math.Floor(topLeft.X),(int)Math.Floor(topLeft.Y),(int)Math.Ceiling(bottomRight.X),(int)Math.Ceiling(bottomRight.Y)));
-            if(area.Width>0&&area.Height>0){using var scene=renderer.SceneView(objectPatch,area);var p=Camera.ToView(area.Location);e.Graphics.DrawImage(scene,new RectangleF(p.X,p.Y,scene.Width*Camera.Zoom,scene.Height*Camera.Zoom));}
+            if(area.Width>0&&area.Height>0){using var scene=renderer.SceneView(objectPatch,area);if(ambient)renderer.PaintAmbienceScene(scene,area,ambience!,login.World.Ambience.Particles,login.World.BlindMode);var p=Camera.ToView(area.Location);e.Graphics.DrawImage(scene,new RectangleF(p.X,p.Y,scene.Width*Camera.Zoom,scene.Height*Camera.Zoom));}
             PaintObjectSelection(e.Graphics);return;
         }
         var origin=Camera.ToView(renderer.Bounds.Location);e.Graphics.DrawImage(renderer.Background,new RectangleF(origin.X,origin.Y,renderer.Width*Camera.Zoom,renderer.Height*Camera.Zoom));

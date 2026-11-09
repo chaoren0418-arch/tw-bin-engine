@@ -3,7 +3,7 @@ public sealed partial class ClientForm {
     PlayerPointerController? playerPointer;
     // Sent means admitted by the existing sender, never server-confirmed success. HUD owns response presentation.
     public event Action<string,uint>? PlayerPointerActionSubmitted;
-    public string PlayerPointerNotice=>playerPointer?.Notice??"左鍵地面行走；左鍵選取，雙擊／Ctrl＋左鍵攻擊，右鍵交談；雙擊地上物品拾取1件；Esc／空白停止。";
+    public string PlayerPointerNotice=>playerPointer?.Notice??PointerFlow.Help+"Esc／空白停止。";
     PlayerPointerController Pointer=>playerPointer??=new(login,()=>GameInputAllowed,()=>World.Walking,HasVisibleObjectPixel);
     public static bool PlayerPointerInScene(Point point,RectangleF viewport,bool covered,bool extraAllowed)=>!covered&&extraAllowed&&viewport.Contains(point);
     bool PlayerPointerSceneHit(Point point)=>PlayerPointerInScene(point,PlayerSceneBounds,GetChildAtPoint(point,GetChildAtPointSkip.Invisible)!=null,PlayerSceneAccepts(point));
@@ -16,9 +16,10 @@ public sealed partial class ClientForm {
         try{
             var id=PointerPixel(e.Location);PickObject(e.Location);
             if(id is uint target){
-                if(login.World.Ground.Any(g=>g.ObjectId==target)){StopPlayerPointer("選取地上物品");if(e.Button==MouseButtons.Left&&e.Clicks>=2&&await Pointer.PickupAsync(target))PlayerPointerActionSubmitted?.Invoke("pickup",target);lastWebState="";PublishWebState();Invalidate();return;}
+                // R2-C: double-click on a ground item = object click (WO §1–2): approach, then whole stack or quantity prompt.
+                if(login.World.Ground.Any(g=>g.ObjectId==target)){StopPlayerPointer("選取地上物品");if(e.Button==MouseButtons.Left&&e.Clicks>=2&&await Pointer.ClickGroundAsync(target,PickupGroundClicked))PlayerPointerActionSubmitted?.Invoke("pickup",target);SyncGround();lastWebState="";PublishWebState();Invalidate();return;}
                 if(e.Button==MouseButtons.Right){
-                    if(login.World.Target?.ShopActive==true){StopPlayerPointer("個人商店");if(await RunInteraction(CurrentNpcCommand("talk")))PlayerPointerActionSubmitted?.Invoke("private-shop",target);}
+                    if(login.World.Target?.ShopActive==true){StopPlayerPointer("個人商店");if(Pointer.Refusal(target,true) is {} refused)ShowPlayerPointerRefusal(refused);else if(await RunInteraction(CurrentNpcCommand("talk")))PlayerPointerActionSubmitted?.Invoke("private-shop",target);}
                     else if(await Pointer.ActAsync(target,true))PlayerPointerActionSubmitted?.Invoke("talk",target);
                 }else if(e.Clicks>=2||(ModifierKeys&Keys.Control)!=0||DirectAttackTarget(target)){if(await Pointer.ActAsync(target,false))PlayerPointerActionSubmitted?.Invoke("attack",target);}
                 else Pointer.Select(target);
