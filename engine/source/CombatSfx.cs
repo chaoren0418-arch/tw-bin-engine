@@ -99,6 +99,7 @@ public sealed class CombatSfxController(IAudioPlayback audio, Random random, Act
         internal Task<AudioReply> Registration = null!;
         internal volatile bool Active = true;
         internal readonly List<Task> Pending = [];
+        internal (double Scale, int Ext)? Level; // T302：最後一次送出的播放中音量。
     }
     readonly Dictionary<string, Lease> active = [];
     readonly List<(Lease Lease, long Expires)> draining = [];
@@ -248,6 +249,22 @@ public sealed class CombatSfxController(IAudioPlayback audio, Random random, Act
             maintenance = audio.LastMaintenance;
             observe(new("maintenance", "", null, null, null, maintenance));
         }
+    }
+    // T302（R4-K，SD§2.3 A091C0）：每次更新替播放中（含收尾中）的實例重算音量，值變了才經 IAudioPlayback 改正在播放的音量。
+    // level 回 null＝這次不更新（例如發聲體或自身不在場，原版 A3FCBE 也不呼叫 A091C0）。回傳本次送出的筆數。
+    public int ApplyLevels(Func<CombatSoundInstance, (double Scale, int Ext)?> level)
+    {
+        if (closed) return 0;
+        int sent = 0;
+        foreach (var lease in active.Values.Concat(draining.Select(d => d.Lease)).ToArray())
+        {
+            if (!lease.Active || level(lease.Instance) is not { } next) continue;
+            next = (double.IsFinite(next.Scale) ? Math.Clamp(next.Scale, 0, 1) : 0, Math.Clamp(next.Ext, 0, 128));
+            if (lease.Level == next) continue;
+            lease.Level = next; sent++;
+            _ = Observe("level", lease.Instance.Key, audio.SetVoiceLevelAsync(lease.Owner, next.Scale, next.Ext));
+        }
+        return sent;
     }
     public Task Shutdown()
     {
