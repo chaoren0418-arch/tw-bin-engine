@@ -31,6 +31,7 @@ partial class Checks {
         var bad=(byte[])valid.Clone();bad[^1]=1;RejectTimed(w,bad,label+" nonzero padding");
         RejectTimed(w,[..valid,..new byte[8]],label+" extra frame");
     }
+    [CheckGroup("timed-buffs"),CheckGroup("map-continuity",Order=280),CheckGroup(CheckGroups.Default,Order=490)]
     static void TimedBuffChecks(){
         TimedAbilityChecks();TimedEvaChecks();TimedLiquorChecks();TimedDelSkillChecks();TimedShakeMountChecks();
     }

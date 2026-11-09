@@ -53,9 +53,18 @@ partial class Checks {
         return new UiResources(dir,tile,sprites);
     }
 
-    /// <summary>The real registry minus LEFT_WINDOW (#464): these synthetic uistatus86 layouts have no LEFT_WINDOW node and UiRoot.Build is all-or-nothing.</summary>
-    static IReadOnlyList<UiPanelRegistration> MacroRegistry=>UiPanelRegistry.Panels.Where(p=>string.Equals(p.Layout,"uistatus86",StringComparison.OrdinalIgnoreCase)&&p.Id is not ("LEFT_WINDOW" or "CENTER_WINDOW" or MiniMapPanel.PanelId)).ToArray();   // synthetic layout has none of these windows (#464, #468, MINI_MAP_WINDOW #470); only uistatus86 panels — other layouts (uiextra86 #526, FriendUI #529, …) are not in the synthetic Tile.pak
+    /// <summary>The real registry limited to the uistatus86 panels these synthetic layouts can build: UiRoot.Build is all-or-nothing and the
+    /// synthetic Tile.pak has no LEFT_WINDOW / CENTER_WINDOW / MINI_MAP_WINDOW node (#464, #468, #470) nor other layouts (#526, #529, …).
+    /// T270 (#645): probed per panel (missing XML node = UiLayoutException) instead of a hand-kept exclusion list, so new panels need no edit here.
+    /// The set is probed once, on the first (full synthetic) resources, and reused for the partial and the real-client builds.</summary>
+    static string[]? macroPanelIds;
+    static IReadOnlyList<UiPanelRegistration> MacroRegistry(UiResources res){
+        macroPanelIds??=UiPanelRegistry.Panels.Where(p=>string.Equals(p.Layout,"uistatus86",StringComparison.OrdinalIgnoreCase)&&MacroBuilds(res,p)).Select(p=>p.Id).ToArray();
+        return UiPanelRegistry.Panels.Where(p=>macroPanelIds.Contains(p.Id)).ToArray();
+    }
+    static bool MacroBuilds(UiResources res,UiPanelRegistration p){try{UiRoot.Build(res,[p]);return true;}catch(UiLayoutException){return false;}}
 
+    [CheckGroup("native-ui-macro"),CheckGroup(CheckGroups.Default,Order=70)]
     static void NativeUiMacroChecks(string repo){
         string root=Path.Combine(Path.GetFullPath(repo),"scratch","issue-466","synthetic");Directory.CreateDirectory(root);
         // RGB555 colours (R high): every image distinct so pixels identify the drawn surf.
@@ -71,7 +80,7 @@ partial class Checks {
 
         using var res=MacroResources(Path.Combine(root,"full"),full,MacroLayoutXml);
         // Uses the real registry: the #466 registrations must build from uistatus86.
-        var ui=UiRoot.Build(res,MacroRegistry);
+        var ui=UiRoot.Build(res,MacroRegistry(res));
         var main=(MacroPanel)ui.Find(MacroPanel.WindowId)!;var ex=(ExMacroPanel)ui.Find(ExMacroPanel.WindowId)!;
         Check(main!=null&&ex!=null&&main.Layer==UiLayer.Bar&&ex.Layer==UiLayer.Bar,"registry builds RIGHT_WINDOW and EX_MACRO_WINDOW on the bar layer");
 
@@ -206,7 +215,7 @@ partial class Checks {
         {
             var partial=full.Where(kv=>kv.Key is not (3191 or 3192 or 3226)).ToDictionary(kv=>kv.Key,kv=>kv.Value);
             using var res2=MacroResources(Path.Combine(root,"partial"),partial,MacroLayoutXml);
-            var ui2=UiRoot.Build(res2,MacroRegistry);
+            var ui2=UiRoot.Build(res2,MacroRegistry(res2));
             var m2=(MacroPanel)ui2.Find(MacroPanel.WindowId)!;var e2=(ExMacroPanel)ui2.Find(ExMacroPanel.WindowId)!;
             ui2.Update(S());
             Check(m2.LockRect.IsEmpty&&m2.Bounds==m2.FrameRect&&m2.Visible&&!e2.Visible,"missing lock/extended surf → no lock rect, extended box hidden");
@@ -236,7 +245,7 @@ partial class Checks {
         if(string.IsNullOrEmpty(client)){Console.WriteLine("SKIP native-ui macro real client render (TW_CLIENT_ROOT not set)");return;}
         string outDir=Path.Combine(Path.GetFullPath(repo),"scratch","issue-466","real");Directory.CreateDirectory(outDir);
         using var res=UiResources.Open(client);
-        var ui=UiRoot.Build(res,MacroRegistry);
+        var ui=UiRoot.Build(res,MacroRegistry(res));
         var main=(MacroPanel)ui.Find(MacroPanel.WindowId)!;var ex=(ExMacroPanel)ui.Find(ExMacroPanel.WindowId)!;
         var book=new MacroBook();var stamp=new PlayerHudStamp(1,1,1);book.Observe(stamp);
         ui.Update(new MacroTestState(true,book,new MacroInventory(stamp,[],[],false),true,null));

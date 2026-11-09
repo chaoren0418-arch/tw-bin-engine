@@ -9,6 +9,7 @@ partial class Checks {
     static List<byte[]> YesNoWire(LoginConnection c){
         var sent=new List<byte[]>();Sender(c,(b,v,a)=>{if(!v())return Task.FromResult(false);sent.Add(b);a();return Task.FromResult(true);});return sent;
     }
+    [CheckGroup("yes-no",Order=1),CheckGroup("map-continuity",Order=110),CheckGroup(CheckGroups.Default,Order=340)]
     static async Task YesNoPromptChecks(){
         // Wire format: the shared answer equals each module's existing d287 C121.
         foreach(bool yes in new[]{false,true}){

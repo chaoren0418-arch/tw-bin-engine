@@ -65,6 +65,7 @@ static partial class AttackSkillChecks
         File.WriteAllText(Path.Combine(root, "integrity.json"), JsonSerializer.Serialize(new { files = new[] {
             new { path = "players/manifest.json", size = manifest.Length, sha256 = Convert.ToHexString(SHA256.HashData(manifest)) } } }));
     }
+    [CheckGroup("attack-skills"),CheckGroup("combat-admission",Order=3)]
     public static void Run(string output, Action<bool,string> report)
     {
         Passed.Clear();

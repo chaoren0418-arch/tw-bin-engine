@@ -2,7 +2,7 @@ namespace P06;
 
 public sealed record GhostModeView(PlayerHudStamp Stamp,int Revision,bool Active,bool CanExit,bool Waiting,string Notice);
 
-public static class GhostModePackets {
+public static partial class GhostModePackets {
     // d287 C_ExitGhost reads no payload. Padding belongs to the existing wire transport.
     public static byte[] Exit()=>LoginPackets.Pad([173]);
 }
@@ -14,7 +14,7 @@ public sealed partial class WorldSession {
     // No guessed gfx, death transition, NPC permission or local clear on C173.
     void ReceiveGhostState(OwnActor next){if(Actor==null||Actor.ObjectId!=next.ObjectId||((Actor.Flags^next.Flags)&0x80)!=0)GhostRevision++;}
     // M7-N（WO §4）：原版 sub_A43B50 在幽靈中對自己的外觀變更（S_RESURRECT、變身等）直接略過。
-    // 呼叫點在 Polymorph.cs／Recovery.cs（不屬本組可改範圍），此處只提供判斷，供後續接上。
+    // 呼叫點：Recovery.cs 的 S85（R2-D／#615 已接）；Polymorph.cs／S76 由 R2-I 接。
     // 自身 S87 不受影響：它是原服權威狀態（含幽靈旗標本身）。
     internal bool GhostSkipsSelfAppearance(uint objectId)=>IsGhost&&Actor?.ObjectId==objectId;
 }
@@ -55,6 +55,24 @@ public sealed partial class LoginConnection {
     }
     // 送 C173 只保留給 HyperText 動作 exitghost（WO §4；入口在 NPC 對話，尚待 HTML 證據接上），沒有常駐按鈕。
     public bool GhostLocalBlocked=>State==LoginState.InWorld&&World.IsGhost;
+    /// <summary>
+    /// R2-D（T254／#615）：HyperText 動作 <c>exitghost</c> 的處理（HyperActExitGhost → sub_582C20，WO §4）。
+    /// 回 true＝這是 exitghost 動作且已交給本處理（不論有沒有送出），呼叫端不要再送 C_DIALOG；false＝不是本動作。
+    /// 只在幽靈中送 C173（原版 byte_13CE51E==2 才送）；不是幽靈時什麼都不送。HTML 入口由 R2-F 接上。
+    /// </summary>
+    public bool TryHyperAction(string action,out Task<bool> sending){
+        sending=Task.FromResult(false);
+        if(!GhostModePackets.IsExitAction(action))return false;
+        var shown=GhostModeSnapshot();
+        if(shown.Active&&shown.CanExit)sending=ExitGhost(shown);
+        return true;
+    }
+}
+
+public static partial class GhostModePackets {
+    /// <summary>HyperAct 工廠 sub_BB5180 註冊的名稱（WO §4，已驗證）。大小寫是否敏感未查，照原文比對。</summary>
+    public const string ExitAction="exitghost";
+    public static bool IsExitAction(string? action)=>string.Equals(action?.Trim(),ExitAction,StringComparison.Ordinal);
 }
 
 public sealed partial class ClientForm {

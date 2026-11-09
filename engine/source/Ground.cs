@@ -80,8 +80,9 @@ public sealed partial class LoginConnection {
     bool groundSending;int groundLease;long nextGroundAt;
     // Pickup throttle is WO §2's 986 ms (600 ms with the fast flag). Drop keeps the same local guard length.
     public const int GroundClickGuardMs=GroundRules.PickupThrottleMs;
-    // Inference (WO §2 "推測"): 0x10000 in dword_13CE514 is a haste-type flag; mapped to own speed 1 (haste).
-    public bool PickupFastFlag=>World.Actor?.Speed==1;
+    // R2-C (PG §4, T233): dword_13CE514 is the S139 server feature word; 0x10000 selects 600 ms.
+    // No S139 (or a non-zero status) leaves the native bss value 0, i.e. 986 ms. Own haste no longer matters.
+    public bool PickupFastFlag=>ServerFeatures?.FastPickup==true;
     public int PickupThrottleMs=>GroundRules.PickupThrottle(PickupFastFlag);
     public bool GroundBusy=>groundSending||World.AwaitingPickupAction||Environment.TickCount64<nextGroundAt;
     public bool GroundAvailable=>State==LoginState.InWorld&&!World.ActionLocked&&!World.TradeBlocksActions&&World.Ready&&!World.OwnDead&&World.Status?.Hp>0&&World.Actor!=null;
