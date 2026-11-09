@@ -47,9 +47,9 @@
 | `P11.ClientEngine.exe --module-tests` | pass：46 組、2336 項、0 失敗；`transaction-window` 63 項、`auto-discovery` 28 項、`trade-window` 79 項全過 |
 | DemoChecks `trade-yes-no` | PASS 354 |
 | DemoChecks `native-ui-canvas` | PASS 429 |
-| DemoChecks `map-continuity` | 本機有 1 項失敗：`notice S245 unknown message stays labeled`（display-notices，訊息 999）。本任務沒有改到相關程式；main 的 CI（609cba21）同一步驟是綠的。推測是本機字串表環境不同，待 CI 結果確認 |
+| DemoChecks `map-continuity` | 本機有 1 項失敗：`notice S245 unknown message stays labeled`（display-notices，訊息 999）。本任務沒有改到相關程式；main 的 CI（609cba21）同一步驟是綠的。推測是本機字串表環境不同；PR #683 的 CI 這一步通過 |
 | `check-no-game-assets.py` | pass，errors 0 |
-| CI | 見 PR |
+| CI（PR #683） | 全綠：dotnet、map-continuity、npc-offline |
 
 ## 未驗證／過渡
 - **沒有真機測試**：沒有啟動遊戲、伺服器或 DB。用真實 surf 畫出來的樣子沒有比對過。
