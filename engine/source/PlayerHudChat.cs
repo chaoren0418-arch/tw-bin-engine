@@ -2,7 +2,7 @@ namespace P06;
 
 public sealed class PlayerHudChatPanel:Panel {
     readonly RichTextBox history=new(){ReadOnly=true,DetectUrls=false,Dock=DockStyle.Fill,BorderStyle=BorderStyle.None,BackColor=PlayerHudPainter.Ink,ForeColor=Color.White,AccessibleName="多頻道聊天歷史，只顯示原服回傳",HideSelection=false};
-    readonly TextBox input=new(){Dock=DockStyle.Fill,MaxLength=PlayerChatProtocol.MaxInputCharacters,PlaceholderText="訊息最多 52 字；!喊話 &全體 @血盟 #隊伍 \"對象 密語",AccessibleName="多頻道聊天訊息，正文最多 52 字"};
+    readonly TextBox input=new(){Dock=DockStyle.Fill,MaxLength=PlayerChatProtocol.MaxInputCharacters,PlaceholderText="訊息最多 52 字；!喊話 &全體 @血盟 #隊伍 $交易 \"對象 密語",AccessibleName="多頻道聊天訊息，正文最多 52 字"};
     readonly Button send=new(){Dock=DockStyle.Right,Width=88,Text="送出",AccessibleName="送出聊天",Enabled=false};
     readonly Label state=new(){Dock=DockStyle.Bottom,Height=38,ForeColor=Color.Silver,AutoEllipsis=true,AccessibleName="聊天傳送狀態"};
     PlayerChatView? displayed;bool pending;
@@ -29,27 +29,23 @@ public sealed class PlayerHudChatPanel:Panel {
             // Server lines contain original formatting. Never append the submitted draft.
             history.Clear();
             foreach(var line in view.Lines){
-                history.SelectionStart=history.TextLength;history.SelectionColor=ChannelColor(line.Channel);
-                history.AppendText((history.TextLength>0?Environment.NewLine:"")+PlayerChatProtocol.FormatLine(line));
+                if(history.TextLength>0)history.AppendText(Environment.NewLine);
+                // R2-G：照原版逐段上色（`*` 開頭、自帶色號、`\f` 色碼）；喊話顯示 `[name]`。
+                foreach(var run in ChatFormat.Runs(line)){
+                    history.SelectionStart=history.TextLength;history.SelectionLength=0;history.SelectionColor=ChatPalette.Color(run.Color);
+                    history.AppendText(run.Text);
+                }
             }
             history.SelectionStart=end?history.TextLength:Math.Min(caret,history.TextLength);history.SelectionLength=0;if(end)history.ScrollToCaret();
         }
         displayed=view;UpdateAvailability();
     }
     // Original RGB555 palette dword_1369D70 (VA 0x1369D70／FO 0xF68570), ×255/31; see docs/reference/ui-layout.md §3.
-    public static Color ChannelColor(PlayerChatChannel channel)=>channel switch{
-        PlayerChatChannel.Shout=>Rgb(0xFFE6CE),PlayerChatChannel.Global=>Rgb(0xADEFEF),PlayerChatChannel.Whisper=>Rgb(0xFFCECE),
-        PlayerChatChannel.WhisperTo=>Rgb(0xFFF7B5),PlayerChatChannel.Clan=>Rgb(0xC5EFB5),PlayerChatChannel.Party=>Rgb(0xFFB500),
-        PlayerChatChannel.Trade=>Rgb(0xBDA56B),PlayerChatChannel.Prince=>Rgb(0xFF84FF),PlayerChatChannel.ChatParty=>Rgb(0xBDEFE6),
-        PlayerChatChannel.Alliance=>Rgb(0xCED6FF),PlayerChatChannel.ClanNotice=>Rgb(0x00BD00),_=>Rgb(0xFFFFFF)};
-    static Color Rgb(int rgb)=>Color.FromArgb(255,(rgb>>16)&255,(rgb>>8)&255,rgb&255);
+    public static Color ChannelColor(PlayerChatChannel channel)=>ChatPalette.Color(ChatFormat.ChannelIndex(channel));
     void UpdateAvailability(){
         bool valid=false;string detail="正文 0/52 字";
-        try{
-            var message=PlayerChatProtocol.ParseInput(input.Text);
-            detail=$"{PlayerChatProtocol.ChannelName(message.Channel)} · 正文 {message.Text.Length}/52 字";
-            PlayerChatProtocol.Encode(message);valid=true;
-        }catch(ArgumentException ex){if(input.TextLength>0)detail=ex.Message;}
+        try{detail=PlayerChatProtocol.Describe(input.Text);valid=true;}
+        catch(ArgumentException ex){if(input.TextLength>0)detail=ex.Message;}
         send.Enabled=!pending&&displayed?.CanSend==true&&valid;
         state.Text=$"{detail} · {(displayed?.Notice.Length>0?displayed.Notice:"訊息以原服回傳為準")}";
         state.AccessibleName=state.Text;input.AccessibleDescription=detail+"；Enter 送出。"+PlayerChatProtocol.InputHelp;
@@ -61,6 +57,27 @@ public sealed class PlayerHudChatPanel:Panel {
             bool sent=await SubmitRequested(text,stamp);
             if(!IsDisposed&&sent&&displayed?.Generation==stamp.Generation&&displayed.Actor==stamp.Actor&&input.Text==text)input.Clear();
         }finally{pending=false;if(!IsDisposed)UpdateAvailability();}
+    }
+}
+/// <summary>
+/// 原版聊天調色盤 dword_1369D70（VA 0x1369D70／FO 0xF68570）全部 96 筆 RGB555（R 在高位），由 TW1608262200.bin 直接讀出（R2-G #616）。
+/// 換算 ×255/31 四捨五入；31 是奇數，不會剛好 .5。
+/// </summary>
+public static class ChatPalette {
+    static readonly ushort[] rgb555=[
+        0x0000,0x001F,0x03E0,0x7C00,0x509E,0x3421,0x50A5,0x5EF7,0x2108,0x3DEF,0x5F7F,0x63B6,0x7AFE,0x7FE0,0x7FFF,0x6318,
+        0x4200,0x5CA7,0x1577,0x7DB2,0x4A3F,0x1EB2,0x02E0,0x4A52,0x7FD6,0x4E74,0x662E,0x6737,0x14A5,0x5FBC,0x675F,0x733F,
+        0x7F39,0x7F99,0x5E8D,0x2E91,0x3E8C,0x3696,0x525A,0x5E38,0x5A36,0x6631,0x767D,0x102D,0x57BD,0x7DF0,0x5000,0x7E1F,
+        0x564E,0x3DFF,0x0014,0x5949,0x3214,0x7EC0,0x4B7F,0x4EF9,0x0CA7,0x7BAB,0x0C63,0x7FFF,0x3DEF,0x628D,0x7FE0,0x7A7E,
+        0x549F,0x7C00,0x79E0,0x3697,0x1578,0x022B,0x02E0,0x2108,0x397A,0x7F69,0x43EA,0x7994,0x7FD6,0x5EF7,0x7FD7,0x7FAD,
+        0x5B6C,0x06E6,0x7EFF,0x7E5C,0x7D1F,0x617F,0x7DE8,0x7422,0x67DF,0x437F,0x031F,0x25FF,0x7F39,0x7FD6,0x267F,0x7D80];
+    public static int Count=>rgb555.Length;
+    public static ushort Raw(int index)=>rgb555[index];
+    static int Scale(int v)=>(int)Math.Round(v*255/31.0);
+    /// <summary>索引超出 0–95 時退回白（14）。</summary>
+    public static Color Color(int index){
+        int v=index>=0&&index<rgb555.Length?rgb555[index]:rgb555[ChatFormat.White];
+        return System.Drawing.Color.FromArgb(255,Scale((v>>10)&31),Scale((v>>5)&31),Scale(v&31));
     }
 }
 public sealed partial class ClientForm {

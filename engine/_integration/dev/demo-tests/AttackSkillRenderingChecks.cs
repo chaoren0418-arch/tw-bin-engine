@@ -8,7 +8,19 @@ using System.Text;
 static partial class AttackSkillChecks
 {
     [CheckGroup("attack-skill-resources")]
-    public static void NativeResources([CheckArg(3)] string client,[CheckArg(4)] string assets,Action<bool,string> report){
+    public static void NativeResources(string repo,string[] args,Action<bool,string> report){
+        // T274 (#655): args[3]=client root, args[4]=prepared assets, both optional. Defaults: the runtime client root
+        // (TW_CLIENT_ROOT or the pinned local path) and <repo>/engine/assets. When a default is absent (e.g. CI) print the
+        // usage and return without failing; an explicitly given path is always checked (and fails if wrong).
+        string client=args.Length>3?args[3]:GroundSpriteReader.ClientRoot,assets=args.Length>4?args[4]:Path.Combine(repo,"engine","assets");
+        var absent=new List<string>();
+        if(args.Length<=3&&!File.Exists(Path.Combine(client,"Text.idx")))absent.Add("client="+client);
+        if(args.Length<=4&&!Directory.Exists(Path.Combine(assets,"objects")))absent.Add("assets="+assets);
+        if(absent.Count>0){
+            Console.WriteLine("SKIP attack-skill-resources: default "+string.Join(", ",absent)+" not found");
+            Console.WriteLine("usage: DemoChecks <repo> <out.json> attack-skill-resources [<client root> [<assets dir>]]");
+            return;
+        }
         var catalog=new EffectSpriteCatalog(client);
         foreach(int gfx in new[]{66,167,180,193,214,219,221,2349,2989,11722}){
             var effect=catalog.Get(gfx);

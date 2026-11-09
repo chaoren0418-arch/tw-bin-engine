@@ -1,7 +1,8 @@
 namespace P06;
 
 public sealed record PartyMember(uint ObjectId,string Name,byte? HpPercent,uint? MapId=null,ushort X=0,ushort Y=0);
-public sealed record PartyInvitation(uint Challenge,ushort Message,string Name,int Epoch,long Expires);
+// R2-J (#624): no local expiry. The original keeps the question in the input line until a newer S219 replaces it or it is answered.
+public sealed record PartyInvitation(uint Challenge,ushort Message,string Name,int Epoch);
 public sealed record PartyView(int Generation,int Epoch,int Revision,uint Owner,PartyMember[] Members,string Leader,string Notice,PartyInvitation? Invitation,bool Available,bool CanInvite,bool CanKick);
 
 public static class PartyPackets {
@@ -19,13 +20,12 @@ public sealed partial class WorldSession {
     PartyInvitation? partyInvitation;
     uint partyOwner;
     int partyRevision;
-    internal Func<long> PartyClock=()=>Environment.TickCount64;
     void ClearParty(string notice){partyMembers.Clear();partyLeader="";partyInvitation=null;partyNotice=notice;partyRevision++;}
     void CheckParty(){
         uint own=Status?.ObjectId??0;
         if(!Entered||partyOwner!=own){if(partyOwner!=0||partyMembers.Count>0||partyInvitation!=null)ClearParty("隊伍狀態已清除。");partyOwner=own;}
-        if(partyInvitation is {} invite&&(invite.Epoch!=WorldEpoch||PartyClock()>=invite.Expires||OwnDead)){
-            partyInvitation=null;partyRevision++;partyNotice="組隊邀請已失效，請對方重新邀請。";
+        if(partyInvitation is {} invite&&(invite.Epoch!=WorldEpoch||OwnDead)){
+            partyInvitation=null;partyRevision++;partyNotice="組隊邀請已失效（世界已更新或角色死亡），請對方重新邀請。";
         }
     }
     internal PartyView PartySnapshot(int generation,bool available){
@@ -87,7 +87,7 @@ public sealed partial class WorldSession {
             if(Ready&&!OwnDead){
                 if(TradeState=="invited")ResetTrade("收到組隊確認對話，舊交易邀請已失效。");
                 if(clanInvitation!=null)ClearClanInvitation("收到組隊確認對話，舊入盟申請已失效。");
-                partyInvitation=new(challenge,message,name,WorldEpoch,PartyClock()+30000);partyNotice=name+" 邀請你加入隊伍。";partyRevision++;
+                partyInvitation=new(challenge,message,name,WorldEpoch);partyNotice=name+" 邀請你加入隊伍；請在聊天輸入列回覆 Y／N。";partyRevision++;
                 OfferYesNo(challenge,message,[name]);
             }return true;
         }
