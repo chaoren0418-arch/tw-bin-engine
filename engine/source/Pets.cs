@@ -10,8 +10,21 @@ public sealed record PetInfo(uint PetId, string Kind, string Mode, uint Hp, uint
 public sealed record PetStamp(int Generation, int Epoch, int Revision, int ObjectRevision, uint ActorId, uint PetId);
 public sealed record PetView(PetStamp Stamp, string Name, int? HpPercent, PetInfo? Info, PetBag? Bag, bool CanSend, string Notice);
 
+// M7-W（T223／#530）：召喚怪物選擇的請求。Source="server"＝原服 S39 summonlist（回 C125 D(objid) S(action)）；
+// "local"＝本機入口（施放技能 51 時 C6 尾段 D 帶召喚編號，原服在裝備召喚控制戒指時採用）。
+public sealed record SummonRequest(uint ObjectId,string Source,long Revision);
+public sealed record SummonView(int Generation,int Epoch,long Revision,bool Open,string Source,uint ObjectId,int? Level,int? Charisma,bool CanSend,bool SkillLearned,string Notice);
+
 public static class PetPackets {
     public static readonly string[] Commands = ["aggressive", "defensive", "stay", "extend", "alert", "dismiss"];
+    /// <summary>原服 L1ActionPet：只對寵物（不含召喚物）回 S236 SelectTarget，之後客戶端送 C223（PetTarget.cs）。</summary>
+    public const string TargetCommand = "attackchr";
+    /// <summary>召喚選擇的 action 是 summonList.xml 的數字字串（例如 "7"、"263"），原服以數字比對。</summary>
+    public static bool ValidSummonAction(string action) => action.Length is >=1 and <=6 && action.All(char.IsAsciiDigit) && uint.TryParse(action,out uint v) && v>0;
+    public static byte[] SummonChoice(uint self, string action) {
+        if(self==0||!ValidSummonAction(action))throw new ArgumentException("summon choice");
+        return NpcPackets.Action(self,action);
+    }
     public static byte[] Information(uint pet) { if(pet==0)throw new ArgumentException("pet identity");return NpcPackets.Talk(pet); }
     public static byte[] Menu(uint pet) { if(pet==0)throw new ArgumentException("pet identity");return LoginPackets.Pad([103,..BitConverter.GetBytes(pet)]); }
     public static byte[] UseItem(uint pet, byte data, int index) {
@@ -19,7 +32,7 @@ public static class PetPackets {
         return LoginPackets.Pad([104,data,..BitConverter.GetBytes(pet),(byte)index]);
     }
     public static byte[] Command(uint pet, string command) {
-        if(pet==0 || !Commands.Contains(command,StringComparer.Ordinal))throw new ArgumentException("pet command");
+        if(pet==0 || !Commands.Contains(command,StringComparer.Ordinal)&&command!=TargetCommand)throw new ArgumentException("pet command");
         return NpcPackets.Action(pet,command);
     }
     public static (uint Price,PetCollar[] Rows) ReadList(LoginReader r) {
@@ -57,8 +70,10 @@ public sealed partial class WorldSession {
     readonly Dictionary<uint,PetBag> petBags=new();
     readonly Dictionary<uint,PetInfo> petInfo=new();
     string petNotice="選擇自己的寵物或召喚物。";
+    SummonRequest? summonRequest;long summonRevision;string summonNotice="";
     void CheckPets() {
-        if(petEpoch!=WorldEpoch){petEpoch=WorldEpoch;petBags.Clear();petInfo.Clear();petCollars=[];petRevision++;petNotice="世界已更新，請重新選取與查詢。";}
+        if(petEpoch!=WorldEpoch){petEpoch=WorldEpoch;petBags.Clear();petInfo.Clear();petCollars=[];petRevision++;petNotice="世界已更新，請重新選取與查詢。";
+            if(summonRequest!=null){summonRequest=null;summonRevision++;summonNotice="世界已更新，召喚選擇已關閉。";}}
         foreach(uint id in petBags.Keys.Concat(petInfo.Keys).Distinct().ToArray())
             if(!objects.TryGetValue(id,out var o)||!OwnedCompanion(o)){petBags.Remove(id);petInfo.Remove(id);petRevision++;}
     }
@@ -87,6 +102,7 @@ public sealed partial class WorldSession {
     }
     bool ReceivePetDialog(byte[] plain) {
         var r=new LoginReader(plain);r.C();uint id=r.D();string html=r.S();
+        if(html=="summonlist"){ReceiveSummonList(id,r);return true;}
         if(html is not ("anicom" or "moncom"))return false;
         var info=PetPackets.ReadInfo(id,html,r);CheckPets();
         if(objects.TryGetValue(id,out var o)&&OwnedCompanion(o)){petInfo[id]=info;petRevision++;petNotice="已收到原服寵物／召喚物資訊。";}
@@ -99,9 +115,37 @@ public sealed partial class WorldSession {
         petNotice=command switch {
             "info"=>"已查詢寵物／召喚物資訊，等待原服回覆；沒有回覆不代表數值為零。",
             "refresh"=>"已查詢寵物背包，等待原服回覆。",
+            PetPackets.TargetCommand=>"已要求指定攻擊目標；原服回 S236 後請點選目標（只對寵物有效，召喚物原服不處理）。",
             _=>"已送出一次；請核對原服結果。裝備操作後請重新查詢背包。"
         };
     }
+
+    // S39 S_ShowSummonList：C(39) D(objid) S("summonlist")，objid 是玩家自己（原服 SUMMON_MONSTER 目前把這行註解掉，
+    // 仍照協定接收）。之後原服在 isSummonMonster 為真時，把 C125 的純數字 action 當召喚編號（L1ActionPc.summonMonster）。
+    void ReceiveSummonList(uint id,LoginReader r) {
+        r.Finish();CheckPets();summonRevision++;
+        if(id==0||Actor is not {} a||id!=a.ObjectId){summonNotice="收到非本角色的召喚清單要求，已忽略。";return;}
+        summonRequest=new(id,"server",summonRevision);summonNotice="原服要求選擇召喚怪物；選定後送出一次。";
+    }
+    public SummonRequest? SummonRequestState {get{CheckPets();return summonRequest;}}
+    public long SummonRevision {get{CheckPets();return summonRevision;}}
+    public string SummonNotice {get{CheckPets();return summonNotice;}}
+    /// <summary>本機開啟召喚選擇（過渡入口；原版開窗時機待查證）。選定後走技能 51 的 C6（PetUi.cs）。</summary>
+    internal bool OpenLocalSummon() {
+        CheckPets();if(Actor is not {} a||Status?.ObjectId!=a.ObjectId)return false;
+        summonRevision++;summonRequest=new(a.ObjectId,"local",summonRevision);summonNotice="選擇召喚怪物後，以技能 51 施放並帶入召喚編號（原服需裝備召喚控制戒指才採用）。";return true;
+    }
+    internal bool SummonCurrent(long revision)=>SummonRequestState is {} q&&q.Revision==revision;
+    public bool CloseSummon(long revision) {
+        if(!SummonCurrent(revision))return false;
+        summonRequest=null;summonRevision++;summonNotice="已關閉召喚選擇。";return true;
+    }
+    internal void SummonSubmitted(long revision,string action) {
+        if(!SummonCurrent(revision))return;
+        summonRequest=null;summonRevision++;summonNotice=$"已送出召喚選擇（編號 {action}）一次；召喚結果以原服為準，不會自動重送。";
+    }
+    [WorldReset] void ResetSummon(){summonRequest=null;summonRevision++;summonNotice="";}
+    [WorldSnapshot("summon")] object? SummonSnapshotModel()=>new{revision=summonRevision,notice=summonNotice,request=summonRequest is {} q?new{objectId=q.ObjectId,source=q.Source,revision=q.Revision}:null};
 }
 
 public sealed partial class LoginConnection {
@@ -121,11 +165,44 @@ public sealed partial class LoginConnection {
             var bag=World.PetInventory(stamp.PetId);
             if(bag==null||itemIndex<0||itemIndex>255||itemIndex>=bag.Items.Length||bag.Items[itemIndex] is not {Usable:true} item||item.ItemId!=itemId)return false;
             bytes=PetPackets.UseItem(stamp.PetId,item.Type,itemIndex);
-        }else if(PetPackets.Commands.Contains(command))bytes=PetPackets.Command(stamp.PetId,command);
+        }else if(PetPackets.Commands.Contains(command)||command==PetPackets.TargetCommand)bytes=PetPackets.Command(stamp.PetId,command);
         else return false;
         int session=SessionGeneration;var sender=sendMovementGate;petSendingGeneration=session;
         try{return await sender(bytes,()=>PetCurrent(stamp),()=>World.PetSubmitted(stamp.PetId,command))&&session==SessionGeneration;}
         catch(Exception){if(session==SessionGeneration){Cancel();Set(LoginState.Faulted,"寵物操作傳送失敗，已斷線；不會自動重送。");}return false;}
         finally{if(petSendingGeneration==session)petSendingGeneration=-1;}
+    }
+
+    int summonSendingGeneration=-1;
+    bool SummonAccess=>State==LoginState.InWorld&&World.Ready&&World.Status is {Hp:>0}&&!World.OwnDead&&!World.IsGhost&&!World.TeleportPending&&!World.ActionLocked&&!World.TradeBlocksActions&&!interactionSending;
+    public SummonView SummonSnapshot()=>CaptureWorld(()=>{
+        var q=World.SummonRequestState;var s=World.Status;bool learned=World.LearnedMagic.Any(m=>m.Id==51);
+        bool can=q!=null&&SummonAccess&&summonSendingGeneration!=SessionGeneration&&(q.Source=="server"||learned&&!MagicBusy&&!MovementBusy);
+        return new SummonView(SessionGeneration,World.WorldEpoch,World.SummonRevision,q!=null,q?.Source??"",q?.ObjectId??0,s?.Level,s?.Charisma,can,learned,World.SummonNotice);
+    });
+    public bool OpenLocalSummon()=>State==LoginState.InWorld&&CaptureWorld(()=>World.OpenLocalSummon());
+    public bool CloseSummon(SummonView v)=>CaptureWorld(()=>v.Generation==SessionGeneration&&v.Epoch==World.WorldEpoch&&World.CloseSummon(v.Revision));
+    /// <summary>
+    /// 送出一次召喚選擇。server：C125 D(自己) S(action)。local：選技能 51 並以 C6 D(action) 施放（SkillCast 的 Summon 目標）。
+    /// v 必須是目前的快照；action 必須是數字字串（summonList.xml）。
+    /// </summary>
+    public async Task<bool> SendSummonChoice(SummonView v,string action) {
+        if(!v.Open||!PetPackets.ValidSummonAction(action)||summonSendingGeneration==SessionGeneration)return false;
+        bool Valid()=>CaptureWorld(()=>v.Generation==SessionGeneration&&v.Epoch==World.WorldEpoch&&World.SummonCurrent(v.Revision)&&World.SummonRequestState?.ObjectId==World.Actor?.ObjectId&&SummonAccess);
+        if(!Valid())return false;
+        int session=SessionGeneration;summonSendingGeneration=session;
+        try{
+            if(v.Source=="server"){
+                if(sendMovementGate is not {} sender)return false;
+                byte[] bytes=PetPackets.SummonChoice(v.ObjectId,action);
+                return await sender(bytes,Valid,()=>CaptureWorld(()=>{World.SummonSubmitted(v.Revision,action);return true;}))&&session==SessionGeneration;
+            }
+            if(v.Source!="local"||!CaptureWorld(()=>World.SelectMagic(51)))return false;
+            bool cast=await CastSelectedMagic(new SkillCastTarget(SkillTargetKind.Summon,SummonId:uint.Parse(action)));
+            if(cast&&session==SessionGeneration)CaptureWorld(()=>{World.SummonSubmitted(v.Revision,action);return true;});
+            return cast&&session==SessionGeneration;
+        }
+        catch(Exception) when(v.Source=="server"){if(session==SessionGeneration){Cancel();Set(LoginState.Faulted,"召喚選擇傳送失敗，已斷線；不會自動重送。");}return false;}
+        finally{if(summonSendingGeneration==session)summonSendingGeneration=-1;}
     }
 }

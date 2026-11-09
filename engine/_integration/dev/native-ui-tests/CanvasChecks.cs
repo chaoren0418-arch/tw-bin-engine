@@ -54,6 +54,7 @@ partial class Checks {
     }
     static Point Client(UiViewport v,int lx,int ly)=>v.ToClient(new(lx,ly));
 
+    [CheckGroup("native-ui-canvas"),CheckGroup(CheckGroups.Default,Order=40)]
     static void NativeUiCanvasChecks(string repo){
         string root=Path.Combine(Path.GetFullPath(repo),"scratch","issue-463","synthetic");
         Directory.CreateDirectory(root);

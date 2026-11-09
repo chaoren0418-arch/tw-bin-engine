@@ -27,6 +27,13 @@
 
 `pointer-flow` 涵蓋：1 格內單個雙擊送整疊；多個開提示、空白＝整疊；全部拾取開時整疊；遠處走 3 步後送一次並轉向；UI 傳入的委派收到被點的 id；不可見或不存在的物品不送；沒有 S139／旗標沒有 0x10000／狀態非 0 都是 986 ms，有 0x10000 是 600 ms（登入期或進世界後才收到的 S139 都算）；死亡中 NPC 交談、攻擊、雙擊拾取都不送；幽靈中攻擊同步擋下、交談與門不擋；死亡中點門時 pointer 提示等於 `DoorNotice`。
 
+### 同步 main 後重驗（2026-11-09）
+
+- `git merge origin/main`：只有 `rebuild-lock.json` 衝突，取 main 版本後 `rebuild.py --update-lock` 重產（321 個來源檔）。
+- `rebuild.py --build --configfile .github/nuget.ci.config`：**PASS dev**（product DLL SHA-256 `032f0ef5…542a71`）。
+- `--module-tests`：**35 組、1738 項全部通過**，`pointer-flow` 40 項通過。
+- `check-no-game-assets.py`：pass（3936 個追蹤檔，0 錯誤）。
+
 ## 未驗證什麼
 
 - **CI**：push 後才會跑，結果看 PR。

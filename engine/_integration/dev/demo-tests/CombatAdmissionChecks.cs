@@ -5,6 +5,7 @@ using System.Text.Json;
 
 partial class Checks
 {
+    [CheckGroup("combat-admission",Order=1)]
     static async Task CombatAdmission()
     {
         CombatAdmissionFixture();
@@ -133,6 +134,7 @@ partial class Checks
             && !target.Dead && Math.Max(Math.Abs(actor.X - target.X), Math.Abs(actor.Y - target.Y)) <= 10;
     }
 
+    [CheckGroup("cast-cadence",Order=1),CheckGroup("duel",Order=1)]
     static void CombatAdmissionFixture()
     {
         string root = Path.Combine(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../..")), "scratch", "issue-173", "synthetic-combat");

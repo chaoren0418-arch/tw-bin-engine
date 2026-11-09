@@ -18,6 +18,15 @@ public static class TimedBuffRules {
     public const int LiquorTickMs=50,LiquorPhases=200;
     public static int LiquorPhase(long elapsedMs)=>(int)(Math.Max(0,elapsedMs)/LiquorTickMs%LiquorPhases);
     public static int ScanlineOffset(int level,int phase,int row)=>level is 1 or 2 or 3?(int)(level*3.5*Math.Sin((phase+row)*Math.PI/50)):0;
+    // AM§4(c): when sub_81B0E0() is false the row offset is divided by 2 (C integer division). What sub_81B0E0
+    // tests is not decompiled, so the product assumes true (full amplitude) unless a caller sets the hook.
+    public static Func<bool> LiquorFullWave {get;set;}=()=>true;
+    public static int LiquorOffset(int level,int phase,int row,bool fullWave)=>fullWave?ScanlineOffset(level,phase,row):ScanlineOffset(level,phase,row)/2;
+    public static int LiquorOffset(int level,int phase,int row)=>LiquorOffset(level,phase,row,LiquorFullWave());
+    // AM§4(c): S103 type 0 on map 67 or 420 (byte_13CE5E8, set by sub_F09C70) leaves drunkenness level 1.
+    // Type 0 also stops the 50 ms phase timer, so the wave stays frozen at its last phase.
+    public static bool MinimumLiquorMap(ushort? map)=>map is 67 or 420;
+    public const int MinimumLiquorLevel=1;
     // Shift each row of a 32-bit frame in place. Uncovered edge columns repeat the row's edge pixel
     // (what the original leaves there is not documented).
     public static void ShiftScanlines(Span<int> pixels,int width,int height,Func<int,int> offset){
@@ -41,10 +50,10 @@ public sealed partial class WorldSession {
         }
     }
     [WorldSnapshot("statusEffects")] object StatusEffectSnapshot()=>StatusEffectIcons.Select(i=>new{effect=i.Effect,mode=i.DisplayMode,skill=i.Skill,name=i.Name,seconds=i.Seconds}).ToArray();
-    int liquorLevel,liquorEpoch;long liquorAt;bool liquorWatchesSpeed;
+    int liquorLevel,liquorEpoch;long liquorAt;bool liquorWatchesSpeed;int? liquorFrozenPhase;
     // S206 clears the client's visual state and the server resends S103; Reset also moves the epoch.
     public int LiquorLevel=>liquorEpoch==WorldEpoch?liquorLevel:0;
-    public int LiquorPhase=>TimedBuffRules.LiquorPhase(MagicStatusClock()-liquorAt);
+    public int LiquorPhase=>liquorFrozenPhase??TimedBuffRules.LiquorPhase(MagicStatusClock()-liquorAt);
     void ReceiveStrup(LoginReader r){
         int seconds=r.H();byte strength=r.C(),weight=r.C(),type=r.C();r.Finish();
         if(Status!=null)Status=Status with{Strength=strength,Weight=weight}; // Full S8 supplies both otherwise.
@@ -68,8 +77,12 @@ public sealed partial class WorldSession {
         if(type>3){Unhandled(103);return;}
         if(id!=(Status?.ObjectId??Actor?.ObjectId))return;
         // The server ends drunkenness on haste without any S103.
-        if(!liquorWatchesSpeed){liquorWatchesSpeed=true;SpeedChanged+=()=>{if(Actor?.Speed==1)liquorLevel=0;};}
-        liquorLevel=type;liquorEpoch=WorldEpoch;liquorAt=MagicStatusClock();
+        if(!liquorWatchesSpeed){liquorWatchesSpeed=true;SpeedChanged+=()=>{if(Actor?.Speed==1){liquorLevel=0;liquorFrozenPhase=null;}};}
+        if(type==0&&TimedBuffRules.MinimumLiquorMap(MapId)){
+            // Freeze the phase the wave had (0 when it was not running in this world).
+            liquorFrozenPhase=LiquorLevel>0?LiquorPhase:0;liquorLevel=TimedBuffRules.MinimumLiquorLevel;liquorEpoch=WorldEpoch;return;
+        }
+        liquorFrozenPhase=null;liquorLevel=type;liquorEpoch=WorldEpoch;liquorAt=MagicStatusClock();
     }
     void ReceiveBlessOfEva(LoginReader r){
         uint id=r.D();int seconds=r.H();r.Finish();
@@ -102,7 +115,8 @@ public sealed partial class ClientForm {
         finally{liquorFramePainting=false;}
         // The original warps an 800x480 frame at 1x; scale rows and offsets with the scene zoom.
         int phase=login.World.LiquorPhase;float zoom=Math.Max(Camera.Zoom,.01f);
-        WarpLiquorFrame(frame,row=>(int)Math.Round(TimedBuffRules.ScanlineOffset(level,phase,(int)(row/zoom))*zoom));
+        bool full=TimedBuffRules.LiquorFullWave();
+        WarpLiquorFrame(frame,row=>(int)Math.Round(TimedBuffRules.LiquorOffset(level,phase,(int)(row/zoom),full)*zoom));
         e.Graphics.InterpolationMode=InterpolationMode.NearestNeighbor;e.Graphics.PixelOffsetMode=PixelOffsetMode.Half;
         e.Graphics.DrawImage(frame,new Rectangle(viewport.Location,frame.Size));
         e.Graphics.TranslateTransform(0,ClientSize.Height+viewport.Height+65536);

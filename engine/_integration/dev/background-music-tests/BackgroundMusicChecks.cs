@@ -53,6 +53,7 @@ partial class Checks {
         "        <LOC>4 32512 32650 32583 32711 \\ 4 32512 32711 32569 32741 \\\r\n 4 32700 32700 32710 32800 \\ 5 1 2 3 </LOC>\r\n" +
         "        <MAIN_SOUND>2005</MAIN_SOUND>\r\n        <ONE_SOUND>DEEPFOREST INSECT SOUND</ONE_SOUND>\r\n";
 
+    [CheckGroup("background-music"),CheckGroup("map-continuity",Order=220),CheckGroup(CheckGroups.Default,Order=450)]
     static void BackgroundMusicChecks() {
         MusicDefinitionChecks();
         EnvSoundDefinitionChecks();

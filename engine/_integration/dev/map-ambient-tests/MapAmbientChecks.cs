@@ -20,6 +20,7 @@ partial class Checks {
     }));
     static MapAmbientSource Emitter(string key, int x, int y, MapEffectAppearance a, long elapsed) => new(key, x, y, a, elapsed);
 
+    [CheckGroup("map-ambient"),CheckGroup("map-continuity",Order=210),CheckGroup(CheckGroups.Default,Order=440)]
     static void MapAmbientChecks() {
         // 音量：sound.md §2.3 對照表；曼哈頓 > 14 夾成 (14,0)。
         foreach (var (dx, dy, v) in new[] { (0, 0, 100), (1, 0, 100), (5, 0, 83), (-5, 0, 83), (0, 8, 56), (7, 7, 32), (11, 0, 16), (12, 0, 0), (15, 0, 0), (8, 6, 30), (8, 7, 0), (int.MinValue, 0, 0) })
