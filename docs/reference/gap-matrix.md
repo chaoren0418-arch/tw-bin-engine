@@ -639,11 +639,11 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 
 | 代號 | 要查的內容 | 起點 | 影響的組 |
 |---|---|---|---|
-| ~~Q-1 視窗版面~~ | ✅ T266（#627）已查（[TWP§1–2](trade-window-and-projectiles.md)）：模式表、元件索引、7 列×36 px 列版面、按鈕 n／n+1 兩態、數量上限、各模式送包、空清單頁；`LoadingWindowUI` 是 TW16 XML 窗，3.81 沒有。剩確認清單 `sub_A2C660` 的來源待驗證 | TWP | R2-E |
+| ~~Q-1 視窗版面~~ | ✅ T266（#627）已查（[TWP§1–2](trade-window-and-projectiles.md)）：模式表、元件索引、7 列×36 px 列版面、按鈕 n／n+1 兩態、數量上限、各模式送包、空清單頁；`LoadingWindowUI` 是 TW16 XML 窗，3.81 沒有。剩確認清單 `sub_A2C660` 的來源待驗證（T275 已補：S250／162 填寫，3.81 不送 → 不跳確認，見 11.10） | TWP | R2-E |
 | ~~Q-2 圖源與字串~~ | ✅ T267（#628）已查（[`sprites-and-strings.md`](sprites-and-strings.md)，下稱 SS）：王冠＝`Sprite.pak` 的 `crown.raw`（12 格 16×12 RGB555，0 透明），偏移表是人物走路內插表（SS§1）；盟屋地圖 surf＝`dword_135DA34` {689,741,741,801,1482}（`aAvadentelui` 是 IDA 誤命名），標記位置 350 筆由 `sub_113F600` 靜態初始化（SS§2）；死亡統計值由客戶端以基準快照相減，殺怪數只來自 S250／61（3.81 不送，恆為 0），地監時間走 S250／159（SS§3）；1784、1785、2139、3123–3127、3131 都在 `string-c.tbl`，**mapDesc 查的是 `MapDesc-c.tbl`，不是 `string-c.tbl`**（SS§4） | SS | R2-D、R2-I、R2-M；#550 |
 | ~~Q-3 送出點與欄位~~ | ✅ T268（#629）已查（[`send-sites-2.md`](send-sites-2.md)，簡稱 SS2）：結果見 11.9；T267 轉入的「死亡統計窗 TW16 op 10／9」＝3.81 C63 `C(9)` 要地監時間清單（SS2§14） | SS2 | R2-D、R2-F、R2-H、R2-K、R2-L |
 | ~~Q-4 技能飛行~~ | ✅ T266（#627）已查（[TWP§3](trade-window-and-projectiles.md)）：kind 6 `EarthRising` 在目標處播一次、每個 `!` 受擊；kind 7 `Eruption` 每段第三格生下一段、只由終點 EarthRising 受擊；`]` 只在 `UserObject`（角色、門、`.s32` 地圖特效）與預設 `Effect` 處理，飛行物與 kind 2／6／7 不處理 | TWP | R2-H |
-| ~~T245 #602~~ | ✅ 已合併（[`packetbox-windows.md`](packetbox-windows.md)）：B3 子碼、`QuestUI`、`QuitWindow`、`CNoticeWindow`、S_NEWS 的顯示方式都已查；結果已併入 11.3 與 11.5（R2-D、R2-K、R2-O、R2-P、R2-Q）。剩 `QuitWindow` 的 ESC 入口與 192 的讀取者待驗證 | PBW | — |
+| ~~T245 #602~~ | ✅ 已合併（[`packetbox-windows.md`](packetbox-windows.md)）：B3 子碼、`QuestUI`、`QuitWindow`、`CNoticeWindow`、S_NEWS 的顯示方式都已查；結果已併入 11.3 與 11.5（R2-D、R2-K、R2-O、R2-P、R2-Q）。剩 `QuitWindow` 的 ESC 入口與 192 的讀取者待驗證（T275 已補：ESC／選單都不開；192＝角色選項旗標，見 11.10） | PBW | — |
 
 建議開 **3 張 resource 任務**：Q-1＋Q-4（畫面與版面）、Q-2（圖源與字串，量小，可先做）、Q-3（送出點與欄位）。
 
@@ -693,3 +693,20 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 | 1 | 245 | 通用模態框（`sub_8E4670`）加 `PostQuitMessage`；3.81 S227 的首 byte 是 244 → 字串 64「連線中斷。」（SS2§9） | 另開小任務（或併入 R2-Q） |
 | 3 | C_EXTENDED(53)… | 只有子碼 16（`Commandtimeleft`），而且 CodePage 950 不送（SS2§10） | 建議改列「不建議」 |
 | 4.1 | UserPlayStatsUI | 顯示時送的 TW16 op 10／9＝3.81 C63 `C(9)`；`C_Rank` 的 case 9 回 S250／159（地監時間清單）（SS2§14，T267 轉入） | R2-D：顯示時送 C63 `C(9)` |
+
+### 11.10 T275（#665）回填：前幾輪的未驗證細項
+
+依據 [`followups-3.md`](followups-3.md)（FU3）。這一輪只是查證，**11.3 的狀態與 11.4 的統計都沒有改**。
+
+| 節 | 列 | 查到什麼 | 建議 |
+|---|---|---|---|
+| 3 | C_USE_SPELL(216) | `SpellList.xml` 以 XML `id` 為鍵＝TW16 技能索引，**3.81 技能編號＝`id`＋1**；沒寫屬性時 delay **10 ms**、direction 0（動作 19）、savelastspell 1（FU3§1） | T269（#643）／R2-H：讀檔時 `id+1`，預設 10／19 |
+| 5 | 王冠 `sub_F08880` | `sub_A42C30`＝物件 `+85` 隱身旗標（S_PUT_OBJECT 狀態 bit 0x02、S_INVISIBLE）；同隊同盟看得見的隱身者也不畫王冠（FU3§2） | T272（#649）／R2-I：他人用 `(Flags & 2) == 0 && y > 0` |
+| 1 | 122 | type 1 的目的地窗＝書籤窗 `CBookmarkWindowRenewal`（`BookmarkWindowUI`）；TW16 選定後送 `H 地圖 H x H y`，3.81 要 `H 地圖 D 書籤 id`；type 5＝`SummonUI`（`summonList.xml` 的 `action` 當 D 送出，等級不足顯示 743）（FU3§3） | R2-H：開窗流程照原版，送包用 3.81 `HD`／`D(action)` |
+| 4.2 | `AgitMapWindow` | 674 鈕送 C125 `D S("select") S(編號)`，3.81 `Npc_AuctionBoard` 回 S39 `agsel` 拍賣資訊頁（FU3§4.1） | #550：接上 674 |
+| 4.1 | UserPlayStatsUI／UserObtainUI | 「獲得道具」＝數量高於 S5 基準的物品筆數；S15 記差額、S24 回到基準以下移除、S57 移除（FU3§4.2） | T272（#649）／R2-D |
+| 4.2 | `QuitWindow` | ESC 與選單都不開；`NEW_QUIT_WINDOW` 在 TW16 沒有使用（FU3§5.1） | PBW-B 不必補入口 |
+| 1 | 108（S250 192／190／84） | 192＝角色選項旗標 `+832`（bit 0 顯示 VIP 標記，回送 op 55／56，3.81 不處理）；190 的 512–514＝魔法娃娃狀態 effect；84 類型 3／4 的宿主＝`RoundScoreUI`（FU3§5.2–5.4） | 維持「不建議」 |
+| 1 | 40（賣出） | 確認清單只由 S250 子碼 162 填寫（寵物項圈類，字串 3133）；3.81 不送 162 → 不跳確認（FU3§6.1） | R2-E：拿掉賣出確認 |
+| 1 | 136 | 修理列 `+296`＝背包物品數量（通常 1）（FU3§6.2） | R2-E：上限用物品數量 |
+| 1 | 133 | `dword_153FCC4` 沒有間接寫入（運算元、索引陣列與資料指標全掃）（FU3§7） | R2-K「不做推薦 UI」確定 |
