@@ -232,3 +232,4 @@
 - 2026-11-09 — #618 T257：R2-I 物件繪製收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-618.md)
 - 2026-11-09 — #668 T277：gap-matrix 第三輪——依目前的 main 重新盤點，列出第三批任務（resource，claude-local，PR #670 已合併）→ [報告](reports/issue-668.md)
 - 2026-11-09 — #617 T256：R2-H 技能表現收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-617.md)
+- 2026-11-09 — #621 T260：R2-Q 登入公告顯示（code，claude-local，PR 已合併）→ [報告](reports/issue-621.md)
