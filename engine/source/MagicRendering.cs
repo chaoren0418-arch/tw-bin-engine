@@ -217,6 +217,9 @@ public static class SkillLight {
     /// <summary>`+9` of a skill effect: S42 = packet type (TYPE_DIR 8 lights, TYPE_NODIR 0 does not); S30 = the byte
     /// after gfx, which AttackSkillPackets only accepts as 0 for magic (3.81 S_UseAttackSkill writes 0).</summary>
     public static byte Flag(MagicEffect e)=>e.RangeType??0;
+    /// <summary>R5-C：S250 子碼 83 值 3（3.81 S_GlobalEffect(3)）的煙火，sub_9357E0 case 83 以 `+9`＝1 建預設 Effect（FU5§3.2）。</summary>
+    public const byte FireworkFlag=1;
+    public static byte Flag(MagicEffect e,bool firework)=>firework?FireworkFlag:Flag(e);
     /// <summary>S106 (S_EFFECT_LOC, sub_934530): gfx 2028–2056 build the Effect with `+9` = 1, everything else 0.</summary>
     public static byte LocationFlag(int gfx)=>MagicBrighten.LocationEffect(gfx)?(byte)1:(byte)0;
     /// <summary>Offset from the effect start where the counter is incremented; null = this object never lights.</summary>
@@ -276,7 +279,9 @@ public sealed partial class Renderer {
     // on the effect's own `!` frames; flying classes hit on arrival.
     void ComposeNativeMagic(MagicEffect e,WorldSession session,List<Draw> draws,List<MagicVisual> visuals,List<UndrawnMagic> undrawn,long now){
         if(now<e.At)return;
-        var effect=NativeEffect(e.Gfx);bool range=e.RangeType!=null;int kind=effect?.Kind??-1;
+        // R5-C：S_GlobalEffect(3) 煙火由 sub_8AB390 直接建預設 Effect（不看 list.spr 109 kind），`+9`＝1。
+        bool firework=session.IsFireworkEffect(e.Number);
+        var effect=NativeEffect(e.Gfx);bool range=e.RangeType!=null;int kind=firework?0:effect?.Kind??-1;
         bool flies=effect!=null&&MagicClass.Flies(kind,range);
         // S30 case 6 builds the EarthRising on receipt: dword_13CCBA4 += 29 (TWP §3.2).
         if(effect!=null&&!range&&kind==6)EarthRisingBuilt(e.Number,-1);
@@ -310,12 +315,16 @@ public sealed partial class Renderer {
                 }
             }
             // R4-G (FU5§3): default Effect with +9 != 0 from index 1, kind 2 Lightning from index 2, until it finishes.
-            if(SkillLight.Lit(effect,SkillLight.Class(kind,range),SkillLight.Flag(e),now-release))magicBrightening++;
+            if(SkillLight.Lit(effect,SkillLight.Class(kind,range),SkillLight.Flag(e,firework),now-release))magicBrightening++;
             int depth=!range&&kind==6&&EarthDepth.Stacks(e.Gfx)?EarthDepthOf(e.Number,-1):0;
             var still=DrawNativeEffect(e.Gfx,e.Heading,flight.X,flight.Y,now-release,session,draws,"magic",depth:depth);
             if(still!=null)visuals.Add(new(e.Number,e.Gfx,flight.X,flight.Y,e.Heading,still.Key,"effect",release));
             // Default Effect class: sub_8ABC10 spawns `]` children at the effect's own position (effects-2.md §2.1(a)).
             // T269: S30 kind 2 Lightning (8ACB20) and kind 6 EarthRising (81C7C0) never process `]` (TWP §3.1).
+            // R5-C（T308）查證：S42 不建 Lightning。sub_92FE40（S_ATTACK_MANY，VA 0x92FE40–0x930A20）的直接呼叫裡沒有
+            // sub_8AB900（Lightning 建構子），只有 sub_83CB50（kind 5）、3 處 sub_8AB710（預設類別）與 3 處 sub_8AB390；
+            // 所以 S42 的 kind 2 gfx 是預設 Effect，`]` 照常處理（SV§2.2 表「S42 建構：同預設」）。gap-matrix 14.2
+            // 第 5 點「range 為真時 kind 2 也不處理 `]`」與此不符，維持 range 時處理 `]`（報告 issue-735.md）。
             if(now-release<effect.Duration&&(range||kind is not (2 or 6)))ObserveEffectFrames(session,$"magic:{e.Number}",ActionTimeline.Of(effect),now-release,flight.X,flight.Y,e.Heading,now);
             return;
         }
@@ -397,6 +406,8 @@ public sealed partial class Renderer {
     ObjectAppearance MagicAppearance(int gfx){if(!magicAppearances.TryGetValue(gfx,out var a)){a=new(Path.Combine(assets.Root,$"objects/magic-{gfx}.json"));magicAppearances[gfx]=a;}return a;}
     void ComposeMagic(WorldSession session,List<Draw> draws,long now){
         if(magicEpoch!=session.WorldEpoch){magicFlights.Clear();magicLandings?.Clear();ClearEruptions();magicEpoch=session.WorldEpoch;}var visuals=new List<MagicVisual>();var undrawn=new List<UndrawnMagic>();
+        // R5-C（sub_A40250）：施法者動作播完的排隊封包在這一格播出（與收包同一個 UI 執行緒）。
+        session.RunQueuedSkillCasts(session.ActionClock());
         magicBrightening=0;
         foreach(var e in session.MagicEffects){
             if(!LegacyMagic.Handles(e)||effectResourceErrors!=null&&LegacyMagic.UsesNativeClass(e,NativeEffect(e.Gfx))){

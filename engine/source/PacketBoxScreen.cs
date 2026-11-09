@@ -19,6 +19,7 @@ namespace P06 {
 //   3  已驗證（0x93B96D–0x93BAE4）：gfx 表 {0x7FA,0x7EE,0x7ED}＝{2042,2030,2029}；走物件清單 0x153CEB0，物件 +0xC4（196）為真者
 //      取 +0x10／+0x14 座標，以 rand()%3 選 gfx 建立特效物件，每個之後 Sleep(10)，最多 5 個。+0xC4 旗標的意義未查（待驗證）：
 //      本模組以「自己＋可見物件（依物件 id）」當候選，特效放在該物件目前座標（不跟隨）。
+//      R5-C（T308）：煙火特效 `+9`＝1，存活期間畫面提亮 +5（FU5§3.2），見 IsFireworkEffect／MagicRendering。
 //   其他值：sub_A7C3F0 從通知清單 dword_153F574 移除 id＝值的項目，沒有畫面效果；本模組只計數。
 // 84（0x54）讀 C(type) S(text)：
 //   1／2 已驗證（PBW§2.6、V2(B)）：sub_F04180→sub_F18F40 加入中央佇列：7000 ms、字色調色盤[2]（綠）、外框[0]（黑），第 5 參數＝(type≠1)；
@@ -167,10 +168,20 @@ public sealed partial class WorldSession {
         foreach(var (x,y) in spots.Take(PacketBoxScreenRules.FireworkMax)){
             int n=PacketBoxScreenRules.FireworkGfx.Length,gfx=PacketBoxScreenRules.FireworkGfx[Math.Abs(PacketBoxScreenRandom(n)%n)];   // rand()%3
             AddMagicEffect(new(++MagicEffectCount,0,0,gfx,0,0,0,x,y,x,y,now+(long)i*PacketBoxScreenRules.FireworkSpacingMs));
+            lock(packetBoxScreenGate)fireworkEffects.Add(MagicEffectCount);
             i++;
         }
-        lock(packetBoxScreenGate)fireworkBursts++;
+        lock(packetBoxScreenGate){
+            fireworkBursts++;
+            // 只留仍在 MagicEffects 裡的編號（AddMagicEffect 會丟掉 15 秒前的特效）。
+            if(fireworkEffects.Count>4*PacketBoxScreenRules.FireworkMax){var live=magicEffects.Select(e=>e.Number).ToHashSet();fireworkEffects.RemoveWhere(n=>!live.Contains(n));}
+        }
     }
+    // R5-C（T308，FU5§3.2）：83/3 的煙火是 `+9`＝1 的預設 Effect（sub_9357E0 case 83，0x93B96D–0x93BAE4 建 sub_8AB390），
+    // 存活期間畫面明暗 min(15, L+5)。這裡只記哪些 MagicEffect 是煙火；提亮與「不看 109 kind」由 MagicRendering 處理。
+    readonly HashSet<long> fireworkEffects=[];
+    /// <summary>這個 MagicEffect 是 S250/83 值 3 建出的煙火（`+9`＝1、預設 Effect 類別）。</summary>
+    internal bool IsFireworkEffect(long number){lock(packetBoxScreenGate)return fireworkEffects.Contains(number);}
 
     [WorldReceive(PacketBoxScreenRules.Opcode,Subtype=PacketBoxScreenRules.GreenMessage)]
     bool ReceivePacketBoxGreenMessage(byte[] plain){
@@ -193,7 +204,7 @@ public sealed partial class WorldSession {
     void ResetPacketBoxScreen(){
         lock(packetBoxScreenGate){
             centerMessages.Clear();centerMessageSequence=0;screenFlashAt=-1;swayOnAt=-1;swayOffAt=-1;
-            screenFlashCount=0;swayToggles=0;fireworkBursts=0;effectOtherCount=0;lastEffectOther=0;packetBoxScreenCounts.Clear();
+            screenFlashCount=0;swayToggles=0;fireworkBursts=0;effectOtherCount=0;lastEffectOther=0;packetBoxScreenCounts.Clear();fireworkEffects.Clear();
         }
     }
 
