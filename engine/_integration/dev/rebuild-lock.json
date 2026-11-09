@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 331,
+ "sourceCount": 332,
  "files": [
   {
    "path": "NuGet.Config",
@@ -351,8 +351,8 @@
   },
   {
    "path": "source/ClientLogin.cs",
-   "size": 11970,
-   "sha256": "8fd29181b6707bff48af44a3ff365c21f68aa2fbdb8dd4be71f101137c654fa4"
+   "size": 13424,
+   "sha256": "ec7b965132801a12b323ae48999b3936d5cec8c28d286e2cdc6ec85a519a6580"
   },
   {
    "path": "source/ClientNetwork.cs",
@@ -616,13 +616,18 @@
   },
   {
    "path": "source/LoginConnection.cs",
-   "size": 11483,
-   "sha256": "e964c60288d19f7abd8f2a89e8946f1021c4ec21f776e11210828f6ac68f04f2"
+   "size": 13754,
+   "sha256": "d4dc8faee94debd48f1e7b37b9710f0a2ddd0c027aadcc7ae7391ba47e6716c6"
   },
   {
    "path": "source/LoginControl.cs",
    "size": 7910,
    "sha256": "51407cc9b3e5a91646bf24dba949bea012e1460d690579dea1e76196494120e4"
+  },
+  {
+   "path": "source/LoginNewsTests.cs",
+   "size": 4326,
+   "sha256": "62056f91a09bfe64f81e81455fcaf6c0487c15ae34d8eeb3dbbbdf779ceeaf32"
   },
   {
    "path": "source/LoginProtocol.cs",
