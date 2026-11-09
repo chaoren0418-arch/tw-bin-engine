@@ -254,3 +254,4 @@
 - 2026-11-09 — #678 T285：R3-A 原生舊式窗接上產品（code，claude-local，PR 已合併）→ [報告](reports/issue-678.md)
 - 2026-11-09 — #673 T280：R3-D 聲音收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-673.md)
 - 2026-11-09 — #675 T282：R3-G 聊天收尾二（code，claude-local，PR 已合併）→ [報告](reports/issue-675.md)
+- 2026-11-10 — #679 T286：R3-F 學魔法窗改用 `TRADE_WINDOW` 模式 7（code，claude-local，PR 已合併）→ [報告](reports/issue-679.md)
