@@ -11,6 +11,7 @@ static class AutoDiscoveryTests {
         (PartyPanel.WindowId,"uiextra86"),(PartyRtPanel.WindowId,"uiextra86"),(TradeWindowPanel.PanelId,TradeWindowPanel.LayoutName),
         ..FriendWindowSpec.All.Select(s=>(s.Id,s.Layout)),
         (MenuButtonsPanel.PanelId,"uistatus86"),
+        (BuffIconsPanel.PanelId,BuffEffectTable.FileName),
     ];
 
     [WorldModuleTest("auto-discovery")]
