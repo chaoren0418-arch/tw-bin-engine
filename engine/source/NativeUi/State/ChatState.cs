@@ -89,7 +89,7 @@ public static class ChatRules {
 public sealed record ChatRow(long Sequence,PlayerChatChannel Channel,string Text) {
     public IReadOnlyList<ChatRun> Runs{get;init;}=[new(Text,ChatFormat.ChannelIndex(Channel))];
     /// <summary>
-    /// 第二色（sub_7DC850 第 3 個參數，ChatFormat.SecondColor；R3-G #675）。Q3-9：畫面用途待驗證，只當資料帶著，不畫。
+    /// 第二色（sub_7DC850 第 3 個參數，ChatFormat.SecondColor；R3-G #675）。Q3-9（T287／#680）：原版傳下去後沒有讀取，畫面上沒有用途；只當資料帶著，不畫。
     /// </summary>
     public int SecondColor{get;init;}=ChatFormat.White;
 }

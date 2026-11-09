@@ -10,7 +10,7 @@
 | 代碼聊天顏色 | `PlayerChatLine.Code` 標記 op 61 的行；顏色用同類型 Printer 的頻道色（白 14／喊話 33／全體 44）。`*` 黃字（S_SAY `0x94BA36`）與全體 `*` 紅字（S_MESSAGE `0x94525D`）是處理函式裡的判斷，不在 Printer，所以代碼聊天不套用。 | `PlayerChat.cs` |
 | op 104 S_TELL（3.81 S73） | 格式在 #449 已改成原版 `(name) msg`（#FFCECE，32）；送密語回覆 S243/9 `-> (target) msg`（#FFF7B5，24）。本任務沒有改程式，補上離線測試鎖定格式、顏色、第二色與 C184 送出格式。 | `ChatFollowupTests.cs` |
 | 原生聊天窗高度切換 | `ChatPanel.Load` 改呼叫 `ChatViewState.SetHeights`（原本每次 new 一個新的 view）：重新載入版面時保留分頁、過濾、分割，目前高度夾到新的高度階，捲動歸零。新增 `ChatPanel.SetHeight(h)`（走 `ChatViewState.SetHeight`）給宿主或設定還原使用。另外加 `Load(layout, Func<int,UiSurface?>)` 多載，讓離線測試可用記憶體內的 surf；`Load(layout, SurfCatalog)` 行為不變。 | `NativeUi/ChatPanel.cs` |
-| 第二色（Q3-9） | **只做資料，不畫。** `ChatRow.SecondColor` 帶 `ChatFormat.SecondColor(line)`（血盟 7 #BDBDBD，其他 14），換行後每一列都相同。畫面上的用途等 Q3-9 查證。 | `NativeUi/State/ChatState.cs`、`PlayerChat.cs`（註解） |
+| 第二色（Q3-9） | **只做資料，不畫。** `ChatRow.SecondColor` 帶 `ChatFormat.SecondColor(line)`（血盟 7 #BDBDBD，其他 14），換行後每一列都相同。T287／#680 已確認原版把第二色傳下去後沒有讀取、畫面上沒有用途，所以維持不畫，程式只留資料與註解。 | `NativeUi/State/ChatState.cs`、`PlayerChat.cs`（註解） |
 
 沒有改 `PlayerHudChat.cs`：舊 HUD 已經透過 `ChatFormat.Runs` 顯示，S161 的行自動套用相同格式與顏色。沒有改 `UiPanelRegistry.cs`、`WorldSession.cs`、`Program.cs`、`DemoChecks.csproj`、`rebuild-lock.json`。
 
@@ -24,12 +24,14 @@
 
 本機建置環境備註：使用者 NuGet 快取與沙箱下的 restore 會漏掉 WebView2 的 `build/*.targets`，出現 NETSDK1130。做法是 `scratch/issue-675/NuGet.Config` 唯讀指向主專案 `engine/vendor`，`NUGET_PACKAGES` 指到 `scratch/issue-675/packages`，在沙箱外執行。這和程式變更無關。
 
+第 2 次嘗試：分支落後 main 90 個 commit，已 `git merge origin/main`（無衝突，`rebuild-lock.json` 取 main 版本）；依 #680 更新第二色註解。依 2026-11-09 本機執行限制，本輪不在本機執行任何測試程式，單元測試／`chat-followup`／DemoChecks 以 PR CI 為準。
+
 ## 未驗證什麼
 
 - **S_SAY_CODE（`sub_94AF00`／FO `0x54A300`）本身沒有逐指令讀**：「type → Printer」的對照與「代碼聊天不套用 `*` 規則」是依 UI§3 工廠 `sub_6BC550` 與 `*` 判斷所在位置推得的（推測）。
 - NPC 名稱可能是 `$數字`（`npc.getNameId()`）：目前照原字串顯示，沒有查 NPC 名稱表（待驗證；名稱表屬別的任務）。
 - S161 type 2 + id 0（`S_SystemMessage(msg, nameid)`）仍然沒有任何接收端，跟本任務之前相同。
-- 第二色的畫面用途（Q3-9）：只帶資料，不畫。
+- 第二色（Q3-9）：依 #680 結論不畫，沒有畫面可驗證。
 - 沒有真機測試（不啟動遊戲／伺服器）；CI 結果以 PR 頁為準。
 
 ## 產出路徑
@@ -41,7 +43,7 @@
 
 ## 給下一棒的提示
 
-- Q3-9 查完後：把 `ChatRow.SecondColor` 接到 `ChatPanel.Rows` 的繪製（例如描邊或陰影色），舊 HUD 視需要比照。
+- Q3-9 已由 #680 結案：第二色在原版沒有被讀取，**不要**把 `ChatRow.SecondColor` 接到繪製。
 - 若查證 S_SAY_CODE 也有 `*` 判斷，只要拿掉 `ChatFormat.TextColor` 裡 `if(line.Code)` 那一行。
 - NPC `$` 名稱表接上後，S161 的 `name` 段可在 `ChatFormat.Runs` 前替換（`line.Text` 要保留伺服器原字串）。
 - 若要保存聊天窗高度（設定檔），用 `ChatPanel.SetHeight` 還原；`Load` 已經不會把高度重設。

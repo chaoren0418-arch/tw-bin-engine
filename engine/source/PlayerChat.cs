@@ -165,7 +165,7 @@ public static class ChatFormat {
     }
     /// <summary>
     /// 第二色（sub_7DC850 的第 3 個參數）：血盟 Printer（sub_6BDAA0）用 7（#BDBDBD），其他都是白 14。
-    /// 第二色在畫面上的用途待驗證（Q3-9），目前只當資料提供，不畫：舊 HUD 不用；原生聊天窗把它放進 ChatRow.SecondColor（R3-G #675）。
+    /// Q3-9 已由 T287／#680 確認：原版把第二色傳下去後沒有讀取，畫面上沒有用途，所以只當資料提供，不畫：舊 HUD 不用；原生聊天窗把它放進 ChatRow.SecondColor（R3-G #675）。
     /// 代碼聊天（op 61）沒有血盟類型，所以一律白 14。
     /// </summary>
     public static int SecondColor(PlayerChatLine line)=>line.Channel==PlayerChatChannel.Clan?Grey:White;
