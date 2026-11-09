@@ -14,6 +14,8 @@ public sealed class AudioApiTransport(AudioPlayer player):IEffectAudio {
     public Task<EffectAudioReply> RegisterAsync(EffectOwner owner)=>Map(player.RegisterAsync(Owner(owner)));
     public Task<EffectAudioReply> RetireAsync(EffectOwner owner)=>Map(player.RetireAsync(Owner(owner)));
     public Task<EffectAudioReply> PlayAsync(int id,EffectOwner owner)=>Map(player.PlayAsync(id,Owner(owner)));
+    // T302（R4-K）：播放中改音量（A091C0 → A06D60），直通 AudioPlayer.SetVoiceLevelAsync。
+    public Task<EffectAudioReply> SetVoiceLevelAsync(EffectOwner owner,double voiceScale,int ext)=>Map(player.SetVoiceLevelAsync(Owner(owner),voiceScale,ext));
     public Task<EffectAudioReply> ConfigureAsync(double gain,bool muted,bool enabled)=>Map(player.ConfigureAsync(gain,muted,enabled));
     public Task<EffectAudioReply> ShutdownWithinAsync(TimeSpan budget)=>Map(player.ShutdownWithinAsync(budget));
     public Task WhenReleased=>player.WhenReleased;

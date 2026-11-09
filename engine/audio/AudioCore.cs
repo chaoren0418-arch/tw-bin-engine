@@ -19,7 +19,9 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
 {
     sealed class Voice(Guid id, AudioOwner owner, string alias, string format, FileStream lease, double scale = 1)
     {
-        internal readonly double Scale = scale; // T173 per-voice rule volume, fixed at dispatch.
+        // T173 per-voice rule volume set at dispatch; T302 (A091C0) may update it while playing.
+        internal double Scale = scale;
+        internal int Ext = 64; // T302: Miles extra_volume (A06C30 default 64); recorded only, not applied (SD§2.3 speculative).
         internal readonly Guid Id = id;
         internal readonly AudioOwner Owner = owner;
         internal readonly string Alias = alias, Format = format;
@@ -130,6 +132,31 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
         }
         return Reply(false, "NoPlayableAsset", events);
     }
+
+    // T302 (R4-K, SD§2.3 A091C0 -> A06D60): re-apply the volume of every live voice under this owner.
+    // Generation must match, but the owner may be draining (Finish) so its submitted tail still follows distance.
+    // A failed gain never leaves a voice at an uncontrolled volume: it is released, like Configure.
+    internal AudioReply SetLevel(AudioOwner owner, double scale, int ext)
+    {
+        if (Closing) return Reply(false, "Disposed");
+        if (!AudioGain.Valid(scale)) return Reply(false, "InvalidVoiceScale");
+        if (ext is < 0 or > 128) return Reply(false, "InvalidExt");
+        if (owner.Key == null || !owners.TryGetValue(owner.Key, out var known) || known.Generation != owner.Generation)
+            return Reply(false, "StaleOrUnknownOwner");
+        var events = new List<AudioEvent>();
+        int applied = 0; bool failed = false;
+        foreach (var voice in voices.Values.Where(v => v.Owner == owner && !v.Closing).ToArray())
+        {
+            voice.Scale = scale; voice.Ext = ext;
+            NativeReply gain = driver.Gain(voice.Alias, controls.CanDispatch && !controlsFault ? controls.Gain * scale : 0);
+            if (!gain.Ok) { failed = true; events.Add(Native("GainFailed", voice.Format, gain)); Release(voice, events); continue; }
+            applied++;
+        }
+        if (applied > 0) events.Add(new("LevelApplied", "", $"voices={applied}; scale={scale:0.####}; ext={ext} (ext recorded only)"));
+        return Reply(!failed, failed ? "GainFailed" : applied == 0 ? "NoLiveVoice" : "LevelApplied", events);
+    }
+    internal (double Scale, int Ext)[] Levels(AudioOwner owner) =>
+        voices.Values.Where(v => v.Owner == owner && !v.Closing).Select(v => (v.Scale, v.Ext)).ToArray();
 
     void Release(Voice voice, List<AudioEvent> events)
     {

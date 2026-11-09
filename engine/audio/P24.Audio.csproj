@@ -12,5 +12,7 @@
     <EmbeddedResource Include="Resources/combat-sfx-pins.json" LogicalName="P24.Audio.CombatSfxPins.json" />
     <InternalsVisibleTo Include="CombatSfxChecks" />
     <InternalsVisibleTo Include="SoundRulesChecks" />
+    <!-- T302: SoundVolumeUpdateTests (module tests in the product assembly) drive AudioCore with a fake driver. -->
+    <InternalsVisibleTo Include="P11.ClientEngine" />
   </ItemGroup>
 </Project>
