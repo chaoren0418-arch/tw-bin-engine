@@ -59,7 +59,7 @@ public sealed partial class WorldSession {
         CheckResurrection();
         if(!Ready||!OwnDead||RestartRequested){if(resurrectionPhase=="invited")SetResurrection("expired","角色狀態已改變，舊復活確認已失效。");return;}
         resurrectionEpoch=WorldEpoch;resurrectionMessage=message;
-        SetResurrection("invited","有人要讓你復活。是否接受？");
+        SetResurrection("invited",message==322?"有人要讓你復活；請在聊天輸入列回覆 Y／N。":"有人要讓你復活。是否接受？");
     }
     internal ResurrectionView ResurrectionSnapshot(int generation,bool access){
         CheckResurrection();
@@ -69,8 +69,15 @@ public sealed partial class WorldSession {
         CheckResurrection();
         return v.Epoch==WorldEpoch&&v.Revision==resurrectionRevision&&v.Message==resurrectionMessage&&resurrectionPhase=="invited";
     }
-    internal void ResurrectionSent(bool accept)=>SetResurrection(accept?"accepting":"rejected",accept?"已接受復活，等待原服回報；不會自動重送。":"已拒絕復活；原服不另回覆，仍可選擇重新開始。");
+    internal void ResurrectionSent(bool accept){
+        SetResurrection(accept?"accepting":"rejected",accept?"已接受復活，等待原服回報；不會自動重送。":"已拒絕復活；原服不另回覆，仍可選擇重新開始。");
+        YesNoHandled(resurrectionMessage);
+    }
     internal string ResurrectionNotice=>resurrectionNotice;
+    // R2-J (#624): 322 is answered from the shared input-line slot (YesNoPrompt.cs, WO §6); 321 keeps this module's panel
+    // because S_ASK lists it as a special case (WIN §2.1). The slot asks this before queuing and on every read.
+    internal bool ResurrectionAwaitsAnswer(ushort message){CheckResurrection();return resurrectionPhase=="invited"&&resurrectionMessage==message&&resurrectionEpoch==WorldEpoch;}
+    internal static bool ResurrectionUsesPanel(ResurrectionView v)=>v.Phase=="invited"&&v.Message!=322;
 }
 
 public sealed partial class LoginConnection {
@@ -105,7 +112,7 @@ public sealed partial class ClientForm {
     }
     void SyncResurrection(){
         var view=login.ResurrectionSnapshot();resurrectionShown=view;
-        resurrectionPanel.Visible=login.State==LoginState.InWorld&&view.Phase=="invited";
+        resurrectionPanel.Visible=login.State==LoginState.InWorld&&WorldSession.ResurrectionUsesPanel(view);
         if(!resurrectionPanel.Visible)return;
         // Directly below the death panel, so "restart" stays reachable while the prompt is open.
         resurrectionPanel.Location=new(Math.Max(0,(ClientSize.Width-resurrectionPanel.Width)/2),262);

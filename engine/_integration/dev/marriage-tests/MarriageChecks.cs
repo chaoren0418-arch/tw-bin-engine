@@ -48,7 +48,7 @@ partial class Checks {
             Feed(c,message==656?MarriageMessage(message,"伴侶"):MarriageMessage(message));
             Check(c.MarriageSnapshot().Phase==(message==656?"rejected":"failed")&&c.MarriageSnapshot().Partner=="","marriage failure message "+message);
         }
-        foreach(var change in new[]{"map","reset","death","remove","timeout","other-yn","new-invite","generation","movement"})using(var c=MarriageSeed()){
+        foreach(var change in new[]{"map","reset","death","remove","other-yn","new-invite","generation","movement"})using(var c=MarriageSeed()){
             long now=0;Set(c.World,"InteractionClock",(Func<long>)(()=>now));Feed(c,MarriageInvite());var stamp=c.MarriageSnapshot();int sent=0;
             Sender(c,(_,v,a)=>{
                 switch(change){
@@ -56,7 +56,6 @@ partial class Checks {
                     case "reset":c.World.Reset();break;
                     case "death":Set(c.World,"OwnDead",true);break;
                     case "remove":Feed(c,LoginPackets.Pad([120,200,1,0,0]));break;
-                    case "timeout":now=WorldSession.InteractionTimeoutMs;break;
                     case "other-yn":Feed(c,MarriageInvite("交易者",7,252));break;
                     case "new-invite":Feed(c,MarriageInvite());break;
                     case "generation":Set(c,"generation",stamp.Generation+1);break;

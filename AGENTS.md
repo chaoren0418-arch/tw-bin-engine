@@ -23,6 +23,8 @@
 - 原始碼：`engine/source`（主專案 `OfflineClient.csproj`）、`engine/audio`、`engine/web`、`engine/launcher`。
 - 建置：`engine/build-product.ps1` → `engine/_integration/dev/product-build.ps1` → `python -B -X utf8 engine/_integration/dev/rebuild.py --build`；啟動：`啟動引擎.cmd`（`--check-only` 只檢查環境）。
 - 唯讀來源核驗：`python -B -X utf8 engine/_integration/dev/rebuild.py`；r33／r34 核驗腳本只供歷史參考。
+- **PR 不改 `engine/_integration/dev/rebuild-lock.json`**（T271／#646）：PR 的 CI 與閘門用不改 lock 的建置模式；lock 由調度器在合併進 main 後重產。同步時遇到 lock 衝突，一律取 main 的版本。
+- **新模組用自動發現**（T270／#645）：測試群組用 `[CheckGroup]`、原生 UI 面板用 `[UiPanel]`、封包處理用 `[WorldReceive]` 等 attribute 註冊；**不要改** `Program.cs`、`DemoChecks.csproj` 與各註冊表。細節見 `docs/design/m6-contract.md`「自動發現」。
 - CI：`.github/workflows/build.yml` 在 **ubuntu-latest** 以 `-p:EnableWindowsTargeting=true`、`-r win-x64`、`-p:SelfContained=false` 交叉建置 Windows 目標（#67／PR #72），使用 `.github/nuget.ci.config`（nuget.org）；本機 `engine/NuGet.Config` 仍是離線 `vendor`。CI 編譯成功不算原生驗收。
 - 位元可重現：相同來源與 SDK 在兩個目錄建出的 product、audio、launcher DLL SHA-256 相同（#91）。
 - 素材：`engine/assets` 是指向 `releases/r29/assets`（#155） 的唯讀 junction；遊戲資源一律引用 `D:\lineage開發\0-客戶端`，**不得複製 pak/map/sprite 進本專案**。

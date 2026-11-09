@@ -39,7 +39,7 @@ public sealed partial class WorldSession {
             if(!Ready||OwnDead)return true;
             lock(duelGate){var old=DuelSnapshot;
                 if(old.Phase=="active")return true;
-                duel=new(old.Revision+1,WorldEpoch,"invited",peer,null,peer+" 要與你決鬥，是否接受？");
+                duel=new(old.Revision+1,WorldEpoch,"invited",peer,null,peer+" 要與你決鬥；請在聊天輸入列回覆 Y／N。");
             }
             OfferYesNo(token,message,[peer]); // Outside duelGate: the shared prompt reads DuelSnapshot under its own gate.
             return true;
