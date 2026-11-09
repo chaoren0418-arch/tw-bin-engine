@@ -263,3 +263,4 @@
 - 2026-11-10 — #701 T291：gap-matrix 第四輪——盤點剩餘缺口，列出第四批任務與原生 UI 預設開啟前的缺口（resource，claude-local，PR 已合併）→ [報告](reports/issue-701.md)
 - 2026-11-10 — #689 T288：Q3 補做——血盟倉庫紀錄原生窗、隱身只限同隊、酒醉註解（code，claude-local，PR 已合併）→ [報告](reports/issue-689.md)
 - 2026-11-10 — #705 T293：R4-A 選單鈕、熱鍵與信件入口（code，claude-local，PR 已合併）→ [報告](reports/issue-705.md)
+- 2026-11-10 — #707 T295：R4-D 料理窗內容與備援（code，claude-local，PR 已合併）→ [報告](reports/issue-707.md)
