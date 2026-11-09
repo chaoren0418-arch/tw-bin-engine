@@ -272,3 +272,4 @@
 - 2026-11-10 — #712 T300：R4-I 原生 `HYPER_TEXT_WINDOW`（code，claude-local，PR 已合併）→ [報告](reports/issue-712.md)
 - 2026-11-10 — #713 T301：R4-J 原生書籤窗（code，claude-local，PR 已合併）→ [報告](reports/issue-713.md)
 - 2026-11-10 — #727 T-plan：M7 補列 T275–T304，同步 M6／M7 狀態（plan，claude-chat，PR 已合併）→ [報告](reports/issue-727.md)
+- 2026-11-10 — #714 T302：R4-K 聲音：播放中隨距離改音量（code，claude-local，PR 已合併）→ [報告](reports/issue-714.md)
