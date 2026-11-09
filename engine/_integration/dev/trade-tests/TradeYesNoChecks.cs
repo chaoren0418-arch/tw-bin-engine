@@ -14,7 +14,7 @@ partial class Checks {
         foreach(bool yes in new[]{false,true})using(var c=Seed()){
             var sent=YesNoWire(c);Feed(c,TradeAsk());var v=c.YesNoSnapshot();
             Check(c.World.TradeState=="invited"&&c.World.TradeChallenge==12&&c.World.TradePeerName=="target","trade S219/252 admitted as invitation "+yes);
-            Check(v.Prompt is {Message:252,RequestId:12,Deadline:null}&&v.Prompt.Text.Contains("target")&&v.Prompt.Text.Contains("邀請你交易"),"trade invitation queued on input line "+yes);
+            Check(v.Prompt is {Message:252,RequestId:12,Deadline:null}&&v.Prompt.Arguments.SequenceEqual(["target"])&&v.Prompt.Text==YesNoProtocol.Text(252,["target"]),"trade invitation queued on input line "+yes);
             Check(await c.AnswerYesNo(v,yes?"y":"n")&&sent.Count==1&&sent[0].SequenceEqual(TradePackets.Answer(12,yes)),"trade Y/N sends exact C121 "+yes);
             Check(c.World.TradeState==(yes?"accepting":"cancelled")&&c.YesNoSnapshot().Prompt==null,"trade Y/N goes through trade admission "+yes);
             Check(!await c.AnswerYesNo(v,"y")&&sent.Count==1,"trade input-line answer single use "+yes);

@@ -1,0 +1,214 @@
+# TW16 q1（run_ida.ps1）
+dec 8C14F0
+dec 8C2290
+dec 8C1290
+dec 81B0E0
+dec F01E50
+dec 956D30
+dec F03F20
+dec 990E10
+dec 940330
+dec 8ABC10
+dec 8ACB20
+xref 13CE258
+dec A559D0
+xref 153D218
+dec 8F3990
+dec 92CB70
+dec 8F31F0
+dec 7DC850
+dec 6BDAA0
+dec 6BD820
+xref 13DC4E4
+# TW16 q2（run_ida.ps1）
+dec B56A40
+dec 8CA740
+dec AC2400
+dec 1039BE0
+grepcallers 81B0E0 sub_81B0E0
+dec 953C00
+dec 500EA0
+dec 4F9FF0
+dec C020D0
+dec C01F50
+dec 503FD0
+dec 5417C0
+dis 8999D0 12
+dec 8AB390
+grepcallers 8AB390 sub_8AB390\(
+xref 1150D4C
+xref 117ECE4
+dec 7DCC50
+grepcallers 8F3990 sub_8F3990
+dec A56AE0
+dec A56B00
+dec A569C0
+dec 7D7650
+dec 7D7630
+findstr BUTTON_2STAGE_LIST
+findstr IMAGE_BUTTON
+findstr RIGHT_WINDOW
+findstr uistatus86.xml
+findstr uiextra86.xml
+findstr $431
+dec F6A7D0
+dec 4FE4F0
+# TW16 q3（run_ida.ps1）
+dec 8BD990
+dec A9AD80
+dec 8C21B0
+xref 168AF18
+dec 97B5F0
+dec 9E8E50
+dec 934530
+dec 934690
+dis F03F20 26
+dec 953950
+dec 956CC0
+xref 1540830
+dis A559D0 80
+dec 8F9EB0
+dec 8FAB00
+dec 8FB800
+dec 8156B0
+dec 4F84A0
+dec 4F8410
+dis 93CE80 70
+dec 8F16B0
+dec 8F15B0
+dec A50F20
+dec 92C9F0
+dec 8F6160
+dis 7DCC50 45
+dec 7F2020
+# TW16 q4（run_ida.ps1）
+dec A83AE0
+dec A84080
+grepcallers A59AF0 (case\s13|case\s7:|case\s6:)
+grepcallers A59AB0 (case\s13|case\s7:|case\s6:)
+dec A842D0
+dis 11901C4 16
+dec 1039BB0
+dec 1039BF0
+dec 66D480
+dec 66D320
+dis 1150D40 10
+dis 117ECC8 10
+dec A51900
+dec A11520
+dec A11470
+findstr desc-c.tbl
+findstr string-c.tbl
+xref 14EBFA0
+dis 4F9FF0 8
+# TW16 q5（run_ida.ps1）
+xref 153C9C4
+dis 990E10 28
+dec 92D8B0
+grepfuncs (\+\s12\)\s=|\+\s0xC\)\s=|\[3\]\s=) 4f92e0 51ea60 5858e0 5b1660 72d320 72d3d0 72d4a0 7c3ab0 821360 83ce90 8acd20 8ae620 92fe40 930a20 934530 934690 9357e0 941000 942b40 946cf0 94c950 a3b8c0 a43990 a467a0 a4b060 a4ba20 a4e1c0 a4e880 a4fad0 a507a0 a50f20 ea5960 ea7bd0 edb1b0 f466b0
+xref 1039BF0
+dec 932300
+xref 1542440
+xref 14EBEC0
+xref 15433B8
+xref A9AD80
+# TW16 q6（run_ida.ps1）
+dis 940450 12
+dec 7C3AB0
+dec 8AE370
+dec 8AE5E0
+grepcallers 7C3AB0 sub_7C3AB0
+dec 956120
+# TW16 q7（run_ida.ps1）
+dec 930A20
+dec 7C3950
+xref 7C3950
+# TW16 q8（run_ida.ps1）
+dec 7C36C0
+# TW16 q9（run_ida.ps1）
+dis 11727FC 12
+# TW16 q10（run_ida.ps1）
+dec A55FE0
+dec A56890
+dec A568B0
+dec A55F30
+dec A55FC0
+dec A56A40
+dec A56A20
+dec A55F00
+# TW13 t13a（run_ida13.ps1）
+dec 77F6B0
+findstr Saved current screen to %s
+findstr IMAGE_BUTTON
+# TW13 t13b（run_ida13.ps1）
+dis 8F023C 20
+# TW13 t13c（run_ida13.ps1）
+dec 77F3F0
+dec 77F400
+dec 77F410
+dec 77F430
+dec 77F450
+dec 77F470
+dec 77F480
+dec 77F490
+dec 77F4B0
+dec 77F4D0
+dec 77F4E0
+dec 77F4F0
+dec 77F500
+dec 77F510
+dec 77F5E0
+# TW13 t13d（run_ida13.ps1）
+grepfuncs (dword_C31EE4|dword_C31320|dword_9A924C|dword_C3094C)\s= 4D7E50
+dec 4D7990
+dec 4D7900
+dec 4D34F0
+dec 4D3460
+dec 4D3420
+dec 5BCE30
+dec 5BCDB0
+findstr Saved current screen to %s
+# TW13 t13e（run_ida13.ps1）
+xref C31EE4
+xref C3094C
+xref C2F7DC
+dec 518580
+dec 4A1F40
+dec 4BD5A0
+dec 741080
+xref 4047D0
+xref 404920
+# TW13 t13f（run_ida13.ps1）
+dec 4D3910
+dec 4D4510
+grepfuncs (dword_C31EE4|dword_C3094C|dword_C2F7DC)\s=\s 4DC030 4D7E50
+# TW13 t13g（run_ida13.ps1）
+grepfuncs (C3094C|C31EE4) 4D65E0 4DF150 4DC030 523350 4D4510
+dec 4D65E0
+dec 60C4E0
+xref 8D11CF
+# TW13 t13h（run_ida13.ps1）
+dis 4D5070 16
+dis 4D5228 14
+# TW13 t13i（run_ida13.ps1）
+dis 4D4E80 1000
+# TW13 t13j（run_ida13.ps1）
+dis 4D4CE0 120
+# TW13 t13k（run_ida13.ps1）
+dis 4D4D44 60
+xref 4D4E00
+# TW13 t13l（run_ida13.ps1）
+dis 4D4DB0 40
+dis 4D4DE0 30
+# TW13 t13m（run_ida13.ps1）
+xref 4D4E20
+immscan 4D4E20 4D4E20
+# TW13 t13n（run_ida13.ps1）
+gstores C31EE4
+gstores C3094C
+gstores C2F7DC
+# TW13 t13o（run_ida13.ps1）
+dec 669400
+# TW13 t13p（run_ida13.ps1）
+dec 793600
+dec 6AE590
