@@ -183,17 +183,52 @@ public static class MagicMotion {
 // the native classes (SV#5). S55 effects and casters without a captured action start at once (§2.1, §2.5).
 public static class LegacyMagic {
     public static bool Handles(MagicEffect e)=>e.RangeType==null&&e.Gfx is 11722 or 221 or 2165 or 189 or 191 or 197 or 167;
+    // R4-G (gap-matrix 5, 109 kind): S30 builds its object from the gfx's 109 kind (sub_930A20 switch), not from the
+    // legacy asset. When the runtime list.spr gives a non-default kind (2 Lightning, 3/4/5 flying, 6, 7, 8 = no object),
+    // the legacy gfx goes through the native class path; kind 5 then flies and kind 8 draws nothing (caster `!` hits).
+    // 167 keeps its own flying + 219 landing path. Without readable metadata the legacy asset path stays.
+    public static bool UsesNativeClass(MagicEffect e,EffectSprite? native)=>e.Gfx!=167&&native!=null&&native.Kind is >=2 and <=8;
     public static long Start(MagicEffect e)=>(e.ActionAt??e.At)+(e.Timing?.ReleaseMs??0);
     // Hit time: the effect's own `!` frames when the runtime list.spr is readable (no `!` = no hit, §3);
     // without native metadata there is no effect object to consult, so the caster `!` hits (sub_A4B060).
     public static long? Hit(EffectSprite? native,long start,long now)=>now<start?null:native!=null?native.LatestHit(start,now):start;
 }
 // SV#12 (§2.5): while any effect with S42 type (+9) != 0 is alive, the global light L becomes min(15, L+5).
-// S106 gfx 2028–2056 carry the same flag. Data only: the light level is applied by the ambience owner (R2-A).
+// S106 gfx 2028–2056 carry the same flag. R4-G: the renderer feeds the live count into Ambience.Begin/EndLightEffect.
 public static class MagicBrighten {
     public const int Boost=5,Max=15;
     public static int Apply(int level,int active)=>active>0?Math.Min(Max,level+Boost):level;
     public static bool LocationEffect(int gfx)=>gfx is >=2028 and <=2056;
+}
+/// <summary>Which native class increments the light counter `0x13CE258` (FU5§3).</summary>
+public enum LightClass {None,Effect,Lightning}
+// R4-G, docs/reference/followups-5.md §3 (TW16 static analysis):
+// - default `Effect` (vtable +144 = sub_8ABC10, also ManyEffect): only when `+9` (LightFlag) != 0; +1 when the frame
+//   index +12 becomes 1, -1 when it finishes. sub_8ABC10 advances the cursor before the first display, so index 1
+//   is reached at the start (offset 0). With fewer than 2 frames index 1 is never reached: no light.
+// - kind 2 `Lightning` (sub_8ACB20): ignores `+9`; +1 when the index becomes 2 (Steps[1] ms after the start), -1 when
+//   it finishes; fewer than 3 frames = no light.
+// - The native defect (finish without a prior +1 drives the counter negative) is not copied: End only after Begin.
+// - Flying classes (3/4/5), kind 6 EarthRising and kind 7 Eruption have their own step functions: no light (FU5 lists
+//   only sub_8ABC10 and sub_8ACB20 as callers of the counter).
+public static class SkillLight {
+    public static LightClass Class(int kind,bool range)=>kind==2?LightClass.Lightning
+        :MagicClass.Flies(kind,range)||!range&&kind is 6 or 7 or 8?LightClass.None:LightClass.Effect;
+    /// <summary>`+9` of a skill effect: S42 = packet type (TYPE_DIR 8 lights, TYPE_NODIR 0 does not); S30 = the byte
+    /// after gfx, which AttackSkillPackets only accepts as 0 for magic (3.81 S_UseAttackSkill writes 0).</summary>
+    public static byte Flag(MagicEffect e)=>e.RangeType??0;
+    /// <summary>S106 (S_EFFECT_LOC, sub_934530): gfx 2028–2056 build the Effect with `+9` = 1, everything else 0.</summary>
+    public static byte LocationFlag(int gfx)=>MagicBrighten.LocationEffect(gfx)?(byte)1:(byte)0;
+    /// <summary>Offset from the effect start where the counter is incremented; null = this object never lights.</summary>
+    public static long? BeginAfter(EffectSprite effect,LightClass c,byte flag)=>c switch{
+        LightClass.Effect when flag!=0&&effect.Steps.Length>=2=>0,
+        LightClass.Lightning when effect.Steps.Length>=3=>effect.Steps[1].Milliseconds,
+        _=>null};
+    /// <summary>True while the object holds its +1 (from BeginAfter until it finishes playing once).</summary>
+    public static bool Lit(EffectSprite effect,LightClass c,byte flag,long age)=>BeginAfter(effect,c,flag) is long b&&age>=b&&age<effect.Duration;
+    /// <summary>Same rule for a one-shot Effect whose frame offsets are known only as a duration (packaged S106 asset):
+    /// the cursor reaches 1 at the start (the frame-count check cannot be made without list.spr: 推測).</summary>
+    public static bool Lit(double duration,byte flag,long age)=>flag!=0&&age>=0&&age<duration;
 }
 // Native 109 class names used by the renderer (skills-visual.md §2.2).
 public static class MagicClass {
@@ -214,11 +249,12 @@ public sealed partial class Renderer {
         try{return (effectSprites??=new(GroundSpriteReader.ClientRoot)).Get(gfx);}
         catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException or CryptographicException or ArgumentException or OverflowException){effectResourceErrors[gfx]=ex.Message;return null;}
     }
-    Frame? DrawNativeEffect(int gfx,int direction,int x,int y,long age,WorldSession session,List<Draw> draws,string layer,bool loop=false,int? step=null){
+    // depth: extra layer depth (EarthDepth, gfx 10147/10145), added to every block's Z and capped at 255.
+    Frame? DrawNativeEffect(int gfx,int direction,int x,int y,long age,WorldSession session,List<Draw> draws,string layer,bool loop=false,int? step=null,int depth=0){
         var effect=NativeEffect(gfx);if(effect==null||age<0||!loop&&age>=effect.Duration||!session.SceneContains(x,y))return null;
         try{
             var frame=effectSprites!.Frame(effect,direction,age,loop,step);
-            draws.AddRange(frame.Blocks.Select(b=>new Draw(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,b.Z,1200000+b.Order,layer,b.Order,-1,-1,b.Tile)));return frame;
+            draws.AddRange(frame.Blocks.Select(b=>new Draw(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,EarthDepth.Z(b.Z,depth),1200000+b.Order,layer,b.Order,-1,-1,b.Tile)));return frame;
         }catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or OverflowException){effectResourceErrors[gfx]=ex.Message;return null;}
     }
     static bool MagicCasterBlocked(MagicEffect e,WorldSession session){
@@ -242,6 +278,8 @@ public sealed partial class Renderer {
         if(now<e.At)return;
         var effect=NativeEffect(e.Gfx);bool range=e.RangeType!=null;int kind=effect?.Kind??-1;
         bool flies=effect!=null&&MagicClass.Flies(kind,range);
+        // S30 case 6 builds the EarthRising on receipt: dword_13CCBA4 += 29 (TWP §3.2).
+        if(effect!=null&&!range&&kind==6)EarthRisingBuilt(e.Number,-1);
         if(!magicFlights.ContainsKey(e.Number)&&(flies||e.Timing!=null)&&MagicCasterBlocked(e,session))return;
         // Caster `!` frame. A caster without a captured action (absent, caster0) starts at once (§2.1).
         long release=(e.ActionAt??e.At)+(e.Timing?.ReleaseMs??0);if(now<release)return;
@@ -250,7 +288,6 @@ public sealed partial class Renderer {
         if(!range&&kind==7){ComposeEruption(e,effect,session,draws,visuals,undrawn,release,now);return;}
         var arrow=new ProjectileReport(e.Number,e.Caster,e.Target,e.Gfx,e.Heading,e.SourceX,e.SourceY,e.TargetX,e.TargetY,e.At);
         bool Arrived(int tx,int ty,long tick)=>kind==3?ProjectileMotion.At(arrow,tx,ty,release,tick)==null:MagicMotion.At(e,tx,ty,release,tick).Arrived;
-        bool brightens=range&&e.RangeType!=0;
         if(!magicFlights.TryGetValue(e.Number,out var flight)){
             int tx,ty;
             // S42 default classes: packet x,y (caster). S30 default: constructed at the packet target.
@@ -272,8 +309,10 @@ public sealed partial class Renderer {
                     if(list.Count>0&&list.Any(t=>t.HitFlag!=0))MagicHit(session,list[0].ObjectId,hitAt);
                 }
             }
-            if(brightens&&now-release<effect.Duration)magicBrightening++;
-            var still=DrawNativeEffect(e.Gfx,e.Heading,flight.X,flight.Y,now-release,session,draws,"magic");
+            // R4-G (FU5§3): default Effect with +9 != 0 from index 1, kind 2 Lightning from index 2, until it finishes.
+            if(SkillLight.Lit(effect,SkillLight.Class(kind,range),SkillLight.Flag(e),now-release))magicBrightening++;
+            int depth=!range&&kind==6&&EarthDepth.Stacks(e.Gfx)?EarthDepthOf(e.Number,-1):0;
+            var still=DrawNativeEffect(e.Gfx,e.Heading,flight.X,flight.Y,now-release,session,draws,"magic",depth:depth);
             if(still!=null)visuals.Add(new(e.Number,e.Gfx,flight.X,flight.Y,e.Heading,still.Key,"effect",release));
             // Default Effect class: sub_8ABC10 spawns `]` children at the effect's own position (effects-2.md §2.1(a)).
             // T269: S30 kind 2 Lightning (8ACB20) and kind 6 EarthRising (81C7C0) never process `]` (TWP §3.1).
@@ -284,7 +323,7 @@ public sealed partial class Renderer {
         int x=motion.X,y=motion.Y,d=ProjectileMotion.Direction(e.SourceX,e.SourceY,flight.X,flight.Y,e.Heading);
         if(kind==3&&ProjectileMotion.At(arrow,flight.X,flight.Y,release,now) is {} arrowMotion){x=arrowMotion.X;y=arrowMotion.Y;}
         if(now<flight.Impact){
-            if(brightens)magicBrightening++;
+            // Flying classes do not touch the light counter (FU5§3: only sub_8ABC10 / sub_8ACB20 do).
             var fly=DrawNativeEffect(e.Gfx,d,x,y,now-release,session,draws,"magic",true);
             if(fly!=null)visuals.Add(new(e.Number,e.Gfx,x,y,d,fly.Key,"fly",release));
             // Flying classes never process `]` (TWP §3.1, T266): recorded as data, never spawned.
@@ -322,10 +361,31 @@ public sealed partial class Renderer {
         if(effect!=null&&age>=0&&age<effect.Duration)ObserveEffectFrames(session,owner,ActionTimeline.Of(effect),age,x,y,direction,now);
     }
     int magicBrightening;
-    /// <summary>SV#12：目前存活、S42 type≠0 的特效數（原版 `0x13CE258` 計數）。</summary>
+    /// <summary>SV#12／FU5§3：目前握著提亮計數的特效數（原版 `0x13CE258`）：S30／S42 技能特效與 S106 gfx 2028–2056。</summary>
     public int MagicBrighteningEffects {get;private set;}
-    /// <summary>SV#12：把全域明暗 L 套上特效提亮（有任何一個存活時 min(15, L+5)）。</summary>
+    /// <summary>SV#12：把明暗 L 套上特效提亮（有任何一個存活時 min(15, L+5)）。純函式；產品路徑已由
+    /// <see cref="SyncLightEffects"/> 經 Ambience.BeginLightEffect／EndLightEffect 套到明暗，不要再對 Ambience 的 L 套一次。</summary>
     public int MagicLightLevel(int level)=>MagicBrighten.Apply(level,MagicBrighteningEffects);
+    // Begin/End calls this renderer currently holds on that Ambience (lazy: constructor-free test renderers).
+    Ambience? lightAmbience;int lightHeld;
+    /// <summary>R4-G：讓 Ambience 的計數等於目前提亮中的特效數（每個 +1 對應一次 Begin，結束對應一次 End）。</summary>
+    void SyncLightEffects(Ambience ambience,int active){
+        if(!ReferenceEquals(ambience,lightAmbience)){lightAmbience=ambience;lightHeld=0;}
+        while(lightHeld<active){ambience.BeginLightEffect();lightHeld++;}
+        while(lightHeld>active){ambience.EndLightEffect();lightHeld--;}
+    }
+    // S106 (op 106 here; S_EFFECT_LOC sub_934530) builds a default Effect with +9 = 1 for gfx 2028–2056 (FU5§3.2).
+    int LocationLights(WorldSession session,long now){
+        int lit=0;
+        foreach(var p in session.PacketEffects){
+            if(p.Packet.Target!=null)continue;byte flag=SkillLight.LocationFlag(p.Packet.GfxId);if(flag==0)continue;
+            long age=now-p.At;if(age<0)continue;
+            // Runtime list.spr first (frame-accurate); else the packaged appearance that ComposePacketEffects draws.
+            var native=effectResourceErrors==null?null:NativeEffect(p.Packet.GfxId);
+            if(native!=null?SkillLight.Lit(native,LightClass.Effect,flag,age):packetEffectAssets?.Get(p.Packet.GfxId) is {} a&&SkillLight.Lit(a.Duration,flag,age))lit++;
+        }
+        return lit;
+    }
     readonly Dictionary<int,ObjectAppearance> magicAppearances=[];
     readonly Dictionary<long,(int X,int Y,long Release,long Impact)> magicFlights=[];
     // Lazily created: constructor-free test renderers do not run field initializers.
@@ -339,7 +399,7 @@ public sealed partial class Renderer {
         if(magicEpoch!=session.WorldEpoch){magicFlights.Clear();magicLandings?.Clear();ClearEruptions();magicEpoch=session.WorldEpoch;}var visuals=new List<MagicVisual>();var undrawn=new List<UndrawnMagic>();
         magicBrightening=0;
         foreach(var e in session.MagicEffects){
-            if(!LegacyMagic.Handles(e)){
+            if(!LegacyMagic.Handles(e)||effectResourceErrors!=null&&LegacyMagic.UsesNativeClass(e,NativeEffect(e.Gfx))){
                 ComposeNativeMagic(e,session,draws,visuals,undrawn,now);continue;
             }
             int gfx=e.Gfx,x=e.TargetX,y=e.TargetY,d=e.Heading;long at=e.At;Frame? frame=null;string phase="heal";
@@ -376,7 +436,8 @@ public sealed partial class Renderer {
             }
             if(frame==null||!session.SceneContains(x,y))continue;visuals.Add(new(e.Number,gfx,x,y,d,frame.Key,phase,at));draws.AddRange(frame.Blocks.Select(b=>new Draw(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,b.Z,1200000+b.Order,"magic",b.Order,-1,-1,b.Tile)));
         }
-        MagicVisuals=visuals.ToArray();UndrawnMagicEffects=undrawn.ToArray();MagicBrighteningEffects=magicBrightening;
-        foreach(var k in magicFlights.Where(x=>now-x.Value.Release>15000).Select(x=>x.Key).ToArray()){magicFlights.Remove(k);magicLandings?.Remove(k);}
+        MagicVisuals=visuals.ToArray();UndrawnMagicEffects=undrawn.ToArray();MagicBrighteningEffects=magicBrightening+LocationLights(session,now);
+        SyncLightEffects(session.Ambience,MagicBrighteningEffects);
+        foreach(var k in magicFlights.Where(x=>now-x.Value.Release>15000).Select(x=>x.Key).ToArray()){magicFlights.Remove(k);magicLandings?.Remove(k);ForgetEarthDepth(k);}
     }
 }

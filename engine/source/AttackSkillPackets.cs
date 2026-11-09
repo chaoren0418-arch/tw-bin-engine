@@ -5,11 +5,20 @@ public sealed record AttackSkillPacket(byte Action, uint Caster, uint Target, us
     ushort TargetX, ushort TargetY)
 {
     public bool IsArrow => Flight == 127;
+    // FU5§3: TW16 S_ATTACK copies the byte after gfx into the effect's `+9` (light flag) for kind 0/1/10.
+    // Decoding only accepts 0 for magic (3.81 S_UseAttackSkill writes 0), so S30 magic never lights by flag;
+    // kind 2 (Lightning) lights regardless (SkillLight).
+    public byte LightFlag => IsArrow ? (byte)0 : Flight;
 }
 
 public sealed record RangeSkillTarget(uint ObjectId, ushort HitFlag, uint? DisplayDamage);
 public sealed record RangeSkillPacket(byte Action, uint Caster, ushort X, ushort Y, byte Heading,
-    uint Sequence, ushort Gfx, byte Type, IReadOnlyList<RangeSkillTarget> Targets);
+    uint Sequence, ushort Gfx, byte Type, IReadOnlyList<RangeSkillTarget> Targets)
+{
+    // FU5§3: S_ATTACK_MANY field 8 (`cdhhcdhccs`, the `c` after gfx) is the effect's `+9`; 3.81 L1SkillUse sends
+    // TYPE_DIR = 8 for directional area magic (lights) and TYPE_NODIR = 0 (does not). Kept as MagicEffect.RangeType.
+    public byte LightFlag => Type;
+}
 
 // S_UseAttackSkill / S_UseArrowSkill / S_RangeSkill; see docs/reference/server-protocol.md.
 // Decode completely before applying state. Damage words/flags are NOT absolute HP values.

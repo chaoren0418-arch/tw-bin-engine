@@ -8,6 +8,8 @@ namespace P06;
 // - 擁有者的狀態旗標（隱身）會複製到子特效（e+195 = actor+195）。
 // - 子特效自己的影格再遇到 `]` 時再生特效（可遞迴，設深度與數量上限防止自我參照無限生成）。
 // - 圖檔在執行期由 EffectSpriteCatalog 從原客戶端 Sprite*.pak 讀取；讀不到就不畫，記下 gfx 編號。
+// - 提亮（R4-G，FU5§3）：`]` 生出的子特效 `+9`＝0，不動提亮計數（SkillLight 只算技能特效與 S106）。
+//   原版 sub_8ACD20 對特定 gfx（758、5893、8077、1819、757、2261 等）另建的子特效會照抄母特效的 `+9`，本引擎沒做（待做）。
 public static class FrameTokens {
     static readonly Regex spawn=new(@"\](\d{1,6})",RegexOptions.CultureInvariant),fadeIn=new(@"\{(\d{1,6})",RegexOptions.CultureInvariant),fadeOut=new(@"\}(\d{1,6})",RegexOptions.CultureInvariant);
     public static int[] Spawns(string? events)=>string.IsNullOrEmpty(events)?[]:spawn.Matches(events).Select(m=>int.Parse(m.Groups[1].Value)).Where(g=>g>0).ToArray();
