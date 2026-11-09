@@ -14,7 +14,9 @@ namespace P06.NativeUi;
 //   draw    sub_9001F0: icon; offIcon when offIcon > 0, display mode 0/6 and the time ran out; icon 0 → the effect number
 //   time    never drawn on the icon; tooltip only (sub_900FC0 + sub_9061E0): 160 wide at (x, y+32), "%s: %d %s" (930, s, 931)
 // Not done (see the issue-473 report): the 0x800 "sort by remaining time" option, the +21 hidden-cell flag, effect 470's special
-// case, gauge overlays (no effect uses gaugePng), display modes other than 0.
+// case, gauge overlays (no effect uses gaugePng), display modes other than 0 and 1.
+// R4-F (T297/#709): display mode 1 (percent tooltip "%s: %d%%" with string 1551, sub_9061E0 VA 0x9062FD), per-entry icon override
+// (S250/75 rewrites effect 135's icon), and table-duration countdown for entries that carry ElapsedMs.
 
 /// <summary>Effect kind list off_138D8FC (13 names, index = kind byte).</summary>
 public enum BuffKind { Slow=0, Curse=1, Paralyse=2, Einhasad=3, Security=4, Dragon=5, MagicDoll=6, Cook=7, Speed=8, Attack=9, Defense=10, Neutrality=11, Legacy=12 }
@@ -204,10 +206,9 @@ public sealed class BuffIconsPanel(IReadOnlyList<ClientArchive>? sprites=null):I
         order.Sync(present);
         var list=new List<Placed>();
         foreach(var (def,cell) in order.Cells()){
-            var entry=byEffect[def.Id];
-            if(entry.DefaultDuration)entry=entry with{Seconds=def.Duration<0?-1:null};
-            bool off=def.OffIcon>0&&entry.Expired;   // display mode 0 (sub_902840)
-            list.Add(new(def,entry,new Rectangle(Cell(cell),new Size(IconSize,IconSize)),off?def.OffIcon:def.Icon,off));
+            var entry=ApplyDefaultDuration(byEffect[def.Id],def);
+            bool off=def.OffIcon>0&&entry.Expired&&entry.DisplayMode is 0 or 6;   // sub_902840: offIcon only in display mode 0/6
+            list.Add(new(def,entry,new Rectangle(Cell(cell),new Size(IconSize,IconSize)),off?def.OffIcon:entry.IconOverride??def.Icon,off));
         }
         placed=list;
         if(Hover is int h&&!placed.Any(x=>x.Effect.Id==h))Hover=null;
@@ -215,11 +216,30 @@ public sealed class BuffIconsPanel(IReadOnlyList<ClientArchive>? sprites=null):I
     }
     void Log(string line){if(logged.Add(line))UiResourceLog.Write(line);}
 
-    /// <summary>Tooltip line for one icon (display mode 0); null when the string table or the time is unknown.</summary>
+    /// <summary>
+    /// Seconds of an entry whose time is the effect's table duration (S171 invisible, R4-F S250/75): duration −1 → no limit;
+    /// otherwise counted down from ElapsedMs like sub_9061E0 (left = duration − elapsed/1000, Expired when left &lt; 0);
+    /// start unknown → null (no tooltip, no guess).
+    /// </summary>
+    public static BuffEntry ApplyDefaultDuration(BuffEntry entry,BuffEffect def){
+        if(!entry.DefaultDuration)return entry;
+        if(def.Duration<0)return entry with{Seconds=-1};
+        if(entry.ElapsedMs is not long ms)return entry with{Seconds=null};
+        long left=def.Duration-ms/1000;
+        return entry with{Seconds=(int)Math.Max(0,left),Expired=left<0};
+    }
+
+    /// <summary>
+    /// Tooltip line for one icon; null when the string table or the value is unknown. sub_9061E0:
+    /// mode 0/6 "%s: %d %s" (930, s, 931), "%s: -- %s" for no limit or time over, 2854 on offIcon; mode 1 "%s: %d%%" (1551, value).
+    /// Other modes are not produced by the engine (no tooltip).
+    /// </summary>
     public string? TooltipText(Placed p){
         if(p.Off)return text.Over;
+        if(p.Entry.DisplayMode==1)return text.Percent!=null&&p.Entry.Seconds is int v?$"{text.Percent}: {v.ToString(CultureInfo.InvariantCulture)}%":null;
+        if(p.Entry.DisplayMode is not (0 or 6))return null;
         if(text.Label==null||text.Unit==null||p.Entry.Seconds is not int s)return null;
-        return s<0?$"{text.Label}: -- {text.Unit}":$"{text.Label}: {s.ToString(CultureInfo.InvariantCulture)} {text.Unit}";
+        return s<0||p.Entry.Expired?$"{text.Label}: -- {text.Unit}":$"{text.Label}: {s.ToString(CultureInfo.InvariantCulture)} {text.Unit}";
     }
     public const int TooltipHeight=16;
     /// <summary>Tooltip box: 160 wide at (x, y+32), moved left when closer than 5 px to the right edge.</summary>
