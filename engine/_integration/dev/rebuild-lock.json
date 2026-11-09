@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 332,
+ "sourceCount": 334,
  "files": [
   {
    "path": "NuGet.Config",
@@ -611,8 +611,13 @@
   },
   {
    "path": "source/LocationShare.cs",
-   "size": 19703,
-   "sha256": "07d83c2ac6e2020af6cad34c23555588b03e40e6241ca8e40070e942ef9afed6"
+   "size": 23310,
+   "sha256": "a910d5a021cffbebd5d1ffc583af94bd1c512f4a427c47375739ea3c955c88ca"
+  },
+  {
+   "path": "source/LocationShareFollowupTests.cs",
+   "size": 14306,
+   "sha256": "cba78f87053c7b367782840463a8eda15c9afa7f8ff4f8484bbf588a428c3b7b"
   },
   {
    "path": "source/LoginConnection.cs",
@@ -828,6 +833,11 @@
    "path": "source/NativeUi/LeftStatusPanel.cs",
    "size": 7159,
    "sha256": "dd6f5c223f993813ac2818ba5d1cf773f5a6ed518f3eb9d614f536a1c219da31"
+  },
+  {
+   "path": "source/NativeUi/LocationListPanel.cs",
+   "size": 5256,
+   "sha256": "db8d29dd2cdda4ba1a0a6e2d096a063b8d95a64fbcd2745156b05be7d829074f"
   },
   {
    "path": "source/NativeUi/MacroPanel.cs",
