@@ -5,7 +5,7 @@ namespace P06;
 public enum ClanCommand { Create, Join, Leave, Ban, Emblem, Members }
 public sealed record ClanUpdate(uint ObjectId,string Name,string Title,uint Reserved,byte Rank);
 public sealed record ClanEmblem(uint Id,int[] Pixels);
-public sealed record ClanAttention(ushort Type,string[] Names);
+public sealed record ClanAttention(ushort Type,string[] Names,byte Result=0);
 public sealed record ClanAnnouncement(string Name,string Leader,uint EmblemId,uint Created,string Text);
 public sealed record ClanMember(string Name,byte Rank,byte Level,string Note,uint ObjectId,byte Class,bool? Online=null);
 public sealed record ClanInvitation(long Revision,uint PeerId,string Name,long ExpiresAt);
@@ -74,11 +74,19 @@ public static class ClanProtocol {
         var r=Reader(packet,72);var value=new ClanUpdate(r.D(),r.S(),r.S(),r.D(),r.C());r.Finish();
         if(value.ObjectId==0)throw new ProtocolException("clan update identity");return value;
     }
+    // R4-E (SS2§3, TW16 sub_B2E1D0): C(type) C(result), then type 2 = D(n) n×S. 3.81 S_ClanAttention writes H(type) (= C(type) C(0))
+    // and ends with H(0); TW16 ignores the trailer, so after the fields only zero bytes (trailer + padding, < 10) may follow.
+    public const byte AttentionResult=0,AttentionList=2,AttentionRefresh=1;
+    public const ushort AttentionLeaderOfflineMessage=3349,AttentionAtWarMessage=3324;
     public static ClanAttention DecodeAttention(byte[] packet){
-        var r=Reader(packet,200);ushort type=r.H();var names=new List<string>();
-        if(type==2){uint count=r.D();if(count>256)throw new ProtocolException("clan attention count");for(uint i=0;i<count;i++)names.Add(r.S());}
-        if(r.H()!=0)throw new ProtocolException("clan attention trailer");r.Finish();return new(type,names.ToArray());
+        var r=Reader(packet,200);byte type=r.C(),result=r.C();var names=new List<string>();
+        if(type==AttentionList){uint count=r.D();if(count>256)throw new ProtocolException("clan attention count");for(uint i=0;i<count;i++)names.Add(r.S());}
+        if(r.Remaining>9)throw new ProtocolException("clan attention trailer");
+        while(r.Remaining>0)if(r.C()!=0)throw new ProtocolException("clan attention trailer");
+        return new(type,names.ToArray(),result);
     }
+    /// <summary>Type 0 result → chat message (sub_C14680): 131／129 → 3349「對象血盟的王族為離線狀態」，138 → 3324「對象血盟於戰爭狀態」；others none.</summary>
+    public static ushort? AttentionMessage(ClanAttention value)=>value.Type!=AttentionResult?null:value.Result switch{131 or 129=>AttentionLeaderOfflineMessage,138=>AttentionAtWarMessage,_=>null};
     static LoginReader Reader(byte[] packet,byte opcode){var r=new LoginReader(packet);if(r.C()!=opcode)throw new ProtocolException("clan opcode");return r;}
 
     // Decode only a bounded, uncompressed 16x12 BMP from S118 memory. No image/file loader.
@@ -195,7 +203,20 @@ public sealed partial class WorldSession {
         try{var emblem=ClanProtocol.DecodeEmblem(packet);Emblems.Store(emblem);clanNotice="已收到伺服器盟徽。";}
         catch(ProtocolException){if(packet.Length>=5)Emblems.Reject(BinaryPrimitives.ReadUInt32LittleEndian(packet.AsSpan(1)));clanNotice="收到無法解析的盟徽；保留血盟名稱，未顯示圖像。";}
     }
-    void ReceiveClanAttention(byte[] packet){var value=ClanProtocol.DecodeAttention(packet);EnsureClanEpoch();if(value.Type==2)clanAttention=value.Names;}
+    // TW16 sub_C146E0 rebuilds the list only when the result is 0; type 0 only prints a chat message (3.81 never sends it).
+    void ReceiveClanAttention(byte[] packet){
+        var value=ClanProtocol.DecodeAttention(packet);EnsureClanEpoch();
+        if(value.Type==ClanProtocol.AttentionList&&value.Result==0)clanAttention=value.Names;
+        if(ClanProtocol.AttentionMessage(value) is ushort id){
+            clanAttentionMessage=id;
+            playerChatLines.Enqueue(new(++playerChatSequence,0,PacketBoxMessageRules.Text(id,[])??$"原服訊息 {id}"));
+            while(playerChatLines.Count>100)playerChatLines.Dequeue();
+            playerChatRevision++;
+        }
+    }
+    ushort? clanAttentionMessage;
+    /// <summary>Last S200 type 0 chat message id (3349／3324); null until one arrives. Diagnostic only.</summary>
+    public ushort? ClanAttentionMessage=>clanAttentionMessage;
 }
 
 public sealed partial class LoginConnection {
