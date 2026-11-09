@@ -217,3 +217,5 @@
 - 2026-11-09 — #628 T267：查證原版——圖源與字串（Q-2）（resource，claude-local，PR 已合併）→ [報告](reports/issue-628.md)
 - 2026-11-09 — #473 ui-buff-icons: 原生 UI 模組：狀態圖示（依舊封包對照）（code，claude-local，PR #600 已合併）→ [報告](reports/issue-473.md)
 - 2026-11-09 — #646 T271：rebuild-lock 改成合併後才重產，PR 不再修改 lock（code，claude-local，PR 已合併）→ [報告](reports/issue-646.md)
+- 2026-11-09 — #562 T240：舊式背包、魔法、倉庫原生窗（W2-I）（code，claude-local，PR 已合併）→ [報告](reports/issue-562.md)
+- 2026-11-09 — #629 T268：查證原版——送出點與欄位（Q-3）（resource，claude-local，PR #642 已合併）→ [報告](reports/issue-629.md)
