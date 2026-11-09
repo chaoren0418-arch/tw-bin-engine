@@ -68,6 +68,12 @@ jobs:
           New-Item -ItemType Directory -Force scratch/issue-466 | Out-Null
           dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-466/macro-checks.json native-ui-macro
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Native UI party PARTY_INTERFACE and BAR_485 party window (synthetic, no game assets)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-471 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-471/party-checks.json native-ui-party
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Native UI status (buff) icons, effectlist2 + .tbt, V3 order (synthetic, no game assets)
         shell: pwsh
         run: |

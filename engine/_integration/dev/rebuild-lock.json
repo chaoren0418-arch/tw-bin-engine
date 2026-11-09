@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 289,
+ "sourceCount": 311,
  "files": [
   {
    "path": "NuGet.Config",
@@ -176,8 +176,8 @@
   },
   {
    "path": "source/BoardUi.cs",
-   "size": 6175,
-   "sha256": "e241a4a54d90c1ccc54f58421f93bb7c43d9876ef1da52858ceaa0eb62520a9e"
+   "size": 8700,
+   "sha256": "f3208d24856710cbcbc50fc9b56be43bd35b7c725b9ef6f047c4231486bedb81"
   },
   {
    "path": "source/BonusStats.cs",
@@ -206,13 +206,13 @@
   },
   {
    "path": "source/Buddies.cs",
-   "size": 8343,
-   "sha256": "adf112fea62dd30b11ee8c71b9198784340a0aa0fbc448dbc0bbd567485ae186"
+   "size": 9910,
+   "sha256": "14393ff3f2766f2a9dd7ccda404387ba5dbd5ada20242eafdc874e2ebf05631d"
   },
   {
    "path": "source/BuddyUi.cs",
-   "size": 5057,
-   "sha256": "bd29d9848d52dd8d36d68de448bcba66ec353e755596c448b658c6db2aaeabd1"
+   "size": 8155,
+   "sha256": "bc9600f85193c894bc424090feb0415545cf38de24f8df0b29ea5ecba67c70ff"
   },
   {
    "path": "source/CacheFrameEvidence.cs",
@@ -298,6 +298,16 @@
    "path": "source/ClanWar.cs",
    "size": 18091,
    "sha256": "38d243cc5586af54d53eec51b89001414d805a27f4a31d95339bb26786c9734b"
+  },
+  {
+   "path": "source/ClanWarehouseHistory.cs",
+   "size": 5379,
+   "sha256": "92491c592dbd70e1c01f8e7a81380be6279122bf7760f22c8795d38248220a0e"
+  },
+  {
+   "path": "source/ClanWarehouseHistoryTests.cs",
+   "size": 7335,
+   "sha256": "36a428633dfc5b6e39ec8e89314278c417c2c00336df6dd7c90c0fb006029af1"
   },
   {
    "path": "source/ClientAudioSettings.cs",
@@ -735,6 +745,11 @@
    "sha256": "deaf7308df2c3f4d2f9f09406510f84bc42c2c96267b739a3fcd8bd6b0b5cca8"
   },
   {
+   "path": "source/NativeUi/BoardPanels.cs",
+   "size": 9412,
+   "sha256": "06a69aeeb85da64740bb9ae1b0bb47004f6911a76b4cd96d3988c8208089fb4b"
+  },
+  {
    "path": "source/NativeUi/BuffIconsPanel.cs",
    "size": 15369,
    "sha256": "14d112a475d2c296fbc372db9b27f788a1209de48490a283d1cd7af627738549"
@@ -755,6 +770,21 @@
    "sha256": "80d3bd1e8d405b65c3e4d1cb0ff007e12ab549e005213ea2ab2a0f639baa4d75"
   },
   {
+   "path": "source/NativeUi/FieldMapPanel.cs",
+   "size": 3707,
+   "sha256": "5d545b1fda7e166d5242fe9142815665a8c73e42f02b327b867f6138777d0235"
+  },
+  {
+   "path": "source/NativeUi/FriendPanel.cs",
+   "size": 15918,
+   "sha256": "987465bb3a9ea5a766e004ba140501fa049c380e7fbcc4821503ccb2c111a1a9"
+  },
+  {
+   "path": "source/NativeUi/FriendPanelTests.cs",
+   "size": 16158,
+   "sha256": "e51d4fe1bfad1c8eb39dc22b867040726838f596b7e16349e28bd4f0e9ebd689"
+  },
+  {
    "path": "source/NativeUi/HpMpPanel.cs",
    "size": 14635,
    "sha256": "066dee37431d7c844ce11944871c1ce0d6fadf0d681dd2a0d334088ebbf2016d"
@@ -770,9 +800,39 @@
    "sha256": "53bdbf8c94d4135327d15148acb5fe7955cb669013115cc131892caf1064c5d9"
   },
   {
+   "path": "source/NativeUi/MenuButtonsPanel.cs",
+   "size": 6555,
+   "sha256": "a2b97527d6275d1b866a8994f0f4f4cd6cec33333b3ad0eccaae8401ad5fb2c6"
+  },
+  {
+   "path": "source/NativeUi/MiniMapPanel.cs",
+   "size": 3744,
+   "sha256": "60ede4801f0784492aa1f62c90f2de521b6c6791eb53a05fbe9193da15655e45"
+  },
+  {
+   "path": "source/NativeUi/PartyPanel.cs",
+   "size": 13089,
+   "sha256": "4606fab12c965fab5154ea0884baac212c14e97f0363e362ef03c93d901936c1"
+  },
+  {
+   "path": "source/NativeUi/PartyRtPanel.cs",
+   "size": 4722,
+   "sha256": "f9375afac49e3f8fdfe907d36ff31f3253426a158d10356ddb84501ee748953c"
+  },
+  {
+   "path": "source/NativeUi/PersonalShopPanel.cs",
+   "size": 14946,
+   "sha256": "6c4fe29aec802dba88508cc372136678cbe5f3ea06f3716b88a8bc417e1122f9"
+  },
+  {
+   "path": "source/NativeUi/PledgePanel.cs",
+   "size": 36949,
+   "sha256": "4180eba51485b32319c3633f4091c1aa82f90e3e994a1fae9b96df6f24d534dd"
+  },
+  {
    "path": "source/NativeUi/State/BuffState.cs",
-   "size": 12925,
-   "sha256": "fd4688b15b7f75c60fe094662b8108b0e8492e83f946b3840112b58e8a9cc1b2"
+   "size": 12963,
+   "sha256": "7c24e22964a48285230db8b995d127c3f64ca457c8f504f57eb962eccbb70ee6"
   },
   {
    "path": "source/NativeUi/State/ChatState.cs",
@@ -786,8 +846,8 @@
   },
   {
    "path": "source/NativeUi/State/LeftStatusState.cs",
-   "size": 6635,
-   "sha256": "7b24d697d2806b823b480c94bbf2f4a1435cbc36867bc93022d9283fe2a0b2a9"
+   "size": 6652,
+   "sha256": "087363d6eebc54e2c8f8f701e545c78c33aded9e134d981d27dbfb282e5b8bd3"
   },
   {
    "path": "source/NativeUi/State/MacroState.cs",
@@ -795,9 +855,34 @@
    "sha256": "0b5b3d55bc1327acedcb345548f19b063305bedfff8b301c3ecf3eb6df73fa50"
   },
   {
+   "path": "source/NativeUi/State/MapState.cs",
+   "size": 16853,
+   "sha256": "1d25c448a508629ba7a56d452012558850637b6baf52b164eac4d952da48f98d"
+  },
+  {
+   "path": "source/NativeUi/State/PartyState.cs",
+   "size": 3843,
+   "sha256": "341456e87501e9cd7094308549a687eb68a084ea1ee5fc3951ff977206919733"
+  },
+  {
+   "path": "source/NativeUi/SummonPanel.cs",
+   "size": 16457,
+   "sha256": "d30f97688d78a843d09117c1212fd057653f9f23fb3733124ff2569bdc84d831"
+  },
+  {
+   "path": "source/NativeUi/SummonPanelTests.cs",
+   "size": 16710,
+   "sha256": "d2bebd3e4a1e7c5cb8254ba62a861d72c2cce273934c19a834772b94f37a6fbc"
+  },
+  {
    "path": "source/NativeUi/SurfCatalog.cs",
    "size": 7527,
    "sha256": "599be507ea3f428e5f279566d748755539f9f35a30d80f666fbc282e631c4a44"
+  },
+  {
+   "path": "source/NativeUi/TradeWindowPanel.cs",
+   "size": 8210,
+   "sha256": "cfc1c28e79c51bfcac7be4f00edfb2ad2b67ec59d1d83c540897b05f2747dc1a"
   },
   {
    "path": "source/NativeUi/UiCanvas.cs",
@@ -806,8 +891,8 @@
   },
   {
    "path": "source/NativeUi/UiClientBridge.cs",
-   "size": 10032,
-   "sha256": "997978fb786e5f4002ae63b26409b6c9473c692e3cb82b510f877e68fdde4c97"
+   "size": 10528,
+   "sha256": "71c048b0ad9a4ed795339ad93d6987c2437308131fc4ba4c12421fad2189fd57"
   },
   {
    "path": "source/NativeUi/UiContracts.cs",
@@ -826,8 +911,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 1448,
-   "sha256": "48f5845b4e1496d8aaa18a45f9a3cbb6a6afe4996a872e4bc413ff633794474a"
+   "size": 2420,
+   "sha256": "582b44f91f9b535c42d05687afadd3483bd958eb8ba6b75f82ac2bfbfee5c742"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
@@ -881,8 +966,8 @@
   },
   {
    "path": "source/NpcServices.cs",
-   "size": 10153,
-   "sha256": "4de5f43f17b1aa0d6aa2fd818825a29db399bf64cabde7bd7d7ac482d16a9fab"
+   "size": 10449,
+   "sha256": "a7b7d90c5a4b8ccba0e9f1e6f63361ed6ef249c84a811ad46bb2fa0f524fa437"
   },
   {
    "path": "source/NpcTemplates.cs",
@@ -1020,14 +1105,29 @@
    "sha256": "63382e90fc5927796bb517e634b45c1baa78935f1d28e01e1de038e439fb26a8"
   },
   {
+   "path": "source/PersonalShopTests.cs",
+   "size": 17365,
+   "sha256": "a3165cb564ef07d5c381a287694b2fe4c10cfb58984dc53a78244e9763e595f5"
+  },
+  {
+   "path": "source/PetTarget.cs",
+   "size": 6673,
+   "sha256": "c8c83d46d806dd72386f98cd9f6b37e483db8ab30b6bba9d82fec16de3f9310c"
+  },
+  {
+   "path": "source/PetTargetTests.cs",
+   "size": 10607,
+   "sha256": "ac55fb4051009231a6d9b181912c688a61f8e5db59839442097a4b3b3ac2b9ae"
+  },
+  {
    "path": "source/PetUi.cs",
-   "size": 4124,
-   "sha256": "f0979c21a3c7c52ee95adba29a754397574222c59abe38a75d54a67ed7645ba5"
+   "size": 6758,
+   "sha256": "74946a8e667649ac756d42ef1adb29e0edbad2da9313cd54389418abc28fc38b"
   },
   {
    "path": "source/Pets.cs",
-   "size": 9572,
-   "sha256": "253ca5ee0c35535e1331c93be935def3ef5011452fc37ae417a3544d117cb24f"
+   "size": 16382,
+   "sha256": "23a2ed136e006dd5e7d831995fda56ddb073b51aaa4f21b1527fc57dc12c1001"
   },
   {
    "path": "source/PickupAssets.cs",
@@ -1121,8 +1221,8 @@
   },
   {
    "path": "source/PrivateShop.cs",
-   "size": 15874,
-   "sha256": "d5f7c543fa7d516a0bc6d7acaed37726d15e3c17aca47383dcf2c18dade9b9f2"
+   "size": 23755,
+   "sha256": "65df2b8205a03bd5e5e1e57a0b28d1b8620c45920821d8124e052b0ec98fa316"
   },
   {
    "path": "source/PrivateShopUi.cs",
@@ -1361,23 +1461,28 @@
   },
   {
    "path": "source/Trade.cs",
-   "size": 11774,
-   "sha256": "45b618b7f461c876b6628954af1df02bad520334341de3afdc557734555cb279"
+   "size": 13220,
+   "sha256": "ecce903740b3c808f67c34c4ac30ba33018f828ae69576945c7d3ab4b425090b"
   },
   {
    "path": "source/TradeUi.cs",
-   "size": 7341,
-   "sha256": "007b0f58d5e0e41f035abf044673430645aff0e199930b58c91047bd77c3d544"
+   "size": 7781,
+   "sha256": "d7dc91a5ba83996f5b1d0a9847f2e9fc477820003bf658b0d5f42e574f08cad2"
+  },
+  {
+   "path": "source/TradeWindowTests.cs",
+   "size": 15919,
+   "sha256": "050ff6d10cd78fb24b79288ff226bafeb5c9e1515b13308bf4eec27760542831"
   },
   {
    "path": "source/WeaponRepair.cs",
-   "size": 9242,
-   "sha256": "d41aac768346d1e601886c492af4a8073b9da4fd4d3ab689e846466aef1334a2"
+   "size": 16356,
+   "sha256": "12c3b0d0b8eb02524711aa0fed5b0520ef939c2d281e13e5811a5a645e23125c"
   },
   {
    "path": "source/WeaponRepairUi.cs",
-   "size": 3175,
-   "sha256": "03a40e13f6c4596aae1290c2ffea0f332fb325c3d3372aed7f74790da2d604f3"
+   "size": 1685,
+   "sha256": "0b9724347dd2b9b5bd51d1c3a3255bee53ea15615bfb045354b244615208a2c8"
   },
   {
    "path": "source/WebIconResource.cs",
@@ -1445,9 +1550,14 @@
    "sha256": "89840da776b378d7e0ea05a8178d02c436547f0fe62ed0ea2330ff7f923b9bc4"
   },
   {
+   "path": "source/YesNoButtonsTests.cs",
+   "size": 3682,
+   "sha256": "ed7156aa72b33cda849d6f39e027e52122d5807de095cc46b9a9ef120016d40b"
+  },
+  {
    "path": "source/YesNoPrompt.cs",
-   "size": 12155,
-   "sha256": "0fdf64ea2acfcfe2ecb4c777fc2ef2fbd49fa3fb7ed09eb758278a98149e91eb"
+   "size": 15810,
+   "sha256": "6aa5a045fc9ec563e9a5a210a46f27529fec45599d04b7901b247db4113f8c60"
   },
   {
    "path": "web/bonus-stats.js",

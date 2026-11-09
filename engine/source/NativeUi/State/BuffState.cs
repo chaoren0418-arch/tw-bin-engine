@@ -29,11 +29,11 @@ namespace P06.NativeUi {
     public sealed record BuffState(IReadOnlyList<BuffEntry> Entries,IReadOnlyList<BuffUnmapped> Unmapped,BuffTooltipText Text) {
         public static readonly BuffState Empty=new([],[],BuffTooltipText.None);
 
-        /// <summary>Finds the buff adapter through the bridge wrappers (HpMp → Macro → LeftStatus → Chat → Buff). null = none.</summary>
+        /// <summary>Finds the buff adapter through the bridge wrappers (HpMp → Macro → LeftStatus → Chat → Party → Buff). null = none.</summary>
         public static BuffState? Of(IUiGameState? state){
             for(int depth=0;state!=null&&depth<8;depth++){
                 if(state is IUiBuffState b)return b.Buffs;
-                state=state switch{UiHpMpGameState h=>h.Base,UiMacroGameState m=>m.Inner,UiLeftStatusGameState l=>l.Inner,UiChatGameState c=>c.Inner,_=>null};
+                state=state switch{UiHpMpGameState h=>h.Base,UiMacroGameState m=>m.Inner,UiLeftStatusGameState l=>l.Inner,UiChatGameState c=>c.Inner,UiPartyGameState q=>q.Inner,_=>null};
             }
             return null;
         }

@@ -45,13 +45,20 @@
 | 檔案 | 改動 | 理由 |
 |---|---|---|
 | `NativeUi/UiPanelRegistry.cs` | 加一行註冊 | 第 5.2 節允許 |
-| `NativeUi/UiClientBridge.cs` | `new UiChatGameState(WithBuffState(basic),…)`：一個呼叫，加上註解 | 不改這行，模組就拿不到狀態。#464／#465／#466／#468 都用同樣方式接上 |
-| `native-ui-tests/MacroChecks.cs` | `MacroRegistry` 排除 `STATUS_EFFECT_ICONS` | 它用真實註冊表加合成 Tile 來 Build，而合成 Tile 裡沒有 `effectlist2.xml`。#464、#468 也是用同樣方式排除自己的面板 |
+| `NativeUi/UiClientBridge.cs` | `new UiChatGameState(NativePartyGameState(WithBuffState(basic)),…)`：一個呼叫，加上註解 | 不改這行，模組就拿不到狀態。#464／#465／#466／#468 都用同樣方式接上 |
+| `native-ui-tests/MacroChecks.cs` | 第二次同步後與 main 相同，只改了註解（main 的 layout 篩選已經排除本面板） | 它用真實註冊表加合成 Tile 來 Build，而合成 Tile 裡沒有 `effectlist2.xml` |
 | `demo-tests/DemoChecks.csproj`、`Program.cs` | 各加一行；預設清單加上 `NativeUiBuffIconsChecks` | 第 5.2 節允許 |
 | `.github/workflows/build.yml` | 新增 `native-ui-buff-icons` 步驟（合成資料，不需要遊戲資源） | 讓 CI 也跑這組檢查。macro 等模組也有自己的步驟 |
 | `rebuild-lock.json` | 用 `rebuild.py --update-lock` 重產 | 第 5.2 節允許 |
 
 另外：同步了 origin/main（#468 聊天窗，有 3 個衝突）。`Program.cs` 兩邊的行都保留；`LeftStatusState.cs` 用 main 版本，main 已經加了同樣的 `Inner`；bridge 用 main 版本，再把 buff 包裝放進聊天狀態的內側。
+
+**第二次同步（2026-11-09，PR #600）：** 再合併 origin/main（含 #467 選單鈕、#470 小地圖、#471 隊伍、#526 交易、#529 好友、#530 召喚等），7 個衝突：
+- bridge：main 把隊伍包裝（`NativePartyGameState`）放在聊天內側；本任務的 buff 包裝改放在**隊伍內側**（最內層）：`new UiChatGameState(NativePartyGameState(WithBuffState(basic)),…)`。`BuffState.Of` 多拆一層 `UiPartyGameState`（只改本任務的 `BuffState.cs`）。
+- 註冊表：buff 那一行移到 main 新增的各行之後（最後一行，最後畫在最上層）。
+- `MacroChecks.cs`：用 main 版本。main 已經只取 `Layout == "uistatus86"` 的面板，而 buff 面板的 layout 是 `effectlist2.xml`，所以會自動排除，不需要再列名字。
+- `Program.cs`、`DemoChecks.csproj`、`build.yml`：兩邊都保留。
+- `rebuild-lock.json`：先取 main 版本，再用 `rebuild.py --update-lock` 重產（311 個來源、320 個鎖定檔）。
 
 ### 對照狀態（V3 舊封包 → effect）
 | 來源（引擎） | 已對照 | 未對照（不畫）與原因 |
@@ -74,6 +81,7 @@
 未對照的項目在執行期會寫入 `UiResourceLog`，每種只記一行：`buff-icons 未對照（不畫）<來源>：<原因>`。
 
 ## 怎麼驗證（已驗證）
+- **第二次同步後（2026-11-09）：** `rebuild.py --build` PASS，product DLL SHA-256 `f9409cae792c7619a7db042f6027bc516719a9fd6269af38dff2da81e8bf9bb7`。DemoChecks 以下各組 PASS（exit 0）：`native-ui-buff-icons`、`native-ui-macro`、`native-ui-party`、`native-ui-menu-buttons`、`native-ui-minimap`、`native-ui-chat-window`、`native-ui-hpmp`、`native-ui-left-status`。預設全組在 `Movement123` 中止，原因是 worktree 沒有 `engine/assets` junction（找不到 `terrain0.bin`），和 #468、#471 一樣，與本任務無關；排在它前面的原生 UI 各組（含 buff）都已通過。**完整全組要等 CI 或在主目錄確認。** 以下是第一次同步時的紀錄。
 - **同步 main：** 合併 origin/main（落後 10 個 commit，含 #468），解完衝突後用 `rebuild.py --update-lock` 重產 lock（289 個來源、298 個鎖定檔）。
 - **建置：** `rebuild.py --build` PASS，product DLL SHA-256 `6f3642b6b28b8c80ec17477a1847796d86c0876ede15f3a507112ce75c0baf40`。
 - **DemoChecks `native-ui-buff-icons`：** PASS（381 項）。全部用合成的 `effectlist2.xml`、Tile／17 個 Sprite idx/pak、`.tbt`，涵蓋：
