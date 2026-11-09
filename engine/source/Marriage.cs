@@ -21,8 +21,11 @@ public sealed partial class WorldSession {
             marriageEpoch=-1;return;
         }
         if(marriagePhase is "proposing" or "invited" or "accepting"){
-            if(OwnDead||Status?.Hp<=0||!MarriagePeerPresent||InteractionClock()-marriageWait>=InteractionTimeoutMs){
-                marriagePhase="expired";marriageRevision++;marriageNotice="求婚等待已逾時，或角色／位置已改變。舊邀請不可回答；沒有自動重送。";
+            // R2-J (#624): the received question ("invited") has no local 15 s expiry (only 729/1232/1256/1268 time out, WIN T141);
+            // the proposer's and accepter's wait for the server result keeps the engine's 15 s limit.
+            if(OwnDead||Status?.Hp<=0||!MarriagePeerPresent||marriagePhase!="invited"&&InteractionClock()-marriageWait>=InteractionTimeoutMs){
+                marriageNotice=marriagePhase=="invited"?"角色或對方位置已改變，舊求婚邀請不可回答。":"求婚等待已逾時，或角色／位置已改變。舊邀請不可回答；沒有自動重送。";
+                marriagePhase="expired";marriageRevision++;
             }
         }
     }
@@ -63,7 +66,7 @@ public sealed partial class WorldSession {
         if(clanInvitation!=null)ClearClanInvitation("收到求婚確認，原入盟申請已失效，請對方重新申請。");
         if(!Ready||OwnDead||Status?.Hp<=0)return true;
         var candidates=Objects.Where(p=>p.Name==peer&&!p.Dead&&(p.Flags&4)!=0&&Actor is {} a&&Math.Abs(p.X-a.X)<=1&&Math.Abs(p.Y-a.Y)<=1).ToArray();
-        BindMarriage(peer,candidates.Length==1?candidates[0].ObjectId:0,"invited",peer+" 向你求婚。是否接受？接受後仍需等待伺服器結果。");
+        BindMarriage(peer,candidates.Length==1?candidates[0].ObjectId:0,"invited",peer+" 向你求婚；請在聊天輸入列回覆 Y／N，接受後仍需等待伺服器結果。");
         CheckMarriage();
         // T141: msg 654 takes S_ASK's default branch, i.e. the shared input-line Y/N (YesNoPrompt.cs).
         if(marriagePhase=="invited")OfferYesNo(reserved,message,[peer]);
@@ -115,4 +118,36 @@ public sealed partial class LoginConnection {
     }
 }
 // M7-J: no dedicated Form or HUD button (windows.md T141). The S219/654 question is answered from the
-// chat input line via YesNoPrompt.cs; proposing stays available through LoginConnection.SendMarriage.
+// chat input line via YesNoPrompt.cs.
+// R2-J (#624): proposal entry. The original starts C50 from the NPC HTML action HyperActPropose (WIN T141); that HTML
+// hook lives in NpcInteraction.cs (R2-F's file), so until it is wired this module offers a transitional "求婚" page next to
+// the duel page (引擎自訂入口，不是原版畫面). Both go through the same guarded SendMarriage("propose").
+public sealed partial class LoginConnection {
+    /// <summary>Proposal to the adjacent facing player in the wedding area; for the HTML action hook (R2-F) and the transitional page.</summary>
+    public Task<bool> ProposeMarriage()=>SendMarriage("propose",MarriageSnapshot());
+}
+
+public sealed partial class ClientForm {
+    readonly Label marriageEntryNotice=new(){Dock=DockStyle.Fill,ForeColor=Color.White,Padding=new(10)};
+    readonly Button marriagePropose=new(){Text="向面前角色求婚",AutoSize=true,AccessibleName="向面前角色求婚"};
+    bool marriageProposing;
+    TabPage MarriageEntryPage(){
+        var page=new TabPage("求婚"){BackColor=Color.FromArgb(23,38,41)};
+        var buttons=new FlowLayoutPanel{Dock=DockStyle.Top,Height=44};buttons.Controls.Add(marriagePropose);
+        page.Controls.AddRange([marriageEntryNotice,buttons]);page.Enter+=(_,_)=>LeaveGameFocus("marriage");
+        marriagePropose.Click+=async(_,_)=>await ProposeMarriageClick();
+        return page;
+    }
+    async Task ProposeMarriageClick(){
+        if(marriageProposing||World.Walking)return;
+        ClearInput("marriage-propose");marriageProposing=true;
+        try{await login.ProposeMarriage();}finally{marriageProposing=false;}
+        if(!IsDisposed)SyncMarriageEntry();
+    }
+    void SyncMarriageEntry(){
+        var view=login.MarriageSnapshot();
+        marriageEntryNotice.Text=(view.Partner.Length>0?"伴侶："+view.Partner+"\n":"")+view.Notice+
+            "\n\n求婚：在婚禮區域站在對方相鄰一格並互相面對。對方的回覆走聊天輸入列 Y／N；結果以原服回報為準。\n（此頁是引擎過渡入口，原版從 NPC 對話的求婚動作送出。）";
+        marriagePropose.Enabled=login.State==LoginState.InWorld&&!World.Walking&&!marriageProposing&&view.CanPropose;
+    }
+}
