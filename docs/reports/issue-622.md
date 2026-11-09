@@ -50,6 +50,13 @@
 - `node --check engine/web/interaction.js`：通過。
 - `engine/tools/check-no-game-assets.py`：pass，errors 0。
 
+- **同步 origin/main（7 個 commit，含 #616 R2-G）後重驗**：
+  - 合併沒有衝突。
+  - `--update-lock` 重產：329 個來源檔、338 個鎖定檔。
+  - `--build`：`PASS dev`，productDll `4bce527a0bbcd352fb25b23919469d8e7298ba01414e999f4221ed5ddc425802`。
+  - `--module-tests`：`pass`，41 組、2056 項、失敗 0。
+  - `check-no-game-assets.py`：pass。
+
 ## 未驗證什麼
 
 - DemoChecks 的 `combat-loop`、`map-continuity` 與預設完整入口：worktree 沒有 `engine/assets` junction（找不到 `terrain0.bin`、`integrity.json`），本機無法執行，交給 CI 與後續有素材的環境。
