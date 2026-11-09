@@ -5,33 +5,51 @@ namespace P06.NativeUi;
 // Coordinates come only from the XML at run time; the macro frame (3176) belongs to the ui-macro-bar panel ("RIGHT_WINDOW").
 // This panel's Bounds is the union of its button rectangles, so it never swallows clicks meant for the macro slots.
 
-/// <summary>Where an original menu action goes in this engine. Page = dev-tools page hint (transitional, not original).</summary>
-public sealed record MenuButtonAction(int Action,string Title,string? DevToolsPage,bool Logout);
+/// <summary>
+/// Where an original menu action goes in this engine. Window = native panel id the button toggles (null = none registered);
+/// DevToolsPage = dev-tools page used when no native window takes the click (transitional, not original behaviour).
+/// PlayStats = action 7 (CUserPlayStatsUI, FU4§1.1): toggled through IUiMenuCommands.
+/// </summary>
+public sealed record MenuButtonAction(int Action,string Title,string? DevToolsPage,string? Window=null,bool PlayStats=false);
 
 /// <summary>One IMAGE_BUTTON as loaded: logical rectangle (null when the normal surf is missing) and its state surfaces.</summary>
 public sealed record MenuButton(MenuButtonAction Action,int BaseSurf,Point Location,Rectangle? Rect,UiSurface? Normal,UiSurface? Pressed);
 
-public sealed class MenuButtonsPanel:IUiPanel {
-    [UiPanel(130)] internal static UiPanelRegistration Registration=>new(MenuButtonsPanel.PanelId,"uistatus86",_=>new MenuButtonsPanel());   // ui-menu-buttons #467: after MacroPanel (buttons y=567 lie inside the 3176 frame; later Bar = painted/hit on top)
+/// <summary>R3-A (#678): optional bridge command for menu action 7 / the play-stats window. false = not available (dev tools instead).</summary>
+public interface IUiMenuCommands {
+    bool TogglePlayStats();
+}
+
+public sealed class MenuButtonsPanel(UiRoot? root=null):IUiPanel {
+    [UiPanel(130)] internal static UiPanelRegistration Registration=>new(MenuButtonsPanel.PanelId,"uistatus86",root=>new MenuButtonsPanel(root));   // ui-menu-buttons #467: after MacroPanel (buttons y=567 lie inside the 3176 frame; later Bar = painted/hit on top)
     public const string PanelId="RIGHT_WINDOW/BUTTON_2STAGE_LIST";
     public const string WindowNode="RIGHT_WINDOW",ListNode="BUTTON_2STAGE_LIST",ButtonNode="IMAGE_BUTTON";
 
     /// <summary>
-    /// Original action → existing engine function. Only Quit has a native equivalent (IUiCommands.Logout = legacy HUD logout).
-    /// Every other action opens the transitional dev-tools window (§4 "過渡"); the page names are the existing dev-tools tab
-    /// titles where one exists ("角色"／"魔法"／"背包"／"血盟"). Not original behaviour — reported in docs/reports/issue-467.md.
+    /// Original action → engine (R3-A #678; TW13 off_8F023C, FU4§1.1 — TW13 verified, 3.81 LiTo.bin packed so 推測 for 3.81):
+    /// 13 Map → Field_Map (same as Ctrl+M); 3 Spell → SPELL_WINDOW; 4 Item → ITEM_WINDOW; 7 → CUserPlayStatsUI (play-stats
+    /// window, NOT logout). No native counterpart registered yet (待驗證, dev tools instead): 1 NewMailWindow, 2 CRenewalStatusUI,
+    /// 5 HTML option2/option2p (社群選項), 6 HTML option1 (功能選項). Page names are the existing dev-tools tab titles.
     /// </summary>
     public static readonly IReadOnlyDictionary<int,MenuButtonAction> Actions=new Dictionary<int,MenuButtonAction>{
-        [13]=new(13,"Map","小地圖",false),
-        [1]=new(1,"Mail","信件",false),
-        [2]=new(2,"Status","角色",false),
-        [3]=new(3,"Spell","魔法",false),
-        [4]=new(4,"Item","背包",false),
-        [5]=new(5,"Pledge","血盟",false),
-        [6]=new(6,"Option","選項",false),
-        [7]=new(7,"Quit",null,true),
+        [13]=new(13,"Map","小地圖",FieldMapPanel.PanelId),
+        [1]=new(1,"Mail","信件"),
+        [2]=new(2,"Status","角色"),
+        [3]=new(3,"Spell","魔法",SpellWindowPanel.WindowId),
+        [4]=new(4,"Item","背包",ItemWindowPanel.WindowId),
+        [5]=new(5,"Pledge","血盟"),
+        [6]=new(6,"Option","選項"),
+        [7]=new(7,"Quit",null,PlayStats:true),
     };
 
+    /// <summary>
+    /// Window hotkeys (FU4§1.1, TW13 sub_4D3910 WM_CHAR: Tab = Ctrl+I = 9 → InventoryWindow, Ctrl+S = 19 → SpellWindow).
+    /// The original dispatches them globally after the window stack; this always-visible bar panel stands in for that dispatcher.
+    /// The warehouse has no hotkey (opened only by the server list). Ctrl+A/H/V/C/Q/P are not wired yet (待辦).
+    /// </summary>
+    public static readonly IReadOnlyDictionary<Keys,int> Hotkeys=new Dictionary<Keys,int>{
+        [Keys.Tab]=4,[Keys.Control|Keys.I]=4,[Keys.Control|Keys.S]=3,
+    };
     readonly List<MenuButton> buttons=[];
     MenuButton? pressed;bool pressedInside;bool inWorld;
     public string Id=>PanelId;
@@ -103,17 +121,38 @@ public sealed class MenuButtonsPanel:IUiPanel {
                 if(pressed==null||e.Button!=MouseButtons.Left)return false;
                 var fired=pressed.Rect!.Value.Contains(e.Location)?pressed:null;
                 pressed=null;pressedInside=false;
-                if(fired!=null)Invoke(fired.Action,commands);
+                if(fired!=null)Invoke(fired.Action,commands,root);
                 return true;
             default:return false;
         }
     }
 
-    public static void Invoke(MenuButtonAction action,IUiCommands commands){
-        if(action.Logout)commands.Logout();
-        else commands.ShowDevTools(action.DevToolsPage);
+    /// <summary>Button click without a root (no native windows to toggle): play stats through the bridge, otherwise dev tools.</summary>
+    public static void Invoke(MenuButtonAction action,IUiCommands commands)=>Invoke(action,commands,null);
+
+    /// <summary>
+    /// Toggles the native window of the action when it is registered and usable; otherwise opens the dev-tools page (transition,
+    /// 待驗證). Never logs out (action 7 was a logout before #678; the original opens the play-stats window).
+    /// </summary>
+    public static void Invoke(MenuButtonAction action,IUiCommands commands,UiRoot? root){
+        if(action.PlayStats){
+            if(LegacyWindowPanel.FindCommands<IUiMenuCommands>(commands)?.TogglePlayStats()!=true)commands.ShowDevTools(action.DevToolsPage);
+            return;
+        }
+        if(action.Window is {} id&&root?.Find(id) is {} panel&&!root.Faulted.Contains(panel)){
+            switch(panel){
+                case LegacyWindowPanel w:w.Toggle();return;
+                // Original sub_77F510 shows message 1734 when there is no map; that message is not wired (待驗證), nothing opens.
+                case FieldMapPanel f:f.ToggleFromMenu();return;
+            }
+        }
+        commands.ShowDevTools(action.DevToolsPage);
     }
 
-    // Ctrl+M (same as Map) belongs to ui-minimap; this panel takes no keys.
-    public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
+    /// <summary>Window hotkeys (see Hotkeys). Down toggles once (auto-repeat ignored); the matching up is swallowed too.</summary>
+    public bool Key(UiKeyEvent e,IUiCommands commands){
+        if(!inWorld||!Hotkeys.TryGetValue(e.KeyData,out int action))return false;
+        if(e.Down&&!e.Repeat)Invoke(Actions[action],commands,root);
+        return true;
+    }
 }

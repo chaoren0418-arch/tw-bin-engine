@@ -54,10 +54,10 @@ public sealed class LegacyWindowLayout {
 
 /// <summary>
 /// Shared body of the three legacy windows: a draggable UiLayer.Window panel that paints its placed parts in XML order and
-/// handles the close button and the two scroll arrows. Hidden until opened (the original hotkeys/menu routes for these legacy
-/// windows are 待驗證, windows-2.md §10), and closed when the character leaves the world.
+/// handles the close button and the two scroll arrows. Hidden until opened (R3-A #678: menu buttons 3/4 and Tab／Ctrl+I／Ctrl+S
+/// through MenuButtonsPanel, per TW13 — 推測 for the packed 3.81 LiTo.bin, FU4§1.2), and closed when the character leaves the world.
 /// </summary>
-public abstract class LegacyWindowPanel:IUiMovablePanel {
+public abstract class LegacyWindowPanel:IUiMovablePanel,IUiClosablePanel {
     /// <summary>A painted part: offset relative to the window origin; Show (null = always) selects one image of a state group.</summary>
     protected sealed record Part(int Order,string Name,Point Offset,UiSurface? Image,Func<bool>? Show=null);
     readonly List<Part> parts=[];
@@ -162,14 +162,17 @@ public abstract class LegacyWindowPanel:IUiMovablePanel {
         Click(e.Location,commands);
         return true;
     }
-    /// <summary>No keys: the legacy windows' hotkeys are 待驗證 (TW16's own hotkeys open the XML windows, windows-2.md §2.1).</summary>
+    /// <summary>No keys here: the window hotkeys (Tab／Ctrl+I, Ctrl+S; FU4§1.1) are dispatched by MenuButtonsPanel (R3-A #678), which stays visible while these windows are closed.</summary>
     public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
 
-    /// <summary>Walks the product's game-state decorators (HP/MP → macro → left status → chat) to find a module state.</summary>
+    /// <summary>
+    /// Walks the product's game-state decorators (HP/MP → macro → left status → chat → party → buff → red notice → the legacy
+    /// window decorators that R3-A (#678) puts innermost) to find a module state.
+    /// </summary>
     public static T? FindState<T>(IUiGameState? state) where T:class{
-        for(int depth=0;state!=null&&depth<12;depth++){
+        for(int depth=0;state!=null&&depth<16;depth++){
             if(state is T t)return t;
-            state=state switch{UiHpMpGameState h=>h.Base,UiMacroGameState m=>m.Inner,UiLeftStatusGameState l=>l.Inner,UiChatGameState c=>c.Inner,ILegacyWindowStateDecorator d=>d.Inner,_=>null};
+            state=state switch{UiHpMpGameState h=>h.Base,UiMacroGameState m=>m.Inner,UiLeftStatusGameState l=>l.Inner,UiChatGameState c=>c.Inner,UiPartyGameState q=>q.Inner,UiBuffGameState b=>b.Inner,UiRedNoticeGameState n=>n.Inner,ILegacyWindowStateDecorator d=>d.Inner,_=>null};
         }
         return null;
     }
@@ -209,6 +212,7 @@ public sealed class UiItemWindowGameState(IUiGameState inner,IUiItemWindowState 
 /// (27, 235), trash 2052 (142, 260), chest 2054 (117, 260).
 /// </summary>
 public sealed class ItemWindowPanel:LegacyWindowPanel {
+    [UiPanel(175)] internal static UiPanelRegistration Registration=>new(WindowId,Layout,_=>new ItemWindowPanel());   // R3-A (#678): menu 4 / Tab / Ctrl+I
     public const string WindowId="ITEM_WINDOW",Layout="uimagicitem";
     public const int TabCount=4;
     /// <summary>Tab images in XML order: 全部／裝備／任務／其他 (from the surfName suffixes ALL/EQUIP/QUEST/ETC).</summary>
@@ -326,7 +330,7 @@ public sealed class ItemWindowPanel:LegacyWindowPanel {
         p.SetTab(1);t.Equal(0,p.ScrollOffset,"tab change resets the scroll");
         t.Check(LegacyWindowTestKit.Click(p,new(100,100),cmd)&&p.Visible,"click on the body is swallowed");
         t.Check(!p.Mouse(new UiMouseEvent(UiMouseKind.Down,new(300,300),MouseButtons.Left,1,0,Keys.None),cmd),"outside bounds not taken");
-        t.Check(!p.Key(new UiKeyEvent(Keys.I,true,false),cmd)&&!p.Key(new UiKeyEvent(Keys.Tab,true,false),cmd),"no hotkeys (待驗證)");
+        t.Check(!p.Key(new UiKeyEvent(Keys.I,true,false),cmd)&&!p.Key(new UiKeyEvent(Keys.Tab,true,false),cmd),"the window itself takes no keys (hotkeys live in MenuButtonsPanel, R3-A #678)");
         t.Check(p.IsDragHandle(new(100,100))&&!p.IsDragHandle(new(180,16))&&!p.IsDragHandle(new(175,230)),"body drags, controls do not");
         LegacyWindowTestKit.Click(p,new(180,16),cmd);
         t.Check(!p.Visible&&!p.IsOpen&&cmd.Calls.Count==0,"close button hides the window and sends nothing");

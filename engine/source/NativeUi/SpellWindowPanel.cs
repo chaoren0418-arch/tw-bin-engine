@@ -32,6 +32,7 @@ public sealed class UiSpellWindowGameState(IUiGameState inner,IUiSpellWindowStat
 /// as the XML lists; the local file has 5). Only the first element of each group has a position.
 /// </summary>
 public sealed class SpellWindowPanel:LegacyWindowPanel {
+    [UiPanel(175)] internal static UiPanelRegistration Registration=>new(WindowId,Layout,_=>new SpellWindowPanel());   // R3-A (#678): menu 3 / Ctrl+S
     public const string WindowId="SPELL_WINDOW",Layout="uimagicitem";
     static readonly Regex LevelName=new(@"\ASURF_RENEWAL_SPELL_(?:(PRINCE|ELF|DARKELF)_)?LEVEL(\d{2})\z",RegexOptions.CultureInvariant);
     public override string Id=>WindowId;
@@ -91,7 +92,7 @@ public sealed class SpellWindowPanel:LegacyWindowPanel {
 
     // ---------------------------------------------------------------- offline checks (synthetic XML and surfaces only)
 
-    static string TestXml(){
+    internal static string TestXml(){
         var sb=new System.Text.StringBuilder("""
 <?xml version="1.0"?>
 <ExtraWindowConfigulation>
