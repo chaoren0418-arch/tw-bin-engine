@@ -641,7 +641,7 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 |---|---|---|---|
 | ~~Q-1 視窗版面~~ | ✅ T266（#627）已查（[TWP§1–2](trade-window-and-projectiles.md)）：模式表、元件索引、7 列×36 px 列版面、按鈕 n／n+1 兩態、數量上限、各模式送包、空清單頁；`LoadingWindowUI` 是 TW16 XML 窗，3.81 沒有。剩確認清單 `sub_A2C660` 的來源待驗證 | TWP | R2-E |
 | ~~Q-2 圖源與字串~~ | ✅ T267（#628）已查（[`sprites-and-strings.md`](sprites-and-strings.md)，下稱 SS）：王冠＝`Sprite.pak` 的 `crown.raw`（12 格 16×12 RGB555，0 透明），偏移表是人物走路內插表（SS§1）；盟屋地圖 surf＝`dword_135DA34` {689,741,741,801,1482}（`aAvadentelui` 是 IDA 誤命名），標記位置 350 筆由 `sub_113F600` 靜態初始化（SS§2）；死亡統計值由客戶端以基準快照相減，殺怪數只來自 S250／61（3.81 不送，恆為 0），地監時間走 S250／159（SS§3）；1784、1785、2139、3123–3127、3131 都在 `string-c.tbl`，**mapDesc 查的是 `MapDesc-c.tbl`，不是 `string-c.tbl`**（SS§4） | SS | R2-D、R2-I、R2-M；#550 |
-| Q-3 送出點與欄位 | `C_EXCHANGEABLE_SPELL`(125) 的送出點與 `sub_93F200` 的視窗；`sub_B243A0` 血盟推薦欄位與 C_MATCH_MAKING 子碼；`checkpk`→C51（`sub_BB5180`）；技能資料 `+56`／`+60` 的來源；S36 各 type、S185 第 3 個 C 的意義；S_KICK（op 245）的提示窗；C_EXTENDED(53) 子碼；op 44 學魔法窗、op 78 `sub_B2E1D0` 的 UI；`PledgeNoticeUI` 的開窗；死亡統計窗開啟時送的 TW16 op 10 子碼 9 在 3.81 的對應（SS§3.2） | `wo_sendsites.py` 的作法；第 1 節各處理函式 | R2-F、R2-H、R2-K |
+| ~~Q-3 送出點與欄位~~ | ✅ T268（#629）已查（[`send-sites-2.md`](send-sites-2.md)，簡稱 SS2）：結果見 11.9；T267 轉入的「死亡統計窗 TW16 op 10／9」＝3.81 C63 `C(9)` 要地監時間清單（SS2§14） | SS2 | R2-D、R2-F、R2-H、R2-K、R2-L |
 | ~~Q-4 技能飛行~~ | ✅ T266（#627）已查（[TWP§3](trade-window-and-projectiles.md)）：kind 6 `EarthRising` 在目標處播一次、每個 `!` 受擊；kind 7 `Eruption` 每段第三格生下一段、只由終點 EarthRising 受擊；`]` 只在 `UserObject`（角色、門、`.s32` 地圖特效）與預設 `Effect` 處理，飛行物與 kind 2／6／7 不處理 | TWP | R2-H |
 | ~~T245 #602~~ | ✅ 已合併（[`packetbox-windows.md`](packetbox-windows.md)）：B3 子碼、`QuestUI`、`QuitWindow`、`CNoticeWindow`、S_NEWS 的顯示方式都已查；結果已併入 11.3 與 11.5（R2-D、R2-K、R2-O、R2-P、R2-Q）。剩 `QuitWindow` 的 ESC 入口與 192 的讀取者待驗證 | PBW | — |
 
@@ -670,3 +670,26 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 | 5 | `sub_A4B060` | 部分 | 部分 | T266 | TWP§3.4：`.s32` 地圖特效與門是 `UserObject`，**原版有** `]`；落點圖（預設 Effect）有；飛行物、kind 2／6／7、`EffectLoop` **原版沒有**（不必做）；子特效的 `!` 不受擊（沒有目標），`+0x20` 音效照播 |
 
 **Q-3 的附帶結果：** `C_EXCHANGEABLE_SPELL`（op 210→C191）與學魔法（op 123→C39）的送出點都是 `TRADE_WINDOW` 模式 7 的 `sub_A2BD10`（TWP§1.6），op 44 學魔法窗＝`TRADE_WINDOW` 模式 7。Q-3 其餘項目不變。
+
+### 11.9 Q-3 回填（T268／#629，2026-11-09）
+
+> 與 11.8 的關係：本輪的 `C_EXCHANGEABLE_SPELL`(125) 是**要清單**的請求（HyperAct `xchgspell`，3.81 C245）；11.8 的 op 210→C191 是學會時的**確定**送出（`sub_A2BD10`）。兩者不同封包，不衝突。
+
+依據 [`send-sites-2.md`](send-sites-2.md)（SS2）。這一輪只是查證，**11.3 的狀態與 11.4 的統計都沒有改**。下表「建議」欄是給下一輪盤點或對應 R2 組參考的。
+
+| 節 | 列 | 查到什麼 | 建議 |
+|---|---|---|---|
+| 1 | 175 | 收包後清單進 `TRADE_WINDOW` 模式 7（`+153`＝0）；空清單開 `HorunEv3`（SS2§1.2） | R2-F：空清單改開頁 |
+| 1 | 44 | 同一個窗，`+153`＝1；價格＝基礎價×((索引>>3)+1)²；空清單依 NPC 外型開 `GerengEv3`／`Sedia1`／`Siriss1`（SS2§1.2） | R2-F；版面歸 Q-1 |
+| 3 | C_EXCHANGEABLE_SPELL(125) | 唯一送出點是 HyperAct `xchgspell`（`sub_585520`），只在 NPC 外型 834 時送 `cd`＋NPC id；`buyspell` 在外型 ≠ 834 時送 C24（SS2§1.1） | R2-F：`xchgspell` 接 `RequestSpellExchangeList()` |
+| 1 | 133 | 處理函式要 `dword_153FCC4` 不為 0 才會呼叫，但這個全域沒有寫入點 → **TW16 丟棄 S0**；欄位與 3.81 一致（SS2§2） | R2-K **不做**推薦 UI；建議改列「不建議」 |
+| 3 | C_MATCH_MAKING(221) | 7 個送出點（data 0–6）全在死窗內，與 3.81 C76 一一對應（SS2§2.3） | 同上 |
+| 1 | 78 | `PledgeUI` 內的關注清單（7 列，圖示＋名稱，可捲動）；type 0 的錯誤訊息 3349／3324（SS2§3） | R2-K：補清單畫面 |
+| 4.1 | PledgeNoticeUI | 只由 S_MESSAGE（op 153）type 17 開；3.81 不送 type 17（SS2§4） | 建議改列「伺服器不支援」 |
+| 3 | C_WHO(174)、C_CHECK_PK(9) | `checkpk` 只送 opcode（3 個送出點）；引擎已照做（SS2§5） | 只差聊天指令入口 |
+| 3 | C_USE_SPELL(216) | `+56`＝`SpellList.xml` 的 `delay`、`+60`＝`direction`（18／19）；本機客戶端沒有這個檔，kor25／ly 有（SS2§6） | R2-H：執行期讀檔，沒有檔時維持 `ReuseMs` |
+| 1 | 122 | S36＝戒指能力旗標：type 1 傳送控制 → 開目的地窗；type 5 召喚控制 → 施放召喚術時開 `CSummonUI`；type 2 客戶端不用（SS2§7） | 依據欄「SP／MR 沒有顯示」要更正；施法分支歸 R2-H，R2-L 拿掉這一項 |
+| 1 | 95 | 第 3 個 C＝數字框初始值（`+0x68`）；範圍 10–50；3.81 不送第 3 個 C（SS2§8） | R2-F：初始值由畫面決定 |
+| 1 | 245 | 通用模態框（`sub_8E4670`）加 `PostQuitMessage`；3.81 S227 的首 byte 是 244 → 字串 64「連線中斷。」（SS2§9） | 另開小任務（或併入 R2-Q） |
+| 3 | C_EXTENDED(53)… | 只有子碼 16（`Commandtimeleft`），而且 CodePage 950 不送（SS2§10） | 建議改列「不建議」 |
+| 4.1 | UserPlayStatsUI | 顯示時送的 TW16 op 10／9＝3.81 C63 `C(9)`；`C_Rank` 的 case 9 回 S250／159（地監時間清單）（SS2§14，T267 轉入） | R2-D：顯示時送 C63 `C(9)` |
