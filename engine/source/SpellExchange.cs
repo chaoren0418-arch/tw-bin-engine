@@ -12,8 +12,9 @@ namespace P06;
 // R2-F（T261／#622，依 SS2§1.1、§1.2）：
 //   HyperAct `xchgspell`（sub_585520）是 C245 唯一送出點：NPC 外型＝834 才送 RequestSpellExchangeList()，否則什麼都不送；
 //   `buyspell`（sub_581C10）反過來，外型 ≠ 834 才送（金幣學魔法）。兩個字串伺服器都不處理，一律由客戶端轉成封包。
-//   S13 空清單：原版改開 NPC 對話窗的 HTML 頁 `HorunEv3`；有清單才開學魔法窗（原版 TRADE_WINDOW 模式 7，本引擎仍是暫行 WinForms，版面歸 R2-E／Q-1）。
-// op 44（S41 金幣學魔法）空清單依外型開 GerengEv3／Sedia1／Siriss1 的部分在 NpcServices.cs（不在本組可改範圍），未做。
+//   S13 空清單：原版改開 NPC 對話窗的 HTML 頁 `HorunEv3`；有清單才開學魔法窗。
+// R3-F（T286／#679）：清單改在原生 TRADE_WINDOW 模式 7 顯示（SpellTradeSource.cs，不顯示單價，左鈕送 C191）；暫行 WinForms 窗已拿掉。
+//   op 44（S41 金幣學魔法）的模式 7 與空清單換頁（GerengEv3／Sedia1／Siriss1）也在 SpellTradeSource.cs。
 
 public sealed record SpellExchangeRow(int Index,int SkillId,string Name,bool Learned);
 public sealed record SpellExchangeOffer(uint? Npc,int[] Indices,long Revision);
@@ -140,15 +141,14 @@ public sealed partial class LoginConnection {
     public bool CloseSpellExchange(SpellExchangeView v)=>CaptureWorld(()=>v.Generation==generation&&v.WorldEpoch==World.WorldEpoch&&World.CloseSpellExchange(v.Revision));
 
     /// <summary>對目前對話中的 NPC 送 C245 要求清單。產品入口：NPC 頁動作 xchgspell（NpcInteraction.cs，外型 834 才送）；
-    /// 該入口傳 openWindow:false，視窗改在收到非空清單時開（SpellExchangeUi.cs 的 SyncSpellExchangeWindow）。</summary>
+    /// 學魔法窗（TRADE_WINDOW 模式 7）在收到非空清單時由 SpellTradeSource 顯示；openWindow 已無作用（R3-F 拿掉暫行視窗），保留給既有呼叫端。</summary>
     public async Task<bool> RequestSpellExchangeList(bool openWindow=true){
+        _=openWindow;
         if(!SpellExchangeIdle||sendMovementGate==null)return false;
         uint npc=0;int epoch=0,targetRevision=0;
         if(!CaptureWorld(()=>{if(!SpellExchangeAccess||!SpellExchangeDialogOpen)return false;npc=World.InteractionNpc!.Value;epoch=World.WorldEpoch;targetRevision=World.TargetRevision;return true;}))return false;
         bool Valid()=>CaptureWorld(()=>SpellExchangeAccess&&SpellExchangeDialogOpen&&World.InteractionNpc==npc&&World.WorldEpoch==epoch&&World.TargetRevision==targetRevision);
-        bool sent=await SendSpellExchange(SpellExchangeProtocol.RequestList(npc),Valid,()=>World.SpellExchangeRequested(npc));
-        if(sent&&openWindow)ShowSpellExchangeWindow();
-        return sent;
+        return await SendSpellExchange(SpellExchangeProtocol.RequestList(npc),Valid,()=>World.SpellExchangeRequested(npc));
     }
     /// <summary>對 v 的清單送 C191（勾選的 skillIndex）。v 必須是目前的快照；選擇不合法或清單已作廢不送。</summary>
     public async Task<bool> LearnSpellExchange(SpellExchangeView v,IReadOnlyList<int> indices){
