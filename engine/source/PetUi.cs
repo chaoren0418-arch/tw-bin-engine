@@ -24,6 +24,9 @@ public sealed partial class ClientForm {
     bool petTargetSending;
     void SyncPetLinks(object? sender,EventArgs e) {
         if(NativeUiRoot?.Find(SummonPanel.PanelId) is SummonPanel panel&&panel.Host==null)panel.Attach(new SummonUiHost(this));
+        // R3-B（#671）：舊式 PetControl 原生面板；原生 UI 關閉時由 SummonFallbackUi.cs 的暫行清單接手召喚選擇。
+        if(NativeUiRoot?.Find(PetControlPanel.PanelId) is PetControlPanel control&&control.Host==null)control.Attach(new PetControlHost(this));
+        SyncSummonFallback();
         if(petTargetSending)return;
         var target=login.PetTargetSnapshot();if(!target.CanSend)return;
         petTargetSending=true;_ = SendPetTarget(target);
@@ -39,6 +42,29 @@ public sealed partial class ClientForm {
         }
         public void Close(SummonUiState shown){var v=form.login.SummonSnapshot();if(v.Revision==shown.Revision)form.login.CloseSummon(v);}
     }
+    /// <summary>
+    /// PetControl 轉接：原服每回一次 anicom／moncom（Pets.cs 存一份新的 PetInfo）就開一次窗。
+    /// 第 0 鈕 → 既有 "refresh"（3.81 C103 C_PetMenu，背包仍顯示在 WinForms 寵物分頁）；第 1 鈕 → 既有 attackchr（C125，接 S236／C223）。
+    /// 錨點用世界區中心（推測，原版容器座標來源未查到）。
+    /// </summary>
+    sealed class PetControlHost(ClientForm form):IPetControlHost {
+        readonly PetControlTracker tracker=new();
+        public PetControlView? Current{get{
+            var login=form.login;bool inWorld=login.State==LoginState.InWorld;
+            var rows=inWorld?login.World.PetCompanions.Select(o=>{var info=login.World.PetInformation(o.ObjectId);return (o.ObjectId,(object?)info,info?.Kind=="summon");}).ToArray():[];
+            if(tracker.Observe(inWorld,rows) is not {} open)return null;
+            bool can=login.PetSnapshot(open.PetId).CanSend&&!form.World.Walking;
+            var world=UiRoot.WorldRect;
+            return new(open.Revision,open.PetId,open.Summon,can,new(world.X+world.Width/2,world.Y+world.Height/2));
+        }}
+        public void Bag(PetControlView shown)=>Run(shown,"refresh");
+        public void Target(PetControlView shown){if(!shown.Summon)Run(shown,PetPackets.TargetCommand);}
+        void Run(PetControlView shown,string command){
+            tracker.Dismiss(shown.Revision);
+            var view=form.login.PetSnapshot(shown.PetId);
+            if(view.CanSend)_ = form.RunPet(view.Stamp,command);
+        }
+    }
     async Task RunPet(PetStamp stamp,string command,int index=-1,uint item=0) {
         ClearInput("pets");
         if(!World.Walking)await login.SendPet(stamp,command,index,item);
@@ -51,7 +77,7 @@ public sealed partial class ClientForm {
         var view=login.PetSnapshot(selectedPet);var collars=login.World.PetCollars;
         var target=login.PetTargetSnapshot();var summon=login.SummonSnapshot();bool native=NativeUiActive;
         bool active=login.State==LoginState.InWorld;
-        string signature=System.Text.Json.JsonSerializer.Serialize(new{active,view,companions=companions.Select(o=>new{o.ObjectId,o.Name,o.HpPercent}),collars,walking=World.Walking,target,summon,native});
+        string signature=System.Text.Json.JsonSerializer.Serialize(new{active,view,companions=companions.Select(o=>new{o.ObjectId,o.Name,o.HpPercent}),collars,walking=World.Walking,target,summon,native,fallback=SummonFallbackSignature});
         if(signature==petUiSignature)return;petUiSignature=signature;
         foreach(Control c in petContent.Controls.Cast<Control>().ToArray())c.Dispose();petContent.Controls.Clear();
         void Label(string text)=>petContent.Controls.Add(new Label{Text=text,AutoSize=true,MaximumSize=new(410,0),Margin=new(6)});
@@ -70,9 +96,9 @@ public sealed partial class ClientForm {
             Label($"指定目標中：{ResolveNpcText(target.PetName)} · 請點選目標，選取後自動送出一次。");
             Button("取消指定目標（只清本機）",true,()=>{login.CancelPetTarget(target);petUiSignature="";SyncPetUi(this,EventArgs.Empty);});
         }else if(target.Notice.Length>0)Label(target.Notice);
-        Label("召喚怪物選擇 · "+(summon.Notice.Length>0?summon.Notice:"召喚選擇窗使用原客戶端 SummonUI。"));
-        if(native)Button("開啟召喚怪物選擇（以技能 51 施放；原版開窗時機待查證）",!summon.Open&&summon.SkillLearned,()=>{login.OpenLocalSummon();petUiSignature="";SyncPetUi(this,EventArgs.Empty);});
-        else if(summon.Open)Label("原服要求選擇召喚怪物；召喚選擇窗需開啟原生 UI（--native-ui）。");
+        Label("召喚怪物選擇 · "+(summon.Notice.Length>0?summon.Notice:native?"召喚選擇窗使用原客戶端 SummonUI。":"原生 UI 關閉時以下方暫行清單選擇。"));
+        Button("開啟召喚怪物選擇（以技能 51 施放；原版開窗時機待查證）",!summon.Open&&summon.SkillLearned,()=>{login.OpenLocalSummon();petUiSignature="";SyncPetUi(this,EventArgs.Empty);});
+        if(!native)AddSummonFallback(summon,Label,Button);
         if(summon.Open)Button("關閉召喚選擇",true,()=>{login.CloseSummon(summon);petUiSignature="";SyncPetUi(this,EventArgs.Empty);});
         Button("查詢／重新整理寵物背包",can,()=>_ = RunPet(view.Stamp,"refresh"));
         Label("召喚物沒有寵物背包；背包內容以原服回覆為準。");
