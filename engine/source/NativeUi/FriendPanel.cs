@@ -40,6 +40,7 @@ public sealed record FriendWindowSpec(FriendListKind Kind,string Layout,string R
 public static class FriendPanels {
     /// <summary>Set by the client form (BuddyUi.cs). null → the windows show an empty list.</summary>
     public static IFriendListSource? Source{get;set;}
+    [UiPanel(120)]   // M7-V (#529): Friend_Window嚗xclude_Window嚗ailexclude_Window
     public static IReadOnlyList<UiPanelRegistration> Registrations{get;}=
         FriendWindowSpec.All.Select(s=>new UiPanelRegistration(s.Id,s.Layout,_=>new FriendPanel(s,()=>Source))).ToArray();
 }

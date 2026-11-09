@@ -52,6 +52,7 @@ partial class Checks {
             bytes[(int)first+4]=128;bool bad=false;try{PortalCells(bytes,seg);}catch(TargetInvocationException ex) when(ex.InnerException is IOException or InvalidDataException){bad=true;}Check(bad,"portal local x bounds "+seg);
         }
     }
+    [CheckGroup("portals"),CheckGroup("map-continuity",Order=260)]
     static async Task PortalChecks(){
         PortalFormats();PortalFixture();
         for(int heading=0;heading<8;heading++){

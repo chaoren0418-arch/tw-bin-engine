@@ -3,9 +3,17 @@
 Modes
   (default)   verify that every pinned input file (source/audio/web/build inputs) matches rebuild-lock.json
   --update-lock    rescan inputs, write a deterministic dev lock, then verify it
-  --build     verify pins, then build the Windows product + launcher once (.NET SDK from engine/global.json)
-  --verify    verify pins and the existing build/client-product-dev output against receipt.json
+  --build     build the Windows product + launcher once (.NET SDK from engine/global.json).
+              PRs do not modify rebuild-lock.json (#646): when the committed lock is stale, --build
+              warns and builds against a temporary in-memory lock scanned from the current inputs
+              (the committed lock is never written). Missing inputs / path escapes still refuse.
+  --build --strict  old behaviour: refuse unless the committed lock matches (used on main)
+  --verify    strict: verify pins and the existing build/client-product-dev output against receipt.json
+  --lock-out PATH   also write a freshly scanned lock to PATH (not the committed lock); CI artifact
   --write-receipt   after a successful --build, record DLL / manifest identities into receipt.json
+
+Lock policy (#646): the lock is regenerated with --update-lock only after merge to main
+(by the orchestrator); main CI runs the strict check and uploads a candidate lock when stale.
 
 Differences from r33/r34
   * No supervisor acceptance ceremony, no CANONICAL path check: the repo root is derived from this file.
@@ -92,18 +100,58 @@ def input_paths():
     return sorted(set(paths))
 
 
-def update_lock():
+def scan_lock():
+    """Scan current inputs into a lock dict (same content --update-lock writes)."""
     check_root()
     files = []
     for rel in input_paths():
         p = resolve(rel)
         require(p.is_file(), 'missing input file: ' + str(p))
         files.append(dict(path=rel, size=p.stat().st_size, sha256=sha(p)))
-    lock = dict(schema='dev-rebuild-lock-v1', revision='dev', basedOn='r35',
+    return dict(schema='dev-rebuild-lock-v1', revision='dev', basedOn='r35',
                 sourceCount=sum(r['path'].split('/')[0] in SOURCE_ROOTS for r in files), files=files)
-    require(not LOCK.is_symlink() and (not LOCK.exists() or LOCK.stat().st_nlink == 1),
-            'refusing to overwrite a shared lock: ' + str(LOCK))
-    LOCK.write_text(json.dumps(lock, ensure_ascii=False, indent=1) + '\n', encoding='utf-8', newline='\n')
+
+
+def write_lock(lock, path: Path):
+    require(not path.is_symlink() and (not path.exists() or path.stat().st_nlink == 1),
+            'refusing to overwrite a shared lock: ' + str(path))
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(lock, ensure_ascii=False, indent=1) + '\n', encoding='utf-8', newline='\n')
+
+
+def update_lock():
+    write_lock(scan_lock(), LOCK)
+
+
+def lock_drift(old_files, new_files):
+    old = {r['path']: r for r in old_files}
+    new = {r['path']: r for r in new_files}
+    return dict(added=sorted(new.keys() - old.keys()), removed=sorted(old.keys() - new.keys()),
+                changed=sorted(p for p in new.keys() & old.keys()
+                               if (new[p]['size'], new[p]['sha256']) != (old[p]['size'], old[p]['sha256'])))
+
+
+def validate_or_temporary():
+    """--build without --strict: PRs do not touch rebuild-lock.json (#646).
+
+    If the committed lock is stale, build against an in-memory lock scanned from the
+    current inputs instead. The committed lock is never written here; missing required
+    inputs or path escapes still refuse (scan_lock raises).
+    """
+    try:
+        return validate(), None
+    except (RuntimeError, OSError, ValueError, KeyError, TypeError) as ex:  # stale, missing or corrupt lock
+        reason = f'{type(ex).__name__}: {ex}'
+    lock = scan_lock()
+    try:
+        old = [r for r in read(LOCK)['files'] if {'path', 'size', 'sha256'} <= r.keys()]
+    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+        old = []
+    drift = dict(reason=reason, **lock_drift(old, lock['files']))
+    print('WARN: rebuild-lock.json is stale for these inputs; building with a temporary lock (not written). '
+          'The lock is regenerated after merge to main (#646). ' + json.dumps(drift, ensure_ascii=False),
+          file=sys.stderr, flush=True)
+    return lock, drift
 
 
 def validate():
@@ -160,16 +208,35 @@ def main():
     mode.add_argument('--build', action='store_true')
     mode.add_argument('--verify', action='store_true')
     mode.add_argument('--update-lock', action='store_true')
+    ap.add_argument('--strict', action='store_true',
+                    help='with --build: refuse when rebuild-lock.json is stale (main / pre-#646 behaviour)')
+    ap.add_argument('--lock-out', type=Path,
+                    help='also write a freshly scanned lock to this path (never the committed lock); CI uploads it as an artifact')
     ap.add_argument('--write-receipt', action='store_true')
     ap.add_argument('--configfile', default=str(ROOT / 'NuGet.Config'), help='NuGet config for restore (CI passes .github/nuget.ci.config)')
     ap.add_argument('--output', type=Path)
     args = ap.parse_args()
     args.configfile = str(Path(args.configfile).resolve())  # subprocesses run with cwd=engine; resolve relative to caller cwd
+    if args.strict and not args.build:
+        ap.error('--strict only applies to --build (default and --verify are always strict)')
+    if args.lock_out is not None:
+        args.lock_out = args.lock_out.resolve()
+        if args.update_lock or args.lock_out == LOCK.resolve():
+            ap.error('--lock-out must not target the committed lock; use --update-lock for that')
 
     if args.update_lock:
         update_lock()
-    lock = validate()
-    print(json.dumps(dict(status='dev-inputs-verified', sourceFiles=lock['sourceCount'], pinnedFiles=len(lock['files']), writes=args.update_lock)), flush=True)
+    drift = None
+    if args.build and not args.strict:
+        lock, drift = validate_or_temporary()
+    else:
+        lock = validate()
+    if args.lock_out is not None:
+        write_lock(lock if drift else scan_lock(), args.lock_out)
+    print(json.dumps(dict(status='dev-inputs-verified' if drift is None else 'dev-inputs-temporary-lock',
+                          sourceFiles=lock['sourceCount'], pinnedFiles=len(lock['files']), writes=args.update_lock,
+                          lock='committed' if drift is None else 'temporary',
+                          lockOut=str(args.lock_out) if args.lock_out else None)), flush=True)
     if not args.build and not args.verify:
         return
 
@@ -217,13 +284,17 @@ def main():
         RECEIPT.write_text(json.dumps(dict(schema='dev-receipt-v1', builtAt=datetime.datetime.now(datetime.timezone.utc).isoformat(),
                                            sdk=read(ROOT / 'global.json')['sdk']['version'], **ids), indent=2), 'utf-8')
         print('receipt written', RECEIPT)
+    elif drift is not None:
+        print('SKIP: receipt comparison (inputs differ from the committed lock, so the DLL is expected to differ)', flush=True)
     elif RECEIPT.is_file():
         rec = read(RECEIPT)
         for k in ('productDllSha256', 'audioDllSha256'):
             require(ids[k] == rec[k], f'{k} differs from receipt (deterministic build drift or source changed without re-lock)')
     for row in read(ROOT / MANIFEST)['files']:
         pin(resolve(row['path']), row)
-    result = dict(status='pass-dev-build' if args.build else 'pass-dev-verify', sourceFiles=lock['sourceCount'], GUI=False, network=False, database=False, **ids)
+    result = dict(status='pass-dev-build' if args.build else 'pass-dev-verify', sourceFiles=lock['sourceCount'],
+                  lock='committed' if drift is None else 'temporary', lockDrift=drift,
+                  GUI=False, network=False, database=False, **ids)
     (output / 'result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), 'utf-8')
     print('PASS dev', json.dumps(ids), flush=True)
 

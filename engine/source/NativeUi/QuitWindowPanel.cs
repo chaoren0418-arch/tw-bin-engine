@@ -16,6 +16,7 @@ public interface IQuitWindowSource {
 }
 
 public sealed class QuitWindowPanel:IUiPanel {
+    [UiPanel(160)] internal static UiPanelRegistration Registration=>new(QuitWindowPanel.PanelId,QuitWindowPanel.LayoutName,_=>new QuitWindowPanel());   // R2-D (#615) PBW-B: QUIT_WINDOW (uiextra86)
     public const string PanelId="QUIT_WINDOW";
     public const string LayoutName="uiextra86";
     public const int CenterX=400,ScreenY=150;

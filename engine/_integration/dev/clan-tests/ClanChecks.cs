@@ -9,6 +9,7 @@ partial class Checks {
         for(int i=0;i<palette;i++){b.Write((byte)0);b.Write((byte)0);b.Write((byte)255);b.Write((byte)0);}
         for(int y=0;y<12;y++)for(int x=0;x<stride;x++)b.Write((byte)(bits==24||bits==32?x%(bits/8)==2?255:0:0));
     });
+    [CheckGroup("clan"),CheckGroup("map-continuity",Order=70),CheckGroup(CheckGroups.Default,Order=300)]
     static async Task ClanChecks(){
         void Reject(Action action,string label){bool failed=false;try{action();}catch(Exception ex) when(ex is ProtocolException or ArgumentException){failed=true;}Check(failed,label);}
         foreach(var command in new[]{ClanCommand.Join,ClanCommand.Leave,ClanCommand.Members}){

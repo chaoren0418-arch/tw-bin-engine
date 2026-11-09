@@ -20,6 +20,7 @@ public interface IUserPlayStatsSource {
 }
 
 public sealed class UserPlayStatsPanel:IUiMovablePanel {
+    [UiPanel(150)] internal static UiPanelRegistration Registration=>new(UserPlayStatsPanel.PanelId,UserPlayStatsPanel.LayoutName,_=>new UserPlayStatsPanel());   // R2-D (#615): death window (UserPlayUI.xml)
     public const string PanelId=UserPlayStatsLayout.RootName;
     public const string LayoutName=UserPlayStatsLayout.FileName;
     /// <summary>推測：沿用 QUIT_WINDOW 已驗證的畫面位置（400 − 寬/2, 150）。</summary>

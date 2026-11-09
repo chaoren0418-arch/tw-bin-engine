@@ -14,12 +14,13 @@
 | 字串 3123–3126 改讀字串表 | `Recovery.cs` `UserPlayStatsText` | 執行期讀 `string-c.tbl`（`ServerMessageText.Table`）；字串表不存在、id 超出筆數或內容空白時，退回 WO§6 的名稱。WinForms 與原生面板用同一套 |
 | **PBW-B** QUIT_WINDOW | 新檔 `NativeUi/QuitWindowPanel.cs`、`Recovery.cs` | Id `QUIT_WINDOW`，版面 `uiextra86`：底 1951、關閉 X 1962、重新開始 1953、離開遊戲 1956、取消 1959（STAGE3 狀態圖）；位置是 (400 − 寬/2, 150)。規則在 `QuitWindowRules`：重新開始在死亡時走 C177，存活時走 C7（`SwitchCharacter`），戰鬥中顯示訊息 130；離開遊戲走 C122（新的 `LoginConnection.QuitGame`），送出後關閉程式（原版 `exit(0)`），戰鬥中顯示訊息 131；取消、X、Esc 只關窗 |
 | 死亡逾時改開此窗＋訊息 47 | `Recovery.cs` `CheckDeathTimeout` | 逾時後照舊送一次 C122、關閉連線，**再開 QUIT_WINDOW**；狀態列文字以訊息 47 開頭（有字串表就讀表，沒有就用 PBW§4 記錄的「斷線。」）。QUIT_WINDOW 的狀態記在連線物件上，所以斷線後仍然存在；開新連線（世代改變）或自己收到 S85 時會關掉 |
-| 註冊 | `NativeUi/UiPanelRegistry.cs` | 加兩行（UserPlayStatsUI／UserPlayUI、QUIT_WINDOW／uiextra86） |
+| 註冊 | `NativeUi/UserPlayStatsPanel.cs`、`NativeUi/QuitWindowPanel.cs` | 同步 main 後 `UiPanelRegistry.cs` 已改為自動發現（T270／#645），所以改在兩個面板檔各宣告一個 `[UiPanel(150)]`／`[UiPanel(160)]` 註冊（UserPlayStatsUI／UserPlayUI、QUIT_WINDOW／uiextra86），`UiPanelRegistry.cs` 維持 main 版本、沒改 |
 | 測試 | 新檔 `UserPlayStatsTests.cs` | `[WorldModuleTest("user-play-stats")]`，111 項（見下） |
 
 ## 怎麼驗證（全部離線，沒有啟動遊戲、伺服器或 DB）
 
-- `rebuild.py --update-lock` 之後跑 `--build`：`PASS dev`。productDll SHA-256 `951a768e973de8fce3bb9c242427a354e7caf800cc6466c5e1a6d99305fc80c1`。worktree 沒有 `engine/vendor`，所以用 `--configfile scratch/issue-615/NuGet.Config` 指向主專案的 vendor（唯讀）。本組新檔沒有編譯警告。
+- **同步 origin/main（84 commit）後重驗**：`rebuild.py --update-lock` → `--build`：`PASS dev`，productDll SHA-256 `f8e78dffabcc3ad67128bd2767d7f78c4080877ac204fc6b95e8b7bc7bbd237b`；`--module-tests`：`pass`，39 組、1889 項、失敗 0（含 user-play-stats 111、auto-discovery 28、recovery-death 72）；`check-no-game-assets.py` pass。以下是同步前第一輪的紀錄。
+- 第一輪：`rebuild.py --update-lock` 之後跑 `--build`：`PASS dev`。productDll SHA-256 `951a768e973de8fce3bb9c242427a354e7caf800cc6466c5e1a6d99305fc80c1`。worktree 沒有 `engine/vendor`，所以用 `--configfile scratch/issue-615/NuGet.Config` 指向主專案的 vendor（唯讀）。本組新檔沒有編譯警告。
 - `P11.ClientEngine.exe --module-tests <絕對路徑>`：`pass`，28 組、1481 項、失敗 0。其中 user-play-stats 111 項、recovery-death 72 項（既有、未改）、trade-window 79 項、friend-panel 104 項、summon-panel 56 項。
 - DemoChecks 全部 `pass`：ghost-mode 721、ghost-limits 362、resurrection 553、pickup 369、native-ui-canvas 429、native-ui-macro 403、native-ui-resources 539、native-ui-hpmp 397、native-ui-left-status 370、native-ui-chat-window 446。
 - `engine/tools/check-no-game-assets.py`：`pass`，errors 0。沒有新增 `.img`／`.xml`／`.png`；測試用的 XML 與圖是程式合成的，數字刻意和原檔不同。
@@ -58,7 +59,7 @@
 ## 產出路徑
 
 - `engine/source/GhostMode.cs`、`engine/source/Recovery.cs`、`engine/source/OnlineInput.cs`
-- `engine/source/NativeUi/UserPlayStatsPanel.cs`（新）、`engine/source/NativeUi/QuitWindowPanel.cs`（新）、`engine/source/NativeUi/UiPanelRegistry.cs`（加兩行）
+- `engine/source/NativeUi/UserPlayStatsPanel.cs`（新）、`engine/source/NativeUi/QuitWindowPanel.cs`（新；兩檔各含 `[UiPanel]` 註冊）
 - `engine/source/UserPlayStatsTests.cs`（新）
 - `engine/_integration/dev/rebuild-lock.json`（`--update-lock` 重產）
 - 本報告 `docs/reports/issue-615.md`

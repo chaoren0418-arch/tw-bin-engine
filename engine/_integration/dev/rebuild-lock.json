@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 304,
+ "sourceCount": 327,
  "files": [
   {
    "path": "NuGet.Config",
@@ -43,6 +43,11 @@
    "path": "audio/AudioPlayer.cs",
    "size": 11188,
    "sha256": "842fc012a91621d1ecc4d55b55b0d33b7451373fb1513ca58ad8460fb1373066"
+  },
+  {
+   "path": "audio/AudioStreamPlayer.cs",
+   "size": 12471,
+   "sha256": "94ff92df2a86ad568737df034f710c266d4182c92a83995cc07453976c23ac5d"
   },
   {
    "path": "audio/DirectShowDriver.cs",
@@ -106,8 +111,8 @@
   },
   {
    "path": "source/Afflictions.cs",
-   "size": 8353,
-   "sha256": "a7221fa0f85976c42888c0510aad620fbaf709ae215d68b61b5796dc85cef3b0"
+   "size": 10156,
+   "sha256": "46a180fb14713888d11b4605034fcf851ea313ed53abdb5e24c74c20b57cfe3e"
   },
   {
    "path": "source/Agit.cs",
@@ -121,13 +126,18 @@
   },
   {
    "path": "source/Ambience.cs",
-   "size": 40623,
-   "sha256": "e3d4716ecb17e98483bd720555f7e9d4847ff59c8116cdf1fd9519052924a3b0"
+   "size": 46261,
+   "sha256": "04f589b19068976ca2f0ab2c6605733171c717d9b6982c32e9b574bd9b45d5d8"
   },
   {
    "path": "source/AmbienceLightsTests.cs",
    "size": 8540,
    "sha256": "2f20b3f10fec9d88492b8b4362234a256ecc0d7a5d7ea6a7342787a49f19b06e"
+  },
+  {
+   "path": "source/AmbienceWiringTests.cs",
+   "size": 18406,
+   "sha256": "0d730cb29c9651fd1d3ea721f6df1a702dc2e75152aa91c50ce8dd4d778e5410"
   },
   {
    "path": "source/AmountPrompt.cs",
@@ -156,8 +166,18 @@
   },
   {
    "path": "source/AudioApiTransport.cs",
-   "size": 2031,
-   "sha256": "039d63ef093732b02fb3b66041fcd185a7b1e70939690652c8409c762a8d37f9"
+   "size": 2251,
+   "sha256": "63466deb5661356521ea29b389f80c4835d9b41a0bb2544047a23c0a68d4d402"
+  },
+  {
+   "path": "source/AutoDiscovery.cs",
+   "size": 4354,
+   "sha256": "6445c84f87d2a569a1a9ba3fd16da2bc756cfb64811a185b488a060528de98d6"
+  },
+  {
+   "path": "source/AutoDiscoveryTests.cs",
+   "size": 5297,
+   "sha256": "5981e75af9638b327de81a78465da670983373b2a4daba38d414b689a598b082"
   },
   {
    "path": "source/BackgroundMusic.cs",
@@ -336,8 +356,8 @@
   },
   {
    "path": "source/ClientSoundScene.cs",
-   "size": 3682,
-   "sha256": "16d80ab1675ce63b2ef92a48521a65ec50a4160e598f3281e816132de65ae695"
+   "size": 3968,
+   "sha256": "937f1ef167f2b1e2d3de8c19e4a685d153aa838e19a6c352754d824017289fda"
   },
   {
    "path": "source/Combat.cs",
@@ -481,8 +501,8 @@
   },
   {
    "path": "source/Ground.cs",
-   "size": 16497,
-   "sha256": "93a99075c32e4cfa5b8ded82e8e21b54ec0cb5ad303650e8eb4723f383c6f27a"
+   "size": 16605,
+   "sha256": "d8d7d4405440a75a3ad0492e12cf855cd807bb8aad764194c4362bd72c8a2d91"
   },
   {
    "path": "source/GroundCatalog.cs",
@@ -521,8 +541,8 @@
   },
   {
    "path": "source/GroundUi.cs",
-   "size": 6881,
-   "sha256": "aba7b3cc181309e3483d4da8dc63a2e618a0ffa11455baecf98cfbe36c8cf427"
+   "size": 6909,
+   "sha256": "0dd3f873e0a6ccd576a4fe9a57bd1fa891867d61b567f305818de95fbcc49a52"
   },
   {
    "path": "source/HitReactionSuppress.cs",
@@ -556,8 +576,8 @@
   },
   {
    "path": "source/Invisibility.cs",
-   "size": 1741,
-   "sha256": "d71497ef08ec3c1693dd2120703237b7f4a58b87e4d84d99e90ca7ff5511b847"
+   "size": 2421,
+   "sha256": "82a7722478234ccea2828329f3b99b1c2c5172105b4ccd2a6ea9161fe0398d4e"
   },
   {
    "path": "source/ItemStatus.cs",
@@ -681,8 +701,8 @@
   },
   {
    "path": "source/MapAmbientSound.cs",
-   "size": 10559,
-   "sha256": "f47e81c61dfaf4bf006c0b1d2d0d7107eb14c5d726458ef20915da06e6cf960a"
+   "size": 11211,
+   "sha256": "4aabba0dd90ed4c2ab12d6746f8023248081920e73dff683f54ec2b35ee35bda"
   },
   {
    "path": "source/MapEffects.cs",
@@ -750,9 +770,14 @@
    "sha256": "06a69aeeb85da64740bb9ae1b0bb47004f6911a76b4cd96d3988c8208089fb4b"
   },
   {
+   "path": "source/NativeUi/BuffIconsPanel.cs",
+   "size": 15619,
+   "sha256": "fba29145440c19b28bf93445e8e5df385a6503351dfa0e989796ec4e352a7a1e"
+  },
+  {
    "path": "source/NativeUi/ChatPanel.cs",
-   "size": 16247,
-   "sha256": "b3c8da2fbd5b28bee74047856c6611aeeb4ccc8399afd7c05db33e7fa71bde18"
+   "size": 16397,
+   "sha256": "f2032214da46d598ed69b38ac081d8d5068027c057c04911137f80e9095eb9e1"
   },
   {
    "path": "source/NativeUi/ClientArchive.cs",
@@ -761,13 +786,18 @@
   },
   {
    "path": "source/NativeUi/ExMacroPanel.cs",
-   "size": 3478,
-   "sha256": "80d3bd1e8d405b65c3e4d1cb0ff007e12ab549e005213ea2ab2a0f639baa4d75"
+   "size": 3669,
+   "sha256": "46875afda56db055e18d2d26fc3f005560c900e99f0ddc56b9480837ebd2ecbd"
+  },
+  {
+   "path": "source/NativeUi/FieldMapPanel.cs",
+   "size": 3707,
+   "sha256": "5d545b1fda7e166d5242fe9142815665a8c73e42f02b327b867f6138777d0235"
   },
   {
    "path": "source/NativeUi/FriendPanel.cs",
-   "size": 15918,
-   "sha256": "987465bb3a9ea5a766e004ba140501fa049c380e7fbcc4821503ccb2c111a1a9"
+   "size": 16011,
+   "sha256": "70fda7d992620afc1eacd0257a6238037ef90a784858e75cee8531761b445f33"
   },
   {
    "path": "source/NativeUi/FriendPanelTests.cs",
@@ -776,18 +806,43 @@
   },
   {
    "path": "source/NativeUi/HpMpPanel.cs",
-   "size": 14635,
-   "sha256": "066dee37431d7c844ce11944871c1ce0d6fadf0d681dd2a0d334088ebbf2016d"
+   "size": 15049,
+   "sha256": "aaf08b05a227149a3c7abdc1d2e1c9eae1363ecbd30f2ec0795df0f240e89c9a"
+  },
+  {
+   "path": "source/NativeUi/ItemWindowPanel.cs",
+   "size": 28303,
+   "sha256": "4b8e7dc21f8d517b30091415435f691dabbb545e2e618410330078c711339aec"
   },
   {
    "path": "source/NativeUi/LeftStatusPanel.cs",
-   "size": 7005,
-   "sha256": "a70286f5f1bd69a2783479096cc1f359e387d10af665ee2a18b571a9f1866a24"
+   "size": 7159,
+   "sha256": "dd6f5c223f993813ac2818ba5d1cf773f5a6ed518f3eb9d614f536a1c219da31"
   },
   {
    "path": "source/NativeUi/MacroPanel.cs",
-   "size": 9393,
-   "sha256": "53bdbf8c94d4135327d15148acb5fe7955cb669013115cc131892caf1064c5d9"
+   "size": 9603,
+   "sha256": "1bfec7570c4096b6b96d7c07b6c80c4d888affc47a2b37313e914a7384923f21"
+  },
+  {
+   "path": "source/NativeUi/MenuButtonsPanel.cs",
+   "size": 6812,
+   "sha256": "3a8d651ed7743e1727ec233f3845a8ba96cf57ff929432f22b85b1894f47fe7c"
+  },
+  {
+   "path": "source/NativeUi/MiniMapPanel.cs",
+   "size": 3965,
+   "sha256": "0422f67061147e042c998da2852dfe4dea65310f6382e207075f5823aea872de"
+  },
+  {
+   "path": "source/NativeUi/PartyPanel.cs",
+   "size": 13322,
+   "sha256": "377a944181b5e30d0b75a1e38fa10f6291b4de91259d251e9b96a9359339e43c"
+  },
+  {
+   "path": "source/NativeUi/PartyRtPanel.cs",
+   "size": 4909,
+   "sha256": "92a4167e359b62a3d5c3ba6a192dc4f85b861a3232dca321861d286c7a318239"
   },
   {
    "path": "source/NativeUi/PersonalShopPanel.cs",
@@ -795,9 +850,24 @@
    "sha256": "6c4fe29aec802dba88508cc372136678cbe5f3ea06f3716b88a8bc417e1122f9"
   },
   {
+   "path": "source/NativeUi/PledgePanel.cs",
+   "size": 36949,
+   "sha256": "4180eba51485b32319c3633f4091c1aa82f90e3e994a1fae9b96df6f24d534dd"
+  },
+  {
    "path": "source/NativeUi/QuitWindowPanel.cs",
-   "size": 6708,
-   "sha256": "f8535db8ea6bee1db93b2d6adb828ae29d82fc388e94eed272774d1865676eb9"
+   "size": 6907,
+   "sha256": "f242ceaf2e252ad3458aae4164108d76c366cb9e47abdb01264d8546b0d16860"
+  },
+  {
+   "path": "source/NativeUi/SpellWindowPanel.cs",
+   "size": 12652,
+   "sha256": "867e776f33f88931b8c7be2751def31694158b795def613bcdee4c96362d6eed"
+  },
+  {
+   "path": "source/NativeUi/State/BuffState.cs",
+   "size": 12963,
+   "sha256": "7c24e22964a48285230db8b995d127c3f64ca457c8f504f57eb962eccbb70ee6"
   },
   {
    "path": "source/NativeUi/State/ChatState.cs",
@@ -811,8 +881,8 @@
   },
   {
    "path": "source/NativeUi/State/LeftStatusState.cs",
-   "size": 6635,
-   "sha256": "7b24d697d2806b823b480c94bbf2f4a1435cbc36867bc93022d9283fe2a0b2a9"
+   "size": 6652,
+   "sha256": "087363d6eebc54e2c8f8f701e545c78c33aded9e134d981d27dbfb282e5b8bd3"
   },
   {
    "path": "source/NativeUi/State/MacroState.cs",
@@ -820,9 +890,19 @@
    "sha256": "0b5b3d55bc1327acedcb345548f19b063305bedfff8b301c3ecf3eb6df73fa50"
   },
   {
+   "path": "source/NativeUi/State/MapState.cs",
+   "size": 16853,
+   "sha256": "1d25c448a508629ba7a56d452012558850637b6baf52b164eac4d952da48f98d"
+  },
+  {
+   "path": "source/NativeUi/State/PartyState.cs",
+   "size": 3843,
+   "sha256": "341456e87501e9cd7094308549a687eb68a084ea1ee5fc3951ff977206919733"
+  },
+  {
    "path": "source/NativeUi/SummonPanel.cs",
-   "size": 16457,
-   "sha256": "d30f97688d78a843d09117c1212fd057653f9f23fb3733124ff2569bdc84d831"
+   "size": 16640,
+   "sha256": "275ae2555a828a6b3650c0c7e5c3e0c4616915765f471c3d0dc5955595e672f1"
   },
   {
    "path": "source/NativeUi/SummonPanelTests.cs",
@@ -836,8 +916,8 @@
   },
   {
    "path": "source/NativeUi/TradeWindowPanel.cs",
-   "size": 8210,
-   "sha256": "cfc1c28e79c51bfcac7be4f00edfb2ad2b67ec59d1d83c540897b05f2747dc1a"
+   "size": 8384,
+   "sha256": "f346b35d288d5ea0bf838b5b3ee1d9c4e7ba831898ed74b184c451c5d9b57c2d"
   },
   {
    "path": "source/NativeUi/UiCanvas.cs",
@@ -846,8 +926,8 @@
   },
   {
    "path": "source/NativeUi/UiClientBridge.cs",
-   "size": 9940,
-   "sha256": "6c1232378c8f3e63ab8e3bd5b5522960f1d8efc041a639e3beeb303902963726"
+   "size": 10528,
+   "sha256": "71c048b0ad9a4ed795339ad93d6987c2437308131fc4ba4c12421fad2189fd57"
   },
   {
    "path": "source/NativeUi/UiContracts.cs",
@@ -866,8 +946,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 1888,
-   "sha256": "03ef56c0f83bdeef602527755071bcde8f179e0ee1f33dfb44425707941789a9"
+   "size": 986,
+   "sha256": "0374aec954cc7b4934b58ff44d86e57e3a81670ef12276ebe362c0c0485551a3"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
@@ -901,8 +981,13 @@
   },
   {
    "path": "source/NativeUi/UserPlayStatsPanel.cs",
-   "size": 8101,
-   "sha256": "3bd4dfbe6ee1cd5fcf9065f5df131b4e218b4c09c8c66d59cefa556842252429"
+   "size": 8309,
+   "sha256": "08eac272036a07faa4c4fe0ae64a4ba6457764baffffa28ea7b275dbeaaee932"
+  },
+  {
+   "path": "source/NativeUi/WarehouseWindowPanel.cs",
+   "size": 20369,
+   "sha256": "bd0d29f590a73840f42be3aaebfba79e3bd1854b89d615389f0a37f9d7b0812b"
   },
   {
    "path": "source/Network.cs",
@@ -1040,6 +1125,16 @@
    "sha256": "8c7009fd8483196beda9108a07a01f54b1e02d4447ba6cb3c6b88fb78b15d084"
   },
   {
+   "path": "source/PacketBoxMessages.cs",
+   "size": 14512,
+   "sha256": "d34605ac4b61f5e5621b86519910f46210e51a3cd7ba33919c5a1239da452dae"
+  },
+  {
+   "path": "source/PacketBoxMessagesTests.cs",
+   "size": 9253,
+   "sha256": "44c05cd07dd4d8fe8667c26c4bac9c7bcf5b9948b3981bf46688fe15870c1047"
+  },
+  {
    "path": "source/PacketBoxStatus.cs",
    "size": 12806,
    "sha256": "68af4dc8e0d334f142996b5f8df8d80f1a7a36a81952593bf3e421b4494ec472"
@@ -1141,18 +1236,18 @@
   },
   {
    "path": "source/PlayerPointer.cs",
-   "size": 9504,
-   "sha256": "afa627532ab8715ea7dbc68802cfea6aef3524f90f14fd893a4d8adfae2715b4"
+   "size": 11969,
+   "sha256": "53fa503399a5af1b87826980aac5e43ea65c3f083544ef6a86494c983b173465"
   },
   {
    "path": "source/PlayerPointerHud.cs",
-   "size": 1527,
-   "sha256": "64dbce54801a133cfb2e76f175f2b30cd8562aea0bb107727aaa029186b3cda9"
+   "size": 1873,
+   "sha256": "2196ddcef71ba169d6fe20931b00ad31e251c73a6f9f8cf013862a49a5ceebb7"
   },
   {
    "path": "source/PlayerPointerUi.cs",
-   "size": 3246,
-   "sha256": "1f0fe179cb50ae4c582500e8bb2a7ab112200a081ad177dfadc648e9acf48803"
+   "size": 3405,
+   "sha256": "72fcc5ca046f51f4c45dd6f1d8278cdf1e8aa69e5b9cb1028ceb2a43f9c44104"
   },
   {
    "path": "source/PlayerProfiles.cs",
@@ -1168,6 +1263,11 @@
    "path": "source/PlayerShadows.cs",
    "size": 3677,
    "sha256": "c44d4c21bdf4764a891e8e366b3211f80898336b8fab651e18874ceaee86bca2"
+  },
+  {
+   "path": "source/PointerFlowTests.cs",
+   "size": 11931,
+   "sha256": "4a6d30ef4c0b07df5dbbc95c76607f390169a0db3f1723bde6d101918b42d802"
   },
   {
    "path": "source/Polymorph.cs",
@@ -1195,9 +1295,19 @@
    "sha256": "78dcd9d01730ba4482efee76ed4b2eb41c40d9c2ab35f75382a070a086be83c9"
   },
   {
+   "path": "source/ProductSoundBackends.cs",
+   "size": 8300,
+   "sha256": "071c21d8c5d3755b91b44ba547d8f16bf73067be15b0a940b90308eb7a4a5855"
+  },
+  {
+   "path": "source/ProductSoundTests.cs",
+   "size": 9761,
+   "sha256": "5cf924f7df044ed5debe6548a3aaddc31521aad3bebf2c5f69f51b696a27c3c8"
+  },
+  {
    "path": "source/Program.cs",
-   "size": 26753,
-   "sha256": "dec8cc860ea5ddb19035cb6b938debf336f22a8e6264f5cd96750eb59ca4f398"
+   "size": 27334,
+   "sha256": "85b7de65ecf3fd01cab2cdb64550bedfbcecf7105266816f75750f351a85a867"
   },
   {
    "path": "source/ProjectileRendering.cs",
@@ -1266,8 +1376,8 @@
   },
   {
    "path": "source/Renderer.cs",
-   "size": 7555,
-   "sha256": "1b43a818cce1cb762efbe31ec553b779fd38d53fd3efe031fd7a2125c8a8d0ff"
+   "size": 8005,
+   "sha256": "8773ca1889767128334061e4603e48e823c6639a88d896c1a83e4e438d3e9e53"
   },
   {
    "path": "source/Resources/ground-catalog.json",
@@ -1356,8 +1466,8 @@
   },
   {
    "path": "source/SoundRules.cs",
-   "size": 6663,
-   "sha256": "74d28646c94eb3a0367b174c0aa2964d164a01a79e2fc5bb9cef21bcb39d2fbc"
+   "size": 7001,
+   "sha256": "92575e408b7acb492bf87c7a899005dc8a916bf52db004983be277f1ba58edca"
   },
   {
    "path": "source/SpellExchange.cs",
@@ -1411,8 +1521,8 @@
   },
   {
    "path": "source/TimedBuffs.cs",
-   "size": 8113,
-   "sha256": "26122b659dfbba9bd60a959833dc37dd467fb8de34cecc3264b9a628ee429484"
+   "size": 9420,
+   "sha256": "0f9749d873b8a6bd4897f36f39c53fd757ed353005b254d28c11cb80682012c9"
   },
   {
    "path": "source/TitleAndEmote.cs",
@@ -1448,6 +1558,11 @@
    "path": "source/WeaponRepairUi.cs",
    "size": 1685,
    "sha256": "0b9724347dd2b9b5bd51d1c3a3255bee53ea15615bfb045354b244615208a2c8"
+  },
+  {
+   "path": "source/WeatherSprite.cs",
+   "size": 10668,
+   "sha256": "1600061cb59c1eca355c59d95bee3fca3b2ee20d35b30bad38898ddca8d734de"
   },
   {
    "path": "source/WebIconResource.cs",

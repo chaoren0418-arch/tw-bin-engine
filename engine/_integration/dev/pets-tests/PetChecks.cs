@@ -31,6 +31,7 @@ partial class Checks {
     });
     static void PetReject(Action action,string label){bool threw=false;try{action();}catch(ProtocolException){threw=true;}Check(threw,label);}
     static LoginReader PetReader(byte[] bytes){var r=new LoginReader(bytes);r.C();return r;}
+    [CheckGroup(CheckGroups.Preamble,Order=20,DeferFailure=true),CheckGroup("pets")]
     static async Task Pets(){
         Check(Convert.ToHexString(PetPackets.Information(0x12345678))=="2278563412000000","C34 D information query and padding");
         Check(Convert.ToHexString(PetPackets.Menu(0x12345678))=="6778563412000000","C103 D little endian and padding");

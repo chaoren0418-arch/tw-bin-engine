@@ -20,6 +20,7 @@ partial class Checks {
         else{b.Write((ushort)0);b.Write((ushort)0);b.Write((byte)0);}
     });
     static Task<bool> Service(LoginConnection c,string command,int option=0,IReadOnlyList<ShopChoice>? choices=null)=>c.Interact(command,c.World.InteractionRevision,c.World.WorldEpoch,c.World.TargetRevision,option,choices);
+    [CheckGroup("combat-loop"),CheckGroup(CheckGroups.Default,Order=260)]
     static async Task CombatLoop(){
         await KillAndLoot();await LearnAndCast();await Ammunition();await DeathAndRecovery();await RecoveryRaces();
     }
