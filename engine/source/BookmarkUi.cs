@@ -59,13 +59,31 @@ public sealed partial class ClientForm {
         if(!normalProduct||normalPanels==null||bookmarkPanel!=null)return;
         bookmarkPanel=new BookmarkPanel();var page=new TabPage("記憶座標");page.Controls.Add(bookmarkPanel);normalPanels.TabPages.Add(page);
         bookmarkPanel.Enter+=(_,_)=>LeaveGameFocus("bookmarks");
-        bookmarkPanel.Send=async(view,name,id)=>{
-            bool walking=World.Walking;ClearInput("bookmarks");
-            bool sent=!walking&&await login.SendBookmark(view,name,id);
-            if(!IsDisposed)SyncBookmarks();return sent;
-        };
+        bookmarkPanel.Send=SendBookmarkUi;
+        // ui-bookmark (#472): transitional opener for the native BookmarkUI window (the original key is 待驗證).
+        var native=new Button{Dock=DockStyle.Top,Height=30,Text="開關原生書籤窗（nativeUi）"};
+        native.Click+=(_,_)=>ToggleNativeBookmarkWindow();page.Controls.Add(native);
         timer.Tick+=BookmarkTick;Disposed+=(_,_)=>timer.Tick-=BookmarkTick;SyncBookmarks();
     }
+    async Task<bool> SendBookmarkUi(BookmarkView view,string? name,uint? id){
+        bool walking=World.Walking;ClearInput("bookmarks");
+        bool sent=!walking&&await login.SendBookmark(view,name,id);
+        if(!IsDisposed)SyncBookmarks();return sent;
+    }
     void BookmarkTick(object? sender,EventArgs e)=>SyncBookmarks();
-    void SyncBookmarks(){if(bookmarkPanel is {} panel&&!panel.IsDisposed){var view=login.BookmarkSnapshot();panel.UpdateView(view with{CanEdit=view.CanEdit&&!World.Walking});}}
+    void SyncBookmarks(){
+        if(bookmarkPanel is {} panel&&!panel.IsDisposed){var view=login.BookmarkSnapshot();panel.UpdateView(view with{CanEdit=view.CanEdit&&!World.Walking});}
+        if(NativeUiRoot?.Find(NativeUi.BookmarkWindowPanel.PanelId) is NativeUi.BookmarkWindowPanel window&&window.Host==null)window.Attach(new NativeBookmarkHost(this));
+    }
+    internal bool ToggleNativeBookmarkWindow(){
+        if(!NativeUiActive||NativeUiRoot?.Find(NativeUi.BookmarkWindowPanel.PanelId) is not NativeUi.BookmarkWindowPanel window)return false;
+        if(window.Host==null)window.Attach(new NativeBookmarkHost(this));
+        window.Toggle();if(window.Visible)NativeUiRoot.BringToFront(window);
+        Invalidate();return true;
+    }
+    /// <summary>Native window → the same T124 path as the WinForms tab (snapshot, walking guard, SendBookmark checks).</summary>
+    sealed class NativeBookmarkHost(ClientForm form):NativeUi.IBookmarkUiHost {
+        public NativeUi.BookmarkUiState State{get{var v=form.login.BookmarkSnapshot();return NativeUi.BookmarkUiState.From(v with{CanEdit=v.CanEdit&&!form.World.Walking});}}
+        public void Delete(NativeUi.BookmarkUiState shown,uint id){if(shown.View is {} view)_=form.SendBookmarkUi(view,null,id);}
+    }
 }
