@@ -953,3 +953,255 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 | Q4-1 | 3.81 會提亮的來源：**S42 有方向範圍魔法（type 8＝`+9`）**、**S30／S42 用 kind 2 的 gfx**、S106 gfx 2028–2056、`S_GlobalEffect(3)` 煙火（gfx 2042／2030／2029）、gfx 2001 動作 19（762×5）、gfx 53 走路第 3 格（214）。S30 的 kind 0／1 不會（3.81 寫 0）。FU4§3.2「3.81 不會提亮」撤回（FU5§3） | R3-H：特效物件加 `LightFlag`，預設 `Effect` 第 1 格 Begin、播完 End；kind 2 第 2 格 Begin；`Ambience.cs` 註解改正 |
 | Q4-2 | `+36`＝**背包圖示 gfx**（S_ADD_INVENTORY 的 `h`，`sub_C02C40`）；87 在 3.81 是戒指圖示（情人戒指、GM戒指），沒有「沙哈的戒指」→ `$431` 分支不必做（FU5§4） | `Invisibility.cs` 註解補意義即可 |
 | 9183 | 本機 `Sprite*.idx`／`Tile.idx` **沒有** `9183.img`（9184 也沒有）（FU5§5） | R3-C：倉庫紀錄窗關閉鈕改用 1962 或不畫，點擊區照舊 |
+
+## 13. 第四輪盤點（T291／#701，2026-11-10）
+
+依目前的 main `1786d89a`，加上合併佇列中的 PR #699（#607）、#700（#667）、#702（#690，只有文件）重新核對。第 1–12 節保留原文不改；本節的變更表（13.3）接在 12.3 之後套用，統計由 `rea-scripts/gap_count_r4.py` 從「原表＋11.3＋12.3＋13.3」重算。
+
+> **同步註記**：本節撰寫時 #699、#700、#702 還在合併佇列；推送前同步 main 時三者都已合併（main `6cef17e0`）。我重新核對過本節引用的 PR #699／#700 `檔案:行`（`RingWindows.cs:25`、`:72`，`Magic.cs:74`，`Pets.cs:202`，`NativeUi/AgitMapPanel.cs:136`，`BookmarkUi.cs:114`，`PacketBoxScreen.cs:231`），在 main 上都一樣；產品端 `[UiPanel]` 在 main 上是 29 個。所以標「（PR #n 合併後）」的變更現在已經生效，13.5 裡依賴 PR #699／#700／#702 的組也已經可以派。
+
+### 13.1 方法
+
+- 對象是 T277 基準 `77baa88d` 之後合併的 25 個 PR：R2-E、H、J、K、L、M、N、Q（#681、#637、#647、#691、#653、#639、#640、#638）、R3-A–I（#693、#692、#682、#694、#683、#695、#684、#686、#687）、#654（PBW-C）、#662（紅字）、#663（PBW-E）、#664（盟屋地圖）、#696（T269）、#697（T272）；查證任務 T287（#688）的結果已在 12.8。合併佇列的 #699、#700 用 `git show origin/task/<分支>:<路徑>` 讀，沒有 checkout；#702 是 T289 的查證文件（[`followups-5.md`](followups-5.md)，FU5），本輪引用它的結論，但它合併前 12.9 不在 main。
+- 逐張讀 `docs/reports/issue-<N>.md`，再用 Grep 在 `engine/source` 找**產品端**呼叫點（排除 `*Tests.cs`、`engine/_integration/`、產品檔內的 `[WorldModuleTest]` 區塊）。報告閱讀與呼叫點掃描分給 4 個唯讀子代理平行做；原生 UI 開關（`NativeUi/UiRoot.cs:168`）、`[UiPanel]` 數量、S_NEWS 模態框（`ClientLogin.cs:71`）、門的 `]`（`ObjectRendering.cs:57`）、隱身的血盟條件（`Invisibility.cs:36`）、`ShowDevToolsPage`（`NativeUi/UiClientBridge.cs:159`）我另外用 Grep 複核過。
+- 判定規則同 11.1、12.1：**程式在、但產品沒有呼叫**（只有測試呼叫、沒有訂閱者，或只在 `--native-ui` 時出現）一律算「部分」；原版在 3.81 下沒有可見行為的，引擎不做畫面也算一致。另加一條：**送包列只看封包**——封包欄位與送出時機都對、只差視窗版面的送包列改「已有」，版面差異記在對應的收包列或視窗列（12.3 的 C_TAX 已是這樣處理）。
+- 合併佇列中的 PR 造成的變更，在「補上的任務」欄寫「（PR #n 合併後）」。
+- 本輪沒有新的反組譯，沒有開 IDB、沒有掛 subst 磁碟；BIN 端地址沿用第 1–5 節。沒有建置、執行，也沒有啟動遊戲、伺服器或 DB。
+
+### 13.2 本輪新發現
+
+1. **第三輪「程式已寫但產品沒接上」表（12.2）的處理結果**：已接上的有 `ItemWindowPanel`／`SpellWindowPanel`／`WarehouseWindowPanel`／`PledgePanel` 的 `[UiPanel]`（`NativeUi/ItemWindowPanel.cs:215`、`SpellWindowPanel.cs:35`、`WarehouseWindowPanel.cs:34`、`PledgePanel.cs:179`）、`PersonalShopPanel`（`PersonalShopIntegration.cs:17`）、召喚備援（`SummonFallbackUi.cs:47`、`PetUi.cs:101`）、`ClanWarehouseHistoryReceived`（`ClanWarehouseHistoryUi.cs:21`）、`Cooking.CookBook`（`Cooking.cs:92`，只在原生 UI 下）、`ClientSoundScene.ObserveScene`（`ClientLogin.cs:59`、`CharacterManagementUi.cs:62`）、`BackgroundMusic.RegisterBoss`（`SoundPackets.cs:259`、`:268`）、`ChatState.SetHeights`（`NativeUi/ChatPanel.cs:101`）、`SecondColor`（帶資料不畫，FU4§7 確定與原版一致）、`PacketBoxStatusChanged` 的 B2 數值（R2-L，進舊 HUD 狀態列文字）。仍沒接上的見下表。
+2. **原生 UI 仍預設關閉**（`NativeUi/UiRoot.cs:168`：「Default OFF」，只認 `--native-ui` 或 `native-ui.json`）。現在產品端有 **28 個** `[UiPanel]` 註冊（#699 合併後 29 個，13.6），比第三輪的 16 個多 12 個，但全部預設看不到，所以第 4 節仍然 **0 列「已有」**。
+3. **原生 UI 關閉時沒有備援、功能直接用不到的**：料理窗（`Cooking.cs:93`）、血盟窗 S250／171（`ClanEmblem.cs:165`）、盟屋地圖 S187（`Agit.cs:97`）、`QUIT_WINDOW`（`Recovery.cs:439`）、個人商店開店設定窗（`PersonalShopIntegration.cs:182` 只有提示）、中央綠字（#699 合併後，`PacketBoxScreen.cs:231`）。**反過來也有**：原生 UI 開啟時**信件打不開**——入口只在已隱藏的舊 HUD（`PlayerHudView.cs:89`），原生選單鈕 1 呼叫 `ShowDevToolsPage("信件")`，但開發工具沒有「信件」分頁（`ProductEntry.cs:14`），只會開出開發工具視窗本身。
+4. **選單鈕與熱鍵**：R3-A 已照 FU4§1 接上 13（`Field_Map`）、3（`SPELL_WINDOW`）、4（`ITEM_WINDOW`）、7（遊玩統計窗，不再登出）與 Tab／Ctrl+I、Ctrl+S（`NativeUi/MenuButtonsPanel.cs:34–52`）；1 信件、2 `CRenewalStatusUI`、5 `option2`、6 `option1` 仍開開發工具（過渡）；Ctrl+A、Ctrl+Q／Alt+X、Ctrl+H、Ctrl+V、Ctrl+C、Ctrl+P 沒接（`:48`）。
+5. **原生舊式窗只有外框與按鈕**：`ITEM_WINDOW`、`SPELL_WINDOW`、`WAREHOUSE_WINDOW` 的格子、圖示與列文字都沒畫（`NativeUi/WarehouseWindowPanel.cs:55`、`:67`），所以就算開了原生 UI，倉庫窗也選不了物品；`TRANSACTION_WINDOW` 只畫名稱、沒有圖示與金幣框，加物品仍靠 WinForms 加入列（`TradeUi.cs:45`）；`COOK_BOOK_WINDOW` 的料理清單、捲動、量表沒做；原生血盟窗沒有階級、上傳盟徽、顯示盟徽勾選框。
+6. **S250（op 108）**：3.81 會送的 62 個子碼，main 處理 **54 個**（第三輪 51；+37 #663、+168 #654、+173 #691），#699 合併後 **56 個**（+83、+84 類型 1／2）。還缺 6 個：45、86、66、146、190、192，依 PBW§2、FU3§5 全部不建議做。27／30／31 仍只存資料，FU5§2 已查到原版印在聊天欄（R4-H）。
+7. **視窗堆疊 4 層上限已做**（#687，`NativeUi/UiRoot.cs:66`、`:82–102`），但 `TradeWindowPanel`、`TransactionPanel`、`CookBookPanel` 沒實作 `IUiClosablePanel`（`NativeUi/TradeWindowPanel.cs:47`、`TransactionPanel.cs:64`、`CookBookPanel.cs:22`），被擠出時只隱藏、內部仍是開著；「再開一次＝關掉」與 509 特例沒做。
+8. **T290（#698）的第 1 項已過時**：城主王冠在產品畫面已經畫出（`ObjectRendering.cs:162`，經 `PaintCrowns` `:344–364`，含他人 `(Flags & 2)==0 && y>0`），#618 R2-I 就做了。真正剩下的只有走路內插偏移表（`ObjectRendering.cs:152` 刻意不套）。建議把 T290 第 1 項改成「名稱旁的隊伍／主人圖示（FU5§1）＋門的 `]`」，`ObjectRendering.cs` 仍只給 T290。
+9. **T288（#689）的第 4 項（聊天第二色）R3-G 已處理**（`PlayerChat.cs:168`、`NativeUi/State/ChatState.cs:92` 註明只帶資料、不畫），T288 只剩血盟倉庫紀錄原生窗、隱身拿掉血盟條件（`Invisibility.cs:36` 仍有）、酒醉註解三項。
+10. `AgitMapPanel`、`RedNoticePanel`、`UserPlayStatsPanel` 都用 `[UiPanel(150)]`、`CookBookPanel`／`LocationListPanel` 都用 170、R3-A 的 4 個面板都用 175：順序值重複。同序時的排列依自動發現的實作，沒有查證是否穩定（待驗證）。
+
+**程式已寫但產品沒接上（依 Grep，`檔案:行` 為定義處）**
+
+| 項目 | 位置 | 原因 | 處理 |
+|---|---|---|---|
+| 選單鈕 1／2／5／6 | `NativeUi/MenuButtonsPanel.cs:35–42` | 開開發工具分頁（過渡）；「信件」分頁不存在 | R4-A |
+| 熱鍵 Ctrl+A、Ctrl+Q／Alt+X、Ctrl+H、Ctrl+V、Ctrl+C、Ctrl+P | `NativeUi/MenuButtonsPanel.cs:48` | 沒接（FU4§1 已查） | R4-A |
+| `ITEM_WINDOW`／`SPELL_WINDOW`／`WAREHOUSE_WINDOW` 的格子與圖示 | `NativeUi/ItemWindowPanel.cs:215`、`SpellWindowPanel.cs:50`、`WarehouseWindowPanel.cs:55` | 只畫外框與按鈕；魔法窗等級鈕沒有對應 | R4-B |
+| `RepairTradeSource.Submit` 多選 | `WeaponRepairUi.cs:29` | `WeaponRepair.cs` 一次只收一件，只送第一筆 C20（TWP§1：每列各送一包） | R4-C |
+| `IUiClosablePanel` 沒實作 | `NativeUi/TradeWindowPanel.cs:47`、`TransactionPanel.cs:64`、`CookBookPanel.cs:22` | 被堆疊擠出時只隱藏 | R4-C、R4-D |
+| op 44 舊清單 | `SpellExchangeUi.cs:13–17` | 原生 UI 開啟時 NPC 面板的舊清單沒有讓位，兩邊都能送 | R4-C |
+| `CookBookPanel` 上下鈕、料理清單 | `NativeUi/CookBookPanel.cs:23` | 有座標沒動作；沒有 WinForms 備援 | R4-D |
+| `ClanShowEmblem`（S250／173） | `ClanEmblem.cs:140` | 只用在 WinForms 狀態文字；原生血盟窗沒有勾選框 | R4-E |
+| `PledgePanel.ScrollAttention`、`AttentionPage`；168 `Writenotice`／`Savenotice` | `NativeUi/PledgePanel.cs:176`、`:257–258` | 關注清單只有資料不畫；公告沒有輸入框也不送 | R4-E |
+| C129 `C_PLEDGE_WATCH` | （沒有送出端） | 只有 S200 收包（`Clan.cs:198`）；送出點需先查證（Q4-3） | R4-E（只做查證後的部分） |
+| `PacketBoxStatusIcons`（75／82／180） | `PacketBoxStatus.cs:123` | 原生 `BuffState` 不讀，只有舊 HUD 文字狀態列讀（`StatusIcons.cs:24`） | R4-F |
+| `PetAc`／`PetBagStale`／`PetEquipmentState` | `PetEquipment.cs:67–78` | 沒有產品使用者；寵物頁仍顯示背包的 AC（`PetUi.cs:106`） | R4-F |
+| `Renderer.MagicLightLevel`／`MagicBrighteningEffects`、`MagicBrighten.LocationEffect` | `MagicRendering.cs:196`、`:326–328` | 只有測試呼叫；SV#12 提亮沒套到明暗 | R4-G（FU5§3） |
+| `Ambience.BeginLightEffect`／`EndLightEffect` | `Ambience.cs:165–166` | 只有 `_integration` 測試呼叫；觸發來源已由 FU5§3 查到 | R4-G |
+| `PacketBoxMessageReceived`、`RankChange`／`LastavardWin`／`FeelGoodCount` | `PacketBoxMessages.cs:88–90` | 只存資料；FU5§2：原版印聊天欄 | R4-H |
+| `EmitterLevel.ExtraVolume`、`PacketSoundLevel` | `SoundPackets.cs:65`、`:240–250` | 每次更新都重算，但結果固定 (100,64)；`IAudioPlayback`（`CombatSfx.cs`）沒有改正在播放的音量的入口 | R4-K |
+| `AgitHouseListReceived`／`AgitHouseMapReceived` | `Agit.cs:77`、`:79` | 沒有訂閱者；地圖窗改用靜態 `AgitMapWindow` 輪詢；清單窗 `AgitAuctionUI` 缺資源 | 不分組 |
+| `WorldSession.BlindClassBonus` | `Afflictions.cs:13` | 只有測試會設；寫入 `byte_1542AA1` 的封包沒查到 | Q4-4 |
+| `WorldSession.LocationListObjectPresent` | `LocationShare.cs:175` | 產品從不設成 false，2139 分支只有測試會走 | T290（#698，`LocationShare.cs`） |
+| `ChatPanel.SetHeight` | `NativeUi/ChatPanel.cs:108` | 只有測試呼叫；高度沒有存檔與還原 | 不分組（低） |
+| `PersonalShopPanel.Closed` | `NativeUi/PersonalShopPanel.cs:35` | 沒有訂閱者 | 不分組（關店由 `PersonalShopIntegration` 另送） |
+| `Renderer.PaintAmbience` | `Renderer.cs:10` | 死碼（連測試都不呼叫） | #699 合併後可順手刪（R4-G 以外的組不碰） |
+| `WorldSession.CloseCookBook()`（無參數版） | `Cooking.cs:57` | 產品改用帶 revision 的版本，只剩測試呼叫 | R4-D 順手整理 |
+| `UiRoot.WindowEvicted` | `NativeUi/UiRoot.cs:74` | 只有測試訂閱 | 診斷用，預期如此 |
+
+### 13.3 狀態變更表
+
+「列」與 11.3、12.3 相同（第 1–5 節該列的第一格或唯一前綴）；「原狀態」是套用 12.3 之後的狀態。原狀態＝新狀態的列只更新依據。
+
+| 節 | 列 | 原狀態 | 新狀態 | 補上的任務 | 剩下的差異／依據 |
+|---|---|---|---|---|---|
+| 1 | 85 | 部分 | 已有 | #647 R2-J、#691 R2-K、#517 | 組隊、決鬥、求婚、交易、復活 322、入盟 97、盟戰 221／222 都進共用詢問槽；提示文字讀 `string-c.tbl`、Esc 送拒絕（`YesNoPrompt.cs:16–32`、`:145`；`KeyboardNavigation.cs:19`）。321 走復活面板是 WIN§2.1 的特例；原生 UI 下聊天輸入有焦點時 Esc 先關輸入，待驗證 |
+| 1 | 161 | 部分 | 已有 | #691 R2-K | C72 查詢、C18 上傳、S118 收回、S250／173 旗標都有（`Clan.cs:254`、`ClanEmblem.cs:140`、`:143`）；C18 本體（384 bytes RGB555）是推定；「顯示盟徽」勾選框歸 PledgeUI（R4-E） |
+| 1 | 104 | 部分 | 已有 | #684 R3-G | `(name) msg`、`-> (target) msg` 與顏色 32／24 照 UI§3（`PlayerChat.cs:106–108`、`:143`） |
+| 1 | 229 | 部分 | 已有 | #686 R3-H、T287（查證） | FU4§2：`sub_81B0E0` 為真＝16 位元路徑＝全振幅，`LiquorFullWave` 固定 true 與原版一致（`TimedBuffs.cs:23`）；註解改正由 T288（#689）處理 |
+| 1 | 61 | 部分 | 部分 | #684 | S161 type 0／2／3 的格式與顏色照 Printer（`PlayerChat.cs:89–98`）；NPC 名稱 `$數字` 沒查名稱表；type 2＋id 0 沒有接收端 |
+| 1 | 114 | 部分 | 部分 | #686 | 盲目 2 時 102 表物件發光已接（`Afflictions.cs:145`）；職業 6／31 的規則在，但 `BlindClassBonus` 只有測試會設，產品一律 4／31（Q4-4） |
+| 1 | 160 | 部分 | 部分 | #686、T287（查證） | FU4§4：只有同隊可見；引擎仍保留同血盟可見（`Invisibility.cs:36`）→ T288（#689） |
+| 1 | 5 | 部分 | 部分 | #637 R2-H、#696 T269 | 舊素材特效改在 `!` 格出現並受擊（`MagicRendering.cs:352–358`）；kind 6／7 照 TWP§3（`:205`、`:250`）；剩 SV#12 提亮沒套用（`:328`，R4-G）、舊素材路徑不分 109 kind、施法者忙碌時整包排隊（`sub_A40250`）沒做 |
+| 1 | 240 | 部分 | 部分 | #637 | 轉向第一個目標已做（`AttackSkillPackets.cs:136`）；其餘同 op 5 |
+| 1 | 137 | 部分 | 部分 | #637 | 同 op 5 |
+| 1 | 197 | 部分 | 部分 | #647 | 322 已進共用槽（`YesNoPrompt.cs:145`）；321 仍是 WinForms 復活面板（`Resurrection.cs:107`）；5 秒上限是引擎自訂 |
+| 1 | 25 | 部分 | 部分 | #653 R2-L | 75／82／180 只進資料層與舊 HUD 文字狀態列（`PacketBoxStatus.cs:123`、`StatusIcons.cs:24`）；原生 `BuffState` 不讀，沒有圖示、百分比、無期限顯示 → R4-F |
+| 1 | 17 | 部分 | 部分 | #653 | effect 11 圖示只在原生 UI 下（`NativeUi/State/BuffState.cs:120`）；預設只有狀態列文字 |
+| 1 | 122 | 部分 | 部分 | #653；#667（PR #700 合併後） | PR #700：施放技能 5／69 且戴傳送控制戒指時開書籤窗選目的地、送 3.81 `HD`；技能 51 且戴召喚控制戒指時開召喚選單，等級不足顯示 743（`RingWindows.cs:25`、`Magic.cs:74`、`Pets.cs:202`，分支 task/667）；王族 Lv≥50 分支沒做；書籤窗是 WinForms 分頁，且 `RingWindows.cs:72` 只切分頁、不叫出開發工具視窗，使用者可能看不到（待驗證） |
+| 1 | 108 | 部分 | 部分 | #663、#654、#691；#607（PR #699 合併後） | 處理 62 個中的 54 個，#699 合併後 56 個（13.2 第 6 點）；剩 6 個不建議做；27／30／31 只存資料 → R4-H |
+| 1 | 45 | 部分 | 部分 | #662 | 原生 `RED_NOTICE` 照 UI§2 V2（5 格、15 秒、黑外框、無底色，`NativeUi/RedNoticePanel.cs:27`），只在原生 UI 下；預設仍是黑底紅字（`DisplayNotices.cs:125`） |
+| 1 | 18 | 部分 | 部分 | #664 #550；#667（PR #700 合併後） | `AgitMap_Window` 已註冊（`NativeUi/AgitMapPanel.cs:57`），只在原生 UI 下，關閉時什麼都不顯示（`Agit.cs:97`）；674 鈕在 main 不接動作，PR #700 合併後送 C125 `select`（`AgitMapPanel.cs:136`，分支 task/667） |
+| 1 | 131 | 部分 | 部分 | #681 R2-E | `TRADE_WINDOW` 模式 0 送 C161（`ShopTradeSource.cs:16`），只在原生 UI 下；預設仍是 `ShopRows` 清單（`WeaponRepairUi.cs:17–23`） |
+| 1 | 40 | 部分 | 部分 | #681 | 同 op 131（模式 1，`ShopTradeSource.cs:38`）；賣出確認已拿掉（FU3§6.1） |
+| 1 | 136 | 部分 | 部分 | #681 | 模式 6 版面照 TWP§1；只在原生 UI 下；多選只送第一筆 C20（`WeaponRepairUi.cs:29`）→ R4-C |
+| 1 | 44 | 部分 | 部分 | #695 R3-F | 原生 UI 下走 `TRADE_WINDOW` 模式 7、送 C39（`SpellTradeSource.cs:30`、`:90`）；關閉時仍是 NPC 面板舊清單，開啟時兩者並存（`SpellExchangeUi.cs:13–17`）；沒有魔法圖示 → R4-C |
+| 1 | 175 | 部分 | 部分 | #695 | 只在原生 UI 下有模式 7 視窗（送 C191，`SpellTradeSource.cs:98`）；關閉時暫行 WinForms 窗已拿掉，只剩提示文字（`SpellExchange.cs:144`） |
+| 1 | 88 | 部分 | 部分 | #683 R3-E | `TRANSACTION_WINDOW` 已註冊、S52 開窗（`NativeUi/TransactionPanel.cs:65`），只在原生 UI 下；加物品仍用 WinForms 加入列（`TradeUi.cs:40–45`）→ R4-C |
+| 1 | 145 | 部分 | 部分 | #683 | 同 op 88；只畫名稱，沒有物品圖示與金幣輸入框（`NativeUi/TransactionPanel.cs:36–39`） |
+| 1 | 63 | 部分 | 部分 | #691 | 221／222 進共用詢問槽，戰爭時頭上畫盟徽（`ClanWar.cs:132`、`ObjectRendering.cs:236`）；S84 文字只寫進引擎自訂的 WinForms 盟戰窗，217 仍由該窗回答；原版顯示通道沒查（Q4-5） |
+| 1 | 78 | 部分 | 部分 | #693 R3-A | 原生血盟窗有 7 列關注清單資料（`NativeUi/PledgePanel.cs:195`、`:257`），只有資料不畫、只在原生 UI 下；錯誤訊息 3349／3324 沒做 → R4-E |
+| 1 | 110 | 部分 | 部分 | #693 | S250／171 開原生血盟窗（`NativeUi/PledgePanel.cs:97`、`:179`），只在原生 UI 下，關閉時不開窗（`ClanEmblem.cs:165`）；沒有階級、上傳、顯示盟徽入口 → R4-E |
+| 1 | 127 | 部分 | 部分 | #693 | `WAREHOUSE_WINDOW` 已註冊、確定鈕送 C38（`NativeUi/WarehouseWindowPanel.cs:34`、`UiClientBridge.cs:155`），只在原生 UI 下；格子、圖示、列文字沒畫，畫面上選不了物品 → R4-B |
+| 1 | 52 | 部分 | 部分 | #692 R3-B | 原生 UI 關閉時改用 WinForms 暫行清單並切到寵物分頁、送 C125（`SummonFallbackUi.cs:24`、`:47–53`）；清單沒有怪物名稱；原生 `CSummonUI` 只在原生 UI 下（12.3 引用的「只有一行提示」已過時） |
+| 1 | 22 | 部分 | 部分 | #692 | `PetControl` 原生面板已註冊（`NativeUi/PetControlPanel.cs:60`），只在原生 UI 下；錨點 (400,300) 是推測；淡入淡出、原生寵物背包窗沒做 |
+| 1 | 91 | 部分 | 部分 | #694 R3-D | S22 每次更新都重算 (vol, ext)，但結果固定 (100,64)，`ExtraVolume` 沒有使用者（`SoundPackets.cs:65`、`:240–250`）；播放端沒有改正在播放的音量的入口 → R4-K |
+| 1 | 89 | 部分 | 部分 | #697 T272 | 死亡窗 WinForms 備援已有統計值（`Recovery.cs:207–239`）；`QUIT_WINDOW` 仍只在原生 UI 下（`Recovery.cs:439`） |
+| 2 | 179 | 部分 | 已有 | #638 R2-Q | 正常登入時 S48 以模態「公告」框顯示，按確定才回 C16（`ClientLogin.cs:54`、`:71`）；外觀是 Windows 標準訊息框，不是 `sub_8E1E30`；不存 `Capture\News*.txt`（PBW§5.3 說可以不存） |
+| 3 | C_ANSWER(33) | 部分 | 已有 | #647 | 一律走同一條 C121（`YesNoPrompt.cs:24`、`:214–227`）；舊 HUD 用 WinForms 鈕，原生 UI 用 `NativeUi/YesNoPanel.cs:23` |
+| 3 | C_EMBLEM(28) | 部分 | 已有 | #691 | C72 與 C18 都會送（`Clan.cs:43`、`:254`）；上傳入口是引擎自訂的 WinForms 鈕（`ClanUi.cs:57`），版面歸 PledgeUI |
+| 3 | C_CREATE_PLEDGE(26) | 部分 | 已有 | #691 | C63 階級設定已送（`Clan.cs:253`）；入口是 WinForms 下拉選單，原版 `ChangeRank` 彈出窗歸 PledgeUI；97 進共用詢問槽，保留引擎自訂的 5 分鐘逾時 |
+| 3 | C_SLAVE_CONTROL(45) | 部分 | 已有 | #692 | 召喚選擇的 C125 在預設模式由暫行清單送出（`SummonFallbackUi.cs:71–77`）；`attackchr` 等指令由 WinForms 分頁與原生 `PetControl` 送（`PetUi.cs:50`） |
+| 3 | C_BUYABLE_SPELL(24) | 部分 | 已有 | #695 | C145／C39 兩種模式都會送（`SpellTradeSource.cs:18`）；版面差異歸 op 44 |
+| 3 | C_BUY_SELL(89) | 部分 | 已有 | #681、#693 | 商店兩條路都送 C161、倉庫確定鈕送 C38（`NpcInteraction.cs:122`、`ShopTradeSource.cs:38`、`UiClientBridge.cs:155`）；版面差異歸 op 131、40、127 |
+| 3 | C_FIXABLE_ITEM(233) | 部分 | 部分 | #681 | 多選只送第一筆 C20（`WeaponRepairUi.cs:29`）→ R4-C |
+| 3 | C_ASK_XCHG(5) | 部分 | 部分 | #683 | 同第 1 節 op 88；旗標 0 的自動回覆仍沒做（`Trade.cs:37–41`） |
+| 3 | C_WAR(197) | 部分 | 部分 | #691 | C227 由引擎自訂的 WinForms 宣戰／投降／停戰鈕送出（`ClanWar.cs:165`、`:215`）；原版入口沒查（Q4-5） |
+| 3 | C_PLEDGE_WATCH(201) | 部分 | 部分 | （無） | 只有 S200 收包，找不到送 C129 的程式（`Clan.cs:198`）；送出點需先查證（Q4-3） |
+| 3 | C_USE_SPELL(216) | 部分 | 部分 | #637、#696 | 轉向 SV#4 已做；冷卻讀 `SpellList.xml`（`ActionCadence.cs:79–84`、`Magic.cs:80`），但檔案來自其他客戶端（預設 kor25 路徑，`TW_SPELLLIST_CLIENT` 可改），沒有時退回 `ReuseMs`；SV#3 選目標游標沒做 |
+| 3 | C_CHANNEL(55) | 部分 | 部分 | #639 R2-M、#697 | 10 筆清單用 `[WorldReset]` 清空，1784／1785／2139 與 `MapDesc-c.tbl` 執行期讀表（`LocationShare.cs:102–124`）；清單畫面只在原生 UI 下（`NativeUi/LocationListPanel.cs:29`）；沒有 `TransferMenu` 入口（只有 `/loc`，`PlayerChat.cs:264`）；`desc-c.tbl` 4266 地名備援與座標聊天行格式由 T290（#698）處理 |
+| 3 | C_QUERY_PERSONAL_SHOP(86) | 部分 | 部分 | #640 R2-N | C38 開店與關店能送（`PersonalShopIntegration.cs:173`）；開店設定窗只在原生 UI 下，關閉時只有提示（`:182`）；單價與數量由舊頁面輸入 |
+| 3 | C_INVITE_PARTY(82) | 部分 | 部分 | #647 | 回覆改走詢問槽、拿掉 30 秒本地逾時（`Party.cs:116`）；原生隊伍窗只在原生 UI 下，邀請入口仍是 WinForms `PartyUi` |
+| 3 | C_DUEL(118) | 部分 | 部分 | #647 | 回覆鈕拿掉、改走詢問槽（`Duel.cs:28`、`:55`）；AN#14「決鬥對手」標記本輪沒有複核 |
+| 3 | C_MARRIAGE(21) | 部分 | 部分 | #647 | 15 秒逾時拿掉、補了發起入口（`Marriage.cs:127`、`:138`），但入口是引擎自訂過渡頁；原版 NPC HTML `HyperActPropose` 沒接（Q4-6） |
+| 3 | C_DEAD_RESTART(58) | 部分 | 部分 | #697 | 同第 1 節 op 89 |
+| 4.1 | PersonalShopUI | 部分 | 部分 | #640 | `[UiPanel(115)]` 已註冊（`PersonalShopIntegration.cs:17`），只在原生 UI 下；開窗入口是過渡用 WinForms 鈕，拖放流程沒查證 |
+| 4.1 | MainChatUI | 部分 | 部分 | #684 | 原生 `CENTER_WINDOW` 重新載入版面時呼叫 `SetHeights`，保留分頁與高度（`NativeUi/ChatPanel.cs:101`）；只在原生 UI 下；`SetHeight` 沒有產品呼叫者 |
+| 4.1 | MainButtonUI | 部分 | 部分 | #693 | 13／3／4／7 已接原生窗；1／2／5／6 開開發工具，1 的「信件」分頁不存在（`NativeUi/MenuButtonsPanel.cs:34–43`、`ProductEntry.cs:14`）；只在原生 UI 下 → R4-A |
+| 4.1 | MapUI | 部分 | 部分 | #693 | Map 鈕已接 `Field_Map`（`NativeUi/FieldMapPanel.cs:53`），只在原生 UI 下；世界／村莊地圖沒有 |
+| 4.1 | Inventory | 部分 | 部分 | #693 | 已註冊，Tab／Ctrl+I 已接（`NativeUi/MenuButtonsPanel.cs:50`），只在原生 UI 下；格子與圖示沒畫、任務／其他分頁沒分；WinForms 背包分頁並存 → R4-B |
+| 4.1 | Warehouse | 部分 | 部分 | #693 | 同第 1 節 op 127 |
+| 4.1 | ExchangeUI | 部分 | 部分 | #683 | 同第 1 節 op 88 |
+| 4.1 | SpellUI | 部分 | 部分 | #693 | 已註冊，Ctrl+S 已接（`NativeUi/SpellWindowPanel.cs:35`），只在原生 UI 下；等級鈕沒有對應 → R4-B |
+| 4.1 | PledgeUI | 部分 | 部分 | #693、#654 | 已註冊、橋接已包 state（`NativeUi/PledgePanel.cs:179`、`UiClientBridge.cs:148`），只在原生 UI 下；168 公告畫在公告分頁（`:110`、`:403`），但不能寫、不送；沒有階級、上傳、顯示盟徽入口；`PledgeUI.xml` 沒有用真實資源載入過 → R4-E |
+| 4.1 | BookmarkWindowUI | 部分 | 部分 | #667（PR #700 合併後） | 傳送控制戒指的目的地模式加在 WinForms 書籤分頁（`BookmarkUi.cs:114`，分支 task/667）；原生 `BookmarkPanel` 不存在 → R4-J |
+| 4.1 | SummonUI | 部分 | 部分 | #692；#667（PR #700 合併後） | 同第 1 節 op 52；PR #700 加了召喚控制戒指入口；戒指開的本機請求在原生 UI 關閉時不會自動切到寵物分頁（`SummonFallbackUi.cs:24`） |
+| 4.1 | UserPlayStatsUI | 部分 | 部分 | #697 | 統計值、地監時間（送 C63 `C(9)`）、`NewItemList` 鈕已做（`Recovery.cs:207–239`、`:295`）；Reset 鈕、`UserObtainUI` 清單窗由 T290（#698）處理；選單開窗只在原生 UI 下 |
+| 4.1 | RenewalStatusUI | 部分 | 部分 | #693 | 選單鈕 2 開開發工具「角色」分頁（`NativeUi/MenuButtonsPanel.cs:37`）；Ctrl+A 沒接；原生 `CRenewalStatusUI` 沒有（`ReNStatusUIEx.xml` 本機缺，WIN§1.4） |
+| 4.1 | OptionUI | 部分 | 部分 | #693 | 選單鈕 6 開開發工具「選項」分頁（`NativeUi/MenuButtonsPanel.cs:41`）；Ctrl+V／Ctrl+C 與 HTML `option1`／`option2` 沒接 → R4-A |
+| 4.2 | `TradeWindow` | 部分 | 部分 | #681、#695 | 商店 0／1、修理 6、學魔法 7 都接上 `TradeWindowPanel`，只在原生 UI 下；修理只送一筆；沒有 `IUiClosablePanel` → R4-C |
+| 4.2 | `PetControl` | 部分 | 部分 | #692 | 同第 1 節 op 22 |
+| 4.2 | `InventoryWindow` | 部分 | 部分 | #693 | 同第 4.1 節 Inventory |
+| 4.2 | `SpellWindow` | 部分 | 部分 | #693 | 同第 4.1 節 SpellUI |
+| 4.2 | `MapSystemWindow` | 部分 | 部分 | #693 | Map 鈕現在開 `Field_Map`；仍只有 Field／Dungeon 外觀 |
+| 4.2 | `MapLocationSaveWindow` | 部分 | 部分 | #639 | 只有原生 UI 下貼在 `Field_Map` 旁的文字清單（`NativeUi/LocationListPanel.cs:29`，不是原版窗）；沒有發送座標選單 |
+| 4.2 | `InputWindow` | 部分 | 部分 | #647 | `YesNoPanel` 是 `IUiPanel`（`NativeUi/YesNoPanel.cs:23`），只在原生 UI 下；舊 HUD 是 WinForms 鈕放在權宜位置；提示文字沒畫在原版輸入列 (192, 581)；鈕 32×14 是推定 |
+| 4.2 | `QuitWindow` | 部分 | 部分 | （無） | 仍只在原生 UI 下，關閉時沒有 WinForms 備援（`Recovery.cs:328–334`、`:439`） |
+| 4.2 | `CCookWindow` | 部分 | 部分 | #682 R3-C | `COOK_BOOK_WINDOW` 已註冊並接資料（`NativeUi/CookBookPanel.cs:23`、`Cooking.cs:92–95`），只在原生 UI 下、沒有 WinForms 備援；料理清單、捲動、量表數值沒做 → R4-D |
+| 4.2 | `WareHistoryWindow` | 部分 | 部分 | #682 | 開窗事件已訂閱，用暫行 WinForms 清單顯示，不受原生 UI 開關影響（`ClanWarehouseHistoryUi.cs:14–36`）；FU4§5 的原生版面、類型文字（0＝存放、1＝領出）由 T288（#689）處理 |
+| 4.2 | `AgitWindow` | 缺 | 部分 | #664 #550 | `AgitMapWindow` 已做（`NativeUi/AgitMapPanel.cs:57`），只在原生 UI 下；674 鈕由 PR #700 接上；`AgitWindow` 沒做，觸發點待驗證 |
+| 5 | `sub_81C7C0` | 部分 | 已有 | #637、#696 | 舊素材特效也照 `!` 格（`MagicRendering.cs:352–358`）；kind 6 每個 `!` 受擊、kind 7 由終點受擊（`ProjectileRendering.cs:89–91`）；真機時序沒確認 |
+| 5 | `sub_4FC710` | 部分 | 已有 | #647、#691 | 各模組自己的回覆鈕都拿掉，統一走共用詢問槽與字串表（`YesNoPrompt.cs:16–32`）；321 特例見第 1 節 op 197 |
+| 5 | vtable 表 `0x1165C80` | 部分 | 已有 | #684、T287（查證） | 各類型上色已做；FU4§7：原版不讀第二色，引擎帶資料不畫（`NativeUi/State/ChatState.cs:126`），與原版一致 |
+| 5 | `sub_A4B060` | 部分 | 部分 | #637、#696 | 落點特效與舊素材特效的 `]` 已做，飛行物與 kind 2／6／7 照 TWP§3.4 不處理（`MagicRendering.cs:280`、`:317`）；**門被排除**（`ObjectRendering.cs:57` `if(!door)`），原版門是 `UserObject`、有 `]`；`.s32` 地圖特效的 `]` 沒做 |
+| 5 | （109 kind | 部分 | 部分 | #696 | kind 3／4／5／6／7／8 已處理（`MagicRendering.cs:202–205`、`:250`）；舊素材 gfx 路徑仍不分 kind；7374／10145 疊層深度、`+40` 繪製旗標沒做 → R4-G |
+| 5 | `sub_8FB4D0` | 部分 | 部分 | #653 | 同第 1 節 op 25 |
+| 5 | （`TransferMenu` | 部分 | 部分 | #639、#697 | 1784／1785 改讀表；沒有地圖窗的發送入口，只有 `/loc`（`PlayerChat.cs:45`、`:264`） |
+| 5 | `sub_A57C60` | 部分 | 部分 | #687 R3-I | 4 層上限、擠掉最底層、`BringToFront` 已做（`NativeUi/UiRoot.cs:66`、`:82–102`、`UiInput.cs:71`）；「再開一次＝關掉」、509 特例沒做；3 個面板沒有 `IUiClosablePanel`；只在原生 UI 下 |
+| 5 | （中毒、麻痺 | 部分 | 部分 | #686 | 酒醉已一致；剩第 1 節 op 114 的職業來源、op 160 的血盟條件 |
+| 5 | music.def | 部分 | 部分 | #694 | 登入／選角音樂（`ClientLogin.cs:59`、`CharacterManagementUi.cs:62`）與頭目 SPAWN／BATTLE／DEATH（`SoundPackets.cs:259–274`，FU4§6）都已接；MIDI、聲像沒做；戰鬥曲是否蓋掉 SPAWN 沒查 |
+
+未列出的列狀態不變。
+
+### 13.4 統計（第四輪）
+
+第 1–5 節原表（58／164／67）依序套 11.3（含 11.8）、12.3、13.3，共 290 列（`py -3 -I docs/reference/rea-scripts/gap_count_r4.py docs/reference/gap-matrix.md`；第 11 節套用 88 列、第 12 節 87 列、第 13 節 85 列，沒有錯誤；加 `--list` 印出所有非「已有」列）：
+
+| 節 | 已有 | 部分 | 缺 | 其中需先查證 | 其中伺服器不支援／不建議 | 其中可直接補 |
+|---|---:|---:|---:|---:|---:|---:|
+| 1. 收包：第一組 dispatch | 58 | 46 | 10 | 0 | 9 | 1 |
+| 2. 收包：第二組 | 7 | 2 | 4 | 0 | 4 | 0 |
+| 3. 送包：`sub_951F80` 名稱表 | 22 | 25 | 5 | 0 | 5 | 0 |
+| 4. UI 視窗 | 0 | 49 | 24 | 0 | 20 | 4 |
+| 5. 物件、技能、道具、地圖事件與繪製的處理函式 | 21 | 16 | 1 | 0 | 1 | 0 |
+| **合計** | **108** | **138** | **44** | 0 | 39 | 5 |
+
+和第三輪（94／151／45）比較：「部分→已有」14 列（op 85、161、104、229；第 2 節 op 179；C_ANSWER、C_EMBLEM、C_CREATE_PLEDGE 血盟列、C_SLAVE_CONTROL、C_BUYABLE_SPELL、C_BUY_SELL；`sub_81C7C0`、`sub_4FC710`、vtable `0x1165C80`）、「缺→部分」1 列（`AgitWindow`／`AgitMapWindow`）。已有 +14、部分 −13、缺 −1。送包列一次改了 6 列，是因為 13.1 的「送包列只看封包」規則。
+
+- 第 4 節仍然 **0 列「已有」**：73 列中，有原生面板的列（13.6 甲類）全部只在 `--native-ui` 下出現。原生 UI 改成預設開啟後，13.6 甲類的列可以逐一改「已有」，但要先補 13.6 丙類的退步項目。
+- 合併佇列的三個 PR 都**不改統計**：#699 讓 op 108 處理 56 個子碼、#700 讓 op 122、18 與 674 鈕接上，但這些列仍是「部分」；#702 只有文件。
+- 仍為「缺」且「可直接補」的 5 列：op 132 S_SHOW_MAP（PG 任務 D，低）、`BookmarkMemoryWindowUI`（開窗子碼 141 是推測，等 R4-J 之後）、`StatInfoUI`（隨重置窗，本機缺 23 個 surf）、`UserObtainUI`（T290／#698 處理）、`AgitAuctionUI`（XML 缺資源）。本批不另分組。
+- 全表「需先查證」仍是 0 列；13.7 的 Q4 項都屬「部分」列裡的細項。
+
+### 13.5 第四批 code 任務分組（11 組）
+
+**原則**（沿用第 7、11.5、12.5 節）
+- 同一個既有檔案只分給一組；新檔用該組自己的名稱。
+- 新封包用 M7-A 擴充點（`[WorldReceive]`、`[WorldReset]`、`[WorldSnapshot]`、`[WorldModuleTest]`），不改 `WorldSession.cs`；新面板用 `[UiPanel(順序)]` 在**自己的檔案**註冊，不改 `UiPanelRegistry.cs`；測試用 `[CheckGroup]`／`[WorldModuleTest]` 自動發現，不改 `Program.cs`、`DemoChecks.csproj`。**PR 不改 `rebuild-lock.json`**（#646）。
+- `NativeUi/UiClientBridge.cs` 本批**只給 R4-A**；其他組的面板若要取 game state，用面板自己的 `Attach`／host 介面（`ISummonUiHost`、`IAgitMapHost` 的做法）。
+- 下列合併佇列 PR 與已開任務用到的檔案，本批不碰，列為依賴：PR #699（`PacketBoxScreen.cs`）、PR #700（`AbilityStatus.cs`、`RingWindows.cs`、`BookmarkUi.cs`、`Magic.cs`、`Pets.cs`、`NativeUi/SummonPanel.cs`、`NativeUi/AgitMapPanel.cs`）、PR #702（`docs/reference/followups-5.md`、本文 12.9）、T288 #689（`PlayerHudChat.cs`、`NativeUi/State/ChatState.cs`、`ClanWarehouseHistory.cs`、`ClanWarehouseHistoryUi.cs`、`NativeUi/ClanWarehouseHistoryPanel.cs`、`Invisibility.cs`、`TimedBuffs.cs`）、T290 #698（`ObjectRendering.cs`、`Castle.cs`、`NativeUi/UserPlayStatsPanel.cs`、`NativeUi/UserObtainPanel.cs`、`Recovery.cs`、`TextArchive.cs`、`PlayerChat.cs`、`LocationShare.cs`）、T273 #651（`KickNotice.cs`）。
+- 新開的原生面板都要實作 `IUiClosablePanel`（13.2 第 7 點），並讓原生 UI 關閉時仍有可用的入口（WinForms 備援或既有分頁），不要再新增 13.2 第 3 點那種「關閉時用不到」的功能。
+- 驗收照 #503 暫行政策：編譯＋既有單元測試綠（CI），每組另加自己的離線測試（新檔）。標 Q4-n 的部分只做協定與資料，不做畫面，報告寫明。
+
+| 組 | 目標 | 可改的檔案 | 依賴 | 引用 |
+|---|---|---|---|---|
+| R4-A 選單鈕、熱鍵與信件入口 | 修原生 UI 下**信件打不開**：選單鈕 1 改開信件（WinForms `MailUi` 或補「信件」分頁）；鈕 2 與 Ctrl+A 開能力窗（暫用「角色」分頁，原生 `CRenewalStatusUI` 缺 XML）；Ctrl+Q／Alt+X 切換遊玩統計窗；鈕 5／6 與 Ctrl+C／Ctrl+V 開本機 HTML `option2`（王族 `option2p`）／`option1`、Ctrl+H 開說明頁（R4-I 合併前先開 NPC 面板的同名頁）；Ctrl+P 截圖（存到 `<stage>/runtime/Capture`，不寫遊戲目錄）；`page` 對不到時記待驗證 | `NativeUi/MenuButtonsPanel.cs`、`NativeUi/UiClientBridge.cs`、`ProductEntry.cs`、`MailUi.cs`、新檔 `MenuHotkeyTests.cs` | 鈕 5／6 的原生窗等 R4-I（先用 NPC 面板） | FU4§1；WIN2§2；第 4.1 節 MainButtonUI、OptionUI、RenewalStatusUI、RenewalMailUI |
+| R4-B 背包、魔法、倉庫原生窗畫內容 | `ITEM_WINDOW`、`SPELL_WINDOW`、`WAREHOUSE_WINDOW` 畫格子、物品圖示（`+36`＝背包圖示 gfx，FU5§4）、數量、列文字；可點選格子與拖曳到確定鈕；魔法窗等級鈕切頁；背包任務／其他分頁；圖示來源做成共用新檔，供 R4-C 使用 | `NativeUi/ItemWindowPanel.cs`、`NativeUi/SpellWindowPanel.cs`、`NativeUi/WarehouseWindowPanel.cs`、新檔 `NativeUi/ItemIconSource.cs`、`LegacyWindowContentTests.cs` | 圖示意義引用 FU5§4（PR #702） | WIN2§2；`uimagicitem.xml` `ITEM_WINDOW`／`SPELL_WINDOW`、`uiextra86.xml` `WAREHOUSE_WINDOW`；第 1 節 op 127；第 4.1 節 Inventory、SpellUI、Warehouse |
+| R4-C 交易、商店、修理、學魔法窗收尾 | `TRANSACTION_WINDOW` 畫物品圖示與金幣輸入框，從原生背包加物品送 C37（不再靠 WinForms 加入列）；修理多選時每列各送一包 C20（TWP§1）；原生 UI 開啟時 NPC 面板的學魔法舊清單讓位；`TradeWindowPanel`、`TransactionPanel` 實作 `IUiClosablePanel` | `NativeUi/TransactionPanel.cs`、`NativeUi/TradeWindowPanel.cs`、`TradeUi.cs`、`Trade.cs`、`WeaponRepair.cs`、`WeaponRepairUi.cs`、`SpellExchangeUi.cs`、新檔 `TradeFollowupTests.cs` | 圖示等 R4-B 合併（用 `ItemIconSource`，不改它） | TWP§1、§1.6；WIN§1.5、§2.1；第 1 節 op 88、145、136、44；第 3 節 C_FIXABLE_ITEM、C_ASK_XCHG；第 4.2 節 `TradeWindow` |
+| R4-D 料理窗內容與備援 | `COOK_BOOK_WINDOW` 畫料理清單、捲動、量表數值，上下鈕接動作；實作 `IUiClosablePanel`；原生 UI 關閉時用 WinForms 暫行清單（S250／52 一樣可以選料理）；清掉只剩測試呼叫的 `CloseCookBook()` | `Cooking.cs`、`NativeUi/CookBookPanel.cs`、新檔 `CookBookFallbackUi.cs`、`CookBookFollowupTests.cs` | 無 | WIN2§7（W2-F）；第 4.2 節 `CCookWindow`；第 1 節 op 108 |
+| R4-E 血盟窗收尾 | 原生血盟窗畫 op 78 的 7 列關注清單（接 `ScrollAttention`）與錯誤訊息 3349／3324（SS2§3）；168 公告的寫入／存檔輸入框與送包（PBW§2 PBW-C）；階級設定、上傳盟徽、「顯示盟徽」勾選框（`ClanShowEmblem`）；C129 送出在 Q4-3 查到前不做 | `NativeUi/PledgePanel.cs`、`Clan.cs`、`ClanUi.cs`、`ClanEmblem.cs`、新檔 `PledgeWindowFollowupTests.cs` | Q4-3（只擋 C129） | WIN2§3；SS2§3；PBW§2；第 1 節 op 78、110、161；第 3 節 C_PLEDGE_WATCH；第 4.1 節 PledgeUI |
+| R4-F 狀態圖示與寵物資料接上 | 原生 `BuffState` 讀 `PacketBoxStatusIcons`（75／82／180：圖示、百分比 tooltip、75 改寫圖示、無期限顯示）；預設模式的水中呼吸 effect 11；寵物頁 AC 改用 `PetEquipment` 的 `PetAc`（S250／37），`PetBagStale` 時重新要清單；召喚控制戒指開的本機請求在原生 UI 關閉時也切到寵物分頁 | `NativeUi/State/BuffState.cs`、`NativeUi/BuffIconsPanel.cs`、`StatusIcons.cs`、`PacketBoxStatus.cs`、`PetUi.cs`、`PetEquipment.cs`、`SummonFallbackUi.cs`、新檔 `StatusAndPetFeedTests.cs` | 戒指那一項等 PR #700 合併 | UI§4；PG§2.3 B2；PBW§2 PBW-E；第 1 節 op 25、17、52；第 5 節 `sub_8FB4D0` |
+| R4-G 技能提亮與舊素材 kind 分類 | 依 FU5§3 加 `LightFlag`：預設 `Effect`（`+9≠0`）播到第 1 格 `BeginLightEffect`、播完 `EndLightEffect`；kind 2 `Lightning` 第 2 格開始；S106 gfx 2028–2056、S42 type 8 接上；`MagicLightLevel` 套到明暗；舊素材 gfx 路徑改照 109 kind（kind 5 要飛、kind 8 不畫）；7374／10145 疊層深度、`+40` 旗標；刪死碼 `Renderer.PaintAmbience` | `MagicRendering.cs`、`ProjectileRendering.cs`、`SubEffects.cs`、`AttackSkillPackets.cs`、`Ambience.cs`（只限光效觸發與註解）、`Renderer.cs`（只刪 `PaintAmbience`）、新檔 `SkillLightTests.cs` | PR #702 合併（FU5）；`S_GlobalEffect(3)` 煙火的提亮在 `PacketBoxScreen.cs`，等 PR #699 合併後另做 | FU5§3；SV§2–§4、SV#12；TWP§3；第 1 節 op 5、240、137；第 5 節 109 kind、`sub_A4B060` |
+| R4-H S250 27／30／31 印聊天欄 | 依 FU5§2：27 依自己／別人印 784／2125＋階級名（階級 <2、>13、11 不印；兩參數形式不印）；30 依 `dssd` 印 782＋783（城堡 ≠ 8）；31 印 77，並在下次自己出現時放 gfx 831；顏色 palette[24]；更正 `protocol-gaps.md` 2.2 節 30 列 `dd`→`dssd` | `PacketBoxMessages.cs`、`docs/reference/protocol-gaps.md`（只改 30 列）、新檔 `PacketBoxChatTests.cs` | PR #702 合併（FU5） | FU5§2；PG§2.3 B1；第 1 節 op 108 |
+| R4-I 原生 `HYPER_TEXT_WINDOW` | NPC 對話／HTML 頁的原生面板：`uiextra86.xml` 第 3 段版面（底 1968、框 1969、捲軸 1970／2040／2042／2044，FU4§5），文字、連結、數字框（S136、城堡頁）、關閉鈕；原生 UI 開啟時 `NpcUi` 把頁面交給它，關閉時維持 WinForms；查詢頁與 NPC 頁改成單窗取代（op 144 的差異） | 新檔 `NativeUi/HyperTextPanel.cs`、`HyperTextPanelTests.cs`；`NpcUi.cs`（只限頁面分流） | 無 | WIN§2.1；WIN2§5.1、§5.3；FU4§5；第 1 節 op 144、224；第 3 節 C_DIALOG；第 4.1 節 HyperTextUI |
+| R4-J 原生書籤窗 | `BookmarkUI.xml` 的 `CBookmarkWindowRenewal` 原生面板（UI§6）；傳送控制戒指的目的地模式（FU3§3）改用原生窗，WinForms 分頁保留給關閉時；`RingWindows` 開窗時真的把視窗叫出來（PR #700 的 `RingWindows.cs:72` 只切分頁） | 新檔 `NativeUi/BookmarkPanel.cs`、`BookmarkPanelTests.cs`；`BookmarkUi.cs`、`RingWindows.cs` | PR #700 合併 | UI§6；FU3§3；SS2§7；第 4.1 節 BookmarkWindowUI；第 1 節 op 2、238、122 |
+| R4-K 聲音：播放中隨距離改音量 | `IAudioPlayback` 加「改正在播放的音量」入口，產品後端與 `engine/audio` 傳輸接上；S22 播放中依 SD§2.3 `A091C0` 重算後真的套用（vol＝100−14·(nx²+ny²)/20，夾 0），補 `ext` | `SoundPackets.cs`、`CombatSfx.cs`（只限 `IAudioPlayback`）、`AudioApiTransport.cs`、`ProductSoundBackends.cs`、`engine/audio/`、新檔 `SoundVolumeUpdateTests.cs` | 無 | SD§2.3、SD#4–#14；第 1 節 op 91 |
+
+**建議順序**：先派 R4-A、R4-B、R4-D、R4-E、R4-I、R4-K（不等別人）；PR #702 合併後派 R4-G、R4-H；PR #700 合併後派 R4-J，R4-F 的戒指那一項也等它（其他部分可以先做）；R4-B 合併後派 R4-C（非圖示部分可以先做）。另外建議調度器在派 T290（#698）前，把它的第 1 項（王冠，已完成）改成「名稱旁隊伍／主人圖示（FU5§1）＋門的 `]`」（13.2 第 8 點）；T288（#689）拿掉第二色那一項（13.2 第 9 點）。
+
+### 13.6 原生 UI 預設開啟前的缺口（給使用者決定用）
+
+原生 UI 目前預設關閉（`NativeUi/UiRoot.cs:168`）。下表列出改成預設開啟前要知道的事，分四類。**本節只列事實與建議，是否開啟由使用者決定**；T201（#475）的真機 smoke 結果本輪沒有查核。
+
+**甲、已有原生面板（28 個 `[UiPanel]`，#699 合併後 29 個）**：`LEFT_WINDOW`、`CENTER_WINDOW`（聊天）、`HpMpWindow`＋頭上條、`MINI_MAP_WINDOW`、`Field_Map`、`EX_MACRO_WINDOW`、`RIGHT_WINDOW`（巨集）、選單鈕、`PARTY_INTERFACE`／RT、`STATUS_EFFECT_ICONS`、`RED_NOTICE`、`YES_NO`（`InputWindow`）、`TRADE_WINDOW`（商店 0／1、修理 6、學魔法 7）、`TRANSACTION_WINDOW`、個人商店開店設定窗、好友／封鎖／信件封鎖三窗、`CSummonUI`、`PET_CONTROL`、`ITEM_WINDOW`、`SPELL_WINDOW`、`WAREHOUSE_WINDOW`、血盟窗 `PledgeUI`、`COOK_BOOK_WINDOW`、盟屋地圖、`UserPlayUI`（死亡窗）、`QUIT_WINDOW`、發送座標清單（引擎自訂版面）、公告板按鈕層（`BoardListWindow`／`ReadWindow`／`WriteWindow`，非 `[UiPanel]`，開看板時動態加入）；#699 加中央綠字 `CENTER_MESSAGE`。
+
+**乙、只有 WinForms、沒有原生版**（開啟後仍是 WinForms，或要另做）：
+
+| 視窗 | 引擎現況 | 原版版面來源 | 能不能做 |
+|---|---|---|---|
+| NPC 對話／HTML 頁 `HYPER_TEXT_WINDOW` | `NpcUi.cs` WinForms | `uiextra86.xml` 第 3 段（FU4§5） | 可做 → R4-I（**最常用，優先**） |
+| 書籤 `BookmarkWindowUI` | `BookmarkUi.cs` 分頁 | `BookmarkUI.xml`（本機有） | 可做 → R4-J |
+| 信件 `RenewalMailUI` | `MailUi.cs` | 本機缺檔，他版客戶端有，缺 surf 9183、9184（WIN2§8、FU5§5） | 只能部分重現 |
+| 能力值重置 `ResetStatUI`／`StatInfoUI` | `CharResetUi.cs`（ShowDialog） | 他版有 XML，本機缺 23 個 surf（WIN2§8） | 只能部分重現 |
+| 狀態／能力窗 `CRenewalStatusUI` | `BonusStatsUi.cs` 分頁 | `ReNStatusUIEx.xml` 本機缺（WIN§1.4） | 缺資源 |
+| 選項 `OptionUI` | 「聲音」分頁（只有音量） | 缺檔；鈕 5／6 是 HTML `option1`／`option2`（FU4§1） | HTML 頁隨 R4-I |
+| 登入／選角／建角 `LoginUI`／`SelectUI`／`CreateUI` | `ClientLogin.cs`、`CharacterManagementUi.cs` | 本機所有版本都缺（EF2§5） | 缺資源，維持 WinForms |
+| 決鬥、地面物品、盟戰、釣魚、求婚、稱號／表情 | `DuelUi.cs`、`GroundUi.cs`、`ClanWar.cs:211`、`Fishing.cs:89`、`Marriage.cs:135`、`TitleAndEmote.cs:311` | 地面物品、盟戰窗是引擎自訂（原版沒有）；`FishingUI.xml` 他版有；`Actions.xml` 本機有（AN§1） | 不急；開啟後仍在開發工具分頁 |
+| 世界／村莊地圖 | 沒有 | `WorldMapWindow`／`VillageMapWindow`（UI§5） | 需先查證版面 |
+| 排名 `GameRankingUI` | 聊天行（`PlayerQuery.cs`） | 缺檔 | 維持 |
+
+**丙、開啟後會退步或用不到的地方**（開啟前建議先修）：
+1. **信件打不開**（13.2 第 3 點）→ R4-A。
+2. **倉庫窗選不了物品**：`WAREHOUSE_WINDOW` 沒畫格子，而原生 UI 開啟時 S176 改開原生窗 → R4-B（或在 R4-B 之前，倉庫暫時不分流）。
+3. 背包、魔法原生窗沒有格子與圖示（WinForms 分頁仍在，可代用）→ R4-B。
+4. 交易加物品仍要用 WinForms 加入列；料理清單沒畫 → R4-C、R4-D。
+5. 選單鈕 2／5／6 只開開發工具分頁 → R4-A。
+6. 3 個面板沒有 `IUiClosablePanel`，被 4 層上限擠掉後內部狀態仍是開著 → R4-C、R4-D。
+7. 中文 IME 在原生聊天窗沒有真機驗證（第 12 節之前就列為待驗證）；`[UiPanel]` 同序值重複（13.2 第 10 點）。
+
+**丁、預設（關閉）時用不到、開啟後才有的**（維持關閉的代價）：料理窗、血盟窗 S250／171、盟屋地圖、`QUIT_WINDOW`、個人商店開店設定窗、中央綠字（#699）、Tab／Ctrl+I／Ctrl+S 熱鍵、紅字的原版樣式（V2）、死亡窗的原版面板。
+
+**建議**：先完成 R4-A、R4-B（丙 1–3、5），再請使用者用 T201 的流程做一次真機 smoke 後決定是否預設開啟；若決定維持關閉，丁類的料理窗與 `QUIT_WINDOW` 應各補一個 WinForms 備援（R4-D 已含料理窗；`QUIT_WINDOW` 在 `Recovery.cs`，等 T290 合併後再排）。
+
+### 13.7 需先查證（還沒有查證依據的細項）
+
+| 代號 | 要查的內容 | 起點 | 影響的組 |
+|---|---|---|---|
+| Q4-3 C129 送出點 | `C_PLEDGE_WATCH`（TW16 op 201，3.81 C129）在血盟窗哪個按鈕送、欄位為何 | `PledgeUI`（`sub_B2A0C0`）的關注清單事件；SS2§3 | R4-E |
+| Q4-4 盲目職業來源 | `byte_1542AA1`（職業 6／31 光源加成）由哪個封包寫入 | AM§4；寫入 `byte_1542AA1` 的交叉引用 | 下一輪（`Afflictions.cs`） |
+| Q4-5 盟戰訊息與宣戰入口 | S84 War 的文字原版顯示在哪（聊天、紅字或視窗）；C227 的原版入口（聊天指令或血盟窗） | `sub_94F190`／`0x54E590`；C_WAR(197) 的送出點 | 下一輪（`ClanWar.cs`） |
+| Q4-6 求婚入口 | NPC HTML `HyperActPropose` 的動作名稱與送出的 C50 欄位 | HyperAct 分派表（SS2§1.1 的做法）；`Marriage.cs:138` | 下一輪（`Marriage.cs`） |
+| Q4-7 `AgitWindow` 觸發 | `AgitWindow`（`0x135DB04`）由哪個封包或按鈕開，與 `AgitMapWindow` 的關係 | WIN2§5.2；`AgitWindow` vtable 的建構呼叫者 | 下一輪（PR #700 合併後） |
+| Q4-8 S161 `$數字` 名稱 | op 61 代碼聊天的 NPC 名稱 `$n` 查哪張表（`npc-c.tbl`？） | `sub_94AF00`／`0x54A300` | 下一輪（`PlayerChat.cs` 由 T290 使用中） |
+| Q4-9 世界／村莊地圖版面 | `WorldMapWindow`／`VillageMapWindow` 的 surf、開窗方式 | UI§5；第 4.2 節 `MapSystemWindow` 的 RTTI | 下一輪（`NativeUi/FieldMapPanel.cs`） |
+
+Q3-2、Q3-7、Q4-1、Q4-2 已由 T289（#690，PR #702）查完，結果在 12.9（PR #702 合併後）與 FU5。建議開 **1 張 resource 任務**合併查 Q4-3–Q4-9（IDA 靜態查證，照 #417，subst 磁碟先檢查）。
+
+### 13.8 限制
+
+- 只讀報告與原始碼，沒有建置或執行；「產品沒有呼叫」是用 Grep 判斷，以反射、委派或事件間接呼叫的可能會漏（`[UiPanel]` 已逐一列出）。
+- 合併佇列的 PR #699、#700 是讀分支內容判斷，沒有建置；合併時若有改動，13.3 標「（PR #n 合併後）」的列要再核對。
+- 各任務都沒有真機驗收；「已有」只表示程式和已查證的表現沒有已知差異。送包列的「已有」只代表封包正確，不代表入口和原版相同。
+- 本節的 `檔案:行` 以 main `1786d89a` 為準（標「分支 task/667」的以該分支為準）。
+
