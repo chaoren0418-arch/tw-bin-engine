@@ -38,8 +38,11 @@
 
 - **編譯（部分驗證）**：本機 `dotnet build engine/source/OfflineClient.csproj -c Release -p:EnableWindowsTargeting=true -r win-x64 -p:SelfContained=false`。
   - 本機 NuGet 快取裡的 WebView2 1.0.4258.31 套件缺 `build/*.targets`，所以會出 NETSDK1130 錯誤。
-  - 改成 restore 到 `scratch/nuget-734`，再用 scratch 內的 targets 拿掉 `.winmd` 參考（只用於本機檢查，不進 repo）之後，剩下的錯誤**全部**在 `WebPanel.cs`／`WebLocalResource.cs`（WebView2 型別，和本次改動無關）。本次改的三個檔案沒有錯誤或警告。
-  - 完整編譯以 CI（ubuntu 交叉建置）為準。
+  - 改法分兩步，只用於本機檢查，不進 repo：
+    - restore 到 `scratch/nuget-734`；
+    - 用 `scratch/issue-734/nowinmd.targets`（`-p:CustomAfterMicrosoftCommonTargets`）把 `.winmd` 參考換成 `lib_manual/netcoreapp3.0` 的組件。
+  - 換完之後完整編譯 **0 錯誤**。3 個警告都是既有的（`MagicUi.cs`），不在本次改的檔案裡。
+  - 注意：只拿掉 `.winmd`、沒有補上組件時，WebView2 的錯誤會蓋掉其他檔案的錯誤。第一次 push 因此漏了 4 個編譯錯誤（測試裡的參數和變數名稱、`Load` 裡的區域變數 `rows` 遮蔽了同名欄位），是 CI 抓到的；第二個 commit 已修正。
 - **離線測試**：新增 `[WorldModuleTest("bookmark-window-followup")]`（`BookmarkPanelFollowupTests.cs`），用合成 XML 和 .img 驗：
   - 846 的是／否（鈕、Enter／Y、ESC／N、右鍵）；
   - 送出中、刪除待確認、CanEdit=false 時不能刪；

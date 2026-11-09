@@ -5,7 +5,7 @@ namespace P06;
 // XML 與 .img 全部由本檔合成（元素名稱與座標照 BookmarkUI.xml 的結構，視窗原點 (10,20)），不讀真實客戶端、不啟動遊戲、不連網路。
 static class BookmarkPanelFollowupTests {
     sealed class Host:IBookmarkWindowHost {
-        public BookmarkView Bookmarks{get;set;}=View(1,1);
+        public BookmarkView Bookmarks{get;set;}=View(1);
         public TeleportDestinationRequest? Destination{get;set;}
         public bool Sending=>false;
         public readonly List<string> Calls=[];
@@ -218,11 +218,11 @@ static class BookmarkPanelFollowupTests {
         t.Check(ns.Usable&&ns.SortRect.IsEmpty&&ns.ZoneExpandRect.IsEmpty,"missing sorting/expand surf → those parts skipped");
 
         // 8. 關窗時清掉暫態（確認、命名、展開）
-        var c=Panel(new Host(),new Editor());Click(c,c.RowRect(0),cmd);c.Key(K(Keys.Delete),cmd);
-        ((IUiClosablePanel)c).Close();
-        t.Check(!c.Visible&&c.ConfirmingDelete==null,"close drops the pending 846");
-        c.Toggle();c.Key(K(Keys.Insert),cmd);c.Toggle();
-        t.Check(!c.Visible&&c.NamingText==null,"toggle close drops naming");
-        t.Check(!c.Char('a'),"closed window takes no chars");
+        var w=Panel(new Host(),new Editor());Click(w,w.RowRect(0),cmd);w.Key(K(Keys.Delete),cmd);
+        ((IUiClosablePanel)w).Close();
+        t.Check(!w.Visible&&w.ConfirmingDelete==null,"close drops the pending 846");
+        w.Toggle();w.Key(K(Keys.Insert),cmd);w.Toggle();
+        t.Check(!w.Visible&&w.NamingText==null,"toggle close drops naming");
+        t.Check(!w.Char('a'),"closed window takes no chars");
     }
 }

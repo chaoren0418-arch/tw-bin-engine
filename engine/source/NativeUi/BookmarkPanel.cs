@@ -201,7 +201,7 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
         usable=missing.Count==0;
         if(!usable)UiResourceLog.Write($"panel {PanelId} 停用：缺少版面所需的 surf（{string.Join("；",missing)}）");
         open=false;destination=null;selected=null;scroll=0;pressed=null;
-        sortByName=false;zoneFilter=null;zoneOpen=false;zoneScroll=0;ResetEdit();rows=view?.Items??[];
+        sortByName=false;zoneFilter=null;zoneOpen=false;zoneScroll=0;ResetEdit();this.rows=view?.Items??[];
     }
     void ResetEdit(){confirmDelete=null;naming=null;editError=null;}
 
