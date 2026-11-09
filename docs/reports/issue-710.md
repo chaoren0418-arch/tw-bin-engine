@@ -24,7 +24,8 @@
 
 - `py -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config`：**PASS**（暫時 lock，沒有寫入 `rebuild-lock.json`）。
 - `py -B -X utf8 engine/tools/check-no-game-assets.py`：**pass**（errors 0）。
-- 模組測試（`skill-light`、`skill-visual` 等）：依規定本機不執行編譯產物，交給 PR #723 的 CI。CI 結果見 PR。
+- 模組測試：依規定本機不執行編譯產物，交給 CI。
+- **CI（PR #723，commit `7370a6a6`，run 42684295387／42684295364）**：dotnet、map-continuity、npc-offline 全部 pass。模組測試 `skill-light` 74 項、`skill-visual` 47 項，失敗都是 0。
 
 ## 沒有驗證（待驗證）
 
