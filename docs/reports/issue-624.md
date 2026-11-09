@@ -24,8 +24,8 @@
 
 ## 怎麼驗證（已驗證）
 
-- 編譯：`dotnet build source/OfflineClient.csproj -c Release` 成功（只有原本就有的 nullable 警告）；`rebuild.py --update-lock` → `dev-inputs-verified`（310 個來源）；`rebuild.py --build --configfile .github/nuget.ci.config` → `PASS dev`，productDll `d0273762…`。
-- 模組測試：`P11.ClientEngine.exe --module-tests` → 28 個測試全過，共 1436 個檢查。新的 `yes-no-followup` 有 66 個檢查，涵蓋：322 排入與回答、321 留在面板、活著時不排入、S85／新 S219 讓詢問失效、Esc 判斷表、組隊與求婚沒有逾時（求婚過了 4×15 秒仍可回答）、PartyUi／DuelUi 沒有回覆鈕、求婚入口（婚禮區外不送，區內送一次 C50）、`YesNoPanel` 的命中、Esc、重複鍵與隱藏狀態、合成字串表的格式化與退回。
+- 編譯：`dotnet build source/OfflineClient.csproj -c Release` 成功（只有原本就有的 nullable 警告）；`rebuild.py --update-lock` → `dev-inputs-verified`（310 個來源）；`rebuild.py --build --configfile .github/nuget.ci.config` → `PASS dev`。同步 main（`df2cd370`，#561）後重產 lock（311 個來源），重新建置得 productDll `30ad39bd…`。
+- 模組測試：`P11.ClientEngine.exe --module-tests` → 同步後 29 個測試全過，共 1518 個檢查。新的 `yes-no-followup` 有 66 個檢查，涵蓋：322 排入與回答、321 留在面板、活著時不排入、S85／新 S219 讓詢問失效、Esc 判斷表、組隊與求婚沒有逾時（求婚過了 4×15 秒仍可回答）、PartyUi／DuelUi 沒有回覆鈕、求婚入口（婚禮區外不送，區內送一次 C50）、`YesNoPanel` 的命中、Esc、重複鍵與隱藏狀態、合成字串表的格式化與退回。
 - DemoChecks：
   - 本機（讀得到原版字串表）：`yes-no` 452、`marriage` 462、`resurrection` 553、`duel` 441、`combat-admission` 1750，全過。
   - 模擬 CI（`TW_CLIENT_ROOT` 指到不存在的目錄，讀不到字串表）：`map-continuity` 33313、`resurrection` 553、`combat-admission` 1750，全過。
