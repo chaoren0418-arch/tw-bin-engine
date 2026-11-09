@@ -249,3 +249,4 @@
 - 2026-11-09 — #674 T281：R3-E 交易窗 `TRANSACTION_WINDOW`（code，claude-local，PR 已合併）→ [報告](reports/issue-674.md)
 - 2026-11-09 — #676 T283：R3-H 盲目光源與酒醉、隱身細項（code，claude-local，PR #686 已合併）→ [報告](reports/issue-676.md)
 - 2026-11-09 — #677 T284：R3-I 視窗堆疊 4 層上限（code，claude-local，PR 已合併）→ [報告](reports/issue-677.md)
+- 2026-11-09 — #625 T264：R2-K 血盟收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-625.md)
