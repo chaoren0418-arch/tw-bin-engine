@@ -258,3 +258,4 @@
 - 2026-11-10 — #643 T269：技能飛行 kind 6／7 與子特效 ] 的範圍（Q-4 補做）（code，claude-local，PR 已合併）→ [報告](reports/issue-643.md)
 - 2026-11-10 — #649 T272：Q-2 補做——城主王冠、死亡統計值、座標與地圖字串（code，claude-local，PR 已合併）→ [報告](reports/issue-649.md)
 - 2026-11-10 — #690 T289：查證原版——名稱旁圖示、S250 27／30／31、光效 +5、物品欄位 +36（resource，claude-local，PR 已合併）→ [報告](reports/issue-690.md)
+- 2026-11-10 — #607 T246：S250 畫面中央訊息與畫面效果（PBW-A）（code，claude-local，PR 已合併）→ [報告](reports/issue-607.md)
