@@ -12,6 +12,10 @@ public sealed class MapEffectAppearance {
         if(Frames.Length is <1 or >127||Sequence.Length==0||Sequence.Any(s=>s.Ticks<=0||s.Ticks>10000||s.Frame<0||s.Frame>=Frames.Length)||Frames.Any(f=>f.Blocks.Length is <1 or >4096))throw new InvalidDataException("map effect frames/sequence");
     }
     public Frame At(long elapsed){double tick=Math.Max(0,elapsed)*24d/1000%Sequence.Sum(s=>s.Ticks);foreach(var s in Sequence){if(tick<s.Ticks)return Frames[s.Frame];tick-=s.Ticks;}return Frames[Sequence[^1].Frame];}
+    ActionTimeline? timeline;
+    /// <summary>各格開始時間（毫秒，與 At 同一尺度）與 token，循環播放。</summary>
+    public ActionTimeline Timeline=>timeline??=Build();
+    ActionTimeline Build(){double t=0;var steps=new List<TimelineStep>();foreach(var s in Sequence){steps.Add(new(t,s.Events));t+=s.Ticks*1000d/24;}return new(steps.ToArray(),t,true);}
 }
 public sealed class MapEffectCatalog {
     readonly string root;readonly Dictionary<int,JsonElement> entries;readonly Dictionary<int,MapEffectAppearance> cache=[];
@@ -58,11 +62,24 @@ public sealed partial class Renderer {
             var effect=block.Effects[ordinal];var frame=WorldSession.MapEffectFrame(effect,block.Name,ordinal,cache.MapId,now-block.EffectsAt,states);visuals.Add(new(block.Name,block.Generation,effect.Id,effect.X,effect.Y,frame.Key,effect.Appearance.Flags));
             if(effect.Light>0)lights.Add(new(effect.Id,effect.X,effect.Y,effect.Light));
             foreach(var b in frame.Blocks)draws.Add(new(2*(effect.X-Coordinates.MinX)+b.A,effect.Y-Coordinates.MinY+b.B,b.Z,serial++,"map-effect",b.Order,-1,effect.Offset,b.Tile));
+            ObserveMapEffectFrames(session,$"map-effect:{cache.MapId}:{block.Name}:{block.Generation}:{ordinal}",effect,now-block.EffectsAt,now);
         }
         MapAmbientSound.Observe(session,now);
         ClientSoundScene.Observe(session,now); // T172 背景音樂與 envsound.def
         ComposePacketEffects(session,draws,now);
         MapEffectVisuals=visuals.ToArray();MapEffectLightSources=lights.ToArray();
+    }
+    // R5-C（T308；TWP§3.4、EF2§2.1）：`.s32` 地圖特效在原版是 UserObject（sub_F0E9B0→sub_A4E5D0→sub_A51920），
+    // 待機動畫（「+194＋3」動作）經佇列走到每格回呼 sub_A4B060，`]N` 那格在特效當下位置建 gfx N 的預設 Effect。
+    // 引擎取捨（推定）：
+    // - 方向取 0（.s32 尾段沒有方向欄；UserObject +8 的初值沒查）。
+    // - 6016（狀態驅動的影格，WorldEffect6016.cs）不是循環待機動畫，不處理。
+    // - 只處理在可見場景內的特效：原版 FPS≥5 時畫面外也照播，但子特效本來就只畫在場景內，這樣可以不讓畫面外的
+    //   地圖特效占滿子特效的 256 筆上限（SubEffectSet.MaxLive）。
+    internal void ObserveMapEffectFrames(WorldSession session,string owner,MapLocalEffect effect,long age,long now){
+        if(effect.Id==6016||age<0||!session.SceneContains(effect.X,effect.Y))return;
+        var timeline=effect.Appearance.Timeline;if(!timeline.HasTokens)return;
+        ObserveEffectFrames(session,owner,timeline,age,effect.X,effect.Y,0,now);
     }
 }
 
@@ -80,9 +97,7 @@ public sealed class PacketEffectAppearance
     {
         Duration=appearance.Sequence.Sum(s=>(double)s.Ticks)*1000/24;
         frame=appearance.At;
-        double t=0;var steps=new List<TimelineStep>();
-        foreach(var s in appearance.Sequence){steps.Add(new(t,s.Events));t+=s.Ticks*1000d/24;}
-        Timeline=new(steps.ToArray(),t,true);
+        Timeline=appearance.Timeline;
     }
     public PacketEffectAppearance(ObjectAppearance appearance,string action)
     {

@@ -90,6 +90,12 @@ public sealed partial class WorldSession
 
     void ReceiveAttackMagic(AttackSkillPacket p)
     {
+        if (QueueIfCasterBusy(p.Caster, p, null)) return;
+        ApplyAttackMagic(p);
+    }
+
+    void ApplyAttackMagic(AttackSkillPacket p)
+    {
         ApplySkillCaster(p.Caster, p.Action, p.Heading, p.Target);
         var animation = ActionFor(p.Caster);
         AddMagicEffect(new(++MagicEffectCount, p.Caster, p.Target, p.Gfx, p.Action, p.DamageWord,
@@ -114,6 +120,12 @@ public sealed partial class WorldSession
     }
 
     void ReceiveRangeMagic(RangeSkillPacket p)
+    {
+        if (QueueIfCasterBusy(p.Caster, null, p)) return;
+        ApplyRangeMagic(p);
+    }
+
+    void ApplyRangeMagic(RangeSkillPacket p)
     {
         ApplySkillCaster(p.Caster, p.Action, p.Heading, p.Targets.FirstOrDefault()?.ObjectId);
         var animation = ActionFor(p.Caster);
@@ -147,6 +159,101 @@ public sealed partial class WorldSession
         else return;
         AnimateCombat(caster, action, target: target);
     }
+}
+
+// R5-C（T308／#735，gap-matrix 14.6；skills-visual.md §2.1、§3 第 1 步）：施法者正在做動作時整包排隊。
+// 已驗證（本任務以 Capstone 唯讀反組譯 sub_92FE40／S_ATTACK_MANY，.text FO＝VA − 0x400C00）：0x930759 呼叫
+// sub_A3EBF0（施法者忙碌判斷），忙碌時 0x930789 走 sub_A3C710（排入佇列 sub_A40250），否則 0x9307B4 走
+// sub_A3DC10（立即掛到施法者並開始動作）。S_ATTACK 同理（sub_A3C5A0）。佇列等目前動作結束才播，所以整包
+// （目標清單、特效、動作）都延後，不會打斷目前動作。
+// 引擎取捨：
+// - 「忙碌」＝施法者目前的 CombatAnimation 有已知長度（Timing，動作 1／18／19 有玩家外型資料時）而且還沒播完；
+//   長度不明的動作（受擊 2、沒有外型資料的 NPC）不排隊（推定：不知道何時結束就不擋）。
+// - 同一施法者已有排隊中的封包時，新封包一律排在後面，保持收包順序。
+// - 施法者離開畫面（找不到物件）時立即播放（§2.1：施法者不在畫面上時特效直接開始）。
+// - 最多等 MaxWaitMs，超過就照收包順序直接播（防止長度資料錯誤時永遠卡住；原版沒有這個上限）。
+// - 佇列由 Renderer.ComposeMagic 每格推進（UI 執行緒，與收包同一執行緒），也會在下一包到達時推進。
+// - 箭矢 S30（Combat.cs）不在本任務可改範圍，沒有排隊（待做）。
+public sealed record QueuedSkillCast(long Number, uint Caster, long ReceivedAt, AttackSkillPacket? Attack, RangeSkillPacket? Range)
+{
+    public ushort Gfx => Attack?.Gfx ?? Range!.Gfx;
+}
+
+public static class SkillCastQueue
+{
+    public const int MaxWaitMs = 5000, MaxQueued = 16;
+    /// <summary>目前動作的結束時刻；null＝沒有在做動作，或動作長度不明（不排隊）。</summary>
+    public static long? BusyUntil(CombatAnimation? current, long now) =>
+        current is { Timing: { } t } && now < current.At + t.AnimationMs ? current.At + t.AnimationMs : null;
+}
+
+public sealed partial class WorldSession
+{
+    readonly List<QueuedSkillCast> queuedSkillCasts = [];
+    long queuedSkillNumber;
+    int skillQueueEpoch = -1;
+    /// <summary>排隊中的 S30／S42 法術封包（收包順序）。</summary>
+    public QueuedSkillCast[] QueuedSkillCasts { get { SkillQueueEpoch(); return [.. queuedSkillCasts]; } }
+    /// <summary>本世界累計排過隊的封包數。</summary>
+    public int SkillCastsQueued { get; private set; }
+
+    void SkillQueueEpoch()
+    {
+        if (skillQueueEpoch == WorldEpoch) return;
+        queuedSkillCasts.Clear(); skillQueueEpoch = WorldEpoch;
+    }
+
+    bool CasterPresent(uint caster) => Actor?.ObjectId == caster || objects.ContainsKey(caster);
+
+    bool QueueIfCasterBusy(uint caster, AttackSkillPacket? attack, RangeSkillPacket? range)
+    {
+        long now = ActionClock();
+        RunQueuedSkillCasts(now);
+        // withCastMotion=false（caster 0）沒有施法者動作，不排隊。
+        if (caster == 0 || !CasterPresent(caster)) return false;
+        bool behind = queuedSkillCasts.Any(q => q.Caster == caster);
+        if (!behind && SkillCastQueue.BusyUntil(ActionFor(caster), now) == null) return false;
+        if (queuedSkillCasts.Count >= SkillCastQueue.MaxQueued) ApplyQueued(0);
+        queuedSkillCasts.Add(new(++queuedSkillNumber, caster, now, attack, range));
+        SkillCastsQueued++; MagicRevision++;
+        MagicNotice = $"原服法術：施法者 {caster} 動作未結束，特效 {attack?.Gfx ?? range!.Gfx} 排隊等目前動作播完";
+        return true;
+    }
+
+    void ApplyQueued(int index)
+    {
+        var q = queuedSkillCasts[index]; queuedSkillCasts.RemoveAt(index);
+        if (q.Attack is { } a) ApplyAttackMagic(a); else ApplyRangeMagic(q.Range!);
+    }
+
+    /// <summary>把動作已結束（或已等太久、施法者已離開）的排隊封包依收包順序播出；回傳播出的數量。</summary>
+    internal int RunQueuedSkillCasts(long now)
+    {
+        SkillQueueEpoch();
+        int applied = 0;
+        for (int i = 0; i < queuedSkillCasts.Count;)
+        {
+            var q = queuedSkillCasts[i];
+            // 同一施法者只看最前面那一包（前面還在等，後面的也要等）。
+            if (queuedSkillCasts.Take(i).Any(p => p.Caster == q.Caster)) { i++; continue; }
+            bool due = now - q.ReceivedAt >= SkillCastQueue.MaxWaitMs || !CasterPresent(q.Caster)
+                || SkillCastQueue.BusyUntil(ActionFor(q.Caster), now) == null;
+            if (!due) { i++; continue; }
+            ApplyQueued(i); applied++;
+            i = 0; // 播出後施法者可能又忙碌（新的動作），從頭重新判斷
+        }
+        return applied;
+    }
+
+    [WorldReset]
+    void ResetSkillCastQueue() { queuedSkillCasts.Clear(); SkillCastsQueued = 0; skillQueueEpoch = WorldEpoch; }
+
+    [WorldSnapshot("skillCastQueue")]
+    object? SkillCastQueueSnapshot() => new
+    {
+        queued = QueuedSkillCasts.Select(q => new { number = q.Number, caster = q.Caster, receivedAt = q.ReceivedAt, gfx = q.Gfx, range = q.Range != null }).ToArray(),
+        total = SkillCastsQueued,
+    };
 }
 
 public static class SkillFacing
