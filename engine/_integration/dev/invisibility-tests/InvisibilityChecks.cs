@@ -15,6 +15,7 @@ partial class Checks {
         bool rejected=false;try{world.Receive(packet,"offline");}catch(ProtocolException){rejected=true;}
         Check(rejected&&world.Actor==own&&world.Objects.SequenceEqual(peers)&&world.ObjectRevision==revision,label);
     }
+    [CheckGroup("invisibility"),CheckGroup("map-continuity",Order=230),CheckGroup(CheckGroups.Default,Order=460)]
     static void InvisibilityChecks(){
         using var c=Seed();var world=c.World;var ownDraw=InvisDraw();var peerDraw=InvisDraw(456);
         // One S format, both type variants. No C packet belongs to this receive-only module.

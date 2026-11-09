@@ -26,6 +26,7 @@ partial class Checks {
     static ApproachWalk MemoryApproach(LoginConnection c,List<int> steps,Func<int,int,int,bool>? terrain=null)=>new(c,wait:()=>Task.Delay(1),terrain:terrain??((_,_,_)=>true),available:()=>true,move:(h,valid)=>{
         if(!valid())return Task.FromResult(false);steps.Add(h);var a=c.World.Actor!;Set(c.World,"Actor",a with{X=(ushort)(a.X+MovementRules.Dx[h]),Y=(ushort)(a.Y+MovementRules.Dy[h]),Direction=(byte)h});return Task.FromResult(true);});
 
+    [CheckGroup("pickup")]
     static async Task PickupAlignChecks(){
         // Rules (WO §1 distance, §2 steps 3–4).
         Check(ApproachRules.Within(0,0,1,1,1)&&ApproachRules.Within(0,0,-1,0,1)&&!ApproachRules.Within(0,0,2,0,1)&&!ApproachRules.Within(0,0,1,2,1),"WO§1 1 格含斜角");

@@ -4,6 +4,7 @@ partial class Checks {
     static byte[] FishingStart(uint actor=123)=>Packet(b=>{b.Write((byte)158);b.Write(actor);b.Write((byte)71);b.Write((ushort)32602);b.Write((ushort)32940);});
     static byte[] FishingVisual(uint actor=123,byte weapon=0)=>Packet(b=>{b.Write((byte)119);b.Write(actor);b.Write(weapon);});
     static byte[] FishingMessage(ushort id,params string[] args)=>Packet(b=>{b.Write((byte)71);b.Write(id);b.Write((byte)args.Length);foreach(var a in args)Text(b,a);});
+    [CheckGroup("fishing"),CheckGroup("map-continuity",Order=190),CheckGroup(CheckGroups.Default,Order=420)]
     static async Task FishingChecks(){
         Check(Convert.ToHexString(FishingPackets.Cancel())=="3E00000000000000","C62 no conditional tail; exact zero padding");
         using(var c=Seed()){

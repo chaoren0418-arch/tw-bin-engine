@@ -12,6 +12,7 @@ public sealed record MenuButtonAction(int Action,string Title,string? DevToolsPa
 public sealed record MenuButton(MenuButtonAction Action,int BaseSurf,Point Location,Rectangle? Rect,UiSurface? Normal,UiSurface? Pressed);
 
 public sealed class MenuButtonsPanel:IUiPanel {
+    [UiPanel(130)] internal static UiPanelRegistration Registration=>new(MenuButtonsPanel.PanelId,"uistatus86",_=>new MenuButtonsPanel());   // ui-menu-buttons #467: after MacroPanel (buttons y=567 lie inside the 3176 frame; later Bar = painted/hit on top)
     public const string PanelId="RIGHT_WINDOW/BUTTON_2STAGE_LIST";
     public const string WindowNode="RIGHT_WINDOW",ListNode="BUTTON_2STAGE_LIST",ButtonNode="IMAGE_BUTTON";
 
