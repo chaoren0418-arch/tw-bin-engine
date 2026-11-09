@@ -19,5 +19,6 @@ public static class UiPanelRegistry {
         new(TradeWindowPanel.PanelId,TradeWindowPanel.LayoutName,root=>new TradeWindowPanel()),   // M7-S (#526)
         ..FriendPanels.Registrations,   // M7-V (#529): Friend_Window／Exclude_Window／Mailexclude_Window
         new(MenuButtonsPanel.PanelId,"uistatus86",_=>new MenuButtonsPanel()),   // ui-menu-buttons #467: after MacroPanel (buttons y=567 lie inside the 3176 frame; later Bar = painted/hit on top)
+        new(YesNoPanel.PanelId,YesNoPanel.LayoutName,_=>new YesNoPanel()),   // R2-J (#624): InputWindow YES／NO (Float, no XML)
     ];
 }

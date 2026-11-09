@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 308,
+ "sourceCount": 310,
  "files": [
   {
    "path": "NuGet.Config",
@@ -406,13 +406,13 @@
   },
   {
    "path": "source/Duel.cs",
-   "size": 6451,
-   "sha256": "3dd47735f98b581fa5d80a09141d1e2e9303a82d32956e7463e70a4af6ebd339"
+   "size": 6472,
+   "sha256": "f1f686761537a9e57e1f3a0779815f948644fd766ea4ebc32243226c95613398"
   },
   {
    "path": "source/DuelUi.cs",
-   "size": 3277,
-   "sha256": "fa263faac2e02862d3133382c9609d34728f96b2118c5f2787daf60ab2dcdd3a"
+   "size": 3067,
+   "sha256": "ad2a070add74c07d2d9e61b013ffeb2bc8bc5eaf916f4d88fb1f4976c9b4b07b"
   },
   {
    "path": "source/DuplicateRecoveryProbe.cs",
@@ -581,8 +581,8 @@
   },
   {
    "path": "source/KeyboardNavigation.cs",
-   "size": 1812,
-   "sha256": "a14571c5746777373cda58022e1374b256ba8f342c00b45d578181e7a4ea8a99"
+   "size": 2904,
+   "sha256": "ab5e263e851969775dc74b8a7327055a7bcf17c8fbdcb495b7a32f1e79530a37"
   },
   {
    "path": "source/LocationShare.cs",
@@ -706,8 +706,8 @@
   },
   {
    "path": "source/Marriage.cs",
-   "size": 8507,
-   "sha256": "1625fbb291cbf428b54390953096792db0ecb6a99b891db9c53c2fe3ae5e718d"
+   "size": 11028,
+   "sha256": "2b222454c25f7f25ad25df622465a4dff42fbfe9bcfd897b0cbfe5c0d4708a61"
   },
   {
    "path": "source/Minimap.cs",
@@ -896,8 +896,8 @@
   },
   {
    "path": "source/NativeUi/UiPanelRegistry.cs",
-   "size": 2231,
-   "sha256": "1f6475f11f9b4fbecc1dabc2e780de52376c7340bf3dcb3ae4029ca7e8e13e08"
+   "size": 2361,
+   "sha256": "0d20689ff5b9bc621972defef1e33e21b79435fdae5467556cb10a8186a31465"
   },
   {
    "path": "source/NativeUi/UiPresenter.cs",
@@ -928,6 +928,11 @@
    "path": "source/NativeUi/UiXmlSource.cs",
    "size": 5645,
    "sha256": "bfd5906ff7bdcb80a46eb73e9939a4c5c2016337123cfb8d603e59226e3593bd"
+  },
+  {
+   "path": "source/NativeUi/YesNoPanel.cs",
+   "size": 3740,
+   "sha256": "c519571cb3515574c17a8ad318be7f9189f9f07debb8ab14fcfda12188319b06"
   },
   {
    "path": "source/Network.cs",
@@ -1081,13 +1086,13 @@
   },
   {
    "path": "source/Party.cs",
-   "size": 12580,
-   "sha256": "8eba9de59d44a0e3aad6e921742305fa0d8b7420da945afda8c08c603133e8de"
+   "size": 12659,
+   "sha256": "9c1b45bb4d36a71f3d4b248093423938088fe118e9bed74d23385e77785074fb"
   },
   {
    "path": "source/PartyUi.cs",
-   "size": 5185,
-   "sha256": "63382e90fc5927796bb517e634b45c1baa78935f1d28e01e1de038e439fb26a8"
+   "size": 5113,
+   "sha256": "1f631937f180dc0fcb4e0d449a088bce55b678b5afb431a2e2a5e56d5c79f46c"
   },
   {
    "path": "source/PersonalShopTests.cs",
@@ -1311,8 +1316,8 @@
   },
   {
    "path": "source/Resurrection.cs",
-   "size": 7677,
-   "sha256": "2037dc554ec6a5846292e277b909613175318daa8389dbdc9db08edd578fe9b3"
+   "size": 8349,
+   "sha256": "5e08a57a0835b998577daceb6fa6a883d2acb9a2edd566e0d4f4210467c2fe2e"
   },
   {
    "path": "source/RewardIntegration.cs",
@@ -1540,9 +1545,14 @@
    "sha256": "ed7156aa72b33cda849d6f39e027e52122d5807de095cc46b9a9ef120016d40b"
   },
   {
+   "path": "source/YesNoFollowupTests.cs",
+   "size": 14810,
+   "sha256": "a76fc1f8ba64664e431ee6299e5bcd6c3318ed0af7b9a467973aefb94b899120"
+  },
+  {
    "path": "source/YesNoPrompt.cs",
-   "size": 15810,
-   "sha256": "6aa5a045fc9ec563e9a5a210a46f27529fec45599d04b7901b247db4113f8c60"
+   "size": 18485,
+   "sha256": "546d199f46a3da760ee5ea5dc99fed201182d8c7d2dcc8f63fedb77b79b57cbb"
   },
   {
    "path": "web/bonus-stats.js",

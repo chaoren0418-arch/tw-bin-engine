@@ -30,7 +30,7 @@ partial class Checks {
         using(var c=Seed()){
             var sent=YesNoWire(c);
             Feed(c,YesNoAsk(1000,0,0,"甲方"));var v=c.YesNoSnapshot();
-            Check(v.Prompt is {Message:1000,RequestId:0}&&v.Prompt.Text.Contains("甲方")&&v.Prompt.Deadline==null,"yes-no generic S219 queued with argument");
+            Check(v.Prompt is {Message:1000,RequestId:0}&&v.Prompt.Arguments.SequenceEqual(["甲方"])&&v.Prompt.Text==YesNoProtocol.Text(1000,["甲方"])&&v.Prompt.Deadline==null,"yes-no generic S219 queued with argument");
             Check(await c.AnswerYesNo(v,"Y")&&sent.Count==1&&sent[0].SequenceEqual(YesNoProtocol.Answer(0,1000,true)),"yes-no Y+Enter sends one C121 accept");
             Check(c.YesNoSnapshot().Prompt==null&&!await c.AnswerYesNo(v,"y")&&sent.Count==1,"yes-no answer is single use");
             Feed(c,YesNoAsk(1001));Check(await c.AnswerYesNo(c.YesNoSnapshot(),"")&&sent[^1].SequenceEqual(YesNoProtocol.Answer(0,1001,false)),"yes-no non-Y input declines");
@@ -50,8 +50,8 @@ partial class Checks {
             Feed(c,YesNoAsk(1000));var before=c.YesNoSnapshot();bool refused=false;
             try{Feed(c,YesNoAsk(1001,0,1));}catch(ProtocolException){refused=true;}
             Check(refused&&c.YesNoSnapshot().Prompt?.Message==1000,"yes-no malformed envelope leaves prompt untouched");
-            // 322 stays with Resurrection.cs (its observer expects no argument); the shared prompt is only cleared.
-            Feed(c,YesNoAsk(322));Check(c.YesNoSnapshot().Prompt==null,"yes-no delegated 322 not queued here");
+            // R2-J (#624): 322 is queued only after Resurrection.cs admitted it (dead role); this living role only clears the slot.
+            Feed(c,YesNoAsk(322));Check(c.YesNoSnapshot().Prompt==null,"yes-no 322 not queued for a living role");
         }
         using(var c=Seed()){
             Set(c.World,"TimeReplies",0);Feed(c,YesNoAsk(1000));Check(c.YesNoSnapshot().Prompt==null,"yes-no not queued before world ready");
@@ -70,19 +70,19 @@ partial class Checks {
         // Party / duel / marriage are answered through the shared prompt, via each module's own send path.
         foreach(bool yes in new[]{false,true})using(var c=Seed()){
             var sent=YesNoWire(c);Feed(c,PartyYesNo());var v=c.YesNoSnapshot();
-            Check(v.Prompt is {Message:953,RequestId:77}&&v.Prompt.Text.Contains("邀請者"),"yes-no party 953 queued with challenge");
+            Check(v.Prompt is {Message:953,RequestId:77}&&v.Prompt.Arguments.SequenceEqual(["邀請者"])&&v.Prompt.Text==YesNoProtocol.Text(953,["邀請者"]),"yes-no party 953 queued with challenge");
             Check(await c.AnswerYesNo(v,yes?"y":"n")&&sent.Single().SequenceEqual(PartyPackets.Answer(77,yes)),"yes-no party answer exact C121 "+yes);
             Check(c.PartySnapshot().Invitation==null&&c.YesNoSnapshot().Prompt==null,"yes-no party invitation consumed "+yes);
         }
         using(var c=Seed()){
             var sent=YesNoWire(c);Feed(c,PartyYesNo());
             Check(await c.SendParty("accept",c.PartySnapshot())&&c.YesNoSnapshot().Prompt==null,"yes-no party module answer clears input-line prompt");
-            long now=0;Set(c.World,"PartyClock",(Func<long>)(()=>now));Feed(c,PartyYesNo());now=30000;
-            Check(c.YesNoSnapshot().Prompt==null&&!await c.AnswerYesNo(c.YesNoSnapshot(),"y")&&sent.Count==1,"yes-no follows party local invitation expiry");
+            // R2-J (#624): no local 30 s expiry; a newer S219 still replaces the question.
+            Feed(c,PartyYesNo());Check(c.YesNoSnapshot().Prompt?.Message==953&&c.PartySnapshot().Invitation!=null,"yes-no party invitation has no local expiry");
         }
         foreach(bool yes in new[]{false,true})using(var c=DuelSeed()){
             var sent=YesNoWire(c);Feed(c,DuelPrompt("邀請者"));var v=c.YesNoSnapshot();
-            Check(v.Prompt is {Message:630}&&v.Prompt.Text.Contains("邀請者"),"yes-no duel 630 queued");
+            Check(v.Prompt is {Message:630}&&v.Prompt.Arguments.SequenceEqual(["邀請者"])&&v.Prompt.Text==YesNoProtocol.Text(630,["邀請者"]),"yes-no duel 630 queued");
             Check(await c.AnswerYesNo(v,yes?"Y":"N")&&sent.Single().SequenceEqual(DuelPackets.Answer(yes)),"yes-no duel answer exact C121 "+yes);
             Check(c.World.DuelSnapshot.Phase==(yes?"accepting":"rejected")&&c.YesNoSnapshot().Prompt==null&&!c.World.IsDuelOpponent(456),"yes-no duel waits for server "+yes);
         }
