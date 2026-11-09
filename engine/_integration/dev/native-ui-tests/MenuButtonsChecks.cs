@@ -7,6 +7,7 @@ using System.Text.Json;
 partial class Checks {
     static Color Rgb555(ushort v)=>Color.FromArgb(255,(v>>10&31)*255/31,(v>>5&31)*255/31,(v&31)*255/31);
 
+    [CheckGroup("native-ui-menu-buttons",Order=1),CheckGroup(CheckGroups.Default,Order=100)]
     static void NativeUiMenuButtonsChecks(string repo){
         string dir=Path.Combine(Path.GetFullPath(repo),"scratch","issue-467","synthetic");
         Directory.CreateDirectory(dir);foreach(var f in Directory.GetFiles(dir))File.Delete(f);
@@ -117,6 +118,7 @@ partial class Checks {
     }
 
     // Optional (TW_CLIENT_ROOT set): real uistatus86-c.xml + Sprite*.pak, read-only. PNG/JSON only under scratch/issue-467/real.
+    [CheckGroup("native-ui-menu-buttons",Order=2)]
     static void NativeUiMenuButtonsRealClient(string repo){
         string? client=Environment.GetEnvironmentVariable("TW_CLIENT_ROOT");
         if(string.IsNullOrEmpty(client)){Console.WriteLine("SKIP native-ui menu buttons real client (TW_CLIENT_ROOT not set)");return;}

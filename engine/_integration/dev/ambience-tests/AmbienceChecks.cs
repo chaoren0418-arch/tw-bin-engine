@@ -91,6 +91,7 @@ partial class Checks {
         Check(map[200, 120] == 0 && map[-1, 0] == 0 && map[400, 0] == 0, "stamp clipping and clear");
     }
 
+    [CheckGroup("ambience"),CheckGroup("map-continuity",Order=200),CheckGroup(CheckGroups.Default,Order=430)]
     static void AmbienceChecks() {
         AmbienceTables();
         using var c = Seed(); var world = c.World; long now = 10000;

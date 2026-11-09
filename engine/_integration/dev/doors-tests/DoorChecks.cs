@@ -13,6 +13,7 @@ partial class Checks {
         Packet(b=>{b.Write((byte)209);b.Write(x);b.Write(y);b.Write(direction);b.Write(passable);});
     static byte[] DoorAction(byte action,uint id=700)=>Packet(b=>{b.Write((byte)158);b.Write(id);b.Write(action);});
     static void DoorReject(Action action,string label){bool rejected=false;try{action();}catch(ProtocolException){rejected=true;}Check(rejected,label);}
+    [CheckGroup("doors")]
     static async Task DoorChecks(){
         string fixtureRoot=Path.GetFullPath("scratch/issue-322/synthetic");
         mapFixture=Path.Combine(fixtureRoot,"assets");MakeMapFixture();
