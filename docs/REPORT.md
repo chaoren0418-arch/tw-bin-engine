@@ -223,3 +223,4 @@
 - 2026-11-09 — #547 T229：S250 聊天訊息類子碼（protocol-gaps B1）（code，claude-local，PR 已合併）→ [報告](reports/issue-547.md)
 - 2026-11-09 — #612 T251：R2-A 環境表現接上畫面（code，claude-local，PR 已合併）→ [報告](reports/issue-612.md)
 - 2026-11-09 — #657 T-plan：M7 補列 T244–T274，同步 M6／M7 狀態（plan，claude-chat，PR 已合併）→ [報告](reports/issue-657.md)
+- 2026-11-09 — #614 T253：R2-C 點擊與拾取收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-614.md)
