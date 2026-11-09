@@ -161,7 +161,12 @@ public sealed class Ambience {
     }
     internal void OwnLightReceived(byte flag) => ownLightFlag = flag;
     internal void Clear() { seconds = statusSeen = null; mapSeen = null; weather = rain = snow = ownLightFlag = flashSaved = 0; level = 15; flashes = 0; Particles.Reset(); }
-    /// <summary>AM§1(g): first light effect raises L by 5 (cap 15); the last one restores L. Curve writes are suspended meanwhile.</summary>
+    /// <summary>AM§1(g): first light effect raises L by 5 (cap 15); the last one restores L. Curve writes are suspended meanwhile.
+    /// Triggers (FU5§3, followups-5.md; FU4§3.2 "3.81 never lights" is withdrawn): a default <c>Effect</c> with
+    /// <c>+9 ≠ 0</c> calls Begin when its frame index +12 becomes 1 and End when it finishes (sub_8ABC10); a kind 2
+    /// <c>Lightning</c> does the same from index 2 regardless of +9 (sub_8ACB20). In 3.81 that is S42 type 8 (TYPE_DIR),
+    /// S30／S42 kind 2 gfx and S106 gfx 2028–2056; the renderer drives these calls (Renderer.SyncLightEffects, SkillLight).
+    /// S250 83 fireworks (S_GlobalEffect 3) and the gfx 2001／53 action cases are separate (not wired here).</summary>
     public void BeginLightEffect() { if (flashes++ == 0) { flashSaved = level; level = (byte)Math.Min(15, level + 5); } }
     public void EndLightEffect() { if (flashes > 0 && --flashes == 0) level = flashSaved; }
 
