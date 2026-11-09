@@ -212,3 +212,5 @@
 - 2026-11-09 — #467 ui-menu-buttons: 原生 UI 模組：巨集框選單按鈕 Map／Mail／Status／Spell／Item／Pledge／Option／Quit（code，claude-local，PR #596 已合併）→ [報告](reports/issue-467.md)
 - 2026-11-09 — #470 ui-minimap: 原生 UI 模組：底列小地圖與 Field_Map 小窗（Map 按鈕開關，讓出 F5）（code，claude-local，PR #597 已合併）→ [報告](reports/issue-470.md)
 - 2026-11-09 — #471 ui-party: 原生 UI 模組：隊伍底板 PARTY_INTERFACE 與右側隊伍／寵物窗（code，claude-local，PR #598 已合併）→ [報告](reports/issue-471.md)
+- 2026-11-09 — #627 T266：查證原版——TRADE_WINDOW 各模式版面與技能飛行（Q-1＋Q-4）（resource，claude-local，PR #641 已合併）→ [報告](reports/issue-627.md)
+- 2026-11-09 — #561 T239：血盟成員窗（W2-H）（code，claude-local，PR 已合併）→ [報告](reports/issue-561.md)
