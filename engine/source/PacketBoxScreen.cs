@@ -128,6 +128,8 @@ public sealed partial class WorldSession {
             return PacketBoxScreenRules.ScreenOffset(PacketBoxScreenRules.SwayRaw(now-swayOnAt,off));
         }
     }}
+    /// <summary>83/3 收到的次數。</summary>
+    public int FireworkBursts{get{lock(packetBoxScreenGate)return fireworkBursts;}}
     public event Action<int>? PacketBoxScreenChanged;
 
     [WorldReceive(PacketBoxScreenRules.Opcode,Subtype=PacketBoxScreenRules.GlobalEffect)]

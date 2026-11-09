@@ -163,7 +163,7 @@ static class PacketBoxScreenTests {
         t.Check(fx.Select(e=>e.At-now).SequenceEqual([0L,10,20,30,40]),"10 ms apart",fx.Select(e=>e.At-now));
         t.Check(fx[0].TargetX==me.X&&fx[0].TargetY==me.Y&&fx[0].Caster==0&&fx[0].Target==0,"first at own position, location effect",fx[0]);
         t.Check(fx.Skip(1).Select(e=>(int)e.TargetX).SequenceEqual([32601,32602,32603,32604]),"then visible objects by id");
-        t.Equal(1,State(s).GetProperty("fireworks").GetInt32(),"snapshot counts bursts");
+        t.Equal(1,s.FireworkBursts,"bursts counted");   // 有自己角色的 session 做完整快照會讀素材（CI 沒有），所以直接讀計數
         var lonely=new WorldSession();lonely.Receive(Gree(3),"");
         t.Equal(0,lonely.MagicEffects.Length,"nothing visible → no firework");
     }
