@@ -219,3 +219,5 @@
 - 2026-11-09 — #646 T271：rebuild-lock 改成合併後才重產，PR 不再修改 lock（code，claude-local，PR 已合併）→ [報告](reports/issue-646.md)
 - 2026-11-09 — #562 T240：舊式背包、魔法、倉庫原生窗（W2-I）（code，claude-local，PR 已合併）→ [報告](reports/issue-562.md)
 - 2026-11-09 — #629 T268：查證原版——送出點與欄位（Q-3）（resource，claude-local，PR #642 已合併）→ [報告](reports/issue-629.md)
+- 2026-11-09 — #645 T270：測試與註冊表改為自動發現（減少共用檔案衝突）（code，claude-local，PR 已合併）→ [報告](reports/issue-645.md)
+- 2026-11-09 — #547 T229：S250 聊天訊息類子碼（protocol-gaps B1）（code，claude-local，PR 已合併）→ [報告](reports/issue-547.md)
