@@ -20,7 +20,80 @@ public static class ProjectileMotion {
         return new(p.Number,p.Gfx,heading,step,remaining,(ix+32768)/2,iy,$"{heading}:{(remaining==1?1:0)}",release);
     }
 }
+// T269 (#643), docs/reference/trade-window-and-projectiles.md §3.2–§3.3 (TW16, static analysis):
+// kind 7 `Eruption` (S30 case 7 sub_81C490 FO 0x41B890, start sub_81CF30 FO 0x41C330, per frame sub_81C9D0 FO 0x41BDD0).
+// Each segment is its own object that plays its animation once in place. When its frame cursor reaches index 2
+// (the third frame) the next segment is built one fixed-point step further (gfx 7374/10145: two steps) and the
+// remaining step count (Chebyshev distance) drops by 1. At the end tile, or when fewer than one step remains, no
+// segment is kept: a kind 6 `EarthRising` (sub_81C340) of the 109 param gfx is built instead. Segments never hit.
+public sealed record EruptionSegment(int Index,int X,int Y,long Offset);
+/// <param name="TerminalOffset">Offset from the release of the terminal EarthRising; -1 when the chain never ends (Chains false).</param>
+public sealed record EruptionPlan(int Direction,EruptionSegment[] Segments,int EndX,int EndY,long TerminalOffset,bool Chains);
+public static class EruptionMotion {
+    public const int MaxSegments=256;
+    // sub_81C730(…, 2) for these two gfx (§3.3).
+    public static int StepsPerSegment(int gfx)=>gfx is 7374 or 10145?2:1;
+    // sub_A43560 increments the cursor before each display (index1 is shown first, for Steps[1] ms), so the
+    // cursor reaches 2 Steps[1] ms after the segment starts. With fewer than 3 frames it wraps to 0 first.
+    public static long? NextSegmentAfter(EffectSprite segment)=>segment.Steps.Length>=3?segment.Steps[1].Milliseconds:null;
+    public static EruptionPlan Plan(int sx,int sy,int tx,int ty,int heading,EffectSprite segment){
+        int direction=ProjectileMotion.Direction(sx,sy,tx,ty,heading);if(direction>3)direction-=4;
+        int ax=Math.Abs(tx-sx),ay=Math.Abs(ty-sy),major=Math.Max(ax,ay),remaining=major,per=StepsPerSegment(segment.Gfx);
+        int vx=major==0?0:(ax<<16)/major*Math.Sign(tx-sx)*2,vy=major==0?0:(ay<<16)/major*Math.Sign(ty-sy);
+        uint fx=unchecked((uint)(2*sx-32768)<<16),fy=(uint)sy<<16;
+        var segments=new List<EruptionSegment>{new(0,sx,sy,0)};
+        if(NextSegmentAfter(segment) is not long gap)return new(direction,segments.ToArray(),tx,ty,-1,false);
+        long at=0;
+        while(true){
+            at+=gap;
+            for(int k=0;k<per;k++){fx=unchecked(fx+(uint)vx);fy=unchecked(fy+(uint)vy);}
+            int ix=(int)(unchecked(fx+0x8000u)>>16)&~1,iy=(int)(unchecked(fy+0x8000u)>>16);remaining--;
+            if(ix==2*tx-32768&&iy==ty||remaining<1||segments.Count>=MaxSegments)return new(direction,segments.ToArray(),tx,ty,at,true);
+            segments.Add(new(segments.Count,(ix+32768)/2,iy,at));
+        }
+    }
+}
 public sealed partial class Renderer {
+    // Lazily created: constructor-free test renderers do not run field initializers.
+    Dictionary<long,EruptionPlan>? eruptionPlans;Dictionary<long,(int X,int Y)>? eruptionEnds;
+    // Called from ComposeMagic's world-epoch reset.
+    void ClearEruptions(){eruptionPlans?.Clear();eruptionEnds?.Clear();}
+    /// <summary>The kind 7 plan fixed at the caster `!` (null before it starts).</summary>
+    public EruptionPlan? EruptionPlanFor(long number)=>eruptionPlans?.GetValueOrDefault(number);
+    // S30 kind 7. Starts at the caster `!`; the end is the target's current position at that moment (81CF30).
+    void ComposeEruption(MagicEffect e,EffectSprite effect,WorldSession session,List<Draw> draws,List<MagicVisual> visuals,List<UndrawnMagic> undrawn,long release,long now){
+        var plans=eruptionPlans??=[];
+        if(!plans.TryGetValue(e.Number,out var plan)){
+            var aim=session.VisibleTargetPosition(e.Target);
+            plan=EruptionMotion.Plan(e.SourceX,e.SourceY,aim?.X??e.TargetX,aim?.Y??e.TargetY,e.Heading,effect);plans[e.Number]=plan;
+            magicFlights[e.Number]=(plan.EndX,plan.EndY,release,plan.Chains?release+plan.TerminalOffset:release);
+            foreach(long stale in plans.Keys.Where(k=>!magicFlights.ContainsKey(k)).ToArray()){plans.Remove(stale);eruptionEnds?.Remove(stale);}
+        }
+        foreach(var s in plan.Segments){
+            long at=release+s.Offset;if(now<at||now-at>=effect.Duration)continue;
+            var frame=DrawNativeEffect(e.Gfx,plan.Direction,s.X,s.Y,now-at,session,draws,"magic");
+            if(frame!=null)visuals.Add(new(e.Number,e.Gfx,s.X,s.Y,plan.Direction,frame.Key,"segment",at));
+        }
+        if(!plan.Chains){
+            undrawn.Add(new(e.Number,e.Gfx,7,plan.Segments.Select(s=>(s.X,s.Y)).ToArray(),effect.Impact,"segment has fewer than 3 frames: cursor never reaches index 2, no next segment and no terminal EarthRising"));
+            return;
+        }
+        long start=release+plan.TerminalOffset;if(now<start)return;
+        if(effect.Impact<0){undrawn.Add(new(e.Number,e.Gfx,7,plan.Segments.Select(s=>(s.X,s.Y)).ToArray(),-1,"no 109 param: no terminal EarthRising"));return;}
+        var ends=eruptionEnds??=[];
+        // EarthRising start (81CEB0): moves to the target's current position if the target still exists.
+        if(!ends.TryGetValue(e.Number,out var end)){var aim=session.VisibleTargetPosition(e.Target);end=(aim?.X??plan.EndX,aim?.Y??plan.EndY);ends[e.Number]=end;}
+        // The terminal object is always the EarthRising class, whatever the param gfx's own 109 kind is.
+        ComposeEarthRising(e,effect.Impact,plan.Direction,end.X,end.Y,start,session,draws,visuals,now,"terminal");
+    }
+    // kind 6 EarthRising (sub_81C7C0): no movement, plays once; every `!` frame hits while damage≠0
+    // (damage is never cleared); never processes `]`.
+    void ComposeEarthRising(MagicEffect e,int gfx,int direction,int x,int y,long start,WorldSession session,List<Draw> draws,List<MagicVisual> visuals,long now,string phase){
+        var rising=NativeEffect(gfx);if(rising==null||now<start)return;
+        if(e.DamageWord>0&&e.Target!=0&&rising.LatestHit(start,now) is long hitAt)MagicHit(session,e.Target,hitAt);
+        var frame=DrawNativeEffect(gfx,direction,x,y,now-start,session,draws,"magic");
+        if(frame!=null)visuals.Add(new(e.Number,gfx,x,y,direction,frame.Key,phase,start));
+    }
     readonly Dictionary<string,Frame> projectileFrames=[];
     sealed record Flight(int X,int Y,long Release,long Impact);
     readonly Dictionary<long,Flight> projectileFlights=[];
