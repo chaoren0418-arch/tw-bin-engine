@@ -8,6 +8,7 @@ partial class Checks {
         Feed(c,ResetOffer(max));return c;
     }
     static ResetStats InitialReset()=>new(18,13,11,10,10,13);
+    [CheckGroup("char-reset"),CheckGroup("map-continuity",Order=130),CheckGroup(CheckGroups.Default,Order=360)]
     static async Task CharResetChecks(){
         // Exact complete C98 layouts, including all nested C2 actions and final selector.
         var initial=InitialReset();

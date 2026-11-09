@@ -9,6 +9,7 @@ partial class Checks {
     static PlayerHudSnapshot HotbarState(PlayerHudStamp stamp,int items=5,int skills=5,bool busy=false)=>new(stamp,"offline","test",100,100,100,100,"","",busy,"",false,
         Enumerable.Range(0,items).Select(i=>new PlayerHudEntry(new(PlayerHudKind.Item,(uint)(900+i)),"item"+i,"×1",null,false,true)).ToArray(),
         Enumerable.Range(0,skills).Select(i=>new PlayerHudEntry(new(PlayerHudKind.Magic,(uint)(1+i)),"spell"+i,"MP 3",null,false,true)).ToArray());
+    [CheckGroup("hotbar",Order=1),CheckGroup("map-continuity",Order=170),CheckGroup(CheckGroups.Default,Order=150)]
     static void HotbarChecks(){
         // Key map: F5..F12 -> slot 0..7, nothing else.
         Check(PlayerHudKeys.SlotCount==8&&CharacterConfig.SlotCount==8,"eight macro slots in HUD and server config");

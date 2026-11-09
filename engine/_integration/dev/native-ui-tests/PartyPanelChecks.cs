@@ -64,6 +64,7 @@ partial class Checks {
         return new UiResources(dir,tile,sprites);
     }
 
+    [CheckGroup("native-ui-party"),CheckGroup(CheckGroups.Default,Order=120)]
     static void NativeUiPartyChecks(string repo){
         string root=Path.Combine(Path.GetFullPath(repo),"scratch","issue-471","synthetic");Directory.CreateDirectory(root);
         const ushort Base=0x0010,Pet=0x0014,Rt=0x0200,RtPet=0x0204,TabN=0x4000,TabD=0x4010,BtnN=0x4200,BtnD=0x4210,

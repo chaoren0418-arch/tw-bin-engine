@@ -13,6 +13,7 @@ partial class Checks {
         try{Feed(c,bytes);}catch(ProtocolException){rejected=true;}
         Check(rejected,label+" rejected");Check(before==JsonSerializer.Serialize(c.PartySnapshot()),label+" atomic");
     }
+    [CheckGroup(CheckGroups.Preamble,Order=10),CheckGroup("party")]
     static async Task PartyChecks(){
         foreach(byte mode in new byte[]{0,1})Check(PartyPackets.Invite(0x12345678,mode).SequenceEqual(new byte[]{230,mode,0x78,0x56,0x34,0x12,0,0}),"party C230 mode+target "+mode);
         Check(PartyPackets.Leave().SequenceEqual(new byte[]{33,0,0,0,0,0,0,0}),"party C33 empty");

@@ -8,6 +8,7 @@ partial class Checks {
     static List<byte[]> HyperSender(LoginConnection c){
         var sent=new List<byte[]>();Sender(c,(b,v,a)=>{if(!v())return Task.FromResult(false);sent.Add(b);a();return Task.FromResult(true);});return sent;
     }
+    [CheckGroup("hypertext"),CheckGroup("player-query",Order=2),CheckGroup("map-continuity",Order=150),CheckGroup(CheckGroups.Default,Order=410)]
     static async Task HyperTextChecks(string output){
         string fixture=Path.Combine(Path.GetDirectoryName(Path.GetFullPath(output))!,"hypertext-fixture");Directory.CreateDirectory(fixture);
         string templates=Path.Combine(fixture,"templates.json");

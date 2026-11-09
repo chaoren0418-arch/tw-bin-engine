@@ -10,6 +10,8 @@ partial class Checks {
     static byte[] NormalChat(string text,uint speaker=456)=>Packet(b=>{b.Write((byte)81);b.Write((byte)0);b.Write(speaker);Text(b,text);});
     static byte[] Whisper(string name,string text)=>Packet(b=>{b.Write((byte)73);Text(b,name);Text(b,text);});
     static void BuddyBad(Action action,string label){bool failed=false;try{action();}catch(Exception ex) when(ex is ProtocolException or ArgumentException or System.Text.DecoderFallbackException){failed=true;}Check(failed,label);}
+    [CheckGroup("buddies-codec")] static Task BuddyCodecChecks()=>BuddyChecks(true);
+    [CheckGroup("buddies")]
     static async Task BuddyChecks(bool codecOnly=false){
         Check(Convert.ToHexString(BuddyPackets.Encode(BuddyAction.Query))=="0400000000000000","C4 query has no fields");
         foreach(var (action,hex) in new[]{(BuddyAction.Add,"CF"),(BuddyAction.Delete,"CA"),(BuddyAction.ToggleExclude,"AB")}){
