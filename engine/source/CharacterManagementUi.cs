@@ -58,6 +58,8 @@ public sealed partial class ClientForm {
         };
         switchCharacter.Click+=async(_,_)=>{ClearInput("character-switch");int session=login.SessionGeneration;ShowCharacterAction(await login.SwitchCharacter(session,login.Revision),session);};
         Resize+=(_,_)=>PositionCharacterSwitch();
+        // T280（R3-D）：選角畫面音樂（EC4FE0 狀態 20：系統槽 8 循環）。
+        timer.Tick+=(_,_)=>{if(ClientSoundScene.Scene(login.State)==MusicScene.CharacterSelect)ClientSoundScene.ObserveFront(login.State,masterGain,masterMute,Environment.TickCount64);};
     }
     void PositionCharacterSwitch(){switchCharacter.Location=new(Math.Max(0,ClientSize.Width-(webHost.Visible?webHost.Width:0)-switchCharacter.Width-12),8);switchCharacter.BringToFront();}
     void ShowCharacterAction(LoginAction action,int session){if(IsDisposed||session!=login.SessionGeneration)return;characterUiNotice=action.Accepted?"":action.Message;characterNoticeRevision=login.Revision;SyncLoginControls();}

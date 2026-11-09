@@ -55,6 +55,28 @@ public static class SoundPackets
     }
 }
 
+// T280（R3-D，SD§2.3 A3FCBE..A3FD7B → A091C0）：發聲體每次更新的 (vol, ext)。
+// nx=|dx|、ny=|dy|（格）；nx+ny>14 時夾成 (14,0)；vol＝100−14·(nx²+ny²)/20（夾 ≥0）；ext＝64−63·(nx+ny)/14（夾 ≥0）。
+// A06D60 以 AIL_quick_set_volume(h, 類別音量·vol/100/128, ext/128) 套用；ext 是 Miles 第三參數 extra_volume（意義屬推測，SD§2.3）。
+public readonly record struct EmitterLevel(int Volume, int Ext)
+{
+    /// <summary>A06C30 的預設 0.5f＝ext 64／128（發聲體在自己身上，或沒有發聲體）。</summary>
+    public static EmitterLevel Self => new(100, 64);
+    public double ExtraVolume => Math.Clamp(Ext, 0, 128) / 128d;
+}
+public static class SoundAttenuation
+{
+    public static EmitterLevel Level(int dx, int dy)
+    {
+        long nx = Math.Abs((long)dx), ny = Math.Abs((long)dy);
+        if (nx + ny > SoundRules.MaxManhattan) { nx = SoundRules.MaxManhattan; ny = 0; }
+        long ext = 64 - 63 * (nx + ny) / SoundRules.MaxManhattan;
+        return new(SoundRules.DistanceVolume(dx, dy), ext < 0 ? 0 : (int)ext);
+    }
+    /// <summary>offset＝發聲體相對自身角色的格數；null（沒有發聲體）用 A06C30 預設值。</summary>
+    public static EmitterLevel Level((int Dx, int Dy)? offset) => offset is { } o ? Level(o.Dx, o.Dy) : EmitterLevel.Self;
+}
+
 // Read only the already-approved combat WAVs. AudioPlayer independently rechecks its pins.
 public sealed class PacketSoundAssets(string clientRoot)
 {
@@ -213,10 +235,50 @@ public sealed partial class WorldSession
         return result.ToArray();
     }
 
+    // T280（R3-D）：每次更新替每筆播放中的 S22 重算 (vol, ext)（A091C0 的時機：每次更新、播放之後）。
+    // S22 封包沒有發聲體欄位（"ch"），原版走全域 A05980／A08020，不掛在角色發聲體上；所以這裡的發聲體就是自己，
+    // 結果固定是 EmitterLevel.Self。改變時記 Changes，給快照與之後的播放中改音量使用。
+    readonly Dictionary<long, EmitterLevel> packetSoundLevels = [];
+    public int PacketSoundLevelChanges { get; private set; }
+    public EmitterLevel? PacketSoundLevel(long number) => packetSoundLevels.TryGetValue(number, out var level) ? level : null;
+    void UpdatePacketSoundLevels(CombatSoundInstance[] sounds)
+    {
+        foreach (long gone in packetSoundLevels.Keys.Where(n => !sounds.Any(s => s.Instance == n)).ToArray()) packetSoundLevels.Remove(gone);
+        foreach (var sound in sounds)
+        {
+            var level = SoundAttenuation.Level(sound.Actor == 0 ? null : SoundOffset(sound.Actor));
+            if (!packetSoundLevels.TryGetValue(sound.Instance, out var old) || old != level) { packetSoundLevels[sound.Instance] = level; PacketSoundLevelChanges++; }
+        }
+    }
+    [WorldSnapshot("packetSoundLevels")]
+    object? PacketSoundLevelSnapshot() => packetSoundLevels.Count == 0 ? null
+        : packetSoundLevels.OrderBy(p => p.Key).Select(p => new { number = p.Key, volume = p.Value.Volume, ext = p.Value.Ext }).ToArray();
+
+    // T280（FU4§6）：頭目曲的兩個事件。觀察器先於物件處理器執行，物件表仍是封包前的狀態。
+    // S87 物件出現（sub_A50F20）：不是自己、不在死亡狀態（動作 ≠ 8）→ SPAWN。格式錯誤留給原處理器。
+    [WorldReceive(87, Observe = true)]
+    void ObserveBossAppear(byte[] plain)
+    {
+        ushort gfx; byte action;
+        try { var r = new LoginReader(plain); r.C(); r.H(); r.H(); uint id = r.D(); gfx = r.H(); action = r.C(); if (id == 0 || id == Status?.ObjectId) return; }
+        catch (ProtocolException) { return; }
+        if (action != 8) ClientSoundScene.BossAppeared(gfx, Environment.TickCount64);
+    }
+    // S158 動作 8（S_ACTION 92CB70）→ DEATH；gfx 取自物件表。
+    [WorldReceive(158, Observe = true)]
+    internal void ObserveBossDeath(byte[] plain)
+    {
+        uint id;
+        try { var r = new LoginReader(plain); r.C(); id = r.D(); if (r.C() != 8) return; }
+        catch (ProtocolException) { return; }
+        if (objects.TryGetValue(id, out var o)) ClientSoundScene.BossDied(o.Gfx, Environment.TickCount64);
+    }
+
     public CombatSoundInstance[] ComposePacketSounds(IEnumerable<CombatSoundInstance> existing, long now, Func<int,double?> duration)
     {
         var actions = existing.ToArray();
         var sounds = PacketSoundSnapshot(now,duration); // Also clears history at epoch boundaries.
+        UpdatePacketSoundLevels(sounds);
         foreach(var key in packetSoundFrames.Where(p=>p.Value.At<now-2*PacketSoundMatchMs).Select(p=>p.Key).ToArray())
             packetSoundFrames.Remove(key);
         foreach(var key in packetSoundMatches.Keys.Where(n=>!sounds.Any(s=>s.Instance==n)).ToArray())
