@@ -62,11 +62,18 @@ public sealed class UiInput(UiRoot root,IUiCommands commands) {
         return new(UiRoute.Panel,logical);
     }
 
-    /// <summary>Focused panel first, then every visible panel from the top. false = not for the UI (game keys continue).</summary>
+    /// <summary>
+    /// Focused panel first, then every visible panel from the top, then windows pushed out of the stack (R3-I): those are
+    /// hidden but still own their toggle key (e.g. Ctrl+M), which is how they close and can open again on top.
+    /// false = not for the UI (game keys continue).
+    /// </summary>
     public bool Key(UiKeyEvent e){
+        root.SyncWindows();
         if(Focused!=null&&!root.Usable(Focused))Focused=null;
         if(Focused!=null&&DeliverKey(Focused,e))return true;
-        foreach(var p in root.HitOrder())if(p!=Focused&&root.Usable(p)&&DeliverKey(p,e))return true;
+        var order=root.HitOrder().ToArray();
+        foreach(var p in order)if(p!=Focused&&root.Usable(p)&&DeliverKey(p,e))return true;
+        foreach(var p in order)if(root.IsEvicted(p)&&p.Visible&&!root.Faulted.Contains(p)&&DeliverKey(p,e))return true;
         return false;
     }
 
