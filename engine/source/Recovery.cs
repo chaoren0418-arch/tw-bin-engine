@@ -65,15 +65,51 @@ public static class QuitWindowRules {
 /// <summary>QUIT_WINDOW 的內容。Revision 每次開窗遞增；InWorld＝連線仍在世界中（逾時後為 false）。</summary>
 public sealed record QuitWindowView(int Revision,bool InWorld,bool Dead,string Message);
 
-/// <summary>UserPlayStatsUI 統計列名稱：字串 3123–3126 改讀執行期字串表（Q-2：是否同一張表待查）；表裡沒有時用 WO§6 的名稱。</summary>
+/// <summary>UserPlayStatsUI 統計列名稱：字串 3123–3126 讀執行期 string-c.tbl（SS§4.1 已驗證同一張表）；表裡沒有時用 WO§6 的名稱。</summary>
 public static class UserPlayStatsText {
     // WO§6 names the four rows; used only when string-c.tbl is unavailable or shorter than the id.
     static readonly Dictionary<int,string> Fallback=new(){[3123]="經驗",[3124]="擊殺數",[3125]="金幣",[3126]="取得物品"};
+    public const int ExpRow=3123,KillRow=3124,AdenaRow=3125,ItemRow=3126,NoItemsMessage=3127,NewItemTooltip=3131,MinuteSuffix=1587,UnlimitedText=3344;
+    /// <summary>sub_C0BB60：分鐘 ≥ 10,000,000 改寫字串 3344。</summary>
+    public const int UnlimitedMinutes=10_000_000;
     public static (string Text,bool FromTable) Label(int? stringId,string rowName){
         if(stringId is not int id)return (rowName,false);
         if(ServerMessageText.Table is {} t&&id<t.Count){string s=ServerMessageText.DisplayText(t[id]).Trim();if(s.Length>0)return (s,true);}
         return (Fallback.TryGetValue(id,out var n)?n:$"#{id}",false);
     }
+    // T272（#649）：3127／3131／1587／3344 從 string-c.tbl 取字（SS§4.1）；沒有字串表時用 SS§4.1 表列的本機原文。
+    static readonly Dictionary<int,string> TextFallback=new(){[NoItemsMessage]="沒有獲得的道具",[NewItemTooltip]="查看道具 變動詳細內容",[MinuteSuffix]="分",[UnlimitedText]="無限"};
+    public static string Text(int id){
+        if(ServerMessageText.Table is {} t&&id>=0&&id<t.Count){string s=ServerMessageText.DisplayText(t[id]).Trim();if(s.Length>0)return s;}
+        return TextFallback.TryGetValue(id,out var n)?n:$"#{id}";
+    }
+    /// <summary>統計列數值（sub_C0B840）。經驗 "%.4f%%"；其餘 "%d" 經 sub_88EA30（沒查，推測加千分位）。沒有基準時回 null（畫面顯示「—」）。</summary>
+    public static string? Value(UserPlayStatsValues? v,int? stringId){
+        if(v==null)return null;
+        var inv=CultureInfo.InvariantCulture;
+        return stringId switch{
+            ExpRow=>v.ExpGain is decimal e?e.ToString("0.0000",inv)+"%":null,
+            KillRow=>v.Kills.ToString("#,0",inv),
+            AdenaRow=>v.AdenaGain is long a?a.ToString("#,0",inv):null,
+            ItemRow=>v.Baseline?v.NewItems.ToString("#,0",inv):null,
+            _=>null};
+    }
+    /// <summary>地監時間（sub_C0BB60）："%d%s"＋字串 1587；≥ 10,000,000 時字串 3344。</summary>
+    public static string DungeonTime(int minutes)=>minutes>=UnlimitedMinutes?Text(UnlimitedText):minutes.ToString(CultureInfo.InvariantCulture)+Text(MinuteSuffix);
+}
+
+/// <summary>
+/// T272（#649）死亡統計窗的數值（SS§3.1、FU3§4.2）。ExpGain＝(等級×100＋經驗%) 差；AdenaGain＝金幣差；Kills 恆為 0（3.81 不送 S250／61）；
+/// NewItems＝新物品清單筆數；Baseline＝已有登入背包基準。DungeonTimes＝最近一次 S250／159（null＝還沒收到）。
+/// </summary>
+public sealed record UserPlayStatsValues(decimal? ExpGain,long? AdenaGain,int Kills,int NewItems,bool Baseline,IReadOnlyList<PacketBoxMapTime>? DungeonTimes);
+
+public static class UserPlayStatsRules {
+    /// <summary>FU3§4.2 / SS§3.1：統計窗顯示時送 TW16 op 10 子碼 9＝3.81 C63 `C(9)`（SS2§14），伺服器回 S250／159。</summary>
+    public const byte DungeonTimeOpcode=63,DungeonTimeSubtype=9;
+    public static byte[] DungeonTimeRequest()=>LoginPackets.Pad([DungeonTimeOpcode,DungeonTimeSubtype]);
+    /// <summary>3.81 金幣是背包物品（與 Castle.cs CastleGoldHeld 同一判斷）。</summary>
+    public static bool IsAdena(ushort description,ushort icon,string name)=>description==0&&icon==5&&(name=="$4"||name.StartsWith("$4 (",StringComparison.Ordinal));
 }
 
 public sealed record UserPlayStatsButton(string Name,int X,int Y,int? BaseSurf,string MouseEvent,int? HighlightSurf=null,int? PushSurf=null);
@@ -160,6 +196,72 @@ public sealed partial class WorldSession {
     internal void DeathQuitSent(){deathWatch.MarkQuitSent();CombatNotice="死亡後逾時未重新開始，已依原版送出離線。";}
     internal bool DismissDeathWindow(){TrackDeath();return deathWatch.Dismiss();}
     internal bool ReopenDeathWindow(){TrackDeath();return OwnDead&&deathWatch.Reopen();}
+    // ---- T272（#649）死亡統計的基準值（SS§3.1 sub_C075B0、FU3§4.2 UserObtainUI）----
+    // 進入世界後第一個 S8 記等級與經驗%（原版 S_STATUS 每次都呼叫，只在旗標為假時記一次）。WorldSession.Reset 在每次進入世界時跑。
+    // 金幣：3.81 的金幣是背包物品，不在 S8；改以登入時整批背包（S5）裡的金幣當基準（推測的對應，原版取 S_STATUS 的 +16）。
+    // 獲得道具：S5 建基準清單；S15 數量高於基準記差額；S24 數量回到基準以下移除、否則更新差額；S57 移除。
+    //   只用物品 id 比對；原版 S15 另有「名稱＋第 6 參數（推測祝福）、旗標 0x80」的備援比對，沒有做（FU3§4.2 允許）。
+    // 這些都用 M7-A 觀察器（在核心處理前、看同一個封包），自己讀欄位；格式錯誤時不動狀態，交給核心處理器拒絕。
+    byte? statsBaseLevel;decimal? statsBaseExp;bool statsExpBaseline,statsInventoryBaseline;long statsBaseAdena;
+    readonly Dictionary<uint,uint> statsBaseItems=[],statsNewItems=[];
+    [WorldReset] void ResetUserPlayStats(){statsBaseLevel=null;statsBaseExp=null;statsExpBaseline=false;statsInventoryBaseline=false;statsBaseAdena=0;statsBaseItems.Clear();statsNewItems.Clear();}
+    [WorldReceive(8,Observe=true)]
+    void ObserveStatsBaseline(byte[] plain){
+        if(statsExpBaseline)return;
+        try{var r=new LoginReader(plain);r.C();r.D();byte level=r.C();uint exp=r.D();statsExpBaseline=true;statsBaseLevel=level;statsBaseExp=DecodeExperience(level,exp,"S8").Percent;}
+        catch(Exception e) when(e is ProtocolException or System.Text.DecoderFallbackException){}
+    }
+    static (uint Id,uint Count,bool Adena) ObservedItem(LoginReader r){
+        uint id=r.D();ushort desc=r.H();r.C();r.C();ushort icon=r.H();r.C();uint count=r.D();r.C();string name=r.S();
+        int status=r.C();for(int i=0;i<status;i++)r.C();for(int i=0;i<11;i++)r.C();
+        return (id,count,UserPlayStatsRules.IsAdena(desc,icon,name));
+    }
+    [WorldReceive(5,Observe=true)]
+    void ObserveObtainBaseline(byte[] plain){
+        var items=new List<(uint Id,uint Count,bool Adena)>();
+        try{var r=new LoginReader(plain);r.C();int count=r.C();for(int i=0;i<count;i++)items.Add(ObservedItem(r));r.Finish();}catch(Exception e) when(e is ProtocolException or System.Text.DecoderFallbackException){return;}
+        // sub_C03720：每筆加進基準清單（同 id 以新數量為準）；金幣基準＝這份清單的金幣。
+        long adena=0;foreach(var (id,count,isAdena) in items){statsBaseItems[id]=count;if(isAdena)adena+=count;}
+        statsBaseAdena=statsInventoryBaseline?statsBaseAdena:adena;statsInventoryBaseline=true;
+    }
+    [WorldReceive(15,Observe=true)]
+    void ObserveObtainAdd(byte[] plain){
+        (uint Id,uint Count,bool Adena) item;
+        try{var r=new LoginReader(plain);r.C();item=ObservedItem(r);r.Finish();}catch(Exception e) when(e is ProtocolException or System.Text.DecoderFallbackException){return;}
+        ObtainAdded(item.Id,item.Count);
+    }
+    [WorldReceive(24,Observe=true)]
+    void ObserveObtainChange(byte[] plain){
+        uint id,count;
+        try{var r=new LoginReader(plain);r.C();id=r.D();r.S();count=r.D();int n=r.C();for(int i=0;i<n;i++)r.C();r.Finish();}catch(Exception e) when(e is ProtocolException or System.Text.DecoderFallbackException){return;}
+        ObtainChanged(id,count);
+    }
+    [WorldReceive(57,Observe=true)]
+    void ObserveObtainRemove(byte[] plain){
+        uint id;try{var r=new LoginReader(plain);r.C();id=r.D();r.Finish();}catch(Exception e) when(e is ProtocolException or System.Text.DecoderFallbackException){return;}
+        statsNewItems.Remove(id);
+    }
+    /// <summary>sub_C038D0（S15）：基準數量 ≥ 新數量不計；基準較少記差額；基準沒有記全部數量。</summary>
+    internal void ObtainAdded(uint id,uint count){
+        if(id==0||count==0)return;
+        if(statsBaseItems.TryGetValue(id,out uint b)){if(b>=count)return;statsNewItems[id]=count-b;}
+        else statsNewItems[id]=count;
+    }
+    /// <summary>sub_C04B00（S24）：新數量 ≤ 基準→移除；新清單已有→改差額；只有基準→新增差額；兩邊都沒有→不動。</summary>
+    internal void ObtainChanged(uint id,uint count){
+        bool hasBase=statsBaseItems.TryGetValue(id,out uint b);
+        if(count<=b){statsNewItems.Remove(id);return;}
+        if(statsNewItems.ContainsKey(id)||hasBase)statsNewItems[id]=count-b;
+    }
+    bool StatsInventoryBaseline=>statsInventoryBaseline||InventoryLoaded;
+    /// <summary>目前的死亡統計值；沒有基準的欄位為 null。</summary>
+    internal UserPlayStatsValues UserPlayStats(){
+        decimal? exp=statsExpBaseline&&statsBaseLevel is byte bl&&statsBaseExp is decimal be&&Experience is {Percent:decimal cur} e?(e.Level*100m+cur)-(bl*100m+be):null;
+        bool items=StatsInventoryBaseline;
+        return new(exp,items?CastleGoldHeld()-statsBaseAdena:null,0,statsNewItems.Count,items,MapTimes);
+    }
+    [WorldSnapshot("userPlayStats")]
+    object UserPlayStatsSnapshotModel(){var v=UserPlayStats();return new{expGain=v.ExpGain,adenaGain=v.AdenaGain,kills=v.Kills,newItems=v.NewItems,baseline=v.Baseline,baseLevel=statsBaseLevel,baseExp=statsBaseExp,baseAdena=statsBaseAdena,newItemIds=statsNewItems.Keys.Order().ToArray()};}
     [WorldSnapshot("death")]
     object DeathExtensionSnapshot(){var v=DeathSnapshot();return new{phase=v.Phase,map=v.Map,diedAt=v.DiedAt,windowAt=v.WindowAt,quitAt=v.QuitAt,remainingMs=v.RemainingMs,windowOpen=v.WindowOpen,dismissed=v.Dismissed,quitSent=v.QuitSent,restartRequested=RestartRequested};}
 }
@@ -183,6 +285,21 @@ public sealed partial class LoginConnection {
         finally{if(session==generation)restartSending=false;}
     }
     public DeathView DeathSnapshot()=>CaptureWorld(()=>State==LoginState.InWorld?World.DeathSnapshot():new DeathView("alive",null,null,null,null,null,false,false,false));
+    /// <summary>T272：死亡統計窗的數值（世界鎖內複製）。不在世界中為 null。</summary>
+    public UserPlayStatsValues? UserPlayStatsSnapshot()=>State==LoginState.InWorld?CaptureWorld(World.UserPlayStats):null;
+    bool statsWindowShown;int statsWindowGeneration=-1;
+    /// <summary>
+    /// T272（SS2§14）：死亡統計窗每次由關變開（vtable sub_C0AED0）送一次 C63 `C(9)`，伺服器回 S250／159 地監時間清單。
+    /// op 55／41（SS§3.2：3.81 忽略）不送。呼叫端每次同步畫面時傳入目前是否開窗；回傳 true＝這次有送出。
+    /// </summary>
+    public async Task<bool> SyncUserPlayStatsWindow(bool open){
+        int session=generation;
+        if(statsWindowGeneration!=session){statsWindowGeneration=session;statsWindowShown=false;}
+        bool rising=open&&!statsWindowShown;statsWindowShown=open;
+        if(!rising||State!=LoginState.InWorld||sendMovementGate is not {} sender)return false;
+        try{return await sender(UserPlayStatsRules.DungeonTimeRequest(),()=>session==generation&&State==LoginState.InWorld,()=>{})&&session==generation;}
+        catch(Exception ex){if(session==generation){Cancel();Set(LoginState.Faulted,"地監時間查詢傳送失敗："+ex.Message);}return false;}
+    }
     public bool DismissDeathWindow()=>State==LoginState.InWorld&&CaptureWorld(World.DismissDeathWindow);
     public bool ReopenDeathWindow()=>State==LoginState.InWorld&&CaptureWorld(World.ReopenDeathWindow);
     /// <summary>死亡逾時：到期且仍死亡時送一次 C122（TW16 C_QUIT），送出後關閉連線。未到期或不在世界中回 false。</summary>
@@ -244,7 +361,7 @@ public sealed partial class ClientForm {
     readonly Label recoveryNotice=new(){AutoSize=false,ForeColor=Color.White,BackColor=Color.Transparent};
     readonly Button restartButton=new(){Text="重新開始"},deathQuitButton=new(){Text="結束"},deathCancelButton=new(){Text="取消"},deathCloseButton=new(){Text="×",Visible=false};
     readonly Button deathReopenButton=new(){Text="死亡選單",Size=new(96,26),Visible=false};
-    readonly List<Label> deathStatLabels=[];
+    readonly List<Label> deathStatLabels=[];readonly List<(Label Label,int? StringId)> deathValueLabels=[];
     readonly System.Windows.Forms.Timer deathTimer=new(){Interval=250};
     volatile UserPlayStatsLayout? deathLayout;volatile string deathLayoutNotice="正在讀取原客戶端 UserPlayUI.xml。";
     Dictionary<int,Bitmap>? deathSurfs;bool deathLayoutApplied,deathTicking;
@@ -292,14 +409,15 @@ public sealed partial class ClientForm {
         Place(restartButton,layout.Restart);Place(deathQuitButton,layout.Quit);Place(deathCancelButton,layout.Cancel);
         if(layout.Close is {} close){Place(deathCloseButton,close);deathCloseButton.Visible=true;}
         // Rows of UserPlayStats_List (Vertical list, Horizontal rows: icon, name, value). The list's exact flow rule is inferred.
-        foreach(var l in deathStatLabels){recoveryPanel.Controls.Remove(l);l.Dispose();}deathStatLabels.Clear();
+        foreach(var l in deathStatLabels){recoveryPanel.Controls.Remove(l);l.Dispose();}deathStatLabels.Clear();deathValueLabels.Clear();
         for(int i=0;i<layout.Rows.Count;i++){
             var row=layout.Rows[i];int y=layout.ListY+i*layout.RowHeight,x=layout.ListX;
             if(Surf(row.IconSurf) is {} icon){var pic=new Label{Location=new(x,y+row.IconY),Size=icon.Size,Image=icon,BackColor=Color.Transparent};deathStatLabels.Add(pic);x+=icon.Width+row.Gap;}
             string name=UserPlayStatsText.Label(row.StringId,row.Name).Text;
             deathStatLabels.Add(new Label{Location=new(x,y),Size=new(row.LabelWidth,row.Height),Text=name,ForeColor=row.LabelColor,BackColor=Color.Transparent,TextAlign=ContentAlignment.MiddleLeft});
-            // Values: the original data source is not verified, so no number is shown (no synthesized 0).
-            deathStatLabels.Add(new Label{Location=new(x+row.LabelWidth+row.Gap,y),Size=new(row.ValueWidth,row.Height),Text="—",ForeColor=row.ValueColor,BackColor=Color.Transparent,TextAlign=ContentAlignment.MiddleRight});
+            // T272: values come from the client-side baseline (SS§3.1); "—" only while a baseline is missing.
+            var value=new Label{Location=new(x+row.LabelWidth+row.Gap,y),Size=new(row.ValueWidth,row.Height),Text=UserPlayStatsPanel.ValuePlaceholder,ForeColor=row.ValueColor,BackColor=Color.Transparent,TextAlign=ContentAlignment.MiddleRight};
+            deathStatLabels.Add(value);deathValueLabels.Add((value,row.StringId));
         }
         recoveryPanel.Controls.AddRange(deathStatLabels.ToArray());
         recoveryNotice.SetBounds(10,layout.ListY+layout.Rows.Count*layout.RowHeight+4,Math.Max(10,recoveryPanel.Width-20),30);
@@ -324,10 +442,11 @@ public sealed partial class ClientForm {
         return true;
     }
     sealed class UserPlayStatsSource(ClientForm form):IUserPlayStatsSource {
-        public UserPlayStatsView? Current=>form.login.State==LoginState.InWorld&&form.login.DeathSnapshot().WindowOpen?new(form.login.CanRestart):null;
+        public UserPlayStatsView? Current=>form.login.State==LoginState.InWorld&&form.login.DeathSnapshot().WindowOpen?new(form.login.CanRestart,form.login.UserPlayStatsSnapshot()):null;
         public void Restart(){_=form.DeathRestart();}
         public void Quit()=>form.DeathQuit();
         public void Dismiss()=>form.DeathDismiss();
+        public void ShowMessage(string text)=>form.SetSingleActionNotice(text);
     }
     sealed class QuitWindowSource(ClientForm form):IQuitWindowSource {
         public QuitWindowView? Current=>form.login.QuitWindowSnapshot();
@@ -358,6 +477,7 @@ public sealed partial class ClientForm {
     void SyncRecovery(){
         if(!deathLayoutApplied&&deathLayout is {} layout){deathLayoutApplied=true;try{ApplyDeathLayout(layout);}catch(Exception ex){deathLayoutNotice="（引擎面板：UserPlayUI 版面套用失敗）";DeathLayoutError=ex.GetType().Name+": "+ex.Message;ApplyDeathFallbackLayout();}}
         var view=login.DeathSnapshot();
+        _=login.SyncUserPlayStatsWindow(login.State==LoginState.InWorld&&view.WindowOpen);
         bool native=AttachNativeRecovery();
         bool nativeShown=native&&(view.WindowOpen||login.QuitWindowSnapshot()!=null);
         if(nativeShown!=nativeRecoveryShown)Invalidate();
@@ -369,6 +489,8 @@ public sealed partial class ClientForm {
         // Screen position of the window is not in the XML (X=0,Y=0 is window-relative); centred like the previous panel.
         recoveryPanel.Location=new(Math.Max(0,(ClientSize.Width-recoveryPanel.Width)/2),160);
         recoveryNotice.Text=(login.World.RestartRequested?"已送出重新開始，等待伺服器恢復。":"角色已死亡。")+(deathLayoutNotice.Length>0?"\n"+deathLayoutNotice:"");
+        var stats=login.UserPlayStatsSnapshot();
+        foreach(var (label,id) in deathValueLabels){string text=UserPlayStatsText.Value(stats,id)??UserPlayStatsPanel.ValuePlaceholder;if(label.Text!=text)label.Text=text;}
         restartButton.Enabled=login.CanRestart;recoveryPanel.BringToFront();
     }
 }

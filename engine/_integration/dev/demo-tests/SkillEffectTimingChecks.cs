@@ -59,7 +59,7 @@ static partial class AttackSkillChecks
         Check(hit.LatestHit(1000, 1082) == null && hit.LatestHit(1000, 1083) == 1083 && hit.LatestHit(1000, 9999) == 1083, "latest hit frame time");
         Check(catalog.Get(41005).Kind == 5 && catalog.Get(41005).Impact == 41006 && catalog.Get(41007).Kind == 7 && catalog.Get(41008).Kind == 8, "109 kinds 5/7/8 parsed");
         Check(MagicClass.Flies(5, true) && MagicClass.Flies(5, false) && !MagicClass.Flies(3, true) && !MagicClass.Flies(4, true) && MagicClass.Flies(3, false), "flying classes: S30 3/4/5, S42 only 5");
-        Check(MagicClass.CasterHits(8, false) && !MagicClass.CasterHits(8, true) && MagicClass.CasterHits(7, false) && !MagicClass.CasterHits(0, false), "S30 kind 8 builds no effect object; S42 kind 8 uses the default class");
+        Check(MagicClass.CasterHits(8, false) && !MagicClass.CasterHits(8, true) && !MagicClass.CasterHits(7, false) && !MagicClass.CasterHits(0, false), "S30 kind 8 builds no effect object; S42 kind 8 uses the default class; kind 7 hits from its terminal EarthRising (T269)");
 
         // SV#5: S30 default class starts at the caster `!`, is placed at the target, hits on its own `!`.
         var w = Seed(); var r = BareRenderer(client); w.Receive(Attack(gfx: 41000, damage: 7), "offline"); CasterTiming(w);
@@ -133,10 +133,10 @@ static partial class AttackSkillChecks
         w = Seed(); r = BareRenderer(client); w.Receive(Attack(gfx: 41008, damage: 7), "offline"); CasterTiming(w); release = w.MagicEffects[0].At + Release;
         Compose(r, w, release - 1); Check(Hits(r).Count == 0, "S30 kind 8 waits for caster `!`");
         draws = Compose(r, w, release); Check(draws.Count == 0 && r.MagicVisuals.Length == 0 && Hits(r)[456].At == release, "S30 kind 8 draws nothing, caster `!` hits");
-        // kind 7 (S30): path data only (segment timing unverified), nothing drawn.
+        // kind 7 (S30, T269): 41007 has only two frames, so the segment cursor never reaches index 2: one segment, no chain, no hit.
         w = Seed(); r = BareRenderer(client); w.Receive(Attack(gfx: 41007, damage: 7), "offline"); CasterTiming(w); release = w.MagicEffects[0].At + Release;
         draws = Compose(r, w, release);
-        Check(draws.Count == 0 && r.UndrawnMagicEffects is [{ Kind: 7, EndGfx: 41006 } u] && u.Path[^1] == (32603, 32942) && u.Path.Length == 3, "S30 kind 7 path as data only, no unverified drawing");
+        Check(r.MagicVisuals is [{ Phase: "segment", X: 32600, Y: 32940 }] && r.UndrawnMagicEffects is [{ Kind: 7, EndGfx: 41006 } u] && u.Path.Length == 1 && Hits(r).Count == 0, "S30 kind 7 two-frame segment: drawn once at the caster, no chain, caster `!` does not hit");
         Check(MagicMotion.EruptionPath(32600, 32940, 32600, 32940).SequenceEqual(new[] { (32600, 32940) }), "kind 7 zero-length path");
 
         // SV#10: kind 3 never draws its 109 param, both as S30 magic and as an arrow.
