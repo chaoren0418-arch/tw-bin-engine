@@ -15,6 +15,24 @@ partial class Checks {
         Check(rejected,label+" rejected");Check(before==(c.World.LastIdentifyDesc,c.World.ActiveRedNotice(),c.World.Target?.Name,c.World.IsPinkName(456),c.World.TrueTarget(456)),label+" atomic");
     }
     static int NoticeUnhandled(LoginConnection c,byte opcode)=>((System.Collections.Concurrent.ConcurrentDictionary<byte,int>)typeof(WorldSession).GetField("unhandled",F)!.GetValue(c.World)!).GetValueOrDefault(opcode);
+    // ServerMessageText.UseTable is internal (no InternalsVisibleTo), so the product method is called by reflection.
+    static IDisposable NoticeTable(ServerStringTable? table)=>(IDisposable)typeof(ServerMessageText).GetMethod("UseTable",System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic)!.Invoke(null,[table])!;
+    /// <summary>T274 (#655): one non-template message in all three table states, each with an explicit expected text.
+    /// feed sends the packet and returns the notice text (null when the notice fields are wrong).</summary>
+    static void NoticeUnknownMessage(Func<string?> feed,ushort id,string[] args,string placeholder,string synthetic,string label){
+        var real=ServerMessageText.Table; // the local client's string-c.tbl, or null (CI / no client); read before any override
+        using(NoticeTable(null))Check(feed()==placeholder,label+" without string table shows id placeholder");
+        var lines=new string[id+1];Array.Fill(lines,"");lines[id]="\\f1鑑定%0說明";
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+        var synth=ServerStringTable.Parse(System.Text.Encoding.GetEncoding(950).GetBytes($"{id+1}\n"+string.Join("\n",lines)));
+        using(NoticeTable(synth))Check(feed()==synthetic,label+" with string table shows the formatted record");
+        if(real==null){Console.WriteLine($"INFO {label}: no client string table, real-table case not applicable ({ServerMessageText.TableError})");return;}
+        // Expected text read from the client's own record (never stored in the repository).
+        string expected=id<real.Count?ServerMessageText.DisplayText(ServerMessageText.Format(real[id],args)):"";
+        string? got;using(NoticeTable(real))got=feed();
+        Check(got==expected&&!got.StartsWith("原服訊息"),label+$" with client string-c.tbl {real.Sha256[..12]} shows record {id} text");
+        Console.WriteLine($"INFO {label}: client string-c.tbl {real.Sha256[..12]} count={real.Count} record {id} -> {got.Length} chars");
+    }
     [CheckGroup("display-notices"),CheckGroup("map-continuity",Order=30),CheckGroup(CheckGroups.Default,Order=270)]
     static void DisplayNoticeChecks(){
         using(var c=Seed()){
@@ -27,7 +45,10 @@ partial class Checks {
             Feed(c,IdentifyPacket(82,138,2,"$6","7"));Check(c.World.LastIdentifyDesc is {DescId:82,Text:"$6：［重量7］"},"notice S245 etc 138");
             Feed(c,IdentifyPacket(83,134,3,"骰子匕首","1+0","1+0","3"));Check(c.World.LastIdentifyDesc is {DescId:83,Weight:"3",Text:"骰子匕首：小型怪物打擊1+0 大型怪物打擊1+0［重量3］"}&&c.World.LastIdentifyDesc.Arguments.Length==3,"notice S245 test constructor uncounted weight");
             var kept=c.World.LastIdentifyDesc;Feed(c,Packet(b=>{b.Write((byte)245);b.Write((ushort)84);}));Check(ReferenceEquals(kept,c.World.LastIdentifyDesc),"notice S245 description id only shows nothing");
-            Feed(c,IdentifyPacket(85,999,1,"%1"));Check(c.World.LastIdentifyDesc is {Recognized:false,Text:"原服訊息 999：%1"},"notice S245 unknown message stays labeled");
+            // T274 (#655): a non-template id goes through the T228 string table, so the expected text depends on the environment.
+            // Each case pins the table explicitly: none (CI) → id placeholder; synthetic → formatted record; real client → its record.
+            NoticeUnknownMessage(()=>{Feed(c,IdentifyPacket(85,999,1,"%1"));var n=c.World.LastIdentifyDesc;return(n is {DescId:85,MessageId:999,Recognized:false}?n.Text:null);},
+                999,["%1"],"原服訊息 999：%1","鑑定%1說明","notice S245 unknown message");
             Feed(c,IdentifyPacket(86,135,2,"%1","%0"));Check(c.World.LastIdentifyDesc?.Text=="%1：防御力%0 防御具","notice arguments are literal");
             Check(c.World.LastServerMessage==null&&c.World.LastServerReply==null,"notice S245 leaves server reply state");
             long at=c.World.LastIdentifyDesc!.At;Check(c.World.ActiveIdentifyDesc(at+DisplayNoticeText.IdentifyNoticeMs-1)!=null&&c.World.ActiveIdentifyDesc(at+DisplayNoticeText.IdentifyNoticeMs)==null,"notice S245 display window");
@@ -37,7 +58,8 @@ partial class Checks {
             Check(ServerStatusMessages_CenterNotice(c)=="你的PK次數已達5。達100次將下地獄。","notice S105 center mount");
             Feed(c,RedPacket(552,"12","10"));Check(c.World.ActiveRedNotice()?.Text=="因為你已經殺了 12 人所以被打入地獄。 你將在這裡停留 10 分鐘。","notice S105 552");
             Feed(c,RedPacket(637,"300"));Check(c.World.ActiveRedNotice()?.Text=="你必須在此地停留 300 秒。","notice S105 637 one string");
-            Feed(c,RedPacket(700));Check(c.World.ActiveRedNotice() is {Id:700,Recognized:false,Text:"原服訊息 700"}&&c.World.ActiveRedNotice()!.Arguments.Length==0,"notice S105 null info count zero");
+            NoticeUnknownMessage(()=>{Feed(c,RedPacket(700));var n=c.World.ActiveRedNotice();return(n is {Id:700,Recognized:false,Arguments.Length:0}?n.Text:null);},
+                700,[],"原服訊息 700","鑑定說明","notice S105 null info count zero");
             long red=c.World.ActiveRedNotice()!.At;Check(c.World.ActiveRedNotice(red+DisplayNoticeText.RedNoticeMs-1)!=null&&c.World.ActiveRedNotice(red+DisplayNoticeText.RedNoticeMs)==null,"notice S105 display window");
             Check(c.World.LastServerMessage==null&&c.World.LastServerReply==null,"notice S105 leaves server reply state");
 

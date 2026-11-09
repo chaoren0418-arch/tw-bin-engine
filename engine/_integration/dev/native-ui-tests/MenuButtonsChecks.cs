@@ -82,7 +82,7 @@ partial class Checks {
         var cmd=new UiNullCommands();var input=new UiInput(ui,cmd);
         void Click(int x,int y){input.Mouse(UiMouseKind.Down,new(x,y),MouseButtons.Left,1);input.Mouse(UiMouseKind.Up,new(x,y),MouseButtons.Left);}
         for(int i=0;i<spec.Length;i++)Click(643+spec[i].X+8,567+8);
-        Check(cmd.Calls.SequenceEqual(new[]{"dev-tools:小地圖","dev-tools:信件","dev-tools:角色","dev-tools:魔法","dev-tools:背包","dev-tools:血盟","logout"}),"Map/Mail/Status/Spell/Item/Pledge → dev-tools page (transitional); Option has no surf → no click; Quit → Logout: "+string.Join(",",cmd.Calls));
+        Check(cmd.Calls.SequenceEqual(new[]{"dev-tools:小地圖","dev-tools:信件","dev-tools:角色","dev-tools:魔法","dev-tools:背包","dev-tools:血盟","dev-tools:"}),"no native windows in this root → dev-tools page (transitional); Option has no surf → no click; Quit (7) → play-stats window, never logout (R3-A #678; no menu commands here → dev tools): "+string.Join(",",cmd.Calls));
         cmd.Calls.Clear();
         Click(645+17,570);Click(645+18,570);
         Check(cmd.Calls.Count==0,"gap between buttons (inside Bounds) fires nothing");
@@ -91,7 +91,7 @@ partial class Checks {
         cmd.Calls.Clear();
         input.Mouse(UiMouseKind.Down,new(650,570),MouseButtons.Right,1);input.Mouse(UiMouseKind.Up,new(650,570),MouseButtons.Right);
         Check(cmd.Calls.Count==0&&panel.Held==null,"right button does nothing");
-        Check(!input.Key(new(Keys.Control|Keys.M,true,false))&&!input.Key(new(Keys.F5,true,false)),"panel takes no keys (Ctrl+M belongs to ui-minimap)");
+        Check(!input.Key(new(Keys.Control|Keys.M,true,false))&&!input.Key(new(Keys.F5,true,false)),"Ctrl+M / F5 not taken (Ctrl+M belongs to ui-minimap; the panel only owns Tab, Ctrl+I, Ctrl+S since R3-A #678)");
 
         // --- pressed state: a+1 while held over the button, normal when dragged off, no click when released off.
         input.Mouse(UiMouseKind.Down,new(670,570),MouseButtons.Left,1);
@@ -108,7 +108,7 @@ partial class Checks {
         ui.Update(new UiStaticGameState(InWorld:false));
         Check(panel.Held==null,"leaving the world drops the held button");
         input.Mouse(UiMouseKind.Up,new(780,570),MouseButtons.Left);
-        Check(cmd.Calls.Count==0,"release after leaving the world does not log out");
+        Check(cmd.Calls.Count==0,"release after leaving the world fires nothing");
 
         // --- strict loading: no invented buttons or actions.
         Throws<UiLayoutException>(()=>Build(good.Replace("action = \"7\"","action = \"99\""),"bad-action"),"unknown action refused","不明的選單 action 99");
@@ -135,7 +135,7 @@ partial class Checks {
         canvas.Restrict(panel.Bounds);panel.Paint(canvas);canvas.Release();
         canvas.Bitmap.Save(Path.Combine(outDir,"menu-buttons-800x600.png"),ImageFormat.Png);
         using(var crop=canvas.Bitmap.Clone(new Rectangle(643,476,157,124),PixelFormat.Format32bppPArgb))crop.Save(Path.Combine(outDir,"right-window-crop.png"),ImageFormat.Png);
-        File.WriteAllText(Path.Combine(outDir,"menu-buttons.json"),JsonSerializer.Serialize(new{xml=layout.FileName,bounds=panel.Bounds,buttons=panel.Buttons.Select(b=>new{b.Action.Title,b.Action.Action,b.BaseSurf,rect=b.Rect,normal=b.Normal?.FileName,normalArchive=b.Normal?.Archive,pressed=b.Pressed?.FileName,b.Action.DevToolsPage,b.Action.Logout})},new JsonSerializerOptions{WriteIndented=true}));
+        File.WriteAllText(Path.Combine(outDir,"menu-buttons.json"),JsonSerializer.Serialize(new{xml=layout.FileName,bounds=panel.Bounds,buttons=panel.Buttons.Select(b=>new{b.Action.Title,b.Action.Action,b.BaseSurf,rect=b.Rect,normal=b.Normal?.FileName,normalArchive=b.Normal?.Archive,pressed=b.Pressed?.FileName,b.Action.DevToolsPage,b.Action.Window,b.Action.PlayStats})},new JsonSerializerOptions{WriteIndented=true}));
         Console.WriteLine("native-ui menu buttons real client → "+outDir);
     }
 }

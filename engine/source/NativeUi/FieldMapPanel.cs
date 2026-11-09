@@ -4,7 +4,7 @@ namespace P06.NativeUi;
 /// Field_Map window (MapSystem-c.xml, ui-layout.md §5): frame 2816 at pos (5,250), title 2815, exit 2801 (146,6),
 /// zoom 2803 (129,6); 160×120 png view centred on the player, party dots 2826, 8-direction arrow 2818–2825.
 /// Maps outside the Field_Map list use the Dungern_Map chrome (title 2888, no zoom) and show no map content.
-/// Opened/closed by Ctrl+M (V5 (b)) or MapState.ToggleField (Map button, action 13, belongs to ui-macro-bar).
+/// Opened/closed by Ctrl+M (V5 (b)) or the Map menu button (action 13, MenuButtonsPanel → ToggleFromMenu, R3-A #678).
 /// Created by MiniMapPanel.Create (one registry line for the module) and loaded from MiniMapPanel.Load.
 /// </summary>
 public sealed class FieldMapPanel(MapState map):IUiMovablePanel {
@@ -54,6 +54,11 @@ public sealed class FieldMapPanel(MapState map):IUiMovablePanel {
             if(ZoomRect.Contains(e.Location))return true;
         }
         return Bounds.Contains(e.Location)||e.Kind!=UiMouseKind.Down;
+    }
+    /// <summary>Menu button 13 (R3-A #678, TW13 sub_77F510): same toggle as Ctrl+M. false = no current map (nothing opens).</summary>
+    public bool ToggleFromMenu(){
+        if(map.Current==null)return false;
+        map.ToggleField();return true;
     }
     public bool Key(UiKeyEvent e,IUiCommands commands){
         if(e.KeyData!=ToggleKey||map.Current==null)return false;
