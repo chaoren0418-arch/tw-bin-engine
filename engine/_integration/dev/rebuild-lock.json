@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 328,
+ "sourceCount": 329,
  "files": [
   {
    "path": "NuGet.Config",
@@ -141,8 +141,8 @@
   },
   {
    "path": "source/AmountPrompt.cs",
-   "size": 13775,
-   "sha256": "9f9b1cf525f386d2babb47c741bf460105b88b876f729d187f0c23414e8c4238"
+   "size": 14896,
+   "sha256": "048a082a15c4086f8a5ef4e67fb359a0692c4150f83773c159e3c2c5c0a8cb17"
   },
   {
    "path": "source/AmountPromptTests.cs",
@@ -246,13 +246,13 @@
   },
   {
    "path": "source/Castle.cs",
-   "size": 17817,
-   "sha256": "a8a1d6a09b771c5a81de32ad5a889708f26e4ad51c7f94d161e45dd0a6605fae"
+   "size": 23008,
+   "sha256": "f2bb32f72995f2facaa8abf72c8dde812b33b70acbb82e80c24a98b490199289"
   },
   {
    "path": "source/CastleTests.cs",
-   "size": 14138,
-   "sha256": "3c918b46569388b6c76fcdee6ab37bca8c4da905f6a5dc993aed997277ecf0d4"
+   "size": 14275,
+   "sha256": "6445f500b7f8b5107f529c46222f8280fcc300f79a55d9cbb8bbe76e9bf489f6"
   },
   {
    "path": "source/CharReset.cs",
@@ -1006,8 +1006,13 @@
   },
   {
    "path": "source/NpcInteraction.cs",
-   "size": 19429,
-   "sha256": "c7b4574925b9d6616792ea7ccfb914efe8e0c389295d727fa0e3c78e88a7d945"
+   "size": 21440,
+   "sha256": "20f256ce2027696c6a8a3ce6b85d8bdc485c930dfa9dfcbede78eac669698779"
+  },
+  {
+   "path": "source/NpcPageTests.cs",
+   "size": 15965,
+   "sha256": "9205721fe1d5195b6b6d833344495574e75460046997e3b05043ba3b1075c806"
   },
   {
    "path": "source/NpcServerPageTests.cs",
@@ -1026,8 +1031,8 @@
   },
   {
    "path": "source/NpcUi.cs",
-   "size": 10124,
-   "sha256": "8807e602b54810350677da58b76248251650d1fc45fb5b8e28bc880ac17f7b19"
+   "size": 12382,
+   "sha256": "3df677b6d0661ac2dbd864a6ae2152dd98361950f44fe62ea0c2087fe053ab63"
   },
   {
    "path": "source/ObjectAssets.cs",
@@ -1476,8 +1481,8 @@
   },
   {
    "path": "source/SpellExchange.cs",
-   "size": 12643,
-   "sha256": "2a12857b1251fe9f11f44f786dc2cb55c6be166dd4f7088051097af1d669ee9a"
+   "size": 13996,
+   "sha256": "f19ce7fc1cc5897f3435a36cf5f091abf281d37802f976832b58f82555235118"
   },
   {
    "path": "source/SpellExchangeTests.cs",
@@ -1486,8 +1491,8 @@
   },
   {
    "path": "source/SpellExchangeUi.cs",
-   "size": 5684,
-   "sha256": "31ea12e05191af77d4772955702160d668939d47490e0de1831a55316b373deb"
+   "size": 6313,
+   "sha256": "b88a3becf232b62057b12969f5e91d69084966dc39a81d18d9687cc738acb7dc"
   },
   {
    "path": "source/StatusIcons.cs",
@@ -1656,8 +1661,8 @@
   },
   {
    "path": "web/interaction.js",
-   "size": 3596,
-   "sha256": "b007e3ce0a2a4f2ef13dcf72db66adc26640379ad4eebedb357dc8e026132aae"
+   "size": 6310,
+   "sha256": "fcea2c44cae8d7a52118e8ae3e34183156afde3d9c8d83ed2cd1f2c7013880c8"
   },
   {
    "path": "web/login.js",
