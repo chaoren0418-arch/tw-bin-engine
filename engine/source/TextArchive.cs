@@ -71,4 +71,17 @@ public sealed class TextArchive {
     public byte[] ReadRaw(Entry entry){Require(entry.Size<=MaxPayloadBytes,"單筆資源超出限制");return read(entry);}
     /// <summary>Decoded payload bytes.</summary>
     public byte[] Read(Entry entry)=>Decode(ReadRaw(entry));
+
+    // T272 (#649): MapSystem region names. CMapSystemXML (sub_A61D30, VA 0xA61D30 / FO 0x661130) loads its own
+    // MapDesc-c.tbl (this+0x48); sub_A730A0 looks mapDesc ids up there, not in string-c.tbl (docs/reference/sprites-and-strings.md §4.1).
+    // Same layout as string-c.tbl (first line = count, one record per line). Pin = SHA-256 of the decoded local payload (375 records).
+    public const string MapDescFileName="MapDesc-c.tbl";
+    public const string MapDescSha256="2bd9791403059b996404f8574b7f75cd3535560a0f006640c7766ab5e120a8d9";
+    /// <summary>Reads and pin-checks the single <c>MapDesc-c.tbl</c> record (decoded in memory only).</summary>
+    public ServerStringTable ReadMapDesc(){
+        var entry=Single(MapDescFileName)??throw new InvalidDataException("Text 封存沒有 "+MapDescFileName);
+        var decoded=Read(entry);
+        Require(Convert.ToHexString(SHA256.HashData(decoded)).Equals(MapDescSha256,StringComparison.OrdinalIgnoreCase),MapDescFileName+" pin 不符");
+        return ServerStringTable.Parse(decoded);
+    }
 }

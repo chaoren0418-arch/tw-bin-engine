@@ -5,9 +5,13 @@ namespace P06.NativeUi;
 //   取消 (66,82) 1959–1961、關閉 (215,15) 4429／4430；統計清單 (34,120)，四列的圖示、名稱（字串 3123–3126）與數值欄寬。
 // 推測（標明）：外框疊在底圖上、兩者都畫在視窗原點；按鈕狀態 BaseSurf＝平常、HighlightSurf＝滑鼠停留、PushSurf＝按下；
 //   Moveable="20"＝頂端 20 px 可拖曳；視窗畫面位置（XML 是 0,0）照 QUIT_WINDOW 的已驗證規則水平置中、y＝150；Esc＝取消。
-// 不做（等 Q-2 或沒有來源）：統計數值（sub_C0AB50 沒查，顯示「—」，不顯示合成的 0）、NewItemList／Reset 鈕、地監時間清單。
+// T272（#649，SS§3、FU3§4.2、SS2§14）：四列數值改由客戶端基準相減（UserPlayStatsValues，Recovery.cs）；沒有基準的列仍顯示「—」。
+//   殺怪數恆為 0（3.81 不送 S250／61）。NewItemList 鈕（5325–5327）：滑過顯示 3131 提示；清單空時送系統訊息 3127；
+//   清單不空時原版開 UserObtainUI 清單窗，本引擎沒做（待後續）。地監時間清單 DungeonTime_List：S250／159 的名稱與分鐘（1587／3344）。
+// 推測（標明）：提示文字只畫字、不畫底框；地監清單超過 XML 列數的筆數不顯示，少於列數時剩下的列留空；還沒收到 159 時顯示 XML 預設字。
+// 不做：Reset 鈕（5330–5332，原版重建基準並冷卻 1000 ms；會送的 op 55／44 在 3.81 被忽略）、NewItemList 清單窗。
 
-public sealed record UserPlayStatsView(bool CanRestart);
+public sealed record UserPlayStatsView(bool CanRestart,UserPlayStatsValues? Values=null);
 
 /// <summary>UserPlayStatsUI 的資料與動作（由 Recovery.cs 的 ClientForm 接上既有死亡流程；面板不碰 LoginConnection）。</summary>
 public interface IUserPlayStatsSource {
@@ -17,6 +21,8 @@ public interface IUserPlayStatsSource {
     void Quit();
     /// <summary>取消／關閉／Esc：只關窗，計時照走（DeathWatch.Dismiss）。</summary>
     void Dismiss();
+    /// <summary>系統訊息（NewItemList 清單空時的 3127）。</summary>
+    void ShowMessage(string text){}
 }
 
 public sealed class UserPlayStatsPanel:IUiMovablePanel {
@@ -31,6 +37,10 @@ public sealed class UserPlayStatsPanel:IUiMovablePanel {
         public Rectangle Local=>Base==null?Rectangle.Empty:new(Spec.X,Spec.Y,Base.Width,Base.Height);
     }
     public sealed record Row(UserPlayStatsRow Spec,UiSurface? Icon,string Label,bool LabelFromTable);
+    /// <summary>DungeonTime_List 的一列（與統計列同樣的 圖示 → 名稱 → 時間 排法）。Name／Time＝XML 預設字（G／S／L／空白、0）。</summary>
+    public sealed record DungeonRow(UserPlayStatsRow Spec,UiSurface? Icon,string Name,string Time);
+    /// <summary>Tooltip 相對於按鈕的位置與字串編號（XML Tooltip X/Y/String）。</summary>
+    public sealed record Tooltip(int X,int Y,int StringId);
 
     public string Id=>PanelId;
     public UiLayer Layer=>UiLayer.Window;
@@ -45,6 +55,12 @@ public sealed class UserPlayStatsPanel:IUiMovablePanel {
     public Button? Quit{get;private set;}
     public Button? Cancel{get;private set;}
     public Button? Close{get;private set;}
+    public Button? NewItemList{get;private set;}
+    public Tooltip? NewItemTooltip{get;private set;}
+    public UiSurface? DungeonImage{get;private set;}
+    public Point DungeonImageAt{get;private set;}
+    public Point DungeonListAt{get;private set;}
+    public IReadOnlyList<DungeonRow> DungeonRows{get;private set;}=[];
     public IReadOnlyList<Row> Rows{get;private set;}=[];
     public UserPlayStatsView? View=>view;
     /// <summary>滑鼠停留／按下中的按鈕（狀態圖用）。</summary>
@@ -61,6 +77,7 @@ public sealed class UserPlayStatsPanel:IUiMovablePanel {
         Button B(UserPlayStatsButton spec)=>new(spec,S(spec.BaseSurf),S(spec.HighlightSurf),S(spec.PushSurf));
         Restart=B(l.Restart);Quit=B(l.Quit);Cancel=B(l.Cancel);Close=l.Close is {} c?B(c):null;
         Rows=l.Rows.Select(r=>{var (text,table)=UserPlayStatsText.Label(r.StringId,r.Name);return new Row(r,S(r.IconSurf),text,table);}).ToArray();
+        LoadExtras(layout,l,S);
         var rects=new List<Rectangle>();
         if(BaseSurface!=null)rects.Add(new(0,0,BaseSurface.Width,BaseSurface.Height));
         if(FrameSurface!=null)rects.Add(new(0,0,FrameSurface.Width,FrameSurface.Height));
@@ -69,7 +86,56 @@ public sealed class UserPlayStatsPanel:IUiMovablePanel {
         size=union.IsEmpty?Size.Empty:new(union.Right,union.Bottom);
         Place(new(UiRoot.LogicalWidth/2-size.Width/2+l.WindowX,ScreenY+l.WindowY));placed=false;
     }
-    IEnumerable<Button> Buttons=>new[]{Restart,Quit,Cancel,Close}.OfType<Button>();
+    IEnumerable<Button> Buttons=>new[]{Restart,Quit,Cancel,Close,NewItemList}.OfType<Button>();
+    // T272：NewItemList 鈕（在 3126 列的數值欄之後，橫向清單同一個 Gap）與地監時間清單。都是選用節點：缺了就不畫。
+    void LoadExtras(UiLayout layout,UserPlayStatsLayout l,Func<int?,UiSurface?> S){
+        NewItemList=null;NewItemTooltip=null;DungeonImage=null;DungeonRows=[];
+        var window=layout.Root.Child("Window");
+        var statsList=window.ChildrenNamed("List").SingleOrDefault(n=>n.Attr("Name")=="UserPlayStats_List");
+        var rowNodes=statsList?.ChildrenNamed("List").ToList()??[];
+        for(int i=0;i<rowNodes.Count&&i<l.Rows.Count;i++){
+            var node=rowNodes[i].ChildrenNamed("Button").FirstOrDefault(b=>b.Attr("Name")=="NewItemList_Button");if(node==null)continue;
+            var r=l.Rows[i];int x=l.ListX;if(S(r.IconSurf) is {} icon)x+=icon.Width+r.Gap;
+            x+=r.LabelWidth+r.Gap+r.ValueWidth+r.Gap;int y=l.ListY+i*l.RowHeight+(node.TryInt("Y")??0);
+            var spec=new UserPlayStatsButton("NewItemList_Button",x,y,UserPlayStatsLayout.FirstSurf(node,"BaseSurf"),node.RequiredAttr("MouseEvent"),UserPlayStatsLayout.FirstSurf(node,"HighlightSurf"),UserPlayStatsLayout.FirstSurf(node,"PushSurf"));
+            NewItemList=new(spec,S(spec.BaseSurf),S(spec.HighlightSurf),S(spec.PushSurf));
+            if(node.ChildrenNamed("Tooltip").FirstOrDefault() is {} tip&&tip.TryInt("String") is int sid)NewItemTooltip=new(tip.TryInt("X")??0,tip.TryInt("Y")??0,sid);
+            break;
+        }
+        if(window.ChildrenNamed("Image").FirstOrDefault(n=>n.Attr("Name")=="DungeonTime_Image") is {} image){DungeonImage=S(UserPlayStatsLayout.FirstSurf(image,"Surf"));DungeonImageAt=new(image.TryInt("X")??0,image.TryInt("Y")??0);}
+        if(window.ChildrenNamed("List").SingleOrDefault(n=>n.Attr("Name")=="DungeonTime_List") is {} dungeon){
+            DungeonListAt=new(dungeon.Int("X"),dungeon.Int("Y"));
+            DungeonRows=dungeon.ChildrenNamed("List").Select(row=>{
+                var labels=row.ChildrenNamed("Label").ToList();
+                if(labels.Count<2)throw new UiLayoutException(layout.FileName,row.Path,"地監時間列需要名稱與時間兩個 Label");
+                var icon=row.ChildrenNamed("Image").FirstOrDefault();int? surf=icon==null?null:UserPlayStatsLayout.FirstSurf(icon,"Surf");
+                var spec=new UserPlayStatsRow(row.RequiredAttr("Name"),surf,icon?.TryInt("Y")??0,null,labels[0].Int("Width"),labels[1].Int("Width"),row.Int("Height"),row.TryInt("Gap")??0,FontColor(labels[0]),FontColor(labels[1]));
+                return new DungeonRow(spec,S(surf),labels[0].Attr("Caption")??"",labels[1].Attr("Caption")??"");
+            }).ToArray();
+        }
+    }
+    static Color FontColor(UiNode node){
+        string? raw=node.Attr("FontColor");if(raw==null)return Color.White;
+        var parts=raw.Split(',');
+        if(parts.Length!=3||parts.Any(p=>!byte.TryParse(p.Trim(),System.Globalization.NumberStyles.None,System.Globalization.CultureInfo.InvariantCulture,out _)))throw new UiLayoutException(node.Layout.FileName,node.Path,$"FontColor=\"{raw}\" 不是 R,G,B");
+        byte P(int i)=>byte.Parse(parts[i].Trim(),System.Globalization.CultureInfo.InvariantCulture);
+        return Color.FromArgb(P(0),P(1),P(2));
+    }
+    /// <summary>地監時間第 i 列在畫布上的位置（同 <see cref="RowRects"/> 的排法）。</summary>
+    public (Point Icon,Rectangle Name,Rectangle Time) DungeonRowRects(int index){
+        var r=DungeonRows[index];int x=Origin.X+DungeonListAt.X,y=Origin.Y+DungeonListAt.Y+index*r.Spec.Height;
+        var icon=new Point(x,y+r.Spec.IconY);if(r.Icon is {} s)x+=s.Width+r.Spec.Gap;
+        var name=new Rectangle(x,y,r.Spec.LabelWidth,r.Spec.Height);
+        return (icon,name,new Rectangle(name.Right+r.Spec.Gap,y,r.Spec.ValueWidth,r.Spec.Height));
+    }
+    /// <summary>地監時間第 i 列的文字：還沒收到 S250／159→XML 預設字；有清單→第 i 筆（超過筆數留空）。</summary>
+    public (string Name,string Time) DungeonText(int index){
+        var times=view?.Values?.DungeonTimes;
+        if(times==null)return (DungeonRows[index].Name,DungeonRows[index].Time);
+        return index<times.Count?(times[index].MapName,UserPlayStatsText.DungeonTime(times[index].Minutes)):("","");
+    }
+    /// <summary>統計列 i 顯示的數值；沒有基準時是「—」。</summary>
+    public string ValueText(int index)=>UserPlayStatsText.Value(view?.Values,Rows[index].Spec.StringId)??ValuePlaceholder;
     void Place(Point origin){Origin=origin;Bounds=size.IsEmpty?Rectangle.Empty:new(origin,size);}
 
     public bool IsDragHandle(Point location)=>Layout?.Moveable is int h&&h>0&&Bounds.Contains(location)&&location.Y<Origin.Y+h&&ButtonAt(location)==null;
@@ -109,15 +175,26 @@ public sealed class UserPlayStatsPanel:IUiMovablePanel {
             var row=Rows[i];var (icon,label,value)=RowRects(i);
             if(row.Icon!=null)canvas.DrawSurface(row.Icon,icon.X,icon.Y);
             canvas.DrawText(row.Label,label.X,label.Y,row.Spec.LabelColor);
-            int w=UiText.Measure(canvas.Graphics,ValuePlaceholder).Width;
-            canvas.DrawText(ValuePlaceholder,value.Right-w,value.Y,row.Spec.ValueColor);
+            string text=ValueText(i);int w=UiText.Measure(canvas.Graphics,text).Width;
+            canvas.DrawText(text,value.Right-w,value.Y,row.Spec.ValueColor);
         }
+        if(DungeonImage!=null)canvas.DrawSurface(DungeonImage,Origin.X+DungeonImageAt.X,Origin.Y+DungeonImageAt.Y);
+        for(int i=0;i<DungeonRows.Count;i++){
+            var row=DungeonRows[i];var (icon,name,time)=DungeonRowRects(i);var (n,tm)=DungeonText(i);
+            if(row.Icon!=null)canvas.DrawSurface(row.Icon,icon.X,icon.Y);
+            if(n.Length>0)canvas.DrawText(n,name.X,name.Y,row.Spec.LabelColor);
+            if(tm.Length>0){int w=UiText.Measure(canvas.Graphics,tm).Width;canvas.DrawText(tm,time.Right-w,time.Y,row.Spec.ValueColor);}
+        }
+        if(Hover==NewItemList&&NewItemList!=null&&NewItemTooltip is {} tip)
+            canvas.DrawText(UserPlayStatsText.Text(tip.StringId),Origin.X+NewItemList.Spec.X+tip.X,Origin.Y+NewItemList.Spec.Y+tip.Y,Color.White,Color.Black);
     }
 
     void Fire(Button b){
         if(Source==null)return;
         if(b==Restart){if(view is {CanRestart:true})Source.Restart();}
         else if(b==Quit)Source.Quit();
+        // sub_C0B470：新物品清單空時只顯示 3127；不空時原版開清單窗（本引擎未做，不動作）。
+        else if(b==NewItemList){if(view?.Values is not {NewItems:>0})Source.ShowMessage(UserPlayStatsText.Text(UserPlayStatsText.NoItemsMessage));}
         else Source.Dismiss();
     }
 
