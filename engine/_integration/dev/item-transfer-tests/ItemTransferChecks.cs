@@ -10,6 +10,7 @@ partial class Checks {
     static LoginConnection TransferSeed(){var c=Seed();TransferInventory(c);c.World.SelectItem(TransferItem);return c;}
     static ItemTransferRequest TransferRequest(LoginConnection c,bool delete=false)=>c.PrepareItemTransfer(c.CaptureItemTransfer(),delete?null:456,"3")??throw new Exception("prepare transfer");
     static byte[] TransferAmount(uint count)=>Packet(b=>{b.Write((byte)24);b.Write(TransferItem);Text(b,"測試物品");b.Write(count);b.Write((byte)0);});
+    [CheckGroup("item-transfer")]
     static async Task ItemTransferChecks(){
         Check(Convert.ToHexString(ItemTransferPackets.Delete(TransferItem))=="8A78563412000000","C138 D little endian, 8-byte padding, no quantity");
         Check(Convert.ToHexString(ItemTransferPackets.Give(0x89abcdef,0x1234,0x5678,TransferItem,0x1020304))=="2DEFCDAB8934127856785634120403020100000000000000","C45 DHHDD exact field order and 24-byte padding");

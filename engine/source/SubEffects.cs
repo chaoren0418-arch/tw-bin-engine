@@ -91,6 +91,8 @@ public sealed record FrameFade(bool In,int Steps,long At){
 }
 
 public sealed record SubEffect(long Number,int Gfx,int X,int Y,int Direction,long At,string Source,int Depth,bool Hidden);
+/// <summary>R2-H：飛行物（109 kind 3／4／5 與箭矢）影格上的 `]`。原版飛行類別的每步函式是否處理 `]` 待查證（Q-4），只記錄、不生成。</summary>
+public sealed record WithheldSubEffect(string Owner,int OwnerGfx,int Gfx,int X,int Y,int Direction,long At,string Reason);
 public sealed record SubEffectVisual(long Number,int Gfx,int X,int Y,int Direction,string Frame,string Source,int Depth,long At);
 
 /// <summary>`]` 生出的一次性預設 Effect 清單：每格處理自己的 `]`（可遞迴），播完一次就移除。</summary>
@@ -136,9 +138,23 @@ public sealed partial class Renderer {
     Dictionary<(ObjectAppearance,string,int,ActionCadence?),ActionTimeline>? timelines;
     public SubEffectSet SubEffects=>subEffects??=new();
     public SubEffectVisual[] SubEffectVisuals {get;private set;}=[];
+    FrameEventTracker? flightFrames;List<WithheldSubEffect>? withheld;
+    public const int MaxWithheld=64;
+    /// <summary>最近被擋下（未生成）的飛行物 `]`，最多 64 筆；世界重置清空。</summary>
+    public IReadOnlyList<WithheldSubEffect> WithheldSubEffects=>withheld??=[];
     void SubEffectEpoch(WorldSession session){
         if(subEffectEpoch==session.WorldEpoch)return;
-        subEffects?.Clear();ownerFrames?.Clear();fades?.Clear();subEffectEpoch=session.WorldEpoch;
+        subEffects?.Clear();ownerFrames?.Clear();fades?.Clear();flightFrames?.Clear();withheld?.Clear();subEffectEpoch=session.WorldEpoch;
+    }
+    /// <summary>飛行中的特效（循環播放）新跨過的 `]`：只記錄為資料（Q-4 未查證），不建立子特效。</summary>
+    internal void WithholdFlightFrames(WorldSession session,string owner,EffectSprite? effect,long age,int x,int y,int direction,long now){
+        SubEffectEpoch(session);if(effect==null||age<0)return;
+        var timeline=ActionTimeline.Of(effect,true);if(!timeline.HasTokens)return;
+        foreach(var step in (flightFrames??=new()).Advance(owner,"",timeline,age,now))
+            foreach(int gfx in FrameTokens.Spawns(step.Events)){
+                var list=withheld??=[];if(list.Count>=MaxWithheld)list.RemoveAt(0);
+                list.Add(new(owner,effect.Gfx,gfx,x,y,direction,now-(long)Math.Max(0,age-step.Offset),"`]` on flying classes unverified (Q-4)"));
+            }
     }
     ActionTimeline Timeline(ObjectAppearance a,string action,int direction,ActionCadence? timing){
         timelines??=[];var key=(a,action,direction,timing);

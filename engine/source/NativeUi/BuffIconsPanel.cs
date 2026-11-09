@@ -1,0 +1,261 @@
+using System.Drawing.Imaging;
+using System.Globalization;
+using System.Runtime.InteropServices;
+namespace P06.NativeUi;
+
+// ui-buff-icons (Issue #473, docs/design/native-ui.md §5.3). Every rule here is docs/reference/ui-layout.md §4 (V3, #458):
+//   table   Tile.pak effectlist2.xml (sub_AA0610 / sub_81DF30), ids 0..count−1; an effect ≥ count creates no icon (sub_F6D560)
+//   icon    "<icon>.tbt" from the Icon archive group (sub_87B3A0, "%d.tbt"), 32×32, not through SurfList.xml
+//   lookup  Icon group = HashFileManager + LocalFileNonDashFormatter (V4 (d)(e)): <n>c.tbt in Sprite{h}, Sprite; <n>.tbt in Sprite{h}, Sprite
+//   layout  sub_903470: cell n at (798 − 35·(n mod 22 + 1), 5 + 35·⌊n/22⌋); buffs first, debuffs (kind slow/curse/paralyse) from
+//           row ⌈buffs/22⌉
+//   order   key sub_903EB0 (priority > 0 → priority; kind 0–2 → kind; else 100); comparator sub_8FDE00 (either key < 100 → keys,
+//           both ≥ 100 → earlier first); a new icon goes before the first element the comparator puts it ahead of, else last
+//   draw    sub_9001F0: icon; offIcon when offIcon > 0, display mode 0/6 and the time ran out; icon 0 → the effect number
+//   time    never drawn on the icon; tooltip only (sub_900FC0 + sub_9061E0): 160 wide at (x, y+32), "%s: %d %s" (930, s, 931)
+// Not done (see the issue-473 report): the 0x800 "sort by remaining time" option, the +21 hidden-cell flag, effect 470's special
+// case, gauge overlays (no effect uses gaugePng), display modes other than 0.
+
+/// <summary>Effect kind list off_138D8FC (13 names, index = kind byte).</summary>
+public enum BuffKind { Slow=0, Curse=1, Paralyse=2, Einhasad=3, Security=4, Dragon=5, MagicDoll=6, Cook=7, Speed=8, Attack=9, Defense=10, Neutrality=11, Legacy=12 }
+
+/// <summary>One &lt;effect&gt; row. Icon/OffIcon 0 = none. Kind null = attribute absent (推測: treated as a buff).</summary>
+public sealed record BuffEffect(int Id,int Icon,int OffIcon,BuffKind? Kind,int Priority,int Duration,string Name) {
+    public bool Debuff=>Kind is BuffKind.Slow or BuffKind.Curse or BuffKind.Paralyse;
+    /// <summary>sub_903EB0.</summary>
+    public int SortKey=>Priority>0?Priority:Kind is BuffKind k&&(int)k<=2?(int)k:100;
+}
+
+/// <summary>Parsed effectlist2.xml.</summary>
+public sealed class BuffEffectTable {
+    public const string FileName="effectlist2";
+    static readonly string[] KindNames=["slow","curse","paralyse","einhasad","security","dragon","magic doll","cook","speed","attack","defense","neutrality","legacy"];
+    readonly Dictionary<int,BuffEffect> effects;
+    /// <summary>Record count (sub_9015E0 +44): effects ≥ Count are never shown.</summary>
+    public int Count{get;}
+    public IReadOnlyList<string> OrderFaults{get;}
+    BuffEffectTable(Dictionary<int,BuffEffect> effects,int count,List<string> faults){this.effects=effects;Count=count;OrderFaults=faults;}
+    public BuffEffect? this[int id]=>id>=0&&id<Count?effects.GetValueOrDefault(id):null;
+    public IEnumerable<BuffEffect> All=>effects.Values.OrderBy(e=>e.Id);
+
+    public static BuffKind? ParseKind(string? raw){
+        if(raw==null)return null;
+        int i=Array.IndexOf(KindNames,raw.Trim().ToLowerInvariant());
+        return i<0?null:(BuffKind)i;
+    }
+
+    public static BuffEffectTable Parse(UiLayout layout){
+        if(layout.Root.Name!="effectlist")throw new UiLayoutException(layout.FileName,layout.Root.Path,"根元素不是 effectlist");
+        var map=new Dictionary<int,BuffEffect>();var faults=new List<string>();int order=0;
+        foreach(var n in layout.Root.ChildrenNamed("effect")){
+            int id=n.Int("id");
+            if(id<0)throw new UiLayoutException(layout.FileName,n.Path,"effect id 為負");
+            if(id!=order)faults.Add($"Order fault: id {id} at #{order}");   // sub_81DF30 only logs this
+            order++;
+            if(n.Attr("kind") is string k&&ParseKind(k)==null)throw new UiLayoutException(layout.FileName,n.Path,$"未知的 kind \"{k}\"");
+            var e=new BuffEffect(id,n.TryInt("icon")??0,n.TryInt("offIcon")??0,ParseKind(n.Attr("kind")),n.TryInt("priority")??0,n.TryInt("duration")??0,n.Attr("startMsgName")??"");
+            if(!map.TryAdd(id,e))throw new UiLayoutException(layout.FileName,n.Path,$"effect id {id} 重複");
+        }
+        if(map.Count==0)throw new UiLayoutException(layout.FileName,layout.Root.Path,"沒有任何 effect");
+        return new(map,order,faults);
+    }
+}
+
+/// <summary>Decoded .tbt (port of the original helper LoadL1Image, as in the inventory icons): header x, y, w, h bytes, then per row
+/// a segment count and (skip bytes, pixel count, RGB555 pixels). Skipped and value-0 pixels are transparent.</summary>
+public sealed class TbtImage {
+    public int OffsetX{get;}
+    public int OffsetY{get;}
+    public int Width{get;}
+    public int Height{get;}
+    public uint[] Argb{get;}
+    TbtImage(int x,int y,int w,int h,uint[] argb){OffsetX=x;OffsetY=y;Width=w;Height=h;Argb=argb;}
+    public static TbtImage Decode(ReadOnlySpan<byte> data,string name="tbt"){
+        if(data.Length<4)throw new UiResourceException($"{name}: .tbt 標頭不足");
+        int ox=data[0],oy=data[1],w=data[2],h=data[3],at=4;
+        if(w==0||h==0)throw new UiResourceException($"{name}: .tbt 尺寸為 0");
+        var argb=new uint[w*h];
+        for(int y=0;y<h;y++){
+            if(at>=data.Length)throw new UiResourceException($"{name}: .tbt 第 {y} 列截斷");
+            int segments=data[at++],x=0;
+            for(int s=0;s<segments;s++){
+                if(at+2>data.Length)throw new UiResourceException($"{name}: .tbt 第 {y} 列截斷");
+                int skip=data[at++];if(skip%2!=0)throw new UiResourceException($"{name}: .tbt 位移不是偶數");
+                x+=skip/2;int count=data[at++];
+                if(x+count>w||at+count*2>data.Length)throw new UiResourceException($"{name}: .tbt 第 {y} 列超出範圍");
+                for(int p=0;p<count;p++,x++,at+=2){
+                    ushort v=(ushort)(data[at]|data[at+1]<<8);
+                    if(v!=0)argb[y*w+x]=UiImage.ToArgb(v)|0xFF000000;
+                }
+            }
+        }
+        if(at!=data.Length)throw new UiResourceException($"{name}: .tbt 結尾有多餘資料");
+        return new(ox,oy,w,h,argb);
+    }
+    public Bitmap ToBitmap(){
+        var bmp=new Bitmap(Width,Height,PixelFormat.Format32bppArgb);
+        var bits=bmp.LockBits(new(0,0,Width,Height),ImageLockMode.WriteOnly,PixelFormat.Format32bppArgb);
+        try{for(int y=0;y<Height;y++)Marshal.Copy((int[])(object)Argb,y*Width,bits.Scan0+y*bits.Stride,Width);}
+        finally{bmp.UnlockBits(bits);}
+        return bmp;
+    }
+}
+
+/// <summary>"&lt;n&gt;.tbt" lookup over the 17 Sprite archives (index 0 = Sprite, 1+h = Sprite{h:00}); decoded icons are cached.</summary>
+public sealed class BuffIconCatalog(IReadOnlyList<ClientArchive> sprites) {
+    readonly object gate=new();
+    readonly Dictionary<int,(TbtImage Image,Bitmap Bitmap,string Where)?> cache=new();
+    readonly HashSet<int> reported=[];
+    public static IEnumerable<(int Archive,string Name)> Candidates(int icon){
+        foreach(var name in new[]{$"{icon}{SurfCatalog.LocalizedImgSuffix}.tbt",$"{icon}.tbt"}){
+            yield return (1+SurfCatalog.NameHash(name),name);
+            yield return (0,name);
+        }
+    }
+    /// <summary>Decoded icon or null (missing → one log line per icon, nothing drawn).</summary>
+    public (TbtImage Image,Bitmap Bitmap,string Where)? Get(int icon){
+        if(icon<=0)return null;
+        lock(gate){
+            if(cache.TryGetValue(icon,out var hit))return hit;
+            (TbtImage,Bitmap,string)? found=null;
+            if(sprites.Count==17)foreach(var (i,name) in Candidates(icon)){
+                var a=sprites[i];var e=a.Find(name);if(e==null)continue;
+                var img=TbtImage.Decode(a.Read(e),$"{a.Pin.Name}/{name}");found=(img,img.ToBitmap(),$"{a.Pin.Name}/{e.Name}");break;
+            }
+            if(found==null&&reported.Add(icon))UiResourceLog.Write($"buff-icons: {icon}.tbt 不在 Sprite*.pak，不畫");
+            cache[icon]=found;return found;
+        }
+    }
+}
+
+/// <summary>The two ordered icon lists of the original container (+4 buffs, +12 debuffs) with insertion semantics.</summary>
+public sealed class BuffIconOrder {
+    public sealed record Item(BuffEffect Effect,long AddedSeq);
+    readonly List<Item> buffs=[],debuffs=[];long seq;
+    public IReadOnlyList<Item> Buffs=>buffs;
+    public IReadOnlyList<Item> Debuffs=>debuffs;
+    /// <summary>sub_8FDE00: true = a goes before b.</summary>
+    public static bool Before(Item a,Item b){
+        int ka=a.Effect.SortKey,kb=b.Effect.SortKey;
+        if(ka<100||kb<100)return ka<kb;
+        return a.AddedSeq<b.AddedSeq;
+    }
+    /// <summary>Removes effects no longer present and inserts new ones (in the given order); kept icons never move.</summary>
+    public void Sync(IEnumerable<BuffEffect> present){
+        var list=present.ToList();var ids=list.Select(e=>e.Id).ToHashSet();
+        buffs.RemoveAll(i=>!ids.Contains(i.Effect.Id));debuffs.RemoveAll(i=>!ids.Contains(i.Effect.Id));
+        foreach(var e in list){
+            if(buffs.Any(i=>i.Effect.Id==e.Id)||debuffs.Any(i=>i.Effect.Id==e.Id))continue;
+            var item=new Item(e,++seq);var target=e.Debuff?debuffs:buffs;
+            int at=target.FindIndex(x=>Before(item,x));
+            if(at<0)target.Add(item);else target.Insert(at,item);
+        }
+    }
+    public void Clear(){buffs.Clear();debuffs.Clear();}
+    /// <summary>(effect, cell index) in layout order: buffs 0.., debuffs from row ⌈buffs/22⌉.</summary>
+    public IEnumerable<(BuffEffect Effect,int Cell)> Cells(){
+        for(int i=0;i<buffs.Count;i++)yield return (buffs[i].Effect,i);
+        int start=(buffs.Count+BuffIconsPanel.PerRow-1)/BuffIconsPanel.PerRow*BuffIconsPanel.PerRow;
+        for(int i=0;i<debuffs.Count;i++)yield return (debuffs[i].Effect,start+i);
+    }
+}
+
+public sealed class BuffIconsPanel(IReadOnlyList<ClientArchive>? sprites=null):IUiPanel {
+    [UiPanel(140)] internal static UiPanelRegistration Registration=>new(BuffIconsPanel.PanelId,BuffEffectTable.FileName,root=>new BuffIconsPanel(root.Resources?.Sprites));   // ui-buff-icons #473 (layout = Tile.pak effectlist2.xml; icons = <n>.tbt)
+    public const string PanelId="STATUS_EFFECT_ICONS";
+    public const int PerRow=22,Pitch=35,IconSize=32,RightEdge=798,Top=5,TooltipWidth=160,TooltipMargin=5;
+    public static Point Cell(int n)=>new(RightEdge-Pitch*(n%PerRow+1),Top+Pitch*(n/PerRow));
+
+    public sealed record Placed(BuffEffect Effect,BuffEntry Entry,Rectangle Rect,int Icon,bool Off);
+
+    public string Id=>PanelId;
+    public UiLayer Layer=>UiLayer.Bar;
+    public Rectangle Bounds{get;private set;}
+    public bool Visible=>placed.Count>0;
+    public BuffEffectTable? Table{get;private set;}
+    public BuffIconCatalog? Icons{get;private set;}
+    public IReadOnlyList<Placed> Layout=>placed;
+    public IReadOnlyList<BuffUnmapped> Unmapped{get;private set;}=[];
+    /// <summary>Effect id under the mouse (last Move delivered to this panel).</summary>
+    public int? Hover{get;private set;}
+    readonly BuffIconOrder order=new();
+    List<Placed> placed=[];
+    BuffTooltipText text=BuffTooltipText.None;
+    readonly HashSet<string> logged=[];
+
+    public void Load(UiLayout layout,SurfCatalog surfs){
+        Table=BuffEffectTable.Parse(layout);
+        foreach(var f in Table.OrderFaults)UiResourceLog.Write($"buff-icons {layout.FileName}: {f}");
+        Icons=new BuffIconCatalog(sprites??[]);
+    }
+    /// <summary>Tests: a table and icon source without archives.</summary>
+    public void Load(BuffEffectTable table,BuffIconCatalog icons){Table=table;Icons=icons;}
+
+    public void Update(IUiGameState state){
+        var buffs=state.InWorld?BuffState.Of(state)??BuffState.Empty:BuffState.Empty;
+        text=buffs.Text;Unmapped=buffs.Unmapped;
+        foreach(var u in buffs.Unmapped)Log($"buff-icons 未對照（不畫）{u.Origin}：{u.Reason}");
+        var byEffect=new Dictionary<int,BuffEntry>();var present=new List<BuffEffect>();
+        if(Table!=null)foreach(var e in buffs.Entries){
+            var def=Table[e.Effect];
+            if(def==null){Log($"buff-icons effect {e.Effect} ≥ effectlist2 筆數 {Table.Count}（{e.Origin}），不建立圖示");continue;}
+            if(byEffect.TryAdd(e.Effect,e))present.Add(def);
+        }
+        order.Sync(present);
+        var list=new List<Placed>();
+        foreach(var (def,cell) in order.Cells()){
+            var entry=byEffect[def.Id];
+            if(entry.DefaultDuration)entry=entry with{Seconds=def.Duration<0?-1:null};
+            bool off=def.OffIcon>0&&entry.Expired;   // display mode 0 (sub_902840)
+            list.Add(new(def,entry,new Rectangle(Cell(cell),new Size(IconSize,IconSize)),off?def.OffIcon:def.Icon,off));
+        }
+        placed=list;
+        if(Hover is int h&&!placed.Any(x=>x.Effect.Id==h))Hover=null;
+        UpdateBounds();
+    }
+    void Log(string line){if(logged.Add(line))UiResourceLog.Write(line);}
+
+    /// <summary>Tooltip line for one icon (display mode 0); null when the string table or the time is unknown.</summary>
+    public string? TooltipText(Placed p){
+        if(p.Off)return text.Over;
+        if(text.Label==null||text.Unit==null||p.Entry.Seconds is not int s)return null;
+        return s<0?$"{text.Label}: -- {text.Unit}":$"{text.Label}: {s.ToString(CultureInfo.InvariantCulture)} {text.Unit}";
+    }
+    public const int TooltipHeight=16;
+    /// <summary>Tooltip box: 160 wide at (x, y+32), moved left when closer than 5 px to the right edge.</summary>
+    public static Rectangle TooltipRect(Rectangle icon){
+        int x=Math.Min(icon.X,UiRoot.LogicalWidth-TooltipMargin-TooltipWidth);
+        return new(x,icon.Bottom,TooltipWidth,TooltipHeight);
+    }
+    /// <summary>The hovered icon (Hover is an effect id, so it survives re-ordering).</summary>
+    public Placed? Hovered=>Hover is int h?placed.FirstOrDefault(x=>x.Effect.Id==h):null;
+    Rectangle? ShownTooltip()=>Hovered is {} p&&TooltipText(p)!=null?TooltipRect(p.Rect):null;
+    void UpdateBounds(){
+        var r=Rectangle.Empty;
+        foreach(var p in placed)r=r.IsEmpty?p.Rect:Rectangle.Union(r,p.Rect);
+        if(ShownTooltip() is Rectangle t)r=Rectangle.Union(r,t);
+        Bounds=r;
+    }
+    public int IconAt(Point p)=>placed.FindIndex(x=>x.Rect.Contains(p));
+
+    public void Paint(UiCanvas canvas){
+        foreach(var p in placed){
+            if(p.Icon==0){canvas.DrawText(p.Effect.Id.ToString(CultureInfo.InvariantCulture),p.Rect.X,p.Rect.Y,Color.White);continue;}
+            if(Icons?.Get(p.Icon) is {} icon)canvas.DrawBitmap(icon.Bitmap,p.Rect.X+icon.Image.OffsetX,p.Rect.Y+icon.Image.OffsetY);
+        }
+        if(Hovered is {} hp&&TooltipText(hp) is string line){
+            // Box style (colours, padding) is 待驗證; only position, width and text are V3.
+            var r=TooltipRect(hp.Rect);
+            using var back=new SolidBrush(Color.FromArgb(192,0,0,0));
+            canvas.Graphics.FillRectangle(back,r);
+            canvas.DrawText(line,r.X+2,r.Y+2,Color.White);
+        }
+    }
+
+    public bool Mouse(UiMouseEvent e,IUiCommands commands){
+        int i=IconAt(e.Location);
+        if(e.Kind==UiMouseKind.Move){var old=Hover;Hover=i<0?null:placed[i].Effect.Id;if(old!=Hover)UpdateBounds();return i>=0;}
+        return i>=0;   // presses on an icon are taken (LStatusEffectButton); the tooltip area passes nothing to the world either
+    }
+    public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
+}

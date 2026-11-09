@@ -85,8 +85,10 @@ public static class ChatRules {
     }
 }
 
-/// <summary>One wrapped display row.</summary>
-public sealed record ChatRow(long Sequence,PlayerChatChannel Channel,string Text);
+/// <summary>One wrapped display row. Runs = the row's coloured pieces (R2-G, palette indices); their texts join to Text.</summary>
+public sealed record ChatRow(long Sequence,PlayerChatChannel Channel,string Text) {
+    public IReadOnlyList<ChatRun> Runs{get;init;}=[new(Text,ChatFormat.ChannelIndex(Channel))];
+}
 
 /// <summary>Display state: tab, filters, split, height, scroll. Switching tabs/filters only changes what is shown.</summary>
 public sealed class ChatViewState {
@@ -111,12 +113,29 @@ public sealed class ChatViewState {
         if(Split)return rightPane==ChatRules.RightPane(line.Channel)&&(rightPane||ChatRules.TabShows(Tab,line.Channel));
         return !rightPane&&ChatRules.TabShows(Tab,line.Channel);
     }
-    /// <summary>Last MaxLines lines that pass tab/filter, wrapped to width.</summary>
+    /// <summary>Last MaxLines lines that pass tab/filter, wrapped to width (display text and colours from ChatFormat, R2-G).</summary>
     public List<ChatRow> Rows(IReadOnlyList<PlayerChatLine> lines,int width,Func<char,int> charWidth,bool rightPane=false){
         var rows=new List<ChatRow>();
         foreach(var line in lines.Skip(Math.Max(0,lines.Count-ChatRules.MaxLines)))
-            if(Shows(line,rightPane))foreach(var r in ChatRules.Wrap(PlayerChatProtocol.FormatLine(line),width,charWidth))rows.Add(new(line.Sequence,line.Channel,r));
+            if(Shows(line,rightPane)){
+                var runs=ChatFormat.Runs(line);
+                int start=0;
+                foreach(var r in ChatRules.Wrap(string.Concat(runs.Select(x=>x.Text)),width,charWidth)){
+                    rows.Add(new(line.Sequence,line.Channel,r){Runs=Slice(runs,start,r.Length)});start+=r.Length;
+                }
+            }
         return rows;
+    }
+    /// <summary>The runs covering [start, start+length) of the joined text; an empty row keeps the colour at that point.</summary>
+    public static List<ChatRun> Slice(IReadOnlyList<ChatRun> runs,int start,int length){
+        var result=new List<ChatRun>();int at=0;
+        foreach(var run in runs){
+            int from=Math.Max(start,at),to=Math.Min(start+length,at+run.Text.Length);
+            if(to>from)result.Add(new(run.Text[(from-at)..(to-at)],run.Color));
+            at+=run.Text.Length;
+        }
+        if(result.Count==0)result.Add(new("",runs.Count>0?runs[^1].Color:ChatFormat.White));
+        return result;
     }
     public static int MaxScroll(int totalRows,int visibleRows)=>Math.Max(0,totalRows-Math.Max(0,visibleRows));
     public void ScrollBy(int rows,int totalRows,int visibleRows)=>Scroll=Math.Clamp(Scroll+rows,0,MaxScroll(totalRows,visibleRows));
@@ -148,10 +167,8 @@ public sealed class ChatInputLine {
         text.Append(c);return true;
     }
     public bool Backspace(){if(!Open||text.Length==0)return false;text.Length--;return true;}
-    public bool Valid{get{
-        try{PlayerChatProtocol.Encode(PlayerChatProtocol.ParseInput(text.ToString()));return true;}
-        catch(ArgumentException){return false;}
-    }}
+    /// <summary>Chat text, or a local command (/on, /off, C199 chat-party, /loc) with valid arguments (R2-G).</summary>
+    public bool Valid=>PlayerChatProtocol.Valid(text.ToString());
 }
 
 /// <summary>Chat commands (implemented by the client bridge; every member forwards to the existing chat flow).</summary>

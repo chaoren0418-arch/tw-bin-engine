@@ -33,6 +33,7 @@ partial class Checks {
         Check(rejected,"POLY rejects "+label);
         Check(world.Actor==actor&&world.Objects.SequenceEqual(objects)&&world.AppearanceRevision==appearance&&world.ObjectRevision==revision&&world.UnknownObjectUpdates==unknown,"POLY rejection is atomic: "+label);
     }
+    [CheckGroup(CheckGroups.Preamble,Order=30),CheckGroup("polymorph")]
     static void PolymorphChecks(){
         // The three ordinary Java constructors share CDHH; the fourth uses CDDHS.
         foreach(ushort gfx in new ushort[]{0,1,6894,ushort.MaxValue})
@@ -160,6 +161,7 @@ partial class Checks {
 
     // Separate process/group: PlayerProfiles is a process-wide lazy cache. These are authored
     // timing numbers, not copied game metadata, pixels or claims about any real sprite.
+    [CheckGroup("polymorph-cadence")]
     static void PolymorphCadenceChecks(string repo){
         string root=Path.Combine(Path.GetFullPath(repo),"scratch","issue-263","synthetic-cadence");
         string assets=Path.Combine(root,"assets");Directory.CreateDirectory(Path.Combine(assets,"players"));

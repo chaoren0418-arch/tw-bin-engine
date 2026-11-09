@@ -4,7 +4,8 @@ public static class PlayerPointerHudFeedback {
     public static string Submitted(string kind)=>kind switch {
         "attack"=>"單次攻擊請求已送出，結果依伺服器回報。",
         "talk"=>"單次交談請求已送出，等待 NPC 回覆。",
-        "pickup"=>"單次拾取 1 件請求已送出，等待地面與背包回報。",
+        // R2-C: the double-click path sends the whole stack or the prompted count (WO §2 step 3).
+        "pickup"=>"拾取請求已送出（整疊或指定數量），等待地面與背包回報。",
         "private-shop"=>"已選取個人商店店主；請明確查詢買入或售出清單。",
         _=>""
     };
@@ -22,6 +23,8 @@ public sealed partial class ClientForm {
             SyncPlayerHud();
         };
     }
+    // Local refusals that never reach the controller (e.g. private shop talk while dead).
+    void ShowPlayerPointerRefusal(string notice){playerHudNotice=notice;playerHudNoticeUntil=Environment.TickCount64+4000;SyncPlayerHud();}
     void SyncPlayerPointerHud(){
         if(playerPointer==null)return;
         string notice=PlayerPointerNotice;

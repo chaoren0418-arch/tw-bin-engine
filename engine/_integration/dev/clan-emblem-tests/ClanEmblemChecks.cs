@@ -19,6 +19,7 @@ partial class Checks {
     static LoginConnection EmblemSeed(){
         var c=Seed();Set(c.World,"MapId",(ushort)1);Feed(c,ClanPack(123,700,"本盟"));Feed(c,ClanPack(456,800,"客盟"));return c;
     }
+    [CheckGroup("clan-emblem"),CheckGroup("map-continuity",Order=80),CheckGroup(CheckGroups.Default,Order=310)]
     static async Task ClanEmblemChecks(){
         string? oldDisk=ClanEmblemCache.DiskPath;ClanEmblemCache.DiskPath=null;
         try{

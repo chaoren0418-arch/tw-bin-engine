@@ -25,4 +25,6 @@ public interface IAmbientLoopAudio {
     bool Start(MapAmbientVoice voice,int volume);
     void SetVolume(MapAmbientVoice voice,int volume);
     void Stop(MapAmbientVoice voice);
+    // T252（#613）：EnvSoundVolume 類別音量 × 主音量（0..1）。後端把它乘到每個 voice 的距離音量上（A06D60），變動時立即套到已在播的循環。
+    void SetScale(double scale){}
 }

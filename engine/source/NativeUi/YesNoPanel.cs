@@ -20,6 +20,7 @@ public interface IYesNoSource {
 }
 
 public sealed class YesNoPanel:IUiPanel {
+    [UiPanel(180)] internal static UiPanelRegistration Registration=>new(YesNoPanel.PanelId,YesNoPanel.LayoutName,_=>new YesNoPanel());   // R2-J (#624): InputWindow YES／NO (Float, no XML)
     public const string PanelId="YES_NO_PROMPT";
     public const string LayoutName="uistatus86";   // 不讀 XML；只是借既有的版面檔名讓註冊表能建立
     static readonly Color Back=Color.FromArgb(40,36,28),Border=Color.FromArgb(120,110,80),Ink=Color.FromArgb(255,230,160);
