@@ -224,3 +224,4 @@
 - 2026-11-09 — #612 T251：R2-A 環境表現接上畫面（code，claude-local，PR 已合併）→ [報告](reports/issue-612.md)
 - 2026-11-09 — #657 T-plan：M7 補列 T244–T274，同步 M6／M7 狀態（plan，claude-chat，PR 已合併）→ [報告](reports/issue-657.md)
 - 2026-11-09 — #614 T253：R2-C 點擊與拾取收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-614.md)
+- 2026-11-09 — #613 T252：R2-B 聲音接上產品（code，claude-local，PR 已合併）→ [報告](reports/issue-613.md)
