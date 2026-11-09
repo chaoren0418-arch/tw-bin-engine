@@ -227,3 +227,4 @@
 - 2026-11-09 — #613 T252：R2-B 聲音接上產品（code，claude-local，PR 已合併）→ [報告](reports/issue-613.md)
 - 2026-11-09 — #615 T254：R2-D 幽靈、死亡窗與離開窗（code，claude-local，PR 已合併）→ [報告](reports/issue-615.md)
 - 2026-11-09 — #665 T275：查證原版——前幾輪留下的未驗證細項（SpellList id、王冠可見、傳送與召喚窗等）（resource，claude-local，PR 已合併）→ [報告](reports/issue-665.md)
+- 2026-11-09 — #616 T255：R2-G 聊天收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-616.md)

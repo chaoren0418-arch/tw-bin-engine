@@ -281,13 +281,18 @@
   },
   {
    "path": "source/ChatChannelToggle.cs",
-   "size": 11167,
-   "sha256": "34e01e0a03e7f70d020e42f49e623b9d17163fb2649984833e56ae4d0d9a4ec9"
+   "size": 11296,
+   "sha256": "9610e17868043f5c695759a02d052ff65ec21f7014f5926c13f7f06e8cb485e1"
   },
   {
    "path": "source/ChatChannelToggleTests.cs",
    "size": 8272,
    "sha256": "dd693c0e480b9f04b12aad46711b3e3438500acbb09395cd6bdd2c1c6eadb4d8"
+  },
+  {
+   "path": "source/ChatFormatTests.cs",
+   "size": 13029,
+   "sha256": "3a0e6b91b8d84a96ec49085cc4b8773f8efa00fbabfd8f17320671892200cf94"
   },
   {
    "path": "source/Clan.cs",
@@ -776,8 +781,8 @@
   },
   {
    "path": "source/NativeUi/ChatPanel.cs",
-   "size": 16397,
-   "sha256": "f2032214da46d598ed69b38ac081d8d5068027c057c04911137f80e9095eb9e1"
+   "size": 16741,
+   "sha256": "dbdf9870214cc58f690a923f812f261da268ca897b9e2f39a6ee8c70399067b0"
   },
   {
    "path": "source/NativeUi/ClientArchive.cs",
@@ -871,8 +876,8 @@
   },
   {
    "path": "source/NativeUi/State/ChatState.cs",
-   "size": 12477,
-   "sha256": "fb07b816ae12ad39eb44f5674e3623159aa19760b3f31605cb3f2b9140ad3487"
+   "size": 13549,
+   "sha256": "37cb547709ce6513bc2ee8795fdc3f7a495243e8f6a9e71e404c4e69891ccf27"
   },
   {
    "path": "source/NativeUi/State/HpMpState.cs",
@@ -1206,8 +1211,8 @@
   },
   {
    "path": "source/PlayerChat.cs",
-   "size": 9539,
-   "sha256": "d2001f26be68b6e6b7edde9e9020491b11f8052da7f817831015d316b4193d3d"
+   "size": 19836,
+   "sha256": "9b3c138a3043c4b33590011743e10756183a7646d002be5a081d2910cdc2b1eb"
   },
   {
    "path": "source/PlayerChatKeyboardFlow.cs",
@@ -1216,8 +1221,8 @@
   },
   {
    "path": "source/PlayerHudChat.cs",
-   "size": 5983,
-   "sha256": "7eeabd0b1f9c7736ffc5b3076e6e13dcb55b3c576f512e032642c6f75c99e906"
+   "size": 7038,
+   "sha256": "2175e25358640f632735236df4b3fab4fb337ae641e56113cf9d58bcf3355ff4"
   },
   {
    "path": "source/PlayerHudIntegration.cs",
