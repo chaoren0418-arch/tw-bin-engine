@@ -33,6 +33,13 @@ public static class SummonCatalog {
         return rows;
     }
     public static int[] Levels(IReadOnlyList<SummonMonster> rows)=>rows.Select(r=>r.Level).Distinct().Order().ToArray();
+    /// <summary>
+    /// T276（#667）召喚控制戒指入口：S36 type 5＋施放技能 51 時，AbilityStatus.cs 的 TryOpenRingWindow 開本機請求（Source＝"local"），
+    /// 本面板照常顯示。送出前的等級檢查（sub_C00890 FO 0x7FFC90／sub_C00F50 FO 0x800350）：
+    /// (等級 − 28)/4 + 7 &lt; action % 256 時顯示 743「等級太低而無法召喚怪物」、不送。整數除法向零取整（同 x86 idiv）。
+    /// </summary>
+    public static bool RingLevelAllows(int level,string action)=>
+        P06.PetPackets.ValidSummonAction(action)&&uint.TryParse(action,System.Globalization.NumberStyles.None,System.Globalization.CultureInfo.InvariantCulture,out uint v)&&(level-28)/4+7>=(int)(v%256);
 }
 
 /// <summary>面板讀的狀態（由 PetUi.cs 的轉接提供）。Level／Charisma 是原服 S8 的值，沒送就是 null（顯示空白）。</summary>
