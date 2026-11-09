@@ -77,7 +77,7 @@ static class SpellTradeTests {
         t.Check(SpellTradeProtocol.TryDecodeBuyList(BuyList(6000,0,8)) is {Basis:6000} d&&d.Indices.SequenceEqual([0,8]),"S41 decoded");
         t.Check(SpellTradeProtocol.TryDecodeBuyList(EmptyBuyList()) is {Indices.Length:0},"3.81 empty S41 (H(0) only) decodes as empty");
         t.Check(SpellTradeProtocol.TryDecodeBuyList(BuyList(6000,3,3))==null,"duplicate index → null (main parser reports it)");
-        t.Check(SpellTradeProtocol.TryDecodeBuyList(P([41],Le32(6000),Le16(2),Le32(1)))==null,"truncated → null");
+        t.Check(SpellTradeProtocol.TryDecodeBuyList(P([41],Le32(6000),Le16(3),Le32(1),Le32(2)))==null,"truncated → null (15 bytes pad to 16; third D runs past the end)");
         t.Check(SpellTradeProtocol.TryDecodeBuyList(ExchangeList(1))==null,"other opcode → null");
         // 空清單頁依外型（SS2§1.2）。
         t.Equal("GerengEv3",WorldSession.SpellBuyEmptyPage(237),"gfx 237 → GerengEv3");
