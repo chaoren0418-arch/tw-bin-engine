@@ -2,7 +2,7 @@ using System.Buffers.Binary;
 namespace P06;
 
 // M7-C（T205／#511）：城堡城主、稅率、金庫。協定、資料與文字通知。
-// W2-B（T235／#557）：S185／S141／S4 在 NPC 對話面板開 tax／withdraw／deposit 頁；王冠只做資料（12 格、500 ms、錨點），圖源待查不畫。
+// W2-B（T235／#557）：S185／S141／S4 在 NPC 對話面板開 tax／withdraw／deposit 頁；王冠只做資料（12 格、500 ms、錨點）。
 // R2-F（T261／#622）：頁內的數字框與送出鈕接 SendCastleReply（WinForms NPC 面板與 web 面板都有；原生 HYPER_TEXT_WINDOW 版面仍待 T190），
 // 只在頁還開著時能送（SendCastlePageReply）；拿掉暫代聊天行「[城堡]」（原版沒有這些文字，issue-511），通知只留在 castle 快照。
 // 稅率數字框範圍 10–50，初始值：3.81 不送 S185 第 3 個 C（SS2§8），由畫面決定＝下限。
@@ -25,7 +25,7 @@ public sealed record CastleOffer(CastleOfferKind Kind,uint ObjectId,long Min,lon
 public sealed record CastleView(int Generation,int WorldEpoch,uint Actor,long Revision,bool CanSend,string Notice,CastleOffer? Offer,CastleCrown[] Crowns,CastlePage? Page=null);
 /// <summary>W2-B（T235）：S185／S141／S4 在 NPC 對話面板開的 HTML 頁。Html＝templates.json 的頁名，Args＝&lt;var src="#n"&gt; 參數（`$n` 由畫面依 names.json 解析）。</summary>
 public sealed record CastlePage(CastleOfferKind Kind,string Html,string[] Args);
-/// <summary>王冠一格的資料（圖源未查到，不畫）：Frame＝0–11，每格 500 ms，各城自己計時。</summary>
+/// <summary>王冠一格的資料：Frame＝0–11，每格 500 ms，各城自己計時。圖源 crown.raw 與繪製見 ObjectRendering.cs（CastleCrownImages／CrownLayout，SS§1、FU3§2）。</summary>
 public sealed record CastleCrownFrame(byte Castle,uint Leader,int Frame);
 
 public static class CastleProtocol {
@@ -90,7 +90,7 @@ public static class CastleProtocol {
     public static string DepositLine(long gold)=>$"{gold} $4";
 
     // 王冠（windows-2.md §5.1，sub_F08880）：12 格、每格 500 ms；錨點 x＋17、y − 高度 − 12，高度一般 40，特定外型 50。
-    // 依外型類別、方向、動作的偏移表（dword_138CCC8 等）內容未取得，不在這裡套用。
+    // 走路內插表（dword_138CCC8 等，SS§1.1 第 3 點）是人物身體共用的位移；王冠跟著引擎畫身體的格位走，不在這裡另套（SS§1.3）。
     public const int CrownFrames=12,CrownFrameMs=500,CrownDx=17,CrownDy=12,CrownHeight=40,CrownTallHeight=50;
     public static int CrownFrame(long elapsedMs)=>elapsedMs<0?0:(int)(elapsedMs/CrownFrameMs%CrownFrames);
     public static (int X,int Y) CrownAnchor(int x,int y,bool tall)=>(x+CrownDx,y-(tall?CrownTallHeight:CrownHeight)-CrownDy);
@@ -117,7 +117,7 @@ public sealed partial class WorldSession {
     public CastleOffer? CastleOffer=>castleOffer;
     /// <summary>最近一次由 S185／S141／S4 開的 HTML 頁；面板被關掉或換頁後為 null。</summary>
     public CastlePage? CastlePage=>castlePage!=null&&QueryRevision==castleQueryRevision?castlePage:null;
-    /// <summary>某物件頭上的王冠資料（第 1、3–8 格，各城一筆）。圖源待驗證，畫面不畫。</summary>
+    /// <summary>某物件頭上的王冠資料（第 1、3–8 格，各城一筆）。畫面由 CrownLayout.Plan 決定畫不畫（自己一律畫；他人看隱身旗標）。</summary>
     public CastleCrownFrame[] CastleCrownFrames(uint objectId){
         if(objectId==0)return [];long now=CastleClock();
         return CastleCrowns.Where(c=>c.Crowned&&c.Leader==objectId).Select(c=>new CastleCrownFrame(c.Castle,c.Leader,CastleProtocol.CrownFrame(now-castleCrownStart[c.Castle]))).ToArray();

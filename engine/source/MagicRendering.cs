@@ -171,8 +171,8 @@ public static class MagicMotion {
         return((ix+32768)/2,iy,direction,steps,false);
     }
     // Kind 7 (sub_81C490, recursive sub_81C9D0): tiles advanced from the origin toward the target,
-    // using the same one-tile major-axis stepping. Segment stay/advance timing is NOT verified
-    // (skills-visual.md §7.4), so this is data only and the renderer does not draw kind 7.
+    // using the same one-tile major-axis stepping. Data helper only; the renderer draws kind 7 with
+    // EruptionMotion.Plan (T269, segment timing and two-step gfx, ProjectileRendering.cs).
     public static (int X,int Y)[] EruptionPath(int sx,int sy,int tx,int ty){
         var e=new MagicEffect(0,0,0,0,0,0,0,(ushort)sx,(ushort)sy,(ushort)tx,(ushort)ty,0);var path=new List<(int,int)>();
         for(long t=0;path.Count<128;t+=60){var m=At(e,tx,ty,0,t);path.Add((m.X,m.Y));if(m.Arrived)break;}
@@ -200,9 +200,9 @@ public static class MagicClass {
     // Hardcoded kind 3 override (gfx 7972) and S42 757->10771 are TW16 specific and unverified
     // for 3.81 (SV#14); deliberately not applied.
     public static bool Flies(int kind,bool range)=>range?kind==5:kind is 3 or 4 or 5;
-    // S30 kinds that never build an effect object (kind 8: `case 8: break`) or whose drawing is
-    // unverified (kind 7). The caster `!` frame then hits the attached list directly (sub_A4B060).
-    public static bool CasterHits(int kind,bool range)=>!range&&kind is 7 or 8;
+    // S30 kinds that never build an effect object (kind 8: `case 8: break`). The caster `!` frame then
+    // hits the attached list directly (sub_A4B060). Kind 7 hits from its terminal EarthRising (T269).
+    public static bool CasterHits(int kind,bool range)=>!range&&kind==8;
 }
 public sealed record UndrawnMagic(long Number,int Gfx,int Kind,(int X,int Y)[] Path,int EndGfx,string Reason);
 public sealed partial class Renderer {
@@ -245,14 +245,9 @@ public sealed partial class Renderer {
         if(!magicFlights.ContainsKey(e.Number)&&(flies||e.Timing!=null)&&MagicCasterBlocked(e,session))return;
         // Caster `!` frame. A caster without a captured action (absent, caster0) starts at once (§2.1).
         long release=(e.ActionAt??e.At)+(e.Timing?.ReleaseMs??0);if(now<release)return;
-        if(effect==null||MagicClass.CasterHits(kind,range)){
-            CasterFrameHits(e,session,release);
-            if(effect!=null&&kind==7){
-                var aim=session.VisibleTargetPosition(e.Target);
-                undrawn.Add(new(e.Number,e.Gfx,7,MagicMotion.EruptionPath(e.SourceX,e.SourceY,aim?.X??e.TargetX,aim?.Y??e.TargetY),effect.Impact,"kind 7 segment timing unverified (skills-visual §7.4)"));
-            }
-            return;
-        }
+        if(effect==null||MagicClass.CasterHits(kind,range)){CasterFrameHits(e,session,release);return;}
+        // T269: S30 kind 7 Eruption segments, then the terminal EarthRising hits (ProjectileRendering.cs).
+        if(!range&&kind==7){ComposeEruption(e,effect,session,draws,visuals,undrawn,release,now);return;}
         var arrow=new ProjectileReport(e.Number,e.Caster,e.Target,e.Gfx,e.Heading,e.SourceX,e.SourceY,e.TargetX,e.TargetY,e.At);
         bool Arrived(int tx,int ty,long tick)=>kind==3?ProjectileMotion.At(arrow,tx,ty,release,tick)==null:MagicMotion.At(e,tx,ty,release,tick).Arrived;
         bool brightens=range&&e.RangeType!=0;
@@ -281,7 +276,8 @@ public sealed partial class Renderer {
             var still=DrawNativeEffect(e.Gfx,e.Heading,flight.X,flight.Y,now-release,session,draws,"magic");
             if(still!=null)visuals.Add(new(e.Number,e.Gfx,flight.X,flight.Y,e.Heading,still.Key,"effect",release));
             // Default Effect class: sub_8ABC10 spawns `]` children at the effect's own position (effects-2.md §2.1(a)).
-            if(now-release<effect.Duration)ObserveEffectFrames(session,$"magic:{e.Number}",ActionTimeline.Of(effect),now-release,flight.X,flight.Y,e.Heading,now);
+            // T269: S30 kind 2 Lightning (8ACB20) and kind 6 EarthRising (81C7C0) never process `]` (TWP §3.1).
+            if(now-release<effect.Duration&&(range||kind is not (2 or 6)))ObserveEffectFrames(session,$"magic:{e.Number}",ActionTimeline.Of(effect),now-release,flight.X,flight.Y,e.Heading,now);
             return;
         }
         var motion=MagicMotion.At(e,flight.X,flight.Y,release,Math.Min(now,flight.Impact));
@@ -291,7 +287,7 @@ public sealed partial class Renderer {
             if(brightens)magicBrightening++;
             var fly=DrawNativeEffect(e.Gfx,d,x,y,now-release,session,draws,"magic",true);
             if(fly!=null)visuals.Add(new(e.Number,e.Gfx,x,y,d,fly.Key,"fly",release));
-            // `]` on flying classes is unverified (Q-4, gap-matrix 11.6): recorded, never spawned.
+            // Flying classes never process `]` (TWP §3.1, T266): recorded as data, never spawned.
             WithholdFlightFrames(session,$"magic-fly:{e.Number}",effect,now-release,x,y,d,now);
             return;
         }
@@ -340,7 +336,7 @@ public sealed partial class Renderer {
     public UndrawnMagic[] UndrawnMagicEffects {get;private set;}=[];
     ObjectAppearance MagicAppearance(int gfx){if(!magicAppearances.TryGetValue(gfx,out var a)){a=new(Path.Combine(assets.Root,$"objects/magic-{gfx}.json"));magicAppearances[gfx]=a;}return a;}
     void ComposeMagic(WorldSession session,List<Draw> draws,long now){
-        if(magicEpoch!=session.WorldEpoch){magicFlights.Clear();magicLandings?.Clear();magicEpoch=session.WorldEpoch;}var visuals=new List<MagicVisual>();var undrawn=new List<UndrawnMagic>();
+        if(magicEpoch!=session.WorldEpoch){magicFlights.Clear();magicLandings?.Clear();ClearEruptions();magicEpoch=session.WorldEpoch;}var visuals=new List<MagicVisual>();var undrawn=new List<UndrawnMagic>();
         magicBrightening=0;
         foreach(var e in session.MagicEffects){
             if(!LegacyMagic.Handles(e)){

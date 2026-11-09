@@ -63,6 +63,91 @@ public sealed record ActionCadence(int Gfx,int Weapon,int Action,int ServerBaseM
     }
 }
 
+// T269 (#643)／SS2§6／FU3§1: skill-table +56 (`delay`, ms) and +60 (`dir`/`direction`) come from SpellList.xml
+// (TW16 parser sub_E177C0 FO 0xA16BC0, defaults from constructor sub_E14030 FO 0xA13430: delay 10, direction false).
+// The lookup key is the XML `id` = TW16 skill index (0-based) = 3.81 skill number − 1. The local 3.81 client has no
+// SpellList.xml; per #533 another local client's copy (default kor25) is read at run time from its Tile.idx/Tile.pak,
+// decrypted in memory, and identified by SHA-256. Nothing is copied into the repository.
+public sealed record SpellListEntry(int Skill,int DelayMs,bool Direction);
+public sealed record SpellListSource(string Root,string Entry,string IndexSha256,string XmlSha256,bool KnownKor25,int Count);
+public sealed class SpellListTable(IReadOnlyDictionary<int,SpellListEntry> entries,IReadOnlySet<int> ambiguous,SpellListSource? source) {
+    public IReadOnlyDictionary<int,SpellListEntry> Entries=>entries;
+    /// <summary>3.81 skill numbers whose XML id appears more than once (the native parser warns); never applied.</summary>
+    public IReadOnlySet<int> Ambiguous=>ambiguous;
+    public SpellListSource? Source=>source;
+}
+public static class SpellListCooldowns {
+    public const int DefaultDelayMs=10;
+    // kor25 `D:\381懶人包kor25(原)` Tile.pak SpellList.xml, decrypted (FU3§0: prefix 5d21a9ba95f294fb).
+    public const string Kor25XmlSha256="5d21a9ba95f294fb5813becc7a46f02b9eb6f66b91722bad81218f7a2f1a0cc2";
+    public const int MaxXmlBytes=1<<20;
+    public static string ClientRoot=>Environment.GetEnvironmentVariable("TW_SPELLLIST_CLIENT")??@"D:\381懶人包kor25(原)";
+    static readonly System.Text.RegularExpressions.Regex element=new(@"<p?spell\b([^>]*)>",System.Text.RegularExpressions.RegexOptions.CultureInvariant),
+        attribute=new(@"([A-Za-z_][\w\-]*)\s*=\s*(?:""([^""]*)""|'([^']*)')",System.Text.RegularExpressions.RegexOptions.CultureInvariant);
+    static readonly object gate=new();
+    static SpellListTable? table;static bool loaded;
+    /// <summary>Why no table is in use (missing client, no entry, unreadable); null when loaded.</summary>
+    public static string? Error {get;private set;}
+    public static SpellListTable? Table{get{lock(gate){if(!loaded){loaded=true;try{table=Load(ClientRoot);Error=table==null?"SpellList.xml not found":null;}catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException or CryptographicException or ArgumentException){table=null;Error=ex.Message;}}return table;}}}
+    internal static void Use(SpellListTable? value){lock(gate){table=value;loaded=true;Error=value==null?"disabled":null;}}
+    // atoi: optional sign and leading digits, otherwise 0.
+    static int Atoi(string s){var m=System.Text.RegularExpressions.Regex.Match(s,@"^\s*([+-]?\d{1,9})");return m.Success?int.Parse(m.Groups[1].Value):0;}
+    /// <summary>Only ASCII attributes are read; names are CP950 under a UTF-8 declaration, so the text is taken as Latin-1.</summary>
+    public static SpellListTable Parse(string xml,SpellListSource? source=null){
+        var entries=new Dictionary<int,SpellListEntry>();var ambiguous=new HashSet<int>();
+        foreach(System.Text.RegularExpressions.Match m in element.Matches(xml)){
+            int? id=null;int delay=DefaultDelayMs;bool direction=false;
+            foreach(System.Text.RegularExpressions.Match a in attribute.Matches(m.Groups[1].Value)){
+                string name=a.Groups[1].Value,value=a.Groups[2].Success?a.Groups[2].Value:a.Groups[3].Value;
+                if(name=="id")id=Atoi(value);else if(name=="delay")delay=Atoi(value);else if(name is "dir" or "direction")direction=value=="true";
+            }
+            if(id is not int index||index<0||index>254)continue;int skill=index+1;
+            if(!entries.TryAdd(skill,new(skill,delay,direction)))ambiguous.Add(skill);
+        }
+        foreach(int skill in ambiguous)entries.Remove(skill);
+        return new(entries,ambiguous,source is null?null:source with{Count=entries.Count});
+    }
+    /// <summary>Reads "SpellList-c.xml" then "SpellList.xml" (FileManager order) from root\Tile.idx/Tile.pak; null when absent.</summary>
+    public static SpellListTable? Load(string root){
+        string idxPath=Path.Combine(root,"Tile.idx"),pakPath=Path.Combine(root,"Tile.pak");
+        if(!File.Exists(idxPath)||!File.Exists(pakPath))return null;
+        var idx=File.ReadAllBytes(idxPath);
+        using var pak=new FileStream(pakPath,FileMode.Open,FileAccess.Read,FileShare.Read);
+        return FromArchive(root,idx,pak);
+    }
+    public static SpellListTable? FromArchive(string root,byte[] idx,Stream pak){
+        if(idx.Length<4)throw new InvalidDataException("Tile.idx too short");
+        uint count=BitConverter.ToUInt32(idx,0);if((long)count*28+4!=idx.Length)throw new InvalidDataException("Tile.idx size is not count×28+4");
+        var found=new Dictionary<string,(long Offset,int Size)>(StringComparer.OrdinalIgnoreCase);
+        for(int i=0;i<count;i++){
+            int at=4+i*28;var raw=idx.AsSpan(at+4,20);int end=raw.IndexOf((byte)0);if(end<0)end=20;
+            string name=System.Text.Encoding.Latin1.GetString(raw[..end]);
+            if(name.Equals("SpellList-c.xml",StringComparison.OrdinalIgnoreCase)||name.Equals("SpellList.xml",StringComparison.OrdinalIgnoreCase))
+                found.TryAdd(name,(BitConverter.ToUInt32(idx,at),(int)Math.Min(BitConverter.ToUInt32(idx,at+24),int.MaxValue)));
+        }
+        foreach(string name in new[]{"SpellList-c.xml","SpellList.xml"}){
+            if(!found.TryGetValue(name,out var e))continue;
+            if(e.Size is <=0 or >MaxXmlBytes||e.Offset+e.Size>pak.Length)throw new InvalidDataException($"{name} entry out of range");
+            var blob=new byte[e.Size];pak.Position=e.Offset;pak.ReadExactly(blob);
+            var plain=NativeUi.UiXmlSource.IsEncrypted(blob)?NativeUi.UiXmlSource.Decrypt(blob):blob;
+            string sha=Convert.ToHexString(SHA256.HashData(plain)).ToLowerInvariant();
+            var source=new SpellListSource(root,name,Convert.ToHexString(SHA256.HashData(idx)).ToLowerInvariant(),sha,sha==Kor25XmlSha256,0);
+            System.Diagnostics.Trace.WriteLine($"SpellList cooldown source {root}\\Tile.pak:{name} sha256 {sha}");
+            return Parse(System.Text.Encoding.Latin1.GetString(plain),source);
+        }
+        return null;
+    }
+    /// <summary>
+    /// Skill reuse delay (+56) for a 3.81 skill number. Falls back to the current value when there is no table, the
+    /// skill is not listed or listed twice, or the XML direction (+60 → action 18/19) disagrees with the action the
+    /// engine casts with (the id mapping is then not trusted for this skill).
+    /// </summary>
+    public static int ReuseMs(int skill,int action,int fallback,SpellListTable? source=null){
+        var t=source??Table;
+        return t!=null&&t.Entries.TryGetValue(skill,out var e)&&(e.Direction?18:19)==action&&e.DelayMs>=0?e.DelayMs:fallback;
+    }
+}
+
 public sealed partial class WorldSession {
     internal Func<long> ActionClock=()=>Environment.TickCount64;
     sealed record PendingAction(CombatAnimation Animation,int Epoch,int Appearance,int Correction,uint Target);
