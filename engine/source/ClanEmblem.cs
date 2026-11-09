@@ -86,6 +86,85 @@ public static class ClanEmblemProtocol {
         var value=new ClanEmblemAssignment(r.D(),r.D());r.Finish();
         if(value.ObjectId==0)throw new ProtocolException("clan emblem assignment identity");return value;
     }
+
+    // TW16 emblem pixels (sub_96E790): 192 little-endian RGB555 values, R high, 0 = transparent.
+    public const int Width=16,Height=12,RawBytes=Width*Height*2;
+    public static int[] DecodeRgb555(ReadOnlySpan<byte> data){
+        if(data.Length!=RawBytes)throw new ProtocolException("emblem RGB555 length");
+        var pixels=new int[Width*Height];
+        for(int i=0;i<pixels.Length;i++){int p=BinaryPrimitives.ReadUInt16LittleEndian(data[(i*2)..]);pixels[i]=p==0?0:unchecked((int)0xff000000)|(((p>>10)&31)*255/31<<16)|(((p>>5)&31)*255/31<<8)|((p&31)*255/31);}
+        return pixels;
+    }
+
+    // R2-K C18 (3.81 C_Emblem; TW16 C_UPLOAD_EMBLEM op 20). The server keeps the whole body after the opcode as the
+    // emblem (ClientBasePacket.readByte) and pushes it back in S118, so the body is exactly what clients will draw.
+    // 推定: the body is the TW16 S_EMBLEM layout (384 bytes RGB555) because that is what sub_96E790 reads; the original
+    // upload send site was not traced. Transparent (alpha < 128) → 0. Opaque pure black also becomes 0 in RGB555, i.e.
+    // transparent in the original reader; it is kept that way rather than invented as another colour.
+    public const byte UploadOpcode=18;
+    public static byte[] EncodeUpload(int[] pixels){
+        if(pixels==null||pixels.Length!=Width*Height)throw new ArgumentException("盟徽必須是 16×12 像素。");
+        var packet=new byte[1+RawBytes];packet[0]=UploadOpcode;
+        for(int i=0;i<pixels.Length;i++){
+            uint argb=unchecked((uint)pixels[i]);ushort p=0;
+            if(argb>>24>=128)p=(ushort)((((argb>>16)&255)>>3)<<10|(((argb>>8)&255)>>3)<<5|((argb&255)>>3));
+            BinaryPrimitives.WriteUInt16LittleEndian(packet.AsSpan(1+i*2),p);
+        }
+        return LoginPackets.Pad(packet);
+    }
+    // The player picks the file (engine-defined entry, not the original's): a 16x12 uncompressed BMP, as S118 accepts.
+    public static int[] ReadUploadFile(byte[] file){
+        try{return ClanProtocol.DecodeBmp(file,out _);}
+        catch(ProtocolException){throw new ArgumentException("盟徽檔必須是 16×12、未壓縮的 BMP（1／4／8／16／24／32 位元）。");}
+    }
+}
+
+// R2-K PBW-D: S250/173 PLEDGE_EMBLEM_STATUS (packetbox-windows.md §2.12). TW16 sub_C15540 reads C(type) C(value):
+// type 1 → sub_B30990(value≠0) writes PledgeUI+1220 (推定: the clan window's "show emblem" check box);
+// type 130 → message 3383. 3.81 sends C(173) C(1) C(show) D(0) at login, clan create/join and C_Windows.
+// TW16 ignores the trailing D; a 4-byte TW16 body padded to 8 reads the same.
+public sealed record ClanEmblemStatus(byte Type,byte Value);
+public static class ClanEmblemStatusPackets {
+    public const byte Opcode=250,Subtype=173,ShowType=1,WarType=130;
+    public const ushort WarMessageId=3383;
+    public static ClanEmblemStatus Parse(byte[] plain){
+        var r=new LoginReader(plain);if(r.C()!=Opcode||r.C()!=Subtype)throw new ProtocolException("not S250/173 emblem status");
+        var value=new ClanEmblemStatus(r.C(),r.C());r.D();r.Finish();return value;
+    }
+}
+
+public sealed partial class WorldSession {
+    readonly object clanEmblemStatusGate=new();
+    bool? clanShowEmblem;ServerMessageReport? clanEmblemStatusNotice;int clanEmblemStatusCount;
+    /// <summary>S250/173 type 1: null until the server sends it this connection.</summary>
+    public bool? ClanShowEmblem{get{lock(clanEmblemStatusGate)return clanShowEmblem;}}
+    public ServerMessageReport? ClanEmblemStatusNotice{get{lock(clanEmblemStatusGate)return clanEmblemStatusNotice;}}
+
+    [WorldReceive(ClanEmblemStatusPackets.Opcode,Subtype=ClanEmblemStatusPackets.Subtype)]
+    bool ReceiveClanEmblemStatus(byte[] plain){
+        var status=ClanEmblemStatusPackets.Parse(plain);
+        if(status.Type==ClanEmblemStatusPackets.ShowType){lock(clanEmblemStatusGate){clanShowEmblem=status.Value!=0;clanEmblemStatusCount++;}return true;}
+        if(status.Type!=ClanEmblemStatusPackets.WarType)return false; // other types: no branch in sub_C15540
+        var notice=ServerMessageText.Decode(ClanEmblemStatusPackets.WarMessageId,[]);
+        lock(clanEmblemStatusGate){clanEmblemStatusNotice=notice;clanEmblemStatusCount++;}
+        // Channel 推定 (same as ClanWarehouseHistory 1889): centre notice only, LastServerMessage untouched so pending
+        // clan/trade prompts are not invalidated. 3.81 never sends type 130 (packetbox-windows.md §2.12).
+        var(text,recognized)=DisplayNoticeText.Format(ClanEmblemStatusPackets.WarMessageId,[]);
+        redNotice=new(ClanEmblemStatusPackets.WarMessageId,[],text,recognized,Environment.TickCount64);
+        return true;
+    }
+
+    [WorldReset]
+    void ResetClanEmblemStatus(){lock(clanEmblemStatusGate){clanShowEmblem=null;clanEmblemStatusNotice=null;clanEmblemStatusCount=0;}}
+
+    [WorldSnapshot("clanEmblemStatus")]
+    object? ClanEmblemStatusSnapshot(){
+        lock(clanEmblemStatusGate)return new{
+            packets=clanEmblemStatusCount,showEmblem=clanShowEmblem,
+            notice=clanEmblemStatusNotice is {} n?new{id=n.Id,text=n.Text,recognized=n.Recognized}:null,
+            ui="flag only: PledgeUI+1220 check box needs the native clan window (PledgePanel); names still draw emblems",
+        };
+    }
 }
 
 public sealed partial class WorldSession {
