@@ -128,8 +128,8 @@ partial class Checks {
             Set(c.World,"Actor",c.World.Actor! with{Gfx=3225});var stamp=c.CaptureTitleEmote();
             Check(await c.SendEmote(stamp,1)&&sent![0]==120&&sent[1]==68&&c.World.ActiveEmotes(now).Length==0,"polymorph sends throttled C120 without local playback");
             Check(!await c.SendEmote(stamp,2)&&sends==1,"throttle refuses within interval");
-            now=3499;Check(!await c.SendEmote(stamp,2)&&sends==1,"throttle refuses at 2499 ms");
-            now=3500;Check(await c.SendEmote(stamp,2)&&sent![1]==69&&sends==2,"throttle admits at 2500 ms");
+            now=3500;Check(!await c.SendEmote(stamp,2)&&sends==1,"throttle refuses at 2500 ms (R5-D: original jbe needs now-last > interval)");
+            now=3501;Check(await c.SendEmote(stamp,2)&&sent![1]==69&&sends==2,"throttle admits at 2501 ms");
             Feed(c,EmoteUpdate(123,69));Check(c.World.ActiveEmotes(now).Single().Action==69,"server S158 for self still plays if it arrives");EndEmote(c);
             now=10000;Set(c.World,"Actor",c.World.Actor! with{Gfx=6080});
             Check(await c.SendEmote(stamp,1)&&sent![1]==68&&c.World.ActiveEmotes(now).Single().Action==68,"horse helm menu item 1 immediate 68 with local playback");EndEmote(c);

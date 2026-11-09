@@ -6,7 +6,9 @@ namespace P06;
 // 資料一樣讀原客戶端 Tile.pak 的 summonList.xml（SummonCatalog，不複製資源）；選定後走同一條 LoginConnection.SendSummonChoice
 // （server：C125 D(自己) S(action)；local：技能 51 的 C6），宿主同樣以 revision 擋過期與重複送出。
 // 等級規則同 SummonPanel：角色等級（原服 S8）≥ 怪物等級才可選；沒收到等級就全部不可選（不推定）。
-// 怪物名稱（desc 字串表）待查證，所以只顯示召喚編號、需求等級與 XML 的 minCha。
+// R5-D（T309／#736）：怪物名稱。summonList.xml 的 desc 是 desc-c.tbl 的行號（13683 起，與 assets/objects/names.json 同一張表，
+// FU6§1、§6）；本機表的內容是「怪物名^(魅力 8/1, 10/2, …)」，`^` 前是名稱、後面是魅力對召喚數。畫面以 ClientForm.ResolveNpcText
+// 查 "$desc"；查不到（例如 CI 沒有名稱表）就退回只顯示召喚編號。`^` 在 CSummonUI 裡怎麼排版沒追（推定是換行）。
 
 public sealed record SummonFallbackEntry(SummonMonster Monster,bool Enabled);
 public sealed record SummonFallbackGroup(int Level,SummonFallbackEntry[] Monsters);
@@ -20,6 +22,19 @@ public static class SummonFallback {
     public static bool CanChoose(SummonView view,IReadOnlyList<SummonMonster> catalog,SummonMonster monster)=>
         view.Open&&view.CanSend&&view.Level is int lv&&lv>=monster.Level&&catalog.Contains(monster)&&PetPackets.ValidSummonAction(monster.Action);
     public static string Caption(SummonMonster m)=>$"召喚編號 {m.Action} · 需等級 {m.Level} · minCha {m.MinCha}";
+    /// <summary>desc 行號經名稱表解出的（名稱, 魅力說明）；desc ≤ 0、沒有名稱表或查不到時 null。</summary>
+    public static (string Name,string Detail)? Describe(SummonMonster m,Func<string,string>? resolve){
+        if(m.Desc<=0||resolve==null)return null;
+        string raw="$"+m.Desc.ToString(System.Globalization.CultureInfo.InvariantCulture),text=resolve(raw);
+        if(text.Length==0||text==raw||text.StartsWith('$'))return null;
+        int cut=text.IndexOf('^');
+        string name=(cut<0?text:text[..cut]).Trim(),detail=cut<0?"":text[(cut+1)..].Trim();
+        return name.Length==0?null:(name,detail);
+    }
+    /// <summary>有名稱時「名稱 · 需等級 · 魅力說明」，否則同 Caption。</summary>
+    public static string Caption(SummonMonster m,Func<string,string>? resolve)=>Describe(m,resolve) is {} d
+        ?$"{d.Name} · 需等級 {m.Level}"+(d.Detail.Length>0?" · "+d.Detail:$" · minCha {m.MinCha}")
+        :Caption(m);
     /// <summary>
     /// 新的召喚請求自動切到寵物分頁；同一個 revision 只切一次。來源：server＝原服 S39 summonlist；
     /// local＝本機請求——R4-F（#709）起包含召喚控制戒指（S36 type 5＋技能 51，AbilityStatus.cs TryOpenRingWindow）開的請求，
@@ -67,7 +82,7 @@ public sealed partial class ClientForm {
             label($"等級 {group.Level} 以上");
             foreach(var entry in group.Monsters){
                 var monster=entry.Monster;
-                button(SummonFallback.Caption(monster)+(entry.Enabled?"":"（等級不足）"),!summonFallbackSending&&SummonFallback.CanChoose(summon,catalog,monster),()=>ChooseSummonFallback(summon,monster));
+                button(SummonFallback.Caption(monster,ResolveNpcText)+(entry.Enabled?"":"（等級不足）"),!summonFallbackSending&&SummonFallback.CanChoose(summon,catalog,monster),()=>ChooseSummonFallback(summon,monster));
             }
         }
     }

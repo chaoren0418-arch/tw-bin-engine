@@ -21,8 +21,41 @@ public static class AgitSelectPackets {
     }
 }
 
+/// <summary>
+/// R5-D（T309／#736，FU3§3.1 的第二個條件）：sub_E08A20 在 0xE08AF2–0xE08B20 檢查
+/// 「職業碼 byte_1542AA1 == 2、等級 ≥ 50（0xE08B0E cmp 0x32）且 byte_13A931C」，成立時和戴傳送控制戒指一樣開書籤窗。
+/// FU3 依 SS2§7 推定職業 2 是王族；FU6§2 已查證 byte_1542AA1＝選角清單的職業，0＝王族、2＝妖精，所以這是**妖精**分支。
+/// byte_13A931C 是客戶端本機設定（sub_59DD30 載入的設定檔，設定物件 +9；sub_89A5F0／sub_999B50 由位元 0x08 寫入），
+/// 等級 &lt; 50 時 0xEC99EB／0xEED7B9 把它清成 0。選項名稱與預設值沒查（引擎預設關閉，推定）。
+/// 這條路徑（0xE08B22 起）不檢查限制地圖：276 只在直接送 C6 的路徑（0xE08BA9）。
+/// 3.81 TELEPORT.java 以書籤 id 查 CharBookTable，不檢查戒指，所以送出照舊用 HD。
+/// </summary>
+public static class ElfBookmarkTeleportRules {
+    public const int ElfClass=2,MinLevel=50;
+    public static bool Allows(int? characterClass,int? level,bool option)=>option&&characterClass==ElfClass&&level>=MinLevel;
+}
+
+public sealed partial class WorldSession {
+    /// <summary>byte_13A931C（本機選項，預設關閉）；只有妖精 Lv ≥ 50 時有作用。</summary>
+    public bool ElfBookmarkTeleportOption {get;set;}
+    /// <summary>傳送控制戒指路徑（AbilityStatus.cs）沒開窗時，再看妖精分支；回 true＝已開窗，不送 C6。</summary>
+    internal bool TryOpenElfTeleportWindow(int? characterClass){
+        if(SelectedMagicId is not int id||!learnedMagic.Contains(id)||!RingWindowRules.TeleportSkill(id))return false;
+        if(!ElfBookmarkTeleportRules.Allows(characterClass,Status?.Level,ElfBookmarkTeleportOption))return false;
+        lock(abilityLock){if(teleportDestination==null)teleportDestination=new(++teleportDestinationRevision,id);}
+        MagicNotice="已開啟傳送目的地選擇（妖精 Lv 50 以上的記憶座標傳送選項）；選定書籤後才送出。";
+        return true;
+    }
+}
+
 public sealed partial class LoginConnection {
-    bool TryOpenRingWindow()=>State==LoginState.InWorld&&CaptureWorld(()=>World.TryOpenRingWindow());
+    /// <summary>自己的職業（選角清單 S_CHARACTER_INFO 的職業欄，FU6§2：byte_1542AA1 在進入世界時由它鎖定）。</summary>
+    internal int? OwnCharacterClass=>World.Actor?.Name is {} name?characters.FirstOrDefault(c=>c.Name==name)?.Class:null;
+    bool TryOpenRingWindow(){
+        if(State!=LoginState.InWorld)return false;
+        int? cls=OwnCharacterClass;
+        return CaptureWorld(()=>World.TryOpenRingWindow()||World.TryOpenElfTeleportWindow(cls));
+    }
     /// <summary>目前的選傳送目的地請求（不在世界中為 null）。</summary>
     public TeleportDestinationRequest? TeleportDestinationSnapshot()=>State==LoginState.InWorld?World.TeleportDestination:null;
     public bool CloseTeleportDestination(long revision)=>World.CloseTeleportDestination(revision);

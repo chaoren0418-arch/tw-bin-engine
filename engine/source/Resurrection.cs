@@ -1,7 +1,7 @@
 namespace P06;
 
 public sealed record ResurrectionView(int Generation,int Epoch,int Revision,string Phase,ushort Message,string Notice,bool CanAnswer);
-sealed record MoveLockHold(int Epoch,long Position,long Until);
+sealed record MoveLockHold(int Epoch,long Position);
 
 // d287 contract: docs/protocol/resurrection.md. The zero D is not a request ID.
 public static class ResurrectionPackets {
@@ -13,19 +13,22 @@ public static class ResurrectionPackets {
 }
 
 public sealed partial class WorldSession {
-    // Engine safety policy, not a server value: S241 has no unlock form, and this client never sends C246.
-    public const int MoveLockTimeoutMs=5000;
-    internal Func<long> MoveLockClock=()=>Environment.TickCount64;
+    // S241 has no unlock form. R5-D (T309/#736, gap-matrix 14.6): the engine's own 5-second safety limit is gone; the lock
+    // lasts until the next authoritative own position (S87), a world rebuild or Reset. Item use (e.g. a teleport scroll)
+    // and restart do not depend on MovementAvailable, so a character is never stuck without a way out.
     volatile MoveLockHold? moveLock;
+    /// <summary>S241 lock alone (the emote hold is separate).</summary>
+    public bool ServerMoveLocked=>moveLock is {} hold&&hold.Epoch==WorldEpoch&&hold.Position==AuthoritativePositionRevision;
     // Pure on purpose: the send gate and UI poll this from outside the receive path.
-    public bool MoveLocked=>moveLock is {} hold&&hold.Epoch==WorldEpoch&&hold.Position==AuthoritativePositionRevision&&MoveLockClock()<hold.Until;
+    // R5-D: the emote hold (byte_153CE6A, TitleAndEmote.cs EmoteHeld) also keeps held input from moving, for 1234 ms.
+    public bool MoveLocked=>ServerMoveLocked||EmoteHeld;
 
     void ReceiveMoveLock(LoginReader r){
         byte mode=r.C();r.Finish();
         if(mode!=0){Unhandled(241);return;}
         if(!Ready)return;
-        bool held=MoveLocked;
-        moveLock=new(WorldEpoch,AuthoritativePositionRevision,MoveLockClock()+MoveLockTimeoutMs);
+        bool held=ServerMoveLocked;
+        moveLock=new(WorldEpoch,AuthoritativePositionRevision);
         if(held)return;
         // Invalidate queued requests even if the hold ends before their send gate.
         AppearanceRevision++;
