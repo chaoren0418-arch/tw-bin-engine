@@ -1,0 +1,193 @@
+# q1
+dec E177C0
+dec E14160
+dec E16D10
+dec E18980
+dec E189C0
+dec E246E0
+dec A42C30
+dec 971E50
+dec 543810
+xref 1540828
+dec 5041B0
+dec E08A20
+dec E2B6C0
+dec 503FF0
+dec DF8A50
+xref 154085C
+dec 518CD0
+dec C042C0
+xref 14EBE24
+dec 8CB760
+dec A57C60
+dec 9DA410
+dec 9DA2B0
+dec 9D97F0
+dec F05A90
+dec A2C660
+dec A2C360
+dec A2B9A0
+xref 153FCC4
+xref 153FCC0
+xref 153FCC8
+# q2
+dec E14030
+dec E18A20
+dec E18AC0
+dec E231D0
+dec E172D0
+str 11DECFC
+dis 11DECFC 2
+vtdump 11DF004 4
+dec 500EA0
+dis B56B40 24
+dec 931D60
+dec BDE010
+dec BDFE90
+dec BDA730
+dec BDA930
+dec BDAA10
+xref BDA730
+dec 4FE1D0
+dec 502720
+dec 4FBE50
+dec 504460
+dec 503EE0
+dec 503F60
+dec 542BF0
+dec A2C360
+xref 1540858
+# q3
+dec E189E0
+dec E18A00
+dec E18B60
+dec E18AE0
+dec E18920
+dec E18960
+dec E18940
+dec E18A40
+dec E189A0
+dec E18B80
+dec E18B40
+dec E18B20
+dec E18B00
+dec E16A40
+dis 11DF004 6
+dec 4FCD20
+dec BD9F50
+dis B56AE0 30
+dis 9478E0 8
+stores 55
+grepcallers A42C30 A42C30
+dec 8BD990
+dec 92D8B0
+dec 9490F0
+dec 932750
+dec 92D360
+dec C03E80
+dec C044B0
+dec C04EB0
+dec C05600
+# q4
+dec A45760
+dec A48990
+dec 7906F0
+grepcallers A45760 A45760
+grepcallers A48990 A48990
+dec E17370
+dec 588D50
+dec A27C10
+dis A27320 16
+xref A27340
+dec 93F5E0
+dec A27B70
+dis 93BC10 24
+dis F428C0 24
+grepcallers 4F9B90 (\+ 832\)|\[208\]|0x340)
+immscan 153FCC1 153FCC7
+# q5
+dec A50850
+dec A51920
+dec 940330
+dec A44CE0
+xref 940330
+xref A51920
+xref A50850
+dec A27820
+dec A26C50
+dec A26E60
+xref 153CE14
+dec 584CC0
+dec 8676F0
+dec 918160
+dec 9184B0
+dec 91C8A0
+xref 14EBF50
+immscan 153FC80 153FCC0
+# q6
+dis 947920 8
+stores 67
+dec A42B40
+dec 5069E0
+dec A4A230
+# q7
+dec 9262D0
+# q8
+dis 948CF0 60
+# q9
+dec 948DC8
+# q10
+dec 8C1290
+dec BDC1F0
+dis B570A0 20
+dec C0B470
+dec C03E80
+dec C04EB0
+# q11
+dec BE0F10
+dec C00890
+dec C009C0
+dec C00F50
+dis B57050 20
+dec BFFB60
+str 11AB0CC
+str 11AB0D4
+str 11AC5E4
+str 11AC78C
+str 11AC640
+# q12
+dec C03720
+dec C038D0
+dec C03EB0
+dec C04B00
+dec C04E10
+dis B58E70 22
+dec F42690
+dec F426D0
+dec F42860
+# q13
+dis C03860 30
+dec C04040
+dec C04140
+dec C040B0
+dec C05600
+dec C054F0
+dec C0A800
+dec C075B0
+# q14
+dis 93DC20 50
+dec A26DD0
+# q15
+dec 88BD70
+dec 88BAC0
+# q16
+xref 584CC0
+xref 9184B0
+xref 91C8A0
+# q17
+immscan 153F000 153FCC7
+# q18
+dis A9F9A8 14
+dis AA2740 14
+# q19
+grepcallers 7D7650 sub_7D7650\(
