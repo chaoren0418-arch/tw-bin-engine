@@ -1,0 +1,292 @@
+# TW16 q1（run_ida.ps1 -Script ida_t690.py -List q1.txt -Out o1 -Drive W:）
+dec C15C10
+dec C15C40
+dec C15C70
+xref C15C10
+xref C15C40
+xref C15C70
+str 11ACEE0
+str 11ACEE4
+str 11ACEE8
+xref 1542AA1
+gstores 1542AA1
+dec 94F190
+dec 4FE550
+dec 504030
+dec B34490
+dec B35350
+dec F44FB0
+dec F46290
+dec F49970
+str 114F580
+str 114F540
+str 11A5864
+str 11A5868
+str 11E9A94
+str 11E9A2C
+str 11E9A70
+dec F46690
+dec F48380
+str 11EA0A0
+str 11EA09C
+dec BB5180
+xref 13A96EC
+xref 13A96F0
+dec 541B80
+dec 5419E0
+nameea ??_7AgitWindow@@6B@
+nameea ??_7AgitMapWindow@@6B@
+dec 94AF00
+nameea ??_7WorldMapWindow@@6B@
+nameea ??_7VillageMapWindow@@6B@
+nameea ??_7MapSystemWindow@@6B@
+findstr WorldMapWindow
+findstr VillageMapWindow
+# TW16 q2（run_ida.ps1 -Script ida_t690.py -List q2.txt -Out o2 -Drive W:）
+dec B2AF90
+dec B2C2F0
+dec F46F70
+vtab 11AD030 12
+vtab 11AD048 12
+vtab 11AD060 12
+xref 11AD038
+xref 11AD050
+xref 11AD068
+xref B2AF90
+xref B2C2F0
+xref F46F70
+dec EC9510
+dec EED2B0
+xref EC9510
+xref EED2B0
+dec 623BA0
+str 11851FC
+dec 933850
+dec 92B250
+dec 8F3B90
+dec 8F2FB0
+dec 8F1C30
+dec A11280
+xref 4FE550
+xref 504030
+xref B34490
+xref B35350
+dec 4FE5B0
+dec 504090
+dec B2B700
+xref F44FB0
+xref F49970
+xref F46290
+dec 5822A0
+dec 7DC850
+dec 582730
+dec 5838F0
+xref F46690
+xref F48380
+grepfuncs propose|Propose|marri|Marri|divorce BB5180
+dec 542450
+dec 8C32B0
+dec 8CB760
+vtab 1151734 24
+vtab 115177C 24
+str 11851FC
+dec A64460
+dec A63A30
+dec A631B0
+vtab 1190E0C 24
+vtab 1190E5C 24
+xref A64460
+xref A63A30
+xref A631B0
+# TW16 q3（run_ida.ps1 -Script ida_t690.py -List q3.txt -Out o3 -Drive W:）
+dec 933040
+dec EBEA20
+dec EED8A0
+fdis EC9510
+dec B2A0C0
+dec B2B040
+dec B2B730
+dec B2C5A0
+xref B2B040
+xref B2B730
+xref B2C5A0
+dec 581D40
+dec 584E50
+dec 583860
+xref 581D40
+xref 584E50
+xref 583860
+xref 582280
+xref 582730
+xref 5838F0
+xref F54830
+xref F55E90
+xref F561E0
+xref F54EC0
+xref F54C40
+xref F55510
+xref F464E0
+dec F464E0
+dec B94DE0
+dec B94D40
+dec B96780
+dec 8F2FB0
+dec 933850
+# TW16 q4（run_ida.ps1 -Script ida_t690.py -List q4.txt -Out o4 -Drive W:）
+fdis 933040
+dec 85D430
+dec B72CD0
+dec B711F0
+dec B70E30
+dec B73E50
+dec B70570
+dec B72C30
+dec B72B90
+dec B72690
+vtab 11A9440 4
+vtab 11A9884 6
+vtab 11A9710 4
+vtab 11A974C 6
+vtab 11A9758 4
+vtab 11EB6C0 50
+dec B2B830
+dec B34930
+dec B2C4D0
+dec B2B910
+dec 4FF6E0
+dec F54830
+dec F55E90
+dec F561E0
+dec F54EC0
+dec F54C40
+dec F55510
+xref 11EB6C0
+# TW16 q5（run_ida.ps1 -Script ida_t690.py -List q5.txt -Out o5 -Drive W:）
+vtab 11A9430 6
+vtab 11A9878 4
+vtab 11A9700 6
+vtab 11A9740 4
+vtab 11EB780 24
+nameea ??_7Commandwar@Lineage@@6B@
+nameea ??_7Commandsurrender@Lineage@@6B@
+nameea ??_7Commandcease@Lineage@@6B@
+vtab 11516E0 22
+dec 5430D0
+dec 5431B0
+dec 543190
+dec 5430B0
+dec 8156B0
+dec 543810
+dec 5420D0
+dec 92E710
+dec 5433D0
+dec 4F7670
+str 1182E6B
+str 1182E6F
+dec A61A20
+dec A62250
+dec A622F0
+dec A66B70
+dec A66AA0
+dec A769A0
+dec A77FC0
+dec A77230
+dec A77340
+nameea ??_7FieldMapWindow@@6B@
+nameea ??_7DungeonMapWindow@@6B@
+xref 153F45C
+# TW16 q6（run_ida.ps1 -Script ida_t690.py -List q6.txt -Out o6 -Drive W:）
+xref 153F2D0
+xref 153F2D4
+xref 153F2D8
+xref 153F2DC
+xref 153F2CC
+dec A77D80
+dec 815CA0
+dis A6D440 120
+findstr World_Map
+findstr Village_Map
+findstr Field_Map
+dec A63A30
+vtab 11516D0 6
+xref 11516E0
+xref F52F70
+xref F527F0
+xref F4FA90
+dec A11520
+xref 153C9C4
+gstores 153C9C4
+# TW16 q7（run_ida.ps1 -Script ida_t690.py -List q7.txt -Out o7 -Drive W:）
+gstores 153F2D8
+gstores 153F2DC
+gstores 153F2D0
+grepfuncs 153F2D8|153F2DC|153F2D0|153F2D4|A77D80|case|wParam 8C14F0
+dec A683A0
+dec A684E0
+dec A77270
+dec A77C60
+dec A77C90
+dec A77E10
+dec A77E30
+dec A77E50
+dec A730A0
+dec A6F940
+dec A72F90
+dec A72FF0
+dec F02BA0
+dec A769C0
+grepfuncs "|sub_F52F70|sub_F527F0|sub_F4FA90|sub_F4 F56320
+findstr desc-c.tbl
+findstr desc-%s.tbl
+findstr desc
+# TW16 q8（run_ida.ps1 -Script ida_t690.py -List q8.txt -Out o8 -Drive W:）
+dis 8C3EE0 50
+dis 8C7F40 50
+dec A769C0
+dec A77D80
+dis 8C1680 60
+dec A683A0
+dec A684E0
+dec A77270
+dec 707210
+dec ED8A30
+xref A6D480
+vtab 1190DC4 20
+nameea ??_7BGMapWindow@@6B@
+nameea ??_7ImageBasedMapSystemWindow@@6B@
+dec A61DE0
+dec A63240
+xref A63240
+dec A11520
+dis 4FE6F0 40
+dec A11280
+dec 543880
+dis 541C40 60
+grepfuncs propose|divorce|focus|war|surrender|cease|sub_F55510|sub_F54C40|sub_F54EC0 F56320
+# TW16 q9（run_ida.ps1 -Script ida_t690.py -List q9.txt -Out o9 -Drive W:）
+vtab 1151680 24
+dec 5428A0
+dec 542F70
+dec 542F80
+dec 543280
+dec 542B40
+dec A63210
+xref A6EBC6
+dis A6EBA0 20
+dis A6F020 20
+xref A683A0
+xref A684E0
+dec A6E380
+grepfuncs A683A0|A684E0 A6E380 A6E620 A6F0B0 A6F940 A6DB10
+nameea ??_7DungeonMapSystemWindow@@6B@
+vtab 1190C40 4
+vtab 1190C88 4
+vtab 1190D28 4
+vtab 1190DC0 4
+xref 1190C44
+dec 542910
+# TW16 q10（run_ida.ps1 -Script ida_t690.py -List q10.txt -Out o10 -Drive W:）
+dis 94B150 14
+dis 94B21C 14
+dis 4F7670 14
+dis 8CA370 10

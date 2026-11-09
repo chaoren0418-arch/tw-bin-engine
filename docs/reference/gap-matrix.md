@@ -1198,12 +1198,28 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 
 Q3-2、Q3-7、Q4-1、Q4-2 已由 T289（#690，PR #702）查完，結果在 12.9（PR #702 合併後）與 FU5。建議開 **1 張 resource 任務**合併查 Q4-3–Q4-9（IDA 靜態查證，照 #417，subst 磁碟先檢查）。
 
+> 回填（T304／#716）：Q4-3–Q4-9 已查完，結果見 13.9 與 [`followups-6.md`](followups-6.md)。
+
 ### 13.8 限制
 
 - 只讀報告與原始碼，沒有建置或執行；「產品沒有呼叫」是用 Grep 判斷，以反射、委派或事件間接呼叫的可能會漏（`[UiPanel]` 已逐一列出）。
 - 合併佇列的 PR #699、#700 是讀分支內容判斷，沒有建置；合併時若有改動，13.3 標「（PR #n 合併後）」的列要再核對。
 - 各任務都沒有真機驗收；「已有」只表示程式和已查證的表現沒有已知差異。送包列的「已有」只代表封包正確，不代表入口和原版相同。
 - 本節的 `檔案:行` 以 main `1786d89a` 為準（標「分支 task/667」的以該分支為準）。
+
+### 13.9 Q4-3–Q4-9 查證結果（T304／#716，FU6）
+
+13.7 的 7 項由 T304 查完，細節與地址在 [`followups-6.md`](followups-6.md)（FU6）。13.7 表保留原文；下表是結果與對應列的新判定（「建議狀態」只是給下一輪盤點的建議，本節沒有改第 1–5 節）。
+
+| 代號 | 結果 | 3.81 | 影響的列與建議 | 要改的檔案 |
+|---|---|---|---|---|
+| Q4-3 C129 | TW16 op 201 三個子碼：0 `ccs` 新增（血盟窗 `AddFocusPledge` 輸入框 3361、HTML `pledgefocusadd`、`/focus 名稱`）；1 `ccs` 刪除（`DelFocusPledge` 確認後每個勾選列各送一包）；2 `cc` 取清單（只有 `/focus` 不帶參數）（FU6§1） | `C_ClanAttention` 欄位完全一致 | 第 3 節 C_PLEDGE_WATCH(201)：查證完成，維持「部分」到 R4-E 補送出 | `Clan.cs`、`NativeUi/PledgePanel.cs`、`PlayerChat.cs` |
+| Q4-4 職業 | `byte_1542AA1`＝選角清單 S_CHARACTER_INFO（op 31／204）第 3 欄「職業」，進入世界時鎖定；遊戲中沒有封包寫它（FU6§2） | S93／S127 的 `type`；引擎已有 `LoginCharacter.Class` | 第 1 節 op 114、第 5 節（中毒…列）的職業來源：已查到，可以實作（職業 2／4） | `Afflictions.cs`、`Ambience.cs`、進入世界處 |
+| Q4-5 盟戰 | S84 文字一律印在聊天欄（226／235／228／227／231／224／225，palette[24]），另切背景音樂 11／12／13（推測）；C_WAR 入口＝`/war`（/宣戰）、`/surrender`（/投降）、`/cease`（/停戰）＋血盟名、血盟窗 `ChangeWarState`（1 宣戰、2 停戰、3 投降）＋輸入框 577／579／578、HTML `declarewar`（城門守衛頁，等級門檻 25）／`surrender`／`cease`（FU6§3） | `S_War`、`C_War` 欄位一致 | 第 1 節 op 63、第 3 節 C_WAR(197)：原版沒有獨立盟戰窗，引擎自訂的 WinForms 窗要改為聊天行＋指令＋血盟窗控制項 | `ClanWar.cs`、`PlayerChat.cs`、`NativeUi/PledgePanel.cs` |
+| Q4-6 求婚 | HTML `propose`／`divorce` 與 `/propose`（/求婚）、`/divorce`（/離婚）送 TW16 op 21 `cc` 0／1，沒有目標欄位；r29 範本沒有任何頁面用這兩個動作（FU6§4） | `C_Propose`（C50）c＝0 求婚、1 離婚 | 第 3 節 C_MARRIAGE(21)：入口改成聊天指令，補離婚 `[50,1]` | `Marriage.cs`、`PlayerChat.cs` |
+| Q4-7 `AgitWindow` | initGame 建立後**沒有任何程式打開**（死窗）；選取時送 TW16 227 `select`（同 `AgitMapWindow` 674）；與 `AgitMapWindow` 互不開啟，後者只由 S187 開（FU6§5） | 盟屋清單走 S156 → `CAgitAuctionUI` | 第 4 節 `AgitWindow`：建議改「不建議（原版不顯示）」 | 無 |
+| Q4-8 S161 `$n` | `$數字` 查 **`desc-c.tbl`**（`dword_153C9C4`）；超出範圍 `???`，數字後的 `;` 吃掉；職業外型的說話者只在開頭是 `$` 時展開；type 21 只畫頭上泡泡（FU6§6） | 3.81 送 `$nameId: 文字` 等三種格式 | 第 1 節 op 61：可實作，查 `names.json`（與 `desc-c.tbl` 同表） | `PlayerChat.cs` |
+| Q4-9 世界／村莊地圖 | `WorldMapWindow`／`VillageMapWindow` 類別與版面（框 2828，550×316）都在，但**從未建立**：全域只在拆除時寫 0，建構子沒有呼叫者（含線性掃描）（FU6§7） | 純客戶端 | 第 4 節 MapUI、4.2 `MapSystemWindow` 的世界／村莊部分：建議改「不建議（原版不建立）」；R5-H 的 Q4-9 依賴解除 | `NativeUi/FieldMapPanel.cs`（連結跳世界／村莊時不動作） |
 
 ## 14. 第五輪盤點（T305／#730，2026-11-10）
 
