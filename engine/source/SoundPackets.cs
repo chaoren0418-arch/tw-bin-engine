@@ -266,7 +266,7 @@ public sealed partial class WorldSession
     }
     // S158 動作 8（S_ACTION 92CB70）→ DEATH；gfx 取自物件表。
     [WorldReceive(158, Observe = true)]
-    void ObserveBossDeath(byte[] plain)
+    internal void ObserveBossDeath(byte[] plain)
     {
         uint id;
         try { var r = new LoginReader(plain); r.C(); id = r.D(); if (r.C() != 8) return; }

@@ -159,10 +159,13 @@ static class SoundFollowupTests {
             t.Check(rec.Started.All(s=>s.Kind!=MusicKind.BossSpawn),"S87 帶死亡動作：不觸發 SPAWN");
             w.Receive(Pack(902,32706,32805,1500),Name);
             t.Check(rec.Last is {Music:150,Kind:MusicKind.BossSpawn},"S87 頭目出現：SPAWN");
-            w.Receive(Death(902),Name);
+            // S158 的完整分派會走戰鬥動畫（讀 engine/assets，CI 沒有），所以直接呼叫觀察器，另外核對它有被 M7-A 登錄。
+            t.Check(w.ExtensionEntries.Any(e=>e.Kind=="observe"&&e.Opcode==158&&e.Method.EndsWith(".ObserveBossDeath",StringComparison.Ordinal))
+                &&w.ExtensionEntries.Any(e=>e.Kind=="observe"&&e.Opcode==87&&e.Method.EndsWith(".ObserveBossAppear",StringComparison.Ordinal)),"S87／S158 觀察器已自動登錄");
+            w.ObserveBossDeath(Death(902));
             t.Check(rec.Last is {Music:120,Kind:MusicKind.BossDeath},"S158 動作 8：DEATH");
             int n=rec.Started.Count;
-            w.Receive(Death(999),Name);w.Receive(LoginPackets.Pad([158,..BitConverter.GetBytes(902u),1]),Name);
+            w.ObserveBossDeath(Death(999));w.ObserveBossDeath(LoginPackets.Pad([158,..BitConverter.GetBytes(902u),1]));w.ObserveBossDeath(LoginPackets.Pad([158,1]));
             t.Equal(n,rec.Started.Count,"未知物件、其他動作：不換曲");
             bool rejected=false;
             try{w.Receive(LoginPackets.Pad([87,1]),Name);}catch(ProtocolException){rejected=true;}
