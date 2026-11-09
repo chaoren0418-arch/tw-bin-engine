@@ -12,10 +12,30 @@ public sealed partial class ClientForm {
     /// <summary>每次 NPC 面板同步時呼叫：原生 TRADE_WINDOW 已接上來源後，把學魔法來源插到最前面（只插一次）。</summary>
     void SyncSpellExchangeWindow(){
         var panel=NativeUiActive?nativeUiRoot?.Find(TradeWindowPanel.PanelId) as TradeWindowPanel:null;
-        if(panel?.Source is not TradeWindowSources sources||sources.Sources.Any(s=>s is SpellTradeSource))return;
-        spellTradeSource??=new SpellTradeSource(login,()=>World.Walking);
-        panel.Source=new TradeWindowSources([spellTradeSource,..sources.Sources]);
-        var icons=panel.IconSource;
-        panel.IconSource=id=>panel.View?.Mode==TradeWindowPanel.ModeSpell?null:icons?.Invoke(id);
+        if(panel?.Source is TradeWindowSources sources&&!sources.Sources.Any(s=>s is SpellTradeSource)){
+            spellTradeSource??=new SpellTradeSource(login,()=>World.Walking);
+            panel.Source=new TradeWindowSources([spellTradeSource,..sources.Sources]);
+            var icons=panel.IconSource;
+            panel.IconSource=id=>panel.View?.Mode==TradeWindowPanel.ModeSpell?null:icons?.Invoke(id);
+        }
+        // R4-C（T303／#715）：原生 TRADE_WINDOW 會畫 op 44 金幣學魔法清單時，NPC 面板的舊清單（ShopRows 數量框＋提交鈕）讓位：
+        // 整個 WinForms NPC 面板這一輪不顯示（NpcUi.SyncInteraction 每次都重算 Visible，所以清單結束後自動回來）。
+        // 以下情況照舊顯示 NPC 面板（備援入口）：原生 UI 關閉、TRADE_WINDOW 故障或沒接上學魔法來源、使用者關掉了這份清單、
+        // op 175 清單在前（窗畫的是以物品學魔法）、或 WinForms 面板同時要顯示查詢頁（原生 HYPER_TEXT_WINDOW 不可用時）。
+        if(SpellBuyOwnedByNativeWindow(panel))npcPanel.Visible=false;
     }
+    bool SpellBuyOwnedByNativeWindow(TradeWindowPanel? panel){
+        if(panel==null||nativeUiRoot==null||nativeUiRoot.Faulted.Contains(panel)||spellTradeSource==null)return false;
+        if(panel.Source is not TradeWindowSources s||!s.Sources.Contains(spellTradeSource))return false;
+        var w=login.World;
+        if(login.State!=LoginState.InWorld||w.QueryVisible&&NativeHyperText()==null)return false;
+        return SpellTradeOwnership.Owned(spellTradeSource.Current,w.SpellBuyTradeWindow(),panel.Dismissed);
+    }
+}
+
+/// <summary>R4-C：學魔法舊清單讓位的判斷（拆出來給離線測試）。</summary>
+public static class SpellTradeOwnership {
+    /// <summary>窗目前要畫的就是 op 44 清單（不是 op 175）、而且這份清單沒有被關掉。</summary>
+    public static bool Owned(TradeListView? shown,TradeListView? buy,Func<TradeListView,bool> dismissed)=>
+        shown!=null&&buy!=null&&!SpellTradeProtocol.IsExchangeRevision(shown.Revision)&&shown.Mode==TradeWindowPanel.ModeSpell&&shown.Revision==buy.Revision&&!dismissed(shown);
 }

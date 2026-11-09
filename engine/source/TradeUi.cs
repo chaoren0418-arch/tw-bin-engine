@@ -34,23 +34,26 @@ public sealed partial class ClientForm {
     bool TradeInviteOnInputLine=>login.World.TradeState=="invited"&&login.World.TradeAskWindow;
     async Task DispatchTrade(int id,TradeWebCommand c){bool accepted=await RunTrade(c);Reply(id,accepted?TradeDisplayNotice():"交易操作已過期、數量無效或對象不符合；未送出。");}
     // R3-E (#674): with the native UI active, the open trade (S52 … S112) is the TRANSACTION_WINDOW panel (both lists, adena,
-    // OK → C71, cancel → C86). The WinForms panel then shrinks to its add-item strip (C37), because dragging items from the
-    // native inventory is not implemented — a transition, not original behaviour. Invitation/result states and the native-UI-off
-    // case keep the full WinForms panel.
+    // OK → C71, cancel → C86). R4-C (#715): items are added from the native inventory (ITEM_WINDOW selection + click on the own
+    // list = C37 for the whole stack) and the panel's adena box (C37 adena + amount), so the WinForms panel is hidden completely
+    // while the native window shows the trade. Invitation/result states, the native-UI-off case, a faulted panel and a window the
+    // root closed (IUiClosablePanel → Dismissed) keep the full WinForms panel as the fallback entry.
     bool AttachTransactionWindow(){
         if(!NativeUiActive||NativeUiRoot is not {} root||root.Find(TransactionPanel.PanelId) is not TransactionPanel panel||root.Faulted.Contains(panel))return false;
         panel.Source??=new TransactionSource(this);
-        return true;
+        return !panel.Dismissed;
     }
     bool TradeNativeWindow=>AttachTransactionWindow()&&login.State==LoginState.InWorld&&TransactionView.From(login.World,ResolveNpcText)!=null;
     sealed class TransactionSource(ClientForm form):ITransactionSource {
         public TransactionView? Current=>form.login.State==LoginState.InWorld?TransactionView.From(form.login.World,form.ResolveNpcText):null;
         public void Confirm(int revision)=>Run("confirm",revision);
         public void Cancel(int revision)=>Run("cancel",revision);
-        void Run(string command,int revision){var w=form.login.World;_=form.RunTrade(new(command,revision,w.WorldEpoch,w.TradeGeneration));}
+        public void Add(int revision,uint item,uint count){if(item!=0&&count is >0 and <=int.MaxValue)Run("add",revision,item,count);}
+        void Run(string command,int revision,uint item=0,uint count=0){var w=form.login.World;_=form.RunTrade(new(command,revision,w.WorldEpoch,w.TradeGeneration,item,count));}
     }
-    void SyncTrade(){var w=login.World;w.CheckTrade();tradeInvite.Visible=login.State==LoginState.InWorld;tradeInvite.Enabled=TradeVisibleInvite;tradePanel.Visible=login.State==LoginState.InWorld&&w.TradeState!="idle"&&!TradeInviteOnInputLine;
-        bool native=TradeNativeWindow;tradeTable.Visible=tradeNotice.Visible=tradeConfirm.Visible=tradeCancel.Visible=!native;tradePanel.Height=native?tradeControls.Height:290;if(native!=tradeNativeShown){tradeNativeShown=native;Invalidate();}tradeNotice.Text=$"交易對象：{w.TradePeerName}\n{TradeDisplayNotice()}";tradeAccept.Visible=tradeReject.Visible=w.TradeState=="invited"&&!w.TradeAskWindow;tradeAccept.Enabled=w.TradePeerPresent;tradeReject.Enabled=w.TradeState=="invited";tradeCancel.Enabled=w.TradeCanCancel;tradeConfirm.Enabled=w.TradeCanConfirm;tradeAdd.Enabled=w.TradeCanAdd;tradeDismiss.Visible=!w.TradeBlocksActions;tradeInventory.Enabled=tradeQuantity.Enabled=w.TradeCanAdd;
+    void SyncTrade(){var w=login.World;w.CheckTrade();tradeInvite.Visible=login.State==LoginState.InWorld;tradeInvite.Enabled=TradeVisibleInvite;
+        bool native=TradeNativeWindow;tradePanel.Visible=login.State==LoginState.InWorld&&w.TradeState!="idle"&&!TradeInviteOnInputLine&&!native;
+        tradeTable.Visible=tradeNotice.Visible=tradeConfirm.Visible=tradeCancel.Visible=true;tradePanel.Height=290;if(native!=tradeNativeShown){tradeNativeShown=native;Invalidate();}tradeNotice.Text=$"交易對象：{w.TradePeerName}\n{TradeDisplayNotice()}";tradeAccept.Visible=tradeReject.Visible=w.TradeState=="invited"&&!w.TradeAskWindow;tradeAccept.Enabled=w.TradePeerPresent;tradeReject.Enabled=w.TradeState=="invited";tradeCancel.Enabled=w.TradeCanCancel;tradeConfirm.Enabled=w.TradeCanConfirm;tradeAdd.Enabled=w.TradeCanAdd;tradeDismiss.Visible=!w.TradeBlocksActions;tradeInventory.Enabled=tradeQuantity.Enabled=w.TradeCanAdd;
         if(tradeUiRevision!=w.TradeRevision){tradeUiRevision=w.TradeRevision;displayedTrade=new("",w.TradeRevision,w.WorldEpoch,w.TradeGeneration);tradeMine.Items.Clear();tradeTheirs.Items.Clear();foreach(var offer in w.TradeOffers)(offer.Side==0?tradeMine:tradeTheirs).Items.Add(ResolveNpcText(offer.Name));}
         if(tradeInventoryRevision!=w.InventoryRevision){tradeInventoryRevision=w.InventoryRevision;uint? previous=(tradeInventory.SelectedItem as TradeInventoryChoice)?.Id;tradeInventory.Items.Clear();foreach(var i in w.Inventory.Where(i=>i.Count>0&&i.Equipped!=true)){tradeInventory.Items.Add(new TradeInventoryChoice(i.ObjectId,ItemName(i)+" × "+i.Count,i.Count));if(previous==i.ObjectId)tradeInventory.SelectedIndex=tradeInventory.Items.Count-1;}}
     }

@@ -17,7 +17,9 @@ public sealed partial class ClientForm {
         var panel=NativeUiActive?nativeUiRoot?.Find(TradeWindowPanel.PanelId) as TradeWindowPanel:null;
         if(panel!=null&&panel.Source==null){
             panel.Source=new TradeWindowSources(new RepairTradeSource(this),new ShopTradeSource(login,ResolveNpcText,()=>World.Walking));
-            panel.IconSource=ItemIcon;
+            // R4-C（#715）：圖示先用 R4-B 的 ItemIconSource（執行期讀原客戶端 Sprite "<icon>.tbt"），讀不到再用舞台的背包 PNG。
+            var icons=ItemIconSource.FromRoot(nativeUiRoot);
+            panel.IconSource=id=>icons.Get(id)?.Bitmap??ItemIcon(id);
         }
         bool native=panel!=null&&!nativeUiRoot!.Faulted.Contains(panel);
         login.World.WeaponRepairNativeWindow=native;login.World.ShopNativeWindow=native;
@@ -25,14 +27,16 @@ public sealed partial class ClientForm {
     }
     sealed class RepairTradeSource(ClientForm form):ITradeWindowSource {
         public TradeListView? Current=>form.login.State==LoginState.InWorld?RepairTrade.View(form.login.World,form.ResolveNpcText):null;
-        // WeaponRepair.cs 的送出狀態機一次只接受一件（送出後 revision 變更），所以只送第一筆；多件逐包送出待 WeaponRepair.cs 改版。
-        public void Submit(IReadOnlyList<ShopChoice> choices,int revision){if(!form.World.Walking&&choices.Count>0)_=form.login.SendWeaponRepair(false,choices[0].Id,revision);}
+        // R4-C（T303／#715，TWP§1.6）：多選時每一列各送一包 C20（WeaponRepair.cs SendWeaponRepairBatch；一列時同單件路徑）。
+        public void Submit(IReadOnlyList<ShopChoice> choices,int revision){if(!form.World.Walking&&choices.Count>0)_=form.login.SendWeaponRepairBatch(RepairTrade.Items(choices),revision);}
         public void Close()=>form.login.World.CloseWeaponRepair();
     }
 }
 
 /// <summary>修理（TRADE_WINDOW 模式 6）的列：名稱與可修狀態取自 WeaponRepairWindow，費用取自 S83 的耐久 × 200，上限＝背包數量。</summary>
 public static class RepairTrade {
+    /// <summary>左鈕送出的列 → 要修的物件（每列一件、一包 C20；數量欄只表示有選，不重複送同一件）。</summary>
+    public static uint[] Items(IReadOnlyList<ShopChoice> choices)=>choices.Where(c=>c.Count>0&&c.Id!=0).Select(c=>c.Id).Distinct().ToArray();
     public static TradeListView? View(WorldSession world,Func<string,string>? names=null) {
         if(world.WeaponRepairWindow(names) is not {} v)return null;
         var costs=world.WeaponRepairRows.ToDictionary(r=>r.ObjectId,r=>r.Cost);
