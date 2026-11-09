@@ -251,3 +251,4 @@
 - 2026-11-09 — #677 T284：R3-I 視窗堆疊 4 層上限（code，claude-local，PR 已合併）→ [報告](reports/issue-677.md)
 - 2026-11-09 — #625 T264：R2-K 血盟收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-625.md)
 - 2026-11-09 — #671 T278：R3-B 寵物：召喚備援與 `PetControl`（code，claude-local，PR 已合併）→ [報告](reports/issue-671.md)
+- 2026-11-09 — #678 T285：R3-A 原生舊式窗接上產品（code，claude-local，PR 已合併）→ [報告](reports/issue-678.md)
