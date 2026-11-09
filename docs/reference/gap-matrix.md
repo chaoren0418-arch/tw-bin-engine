@@ -22,7 +22,7 @@
 | 部分 | 引擎有處理，但 reference 文件已查出表現差異，或只做了協定、沒有原版視窗 |
 | 缺 | 引擎沒有對應的處理。依據欄註明「伺服器不支援」的，是 3.81 伺服器沒有對應封包（依 SP 全表），**不建議補** |
 
-**依據代號**：沿用 [`m6-native-diff.md`](m6-native-diff.md) 的代號：AN＝[`actions-and-names.md`](actions-and-names.md)、UI＝[`ui-layout.md`](ui-layout.md)、AM＝[`ambience-and-map-events.md`](ambience-and-map-events.md)、SD＝[`sound.md`](sound.md)、SV＝[`skills-visual.md`](skills-visual.md)、WIN＝[`windows.md`](windows.md)、REA＝[`rea-inventory.md`](rea-inventory.md)、SP＝[`server-protocol.md`](server-protocol.md)、R＝[`server-rules.md`](server-rules.md)。另加 WO＝[`world-objects.md`](world-objects.md)、M6＝[`m6-native-diff.md`](m6-native-diff.md)、PG＝[`protocol-gaps.md`](protocol-gaps.md)（T225）、WIN2＝[`windows-2.md`](windows-2.md)（T226）、EF2＝[`effects-2.md`](effects-2.md)（T227）、PBW＝[`packetbox-windows.md`](packetbox-windows.md)（T245）。「T1xx 審查中」是 `TASKS.md` 已排定、尚未合併的任務。
+**依據代號**：沿用 [`m6-native-diff.md`](m6-native-diff.md) 的代號：AN＝[`actions-and-names.md`](actions-and-names.md)、UI＝[`ui-layout.md`](ui-layout.md)、AM＝[`ambience-and-map-events.md`](ambience-and-map-events.md)、SD＝[`sound.md`](sound.md)、SV＝[`skills-visual.md`](skills-visual.md)、WIN＝[`windows.md`](windows.md)、REA＝[`rea-inventory.md`](rea-inventory.md)、SP＝[`server-protocol.md`](server-protocol.md)、R＝[`server-rules.md`](server-rules.md)。另加 WO＝[`world-objects.md`](world-objects.md)、M6＝[`m6-native-diff.md`](m6-native-diff.md)、PG＝[`protocol-gaps.md`](protocol-gaps.md)（T225）、WIN2＝[`windows-2.md`](windows-2.md)（T226）、EF2＝[`effects-2.md`](effects-2.md)（T227）、PBW＝[`packetbox-windows.md`](packetbox-windows.md)（T245）、TWP＝[`trade-window-and-projectiles.md`](trade-window-and-projectiles.md)（T266）。「T1xx 審查中」是 `TASKS.md` 已排定、尚未合併的任務。
 
 ## 1. 收包：第一組 dispatch（世界中，`sub_947530`）
 
@@ -617,10 +617,10 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 | R2-B 聲音接上產品 | 實作 `IMusicStreamAudio`／`IEnvSoundAudio` 與 `^` 環境音的產品後端（走 `engine/audio` 的既有傳輸），在進入世界時呼叫 `ClientSoundScene.Configure` 並設定 `MapAmbientSound.Backend`；環境音乘上 EnvSound 類別音量；播放中隨距離更新音量（`A091C0`） | 新檔 `ProductSoundBackends.cs`、`ProductSoundTests.cs`；`ClientSoundScene.cs`、`MapAmbientSound.cs`、`AudioApiTransport.cs`、`SoundRules.cs`、`engine/audio/` | 無 | SD#4–#14；REA B04；第 1 節 op 91；第 5 節 `sub_A06210`、背景音樂列 |
 | R2-C 點擊與拾取收尾 | 雙擊地上物品改走 `PickupGroundClicked`（走近、整疊或數量提示）；死亡阻擋套到 NPC 與攻擊點擊；幽靈中擋滑鼠攻擊（`GhostLocalBlocked`）；拾取節流改讀 S139 功能旗標；門提示改讀 `DoorNotice` | `PlayerPointer.cs`、`PlayerPointerUi.cs`、`PlayerPointerHud.cs`、`Ground.cs`、`GroundUi.cs`、`ApproachWalk.cs`、新檔 `PointerFlowTests.cs` | 無 | WO 第 1、2、4 節；PG§4；第 3 節 C_GET；第 5 節 `sub_F112F0`、`sub_5001C0` |
 | R2-D 幽靈、死亡窗與離開窗 | 提供 `exitghost` 動作的處理（由 R2-F 接到 HTML 入口）；S85 接 `GhostSkipsSelfAppearance`；死亡統計窗改成 `IUiPanel`（外框 surf 5323、按鈕狀態圖），字串 3123–3126 改讀字串表；統計值的來源等 Q-2；**PBW-B**：原生 `QUIT_WINDOW`（重新開始 C177／C7、離開 C122、取消），死亡逾時改開此窗＋訊息 47 | `GhostMode.cs`、`Recovery.cs`、`OnlineInput.cs`、新檔 `NativeUi/UserPlayStatsPanel.cs`、`NativeUi/QuitWindowPanel.cs`、`UserPlayStatsTests.cs`；`UiPanelRegistry.cs` 兩行 | Q-2（只擋統計值） | WO 第 4、6 節；PBW§4；第 4.1 節 `UserPlayStatsUI`；第 4.2 節 `QuitWindow`；第 3 節 C_EXIT_GHOST、C_DEAD_RESTART |
-| R2-E 商店改用 `TRADE_WINDOW` | 新增商店用的 `TradeWindowPanel` 資料來源（買、賣），接上 S70／S65 並回 C38；修理模式 6 的列版面、框 1984、拉桿、按鈕狀態圖依 Q-1 修正；拿掉 WinForms 商店清單 | `NpcServices.cs`、`NativeUi/TradeWindowPanel.cs`、`WeaponRepairUi.cs`、新檔 `ShopTradeSource.cs`、`ShopTradeTests.cs`；`NpcInteraction.cs` 只限 `ShopRows` 呼叫點 | R2-F 合併（共用 `NpcInteraction.cs`）；Q-1 | WIN§2 T102、T134；WIN§1.5；第 1 節 op 131、40、136；第 4.2 節 `TradeWindow` |
+| R2-E 商店改用 `TRADE_WINDOW` | 新增商店用的 `TradeWindowPanel` 資料來源（買、賣），接上 S70／S65 並回 C38；修理模式 6 的列版面、框 1984、拉桿、按鈕狀態圖依 Q-1 修正；拿掉 WinForms 商店清單 | `NpcServices.cs`、`NativeUi/TradeWindowPanel.cs`、`WeaponRepairUi.cs`、新檔 `ShopTradeSource.cs`、`ShopTradeTests.cs`；`NpcInteraction.cs` 只限 `ShopRows` 呼叫點 | R2-F 合併（共用 `NpcInteraction.cs`）；Q-1 ✅（T266，TWP§1.9） | WIN§2 T102、T134；WIN§1.5；TWP§1；第 1 節 op 131、40、136；第 4.2 節 `TradeWindow` |
 | R2-F NPC 對話面板收尾 | 城堡 `tax`／`withdraw`／`deposit` 頁內的數字框與送出鈕接 `SendCastleReply`，拿掉暫代聊天行「[城堡]」；S136 數字框補到 web 面板；把 R2-D 的 `exitghost` 接到 HTML 動作；以物品學魔法的入口（`RequestSpellExchangeList`）在 Q-3 查到送出點後接上 | `NpcInteraction.cs`、`NpcUi.cs`、`Castle.cs`、`AmountPrompt.cs`、`SpellExchange.cs`、`SpellExchangeUi.cs`、`engine/web/` 的 NPC 互動腳本、新檔 `NpcPageTests.cs` | R2-D（`exitghost` API）；Q-3（只擋學魔法入口） | WIN2§5.1、§5.3；第 1 節 op 95、12、49、224、175；第 3 節 C_TAX、C_DIALOG |
 | R2-G 聊天收尾 | 聊天列接 `ChatChannelCommands.IsCommand`（`/on`、`/off` 不再當聊天送出）；喊話改 `[name]`；`*` 開頭變色、type 18／25 自帶色號、`\f`／`\b` 色碼、血盟第二色 #BDBDBD、`$` 前綴；補送 C199 | `PlayerChat.cs`、`PlayerHudChat.cs`、`PlayerChatKeyboardFlow.cs`、`ChatChannelToggle.cs`、`NativeUi/ChatPanel.cs`、`NativeUi/State/ChatState.cs`、新檔 `ChatFormatTests.cs` | 無 | UI§3；PG§6 C_ONOFF；第 1 節 op 112、61、104、153；第 3 節 C_SAY、C_ONOFF；第 5 節 vtable `0x1165C80` |
-| R2-H 技能表現收尾 | 舊素材路徑（`ComposeMagic` 寫死的 gfx）改走 `!` 時機；SV#4 轉向、SV#12 提亮；`]` 擴到飛行物與落點特效；冷卻改用技能資料 `+56`／`+60`（Q-3 查到後）；kind 6／7 等 Q-4 | `MagicRendering.cs`、`AttackSkillPackets.cs`、`ProjectileRendering.cs`、`ActionCadence.cs`、`SkillCast.cs`、`SubEffects.cs`、新檔 `SkillVisualTests.cs` | Q-3、Q-4（只擋對應小項） | SV§1–§4、§7；EF2§2；第 1 節 op 5、240、137；第 3 節 C_USE_SPELL；第 5 節 `!`、109 kind、`sub_A4B060` |
+| R2-H 技能表現收尾 | 舊素材路徑（`ComposeMagic` 寫死的 gfx）改走 `!` 時機；SV#4 轉向、SV#12 提亮；`]` 擴到飛行物與落點特效；冷卻改用技能資料 `+56`／`+60`（Q-3 查到後）；kind 6／7 等 Q-4 | `MagicRendering.cs`、`AttackSkillPackets.cs`、`ProjectileRendering.cs`、`ActionCadence.cs`、`SkillCast.cs`、`SubEffects.cs`、新檔 `SkillVisualTests.cs` | Q-3（只擋冷卻）；Q-4 ✅（T266，TWP§3.6） | SV§1–§4、§7；EF2§2；TWP§3；第 1 節 op 5、240、137；第 3 節 C_USE_SPELL；第 5 節 `!`、109 kind、`sub_A4B060` |
 | R2-I 物件繪製收尾 | 變身缺 profile 時退回 gfx 1120、他人逐動作退回；名稱補 +181 圖示、隊伍與主人圖示、+252 行、物件種類 2／3／9／10 過濾、怪物等級差外框；S76 接 `GhostSkipsSelfAppearance`；城主王冠在 Q-2 查到圖源後接 `CastleCrownFrames` | `ObjectRendering.cs`、`PlayerProfiles.cs`、`Polymorph.cs`、`TitleAndEmote.cs`、新檔 `ObjectDrawTests.cs` | Q-2（只擋王冠） | AN§2、§3.4；WIN2§5.1；第 1 節 op 16、226、186、36、252 |
 | R2-J Yes/No 收尾 | 復活 322 移進共用詢問槽；Esc 交給詢問槽送拒絕；拿掉組隊 30 秒、求婚 15 秒的本地逾時與 PartyUi／DuelUi 的回覆鈕；提示文字改讀字串表；補發起求婚的入口；YES／NO 鈕改成 `IUiPanel` | `YesNoPrompt.cs`、`Party.cs`、`PartyUi.cs`、`Duel.cs`、`DuelUi.cs`、`Marriage.cs`、`Resurrection.cs`、`KeyboardNavigation.cs`、新檔 `NativeUi/YesNoPanel.cs`、`YesNoFollowupTests.cs`；`UiPanelRegistry.cs` 一行 | #517（PR #594）合併 | WIN§2.1；WO 第 6 節；WIN2§5.3；第 1 節 op 85、197；第 3 節 C_ANSWER；第 5 節 `sub_4FC710` |
 | R2-K 血盟收尾 | 送 C18 上傳盟徽、C63 階級設定；入盟與盟戰詢問移進共用詢問槽；**PBW-D**：S250／173 存「顯示盟徽」旗標、類型 130 顯示訊息 3383；血盟推薦的 UI 等 Q-3 查完 `sub_B243A0` | `Clan.cs`、`ClanEmblem.cs`、`ClanUi.cs`、`ClanWar.cs`、`ClanMatching.cs`、新檔 `ClanFollowupTests.cs` | R2-J（詢問槽改動）；Q-3（只擋推薦 UI） | AN§2.8；WIN2§3；PG§2.3；PBW§2；第 1 節 op 161、110、133、63；第 3 節血盟、C_EMBLEM、C_MATCH_MAKING |
@@ -639,10 +639,10 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 
 | 代號 | 要查的內容 | 起點 | 影響的組 |
 |---|---|---|---|
-| Q-1 視窗版面 | `TRADE_WINDOW` 各模式（商店買／賣、修理 6、私商）的列版面、按鈕與狀態圖、空清單選頁條件；`LoadingWindowUI` 在 3.81 世代是否存在 | `sub_A59780`、`sub_93F5E0`／`0x53E9E0`；`uiextra86.xml`；`LoadingWindowUI` 建構子 `0x6EEEB0`／`0x2EE2B0` | R2-E；第 4.1 節 `LoadingWindowUI` |
+| ~~Q-1 視窗版面~~ | ✅ T266（#627）已查（[TWP§1–2](trade-window-and-projectiles.md)）：模式表、元件索引、7 列×36 px 列版面、按鈕 n／n+1 兩態、數量上限、各模式送包、空清單頁；`LoadingWindowUI` 是 TW16 XML 窗，3.81 沒有。剩確認清單 `sub_A2C660` 的來源待驗證 | TWP | R2-E |
 | Q-2 圖源與字串 | 王冠圖源與偏移表（`dword_15451B8`、`sub_501260`）；盟屋地圖圖號（`aAvadentelui`、`dword_13A96F0[+560]`）；死亡統計值來源（`sub_C0AB50`）；字串 1784、1785、2139、3123–3126、3131 與 mapDesc 是否就在 `string-c.tbl` | 第 1 節 op 252 `sub_9322C0`；`CUserPlayStatsUI` 建構子 `0xC0AB50`／`0x809F50`；`ServerStringTable` | R2-D、R2-I、R2-M；#550 |
-| ~~Q-3 送出點與欄位~~ | ✅ T268（#629）已查（[`send-sites-2.md`](send-sites-2.md)，簡稱 SS2）：結果見 11.8 | SS2 | R2-F、R2-H、R2-K、R2-L |
-| Q-4 技能飛行 | 109 kind 6 的推進與 kind 7 的畫法、受擊時機；`]` 在 `.s32` 地圖特效、門、飛行物上的行為 | SV§7.4；EF2§2；`sub_A4B060` | R2-H |
+| ~~Q-3 送出點與欄位~~ | ✅ T268（#629）已查（[`send-sites-2.md`](send-sites-2.md)，簡稱 SS2）：結果見 11.9 | SS2 | R2-F、R2-H、R2-K、R2-L |
+| ~~Q-4 技能飛行~~ | ✅ T266（#627）已查（[TWP§3](trade-window-and-projectiles.md)）：kind 6 `EarthRising` 在目標處播一次、每個 `!` 受擊；kind 7 `Eruption` 每段第三格生下一段、只由終點 EarthRising 受擊；`]` 只在 `UserObject`（角色、門、`.s32` 地圖特效）與預設 `Effect` 處理，飛行物與 kind 2／6／7 不處理 | TWP | R2-H |
 | ~~T245 #602~~ | ✅ 已合併（[`packetbox-windows.md`](packetbox-windows.md)）：B3 子碼、`QuestUI`、`QuitWindow`、`CNoticeWindow`、S_NEWS 的顯示方式都已查；結果已併入 11.3 與 11.5（R2-D、R2-K、R2-O、R2-P、R2-Q）。剩 `QuitWindow` 的 ESC 入口與 192 的讀取者待驗證 | PBW | — |
 
 建議開 **3 張 resource 任務**：Q-1＋Q-4（畫面與版面）、Q-2（圖源與字串，量小，可先做）、Q-3（送出點與欄位）。
@@ -653,7 +653,27 @@ T245（#602）回填後重算：`QuestUI`（不建議）、`QuitWindow`（可補
 - 各任務都沒有真機驗收；「已有」只表示程式和已查證的表現沒有已知差異。
 - 本節的 `檔案:行` 以 main `6d07fe0d` 為準。
 
-### 11.8 Q-3 回填（T268／#629，2026-11-09）
+### 11.8 T266（#627）回填：Q-1＋Q-4
+
+依 [`trade-window-and-projectiles.md`](trade-window-and-projectiles.md)（TWP）。本輪**狀態都不變**，只更新依據，所以 11.4 的統計不變（`gap_count_r2.py` 重算仍是 67／175／48）。
+
+| 節 | 列 | 原狀態 | 新狀態 | 補上的任務 | 剩下的差異／依據 |
+|---|---|---|---|---|---|
+| 1 | 136 | 部分 | 部分 | T266 | TWP§1：模式 6 的元件、7 列×36 px 列版面、OK 1996、按鈕 n／n+1、每個數量 >0 的列各送一包 C20；空清單時，點的 NPC 外型 727 開 `touma3`，否則開 `gayle5`。引擎列高 16、只送一筆、沒有框與拉桿 → R2-E |
+| 1 | 131 | 部分 | 部分 | T266 | TWP§1.1、§1.6：TW16 走 `CNpcShop`。`TradeWindow` 保留的模式 0（BUY 1992、單筆上限依單價 9999／999／20／1）送 op 89，與 3.81 C161 `C_Result` 逐欄相符 → R2-E 用模式 0 |
+| 1 | 40 | 部分 | 部分 | T266 | 同 op 131，模式 1（SELL 1998）；賣出前字串 3133 確認，確認清單 `sub_A2C660` 的來源待驗證 |
+| 1 | 44 | 部分 | 部分 | T266 | TWP§1.1：學魔法窗＝`TRADE_WINDOW` 模式 7（BUY 鈕、顯示單價＝(`id>>3`＋1)²×基價），送 C39；空清單依 NPC 外型 237／2820／其他開 `GerengEv3`／`Sedia1`／`Siriss1`（R2-F） |
+| 1 | 175 | 部分 | 部分 | T266 | TWP§1.6：模式 7（不顯示單價），送 C191（Q-3 的送出點）；空清單開 `HorunEv3`（R2-F） |
+| 1 | 5 | 部分 | 部分 | T266 | TWP§3.2–3.3：kind 7 逐段推進、只由終點 EarthRising 受擊（引擎目前不畫、改在施法者 `!` 格受擊）；kind 6 不處理 `]` → R2-H |
+| 4.1 | LoadingWindowUI | 部分 | 部分 | T266 | TWP§2：TW16 XML 窗（`LoadingScene.xml`，本機缺），3.81 快照沒有任何 `Loading`／`.xml` 字串 → 3.81 世代沒有讀取畫面，**不建議補**；維持文字狀態 |
+| 4.2 | `TradeWindow` | 部分 | 部分 | T266 | TWP§1：入口只有修理 6、學魔法 7、傭兵 15、弓兵 16；商店 0／1、私商 13／14 是保留模式；元件索引見 TWP§1.3 |
+| 5 | `sub_A4B060` | 部分 | 部分 | T266 | TWP§3.4：`.s32` 地圖特效與門是 `UserObject`，**原版有** `]`；落點圖（預設 Effect）有；飛行物、kind 2／6／7、`EffectLoop` **原版沒有**（不必做）；子特效的 `!` 不受擊（沒有目標），`+0x20` 音效照播 |
+
+**Q-3 的附帶結果：** `C_EXCHANGEABLE_SPELL`（op 210→C191）與學魔法（op 123→C39）的送出點都是 `TRADE_WINDOW` 模式 7 的 `sub_A2BD10`（TWP§1.6），op 44 學魔法窗＝`TRADE_WINDOW` 模式 7。Q-3 其餘項目不變。
+
+### 11.9 Q-3 回填（T268／#629，2026-11-09）
+
+> 與 11.8 的關係：本輪的 `C_EXCHANGEABLE_SPELL`(125) 是**要清單**的請求（HyperAct `xchgspell`，3.81 C245）；11.8 的 op 210→C191 是學會時的**確定**送出（`sub_A2BD10`）。兩者不同封包，不衝突。
 
 依據 [`send-sites-2.md`](send-sites-2.md)（SS2）。這一輪只是查證，**11.3 的狀態與 11.4 的統計都沒有改**。下表「建議」欄是給下一輪盤點或對應 R2 組參考的。
 

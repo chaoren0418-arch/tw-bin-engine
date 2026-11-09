@@ -81,7 +81,7 @@
   - `S_SkillBuy`（S41）＝`D(6000) H(n) n×D`，和 op 44 一致。空清單時只送 `H(0)`。
     - TW16 會先讀 `d`，再讀 `h`，然後讀 NPC id，全部越過封包尾端。所以 3.81 的空清單在 TW16 會落到預設頁 `Siriss1`（**推測**；值取決於封包補齊的位元組）。
   - 四個 HTML 頁在 r29 `templates.json` 都有。
-- **確定鈕送出**（`C_BUY_SPELL` 123／`C_EXCHANGE_SPELL` 210）：用立即值 opcode 掃描找不到送出點，可能由 `TRADE_WINDOW` 的共用確定流程組包。**待驗證**，併入 Q-1。
+- **確定鈕送出**（`C_BUY_SPELL` 123／`C_EXCHANGE_SPELL` 210）：用立即值 opcode 掃描找不到送出點。T266（#627）已查到：兩者都由 `TRADE_WINDOW` 模式 7 的 `sub_A2BD10` 組包（見 [`trade-window-and-projectiles.md`](trade-window-and-projectiles.md) §1.6），本輪未重新核對。
 
 ## 2. 血盟推薦：S_MATCH_MAKING（op 133，`sub_B243A0`）與 C_MATCH_MAKING（221）
 

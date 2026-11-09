@@ -29,13 +29,13 @@
 4. 讀各處理函式（`93F200`、`931FF0`、`B243A0`、`B2E1D0`、`932300`、`94D8E0`、`940960`、`944F50`、`E246E0`、`E177C0`、`F4A150`）。
 5. 對照 3.81 伺服器原始碼與 r29 `templates.json`，並用 `t225_strings.py` 查字串表。
 6. 解密 kor25／ly／t89 的 XML 到 `scratch/`，取得 `SpellList.xml`。
-7. 產出 `send-sites-2.md`，更新 `INDEX.md`、`gap-matrix.md`（11.6 的 Q-3 列，新增 11.8 回填表），新增 `rea-scripts/t268/`。
+7. 產出 `send-sites-2.md`，更新 `INDEX.md`、`gap-matrix.md`（11.6 的 Q-3 列，新增 11.9 回填表（同步 main 後由 11.8 改號，11.8 是 T266）），新增 `rea-scripts/t268/`。
 
 ## 怎麼驗證
 
 - 欄位逐一對照 3.81 原始碼：S0 的 type 0–6、C76 的 data 0–6、S13、S41、S200、S185、S227、S36、C245、C51（SS2 各節表格）。
 - S185 第 3 個 C 的意義，是拿 S136 `sub_93FDF0` 寫入同一組 NPC 對話窗欄位（`+0x58`／`+0x60`／`+0x68`）交叉比對得出的。
-- `gap_count_r2.py` 修改前後都是：已有 67、部分 175、缺 48。新增的 11.8 表不影響統計。
+- `gap_count_r2.py` 修改前後都是：已有 67、部分 175、缺 48。新增的 11.9 表不影響統計。
 - 每輪 IDA 結束後都解除 `W:`。
 - 沒有改產品程式，只改 `docs/`。
 
@@ -47,7 +47,7 @@
 - `SpellList.xml` 未寫屬性時的預設值、XML id 與 3.81 技能編號的換算，都待驗證。3.81（`LiTo.bin`）是否也讀這個檔，也待驗證。
 - `tax` 頁怎麼讀 `+0x68`，沒有直接追到。
 - S_KICK 原因 28、229–231 的字串，本機字串表裡沒有。
-- `C_BUY_SPELL`／`C_EXCHANGE_SPELL` 的確定鈕送出點，以及用暫存器傳 opcode 的送出點，都沒有掃（併入 Q-1）。
+- `C_BUY_SPELL`／`C_EXCHANGE_SPELL` 的確定鈕送出點本輪沒有掃；T266（#627）已查到是 `sub_A2BD10`（未重新核對）。用暫存器傳 opcode 的送出點沒有掃。
 
 ## 產出路徑
 
@@ -71,7 +71,7 @@
   - 改做血盟窗內的關注清單（7 列）。
 - **R2-L**：拿掉「S36 接左狀態框（SP／MR）」這一項。
 - **另開小任務**：S_KICK（op 245／S227）改用模態框顯示字串 64，不要丟例外。
-- **下一輪 gap-matrix 盤點**：op 133、C_MATCH_MAKING、C_EXTENDED、`PledgeNoticeUI` 建議改列「不建議／伺服器不支援」，op 122 的依據欄要更正。本輪只寫在 11.8，沒有改狀態與統計。
+- **下一輪 gap-matrix 盤點**：op 133、C_MATCH_MAKING、C_EXTENDED、`PledgeNoticeUI` 建議改列「不建議／伺服器不支援」，op 122 的依據欄要更正。本輪只寫在 11.9，沒有改狀態與統計。
 - **重跑 IDA 時**：
   - 腳本必須是無 BOM 的 UTF-8。
   - `run_ida.ps1` 以腳本所在目錄的上一層當根目錄，所以腳本要和它一起放在 `scratch/rea/scripts/`。

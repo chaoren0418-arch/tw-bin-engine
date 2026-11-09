@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 308,
+ "sourceCount": 309,
  "files": [
   {
    "path": "NuGet.Config",
@@ -818,6 +818,11 @@
    "path": "source/NativeUi/PersonalShopPanel.cs",
    "size": 14946,
    "sha256": "6c4fe29aec802dba88508cc372136678cbe5f3ea06f3716b88a8bc417e1122f9"
+  },
+  {
+   "path": "source/NativeUi/PledgePanel.cs",
+   "size": 36949,
+   "sha256": "4180eba51485b32319c3633f4091c1aa82f90e3e994a1fae9b96df6f24d534dd"
   },
   {
    "path": "source/NativeUi/State/ChatState.cs",
