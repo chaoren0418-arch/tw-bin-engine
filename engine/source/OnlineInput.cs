@@ -32,6 +32,20 @@ public sealed partial class ClientForm {
         SetSingleActionNotice(login.World.MagicNotice);
         SyncPlayerHud();PublishWebState();
     }
+    /// <summary>
+    /// R2-D（#615）：HyperText 動作入口，給 R2-F 的 NPC 對話 HTML 呼叫。true＝已處理（目前只有 exitghost，WO §4），呼叫端不要再送 C_DIALOG。
+    /// </summary>
+    internal bool HyperAction(string action){
+        if(!login.TryHyperAction(action,out var sending))return false;
+        ClearInput("hyper-"+GhostModePackets.ExitAction);_=FinishHyperAction(sending);
+        return true;
+    }
+    async Task FinishHyperAction(Task<bool> sending){
+        bool sent=await sending;
+        var ghost=login.GhostModeSnapshot();
+        SetSingleActionNotice(sent?"已送出離開幽靈請求（C173），等待原服更新。":ghost.Active?ghost.Notice:"目前不是幽靈模式，未送出。");
+        SyncPlayerHud();PublishWebState();
+    }
     void RejectKeyboardMovement(string notice){
         Input.Clear();SetSingleActionNotice(notice);SyncPlayerHud();PublishWebState();
     }

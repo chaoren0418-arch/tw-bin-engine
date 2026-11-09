@@ -104,7 +104,8 @@ partial class Checks {
             Feed(c,PartyYesNo());Feed(c,PartyYesNo(252,"target"));Check(c.PartySnapshot().Invitation==null,"party other Yes-No invalidates old prompt");
             Check(c.World.TradeState=="invited"&&c.World.TradePeerName=="target","party unrelated Yes-No retains trade dispatch");
             Call(c.World,"ResetTrade","test");Feed(c,PartyYesNo());Set(c.World,"WorldEpoch",c.World.WorldEpoch+1);Check(c.PartySnapshot().Invitation==null&&c.PartySnapshot().Members.Length==1,"party map transition invalidates prompt preserves roster");
-            long now=0;Set(c.World,"PartyClock",(Func<long>)(()=>now));Feed(c,PartyYesNo());now=30000;Check(c.PartySnapshot().Invitation==null,"party invitation expires");
+            // R2-J (#624): no local 30 s expiry; the invitation lasts until answered or replaced (YesNoFollowupTests).
+            Feed(c,PartyYesNo());Check(c.PartySnapshot().Invitation!=null,"party invitation has no local expiry");
             c.Cancel();Check(c.PartySnapshot().Members.Length==0,"party cancel clears through snapshot");
         }
         using(var c=Seed()){
