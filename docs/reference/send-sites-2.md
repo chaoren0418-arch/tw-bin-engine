@@ -306,6 +306,7 @@ case 133: if (dword_153FCC4) sub_B243A0(dword_153FCC4, pkt)
 | R2-L | S36 不是 SP／MR，拿掉「接到左狀態框」這一項 | SS2§7 |
 | （另開）| S_KICK：模態框顯示字串 64 | SS2§9 |
 | 不做 | C_EXTENDED 53（TW 不送） | SS2§10 |
+| R2-D | 死亡統計窗顯示時送 3.81 **C63 `C(9)`**，伺服器回 S250／159 填地監時間清單 | SS2§14 |
 
 ## 12. 未驗證與限制
 
@@ -336,3 +337,19 @@ case 133: if (dword_153FCC4) sub_B243A0(dword_153FCC4, pkt)
   2. 先跑 `subst`，確認代號沒有被占用。
   3. 執行 `run_ida.ps1 -Script ida_t268.py -List qN.txt -Out oN -Drive W:`。
 - 腳本必須是**無 BOM** 的 UTF-8，否則 IDAPython 會出現語法錯誤。
+
+## 14. 補查：死亡統計窗送的 TW16 op 10 子碼 9（T267 轉入 Q-3）
+
+T267（#628）在 [`sprites-and-strings.md`](sprites-and-strings.md) §3.2 把這一項併入 Q-3；同步 main 後補查。
+
+- **TW16 端**（引用 SS§3.1，本輪沒有重開 IDA）：`UserPlayStatsUI` 顯示時（vtable `sub_C0AED0`）呼叫 `sub_C0A110`（VA `0xC0A110`／FO `0x809510`），送格式 `"cc"`＝ op **10**、子碼 **9**。
+- **opcode 對應**：TW16 op 10＝`C_RANK_CONTROL`（`sub_951F80` 名稱表，gap-matrix 第 3 節血盟列），對 3.81 **C63**。3.81 C63 的 `RESTARTMENU` 與 `RANK` 同值，實際由 `C_Rank.start` 處理（server-protocol.md）。
+- **3.81 處理**（已驗證，讀原始碼）：`1-伺服器/src/com/lineage/server/clientpackets/C_Rank.java`（SHA-256 `0e284028348f160ed06a9241e0ec36ec5e4b0127f3f42dc2368773be76e17e14`）
+  - `start` 先讀 `C(data)`，只有 `data == 1` 才再讀 `C(rank) S(name)`。
+  - `case 9`（第 273 行）：`pc.sendPackets(new S_PacketBoxMapTimer(pc))`，也就是回 **S250 子碼 159**（`D(筆數)`，每筆 `D(order) S(地圖名) D(分鐘)`）。
+  - 同一個 switch 的 `case 8`（第 248 行）是用系統訊息 2535 逐行列出地監剩餘時間；`case 5`／`6` 是生存吶喊；其他子碼記警告後忽略。
+- **意義**：子碼 9＝「要求地監時間清單」。統計窗一打開就送，伺服器回 S250／159，正好填 SS§3.1 的 `DungeonTime_List`。
+- **3.81 是否支援**：支援，格式一致（只有 opcode＋1 byte 子碼）。
+- **引擎現況**：已收 S250／159（`PacketBoxStatus.cs:141`），但沒有送 C63 `C(9)`，所以統計窗打開時清單不會更新。
+- **R2-D 要改什麼**：死亡統計窗顯示時送 C63 `C(9)`（2 byte：opcode 63、9）；收到的 S250／159 寫入地監時間清單（照 SS§3.3）。op 55／41、55／44 仍不送。
+- **未驗證**：TW16 端的 `"cc"` 與子碼 9 沿用 T267 的讀法，本輪沒有重新反組譯核對；沒有實機抓包。

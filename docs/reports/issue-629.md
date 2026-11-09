@@ -20,6 +20,7 @@
 - **S185 第 3 個 C**：數字框的初始值，3.81 不送；範圍 10–50。
 - **S_KICK**：通用模態框加 `PostQuitMessage`。3.81 一律顯示字串 64「連線中斷。」。
 - **C53**：只有子碼 16（`timeleft` 指令），繁中 CodePage 950 永遠不送。
+- **死亡統計窗 TW16 op 10／9**（T267 轉入）：＝3.81 C63 `C(9)`；`C_Rank` case 9 回 S250／159 地監時間清單（SS2§14）。
 
 ## 做了什麼
 
@@ -30,6 +31,8 @@
 5. 對照 3.81 伺服器原始碼與 r29 `templates.json`，並用 `t225_strings.py` 查字串表。
 6. 解密 kor25／ly／t89 的 XML 到 `scratch/`，取得 `SpellList.xml`。
 7. 產出 `send-sites-2.md`，更新 `INDEX.md`、`gap-matrix.md`（11.6 的 Q-3 列，新增 11.9 回填表（同步 main 後由 11.8 改號，11.8 是 T266）），新增 `rea-scripts/t268/`。
+
+8. 第二次同步 origin/main（T267 #628 等），解 `INDEX.md`／`gap-matrix.md` 衝突（Q-2 取 main、Q-3 取本分支），並補查 T267 併入 Q-3 的 op 10／9：讀 3.81 `C_Rank.java`（SHA-256 `0e284028…7e14`）第 273 行。
 
 ## 怎麼驗證
 
@@ -58,6 +61,8 @@
 - `scratch/rea/`（IDB 副本、偽碼、解密的 XML；不進 git）
 
 ## 給下一棒的提示
+
+- **R2-D**：死亡統計窗顯示時送 C63 `C(9)`（2 byte），收 S250／159 填地監時間清單；op 55／41、55／44 仍不送。TW16 端 `"cc"`／子碼 9 沿用 T267 讀法，本輪沒重開 IDA 核對。
 
 - **R2-F**：
   - `xchgspell` 接 `RequestSpellExchangeList()`，只在外型 834 時送；`buyspell` 加上外型 ≠ 834 的條件。
