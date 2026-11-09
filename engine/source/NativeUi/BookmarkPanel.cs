@@ -123,8 +123,9 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
     internal string? NamingText=>naming?.ToString();
     internal string? EditError=>editError;
     bool CanEdit=>destination==null&&Editor is {Sending:false}&&view is {CanEdit:true};
-    bool HasSorting=>sorting is {Rect.IsEmpty:false};
-    bool HasZone=>zoneExpand is {Rect.IsEmpty:false};
+    // Rectangle.IsEmpty 要 X／Y 也是 0 才成立；缺圖的鈕有位置、沒有大小，所以看寬高。
+    bool HasSorting=>sorting is {Rect:{Width:>0,Height:>0}};
+    bool HasZone=>zoneExpand is {Rect:{Width:>0,Height:>0}};
     P06.Bookmark? SelectedRow=>selected is uint id?Rows.FirstOrDefault(r=>r.Id==id):null;
 
     public void Load(UiLayout layout,SurfCatalog surfs)=>Load(layout,surfs.Get);
