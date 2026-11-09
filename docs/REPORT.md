@@ -243,3 +243,4 @@
 - 2026-11-09 — #474 ui-red-notice: 原生 UI 模組：紅字（畫面中央系統訊息）（code，claude-local，PR #662 已合併）→ [報告](reports/issue-474.md)
 - 2026-11-09 — #611 T250：寵物 AC 與裝備欄（PBW-E）（code，claude-local，PR 已合併）→ [報告](reports/issue-611.md)
 - 2026-11-09 — #550 T232：S187 地圖視窗（protocol-gaps D）（code，claude-local，PR 已合併）→ [報告](reports/issue-550.md)
+- 2026-11-09 — #680 T287：查證原版——第三輪細項（開窗熱鍵、酒醉、光效、隱身例外、倉庫紀錄窗、頭目音樂、聊天第二色）（resource，claude-local，PR 已合併）→ [報告](reports/issue-680.md)
