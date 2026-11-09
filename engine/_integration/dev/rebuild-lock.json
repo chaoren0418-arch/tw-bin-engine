@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 330,
+ "sourceCount": 331,
  "files": [
   {
    "path": "NuGet.Config",
@@ -161,8 +161,8 @@
   },
   {
    "path": "source/AttackSkillPackets.cs",
-   "size": 7216,
-   "sha256": "dca3ddb9f55c5701d4d576c70742bd5257f67ea8e6d5e51a016a4d9cd435508e"
+   "size": 7936,
+   "sha256": "06503c91c368ba87d498597c41ea9e011f76ba788b18aac8c7f89b1640c7c994"
   },
   {
    "path": "source/AudioApiTransport.cs",
@@ -646,8 +646,8 @@
   },
   {
    "path": "source/MagicRendering.cs",
-   "size": 27429,
-   "sha256": "f2aac27861e0704c05321ab0584cffad4a0fa948f908ab58b9d56009f11ed222"
+   "size": 31095,
+   "sha256": "b3bdd9d7a5e11c8a6d601f3a2e73ce0c4e723f718663acb8958e780cce8847b9"
   },
   {
    "path": "source/MagicRenderingTests.cs",
@@ -1326,8 +1326,8 @@
   },
   {
    "path": "source/ProjectileRendering.cs",
-   "size": 6468,
-   "sha256": "de80371aed1ca1c7bafcb78613fd6e574a1253d06f2ee789ec00155712213598"
+   "size": 6900,
+   "sha256": "1982717d160db668ab955d42b9e89846c5319320b708bab1b6dbf43a2fe2200f"
   },
   {
    "path": "source/Protocol.cs",
@@ -1470,6 +1470,11 @@
    "sha256": "46c38d4dbdb7c2d4e96ee67abcf7d38ce449a4c681e1fd5f9610fb11fce50676"
   },
   {
+   "path": "source/SkillVisualTests.cs",
+   "size": 14398,
+   "sha256": "d47c83a85e7aa51173017fc1d74bc43b11302ead86f9477c53b9aa218ab06102"
+  },
+  {
    "path": "source/SoundDefinitionSource.cs",
    "size": 4329,
    "sha256": "cd4161b580760468977f711964530c910abcdf1b236ffcd9905bb08d8e380f26"
@@ -1506,8 +1511,8 @@
   },
   {
    "path": "source/SubEffects.cs",
-   "size": 14314,
-   "sha256": "f304298ca5ecfc60edec6134f86afeda3669b194c7aae27a7233ea4ae19ab55c"
+   "size": 15798,
+   "sha256": "f08a2de4792bf9f28c65368698be2a0af3cc0183bce359aa4da42dc7320d16ae"
   },
   {
    "path": "source/SubEffectsTests.cs",
