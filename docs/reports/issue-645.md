@@ -11,7 +11,7 @@
 1. **DemoChecks 測試群組**（`engine/_integration/dev/demo-tests/AutoDiscovery.cs`，新檔）
    - `[CheckGroup("名稱",Order=n)]` 標在 static `void`／`Task` 方法上，一個方法可以屬於多個群組。另有兩個特殊群組：`CheckGroups.Default` 是不帶群組時跑的全套，`CheckGroups.Preamble` 是每次都先跑的隊伍、寵物、變身基本組；寵物組失敗會延後回報，與原本相同。
    - `Program.cs` 的 `Main` 從 80 行的 `switch` 改成一行 `CheckGroups.Run(...)`。命令列不變：`<repo> <out.json> [群組]`；群組名不存在時一樣丟 `Unknown regression group`，結束碼 1。
-   - 參數依名稱繫結：`repo`／`root` 對應 args[0]，`output` 對應 args[1]，`[CheckArg(n)]` 對應 args[n]，`Action<bool,string>` 對應 `Check`。原本 `switch` 呼叫的 76 個方法（含 main 新加的狀態圖示 2 個）各加一行 attribute，用 `Order` 保留每個群組原本的執行順序。`buddies-codec` 在 `BuddyChecks.cs` 加了一行包裝方法；`attack-skill-resources` 的兩個參數改標 `[CheckArg(3)]`、`[CheckArg(4)]`。
+   - 參數依名稱繫結：`repo`／`root` 對應 args[0]，`output` 對應 args[1]，`[CheckArg(n)]` 對應 args[n]，`Action<bool,string>` 對應 `Check`。原本 `switch` 呼叫的 76 個方法（合併 main 後再加狀態圖示 2 個，共 78 個）各加一行 attribute，用 `Order` 保留每個群組原本的執行順序。`buddies-codec` 在 `BuddyChecks.cs` 加了一行包裝方法；`attack-skill-resources` 的兩個參數改標 `[CheckArg(3)]`、`[CheckArg(4)]`。
 2. **DemoChecks.csproj**：拿掉 50 行手寫的 `<Compile>`，改成一條規則：`../*-tests/` 底下**沒有自己 `.csproj`** 的資料夾，裡面所有 `.cs` 都編進 DemoChecks。用 `dotnet msbuild -getItem:Compile` 比對，改前與改後都是同樣 62 個檔案、逐一相同；合併 main 之後，新加的 `BuffIconsChecks.cs` 會自動納入。
 3. **原生 UI 面板**（`engine/source/AutoDiscovery.cs`，新檔）
    - `[UiPanel(順序)]` 標在 static 屬性、欄位或方法上，型別為 `UiPanelRegistration` 或 `IEnumerable<UiPanelRegistration>`。`UiPanelRegistry.Panels` 改由反射掃描產生，API 不變。
