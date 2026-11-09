@@ -48,6 +48,10 @@ PR #720 第一次 push（run 42673251414、42673251511）：`dotnet`、`map-cont
 - 新測試 `native-legacy-window-content` 通過，74 項檢查，0 失敗。
 - 更新過的 `native-item-window`、`native-spell-window`、`native-warehouse-window`、`native-window-wiring` 都通過。
 
+同步 main 之後（run 42674637674、42674638020）：
+- 全部通過，`--module-tests` 是 `failed: 0`；`native-legacy-window-content` 74 項全過。
+- 中間有一輪 run 42673875046 失敗，原因是 `map-continuity` job 沒有被 runner 啟動，而且那一輪不能重跑；我推了一個空 commit 重新觸發，和程式無關。
+
 ## 未驗證／推測
 | 項目 | 狀態 |
 |---|---|
