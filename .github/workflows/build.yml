@@ -218,8 +218,14 @@ jobs:
       - name: Build Windows target (Release, win-x64)
         working-directory: engine
         run: dotnet build source/OfflineClient.csproj -c Release --no-restore -warnaserror:false -p:EnableWindowsTargeting=true -r win-x64 -p:SelfContained=false
-      - name: dev canonical build + receipt
-        run: python -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --output engine/_integration/evidence/ci-dev
+      - name: rebuild.py lock policy unit tests (#646, no dotnet)
+        working-directory: engine/_integration/dev
+        run: python -B -X utf8 -m unittest -v test_rebuild_paths rebuild_tests
+      # #646: PRs do not modify rebuild-lock.json. --build (without --strict) builds against a
+      # temporary lock when the committed one is stale and never writes it; --lock-out records
+      # the candidate lock the orchestrator will commit after merge.
+      - name: dev canonical build + receipt (temporary lock allowed)
+        run: python -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config --write-receipt --lock-out engine/_integration/evidence/ci-dev/candidate-lock/rebuild-lock.json --output engine/_integration/evidence/ci-dev
       - name: Check compiled EmbeddedResource names (metadata only)
         working-directory: engine
         run: |
@@ -239,6 +245,17 @@ jobs:
       - name: Packet trace checks (no game or network)
         working-directory: engine
         run: dotnet run --project _integration/dev/packet-trace-tests/PacketTraceChecks.csproj -c Release --no-restore
+      - name: Strict dev lock check (push to main only; fails until the lock is regenerated)
+        id: strict-lock
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: python -B -X utf8 engine/_integration/dev/rebuild.py
+      - name: Upload regenerated lock candidate (main, stale lock; not committed automatically)
+        if: always() && steps.strict-lock.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: rebuild-lock-candidate
+          path: engine/_integration/evidence/ci-dev/candidate-lock/rebuild-lock.json
+          if-no-files-found: warn
       - name: Report Windows-only validation skipped on Linux
         if: always() && runner.os == 'Linux'
         run: |
