@@ -116,8 +116,9 @@ public sealed partial class ClientForm {
         var w=login.World;var s=w.Status;bool inWorld=login.State==LoginState.InWorld;
         var basic=new UiStaticGameState(inWorld,inWorld?w.Actor?.Name:null,inWorld?s?.Level:null,inWorld?s?.Hp:null,inWorld?s?.MaxHp:null,inWorld?s?.Mp:null,inWorld?s?.MaxMp:null,Environment.TickCount64);
         // ui-chat-window (#468): UiChatGameState.From walks HpMp → macro → left-status → chat, the other lookups never reach it.
-        // ui-party (#471) innermost, under chat: PartyStates.StateOf unwraps all four layers.
-        var chat=new UiChatGameState(NativePartyGameState(basic),inWorld?new UiChatSnapshot(login.PlayerChatSnapshot(),gameFocus):UiChatSnapshot.Empty);
+        // ui-party (#471) under chat: PartyStates.StateOf unwraps all four layers.
+        // ui-buff-icons (#473) innermost, under party: BuffState.Of unwraps all five layers.
+        var chat=new UiChatGameState(NativePartyGameState(WithBuffState(basic)),inWorld?new UiChatSnapshot(login.PlayerChatSnapshot(),gameFocus):UiChatSnapshot.Empty);
         return WithHpMpState(NativeMacroGameState(new UiLeftStatusGameState(chat,inWorld?LeftStatusState.From(w):LeftStatusState.Empty)));   // ui-hpmp #465 outside; #466 macro (MacroBook.StateOf unwraps HpMp only, so it sits right inside); ui-left-status #464 (LeftStatusState.From unwraps both)
     }
     /// <summary>ui-chat-window (#468): typed characters (WM_CHAR, after IME composition) go to the native text input that takes them.</summary>

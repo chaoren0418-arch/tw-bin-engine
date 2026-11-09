@@ -19,5 +19,6 @@ public static class UiPanelRegistry {
         new(TradeWindowPanel.PanelId,TradeWindowPanel.LayoutName,root=>new TradeWindowPanel()),   // M7-S (#526)
         ..FriendPanels.Registrations,   // M7-V (#529): Friend_Window／Exclude_Window／Mailexclude_Window
         new(MenuButtonsPanel.PanelId,"uistatus86",_=>new MenuButtonsPanel()),   // ui-menu-buttons #467: after MacroPanel (buttons y=567 lie inside the 3176 frame; later Bar = painted/hit on top)
+        new(BuffIconsPanel.PanelId,BuffEffectTable.FileName,root=>new BuffIconsPanel(root.Resources?.Sprites)),   // ui-buff-icons #473 (layout = Tile.pak effectlist2.xml; icons = <n>.tbt)
     ];
 }
