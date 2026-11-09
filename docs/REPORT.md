@@ -241,3 +241,4 @@
 - 2026-11-09 — #655 T274：測試結果隨環境不同——S245 與 attack-skill-resources（code，claude-local，PR 已合併）→ [報告](reports/issue-655.md)
 - 2026-11-09 — #659 T-plan：規則檔加入「PR 不改 rebuild-lock.json」與「新模組用自動發現」（plan，claude-chat，PR 已合併）→ [報告](reports/issue-659.md)
 - 2026-11-09 — #474 ui-red-notice: 原生 UI 模組：紅字（畫面中央系統訊息）（code，claude-local，PR #662 已合併）→ [報告](reports/issue-474.md)
+- 2026-11-09 — #611 T250：寵物 AC 與裝備欄（PBW-E）（code，claude-local，PR 已合併）→ [報告](reports/issue-611.md)
