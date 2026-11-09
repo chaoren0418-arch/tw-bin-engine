@@ -47,7 +47,7 @@ public sealed class UiRoot {
     /// <summary>Hit-test order, top to bottom (§3.3: from the float layer down).</summary>
     public IEnumerable<IUiPanel> HitOrder()=>PaintOrder().Reverse();
     /// <summary>Painted, hit and given input: visible, not faulted, and not pushed out of the window stack.</summary>
-    public bool Usable(IUiPanel p)=>p.Visible&&!faulted.Contains(p)&&!evicted.Contains(p);
+    public bool Usable(IUiPanel p)=>p.Visible&&!faulted.Contains(p)&&!evicted.Contains(p)&&!refused.Contains(p);
     public IUiPanel? HitTest(Point logical)=>HitOrder().FirstOrDefault(p=>Usable(p)&&p.Layer!=UiLayer.World&&p.Bounds.Contains(logical));
 
     /// <summary>
@@ -63,6 +63,7 @@ public sealed class UiRoot {
     // Engine: panels own their open state (Visible + non-empty Bounds), so the root observes it. A window that newly opens
     // goes to the top; when more than MaxWindows are open, the bottom-most (= oldest, slot 3) is pushed out: closed through
     // IUiClosablePanel when the panel offers it, otherwise kept hidden (not painted, not hit) until it closes by itself.
+    // R5-A (#733): Toggle (open again = close) and the 509 rule (RefusesPush) are below Evict.
     public const int MaxWindows=4;
     readonly List<IUiPanel> stack=[];
     readonly HashSet<IUiPanel> evicted=[];
@@ -81,14 +82,19 @@ public sealed class UiRoot {
     /// </summary>
     public void SyncWindows(){
         if(windowOrder.Count==0)return;
-        // Closed (or faulted) windows leave the stack; an evicted window that has closed may open again later.
-        foreach(var w in windowOrder)if(faulted.Contains(w)||!IsOpen(w)){stack.Remove(w);evicted.Remove(w);}
+        // Closed (or faulted) windows leave the stack; an evicted or refused window that has closed may open again later.
+        foreach(var w in windowOrder)if(faulted.Contains(w)||!IsOpen(w)){stack.Remove(w);evicted.Remove(w);refused.Remove(w);}
         // Newly opened windows go to the top, in z-order (registration order on the first pass).
         foreach(var w in windowOrder.ToArray()){
-            if(faulted.Contains(w)||evicted.Contains(w)||stack.Contains(w)||!IsOpen(w))continue;
-            windowOrder.Remove(w);windowOrder.Add(w);stack.Add(w);
-            while(stack.Count>MaxWindows)Evict(windowOrder.First(stack.Contains));
+            if(faulted.Contains(w)||evicted.Contains(w)||refused.Contains(w)||stack.Contains(w)||!IsOpen(w))continue;
+            if(RefusesPush(w,CurrentMap)){Refuse(w);continue;}
+            Push(w);
         }
+    }
+
+    void Push(IUiPanel w){
+        windowOrder.Remove(w);windowOrder.Add(w);stack.Add(w);
+        while(stack.Count>MaxWindows)Evict(windowOrder.First(stack.Contains));
     }
 
     void Evict(IUiPanel oldest){
@@ -99,6 +105,62 @@ public sealed class UiRoot {
             if(!IsOpen(oldest))evicted.Remove(oldest);
         }
         WindowEvicted?.Invoke(oldest);
+    }
+
+    // ---- R5-A (T306, #733): the rest of sub_A57C60 — the 509 rule and "open again = close" at the root.
+    /// <summary>
+    /// sub_A57C60 refuses to push dword_1541DF8 (SpellWindow, windows-2.md §2.1 item 4) while *dword_138BE60 == 509.
+    /// dword_138BE60 is the current map (followups-3.md §3.1: the teleport map checks read it); that the dereferenced value is
+    /// the map id is 推測 (decompiler typing). The engine's SPELL_WINDOW (uimagicitem legacy layout) stands for SpellWindow.
+    /// </summary>
+    public const int SpellWindowRefusedMap=509;
+    /// <summary>Current map id (WorldSession.MapId), set by the host before Update; null outside the world.</summary>
+    public int? CurrentMap{get;set;}
+    readonly HashSet<IUiPanel> refused=[];
+    /// <summary>true while a window that opened itself was refused by the stack and has not closed yet (kept hidden).</summary>
+    public bool IsRefused(IUiPanel p)=>refused.Contains(p);
+    /// <summary>Fired once per window the stack refused to push (509 rule).</summary>
+    public event Action<IUiPanel>? WindowRefused;
+
+    /// <summary>The original push rule: only SpellWindow on map 509 is refused (sub_A57C60).</summary>
+    public static bool RefusesPush(IUiPanel panel,int? map)=>map==SpellWindowRefusedMap&&panel.Id==SpellWindowPanel.WindowId;
+
+    // The panel opened itself (menu, hotkey); the original never opens it, so close it again right away (closable) or keep it
+    // hidden like an evicted window until it closes by itself. Done inside SyncWindows, so it is never painted or hit.
+    void Refuse(IUiPanel w){
+        refused.Add(w);
+        UiResourceLog.Write($"視窗堆疊拒絕開啟 {w.Id}（地圖 {CurrentMap}）");
+        if(w is IUiClosablePanel closable){
+            try{closable.Close();}catch(Exception ex){Fault(w,"Close",ex);}
+            if(!IsOpen(w))refused.Remove(w);
+        }
+        WindowRefused?.Invoke(w);
+    }
+
+    /// <summary>
+    /// sub_A57C60 for one window (sub_A59AB0 wraps it): a window in the stack is closed (vtable+36 → IUiClosablePanel.Close)
+    /// and the stack compacts — "open again = close"; a window not in the stack is pushed on top (vtable+32 → open), pushing
+    /// out the oldest when 4 are open, unless the 509 rule refuses it. A window that is still open but hidden (evicted, or
+    /// refused before) counts as "not in the stack": it comes back on top without being reopened — this is what a panel's own
+    /// toggle cannot do (it would close the hidden window first, #677 FieldMap note). open = how the panel opens itself.
+    /// </summary>
+    public UiToggleResult Toggle(IUiPanel panel,Action? open=null){
+        if(panel.Layer!=UiLayer.Window||!windowOrder.Contains(panel)||faulted.Contains(panel))return UiToggleResult.Unavailable;
+        SyncWindows();
+        if(stack.Contains(panel)){
+            if(panel is not IUiClosablePanel closable)return UiToggleResult.Unavailable;
+            try{closable.Close();}catch(Exception ex){Fault(panel,"Close",ex);}
+            SyncWindows();
+            return stack.Contains(panel)?UiToggleResult.Unavailable:UiToggleResult.Closed;
+        }
+        if(RefusesPush(panel,CurrentMap))return UiToggleResult.Refused;
+        if(evicted.Remove(panel)|refused.Remove(panel)){
+            if(IsOpen(panel)){Push(panel);return UiToggleResult.Opened;}
+        }
+        if(open==null)return UiToggleResult.Unavailable;
+        try{open();}catch(Exception ex){Fault(panel,"Open",ex);return UiToggleResult.Unavailable;}
+        SyncWindows();
+        return stack.Contains(panel)?UiToggleResult.Opened:UiToggleResult.Unavailable;
     }
 
     /// <summary>A module that throws during Update/Paint/input is switched off (logged once) instead of taking the client down.</summary>
@@ -163,6 +225,9 @@ public sealed class UiRoot {
 public interface IUiClosablePanel:IUiPanel {
     void Close();
 }
+
+/// <summary>R5-A (#733): what UiRoot.Toggle did. Unavailable = not a registered window, faulted, or no way to open/close it.</summary>
+public enum UiToggleResult { Unavailable, Opened, Closed, Refused }
 
 /// <summary>
 /// The nativeUi switch (§1.1). Default OFF. On when the diagnostic argument --native-ui is given or the settings file
