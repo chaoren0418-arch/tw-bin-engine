@@ -59,7 +59,7 @@
 
 ## 未驗證
 
-- CI 結果：push 後看 PR。
+- CI（已驗證）：PR #749 在 commit「缺圖的排序鈕／下拉鈕以寬高判斷不畫」上的 `dotnet`、`map-continuity`（含全部 `--module-tests`，也就是新的 `bookmark-window-followup` 和既有的 `bookmark-window-panel`）、`npc-offline` 全部通過。
 - 真機：原生 UI 開啟時的 Delete／Insert／右鍵、IME 輸入名稱、C165／C3 實際送出與伺服器回應、下拉蓋在清單上的畫面、846 提示的位置。這些交給 Codex／dot 依 #475 流程驗收。
 
 ## 產出路徑
