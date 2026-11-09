@@ -16,6 +16,7 @@ partial class Checks {
         var after=c.ClanWarSnapshot();
         Check(refused&&after.Revision==before.Revision&&after.Prompt==before.Prompt&&after.Enemies.SequenceEqual(before.Enemies),"clan war malformed atomic: "+label);
     }
+    [CheckGroup("clan-war"),CheckGroup("map-continuity",Order=90),CheckGroup(CheckGroups.Default,Order=320)]
     static async Task ClanWarChecks(){
         void RejectEncode(Action action,string label){bool failed=false;try{action();}catch(ArgumentException){failed=true;}Check(failed,label);}
         // C227: C subtype, S clan name, 8-byte transport padding.

@@ -94,6 +94,7 @@ partial class Checks {
     static UiMouseEvent ChatClick(int x,int y)=>new(UiMouseKind.Down,new(x,y),MouseButtons.Left,1,0,Keys.None);
     static UiMouseEvent ChatWheel(int delta)=>new(UiMouseKind.Wheel,new(300,560),MouseButtons.None,0,delta,Keys.None);
 
+    [CheckGroup("native-ui-chat-window",Order=1),CheckGroup(CheckGroups.Default,Order=80)]
     static void NativeUiChatWindowChecks(string repo){
         string root=Path.Combine(Path.GetFullPath(repo),"scratch","issue-468","synthetic");Directory.CreateDirectory(root);
         int Px(UiCanvas c,int x,int y)=>c.Bitmap.GetPixel(x,y).ToArgb();
@@ -292,6 +293,7 @@ partial class Checks {
     }
 
     /// <summary>Optional: real client (TW_CLIENT_ROOT). Writes PNGs + the component table to scratch/issue-468/real only.</summary>
+    [CheckGroup("native-ui-chat-window",Order=2)]
     static void NativeUiChatWindowRealRender(string repo){
         string? client=Environment.GetEnvironmentVariable("TW_CLIENT_ROOT");
         if(string.IsNullOrEmpty(client)){Console.WriteLine("SKIP native-ui chat-window real render (TW_CLIENT_ROOT not set)");return;}

@@ -2,6 +2,7 @@ using P06;
 
 // T214／M7-N：幽靈本機限制（WO §4）。合成封包、記憶體 sender，不連網、不開視窗、不讀遊戲素材。
 partial class Checks {
+    [CheckGroup("ghost-limits"),CheckGroup("ghost-mode",Order=2),CheckGroup("map-continuity",Order=250),CheckGroup(CheckGroups.Default,Order=480)]
     static async Task GhostLimitsChecks(){
         // 1. 鍵盤 M／U／G：幽靈中不送任何封包，HUD 顯示原因並清掉按住的鍵。
         foreach(var key in new[]{Keys.M,Keys.U,Keys.G}){

@@ -12,6 +12,7 @@ partial class Checks {
         try{action();}catch(Exception e) when(e is ProtocolException or ArgumentException){Check(true,label);return;}
         throw new Exception("expected rejection: "+label);
     }
+    [CheckGroup("bookmarks"),CheckGroup("map-continuity",Order=20),CheckGroup(CheckGroups.Default,Order=10)]
     static async Task BookmarkChecks(){
         var one=new Bookmark(0x12345678,"甲",4,32768,65535);var two=new Bookmark(7,"Home",0,0,1);
         Check(Convert.ToHexString(BookmarkPackets.Add("甲"))=="A5A5D20000000000","C165 Big5 S + zero pad golden");

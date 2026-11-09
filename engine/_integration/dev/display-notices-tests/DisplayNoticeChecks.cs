@@ -15,6 +15,7 @@ partial class Checks {
         Check(rejected,label+" rejected");Check(before==(c.World.LastIdentifyDesc,c.World.ActiveRedNotice(),c.World.Target?.Name,c.World.IsPinkName(456),c.World.TrueTarget(456)),label+" atomic");
     }
     static int NoticeUnhandled(LoginConnection c,byte opcode)=>((System.Collections.Concurrent.ConcurrentDictionary<byte,int>)typeof(WorldSession).GetField("unhandled",F)!.GetValue(c.World)!).GetValueOrDefault(opcode);
+    [CheckGroup("display-notices"),CheckGroup("map-continuity",Order=30),CheckGroup(CheckGroups.Default,Order=270)]
     static void DisplayNoticeChecks(){
         using(var c=Seed()){
             // S245: every branch of S_IdentifyDesc(item).

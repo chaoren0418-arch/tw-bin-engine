@@ -26,6 +26,7 @@ partial class Checks {
         return c;
     }
     static void Sender(LoginConnection c,Func<byte[],Func<bool>,Action,Task<bool>> sender)=>Set(c,"sendMovementGate",sender);
+    [CheckGroup(CheckGroups.Default,Order=210)]
     static async Task Combat(){
         foreach(bool pointer in new[]{false,true}){
             using var c=Seed();int sends=0;byte[]? sent=null;
@@ -48,6 +49,7 @@ partial class Checks {
             Feed(c,Pack(456,32601,32940,8));c.World.SelectTarget(456);Check(!await c.Attack(),"dead target rejected");
         }
     }
+    [CheckGroup(CheckGroups.Default,Order=220)]
     static async Task Magic(){
         using var c=Seed();var learned=new byte[32];learned[0]=164;learned[1]=32;learned[2]=8;Feed(c,learned);
         Check(c.World.SelectMagic(4),"select learned light arrow");c.World.SelectTarget(null);
@@ -63,6 +65,7 @@ partial class Checks {
         Check(c.World.Status!.Mp==100,"no predicted MP deduction");
         Feed(c,LoginPackets.Pad([120,..BitConverter.GetBytes(456u)]));Check(!c.World.SelectMagicTarget(456),"removed enemy cannot be selected");
     }
+    [CheckGroup(CheckGroups.Default,Order=230)]
     static async Task Quantity(){
         using var c=Seed();var row=GroundCatalog.Rows.Single(r=>r.Id=="meat");
         Feed(c,Packet(b=>{b.Write((byte)15);b.Write(900101u);b.Write(row.InventoryDesc);b.Write(row.WireUseType);b.Write((byte)0);b.Write(row.InventoryIcon);b.Write((byte)1);b.Write(10u);b.Write((byte)0);Text(b,row.CountName(10));b.Write((byte)0);b.Write(new byte[11]);}));
@@ -81,6 +84,7 @@ partial class Checks {
         b.Write((byte)87);b.Write((ushort)32600);b.Write((ushort)32940);b.Write(900102u);b.Write(row.GroundGfx);b.Write(new byte[4]);b.Write(count);b.Write((ushort)0);
         Text(b,row.CountName(count));Text(b,"");b.Write((byte)0);b.Write(0u);Text(b,"");Text(b,"");b.Write((byte)0);b.Write((byte)255);b.Write(new byte[3]);b.Write((byte)255);b.Write((byte)255);
     }));
+    [CheckGroup(CheckGroups.Default,Order=240)]
     static async Task PickupCorrection(){
         foreach(bool pickupError in new[]{true,false})foreach(string invalid in new[]{"0","11"}){
             using var c=Seed();GroundPacket(c);Check(c.World.SelectGround(900102),"select ground before correction "+pickupError+invalid);
@@ -116,6 +120,7 @@ partial class Checks {
             Check(!await c.SendGroundQuantity(true,"1",snapshot)&&sends==0,"real ground change still rejects stale pickup "+change);
         }
     }
+    [CheckGroup(CheckGroups.Default,Order=250)]
     static void Position(){
         using var c=Seed();var w=c.World;long serial=w.AuthoritativePositionRevision;
         Check(w.AuthoritativeMapId==0&&w.AuthoritativeActor!.X==32600&&w.AuthoritativePositionOpcode==87,"S87 server position");
@@ -129,6 +134,7 @@ partial class Checks {
         Feed(c,Pack(123,32605,32942));Check(w.AuthoritativeMapId==4&&w.AuthoritativeActor!.X==32605,"map plus self pack binds new authority");
         w.Reset();Check(w.AuthoritativeActor==null&&w.AuthoritativePositionText.Contains("等待"),"logout clears authority");
     }
+    [CheckGroup(CheckGroups.Default,Order=160)]
     static void NativeTargetUi(){
         using var c=Seed();
         // Only call the actual target-list sync method on a constructor-free host;
@@ -149,6 +155,7 @@ partial class Checks {
         Check((string)typeof(ClientForm).GetField("playerHudNotice",F)!.GetValue(form)! =="單次施法已送出","pointer cancellation cannot overwrite cast result");
         GC.SuppressFinalize(form);
     }
+    [CheckGroup(CheckGroups.Default,Order=170)]
     static async Task Movement123(){
         var keys=new[]{Keys.Home,Keys.Up,Keys.PageUp,Keys.Right,Keys.PageDown,Keys.Down,Keys.End,Keys.Left};
         var owns=typeof(ClientForm).GetMethod("OwnsGameKeyboardKey",BindingFlags.Static|BindingFlags.NonPublic,null,new[]{typeof(Keys),typeof(bool),typeof(bool)},null)!;
@@ -200,6 +207,7 @@ partial class Checks {
         throw new Exception("No blocked/open terrain fixture for "+blockedHeading);
     }
     static readonly Keys[] DirectionKeys=[Keys.Home,Keys.Up,Keys.PageUp,Keys.Right,Keys.PageDown,Keys.Down,Keys.End,Keys.Left];
+    [CheckGroup("keyboard"),CheckGroup(CheckGroups.Default,Order=180)]
     static async Task KeyboardMovement123(){
         for(int heading=0;heading<8;heading++){
             using var connection=Seed();var form=KeyboardForm(connection);
@@ -230,6 +238,7 @@ partial class Checks {
             Check(packets.Count==1&&form.Input.Direction==fixture.Open,"walking animation retains held intent "+heading);
         }
     }
+    [CheckGroup("busy"),CheckGroup(CheckGroups.Default,Order=190)]
     static void KeyboardBusy123(){
         foreach(string entry in new[]{"OnlineDown","OnlineTick"})foreach(string field in new[]{"combatSending","magicSending","groundSending","itemSending"}){
             using var connection=Seed();var form=KeyboardForm(connection);int sends=0;
@@ -248,6 +257,7 @@ partial class Checks {
             Check(sends==0,entry+" unavailable zero packets");CheckKeyboardRefusal(form,"死亡",entry+" unavailable");
         }
     }
+    [CheckGroup("world"),CheckGroup(CheckGroups.Default,Order=200)]
     static async Task KeyboardWorld123(){
         using var connection=Seed();var form=KeyboardForm(connection);var fixture=KeyboardTerrain(0);
         Feed(connection,Pack(123,fixture.X,fixture.Y));
@@ -279,80 +289,8 @@ partial class Checks {
         System.Windows.Forms.WindowsFormsSynchronizationContext.AutoInstall=false;
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY",Path.Combine(Path.GetFullPath(args[0]),"engine","build","offline-checks")+Path.DirectorySeparatorChar);
         using var guard=new SocketGuard();
-        await PartyChecks();
-        Exception? petsFailure=null;
-        try{await Pets();}catch(Exception ex){petsFailure=ex;Console.Error.WriteLine("Pets: "+ex);}
-        PolymorphChecks();
-        if(args.Length>2){
-            switch(args[2]){
-                case "timed-buffs":TimedBuffChecks();break;
-                case "afflictions":await AfflictionChecks();break;
-                case "resurrection":await ResurrectionChecks();break;
-                case "char-reset":await CharResetChecks();break;
-                case "clan":await ClanChecks();break;
-                case "clan-emblem":await ClanEmblemChecks();break;
-                case "clan-war":await ClanWarChecks();break;
-                case "portals":await PortalChecks();break;
-                case "doors":await DoorChecks();break;
-                case "pickup":await PickupAlignChecks();break;
-                case "door-approach":await DoorApproachChecks();break;
-                case "party":break;
-                case "pets":break;
-                case "display-notices":DisplayNoticeChecks();break;
-                case "name-display":await NameDisplayChecks();break;
-                case "map-continuity":await MapContinuity();await BookmarkChecks();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();NativeUiBoardChecks(args[0]);await ClanChecks();await ClanEmblemChecks();await ClanWarChecks();await MarriageChecks();await YesNoPromptChecks();await TradeYesNoChecks();await CharResetChecks();await PlayerQueryChecks();await HyperTextChecks(args[1]);await CharacterConfigChecks();HotbarChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();MapAmbientChecks();BackgroundMusicChecks();InvisibilityChecks();await GhostModeChecks();await GhostLimitsChecks();await PortalChecks();MinimapChecks();TimedBuffChecks();break;
-                case "marriage":await MarriageChecks();break;
-                case "yes-no":await YesNoPromptChecks();await TradeYesNoChecks();break;
-                case "trade-yes-no":await TradeYesNoChecks();break;
-                case "ghost-mode":await GhostModeChecks();await GhostLimitsChecks();break;
-                case "ghost-limits":await GhostLimitsChecks();break;
-                case "fishing":await FishingChecks();break;
-                case "location-share":await LocationShareChecks();break;
-                case "player-query":await PlayerQueryChecks();await HyperTextChecks(args[1]);break;
-                case "hypertext":await HyperTextChecks(args[1]);break;
-                case "character-config":await CharacterConfigChecks();break;
-            case "hotbar":HotbarChecks();await CharacterConfigChecks();MinimapChecks();break;
-                case "polymorph":break;
-                case "polymorph-cadence":PolymorphCadenceChecks(args[0]);break;
-                case "buddies":await BuddyChecks();break;
-                case "buddies-codec":await BuddyChecks(true);break;
-                case "minimap":MinimapChecks();break;
-                case "ambience":AmbienceChecks();break;
-                case "map-ambient":MapAmbientChecks();break;
-                case "background-music":BackgroundMusicChecks();break;
-                case "invisibility":InvisibilityChecks();break;
-                case "bookmarks":await BookmarkChecks();break;
-                case "board":await BoardChecks();NativeUiBoardChecks(args[0]);break;
-                case "item-transfer":await ItemTransferChecks();break;
-                case "combat-loop":await CombatLoop();break;
-                case "cast-cadence":CombatAdmissionFixture();await CastCadenceChecks();break;
-                case "combat-admission":await CombatAdmission();await CastCadenceChecks();AttackSkillChecks.Run(args[1],Check);HitReactionSuppression();await DuelChecks();await TitleAndEmoteChecks();break;
-                case "title-emote":await TitleAndEmoteChecks();break;
-                case "title-emote-assets":TitleEmoteOriginalAssets();break;
-                case "title-emote-compose":TitleEmoteCompositeAssets();break;
-                case "duel":CombatAdmissionFixture();await DuelChecks();break;
-                case "attack-skills":AttackSkillChecks.Run(args[1],Check);break;
-                case "attack-skill-resources":AttackSkillChecks.NativeResources(args[3],args[4],Check);break;
-                case "hit-reaction-suppress":HitReactionSuppression();break;
-                case "slow-actions":await SlowActions();break;
-                case "item-status":ItemStatusChecks();break;
-                case "native-ui-resources":NativeUiResourceChecks(args[0]);NativeUiRealClientChecks(args[0]);break;
-                case "native-ui-canvas":NativeUiCanvasChecks(args[0]);break;
-                case "native-ui-left-status":NativeUiLeftStatusRealRender(args[0]);NativeUiLeftStatusChecks(args[0]);break;
-                case "native-ui-macro":NativeUiMacroChecks(args[0]);break;
-                case "native-ui-hpmp":NativeUiHpMpChecks(args[0]);NativeUiHpMpRealClientChecks(args[0]);break;
-                case "native-ui-chat-window":NativeUiChatWindowChecks(args[0]);NativeUiChatWindowRealRender(args[0]);break;
-                case "keyboard":await KeyboardMovement123();break;
-                case "busy":KeyboardBusy123();break;
-                case "world":await KeyboardWorld123();break;
-                default:throw new ArgumentException("Unknown regression group");
-            }
-        }else{
-            await BookmarkChecks();
-            ItemStatusChecks();NativeUiResourceChecks(args[0]);NativeUiCanvasChecks(args[0]);NativeUiLeftStatusChecks(args[0]);NativeUiHpMpChecks(args[0]);NativeUiMacroChecks(args[0]);NativeUiChatWindowChecks(args[0]);NativeUiBoardChecks(args[0]);
-            MinimapChecks();await CharacterConfigChecks();HotbarChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
-            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();await ClanChecks();await ClanEmblemChecks();await ClanWarChecks();await MarriageChecks();await YesNoPromptChecks();await TradeYesNoChecks();await CharResetChecks();await LocationShareChecks();HitReactionSuppression();await TitleAndEmoteChecks();await PlayerQueryChecks();await HyperTextChecks(args[1]);await FishingChecks();AmbienceChecks();MapAmbientChecks();BackgroundMusicChecks();InvisibilityChecks();await GhostModeChecks();await GhostLimitsChecks();TimedBuffChecks();
-        }
+        // T270 (#645): groups are discovered from [CheckGroup] attributes (AutoDiscovery.cs). Do not add groups here.
+        Exception? petsFailure=await CheckGroups.Run(CheckGroups.Discover(typeof(Checks).Assembly),args.Length>2?args[2]:null,args,Check);
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status=petsFailure==null?"pass":"fail",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));
         if(petsFailure!=null)throw new InvalidOperationException("Pets failed; subsequent groups completed.",petsFailure);
         Console.WriteLine($"PASS {checks} DEMO checks");return 0;

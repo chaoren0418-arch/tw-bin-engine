@@ -1,0 +1,174 @@
+# T267（#628）ida_dis.py／ida_dataxrefs.py／ida_tblcalls.py 查詢清單：每段 # qN 存成一個清單檔。q6、q10、q18b 用 ida_dataxrefs.py；q12、q13 用 ida_tblcalls.py；其餘用 ida_dis.py。
+# q1
+dec F08880
+xdec 15451B8
+dec 501260
+dec 542640
+dec 5419E0
+dec 5433D0
+dec C0AB50
+xdec 1540880
+dec 8D43B0
+dec 8E0620
+dec 7DC850
+dec 933850
+dec 8C4EE0
+# q2
+dec C0A1B0
+dec C0B470
+dec C0B6B0
+dec C0BA30
+dec C0BB20
+dec C0BAE0
+dec C0BD50
+dec C0A780
+dec C0B700
+dec C0A0A0
+dec 4EAFF0
+dec 7DC800
+dec 66E050
+dec 971E50
+dec 9708B0
+dec A438B0
+dec 66D320
+dec A775A0
+dec A762A0
+xdec 119086C
+xdec 11908F4
+xdec 119CA70
+xdec 119CB0C
+xdec 11ACC88
+xdec 11ACD5C
+dis 11ACD5C 11ACDE0
+# q3
+dec C0A0E9
+dec C0A110
+dec C0A150
+dec C0A520
+dec C0A800
+dec C0AEA0
+dec C0AED0
+dec C0AE80
+dec C0AC50
+dec C07490
+dec C0BB60
+dec C097B0
+xdec 1540878
+xdec 154087C
+dis 8D4400 8D4420
+dis 8D4690 8D46B5
+dis 8E0680 8E06A5
+dis C0B610 C0B635
+dis 933870 933890
+xdec 153C998
+# q4
+dec C0ACC0
+dec C0AC50
+dec C0BD90
+dec C0AC80
+dec C0A170
+dec C0A2F0
+dec C0A400
+dec C0A590
+dec C0A620
+dec C0B840
+dec C0A5E0
+dec 9FBC00
+dis 11ACBF8 11ACC10
+dis C0A000 C0C000
+# q5
+dis 542640 5426C0
+dec C0A570
+dec C0A600
+dec C0A550
+dec C06B70
+dec C07250
+dec C075B0
+dec C042C0
+dec C03D20
+dec C0A7B0
+dec 94C950
+dec A4C270
+dec A51920
+dec F53F50
+dec 8C42A5
+dec 8C926D
+dec A11280
+# q6
+13A8E00 13AA300
+135DA00 135DA60
+15451B0 15451C0
+15453B0 1545400
+# q7
+dis 113F600 1141400
+dec F0A3A0
+dec 113F600
+# q8
+dec 96E790
+dec 66D980
+dec 8CA384
+dec 516130
+dec 5057A0
+# q9
+xdec 1162430
+xdec 1162440
+xdec 1162450
+xdec 1162460
+xdec 1162468
+xdec 1162470
+dec 8CA220
+# q10
+138CA00 138D800
+# q11
+xdec 117D650
+xdec 118E690
+xdec 118E69C
+xdec 118E6DC
+xdec 118E84C
+xdec 153C9C4
+xdec 11ADA60
+# q12
+A11F50
+A121D0
+# q13
+4EAFF0
+# q14
+xdec 11605bc
+xdec 11605fc
+xdec 119b3d4
+xdec 119fd9c
+xdec 11a011c
+xdec 11a08b4
+# q15
+dec B0F340
+dec B0F3D0
+dec A61D30
+# q16
+dec B0D7D0
+# q17
+dec C0A850
+dec C0A6A0
+dec C0A700
+dec C07330
+dec C07470
+dec C07310
+dec C081F0
+dec C08230
+dec C081D0
+dec 947639
+dec C075E0
+dec C073C0
+# q18
+dec C0A870
+dec C0A6C0
+dec C05600
+dec 947530
+# q19
+dec 543880
+dis C0A190 C0A1A6
+dis C0A7B0 C0A7C6
+dec F0F476
+dis 8C9260 8C9272
+dis 8C42A0 8C42AA
+# q18b
+154085C 1540860

@@ -25,13 +25,13 @@
 
 ## 怎麼驗證（已驗證）
 
-- `rebuild.py --update-lock`：通過。`rebuild.py --build`：PASS dev（已同步 origin/main 後重產 lock），productDll `e0b9c8a5…afdb4`、audioDll `09898a58…7e6a`。唯讀核驗：dev-inputs-verified。
-- `--module-tests`：同步 main 後 30 組全部通過，共 1410 項檢查。本組新增 3 組：
+- `rebuild.py --update-lock`：通過。`rebuild.py --build`：PASS dev（2026-11-09 再次同步 origin/main 到 `1523e74e`，lock 衝突取 main 版後重產），productDll `2aab04b1…1af5`、audioDll `09898a58…7e6a`。唯讀核驗：dev-inputs-verified。
+- `--module-tests`：同步 main 後 38 組全部通過，共 1778 項檢查。本組新增 3 組：
   - `product-sound-stream`（15 項）：缺檔、拒絕路徑、mp3→wav 後備、dB 換算、播放中改音量、循環倒帶、單次播完、Stop、錯誤、開檔失敗、容量上限、Dispose。
   - `product-sound-adapters`（17 項）：三個轉接器的檔名、循環旗標、音量傳遞；`^` 的距離、類別、靜音音量。
   - `product-sound-install`（8 項）：沒 Arm 時不做任何事；Arm 了但還沒進世界時不建立；進世界後才建立並設好 Backend；定義檔讀完才 Configure；只安裝一次；Disarm 會還原。
 - 既有檢查都通過：DemoChecks `background-music`（434）、`map-ambient`（372）、`combat-admission`（1750）；SoundRulesChecks 130；SoundPacketChecks 148；CombatSfx selection 46。
-- `check-no-game-assets.py`：pass（3865 個檔、0 錯）。
+- `check-no-game-assets.py`：pass（3942 個檔、0 錯）。
 - DemoChecks `map-continuity` 在本機失敗於 `notice S245 unknown message stays labeled`。原因是本機有客戶端 `string-c.tbl`（#546），訊息 999 會被認出來；CI 沒有客戶端，所以不受影響。這跟本任務無關，本任務沒碰相關檔案。
 
 ## 未驗證／沒做
