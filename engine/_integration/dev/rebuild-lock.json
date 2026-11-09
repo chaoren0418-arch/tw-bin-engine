@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 338,
+ "sourceCount": 341,
  "files": [
   {
    "path": "NuGet.Config",
@@ -96,8 +96,8 @@
   },
   {
    "path": "source/AbilityStatus.cs",
-   "size": 3247,
-   "sha256": "6dbc79f5736ea65883c9fc3bb368283cd808882541adacc69705ca0d9f423456"
+   "size": 4265,
+   "sha256": "4171d147e3fdf8aa1eec5563d8db6f62dfdabf1edd71a1d5d9352352da913b21"
   },
   {
    "path": "source/AbilityStatusTests.cs",
@@ -416,8 +416,8 @@
   },
   {
    "path": "source/DisplayNotices.cs",
-   "size": 10186,
-   "sha256": "43044c84242a740a45a9153e9c5e9500bde20a354c12fe078cc50d2eebacdcdc"
+   "size": 10210,
+   "sha256": "fdf3e227dbf4c973451f6a10406c3eec965e93347ced803e84b1a844b87d7cfd"
   },
   {
    "path": "source/Doors.cs",
@@ -871,13 +871,18 @@
   },
   {
    "path": "source/NativeUi/PledgePanel.cs",
-   "size": 36949,
-   "sha256": "4180eba51485b32319c3633f4091c1aa82f90e3e994a1fae9b96df6f24d534dd"
+   "size": 46047,
+   "sha256": "7e850e3648c46da47955ba410d659be7de58fdc59a65abd27cd4b30357fcb6be"
   },
   {
    "path": "source/NativeUi/QuitWindowPanel.cs",
    "size": 6907,
    "sha256": "f242ceaf2e252ad3458aae4164108d76c366cb9e47abdb01264d8546b0d16860"
+  },
+  {
+   "path": "source/NativeUi/RedNoticePanel.cs",
+   "size": 7730,
+   "sha256": "9af453125a1eef0ceac0c27e7fde53b98d968c2d0a2e2d575a2c381968f102ce"
   },
   {
    "path": "source/NativeUi/SpellWindowPanel.cs",
@@ -920,6 +925,11 @@
    "sha256": "341456e87501e9cd7094308549a687eb68a084ea1ee5fc3951ff977206919733"
   },
   {
+   "path": "source/NativeUi/State/RedNoticeState.cs",
+   "size": 3223,
+   "sha256": "582bf28c8002abd37cdc4194bd0df2b6f1307257c515674df65c9a9dbe65bb8b"
+  },
+  {
    "path": "source/NativeUi/SummonPanel.cs",
    "size": 16640,
    "sha256": "275ae2555a828a6b3650c0c7e5c3e0c4616915765f471c3d0dc5955595e672f1"
@@ -946,8 +956,8 @@
   },
   {
    "path": "source/NativeUi/UiClientBridge.cs",
-   "size": 10528,
-   "sha256": "71c048b0ad9a4ed795339ad93d6987c2437308131fc4ba4c12421fad2189fd57"
+   "size": 10645,
+   "sha256": "0642293198c8b74ddbeb17ed5090d48a7fc3be8d6aa6320f37519d48e2fccd42"
   },
   {
    "path": "source/NativeUi/UiContracts.cs",
@@ -1171,8 +1181,8 @@
   },
   {
    "path": "source/PacketBoxStatus.cs",
-   "size": 12806,
-   "sha256": "68af4dc8e0d334f142996b5f8df8d80f1a7a36a81952593bf3e421b4494ec472"
+   "size": 19358,
+   "sha256": "5ce65f4c65dc6b934470147d58032313ac69e04d73983ec2159e06a9d8268c3c"
   },
   {
    "path": "source/PacketBoxStatusTests.cs",
@@ -1535,9 +1545,14 @@
    "sha256": "b88a3becf232b62057b12969f5e91d69084966dc39a81d18d9687cc738acb7dc"
   },
   {
+   "path": "source/StatusIconFeedTests.cs",
+   "size": 10809,
+   "sha256": "471a64e4dd51bbfe77be575d8798d06938a94cce25e935bb545beb0055cfd1f1"
+  },
+  {
    "path": "source/StatusIcons.cs",
-   "size": 3707,
-   "sha256": "fa35e3802da2fe380487c516cefefe2150884f5b56326b73b00dced0a0695107"
+   "size": 4708,
+   "sha256": "6f40847097fbfab4b95654796393f25c06762e7ea52a8f8c1e5e9e68a4517beb"
   },
   {
    "path": "source/SubEffects.cs",
