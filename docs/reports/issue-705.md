@@ -29,8 +29,8 @@
 |---|---|
 | 產品編譯 `OfflineClient.csproj`（Release，SDK 10.0.300） | 0 錯誤；2 個警告都在既有的 `MagicUi.cs:20`，與本次無關 |
 | `python engine/tools/check-no-game-assets.py` | `pass`，errors 0 |
-| 新離線測試 `engine/source/MenuHotkeyTests.cs`（`[WorldModuleTest("menu-hotkeys")]`，自動發現） | 本機**沒有執行**（使用者規定本機不跑編譯出的程式）；交給 CI 的 `--module-tests` |
-| 既有單元測試 | 交給 CI；`NativeWindowWiringTests` 的斷言（1／2／5／6 有退回分頁、`Hotkeys.Count==3`、沒有新介面時退回開發工具）已逐條對過，預期不受影響 |
+| 新離線測試 `engine/source/MenuHotkeyTests.cs`（`[WorldModuleTest("menu-hotkeys")]`，自動發現） | 本機**沒有執行**（使用者規定本機不跑編譯出的程式）。PR #718 CI（run 42666114808，`--module-tests`）：`menu-hotkeys` pass，41 項檢查，0 失敗 |
+| 既有單元測試 | PR #718 CI 三項 job（dotnet、map-continuity、npc-offline）全綠；既有的 `native-window-wiring` pass，47 項檢查，0 失敗 |
 
 測試內容：選單對應表；7 個熱鍵與既有熱鍵不重疊、Ctrl+M／Backspace／單鍵 H／Ctrl+O 不收；`PageKey`（王族 `option2p`）；截圖路徑只在 `runtime/Capture`、重名加序號；每個熱鍵按下只動作一次、放開被吃掉、自動重複不動作；選單 1／5／6／2／7 的分派、都不登出；橋接拒絕時的退回；只有舊介面時的退回；包在 `UiMacroCommands` 裡也找得到；離開世界不收熱鍵；產品橋接類別實作新介面（反射）。
 
