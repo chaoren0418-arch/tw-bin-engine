@@ -38,7 +38,7 @@ static class RingWindowsTests {
         t.Check(new[]{5,6,83,84,0x4000,0x7FFF}.All(RingWindowRules.TeleportBlocked)&&!new[]{0,4,7,82,85,0x3FFF}.Any(RingWindowRules.TeleportBlocked),"blocked maps 5／6／83／84／≥0x4000");
         t.Check(SummonCatalog.RingLevelAllows(28,"7")&&SummonCatalog.RingLevelAllows(28,"263")&&SummonCatalog.RingLevelAllows(28,"519"),"lv 28: action 7／263／519 allowed");
         t.Check(!SummonCatalog.RingLevelAllows(28,"8")&&!SummonCatalog.RingLevelAllows(31,"264")&&SummonCatalog.RingLevelAllows(32,"520"),"lv 28／31 refuse 8／264; lv 32 allows 520");
-        t.Check(SummonCatalog.RingLevelAllows(72,"13")&&!SummonCatalog.RingLevelAllows(71,"14"),"(lv−28)/4+7 ≥ action%256");
+        t.Check(SummonCatalog.RingLevelAllows(72,"18")&&!SummonCatalog.RingLevelAllows(71,"18"),"(lv−28)/4+7 ≥ action%256");
         t.Check(!SummonCatalog.RingLevelAllows(99,"x")&&!SummonCatalog.RingLevelAllows(99,"0"),"non-numeric／zero action refused");
 
         // 2. 674 封包：C125 D(board) S("select") S("%u" 區域<<16|編號)。7<<16|5＝458757。
@@ -52,9 +52,9 @@ static class RingWindowsTests {
         w.Receive(P([92],Str("家"),Le16(4),Le16(32600),Le16(32900),Le32(77)),"offline");
         t.Check(w.Bookmarks.TryGet(77) is {MapId:4},"bookmark 77 seeded");
 
-        // 沒戴戒指：不開窗；HD 沒有書籤 → 原本的施放閘門拒絕，不送。
+        // 沒戴戒指：不攔截（回到原本施放流程；完整施放閘門需要素材，不在此測）。
         w.SelectMagic(5);
-        t.Check(!Run(c.CastSelectedMagic())&&w.TeleportDestination==null&&log.Count==0,"no ring: no window, no C6");
+        t.Check(!w.TryOpenRingWindow()&&w.TeleportDestination==null&&log.Count==0,"no ring: no window, no interception");
         // 戴傳送控制戒指（S36 type 1＝1）：開選目的地窗，不送 C6。
         w.Receive(Ability(1,1),"offline");
         t.Check(!Run(c.CastSelectedMagic())&&log.Count==0,"ring: cast intercepted, nothing sent");
