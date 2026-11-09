@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 321,
+ "sourceCount": 324,
  "files": [
   {
    "path": "NuGet.Config",
@@ -43,6 +43,11 @@
    "path": "audio/AudioPlayer.cs",
    "size": 11188,
    "sha256": "842fc012a91621d1ecc4d55b55b0d33b7451373fb1513ca58ad8460fb1373066"
+  },
+  {
+   "path": "audio/AudioStreamPlayer.cs",
+   "size": 12471,
+   "sha256": "94ff92df2a86ad568737df034f710c266d4182c92a83995cc07453976c23ac5d"
   },
   {
    "path": "audio/DirectShowDriver.cs",
@@ -161,8 +166,8 @@
   },
   {
    "path": "source/AudioApiTransport.cs",
-   "size": 2031,
-   "sha256": "039d63ef093732b02fb3b66041fcd185a7b1e70939690652c8409c762a8d37f9"
+   "size": 2251,
+   "sha256": "63466deb5661356521ea29b389f80c4835d9b41a0bb2544047a23c0a68d4d402"
   },
   {
    "path": "source/AutoDiscovery.cs",
@@ -351,8 +356,8 @@
   },
   {
    "path": "source/ClientSoundScene.cs",
-   "size": 3682,
-   "sha256": "16d80ab1675ce63b2ef92a48521a65ec50a4160e598f3281e816132de65ae695"
+   "size": 3968,
+   "sha256": "937f1ef167f2b1e2d3de8c19e4a685d153aa838e19a6c352754d824017289fda"
   },
   {
    "path": "source/Combat.cs",
@@ -696,8 +701,8 @@
   },
   {
    "path": "source/MapAmbientSound.cs",
-   "size": 10559,
-   "sha256": "f47e81c61dfaf4bf006c0b1d2d0d7107eb14c5d726458ef20915da06e6cf960a"
+   "size": 11211,
+   "sha256": "4aabba0dd90ed4c2ab12d6746f8023248081920e73dff683f54ec2b35ee35bda"
   },
   {
    "path": "source/MapEffects.cs",
@@ -1280,6 +1285,16 @@
    "sha256": "78dcd9d01730ba4482efee76ed4b2eb41c40d9c2ab35f75382a070a086be83c9"
   },
   {
+   "path": "source/ProductSoundBackends.cs",
+   "size": 8300,
+   "sha256": "071c21d8c5d3755b91b44ba547d8f16bf73067be15b0a940b90308eb7a4a5855"
+  },
+  {
+   "path": "source/ProductSoundTests.cs",
+   "size": 9761,
+   "sha256": "5cf924f7df044ed5debe6548a3aaddc31521aad3bebf2c5f69f51b696a27c3c8"
+  },
+  {
    "path": "source/Program.cs",
    "size": 27334,
    "sha256": "85b7de65ecf3fd01cab2cdb64550bedfbcecf7105266816f75750f351a85a867"
@@ -1441,8 +1456,8 @@
   },
   {
    "path": "source/SoundRules.cs",
-   "size": 6663,
-   "sha256": "74d28646c94eb3a0367b174c0aa2964d164a01a79e2fc5bb9cef21bcb39d2fbc"
+   "size": 7001,
+   "sha256": "92575e408b7acb492bf87c7a899005dc8a916bf52db004983be277f1ba58edca"
   },
   {
    "path": "source/SpellExchange.cs",
