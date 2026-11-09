@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 330,
+ "sourceCount": 332,
  "files": [
   {
    "path": "NuGet.Config",
@@ -921,8 +921,8 @@
   },
   {
    "path": "source/NativeUi/TradeWindowPanel.cs",
-   "size": 8384,
-   "sha256": "f346b35d288d5ea0bf838b5b3ee1d9c4e7ba831898ed74b184c451c5d9b57c2d"
+   "size": 21080,
+   "sha256": "bcd6c71f9641660be0ba2625ac4aed2c21787ff77638a78b765b0543f1a2f6d9"
   },
   {
    "path": "source/NativeUi/UiCanvas.cs",
@@ -1006,8 +1006,8 @@
   },
   {
    "path": "source/NpcInteraction.cs",
-   "size": 21440,
-   "sha256": "20f256ce2027696c6a8a3ce6b85d8bdc485c930dfa9dfcbede78eac669698779"
+   "size": 21722,
+   "sha256": "e989e335936037259169d87994c5fd969bada1c3cdfcc4bdfaa8124404948da5"
   },
   {
    "path": "source/NpcPageTests.cs",
@@ -1021,8 +1021,8 @@
   },
   {
    "path": "source/NpcServices.cs",
-   "size": 10449,
-   "sha256": "a7b7d90c5a4b8ccba0e9f1e6f63361ed6ef249c84a811ad46bb2fa0f524fa437"
+   "size": 10658,
+   "sha256": "32a51d50e9865a506f472e9f473f8e984f3a18ce4a070882f045c98f4f222d77"
   },
   {
    "path": "source/NpcTemplates.cs",
@@ -1465,6 +1465,16 @@
    "sha256": "3af9ee407a1d1c43f4da11c6ab3e1e9832ea387a84519bcbcaac0e9b7f39d1c6"
   },
   {
+   "path": "source/ShopTradeSource.cs",
+   "size": 3624,
+   "sha256": "6150751b0ec45ed14f933f1cc80575b36175c7893e58a61c7d84895411d31491"
+  },
+  {
+   "path": "source/ShopTradeTests.cs",
+   "size": 21527,
+   "sha256": "d230ce8843a80767489a56c1b7567805a927cae49a9bf91e69a1746dce0b8de7"
+  },
+  {
    "path": "source/SkillCast.cs",
    "size": 5725,
    "sha256": "46c38d4dbdb7c2d4e96ee67abcf7d38ce449a4c681e1fd5f9610fb11fce50676"
@@ -1556,8 +1566,8 @@
   },
   {
    "path": "source/TradeWindowTests.cs",
-   "size": 15919,
-   "sha256": "050ff6d10cd78fb24b79288ff226bafeb5c9e1515b13308bf4eec27760542831"
+   "size": 9306,
+   "sha256": "92b0c85476bd85af1c1f5ba6b6d852263b1caaba19f1fc8c6b2727d3d3b66c22"
   },
   {
    "path": "source/UserPlayStatsTests.cs",
@@ -1571,8 +1581,8 @@
   },
   {
    "path": "source/WeaponRepairUi.cs",
-   "size": 1685,
-   "sha256": "0b9724347dd2b9b5bd51d1c3a3255bee53ea15615bfb045354b244615208a2c8"
+   "size": 3182,
+   "sha256": "38e5d3c844c9db993e3125f67306ad2e7f2766f916fe71f128408a0fd22cb33c"
   },
   {
    "path": "source/WeatherSprite.cs",

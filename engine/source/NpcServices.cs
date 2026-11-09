@@ -20,7 +20,9 @@ public sealed partial class WorldSession {
     public bool IsInteractionSelection=>InteractionKind is "buy" or "sell" or "skills" or "deposit" or "withdraw";
     public string InteractionTitle=>InteractionKind switch{"skills"=>"學習魔法","deposit"=>"存入個人倉庫","withdraw"=>"領取個人倉庫","buy"=>"購買物品","sell"=>"出售物品",_=>"NPC 對話"};
     public string InteractionPriceLabel=>InteractionKind switch{"skills"=>"預計學費","deposit"=>"存入費用","withdraw"=>"此列領取費","sell"=>"收購單價",_=>"單價"};
-    public bool CanSubmitService=>InteractionValid&&IsServiceSelection&&ShopRows.Any(r=>r.Available>0);
+    // R2-E（#623）：賣出清單由原生 TRADE_WINDOW 接手時，舊清單不能送（ShopTradeSource 走 ServiceSubmittable）。
+    bool ServiceSubmittable=>InteractionValid&&IsServiceSelection&&shopRows.Any(r=>r.Available>0);
+    public bool CanSubmitService=>!ShopNativeActive&&ServiceSubmittable;
     InventoryItem[] npcSellItems=[];uint[] npcSellEquipped=[];long npcSellAt;
     uint[] SaleEquippedItems()=>Inventory.Where(i=>ItemEquipped(i)==true).Select(i=>i.ObjectId).ToArray();
     void ClearNpcService(){pendingNpcReply="";pendingLearned=[];npcSellItems=[];}
@@ -70,8 +72,8 @@ public sealed partial class WorldSession {
     internal void InteractionSkillsUpdated(){if(InteractionKind!="submitted"||pendingNpcReply!="skills")return;var learned=LearnedMagic.Select(s=>s.Id).ToHashSet();int received=pendingLearned.Count(learned.Contains);InteractionNotice=$"原服已學技能回報：本次選取已出現 {received}/{pendingLearned.Length} 項；實際扣款請核對背包金額。";InteractionRevision++;}
     public bool ValidateService(IReadOnlyList<ShopChoice> choices){
         CheckNpcSale();
-        if(!CanSubmitService||choices.Count is <1 or >255||choices.Select(c=>c.Id).Distinct().Count()!=choices.Count)return false;long total=0;
-        foreach(var choice in choices){var row=ShopRows.FirstOrDefault(r=>r.Id==choice.Id);if(row==null||choice.Count is 0 or >int.MaxValue||choice.Count>row.Available)return false;
+        if(!ServiceSubmittable||choices.Count is <1 or >255||choices.Select(c=>c.Id).Distinct().Count()!=choices.Count)return false;long total=0;
+        foreach(var choice in choices){var row=shopRows.FirstOrDefault(r=>r.Id==choice.Id);if(row==null||choice.Count is 0 or >int.MaxValue||choice.Count>row.Available)return false;
             if(InteractionKind=="skills"&&(choice.Count!=1||LearnedMagic.Any(s=>s.Id==choice.Id+1)))return false;
             if(InteractionKind=="deposit"&&(!inventory.TryGetValue(choice.Id,out var item)||item.Count<choice.Count||item.Equipped==true))return false;
             if(InteractionKind=="sell"&&(!inventory.TryGetValue(choice.Id,out var held)||held.Count<choice.Count||ItemEquipped(held)==true))return false;
