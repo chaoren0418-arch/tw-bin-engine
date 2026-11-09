@@ -1,3 +1,4 @@
+using P06.NativeUi;
 namespace P06;
 
 public sealed class BookmarkPanel:UserControl {
@@ -11,7 +12,9 @@ public sealed class BookmarkPanel:UserControl {
     // 傳送控制戒指＋施放技能 5／69 時開啟：選書籤後按「傳送到此書籤」送一次 C6 HD；「取消」或 ESC 關閉、不送。
     // 這是既有 WinForms 書籤分頁的模式切換；版面不是原版。R4-J（#713）之後原生 UI 開啟時改由原生窗
     // NativeUi/BookmarkPanel.cs（BookmarkWindowPanel）處理，本分頁只在原生 UI 關閉或原生窗不可用時進入此模式（RingWindows.cs）。
-    // 新增／刪除書籤目前只有本分頁有入口（原生窗沒做輸入框與刪除確認）。
+    // R5-B（#734）：原生窗也能新增（Insert 鍵命名）與刪除（Delete 鍵／右鍵＋846 確認），送包同樣走 LoginConnection.SendBookmark
+    // （BookmarkEditHost）；本分頁的新增／刪除保留給原生 UI 關閉時。「原生書籤窗」鈕＝一般模式的開窗入口（原版熱鍵沒查到，過渡入口）。
+    readonly Button native=new(){Dock=DockStyle.Bottom,Height=34,Text="原生書籤窗"};
     readonly Label destination=new(){Dock=DockStyle.Top,Height=40,ForeColor=Color.Gold,Visible=false,Text="傳送控制戒指：請選擇傳送目的地（ESC 取消）"};
     readonly Button teleport=new(){Dock=DockStyle.Bottom,Height=34,Text="傳送到此書籤",Visible=false};
     readonly Button cancelTeleport=new(){Dock=DockStyle.Bottom,Height=34,Text="取消傳送",Visible=false};
@@ -25,10 +28,14 @@ public sealed class BookmarkPanel:UserControl {
     public Func<long,uint,Task<bool>>? Teleport {get;set;}
     [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
     public Action<long>? CancelTeleport {get;set;}
+    /// <summary>R5-B：開／關原生書籤窗；回 false＝原生 UI 沒啟用或原生窗不可用。</summary>
+    [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+    public Func<bool>? ToggleNative {get;set;}
     internal bool DestinationMode=>destinationRequest!=null;
     public BookmarkPanel(){
         Dock=DockStyle.Fill;BackColor=Color.FromArgb(23,38,41);Padding=new(8);
-        Controls.AddRange([list,detail,add,name,delete,notice,teleport,cancelTeleport,destination]);
+        Controls.AddRange([list,detail,add,name,delete,native,notice,teleport,cancelTeleport,destination]);
+        native.Click+=(_,_)=>{if(ToggleNative?.Invoke()!=true)notice.Text=feedback="原生 UI 未啟用或原生書籤窗不可用；請以 --native-ui 啟動後再開。";};
         list.SelectedIndexChanged+=(_,_)=>Selection();
         name.TextChanged+=(_,_)=>feedback="";
         add.Click+=async(_,_)=>await Submit(false);
@@ -111,8 +118,28 @@ public sealed partial class ClientForm {
             if(!IsDisposed)SyncBookmarks();return sent;
         };
         bookmarkPanel.CancelTeleport=revision=>login.CloseTeleportDestination(revision);
+        bookmarkPanel.ToggleNative=ToggleNativeBookmarkWindow;
         timer.Tick+=BookmarkTick;Disposed+=(_,_)=>timer.Tick-=BookmarkTick;SyncBookmarks();
     }
-    void BookmarkTick(object? sender,EventArgs e){SyncBookmarks();SyncRingWindows();}
+    void BookmarkTick(object? sender,EventArgs e){SyncBookmarks();AttachBookmarkEditor();SyncRingWindows();}
     void SyncBookmarks(){if(bookmarkPanel is {} panel&&!panel.IsDisposed){var view=login.BookmarkSnapshot();panel.UpdateView(view with{CanEdit=view.CanEdit&&!World.Walking});}}
+    /// <summary>R5-B：原生窗可用時接上新增／刪除宿主（只接一次；原生窗由 UiRoot 建立，時間點不固定，所以每次計時器檢查）。</summary>
+    void AttachBookmarkEditor(){if(NativeBookmarkWindow() is {Editor:null} p)p.AttachEditor(new BookmarkEditHost(this));}
+    /// <summary>R5-B：一般模式開窗入口（XML Toggle="true"）。原版的熱鍵或選單鈕沒查到，先由「記憶座標」分頁的鈕呼叫。</summary>
+    internal bool ToggleNativeBookmarkWindow(){
+        if(NativeBookmarkWindow() is not {} p||NativeUiRoot is not {} root)return false;
+        AttachBookmarkEditor();p.Toggle();if(p.Visible)root.BringToFront(p);
+        Invalidate();return true;
+    }
+    sealed class BookmarkEditHost(ClientForm form):IBookmarkEditHost {
+        bool sending;
+        public bool Sending=>sending;
+        public void Add(BookmarkView shown,string name)=>Run(shown,name,null);
+        public void Delete(BookmarkView shown,uint bookmarkId)=>Run(shown,null,bookmarkId);
+        void Run(BookmarkView shown,string? name,uint? id){
+            if(sending||form.World.Walking)return;
+            sending=true;form.ClearInput("bookmarks");_ = Go();
+            async Task Go(){try{await form.login.SendBookmark(shown,name,id);}finally{sending=false;if(!form.IsDisposed)form.SyncBookmarks();}}
+        }
+    }
 }
