@@ -20,7 +20,7 @@
 ## 怎麼驗證
 
 **已驗證（本機）：**
-- 建置：`py -3 -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config` → `PASS dev`（暫時 lock，`rebuild-lock.json` 沒有改；依 T271／#646 由合併後重產）。productDll `e92735fc…e560f`。worktree 沒有 `engine/vendor`，所以用 CI 的 nuget 設定（與 #624 相同）。
+- 建置：`py -3 -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config` → `PASS dev`（暫時 lock，`rebuild-lock.json` 沒有改；依 T271／#646 由合併後重產）。productDll `e92735fc…e560f`；同步 origin/main（`a8ea003f`，含 #623、#672）後重建仍 `PASS dev`，productDll `65c884cd…efd72`。worktree 沒有 `engine/vendor`，所以用 CI 的 nuget 設定（與 #624 相同）。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py` → `pass`。
 
 **交給 CI（依 2026-11-09 本機規定，本機不執行任何建出來的程式）：**
