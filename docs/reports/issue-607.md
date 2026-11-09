@@ -38,7 +38,7 @@
 
 ## 怎麼驗證
 
-- **編譯（已驗證）**：`py -3 -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile scratch/t246/NuGet.Config` 結果 `PASS dev`。用的是暫時 lock，`rebuild-lock.json` 沒有寫入。productDll SHA-256 `63c34e3709b574381f084797b1cc80978b7296d3a2a98931605b0fe56fec2079`。新檔沒有編譯警告。
+- **編譯（已驗證）**：`py -3 -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile scratch/t246/NuGet.Config` 結果 `PASS dev`。用的是暫時 lock，`rebuild-lock.json` 沒有寫入。productDll SHA-256 `2dd7dcd324e733395761c67e02cffee0b96aaaf6e01884b03570c6f83eb031b4`（第 2 次 commit 後）。新檔沒有編譯警告。
   - 本機環境備註（和程式無關，同 #675）：直接 restore 時 WebView2 的 `build/*.targets` 沒有接上，會出現 NETSDK1130。改成 `NuGet.Config` 唯讀指向主專案 `engine/vendor`，`NUGET_PACKAGES` 指到 `scratch/t246/packages`，在沙箱外 restore 就正常。
 - **`check-no-game-assets.py`（已驗證）**：`pass`（4021 個檔案，0 個錯誤）。
 - **離線測試**：`[WorldModuleTest("packetbox-screen")]`，CI 的 `--module-tests` 會自動執行。依 2026-11-09 的本機執行限制，本機沒有執行任何編譯出來的程式，結果以 PR CI 為準。測試內容：
@@ -47,6 +47,7 @@
   3. 84：類型 2／1 入佇列、7 秒後過期、最多 14 則、最新在前；3／4 不入佇列且記為未處理；格式錯誤會拒收；重設會清空。
   4. 83：1 不平移；2 開→晃動→自己停，再開→中途關→下一個 tick 歸 0；其他值只計數，不加特效。
   5. 83/3：最多 5 個、gfx 依序是 `rand()%3` 的結果、間隔 10 ms、第一個在自己的座標、其餘依物件 id。
+     - CI 第一次跑時，這段在「有自己角色」的 session 上做完整快照，會去讀素材（CI 沒有 `engine/assets`），結果丟出例外。已改成直接讀 `FireworkBursts`。
   6. 面板：不在世界時隱藏、`$` 代換、綠字黑框、不接收滑鼠、9 行的 y 值、過期後隱藏、像素檢查（字在 y＝121 那一行且水平置中）、`\f3` 換成紅色、字寬不計色碼。
 
 ## 未驗證什麼
