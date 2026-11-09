@@ -2,7 +2,7 @@
  "schema": "dev-rebuild-lock-v1",
  "revision": "dev",
  "basedOn": "r35",
- "sourceCount": 320,
+ "sourceCount": 322,
  "files": [
   {
    "path": "NuGet.Config",
@@ -406,8 +406,8 @@
   },
   {
    "path": "source/DisplayNotices.cs",
-   "size": 10186,
-   "sha256": "43044c84242a740a45a9153e9c5e9500bde20a354c12fe078cc50d2eebacdcdc"
+   "size": 10210,
+   "sha256": "fdf3e227dbf4c973451f6a10406c3eec965e93347ced803e84b1a844b87d7cfd"
   },
   {
    "path": "source/Doors.cs",
@@ -850,6 +850,11 @@
    "sha256": "4180eba51485b32319c3633f4091c1aa82f90e3e994a1fae9b96df6f24d534dd"
   },
   {
+   "path": "source/NativeUi/RedNoticePanel.cs",
+   "size": 7730,
+   "sha256": "9af453125a1eef0ceac0c27e7fde53b98d968c2d0a2e2d575a2c381968f102ce"
+  },
+  {
    "path": "source/NativeUi/SpellWindowPanel.cs",
    "size": 12652,
    "sha256": "867e776f33f88931b8c7be2751def31694158b795def613bcdee4c96362d6eed"
@@ -890,6 +895,11 @@
    "sha256": "341456e87501e9cd7094308549a687eb68a084ea1ee5fc3951ff977206919733"
   },
   {
+   "path": "source/NativeUi/State/RedNoticeState.cs",
+   "size": 3223,
+   "sha256": "582bf28c8002abd37cdc4194bd0df2b6f1307257c515674df65c9a9dbe65bb8b"
+  },
+  {
    "path": "source/NativeUi/SummonPanel.cs",
    "size": 16640,
    "sha256": "275ae2555a828a6b3650c0c7e5c3e0c4616915765f471c3d0dc5955595e672f1"
@@ -916,8 +926,8 @@
   },
   {
    "path": "source/NativeUi/UiClientBridge.cs",
-   "size": 10528,
-   "sha256": "71c048b0ad9a4ed795339ad93d6987c2437308131fc4ba4c12421fad2189fd57"
+   "size": 10645,
+   "sha256": "0642293198c8b74ddbeb17ed5090d48a7fc3be8d6aa6320f37519d48e2fccd42"
   },
   {
    "path": "source/NativeUi/UiContracts.cs",

@@ -122,7 +122,7 @@ public sealed partial class ClientForm {
             var head=Camera.ToView(new PointF(v.Foot.X,v.Bounds.IsEmpty?v.Foot.Y-64:v.Bounds.Top));
             if(mark!=null){g.FillPolygon(Brushes.OrangeRed,new PointF[]{new(head.X-7,head.Y-34),new(head.X+7,head.Y-34),new(head.X,head.Y-22)});if(mark.Message.Length>0)PaintNoticeText(g,mark.Message,Color.OrangeRed,new PointF(head.X,head.Y-52),viewport);}
         }
-        if(ServerStatusMessages.CenterNotice(w) is {} red)PaintNoticeText(g,ResolveNpcText(red),Color.Red,new PointF(viewport.Left+viewport.Width/2,viewport.Top+viewport.Height/3),viewport);
+        if(!NativeRedNoticeActive&&ServerStatusMessages.CenterNotice(w) is {} red)PaintNoticeText(g,ResolveNpcText(red),Color.Red,new PointF(viewport.Left+viewport.Width/2,viewport.Top+viewport.Height/3),viewport);
         if(w.ActiveIdentifyDesc() is {} identify)PaintNoticeText(g,ResolveNpcText(identify.Text),Color.White,new PointF(viewport.Left+viewport.Width/2,viewport.Bottom-48),viewport);
     }
     void PaintNoticeText(Graphics g,string text,Color color,PointF center,RectangleF viewport){
