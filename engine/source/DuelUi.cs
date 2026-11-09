@@ -3,8 +3,7 @@ namespace P06;
 public sealed partial class ClientForm {
     readonly Label duelNotice=new(){Dock=DockStyle.Fill,ForeColor=Color.White,Padding=new(10)};
     readonly Button duelInvite=new(){Text="邀請面前角色決鬥",AutoSize=true};
-    readonly Button duelAccept=new(){Text="接受決鬥",AutoSize=true};
-    readonly Button duelReject=new(){Text="拒絕決鬥",AutoSize=true};
+    // R2-J (#624): no accept/reject buttons; S219/630 is answered from the shared input-line prompt (YesNoPrompt.cs).
     DuelView? displayedDuel;
     bool duelUiReady;
 
@@ -16,13 +15,13 @@ public sealed partial class ClientForm {
         duelUiReady=true;
         var page=new TabPage("決鬥"){BackColor=Color.FromArgb(23,38,41)};
         var buttons=new FlowLayoutPanel{Dock=DockStyle.Top,Height=80,AutoScroll=true};
-        buttons.Controls.AddRange([duelInvite,duelAccept,duelReject]);page.Controls.AddRange([duelNotice,buttons]);
-        if(normalPanels!=null)normalPanels.TabPages.Add(page);
-        else {var tabs=new TabControl{Dock=DockStyle.Right,Width=300};tabs.TabPages.Add(page);Controls.Add(tabs);}
+        buttons.Controls.Add(duelInvite);page.Controls.AddRange([duelNotice,buttons]);
+        var proposal=MarriageEntryPage(); // Marriage.cs owns the proposal entry; mounted here because this hook is free.
+        if(normalPanels!=null)normalPanels.TabPages.AddRange([page,proposal]);
+        else {var tabs=new TabControl{Dock=DockStyle.Right,Width=300};tabs.TabPages.AddRange([page,proposal]);Controls.Add(tabs);}
         page.Enter+=(_,_)=>LeaveGameFocus("duel");
-        foreach(var (button,command) in new[]{(duelInvite,"invite"),(duelAccept,"accept"),(duelReject,"reject")})
-            button.Click+=async(_,_)=>{if(displayedDuel is {} view)await RunDuel(command,view);};
-        timer.Tick+=(_,_)=>SyncDuel();SyncDuel();
+        duelInvite.Click+=async(_,_)=>{if(displayedDuel is {} view)await RunDuel("invite",view);};
+        timer.Tick+=(_,_)=>{SyncDuel();SyncMarriageEntry();};SyncDuel();SyncMarriageEntry();
     }
     async Task<bool> RunDuel(string command,DuelView view){
         ClearInput("duel-command");
@@ -31,12 +30,10 @@ public sealed partial class ClientForm {
     }
     void SyncDuel(){
         var view=login.World.DuelSnapshot;
-        if(view.Phase=="invited"&&view.Revision!=displayedDuel?.Revision)ShowPlayerService("決鬥");
         displayedDuel=view;
         duelNotice.Text=(view.Peer.Length==0?"":"對手："+view.Peer+"\n")+view.Notice+"\n\n邀請：選取相鄰、與你面對面的角色。攻擊仍由伺服器判定。";
         bool ready=login.State==LoginState.InWorld&&!World.Walking;
         duelInvite.Enabled=ready&&login.CanInviteDuel&&login.World.FacingTradeTarget is {} target&&HasVisibleObjectPixel(target.ObjectId);
-        duelAccept.Enabled=duelReject.Enabled=ready&&view.Phase=="invited"&&!login.World.ActionLocked&&!login.World.TradeBlocksActions;
     }
     // The original never labels the duel opponent (0x15442DC is read only by sub_A3FE30 and sub_F044C0):
     // it changes the attack cursor and direct-attack admission, not the name. Same for pink names and enemy clans.

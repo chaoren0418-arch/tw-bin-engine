@@ -94,6 +94,10 @@ public sealed partial class WorldSession {
     // HyperAct name table (TW16 FO 0xDA78A4 "checkpk", next to "fix"/"getall"/"exitghost"): the client handles
     // this action itself and sends the field-less C_CHECK_PK instead of C_HACTION.
     public const string CheckPkAction="checkpk";
+    /// <summary>R2-F：目前對話 NPC 的外型（物件 gfx）；對話無效時為 null。xchgspell／buyspell 依此分流（SS2§1.1）。</summary>
+    public ushort? InteractionNpcGfx=>InteractionValid&&Target is {} t&&t.ObjectId==InteractionNpc?t.Gfx:null;
+    /// <summary>伺服器主動頁上某個可用 action 選項的動作字串；不存在或版本不符為 null。</summary>
+    public string? QueryActionValue(int option,int revision)=>FindQueryOption(option,revision,"action")?.Value;
     bool ReceiveInteraction(byte opcode,LoginReader r){
         string[]? fallback=dialogFallback;dialogFallback=null;
         if(ReceiveNpcService(opcode,r))return true;
@@ -124,12 +128,30 @@ public sealed partial class LoginConnection {
         if(State!=LoginState.InWorld||epoch!=World.WorldEpoch||revision!=World.QueryRevision||!World.QueryVisible||!World.QueryActionable)return false;
         if(World.OpenQueryLink(option,revision))return true;
         if(interactionSending||MovementBusy||sendMovementGate==null||World.ActionLocked||World.TradeBlocksActions)return false;
+        // R2-F：exitghost 由客戶端自己處理（R2-D 的 TryHyperAction 送 C173），不送 C125；送出後照其他動作關頁。
+        if(World.QueryActionValue(option,revision) is {} hyper&&TryHyperAction(hyper,out var ghost)){
+            bool ok=await ghost;if(ok)World.QueryActionSent(revision);return ok;
+        }
         if(World.QueryActionPacket(option,revision) is not {} packet)return false;
         int session=generation;var sender=sendMovementGate;interactionSending=true;
         bool Valid()=>session==generation&&State==LoginState.InWorld&&epoch==World.WorldEpoch&&revision==World.QueryRevision&&World.QueryVisible&&World.QueryActionable&&!World.ActionLocked&&!World.TradeBlocksActions&&!MovementBusy;
         try{bool sent=await sender(packet,Valid,()=>World.QueryActionSent(revision));return sent&&session==generation;}
         catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,"互動傳送失敗，已斷線；不會重送。");}return false;}
         finally{if(session==generation)interactionSending=false;}
+    }
+    /// <summary>
+    /// R2-F（#622）：NPC 頁上由客戶端自己處理的 HyperAct（伺服器不認這些字串，SS2§1.1、WO §4）。回 null＝一般動作，照舊送 C125。
+    /// exitghost → R2-D 的 TryHyperAction（幽靈中才送 C173）；xchgspell → 外型 834 才送 C245；buyspell 在外型 834 時不送（只有 ≠ 834 才走原本的金幣學魔法）。
+    /// </summary>
+    Task<bool>? ClientHyperAction(int option){
+        if(!World.InteractionValid||World.InteractionKind!="dialog")return null;
+        var selected=World.InteractionPage?.Options.FirstOrDefault(o=>o.Id==option&&o.Enabled&&o.Kind=="action");if(selected==null)return null;
+        string action=selected.Value.Trim();
+        if(TryHyperAction(action,out var ghost))return ghost;
+        ushort gfx=World.InteractionNpcGfx??0;
+        if(!SpellExchangeProtocol.ActionAllowed(action,gfx))return Task.FromResult(false);
+        if(action==SpellExchangeProtocol.ExchangeAction)return RequestSpellExchangeList(openWindow:false);
+        return null;
     }
     public Task<bool> Interact(string command,int revision,int epoch,int targetRevision,int option=0,IReadOnlyList<ShopChoice>? choices=null)=>InteractCore(command,revision,epoch,targetRevision,option,choices,null);
     async Task<bool> InteractCore(string command,int revision,int epoch,int targetRevision,int option,IReadOnlyList<ShopChoice>? choices,Func<bool>? pointerCurrent){
@@ -140,6 +162,7 @@ public sealed partial class LoginConnection {
         if(command=="option"&&World.OpenDialogLink(option,revision)){Set(State,World.InteractionNotice);return true;}
         if(command=="option"&&World.OpenDeposit(option,revision)){Set(State,World.InteractionNotice);return true;}
         if(interactionSending||MovementBusy||sendMovementGate==null)return false;
+        if(command=="option"&&ClientHyperAction(option) is {} local)return await local;
         byte[] packet;bool shop=command=="shop";string service="";
         if(command=="talk"){if(!CanTalk)return false;packet=NpcPackets.Talk(World.TargetId!.Value);}
         else if(command=="option"){var selected=World.InteractionPage?.Options.FirstOrDefault(o=>o.Id==option&&o.Enabled&&o.Kind=="action");if(!World.InteractionValid||selected==null||World.InteractionKind!="dialog")return false;service=selected.Value switch{"buyspell"=>"skill-list","retrieve"=>"withdraw-list",_=>""};packet=service=="skill-list"?ServicePackets.SkillList(World.InteractionNpc!.Value):string.Equals(selected.Value,WorldSession.CheckPkAction,StringComparison.OrdinalIgnoreCase)?WeaponRepairPackets.CheckPk():NpcPackets.Action(World.InteractionNpc!.Value,selected.Value);}
