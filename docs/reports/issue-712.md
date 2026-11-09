@@ -25,7 +25,7 @@
 - 產品編譯 `engine/source/OfflineClient.csproj`（Release，SDK 10.0.300）：**0 錯誤**，2 個警告都在既有的 `MagicUi.cs:20`。
   - 本機備註：worktree 直接 restore 出現 NETSDK1130（WebView2 targets 沒寫進 assets，同 #705 的本機環境問題），`rebuild.py --build` 也因此在 product-build 失敗。改用 `scratch/issue-712/NuGet.Config`（指向原專案離線 `vendor`）＋獨立 packages 目錄＋`UseArtifactsOutput`（輸出在 `scratch/issue-712/artifacts`）才編過。與程式碼無關；CI 不受影響。
 - `python -B -X utf8 engine/tools/check-no-game-assets.py`：pass（4059 個追蹤檔，0 錯誤）。
-- 模組測試（含新的 `hypertext-panel`）：依規定**本機不執行**編譯產物，交給 PR 的 CI（`--module-tests`）。CI 結果見 PR。
+- 模組測試（含新的 `hypertext-panel`）：依規定**本機不執行**編譯產物，交給 CI。PR #725 CI（run 42691010340）：`dotnet`、`map-continuity`、`npc-offline` 三個 job 都 pass；`--module-tests` 裡的 `hypertext-panel` pass，84 項檢查，0 失敗。
 
 ## 未驗證什麼
 
