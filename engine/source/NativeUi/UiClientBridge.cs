@@ -38,6 +38,7 @@ public sealed partial class ClientForm {
         if(root!=null&&error==null){
             nativeUiRoot=root;nativeUiInput=new UiInput(root,NativeMacroCommands(new NativeUiCommands(this)));nativeUiCanvas??=new UiCanvas();
             nativeUiState=UiStartState.Active;nativeUiError=null;
+            AttachNativeMenuPlayStats(root);
             ClearInput("native-ui-active");
             events.Add(new{kind="native-ui",state="active",panels=root.Panels.Select(p=>p.Id).ToArray()});
         }else{
@@ -119,7 +120,8 @@ public sealed partial class ClientForm {
         // ui-party (#471) under chat: PartyStates.StateOf unwraps all four layers.
         // ui-buff-icons (#473) innermost, under party: BuffState.Of unwraps all five layers.
         // ui-red-notice (#474) innermost, under buff: RedNoticeState.Of unwraps all six layers.
-        var chat=new UiChatGameState(NativePartyGameState(WithBuffState(WithRedNoticeState(basic))),inWorld?new UiChatSnapshot(login.PlayerChatSnapshot(),gameFocus):UiChatSnapshot.Empty);
+        // R3-A (#678) innermost, under red notice: item / spell / warehouse / pledge decorators (LegacyWindowPanel.FindState unwraps all).
+        var chat=new UiChatGameState(NativePartyGameState(WithBuffState(WithRedNoticeState(NativeLegacyWindowState(basic,inWorld)))),inWorld?new UiChatSnapshot(login.PlayerChatSnapshot(),gameFocus):UiChatSnapshot.Empty);
         return WithHpMpState(NativeMacroGameState(new UiLeftStatusGameState(chat,inWorld?LeftStatusState.From(w):LeftStatusState.Empty)));   // ui-hpmp #465 outside; #466 macro (MacroBook.StateOf unwraps HpMp only, so it sits right inside); ui-left-status #464 (LeftStatusState.From unwraps both)
     }
     /// <summary>ui-chat-window (#468): typed characters (WM_CHAR, after IME composition) go to the native text input that takes them.</summary>
@@ -132,8 +134,71 @@ public sealed partial class ClientForm {
         return false;
     }
 
-    sealed class NativeUiCommands(ClientForm form):IUiChatCommands,IUiPartyCommands {
-        public void ShowDevTools(string? page=null){form.ClearInput("native-ui-dev-tools");form.ShowDevTools();}
+    /// <summary>
+    /// R3-A (#678): the four legacy windows read the existing models only. Outside the world every snapshot is empty, so the
+    /// windows stay closed. The class for the spell level buttons comes from the character list (same source as WithBuffState).
+    /// </summary>
+    IUiGameState NativeLegacyWindowState(IUiGameState basic,bool inWorld){
+        if(!inWorld)return new UiPledgeGameState(new UiWarehouseGameState(new UiSpellWindowGameState(new UiItemWindowGameState(basic,new UiItemWindowData(null)),new UiSpellWindowData(null,null)),null),null);
+        var w=login.World;
+        int? cls=login.Characters.FirstOrDefault(c=>c.Name==w.Actor?.Name)?.Class;
+        IUiGameState s=new UiItemWindowGameState(basic,UiItemWindowData.From(w));
+        s=new UiSpellWindowGameState(s,UiSpellWindowData.From(w,cls));
+        s=new UiWarehouseGameState(s,UiWarehouseView.From(w));
+        return new UiPledgeGameState(s,w.PledgeWindow,w.ClanAttentionNames);
+    }
+
+    /// <summary>
+    /// R3-A (#678): while the native UI owns the warehouse (window registered and not faulted), the S176 / deposit list opens
+    /// WAREHOUSE_WINDOW and the WinForms NPC list (NpcUi.cs) stays out of the way. Native UI off → the WinForms list as before.
+    /// </summary>
+    internal bool NativeWarehouseActive(WorldSession w)=>NativeUiActive&&w.InteractionKind is "withdraw" or "deposit"
+        &&nativeUiRoot?.Find(WarehouseWindowPanel.WindowId) is {} p&&!nativeUiRoot.Faulted.Contains(p);
+
+    /// <summary>Dev-tools page by tab title ("背包", "魔法", "NPC", …); unknown or null → the window as it is.</summary>
+    void ShowDevToolsPage(string? title){
+        Control? target=null;
+        if(title!=null&&normalPanels?.TabPages.Cast<TabPage>().FirstOrDefault(p=>string.Equals(p.Text,title,StringComparison.OrdinalIgnoreCase)) is {} tab){normalPanels.SelectedTab=tab;target=normalPanels;}
+        ShowDevTools(target);
+    }
+
+    // R3-A (#678): menu action 7 / UserPlayStatsUI. The panel's death source (Recovery.cs) stays in charge while dead; the
+    // menu adds an "opened by hand" flag on top (TW13 sub_77F490 toggles CUserPlayStatsUI). Stat values are still "—".
+    bool menuPlayStats;
+    void AttachNativeMenuPlayStats(UiRoot root){
+        menuPlayStats=false;
+        if(root.Find(UserPlayStatsPanel.PanelId) is UserPlayStatsPanel stats&&stats.Source is not MenuPlayStatsSource)
+            stats.Source=new MenuPlayStatsSource(this,stats.Source??new UserPlayStatsSource(this));
+    }
+    bool ToggleMenuPlayStats(){
+        if(nativeUiRoot?.Find(UserPlayStatsPanel.PanelId) is not UserPlayStatsPanel {Source:MenuPlayStatsSource src} stats||nativeUiRoot.Faulted.Contains(stats))return false;
+        if(login.State!=LoginState.InWorld)return false;
+        if(src.Current!=null)src.Dismiss();else menuPlayStats=true;
+        return true;
+    }
+    sealed class MenuPlayStatsSource(ClientForm form,IUserPlayStatsSource death):IUserPlayStatsSource {
+        public UserPlayStatsView? Current=>death.Current??(form.menuPlayStats&&form.login.State==LoginState.InWorld?new(form.login.CanRestart):null);
+        public void Restart(){form.menuPlayStats=false;death.Restart();}
+        public void Quit(){form.menuPlayStats=false;death.Quit();}
+        public void Dismiss(){bool dying=death.Current!=null;form.menuPlayStats=false;if(dying)death.Dismiss();}
+    }
+
+    sealed class NativeUiCommands(ClientForm form):IUiChatCommands,IUiPartyCommands,IUiWarehouseCommands,IUiMenuCommands {
+        // R3-A (#678): the page hint is no longer dropped; it selects the matching dev-tools service tab.
+        public void ShowDevTools(string? page=null){form.ClearInput("native-ui-dev-tools");form.ShowDevToolsPage(page);}
+        // R3-A (#678): WAREHOUSE_WINDOW OK / exit go through the existing NPC flow (RunInteraction → LoginConnection.Interact:
+        // ServicePackets.Warehouse = C_RESULT type 2 deposit / 3 withdraw, same bytes as the WinForms list). Stale revision → nothing.
+        public void SubmitWarehouse(int revision,IReadOnlyList<ShopChoice> choices){
+            var w=form.login.World;
+            if(revision!=w.InteractionRevision||choices.Count==0)return;
+            _=form.RunInteraction(new NpcWebCommand("shop",revision,w.WorldEpoch,w.TargetRevision,0,choices.ToArray()));
+        }
+        public void CancelWarehouse(int revision){
+            var w=form.login.World;
+            if(revision!=w.InteractionRevision)return;
+            _=form.RunInteraction(new NpcWebCommand("close",revision,w.WorldEpoch,w.TargetRevision,0,[]));
+        }
+        public bool TogglePlayStats()=>form.ToggleMenuPlayStats();
         // ui-party (#471): existing PartyAction (ClearInput + SendParty), mode 0 like the legacy drawer. Implemented here (not as a
         // wrapper) so UiChatGameState.Commands, which only unwraps UiMacroCommands, still finds IUiChatCommands.
         public void PartyAction(string command,PartyView shown,string name)=>_=form.PartyAction(command,shown,name,0);

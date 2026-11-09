@@ -139,12 +139,21 @@ public sealed partial class WorldSession {
 namespace P06.NativeUi {
 
 /// <summary>帶有血盟成員窗資料的遊戲狀態（產品端由 client bridge 包裝；離線檢查自己提供）。</summary>
-public interface IUiPledgeState { PledgeWindowState? Pledge { get; } }
+public interface IUiPledgeState {
+    PledgeWindowState? Pledge { get; }
+    /// <summary>R3-A（#678）：關注血盟名單（op 78／3.81 S200 type 2，Clan.cs 已存）；null＝沒有提供。</summary>
+    IReadOnlyList<string>? Attention => null;
+}
 
-/// <summary>Decorator：共用 IUiGameState 加上血盟成員窗快照。所有 IUiGameState 成員原樣轉給 Base。</summary>
-public sealed class UiPledgeGameState(IUiGameState inner,PledgeWindowState? pledge):IUiGameState,IUiPledgeState {
+/// <summary>
+/// Decorator：共用 IUiGameState 加上血盟成員窗快照與關注血盟名單。所有 IUiGameState 成員原樣轉給 Base。
+/// R3-A（#678）：產品端放在橋接鏈最內層（ILegacyWindowStateDecorator），由 LegacyWindowPanel.FindState 找到。
+/// </summary>
+public sealed class UiPledgeGameState(IUiGameState inner,PledgeWindowState? pledge,IReadOnlyList<string>? attention=null):IUiGameState,IUiPledgeState,ILegacyWindowStateDecorator {
     public IUiGameState Base=>inner;
+    public IUiGameState Inner=>inner;
     public PledgeWindowState? Pledge=>pledge;
+    public IReadOnlyList<string>? Attention=>attention;
     public bool InWorld=>inner.InWorld;
     public string? CharacterName=>inner.CharacterName;
     public int? Level=>inner.Level;
@@ -154,14 +163,10 @@ public sealed class UiPledgeGameState(IUiGameState inner,PledgeWindowState? pled
     public long? MaxMp=>inner.MaxMp;
     public long Now=>inner.Now;
 
-    /// <summary>穿過已知的狀態包裝（HpMp／巨集／本包裝）找血盟資料；找不到回 null（窗不開）。</summary>
-    public static PledgeWindowState? Of(IUiGameState? state){
-        for(int depth=0;state!=null&&depth<8;depth++){
-            if(state is IUiPledgeState p)return p.Pledge;
-            state=state switch{UiHpMpGameState h=>h.Base,UiMacroGameState m=>m.Inner,_=>null};
-        }
-        return null;
-    }
+    /// <summary>穿過產品的狀態包裝（LegacyWindowPanel.FindState 的完整鏈）找血盟資料；找不到回 null（窗不開）。</summary>
+    public static PledgeWindowState? Of(IUiGameState? state)=>LegacyWindowPanel.FindState<IUiPledgeState>(state)?.Pledge;
+    /// <summary>關注血盟名單；找不到或沒提供回 null。</summary>
+    public static IReadOnlyList<string>? AttentionOf(IUiGameState? state)=>LegacyWindowPanel.FindState<IUiPledgeState>(state)?.Attention;
 }
 
 /// <summary>
@@ -170,7 +175,8 @@ public sealed class UiPledgeGameState(IUiGameState inner,PledgeWindowState? pled
 /// 職業圖、階級、創立日、聯盟欄 3.81 都送不到（167／170 格式壞掉），一律空白，不推算。
 /// 排序、改階級彈出窗、寫備註、寫公告（Writenotice／Savenotice、Notice_Edit）會送封包或語義待驗證，本任務不做。
 /// </summary>
-public sealed class PledgePanel:IUiMovablePanel {
+public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel {
+    [UiPanel(175)] internal static UiPanelRegistration Registration=>new(PanelId,LayoutName,_=>new PledgePanel());   // R3-A (#678): opened by S250/171
     public const string PanelId="PledgeUI",LayoutName="PledgeUI";
     public const string PlainWindowName="Nonoticeuserinfo_Window",NoticeWindowName="Noticeuserinfo_Window";
     // ---- 推測（查證後只改這裡）----
@@ -182,6 +188,11 @@ public sealed class PledgePanel:IUiMovablePanel {
     public const Keys CloseKey=Keys.Escape;
     /// <summary>公告 MultiLabel 的行距：等於 TextHeight（推測；109 px 高 ÷ 12 ＝ 9 行，與 Notice_Edit LimitLine="9" 吻合）。</summary>
     public const int NoticeLinePitch=TextHeight;
+    /// <summary>
+    /// 關注血盟清單（SS2§3，sub_B30040）：一次 7 列（圖示＋名稱），捲動上限＝(筆數 − 7) / 2（照反組譯寫法，意義待驗證）。
+    /// 清單在 PledgeUI 子控制項 (3, 7)；本機 PledgeUI.xml 的對應節點與座標還沒對出來，所以**只做資料、不畫**（待驗證）。
+    /// </summary>
+    public const int AttentionRows=7;
     // ----
 
     /// <summary>XML 中一個有圖的元件：視窗內相對座標＋第一張 surf（V4 前只用第 0 張）。</summary>
@@ -224,8 +235,9 @@ public sealed class PledgePanel:IUiMovablePanel {
     bool open,showNotice,inWorld;
     long seenOpen;
     Point origin;
-    int scroll;
+    int scroll,attentionScroll;
     PledgeWindowState? data;
+    IReadOnlyList<string> attention=[];
 
     public string Id=>PanelId;
     public UiLayer Layer=>UiLayer.Window;
@@ -237,6 +249,13 @@ public sealed class PledgePanel:IUiMovablePanel {
     public int Scroll=>scroll;
     public Point Origin=>origin;
     public IReadOnlyList<string> Members=>data?.Online??[];
+    /// <summary>R3-A（#678）：關注血盟名單（S200 type 2；沒收到是空的）。</summary>
+    public IReadOnlyList<string> Attention=>attention;
+    public int AttentionScroll=>attentionScroll;
+    public int AttentionMaxScroll=>Math.Max(0,(attention.Count-AttentionRows)/2);
+    /// <summary>目前這一頁的關注血盟（從第 AttentionScroll 筆起最多 7 筆，sub_B30040(a2)）。</summary>
+    public IReadOnlyList<string> AttentionPage=>attention.Skip(attentionScroll).Take(AttentionRows).ToArray();
+    public void ScrollAttention(int rows)=>attentionScroll=Math.Clamp(attentionScroll+rows,0,AttentionMaxScroll);
     public int MaxScroll=>Current is {} w?Math.Max(0,Members.Count-w.Rows):0;
 
     public void Load(UiLayout layout,SurfCatalog surfs)=>Load(layout,surfs.Get);
@@ -319,6 +338,8 @@ public sealed class PledgePanel:IUiMovablePanel {
     public void Update(IUiGameState state){
         inWorld=state.InWorld;
         data=inWorld?UiPledgeGameState.Of(state):null;
+        attention=inWorld?UiPledgeGameState.AttentionOf(state)??[]:[];
+        attentionScroll=Math.Clamp(attentionScroll,0,AttentionMaxScroll);
         if(data?.Online==null){open=false;scroll=0;return;}
         if(data.OpenRevision!=seenOpen){
             seenOpen=data.OpenRevision;

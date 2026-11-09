@@ -31,6 +31,7 @@ public enum WarehouseSortColumn { None, Name, Amount }
 /// (knob 3029, 3003/3005, mail 2303/2304) are not drawn. Opens by itself when a warehouse list arrives.
 /// </summary>
 public sealed class WarehouseWindowPanel:LegacyWindowPanel {
+    [UiPanel(175)] internal static UiPanelRegistration Registration=>new(WindowId,Layout,_=>new WarehouseWindowPanel());   // R3-A (#678): opened by the warehouse list (S176 / deposit), no hotkey
     public const string WindowId="WAREHOUSE_WINDOW",Layout="uiextra86";
     public const int TabCount=4;
     public static readonly string[] TabNames=["SURF_RENEWAL_WAREHOUSE_TAB_ALL","SURF_RENEWAL_WAREHOUSE_TAB_EQUIP","SURF_RENEWAL_WAREHOUSE_TAB_QUEST","SURF_RENEWAL_WAREHOUSE_TAB_ETC"];
