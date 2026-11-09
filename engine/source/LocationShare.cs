@@ -7,8 +7,11 @@ namespace P06;
 // M7-O (#521) follows docs/reference/world-objects.md §5:
 // - Zone is the MapSystem region id (inferred there: World_Map 0–99 / Village_Map 100–999, receiver picks the table by id>=100).
 // - Receive shows string 1784 (sender + region name) and keeps an independent list of at most 10 (oldest dropped).
-// - String table texts 1784 / 1785 and every mapDesc name are still unverified (Text.pak is encrypted):
-//   they are shown as numbered placeholders 〔訊息1784〕 / 〔訊息1785〕 / 〔字串N〕, never invented text.
+// - String table texts 1784 / 1785 / 2139 and every mapDesc name stay numbered placeholders 〔訊息1784〕 / 〔訊息1785〕 /
+//   〔訊息2139〕 / 〔字串N〕 until Q-2 (gap-matrix 11.6) confirms these ids belong to string-c.tbl (R2-M, #619).
+//   protocol-gaps.md §3 reads 1784／1785 at those ids of string-c.tbl, but 1784 uses "%s" which sub_933850 drops on CP950,
+//   so the formatter of sub_7DC850 (and therefore the table it reads) is not confirmed yet.
+// R2-M (#619): the 10-record list is cleared by [WorldReset] and shown by NativeUi/LocationListPanel.cs.
 public sealed record SharedLocation(ushort Map,ushort X,ushort Y,uint Zone);
 
 /// <summary>One &lt;Map id=...&gt; of MapSystem XML World_Map (id 0–99) or Village_Map (id 100–999).</summary>
@@ -77,6 +80,9 @@ public static class LocationShareProtocol {
     public const ushort ReceivedMessageId=1784;
     /// <summary>String table id of the TransferMenu input prompt. Text unverified → numbered placeholder.</summary>
     public const ushort PromptMessageId=1785;
+    /// <summary>String table id shown instead of 1784 when the receiver's function object +16 is 0 (WO §5). Text unverified (Q-2).</summary>
+    public const ushort ListUnavailableMessageId=2139;
+    public static readonly string ListUnavailableText=$"〔訊息{ListUnavailableMessageId}〕";
     static LocationRegionTable regions=LocationRegionTable.Empty;
     /// <summary>Runtime MapSystem region table; Empty until the client XML is loaded (then ids are shown without names).</summary>
     public static LocationRegionTable Regions{get=>Volatile.Read(ref regions);set=>Volatile.Write(ref regions,value??LocationRegionTable.Empty);}
@@ -124,33 +130,39 @@ public sealed record LocationShareRecord(long Sequence,string Sender,SharedLocat
 public sealed partial class WorldSession {
     public const int LocationShareLimit=10;
     readonly Queue<LocationShareRecord> locationShares=new();
-    uint locationSharesOwner;long locationSharesSequence;
     public int LocationShareRevision {get;private set;}
-    public LocationShareRecord[] LocationShares{get{ExpireLocationShares();return locationShares.ToArray();}}
-    // WorldSession.Reset has no extension point until M7-A; a reset is detected because it clears the actor
-    // and restarts the chat sequence, so a list from an older session/character is never shown.
-    void ExpireLocationShares(){
-        if(locationShares.Count==0)return;
-        if((Actor?.ObjectId??0)!=locationSharesOwner||playerChatSequence<locationSharesSequence){locationShares.Clear();LocationShareRevision++;}
-    }
+    public LocationShareRecord[] LocationShares=>locationShares.ToArray();
+    /// <summary>
+    /// sub_8D43B0 first branch (WO §5): when the receiver's function object +16 is 0, only system message 2139 is shown and
+    /// nothing is recorded. What +16 is in the original is not traced, so the product never clears it (always true);
+    /// the branch exists so the data path matches the original once the condition is known. Not a session value (kept on reset).
+    /// </summary>
+    public bool LocationListObjectPresent {get;set;}=true;
+    // R2-M: cleared through the M7-A [WorldReset] extension point (WorldSession.Reset runs on disconnect and on every world entry),
+    // replacing the old actor/sequence guess.
+    [WorldReset] void ResetLocationShares(){locationShares.Clear();LocationShareRevision++;}
     void ReceiveLocationShare(byte[] plain){
         var line=LocationShareProtocol.Decode(plain);
+        if(line.Location!=null&&!LocationListObjectPresent)line=new(0,0,LocationShareProtocol.ListUnavailableText,PlayerChatChannel.Whisper);
         line=line with{Sequence=++playerChatSequence};
         playerChatLines.Enqueue(line);
         while(playerChatLines.Count>100)playerChatLines.Dequeue();
         playerChatRevision++;
         if(line.Location is {} location){
-            ExpireLocationShares();
             locationShares.Enqueue(new(line.Sequence,line.Text,location,LocationShareProtocol.Regions.Find(location.Zone)));
             while(locationShares.Count>LocationShareLimit)locationShares.Dequeue();
-            locationSharesOwner=Actor?.ObjectId??0;locationSharesSequence=line.Sequence;LocationShareRevision++;
+            LocationShareRevision++;
         }
     }
     /// <summary>Region names come from the runtime table; redraw chat once it is loaded so displayed text and links agree.</summary>
     public void RefreshLocationLabels(){playerChatRevision++;LocationShareRevision++;}
 }
 
+/// <summary>Consistent copy of the 10-record list for the UI thread (taken under the world capture lock).</summary>
+public sealed record LocationShareListView(int Generation,int WorldEpoch,int Revision,LocationShareRecord[] Records);
+
 public sealed partial class LoginConnection {
+    public LocationShareListView LocationShareSnapshot()=>CaptureWorld(()=>new LocationShareListView(generation,World.WorldEpoch,World.LocationShareRevision,World.LocationShares));
     async Task<bool> SendLocationCore(string receiver,int session,int world,uint actor){
         if(!PlayerChatAccess||!PlayerChatStamp(session,world,actor)||playerChatSending||WorldClock()<playerChatNextAt||sendMovementGate==null||World.MapId is not {} map||World.Actor is not {} own)return false;
         // Actor is the current client position (possibly predicted after C29, which has no per-step ACK).
@@ -201,10 +213,12 @@ public sealed class LocationShareUi:IDisposable {
     readonly Label marker=new(){Text="⊕",TextAlign=ContentAlignment.MiddleCenter,Size=new(24,24),ForeColor=Color.Cyan,BackColor=Color.FromArgb(20,40,45),Enabled=false,Visible=false,AccessibleName="分享座標標記"};
     readonly Label notice=new(){AutoEllipsis=true,ForeColor=Color.Cyan,BackColor=Color.FromArgb(20,40,45),Enabled=false,Visible=false,AccessibleName="分享座標位置提示"};
     readonly System.Windows.Forms.Timer refresh=new(){Interval=100};
-    PlayerChatView? displayed;LocationChatLink[] links=[];LocationChatLink? selected;
+    readonly Func<P06.NativeUi.UiRoot?> nativeRoot;readonly ListHost listHost;
+    PlayerChatView? displayed;LocationChatLink[] links=[];LocationChatLink? selected;long? listSelected;
     string styledText="";bool disposed;
-    public LocationShareUi(Control owner,RichTextBox history,LoginConnection connection,Func<Rectangle> viewport,Func<SharedLocation,PointF> project,Func<bool> active){
+    public LocationShareUi(Control owner,RichTextBox history,LoginConnection connection,Func<Rectangle> viewport,Func<SharedLocation,PointF> project,Func<bool> active,Func<P06.NativeUi.UiRoot?>? nativeRoot=null){
         this.owner=owner;this.history=history;this.connection=connection;this.viewport=viewport;this.project=project;this.active=active;
+        this.nativeRoot=nativeRoot??(()=>null);listHost=new(this);
         owner.Controls.AddRange([marker,notice]);
         history.MouseUp+=ClickLocation;history.MouseMove+=HoverLocation;history.TextChanged+=HistoryChanged;
         owner.Disposed+=OwnerDisposed;refresh.Tick+=RefreshTick;refresh.Start();Refresh();
@@ -227,11 +241,37 @@ public sealed class LocationShareUi:IDisposable {
         if(e.Button!=MouseButtons.Left)return;
         Refresh();if(AtPoint(e.Location) is {} link)Select(link);
     }
-    void Select(LocationChatLink link){selected=link;Refresh();}
+    void Select(LocationChatLink link){selected=link;listSelected=null;Refresh();}
+
+    // R2-M: the native list panel (NativeUi/LocationListPanel.cs) reads the 10-record list through this host. A row click
+    // only places the same ⊕ marker as a chat link; it never moves the player or sends a packet.
+    sealed class ListHost(LocationShareUi ui):P06.NativeUi.ILocationListHost {
+        public P06.NativeUi.LocationListView View=>ui.ListView();
+        public void Select(P06.NativeUi.LocationListView shown,long sequence)=>ui.SelectShare(shown,sequence);
+    }
+    static long ListRevision(LocationShareListView list)=>((long)list.Generation<<32)|(uint)list.Revision;
+    internal P06.NativeUi.ILocationListHost ListSource=>listHost;
+    internal P06.NativeUi.LocationListView ListView(){
+        if(disposed)return P06.NativeUi.LocationListView.Empty;
+        var list=connection.LocationShareSnapshot();
+        var rows=list.Records.Select(r=>new P06.NativeUi.LocationListRow(r.Sequence,r.Sender,LocationShareProtocol.RegionLabel(r.Location.Zone),r.Location.Map)).ToArray();
+        return new(ListRevision(list),rows,listSelected is long s&&rows.Any(r=>r.Sequence==s)?s:null);
+    }
+    internal bool SelectShare(P06.NativeUi.LocationListView shown,long sequence){
+        if(disposed)return false;
+        var list=connection.LocationShareSnapshot();
+        if(ListRevision(list)!=shown.Revision||list.Records.All(r=>r.Sequence!=sequence))return false;
+        listSelected=sequence;selected=null;Refresh();return listSelected==sequence;
+    }
+    void AttachList(){
+        if(nativeRoot()?.Find(P06.NativeUi.LocationListPanel.PanelId) is P06.NativeUi.LocationListPanel panel&&panel.Host==null)panel.Attach(listHost);
+    }
+
     public void Refresh(){
         if(disposed||owner.IsDisposed||history.IsDisposed)return;
+        AttachList();
         var view=connection.PlayerChatSnapshot();
-        if(displayed==null||displayed.Generation!=view.Generation||displayed.WorldEpoch!=view.WorldEpoch||displayed.Actor!=view.Actor){selected=null;styledText="";}
+        if(displayed==null||displayed.Generation!=view.Generation||displayed.WorldEpoch!=view.WorldEpoch||displayed.Actor!=view.Actor){selected=null;listSelected=null;styledText="";}
         displayed=view;links=LocationSharePresentation.Links(view,history.Text);
         if(styledText!=history.Text){
             int caret=history.SelectionStart,count=history.SelectionLength;
@@ -240,14 +280,20 @@ public sealed class LocationShareUi:IDisposable {
             history.Select(history.TextLength,0);history.SelectionFont=history.Font;
             history.Select(caret,count);styledText=history.Text;
         }
-        if(!active()||connection.State!=LoginState.InWorld||!connection.World.Ready){selected=null;}
+        if(!active()||connection.State!=LoginState.InWorld||!connection.World.Ready){selected=null;listSelected=null;}
         if(selected is {} old&&!view.Lines.Any(line=>line.Sequence==old.Sequence&&line.Location==old.Location))selected=null;
-        if(selected is not {} target){marker.Visible=notice.Visible=false;return;}
+        SharedLocation? chosen=selected?.Location;
+        if(chosen==null&&listSelected is long sequence){
+            var list=connection.LocationShareSnapshot();
+            var record=list.Generation==view.Generation?list.Records.FirstOrDefault(r=>r.Sequence==sequence):null;
+            if(record==null)listSelected=null;else chosen=record.Location;
+        }
+        if(chosen is not {} target){marker.Visible=notice.Visible=false;return;}
         var bounds=viewport();notice.SetBounds(bounds.Left+8,bounds.Top+8,Math.Max(1,bounds.Width-16),24);
-        string text=LocationShareProtocol.Format(target.Location);
-        if(connection.World.MapId!=target.Location.Map){marker.Visible=false;notice.Text="分享座標（不同地圖）："+text;}
+        string text=LocationShareProtocol.Format(target);
+        if(connection.World.MapId!=target.Map){marker.Visible=false;notice.Text="分享座標（不同地圖）："+text;}
         else{
-            var p=project(target.Location);var point=LocationSharePresentation.MarkerPoint(p,bounds);
+            var p=project(target);var point=LocationSharePresentation.MarkerPoint(p,bounds);
             marker.Location=new(point.X-12,point.Y-12);marker.Visible=true;marker.BringToFront();
             notice.Text=(bounds.Contains(Point.Round(p))?"分享座標：":"分享座標（視野外，邊緣指示）：")+text;
         }
@@ -268,7 +314,7 @@ public sealed partial class ClientForm {
         var chat=playerHud.Controls.OfType<PlayerHudChatPanel>().Single();
         var history=chat.Controls.OfType<RichTextBox>().Single();
         locationShareUi=new(this,history,login,()=>PlayerSceneBounds,
-            location=>Camera.ToView(Coordinates.Screen(location.X,location.Y)),()=>login.World.Renderable);
+            location=>Camera.ToView(Coordinates.Screen(location.X,location.Y)),()=>login.World.Renderable,()=>NativeUiRoot);
         _=LocationRegionLoader.LoadAsync(login);
     }
 }

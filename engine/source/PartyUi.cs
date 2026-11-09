@@ -6,7 +6,8 @@ public sealed class PartyUi:Panel {
     readonly FlowLayoutPanel actions=new(){Dock=DockStyle.Top,Height=36,WrapContents=false};
     readonly Label notice=new(){Dock=DockStyle.Bottom,Height=42,ForeColor=Color.White,AutoEllipsis=true};
     readonly System.Windows.Forms.Timer refresh=new(){Interval=200};
-    readonly Button invite,list,leave,accept,reject;
+    // R2-J (#624): no accept/reject here; the invitation is answered from the shared input-line prompt (YesNoPrompt.cs).
+    readonly Button invite,list,leave;
     readonly CheckBox distribute=new(){Text="自動分配",Width=90,ForeColor=Color.White,AccessibleName="組隊自動分配模式"};
     readonly PlayerHudView hud;readonly Func<bool> isOpen;
     PartyView? shown;string rowKey="";bool sending;
@@ -21,8 +22,7 @@ public sealed class PartyUi:Panel {
     PartyUi(PlayerHudView hud,Func<bool> isOpen){
         this.hud=hud;this.isOpen=isOpen;Visible=false;BackColor=PlayerHudPainter.Ink;AccessibleName="隊伍名稱與 HP";
         invite=Button("邀請選取玩家","invite",116);list=Button("更新名單","list",84);leave=Button("離開隊伍","leave",84);
-        accept=Button("接受","accept",58);reject=Button("拒絕","reject",58);
-        actions.Controls.AddRange([invite,distribute,list,leave,accept,reject]);Controls.AddRange([rows,notice,actions]);
+        actions.Controls.AddRange([invite,distribute,list,leave]);Controls.AddRange([rows,notice,actions]);
         refresh.Tick+=(_,_)=>Sync();Enter+=(_,_)=>Owner?.PartyTakeFocus();
     }
     Button Button(string text,string command,int width){var b=new Button{Text=text,AccessibleName=text,Width=width,Height=30,ForeColor=Color.White,BackColor=PlayerHudPainter.Panel};b.Click+=async(_,_)=>await Send(command);return b;}
@@ -36,7 +36,7 @@ public sealed class PartyUi:Panel {
         if(IsDisposed)return;SetBounds(0,0,hud.Width,PlayerHudGeometry.DrawerHeight);Visible=hud.Visible&&isOpen();
         if(!Visible||Owner is not {} owner)return;BringToFront();shown=owner.PartyRead();var v=shown;
         bool ready=v.Available&&!sending;invite.Enabled=ready&&v.CanInvite;list.Enabled=ready;leave.Enabled=ready&&v.Members.Length>0;
-        accept.Visible=reject.Visible=v.Invitation!=null;accept.Enabled=reject.Enabled=ready;distribute.Enabled=ready;
+        distribute.Enabled=ready;
         notice.Text=v.Notice;notice.AccessibleName=v.Notice;
         string key=string.Join('|',v.Members.Select(m=>$"{m.ObjectId}:{m.Name}:{m.HpPercent}"))+v.CanKick+ready;
         if(key==rowKey)return;rowKey=key;
