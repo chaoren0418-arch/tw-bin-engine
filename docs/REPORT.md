@@ -267,3 +267,4 @@
 - 2026-11-10 — #706 T294：R4-B 背包、魔法、倉庫原生窗畫內容（code，claude-local，PR #720 已合併）→ [報告](reports/issue-706.md)
 - 2026-11-10 — #708 T296：R4-E 血盟窗收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-708.md)
 - 2026-11-10 — #709 T297：R4-F 狀態圖示與寵物資料接上（code，claude-local，PR 已合併）→ [報告](reports/issue-709.md)
+- 2026-11-10 — #710 T298：R4-G 技能提亮與舊素材 kind 分類（code，claude-local，PR 已合併）→ [報告](reports/issue-710.md)
