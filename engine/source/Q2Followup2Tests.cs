@@ -100,7 +100,7 @@ static class Q2Followup2Tests {
         t.Check(w.UserPlayStats().Obtained.SingleOrDefault() is {Id:2,Gain:4},"baseline list untouched by reset: gain still against the S5 count",w.UserPlayStats().Obtained);
         var empty=new WorldSession();
         t.Check(!empty.ResetUserPlayStatsBaseline()&&empty.UserPlayStats() is {ExpGain:null,Baseline:false},"nothing to rebuild: no invented baseline");
-        empty.Receive(S8(3,0),"offline");t.Equal(0m,empty.UserPlayStats().ExpGain,"next S8 still records the baseline");
+        empty.Receive(S8(1,0),"offline");t.Equal(0m,empty.UserPlayStats().ExpGain,"next S8 still records the baseline");
         using var c=new LoginConnection();
         t.Check(!c.ResetUserPlayStats(),"not in world: reset does nothing");
     }
