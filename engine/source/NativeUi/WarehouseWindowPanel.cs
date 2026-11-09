@@ -30,17 +30,32 @@ public enum WarehouseSortColumn { None, Name, Amount }
 /// (150, 37) and (206, 37), tabs 3020–3023 at (17, 300), OK 3014 (60, 326), cancel 3017 (127, 326). Elements without a position
 /// (knob 3029, 3003/3005, mail 2303/2304) are not drawn. Opens by itself when a warehouse list arrives.
 /// </summary>
-public sealed class WarehouseWindowPanel:LegacyWindowPanel {
-    [UiPanel(175)] internal static UiPanelRegistration Registration=>new(WindowId,Layout,_=>new WarehouseWindowPanel());   // R3-A (#678): opened by the warehouse list (S176 / deposit), no hotkey
+public sealed class WarehouseWindowPanel(ItemIconSource? icons=null):LegacyWindowPanel {
+    [UiPanel(175)] internal static UiPanelRegistration Registration=>new(WindowId,Layout,root=>new WarehouseWindowPanel(ItemIconSource.FromRoot(root)));   // R3-A (#678): opened by the warehouse list (S176 / deposit), no hotkey; R4-B (#706): row icons
     public const string WindowId="WAREHOUSE_WINDOW",Layout="uiextra86";
     public const int TabCount=4;
     public static readonly string[] TabNames=["SURF_RENEWAL_WAREHOUSE_TAB_ALL","SURF_RENEWAL_WAREHOUSE_TAB_EQUIP","SURF_RENEWAL_WAREHOUSE_TAB_QUEST","SURF_RENEWAL_WAREHOUSE_TAB_ETC"];
     const string SortUp="SURF_RENEWAL_WAREHOUSE_SORT_UP_OFF",SortDown="SURF_RENEWAL_WAREHOUSE_SORT_DOWN_OFF";
     public override string Id=>WindowId;
     public override string LayoutName=>Layout;
-    Part? ok,cancel,nameSort,amountSort;Part[] tabParts=[];
+    Part? ok,cancel,nameSort,amountSort,total;Part[] tabParts=[];
     UiWarehouseView? view;int? shownRevision;
     readonly Dictionary<uint,uint> selection=[];
+    uint? pressed;
+
+    public ItemIconSource Icons{get;set;}=icons??ItemIconSource.None;
+    public Func<string,string> ResolveName{get;set;}=ItemText.Resolve;
+    /// <summary>
+    /// Row list (R4-B, 推測 — no row geometry in the XML): 33-pixel rows (32-pixel icon) from the upper arrow down to the tab
+    /// strip, from the tab strip's left edge to the scrollbar. Local uiextra86 → 7 rows of 200 × 32 from (17, 58).
+    /// Each row: icon, name (up to the name sort button), amount right-aligned before the scrollbar.
+    /// </summary>
+    public LegacyCellGrid RowGrid{get;private set;}=LegacyCellGrid.Empty;
+    int nameRight;
+    public IReadOnlyList<ShopRow> VisibleRows=>Rows.Skip(ScrollOffset).Take(RowGrid.PageSize).ToArray();
+    public Rectangle RowRect(int row)=>Logical(RowGrid.CellRect(row));
+    public ShopRow? RowAt(Point logical)=>RowGrid.SlotAt(Local(logical)) is int r&&r<VisibleRows.Count?VisibleRows[r]:null;
+    public string NameOf(ShopRow row)=>ItemText.Name(ResolveName(row.Name),row.Available);
 
     /// <summary>Local render check only: keep the window open without a warehouse list.</summary>
     internal bool RenderWithoutData{get;set;}
@@ -52,7 +67,7 @@ public sealed class WarehouseWindowPanel:LegacyWindowPanel {
     public Rectangle AmountSortRect=>RectOf(amountSort);
     public Rectangle TabStripRect=>tabParts.Length==0?Rectangle.Empty:RectOf(tabParts[Tab]);
 
-    /// <summary>Selected tab; one image per tab at one position (推測 strip, as in the item window). Not clickable (待驗證).</summary>
+    /// <summary>Selected tab; one image per tab at one position (推測 strip, as in the item window). R4-B: clicked by equal quarters (推測).</summary>
     public int Tab{get;private set;}
     public void SetTab(int tab){if(tab is <0 or >=TabCount)throw new ArgumentOutOfRangeException(nameof(tab));if(tab!=Tab){Tab=tab;ResetScroll();}}
     /// <summary>
@@ -76,7 +91,7 @@ public sealed class WarehouseWindowPanel:LegacyWindowPanel {
             _=>view.Rows,
         };
     }}
-    protected override int ScrollCount=>view?.Rows.Count??0;
+    protected override int ScrollCount=>RowGrid.ScrollPositions(view?.Rows.Count??0);
     public IReadOnlyDictionary<uint,uint> Selection=>selection;
     /// <summary>Total fee of the selection: withdraw charges the per-row fee once per selected row (NpcServices: not per count).</summary>
     public long SelectedFee=>view?.Kind=="withdraw"?(long)view.FeePerRow*selection.Count:0;
@@ -92,7 +107,7 @@ public sealed class WarehouseWindowPanel:LegacyWindowPanel {
 
     protected override void Build(LegacyWindowLayout w,Func<int,UiSurface?> surfs){
         AddChrome(w,surfs,"SURF_RENEWAL_WAREHOUSE_BASE","SURF_RENEWAL_WAREHOUSE_FRAME","SURF_RENEWAL_WAREHOUSE_EXIT_OFF","SURF_RENEWAL_WAREHOUSE_SCROLL_BAR","SURF_RENEWAL_WAREHOUSE_SCROLL_UP_OFF","SURF_RENEWAL_WAREHOUSE_SCROLL_DOWN_OFF");
-        AddPart(w.Placed("SURF_RENEWAL_WAREHOUSE_TOTAL"),surfs);
+        total=AddPart(w.Placed("SURF_RENEWAL_WAREHOUSE_TOTAL"),surfs);
         ok=AddPart(w.Placed("SURF_RENEWAL_WAREHOUSE_OK_OFF"),surfs);
         cancel=AddPart(w.Placed("SURF_RENEWAL_WAREHOUSE_CANCEL_OFF"),surfs);
         AddPart(w.Placed("SURF_RENEWAL_WAREHOUSE_NAME"),surfs);
@@ -105,7 +120,12 @@ public sealed class WarehouseWindowPanel:LegacyWindowPanel {
         AddPart(w.Placed(SortDown,1),surfs,()=>!AmountAscending);
         tabParts=new Part[TabCount];
         for(int k=0;k<TabCount;k++){int tab=k;tabParts[k]=AddPart(w.Placed(TabNames[k]),surfs,()=>Tab==tab);}
-        Tab=0;SortColumn=WarehouseSortColumn.None;NameAscending=AmountAscending=true;view=null;shownRevision=null;selection.Clear();
+        var up=w.Placed("SURF_RENEWAL_WAREHOUSE_SCROLL_UP_OFF").Offset!.Value;var down=w.Placed("SURF_RENEWAL_WAREHOUSE_SCROLL_DOWN_OFF").Offset!.Value;
+        var tabs=w.Placed(TabNames[0]).Offset!.Value;int right=w.Placed("SURF_RENEWAL_WAREHOUSE_SCROLL_BAR").Offset!.Value.X;
+        RowGrid=LegacyCellGrid.Fit(tabs.X,Math.Min(up.Y,down.Y),right,tabs.Y,new(right-tabs.X,LegacyCellGrid.IconPitch),right-tabs.X);
+        if(RowGrid.PageSize==0)throw new UiLayoutException(w.FileName,w.WindowId,"倉庫清單沒有空間（分頁／捲軸／上箭頭的位置不合理）");
+        nameRight=w.Placed(SortUp,0).Offset!.Value.X-2;
+        Tab=0;SortColumn=WarehouseSortColumn.None;NameAscending=AmountAscending=true;view=null;shownRevision=null;selection.Clear();pressed=null;
     }
 
     protected override void OnUpdate(IUiGameState state){
@@ -119,13 +139,50 @@ public sealed class WarehouseWindowPanel:LegacyWindowPanel {
         foreach(var id in selection.Keys.ToArray())if(next.Rows.FirstOrDefault(r=>r.Id==id) is not {} row||selection[id]>row.Available)selection.Remove(id);
     }
 
-    protected override IEnumerable<Rectangle> Controls()=>[OkRect,CancelRect,NameSortRect,AmountSortRect];
+    protected override IEnumerable<Rectangle> Controls()=>[OkRect,CancelRect,NameSortRect,AmountSortRect,TabStripRect,Logical(RowGrid.Area)];
     protected override bool Click(Point p,IUiCommands commands){
+        pressed=null;
         if(NameSortRect.Contains(p)){Sort(WarehouseSortColumn.Name);return true;}
         if(AmountSortRect.Contains(p)){Sort(WarehouseSortColumn.Amount);return true;}
         if(CancelRect.Contains(p)){CloseClicked(commands);return true;}
         if(OkRect.Contains(p)){Submit(commands);return true;}
+        if(LegacyStrip.SegmentAt(TabStripRect,TabCount,p) is int tab){SetTab(tab);return true;}
+        if(RowAt(p) is {} row){pressed=row.Id;return true;}
         return false;
+    }
+    /// <summary>
+    /// Row press → release on the same row toggles it (whole count; a quantity prompt for stacks is 待驗證 and stays on the
+    /// WinForms NPC page); release on OK selects it (if not yet) and submits — "drag to OK". Elsewhere: nothing.
+    /// </summary>
+    protected override void Release(Point p,IUiCommands commands){
+        if(pressed is not uint id){return;}
+        pressed=null;
+        var row=view?.Rows.FirstOrDefault(r=>r.Id==id);if(row==null)return;
+        if(OkRect.Contains(p)){if(!selection.ContainsKey(id))Select(id,row.Available);Submit(commands);return;}
+        if(RowAt(p)?.Id==id)Toggle(id);
+    }
+    /// <summary>Selects the whole available count of a row, or clears it when already selected.</summary>
+    public bool Toggle(uint id){
+        var row=view?.Rows.FirstOrDefault(r=>r.Id==id);if(row==null)return false;
+        return selection.ContainsKey(id)?Select(id,0):Select(id,row.Available);
+    }
+
+    protected override void PaintContent(UiCanvas canvas){
+        var rows=VisibleRows;
+        for(int r=0;r<rows.Count;r++){
+            var rect=RowRect(r);var row=rows[r];bool on=selection.TryGetValue(row.Id,out uint count);
+            ItemIconSource.Draw(canvas,Icons.For(row),rect.Location);
+            int textY=rect.Y+(rect.Height-UiText.Font.Height)/2;
+            var color=on?SelectedColor:TextColor;
+            DrawClipped(canvas,NameOf(row),rect.X+ItemIconSource.IconSize+4,textY,At(new(nameRight,0)).X,color);
+            DrawRightAligned(canvas,(on?count:row.Available).ToString(System.Globalization.CultureInfo.InvariantCulture),rect.Right-3,textY,color);
+            if(on)DrawFrame(canvas,rect,SelectedColor);
+        }
+        // Withdraw fee of the selection after the TOTAL label (推測 position: right of the label, same line).
+        if(view?.Kind=="withdraw"&&selection.Count>0&&total?.Image is {} t){
+            var at=At(new(total.Offset.X+t.Width+4,total.Offset.Y));
+            canvas.DrawText(SelectedFee.ToString(System.Globalization.CultureInfo.InvariantCulture),at.X,at.Y,TextColor,TextShadow);
+        }
     }
     void Sort(WarehouseSortColumn column){
         if(SortColumn==column){if(column==WarehouseSortColumn.Name)NameAscending=!NameAscending;else AmountAscending=!AmountAscending;}
@@ -229,7 +286,7 @@ public sealed class WarehouseWindowPanel:LegacyWindowPanel {
         LegacyWindowTestKit.Click(p,new(208,39),cmd);
         t.Check(p.SortColumn==WarehouseSortColumn.Amount&&p.Rows.Select(r=>r.Id).SequenceEqual(new uint[]{11,13,12}),"amount sort ascending");
         for(int k=0;k<5;k++)LegacyWindowTestKit.Click(p,new(220,290),cmd);
-        t.Equal(2,p.ScrollOffset,"scroll clamps to rows − 1");
+        t.Equal(0,p.ScrollOffset,"3 rows fit the 7-row list → nothing to scroll (row scrolling: LegacyWindowContentTests)");
 
         LegacyWindowTestKit.Click(p,new(70,330),cmd);
         t.Check(cmd.Calls.SequenceEqual(new[]{"submit:7:12x500,13x3"})&&p.Selection.Count==0,"OK forwards the selection once, in server order");

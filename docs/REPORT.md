@@ -264,3 +264,4 @@
 - 2026-11-10 — #689 T288：Q3 補做——血盟倉庫紀錄原生窗、隱身只限同隊、酒醉註解（code，claude-local，PR 已合併）→ [報告](reports/issue-689.md)
 - 2026-11-10 — #705 T293：R4-A 選單鈕、熱鍵與信件入口（code，claude-local，PR 已合併）→ [報告](reports/issue-705.md)
 - 2026-11-10 — #707 T295：R4-D 料理窗內容與備援（code，claude-local，PR 已合併）→ [報告](reports/issue-707.md)
+- 2026-11-10 — #706 T294：R4-B 背包、魔法、倉庫原生窗畫內容（code，claude-local，PR #720 已合併）→ [報告](reports/issue-706.md)
