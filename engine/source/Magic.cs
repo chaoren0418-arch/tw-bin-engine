@@ -71,6 +71,7 @@ public sealed partial class LoginConnection {
     void ResetMagicSend(){magicLease++;magicSending=false;nextMagicAt=0;lastMagicTiming=null;lastMagicAdmission=-1;}
     public Task<bool> CastSelectedMagic()=>CastSelectedMagic(null);
     public async Task<bool> CastSelectedMagic(SkillCastTarget? requested){
+        if(requested==null&&TryOpenRingWindow())return false;   // T276（#667）：控制戒指改開窗，不送 C6（AbilityStatus.cs）
         if(!TryPrepareSkillCast(requested,out var prepared)||MovementBusy||sendMovementGate==null){World.MagicNotice="未送出：請選已學技能並提供有效目標（座標、名字或書籤），並等待動作完成";return false;}
         var cast=prepared!;int id=World.SelectedMagicId!.Value;var a=World.Actor!;uint target=cast.Target;ushort x=cast.X,y=cast.Y;
         if(!MagicRules.InRange(id,a.X,a.Y,x,y)){
