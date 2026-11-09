@@ -2,7 +2,7 @@ namespace P06;
 
 // M7-B（T204／#510）：S36 Ability（能力旗標）與 S37 SPMR（SP／MR）的接收與快照。
 // 依據：docs/reference/server-protocol.md〈S_Ability〉〈S_SPMR〉；gap-matrix 第 1 節 op 122（TW16 S_CHANGE_ABILITY → 3.81 S36）。
-// 只做協定與資料；狀態窗等畫面由原生 UI 模組處理。旗標 type 的意義在 reference 文件中未查證，所以只存原始 type 值，不命名。
+// 只做協定與資料；狀態窗等畫面由原生 UI 模組處理。旗標存原始 type 值；type 1／2／5 的名稱見下方 AbilityRules（T265）。
 //
 // 封包（BasePacket 補 0 到 8 的倍數）：
 //   S36：C(36) C(type) C(equipped?1:0)                       → 3 bytes，補成 8
@@ -10,6 +10,18 @@ namespace P06;
 //   S37 無參數建構子：C(37) C(50) C(100)（不分 ROClient）    → 3 bytes，補成 8
 public sealed record AbilityFlag(int Type,bool Equipped,int Updates);
 public sealed record SpMrStatus(int Sp,int Mr,string Form,int Updates);
+
+// T265（#626，R2-L）：
+// - S37 SP／MR 由 NativeUi/State/LeftStatusState.From 讀 SpMr 接到左狀態框（#598）；本檔不另存。
+// - S36 原版：TW16 S_CHANGE_ABILITY（op 122，sub_932300，VA 0x932300／FO 0x531700）以 `cc` 讀 type、值，
+//   type（有號 byte）< 6 才呼叫 sub_9E3260(值)，寫進 0x14EBFA0＋type×12 的 6 格表；**不加狀態圖示，也不進左狀態框**。
+//   type 的意義取自 3.81 呼叫端 L1EquipmentSlot：1＝傳送控制戒指（20288）、2＝變形控制戒指（20281）、5＝道具 20284（名稱待驗證）。
+public static class AbilityRules {
+    /// <summary>原版表的格數；type ≥ 6 原版忽略。</summary>
+    public const int OriginalSlots=6;
+    public static bool KeptByOriginal(int type)=>type is >=0 and <OriginalSlots;
+    public static string? Name(int type)=>type switch{1=>"傳送控制戒指",2=>"變形控制戒指",5=>"道具 20284",_=>null};
+}
 
 public sealed partial class WorldSession {
     readonly object abilityLock=new();
@@ -55,7 +67,7 @@ public sealed partial class WorldSession {
     [WorldSnapshot("ability")]
     object? AbilitySnapshot(){
         lock(abilityLock)return new{
-            flags=abilityFlags.Values.Select(f=>new{type=f.Type,equipped=f.Equipped,updates=f.Updates}).ToArray(),
+            flags=abilityFlags.Values.Select(f=>new{type=f.Type,equipped=f.Equipped,updates=f.Updates,name=AbilityRules.Name(f.Type),keptByOriginal=AbilityRules.KeptByOriginal(f.Type)}).ToArray(),
             active=abilityFlags.Values.Where(f=>f.Equipped).Select(f=>f.Type).ToArray(),
             updates=abilityUpdates,
             spMr=spMr==null?null:new{sp=spMr.Sp,mr=spMr.Mr,form=spMr.Form,updates=spMr.Updates},

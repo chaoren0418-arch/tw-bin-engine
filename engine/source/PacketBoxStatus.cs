@@ -8,17 +8,34 @@ namespace P06;
 // 子碼  3.81 類別               3.81 欄位（不含 op、子碼）                 處理
 // 53    S_PacketBoxCooking      C×6 能力 H(食物) C(類型) C(圖示) H(秒) C(0)    計時：-53000-類型
 // 56    S_PacketBox DOLL        H(秒)                                      計時：-3056 魔法娃娃
-// 59    S_PacketBoxWaterLife    H(0)                                       移除 170 水之元氣（推定）
+// 59    S_PacketBoxWaterLife    H(0)                                       移除 effect 57＝技能 170 水之元氣（T265 已驗證）
 // 60    S_PacketBoxThirdSpeed   C(秒>>2) C(8)                               計時：-3060 三段加速（4 秒單位，約略）
-// 75    S_PacketBoxDk           C(階段 0–3)                                數值
-// 82    S_PacketBoxExp LEAVES   C(值) C(0) C(0) C(0)                        數值
+// 75    S_PacketBoxDk           C(階段 0–3)                                數值＋圖示 effect 135（龍騎士弱點曝光）
+// 82    S_PacketBoxExp LEAVES   C(值) C(0) C(0) C(0)                        數值＋圖示 effect 175（殷海薩的祝福，百分比）
 // 87    S_Karma                 D(友好度，有號)                              數值
 // 114   S_PacketBoxProtection   D(種類 0–6) D(1 開／0 關)                     圖示集合
 // 132   S_PacketBox EVASION     C(迴避)                                     數值
 // 153   S_PacketBox MAP_LIMIT   D(秒)                                       計時：-3153 地圖限時
 // 159   S_PacketBoxMapTimer     D(筆數) {D(順序) S(地圖名) D(分鐘)}          清單
 // 160   S_WeaponRange           C(距離；-1 寫成 15)                           數值
-// 180   S_PacketBox NONE_TIME   C(1 開／0 關) D(圖示) D(字串 id) H(0)          無時間圖示集合
+// 180   S_PacketBox NONE_TIME   C(1 開／0 關) D(圖示) D(字串 id) H(0)          無時間圖示集合（圖示＝effect id）
+//
+// T265（#626，R2-L）原版對照：TW16 S_EVENT（op 108，sub_9357E0，VA 0x9357E0／FO 0x534BE0）的子碼跳表在 VA 0x93EC14
+// （`jmp [eax*4+0x93EC14]`，子碼 0–0xCC）。以下四個 case 用 capstone 靜態反組譯查得（scratch 腳本，BIN SHA e12949cf…）。
+// effect 編號是 Tile.pak effectlist2.xml 的 id（ui-layout.md 第 4 節）；sub_F05A90(秒, effect, 顯示模式, …) 加圖示、
+// sub_F059F0(effect, …) 移除、sub_F05B10(秒, effect, …) 加圖示後再把 effect 的 startMsg 印到聊天。
+//   59  case VA 0x93AB77：不讀欄位；`if(sub_EFE870(57)) sub_F059F0(57,0,1)` → 只移除 effect 57 WATER_LIFE_S（水之元氣）。
+//   75  case VA 0x93B2E2：讀 C(階段)。>0 → 把 effect 135（CHAIN_SWORD_COUNT）的 icon 改成 0xC9B+3−階段（1→3229、2→3228、
+//       3→3227），再 sub_F05A90(effect 135 的 duration, 135, 0, −1, 1)；≤0 → sub_F059F0(135,0,1)。
+//   82  case VA 0x93B802：讀 D、D、D，組 EinhasadExpEvent（RTTI，事件 0x18）交給 EinhasadExManager；處理函式 sub_735F90
+//       → sub_736AC0：值 >0 → sub_F05A90(值, effect, 1, −1, 1)，顯示模式 1＝百分比；effect 平常為 175
+//       （STR_STATUS_EFFECT_BLESS_OF_EINHASAD）；值 >200 為 575（旗標開為 576）、管理器旗標 +0x10 開時為 518、
+//       全域 0x138BE64＝0x1900 時為 574。≥540 的 id 不在表中，客戶端不建立圖示。值 ≤0 → 移除 175、518、574、575、576。
+//       3.81 只寫 C(值) C(0)×3，所以 TW16 的第一個 D 正好等於值；後兩個 D 落在補位與包外，原版不用來決定圖示。
+//       旗標 +0x10 由事件 0x15／0x16（id 0x125）切換，引擎沒有這個來源 → 一律當 0（effect 175）。
+//   180 case VA 0x938857：解析 sub_C14ED0：C(開關≠0)、D → +8、D → +0xC。開 → sub_F05B10(−1, +8, 0, −1, 1)：
+//       **第一個 D 是 effect id**（無期限，並印 effect 的 startMsg）；關 → sub_F059F0(+8,1,1)。封包的字串 id（+0xC）原版不用。
+//       3.81 呼叫端（ItemVIPTable、TimedRateController、MapRecoveryIconState）傳的也是 effect id。
 
 /// <summary>S250/114 保護（正義／邪惡／遭遇）圖示種類；名稱取自 3.81 `S_PacketBoxProtection` 常數。</summary>
 public enum PacketBoxProtection {JusticeL1=0,JusticeL2=1,JusticeL3=2,EvilL1=3,EvilL2=4,EvilL3=5,Encounter=6}
@@ -26,8 +43,22 @@ public enum PacketBoxProtection {JusticeL1=0,JusticeL2=1,JusticeL3=2,EvilL1=3,Ev
 /// <summary>S250/159 每一筆限時地圖：順序 id、地圖名稱、剩餘分鐘（伺服器以整數除 60）。</summary>
 public sealed record PacketBoxMapTime(uint OrderId,string MapName,int Minutes);
 
-/// <summary>S250/180 無時間圖示：圖示 id 與字串表 id（文字由執行期字串表查，不存進 repo）。</summary>
-public sealed record PacketBoxNoneTimeIcon(uint IconId,uint StringId);
+/// <summary>
+/// S250/180 無時間圖示。IconId 依原版 sub_938857 是 effectlist2 的 effect id（見 <see cref="Effect"/>）；
+/// StringId 照收但原版不用（圖示文字取 effect 的 startMsg／tooltip）。
+/// </summary>
+public sealed record PacketBoxNoneTimeIcon(uint IconId,uint StringId) {
+    /// <summary>原版當成 effectlist2 effect id 使用的值（＝封包第一個 D）。</summary>
+    public uint Effect=>IconId;
+}
+
+/// <summary>
+/// B2 子碼依原版換成的一個狀態圖示（只做資料；畫面由 ui-buff-icons 讀 effectlist2 畫）。
+/// DisplayMode：sub_F05A90 第 3 參數（0＝秒數 tooltip、1＝百分比）。Value：模式 0 時為秒數（−1＝無期限，null＝取 effect 的
+/// 預設 duration，見 DefaultDuration）；模式 1 時為百分比數值。IconOverride：原版改寫 effect 表 icon 的 .tbt 編號（75 用）。
+/// Name／ValueText 是給 WinForms 狀態列的中文說明（原生 UI 不用，字串取原客戶端字串表）。
+/// </summary>
+public sealed record PacketBoxStatusIcon(int Effect,int DisplayMode,int? Value,bool DefaultDuration,int? IconOverride,string Origin,string Name,string ValueText);
 
 /// <summary>S250/53 最近一筆料理封包附帶的能力值與食物值（伺服器值：食物＝飽食度×10−250，下限 0）。</summary>
 public sealed record PacketBoxCookingStats(int Type,byte IconKind,byte Str,byte Int,byte Wis,byte Dex,byte Con,byte Cha,ushort Food);
@@ -42,6 +73,23 @@ public static class PacketBoxStatusRules {
     public const byte CakeType=8;
     // S_PacketBoxCooking 第 11 個欄位：類型 7＝0x24、類型 54＝0x2A、其他＝0x26。
     public static bool KnownCookingIconKind(int type,byte kind)=>kind==(type switch{7=>0x24,54=>0x2A,_=>0x26});
+
+    // ── T265 原版對照（見檔頭）。effect id＝effectlist2.xml，id ≥ EffectTableCount 的圖示原版不建立。
+    public const int EffectTableCount=540;
+    public const int ModeSeconds=0,ModePercent=1;
+    /// <summary>59：只移除 effect 57 WATER_LIFE_S；引擎中對應的 MagicBuffs 鍵是技能 170 水之元氣（3.81 L1SkillId.WATER_LIFE）。</summary>
+    public const int WaterLifeEffect=57;
+    /// <summary>75：effect 135；icon 改為 DkIconBase − 階段（0xC9B＋3＝3230）。秒數取 effect 135 的預設 duration。</summary>
+    public const int DkEffect=135,DkIconBase=0xC9B+3;
+    public static int DkIcon(int level)=>DkIconBase-level;
+    /// <summary>82：effect 175（模式 1 百分比）；值 &gt; LeavesMax 時為 575（不在表中，不建立圖示）。</summary>
+    public const int LeavesEffect=175,LeavesOverflowEffect=575,LeavesMax=200;
+    /// <summary>82 值 ≤ 0 時原版移除的 effect（sub_736AC0 尾段）。</summary>
+    public static readonly int[] LeavesRemoved=[175,518,574,575,576];
+    /// <summary>82 的 effect：值 ≤ 0 → null（移除）；引擎沒有管理器旗標 +0x10 與全域 0x138BE64 的來源，視為關。</summary>
+    public static int? LeavesEffectFor(int value)=>value<=0?null:value>LeavesMax?LeavesOverflowEffect:LeavesEffect;
+    /// <summary>180：無期限（sub_F05B10 第一個參數 −1）、模式 0。</summary>
+    public const int NoLimit=-1;
 }
 
 public sealed partial class WorldSession {
@@ -67,6 +115,22 @@ public sealed partial class WorldSession {
     public IReadOnlyList<PacketBoxMapTime>? MapTimes{get{lock(packetBoxStatusGate)return packetBoxMapTimes;}}
     public PacketBoxProtection[] Protections{get{lock(packetBoxStatusGate)return [..packetBoxProtections];}}
     public PacketBoxNoneTimeIcon[] NoneTimeIcons{get{lock(packetBoxStatusGate)return [..packetBoxNoneTimeIcons.Values];}}
+
+    /// <summary>
+    /// T265：75／82／180 依原版換成的 effectlist2 圖示（順序：75、82、180 依 effect id）。原版不建立的（effect ≥ 540）不列出。
+    /// 給 ui-buff-icons（#473）與 WinForms 狀態列讀；改變時觸發 <see cref="PacketBoxStatusChanged"/>，MagicRevision 也會遞增。
+    /// </summary>
+    public PacketBoxStatusIcon[] PacketBoxStatusIcons{get{lock(packetBoxStatusGate){
+        var list=new List<PacketBoxStatusIcon>();
+        if(packetBoxDkLevel is byte lv&&lv>0)
+            list.Add(new(PacketBoxStatusRules.DkEffect,PacketBoxStatusRules.ModeSeconds,null,true,PacketBoxStatusRules.DkIcon(lv),$"dk:{lv}","弱點曝光",$"第 {lv} 階"));
+        if(packetBoxLeaves is byte v&&PacketBoxStatusRules.LeavesEffectFor(v) is int le&&le<PacketBoxStatusRules.EffectTableCount)
+            list.Add(new(le,PacketBoxStatusRules.ModePercent,v,false,null,$"leaves:{v}","殷海薩的祝福",$"{v}%"));
+        foreach(var i in packetBoxNoneTimeIcons.Values)
+            if(i.Effect<PacketBoxStatusRules.EffectTableCount)
+                list.Add(new((int)i.Effect,PacketBoxStatusRules.ModeSeconds,PacketBoxStatusRules.NoLimit,false,null,$"none-time:{i.Effect}",$"狀態 {i.Effect}","無期限"));
+        return [..list];
+    }}}
 
     [WorldReceive(250,Subtype=53)][WorldReceive(250,Subtype=56)][WorldReceive(250,Subtype=59)][WorldReceive(250,Subtype=60)]
     [WorldReceive(250,Subtype=75)][WorldReceive(250,Subtype=82)][WorldReceive(250,Subtype=87)][WorldReceive(250,Subtype=114)]
@@ -95,7 +159,8 @@ public sealed partial class WorldSession {
             apply=()=>ReceiveBuff(PacketBoxStatusRules.DollBuff,seconds,"doll",name:"魔法娃娃");
             break;}
         case PacketBoxStatusRules.DelIcon:{
-            // 3.81 只在水之元氣（技能 170）結束時送；TW16 交給另函式讀，要刪哪個圖示待驗證。
+            // 3.81 只在水之元氣（技能 170）結束時送。原版 case 0x3B（VA 0x93AB77）不讀欄位，只在 effect 57 WATER_LIFE_S
+            // 存在時移除它（已驗證，T265）；引擎中 effect 57 對應的鍵是技能 170，所以只刪這一個鍵，不論來源。
             if(r.H()!=0)throw new ProtocolException("invalid del-icon field");
             r.Finish();
             apply=()=>{
@@ -113,7 +178,8 @@ public sealed partial class WorldSession {
             apply=()=>{lock(packetBoxStatusGate)packetBoxDkLevel=level;};
             break;}
         case PacketBoxStatusRules.Leaves:{
-            // S_PacketBoxExp：C(值) C(0)×3。TW16 case 0x52 讀 `ddd`，寬度不同；值的意義（推定為經驗加成量）待驗證。
+            // S_PacketBoxExp：C(值) C(0)×3。TW16 case 0x52 讀 `ddd`，第一個 D 正好是值；原版把值當 effect 175 的百分比（T265）。
+            // 3.81 的值＝殷海薩祝福經驗 ÷ LeavesSet.EXP。
             byte value=r.C();if(r.C()!=0||r.C()!=0||r.C()!=0)throw new ProtocolException("invalid leaves padding");r.Finish();
             apply=()=>{lock(packetBoxStatusGate)packetBoxLeaves=value;};
             break;}
@@ -186,7 +252,8 @@ public sealed partial class WorldSession {
             unknownProtections=packetBoxUnknownProtections,
             noneTimeIcons=packetBoxNoneTimeIcons.Values.Select(i=>new{iconId=i.IconId,stringId=i.StringId}).ToArray(),
             delIcons=packetBoxDelIcons,
-            ui="data only: timed states feed MagicBuffs; icon drawing belongs to native UI buff-icons",
+            statusIcons=PacketBoxStatusIcons.Select(i=>new{effect=i.Effect,mode=i.DisplayMode,value=i.Value,defaultDuration=i.DefaultDuration,iconOverride=i.IconOverride,origin=i.Origin}).ToArray(),
+            ui="data only: timed states feed MagicBuffs; 75/82/180 effect ids in statusIcons; icon drawing belongs to native UI buff-icons",
         };
     }
 }
