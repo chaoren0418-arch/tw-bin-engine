@@ -2,7 +2,9 @@ namespace P06;
 
 // T230（#548）：S250 狀態圖示類子碼（protocol-gaps.md 第 2.3 節 B2 組、第 8 節）。只做協定與資料：
 // 有倒數時間的狀態併入 MagicBuffs（狀態列／原生 UI buff-icons 模組從那裡畫），
-// 沒有時間的數值與圖示放進本檔的狀態與快照 "packetBoxStatus"，不畫畫面。
+// 沒有時間的數值與圖示放進本檔的狀態與快照 "packetBoxStatus"，本檔不畫畫面。
+// R4-F（T297／#709）：75／82／180 的 PacketBoxStatusIcons 由原生 BuffState（NativeUi/State/BuffState.cs）讀進 STATUS_EFFECT_ICONS，
+// 原生 UI 關閉時由 WinForms 狀態列（StatusIcons.cs）畫同一個 effectlist2 圖示。
 // 欄位寬度一律依 3.81 伺服器寫法（docs/reference/server-protocol.md），TW16 讀取寬度不同處見各子碼註解。
 //
 // 子碼  3.81 類別               3.81 欄位（不含 op、子碼）                 處理
@@ -57,8 +59,9 @@ public sealed record PacketBoxNoneTimeIcon(uint IconId,uint StringId) {
 /// DisplayMode：sub_F05A90 第 3 參數（0＝秒數 tooltip、1＝百分比）。Value：模式 0 時為秒數（−1＝無期限，null＝取 effect 的
 /// 預設 duration，見 DefaultDuration）；模式 1 時為百分比數值。IconOverride：原版改寫 effect 表 icon 的 .tbt 編號（75 用）。
 /// Name／ValueText 是給 WinForms 狀態列的中文說明（原生 UI 不用，字串取原客戶端字串表）。
+/// ReceivedAt：DefaultDuration 的圖示最近一次加入／更新的時刻（MagicStatusClock，毫秒）；原生 UI 用它從 effect 的 duration 倒數（R4-F）。
 /// </summary>
-public sealed record PacketBoxStatusIcon(int Effect,int DisplayMode,int? Value,bool DefaultDuration,int? IconOverride,string Origin,string Name,string ValueText);
+public sealed record PacketBoxStatusIcon(int Effect,int DisplayMode,int? Value,bool DefaultDuration,int? IconOverride,string Origin,string Name,string ValueText,long? ReceivedAt=null);
 
 /// <summary>S250/53 最近一筆料理封包附帶的能力值與食物值（伺服器值：食物＝飽食度×10−250，下限 0）。</summary>
 public sealed record PacketBoxCookingStats(int Type,byte IconKind,byte Str,byte Int,byte Wis,byte Dex,byte Con,byte Cha,ushort Food);
@@ -95,6 +98,7 @@ public static class PacketBoxStatusRules {
 public sealed partial class WorldSession {
     readonly object packetBoxStatusGate=new();
     byte? packetBoxDkLevel,packetBoxLeaves,packetBoxEvasion,packetBoxWeaponRange;
+    long? packetBoxDkAt;   // 最近一次 75（階段 >0）的時刻：原版每次都以 effect 135 的 duration 重新 sub_F05A90（更新既有圖示）
     int? packetBoxKarma;
     PacketBoxCookingStats? packetBoxCooking;
     IReadOnlyList<PacketBoxMapTime>? packetBoxMapTimes;
@@ -123,7 +127,7 @@ public sealed partial class WorldSession {
     public PacketBoxStatusIcon[] PacketBoxStatusIcons{get{lock(packetBoxStatusGate){
         var list=new List<PacketBoxStatusIcon>();
         if(packetBoxDkLevel is byte lv&&lv>0)
-            list.Add(new(PacketBoxStatusRules.DkEffect,PacketBoxStatusRules.ModeSeconds,null,true,PacketBoxStatusRules.DkIcon(lv),$"dk:{lv}","弱點曝光",$"第 {lv} 階"));
+            list.Add(new(PacketBoxStatusRules.DkEffect,PacketBoxStatusRules.ModeSeconds,null,true,PacketBoxStatusRules.DkIcon(lv),$"dk:{lv}","弱點曝光",$"第 {lv} 階",packetBoxDkAt));
         if(packetBoxLeaves is byte v&&PacketBoxStatusRules.LeavesEffectFor(v) is int le&&le<PacketBoxStatusRules.EffectTableCount)
             list.Add(new(le,PacketBoxStatusRules.ModePercent,v,false,null,$"leaves:{v}","殷海薩的祝福",$"{v}%"));
         foreach(var i in packetBoxNoneTimeIcons.Values)
@@ -175,7 +179,8 @@ public sealed partial class WorldSession {
             break;}
         case PacketBoxStatusRules.Dk:{
             byte level=r.C();r.Finish();
-            apply=()=>{lock(packetBoxStatusGate)packetBoxDkLevel=level;};
+            long at=MagicStatusClock();
+            apply=()=>{lock(packetBoxStatusGate){packetBoxDkLevel=level;packetBoxDkAt=level>0?at:null;}};
             break;}
         case PacketBoxStatusRules.Leaves:{
             // S_PacketBoxExp：C(值) C(0)×3。TW16 case 0x52 讀 `ddd`，第一個 D 正好是值；原版把值當 effect 175 的百分比（T265）。
@@ -235,7 +240,7 @@ public sealed partial class WorldSession {
     [WorldReset]
     void ResetPacketBoxStatus(){
         lock(packetBoxStatusGate){
-            packetBoxDkLevel=packetBoxLeaves=packetBoxEvasion=packetBoxWeaponRange=null;packetBoxKarma=null;
+            packetBoxDkLevel=packetBoxLeaves=packetBoxEvasion=packetBoxWeaponRange=null;packetBoxKarma=null;packetBoxDkAt=null;
             packetBoxCooking=null;packetBoxMapTimes=null;packetBoxProtections.Clear();packetBoxNoneTimeIcons.Clear();
             packetBoxStatusCounts.Clear();packetBoxDelIcons=0;packetBoxUnknownProtections=0;
         }

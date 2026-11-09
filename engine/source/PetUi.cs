@@ -27,9 +27,28 @@ public sealed partial class ClientForm {
         // R3-B（#671）：舊式 PetControl 原生面板；原生 UI 關閉時由 SummonFallbackUi.cs 的暫行清單接手召喚選擇。
         if(NativeUiRoot?.Find(PetControlPanel.PanelId) is PetControlPanel control&&control.Host==null)control.Attach(new PetControlHost(this));
         SyncSummonFallback();
+        SyncPetBagRefresh();
         if(petTargetSending)return;
         var target=login.PetTargetSnapshot();if(!target.CanSend)return;
         petTargetSending=true;_ = SendPetTarget(target);
+    }
+    // R4-F（#709）：S250/37 之後背包過時 → 自動送一次既有 C103 重要背包（PetEquipment.cs PetBagRefresh；同一次 S250/37 只送一次）。
+    // 不經 RunPet：自動送出不清使用者的輸入狀態。原生 UI 開關都一樣（資料層，不依畫面）。
+    readonly Dictionary<uint,long> petBagRequested=[];
+    bool petBagRefreshing;
+    void SyncPetBagRefresh() {
+        if(petBagRefreshing||login.State!=LoginState.InWorld||World.Walking)return;
+        foreach(var o in login.World.PetCompanions){
+            var eq=login.PetEquipmentSnapshot(o.ObjectId);
+            var view=login.PetSnapshot(o.ObjectId);
+            if(!PetBagRefresh.Due(eq,petBagRequested.TryGetValue(o.ObjectId,out long last)?last:null,view.CanSend))continue;
+            petBagRequested[o.ObjectId]=eq.Sequence!.Value;petBagRefreshing=true;
+            _ = RefreshPetBag(view.Stamp);
+            return;
+        }
+    }
+    async Task RefreshPetBag(PetStamp stamp) {
+        try{await login.SendPet(stamp,"refresh");}finally{petBagRefreshing=false;petUiSignature="";}
     }
     async Task SendPetTarget(PetTargetView view) {
         try{await login.SendPetTarget(view);}finally{petTargetSending=false;petUiSignature="";}
@@ -76,8 +95,9 @@ public sealed partial class ClientForm {
         if(!companions.Any(o=>o.ObjectId==selectedPet))selectedPet=companions.FirstOrDefault()?.ObjectId??0;
         var view=login.PetSnapshot(selectedPet);var collars=login.World.PetCollars;
         var target=login.PetTargetSnapshot();var summon=login.SummonSnapshot();bool native=NativeUiActive;
+        var equipment=login.PetEquipmentSnapshot(selectedPet);
         bool active=login.State==LoginState.InWorld;
-        string signature=System.Text.Json.JsonSerializer.Serialize(new{active,view,companions=companions.Select(o=>new{o.ObjectId,o.Name,o.HpPercent}),collars,walking=World.Walking,target,summon,native,fallback=SummonFallbackSignature});
+        string signature=System.Text.Json.JsonSerializer.Serialize(new{active,view,equipment,companions=companions.Select(o=>new{o.ObjectId,o.Name,o.HpPercent}),collars,walking=World.Walking,target,summon,native,fallback=SummonFallbackSignature});
         if(signature==petUiSignature)return;petUiSignature=signature;
         foreach(Control c in petContent.Controls.Cast<Control>().ToArray())c.Dispose();petContent.Controls.Clear();
         void Label(string text)=>petContent.Controls.Add(new Label{Text=text,AutoSize=true,MaximumSize=new(410,0),Margin=new(6)});
@@ -102,8 +122,9 @@ public sealed partial class ClientForm {
         if(summon.Open)Button("關閉召喚選擇",true,()=>{login.CloseSummon(summon);petUiSignature="";SyncPetUi(this,EventArgs.Empty);});
         Button("查詢／重新整理寵物背包",can,()=>_ = RunPet(view.Stamp,"refresh"));
         Label("召喚物沒有寵物背包；背包內容以原服回覆為準。");
+        // R4-F：AC 取 PetAc（S250/37 與 S176 取較新的一份）；背包清單過時時標示，並由 SyncPetBagRefresh 自動重要一次。
+        if(PetBagRefresh.Line(view.Bag,equipment) is string line)Label(line);
         if(view.Bag is {} bag){
-            Label($"寵物背包 · AC {bag.Ac} · {bag.Items.Length} 項");
             for(int i=0;i<bag.Items.Length;i++){int index=i;var item=bag.Items[i];Button($"{ResolveNpcText(item.Name)} × {item.Count}"+(item.Equipped?"（裝備中）":""),can&&item.Usable&&i<=255,()=>_ = RunPet(view.Stamp,"item",index,item.ItemId));}
         }
         if(collars.Length>0){Label("可領取的寵物項圈（原服單價 70）");foreach(var collar in collars)Label((login.World.Inventory.FirstOrDefault(i=>i.ObjectId==collar.ItemId)?.Name??$"項圈 {collar.ItemId}")+$" × {collar.Count}");}
