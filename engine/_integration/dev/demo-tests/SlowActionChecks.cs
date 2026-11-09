@@ -44,6 +44,7 @@ partial class Checks {
         if(opcode==71){b.Write((ushort)125);b.Write((byte)0);}
         else {if(opcode==161){b.Write((byte)0);b.Write(0u);}else b.Write((byte)9);Text(b,"伺服器拒絕此操作");}
     });
+    [CheckGroup("slow-actions")]
     static async Task SlowActions() {
         // Use the actual receive path and memory sender; no game, socket or resource fixture.
         SlowProfileFixture();

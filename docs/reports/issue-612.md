@@ -32,6 +32,7 @@
 - 既有 DemoChecks：`afflictions` PASS 580、`ambience` PASS 9881、`invisibility` PASS 397、`timed-buffs` PASS 645。
 - `engine/tools/check-no-game-assets.py`：pass（errors 0）；`git diff --check`：通過。
 - **與 origin/main 同步**（#517，1 個 commit，沒有衝突）：`--update-lock` 重產後內容不變（299 來源檔）；重建 `PASS dev`，productDll SHA `c7e75193…d241eb`；`--module-tests` 25 組 1313 checks 全過；`check-no-game-assets.py` pass。
+- **第二次與 origin/main 同步**（2026-11-09，main 前進 73 個 commit；只有 `rebuild-lock.json` 衝突，取 main 版後 `--update-lock` 重產，320 來源檔／329 pins）：重建 `PASS dev`，productDll SHA `0572a880…f0e46`；`--module-tests` 34 組 1698 checks 全過（`ambience-wiring` 52、`ambience-lights` 47）；DemoChecks `afflictions`／`ambience`／`invisibility`／`timed-buffs` 全過；`check-no-game-assets.py` pass。
 
 ## 未驗證什麼
 

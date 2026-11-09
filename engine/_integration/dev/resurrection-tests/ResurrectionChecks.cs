@@ -20,6 +20,7 @@ partial class Checks {
     static async Task<bool> RezDrift(LoginConnection c,int heading)=>await (Task<bool>)typeof(LoginConnection).GetMethod("DriftProbe",F)!.Invoke(c,[heading])!;
     static int RezUnhandled(LoginConnection c,byte opcode)=>((System.Collections.Concurrent.ConcurrentDictionary<byte,int>)typeof(WorldSession).GetField("unhandled",F)!.GetValue(c.World)!).GetValueOrDefault(opcode);
 
+    [CheckGroup("resurrection")]
     static async Task ResurrectionChecks(){
         CombatAdmissionFixture(); // Authored metadata, never original game assets or sockets.
         await ResurrectionWire();await ResurrectionAnswers();await ResurrectionInvalidation();await ResurrectionRaces();ResurrectionPanel();await MoveLockInput();await MoveLockRelease();

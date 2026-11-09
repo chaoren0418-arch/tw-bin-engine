@@ -115,8 +115,10 @@ public sealed partial class ClientForm {
     IUiGameState NativeUiGameState(){
         var w=login.World;var s=w.Status;bool inWorld=login.State==LoginState.InWorld;
         var basic=new UiStaticGameState(inWorld,inWorld?w.Actor?.Name:null,inWorld?s?.Level:null,inWorld?s?.Hp:null,inWorld?s?.MaxHp:null,inWorld?s?.Mp:null,inWorld?s?.MaxMp:null,Environment.TickCount64);
-        // ui-chat-window (#468) innermost: UiChatGameState.From walks HpMp → macro → left-status → chat, the other lookups never reach it.
-        var chat=new UiChatGameState(basic,inWorld?new UiChatSnapshot(login.PlayerChatSnapshot(),gameFocus):UiChatSnapshot.Empty);
+        // ui-chat-window (#468): UiChatGameState.From walks HpMp → macro → left-status → chat, the other lookups never reach it.
+        // ui-party (#471) under chat: PartyStates.StateOf unwraps all four layers.
+        // ui-buff-icons (#473) innermost, under party: BuffState.Of unwraps all five layers.
+        var chat=new UiChatGameState(NativePartyGameState(WithBuffState(basic)),inWorld?new UiChatSnapshot(login.PlayerChatSnapshot(),gameFocus):UiChatSnapshot.Empty);
         return WithHpMpState(NativeMacroGameState(new UiLeftStatusGameState(chat,inWorld?LeftStatusState.From(w):LeftStatusState.Empty)));   // ui-hpmp #465 outside; #466 macro (MacroBook.StateOf unwraps HpMp only, so it sits right inside); ui-left-status #464 (LeftStatusState.From unwraps both)
     }
     /// <summary>ui-chat-window (#468): typed characters (WM_CHAR, after IME composition) go to the native text input that takes them.</summary>
@@ -129,8 +131,11 @@ public sealed partial class ClientForm {
         return false;
     }
 
-    sealed class NativeUiCommands(ClientForm form):IUiChatCommands {
+    sealed class NativeUiCommands(ClientForm form):IUiChatCommands,IUiPartyCommands {
         public void ShowDevTools(string? page=null){form.ClearInput("native-ui-dev-tools");form.ShowDevTools();}
+        // ui-party (#471): existing PartyAction (ClearInput + SendParty), mode 0 like the legacy drawer. Implemented here (not as a
+        // wrapper) so UiChatGameState.Commands, which only unwraps UiMacroCommands, still finds IUiChatCommands.
+        public void PartyAction(string command,PartyView shown,string name)=>_=form.PartyAction(command,shown,name,0);
         public void ReturnGameFocus()=>form.ReturnGameFocus();
         public void Logout(){form.ClearInput("native-ui-logout");form.CancelLogin(form.login.SessionGeneration,false);form.SyncPlayerHud();}
         // ui-chat-window (#468): the same rules and calls as OpenPlayerChat / ExitPlayerChat / ChatSubmitRequested.

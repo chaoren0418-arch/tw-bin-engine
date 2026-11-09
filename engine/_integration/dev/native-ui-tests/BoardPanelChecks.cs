@@ -11,6 +11,7 @@ partial class Checks {
     }
     static BoardView FakeBoard(string kind,BoardArticle? article=null)=>new(1,1,1,1,1,456,kind,"",[new(20,"作者","2026/11/09","文章")],article,300,true,false,false);
 
+    [CheckGroup("board",Order=2),CheckGroup("map-continuity",Order=60),CheckGroup(CheckGroups.Default,Order=90)]
     static void NativeUiBoardChecks(string repo){
         // --- WIN§2 T130 data, verbatim.
         Check(BoardWindowLayout.List.Select(b=>(b.Surf,b.X,b.Y)).SequenceEqual(new[]{(658,209,305),(660,34,332),(662,139,304),(664,171,304),(666,64,311),(668,99,311)}),"board list window: 6 buttons, surf and offsets = WIN§2 T130");

@@ -7,6 +7,7 @@ namespace P06.NativeUi;
 /// The menu buttons of the same window (BUTTON_2STAGE_LIST, y=91) belong to ui-menu-buttons and are not drawn here.
 /// </summary>
 public sealed class MacroPanel:IUiPanel {
+    [UiPanel(80)] internal static UiPanelRegistration Registration=>new(MacroPanel.WindowId,"uistatus86",_=>new MacroPanel());   // ui-macro-bar #466 (RIGHT_WINDOW last of the bar: MACRO_LOCK overlaps BAR_485)
     public const string WindowId="RIGHT_WINDOW";
     /// <summary>Slot pitch in both directions and columns per row (V5 (a), verified).</summary>
     public const int Pitch=34,Columns=4;

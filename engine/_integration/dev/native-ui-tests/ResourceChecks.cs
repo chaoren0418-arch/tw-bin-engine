@@ -52,6 +52,7 @@ partial class Checks {
     static int IndependentHash(string name)=>name.Sum(c=>(int)c)%16;
     static string SpriteName(int index)=>index==0?"Sprite":$"Sprite{index-1:00}";
 
+    [CheckGroup("native-ui-resources",Order=1),CheckGroup(CheckGroups.Default,Order=30)]
     static void NativeUiResourceChecks(string repo){
         string root=Path.Combine(Path.GetFullPath(repo),"scratch","issue-461","synthetic");
         int caseNo=0;string Case(string tag)=>Path.Combine(root,$"{++caseNo:00}-{tag}");
@@ -230,6 +231,7 @@ partial class Checks {
     }
 
     // Optional (TW_CLIENT_ROOT set): read the real client read-only; outputs (JSON + PNG) go to scratch/issue-461/real only.
+    [CheckGroup("native-ui-resources",Order=2)]
     static void NativeUiRealClientChecks(string repo){
         string? client=Environment.GetEnvironmentVariable("TW_CLIENT_ROOT");
         if(string.IsNullOrEmpty(client)){Console.WriteLine("SKIP native-ui real client checks (TW_CLIENT_ROOT not set)");return;}

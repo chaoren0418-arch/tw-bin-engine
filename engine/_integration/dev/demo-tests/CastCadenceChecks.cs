@@ -24,6 +24,7 @@ partial class Checks {
         Check((t with{ReuseMs=2000}).CastWaitMs==3290,"skill extra delay adds to frame total");
     }
 
+    [CheckGroup("cast-cadence",Order=2),CheckGroup("combat-admission",Order=2)]
     static async Task CastCadenceChecks(){
         CastCadenceFormula();
         // No local predicted action, heading or pickup cancel on C6; server S30 drives the pose.
