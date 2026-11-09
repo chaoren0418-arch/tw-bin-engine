@@ -1,4 +1,5 @@
 using System.Text.Json;
+using P06.NativeUi;
 namespace P06;
 // R2-F（#622）：npcAmount（S136 數字框 → C11）、npcCastle（城堡頁數字框 → C19／C56／C44）、npcCastleCancel（關城堡頁，不送封包）。
 // 這三個指令的 revision＝畫面顯示時的頁版本（npcAmount：InteractionRevision；npcCastle*：QueryRevision），prompt＝詢問版本，value＝數字框的值。
@@ -46,7 +47,7 @@ public sealed partial class ClientForm {
     async Task DispatchNpc(int id,NpcWebCommand c){bool accepted=await RunInteraction(c);Reply(id,accepted?(c.Command=="query-option"?"伺服器頁選項已處理；不會自動重送。":c.Command is "castle" or "castle-cancel"?login.World.CastleNotice:login.World.InteractionNotice):"操作已過期、數量無效或目標無法互動；未送出。");}
     static bool NpcContextOpen(WorldSession w)=>w.InteractionKind!="closed"||w.InteractionHasResult;
     void CloseQueryResult(){if(!login.World.CloseQueryPage())return;SyncInteraction();lastWebState="";PublishWebState();}
-    // S39 query results (WIN§2 T140) share the NPC panel; the native HYPER_TEXT_WINDOW layout waits for T190.
+    // S39 query results (WIN§2 T140) share the NPC panel (native UI off). Native UI on → HYPER_TEXT_WINDOW (R4-I, SyncNativeHyperText).
     void AddQueryResult(WorldSession w,bool withNpc){
         var page=w.QueryPage!;
         // W2-A: server-pushed self pages (monlist, pledge, ...) have clickable options; player-query results stay read-only.
@@ -60,12 +61,86 @@ public sealed partial class ClientForm {
     void SyncInteraction(){
         var w=login.World;w.CheckInteraction();w.CheckNpcSale();npcTalk.Visible=login.State==LoginState.InWorld;npcTalk.Enabled=login.CanTalk&&!World.Walking&&w.TargetId is uint id&&HasVisibleObjectPixel(id);
         // R3-A (#678): with the native UI the warehouse list (S176 / deposit) is WAREHOUSE_WINDOW; the WinForms list is the fallback.
-        bool npcOpen=NpcContextOpen(w),query=w.QueryVisible,nativeWarehouse=NativeWarehouseActive(w);npcPanel.Visible=(npcOpen&&!nativeWarehouse||query)&&login.State==LoginState.InWorld;npcClose.Text=npcOpen?"關閉對話／取消未送出選擇":w.QueryActionable?"關閉伺服器頁":"關閉查詢結果";npcNotice.Text=ResolveNpcText(npcOpen||!query?w.InteractionNotice:"");npcSubmit.Visible=w.IsInteractionSelection&&!nativeWarehouse;npcSubmit.Text=w.InteractionTitle+"：提交一次";npcSubmit.Enabled=(w.IsServiceSelection?w.CanSubmitService:w.CanSubmitShop)&&!World.Walking;
+        bool npcOpen=NpcContextOpen(w),query=w.QueryVisible,nativeWarehouse=NativeWarehouseActive(w);
+        // R4-I (#712): with the native UI the pages (NPC dialog, query/server page, S136 and castle number boxes) go to HYPER_TEXT_WINDOW;
+        // the WinForms panel keeps only what is not a page (shop/service lists, waiting notices). Native UI off → unchanged.
+        bool nativePages=SyncNativeHyperText(w,npcOpen,query,nativeWarehouse);npcOpen=NpcContextOpen(w);query=w.QueryVisible;
+        bool nativeOwnsAll=nativePages&&(!npcOpen||nativeWarehouse||w.InteractionPage!=null);
+        npcPanel.Visible=(npcOpen&&!nativeWarehouse||query)&&login.State==LoginState.InWorld&&!nativeOwnsAll;npcClose.Text=npcOpen?"關閉對話／取消未送出選擇":w.QueryActionable?"關閉伺服器頁":"關閉查詢結果";npcNotice.Text=ResolveNpcText(npcOpen||!query?w.InteractionNotice:"");npcSubmit.Visible=w.IsInteractionSelection&&!nativeWarehouse;npcSubmit.Text=w.InteractionTitle+"：提交一次";npcSubmit.Enabled=(w.IsServiceSelection?w.CanSubmitService:w.CanSubmitShop)&&!World.Walking;
         SyncCastlePrompt();SyncSpellExchangeWindow();
-        int queryKey=query?w.QueryRevision:-1;if(npcUiRevision==w.InteractionRevision&&npcUiQueryRevision==queryKey)return;npcUiRevision=w.InteractionRevision;npcUiQueryRevision=queryKey;foreach(Control c in npcContent.Controls.Cast<Control>().ToArray())c.Dispose();npcContent.Controls.Clear();shopInputs.Clear();var stamp=CurrentNpcCommand("option");npcShopStamp=CurrentNpcCommand("shop");
-        if(query)AddQueryResult(w,npcOpen);
-        if(w.InteractionPage is {} page){npcContent.Controls.Add(new Label{Text=ResolveNpcText(page.Text),AutoSize=true,MaximumSize=new(400,0),ForeColor=Color.White,Margin=new(6)});foreach(var option in page.Options){var command=stamp with{Option=option.Id};var b=new Button{Text=ResolveNpcText(option.Label),Width=400,AutoSize=true,Enabled=option.Enabled};b.Click+=async(_,_)=>await RunInteraction(command);npcContent.Controls.Add(b);}}
+        int queryKey=query?w.QueryRevision:-1;if(npcUiRevision==w.InteractionRevision&&npcUiQueryRevision==queryKey&&npcUiNativePages==nativePages)return;npcUiRevision=w.InteractionRevision;npcUiQueryRevision=queryKey;npcUiNativePages=nativePages;foreach(Control c in npcContent.Controls.Cast<Control>().ToArray())c.Dispose();npcContent.Controls.Clear();shopInputs.Clear();var stamp=CurrentNpcCommand("option");npcShopStamp=CurrentNpcCommand("shop");
+        if(query&&!nativePages)AddQueryResult(w,npcOpen);
+        if(!nativePages&&w.InteractionPage is {} page){npcContent.Controls.Add(new Label{Text=ResolveNpcText(page.Text),AutoSize=true,MaximumSize=new(400,0),ForeColor=Color.White,Margin=new(6)});foreach(var option in page.Options){var command=stamp with{Option=option.Id};var b=new Button{Text=ResolveNpcText(option.Label),Width=400,AutoSize=true,Enabled=option.Enabled};b.Click+=async(_,_)=>await RunInteraction(command);npcContent.Controls.Add(b);}}
         if(!nativeWarehouse)foreach(var row in w.ShopRows){var host=new FlowLayoutPanel{Width=410,Height=66};host.Controls.Add(new Label{Text=$"{ResolveNpcText(row.Name)}\n{w.InteractionPriceLabel} {row.Price:N0} 金幣"+(w.InteractionKind is "sell" or "deposit" or "withdraw"?$" · 最多 {row.Available}":""),ForeColor=Color.White,Width=280,Height=60});var quantity=new NumericUpDown{Width=110,Minimum=0,Maximum=Math.Min(row.Available,int.MaxValue),Value=0,Enabled=row.Available>0};host.Controls.Add(quantity);shopInputs.Add((row.Id,quantity));npcContent.Controls.Add(host);}
+    }
+    // ---- R4-I (#712): page routing to the native HYPER_TEXT_WINDOW (NativeUi/HyperTextPanel.cs) ----
+    bool npcUiNativePages;
+    readonly HyperTextRouter hyperTextRouter=new();
+    NativeHyperTextHost? hyperTextHost;
+    /// <summary>The native page window when the native UI is active and the panel is not faulted; otherwise null (WinForms path).</summary>
+    internal HyperTextPanel? NativeHyperText()=>NativeUiActive&&NativeUiRoot is {} root&&root.Find(HyperTextPanel.PanelId) is HyperTextPanel p&&!root.Faulted.Contains(p)?p:null;
+    /// <summary>
+    /// Pushes the current page to HYPER_TEXT_WINDOW. One window (op 144): whichever of the NPC page and the query page changed last is
+    /// shown; the other page is closed locally (no packet) because the original window replaced its content. Returns true when the
+    /// native window owns the pages (the WinForms panel then skips them).
+    /// </summary>
+    bool SyncNativeHyperText(WorldSession w,bool npcOpen,bool query,bool nativeWarehouse){
+        if(NativeHyperText() is not {} panel){hyperTextRouter.Reset();return false;}
+        if(panel.Host==null)panel.Attach(hyperTextHost??=new NativeHyperTextHost(this));
+        bool inWorld=login.State==LoginState.InWorld;
+        bool npcPage=inWorld&&npcOpen&&!nativeWarehouse&&w.InteractionPage!=null,queryPage=inWorld&&query;
+        var front=hyperTextRouter.Pick(npcPage,w.InteractionRevision,queryPage,w.QueryRevision);
+        if(front==HyperTextSource.Query&&npcPage){w.CloseInteraction();npcPage=false;}
+        else if(front==HyperTextSource.Npc&&queryPage){w.CloseQueryPage();queryPage=false;}
+        if(!npcPage&&!queryPage)front=null;
+        panel.Show(front switch{HyperTextSource.Npc=>NpcHyperTextView(w),HyperTextSource.Query=>QueryHyperTextView(w),_=>null});
+        if(front!=null)NativeUiRoot?.BringToFront(panel);
+        return true;
+    }
+    HyperTextView NpcHyperTextView(WorldSession w){
+        var page=w.InteractionPage!;
+        HyperTextNumberBox? number=null;
+        var amount=login.AmountPromptSnapshot();
+        if(amount.Prompt is {} o&&o.InteractionRevision==w.InteractionRevision)
+            number=new(HyperTextNumberKind.Amount,o.Revision,o.Lower,o.Max,o.Suggested,o.Answerable,amount.CanSend&&!World.Walking,AmountPromptProtocol.Range(o));
+        return new(HyperTextSource.Npc,w.InteractionRevision,ResolveNpcText(page.Text),page.Options.Select(x=>new HyperTextLink(x.Id,ResolveNpcText(x.Label),x.Enabled)).ToArray(),ResolveNpcText(w.InteractionNotice),number);
+    }
+    HyperTextView QueryHyperTextView(WorldSession w){
+        var page=w.QueryPage!;
+        HyperTextNumberBox? number=null;
+        if(w.CastlePageOffer is {} c)number=new(HyperTextNumberKind.Castle,c.Revision,c.Min,c.Max,CastleProtocol.Initial(c),true,login.CastleSnapshot().CanSend&&!World.Walking,CastleProtocol.Range(c));
+        string notice=string.Join("\n",new[]{ResolveNpcText(page.Limitation),number!=null?w.CastleNotice:""}.Where(s=>s.Length>0));
+        return new(HyperTextSource.Query,w.QueryRevision,ResolveNpcText(page.Text),page.Options.Select(x=>new HyperTextLink(x.Id,ResolveNpcText(x.Label),x.Enabled&&w.QueryActionable)).ToArray(),notice,number);
+    }
+    /// <summary>The panel's actions go through the same paths as the WinForms/web panel (RunInteraction / RunNpcPrompt); stale pages do nothing.</summary>
+    sealed class NativeHyperTextHost(ClientForm form):IHyperTextHost {
+        WorldSession W=>form.login.World;
+        bool Current(HyperTextView shown)=>shown.Source==HyperTextSource.Npc?shown.Revision==W.InteractionRevision:shown.Revision==W.QueryRevision;
+        public void Link(HyperTextView shown,int option){
+            if(!Current(shown))return;
+            var w=W;string cmd=shown.Source==HyperTextSource.Npc?"option":"query-option";
+            _=form.RunInteraction(new NpcWebCommand(cmd,shown.Revision,w.WorldEpoch,w.TargetRevision,option,[]));
+        }
+        public void Submit(HyperTextView shown,long value){
+            if(!Current(shown)||shown.Number is not {} n)return;
+            var w=W;string cmd=n.Kind==HyperTextNumberKind.Amount?"amount":"castle";
+            _=form.RunInteraction(new NpcWebCommand(cmd,shown.Revision,w.WorldEpoch,w.TargetRevision,0,[],0,n.Revision,value));
+        }
+        public void CancelNumber(HyperTextView shown){
+            if(!Current(shown)||shown.Number is not {Kind:HyperTextNumberKind.Castle} n)return;
+            var w=W;_=form.RunInteraction(new NpcWebCommand("castle-cancel",shown.Revision,w.WorldEpoch,w.TargetRevision,0,[],0,n.Revision));
+        }
+        public void Close(HyperTextView shown){
+            // Close() may come from UiRoot.Evict in the middle of a frame: do the state change after it (UI thread).
+            if(form.IsHandleCreated&&!form.IsDisposed)form.BeginInvoke((Action)ClosePages);else ClosePages();
+        }
+        void ClosePages(){
+            // One window: closing it closes every page in it (an NPC page and a query page), never a shop/service list.
+            var w=W;
+            if(w.InteractionPage!=null&&NpcContextOpen(w))_=form.RunInteraction(form.CurrentNpcCommand("close"));
+            if(w.QueryVisible)form.CloseQueryResult();
+            form.ReturnGameFocus();
+        }
     }
     object InteractionWeb(){var w=login.World;w.CheckNpcSale();return new{targets=objectVisuals.Where(v=>w.Objects.Any(o=>o.ObjectId==v.ObjectId&&!o.Dead)&&HasVisibleObjectPixel(v.ObjectId)).Select(v=>new{id=v.ObjectId,name=v.Name}),model=w.InteractionSnapshot(),canTalk=login.CanTalk&&!World.Walking&&w.TargetId is uint id&&HasVisibleObjectPixel(id),text=ResolveNpcText(w.InteractionPage?.Text??""),notice=ResolveNpcText(w.InteractionNotice),options=w.InteractionPage?.Options.Select(o=>new{id=o.Id,label=ResolveNpcText(o.Label),enabled=o.Enabled}),rows=w.ShopRows.Select(r=>new{id=r.Id,name=ResolveNpcText(r.Name),price=r.Price,available=r.Available}),queryText=w.QueryVisible?ResolveNpcText(w.QueryPage!.Text):null,
         // R2-F：web 面板顯示伺服器頁／城堡頁與兩種數字框。
