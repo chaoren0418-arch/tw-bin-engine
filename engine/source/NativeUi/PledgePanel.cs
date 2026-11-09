@@ -7,6 +7,9 @@ using P06.NativeUi;
 //     既有 WorldSession 主分派已把 171 交給 Clan.cs（ReceiveClanOnlineMembers），所以這裡只用「觀察」掛接，不搶封包。
 //   S250 子碼 169：C(250) C(169) S(姓名) 62 byte Big5 備註（零填滿）。3.81 C_PledgeContent 寫備註後回送；TW16 sub_B2EE50。
 //     主分派沒有任何 case 接 169，所以用消化型掛接。
+//   S250 子碼 168：C(250) C(168) S(公告)（3.81 C_PledgeContent 類型 15 寫公告成功後回給本人）。TW16 sub_B2EF40（「RecvPledgeNoti」）
+//     讀固定 212 byte 寫進公告欄並設為可見，不開窗；文字以 NUL 結束，以 3.81 的 S 讀顯示相同（推定，packetbox-windows.md 2.10）。
+//     主分派沒有任何 case 接 168，所以用消化型掛接（T248／#609，PBW-C）。
 //   167／170：3.81 把子碼直接寫成第一個 byte（不是正常 S250 包），不處理（windows-2.md 第 3 節）。
 // 版面：本機 PledgeUI.xml（執行期從 Tile.pak 讀取，不進 repo）的 Nonoticeuserinfo_Window／Noticeuserinfo_Window。
 //   原版 TW16 讀的是 RePledgeUI.xml（本機缺），3.81 世代資源只有 PledgeUI.xml，所以本窗以它為準（推定）。
@@ -20,17 +23,29 @@ public sealed record PledgeMemo(string Name,string Memo);
 /// <summary>
 /// 血盟成員窗資料（唯讀快照）。Online=null 表示本次世界還沒收到 171（窗不開）；空陣列表示收到但沒人在線上。
 /// OpenRevision 每收到一次 171 就加一，面板以它判斷「要開窗」。
+/// Notice=null 表示本次世界還沒收到 168（公告欄留白，不推算）。
 /// </summary>
-public sealed record PledgeWindowState(long OpenRevision,long Revision,string Clan,IReadOnlyList<string>? Online,IReadOnlyDictionary<string,string> Memos) {
+public sealed record PledgeWindowState(long OpenRevision,long Revision,string Clan,IReadOnlyList<string>? Online,IReadOnlyDictionary<string,string> Memos,string? Notice=null) {
     public static readonly PledgeWindowState Empty=new(0,0,"",null,new Dictionary<string,string>(StringComparer.OrdinalIgnoreCase));
     /// <summary>該成員的備註；伺服器沒送過就是空字串（不推算）。</summary>
     public string Memo(string name)=>Memos.TryGetValue(name,out var m)?m:"";
 }
 
 public static class PledgeProtocol {
-    public const byte PacketBox=250,WriteNotes=169,OnlineMembers=171;
+    public const byte PacketBox=250,Announce=168,WriteNotes=169,OnlineMembers=171;
     /// <summary>3.81 S_Pledge(String,String)：備註固定 62 byte，Big5，零填滿。</summary>
     public const int NotesLength=62;
+
+    /// <summary>3.81 S_PacketBox(168, announce)：C(250) C(168) S(公告)＋補齊。</summary>
+    public static string DecodeNotice(byte[] plain){
+        var r=new LoginReader(plain);
+        if(r.C()!=PacketBox||r.C()!=Announce)throw new ProtocolException("pledge notice subcode");
+        string text=r.S();
+        r.Finish();
+        return text;
+    }
+    /// <summary>3.81 S_PacketBox(168, announce) 的位元組（測試用）。</summary>
+    public static byte[] EncodeNotice(string text)=>LoginPackets.Pad([PacketBox,Announce,..LoginPackets.TextEncoding.GetBytes(text),0]);
 
     public static PledgeMemo DecodeMemo(byte[] plain){
         var r=new LoginReader(plain);
@@ -59,7 +74,7 @@ public static class PledgeProtocol {
 
 public sealed partial class WorldSession {
     long pledgeOpenRevision,pledgeRevision;int pledgeEpoch=-1;
-    string[]? pledgeOnline;string pledgeClan="";
+    string[]? pledgeOnline;string pledgeClan="";string? pledgeNotice;
     readonly Dictionary<string,string> pledgeMemos=new(StringComparer.OrdinalIgnoreCase);
     PledgeWindowState? pledgeView;
 
@@ -68,8 +83,8 @@ public sealed partial class WorldSession {
         pledgeEpoch=WorldEpoch;ClearPledgeWindow();
     }
     void ClearPledgeWindow(){
-        if(pledgeOnline==null&&pledgeMemos.Count==0&&pledgeClan.Length==0)return;
-        pledgeOnline=null;pledgeClan="";pledgeMemos.Clear();pledgeRevision++;pledgeView=null;
+        if(pledgeOnline==null&&pledgeMemos.Count==0&&pledgeClan.Length==0&&pledgeNotice==null)return;
+        pledgeOnline=null;pledgeClan="";pledgeNotice=null;pledgeMemos.Clear();pledgeRevision++;pledgeView=null;
     }
 
     /// <summary>171 是開窗點（TW16 sub_B2E3D0 → vtable +68(1)）。壞包交給主分派（Clan.cs）照原樣報錯，這裡不吞也不開窗。</summary>
@@ -91,6 +106,15 @@ public sealed partial class WorldSession {
         return true;
     }
 
+    /// <summary>168：更新公告文字；不開窗（TW16 sub_B2EF40 只寫已存在的公告欄）。空字串＝伺服器送來空公告，照樣留白。</summary>
+    [WorldReceive(PledgeProtocol.PacketBox,Subtype=PledgeProtocol.Announce)]
+    bool ReceivePledgeNotice(byte[] plain){
+        var text=PledgeProtocol.DecodeNotice(plain);
+        EnsurePledgeEpoch();
+        pledgeNotice=text;pledgeRevision++;pledgeView=null;
+        return true;
+    }
+
     [WorldReset]
     void ResetPledgeWindow(){ClearPledgeWindow();pledgeEpoch=-1;}
 
@@ -99,13 +123,13 @@ public sealed partial class WorldSession {
         EnsurePledgeEpoch();
         if(pledgeOnline!=null&&pledgeClan!=(Actor?.Clan??""))ClearPledgeWindow();
         return pledgeView??=new(pledgeOpenRevision,pledgeRevision,pledgeClan,pledgeOnline?.ToArray(),
-            new Dictionary<string,string>(pledgeMemos,StringComparer.OrdinalIgnoreCase));
+            new Dictionary<string,string>(pledgeMemos,StringComparer.OrdinalIgnoreCase),pledgeNotice);
     }}
 
     [WorldSnapshot("pledgeWindow")]
     object? PledgeWindowSnapshot(){
         var p=PledgeWindow;
-        return new{openRevision=p.OpenRevision,revision=p.Revision,clan=p.Clan,online=p.Online,
+        return new{openRevision=p.OpenRevision,revision=p.Revision,clan=p.Clan,online=p.Online,notice=p.Notice,
             memos=p.Memos.OrderBy(x=>x.Key,StringComparer.Ordinal).ToDictionary(x=>x.Key,x=>x.Value)};
     }
 }
@@ -141,10 +165,10 @@ public sealed class UiPledgeGameState(IUiGameState inner,PledgeWindowState? pled
 }
 
 /// <summary>
-/// 血盟成員窗（PledgeUI.xml）。171 開窗並列出上線成員；169 更新備註欄。
-/// 只畫伺服器有送的資料：姓名（171）、備註（169）、自己的盟名（S72／角色資料）。
-/// 職業圖、階級、公告、創立日、聯盟欄 3.81 都送不到（167／170 格式壞掉），一律空白，不推算。
-/// 排序、改階級彈出窗、寫備註、寫公告會送封包或語義待驗證，本任務不做（只畫按鈕底圖）。
+/// 血盟成員窗（PledgeUI.xml）。171 開窗並列出上線成員；169 更新備註欄；168 更新公告欄（公告窗 Notice_Label）。
+/// 只畫伺服器有送的資料：姓名（171）、備註（169）、公告（168）、自己的盟名（S72／角色資料）。
+/// 職業圖、階級、創立日、聯盟欄 3.81 都送不到（167／170 格式壞掉），一律空白，不推算。
+/// 排序、改階級彈出窗、寫備註、寫公告（Writenotice／Savenotice、Notice_Edit）會送封包或語義待驗證，本任務不做。
 /// </summary>
 public sealed class PledgePanel:IUiMovablePanel {
     public const string PanelId="PledgeUI",LayoutName="PledgeUI";
@@ -156,6 +180,8 @@ public sealed class PledgePanel:IUiMovablePanel {
     public static readonly Color TextColor=Color.FromArgb(255,255,255,255);
     /// <summary>KeyboardEvent="CloseUI" 的實體按鍵：Esc（推測）。</summary>
     public const Keys CloseKey=Keys.Escape;
+    /// <summary>公告 MultiLabel 的行距：等於 TextHeight（推測；109 px 高 ÷ 12 ＝ 9 行，與 Notice_Edit LimitLine="9" 吻合）。</summary>
+    public const int NoticeLinePitch=TextHeight;
     // ----
 
     /// <summary>XML 中一個有圖的元件：視窗內相對座標＋第一張 surf（V4 前只用第 0 張）。</summary>
@@ -175,6 +201,8 @@ public sealed class PledgePanel:IUiMovablePanel {
         public Rectangle PledgeLabel{get;init;}
         public required Placed NoticeButton{get;init;}
         public required Placed NoticeArrow{get;init;}
+        /// <summary>公告文字區（Notice_Control＋Notice_Label，相對視窗）；只有公告窗有，無公告窗為 Empty。</summary>
+        public Rectangle NoticeText{get;init;}
         public required IReadOnlyList<Placed> SortButtons{get;init;}
         public Point ListAt{get;init;}
         public int Rows{get;init;}
@@ -238,6 +266,12 @@ public sealed class PledgePanel:IUiMovablePanel {
         foreach(var need in new[]{"Class_Image","Name_Label","Rank_Label","Memo_Label"})
             if(cols.All(c=>c.Name!=need))throw new UiLayoutException(row.Layout.FileName,row.Path,$"缺少欄位 {need}");
         var sb=Named(w,"ScrollBar","Userinfo_Scrollbar");var sbAt=XY(sb);
+        var noticeText=Rectangle.Empty;
+        if(name==NoticeWindowName){
+            // 公告窗必須有公告區（本機 PledgeUI.xml：Notice_Control (21,63) 225×112，Notice_Label 220×109 靠上靠左）；缺就報錯，不補座標。
+            var nc=Named(w,"Control","Notice_Control");var nl=Named(nc,"MultiLabel","Notice_Label");
+            noticeText=new(XY(nc).X+XY(nl).X,XY(nc).Y+XY(nl).Y,nl.Int("Width"),nl.Int("Height"));
+        }
         return new WindowLayout{
             Name=name,
             Base=get(SurfOf(w,"BaseSurf")),
@@ -248,6 +282,7 @@ public sealed class PledgePanel:IUiMovablePanel {
             NoticeButton=noticeButton,
             // 子按鈕的 X/Y 相對於父按鈕（Noticetri_Button X=200 落在 4455 條的右端，推測）。
             NoticeArrow=Place(Named(nb,"Button","Noticetri_Button"),noticeButton.At,"BaseSurf",get),
+            NoticeText=noticeText,
             SortButtons=sorts,
             ListAt=XY(list),Rows=rows.Length,
             // 垂直清單沒寫 Gap：列距＝列高＋清單 Gap（預設 0，推測）。
@@ -300,6 +335,25 @@ public sealed class PledgePanel:IUiMovablePanel {
     public Rectangle NoticeArrowRect=>Current is {} w?Abs(w.NoticeArrow.Rect):Rectangle.Empty;
     public Rectangle ScrollUpRect=>Current is {} w?Abs(w.ScrollUp.Rect):Rectangle.Empty;
     public Rectangle ScrollDownRect=>Current is {} w?Abs(w.ScrollDown.Rect):Rectangle.Empty;
+    /// <summary>公告文字區（邏輯座標）；無公告窗時是 Empty。</summary>
+    public Rectangle NoticeTextRect=>Current is {} w?Abs(w.NoticeText):Rectangle.Empty;
+    /// <summary>目前要顯示的公告（沒收到 168 是空字串）。</summary>
+    public string Notice=>data?.Notice??"";
+
+    /// <summary>
+    /// 公告文字分行：先依換行字元（\r\n、\n、\r）分段，每段依寬度逐字折行，最多 maxLines 行（超出的不畫）。
+    /// 3.81 公告上限 160 字、Notice_Edit LimitLine="9"；MultiLabel 的實際折行規則待驗證，先用與聊天列相同的逐字折行（推測）。
+    /// </summary>
+    public static List<string> NoticeLines(string text,int maxWidth,Func<char,int> width,int maxLines){
+        var lines=new List<string>();
+        if(string.IsNullOrEmpty(text)||maxLines<=0)return lines;
+        foreach(var para in text.Replace("\r\n","\n").Replace('\r','\n').Split('\n'))
+            foreach(var row in ChatRules.Wrap(para,maxWidth,width)){
+                if(lines.Count>=maxLines)return lines;
+                lines.Add(row);
+            }
+        return lines;
+    }
     /// <summary>第 i 個可見列的某一欄（邏輯座標）。</summary>
     public Rectangle Cell(int row,string column){
         if(Current is not {} w)return Rectangle.Empty;var c=w.Col(column);
@@ -322,6 +376,12 @@ public sealed class PledgePanel:IUiMovablePanel {
         foreach(var s in w.SortButtons)Draw(canvas,s);
         var label=Abs(w.PledgeLabel);
         canvas.DrawText(data.Clan,label.X,Middle(label),TextColor);
+        if(!w.NoticeText.IsEmpty&&!string.IsNullOrEmpty(data.Notice)){
+            // Notice_Label：VAlign="top" HAlign="left"，從左上逐行往下。
+            var nt=Abs(w.NoticeText);var g=canvas.Graphics;
+            var lines=NoticeLines(data.Notice,nt.Width,c=>UiText.Measure(g,c.ToString()).Width,nt.Height/NoticeLinePitch);
+            for(int i=0;i<lines.Count;i++)canvas.DrawText(lines[i],nt.X,nt.Y+i*NoticeLinePitch,TextColor);
+        }
         for(int i=0;i<w.Rows;i++){
             int k=scroll+i;if(k>=members.Count)break;
             string name=members[k];
@@ -346,7 +406,7 @@ public sealed class PledgePanel:IUiMovablePanel {
         if(e.Kind!=UiMouseKind.Down||e.Button!=MouseButtons.Left)return inside;
         if(Hit(CloseRect,e.Location)){Close();return true;}
         if(Hit(NoticeRect,e.Location)||Hit(NoticeArrowRect,e.Location)){
-            // OpenNotice／CloseNotice：兩個 Window 互換（XML 事件名）；公告內容 3.81 送不到（167），公告區留白。
+            // OpenNotice／CloseNotice：兩個 Window 互換（XML 事件名）；公告區顯示最近一次 168 的文字（沒收到就留白）。
             var at=origin;showNotice=!showNotice;origin=UiInput.ClampInside(at,Bounds.Size);scroll=Math.Clamp(scroll,0,MaxScroll);return true;
         }
         if(Hit(ScrollUpRect,e.Location)){ScrollBy(-1);return true;}
@@ -380,6 +440,10 @@ static class PledgePanelTests {
     <Button Name = "Pledgenotice_Button" X = "16" Y = "41" BaseSurf = "4455" PushSurf = "4455">
       <Button Name = "Noticetri_Button" X = "200" Y = "0" BaseSurf = "4456"/>
     </Button>
+    <Control Name = "Notice_Control" X = "21" Y = "63" Width = "225" Height = "112">
+      <MultiLabel Name = "Notice_Label" Width = "220" Height = "109" VAlign = "top" HAlign = "left"/>
+      <MultiEdit Name = "Notice_Edit" Width = "225" Height = "109" LimitText="160"  LimitLine = "9"/>
+    </Control>
     <List Name = "Sort_List" X = "16" Y = "181" Width = "208" Height = "21" Horizontal = "1">
       <Button Name = "Classsort_Button" BaseSurf = "4458"/>
       <Button Name = "Namesort_Button" BaseSurf = "4460"/>
@@ -576,6 +640,63 @@ static class PledgePanelTests {
         t.Throws<UiLayoutException>(()=>new PledgePanel().Load(UiLayout.Parse("<PledgeUI/>","PledgeUI.xml"),Get),"missing windows rejected");
         t.Throws<UiLayoutException>(()=>new PledgePanel().Load(UiLayout.Parse("<Other/>","x.xml"),Get),"wrong root rejected");
         t.Throws<UiLayoutException>(()=>new PledgePanel().Load(UiLayout.Parse(Xml.Replace("BaseSurf = \"4450;1\"","BaseSurf = \";1\""),"PledgeUI.xml"),Get),"empty surf rejected");
+        t.Throws<UiLayoutException>(()=>new PledgePanel().Load(UiLayout.Parse(Xml.Replace("Name = \"Notice_Control\"","Name = \"Other_Control\""),"PledgeUI.xml"),Get),"notice window without Notice_Control rejected");
+
+        // 11. T248（PBW-C）S250/168 公告：3.81 S_PacketBox(168, announce) = FA A8 S(公告) + 補齊。
+        t.Check(entries.Any(e=>e is {Kind:"receive",Opcode:250,Subtype:168,Method:"WorldSession.ReceivePledgeNotice"}),"S250/168 registered");
+        var noticePkt=PledgeProtocol.EncodeNotice("今晚攻城");
+        t.Equal(16,noticePkt.Length,"168 = 2 + S(8 Big5 bytes + NUL) = 11, padded to 16");
+        t.Equal("FAA8",Convert.ToHexString(noticePkt,0,2),"168 header bytes");
+        t.Equal("今晚攻城",PledgeProtocol.DecodeNotice(noticePkt),"decode 168");
+        t.Equal("",PledgeProtocol.DecodeNotice(PledgeProtocol.EncodeNotice("")),"empty notice");
+        t.Equal("a\nb",PledgeProtocol.DecodeNotice(PledgeProtocol.EncodeNotice("a\nb")),"newline kept");
+        t.Throws<ProtocolException>(()=>PledgeProtocol.DecodeNotice([250,168,(byte)'A',(byte)'B']),"unterminated notice rejected");
+        t.Throws<ProtocolException>(()=>PledgeProtocol.DecodeNotice([250,168,(byte)'A',0,0,0,0,0,1,0,0,0,0,0,0,0]),"trailing garbage rejected");
+        t.Throws<ProtocolException>(()=>PledgeProtocol.DecodeNotice(PledgeProtocol.EncodeMemo("A","")),"wrong subcode rejected (169)");
+
+        var s2=new WorldSession();
+        t.Equal((string?)null,s2.PledgeWindow.Notice,"initially no notice");
+        s2.Receive(PledgeProtocol.EncodeNotice("今晚攻城"),"");
+        t.Equal(0,Unhandled(s2,"0xFA/0xA8"),"168 consumed");
+        t.Check(s2.PledgeWindow is {Online:null,OpenRevision:0,Notice:"今晚攻城"},"168 stores notice without opening",s2.PledgeWindow);
+        s2.Receive(PledgeProtocol.EncodeOnline("Alice"),"");
+        t.Equal("今晚攻城",s2.PledgeWindow.Notice,"notice kept after 171");
+        long rev=s2.PledgeWindow.Revision;
+        s2.Receive(PledgeProtocol.EncodeNotice("改公告"),"");
+        t.Check(s2.PledgeWindow is {Notice:"改公告",OpenRevision:1}&&s2.PledgeWindow.Revision==rev+1,"168 replaces notice, bumps revision only",s2.PledgeWindow);
+        t.Equal("改公告",Snap(s2).GetProperty("notice").GetString(),"snapshot notice");
+        s2.Receive(PledgeProtocol.EncodeNotice(""),"");
+        t.Equal("",s2.PledgeWindow.Notice,"empty 168 clears text");
+        t.Throws<ProtocolException>(()=>s2.Receive([250,168,(byte)'A',(byte)'B',(byte)'C',(byte)'D',(byte)'E',(byte)'F'],""),"bad 168 rejected");
+        s2.Reset();
+        t.Equal((string?)null,s2.PledgeWindow.Notice,"Reset clears notice");
+
+        // 分行：換行字元分段、逐字折行、最多 maxLines 行。
+        Func<char,int> w6=_=>6;
+        t.Equal("abc|de",string.Join("|",PledgePanel.NoticeLines("abcde",18,w6,9)),"wrap at width");
+        t.Equal("ab||c",string.Join("|",PledgePanel.NoticeLines("ab\r\n\nc",60,w6,9)),"line breaks kept (\\r\\n and blank lines)");
+        t.Equal(9,PledgePanel.NoticeLines(new string('x',160),36,w6,9).Count,"limited to 9 lines");
+        t.Equal(0,PledgePanel.NoticeLines("",60,w6,9).Count,"empty → no lines");
+
+        // 版面與畫面：公告區只在公告窗；有公告時畫在 Notice_Label 內，沒有就留白。
+        var np=new PledgePanel();np.Load(layout,Get);
+        var nd=new PledgeWindowState(1,1,"紅血盟",["Alice"],new Dictionary<string,string>(),"今晚攻城\n全員集合");
+        np.Update(World(nd));
+        t.Equal(Rectangle.Empty,np.NoticeTextRect,"no-notice window has no notice area");
+        t.Equal("今晚攻城\n全員集合",np.Notice,"panel exposes notice");
+        np.Mouse(Click(new(20,45)),cmd);
+        t.Check(np.ShowingNotice,"switched to notice window");
+        t.Equal(new Rectangle(21,63,220,109),np.NoticeTextRect,"notice label = control (21,63) + label (0,0), 220×109");
+        Rectangle area=np.NoticeTextRect;
+        int Lit(PledgeWindowState st){
+            np.Update(World(st));
+            using var c=new UiCanvas();c.Clear(Color.Black);c.Restrict(np.Bounds);np.Paint(c);c.Release();
+            int n=0;
+            for(int y=area.Top;y<area.Bottom;y++)for(int x=area.Left;x<area.Right;x++)if(c.Bitmap.GetPixel(x,y).ToArgb()==Color.White.ToArgb())n++;
+            return n;
+        }
+        int withText=Lit(nd),blank=Lit(nd with{Revision=2,Notice=null});
+        t.Check(withText>0&&blank==0,"notice text painted inside Notice_Label only when present",new{withText,blank});
     }
 }
 
