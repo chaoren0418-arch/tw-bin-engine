@@ -29,10 +29,10 @@
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`pass`，0 錯誤。
 - 新離線測試 `engine/source/ProtocolFollowupTests.cs`（`[WorldModuleTest("protocol-followup")]`，自動發現）：S149 沒有步行時立刻回 C52、走到一半時延到該步結束且不重複送、世界重設後丟掉延後的確認；hold 1233／1234 ms 邊界、職業外型沒有 hold、Reset 清除；節流的 2500／2501 ms 邊界、被擋下仍設保留且不延長、Speed／Brave 係數（1875、5000、1406、937）與加速後 1876 ms 可送；S241 沒有時間上限；妖精分支的職業／等級／選項條件、限制地圖也開窗、王族與 Lv 49 不開；召喚名稱的 `^` 拆分與查不到時退回。
 - **依使用者規定沒有在本機執行任何測試**（不跑 `--module-tests`／DemoChecks），測試結果以 PR 的 CI 為準。
+- **CI（PR #750，run 42724018386）**：`dotnet`、`map-continuity`、`npc-offline` 三個 job 都通過；module-tests 的 `protocol-followup` 組 `pass: true`、56 項、0 失敗；`resurrection` 組 552 項通過；`combat-admission`（含 TitleAndEmoteChecks）通過。
 
 ## 未驗證什麼
 
-- 所有測試都還沒跑過，等 CI。
 - 沒有開遊戲、伺服器或 DB；全部行為沒有真機驗證（待驗證：走路中被傳送時 C52 的時機、變身表情後按住滑鼠約 1.2 秒不動、召喚清單的中文名稱）。
 - `TeleportStepEndsAt` 用「最後一次移動送出時間」：如果最後送的是轉向而不是一步，會多等，最多一步的時間（推定可接受）。
 - 1234 ms 保留在引擎是併進 `MoveLocked`，所以也會擋攻擊、施法、門與傳送點，並讓 `ClientLogin` 清掉按住的輸入；原版只擋 `sub_A4C270(0)`（它是否也處理按住時的攻擊沒追）。`sub_A231C0` 是否允許同一個 callback 重複排入是推定（節流型不延長）。
